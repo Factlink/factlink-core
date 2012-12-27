@@ -9,13 +9,7 @@
       <a href="{{ edit_link }}" class="btn edit btn-micro">edit</a>
       {{/editable?}}
 
-      {{#followable?}}
-      <a class="btn btn-mini" id="add-to-channel">
-        <i class="icon-plus"></i>
-        {{global.t.add_to_channels}}
-      </a>
-      <div class="float-box channel-listing" id="follow-channel"></div>
-      {{/followable?}}
+      <div class="add-to-channel-region"></div>
 
       {{#has_authority?}}
       <div class="authority">

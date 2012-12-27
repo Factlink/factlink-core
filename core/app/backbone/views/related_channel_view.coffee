@@ -3,7 +3,7 @@ class window.RelatedChannelView extends Backbone.Marionette.ItemView
   tagName: "li"
 
   events:
-    'click a.btn' : 'addModel'
+    'click a.btn' : 'addWrappedModel'
 
   addModelSuccess: (model)-> @$('a.follow').hide()
 

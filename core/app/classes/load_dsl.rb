@@ -1,5 +1,7 @@
 
 class LoadDsl
+  include Pavlov::Helpers
+
   class UndefinedUserError < StandardError;end
 
   def self.load(&block)
@@ -146,13 +148,13 @@ class LoadDsl
     l.map {|graph_user| "\"#{quote_string(graph_user.user.username)}\""}.join(',')
   end
   def self.export_believers(l)
-    rv = "believers " + export_userlist(l) + "\n"
+    "believers " + export_userlist(l) + "\n"
   end
   def self.export_disbelievers(l)
-    rv = "disbelievers " + export_userlist(l) + "\n"
+    "disbelievers " + export_userlist(l) + "\n"
   end
   def self.export_doubters(l)
-    rv = "doubters " + export_userlist(l) + "\n"
+    "doubters " + export_userlist(l) + "\n"
   end
 
   def set_opinion(opinion_type,*users)
@@ -164,10 +166,9 @@ class LoadDsl
   end
 
   def load_channel(graph_user, title, opts={})
-    ch = graph_user.internal_channels.find(:title => title).first
+    ch = ChannelList.new(graph_user).channels.find(:title => title).first
     unless ch
       ch = Channel.create(:created_by => graph_user, :title => title)
-      ch.delete if opts[:discontinued]
     end
     ch
   end
@@ -179,7 +180,6 @@ class LoadDsl
 
   def self.export_channel(channel)
     rv = "channel \"#{quote_string(channel.title)}\""
-    rv += ", :discontinued => true" if channel.discontinued
     rv += "\n"
   end
 
@@ -190,13 +190,13 @@ class LoadDsl
 
   def self.export_sub_channel(channel)
     rv = "sub_channel \"#{quote_string(channel.created_by.user.username)}\", \"#{quote_string(channel.title)}\""
-    rv += ", :discontinued => true" if channel.discontinued
     rv += "\n"
   end
 
   def add_fact(fact_string)
-    f = self.load_fact(fact_string)
-    self.state_channel.add_fact(f)
+    fact = self.load_fact(fact_string)
+
+    interactor :'channels/add_fact', fact, self.state_channel, no_current_user: true
   end
 
   def self.export_add_fact(fact)
@@ -225,7 +225,7 @@ class LoadDsl
   end
 
   def run(&block)
-    instance_eval &block
+    instance_eval(&block)
   end
 
 end

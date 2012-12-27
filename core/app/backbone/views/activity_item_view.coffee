@@ -20,6 +20,9 @@ class GenericActivityFactItemView extends Backbone.Marionette.CompositeView
 class AddedEvidenceView extends GenericActivityFactItemView
   template: "activities/added_evidence"
 
+class CreatedCommentView extends GenericActivityFactItemView
+  template: "activities/created_comment"
+
 class AddedOpinionView extends GenericActivityFactItemView
   template: "activities/added_opinion"
 
@@ -33,6 +36,8 @@ window.getActivityItemViewFor = (model) ->
   switch model.get("action")
     when "added_supporting_evidence", "added_weakening_evidence"
       AddedEvidenceView
+    when "created_comment", "created_sub_comment"
+      CreatedCommentView
     when "created_channel"
       CreatedChannelView
     when "added_subchannel"

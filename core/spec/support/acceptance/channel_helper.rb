@@ -8,8 +8,15 @@ module Acceptance
       create :channel, created_by: user.graph_user
     end
 
+    def backend_create_viewable_channel_for user
+      channel = backend_create_channel_of_user user
+      fact = create :fact, created_by: user.graph_user
+      backend_add_fact_to_channel fact, channel
+      channel
+    end
+
     def backend_add_fact_to_channel fact, channel
-      channel.add_fact fact
+      Interactors::Channels::AddFact.new(fact, channel, no_current_user:true).call
     end
 
     def backend_channel_add_subchannel channel, subchannel
@@ -27,6 +34,17 @@ module Acceptance
 
     def go_to_first_fact
       find('a.discussion_link').click
+    end
+
+    def assert_on_channel_page channel_title
+      # wait until the new header with the new title appears
+      find('#channel > header h1', text: channel_title)
+    end
+
+    def within_channel_header &block
+      within(:css, "#channel > header") do
+        yield
+      end
     end
   end
 end

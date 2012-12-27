@@ -5,6 +5,13 @@ GIT
     rack-xframe-options (0.1.2)
 
 GIT
+  remote: git@github.com:janpaul123/marionette-rails.git
+  revision: 4d30805fdaef8a73a97a7df4332ba52a267ba93d
+  specs:
+    marionette-rails (1.0.0.rc.2)
+      rails (>= 3.1.0)
+
+GIT
   remote: http://github.com/Factlink/ohm-contrib.git
   revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
   specs:
@@ -20,14 +27,8 @@ GIT
       rack
 
 GIT
-  remote: https://github.com/Factlink/mustache_rails3.git
-  revision: 5a1a7a33c7a42f0225835e006af8233146c47e21
-  specs:
-    mustache_rails3 (0.1.2.4)
-
-GIT
   remote: https://github.com/Factlink/ohm.git
-  revision: 6c5c82ea42e30230362e509b6adcbd648614a804
+  revision: bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac
   specs:
     ohm (0.2.0)
       nest (~> 1.0)
@@ -83,6 +84,9 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.2)
     andand (1.3.3)
+    approvals (0.0.6)
+      nokogiri
+      thor
     arel (3.0.2)
     arrayfields (4.7.4)
     awesome_print (1.0.2)
@@ -113,7 +117,7 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    capybara (1.1.2)
+    capybara (1.1.3)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -121,12 +125,12 @@ GEM
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
     capybara-email (0.1.2)
-    capybara-screenshot (0.2.2)
-      capybara (>= 1.0)
+    capybara-screenshot (0.3.1)
+      capybara (>= 1.0, < 3)
     capybara-webkit (0.10.1)
       capybara (>= 1.0.0, < 1.2)
       json
-    childprocess (0.3.5)
+    childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.3.0)
     chunky_png (1.2.6)
@@ -164,7 +168,7 @@ GEM
     ejs (1.0.0)
     erubis (2.7.0)
     escape (0.0.4)
-    eventmachine (0.12.10)
+    eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (3.6.1)
@@ -176,14 +180,21 @@ GEM
       multipart-post (~> 1.1)
     fastercsv (1.5.5)
     fattr (2.2.1)
-    ffi (1.1.5)
-    fivemat (1.1.0)
+    ffi (1.2.0)
     flay (1.4.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
     flog (2.5.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
+    guard (1.5.4)
+      listen (>= 0.4.2)
+      lumberjack (>= 1.0.2)
+      pry (>= 0.9.10)
+      thor (>= 0.14.6)
+    guard-rspec (2.2.0)
+      guard (>= 1.1)
+      rspec (~> 2.11)
     haml (3.1.7)
     hashie (1.2.0)
     headless (0.3.1)
@@ -229,19 +240,19 @@ GEM
     letter_opener (0.0.2)
       launchy
     libv8 (3.3.10.4)
-    libwebsocket (0.1.5)
-      addressable
+    libwebsocket (0.1.6.1)
+      websocket
+    listen (0.6.0)
     lograge (0.0.6)
       actionpack
       activesupport
+    lumberjack (1.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     main (4.7.1)
     map (6.2.0)
-    marionette-rails (0.9.6.1)
-      rails (>= 3.1.0)
     memoist (0.1.0)
     method_source (0.8)
     metric_fu (2.1.1)
@@ -270,11 +281,10 @@ GEM
       bundler (>= 1.0.0)
       rails (>= 3.0.0)
       railties (>= 3.0.0)
-    multi_json (1.3.6)
+    multi_json (1.3.7)
     multi_xml (0.5.1)
     multipart-post (1.1.5)
-    mustache (0.99.4)
-    nest (1.1.1)
+    nest (1.1.2)
       redis
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -283,7 +293,7 @@ GEM
     net-ssh (2.5.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.4.1)
+    newrelic_rpm (3.5.3.25)
     nokogiri (1.5.5)
     oauth (0.4.6)
     oauth2 (0.8.0)
@@ -292,6 +302,8 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
+    oily_png (1.0.2)
+      chunky_png (~> 1.2.1)
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
@@ -323,7 +335,7 @@ GEM
     rack-rewrite (1.2.1)
     rack-ssl (1.3.2)
       rack
-    rack-test (0.6.1)
+    rack-test (0.6.2)
       rack (>= 1.0)
     rails (3.2.7)
       actionmailer (= 3.2.7)
@@ -357,6 +369,8 @@ GEM
       thor (>= 0.14.6, < 2.0)
     rainbow (1.1.4)
     rake (0.9.2.2)
+    rb-fsevent (0.9.2)
+    rb-readline (0.4.2)
     rcov (0.9.11)
     rdoc (3.12)
       json (~> 1.4)
@@ -419,7 +433,7 @@ GEM
     rvm-capistrano (1.2.5)
       capistrano (>= 2.0.0)
     sass (3.2.0)
-    selenium-webdriver (2.25.0)
+    selenium-webdriver (2.26.0)
       childprocess (>= 0.2.5)
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
@@ -430,6 +444,9 @@ GEM
       multi_json (~> 1.0)
       uuidtools
     sexp_processor (3.2.0)
+    sextant (0.1.3)
+      activesupport (>= 3.2)
+      rails (>= 3.2)
     simplecov (0.6.4)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
@@ -447,8 +464,6 @@ GEM
     sprockets-vendor_gems (0.1.3)
       sprockets
     sqlite3 (1.3.6)
-    sqlite3-ruby (1.3.3)
-      sqlite3 (>= 1.3.3)
     stringex (1.4.0)
     syntax (1.0.0)
     terminal-table (1.4.5)
@@ -460,6 +475,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.16.0)
     tilt (1.3.3)
+    timecop (0.5.4)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -472,6 +488,7 @@ GEM
       rack (>= 1.0.0)
     warden (1.1.1)
       rack (>= 1.0)
+    websocket (1.0.4)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -482,6 +499,7 @@ DEPENDENCIES
   activerecord (= 3.2.7)
   addressable
   andand (~> 1.3.3)
+  approvals
   arrayfields
   bcrypt-ruby (~> 3.0.1)
   brakeman
@@ -495,13 +513,13 @@ DEPENDENCIES
   capybara-email
   capybara-screenshot
   capybara-webkit (= 0.10.1)
-  chunky_png
   database_cleaner
   devise (~> 2.0.0)
   devise_invitable (~> 1.0.0)
   factory_girl_rails (~> 3.5)
   fattr
-  fivemat
+  guard
+  guard-rspec
   headless
   hogan_assets (= 1.0.3)
   httparty
@@ -516,7 +534,7 @@ DEPENDENCIES
   letter_opener
   lograge
   map
-  marionette-rails (= 0.9.6.1)
+  marionette-rails (= 1.0.0.rc.2)!
   memoist
   metric_fu (= 2.1.1)
   mixpanel!
@@ -526,11 +544,10 @@ DEPENDENCIES
   mongoid (~> 2.4.4)
   mongoid_rails_migrations (= 0.0.13)
   multi_json (>= 1.2.0)
-  mustache
-  mustache_rails3!
   newrelic_rpm
   ohm!
   ohm-contrib!
+  oily_png
   omniauth-facebook
   omniauth-twitter
   pry
@@ -542,6 +559,8 @@ DEPENDENCIES
   rails-backbone (= 0.7.2)
   rails-dev-tweaks (~> 0.6.1)
   rake (~> 0.9.2)
+  rb-fsevent (~> 0.9.1)
+  rb-readline
   rcov (= 0.9.11)
   redis (= 2.2.1)
   redis-aid
@@ -557,10 +576,12 @@ DEPENDENCIES
   ruby-prof
   rvm-capistrano
   sentry-raven
+  sextant
   simplecov
   simplecov-rcov-text
-  sqlite3-ruby
+  sqlite3
   stringex
   therubyracer
   thin
+  timecop
   uglifier (>= 1.0.3)

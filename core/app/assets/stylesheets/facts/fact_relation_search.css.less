@@ -7,69 +7,52 @@
   padding: 15px;
   .border-bottom-radius(5px);
 
-  ul.search-results {
-    list-style: none;
-    background: white;
-    cursor: pointer;
+  .auto-complete-fact-relations {
+    overflow: hidden;
+    position: relative;
+    margin: 0;
 
-    margin: -16px 0 0 0;
-    padding: 0;
-
-    display: none;
-
-    position: absolute;
-    top: 100%;
-    width: 350px;
-
-    border: 1px solid @baseBorderColor;
-    .border-bottom-radius(4px);
-
-    > li {
-      padding: 10px;
-      border-bottom: 1px solid @baseBorderColor;
-
-      &.loading, &.add {
-        display: none;
-      }
-
-      &:hover {
-        background: @whiteDarker;
-      }
-
-      span.word {
-        font-weight: bold;
-      }
-
-      &:last-child {
-        border-bottom: none;
+    &.active {
+      .fact-relation-post {
+        display: inline-block;
       }
     }
-  }
 
-  .results_found .add-evidence input[type="text"] {
-    .border-radius(3px 3px 0 3px);
-  }
-
-  .add-evidence {
-    display: none;
-
-    input[type="text"] {
-      @shadow: inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.1);
-      .box-shadow(@shadow);
-      border: 1px solid #ccc;
-      font-size: 12px;
-      padding: 8px 9px;
-      .border-radius(3px);
-      #font > .sans-serif(normal, @tabItemFontSize, @baseLineHeight);
-      height: 32px;
-      width: 100%;
+    .fact-wheel {
+      height: 43px;
       margin: 0;
-      .box-sizing();
-
-      &:focus {
-        outline: 0;
-        border: 1px solid @linkColor;
-      }
     }
+
+    .fact-relations-input-container {
+      margin-left: 60px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .fact-relation-preview-view .fact-relation-post {
+    display: inline-block;
+  }
+
+  .fact-relation-post {
+    display: none;
+  }
+
+  input[type="text"] { font-size: @baseFontSize; }
+
+  .view-toggle {
+    font-size: @baseFontSize;
+    color: @metaFontColor;
+    padding: 5px 12px 0;
+
+    input[type="checkbox"] {
+      margin: -3px 6px 0;
+      padding: 0;
+    }
+  }
+
+  .fact-relation-preview-view-cancel-action {
+    margin: 6px 10px;
+    float: right;
+    font-size: @baseFontSize;
   }
 }

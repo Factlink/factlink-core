@@ -2,7 +2,7 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
   constructor: (args...)->
     super(args...)
-    @on 'item:added', @onItemAddedDoSteppableInitialization, this
+    @on 'after:item:added', @onItemAddedDoSteppableInitialization, this
     @on 'composite:collection:rendered', => @setActiveView 0
     @list = []
 
@@ -21,7 +21,7 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     else if key < 0 then @list.length - 1
     else key
 
-  setActiveView:  (key)->
+  setActiveView: (key)->
     @deActivateCurrent()
     key = @fixKeyModulo(key)
     view = @list[key]
@@ -32,24 +32,25 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
   moveSelectionUp: ->
     prevKey = if @activeViewKey? then @activeViewKey - 1 else -1
     @setActiveView prevKey
+    @scrollToCurrent()
 
   moveSelectionDown: ->
     nextKey = if @activeViewKey? then @activeViewKey + 1 else 0
     @setActiveView nextKey
+    @scrollToCurrent()
 
   onItemAddedDoSteppableInitialization: (view)->
     @bindTo view, 'close', =>
       i = @list.indexOf(view)
       @list.splice(i,1)
 
-    @bindTo view, 'requestActivate', =>
-      unless @alreadyHandlingAnActivate
-        @alreadyHandlingAnActivate = true
-        i = @list.indexOf(view)
-        @setActiveView(i)
-        @alreadyHandlingAnActivate = false
+    @bindTo view, 'requestActivate', => @requestActivate view
 
     @bindTo view, 'requestDeActivate', => @deActivateCurrent()
+
+    @bindTo view, 'requestClick', =>
+      @requestActivate view
+      @trigger 'click'
 
     @list.push(view)
 
@@ -59,4 +60,14 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     if 0 <= @activeViewKey < @list.length
       @list[@activeViewKey]
     else
-     `undefined`
+     null
+
+  scrollToCurrent: ->
+    @currentActiveView()?.scrollIntoView?()
+
+  requestActivate: (view) ->
+    unless @alreadyHandlingAnActivate
+      @alreadyHandlingAnActivate = true
+      i = @list.indexOf(view)
+      @setActiveView(i)
+      @alreadyHandlingAnActivate = false

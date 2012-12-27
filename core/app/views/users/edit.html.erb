@@ -1,11 +1,11 @@
 <header class="append-bottom title">
-  <h1>About <%= current_user.username%> (edit)</h1>
+  <h1>Edit</h1>
 
   <div class="clearfix"></div>
 
   <div class="tabs">
     <ul>
-      <li><%= link_to "About #{current_user.username}", user_profile_path(current_user) %></li>
+      <li><%= link_to "About", user_profile_path(current_user) %></li>
       <li class="account active"><%= link_to "Edit", edit_user_path(current_user) %></li>
       <li class="password"><%= link_to "Change password", user_password_edit_path(current_user) %></li>
         <li class="tab-notification-settings"><%= link_to "Notification Settings", user_notification_settings_path(current_user) %></li>

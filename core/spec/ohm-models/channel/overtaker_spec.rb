@@ -8,19 +8,20 @@ class Basefact < OurOhm;end
 class Fact < Basefact;end
 class GraphUser < OurOhm;end
 
-def create_fact
-  FactoryGirl.create :fact
-rescue
-  Fact.create
-end
-
-def create_channel(opts={})
-  ch = Channel.create(opts)
-  ch.singleton_class.send :include, Channel::Overtaker
-  ch
-end
-
 describe Channel::Overtaker do
+  include AddFactToChannelSupport
+
+  def create_fact
+    FactoryGirl.create :fact
+  rescue
+    Fact.create
+  end
+
+  def create_channel(opts={})
+    ch = Channel.create(opts)
+    ch.singleton_class.send :include, Channel::Overtaker
+    ch
+  end
 
   let(:ch1) {create_channel :created_by => u1, :title => "Something" }
   let(:ch2) {create_channel :created_by => u1, :title => "Diddly"}
@@ -39,16 +40,16 @@ describe Channel::Overtaker do
     Fact.stub(:invalid,false)
   end
 
-  
+
   describe :take_over do
     it "should move all internal facts" do
-      ch1.add_fact f1
-      ch2.add_fact f2
+      add_fact_to_channel f1, ch1
+      add_fact_to_channel f2, ch2
       ch1.take_over(ch2)
       ch1.facts.should =~ [f1,f2]
     end
     it "should move all deleted facts" do
-      ch1.add_fact f1
+      add_fact_to_channel f1, ch1
       ch2.remove_fact f1
       ch1.take_over(ch2)
       ch1.facts.should =~ []

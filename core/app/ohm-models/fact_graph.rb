@@ -27,7 +27,17 @@ class FactGraph
   end
 
   def calculate_authority
-    Authority.run_calculation
+    Authority.run_calculation(authority_calculators)
+  end
+
+  def authority_calculators
+    [
+      MapReduce::FactAuthority,
+      MapReduce::ChannelAuthority,
+      MapReduce::TopicAuthority,
+      MapReduce::FactCredibility,
+      MapReduce::FactRelationCredibility
+    ]
   end
 
   def self.export_opiniated(writer,fact,prefix="")
@@ -81,7 +91,7 @@ class FactGraph
     end
 
     GraphUser.all.each do |gu|
-      if gu.channels.size > 0
+      if ChannelList.new(gu).channels.size > 0
         writer.write("\n")
         writer.write(LoadDsl.export_activate_user(gu))
       end

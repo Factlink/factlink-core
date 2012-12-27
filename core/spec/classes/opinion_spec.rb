@@ -8,10 +8,6 @@ describe Opinion do
     @o3 = Opinion.tuple(29,31,37,41)
   end
 
-  after(:each) do
-    #@o1.a.should == 3
-  end
-
   describe ".new" do
     subject {Opinion.tuple(1.3,1.4,1.5,1.6)}
     its(:b) {should == 1.3}
@@ -103,15 +99,15 @@ describe Opinion do
   end
 
   describe :friendly_authority do
-    it "should display in 3 characters" do
-      Opinion.tuple(0,0,0,0).friendly_authority.should == "0.0"
-      Opinion.tuple(0,0,0,1.0).friendly_authority.should == "1.0"
-      Opinion.tuple(0,0,0,10).friendly_authority.should == "10"
-      Opinion.tuple(0,0,0,101).friendly_authority.should == "101"
-      Opinion.tuple(0,0,0,1000).friendly_authority.should == "1k"
-      Opinion.tuple(0,0,0,1001).friendly_authority.should == "1k"
-      Opinion.tuple(0,0,0,1999).friendly_authority.should == "1k"
-      Opinion.tuple(0,0,0,2000).friendly_authority.should == "2k"
+    it "should use the NumberFormatter for the formatting of authority" do
+      authority = 0
+      number_formatter = mock
+      friendly_authority = mock
+
+      NumberFormatter.should_receive(:new).with(authority).and_return(number_formatter)
+      number_formatter.should_receive(:as_authority).and_return(friendly_authority)
+
+      expect(Opinion.tuple(0, 0, 0, authority).friendly_authority).to eq friendly_authority
     end
   end
 end

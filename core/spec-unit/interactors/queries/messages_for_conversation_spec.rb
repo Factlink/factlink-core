@@ -18,7 +18,7 @@ describe Queries::MessagesForConversation do
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'retrieves dead representations of the messages belonging to the conversation' do
       user = mock()
       user.stub(id:11)
@@ -35,7 +35,7 @@ describe Queries::MessagesForConversation do
       Message.should_receive(:where).with(conversation_id: conversation.id).
               and_return(message_hashes.map{|hash| stub(hash)})
 
-      messages = Queries::MessagesForConversation.execute(conversation, current_user: user)
+      messages = Queries::MessagesForConversation.new(conversation, current_user: user).call
 
       messages.should =~ message_hashes.map{|hash| OpenStruct.new(hash)}
     end

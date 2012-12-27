@@ -1,3 +1,11 @@
-<%= link_to_possibly_dead_user @activity.user.user %>
- has replied to a conversation
-<%= link_to "click here to view", conversation_message_url(@activity.subject.conversation, @activity.subject) %>.
+<h2 class="activity-title">
+	<%= link_to_possibly_dead_user @activity.user.user %> 
+	has replied to a conversation:
+</h2>
+<p class="activity-body">
+	<%= @activity.subject.content %>
+</p>
+<p class="activity-action">
+	To view the full conversation, visit:<br>
+	<%= link_to conversation_message_url(@activity.subject.conversation, @activity.subject), conversation_message_url(@activity.subject.conversation, @activity.subject) %>
+</p>

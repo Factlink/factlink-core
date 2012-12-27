@@ -2,12 +2,22 @@
 @import "bootstrap/variables";
 
 div.fact-bottom {
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   font-size: 12px;
   clear: both;
-  margin: 15px 0 0;
   white-space: nowrap;
+  position: relative;
   overflow: hidden;
+
+  > .title-overflow {
+    z-index: 100;
+    background: image-url('discussions/title_fade.png') right repeat-y;
+    display: block;
+    height: 100%;
+    width: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 
   ul.actions {
     margin: 0;
@@ -60,13 +70,25 @@ div.fact-bottom {
     height: 16px;
     vertical-align: text-top;
   }
+}
 
-  .transparent-layer {
-    position: fixed;
-    top: 0; right: 0; bottom: 0; left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1040;
-    display: none;
+div.facts-view, #activity_for_channel .activity-block {
+  div.fact-view {
+    .fact-bottom > span.fact-info,
+    .fact-bottom > ul.actions {
+      .opacity(.60);
+      .transition(opacity .15s ease-in-out);
+    }
+    .top-right-arrow {
+      .opacity(0);
+      .transition(opacity .15s ease-in-out);
+    }
+    &:hover {
+      .fact-bottom > span.fact-info,
+      .fact-bottom > ul.actions,
+      .top-right-arrow {
+        .opacity(1);
+      }
+    }
   }
 }

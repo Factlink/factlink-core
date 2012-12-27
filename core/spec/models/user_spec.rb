@@ -9,7 +9,6 @@ describe User do
   let(:child1) {create :fact}
 
   context "Initially" do
-    it {subject.graph_user.facts.to_a.should == []}
     it {subject.graph_user.should == subject.graph_user }
     it "should not be an Admin" do
       subject.admin.should == false
@@ -17,11 +16,6 @@ describe User do
     it "should not be approved" do
       subject.approved.should == false
     end
-  end
-
-  it "should have one active factlink after adding believe" do
-    child1.add_opinion(:beliefs, subject.graph_user)
-    subject.graph_user.facts.size == 1
   end
 
   it "should have a GraphUser" do

@@ -41,13 +41,15 @@ class window.Channel extends Backbone.Model
 
   topicUrl: -> "/t/#{@get('slug_title')}"
 
-  getOwnContainingChannels: ->
-    containingChannels = @get("containing_channel_ids")
-    ret = []
-    currentUser.channels.each (ch) ->
-      ret.push ch  if _.indexOf(containingChannels, ch.id) isnt -1
+  getOwnContainingChannels: (eventbinder) ->
+    containing_channel_ids = @get("containing_channel_ids") ? []
 
-    ret
+    col = new OwnChannelCollection currentUser.channels.channelArrayForIds(containing_channel_ids)
+
+    eventbinder.bindTo currentUser.channels, 'reset', ->
+      col.reset currentUser.channels.channelArrayForIds(containing_channel_ids)
+
+    col
 
   url: ->
     if @collection
@@ -56,7 +58,27 @@ class window.Channel extends Backbone.Model
       @normal_url()
 
   normal_url: ->
-    "/" + @getUsername() + "/channels/" + @get("id")
+    "/" + @getUsername() + "/channels/" + @id
 
   getUsername: ->
     @get("created_by")?.username ? @get("username")
+
+  addToChannel: (sub_channel, options={}) ->
+    @_changeFollowingChannel('add', sub_channel, options)
+
+  removeFromChannel: (sub_channel, options={}) ->
+    @_changeFollowingChannel('remove', sub_channel, options)
+
+  _changeFollowingChannel: (action, sub_channel, options) ->
+    changeUrl = "#{@normal_url()}/subchannels/#{action}/#{sub_channel.id}"
+
+    $.ajax
+      url: changeUrl
+      type: 'post'
+      error: -> options.error?()
+      success: =>
+        mp_track "Channel: #{action} subchannel",
+          channel_id: @id
+          subchannel_id: sub_channel.id
+
+        options.success?()

@@ -1,4 +1,6 @@
 class window.RelatedChannelsView extends Backbone.Marionette.CompositeView
+  className: "related-channels-for-channel"
+
   template: "channels/_related_channels",
 
   itemViewContainer: "ul",

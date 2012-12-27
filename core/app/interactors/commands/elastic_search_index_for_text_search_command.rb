@@ -1,7 +1,9 @@
 require 'logger'
+require_relative '../../classes/elastic_search'
 
 module Commands
   class ElasticSearchIndexForTextSearchCommand
+    # TODO: Rewrite this command to be fully compatible with Pavlov
 
     def initialize object, options={}
       @missing_fields = []
@@ -19,13 +21,10 @@ module Commands
       raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
     end
 
-    def execute
-      options = { body: @document.to_json }
-
-      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}"
-      HTTParty.put url, options
-
-      @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
+    def call
+      index = ElasticSearch::Index.new @type_name
+      index.add @object.id, @document.to_json
+      # @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
     end
 
     private

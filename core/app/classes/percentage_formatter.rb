@@ -12,7 +12,6 @@ class PercentageFormatter
   end
 
   def cap_percentages(percentages)
-    round_to = @round_to
     minimum = @minimum
 
     after_total, large_ones = 0.0, 0.0

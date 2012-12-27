@@ -26,7 +26,7 @@ describe Commands::ElasticSearchDeleteUserForTextSearch do
       to raise_error(RuntimeError, 'user missing fields ([:id]).')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
@@ -36,7 +36,7 @@ describe Commands::ElasticSearchDeleteUserForTextSearch do
       HTTParty.should_receive(:delete).with("http://#{url}/user/#{user.id}")
       interactor = Commands::ElasticSearchDeleteUserForTextSearch.new user
 
-      interactor.execute
+      interactor.call
     end
   end
 

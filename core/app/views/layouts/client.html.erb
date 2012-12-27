@@ -15,7 +15,7 @@
 
   <%= csrf_meta_tag %>
 </head>
-<body>
+<body class="client">
 
   <div class="factlink-modal">
     <div class="drag-handler top"   ></div>
@@ -25,6 +25,7 @@
     <%= yield %>
   </div>
 
+  <div id='modal_region'></div>
   <%= yield :template %>
 
 
@@ -35,6 +36,24 @@
   </script>
 
   <%= yield :javascript %>
+
+  <script type="text/javascript">
+    // HACK TO PRETEND WE ARE RUNNING AN BACKBONE APP
+    FactlinkApp = {};
+    FactlinkApp.vent = new Backbone.Marionette.EventAggregator();
+    FactlinkApp.Modal = {};
+    FactlinkApp.addRegions = function(){};
+    FactlinkApp.modalRegion = new Backbone.Marionette.Region(
+      {el: '#modal_region'});
+
+    modalModuleDefinition(FactlinkApp.Modal, FactlinkApp, Backbone, Backbone.Marionette, $, _)
+
+    Backbone.history = {};
+    Backbone.history.navigate = function(url) {
+      window.top.location = url;
+    }
+    // END HACK
+  </script>
 
   <script type="text/javascript">
     $(".factlink-modal").draggable({handle: '.drag-handler'});

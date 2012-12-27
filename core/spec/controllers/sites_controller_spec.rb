@@ -30,6 +30,14 @@ describe SitesController do
     end
   end
 
+  describe :top_topics do
+    it "should respond successfully" do
+      @site = FactoryGirl.create(:site, :url => "http://batman.org")
+      get :top_topics, id: @site.id, format: :json
+      response.should be_success
+    end
+  end
+
   describe :blacklisted do
     it "should work with a non-blocked site" do
       get :blacklisted, :url => 'http://batman.org/'

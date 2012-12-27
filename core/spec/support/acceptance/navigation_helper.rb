@@ -1,14 +1,18 @@
 module Acceptance
   module NavigationHelper
     def open_modal tab_title, &block
-      tablink = page.find_link(tab_title)
-
-      tab_class = tablink['class'].split(/\s+/).first + '-container'
-
       click_link(tab_title)
-      within(:css, ".#{tab_class} .modal-body") do
+      within_modal(&block)
+    end
+
+    def within_modal &block
+      within(:css, "#modal_region .modal-body") do
         yield
       end
+    end
+
+    def close_modal
+      find("#modal_region .modal-header .close").click
     end
 
     def go_back_using_button

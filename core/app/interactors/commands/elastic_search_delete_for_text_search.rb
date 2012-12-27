@@ -2,6 +2,7 @@ require 'logger'
 
 module Commands
   class ElasticSearchDeleteForTextSearch
+    # TODO: Rewrite this command to be fully compatible with Pavlov
 
     def initialize object, options={}
       @missing_fields = []
@@ -26,10 +27,10 @@ module Commands
       @object.respond_to? name
     end
 
-    def execute
+    def call
       HTTParty.delete "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}"
 
-      @logger.info "Removing #{@type_name} from ElasticSearch index."
+      # @logger.info "Removing #{@type_name} from ElasticSearch index."
     end
 
   end

@@ -28,11 +28,10 @@ body.show_sign_in {
     border: none;
     background: transparent;
     min-height: 42px;
-    .inner-shadow(0, 0, 0, 0);
     position: relative;
     z-index: 2;
     border-bottom: 1px solid @baseBorderColor;
-    .drop-shadow(0, 1px, 2px, 0, .05);
+    .box-shadow(0 1px 2px rgba(0, 0, 0, .05));
 
     .background {
       background: white;
@@ -62,7 +61,9 @@ body.show_sign_in {
       ul.nav > li {
         > a {
           color: @linkColor;
-          #font > .sans-serif(bold, 13px, 20px);
+          font-weight: bold;
+          font-size: 13px;
+          line-height: 20px;
 
           &.profile {
             padding-top: 6px;
@@ -118,7 +119,7 @@ body.show_sign_in {
         display: inline-block;
         height: 100%;
         line-height: 42px;
-        font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+        font-family: @baseFontFamily;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
         a {
           color: @linkColor;
@@ -134,7 +135,7 @@ body.show_sign_in {
       border-bottom: none;
 
       .background {
-        .opacity(0.4);
+        .opacity(.40);
       }
 
       .container {

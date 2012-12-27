@@ -19,5 +19,14 @@ describe KillObject do
       expect(dead.foo).to eq('bar')
       expect(dead.pinda).to eq('kaas')
     end
+    it "fixes the to_json method on an open_struct" do
+      test = mock('test', foo:'bar')
+      dead = KillObject.kill test, [:foo], pinda: 'kaas'
+      test_json = 'test json'
+
+      dead.send(:table).should_receive(:to_json).and_return(test_json)
+
+      dead.to_json.should eq test_json
+    end
   end
 end

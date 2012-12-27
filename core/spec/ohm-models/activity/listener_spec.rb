@@ -18,13 +18,13 @@ describe Activity::Listener do
   end
 
   before do
-    stub_const('SendMailForActivityInteractor', mock())
+    stub_const('Interactors::SendMailForActivity', mock())
   end
 
   def send_mail_for_activity_should_be_invoked
     interactor = mock()
-    SendMailForActivityInteractor.should_receive(:new).and_return(interactor)
-    interactor.should_receive(:execute)
+    Interactors::SendMailForActivity.should_receive(:new).and_return(interactor)
+    interactor.should_receive(:call)
   end
 
   describe :new do

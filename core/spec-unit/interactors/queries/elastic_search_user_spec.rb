@@ -4,14 +4,8 @@ require_relative '../../../app/interactors/queries/elastic_search_user.rb'
 describe Queries::ElasticSearchUser do
   include PavlovSupport
 
-  def fake_class
-    Class.new
-  end
-
   before do
-    stub_const 'HTTParty', fake_class
-    stub_const 'User', fake_class
-    stub_const 'FactlinkUI::Application', fake_class
+    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application'
   end
 
   it 'initializes' do
@@ -20,14 +14,14 @@ describe Queries::ElasticSearchUser do
     query.should_not be_nil
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'executes correctly with return value of User class' do
       config = mock()
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for users'
-      wildcard_keywords = '(searching*%20OR%20searching)+(for*%20OR%20for)+(users*%20OR%20users)'
+      wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(users*+OR+users)'
       interactor = Queries::ElasticSearchUser.new keywords, 1, 20
 
       hit = mock()
@@ -39,14 +33,14 @@ describe Queries::ElasticSearchUser do
       results.stub code: 200
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
+        with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
       return_object = mock()
 
       User.should_receive(:find).with(1).and_return(return_object)
 
-      interactor.execute.should eq [return_object]
+      interactor.call.should eq [return_object]
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
@@ -66,7 +60,7 @@ describe Queries::ElasticSearchUser do
       logger.should_receive(:error).with(error_message)
       query = Queries::ElasticSearchUser.new keywords, 1, 20, logger: logger
 
-      expect { query.execute }.to raise_error(RuntimeError, error_message)
+      expect { query.call }.to raise_error(RuntimeError, error_message)
     end
 
     it 'url encodes keywords' do
@@ -75,7 +69,7 @@ describe Queries::ElasticSearchUser do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
-      wildcard_keywords = '(%24%2B%2C%3A%3B*%20OR%20%24%2B%2C%3A%3B)+(%40%3D%3F%26%3D%2F*%20OR%20%40%3D%3F%26%3D%2F)'
+      wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       interactor = Queries::ElasticSearchUser.new keywords, 1, 20
 
       hit = mock()
@@ -87,14 +81,14 @@ describe Queries::ElasticSearchUser do
       results.stub code: 200
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
+        with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
       return_object = mock()
 
       User.should_receive(:find).with(1).and_return(return_object)
 
-      interactor.execute.should eq [return_object]
+      interactor.call.should eq [return_object]
     end
   end
 end

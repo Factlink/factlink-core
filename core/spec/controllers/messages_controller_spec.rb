@@ -12,12 +12,12 @@ describe MessagesController do
       conversation_id = 10
 
       interactor = mock()
-      interactor.should_receive(:execute)
+      interactor.should_receive(:call)
 
       pavlov_options = mock()
       controller.should_receive(:pavlov_options).and_return(pavlov_options)
 
-      ReplyToConversationInteractor.should_receive(:new).
+      Interactors::ReplyToConversation.should_receive(:new).
          with(conversation_id.to_s, user.id.to_s, 'verhaal', pavlov_options).
          and_return(interactor)
 

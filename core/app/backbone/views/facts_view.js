@@ -10,7 +10,6 @@ window.FactsView = AutoloadingCompositeView.extend({
     "focus #create_fact_for_channel textarea": "openCreateFactForm",
     "click #create_fact_for_channel .create_factlink .close": "closeCreateFactForm",
     "click #create_fact_for_channel": "focusCreateFactlink",
-    "click #create_fact_for_channel .inset-icon.icon-pen": "toggleTitleField",
     "click #create_fact_for_channel .input-box": "focusField"
   },
 
@@ -50,7 +49,6 @@ window.FactsView = AutoloadingCompositeView.extend({
     var $form = this.$('form');
 
     var $textarea = $form.find('textarea[name=fact]');
-    var $title = $form.find('input[name=title]');
     var $submit = $form.find('button');
 
     e.preventDefault();
@@ -62,7 +60,6 @@ window.FactsView = AutoloadingCompositeView.extend({
       type: "POST",
       data: {
         displaystring: $textarea.val(),
-        title: $title.val()
       },
       success: function(data) {
         var fact = new Fact(data);
@@ -71,7 +68,7 @@ window.FactsView = AutoloadingCompositeView.extend({
 
         // HACK this is how backbone marionette stores childviews:
         // dependent on their implementation though
-        self.children[fact.cid].highlight();
+        self.children.findByModel(fact).highlight();
         self.setCreateFactFormToInitialState();
       },
       error: function(data) {
@@ -94,20 +91,10 @@ window.FactsView = AutoloadingCompositeView.extend({
 
   closeCreateFactForm: function (e) {
     this.$('form')
-      .removeClass('active show-title')
+      .removeClass('active')
       .filter(':input').val('');
 
     e && e.stopPropagation();
-  },
-
-  toggleTitleField: function (e) {
-    var $form = this.$('form');
-
-    $form.toggleClass('show-title');
-
-    $form.hasClass('show-title') && $form.addClass('active').find('.add-title>input').focus();
-
-    e.stopPropagation();
   },
 
   focusCreateFactlink: function (e) {

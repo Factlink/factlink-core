@@ -1,11 +1,13 @@
 class window.Fact extends Backbone.Model
-  getOwnContainingChannels: ->
-    containingChannels = @get("containing_channel_ids")
-    ret = []
-    currentUser.channels.each (ch) ->
-      ret.push ch  if _.indexOf(containingChannels, ch.id) isnt -1
+  getOwnContainingChannels: (eventbinder) ->
+    containing_channel_ids = @get("containing_channel_ids") ? []
 
-    ret
+    col = new OwnChannelCollection currentUser.channels.channelArrayForIds(containing_channel_ids)
+
+    eventbinder.bindTo currentUser.channels, 'reset', ->
+      col.reset currentUser.channels.channelArrayForIds(containing_channel_ids)
+
+    col
 
   urlRoot: "/facts/"
 
@@ -16,7 +18,6 @@ class window.Fact extends Backbone.Model
       indexOf = @get("containing_channel_ids").indexOf(channel.id)
       @get("containing_channel_ids").splice indexOf, 1  if indexOf
       if oldSuccess isnt `undefined`
-        console.info "hoi2"
         oldSuccess()
 
     $.ajax _.extend(type: "post", opts)
@@ -31,3 +32,6 @@ class window.Fact extends Backbone.Model
     $.ajax _.extend(type: "post", opts)
 
   getFactWheel: ->  @get("fact_base").fact_wheel
+
+  friendlyUrl: ->
+    @get("url")

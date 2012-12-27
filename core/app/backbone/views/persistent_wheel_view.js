@@ -4,12 +4,12 @@ window.PersistentWheelView = BaseFactWheelView.extend({
     this.trigger('opinionSet');
 
     this.updateTo("1.0", {
-      believe: getHash(opinionType.get('type'), "believe"),
-      disbelieve: getHash(opinionType.get('type'), "disbelieve"),
-      doubt: getHash(opinionType.get('type'), "doubt")
+      believe: getHash(opinionType.type, "believe"),
+      disbelieve: getHash(opinionType.type, "disbelieve"),
+      doubt: getHash(opinionType.type, "doubt")
     });
 
-    $('input[name=opinion][value=' + opinionType.get('type') + 's]')
+    $('input[name=opinion][value=' + opinionType.type + 's]')
       .prop('checked', true);
   }
 });

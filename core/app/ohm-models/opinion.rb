@@ -1,3 +1,5 @@
+require_relative 'opinion/subject.rb'
+
 class Opinion < OurOhm
   # naming conventions as in the document describing the calculations
   # b = belief
@@ -39,6 +41,9 @@ class Opinion < OurOhm
   end
 
   alias :authority :a
+  alias :beliefs :b
+  alias :disbeliefs :d
+  alias :doubts :u
 
   def take_values(other)
     self.a = other.a
@@ -130,13 +135,7 @@ class Opinion < OurOhm
   end
 
   def friendly_authority
-    if a < 10
-      sprintf('%.1f', a)
-    elsif a >= 1000
-      sprintf('%.0fk', a.div(1000))
-    else
-      sprintf('%.0f', a)
-    end
+    NumberFormatter.new(a).as_authority
   end
 
   def self.types

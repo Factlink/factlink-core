@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <%= form_tag facts_path(layout: @layout), class: "fact-block", id:"new_fact_form" do %>
+  <%= form_tag facts_path(layout: @layout, guided: params[:guided]), class: "fact-block", id:"new_fact_form" do %>
     <div class="fact-view">
       <%= text_area_tag :fact, params[:fact] %>
       <%= hidden_field_tag :url, params[:url] %>
@@ -10,18 +10,16 @@
 
       <div class="fact-wheel"></div>
 
-      <% unless params[:title].blank? %>
-        <a class="title"><%= params[:title] %></a>
-      <% end %>
-
       <div class="fact-body">
         <%= params[:fact] %>
       </div>
     </div>
 
     <div id="add-to-container">
-      <h4><%= t('.add_to_channels').capitalize %>:</h4>
+      <strong><%= t('.add_to_channels').capitalize %>:</strong>
       <div id="add-to-channels"></div>
+
+      <div id="suggested-channels-region"></div>
     </div>
 
     <div class="buttons">
@@ -38,13 +36,20 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    var addToChannelView = new AutoCompleteChannelsView({collection: new OwnChannelCollection()}).render();
+    var addToCollection = new OwnChannelCollection();
+    var addToChannelView = new AutoCompleteChannelsView({collection: addToCollection}).render();
+    var suggestionView = new FilteredSuggestedSiteTopicsView({addToCollection: addToCollection, site_id: <%= @site ? @site.id : 'undefined' %> }).render();
+
+    addToChannelView.on('error', function() {
+      alert('Something went wrong when creating a new channel, sorry!');
+    });
 
     $('#add-to-channels').html(addToChannelView.el);
+    $('#suggested-channels-region').html(suggestionView.el);
 
     var persistentWheel = new PersistentWheelView({
       el: $('.fact-wheel'),
-      model: new Wheel(<%= Facts::FactWheel.for(view: self).mock.to_json.html_safe %>)
+      model: new Wheel()
     }).render();
 
     persistentWheel.on('opinionSet', function () {
@@ -62,6 +67,13 @@
     function createWhatsYourOpinionTooltip() {
       $('.fact-wheel').on('click', function () {
         hideTooltip();
+
+        <% if params[:guided] == "true" %>
+        $('#submit').tooltip({
+          title: "Great! Click here to finish",
+          trigger: "manual"
+        }).tooltip("show");
+        <% end %>
       });
 
       $(window).on('resize', function () {

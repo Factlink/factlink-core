@@ -1,4 +1,11 @@
+class Channel < OurOhm;end # needed because of removed const_missing from ohm
+class Site < OurOhm; end # needed because of removed const_missing from ohm
+class FactRelation < Basefact;end # needed because of removed const_missing from ohm
+
 class Fact < Basefact
+  include Opinion::Subject::Fact
+  include Pavlov::Helpers
+
   after :create, :set_activity!
   after :create, :add_to_created_facts
   after :create, :increment_mixpanel_count
@@ -25,7 +32,9 @@ class Fact < Basefact
 
   # TODO dirty, please decouple
   def add_to_created_facts
-    self.created_by.created_facts_channel.add_fact(self)
+    channel = self.created_by.created_facts_channel
+
+    command :'channels/add_fact', self, channel
   end
 
   def has_site?

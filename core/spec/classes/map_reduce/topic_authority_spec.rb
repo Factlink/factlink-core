@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe MapReduce::TopicAuthority do
+  include AddFactToChannelSupport
   let(:gu1) {create(:user).graph_user}
   let(:gu2) {create(:user).graph_user}
 
   before do
-    stub_const('SendMailForActivityInteractor', mock())
-    SendMailForActivityInteractor.stub(new: nil.andand)
+    stub_const('Interactors::SendMailForActivity', mock())
+    Interactors::SendMailForActivity.stub(new: nil.andand)
   end
 
   describe :wrapped_map do
@@ -32,11 +33,11 @@ describe MapReduce::TopicAuthority do
        ch1 = Channel.create(title: "Ruby", created_by: gu1)
        channels = [ch1]
 
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
+       add_fact_to_channel create(:fact), ch1
+       add_fact_to_channel create(:fact), ch1
+       add_fact_to_channel create(:fact), ch1
+       add_fact_to_channel create(:fact), ch1
+       add_fact_to_channel create(:fact), ch1
 
        result = subject.wrapped_map(channels)
 

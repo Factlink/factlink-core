@@ -1,0 +1,18 @@
+<a href="{{ activity.target_url }}">
+  <div class="avatar">
+    {{{avatar}}}
+  </div>
+  <div class="info">
+    <div class="text">
+      <span class="highlight">{{ username }}</span>
+      commented on
+      <span class="highlight">{{ activity.fact }}</span>
+    </div>
+
+    <div class="time_ago">
+      <img src="{{global.time_ago_image}}">
+      <span>{{time_ago}} ago</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+</a>

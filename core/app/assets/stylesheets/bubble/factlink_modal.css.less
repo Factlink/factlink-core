@@ -4,24 +4,25 @@
 
 div.factlink-modal {
   overflow: visible;
+  font-family: @baseFontFamily;
   padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
 
   min-height: 80px;
   width: 560px;
 
   border: 1px solid #a6a6a6;
-  .border-radius(6px);
+  .border-radius(5px);
   .background-clip(padding-box);
 
   background: white;
 
   position: relative;
-  top: 185px;
+  top: 8%;
   left: 0;
 
-  margin: -40px auto 150px;
+  margin: 0 auto;
 
-  .drop-shadow(0, 0, 0, 5px, .15);
+  .box-shadow(0 0 0 5px rgba(0, 0, 0, .15));
 
   .drag-handler {
     cursor: all-scroll;

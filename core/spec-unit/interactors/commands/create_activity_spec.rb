@@ -13,27 +13,19 @@ describe Commands::CreateActivity do
     action = :test
     activity_subject = mock()
     activity_object = mock()
-    command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object, current_user: current_user
+    command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object
     command.should_not be_nil
   end
 
-  it 'gives a not authorized exception, when the current_user is not equal to the user' do
-    action = :test
-    activity_subject = mock()
-    activity_object = mock()
-    expect{ Commands::CreateActivity.new other_graph_user, action, activity_subject, activity_object, :current_user => current_user }.
-      to raise_error(Pavlov::AccessDenied, 'Unauthorized')
-  end
-
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       action = :test
       activity_subject = mock()
       activity_object = mock()
-      command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object, :current_user => current_user
+      command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object
       Activity.should_receive(:create).with(user: graph_user, action: action, subject: activity_subject, object: activity_object )
 
-      command.execute
+      command.call
     end
   end
 end

@@ -10,6 +10,8 @@ class SearchController < ApplicationController
       raise HackAttempt unless params[:s].is_a? String
     end
 
+    track "Search: Top bar search"
+
     @row_count = 20
     row_count = @row_count
     page = params[:page] || 1;
@@ -19,10 +21,7 @@ class SearchController < ApplicationController
     @results = []
 
     if search_for.size > 0
-      interactor = SearchInteractor.new search_for,
-        ability: current_ability, page: page, row_count: row_count
-
-      @results = interactor.execute
+      @results = interactor :search, search_for, page, row_count
 
       @results = @results.map do |result|
         SearchResults::SearchResultItem.for(obj: result, view: view_context)

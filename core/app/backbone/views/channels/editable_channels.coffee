@@ -6,7 +6,7 @@ class window.EditableChannelsView extends Backbone.Marionette.CompositeView
   itemView: EditableChannelItemView
   itemViewContainer: '.channel-listing'
 
-  className: 'tourChannels white-well'
+  className: 'tour-channel-suggestions white-well'
 
   showEmptyView: => @$el.hide()
   closeEmptyView: => @$el.show()

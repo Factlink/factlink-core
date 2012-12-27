@@ -1,14 +1,16 @@
 class window.StartConversationView extends Backbone.Marionette.Layout
   className: "start-conversation-form"
   events:
-    "click .submit": 'submit'
+    "click .js-submit": 'submit'
 
   regions:
-    'recipients_container': 'div.recipients'
+    'recipients_container': '.js-region-recipients'
 
   template: 'conversations/start_conversation'
 
   initialize: ->
+    @alertErrorInit ['user_not_found', 'message_empty']
+
     @recipients = new Users
     @auto_complete_view = new AutoCompleteUsersView(collection: @recipients)
 
@@ -17,12 +19,14 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     @recipients.on 'add', @newRecipient
 
   newRecipient: =>
-    @$('.message-textarea').focus() if @recipients.length == 1
+    @$('.js-message-textarea').focus() if @recipients.length == 1
 
-  submit: ->
+  submit: (e) ->
+    e.preventDefault()
+
     # Check for the length of `@recipients`, not `recipients`, to allow sending message to oneself
     if @recipients.length <= 0
-      @showAlert 'error'
+      @alertShow 'error'
       return
 
     recipients = _.union(@recipients.pluck('username'), [currentUser.get('username')])
@@ -30,32 +34,27 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     conversation = new Conversation(
       recipients: recipients
       sender: currentUser.get('username')
-      content: @$('.text').val()
+      content: @$('.js-message-textarea').val()
       fact_id: @model.id
     )
 
-    @showAlert null
+    @alertHide()
     @disableSubmit()
     conversation.save [],
       success: =>
-        @showAlert 'success'
+        @alertShow 'success'
         @enableSubmit()
         @clearForm()
 
       error: (model, response) =>
-        if response.responseText in ['user_not_found', 'message_empty']
-          @showAlert response.responseText
-        else
-          @showAlert 'error'
+        @alertError response.responseText
         @enableSubmit()
 
-  enableSubmit:  -> @$('.submit').prop('disabled',false).val('Send')
-  disableSubmit: -> @$('.submit').prop('disabled',true ).val('Sending')
+  enableSubmit:  -> @$('.js-submit').prop('disabled',false).val('Send')
+  disableSubmit: -> @$('.js-submit').prop('disabled',true ).val('Sending')
 
   clearForm: ->
     @recipients.reset []
-    @$('.message-textarea').val('')
+    @$('.js-message-textarea').val('')
 
-  showAlert: (type) ->
-    @$('.alert').addClass 'hide'
-    @$('.alert-type-' + type).removeClass 'hide' if type?
+_.extend(StartConversationView.prototype, Backbone.Factlink.AlertMixin)

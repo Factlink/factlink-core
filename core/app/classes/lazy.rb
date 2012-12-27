@@ -12,10 +12,10 @@ class Lazy
   end
 
   def to_json *args
-    original_object_container.to_json *args
+    original_object_container.to_json(*args)
   end
 
   def method_missing(method, *args, &block)
-    original_object_container.send method, *args, &block
+    original_object_container.send(method, *args, &block)
   end
 end

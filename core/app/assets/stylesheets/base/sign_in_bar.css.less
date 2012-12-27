@@ -11,14 +11,14 @@ body {
 
 div.sign_in_bar {
   color: #fff;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-family: @baseFontFamily;
   position: relative;
   height: 160px;
 
   .btn {
     padding: 6px 15px;
     font-size: 13px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: @headingFontFamily;
     font-weight: bold;
     text-shadow: 0 1px 0 #fff;
   }
@@ -67,6 +67,10 @@ div.sign_in_bar {
         text-decoration: none;
         background: image-url('base/sign_in_bar/underline.png') repeat-x 100% 100%;
       }
+
+      input#user_remember_me {
+        margin-top: -2px;
+      }
     }
   }
 
@@ -86,7 +90,7 @@ div.sign_in_bar {
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
     float: right;
     line-height: 160px;
-    width: 381px;
+    width: 390px;
     height: 160px;
 
     a {

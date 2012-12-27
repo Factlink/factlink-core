@@ -19,7 +19,7 @@ json.translated_action t("fact_#{action.to_sym}_action".to_sym)
 
 json.subject subject.to_s
 
-json.time_ago time_ago_in_words(Time.at(created_at.to_time))
+json.time_ago TimeFormatter.as_time_ago(created_at.to_time)
 
 json.id activity.id
 
@@ -46,6 +46,28 @@ json.activity do |json|
       json.type :weakening
     end
 
+  when "created_comment"
+    json.action       :created_comment
+    json.target_url   friendly_fact_path(object)
+
+    if showing_notifications
+      json.fact truncate("#{object}", length: 85, separator: " ")
+    else
+      json.fact         Facts::Fact.for(fact: object, view: self).to_hash
+    end
+    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
+
+  when "created_sub_comment"
+    json.action       :created_sub_comment
+    json.target_url   friendly_fact_path(object)
+
+    if showing_notifications
+      json.fact truncate("#{object}", length: 85, separator: " ")
+    else
+      json.fact         Facts::Fact.for(fact: object, view: self).to_hash
+    end
+    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
+
   when "added_subchannel"
     subject_creator_graph_user = subject.created_by
     subject_creator_user = subject_creator_graph_user.user
@@ -60,9 +82,12 @@ json.activity do |json|
     json.channel_title             subject.title
     json.channel_url               channel_path(subject_creator_user, subject.id)
 
-
+    json.to_channel_id             object.id
     json.to_channel_title          object.title
     json.to_channel_url            channel_path(object.created_by.user, object.id)
+
+    json.to_channel_containing_channel_ids Queries::ContainingChannelIdsForChannelAndUser.new(object.id, current_user.graph_user.id).call
+
     json.target_url                channel_path(object.created_by.user, object.id)
   when "created_channel"
     json.channel_title             subject.title

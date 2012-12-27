@@ -15,13 +15,14 @@ a:hover {
 }
 
 input, textarea, .navbar-search .search-query, p {
-	#font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
+  .base-text(13px);
 }
 .btn {
-	#font > .sans-serif(normal, 12px, @baseLineHeight);
+  .base-text();
+  font-weight: normal;
 }
 .tooltip {
-	#font > .sans-serif(normal, 11px, @baseLineHeight);
+  font-family: @baseFontFamily;
 }
 
 // FORM FIELD FEEDBACK STATES

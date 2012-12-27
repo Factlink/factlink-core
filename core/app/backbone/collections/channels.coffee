@@ -9,8 +9,7 @@ class window.ChannelList extends window.GenericChannelList
   reloadingEnabled: false
   initialize: -> @on "reset", @checkActiveChannel
 
-  url: ->
-    "/" + @getUsername() + "/channels"
+  url: -> "/#{@getUsername()}/channels"
 
   unsetActiveChannel: ->
     activeChannel = @get(@activeChannelId)
@@ -42,7 +41,7 @@ class window.ChannelList extends window.GenericChannelList
     return true
 
   shouldReload: ->
-    not (typeof localStorage is "object" and localStorage isnt null and localStorage["reload"] is "false")
+    getSetting("reload") isnt "false"
 
   setupReloading: (force_reload_now=false)->
     if @shouldReload()
@@ -81,13 +80,21 @@ class window.ChannelList extends window.GenericChannelList
     results = @filter (ch)-> ch.get('slug_title') == slug_title
     if results.length == 1 then results[0] else `undefined`
 
-  orderedByAuthority: ->
-    topchannels = new ChannelList()
-    _.each @models, (channel) ->
-      topchannels.add channel  if channel.get("type") is "channel"
-
-    topchannels.comparator = (channel) ->
+  orderByAuthority: ->
+    @comparator = (channel) ->
       -parseFloat(channel.get("created_by_authority"))
+    @sort()
 
-    topchannels.sort()
+
+  orderedByAuthority: ->
+    topchannels = new ChannelList(@models)
+    topchannels.orderByAuthority()
+
     topchannels
+
+  channelArrayForIds: (ids) ->
+    array = []
+    @each (ch) ->
+      if ch.id in ids
+        array.push ch.clone()
+    array

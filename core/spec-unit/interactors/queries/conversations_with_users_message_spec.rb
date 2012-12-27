@@ -67,7 +67,7 @@ describe Queries::ConversationsWithUsersMessage do
       conversations = [mock('foo', recipient_ids: [1,2]),mock('foo', recipient_ids: [2,3,4])]
       users = mock()
       query = Queries::ConversationsWithUsersMessage.new(user1.id.to_s, current_user: user1)
-      should_receive_new_with_and_receive_execute(Queries::UsersByIds, [1,2,3,4], current_user: user1).
+      should_receive_new_with_and_receive_call(Queries::UsersByIds, [1,2,3,4], current_user: user1).
         and_return(users)
 
       result = query.users_for_conversations(conversations)
@@ -76,20 +76,20 @@ describe Queries::ConversationsWithUsersMessage do
     end
   end
 
-  describe ".execute" do
+  describe ".call" do
     it "should call the three other queries" do
       query = Queries::ConversationsWithUsersMessage.new(user1.id.to_s, current_user: user1)
 
-      should_receive_new_with_and_receive_execute(Queries::ConversationsList, user1.id.to_s, current_user: user1).
+      should_receive_new_with_and_receive_call(Queries::ConversationsList, user1.id.to_s, current_user: user1).
         and_return(conversations)
       query.should_receive(:all_recipients_by_ids).with([conversation10, conversation20]).and_return(1 => user1, 2 => user2)
-      should_receive_new_with_and_receive_execute(Queries::LastMessageForConversation, conversation10, current_user: user1).
+      should_receive_new_with_and_receive_call(Queries::LastMessageForConversation, conversation10, current_user: user1).
         and_return(message15)
-      should_receive_new_with_and_receive_execute(Queries::LastMessageForConversation, conversation20, current_user: user1).
+      should_receive_new_with_and_receive_call(Queries::LastMessageForConversation, conversation20, current_user: user1).
         and_return(message25)
 
 
-      result = query.execute
+      result = query.call
       expect(result.length.should).to eq(2)
 
       conversation1 = result[0]

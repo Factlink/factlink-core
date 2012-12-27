@@ -44,7 +44,7 @@ module Channels
 
     #explicit implicit queries, should never be called
     def query_topic_authority(topic)
-      Authority.from(topic , for: channel.created_by ).to_s.to_f + 1.0
+      Authority.from(topic , for: channel.created_by ).to_f + 1.0
     end
 
     def query_user_stream_id
@@ -53,7 +53,7 @@ module Channels
 
     def query_containing_channel_ids
       current_graph_user = @view.current_user.graph_user
-      @channel.containing_channels_for(current_graph_user).ids
+      @channel.containing_channels_for_ids(current_graph_user)
     end
 
     def calclulate_user_avatar_url
@@ -79,7 +79,7 @@ module Channels
 
 
     def topic_authority
-      @topic_authority.andand.to_s
+      @topic_authority
     end
 
     def user_stream_id
@@ -95,10 +95,7 @@ module Channels
     end
 
     def to_hash
-      #DEPRECATED, CALCULATE THIS IN FRONTEND
-      #SEE related_users_view.coffee
-      is_mine = (user.id == current_user.id)
-
+      is_mine = (user.id == current_user.id) #DEPRECATED, CALCULATE THIS IN FRONTEND SEE related_users_view.coffee
       is_created = (channel.type == 'created')
       is_all = (channel.type == 'stream')
       is_normal = !is_all && !is_created
@@ -119,7 +116,6 @@ module Channels
                      title
                    end
 
-      unread_count = is_normal ? channel.unread_count : 0
 
       # no queries from here
       json = Jbuilder.new
@@ -130,7 +126,7 @@ module Channels
 
       json.is_mine is_mine
       json.id channel.id
-      json.has_authority? channel.has_authority?
+      json.has_authority? channel.is_real_channel?
 
       json.add_channel_url '/' + user.username + '/channels/new'
 
@@ -141,8 +137,9 @@ module Channels
       json.is_normal is_normal
 
 
-      json.created_by_authority topic_authority if topic_authority
-
+      if topic_authority
+        json.created_by_authority NumberFormatter.new(topic_authority).as_authority
+      end
 
       json.created_by do |j|
         j.id user.id
@@ -164,12 +161,17 @@ module Channels
       created_by_id = channel.created_by_id
       json.created_by_id created_by_id
 
-      json.inspectable? channel.inspectable?
+      json.inspectable? channel.is_real_channel?
       json.followable?  !is_mine && is_normal
-      json.editable?    is_mine && channel.editable?
+      json.editable?    is_mine && channel.is_real_channel?
 
-      json.unread_count unread_count
-      json.new_facts( (unread_count != 0) && is_mine )
+      # QUICK FIX only show unread count on own channel
+      if is_mine then
+        unread_count = is_normal ? channel.unread_count : 0
+
+        json.unread_count unread_count
+        json.new_facts unread_count != 0
+      end
 
       json.containing_channel_ids containing_channel_ids
 

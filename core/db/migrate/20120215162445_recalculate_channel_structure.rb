@@ -9,7 +9,7 @@ class RecalculateChannelStructure < Mongoid::Migration
 
     Channel.all.each do |ch|
       ch.sorted_internal_facts.below('inf', withscores:true).each do |fact|
-        Resque.enqueue(AddFactToChannel, fact[:item].id, ch.id, fact[:score])
+        Resque.enqueue(AddFactToChannelJob, fact[:item].id, ch.id, fact[:score])
       end
     end
 

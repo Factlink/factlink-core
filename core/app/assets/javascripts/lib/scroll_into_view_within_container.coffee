@@ -34,3 +34,12 @@ window.scrollIntoViewWithinContainer = (el,$el)->
       el.scrollIntoView(true)
       container.scrollIntoView(false)
 
+# Situation: same as above, but we do NOT want to scroll the page
+# Also, we scroll the element to the center of the parent container
+window.scrollToCenterWithinContainer = ($el)->
+  $container = $el.parent()
+
+  y = $el.position().top + $el.outerHeight()/2
+  y -= $container.height()/2
+  
+  $container.scrollTop Math.max(0, y)

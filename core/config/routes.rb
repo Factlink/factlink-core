@@ -19,6 +19,7 @@ FactlinkUI::Application.routes.draw do
   get   "/site/blacklisted" => "sites#blacklisted"
   get   "/site/count" => "sites#facts_count_for_url"
   get   "/site" => "sites#facts_for_url"
+  get   "/site/:id/top_topics" => "sites#top_topics"
 
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb
@@ -40,6 +41,20 @@ FactlinkUI::Application.routes.draw do
     member do
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
+      scope '/comments' do
+        post "/:type" => 'comments#create'
+        delete "/:type/:id" => 'comments#destroy'
+        put "/:type/:id" => 'comments#update'
+
+        scope '/:type/:comment_id' do
+          scope '/sub_comments' do
+            get '' => 'sub_comments#index'
+            post '' => 'sub_comments#create'
+            delete "/:sub_comment_id" => 'sub_comments#destroy'
+          end
+          #resource :sub_comments, only: [:index,:create,:destroy]
+        end
+      end
     end
   end
 
@@ -52,11 +67,28 @@ FactlinkUI::Application.routes.draw do
     resources :facts, :except => [:edit, :index, :update] do
       resources :evidence
 
-      resources :supporting_evidence, :weakening_evidence do
+      resources :supporting_evidence do
+        collection do
+          get     "combined"      => "supporting_evidence#combined_index"
+        end
+      end
+
+      resources :weakening_evidence do
+        collection do
+          get     "combined"      => "weakening_evidence#combined_index"
+        end
+      end
+
+      resources :supporting_evidence, :weakening_evidence, :except => [:index] do
         member do
           get     "opinion"       => "evidence#opinion"
           post    "opinion/:type" => "evidence#set_opinion",      :as => "set_opinion"
           delete  "opinion/"      => "evidence#remove_opinions",  :as => "delete_opinion"
+          scope '/sub_comments' do
+            get '' => 'sub_comments#index'
+            post '' => 'sub_comments#create'
+            delete "/:sub_comment_id" => 'sub_comments#destroy'
+          end
         end
       end
 
@@ -67,7 +99,7 @@ FactlinkUI::Application.routes.draw do
         get     "/channels"         => "facts#get_channel_listing"
         get     "/believers"        => "facts#believers"
         get     "/disbelievers"     => "facts#disbelievers"
-        get     "/doubters"     => "facts#doubters"
+        get     "/doubters"         => "facts#doubters"
       end
     end
 
@@ -117,7 +149,6 @@ FactlinkUI::Application.routes.draw do
 
     resources :channels do
       collection do
-        post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
         get "find" => "channels#search", :as => "find"
       end
 
@@ -199,6 +230,7 @@ FactlinkUI::Application.routes.draw do
   scope "/u" do
     put "/seen_messages" => "users#seen_message", as: 'see_message'
     get "/search" => "users#search", as: 'search_users'
+    get "/channel_suggestions" => "users#channel_suggestions", as: 'channel_suggestions'
   end
 
 end

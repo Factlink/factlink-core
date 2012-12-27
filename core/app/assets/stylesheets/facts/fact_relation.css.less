@@ -1,55 +1,29 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+.fact-relation-listing .evidence-item {
 
-li.fact-relation {
-  padding: 20px 15px 24px;
-  border-bottom: 1px solid @baseBorderColor;
-  .clearfix();
-  position: relative;
+  &:first-child { border-top: none; }
 
-  &:last-child { padding-bottom: 8px; }
-
-  .fact-relation-actions {
-    float: left;
-    margin: 5px 18px 0 2px;
-
-    .supporting, .weakening {
-      display: block;
-      width: 9px;
-      height: 15px;
-      cursor: pointer;
-
-      &:hover { text-decoration: none; }
-    }
-
-    .supporting {
-      background: image-url("relation_actions.png") no-repeat top left transparent;
-      &.active {
-        background: image-url("relation_actions.png") no-repeat top right transparent;
-      }
-    }
-
-    .weakening {
-      background: image-url("relation_actions.png") no-repeat bottom left transparent;
-      &.active {
-        background: image-url("relation_actions.png") no-repeat bottom right transparent;
-      }
-    }
+  .evidence-activity {
+    margin: 0 0 0 82px;
   }
 
-  &:last-child { border-bottom: none; }
   .fact-relation-body {
-    margin: 0 0 0 20px;
+    margin: 5px 0 0 82px;
+
     > img {
       float: left;
       margin: 4px 10px 0 0;
       .border-radius(3px);
     }
-  }
 
-  .fact-relation-added-by {
-    margin-bottom: 6px;
-    color: #bbb;
+    .fact-base-region {
+      .fact-body {
+        span {
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

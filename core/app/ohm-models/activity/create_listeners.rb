@@ -1,11 +1,18 @@
 def create_activity_listeners
   Activity::Listener.class_eval do
 
+    people_who_follow_a_fact = lambda { |a|
+      ([a.object.created_by_id] +
+       a.object.opinionated_users_ids +
+       a.object.fact_relations.map { |fr| fr.created_by.id  }).
+        uniq.delete_if {|id| id == a.user_id}
+    }
+
     # evidence was added to a fact which you created or expressed your opinion on
     forGraphUser_evidence_was_added = {
       subject_class: "Fact",
       action: [:added_supporting_evidence, :added_weakening_evidence],
-      write_ids: lambda {|a| ([a.object.created_by_id]+a.object.opinionated_users.ids + a.object.fact_relations.map { |e| e.created_by.id  }).uniq.delete_if {|id| id == a.user_id}}
+      write_ids: people_who_follow_a_fact
     }
 
     # someone followed your channel
@@ -14,6 +21,18 @@ def create_activity_listeners
       action: 'added_subchannel',
       extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
       write_ids: lambda { |a| [a.subject.created_by_id] }
+    }
+
+    forGraphUser_comment_was_added = {
+      subject_class: "Comment",
+      action: :created_comment,
+      write_ids: people_who_follow_a_fact
+    }
+
+    forGraphUser_sub_comment_was_added = {
+      subject_class: "SubComment",
+      action: :created_sub_comment,
+      write_ids: people_who_follow_a_fact
     }
 
     register do
@@ -39,6 +58,12 @@ def create_activity_listeners
       activity subject_class: "Message",
                action: [:replied_message],
                write_ids: lambda { |a| a.subject.conversation.recipients.map { |r| r.graph_user.id }.delete_if { |id| id == a.user_id } }
+
+      # someone added a comment
+      activity forGraphUser_comment_was_added
+
+      # someone added a sub comment
+      # activity forGraphUser_sub_comment_was_added
     end
 
     register do
@@ -47,13 +72,19 @@ def create_activity_listeners
 
       # someone of whom you follow a channel created a new channel
       activity subject_class: "Channel", action: :created_channel,
-               write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
+               write_ids: lambda { |a| ChannelList.new(a.subject.created_by).channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
 
       # someone followed your channel
       activity forGraphUser_channel_was_followed
 
       # someone added supporting or weakening evidence
       activity forGraphUser_evidence_was_added
+
+      # someone added a comment
+      activity forGraphUser_comment_was_added
+
+      # someone added a sub comment
+      activity forGraphUser_sub_comment_was_added
 
       # someone believed/disbelieved/doubted your fact
       activity subject_class: "Fact",

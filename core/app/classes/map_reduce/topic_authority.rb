@@ -36,9 +36,6 @@ class MapReduce
       topic = Topic.by_slug(ident[:topic])
 
       gu = GraphUser[ident[:user_id]]
-      Channel.find(created_by_id: ident[:user_id], slug_title: ident[:topic]).each do |ch|
-        gu.channels_by_authority.add ch, value
-      end
       topic.top_users_add(gu.user, value) if gu.user
       Authority.from(topic, for: gu) << value
     end

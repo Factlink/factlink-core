@@ -10,20 +10,13 @@ class ChannelsController < ApplicationController
       :update,
       :facts,
       :create_fact,
-      :activities,
       :remove_fact,
-      :toggle_fact,
-      :remove_fact,
-      :follow,
-      :last_fact_activity
+      :add_fact
     ]
-
   before_filter :get_user
-
-  respond_to :json, :html
-
   before_filter :authenticate_user!
 
+  respond_to :json, :html
 
   def index
     channels = interactor :visible_channels_of_user_for_user, @user
@@ -31,10 +24,6 @@ class ChannelsController < ApplicationController
       Channels::Channel.for(channel: ch,view: view_context)
     end
     render_channels(json_channels)
-  end
-
-  def render_channels json_channels
-    render :json => json_channels
   end
 
   def backbone_page
@@ -96,16 +85,6 @@ class ChannelsController < ApplicationController
     if @channel.valid?
       @channel.save
 
-      unless params[:for_fact].nil?
-        @fact = Fact[params[:for_fact]]
-        @channel.add_fact(@fact)
-      end
-
-      unless params[:for_channel].nil?
-        @subchannel = Channel[params[:for_channel]]
-        @channel.add_channel(@subchannel)
-      end
-
       respond_to do |format|
         format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => 'Channel successfully created') }
         format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context)}
@@ -160,24 +139,10 @@ class ChannelsController < ApplicationController
     end
   end
 
-  # DEPRECATE i think this can be thrown away now,
-  #           since the last user was (I think) the jslib -- mark
-  def toggle_fact
-    authorize! :update, @channel
-
-    @fact = Fact[params[:fact_id]]
-
-    if @channel.facts.include?(@fact)
-      @channel.remove_fact(@fact)
-    else
-      @channel.add_fact(@fact)
-    end
-    render nothing: true
-  end
-
   def add_fact
-    interactor = AddFactToChannelInteractor.new params[:fact_id], params[:id], ability: current_ability
-    interactor.execute
+    fact = Fact[params[:fact_id]]
+
+    interactor :"channels/add_fact", fact, @channel
 
     render nothing: true, :status => :no_content
   end
@@ -191,7 +156,7 @@ class ChannelsController < ApplicationController
     if @fact.data.save and @fact.save
       track "Factlink: Created"
 
-      @channel.add_fact(@fact)
+      interactor :"channels/add_fact", @fact, @channel
       render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
     else
       render json: @fact.errors, status: :unprocessable_entity
@@ -209,6 +174,10 @@ class ChannelsController < ApplicationController
   end
 
   private
+    def render_channels json_channels
+      render :json => json_channels
+    end
+
     def get_user
       if @channel
         @user ||= @channel.created_by.user

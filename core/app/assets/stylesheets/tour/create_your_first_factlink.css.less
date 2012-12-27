@@ -22,6 +22,16 @@ html.firefox {
   }
 }
 
+body.action_create_your_first_factlink #container .tour-block {
+  top: 183px;
+}
+
+body.action_choose_channels #container {
+  .tour-block {
+    top: 0;
+  }
+}
+
 #container {
 
   #background {
@@ -36,8 +46,26 @@ html.firefox {
     width: 800px;
   }
 
+  .tour-block {
+    position: relative;
+    width: 198px;
+
+    padding: 10px;
+    color: @baseFontColor;
+    h4 {
+      color: @headingFontColor;
+      padding-bottom: 4px;
+    }
+    margin-bottom: 30px;
+  }
+
   #create-your-first-factlink {
-    & > * { #font > .serif(); }
+    & > * {
+      font-family: "Georgia", "Times New Roman", Times, serif;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+    }
     padding: 32px 72px;
     text-align: center;
     margin-top: 70px;

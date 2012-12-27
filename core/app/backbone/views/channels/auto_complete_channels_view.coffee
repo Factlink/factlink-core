@@ -1,19 +1,14 @@
-#= require ../auto_complete/search_view
-
 class window.AutoCompleteChannelsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-channels"
-
-  events:
-    "click div.auto-complete-search-list": "addCurrent"
 
   regions:
     'results': 'div.auto-complete-results-container'
     'search_list': 'div.auto-complete-search-list-container'
-    'text_input': 'div.auto-complete-input-container'
+    'text_input': 'div.js-auto-complete-input-view-container'
 
   template: "auto_complete/box_with_results"
 
-  initialize: ->
+  initialize: (options) ->
     @initializeChildViews
       filter_on: 'slug_title'
       search_list_view: (options) -> new AutoCompleteSearchChannelsView(options)
@@ -21,8 +16,6 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
       placeholder: -> Factlink.Global.t.channel_name.capitalize()
 
     @_results_view = new AutoCompleteResultsChannelsView(collection: @collection)
-    @_results_view.on "itemview:remove",  (childView, msg) =>
-      @trigger 'removeChannel', childView.model
 
   addCurrent: ->
     @disable()
@@ -41,13 +34,12 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
         @addNewChannel ch
         afterAdd()
       error: =>
-        alert "Something went wrong while adding the fact to this channel, sorry"
+        @trigger 'error', 'create_channel'
         afterAdd()
 
   addNewChannel: (channel) ->
-    @trigger "addChannel", channel
     # create new object if the current channel is already in a collection
-    channel = new Channel(channel.toJSON()) if channel.collection?
+    channel = channel.clone() if channel.collection?
     @collection.add channel
 
   disable: ->

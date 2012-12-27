@@ -38,11 +38,12 @@ class window.User extends Backbone.Model
     username = @get('username')
     _.extend json,
       is_current_user: @is_current_user(),
-      edit_path: "/#username/edit",
+      edit_path: "/#{username}/edit",
       change_password_path: "/#{username}/password/edit"
       notifications_settings_path: "/#{username}/notification-settings"
       link: "/#{username}"
-      avatar_url_40: @avatar_url(40)
+      avatar_url_32: @avatar_url(32)
+      avatar_url_42: @avatar_url(42)
       avatar_url_48: @avatar_url(48)
       avatar_url_200: @avatar_url(200)
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"

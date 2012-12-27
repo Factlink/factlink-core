@@ -13,6 +13,7 @@ if defined?(Bundler)
   # If you want your assets lazily compiled in production, use this line
   Bundler.require(:default, :assets, Rails.env)
 end
+require 'coffee_script'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -77,12 +78,10 @@ module FactlinkUI
     require_dependency "#{config.root}/app/models/fact_data.rb"
     require_dependency "#{config.root}/app/ohm-models/fact.rb"
     require_dependency "#{config.root}/app/ohm-models/fact_relation.rb"
-    require_dependency "#{config.root}/app/ohm-models/opinion_calculations.rb"
     require_dependency "#{config.root}/app/ohm-models/site.rb"
     require_dependency "#{config.root}/app/ohm-models/channel.rb"
     require_dependency "#{config.root}/app/ohm-models/graph_user.rb"
 
-    require 'mustache_railstache'
     Rails.application.config.generators.template_engine :erb
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -159,7 +158,6 @@ module FactlinkUI
       'admin.css',
       'fake_facts.css',
       'frontend.css',
-      'general.css',
       'client.css',
       'popup.css',
       'privacy.css',
@@ -168,7 +166,6 @@ module FactlinkUI
       'tour.css',
       'pages.css',
       'base.css',
-
       'application.js',
       'feedback.js',
       'frontend.js',

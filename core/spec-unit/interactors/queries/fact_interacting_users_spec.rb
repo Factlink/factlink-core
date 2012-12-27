@@ -9,17 +9,17 @@ describe Queries::FactInteractingUsers do
 
   it 'it throws when initialized without a correct fact_id' do
     expect { Queries::FactInteractingUsers.new 'a', 0, 3, 'disbelieves'}.
-      to raise_error(Pavlov::ValidationError, 'fact_id should be a integer.')
+      to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
-  it 'it throws when initialized with a skip argument that is not a integer.' do
+  it 'it throws when initialized with a skip argument that is not an integer.' do
     expect { Queries::FactInteractingUsers.new 1, 'a', 3, 'doubts'}.
-      to raise_error(Pavlov::ValidationError, 'skip should be a integer.')
+      to raise_error(Pavlov::ValidationError, 'skip should be an integer.')
   end
 
-  it 'it throws when initialized with a take argument that is not a integer.' do
+  it 'it throws when initialized with a take argument that is not an integer.' do
     expect { Queries::FactInteractingUsers.new 1, 0, 'b', 'doubts'}.
-      to raise_error(Pavlov::ValidationError, 'take should be a integer.')
+      to raise_error(Pavlov::ValidationError, 'take should be an integer.')
   end
 
   it 'it throws when initialized with a unknown opinion' do
@@ -27,7 +27,7 @@ describe Queries::FactInteractingUsers do
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
-  describe '.execute' do
+  describe '.call' do
 
     before do
       stub_const 'Fact', Class.new
@@ -40,7 +40,7 @@ describe Queries::FactInteractingUsers do
       graph_user = mock(user: user)
       fact.should_receive(:people_believes).and_return([graph_user])
 
-      result = Queries::FactInteractingUsers.execute(1, 0, 3, 'believes')
+      result = Queries::FactInteractingUsers.new(1, 0, 3, 'believes').call
 
       expect(result[:total]).to eq 1
       expect(result[:users].first.id).to eq user.id
@@ -53,7 +53,7 @@ describe Queries::FactInteractingUsers do
       graph_user = mock(user: user)
       fact.should_receive(:people_disbelieves).and_return([graph_user])
 
-      result = Queries::FactInteractingUsers.execute(1, 0, 3, 'disbelieves')
+      result = Queries::FactInteractingUsers.new(1, 0, 3, 'disbelieves').call
 
       expect(result[:total]).to eq 1
       expect(result[:users].first.id).to eq user.id
@@ -66,7 +66,7 @@ describe Queries::FactInteractingUsers do
       graph_user = mock(user: user)
       fact.should_receive(:people_doubts).and_return([graph_user])
 
-      result = Queries::FactInteractingUsers.execute(1, 0, 3, 'doubts')
+      result = Queries::FactInteractingUsers.new(1, 0, 3, 'doubts').call
 
       expect(result[:total]).to eq 1
       expect(result[:users].first.id).to eq user.id
@@ -83,7 +83,7 @@ describe Queries::FactInteractingUsers do
       graph_user3 = mock(user: user3)
       fact.should_receive(:people_believes).and_return([graph_user1, graph_user2, graph_user3])
 
-      result = Queries::FactInteractingUsers.execute(1, 1, 1, 'believes')
+      result = Queries::FactInteractingUsers.new(1, 1, 1, 'believes').call
 
       expect(result[:total]).to eq 3
       expect(result[:users].size).to eq 1

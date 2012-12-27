@@ -4,16 +4,9 @@ require_relative '../../../app/interactors/queries/elastic_search_all.rb'
 describe Queries::ElasticSearchAll do
   include PavlovSupport
 
-  def fake_class
-    Class.new
-  end
-
   before do
-    stub_const 'HTTParty', fake_class
-    stub_const 'FactData', fake_class
-    stub_const 'User', fake_class
-    stub_const 'Topic', fake_class
-    stub_const 'FactlinkUI::Application', fake_class
+    stub_classes 'HTTParty', 'FactData', 'User',
+                 'Topic', 'FactlinkUI::Application'
   end
 
   it 'intializes correctly' do
@@ -22,7 +15,7 @@ describe Queries::ElasticSearchAll do
     query.should_not be_nil
   end
 
-  describe '.execute' do
+  describe '.call' do
     ['user', 'topic', 'factdata'].each do |type|
       it "correctly with return value of #{type} class" do
         config = mock()
@@ -42,7 +35,7 @@ describe Queries::ElasticSearchAll do
         results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
 
         HTTParty.should_receive(:get).
-          with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
+          with("http://#{base_url}/factdata,topic,user/_search?q=(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)&from=0&size=20&analyze_wildcard=true").
           and_return(results)
 
         return_object = mock()
@@ -62,7 +55,7 @@ describe Queries::ElasticSearchAll do
             and_return(return_object)
         end
 
-        interactor.execute.should eq [return_object]
+        interactor.call.should eq [return_object]
       end
     end
 
@@ -83,7 +76,7 @@ describe Queries::ElasticSearchAll do
       logger.should_receive(:error).with(error_message)
       query = Queries::ElasticSearchAll.new keywords, 1, 20, logger: logger
 
-      expect { query.execute }.to raise_error(RuntimeError, error_message)
+      expect { query.call }.to raise_error(RuntimeError, error_message)
     end
 
     it 'url encodes correctly' do
@@ -92,7 +85,7 @@ describe Queries::ElasticSearchAll do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
-      wildcard_keywords = '(%24%2B%2C%3A%3B*%20OR%20%24%2B%2C%3A%3B)+(%40%3D%3F%26%3D%2F*%20OR%20%40%3D%3F%26%3D%2F)'
+      wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       interactor = Queries::ElasticSearchAll.new keywords, 1, 20
 
       results = mock()
@@ -100,10 +93,10 @@ describe Queries::ElasticSearchAll do
       results.stub parsed_response: { 'hits' => { 'hits' => [ ] } }
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
+        with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
-      interactor.execute.should eq []
+      interactor.call.should eq []
     end
   end
 end

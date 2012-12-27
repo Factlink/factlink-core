@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe 'activity queries' do
+  include AddFactToChannelSupport
   include RedisSupport
   let(:gu1) { create :graph_user }
   let(:gu2) { create :graph_user }
@@ -8,9 +9,9 @@ describe 'activity queries' do
   before do
     # TODO: remove this once creating an activity does not cause an email to be sent
     interactor = mock()
-    interactor.should_receive(:execute).any_number_of_times
-    stub_const 'SendMailForActivityInteractor', Class.new
-    SendMailForActivityInteractor.should_receive(:new).any_number_of_times.and_return(interactor)
+    interactor.should_receive(:call).any_number_of_times
+    stub_const 'Interactors::SendMailForActivity', Class.new
+    Interactors::SendMailForActivity.should_receive(:new).any_number_of_times.and_return(interactor)
   end
 
   describe ".fact" do
@@ -29,7 +30,6 @@ describe 'activity queries' do
         {user: gu1, action: :created, subject: f1}
       ]
     end
-
   end
 
   describe ".channel" do
@@ -51,9 +51,27 @@ describe 'activity queries' do
 
       # Channel should not be empty
       f1 = create :fact
-      ch3.add_fact f1
+      add_fact_to_channel f1, ch3
 
       gu1.stream_activities.map(&:to_hash_without_time).should == [
+        {user: gu2, action: :created_channel, subject: ch3}
+      ]
+    end
+
+    it "should return only one created activity when adding subchannels" do
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu2
+
+      ch1.add_channel(ch2)
+      ch3 = create :channel, created_by: gu2
+
+      ch3.add_channel (create :channel)
+      ch3.add_channel (create :channel)
+      ch3.add_channel (create :channel)
+      ch3.add_channel (create :channel)
+
+      stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
+      expect(stream_activities).to eq [
         {user: gu2, action: :created_channel, subject: ch3}
       ]
     end
@@ -63,7 +81,7 @@ describe 'activity queries' do
         ch1 = create :channel
         f1 = create :fact
         f2 = create :fact
-        ch1.add_fact f1
+        add_fact_to_channel f1, ch1
         f1.add_evidence type, f2, gu1
 
         @nr = number_of_commands_on Ohm.redis do
@@ -103,7 +121,10 @@ describe 'activity queries' do
       f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(:believes, gu1)
+      Activity::Subject.activity(gu1, Opinion.real_for(:believes), f1)
+
       f1.add_opinion(:disbelieves, f1.created_by)
+      Activity::Subject.activity(f1.created_by, Opinion.real_for(:disbelieves), f1)
 
       f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: gu1, action: :believes, subject: f1},
@@ -115,7 +136,7 @@ describe 'activity queries' do
       f.created_by.stream_activities.key.del # delete other activities
 
       ch = create :channel, created_by: gu2
-      ch.add_fact(f)
+      add_fact_to_channel f, ch
 
       notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
         {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
@@ -143,6 +164,8 @@ describe 'activity queries' do
       it "should return activity when a users adds #{type} evidence to a fact that you believed" do
         f1 = create :fact
         f1.add_opinion(:believes, gu1)
+        Activity::Subject.activity(gu1, Opinion.real_for(:believes), f1)
+
         f2 = create :fact
         f1.add_evidence type, f2, gu2
         gu1.notifications.map(&:to_hash_without_time).should == [
@@ -167,6 +190,7 @@ describe 'activity queries' do
         f1.created_by.stream_activities.key.del # delete other activities
 
         f1.add_opinion(opinion, gu1)
+        Activity::Subject.activity(gu1, Opinion.real_for(opinion), f1)
 
         f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
             {user: gu1, action: opinion, subject: f1}
@@ -191,7 +215,7 @@ describe 'activity queries' do
     it 'should contain the last added fact' do
       ch = create :channel
       f = create :fact
-      ch.add_fact f
+      add_fact_to_channel f, ch
       ch.added_facts.map(&:to_hash_without_time).should == [
         {user: ch.created_by, action: :added_fact_to_channel, subject: f, object: ch}
       ]
@@ -205,13 +229,13 @@ describe 'activity queries' do
         u1 = create(:user)
         u2 = create(:user)
 
-        interactor = CreateConversationWithMessageInteractor.new f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
+        interactor = Interactors::CreateConversationWithMessage.new f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
         interactor.stub(track_mixpanel: nil)
-        interactor.execute
+        conversation = interactor.call
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [
-          {user: u1.graph_user, action: :created_conversation, subject: Conversation.last }
+          {user: u1.graph_user, action: :created_conversation, subject: Conversation.find(conversation.id) }
         ]
       end
     end
@@ -222,17 +246,118 @@ describe 'activity queries' do
         u1 = c.recipients[0]
         u2 = c.recipients[1]
 
-        interactor = ReplyToConversationInteractor.new c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
+        interactor = Interactors::ReplyToConversation.new c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
         interactor.stub(track_mixpanel: nil)
-        interactor.execute
+        message = interactor.call
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [
-          {user: u1.graph_user, action: :replied_message, subject: Message.last }
+          {user: u1.graph_user, action: :replied_message, subject: Message.find(message.id) }
         ]
       end
     end
 
+  end
+
+  describe :comments do
+    context "creating a comment" do
+      it "creates a notification for the interacting users" do
+        fact = create(:fact)
+        fact.add_opinion(:believes, gu1)
+
+        user = create(:user)
+
+        interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        comment = interactor.call
+
+        gu1.notifications.map(&:to_hash_without_time).should == [
+          {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
+        ]
+      end
+      it "creates a stream activity for the interacting users" do
+        fact = create(:fact)
+        fact.add_opinion(:believes, gu1)
+        user = create(:user)
+
+        interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        comment = interactor.call
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
+        ]
+      end
+    end
+
+  end
+
+  describe :sub_comments do
+    include Pavlov::Helpers
+
+    let(:current_user) {create :user}
+
+    def pavlov_options
+      {current_user: current_user}
+    end
+
+    context "creating a sub comment on a comment" do
+      it "creates a stream activity" do
+        fact = create :fact, created_by: current_user.graph_user
+
+        comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+
+        fact.add_opinion :believes, gu1
+
+        sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+        ]
+      end
+
+      it "does not create a notification" do
+        fact = create :fact, created_by: current_user.graph_user
+
+        comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+
+        fact.add_opinion :believes, gu1
+
+        sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+
+        gu1.notifications.map(&:to_hash_without_time).should == [
+          #{user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+        ]
+      end
+    end
+
+    context "creating a sub comment on a fact relation" do
+      it "creates a stream activity" do
+        fact = create :fact, created_by: current_user.graph_user
+
+        fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+
+        fact.add_opinion :believes, gu1
+
+        sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+        ]
+      end
+
+      it "does not create a notification" do
+        fact = create :fact, created_by: current_user.graph_user
+
+        fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+
+        fact.add_opinion :believes, gu1
+
+        sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+
+        gu1.notifications.map(&:to_hash_without_time).should == [
+          #{user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+        ]
+      end
+    end
   end
 
 end

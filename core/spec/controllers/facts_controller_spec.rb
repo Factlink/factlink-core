@@ -17,12 +17,20 @@ describe FactsController do
     end
 
     it "should render json successful" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check
+
       @fact = FactoryGirl.create(:fact)
       @fact.created_by.user = FactoryGirl.create :user
       @fact.created_by.save
       should_check_can :show, @fact
       get :show, id: @fact.id, format: :json
       response.should be_success
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'facts#show should keep the same content')
     end
   end
 
@@ -101,18 +109,6 @@ describe FactsController do
       authenticate_user!(user)
       get :evidence_search, id: fact.id, s: "Baron"
       response.should be_success
-    end
-  end
-
-  describe "adding evidence" do
-    before do
-      @fact = FactoryGirl.create(:fact)
-      @fact.created_by.user = FactoryGirl.create :user
-      @fact.created_by.save
-
-      @evidence = FactoryGirl.create :fact
-      @evidence.created_by.user = FactoryGirl.create :user
-      @evidence.created_by.save
     end
   end
 

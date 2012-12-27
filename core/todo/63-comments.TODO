@@ -1,0 +1,66 @@
+Tasks for commenting story:
+
+ Keep a state when a user is typing his comment/evidence:
+ ✔ Figure out what the best way to use local storage is (key is url like??) (gems/libraries) @done (12-11-26 15:27)
+
+Backend:
+ ✔ comment object (Mongo) @done (12-11-21 15:42)
+ ✔ include Mongoid::Timestamps @done (12-11-21 15:42)
+ ✔ created_by (user) @done (12-11-21 15:42)
+ ✔ comment field @done (12-11-21 15:42)
+ ✔ parent_id (with index) @done (12-11-21 15:42)
+ ✔ supporting / weakening (combined index with parent_id) @done (12-11-21 15:42)
+ ✔ create @done (12-11-21 15:42)
+ ✔ delete @done (12-11-21 15:42)
+ ✔ retrieve, sorteren op created_at :asc, key :(parent_id (Fact) and opinion type (supporting, weakening @done (12-11-21 15:42)
+ ✔ add controller @done (12-11-21 15:42)
+ ✔ add routes @done (12-11-21 15:42)
+ ✔ create test for openstruct to_json in killobject @done (12-11-26 11:45)
+ ✔ create jbuilder templates @done (12-11-26 11:45)
+
+ Backbone / Frontend:
+ ✔ create Comment Backbone model @done (12-11-20 14:08)
+ ✔ collection for Comments in discussion model (with static data at first) @done (12-11-20 16:07)
+ ✔ create basic Mustache template for Comment @done (12-11-20 16:07)
+ ✔ create basic Backbone view for Comment @done (12-11-20 16:07)
+ ✔ update _comment.mustache to have more content @done (12-11-21 10:31)
+ ✔ show Authority of User on TopFact, same as FactRelation "<username> <authority> added:" @done (12-11-21 10:32)
+ ✔ comment should be deletable: add delete button in PopoverView @done (12-11-21 11:40)
+
+integrate with backend (BACKEND TASK SHOULD BE DONE):
+    ✔ fetch comments @done (12-11-21 16:24)
+    ✔ Comment should have creator method returning the User object @done (12-11-22 08:47)
+✔ notification on successful posting (see design: singlefact-comment-success.png) @done (12-11-22 13:10)
+✔ notification on error @done (12-11-22 13:10)
+
+✔ rails routes to comments/:opinion @done (12-11-22 10:22)
+✔ fix url @done (12-11-22 10:30)
+✔ save comment @done (12-11-22 10:30)
+✔ delete comment @done (12-11-22 10:30)
+✔ get or create user in Comment.coffee, in stead of creating new object all the time @done (12-11-22 10:31)
+✔ move can_destroy? to frontend @done (12-11-22 11:00)
+      ✔ check if current Authority in backend is correct. fact should be the actual fact. Lijkt goed! @done (12-11-26 11:44)
+✔ authority on create? @done (12-11-22 15:16)
+
+✔ default one empty comment in list. Why? @done (12-11-26 13:43)
+
+☐ add integration test
+
+✔ Fix design of input field @done (12-11-26 15:03)
+
+✔ hitting <Enter> should submit the form @done (12-11-26 14:08)
+
+
+✔ clear form after submit @done (12-11-22 11:45)
+✔ Add checkbox and toggle between AddFactRelationView and AddCommentView @done (12-11-22 14:06)
+✔ Keep state of the input field (typed Factlink / Comment) @done (12-11-22 14:06)
+
+
+ ✔ error message, create close function (don't delete element) @done (12-11-26 11:44)
+
+ Add activity (after backend is done):
+  ✔ Add to create_listener as activity_for "GraphUser" (to create notification) @done (12-11-22 14:45)
+  ✔ Create templates and backbone views @done (12-11-22 14:45)
+
+Random notes:
+ ✔ when adding evidence the popover is not shown directly. It is shown after reload. @done (12-11-21 19:02)

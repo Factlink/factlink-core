@@ -49,8 +49,8 @@ describe FactRelation do
       fr2.should be_a(FactRelation)
       fr3 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
       fr3.should be_a(FactRelation)
-      fr.should == fr2
-      fr2.should == fr3
+      expect(fr).to eq fr2
+      expect(fr2).to eq fr3
     end
   end
 
@@ -62,16 +62,16 @@ describe FactRelation do
   it "should delete itself from lists referring to it" do
     fr = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
     fact1.delete
-    fact2.evidence(:supporting).size.should == 0
+    expect(fact2.evidence(:supporting).size).to eq 0
   end
 
   it "should not be able to create identical factRelations" do
     fr1 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
     fr2 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    FactRelation.all.size.should == 1
+    expect(FactRelation.all.size).to eq 1
     fr3 = FactRelation.create_new(fact2,:supporting,fact1,gu)
     fr4 = FactRelation.create_new(fact2,:supporting,fact1,gu)
-    FactRelation.all.size.should == 2
+    expect(FactRelation.all.size).to eq 2
   end
 
   describe :deletable? do
@@ -95,6 +95,11 @@ describe FactRelation do
     it "should be true if only the creator believes it" do
       fr.add_opiniated(:doubts, gu2)
       fr.deletable?.should be_true
+    end
+    it "should be false after someone comments on it" do
+      interactor = Interactors::SubComments::CreateForFactRelation.new fr.id.to_i, 'hoi', current_user: fr.created_by.user
+      interactor.execute
+      fr.deletable?.should be_false
     end
   end
 

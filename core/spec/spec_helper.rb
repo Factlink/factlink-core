@@ -10,6 +10,8 @@ begin
 rescue
 end
 
+I_AM_SPEC_HELPER = true
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -38,15 +40,15 @@ RSpec.configure do |config|
     stub_const("Logger::ERROR", 1)
     stub_const("Logger::INFO", 2)
     stub_const("Logger::LOG", 3)
+    stub_const("Logger::DEBUG", 4)
     Logger.stub(new: nil.andand)
 
     Ohm.flush
     DatabaseCleaner.clean
-  end
-
-  config.before(:each) do
+    Timecop.return
     @zzz_starting_time = Time.now.to_f*1000
   end
+
   config.after(:each) do
     zzz_stop_time = Time.now.to_f*1000
     allowed_milli_seconds = 10000

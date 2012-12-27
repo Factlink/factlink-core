@@ -26,7 +26,7 @@ describe Commands::ElasticSearchDeleteTopicForTextSearch do
       to raise_error(RuntimeError, 'topic missing fields ([:id]).')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
@@ -36,7 +36,7 @@ describe Commands::ElasticSearchDeleteTopicForTextSearch do
       HTTParty.should_receive(:delete).with("http://#{url}/topic/#{topic.id}")
       interactor = Commands::ElasticSearchDeleteTopicForTextSearch.new topic
 
-      interactor.execute
+      interactor.call
     end
   end
 

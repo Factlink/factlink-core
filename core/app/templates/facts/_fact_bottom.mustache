@@ -1,65 +1,49 @@
-<ul class="actions">
-  <li>
-    {{#modal?}}
-    <a href="{{url}}" target="new" class="discussion_link">
-    {{/modal?}}
+<div class="fact-bottom">
+  <ul class="actions">
+    <li>
+      {{#modal?}}
+      <a href="{{url}}" target="new" class="discussion_link">
+      {{/modal?}}
 
-    {{^modal?}}
-    <a href="{{url}}" rel="backbone" class="discussion_link" target="_top">
-    {{/modal?}}
+      {{^modal?}}
+      <a href="{{url}}" rel="backbone" class="discussion_link" target="_top">
+      {{/modal?}}
 
-      Discussion
-    </a>
+        Discussion</a>
 
-    <span class="opinion_indicators">
-      <span class="opinion_indicator agreeing" />{{ fact_base.believe_percentage }}%
-      <span class="opinion_indicator disagreeing" />{{ fact_base.disbelieve_percentage }}%
-    </span>
-  </li>
+      <span class="opinion_indicators">
+        <span class="opinion_indicator agreeing" />{{ fact_base.believe_percentage }}%
+        <span class="opinion_indicator disagreeing" />{{ fact_base.disbelieve_percentage }}%
+      </span>
+    </li>
 
-  <li>
-    <a href="#" class="add-to-channel is-popup">Repost</a>
-  </li>
+    <li>
+      <a href="#" class="js-add-to-channel">Repost</a>
+    </li>
 
-  <li>
-    <a href="#" class="start-conversation is-popup">Share</a>
-  </li>
-</ul>
+    <li>
+      <a href="#" class="js-start-conversation">Share</a>
+    </li>
+  </ul>
 
-<span class="fact-info">
-  {{#friendly_time}}
-    {{post_action}} {{ friendly_time }} ago
-  {{/friendly_time}}
+  <span class="fact-info">
+    {{#friendly_time}}
+      {{post_action}} {{ friendly_time }} ago
+    {{/friendly_time}}
 
-  {{^friendly_time}}
-    {{created_by_ago}}
-  {{/friendly_time}}
+    {{^friendly_time}}
+      {{created_by_ago}}
+    {{/friendly_time}}
 
-  {{#scroll_to_link}}
-    from
+    {{#scroll_to_link}}
+      from
 
-    {{#fact_url}}
-    <img class="fact-favicon" src="http://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
-    {{/fact_url}}
-    {{{scroll_to_link}}}
-  {{/scroll_to_link}}
-</span>
+      {{#fact_url}}
+      <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
+      {{/fact_url}}
+      {{{scroll_to_link}}}
+    {{/scroll_to_link}}
+  </span>
 
-<div class="popup-content">
-    <div class="start-conversation-container modal" style="display:none">
-    </div>
-  <div class="add-to-channel-container modal" style="display: none;">
-    <div class="modal-header">
-      <button type="button" class="close close-popup">&times;</button>
-      <h3>Repost Factlink</h3>
-    </div>
-    <div class="modal-body">
-      <strong>Repost this to one or more channels:</strong>
-      <div class="add-to-channel-form">
-      </div>
-      <input type="submit" class="btn btn-primary close-popup" value="Done">
-    </div>
-  </div>
+  <i class="title-overflow"></i>
 </div>
-
-<div class="transparent-layer"></div>

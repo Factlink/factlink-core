@@ -14,9 +14,13 @@ module BeliefExpressions
     fact.add_opinion(:doubts,user.graph_user)
   end
 
-  def _(b,d,u,a)
-    Opinion.new(b:b,d:d,u:u,a:a)
+  def _(believes,disbelieves,doubts,authority)
+    Opinion.new(b:believes,d:disbelieves,u:doubts,a:authority)
   end
+
+  alias :believes :b
+  alias :disbelieves :d
+  alias :doubts :u
 
   def god_user
     @god_user ||= GraphUser.create
@@ -27,8 +31,8 @@ module BeliefExpressions
     @ch ||= Channel.create title: 'global', created_by: god_user
   end
 
-  def add_to_global_channel(f)
-    global_channel.add_fact f
+  def add_to_global_channel(factlink)
+    Interactors::Channels::AddFact.new(factlink, global_channel, no_current_user:true).call
   end
 
   def possible_reset

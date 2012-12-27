@@ -72,7 +72,7 @@ namespace :deploy do
 
   task :curl_site do
     run <<-CMD
-      curl --user deploy:sdU35-YGGdv1tv21jnen3 #{full_url}
+      curl --user deploy:sdU35-YGGdv1tv21jnen3 #{full_url} > /dev/null
     CMD
   end
 

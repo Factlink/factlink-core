@@ -1,26 +1,31 @@
 module Pavlov
-    # this method is also available as constantize in Rails,
-    # but we want to be able to write classes and/or tests without Rails
-    def self.get_class_by_string classname
-      classname.split('::').inject(Kernel) {|x,y|x.const_get(y)}
-    end
+  # this method is also available as constantize in Rails,
+  # but we want to be able to write classes and/or tests without Rails
+  def self.get_class_by_string classname
+    classname.constantize
+  end
 
-    def self.command command_name, *args
-      klass = get_class_by_string("Commands::"+command_name.to_s.camelize)
-      klass.new(*args).execute
-    end
+  def self.string_to_classname string
+    string.to_s.camelize
+  end
 
-    def self.interactor command_name, *args
-      klass = get_class_by_string(command_name.to_s.camelize + "Interactor")
-      klass.new(*args).execute
-    end
+  def self.command command_name, *args
+    class_name = "Commands::"+string_to_classname(command_name)
+    klass = get_class_by_string(class_name)
+    klass.new(*args).call
+  end
 
-    def self.query command_name, *args
-      klass = get_class_by_string("Queries::"+command_name.to_s.camelize)
-      klass.new(*args).execute
-    end
+  def self.interactor command_name, *args
+    class_name = "Interactors::"+string_to_classname(command_name)
+    klass = get_class_by_string class_name
+    klass.new(*args).call
+  end
 
-
+  def self.query command_name, *args
+    class_name = "Queries::"+string_to_classname(command_name)
+    klass = get_class_by_string class_name
+    klass.new(*args).call
+  end
 end
 
 require_relative 'pavlov/helpers.rb'

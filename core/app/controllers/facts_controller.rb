@@ -27,11 +27,12 @@ class FactsController < ApplicationController
   def show
     authorize! :show, @fact
     @title = @fact.data.displaystring # The html <title>
+
     @modal = true
     @hide_links_for_site = @modal && @fact.site
     @just_added = ( not params[:just_added].blank? )
 
-    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context, show_interacting_users: true)})
+    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
   end
 
   def extended_show
@@ -77,6 +78,8 @@ class FactsController < ApplicationController
       redirect_to user_session_path(layout: @layout)
     end
 
+    @site = query :'site/for_url', params[:url] if params[:url]
+
     track "Modal: Open prepare"
   end
 
@@ -101,6 +104,8 @@ class FactsController < ApplicationController
         #TODO switch the following two if blocks if possible
         if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
           @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+          Activity::Subject.activity(current_user.graph_user, Opinion.real_for(params[:opinion]), @fact)
+
           @fact.calculate_opinion(1)
         end
 
@@ -108,16 +113,14 @@ class FactsController < ApplicationController
           params[:channels].each do |channel_id|
             channel = Channel[channel_id]
             if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
-              authorize! :update, channel
-
-              channel.add_fact(@fact)
+              interactor :"channels/add_fact", @fact, channel
             end
           end
         end
 
         format.html do
           track "Modal: Create"
-          redirect_to fact_path(@fact.id, just_added: true)
+          redirect_to fact_path(@fact.id, just_added: true, guided: params[:guided])
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
@@ -127,14 +130,25 @@ class FactsController < ApplicationController
     end
   end
 
+  # DEPRECATED
+  # I think this can be removed, as far as I can see this was only ever used in
+  # the javascript library (in the balloon)
+  # when removing this, also remove the ChannelForFact
+  # and maybe the channel_listing.css can be removed? check!
   def get_channel_listing
     authorize! :index, Channel
-    @channels = current_user.graph_user.editable_channels_for(@fact)
+
+    channels = ChannelList(current_user.graph_user).real_channels_as_array
+    username = current_user.username
+
+    @channels = channels.map {|ch| ChannelForFact.new(ch,@fact,username)}
+
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
       format.html { render 'channel_listing', layout: nil }
     end
   end
+  #/DEPRECATED
 
   def destroy
     authorize! :destroy, @fact
@@ -169,9 +183,11 @@ class FactsController < ApplicationController
     authorize! :opinionate, @basefact
 
     @basefact.add_opinion(type, current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), @basefact)
+
     @basefact.calculate_opinion(2)
 
-    render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
+    render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
   end
 
   def remove_opinions
@@ -180,9 +196,10 @@ class FactsController < ApplicationController
     authorize! :opinionate, @basefact
 
     @basefact.remove_opinions(current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@basefact)
     @basefact.calculate_opinion(2)
 
-    render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
+    render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
   end
 
   # TODO: This search is way to simple now, we need to make sure already
@@ -193,8 +210,7 @@ class FactsController < ApplicationController
     authorize! :index, Fact
     search_for = params[:s]
 
-    interactor = SearchEvidenceInteractor.new search_for, @fact.id, ability: current_ability
-    results = interactor.execute
+    results = interactor :search_evidence, search_for, @fact.id
 
     facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }
 

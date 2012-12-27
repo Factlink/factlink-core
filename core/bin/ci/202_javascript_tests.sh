@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Running unit tests"
+echo "Running Javascript tests"
 
 OUTPUTFILE=$(tempfile)
 

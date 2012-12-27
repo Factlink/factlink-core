@@ -1,16 +1,19 @@
 require_relative '../ohm_helper.rb'
 require_relative '../../app/ohm-models/authority.rb'
 
-class Item < OurOhm
-  attribute :number
-  collection :items, SubItem
-end
 
 class GraphUser < OurOhm; end
+
+class Item < OurOhm; end # needed because of removed const_missing from ohm
 
 class SubItem < OurOhm
   attribute :number
   reference :item, Item
+end
+
+class Item < OurOhm
+  attribute :number
+  collection :items, SubItem
 end
 
 describe Authority do
@@ -18,16 +21,6 @@ describe Authority do
   let(:i2) { Item.create }
   let(:gu1) { GraphUser.create }
   let(:gu2) { GraphUser.create }
-
-  before do
-    Authority.calculation = nil
-  end
-  after :all do
-    begin
-      load_topic_specific_authority
-    rescue
-    end
-  end
 
   describe :to_f do
     it "should return a float" do
@@ -147,14 +140,8 @@ describe Authority do
   describe ".run_calculation" do
     context "when no mapreducers are provided"do
       it "should do nothing" do
-        Authority.calculation = []
         i1.number = 2
-        Authority.run_calculation
-        Authority.from(i1).to_f.should == 0.0
-      end
-      it "should do nothing" do
-        i1.number = 2
-        Authority.run_calculation
+        Authority.run_calculation []
         Authority.from(i1).to_f.should == 0.0
       end
     end
@@ -163,8 +150,7 @@ describe Authority do
       calculator.should_receive(:process_all).once
       some_class = mock(:SomeClass)
       some_class.should_receive(:new).and_return(calculator)
-      Authority.calculation = [some_class]
-      Authority.run_calculation
+      Authority.run_calculation [some_class]
     end
   end
 end

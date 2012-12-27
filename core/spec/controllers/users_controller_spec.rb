@@ -1,11 +1,31 @@
 require 'spec_helper'
 
 describe UsersController do
-  render_views
-
   let(:user) { FactoryGirl.create(:user) }
 
+  describe :channel_suggestions do
+    it "calls the interactor and renders its results as JSON" do
+      controller = UsersController.new
+
+      results = [mock, mock]
+      json_results = [mock, mock]
+      view_context = mock
+
+      stub_const('Channels', Class.new)
+      stub_const('Channels::Channel', Class.new)
+      controller.stub(:view_context).and_return(view_context)
+
+      controller.should_receive(:interactor).with(:"channels/channel_suggestions").and_return(results)
+      Channels::Channel.should_receive(:for).with(channel: results[0], view: view_context).and_return(json_results[0])
+      Channels::Channel.should_receive(:for).with(channel: results[1], view: view_context).and_return(json_results[1])
+      controller.should_receive(:render).with(json: json_results)
+
+      controller.channel_suggestions
+    end
+  end
+
   describe :show do
+    render_views
     it "should render a 404 when an invalid username is given" do
       invalid_username = 'henk2!^geert'
       authenticate_user!(user)
@@ -13,9 +33,26 @@ describe UsersController do
         get :show, username: invalid_username
       end.to raise_error(ActionController::RoutingError)
     end
+
+    it "should render json successful" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check
+
+      @user = FactoryGirl.create(:user)
+
+      should_check_can :show, @user
+      get :show, username: @user.username, format: :json
+      response.should be_success
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'users#show should keep the same content')
+    end
   end
 
   describe :activities do
+    render_views
     it "should render succesful" do
       authenticate_user!(user)
 
@@ -28,6 +65,7 @@ describe UsersController do
   end
 
   describe :mark_as_read do
+    render_views
     it "should update last read timestamp on the user" do
       datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
 
@@ -46,6 +84,7 @@ describe UsersController do
   end
 
   describe :update do
+    render_views
     before do
       authenticate_user!(user)
 

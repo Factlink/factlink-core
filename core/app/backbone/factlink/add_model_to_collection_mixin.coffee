@@ -1,16 +1,15 @@
 Backbone.Factlink ||= {}
 
 Backbone.Factlink.AddModelToCollectionMixin =
-  addModel: ->
-    if @wrapNewModel
-      model = @wrapNewModel(@model)
-    else
-      model = @model
+  addModel: (model) ->
     @options.addToCollection.add(model)
-    model.save({},{
+    model.save {},
       success: =>
         @addModelSuccess(model) if @addModelSuccess
       error: =>
         @options.addToCollection.remove(model)
         @addModelError(model) if @addModelError
-    })
+
+  addDefaultModel: -> @addModel @model
+
+  addWrappedModel: -> @addModel @wrapNewModel(@model)

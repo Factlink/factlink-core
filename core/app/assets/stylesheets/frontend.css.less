@@ -7,7 +7,6 @@
  *= require tour
  *= require activity
  *= require site_messages
- *= require auto_complete
 
  *= require base/feedback
  *= require base/topbar
@@ -15,12 +14,13 @@
  *= require base/bootstrap_modal
 
  *= require_tree ./facts
+ *= require_tree ./comments
  *= require_tree ./conversations
+ *= require_tree ./widgets
  */
 
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
-@import "channels/add_channel_to_channel";
 
 /* ==|== primary styles =====================================================
 Author: Factlink
@@ -32,8 +32,7 @@ Author: Factlink
 body {
   background: @white;
   overflow-y: scroll;
-
-  #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
+  .base-text();
 }
 a:hover{
   cursor: pointer;
@@ -49,33 +48,6 @@ ul {
 }
 img {
   vertical-align: middle;
-}
-
-.search-results .results .user-block {
-  padding: 16px 0 0px 5px;
-  height: 48px;
-  list-style: none;
-  border-bottom: 1px solid #e6e6e6;
-
-  .list-block {
-    height: 100%;
-  }
-  .list-block:hover {
-      cursor: pointer;
-  }
-
-  .user-avatar {
-    width: 76px;
-    float: left;
-
-    img {
-      height: 32px;
-      width: 32px;
-      margin: 0 0 0 16px;
-      border: solid 1px #ddd;
-      .border-radius(3px);
-    }
-  }
 }
 
 
@@ -143,7 +115,9 @@ img {
 
   sub {
     color: @headingFontColor;
-    #font > .sans-serif(normal, x-small, @baseLineHeight);
+    font-size: x-small;
+    font-weight: normal;
+    line-height: @baseLineHeight;
     bottom: 0.45em;
   }
 
@@ -157,190 +131,18 @@ img {
 
     padding-bottom: 25px;
     h2 {
-      #font > .sans-serif(bold, @baseLineHeight * 0.9, @baseLineHeight);
+      font-size: 16px;
+      font-weight: bold;
+      line-height: @baseLineHeight;
       display: inline;
     }
     .add-channel {
       margin-left: 8px;
       margin-top: -4px;
       &:before {
-        #font > .iconic();
+        font-family: "IconicStroke";
         content: "\2795";
         margin: 0 3px 0 0;
-      }
-    }
-    .related-channels {
-      padding-top: 32px;
-
-      ul {
-        margin-top: 10px;
-      }
-
-      li {
-        padding-bottom: @baseLineHeight / 2;
-        overflow: auto;
-        width: 100%;
-
-        div.user-avatar {
-          float: left;
-          margin-right: 5px;
-        }
-
-        div.wrapper {
-          float: left;
-
-          a {
-            .ellipsis();
-            width: 146px;
-            display: inline-block;
-          }
-
-          > div {
-            color: @metaFontColor;
-          }
-        }
-
-        a.follow {
-          float: left;
-          margin:0 0 0 4px;
-        }
-        &:hover {
-          div.wrapper h3 {
-            text-decoration: underline;
-            cursor: pointer;
-          }
-          div.user-avatar {
-            cursor: pointer;
-          }
-        }
-      }
-
-      .related-user {
-        color: @metaFontColor;
-        font-size: 12px;
-      }
-      // User block for related users
-      .user-block {
-        height: 32px;
-        padding: 0;
-        background-color: transparent;
-        &:hover {
-          cursor: pointer;
-          h1 {
-            color: @linkColor;
-          }
-        }
-        .wrapper {
-          margin-left: 48px;
-          h3 {
-            color: @linkColor;
-            font-size: @baseFontSize;
-            font-weight: bold;
-            &:hover {
-              color: @linkColorHover;
-            }
-          }
-        }
-      }
-    }
-    .related-channels ul.not_my_channel a.follow {
-      display: none;
-    }
-
-    .tourChannels {
-      padding: 10px;
-
-      ul { margin: 0; }
-
-      .my-channels {
-        padding: 0;
-        padding-left: 0px;
-        font-weight: bold;
-        font-size: (@baseFontSize + 1);
-        i { .opacity(0.6); margin-top: 1px; }
-      }
-
-      .channel-listing {
-
-        li {
-          width: auto;
-          padding: 5px 0 0 19px;
-          .delete {
-            .icon-remove {
-              .opacity(0.6);
-            }
-            float: right;
-            display: inline-block;
-            padding: 0;
-            width: auto;
-          }
-          span {
-            display: inline-block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 160px;
-            color: @baseFontColor;
-          }
-        }
-      }
-    }
-
-
-
-    .tour-block {
-      position: relative;
-      width: 198px;
-
-      padding: 10px;
-      color: @baseFontColor;
-      h4 {
-        color: @headingFontColor;
-        padding-bottom: 4px;
-      }
-      margin-bottom: 30px;
-    }
-    .suggested-users {
-      li {
-        padding: 7px 10px;
-        border-top: 1px solid @baseBorderColor;
-        &:first-child {
-          border: none
-        }
-        .channel-avatar {
-          img {
-            width: 25px;
-            height: 25px;
-          }
-          width: 30px;
-          display: inline-block;
-          vertical-align: top;
-        }
-        .channel-info {
-          display: inline-block;
-          width: 125px;
-          vertical-align: top;
-          h5 {
-            font-size: @baseFontSize;
-            margin: 0;
-            line-height: 16px;
-            width: 120px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          .channel-user {
-            font-size: @metaFontSize;
-            line-height: 15px;
-            color: @metaFontColor;
-            width: 120px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-        }
-        .btn {
-          display: inline-block;
-          vertical-align: top;
-          margin-top: 4px;
-        }
       }
     }
   }
@@ -375,14 +177,20 @@ img {
         height: 26px;
         line-height: 21px;
       }
-      a {
-        color: @black;
-      }
 
       div.button-wrap {
         position: absolute;
         line-height: 30px;
         display: inline-block;
+
+        > div {
+          display: inline-block;
+          a {
+            .added-to-channel-button-label {
+              color: #00804b;
+            }
+          }
+        }
       }
 
       .tabs {
@@ -446,10 +254,6 @@ img {
         display:none;
       }
 
-      .channel-listing {
-        #channel > .channel-listing();
-      }
-
       #contained-channel-list {
         display: block;
         li {
@@ -465,6 +269,7 @@ img {
             height: 100%;
             width: 100%;
             text-decoration: none;
+            color: black;
             img {
               width: 24px;
               vertical-align: -30%;
@@ -617,7 +422,7 @@ img {
   margin-top: -4px;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 

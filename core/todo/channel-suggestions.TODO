@@ -1,0 +1,32 @@
+channel-suggestions
+
+FrontEnd:
+ ✔ SuggestedChannelsView (CollectionView) @done (12-12-04 14:37)
+ ✔ SuggestedChannelView (ItemView) @done (12-12-04 14:37)
+ ✔ SuggestedChannels (Backbone.Collection) @done (12-12-04 14:37)
+ ✔ render view in Repost modal @done (12-12-05 10:10)
+ ✔ styling of suggested channels (see design) Factlink Blue @done (12-12-05 10:10)
+ ✔ Filter out channels that the Fact already is in @done (12-12-05 11:24)
+
+ Add action on suggested channel to add in collection and remove from suggested collection:
+ ✔ make Suggested Channel clickable @done (12-12-06 08:35)
+ ✔ onclick, remove channel from suggested channel collection @done (12-12-06 08:35)
+ ✔ onclick, add channel to the regular collection @done (12-12-06 08:35)
+ ✔ make suggestions only show in Fact repost modal, not Channel modal @done (12-12-06 08:35)
+ ✔ add emptyview @done (12-12-05 11:29)
+
+Channel Suggestions:
+ ✔ Add behind feature toggle @done (12-12-06 10:12)
+
+site suggestions:
+
+ ✔ Site has sorted set with 'top channels' (ids) @done (12-12-06 11:17)
+ ✔ create command to add channel_id to site#top_channels @done (12-12-06 11:17)
+ ✔ create query to retrieve site#top_channels @done (12-12-06 11:54)
+ ✔ key: redis[:site][site.id][:top_channels] @done (12-12-06 11:17)
+ ✔ make frontend compatible with Topic in stead of Channels @done (12-12-06 21:22)
+
+ ☐ display Topics owned by user with an icon-user
+ ☐ decrement count of Site#TopTopics when channel is removed from Factlink on site
+ ☐ check if adding a Topic which you don't have as channel yet works
+ ☐ Fix some minor styling issues

@@ -14,7 +14,9 @@ class window.Topic extends Backbone.Model
       console.info "saving channel #{ch.get 'title'} to #{ch.url()}"
       ch.save({},
         success: (m,r)-> options.success?(m,r)
-        error:   (m,r)-> options.error?(m,r)
+        error:   (m,r)-> 
+          user.channels.remove(ch)
+          options.error?(m,r)
       )
 
   existingChannelFor: (user)->

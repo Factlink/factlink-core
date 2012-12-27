@@ -1,24 +1,32 @@
 require 'integration_helper'
 
 feature "adding a fact to a channel" do
+  include Acceptance
   include Acceptance::NavigationHelper
   include Acceptance::ChannelHelper
   include Acceptance::FactHelper
+  include Acceptance::AddToChannelModalHelper
 
   background do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
   scenario "adding a fact to a new channel from the factbubble" do
-    @factlink = backend_create_fact
+    pending_for_ci 'Randomly fails'
+    factlink = backend_create_fact
+    new_channel_name = 'Gerrit'
+    go_to_discussion_page_of factlink
 
-    go_to_discussion_page_of @factlink
+    click_link('Repost')
 
-    open_modal 'Repost' do
+    within(:css, ".modal-body") do
       page.should have_content('Repost this to one or more channels:')
 
-      add_as_new_channel 'Gerrit'
-      added_channels_should_contain 'Gerrit'
+      page.find(:css,'input').set(new_channel_name)
+
+      page.find('li', text: new_channel_name).click
+
+      added_channels_should_contain new_channel_name
     end
   end
 
@@ -34,4 +42,30 @@ feature "adding a fact to a channel" do
     end
   end
 
+  scenario "the user can add a channel suggestion" do
+    pending_for_ci 'Randomly fails'
+
+    site = FactoryGirl.create :site
+    factlink = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
+
+    go_to_discussion_page_of factlink
+    new_channel_name = 'Gerrit'
+
+    open_modal 'Repost' do
+      add_as_new_channel new_channel_name
+      added_channels_should_contain new_channel_name
+    end
+
+    factlink2 = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
+
+    go_to_discussion_page_of factlink2
+
+    open_modal 'Repost' do
+      suggested_channels_should_contain new_channel_name
+    end
+  end
+
+  scenario "adding an invalid channel shows an alert" do
+    pending "to be implemented"
+  end
 end

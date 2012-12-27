@@ -1,0 +1,33 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+#modal_region {
+  .modal {
+    border: 1px solid #a6a6a6;
+    .box-shadow(0 0 0 5px rgba(0, 0, 0, .15));
+    .modal-header {
+      .background-clip(padding-box);
+      .border-top-radius(5px);
+      color: @baseFontColor;
+      background: #f8f8f8;
+      padding: 5px 15px;
+
+      h3 {
+        font-size: 13px;
+        line-height: 25px;
+      }
+    }
+
+    .modal-body {
+      font-size: 12px;
+
+      strong {
+        margin-bottom: 5px;
+        display: inline-block;
+      }
+    }
+
+    width: 340px;
+    margin-left: -165px;
+  }
+}

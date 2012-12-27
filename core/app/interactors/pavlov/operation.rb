@@ -10,8 +10,8 @@ module Pavlov
       @options
     end
 
-    def raise_unauthorized
-      raise Pavlov::AccessDenied, 'Unauthorized'
+    def raise_unauthorized(message='Unauthorized')
+      raise Pavlov::AccessDenied, message
     end
 
     def check_authority
@@ -40,6 +40,10 @@ module Pavlov
       finish_initialize if respond_to? :finish_initialize
     end
 
+    def call
+      self.execute
+    end
+
     module ClassMethods
       # arguments :foo, :bar
       #
@@ -53,6 +57,15 @@ module Pavlov
         define_method :arguments do
           keys
         end
+      end
+
+      # make our interactors behave as Resque jobs
+      def perform(*args)
+        new(*args).call
+      end
+
+      def queue
+        @queue || :interactor_operations
       end
     end
   end

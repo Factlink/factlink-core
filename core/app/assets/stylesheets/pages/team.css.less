@@ -30,25 +30,32 @@
       text-indent: -99999px;
       overflow: hidden;
       background-repeat: no-repeat;
-      background-position: center;
+      .transition(opacity .15s ease-in-out);
     }
     &.twitter {
       left: -2px;
       bottom: 30px;
       i {
         background-image: image-url("icon-twitter.png");
+        background-position: 5px 7px;
       }
     }
     &.linkedin {
       right: 28px;
       bottom: 30px;
       i {
-        background-image: image-url("icon-linkedin.png");       
+        background-image: image-url("icon-linkedin.png");
+        background-position: 8px 6px;     
       }
     }
     &.factlink {
       i {
         background-image: image-url("icon-factlink.png");
+      }
+    }
+    &:hover {
+      i {
+        .opacity(.60);
       }
     }
   }
