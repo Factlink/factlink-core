@@ -8,48 +8,18 @@ module Channels
     def initialize options={}
       @channel = options[:channel]
       @view = options[:view]
-      @user = @channel.created_by.user
-      @topic_authority = @channel.owner_authority
-      @user_stream_id = @user.stream_id
-      @user_avatar_url = user.avatar_url_32
-      @containing_channel_ids = @channel.containing_channel_ids
-    end
-
-    #accessors
-    def channel
-      @channel
-    end
-
-    def user
-      @user
-    end
-
-    def current_user
-      @view.current_user
     end
 
     def image_tag *args
       @view.image_tag(*args)
     end
 
-
-    def topic_authority
-      @topic_authority
-    end
-
-    def user_stream_id
-      @user_stream_id
-    end
-
-    def user_avatar_url
-      @user_avatar_url
-    end
-
-    def containing_channel_ids
-      @containing_channel_ids
-    end
-
     def to_hash
+      channel = @channel
+      user = @channel.created_by_user
+      current_user = @view.current_user
+      topic_authority = channel.owner_authority
+
       is_mine = (user.id == current_user.id) #DEPRECATED, CALCULATE THIS IN FRONTEND SEE related_users_view.coffee
       is_created = (channel.type == 'created')
       is_all = (channel.type == 'stream')
@@ -99,8 +69,8 @@ module Channels
       json.created_by do |j|
         j.id user.id
         j.username user.username
-        j.avatar image_tag(user_avatar_url, title: user.username, alt: user.username, width: 32)
-        j.all_channel_id user_stream_id
+        j.avatar image_tag(user.avatar_url_32, title: user.username, alt: user.username, width: 32)
+        j.all_channel_id user.stream_id
       end
 
       json.discover_stream? is_discover_stream
@@ -128,7 +98,7 @@ module Channels
         json.new_facts unread_count != 0
       end
 
-      json.containing_channel_ids containing_channel_ids
+      json.containing_channel_ids @channel.containing_channel_ids
 
       json.attributes!
     end
