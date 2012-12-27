@@ -1,7 +1,4 @@
-@view = self
-
 user = channel.created_by_user
-current_user = @view.current_user
 topic_authority = channel.owner_authority
 
 is_mine = (user.id == current_user.id) #DEPRECATED, CALCULATE THIS IN FRONTEND SEE related_users_view.coffee
