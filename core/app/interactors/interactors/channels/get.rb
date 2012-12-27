@@ -1,13 +1,6 @@
-require_relative './index.rb'
+require_relative './all_by_id.rb'
 module Interactors
   module Channels
-    class AllById < Index
-      arguments :id
-
-      def get_alive_channels
-        [Channel[@id]]
-      end
-    end
     class Get
       include Pavlov::Interactor
       arguments :id
