@@ -19,7 +19,11 @@ class ChannelsController < ApplicationController
   respond_to :json, :html
 
   def index
-    @channels = interactor :'channels/visible_of_user_for_user', @user
+    channels = interactor :'channels/visible_of_user_for_user', @user
+    json_channels = channels.map do |ch|
+      Channels::Channel.for(channel: ch,view: view_context)
+    end
+    render_channels(json_channels)
   end
 
   def backbone_page
@@ -30,7 +34,8 @@ class ChannelsController < ApplicationController
     authorize! :show, @channel
     respond_to do |format|
       format.json do
-        @channel = interactor :'channels/get', @channel.id
+        channel = interactor :'channels/get', @channel.id
+        render :json => Channels::Channel.for(channel: channel,view: view_context)
       end
       format.js
       format.html do
@@ -86,8 +91,8 @@ class ChannelsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => 'Channel successfully created') }
         format.json do
-          @channel = interactor :'channels/get', @channel.id
-          render 'channels/show'
+          channel = interactor :'channels/get', @channel.id
+          render :json => Channels::Channel.for(channel: channel,view: view_context)
         end
       end
 
@@ -175,6 +180,10 @@ class ChannelsController < ApplicationController
   end
 
   private
+    def render_channels json_channels
+      render :json => json_channels
+    end
+
     def get_user
       if @channel
         @user ||= @channel.created_by.user

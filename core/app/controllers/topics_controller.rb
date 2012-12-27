@@ -1,8 +1,7 @@
 class TopicsController < ApplicationController
   def related_user_channels
     authorize! :show, topic
-    @channels = top_channels_for_topic(topic)
-    render 'channels/index'
+    render_json_channels top_channels_for_topic(topic)
   end
 
   def top
@@ -10,8 +9,7 @@ class TopicsController < ApplicationController
   end
 
   def top_channels
-    @channels = get_top_channels
-    render 'channels/index'
+    render_json_channels get_top_channels
   end
 
   private
@@ -29,5 +27,12 @@ class TopicsController < ApplicationController
 
     def top_topics(nr)
       Topic.top(nr+2).delete_if {|t| t.nil? or ['created','all'].include? t.slug_title}
+    end
+
+    def render_json_channels channels
+      json_channels = channels.map do |ch|
+        Channels::Channel.for(channel: ch,view: view_context)
+      end
+      render json: json_channels
     end
 end
