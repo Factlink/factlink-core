@@ -46,6 +46,18 @@ RSpec.configure do |config|
     Ohm.flush
     DatabaseCleaner.clean
     Timecop.return
+    @zzz_starting_time = Time.now.to_f*1000
+  end
+
+  config.after(:each) do
+    zzz_stop_time = Time.now.to_f*1000
+    allowed_milli_seconds = 10000
+    time_elapsed = zzz_stop_time - @zzz_starting_time
+
+    if time_elapsed > allowed_milli_seconds
+      puts "WARNING: #{time_elapsed} milliseconds elapsed already"
+    end
+    time_elapsed.should <= allowed_milli_seconds
   end
 end
 
