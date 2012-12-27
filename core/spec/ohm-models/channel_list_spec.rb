@@ -100,4 +100,39 @@ describe ChannelList do
     end
   end
 
+  describe ".containing_channel_ids_for_channel" do
+    subject {Channel.create(:created_by => u1, :title => "Subject")}
+
+    let(:ch1) {Channel.create(:created_by => u2, :title => "Something")}
+    let(:ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
+
+    let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Something")}
+    let(:u1_ch2) {Channel.create(:created_by => u1, :title => "Diddly")}
+    let(:u2_ch1) {Channel.create(:created_by => u2, :title => "Something")}
+    let(:u2_ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
+
+    let(:u1) { create :graph_user }
+    let(:u2) { create :graph_user }
+
+    describe "initially" do
+      it do
+        subject.containing_channels_for_ids(u1).to_a.should =~ []
+      end
+    end
+    describe "after adding to a own channel" do
+      it do
+        u1_ch1.add_channel subject
+        subject.containing_channels_for_ids(u1).to_a.should =~ [u1_ch1.id]
+      end
+    end
+    describe "after adding to someone else's channel" do
+      it do
+        u1_ch1.add_channel subject
+        u2_ch1.add_channel subject
+
+        subject.containing_channels_for_ids(u1).to_a.should =~ [u1_ch1.id]
+      end
+    end
+  end
+
 end

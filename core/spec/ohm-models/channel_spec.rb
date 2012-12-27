@@ -177,22 +177,20 @@ describe Channel do
       end
     end
 
-    describe "#containing_channels_for_ids" do
-      describe "initially" do
-        it {subject.containing_channels_for_ids(u1).to_a.should =~ []}
-      end
-      describe "after adding to a own channel" do
-        before do
-          u1_ch1.add_channel subject
-        end
-        it {subject.containing_channels_for_ids(u1).to_a.should =~ [u1_ch1.id]}
-        describe "after adding to someone else's channel" do
-          before do
-            u1_ch1.add_channel subject
-            u2_ch1.add_channel subject
-          end
-          it {subject.containing_channels_for_ids(u1).to_a.should =~ [u1_ch1.id]}
-        end
+    describe ".containing_channels_for_ids" do
+      it 'calls a method on channellist' do
+        channel_list = mock
+        return_value = mock
+        channel = create :channel
+        user = mock
+        ChannelList.should_receive(:new).with(user)
+                   .and_return(channel_list)
+        channel_list.should_receive(:containing_channel_ids_for_channel)
+                    .with(channel).and_return(return_value)
+
+        expect(channel.containing_channels_for_ids(user))
+           .to eq return_value
+
       end
     end
 
