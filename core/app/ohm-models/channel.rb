@@ -63,7 +63,7 @@ class Channel < OurOhm
   timestamped_set :sorted_cached_facts, Fact
 
 
-  alias :old_real_delete :delete unless method_defined?(:old_real_delete)
+  alias :original_ohm_delete :delete unless method_defined?(:original_ohm_delete)
   def delete
     contained_channels.each do |subch|
       subch.containing_channels.delete self
@@ -74,7 +74,7 @@ class Channel < OurOhm
     Activity.for(self).each do |a|
       a.delete
     end
-    old_real_delete
+    original_ohm_delete
   end
 
   def channel_facts
