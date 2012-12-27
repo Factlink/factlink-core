@@ -96,7 +96,6 @@ FactlinkUI::Application.routes.draw do
         post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
         delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
         match   "/evidence_search"  => "facts#evidence_search"
-        get     "/channels"         => "facts#get_channel_listing"
         get     "/believers"        => "facts#believers"
         get     "/disbelievers"     => "facts#disbelievers"
         get     "/doubters"         => "facts#doubters"
