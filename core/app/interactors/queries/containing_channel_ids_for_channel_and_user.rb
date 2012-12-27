@@ -13,24 +13,20 @@ module Queries
     def execute
       return [] if channel.created_by_id == @graph_user_id
 
+      channel_list.containing_channel_ids_for_channel channel
       intersect_ids graph_user_channels, containing_channels
     end
 
-    def graph_user_channels
-      graph_user = GraphUser[@graph_user_id]
-      ChannelList.new(graph_user).channels
+    def channel_list
+      ChannelList.new(graph_user)
     end
 
-    def containing_channels
-      channel.containing_channels
+    def graph_user
+      GraphUser[@graph_user_id]
     end
 
     def channel
       @channel ||= Channel[@channel_id]
-    end
-
-    def intersect_ids channels1, channels2
-      (channels1 & channels2).ids
     end
   end
 
