@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/interactors/visible_channels_of_user_for_user.rb'
+require_relative '../../../../app/interactors/interactors/channels/visible_of_user_for_user.rb'
 
-describe Interactors::VisibleChannelsOfUserForUser do
+describe Interactors::Channels::VisibleOfUserForUser do
   include PavlovSupport
   before do
     stub_classes 'Channel'
@@ -14,8 +14,8 @@ describe Interactors::VisibleChannelsOfUserForUser do
       topic_authority = mock
       containing_channels = mock
 
-      Interactors::VisibleChannelsOfUserForUser.any_instance.stub(authorized?: true)
-      query = Interactors::VisibleChannelsOfUserForUser.new user
+      Interactors::Channels::VisibleOfUserForUser.any_instance.stub(authorized?: true)
+      query = Interactors::Channels::VisibleOfUserForUser.new user
 
       query.stub(
         channels_with_authorities: [[ch1, topic_authority], [ch2, topic_authority]],
@@ -33,8 +33,8 @@ describe Interactors::VisibleChannelsOfUserForUser do
       visible_channels = [mock(:ch1), mock(:ch2)]
       authorities = [mock(:a1), mock(:a2)]
 
-      Interactors::VisibleChannelsOfUserForUser.any_instance.stub(authorized?: true)
-      interactor = Interactors::VisibleChannelsOfUserForUser.new mock
+      Interactors::Channels::VisibleOfUserForUser.any_instance.stub(authorized?: true)
+      interactor = Interactors::Channels::VisibleOfUserForUser.new mock
       interactor.stub(visible_channels: visible_channels)
 
       interactor.should_receive(:query).
@@ -55,7 +55,7 @@ describe Interactors::VisibleChannelsOfUserForUser do
       ability = mock
       ability.should_receive(:can?).with(:index, Channel).and_return(false)
       expect do
-        interactor = Interactors::VisibleChannelsOfUserForUser.new mock, ability: ability
+        interactor = Interactors::Channels::VisibleOfUserForUser.new mock, ability: ability
       end.to raise_error(Pavlov::AccessDenied)
     end
 
@@ -63,7 +63,7 @@ describe Interactors::VisibleChannelsOfUserForUser do
       ability = mock
       ability.should_receive(:can?).with(:index, Channel).and_return(true)
       expect do
-        interactor = Interactors::VisibleChannelsOfUserForUser.new mock, ability: ability
+        interactor = Interactors::Channels::VisibleOfUserForUser.new mock, ability: ability
       end.not_to raise_error
     end
   end
