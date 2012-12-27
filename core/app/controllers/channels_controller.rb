@@ -33,10 +33,7 @@ class ChannelsController < ApplicationController
   def show
     authorize! :show, @channel
     respond_to do |format|
-      format.json do
-        channel = interactor :'channels/get', @channel.id
-        render :json => Channels::Channel.for(channel: channel,view: view_context)
-      end
+      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context)}
       format.js
       format.html do
         render_backbone_page
@@ -90,10 +87,7 @@ class ChannelsController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => 'Channel successfully created') }
-        format.json do
-          channel = interactor :'channels/get', @channel.id
-          render :json => Channels::Channel.for(channel: channel,view: view_context)
-        end
+        format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context)}
       end
 
     else
