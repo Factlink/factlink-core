@@ -26,7 +26,7 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
       to raise_error(RuntimeError, 'user missing fields ([:username, :id]).')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
@@ -37,7 +37,7 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
         { body: { username: user.username }.to_json})
       interactor = Commands::ElasticSearchIndexUserForTextSearch.new user
 
-      interactor.execute
+      interactor.call
     end
   end
 end

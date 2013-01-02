@@ -1,14 +1,15 @@
+require_relative '../interactors/interactors/channels'
+
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:search, :channel_suggestions]
+  before_filter :load_user, except: [:search]
 
   def show
     authorize! :show, @user
     respond_to do |format|
       format.html { render layout: 'channels'}
-      format.json { render json: Users::User.for(user: @user, view: view_context) }
-
+      format.json { render @user }
     end
   end
 
@@ -72,16 +73,6 @@ class UsersController < ApplicationController
     raise HackAttempt unless params[:message] =~ /\A[a-zA-Z_0-9]+\Z/
     @user.seen_messages << params[:message]
     render json: {}, status: :ok
-  end
-
-  def channel_suggestions
-    channels = interactor :"channels/channel_suggestions"
-
-    json_channels = channels.map do |ch|
-      Channels::Channel.for(channel: ch,view: view_context)
-    end
-
-    render json: json_channels
   end
 
   private

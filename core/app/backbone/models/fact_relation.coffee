@@ -1,4 +1,8 @@
 class window.FactRelation extends Backbone.Model
+
+  defaults:
+    evidence_type: 'FactRelation'
+
   setOpinion: (type) ->
     $.ajax
       url: @url() + "/opinion/" + type
@@ -30,3 +34,10 @@ class window.FactRelation extends Backbone.Model
   creator: -> new User(@get('created_by'))
 
   can_destroy: -> @get 'can_destroy?'
+
+  urlRoot: -> @collection.factRelationsUrl()
+
+  validate: (attributes) ->
+    unless attributes.evidence_id? or /^.*\S.*$/.test(attributes.displaystring)
+      'Should have either an evidence_id or a displaystring'
+

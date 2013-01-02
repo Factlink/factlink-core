@@ -13,7 +13,7 @@ li.evidence-item {
   .evidence-user-avatar {
     float: left;
     > img {
-      margin: 4px 10px 0 0;
+      margin: 4px 16px 0 0;
       .border-radius(3px);
     }
   }
@@ -29,9 +29,13 @@ li.evidence-item {
     }
   }
 
+  .evidence-content {
+    margin-left: 92px;
+  }
+
   .evidence-actions {
     float: left;
-    margin: 0 5px 0 -5px;
+    margin: 0 9px 0 -5px;
     width: 30px;
 
     .supporting, .weakening {
@@ -85,6 +89,17 @@ li.evidence-item {
         margin-top: 0;
         margin-bottom: 7px;
       }
+    }
+  }
+
+  .evidence-popover-arrow {
+    .opacity(0);
+    .transition(opacity .15s ease-in-out);
+  }
+  
+  &:hover {
+    .evidence-popover-arrow {
+      .opacity(1);
     }
   }
 }

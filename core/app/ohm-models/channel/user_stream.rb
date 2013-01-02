@@ -15,7 +15,7 @@ class Channel < OurOhm
     before :validate, :add_fields
 
     def contained_channels
-      channels = created_by.internal_channels.to_a
+      channels = ChannelList.new(self).channels.to_a
       channels.delete(self)
       return channels
     end

@@ -5,7 +5,7 @@ describe "credibility calculation of facts*users" do
   include RedisSupport
 
   def add_fact_to_channel fact, channel
-    Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
+    Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).call
   end
 
   let(:u1) {FactoryGirl.create(:graph_user)}

@@ -9,7 +9,7 @@ describe Queries::AuthorityOnFactFor do
     query.should_not be_nil
   end
 
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_classes 'Comment', 'Authority'
     end
@@ -26,7 +26,7 @@ describe Queries::AuthorityOnFactFor do
       Authority.should_receive(:on).with(fact, for: graph_user).and_return(authority)
       authority.should_receive(:to_s).with(1.0).and_return(authority_string)
 
-      query.execute.should eq authority_string
+      query.call.should eq authority_string
     end
   end
 end

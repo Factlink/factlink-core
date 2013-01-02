@@ -24,7 +24,7 @@ describe Commands::Site::AddTopTopic do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
 
     it '.key returns the correct redis key' do
       site_id = 6
@@ -53,7 +53,7 @@ describe Commands::Site::AddTopTopic do
       key_mock.should_receive(:zincrby).with(1, topic_slug)
       command.stub key: key_mock
 
-      command.execute
+      command.call
     end
   end
 

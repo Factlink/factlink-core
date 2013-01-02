@@ -14,8 +14,6 @@ class window.ProfileView extends Backbone.Marionette.Layout
 
   initialize: ->
     @collection = @ordered(@collection)
-  # TODO remove on updating marionette
-  initialEvents: -> # don't rerender on collection change
 
   ordered: (collection)->
     ordered_channels = new ChannelList()

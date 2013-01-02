@@ -12,8 +12,7 @@ Backbone.Factlink.AlertMixin =
     @alertErrorTypes = errorTypes
 
   alertError: (errorType) ->
-    console.log errorType
-    if @alertErrorTypes? and errorType in @alertErrorTypes
+    if @alertErrorTypes? and errorType? in @alertErrorTypes
       @alertShow 'error-' + errorType
     else
       @alertShow 'error'

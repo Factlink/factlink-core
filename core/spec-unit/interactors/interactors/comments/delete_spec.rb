@@ -21,14 +21,14 @@ describe Interactors::Comments::Delete do
       to raise_error( Pavlov::AccessDenied, 'Unauthorized')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       comment_id = 'a12f'
       user = mock(id: 1)
       interactor = Interactors::Comments::Delete.new comment_id, current_user: user
       interactor.should_receive(:command).with(:delete_comment, comment_id, user.id.to_s)
 
-      interactor.execute
+      interactor.call
     end
 
     it 'correctly' do
@@ -37,7 +37,7 @@ describe Interactors::Comments::Delete do
       interactor = Interactors::Comments::Delete.new comment_id, current_user: user
       interactor.should_receive(:command).with(:delete_comment, comment_id, user.id.to_s)
 
-      interactor.execute
+      interactor.call
     end
   end
 end

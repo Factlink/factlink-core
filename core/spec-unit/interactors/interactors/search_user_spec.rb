@@ -37,19 +37,19 @@ describe Interactors::SearchUser do
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       keywords = 'searching for this user'
       interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
       topic = mock()
       query = mock()
-      query.should_receive(:execute).
+      query.should_receive(:call).
         and_return([topic])
       Queries::ElasticSearchUser.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
 
-      interactor.execute.should eq [topic]
+      interactor.call.should eq [topic]
     end
   end
 end

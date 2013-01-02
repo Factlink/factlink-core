@@ -19,7 +19,7 @@ class ChannelsController < ApplicationController
   respond_to :json, :html
 
   def index
-    channels = interactor :visible_channels_of_user_for_user, @user
+    channels = interactor :'channels/visible_of_user_for_user', @user
     json_channels = channels.map do |ch|
       Channels::Channel.for(channel: ch,view: view_context)
     end

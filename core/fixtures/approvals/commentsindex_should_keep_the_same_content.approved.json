@@ -1,0 +1,52 @@
+[
+  {
+    "id": "<STRIPPED>",
+    "created_at": "1995-04-30T15:35:45+02:00",
+    "created_by": {
+      "id": "<STRIPPED>",
+      "name": "johndoe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "authority": "1.0"
+    },
+    "type": "believes",
+    "content": "Gerard",
+    "fact_data": {
+      "id": "<STRIPPED>",
+      "displaystring": "Fact 1"
+    },
+    "opinions": {
+      "formatted_belief_authority": "1.0",
+      "formatted_disbelief_authority": "0.0",
+      "formatted_relevance": "1.0"
+    },
+    "current_user_opinion": "believes",
+    "can_destroy?": true,
+    "sub_comments_count": 0
+  },
+  {
+    "id": "<STRIPPED>",
+    "created_at": "1995-04-30T15:35:45+02:00",
+    "created_by": {
+      "id": "<STRIPPED>",
+      "name": "johndoe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "authority": "1.0"
+    },
+    "type": "believes",
+    "content": "Henk",
+    "fact_data": {
+      "id": "<STRIPPED>",
+      "displaystring": "Fact 1"
+    },
+    "opinions": {
+      "formatted_belief_authority": "1.0",
+      "formatted_disbelief_authority": "0.0",
+      "formatted_relevance": "1.0"
+    },
+    "current_user_opinion": "believes",
+    "can_destroy?": true,
+    "sub_comments_count": 0
+  }
+]

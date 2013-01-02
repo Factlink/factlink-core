@@ -4,7 +4,7 @@ module Interactors
     include Pavlov::CanCan
     include Pavlov::SearchHelper
 
-    arguments :keywords
+    arguments :keywords, :page, :row_count
 
     def validate
       raise 'Keywords should be an string.' unless @keywords.kind_of? String

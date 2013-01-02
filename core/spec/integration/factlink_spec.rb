@@ -39,6 +39,8 @@ describe "factlink", type: :request do
 
     page.find('.fact-relation-post').click
 
+    sleep 2
+
     page.should have_selector('li.evidence-item')
     within(:css, 'li.evidence-item') do
       page.should have_content search_string

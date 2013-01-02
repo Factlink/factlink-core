@@ -21,16 +21,16 @@ describe Queries::UsersByIds do
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
-  describe ".execute" do
+  describe ".call" do
     it "should work with an empty list of ids" do
       User.should_receive(:any_in).with(_id: []).and_return([])
-      result = Queries::UsersByIds.execute([], current_user: mock_user1)
+      result = Queries::UsersByIds.new([], current_user: mock_user1).call
       expect(result).to eq([])
     end
 
     it "should work with multiple ids" do
       User.should_receive(:any_in).with(_id: [1, 2, 3]).and_return([mock_user1, mock_user2, mock_user3])
-      result = Queries::UsersByIds.execute([1, 2, 3], current_user: mock_user1)
+      result = Queries::UsersByIds.new([1, 2, 3], current_user: mock_user1).call
       expect(result).to eq([mash_user1, mash_user2, mash_user3])
     end
   end

@@ -9,7 +9,7 @@ describe Interactors::CreateConversationWithMessage do
                 'Commands::CreateActivity', 'User'
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'should call the right commands' do
       graph_user   = mock;
       sender       = mock(:user, id: 13, username: 'jan',  graph_user: graph_user)
@@ -27,14 +27,14 @@ describe Interactors::CreateConversationWithMessage do
       interactor.should_receive(:track_mixpanel)
 
       User.should_receive(:find).with(sender.id).and_return(sender)
-      should_receive_new_with_and_receive_execute(
+      should_receive_new_with_and_receive_call(
         Commands::CreateConversation, fact_id, usernames, options).and_return(conversation)
-      should_receive_new_with_and_receive_execute(
+      should_receive_new_with_and_receive_call(
         Commands::CreateMessage, sender.id, content, conversation, options)
-      should_receive_new_with_and_receive_execute(
+      should_receive_new_with_and_receive_call(
         Commands::CreateActivity, graph_user, :created_conversation, conversation, nil, options)
 
-      interactor.execute
+      interactor.call
     end
 
     it 'should delete the conversation when the message raises an exception' do
@@ -44,11 +44,11 @@ describe Interactors::CreateConversationWithMessage do
 
       interactor = Interactors::CreateConversationWithMessage.new mock, mock, mock, mock
 
-      should_receive_new_and_execute(Commands::CreateConversation).and_return(conversation)
-      should_receive_new_and_execute(Commands::CreateMessage).and_raise('some_error')
+      should_receive_new_and_call(Commands::CreateConversation).and_return(conversation)
+      should_receive_new_and_call(Commands::CreateMessage).and_raise('some_error')
       conversation.should_receive(:delete)
 
-      expect{interactor.execute}.to raise_error('some_error')
+      expect{interactor.call}.to raise_error('some_error')
     end
   end
 

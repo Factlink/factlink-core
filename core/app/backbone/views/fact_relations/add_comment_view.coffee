@@ -1,7 +1,7 @@
 class window.AddCommentView extends Backbone.Marionette.ItemView
   className: 'add-comment'
   events:
-    'click .js-post': 'addDefaultModel'
+    'click .js-post': 'addWithHighlight'
     'click .js-switch': 'switchCheckboxClicked'
     'blur  .js-content': 'updateModel'
     'keydown .js-content': 'parseKeyDown'
@@ -13,7 +13,11 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   parseKeyDown: (e) =>
     code = e.keyCode || e.which
-    @addDefaultModel() if code is 13
+    @updateModel()
+    @addWithHighlight if code is 13
+
+  addWithHighlight: ->
+    @addDefaultModel({highlight: true })
 
   initializeModel: ->
     @model = new Comment(content: '', created_by: currentUser)
@@ -34,17 +38,17 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   setFormContent: (content) -> @model.set content: content
 
-  showErrorMessage: -> @$('.js-comment-error-message').show()
-
   addModelSuccess: (model) ->
     @initializeModel()
+    @alertHide()
     model.trigger 'change'
 
-  addModelError: -> @showErrorMessage()
+  addModelError: -> @alertError()
 
   switchCheckboxClicked: (e)->
     @trigger 'switch_to_fact_relation_view', @$('.js-content').val()
     e.preventDefault()
     e.stopPropagation()
 
-_.extend AddCommentView.prototype, Backbone.Factlink.AddModelToCollectionMixin
+_.extend AddCommentView.prototype,
+  Backbone.Factlink.AddModelToCollectionMixin, Backbone.Factlink.AlertMixin

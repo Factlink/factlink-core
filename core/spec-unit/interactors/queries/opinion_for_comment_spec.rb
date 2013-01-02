@@ -6,7 +6,7 @@ describe Queries::OpinionForComment do
   include PavlovSupport
 
   before do
-    stub_classes 'Believable::Comment', 'UserOpinionCalculation',
+    stub_classes 'Believable::Commentje', 'UserOpinionCalculation',
                  'Authority'
   end
 
@@ -22,14 +22,14 @@ describe Queries::OpinionForComment do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
     it "returns the opinion the calculator calculates" do
       opinion = mock
       calculator = mock(:calculator, opinion: opinion)
       query = Queries::OpinionForComment.new 'a1', mock
       query.stub calculator: calculator
 
-      expect(query.execute).to eq opinion
+      expect(query.call).to eq opinion
     end
   end
 
@@ -70,12 +70,12 @@ describe Queries::OpinionForComment do
   end
 
   describe '.believable' do
-    it "returns the Believable::Comment for this comment" do
+    it "returns the Believable::Commentje for this comment" do
       id = 'a1'
       believable = mock
       query = Queries::OpinionForComment.new id, mock
 
-      Believable::Comment.should_receive(:new)
+      Believable::Commentje.should_receive(:new)
                        .with(id)
                        .and_return(believable)
 

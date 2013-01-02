@@ -27,6 +27,7 @@ class FactsController < ApplicationController
   def show
     authorize! :show, @fact
     @title = @fact.data.displaystring # The html <title>
+
     @modal = true
     @hide_links_for_site = @modal && @fact.site
     @just_added = ( not params[:just_added].blank? )
@@ -129,14 +130,25 @@ class FactsController < ApplicationController
     end
   end
 
+  # DEPRECATED
+  # I think this can be removed, as far as I can see this was only ever used in
+  # the javascript library (in the balloon)
+  # when removing this, also remove the ChannelForFact
+  # and maybe the channel_listing.css can be removed? check!
   def get_channel_listing
     authorize! :index, Channel
-    @channels = current_user.graph_user.editable_channels_for(@fact)
+
+    channels = ChannelList(current_user.graph_user).real_channels_as_array
+    username = current_user.username
+
+    @channels = channels.map {|ch| ChannelForFact.new(ch,@fact,username)}
+
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
       format.html { render 'channel_listing', layout: nil }
     end
   end
+  #/DEPRECATED
 
   def destroy
     authorize! :destroy, @fact
@@ -198,8 +210,7 @@ class FactsController < ApplicationController
     authorize! :index, Fact
     search_for = params[:s]
 
-    interactor = Interactors::SearchEvidence.new search_for, @fact.id, ability: current_ability
-    results = interactor.execute
+    results = interactor :search_evidence, search_for, @fact.id
 
     facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }
 

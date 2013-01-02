@@ -40,6 +40,10 @@ module Pavlov
       finish_initialize if respond_to? :finish_initialize
     end
 
+    def call
+      self.execute
+    end
+
     module ClassMethods
       # arguments :foo, :bar
       #
@@ -57,7 +61,7 @@ module Pavlov
 
       # make our interactors behave as Resque jobs
       def perform(*args)
-        new(*args).execute
+        new(*args).call
       end
 
       def queue

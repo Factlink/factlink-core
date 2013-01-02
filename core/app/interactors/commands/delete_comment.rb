@@ -7,15 +7,18 @@ module Commands
     arguments :comment_id, :user_id
 
     def execute
-      comment = Comment.find(@comment_id)
-      user = User.find(@user_id)
-      raise_unauthorized unless comment.created_by_id.to_s == @user_id
-      comment.delete
+      authorized_in_execute
+      Comment.find(@comment_id).delete
     end
 
     def validate
       validate_hexadecimal_string :comment_id, @comment_id
       validate_hexadecimal_string :user_id, @user_id
+    end
+
+    def authorized_in_execute
+      can_destroy = query :'comments/can_destroy', @comment_id, @user_id
+      raise Pavlov::AccessDenied, 'Unauthorized' unless can_destroy
     end
   end
 end

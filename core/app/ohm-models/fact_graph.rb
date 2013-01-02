@@ -91,7 +91,7 @@ class FactGraph
     end
 
     GraphUser.all.each do |gu|
-      if gu.channels.size > 0
+      if ChannelList.new(gu).channels.size > 0
         writer.write("\n")
         writer.write(LoadDsl.export_activate_user(gu))
       end

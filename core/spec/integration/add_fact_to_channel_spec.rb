@@ -1,6 +1,7 @@
 require 'integration_helper'
 
 feature "adding a fact to a channel" do
+  include Acceptance
   include Acceptance::NavigationHelper
   include Acceptance::ChannelHelper
   include Acceptance::FactHelper

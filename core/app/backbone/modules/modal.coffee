@@ -1,4 +1,6 @@
-FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
+# Split out to be able to use without the actual app
+
+window.modalModuleDefinition = (Modal, MyApp, Backbone, Marionette, $, _) ->
 
   class Modal.WrapperView extends Backbone.Marionette.Layout
     template:
@@ -47,3 +49,5 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
 
   Modal.close = ->
     FactlinkApp.modalRegion.close()
+
+FactlinkApp.module "Modal", modalModuleDefinition

@@ -1,4 +1,8 @@
 module Acceptance
+  def pending_for_ci *args
+    pending(*args)
+  end
+
   def int_user
     user = FactoryGirl.create(:user)
     user.confirm!

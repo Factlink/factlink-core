@@ -2,7 +2,7 @@ class ResetChannelsByAuthority < Mongoid::Migration
   def self.up
     GraphUser.all.each do |gu|
       gu.channels_by_authority.key.del
-      gu.editable_channels.each do |ch|
+      ChannelList.new(gu).real_channels_as_array.each do |ch|
         gu.channels_by_authority.add ch
       end
     end

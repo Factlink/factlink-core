@@ -29,6 +29,12 @@ def create_activity_listeners
       write_ids: people_who_follow_a_fact
     }
 
+    forGraphUser_sub_comment_was_added = {
+      subject_class: "SubComment",
+      action: :created_sub_comment,
+      write_ids: people_who_follow_a_fact
+    }
+
     register do
       activity_for "GraphUser"
       named :notifications
@@ -55,6 +61,9 @@ def create_activity_listeners
 
       # someone added a comment
       activity forGraphUser_comment_was_added
+
+      # someone added a sub comment
+      # activity forGraphUser_sub_comment_was_added
     end
 
     register do
@@ -63,7 +72,7 @@ def create_activity_listeners
 
       # someone of whom you follow a channel created a new channel
       activity subject_class: "Channel", action: :created_channel,
-               write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
+               write_ids: lambda { |a| ChannelList.new(a.subject.created_by).channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
 
       # someone followed your channel
       activity forGraphUser_channel_was_followed
@@ -74,6 +83,8 @@ def create_activity_listeners
       # someone added a comment
       activity forGraphUser_comment_was_added
 
+      # someone added a sub comment
+      activity forGraphUser_sub_comment_was_added
 
       # someone believed/disbelieved/doubted your fact
       activity subject_class: "Fact",

@@ -3,34 +3,20 @@ require 'spec_helper'
 describe SubchannelsController do
   render_views
 
-
   let(:user) {create(:user)}
   let(:otheruser) {create(:user)}
 
-  let(:ch1) {create(:channel)}
-  let(:subch1) {create(:channel)}
-  let(:subch2) {create(:channel)}
-  let(:subch3) {create(:channel)}
+  let(:ch1) {create :channel, created_by: user.graph_user}
 
-  let(:otherch1) {create(:channel)}
-  let(:othersubch1) {create(:channel)}
-  let(:othersubch2) {create(:channel)}
-  let(:othersubch3) {create(:channel)}
+  let(:followed_channel) {create :channel, created_by: otheruser.graph_user }
 
-  before do
-    [ch1,subch1,subch2,subch3].each do |ch|
-      ch.created_by = user.graph_user
-      ch.save
-    end
-    [otherch1,othersubch1,othersubch2,othersubch3].each do |ch|
-      ch.created_by = otheruser.graph_user
-      ch.save
-    end
-  end
-  
   describe "#index" do
     it "as json should be successful" do
+      ch1.add_channel followed_channel
+
       authenticate_user!(user)
+      should_check_can :show, ch1
+      ability.should_receive(:can?).with(:index, Channel).and_return true
       get :index, username: user.username, channel_id: ch1.id, format: 'json'
       response.should be_success
     end
@@ -40,7 +26,8 @@ describe SubchannelsController do
     it "as json should be successful on own channel" do
       authenticate_user!(user)
       should_check_can :update, ch1
-      post :create, username: user.username, channel_id: ch1.id, id: subch1.id, format: 'json'
+      ability.should_receive(:can?).with(:index, Channel).and_return true
+      post :create, username: user.username, channel_id: ch1.id, id: followed_channel.id, format: 'json'
       response.should be_success
     end
   end

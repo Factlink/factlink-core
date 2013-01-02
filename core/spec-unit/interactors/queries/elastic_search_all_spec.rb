@@ -15,7 +15,7 @@ describe Queries::ElasticSearchAll do
     query.should_not be_nil
   end
 
-  describe '.execute' do
+  describe '.call' do
     ['user', 'topic', 'factdata'].each do |type|
       it "correctly with return value of #{type} class" do
         config = mock()
@@ -55,7 +55,7 @@ describe Queries::ElasticSearchAll do
             and_return(return_object)
         end
 
-        interactor.execute.should eq [return_object]
+        interactor.call.should eq [return_object]
       end
     end
 
@@ -76,7 +76,7 @@ describe Queries::ElasticSearchAll do
       logger.should_receive(:error).with(error_message)
       query = Queries::ElasticSearchAll.new keywords, 1, 20, logger: logger
 
-      expect { query.execute }.to raise_error(RuntimeError, error_message)
+      expect { query.call }.to raise_error(RuntimeError, error_message)
     end
 
     it 'url encodes correctly' do
@@ -96,7 +96,7 @@ describe Queries::ElasticSearchAll do
         with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
-      interactor.execute.should eq []
+      interactor.call.should eq []
     end
   end
 end

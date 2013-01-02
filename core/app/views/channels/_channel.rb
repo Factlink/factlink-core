@@ -53,7 +53,7 @@ module Channels
 
     def query_containing_channel_ids
       current_graph_user = @view.current_user.graph_user
-      @channel.containing_channels_for(current_graph_user).ids
+      @channel.containing_channels_for_ids(current_graph_user)
     end
 
     def calclulate_user_avatar_url
@@ -126,7 +126,7 @@ module Channels
 
       json.is_mine is_mine
       json.id channel.id
-      json.has_authority? channel.has_authority?
+      json.has_authority? channel.is_real_channel?
 
       json.add_channel_url '/' + user.username + '/channels/new'
 
@@ -161,9 +161,9 @@ module Channels
       created_by_id = channel.created_by_id
       json.created_by_id created_by_id
 
-      json.inspectable? channel.inspectable?
+      json.inspectable? channel.is_real_channel?
       json.followable?  !is_mine && is_normal
-      json.editable?    is_mine && channel.editable?
+      json.editable?    is_mine && channel.is_real_channel?
 
       # QUICK FIX only show unread count on own channel
       if is_mine then

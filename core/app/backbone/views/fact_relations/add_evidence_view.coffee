@@ -6,15 +6,6 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       selector: '.input-region'
       regionType: Factlink.DetachableViewsRegion
 
-  # TODO remove on updating marionette
-  initialEvents: -> # don't rerender on collection change
-
-  # TODO: remove this when updating Marionette
-  # In the current version the order is the other way around
-  constructor: ->
-    this.initializeRegions()
-    Backbone.Marionette.ItemView.apply(this, arguments)
-
   initialize: ->
     @inputRegion.defineViews
       search_view: => @searchView()
@@ -50,14 +41,14 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     previewView
 
   addCommentView: ->
-    addCommentView = new AddCommentView( addToCollection: @model.comments(), type: @model.type() )
+    addCommentView = new AddCommentView( addToCollection: @model.evidence(), type: @model.type() )
     @bindTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView, @
 
     addCommentView
 
   createFactRelation: (fact_relation)->
     @hideError()
-    @collection.add fact_relation
+    @collection.add fact_relation, highlight: true
     @inputRegion.switchTo('search_view')
     @inputRegion.getView('search_view').reset()
     fact_relation.save {},

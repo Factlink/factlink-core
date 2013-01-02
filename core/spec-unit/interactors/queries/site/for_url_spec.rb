@@ -30,7 +30,7 @@ describe Queries::Site::ForUrl do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
 
     before do
       stub_classes 'KillObject'
@@ -42,7 +42,7 @@ describe Queries::Site::ForUrl do
 
       query.should_receive(:site).and_return(nil)
 
-      expect(query.execute).to eq nil
+      expect(query.call).to eq nil
     end
 
     it 'returns a dead site' do
@@ -55,7 +55,7 @@ describe Queries::Site::ForUrl do
       query.should_receive(:site).any_number_of_times.and_return(site)
       KillObject.should_receive(:site).with(site).and_return(dead_site)
 
-      expect(query.execute).to eq dead_site
+      expect(query.call).to eq dead_site
     end
   end
 
