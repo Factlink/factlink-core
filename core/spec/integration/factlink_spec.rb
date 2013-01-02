@@ -16,8 +16,9 @@ describe "factlink", type: :request do
     search_string = 'Test search'
 
     visit friendly_fact_path(@factlink)
-    sleep 2
-    wait_for_ajax
+
+    page.should have_content @factlink.data.displaystring
+
     assume_unchanged_screenshot "discussion_page"
   end
 
