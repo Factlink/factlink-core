@@ -5,7 +5,7 @@ html
     link(rel="stylesheet", type="text/css", href= proxy_url + "/static/styles/header.css")
     script
       top.frames[1].onload=function(){
-        if (typeof top.frames[1].Factlink === 'undefined'){
+        if (typeof top.frames[1].FACTLINK === 'undefined'){
           document.getElementById('error_in_proxy').style.display="block";
         }
       }
