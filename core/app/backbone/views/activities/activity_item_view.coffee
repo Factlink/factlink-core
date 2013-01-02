@@ -32,10 +32,7 @@ class AddedFactToChannelGroupView extends Backbone.Marionette.CompositeView
 
   template:
     text: """
-      <span class="activity-description">{{activity.posted}} to <span class="js-region-channels"></span>
-      </span>
-
-      <span class="meta">{{ time_ago }} ago</span>
+      <span class="activity-description">{{activity.posted}} to <span class="js-region-channels"></span></span>
     """
 
   initialize: ->

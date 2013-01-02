@@ -11,6 +11,8 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
       </div>
 
       <div class="activity-group-activities js-region-activities"></div>
+
+      <div class="activity-group-time">{{ time_ago }} ago</div>
       """
 
   className: 'activity-group'
@@ -62,6 +64,8 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
       </div>
 
       <div class="activity-group-activities js-region-activities"></div>
+
+      <div class="activity-group-time">{{ time_ago }} ago</div>
       
       <div class="activity-group-fact js-region-fact"></div>
     """
