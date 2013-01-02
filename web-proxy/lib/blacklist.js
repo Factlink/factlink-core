@@ -18,13 +18,13 @@ function if_allowed(url, successFn, errorFn) {
     options.username = API_OPTIONS.username,
     options.password = API_OPTIONS.password
   }
-  
+
   restler.get(factlink_blacklist_url, options)
   .on('complete', function(data) {
-    if (data.blacklisted !== true) {
-      successFn();
-    } else {
+    if ("blacklisted" in data) {
       errorFn();
+    } else {
+      successFn();
     }
   })
   .on('error', function(data) {
