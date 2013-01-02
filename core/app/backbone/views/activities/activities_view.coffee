@@ -5,7 +5,7 @@ class window.ActivitiesView extends AutoloadingView
   template: 'activities/list'
 
   regions:
-    bottom: '.below_activities'
+    bottom: '.js-region-bottom'
 
   initialize: (opts) ->
     @collection.on('reset remove', @reset, this)

@@ -1,5 +1,4 @@
 class GenericActivityItemView extends Backbone.Marionette.ItemView
-  tagName: "div"
   template: "activities/generic_activity"
   append: (model) -> false
 

@@ -5,20 +5,20 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
   template:
     text:
       """
-      <div class="the-user">
+      <div class="activity-group-user">
         <a href="{{ user_profile_url }}" rel="backbone">{{{ avatar }}}</a>
       </div>
 
-      <div class="the-link">
+      <div class="activity-group-link">
         <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a>
       </div>
 
-      <div class="the-activities js-region-activities"></div>
+      <div class="activity-group-activities js-region-activities"></div>
       """
 
-  className: 'activity-block'
+  className: 'activity-group'
   itemView: Backbone.View
-  itemViewContainer: ".the-activities"
+  itemViewContainer: ".js-region-activities"
 
   @new: (options)->
     new (@classForModel(options.model))(options)
@@ -59,17 +59,17 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
 
   template:
     text: """
-      <div class="the-user">
+      <div class="activity-group-user">
         <a href="{{ user_profile_url }}" rel="backbone">{{{ avatar }}}</a>
       </div>
 
-      <div class="the-link">
+      <div class="activity-group-link">
         <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a>
       </div>
 
-      <div class="the-activities js-region-activities"></div>
+      <div class="activity-group-activities js-region-activities"></div>
       
-      <div class="js-region-fact"></div>
+      <div class="activity-group-fact js-region-fact"></div>
     """
 
   onRender: ->
