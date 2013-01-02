@@ -14,7 +14,10 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     mp_track("mp_page_view", {mp_page: window.location.href})
 
     withChannel = (channel) ->
-      channel.set(new_facts: false)
+      channel.set
+        new_facts: false
+        unread_count: 0
+
       callback(channel)
 
     if (channel)
