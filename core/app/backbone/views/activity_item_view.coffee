@@ -26,8 +26,8 @@ class CreatedCommentView extends GenericActivityFactItemView
 class AddedOpinionView extends GenericActivityFactItemView
   template: "activities/added_opinion"
 
-class AddedFactToChannelView extends GenericActivityFactItemView
-  template: "activities/added_fact_to_channel"
+# class AddedFactToChannelView extends GenericActivityFactItemView
+  # template: "activities/added_fact_to_channel"
 
 class AddedFirstFactlinkView extends GenericActivityFactItemView
   template: "activities/added_first_factlink"
@@ -44,8 +44,8 @@ window.getActivityItemViewFor = (model) ->
       AddedSubchannelView
     when "believes", "doubts", "disbelieves"
       AddedOpinionView
-    when "added_fact_to_channel"
-      AddedFactToChannelView
+    # when "added_fact_to_channel"
+      # AddedFactToChannelView
     when "added_first_factlink"
       AddedFirstFactlinkView
     else
