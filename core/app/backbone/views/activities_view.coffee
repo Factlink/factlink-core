@@ -31,17 +31,10 @@ class window.ActivitiesView extends AutoloadingView
     @renderChildren()
 
   add: (model, collection) ->
-    appendableCandidate = _.last(@childViews)
+    lastChildView = _.last(@childViews)
 
-    appendTo =
-      if (appendableCandidate && (appendableCandidate.appendable(model)))
-        model.set('render_fact': false)
-        appendableCandidate
-      else
-        model.set('render_fact': true)
-        @createNewAppendable(model)
-
-    appendTo.collection.add model
+    unless lastChildView?.append(model)
+      @createNewAppendable(model)
 
   createNewAppendable: (model) ->
     appendTo = @newChildView(model)
@@ -56,15 +49,14 @@ class window.ActivitiesView extends AutoloadingView
   onBeforeClose: -> @closeChildViews()
 
 
-  appendHtml: (collectionView, childView) ->
+  appendHtml: (collectionView, childView, index) ->
     childView.render()
     @$(".list").append(childView.$el)
 
   newChildView: (model) ->
     ch = @collection.channel
-    UserActivitiesView.new
-      model: model.getActivity(),
-      collection: new ChannelActivities([], {channel: ch})
+    UserActivitiesGroupView.new
+      model: model
 
   emptyViewOn: ->
     if @collection.channel.get('discover_stream?')

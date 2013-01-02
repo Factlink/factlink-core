@@ -3,6 +3,7 @@
 class GenericActivityItemView extends Backbone.Marionette.ItemView
   tagName: "div"
   template: "activities/generic_activity"
+  append: (model) -> false
 
 class CreatedChannelView extends GenericActivityItemView
   template: "activities/created_channel"
@@ -10,26 +11,60 @@ class CreatedChannelView extends GenericActivityItemView
 class AddedSubchannelView extends GenericActivityItemView
   template: "activities/added_subchannel"
 
-class GenericActivityFactItemView extends Backbone.Marionette.CompositeView
-  itemView: FactView
-  initialize: (opts) ->
-    if @model.get('render_fact')
-      fact = new Fact(@model.get("activity")["fact"])
-      @collection = new Backbone.Collection([ fact ])
-
-class AddedEvidenceView extends GenericActivityFactItemView
+class AddedEvidenceView extends GenericActivityItemView
   template: "activities/added_evidence"
 
-class CreatedCommentView extends GenericActivityFactItemView
+class CreatedCommentView extends GenericActivityItemView
   template: "activities/created_comment"
 
-class AddedOpinionView extends GenericActivityFactItemView
+class AddedOpinionView extends GenericActivityItemView
   template: "activities/added_opinion"
 
 # class AddedFactToChannelView extends GenericActivityFactItemView
   # template: "activities/added_fact_to_channel"
 
-class AddedFirstFactlinkView extends GenericActivityFactItemView
+class AddedFactToChannelView extends Backbone.Marionette.ItemView
+  tagName: 'span'
+  template:
+    text: """
+      <a rel="backbone" href="{{ activity.channel_url }}">{{ activity.channel_title }}</a>
+    """
+
+  appendSeparator: (text)-> @$el.append text
+
+class AddedFactToChannelGroupView extends Backbone.Marionette.CompositeView
+  itemView: AddedFactToChannelView
+  itemViewContainer: '.js-region-channels'
+
+  template:
+    text: """
+      <span class="activity-description">{{activity.posted}} to <span class="js-region-channels"></span>
+      </span>
+
+      <span class="meta">{{ time_ago }} ago</span>
+    """
+
+  initialize: ->
+    @collection = new Backbone.Collection [@model]
+
+  initialEvents: ->
+    @bindTo @collection, "add remove reset", @render, @
+
+  insertItemSeparator: (itemView, index) ->
+    sep = Backbone.Factlink.listSeparator(@collection.length, @collection.length, index)
+    itemView.appendSeparator(sep) if sep?
+
+  appendHtml: (collectionView, itemView, index) =>
+    @insertItemSeparator itemView, index
+    super(collectionView, itemView, index)
+
+  append: (model) ->
+    if correct_action = model.get('action') in ["added_fact_to_channel"]
+      @collection.add model
+      true
+    else false
+
+class AddedFirstFactlinkView extends GenericActivityItemView
   template: "activities/added_first_factlink"
 
 window.getActivityItemViewFor = (model) ->
@@ -44,8 +79,8 @@ window.getActivityItemViewFor = (model) ->
       AddedSubchannelView
     when "believes", "doubts", "disbelieves"
       AddedOpinionView
-    # when "added_fact_to_channel"
-      # AddedFactToChannelView
+    when "added_fact_to_channel"
+      AddedFactToChannelGroupView
     when "added_first_factlink"
       AddedFirstFactlinkView
     else
