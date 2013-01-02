@@ -8,6 +8,8 @@ class window.Comment extends Backbone.Model
       formatted_disbelief_authority: "-?"
       formatted_relevance: "?"
 
+  validate: (attributes) ->
+    'Content should not be empty' unless /^.*\S.*$/.test(attributes.content)
 
   templateHelpers: =>
     creator: @creator

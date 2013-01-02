@@ -36,3 +36,8 @@ class window.FactRelation extends Backbone.Model
   can_destroy: -> @get 'can_destroy?'
 
   urlRoot: -> @collection.factRelationsUrl()
+
+  validate: (attributes) ->
+    unless attributes.evidence_id? or /^.*\S.*$/.test(attributes.displaystring)
+      'Should have either an evidence_id or a displaystring'
+
