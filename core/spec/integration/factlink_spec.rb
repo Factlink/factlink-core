@@ -34,13 +34,11 @@ describe "factlink", type: :request do
       input = page.find(:css, 'input')
       input.set(search_string)
       input.trigger('focus')
-
-      wait_for_ajax
     end
 
-    page.find('.fact-relation-post').click
+    page.should have_selector(".auto-complete-search-list-container")
 
-    sleep 2
+    page.find('.fact-relation-post').click
 
     page.should have_selector('li.evidence-item')
     within(:css, 'li.evidence-item') do
