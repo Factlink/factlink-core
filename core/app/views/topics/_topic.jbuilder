@@ -1,5 +1,6 @@
 channels = topic.top_users(3).map do |user|
-  channel = user.graph_user.internal_channels.find(slug_title: topic.slug_title).first
+  channel_list = ChannelList.new(user.graph_user)
+  channel = channel_list.get_by_slug_title topic.slug_title
 
   {
     channel: channel,
