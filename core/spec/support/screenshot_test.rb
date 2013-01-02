@@ -1,11 +1,4 @@
 module ScreenshotTest
-  module OS
-    def OS.osx?
-      #TODO This doesn't work if we switch to JRuby
-      (/darwin/ =~ RUBY_PLATFORM) != nil
-    end
-  end
-
   class Screenshot
     include ChunkyPNG::Color
     def initialize page, title
@@ -101,17 +94,13 @@ module ScreenshotTest
   end
 
   def assume_unchanged_screenshot title
-    if OS.osx?
-      pending "Screenshots don't work locally."
-    else
-      shot = Screenshot.new page, title
-      shot.take
-      if shot.changed?
-        if shot.size_changed?
-          raise "Screenshot #{title} changed (also size)"
-        else
-          raise "Screenshot #{title} changed"
-        end
+    shot = Screenshot.new page, title
+    shot.take
+    if shot.changed?
+      if shot.size_changed?
+        raise "Screenshot #{title} changed (also size)"
+      else
+        raise "Screenshot #{title} changed"
       end
     end
   end
