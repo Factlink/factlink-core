@@ -30,14 +30,8 @@ class window.ActivitiesView extends AutoloadingView
     @collection.each( @add, this );
     @renderChildren()
 
-  add: (model, collection, options) ->
-    index = options.index
-
-    appendableCandidate =
-      if index == 0
-        _.first(@childViews)
-      else
-        _.last(@childViews);
+  add: (model, collection) ->
+    appendableCandidate = _.last(@childViews)
 
     appendTo =
       if (appendableCandidate && (appendableCandidate.appendable(model)))
@@ -45,19 +39,15 @@ class window.ActivitiesView extends AutoloadingView
         appendableCandidate
       else
         model.set('render_fact': true)
-        @createNewAppendable(model, index)
+        @createNewAppendable(model)
 
-    appendTo.collection.add(model, at: index);
+    appendTo.collection.add model
 
-  createNewAppendable: (model, index) ->
-      appendTo = @newChildView(model)
-      if index == 0
-        @childViews.unshift(appendTo)
-      else
-        @childViews.push(appendTo)
-      @appendHtml(this, appendTo, index)
-      appendTo
-
+  createNewAppendable: (model) ->
+    appendTo = @newChildView(model)
+    @childViews.push appendTo
+    @appendHtml @, appendTo
+    appendTo
 
   closeChildViews: ->
     childView.close() for childView in @childViews
@@ -66,12 +56,9 @@ class window.ActivitiesView extends AutoloadingView
   onBeforeClose: -> @closeChildViews()
 
 
-  appendHtml: (collectionView, childView, index) ->
+  appendHtml: (collectionView, childView) ->
     childView.render()
-    if index == 0
-      @$(".list").prepend(childView.$el)
-    else
-      @$(".list").append(childView.$el)
+    @$(".list").append(childView.$el)
 
   newChildView: (model) ->
     ch = @collection.channel
