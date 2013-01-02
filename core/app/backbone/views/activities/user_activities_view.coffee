@@ -1,7 +1,4 @@
 class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
-  @actions: []
-  actions: -> UserActivitiesGroupView.actions
-
   template:
     text:
       """
@@ -20,6 +17,9 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
   itemView: Backbone.View
   itemViewContainer: ".js-region-activities"
 
+  @actions: ["added_first_factlink", "created_channel", "added_subchannel"]
+  actions: -> UserActivitiesGroupView.actions
+
   @new: (options)->
     new (@classForModel(options.model))(options)
 
@@ -28,12 +28,6 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
 
     if action in UserFactActivitiesGroupView.actions
       UserFactActivitiesGroupView
-    else if action in UserChannelActivitiesGroupView.actions
-      UserChannelActivitiesGroupView
-    else if action in UserEvidenceActivitiesGroupView.actions
-      UserEvidenceActivitiesGroupView
-    else if action in UserOpinionActivitiesGroupView.actions
-      UserOpinionActivitiesGroupView
     else
       UserActivitiesGroupView
 
@@ -54,7 +48,7 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
     @lastView = super(item, NewItemView, options)
 
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
-  @actions: ["added_fact_to_channel"]#, "created_comment", "created_sub_comment"]
+  @actions: ["added_fact_to_channel", "created_comment", "created_sub_comment", "added_supporting_evidence", "added_weakening_evidence", "believes", "doubts", "disbelieves"]
   actions: -> UserFactActivitiesGroupView.actions
 
   template:
@@ -86,20 +80,3 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
 
   appendable: (model) -> super(model) and @sameFact(model)
 
-class UserChannelActivitiesGroupView extends UserActivitiesGroupView
-  @actions: ["created_channel", "added_subchannel"]
-  actions: -> UserChannelActivitiesGroupView.actions
-
-class UserEvidenceActivitiesGroupView extends UserFactActivitiesGroupView
-  @actions: ["added_supporting_evidence", "added_weakening_evidence"]
-  actions: -> UserEvidenceActivitiesGroupView.actions
-
-class UserOpinionActivitiesGroupView extends UserFactActivitiesGroupView
-  @actions: ["believes", "doubts", "disbelieves"]
-  actions: -> UserOpinionActivitiesGroupView.actions
-
-  appendHtml: (collectionView, itemView, index)->
-    if !@has_view
-      collectionView.$(@itemViewContainer).append(itemView.el)
-      @has_view = true
-    # else: we do not care for old opinions
