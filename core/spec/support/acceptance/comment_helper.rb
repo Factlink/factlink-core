@@ -33,8 +33,9 @@ module Acceptance
           comment_input.trigger 'blur'
 
           click_button 'Post comment'
-          wait_for_ajax
         end
+
+        page.should have_content comment
       end
 
       def add_existing_factlink evidence_factlink
