@@ -1,5 +1,3 @@
-#= require ./fact_view.js
-
 class GenericActivityItemView extends Backbone.Marionette.ItemView
   tagName: "div"
   template: "activities/generic_activity"
@@ -19,9 +17,6 @@ class CreatedCommentView extends GenericActivityItemView
 
 class AddedOpinionView extends GenericActivityItemView
   template: "activities/added_opinion"
-
-# class AddedFactToChannelView extends GenericActivityFactItemView
-  # template: "activities/added_fact_to_channel"
 
 class AddedFactToChannelView extends Backbone.Marionette.ItemView
   tagName: 'span'
