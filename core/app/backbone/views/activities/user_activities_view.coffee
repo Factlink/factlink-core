@@ -19,7 +19,7 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
   itemView: Backbone.View
   itemViewContainer: ".js-region-activities"
 
-  @actions: ["added_first_factlink", "created_channel", "added_subchannel"]
+  @actions: ["created_channel", "added_subchannel"]
   actions: -> UserActivitiesGroupView.actions
 
   @new: (options)->
@@ -50,7 +50,7 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
     @lastView = super(item, NewItemView, options)
 
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
-  @actions: ["added_fact_to_channel", "created_comment", "created_sub_comment", "added_supporting_evidence", "added_weakening_evidence", "believes", "doubts", "disbelieves"]
+  @actions: ["added_first_factlink", "added_fact_to_channel", "created_comment", "created_sub_comment", "added_supporting_evidence", "added_weakening_evidence", "believes", "doubts", "disbelieves"]
   actions: -> UserFactActivitiesGroupView.actions
 
   template:
