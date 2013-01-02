@@ -22,15 +22,18 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     @$el.toggleClass 'evidence-sub-comments-form-active', active
 
   submit: ->
-    if @text().length > 0
-      @addModel new SubComment
-        content: @text()
-        created_by: currentUser
-
-  addModelError: -> @alertError()
-  addModelSuccess: (model) ->
-    @textModel().set 'text', ''
+    @model = new SubComment
+      content: @text()
+      created_by: currentUser
+    
     @alertHide()
+    @textModel().set 'text', ''
+    @addDefaultModel()
+
+  addModelSuccess: (model) -> @alertHide()
+  addModelError: ->
+    @alertError()
+    @textModel().set 'text', @model.get('content')
 
   text: -> @textModel().get('text')
   textModel: -> @_textModel ?= new Backbone.Model text: ''
