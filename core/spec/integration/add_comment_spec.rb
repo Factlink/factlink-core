@@ -129,7 +129,6 @@ feature "adding comments to a fact", type: :request do
     within evidence_listing_css_selector do
       find('.evidence-popover-arrow').click
       find('.delete').click
-      wait_for_ajax
     end
 
     page.should_not have_content comment
