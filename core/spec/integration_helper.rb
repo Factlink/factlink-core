@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rubygems'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 require 'capybara-webkit'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
@@ -15,9 +16,14 @@ require 'database_cleaner'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
+  # By default don't run screenshots
+  config.filter_run_excluding :screenshot
+
   # webkit always has js enabled, so always use this:
-  Capybara.javascript_driver = :webkit
-  Capybara.default_driver = :webkit
+  Capybara.javascript_driver = :poltergeist
+  Capybara.default_driver = :poltergeist
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
@@ -35,6 +41,10 @@ RSpec.configure do |config|
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
+    Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app, {debug: false, js_errors: false})
+    end
+
   end
 
   config.before(:each) do

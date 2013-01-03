@@ -129,7 +129,6 @@ feature "adding comments to a fact", type: :request do
     within evidence_listing_css_selector do
       find('.evidence-popover-arrow').click
       find('.delete').click
-      wait_for_ajax
     end
 
     page.should_not have_content comment
@@ -162,7 +161,6 @@ feature "adding comments to a fact", type: :request do
   end
 
   scenario "we can click on evidence to go to the page of that factlink" do
-    pending_for_ci "Fuck those random failures"
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
