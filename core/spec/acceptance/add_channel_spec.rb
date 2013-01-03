@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 describe "channels", type: :request do
   it "can be visited" do

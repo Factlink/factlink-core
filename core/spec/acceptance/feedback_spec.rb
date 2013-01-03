@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 describe "Feedback modal", type: :request do
 

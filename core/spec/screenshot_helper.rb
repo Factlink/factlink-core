@@ -1,1 +1,1 @@
-require 'integration_helper'
+require 'acceptance_helper'

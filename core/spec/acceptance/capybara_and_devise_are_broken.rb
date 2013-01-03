@@ -5,7 +5,7 @@ require 'capybara/rspec'
 require 'capybara-webkit'
 require 'capybara/email/rspec'
 require 'headless'
-require 'integration_helper'
+require 'acceptance_helper'
 
 describe 'capybara and devise are broken', type: :request do
   it 'action_mailer default url should change when visiting a page' do

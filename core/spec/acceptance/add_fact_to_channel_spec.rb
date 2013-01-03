@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 feature "adding a fact to a channel" do
   include Acceptance

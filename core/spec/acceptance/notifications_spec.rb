@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 feature "notifications", type: :request do
   include Acceptance::ChannelHelper

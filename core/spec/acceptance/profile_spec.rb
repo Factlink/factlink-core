@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 feature "the profile page", type: :request do
   include Acceptance
