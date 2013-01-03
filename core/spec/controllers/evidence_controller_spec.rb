@@ -82,19 +82,33 @@ describe SupportingEvidenceController do
       end
     end
   end
+end
+
+describe EvidenceController do
+  include PavlovSupport
+
+  let(:user) {create(:user)}
+
+  let(:f1) {create(:fact)}
+  let(:f2) {create(:fact)}
+
+  before do
+    # TODO: remove this once activities are not created in the models any more, but in interactors
+    stub_const 'Activity::Subject', Class.new
+    Activity::Subject.should_receive(:activity).any_number_of_times
+  end
 
   describe :set_opinion do
     it "should be able to set an opinion" do
-      pending "moving the routes - currently does not match routes in Rspec"
-      authenticate_user!(user)
+      fr = f1.add_evidence :supporting, f2, user
 
-      should_check_can :opinionate, @fr
-      post :set_opinion, username: 'ohwellwhatever', id: 1, fact_id: f1.id, evidence_id: @fr.id, type: :believes, format: :json
+      authenticate_user!(user)
+      should_check_can :opinionate, fr
+      post :set_opinion, username: 'ohwellwhatever', id: 1, fact_id: f1.id, id: fr.id, type: :believes, format: :json
 
       response.should be_success
 
-      parsed_content = JSON.parse(response.body)
-      parsed_content.first.should have_key("fact_base")
+      #todo: maybe check if the opinion is also persisted?
     end
   end
 end

@@ -21,7 +21,7 @@ describe Queries::CreatorAuthoritiesForChannels do
   describe '.authority_for' do
     it "should retrieve the topic, and retrieve the authority for the topic" do
       channel_creator = mock(:some_graph_user)
-      channel = mock('channel', created_by: channel_creator)
+      channel = mock('channel', created_by: channel_creator, type:'channel')
       topic = mock
       topic_authority = mock
       query = Queries::CreatorAuthoritiesForChannels.new mock
@@ -36,6 +36,16 @@ describe Queries::CreatorAuthoritiesForChannels do
       result = query.authority_for(channel)
 
       expect(result).to eq topic_authority
+    end
+
+    it "should return 0 when the channel is not a real channel." do
+      channel_creator = mock(:some_graph_user)
+      channel = mock('channel', created_by: channel_creator, type:'notchannel')
+      query = Queries::CreatorAuthoritiesForChannels.new mock
+
+      result = query.authority_for(channel)
+
+      expect(result).to eq 0
     end
   end
   describe "topic_for" do

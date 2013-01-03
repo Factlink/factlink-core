@@ -29,11 +29,7 @@ class SubchannelsController < ApplicationController
     end
 
     def render_subchannels
-      render json: retrieve_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)},
-                   location: channel_path(channel.created_by.user.username, channel.id)
-    end
-
-    def retrieve_channels
-      interactor :'channels/sub_channels', channel
+      @channels = interactor :'channels/sub_channels', channel
+      render 'channels/index', format: 'json', location: channel_path(channel.created_by.user.username, channel.id)
     end
 end
