@@ -1,2 +1,2 @@
 #!/bin/bash
-wget --user=$JENKINS_USER --ask-password https://ci.factlink.com/job/DevelopCore/ws/tmp/capybarascreenshot-$1-new.png -O spec/integration/screenshots/$1.png
+wget --user=$JENKINS_USER --ask-password https://ci.factlink.com/job/DevelopCore/ws/tmp/capybarascreenshot-$1-new.png -O spec/screenshots/screenshots/$1.png
