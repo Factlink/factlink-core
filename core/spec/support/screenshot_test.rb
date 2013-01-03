@@ -89,6 +89,7 @@ module ScreenshotTest
       force_scroll_bars
       # Need this to let the animations settle.
       sleep 1
+      @page.driver.resize 1024, 2000
       @page.driver.render new_file
     end
   end
