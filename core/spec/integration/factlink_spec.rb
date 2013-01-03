@@ -11,14 +11,14 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  it "the layout of the discussion page is correct" do
-    pending "because we are depending on external services. Only enable this test when we are not depending on gravatar anymore"
+  it "the layout of the discussion page is correct", :screenshot do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
     visit friendly_fact_path(@factlink)
-    sleep 2
-    wait_for_ajax
+
+    page.should have_content @factlink.data.displaystring
+
     assume_unchanged_screenshot "discussion_page"
   end
 
@@ -34,13 +34,11 @@ describe "factlink", type: :request do
       input = page.find(:css, 'input')
       input.set(search_string)
       input.trigger('focus')
-
-      wait_for_ajax
     end
 
-    page.find('.fact-relation-post').click
+    page.should have_selector(".auto-complete-search-list-container")
 
-    sleep 2
+    page.find('.fact-relation-post').click
 
     page.should have_selector('li.evidence-item')
     within(:css, 'li.evidence-item') do
