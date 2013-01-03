@@ -46,10 +46,11 @@ describe Commands::DeleteComment do
       comment_id = '10a'
       user_id = '20a'
 
-      should_receive_new_with_and_receive_call(Queries::Comments::CanDestroy, comment_id, user_id, {}).
+      command = Commands::DeleteComment.new comment_id, user_id
+
+      command.should_receive(:query).with(:"comments/can_destroy", comment_id, user_id).
         and_return(true)
 
-      command = Commands::DeleteComment.new comment_id, user_id
       command.authorized_in_execute
     end
   end
