@@ -13,17 +13,6 @@ if defined?(NewRelic)
     add_transaction_tracer :recalculate, category: :task, name: 'recalculate'
   end
 
-  Channels::Channel.class_eval do
-    include NewRelic::Agent::MethodTracer
-    add_method_tracer :initialize
-    add_method_tracer :to_hash
-  end
-
-  ChannelsController.class_eval do
-    include NewRelic::Agent::MethodTracer
-    add_method_tracer :render_channels
-  end
-
   Pavlov::Operation.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :initialize, 'Pavlov/#{self.class.name}/initialize'

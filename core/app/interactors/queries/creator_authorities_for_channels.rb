@@ -17,7 +17,14 @@ module Queries
     end
 
     def authority_for(channel)
-      query :authority_on_topic_for, topic_for(channel), channel.created_by
+      if channel.type == 'channel'
+        topic = topic_for(channel)
+        query :authority_on_topic_for,topic, channel.created_by
+      else
+        # channel is a userstream or a created facts channel,
+        # so there is no topic, therefor we define authority as 0
+        0
+      end
     end
 
     def topics
