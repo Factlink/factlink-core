@@ -1,19 +1,18 @@
 AutoloadingView = extendWithAutoloading(Backbone.Marionette.Layout);
 
 class window.ActivitiesView extends AutoloadingView
-
   template: 'activities/list'
 
   regions:
-    bottom: '.js-region-bottom'
+    bottomRegion: '.js-region-bottom'
 
   initialize: (opts) ->
-    @collection.on('reset remove', @reset, this)
-    @collection.on('add', @add, this)
+    @collection.on 'reset remove', @reset, @
+    @collection.on 'add', @add, @
 
-    @addShowHideToggle('loadingIndicator', 'div.loading');
-    @collection.on('startLoading', @loadingIndicatorOn, this);
-    @collection.on('stopLoading', @loadingIndicatorOff, this);
+    @addShowHideToggle 'loadingIndicator', 'div.loading'
+    @collection.on 'startLoading', @loadingIndicatorOn, @
+    @collection.on 'stopLoading', @loadingIndicatorOff, @
 
     @childViews = []
 
@@ -23,24 +22,23 @@ class window.ActivitiesView extends AutoloadingView
   renderChildren: ->
     @$('.list').html('')
     for childView in @childViews
-      @appendHtml(this, childView)
+      @appendHtml @, childView
 
   reset: ->
     @closeChildViews()
-    @collection.each( @add, this );
+    @collection.each @add, @
     @renderChildren()
 
   add: (model, collection) ->
     lastChildView = _.last(@childViews)
 
     unless lastChildView?.append(model)
-      @createNewAppendable(model)
+      @createNewChildView(model)
 
-  createNewAppendable: (model) ->
+  createNewChildView: (model) ->
     appendTo = @newChildView(model)
     @childViews.push appendTo
     @appendHtml @, appendTo
-    appendTo
 
   closeChildViews: ->
     childView.close() for childView in @childViews
@@ -48,10 +46,8 @@ class window.ActivitiesView extends AutoloadingView
 
   onBeforeClose: -> @closeChildViews()
 
-
   appendHtml: (collectionView, childView, index) ->
-    childView.render()
-    @$(".list").append(childView.$el)
+    @$(".list").append childView.render().el
 
   newChildView: (model) ->
     ch = @collection.channel
@@ -63,19 +59,18 @@ class window.ActivitiesView extends AutoloadingView
       @suggestedTopics = new SuggestedTopics()
       @suggestedTopics.fetch()
       @emptyView = new SuggestedTopicsView
-        model: new Backbone.Model({current_url: @collection.link()})
-        collection: collectionDifference(new SuggestedTopics, 'slug_title', @suggestedTopics, window.Channels);
+        model: new Backbone.Model(current_url: @collection.link())
+        collection: collectionDifference new SuggestedTopics, 'slug_title', @suggestedTopics, window.Channels
     else
       @emptyView = getTextView('Currently there are no activities related to this channel')
 
-    @$('.empty_stream').html(@emptyView.render().el)
-
+    @$('.js-empty-stream').html @emptyView.render().el
 
   emptyViewOff: ->
-    if @emptyView
+    if @emptyView?
       @emptyView.close()
       delete @emptyView
 
-  addAtBottom:(view)-> @bottom.show(view)
+  addAtBottom:(view) -> @bottomRegion.show view
 
 _.extend(ActivitiesView.prototype, ToggleMixin)
