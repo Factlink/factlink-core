@@ -1,5 +1,11 @@
 AutoloadingView = extendWithAutoloading(Backbone.Marionette.Layout);
 
+class ActivititesBasicEmptyView extends Backbone.Marionette.ItemView
+  className: 'empty_view_content'
+  template: """
+    Currently there are no activities related to this channel
+  """
+
 class window.ActivitiesView extends AutoloadingView
   template: 'activities/list'
 
@@ -63,7 +69,7 @@ class window.ActivitiesView extends AutoloadingView
           model: new Backbone.Model(current_url: @collection.link())
           collection: collectionDifference new SuggestedTopics, 'slug_title', @suggestedTopics, window.Channels
       else
-        @emptyView = getTextView('Currently there are no activities related to this channel')
+        @emptyView = new ActivititesBasicEmptyView
 
       @$('.js-empty-stream').html @emptyView.render().el
 
