@@ -40,7 +40,7 @@ describe Interactors::SubComments::IndexForComment do
       authorities = [10, 20]
 
       interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: user
-      should_receive_new_with_and_receive_call(Queries::SubComments::Index, comment_id, 'Comment', current_user: user).
+      interactor.should_receive(:query).with(:"sub_comments/index", comment_id, 'Comment').
         and_return(sub_comments)
 
       interactor.should_receive(:authority_of_user_who_created).
@@ -108,7 +108,7 @@ describe Interactors::SubComments::IndexForComment do
       interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: user
 
       interactor.should_receive(:top_fact).and_return(fact)
-      should_receive_new_with_and_receive_call(Queries::AuthorityOnFactFor, fact, graph_user, current_user: user).
+      interactor.should_receive(:query).with(:"authority_on_fact_for", fact, graph_user).
         and_return authority
 
       result = interactor.authority_of_user_who_created sub_comment

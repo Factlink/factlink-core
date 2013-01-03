@@ -27,7 +27,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
     type_of_action_text: @type_of_action_text()
 
   type_of_action_text: ->
-    if @options.addToCollection.type == 'believes'
+    if @options.addToCollection.type == 'supporting'
       'Agreeing'
     else
       'Disagreeing'

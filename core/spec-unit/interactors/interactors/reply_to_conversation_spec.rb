@@ -11,21 +11,20 @@ describe Interactors::ReplyToConversation do
 
   describe '.call' do
     it 'correctly' do
-      graph_user   = mock();
+      graph_user   = mock
       sender       = mock(:user, id: 13, graph_user: graph_user)
       content      = 'geert'
       conversation = mock(:conversation, id: 20)
-      message      = mock()
+      message      = mock
 
       interactor = Interactors::ReplyToConversation.new conversation.id.to_s, sender.id.to_s, content, current_user: sender
 
       Conversation.should_receive(:find).with(conversation.id.to_s).and_return(conversation)
-      should_receive_new_with_and_receive_call(
-        Commands::CreateMessage, sender.id.to_s, content, conversation, current_user: sender).and_return(message)
+      interactor.should_receive(:command).with(:create_message, sender.id.to_s, content, conversation).
+        and_return(message)
 
       User.should_receive(:find).with(sender.id.to_s).and_return(sender)
-      should_receive_new_with_and_receive_call(
-        Commands::CreateActivity, graph_user, :replied_message, message, nil, current_user: sender)
+      interactor.should_receive(:command).with(:create_activity, graph_user, :replied_message, message, nil)
 
       interactor.should_receive(:track_mixpanel)
 
