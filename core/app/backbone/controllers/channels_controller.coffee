@@ -14,7 +14,10 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     mp_track("mp_page_view", {mp_page: window.location.href})
 
     withChannel = (channel) ->
-      channel.set(new_facts: false)
+      channel.set
+        new_facts: false
+        unread_count: 0
+
       callback(channel)
 
     if (channel)
@@ -38,7 +41,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       app.leftBottomRegion.close()
 
   showChannelSideBar: (channels, currentChannel, user)->
-    window.Channels.setUsernameAndRefresh(user.get('username'))
+    window.Channels.setUsernameAndRefreshIfNeeded(user.get('username'))
     channelCollectionView = new ChannelsView(collection: channels, model: user)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActiveChannel(currentChannel)

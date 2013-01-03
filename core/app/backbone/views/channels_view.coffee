@@ -62,10 +62,6 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     channel = window.Channels.first()
     @model.set(channel.user().attributes) if channel
 
-
-  initialEvents: -> false # stop layout from refreshing after model/collection update
-                    # no longer needed in marionette 1.0
-
   onRender: ->
     @list.show new ChannelListView(collection: @collection)
     @renderHeader()

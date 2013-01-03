@@ -30,6 +30,8 @@ class window.ChannelList extends window.GenericChannelList
     @setUsername username
     @setupReloading true
 
+  setUsernameAndRefreshIfNeeded: (username)->
+    @setUsernameAndRefresh(username) if @getUsername() isnt username or @length == 0
 
   getUsername: -> if @_username then @_username else
 
