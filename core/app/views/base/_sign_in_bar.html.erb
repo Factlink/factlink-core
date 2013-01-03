@@ -9,15 +9,15 @@
 
         <%= f.text_field     :login,    class: "text",    placeholder: "Username or email",    tabindex: '1' %>
         <%= f.password_field :password, class: "text", placeholder: "Password", tabindex: '2' %>
-        <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'btn', tabindex: '3' %>
+        <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'btn', tabindex: '4' %>
 
         <div class="toolbar">
           <span>
-            <%= link_to "Forgot password?", new_password_path('user'), id: :cannot_access_account, tabindex: '4' %>
+            <%= link_to "Forgot password?", new_password_path('user'), id: :cannot_access_account %>
           </span>
 
           <%= f.label :remember_me do %>
-            Remember me <%= f.check_box :remember_me %>
+            Remember me <%= f.check_box :remember_me, tabindex: '3' %>
           <% end %>
         </div>
       <% end %>
