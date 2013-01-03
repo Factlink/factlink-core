@@ -35,8 +35,7 @@ describe Commands::CreateConversation do
       Conversation.should_receive(:new).and_return(conversation)
       user = mock()
 
-      should_receive_new_with_and_receive_call(
-        Queries::UserByUsername, username, {}).
+      command.should_receive(:query).with(:user_by_username, username).
         and_return(user)
 
 
@@ -56,8 +55,8 @@ describe Commands::CreateConversation do
       username = 'username'
       command = Commands::CreateConversation.new(fact_id, [username])
       Conversation.should_receive(:new).and_return(mock('conversation'))
-      should_receive_new_with_and_receive_call(
-        Queries::UserByUsername, username, {}).
+      
+      command.should_receive(:query).with(:user_by_username, username).
         and_return(nil)
 
       expect {command.call}.to raise_error(Pavlov::ValidationError, 'user_not_found')
