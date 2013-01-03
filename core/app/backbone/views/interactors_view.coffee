@@ -2,19 +2,16 @@ class InteractorEmptyView extends Backbone.Marionette.ItemView
   tagName: 'span'
   template: "fact_relations/interactor_empty"
 
-  appendSeparator: (text)-> @$el.append text
-
 class InteractorView extends Backbone.Marionette.Layout
   tagName: 'span'
+  className: 'separator-list-item'
   template: "fact_relations/interactor"
-
-  appendSeparator: (text)-> @$('a').after text
 
 class window.InteractorsView extends Backbone.Marionette.CompositeView
   template: "fact_relations/interactors"
   emptyView: InteractorEmptyView
   itemView: InteractorView
-  itemViewContainer: "span"
+  itemViewContainer: ".js-interactors-collection"
   events:
     'click a.showAll' : 'showAll'
 
@@ -42,11 +39,3 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
     e.preventDefault()
     @collection.howManyPer(1000000)
     @fetch()
-
-  insertItemSeparator: (itemView, index) ->
-    sep = Backbone.Factlink.listSeparator(@collection.totalRecords, @collection.length, index)
-    itemView.appendSeparator(sep) if sep?
-
-  appendHtml: (collectionView, itemView, index) =>
-    @insertItemSeparator itemView, index
-    super(collectionView, itemView, index)

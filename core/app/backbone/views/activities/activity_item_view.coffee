@@ -38,9 +38,8 @@ class AddedOpinionView extends ActivityItemView
 
 class AddedFactToChannelView extends Backbone.Marionette.ItemView
   tagName: 'span'
+  className: 'separator-list-item'
   template: 'activities/added_fact_to_channel'
-
-  appendSeparator: (text)-> @$el.append text
 
 class AddedFactToChannelGroupView extends Backbone.Marionette.CompositeView
   template: 'activities/added_fact_to_channel_group'
@@ -52,14 +51,6 @@ class AddedFactToChannelGroupView extends Backbone.Marionette.CompositeView
 
   initialEvents: ->
     @bindTo @collection, "add remove reset", @render, @
-
-  insertItemSeparator: (itemView, index) ->
-    sep = Backbone.Factlink.listSeparator(@collection.length, @collection.length, index)
-    itemView.appendSeparator(sep) if sep?
-
-  appendHtml: (collectionView, itemView, index) =>
-    @insertItemSeparator itemView, index
-    super(collectionView, itemView, index)
 
   append: (model) ->
     if correct_action = model.get('action') == "added_fact_to_channel"
