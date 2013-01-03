@@ -1,3 +1,5 @@
+require_relative '../pavlov/search_helper'
+
 module Interactors
   class SearchChannel
     include Pavlov::Interactor

@@ -1,4 +1,4 @@
-require_relative '../../../app/interactors/pavlov.rb'
+require 'pavlov'
 
 describe Pavlov::Operation do
 

@@ -1,4 +1,4 @@
-require_relative '../pavlov'
+require 'pavlov'
 require_relative '../kill_object'
 
 module Queries

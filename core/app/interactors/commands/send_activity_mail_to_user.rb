@@ -1,4 +1,4 @@
-require_relative '../pavlov'
+require 'pavlov'
 
 module Commands
   class SendActivityMailToUser

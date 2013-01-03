@@ -1,4 +1,5 @@
-require_relative '../pavlov'
+require 'pavlov'
+require_relative '../pavlov/mixpanel'
 
 module Interactors
   class CreateConversationWithMessage

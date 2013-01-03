@@ -2,6 +2,8 @@
 # subclass and implement get_alive_channels to return a list
 # of ohm channel models
 
+require_relative '../../pavlov/can_can'
+
 module Interactors
   module Channels
     class Index
