@@ -38,21 +38,14 @@ class AddedOpinionView extends ActivityItemView
 
 class AddedFactToChannelView extends Backbone.Marionette.ItemView
   tagName: 'span'
-  template:
-    text: """
-      <a rel="backbone" href="{{ activity.channel_url }}">{{ activity.channel_title }}</a>
-    """
+  template: 'activities/added_fact_to_channel'
 
   appendSeparator: (text)-> @$el.append text
 
 class AddedFactToChannelGroupView extends Backbone.Marionette.CompositeView
+  template: 'activities/added_fact_to_channel_group'
   itemView: AddedFactToChannelView
   itemViewContainer: '.js-region-channels'
-
-  template:
-    text: """
-      <span class="activity-description">{{activity.posted}} to <span class="js-region-channels"></span></span>
-    """
 
   initialize: ->
     @collection = new Backbone.Collection [@model]
@@ -69,7 +62,7 @@ class AddedFactToChannelGroupView extends Backbone.Marionette.CompositeView
     super(collectionView, itemView, index)
 
   append: (model) ->
-    if correct_action = model.get('action') in ["added_fact_to_channel"]
+    if correct_action = model.get('action') == "added_fact_to_channel"
       @collection.add model
       true
     else false

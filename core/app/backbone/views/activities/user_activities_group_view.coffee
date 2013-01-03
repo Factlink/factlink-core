@@ -1,20 +1,5 @@
 class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
-  template:
-    text:
-      """
-      <div class="activity-group-user">
-        <a href="{{ user_profile_url }}" rel="backbone">{{{ avatar }}}</a>
-      </div>
-
-      <div class="activity-group-link">
-        <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a>
-      </div>
-
-      <div class="activity-group-activities js-region-activities"></div>
-
-      <div class="activity-group-time">{{ time_ago }} ago</div>
-      """
-
+  template: 'activities/user_activities_group'
   className: 'activity-group'
   itemView: Backbone.View
   itemViewContainer: ".js-region-activities"
@@ -50,25 +35,10 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
     @lastView = super(item, NewItemView, options)
 
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
+  template: 'activities/user_fact_activities_group'
+
   @actions: ["added_first_factlink", "added_fact_to_channel", "created_comment", "created_sub_comment", "added_supporting_evidence", "added_weakening_evidence", "believes", "doubts", "disbelieves"]
   actions: -> UserFactActivitiesGroupView.actions
-
-  template:
-    text: """
-      <div class="activity-group-user">
-        <a href="{{ user_profile_url }}" rel="backbone">{{{ avatar }}}</a>
-      </div>
-
-      <div class="activity-group-link">
-        <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a>
-      </div>
-
-      <div class="activity-group-activities js-region-activities"></div>
-
-      <div class="activity-group-time">{{ time_ago }} ago</div>
-      
-      <div class="activity-group-fact js-region-fact"></div>
-    """
 
   onRender: ->
     @$('.js-region-fact').html @factView().render().el
