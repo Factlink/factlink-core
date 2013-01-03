@@ -1,6 +1,6 @@
 class window.ActivityItemView extends Backbone.Marionette.ItemView
   template: "activities/generic_activity"
-  append: (model) -> false
+  tryAppend: (model) -> false
 
   @classForModel: (model) ->
     switch model.get("action")
@@ -36,12 +36,15 @@ class CreatedCommentView extends ActivityItemView
 class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"
 
+class AddedFirstFactlinkView extends ActivityItemView
+  template: "activities/added_first_factlink"
+
 class AddedFactToChannelView extends ActivityItemView
   tagName: 'span'
   className: 'separator-list-item'
   template: 'activities/added_fact_to_channel'
 
-class AddedFactToChannelGroupView extends UserActivitiesGroupView
+class AddedFactToChannelGroupView extends ActivitiesGroupView
   template: 'activities/added_fact_to_channel_group'
   className: ''
   itemView: AddedFactToChannelView
@@ -51,6 +54,3 @@ class AddedFactToChannelGroupView extends UserActivitiesGroupView
 
   initialEvents: ->
     @bindTo @collection, "add remove reset", @render, @
-
-class AddedFirstFactlinkView extends ActivityItemView
-  template: "activities/added_first_factlink"

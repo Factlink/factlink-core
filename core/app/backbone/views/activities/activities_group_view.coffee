@@ -1,12 +1,4 @@
-class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
-  template: 'activities/user_activities_group'
-  className: 'activity-group'
-  itemView: Backbone.View
-  itemViewContainer: ".js-region-activities"
-
-  @actions: ["created_channel", "added_subchannel"]
-  actions: -> UserActivitiesGroupView.actions
-
+class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
   @new: (options)->
     new (@classForModel(options.model))(options)
 
@@ -18,21 +10,37 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
     else
       UserActivitiesGroupView
 
-  initialize: -> @collection = new Backbone.Collection [@model]
+  constructor: (options) ->
+    options.collection = new Backbone.Collection [options.model]
+    super(options)
+
+  actions: -> []
+
+  appendable: (model) -> model.get('action') in @actions()
+
+  tryAppend: (model) ->
+    return false unless @appendable(model)
+    @append model
+    true
+
+  append: (model) ->
+    unless @lastView?.tryAppend(model)
+      @collection.add model
+
+class UserActivitiesGroupView extends ActivitiesGroupView
+  template: 'activities/user_activities_group'
+  className: 'activity-group'
+  itemView: Backbone.View
+  itemViewContainer: ".js-region-activities"
+
+  @actions: ["created_channel", "added_subchannel"]
+  actions: -> UserActivitiesGroupView.actions
 
   sameUser: (model) -> @model.get('username') == model.get('username')
 
-  appendable: (model) -> @sameUser(model) and model.get('action') in @actions()
-
-  append: (model) ->
-    return false unless @appendable(model)
-
-    unless @lastView?.append(model)
-      @collection.add model
-    true
+  appendable: (model) -> super(model) and @sameUser(model)
 
   buildItemView: (item, ItemView, options) ->
-    #ignore ItemView
     NewItemView = ActivityItemView.classForModel(item)
     @lastView = super(item, NewItemView, options)
 

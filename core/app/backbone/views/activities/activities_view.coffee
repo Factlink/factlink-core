@@ -32,7 +32,7 @@ class window.ActivitiesView extends AutoloadingView
   add: (model, collection) ->
     lastChildView = _.last(@childViews)
 
-    unless lastChildView?.append(model)
+    unless lastChildView?.tryAppend(model)
       @createNewChildView(model)
 
   createNewChildView: (model) ->
@@ -51,7 +51,7 @@ class window.ActivitiesView extends AutoloadingView
 
   newChildView: (model) ->
     ch = @collection.channel
-    UserActivitiesGroupView.new
+    ActivitiesGroupView.new
       model: model
 
   emptyViewOn: ->
