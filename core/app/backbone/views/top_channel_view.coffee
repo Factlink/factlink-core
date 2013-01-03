@@ -24,5 +24,5 @@ class window.TopChannelView extends Backbone.Marionette.CompositeView
       @$(".no-channels").hide()
       @$(".top-channels").show()
 
-  onRender: ->
+  onRenderCollection: ->
     @$(".top-channels .show-more").hide() if @collection.length < 6
