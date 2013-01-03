@@ -55,16 +55,17 @@ class window.ActivitiesView extends AutoloadingView
       model: model
 
   emptyViewOn: ->
-    if @collection.channel.get('discover_stream?')
-      @suggestedTopics = new SuggestedTopics()
-      @suggestedTopics.fetch()
-      @emptyView = new SuggestedTopicsView
-        model: new Backbone.Model(current_url: @collection.link())
-        collection: collectionDifference new SuggestedTopics, 'slug_title', @suggestedTopics, window.Channels
-    else
-      @emptyView = getTextView('Currently there are no activities related to this channel')
+    unless @options.hideEmptyView
+      if @collection.channel.get('discover_stream?')
+        @suggestedTopics = new SuggestedTopics()
+        @suggestedTopics.fetch()
+        @emptyView = new SuggestedTopicsView
+          model: new Backbone.Model(current_url: @collection.link())
+          collection: collectionDifference new SuggestedTopics, 'slug_title', @suggestedTopics, window.Channels
+      else
+        @emptyView = getTextView('Currently there are no activities related to this channel')
 
-    @$('.js-empty-stream').html @emptyView.render().el
+      @$('.js-empty-stream').html @emptyView.render().el
 
   emptyViewOff: ->
     if @emptyView?
