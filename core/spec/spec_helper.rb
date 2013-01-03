@@ -17,8 +17,12 @@ I_AM_SPEC_HELPER = true
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
   # Exclude integration tests in normal suite
   config.filter_run_excluding type: :request
+  # Exclude screenshot tests in normal suite
+  config.filter_run_excluding :screenshot
   config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
 
