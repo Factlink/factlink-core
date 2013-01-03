@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'screenshot_helper'
 
 describe "Check the tour", type: :request do
 

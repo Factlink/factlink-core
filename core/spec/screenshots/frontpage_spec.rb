@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'screenshot_helper'
 
 describe "Compare screens", type: :request do
   it "should render the frontpage as expected" do

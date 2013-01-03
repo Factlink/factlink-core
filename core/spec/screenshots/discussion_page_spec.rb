@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'screenshot_helper'
 
 describe "factlink", type: :request do
   include FactHelper
