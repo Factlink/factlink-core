@@ -46,7 +46,7 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
 
   buildItemView: (item, ItemView, options) ->
     #ignore ItemView
-    NewItemView = window.getActivityItemViewFor(item)
+    NewItemView = ActivityItemView.classForModel(item)
     @lastView = super(item, NewItemView, options)
 
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
