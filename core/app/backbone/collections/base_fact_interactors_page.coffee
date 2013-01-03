@@ -13,6 +13,6 @@ class window.BaseFactInteractorsPage extends Backbone.Paginator.requestPager
     currentPage: 1
 
   parse: (response) ->
-    @totalRecords = response.total = 100
+    @totalRecords = response.total
     @totalPages = Math.floor(response.total / @perPage)
     response.users
