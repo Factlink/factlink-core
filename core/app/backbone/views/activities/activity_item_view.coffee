@@ -36,27 +36,21 @@ class CreatedCommentView extends ActivityItemView
 class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"
 
-class AddedFactToChannelView extends Backbone.Marionette.ItemView
+class AddedFactToChannelView extends ActivityItemView
   tagName: 'span'
   className: 'separator-list-item'
   template: 'activities/added_fact_to_channel'
 
-class AddedFactToChannelGroupView extends Backbone.Marionette.CompositeView
+class AddedFactToChannelGroupView extends UserActivitiesGroupView
   template: 'activities/added_fact_to_channel_group'
+  className: ''
   itemView: AddedFactToChannelView
   itemViewContainer: '.js-region-channels'
 
-  initialize: ->
-    @collection = new Backbone.Collection [@model]
+  actions: -> ["added_fact_to_channel"]
 
   initialEvents: ->
     @bindTo @collection, "add remove reset", @render, @
-
-  append: (model) ->
-    if correct_action = model.get('action') == "added_fact_to_channel"
-      @collection.add model
-      true
-    else false
 
 class AddedFirstFactlinkView extends ActivityItemView
   template: "activities/added_first_factlink"
