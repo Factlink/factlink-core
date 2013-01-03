@@ -26,7 +26,9 @@ class window.UserActivitiesGroupView extends Backbone.Marionette.CompositeView
 
   append: (model) ->
     return false unless @appendable(model)
-    @collection.add model unless @lastView?.append(model)
+
+    unless @lastView?.append(model)
+      @collection.add model
     true
 
   buildItemView: (item, ItemView, options) ->
@@ -53,4 +55,3 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
     @model.get('activity').fact?.id == model.get('activity').fact?.id
 
   appendable: (model) -> super(model) and @sameFact(model)
-
