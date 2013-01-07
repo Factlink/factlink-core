@@ -1,10 +1,10 @@
 require 'pavlov'
-require_relative '../pavlov/mixpanel'
+require_relative '../util/mixpanel'
 
 module Interactors
   class CreateConversationWithMessage
     include Pavlov::Interactor
-    include Pavlov::Mixpanel
+    include Util::Mixpanel
 
     arguments :fact_id, :recipient_usernames, :sender_id, :content
 

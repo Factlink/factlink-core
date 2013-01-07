@@ -1,4 +1,4 @@
-module Pavlov
+module Util
   module CanCan
     def can? *args
       @options[:ability].can?(*args)

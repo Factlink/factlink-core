@@ -1,4 +1,4 @@
-module Pavlov
+module Util
   module Mixpanel
     def track_event *args
       @options[:mixpanel].track_event *args

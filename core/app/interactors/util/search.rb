@@ -1,5 +1,5 @@
-module Pavlov
-  module SearchHelper
+module Util
+  module Search
     def keywords_longer_than_chars(keywords, nr)
       keywords.split(/\s+/).select{|x|x.length > nr}.join(" ")
     end
