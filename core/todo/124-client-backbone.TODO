@@ -1,5 +1,8 @@
- ☐ create view for facts/new
+ ✔ remove erb depedencies as much as possible from facts/new @done (13-01-07 17:38)
+ ✔ create view for facts/new @done (13-01-07 17:38)
+ ☐ make view responsible for rendering components
  ☐ use a marionette app in facts/new (no routes)
+ ☐ remove erb depedencies as much as possible from facts/show
  ☐ create view for facts/show
  ☐ use a marionette app in facts/show (no routes)
  ☐ open facts/new by default in iframe in intermediate

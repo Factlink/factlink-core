@@ -1,40 +1,15 @@
-<% if user_signed_in? %>
-  <%= form_tag facts_path(layout: @layout, guided: params[:guided]), class: "fact-block", id:"new_fact_form" do %>
-    <div class="fact-view">
-      <%= text_area_tag :fact, params[:fact] %>
-      <%= hidden_field_tag :url, params[:url] %>
-      <%= hidden_field_tag :title, params[:title] %>
-      <% if @layout %>
-        <%= hidden_field_tag :layout, value: @layout %>
-      <% end %>
-
-      <div class="fact-wheel"></div>
-
-      <div class="fact-body">
-        <%= params[:fact] %>
-      </div>
-    </div>
-
-    <div id="add-to-container">
-      <strong><%= t('.add_to_channels').capitalize %>:</strong>
-      <div id="add-to-channels"></div>
-
-      <div id="suggested-channels-region"></div>
-    </div>
-
-    <div class="buttons">
-      <button class="btn" name="cancel" id="cancel">Cancel</button>
-      <%= submit_tag "Post to Factlink",
-                     class: "btn btn-primary",
-                     "data-disable-with" => "Posting...",
-                     id: "submit" %>
-    </div>
-  <% end %>
-<% end %>
-
 <% content_for :javascript do %>
   <script>
     <%= render 'backbone/currentUser' %>
+    factsNewView = new FactsNewView({
+      layout: '<%= @layout %>',
+      fact_text: '<%= params[:fact] %>',
+      title: '<%= params[:title] %>',
+      url: '<%= params[:url] %>',
+      csrf_token: $('meta[name=csrf-token]').attr('content')
+    });
+
+    $('.factlink-modal').append(factsNewView.render().el);
 
     var addToCollection = new OwnChannelCollection();
     var addToChannelView = new AutoCompleteChannelsView({collection: addToCollection}).render();
