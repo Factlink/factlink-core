@@ -7,8 +7,7 @@
     -webkit-box-shadow: 0 0 0 5px rgba(255, 255, 255, 1), 0 0 0 6px #cbcbcb, 0 7px 3px 0 rgba(0, 0, 0, .15);
     -moz-box-shadow: 0 0 0 5px rgba(255, 255, 255, 1), 0 0 0 6px #cbcbcb, 0 7px 3px 0 rgba(0, 0, 0, .15);
     box-shadow: 0 0 0 5px rgba(255, 255, 255, 1), 0 0 0 6px #cbcbcb, 0 7px 3px 0 rgba(0, 0, 0, .15);
-    margin-bottom: 20px;
-    
+    margin-bottom: 15px;
   }
   .ico {
     width: 26px;
@@ -34,7 +33,7 @@
     }
     &.twitter {
       left: -2px;
-      bottom: 30px;
+      top: 100px;
       i {
         background-image: image-url("icon-twitter.png");
         background-position: 5px 7px;
@@ -42,7 +41,7 @@
     }
     &.linkedin {
       right: 28px;
-      bottom: 30px;
+      top: 100px;
       i {
         background-image: image-url("icon-linkedin.png");
         background-position: 8px 6px;     
@@ -58,6 +57,24 @@
         .opacity(.60);
       }
     }
+  }
+  h3, h4 {
+    position: relative;
+    margin: 0;
+    text-align: center;
+  }
+  h3 {
+    font-size: 15px;
+    width: 150px;
+    line-height: 18px;
+    left: -10px;
+  }
+  h4 {
+    font-size: 12px;
+    width: 95px;
+    padding-top: 0 !important;
+    line-height: 16px;
+    left: -7px;
   }
 }
 
