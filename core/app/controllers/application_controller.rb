@@ -63,10 +63,15 @@ class ApplicationController < ActionController::Base
   after_filter :set_access_control
 
   def after_sign_in_path_for(user)
-    return_to = session[:return_to]
-    session[:return_to] = nil
-
-    return_to || stored_location_for(user) || channel_activities_path(user, user.graph_user.stream)
+    if session[:return_to]
+      return_to = session[:return_to]
+      session[:return_to] = nil
+      return_to
+    elsif current_user.seen_the_tour
+      stored_location_for(user) || channel_activities_path(user, user.graph_user.stream)
+    else
+      almost_done_path
+    end
   end
 
   ##########
