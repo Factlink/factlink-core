@@ -1,0 +1,7 @@
+ ☐ create view for facts/new
+ ☐ use a marionette app in facts/new (no routes)
+ ☐ create view for facts/show
+ ☐ use a marionette app in facts/show (no routes)
+ ☐ open facts/new by default in iframe in intermediate
+ ☐ open page with backbone routing
+ ☐ navigate from facts/new to facts/show with marionette
