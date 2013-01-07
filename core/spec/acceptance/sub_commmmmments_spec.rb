@@ -7,8 +7,8 @@ feature "sub_comments", type: :request do
   include Acceptance::CommentHelper
 
   background do
-    @user_a = sign_in_user create :approved_confirmed_user
-    @user_b = create :approved_confirmed_user
+    @user_a = sign_in_user create :active_user
+    @user_b = create :active_user
 
     @factlink_user_a = create :fact, created_by: @user_a.graph_user
   end

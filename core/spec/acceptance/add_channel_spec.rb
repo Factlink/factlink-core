@@ -2,7 +2,7 @@ require 'acceptance_helper'
 
 describe "channels", type: :request do
   it "can be visited" do
-    user = sign_in_user FactoryGirl.create :approved_confirmed_user
+    user = sign_in_user FactoryGirl.create :active_user
     channel = FactoryGirl.create(:channel, created_by: user.graph_user)
 
     visit channel_path(user, channel)

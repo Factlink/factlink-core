@@ -5,8 +5,8 @@ describe "conversation", type: :request do
   include Acceptance::FactHelper
 
   before :each do
-    @user = sign_in_user(create :approved_confirmed_user)
-    @recipients = create_list :approved_confirmed_user , 2
+    @user = sign_in_user(create :active_user)
+    @recipients = create_list :active_user, 2
   end
 
   it "message can be sent and viewed" do

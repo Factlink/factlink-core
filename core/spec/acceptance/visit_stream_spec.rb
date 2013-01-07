@@ -7,7 +7,7 @@ feature "visiting the stream" do
   include Acceptance::ScrollHelper
 
   background do
-    @user = FactoryGirl.create :approved_confirmed_user
+    @user = FactoryGirl.create :active_user
   end
 
   scenario "adding first fact" do
@@ -25,7 +25,7 @@ feature "visiting the stream" do
   scenario "revisiting stream after visiting a factlink page" do
     channel = backend_create_channel
 
-    other_user = FactoryGirl.create :approved_confirmed_user
+    other_user = FactoryGirl.create :active_user
     other_channel = backend_create_channel_of_user other_user
     backend_channel_add_subchannel channel, other_channel
 

@@ -6,8 +6,8 @@ feature "channels", type: :request do
   include Acceptance::AddToChannelModalHelper
 
   scenario "I navigate to somebody else's channel and follow it" do
-    @user = create :approved_confirmed_user
-    other_user = create :approved_confirmed_user
+    @user = create :active_user
+    other_user = create :active_user
 
     other_users_channel =
       backend_create_viewable_channel_for other_user

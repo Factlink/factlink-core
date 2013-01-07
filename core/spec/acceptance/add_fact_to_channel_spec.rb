@@ -8,7 +8,7 @@ feature "adding a fact to a channel" do
   include Acceptance::AddToChannelModalHelper
 
   background do
-    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
+    @user = sign_in_user FactoryGirl.create :active_user
   end
 
   scenario "adding a fact to a new channel from the factbubble" do
