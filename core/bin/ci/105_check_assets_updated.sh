@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CURRENT_MD5=`cat config/locales/* | md5`
+CURRENT_MD5=`cat config/locales/* | md5sum | perl -pe 's/\s-\s*'`
 RECORDED_MD5=`cat app/assets/javascripts/globals/globals.coffee.erb  | grep '# MD5' | perl -pe 's/.*:\s*//'`
 
 if [ "$CURRENT_MD5" != "$RECORDED_MD5" ]; then
