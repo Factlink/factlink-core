@@ -7,7 +7,7 @@ module ScreenshotTest
     end
 
     def old_file
-      Rails.root.join('spec','integration','screenshots',"#{@title}.png")
+      Rails.root.join('spec','screenshots','screenshots',"#{@title}.png")
     end
 
     def new_file

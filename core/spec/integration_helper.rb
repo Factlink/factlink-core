@@ -16,11 +16,6 @@ require 'database_cleaner'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
-
-  # By default don't run screenshots
-  config.filter_run_excluding :screenshot
-
   # webkit always has js enabled, so always use this:
   Capybara.javascript_driver = :poltergeist
   Capybara.default_driver = :poltergeist

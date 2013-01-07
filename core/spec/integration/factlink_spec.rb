@@ -8,18 +8,7 @@ describe "factlink", type: :request do
   end
 
   before :each do
-    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
-  end
-
-  it "the layout of the discussion page is correct", :screenshot do
-    @factlink = create_factlink @user
-    search_string = 'Test search'
-
-    visit friendly_fact_path(@factlink)
-
-    page.should have_content @factlink.data.displaystring
-
-    assume_unchanged_screenshot "discussion_page"
+    @user = sign_in_user FactoryGirl.create :active_user
   end
 
   it "evidence can be added" do
