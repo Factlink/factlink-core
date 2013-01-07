@@ -331,7 +331,6 @@ describe 'activity queries' do
 
       context "gu1 believes the comment" do
         it "creates a stream activity" do
-          pending "work in progress"
           fact = create :fact, created_by: current_user.graph_user
 
           comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
@@ -393,7 +392,6 @@ describe 'activity queries' do
 
       context "gu1 believes the fact relation" do
         it "creates a stream activity" do
-          pending "work in progress"
           fact = create :fact, created_by: current_user.graph_user
 
           fact_relation = fact.add_evidence :supporting, create(:fact), current_user

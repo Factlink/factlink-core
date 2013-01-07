@@ -6,7 +6,7 @@ class UserIdsFollowingFactQuery
   arguments :fact
 
   def execute
-    (creator_ids + opinionated_users_ids + evidence_creators_ids).uniq
+    (creator_ids + opinionated_users_ids + evidence_followers_ids).uniq
   end
 
   def creator_ids
@@ -17,12 +17,40 @@ class UserIdsFollowingFactQuery
     fact.opinionated_users_ids
   end
 
-  def evidence_creators_ids
-    fact_relations_creators_ids
+  def evidence_followers_ids
+    fact_relations_followers_ids + comments_followers_ids
+  end
+
+  def fact_relations_followers_ids
+    fact_relations_creators_ids + fact_relations_opinionated_ids
   end
 
   def fact_relations_creators_ids
-    fact.fact_relations.map(&:created_by_id)
+    fact_relations.map(&:created_by_id)
+  end
+
+  def fact_relations_opinionated_ids
+    fact_relations.flat_map(&:opinionated_users_ids)
+  end
+
+  def fact_relations
+    @fact_relations ||= fact.fact_relations
+  end
+
+  def comments_followers_ids
+    comments_creators_ids + comments_opinionated_ids
+  end
+
+  def comments_creators_ids
+    comments.map {|comment| comment.created_by.graph_user_id}
+  end
+
+  def comments_opinionated_ids
+    comments.flat_map {|comment| comment.believable.opinionated_users_ids}
+  end
+
+  def comments
+    @comments ||= Comment.where({fact_data_id: fact.data_id})
   end
 
   def fact
