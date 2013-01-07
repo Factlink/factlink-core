@@ -1,6 +1,72 @@
 require_relative '../../interactors/pavlov'
 
-class UserIdsFollowingFactQuery
+class GraphUserIdsFollowingFactRelationsQuery
+  include Pavlov::Query
+
+  arguments :fact_relations
+
+  def execute
+    (fact_relations_creators_ids + fact_relations_opinionated_ids + sub_comments_on_fact_relations_creators_ids).uniq
+  end
+
+  def fact_relations_creators_ids
+    fact_relations.map(&:created_by_id)
+  end
+
+  def fact_relations_opinionated_ids
+    fact_relations.flat_map(&:opinionated_users_ids)
+  end
+
+  def sub_comments_on_fact_relations_creators_ids
+    SubComment.where(parent_class: 'FactRelation').
+               any_in(parent_id: fact_relations_ids).
+               map(&:created_by).
+               map(&:graph_user_id)
+  end
+
+  def fact_relations_ids
+    fact_relations.map(&:id)
+  end
+
+  def fact_relations
+    @fact_relations
+  end
+end
+
+class GraphUserIdsFollowingCommentsQuery
+  include Pavlov::Query
+
+  arguments :comments
+
+  def execute
+    (comments_creators_ids + comments_opinionated_ids + sub_comments_on_comments_creators_ids).uniq
+  end
+
+  def comments_creators_ids
+    comments.map {|comment| comment.created_by.graph_user_id}
+  end
+
+  def comments_opinionated_ids
+    comments.flat_map {|comment| comment.believable.opinionated_users_ids}
+  end
+
+  def sub_comments_on_comments_creators_ids
+    SubComment.where(parent_class: 'Comment').
+               any_in(parent_id: comments_ids).
+               map(&:created_by).
+               map(&:graph_user_id)
+  end
+
+  def comments_ids
+    comments.map(&:id)
+  end
+
+  def comments
+    @comments
+  end
+end
+
+class GraphUserIdsFollowingFactQuery
   include Pavlov::Query
 
   arguments :fact
@@ -22,15 +88,7 @@ class UserIdsFollowingFactQuery
   end
 
   def fact_relations_followers_ids
-    fact_relations_creators_ids + fact_relations_opinionated_ids
-  end
-
-  def fact_relations_creators_ids
-    fact_relations.map(&:created_by_id)
-  end
-
-  def fact_relations_opinionated_ids
-    fact_relations.flat_map(&:opinionated_users_ids)
+    GraphUserIdsFollowingFactRelationsQuery.new(fact_relations).call
   end
 
   def fact_relations
@@ -38,15 +96,7 @@ class UserIdsFollowingFactQuery
   end
 
   def comments_followers_ids
-    comments_creators_ids + comments_opinionated_ids
-  end
-
-  def comments_creators_ids
-    comments.map {|comment| comment.created_by.graph_user_id}
-  end
-
-  def comments_opinionated_ids
-    comments.flat_map {|comment| comment.believable.opinionated_users_ids}
+    GraphUserIdsFollowingCommentsQuery.new(comments).call
   end
 
   def comments
@@ -63,7 +113,7 @@ def create_activity_listeners
     include Pavlov::Helpers
 
     people_who_follow_a_fact = lambda { |a|
-      user_ids = UserIdsFollowingFactQuery.new(a.object).call
+      user_ids = GraphUserIdsFollowingFactQuery.new(a.object).call
       user_ids.delete_if {|id| id == a.user_id}
     }
 
@@ -119,11 +169,15 @@ def create_activity_listeners
       activity subject_class: "SubComment",
                action: :created_sub_comment,
                write_ids: lambda { |a|
-                  def people_who_follow_evidence evidence
-                    [evidence.created_by_id] + evidence.believable.opinionated_users_ids
+                  def people_who_follow_sub_comment sub_comment
+                    if sub_comment.parent_class == 'Comment'
+                      GraphUserIdsFollowingCommentsQuery.new([sub_comment.parent]).call
+                    else
+                      GraphUserIdsFollowingFactRelationsQuery.new([sub_comment.parent]).call
+                    end
                   end
 
-                  people_who_follow_evidence(a.subject.parent).delete_if { |id| id == a.user_id }
+                  people_who_follow_sub_comment(a.subject).delete_if { |id| id == a.user_id }
                }
     end
 
