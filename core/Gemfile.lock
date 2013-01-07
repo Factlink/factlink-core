@@ -1,4 +1,11 @@
 GIT
+  remote: git@github.com:Factlink/pavlov.git
+  revision: 1a04742a03f538892d23fa04ddbcbb8dbc4da833
+  specs:
+    pavlov (0.0.1)
+      activesupport (>= 3.2.7)
+
+GIT
   remote: git@github.com:Factlink/rack-xframe-options.git
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
@@ -32,13 +39,6 @@ GIT
   specs:
     ohm (0.2.0)
       nest (~> 1.0)
-
-GIT
-  remote: https://github.com/Factlink/pavlov.git
-  revision: 97dbb4f289e985acf9f2ae6cce7161dc1d50cad4
-  specs:
-    pavlov (0.0.1)
-      activesupport (>= 3.2.7)
 
 GIT
   remote: https://github.com/Factlink/resqued_devise_mailer.git
