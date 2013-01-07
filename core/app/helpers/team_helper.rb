@@ -12,14 +12,16 @@ module TeamHelper
   def team_photo_tag photo, name, linkedin=nil, twitter=nil
     html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 135, height: 135
     html += linkedin_icon_for_team_member linkedin, name if linkedin
-    html += twitter_icon_for_team_member twitter, name   if twitter
+    html += twitter_icon_for_team_member twitter, name if twitter
+    html += content_tag "h3", name
 
     content_tag "div", html, class: "span3 team-member"
   end
 
-  def advisor_photo_tag photo, name, linkedin=nil
-    content_tag "div", class: "span2 team-member" do
-      image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 80, height: 80
-    end
+  def advisor_photo_tag photo, name, linkedin=nil  
+    html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 80, height: 80
+    html += content_tag "h4", name
+
+    content_tag "div", html, class: "span2 team-member"
   end
 end
