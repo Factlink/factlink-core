@@ -1,11 +1,42 @@
+require_relative '../../interactors/pavlov'
+
+class UserIdsFollowingFactQuery
+  include Pavlov::Query
+
+  arguments :fact
+
+  def execute
+    (creator_ids + opinionated_users_ids + evidence_creators_ids).uniq
+  end
+
+  def creator_ids
+    [fact.created_by_id]
+  end
+
+  def opinionated_users_ids
+    fact.opinionated_users_ids
+  end
+
+  def evidence_creators_ids
+    fact_relations_creators_ids
+  end
+
+  def fact_relations_creators_ids
+    fact.fact_relations.map(&:created_by_id)
+  end
+
+  def fact
+    @fact
+  end
+end
+
 def create_activity_listeners
   Activity::Listener.class_eval do
+    include Pavlov::Helpers
 
     people_who_follow_a_fact = lambda { |a|
-      ([a.object.created_by_id] +
-       a.object.opinionated_users_ids +
-       a.object.fact_relations.map { |fr| fr.created_by.id  }).
-        uniq.delete_if {|id| id == a.user_id}
+      user_ids = UserIdsFollowingFactQuery.new(a.object).call
+      user_ids.delete_if {|id| id == a.user_id}
     }
 
     # evidence was added to a fact which you created or expressed your opinion on
