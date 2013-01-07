@@ -29,12 +29,6 @@ def create_activity_listeners
       write_ids: people_who_follow_a_fact
     }
 
-    forGraphUser_sub_comment_was_added = {
-      subject_class: "SubComment",
-      action: :created_sub_comment,
-      write_ids: people_who_follow_a_fact
-    }
-
     register do
       activity_for "GraphUser"
       named :notifications
@@ -63,7 +57,15 @@ def create_activity_listeners
       activity forGraphUser_comment_was_added
 
       # someone added a sub comment
-      # activity forGraphUser_sub_comment_was_added
+      activity subject_class: "SubComment",
+               action: :created_sub_comment,
+               write_ids: lambda { |a|
+                  def people_who_follow_evidence evidence
+                    [evidence.created_by_id] + evidence.believable.opinionated_users_ids
+                  end
+
+                  people_who_follow_evidence(a.subject.parent).delete_if { |id| id == a.user_id }
+               }
     end
 
     register do
@@ -84,7 +86,9 @@ def create_activity_listeners
       activity forGraphUser_comment_was_added
 
       # someone added a sub comment
-      activity forGraphUser_sub_comment_was_added
+      activity subject_class: "SubComment",
+               action: :created_sub_comment,
+               write_ids: people_who_follow_a_fact
 
       # someone believed/disbelieved/doubted your fact
       activity subject_class: "Fact",
