@@ -1,9 +1,6 @@
 class ActiveUsersHaveSeenTheTour < Mongoid::Migration
   def self.up
-    User.active.each do |user|
-      user.seen_the_tour = true
-      user.save
-    end
+    User.active.update_all(seen_the_tour: true)
   end
 
   def self.down

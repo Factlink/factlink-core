@@ -10,7 +10,7 @@ describe 'When a user signs in', type: :request do
   end
 
   it 'he should be able to sign out' do
-    user = FactoryGirl.create :approved_confirmed_user
+    user = FactoryGirl.create :active_user
 
     sign_in_user(user)
 
@@ -26,7 +26,7 @@ describe 'When a user signs in', type: :request do
   end
 
   it 'he should not be able to sign in with false credentials' do
-    user = FactoryGirl.create :approved_confirmed_user
+    user = FactoryGirl.create :active_user
 
     visit "/"
 

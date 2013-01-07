@@ -3,8 +3,8 @@ require 'spec_helper'
 describe EvidenceDeletable do
 
   context 'Comment' do
-    let(:created_by_user) {create :approved_confirmed_user}
-    let(:other_user)      {create :approved_confirmed_user}
+    let(:created_by_user) {create :active_user}
+    let(:other_user)      {create :active_user}
     let(:fact)            {create :fact}
 
     let(:comment) do

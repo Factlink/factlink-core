@@ -22,15 +22,21 @@ FactoryGirl.define do
       confirmed_at DateTime.now
     end
 
+    trait :seen_the_tour do
+      seen_the_tour true
+    end
+
     trait :admin do
       approved
       confirmed
+      seen_the_tour
       admin true
     end
 
     factory :approved_user, traits: [:approved]
     factory :confirmed_user, traits: [:confirmed]
     factory :approved_confirmed_user, traits: [:approved, :confirmed]
+    factory :active_user, traits: [:approved, :confirmed, :seen_the_tour]
     factory :admin_user, traits: [:admin]
   end
 
