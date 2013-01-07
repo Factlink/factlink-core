@@ -1,5 +1,5 @@
 class window.BananasView extends Backbone.Marionette.ItemView
-  template: 'generic/tour/_bananas'
+  template: 'tour/bananas'
 
   max_bananas = 5
 
