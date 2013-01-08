@@ -2,11 +2,17 @@
 
   <p>Hi there!</p>
 
-  <p>You've made it to the top of our waiting list. You can start using Factlink now!</p>
+  <p>Today we’re adding more users to Factlink. You signed up for Factlink and we’d love for you to give it a try. The Factlink platform is very young and we’ve build only part of it. We need your feedback to make it better!</p>
 
-  <p>We have created an account for you and invite you to start exploring the possibilities of Factlink.</p>
+  <p>With Factlink, you can agree or disagree with any statement on the web by selecting it (with the extension, it works on any web-page!) and adding your opinion and optionally the arguments behind your opinion. By adding what you know, you create ‘Factlinks’ that others can see and interact with. Other people can support your contributions or add their own opinions. The more you add, the higher your reputation will grow on the topics you’ve interacted with.</p>
 
-  <p><%= link_to 'Click here to start using Factlink', edit_password_url(@user, :reset_password_token => @user.reset_password_token, msg: 'welcome') %></p>
+  <p>At Factlink.com, you have a feed that shows what others have added for topics that interest you. This works by following channel that others create. Channels are an easy way to find out what people have added about specific topics. When someone creates a Factlink and labels it with a topic, a channel with the topic name shows up in their channels so others can follow it.
+
+  <p><%= link_to 'Start using Factlink now', edit_password_url(@user, :reset_password_token => @user.reset_password_token, msg: 'welcome') %> or continue reading about what’s behind Factlink first :)</p>
+
+  <p>Factlink is based on a vision that together, our minds collectively contain all human knowledge and that this knowledge can be captured. Lots of it is shared on the web or is in the minds of people that are online. Like people are connected to other people in a social graph, all knowledge is also connected to other knowledge in a graph. At Factlink, we call the relations between these pieces of information ‘Fact-Relations’ and the total of relations and knowledge the ‘Fact-Graph’. Factlink provides a service that is lets web-connected people contribute what they know. With Factlink, you can stitch together the knowledge that is online already by creating links between pieces of knowledge. You can also add your own knowledge. Together we create the Fact-Graph, making the worlds information available.</p>
+
+  <p>Check out our <% link_to 'introduction video', 'http://vimeo.com/39821677' %> if you haven’t already.</p>
 
   <p style="float: right;"><em>&mdash; The Factlink team</em></p>
 
