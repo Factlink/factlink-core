@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 # TODO rename to add_evidence_spec
 feature "adding comments to a fact", type: :request do

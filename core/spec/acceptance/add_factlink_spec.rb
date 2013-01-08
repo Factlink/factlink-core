@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 describe "creating a Factlink", type: :request do
   def created_channel_path(user)

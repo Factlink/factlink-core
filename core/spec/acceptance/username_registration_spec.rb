@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 describe 'Reserving a username', type: :request do
   it 'should get success note with valid username' do
