@@ -11,7 +11,7 @@ Refactor suggested topics to use url instead of id:
  ☐ wrap query in interactor which receives url
  ☐ let frontend use url instead of site_id
 Create backbone app, we decided to use one app, with two modes:
- ☐ only add the current main regions on site
+ ✔ only add the current main regions on site @done (13-01-08 14:21)
  ☐ ensure notificationcenter works in client
  ☐ only load automatic logout in site
  ☐ only load notifications in site (and remove dirty hack)
