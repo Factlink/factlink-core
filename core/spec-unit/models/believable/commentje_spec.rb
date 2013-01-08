@@ -6,13 +6,13 @@ describe Believable::Commentje do
   include PavlovSupport
 
   before do
-    stub_classes 'Nest'
+    stub_classes 'Ohm::Key'
   end
 
   describe "its constructor" do
     it "should create a subclass of believable" do
       comment_id = mock
-      Nest.stub new: mock
+      Ohm::Key.stub new: mock
       believable_comment = Believable::Commentje.new comment_id
       expect(believable_comment).to be_kind_of(Believable)
     end
@@ -20,7 +20,7 @@ describe Believable::Commentje do
       nest = mock
       comment_id = 'mock_ohm_id'
 
-      Nest.should_receive(:new)
+      Ohm::Key.should_receive(:new)
           .with("Comment:#{comment_id}:believable")
           .and_return(nest)
 

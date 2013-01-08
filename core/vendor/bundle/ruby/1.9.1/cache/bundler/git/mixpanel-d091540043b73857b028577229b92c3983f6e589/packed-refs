@@ -1,0 +1,6 @@
+# pack-refs with: peeled 
+9631c51313e01de90863d9e01cdcd4376b36d4f1 refs/tags/0.9.0
+ade7771b7da84e58c4f6a4bf5bab126c72de28c2 refs/tags/0.7.0
+8253ffaac6994d5757186d07b77a83fe77fadab1 refs/tags/0.6.1
+fc52375ef73f64c93f38e4b413f46f806e5e25da refs/heads/mixpanel_people_api
+51ba36f9df4ac911923b8cb15ee1ae487ae0c2b7 refs/heads/master

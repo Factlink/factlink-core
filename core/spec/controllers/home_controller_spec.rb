@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe HomeController do
-  let (:user)  {FactoryGirl.create :user}
+  let (:user)  {FactoryGirl.create :active_user}
 
   render_views
 
@@ -17,7 +17,6 @@ describe HomeController do
       get :index
       response.should redirect_to(channel_activities_path user, user.graph_user.stream)
     end
-
 
     pending "assigns @facts" do
       # We now cache the @facts from the FactHelper

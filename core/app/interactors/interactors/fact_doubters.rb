@@ -1,4 +1,4 @@
-require_relative '../pavlov'
+require 'pavlov'
 
 module Interactors
   class FactDoubters

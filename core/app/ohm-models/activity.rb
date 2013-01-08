@@ -1,11 +1,11 @@
 require 'ohm/contrib'
+require 'pavlov'
 
 class GraphUser < OurOhm;end # needed because of removed const_missing from ohm
 
 require_relative 'activity/subject'
 require_relative 'activity/listener'
 require_relative 'activity/create_listeners'
-require_relative '../interactors/pavlov'
 require_relative '../interactors/interactors/send_mail_for_activity'
 
 class Activity < OurOhm

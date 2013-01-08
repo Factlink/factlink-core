@@ -1,8 +1,43 @@
 GIT
+  remote: git@github.com:Factlink/mixpanel.git
+  revision: 51ba36f9df4ac911923b8cb15ee1ae487ae0c2b7
+  specs:
+    mixpanel (1.1.3)
+      escape
+      json
+      rack
+
+GIT
+  remote: git@github.com:Factlink/ohm-contrib.git
+  revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
+  specs:
+    ohm-contrib (0.0.31)
+
+GIT
+  remote: git@github.com:Factlink/ohm.git
+  revision: bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac
+  specs:
+    ohm (0.2.0)
+      nest (~> 1.0)
+
+GIT
+  remote: git@github.com:Factlink/pavlov.git
+  revision: 1a04742a03f538892d23fa04ddbcbb8dbc4da833
+  specs:
+    pavlov (0.0.1)
+      activesupport (>= 3.2.7)
+
+GIT
   remote: git@github.com:Factlink/rack-xframe-options.git
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
     rack-xframe-options (0.1.2)
+
+GIT
+  remote: git@github.com:Factlink/resqued_devise_mailer.git
+  revision: fbe17263a1d38e811b9edb61ed51326c0bac9a8e
+  specs:
+    resqued_devise_mailer (0.0.1)
 
 GIT
   remote: git@github.com:janpaul123/marionette-rails.git
@@ -12,35 +47,7 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: http://github.com/Factlink/ohm-contrib.git
-  revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
-  specs:
-    ohm-contrib (0.0.31)
-
-GIT
-  remote: https://github.com/Factlink/mixpanel.git
-  revision: 51ba36f9df4ac911923b8cb15ee1ae487ae0c2b7
-  specs:
-    mixpanel (1.1.3)
-      escape
-      json
-      rack
-
-GIT
-  remote: https://github.com/Factlink/ohm.git
-  revision: bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac
-  specs:
-    ohm (0.2.0)
-      nest (~> 1.0)
-
-GIT
-  remote: https://github.com/Factlink/resqued_devise_mailer.git
-  revision: fbe17263a1d38e811b9edb61ed51326c0bac9a8e
-  specs:
-    resqued_devise_mailer (0.0.1)
-
-GIT
-  remote: https://github.com/johnbintz/jasmine-headless-webkit.git
+  remote: git@github.com:johnbintz/jasmine-headless-webkit.git
   revision: aa1d989a90c7ebc2d5ac372f2228fbbbcd335fb0
   specs:
     jasmine-headless-webkit (0.9.0.rc.2)
@@ -212,7 +219,7 @@ GEM
       multi_json (~> 1.0)
       multi_xml
     httpauth (0.1)
-    i18n (0.6.0)
+    i18n (0.6.1)
     jasmine (1.2.1)
       jasmine-core (>= 1.2.0)
       rack (~> 1.0)
@@ -284,7 +291,7 @@ GEM
       bundler (>= 1.0.0)
       rails (>= 3.0.0)
       railties (>= 3.0.0)
-    multi_json (1.3.7)
+    multi_json (1.5.0)
     multi_xml (0.5.1)
     multipart-post (1.1.5)
     nest (1.1.2)
@@ -559,6 +566,7 @@ DEPENDENCIES
   oily_png
   omniauth-facebook
   omniauth-twitter
+  pavlov!
   poltergeist
   pry
   quiet_assets

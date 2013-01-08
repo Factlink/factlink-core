@@ -8,7 +8,7 @@
       title: '<%= params[:title] %>',
       url: '<%= params[:url] %>',
       csrf_token: $('meta[name=csrf-token]').attr('content'),
-      site_id: <%= @site ? @site.id : 'undefined' %>
+      site_url: <%= @site ? "'#{@site.url}'" : 'undefined' %>
     });
     $('.factlink-modal').append(factsNewView.render().el);
   </script>

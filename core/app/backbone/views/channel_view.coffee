@@ -54,7 +54,7 @@ class window.ChannelView extends ChannelViewLayout
 
 class window.ChannelActivitiesView extends ChannelViewLayout
   getActivitiesView: ->
-    new ActivitiesView collection: @collection
+    new ActivitiesView collection: @collection, disableEmptyView: @options.disableEmptyView
 
   onRender: ->
     @activityList.show @getActivitiesView()

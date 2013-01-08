@@ -1,8 +1,7 @@
 require 'net/http'
 require 'action_controller/railtie'
 require 'cancan'
-
-require_relative '../interactors/pavlov'
+require 'pavlov'
 
 class ApplicationController < ActionController::Base
 

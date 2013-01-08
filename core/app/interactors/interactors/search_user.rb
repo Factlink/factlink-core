@@ -1,8 +1,11 @@
+require_relative '../util/search'
+require_relative '../util/can_can'
+
 module Interactors
   class SearchUser
     include Pavlov::Operation
-    include Pavlov::CanCan
-    include Pavlov::SearchHelper
+    include Util::CanCan
+    include Util::Search
 
     arguments :keywords
     def validate

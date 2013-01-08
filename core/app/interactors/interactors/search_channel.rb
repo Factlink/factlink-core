@@ -1,8 +1,10 @@
+require_relative '../util/search'
+
 module Interactors
   class SearchChannel
     include Pavlov::Interactor
-    include Pavlov::CanCan
-    include Pavlov::SearchHelper
+    include Util::CanCan
+    include Util::Search
 
     arguments :keywords
 

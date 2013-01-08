@@ -11,4 +11,8 @@ class Comment
   belongs_to :created_by, class_name: 'User', inverse_of: :comments
 
   index({ fact_data: 1, opinion: 1, created_at: 1})
+
+  def believable
+    @believable ||= Believable::Commentje.new(id.to_s)
+  end
 end

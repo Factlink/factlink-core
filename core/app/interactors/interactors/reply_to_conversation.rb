@@ -1,9 +1,10 @@
-require_relative '../pavlov'
+require 'pavlov'
+require_relative '../util/mixpanel'
 
 module Interactors
   class ReplyToConversation
     include Pavlov::Interactor
-    include Pavlov::Mixpanel
+    include Util::Mixpanel
 
     arguments :conversation_id, :sender_id, :content
 

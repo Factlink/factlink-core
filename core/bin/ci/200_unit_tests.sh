@@ -4,7 +4,7 @@ echo "Running unit tests"
 OUTPUTFILE=$(tempfile)
 
 
-rspec spec-unit | tee "$OUTPUTFILE"
+bundle exec rspec spec-unit | tee "$OUTPUTFILE"
 cat "$OUTPUTFILE" | grep ', 0 failures' || exit 1
 
 exit
