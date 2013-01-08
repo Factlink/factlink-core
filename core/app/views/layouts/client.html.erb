@@ -38,22 +38,7 @@
   <%= yield :javascript %>
 
   <script type="text/javascript">
-    // HACK TO PRETEND WE ARE RUNNING AN BACKBONE APP
-    FactlinkApp = {};
-    FactlinkApp.vent = new Backbone.Marionette.EventAggregator();
-    FactlinkApp.Modal = {};
-    FactlinkApp.addRegions = function(){};
-    FactlinkApp.modalRegion = new Backbone.Marionette.Region(
-      {el: '#modal_region'});
-
-    modalModuleDefinition(FactlinkApp.Modal, FactlinkApp, Backbone, Backbone.Marionette, $, _)
-
-    Backbone.history = {};
-    Backbone.history.navigate = function(url) {
-      window.top.location = url;
-    }
-    // END HACK
-
+    FactlinkApp.startAsClient();
     <% if params[:guided] == "true" %>
       // turn on guided globally in this backbone session
       FactlinkApp.guided = true;
