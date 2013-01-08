@@ -23,8 +23,8 @@ gem 'pavlov', :git => 'git@github.com:Factlink/pavlov.git'
 
 # Redis
 gem 'redis', '2.2.1'
-gem 'ohm', :git => 'https://github.com/Factlink/ohm.git' # we need the tribalvibes fork (0.1.4), for polymorphism
-gem 'ohm-contrib', :git => 'http://github.com/Factlink/ohm-contrib.git'
+gem 'ohm', :git => 'git@github.com:Factlink/ohm.git' # we need the tribalvibes fork (0.1.4), for polymorphism
+gem 'ohm-contrib', :git => 'git@github.com:Factlink/ohm-contrib.git'
 gem 'redis-aid'
 gem 'redis-objects'
 gem 'multi_json', '>= 1.2.0'
@@ -34,7 +34,7 @@ gem 'resque_mailer'
 
 gem 'stringex'
 
-gem 'mixpanel', git: 'https://github.com/Factlink/mixpanel.git'
+gem 'mixpanel', git: 'git@github.com:Factlink/mixpanel.git'
 
 gem "sentry-raven"
 gem "resque-sentry"
@@ -51,7 +51,7 @@ gem 'devise', '~> 2.0.0'
 gem 'devise_invitable', '~> 1.0.0'
 gem 'cancan'
 
-gem 'resqued_devise_mailer', :git => 'https://github.com/Factlink/resqued_devise_mailer.git'
+gem 'resqued_devise_mailer', :git => 'git@github.com:Factlink/resqued_devise_mailer.git'
 
 
 # social connections
@@ -154,7 +154,7 @@ end
 
 group :jstest do
   gem 'jasmine'
-  gem 'jasmine-headless-webkit', git: 'https://github.com/johnbintz/jasmine-headless-webkit.git'
+  gem 'jasmine-headless-webkit', git: 'git@github.com:johnbintz/jasmine-headless-webkit.git'
   gem "jasmine-spec-extras", "~> 0.0.2"
 end
 

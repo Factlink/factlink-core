@@ -1,0 +1,27 @@
+# pack-refs with: peeled 
+44a414209e9297b1cf8895b6a44f0744a762efda refs/tags/0.1.3
+cef7745d908b2d2453a4d02e3793f13bae84b4e7 refs/tags/0.1.2
+41838b26b7d84d9e9e25c44102262ba893590264 refs/tags/0.1.1
+98b0a7d8e9541ceec1ea216752244c5d7a56c52a refs/tags/0.1.0.rc6
+7988e9055de0eceb32e9406a2b31a1fa97c0ff2f refs/tags/0.1.0.rc5
+adbedd9d6bc919346fdf422f64e3bd8ecc871de6 refs/tags/0.1.0.rc2
+a36787f54fae015571ffddc8b82f652dcfbad3db refs/tags/0.1.0.rc1
+2c28da300b1115054ee39028c60418d5e515eb0d refs/tags/0.1.0
+89aef2fda6dc1ea03c0a1552e308cebd59239390 refs/tags/0.0.38
+aa6b5ead879c9083548f37b9d5bd8ca9a3bef0e7 refs/tags/0.0.37
+ea40e1525d3716d999a68d115f6805a870413dac refs/tags/0.0.36
+9278a15d0702a57e9212b861f574a0470f7501d7 refs/tags/0.0.35
+ecb7df14b755883629a2b4b688e6bc6c73f8724b refs/tags/0.0.34
+99e2df35336b128ad67b6a293581e542a624e1f9 refs/tags/0.0.33
+846503334c2b2b6adb2abb22a6cca63d2df1db59 refs/tags/0.0.32
+639f3480ea92a34e733fac4db53087dcc9d15c74 refs/heads/without_wrapper
+3f73b519276d95dc1c5bd9e71cb0b0aa95b8bb3d refs/heads/temporary_keys
+2d0e4964556f87335051581f19b597bfef18f481 refs/heads/single_index
+c14bc240699a2ace0c5a56b4f0c94ea41a7d8eed refs/heads/redis2
+a7f2441b7a76641102d7aa8469573fd4eb87412b refs/heads/oor
+dfaa4bbaaa05d1764520942f8d283de1f5aca410 refs/heads/mutex
+bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac refs/heads/master
+bbc0daff3ddbec3fbfb875a125ff46c0d5d2a05c refs/heads/cutest
+edc7f67d4c2b6644effb6858f6c887dd17d1a2c9 refs/heads/attributes_as_instance_variables
+bbe07f8b560a97a47262a2b50f3f183eafc180b2 refs/heads/assert_length
+89aef2fda6dc1ea03c0a1552e308cebd59239390 refs/heads/0.0.x
