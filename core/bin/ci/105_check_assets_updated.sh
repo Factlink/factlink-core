@@ -1,11 +1,19 @@
 #!/bin/bash
 
-CURRENT_MD5=`cat config/locales/* | md5sum | perl -pe 's/\s*-\s*//'`
-RECORDED_MD5=`cat app/assets/javascripts/globals/globals.coffee.erb  | grep '# MD5' | perl -pe 's/.*:\s*//'`
+# LC_ALL=C with the "ls config/locales/*" is to make sure the file order is always the same
+CURRENT_SHASUM=`LC_ALL=C cat $(ls config/locales/*) | shasum | perl -pe 's/\s*-\s*//'`
+RECORDED_SHASUM=`cat app/assets/javascripts/globals/globals.coffee.erb  | grep '# SHASUM' | perl -pe 's/.*:\s*//'`
 
-if [ "$CURRENT_MD5" != "$RECORDED_MD5" ]; then
-  echo "Please update the MD5 in globals.coffee.erb to '$CURRENT_MD5'"
+echo "Using the following files for SHASUM:"
+ls config/locales/*
+
+echo "SHASUM of these files: $CURRENT_SHASUM"
+echo "SHASUM in globals.coffee.erb: $RECORDED_SHASUM"
+
+if [ "$CURRENT_SHASUM" != "$RECORDED_SHASUM" ]; then
+  echo "Please update the SHASUM in globals.coffee.erb to '$CURRENT_SHASUM'"
   exit 1
 else
+  echo "SHASUM matches!"
   exit 0
 fi
