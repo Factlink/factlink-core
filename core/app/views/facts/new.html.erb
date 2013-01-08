@@ -6,9 +6,8 @@
     fact_text = '<%= params[:fact] %>';
     title = '<%= params[:title] %>';
     url = '<%= params[:url] %>'
-    site_id = <%= @site ? @site.id : 'undefined' %>;
 
     (new ClientController)
-      .newFact(layout, fact_text, title, url, site_id)
+      .newFact(layout, fact_text, title, url)
   </script>
 <% end %>

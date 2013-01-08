@@ -300,62 +300,124 @@ describe 'activity queries' do
     end
 
     context "creating a sub comment on a comment" do
-      it "creates a stream activity" do
-        fact = create :fact, created_by: current_user.graph_user
+      context "gu1 believes the topfact" do
+        it "creates a stream activity" do
+          fact = create :fact, created_by: current_user.graph_user
 
-        comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+          comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
 
-        fact.add_opinion :believes, gu1
+          fact.add_opinion :believes, gu1
 
-        sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+          sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
 
-        gu1.stream_activities.map(&:to_hash_without_time).should == [
-          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
-        ]
+          gu1.stream_activities.map(&:to_hash_without_time).should == [
+            {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+          ]
+        end
+
+        it "does not create a notification" do
+          fact = create :fact, created_by: current_user.graph_user
+
+          comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+
+          fact.add_opinion :believes, gu1
+
+          sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+
+          gu1.notifications.map(&:to_hash_without_time).should == [
+          ]
+        end
       end
 
-      it "does not create a notification" do
-        fact = create :fact, created_by: current_user.graph_user
+      context "gu1 believes the comment" do
+        it "creates a stream activity" do
+          fact = create :fact, created_by: current_user.graph_user
 
-        comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+          comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
 
-        fact.add_opinion :believes, gu1
+          Interactors::Comments::UpdateOpinion.new(comment.id.to_s, 'believes', current_user: gu1).call
 
-        sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+          sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
 
-        gu1.notifications.map(&:to_hash_without_time).should == [
-          #{user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
-        ]
+          gu1.stream_activities.map(&:to_hash_without_time).should == [
+            {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+          ]
+        end
+        
+        it "creates a notification" do
+          fact = create :fact, created_by: current_user.graph_user
+
+          comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+
+          Interactors::Comments::UpdateOpinion.new(comment.id.to_s, 'believes', current_user: gu1).call
+
+          sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+
+          gu1.notifications.map(&:to_hash_without_time).should == [
+            {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+          ]
+        end
       end
     end
 
     context "creating a sub comment on a fact relation" do
-      it "creates a stream activity" do
-        fact = create :fact, created_by: current_user.graph_user
+      context "gu1 believes the topfact" do
+        it "creates a stream activity" do
+          fact = create :fact, created_by: current_user.graph_user
 
-        fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
 
-        fact.add_opinion :believes, gu1
+          fact.add_opinion :believes, gu1
 
-        sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+          sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
 
-        gu1.stream_activities.map(&:to_hash_without_time).should == [
-          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
-        ]
+          gu1.stream_activities.map(&:to_hash_without_time).should == [
+            {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+          ]
+        end
+
+        it "does not create a notification" do
+          fact = create :fact, created_by: current_user.graph_user
+
+          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+
+          fact.add_opinion :believes, gu1
+
+          sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+
+          gu1.notifications.map(&:to_hash_without_time).should == [
+          ]
+        end
       end
 
-      it "does not create a notification" do
-        fact = create :fact, created_by: current_user.graph_user
+      context "gu1 believes the fact relation" do
+        it "creates a stream activity" do
+          fact = create :fact, created_by: current_user.graph_user
 
-        fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
 
-        fact.add_opinion :believes, gu1
+          fact_relation.add_opinion :believes, gu1
 
-        sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+          sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
 
-        gu1.notifications.map(&:to_hash_without_time).should == [
-          #{user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
-        ]
+          gu1.stream_activities.map(&:to_hash_without_time).should == [
+            {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+          ]
+        end
+
+        it "creates a notification" do
+          fact = create :fact, created_by: current_user.graph_user
+
+          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+
+          fact_relation.add_opinion :believes, gu1
+
+          sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+
+          gu1.notifications.map(&:to_hash_without_time).should == [
+            {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
+          ]
+        end
       end
     end
   end

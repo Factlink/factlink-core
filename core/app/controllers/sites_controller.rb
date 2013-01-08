@@ -35,7 +35,7 @@ class SitesController < ApplicationController
   end
 
   def top_topics
-    @topics = query :'site/top_topics', params[:id].to_i, 3
+    @topics = interactor :'site/top_topics', params[:url], 3
     render 'topics/index'
   end
 

@@ -8,7 +8,7 @@ describe "factlink", type: :request do
   end
 
   before :each do
-    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
+    @user = sign_in_user FactoryGirl.create :active_user
   end
 
   it "the layout of the discussion page is correct" do

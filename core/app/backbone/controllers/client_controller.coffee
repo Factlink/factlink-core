@@ -21,6 +21,7 @@ class window.ClientController
       url: url
       csrf_token: csrf_token
       site_id: site_id
+      site_url: url
     @showView factsNewView
 
   showView: (view) ->
