@@ -21,7 +21,7 @@ describe FactsController do
       FactoryGirl.reload # hack because of fixture in check
 
       @fact = FactoryGirl.create(:fact)
-      @fact.created_by.user = FactoryGirl.create :user
+      @fact.created_by.user = FactoryGirl.create :user, graph_user: @fact.created_by
       @fact.created_by.save
       should_check_can :show, @fact
       get :show, id: @fact.id, format: :json
