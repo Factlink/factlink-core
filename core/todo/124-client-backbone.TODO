@@ -16,9 +16,9 @@ Create backbone app, we decided to use one app, with three modes:
  ✔ only load automatic logout in site @done (13-01-08 14:22)
  ✔ only load notifications in site (and remove dirty hack) @done (13-01-08 14:34)
  ✔ only load the routers if on site @done (13-01-08 15:37)
- ☐ use a marionette app in facts/new (no routes)
- ☐ use a marionette app in facts/show (no routes)
- ☐ fix hackery in modal module previously needed for client
+ ✔ use a marionette app in facts/new (no routes) @done (13-01-08 15:53)
+ ✔ use a marionette app in facts/show (no routes) @done (13-01-08 15:53)
+ ✔ fix hackery in modal module previously needed for client @done (13-01-08 15:54)
  ☐ create appropriate mode for the tour (uses one_column, also check whether devise needs backbone, and whether one_column should be subclassed)
 Use proper backbone routing:
  ☐ add routes, create controller
