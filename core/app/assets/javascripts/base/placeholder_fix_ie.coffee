@@ -1,4 +1,4 @@
-# This only affects the inputs/textareas that aren't loaded through Backbone Views
+# This only affects the inputs/textareas that aren't loaded through Backbone Views because they don't exist here
 $ ->
   resetPlaceholders()
 
