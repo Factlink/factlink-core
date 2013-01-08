@@ -36,47 +36,5 @@
       e.preventDefault();
       parent.remote.hide();
     });
-
-    createWhatsYourOpinionTooltip();
-
-    function createWhatsYourOpinionTooltip() {
-      $('.fact-wheel').on('click', function () {
-        hideTooltip();
-
-        <% if params[:guided] == "true" %>
-        $('#submit').tooltip({
-          title: "Great! Click here to finish",
-          trigger: "manual"
-        }).tooltip("show");
-        <% end %>
-      });
-
-      $(window).on('resize', function () {
-        destroyTooltip();
-        showTooltip();
-      });
-
-      var _shouldShowTooltip = true;
-
-      function showTooltip() {
-        if ( ! _shouldShowTooltip ) return;
-
-        $('.fact-wheel').tooltip({
-          title: "What's your opinion?",
-          trigger: "manual"
-        }).tooltip('show');
-      }
-
-      function destroyTooltip() {
-        $('.fact-wheel').tooltip('destroy');
-      }
-
-      function hideTooltip() {
-        _shouldShowTooltip = false;
-
-        destroyTooltip();
-      }
-    }
-
   </script>
 <% end %>
