@@ -25,13 +25,17 @@ class FactsController < ApplicationController
 
   def show
     authorize! :show, @fact
-    @title = @fact.data.displaystring # The html <title>
 
     @modal = true
-    @hide_links_for_site = @modal && @fact.site
-    @just_added = ( not params[:just_added].blank? )
 
-    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
+    respond_to do |format|
+      format.html do
+        @just_added = ( not params[:just_added].blank? )
+      end
+      format.json do
+        render json: Facts::Fact.for(fact: @fact, view: view_context)
+      end
+    end
   end
 
   def extended_show

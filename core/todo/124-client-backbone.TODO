@@ -5,7 +5,7 @@ Clean up html so much that we can move it to a backbone app:
  ✔ remove erb depedencies as much as possible from facts/show @done (13-01-08 11:56)
  ✔ create view for facts/show @done (13-01-08 11:56)
  ☐ lean up newly created views to behave backbonley
- ☐ lazyload fact in facts/show (not in backend for action)
+ ✔ lazyload fact in facts/show (not in backend for action) @done (13-01-08 13:29)
 Refactor suggested topics to use url instead of id:
  ☐ let action receive url
  ☐ wrap query in interactor which receives url
