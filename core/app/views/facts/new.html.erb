@@ -1,40 +1,15 @@
 <% content_for :javascript do %>
   <script>
     <%= render 'backbone/currentUser' %>
+
     factsNewView = new FactsNewView({
       layout: '<%= @layout %>',
       fact_text: '<%= params[:fact] %>',
       title: '<%= params[:title] %>',
       url: '<%= params[:url] %>',
-      csrf_token: $('meta[name=csrf-token]').attr('content')
+      csrf_token: $('meta[name=csrf-token]').attr('content'),
+      site_id: <%= @site ? @site.id : 'undefined' %>
     });
-
     $('.factlink-modal').append(factsNewView.render().el);
-
-    var addToCollection = new OwnChannelCollection();
-    var addToChannelView = new AutoCompleteChannelsView({collection: addToCollection}).render();
-    var suggestionView = new FilteredSuggestedSiteTopicsView({addToCollection: addToCollection, site_id: <%= @site ? @site.id : 'undefined' %> }).render();
-
-    addToChannelView.on('error', function() {
-      alert('Something went wrong when creating a new channel, sorry!');
-    });
-
-    $('#add-to-channels').html(addToChannelView.el);
-    $('#suggested-channels-region').html(suggestionView.el);
-
-    var persistentWheel = new PersistentWheelView({
-      el: $('.fact-wheel'),
-      model: new Wheel()
-    }).render();
-
-    persistentWheel.on('opinionSet', function () {
-      parent.remote.trigger('opinionSet');
-    });
-
-    $('#cancel').on('click', function (e) {
-      mp_track("Modal: Cancel");
-      e.preventDefault();
-      parent.remote.hide();
-    });
   </script>
 <% end %>

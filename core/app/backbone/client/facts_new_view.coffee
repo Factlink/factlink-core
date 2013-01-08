@@ -1,4 +1,4 @@
-window.createWhatsYourOpinionTooltip = ->
+createWhatsYourOpinionTooltip = ->
   showTooltip = ->
     return if ( ! _shouldShowTooltip )
 
@@ -42,4 +42,42 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     add_to_channel_header: Factlink.Global.t.add_to_channels.capitalize()
     csrf_token: @options.csrf_token
 
-  onRender: -> createWhatsYourOpinionTooltip();
+  initialize: ->
+    @addToCollection = new OwnChannelCollection
+
+  onRender: ->
+    createWhatsYourOpinionTooltip();
+    @renderAddToChannel()
+    @renderSuggestedChannels()
+    @renderPersistentWheelView()
+    @createCancelEvent()
+
+  renderAddToChannel: ->
+    addToChannelView = new AutoCompleteChannelsView collection: @addToCollection
+    addToChannelView.render()
+    addToChannelView.on 'error', ->
+      alert('Something went wrong when creating a new channel, sorry!')
+    @$('#add-to-channels').html addToChannelView.el
+
+  renderSuggestedChannels: ->
+    suggestionView = new FilteredSuggestedSiteTopicsView
+      addToCollection: @addToCollection
+      site_id: @options.site_id
+    suggestionView.render()
+    @$('#suggested-channels-region').html suggestionView.el
+
+  renderPersistentWheelView: ->
+    persistentWheelView = new PersistentWheelView
+      el: @$('.fact-wheel'),
+      model: new Wheel()
+    persistentWheelView.render()
+
+    persistentWheelView.on 'opinionSet', ->
+      parent.remote.trigger('opinionSet')
+
+  createCancelEvent: ->
+    @$('#cancel').on 'click', (e)->
+      mp_track("Modal: Cancel")
+      e.preventDefault()
+      parent.remote.hide()
+
