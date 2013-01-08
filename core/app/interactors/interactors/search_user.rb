@@ -1,3 +1,6 @@
+require_relative '../util/search'
+require_relative '../util/can_can'
+
 module Interactors
   class SearchUser
     include Pavlov::Operation
