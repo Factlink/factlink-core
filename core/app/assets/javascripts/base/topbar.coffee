@@ -6,8 +6,10 @@ $top_bar.on 'click', 'a.sign_in', ->
   $('body').animate marginTop: 0, 'slow'
   $top_bar.fadeOut "slow"
   $earth.animate marginTop: 104, 'slow'
+  $('input, textarea').placeholder()
 
 $dimmed_top_bar.on 'click', 'a.sign_in', ->
   $('body').animate marginTop: -160, 'slow'
   $top_bar.fadeIn "slow"
   $earth.animate marginTop: 0, 'slow'
+  $('input, textarea').placeholder()
