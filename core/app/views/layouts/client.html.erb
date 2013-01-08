@@ -53,6 +53,12 @@
       window.top.location = url;
     }
     // END HACK
+
+    <% if params[:guided] == "true" %>
+      // turn on guided globally in this backbone session
+      FactlinkApp.guided = true;
+    <% end %>
+
   </script>
 
   <script type="text/javascript">

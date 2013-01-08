@@ -32,6 +32,11 @@ class window.FactView extends ViewWithPopover
 
     @$(".authority").tooltip()
 
+    if FactlinkApp.guided
+      @$('#close').tooltip(trigger: 'manual')
+                  .tooltip('show')
+
+
   remove: ->
     @$el.fadeOut "fast", -> $(this).remove()
 
