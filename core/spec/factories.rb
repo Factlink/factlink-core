@@ -59,7 +59,7 @@ FactoryGirl.define do
   end
 
   factory :graph_user do
-    association :user, :factory => :user
+    # Never add an association with user here, it *does not work*, and *isnt desired*! Ask @markijbema!
   end
 
   sequence :url do |n|
