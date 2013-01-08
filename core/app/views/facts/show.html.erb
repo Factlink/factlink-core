@@ -3,12 +3,8 @@
     <%= render 'backbone/currentUser' %>
 
     var fact = new Fact(<%= Facts::Fact.for(fact: @fact, view: self, modal: @modal).to_json.html_safe %>);
-    var view = new DiscussionView({
-      model: fact
-    });
-
+    var view = new DiscussionView({model: fact});
     view.render();
-
     $('div.factlink-modal').append(view.el);
 
     <% if params[:guided] == "true" %>
@@ -22,7 +18,7 @@
     window.fact_id = "<%= @fact.id %>";
 
     <% if @just_added %>
-    parent.$(parent.document).trigger("factlinkCreated", <%= @fact.id %> );
+      parent.$(parent.document).trigger("factlinkCreated", <%= fact.id %> );
     <% end %>
 
   </script>
