@@ -1,4 +1,4 @@
-require_relative '../../interactors/pavlov'
+require 'pavlov'
 
 def create_activity_listeners
   Activity::Listener.class_eval do
