@@ -15,7 +15,7 @@ Create backbone app, we decided to use one app, with three modes:
  ☐ ensure notificationcenter works in client
  ✔ only load automatic logout in site @done (13-01-08 14:22)
  ✔ only load notifications in site (and remove dirty hack) @done (13-01-08 14:34)
- ☐ only load the routers if on site
+ ✔ only load the routers if on site @done (13-01-08 15:37)
  ☐ use a marionette app in facts/new (no routes)
  ☐ use a marionette app in facts/show (no routes)
  ☐ fix hackery in modal module previously needed for client
