@@ -2,18 +2,10 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    var fact = new Fact({id: <%= @fact.id %>})
-    fact.fetch({success: function(){
-      var view = new DiscussionView({model: fact});
-      view.render();
-      $('div.factlink-modal').append(view.el);
-    }});
-
-    parent.$(parent.document).trigger("modalready");
-
     <% if @just_added %>
-      parent.$(parent.document).trigger("factlinkCreated", <%= @fact.id %> );
+      FactlinkApp.just_added = true;
     <% end %>
 
+    (new ClientController).show(<%= @fact.id %>)
   </script>
 <% end %>

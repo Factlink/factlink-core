@@ -21,7 +21,9 @@ Create backbone app, we decided to use one app, with three modes:
  ✔ fix hackery in modal module previously needed for client @done (13-01-08 15:54)
  ☐ create appropriate mode for the tour (uses one_column, also check whether devise needs backbone, and whether one_column should be subclassed)
 Use proper backbone routing:
- ☐ add routes, create controller
+ ✔ create controller action for facts/show @done (13-01-08 16:02)
+ ☐ create controller action for facts/new
+ ☐ add routes
  ☐ open facts/new by default in iframe in intermediate
  ☐ open page with backbone routing
  ☐ navigate from facts/new to facts/show with marionette
