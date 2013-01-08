@@ -37,7 +37,6 @@ describe SitesController do
 
       @site = FactoryGirl.create(:site, :url => "http://batman.org")
       get :top_topics, url: @site.url, format: :json
-      puts response.inspect
       response.should be_success
     end
   end
