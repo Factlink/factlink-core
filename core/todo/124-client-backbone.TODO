@@ -13,7 +13,7 @@ Refactor suggested topics to use url instead of id:
 Create backbone app, we decided to use one app, with two modes:
  ✔ only add the current main regions on site @done (13-01-08 14:21)
  ☐ ensure notificationcenter works in client
- ☐ only load automatic logout in site
+ ✔ only load automatic logout in site @done (13-01-08 14:22)
  ☐ only load notifications in site (and remove dirty hack)
  ☐ only load the routers if on site
  ☐ use a marionette app in facts/new (no routes)
