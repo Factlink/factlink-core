@@ -7,9 +7,9 @@ Clean up html so much that we can move it to a backbone app:
  ☐ clean up newly created views to behave backbonley
  ✔ lazyload fact in facts/show (not in backend for action) @done (13-01-08 13:29)
 Refactor suggested topics to use url instead of id:
- ☐ let action receive url
- ☐ wrap query in interactor which receives url
- ☐ let frontend use url instead of site_id
+ ✔ let action receive url @done (13-01-08 16:54)
+ ✔ wrap query in interactor which receives url @done (13-01-08 16:54)
+ ✔ let frontend use url instead of site_id @done (13-01-08 16:55)
 Create backbone app, we decided to use one app, with three modes:
  ✔ only add the current main regions on site @done (13-01-08 14:21)
  ☐ ensure notificationcenter works in client
