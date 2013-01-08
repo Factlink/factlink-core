@@ -2,14 +2,13 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    factsNewView = new FactsNewView({
-      layout: '<%= @layout %>',
-      fact_text: '<%= params[:fact] %>',
-      title: '<%= params[:title] %>',
-      url: '<%= params[:url] %>',
-      csrf_token: $('meta[name=csrf-token]').attr('content'),
-      site_id: <%= @site ? @site.id : 'undefined' %>
-    });
-    $('.factlink-modal').append(factsNewView.render().el);
+    layout = '<%= @layout %>';
+    fact_text = '<%= params[:fact] %>';
+    title = '<%= params[:title] %>';
+    url = '<%= params[:url] %>'
+    site_id = <%= @site ? @site.id : 'undefined' %>;
+
+    (new ClientController)
+      .newFact(layout, fact_text, title, url, site_id)
   </script>
 <% end %>
