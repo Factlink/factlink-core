@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 describe 'When a User gets approved', type: :request do
   it 'the User should get notified through email' do

@@ -16,7 +16,7 @@ class window.TourController extends Backbone.Factlink.BaseController
     activities_view = new ChannelActivitiesView
       model: stream
       collection: activities
-      hideEmptyView: true
+      disableEmptyView: true
 
     FactlinkApp.mainRegion.show activities_view
 

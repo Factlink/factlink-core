@@ -1,11 +1,20 @@
+require_relative '../../interactors/pavlov'
+
 def create_activity_listeners
   Activity::Listener.class_eval do
-
     people_who_follow_a_fact = lambda { |a|
-      ([a.object.created_by_id] +
-       a.object.opinionated_users_ids +
-       a.object.fact_relations.map { |fr| fr.created_by.id  }).
-        uniq.delete_if {|id| id == a.user_id}
+      graph_user_ids = Queries::Activities::GraphUserIdsFollowingFact.new(a.object).call
+      graph_user_ids.delete_if {|id| id == a.user_id}
+    }
+
+    people_who_follow_sub_comment = lambda { |a|
+      if a.subject.parent_class == 'Comment'
+        graph_user_ids = Queries::Activities::GraphUserIdsFollowingComments.new([a.subject.parent]).call
+      else
+        graph_user_ids = Queries::Activities::GraphUserIdsFollowingFactRelations.new([a.subject.parent]).call
+      end
+
+      graph_user_ids.delete_if { |id| id == a.user_id }
     }
 
     # evidence was added to a fact which you created or expressed your opinion on
@@ -26,12 +35,6 @@ def create_activity_listeners
     forGraphUser_comment_was_added = {
       subject_class: "Comment",
       action: :created_comment,
-      write_ids: people_who_follow_a_fact
-    }
-
-    forGraphUser_sub_comment_was_added = {
-      subject_class: "SubComment",
-      action: :created_sub_comment,
       write_ids: people_who_follow_a_fact
     }
 
@@ -63,7 +66,9 @@ def create_activity_listeners
       activity forGraphUser_comment_was_added
 
       # someone added a sub comment
-      # activity forGraphUser_sub_comment_was_added
+      activity subject_class: "SubComment",
+               action: :created_sub_comment,
+               write_ids: people_who_follow_sub_comment
     end
 
     register do
@@ -84,7 +89,9 @@ def create_activity_listeners
       activity forGraphUser_comment_was_added
 
       # someone added a sub comment
-      activity forGraphUser_sub_comment_was_added
+      activity subject_class: "SubComment",
+               action: :created_sub_comment,
+               write_ids: people_who_follow_a_fact
 
       # someone believed/disbelieved/doubted your fact
       activity subject_class: "Fact",

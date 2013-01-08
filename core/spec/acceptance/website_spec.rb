@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 describe "When visiting the Factlink website", type: :request do
 

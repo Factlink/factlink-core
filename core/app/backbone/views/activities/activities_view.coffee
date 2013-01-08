@@ -61,7 +61,7 @@ class window.ActivitiesView extends AutoloadingView
       model: model
 
   emptyViewOn: ->
-    unless @options.hideEmptyView
+    unless @options.disableEmptyView
       if @collection.channel.get('discover_stream?')
         @suggestedTopics = new SuggestedTopics()
         @suggestedTopics.fetch()

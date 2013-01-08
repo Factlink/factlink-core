@@ -1,4 +1,4 @@
-require 'integration_helper'
+require 'acceptance_helper'
 
 feature "visiting a channel" do
   include Acceptance::NavigationHelper
