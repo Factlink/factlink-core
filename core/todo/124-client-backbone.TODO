@@ -6,7 +6,7 @@ Clean up html so much that we can move it to a backbone app:
  ✔ create view for facts/show @done (13-01-08 11:56)
  ☐ lean up newly created views to behave backbonley
  ☐ lazyload fact in facts/show (not in backend for action)
-Clean up suggested topics:
+Refactor suggested topics to use url instead of id:
  ☐ let action receive url
  ☐ wrap query in interactor which receives url
  ☐ let frontend use url instead of site_id
