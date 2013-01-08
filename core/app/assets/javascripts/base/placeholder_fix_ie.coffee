@@ -2,7 +2,7 @@
 $ ->
   resetPlaceholders()
 
-resetPlaceholders = ->
+window.resetPlaceholders = ->
   $('.placeholder')
     .not(':password')
     .trigger('blur.placeholder')
