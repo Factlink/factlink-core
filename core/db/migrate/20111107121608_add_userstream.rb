@@ -1,7 +1,7 @@
 class GraphUser < OurOhm
-  reference :stream, UserStream
+  reference :stream, ::Channel::UserStream
   def create_stream
-    self.stream = Channel::UserStream.create(:created_by => self)
+    self.stream = ::Channel::UserStream.create(:created_by => self)
     save
   end
 end
