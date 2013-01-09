@@ -8,7 +8,7 @@
 
   <p>At Factlink.com, you have a feed that shows what others have added for topics that interest you. This works by following channel that others create. Channels are an easy way to find out what people have added about specific topics. When someone creates a Factlink and labels it with a topic, a channel with the topic name shows up in their channels so others can follow it.
 
-  <p><%= link_to '<input class="btn btn-email" value="Start using Factlink now">'.html_safe, edit_password_url(@user, :reset_password_token => @user.reset_password_token, msg: 'welcome') %> or continue reading about what’s behind Factlink first :)</p>
+  <p class="cta"><%= link_to 'Start using Factlink now', edit_password_url(@user, :reset_password_token => @user.reset_password_token, msg: 'welcome'), class: 'btn-email' %> or continue reading about what’s behind Factlink first :)</p>
 
   <p>Factlink is based on a vision that together, our minds collectively contain all human knowledge and that this knowledge can be captured. Lots of it is shared on the web or is in the minds of people that are online. Like people are connected to other people in a social graph, all knowledge is also connected to other knowledge in a graph. At Factlink, we call the relations between these pieces of information ‘Fact-Relations’ and the total of relations and knowledge the ‘Fact-Graph’. Factlink provides a service that is lets web-connected people contribute what they know. With Factlink, you can stitch together the knowledge that is online already by creating links between pieces of knowledge. You can also add your own knowledge. Together we create the Fact-Graph, making the worlds information available.</p>
 
