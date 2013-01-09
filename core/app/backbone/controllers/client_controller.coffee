@@ -23,6 +23,8 @@ class window.ClientController
       site_id: site_id
     @showView factsNewView
 
+  # Helpers
+
   showView: (view) ->
     view.render()
     $('div.factlink-modal').append view.el
