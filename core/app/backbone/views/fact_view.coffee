@@ -31,10 +31,14 @@ class window.FactView extends ViewWithPopover
     @factBottomView.show new FactBottomView(model: @model)
 
     @$(".authority").tooltip()
-
     if FactlinkApp.guided
-      @$('#close').tooltip(trigger: 'manual')
-                  .tooltip('show')
+      sometimeWhen(
+        => @$el.is ":visible"
+      , =>
+        @$('#close').tooltip(trigger: 'manual')
+                    .tooltip('show')
+      )
+
 
 
   remove: ->

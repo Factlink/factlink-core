@@ -41,6 +41,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     url: @options.url
     add_to_channel_header: Factlink.Global.t.add_to_channels.capitalize()
     csrf_token: @options.csrf_token
+    guided: FactlinkApp.guided
 
   initialize: ->
     @addToCollection = new OwnChannelCollection

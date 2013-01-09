@@ -36,16 +36,19 @@
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
   </script>
 
-  <%= yield :javascript %>
 
   <script type="text/javascript">
     FactlinkApp.startAsClient();
     <% if params[:guided] == "true" %>
       // turn on guided globally in this backbone session
       FactlinkApp.guided = true;
+    <% else %>
+      FactlinkApp.guided = false;
     <% end %>
 
   </script>
+
+  <%= yield :javascript %>
 
   <script type="text/javascript">
     $(".factlink-modal").draggable({handle: '.drag-handler'});
