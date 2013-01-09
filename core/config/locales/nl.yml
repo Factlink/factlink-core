@@ -3,7 +3,7 @@
 #  - Sponsored by Kabisa ICT - http://kabisa.nl
 # Rails 3 update by Floris Huetink <floris@avocado.nl> (github: florish)
 nl:
-  add_fact: "Factlink toevoegen"
+  add_fact: "factlink toevoegen"
   added_fact: "toegevoegd"
 
   fact_believe_action: "stem in met"

@@ -2,7 +2,7 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  add_fact: "Add Factlink"
+  add_fact: "add factlink"
   added_fact: "added"
 
   fact_believe_action: "agree"
