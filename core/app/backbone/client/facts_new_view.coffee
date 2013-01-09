@@ -30,6 +30,8 @@ createWhatsYourOpinionTooltip = ->
     destroyTooltip();
     showTooltip();
 
+  showTooltip()
+
 
 class window.FactsNewView extends Backbone.Marionette.ItemView
   template: "client/facts_new"
@@ -47,11 +49,15 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     @addToCollection = new OwnChannelCollection
 
   onRender: ->
-    createWhatsYourOpinionTooltip();
     @renderAddToChannel()
     @renderSuggestedChannels()
     @renderPersistentWheelView()
     @createCancelEvent()
+    sometimeWhen(
+      => @$el.is ":visible"
+    , => createWhatsYourOpinionTooltip();
+    )
+
 
   renderAddToChannel: ->
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection
