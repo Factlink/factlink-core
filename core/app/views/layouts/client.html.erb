@@ -45,7 +45,7 @@
     <% else %>
       FactlinkApp.guided = false;
     <% end %>
-
+    <%= render 'backbone/currentUser' %>
   </script>
 
   <%= yield :javascript %>

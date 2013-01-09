@@ -1,7 +1,5 @@
 <% content_for :javascript do %>
   <script>
-    <%= render 'backbone/currentUser' %>
-
     <% if @just_added %>
       FactlinkApp.just_added = true;
     <% end %>
