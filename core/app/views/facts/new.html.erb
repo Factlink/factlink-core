@@ -2,6 +2,8 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
+    // layout can probably be eliminated by replacing it by a constant
+    // I think it's always the same -- mark
     layout = '<%= @layout %>';
     fact_text = '<%= params[:fact] %>';
     title = '<%= params[:title] %>';
