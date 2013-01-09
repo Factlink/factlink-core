@@ -1,5 +1,6 @@
 #= require backbone
 #= require backbone.marionette
+#= require backbone.queryparams
 #= require backbone.paginator
 #= require_tree ../templates
 #= require_self

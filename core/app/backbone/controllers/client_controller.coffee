@@ -12,7 +12,8 @@ class window.ClientController
     if FactlinkApp.just_added
       parent.$(parent.document).trigger("factlinkCreated", fact_id )
 
-  newFact: (layout, fact_text, title, url, site_id) =>
+  newFact: (henk, params) => #(layout, fact_text, title, url, site_id) =>
+    console.info henk, params
     csrf_token = $('meta[name=csrf-token]').attr('content')
 
     factsNewView = new FactsNewView
