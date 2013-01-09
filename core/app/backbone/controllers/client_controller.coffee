@@ -3,6 +3,7 @@ class window.ClientController
   show: (fact_id) =>
     fact = new Fact id: fact_id
     fact.fetch success: =>
+      fact.set 'modal?', true
       view = new DiscussionView model: fact
       @showView view
 
