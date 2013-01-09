@@ -3,10 +3,10 @@ require_relative './index.rb'
 module Interactors
   module Channels
     class Top < Index
-      arguments
+      arguments :count
 
       def get_alive_channels
-        handpicked_channels.sample(12)
+        handpicked_channels.sample(@count)
       end
 
       def handpicked_channels
