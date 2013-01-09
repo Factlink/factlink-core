@@ -12,7 +12,7 @@ Refactor suggested topics to use url instead of id:
  ✔ let frontend use url instead of site_id @done (13-01-08 16:55)
 Create backbone app, we decided to use one app, with three modes:
  ✔ only add the current main regions on site @done (13-01-08 14:21)
- ☐ ensure notificationcenter works in client
+ ✔ ensure notificationcenter works in client @done (13-01-08 17:05)
  ✔ only load automatic logout in site @done (13-01-08 14:22)
  ✔ only load notifications in site (and remove dirty hack) @done (13-01-08 14:34)
  ✔ only load the routers if on site @done (13-01-08 15:37)
@@ -22,7 +22,7 @@ Create backbone app, we decided to use one app, with three modes:
  ☐ create appropriate mode for the tour (uses one_column, also check whether devise needs backbone, and whether one_column should be subclassed)
 Use proper backbone routing:
  ✔ create controller action for facts/show @done (13-01-08 16:02)
- ☐ create controller action for facts/new
+ ✔ create controller action for facts/new @done (13-01-08 17:11)
  ☐ add routes
  ☐ open facts/new by default in iframe in intermediate
  ☐ open page with backbone routing
