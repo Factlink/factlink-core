@@ -7,8 +7,8 @@ class TopChannels
     handpicked_channels_interface.smembers
   end
 
-  def add_id id
-    handpicked_channels_interface.sadd id
+  def add *ids
+    handpicked_channels_interface.sadd *ids
   end
 
   def handpicked_channels_interface
