@@ -1,6 +1,9 @@
-
 class LoadDsl
   include Pavlov::Helpers
+
+  def pavlov_options
+    { no_current_user: true }
+  end
 
   class UndefinedUserError < StandardError;end
 
@@ -198,7 +201,7 @@ class LoadDsl
   def add_fact(fact_string)
     fact = self.load_fact(fact_string)
 
-    interactor :'channels/add_fact', fact, self.state_channel, no_current_user: true
+    interactor :'channels/add_fact', fact, self.state_channel
   end
 
   def self.export_add_fact(fact)
