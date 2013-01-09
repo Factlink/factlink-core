@@ -4,6 +4,11 @@
       FactlinkApp.just_added = true;
     <% end %>
 
-    (new ClientController).show(<%= @fact.id %>)
+    $(function() {
+      Backbone.history.start({pushState:Modernizr.history, silent:true});
+      Backbone.history.navigate(window.location.pathname);
+      Backbone.history.loadUrl( Backbone.history.fragment );
+    });
+
   </script>
 <% end %>

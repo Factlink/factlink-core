@@ -20,6 +20,9 @@ class FactlinkAppClass extends Backbone.Marionette.Application
     @start()
 
   startAsClient: ->
+    FactlinkApp.addInitializer (options)->
+      new ClientRouter controller: new ClientController
+
     @start()
 
 window.FactlinkApp = new FactlinkAppClass
