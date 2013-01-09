@@ -5,9 +5,8 @@
     layout = '<%= @layout %>';
     fact_text = '<%= params[:fact] %>';
     title = '<%= params[:title] %>';
-    url = '<%= params[:url] %>'
+    url = '<%= params[:url] %>';
 
-    (new ClientController)
-      .newFact(layout, fact_text, title, url)
+    (new ClientController).newFact(layout, fact_text, title, url)
   </script>
 <% end %>
