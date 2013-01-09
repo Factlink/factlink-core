@@ -11,6 +11,10 @@ class TopChannels
     handpicked_channels_interface.sadd id
   end
 
+  def remove id
+    handpicked_channels_interface.srem id
+  end
+
   def handpicked_channels_interface
     redis[:handpicked_channels]
   end

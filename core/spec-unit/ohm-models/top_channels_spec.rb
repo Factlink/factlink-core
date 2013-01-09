@@ -29,6 +29,20 @@ describe TopChannels do
     end
   end
 
+  describe '.remove' do
+    it 'adds a channel id to the list of handpicked channels' do
+      id = 10
+      handpicked_channels_interface = mock
+
+      top_channels = TopChannels.new
+
+      top_channels.should_receive(:handpicked_channels_interface).and_return(handpicked_channels_interface)
+      handpicked_channels_interface.should_receive(:srem).with(id)
+
+      top_channels.remove(id)
+    end
+  end
+
   describe '.handpicked_channels_interface' do
     it 'returns a redis interface to the handpicked channels' do
       nest = mock
