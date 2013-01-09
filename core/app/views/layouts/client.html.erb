@@ -16,6 +16,7 @@
   <%= csrf_meta_tag %>
 </head>
 <body class="client">
+  <div id='alerts'></div>
 
   <div class="factlink-modal">
     <div class="drag-handler top"   ></div>
@@ -35,25 +36,19 @@
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
   </script>
 
-  <%= yield :javascript %>
 
   <script type="text/javascript">
-    // HACK TO PRETEND WE ARE RUNNING AN BACKBONE APP
-    FactlinkApp = {};
-    FactlinkApp.vent = new Backbone.Marionette.EventAggregator();
-    FactlinkApp.Modal = {};
-    FactlinkApp.addRegions = function(){};
-    FactlinkApp.modalRegion = new Backbone.Marionette.Region(
-      {el: '#modal_region'});
+    FactlinkApp.startAsClient();
+    <% if params[:guided] == "true" %>
+      // turn on guided globally in this backbone session
+      FactlinkApp.guided = true;
+    <% else %>
+      FactlinkApp.guided = false;
+    <% end %>
 
-    modalModuleDefinition(FactlinkApp.Modal, FactlinkApp, Backbone, Backbone.Marionette, $, _)
-
-    Backbone.history = {};
-    Backbone.history.navigate = function(url) {
-      window.top.location = url;
-    }
-    // END HACK
   </script>
+
+  <%= yield :javascript %>
 
   <script type="text/javascript">
     $(".factlink-modal").draggable({handle: '.drag-handler'});

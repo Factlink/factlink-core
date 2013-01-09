@@ -1,4 +1,4 @@
-FactlinkApp.addInitializer (options)->
+FactlinkApp.automaticLogoutInitializer = (options)->
   FactlinkApp.vent.on 'require_login', ()->
     $('body').html ''
     $('body').css(

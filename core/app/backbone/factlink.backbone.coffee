@@ -17,4 +17,7 @@
 #= require_tree ./routers/
 #= require_tree ./initializers
 
+#= require_tree ./client
+
+
 this.HoganTemplates || (this.HoganTemplates = {});

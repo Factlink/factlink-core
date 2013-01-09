@@ -2,28 +2,10 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    var fact = new Fact(<%= Facts::Fact.for(fact: @fact, view: self, modal: @modal).to_json.html_safe %>);
-    var view = new DiscussionView({
-      model: fact
-    });
-
-    view.render();
-
-    $('div.factlink-modal').append(view.el);
-
-    <% if params[:guided] == "true" %>
-    view.$('#close').tooltip({
-      trigger: 'manual'
-    }).tooltip('show');
-    <% end %>
-
-    parent.$(parent.document).trigger("modalready");
-
-    window.fact_id = "<%= @fact.id %>";
-
     <% if @just_added %>
-    parent.$(parent.document).trigger("factlinkCreated", <%= @fact.id %> );
+      FactlinkApp.just_added = true;
     <% end %>
 
+    (new ClientController).show(<%= @fact.id %>)
   </script>
 <% end %>

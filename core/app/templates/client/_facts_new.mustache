@@ -1,0 +1,32 @@
+<form accept-charset="UTF-8" action="/facts{{#guided}}?guided={{guided}}{{/guided}}" class="fact-block" id="new_fact_form" method="post">
+<div style="margin:0;padding:0;display:inline">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <input name="authenticity_token" type="hidden" value="{{csrf_token}}" />
+</div>
+  <div class="fact-view">
+    <textarea id="fact" name="fact">{{fact_text}}</textarea>
+    <input type='hidden' id="url" name="url" value="{{url}}">
+    <input type='hidden' id="title" name="title" value="{{title}}">
+
+    {{#layout}}
+      <input type='hidden' id="layout" name="layout" value="{{layout}}">
+    {{/layout}}
+    <div class="fact-wheel"></div>
+
+    <div class="fact-body">
+      {{fact_text}}
+    </div>
+  </div>
+
+  <div id="add-to-container">
+    <strong>{{add_to_channel_header}}:</strong>
+    <div id="add-to-channels"></div>
+
+    <div id="suggested-channels-region"></div>
+  </div>
+
+  <div class="buttons">
+    <button class="btn" name="cancel" id="cancel">Cancel</button>
+    <input class="btn btn-primary" data-disable-with="Posting..." id="submit" name="commit" type="submit" value="Post to Factlink">
+  </div>
+</form>

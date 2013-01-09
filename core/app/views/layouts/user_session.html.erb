@@ -1,0 +1,9 @@
+<% content_for :specific_javascript do %>
+    <%= yield :template %>
+
+    <%= javascript_include_tag "frontend" %>
+
+    <%= yield :javascript %>
+<% end %>
+
+<%= render template: "layouts/one_column"%>
