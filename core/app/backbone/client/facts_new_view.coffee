@@ -74,7 +74,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     persistentWheelView.render()
 
     persistentWheelView.on 'opinionSet', ->
-      parent.remote.trigger('opinionSet')
+      parent?.remote?.trigger('opinionSet')
 
   createCancelEvent: ->
     @$('#cancel').on 'click', (e)->
