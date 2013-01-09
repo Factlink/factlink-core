@@ -10,13 +10,7 @@ module Interactors
       end
 
       def handpicked_channels
-        handpicked_channel_ids.map do |channel_id|
-          Channel[channel_id]
-        end
-      end
-
-      def handpicked_channel_ids
-        TopChannels.new.ids
+        query :"channels/handpicked"
       end
     end
   end
