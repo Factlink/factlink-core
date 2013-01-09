@@ -27,20 +27,6 @@ describe TopChannels do
 
       top_channels.add(id)
     end
-
-    it 'supports adding multiple ids by passing more arguments' do
-      id_1 = 10
-      id_2 = 12
-
-      handpicked_channels_interface = mock
-
-      top_channels = TopChannels.new
-
-      top_channels.should_receive(:handpicked_channels_interface).and_return(handpicked_channels_interface)
-      handpicked_channels_interface.should_receive(:sadd).with(id_1, id_2)
-
-      top_channels.add(id_1, id_2)
-    end
   end
 
   describe '.handpicked_channels_interface' do
