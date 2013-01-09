@@ -2,6 +2,7 @@
 # subclass and implement get_alive_channels to return a list
 # of ohm channel models
 
+require 'pavlov'
 require_relative '../../util/can_can'
 
 module Interactors
