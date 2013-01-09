@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
 
-  DEFAULT_LAYOUT = "one_column"
+  DEFAULT_LAYOUT = "user_session"
 
   layout :set_layout
 

@@ -19,7 +19,7 @@ Create backbone app, we decided to use one app, with three modes:
  ✔ use a marionette app in facts/new (no routes) @done (13-01-08 15:53)
  ✔ use a marionette app in facts/show (no routes) @done (13-01-08 15:53)
  ✔ fix hackery in modal module previously needed for client @done (13-01-08 15:54)
- ☐ create appropriate mode for the tour (uses one_column, also check whether devise needs backbone, and whether one_column should be subclassed)
+ ✔ create appropriate mode for the tour (uses one_column, also check whether devise needs backbone, and whether one_column should be subclassed) @done (13-01-09 12:16)
 Use proper backbone routing:
  ✔ create controller action for facts/show @done (13-01-08 16:02)
  ✔ create controller action for facts/new @done (13-01-08 17:11)
