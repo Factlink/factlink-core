@@ -10,6 +10,9 @@ createWhatsYourOpinionTooltip = ->
   destroyTooltip = ->
     $('.fact-wheel').tooltip('destroy')
 
+  hideOpinionAnimation = ->
+    $('.js-opinion-animation').hide();
+
   hideTooltip = ->
     _shouldShowTooltip = false
 
@@ -18,7 +21,8 @@ createWhatsYourOpinionTooltip = ->
   _shouldShowTooltip = true
 
   $('.fact-wheel').on 'click', ->
-    hideTooltip();
+    hideTooltip()
+    hideOpinionAnimation()
 
     if FactlinkApp.guided
       $('#submit').tooltip(
@@ -27,7 +31,6 @@ createWhatsYourOpinionTooltip = ->
       ).tooltip("show");
 
   $(window).on 'resize', ->
-    destroyTooltip();
     showTooltip();
 
   showTooltip()
