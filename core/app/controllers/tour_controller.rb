@@ -3,6 +3,8 @@ class TourController < ApplicationController
   before_filter :authenticate_user!
   layout "tour"
 
+  before_filter :can_access_webapp
+
   def almost_done
     @step_in_signup_process = :account
   end
@@ -25,4 +27,7 @@ class TourController < ApplicationController
     user.save
   end
 
+  def can_access_webapp
+    authorize! :access, Ability::FactlinkWebapp
+  end
 end
