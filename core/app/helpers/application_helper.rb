@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def t_up(*args)
-    string = t(*argstring)
+    string = t(*args)
     string[0] = string[0].upcase
     string
   end
