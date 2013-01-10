@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TourController do
 
-  let(:user) { FactoryGirl.create :user, agrees_tos: false }
+  let(:user) { FactoryGirl.create :user }
 
   describe :almost_done do
     it "should render almost_done template" do

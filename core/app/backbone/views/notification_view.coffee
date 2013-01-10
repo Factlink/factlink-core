@@ -27,6 +27,7 @@ class NotificationAddedSubchannelView extends GenericNotificationView
     addBackRegion: ".js-region-add-back"
 
   onRender: ->
+    super()
     activity = @model.get('activity')
 
     other_channel = new Channel
