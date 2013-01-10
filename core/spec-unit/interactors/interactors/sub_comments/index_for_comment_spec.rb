@@ -40,6 +40,8 @@ describe Interactors::SubComments::IndexForComment do
       authorities = [10, 20]
 
       interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: user
+      interactor.stub comment: mock
+
       interactor.should_receive(:query).with(:"sub_comments/index", comment_id, 'Comment').
         and_return(sub_comments)
 
@@ -60,6 +62,15 @@ describe Interactors::SubComments::IndexForComment do
       results = interactor.execute
 
       expect( results ).to eq dead_sub_comments
+    end
+
+    it 'throws an error when the comment does not exist' do
+      stub_const 'Pavlov::ValidationError', RuntimeError
+
+      interactor = Interactors::SubComments::IndexForComment.new '2b', current_user: mock
+      interactor.should_receive(:comment).and_return(nil)
+
+      expect{interactor.call}.to raise_error(Pavlov::ValidationError, "comment does not exist any more")
     end
   end
 
