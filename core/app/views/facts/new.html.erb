@@ -1,11 +1,5 @@
 <% content_for :javascript do %>
   <script>
-    // layout can probably be eliminated by replacing it by a constant
-    // I think it's always the same -- mark
-    layout = '<%= @layout %>';
-    fact_text = '<%= params[:fact] %>';
-    title = '<%= params[:title] %>';
-    url = '<%= params[:url] %>';
 
     // (new ClientController).newFact(layout, fact_text, title, url)
     $(function() {
