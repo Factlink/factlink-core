@@ -47,6 +47,7 @@ describe Interactors::SubComments::CreateForComment do
       dead_sub_comment = mock
       content = 'hoi'
       interactor = Interactors::SubComments::CreateForComment.new comment_id, content, current_user: user
+      interactor.stub comment: mock
 
       interactor.should_receive(:command).with(:"sub_comments/create_xxx", comment_id, 'Comment', content, user).
         and_return(sub_comment)
@@ -59,6 +60,15 @@ describe Interactors::SubComments::CreateForComment do
       result = interactor.execute
 
       expect(result).to eq dead_sub_comment
+    end
+
+    it 'throws an error when the fact relation does not exist' do
+      stub_const 'Pavlov::ValidationError', RuntimeError
+
+      interactor = Interactors::SubComments::CreateForComment.new '2a', 'content', current_user: mock
+      interactor.stub comment: nil
+
+      expect{interactor.call}.to raise_error(Pavlov::ValidationError, "parent does not exist any more")
     end
   end
 

@@ -17,6 +17,8 @@ class SubCommentsController < ApplicationController
       @sub_comment = interactor :'sub_comments/create_for_fact_relation', parent_id.to_i, params[:content]
     end
     render 'sub_comments/show'
+  rescue Pavlov::ValidationError => e
+    render text: e.message, :status => 400
   end
 
   def destroy
