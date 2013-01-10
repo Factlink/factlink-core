@@ -16,8 +16,6 @@ module Interactors
       end
 
       def execute
-        throw "comment does not exist anymore" unless comment
-        
         result = query :'sub_comments/index', @comment_id, 'Comment'
 
         result.map do |sub_comment|
@@ -27,11 +25,7 @@ module Interactors
       end
 
       def top_fact
-        @top_fact ||= comment.fact_data.fact
-      end
-
-      def comment
-        @comment ||= Comment.find(@comment_id)
+        @top_fact ||= Comment.find(@comment_id).fact_data.fact
       end
 
       def authority_of_user_who_created sub_comment
