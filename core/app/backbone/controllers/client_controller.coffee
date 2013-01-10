@@ -22,7 +22,6 @@ class window.ClientController
       title: title
       url: url
       csrf_token: csrf_token
-      site_id: site_id
     @showView factsNewView
 
   # Helpers
