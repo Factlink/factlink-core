@@ -9,6 +9,17 @@ describe Queries::Channels::Handpicked do
   end
 
   describe '.execute' do
+    it 'should return the non_dead_handpicked_channels' do
+      non_dead_handpicked_channels = mock
+
+      query = Queries::Channels::Handpicked.new {}
+      query.should_receive(:non_dead_handpicked_channels).and_return(non_dead_handpicked_channels)
+
+      expect(query.execute).to eq non_dead_handpicked_channels
+    end
+  end
+
+  describe '.handpicked_channels' do
     before do
       stub_classes 'Channel'
     end
@@ -26,6 +37,20 @@ describe Queries::Channels::Handpicked do
       Channel.should_receive(:[]).with(channel_id).and_return(channel)
 
       expect(query.execute).to eq channels
+    end
+  end
+
+  describe '.non_dead_handpicked_channels' do
+    it 'should remove all channels that are nil' do
+      channel = mock
+      handpicked_channels = [channel, nil]
+      non_dead_handpicked_channels = [channel]
+
+      query = Queries::Channels::Handpicked.new {}
+      query.should_receive(:handpicked_channels).and_return(handpicked_channels)
+      channel.should_receive(:nil?).and_return(false)
+
+      expect(query.non_dead_handpicked_channels).to eq non_dead_handpicked_channels
     end
   end
 
