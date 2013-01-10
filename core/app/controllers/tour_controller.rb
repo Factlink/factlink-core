@@ -3,6 +3,8 @@ class TourController < ApplicationController
   before_filter :authenticate_user!
   layout "tour"
 
+  before_filter :can_access_webapp
+
   def almost_done
     @step_in_signup_process = :account
   end
@@ -22,7 +24,12 @@ class TourController < ApplicationController
   private
   def set_seen_the_tour user
     user.seen_the_tour = true
-    user.save
+    user.save!
+  rescue
+    Raven.capture_exception(exception)
   end
 
+  def can_access_webapp
+    authorize! :access, Ability::FactlinkWebapp
+  end
 end

@@ -21,4 +21,19 @@ describe Interactors::Channels::Top do
 
     expect(result.length).to eq 1
   end
+
+  it 'should not return "nil" channels' do
+    channel1 = create :channel
+    channel2 = create :channel
+
+    top_channels = TopChannels.new
+    top_channels.add channel1.id
+    top_channels.add channel2.id
+
+    channel1.delete
+
+    result = interactor :"channels/top", 2
+
+    expect(result.length).to eq 1
+  end
 end
