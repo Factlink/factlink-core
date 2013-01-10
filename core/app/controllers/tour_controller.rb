@@ -24,7 +24,9 @@ class TourController < ApplicationController
   private
   def set_seen_the_tour user
     user.seen_the_tour = true
-    user.save
+    user.save!
+  rescue
+    Raven.capture_exception(exception)
   end
 
   def can_access_webapp
