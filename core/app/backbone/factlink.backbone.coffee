@@ -22,5 +22,6 @@
 
 #= require_tree ./client
 
-
+# ensure that HoganTemplate exists, also when no templates are loaded
+# (for instance in tests)
 this.HoganTemplates || (this.HoganTemplates = {});
