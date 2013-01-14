@@ -1,0 +1,27 @@
+We should pull all logic from the controllers and move it to interactors.
+
+Things todo beforehand:
+ ☐ How to port all cancan things to interactors.
+ ☐ Have better logging integration.
+ ☐ What we're gonna do with KillObject?
+ ☐ Prioritizing the list.
+
+ Controllers to port and clean:
+ ☐ channel_activities_controller
+ ☐ channels_controller
+ ☐ conversation_controller (only add layers between query and controller.)
+ ☐ evidence_controller
+ ☐ facts_controller
+ ☐ identities controller (There is code to update the user not going through users)
+ ☐ sites_controller
+ ☐ subchannels_controller
+ ☐ topics_controller (topic_by_id and top_topics)
+ ☐ tos_controller
+ ☐ tour_controller
+ ☐ users_controller
+ ☐ wheel_controller (should be removed, not used anymore)
+   users:
+     ☐ confirmations_controller
+     ☐ invitations_controller
+     ☐ passwords_controller
+     ☐ registrations_controllers
