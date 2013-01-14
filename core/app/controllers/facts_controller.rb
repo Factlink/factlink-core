@@ -31,6 +31,7 @@ class FactsController < ApplicationController
     respond_to do |format|
       format.html do
         @just_added = ( not params[:just_added].blank? )
+        render inline:'', layout: 'client'
       end
       format.json do
         render json: Facts::Fact.for(fact: @fact, view: view_context)
@@ -81,8 +82,7 @@ class FactsController < ApplicationController
       redirect_to user_session_path(layout: @layout)
     end
 
-    @site = query :'site/for_url', params[:url] if params[:url]
-
+    render inline:'', layout: 'client'
     track "Modal: Open prepare"
   end
 
