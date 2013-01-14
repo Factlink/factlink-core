@@ -13,7 +13,7 @@ class Users::PasswordsController < Devise::PasswordsController
     @user = User.where(reset_password_token: params[:reset_password_token]).first
 
     if params[:msg] and not @user
-      redirect_to new_user_session_path
+      redirect_to new_user_session_path, notice: 'Your account is already set up. Please log in to continue.'
     else
       render
     end
