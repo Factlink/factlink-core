@@ -253,7 +253,7 @@ GEM
     libwebsocket (0.1.6.1)
       websocket
     listen (0.6.0)
-    lograge (0.0.6)
+    lograge (0.1.2)
       actionpack
       activesupport
     lumberjack (1.0.2)
@@ -549,7 +549,7 @@ DEPENDENCIES
   less-rails (>= 2.1.5)
   less-rails-bootstrap (>= 2.1.1)
   letter_opener
-  lograge
+  lograge (~> 0.1.0)
   map
   marionette-rails (= 1.0.0.rc.2)!
   memoist
