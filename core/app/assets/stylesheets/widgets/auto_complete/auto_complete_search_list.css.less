@@ -6,13 +6,13 @@
 
 .auto-complete-search-list-container {
   position: relative;
-  margin-top: -1px;
+  margin-top: -4px;
 
   .auto-complete-search-list {
     background: white;
-    border: 1px solid #b5b5b5;
+    border: 1px solid #ccc;
     .box-sizing(border-box);
-    .border-radius(@border-radius);
+    .border-bottom-radius(@border-radius);
 
     display: none;
     .box-shadow(0 1px 4px 0 rgba(0, 0, 0, .17));
@@ -68,14 +68,6 @@
 
           .btn-mini {
             padding: 4px 4px 5px 5px;
-          }
-        }
-
-        &:first-child {
-          .border-top-radius(@inner-border-radius);
-
-          .text, div.add-new-block {
-            .border-top-radius(@inner-border-radius);
           }
         }
 
