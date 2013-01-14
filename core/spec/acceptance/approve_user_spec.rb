@@ -30,4 +30,12 @@ describe 'When a User gets approved', type: :request do
 
     current_url.should_not equal old_url
   end
+
+  it 'shows "account already set up" message when reset token is invalid' do
+    user = create :user
+
+    visit edit_user_password_path(msg: 'hoi', reset_password_token: 'doei')
+
+    page.should have_content 'Your account is already set up. Please log in to continue.'
+  end
 end
