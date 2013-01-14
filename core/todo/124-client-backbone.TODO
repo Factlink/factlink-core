@@ -28,6 +28,7 @@ Use proper backbone routing:
  ☐ open facts/new by default in iframe in intermediate
  ☐ open page with backbone routing
  ☐ navigate from facts/new to facts/show with marionette
+ ☐ only show modal after it's loaded
 Revert shortcuts:
  ☐ add back user signed in test in facts/new
  ☐ factor out just_added; backbone should take care of this
