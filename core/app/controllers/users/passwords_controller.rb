@@ -7,8 +7,10 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   def edit
+    # Copied from Devise::PasswordsController
     self.resource = resource_class.new
     resource.reset_password_token = params[:reset_password_token]
+    # end of copy
 
     @user = User.where(reset_password_token: params[:reset_password_token]).first
 
