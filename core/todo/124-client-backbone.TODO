@@ -29,3 +29,5 @@ Use proper backbone routing:
  ☐ navigate from facts/new to facts/show with marionette
 Revert shortcuts:
  ☐ add back user signed in test in facts/new
+ ☐ factor out just_added; backbone should take care of this
+ ☐ remove :just_signed_in (depending on Remons answer if we still use this)
