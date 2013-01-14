@@ -17,9 +17,10 @@
     display: none;
     .box-shadow(0 1px 4px 0 rgba(0, 0, 0, .17));
 
+    overflow-y: auto;
+    max-height: 190px;
+
     ul {
-      max-height: 190px;
-      overflow-y: auto;
       list-style: none;
       margin: 0;
 
@@ -48,7 +49,7 @@
         }
 
         .add-new-block {
-          border-top: 1px solid #e0dcdc;
+          border-top: 1px solid #ccc;
           padding: 5px 10px;
           color: @baseFontColor;
           cursor: pointer;
@@ -105,6 +106,38 @@
             }
           }
         }
+      }
+    }
+
+    table {
+      margin: -1px;
+      width: 100%;
+      border-collapse: collapse;
+
+      th {
+        text-align: right;
+        vertical-align: top;
+        padding: 10px;
+        width: 70px;
+        font-weight: normal;
+        color: @metaFontColor;
+        background-color: @whiteDarker;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+      }
+
+      td {
+        padding: 0;
+        border-bottom: 1px solid #ccc;
+
+        .add-new-block {
+          border-top: none;
+        }
+      }
+
+      tr:last-child th,
+      tr:last-child td {
+        border-bottom: none;
       }
     }
   }
