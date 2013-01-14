@@ -23,7 +23,7 @@ window.remote = new xdm.Rpc {},
       showFrame.onload = onLoadSuccess
       # Somehow only lower case letters seem to work for those events --mark
       $(document).bind "modalready", onLoadSuccess
-      showFrame.src = "/facts/" + id + "?layout=client"
+      loadUrl "/facts/" + id #+ "?layout=client"
       showFrame.className = "overlay"
       return # don't return anything unless you have a callback on the other site of easyXdm
 
@@ -37,7 +37,7 @@ window.remote = new xdm.Rpc {},
       showFrame.onload = onLoadSuccess
       # Somehow only lower case letters seem to work for those events --mark
       $(document).bind "modalready", onLoadSuccess
-      showFrame.src = "/facts/new" + "?fact=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(siteUrl) + "&title=" + encodeURIComponent(siteTitle) + "&guided=" + encodeURIComponent(guided) + "&layout=client"
+      loadUrl "/facts/new" + "?fact=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(siteUrl) + "&title=" + encodeURIComponent(siteTitle) + "&guided=" + encodeURIComponent(guided) + "&layout=client"
       showFrame.className = "overlay"
       onFactlinkCreated = (e, id) ->
         remote.highlightNewFactlink text, id
@@ -52,5 +52,12 @@ window.remote = new xdm.Rpc {},
         showFrame.onload = ->
           showFrame.contentWindow.position top, left
       return # don't return anything unless you have a callback on the other site of easyXdm
+
+loadUrl = (url)->
+  history = showFrame.contentWindow.Backbone?.history
+  if history?
+    history.loadUrl url
+  else
+    showFrame.src = url
 
 $("iframe").preventScrollPropagation()
