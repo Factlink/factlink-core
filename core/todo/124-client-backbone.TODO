@@ -24,6 +24,7 @@ Use proper backbone routing:
  ✔ create controller action for facts/show @done (13-01-08 16:02)
  ✔ create controller action for facts/new @done (13-01-08 17:11)
  ☐ add routes
+ ☐ move all parent.remote logic to the clientcontroller
  ☐ open facts/new by default in iframe in intermediate
  ☐ open page with backbone routing
  ☐ navigate from facts/new to facts/show with marionette
