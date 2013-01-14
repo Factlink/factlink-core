@@ -3,7 +3,7 @@
 <head>
   <%= stylesheet_link_tag "client" %>
 
-  <title><%= "Factlink: \"#{@title}\"" || "Factlink modal window" %></title>
+  <title>Factlink modal window</title>
 
   <style type="text/css">
     html, body{
@@ -30,17 +30,11 @@
   </div>
 
   <div id='modal_region'></div>
-  <%= yield :template %>
-
-
   <%= javascript_include_tag "modal" %>
 
   <script type="text/javascript">
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
-  </script>
 
-
-  <script type="text/javascript">
     FactlinkApp.startAsClient();
     <% if params[:guided] == "true" %>
       // turn on guided globally in this backbone session
