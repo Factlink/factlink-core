@@ -8,14 +8,9 @@ module Queries
       arguments
 
       def execute
-        handpicked_channel_ids.map do |channel_id|
-          Channel[channel_id]
-        end
+        TopChannels.new.members
       end
 
-      def handpicked_channel_ids
-        TopChannels.new.ids
-      end
     end
   end
 end

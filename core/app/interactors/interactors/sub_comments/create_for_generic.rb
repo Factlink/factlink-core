@@ -10,6 +10,8 @@ module Interactors
       end
 
       def execute
+        raise Pavlov::ValidationError, "parent does not exist any more" unless parent
+
         sub_comment = create_sub_comment
 
         create_activity sub_comment
