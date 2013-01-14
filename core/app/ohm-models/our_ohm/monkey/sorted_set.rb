@@ -22,6 +22,10 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     result
   end
 
+  def count_above(minimumKey)
+    key.zcount(minimumKey, '+inf')
+  end
+
   def below(limit,opts={})
     if opts[:count]
       redis_opts = { limit: [0,opts[:count]] }
