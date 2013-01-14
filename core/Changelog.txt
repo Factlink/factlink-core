@@ -14,7 +14,7 @@ Functional:
 - Bugfix: Fixed layout of factlink placeholders in tour.
 
 Technical:
-- Client navigation in Backbone.
+- Client in a Backbone app (no navigation yet).
 - restructured tests (renamed integration=>acceptence, extracted screenshot tests)
 - Fix db:init
 - Ensured assets are recompiled after locale update. (This was not automatically triggered.)
