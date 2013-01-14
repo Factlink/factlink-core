@@ -19,7 +19,7 @@ describe 'When a User gets approved', type: :request do
     visit link[:href]
 
     # From here it's basically a "First step of sign up process (set passwords) should work"
-    page.should have_content 'Set up your Factlink account'
+    page.should have_content 'set up your account here:'
 
     old_url = current_url
 
