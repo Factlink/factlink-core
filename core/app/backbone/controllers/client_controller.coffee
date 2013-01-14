@@ -5,7 +5,7 @@ class window.ClientController
     fact.fetch success: =>
       fact.set 'modal?', true
       view = new DiscussionView model: fact
-      @showView view
+      FactlinkApp.mainRegion.show view
 
     parent.$(parent.document).trigger "modalready"
 
@@ -21,10 +21,4 @@ class window.ClientController
       url: params['url']
       csrf_token: params['csrf_token']
       guided: FactlinkApp.guided
-    @showView factsNewView
-
-  # Helpers
-
-  showView: (view) ->
-    view.render()
-    $('div.factlink-modal').append view.el
+    FactlinkApp.mainRegion.show factsNewView
