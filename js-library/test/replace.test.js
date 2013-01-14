@@ -36,9 +36,9 @@ test("factlinks with different ranges count should work", function(){
   equal($('.second span.factlink').length, 1);
 });
 
-test("the first element in a factlink that is matched "
-    +"multiple times with a different number of ranges "
-    +"should have the fl-first class", function(){
+test("the first element in a factlink that is matched " +
+     "multiple times with a different number of ranges " +
+     "should have the fl-first class", function(){
   Factlink.selectRanges(
     Factlink.search("This is a link to an interesting page."),
     1,
