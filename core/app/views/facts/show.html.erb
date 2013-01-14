@@ -5,9 +5,7 @@
     <% end %>
 
     $(function() {
-      Backbone.history.start({pushState:Modernizr.history, silent:true});
-      Backbone.history.navigate(window.location.pathname);
-      Backbone.history.loadUrl( Backbone.history.fragment );
+      Backbone.history.start({pushState:Modernizr.history});
     });
 
   </script>

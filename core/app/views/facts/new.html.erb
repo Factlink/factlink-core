@@ -1,12 +1,7 @@
 <% content_for :javascript do %>
   <script>
-
-    // (new ClientController).newFact(layout, fact_text, title, url)
     $(function() {
-      Backbone.history.start({pushState:Modernizr.history, silent:true});
-      Backbone.history.navigate(window.location.pathname + window.location.search);
-      Backbone.history.loadUrl( Backbone.history.fragment + window.location.search);
+      Backbone.history.start({pushState:Modernizr.history});
     });
-
   </script>
 <% end %>
