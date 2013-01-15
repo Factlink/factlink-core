@@ -7,7 +7,6 @@ module Facts
     def initialize options={}
       @fact = options[:fact]
       @channel = options[:channel]
-      @modal = options[:modal]
       @view = options[:view]
 
       @timestamp = options[:timestamp] || 0
@@ -42,14 +41,6 @@ module Facts
 
     def i_am_owner
       (@fact.created_by == @view.current_graph_user)
-    end
-
-    def modal?
-      if @modal != nil
-        @modal
-      else
-        false
-      end
     end
 
     def fact_base
@@ -117,7 +108,6 @@ module Facts
       json.containing_channel_ids containing_channel_ids
       json.deletable_from_channel? deletable_from_channel?
       json.i_am_owner i_am_owner
-      json.modal? modal?
       json.fact_base fact_base
       json.url url
       json.post_action post_action

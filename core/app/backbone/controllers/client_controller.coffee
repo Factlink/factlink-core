@@ -28,7 +28,6 @@ class window.ClientController
     parent.remote.stopHighlightingFactlink @model.id
 
   showFact: (fact)->
-    fact.set 'modal?', true
     view = new DiscussionView model: fact
     view.on 'render', =>
       parent.$(parent.document).trigger "modalready"

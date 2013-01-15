@@ -26,8 +26,6 @@ class FactsController < ApplicationController
   def show
     authorize! :show, @fact
 
-    @modal = true
-
     respond_to do |format|
       format.html do
         render inline:'', layout: 'client'

@@ -13,6 +13,9 @@ class window.FactView extends ViewWithPopover
 
   template: "facts/_fact"
 
+  templateHelpers: ->
+    'modal?' : FactlinkApp.modal is true
+
   regions:
     factBaseView: '.fact-base-region'
     factBottomView: '.fact-bottom-region'
