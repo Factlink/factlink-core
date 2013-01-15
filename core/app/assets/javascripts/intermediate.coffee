@@ -60,4 +60,6 @@ loadUrl = (url)->
   else
     showFrame.src = url
 
+loadUrl '/facts/new'
+
 $("iframe").preventScrollPropagation()
