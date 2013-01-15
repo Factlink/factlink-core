@@ -5,11 +5,12 @@ class window.ClientController
     fact.fetch success: =>
       fact.set 'modal?', true
       view = new DiscussionView model: fact
+      view.on 'render', =>
+        parent.$(parent.document).trigger "modalready"
       FactlinkApp.mainRegion.show view
 
     fact.on "destroy", @onFactRemoved, @
 
-    parent.$(parent.document).trigger "modalready"
 
     if FactlinkApp.just_added
       parent.$(parent.document).trigger("factlinkCreated", fact_id )
@@ -23,8 +24,10 @@ class window.ClientController
       url: params['url']
       csrf_token: params['csrf_token']
       guided: FactlinkApp.guided
+    factsNewView.on 'render', =>
+      parent.$(parent.document).trigger "modalready"
+
     FactlinkApp.mainRegion.show factsNewView
-    parent.$(parent.document).trigger "modalready"
 
   onFactRemoved: ->
     parent.remote.hide()
