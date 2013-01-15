@@ -31,9 +31,9 @@ Factlink.Fact = function() {
 
     // Bind the own events
     $(elements)
-      .bind('mouseenter', self.focus)
-      .bind('mouseleave', self.blur)
-      .bind('click', self.click);
+      .on('mouseenter', self.focus)
+      .on('mouseleave', self.blur)
+      .on('click', self.click)
 
     bindFocus();
 
