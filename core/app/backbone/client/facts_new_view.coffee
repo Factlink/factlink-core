@@ -112,6 +112,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       channels: channel_ids
 
     f.save {},
-      success: ->
+      success: =>
         f.set containing_channel_ids: channel_ids
-        Backbone.history.loadUrl "facts/#{f.id}"
+        @trigger 'factCreated', f
+
