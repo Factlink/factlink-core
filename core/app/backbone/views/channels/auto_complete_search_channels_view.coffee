@@ -17,22 +17,7 @@ class AutoCompleteSearchChannelView extends Backbone.Factlink.StepView
 class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
   itemView: AutoCompleteSearchChannelView
 
-  template:
-    text: """
-      <table>
-        <tr class="js-row-my">
-          <th>My channels</th>
-          <td><ul class="js-list-my"></ul></td>
-        </tr>
-        <tr class="js-row-all">
-          <th>Topics</th>
-          <td><ul class="js-list-all"></ul></td>
-        </tr>
-        <tr class="js-row-new">
-          <td colspan="2"><ul class="js-list-new"></ul></td>
-        </tr>
-      </table>
-    """
+  template: "channels/auto_complete_search_channels"
 
   onRender: -> @updateRows()
 
@@ -58,7 +43,7 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
 
     @$('.auto-complete-search-list-last-rounded-both').removeClass 'auto-complete-search-list-last-rounded-both'
     @$('.auto-complete-search-list-last-rounded-right').removeClass 'auto-complete-search-list-last-rounded-right'
-    
+
     if newFilled
       @$('.js-row-new').addClass 'auto-complete-search-list-last-rounded-both'
     else if allFilled
