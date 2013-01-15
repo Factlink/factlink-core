@@ -34,6 +34,11 @@ Factlink.Fact = function() {
       .on('mouseenter', self.focus)
       .on('mouseleave', self.blur)
       .on('click', self.click)
+      .on('inview', function(event, isInView, visiblePartX, visiblePartY) {
+        if ( isInView ) {
+          highlight(1500);
+        }
+      });
 
     bindFocus();
 
