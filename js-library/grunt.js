@@ -1,64 +1,6 @@
 /*global config:true, file:true, task:true, module: true */
 
-var files = {
-  0: [
-    'libs/jquery-1.7.2.js',
-    'libs/underscore.js'
-  ],
-  1: [
-    'libs/jquery.scrollTo-1.4.2.js',
-    'libs/jquery.hoverintent.js'
-  ],
-  2: [
-    'src/js/core.js'
-  ],
-  3: [
-    'src/js/events.js',
-    'src/js/models/fact.js',
-    'src/js/views/set_position_of_element.js',
-    'src/js/views/balloon.js',
-    'src/js/views/prepare.js'
-  ],
-  4: [
-    'src/js/replace.js',
-    'src/js/annotate.js',
-    'src/js/highlight.js',
-    'src/js/scrollto.js',
-    'src/js/loaded_message.js',
-    'src/js/search.js',
-    'src/js/create.js',
-    'src/js/modal.js',
-    'src/js/extension.js',
-    'src/js/views/templates.js',
-    'src/js/initialize.js'
-  ],
-  5: [
-    'src/js/xdm.js'
-  ],
-  6: [
-    'src/js/last.js'
-  ]
-};
-
-var loaderFiles = {
-  0: [
-    'libs/easyXDM.js'
-  ],
-  1: [
-    'src/js/loader.js'
-  ]
-};
-
 module.exports = function(grunt){
-
-  function createFactlinkConcatObject(filesObj) {
-    return grunt.utils._.flatten(["<banner>", grunt.utils._(filesObj).map(function(fileGroup) {
-      return fileGroup.map(function(file) {
-        return "<file_strip_banner:" + file + ">";
-      });
-    })], true);
-  }
-
   grunt.initConfig({
     pkg: '<json:package.json>',
     meta: {
@@ -72,13 +14,32 @@ module.exports = function(grunt){
       ' */'
     },
     concat: {
-      'dist/factlink.core.js': createFactlinkConcatObject(files),
+      core: {
+        src: [
+          '<banner>',
+          'libs/*',
+          'plugins/*',
+          'src/js/core.js',
+          'src/js/models/*',
+          'src/js/views/*',
+          'src/js/util/*',
+          'src/js/initializers/*'
+        ],
+        dest: 'dist/factlink.core.js'
+      },
+      loader: {
+        src: [
+          '<banner>',
+          'libs/easyXDM.js',
+          'src/js/loader.js'
+        ],
+        dest: 'dist/factlink.js'
+      },
       'dist/factlink.start_annotating.js': '<file_strip_banner:src/js/start_annotating.js>',
       'dist/factlink.stop_annotating.js': '<file_strip_banner:src/js/stop_annotating.js>',
       'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/start_highlighting.js>',
       'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/stop_highlighting.js>',
-      'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>',
-      'dist/factlink.js': createFactlinkConcatObject(loaderFiles)
+      'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>'
     },
     copy: {
       'dist/server/css/basic.css': 'dist/css/basic.css',
