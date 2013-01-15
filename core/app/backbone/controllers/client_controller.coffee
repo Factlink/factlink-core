@@ -24,6 +24,7 @@ class window.ClientController
       csrf_token: params['csrf_token']
       guided: FactlinkApp.guided
     FactlinkApp.mainRegion.show factsNewView
+    parent.$(parent.document).trigger "modalready"
 
   onFactRemoved: ->
     parent.remote.hide()
