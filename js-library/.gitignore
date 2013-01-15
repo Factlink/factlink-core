@@ -6,3 +6,5 @@ public/
 *.rej
 *.orig
 dump.rdb
+
+tmp/factlink.core.js
