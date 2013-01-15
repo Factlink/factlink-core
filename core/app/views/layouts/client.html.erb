@@ -44,10 +44,6 @@
     <% end %>
     <%= render 'backbone/currentUser' %>
 
-    <% if @just_added %>
-      FactlinkApp.just_added = true;
-    <% end %>
-
     $(function() {
       Backbone.history.start({pushState:Modernizr.history});
     });

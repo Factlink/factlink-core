@@ -30,7 +30,6 @@ class FactsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        @just_added = ( not params[:just_added].blank? )
         render inline:'', layout: 'client'
       end
       format.json do

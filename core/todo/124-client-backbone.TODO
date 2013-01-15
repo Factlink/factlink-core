@@ -38,6 +38,6 @@ Possible refactoring:
  ☐ move all parent.remote logic to the clientcontroller
  Revert shortcuts/fixes to be made for merge back:
  ☐ add back user signed in test in facts/new
- ☐ factor out just_added; backbone should take care of this
+ ✔ factor out just_added; backbone should take care of this @done (13-01-15 16:19)
  ☐ remove :just_signed_in (depending on Remons answer if we still use this)
  ☐ check whether everything can handle the correct urlRoot in fact.coffee
