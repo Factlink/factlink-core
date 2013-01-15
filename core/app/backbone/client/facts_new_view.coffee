@@ -19,7 +19,7 @@ class Tooltip
     @$('.fact-wheel').tooltip('destroy')
 
   render: ->
-    @$('.fact-wheel').on 'click.whatsyouropinion', ->
+    @$('.fact-wheel').on 'click.whatsyouropinion', =>
       @close()
 
       if FactlinkApp.guided
