@@ -71,11 +71,6 @@ class FactsController < ApplicationController
 
   def new
     authorize! :new, Fact
-    if session[:just_signed_in]
-      session[:just_signed_in] = nil
-
-      @just_signed_in = true
-    end
 
     if current_user
       render inline:'', layout: 'client'
