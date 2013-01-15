@@ -39,14 +39,7 @@ class window.FactView extends ViewWithPopover
                     .tooltip('show')
       )
 
-
-
-  remove: ->
-    @$el.fadeOut "fast", -> $(this).remove()
-
-    if parent.remote
-      parent.remote.hide()
-      parent.remote.stopHighlightingFactlink @model.id
+  remove: -> @$el.fadeOut "fast", -> $(this).remove()
 
   removeFactFromChannel: (e) ->
     e.preventDefault()

@@ -7,6 +7,8 @@ class window.ClientController
       view = new DiscussionView model: fact
       FactlinkApp.mainRegion.show view
 
+    fact.on "destroy", @onFactRemoved, @
+
     parent.$(parent.document).trigger "modalready"
 
     if FactlinkApp.just_added
@@ -22,3 +24,7 @@ class window.ClientController
       csrf_token: params['csrf_token']
       guided: FactlinkApp.guided
     FactlinkApp.mainRegion.show factsNewView
+
+  onFactRemoved: ->
+    parent.remote.hide()
+    parent.remote.stopHighlightingFactlink @model.id

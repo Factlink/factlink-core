@@ -89,5 +89,6 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     @$('#cancel').on 'click', (e)->
       mp_track("Modal: Cancel")
       e.preventDefault()
+      # TODO when refactoring this view, move parent.remote code to clientcontroller
       parent.remote.hide()
 
