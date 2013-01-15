@@ -55,3 +55,13 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     @$('.js-row-my').toggleClass 'auto-complete-search-list-active', myFilled
     @$('.js-row-all').toggleClass 'auto-complete-search-list-active', allFilled
     @$('.js-row-new').toggleClass 'auto-complete-search-list-active', newFilled
+
+    @$('.auto-complete-search-list-last-rounded-both').removeClass 'auto-complete-search-list-last-rounded-both'
+    @$('.auto-complete-search-list-last-rounded-right').removeClass 'auto-complete-search-list-last-rounded-right'
+    
+    if newFilled
+      @$('.js-row-new').addClass 'auto-complete-search-list-last-rounded-both'
+    else if allFilled
+      @$('.js-row-all').addClass 'auto-complete-search-list-last-rounded-right'
+    else
+      @$('.js-row-my').addClass 'auto-complete-search-list-last-rounded-right'

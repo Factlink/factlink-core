@@ -148,13 +148,23 @@
       display: table-row;
     }
 
-    tr.auto-complete-search-list-active:last-child ul,
+    tr.auto-complete-search-list-last-rounded-both ul,
     > ul {
       li:last-child {
         .border-bottom-radius(@inner-border-radius);
 
         .text, div.add-new-block {
           .border-bottom-radius(@inner-border-radius);
+        }
+      }
+    }
+
+    tr.auto-complete-search-list-last-rounded-right ul {
+      li:last-child {
+        .border-bottom-right-radius(@inner-border-radius);
+
+        .text, div.add-new-block {
+          .border-bottom-right-radius(@inner-border-radius);
         }
       }
     }
