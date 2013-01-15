@@ -126,7 +126,8 @@ class FactsController < ApplicationController
           track "Modal: Create"
           redirect_to fact_path(@fact.id, just_added: true, guided: params[:guided])
         end
-        format.json { render json: @fact, status: :created, location: @fact.id }
+        decorated_fact = Facts::Fact.for(fact: @fact,view: view_context)
+        format.json { render json: decorated_fact}
       else
         format.html { render :new }
         format.json { render json: @fact.errors, status: :unprocessable_entity }

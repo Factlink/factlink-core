@@ -82,9 +82,10 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       @$('#suggested-channels-region').html suggestionView.el
 
   renderPersistentWheelView: ->
+    @wheel = new Wheel
     persistentWheelView = new PersistentWheelView
       el: @$('.fact-wheel'),
-      model: new Wheel()
+      model: @wheel
     persistentWheelView.render()
 
     persistentWheelView.on 'opinionSet', ->
@@ -102,6 +103,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     e.stopPropagation()
     console.info 'posting, yoyoyo'
     f = new Fact
+      opinion: @wheel.userOpinion()
       displaystring:  @$('textarea#fact').val()
       fact_url: @$('input#url').val()
       fact_title: @$('input#title').val()
