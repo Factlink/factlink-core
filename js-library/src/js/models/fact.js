@@ -25,7 +25,7 @@ Factlink.Fact = function() {
 
     createEventHandlers(_events);
 
-    highlight();
+    highlight(1500);
 
     balloon = new Factlink.Balloon(id, self);
 
@@ -38,8 +38,6 @@ Factlink.Fact = function() {
     bindFocus();
 
     bindClick(id);
-
-    this.stopHighlighting(1500);
   }
 
   // This may look like some magic, but here we expose the Fact.blur/focus/click
@@ -78,10 +76,14 @@ Factlink.Fact = function() {
     }
   }
 
-  function highlight() {
+  function highlight(timer) {
     clearTimeout(highlight_timeout);
 
     $( elements ).addClass('fl-active');
+
+    if ( timer ) {
+      self.stopHighlighting(timer);
+    }
   }
 
   this.stopHighlighting = function(timer) {
