@@ -19,16 +19,21 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
 
   template: "channels/auto_complete_search_channels"
 
+  ui:
+    my_list:  '.js-list-my'
+    all_list: '.js-list-all'
+    new_list: '.js-list-new'
+
   onRender: -> @updateRows()
 
   appendHtml: (collectionView, itemView, index) ->
     model = itemView.model
     if not model.get('new') and model.existingChannelFor(currentUser)
-      @$('.js-list-my').append itemView.el
+      @ui.my_list.append itemView.el
     else if not model.get('new')
-      @$('.js-list-all').append itemView.el
+      @ui.all_list.append itemView.el
     else
-      @$('.js-list-new').append itemView.el
+      @ui.new_list.append itemView.el
 
     @updateRows()
 
