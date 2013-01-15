@@ -1,5 +1,3 @@
-(function(Factlink, $, _, easyXDM, window, undefined) {
-
 Factlink.Prepare = function() {
   var hasFocus = false;
   var el;
@@ -102,5 +100,3 @@ Factlink.Prepare = function() {
 
   initialize.apply(this, arguments);
 };
-
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

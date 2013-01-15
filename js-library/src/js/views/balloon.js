@@ -1,5 +1,3 @@
-(function(Factlink, $, _, easyXDM, window, undefined) {
-
 Factlink.Balloon = function() {
   var id;
   var el;
@@ -100,5 +98,3 @@ Factlink.Balloon = function() {
 
   initialize.apply(this, arguments);
 };
-
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

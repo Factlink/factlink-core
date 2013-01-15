@@ -1,5 +1,3 @@
-(function(Factlink, $, _, easyXDM, window, undefined) {
-
 Factlink.Fact = function() {
   var elements;
   // This is to scare Mark:
@@ -164,5 +162,3 @@ Factlink.Fact = function() {
 
   initialize.apply(this, arguments);
 };
-
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);
