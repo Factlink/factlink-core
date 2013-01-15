@@ -1,39 +1,37 @@
-createWhatsYourOpinionTooltip = ->
-  showTooltip = ->
-    return if ( ! _shouldShowTooltip )
+class Tooltip
+  constructor: ($) ->
+    @$ = $
+    @_shouldShowTooltip = true
 
-    $('.fact-wheel').tooltip(
+  showTooltip: ->
+    return if ( ! @_shouldShowTooltip )
+
+    @$('.fact-wheel').tooltip(
       title: "What's your opinion?",
       trigger: "manual"
     ).tooltip('show');
 
-  destroyTooltip = ->
-    $('.fact-wheel').tooltip('destroy')
+  close: ->
+    @_shouldShowTooltip = false
+    $(window).off 'resize.whatsyouropinion'
+    @$('.fact-wheel').off 'click.whatsyouropinion'
+    @$('.js-opinion-animation').hide();
+    @$('.fact-wheel').tooltip('destroy')
 
-  hideOpinionAnimation = ->
-    $('.js-opinion-animation').hide();
+  render: ->
+    @$('.fact-wheel').on 'click.whatsyouropinion', ->
+      @close()
 
-  hideTooltip = ->
-    _shouldShowTooltip = false
+      if FactlinkApp.guided
+        $('#submit').tooltip(
+          title: "Great! Click here to finish",
+          trigger: "manual"
+        ).tooltip("show");
 
-    destroyTooltip();
+    $(window).on 'resize.whatsyouropinion', =>
+      @showTooltip();
 
-  _shouldShowTooltip = true
-
-  $('.fact-wheel').on 'click', ->
-    hideTooltip()
-    hideOpinionAnimation()
-
-    if FactlinkApp.guided
-      $('#submit').tooltip(
-        title: "Great! Click here to finish",
-        trigger: "manual"
-      ).tooltip("show");
-
-  $(window).on 'resize', ->
-    showTooltip();
-
-  showTooltip()
+    @showTooltip()
 
 
 class window.FactsNewView extends Backbone.Marionette.ItemView
@@ -50,6 +48,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @addToCollection = new OwnChannelCollection
+    @tooltip = new Tooltip($)
 
   onRender: ->
     @renderAddToChannel()
@@ -58,9 +57,11 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     @createCancelEvent()
     sometimeWhen(
       => @$el.is ":visible"
-    , => createWhatsYourOpinionTooltip();
+    , => @tooltip.render()
     )
 
+  onBeforeClose: ->
+    @tooltip.close()
 
   renderAddToChannel: ->
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection
@@ -92,4 +93,3 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       e.preventDefault()
       # TODO when refactoring this view, move parent.remote code to clientcontroller
       parent.remote.hide()
-
