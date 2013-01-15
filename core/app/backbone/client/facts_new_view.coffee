@@ -37,6 +37,9 @@ class Tooltip
 class window.FactsNewView extends Backbone.Marionette.ItemView
   template: "client/facts_new"
 
+  events:
+    'click #submit': 'post_factlink'
+
   templateHelpers: ->
     layout: @options.layout
     fact_text: @options.fact_text
@@ -93,3 +96,15 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       e.preventDefault()
       # TODO when refactoring this view, move parent.remote code to clientcontroller
       parent.remote.hide()
+
+  post_factlink: (e)->
+    e.preventDefault()
+    e.stopPropagation()
+    console.info 'posting, yoyoyo'
+    f = new Fact
+      displaystring:  @$('textarea#fact').val()
+      fact_url: @$('input#url').val()
+      fact_title: @$('input#title').val()
+
+    f.save {},
+      success: -> Backbone.history.loadUrl "facts/#{f.id}"

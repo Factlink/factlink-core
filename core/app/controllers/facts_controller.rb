@@ -82,15 +82,21 @@ class FactsController < ApplicationController
   end
 
   def create
+    # support both old names, and names which correspond to json in show
+    fact_text = (params[:fact] || params[:displaystring]).to_s
+    url = (params[:url] || params[:fact_url]).to_s
+    title = (params[:title] || params[:fact_title]).to_s
+
     unless current_user
-      session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
+      session[:return_to] = new_fact_path(layout: @layout, title: title, fact: fact_text, url: url)
       redirect_to user_session_path(layout: @layout)
       return
     end
 
     authorize! :create, Fact
 
-    @fact = Fact.build_with_data(params[:url].to_s, params[:fact].to_s, params[:title].to_s, current_graph_user)
+
+    @fact = Fact.build_with_data(url, fact_text, title, current_graph_user)
     @site = @fact.site
 
 
