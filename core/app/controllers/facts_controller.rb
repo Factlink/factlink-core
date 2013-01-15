@@ -77,13 +77,13 @@ class FactsController < ApplicationController
       @just_signed_in = true
     end
 
-    unless current_user
+    if current_user
+      render inline:'', layout: 'client'
+      track "Modal: Open prepare"
+    else
       session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
       redirect_to user_session_path(layout: @layout)
     end
-
-    render inline:'', layout: 'client'
-    track "Modal: Open prepare"
   end
 
   def create
