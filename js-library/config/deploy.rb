@@ -36,7 +36,7 @@ set :normalize_asset_timestamps, false
 
 namespace :deploy do
   task :build do
-    run "cd #{current_path}; npm install; grunt concat; grunt less; grunt min; grunt copy;"
+    run "cd #{current_path}; npm install; grunt server;"
   end
 end
 
