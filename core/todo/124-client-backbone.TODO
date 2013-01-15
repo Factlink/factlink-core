@@ -29,8 +29,8 @@ Use proper backbone routing:
  ✔ open page with backbone routing @done (13-01-15 07:56)
  ☐ navigate from facts/new to facts/show with marionette
    ✔ post fact using backbone @done (13-01-15 14:13)
-   ☐ also post opinion when posting the fact
-   ☐ add fact to channels using backbone
+   ✔ also post opinion when posting the fact @done (13-01-15 15:15)
+   ✔ add fact to channels using backbone @done (13-01-15 15:30)
    ☐ navigate to facts/show without using the router
  ✔ only show modal after it's loaded @done (13-01-15 10:37)
 Possible refactoring:

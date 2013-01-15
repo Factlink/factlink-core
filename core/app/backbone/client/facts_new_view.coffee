@@ -101,12 +101,17 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
   post_factlink: (e)->
     e.preventDefault()
     e.stopPropagation()
-    console.info 'posting, yoyoyo'
+
+    channel_ids = @addToCollection.map (ch)-> ch.id
+
     f = new Fact
       opinion: @wheel.userOpinion()
       displaystring:  @$('textarea#fact').val()
       fact_url: @$('input#url').val()
       fact_title: @$('input#title').val()
+      channels: channel_ids
 
     f.save {},
-      success: -> Backbone.history.loadUrl "facts/#{f.id}"
+      success: ->
+        f.set containing_channel_ids: channel_ids
+        Backbone.history.loadUrl "facts/#{f.id}"
