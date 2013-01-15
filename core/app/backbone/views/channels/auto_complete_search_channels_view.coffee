@@ -49,9 +49,9 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     allFilled = @$('.js-list-all li').length > 0
     newFilled = @$('.js-list-new li').length > 0
 
-    @ui.my_row.toggleClass  'auto-complete-search-list-active', myFilled
-    @ui.all_row.toggleClass 'auto-complete-search-list-active', allFilled
-    @ui.new_row.toggleClass 'auto-complete-search-list-active', newFilled
+    @_toggleSearchListActive(@ui.my_row, myFilled)
+    @_toggleSearchListActive(@ui.all_row, allFilled)
+    @_toggleSearchListActive(@ui.new_row, newFilled)
 
     @ui.search_list_both.removeClass  'auto-complete-search-list-last-rounded-both'
     @ui.search_list_right.removeClass 'auto-complete-search-list-last-rounded-right'
@@ -62,3 +62,6 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
       @ui.all_row.addClass 'auto-complete-search-list-last-rounded-right'
     else
       @ui.my_row.addClass  'auto-complete-search-list-last-rounded-right'
+
+  _toggleSearchListActive: (el, value) ->
+    el.toggleClass  'auto-complete-search-list-active', value
