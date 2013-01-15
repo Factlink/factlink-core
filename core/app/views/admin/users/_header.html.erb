@@ -4,8 +4,8 @@
   <div class="clearfix"></div>
   <div class="tabs">
     <ul>
-      <li<%= active == "activated" ? " class='active'" : "" %>><%= link_to "Activated", admin_users_path %></li>
-      <li<%= active == "reserved" ? " class='active'" : "" %>><%= link_to "Reserved", reserved_admin_users_path  %></li>
+      <li<%= active == "activated" ? ' class="active"'.html_safe : "" %>><%= link_to "Activated", admin_users_path %></li>
+      <li<%= active == "reserved" ? ' class=active'.html_safe : "" %>><%= link_to "Reserved", reserved_admin_users_path  %></li>
     </ul>
   </div>
 </header>
