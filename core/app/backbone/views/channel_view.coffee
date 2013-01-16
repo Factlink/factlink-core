@@ -53,6 +53,26 @@ class window.ChannelView extends ChannelViewLayout
     @activateTab '.factlinks'
 
 class window.ChannelActivitiesView extends ChannelViewLayout
+  events:
+    "click .refresh_stream": "refresh"
+
+  initialize: ->
+    @bindTo @collection, 'change_count', @update_count, @
+    setTimeout((=> @fetch_activity_count()),5*1000)
+
+  fetch_activity_count: ->
+    @collection.fetch_count()
+    setTimeout((=> @fetch_activity_count()),10*1000)
+
+  update_count: ->
+    this.$('.more .unread_count').html(@collection.get_new_activity_count());
+    this.$('.more').toggle(@collection.get_new_activity_count() > 0);
+
+  refresh: (e) ->
+    @collection.fetch()
+    e.preventDefault()
+    e.stopPropagation()
+
   getActivitiesView: ->
     new ActivitiesView collection: @collection, disableEmptyView: @options.disableEmptyView
 
