@@ -11,7 +11,7 @@ describe Interactors::Channels::ActivityCount do
       Interactors::Channels::ActivityCount.any_instance.should_receive(:authorized?).and_return true
       interactor = Interactors::Channels::ActivityCount.new channel_id, timestamp
 
-      interactor.should_receive(:command).with(:"channels/activity_count", channel_id, timestamp)
+      interactor.should_receive(:query).with(:"channels/activity_count", channel_id, timestamp)
 
       interactor.call
     end
