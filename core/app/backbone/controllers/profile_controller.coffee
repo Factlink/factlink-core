@@ -24,13 +24,13 @@ class window.ProfileController extends Backbone.Factlink.BaseController
   showNotificationSettings: (username) ->
     @showPage username, @notification_options(username)
 
-  showFact: (slug, fact_id)->
+  showFact: (slug, fact_id, params={})->
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 
     fact = new Fact(id: fact_id)
     fact.fetch
-      success: (model, response) => @withFact(model)
+      success: (model, response) => @withFact(model, params)
 
   # HELPERS
   profile_options: (username) ->
@@ -92,8 +92,8 @@ class window.ProfileController extends Backbone.Factlink.BaseController
         collection: collection,
         model: channel
 
-  withFact: (fact)->
-    @main.contentRegion.show new DiscussionView(model: fact)
+  withFact: (fact, params={})->
+    @main.contentRegion.show new DiscussionView(model: fact, tab: params['tab'])
 
     username = fact.get('created_by').username
     return_to_text = "#{ username.capitalize() }'s profile"
