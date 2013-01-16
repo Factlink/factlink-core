@@ -8,9 +8,13 @@
 //= require ./widgets/separator_list
 //= require channels/suggested_site_topics
 
+@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 body.client {
+  font-family: @baseFontFamily;
+  font-size: @baseFontSize;
+
   padding: 0 0 100px;
   .box-sizing(border-box);
 }
