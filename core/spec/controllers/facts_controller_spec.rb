@@ -79,20 +79,20 @@ describe FactsController do
       authenticate_user!(user)
       should_check_can :create, anything
       post 'create', :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
-      response.should redirect_to(fact_path(Fact.all.all[-1].id, just_added: true))
+      response.should redirect_to(fact_path(Fact.all.all[-1].id))
     end
 
     it "should work with json" do
       authenticate_user!(user)
       should_check_can :create, anything
       post 'create', :format => :json, :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
-      response.code.should eq("201")
+      response.code.should eq("200")
     end
     it "should work with json, with initial belief" do
       authenticate_user!(user)
       should_check_can :create, anything
       post 'create', :format => :json, :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title", :opinion => :believes
-      response.code.should eq("201")
+      response.code.should eq("200")
     end
   end
 

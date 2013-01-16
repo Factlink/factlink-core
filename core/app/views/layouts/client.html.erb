@@ -3,7 +3,7 @@
 <head>
   <%= stylesheet_link_tag "client" %>
 
-  <title><%= "Factlink: \"#{@title}\"" || "Factlink modal window" %></title>
+  <title>Factlink modal window</title>
 
   <style type="text/css">
     html, body{
@@ -13,6 +13,7 @@
     }
   </style>
 
+  <%= javascript_include_tag "modernizr-loader" %>
   <%= csrf_meta_tag %>
 </head>
 <body class="client">
@@ -23,21 +24,17 @@
     <div class="drag-handler bottom"></div>
     <div class="drag-handler left"  ></div>
     <div class="drag-handler right" ></div>
-    <%= yield %>
+    <div class="factlink-modal-content">
+      <%= yield %>
+    </div>
   </div>
 
   <div id='modal_region'></div>
-  <%= yield :template %>
-
-
   <%= javascript_include_tag "modal" %>
 
   <script type="text/javascript">
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
-  </script>
 
-
-  <script type="text/javascript">
     FactlinkApp.startAsClient();
     <% if params[:guided] == "true" %>
       // turn on guided globally in this backbone session
@@ -45,6 +42,11 @@
     <% else %>
       FactlinkApp.guided = false;
     <% end %>
+    <%= render 'backbone/currentUser' %>
+
+    $(function() {
+      Backbone.history.start({pushState:Modernizr.history});
+    });
 
   </script>
 

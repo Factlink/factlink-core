@@ -13,3 +13,7 @@ FactlinkApp.startSiteRegions = ->
   FactlinkApp.closeAllContentRegions = ->
     for region in ['leftTopCrossFadeRegion', 'leftTopRegion', 'leftBottomRegion', 'leftMiddleRegion', 'mainRegion']
       FactlinkApp[region].close()
+
+FactlinkApp.startClientRegions = ->
+  FactlinkApp.addRegions
+    mainRegion:          '.factlink-modal-content'
