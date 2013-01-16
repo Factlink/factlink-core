@@ -58,11 +58,27 @@ class window.ChannelActivitiesView extends ChannelViewLayout
 
   initialize: ->
     @bindTo @collection, 'change_count', @update_count, @
-    setTimeout((=> @fetch_activity_count()),5*1000)
+    @start_updating_count()
+    @on 'attached', @start_updating_count, @
+    @on 'detached', @stop_updating_count, @
+
+  onClose: ->
+    @stop_updating_count()
+
+  stop_updating_count: ->
+    console.info 'stop running', @running
+    if @running
+      clearTimeout(@timer)
+      @running = false
+
+  start_updating_count: ->
+    console.info 'running', @running
+    unless @running
+      @running = true
+      @timer = setTimeout((=> @fetch_activity_count(); @running=false; @start_updating_count()),10*1000)
 
   fetch_activity_count: ->
     @collection.fetch_count()
-    setTimeout((=> @fetch_activity_count()),10*1000)
 
   update_count: ->
     this.$('.more .unread_count').html(@collection.get_new_activity_count());
