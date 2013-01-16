@@ -2,3 +2,7 @@
   <a href="/{{ creator.username }}" rel="backbone">{{ creator.username }}</a>
 </strong>
 ( <img src="{{global.brain_image}}"> <span class="authority">{{ creator.authority }}</span> ) {{verb}}:
+
+{{#time_ago}}
+  <span class="pull-right">{{time_ago}} ago</span>
+{{/time_ago}}

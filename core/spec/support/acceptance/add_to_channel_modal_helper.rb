@@ -11,8 +11,8 @@ module Acceptance
 
     def add_as_new_channel name
       type_into_search_box name
-      page.should have_content "Add “#{name}” as a new channel"
-      page.find('li', text: "Add “#{name}” as a new channel").click
+      page.should have_content "Create a new channel called “#{name}”"
+      page.find('li', text: "Create a new channel called “#{name}”").click
       page.find('.auto-complete-results-container', text: "#{name}")
     end
 
