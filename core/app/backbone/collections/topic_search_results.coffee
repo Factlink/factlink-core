@@ -1,8 +1,19 @@
 class window.TopicSearchResults extends SearchCollection
   model: Topic
 
-  initialize: ->
+  initialize: (models, options) ->
+    @user = options.user
     @on 'reset', => @addNewItem('title')
+
+  comparator: (model) ->
+    newItem = model.get('new')
+    title = model.get('title')
+    if not newItem and @user? and model.existingChannelFor @user
+      "A #{title}"
+    else if not newItem
+      "B #{title}"
+    else
+      "C"
 
   url: -> "/" + currentUser.get('username') + "/channels/find.json?s=#{@encodedQuery()}"
 
