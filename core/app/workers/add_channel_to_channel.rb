@@ -1,5 +1,5 @@
 class AddChannelToChannel
-  NUMBER_OF_INITIAL_FACTS = 1
+  NUMBER_OF_INITIAL_FACTS = 10
 
   @queue = :channel_operations
 
