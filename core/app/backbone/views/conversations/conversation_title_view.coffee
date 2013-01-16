@@ -18,7 +18,11 @@ class ParticipantView extends Backbone.Marionette.ItemView
   className: 'separator-list-item'
   template: "conversations/participant"
 
-class window.ParticipantsView extends Backbone.Marionette.CollectionView
+class window.ParticipantsView extends Backbone.Marionette.CompositeView
   tagName: 'h1'
   className: 'separator-list'
   itemView: ParticipantView
+  template: 'conversations/participants'
+
+  appendHtml: (collectionView, itemView) ->
+    collectionView.$el.find('.separator-list-item:last').before(itemView.el)
