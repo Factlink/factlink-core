@@ -28,7 +28,6 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
       @modalRegion.show @options.content_view
       @$('.modal').show()
       @$('.transparent-layer').show()
-      @$('.modal-body').preventScrollPropagation()
 
     stopPropagation: (e) ->
       e.stopPropagation()
