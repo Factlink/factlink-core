@@ -1,5 +1,5 @@
 class ChannelActivitiesController < ApplicationController
-  before_filter :load_channel
+  before_filter :load_channel, except: [:count]
   before_filter :get_user
 
   def index
@@ -23,7 +23,7 @@ class ChannelActivitiesController < ApplicationController
 
     timestamp = (params['timestamp'] || 0).to_i
 
-    @number_of_activities = @channel.activities.count_above(timestamp)
+    @number_of_activities = interactor :'channels/activity_count', channel_id, timestamp
 
     render json: {count: @number_of_activities, timestamp: timestamp }
   end
