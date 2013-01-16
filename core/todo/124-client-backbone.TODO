@@ -40,4 +40,4 @@ Possible refactoring:
  ✔ add back user signed in test in facts/new @done (13-01-16 10:03)
  ✔ factor out just_added; backbone should take care of this @done (13-01-15 16:19)
  ✔ remove :just_signed_in (depending on Remons answer if we still use this) @done (13-01-15 16:20)
- ☐ check whether everything can handle the correct urlRoot in fact.coffee
+ ✔ check whether everything can handle the correct urlRoot in fact.coffee @done (13-01-16 10:17)
