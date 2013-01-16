@@ -66,13 +66,11 @@ class window.ChannelActivitiesView extends ChannelViewLayout
     @stop_updating_count()
 
   stop_updating_count: ->
-    console.info 'stop running', @running
     if @running
       clearTimeout(@timer)
       @running = false
 
   start_updating_count: ->
-    console.info 'running', @running
     unless @running
       @running = true
       @timer = setTimeout((=> @fetch_activity_count(); @running=false; @start_updating_count()),10*1000)
