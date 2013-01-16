@@ -1,10 +1,24 @@
-class window.ConversationTitleView extends Backbone.Marionette.ItemView
+class window.ConversationTitleView extends Backbone.Marionette.Layout
   tagName: "header"
   id: "conversation"
   template: "conversations/detailed_header"
 
+  regions:
+    participantsRegion: '.js-participants'
+
   triggers:
     'click #back-to-conversations-button' : 'showConversations'
 
-  templateHelpers: =>
-    recipients_comma: @model.otherRecipients(currentUser).map((user) -> user.get('name')).join(', ')
+  onRender: ->
+    @participantsRegion.show new ParticipantsView
+      collection: new Backbone.Collection @model.otherRecipients(currentUser)
+
+class ParticipantView extends Backbone.Marionette.ItemView
+  tagName: 'span'
+  className: 'separator-list-item'
+  template: "conversations/participant"
+
+class window.ParticipantsView extends Backbone.Marionette.CollectionView
+  tagName: 'h1'
+  className: 'separator-list'
+  itemView: ParticipantView
