@@ -4,6 +4,6 @@
     <h3 id="feedback_modal_title">Provide us with feedback</h3>
   </div>
   <div class="modal-body">
-    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %> scrolling="no"></iframe>
+    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'".html_safe unless current_user %> scrolling="no"></iframe>
   </div>
 </div>
