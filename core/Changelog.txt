@@ -1,3 +1,9 @@
+# 16:30 CET, januari 15th, 2013
+
+Functional:
+- Highlight Factlink when when it enters the visible part of the window
+
+
 # 15:00 CET, januari 10th, 2013
 
 Functional:
