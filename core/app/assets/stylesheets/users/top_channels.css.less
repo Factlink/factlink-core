@@ -1,0 +1,66 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+@topChannelsBorder: 1px solid #e7e7e7;
+
+.top-channel-container {
+  .top-channels {
+    .border-radius(3px);
+    border: @topChannelsBorder;
+    list-style-position: inside;
+    padding: 0;
+    margin: 0;
+
+    .top-channels-channel {
+      border-bottom: @topChannelsBorder;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+
+      padding: 8px 50px 8px 5px;
+
+      display: none;
+      &:nth-child(-n+5) {
+        display: list-item;
+      }
+
+      &:nth-child(5), &:last-child {
+        border-bottom: solid 1px transparent;
+      }
+
+      .top-channels-channel-authority {
+        position: absolute;
+        right: 10px;
+      }
+    }
+  }
+
+  .top-channels-show-more,
+  .top-channels-show-less {
+    float: right;
+  }
+
+  .top-channels-show-less {
+    display: none;
+  }
+
+  &.showMore {
+    .top-channels .top-channels-channel {
+      display: list-item !important;
+
+      &:nth-child(5) {
+        border-bottom: @topChannelsBorder;
+      }
+    }
+
+    .top-channels-show-more {
+      display: none;
+    }
+
+    .top-channels-show-less {
+      display: inline !important;
+    }
+  }
+}

@@ -5,6 +5,8 @@ module Commands
     def define_index
       type 'user'
       field :username
+      field :first_name
+      field :last_name
     end
   end
 end
