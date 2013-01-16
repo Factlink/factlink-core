@@ -4,7 +4,8 @@
  ✔ Clean css @done (13-01-16 15:44)
  ✔ Only fetch count when on the stream @done (13-01-16 16:23)
  ✔ Fixed timestamp now is the one from the latest and this is inclusive in the backend @done (13-01-16 16:27)
- ☐ Make backend into an interactor, query and tests.
+ ✔ Make backend into an interactor, query and tests. @done (13-01-16 17:50)
+ ✔ Merge develop back @done (13-01-16 17:57)
 
  Optional:
  ☐ Add loading indicator when refreshing.
