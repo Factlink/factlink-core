@@ -8,11 +8,7 @@
 <% content_for :javascript do %>
   <script>
     $(function() {
-      Backbone.history.start({pushState:Modernizr.history, silent:true});
-
-      <% if @user %>
-        Channels.setUsername("<%= current_user.username %>");
-      <% end %>
+      Channels.setUsername("<%= current_user.username %>");
 
       <% if @channel && !@channel.new? %>
         window.currentChannel = new Channel({id: <%= @channel.id %>});

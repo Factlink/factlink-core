@@ -40,10 +40,10 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    <% use_backbone = current_user %>
 
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
 
+    <% use_backbone = current_user %>
     <% if use_backbone %>
       FactlinkApp.startAsSite();
     <% end %>
@@ -51,17 +51,6 @@
   </script>
 
   <%= yield :javascript %>
-
-  <script>
-    $(function() {
-      <% if use_backbone %>
-        if (Backbone.History.started) {
-          Backbone.history.navigate(window.location.pathname);
-          Backbone.history.loadUrl( Backbone.history.fragment );
-        }
-      <% end %>
-    });
-  </script>
 
 <% end %>
 
