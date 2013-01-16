@@ -23,15 +23,14 @@ elemTopBottom = ($el)->
 # situation: we have a block within a container block
 # we want to see the block, so we might need to scroll the containerblock
 # and we might need to scroll the window
-window.scrollIntoViewWithinContainer = (el,$el)->
-  $el ||= $(el)
-
-  $container = $el.parent()
-  container = $container[0]
+window.scrollIntoViewWithinContainer = ($el, $container)->
+  $container ?= $el.parent()
 
   unless isScrolledIntoView($el) and isInsideContainerBoundaries($el, $container)
+    container = $container[0]
+    
     if (container.scrollHeight > container.clientHeight)
-      el.scrollIntoView(true)
+      $el[0].scrollIntoView(true)
       container.scrollIntoView(false)
 
 # Situation: same as above, but we do NOT want to scroll the page
