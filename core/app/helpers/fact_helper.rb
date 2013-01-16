@@ -11,6 +11,10 @@ module FactHelper
     frurl_fact_path(slug, fact.id)
   end
 
+  def friendly_fact_with_opened_tab_url(fact, tab_type)
+    "#{friendly_fact_url(fact)}?tab=#{tab_type}"
+  end
+
   def friendly_fact_url(fact, max_slug_length = 1024)
     slug = friendly_fact_slug(fact, max_slug_length)
     frurl_fact_url(slug, fact.id)
