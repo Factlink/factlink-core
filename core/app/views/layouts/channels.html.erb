@@ -14,10 +14,7 @@
         window.currentChannel = new Channel({id: <%= @channel.id %>});
       <% end %>
 
-      // this should be moved to an initializer
-      // however currently we cannot, since this should
-      // not be executed on the single fact page.
-      $('.potential-backbone').attr('rel', 'backbone');
+      Backbone.history.start({pushState:Modernizr.history});
 
     });
   </script>
