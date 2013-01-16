@@ -8,17 +8,34 @@ Backbone.View.prototype.defaultClickHandler = function( e ) {
   if ( e.metaKey || e.ctrlKey || e.altKey || !Backbone.History.started ) return true;
 
   var routeTo = $(e.target).closest('a').attr('href');
-  console.log("Navigating to "+ routeTo, 'from /'+ Backbone.history.fragment);
+
+  Backbone.View.prototype.navigateTo( routeTo );
+
+  e.preventDefault();
+  return false;
+};
+
+Backbone.View.prototype.navigateTo = function( routeTo ) {
+  console.info("Navigating to "+ routeTo, 'from /'+ Backbone.history.fragment);
 
   if ('/' + Backbone.history.fragment == routeTo) {
     Backbone.history.fragment = null;
     Backbone.history.navigate(routeTo, {trigger: true, replace: true});
   } else {
-    Backbone.history.navigate(routeTo, {trigger: true});
+
+    var oldFragment = Backbone.history.fragment;
+
+    Backbone.history.navigate(routeTo, false)
+
+    if ( Backbone.history.loadUrl(routeTo) ){
+      // backbone supported routing to this page, nothing to be done
+    } else {
+      Backbone.history.navigate(oldFragment, false)
+      window.open(routeTo, '_blank');
+      window.focus();
+    }
   }
 
-  e.preventDefault();
-  return false;
 };
 
 /* HACK: this is needed because internal events did not seem to work*/
