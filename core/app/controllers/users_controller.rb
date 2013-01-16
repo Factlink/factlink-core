@@ -36,16 +36,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def number_of_activities
-    authorize! :see_activities, @user
-    timestamp = params['timestamp'] || 0
-    @number_of_activities = @user.graph_user.notifications.count_above(timestamp)
-
-    respond_to do |format|
-      format.json { render 'activities/count' }
-    end
-  end
-
   def activities
     authorize! :see_activities, @user
     @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )

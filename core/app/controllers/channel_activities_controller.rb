@@ -18,6 +18,15 @@ class ChannelActivitiesController < ApplicationController
     end
   end
 
+  def count
+    authorize! :see_activities, @user
+    timestamp = (params['timestamp'] || 0).to_i
+
+    @number_of_activities = @channel.activities.count_above(timestamp)
+
+    render json: {count: @number_of_activities, timestamp: timestamp }
+  end
+
   def last_fact
     authorize! :show, @channel
     render 'channels/last_fact_activity'
