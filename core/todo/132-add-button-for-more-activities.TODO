@@ -1,0 +1,9 @@
+ ✔ Add query @done (13-01-16 15:20)
+ ✔ Add backbone logic @done (13-01-16 15:20)
+ ✔ Fix layout @done (13-01-16 15:16)
+ ☐ Only fetch count when on the stream
+ ☐ Make backend into an interactor, query and tests.
+ ✔ Clean css @done (13-01-16 15:44)
+
+ Optional:
+ ☐ Add loading indicator when refreshing.
