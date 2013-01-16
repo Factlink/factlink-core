@@ -20,7 +20,9 @@ class ChannelActivitiesController < ApplicationController
 
   def count
     authorize! :see_activities, @user
-    timestamp = (params['timestamp'] || 0).to_i
+    # Add one to the timestamp since the range is inclusive and the
+    # timestamp is of the latest activity.
+    timestamp = (params['timestamp'] || 0).to_i + 1
 
     @number_of_activities = @channel.activities.count_above(timestamp)
 
