@@ -9,7 +9,7 @@ class AutoCompleteSearchChannelView extends Backbone.Factlink.StepView
 
   template: "channels/auto_complete_search_channel"
 
-  scrollIntoView: -> scrollIntoViewWithinContainer @$el, $('.auto-complete-search-list')
+  scrollIntoView: -> scrollIntoViewWithinContainer @$el, @$('.auto-complete-search-list')
 
   templateHelpers: ->
     query = @options.query
