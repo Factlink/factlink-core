@@ -23,7 +23,9 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
   end
 
   def count_above(minimumKey)
-    key.zcount(minimumKey, '+inf')
+    # Function implies exclusive but zcount is inclusive so we add 1, to
+    # get the desired behaviour.
+    key.zcount(minimumKey + 1, '+inf')
   end
 
   def below(limit,opts={})
