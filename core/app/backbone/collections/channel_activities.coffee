@@ -33,7 +33,7 @@ class ChannelActivityCount extends Backbone.Model
   initialize: (attributes, options) ->
     @collection_url = options.channel_activity_collection.url()
 
-  url: -> @collection_url + "/count?timestamp=#{@get('timestamp')}"
+  url: -> @collection_url + "/count.json?timestamp=#{@get('timestamp')}"
 
   count: ->
     @get('count') || 0
