@@ -8,7 +8,7 @@
 
 
 <% content_for :main do %>
-  <div id="container" class="container<%= " fixed" unless defined? not_fixed %>">
+  <div id="container" class="container<%= " fixed" unless defined? not_fixed and not_fixed %>">
     <div class="row" id="main">
       <section id="left-column" class="span3">
         <% if content_for?(:left_column) %>

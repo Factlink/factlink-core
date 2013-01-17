@@ -11,39 +11,41 @@ div.facts-view {
     #create_fact_for_channel {
       #channel > .create_fact_for_channel();
     }
-
-    .more_facts {
-      margin: 0 -15px;
-      border-top: 1px solid @baseBorderColor;
-      padding: 15px;
-
-      a {
-        i {
-          background: image-url('stream/load_more.png') no-repeat;
-          width: 12px;
-          height: 11px;
-          display: inline-block;
-          margin-bottom: -1px;
-        }
-
-        &:hover {
-          text-decoration: none;
-          border: 1px solid darken(#dee5ef, 10%);
-        }
-
-        border: 1px solid #dee5ef;
-        background: #f3f6fa;
-        .border-radius(5px);
-        display: block;
-        text-align: center;
-        line-height: 40px;
-      }
-    }
   }
 
   div.fact-view:last-child {
     margin-bottom: -30px;
     .border-bottom-radius(5px);
     border-bottom: none;
+  }
+}
+
+div.header {
+  .more {
+    margin: 0 -15px;
+    border-top: 1px solid @baseBorderColor;
+    padding: 15px;
+
+    a {
+      i {
+        background: image-url('stream/load_more.png') no-repeat;
+        width: 12px;
+        height: 11px;
+        display: inline-block;
+        margin-bottom: -1px;
+      }
+
+      &:hover {
+        text-decoration: none;
+        border: 1px solid darken(#dee5ef, 10%);
+      }
+
+      border: 1px solid #dee5ef;
+      background: #f3f6fa;
+      .border-radius(5px);
+      display: block;
+      text-align: center;
+      line-height: 40px;
+    }
   }
 }

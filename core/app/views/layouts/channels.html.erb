@@ -1,8 +1,11 @@
+<% unless defined? not_fixed %>
+  <% not_fixed = false %>
+<% end %>
 <% content_for :left_column do %>
   <div class="left-top-x-fade"></div>
   <div class="user-block-container"></div>
   <div class="channel-listing-container"></div>
-  <div class="js-related-channels"></div>
+  <div class="js-related-channels related-channels-container"></div>
 <% end %>
 
 <% content_for :javascript do %>
@@ -20,4 +23,4 @@
   </script>
 <% end %>
 
-<%= render template: 'layouts/frontend' %>
+<%= render template: 'layouts/frontend', locals: { not_fixed: not_fixed } %>
