@@ -47,7 +47,6 @@ showUrl = (url, successFn) ->
       successCalled++
       successFn()  if $.isFunction(successFn)
 
-  showFrame.onload = onLoadSuccess
   # Somehow only lower case letters seem to work for those events --mark
   $(document).bind "modalready", onLoadSuccess
   loadUrl url
