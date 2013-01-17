@@ -25,9 +25,9 @@ window.AutoloadCollectionOnTimestamp = {
   loadMore: function() {
     var prevlength;
     if( ! this.needsMore() ) {return;}
-    
+
     prevlength = this.length;
-    
+
     this.startLoading();
     this.fetch({
       add: true,

@@ -29,8 +29,8 @@ window.FactsView = AutoloadingCompositeView.extend({
   showNewPosts: function(){
     if ( this.model.user().get('username') === currentUser.get('username') ) {
       var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
-      this.$('.more_facts .unread_count').html(unread_count);
-      this.$('.more_facts').toggle(unread_count > 0);
+      this.$('.more .unread_count').html(unread_count);
+      this.$('.more').toggle(unread_count > 0);
     }
   },
 
