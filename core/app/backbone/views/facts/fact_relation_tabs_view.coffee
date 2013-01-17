@@ -10,7 +10,10 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     tabRegion: '.tab-content-container'
 
   initialize: (options)->
-    @initial_tab = options.tab || 'supporting'
+    if options.tab in ['weakening', 'doubting']
+      @initial_tab = options.tab
+    else
+      @initial_tab = 'supporting'
 
   templateHelpers: =>
     believe_tab_name: Factlink.Global.t.fact_believe_collection_name.capitalize()
