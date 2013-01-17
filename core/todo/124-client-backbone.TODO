@@ -23,9 +23,21 @@ Create backbone app, we decided to use one app, with three modes:
 Use proper backbone routing:
  ✔ create controller action for facts/show @done (13-01-08 16:02)
  ✔ create controller action for facts/new @done (13-01-08 17:11)
- ☐ add routes
- ☐ open facts/new by default in iframe in intermediate
- ☐ open page with backbone routing
- ☐ navigate from facts/new to facts/show with marionette
-Revert shortcuts:
- ☐ add back user signed in test in facts/new
+ ✔ add routes @done (13-01-15 07:56)
+ ✔ move all parent.remote logic out of non-modal-only views @done (13-01-15 08:29)
+ ✔ open facts/new by default in iframe in intermediate @done (13-01-15 10:37)
+ ✔ open page with backbone routing @done (13-01-15 07:56)
+ ✔ navigate from facts/new to facts/show with marionette @done (13-01-15 16:07)
+   ✔ post fact using backbone @done (13-01-15 14:13)
+   ✔ also post opinion when posting the fact @done (13-01-15 15:15)
+   ✔ add fact to channels using backbone @done (13-01-15 15:30)
+   ✔ navigate to facts/show without using the router @done (13-01-15 16:07)
+ ✔ only show modal after it's loaded @done (13-01-15 10:37)
+Possible refactoring:
+ ☐ Move logic as much as possible from the intermediate to the clientcontroller
+ ☐ move all parent.remote logic to the clientcontroller
+ Revert shortcuts/fixes to be made for merge back:
+ ✔ add back user signed in test in facts/new @done (13-01-16 10:03)
+ ✔ factor out just_added; backbone should take care of this @done (13-01-15 16:19)
+ ✔ remove :just_signed_in (depending on Remons answer if we still use this) @done (13-01-15 16:20)
+ ✔ check whether everything can handle the correct urlRoot in fact.coffee @done (13-01-16 10:17)

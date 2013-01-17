@@ -20,9 +20,8 @@ describe "searching", type: :request do
 
   it "should find a just created factlink" do
     # create factlink:
-    visit new_fact_path
     fact_title = "fact to be found"
-    fill_in "fact", with: fact_title
+    visit new_fact_path fact: fact_title
     click_button "submit"
 
     # and search for it:

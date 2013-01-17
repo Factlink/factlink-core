@@ -18,11 +18,9 @@ class Users::SessionsController < Devise::SessionsController
   private
   def set_redir
     if params[:layout] == 'client'
-      session[:just_signed_in] = true
       session[:redirect_after_failed_login_path] = new_user_session_path(layout:"client")
     else
       session[:return_to] = nil
-      session[:just_signed_in] = nil
     end
   end
 
