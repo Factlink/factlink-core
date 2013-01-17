@@ -12,4 +12,8 @@
   </div>
 <% end %>
 
-<%= render template: "layouts/base", locals: { fixed_topbar: true } %>
+<%= render template: "layouts/base", locals: {
+  fixed_topbar: false,
+  show_footer: true,
+  show_sign_up: !current_user
+} %>
