@@ -11,7 +11,7 @@ class TourController < ApplicationController
 
   def create_your_first_factlink
     @step_in_signup_process = :create_factlink
-    render layout: "frontend"
+    render layout: "frontend", locals: {not_fixed: true}
   end
 
   def choose_channels

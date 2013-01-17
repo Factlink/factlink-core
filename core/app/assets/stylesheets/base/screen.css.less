@@ -20,13 +20,19 @@ body {
   }
 
   #left-column {
+    .box-sizing(border-box);
+  }
+
+}
+
+.fixed {
+  #left-column {
     .style-scrollbars;
     position: fixed;
     height: 100%;
     top: 50px;
     padding-bottom: 50px;
     overflow-y: scroll;
-    .box-sizing(border-box);
   }
 
   #main-column {
