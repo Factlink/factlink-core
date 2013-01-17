@@ -1,9 +1,14 @@
 Determine for starting:
- ☐ Determine wheter to use the backend to see what the latest viewed factlinks are, or we need frontend calls to determine this. Try this by output logging and browsing Factlink.
+ ✔ Determine wheter to use the backend to see what the latest viewed factlinks are, or we need frontend calls to determine this. Try this by output logging and browsing Factlink. Should also use create factlink. @done (13-01-17 11:53)
+     We can use the backend, when outputting info this seems ok.
 
 Backend:
- ☐ Persist when a user looks at a single Factlink in a sorted list (redis). Command, and relation to a redis list in the user modal.
- ☐ Retrieve latest viewed facts for a user. Interactor+Query+endpoint (in fact controller?) and route.
+ ☐ Refactor loading a single Fact to an interactor + query.
+ ☐ Refactor creating a new Fact to an interactor + command.
+ ☐ Create a command to persist when a user looks at a single Factlink in a sorted list (redis). Command, and relation to a redis list in the user modal.
+ ☐ Integrate this command to the create fact and show fact interactors.
+ ☐ create Interactor+Query for retrieving latest viewed facts.
+ ☐ Create endpoint + route to return latest viewed facts.
 
 Frontend:
  ☐ Alter auto complete to show suggestions. (first version with static models, later make dynamic.)
