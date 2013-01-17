@@ -1,3 +1,6 @@
+<% unless defined? not_fixed %>
+  <% not_fixed = false %>
+<% end %>
 <% content_for :left_column do %>
   <div class="left-top-x-fade"></div>
   <div class="user-block-container"></div>
@@ -20,4 +23,4 @@
   </script>
 <% end %>
 
-<%= render template: 'layouts/frontend' %>
+<%= render template: 'layouts/frontend', locals: { not_fixed: not_fixed } %>
