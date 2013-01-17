@@ -1,5 +1,6 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+@import "mixins/scrollbars";
 
 html, body {
   height: 100%;
@@ -19,6 +20,7 @@ body {
   }
 
   #left-column {
+    .style-scrollbars;
     position: fixed;
     height: 100%;
     top: 50px;
