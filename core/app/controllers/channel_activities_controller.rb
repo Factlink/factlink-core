@@ -75,10 +75,10 @@ class ChannelActivitiesController < ApplicationController
     end
 
     def channel_id
-      params[:channel_id] || params[:id] || raise_404('Channel not found')
+      params[:channel_id] || params[:id]
     end
 
     def load_channel
-      @channel ||= Channel[channel_id]
+      @channel ||= Channel[channel_id] || raise_404('Channel not found')
     end
 end
