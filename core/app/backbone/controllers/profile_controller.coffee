@@ -15,7 +15,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       $('body').scrollTo(@last_profile_status.scrollTop) if view == @last_profile_status?.view
       delete @last_profile_status
     @profile_views.clearUnshowedViews()
-    
+
     @profile_views.renderCacheView( username, new_callback() ) unless view?
 
   # ACTIONS
@@ -93,7 +93,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
         model: channel
 
   withFact: (fact, params={})->
-    @main.contentRegion.show new DiscussionView(model: fact, tab: params['tab'])
+    @main.contentRegion.show new DiscussionView(model: fact, tab: params.tab)
 
     username = fact.get('created_by').username
     return_to_text = "#{ username.capitalize() }'s profile"

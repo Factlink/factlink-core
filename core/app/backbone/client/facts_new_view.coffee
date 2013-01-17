@@ -6,6 +6,9 @@ class Tooltip
   showTooltip: ->
     return if ( ! @_shouldShowTooltip )
 
+    if FactlinkApp.guided
+      @$('.js-opinion-animation').show();
+
     @$('.fact-wheel').tooltip(
       title: "What's your opinion?",
       trigger: "manual"
@@ -65,6 +68,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   onBeforeClose: ->
     @tooltip.close()
+    $('#submit').tooltip('destroy')
 
   renderAddToChannel: ->
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection

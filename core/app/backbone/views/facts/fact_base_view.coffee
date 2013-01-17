@@ -32,8 +32,8 @@ class window.FactBaseView extends Backbone.Marionette.Layout
   bodyView: ->
     bodyView = new FactBodyView(model:@model)
 
-    @bindTo bodyView, 'click:body', =>
-      @trigger 'click:body'
+    @bindTo bodyView, 'click:body', (e) =>
+      @trigger 'click:body', e
 
     bodyView
 
@@ -46,7 +46,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
   initialize: ->
     @trunk8Init 3, '.js-displaystring', '.less'
 
-  triggerViewClick: ->
-    @trigger 'click:body'
+  triggerViewClick: (e) ->
+    @trigger 'click:body', e
 
 _.extend(FactBodyView.prototype, Backbone.Factlink.Trunk8MoreLessMixin)

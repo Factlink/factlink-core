@@ -47,15 +47,15 @@ showUrl = (url, successFn) ->
       successCalled++
       successFn()  if $.isFunction(successFn)
 
-  showFrame.onload = onLoadSuccess
   # Somehow only lower case letters seem to work for those events --mark
   $(document).bind "modalready", onLoadSuccess
   loadUrl url
   showFrame.className = "overlay"
 
 loadUrl = (url)->
-  history = showFrame.contentWindow.Backbone?.history
-  if history?
+  backbone = showFrame.contentWindow.Backbone
+  history = backbone?.history
+  if history? and backbone.History.started
     history.loadUrl url
   else
     showFrame.src = url
@@ -64,3 +64,4 @@ loadUrl = (url)->
 loadUrl '/facts/new'
 
 $("iframe").preventScrollPropagation()
+$("iframe").on 'click', (e) -> e.stopPropagation()

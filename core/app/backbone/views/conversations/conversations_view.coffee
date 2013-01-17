@@ -14,14 +14,9 @@ class ConversationItemView extends Backbone.Marionette.ItemView
     recipients_comma: @otherRecipients.map((user) -> user.get('name')).join(', ')
     reply: last_message and last_message.sender.id == currentUser.id
 
-  onShow: ->
-    @$('.text').trunk8 lines: 2
+  onShow: -> @$('.text').trunk8 lines: 2
 
-  wholeElementClick: (e) ->
-    url = @model.url()
-    e.preventDefault()
-    e.stopImmediatePropagation()
-    Backbone.history.navigate url, true
+  wholeElementClick: (e) -> @defaultClickHandler e, @model.url()
 
 class ConversationEmptyView extends Backbone.Marionette.ItemView
   tagName: 'div'
@@ -36,5 +31,4 @@ class window.ConversationsView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   className: 'conversations'
 
-  initialize: ->
-    @collection.on 'reset', => @options.loading = false
+  initialize: -> @collection.on 'reset', => @options.loading = false
