@@ -17,8 +17,8 @@ class TourController < ApplicationController
   def choose_channels
     @step_in_signup_process = :almost_done
     @user = current_user
-    render inline:'', layout: "channels", locals: {not_fixed: true}
     set_seen_the_tour current_user
+    render inline:'', layout: "channels", locals: {not_fixed: true}
   end
 
   private
