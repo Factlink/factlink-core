@@ -1,0 +1,12 @@
+Determine for starting:
+ ☐ Determine wheter to use the backend to see what the latest viewed factlinks are, or we need frontend calls to determine this. Try this by output logging and browsing Factlink.
+
+Backend:
+ ☐ Persist when a user looks at a single Factlink in a sorted list (redis). Command, and relation to a redis list in the user modal.
+ ☐ Retrieve latest viewed facts for a user. Interactor+Query+endpoint (in fact controller?) and route.
+
+Frontend:
+ ☐ Alter auto complete to show suggestions. (first version with static models, later make dynamic.)
+
+ Integrate:
+ ☐ Backend and frontend.
