@@ -9,9 +9,6 @@
 
 <% content_for :main do %>
   <div id="container" class="container">
-
-    <%= render 'home/notifications', notice: notice, alert: alert %>
-
     <div class="row" id="main">
       <section id="left-column" class="span3">
         <% if content_for?(:left_column) %>
@@ -22,6 +19,8 @@
       </section>
 
       <section id="main-column" class="span9" role="main">
+        <%= render 'home/notifications', notice: notice, alert: alert %>
+
         <section id="main-wrapper">
           <%= yield :main_column %>
           <%= yield %>
