@@ -1,0 +1,48 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: @white;
+  overflow-y: scroll;
+  .base-text();
+
+  #body-wrapper {
+    min-height: 100%;
+    position: relative;
+  }
+
+  #body {
+    position: relative;
+  }
+
+  #left-column {
+    position: fixed;
+    height: 100%;
+    top: 50px;
+    padding-bottom: 50px;
+    overflow-y: scroll;
+    .box-sizing(border-box);
+
+    .white-well {
+      background-color: @white;
+      .border-radius(4px);
+      border: 1px solid @baseBorderColor;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: @baseLineHeight;
+      display: inline;
+    }
+  }
+
+  #main-column {
+    position: relative;
+    left: 240px;
+  }
+}
