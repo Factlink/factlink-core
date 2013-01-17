@@ -20,6 +20,7 @@ Factlink.Prepare = function() {
       e.stopPropagation();
     }).bind('click', function(e) {
       e.preventDefault();
+      e.stopPropagation();
 
       self.startLoading();
 
