@@ -1,6 +1,9 @@
 #= require backbone
-#= require backbone.marionette
+#  queryparams patches router, so should be loaded before marionette,
+#     which subclasses the router
+#= require backbone.queryparams
 #= require backbone.paginator
+#= require backbone.marionette
 #= require_tree ../templates
 #= require_self
 
@@ -17,4 +20,8 @@
 #= require_tree ./routers/
 #= require_tree ./initializers
 
+#= require_tree ./client
+
+# ensure that HoganTemplate exists, also when no templates are loaded
+# (for instance in tests)
 this.HoganTemplates || (this.HoganTemplates = {});

@@ -47,8 +47,9 @@ describe Interactors::SubComments::CreateForFactRelation do
       dead_sub_comment = mock
       content = 'hoi'
       interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, content, current_user: user
+      interactor.stub fact_relation: mock
 
-      should_receive_new_with_and_receive_call(Commands::SubComments::CreateXxx, fact_relation_id, 'FactRelation', content, user, current_user: user).
+      interactor.should_receive(:command).with(:"sub_comments/create_xxx", fact_relation_id, 'FactRelation', content, user).
         and_return(sub_comment)
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
         and_return(authority)
@@ -59,6 +60,15 @@ describe Interactors::SubComments::CreateForFactRelation do
       result = interactor.execute
 
       expect(result).to eq dead_sub_comment
+    end
+
+    it 'throws an error when the fact relation does not exist' do
+      stub_const 'Pavlov::ValidationError', RuntimeError
+
+      interactor = Interactors::SubComments::CreateForFactRelation.new 1, 'content', current_user: mock
+      interactor.stub fact_relation: nil
+
+      expect{interactor.call}.to raise_error(Pavlov::ValidationError, "parent does not exist any more")
     end
   end
 
@@ -111,7 +121,7 @@ describe Interactors::SubComments::CreateForFactRelation do
       interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, 'hoi', current_user: user
 
       interactor.should_receive(:top_fact).and_return(fact)
-      should_receive_new_with_and_receive_call(Queries::AuthorityOnFactFor, fact, graph_user, current_user: user).
+      interactor.should_receive(:query).with(:authority_on_fact_for, fact, graph_user).
         and_return authority
 
       result = interactor.authority_of_user_who_created sub_comment

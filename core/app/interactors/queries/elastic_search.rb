@@ -1,4 +1,4 @@
-require_relative '../pavlov'
+require 'pavlov'
 require 'uri'
 
 module Queries

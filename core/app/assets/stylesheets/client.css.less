@@ -1,16 +1,21 @@
 //= require bootstrap
 //= require users/session_new
-//= require base/iconic_stroke
 //= require_tree ./bubble
 //= require_tree ./facts
 //= require_tree ./comments
 //= require_tree ./widgets/popups
 //= require_tree ./widgets/auto_complete
+//= require ./widgets/separator_list
 //= require channels/suggested_site_topics
 
+@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 body.client {
+  font-family: @baseFontFamily;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
+
   padding: 0 0 100px;
   .box-sizing(border-box);
 }

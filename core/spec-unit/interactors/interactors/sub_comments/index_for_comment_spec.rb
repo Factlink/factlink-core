@@ -40,7 +40,9 @@ describe Interactors::SubComments::IndexForComment do
       authorities = [10, 20]
 
       interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: user
-      should_receive_new_with_and_receive_call(Queries::SubComments::Index, comment_id, 'Comment', current_user: user).
+      interactor.stub comment: mock
+
+      interactor.should_receive(:query).with(:"sub_comments/index", comment_id, 'Comment').
         and_return(sub_comments)
 
       interactor.should_receive(:authority_of_user_who_created).
@@ -60,6 +62,15 @@ describe Interactors::SubComments::IndexForComment do
       results = interactor.execute
 
       expect( results ).to eq dead_sub_comments
+    end
+
+    it 'throws an error when the comment does not exist' do
+      stub_const 'Pavlov::ValidationError', RuntimeError
+
+      interactor = Interactors::SubComments::IndexForComment.new '2b', current_user: mock
+      interactor.should_receive(:comment).and_return(nil)
+
+      expect{interactor.call}.to raise_error(Pavlov::ValidationError, "comment does not exist any more")
     end
   end
 
@@ -108,7 +119,7 @@ describe Interactors::SubComments::IndexForComment do
       interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: user
 
       interactor.should_receive(:top_fact).and_return(fact)
-      should_receive_new_with_and_receive_call(Queries::AuthorityOnFactFor, fact, graph_user, current_user: user).
+      interactor.should_receive(:query).with(:"authority_on_fact_for", fact, graph_user).
         and_return authority
 
       result = interactor.authority_of_user_who_created sub_comment

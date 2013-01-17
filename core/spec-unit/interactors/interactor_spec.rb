@@ -1,5 +1,5 @@
 require 'active_support'
-require_relative '../../app/interactors/pavlov/interactor.rb'
+require 'pavlov/interactor'
 
 describe Pavlov::Interactor do
   it 'should have a class which has a queue method which returns a default queue' do

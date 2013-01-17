@@ -16,8 +16,8 @@ class window.FactRelationView extends Backbone.Marionette.Layout
   _factBaseView: ->
     fbv = new FactBaseView(model: @model)
 
-    @bindTo fbv, 'click:body', =>
-      Backbone.history.navigate @model.getFact().friendlyUrl(), true
+    @bindTo fbv, 'click:body', (e) =>
+      @defaultClickHandler e, @model.getFact().friendlyUrl()
 
     fbv
 

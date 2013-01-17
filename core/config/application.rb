@@ -184,3 +184,9 @@ end
 version_file = File.new('version.txt','r')
 FactlinkUI::Application.config.version_number = version_file.gets.chomp
 version_file.close
+
+
+# Securityfix:
+ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
+#puts "Here comes a warning because we are very secure:"
+#ActionDispatch::ParamsParser::DEFAULT_PARSERS={}

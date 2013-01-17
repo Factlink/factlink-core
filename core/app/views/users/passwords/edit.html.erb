@@ -1,6 +1,8 @@
-<h1>
-<%= params[:msg] ? "Set up your Factlink account" : "Change your password" %>
-</h1>
+<% if params[:msg] %>
+  <h1>Hi <%= @user.username %>, set up your account here:</h1>
+<% else %>
+  <h1>Change your password</h1>
+<% end %>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
   <%= f.hidden_field :reset_password_token %>

@@ -8,8 +8,8 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
   addChannel: ->
     @trigger 'added'
     aantal_callbacks = 0
-    activity = undefined
-    channel = undefined
+    activity = null
+    channel = null
 
     #TODO use _.after
     na_beide = =>
@@ -44,12 +44,12 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
     @options.addToCollection.add(new_channel)
 
     error_function = =>
-      @options.addToCollection.remove(model)
+      @options.addToCollection.remove(@model)
       options.error() if options.error
 
     new_channel.save {},
       success: =>
-        @model.collection = undefined
+        @model.collection = null
         new_channel.subchannels().add(@model)
         @model.save {},
           success: => options.success(new_channel) if options.success

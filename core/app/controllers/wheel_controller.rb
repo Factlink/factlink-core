@@ -3,7 +3,6 @@ require 'rvg/rvg'
 include Magick
 include Math
 
-
 class WheelController < ApplicationController
 
   def show
@@ -42,7 +41,4 @@ class WheelController < ApplicationController
       end
     end
   end
-
-
-
 end

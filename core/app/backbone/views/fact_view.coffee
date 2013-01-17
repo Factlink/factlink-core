@@ -13,6 +13,9 @@ class window.FactView extends ViewWithPopover
 
   template: "facts/_fact"
 
+  templateHelpers: ->
+    'modal?' : FactlinkApp.modal is true
+
   regions:
     factBaseView: '.fact-base-region'
     factBottomView: '.fact-bottom-region'
@@ -31,13 +34,15 @@ class window.FactView extends ViewWithPopover
     @factBottomView.show new FactBottomView(model: @model)
 
     @$(".authority").tooltip()
+    if FactlinkApp.guided
+      sometimeWhen(
+        => @$el.is ":visible"
+      , =>
+        @$('#close').tooltip(trigger: 'manual')
+                    .tooltip('show')
+      )
 
-  remove: ->
-    @$el.fadeOut "fast", -> $(this).remove()
-
-    if parent.remote
-      parent.remote.hide()
-      parent.remote.stopHighlightingFactlink @model.id
+  remove: -> @$el.fadeOut "fast", -> $(this).remove()
 
   removeFactFromChannel: (e) ->
     e.preventDefault()

@@ -1,6 +1,9 @@
-
 class LoadDsl
   include Pavlov::Helpers
+
+  def pavlov_options
+    { no_current_user: true }
+  end
 
   class UndefinedUserError < StandardError;end
 
@@ -89,7 +92,6 @@ class LoadDsl
     "fact_relation \"#{quote_string(fact_relation.from_fact.data.displaystring)}\", :#{fact_relation.type.to_sym}, \"#{quote_string(fact_relation.fact.data.displaystring)}\"\n"
   end
 
-
   def load_user(username,email=nil, password=nil, twitter=nil)
     u = User.where(:username => username).first
     if not u
@@ -132,27 +134,30 @@ class LoadDsl
     "user \"#{quote_string(graph_user.user.username)}\"\n"
   end
 
-
   def believers(*l)
     self.set_opinion(:believes,*l)
   end
+
   def disbelievers(*l)
     self.set_opinion(:disbelieves,*l)
   end
+
   def doubters(*l)
     self.set_opinion(:doubts,*l)
   end
 
-
   def self.export_userlist(l)
     l.map {|graph_user| "\"#{quote_string(graph_user.user.username)}\""}.join(',')
   end
+
   def self.export_believers(l)
     "believers " + export_userlist(l) + "\n"
   end
+
   def self.export_disbelievers(l)
     "disbelievers " + export_userlist(l) + "\n"
   end
+
   def self.export_doubters(l)
     "doubters " + export_userlist(l) + "\n"
   end
@@ -161,7 +166,7 @@ class LoadDsl
     f = state_fact
     users.each do |username|
       gu = self.load_user(username).graph_user
-      f.add_opinion(opinion_type,gu)
+      f.add_opinion opinion_type, gu
     end
   end
 
@@ -196,7 +201,7 @@ class LoadDsl
   def add_fact(fact_string)
     fact = self.load_fact(fact_string)
 
-    interactor :'channels/add_fact', fact, self.state_channel, no_current_user: true
+    interactor :'channels/add_fact', fact, self.state_channel
   end
 
   def self.export_add_fact(fact)
@@ -212,7 +217,6 @@ class LoadDsl
     "del_fact \"#{quote_string(fact.data.displaystring)}\"\n"
   end
 
-
   def self.quote_string(v)
     v.to_s.gsub(/\\/, '\&\&').gsub(/"/, "\\\"")
   end
@@ -220,6 +224,7 @@ class LoadDsl
   def self.export_header
     "# coding: utf-8\n\nload_fact_data do\n\n"
   end
+
   def self.export_footer
     "end"
   end
@@ -227,5 +232,4 @@ class LoadDsl
   def run(&block)
     instance_eval(&block)
   end
-
 end

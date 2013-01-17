@@ -32,8 +32,11 @@ describe SitesController do
 
   describe :top_topics do
     it "should respond successfully" do
+      user = FactoryGirl.create :active_user
+      authenticate_user!(user)
+
       @site = FactoryGirl.create(:site, :url => "http://batman.org")
-      get :top_topics, id: @site.id, format: :json
+      get :top_topics, url: @site.url, format: :json
       response.should be_success
     end
   end

@@ -20,7 +20,7 @@ module KillObject
      :slug_title, :created_by_id]
   dead_object :comment,
     [:id, :created_by, :created_at, :content, :type,
-     :fact_data, :sub_comment_count]
+     :fact_data, :sub_comment_count, :created_by_id]
   dead_object :sub_comment,
     [:id, :created_by, :created_by_id, :created_at, :content, :parent_id]
   dead_object :site,
@@ -29,7 +29,7 @@ module KillObject
     [:title, :slug_title]
   dead_object :fact_relation,
     [:id, :type, :fact, :from_fact, :created_by, :percentage,
-     :opinion, :sub_comments_count, :deletable?]
+     :opinion, :sub_comments_count, :deletable?, :created_by_id]
 
 
   def self.kill alive_object, take_fields, extra_fields={}

@@ -24,4 +24,7 @@
   <%= yield :javascript %>
 <% end %>
 
-<%= render template: 'layouts/base', locals: { fixed_topbar: true } %>
+<%= render template: 'layouts/base', locals: {
+  fixed_topbar: true,
+  show_footer: false
+} %>

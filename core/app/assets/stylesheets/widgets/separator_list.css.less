@@ -1,0 +1,21 @@
+.separator-list {
+  .separator-list-item {
+    .separator-list-sep:after {
+      content: ', '
+    }
+
+    &:nth-last-child(2) .separator-list-sep:after {
+      content: ' and '
+    }
+
+    &:last-child .separator-list-sep:after {
+      content: ''
+    }
+  }
+
+  &.separator-list-hide-and {
+    .separator-list-item:nth-last-child(2) .separator-list-sep:after {
+      content: ', '
+    }
+  }
+}

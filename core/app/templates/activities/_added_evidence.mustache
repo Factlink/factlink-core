@@ -1,7 +1,5 @@
 <span class="activity-description">added
-  <a href="{{ activity.evidence_url }}">{{ activity.type }} evidence</a>
+  <a href="{{ activity.evidence_url }}" rel="backbone">{{ activity.type }} evidence</a>
   to
-  <a href="{{ activity.fact_url }}">{{ activity.fact_displaystring }}</a>
+  <a href="{{ activity.target_url }}" rel="backbone">{{ activity.fact_displaystring }}</a>
 </span>
-
-<span class="meta">{{ time_ago }} ago</span>

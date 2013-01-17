@@ -2,11 +2,14 @@
 # subclass and implement get_alive_channels to return a list
 # of ohm channel models
 
+require 'pavlov'
+require_relative '../../util/can_can'
+
 module Interactors
   module Channels
     class Index
       include Pavlov::Interactor
-      include Pavlov::CanCan
+      include Util::CanCan
 
       def execute
         channels_with_authorities.map do |ch, authority|

@@ -4,8 +4,8 @@ source 'http://rubygems.org'
 # ruby '1.9.3'
 
 # Defaults
-gem 'rails', '3.2.7'
-gem 'activerecord', '3.2.7'
+gem 'rails', '3.2.11'
+gem 'activerecord', '3.2.11'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'sqlite3', :require => 'sqlite3'
 gem 'rake', '~> 0.9.2', :require => false
@@ -19,10 +19,12 @@ gem 'mongo', '= 1.3.1'
 gem 'bson', '= 1.3.1'
 gem 'bson_ext', '= 1.3.1'
 
+gem 'pavlov', :git => 'git@github.com:Factlink/pavlov.git'
+
 # Redis
 gem 'redis', '2.2.1'
-gem 'ohm', :git => 'https://github.com/Factlink/ohm.git' # we need the tribalvibes fork (0.1.4), for polymorphism
-gem 'ohm-contrib', :git => 'http://github.com/Factlink/ohm-contrib.git'
+gem 'ohm', :git => 'git@github.com:Factlink/ohm.git' # we need the tribalvibes fork (0.1.4), for polymorphism
+gem 'ohm-contrib', :git => 'git@github.com:Factlink/ohm-contrib.git'
 gem 'redis-aid'
 gem 'redis-objects'
 gem 'multi_json', '>= 1.2.0'
@@ -32,7 +34,7 @@ gem 'resque_mailer'
 
 gem 'stringex'
 
-gem 'mixpanel', git: 'https://github.com/Factlink/mixpanel.git'
+gem 'mixpanel', git: 'git@github.com:Factlink/mixpanel.git'
 
 gem "sentry-raven"
 gem "resque-sentry"
@@ -49,7 +51,7 @@ gem 'devise', '~> 2.0.0'
 gem 'devise_invitable', '~> 1.0.0'
 gem 'cancan'
 
-gem 'resqued_devise_mailer', :git => 'https://github.com/Factlink/resqued_devise_mailer.git'
+gem 'resqued_devise_mailer', :git => 'git@github.com:Factlink/resqued_devise_mailer.git'
 
 
 # social connections
@@ -114,7 +116,7 @@ group :development do
 
   gem 'letter_opener'
 
-  gem 'lograge'
+  gem 'lograge', '~> 0.1.0'
   gem 'sextant'
 
   gem 'rb-readline' # needed for Guard
@@ -136,6 +138,7 @@ group :test do
   gem 'capybara-webkit', '= 0.10.1', require: false
   gem 'capybara-screenshot'
   gem 'capybara-email'
+  gem 'poltergeist', require: false
 
   gem 'oily_png'
 
@@ -151,7 +154,7 @@ end
 
 group :jstest do
   gem 'jasmine'
-  gem 'jasmine-headless-webkit', git: 'https://github.com/johnbintz/jasmine-headless-webkit.git'
+  gem 'jasmine-headless-webkit', git: 'git@github.com:johnbintz/jasmine-headless-webkit.git'
   gem "jasmine-spec-extras", "~> 0.0.2"
 end
 

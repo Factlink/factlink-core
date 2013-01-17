@@ -4,8 +4,6 @@ class HomeController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
-  before_filter :authenticate_user!, only: [:tos, :tour]
-
   #general static pages:
   def pages
     if ( /\A([-a-zA-Z_\/]+)\Z/.match(params[:name]))
@@ -37,13 +35,11 @@ class HomeController < ApplicationController
   end
 
   before_filter :redirect_logged_in_user, only: :index
-
   def redirect_logged_in_user
     redirect_to after_sign_in_path_for(current_user) and return false if user_signed_in?
   end
 
-
-  before_filter :accepts_html_instead_of_stars, only: [:index, :tos]
+  before_filter :accepts_html_instead_of_stars, only: [:index]
   def accepts_html_instead_of_stars
     # If the request 'Content Accept' header indicates a '*/*' format,
     # we set the format to :html.
@@ -60,14 +56,4 @@ class HomeController < ApplicationController
       format.html { render "home/pages/index", layout: "static_pages" }
     end
   end
-
-  def tos
-  end
-
-  def tour
-    current_user.seen_the_tour = true
-    current_user.save
-    render layout: nil
-  end
-
 end

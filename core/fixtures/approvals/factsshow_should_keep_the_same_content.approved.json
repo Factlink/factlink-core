@@ -8,7 +8,6 @@
   ],
   "deletable_from_channel?": false,
   "i_am_owner": false,
-  "modal?": false,
   "fact_base": {
     "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Fact 1</a>",
     "fact_id": "1",

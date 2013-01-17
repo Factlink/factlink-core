@@ -78,7 +78,7 @@ describe ConversationsController do
       interactor.should_receive(:call)
 
       pavlov_options = mock()
-      controller.should_receive(:pavlov_options).and_return(pavlov_options)
+      controller.stub(pavlov_options: pavlov_options)
 
       Interactors::CreateConversationWithMessage.should_receive(:new).
          with(fact_id.to_s, ['henk','frits'], user.id.to_s, 'verhaal', pavlov_options).

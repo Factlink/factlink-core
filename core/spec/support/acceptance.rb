@@ -1,8 +1,4 @@
 module Acceptance
-  def pending_for_ci *args
-    pending(*args)
-  end
-
   def int_user
     user = FactoryGirl.create(:user)
     user.confirm!
@@ -22,7 +18,7 @@ module Acceptance
   end
 
   def make_non_tos_user_and_login
-    user = FactoryGirl.create(:approved_confirmed_user, agrees_tos: false)
+    user = FactoryGirl.create(:active_user, agrees_tos: false)
     sign_in_user(user)
   end
 

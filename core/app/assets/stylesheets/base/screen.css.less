@@ -1,0 +1,42 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "mixins/scrollbars";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: @white;
+  overflow-y: scroll;
+
+  #body-wrapper {
+    min-height: 100%;
+    position: relative;
+  }
+
+  #body {
+    position: relative;
+  }
+
+  #left-column {
+    .box-sizing(border-box);
+  }
+
+}
+
+.fixed {
+  #left-column {
+    .style-scrollbars;
+    position: fixed;
+    height: 100%;
+    top: 50px;
+    padding-bottom: 50px;
+    overflow-y: scroll;
+  }
+
+  #main-column {
+    position: relative;
+    left: 240px;
+  }
+}

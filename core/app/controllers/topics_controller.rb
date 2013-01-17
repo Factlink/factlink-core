@@ -16,7 +16,7 @@ class TopicsController < ApplicationController
 
   private
     def get_top_channels
-      interactor :'channels/top'
+      interactor :'channels/top', 12
     end
     def top_channels_for_topic topic
       interactor :'channels/top_for_topic', topic

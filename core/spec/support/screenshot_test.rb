@@ -1,11 +1,4 @@
 module ScreenshotTest
-  module OS
-    def OS.osx?
-      #TODO This doesn't work if we switch to JRuby
-      (/darwin/ =~ RUBY_PLATFORM) != nil
-    end
-  end
-
   class Screenshot
     include ChunkyPNG::Color
     def initialize page, title
@@ -14,7 +7,7 @@ module ScreenshotTest
     end
 
     def old_file
-      Rails.root.join('spec','integration','screenshots',"#{@title}.png")
+      Rails.root.join('spec','screenshots','screenshots',"#{@title}.png")
     end
 
     def new_file
@@ -96,22 +89,19 @@ module ScreenshotTest
       force_scroll_bars
       # Need this to let the animations settle.
       sleep 1
+      @page.driver.resize 1024, 2000
       @page.driver.render new_file
     end
   end
 
   def assume_unchanged_screenshot title
-    if OS.osx?
-      pending "Screenshots don't work locally."
-    else
-      shot = Screenshot.new page, title
-      shot.take
-      if shot.changed?
-        if shot.size_changed?
-          raise "Screenshot #{title} changed (also size)"
-        else
-          raise "Screenshot #{title} changed"
-        end
+    shot = Screenshot.new page, title
+    shot.take
+    if shot.changed?
+      if shot.size_changed?
+        raise "Screenshot #{title} changed (also size)"
+      else
+        raise "Screenshot #{title} changed"
       end
     end
   end

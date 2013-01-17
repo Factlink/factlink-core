@@ -7,6 +7,7 @@
 //= require trunk8
 //= require twitter/bootstrap
 //= require jquery.color
+//= require jquery.placeholder
 
 //= require globals/globals
 

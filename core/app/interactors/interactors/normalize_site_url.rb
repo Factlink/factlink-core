@@ -1,11 +1,11 @@
-require_relative '../pavlov'
+require 'pavlov'
 
 module Interactors
   class NormalizeSiteUrl
     include Pavlov::Interactor
 
     def initialize site_id, normalizer_class_name
-      @site = Site[site_id]
+      @site = ::Site[site_id]
       @normalizer_class = Kernel.const_get(normalizer_class_name.to_s)
     end
 
@@ -13,7 +13,7 @@ module Interactors
       normalized_url = @normalizer_class.normalize @site.url
 
       if not save_site_with_new_url(@site, normalized_url)
-        new_site = Site.find_or_create_by url: normalized_url, url_normalizer_class: @normalizer_class
+        new_site = ::Site.find_or_create_by url: normalized_url, url_normalizer_class: @normalizer_class
         move_facts_to_other_site @site, new_site
         cleanup_site_if_empty @site
       end

@@ -1,8 +1,8 @@
 module Interactors
   class Search
     include Pavlov::Interactor
-    include Pavlov::CanCan
-    include Pavlov::SearchHelper
+    include Util::CanCan
+    include Util::Search
 
     arguments :keywords, :page, :row_count
 

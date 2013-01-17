@@ -1,19 +1,20 @@
 class window.TopChannelItemView extends Backbone.Marionette.ItemView
   template: 'channels/topchannel'
   tagName: 'li'
+  className: 'top-channels-channel'
 
 class window.TopChannelView extends Backbone.Marionette.CompositeView
   template: "users/profile/top_channels"
   className: "top-channel-container"
   itemView: TopChannelItemView
-  itemViewContainer: ".top-channels ol"
+  itemViewContainer: ".top-channels"
   events:
-    "click a.show-more": "showMoreOn"
-    "click a.show-less": "showMoreOff"
+    "click a.top-channels-show-more": "showMoreOn"
+    "click a.top-channels-show-less": "showMoreOff"
 
   showMoreOn:  ->
-    console.info @$el
     @$el.addClass 'showMore'
+
   showMoreOff: -> @$el.removeClass 'showMore'
 
   showEmptyView: ->
@@ -24,5 +25,5 @@ class window.TopChannelView extends Backbone.Marionette.CompositeView
       @$(".no-channels").hide()
       @$(".top-channels").show()
 
-  onRender: ->
-    @$(".top-channels .show-more").hide() if @collection.length < 6
+  onCompositeCollectionRendered: ->
+    @$(".top-channels-show-more").hide() if @collection.length < 6

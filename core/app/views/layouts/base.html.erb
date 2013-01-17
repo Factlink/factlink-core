@@ -31,19 +31,25 @@
     <%= javascript_include_tag "modernizr-loader" %>
     <%= csrf_meta_tag %>
   </head>
-  <body class="factlink-site controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= params[:show_sign_in] ? " show_sign_in" : "" %>">
+  <body class="factlink-site controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= params[:show_sign_in] ? " show_sign_in" : "" %><%= " show_sign_up" if defined? show_sign_up and show_sign_up %><%= " show_footer" if defined? show_footer and show_footer %>">
     <%= render 'feedback/button' unless defined? dont_render_feedback %>
 
     <%= render 'home/browser_support_message' %>
     <%= yield :modal %>
 
-    <%= yield :sign_in_bar %>
+    <div id="body-wrapper">
+      <%= yield :sign_in_bar %>
 
-    <%= render "base/topbar", fixed_topbar: fixed_topbar %>
+      <%= render "base/topbar", fixed_topbar: fixed_topbar %>
 
-    <%= yield :main %>
+      <div id="body">
+        <%= yield :main %>
+      </div>
 
-    <%= render "base/footer" %>
+      <% if defined? show_footer and show_footer %>
+        <%= render "base/footer", show_sign_up: show_sign_up %>
+      <% end %>
+    </div>
 
     <%= render "feedback/frame" %>
 
