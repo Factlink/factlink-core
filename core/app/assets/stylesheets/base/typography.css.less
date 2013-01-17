@@ -1,0 +1,21 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+body {
+  .base-text();
+}
+
+#left-column {
+  .white-well {
+    background-color: @white;
+    .border-radius(4px);
+    border: 1px solid @baseBorderColor;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: @baseLineHeight;
+    display: inline;
+  }
+}
