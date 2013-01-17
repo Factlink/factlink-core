@@ -3,7 +3,7 @@ Determine for starting:
      We can use the backend, when outputting info this seems ok.
 
 Backend:
- ☐ Refactor loading a single Fact to an interactor + query.
+ ✔ Refactor loading a single Fact to an interactor + query. @done (13-01-17 12:20)
  ☐ Refactor creating a new Fact to an interactor + command.
  ☐ Create a command to persist when a user looks at a single Factlink in a sorted list (redis). Command, and relation to a redis list in the user modal.
  ☐ Integrate this command to the create fact and show fact interactors.

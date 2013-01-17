@@ -201,9 +201,11 @@ class FactsController < ApplicationController
 
   private
     def load_fact
-      id = params[:fact_id] || params[:id]
+      @fact = interactor :'facts/get', fact_id || raise_404
+    end
 
-      @fact = Fact[id] || raise_404
+    def fact_id
+      id = params[:fact_id] || params[:id]
     end
 
     def allowed_type
