@@ -1,21 +1,23 @@
 <h1>Information</h1>
 
 {{#location}}
-<div class="row">
-  <span class="field-label">Location:</span>
-  <span class="field">{{location}}</span>
+<div class="profile-information-item">
+  <span class="profile-information-label">Location:</span>
+  <span class="profile-information-field">{{location}}</span>
 </div>
 {{/location}}
 
 {{#biography}}
-<div class="row">
-  <span class="field-label">Biography:</span>
-  <span class="field">{{biography}}</span>
+<div class="profile-information-item">
+  <span class="profile-information-label">Biography:</span>
+  <span class="profile-information-field">{{biography}}</span>
 </div>
 {{/biography}}
 
 {{^location}}
 {{^biography}}
-  <p>{{username}} has no profile information available.</p>
+  <div class="profile-information-item">
+    {{username}} has no profile information available.
+  </div>
 {{/biography}}
 {{/location}}
