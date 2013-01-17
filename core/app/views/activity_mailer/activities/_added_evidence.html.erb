@@ -1,12 +1,11 @@
 <h2 class="activity-title">
-	<%= link_to_possibly_dead_user @activity.user.user %> 
-	added 
-	<%= @activity.action == "added_supporting_evidence" ? "supporting" : "weakening" %> 
-	evidence to 
-	<%= link_to @activity.object, friendly_fact_url(@activity.object) %>
+  <%= link_to_possibly_dead_user @activity.user.user %>
+  added
+  <%= @activity.action == "added_supporting_evidence" ? "supporting" : "weakening" %>
+  evidence to
+  <%= link_to @activity.object, friendly_fact_url(@activity.object) %>
 </h2>
 <p class="activity-action">
-	To view the evidence, visit:<br>
-	<%= link_to friendly_fact_url(@activity.object), friendly_fact_url(@activity.object) %>
+  To view the evidence, visit:<br>
+  <%= link_to friendly_fact_url(@activity.object), friendly_fact_url(@activity.object) %>
 </p>
-
