@@ -16,8 +16,8 @@ class window.ChannelActivities extends Backbone.Collection
     else
       0
 
-  fetch_count: ->
-    @_count.fetch()
+  fetch_count: (args...)->
+    @_count.fetch(args...)
 
   onReset: ->
     @_count.setTimestamp @latest_timestamp()

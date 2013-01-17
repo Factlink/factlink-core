@@ -70,13 +70,22 @@ class window.ChannelActivitiesView extends ChannelViewLayout
       clearTimeout(@timer)
       @running = false
 
+  _restart_updating_count: ->
+    if @running
+      @running=false
+      @start_updating_count()
+
   start_updating_count: ->
     unless @running
       @running = true
-      @timer = setTimeout((=> @fetch_activity_count(); @running=false; @start_updating_count()),10*1000)
+      @timer = setTimeout =>
+        @fetch_activity_count
+          success: => @_restart_updating_count()
+          error: => @_restart_updating_count()
+      ,10*1000
 
-  fetch_activity_count: ->
-    @collection.fetch_count()
+  fetch_activity_count: (args...)->
+    @collection.fetch_count(args...)
 
   update_count: ->
     this.$('.more .unread_count').html(@collection.get_new_activity_count());
