@@ -44,6 +44,7 @@ describe FactsController do
       @fact.created_by.user = create :user
       @fact.created_by.save
 
+      authenticate_user!(user)
       should_check_can :show, @fact
       get :extended_show, :id => @fact.id, :fact_slug => 'hoi'
 
