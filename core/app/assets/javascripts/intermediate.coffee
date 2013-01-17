@@ -63,3 +63,4 @@ loadUrl = (url)->
 loadUrl '/facts/new'
 
 $("iframe").preventScrollPropagation()
+$("iframe").on 'click', (e) -> e.stopPropagation()
