@@ -205,7 +205,7 @@ class FactsController < ApplicationController
     end
 
     def fact_id
-      id = params[:fact_id] || params[:id]
+      params[:fact_id] || params[:id]
     end
 
     def allowed_type
