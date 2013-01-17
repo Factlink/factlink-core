@@ -58,15 +58,17 @@ json.activity do |json|
     end
 
   when "created_sub_comment"
+    supporting_or_weakening = subject.type
+
     json.action       :created_sub_comment
-    json.target_url   friendly_fact_path(object)
+    json.target_url   friendly_fact_with_opened_tab_path object, supporting_or_weakening
+    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
       json.fact         Facts::Fact.for(fact: object, view: self).to_hash
     end
-    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
   when "added_subchannel"
     subject_creator_graph_user = subject.created_by
