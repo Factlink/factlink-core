@@ -7,7 +7,7 @@ class window.ClientController
   newFact: (params={}) => #(layout, fact_text, title, url, site_id) =>
     csrf_token = $('meta[name=csrf-token]').attr('content')
 
-    FactlinkApp.guided = params.guided
+    FactlinkApp.guided = params.guided == 'true'
 
     factsNewView = new FactsNewView
       layout: 'client'
