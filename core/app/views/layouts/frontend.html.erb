@@ -8,30 +8,28 @@
 
 
 <% content_for :main do %>
-  <div id="body">
-    <div id="container" class="container">
+  <div id="container" class="container">
 
-      <%= render 'home/notifications', notice: notice, alert: alert %>
+    <%= render 'home/notifications', notice: notice, alert: alert %>
 
-      <div class="row" id="main">
-        <section id="left-column" class="span3">
-          <% if content_for?(:left_column) %>
-            <%= yield(:left_column) %>
-          <% else %>
-            &nbsp;
-          <% end %>
+    <div class="row" id="main">
+      <section id="left-column" class="span3">
+        <% if content_for?(:left_column) %>
+          <%= yield(:left_column) %>
+        <% else %>
+          &nbsp;
+        <% end %>
+      </section>
+
+      <section id="main-column" class="span9" role="main">
+        <section id="main-wrapper">
+          <%= yield :main_column %>
+          <%= yield %>
         </section>
-
-        <section id="main-column" class="span9" role="main">
-          <section id="main-wrapper">
-            <%= yield :main_column %>
-            <%= yield %>
-          </section>
-        </section>
-      </div>
+      </section>
     </div>
-    <div id="modal_region"></div>
   </div>
+  <div id="modal_region"></div>
 <% end %>
 
 <% content_for :specific_javascript do %>
@@ -65,4 +63,6 @@
 
 <% end %>
 
-<%= render template: 'layouts/base', locals: { fixed_topbar: true } %>
+<%= render template: 'layouts/base', locals: {
+  fixed_topbar: true
+} %>

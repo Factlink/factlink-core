@@ -1,9 +1,15 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+@smallFooterSize: 92px;
+@bigFooterSize: 365px;
+
 div.footer {
+  position: absolute;
   background: image-url('landing/sign_up/background.png') repeat-x top #f9f9f9;
-  padding: 0 0 50px;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 50px;
 
   div.divider {
     margin: 0 auto;
@@ -64,6 +70,23 @@ div.footer {
           color: @linkColorHover;
         }
       }
+    }
+  }
+}
+
+
+body {
+  &.show_footer.show_sign_up #body {
+    padding-bottom: @bigFooterSize;
+  }
+
+  &.show_footer {
+    #body {
+      padding-bottom: @smallFooterSize;
+    }
+
+    #left-column {
+      padding-bottom: @smallFooterSize;
     }
   }
 }
