@@ -82,7 +82,7 @@ class window.ChannelActivitiesView extends ChannelViewLayout
         @fetch_activity_count
           success: => @_restart_updating_count()
           error: => @_restart_updating_count()
-      ,10*1000
+      ,Factlink.Timeout.stream_refresh
 
   fetch_activity_count: (args...)->
     @collection.fetch_count(args...)

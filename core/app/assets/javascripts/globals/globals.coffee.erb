@@ -52,5 +52,8 @@ Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
 Factlink.Global.chrome_extension_id = "<%= FactlinkUI::Application.config.chrome_extension_id %>"
 <% end %>
 
+Factlink.Timeout =
+  stream_refresh: 10*1000
+
 Factlink.allowFeatures = (list)->
   Factlink.Global.can_haz[feature] = true for feature in list
