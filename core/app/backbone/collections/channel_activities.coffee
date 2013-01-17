@@ -5,7 +5,8 @@ class window.ChannelActivities extends Backbone.Collection
     @channel = opts.channel;
     @_count = new ChannelActivityCount {}, channel_activity_collection: @
     @_count.bind 'change', @update_count, @
-    @on 'reset add remove', @onReset, @
+    @on 'reset add remove', @setLatestTimestamp, @
+    @setLatestTimestamp()
 
   update_count: ->
     @trigger 'change_count'
@@ -19,8 +20,9 @@ class window.ChannelActivities extends Backbone.Collection
   fetch_count: (args...)->
     @_count.fetch(args...)
 
-  onReset: ->
-    @_count.setTimestamp @latest_timestamp()
+  setLatestTimestamp: ->
+    timestamp = @latest_timestamp()
+    @_count.setTimestamp timestamp if timestamp
 
   url: -> '/' + this.channel.get('created_by').username + '/channels/' + this.channel.get('id') + '/activities';
   link: -> @url()
@@ -32,12 +34,24 @@ _.extend(ChannelActivities.prototype, AutoloadCollectionOnTimestamp);
 class ChannelActivityCount extends Backbone.Model
   initialize: (attributes, options) ->
     @collection_url = options.channel_activity_collection.url()
+    @set timestamp: (@get('timestamp') || 0)
 
   url: -> @collection_url + "/count.json?timestamp=#{@get('timestamp')}"
+
+  fetch: (args...) ->
+    super(args...)
+
+  parse: (response)->
+    response = super(response)
+    if response.timestamp == @get('timestamp')
+      response
+    else
+      {count: 0}
 
   count: ->
     @get('count') || 0
 
   setTimestamp: (timestamp) ->
-    @set(timestamp: timestamp)
-    @set(count: null)
+    @set
+      timestamp: timestamp
+      count: 0
