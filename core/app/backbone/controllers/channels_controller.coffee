@@ -72,9 +72,9 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
         new ChannelActivitiesView(model: channel, collection: activities)
 
   getChannelFactForActivity: (username, channel_id, fact_id) ->
-    @getChannelFact(username, channel_id, fact_id, true)
+    @getChannelFact(username, channel_id, fact_id, for_stream: true)
 
-  getChannelFact: (username, channel_id, fact_id, for_stream=false) ->
+  getChannelFact: (username, channel_id, fact_id, params={}) ->
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
 
@@ -83,7 +83,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
     with_both = =>
       return_to_url = channel.url()
-      return_to_url = return_to_url + "/activities" if for_stream
+      return_to_url = return_to_url + "/activities" if params.for_stream
 
       title_view = new ExtendedFactTitleView(
                                       model: fact,
@@ -101,7 +101,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     fact = new Fact(id: fact_id)
     fact.fetch
       success: (model, response) =>
-        dv = new DiscussionView(model: model)
+        dv = new DiscussionView(model: model, tab: params.tab)
         @main.contentRegion.show(dv)
         callback_with_both()
 

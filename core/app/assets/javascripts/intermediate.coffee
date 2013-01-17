@@ -14,31 +14,18 @@ window.remote = new xdm.Rpc {},
 
   local:
     showFactlink: (id, successFn) ->
-      successCalled = 0
-      onLoadSuccess = ->
-        unless successCalled
-          successCalled++
-          successFn()
-
-      showFrame.onload = onLoadSuccess
-      # Somehow only lower case letters seem to work for those events --mark
-      $(document).bind "modalready", onLoadSuccess
-      showFrame.src = "/facts/" + id + "?layout=client"
-      showFrame.className = "overlay"
+      url = "/facts/" + id
+      showUrl url, successFn
       return # don't return anything unless you have a callback on the other site of easyXdm
 
     prepareNewFactlink: (text, siteUrl, siteTitle, guided, successFn, errorFn) ->
-      successCalled = 0
-      onLoadSuccess = ->
-        unless successCalled
-          successCalled++
-          successFn()  if $.isFunction(successFn)
+      url = "/facts/new" +
+              "?fact=" + encodeURIComponent(text) +
+              "&url=" + encodeURIComponent(siteUrl) +
+              "&title=" + encodeURIComponent(siteTitle) +
+              "&guided=" + encodeURIComponent(guided)
+      showUrl url, successFn
 
-      showFrame.onload = onLoadSuccess
-      # Somehow only lower case letters seem to work for those events --mark
-      $(document).bind "modalready", onLoadSuccess
-      showFrame.src = "/facts/new" + "?fact=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(siteUrl) + "&title=" + encodeURIComponent(siteTitle) + "&guided=" + encodeURIComponent(guided) + "&layout=client"
-      showFrame.className = "overlay"
       onFactlinkCreated = (e, id) ->
         remote.highlightNewFactlink text, id
 
@@ -53,4 +40,28 @@ window.remote = new xdm.Rpc {},
           showFrame.contentWindow.position top, left
       return # don't return anything unless you have a callback on the other site of easyXdm
 
+showUrl = (url, successFn) ->
+  successCalled = 0
+  onLoadSuccess = ->
+    unless successCalled
+      successCalled++
+      successFn()  if $.isFunction(successFn)
+
+  # Somehow only lower case letters seem to work for those events --mark
+  $(document).bind "modalready", onLoadSuccess
+  loadUrl url
+  showFrame.className = "overlay"
+
+loadUrl = (url)->
+  backbone = showFrame.contentWindow.Backbone
+  history = backbone?.history
+  if history? and backbone.History.started
+    history.loadUrl url
+  else
+    showFrame.src = url
+
+# initialize the page, so we are ready to render new pages fast
+loadUrl '/facts/new'
+
 $("iframe").preventScrollPropagation()
+$("iframe").on 'click', (e) -> e.stopPropagation()
