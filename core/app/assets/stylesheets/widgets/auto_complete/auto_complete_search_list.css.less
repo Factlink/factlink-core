@@ -70,6 +70,10 @@
             background: @linkColor;
           }
 
+          .text {
+            text-shadow: 0 -1px 0 @linkColorHover;
+          }
+
           em {
             color: #fff;
           }
@@ -100,15 +104,17 @@
       }
 
       th {
-        width: 80px;
+        width: 70px;
         text-align: right;
         vertical-align: top;
         padding: 9px;
         font-weight: normal;
+        font-size: 11px;
         color: @metaFontColor;
         background-color: @whiteDarker;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
+        text-shadow: 0 1px 0 #fff;
       }
 
       td {
@@ -116,6 +122,9 @@
         vertical-align: top;
         padding: 0;
         border-bottom: 1px solid #ccc;
+
+        .add-new-block { text-shadow: 0 1px 0 #fff; }
+        .active .add-new-block { text-shadow: 0 -1px 0 @linkColorHover; }
 
         .add-new-block, .active .add-new-block {
           border-top: none;
