@@ -8,12 +8,19 @@ class AddFactToChannelJob
   end
 
   def perform
-    return unless fact and channel
-    return if already_propagated or already_deleted
+    return unless can_perform and should_perform
 
     add_to_channel
     add_to_unread
     propagate_to_channels
+  end
+
+  def can_perform
+    fact and channel
+  end
+
+  def should_perform
+    not(already_propagated or already_deleted)
   end
 
   def fact
