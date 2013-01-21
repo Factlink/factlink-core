@@ -30,9 +30,6 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     all_row: '.js-row-all'
     new_row: '.js-row-new'
 
-    search_list_both:  '.auto-complete-search-list-last-rounded-both'
-    search_list_right: '.auto-complete-search-list-last-rounded-right'
-
   onRender: -> @updateRows()
 
   appendHtml: (collectionView, itemView, index) ->
@@ -55,8 +52,8 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     @_toggleSearchListActive(@ui.all_row, allFilled)
     @_toggleSearchListActive(@ui.new_row, newFilled)
 
-    @ui.search_list_both.removeClass  'auto-complete-search-list-last-rounded-both'
-    @ui.search_list_right.removeClass 'auto-complete-search-list-last-rounded-right'
+    @$('.auto-complete-search-list-last-rounded-both').removeClass  'auto-complete-search-list-last-rounded-both'
+    @$('.auto-complete-search-list-last-rounded-right').removeClass 'auto-complete-search-list-last-rounded-right'
 
     if newFilled
       @ui.new_row.addClass 'auto-complete-search-list-last-rounded-both'

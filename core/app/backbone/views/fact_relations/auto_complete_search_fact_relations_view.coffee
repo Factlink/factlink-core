@@ -24,9 +24,6 @@ class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListV
     search_row:  '.js-row-search'
     recent_row: '.js-row-recent'
 
-    search_list_both:  '.auto-complete-search-list-last-rounded-both'
-    search_list_right: '.auto-complete-search-list-last-rounded-right'
-
   onRender: -> @updateRows()
 
   appendHtml: (collectionView, itemView, index) ->
@@ -45,8 +42,8 @@ class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListV
     @_toggleSearchListActive(@ui.search_row, searchFilled)
     @_toggleSearchListActive(@ui.recent_row, recentFilled)
 
-    @ui.search_list_both.removeClass  'auto-complete-search-list-last-rounded-both'
-    @ui.search_list_right.removeClass 'auto-complete-search-list-last-rounded-right'
+    @$('.auto-complete-search-list-last-rounded-both').removeClass  'auto-complete-search-list-last-rounded-both'
+    @$('.auto-complete-search-list-last-rounded-right').removeClass 'auto-complete-search-list-last-rounded-right'
 
     if recentFilled
       @ui.recent_row.addClass 'auto-complete-search-list-last-rounded-right'
