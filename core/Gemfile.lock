@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git@github.com:Factlink/pavlov.git
-  revision: 1a04742a03f538892d23fa04ddbcbb8dbc4da833
+  revision: aae75fe0cf552078cae329313493840aff67c5fb
   specs:
     pavlov (0.0.1)
       activesupport (>= 3.2.7)
