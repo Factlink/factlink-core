@@ -1,9 +1,11 @@
 class AddFactToChannelJob
   @queue = :channel_operations
 
+  attr_reader :fact, :channel
+
   def initialize(fact_id, channel_id, options={})
-    @fact_id = fact_id
-    @channel_id = channel_id
+    @fact ||= Fact[fact_id]
+    @channel ||= Channel[channel_id]
     @options = options
   end
 
@@ -23,20 +25,12 @@ class AddFactToChannelJob
     not(already_propagated or already_deleted)
   end
 
-  def fact
-    @fact ||= Fact[@fact_id]
-  end
-
   def score
     @options['score']
   end
 
   def initiated_by_id
     @options['initiated_by_id']
-  end
-
-  def channel
-    @channel ||= Channel[@channel_id]
   end
 
   def already_propagated
