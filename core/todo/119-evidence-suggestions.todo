@@ -4,12 +4,13 @@ Determine for starting:
 
 Backend:
  ✔ Refactor loading a single Fact to an interactor + query. @done (13-01-17 12:20)
- ☐ Refactor creating a new Fact to an interactor + command.
+ ✔ Refactor creating a new Fact to an interactor + command. @done (13-01-21 18:39)
  ✔ Create a command to persist when a user looks at a single Factlink in a sorted list (redis). Command, and relation to a redis list in the user modal. @done (13-01-21 15:31)
  ✔ Integrate this command to the show fact interactor @done (13-01-21 17:14)
- ☐ Integrate this command to the create fact interactor
+ ✔ Integrate this command to the create fact interactor @done (13-01-21 18:39)
  ✔ create Interactor+Query for retrieving latest viewed facts. @done (13-01-21 15:47)
  ✔ Create endpoint + route to return latest viewed facts. @done (13-01-21 17:14)
+ ☐ Create error handling for create fact, this is now broken since this is done by a interactor and not through active model #errors
 
 Frontend:
  ✔ Implement 2-column design @done (13-01-21 13:47)
