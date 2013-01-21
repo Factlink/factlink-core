@@ -37,19 +37,17 @@
     <%= render 'home/browser_support_message' %>
     <%= yield :modal %>
 
-    <div id="body-wrapper">
-      <%= yield :sign_in_bar %>
+    <%= yield :sign_in_bar %>
 
-      <%= render "base/topbar", fixed_topbar: fixed_topbar %>
+    <%= render "base/topbar", fixed_topbar: fixed_topbar %>
 
-      <div id="body">
-        <%= yield :main %>
-      </div>
-
-      <% if defined? show_footer and show_footer %>
-        <%= render "base/footer", show_sign_up: show_sign_up %>
-      <% end %>
+    <div id="body">
+      <%= yield :main %>
     </div>
+
+    <% if defined? show_footer and show_footer %>
+      <%= render "base/footer", show_sign_up: show_sign_up %>
+    <% end %>
 
     <%= render "feedback/frame" %>
 
