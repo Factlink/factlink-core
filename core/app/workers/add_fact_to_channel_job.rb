@@ -54,8 +54,8 @@ class AddFactToChannelJob
   end
 
   def propagate_to_channels
-    channel.containing_channels.each do |ch|
-      Resque.enqueue(AddFactToChannelJob, fact.id, ch.id, @options)
+    channel.containing_channels.ids.each do |ch_id|
+      Resque.enqueue(AddFactToChannelJob, fact.id, ch_id, @options)
     end
   end
 
