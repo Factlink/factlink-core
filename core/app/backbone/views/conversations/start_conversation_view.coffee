@@ -6,6 +6,8 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   regions:
     'recipients_container': '.js-region-recipients'
 
+  ui:
+    messageTextarea: '.js-message-textarea'
   template: 'conversations/start_conversation'
 
   initialize: ->
@@ -54,7 +56,8 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   disableSubmit: -> @$('.js-submit').prop('disabled',true ).val('Sending')
 
   clearForm: ->
+    @auto_complete_view.clearSearch()
     @recipients.reset []
-    @$('.js-message-textarea').val('')
+    @ui.messageTextarea.val ''
 
 _.extend(StartConversationView.prototype, Backbone.Factlink.AlertMixin)
