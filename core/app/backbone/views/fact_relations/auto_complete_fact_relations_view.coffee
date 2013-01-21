@@ -18,7 +18,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @initializeChildViews
       filter_on: 'id'
       search_list_view: (options) => new AutoCompleteSearchFactRelationsView _.extend {}, options,
-        recentCollection: @recentCollection
+        recent_collection: @recent_collection
       search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
       placeholder: @placeholder(options.type)
 
@@ -73,21 +73,21 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   setQuery: (text) -> @model.set text: text
 
   initializeRecentCollection: ->
-    @recentCollection = new RecentlyViewedFactsCollection
-    @bindTo @recentCollection, 'before:fetch', => @setLoading()
-    @bindTo @recentCollection, 'reset', =>
+    @recent_collection = new RecentlyViewedFactsCollection
+    @bindTo @recent_collection, 'before:fetch', => @setLoading()
+    @bindTo @recent_collection, 'reset', =>
       @unsetLoading()
       @updateRecentCollection()
 
   updateRecentCollection: ->
-    @search_collection.reset @recentCollection.models if @model.get('text') == ''
+    @search_collection.reset @recent_collection.models if @model.get('text') == ''
 
   focus: ->
     @$el.addClass 'active'
-    @recentCollection.fetch() if @model.get('text') == ''
+    @recent_collection.fetch() if @model.get('text') == ''
 
   blur: ->
-    @recentCollection.reset [] if @model.get('text') == ''
+    @recent_collection.reset [] if @model.get('text') == ''
 
   reset: ->
     @setQuery ''
