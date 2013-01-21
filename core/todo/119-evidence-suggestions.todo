@@ -13,7 +13,9 @@ Backend:
 Frontend:
  ☐ Implement 2-column design
  ☐ Add static suggested factlinks
- ☐ (Optional) Implement factwheels next to factlinks
 
- Integrate:
+Integrate:
  ☐ Connect suggested factlinks collection to backend endpoint
+
+Optional:
+☐ Implement factwheel next to factlinks
