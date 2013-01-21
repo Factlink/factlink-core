@@ -6,16 +6,17 @@ Backend:
  ✔ Refactor loading a single Fact to an interactor + query. @done (13-01-17 12:20)
  ☐ Refactor creating a new Fact to an interactor + command.
  ✔ Create a command to persist when a user looks at a single Factlink in a sorted list (redis). Command, and relation to a redis list in the user modal. @done (13-01-21 15:31)
- ☐ Integrate this command to the create fact and show fact interactors.
+ ✔ Integrate this command to the show fact interactor @done (13-01-21 17:14)
+ ☐ Integrate this command to the create fact interactor
  ✔ create Interactor+Query for retrieving latest viewed facts. @done (13-01-21 15:47)
- ☐ Create endpoint + route to return latest viewed facts.
+ ✔ Create endpoint + route to return latest viewed facts. @done (13-01-21 17:14)
 
 Frontend:
  ✔ Implement 2-column design @done (13-01-21 13:47)
  ✔ Add static suggested factlinks @done (13-01-21 13:47)
 
 Integrate:
- ☐ Connect suggested factlinks collection to backend endpoint
+ ✔ Connect suggested factlinks collection to backend endpoint @done (13-01-21 17:13)
 
 Optional:
 ☐ Implement factwheel next to factlinks

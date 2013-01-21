@@ -6,6 +6,8 @@ module Interactors
       arguments :id
 
       def execute
+        command :"facts/add_to_recently_viewed", @id.to_i, @options[:current_user].id.to_s
+
         query :'facts/get', @id
       end
 

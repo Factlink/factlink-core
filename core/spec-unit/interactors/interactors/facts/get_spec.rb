@@ -26,9 +26,12 @@ describe Interactors::Facts::Get do
   describe '.execute' do
     it 'correctly' do
       fact_id = '1'
+      user = mock id: '1e'
 
       result = mock
-      interactor = Interactors::Facts::Get.new '1', current_user: mock
+      interactor = Interactors::Facts::Get.new '1', current_user: user
+
+      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id.to_i, user.id.to_s)
 
       interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(mock)
 

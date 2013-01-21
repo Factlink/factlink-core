@@ -26,9 +26,6 @@ class FactsController < ApplicationController
   def show
     authorize! :show, @fact
 
-    # remove when adding this to the corresponding interactor
-    command "facts/add_to_recently_viewed", @fact.id.to_i, current_user.id.to_s
-
     respond_to do |format|
       format.html do
         render inline:'', layout: 'client'
