@@ -9,24 +9,22 @@
 
 <% content_for :main do %>
   <div id="container" class="container<%= " fixed" unless defined? not_fixed and not_fixed %>">
-    <div class="row" id="main">
-      <section id="left-column" class="span3">
-        <% if content_for?(:left_column) %>
-          <%= yield(:left_column) %>
-        <% else %>
-          &nbsp;
-        <% end %>
-      </section>
+    <section id="left-column">
+      <% if content_for?(:left_column) %>
+        <%= yield(:left_column) %>
+      <% else %>
+        &nbsp;
+      <% end %>
+    </section>
 
-      <section id="main-column" class="span9" role="main">
-        <%= render 'home/notifications', notice: notice, alert: alert %>
+    <section id="main-column">
+      <%= render 'home/notifications', notice: notice, alert: alert %>
 
-        <section id="main-wrapper">
-          <%= yield :main_column %>
-          <%= yield %>
-        </section>
+      <section id="main-wrapper">
+        <%= yield :main_column %>
+        <%= yield %>
       </section>
-    </div>
+    </section>
   </div>
   <div id="modal_region"></div>
 <% end %>
