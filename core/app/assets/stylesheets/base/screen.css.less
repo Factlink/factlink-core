@@ -18,11 +18,13 @@ body {
 #left-column {
   .box-sizing(border-box);
   background: #F9F9F9;
+  width: @leftColumnWidth;
 }
 
 #main-column {
   background: white;
   height: 100%;
+  border-left: 1px solid #cbcbcb;
 }
 
 .fixed {
@@ -38,6 +40,6 @@ body {
 
   #main-column {
     position: relative;
-    left: 240px;
+    left: @leftColumnWidth;
   }
 }
