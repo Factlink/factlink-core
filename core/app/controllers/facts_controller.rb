@@ -92,14 +92,11 @@ class FactsController < ApplicationController
 
     authorize! :create, Fact
 
-
-    @fact = Fact.build_with_data(url, fact_text, title, current_graph_user)
+    @fact = interactor :'facts/create', fact_text, url, title
     @site = @fact.site
 
-
     respond_to do |format|
-      if @fact.data.save and @fact.save
-
+      if @fact
         track "Factlink: Created"
 
         #TODO switch the following two if blocks if possible
