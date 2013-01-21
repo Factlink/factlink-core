@@ -17,7 +17,7 @@ class window.ChannelViewLayout extends Backbone.Marionette.Layout
     @on 'render', =>
       @renderSubChannels()
       @$('header .authority').tooltip
-        title: 'Authority of ' + @model.attributes.created_by.username + 'on "' + @model.attributes.title + '"'
+        title: 'Authority of ' + @model.attributes.created_by.username + ' on "' + @model.attributes.title + '"'
 
       if @model.get('followable?')
         @addToChannelRegion.show new AddChannelToChannelsButtonView(model: @model)
