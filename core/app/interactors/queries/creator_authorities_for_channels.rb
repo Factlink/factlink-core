@@ -9,6 +9,11 @@ module Queries
   # which demanded this query, it never happens that we have
   # multiple channels with the same topic, so optimization wouldn't
   # actually optimize anything
+  #
+  # TODO do some caching of the creator here. For instance, make a
+  #      method graph_user which caches the graph_user on id. the
+  #      .created_by now does two redis calls each time authority_for
+  #      is called
   class CreatorAuthoritiesForChannels
     include Pavlov::Query
     arguments :channels
