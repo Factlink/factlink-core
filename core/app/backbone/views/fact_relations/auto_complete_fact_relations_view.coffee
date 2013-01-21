@@ -13,11 +13,16 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   template: 'fact_relations/auto_complete'
 
   initialize: (options) ->
+    recentCollection = new Backbone.Collection []
+
     @initializeChildViews
       filter_on: 'id'
-      search_list_view: (options)-> new AutoCompleteSearchFactRelationsView(options)
+      search_list_view: (options) -> new AutoCompleteSearchFactRelationsView _.extend {}, options,
+        recentCollection: recentCollection
       search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
       placeholder: @placeholder(options.type)
+      search_collection_modification_function: (search_collection) =>
+        new CollectionUtils(@).union new Backbone.Collection, search_collection, recentCollection
 
     @bindTo @_text_input_view, 'focus', @focus, @
     @bindTo @_text_input_view, 'blur', @blur, @

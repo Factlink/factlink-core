@@ -4,6 +4,7 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
 
     @initSearchModel()
     @initTextInputView opts.placeholder
+    @initModifiedSearchCollection opts.search_collection_modification_function
     @initFilteredSearchCollection opts.search_collection, opts.filter_on
     @initSearchListView opts.search_list_view
 
@@ -25,12 +26,15 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
       model: @model
       placeholder: placeholder ? ''
 
+  initModifiedSearchCollection: (modification_function = _.identity) ->
+    @modified_search_collection = modification_function(@search_collection)
+
   initFilteredSearchCollection: (search_collection, filter_on) ->
     if search_collection? and filter_on?
       @filtered_search_collection = collectionDifference(search_collection(),
-        filter_on, @search_collection, @collection)
+        filter_on, @modified_search_collection, @collection)
     else
-      @filtered_search_collection = @search_collection
+      @filtered_search_collection = @modified_search_collection
 
   initSearchListView: (search_list_view) ->
     @_search_list_view = search_list_view
