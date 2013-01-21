@@ -11,8 +11,8 @@ Backend:
  ☐ Create endpoint + route to return latest viewed facts.
 
 Frontend:
- ☐ Implement 2-column design
- ☐ Add static suggested factlinks
+ ✔ Implement 2-column design @done (13-01-21 13:47)
+ ✔ Add static suggested factlinks @done (13-01-21 13:47)
 
 Integrate:
  ☐ Connect suggested factlinks collection to backend endpoint
