@@ -26,6 +26,9 @@ class FactsController < ApplicationController
   def show
     authorize! :show, @fact
 
+    # remove when adding this to the corresponding interactor
+    command "facts/add_to_recently_viewed", @fact.id.to_i, current_user.id.to_s
+
     respond_to do |format|
       format.html do
         render inline:'', layout: 'client'
@@ -195,6 +198,16 @@ class FactsController < ApplicationController
     results = interactor :search_evidence, search_for, @fact.id
 
     facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }
+
+    render json: facts
+  end
+
+  def recently_viewed
+    authorize! :index, Fact
+
+    results = interactor :"facts/recently_viewed"
+
+    facts = results.map { |fact| Facts::FactBubble.for(fact: fact, view: view_context) }
 
     render json: facts
   end
