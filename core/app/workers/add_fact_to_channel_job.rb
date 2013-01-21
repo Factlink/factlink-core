@@ -14,7 +14,6 @@ class AddFactToChannelJob
     add_to_channel
     add_to_unread
     propagate_to_channels
-    propagate_to_stream
   end
 
   def fact
@@ -57,11 +56,6 @@ class AddFactToChannelJob
     channel.containing_channels.ids.each do |ch_id|
       Resque.enqueue(AddFactToChannelJob, fact.id, ch_id, @options)
     end
-  end
-
-  def propagate_to_stream
-    # DEPRECATED: we should tear out the old stream
-    Resque.enqueue(AddFactToChannelJob, fact.id, channel.created_by.stream.id, @options) unless channel.type == 'stream'
   end
 
   def self.perform(fact_id, channel_id, options={})
