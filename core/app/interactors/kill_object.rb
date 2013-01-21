@@ -30,6 +30,8 @@ module KillObject
   dead_object :fact_relation,
     [:id, :type, :fact, :from_fact, :created_by, :percentage,
      :opinion, :sub_comments_count, :deletable?, :created_by_id]
+  dead_object :fact,
+    [:id]
 
 
   def self.kill alive_object, take_fields, extra_fields={}
