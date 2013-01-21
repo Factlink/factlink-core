@@ -11,7 +11,9 @@ Backend:
  ☐ Create endpoint + route to return latest viewed facts.
 
 Frontend:
- ☐ Alter auto complete to show suggestions. (first version with static models, later make dynamic.)
+ ☐ Implement 2-column design
+ ☐ Add static suggested factlinks
+ ☐ (Optional) Implement factwheels next to factlinks
 
  Integrate:
- ☐ Backend and frontend.
+ ☐ Connect suggested factlinks collection to backend endpoint
