@@ -12,7 +12,9 @@ module Interactors
           site = command :'sites/create', @url
         end
 
-        command :'facts/create', @displaystring, @title, @options[:current_user], site
+        fact = command :'facts/create', @displaystring, @title, @options[:current_user], site
+        command :"facts/add_to_recently_viewed", fact.id.to_i, @options[:current_user].id.to_s
+        fact
       end
 
       def authorized?
