@@ -6,9 +6,7 @@ module Interactors
       include Pavlov::Interactor
 
       def execute
-        recently_viewed_facts.top_facts(5).map do |fact|
-          KillObject.fact fact
-        end
+        recently_viewed_facts.top_facts(5)
       end
 
       def authorized?
