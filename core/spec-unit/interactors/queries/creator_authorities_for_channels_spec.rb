@@ -61,8 +61,8 @@ describe Queries::CreatorAuthoritiesForChannels do
       expect(result).to eq topic
     end
     it "should find the topic with the same slug_title as the channel, and return that one" do
-      channel = mock('channel', slug_title: 'channel_slug')
-      channel_topic = mock('topic', slug_title: 'channel_slug')
+      channel = mock(:channel, slug_title: 'channel_slug')
+      channel_topic = mock(:topic, slug_title: 'channel_slug')
 
       topics = [
         mock('topic', slug_title: 'some_slug'),
