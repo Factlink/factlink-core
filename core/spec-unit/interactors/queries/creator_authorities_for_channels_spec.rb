@@ -50,8 +50,8 @@ describe Queries::CreatorAuthoritiesForChannels do
   end
   describe "topic_for" do
     it "should retrieve the topic for the channel, and return it" do
-      channel = mock(channel, slug_title: 'mock')
-      topic = mock(channel, slug_title: 'mock')
+      channel = mock(:channel, slug_title: 'mock')
+      topic = mock(:topic, slug_title: 'mock')
       query = Queries::CreatorAuthoritiesForChannels.new [channel]
 
       query.should_receive(:topics).and_return([topic])
