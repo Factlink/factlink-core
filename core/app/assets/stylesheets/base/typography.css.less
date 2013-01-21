@@ -15,3 +15,14 @@
     display: inline;
   }
 }
+
+a {
+  color: @linkColor;
+  text-decoration: none;
+
+  & :hover {
+    cursor: pointer;
+    color: @linkColorHover;
+    text-decoration: underline;
+  }
+}
