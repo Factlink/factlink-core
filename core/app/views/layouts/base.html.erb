@@ -41,9 +41,7 @@
 
     <%= render "base/topbar", fixed_topbar: fixed_topbar %>
 
-    <div id="body">
-      <%= yield :main %>
-    </div>
+    <%= yield :main %>
 
     <% if defined? show_footer and show_footer %>
       <%= render "base/footer", show_sign_up: show_sign_up %>
