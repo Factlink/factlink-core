@@ -18,11 +18,11 @@ class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListV
   template: "fact_relations/auto_complete_search_fact_relations"
 
   ui:
-    search_list:  '.js-list-search'
     recent_list: '.js-list-recent'
+    search_list:  '.js-list-search'
 
-    search_row:  '.js-row-search'
     recent_row: '.js-row-recent'
+    search_row:  '.js-row-search'
 
   onRender: -> @updateRows()
 
@@ -36,11 +36,11 @@ class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListV
     @updateRows()
 
   updateRows: ->
-    searchFilled  = @$('.js-list-search li').length > 0
     recentFilled = @$('.js-list-recent li').length > 0
+    searchFilled  = @$('.js-list-search li').length > 0
 
-    @_toggleSearchListActive(@ui.search_row, searchFilled)
     @_toggleSearchListActive(@ui.recent_row, recentFilled)
+    @_toggleSearchListActive(@ui.search_row, searchFilled)
 
     @$('.auto-complete-search-list-last-rounded-both').removeClass  'auto-complete-search-list-last-rounded-both'
     @$('.auto-complete-search-list-last-rounded-right').removeClass 'auto-complete-search-list-last-rounded-right'

@@ -21,12 +21,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
         recentCollection: @recentCollection
       search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
       placeholder: @placeholder(options.type)
-      search_collection_modification_function: (search_collection) =>
-        new CollectionUtils(@).union new Backbone.Collection, search_collection, @recentCollection
 
     @bindTo @_text_input_view, 'focus', @focus, @
     @bindTo @_text_input_view, 'blur', @blur, @
-    @bindTo @model, 'change', @toggleActivateOnContentOrFocus, @
+    @bindTo @model, 'change', @updateRecentCollection, @
 
   placeholder: (type) ->
     if type == "supporting"
@@ -77,7 +75,12 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   initializeRecentCollection: ->
     @recentCollection = new RecentlyViewedFactsCollection
     @bindTo @recentCollection, 'before:fetch', => @setLoading()
-    @bindTo @recentCollection, 'reset', => @unsetLoading()
+    @bindTo @recentCollection, 'reset', =>
+      @unsetLoading()
+      @updateRecentCollection()
+
+  updateRecentCollection: ->
+    @search_collection.reset @recentCollection.models if @model.get('text') == ''
 
   focus: ->
     @$el.addClass 'active'
