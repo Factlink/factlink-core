@@ -74,6 +74,7 @@ describe Queries::CreatorAuthoritiesForChannels do
     it "should only retrieve the user once" do
       channel_creator = mock(:some_graph_user, id: 256)
       channel = mock('channel', created_by_id: channel_creator.id)
+      channel2 = mock('channel', created_by_id: channel_creator.id)
 
       GraphUser.should_receive(:[]).with(256)
                .once.and_return(channel_creator)
@@ -81,7 +82,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       query = Queries::CreatorAuthoritiesForChannels.new [channel]
 
       expect(query.graph_user_for(channel)).to eq(channel_creator)
-      expect(query.graph_user_for(channel)).to eq(channel_creator)
+      expect(query.graph_user_for(channel2)).to eq(channel_creator)
     end
   end
 
