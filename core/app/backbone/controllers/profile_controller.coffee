@@ -31,6 +31,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     fact = new Fact(id: fact_id)
     fact.fetch
       success: (model, response) => @withFact(model, params)
+      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
 
   # HELPERS
   profile_options: (username) ->

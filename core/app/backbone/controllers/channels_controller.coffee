@@ -104,6 +104,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
         dv = new DiscussionView(model: model, tab: params.tab)
         @main.contentRegion.show(dv)
         callback_with_both()
+      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
 
   restoreChannelView: (channel_id, new_callback) ->
     if @lastChannelStatus?
