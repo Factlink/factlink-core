@@ -6,6 +6,10 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   regions:
     'recipients_container': '.js-region-recipients'
 
+  ui:
+    messageTextarea: '.js-message-textarea'
+    submitButton:    '.js-submit'
+
   template: 'conversations/start_conversation'
 
   initialize: ->
@@ -19,7 +23,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     @recipients.on 'add', @newRecipient
 
   newRecipient: =>
-    @$('.js-message-textarea').focus() if @recipients.length == 1
+    @ui.messageTextarea.focus() if @recipients.length == 1
 
   submit: (e) ->
     e.preventDefault()
@@ -34,7 +38,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     conversation = new Conversation(
       recipients: recipients
       sender: currentUser.get('username')
-      content: @$('.js-message-textarea').val()
+      content: @ui.messageTextarea.val()
       fact_id: @model.id
     )
 
@@ -50,11 +54,12 @@ class window.StartConversationView extends Backbone.Marionette.Layout
         @alertError response.responseText
         @enableSubmit()
 
-  enableSubmit:  -> @$('.js-submit').prop('disabled',false).val('Send')
-  disableSubmit: -> @$('.js-submit').prop('disabled',true ).val('Sending')
+  enableSubmit:  -> @ui.submitButton.prop('disabled',false).val('Send')
+  disableSubmit: -> @ui.submitButton.prop('disabled',true ).val('Sending')
 
   clearForm: ->
+    @auto_complete_view.clearSearch()
     @recipients.reset []
-    @$('.js-message-textarea').val('')
+    @ui.messageTextarea.val ''
 
 _.extend(StartConversationView.prototype, Backbone.Factlink.AlertMixin)
