@@ -75,18 +75,16 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   setQuery: (text) -> @model.set text: text
 
   initializeRecentCollection: ->
-    @recentCollection = new Backbone.Collection []
+    @recentCollection = new RecentlyViewedFactsCollection
     @bindTo @recentCollection, 'before:fetch', => @setLoading()
     @bindTo @recentCollection, 'reset', => @unsetLoading()
 
-  fetchRecentCollection: ->
-    unless @recentCollectionFetched
-      @recentCollectionFetched = true
-      @recentCollection.reset [new Fact {"link":"<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F&amp;scrollto=6\" target=\"_blank\">the molecules that are not accessible to microbes persist and could have toxic effects</a>","fact_id":"6","url":"/the-molecules-that-are-not-accessible-to-microbes-persist-and-could-have-toxic-effects/f/6","id":"6","user_signed_in?":true,"i_am_fact_owner":true,"can_edit?":true,"scroll_to_link":null,"displaystring":"the molecules that are not accessible to microbes persist and could have toxic effects","fact_title":null,"fact_wheel":{"authority":"6.4","opinion_types":{"believe":{"percentage":50,"is_user_opinion":false},"doubt":{"percentage":25,"is_user_opinion":false},"disbelieve":{"percentage":25,"is_user_opinion":true}},"fact_id":"6"},"believe_percentage":50,"disbelieve_percentage":25,"doubt_percentage":25,"fact_url":"http://example.org/","proxy_scroll_url":"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F&scrollto=6"}]
-
   focus: ->
     @$el.addClass 'active'
-    @fetchRecentCollection()
+    @recentCollection.fetch() if @model.get('text') == ''
+
+  blur: ->
+    @recentCollection.reset [] if @model.get('text') == ''
 
   reset: ->
     @setQuery ''
