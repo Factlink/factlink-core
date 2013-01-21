@@ -64,6 +64,8 @@ describe Queries::CreatorAuthoritiesForChannels do
                   created_by: channel_creator,
                   created_by_id: channel_creator.id)
 
+      channel.should_receive(:write_local).with(:created_by, channel_creator).any_number_of_times
+
       GraphUser.should_receive(:[]).with(256)
                .any_number_of_times.and_return(channel_creator)
 
@@ -75,6 +77,9 @@ describe Queries::CreatorAuthoritiesForChannels do
       channel_creator = mock(:some_graph_user, id: 256)
       channel = mock('channel', created_by_id: channel_creator.id)
       channel2 = mock('channel', created_by_id: channel_creator.id)
+
+      channel.should_receive(:write_local).with(:created_by, channel_creator).any_number_of_times
+      channel2.should_receive(:write_local).with(:created_by, channel_creator).any_number_of_times
 
       GraphUser.should_receive(:[]).with(256)
                .once.and_return(channel_creator)
