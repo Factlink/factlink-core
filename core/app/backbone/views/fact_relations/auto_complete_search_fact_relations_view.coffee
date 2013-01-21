@@ -31,7 +31,7 @@ class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListV
 
   appendHtml: (collectionView, itemView, index) ->
     model = itemView.model
-    if @options.recentCollection.contains model
+    if @options.recentCollection.get(model.id)?
       @ui.recent_list.append itemView.el
     else
       @ui.search_list.append itemView.el
