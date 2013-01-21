@@ -7,16 +7,27 @@ html, body {
 }
 
 body {
-  background: @white;
+  background: white;
   overflow-y: scroll;
 }
 
 #body {
+  height: 100%;
   position: relative;
+}
+
+#container {
+  height: 100%;
 }
 
 #left-column {
   .box-sizing(border-box);
+  background: #F9F9F9;
+}
+
+#main-column {
+  background: white;
+  height: 100%;
 }
 
 .fixed {
