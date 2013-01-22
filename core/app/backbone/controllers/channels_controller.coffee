@@ -1,5 +1,3 @@
-app = FactlinkApp
-
 class window.ChannelsController extends Backbone.Factlink.BaseController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity']
@@ -36,25 +34,25 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
   showRelatedChannels: (channel)->
     if channel.get('is_normal')
-      app.leftBottomRegion.show(new RelatedChannelsView(model: channel))
+      FactlinkApp.leftBottomRegion.show(new RelatedChannelsView(model: channel))
     else
-      app.leftBottomRegion.close()
+      FactlinkApp.leftBottomRegion.close()
 
   showChannelSideBar: (channels, currentChannel, user)->
     window.Channels.setUsernameAndRefreshIfNeeded(user.get('username'))
     channelCollectionView = new ChannelsView(collection: channels, model: user)
-    app.leftMiddleRegion.show(channelCollectionView)
+    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActiveChannel(currentChannel)
 
   showUserProfile: (user)->
     unless user.is_current_user()
       userView = new UserView(model: user)
-      app.leftTopRegion.show(userView)
+      FactlinkApp.leftTopRegion.show(userView)
     else
-      app.leftTopRegion.close()
+      FactlinkApp.leftTopRegion.close()
 
   getChannelFacts: (username, channel_id) ->
-    app.mainRegion.show(@channel_views)
+    FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
@@ -63,7 +61,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       @restoreChannelView channel_id, => new ChannelView(model: channel)
 
   getChannelActivities: (username, channel_id) ->
-    app.mainRegion.show(@channel_views)
+    FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
@@ -74,18 +72,18 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
         new ChannelActivitiesView(model: channel, collection: activities)
 
   getChannelFactForActivity: (username, channel_id, fact_id) ->
-    @getChannelFact(username, channel_id, fact_id, true)
+    @getChannelFact(username, channel_id, fact_id, for_stream: true)
 
-  getChannelFact: (username, channel_id, fact_id, for_stream=false) ->
+  getChannelFact: (username, channel_id, fact_id, params={}) ->
     @main = new TabbedMainRegionLayout();
-    app.mainRegion.show(@main)
+    FactlinkApp.mainRegion.show(@main)
 
     channel = `undefined`
     fact = `undefined`
 
     with_both = =>
       return_to_url = channel.url()
-      return_to_url = return_to_url + "/activities" if for_stream
+      return_to_url = return_to_url + "/activities" if params.for_stream
 
       title_view = new ExtendedFactTitleView(
                                       model: fact,
@@ -103,16 +101,17 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     fact = new Fact(id: fact_id)
     fact.fetch
       success: (model, response) =>
-        dv = new DiscussionView(model: model)
+        dv = new DiscussionView(model: model, tab: params.tab)
         @main.contentRegion.show(dv)
         callback_with_both()
+      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
 
   restoreChannelView: (channel_id, new_callback) ->
     if @lastChannelStatus?
       view = @channel_views.switchCacheView(channel_id)
       $('body').scrollTo(@lastChannelStatus.scrollTop) if view == @lastChannelStatus?.view
       delete @lastChannelStatus
-    
+
     @channel_views.clearUnshowedViews()
 
     @channel_views.renderCacheView(channel_id, new_callback()) if not view?

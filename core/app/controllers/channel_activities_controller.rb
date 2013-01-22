@@ -1,5 +1,5 @@
 class ChannelActivitiesController < ApplicationController
-  before_filter :load_channel
+  before_filter :load_channel, except: [:count]
   before_filter :get_user
 
   def index
@@ -16,6 +16,16 @@ class ChannelActivitiesController < ApplicationController
       end
       format.html { render inline: '', layout: 'channels' }
     end
+  end
+
+  def count
+    authorize! :see_activities, @user
+
+    timestamp = (params['timestamp'] || 0).to_i
+
+    @number_of_activities = interactor :'channels/activity_count', channel_id, timestamp
+
+    render json: {count: @number_of_activities, timestamp: timestamp }
   end
 
   def last_fact
@@ -64,8 +74,11 @@ class ChannelActivitiesController < ApplicationController
       end
     end
 
-    def load_channel
-      @channel ||= (Channel[params[:channel_id] || params[:id]]) || raise_404('Channel not found')
+    def channel_id
+      params[:channel_id] || params[:id]
     end
 
+    def load_channel
+      @channel ||= Channel[channel_id] || raise_404('Channel not found')
+    end
 end

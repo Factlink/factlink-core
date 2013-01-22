@@ -16,4 +16,12 @@ class SubComment
       FactRelation[parent_id]
     end
   end
+
+  def type
+    if parent.type == :weakening || :disbelieves
+      return :weakening
+    else
+      return :supporting
+    end
+  end
 end
