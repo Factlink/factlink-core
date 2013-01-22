@@ -84,7 +84,7 @@ function handler(event) {
 $.fn.preventScrollPropagation = function () {
   return this.each(function () {
     $(this).bind('mousewheel', function (e, d) {
-      if (d > 0 && $(this).scrollTop() === 0) {
+      if (d > 0 && $(this).scrollTop() <= 0) {
         e.preventDefault();
       } else if (d < 0 &&  $(this).scrollTop() >= $(this).get(0).scrollHeight - $(this).innerHeight()) {
         e.preventDefault();
