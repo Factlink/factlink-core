@@ -7,7 +7,6 @@ testserver:
   ravenjs:
     public: "16b4ebe157744bb0ae1c59c62b945bd3"
     project_id: "6"
-    protocol: "https"
 
 staging:
   sentry:
@@ -18,7 +17,6 @@ staging:
   ravenjs:
     public: "6be8fd9f61564b5e80bc6b9efacce2ab"
     project_id: "7"
-    protocol: "https"
 
 production:
   sentry:
@@ -29,10 +27,3 @@ production:
   ravenjs:
     public: "2f38cb859bec419983c6484fa30fde8f"
     project_id: "8"
-    protocol: "https"
-
-development:
-  ravenjs:
-    public: "0dd9fd0f753f48518e4681363c681ced"
-    project_id: "9"
-    protocol: "http"
