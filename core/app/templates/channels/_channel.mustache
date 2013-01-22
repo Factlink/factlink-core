@@ -1,33 +1,20 @@
 <div id="channel">
-  <header class="title">
+  <header class="content-header channel-header">
     <h1 class="channel-title">
       {{ long_title }}
     </h1>
 
-    <div class="button-wrap">
-      {{#editable?}}
+    {{#editable?}}
       <a href="{{ edit_link }}" class="btn edit btn-micro">edit</a>
-      {{/editable?}}
+    {{/editable?}}
 
-      <div class="add-to-channel-region"></div>
+    <div class="add-to-channel-region"></div>
 
-      {{#has_authority?}}
-      <div class="authority">
-        <img src="{{global.brain_image}}">
-        <span>{{created_by_authority}}</span>
-      </div>
-      {{/has_authority?}}
-    </div>
-
-    <div class="clearfix"></div>
-
+    {{#has_authority?}}
+      <span class="channel-authority-for-user">{{created_by_authority}}</span>
+    {{/has_authority?}}
   </header>
 
-  <div id="facts_for_channel">
-
-  </div>
-
-  <div id="activity_for_channel">
-
-  </div>
+  <div id="facts_for_channel"></div>
+  <div id="activity_for_channel"></div>
 </div>

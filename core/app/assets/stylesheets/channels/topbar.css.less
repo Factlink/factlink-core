@@ -1,14 +1,28 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
 #channel {
-  header.title {
+  header.channel-header {
+    line-height: 50px;
+
     h1.channel-title {
       display: inline-block;
-      margin-right: 10px;
+      margin: 0 10px 0 0;
     }
 
-    div.button-wrap {
-      position: absolute;
-      line-height: 30px;
+    span.channel-authority-for-user {
+      background: image-url('brain.png') no-repeat left center;
+      padding: 0 0 0 15px;
+      font-size: @metaFontSize;
+    }
+
+    div.add-to-channel-region {
       display: inline-block;
+      margin: 0 25px 0 0;
+
+      .btn {
+        margin-top: -2px;
+      }
     }
   }
 }
