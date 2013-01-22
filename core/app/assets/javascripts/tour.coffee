@@ -2,10 +2,18 @@ class window.InteractiveTour
   helpTextDelay: 560
 
   constructor: ->
+    @initializeTour()
+
+  initializeTour: ->
     @lastStep = 0
     @currentStep = 0
+    @factlinkAdded = false
 
     @showStep(1)
+
+  resetIfNoFactlinkAdded: ->
+    unless @factlinkAdded
+      @initializeTour()
 
   showStep: (id) ->
     @lastStep = @currentStep

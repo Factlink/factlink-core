@@ -92,9 +92,12 @@
       tour.hide();
     });
 
+    FACTLINK.on('modalClosed', function () {
+      tour.resetIfNoFactlinkAdded();
     });
 
     FACTLINK.on('factlinkAdded', function () {
+      tour.factlinkAdded = true;
       FACTLINK.on('modalClosed', function () {
         tour.showStep(3);
       });
