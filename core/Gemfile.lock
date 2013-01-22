@@ -134,9 +134,6 @@ GEM
     capybara-email (0.1.2)
     capybara-screenshot (0.3.1)
       capybara (>= 1.0, < 3)
-    capybara-webkit (0.10.1)
-      capybara (>= 1.0.0, < 1.2)
-      json
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.3.0)
@@ -529,7 +526,6 @@ DEPENDENCIES
   capybara
   capybara-email
   capybara-screenshot
-  capybara-webkit (= 0.10.1)
   database_cleaner
   devise (~> 2.0.0)
   devise_invitable (~> 1.0.0)
