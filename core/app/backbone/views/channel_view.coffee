@@ -31,7 +31,7 @@ class window.ChannelViewLayout extends Backbone.Marionette.Layout
   renderSubChannels: ->
     if @subchannelView
       @subchannelView.render()
-      @$('header .button-wrap').after @subchannelView.el
+      @$('header').append @subchannelView.el
 
   onClose: ->
     @addToChannelView.close() if @addToChannelView

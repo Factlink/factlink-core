@@ -31,7 +31,7 @@ feature "channels", type: :request do
     go_to_channel_page_of my_channel
 
     within_channel_header do
-      find('a', text: other_users_channel.title)
+      find('#contained-channels a', text: other_users_channel.title)
     end
   end
 end
