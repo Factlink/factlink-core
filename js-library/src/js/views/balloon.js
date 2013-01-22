@@ -18,7 +18,17 @@ Factlink.Balloon = function() {
     });
   }
 
+  function clearSelection() {
+    if ( document.selection ) {
+        document.selection.empty();
+    } else if ( window.getSelection ) {
+        window.getSelection().removeAllRanges();
+    }
+  }
+
   this.show = function(top, left, fast) {
+    clearSelection();
+
     window.clearTimeout(mouseOutTimeoutID);
     if (fast === true) {
       hideAll();
