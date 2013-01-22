@@ -18,10 +18,14 @@ class SubComment
   end
 
   def type
-    if parent.type == :weakening || :disbelieves
+    if [:weakening, :disbelieves].include? parent.type
       return :weakening
     else
       return :supporting
     end
+  end
+
+  def valid_for_activity?
+    parent
   end
 end
