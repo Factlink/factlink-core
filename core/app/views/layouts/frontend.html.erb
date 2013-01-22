@@ -32,6 +32,8 @@
 <% end %>
 
 <% content_for :specific_javascript do %>
+  <%= render 'snippets/raven_js' %>
+
   <%= javascript_include_tag "frontend" %>
 
   <script>

@@ -1,0 +1,13 @@
+<% sentry_conf = YAML::load_file(Rails.root.join('config/sentry.yml'))[Rails.env].andand['ravenjs'] %>
+
+<% if sentry_conf %>
+
+  <%= javascript_include_tag "raven" %>
+
+  <script type="text/javascript">
+  Raven.config('<%= "http://#{sentry_conf["public"]}@sentry.factlink.com/#{sentry_conf["project_id"]}" %>');
+
+  window.onerror = Raven.process;
+  </script>
+
+<% end %>
