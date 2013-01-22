@@ -87,7 +87,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @recent_collection.fetch() if @model.get('text') == ''
 
   blur: ->
-    # @recent_collection.reset [] if @model.get('text') == ''
+    @recent_collection.reset [] if @model.get('text') == ''
 
   reset: ->
     @setQuery ''
