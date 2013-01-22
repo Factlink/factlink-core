@@ -23,7 +23,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       placeholder: @placeholder(options.type)
 
     @bindTo @_text_input_view, 'focus', @focus, @
-    @bindTo @_text_input_view, 'blur', @blur, @
     @bindTo @model, 'change', @updateRecentCollection, @
 
   placeholder: (type) ->
@@ -85,9 +84,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   focus: ->
     @$el.addClass 'active'
     @recent_collection.fetch() if @model.get('text') == ''
-
-  blur: ->
-    @recent_collection.reset [] if @model.get('text') == ''
 
   reset: ->
     @setQuery ''
