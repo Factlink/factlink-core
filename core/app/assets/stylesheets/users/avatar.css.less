@@ -1,59 +1,27 @@
 @import 'bootstrap/variables';
 @import 'bootstrap/mixins';
 
-#container #left-column {
-  .user-block {
-    h1 {
-      margin-bottom: 2px;
-    }
-    .avatar-container {
-      .border-radius(2px);
-      background-color: #fff;
-      height: 32px;
-      padding: 1em 1em 1em;
+.channel-listing-owner-block {
+  > .avatar-container {
+    .border-radius(4px);
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    .clearfix();
+    margin: 0 0 15px;
 
-      border: 1px solid #ddd;
-
-      &:hover {
-        cursor: pointer;
-      }
-      h3 {
-        line-height: 29px;
-      }
-    }
-
-    .large {
-      height: auto;
-      &:hover {
-        cursor: default;
-      }
-      h1 {
-        margin: 0;
-        padding: 0;
-        line-height: 24px;
-      }
-    }
-
-    margin-bottom: 8px;
-    h3 {
-      font-family: @baseFontFamily;
-      font-weight: bold;
-      font-size: 14px;
-      line-height: 18px;
-      margin: 0;
-    }
-    .wrapper {
-      margin-left: 44px;
-    }
-    .user-avatar {
-      background-color: @whiteDarker;
+    > img {
       float: left;
-      position: relative;
-      top: 0px;
-      left: 0px;
-      display: block;
-      height: 32px;
-      width: 32px;
+    }
+
+    > h3 {
+      display: inline;
+      float: left;
+      font-size: 14px;
+      margin: 0 0 0 10px;
+      line-height: 32px;
+      width: 100px;
+      .ellipsis();
     }
   }
 }

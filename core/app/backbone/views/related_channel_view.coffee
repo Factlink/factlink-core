@@ -1,6 +1,7 @@
 class window.RelatedChannelView extends Backbone.Marionette.ItemView
   template: "channels/_related_channel"
   tagName: "li"
+  className: "related-channel-container"
 
   events:
     'click a.btn' : 'addWrappedModel'

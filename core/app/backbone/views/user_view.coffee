@@ -1,6 +1,6 @@
 class window.UserView extends Backbone.Marionette.ItemView
   tagName: "article"
-  className: "user-block"
+  className: "channel-listing-owner-block"
   events:
     "click div.avatar-container": "clickHandler"
 
