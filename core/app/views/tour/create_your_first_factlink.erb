@@ -37,6 +37,10 @@
 
 </div>
 
+  <% if can_haz :skip_create_first_factlink %>
+    <%= link_to 'Skip this step', choose_channels_path, id: 'skip-link' %>
+  <% end %>
+
 <% end %>
 
 
