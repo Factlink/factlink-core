@@ -6,7 +6,7 @@ module Interactors
       arguments :displaystring, :url, :title
 
       def execute
-        if not @url or @url.empty
+        if not @url or @url.empty?
           site = nil
         else
           site = query :'sites/for_url', @url
