@@ -17,13 +17,10 @@ module.exports = function(grunt){
       core: {
         src: [
           '<banner>',
-          'libs/*',
-          'plugins/*',
+          'libs/jquery-1.7.2.js',
+          'libs/underscore.js',
           'src/js/core.js',
-          'src/js/models/*',
-          'src/js/views/*',
-          'src/js/util/*',
-          'src/js/initializers/*'
+          'tmp/factlink.core.js'
         ],
         dest: 'dist/factlink.core.js'
       },
@@ -40,6 +37,22 @@ module.exports = function(grunt){
       'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/start_highlighting.js>',
       'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/stop_highlighting.js>',
       'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>'
+    },
+    wrap: {
+      core: {
+        src: [
+          'plugins/*',
+          'src/js/models/*',
+          'src/js/views/*',
+          'src/js/util/*',
+          'src/js/initializers/*'
+        ],
+        wrapper: [
+          'wrap/first.js',
+          'wrap/last.js'
+        ],
+        dest: 'tmp/factlink.core.js'
+      }
     },
     copy: {
       'dist/server/css/basic.css': 'dist/css/basic.css',
@@ -87,8 +100,8 @@ module.exports = function(grunt){
       files: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
     },
     watch: {
-      files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'grunt.js'],
-      tasks: 'lint qunit concat less copy'
+      files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'grunt.js', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js'],
+      tasks: 'lint qunit wrap concat less copy'
     },
     jshint: {
       options: {
@@ -127,18 +140,39 @@ module.exports = function(grunt){
       globals: {
         "Factlink": true,
         "FactlinkConfig": true,
-        "escape": true
+        "escape": true,
+        "_": true,
+        "easyXDM": true
       }
     },
     uglify: {}
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit less concat min copy');
-  grunt.registerTask('server', 'concat min less copy');
+  grunt.registerTask('default', 'lint qunit less wrap concat min copy');
+  grunt.registerTask('server', 'wrap concat min less copy');
 
   grunt.registerMultiTask('copy', 'copy files', function () {
     grunt.file.copy(this.data,this.target);
+  });
+
+  grunt.registerMultiTask('wrap', 'Wrap files with specified files', function () {
+    var src = this.file.src;
+
+    src.unshift(this.data.wrapper[0]);
+    src.push(this.data.wrapper[1]);
+
+    var files = grunt.file.expandFiles(this.file.src);
+
+    // Concat specified files.
+    var dest = grunt.helper('concat', files, {separator: this.data.separator});
+    grunt.file.write(this.file.dest, dest);
+
+    // Fail task if errors were logged.
+    if (this.errorCount) { return false; }
+
+    // Otherwise, print a success message.
+    grunt.log.writeln('File "' + this.file.dest + '" created.');
   });
 
   grunt.loadNpmTasks('grunt-less');

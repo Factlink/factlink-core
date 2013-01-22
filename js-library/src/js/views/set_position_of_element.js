@@ -1,5 +1,3 @@
-(function(Factlink, $, _, easyXDM, window, undefined) {
-
 Factlink.set_position_of_element = function(top,left,window,el){
   function setLeft(element) {
     element.addClass('left');
@@ -50,5 +48,3 @@ Factlink.set_position_of_element = function(top,left,window,el){
     left: x + 'px'
   });
 };
-
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

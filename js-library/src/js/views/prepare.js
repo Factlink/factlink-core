@@ -1,5 +1,3 @@
-(function(Factlink, $, _, easyXDM, window, undefined) {
-
 Factlink.Prepare = function() {
   var hasFocus = false;
   var el;
@@ -22,6 +20,7 @@ Factlink.Prepare = function() {
       e.stopPropagation();
     }).bind('click', function(e) {
       e.preventDefault();
+      e.stopPropagation();
 
       self.startLoading();
 
@@ -102,5 +101,3 @@ Factlink.Prepare = function() {
 
   initialize.apply(this, arguments);
 };
-
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

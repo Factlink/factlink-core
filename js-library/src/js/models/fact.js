@@ -1,5 +1,3 @@
-(function(Factlink, $, _, easyXDM, window, undefined) {
-
 Factlink.Fact = function() {
   var elements;
   // This is to scare Mark:
@@ -27,21 +25,24 @@ Factlink.Fact = function() {
 
     createEventHandlers(_events);
 
-    highlight();
+    highlight(1500);
 
     balloon = new Factlink.Balloon(id, self);
 
     // Bind the own events
     $(elements)
-      .bind('mouseenter', self.focus)
-      .bind('mouseleave', self.blur)
-      .bind('click', self.click);
+      .on('mouseenter', self.focus)
+      .on('mouseleave', self.blur)
+      .on('click', self.click)
+      .on('inview', function(event, isInView, visiblePartX, visiblePartY) {
+        if ( isInView ) {
+          highlight(1500);
+        }
+      });
 
     bindFocus();
 
     bindClick(id);
-
-    this.stopHighlighting(1500);
   }
 
   // This may look like some magic, but here we expose the Fact.blur/focus/click
@@ -80,10 +81,14 @@ Factlink.Fact = function() {
     }
   }
 
-  function highlight() {
+  function highlight(timer) {
     clearTimeout(highlight_timeout);
 
     $( elements ).addClass('fl-active');
+
+    if ( timer ) {
+      self.stopHighlighting(timer);
+    }
   }
 
   this.stopHighlighting = function(timer) {
@@ -164,5 +169,3 @@ Factlink.Fact = function() {
 
   initialize.apply(this, arguments);
 };
-
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);
