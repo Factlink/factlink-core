@@ -71,7 +71,6 @@ class FactsController < ApplicationController
 
     if current_user
       render inline:'', layout: 'client'
-      track "Modal: Open prepare"
     else
       session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
       redirect_to user_session_path(layout: 'client')
