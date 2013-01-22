@@ -3,7 +3,20 @@
 class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
   tagName: "li"
 
-  template: "auto_complete/search_item"
+  template: "fact_relations/auto_complete_search_fact_relation"
+
+  ui:
+    factWheel: '.js-fact-wheel'
+
+  onRender: ->
+    @ui.factWheel.html @wheelView().render().el
+
+  wheelView: ->
+    wheel = new Wheel @model.get("fact_wheel")
+    new InteractiveWheelView
+      fact: @model.get("fact_base")
+      model: wheel
+      interactive: false
 
   templateHelpers: ->
     query = @options.query
