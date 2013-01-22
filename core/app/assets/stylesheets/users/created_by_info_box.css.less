@@ -1,8 +1,7 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-#container #main-wrapper header.title div.created_by_info {
-
+div.created_by_info {
   > div {
     float: left;
 
@@ -16,14 +15,16 @@
     }
 
     &.user-info {
-      padding: 5px 0 0;
-      a {
+      padding: 13px 0 0;
+
+      > a {
         color: @linkColor;
         font-weight: bold;
         display: block;
+        line-height: 20px;
       }
 
-      span.authority_for_subject {
+      > span.authority_for_subject {
         display: block;
         font-size: 11px;
         line-height: 11px;
