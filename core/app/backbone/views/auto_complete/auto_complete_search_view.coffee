@@ -54,5 +54,8 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
     @search_list.show @_search_list_view
     @text_input.show @_text_input_view
 
+  clearSearch: ->
+    @model.set 'text', ''
+
   addCurrent: ->
     console.error "the function to add current selection was not implemented"

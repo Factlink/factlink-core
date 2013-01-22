@@ -15,6 +15,10 @@ module Queries
   # user, which means that we will now typically get
   # O(constant) graph_user retrievals (2 redis commands)
   # instead of O(N).
+  # We also set this property on the channel. This is a nasty hack,
+  # but otherwise we would still get this O(N) retrieval in
+  # interactors/queries which get run after this one on the same
+  # channel
   class CreatorAuthoritiesForChannels
     include Pavlov::Query
     arguments :channels
@@ -35,7 +39,9 @@ module Queries
     end
 
     def graph_user_for channel
-      graph_user channel.created_by_id
+      gu = graph_user channel.created_by_id
+      channel.send :write_local, :created_by, gu
+      gu
     end
 
     def graph_user id
