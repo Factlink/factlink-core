@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Channel::UserStream do
   include AddFactToChannelSupport
-  subject { u1.stream }
+  subject(:stream) { u1.stream }
 
   let(:u1) { FactoryGirl.create(:user).graph_user }
 
   describe "initially" do
-    it { subject.facts.to_a.should =~ []}
+    it { stream.facts.to_a.should =~ []}
     its(:is_real_channel?) { should == false }
     its(:title) {should == "All" }
     its(:unread_count) {should == 0 }
@@ -18,14 +18,14 @@ describe Channel::UserStream do
     before do
       @ch1 = create(:channel, :created_by => u1)
     end
-    it { subject.facts.to_a.should =~ []}
+    it { stream.facts.to_a.should =~ []}
   end
 
   describe "after creating a fact" do
     before do
       @f1 = create(:fact, :created_by => u1)
     end
-    it { subject.facts.to_a.should =~ [@f1]}
+    it { stream.facts.to_a.should =~ []}
   end
 
   describe "after adding channel with one fact" do
@@ -34,10 +34,10 @@ describe Channel::UserStream do
       @f1 = create(:fact)
       add_fact_to_channel @f1, @ch1
     end
-    it { subject.facts.to_a.should =~ [@f1]}
+    it { stream.facts.to_a.should =~ []}
     its(:unread_count) {should == 0 }
     describe "after retrieving the user_stream from the database" do
-      it {GraphUser[subject.id].stream.facts.to_a.should =~[@f1]}
+      it {GraphUser[stream.id].stream.facts.to_a.should =~[]}
     end
   end
   describe "after adding two channels with one fact" do
@@ -49,19 +49,19 @@ describe Channel::UserStream do
       @f2 = create(:fact)
       add_fact_to_channel @f2, @ch2
     end
-    it { subject.facts.to_a.should == [@f2,@f1]}
+    it { stream.facts.to_a.should == []}
     its(:unread_count) {should == 0 }
     describe "after creating a fact" do
       before do
         @f3 = create(:fact, :created_by => u1)
       end
-      it { subject.facts.to_a.should == [@f3,@f2,@f1]}
+      it { stream.facts.to_a.should == []}
     end
     describe "after creating a factrelation" do
       before do
         @fr = FactRelation.get_or_create(@f1,:supporting,@f2,u1)
       end
-      it { subject.facts.to_a.should == [@f2,@f1]}
+      it { stream.facts.to_a.should == []}
       its(:unread_count) {should == 0 }
     end
 
@@ -69,11 +69,11 @@ describe Channel::UserStream do
 
   describe :topic do
     it "should be nil" do
-      subject.topic.should be_nil
+      stream.topic.should be_nil
     end
     it "should be nil, and not crash when slugtitle is not set" do
-      subject.slug_title = nil
-      subject.topic.should be_nil
+      stream.slug_title = nil
+      stream.topic.should be_nil
     end
   end
 end

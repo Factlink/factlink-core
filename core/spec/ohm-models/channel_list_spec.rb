@@ -95,7 +95,7 @@ describe ChannelList do
       list = ChannelList.new(gu1)
 
       expect(list.containing_channel_ids_for_fact(f)).
-        to eq [gu1.stream_id, ch1.id, ch3.id]
+        to eq [ch1.id, ch3.id]
 
     end
   end
