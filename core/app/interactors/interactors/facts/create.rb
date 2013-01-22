@@ -6,14 +6,14 @@ module Interactors
       arguments :displaystring, :url, :title
 
       def execute
-        if not @url or @url.empty?
-          site = nil
-        else
+        unless @url.blank?
           site = query :'sites/for_url', @url
 
           if site.nil?
             site = command :'sites/create', @url
           end
+        else
+          site = nil
         end
 
         fact = command :'facts/create', @displaystring, @title, @options[:current_user], site
