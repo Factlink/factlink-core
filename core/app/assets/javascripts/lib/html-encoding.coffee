@@ -8,5 +8,8 @@ window.htmlEscape = (str)->
 window.nlToBr = (str)-> str.replace(/\n/g, '<br />');
 
 window.highlightTextInTextAsHtml = (highlight, text)->
-  highlightRegex = new RegExp(highlight, "gi")
-  htmlEscape(text).replace(highlightRegex, "<em>$&</em>")
+  if highlight.length <= 0
+    htmlEscape(text)
+  else
+    highlightRegex = new RegExp(highlight, "gi")
+    htmlEscape(text).replace(highlightRegex, "<em>$&</em>")
