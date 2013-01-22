@@ -19,6 +19,7 @@ describe RecentlyViewedFacts do
       fact2 = create :fact
 
       recently_viewed_facts.push_fact_id fact1.id
+      sleep 0.1
       recently_viewed_facts.push_fact_id fact2.id
 
       expect(recently_viewed_facts.top_facts(1).map(&:id)).to eq [fact2.id]
@@ -30,7 +31,9 @@ describe RecentlyViewedFacts do
       fact3 = create :fact
 
       recently_viewed_facts.push_fact_id fact1.id
+      sleep 0.1
       recently_viewed_facts.push_fact_id fact2.id
+      sleep 0.1
       recently_viewed_facts.push_fact_id fact3.id
 
       expect(recently_viewed_facts.top_facts(3).map(&:id)).to eq [fact3.id, fact2.id, fact1.id]
@@ -41,7 +44,9 @@ describe RecentlyViewedFacts do
       fact2 = create :fact
 
       recently_viewed_facts.push_fact_id fact1.id
+      sleep 0.1
       recently_viewed_facts.push_fact_id fact2.id
+      sleep 0.1
       recently_viewed_facts.push_fact_id fact1.id
 
       expect(recently_viewed_facts.top_facts(3).map(&:id)).to eq [fact1.id, fact2.id]
@@ -56,8 +61,11 @@ describe RecentlyViewedFacts do
       fact4 = create :fact
 
       recently_viewed_facts.push_fact_id fact1.id
+      sleep 0.1
       recently_viewed_facts.push_fact_id fact2.id
+      sleep 0.1
       recently_viewed_facts.push_fact_id fact3.id
+      sleep 0.1
       recently_viewed_facts.push_fact_id fact4.id
 
       recently_viewed_facts.truncate 1
