@@ -7,9 +7,6 @@
 // -----
 
 body.factlink-site {
-  input, textarea, .navbar-search .search-query, p {
-    .base-text(13px);
-  }
   .btn {
     color: @baseFontColor;
     font-weight: normal;
@@ -23,6 +20,11 @@ body.factlink-site {
 
   .tooltip {
     font-family: @baseFontFamily;
+  }
+
+  textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    padding-top: 14px;
+    padding-bottom: 14px;
   }
 
   // FORM FIELD FEEDBACK STATES
