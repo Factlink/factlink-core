@@ -18,6 +18,7 @@ class TosController < ApplicationController
     last_name  = params[:user][:tos_last_name]
 
     if current_user.sign_tos(agrees_tos, first_name, last_name)
+      track_signed_tos
       track_tos_browser
       redirect_to almost_done_path
     else
@@ -26,6 +27,9 @@ class TosController < ApplicationController
   end
 
   private
+  def track_signed_tos
+    track_people_event signed_tos: true
+  end
   def track_tos_browser
     tos_browser_name    = params[:tos_browser_name]
     tos_browser_version = params[:tos_browser_version]
