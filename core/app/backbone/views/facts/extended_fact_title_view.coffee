@@ -10,9 +10,7 @@ class window.BackButtonView extends Backbone.Marionette.ItemView
     @$el.attr 'rel', 'backbone'
 
 class window.ExtendedFactTitleView extends Backbone.Marionette.Layout
-  tagName: "header"
-  id: "single-factlink-header"
-
+  tagName: "div"
   template: "facts/extended_fact_title"
 
   regions:
