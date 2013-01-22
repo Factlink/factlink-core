@@ -9,7 +9,7 @@ describe RecentlyViewedFacts do
 
       recently_viewed_facts.push_fact_id fact.id
 
-      expect(recently_viewed_facts.top_facts 1).to eq [fact]
+      expect(recently_viewed_facts.top_facts(1).map(&:id)).to eq [fact.id]
     end
   end
 
@@ -21,7 +21,7 @@ describe RecentlyViewedFacts do
       recently_viewed_facts.push_fact_id fact1.id
       recently_viewed_facts.push_fact_id fact2.id
 
-      expect(recently_viewed_facts.top_facts 1).to eq [fact2]
+      expect(recently_viewed_facts.top_facts(1).map(&:id)).to eq [fact2.id]
     end
 
     it 'returns the facts sorted by viewed time' do
@@ -33,7 +33,7 @@ describe RecentlyViewedFacts do
       recently_viewed_facts.push_fact_id fact2.id
       recently_viewed_facts.push_fact_id fact3.id
 
-      expect(recently_viewed_facts.top_facts 3).to eq [fact3, fact2, fact1]
+      expect(recently_viewed_facts.top_facts(3).map(&:id)).to eq [fact3.id, fact2.id, fact1.id]
     end
 
     it 'handles viewing a factlink multiple times correctly' do
@@ -44,7 +44,7 @@ describe RecentlyViewedFacts do
       recently_viewed_facts.push_fact_id fact2.id
       recently_viewed_facts.push_fact_id fact1.id
 
-      expect(recently_viewed_facts.top_facts 3).to eq [fact1, fact2]
+      expect(recently_viewed_facts.top_facts(3).map(&:id)).to eq [fact1.id, fact2.id]
     end
   end
 
@@ -62,7 +62,7 @@ describe RecentlyViewedFacts do
 
       recently_viewed_facts.truncate 1
 
-      expect(recently_viewed_facts.top_facts 3).to eq [fact4]
+      expect(recently_viewed_facts.top_facts(3).map(&:id)).to eq [fact4.id]
     end
 
   end
