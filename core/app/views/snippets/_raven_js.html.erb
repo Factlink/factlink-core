@@ -3,7 +3,7 @@
 <% if sentry_conf %>
 
   <script type="text/javascript">
-  Raven.config('<%= "http://#{sentry_conf["public"]}@sentry.factlink.com/#{sentry_conf["project_id"]}" %>');
+  Raven.config('<%= "#{sentry_conf["protocol"]}://#{sentry_conf["public"]}@sentry.factlink.com/#{sentry_conf["project_id"]}" %>');
 
   window.onerror = Raven.process;
   </script>
