@@ -1,5 +1,5 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/commands/site/create'
+require_relative '../../../../app/interactors/commands/sites/create'
 
 describe Commands::Sites::Create do
   include PavlovSupport

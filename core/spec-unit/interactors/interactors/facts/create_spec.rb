@@ -39,13 +39,16 @@ describe Interactors::Facts::Create do
       displaystring = 'this is the annotated text'
       title = 'this is the title'
       site = mock
-      fact = mock
-      user = mock
+      fact_id_i = mock
+      fact = mock(id: mock(to_i: fact_id_i))
+      user_id_s = mock
+      user = mock(id: mock(to_s: user_id_s))
       interactor = Interactors::Facts::Create.new displaystring, url, title, current_user: user
 
       interactor.should_receive(:query).with(:'sites/for_url', url).and_return(nil)
       interactor.should_receive(:command).with(:'sites/create', url).and_return(site)
       interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
+      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id_i, user_id_s)
 
       expect(interactor.execute).to eq fact
     end
@@ -55,12 +58,15 @@ describe Interactors::Facts::Create do
       displaystring = 'this is the annotated text'
       title = 'this is the title'
       site = mock
-      fact = mock
-      user = mock
+      fact_id_i = mock
+      fact = mock(id: mock(to_i: fact_id_i))
+      user_id_s = mock
+      user = mock(id: mock(to_s: user_id_s))
       interactor = Interactors::Facts::Create.new displaystring, url, title, current_user: user
 
       interactor.should_receive(:query).with(:'sites/for_url',url).and_return(site)
       interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
+      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id_i, user_id_s)
 
       expect(interactor.execute).to eq fact
     end

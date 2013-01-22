@@ -1,5 +1,5 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/site/for_url'
+require_relative '../../../../app/interactors/queries/sites/for_url'
 
 describe Queries::Sites::ForUrl do
   include PavlovSupport
