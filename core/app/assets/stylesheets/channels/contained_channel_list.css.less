@@ -1,39 +1,47 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-#contained-channel-list {
-  margin: 0;
-  padding: 0;
+#contained-channels {
   display: inline;
+  margin-left: 30px;
+  .contained-channel-description {
+    color: #777;
+  }
+  #contained-channel-list {
+    margin: 0;
+    padding: 0;
+    display: inline;
 
-  > li {
-    display: inline-block;
-    position: relative;
-    padding: 0 15px 0 0;
+    > li {
+      display: inline-block;
+      position: relative;
+      padding: 0 15px 0 0;
 
-    > a {
-      display: block;
-      height: 100%;
+      > a {
+        display: block;
+        height: 100%;
 
-      > img {
-        width: 20px;
-        margin: -2px 5px 0 0;
-        .border-radius(3px);
+        > img {
+          width: 20px;
+          margin: -2px 5px 0 0;
+          .border-radius(3px);
+        }
+
+        > .close {
+          float: none;
+        }
+
+        &:after {
+          cursor: default;
+          color: @baseFontColor;
+          content: ",";
+        }
       }
 
-      > .close {
-        float: none;
+      &:last-child > a:after {
+        content: "";
       }
-
-      &:after {
-        cursor: default;
-        color: @baseFontColor;
-        content: ",";
-      }
-    }
-
-    &:last-child > a:after {
-      content: "";
     }
   }
 }
+
