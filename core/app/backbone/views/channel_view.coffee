@@ -54,7 +54,7 @@ class window.ChannelView extends ChannelViewLayout
 
 class window.ChannelActivitiesView extends ChannelViewLayout
   events:
-    "click .refresh_stream": "refresh"
+    "click .js-activities-refresh": "refresh"
 
   initialize: ->
     @bindTo @collection, 'change_count', @update_count, @
