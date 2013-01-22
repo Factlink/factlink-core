@@ -42,14 +42,6 @@ class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListV
     @_toggleSearchListActive(@ui.recent_row, recentFilled)
     @_toggleSearchListActive(@ui.search_row, searchFilled)
 
-    @$('.auto-complete-search-list-last-rounded-both').removeClass  'auto-complete-search-list-last-rounded-both'
-    @$('.auto-complete-search-list-last-rounded-right').removeClass 'auto-complete-search-list-last-rounded-right'
-
-    if recentFilled
-      @ui.recent_row.addClass 'auto-complete-search-list-last-rounded-right'
-    else
-      @ui.search_row.addClass  'auto-complete-search-list-last-rounded-right'
-
   _toggleSearchListActive: (el, value) ->
     el.toggleClass  'auto-complete-search-list-active', value
 

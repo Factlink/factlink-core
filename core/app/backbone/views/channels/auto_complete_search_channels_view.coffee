@@ -52,15 +52,5 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     @_toggleSearchListActive(@ui.all_row, allFilled)
     @_toggleSearchListActive(@ui.new_row, newFilled)
 
-    @$('.auto-complete-search-list-last-rounded-both').removeClass  'auto-complete-search-list-last-rounded-both'
-    @$('.auto-complete-search-list-last-rounded-right').removeClass 'auto-complete-search-list-last-rounded-right'
-
-    if newFilled
-      @ui.new_row.addClass 'auto-complete-search-list-last-rounded-both'
-    else if allFilled
-      @ui.all_row.addClass 'auto-complete-search-list-last-rounded-right'
-    else
-      @ui.my_row.addClass  'auto-complete-search-list-last-rounded-right'
-
   _toggleSearchListActive: (el, value) ->
     el.toggleClass  'auto-complete-search-list-active', value
