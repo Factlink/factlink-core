@@ -1,13 +1,14 @@
+<% activity_action = @activity.subject.type %>
+
 <h2 class="activity-title">
-  <%= link_to_possibly_dead_user @activity.user.user %> 
+  <%= link_to_possibly_dead_user @activity.user.user %>
   has commented on
-  <%= link_to @activity.object, friendly_fact_url(@activity.object)
-  %>:
+  <%= link_to @activity.object, friendly_fact_with_opened_tab_url(@activity.object, activity_action) %>:
 </h2>
 <p class="activity-body">
   <%= @activity.subject.content %>
 </p>
 <p class="activity-action">
   To view the Factlink, visit:<br>
-  <%= link_to friendly_fact_url(@activity.object), friendly_fact_url(@activity.object) %>
+  <%= link_to(friendly_fact_with_opened_tab_url(@activity.object, activity_action), friendly_fact_with_opened_tab_url(@activity.object, activity_action) ) %>
 </p>

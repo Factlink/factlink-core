@@ -10,7 +10,8 @@ Backend:
  ✔ Integrate this command to the create fact interactor @done (13-01-21 18:39)
  ✔ create Interactor+Query for retrieving latest viewed facts. @done (13-01-21 15:47)
  ✔ Create endpoint + route to return latest viewed facts. @done (13-01-21 17:14)
- ☐ Create error handling for create fact, this is now broken since this is done by a interactor and not through active model #errors
+ ✔ Create error handling for create fact, this is now broken since this is done by a interactor and not through active model #errors @done (13-01-22 10:14)
+   This is not a problem since we're not returning any errors at the moment.
 
 Frontend:
  ✔ Implement 2-column design @done (13-01-21 13:47)

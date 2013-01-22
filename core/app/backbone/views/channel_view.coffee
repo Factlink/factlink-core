@@ -17,7 +17,7 @@ class window.ChannelViewLayout extends Backbone.Marionette.Layout
     @on 'render', =>
       @renderSubChannels()
       @$('header .authority').tooltip
-        title: 'Authority of ' + @model.attributes.created_by.username + 'on "' + @model.attributes.title + '"'
+        title: 'Authority of ' + @model.attributes.created_by.username + ' on "' + @model.attributes.title + '"'
 
       if @model.get('followable?')
         @addToChannelRegion.show new AddChannelToChannelsButtonView(model: @model)
@@ -53,6 +53,49 @@ class window.ChannelView extends ChannelViewLayout
     @activateTab '.factlinks'
 
 class window.ChannelActivitiesView extends ChannelViewLayout
+  events:
+    "click .refresh_stream": "refresh"
+
+  initialize: ->
+    @bindTo @collection, 'change_count', @update_count, @
+    @start_updating_count()
+    @on 'attached', @start_updating_count, @
+    @on 'detached', @stop_updating_count, @
+
+  onClose: ->
+    @stop_updating_count()
+
+  stop_updating_count: ->
+    if @running
+      clearTimeout(@timer)
+      @running = false
+
+  _restart_updating_count: ->
+    if @running
+      @running=false
+      @start_updating_count()
+
+  start_updating_count: ->
+    unless @running
+      @running = true
+      @timer = setTimeout =>
+        @fetch_activity_count
+          success: => @_restart_updating_count()
+          error: => @_restart_updating_count()
+      ,Factlink.Timeout.stream_refresh
+
+  fetch_activity_count: (args...)->
+    @collection.fetch_count(args...)
+
+  update_count: ->
+    this.$('.more .unread_count').html(@collection.get_new_activity_count());
+    this.$('.more').toggle(@collection.get_new_activity_count() > 0);
+
+  refresh: (e) ->
+    @collection.fetch()
+    e.preventDefault()
+    e.stopPropagation()
+
   getActivitiesView: ->
     new ActivitiesView collection: @collection, disableEmptyView: @options.disableEmptyView
 

@@ -30,4 +30,14 @@ if defined?(NewRelic)
     add_method_tracer :execute
   end
 
+  AddFactToChannelJob.class_eval do
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer :initialize
+    add_method_tracer :add_to_channel
+    add_method_tracer :add_to_unread
+    add_method_tracer :propagate_to_channels
+    add_method_tracer :can_perform
+    add_method_tracer :should_perform
+  end
+
 end

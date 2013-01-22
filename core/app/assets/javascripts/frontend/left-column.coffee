@@ -1,0 +1,1 @@
+$('.fixed #left-column').preventScrollPropagation();
