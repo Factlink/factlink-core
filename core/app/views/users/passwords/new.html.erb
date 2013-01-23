@@ -8,7 +8,7 @@
 <h1>Forgot your password?</h1>
 <p>Please enter your email address so we can send you a password reset:</p>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => "form-horizontal" }) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => "form" }) do |f| %>
 
   <div class="control-group">
     <%= f.label :email, class: "control-label" %>
