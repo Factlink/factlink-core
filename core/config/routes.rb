@@ -100,6 +100,10 @@ FactlinkUI::Application.routes.draw do
         get     "/disbelievers"     => "facts#disbelievers"
         get     "/doubters"         => "facts#doubters"
       end
+
+      collection do
+        get 'recently_viewed' => "facts#recently_viewed"
+      end
     end
 
     # Search and infinite scrolling

@@ -30,9 +30,6 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     all_row: '.js-row-all'
     new_row: '.js-row-new'
 
-    search_list_both:  '.auto-complete-search-list-last-rounded-both'
-    search_list_right: '.auto-complete-search-list-last-rounded-right'
-
   onRender: -> @updateRows()
 
   appendHtml: (collectionView, itemView, index) ->
@@ -47,23 +44,9 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     @updateRows()
 
   updateRows: ->
-    myFilled  = @$('.js-list-my li').length > 0
-    allFilled = @$('.js-list-all li').length > 0
-    newFilled = @$('.js-list-new li').length > 0
+    @_updateRowActive @ui.my_row, @ui.my_list
+    @_updateRowActive @ui.all_row, @ui.all_list
+    @_updateRowActive @ui.new_row, @ui.new_list
 
-    @_toggleSearchListActive(@ui.my_row, myFilled)
-    @_toggleSearchListActive(@ui.all_row, allFilled)
-    @_toggleSearchListActive(@ui.new_row, newFilled)
-
-    @ui.search_list_both.removeClass  'auto-complete-search-list-last-rounded-both'
-    @ui.search_list_right.removeClass 'auto-complete-search-list-last-rounded-right'
-
-    if newFilled
-      @ui.new_row.addClass 'auto-complete-search-list-last-rounded-both'
-    else if allFilled
-      @ui.all_row.addClass 'auto-complete-search-list-last-rounded-right'
-    else
-      @ui.my_row.addClass  'auto-complete-search-list-last-rounded-right'
-
-  _toggleSearchListActive: (el, value) ->
-    el.toggleClass  'auto-complete-search-list-active', value
+  _updateRowActive: ($row, $list) ->
+    $row.toggleClass 'auto-complete-search-list-active', $list.find('li').length > 0

@@ -4,6 +4,7 @@ module Acceptance
         within add_evidence_form_css_selector do
           evidence_input = page.find_field 'text_input_view'
           evidence_input.trigger 'focus'
+
           page.find('.js-switch').set true
         end
       end
@@ -33,7 +34,6 @@ module Acceptance
           comment_input.trigger 'blur'
 
           click_button 'Post comment'
-          wait_for_ajax
         end
       end
 
