@@ -8,6 +8,7 @@ class window.ChannelViewLayout extends Backbone.Marionette.Layout
     activityList: '#activity_for_channel'
     subChannelsRegion: '.js-subchannels-region'
     addToChannelRegion: '.add-to-channel-region'
+    creatorProfileRegion: ".created_by_region"
 
   templateHelpers: ->
     activities_link: ->
@@ -16,12 +17,11 @@ class window.ChannelViewLayout extends Backbone.Marionette.Layout
   initialize: (opts) ->
     @on 'render', =>
       @renderSubChannels()
-
-      @$('header .authority').tooltip
-        title: 'Authority of ' + @model.attributes.created_by.username + ' on "' + @model.attributes.title + '"'
-
       if @model.get('followable?')
         @addToChannelRegion.show new AddChannelToChannelsButtonView(model: @model)
+      @creatorProfileRegion.show new UserWithAuthorityBox
+        model: @model.user(),
+        authority: @model.get('created_by_authority')
 
   renderSubChannels: ->
     if @model.get('inspectable?')
