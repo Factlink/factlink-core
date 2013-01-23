@@ -15,6 +15,9 @@ class window.ChannelViewLayout extends Backbone.Marionette.Layout
       @link + '/activities'
 
   initialize: (opts) ->
+    # NOTE! though it looks like this is generic, this
+    # method is only executed for channels, not for activities
+    # TODO fix this mess
     @on 'render', =>
       @renderSubChannels()
       if @model.get('followable?')
