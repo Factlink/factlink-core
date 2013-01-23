@@ -116,10 +116,4 @@ after 'deploy:check_installed_packages', 'deploy:cleanup'
 
 after 'deploy',           'deploy:curl_site'
 
-# Only send a deploy event when deploying to production
-# currently testing by adding testserver
-if deploy_env == 'testserver'
-  after 'deploy:update',    'newrelic:notice_deployment (test)'
-end
-
 require './config/boot'

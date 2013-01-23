@@ -9,3 +9,5 @@ role :web, "factlink.com"                          # Your HTTP server, Apache/et
 role :app, "factlink.com"                          # This may be the same as your `Web` server
 
 role :db,  "factlink.com", :primary => true # This is where Rails migrations will run
+
+after "deploy:update", "newrelic:notice_deployment"
