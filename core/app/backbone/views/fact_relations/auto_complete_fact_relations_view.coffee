@@ -81,7 +81,8 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @recent_collection.fetch()
 
   updateRecentCollection: ->
-    @search_collection.reset @recent_collection.models if @model.get('text') == ''
+    models = @recent_collection.filter (model) -> model.id != @options.fact_id
+    @search_collection.reset models if @model.get('text') == ''
 
   focus: -> @$el.addClass 'active'
 
