@@ -16,7 +16,7 @@ class RecentlyViewedFacts
     @nest_key = nest_key
   end
 
-  def top_facts count
+  def top count
     top_ids(count).map {|id| Fact[id]}
                   .compact
   end

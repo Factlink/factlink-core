@@ -19,7 +19,7 @@ describe RecentlyViewedFacts do
     end
   end
 
-  describe '.top_facts' do
+  describe '.top' do
     it 'retrieves the last "count" facts' do
       fact = mock id: 14
       nest = mock
@@ -29,7 +29,7 @@ describe RecentlyViewedFacts do
 
       Fact.should_receive(:[]).any_number_of_times.with(fact.id).and_return fact
 
-      result = RecentlyViewedFacts.new(nest).top_facts count
+      result = RecentlyViewedFacts.new(nest).top count
 
       expect(result).to eq [fact]
     end
@@ -40,7 +40,7 @@ describe RecentlyViewedFacts do
 
       Fact.should_receive(:[]).any_number_of_times.with(fact_id).and_return nil
 
-      result = RecentlyViewedFacts.new(nest).top_facts 10
+      result = RecentlyViewedFacts.new(nest).top 10
 
       expect(result).to eq []
     end
