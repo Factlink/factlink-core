@@ -4,6 +4,9 @@ module Acceptance
         within add_evidence_form_css_selector do
           evidence_input = page.find_field 'text_input_view'
           evidence_input.trigger 'focus'
+
+          wait_for_ajax
+
           page.find('.js-switch').set true
         end
       end

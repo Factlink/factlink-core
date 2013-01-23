@@ -1,5 +1,5 @@
 module Queries
-  module Site
+  module Sites
     class ForUrl
       include Pavlov::Query
 
@@ -10,10 +10,6 @@ module Queries
       end
 
       def execute
-        KillObject.site site if site
-      end
-
-      def site
         @site ||= ::Site.find(url: @url).first
       end
     end

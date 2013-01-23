@@ -8,9 +8,12 @@ describe FactsController do
 
   describe :show do
     it "should render successful" do
-      @fact = FactoryGirl.create(:fact)
-      @fact.created_by.user = FactoryGirl.create :user
+      @fact = FactoryGirl.create :fact
+      user = FactoryGirl.create :user
+      authenticate_user!(user)
+      @fact.created_by.user = user
       @fact.created_by.save
+
       should_check_can :show, @fact
       get :show, :id => @fact.id
       response.should be_success
@@ -21,7 +24,9 @@ describe FactsController do
       FactoryGirl.reload # hack because of fixture in check
 
       @fact = FactoryGirl.create(:fact)
-      @fact.created_by.user = FactoryGirl.create :user
+      user = FactoryGirl.create :user
+      authenticate_user!(user)
+      @fact.created_by.user = user
       @fact.created_by.save
       should_check_can :show, @fact
       get :show, id: @fact.id, format: :json
@@ -40,8 +45,9 @@ describe FactsController do
       @fact.data.displaystring = "baas<xss> of niet"
       @fact.data.title = "baas<xss> of niet"
       @fact.data.save
-
-      @fact.created_by.user = create :user
+      user = create :user
+      authenticate_user!(user)
+      @fact.created_by.user = user
       @fact.created_by.save
 
       authenticate_user!(user)
@@ -55,7 +61,9 @@ describe FactsController do
   describe :destroy do
     it "should delete the fact" do
       @fact = create :fact
-      @fact.created_by.user = FactoryGirl.create :user
+      user = FactoryGirl.create :user
+      @fact.created_by.user = user
+      authenticate_user!(user)
       @fact.created_by.save
       @fact_id = @fact.id
 

@@ -13,15 +13,17 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   template: 'fact_relations/auto_complete'
 
   initialize: (options) ->
+    @initializeRecentCollection()
+
     @initializeChildViews
       filter_on: 'id'
-      search_list_view: (options)-> new AutoCompleteSearchFactRelationsView(options)
+      search_list_view: (options) => new AutoCompleteSearchFactRelationsView _.extend {}, options,
+        recent_collection: @recent_collection
       search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
       placeholder: @placeholder(options.type)
 
     @bindTo @_text_input_view, 'focus', @focus, @
-    @bindTo @_text_input_view, 'blur', @blur, @
-    @bindTo @model, 'change', @toggleActivateOnContentOrFocus, @
+    @bindTo @model, 'change', @updateRecentCollection, @
 
   placeholder: (type) ->
     if type == "supporting"
@@ -68,6 +70,18 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
 
   setQuery: (text) -> @model.set text: text
+
+  initializeRecentCollection: ->
+    @recent_collection = new RecentlyViewedFacts
+    @bindTo @recent_collection, 'before:fetch', => @setLoading()
+    @bindTo @recent_collection, 'reset', =>
+      @unsetLoading()
+      @updateRecentCollection()
+
+    @recent_collection.fetch()
+
+  updateRecentCollection: ->
+    @search_collection.reset @recent_collection.models if @model.get('text') == ''
 
   focus: -> @$el.addClass 'active'
 

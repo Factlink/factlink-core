@@ -28,11 +28,16 @@
         cursor: pointer;
         font-weight: 200;
         font-size: @baseFontSize;
+        margin: 5px 0;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        overflow: hidden;
 
         .text {
           overflow: hidden;
-          padding: 8px 10px;
+          padding: 3px 10px;
           text-overflow: ellipsis;
+          text-shadow: 0 1px 0 rgba(255,255,255, 0.5);
 
           em {
             color: @linkColor;
@@ -43,17 +48,19 @@
 
         &.user-logo {
           background-image: image-url("glyphicons/user.png");
-          background-position: 270px 12px;
+          background-position: 270px 7px;
           background-repeat: no-repeat;
           padding-right: 30px;
         }
 
         .add-new-block {
+          margin: -6px 0;
           border-top: 1px solid #ccc;
           padding: 8px 10px 3px;
           color: @linkColor;
           cursor: pointer;
           background: @whiteDarker;
+          text-shadow: 0 1px 0 rgba(255,255,255, 0.5);
 
           i.icon-plus {
             margin-top: 0;
@@ -61,34 +68,22 @@
           }
         }
 
+        .fact-wheel {
+          margin: 7px 0px 7px 7px;
+        }
+
         &.active {
-          background-color: @linkColor;
-          color: #fff;
-          text-shadow: none;
+          background-color: #ebf3f9;
+
+          border-top: 1px solid #d9e5ef;
+          border-bottom: 1px solid #d9e5ef;
 
           .add-new-block {
-            background: @linkColor;
-          }
-
-          .text {
-            text-shadow: 0 -1px 0 @linkColorHover;
-          }
-
-          em {
-            color: #fff;
-          }
-
-          &.user-logo {
-            background-image: image-url("glyphicons/user--white.png")
+            background: #ebf3f9;
           }
 
           .add-new-block {
-            border-top: 1px solid @linkColor;
-            color: #fff;
-
-            a {
-              border: 1px solid @linkColor;
-            }
+            border-top: 1px solid #d9e5ef;
           }
         }
       }
@@ -123,9 +118,6 @@
         padding: 0;
         border-bottom: 1px solid #ccc;
 
-        .add-new-block { text-shadow: 0 1px 0 #fff; }
-        .active .add-new-block { text-shadow: 0 -1px 0 @linkColorHover; }
-
         .add-new-block, .active .add-new-block {
           border-top: none;
         }
@@ -135,47 +127,10 @@
       tr:last-child td {
         border-bottom: none;
       }
-
-      &:last-child {
-        .border-bottom-radius(0);
-
-        .text, div.add-new-block {
-          .border-bottom-radius(0);
-        }
-      }
-
-      .auto-complete-search-list-group-last &:last-child {
-        .border-bottom-radius(@inner-border-radius);
-
-        .text, div.add-new-block {
-          .border-bottom-radius(@inner-border-radius);
-        }
-      }
     }
 
     tr.auto-complete-search-list-active {
       display: table-row;
-    }
-
-    tr.auto-complete-search-list-last-rounded-both ul,
-    > ul {
-      li:last-child {
-        .border-bottom-radius(@inner-border-radius);
-
-        .text, div.add-new-block {
-          .border-bottom-radius(@inner-border-radius);
-        }
-      }
-    }
-
-    tr.auto-complete-search-list-last-rounded-right ul {
-      li:last-child {
-        .border-bottom-right-radius(@inner-border-radius);
-
-        .text, div.add-new-block {
-          .border-bottom-right-radius(@inner-border-radius);
-        }
-      }
     }
   }
 }
