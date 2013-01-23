@@ -76,6 +76,12 @@ namespace :deploy do
     run <<-CMD
       curl --user deploy:sdU35-YGGdv1tv21jnen3 #{full_url} > /dev/null
     CMD
+
+    # Only send a deploy event when deploying to production
+    if deploy_env == 'production'
+      run 'echo "should signal new relic that we have a  new deploy."'
+      #run this task: 'newrelic:notice_deployment'
+    end
   end
 
   #
@@ -115,11 +121,5 @@ after 'deploy:update',    'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
 after 'deploy',           'deploy:curl_site'
-
-# Only send a deploy event when deploying to production
-# currently testing by adding testserver
-if deploy_env == 'testserver'
-  after 'deploy:update',    'newrelic:notice_deployment (test)'
-end
 
 require './config/boot'
