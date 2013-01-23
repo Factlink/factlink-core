@@ -4,7 +4,7 @@
 .tabs {
 	float: right;
 	margin-top: 15px;
-	li {
+	> li {
 		float: left;
 		&:before {
 			content: '·';
@@ -15,7 +15,7 @@
 			content: '';
       padding: 0;
 		}
-    &.active a {
+    &.active > a {
       color: @metaFontColor;
     }
 	}
