@@ -89,7 +89,9 @@
     });
 
     FACTLINK.on('modalOpened', function () {
-      tour.hide();
+      if (! tour.factlinkAdded) {
+        tour.hide();
+      }
     });
 
     FACTLINK.on('modalClosed', function () {
