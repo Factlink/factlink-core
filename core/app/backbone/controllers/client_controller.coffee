@@ -9,7 +9,7 @@ class window.ClientController
 
     FactlinkApp.guided = params.guided == 'true'
 
-    mp_track("Modal: Cancel") if params.fact
+    mp_track("Modal: Open prepare") if params.fact
 
     factsNewView = new FactsNewView
       layout: 'client'
