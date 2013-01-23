@@ -1,6 +1,8 @@
 class window.EmptyFactsView extends Backbone.Marionette.ItemView
   template: 'channels/no_facts'
 
+  className: 'channel-empty-facts'
+
   events:
     "click .download-chrome-extension": "downloadChromeExtension"
 

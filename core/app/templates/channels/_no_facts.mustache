@@ -2,13 +2,13 @@
   {{#is_all}}
     <p>You have not created a {{ global.t.channel }} or added someone's {{ global.t.channel }} yet. You can:</p>
     <div class="empty-channel-action">
-      <h2>Add a Factlink with Extension</h2>
+      <h2 class="channel-empty-facts-extension-title">Add a Factlink with Extension</h2>
       <a class="download-chrome-extension">
         <img src="{{global.screenshot_addfactlink_image}}">
       </a>
     </div>
     <div class="empty-channel-action">
-      <h2>Create a {{global.t.channel}}</h2>
+      <h2 class="channel-empty-facts-extension-title">Create a {{global.t.channel}}</h2>
       <a href="{{add_channel_url}}">
         <img src="{{global.screenshot_createchannel_image}}">
       </a>
@@ -23,18 +23,41 @@
     </a>
   {{/is_created}}
   {{#is_normal}}
-    <p>This {{ global.t.channel }} does not contain any Factlinks yet. Create a new Factlink above<span class="should-install-chrome-extension"> or install the extension and add Factlinks across the web</span>:</p>
+    <div class="visible-when-chrome">
+      <div class="chrome-extension-installed">
+        <p>This {{ global.t.channel }} does not contain any Factlinks yet. Create a new Factlink above or use the Chrome extension to add Factlinks across the web.</p>
+      </div>
+
+      <div class="should-install-chrome-extension">
+        <p>This {{ global.t.channel }} does not contain any Factlinks yet. Create a new Factlink above or install the Chrome extension and add Factlinks across the web:</p>
+      </div>
+    </div>
+
+    <div class="visible-when-firefox">
+      <div class="firefox-extension-installed">
+        <p>This {{ global.t.channel }} does not contain any Factlinks yet. Create a new Factlink above or use the Firefox extension to add Factlinks across the web.</p>
+      </div>
+
+      <div class="should-install-firefox-extension">
+        <p>This {{ global.t.channel }} does not contain any Factlinks yet. Create a new Factlink above or install the Firefox extension and add Factlinks across the web:</p>
+      </div>
+    </div>
+
+    <div class="visible-when-unsupported-browser">
+      <p>This {{ global.t.channel }} does not contain any Factlinks yet. Create a new Factlink above or install the bookmarklet to add Factlinks across the web.</p>
+    </div>
+
     <div class="span3 related-channels"></div>
 
     <!-- Chrome extension -->
     <div class="span5 empty-channel-action should-install-chrome-extension visible-when-chrome">
-      <h2>Download the Chrome extension</h2>
+      <h2 class="channel-empty-facts-extension-title">Download the Chrome extension</h2>
       <a class="btn download-chrome-extension"><img src="{{global.browser_icons_chrome_16x16}}" style="margin: -2px 8px 0 0">Install Chrome Extension</a>
     </div>
 
     <!-- Firefox extension -->
     <div class="span5 empty-channel-action should-install-firefox-extension visible-when-firefox">
-      <h2>Use the extension</h2>
+      <h2 class="channel-empty-facts-extension-title">Use the extension</h2>
       <p>Use the extension to enable Factlink on all the pages you visit.</p>
       <a id="firefox-extension-button" class="btn" href="{{firefox_extension_url}}"><img src="{{global.browser_icons_firefox_16x16}}" style="margin: 0px 8px 0 0">Install Firefox Extension</a>
     </div>
