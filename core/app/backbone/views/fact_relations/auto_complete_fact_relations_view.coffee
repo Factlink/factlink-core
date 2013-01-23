@@ -72,7 +72,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   setQuery: (text) -> @model.set text: text
 
   initializeRecentCollection: ->
-    @recent_collection = new RecentlyViewedFactsCollection
+    @recent_collection = new RecentlyViewedFacts
     @bindTo @recent_collection, 'before:fetch', => @setLoading()
     @bindTo @recent_collection, 'reset', =>
       @unsetLoading()
