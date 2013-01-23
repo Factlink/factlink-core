@@ -76,12 +76,6 @@ namespace :deploy do
     run <<-CMD
       curl --user deploy:sdU35-YGGdv1tv21jnen3 #{full_url} > /dev/null
     CMD
-
-    # Only send a deploy event when deploying to production
-    if deploy_env == 'production'
-      run 'echo "should signal new relic that we have a  new deploy."'
-      #run this task: 'newrelic:notice_deployment'
-    end
   end
 
   #
