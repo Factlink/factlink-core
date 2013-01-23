@@ -78,12 +78,12 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       @unsetLoading()
       @updateRecentCollection()
 
+    @recent_collection.fetch()
+
   updateRecentCollection: ->
     @search_collection.reset @recent_collection.models if @model.get('text') == ''
 
-  focus: ->
-    @$el.addClass 'active'
-    @recent_collection.fetch() if @model.get('text') == ''
+  focus: -> @$el.addClass 'active'
 
   reset: ->
     @setQuery ''
