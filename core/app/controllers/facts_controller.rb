@@ -96,7 +96,7 @@ class FactsController < ApplicationController
     @site = @fact.site
 
     respond_to do |format|
-      if @fact
+      if @fact.errors.length == 0
         track "Factlink: Created"
 
         #TODO switch the following two if blocks if possible
