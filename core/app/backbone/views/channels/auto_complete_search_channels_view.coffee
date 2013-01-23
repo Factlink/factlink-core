@@ -44,13 +44,9 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     @updateRows()
 
   updateRows: ->
-    myFilled  = @$('.js-list-my li').length > 0
-    allFilled = @$('.js-list-all li').length > 0
-    newFilled = @$('.js-list-new li').length > 0
+    @_updateRowActive @ui.my_row, @ui.my_list
+    @_updateRowActive @ui.all_row, @ui.all_list
+    @_updateRowActive @ui.new_row, @ui.new_list
 
-    @_toggleSearchListActive(@ui.my_row, myFilled)
-    @_toggleSearchListActive(@ui.all_row, allFilled)
-    @_toggleSearchListActive(@ui.new_row, newFilled)
-
-  _toggleSearchListActive: (el, value) ->
-    el.toggleClass  'auto-complete-search-list-active', value
+  _updateRowActive: ($row, $list) ->
+    $row.toggleClass 'auto-complete-search-list-active', $list.find('li').length > 0

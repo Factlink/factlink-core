@@ -11,11 +11,13 @@ class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
   onRender: ->
     @ui.factWheel.html @wheelView().render().el
 
+  onClose: ->
+    @wheelView().close()
+
   wheelView: ->
-    wheel = new Wheel @model.get("fact_wheel")
-    new InteractiveWheelView
+    @_wheelView ?= new InteractiveWheelView
       fact: @model.get("fact_base")
-      model: wheel
+      model: new Wheel @model.get("fact_wheel")
       respondsToMouse: false
 
   templateHelpers: ->
@@ -49,12 +51,8 @@ class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListV
     @updateRows()
 
   updateRows: ->
-    recentFilled = @$('.js-list-recent li').length > 0
-    searchFilled  = @$('.js-list-search li').length > 0
+    @_updateRowActive @ui.recent_row, @ui.recent_list
+    @_updateRowActive @ui.search_row, @ui.search_list
 
-    @_toggleSearchListActive(@ui.recent_row, recentFilled)
-    @_toggleSearchListActive(@ui.search_row, searchFilled)
-
-  _toggleSearchListActive: (el, value) ->
-    el.toggleClass  'auto-complete-search-list-active', value
-
+  _updateRowActive: ($row, $list) ->
+    $row.toggleClass 'auto-complete-search-list-active', $list.find('li').length > 0
