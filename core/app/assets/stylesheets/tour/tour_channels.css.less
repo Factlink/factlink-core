@@ -3,6 +3,7 @@
 
 .tour-channel-suggestions {
   margin-top: 25px;
+  margin-right: 10px;
   padding: 10px;
 
   .my-channels {
@@ -10,6 +11,10 @@
     font-weight: bold;
     font-size: (@baseFontSize + 1);
     i { .opacity(.60); margin-top: 1px; }
+  }
+
+  ul {
+    margin: 0;
   }
 
   .channel-listing {
@@ -28,7 +33,7 @@
         display: inline-block;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 160px;
+        width: 100px;
         color: @baseFontColor;
       }
     }
