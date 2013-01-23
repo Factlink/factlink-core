@@ -9,7 +9,7 @@ module Interactors
         fact = command :'facts/create', @displaystring, @title, @options[:current_user], site
 
         raise "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
-        raise "Errors when saving fact.data: #{fact.data.errors.inspect}" if fact.data.errors.length > 0
+        raise "Errors when saving fact.data" unless fact.data.persisted?
 
         command :"facts/add_to_recently_viewed", fact.id.to_i, @options[:current_user].id.to_s
         fact

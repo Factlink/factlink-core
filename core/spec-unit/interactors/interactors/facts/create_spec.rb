@@ -40,7 +40,8 @@ describe Interactors::Facts::Create do
       title = 'this is the title'
       site = mock
       fact_id_i = mock
-      fact = mock(id: mock(to_i: fact_id_i))
+      fact_data = mock(persisted?: true)
+      fact = mock(id: mock(to_i: fact_id_i), errors: [], data: fact_data)
       user_id_s = mock
       user = mock(id: mock(to_s: user_id_s))
       interactor = Interactors::Facts::Create.new displaystring, url, title, current_user: user
@@ -59,7 +60,8 @@ describe Interactors::Facts::Create do
       title = 'this is the title'
       site = mock
       fact_id_i = mock
-      fact = mock(id: mock(to_i: fact_id_i))
+      fact_data = mock(persisted?: true)
+      fact = mock(id: mock(to_i: fact_id_i), errors: [], data: fact_data)
       user_id_s = mock
       user = mock(id: mock(to_s: user_id_s))
       interactor = Interactors::Facts::Create.new displaystring, url, title, current_user: user
