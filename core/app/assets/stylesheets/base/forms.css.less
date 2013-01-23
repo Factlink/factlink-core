@@ -1,0 +1,37 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+body.factlink-site {
+  textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .control-group.warning {
+    .formFieldState(@warningText, @warningText, @warningBackground);
+  }
+
+  .control-group.error, .control-group .field_with_errors {
+    .formFieldState(@errorText, @errorText, @errorBackground);
+  }
+
+  .control-group.success {
+    .formFieldState(@successText, @successText, @successBackground);
+  }
+
+  .form-actions {
+    background-color: transparent;
+  }
+
+  .container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    width: 960px;
+  }
+
+  input, textarea {
+    font-family: @baseFontFamily;
+  }
+
+  textarea,  {
+    font-size: @baseFontSize;
+  }
+}
