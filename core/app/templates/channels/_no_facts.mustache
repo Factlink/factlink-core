@@ -1,48 +1,39 @@
 {{#is_mine}}
-  <img class="channel-empty-facts-logo" src="{{global.icon_empty_channel}}">
+  <div class="visible-when-chrome channel-empty-facts-browser">
+    <img src="{{global.icon_empty_channel_chrome}}" class="channel-empty-facts-browser-icon">
 
-  <p>
-    This {{ global.t.channel }} does not contain any Factlinks yet.
-  </p>
+    <div class="channel-empty-facts-browser-text">
+      <p class="chrome-extension-installed">
+        Create a new Factlink above or use the Chrome extension to add Factlinks across the web.
+      </p>
 
-  <div class="visible-when-chrome">
-    <div class="chrome-extension-installed">
-      <p>Create a new Factlink above or use the Chrome extension to add Factlinks across the web.</p>
-    </div>
+      <p class="should-install-chrome-extension">
+        Create a new Factlink above or install the Chrome extension and add Factlinks across the web:<br/>
 
-    <div class="should-install-chrome-extension">
-      <p>Create a new Factlink above or install the Chrome extension and add Factlinks across the web:</p>
-    </div>
-  </div>
-
-  <div class="visible-when-firefox">
-    <div class="firefox-extension-installed">
-      <p>Create a new Factlink above or use the Firefox extension to add Factlinks across the web.</p>
-    </div>
-
-    <div class="should-install-firefox-extension">
-      <p>Create a new Factlink above or install the Firefox extension and add Factlinks across the web:</p>
+        <a class="btn download-chrome-extension channel-empty-facts-browser-button"><img class="channel-empty-facts-browser-button-icon" src="{{global.browser_icons_chrome_16x16}}"> Install Chrome Extension</a>
+      </p>
     </div>
   </div>
 
-  <div class="visible-when-unsupported-browser">
+  <div class="visible-when-firefox channel-empty-facts-browser">
+    <img src="{{global.icon_empty_channel_firefox}}" class="channel-empty-facts-browser-icon">
+
+    <div class="channel-empty-facts-browser-text">
+      <p class="firefox-extension-installed">
+        Create a new Factlink above or use the Firefox extension to add Factlinks across the web.
+      </p>
+
+      <p class="should-install-firefox-extension">
+        Create a new Factlink above or install the Firefox extension and add Factlinks across the web:<br/>
+
+        <a id="firefox-extension-button" class="btn channel-empty-facts-browser-button" href="{{firefox_extension_url}}"><img class="channel-empty-facts-browser-button-icon" src="{{global.browser_icons_firefox_16x16}}"> Install Firefox Extension</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="visible-when-unsupported-browser channel-empty-facts-browser">
     <p>Create a new Factlink above or install the bookmarklet to add Factlinks across the web.</p>
   </div>
-
-  <!-- Chrome extension -->
-  <div class="span9 empty-channel-action should-install-chrome-extension visible-when-chrome">
-    <h2 class="channel-empty-facts-extension-title">Download the Chrome extension</h2>
-    <a class="btn download-chrome-extension"><img src="{{global.browser_icons_chrome_16x16}}" style="margin: -2px 8px 0 0">Install Chrome Extension</a>
-  </div>
-
-  <!-- Firefox extension -->
-  <div class="span9 empty-channel-action should-install-firefox-extension visible-when-firefox">
-    <h2 class="channel-empty-facts-extension-title">Use the extension</h2>
-    <p>Use the extension to enable Factlink on all the pages you visit.</p>
-    <a id="firefox-extension-button" class="btn" href="{{firefox_extension_url}}"><img src="{{global.browser_icons_firefox_16x16}}" style="margin: 0px 8px 0 0">Install Firefox Extension</a>
-  </div>
-
-  <div class="empty-channel-action-end"></div>
 {{/is_mine}}
 {{^is_mine}}
   <p>This channel is currently empty</p>
