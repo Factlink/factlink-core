@@ -34,7 +34,6 @@ module Acceptance
           comment_input.trigger 'blur'
 
           click_button 'Post comment'
-          wait_for_ajax
         end
       end
 
