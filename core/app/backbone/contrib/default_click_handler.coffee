@@ -8,7 +8,7 @@ Backbone.View::defaultClickHandler = (e, routeTo=null) ->
   if e.metaKey or e.ctrlKey or e.altKey
     window.open routeTo, "_blank"
   else if not Backbone.History.started
-    window.open routeTo
+    window.open routeTo, FactlinkApp.linkTarget
   else
     Backbone.View::navigateTo routeTo
   e.preventDefault()
@@ -26,7 +26,7 @@ Backbone.View::navigateTo = (routeTo) ->
     Backbone.history.navigate routeTo, false
     unless Backbone.history.loadUrl(routeTo)
       Backbone.history.navigate oldFragment, false
-      window.open routeTo, "_blank"
+      window.open routeTo, FactlinkApp.linkTarget
       window.focus()
 
 # HACK: this is needed because internal events did not seem to work

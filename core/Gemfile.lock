@@ -34,12 +34,6 @@ GIT
     rack-xframe-options (0.1.2)
 
 GIT
-  remote: git@github.com:Factlink/resqued_devise_mailer.git
-  revision: fbe17263a1d38e811b9edb61ed51326c0bac9a8e
-  specs:
-    resqued_devise_mailer (0.0.1)
-
-GIT
   remote: git@github.com:janpaul123/marionette-rails.git
   revision: 4d30805fdaef8a73a97a7df4332ba52a267ba93d
   specs:
@@ -583,7 +577,6 @@ DEPENDENCIES
   resque (= 1.23.0)
   resque-sentry
   resque_mailer
-  resqued_devise_mailer!
   rmagick
   roadie
   rpm_contrib (= 2.1.7)

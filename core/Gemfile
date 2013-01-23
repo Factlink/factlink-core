@@ -51,9 +51,6 @@ gem 'devise', '~> 2.0.0'
 gem 'devise_invitable', '~> 1.0.0'
 gem 'cancan'
 
-gem 'resqued_devise_mailer', :git => 'git@github.com:Factlink/resqued_devise_mailer.git'
-
-
 # social connections
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
