@@ -1,3 +1,5 @@
+require 'new_relic/recipes'
+
 #############
 # Application
 set :application, "core"
@@ -109,9 +111,15 @@ after 'deploy',           'deploy:migrate'
 after 'deploy:migrate',   'action:start_recalculate'
 after 'deploy:migrate',   'action:start_resque'
 
-after 'deploy:update', 'deploy:check_installed_packages'
+after 'deploy:update',    'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
-after 'deploy', 'deploy:curl_site'
+after 'deploy',           'deploy:curl_site'
+
+# Only send a deploy event when deploying to production
+# currently testing by adding testserver
+if deploy_env == 'testserver'
+  after 'deploy:update',    'newrelic:notice_deployment (test)'
+end
 
 require './config/boot'
