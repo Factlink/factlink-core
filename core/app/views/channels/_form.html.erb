@@ -1,7 +1,7 @@
 <% @edit = (action == :update) ? true : false %>
 
 <%= form_for(:channel,
-  html: { method: (action == :update) ? :put : :post, class: 'channel-form form-horizontal'},
+  html: { method: (action == :update) ? :put : :post, class: 'channel-form'},
   url: { action: action, username: params[:username] }) do |f| %>
 
   <div class="content-header">
@@ -24,7 +24,7 @@
     </div>
   <% end %>
 
-  <p class="help-block">
+  <p class="help-block alert alert-info">
     <%= t(:channels).titleize %> are there to keep your facts categorized and can be interesting for other users to follow.
   </p>
 
