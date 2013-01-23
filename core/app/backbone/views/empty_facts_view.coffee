@@ -17,6 +17,9 @@ class window.EmptyFactsView extends Backbone.Marionette.ItemView
 
   onClose: -> @relatedChannelsView?.close()
 
+  templateHelpers: =>
+    is_mine: this.model.get('created_by').username == currentUser.get('username')
+
   downloadChromeExtension: ->
     use_chrome_webstore = Factlink.Global.use_chrome_webstore
     if use_chrome_webstore

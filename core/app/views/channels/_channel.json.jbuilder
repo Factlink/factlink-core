@@ -26,7 +26,6 @@ json.type channel.type
 json.is_created is_created
 json.is_all is_all
 
-json.is_mine is_mine
 json.id channel.id
 json.has_authority? channel.is_real_channel?
 
