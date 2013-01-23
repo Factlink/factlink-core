@@ -96,36 +96,31 @@ class FactsController < ApplicationController
     @site = @fact.site
 
     respond_to do |format|
-      if @fact.errors.length == 0
-        track "Factlink: Created"
+      track "Factlink: Created"
 
-        #TODO switch the following two if blocks if possible
-        if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
-          @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
-          Activity::Subject.activity(current_user.graph_user, Opinion.real_for(params[:opinion]), @fact)
+      #TODO switch the following two if blocks if possible
+      if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
+        @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+        Activity::Subject.activity(current_user.graph_user, Opinion.real_for(params[:opinion]), @fact)
 
-          @fact.calculate_opinion(1)
-        end
+        @fact.calculate_opinion(1)
+      end
 
-        if params[:channels]
-          params[:channels].each do |channel_id|
-            channel = Channel[channel_id]
-            if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
-              interactor :"channels/add_fact", @fact, channel
-            end
+      if params[:channels]
+        params[:channels].each do |channel_id|
+          channel = Channel[channel_id]
+          if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
+            interactor :"channels/add_fact", @fact, channel
           end
         end
-
-        format.html do
-          track "Modal: Create"
-          redirect_to fact_path(@fact.id, guided: params[:guided])
-        end
-        decorated_fact = Facts::Fact.for(fact: @fact,view: view_context)
-        format.json { render json: decorated_fact}
-      else
-        format.html { render :new }
-        format.json { render json: @fact.errors, status: :unprocessable_entity }
       end
+
+      format.html do
+        track "Modal: Create"
+        redirect_to fact_path(@fact.id, guided: params[:guided])
+      end
+      decorated_fact = Facts::Fact.for(fact: @fact,view: view_context)
+      format.json { render json: decorated_fact}
     end
   end
 
