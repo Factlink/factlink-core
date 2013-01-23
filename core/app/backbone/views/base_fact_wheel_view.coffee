@@ -155,8 +155,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   bindTooltips: ->
     if @options.respondsToMouse
-      $("div.tooltip", @$el).remove()
-      @$el.find(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
+      @$("div.tooltip").remove()
+      @$(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
 
       # Create tooltips for each opinionType (believe, disbelieve etc)
       for key, opinionType of @model.get('opinion_types')
