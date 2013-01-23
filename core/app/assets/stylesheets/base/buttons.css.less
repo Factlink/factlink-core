@@ -2,15 +2,32 @@
 @import "bootstrap/variables";
 
 body.factlink-site.controller_home,
+body.factlink-site.controller_privacy,
+body.factlink-site,
+body.feedback_form,
+body.client {
+  .btn {
+    display: inline-block;
+    padding: 5px 12px;
+    font-family: @baseFontFamily;
+    font-size: @baseFontSize;
+    line-height: @baseLineHeight;
+    color: @baseFontColor
+  }
+
+  .btn-danger {
+    color: white;
+  }
+}
+
+body.factlink-site.controller_home,
 body.factlink-site.controller_privacy {
   .btn-primary,
   .btn-primary:hover {
       text-shadow: 0 1px 0 #feed7b;
       color: #7e582f;
-      font-size: 14px;
       padding-left: 20px;
       padding-right: 20px;
-      font-family: @headingFontFamily;
   }
   .btn-primary {
     #gradient > .vertical(#F8D36D, #FDBA39);
@@ -31,17 +48,6 @@ body.factlink-site.controller_privacy {
 body.factlink-site,
 body.feedback_form,
 body.client {
-  .btn {
-    display: inline-block;
-    padding: 5px 12px;
-    font-size: @baseFontSize;
-    line-height: @baseLineHeight;
-  }
-
-  .btn-danger {
-    color: white;
-  }
-
   .btn-primary,
   .btn-primary:hover {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
