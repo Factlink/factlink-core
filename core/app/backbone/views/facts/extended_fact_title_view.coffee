@@ -26,4 +26,6 @@ class window.ExtendedFactTitleView extends Backbone.Marionette.Layout
                               return_to_url: @opts.return_to_url)
 
     @backButtonRegion.show new BackButtonView( model: back_button_model  )
-    @creatorProfileRegion.show new UserWithAuthorityBox(model: @model)
+    @creatorProfileRegion.show new UserWithAuthorityBox
+      model: new User(@model.get('created_by'))
+      authority: @model.get('created_by').authority_for_subject.authority
