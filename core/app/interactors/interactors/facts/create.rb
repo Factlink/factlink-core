@@ -6,16 +6,6 @@ module Interactors
       arguments :displaystring, :url, :title
 
       def execute
-        unless @url.blank?
-          site = query :'sites/for_url', @url
-
-          if site.nil?
-            site = command :'sites/create', @url
-          end
-        else
-          site = nil
-        end
-
         fact = command :'facts/create', @displaystring, @title, @options[:current_user], site
 
         raise "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
@@ -23,6 +13,20 @@ module Interactors
 
         command :"facts/add_to_recently_viewed", fact.id.to_i, @options[:current_user].id.to_s
         fact
+      end
+
+      def site
+        if @url.blank?
+          nil
+        else
+          site = query :'sites/for_url', @url
+
+          if site.nil?
+            site = command :'sites/create', @url
+          end
+
+          site
+        end
       end
 
       def authorized?
