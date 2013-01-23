@@ -25,6 +25,8 @@ class TourController < ApplicationController
   def set_seen_the_tour user
     user.seen_the_tour = true
     user.save!
+
+    track_people_event tour_completed: true
   rescue
     Raven.capture_exception(exception)
   end

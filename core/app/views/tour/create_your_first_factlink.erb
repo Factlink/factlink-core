@@ -20,7 +20,7 @@
     </div>
 
     <h4>Good job!</h4>
-    <p>Click the '<%= t_up(:add_fact) %>' button to create your Factlink.</p>
+    <p>After selecting the statement, click the '<%= t_up(:add_fact) %>' button to create your Factlink.</p>
   </div>
 
   <div id="step3" class="white-well tour-block">
@@ -90,14 +90,16 @@
 
     FACTLINK.on('modalOpened', function () {
       tour.hide();
+    });
 
-      FACTLINK.off('modalOpened');
+    FACTLINK.on('modalClosed', function () {
+      tour.resetIfNoFactlinkAdded();
     });
 
     FACTLINK.on('factlinkAdded', function () {
+      tour.factlinkAdded = true;
       FACTLINK.on('modalClosed', function () {
         tour.showStep(3);
-        FACTLINK.stopAnnotating();
       });
     });
   });

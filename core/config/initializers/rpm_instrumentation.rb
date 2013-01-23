@@ -11,6 +11,12 @@ if defined?(NewRelic)
   FactGraph.class_eval do
     include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
     add_transaction_tracer :recalculate, category: :task, name: 'recalculate'
+
+    add_method_tracer :calculate_authority
+    add_method_tracer :calculate_user_opinions_of_all_base_facts
+    add_method_tracer :calculate_fact_relation_influencing_opinions
+    add_method_tracer :calculate_fact_opinions
+    add_method_tracer :cut_off_top
   end
 
   Pavlov::Operation.class_eval do
@@ -40,4 +46,10 @@ if defined?(NewRelic)
     add_method_tracer :should_perform
   end
 
+  Mail.class_eval do
+    class << self
+      include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
+      add_transaction_tracer :deliver, :category => :mail_delivery, name: 'Mail.deliver'
+    end
+  end
 end

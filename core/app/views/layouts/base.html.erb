@@ -50,6 +50,8 @@
     <%= render "feedback/frame" %>
 
     <%= javascript_include_tag "application" %>
+    <%= render 'snippets/raven_js' %>
+    
     <%= yield :specific_javascript %>
     <%= render 'snippets/google_analytics' %>
   </body>

@@ -4,14 +4,26 @@ testserver:
     secret: "729bb74c0ee947f3b732a4724011e182"
     project_id: "4"
 
+  ravenjs:
+    public: "16b4ebe157744bb0ae1c59c62b945bd3"
+    project_id: "6"
+
 staging:
   sentry:
     public: "167920b2a05b435ab7c44e7bc04ba12b"
     secret: "af60baa914bb4b1aa80a70d824d411dc"
     project_id: "3"
 
+  ravenjs:
+    public: "6be8fd9f61564b5e80bc6b9efacce2ab"
+    project_id: "7"
+
 production:
   sentry:
     public: "7b2e9e587402463d851e3cff2c4906d9"
     secret: "93e23c0a74a7482b9b91ff9d37e487fc"
     project_id: "2"
+
+  ravenjs:
+    public: "2f38cb859bec419983c6484fa30fde8f"
+    project_id: "8"

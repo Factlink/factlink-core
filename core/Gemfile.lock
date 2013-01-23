@@ -34,12 +34,6 @@ GIT
     rack-xframe-options (0.1.2)
 
 GIT
-  remote: git@github.com:Factlink/resqued_devise_mailer.git
-  revision: fbe17263a1d38e811b9edb61ed51326c0bac9a8e
-  specs:
-    resqued_devise_mailer (0.0.1)
-
-GIT
   remote: git@github.com:janpaul123/marionette-rails.git
   revision: 4d30805fdaef8a73a97a7df4332ba52a267ba93d
   specs:
@@ -134,9 +128,6 @@ GEM
     capybara-email (0.1.2)
     capybara-screenshot (0.3.1)
       capybara (>= 1.0, < 3)
-    capybara-webkit (0.10.1)
-      capybara (>= 1.0.0, < 1.2)
-      json
     childprocess (0.3.6)
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.3.0)
@@ -529,7 +520,6 @@ DEPENDENCIES
   capybara
   capybara-email
   capybara-screenshot
-  capybara-webkit (= 0.10.1)
   database_cleaner
   devise (~> 2.0.0)
   devise_invitable (~> 1.0.0)
@@ -587,7 +577,6 @@ DEPENDENCIES
   resque (= 1.23.0)
   resque-sentry
   resque_mailer
-  resqued_devise_mailer!
   rmagick
   roadie
   rpm_contrib (= 2.1.7)
