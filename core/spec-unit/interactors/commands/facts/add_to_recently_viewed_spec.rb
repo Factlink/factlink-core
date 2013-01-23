@@ -29,14 +29,14 @@ describe Commands::Facts::AddToRecentlyViewed do
       stub_classes 'RecentlyViewedFacts'
     end
 
-    it 'calls RecentlyViewedFacts.push_fact_id' do
+    it 'calls RecentlyViewedFacts.add_fact_id' do
       fact_id = 14
       user_id = '20e'
       recently_viewed_facts = mock
 
       RecentlyViewedFacts.should_receive(:by_user_id).with(user_id).and_return(recently_viewed_facts)
 
-      recently_viewed_facts.should_receive(:push_fact_id).with(fact_id)
+      recently_viewed_facts.should_receive(:add_fact_id).with(fact_id)
 
       Commands::Facts::AddToRecentlyViewed.new(fact_id, user_id).call
     end
