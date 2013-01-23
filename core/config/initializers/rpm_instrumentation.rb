@@ -48,8 +48,8 @@ if defined?(NewRelic)
 
   Mail.class_eval do
     class << self
-      include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
-      add_transaction_tracer :deliver, :category => :mail_delivery, name: 'Mail.deliver'
+      include ::NewRelic::Agent::MethodTracer
+      add_method_tracer :deliver
     end
   end
 end
