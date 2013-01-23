@@ -26,7 +26,7 @@ window.extendWithAutoloading = (superclass) ->
     # this function sets the correct state after loading is done, tries to load more if applicable
     # and sets empty state if we are not loading and we have no items
     afterLoad: ->
-      unless @collection._loading
+      unless @collection._loading or not @$el.is(":visible")
         @emptyViewOnWrapper()  if @collection.length is 0
         @collection.loadMore() if @bottomOfViewReached()
 
@@ -34,7 +34,7 @@ window.extendWithAutoloading = (superclass) ->
       @unbindScroll()
 
       $(window).on "scroll.#{@cid}", =>
-        @afterLoad() if @$el.is(":visible")
+        @afterLoad()
 
     unbindScroll: ->
       $(window).off "scroll.#{@cid}"
