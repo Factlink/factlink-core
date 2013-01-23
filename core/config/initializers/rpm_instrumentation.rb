@@ -36,7 +36,6 @@ if defined?(NewRelic)
     add_method_tracer :execute
   end
 
-
   AddFactToChannelJob.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :initialize
@@ -47,4 +46,10 @@ if defined?(NewRelic)
     add_method_tracer :should_perform
   end
 
+  Mail.class_eval do
+    class << self
+      include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
+      add_transaction_tracer :deliver, :category => :mail_delivery, name: 'Mail.deliver'
+    end
+  end
 end
