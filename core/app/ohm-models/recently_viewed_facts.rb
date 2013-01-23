@@ -1,5 +1,3 @@
-require 'redis-aid'
-
 class RecentlyViewedFacts
   def self.current_time(time=nil)
     time ||= DateTime.now
@@ -21,7 +19,7 @@ class RecentlyViewedFacts
                   .compact
   end
 
-  def push_fact_id id
+  def add_fact_id id
     nest_key.zadd self.class.current_time, id
   end
 

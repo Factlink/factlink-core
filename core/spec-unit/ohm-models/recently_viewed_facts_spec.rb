@@ -5,7 +5,7 @@ describe RecentlyViewedFacts do
     stub_const 'Fact', Class.new
   end
 
-  describe '.push_fact_id' do
+  describe '.add_fact_id' do
     it 'only adds the fact id' do
       nest = mock
       current_time = mock
@@ -15,7 +15,7 @@ describe RecentlyViewedFacts do
 
       nest.should_receive(:zadd).with(current_time, fact_id)
 
-      RecentlyViewedFacts.new(nest).push_fact_id fact_id
+      RecentlyViewedFacts.new(nest).add_fact_id fact_id
     end
   end
 

@@ -3,11 +3,11 @@ require 'spec_helper'
 describe RecentlyViewedFacts do
   let(:recently_viewed_facts) { RecentlyViewedFacts.by_user_id(10) }
 
-  describe '.push_fact_id' do
+  describe '.add_fact_id' do
     it 'pushes a fact id on the list' do
       fact = create :fact
 
-      recently_viewed_facts.push_fact_id fact.id
+      recently_viewed_facts.add_fact_id fact.id
 
       expect(recently_viewed_facts.top(1).map(&:id)).to eq [fact.id]
     end
@@ -20,9 +20,9 @@ describe RecentlyViewedFacts do
       fact1 = create :fact
       fact2 = create :fact
 
-      recently_viewed_facts.push_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact1.id
       sleep 0.002
-      recently_viewed_facts.push_fact_id fact2.id
+      recently_viewed_facts.add_fact_id fact2.id
 
       expect(recently_viewed_facts.top(1).map(&:id)).to eq [fact2.id]
     end
@@ -32,11 +32,11 @@ describe RecentlyViewedFacts do
       fact2 = create :fact
       fact3 = create :fact
 
-      recently_viewed_facts.push_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact1.id
       sleep 0.002
-      recently_viewed_facts.push_fact_id fact2.id
+      recently_viewed_facts.add_fact_id fact2.id
       sleep 0.002
-      recently_viewed_facts.push_fact_id fact3.id
+      recently_viewed_facts.add_fact_id fact3.id
 
       expect(recently_viewed_facts.top(3).map(&:id)).to eq [fact3.id, fact2.id, fact1.id]
     end
@@ -45,11 +45,11 @@ describe RecentlyViewedFacts do
       fact1 = create :fact
       fact2 = create :fact
 
-      recently_viewed_facts.push_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact1.id
       sleep 0.002
-      recently_viewed_facts.push_fact_id fact2.id
+      recently_viewed_facts.add_fact_id fact2.id
       sleep 0.002
-      recently_viewed_facts.push_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact1.id
 
       expect(recently_viewed_facts.top(3).map(&:id)).to eq [fact1.id, fact2.id]
     end
@@ -62,13 +62,13 @@ describe RecentlyViewedFacts do
       fact3 = create :fact
       fact4 = create :fact
 
-      recently_viewed_facts.push_fact_id fact1.id
+      recently_viewed_facts.add_fact_id fact1.id
       sleep 0.002
-      recently_viewed_facts.push_fact_id fact2.id
+      recently_viewed_facts.add_fact_id fact2.id
       sleep 0.002
-      recently_viewed_facts.push_fact_id fact3.id
+      recently_viewed_facts.add_fact_id fact3.id
       sleep 0.002
-      recently_viewed_facts.push_fact_id fact4.id
+      recently_viewed_facts.add_fact_id fact4.id
 
       recently_viewed_facts.truncate 1
 

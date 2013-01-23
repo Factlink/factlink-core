@@ -8,7 +8,7 @@ module Commands
       arguments :fact_id, :user_id
 
       def execute
-        RecentlyViewedFacts.by_user_id(@user_id).push_fact_id @fact_id
+        RecentlyViewedFacts.by_user_id(@user_id).add_fact_id @fact_id
       end
 
       def validate
