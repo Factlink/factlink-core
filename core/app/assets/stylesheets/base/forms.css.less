@@ -1,10 +1,15 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-body.factlink-site {
+body.factlink-site.controller_home, body.factlink-site.controller_privacy, body.factlink-site, body.feedback_form {
   textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    line-height: 20px;
+    height: 30px;
+  }
+
+  input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input, textarea, .search-query {
+    font-family: @baseFontFamily;
+    font-size: @baseFontSize;
   }
 
   .control-group.warning {
@@ -21,13 +26,5 @@ body.factlink-site {
 
   .form-actions {
     background-color: transparent;
-  }
-
-  input, textarea {
-    font-family: @baseFontFamily;
-  }
-
-  textarea,  {
-    font-size: @baseFontSize;
   }
 }
