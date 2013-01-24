@@ -28,9 +28,9 @@ class window.ClientController
 
     FactlinkApp.mainRegion.show factsNewView
 
-  onFactRemoved: ->
+  onFactRemoved: (id)->
     parent.remote.hide()
-    parent.remote.stopHighlightingFactlink @model.id
+    parent.remote.stopHighlightingFactlink id
 
   showFact: (fact)->
     view = new DiscussionView model: fact
@@ -38,4 +38,4 @@ class window.ClientController
       parent.$(parent.document).trigger "modalready"
     FactlinkApp.mainRegion.show view
 
-    fact.on "destroy", @onFactRemoved, @
+    fact.on "destroy", => @onFactRemoved(fact.id)
