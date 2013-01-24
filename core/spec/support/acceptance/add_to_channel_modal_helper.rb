@@ -5,12 +5,7 @@ module Acceptance
     def add_to_channel name
       type_into_search_box name
       page.should have_no_content "Add “#{name}” as a new channel"
-      page.find('li', text: name)
-      sleep 3
-      page.find('li', text: name)
-      sleep 3
       page.find('li', text: name).click
-      sleep 3
       page.find('.auto-complete-results-container').should have_content(name)
     end
 
