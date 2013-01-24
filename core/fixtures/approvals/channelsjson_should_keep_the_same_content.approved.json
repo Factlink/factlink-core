@@ -14,7 +14,9 @@
     "created_by_authority": "1.0",
     "created_by": {
       "id": "<STRIPPED>",
+      "name": "johndoe1",
       "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "avatar": "<img alt=\"johndoe1\" src=\"https://secure.gravatar.com/avatar/bdcf52014be3eaaf4c83248bc7229900?rating=PG&amp;size=32&amp;default=retro\" title=\"johndoe1\" width=\"32\" />",
       "all_channel_id": "1"
     },
