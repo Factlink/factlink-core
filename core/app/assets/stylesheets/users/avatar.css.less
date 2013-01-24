@@ -2,7 +2,8 @@
 @import 'bootstrap/mixins';
 
 .channel-listing-owner-block {
-  > .avatar-container {
+  .avatar-container {
+    display: block;
     .border-radius(4px);
     background-color: #fff;
     padding: 10px;
@@ -10,12 +11,11 @@
     .clearfix();
     margin: 0 0 15px;
 
-    > img {
+    .avatar-container-avatar {
       float: left;
     }
 
-    > h3 {
-      display: inline;
+    .avatar-container-username {
       float: left;
       font-size: 14px;
       margin: 0 0 0 10px;
@@ -24,14 +24,15 @@
       .ellipsis();
     }
   }
-  > .large {
-    
-    > img {
+  .avatar-container--large {
+    display: block;
+
+    .avatar-container--large-avatar {
       .border-radius(3px);
       margin: 0 0 15px;
     }
 
-    > h1 {
+    .avatar-container--large-username {
       font-size: @headingFontSize;
       width: 100px;
       .ellipsis();
