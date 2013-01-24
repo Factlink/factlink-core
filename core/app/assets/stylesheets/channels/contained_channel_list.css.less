@@ -5,7 +5,8 @@
   line-height: 40px;
 
   #contained-channels {
-    margin-bottom: 5px;
+    padding: 5px 0;
+    border-bottom: 1px solid @mutedBorderColor;
     
     .contained-channel-description {
       color: #777;
@@ -31,7 +32,9 @@
           height: 100%;
 
           background-color: @backgroundGray;
-          padding: 5px;
+          padding: 3px 5px 3px 2px;
+          border-radius: 3px;
+
           border: 1px solid @mutedBorderColor;
 
           &:hover {
