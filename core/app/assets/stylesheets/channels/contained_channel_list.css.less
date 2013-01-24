@@ -5,11 +5,12 @@
   line-height: 40px;
 
   #contained-channels {
-    border-bottom: 1px solid @mutedBorderColor;
-
+    margin-bottom: 5px;
+    
     .contained-channel-description {
       color: #777;
     }
+
     #contained-channel-list {
       margin: 0;
       padding: 0;
@@ -20,9 +21,6 @@
         position: relative;
 
         margin: 0 0 0 10px;
-        background-color: #F9F9F9;
-        padding: 5px;
-        border: 1px solid #eee;
 
         &:first-child {
           margin-left: 5px;
@@ -31,6 +29,14 @@
         > a {
           display: block;
           height: 100%;
+
+          background-color: @backgroundGray;
+          padding: 5px;
+          border: 1px solid @mutedBorderColor;
+
+          &:hover {
+            border: 1px solid @baseBorderColor;
+          }
 
           > img {
             width: 20px;
