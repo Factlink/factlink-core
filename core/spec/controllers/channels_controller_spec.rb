@@ -47,16 +47,6 @@ describe ChannelsController do
       get :index, username: user.username, format: 'json'
       response.should be_success
 
-      expected = ActiveSupport::JSON.decode('[{"link":"/johndoe1/channels/3","edit_link":"/johndoe1/channels/3/edit","created_by_authority":"1.0","add_channel_url":"/johndoe1/channels/new","has_authority?":true,"title":"Title 1","long_title":"Title 1","type":"channel","is_created":false,"is_all":false,"is_normal":true,"is_mine":true,"discover_stream?":false,"created_by":{"id":"50a0ccb934257b6509000001","username":"johndoe1","avatar":"\\u003Cimg alt=\\"johndoe1\\" src=\\"https://secure.gravatar.com/avatar/bdcf52014be3eaaf4c83248bc7229900?rating=PG\\u0026amp;size=32\\u0026amp;default=retro\\" title=\\"johndoe1\\" width=\\"32\\" /\\u003E","all_channel_id":"1"},"new_facts":false,"id":"3","slug_title":"title-1","containing_channel_ids":[],"created_by_id":"1","editable?":true,"followable?":false,"inspectable?":true,"unread_count":0}]')
-      got = ActiveSupport::JSON.decode(response.body)
-
-      expected.each_with_index do |expected_channel, i|
-        expected_channel["created_by"]["id"] = "50a0ccb934257b6509000001"
-        got[i]["created_by"]["id"] = "50a0ccb934257b6509000001"
-      end
-
-      got[0].should == expected[0]
-
       response_body = response.body.to_s
       # strip created_by mongo id, since otherwise comparison will always fail
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
