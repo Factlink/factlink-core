@@ -10,8 +10,11 @@
     </form>
   {{/editable?}}
 
-  <div class="more" style="display: none;">
-    <a href="{{link}}" rel="backbone"><i class="list"></i> Load new Factlinks (<strong class="unread_count">{{unread_count}}</strong>)</a>
+  <div class="facts-view-more">
+    <a href="{{link}}" rel="backbone" class="facts-view-more-button">
+      <i class="list"></i>
+      Load new Factlinks (<strong class="unread_count">{{unread_count}}</strong>)
+    </a>
   </div>
 </div>
 
