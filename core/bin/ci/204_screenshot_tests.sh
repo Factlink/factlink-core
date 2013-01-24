@@ -1,5 +1,4 @@
 #!/bin/bash
-exit
 echo "Running screenshot tests"
 
 OUTPUTFILE=$(tempfile)

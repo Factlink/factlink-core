@@ -1,5 +1,4 @@
 #!/bin/bash
-exit
 if [[ ! -z $DEPLOY_SERVER ]]; then
   echo "Deploying..."
 

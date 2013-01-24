@@ -1,5 +1,4 @@
 #!/bin/bash
-exit
 echo "Bundle-install"
 
 gem install bundler || exit 1

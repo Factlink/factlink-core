@@ -1,5 +1,4 @@
 #!/bin/bash
-exit
 echo "TODO check"
 pwd
 
