@@ -1,18 +1,17 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-@topChannelsBorder: 1px solid #e7e7e7;
-
 .top-channel-container {
   .top-channels {
     .border-radius(3px);
-    border: @topChannelsBorder;
+    border: 1px solid @mutedBorderColor;
     list-style-position: inside;
     padding: 0;
     margin: 0;
+    background: #fff;
 
     .top-channels-channel {
-      border-bottom: @topChannelsBorder;
+      border-bottom: 1px solid @mutedBorderColor;
 
       overflow: hidden;
       text-overflow: ellipsis;
@@ -40,6 +39,7 @@
   .top-channels-show-more,
   .top-channels-show-less {
     float: right;
+    margin-top: 10px;
   }
 
   .top-channels-show-less {
@@ -51,7 +51,7 @@
       display: list-item !important;
 
       &:nth-child(5) {
-        border-bottom: @topChannelsBorder;
+        border-bottom: 1px solid @mutedBorderColor;
       }
     }
 

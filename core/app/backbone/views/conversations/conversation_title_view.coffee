@@ -1,6 +1,4 @@
 class window.ConversationTitleView extends Backbone.Marionette.Layout
-  tagName: "header"
-  id: "conversation"
   template: "conversations/detailed_header"
 
   regions:

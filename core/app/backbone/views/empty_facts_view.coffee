@@ -1,19 +1,13 @@
 class window.EmptyFactsView extends Backbone.Marionette.ItemView
   template: 'channels/no_facts'
 
+  className: 'channel-empty-facts'
+
   events:
     "click .download-chrome-extension": "downloadChromeExtension"
 
-  initialize: ->
-    if @model.get('is_normal')
-      @relatedChannelsView = new RelatedChannelsView(model: @model)
-
-  onRender: ->
-    if @relatedChannelsView
-      @relatedChannelsView.render()
-      @$('.related-channels').html(@relatedChannelsView.el)
-
-  onClose: -> @relatedChannelsView?.close()
+  templateHelpers: =>
+    is_mine: this.model.get('created_by').username == currentUser.get('username')
 
   downloadChromeExtension: ->
     use_chrome_webstore = Factlink.Global.use_chrome_webstore

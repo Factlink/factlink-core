@@ -2,27 +2,52 @@
 @import "bootstrap/mixins";
 @import "mixins/scrollbars";
 
+* {
+  .box-sizing(border-box);
+}
+
 html, body {
   height: 100%;
 }
 
 body {
-  background: @white;
+  background: white;
   overflow-y: scroll;
+}
 
-  #body-wrapper {
-    min-height: 100%;
-    position: relative;
-  }
+#container {
+  height: 100%;
+}
 
-  #body {
-    position: relative;
-  }
+#left-column {
+  .box-sizing(border-box);
+  background: #F9F9F9;
+  width: @leftColumnWidth;
+}
 
+#main-column {
+  background: white;
+  min-height: 100%;
+  border-left: 1px solid @baseBorderColor;
+  padding: 70px 0 0 40px;
+  width: @mainColumnWidth;
+  .box-shadow(inset 1px 0 3px rgba(0, 0, 0, 0.07));
+}
+
+body.wide {
   #left-column {
-    .box-sizing(border-box);
+    width: @wideLeftColumnWidth;
   }
 
+  #main-column {
+    width: @wideMainColumnWidth;
+  }
+
+  .fixed {
+    #main-column {
+      left: @wideLeftColumnWidth;
+    }
+  }
 }
 
 .fixed {
@@ -30,7 +55,7 @@ body {
     .style-scrollbars;
     position: fixed;
     height: 100%;
-    top: 50px;
+    top: 70px;
     padding-bottom: 50px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -38,6 +63,6 @@ body {
 
   #main-column {
     position: relative;
-    left: 240px;
+    left: @leftColumnWidth;
   }
 }

@@ -16,7 +16,7 @@ module Acceptance
     end
 
     def go_back_using_button
-      find('.titleRegion a.btn-back').click
+      find('.js-title-region a.btn-back').click
     end
   end
 end

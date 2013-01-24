@@ -3,25 +3,25 @@
 <% end %>
 
 <% content_for :main_column do %>
+  <div class="content-header">
+    <h1>Forgot your password?</h1>
+  </div>
+  <p>Please enter your email address so we can send you a password reset:</p>
 
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => "form" }) do |f| %>
 
-<h1>Forgot your password?</h1>
-<p>Please enter your email address so we can send you a password reset:</p>
-
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => "form-horizontal" }) do |f| %>
-
-  <div class="control-group">
-    <%= f.label :email, class: "control-label" %>
-    <div class="controls">
-      <%= f.email_field :email, class: "input-xlarge" %>
+    <div class="control-group">
+      <%= f.label :email, class: "control-label" %>
+      <div class="controls">
+        <%= f.email_field :email, class: "input-xlarge" %>
+      </div>
     </div>
-  </div>
 
-  <div class="form-actions">
-    <%= f.submit "Send me reset password instructions", :class => "btn" %>
-  </div>
+    <div class="form-actions">
+      <%= f.submit "Send me reset password instructions", :class => "btn" %>
+    </div>
 
-<% end %>
+  <% end %>
 
-Other problems? <a href="mailto:support@factlink.com">Email us!</a>
+  Other problems? <a href="mailto:support@factlink.com">Email us!</a>
 <% end %>

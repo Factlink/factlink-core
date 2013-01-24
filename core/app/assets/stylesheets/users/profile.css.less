@@ -11,5 +11,23 @@
       display: inline-block;
       width: 90px;
     }
+    .empty-state {
+      color: @metaFontColor;
+    }
+  }
+  .top-channels-region, .profile-information {
+    margin-left: 20px;
+    width: (@mainColumnWidth / 2) - 40px;
+    background: @backgroundGray;
+    padding: 10px 20px 20px;
+    border: 1px solid @mutedBorderColor;
+    .border-radius(3px);
+    text-shadow: 0 1px 0 #fff;
+  }
+  .profile-information {
+    float: right;
+  }
+  .top-channels-region {
+    float: left;
   }
 }
