@@ -1,3 +1,7 @@
+<% unless defined? wide %>
+  <% wide = false %>
+<% end %>
+
 <% content_for :title do %>
   Factlink &mdash; Because the web needs what you know
 <% end %>
@@ -56,5 +60,5 @@
 <% end %>
 
 <%= render template: 'layouts/base', locals: {
-  fixed_topbar: true
+  fixed_topbar: true, wide: wide
 } %>

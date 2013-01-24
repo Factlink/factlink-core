@@ -31,7 +31,23 @@ body {
   border-left: 1px solid @baseBorderColor;
   padding: 70px 0 0 40px;
   width: @mainColumnWidth;
-  .box-shadow(inset 1px 0 3px rgba(0, 0, 0, 0.07)); 
+  .box-shadow(inset 1px 0 3px rgba(0, 0, 0, 0.07));
+}
+
+body.wide {
+  #left-column {
+    width: @wideLeftColumnWidth;
+  }
+
+  #main-column {
+    width: @wideMainColumnWidth;
+  }
+
+  .fixed {
+    #main-column {
+      left: @wideLeftColumnWidth;
+    }
+  }
 }
 
 .fixed {

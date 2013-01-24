@@ -31,7 +31,7 @@
     <%= javascript_include_tag "modernizr-loader" %>
     <%= csrf_meta_tag %>
   </head>
-  <body class="factlink-site controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= params[:show_sign_in] ? " show_sign_in" : "" %><%= " show_sign_up" if defined? show_sign_up and show_sign_up %><%= " show_footer" if defined? show_footer and show_footer %>">
+  <body class="factlink-site controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= params[:show_sign_in] ? " show_sign_in" : "" %><%= " show_sign_up" if defined? show_sign_up and show_sign_up %><%= " show_footer" if defined? show_footer and show_footer %><%= " wide" if defined? wide and wide %>">
     <%= render 'feedback/button' unless defined? dont_render_feedback %>
 
     <%= render 'home/browser_support_message' %>
@@ -51,7 +51,7 @@
 
     <%= javascript_include_tag "application" %>
     <%= render 'snippets/raven_js' %>
-    
+
     <%= yield :specific_javascript %>
     <%= render 'snippets/google_analytics' %>
   </body>
