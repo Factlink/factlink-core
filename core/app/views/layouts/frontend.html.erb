@@ -1,3 +1,7 @@
+<% unless defined? wide %>
+  <% wide = false %>
+<% end %>
+
 <% content_for :title do %>
   Factlink &mdash; Because the web needs what you know
 <% end %>
@@ -8,9 +12,14 @@
 
 
 <% content_for :main do %>
-  <div id="container" class="container<%= " fixed" unless defined? not_fixed and not_fixed %>">
-    <div class="row" id="main">
-      <section id="left-column" class="span3">
+    <div class="application-background">
+      <div class="left"></div>
+      <div class="right"></div>
+      <div class="container"></div>
+    </div>
+
+    <div id="container" class="container<%= " fixed" unless defined? not_fixed and not_fixed %>">
+      <section id="left-column">
         <% if content_for?(:left_column) %>
           <%= yield(:left_column) %>
         <% else %>
@@ -18,7 +27,7 @@
         <% end %>
       </section>
 
-      <section id="main-column" class="span9" role="main">
+      <section id="main-column">
         <%= render 'home/notifications', notice: notice, alert: alert %>
 
         <section id="main-wrapper">
@@ -27,8 +36,7 @@
         </section>
       </section>
     </div>
-  </div>
-  <div id="modal_region"></div>
+    <div id="modal_region"></div>
 <% end %>
 
 <% content_for :specific_javascript do %>
@@ -52,5 +60,5 @@
 <% end %>
 
 <%= render template: 'layouts/base', locals: {
-  fixed_topbar: true
+  fixed_topbar: true, wide: wide
 } %>

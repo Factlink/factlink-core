@@ -10,9 +10,6 @@ class window.BackButtonView extends Backbone.Marionette.ItemView
     @$el.attr 'rel', 'backbone'
 
 class window.ExtendedFactTitleView extends Backbone.Marionette.Layout
-  tagName: "header"
-  id: "single-factlink-header"
-
   template: "facts/extended_fact_title"
 
   regions:
@@ -28,4 +25,6 @@ class window.ExtendedFactTitleView extends Backbone.Marionette.Layout
                               return_to_url: @opts.return_to_url)
 
     @backButtonRegion.show new BackButtonView( model: back_button_model  )
-    @creatorProfileRegion.show new UserWithAuthorityBox(model: @model)
+    @creatorProfileRegion.show new UserWithAuthorityBox
+      model: new User(@model.get('created_by'))
+      authority: @model.get('created_by').authority_for_subject.authority

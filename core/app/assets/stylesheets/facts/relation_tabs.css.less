@@ -4,7 +4,7 @@
 .relation-tabs-view {
   font-family: @baseFontFamily;
   font-size: 12px;
-  margin: 15px 0 -15px 0;
+  margin: 15px 0 0;
   .border-bottom-radius(5px);
 
   .tab-control {
@@ -13,7 +13,7 @@
     font-size: 13px;
     position: relative;
     top: 1px;
-    margin: 0;
+    margin: 0 15px;
     padding: 0;
 
     > li {
@@ -79,19 +79,16 @@
 
   .tab-content {
     .box-shadow(0 -1px 1px rgba(0, 0, 0, .04));
-    margin: 0 -15px;
 
     > .interacting-users {
       background: @whiteDarker;
-      border-top: 1px solid @baseBorderColor;
-      border-bottom: 1px solid @baseBorderColor;
+      border: 1px solid @baseBorderColor;
 
       padding: 10px 26px;
     }
 
     &.doubting > .interacting-users {
       .border-bottom-radius(0);
-      border-bottom: none;
     }
 
     ul.fact-relation-listing {

@@ -1,109 +1,107 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-#channel {
-  .create_fact_for_channel() {
-    overflow: hidden;
-    margin: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
-    .box-sizing(border-box);
+#create_fact_for_channel {
+  overflow: hidden;
+  margin: 0;
+  padding: 10px 0;
+  width: 100%;
+  .box-sizing(border-box);
+  border-bottom: 1px solid @mutedBorderColor;
 
-    * {
-      .transition(all .125s ease-in-out);
+  * {
+    .transition(all .125s ease-in-out);
+  }
+
+  div.create_factlink {
+    height: 35px;
+    width: 100%;
+    margin: 5px 0;
+    overflow: hidden;
+    position: relative;
+
+    ::-webkit-validation-bubble {
+      visibility: hidden;
     }
 
-    div.create_factlink {
-      height: 35px;
-      width: 100%;
-      margin: 5px 0;
-      overflow: hidden;
-      position: relative;
+    textarea {
+      height: 50px;
+      padding: 8px 15px 0;
+      margin: 0;
+      width: 585px;
+    }
 
-      ::-webkit-validation-bubble {
-        visibility: hidden;
-      }
+    a.close {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 5px;
+      line-height: 10px;
+      font-size: 15px;
+    }
+  }
+
+  #create_new_factlink_button {
+    display: none;
+    margin: 5px 0 10px;
+  }
+
+  .add-url {
+    display: none;
+
+    height: 35px;
+    margin: 5px 0;
+    padding: 0 0 0 20px;
+
+    input {
+      width: 100%;
+      height: 26px;
+      padding: 8px 15px 0;
+    }
+  }
+
+  .add-url {
+    background: image-url("icon-chain-grey.png") 10px center no-repeat;
+  }
+
+  &.active {
+    div.create_factlink {
+      height: 75px;
 
       textarea {
-        height: 50px;
-        padding: 8px 15px 0;
-        margin: 0;
-        width: 585px;
+        width: 100%;
       }
 
       a.close {
-        display: none;
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 5px;
-        line-height: 10px;
-        font-size: 15px;
+        display: inline;
       }
     }
 
     #create_new_factlink_button {
-      display: none;
-      margin: 5px 0 10px;
+      display: inline-block;
     }
 
-    .add-url {
-      display: none;
-
-      height: 35px;
-      margin: 5px 0;
-      padding: 0 0 0 20px;
-
-      input {
-        width: 100%;
-        height: 26px;
-        padding: 8px 15px 0;
+    &.show-url {
+      .add-url {
+        display: block;
       }
     }
+  }
 
-    .add-url {
-      background: image-url("icon-chain-grey.png") 10px center no-repeat;
-    }
+  .input-box {
+    .box-sizing(border-box);
+    .box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075));
+    border: 1px solid #CCC;
+    .border-radius(3px);
 
-    &.active {
-      div.create_factlink {
-        height: 75px;
-
-        textarea {
-          width: 100%;
-        }
-
-        a.close {
-          display: inline;
-        }
-      }
-
-      #create_new_factlink_button {
-        display: inline-block;
-      }
-
-      &.show-url {
-        .add-url {
-          display: block;
-        }
-      }
-    }
-
-    .input-box {
+    input, textarea {
+      background: transparent;
       .box-sizing(border-box);
-      .box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075));
-      border: 1px solid #CCC;
-      .border-radius(3px);
-
-      input, textarea {
-        background: transparent;
-        .box-sizing(border-box);
-        border: none;
-        .box-shadow(none);
-        .border-radius(none);
-        resize: none;
-      }
+      border: none;
+      .box-shadow(none);
+      .border-radius(none);
+      resize: none;
     }
   }
 }
