@@ -32,6 +32,7 @@
 
   <div id='modal_region'></div>
   <%= javascript_include_tag "modal" %>
+  <%= render 'snippets/raven_js' %>
 
   <script type="text/javascript">
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
