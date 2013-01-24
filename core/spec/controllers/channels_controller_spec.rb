@@ -69,6 +69,22 @@ describe ChannelsController do
       get :facts, username: user.username, id: ch1.id, :format => :json
       response.should be_success
     end
+
+    it "json should stay the same" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check
+
+      authenticate_user!(user)
+      should_check_can :show, ch1
+      sleep 10
+      get :facts, username: user.username, id: ch1.id, :format => :json
+      response.should be_success
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'channels#facts should keep the same content')
+    end
   end
 
   describe "#show" do
