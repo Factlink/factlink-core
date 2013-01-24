@@ -1,25 +1,11 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-body.factlink-site {
+body.factlink-site,
+body.client {
   font-family: @baseFontFamily;
   font-size: @baseFontSize;
   line-height: @baseLineHeight;
-
-  #left-column {
-    .white-well {
-      background-color: @white;
-      .border-radius(4px);
-      border: 1px solid @baseBorderColor;
-    }
-
-    h2 {
-      font-size: 16px;
-      font-weight: bold;
-      line-height: @baseLineHeight;
-      display: inline;
-    }
-  }
 
   a {
     color: @linkColor;
@@ -47,5 +33,22 @@ body.factlink-site {
     font-weight: normal;
     line-height: @baseLineHeight;
     bottom: 0.45em;
+  }
+}
+
+body.factlink-site {
+  #left-column {
+    .white-well {
+      background-color: @white;
+      .border-radius(4px);
+      border: 1px solid @baseBorderColor;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: @baseLineHeight;
+      display: inline;
+    }
   }
 }
