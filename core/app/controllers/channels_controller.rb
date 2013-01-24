@@ -131,7 +131,11 @@ class ChannelsController < ApplicationController
 
   def facts
     authorize! :show, @channel
-    @facts = @channel.facts(from: params[:timestamp], count: params[:number] || 7, withscores: true)
+
+    from = params[:timestamp].to_i if params[:timestamp]
+    count = params[:number].to_i if params[:number]
+
+    @facts = interactor :'channels/facts', channel_id, from, count
 
     mark_channel_as_read
 
