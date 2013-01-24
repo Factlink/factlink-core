@@ -23,8 +23,6 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       type: @collection.type
     @bindTo searchView, 'createFactRelation', (fact_relation) =>
       @createFactRelation(fact_relation)
-    @bindTo searchView, 'createFactRelation', (fact_relation) =>
-      @createFactRelation(fact_relation)
     @bindTo searchView, 'switch_to_comment_view', @switchToCommentView, @
     searchView
 
