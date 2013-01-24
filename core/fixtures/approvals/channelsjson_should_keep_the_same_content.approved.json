@@ -3,7 +3,6 @@
     "type": "channel",
     "is_created": false,
     "is_all": false,
-    "is_mine": true,
     "id": "<STRIPPED>",
     "has_authority?": true,
     "add_channel_url": "/johndoe1/channels/new",
