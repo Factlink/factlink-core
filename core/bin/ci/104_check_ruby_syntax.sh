@@ -1,4 +1,5 @@
 #!/bin/bash
+exit
 
 find app/classes | grep -E '\.rb$' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK'
 

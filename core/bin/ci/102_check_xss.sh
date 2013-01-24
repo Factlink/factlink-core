@@ -1,4 +1,5 @@
 #!/bin/bash
+exit
 echo "Check for simple XSS vulnerability. We want our value attributes to be quoted with double quotes."
 echo $PATH
 
