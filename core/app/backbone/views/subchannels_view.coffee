@@ -7,7 +7,8 @@ class window.SubchannelsView extends Backbone.Factlink.CompositeView
     "click #more-button": "toggleMore"
 
   initialize: ->
-    @collection.bind "remove", @renderCollection, this
+    @collection.bind "add remove reset", @updateVisibility, @
+    @collection.bind "remove", @renderCollection, @
 
   toggleMore: ->
     button = @$("#more-button .label")
@@ -17,3 +18,6 @@ class window.SubchannelsView extends Backbone.Factlink.CompositeView
   appendHtml: (collectView, itemView) ->
     @$(".contained-channel-description").show()
     @$("ul").prepend itemView.el
+
+  updateVisibility: ->
+    @$el.toggleClass 'hide', @collection.length <= 0
