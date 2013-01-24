@@ -6,44 +6,26 @@
 }
 
 #container #main-wrapper .content {
-  .conversation {
-    .fact-wrapper {
-      border-bottom: 1px solid @baseBorderColor;
-      .box-shadow(0 2px 1px rgba(0, 0, 0, .1));
-
-      .fact-view {
-        border-bottom: none;
-      }
+  .messages ul {
+    margin: 0;
+    .text {
+      color: @baseFontColor;
     }
   }
 
-  .conversations {
-    margin: 0;
-    padding: 0;
+  .conversation {
+    .reply {
+      padding-top: 15px;
 
-    li:hover {
-      cursor: pointer;
-      background: @itemHoverColor;
-    }
+      textarea {
+        width: 100%;
+      }
 
-    .empty {
-      margin: 20px 0;
-      text-align: center;
-      color: @metaFontColor;
-
-      img {
-        margin: 15px 0;
-
-        &.ajax-loader {
-          width: 16px;
-          height: 16px;
-        }
-
-        &.conversations-logo {
-          width: 56px;
-          height: 39px;
-        }
+      .submit {
+        float: right;
       }
     }
+    .clearfix();
+    margin-bottom: 30px;
   }
 }
