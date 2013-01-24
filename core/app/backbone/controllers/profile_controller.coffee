@@ -96,7 +96,8 @@ class window.ProfileController extends Backbone.Factlink.BaseController
   withFact: (fact, params={})->
     @main.contentRegion.show new DiscussionView(model: fact, tab: params.tab)
 
-    username = fact.get('created_by').username
+    user = new User(fact.get('created_by'))
+    username = user.get('username')
     return_to_text = "#{ username.capitalize() }'s profile"
 
     title_view = new ExtendedFactTitleView(
@@ -107,6 +108,8 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     @main.titleRegion.show( title_view )
 
     @showChannelListing(fact.get('created_by').username)
+    user.fetch
+      success: => @showUserLarge(user)
 
   showChannelListing: (username)->
     changed = window.Channels.setUsernameAndRefresh(username)
