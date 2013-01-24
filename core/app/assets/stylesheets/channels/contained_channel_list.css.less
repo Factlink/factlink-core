@@ -3,11 +3,12 @@
 
 .channel-subchannels {
   line-height: 40px;
+  .reset-main-padding();
+  border-bottom: 1px solid @mutedBorderColor;
 
   #contained-channels {
     padding: 5px 0;
-    border-bottom: 1px solid @mutedBorderColor;
-    
+
     .contained-channel-description {
       color: #777;
     }
