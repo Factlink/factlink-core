@@ -34,6 +34,8 @@ module Acceptance
           comment_input.trigger 'blur'
 
           click_button 'Post comment'
+
+          wait_for_ajax
         end
       end
 
@@ -46,6 +48,8 @@ module Acceptance
           page.find("li", text: text).click
           page.find("input", visible: false)
           page.find_button("Post Factlink").click
+
+          wait_for_ajax
         end
       end
 
@@ -55,6 +59,8 @@ module Acceptance
         within add_evidence_form_css_selector do
           page.find("input").set(text)
           page.find_button("Post Factlink").click
+
+          wait_for_ajax
         end
       end
 
