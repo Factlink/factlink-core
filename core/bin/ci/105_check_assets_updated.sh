@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Rails does not recompile the assets if the locales change, so we enforce a change
 # of globals.coffee.erb whenever the SHA sum of the locales change.
 

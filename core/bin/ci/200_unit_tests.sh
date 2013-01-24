@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "Running unit tests"
 
 OUTPUTFILE=$(tempfile)
