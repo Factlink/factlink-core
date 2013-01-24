@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git@github.com:Factlink/pavlov.git
-  revision: 1a04742a03f538892d23fa04ddbcbb8dbc4da833
+  revision: aae75fe0cf552078cae329313493840aff67c5fb
   specs:
     pavlov (0.0.1)
       activesupport (>= 3.2.7)
@@ -32,12 +32,6 @@ GIT
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
     rack-xframe-options (0.1.2)
-
-GIT
-  remote: git@github.com:Factlink/resqued_devise_mailer.git
-  revision: fbe17263a1d38e811b9edb61ed51326c0bac9a8e
-  specs:
-    resqued_devise_mailer (0.0.1)
 
 GIT
   remote: git@github.com:janpaul123/marionette-rails.git
@@ -300,7 +294,7 @@ GEM
     net-ssh (2.5.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.5.3.25)
+    newrelic_rpm (3.5.5.38)
     nokogiri (1.5.5)
     oauth (0.4.6)
     oauth2 (0.8.0)
@@ -583,7 +577,6 @@ DEPENDENCIES
   resque (= 1.23.0)
   resque-sentry
   resque_mailer
-  resqued_devise_mailer!
   rmagick
   roadie
   rpm_contrib (= 2.1.7)

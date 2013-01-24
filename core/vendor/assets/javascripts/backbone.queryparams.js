@@ -1,4 +1,14 @@
+// WARNING THIS FILE IS MODIFIED!!!!
+// THIS IS NOT THE LIBRARY AS IS!!!
+
 (function(_, Backbone) {
+
+// WARNING: this function is ours
+// we also want to decode + to a space, since
+// rails encodes spaces as +'s (it shouldn,t, but does)
+var decodeURIComponentPlus = function(str){
+  return decodeURIComponent((str+'').replace(/\+/g, '%20'));
+};
 
 // Require Underscore and Backbone if there's a `require` function.
 // This makes `backbone.queryparam` work on the server or when using
@@ -134,7 +144,7 @@ _.extend(Backbone.Router.prototype, {
 
     for (var i=0; i<length; i++) {
       if (_.isString(params[i])) {
-        params[i] = Backbone.Router.decodeParams ? decodeURIComponent(params[i]) : params[i];
+        params[i] = Backbone.Router.decodeParams ? decodeURIComponentPlus(params[i]) : params[i];
         if (route.paramNames.length >= i-1) {
           namedParams[route.paramNames[i]] = params[i];
         }
@@ -177,18 +187,18 @@ _.extend(Backbone.Router.prototype, {
         if (!values[i]) {
           values.splice(i, 1);
         } else {
-          values[i] = decodeURIComponent(values[i]);
+          values[i] = decodeURIComponentPlus(values[i]);
         }
       }
       return values;
     }
     if (!currentValue) {
-      return decodeURIComponent(value);
+      return decodeURIComponentPlus(value);
     } else if (_.isArray(currentValue)) {
-      currentValue.push(decodeURIComponent(value));
+      currentValue.push(decodeURIComponentPlus(value));
       return currentValue;
     } else {
-      return [currentValue, decodeURIComponent(value)];
+      return [currentValue, decodeURIComponentPlus(value)];
     }
   },
 

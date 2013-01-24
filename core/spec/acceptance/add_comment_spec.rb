@@ -21,7 +21,7 @@ feature "adding comments to a fact", type: :request do
     add_comment comment
 
     # Input should be empty
-    find_field('add_comment').value.blank?.should be_true
+    find('.add-comment-content', text: '')
 
     find(evidence_listing_css_selector).should have_content comment
 
@@ -56,8 +56,10 @@ feature "adding comments to a fact", type: :request do
     add_comment comment
 
     within evidence_listing_css_selector do
-      find(evidence_item_css_selector, text: comment).find('.supporting').click
-      find(evidence_item_css_selector, text: comment).find('.total-authority-evidence', text: "0.0")
+      # there is just one factlink in the list
+      find('.total-authority-evidence', text: (user_authority_on_fact+1).to_s)
+      find('.supporting').click
+      find('.total-authority-evidence', text: "0.0")
     end
 
     go_to_discussion_page_of factlink

@@ -1,3 +1,5 @@
+require 'new_relic/recipes'
+
 #############
 # Application
 set :application, "core"
@@ -109,9 +111,9 @@ after 'deploy',           'deploy:migrate'
 after 'deploy:migrate',   'action:start_recalculate'
 after 'deploy:migrate',   'action:start_resque'
 
-after 'deploy:update', 'deploy:check_installed_packages'
+after 'deploy:update',    'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
-after 'deploy', 'deploy:curl_site'
+after 'deploy',           'deploy:curl_site'
 
 require './config/boot'

@@ -61,6 +61,8 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       @restoreChannelView channel_id, => new ChannelView(model: channel)
 
   getChannelActivities: (username, channel_id) ->
+    FactlinkApp.leftTopRegion.close()
+
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>

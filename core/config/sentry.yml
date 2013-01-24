@@ -5,7 +5,7 @@ testserver:
     project_id: "4"
 
   ravenjs:
-    public: "16b4ebe157744bb0ae1c59c62b945bd3"
+    public: "9d44e69d8ed94e40b7ec7d74f3b606f4"
     project_id: "6"
 
 staging:
@@ -15,7 +15,7 @@ staging:
     project_id: "3"
 
   ravenjs:
-    public: "6be8fd9f61564b5e80bc6b9efacce2ab"
+    public: "6b3eacc43fb54291a3133d0d8a5b7494"
     project_id: "7"
 
 production:
@@ -25,10 +25,5 @@ production:
     project_id: "2"
 
   ravenjs:
-    public: "2f38cb859bec419983c6484fa30fde8f"
+    public: "5e7a8482cfa34884a3888c6d4edc0e9e"
     project_id: "8"
-
-development:
-  ravenjs:
-    public: "0dd9fd0f753f48518e4681363c681ced"
-    project_id: "9"
