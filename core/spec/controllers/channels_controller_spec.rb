@@ -3,8 +3,6 @@ require 'spec_helper'
 describe ChannelsController do
   render_views
 
-  before { Resque.stub!(:enqueue,nil) }
-
   let (:user) { create :user }
   let (:nonnda_user) { create :user, agrees_tos: false }
 
