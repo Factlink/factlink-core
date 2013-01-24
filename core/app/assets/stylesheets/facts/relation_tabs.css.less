@@ -5,7 +5,8 @@
   font-family: @baseFontFamily;
   font-size: 12px;
   margin: 15px 0 0;
-  .border-bottom-radius(5px);
+  .reset-main-padding();
+  padding: 0;
 
   .tab-control {
     cursor: pointer;
@@ -83,6 +84,8 @@
     > .interacting-users {
       background: @whiteDarker;
       border: 1px solid @baseBorderColor;
+      border-left: none;
+      border-right: none;
 
       padding: 10px 26px;
     }
