@@ -21,10 +21,7 @@ feature "adding a fact to a channel" do
     within(:css, ".modal-body") do
       page.should have_content('Repost this to one or more channels:')
 
-      page.find(:css,'input').set(new_channel_name)
-
-      page.find('li', text: new_channel_name).click
-
+      add_as_new_channel new_channel_name
       added_channels_should_contain new_channel_name
     end
   end
