@@ -39,6 +39,7 @@ describe ChannelsController do
     end
 
     it "should render the same json as previously (regression check)" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
       ch1
       authenticate_user!(user)
@@ -55,6 +56,11 @@ describe ChannelsController do
       end
 
       got[0].should == expected[0]
+
+      response_body = response.body.to_s
+      # strip created_by mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'channels.json should keep the same content')
     end
 
     it "as bogus user should redirect to Terms of Service page" do

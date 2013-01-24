@@ -1,0 +1,34 @@
+[
+  {
+    "type": "channel",
+    "is_created": false,
+    "is_all": false,
+    "is_mine": true,
+    "id": "<STRIPPED>",
+    "has_authority?": true,
+    "add_channel_url": "/johndoe1/channels/new",
+    "title": "Title 1",
+    "long_title": "Title 1",
+    "slug_title": "title-1",
+    "is_normal": true,
+    "created_by_authority": "1.0",
+    "created_by": {
+      "id": "<STRIPPED>",
+      "username": "johndoe1",
+      "avatar": "<img alt=\"johndoe1\" src=\"https://secure.gravatar.com/avatar/bdcf52014be3eaaf4c83248bc7229900?rating=PG&amp;size=32&amp;default=retro\" title=\"johndoe1\" width=\"32\" />",
+      "all_channel_id": "1"
+    },
+    "discover_stream?": false,
+    "link": "/johndoe1/channels/3",
+    "edit_link": "/johndoe1/channels/3/edit",
+    "created_by_id": "1",
+    "inspectable?": true,
+    "followable?": false,
+    "editable?": true,
+    "unread_count": 0,
+    "new_facts": false,
+    "containing_channel_ids": [
+
+    ]
+  }
+]
