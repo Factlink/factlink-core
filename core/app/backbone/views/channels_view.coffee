@@ -3,14 +3,14 @@ class ChannelItemView extends Backbone.Marionette.ItemView
 
   template: "channels/_single_menu_item"
 
-  initialize: () ->
+  initialize: ->
     @addClassToggle('active')
 
     @model.bind('activate', @activeOn, this)
     @model.bind('deactivate', @activeOff, this)
     @model.bind('change',@render,this)
 
-  onRender: () ->
+  onRender: ->
     @$el.attr('id', 'channel-' + @model.id)
     @activeOn() if @model.isActive
 
