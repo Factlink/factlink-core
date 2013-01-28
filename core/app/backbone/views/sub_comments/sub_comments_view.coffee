@@ -27,10 +27,6 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     subComments = new SubComments([], parentModel: @model)
     subComments.fetch update: true # only fires 'add' and 'remove' events
 
-    @bindTo subComments, 'add', => @model.set 'can_destroy?', false
-    @bindTo subComments, 'remove', => @model.fetch if subComments.length <= 0
-    @bindTo subComments, 'add remove reset', => @model.set 'sub_comments_count', subComments.length
-
     @subCommentsFormRegion.show new SubCommentsAddView addToCollection: subComments
     @subCommentsListRegion.show new SubCommentsListView collection: subComments
 
