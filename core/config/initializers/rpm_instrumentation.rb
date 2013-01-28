@@ -10,6 +10,7 @@ if defined?(NewRelic)
 
   FactGraph.class_eval do
     include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
+    include NewRelic::Agent::MethodTracer
     add_transaction_tracer :recalculate, category: :task, name: 'recalculate'
 
     add_method_tracer :calculate_authority
