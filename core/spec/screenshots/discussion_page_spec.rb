@@ -11,7 +11,7 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :active_user
   end
 
-  it "the layout of the discussion page is correct" do
+  pending "the layout of the discussion page is correct" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
