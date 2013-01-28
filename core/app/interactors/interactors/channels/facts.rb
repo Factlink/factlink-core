@@ -7,7 +7,6 @@ module Interactors
 
       def execute
         # setting up defaults
-        @from = (Time.now.utc.to_f*1000).to_i if @from.blank?
         @count = 7 if @count.blank?
 
         res = query :'channels/facts', @id, @from, @count

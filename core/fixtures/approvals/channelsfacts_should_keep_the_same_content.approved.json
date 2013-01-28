@@ -88,7 +88,7 @@
     "doubt_percentage": 100,
     "fact_url": "http://example.org/3.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&scrollto=3",
-    "timestamp": 799248945000.0
+    "timestamp": 0
   },
   {
     "displaystring": "Fact 2",
@@ -179,7 +179,7 @@
     "doubt_percentage": 100,
     "fact_url": "http://example.org/2.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2",
-    "timestamp": 799248945000.0
+    "timestamp": 0
   },
   {
     "displaystring": "Fact 1",
@@ -270,6 +270,6 @@
     "doubt_percentage": 100,
     "fact_url": "http://example.org/1.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
-    "timestamp": 799248945000.0
+    "timestamp": 0
   }
 ]
