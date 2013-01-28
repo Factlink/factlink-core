@@ -1,6 +1,9 @@
+require 'ohm/contrib'
+
 class FactRelation < Basefact
   include Opinion::Subject::FactRelation
   include Ohm::ExtraValidations
+  include Ohm::Timestamping
 
   attr_accessor :sub_comments_count
 

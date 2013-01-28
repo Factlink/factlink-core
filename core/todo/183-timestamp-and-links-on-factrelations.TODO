@@ -1,7 +1,7 @@
 URL, timestamp and discussion link of a FactRelation:
 
 Timestamp:
- ☐ add timestamp (create, update) to FactRelation
+ ✔ add timestamp (create, update) to FactRelation @done (13-01-28 14:24)
  ☐ use TimeFormatter to correctly format the timestamp
  ☐ timestamp should be rendered in JSON
  ☐ create migration to set .created_at of existing FactRelations to a sensible date from the [:added_supporting_evidence, :added_weakening_evidence] activity
