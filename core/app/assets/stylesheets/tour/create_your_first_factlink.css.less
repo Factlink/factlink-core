@@ -1,34 +1,48 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+.left-column {
+  float: left;
+  width: 200px;
+  min-height: 200px;
 
-
-.help-text-container  {
-  position: fixed;
-  top: 70px;
-  z-index: @max-z-index;
-
-  > div {
+  .tour-block {
+    position: relative;
+    top: 160px;
+    width: 190px;
+    padding: 10px;
+    margin-bottom: 30px;
+    color: @baseFontColor;
+    border: 1px solid @baseBorderColor;
+    .border-radius(4px);
     display: none;
+    background: white;
+
+    > h4 {
+      color: @headingFontColor;
+      padding-bottom: 4px;
+    }
+  }
+}
+
+.right-column {
+  position: relative;
+  float: left;
+  width: @siteWidth - 200px;
+  height: 690px;
+
+  #background {
+    background: image-url("browser-windows/chrome.png");
+    height: 720px;
+    width: 810px;
     position: absolute;
-    width: 198px;
-    h4 { padding-bottom: 6px; }
+    top: -30px;
   }
 }
 
 html.firefox {
   #container #background {
     background: image-url("browser-windows/firefox.png");
-  }
-}
-
-body.action_create_your_first_factlink #container .tour-block {
-  top: 183px;
-}
-
-body.action_choose_channels #container {
-  .tour-block {
-    top: 0;
   }
 }
 
@@ -40,50 +54,29 @@ body.action_choose_channels #container {
     margin-left: 54px;
   }
 
-  #background {
-    background: image-url("browser-windows/chrome.png");
-    position: absolute;
-
-    top: -35px;
-    left: -56px;
-
-    z-index:100;
-    height: 720px;
-    width: 800px;
-  }
-
-  .tour-block {
-    position: relative;
-    width: 198px;
-
-    padding: 10px;
-    color: @baseFontColor;
-    h4 {
-      color: @headingFontColor;
-      padding-bottom: 4px;
-    }
-    margin-bottom: 30px;
-  }
 
   #create-your-first-factlink {
-    & > * {
+    padding: 60px 30px 0 80px;
+    text-align: center;
+    margin-top: 50px;
+    position: relative;
+
+    > * {
       font-family: "Georgia", "Times New Roman", Times, serif;
       font-weight: normal;
       font-size: 14px;
       line-height: 20px;
     }
-    padding: 32px 72px;
-    text-align: center;
-    margin-top: 70px;
-
-    z-index: 101;
-    position: relative;
 
     h1 {
       font-size: 36px;
       font-weight: 100;
       padding: 0 0 8px;
     }
-    p { text-align: left; }
+
+    p {
+      text-align: left;
+      padding: 0 60px;
+    }
   }
 }

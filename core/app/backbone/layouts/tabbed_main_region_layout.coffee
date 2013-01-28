@@ -7,6 +7,6 @@ class window.TabbedMainRegionLayout extends Backbone.Marionette.Layout
     @titleRegion.currentView.model.set('text',title)
 
   regions:
-    titleRegion:   '.titleRegion'
+    titleRegion:   '.js-title-region'
     contentRegion: '.content'
     tabsRegion:    '.tabs'

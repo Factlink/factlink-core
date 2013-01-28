@@ -12,6 +12,10 @@
   </div>
 <% end %>
 
+<% content_for :specific_javascript do %>
+  <%= yield :javascript %>
+<% end %>
+
 <%= render template: "layouts/base", locals: {
   fixed_topbar: false,
   show_footer: true,

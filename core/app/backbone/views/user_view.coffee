@@ -1,12 +1,7 @@
 class window.UserView extends Backbone.Marionette.ItemView
   tagName: "article"
-  className: "user-block"
-  events:
-    "click div.avatar-container": "clickHandler"
-
+  className: "channel-listing-owner-block"
   template: "users/user"
-
-  clickHandler: (e) -> @defaultClickHandler e, @model.url()
 
 class window.UserLargeView extends window.UserView
   template: "users/user_large"

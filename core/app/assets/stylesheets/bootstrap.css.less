@@ -5,58 +5,43 @@
 
 // OVERWRITING DEFAULT BOOTSTRAP LINKS
 // -----
-a {
-  color: @linkColor;
-  text-decoration: none;
-}
-a:hover {
-  color: @linkColorHover;
-  text-decoration: underline;
-}
 
-input, textarea, .navbar-search .search-query, p {
-  .base-text(13px);
-}
-.btn {
-  .base-text();
-  font-weight: normal;
-}
-.tooltip {
-  font-family: @baseFontFamily;
-}
+body.factlink-site {
+  .tooltip {
+    font-family: @baseFontFamily;
+  }
 
-// FORM FIELD FEEDBACK STATES
-// --------------------------
+  input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    height: 30px;
+    line-height: 20px;
+  }
 
-// Warning
-.control-group.warning {
-  .formFieldState(@warningText, @warningText, @warningBackground);
-}
-// Error
-.control-group.error, .control-group .field_with_errors {
-  .formFieldState(@errorText, @errorText, @errorBackground);
-}
-// Success
-.control-group.success {
-  .formFieldState(@successText, @successText, @successBackground);
-}
+  // FORM FIELD FEEDBACK STATES
+  // --------------------------
 
-.form-actions {
-  background-color: transparent;
-}
+  // Warning
+  .control-group.warning {
+    .formFieldState(@warningText, @warningText, @warningBackground);
+  }
+  // Error
+  .control-group.error, .control-group .field_with_errors {
+    .formFieldState(@errorText, @errorText, @errorBackground);
+  }
+  // Success
+  .control-group.success {
+    .formFieldState(@successText, @successText, @successBackground);
+  }
 
-.btn-primary,
-.btn-primary:hover {
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    color: #ffffff;
-}
-.btn-primary {
-  #gradient > .vertical(#669BBB, @linkColor);
-}
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary.active,
-.btn-primary.disabled,
-.btn-primary[disabled] {
-	background-color: @linkColor;
+  .form-actions {
+    background-color: transparent;
+  }
+
+  .container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    width: 960px;
+  }
+
+  /* Box Sizing fixes */
+  .dropdown-menu .divider {
+    height: 2px;
+  }
 }
