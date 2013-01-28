@@ -1,18 +1,58 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-.full-width() {
-    margin: 0 -15px 0;
-}
-
 #container #main-wrapper .content {
+  .conversation {
+    .fact-wrapper {
+      border-bottom: 1px solid @baseBorderColor;
+      .box-shadow(0 2px 1px rgba(0, 0, 0, .1));
+
+      .fact-view {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .conversations {
+    margin: 0 0 30px 0;
+    .clearfix();
+
+    li:hover {
+      cursor: pointer;
+      background: @itemHoverColor;
+    }
+    li:last-child { border: none; }
+
+    .empty {
+      margin: 20px 0;
+      text-align: center;
+      color: @metaFontColor;
+
+      img {
+        margin: 15px 0;
+
+        &.ajax-loader {
+          width: 16px;
+          height: 16px;
+        }
+
+        &.conversations-logo {
+          width: 56px;
+          height: 39px;
+        }
+      }
+    }
+    .text {
+      color: @metaFontColor;
+    }
+  }
 
   .conversations,
   .messages ul {
+    padding: 0;
     li {
-      .full-width();
-      padding: 15px;
-      border-bottom: 1px solid @baseBorderColor;
+      padding: 15px 0;
+      border-bottom: 1px solid @mutedBorderColor;
 
       .avatar {
         float: left;
@@ -22,7 +62,6 @@
           .border-radius(3px);
         }
       }
-
       .message {
         padding: 0 0 0 58px;
         margin: -4px 0 0 0;
@@ -45,7 +84,6 @@
         .text {
           width: 475px;
           font-size: 12px;
-          color: @metaFontColor;
           word-wrap: break-word;
           i {
             opacity: 0.65;
@@ -53,24 +91,5 @@
         }
       }
     }
-  }
-
-  .conversation {
-    .reply {
-      padding-top: 15px;
-      
-      textarea {
-        width: 654px;
-      }
-
-      .submit {
-        float: right;
-      }
-    }
-  }
-
-  .conversations {
-    margin-bottom: -15px;
-    li:last-child { border-bottom: 1px solid transparent; }
   }
 }

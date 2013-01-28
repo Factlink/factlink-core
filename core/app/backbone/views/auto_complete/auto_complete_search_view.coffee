@@ -38,10 +38,10 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
       collection: @filtered_search_collection
 
   setLoading: ->
-    @$el.addClass 'loading'
+    @$el.addClass 'auto-complete-loading'
 
   unsetLoading: ->
-    @$el.removeClass 'loading'
+    @$el.removeClass 'auto-complete-loading'
 
   bindTextViewToSteppableViewAndSelf: (text_view, steppable_view)->
     @bindTo text_view, 'down', -> steppable_view.moveSelectionDown()

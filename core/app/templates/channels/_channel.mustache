@@ -1,33 +1,21 @@
-<div id="channel" data-channel-id="{{ id }}">
-  <header class="append-bottom title">
-    <h1>
+<div id="channel">
+  <header class="content-header channel-header">
+    <h1 class="channel-title">
       {{ long_title }}
     </h1>
 
-    <div class="button-wrap">
-      {{#editable?}}
-      <a href="{{ edit_link }}" class="btn edit btn-micro">edit</a>
-      {{/editable?}}
+    {{#editable?}}
+      <a href="{{ edit_link }}" class="edit">(edit)</a>
+    {{/editable?}}
 
-      <div class="add-to-channel-region"></div>
+    <div class="add-to-channel-region"></div>
 
-      {{#has_authority?}}
-      <div class="authority">
-        <img src="{{global.brain_image}}">
-        <span>{{created_by_authority}}</span>
-      </div>
-      {{/has_authority?}}
+    <div class="pull-right">
+      <div class="created_by_region"></div>
     </div>
-
-    <div class="clearfix"></div>
-
   </header>
 
-  <div id="facts_for_channel">
-
-  </div>
-
-  <div id="activity_for_channel">
-
-  </div>
+  <div class="js-subchannels-region channel-subchannels"></div>
+  <div id="facts_for_channel"></div>
+  <div id="activity_for_channel"></div>
 </div>

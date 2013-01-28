@@ -18,7 +18,7 @@
       width: 270px;
 
       input[type=text], input[type=password] {
-        width: 256px; /* translates to 270px width (padding) */
+        width: 100%; /* translates to 270px width (padding) */
       }
     }
   }
@@ -38,7 +38,7 @@
       width: 230px;
 
       input[type=text], input[type=password] {
-        width: 216px;
+        width: 100%;
       }
     }
   }
@@ -70,10 +70,6 @@
     .box-sizing(border-box);
 
     .form-box {
-      input[type=text], input[type=password] {
-        height: 25px;
-      }
-
       input[type=checkbox] {
         margin: -3px 7px 0 0;
       }
@@ -83,14 +79,6 @@
         color: #555;
         font-size: 12px;
         margin: 3px 0 0 0;
-      }
-
-      input[type=submit] {
-        float: right;
-        font-weight: bold;
-        font-size: 13px;
-        padding-top: 7px;
-        padding-bottom: 7px;
       }
     }
   }
@@ -105,8 +93,6 @@
       font-size: 13px;
       color: #333;
       font-weight: bold;
-      padding-top: 7px;
-      padding-bottom: 7px;
       .box-sizing(border-box);
       margin-bottom: 9px;
 

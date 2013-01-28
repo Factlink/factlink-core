@@ -26,7 +26,7 @@ class window.ActivitiesView extends AutoloadingView
     @renderChildren()
 
   renderChildren: ->
-    @$('.list').html('')
+    @$('.js-activities-list').html('')
     for childView in @childViews
       @appendHtml @, childView
 
@@ -53,7 +53,7 @@ class window.ActivitiesView extends AutoloadingView
   onBeforeClose: -> @closeChildViews()
 
   appendHtml: (collectionView, childView, index) ->
-    @$(".list").append childView.render().el
+    @$(".js-activities-list").append childView.render().el
 
   newChildView: (model) ->
     ch = @collection.channel

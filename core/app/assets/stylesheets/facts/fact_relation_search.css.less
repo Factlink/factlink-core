@@ -3,7 +3,7 @@
 
 .fact-relation-search {
   background: @whiteDarker;
-  border-top: 1px solid @baseBorderColor;
+  border: 1px solid @baseBorderColor;
   padding: 15px;
   .border-bottom-radius(5px);
 
@@ -11,6 +11,10 @@
     overflow: hidden;
     position: relative;
     margin: 0;
+
+    .fact-relation-post {
+      display: none;
+    }
 
     &.active {
       .fact-relation-post {
@@ -31,10 +35,6 @@
 
   .fact-relation-preview-view .fact-relation-post {
     display: inline-block;
-  }
-
-  .fact-relation-post {
-    display: none;
   }
 
   input[type="text"] { font-size: @baseFontSize; }

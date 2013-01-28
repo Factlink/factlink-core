@@ -62,7 +62,12 @@ div.fact-bottom {
   }
 
   a {
+    cursor: pointer;
     font-weight: bold;
+    .transition(color .15s ease-in-out);
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   img.fact-favicon {
@@ -79,14 +84,9 @@ div.facts-view, #activity_for_channel .activity-group {
       .opacity(.60);
       .transition(opacity .15s ease-in-out);
     }
-    .top-right-arrow {
-      .opacity(0);
-      .transition(opacity .15s ease-in-out);
-    }
     &:hover {
       .fact-bottom > span.fact-info,
-      .fact-bottom > ul.actions,
-      .top-right-arrow {
+      .fact-bottom > ul.actions {
         .opacity(1);
       }
     }

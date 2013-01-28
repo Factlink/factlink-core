@@ -5,11 +5,34 @@
   margin: 25px 0 0;
 
   .profile-information-item {
-    margin-bottom: 10px;
+    margin-bottom: 1.25em;
 
     .profile-information-label {
-      display: inline-block;
-      width: 90px;
+      font-weight: bold;
+      display: block;
+      color: @metaFontColor;
+      margin-bottom: 2px;
     }
+    .profile-information-field {
+      font-size: 13px;
+    }
+    .empty-state {
+      color: @metaFontColor;
+    }
+  }
+  .top-channels-region, .profile-information {
+    margin-left: 20px;
+    width: (@mainColumnWidth / 2) - 40px;
+    background: @backgroundGray;
+    padding: 10px 20px 20px;
+    border: 1px solid @mutedBorderColor;
+    .border-radius(3px);
+    text-shadow: 0 1px 0 #fff;
+  }
+  .profile-information {
+    float: right;
+  }
+  .top-channels-region {
+    float: left;
   }
 }
