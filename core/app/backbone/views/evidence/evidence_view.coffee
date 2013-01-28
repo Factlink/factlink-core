@@ -9,7 +9,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     activityRegion:    '.evidence-activity-region'
     mainRegion:        '.evidence-main-region'
     popoverRegion:     '.evidence-popover-region'
-    subCommentsRegion: '.evidence-sub-comments-region'
+    bottomRegion:      '.evidence-bottom-region'
 
   initialize: ->
     @on 'render', @evidenceBaseOnRender, @
@@ -31,7 +31,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model, verb: @activityVerb
     @voteRegion.show new VoteUpDownView model: @model
-    @subCommentsRegion.show new SubCommentsView model: @model
+    @bottomRegion.show new EvidenceBottomView model: @model
 
     @mainRegion.show new @mainView model: @model
     @setPopover()
