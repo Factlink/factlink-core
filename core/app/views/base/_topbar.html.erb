@@ -2,11 +2,10 @@
   <div class="navbar-inner">
     <div class="background"></div>
     <div class="container">
-      <div class="row">
-        <div class="span3">
-          <%= link_to "Home", home_path, class: 'brand potential-backbone' %>
-        </div>
-
+      <div class="logo-container">
+        <%= link_to "Home", home_path, class: 'brand potential-backbone' %>
+      </div>
+      <div class="main-wrapper">
         <% if @step_in_signup_process %>
           <%= render "base/topbar/sign_up_steps" %>
         <% elsif current_user %>
