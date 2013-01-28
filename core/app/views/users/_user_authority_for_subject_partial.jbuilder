@@ -6,7 +6,4 @@ authority_for_subject = {
 
 json.partial! 'users/user_partial', user: user
 
-# OBSOLETE:
-json.avatar                 image_tag(user.avatar_url(size: 32), title: user.username, alt: user.username, width: 32)
-
 json.authority_for_subject  authority_for_subject
