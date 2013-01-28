@@ -14,7 +14,7 @@
     font-size: 13px;
     position: relative;
     top: 1px;
-    margin: 0 15px;
+    margin: 0 @mainLeftPadding 0 @mainRightPadding;
     padding: 0;
 
     > li {
@@ -87,7 +87,7 @@
       border-left: none;
       border-right: none;
 
-      padding: 10px 26px;
+      padding: 10px @mainLeftPadding 10px @mainRightPadding;
     }
 
     &.doubting > .interacting-users {
