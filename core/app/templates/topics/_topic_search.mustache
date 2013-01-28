@@ -1,17 +1,9 @@
-{{#channels}}
-<div class="list-channel">
-	<a href="{{channel_url}}"><img src="{{avatar_url}}" class="list-channel-avatar"></a>
-
-  <strong>
-    <a href="{{channel_url}}" class="link-channel-link">{{title}}</a>
-  </strong>
-	<p class="list-channel-user"><a href="{{user_profile_url}}">by {{user_name}}</a></p>
-	<div>
-			<img src="{{global.brain_image}}">
-			<span>{{authority}}</span>
-		</div>
+<a href="{{channel_url}}"><img src="{{created_by.avatar_url_80}}" class="list-channel-avatar"></a>
+<strong>
+  <a href="{{link}}" class="link-channel-link">{{title}}</a>
+</strong>
+<p class="list-channel-user"><a href="{{created_by.link}}">by {{created_by.username}}</a></p>
+<div>
+  <img src="{{global.brain_image}}">
+  <span>{{created_by_authority}}</span>
 </div>
-{{/channels}}
-{{^channels}}
-  {{title}}
-{{/channels}}

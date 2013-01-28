@@ -47,6 +47,7 @@ class window.User extends Backbone.Model
       avatar_url_32: @avatar_url(32)
       avatar_url_42: @avatar_url(42)
       avatar_url_48: @avatar_url(48)
+      avatar_url_80: @avatar_url(80)
       avatar_url_160: @avatar_url(160)
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
