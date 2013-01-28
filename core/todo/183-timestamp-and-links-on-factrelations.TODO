@@ -1,0 +1,15 @@
+URL, timestamp and discussion link of a FactRelation:
+
+Timestamp:
+ ☐ add timestamp (create, update) to FactRelation
+ ☐ use TimeFormatter to correctly format the timestamp
+ ☐ timestamp should be rendered in JSON
+ ☐ create migration to set .created_at of existing FactRelations to a sensible date from the [:added_supporting_evidence, :added_weakening_evidence] activity
+
+URL:
+ ☐ check evidence-fact-bottom-like view?
+ ☐ get url from Fact (not stored in FactRelation)
+
+Discussion link:
+ ☐ use same bottom-view as for URL
+ ☐ get correct url from Fact (not stored in FactRelation (?) )
