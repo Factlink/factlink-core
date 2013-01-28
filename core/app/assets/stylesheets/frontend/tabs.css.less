@@ -2,21 +2,21 @@
 @import "bootstrap/variables";
 
 .tabs {
-	float: right;
-	margin-top: 15px;
-	ul > li {
-		float: left;
-		&:before {
-			content: '·';
-			color: @metaFontColor;
-			padding: 0 7px;
-		}
-		&:first-child:before {
-			content: '';
-      padding: 0;
-		}
-    &.active > a {
+  float: right;
+  margin-top: 15px;
+  ul > li {
+    float: left;
+    &:before {
+      content: '·';
       color: @metaFontColor;
+      padding: 0 7px;
     }
-	}
+    &:first-child:before {
+      content: '';
+      padding: 0;
+    }
+      &.active, &.active > a {
+        color: @metaFontColor;
+      }
+  }
 }

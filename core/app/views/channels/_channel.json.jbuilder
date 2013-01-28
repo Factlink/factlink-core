@@ -43,8 +43,7 @@ if topic_authority
 end
 
 json.created_by do |j|
-  j.id user.id
-  j.username user.username
+  j.partial! 'users/user_partial', user: user
   j.avatar image_tag(user.avatar_url_32, title: user.username, alt: user.username, width: 32)
   j.all_channel_id user.stream_id
 end
