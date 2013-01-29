@@ -4,7 +4,7 @@ def create_activity_listeners
   Activity::Listener.class_eval do
     people_who_follow_a_fact = lambda { |a|
       graph_user_ids = Queries::Activities::GraphUserIdsFollowingFact.new(a.object).call
-      graph_user_ids.delete_if {|id| id == a.user_id}
+      graph_user_ids.reject {|id| id == a.user_id}
     }
 
     people_who_follow_sub_comment = lambda { |a|
@@ -14,7 +14,7 @@ def create_activity_listeners
         graph_user_ids = Queries::Activities::GraphUserIdsFollowingFactRelations.new([a.subject.parent]).call
       end
 
-      graph_user_ids.delete_if { |id| id == a.user_id }
+      graph_user_ids.reject { |id| id == a.user_id }
     }
 
     # evidence was added to a fact which you created or expressed your opinion on
@@ -56,11 +56,11 @@ def create_activity_listeners
       # someone sent you a conversation or a reply
       activity subject_class: "Conversation",
                action: [:created_conversation],
-               write_ids: lambda { |a| a.subject.recipients.map { |r| r.graph_user.id }.delete_if { |id| id == a.user_id } }
+               write_ids: lambda { |a| a.subject.recipients.map { |r| r.graph_user.id }.reject { |id| id == a.user_id } }
 
       activity subject_class: "Message",
                action: [:replied_message],
-               write_ids: lambda { |a| a.subject.conversation.recipients.map { |r| r.graph_user.id }.delete_if { |id| id == a.user_id } }
+               write_ids: lambda { |a| a.subject.conversation.recipients.map { |r| r.graph_user.id }.reject { |id| id == a.user_id } }
 
       # someone added a comment
       activity forGraphUser_comment_was_added
@@ -77,7 +77,7 @@ def create_activity_listeners
 
       # someone of whom you follow a channel created a new channel
       activity subject_class: "Channel", action: :created_channel,
-               write_ids: lambda { |a| ChannelList.new(a.subject.created_by).channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
+               write_ids: lambda { |a| ChannelList.new(a.subject.created_by).channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.reject { |id| id == a.user_id } }
 
       # someone followed your channel
       activity forGraphUser_channel_was_followed

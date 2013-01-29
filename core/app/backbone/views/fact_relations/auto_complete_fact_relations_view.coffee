@@ -63,7 +63,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     e.stopPropagation()
 
   addSelected: (selected_fact_base)->
-    @trigger 'selected', new FactRelation
+    @trigger 'createFactRelation', new FactRelation
       evidence_id: selected_fact_base.id
       fact_base: selected_fact_base.toJSON()
       fact_relation_type: @collection.type
