@@ -14,28 +14,25 @@ module Interactors
 
         facts = query :'channels/facts', @id, @from, @count
 
-        facts = remove_invalid facts
-
-        facts
+        remove_invalid facts
       end
 
       def remove_invalid facts
         # if there are facts without fact_data remove them.
-        @there_are_invalid_facts = false
-        facts.delete_if {|item| invalid item }
+        valid_facts = facts.reject {|fact_with_score| invalid fact_with_score }
 
         # if facts without fact_data were found start a resque job
         # to delete them.
-        # todo: this should be a command
-        Resque.enqueue(CleanChannel, @id) if @there_are_invalid_facts
+        if valid_facts.length != facts.length
+          #TODO: this should be a command
+          Resque.enqueue(CleanChannel, @id)
+        end
 
-        facts
+        valid_facts
       end
 
       def invalid fact_with_score
-        invalid = Fact.invalid(fact_with_score[:item])
-        @there_are_invalid_facts |= invalid
-        invalid
+        Fact.invalid(fact_with_score[:item])
       end
 
       def authorized?
