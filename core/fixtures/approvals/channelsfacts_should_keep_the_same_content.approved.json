@@ -1,0 +1,272 @@
+[
+  {
+    "displaystring": "Fact 3",
+    "id": "<STRIPPED>",
+    "site_id": "3",
+    "signed_in?": true,
+    "containing_channel_ids": [
+      "3"
+    ],
+    "deletable_from_channel?": true,
+    "i_am_owner": false,
+    "fact_base": {
+      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&amp;scrollto=3\" target=\"_blank\">Fact 3</a>",
+      "fact_id": "3",
+      "url": "/fact-3/f/3",
+      "id": "<STRIPPED>",
+      "user_signed_in?": true,
+      "i_am_fact_owner": false,
+      "can_edit?": false,
+      "scroll_to_link": null,
+      "displaystring": "Fact 3",
+      "fact_title": null,
+      "fact_wheel": {
+        "authority": "0.0",
+        "opinion_types": {
+          "believe": {
+            "percentage": 0,
+            "is_user_opinion": false
+          },
+          "doubt": {
+            "percentage": 100,
+            "is_user_opinion": false
+          },
+          "disbelieve": {
+            "percentage": 0,
+            "is_user_opinion": false
+          }
+        },
+        "fact_id": "3"
+      },
+      "believe_percentage": 0,
+      "disbelieve_percentage": 0,
+      "doubt_percentage": 100,
+      "fact_url": "http://example.org/3.html",
+      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&scrollto=3"
+    },
+    "url": "/fact-3/f/3",
+    "post_action": "Reposted",
+    "friendly_time": "1 minute",
+    "created_by": {
+      "username": "johndoe4",
+      "avatar": "<img alt=\"johndoe4\" src=\"https://secure.gravatar.com/avatar/4a44954117cfc0852a0cbd709a634789?rating=PG&amp;size=32&amp;default=retro\" title=\"johndoe4\" width=\"32\" />",
+      "authority_for_subject": {
+        "authority": "1.0",
+        "id": "<STRIPPED>"
+      }
+    },
+    "created_by_ago": "Created 1 minute ago",
+    "believers_count": 0,
+    "disbelievers_count": 0,
+    "doubters_count": 0,
+    "user_signed_in?": true,
+    "i_am_fact_owner": false,
+    "can_edit?": false,
+    "scroll_to_link": null,
+    "fact_title": null,
+    "fact_wheel": {
+      "authority": "0.0",
+      "opinion_types": {
+        "believe": {
+          "percentage": 0,
+          "is_user_opinion": false
+        },
+        "doubt": {
+          "percentage": 100,
+          "is_user_opinion": false
+        },
+        "disbelieve": {
+          "percentage": 0,
+          "is_user_opinion": false
+        }
+      },
+      "fact_id": "3"
+    },
+    "believe_percentage": 0,
+    "disbelieve_percentage": 0,
+    "doubt_percentage": 100,
+    "fact_url": "http://example.org/3.html",
+    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&scrollto=3",
+    "timestamp": 0
+  },
+  {
+    "displaystring": "Fact 2",
+    "id": "<STRIPPED>",
+    "site_id": "2",
+    "signed_in?": true,
+    "containing_channel_ids": [
+      "3"
+    ],
+    "deletable_from_channel?": true,
+    "i_am_owner": false,
+    "fact_base": {
+      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&amp;scrollto=2\" target=\"_blank\">Fact 2</a>",
+      "fact_id": "2",
+      "url": "/fact-2/f/2",
+      "id": "<STRIPPED>",
+      "user_signed_in?": true,
+      "i_am_fact_owner": false,
+      "can_edit?": false,
+      "scroll_to_link": null,
+      "displaystring": "Fact 2",
+      "fact_title": null,
+      "fact_wheel": {
+        "authority": "0.0",
+        "opinion_types": {
+          "believe": {
+            "percentage": 0,
+            "is_user_opinion": false
+          },
+          "doubt": {
+            "percentage": 100,
+            "is_user_opinion": false
+          },
+          "disbelieve": {
+            "percentage": 0,
+            "is_user_opinion": false
+          }
+        },
+        "fact_id": "2"
+      },
+      "believe_percentage": 0,
+      "disbelieve_percentage": 0,
+      "doubt_percentage": 100,
+      "fact_url": "http://example.org/2.html",
+      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2"
+    },
+    "url": "/fact-2/f/2",
+    "post_action": "Reposted",
+    "friendly_time": "1 minute",
+    "created_by": {
+      "username": "johndoe3",
+      "avatar": "<img alt=\"johndoe3\" src=\"https://secure.gravatar.com/avatar/0c0b78bf3bb3107091bdb93c94ba73a3?rating=PG&amp;size=32&amp;default=retro\" title=\"johndoe3\" width=\"32\" />",
+      "authority_for_subject": {
+        "authority": "1.0",
+        "id": "<STRIPPED>"
+      }
+    },
+    "created_by_ago": "Created 1 minute ago",
+    "believers_count": 0,
+    "disbelievers_count": 0,
+    "doubters_count": 0,
+    "user_signed_in?": true,
+    "i_am_fact_owner": false,
+    "can_edit?": false,
+    "scroll_to_link": null,
+    "fact_title": null,
+    "fact_wheel": {
+      "authority": "0.0",
+      "opinion_types": {
+        "believe": {
+          "percentage": 0,
+          "is_user_opinion": false
+        },
+        "doubt": {
+          "percentage": 100,
+          "is_user_opinion": false
+        },
+        "disbelieve": {
+          "percentage": 0,
+          "is_user_opinion": false
+        }
+      },
+      "fact_id": "2"
+    },
+    "believe_percentage": 0,
+    "disbelieve_percentage": 0,
+    "doubt_percentage": 100,
+    "fact_url": "http://example.org/2.html",
+    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2",
+    "timestamp": 0
+  },
+  {
+    "displaystring": "Fact 1",
+    "id": "<STRIPPED>",
+    "site_id": "1",
+    "signed_in?": true,
+    "containing_channel_ids": [
+      "3"
+    ],
+    "deletable_from_channel?": true,
+    "i_am_owner": false,
+    "fact_base": {
+      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Fact 1</a>",
+      "fact_id": "1",
+      "url": "/fact-1/f/1",
+      "id": "<STRIPPED>",
+      "user_signed_in?": true,
+      "i_am_fact_owner": false,
+      "can_edit?": false,
+      "scroll_to_link": null,
+      "displaystring": "Fact 1",
+      "fact_title": null,
+      "fact_wheel": {
+        "authority": "0.0",
+        "opinion_types": {
+          "believe": {
+            "percentage": 0,
+            "is_user_opinion": false
+          },
+          "doubt": {
+            "percentage": 100,
+            "is_user_opinion": false
+          },
+          "disbelieve": {
+            "percentage": 0,
+            "is_user_opinion": false
+          }
+        },
+        "fact_id": "1"
+      },
+      "believe_percentage": 0,
+      "disbelieve_percentage": 0,
+      "doubt_percentage": 100,
+      "fact_url": "http://example.org/1.html",
+      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1"
+    },
+    "url": "/fact-1/f/1",
+    "post_action": "Reposted",
+    "friendly_time": "1 minute",
+    "created_by": {
+      "username": "johndoe2",
+      "avatar": "<img alt=\"johndoe2\" src=\"https://secure.gravatar.com/avatar/9ebe4ca61cfc3e9d3fc15b3e56710734?rating=PG&amp;size=32&amp;default=retro\" title=\"johndoe2\" width=\"32\" />",
+      "authority_for_subject": {
+        "authority": "1.0",
+        "id": "<STRIPPED>"
+      }
+    },
+    "created_by_ago": "Created 1 minute ago",
+    "believers_count": 0,
+    "disbelievers_count": 0,
+    "doubters_count": 0,
+    "user_signed_in?": true,
+    "i_am_fact_owner": false,
+    "can_edit?": false,
+    "scroll_to_link": null,
+    "fact_title": null,
+    "fact_wheel": {
+      "authority": "0.0",
+      "opinion_types": {
+        "believe": {
+          "percentage": 0,
+          "is_user_opinion": false
+        },
+        "doubt": {
+          "percentage": 100,
+          "is_user_opinion": false
+        },
+        "disbelieve": {
+          "percentage": 0,
+          "is_user_opinion": false
+        }
+      },
+      "fact_id": "1"
+    },
+    "believe_percentage": 0,
+    "disbelieve_percentage": 0,
+    "doubt_percentage": 100,
+    "fact_url": "http://example.org/1.html",
+    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
+    "timestamp": 0
+  }
+]
