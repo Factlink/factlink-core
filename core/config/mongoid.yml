@@ -1,48 +1,61 @@
 development:
-  host: localhost
-  database: factlink_ui_development
-  raise_not_found_error: false
+  sessions:
+    default:
+      database: factlink_ui_development
+      hosts:
+       - localhost:27017
+  options:
+    raise_not_found_error: false
 
 test:
-  host: localhost
-  database: factlink_ui_test
-  raise_not_found_error: false
+  sessions:
+    default:
+      database: factlink_ui_test
+      hosts:
+        - localhost:27017
+      options:
+        consistency: :strong
+        # In the test environment we lower the retries and retry interval to
+        # low amounts for fast failures.
+        max_retries: 1
+        retry_interval: 0
 
 testserver:
-  database: factlink_testserver
-  hosts:
-    - - mongo1-testserver.factlink.com
-      - 27019
-    - - mongo2-testserver.factlink.com
-      - 27019
-    - - mongo3-testserver.factlink.com
-      - 27019
-  raise_not_found_error: false
-  max_retries_on_connection_failure: 1
+  sessions:
+    default:
+      database: factlink_testserver
+      hosts:
+       - mongo1-testserver.factlink.com:27019
+       - mongo2-testserver.factlink.com:27019
+       - mongo3-testserver.factlink.com:27019
+      options:
+        max_retries: 1
+  options:
+    raise_not_found_error: false
 
 staging:
-  database: factlink_staging
-  hosts:
-    - - mongo1-staging.factlink.com
-      - 27018
-    - - mongo2-staging.factlink.com
-      - 27018
-    - - mongo3-staging.factlink.com
-      - 27018
-  raise_not_found_error: false
-  max_retries_on_connection_failure: 1
+  sessions:
+    default:
+      database: factlink_staging
+      hosts:
+       - mongo1-staging.factlink.com:27018
+       - mongo2-staging.factlink.com:27018
+       - mongo3-staging.factlink.com:27018
+      options:
+        max_retries: 1
+  options:
+    raise_not_found_error: false
 
 production:
-  database: factlink_ui_production
-  hosts:
-    - - mongo1-production.factlink.com
-      - 27017
-    - - mongo2-production.factlink.com
-      - 27017
-    - - mongo3-production.factlink.com
-      - 27017
-    - - mongo4-production.factlink.com
-      - 27017
-  raise_not_found_error: false
-  max_retries_on_connection_failure: 1
-
+  sessions:
+    default:
+      database: factlink_production
+      hosts:
+       - mongo1-production.factlink.com:27017
+       - mongo2-production.factlink.com:27017
+       - mongo3-production.factlink.com:27017
+       - mongo4-production.factlink.com:27017
+      options:
+        max_retries: 1
+  options:
+    raise_not_found_error: false
