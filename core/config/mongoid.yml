@@ -28,6 +28,8 @@ testserver:
        - mongo1-testserver.factlink.com:27019
        - mongo2-testserver.factlink.com:27019
        - mongo3-testserver.factlink.com:27019
+      options:
+        consistency: :strong
   options:
     raise_not_found_error: false
 
@@ -39,6 +41,8 @@ staging:
        - mongo1-staging.factlink.com:27018
        - mongo2-staging.factlink.com:27018
        - mongo3-staging.factlink.com:27018
+      options:
+        consistency: :strong
   options:
     raise_not_found_error: false
 
@@ -51,5 +55,7 @@ production:
        - mongo2-production.factlink.com:27017
        - mongo3-production.factlink.com:27017
        - mongo4-production.factlink.com:27017
+      options:
+        consistency: :strong
   options:
     raise_not_found_error: false
