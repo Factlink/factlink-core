@@ -45,12 +45,12 @@ class UrlNormalizer
 
     forbidden_params = forbidden_uri_params.map {|k| k.to_s }
     if forbidden_params
-      uri_params = uri_params.delete_if {|k,v| forbidden_params.include? k}
+      uri_params.reject! {|k,v| forbidden_params.include? k}
     end
 
     allowed_params = whitelisted_uri_params.andand.map {|k| k.to_s }
     if allowed_params
-      uri_params = uri_params.keep_if {|k,v| allowed_params.include? k}
+      uri_params.select! {|k,v| allowed_params.include? k}
     end
 
     build_query(uri_params)

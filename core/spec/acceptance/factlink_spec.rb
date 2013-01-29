@@ -128,6 +128,6 @@ describe "factlink", type: :request do
     wait_for_ajax
 
     #wait for animation
-    sleep 0.2
+    sleep 0.3
   end
 end
