@@ -40,11 +40,15 @@ class AddTimestampsToFactrelation
     new(fact_relation_id).perform
   end
 
+
   class ActivityTimestamp
+
     attr_reader :fact_relation
+
     def initialize fact_relation
       @fact_relation = fact_relation
     end
+
     def timestamp
       return nil unless activity
 
@@ -58,13 +62,15 @@ class AddTimestampsToFactrelation
     end
 
     def activity_type
-      if fact_relation.type == (:supporting || "supporting")
+      if [:supporting, "supporting"].include? fact_relation.type
         :added_supporting_evidence
       else
         :added_weakening_evidence
       end
     end
   end
+
+
   class FactsTimestamp
 
     attr_reader :fact_relation

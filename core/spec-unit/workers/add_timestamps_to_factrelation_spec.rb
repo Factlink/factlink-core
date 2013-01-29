@@ -2,7 +2,6 @@ require_relative '../../app/workers/add_timestamps_to_factrelation'
 
 describe AddTimestampsToFactrelation do
 
-
   before do
     stub_const('Activity', Class.new)
     stub_const('FactRelation', Class.new)
@@ -75,7 +74,45 @@ describe AddTimestampsToFactrelation do
       activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new @fact_relation
       expect(activity_timestamp.timestamp).to eq activity.created_at
     end
+
+    describe '.activity_type' do
+
+      describe 'returns :added_supporting_evidence when' do
+
+        it 'fact_relation.type is :supporting' do
+          fact_relation = stub( type: :supporting )
+
+          activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new fact_relation
+          expect(activity_timestamp.activity_type).to eq(:added_supporting_evidence)
+        end
+
+        it 'fact_relation.type is "supporting"' do
+          fact_relation = stub( type: "supporting" )
+
+          activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new fact_relation
+          expect(activity_timestamp.activity_type).to eq(:added_supporting_evidence)
+        end
+      end
+
+      describe 'returns :added_weakening_evidence when' do
+        it 'fact_relation.type is :weakening' do
+          fact_relation = stub( type: :weakening )
+
+          activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new fact_relation
+          expect(activity_timestamp.activity_type).to eq(:added_weakening_evidence)
+        end
+
+        it 'fact_relation.type is "weakening" ' do
+          fact_relation = stub( type: "weakening" )
+
+          activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new fact_relation
+          expect(activity_timestamp.activity_type).to eq(:added_weakening_evidence)
+        end
+      end
+
+    end
   end
+
   describe AddTimestampsToFactrelation::FactsTimestamp do
 
     describe '.max_timestamp' do
