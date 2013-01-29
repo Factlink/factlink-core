@@ -209,7 +209,7 @@ describe User do
       User.find(subject.id).should == subject
     end
     it "should work with usernames" do
-      User.find(subject.username).should == subject
+      User.find_by(username: subject.username).should == subject
     end
   end
 
