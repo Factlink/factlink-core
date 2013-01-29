@@ -41,6 +41,6 @@ class ChannelList
       graph_user.stream_id
     ]
 
-    channels.delete_if {|ch| forbidden_ids.include? ch.id }
+    channels.reject {|ch| forbidden_ids.include? ch.id }
   end
 end

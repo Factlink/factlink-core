@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   def search
     authorize! :index, User
     @users = interactor :search_user, params[:s]
-    @users = @users.delete_if { |u| u.hidden} # TODO, fix me properly (probably better not to add to index?)
+    @users = @users.reject { |u| u.hidden} # TODO, fix me properly (probably better not to add to index?)
     render :index
   end
 
