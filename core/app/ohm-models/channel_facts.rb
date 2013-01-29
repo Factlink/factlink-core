@@ -35,7 +35,7 @@ class ChannelFacts
 
     fixchan = false
 
-    res.delete_if do |item|
+    res.reject! do |item|
       check_item = facts_opts[:withscores] ? item[:item] : item
       invalid = Fact.invalid(check_item)
       fixchan |= invalid

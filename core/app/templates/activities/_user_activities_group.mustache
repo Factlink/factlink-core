@@ -1,9 +1,11 @@
 <div class="activity-group-user">
-  <a href="{{ user_profile_url }}" rel="backbone">{{{ avatar }}}</a>
+  <a href="{{ user.link }}" rel="backbone">
+    <img alt=" " src="{{ user.avatar_url_24 }}" width="24" height="24">
+  </a>
 </div>
 
 <div class="activity-group-link">
-  <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a>
+  <a href="{{ user.link }}" rel="backbone">{{ user.username }}</a>
 </div>
 
 <div class="activity-group-time">{{ time_ago }} ago</div>

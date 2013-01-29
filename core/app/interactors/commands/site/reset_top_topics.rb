@@ -35,7 +35,7 @@ module Commands
       end
 
       def slugs_for_fact fact
-        fact.channels.map(&:slug_title).delete_if { |e| e.nil? }
+        fact.channels.map(&:slug_title).compact
       end
 
       def score_hash_for_array array

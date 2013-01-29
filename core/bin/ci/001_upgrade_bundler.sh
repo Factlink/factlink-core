@@ -1,12 +1,9 @@
 #!/bin/bash
 echo "Bundle-install"
+set -e
 
-gem install bundler || exit 1
-gem install soundcheck
-gem install jasmine-headless-webkit
+gem install bundler
 
 rbenv rehash
 
-bundle install || exit 1
-
-exit
+bundle install

@@ -58,7 +58,7 @@ module SearchResults
     end
 
     def valid_topic? attributes
-      attributes[:title]
+      attributes['channels'].length > 0
     end
   end
 end
