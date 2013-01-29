@@ -5,7 +5,7 @@ describe Queries::Topics::Facts do
   include PavlovSupport
 
   before do
-    stub_classes 'Nest', 'Ohm::Model::SortedSet'
+    stub_classes 'Nest', 'Ohm::Model::SortedSet', 'Fact'
   end
 
   describe '#execute' do
@@ -14,10 +14,12 @@ describe Queries::Topics::Facts do
       count = 10
       max_timestamp = 100
       query = described_class.new topic_id, count, max_timestamp
-      results = mock
+      fact_id = mock
+      results = [{item: fact_id, score:1}]
       key = mock
       redis_opts = {withscores:true, limit:[0,count]}
       interleaved_results = mock
+      fact = mock
 
       query.should_receive(:setup_defaults)
       query.should_receive(:redis_key).and_return(key)
@@ -26,8 +28,9 @@ describe Queries::Topics::Facts do
         and_return(interleaved_results)
       Ohm::Model::SortedSet.should_receive(:hash_array_for_withscores).
         with(interleaved_results).and_return(results)
+      Fact.should_receive(:[]).with(fact_id).and_return(fact)
 
-      expect( query.execute ).to eq results
+      expect( query.execute ).to eq [{score: 1, item: fact}]
     end
   end
 
