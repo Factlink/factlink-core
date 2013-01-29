@@ -30,7 +30,7 @@ window.FactsView = AutoloadingCompositeView.extend({
     if ( this.model.user().get('username') === currentUser.get('username') ) {
       var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
       this.$('.facts-view-more .unread_count').html(unread_count);
-      this.$('.facts-view-more').toggle( (unread_count > 0) || true);
+      this.$('.facts-view-more').toggle(unread_count > 0);
     }
   },
 
