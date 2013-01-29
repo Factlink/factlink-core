@@ -12,12 +12,11 @@ describe "Check the tour", type: :request do
     click_button "Next"
   end
 
-  pending 'You\'re almost set page should be the same' do
-
+  it 'You\'re almost set page should be the same' do
     assume_unchanged_screenshot 'extension'
   end
 
-  pending 'Let''s create your first factlink page should be the same' do
+  it 'Let''s create your first factlink page should be the same' do
     click_link "Skip this step"
 
     sleep 10
