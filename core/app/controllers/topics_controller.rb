@@ -14,6 +14,14 @@ class TopicsController < ApplicationController
     render 'channels/index'
   end
 
+  def facts
+    @facts = interactor :'topics/facts', topic.id.to_s, nil, nil
+
+    respond_to do |format|
+      format.json { render json: @facts.map {|fact| Facts::Fact.for(fact: fact[:item],view: view_context, timestamp: fact[:score])} }
+    end
+  end
+
   private
     def get_top_channels
       interactor :'channels/top', 12
