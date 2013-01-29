@@ -70,6 +70,33 @@ common: &default_settings
   # problems, your app may block indefinitely.
   # verify_certificate: true
 
+  #============================== Browser Monitoring ===============================
+  # New Relic Real User Monitoring gives you insight into the performance real users are
+  # experiencing with your website. This is accomplished by measuring the time it takes for
+  # your users' browsers to download and render your web pages by injecting a small amount
+  # of JavaScript code into the header and footer of each page.
+  browser_monitoring:
+      # By default the agent automatically injects the monitoring JavaScript
+      # into web pages. Set this attribute to false to turn off this behavior.
+      auto_instrument: true
+
+  # Proxy settings for connecting to the service.
+  #
+  # If a proxy is used, the host setting is required.  Other settings
+  # are optional. Default port is 8080.
+  #
+  # proxy_host: hostname
+  # proxy_port: 8080
+  # proxy_user:
+  # proxy_pass:
+
+  # The agent can optionally log all data it sends to New Relic servers to a
+  # separate log file for human inspection and auditing purposes. To enable this
+  # feature, change 'enabled' below to true.
+  # See: https://newrelic.com/docs/ruby/audit-log
+  audit_log:
+    enabled: false
+
   # Set your application's Apdex threshold value with the 'apdex_t'
   # setting, in seconds. The apdex_t value determines the buckets used
   # to compute your overall Apdex score.
@@ -80,16 +107,6 @@ common: &default_settings
   # For more about the Apdex standard, see
   # http://newrelic.com/docs/general/apdex
   apdex_t: 0.5
-
-  # Proxy settings for connecting to the New Relic server.
-  #
-  # If a proxy is used, the host setting is required.  Other settings
-  # are optional.  Default port is 8080.
-  #
-  # proxy_host: hostname
-  # proxy_port: 8080
-  # proxy_user:
-  # proxy_pass:
 
   # Tells transaction tracer and error collector (when enabled)
   # whether or not to capture HTTP params.  When true, frameworks can

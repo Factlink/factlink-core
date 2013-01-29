@@ -121,6 +121,10 @@ FactlinkUI::Application.routes.draw do
       end
     end
 
+    scope "/a" do
+      get "info" => "admin#info", as: "admin_info"
+    end
+
     # Seems to me we want to lose the scope "/:username" later and place all
     # stuff in this resource?
     devise_scope :user do

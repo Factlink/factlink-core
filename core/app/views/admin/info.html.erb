@@ -1,0 +1,12 @@
+<h1>Factlink::Info</h1>
+<table>
+  <tbody>
+    <tr>
+      <td class="name">Version</td>
+      <td class="value"><%= FactlinkUI::Application.config.version_number %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>Rails::Info</h1>
+<%= @info.html_safe %>
