@@ -6,15 +6,3 @@ Timestamp:
    ✔ Activity.find(subject_id: <x>, subject_class: <x>, action: <x>) for each FactRelation @done (13-01-29 10:07)
  ✔ get created_at from Fact when there is no activity. @done (13-01-29 10:45)
  ✔ default to TIme.now when no activity or fact can be found @done (13-01-29 10:45)
-
-Frontend implementation:
- ☐ use TimeFormatter to correctly format the timestamp
- ☐ timestamp should be rendered in JSON
-
-URL:
- ☐ check evidence-fact-bottom-like view?
- ☐ get url from Fact (not stored in FactRelation)
-
-Discussion link:
- ☐ use same bottom-view as for URL
- ☐ get correct url from Fact ( available in json )
