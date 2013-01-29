@@ -1,8 +1,8 @@
 class window.SubCommentsListView extends Backbone.Marionette.CompositeView
-  className: 'evidence-sub-comments-list-container'
+  className: 'evidence-sub-comments-list'
 
   itemView: SubCommentView
-  itemViewContainer: '.js-region-sub-comments-list'
+  itemViewContainer: '.js-region-sub-comments-collection'
 
   template: 'sub_comments/sub_comments_list'
 
