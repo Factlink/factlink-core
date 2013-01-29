@@ -1,25 +1,23 @@
 Backend:
  ✔ Refactor all places where a fact is added to a channel to :'channels/add_fact' interactor. @done (13-01-29 15:43)
- ☐ Add feature toggle.
  ✔ Create redis collection for facts per topic. @done (13-01-29 15:43)
  ✔ Create command for adding facts to the collection topic. @done (13-01-29 15:43)
  ✔ Create query to retrieve facts for a topic. @done (13-01-29 17:17)
  ✔ Create interactor to retrieve facts for a topic @done (13-01-29 17:17)
  ✔ Create (controller)#action and route @done (13-01-29 17:47)
  ✔ Fix adding a fact to a topic multiple times (it's a set stupid! This works out of the box) @done (13-01-29 17:48)
- ☐ Fix removing fact from channel
  ☐ Create migration
 
 Create frontend:
- ☐ Make stub collection with a few facts.
  ☐ Create tab.
  ☐ Create collection view.
  ☐ Add feature toggle.
-
-Integrate frontend and backend:
- ☐ Test!
+ ☐ Integrate with backend
 
 Cleanup:
  ☐ Remove ChannelFacts.facts, this has an impact on channel_spec,  overtaker_spec, user_stream_spec, clean_channel_spec
  ☐ topic controller now uses Topic.by_slug to get topic and then uses id
  ☐ topic controller params[:id] should be params[:slug]
+
+Maybe:
+☐ Fix removing fact from channel
