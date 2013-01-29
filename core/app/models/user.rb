@@ -256,7 +256,7 @@ class User
   end
 
   def self.from_param(param)
-    self.first :conditions => { username: param }
+    self.find_by username: param
   end
 
   def self.find(param,*args)
