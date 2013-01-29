@@ -14,7 +14,6 @@ module Queries
 
         limit = @from || 'inf'
 
-        puts "limit: #{limit} and options #{options.inspect}"
         channel.sorted_cached_facts.below(limit, options)
       end
 
