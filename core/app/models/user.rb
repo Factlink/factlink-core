@@ -30,7 +30,7 @@ class User
 
   field :graph_user_id
 
-  field :approved,    type: Boolean, default: false, null: false
+  field :approved,    type: Boolean, default: false
 
   field :admin,       type: Boolean, default: false
 
@@ -69,6 +69,7 @@ class User
   validates_length_of     :username, :within => 1..16, :message => "invalid. A maximum of 16 characters is allowed"
   validates_presence_of   :username, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
+  validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
   validates_length_of     :biography, maximum: 1023
 
@@ -83,8 +84,9 @@ class User
   :registerable   # Allow registration
 
   ## Database authenticatable
-    field :email,              :type => String, :null => false
-    field :encrypted_password, :type => String, :null => false
+    field :email,              :type => String, :default => ""
+    field :encrypted_password, :type => String, :default => ""
+
 
   ## Recoverable
     field :reset_password_token,   :type => String
