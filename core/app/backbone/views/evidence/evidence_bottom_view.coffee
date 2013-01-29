@@ -1,7 +1,7 @@
 class window.EvidenceBottomView extends Backbone.Marionette.Layout
-  className: 'evidence-sub-comments'
+  className: 'evidence-bottom bottom-base'
 
-  template: 'evidence/bottom'
+  template: 'facts/bottom_base'
 
   regions:
     subCommentsRegion: '.js-region-sub-comments'

@@ -5,10 +5,17 @@ class window.FactRelationView extends Backbone.Marionette.Layout
   template: 'fact_relations/fact_relation'
 
   regions:
-    factBaseView:             '.fact-base-region'
+    factBaseView: '.fact-base-region'
 
   templateHelpers: =>
+    showTime: false
+    showRepost: false
+    showShare: false
+    showSubComments: true
+    showFactInfo: @model.get('fact_base').scroll_to_link
     creator: @model.creator().toJSON()
+    fact_url_host: ->
+      new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
 
   onRender: ->
     @factBaseView.show @_factBaseView()

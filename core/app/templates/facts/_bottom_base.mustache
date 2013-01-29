@@ -1,0 +1,61 @@
+<ul class="actions">
+  {{#showSubComments}}
+    <li><a class="js-sub-comments-link"></a></li>
+  {{/showSubComments}}
+
+  <li>
+    {{#modal?}}
+    <a href="{{url}}" target="new" class="discussion_link">
+    {{/modal?}}
+
+    {{^modal?}}
+    <a href="{{url}}" rel="backbone" class="discussion_link" target="_top">
+    {{/modal?}}
+
+      Discussion</a>
+
+    <span class="opinion_indicators">
+      <span class="opinion_indicator agreeing" />{{ fact_base.believe_percentage }}%
+      <span class="opinion_indicator disagreeing" />{{ fact_base.disbelieve_percentage }}%
+    </span>
+  </li>
+
+  {{#showRepost}}
+    <li>
+      <a href="#" class="js-add-to-channel">Repost</a>
+    </li>
+  {{/showRepost}}
+
+  {{#showShare}}
+    <li>
+      <a href="#" class="js-start-conversation">Share</a>
+    </li>
+  {{/showShare}}
+
+  {{#showFactInfo}}
+    <li class="fact-info">
+      {{#showTime}}
+        {{#friendly_time}}
+          {{post_action}} {{ friendly_time }} ago
+        {{/friendly_time}}
+
+        {{^friendly_time}}
+          {{created_by_ago}}
+        {{/friendly_time}}
+      {{/showTime}}
+
+      {{#fact_base.scroll_to_link}}
+        {{#showTime}}
+          from
+        {{/showTime}}
+
+        {{#fact_base.fact_url}}
+        <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
+        {{/fact_base.fact_url}}
+        {{{fact_base.scroll_to_link}}}
+      {{/fact_base.scroll_to_link}}
+    </li>
+  {{/showFactInfo}}
+</ul>
+
+<i class="title-overflow"></i>
