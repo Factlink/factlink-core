@@ -57,10 +57,5 @@
       <%= render "base/topbar/admin_menu" %>
     <% end %>
 
-    <% if can_haz :version_number %>
-      <li class="divider"></li>
-      <li><a>Version <%= FactlinkUI::Application.config.version_number %></a></li>
-    <% end %>
-
   </ul>
 </li>
