@@ -1,4 +1,4 @@
-class window.FactBottomView extends Backbone.Marionette.Layout
+class window.FactBottomView extends Backbone.Marionette.ItemView
   className: 'fact-bottom bottom-base'
 
   template: 'facts/bottom_base'

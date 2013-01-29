@@ -1,4 +1,4 @@
-class window.EvidenceBottomView extends Backbone.Marionette.Layout
+class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   className: 'evidence-bottom bottom-base'
 
   template: 'facts/bottom_base'
