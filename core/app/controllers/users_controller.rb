@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     authorize! :see_activities, @user
     @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )
 
-    @activities.keep_if { |a| a.andand[:item].andand.valid_for_show? }
+    @activities.select! { |a| a.andand[:item].andand.valid_for_show? }
     @showing_notifications = true
     respond_to do |format|
       format.json { render 'channels/activities' }
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   def search
     authorize! :index, User
     @users = interactor :search_user, params[:s]
-    @users = @users.delete_if { |u| u.hidden} # TODO, fix me properly (probably better not to add to index?)
+    @users = @users.reject { |u| u.hidden} # TODO, fix me properly (probably better not to add to index?)
     render :index
   end
 

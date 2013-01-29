@@ -12,8 +12,4 @@ module UserHelper
     x.blank? ? nil : x
   end
 
-  def user_avatar user, size
-    image_tag(user.avatar_url(size: size), width: size, height: size, alt: user.username)
-  end
-
 end

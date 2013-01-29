@@ -10,9 +10,13 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
     else
       UserActivitiesGroupView
 
+  templateHelpers: ->
+    user: @user?.toJSON()
+
   constructor: (options) ->
     options.collection = new Backbone.Collection [options.model]
     super(options)
+    @user = new User @collection.first().get('user')
 
   actions: -> []
 
