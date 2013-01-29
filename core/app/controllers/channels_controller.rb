@@ -188,7 +188,7 @@ class ChannelsController < ApplicationController
     end
 
     def load_channel
-      @channel ||= (Channel[channel_id]) || raise_404("Channel not found")
+      @channel ||= Channel[channel_id] || raise_404("Channel not found")
     end
 
     def channel_id

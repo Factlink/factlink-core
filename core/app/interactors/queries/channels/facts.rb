@@ -18,7 +18,7 @@ module Queries
       end
 
       def validate
-        validate_integer :from, @from, :allow_blank => true
+        validate_integer :from, @from, allow_blank: true
         validate_integer :count, @count
         validate_integer_string :id, @id
       end

@@ -5,27 +5,37 @@ module Interactors
 
       arguments :id, :from, :count
 
-      def execute
-        # setting up defaults
+      def setup_defaults
         @count = 7 if @count.blank?
+      end
 
-        res = query :'channels/facts', @id, @from, @count
+      def execute
+        setup_defaults
 
+        facts = query :'channels/facts', @id, @from, @count
+
+        facts = remove_invalid facts
+
+        facts
+      end
+
+      def remove_invalid facts
         # if there are facts without fact_data remove them.
-        fixchan = false
-        res.delete_if do |item|
-          invalid = Fact.invalid(item[:item])
-          fixchan |= invalid
-          invalid
-        end
+        @there_are_invalid_facts = false
+        facts.delete_if {|item| invalid item }
 
         # if facts without fact_data were found start a resque job
         # to delete them.
-        if fixchan
-          # todo: this should be a command
-          Resque.enqueue(CleanChannel, @id)
-        end
-        res
+        # todo: this should be a command
+        Resque.enqueue(CleanChannel, @id) if @there_are_invalid_facts
+
+        facts
+      end
+
+      def invalid fact_with_score
+        invalid = Fact.invalid(fact_with_score[:item])
+        @there_are_invalid_facts |= invalid
+        invalid
       end
 
       def authorized?
@@ -33,8 +43,8 @@ module Interactors
       end
 
       def validate
-        validate_integer :from, @from, :allow_blank => true
-        validate_integer :count, @count, :allow_blank => true
+        validate_integer :from, @from, allow_blank: true
+        validate_integer :count, @count, allow_blank: true
         validate_integer_string :id, @id
       end
     end
