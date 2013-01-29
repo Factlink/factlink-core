@@ -6,11 +6,11 @@
   {{#showDiscussion}}
     <li>
       {{#modal?}}
-      <a href="{{url}}" target="new" class="discussion_link">
+      <a href="{{fact_base.url}}" target="new" class="discussion_link">
       {{/modal?}}
 
       {{^modal?}}
-      <a href="{{url}}" rel="backbone" class="discussion_link" target="_top">
+      <a href="{{fact_base.url}}" rel="backbone" class="discussion_link" target="_top">
       {{/modal?}}
 
         Discussion</a>
