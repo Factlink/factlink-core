@@ -88,7 +88,7 @@ class window.ChannelActivitiesView extends ChannelViewLayout
 
   update_count: ->
     this.$('.activities-more .unread_count').html(@collection.get_new_activity_count());
-    this.$('.activities-more').toggle(@collection.get_new_activity_count() > 0 || true);
+    this.$('.activities-more').toggle(@collection.get_new_activity_count() > 0);
 
   refresh: (e) ->
     @collection.fetch()
