@@ -5,10 +5,10 @@ class Topic
   include Redis::Aid::Ns(:new_topic)
 
   field :title
-  index :title
+  index(title: 1)
 
   field :slug_title
-  index :slug_title
+  index(slug_title: 1)
 
   validates_uniqueness_of :title
   validates_uniqueness_of :slug_title
