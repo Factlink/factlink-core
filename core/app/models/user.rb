@@ -14,13 +14,13 @@ class User
   attr_accessor :tos_first_name, :tos_last_name
 
   field :username
-  index :username
   field :first_name
   field :last_name
   field :identities, type: Hash, default: {}
 
-  index "identities.facebook.uid", sparse: true, unique: true
-  index "identities.twitter.uid", sparse: true, unique: true
+  index(username: 1)
+  index({ "identities.facebook.uid" => 1 }, { sparse: true, unique: true })
+  index({ "identities.twitter.uid" => 1 }, { sparse: true, unique: true })
 
   field :registration_code
 
