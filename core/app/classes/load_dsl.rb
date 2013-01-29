@@ -108,10 +108,10 @@ class LoadDsl
         u.confirmed_at = DateTime.now
         u.save
         u.send(:create_graph_user) {}
-        if u.new?
+        if u.new_record?
           err_msg = "User #{username} could not be created."
           u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
-          raise err_msg if u.new?
+          raise err_msg if u.new_record?
         end
       else
         raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
