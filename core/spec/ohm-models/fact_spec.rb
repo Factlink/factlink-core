@@ -220,8 +220,19 @@ describe Fact do
     it "should not be possible to save a fact with a string consisting out of only spaces" do
       Fact.build_with_data('http://google.com/',' ', 'foo', gu1).data.save.should be_false
     end
+
+    describe ".created_at" do
+      it 'returns the created_at of the FactData in Ohm format (UTC string)' do
+        expect(fact.created_at).to be_a String
+        expect(fact.created_at).to eq(fact.data.created_at.utc.to_s)
+      end
+
+      it 'returns nil when there is no FactData' do
+        fact.data = nil
+
+        expect(fact.created_at).to eq(nil)
+      end
+    end
   end
-
-
 
 end
