@@ -8,6 +8,7 @@ Backend:
  ✔ Create (controller)#action and route @done (13-01-29 17:47)
  ✔ Fix adding a fact to a topic multiple times (it's a set stupid! This works out of the box) @done (13-01-29 17:48)
  ☐ Fix removing fact from channel
+ ☐ Create migration
 
 Create frontend:
  ☐ Make stub collection with a few facts.
