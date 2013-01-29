@@ -13,7 +13,7 @@ module Interactors
     end
 
     def recipients
-      users_by_graph_user_ids.keep_if { |user| user.receives_mailed_notifications }
+      users_by_graph_user_ids.select { |user| user.receives_mailed_notifications }
     end
 
     def users_by_graph_user_ids
