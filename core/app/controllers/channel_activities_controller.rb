@@ -70,7 +70,7 @@ class ChannelActivitiesController < ApplicationController
       if @channel
         @user ||= @channel.created_by.user
       elsif params[:username]
-        @user ||= User.first(conditions: { username: params[:username]}) || raise_404
+        @user ||= User.find_by(username: params[:username]) || raise_404
       end
     end
 

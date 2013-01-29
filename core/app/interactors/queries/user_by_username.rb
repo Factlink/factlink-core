@@ -11,7 +11,7 @@ module Queries
     end
 
     def execute
-      User.first(:conditions => { username: /^#{@username.downcase}$/i })
+      User.find_by(username: /^#{@username.downcase}$/i)
     end
   end
 end
