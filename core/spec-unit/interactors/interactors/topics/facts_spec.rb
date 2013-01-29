@@ -9,7 +9,7 @@ describe Interactors::Topics::Facts do
       topic_id = '1a'
       count = 10
       max_timestamp = 100
-      interactor = described_class.new topic_id, count, max_timestamp
+      interactor = described_class.new topic_id, count, max_timestamp, current_user: mock
       results = mock
 
       interactor.should_receive(:query).with(:'topics/facts', topic_id, count, max_timestamp).
@@ -19,12 +19,19 @@ describe Interactors::Topics::Facts do
     end
   end
 
+  describe 'authorized?' do
+    it 'throws when no current_user' do
+      expect { described_class.new '1a', 10, 100 }.
+        to raise_error Pavlov::AccessDenied,'Unauthorized'
+    end
+  end
+
   describe '#setup_defaults' do
     it :count do
       default_count = 7
       topic_id = '1a'
       max_timestamp = 100
-      interactor = described_class.new topic_id, nil, max_timestamp
+      interactor = described_class.new topic_id, nil, max_timestamp, current_user: mock
 
       interactor.setup_defaults
 
