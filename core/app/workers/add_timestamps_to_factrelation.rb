@@ -13,33 +13,54 @@ class AddTimestampsToFactrelation
 
   @queue = :fact_relation_operations
 
-  def self.perform(fact_relation_id)
-    fact_relation = FactRelation[fact_relation_id]
+  attr_reader :fact_relation
 
+  def initialize(fact_relation_id)
+    @fact_relation = FactRelation[fact_relation_id]
+  end
+
+  def perform
     if fact_relation
-      activity = activity_for_fact_relation fact_relation
+      fact_relation.created_at = timestamp
+      fact_relation.save
+    end
+  end
 
-      if activity
-        fact_relation.created_at = activity.created_at
-        fact_relation.updated_at = activity.created_at
-        fact_relation.save
+  def timestamp
+    @timestamp ||= calculate_timestamp
+  end
+
+  def calculate_timestamp
+    ActivityTimestamp.new(fact_relation).timestamp
+  end
+
+  def self.perform(fact_relation_id)
+    new(fact_relation_id).perform
+  end
+
+  class ActivityTimestamp
+    attr_reader :fact_relation
+    def initialize fact_relation
+      @fact_relation = fact_relation
+    end
+    def timestamp
+      return nil unless activity
+
+      activity.created_at
+    end
+
+    def activity
+      @activity ||= Activity.find(subject_id: fact_relation.id,
+                      subject_class: fact_relation.class,
+                      action: activity_type).first
+    end
+
+    def activity_type
+      if fact_relation.type == (:supporting || "supporting")
+        :added_supporting_evidence
+      else
+        :added_weakening_evidence
       end
     end
   end
-
-  def self.activity_for_fact_relation fact_relation
-    action = activity_type fact_relation
-    Activity.find(subject_id: fact_relation.id, subject_class: fact_relation.class, action: action).first
-  end
-
-  def self.activity_type fact_relation
-    if fact_relation.type == (:supporting || "supporting")
-      action = :added_supporting_evidence
-    else
-      action = :added_weakening_evidence
-    end
-
-    action
-  end
-
 end
