@@ -21,12 +21,12 @@ describe Topic do
     it "should not be able to create multiple topics with the same name" do
       t1 = Topic.create title: "foo"
       t2 = Topic.create title: t1.title
-      t2.should be_new
+      t2.should be_new_record
     end
     it "should not be able to create multiple topics with the a similar name" do
       t1 = Topic.create title: "Foo"
       t2 = Topic.create title: 'foo'
-      t2.should be_new
+      t2.should be_new_record
     end
   end
 
@@ -55,8 +55,8 @@ describe Topic do
       ch.topic.channel_for_user(u).should == ch
     end
   end
-  
-  
+
+
   describe 'top_users' do
     let(:u) {create :user}
     it "should be possible to add a top user" do
@@ -69,5 +69,5 @@ describe Topic do
       subject.top_users.should == []
     end
   end
-  
+
 end
