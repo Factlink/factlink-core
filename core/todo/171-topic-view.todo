@@ -7,6 +7,7 @@ Backend:
  ✔ Create (controller)#action and route @done (13-01-29 17:47)
  ✔ Fix adding a fact to a topic multiple times (it's a set stupid! This works out of the box) @done (13-01-29 17:48)
  ☐ Create migration
+ ☐ Create integration test for the controller
 
 Create frontend:
  ☐ Create tab.
