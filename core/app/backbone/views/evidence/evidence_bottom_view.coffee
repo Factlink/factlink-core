@@ -3,10 +3,7 @@ class window.EvidenceBottomView extends Backbone.Marionette.Layout
 
   template: 'facts/bottom_base'
 
-  regions:
-    subCommentsRegion: '.js-region-sub-comments'
-
-  events:
+  triggers:
     'click .js-sub-comments-link': 'toggleSubCommentsList'
 
   templateHelpers: ->
@@ -22,15 +19,6 @@ class window.EvidenceBottomView extends Backbone.Marionette.Layout
   onRender: ->
     @bindTo @model, 'change:sub_comments_count', @updateSubCommentsLink, @
     @updateSubCommentsLink()
-
-  toggleSubCommentsList: ->
-    if @listOpen
-      @listOpen = false
-      @subCommentsRegion.close()
-    else
-      @listOpen = true
-      @subCommentsRegion.show new SubCommentsListView
-        collection: new SubComments([], parentModel: @model)
 
   updateSubCommentsLink: ->
     count = @model.get('sub_comments_count')
