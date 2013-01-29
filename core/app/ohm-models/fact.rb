@@ -46,7 +46,7 @@ class Fact < Basefact
   end
 
   def created_at
-    self.data.created_at.utc.to_s
+    self.data.created_at.utc.to_s if self.data
   end
 
   reference :site, Site # The site on which the factlink should be shown

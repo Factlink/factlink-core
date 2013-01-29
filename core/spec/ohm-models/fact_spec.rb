@@ -226,6 +226,12 @@ describe Fact do
         expect(fact.created_at).to be_a String
         expect(fact.created_at).to eq(fact.data.created_at.utc.to_s)
       end
+
+      it 'returns nil when there is no FactData' do
+        fact.data = nil
+
+        expect(fact.created_at).to eq(nil)
+      end
     end
   end
 
