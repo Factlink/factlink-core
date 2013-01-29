@@ -13,6 +13,7 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     showShare: true
     showSubComments: false
     showFactInfo: true
+    showDiscussion: true
     fact_url_host: ->
       new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
 

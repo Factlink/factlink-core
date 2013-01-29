@@ -3,22 +3,24 @@
     <li><a class="js-sub-comments-link"></a></li>
   {{/showSubComments}}
 
-  <li>
-    {{#modal?}}
-    <a href="{{url}}" target="new" class="discussion_link">
-    {{/modal?}}
+  {{#showDiscussion}}
+    <li>
+      {{#modal?}}
+      <a href="{{url}}" target="new" class="discussion_link">
+      {{/modal?}}
 
-    {{^modal?}}
-    <a href="{{url}}" rel="backbone" class="discussion_link" target="_top">
-    {{/modal?}}
+      {{^modal?}}
+      <a href="{{url}}" rel="backbone" class="discussion_link" target="_top">
+      {{/modal?}}
 
-      Discussion</a>
+        Discussion</a>
 
-    <span class="opinion_indicators">
-      <span class="opinion_indicator agreeing" />{{ fact_base.believe_percentage }}%
-      <span class="opinion_indicator disagreeing" />{{ fact_base.disbelieve_percentage }}%
-    </span>
-  </li>
+      <span class="opinion_indicators">
+        <span class="opinion_indicator agreeing" />{{ fact_base.believe_percentage }}%
+        <span class="opinion_indicator disagreeing" />{{ fact_base.disbelieve_percentage }}%
+      </span>
+    </li>
+  {{/showDiscussion}}
 
   {{#showRepost}}
     <li>
