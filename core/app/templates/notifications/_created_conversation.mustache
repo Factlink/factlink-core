@@ -1,10 +1,10 @@
 <a href="{{ activity.target_url }}">
   <div class="avatar">
-    {{{avatar}}}
+    <img alt=" " src="{{ user.avatar_url_24 }}" width="24" height="24">
   </div>
   <div class="info">
     <div class="text">
-      <span class="highlight">{{ username }}</span>
+      <span class="highlight">{{ user.username }}</span>
       has sent you a message:
       <span class="highlight">{{ activity.message.content }}</span>
     </div>

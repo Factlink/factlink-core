@@ -1,6 +1,9 @@
 class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
-  template: "channels/_suggested_user_channel"
   tagName: "li"
+
+  template: "channels/suggested_user_channel"
+  templateHelpers: ->
+    created_by: @model.user().toJSON()
 
   events:
     'click a.btn' : 'addChannel'

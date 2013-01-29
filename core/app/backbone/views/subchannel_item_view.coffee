@@ -4,7 +4,10 @@ class window.SubchannelItemView extends Backbone.Marionette.ItemView
     click: "clickHandler"
     "click .close": "destroySubchannel"
 
-  template: "subchannels/_subchannel_item"
+  template: "subchannels/subchannel_item"
+  templateHelpers: ->
+    created_by: @model.user().toJSON()
+
   initialize: ->
     @model.bind "destroy", @close, this
 

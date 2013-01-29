@@ -5,7 +5,6 @@ class window.TopChannelList extends window.GenericChannelList
   url: "/t/top_channels"
 
 class window.ChannelList extends window.GenericChannelList
-  model: Channel
   reloadingEnabled: false
   initialize: -> @on "reset", @checkActiveChannel
 

@@ -47,8 +47,10 @@
   "post_action": null,
   "friendly_time": null,
   "created_by": {
+    "id": "<STRIPPED>",
+    "name": "johndoe2",
     "username": "johndoe2",
-    "avatar": "<img alt=\"johndoe2\" src=\"https://secure.gravatar.com/avatar/9ebe4ca61cfc3e9d3fc15b3e56710734?rating=PG&amp;size=32&amp;default=retro\" title=\"johndoe2\" width=\"32\" />",
+    "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
     "authority_for_subject": {
       "authority": "1.0",
       "id": "<STRIPPED>"

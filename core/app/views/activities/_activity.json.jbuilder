@@ -4,15 +4,12 @@ action = activity.action
 created_at = activity.created_at
 user =  activity.user.user
 
-json.username user.username
-
 json.subject_class subject.class.to_s
 
 
-size = 24
-
-json.user_profile_url user_profile_path(user)
-json.avatar image_tag(user.avatar_url(size: size), width: size, height: size, alt:'')
+json.user do |json|
+  json.partial! 'users/user_partial', user: user
+end
 
 json.action action
 json.translated_action t("fact_#{action.to_sym}_action".to_sym)

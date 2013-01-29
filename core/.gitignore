@@ -30,4 +30,5 @@ config/config
 .vegas
 *.sassc
 .approvals
+fixtures/approvals/*.received.json
 .ruby-version
