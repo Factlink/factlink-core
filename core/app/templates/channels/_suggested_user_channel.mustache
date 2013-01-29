@@ -1,7 +1,8 @@
-
-<div class="channel-avatar">{{{created_by.avatar}}}</div>
+<div class="channel-avatar">
+  <img alt=" " title="{{created_by.username}}" src="{{ created_by.avatar_url_24 }}" width="24" height="24">
+</div>
 <div class="channel-info">
-	<div class="channel-name"><h5>{{ title }}</h5></div>
-	<div class="channel-user">{{created_by.username}}</div>
+  <div class="channel-name"><h5>{{ title }}</h5></div>
+  <div class="channel-user">{{created_by.username}}</div>
 </div>
 <a class="btn btn-mini pull-right">Add</a>

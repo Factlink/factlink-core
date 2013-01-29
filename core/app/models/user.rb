@@ -298,7 +298,7 @@ class User
   end
 
   def features_count
-     @count ||= features.to_a.keep_if { |f| Ability::FEATURES.include? f }.count
+     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
   set :seen_messages

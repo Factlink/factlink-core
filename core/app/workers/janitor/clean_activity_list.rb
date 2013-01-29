@@ -7,7 +7,7 @@ module Janitor
     end
 
     def members_to_remove
-      @list.zrange(0,-1).keep_if do |id|
+      @list.zrange(0,-1).select do |id|
         a = Activity[id]
         a.nil?
       end

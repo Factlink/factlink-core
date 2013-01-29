@@ -5,7 +5,7 @@ module Interactors
       arguments :topic
 
       def get_alive_channels
-        @topic.top_channels(5).delete_if {|ch| ch.nil?}
+        @topic.top_channels(5).compact
       end
     end
   end

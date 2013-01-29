@@ -50,7 +50,7 @@ class Topic
   end
 
   def top_users(nr=5)
-    redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}.delete_if { |u| u.nil? }
+    redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}.compact
   end
 
   def top_users_add(user, val)

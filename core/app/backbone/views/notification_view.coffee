@@ -2,6 +2,9 @@ class GenericNotificationView extends Backbone.Marionette.Layout
   tagName: "li"
   className: "activity"
   template: "notifications/generic"
+  templateHelpers: ->
+    user: (new User @model.get('user')).toJSON()
+
   events:
     'click a': 'click'
 

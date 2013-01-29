@@ -12,7 +12,7 @@ class AddCreatedFactlinksCountToMixpanel < Mongoid::Migration
 
   def self.facts_for gu
     gu.created_facts.find_all { |fact| fact.class == Fact }
-      .to_a.keep_if { |f| f.has_site? }
+      .to_a.select { |f| f.has_site? }
   end
 
   def self.down
