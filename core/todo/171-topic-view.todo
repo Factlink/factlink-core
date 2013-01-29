@@ -3,7 +3,8 @@ Backend:
  ☐ Add feature toggle.
  ✔ Create redis collection for facts per topic. @done (13-01-29 15:43)
  ✔ Create command for adding facts to the collection topic. @done (13-01-29 15:43)
- ☐ Create query to retrieve facts for a topic.
+ ✔ Create query to retrieve facts for a topic. @done (13-01-29 17:17)
+ ☐ Create interactor to retrieve facts for a topic
  ☐ Create (controller)#action and route
 
 Create frontend:
