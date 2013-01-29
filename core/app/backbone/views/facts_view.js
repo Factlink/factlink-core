@@ -59,7 +59,7 @@ window.FactsView = AutoloadingCompositeView.extend({
       url: this.collection.url(),
       type: "POST",
       data: {
-        displaystring: $textarea.val(),
+        displaystring: $textarea.val()
       },
       success: function(data) {
         var fact = new Fact(data);
