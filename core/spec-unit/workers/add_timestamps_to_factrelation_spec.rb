@@ -133,6 +133,24 @@ describe AddTimestampsToFactrelation do
         ts = AddTimestampsToFactrelation::FactsTimestamp.new fact_relation
         expect(ts.max_timestamp).to eq from_fact.created_at
       end
+
+      it 'handles top_fact.created_at: nil correctly' do
+        top_fact      = stub( created_at: nil )
+        from_fact     = stub( created_at: "3013-02-29 11:36:16 UTC" )
+        fact_relation = stub( fact: top_fact, from_fact: from_fact )
+
+        ts = AddTimestampsToFactrelation::FactsTimestamp.new fact_relation
+        expect(ts.max_timestamp).to eq from_fact.created_at
+      end
+
+      it 'handles from_fact.created_at: nil correctly' do
+        top_fact      = stub( created_at: "2013-01-28 10:35:13 UTC" )
+        from_fact     = stub( created_at: nil )
+        fact_relation = stub( fact: top_fact, from_fact: from_fact )
+
+        ts = AddTimestampsToFactrelation::FactsTimestamp.new fact_relation
+        expect(ts.max_timestamp).to eq top_fact.created_at
+      end
     end
 
     describe '.timestamp' do

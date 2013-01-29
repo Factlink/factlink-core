@@ -85,7 +85,7 @@ class AddTimestampsToFactrelation
     end
 
     def max_timestamp
-      [fact_relation.fact.created_at, fact_relation.from_fact.created_at].max
+      [fact_relation.fact.created_at, fact_relation.from_fact.created_at].compact.max
     end
   end
 end
