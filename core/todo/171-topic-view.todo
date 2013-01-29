@@ -1,8 +1,8 @@
 Backend:
- ☐ Refactor all places where a fact is added to a channel to :'channels/add_fact' interactor.
+ ✔ Refactor all places where a fact is added to a channel to :'channels/add_fact' interactor. @done (13-01-29 15:43)
  ☐ Add feature toggle.
- ☐ Create redis collection for facts per topic.
- ☐ Create command for adding facts to the collection topic.
+ ✔ Create redis collection for facts per topic. @done (13-01-29 15:43)
+ ✔ Create command for adding facts to the collection topic. @done (13-01-29 15:43)
  ☐ Create query to retrieve facts for a topic.
  ☐ Create (controller)#action and route
 
