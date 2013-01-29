@@ -74,7 +74,7 @@ class User
   validates_length_of     :biography, maximum: 1023
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
+  # :token_authenticatable, :lockable, :timeoutable and :omniauthable,
   devise :invitable, :database_authenticatable,
   :recoverable,   # Password retrieval
   :rememberable,  # 'Remember me' box
