@@ -131,7 +131,11 @@ class ChannelsController < ApplicationController
 
   def facts
     authorize! :show, @channel
-    @facts = @channel.facts(from: params[:timestamp], count: params[:number] || 7, withscores: true)
+
+    from = params[:timestamp].to_i if params[:timestamp]
+    count = params[:number].to_i if params[:number]
+
+    @facts = interactor :'channels/facts', channel_id, from, count
 
     mark_channel_as_read
 
@@ -184,7 +188,11 @@ class ChannelsController < ApplicationController
     end
 
     def load_channel
-      @channel ||= (Channel[params[:channel_id] || params[:id]]) || raise_404("Channel not found")
+      @channel ||= Channel[channel_id] || raise_404("Channel not found")
+    end
+
+    def channel_id
+      params[:channel_id] || params[:id]
     end
 
     def mark_channel_as_read
