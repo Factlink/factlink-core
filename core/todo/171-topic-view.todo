@@ -4,6 +4,7 @@ Backend:
  ☐ Create redis collection for facts per topic.
  ☐ Create command for adding facts to the collection topic.
  ☐ Create query to retrieve facts for a topic.
+ ☐ Create (controller)#action and route
 
 Create frontend:
  ☐ Make stub collection with a few facts.
@@ -13,3 +14,7 @@ Create frontend:
 
 Integrate frontend and backend:
  ☐ Test!
+
+Cleanup:
+ ☐ Remove ChannelFacts.facts, this has an impact on channel_spec,  overtaker_spec, user_stream_spec, clean_channel_spec
+
