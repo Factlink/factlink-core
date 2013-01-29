@@ -10,7 +10,7 @@ class TopChannels
   def members
     ids.map {|id| Channel[id]}
        .compact
-       .keep_if {|ch| valid(ch)}
+       .select {|ch| valid(ch)}
   end
 
   def add id

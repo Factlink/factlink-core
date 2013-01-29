@@ -110,7 +110,6 @@ FactlinkUI::Application.routes.draw do
     match "/search(/page/:page)(/:sort/:direction)" => "search#search", :as => "factlink_overview"
 
     namespace :admin, path: 'a' do
-      get "info" => "admin#info"
       resources :users, :only => [:show, :new, :create, :edit, :update, :index] do
         collection do
           get :reserved
@@ -120,6 +119,10 @@ FactlinkUI::Application.routes.draw do
           put :approve
         end
       end
+    end
+
+    scope "/a" do
+      get "info" => "admin#info", as: "admin_info"
     end
 
     # Seems to me we want to lose the scope "/:username" later and place all
