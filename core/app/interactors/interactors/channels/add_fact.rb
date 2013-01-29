@@ -8,11 +8,17 @@ module Interactors
       def execute
         command :"channels/add_fact", @fact, @channel
 
+        command :"topics/add_fact", @fact.id.to_i, topic.id.to_s
+
         if @fact.site
           command :'site/add_top_topic', @fact.site.id.to_i, @channel.topic.slug_title
         end
 
         command :create_activity, @channel.created_by, :added_fact_to_channel, @fact, @channel
+      end
+
+      def topic
+        @channel.topic
       end
 
       def authorized?
