@@ -7,11 +7,7 @@ class window.FactBottomView extends Backbone.Marionette.Layout
 
   templateHelpers: ->
     fact_url_host: ->
-      if @fact_url?
-        url = document.createElement('a')
-        url.href = @fact_url
-
-        url.host
+      new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
 
   showAddToChannel: (e) ->
     e.preventDefault()
