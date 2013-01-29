@@ -1,17 +1,21 @@
-class window.FactBottomView extends Backbone.Marionette.Layout
-  template: "facts/fact_bottom"
+class window.FactBottomView extends Backbone.Marionette.ItemView
+  className: 'fact-bottom bottom-base'
+
+  template: 'facts/bottom_base'
 
   events:
     "click .js-add-to-channel": "showAddToChannel",
     "click .js-start-conversation": "showStartConversation"
 
   templateHelpers: ->
+    showTime: true
+    showRepost: true
+    showShare: true
+    showSubComments: false
+    showFactInfo: true
+    showDiscussion: true
     fact_url_host: ->
-      if @fact_url?
-        url = document.createElement('a')
-        url.href = @fact_url
-
-        url.host
+      new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
 
   showAddToChannel: (e) ->
     e.preventDefault()
