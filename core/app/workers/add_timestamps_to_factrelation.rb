@@ -31,7 +31,9 @@ class AddTimestampsToFactrelation
   end
 
   def calculate_timestamp
-    ActivityTimestamp.new(fact_relation).timestamp
+    ActivityTimestamp.new(fact_relation).timestamp ||
+      FactsTimestamp.new(fact_relation).timestamp ||
+      Time.now.utc.to_s
   end
 
   def self.perform(fact_relation_id)
@@ -61,6 +63,23 @@ class AddTimestampsToFactrelation
       else
         :added_weakening_evidence
       end
+    end
+  end
+  class FactsTimestamp
+
+    attr_reader :fact_relation
+
+    def initialize fact_relation
+      @fact_relation = fact_relation
+    end
+
+    def timestamp
+      time = Time.parse max_timestamp
+      (time + 1).utc.to_s
+    end
+
+    def max_timestamp
+      [fact_relation.fact.created_at, fact_relation.from_fact.created_at].max
     end
   end
 end
