@@ -108,7 +108,7 @@ def create_activity_listeners
       # someone added a fact to a channel which you follow
       activity subject_class: "Fact",
                action: :added_fact_to_channel,
-               write_ids: lambda { |a| [a.object.containing_channels.map {|ch| ch.created_by_id }.keep_if { |id| id != a.user_id } ].flatten }
+               write_ids: lambda { |a| [a.object.containing_channels.map {|ch| ch.created_by_id }.select { |id| id != a.user_id } ].flatten }
 
       # the users first Factlink
       activity subject_class: "Fact",
