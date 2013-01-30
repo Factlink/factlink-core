@@ -56,7 +56,18 @@ class NotificationAddedSubchannelView extends GenericNotificationView
   onRender: ->
     super()
 
-    suggested_topics = new SuggestedTopics [@channel_as_topic(), @other_channel_as_topic()]
+    # TODO clean this behaviour.
+    # We don't want Topics with duplicate slug in the SuggestedTopics collection
+    topic1 = @channel_as_topic()
+    topic2 = @other_channel_as_topic()
+
+    same_slug_title = topic1.get('slug_title') == topic2.get('slug_title')
+
+    topics = [topic1]
+    topics.push(topic2) unless same_slug_title
+    # end
+
+    suggested_topics = new SuggestedTopics topics
     @addBackRegion.show new AddChannelToChannelsButtonView
                                 model: @other_channel()
                                 suggested_topics: suggested_topics
