@@ -1,6 +1,6 @@
-class SuggestedSiteTopicView extends Backbone.Marionette.ItemView
+class SuggestedTopicView extends Backbone.Marionette.ItemView
   tagName: 'li'
-  template: 'channels/suggested_site_topic'
+  template: 'channels/suggested_topic'
 
   events:
     'click' : 'clickAdd'
@@ -16,25 +16,25 @@ class SuggestedSiteTopicView extends Backbone.Marionette.ItemView
     console.info 'Model succesfully added'
 
   addModelError: (model) ->
-    console.info "SuggestedSiteTopicView - error while adding #{@name}"
+    console.info "SuggestedTopicView - error while adding #{@name}"
 
-_.extend(SuggestedSiteTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
+_.extend(SuggestedTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
 
 
-class SuggestedSiteTopicsView extends Backbone.Marionette.CollectionView
+class SuggestedTopicsView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
-  itemView: SuggestedSiteTopicView
-  className: 'add-to-channel-suggested-site-topics'
+  itemView: SuggestedTopicView
+  className: 'add-to-channel-suggested-topics'
 
   itemViewOptions: =>
     addToCollection: @options.addToCollection
 
 
-class window.FilteredSuggestedSiteTopicsView extends Backbone.Marionette.Layout
-  template: 'channels/filtered_suggested_site_topics'
+class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
+  template: 'channels/filtered_suggested_topics'
 
   regions:
-    suggestedSiteTopicsRegion: '.js-suggested-site-topics-region'
+    suggestedTopicsRegion: '.js-suggested-topics-region'
 
   initialize: (options) ->
     suggested_topics = new SuggestedSiteTopics([], site_url: @options.site_url)
@@ -49,7 +49,7 @@ class window.FilteredSuggestedSiteTopicsView extends Backbone.Marionette.Layout
     @bindTo @collection, 'add remove reset change', @updateTitle, @
 
   onRender: ->
-    @suggestedSiteTopicsRegion.show new SuggestedSiteTopicsView
+    @suggestedTopicsRegion.show new SuggestedTopicsView
       collection: @collection
       addToCollection: @options.addToCollection
 

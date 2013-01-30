@@ -6,7 +6,7 @@ Add-back channel suggestions:
 * should show your and their Topic (if the topic name is different)
 
 refactor FilteredSuggestedSiteTopicsView to FilteredSuggestedTopicsView:
- ☐ remove naming of `site` in model, views et cetera.
+ ✔ remove naming of `site` in model, views et cetera. @done (13-01-30 11:23)
  ☐ don't fetch the collection of suggestions in the view, but receive collection as options parameter
  -> pass collection to view:
    ☐ facts_new_view

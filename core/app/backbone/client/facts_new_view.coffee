@@ -79,7 +79,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   renderSuggestedChannels: ->
     if @options.url
-      suggestionView = new FilteredSuggestedSiteTopicsView
+      suggestionView = new FilteredSuggestedTopicsView
         addToCollection: @addToCollection
         site_url: @options.url
       suggestionView.render()

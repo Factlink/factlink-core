@@ -1,4 +1,4 @@
-#= require ./filtered_suggested_site_topics_view
+#= require ./filtered_suggested_topics_view
 
 class window.AddToChannelModalView extends Backbone.Marionette.Layout
   template: 'channels/add_to_channel_modal'
@@ -22,7 +22,7 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
       @renderSuggestedChannels()
 
   renderSuggestedChannels: ->
-    suggestions = new FilteredSuggestedSiteTopicsView
+    suggestions = new FilteredSuggestedTopicsView
                         site_url: @model.get('fact_url')
                         addToCollection: @collection
 
