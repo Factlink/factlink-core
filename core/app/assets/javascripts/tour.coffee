@@ -20,7 +20,7 @@ class window.InteractiveTour
   constructor: ->
     @bindLibraryLoad()
 
-    @state ?= StateMachine.create
+    @state = StateMachine.create
       initial: 'started'
       events: [
         { name: 'select_text',     from: ['started',
@@ -30,28 +30,35 @@ class window.InteractiveTour
         { name: 'open_modal',      from:  'text_selected',                       to: 'modal_opened' }
         { name: 'open_modal',      from:  'factlink_created_and_text_selected',  to: 'factlink_created_and_modal_opened' }
         { name: 'close_modal',     from:  'modal_opened',                        to: 'started' }
-        { name: 'close_modal',     from:  'factlink_created_and_modal_opened',   to: 'start' }
+        { name: 'close_modal',     from:  'factlink_created_and_modal_opened',   to: 'started' }
         { name: 'create_factlink', from: ['modal_opened',
                                           'factlink_created_and_modal_opened'],  to: 'factlink_created' }
       ]
       callbacks:
         onstarted: =>
           @showHelpText(1)
+        onleavestarted: =>
+          @hideHelpText(=> @state.transition() if @state.transition)
+          StateMachine.ASYNC
         ontext_selected: =>
           @showHelpText(2)
-        onmodal_opened: =>
-          @hide()
+        onleavetext_selected: =>
+          @hideHelpText(=> @state.transition() if @state.transition)
+          StateMachine.ASYNC
         onfactlink_created: =>
           @showHelpText(3)
+        onleavefactlink_created: =>
+          @hideHelpText(=> @state.transition() if @state.transition)
+          StateMachine.ASYNC
 
-  hide: (callback) ->
+  hideHelpText: (callback) ->
     $('.help-text-container > div').fadeOut 'slow', callback
+    StateMachine.ASYNC
 
   showHelpText: (current_step) ->
-    @hide =>
-      setTimeout =>
-        $("#step#{current_step}").fadeIn 'slow'
-      , @helpTextDelay
+    setTimeout =>
+      $("#step#{current_step}").fadeIn 'slow'
+    , @helpTextDelay
 
 if $('body').hasClass 'action_create_your_first_factlink'
   window.tour = new InteractiveTour()
