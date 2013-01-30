@@ -5,7 +5,8 @@
   font-family: @baseFontFamily;
   font-size: 12px;
   margin: 15px 0 0;
-  .border-bottom-radius(5px);
+  .reset-main-padding();
+  padding: 0;
 
   .tab-control {
     cursor: pointer;
@@ -13,7 +14,7 @@
     font-size: 13px;
     position: relative;
     top: 1px;
-    margin: 0 15px;
+    margin: 0 @mainLeftPadding 0 @mainRightPadding;
     padding: 0;
 
     > li {
@@ -83,8 +84,10 @@
     > .interacting-users {
       background: @whiteDarker;
       border: 1px solid @baseBorderColor;
+      border-left: none;
+      border-right: none;
 
-      padding: 10px 26px;
+      padding: 10px @mainLeftPadding 10px @mainRightPadding;
     }
 
     &.doubting > .interacting-users {

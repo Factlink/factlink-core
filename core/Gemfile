@@ -1,7 +1,9 @@
 source 'http://rubygems.org'
 
-# our servers still run on 1.9.2, we should update those first
-# ruby '1.9.3'
+# for rvm:
+#ruby=1.9.3-p374
+# for bundler
+ruby '1.9.3'
 
 # Defaults
 gem 'rails', '3.2.11'

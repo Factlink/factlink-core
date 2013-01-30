@@ -1,0 +1,8 @@
+URL, timestamp and discussion link of a FactRelation:
+
+Timestamp:
+ ✔ add timestamp (create, update) to FactRelation @done (13-01-28 14:24)
+ ✔ create migration to set .created_at of existing FactRelations to a sensible date from the [:added_supporting_evidence, :added_weakening_evidence] activity @done (13-01-29 13:33)
+   ✔ Activity.find(subject_id: <x>, subject_class: <x>, action: <x>) for each FactRelation @done (13-01-29 10:07)
+ ✔ get created_at from Fact when there is no activity. @done (13-01-29 10:45)
+ ✔ default to TIme.now when no activity or fact can be found @done (13-01-29 10:45)

@@ -3,9 +3,10 @@
 
 .fact-relation-search {
   background: @whiteDarker;
-  border: 1px solid @baseBorderColor;
-  padding: 15px;
-  .border-bottom-radius(5px);
+  border-top: 1px solid @baseBorderColor;
+  border-bottom: 1px solid @baseBorderColor;
+  padding: 15px @mainRightPadding 15px @mainLeftPadding;
+  .clearfix();
 
   .auto-complete-fact-relations {
     overflow: hidden;

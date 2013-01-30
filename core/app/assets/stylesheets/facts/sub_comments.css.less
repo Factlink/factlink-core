@@ -1,115 +1,105 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-.evidence-sub-comments {
-  margin: 5px 0 0 92px;
-  clear: both;
+.evidence-sub-comments-list {
+  position: relative;
+  margin: 6px 0 0 34px;
+  border: 1px solid @baseBorderColor;
+  background-color: @whiteDarker;
+  .box-shadow(0 1px 3px rgba(0,0,0, 0.07));
+  .border-radius(3px);
 
-  .evidence-sub-comments-link {
-    font-weight: bold;
-    &:hover { cursor: pointer }
+  img.evidence-sub-comments-avatar {
+    float: left;
+    .border-radius(3px);
   }
 
-  .evidence-sub-comments-list-container {
+  .evidence-sub-comment {
     position: relative;
-    margin: 6px 0 0 -54px;
-    border: 1px solid @baseBorderColor;
-    background-color: @whiteDarker;
-    .box-shadow(0 1px 3px rgba(0,0,0, 0.07));
-    .border-radius(3px);
+    padding: 10px;
+    border-bottom: 1px solid @baseBorderColor;
+    .box-shadow(0 1px 0 rgba(255,255,255,0.5));
+    font-size: @baseFontSize;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 
     img.evidence-sub-comments-avatar {
-      float: left;
-      .border-radius(3px);
+      margin-top: 4px;
+      width: 32px;
+      height: 32px;
     }
 
-    .evidence-sub-comment {
-      position: relative;
-      padding: 10px;
-      border-bottom: 1px solid @baseBorderColor;
-      .box-shadow(0 1px 0 rgba(255,255,255,0.5));
-      font-size: @baseFontSize;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    .evidence-sub-comment-author {
+      margin-left: 44px;
+      color: @mutedFontColor;
 
-      img.evidence-sub-comments-avatar {
-        margin-top: 4px;
-        width: 32px;
-        height: 32px;
+      .evidence-sub-comment-authority {
+        color: @baseFontColor;
+        font-size: @metaFontSize;
       }
-
-      .evidence-sub-comment-author {
-        margin-left: 44px;
+      .evidence-sub-comment-time-ago {
         color: @mutedFontColor;
-
-        .evidence-sub-comment-authority {
-          color: @baseFontColor;
-          font-size: @metaFontSize;
-        }
-        .evidence-sub-comment-time-ago {
-          color: @mutedFontColor;
-          font-size: @metaFontSize;
-        }
+        font-size: @metaFontSize;
       }
+    }
 
-      .evidence-sub-comment-content {
-        margin-left: 44px;
-        min-height: 10px;
-      }
+    .evidence-sub-comment-content {
+      margin-left: 44px;
+      min-height: 10px;
+    }
 
+    .sub-comments-popover-arrow {
+      .opacity(0);
+      .transition(opacity .15s ease-in-out);
+    }
+
+    &:hover {
       .sub-comments-popover-arrow {
-        .opacity(0);
-        .transition(opacity .15s ease-in-out);
-      }
-
-      &:hover {
-        .sub-comments-popover-arrow {
-          .opacity(1);
-        }
+        .opacity(1);
       }
     }
+  }
 
-    .evidence-sub-comments-arrow {
-      position: absolute;
-      left: 77px;
-      top: -8px;
-      width: 18px;
-      height: 8px;
-      background: image-url('discussions/comment_arrow.png') no-repeat;
-    }
+  .evidence-sub-comments-arrow {
+    position: absolute;
+    left: 77px;
+    top: -8px;
+    width: 18px;
+    height: 8px;
+    background: image-url('discussions/comment_arrow.png') no-repeat;
+  }
 
-    .evidence-sub-comments-form {
-      padding: 10px;
-      overflow: hidden;
+  .evidence-sub-comments-form {
+    padding: 10px;
+    overflow: hidden;
 
-      .evidence-sub-comments-textarea-container {
+    .evidence-sub-comments-textarea-container {
+      .box-sizing(border-box);
+      margin-left: 45px;
+
+      .typeahead {
         .box-sizing(border-box);
-        margin-left: 45px;
-
-        .typeahead {
-          .box-sizing(border-box);
-          width: 100%;
-          padding-top: 6px;
-          margin-bottom: 0px;
-          height: 32px;
-          resize: none;
-          .transition(height 0.15s ease-in-out);
-        }
-      }
-
-      .evidence-sub-comments-button-container {
-        display: none;
+        width: 100%;
+        padding-top: 6px;
+        margin: 0;
+        height: 32px;
+        resize: none;
+        .transition(height 0.15s ease-in-out);
       }
     }
 
-    .evidence-sub-comments-form-active {
-      .evidence-sub-comments-textarea-container .typeahead {
-        height: 52px;
-        margin-bottom: 9px;
-      }
+    .evidence-sub-comments-button-container {
+      display: none;
+    }
+  }
 
-      .evidence-sub-comments-button-container {
-        display: block;
-      }
+  .evidence-sub-comments-form-active {
+    .evidence-sub-comments-textarea-container .typeahead {
+      height: 52px;
+      margin-bottom: 9px;
+    }
+
+    .evidence-sub-comments-button-container {
+      display: block;
     }
   }
 }

@@ -20,19 +20,24 @@
       color: @metaFontColor;
     }
   }
+
+  .profile-box-container {
+    width: 50%;
+    float: left;
+  }
+
   .top-channels-region, .profile-information {
-    margin-left: 20px;
-    width: (@mainColumnWidth / 2) - 40px;
     background: @backgroundGray;
     padding: 10px 20px 20px;
     border: 1px solid @mutedBorderColor;
     .border-radius(3px);
     text-shadow: 0 1px 0 #fff;
+    .clearfix();
   }
   .profile-information {
-    float: right;
+    margin-left: 10px;
   }
   .top-channels-region {
-    float: left;
+    margin-right: 10px;
   }
 }
