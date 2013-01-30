@@ -52,14 +52,14 @@ class window.InteractiveTour
           StateMachine.ASYNC
 
   hideHelpText: (step) ->
-    $("#step#{step}").fadeOut 'slow', =>
+    $("#step#{step}").fadeOut 'fast', =>
       @state.transition()
 
     StateMachine.ASYNC
 
   showHelpText: (current_step) ->
     setTimeout =>
-      $("#step#{current_step}").fadeIn 'slow'
+      $("#step#{current_step}").fadeIn 'fast'
     , @helpTextDelay
 
 if $('body').hasClass 'action_create_your_first_factlink'
