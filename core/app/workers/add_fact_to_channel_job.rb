@@ -1,4 +1,6 @@
 class AddFactToChannelJob
+  include Pavlov::Helpers
+
   @queue = :channel_operations
 
   attr_reader :fact, :channel
@@ -13,6 +15,7 @@ class AddFactToChannelJob
     return unless can_perform and should_perform
 
     add_to_channel
+    add_to_topic
     add_to_unread
     propagate_to_channels
   end
@@ -44,6 +47,10 @@ class AddFactToChannelJob
   def add_to_channel
     channel.sorted_cached_facts.add(fact, score)
     fact.channels.add(channel) if channel.type == 'channel'
+  end
+
+  def add_to_topic
+    command :"topics/add_fact", fact.id, channel.slug_title, score.to_s
   end
 
   def add_to_unread
