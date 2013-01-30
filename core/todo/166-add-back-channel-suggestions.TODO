@@ -7,10 +7,10 @@ Add-back channel suggestions:
 
 refactor FilteredSuggestedSiteTopicsView to FilteredSuggestedTopicsView:
  ✔ remove naming of `site` in model, views et cetera. @done (13-01-30 11:23)
- ☐ don't fetch the collection of suggestions in the view, but receive collection as options parameter
+ ✔ don't fetch the collection of suggestions in the view, but receive collection as options parameter @done (13-01-30 14:49)
  -> pass collection to view:
-   ☐ facts_new_view
-   ☐ add_to_channel_modal_view
+   ✔ facts_new_view @done (13-01-30 14:49)
+   ✔ add_to_channel_modal_view @done (13-01-30 13:45)
 
 validate old functionality still work after refactor:
  ☐ channel suggestions in facts_new_view

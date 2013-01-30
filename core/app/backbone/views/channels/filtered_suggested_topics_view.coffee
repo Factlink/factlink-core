@@ -37,13 +37,10 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
     suggestedTopicsRegion: '.js-suggested-topics-region'
 
   initialize: (options) ->
-    suggested_topics = new SuggestedSiteTopics([], site_url: @options.site_url)
-    suggested_topics.fetch()
-
     utils = new CollectionUtils(this)
     @collection = utils.difference(new Backbone.Collection(),
                                                   'slug_title',
-                                                  suggested_topics,
+                                                  @options.suggested_topics,
                                                   @options.addToCollection)
 
     @bindTo @collection, 'add remove reset change', @updateTitle, @
