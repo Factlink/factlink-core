@@ -63,11 +63,11 @@ class window.ActivitiesView extends AutoloadingView
   emptyViewOn: ->
     unless @options.disableEmptyView
       if @collection.channel.get('discover_stream?')
-        @suggestedTopics = new SuggestedTopics()
-        @suggestedTopics.fetch()
-        @emptyView = new SuggestedTopicsView
+        @topTopics = new TopTopics()
+        @topTopics.fetch()
+        @emptyView = new TopTopicsView
           model: new Backbone.Model(current_url: @collection.link())
-          collection: collectionDifference new SuggestedTopics, 'slug_title', @suggestedTopics, window.Channels
+          collection: collectionDifference new TopTopics, 'slug_title', @topTopics, window.Channels
       else
         @emptyView = new ActivititesBasicEmptyView
 
