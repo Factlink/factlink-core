@@ -4,4 +4,4 @@ class window.SubchannelList extends Backbone.Collection
   initialize: (models, opts) ->
     @channel = opts.channel
 
-  url: -> @channel.url() + '/subchannels';
+  url: -> @channel.url() + '/subchannels'
