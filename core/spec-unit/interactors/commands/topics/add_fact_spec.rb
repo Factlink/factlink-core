@@ -23,15 +23,20 @@ describe Commands::Topics::AddFact do
   end
 
   describe '#redis_key' do
+    before do
+      stub_classes("Topic")
+    end
+
     it 'calls nest correcly' do
       topic_slug_title = '2a'
-      score = 1
-      command = described_class.new 1, topic_slug_title, score
+      score = Time.now
+      nest_instance = mock
       key = mock
       final_key = mock
+      command = described_class.new "1", topic_slug_title, score
 
-      Nest.should_receive(:new).with(:new_topic).and_return(key)
-      key.should_receive(:[]).with(topic_slug_title).and_return(key)
+      Topic.should_receive(:redis).and_return(nest_instance)
+      nest_instance.should_receive(:[]).with(topic_slug_title).and_return(key)
       key.should_receive(:[]).with(:facts).and_return(final_key)
 
       expect(command.redis_key).to eq final_key

@@ -10,7 +10,7 @@ module Commands
       end
 
       def redis_key
-        Nest.new(:new_topic)[@topic_slug_title][:facts]
+        Topic.redis[@topic_slug_title][:facts]
       end
 
       def validate
