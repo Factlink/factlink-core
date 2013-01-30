@@ -5,7 +5,9 @@ module Devise
   module Mailers
     module Helpers
       def initialize_from_record(user_hash_or_object)
-        super get_user_for_hash_or_object(user_hash_or_object)
+        user = get_user_for_hash_or_object(user_hash_or_object)
+        @scope_name = Devise::Mapping.find_scope!(user)
+        @resource   = instance_variable_set("@#{devise_mapping.name}", user)
       end
 
       def get_user_for_hash_or_object(hash_or_object)
