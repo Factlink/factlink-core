@@ -5,15 +5,15 @@ describe Queries::Topics::Facts do
   include PavlovSupport
 
   before do
-    stub_classes 'Nest', 'Ohm::Model::SortedSet', 'Fact'
+    stub_classes 'Topic', 'Ohm::Model::SortedSet', 'Fact'
   end
 
   describe '#execute' do
     it 'correctly' do
-      topic_id = '1a'
+      slug_title = 'slug-title'
       count = 10
       max_timestamp = 100
-      query = described_class.new topic_id, count, max_timestamp
+      query = described_class.new slug_title, count, max_timestamp
       fact_id = mock
       results = [{item: fact_id, score:1}]
       key = mock
@@ -47,13 +47,14 @@ describe Queries::Topics::Facts do
 
   describe '#redis_key' do
     it 'calls nest correcly' do
-      topic_id = '2a'
-      command = described_class.new topic_id, 100, 123
+      slug_title = 'slug-title'
+      command = described_class.new slug_title, 100, 123
+      nest = mock
       key = mock
       final_key = mock
 
-      Nest.should_receive(:new).with(:new_topic).and_return(key)
-      key.should_receive(:[]).with(topic_id).and_return(key)
+      Topic.should_receive(:redis).and_return(nest)
+      nest.should_receive(:[]).with(slug_title).and_return(key)
       key.should_receive(:[]).with(:facts).and_return(final_key)
 
       expect(command.redis_key).to eq final_key
@@ -63,9 +64,9 @@ describe Queries::Topics::Facts do
   describe '#validation' do
     let(:subject_class) { described_class }
 
-    it :topic_id do
-      expect_validating('q', 100, 123).
-        to fail_validation('topic_id should be an hexadecimal string.')
+    it :slug_title do
+      expect_validating(1, 100, 123).
+        to fail_validation('slug_title should be a string.')
     end
 
     it :count do
