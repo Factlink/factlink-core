@@ -9,8 +9,8 @@ Backend:
  ✔ Remove the topics/add_fact command call from the channels/add_fact interactor @done (13-01-30 10:51)
  ✔ Use slug_title as key instead of topic_id @done (13-01-30 11:01)
  ✔ Call the topics/add_fact command from the AddFactToChannelJob @done (13-01-30 13:42)
- ☐ Create migration that performs a zunionstore on all channel#sorted_cashed_facts
- ☐ Create integration test for the controller
+ ✔ Create migration that performs a zunionstore on all channel#sorted_cashed_facts @done (13-01-30 17:39)
+ ✔ Create integration test for the controller @done (13-01-30 17:39)
 
 Create frontend:
  ☐ Create tab.
