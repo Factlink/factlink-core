@@ -11,11 +11,12 @@ describe Commands::Topics::AddFact do
   describe '#execute' do
     it 'correctly' do
       fact_id = 1
-      score = 1
-      command = described_class.new fact_id, '1e', score
+      command = described_class.new fact_id, '1e', mock
       key = mock
+      score = mock
 
       command.should_receive(:redis_key).and_return(key)
+      command.should_receive(:score).and_return(score)
       key.should_receive(:zadd).with(score, fact_id)
 
       command.execute
@@ -33,13 +34,30 @@ describe Commands::Topics::AddFact do
       nest_instance = mock
       key = mock
       final_key = mock
-      command = described_class.new "1", topic_slug_title, score
+      command = described_class.new 1, topic_slug_title, score
 
       Topic.should_receive(:redis).and_return(nest_instance)
       nest_instance.should_receive(:[]).with(topic_slug_title).and_return(key)
       key.should_receive(:[]).with(:facts).and_return(final_key)
 
       expect(command.redis_key).to eq final_key
+    end
+  end
+
+  describe '.score' do
+    before do
+      stub_classes("Ohm::Model::TimestampedSet")
+    end
+
+    it 'calls timestamped_set.current_time with score' do
+      score = mock
+      current_time = mock
+
+      command = described_class.new 1, "slug", score
+
+      Ohm::Model::TimestampedSet.should_receive(:current_time).and_return(current_time)
+
+      expect(command.score).to eq current_time
     end
   end
 
