@@ -38,21 +38,23 @@ class window.InteractiveTour
         onstarted: =>
           @showHelpText(1)
         onleavestarted: =>
-          @hideHelpText(=> @state.transition() if @state.transition)
+          @hideHelpText(1)
           StateMachine.ASYNC
         ontext_selected: =>
           @showHelpText(2)
         onleavetext_selected: =>
-          @hideHelpText(=> @state.transition() if @state.transition)
+          @hideHelpText(2)
           StateMachine.ASYNC
         onfactlink_created: =>
           @showHelpText(3)
         onleavefactlink_created: =>
-          @hideHelpText(=> @state.transition() if @state.transition)
+          @hideHelpText(3)
           StateMachine.ASYNC
 
-  hideHelpText: (callback) ->
-    $('.help-text-container > div').fadeOut 'slow', callback
+  hideHelpText: (step) ->
+    $("#step#{step}").fadeOut 'slow', =>
+      @state.transition()
+
     StateMachine.ASYNC
 
   showHelpText: (current_step) ->
