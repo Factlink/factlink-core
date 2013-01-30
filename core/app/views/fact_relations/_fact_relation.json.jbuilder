@@ -40,6 +40,8 @@ json.current_user_opinion current_user_opinion
 
 json.opinions OpinionPresenter.new opinion
 
+json.time_ago TimeFormatter.as_time_ago(fact_relation.created_at.to_time)
+
 json.created_by do |json|
   json.partial! 'users/user_partial', user: fact_relation.created_by.user
   json.authority creator_authority
