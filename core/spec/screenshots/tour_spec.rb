@@ -13,7 +13,6 @@ describe "Check the tour", type: :request do
   end
 
   it 'You\'re almost set page should be the same' do
-
     assume_unchanged_screenshot 'extension'
   end
 

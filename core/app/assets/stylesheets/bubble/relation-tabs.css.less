@@ -1,14 +1,36 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
 .factlink-modal div.fact-relations-region {
-  margin: 0 -15px -15px;
+  margin: 0 -@bubbleRightPadding -15px -@bubbleLeftPadding;
+
+  div.relation-tabs-view {
+    margin-left: 0;
+    margin-right: 0;
+
+    ul.tab-control {
+      margin: 0 @bubbleRightPadding 0 @bubbleLeftPadding;
+    }
+  }
+
+  .fact-relation-listing {
+    .evidence-item {
+      padding: 15px @bubbleRightPadding 15px @bubbleLeftPadding;
+    }
+  }
 
   div.interacting-users {
     border-left: none;
     border-right: none;
+    padding-left: @bubbleLeftPadding;
+    padding-right: @bubbleRightPadding;
   }
 
   div.fact-relation-search {
     border-left: none;
     border-right: none;
     border-bottom: none;
+    padding-left: @bubbleLeftPadding;
+    padding-right: @bubbleRightPadding;
   }
 }

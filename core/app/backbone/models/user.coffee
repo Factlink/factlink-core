@@ -1,5 +1,5 @@
 class window.User extends Backbone.Model
-  initialize: () -> @channels = []
+  initialize: -> @channels = []
 
   setChannels: (channels) -> @channels = channels
 

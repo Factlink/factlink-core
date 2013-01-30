@@ -29,8 +29,8 @@ window.FactsView = AutoloadingCompositeView.extend({
   showNewPosts: function(){
     if ( this.model.user().get('username') === currentUser.get('username') ) {
       var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
-      this.$('.more .unread_count').html(unread_count);
-      this.$('.more').toggle(unread_count > 0);
+      this.$('.facts-view-more .unread_count').html(unread_count);
+      this.$('.facts-view-more').toggle(unread_count > 0);
     }
   },
 
@@ -59,7 +59,7 @@ window.FactsView = AutoloadingCompositeView.extend({
       url: this.collection.url(),
       type: "POST",
       data: {
-        displaystring: $textarea.val(),
+        displaystring: $textarea.val()
       },
       success: function(data) {
         var fact = new Fact(data);
