@@ -10,9 +10,8 @@ class window.FactsView extends AutoloadingCompositeView
     "click #create_fact_for_channel": "focusCreateFactlink"
     "click #create_fact_for_channel .input-box": "focusField"
 
-  template: "channels/facts"
+  template: "channels/_facts"
   initialize: (options) ->
-    @views = {}
     @addShowHideToggle "loadingIndicator", "div.loading"
     @collection.on "startLoading", @loadingIndicatorOn, this
     @collection.on "stopLoading", @loadingIndicatorOff, this
