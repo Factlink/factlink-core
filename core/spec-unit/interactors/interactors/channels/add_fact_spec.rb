@@ -17,7 +17,6 @@ describe Interactors::Channels::AddFact do
       channel.should_receive(:created_by).and_return(user)
 
       interactor.should_receive(:command).with(:"channels/add_fact", fact, channel)
-      interactor.should_receive(:command).with(:"topics/add_fact", fact.id.to_i, topic.id.to_s)
       interactor.should_receive(:command).with(:"site/add_top_topic", fact.site.id, channel.topic.slug_title)
       interactor.should_receive(:command).with(:"create_activity", user, :added_fact_to_channel, fact, channel)
 

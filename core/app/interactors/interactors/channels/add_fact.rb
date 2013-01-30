@@ -8,8 +8,6 @@ module Interactors
       def execute
         command :"channels/add_fact", @fact, @channel
 
-        command :"topics/add_fact", @fact.id.to_i, topic.id.to_s
-
         if @fact.site
           command :'site/add_top_topic', @fact.site.id.to_i, @channel.topic.slug_title
         end
