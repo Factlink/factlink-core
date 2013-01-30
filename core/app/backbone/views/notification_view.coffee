@@ -29,15 +29,38 @@ class NotificationAddedSubchannelView extends GenericNotificationView
   regions:
     addBackRegion: ".js-region-add-back"
 
+  initialize: ->
+    @activity = @model.get('activity')
+
+  channel: ->
+    channel = new Channel
+      id:         @activity.channel_id
+      title:      @activity.channel_title
+      slug_title: @activity.channel_slug_title
+
+  channel_as_topic: ->
+    new Topic
+      title:      @activity.channel_title
+      slug_title: @activity.channel_slug_title
+
+  other_channel_as_topic: ->
+    new Topic
+      title:      @activity.to_channel_title
+      slug_title: @activity.to_channel_slug_title
+
+  other_channel: ->
+    new Channel
+      id: @activity.to_channel_id
+      containing_channel_ids: @activity.to_channel_containing_channel_ids
+
   onRender: ->
     super()
-    activity = @model.get('activity')
 
-    other_channel = new Channel
-      id: activity.to_channel_id
-      containing_channel_ids: activity.to_channel_containing_channel_ids
+    @addBackRegion.show new AddChannelToChannelsButtonView
+                                model: @other_channel()
+                                suggested_topics: new SuggestedTopics [@channel_as_topic(), @other_channel_as_topic()]
 
-    @addBackRegion.show new AddChannelToChannelsButtonView model: other_channel
+
 
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"

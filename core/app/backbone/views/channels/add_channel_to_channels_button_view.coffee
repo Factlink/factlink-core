@@ -24,4 +24,7 @@ class window.AddChannelToChannelsButtonView extends Backbone.Marionette.Layout
     e.preventDefault()
 
     FactlinkApp.Modal.show 'Add to Channels',
-      new AddChannelToChannelsModalView model: @model, collection: @collection
+      new AddChannelToChannelsModalView
+            model: @model,
+            collection: @collection
+            suggestions: @options.suggested_topics
