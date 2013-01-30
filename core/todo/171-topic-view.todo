@@ -7,6 +7,7 @@ Backend:
  ✔ Create (controller)#action and route @done (13-01-29 17:47)
  ✔ Fix adding a fact to a topic multiple times (it's a set stupid! This works out of the box) @done (13-01-29 17:48)
  ✔ Remove the topics/add_fact command call from the channels/add_fact interactor @done (13-01-30 10:51)
+ ✔ Use slug_title as key instead of topic_id @done (13-01-30 11:01)
  ☐ Call the topics/add_fact command from the AddFactToChannelJob
  ☐ Create migration that performs a zunionstore on all channel#sorted_cashed_facts
  ☐ Create integration test for the controller

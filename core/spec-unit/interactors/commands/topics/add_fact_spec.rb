@@ -57,8 +57,8 @@ describe Commands::Topics::AddFact do
     end
 
     it 'requires arguments' do
-      expect_validating(1, 'q').
-        to fail_validation('topic_id should be an hexadecimal string.')
+      expect_validating(1, 1).
+        to fail_validation('topic_slug_title should be a string.')
     end
   end
 end
