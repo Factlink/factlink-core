@@ -1,4 +1,4 @@
-class window.SubchannelList extends Backbone.Collection
+class window.Subchannels extends Backbone.Collection
   model: Subchannel
 
   initialize: (models, opts) ->
