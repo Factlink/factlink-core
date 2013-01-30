@@ -15,7 +15,7 @@ class TopicsController < ApplicationController
   end
 
   def facts
-    @facts = interactor :'topics/facts', topic.id.to_s, nil, nil
+    @facts = interactor :'topics/facts', params[:id], nil, nil
 
     respond_to do |format|
       format.json { render json: @facts.map {|fact| Facts::Fact.for(fact: fact[:item],view: view_context, timestamp: fact[:score])} }
