@@ -18,8 +18,8 @@ module Commands
       end
 
       def validate
-        validate_integer  :fact_id, @fact_id
-        validate_string   :topic_slug_title, @topic_slug_title
+        validate_integer_string  :fact_id, @fact_id
+        validate_string          :topic_slug_title, @topic_slug_title
       end
     end
   end

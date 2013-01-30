@@ -10,7 +10,7 @@ describe Commands::Topics::AddFact do
 
   describe '#execute' do
     it 'correctly' do
-      fact_id = 1
+      fact_id = "1"
       command = described_class.new fact_id, '1e', mock
       key = mock
       score = mock
@@ -34,7 +34,7 @@ describe Commands::Topics::AddFact do
       nest_instance = mock
       key = mock
       final_key = mock
-      command = described_class.new 1, topic_slug_title, score
+      command = described_class.new "1", topic_slug_title, score
 
       Topic.should_receive(:redis).and_return(nest_instance)
       nest_instance.should_receive(:[]).with(topic_slug_title).and_return(key)
@@ -53,7 +53,7 @@ describe Commands::Topics::AddFact do
       score = mock
       current_time = mock
 
-      command = described_class.new 1, "slug", score
+      command = described_class.new "1", "slug", score
 
       Ohm::Model::TimestampedSet.should_receive(:current_time).and_return(current_time)
 
@@ -65,11 +65,11 @@ describe Commands::Topics::AddFact do
     let(:subject_class) { described_class }
     it 'requires arguments' do
       expect_validating('a', '2e', Time.now).
-        to fail_validation('fact_id should be an integer.')
+        to fail_validation('fact_id should be an integer string.')
     end
 
     it 'requires arguments' do
-      expect_validating(1, 1, Time.now).
+      expect_validating("1", 1, Time.now).
         to fail_validation('topic_slug_title should be a string.')
     end
   end
