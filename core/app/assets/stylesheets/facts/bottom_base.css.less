@@ -1,7 +1,7 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-div.fact-bottom {
+.bottom-base {
   font-size: 12px;
   clear: both;
   white-space: nowrap;
@@ -32,6 +32,11 @@ div.fact-bottom {
         margin: 0 7px;
       }
 
+      &:last-child:after {
+        content: "";
+        margin: 0;
+      }
+
       .opinion_indicators {
         font-size: 11px;
 
@@ -54,11 +59,11 @@ div.fact-bottom {
           }
         }
       }
-    }
-  }
 
-  .fact-info {
-    color: @mutedFontColor;
+      &.fact-info {
+        color: @mutedFontColor;
+      }
+    }
   }
 
   a {
@@ -79,14 +84,12 @@ div.fact-bottom {
 
 div.facts-view, #activity_for_channel .activity-group {
   div.fact-view {
-    .fact-bottom > span.fact-info,
-    .fact-bottom > ul.actions {
+    .bottom-base > ul.actions {
       .opacity(.60);
       .transition(opacity .15s ease-in-out);
     }
     &:hover {
-      .fact-bottom > span.fact-info,
-      .fact-bottom > ul.actions {
+      .bottom-base > ul.actions {
         .opacity(1);
       }
     }

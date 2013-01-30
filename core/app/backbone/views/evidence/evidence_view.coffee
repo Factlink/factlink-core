@@ -9,6 +9,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     activityRegion:    '.evidence-activity-region'
     mainRegion:        '.evidence-main-region'
     popoverRegion:     '.evidence-popover-region'
+    bottomRegion:      '.evidence-bottom-region'
     subCommentsRegion: '.evidence-sub-comments-region'
 
   initialize: ->
@@ -31,10 +32,25 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model, verb: @activityVerb
     @voteRegion.show new VoteUpDownView model: @model
-    @subCommentsRegion.show new SubCommentsView model: @model
+    @bottomRegion.show @evidenceBottomView()
 
     @mainRegion.show new @mainView model: @model
     @setPopover()
+
+  evidenceBottomView: ->
+    unless @_evidenceBottomView
+      @_evidenceBottomView = new EvidenceBottomView model: @model
+      @bindTo @_evidenceBottomView, 'toggleSubCommentsList', @toggleSubCommentsList, @
+    @_evidenceBottomView
+
+  toggleSubCommentsList: ->
+    if @subCommentsOpen
+      @subCommentsOpen = false
+      @subCommentsRegion.close()
+    else
+      @subCommentsOpen = true
+      @subCommentsRegion.show new SubCommentsListView
+        collection: new SubComments([], parentModel: @model)
 
   highlight: ->
     @$el.animate

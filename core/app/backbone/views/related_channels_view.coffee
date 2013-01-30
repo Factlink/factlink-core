@@ -10,11 +10,11 @@ class window.RelatedChannelsView extends Backbone.Marionette.CompositeView
   itemViewOptions: => addToCollection : @addToCollection
 
   templateHelpers: =>
-    is_mine: this.model.get('created_by').username == currentUser.get('username')
+    is_mine: @model.get('created_by').username == currentUser.get('username')
 
   initialize: (options) ->
-    @addToCollection = this.model.subchannels()
-    @collection =  collectionDifference(new ChannelList, 'id', this.model.relatedChannels(), this.addToCollection, [@model]);
+    @addToCollection = @model.subchannels()
+    @collection =  collectionDifference(new ChannelList, 'id', @model.relatedChannels(), @addToCollection, [@model]);
 
-  showEmptyView: => this.$el.hide()
-  closeEmptyView: => this.$el.show()
+  showEmptyView: => @$el.hide()
+  closeEmptyView: => @$el.show()
