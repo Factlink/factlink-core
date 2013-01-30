@@ -20,7 +20,7 @@ class window.Channel extends Backbone.Model
     @cache[field] = (@cache[field] || retrieval())
 
   subchannels: ->
-    @cached 'subchannels', => fetched(new SubchannelList(channel: this))
+    @cached 'subchannels', => fetched(new SubchannelList([], channel: this))
 
   relatedChannels: ->
     @cached 'relatedchannels', => fetched(new RelatedChannels [], forChannel: this)
