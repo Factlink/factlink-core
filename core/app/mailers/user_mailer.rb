@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
 
   default from: "Factlink <support@factlink.com>"
 
-  def welcome_instructions(user_id)
+  def welcome_instructions(user_id, opts={})
     @user = User.find(user_id)
     mail to: @user.email, subject: 'Start using Factlink'
   end
