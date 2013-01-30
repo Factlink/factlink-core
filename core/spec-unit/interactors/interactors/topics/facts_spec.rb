@@ -6,13 +6,13 @@ describe Interactors::Topics::Facts do
 
   describe '#execute' do
     it 'correctly' do
-      topic_id = '1a'
+      slug_title = 'slug-title'
       count = 10
       max_timestamp = 100
-      interactor = described_class.new topic_id, count, max_timestamp, current_user: mock
+      interactor = described_class.new slug_title, count, max_timestamp, current_user: mock
       results = mock
 
-      interactor.should_receive(:query).with(:'topics/facts', topic_id, count, max_timestamp).
+      interactor.should_receive(:query).with(:'topics/facts', slug_title, count, max_timestamp).
         and_return(results)
 
       expect( interactor.execute ).to eq results
@@ -29,9 +29,9 @@ describe Interactors::Topics::Facts do
   describe '#setup_defaults' do
     it :count do
       default_count = 7
-      topic_id = '1a'
+      slug_title = 'slug-title'
       max_timestamp = 100
-      interactor = described_class.new topic_id, nil, max_timestamp, current_user: mock
+      interactor = described_class.new slug_title, nil, max_timestamp, current_user: mock
 
       interactor.setup_defaults
 
@@ -42,9 +42,9 @@ describe Interactors::Topics::Facts do
   describe '#validation' do
     let(:subject_class) { described_class }
 
-    it :topic_id do
-      expect_validating('q', 100, 123).
-        to fail_validation('topic_id should be an hexadecimal string.')
+    it :slug_title do
+      expect_validating(1, 100, 123).
+        to fail_validation('slug_title should be a string.')
     end
 
     it :count do
