@@ -11,13 +11,10 @@ class window.ChannelViewLayout extends Backbone.Marionette.Layout
     creatorProfileRegion: ".created_by_region"
 
   templateHelpers: ->
-    activities_link: ->
-      @link + '/activities'
+    activities_link: -> @link + '/activities'
 
+class window.ChannelView extends ChannelViewLayout
   initialize: (opts) ->
-    # NOTE! though it looks like this is generic, this
-    # method is only executed for channels, not for activities
-    # TODO fix this mess
     @on 'render', =>
       @renderSubChannels()
       if @model.get('followable?')
@@ -32,16 +29,6 @@ class window.ChannelViewLayout extends Backbone.Marionette.Layout
         collection: @model.subchannels()
         model: @model
 
-  onClose: ->
-    @addToChannelView.close() if @addToChannelView
-    @subchannelView.close() if @subchannelView
-
-  activateTab: (selector) ->
-    tabs = @$('.tabs ul')
-    tabs.find('li').removeClass 'active'
-    tabs.find(selector).addClass 'active'
-
-class window.ChannelView extends ChannelViewLayout
   getFactsView: ->
     new FactsView
       collection: new ChannelFacts([], channel: @model)
@@ -49,7 +36,6 @@ class window.ChannelView extends ChannelViewLayout
 
   onRender: ->
     @factList.show @getFactsView()
-    @activateTab '.factlinks'
 
 class window.ChannelActivitiesView extends ChannelViewLayout
   events:
@@ -61,8 +47,7 @@ class window.ChannelActivitiesView extends ChannelViewLayout
     @on 'attached', @start_updating_count, @
     @on 'detached', @stop_updating_count, @
 
-  onClose: ->
-    @stop_updating_count()
+  onClose: -> @stop_updating_count()
 
   stop_updating_count: ->
     if @running
@@ -87,8 +72,8 @@ class window.ChannelActivitiesView extends ChannelViewLayout
     @collection.fetch_count(args...)
 
   update_count: ->
-    this.$('.activities-more .unread_count').html(@collection.get_new_activity_count());
-    this.$('.activities-more').toggle(@collection.get_new_activity_count() > 0);
+    @$('.activities-more .unread_count').html(@collection.get_new_activity_count());
+    @$('.activities-more').toggle(@collection.get_new_activity_count() > 0);
 
   refresh: (e) ->
     @collection.fetch()
@@ -100,4 +85,3 @@ class window.ChannelActivitiesView extends ChannelViewLayout
 
   onRender: ->
     @activityList.show @getActivitiesView()
-    @activateTab '.activity'
