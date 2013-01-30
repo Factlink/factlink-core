@@ -13,8 +13,8 @@ refactor FilteredSuggestedSiteTopicsView to FilteredSuggestedTopicsView:
    ✔ add_to_channel_modal_view @done (13-01-30 13:45)
 
 validate old functionality still work after refactor:
- ☐ channel suggestions in facts_new_view
- ☐ channel suggestions in add_to_channel_modal_view
+ ✔ channel suggestions in facts_new_view @done (13-01-30 14:54)
+ ✔ channel suggestions in add_to_channel_modal_view @done (13-01-30 14:54)
 
 add FilteredSuggestedTopicsView to notification add channel:
  ☐ add_channel_to_channels_button_view should get a collection with suggestions
