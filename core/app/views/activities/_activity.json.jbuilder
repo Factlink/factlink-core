@@ -79,10 +79,12 @@ json.activity do |json|
 
     json.channel_owner_profile_url channel_path(subject_creator_user, subject_creator_graph_user.stream_id)
     json.channel_title             subject.title
+    json.channel_slug_title        subject.slug_title
     json.channel_url               channel_path(subject_creator_user, subject.id)
 
     json.to_channel_id             object.id
     json.to_channel_title          object.title
+    json.to_channel_slug_title     object.slug_title
     json.to_channel_url            channel_path(object.created_by.user, object.id)
 
     json.to_channel_containing_channel_ids Queries::ContainingChannelIdsForChannelAndUser.new(object.id, current_user.graph_user.id).call
