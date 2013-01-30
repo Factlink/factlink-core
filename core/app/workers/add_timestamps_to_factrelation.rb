@@ -1,14 +1,3 @@
-# Suggesties:
-# maak er object ip class aan, met:
-# def self.perform(*args); new(*args).perform; end
-# maakt beter testbaar en code simpeler
-
-# maak losse query/functie om voor de factrelation de
-# timestamp op te halen,  die wil je het hardst testen
-
-# zorg dat als de fact_relation al een created_at heeft dat je eraf blijft
-# (ding draait immers async)
-
 class AddTimestampsToFactrelation
 
   @queue = :fact_relation_operations
