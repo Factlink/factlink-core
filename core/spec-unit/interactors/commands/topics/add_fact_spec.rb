@@ -64,12 +64,12 @@ describe Commands::Topics::AddFact do
   describe '#validation' do
     let(:subject_class) { described_class }
     it 'requires arguments' do
-      expect_validating('a', '2e', 1).
+      expect_validating('a', '2e', Time.now).
         to fail_validation('fact_id should be an integer.')
     end
 
     it 'requires arguments' do
-      expect_validating(1, 1, 1).
+      expect_validating(1, 1, Time.now).
         to fail_validation('topic_slug_title should be a string.')
     end
   end
