@@ -1,0 +1,21 @@
+Add-back channel suggestions:
+
+#166 - As a user, I would like to receive channel suggestions
+            when I click on the "add" button in a notification.
+
+* should show your and their Topic (if the topic name is different)
+
+refactor FilteredSuggestedSiteTopicsView to FilteredSuggestedTopicsView:
+ ☐ remove naming of `site` in model, views et cetera.
+ ☐ don't fetch the collection of suggestions in the view, but receive collection as options parameter
+ -> pass collection to view:
+   ☐ facts_new_view
+   ☐ add_to_channel_modal_view
+
+validate old functionality still work after refactor:
+ ☐ channel suggestions in facts_new_view
+ ☐ channel suggestions in add_to_channel_modal_view
+
+add FilteredSuggestedTopicsView to notification add channel:
+ ☐ add_channel_to_channels_button_view should get a collection with suggestions
+ ☐ add_channel_to_channels_button_view renders suggestion collection
