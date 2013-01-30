@@ -10,18 +10,12 @@ html {
 
 
 html.chrome {
-  .should-install-chrome-extension { display: none; }
+  .should-install-chrome-extension { display: inline-block; }
   .chrome-extension-installed { display: none;}
 
   &.chrome_extension_installed {
-    .chrome-extension-installed {
-      display: inline-block;
-    }
-  }
-  &.chrome_extension_not_installed {
-    .should-install-chrome-extension {
-      display: inline-block;
-    }
+    .should-install-chrome-extension { display: none; }
+    .chrome-extension-installed { display: inline-block; }
   }
 }
 
