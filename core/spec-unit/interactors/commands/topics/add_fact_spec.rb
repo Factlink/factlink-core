@@ -11,7 +11,7 @@ describe Commands::Topics::AddFact do
   describe '#execute' do
     it 'correctly' do
       fact_id = "1"
-      command = described_class.new fact_id, '1e', mock
+      command = described_class.new fact_id, '1e', ''
       key = mock
       score = mock
 
@@ -34,7 +34,7 @@ describe Commands::Topics::AddFact do
       nest_instance = mock
       key = mock
       final_key = mock
-      command = described_class.new "1", topic_slug_title, score
+      command = described_class.new "1", topic_slug_title, score.to_s
 
       Topic.should_receive(:redis).and_return(nest_instance)
       nest_instance.should_receive(:[]).with(topic_slug_title).and_return(key)
@@ -50,12 +50,23 @@ describe Commands::Topics::AddFact do
     end
 
     it 'calls timestamped_set.current_time with score' do
-      score = mock
+      score = '123'
       current_time = mock
 
       command = described_class.new "1", "slug", score
 
-      Ohm::Model::TimestampedSet.should_receive(:current_time).and_return(current_time)
+      Ohm::Model::TimestampedSet.should_receive(:current_time).with(score).and_return(current_time)
+
+      expect(command.score).to eq current_time
+    end
+
+    it 'calls timestamped_set.current_time with nil if score is an empty string' do
+      score = ''
+      current_time = mock
+
+      command = described_class.new "1", "slug", score
+
+      Ohm::Model::TimestampedSet.should_receive(:current_time).with(nil).and_return(current_time)
 
       expect(command.score).to eq current_time
     end
@@ -63,14 +74,19 @@ describe Commands::Topics::AddFact do
 
   describe '#validation' do
     let(:subject_class) { described_class }
-    it 'requires arguments' do
+    it :fact_id do
       expect_validating('a', '2e', Time.now).
         to fail_validation('fact_id should be an integer string.')
     end
 
-    it 'requires arguments' do
+    it :topic_slug_title do
       expect_validating("1", 1, Time.now).
         to fail_validation('topic_slug_title should be a string.')
+    end
+
+    it :score do
+      expect_validating("1", '2e', nil).
+        to fail_validation('score should be a string.')
     end
   end
 end

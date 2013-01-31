@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object/blank'
+
 module Commands
   module Topics
     class AddFact
@@ -21,6 +23,7 @@ module Commands
       def validate
         validate_integer_string  :fact_id, @fact_id
         validate_string          :topic_slug_title, @topic_slug_title
+        validate_string          :score, @score
       end
     end
   end
