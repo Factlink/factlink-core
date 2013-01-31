@@ -7,6 +7,10 @@ class window.ChannelView extends Backbone.Marionette.Layout
     addToChannelRegion: '.add-to-channel-region'
     creatorProfileRegion: ".created_by_region"
 
+  events:
+    'click .js-channel': 'showChannelFacts'
+    'click .js-topic': 'showTopicFacts'
+
   initialize: (opts) ->
     @on 'render', =>
       @renderSubChannels()
