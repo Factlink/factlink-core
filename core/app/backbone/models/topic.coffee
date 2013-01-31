@@ -1,8 +1,8 @@
 class window.Topic extends Backbone.Model
   newChannelForUser: (user) ->
     new Channel
-      title: this.get 'title'
-      slug_title: this.get 'slug_title'
+      title: @get 'title'
+      slug_title: @get 'slug_title'
       username: user.get 'username'
 
   withCurrentOrCreatedChannelFor: (user, options)->
@@ -14,7 +14,7 @@ class window.Topic extends Backbone.Model
       console.info "saving channel #{ch.get 'title'} to #{ch.url()}"
       ch.save({},
         success: (m,r)-> options.success?(m,r)
-        error:   (m,r)-> 
+        error:   (m,r)->
           user.channels.remove(ch)
           options.error?(m,r)
       )
