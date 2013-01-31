@@ -1,6 +1,20 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+@chromeTourBlockOffsetTop: 170px;
+@chromeBrowserPaddingTop: 60px;
+@chromeButtonOffsetTop: 42px;
+@chromeButtonOffsetRight: 37px;
+@chromeButtonWidth: 33px;
+@chromeButtonHeight: 35px;
+
+@firefoxTourBlockOffsetTop: 185px;
+@firefoxBrowserPaddingTop: 75px;
+@firefoxButtonOffsetTop: 57px;
+@firefoxButtonOffsetRight: 10px;
+@firefoxButtonWidth: 40px;
+@firefoxButtonHeight: 35px;
+
 .left-column {
   float: left;
   width: 200px;
@@ -8,7 +22,7 @@
 
   .tour-block {
     position: relative;
-    top: 160px;
+    top: @chromeTourBlockOffsetTop;
     width: 190px;
     padding: 10px;
     margin-bottom: 30px;
@@ -23,6 +37,12 @@
       padding-bottom: 4px;
     }
   }
+
+  #skip-link {
+    position: fixed;
+    top: 654px;
+    margin-left: 54px;
+  }
 }
 
 .right-column {
@@ -32,31 +52,44 @@
   height: 690px;
 
   #background {
-    background: image-url("browser-windows/chrome.png");
+    background: image-url("tour/chrome_mimic.png");
     height: 720px;
     width: 810px;
     position: absolute;
     top: -30px;
   }
-}
 
-html.firefox {
-  #container #background {
-    background: image-url("browser-windows/firefox.png");
+  #extension-button {
+    position: absolute;
+    top: @chromeButtonOffsetTop;
+    right: @chromeButtonOffsetRight;
+    height: @chromeButtonHeight;
+    width: @chromeButtonWidth;
+    background: image-url('tour/chrome_extension_button_states.png') no-repeat -@chromeButtonWidth -(2*@chromeButtonHeight);
+
+    &.hover {
+      background-position: -@chromeButtonWidth -@chromeButtonHeight;
+    }
+
+    &.active {
+      background-position: -@chromeButtonWidth 0;
+    }
+
+    &.increased {
+      background-position: 0 -(2*@chromeButtonHeight);
+
+      &.hover {
+        background-position: 0 -@chromeButtonHeight;
+      }
+
+      &.active {
+        background-position: 0 0;
+      }
+    }
   }
-}
-
-#container {
-
-  #skip-link {
-    position: fixed;
-    top: 654px;
-    margin-left: 54px;
-  }
-
 
   #create-your-first-factlink {
-    padding: 60px 30px 0 80px;
+    padding: @chromeBrowserPaddingTop 30px 0 80px;
     text-align: center;
     margin-top: 50px;
     position: relative;
@@ -77,6 +110,53 @@ html.firefox {
     p {
       text-align: left;
       padding: 0 60px;
+    }
+  }
+}
+
+html.firefox {
+  .left-column {
+    .tour-block {
+      top: @firefoxTourBlockOffsetTop;
+    }
+  }
+
+  .right-column {
+    #background {
+      background: image-url("tour/firefox_mimic.png") !important;
+    }
+
+    #extension-button {
+      position: absolute;
+      top: @firefoxButtonOffsetTop;
+      right: @firefoxButtonOffsetRight;
+      height: @firefoxButtonHeight;
+      width: @firefoxButtonWidth;
+      background: image-url('tour/firefox_extension_button_states.png') no-repeat -@firefoxButtonWidth -(2*@firefoxButtonHeight);
+
+      &.hover {
+        background-position: -@firefoxButtonWidth -@firefoxButtonHeight;
+      }
+
+      &.active {
+        background-position: -@firefoxButtonWidth 0;
+      }
+
+      &.increased {
+        background-position: 0 -(2*@firefoxButtonHeight);
+
+        &.hover {
+          background-position: 0 -@firefoxButtonHeight;
+        }
+
+        &.active {
+          background-position: 0 0;
+        }
+      }
+    }
+
+    #create-your-first-factlink {
+      padding-top: @firefoxBrowserPaddingTop;
     }
   }
 }

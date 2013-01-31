@@ -52,6 +52,7 @@
     <p>Scientists actively work to understand past and future climate by using observations and theoretical models. Borehole temperature profiles, ice cores, floral and faunal records, glacial and periglacial processes, stable isotope and other sediment analyses, and sea level records serve to provide a climate record that spans the geologic past.</p>
     <p>More recent data are provided by the instrumental record. Physically based general circulation models are often used in theoretical approaches to match past climate data, make future projections, and link causes and effects in climate change.</p>
   </div>
+  <div class="js-extension-button-region"></div>
 </div>
 
 <%= content_for :javascript do %>
@@ -69,35 +70,4 @@
     };
   </script>
   <script src="<%= lib_url %>/factlink<%= min %>.js"></script>
-  <script src="<%= lib_url %>/factlink.start_annotating<%= min %>.js"></script>
-
-  <script>
-
-  $(window).on('factlink.libraryLoaded', function () {
-    FACTLINK.hideDimmer();
-
-    FACTLINK.on('textSelected', function () {
-      tour.showStep(2);
-    });
-
-    FACTLINK.on('modalOpened', function () {
-      if (! tour.factlinkAdded) {
-        tour.hide();
-      }
-    });
-
-    FACTLINK.on('modalClosed', function () {
-      tour.resetIfNoFactlinkAdded();
-    });
-
-    FACTLINK.on('factlinkAdded', function () {
-      tour.factlinkAdded = true;
-      FACTLINK.on('modalClosed', function () {
-        tour.showStep(3);
-      });
-    });
-  });
-
-  </script>
-
 <% end %>
