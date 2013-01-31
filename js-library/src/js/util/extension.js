@@ -3,10 +3,10 @@ Factlink.triggerClick = function () {
       left = (window.innerWidth/2)-39.5 + window.pageXOffset;
 
   if ( Factlink.textSelected() ) {
-    Factlink.createFactFromSelection();
-
     Factlink.prepare.show(top, left);
     Factlink.prepare.startLoading();
+
+    Factlink.createFactFromSelection();
   } else {
     $('#fl').append("<div class='fl-message' style='display:none'>Please select text to create a Factlink</div>");
 
