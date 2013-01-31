@@ -24,15 +24,21 @@ class window.ChannelView extends Backbone.Marionette.Layout
         collection: @model.subchannels()
         model: @model
 
-  getFactsView: ->
-    # facts = @model.topic().facts()
-    facts = new ChannelFacts([], channel: @model)
-    new FactsView
-      collection: facts
-      model: @model
-
   onRender: ->
-    @factList.show @getFactsView()
+    @showChannelFacts()
+
+
+  showChannelFacts: -> @showFacts @channelFacts()
+  showTopicFacts: -> @showFacts @topicFacts()
+
+  showFacts: (facts) ->
+    @factList.show new FactsView
+      model: @model
+      collection: facts
+
+  channelFacts: -> new ChannelFacts([], channel: @model)
+
+  topicFacts: -> @model.topic().facts()
 
 class window.ChannelActivitiesView extends Backbone.Marionette.Layout
   template: 'channels/channel'
