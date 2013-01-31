@@ -83,7 +83,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       suggested_topics.fetch
         success: (collection) =>
           suggestionView = new FilteredSuggestedTopicsView
-            suggested_topics: collection
+            collection: collection
             addToCollection: @addToCollection
           suggestionView.render()
           @$('#suggested-channels-region').html suggestionView.el

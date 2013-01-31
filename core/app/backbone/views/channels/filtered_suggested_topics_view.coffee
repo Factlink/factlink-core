@@ -34,23 +34,23 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
   template: 'channels/filtered_suggested_topics'
 
   regions:
-    suggestedTopicsRegion: '.js-suggested-topics-region'
+    suggestedTopicsRegion: '.js-region-suggested-topics'
 
   initialize: (options) ->
     utils = new CollectionUtils(this)
-    @collection = utils.difference(new Backbone.Collection(),
+    @filtered_collection = utils.difference(new Backbone.Collection(),
                                                   'slug_title',
-                                                  @options.suggested_topics,
+                                                  @collection,
                                                   @options.addToCollection)
 
-    @bindTo @collection, 'add remove reset change', @updateTitle, @
+    @bindTo @filtered_collection, 'add remove reset change', @updateTitle, @
 
   onRender: ->
     @suggestedTopicsRegion.show new SuggestedTopicsView
-      collection: @collection
+      collection: @filtered_collection
       addToCollection: @options.addToCollection
 
     @updateTitle()
 
   updateTitle: ->
-    @$('.js-suggestions-title').toggle @collection.length > 0
+    @$('.js-suggestions-title').toggle @filtered_collection.length > 0
