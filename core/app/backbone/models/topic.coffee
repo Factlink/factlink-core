@@ -1,4 +1,7 @@
 class window.Topic extends Backbone.Model
+
+  idAttribute: 'slug_title'
+
   newChannelForUser: (user) ->
     new Channel
       title: @get 'title'
