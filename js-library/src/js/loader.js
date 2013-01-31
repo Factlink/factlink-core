@@ -54,7 +54,7 @@
 
     function proxy(func) {
       window.FACTLINK[func] = function () {
-        iframe.contentWindow.Factlink[func].apply(iframe.contentWindow.Factlink, arguments);
+        return iframe.contentWindow.Factlink[func].apply(iframe.contentWindow.Factlink, arguments);
       };
     }
 
