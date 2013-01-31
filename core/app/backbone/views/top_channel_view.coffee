@@ -9,11 +9,6 @@ class window.TopChannelItemView extends Backbone.Marionette.Layout
 
   onRender: ->
     suggested_topics        = new SuggestedTopics([@model.topic()])
-    # user_channel_collection = new Backbone.Collection
-
-    # suggestions = new FilteredSuggestedTopicsView
-    #                         suggested_topics: suggested_topics
-    #                         addToCollection: user_channel_collection
 
     add_back_button = new AddChannelToChannelsButtonView
                                 model: @model
