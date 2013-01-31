@@ -3,7 +3,7 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
 
   regions:
     addToChannelRegion: ".add-to-channel-form"
-    suggestedTopicsRegion: '.js-add-channel-to-channels-suggested-topics-region'
+    suggestedTopicsRegion: '.js-region-add-channel-to-channels-suggested-topics'
 
   initialEvents: -> false # stop layout from refreshing after model/collection update
                   # no longer needed in marionette 1.0

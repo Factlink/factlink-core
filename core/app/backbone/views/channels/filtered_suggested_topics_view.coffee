@@ -34,7 +34,7 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
   template: 'channels/filtered_suggested_topics'
 
   regions:
-    suggestedTopicsRegion: '.js-suggested-topics-region'
+    suggestedTopicsRegion: '.js-region-suggested-topics'
 
   initialize: (options) ->
     utils = new CollectionUtils(this)
