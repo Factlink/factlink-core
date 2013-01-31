@@ -6,5 +6,8 @@ class AddContainingFactlinksToTopics < Mongoid::Migration
   end
 
   def self.down
+    Topic.all.each do |topic|
+      Topic.redis[topic.slug_title][:facts].del
+    end
   end
 end
