@@ -11,24 +11,20 @@ class window.ChannelView extends Backbone.Marionette.Layout
     'click .js-channel': 'showChannelFacts'
     'click .js-topic': 'showTopicFacts'
 
-  initialize: (opts) ->
-    @on 'render', =>
-      @renderSubChannels()
-      if @model.get('followable?')
-        @addToChannelRegion.show new AddChannelToChannelsButtonView(model: @model)
-      @creatorProfileRegion.show new UserWithAuthorityBox
-        model: @model.user(),
-        authority: @model.get('created_by_authority')
+  onRender: ->
+    @showChannelFacts()
 
-  renderSubChannels: ->
     if @model.get('inspectable?')
       @subChannelsRegion.show new SubchannelsView
         collection: @model.subchannels()
         model: @model
 
-  onRender: ->
-    @showChannelFacts()
+    if @model.get('followable?')
+      @addToChannelRegion.show new AddChannelToChannelsButtonView(model: @model)
 
+    @creatorProfileRegion.show new UserWithAuthorityBox
+      model: @model.user(),
+      authority: @model.get('created_by_authority')
 
   showChannelFacts: -> @showFacts @channelFacts()
   showTopicFacts: -> @showFacts @topicFacts()
@@ -39,5 +35,4 @@ class window.ChannelView extends Backbone.Marionette.Layout
       collection: facts
 
   channelFacts: -> new ChannelFacts([], channel: @model)
-
   topicFacts: -> @model.topic().facts()
