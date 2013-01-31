@@ -79,7 +79,8 @@ gem 'rack-xframe-options', git: 'git@github.com:Factlink/rack-xframe-options.git
 gem 'rack-rewrite'
 
 group :production do
-  gem 'rpm_contrib', '2.1.7'
+  gem 'newrelic_moped'
+  gem 'newrelic-redis'
   gem 'newrelic_rpm'
 end
 
