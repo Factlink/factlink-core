@@ -1,18 +1,14 @@
 #= require jquery.hoverIntent
 
-class window.ChannelViewLayout extends Backbone.Marionette.Layout
+class window.ChannelView extends Backbone.Marionette.Layout
   template: 'channels/channel'
+
   regions:
     factList: '#facts_for_channel'
-    activityList: '#activity_for_channel'
     subChannelsRegion: '.js-subchannels-region'
     addToChannelRegion: '.add-to-channel-region'
     creatorProfileRegion: ".created_by_region"
 
-  templateHelpers: ->
-    activities_link: -> @link + '/activities'
-
-class window.ChannelView extends ChannelViewLayout
   initialize: (opts) ->
     @on 'render', =>
       @renderSubChannels()
@@ -38,7 +34,12 @@ class window.ChannelView extends ChannelViewLayout
   onRender: ->
     @factList.show @getFactsView()
 
-class window.ChannelActivitiesView extends ChannelViewLayout
+class window.ChannelActivitiesView extends Backbone.Marionette.Layout
+  template: 'channels/channel'
+
+  regions:
+    activityList: '#activity_for_channel'
+
   events:
     "click .js-activities-refresh": "refresh"
 
