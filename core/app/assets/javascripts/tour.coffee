@@ -36,6 +36,8 @@ class window.InteractiveTour
                                           'text_selected'],                      to: 'text_selected' }
         { name: 'select_text',     from: ['factlink_created',
                                           'factlink_created_and_text_selected'], to: 'factlink_created_and_text_selected' }
+        { name: 'deselect_text',   from:  'started',                             to: 'started' }
+        { name: 'deselect_text',   from:  'factlink_created',                    to: 'factlink_created' }
         { name: 'deselect_text',   from:  'text_selected',                       to: 'started' }
         { name: 'deselect_text',   from:  'factlink_created_and_text_selected',  to: 'factlink_created' }
         { name: 'open_modal',      from:  'text_selected',                       to: 'modal_opened' }
