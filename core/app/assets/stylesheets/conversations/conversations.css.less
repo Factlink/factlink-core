@@ -4,6 +4,7 @@
 #container #main-wrapper .content {
   .conversation {
     .fact-wrapper {
+      .reset-main-padding();
       border-bottom: 1px solid @baseBorderColor;
       .box-shadow(0 2px 1px rgba(0, 0, 0, .1));
 
@@ -14,7 +15,6 @@
   }
 
   .conversations {
-    margin: 0 0 30px 0;
     .clearfix();
 
     li:hover {
@@ -50,8 +50,11 @@
   .conversations,
   .messages ul {
     padding: 0;
+    .reset-main-padding();
+
     li {
       padding: 15px 0;
+      .reset-main-padding();
       border-bottom: 1px solid @mutedBorderColor;
 
       .avatar {
