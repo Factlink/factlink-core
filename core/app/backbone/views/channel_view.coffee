@@ -1,7 +1,6 @@
 #= require jquery.hoverIntent
 
 class window.ChannelViewLayout extends Backbone.Marionette.Layout
-  tagName: 'div'
   template: 'channels/channel'
   regions:
     factList: '#facts_for_channel'
