@@ -24,7 +24,7 @@ describe AddAllContainingFactlinksToTopic do
   end
 
   it 'adds all containing Factlinks to the Topics Facts' do
-    Topic.redis.del Topic.redis[@slug_title][:facts]
+    Topic.redis[@slug_title][:facts].del
 
     expect(interactor(:"topics/facts", @slug_title, nil, nil).length).to eq 0
 
