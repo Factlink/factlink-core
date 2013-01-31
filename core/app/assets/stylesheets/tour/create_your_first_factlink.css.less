@@ -67,22 +67,22 @@
     width: @chromeButtonWidth;
     background: image-url('tour/chrome_extension_button_states.png') no-repeat -@chromeButtonWidth -(2*@chromeButtonHeight);
 
-    &:hover {
+    &.hover {
       background-position: -@chromeButtonWidth -@chromeButtonHeight;
     }
 
-    &:active {
+    &.active {
       background-position: -@chromeButtonWidth 0;
     }
 
     &.increased {
       background-position: 0 -(2*@chromeButtonHeight);
 
-      &:hover {
+      &.hover {
         background-position: 0 -@chromeButtonHeight;
       }
 
-      &:active {
+      &.active {
         background-position: 0 0;
       }
     }
@@ -134,22 +134,22 @@ html.firefox {
       width: @firefoxButtonWidth;
       background: image-url('tour/firefox_extension_button_states.png') no-repeat -@firefoxButtonWidth -(2*@firefoxButtonHeight);
 
-      &:hover {
+      &.hover {
         background-position: -@firefoxButtonWidth -@firefoxButtonHeight;
       }
 
-      &:active {
+      &.active {
         background-position: -@firefoxButtonWidth 0;
       }
 
       &.increased {
         background-position: 0 -(2*@firefoxButtonHeight);
 
-        &:hover {
+        &.hover {
           background-position: 0 -@firefoxButtonHeight;
         }
 
-        &:active {
+        &.active {
           background-position: 0 0;
         }
       }
