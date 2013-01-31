@@ -1,4 +1,4 @@
-class window.SuggestedTopicView extends Backbone.Marionette.ItemView
+class window.TopTopicView extends Backbone.Marionette.ItemView
   template: "activities/suggested_topic"
   tagName: "li"
 
@@ -13,4 +13,4 @@ class window.SuggestedTopicView extends Backbone.Marionette.ItemView
 
   wrapNewModel: (model) -> @model.newChannelForUser(window.currentUser)
 
-_.extend(window.SuggestedTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
+_.extend(window.TopTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)

@@ -19,9 +19,15 @@ class window.AddChannelToChannelsButtonView extends Backbone.Marionette.Layout
     @$('.added-to-channel-button-label').toggle added
     @$('.add-to-channel-button-label').toggle not added
 
+  topic_suggestions: ->
+    @options.suggested_topics || new SuggestedTopics([@model.topic()])
+
   openAddToChannelModal: (e) ->
     e.stopImmediatePropagation()
     e.preventDefault()
 
     FactlinkApp.Modal.show 'Add to Channels',
-      new AddChannelToChannelsModalView model: @model, collection: @collection
+      new AddChannelToChannelsModalView
+            model: @model,
+            collection: @collection
+            suggestions: @topic_suggestions()

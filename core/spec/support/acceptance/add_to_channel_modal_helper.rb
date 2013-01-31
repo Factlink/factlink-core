@@ -25,7 +25,7 @@ module Acceptance
     end
 
     def suggested_channels_should_contain name
-      page.find(".add-to-channel-suggested-site-topics", text: name)
+      page.find(".add-to-channel-suggested-topics", text: name)
     end
 
     def slow_click *args
