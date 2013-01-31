@@ -59,4 +59,18 @@ if defined?(NewRelic)
       add_method_tracer :deliver
     end
   end
+
+  ApplicationController.class_eval do
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer :check_preferred_browser
+    add_method_tracer :track_click
+    add_method_tracer :initialize_mixpanel
+    add_method_tracer :set_last_interaction_for_user
+  end
+
+  Moped::Connection.class_eval do
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer :connect, 'Moped/connect/#{self.host}:#{self.port} (timeout: #{self.timeout}, ssl: #{!!options[:ssl]})'
+  end
+
 end
