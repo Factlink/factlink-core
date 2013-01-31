@@ -8,14 +8,23 @@
       <a href="{{ edit_link }}" class="edit">(edit)</a>
     {{/editable?}}
 
-    <div class="add-to-channel-region"></div>
+    <div class="add-to-channel-region js-region-add-to-channel"></div>
 
     <div class="pull-right">
-      <div class="created_by_region"></div>
+      <div class="created_by_region js-region-creator-profile"></div>
     </div>
   </header>
 
-  <div class="js-subchannels-region channel-subchannels"></div>
-  <div id="facts_for_channel"></div>
-  <div id="activity_for_channel"></div>
+  <div class="js-region-sub-channels channel-subchannels"></div>
+
+  {{#global.can_haz.topic_facts}}
+    <div>
+      <ul>
+        <li class="js-channel">Channel</span>
+        <li class="js-topic">Topic</span>
+      </ul>
+    </div>
+  {{/global.can_haz.topic_facts}}
+
+  <div id="facts_for_channel" class="js-region-fact-list"></div>
 </div>
