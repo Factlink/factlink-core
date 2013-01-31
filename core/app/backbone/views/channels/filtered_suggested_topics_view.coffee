@@ -40,7 +40,7 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
     utils = new CollectionUtils(this)
     @collection = utils.difference(new Backbone.Collection(),
                                                   'slug_title',
-                                                  @options.suggested_topics,
+                                                  @collection,
                                                   @options.addToCollection)
 
     @bindTo @collection, 'add remove reset change', @updateTitle, @

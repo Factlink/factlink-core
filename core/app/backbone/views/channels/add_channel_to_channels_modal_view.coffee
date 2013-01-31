@@ -33,7 +33,7 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
       @alertBindErrorEvent @addToChannelView
 
     suggestions = new FilteredSuggestedTopicsView
-                            suggested_topics: @options.suggestions
+                            collection: @options.suggestions
                             addToCollection: @collection
 
     @suggestedTopicsRegion.show suggestions

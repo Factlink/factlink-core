@@ -26,7 +26,7 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
     suggested_topics.fetch
       success: (collection) =>
         suggestions = new FilteredSuggestedTopicsView
-                            suggested_topics: collection
+                            collection: collection
                             addToCollection: @collection
 
         @suggestedChannelsRegion.show suggestions
