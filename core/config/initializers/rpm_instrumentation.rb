@@ -32,12 +32,6 @@ if defined?(NewRelic)
     add_method_tracer :call, 'Pavlov/#{self.class.name}/call'
   end
 
-  Queries::ContainingChannelIdsForChannelAndUser.class_eval do
-    add_method_tracer :graph_user_channels
-    add_method_tracer :containing_channels
-    add_method_tracer :union_ids
-  end
-
   Roadie::Inliner.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :execute
@@ -59,4 +53,18 @@ if defined?(NewRelic)
       add_method_tracer :deliver
     end
   end
+
+  ApplicationController.class_eval do
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer :check_preferred_browser
+    add_method_tracer :track_click
+    add_method_tracer :initialize_mixpanel
+    add_method_tracer :set_last_interaction_for_user
+  end
+
+  Moped::Connection.class_eval do
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer :connect, 'Moped/connect/#{self.host}:#{self.port} (timeout: #{self.timeout}, ssl: #{!!self.options[:ssl]})'
+  end
+
 end
