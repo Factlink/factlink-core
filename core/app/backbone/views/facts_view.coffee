@@ -11,6 +11,10 @@ class window.FactsView extends AutoloadingCompositeView
     "click #create_fact_for_channel .input-box": "focusField"
 
   template: "channels/facts"
+
+  templateHelpers: =>
+    can_add_fact: @collection.canAddFact()
+
   initialize: (options) ->
     @addShowHideToggle "loadingIndicator", "div.loading"
     @collection.on "startLoading", @loadingIndicatorOn, this

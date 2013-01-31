@@ -5,4 +5,6 @@ class window.TopicFacts extends Backbone.Collection
 
   url: ->  @topic.url() + '/facts'
 
+  canAddFact: -> false
+
 _.extend(TopicFacts.prototype, AutoloadCollectionOnTimestamp)
