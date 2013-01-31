@@ -17,3 +17,6 @@ class window.ExtensionButtonMimic extends Backbone.View
   unsetActive: -> @$el.removeClass "active"
   setHover: -> @$el.addClass "hover"
   unsetHover: -> @$el.removeClass "hover"
+
+  increaseCount: -> @$el.addClass "increased"
+  decreaseCount: -> @$el.removeClass "increased"

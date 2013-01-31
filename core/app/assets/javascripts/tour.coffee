@@ -60,6 +60,7 @@ class window.InteractiveTour
           @hideHelpText(2)
           StateMachine.ASYNC
         onfactlink_created: =>
+          @extensionButton.increaseCount()
           @showHelpText(3)
         onleavefactlink_created: =>
           @hideHelpText(3)
