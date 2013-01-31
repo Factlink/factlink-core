@@ -32,22 +32,6 @@ class NotificationAddedSubchannelView extends GenericNotificationView
   initialize: ->
     @activity = @model.get('activity')
 
-  channel: ->
-    channel = new Channel
-      id:         @activity.channel_id
-      title:      @activity.channel_title
-      slug_title: @activity.channel_slug_title
-
-  channel_as_topic: ->
-    new Topic
-      title:      @activity.channel_title
-      slug_title: @activity.channel_slug_title
-
-  other_channel_as_topic: ->
-    new Topic
-      title:      @activity.to_channel_title
-      slug_title: @activity.to_channel_slug_title
-
   other_channel: ->
     new Channel
       id: @activity.to_channel_id
