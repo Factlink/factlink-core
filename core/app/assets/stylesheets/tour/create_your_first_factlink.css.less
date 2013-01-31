@@ -67,22 +67,22 @@
     width: @chromeButtonWidth;
     background: image-url('tour/chrome_extension_button_states.png') no-repeat -@chromeButtonWidth -(2*@chromeButtonHeight);
 
-    &.hover {
+    &:hover {
       background-position: -@chromeButtonWidth -@chromeButtonHeight;
     }
 
-    &.active {
+    &:active {
       background-position: -@chromeButtonWidth 0;
     }
 
     &.increased {
       background-position: 0 -(2*@chromeButtonHeight);
 
-      &.hover {
+      &:hover {
         background-position: 0 -@chromeButtonHeight;
       }
 
-      &.active {
+      &:active {
         background-position: 0 0;
       }
     }
