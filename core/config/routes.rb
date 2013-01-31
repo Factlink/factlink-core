@@ -212,6 +212,7 @@ FactlinkUI::Application.routes.draw do
     end
     member do
       get :related_user_channels
+      get :facts
     end
   end
 

@@ -1,5 +1,5 @@
 require 'pavlov_helper'
-require 'active_support/core_ext/string'
+require 'active_support/core_ext/object/blank'
 require_relative '../../../../app/interactors/commands/facts/create'
 
 describe Commands::Facts::Create do
