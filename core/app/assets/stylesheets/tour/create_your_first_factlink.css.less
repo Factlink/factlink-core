@@ -5,15 +5,15 @@
 @chromeBrowserPaddingTop: 60px;
 @chromeButtonOffsetTop: 42px;
 @chromeButtonOffsetRight: 37px;
-@chromeButtonWidth: 35px;
-@chromeButtonHeight: 33px;
+@chromeButtonWidth: 33px;
+@chromeButtonHeight: 35px;
 
 @firefoxTourBlockOffsetTop: 185px;
 @firefoxBrowserPaddingTop: 75px;
 @firefoxButtonOffsetTop: 57px;
 @firefoxButtonOffsetRight: 10px;
-@firefoxButtonWidth: 35px;
-@firefoxButtonHeight: 33px;
+@firefoxButtonWidth: 40px;
+@firefoxButtonHeight: 35px;
 
 .left-column {
   float: left;
@@ -63,23 +63,23 @@
     position: absolute;
     top: @chromeButtonOffsetTop;
     right: @chromeButtonOffsetRight;
-    height: @chromeButtonWidth;
-    width: @chromeButtonHeight;
-    background: image-url('tour/chrome_extension_button_states.png') no-repeat -33px -70px;
+    height: @chromeButtonHeight;
+    width: @chromeButtonWidth;
+    background: image-url('tour/chrome_extension_button_states.png') no-repeat -@chromeButtonWidth -(2*@chromeButtonHeight);
 
     &:hover {
-      background-position: -33px -35px;
+      background-position: -@chromeButtonWidth -@chromeButtonHeight;
     }
 
     &:active {
-      background-position: -33px 0;
+      background-position: -@chromeButtonWidth 0;
     }
 
     &.increased {
-      background-position: 0 -70px;
+      background-position: 0 -(2*@chromeButtonHeight);
 
       &:hover {
-        background-position: 0 -35px;
+        background-position: 0 -@chromeButtonHeight;
       }
 
       &:active {
@@ -130,8 +130,29 @@ html.firefox {
       position: absolute;
       top: @firefoxButtonOffsetTop;
       right: @firefoxButtonOffsetRight;
-      height: @firefoxButtonWidth;
-      width: @firefoxButtonHeight;
+      height: @firefoxButtonHeight;
+      width: @firefoxButtonWidth;
+      background: image-url('tour/firefox_extension_button_states.png') no-repeat -@firefoxButtonWidth -(2*@firefoxButtonHeight);
+
+      &:hover {
+        background-position: -@firefoxButtonWidth -@firefoxButtonHeight;
+      }
+
+      &:active {
+        background-position: -@firefoxButtonWidth 0;
+      }
+
+      &.increased {
+        background-position: 0 -(2*@firefoxButtonHeight);
+
+        &:hover {
+          background-position: 0 -@firefoxButtonHeight;
+        }
+
+        &:active {
+          background-position: 0 0;
+        }
+      }
     }
 
     #create-your-first-factlink {
