@@ -51,7 +51,7 @@ staging:
 production:
   sessions:
     default:
-      database: factlink_production
+      database: factlink_ui_production
       hosts:
        - mongo1-production.factlink.com:27017
        - mongo2-production.factlink.com:27017
