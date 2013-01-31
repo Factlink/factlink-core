@@ -2,7 +2,7 @@ class window.ChannelActivitiesView extends Backbone.Marionette.Layout
   template: 'channels/channel_activities'
 
   regions:
-    activityList: '#activity_for_channel'
+    activityList: '.js-region-activity-list'
 
   events:
     "click .js-activities-refresh": "refresh"
