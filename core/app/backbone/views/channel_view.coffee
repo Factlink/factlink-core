@@ -1,5 +1,3 @@
-#= require jquery.hoverIntent
-
 class window.ChannelView extends Backbone.Marionette.Layout
   template: 'channels/channel'
 
