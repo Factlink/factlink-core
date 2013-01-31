@@ -2,10 +2,10 @@ class window.ChannelView extends Backbone.Marionette.Layout
   template: 'channels/channel'
 
   regions:
-    factList: '#facts_for_channel'
-    subChannelsRegion: '.js-subchannels-region'
-    addToChannelRegion: '.add-to-channel-region'
-    creatorProfileRegion: ".created_by_region"
+    factList: '.js-region-fact-list'
+    subChannelsRegion: '.js-region-sub-channels'
+    addToChannelRegion: '.js-region-add-to-channel'
+    creatorProfileRegion: ".js-region-creator-profile"
 
   events:
     'click .js-channel': 'showChannelFacts'
