@@ -30,8 +30,10 @@ class window.ChannelView extends ChannelViewLayout
         model: @model
 
   getFactsView: ->
+    # facts = @model.topic().facts()
+    facts = new ChannelFacts([], channel: @model)
     new FactsView
-      collection: new ChannelFacts([], channel: @model)
+      collection: facts
       model: @model
 
   onRender: ->

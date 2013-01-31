@@ -21,3 +21,8 @@ class window.Topic extends Backbone.Model
 
   existingChannelFor: (user)->
     user.channels.getBySlugTitle(@get 'slug_title')
+
+
+  facts: -> new TopicFacts([], topic: this)
+
+  url: -> '/t/' + @get('slug_title')
