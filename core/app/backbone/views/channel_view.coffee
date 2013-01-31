@@ -41,7 +41,7 @@ class window.ChannelView extends Backbone.Marionette.Layout
   topicFacts: -> @model.topic().facts()
 
 class window.ChannelActivitiesView extends Backbone.Marionette.Layout
-  template: 'channels/channel'
+  template: 'channels/channel_activities'
 
   regions:
     activityList: '#activity_for_channel'
