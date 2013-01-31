@@ -1,8 +1,8 @@
 class window.FactsView extends AutoloadingCompositeView
-  tagName: "div"
   className: "facts-view"
   itemViewContainer: ".facts"
   itemView: FactView
+
   events:
     "submit #create_fact_for_channel": "createFact"
     "focus #create_fact_for_channel textarea": "openCreateFactForm"
@@ -10,7 +10,7 @@ class window.FactsView extends AutoloadingCompositeView
     "click #create_fact_for_channel": "focusCreateFactlink"
     "click #create_fact_for_channel .input-box": "focusField"
 
-  template: "channels/_facts"
+  template: "channels/facts"
   initialize: (options) ->
     @addShowHideToggle "loadingIndicator", "div.loading"
     @collection.on "startLoading", @loadingIndicatorOn, this
