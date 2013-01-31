@@ -1,7 +1,20 @@
-class window.TopChannelItemView extends Backbone.Marionette.ItemView
+class window.TopChannelItemView extends Backbone.Marionette.Layout
   template: 'channels/topchannel'
   tagName: 'li'
   className: 'top-channels-channel'
+
+  regions:
+    add_to_channel_button_region: '.js-add-to-channel-button-region'
+
+
+  onRender: ->
+    suggested_topics        = new SuggestedTopics([@model.topic()])
+
+    add_back_button = new AddChannelToChannelsButtonView
+                                model: @model
+                                suggested_topics: suggested_topics
+
+    @add_to_channel_button_region.show add_back_button
 
 class window.TopChannelView extends Backbone.Marionette.CompositeView
   template: "users/profile/top_channels"

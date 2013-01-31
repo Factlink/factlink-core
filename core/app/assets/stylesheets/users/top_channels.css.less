@@ -18,9 +18,12 @@
       white-space: nowrap;
       position: relative;
 
-      padding: 8px 50px 8px 5px;
+      padding: 10px 10px 8px;
+
+      color: @mutedFontColor;
 
       display: none;
+
       &:nth-child(-n+5) {
         display: list-item;
       }
@@ -30,8 +33,13 @@
       }
 
       .top-channels-channel-authority {
-        position: absolute;
-        right: 10px;
+        font-size: 11px;
+        color: @baseFontColor;
+      }
+
+      .top-channels-add-button {
+        margin-top: -2px;
+        float: right;
       }
     }
   }
