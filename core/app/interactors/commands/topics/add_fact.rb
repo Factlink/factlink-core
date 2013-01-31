@@ -10,6 +10,7 @@ module Commands
       end
 
       def score
+        @score = nil if @score.blank? # because '' is not falsey
         Ohm::Model::TimestampedSet.current_time(@score)
       end
 

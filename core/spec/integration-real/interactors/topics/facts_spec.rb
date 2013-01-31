@@ -33,6 +33,11 @@ describe Interactors::Topics::Facts do
     expect(facts[2][:item].id).to eq @fact1.id
   end
 
+  it "gets a valid timestamp for the facts" do
+    facts = interactor :"topics/facts", @slug_title, nil, nil
+
+    expect(facts[0][:score]).to_not eq 0
+  end
   def pavlov_options
     {
       current_user: true
