@@ -5,8 +5,11 @@ class window.InteractiveTour
     $(window).on 'factlink.libraryLoaded', ->
       FACTLINK.hideDimmer()
 
-      FACTLINK.on 'textSelected', ->
-        tour.state.select_text()
+      $('#create-your-first-factlink').on 'mouseup', ->
+        if FACTLINK.getSelectionInfo().text.length > 0
+          tour.state.select_text()
+        else
+          tour.state.deselect_text()
 
       FACTLINK.on 'modalOpened', ->
         tour.state.open_modal()
@@ -17,7 +20,13 @@ class window.InteractiveTour
       FACTLINK.on 'factlinkAdded', ->
         tour.state.create_factlink()
 
+  renderExtensionButton: ->
+    @extensionButton = new ExtensionButtonMimic()
+    $('.js-extension-button-region').append(@extensionButton.render().el)
+
   constructor: ->
+    @renderExtensionButton()
+
     @bindLibraryLoad()
 
     @state = StateMachine.create
@@ -27,6 +36,8 @@ class window.InteractiveTour
                                           'text_selected'],                      to: 'text_selected' }
         { name: 'select_text',     from: ['factlink_created',
                                           'factlink_created_and_text_selected'], to: 'factlink_created_and_text_selected' }
+        { name: 'deselect_text',   from:  'text_selected',                       to: 'started' }
+        { name: 'deselect_text',   from:  'factlink_created_and_text_selected',  to: 'factlink_created' }
         { name: 'open_modal',      from:  'text_selected',                       to: 'modal_opened' }
         { name: 'open_modal',      from:  'factlink_created_and_text_selected',  to: 'factlink_created_and_modal_opened' }
         { name: 'close_modal',     from:  'modal_opened',                        to: 'started' }
@@ -62,5 +73,6 @@ class window.InteractiveTour
       $("#step#{current_step}").fadeIn 'fast'
     , @helpTextDelay
 
-if $('body').hasClass 'action_create_your_first_factlink'
-  window.tour = new InteractiveTour()
+$ ->
+  if $('body').hasClass 'action_create_your_first_factlink'
+    window.tour = new InteractiveTour()
