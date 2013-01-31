@@ -17,12 +17,14 @@
 
   <div class="js-subchannels-region channel-subchannels"></div>
 
-  <div>
-    <ul>
-      <li class="js-channel">Channel</span>
-      <li class="js-topic">Topic</span>
-    </ul>
-  </div>
+  {{#global.can_haz.topic_facts}}
+    <div>
+      <ul>
+        <li class="js-channel">Channel</span>
+        <li class="js-topic">Topic</span>
+      </ul>
+    </div>
+  {{/global.can_haz.topic_facts}}
 
   <div id="facts_for_channel"></div>
 </div>
