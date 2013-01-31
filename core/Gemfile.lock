@@ -292,6 +292,12 @@ GEM
     net-ssh (2.5.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    newrelic-redis (1.4.0)
+      newrelic_rpm (~> 3.0)
+      redis (< 4.0)
+    newrelic_moped (0.0.4.1)
+      moped
+      newrelic_rpm (~> 3.5.1)
     newrelic_rpm (3.5.6.46)
     nokogiri (1.5.5)
     oauth (0.4.6)
@@ -413,9 +419,6 @@ GEM
       sprockets
     roodi (2.1.0)
       ruby_parser
-    rpm_contrib (2.1.7)
-      newrelic_rpm (>= 3.1.1)
-      newrelic_rpm (>= 3.1.1)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -547,6 +550,8 @@ DEPENDENCIES
   mongoid (~> 3.0.19)
   mongoid_rails_migrations (= 0.0.13)
   multi_json (>= 1.2.0)
+  newrelic-redis
+  newrelic_moped
   newrelic_rpm
   ohm!
   ohm-contrib!
@@ -575,7 +580,6 @@ DEPENDENCIES
   resque_mailer
   rmagick
   roadie
-  rpm_contrib (= 2.1.7)
   rspec-rails
   ruby-prof
   rvm-capistrano
