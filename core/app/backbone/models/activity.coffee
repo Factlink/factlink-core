@@ -2,6 +2,9 @@ class window.Activity extends Backbone.Model
   getActivity: () ->
     new Activity(this)
 
+  user: ->
+    new User(this.get('user'))
+
 class window.LastFactActivity extends Activity
   initialize: (options) -> @channel = options.channel
 
