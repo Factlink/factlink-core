@@ -72,6 +72,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
   def load_user
-    @user = ::User.first(:conditions => { :username => params[:user_id] }) or raise_404
+    @user = ::User.find_by(:username => params[:user_id]) or raise_404
   end
 end
