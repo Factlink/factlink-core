@@ -1,6 +1,9 @@
-class RecentlyViewedFactView extends Backbone.Marionette.ItemView
+class RecentlyViewedFactView extends Backbone.Marionette.Layout
   tagName: 'li'
   template: 'facts/recently_viewed_fact'
+
+  regions:
+    factBaseRegion: '.js-region-fact-base'
 
   templateHelpers: =>
     evidence_type: @options.evidence_type
@@ -8,19 +11,13 @@ class RecentlyViewedFactView extends Backbone.Marionette.ItemView
   triggers:
     'click button': 'click'
 
-  ui:
-    factWheel: '.js-fact-wheel'
+  factBaseView: ->
+    console.info @model
+    @_factBaseView ?= new FactBaseView
+      model: @model
 
   onRender: ->
-    @ui.factWheel.html @wheelView().render().el
-
-  onClose: ->
-    @wheelView().close()
-
-  wheelView: ->
-    @_wheelView ?= new InteractiveWheelView
-      fact: @model.get("fact_base")
-      model: new Wheel @model.get("fact_wheel")
+    @factBaseRegion.show @factBaseView()
 
 class window.RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
   template: 'facts/recently_viewed_facts'
