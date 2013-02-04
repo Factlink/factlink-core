@@ -2,10 +2,18 @@
 @import "bootstrap/variables";
 
 .fact-relation-search {
-  background: @whiteDarker;
-  border-top: 1px solid @baseBorderColor;
-  border-bottom: 1px solid @baseBorderColor;
-  padding: 15px @mainRightPadding 15px @mainLeftPadding;
+
+  .fact-relation-search-container,
+  .fact-relation-recent-facts {
+    padding: 15px @mainRightPadding 15px @mainLeftPadding;
+    border-bottom: 1px solid @baseBorderColor;
+  }
+
+  .fact-relation-search-container {
+    border-top: 1px solid @baseBorderColor;
+    background: @whiteDarker;
+  }
+
   .clearfix();
 
   .auto-complete-fact-relations {

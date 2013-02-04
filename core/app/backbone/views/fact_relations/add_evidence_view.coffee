@@ -1,11 +1,22 @@
 class RecentlyViewedFactView extends Backbone.Marionette.ItemView
+  tagName: 'li'
   template:
     text: """
       Fact: {{displaystring}}
     """
 
-class RecentlyViewedFactsView extends Backbone.Marionette.CollectionView
+class RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
+  template:
+    text: """
+    <strong>Recent Factlinks:</strong>
+    <ul class="js-itemview-container"></ul>
+    """
+
+  className: 'recently-viewed-facts'
+
   itemView: RecentlyViewedFactView
+  itemViewContainer: '.js-itemview-container'
+
 
 class window.AddEvidenceView extends Backbone.Marionette.Layout
   template: 'fact_relations/add_evidence'
