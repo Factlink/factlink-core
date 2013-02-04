@@ -14,7 +14,7 @@ if sentry_conf
     alias :unchecked_connect :connect unless method_defined?(:unchecked_connect)
     def connect
       unchecked_connect
-    rescue
+    rescue StandardError => exception
       Raven.capture_exception(exception, level: 'info')
       raise
     end
