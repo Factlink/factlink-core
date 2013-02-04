@@ -1,7 +1,17 @@
+class RecentlyViewedFactView extends Backbone.Marionette.ItemView
+  template:
+    text: """
+      Fact: {{displaystring}}
+    """
+
+class RecentlyViewedFactsView extends Backbone.Marionette.CollectionView
+  itemView: RecentlyViewedFactView
+
 class window.AddEvidenceView extends Backbone.Marionette.Layout
   template: 'fact_relations/add_evidence'
 
   regions:
+    recentsRegion: '.js-region-recents'
     inputRegion:
       selector: '.input-region'
       regionType: Factlink.DetachableViewsRegion
@@ -12,7 +22,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       add_comment_view: => @addCommentView()
 
   onRender: ->
-    @inputRegion.switchTo 'search_view'
+    @recentsRegion.show @recentlyViewedFactsView()
+    @switchToFactRelationView()
 
   searchView: ->
     fact_relations_masquerading_as_facts = collectionMap new Backbone.Collection, @collection, (model) ->
@@ -33,6 +44,9 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
     addCommentView
 
+  recentlyViewedFactsView: ->
+    @_recentFactsView ?= new RecentlyViewedFactsView collection: @recentCollection()
+
   createFactRelation: (fact_relation)->
     @hideError()
     @collection.add fact_relation, highlight: true
@@ -47,10 +61,12 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   switchToCommentView: (content) ->
     @inputRegion.switchTo 'add_comment_view'
     @inputRegion.getView('add_comment_view').setFormContent(content) if content
+    @recentsRegion.$el.addClass 'hide'
 
   switchToFactRelationView: (content) ->
     @inputRegion.switchTo 'search_view'
     @inputRegion.getView('search_view').setQuery(content) if content
+    @recentsRegion.$el.removeClass 'hide'
 
   showError: -> @$('.js-error').show()
   hideError: -> @$('.js-error').hide()
