@@ -44,12 +44,14 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @recentsRegion.show @recentlyViewedFactsView()
     @switchToFactRelationView()
 
-  searchView: ->
-    fact_relations_masquerading_as_facts = collectionMap new Backbone.Collection, @collection, (model) ->
+  fact_relations_masquerading_as_facts: ->
+    @_fact_relations_masquerading_as_facts ?= collectionMap new Backbone.Collection, @collection, (model) ->
       new Fact model.get('fact_base')
+
+  searchView: ->
     searchView = new AutoCompleteFactRelationsView
       recent_collection: @recentCollection()
-      collection: fact_relations_masquerading_as_facts
+      collection: @fact_relations_masquerading_as_facts()
       fact_id: @collection.fact.id
       type: @collection.type
     @bindTo searchView, 'createFactRelation', (fact_relation) =>
@@ -65,8 +67,12 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   recentlyViewedFactsView: ->
     unless @_recentFactsView?
+      collectionUtils = new CollectionUtils(this)
+      filtered_recent_facts = collectionUtils.difference new Backbone.Collection,
+        'id', @recentCollection(), @fact_relations_masquerading_as_facts()
+
       @_recentFactsView = new RecentlyViewedFactsView
-        collection: @recentCollection()
+        collection: filtered_recent_facts
         evidence_type: @collection.type
 
       @bindTo @_recentFactsView, 'itemview:click', @addRecentFact, @
