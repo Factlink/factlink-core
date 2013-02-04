@@ -9,6 +9,8 @@ class RecentlyViewedFactView extends Backbone.Marionette.ItemView
   templateHelpers: =>
     evidence_type: @options.evidence_type
 
+  triggers:
+    'click button': 'click'
 
 class RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
   template:
@@ -62,9 +64,14 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     addCommentView
 
   recentlyViewedFactsView: ->
-    @_recentFactsView ?= new RecentlyViewedFactsView
-      collection: @recentCollection()
-      evidence_type: @collection.type
+    unless @_recentFactsView?
+      @_recentFactsView = new RecentlyViewedFactsView
+        collection: @recentCollection()
+        evidence_type: @collection.type
+
+      @bindTo @_recentFactsView, 'itemview:click', @addRecentFact, @
+
+    @_recentFactsView
 
   createFactRelation: (fact_relation)->
     @hideError()
@@ -91,7 +98,17 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   hideError: -> @$('.js-error').hide()
 
   recentCollection: ->
-    unless @_recent_collection
+    unless @_recent_collection?
       @_recent_collection = new RecentlyViewedFacts
       @_recent_collection.fetch()
     @_recent_collection
+
+  addFactBase: (fact_base)->
+    @createFactRelation new FactRelation
+      evidence_id: fact_base.id
+      fact_base: fact_base.toJSON()
+      created_by: currentUser.toJSON()
+
+  addRecentFact: (args) ->
+    @addFactBase args.model
+
