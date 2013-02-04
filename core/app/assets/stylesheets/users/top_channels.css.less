@@ -24,8 +24,13 @@
 
       display: none;
 
+      .top-channels-position {
+        display: inline-block;
+        min-width: 20px;
+      }
+
       &:nth-child(-n+5) {
-        display: list-item;
+        display: block;
       }
 
       &:nth-child(5), &:last-child {
@@ -56,7 +61,7 @@
 
   &.showMore {
     .top-channels .top-channels-channel {
-      display: list-item !important;
+      display: block !important;
 
       &:nth-child(5) {
         border-bottom: 1px solid @mutedBorderColor;
