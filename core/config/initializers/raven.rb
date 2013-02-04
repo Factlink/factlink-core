@@ -15,7 +15,7 @@ if sentry_conf
     def connect
       unchecked_connect
     rescue StandardError => exception
-      Raven.capture_exception(exception, level: 'info')
+      Raven.captureException(exception, level: 'info')
       raise
     end
   end
