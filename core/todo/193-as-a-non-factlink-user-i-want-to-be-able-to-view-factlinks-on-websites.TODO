@@ -1,0 +1,6 @@
+Backend:
+ ☐ Create feature that makes a user appear as not signed in
+ ☐ Create acceptance tests for non-signed-in flow
+Frontend:
+ ☐ Remove links when the user is not signed in
+ ☐ Show popup on top of the modal when a user is not signed in
