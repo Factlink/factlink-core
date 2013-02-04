@@ -21,7 +21,6 @@ class RecentlyViewedFactView extends Backbone.Marionette.ItemView
     @_wheelView ?= new InteractiveWheelView
       fact: @model.get("fact_base")
       model: new Wheel @model.get("fact_wheel")
-      respondsToMouse: false
 
 class window.RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
   template: 'facts/recently_viewed_facts'
