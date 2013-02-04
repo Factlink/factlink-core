@@ -1,5 +1,5 @@
 class RecentlyViewedFactView extends Backbone.Marionette.Layout
-  tagName: 'li'
+  tagName: 'tr'
   template: 'facts/recently_viewed_fact'
 
   regions:
@@ -12,7 +12,6 @@ class RecentlyViewedFactView extends Backbone.Marionette.Layout
     'click button': 'click'
 
   factBaseView: ->
-    console.info @model
     @_factBaseView ?= new FactBaseView
       model: @model
 
@@ -27,3 +26,6 @@ class window.RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
   itemView: RecentlyViewedFactView
   itemViewContainer: '.js-itemview-container'
   itemViewOptions: -> evidence_type: @options.evidence_type
+
+  showEmptyView: => @$el.hide()
+  closeEmptyView: => @$el.show()
