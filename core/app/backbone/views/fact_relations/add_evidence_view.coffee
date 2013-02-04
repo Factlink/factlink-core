@@ -3,7 +3,12 @@ class RecentlyViewedFactView extends Backbone.Marionette.ItemView
   template:
     text: """
       Fact: {{displaystring}}
+      <button class="pull-right btn btn-mini">+ add as {{evidence_type}}</button>
     """
+
+  templateHelpers: =>
+    evidence_type: @options.evidence_type
+
 
 class RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
   template:
@@ -16,6 +21,7 @@ class RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
 
   itemView: RecentlyViewedFactView
   itemViewContainer: '.js-itemview-container'
+  itemViewOptions: -> evidence_type: @options.evidence_type
 
 
 class window.AddEvidenceView extends Backbone.Marionette.Layout
@@ -56,7 +62,9 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     addCommentView
 
   recentlyViewedFactsView: ->
-    @_recentFactsView ?= new RecentlyViewedFactsView collection: @recentCollection()
+    @_recentFactsView ?= new RecentlyViewedFactsView
+      collection: @recentCollection()
+      evidence_type: @collection.type
 
   createFactRelation: (fact_relation)->
     @hideError()
