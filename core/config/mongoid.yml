@@ -29,7 +29,6 @@ testserver:
       hosts:
        - mongo1-testserver.factlink.com:27019
        - mongo2-testserver.factlink.com:27019
-       - mongo3-testserver.factlink.com:27019
       options:
         consistency: :strong
   options:
