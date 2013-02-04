@@ -119,11 +119,10 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details skip_create_first_factlink topic_facts)
+  FEATURES = %w(pink_feedback_button authority_calculation_details skip_create_first_factlink topic_facts memory_profiling)
   GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list
-    @features ||= []
     list.each do |feature|
       can :"see_feature_#{feature}", FactlinkWebapp
       @features << feature.to_s
@@ -131,6 +130,7 @@ class Ability
   end
 
   def define_feature_toggles
+    @features ||= []
     if user
       enable_features [:beginners_hints] if (user.sign_in_count || 0) < 10
       enable_features user.features
