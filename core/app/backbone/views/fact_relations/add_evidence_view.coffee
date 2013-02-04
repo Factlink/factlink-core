@@ -1,31 +1,3 @@
-class RecentlyViewedFactView extends Backbone.Marionette.ItemView
-  tagName: 'li'
-  template:
-    text: """
-      Fact: {{displaystring}}
-      <button class="pull-right btn btn-mini">+ add as {{evidence_type}}</button>
-    """
-
-  templateHelpers: =>
-    evidence_type: @options.evidence_type
-
-  triggers:
-    'click button': 'click'
-
-class RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
-  template:
-    text: """
-    <strong>Recent Factlinks:</strong>
-    <ul class="js-itemview-container"></ul>
-    """
-
-  className: 'recently-viewed-facts'
-
-  itemView: RecentlyViewedFactView
-  itemViewContainer: '.js-itemview-container'
-  itemViewOptions: -> evidence_type: @options.evidence_type
-
-
 class window.AddEvidenceView extends Backbone.Marionette.Layout
   template: 'fact_relations/add_evidence'
 
