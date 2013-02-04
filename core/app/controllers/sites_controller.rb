@@ -14,7 +14,7 @@ class SitesController < ApplicationController
     end
     response[:jslib_url] = jslib_url_for(current_user.username).to_s if user_signed_in?
 
-    render_json response
+    render_jsonp response
   end
 
   def facts_for_url
@@ -24,16 +24,16 @@ class SitesController < ApplicationController
       site = Site.find(:url => url).first
       @facts = site ? site.facts.to_a : []
 
-      render_json @facts
+      render_jsonp @facts
     elsif is_blacklisted
-      render_json blacklisted: 'This site is not supported'
+      render_jsonp blacklisted: 'This site is not supported'
     else
-      render_json error: 'Unauthorized'
+      render_jsonp error: 'Unauthorized'
     end
   end
 
   def blacklisted
-    render_json is_blacklisted ? { blacklisted: 'This site is not supported' } : {}
+    render_jsonp is_blacklisted ? { blacklisted: 'This site is not supported' } : {}
   end
 
   def top_topics
@@ -42,7 +42,7 @@ class SitesController < ApplicationController
   end
 
   private
-    def render_json json_able
+    def render_jsonp json_able
       render :json => json_able , :callback => params[:callback], :content_type => "application/javascript"
     end
 
