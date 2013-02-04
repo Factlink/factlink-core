@@ -8,6 +8,21 @@ class RecentlyViewedFactView extends Backbone.Marionette.ItemView
   triggers:
     'click button': 'click'
 
+  ui:
+    factWheel: '.js-fact-wheel'
+
+  onRender: ->
+    @ui.factWheel.html @wheelView().render().el
+
+  onClose: ->
+    @wheelView().close()
+
+  wheelView: ->
+    @_wheelView ?= new InteractiveWheelView
+      fact: @model.get("fact_base")
+      model: new Wheel @model.get("fact_wheel")
+      respondsToMouse: false
+
 class window.RecentlyViewedFactsView extends Backbone.Marionette.CompositeView
   template: 'facts/recently_viewed_facts'
 
