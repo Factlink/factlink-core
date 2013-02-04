@@ -18,6 +18,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     fact_relations_masquerading_as_facts = collectionMap new Backbone.Collection, @collection, (model) ->
       new Fact model.get('fact_base')
     searchView = new AutoCompleteFactRelationsView
+      recent_collection: @recentCollection()
       collection: fact_relations_masquerading_as_facts
       fact_id: @collection.fact.id
       type: @collection.type
@@ -53,3 +54,9 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   showError: -> @$('.js-error').show()
   hideError: -> @$('.js-error').hide()
+
+  recentCollection: ->
+    unless @_recent_collection
+      @_recent_collection = new RecentlyViewedFacts
+      @_recent_collection.fetch()
+    @_recent_collection
