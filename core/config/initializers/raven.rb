@@ -9,4 +9,14 @@ if sentry_conf
     config.excluded_exceptions = ['ActionController::RoutingError']
     config.processors = [Raven::Processor::SanitizeData]
   end
+
+  Moped::Connection.class_eval do
+    alias :unchecked_connect :connect unless method_defined?(:unchecked_connect)
+    def connect
+      unchecked_connect
+    rescue
+      Raven.capture_exception(exception, level: 'info')
+      raise
+    end
+  end
 end
