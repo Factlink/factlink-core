@@ -19,14 +19,16 @@ class SitesController < ApplicationController
 
   def facts_for_url
     url = params[:url]
-    if is_blacklisted
-      render_json blacklisted: 'This site is not supported'
-    else
-      authorize! :index, Fact
+
+    if not is_blacklisted and can? :index, Fact
       site = Site.find(:url => url).first
       @facts = site ? site.facts.to_a : []
 
       render_json @facts
+    elsif is_blacklisted
+      render_json blacklisted: 'This site is not supported'
+    else
+      render_json error: 'Unauthorized'
     end
   end
 
