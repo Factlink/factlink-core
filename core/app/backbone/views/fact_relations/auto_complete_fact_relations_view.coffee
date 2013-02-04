@@ -53,7 +53,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @trigger 'createFactRelation', new FactRelation
       displaystring: text
       fact_base: fact.toJSON()
-      fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
 
   switchCheckboxClicked: (e) ->
@@ -65,7 +64,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @trigger 'createFactRelation', new FactRelation
       evidence_id: selected_fact_base.id
       fact_base: selected_fact_base.toJSON()
-      fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
 
   setQuery: (text) -> @model.set text: text
