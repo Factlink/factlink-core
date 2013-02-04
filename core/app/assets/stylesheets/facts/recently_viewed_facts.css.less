@@ -2,7 +2,38 @@
 @import "bootstrap/mixins";
 
 .recently-viewed-facts {
+  margin-left: 60px;
+
   ul {
-    .action-list(#edf3f7, @linkColor, #c5d7e3);
+    @actionListBackgroundColor: #edf3f7;
+    @actionListFontColor: @linkColor;
+    @actionListBorderColor: #c5d7e3;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      position: relative;
+      background: @actionListBackgroundColor;
+      .box-sizing(border-box);
+      color: @actionListFontColor;
+
+      margin: 0;
+      padding: 15px 12px;
+
+      border: 1px solid @actionListBorderColor;
+      border-bottom: 1px solid transparent;
+
+      font-size: @baseFontSize;
+      font-weight: normal;
+      .box-shadow(inset 0 1px 1px rgba(255, 255, 255, .5));
+
+      &:first-child {
+        .border-top-radius(3px);
+      }
+      &:last-child {
+        .border-bottom-radius(3px);
+        border-bottom: 1px solid @actionListBorderColor;
+      }
+    }
   }
 }
