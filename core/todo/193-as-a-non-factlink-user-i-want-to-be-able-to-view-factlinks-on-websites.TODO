@@ -4,3 +4,4 @@ Backend:
 Frontend:
  ☐ Remove links when the user is not signed in
  ☐ Show popup on top of the modal when a user is not signed in
+ ☐ Show the same box at the bottom
