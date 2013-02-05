@@ -37,11 +37,16 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
     addCommentView
 
+  fact: ->
+    @model.fact()
+
   recentlyViewedFactsView: ->
     unless @_recentFactsView?
       collectionUtils = new CollectionUtils(this)
       filtered_recent_facts = collectionUtils.difference new Backbone.Collection,
-        'id', @recentCollection(), @fact_relations_masquerading_as_facts()
+        'id', @recentCollection(),
+              @fact_relations_masquerading_as_facts(),
+              new Backbone.Collection [@fact()]
 
       @_recentFactsView = new RecentlyViewedFactsView
         collection: filtered_recent_facts
