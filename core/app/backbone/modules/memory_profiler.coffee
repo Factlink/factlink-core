@@ -7,8 +7,8 @@ FactlinkApp.module "MemoryProfiler",
 
       MemoryProfiler.view_count_collection = new ViewCountCollection
 
-      old_constructor = Backbone.View.prototype.constructor
-      Backbone.View.prototype.constructor = (options)->
+      old_constructor = Backbone.View::constructor
+      Backbone.View.::constructor = (options)->
         old_constructor.apply @, arguments
         openView(this)
         @on 'close', => closeView(this)
