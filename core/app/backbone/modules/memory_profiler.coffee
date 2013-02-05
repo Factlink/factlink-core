@@ -7,13 +7,10 @@ FactlinkApp.module "MemoryProfiler",
 
       MemoryProfiler.view_count_collection = new ViewCountCollection
 
+      old_constructor = Backbone.View.prototype.constructor
       Backbone.View.prototype.constructor = (options)->
-        @cid = _.uniqueId('view')
+        old_constructor.apply @, arguments
         openView(this)
-        @_configure(options || {})
-        @_ensureElement();
-        @initialize.apply(this, arguments)
-        @delegateEvents()
         @on 'close', => closeView(this)
 
     class MemoryView extends Marionette.ItemView
