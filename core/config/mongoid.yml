@@ -52,7 +52,6 @@ production:
       database: factlink_ui_production
       hosts:
        - mongo1-production.factlink.com:27017
-       - mongo3-production.factlink.com:27017
        - mongo4-production.factlink.com:27017
       options:
         consistency: :strong
