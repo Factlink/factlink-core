@@ -3,9 +3,11 @@
 
 .recently-viewed-facts {
   background: #fff;
-  padding: 15px @mainRightPadding 15px @mainLeftPadding;
+  .reset-main-padding();
 
-  margin-left: 60px;
+  .recently-viewed-factlinks-header {
+    padding: 15px @mainRightPadding 15px @mainLeftPadding;
+  }
 
   table {
     @actionListBackgroundColor: #edf3f7;
@@ -21,7 +23,8 @@
       .box-sizing(border-box);
       color: @actionListFontColor;
 
-      border: 1px solid @actionListBorderColor;
+      border-top: 1px solid @actionListBorderColor;
+      border-bottom: 1px solid @actionListBorderColor;
 
       font-size: @baseFontSize;
       font-weight: normal;
@@ -29,7 +32,7 @@
 
       > td {
         margin: 0;
-        padding: 15px 12px;
+        padding: 15px @mainRightPadding 15px @mainLeftPadding;
         overflow: hidden;
       }
 
