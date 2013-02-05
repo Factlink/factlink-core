@@ -10,7 +10,7 @@ FactlinkApp.module "MemoryProfiler",
       old_constructor = Backbone.View::constructor
       # Note: This hack only works for Marionette views, since these views call
       # their super() constructor. Backbone.View's don't
-      Backbone.View.::constructor = (options)->
+      Backbone.View::constructor = (options)->
         old_constructor.apply @, arguments
         openView(this)
         @on 'close', => closeView(this)
