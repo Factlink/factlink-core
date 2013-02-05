@@ -8,6 +8,8 @@ FactlinkApp.module "MemoryProfiler",
       MemoryProfiler.view_count_collection = new ViewCountCollection
 
       old_constructor = Backbone.View::constructor
+      # Note: This hack only works for Marionette views, since these views call
+      # their super() constructor. Backbone.View's don't
       Backbone.View.::constructor = (options)->
         old_constructor.apply @, arguments
         openView(this)
