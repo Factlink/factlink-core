@@ -49,6 +49,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   renderRaphael: ->
     @$canvasEl = $('<div></div>')
+    @$canvasEl.addClass 'fact-wheel-responding-to-mouse' if @options.respondsToMouse
+
     @$('.raphael_container').html(@$canvasEl)
     @canvas = Raphael(@$canvasEl[0], @options.dimension * 2 + 12, @options.dimension * 2 + 12)
     @bindCustomRaphaelAttributes()
