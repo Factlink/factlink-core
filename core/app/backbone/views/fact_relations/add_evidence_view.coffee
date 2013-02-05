@@ -84,9 +84,9 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   addFactBase: (fact_base)->
     @createFactRelation new FactRelation
       evidence_id: fact_base.id
-      fact_base: fact_base.toJSON()
+      fact_base: fact_base
       created_by: currentUser.toJSON()
 
   addRecentFact: (args) ->
-    @addFactBase args.model
+    @addFactBase args.model.get 'fact_base'
 
