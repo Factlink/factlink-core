@@ -27,7 +27,7 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     $tabButtons.removeClass "active"
 
   showTab: (tab)->
-    mp_track "Factlink: Open tab",
+    mp_track "Factlink: Open discussion",
       factlink_id: @model.id
       type: tab
 
