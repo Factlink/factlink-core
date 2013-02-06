@@ -12,6 +12,10 @@ class Ability
     !!(user and not user.features.include? :act_as_non_signed_in)
   end
 
+  def user_acting_as_non_signed_in
+    user and user.features.include? :act_as_non_signed_in
+  end
+
   def initialize(user=nil)
     @user=user
 
@@ -44,7 +48,12 @@ class Ability
       end
 
       can :read_tos, user
+
+    elsif user_acting_as_non_signed_in
+      can :index, Fact
+      can :read,  Fact
     end
+
     define_feature_toggles
   end
 
