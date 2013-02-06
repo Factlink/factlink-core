@@ -23,6 +23,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       placeholder: @placeholder(options.type)
 
     @bindTo @_text_input_view, 'focus', @focus, @
+    @bindTo @model, 'change', @queryChanges, @
 
   placeholder: (type) ->
     if type == "supporting"
@@ -79,3 +80,8 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @setQuery ''
     @wheel.reset()
     @wheel_region.currentView.render()
+
+  queryChanges: ->
+    unless @query_has_changed
+      @query_has_changed = true
+      mp_track "Evidence: Started searching"
