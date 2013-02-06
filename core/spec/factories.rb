@@ -44,8 +44,13 @@ FactoryGirl.define do
     "Fact #{n}"
   end
 
+  sequence :title do |n|
+    "Fact Title #{n}"
+  end
+
   factory :fact_data do
     displaystring
+    title
   end
 
   factory :basefact do
