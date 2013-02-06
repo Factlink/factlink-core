@@ -15,6 +15,6 @@ describe "factlink", type: :request do
 
     page.should have_content @factlink.data.displaystring
 
-    assume_unchanged_screenshot "discussion_page"
+    assume_unchanged_screenshot "fact_show"
   end
 end
