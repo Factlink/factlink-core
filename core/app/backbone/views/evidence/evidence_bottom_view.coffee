@@ -34,10 +34,10 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     @count = @model.get('sub_comments_count')
 
     if @count > 0
-      @ui.subCommentsContainer.show()
+      @ui.subCommentsContainer.removeClass 'hide'
       @ui.subCommentsLink.text "Comments (#{@count})"
     else if Factlink.Global.signed_in
-      @ui.subCommentsContainer.show()
+      @ui.subCommentsContainer.removeClass 'hide'
       @ui.subCommentsLink.text "Comments"
     else
-      @ui.subCommentsContainer.hide()
+      @ui.subCommentsContainer.addClass 'hide'
