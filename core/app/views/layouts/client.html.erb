@@ -36,7 +36,7 @@
 
   <script type="text/javascript">
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
-    Factlink.setSignedIn(<%=current_ability.signed_in?.to_s.html_safe %>);
+    Factlink.setSignedIn(<%= current_ability.signed_in?.to_s.html_safe %>);
 
     FactlinkApp.startAsClient();
     <% if params[:guided] == "true" %>
