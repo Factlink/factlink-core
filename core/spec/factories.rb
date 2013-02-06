@@ -51,6 +51,7 @@ FactoryGirl.define do
 
   factory :fact_data do
     displaystring
+    sequence(:title) {|n| "Fact title #{n}"}
   end
 
   factory :basefact do
@@ -79,13 +80,9 @@ FactoryGirl.define do
     association :created_by, :factory => :graph_user
   end
 
-  sequence :title do |n|
-    "Title #{n}"
-  end
-
   factory :channel do
     association :created_by, :factory => :graph_user
-    title
+    sequence(:title) {|n| "Channel title #{n}"}
   end
 
   factory :job do

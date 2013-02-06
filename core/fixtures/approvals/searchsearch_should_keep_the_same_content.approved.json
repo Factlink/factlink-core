@@ -19,9 +19,8 @@
         "user_signed_in?": true,
         "i_am_fact_owner": false,
         "can_edit?": false,
-        "scroll_to_link": null,
         "displaystring": "Baron",
-        "fact_title": null,
+        "fact_title": "Fact title 1",
         "fact_wheel": {
           "authority": "0.0",
           "opinion_types": {
@@ -66,8 +65,7 @@
       "user_signed_in?": true,
       "i_am_fact_owner": false,
       "can_edit?": false,
-      "scroll_to_link": null,
-      "fact_title": null,
+      "fact_title": "Fact title 1",
       "fact_wheel": {
         "authority": "0.0",
         "opinion_types": {

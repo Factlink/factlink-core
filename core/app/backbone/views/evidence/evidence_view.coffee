@@ -18,13 +18,13 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
   setPopover: ->
     if Factlink.Global.signed_in
       updatePopover = =>
-      if @model.can_destroy()
-        popoverView = new EvidencePopoverView
-                            model: @model,
-                            delete_message: @delete_message
-        @popoverRegion.show popoverView
-      else
-        @popoverRegion.close()
+        if @model.can_destroy()
+          popoverView = new EvidencePopoverView
+                              model: @model,
+                              delete_message: @delete_message
+          @popoverRegion.show popoverView
+        else
+          @popoverRegion.close()
 
       updatePopover()
       @bindTo @model, 'change', updatePopover

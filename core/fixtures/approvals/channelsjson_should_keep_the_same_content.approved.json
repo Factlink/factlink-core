@@ -6,9 +6,9 @@
     "id": "<STRIPPED>",
     "has_authority?": true,
     "add_channel_url": "/johndoe1/channels/new",
-    "title": "Title 1",
-    "long_title": "Title 1",
-    "slug_title": "title-1",
+    "title": "Channel title 1",
+    "long_title": "Channel title 1",
+    "slug_title": "channel-title-1",
     "is_normal": true,
     "created_by_authority": "1.0",
     "created_by": {
