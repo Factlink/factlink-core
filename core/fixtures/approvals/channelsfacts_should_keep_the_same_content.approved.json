@@ -17,7 +17,6 @@
       "user_signed_in?": true,
       "i_am_fact_owner": false,
       "can_edit?": false,
-      "scroll_to_link": null,
       "displaystring": "Fact 3",
       "fact_title": null,
       "fact_wheel": {
@@ -64,7 +63,6 @@
     "user_signed_in?": true,
     "i_am_fact_owner": false,
     "can_edit?": false,
-    "scroll_to_link": null,
     "fact_title": null,
     "fact_wheel": {
       "authority": "0.0",
@@ -109,7 +107,6 @@
       "user_signed_in?": true,
       "i_am_fact_owner": false,
       "can_edit?": false,
-      "scroll_to_link": null,
       "displaystring": "Fact 2",
       "fact_title": null,
       "fact_wheel": {
@@ -156,7 +153,6 @@
     "user_signed_in?": true,
     "i_am_fact_owner": false,
     "can_edit?": false,
-    "scroll_to_link": null,
     "fact_title": null,
     "fact_wheel": {
       "authority": "0.0",
@@ -201,7 +197,6 @@
       "user_signed_in?": true,
       "i_am_fact_owner": false,
       "can_edit?": false,
-      "scroll_to_link": null,
       "displaystring": "Fact 1",
       "fact_title": null,
       "fact_wheel": {
@@ -248,7 +243,6 @@
     "user_signed_in?": true,
     "i_am_fact_owner": false,
     "can_edit?": false,
-    "scroll_to_link": null,
     "fact_title": null,
     "fact_wheel": {
       "authority": "0.0",
