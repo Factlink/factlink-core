@@ -185,7 +185,7 @@ class FactsController < ApplicationController
 
     results = interactor :search_evidence, search_for, @fact.id
 
-    facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }
+    facts = results.map { |result| Facts::Fact.for(fact: result.fact, view: view_context) }
 
     render json: facts
   end
@@ -195,7 +195,7 @@ class FactsController < ApplicationController
 
     results = interactor :"facts/recently_viewed"
 
-    facts = results.map { |fact| Facts::FactBubble.for(fact: fact, view: view_context) }
+    facts = results.map { |fact| Facts::Fact.for(fact: fact, view: view_context) }
 
     render json: facts
   end

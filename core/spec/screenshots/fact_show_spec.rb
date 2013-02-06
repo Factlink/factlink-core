@@ -10,11 +10,11 @@ describe "factlink", type: :request do
   it "the layout of the discussion page is correct" do
     @factlink = create_discussion
 
-    go_to_discussion_page_of @factlink
+    go_to_fact_show_of @factlink
     find('a', text: 'Comments (1)').click
 
     page.should have_content @factlink.data.displaystring
 
-    assume_unchanged_screenshot "discussion_page"
+    assume_unchanged_screenshot "fact_show"
   end
 end
