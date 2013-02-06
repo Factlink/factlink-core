@@ -17,7 +17,7 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     showDiscussion: ->
       @fact_base?
     showFactInfo: ->
-      @fact_base?.scroll_to_link?
+      @fact_base?.proxy_scroll_url?
     fact_url_host: ->
       if @fact_base?.fact_url?
         new Backbone.Factlink.Url(@fact_base?.fact_url).host()
