@@ -11,7 +11,6 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     subCommentsContainer: '.js-sub-comments-container'
 
   initialize: ->
-    @count = 0
     @bindTo @model, 'change', @render, @
 
   templateHelpers: ->
@@ -22,20 +21,21 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     showDiscussion: ->
       Factlink.Global.signed_in && @fact_base?
     showFactInfo: ->
-      @fact_base?.scroll_to_link?
+      @fact_base?.proxy_scroll_url?
     fact_url_host: ->
-      new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
+      if @fact_base?.fact_url?
+        new Backbone.Factlink.Url(@fact_base?.fact_url).host()
 
   onRender: ->
     @bindTo @model, 'change:sub_comments_count', @updateSubCommentsLink, @
     @updateSubCommentsLink()
 
   updateSubCommentsLink: ->
-    @count = @model.get('sub_comments_count')
+    count = @model.get('sub_comments_count')
 
-    if @count > 0
+    if count > 0
       @ui.subCommentsContainer.removeClass 'hide'
-      @ui.subCommentsLink.text "Comments (#{@count})"
+      @ui.subCommentsLink.text "Comments (#{count})"
     else if Factlink.Global.signed_in
       @ui.subCommentsContainer.removeClass 'hide'
       @ui.subCommentsLink.text "Comments"
