@@ -17,7 +17,7 @@
     "i_am_fact_owner": false,
     "can_edit?": false,
     "displaystring": "Fact 1",
-    "fact_title": null,
+    "fact_title": "Fact title 1",
     "fact_wheel": {
       "authority": "0.0",
       "opinion_types": {
@@ -62,7 +62,7 @@
   "user_signed_in?": true,
   "i_am_fact_owner": false,
   "can_edit?": false,
-  "fact_title": null,
+  "fact_title": "Fact title 1",
   "fact_wheel": {
     "authority": "0.0",
     "opinion_types": {
