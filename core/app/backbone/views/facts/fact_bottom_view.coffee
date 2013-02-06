@@ -6,6 +6,7 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
   events:
     "click .js-add-to-channel": "showAddToChannel",
     "click .js-start-conversation": "showStartConversation"
+    "click .js-open-proxy-link" : "openProxyLink"
 
   templateHelpers: ->
     showTime: true
@@ -40,3 +41,8 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
 
     FactlinkApp.Modal.show 'Send a message',
       new StartConversationView(model: @model)
+
+  openProxyLink: (e) ->
+    mp_track "Factlink: Open proxy link",
+      site_url: @model.get("fact_url")
+
