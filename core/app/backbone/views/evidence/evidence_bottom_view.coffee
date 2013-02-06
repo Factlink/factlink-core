@@ -32,10 +32,7 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   updateSubCommentsLink: ->
     count = @model.get('sub_comments_count')
 
-    count_str = ""
-
-    if count
-      count_str = " (#{count})"
+    count_str = if count then " (#{count})" else ""
 
     @$(".js-sub-comments-link").text "Comments#{count_str}"
 
