@@ -1,0 +1,16 @@
+Improve factlink_spec:
+ ✔ add existing fact_relation @done (13-02-06 11:24)
+ ✔ add new fact_relation @done (13-02-06 11:24)
+ ✔ add comment @done (13-02-06 11:24)
+ ✔ add subcomment to fact_relation @done (13-02-06 11:57)
+ ✔ add opinion to fact itself @done (13-02-06 11:24)
+ ✔ set relevance on created evidence @done (13-02-06 11:24)
+
+Create fact_show:
+ ✔ add existing fact_relation @done (13-02-06 11:57)
+ ✔ add new fact_relation @done (13-02-06 11:57)
+ ✔ add comment @done (13-02-06 11:57)
+ ✔ add subcomment to fact_relation @done (13-02-06 11:57)
+ ✔ add opinion to fact itself @done (13-02-06 11:57)
+ ✔ add opinion to existing and new fact_relation @done (13-02-06 11:57)
+ ✔ set relevance on created evidence @done (13-02-06 11:57)

@@ -64,6 +64,12 @@ module Acceptance
         end
       end
 
+      def add_sub_comment(comment)
+        fill_in 'text_area_view', with: comment
+        find('.evidence-sub-comments-button', text: 'Comment').click
+        find('.evidence-sub-comment-content').should have_content comment
+      end
+
       def add_evidence_form_css_selector
         '.fact-relation-search'
       end

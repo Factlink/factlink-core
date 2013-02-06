@@ -13,12 +13,6 @@ feature "sub_comments", type: :request do
     @factlink_user_a = create :fact, created_by: @user_a.graph_user
   end
 
-  def add_sub_comment(comment)
-    fill_in 'text_area_view', with: comment
-    find('.evidence-sub-comments-button', text: 'Comment').click
-    find('.evidence-sub-comment-content').should have_content comment
-  end
-
   scenario "A user can comment on a comment" do
     @comment_user_b = command :create_comment, @factlink_user_a.id.to_i, "believes", "test", @user_b.id.to_s
 
