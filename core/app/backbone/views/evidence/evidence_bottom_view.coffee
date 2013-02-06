@@ -6,6 +6,10 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   triggers:
     'click .js-sub-comments-link': 'toggleSubCommentsList'
 
+  ui:
+    subCommentsLink:      '.js-sub-comments-link'
+    subCommentsContainer: '.js-sub-comments-container'
+
   initialize: ->
     @count = 0
     @bindTo @model, 'change', @render, @
@@ -29,11 +33,11 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   updateSubCommentsLink: ->
     @count = @model.get('sub_comments_count')
 
-    count_str = ""
-
-    count_str = " (#{@count})" if @count > 0
-
-    if Factlink.Global.signed_in || @count > 0
-      @$(".js-sub-comments-link").text "Comments#{count_str}"
+    if @count > 0
+      @ui.subCommentsContainer.show()
+      @ui.subCommentsLink.text "Comments (#{@count})"
+    else if Factlink.Global.signed_in
+      @ui.subCommentsContainer.show()
+      @ui.subCommentsLink.text "Comments"
     else
-      @$(".js-sub-comments-link").hide()
+      @ui.subCommentsContainer.hide()
