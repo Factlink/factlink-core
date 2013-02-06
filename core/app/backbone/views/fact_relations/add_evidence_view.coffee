@@ -66,6 +66,10 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
         @collection.remove fact_relation
         @inputRegion.getView('search_view').setQuery fact_relation.get('fact_base').displaystring
         @showError()
+      success: =>
+        mp_track "Factlink: Added evidence",
+          factlink_id: @model.fact().id
+          type: @model.type()
 
   switchToCommentView: (content) ->
     @inputRegion.switchTo 'add_comment_view'
