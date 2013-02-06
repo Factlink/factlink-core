@@ -4,7 +4,7 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
   template: 'facts/bottom_base'
 
   events:
-    "click .js-add-to-channel": "showAddToChannel",
+    "click .js-add-to-channel": "showAddToChannel"
     "click .js-start-conversation": "showStartConversation"
     "click .js-open-proxy-link" : "openProxyLink"
 
