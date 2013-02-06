@@ -9,9 +9,6 @@ Backend:
      ☐ subcomments
      ☐ and more
 
-Somewhere inbetween:
- ☐ js lib should not be in annotate mode when user is acting_non_signed_in
-
 Frontend:
  ☐ Remove links when the user is not signed in
  ☐ Show popup on top of the modal when a user is not signed in
