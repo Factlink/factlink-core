@@ -9,9 +9,11 @@ class window.TopChannelItemView extends Backbone.Marionette.Layout
     position: @options.position
 
   onRender: ->
-    suggested_topics        = new SuggestedTopics([@model.topic()])
+    @renderAddBackButton() unless @model.user().is_current_user()
 
-    add_back_button = new AddChannelToChannelsButtonView
+  renderAddBackButton: ->
+    suggested_topics = new SuggestedTopics([@model.topic()])
+    add_back_button  = new AddChannelToChannelsButtonView
                                 model: @model
                                 suggested_topics: suggested_topics
 
