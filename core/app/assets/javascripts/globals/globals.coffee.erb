@@ -26,6 +26,7 @@ Factlink.Global =
   use_chrome_webstore: <%= FactlinkUI::Application.config.use_chrome_webstore %>
   t: {}
   can_haz: {}
+  signed_in: false
 
 <%
   [
@@ -58,3 +59,6 @@ Factlink.Timeout =
 
 Factlink.allowFeatures = (list = [])->
   Factlink.Global.can_haz[feature] = true for feature in list
+
+Factlink.setSignedIn = (signed_in) ->
+  Factlink.Global.signed_in = signed_in
