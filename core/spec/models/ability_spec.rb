@@ -4,16 +4,16 @@ require "cancan/matchers"
 describe Ability do
 
   #abilities
-  subject {Ability.new(user)}
-  let(:anonymous) {Ability.new}
-  let(:admin) { Ability.new admin_user}
-  let(:nonnda) { Ability.new nonnda_user}
+  subject                { Ability.new(user)}
+  let(:anonymous)        { Ability.new}
+  let(:admin)            { Ability.new admin_user}
+  let(:nonnda)           { Ability.new nonnda_user}
   let(:acting_anonymous) { Ability.new acting_as_non_signed_in_user}
 
   #users used as object
-  let(:user) {create :active_user}
-  let(:other_user) {create :active_user }
-  let(:admin_user) {create :admin_user}
+  let(:user)        {create :active_user}
+  let(:other_user)  {create :active_user }
+  let(:admin_user)  {create :admin_user}
   let(:nonnda_user) {create :user, agrees_tos: false}
   let(:acting_as_non_signed_in_user) {create :acting_as_non_signed_in_user}
 
