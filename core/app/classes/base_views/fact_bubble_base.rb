@@ -38,13 +38,5 @@ module BaseViews
       json.proxy_scroll_url proxy_scroll_url
     end
 
-
-
-    def proxy_scroll_url
-      FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
-    rescue
-      ""
-    end
-
   end
 end
