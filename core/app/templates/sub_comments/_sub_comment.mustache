@@ -2,7 +2,13 @@
 <img class="evidence-sub-comments-avatar" src="{{ creator.avatar_url_32 }}" height="32" width="32">
 <div class="evidence-sub-comment-author">
   <strong>
-    <a href="/{{ creator.username }}" rel="backbone">{{ creator.username }}</a>
+    {{#Factlink.Global.signed_in}}
+    <a href="/{{ creator.username }}" rel="backbone">
+    {{/Factlink.Global.signed_in}}
+      {{ creator.username }}
+    {{#Factlink.Global.signed_in}}
+    </a>
+    {{/Factlink.Global.signed_in}}
   </strong>
   ( <img src="{{global.brain_image}}"> <span class="evidence-sub-comment-authority">{{ creator.authority }}</span> )
 
