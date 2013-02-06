@@ -2,6 +2,7 @@ require 'acceptance_helper'
 
 describe "factlink", type: :request do
   include FactHelper
+  include Acceptance::FactHelper
 
   def create_factlink(user)
     FactoryGirl.create(:fact, created_by: user.graph_user)
@@ -113,21 +114,4 @@ describe "factlink", type: :request do
     end
   end
 
-  def wheel_path_d position
-    page.evaluate_script("$('.fact-wheel path')[#{position}].getAttribute('d');");
-  end
-
-  def wheel_path_opactity position
-    page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;");
-  end
-
-  def click_wheel_part position
-    #fire click event on svg element
-    page.execute_script("var path = $('.fact-wheel path')[#{position}];var event = document.createEvent('MouseEvents'); event.initMouseEvent('click');path.dispatchEvent(event);")
-
-    wait_for_ajax
-
-    #wait for animation
-    sleep 0.3
-  end
 end
