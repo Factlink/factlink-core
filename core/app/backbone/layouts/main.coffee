@@ -18,3 +18,4 @@ FactlinkApp.startClientRegions = ->
   FactlinkApp.addRegions
     mainRegion:          '.factlink-modal-content'
     topRegion:           '.js-region-factlink-modal-top'
+    bottomRegion:        '.js-region-factlink-modal-bottom'
