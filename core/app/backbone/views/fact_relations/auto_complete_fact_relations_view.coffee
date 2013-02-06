@@ -60,6 +60,8 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     e.preventDefault()
     e.stopPropagation()
 
+    mp_track "Evidence: Switching to comment"
+
   addSelected: (selected_fact_base)->
     @trigger 'createFactRelation', new FactRelation
       evidence_id: selected_fact_base.id
