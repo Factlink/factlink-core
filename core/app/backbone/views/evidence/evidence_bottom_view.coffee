@@ -40,5 +40,5 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     @$(".js-sub-comments-link").text "Comments#{count_str}"
 
   openEvidenceProxyLink: (e) ->
-    mp_track "Factlink: Open evidence proxy link",
+    mp_track "Evidence: Open proxy link",
       site_url: @model.get("fact_base").fact_url

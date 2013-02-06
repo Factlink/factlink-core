@@ -67,7 +67,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
         @inputRegion.getView('search_view').setQuery fact_relation.get('fact_base').displaystring
         @showError()
       success: =>
-        mp_track "Factlink: Added evidence",
+        mp_track "Evidence: Added",
           factlink_id: @model.fact().id
           type: @model.type()
 
