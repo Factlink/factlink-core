@@ -19,7 +19,7 @@ module Acceptance
       page.evaluate_script("$('.fact-wheel path')[#{position}].getAttribute('d');");
     end
 
-    def wheel_path_opactity position
+    def wheel_path_opacity position
       page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;");
     end
 
