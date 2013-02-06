@@ -1,0 +1,25 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bubble/variables";
+
+.factlink-modal {
+  .learn-more-popup {
+    position: absolute;
+    top: -80px;
+
+    // stole this from factlink_modal.css.less
+    left: 0;
+    padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
+    padding-top: 15px;
+
+    width: 560px;
+
+    border: 1px solid #a6a6a6;
+    .border-radius(5px);
+    .background-clip(padding-box);
+
+    background: #f5f5f5;
+
+    .box-shadow(0 0 0 5px rgba(0, 0, 0, .15));
+  }
+}

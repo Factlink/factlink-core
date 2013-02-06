@@ -39,3 +39,9 @@ class window.ClientController
     FactlinkApp.mainRegion.show view
 
     fact.on "destroy", => @onFactRemoved(fact.id)
+
+    unless Factlink.Global.signed_in
+      FactlinkApp.topRegion.show new LearnMorePopupView()
+      # This is a lame hack. The .factlink-modal ($el.parent()) needs a class
+      # to be positioned lower so the top popup can be shown.
+      FactlinkApp.mainRegion.$el.parent().addClass('with-top-popup')
