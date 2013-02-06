@@ -9,8 +9,8 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
 
   templateHelpers: ->
     showTime: true
-    showRepost: true
-    showShare: true
+    showRepost: Factlink.Global.signed_in
+    showShare: Factlink.Global.signed_in
     showSubComments: false
     showFactInfo: true
     showDiscussion: true

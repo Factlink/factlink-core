@@ -16,7 +16,8 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @on 'render', @evidenceBaseOnRender, @
 
   setPopover: ->
-    updatePopover = =>
+    if Factlink.Global.signed_in
+      updatePopover = =>
       if @model.can_destroy()
         popoverView = new EvidencePopoverView
                             model: @model,
@@ -25,13 +26,19 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
       else
         @popoverRegion.close()
 
-    updatePopover()
-    @bindTo @model, 'change', updatePopover
+      updatePopover()
+      @bindTo @model, 'change', updatePopover
 
   evidenceBaseOnRender: ->
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model, verb: @activityVerb
-    @voteRegion.show new VoteUpDownView model: @model
+
+    if Factlink.Global.signed_in
+      voteRelevanceView = new InteractiveVoteUpDownView model: @model
+    else
+      voteRelevanceView = new VoteUpDownView model: @model
+
+    @voteRegion.show voteRelevanceView
     @bottomRegion.show @evidenceBottomView()
 
     @mainRegion.show new @mainView model: @model
