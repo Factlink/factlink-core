@@ -70,7 +70,11 @@ class FactsController < ApplicationController
     authorize! :new, Fact
 
     if current_user
-      render inline:'', layout: 'client'
+      if current_ability.signed_in?
+        render inline:'', layout: 'client'
+      else
+        render text: '<h1>Here will be a login screen after removing :act_as_non_signed_in feature</h1>'
+      end
     else
       session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
       redirect_to user_session_path(layout: 'client')
