@@ -42,8 +42,8 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
+    Factlink.setSignedIn(<%=current_ability.signed_in?.to_s.html_safe %>);
 
     <% use_backbone = current_user %>
     <% if use_backbone %>
