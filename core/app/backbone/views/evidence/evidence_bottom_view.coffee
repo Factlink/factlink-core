@@ -19,7 +19,8 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     showFactInfo: ->
       @fact_base?.scroll_to_link?
     fact_url_host: ->
-      new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
+      if @fact_base?.fact_url?
+        new Backbone.Factlink.Url(@fact_base?.fact_url).host()
 
   onRender: ->
     @bindTo @model, 'change:sub_comments_count', @updateSubCommentsLink, @
