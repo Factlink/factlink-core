@@ -17,9 +17,10 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     showDiscussion: ->
       @fact_base?
     showFactInfo: ->
-      @fact_base?.scroll_to_link?
+      @fact_base?.proxy_scroll_url?
     fact_url_host: ->
-      new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
+      if @fact_base?.fact_url?
+        new Backbone.Factlink.Url(@fact_base?.fact_url).host()
 
   onRender: ->
     @bindTo @model, 'change:sub_comments_count', @updateSubCommentsLink, @
@@ -28,9 +29,6 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   updateSubCommentsLink: ->
     count = @model.get('sub_comments_count')
 
-    count_str = ""
-
-    if count
-      count_str = " (#{count})"
+    count_str = if count then " (#{count})" else ""
 
     @$(".js-sub-comments-link").text "Comments#{count_str}"
