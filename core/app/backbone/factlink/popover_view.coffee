@@ -39,9 +39,8 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     @unbindWindowClick key
 
   bindWindowClick: ($popover, obj, key) ->
-    $(window).on "click.popover." + @cid + "." + key, _.bind((e) ->
+    $(window).on "click.popover." + @cid + "." + key, (e) =>
       @hidePopover $popover, obj, key  if $(e.target).closest(obj.selector)[0] isnt @$el.find(obj.selector)[0]
-    , this)
 
   unbindWindowClick: (key) ->
     $(window).off "click.popover." + @cid + "." + key
