@@ -51,7 +51,7 @@ exports['The header should render'] = function(beforeExit, assert){
 
 exports['The proxied page should be succesful'] = function(beforeExit, assert){
   assert.response(server, {
-      url: '/parse?url=http://www.factlink.com',
+      url: '/parse?url=http://www.github.com',
       method: 'GET'
   }, {
       status: 200
@@ -60,7 +60,7 @@ exports['The proxied page should be succesful'] = function(beforeExit, assert){
 
 exports['The proxied page should be succesful'] = function(beforeExit, assert){
   assert.response(server, {
-      url: '/parse?url=http://www.factlink.com',
+      url: '/parse?url=http://www.github.com',
       method: 'GET'
   }, {
       status: 200
