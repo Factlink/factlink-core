@@ -17,30 +17,30 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     _.each @popover, @onRenderPopover, this
 
   onRenderPopover: (obj, key) ->
-    @$el.find(obj.selector).hide()  if @$el.find(obj.popoverSelector).children("li").length <= 0
+    @$(obj.selector).hide()  if @$(obj.popoverSelector).children("li").length <= 0
 
   popoverToggle: (obj, key, e) ->
-    $popover = @$el.find(obj.popoverSelector)
+    $popover = @$(obj.popoverSelector)
     if $popover.is(":hidden")
       @showPopover $popover, obj, key
     else
       @hidePopover $popover, obj, key
 
   showPopover: ($popover, obj, key) ->
-    $popoverButton = @$el.find(obj.selector)
+    $popoverButton = @$(obj.selector)
     $popover.show()
     $popoverButton.addClass "active"
     @bindWindowClick $popover, obj, key
 
   hidePopover: ($popover, obj, key) ->
-    $popoverButton = @$el.find(obj.selector)
+    $popoverButton = @$(obj.selector)
     $popover.hide()
     $popoverButton.removeClass "active"
     @unbindWindowClick key
 
   bindWindowClick: ($popover, obj, key) ->
     $(window).on "click.popover." + @cid + "." + key, (e) =>
-      @hidePopover $popover, obj, key  if $(e.target).closest(obj.selector)[0] isnt @$el.find(obj.selector)[0]
+      @hidePopover $popover, obj, key  if $(e.target).closest(obj.selector)[0] isnt @$(obj.selector)[0]
 
   unbindWindowClick: (key) ->
     $(window).off "click.popover." + @cid + "." + key
