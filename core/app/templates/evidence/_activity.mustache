@@ -1,11 +1,11 @@
 <strong>
-  {{#Factlink.Global.signed_in}}
+  {{#global.signed_in}}
   <a href="/{{ creator.username }}" rel="backbone">
-  {{/Factlink.Global.signed_in}}
+  {{/global.signed_in}}
     {{ creator.username }}
-  {{#Factlink.Global.signed_in}}
+  {{#global.signed_in}}
   </a>
-  {{/Factlink.Global.signed_in}}
+  {{/global.signed_in}}
 </strong>
 ( <img src="{{global.brain_image}}"> <span class="authority">{{ creator.authority }}</span> ) {{verb}}:
 
