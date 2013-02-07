@@ -6,6 +6,9 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   triggers:
     'click .js-sub-comments-link': 'toggleSubCommentsList'
 
+  events:
+    'click .js-open-proxy-link': 'openEvidenceProxyLink'
+
   ui:
     subCommentsLink:          '.js-sub-comments-link'
     subCommentsLinkContainer: '.js-sub-comments-link-container'
@@ -45,3 +48,7 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
 
   showSubCommentsLink: -> @ui.subCommentsLinkContainer.removeClass 'hide'
   hideSubCommentsLink: -> @ui.subCommentsLinkContainer.addClass 'hide'
+
+  openEvidenceProxyLink: (e) ->
+    mp_track "Evidence: Open proxy link",
+      site_url: @model.get("fact_base").fact_url
