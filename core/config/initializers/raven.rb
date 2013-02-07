@@ -15,7 +15,11 @@ if sentry_conf
     def connect
       unchecked_connect
     rescue StandardError => exception
-      Raven.captureException(exception)
+      begin
+        Raven.captureException(exception)
+      rescue
+        Rails.logger.error("Could not connect to Sentry")
+      end
       raise
     end
   end
