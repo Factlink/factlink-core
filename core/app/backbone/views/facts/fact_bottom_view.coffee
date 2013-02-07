@@ -4,8 +4,9 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
   template: 'facts/bottom_base'
 
   events:
-    "click .js-add-to-channel": "showAddToChannel",
+    "click .js-add-to-channel": "showAddToChannel"
     "click .js-start-conversation": "showStartConversation"
+    "click .js-open-proxy-link" : "openProxyLink"
 
   templateHelpers: ->
     showTime: true
@@ -34,9 +35,18 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     FactlinkApp.Modal.show 'Repost Factlink',
       new AddToChannelModalView(collection: collection, model: @model)
 
+    mp_track "Factlink: Open repost modal"
+
   showStartConversation: (e) ->
     e.preventDefault()
     e.stopPropagation()
 
     FactlinkApp.Modal.show 'Send a message',
       new StartConversationView(model: @model)
+
+    mp_track "Factlink: Open share modal"
+
+
+  openProxyLink: (e) ->
+    mp_track "Factlink: Open proxy link",
+      site_url: @model.get("fact_url")

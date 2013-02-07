@@ -41,13 +41,21 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
 
     if @model.isDisBelieving()
       @model.removeOpinion()
+      mp_track "Factlink: Removed relevance vote",
+        type: "Not relevant"
     else
       @model.disbelieve()
+      mp_track "Factlink: Added relevance vote",
+        type: "Not relevant"
 
   believe: ->
     @hideTooltips()
 
     if @model.isBelieving()
       @model.removeOpinion()
+      mp_track "Factlink: Removed relevance vote",
+        type: "Relevant"
     else
       @model.believe()
+      mp_track "Factlink: Added relevance vote",
+        type: "Relevant"

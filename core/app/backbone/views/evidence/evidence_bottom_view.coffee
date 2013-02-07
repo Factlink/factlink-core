@@ -6,6 +6,9 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   triggers:
     'click .js-sub-comments-link': 'toggleSubCommentsList'
 
+  events:
+    'click .js-open-proxy-link': 'openEvidenceProxyLink'
+
   initialize: ->
     @bindTo @model, 'change', @render, @
 
@@ -32,3 +35,7 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     count_str = if count then " (#{count})" else ""
 
     @$(".js-sub-comments-link").text "Comments#{count_str}"
+
+  openEvidenceProxyLink: (e) ->
+    mp_track "Evidence: Open proxy link",
+      site_url: @model.get("fact_base").fact_url
