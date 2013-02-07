@@ -1,6 +1,4 @@
-ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
-
-class SubCommentPopoverView extends ViewWithPopover
+class SubCommentPopoverView extends Backbone.Factlink.PopoverView
   template: 'sub_comments/popover'
 
   initialize: (options)->
@@ -31,8 +29,7 @@ class window.SubCommentView extends Backbone.Marionette.Layout
 
   initialize: -> @bindTo @model, 'change', @render, @
 
-  onRender: ->
-    @setPopover() if Factlink.Global.signed_in
+  onRender: -> @setPopover()
 
   setPopover: ->
     if @model.can_destroy()

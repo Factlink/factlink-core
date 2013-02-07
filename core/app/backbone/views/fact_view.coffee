@@ -1,8 +1,5 @@
 #= require ./facts/fact_base_view
-
-ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
-
-class FactPopoverView extends ViewWithPopover
+class FactPopoverView extends Backbone.Factlink.PopoverView
   template: 'facts/popover'
 
   events:
