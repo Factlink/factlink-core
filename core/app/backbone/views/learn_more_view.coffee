@@ -1,9 +1,11 @@
-# TODO: move to own view
-class window.LearnMoreView extends Backbone.Marionette.ItemView
+class LearnMoreView extends Backbone.Marionette.ItemView
   template:
     text: """
-        <a class="btn">Sign in</a> or <a class="btn btn-primary">Learn more about Factlink</a> to sign up and join the discussion.
+        <a class="btn learn-more-btn-sign-in">Sign in</a> or <a class="btn btn-primary learn-more-btn-learn-more">Learn more about Factlink</a> to sign up and join the discussion.
       """
 
 class window.LearnMorePopupView extends LearnMoreView
-  className: 'learn-more-popup'
+  className: 'learn-more learn-more-popup'
+
+class window.LearnMoreBottomView extends LearnMoreView
+  className: 'learn-more learn-more-bottom'

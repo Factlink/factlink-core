@@ -46,4 +46,4 @@ class window.ClientController
       # to be positioned lower so the top popup can be shown.
       FactlinkApp.mainRegion.$el.parent().addClass('with-top-popup')
 
-      FactlinkApp.bottomRegion.show new LearnMoreView()
+      FactlinkApp.bottomRegion.show new LearnMoreBottomView()
