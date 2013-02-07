@@ -18,29 +18,29 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     if @$(@popover.popoverSelector).children("li").length <= 0
       @$(@popover.selector).hide()
 
+  $popover: -> @$(@popover.popoverSelector)
+  $popoverButton: -> @$(@popover.selector)
+
   popoverToggle: ->
-    $popover = @$(@popover.popoverSelector)
-    if $popover.is(":hidden")
-      @showPopover $popover
+    if @$popover().is(":hidden")
+      @showPopover()
     else
-      @hidePopover $popover
+      @hidePopover()
 
-  showPopover: ($popover) ->
-    $popoverButton = @$(@popover.selector)
-    $popover.show()
-    $popoverButton.addClass "active"
-    @bindWindowClick $popover
+  showPopover: ->
+    @$popover().show()
+    @$popoverButton().addClass "active"
+    @bindWindowClick()
 
-  hidePopover: ($popover) ->
-    $popoverButton = @$(@popover.selector)
-    $popover.hide()
-    $popoverButton.removeClass "active"
+  hidePopover: ->
+    @$popover().hide()
+    @$popoverButton().removeClass "active"
     @unbindWindowClick()
 
-  bindWindowClick: ($popover) ->
+  bindWindowClick: ->
     $(window).on "click.popover." + @cid, (e) =>
       if $(e.target).closest(@popover.selector)[0] isnt @$(@popover.selector)[0]
-        @hidePopover $popover
+        @hidePopover()
 
   unbindWindowClick: ->
     $(window).off "click.popover." + @cid
