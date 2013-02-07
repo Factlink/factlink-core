@@ -2,7 +2,7 @@
 @import "bootstrap/mixins";
 @import "bubble/variables";
 
-.factlink-modal {
+.factlink-modal-container {
 
   .learn-more {
     padding: 15px;
@@ -26,20 +26,7 @@
   }
 
   .learn-more-popup {
-    position: absolute;
-    top: -80px;
-
-    // stole this from factlink_modal.css.less
-    left: 0;
-
-    width: 560px;
-
-    border: 1px solid #a6a6a6;
-    .border-radius(5px);
-    .background-clip(padding-box);
-
-
-    .box-shadow(0 0 0 5px rgba(0, 0, 0, .15));
+    margin-bottom: 25px;
 
     .bottom-arrow {
       @image-width: 22px;
