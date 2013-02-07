@@ -69,9 +69,10 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
       @factRelationsRegion.show new EvidenceListView
         collection: @model.evidence()
         type: @model.evidence().type
-      @factRelationSearchRegion.show new AddEvidenceView
-        collection: @model.evidence()
-        model: @model
+      if Factlink.Global.signed_in
+        @factRelationSearchRegion.show new AddEvidenceView
+          collection: @model.evidence()
+          model: @model
     else
       @hideRegion @factRelationSearchRegion
       @hideRegion @factRelationsRegion

@@ -80,3 +80,4 @@ function extendWithPopover(superclass) {
     }
   });
 }
+Backbone.Factlink.PopoverView = extendWithPopover(Backbone.Marionette.ItemView);

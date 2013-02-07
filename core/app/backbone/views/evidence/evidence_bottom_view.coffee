@@ -9,6 +9,10 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   events:
     'click .js-open-proxy-link': 'openEvidenceProxyLink'
 
+  ui:
+    subCommentsLink:          '.js-sub-comments-link'
+    subCommentsLinkContainer: '.js-sub-comments-link-container'
+
   initialize: ->
     @bindTo @model, 'change', @render, @
 
@@ -18,7 +22,7 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     showShare: false
     showSubComments: true
     showDiscussion: ->
-      @fact_base?
+      Factlink.Global.signed_in && @fact_base?
     showFactInfo: ->
       @fact_base?.proxy_scroll_url?
     fact_url_host: ->
@@ -32,10 +36,20 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   updateSubCommentsLink: ->
     count = @model.get('sub_comments_count')
 
-    count_str = if count then " (#{count})" else ""
+    if count > 0
+      @ui.subCommentsLink.text "Comments (#{count})"
+    else
+      @ui.subCommentsLink.text "Comments"
 
-    @$(".js-sub-comments-link").text "Comments#{count_str}"
+    if Factlink.Global.signed_in or count > 0
+      @showSubCommentsLink()
+    else
+      @hideSubCommentsLink()
+
+  showSubCommentsLink: -> @ui.subCommentsLinkContainer.removeClass 'hide'
+  hideSubCommentsLink: -> @ui.subCommentsLinkContainer.addClass 'hide'
 
   openEvidenceProxyLink: (e) ->
     mp_track "Evidence: Open proxy link",
       site_url: @model.get("fact_base").fact_url
+

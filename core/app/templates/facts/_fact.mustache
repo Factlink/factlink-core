@@ -1,22 +1,4 @@
-<div class="top-right-arrow">
-  <i><b class="caret"></b></i>
-  <ul class="top-right">
-    {{#deletable_from_channel?}}
-      <li class="hide-from-channel">
-        <a rel="nofollow">Hide Factlink from channel</a>
-      </li>
-    {{/deletable_from_channel?}}
-    {{#i_am_owner}}
-      <li class="delete">
-        <a>
-          <img src="{{global.trash_image}}" alt="Trash" class="normal">
-          <img src="{{global.trash_hover_image}}" alt="Trash" class="hover">
-          Delete Factlink...
-        </a>
-      </li>
-    {{/i_am_owner}}
-  </ul>
-</div>
+<div class="js-region-popover"></div>
 
 {{#modal?}}
   <a id="close" rel="nofollow" onclick="parent.remote.hide();" title="Close to proceed"><i class="icon-remove"></i></a>

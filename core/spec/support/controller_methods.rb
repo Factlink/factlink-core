@@ -1,14 +1,16 @@
 module ControllerMethods
   def authenticate_user!(user)
     request.env['warden'] = mock(Warden, :authenticate => user, :authenticate! => user)
+    request.env['test_logged_in'] = true
   end
 
   def ability
     unless @ability
       @ability = Object.new
       @ability.extend(CanCan::Ability)
-      @ability.should_receive(:feature_toggles).any_number_of_times.and_return([])
-      subject.should_receive(:current_ability).any_number_of_times.and_return(@ability)
+      @ability.stub feature_toggles: []
+      @ability.stub signed_in?: request.env['test_logged_in'] || false
+      subject.stub current_ability: @ability
     end
     @ability
   end

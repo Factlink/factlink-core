@@ -3,12 +3,15 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
 
   template: "evidence/vote_up_down"
 
+  initialize: ->
+    @bindTo @model, "change", @render, @
+
+class window.InteractiveVoteUpDownView extends window.VoteUpDownView
   events:
     "click .weakening": "disbelieve"
     "click .supporting": "believe"
 
-  initialize: ->
-    @bindTo @model, "change", @render, @
+  templateHelpers: -> interactive: true
 
   hideTooltips: ->
     @$(".weakening").tooltip "hide"
