@@ -16,6 +16,10 @@ class Ability
     user and user.features.include? :act_as_non_signed_in
   end
 
+  def agrees_tos?
+    signed_in? and user.agrees_tos
+  end
+
   def initialize(user=nil)
     @user=user
 
@@ -27,38 +31,24 @@ class Ability
       ! /^home\/pages\/help/.match template
     end
 
-    # Registered user
-    if signed_in?
-
-      if user.agrees_tos
-        can :access, FactlinkWebapp
-        define_channel_abilities
-        define_topic_abilites
-        define_fact_abilities
-        define_fact_relation_abilities
-        define_user_abilities
-        define_user_activities_abilities
-        define_topic_abilities
-
-        can :show, String
-      else
-        cannot :manage, :all
-        can :sign_tos, user
-        can :read, user
-      end
-
-      can :read_tos, user
-
-    elsif user_acting_as_non_signed_in
-      can :index, Fact
-      can :read,  Fact
+    if agrees_tos?
+      can :access, FactlinkWebapp
+      can :show, String
     end
 
+    define_channel_abilities
+    define_topic_abilites
+    define_fact_abilities
+    define_fact_relation_abilities
+    define_user_abilities
+    define_user_activities_abilities
+    define_topic_abilities
+    define_tos_abilities
     define_feature_toggles
   end
 
   def define_channel_abilities
-    if signed_in?
+    if agrees_tos?
       can :index, Channel
       can :read, Channel
       can :manage, Channel do |ch|
@@ -68,26 +58,28 @@ class Ability
   end
 
   def define_topic_abilites
-    if signed_in?
+    if agrees_tos?
       can :index, Topic
     end
   end
 
   def define_fact_abilities
-    can :index, Fact
-    can :read, Fact
-    can :get_evidence, Fact
-    if signed_in?
+    if agrees_tos?
+      can :index, Fact
+      can :read, Fact
       can :opinionate, Fact
       can :add_evidence, Fact
       can :manage, Fact do |f|
         f.created_by_id == user.graph_user_id
       end
+    elsif user_acting_as_non_signed_in
+      can :index, Fact
+      can :read, Fact
     end
   end
 
   def define_fact_relation_abilities
-    if signed_in?
+    if agrees_tos?
       can :opinionate, FactRelation
       can :destroy, FactRelation do |fr|
         fr.created_by_id == user.graph_user_id && fr.deletable?
@@ -96,7 +88,7 @@ class Ability
   end
 
   def define_user_abilities
-    if signed_in?
+    if agrees_tos?
       can :update, user
       can :read, User do
         |u| not u.hidden
@@ -117,7 +109,7 @@ class Ability
   end
 
   def define_user_activities_abilities
-    if signed_in?
+    if agrees_tos?
       can :index, Activity
       can :mark_activities_as_read, User do |u|
         u.id == user.id
@@ -132,6 +124,14 @@ class Ability
     can :show, Topic
   end
 
+  def define_tos_abilities
+    can :read_tos, user
+    unless agrees_tos?
+      can :sign_tos, user
+      can :read, user
+    end
+  end
+
   FEATURES = %w(pink_feedback_button authority_calculation_details skip_create_first_factlink topic_facts memory_profiling act_as_non_signed_in)
   GLOBAL_ENABLED_FEATURES = []
 
@@ -144,7 +144,7 @@ class Ability
 
   def define_feature_toggles
     @features ||= []
-    if signed_in?
+    if agrees_tos?
       enable_features [:beginners_hints] if (user.sign_in_count || 0) < 10
       enable_features user.features
       enable_features GLOBAL_ENABLED_FEATURES
