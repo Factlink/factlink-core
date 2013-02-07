@@ -123,6 +123,7 @@ function getServer(config) {
 
     // A site is needed
     site = urlvalidation.clean_url(url);
+    console.info( site );
     if (site === undefined) {
       errorhandler({});
       return;
