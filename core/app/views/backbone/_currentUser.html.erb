@@ -1,4 +1,4 @@
-<% if current_user %>
+<% if current_user and not user.features.include? :act_as_non_signed_in %>
   window.currentUser = new User(<%= render('users/user', user: current_user).html_safe %>);
   chans = new OwnChannelCollection([]);
   window.currentUser.setChannels(chans);
