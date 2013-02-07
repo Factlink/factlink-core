@@ -44,6 +44,13 @@ describe Ability do
       it {admin.should_not be_able_to :sign_tos, user }
       it {admin.should_not be_able_to :sign_tos, admin_user }
     end
+    context "as an anonymous" do
+      it {anonymous.should_not be_able_to :manage, User }
+
+      it {anonymous.should_not be_able_to :sign_tos, nil }
+      it {anonymous.should     be_able_to :read_tos, nil }
+      it {anonymous.should_not be_able_to :show, User }
+    end
   end
 
   describe "to get the fact count of a site" do

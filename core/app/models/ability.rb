@@ -127,7 +127,8 @@ class Ability
 
   def define_tos_abilities
     can :read_tos, user
-    unless agrees_tos?
+
+    if signed_in? and not agrees_tos?
       can :sign_tos, user
     end
   end
