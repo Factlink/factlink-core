@@ -6,6 +6,13 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
   initialize: ->
     @bindTo @model, "change", @render, @
 
+class window.InteractiveVoteUpDownView extends window.VoteUpDownView
+  events:
+    "click .weakening": "disbelieve"
+    "click .supporting": "believe"
+
+  templateHelpers: -> interactive: true
+
   hideTooltips: ->
     @$(".weakening").tooltip "hide"
     @$(".supporting").tooltip "hide"
@@ -31,13 +38,6 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
   onBeforeClose: ->
     @$(".weakening").tooltip "destroy"
     @$(".supporting").tooltip "destroy"
-
-class window.InteractiveVoteUpDownView extends window.VoteUpDownView
-  events:
-    "click .weakening": "disbelieve"
-    "click .supporting": "believe"
-
-  templateHelpers: -> interactive: true
 
   disbelieve: ->
     @hideTooltips()
