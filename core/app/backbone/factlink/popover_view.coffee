@@ -1,7 +1,6 @@
-extendWithPopover = (superclass) ->
-  superclass.extend
+class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     constructor: (options) ->
-      superclass::constructor.apply this, arguments
+      super(options)
       return  unless _.isArray(@popover)
       _.each @popover, @bindPopover, this
       @on "render", @realOnRender, this
@@ -49,6 +48,5 @@ extendWithPopover = (superclass) ->
       $(window).off "click.popover." + @cid + "." + key
 
     close: ->
-      superclass::close.apply this, arguments
+      super()
       @$el.off "click.popover"
-Backbone.Factlink.PopoverView = extendWithPopover(Backbone.Marionette.ItemView)
