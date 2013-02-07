@@ -6,7 +6,7 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
       throw "PopoverView needs a popover property"
 
     @bindPopover()
-    @on "render", @realOnRender, this
+    @on "render", @popoverOnRender, this
 
   bindPopover: ->
     @$el.on "click.popover", @popover.selector, =>
@@ -14,7 +14,7 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     @$el.on "click.popover_menu", @popover.popoverSelector, (e) ->
       e.stopPropagation()
 
-  realOnRender: ->
+  popoverOnRender: ->
     if @$(@popover.popoverSelector).children("li").length <= 0
       @$(@popover.selector).hide()
 
