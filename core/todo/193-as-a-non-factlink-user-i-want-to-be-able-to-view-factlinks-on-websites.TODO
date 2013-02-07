@@ -1,6 +1,6 @@
 Backend:
  ✔ Create feature that makes a user appear as not signed in @done (13-02-06 13:14)
- ☐ Create acceptance tests for non-signed-in flow
+ ✔ Create acceptance tests for non-signed-in flow @done (13-02-07 13:53)
  ✔ Allow showing of pages for non-signed-in user @done (13-02-07 12:25)
      Change ability for:
      ✔ facts @done (13-02-06 14:34)
