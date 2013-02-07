@@ -87,9 +87,7 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
     verb: @options.verb
 
 
-ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
-
-class EvidencePopoverView extends ViewWithPopover
+class EvidencePopoverView extends Backbone.Factlink.PopoverView
   template: 'evidence/popover'
 
   initialize: (options)->
