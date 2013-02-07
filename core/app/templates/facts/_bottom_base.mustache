@@ -61,7 +61,9 @@
         {{#fact_url_host}}
         <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
         {{/fact_url_host}}
-        <a href="{{fact_base.proxy_scroll_url}}" target="_blank">{{fact_base.fact_title}}</a>
+        <a href="{{fact_base.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
+          {{fact_base.fact_title}}
+        </a>
       {{/fact_base.proxy_scroll_url}}
     </li>
   {{/showFactInfo}}
