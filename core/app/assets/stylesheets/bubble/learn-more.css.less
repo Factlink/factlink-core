@@ -4,28 +4,39 @@
 
 .factlink-modal-container {
 
-    .learn-more {
-        padding: 15px;
-        background: #f5f5f5;
+  .learn-more {
+    padding: 15px;
+    background: #f5f5f5;
 
-        .learn-more-btn-sign-in {
-            margin-right: 5px;
-        }
-
-        .learn-more-btn-learn-more {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
+    .learn-more-btn-sign-in {
+      margin-right: 5px;
     }
 
-    .learn-more-bottom {
-        // 14px at the top to fall just over the border when "unsure" is selected
-        margin: 14px -15px -15px -15px;
-        border-top: 1px solid @baseBorderColor;
-        .border-bottom-radius(5px);
+    .learn-more-btn-learn-more {
+      margin-left: 5px;
+      margin-right: 5px;
     }
+  }
 
-    .learn-more-popup {
-        margin-bottom: 20px;
+  .learn-more-bottom {
+    // 14px at the top to fall just over the border when "unsure" is selected
+    margin: 14px -15px -15px -15px;
+    border-top: 1px solid @baseBorderColor;
+    .border-bottom-radius(5px);
+  }
+
+  .learn-more-popup {
+    margin-bottom: 25px;
+
+    .bottom-arrow {
+      @image-width: 22px;
+      background: image-url('arrow-down-with-drop-shadow.png');
+      height: 17px;
+      width: @image-width;
+      position: absolute;
+      left: 50%;
+      margin: 15px 0 0 -(@image-width / 2);
+      background-repeat: no-repeat;
     }
+  }
 }
