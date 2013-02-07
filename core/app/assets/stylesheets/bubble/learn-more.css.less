@@ -40,5 +40,16 @@
 
 
     .box-shadow(0 0 0 5px rgba(0, 0, 0, .15));
+
+    .bottom-arrow {
+      @image-width: 22px;
+      background: image-url('arrow-down-with-drop-shadow.png');
+      height: 17px;
+      width: @image-width;
+      position: absolute;
+      left: 50%;
+      margin: 15px 0 0 -(@image-width / 2);
+      background-repeat: no-repeat;
+    }
   }
 }
