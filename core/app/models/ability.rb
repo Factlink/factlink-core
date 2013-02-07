@@ -9,7 +9,7 @@ class Ability
   end
 
   def signed_in?
-    !!(user and not user.features.include? :act_as_non_signed_in)
+    user and not user.features.include? :act_as_non_signed_in
   end
 
   def user_acting_as_non_signed_in
