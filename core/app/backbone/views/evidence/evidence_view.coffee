@@ -16,18 +16,17 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @on 'render', @evidenceBaseOnRender, @
 
   setPopover: ->
-    if Factlink.Global.signed_in
-      updatePopover = =>
-        if @model.can_destroy()
-          popoverView = new EvidencePopoverView
-                              model: @model,
-                              delete_message: @delete_message
-          @popoverRegion.show popoverView
-        else
-          @popoverRegion.close()
+    updatePopover = =>
+      if @model.can_destroy()
+        popoverView = new EvidencePopoverView
+                            model: @model,
+                            delete_message: @delete_message
+        @popoverRegion.show popoverView
+      else
+        @popoverRegion.close()
 
-      updatePopover()
-      @bindTo @model, 'change', updatePopover
+    updatePopover()
+    @bindTo @model, 'change', updatePopover
 
   evidenceBaseOnRender: ->
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
@@ -42,7 +41,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @bottomRegion.show @evidenceBottomView()
 
     @mainRegion.show new @mainView model: @model
-    @setPopover()
+    @setPopover() if Factlink.Global.signed_in
 
   evidenceBottomView: ->
     unless @_evidenceBottomView

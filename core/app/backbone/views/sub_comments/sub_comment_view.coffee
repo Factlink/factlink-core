@@ -31,10 +31,11 @@ class window.SubCommentView extends Backbone.Marionette.Layout
 
   initialize: -> @bindTo @model, 'change', @render, @
 
-  onRender: -> @setPopover()
+  onRender: ->
+    @setPopover() if Factlink.Global.signed_in
 
   setPopover: ->
-    if Factlink.Global.signed_in && @model.can_destroy()
+    if @model.can_destroy()
       popoverView = new SubCommentPopoverView
                           model: @model,
                           delete_message: 'Remove this comment'
