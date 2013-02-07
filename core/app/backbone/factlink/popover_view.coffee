@@ -1,7 +1,7 @@
 class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
   constructor: (options) ->
     super(options)
-    return  unless _.isArray(@popover)
+    throw "PopoverView needs a popover property"  unless _.isArray(@popover)
     _.each @popover, @bindPopover, this
     @on "render", @realOnRender, this
 
@@ -14,7 +14,6 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     @$el.on "click.popover_menu", obj.popoverSelector, blockMethod
 
   realOnRender: ->
-    return  unless _.isArray(@popover)
     _.each @popover, @onRenderPopover, this
 
   onRenderPopover: (obj, key) ->
