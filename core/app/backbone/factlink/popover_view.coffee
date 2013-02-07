@@ -1,12 +1,15 @@
 class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
   constructor: (options) ->
     super(options)
-    throw "PopoverView needs a popover property"  unless _.isArray(@popover)
-    _.each @popover, @bindPopover, this
+
+    unless @popover?
+      throw "PopoverView needs a popover property"
+
+    @bindPopover @popover
     @on "render", @realOnRender, this
 
-  bindPopover: (obj, key) ->
-    method = _.bind(@popoverToggle, this, obj, key)
+  bindPopover: (obj) ->
+    method = _.bind(@popoverToggle, this, obj)
     blockMethod = (e) ->
       e.stopPropagation()
 
@@ -14,37 +17,38 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     @$el.on "click.popover_menu", obj.popoverSelector, blockMethod
 
   realOnRender: ->
-    _.each @popover, @onRenderPopover, this
+    @onRenderPopover @popover
 
-  onRenderPopover: (obj, key) ->
+  onRenderPopover: (obj) ->
     @$(obj.selector).hide()  if @$(obj.popoverSelector).children("li").length <= 0
 
-  popoverToggle: (obj, key, e) ->
+  popoverToggle: (obj, e) ->
     $popover = @$(obj.popoverSelector)
     if $popover.is(":hidden")
-      @showPopover $popover, obj, key
+      @showPopover $popover, obj
     else
-      @hidePopover $popover, obj, key
+      @hidePopover $popover, obj
 
-  showPopover: ($popover, obj, key) ->
+  showPopover: ($popover, obj) ->
     $popoverButton = @$(obj.selector)
     $popover.show()
     $popoverButton.addClass "active"
-    @bindWindowClick $popover, obj, key
+    @bindWindowClick $popover, obj
 
-  hidePopover: ($popover, obj, key) ->
+  hidePopover: ($popover, obj) ->
     $popoverButton = @$(obj.selector)
     $popover.hide()
     $popoverButton.removeClass "active"
-    @unbindWindowClick key
+    @unbindWindowClick()
 
-  bindWindowClick: ($popover, obj, key) ->
-    $(window).on "click.popover." + @cid + "." + key, (e) =>
-      @hidePopover $popover, obj, key  if $(e.target).closest(obj.selector)[0] isnt @$(obj.selector)[0]
+  bindWindowClick: ($popover, obj) ->
+    $(window).on "click.popover." + @cid, (e) =>
+      @hidePopover $popover, obj if $(e.target).closest(obj.selector)[0] isnt @$(obj.selector)[0]
 
-  unbindWindowClick: (key) ->
-    $(window).off "click.popover." + @cid + "." + key
+  unbindWindowClick: ->
+    $(window).off "click.popover." + @cid
 
   close: ->
     super()
+    @unbindWindowClick()
     @$el.off "click.popover"

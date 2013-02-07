@@ -10,10 +10,9 @@ class SubCommentPopoverView extends Backbone.Factlink.PopoverView
   events:
     'click li.delete': 'destroy'
 
-  popover: [
+  popover:
     selector: '.sub-comments-popover-arrow'
     popoverSelector: '.sub-comments-popover'
-  ]
 
   destroy: -> @model.destroy wait: true
 
