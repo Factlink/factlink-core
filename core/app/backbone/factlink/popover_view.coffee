@@ -1,4 +1,8 @@
 class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
+  popover:
+    selector: '.js-popover-arrow-selector'
+    popoverSelector: '.js-popover-container'
+
   constructor: (options) ->
     super(options)
 

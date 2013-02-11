@@ -6,10 +6,6 @@ class FactPopoverView extends Backbone.Factlink.PopoverView
     "click .hide-from-channel": "removeFactFromChannel"
     "click li.delete": "destroyFact"
 
-  popover:
-    selector: ".top-right-arrow"
-    popoverSelector: "ul.top-right"
-
   removeFactFromChannel: (e) ->
     e.preventDefault()
     @model.removeFromChannel currentChannel,
