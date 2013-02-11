@@ -50,10 +50,21 @@ FactlinkApp.module "MemoryProfiler", (MemoryProfiler, MyApp, Backbone, Marionett
 
     comparator: (model) -> -model.get('count')
 
+  view_name_for = (view) ->
+    classname = view.__proto__.constructor.name
+    templatename = view.template
+
+    if classname.length > 3
+      classname
+    else if typeof(templatename) is 'string'
+      templatename
+    else
+      "unknown"
+
   openView = (view)->
     console.info('+CID ', view.cid)
     MemoryProfiler.views[view.cid] = view
-    view_name = view.__proto__.constructor.name
+    view_name = view_name_for(view)
 
     MemoryProfiler.view_counts[view_name] ||= 0
     MemoryProfiler.view_counts[view_name] = MemoryProfiler.view_counts[view_name] + 1
@@ -63,7 +74,7 @@ FactlinkApp.module "MemoryProfiler", (MemoryProfiler, MyApp, Backbone, Marionett
   closeView = (view)->
     console.info('-CID', view.cid)
     delete MemoryProfiler.views[view.cid]
-    view_name = view.__proto__.constructor.name
+    view_name = view_name_for(view)
 
     MemoryProfiler.view_counts[view_name] = MemoryProfiler.view_counts[view_name] - 1
 

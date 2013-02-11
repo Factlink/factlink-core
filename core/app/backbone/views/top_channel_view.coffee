@@ -31,9 +31,7 @@ class window.TopChannelView extends Backbone.Marionette.CompositeView
   itemViewOptions: (model) ->
     position: @collection.indexOf(model) + 1
 
-  showMoreOn:  ->
-    @$el.addClass 'showMore'
-
+  showMoreOn:  -> @$el.addClass 'showMore'
   showMoreOff: -> @$el.removeClass 'showMore'
 
   showEmptyView: ->
@@ -45,4 +43,8 @@ class window.TopChannelView extends Backbone.Marionette.CompositeView
       @$(".top-channels").show()
 
   onCompositeCollectionRendered: ->
-    @$(".top-channels-show-more").hide() if @collection.length < 6
+    if @collection.length < 6
+      @showMoreOn()
+    else
+      @showMoreOff()
+

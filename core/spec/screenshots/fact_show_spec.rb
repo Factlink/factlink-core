@@ -30,7 +30,6 @@ describe "factlink", type: :request do
 
     page.should have_content @factlink.data.displaystring
 
-    screenshot_and_open_image
     assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
   end
 end
