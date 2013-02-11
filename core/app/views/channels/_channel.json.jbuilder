@@ -16,12 +16,6 @@ title = if is_all
           channel.title
         end
 
-long_title = if is_all
-               is_mine ? I18n.t(:stream).capitalize : "#{I18n.t(:stream).capitalize} of #{user.username}"
-             else
-               title
-             end
-
 json.type channel.type
 json.is_created is_created
 json.is_all is_all
@@ -32,7 +26,6 @@ json.has_authority? channel.is_real_channel?
 json.add_channel_url '/' + user.username + '/channels/new'
 
 json.title title
-json.long_title long_title
 json.slug_title channel.slug_title
 
 json.is_normal is_normal
