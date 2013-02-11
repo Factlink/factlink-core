@@ -11,7 +11,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
 
   showConversations: ->
     @conversations ?= new Conversations()
-    @main.showTitle "Conversations"
+    @main.showTitle 'Messages'
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
