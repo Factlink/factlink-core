@@ -1,5 +1,5 @@
 class window.ConversationsRouter extends Backbone.Marionette.AppRouter
   appRoutes:
-    'c'                                      : 'onShowConversations'
-    'c/:conversation_id'                     : 'onShowMessages'
-    'c/:conversation_id/messages/:message_id': 'onShowMessages'
+    'm'                                      : 'onShowConversations'
+    'm/:conversation_id'                     : 'onShowMessages'
+    'm/:conversation_id/messages/:message_id': 'onShowMessages'

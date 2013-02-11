@@ -31,7 +31,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
         title_view = new ConversationTitleView( model: model )
         title_view.on 'showConversations', =>
           @showConversations()
-          Backbone.history.navigate '/c', false
+          Backbone.history.navigate '/m', false
 
         @main.titleRegion.show(title_view)
         model.messages().get(message_id)?.trigger('scroll') if message_id?

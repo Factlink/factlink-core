@@ -138,9 +138,14 @@ FactlinkUI::Application.routes.draw do
   get "/auth/:service/callback" => "identities#service_callback", as: "social_auth"
   delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
 
-  resources :conversations, only: [:index, :show, :create], path: 'c' do
+  resources :conversations, only: [:index, :show, :create], path: 'm' do
     resources :messages, only: [:create, :show]
   end
+
+  # old conversation urls
+  match "/c" => redirect("/m")
+  match "/c/:id" => redirect("/m/%{id}")
+  match "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{id}")
 
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"

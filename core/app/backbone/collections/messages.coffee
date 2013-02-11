@@ -4,7 +4,7 @@ class window.Messages extends Backbone.Collection
   initialize: (models, options) -> @conversationId = options.conversation.id
 
   # Warning: does not work for fetch
-  url: -> "/c/#{@conversationId}/messages"
+  url: -> "/m/#{@conversationId}/messages"
 
   createNew: (content, sender, options)->
     message = new Message
