@@ -18,6 +18,16 @@ class Users::SessionsController < Devise::SessionsController
   before_filter :set_redir, only: :create
   before_filter :set_redir_after_fail, only: :new
 
+  # remove this entire method when removing :act_as_non_signed_in
+  def require_no_authentication
+    user = warden.user("user")
+    if params[:layout] == 'client' and user and user.features.include? :act_as_non_signed_in
+      # do nothing and show the login screen
+    else
+      super
+    end
+  end
+
   private
   def set_redir
     if params[:layout] == 'client'

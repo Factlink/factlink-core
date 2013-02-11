@@ -20,13 +20,18 @@
 <body class="client">
   <div id='alerts'></div>
 
-  <div class="factlink-modal">
-    <div class="drag-handler top"   ></div>
-    <div class="drag-handler bottom"></div>
-    <div class="drag-handler left"  ></div>
-    <div class="drag-handler right" ></div>
-    <div class="factlink-modal-content">
-      <%= yield %>
+  <div class="factlink-modal-container">
+    <div class="js-region-factlink-modal-top"></div>
+
+    <div class="factlink-modal modal-box">
+      <div class="drag-handler top"   ></div>
+      <div class="drag-handler bottom"></div>
+      <div class="drag-handler left"  ></div>
+      <div class="drag-handler right" ></div>
+      <div class="factlink-modal-content">
+        <%= yield %>
+      </div>
+      <div class="js-region-factlink-modal-bottom"></div>
     </div>
   </div>
 
@@ -36,6 +41,7 @@
 
   <script type="text/javascript">
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
+    Factlink.setSignedIn(<%= (!!current_ability.signed_in?).to_s.html_safe %>);
 
     FactlinkApp.startAsClient();
     <% if params[:guided] == "true" %>
@@ -55,7 +61,7 @@
   <%= yield :javascript %>
 
   <script type="text/javascript">
-    $(".factlink-modal").draggable({handle: '.drag-handler'});
+    $(".factlink-modal-container").draggable({handle: '.drag-handler'});
     $( document ).bind('click', function(e) {
       if( $(e.target).is('body') )
         parent.remote.hide();

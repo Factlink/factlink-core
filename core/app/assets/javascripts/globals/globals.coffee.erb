@@ -5,7 +5,9 @@
 
 Factlink.Global =
   path:
+    homepage: '/'
     sign_in: '/users/sign_in'
+    sign_in_client: '/users/sign_in?layout=client'
   brain_image: '<%= image_path("brain.png") %>'
   trash_image: '<%= image_path("trash.png") %>'
   trash_hover_image: '<%= image_path("trash-hover.png") %>'
@@ -26,6 +28,7 @@ Factlink.Global =
   use_chrome_webstore: <%= FactlinkUI::Application.config.use_chrome_webstore %>
   t: {}
   can_haz: {}
+  signed_in: false
 
 <%
   [
@@ -58,3 +61,6 @@ Factlink.Timeout =
 
 Factlink.allowFeatures = (list = [])->
   Factlink.Global.can_haz[feature] = true for feature in list
+
+Factlink.setSignedIn = (signed_in) ->
+  Factlink.Global.signed_in = signed_in

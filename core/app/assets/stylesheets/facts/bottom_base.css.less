@@ -22,10 +22,13 @@
   ul.actions {
     margin: 0;
     padding: 0;
-    display: inline-block;
 
     > li {
       display: inline-block;
+
+      &.hide {
+        display: none;
+      }
 
       &:after {
         content: "·";

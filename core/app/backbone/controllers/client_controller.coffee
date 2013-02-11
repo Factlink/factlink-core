@@ -39,3 +39,7 @@ class window.ClientController
     FactlinkApp.mainRegion.show view
 
     fact.on "destroy", => @onFactRemoved(fact.id)
+
+    unless Factlink.Global.signed_in
+      FactlinkApp.topRegion.show new LearnMorePopupView()
+      FactlinkApp.bottomRegion.show new LearnMoreBottomView()

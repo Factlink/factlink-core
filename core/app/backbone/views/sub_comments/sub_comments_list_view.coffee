@@ -10,10 +10,9 @@ class window.SubCommentsListView extends Backbone.Marionette.CompositeView
     @collection.fetch update: true # only fires 'add' and 'remove' events
 
   onShow: ->
-    @$('.js-region-sub-comments-form').html @subCommentsAddView().render().el
+    if Factlink.Global.signed_in
+      @_subCommentsAddView ?= new SubCommentsAddView(addToCollection: @collection)
+      @$('.js-region-sub-comments-form').html @_subCommentsAddView.render().el
 
   onClose: ->
-    @subCommentsAddView().close()
-
-  subCommentsAddView: ->
-    @_subCommentsAddView ?= new SubCommentsAddView(addToCollection: @collection)
+    @_subCommentsAddView?.close()

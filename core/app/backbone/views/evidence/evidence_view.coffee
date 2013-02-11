@@ -31,11 +31,17 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
   evidenceBaseOnRender: ->
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model, verb: @activityVerb
-    @voteRegion.show new VoteUpDownView model: @model
+
+    if Factlink.Global.signed_in
+      voteRelevanceView = new InteractiveVoteUpDownView model: @model
+    else
+      voteRelevanceView = new VoteUpDownView model: @model
+
+    @voteRegion.show voteRelevanceView
     @bottomRegion.show @evidenceBottomView()
 
     @mainRegion.show new @mainView model: @model
-    @setPopover()
+    @setPopover() if Factlink.Global.signed_in
 
   evidenceBottomView: ->
     unless @_evidenceBottomView
@@ -81,9 +87,7 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
     verb: @options.verb
 
 
-ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
-
-class EvidencePopoverView extends ViewWithPopover
+class EvidencePopoverView extends Backbone.Factlink.PopoverView
   template: 'evidence/popover'
 
   initialize: (options)->
