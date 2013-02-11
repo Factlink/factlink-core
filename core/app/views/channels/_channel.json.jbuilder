@@ -9,7 +9,7 @@ is_discover_stream = is_all && is_mine
 
 
 title = if is_all
-          'Stream'
+          I18n.t(:stream).capitalize
         elsif is_created
           is_mine ? 'My Factlinks' : 'Created by ' + user.username
         else
@@ -17,7 +17,7 @@ title = if is_all
         end
 
 long_title = if is_all
-               is_mine ? 'Stream' : "Stream of #{user.username}"
+               is_mine ? I18n.t(:stream).capitalize : "#{I18n.t(:stream).capitalize} of #{user.username}"
              else
                title
              end
