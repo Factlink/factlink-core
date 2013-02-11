@@ -42,6 +42,8 @@ en:
   related_users: "related users"
   interesting_users: "interesting users"
 
+  stream: "feed"
+
   ago: "ago"
   show: "show"
   loading: "loading"
