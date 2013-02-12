@@ -21,6 +21,21 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   onRender: ->
     @recipients_container.show @auto_complete_view
     @recipients.on 'add', @newRecipient
+    @$(".js-message-textarea").on "focus keyup", (e)->
+
+        keycode = if e.keyCode then e.keyCode else if e.which then e.which else e.charCode;
+        if(keycode == 9 || !keycode)
+            # Hacemos select
+            $this = $(this);
+            $this.select();
+
+            # Para Chrome's que da problema
+            $this.on "mouseup", ->
+                # Unbindeamos el mouseup
+                $this.off("mouseup");
+                return false;
+
+
 
   newRecipient: =>
     @ui.messageTextarea.focus() if @recipients.length == 1
