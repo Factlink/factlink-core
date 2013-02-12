@@ -1,8 +1,4 @@
 class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
-  popover:
-    selector: '.js-popover-arrow-selector'
-    popoverSelector: '.js-popover-container'
-
   constructor: (options) ->
     @ui ||= {}
     _.extend @ui,
@@ -11,16 +7,13 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
 
     super(options)
 
-    unless @popover?
-      throw "PopoverView needs a popover property"
-
     @bindPopover()
     @on "render", @popoverOnRender, this
 
   bindPopover: ->
-    @$el.on "click.popover", @popover.selector, =>
+    @$el.on "click.popover", @uiBindings.arrow, =>
       @popoverToggle()
-    @$el.on "click.popover_menu", @popover.popoverSelector, (e) ->
+    @$el.on "click.popover_menu", @uiBindings.container, (e) ->
       e.stopPropagation()
 
   popoverOnRender: ->
@@ -45,7 +38,7 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
 
   bindWindowClick: ->
     $(window).on "click.popover." + @cid, (e) =>
-      if $(e.target).closest(@popover.selector)[0] isnt @$(@popover.selector)[0]
+      if $(e.target).closest(@uiBindings.arrow)[0] isnt @$(@uiBindings.arrow)[0]
         @hidePopover()
 
   unbindWindowClick: ->
