@@ -153,6 +153,10 @@ group :jstest do
   gem "jasmine-spec-extras", "~> 0.0.2"
 end
 
+group :test, :development do
+  gem 'konacha'
+end
+
 group :metrics do
   #suddenly we need to require this gem, else bundle update goes wrong, we never use it however
   gem 'rcov', '0.9.11', :require => false

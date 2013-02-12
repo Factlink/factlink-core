@@ -146,6 +146,7 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     colored (1.2)
+    colorize (0.5.8)
     commonjs (0.2.6)
     css_parser (1.2.6)
       addressable
@@ -228,6 +229,12 @@ GEM
     json_pure (1.7.6)
     jwt (0.1.5)
       multi_json (>= 1.0)
+    konacha (2.4.0)
+      actionpack (>= 3.1, < 5)
+      capybara
+      colorize
+      railties (>= 3.1, < 5)
+      sprockets
     launchy (2.2.0)
       addressable (~> 2.3)
     less (2.2.2)
@@ -539,6 +546,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails (= 2.1.2)
   json
+  konacha
   less-rails (>= 2.1.5)
   less-rails-bootstrap (>= 2.1.1)
   letter_opener
