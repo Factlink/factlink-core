@@ -4,6 +4,11 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     popoverSelector: '.js-popover-container'
 
   constructor: (options) ->
+    @ui ||= {}
+    _.extend @ui,
+      arrow:  '.js-popover-arrow-selector'
+      container: '.js-popover-container'
+
     super(options)
 
     unless @popover?
@@ -19,26 +24,23 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
       e.stopPropagation()
 
   popoverOnRender: ->
-    if @$(@popover.popoverSelector).children("li").length <= 0
-      @$(@popover.selector).hide()
-
-  $popover: -> @$(@popover.popoverSelector)
-  $popoverButton: -> @$(@popover.selector)
+    if @ui.container.children("li").length <= 0
+      @ui.arrow.hide()
 
   popoverToggle: ->
-    if @$popover().is(":hidden")
+    if @ui.container.is(":hidden")
       @showPopover()
     else
       @hidePopover()
 
   showPopover: ->
-    @$popover().show()
-    @$popoverButton().addClass "active"
+    @ui.container.show()
+    @ui.arrow.addClass "active"
     @bindWindowClick()
 
   hidePopover: ->
-    @$popover().hide()
-    @$popoverButton().removeClass "active"
+    @ui.container.hide()
+    @ui.arrow.removeClass "active"
     @unbindWindowClick()
 
   bindWindowClick: ->
