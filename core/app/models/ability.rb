@@ -88,6 +88,7 @@ class Ability
   end
 
   def define_user_abilities
+    can :read, user if signed_in?
     if agrees_tos?
       can :update, user
       can :read, User do
@@ -126,9 +127,9 @@ class Ability
 
   def define_tos_abilities
     can :read_tos, user
-    unless agrees_tos?
+
+    if signed_in? and not agrees_tos?
       can :sign_tos, user
-      can :read, user
     end
   end
 
