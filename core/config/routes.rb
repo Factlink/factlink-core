@@ -145,7 +145,7 @@ FactlinkUI::Application.routes.draw do
   # old conversation urls
   match "/c" => redirect("/m")
   match "/c/:id" => redirect("/m/%{id}")
-  match "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{id}")
+  match "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
 
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
