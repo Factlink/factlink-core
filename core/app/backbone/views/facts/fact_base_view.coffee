@@ -32,7 +32,9 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     wheelView
 
   bodyView: ->
-    bodyView = new FactBodyView(model:@model)
+    bodyView = new FactBodyView
+      model:@model
+      clickable: @options.clickable_body
 
     @bindTo bodyView, 'click:body', (e) =>
       @trigger 'click:body', e
@@ -50,5 +52,9 @@ class FactBodyView extends Backbone.Marionette.ItemView
 
   triggerViewClick: (e) ->
     @trigger 'click:body', e
+
+  onRender: ->
+    if @options.clickable
+      @$('.js-displaystring').css(cursor: 'pointer')
 
 _.extend(FactBodyView.prototype, Backbone.Factlink.Trunk8MoreLessMixin)

@@ -14,7 +14,9 @@ class window.FactRelationView extends Backbone.Marionette.Layout
     @factBaseView.show @_factBaseView()
 
   _factBaseView: ->
-    fbv = new FactBaseView(model: @model)
+    fbv = new FactBaseView
+      model: @model
+      clickable_body: Factlink.Global.signed_in
 
     if Factlink.Global.signed_in
       @bindTo fbv, 'click:body', (e) =>
