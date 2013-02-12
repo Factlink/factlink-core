@@ -47,9 +47,9 @@
   "friendly_time": null,
   "created_by": {
     "id": "<STRIPPED>",
-    "name": "johndoe2",
-    "username": "johndoe2",
-    "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+    "name": "johndoe1",
+    "username": "johndoe1",
+    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
     "authority_for_subject": {
       "authority": "1.0",
       "id": "<STRIPPED>"

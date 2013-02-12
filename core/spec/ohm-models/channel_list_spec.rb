@@ -74,7 +74,7 @@ describe ChannelList do
     end
   end
 
-  describe '.containing_channel_ids' do
+  describe '.containing_channel_ids_for_fact' do
     include Pavlov::Helpers
     let(:current_user) {create :graph_user}
     def pavlov_options
@@ -96,8 +96,11 @@ describe ChannelList do
 
       expect(list.containing_channel_ids_for_fact(f)).
         to eq [ch1.id, ch3.id]
-
     end
+  end
+
+  describe '.containing_real_channel_ids_for_fact' do
+    pending 'should not include created_facts_channel and stream'
   end
 
   describe ".containing_channel_ids_for_channel" do
