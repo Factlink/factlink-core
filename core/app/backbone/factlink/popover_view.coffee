@@ -5,7 +5,7 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
       container: '.js-popover-container'
 
     @events = _.extend {}, @events,
-      'click .js-popover-arrow-selector': 'popoverToggle'
+      'click .js-popover-arrow-selector': 'togglePopoverContainer'
       'click .js-popover-container': 'stopPropagation'
 
     super(options)
@@ -19,29 +19,27 @@ class Backbone.Factlink.PopoverView extends Backbone.Marionette.ItemView
     if @ui.container.children("li").length <= 0
       @ui.arrow.hide()
 
-  popoverToggle: ->
+  togglePopoverContainer: ->
     if @ui.container.is(":hidden")
-      @showPopover()
+      @showPopoverContainer()
     else
-      @hidePopover()
+      @hidePopoverContainer()
 
-  showPopover: ->
+  showPopoverContainer: ->
     @ui.container.show()
     @ui.arrow.addClass "active"
     @bindWindowClick()
 
-  hidePopover: ->
+  hidePopoverContainer: ->
     @ui.container.hide()
     @ui.arrow.removeClass "active"
     @unbindWindowClick()
 
   bindWindowClick: ->
     $(window).on "click.popover." + @cid, (e) =>
-      if $(e.target).closest(@uiBindings.arrow)[0] isnt @$(@uiBindings.arrow)[0]
-        @hidePopover()
+      if $(e.target).closest(@uiBindings.arrow)[0] isnt @ui.arrow[0]
+        @hidePopoverContainer()
 
-  unbindWindowClick: ->
-    $(window).off "click.popover." + @cid
+  unbindWindowClick: -> $(window).off "click.popover." + @cid
 
-  popoverOnClose: ->
-    @unbindWindowClick()
+  popoverOnClose: -> @unbindWindowClick()
