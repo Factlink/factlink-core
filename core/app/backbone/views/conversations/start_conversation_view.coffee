@@ -2,6 +2,8 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   className: "start-conversation-form"
   events:
     "click .js-submit": 'submit'
+    "focus .js-message-textarea": 'handleTextAreaFocus'
+    "keyup .js-message-textarea": 'handleTextAreaFocus'
 
   regions:
     'recipients_container': '.js-region-recipients'
@@ -21,21 +23,25 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   onRender: ->
     @recipients_container.show @auto_complete_view
     @recipients.on 'add', @newRecipient
-    @$(".js-message-textarea").on "focus keyup", (e)->
 
-        keycode = if e.keyCode then e.keyCode else if e.which then e.which else e.charCode;
-        if(keycode == 9 || !keycode)
-            # Hacemos select
-            $this = $(this);
-            $this.select();
+  handleTextAreaKeyUp: ->
+    keycode = e.keyCode || e.which || e.charCode
+    return if keycode isnt 9
 
-            # Para Chrome's que da problema
-            $this.on "mouseup", ->
-                # Unbindeamos el mouseup
-                $this.off("mouseup");
-                return false;
+    @focusUnchangedTextArea()
 
+  handleTextAreaFocus: (e)->
+    @focusUnchangedTextArea()
 
+    # mouseup shouldn't trigger stuff, otherwise
+    # text will be deselected again
+    @ui.messageTextarea.on "mouseup", =>
+      @ui.messageTextarea.off "mouseup"
+      return false;
+
+  focusUnchangedTextArea: ->
+    if @ui.messageTextarea.val() is "Check out this Factlink!"
+      @ui.messageTextarea.select()
 
   newRecipient: =>
     @ui.messageTextarea.focus() if @recipients.length == 1
