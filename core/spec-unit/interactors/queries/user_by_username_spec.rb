@@ -15,7 +15,7 @@ describe Queries::UserByUsername do
       user = mock()
       user.stub(id:11)
 
-      User.should_receive(:first).with(conditions: { username: /^#{search_username.downcase}$/i}).
+      User.should_receive(:find_by).with(username: /^#{search_username.downcase}$/i).
            and_return(user)
 
       query = Queries::UserByUsername.new(search_username)

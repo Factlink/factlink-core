@@ -25,7 +25,7 @@ class SearchController < ApplicationController
 
       @results = @results.map do |result|
         SearchResults::SearchResultItem.for(obj: result, view: view_context)
-      end.delete_if {|x| x.the_object.nil?}
+      end.reject {|x| x.the_object.nil?}
     end
 
     respond_to do |format|

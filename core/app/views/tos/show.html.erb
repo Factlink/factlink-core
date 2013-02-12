@@ -24,6 +24,9 @@
   <% if can? :sign_tos, current_user %>
     <%= form_for(current_user, url: tos_path, method: "POST") do |f| %>
 
+      <%= hidden_field_tag :tos_browser_name %>
+      <%= hidden_field_tag :tos_browser_version %>
+
       <div class="row">
         <%= f.label "First name*" %>
         <div class="field">
@@ -66,3 +69,15 @@
     <% end %>
   <% end %>
 </div>
+
+<% content_for :javascript do %>
+<script type="text/javascript">
+  (function() {
+    var tos_browser_name    = detectBrowser().browser;
+    var tos_browser_version = detectBrowser().version;
+
+    $('#tos_browser_name').val(tos_browser_name);
+    $('#tos_browser_version').val(tos_browser_version);
+  })();
+</script>
+<% end %>

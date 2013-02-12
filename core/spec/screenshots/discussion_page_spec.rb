@@ -1,21 +1,17 @@
 require 'screenshot_helper'
 
 describe "factlink", type: :request do
-  include FactHelper
-
-  def create_factlink(user)
-    FactoryGirl.create(:fact, created_by: user.graph_user)
-  end
+  include Screenshots::DiscussionHelper
 
   before :each do
     @user = sign_in_user FactoryGirl.create :active_user
   end
 
   it "the layout of the discussion page is correct" do
-    @factlink = create_factlink @user
-    search_string = 'Test search'
+    @factlink = create_discussion
 
-    visit friendly_fact_path(@factlink)
+    go_to_discussion_page_of @factlink
+    find('a', text: 'Comments (1)').click
 
     page.should have_content @factlink.data.displaystring
 

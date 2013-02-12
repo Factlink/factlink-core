@@ -14,12 +14,12 @@ describe 'When a User gets approved', type: :request do
 
     open_email(user.email)
 
-    link = current_email.find_link 'Click here to start using Factlink'
+    link = current_email.find_link 'Start using Factlink now'
 
     visit link[:href]
 
     # From here it's basically a "First step of sign up process (set passwords) should work"
-    page.should have_content 'Set up your Factlink account'
+    page.should have_content 'set up your account here:'
 
     old_url = current_url
 
@@ -29,5 +29,13 @@ describe 'When a User gets approved', type: :request do
     click_button "Next Step"
 
     current_url.should_not equal old_url
+  end
+
+  it 'shows "account already set up" message when reset token is invalid' do
+    user = create :user
+
+    visit edit_user_password_path(msg: 'hoi', reset_password_token: 'doei')
+
+    page.should have_content 'Your account is already set up. Please log in to continue.'
   end
 end

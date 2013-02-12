@@ -14,8 +14,11 @@ class Backbone.Factlink.DetachedViewPort extends Backbone.View
 
     @$el.append(new_view.$el) if new_view?
 
-    @_view.$el.detach() if @_view?
+    if @_view?
+      @_view.trigger('detached')
+      @_view.$el.detach()
 
+    new_view.trigger('attached')
     @_view = new_view
 
   removeView: ->

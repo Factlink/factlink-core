@@ -1,0 +1,100 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.bottom-base {
+  font-size: 12px;
+  clear: both;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+
+  > .title-overflow {
+    z-index: 100;
+    background: image-url('discussions/title_fade.png') right repeat-y;
+    display: block;
+    height: 100%;
+    width: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  ul.actions {
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline-block;
+
+      &.hide {
+        display: none;
+      }
+
+      &:after {
+        content: "·";
+        margin: 0 7px;
+      }
+
+      &:last-child:after {
+        content: "";
+        margin: 0;
+      }
+
+      .opinion_indicators {
+        font-size: 11px;
+
+        span.opinion_indicator {
+          display: inline-block;
+          color: #777;
+          height: 7px;
+          width: 7px;
+          margin: 0 5px 0 5px;
+          background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
+          position: relative;
+          top: -1px;
+
+          &.agreeing {
+            background-position: 0 0;
+          }
+
+          &.disagreeing {
+            background-position: -8px -0;
+          }
+        }
+      }
+
+      &.fact-info {
+        color: @mutedFontColor;
+      }
+    }
+  }
+
+  a {
+    cursor: pointer;
+    font-weight: bold;
+    .transition(color .15s ease-in-out);
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  img.fact-favicon {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-top;
+  }
+}
+
+div.facts-view, #activity_for_channel .activity-group {
+  div.fact-view {
+    .bottom-base > ul.actions {
+      .opacity(.60);
+      .transition(opacity .15s ease-in-out);
+    }
+    &:hover {
+      .bottom-base > ul.actions {
+        .opacity(1);
+      }
+    }
+  }
+}

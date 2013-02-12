@@ -1,61 +1,38 @@
-#= require jquery.hoverIntent
-
-class window.ChannelViewLayout extends Backbone.Marionette.Layout
-  tagName: 'div'
+class window.ChannelView extends Backbone.Marionette.Layout
   template: 'channels/channel'
+
   regions:
-    factList: '#facts_for_channel'
-    activityList: '#activity_for_channel'
-    addToChannelRegion: '.add-to-channel-region'
+    factList: '.js-region-fact-list'
+    subChannelsRegion: '.js-region-sub-channels'
+    addToChannelRegion: '.js-region-add-to-channel'
+    creatorProfileRegion: ".js-region-creator-profile"
 
-  templateHelpers: ->
-    activities_link: ->
-      @link + '/activities'
+  events:
+    'click .js-channel': 'showChannelFacts'
+    'click .js-topic': 'showTopicFacts'
 
-  initialize: (opts) ->
-    @initSubChannels()
-    @on 'render', =>
-      @renderSubChannels()
-      @$('header .authority').tooltip
-        title: 'Authority of ' + @model.attributes.created_by.username + 'on "' + @model.attributes.title + '"'
+  onRender: ->
+    @showChannelFacts()
 
-      if @model.get('followable?')
-        @addToChannelRegion.show new AddChannelToChannelsButtonView(model: @model)
-
-  initSubChannels: ->
     if @model.get('inspectable?')
-      @subchannelView = new SubchannelsView
+      @subChannelsRegion.show new SubchannelsView
         collection: @model.subchannels()
         model: @model
 
-  renderSubChannels: ->
-    if @subchannelView
-      @subchannelView.render()
-      @$('header .button-wrap').after @subchannelView.el
+    if @model.get('followable?')
+      @addToChannelRegion.show new AddChannelToChannelsButtonView(model: @model)
 
-  onClose: ->
-    @addToChannelView.close() if @addToChannelView
-    @subchannelView.close() if @subchannelView
+    @creatorProfileRegion.show new UserWithAuthorityBox
+      model: @model.user(),
+      authority: @model.get('created_by_authority')
 
-  activateTab: (selector) ->
-    tabs = @$('.tabs ul')
-    tabs.find('li').removeClass 'active'
-    tabs.find(selector).addClass 'active'
+  showChannelFacts: -> @showFacts @channelFacts()
+  showTopicFacts: -> @showFacts @topicFacts()
 
-class window.ChannelView extends ChannelViewLayout
-  getFactsView: ->
-    new FactsView
-      collection: new ChannelFacts([], channel: @model)
+  showFacts: (facts) ->
+    @factList.show new FactsView
       model: @model
+      collection: facts
 
-  onRender: ->
-    @factList.show @getFactsView()
-    @activateTab '.factlinks'
-
-class window.ChannelActivitiesView extends ChannelViewLayout
-  getActivitiesView: ->
-    new ActivitiesView collection: @collection, disableEmptyView: @options.disableEmptyView
-
-  onRender: ->
-    @activityList.show @getActivitiesView()
-    @activateTab '.activity'
+  channelFacts: -> new ChannelFacts([], channel: @model)
+  topicFacts: -> @model.topic().facts()

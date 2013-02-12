@@ -14,13 +14,13 @@ class User
   attr_accessor :tos_first_name, :tos_last_name
 
   field :username
-  index :username
   field :first_name
   field :last_name
   field :identities, type: Hash, default: {}
 
-  index "identities.facebook.uid", sparse: true, unique: true
-  index "identities.twitter.uid", sparse: true, unique: true
+  index(username: 1)
+  index({ "identities.facebook.uid" => 1 }, { sparse: true, unique: true })
+  index({ "identities.twitter.uid" => 1 }, { sparse: true, unique: true })
 
   field :registration_code
 
@@ -30,7 +30,7 @@ class User
 
   field :graph_user_id
 
-  field :approved,    type: Boolean, default: false, null: false
+  field :approved,    type: Boolean, default: false
 
   field :admin,       type: Boolean, default: false
 
@@ -69,11 +69,12 @@ class User
   validates_length_of     :username, :within => 1..16, :message => "invalid. A maximum of 16 characters is allowed"
   validates_presence_of   :username, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
+  validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
   validates_length_of     :biography, maximum: 1023
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
+  # :token_authenticatable, :lockable, :timeoutable and :omniauthable,
   devise :invitable, :database_authenticatable,
   :recoverable,   # Password retrieval
   :rememberable,  # 'Remember me' box
@@ -83,8 +84,9 @@ class User
   :registerable   # Allow registration
 
   ## Database authenticatable
-    field :email,              :type => String, :null => false
-    field :encrypted_password, :type => String, :null => false
+    field :email,              :type => String, :default => ""
+    field :encrypted_password, :type => String, :default => ""
+
 
   ## Recoverable
     field :reset_password_token,   :type => String
@@ -254,13 +256,14 @@ class User
   end
 
   def self.from_param(param)
-    self.first :conditions => { username: param }
+    self.find_by username: param
   end
 
+  # This function provides backwards compatibility with using #find(username)
+  # Please refrain from doing this and use #find_by(username: username) instead
+  # Remove this method when we don't use this crazy behaviour any more
   def self.find(param,*args)
-    super
-  rescue
-    from_param(param)
+    super || from_param(param)
   end
 
   def avatar_url(options={})
@@ -296,7 +299,7 @@ class User
   end
 
   def features_count
-     @count ||= features.to_a.keep_if { |f| Ability::FEATURES.include? f }.count
+     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
   set :seen_messages

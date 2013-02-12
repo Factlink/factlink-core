@@ -1,6 +1,11 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+.channel-listing-container-container {
+  width: 160px;
+  margin-bottom: 50px;
+}
+
 #container .channel-listing-container-container .channel-listing {
 
   .menu-item {
@@ -21,18 +26,16 @@
   }
 
   .my-channels {
+    background: @backgroundGray;
+    font-size: @baseFontSize;
+    color: @headingFontColor;
+    line-height: 20px;
+    font-weight: bold;
+
     margin: 0 0 0 10px;
-    h1 {
-      background: @backgroundGray;
-      font-size: @baseFontSize;
-      color: @headingFontColor;
-      line-height: 20px;
+    padding: 0;
 
-      padding: 0;
-      margin: 0;
-
-      i { margin-right: 4px; }
-    }
+    i { margin-right: 4px; }
   }
 
   @margin: 3px;
@@ -54,7 +57,6 @@
       text-shadow: 0px 1px 0px @white;
       line-height: @baseLineHeight;
 
-      .box-sizing(border-box);
       .transition(color .15s ease-in-out);
 
       &:hover { color: @linkColorHover; }
@@ -77,7 +79,7 @@
         }
       }
       .title {
-        width: 130px;
+        width: 110px;
         display: inline-block;
         .ellipsis();
       }

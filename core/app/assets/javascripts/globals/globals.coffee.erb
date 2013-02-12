@@ -1,29 +1,34 @@
 #= require ./globals_empty
 
 # ensure we update this file when we update the locales
-# SHASUM of locales: 208cf777a6923537612905108d1eaca32ec318f0
+# SHASUM of locales: f47e7fceb723f3033a0492b63fb4e360e4f80885
 
 Factlink.Global =
   path:
+    homepage: '/'
     sign_in: '/users/sign_in'
+    sign_in_client: '/users/sign_in?layout=client'
   brain_image: '<%= image_path("brain.png") %>'
   trash_image: '<%= image_path("trash.png") %>'
   trash_hover_image: '<%= image_path("trash-hover.png") %>'
   time_ago_image: '<%= image_path("time_ago.gif") %>'
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
-  screenshot_addfactlink_image: '<%= image_path("screenshots/addfactlink.png") %>'
-  screenshot_createchannel_image: '<%= image_path("screenshots/createchannel.png") %>'
+  icon_empty_channel: '<%= image_path("icon-empty-channel.png") %>'
+  icon_empty_channel_chrome: '<%= image_path("icon-empty-channel-chrome.png") %>'
+  icon_empty_channel_firefox: '<%= image_path("icon-empty-channel-firefox.png") %>'
   conversations_bigger_image: '<%= image_path("conversations/conversations-bigger.png") %>'
   empty_factlink_image: '<%= image_path("conversations/factlink-empty-state.png") %>'
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
   browser_icons_firefox_16x16: '<%= image_path("browser-icons/firefox-16x16.png") %>'
   checkmark: '<%= image_path("checkmark.png") %>'
+  opinion_animation: '<%= image_path("tour/opinion-animation.gif") %>'
 
   firefox_extension_url: "<%= FactlinkUI::Application.config.static_url + '/extension/firefox/factlink-latest.xpi' %>"
   chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"
   use_chrome_webstore: <%= FactlinkUI::Application.config.use_chrome_webstore %>
   t: {}
   can_haz: {}
+  signed_in: false
 
 <%
   [
@@ -38,7 +43,8 @@ Factlink.Global =
     :fact_doubt_past_action,
     :fact_believe_collection_name,
     :fact_disbelieve_collection_name,
-    :fact_doubt_collection_name
+    :fact_doubt_collection_name,
+    :stream
   ].each do |translation|
 %>
 
@@ -51,5 +57,11 @@ Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
 Factlink.Global.chrome_extension_id = "<%= FactlinkUI::Application.config.chrome_extension_id %>"
 <% end %>
 
-Factlink.allowFeatures = (list)->
+Factlink.Timeout =
+  stream_refresh: 10*1000
+
+Factlink.allowFeatures = (list = [])->
   Factlink.Global.can_haz[feature] = true for feature in list
+
+Factlink.setSignedIn = (signed_in) ->
+  Factlink.Global.signed_in = signed_in

@@ -14,12 +14,20 @@ module Interactors
           "should not be empty."
       end
 
+      def parent
+        comment
+      end
+
       def create_sub_comment
         command :'sub_comments/create_xxx', @comment_id, 'Comment', @content, @options[:current_user]
       end
 
       def top_fact
-        @top_fact ||= Comment.find(@comment_id).fact_data.fact
+        @top_fact ||= comment.fact_data.fact
+      end
+
+      def comment
+        @comment ||= Comment.find(@comment_id)
       end
     end
   end

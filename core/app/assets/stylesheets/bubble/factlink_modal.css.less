@@ -2,27 +2,23 @@
 @import "bootstrap/variables";
 @import "bubble/variables";
 
-div.factlink-modal {
-  overflow: visible;
-  font-family: @baseFontFamily;
-  padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
-
-  min-height: 80px;
-  width: 560px;
-
-  border: 1px solid #a6a6a6;
-  .border-radius(5px);
-  .background-clip(padding-box);
-
-  background: white;
-
+div.factlink-modal-container {
   position: relative;
   top: 8%;
   left: 0;
-
+  padding-bottom: 50px;
+  width: 560px;
   margin: 0 auto;
+}
 
-  .box-shadow(0 0 0 5px rgba(0, 0, 0, .15));
+div.factlink-modal {
+  position: relative;
+  overflow: visible;
+  padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
+
+  min-height: 80px;
+
+  background: white;
 
   .drag-handler {
     cursor: all-scroll;
@@ -40,5 +36,4 @@ div.factlink-modal {
       border: 1px solid #a6a6a6;
     }
   }
-  .discussion-arrow { top: 4px; }
 }

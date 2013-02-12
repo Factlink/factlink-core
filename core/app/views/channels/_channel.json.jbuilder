@@ -9,31 +9,23 @@ is_discover_stream = is_all && is_mine
 
 
 title = if is_all
-          'Stream'
+          I18n.t(:stream).capitalize
         elsif is_created
           is_mine ? 'My Factlinks' : 'Created by ' + user.username
         else
           channel.title
         end
 
-long_title = if is_all
-               is_mine ? 'Stream' : "Stream of #{user.username}"
-             else
-               title
-             end
-
 json.type channel.type
 json.is_created is_created
 json.is_all is_all
 
-json.is_mine is_mine
 json.id channel.id
 json.has_authority? channel.is_real_channel?
 
 json.add_channel_url '/' + user.username + '/channels/new'
 
 json.title title
-json.long_title long_title
 json.slug_title channel.slug_title
 
 json.is_normal is_normal
@@ -44,9 +36,7 @@ if topic_authority
 end
 
 json.created_by do |j|
-  j.id user.id
-  j.username user.username
-  j.avatar image_tag(user.avatar_url_32, title: user.username, alt: user.username, width: 32)
+  j.partial! 'users/user_partial', user: user
   j.all_channel_id user.stream_id
 end
 

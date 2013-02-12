@@ -40,6 +40,8 @@ describe Interactors::SubComments::IndexForFactRelation do
       authorities = [10, 20]
 
       interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id, current_user: user
+      interactor.stub fact_relation: mock
+
       interactor.should_receive(:query).with(:"sub_comments/index", fact_relation_id, 'FactRelation').
         and_return(sub_comments)
 
@@ -60,6 +62,16 @@ describe Interactors::SubComments::IndexForFactRelation do
       results = interactor.execute
 
       expect( results ).to eq dead_sub_comments
+    end
+
+
+    it 'throws an error when the fact relation does not exist' do
+      stub_const 'Pavlov::ValidationError', RuntimeError
+
+      interactor = Interactors::SubComments::IndexForFactRelation.new 1, current_user: mock
+      interactor.should_receive(:fact_relation).and_return(nil)
+
+      expect{interactor.call}.to raise_error(Pavlov::ValidationError, "fact relation does not exist any more")
     end
   end
 

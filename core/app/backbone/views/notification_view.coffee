@@ -2,6 +2,9 @@ class GenericNotificationView extends Backbone.Marionette.Layout
   tagName: "li"
   className: "activity"
   template: "notifications/generic"
+  templateHelpers: ->
+    user: (new User @model.get('user')).toJSON()
+
   events:
     'click a': 'click'
 
@@ -26,14 +29,30 @@ class NotificationAddedSubchannelView extends GenericNotificationView
   regions:
     addBackRegion: ".js-region-add-back"
 
+  initialize: ->
+    @activity = @model.get('activity')
+
+  suggested_topics: ->
+    topic1 = new Topic
+                  title:      @activity.channel_title,
+                  slug_title: @activity.channel_slug_title
+
+    topic2 = new Topic
+                  title:      @activity.to_channel_title,
+                  slug_title: @activity.to_channel_slug_title
+
+    return new SuggestedTopics [topic1, topic2]
+
+  other_channel: ->
+    new Channel
+      id: @activity.to_channel_id
+      containing_channel_ids: @activity.to_channel_containing_channel_ids
+
   onRender: ->
-    activity = @model.get('activity')
-
-    other_channel = new Channel
-      id: activity.to_channel_id
-      containing_channel_ids: activity.to_channel_containing_channel_ids
-
-    @addBackRegion.show new AddChannelToChannelsButtonView model: other_channel
+    super()
+    @addBackRegion.show new AddChannelToChannelsButtonView
+                                model: @other_channel()
+                                suggested_topics: @suggested_topics()
 
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"

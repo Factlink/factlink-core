@@ -1,65 +1,62 @@
-<%= content_for :left_column do %>
+<div class="left-column">
+  <div class="help-text-container">
 
-<div class="help-text-container">
+    <div id="step1" class="tour-block">
+      <div class="arrow-right">
+        <div class="arrow-right-white"></div>
+      </div>
 
-  <div id="step1" class="white-well tour-block">
-    <div class="arrow-right">
-      <div class="arrow-right-white"></div>
+      <h4>Let's create a Factlink!</h4>
+      <p>First, select a statement on this example page to the right.</p>
+      <p>After completing this tour, you will be able to select statements on any web page using the Factlink extension. </p>
     </div>
 
-    <h4>Let's create your first Factlink!</h4>
-    <p>First, select a statement on this example page on your right.</p>
-    <p>You can use Factlink to select statements on any website by using the Factlink extension.</p>
-  </div>
+    <div id="step2" class="tour-block">
 
-  <div id="step2" class="white-well tour-block">
+      <!-- textSelected -->
+      <div class="arrow-right">
+        <div class="arrow-right-white"></div>
+      </div>
 
-    <!-- textSelected -->
-    <div class="arrow-right">
-      <div class="arrow-right-white"></div>
+      <h4>Good job!</h4>
+      <p>After selecting the statement, click the '<%= t_up(:add_fact) %>' button to create your Factlink.</p>
     </div>
 
-    <h4>Good job!</h4>
-    <p>Now click the '<%= t :add_fact %>' button to start creating your Factlink.</p>
-  </div>
+    <div id="step3" class="tour-block">
 
-  <div id="step3" class="white-well tour-block">
+      <!-- factlinkAdded -->
+      <div class="arrow-right">
+        <div class="arrow-right-white"></div>
+      </div>
 
-    <!-- factlinkAdded -->
-    <div class="arrow-right">
-      <div class="arrow-right-white"></div>
+      <h4>Your first Factlink is a fact!</h4>
+
+      <%= link_to( 'Continue', choose_channels_path, :class => "btn btn-primary btn-mini", 'data-disable-with' => "Loading..." ) %>
     </div>
 
-    <h4>Your first Factlink is a fact!</h4>
-
-    <%= link_to( 'Continue', choose_channels_path, :class => "btn btn-primary btn-mini", 'data-disable-with' => "Loading..." ) %>
   </div>
 
+  <% if can_haz :skip_create_first_factlink %>
+    <%= link_to 'Skip this step', choose_channels_path, id: 'skip-link' %>
+  <% end %>
 </div>
 
-<% end %>
+<div class="right-column">
+  <div id="background"></div>
+  <div id="create-your-first-factlink">
+    <h1>Climate change</h1>
+    <hr>
+    <p>Climate change is a significant and lasting change in the statistical distribution of weather patterns over periods ranging from decades to millions of years. It may be a change in average weather conditions, or in the distribution of weather around the average conditions (i.e., more or fewer extreme weather events).</p>
+    <p>Climate change is caused by factors that include oceanic processes (such as oceanic circulation), variations in solar radiation received by Earth, plate tectonics and volcanic eruptions, and human-induced alterations of the natural world; these latter effects are currently causing global warming, and "climate change" is often used to describe human-specific impacts.</p>
 
-
-<div id="background">
-
+    <p>Scientists actively work to understand past and future climate by using observations and theoretical models. Borehole temperature profiles, ice cores, floral and faunal records, glacial and periglacial processes, stable isotope and other sediment analyses, and sea level records serve to provide a climate record that spans the geologic past.</p>
+    <p>More recent data are provided by the instrumental record. Physically based general circulation models are often used in theoretical approaches to match past climate data, make future projections, and link causes and effects in climate change.</p>
+  </div>
+  <div class="js-extension-button-region"></div>
 </div>
-
-<div id="create-your-first-factlink">
-
-  <h1>Climate change</h1>
-
-  <hr>
-
-  <p>Climate change is a significant and lasting change in the statistical distribution of weather patterns over periods ranging from decades to millions of years. It may be a change in average weather conditions, or in the distribution of weather around the average conditions (i.e., more or fewer extreme weather events).</p>
-  <p>Climate change is caused by factors that include oceanic processes (such as oceanic circulation), variations in solar radiation received by Earth, plate tectonics and volcanic eruptions, and human-induced alterations of the natural world; these latter effects are currently causing global warming, and "climate change" is often used to describe human-specific impacts.</p>
-
-  <p>Scientists actively work to understand past and future climate by using observations and theoretical models. Borehole temperature profiles, ice cores, floral and faunal records, glacial and periglacial processes, stable isotope and other sediment analyses, and sea level records serve to provide a climate record that spans the geologic past.</p>
-  <p>More recent data are provided by the instrumental record. Physically based general circulation models are often used in theoretical approaches to match past climate data, make future projections, and link causes and effects in climate change.</p>
-
-</div>
-
 
 <%= content_for :javascript do %>
+  <%= javascript_include_tag "frontend" %>
   <% lib_url = "#{jslib_url_for(current_user.username)}" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>
   <script>
@@ -73,31 +70,4 @@
     };
   </script>
   <script src="<%= lib_url %>/factlink<%= min %>.js"></script>
-  <script src="<%= lib_url %>/factlink.start_annotating<%= min %>.js"></script>
-
-  <script>
-
-  $(window).on('factlink.libraryLoaded', function () {
-    FACTLINK.hideDimmer();
-
-    FACTLINK.on('textSelected', function () {
-      tour.showStep(2);
-    });
-
-    FACTLINK.on('modalOpened', function () {
-      tour.hide();
-
-      FACTLINK.off('modalOpened');
-    });
-
-    FACTLINK.on('factlinkAdded', function () {
-      FACTLINK.on('modalClosed', function () {
-        tour.showStep(3);
-        FACTLINK.stopAnnotating();
-      });
-    });
-  });
-
-  </script>
-
 <% end %>

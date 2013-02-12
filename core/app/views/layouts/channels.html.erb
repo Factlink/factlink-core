@@ -1,30 +1,29 @@
+<% unless defined? not_fixed %>
+  <% not_fixed = false %>
+<% end %>
+<% unless defined? wide %>
+  <% wide = false %>
+<% end %>
 <% content_for :left_column do %>
   <div class="left-top-x-fade"></div>
   <div class="user-block-container"></div>
   <div class="channel-listing-container"></div>
-  <div class="js-related-channels"></div>
+  <div class="js-related-channels related-channels-container"></div>
 <% end %>
 
 <% content_for :javascript do %>
   <script>
     $(function() {
-      Backbone.history.start({pushState:Modernizr.history, silent:true});
-
-      <% if @user %>
-        Channels.setUsername("<%= current_user.username %>");
-      <% end %>
+      Channels.setUsername("<%= current_user.username %>");
 
       <% if @channel && !@channel.new? %>
         window.currentChannel = new Channel({id: <%= @channel.id %>});
       <% end %>
 
-      // this should be moved to an initializer
-      // however currently we cannot, since this should
-      // not be executed on the single fact page.
-      $('.potential-backbone').attr('rel', 'backbone');
+      Backbone.history.start({pushState:Modernizr.history});
 
     });
   </script>
 <% end %>
 
-<%= render template: 'layouts/frontend' %>
+<%= render template: 'layouts/frontend', locals: { not_fixed: not_fixed, wide: wide } %>

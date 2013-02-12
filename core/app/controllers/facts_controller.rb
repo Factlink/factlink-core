@@ -25,13 +25,15 @@ class FactsController < ApplicationController
 
   def show
     authorize! :show, @fact
-    @title = @fact.data.displaystring # The html <title>
 
-    @modal = true
-    @hide_links_for_site = @modal && @fact.site
-    @just_added = ( not params[:just_added].blank? )
-
-    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
+    respond_to do |format|
+      format.html do
+        render inline:'', layout: 'client'
+      end
+      format.json do
+        render json: Facts::Fact.for(fact: @fact, view: view_context)
+      end
+    end
   end
 
   def extended_show
@@ -66,66 +68,62 @@ class FactsController < ApplicationController
 
   def new
     authorize! :new, Fact
-    if session[:just_signed_in]
-      session[:just_signed_in] = nil
 
-      @just_signed_in = true
-    end
-
-    unless current_user
+    if current_user
+      if current_ability.signed_in?
+        render inline:'', layout: 'client'
+      else
+        render text: '<h1>Here will be a login screen after removing :act_as_non_signed_in feature</h1>'
+      end
+    else
       session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
-      redirect_to user_session_path(layout: @layout)
+      redirect_to user_session_path(layout: 'client')
     end
-
-    @site = query :'site/for_url', params[:url] if params[:url]
-
-    track "Modal: Open prepare"
   end
 
   def create
+    # support both old names, and names which correspond to json in show
+    fact_text = (params[:fact] || params[:displaystring]).to_s
+    url = (params[:url] || params[:fact_url]).to_s
+    title = (params[:title] || params[:fact_title]).to_s
+
     unless current_user
-      session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
+      session[:return_to] = new_fact_path(layout: @layout, title: title, fact: fact_text, url: url)
       redirect_to user_session_path(layout: @layout)
       return
     end
 
     authorize! :create, Fact
 
-    @fact = Fact.build_with_data(params[:url].to_s, params[:fact].to_s, params[:title].to_s, current_graph_user)
+    @fact = interactor :'facts/create', fact_text, url, title
     @site = @fact.site
 
-
     respond_to do |format|
-      if @fact.data.save and @fact.save
+      track "Factlink: Created"
 
-        track "Factlink: Created"
+      #TODO switch the following two if blocks if possible
+      if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
+        @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+        Activity::Subject.activity(current_user.graph_user, Opinion.real_for(params[:opinion]), @fact)
 
-        #TODO switch the following two if blocks if possible
-        if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
-          @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
-          Activity::Subject.activity(current_user.graph_user, Opinion.real_for(params[:opinion]), @fact)
+        @fact.calculate_opinion(1)
+      end
 
-          @fact.calculate_opinion(1)
-        end
-
-        if params[:channels]
-          params[:channels].each do |channel_id|
-            channel = Channel[channel_id]
-            if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
-              interactor :"channels/add_fact", @fact, channel
-            end
+      if params[:channels]
+        params[:channels].each do |channel_id|
+          channel = Channel[channel_id]
+          if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
+            interactor :"channels/add_fact", @fact, channel
           end
         end
-
-        format.html do
-          track "Modal: Create"
-          redirect_to fact_path(@fact.id, just_added: true, guided: params[:guided])
-        end
-        format.json { render json: @fact, status: :created, location: @fact.id }
-      else
-        format.html { render :new }
-        format.json { render json: @fact.errors, status: :unprocessable_entity }
       end
+
+      format.html do
+        track "Modal: Create"
+        redirect_to fact_path(@fact.id, guided: params[:guided])
+      end
+      decorated_fact = Facts::Fact.for(fact: @fact,view: view_context)
+      format.json { render json: decorated_fact}
     end
   end
 
@@ -191,16 +189,28 @@ class FactsController < ApplicationController
 
     results = interactor :search_evidence, search_for, @fact.id
 
-    facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }
+    facts = results.map { |result| Facts::Fact.for(fact: result.fact, view: view_context) }
+
+    render json: facts
+  end
+
+  def recently_viewed
+    authorize! :index, Fact
+
+    results = interactor :"facts/recently_viewed"
+
+    facts = results.map { |fact| Facts::Fact.for(fact: fact, view: view_context) }
 
     render json: facts
   end
 
   private
     def load_fact
-      id = params[:fact_id] || params[:id]
+      @fact = interactor :'facts/get', fact_id || raise_404
+    end
 
-      @fact = Fact[id] || raise_404
+    def fact_id
+      params[:fact_id] || params[:id]
     end
 
     def allowed_type

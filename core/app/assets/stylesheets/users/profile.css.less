@@ -1,89 +1,43 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-#main-wrapper .content .profile {
-  margin: 24px 0 0;
+#main-wrapper .profile {
+  margin: 25px 0 0;
 
+  .profile-information-item {
+    margin-bottom: 1.25em;
+
+    .profile-information-label {
+      font-weight: bold;
+      display: block;
+      color: @metaFontColor;
+      margin-bottom: 2px;
+    }
+    .profile-information-field {
+      font-size: 13px;
+    }
+    .empty-state {
+      color: @metaFontColor;
+    }
+  }
+
+  .profile-box-container {
+    width: 50%;
+    float: left;
+  }
+
+  .top-channels-region, .profile-information {
+    background: @backgroundGray;
+    padding: 10px 20px 20px;
+    border: 1px solid @mutedBorderColor;
+    .border-radius(3px);
+    text-shadow: 0 1px 0 #fff;
+    .clearfix();
+  }
+  .profile-information {
+    margin-left: 10px;
+  }
   .top-channels-region {
-    margin-left: 6px;
-    .top-channels {
-      > ol {
-        .border-radius(3px);
-        border: 1px solid #e7e7e7;
-        list-style-position: inside;
-        margin: 8px 32px 15px 0;
-        padding: 0;
-        > li {
-          border-bottom: 1px solid #e7e7e7;
-          display: none;
-          padding: 8px 0px 8px 10px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-
-          &:nth-child(-n+5) {
-            display: list-item;
-          }
-          &:nth-child(5), &:last-child {
-            border-bottom: solid 1px transparent;
-          }
-          &:hover {
-            > a > span {
-              text-decoration: none;
-            }
-          }
-          > a {
-            padding: 0 0 0 6px;
-
-            > span {
-              color: @headingFontColor;
-              float: right;
-              padding: 0 10px 0 0;
-              font-size: 0.9em;
-
-            }
-          }
-        }
-      }
-      .show-more { display: block; }
-      .show-less { display: none; }
-      > a {
-        float: right;
-        padding: 6px 48px 0;
-      }
-    }
-
-    .top-channel-container.showMore .top-channels {
-      li {
-        display: list-item;
-
-        &:nth-child(5) {
-          border-bottom: 1px solid #e7e7e7;
-        }
-        &:last-child {
-          border-bottom: solid 1px transparent;
-        }
-      }
-      .show-more { display: none; }
-      .show-less { display: block; }
-    }
-  }
-
-  h1 {
-    margin: 10px 0 0 6px;
-  }
-
-  .row {
-    display: block;
-    margin: 0 0 12px;
-    .field-label {
-      float: left;
-      display: inline-block;
-      width: 92px;
-    }
-    .field {
-      width: 208px;
-      display: inline-block;
-    }
+    margin-right: 10px;
   }
 }

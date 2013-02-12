@@ -2,6 +2,7 @@
 # subclass and implement get_alive_channels to return a list
 # of ohm channel models
 
+require 'pavlov'
 require_relative '../../util/can_can'
 
 module Interactors
@@ -51,8 +52,7 @@ module Interactors
 
       def kill_user(user)
         KillObject.user user,
-          stream_id: user.graph_user.stream_id,
-          avatar_url_32: user.avatar_url(size: 32)
+          stream_id: user.graph_user.stream_id
       end
 
       def authorized?

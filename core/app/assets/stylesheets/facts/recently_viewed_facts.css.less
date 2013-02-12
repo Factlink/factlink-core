@@ -1,0 +1,50 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.recently-viewed-facts {
+  background: #fff;
+
+  .recently-viewed-factlinks-header {
+    padding: 15px @mainRightPadding 15px @mainLeftPadding;
+  }
+
+  table {
+    @actionListBackgroundColor: #edf3f7;
+    @actionListFontColor: @linkColor;
+    @actionListBorderColor: #c5d7e3;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    > tbody > tr {
+      position: relative;
+      background: @actionListBackgroundColor;
+      color: @actionListFontColor;
+
+      border-top: 1px solid @actionListBorderColor;
+      border-bottom: 1px solid @actionListBorderColor;
+
+      font-size: @baseFontSize;
+      font-weight: normal;
+      .box-shadow(inset 0 1px 1px rgba(255, 255, 255, .5));
+
+      > td {
+        margin: 0;
+        padding: 15px @mainRightPadding 15px @mainLeftPadding;
+        overflow: hidden;
+      }
+
+      .recently-viewed-fact-button-container {
+        vertical-align: middle;
+
+        button {
+          white-space: nowrap;
+        }
+      }
+
+      .fact-wheel {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

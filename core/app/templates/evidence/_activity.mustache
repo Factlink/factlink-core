@@ -1,4 +1,14 @@
 <strong>
-  <a href="/{{ creator.username }}" rel="backbone">{{ creator.username }}</a>
+  {{#global.signed_in}}
+  <a href="/{{ creator.username }}" rel="backbone">
+  {{/global.signed_in}}
+    {{ creator.username }}
+  {{#global.signed_in}}
+  </a>
+  {{/global.signed_in}}
 </strong>
 ( <img src="{{global.brain_image}}"> <span class="authority">{{ creator.authority }}</span> ) {{verb}}:
+
+{{#time_ago}}
+  <span class="pull-right">{{time_ago}} ago</span>
+{{/time_ago}}

@@ -43,6 +43,10 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
     @alertHide()
     model.trigger 'change'
 
+    mp_track "Factlink: Added comment",
+      factlink_id: @options.addToCollection.fact.id
+      type: @options.addToCollection.type
+
   addModelError: -> @alertError()
 
   switchCheckboxClicked: (e)->

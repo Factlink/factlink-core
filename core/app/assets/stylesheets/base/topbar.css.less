@@ -43,19 +43,35 @@ body.show_sign_in {
     .container {
       margin-left: auto;
       margin-right: auto;
-      width: 940px;
+      width: 960px;
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
       z-index: 2;
 
-      a.brand {
-        display: block;
-        text-indent: -999999px;
-        width: 135px;
-        height: 20px;
-        background: image-url('base/topbar/logo.png') no-repeat;
-        background-position: 0 0;
-        outline: none;
+      .logo-container {
+        width: @leftColumnWidth;
+        float: left;
+
+        a.brand {
+          display: block;
+          text-indent: -999999px;
+          height: 40px;
+          width: @leftColumnWidth;
+          background: image-url('base/topbar/logo.png') no-repeat;
+          background-position: 0 0;
+          outline: none;
+        }
+      }
+
+      .main-wrapper {
+        float: left;
+        width: @mainColumnWidth;
+        padding-left: @mainLeftPadding;
+      }
+
+      .search {
+        width: 240px;
+        margin-left: -2px;
       }
 
       ul.nav > li {

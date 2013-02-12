@@ -11,11 +11,10 @@ module Facts
 
     def to_hash
       # DEPRECATED: PLEASE REMOVE ASAP
-      proxy_scroll_url = ""
       begin
         proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
       rescue
-        ""
+        proxy_scroll_url = nil
       end
 
       displaystring = @view.send(:h, @fact.data.displaystring)

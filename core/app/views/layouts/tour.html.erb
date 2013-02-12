@@ -1,0 +1,12 @@
+<% content_for :specific_javascript do %>
+    <%= yield :template %>
+
+    <%= javascript_include_tag "frontend" %>
+
+    <%= yield :javascript %>
+    <script>
+      FactlinkApp.startAsSite();
+    </script>
+<% end %>
+
+<%= render template: "layouts/one_column"%>

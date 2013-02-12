@@ -1,1 +1,8 @@
-<a href='/{{username}}' rel='backbone'>{{username}}</a><span class="separator-list-sep"></span>
+{{#global.signed_in}}
+<a href='/{{username}}' rel='backbone'>
+{{/global.signed_in}}
+  {{username}}
+{{#global.signed_in}}
+</a>
+{{/global.signed_in}}
+<span class="separator-list-sep"></span>

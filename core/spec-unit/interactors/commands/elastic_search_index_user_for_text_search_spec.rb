@@ -7,7 +7,9 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
   let(:user) do
     user = stub()
     user.stub id: 1,
-              username: 'codinghorror'
+              username: 'codinghorror',
+              first_name: 'Sjaak',
+              last_name: 'afhaak'
     user
   end
 
@@ -23,7 +25,7 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
 
   it 'raises when user is not a User' do
     expect { interactor = Commands::ElasticSearchIndexUserForTextSearch.new 'User' }.
-      to raise_error(RuntimeError, 'user missing fields ([:username, :id]).')
+      to raise_error(RuntimeError, 'user missing fields ([:username, :first_name, :last_name, :id]).')
   end
 
   describe '.call' do
@@ -33,8 +35,13 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/user/#{user.id}"
-      HTTParty.should_receive(:put).with(url,
-        { body: { username: user.username }.to_json})
+      HTTParty.should_receive(:put).with(url, {
+        body: {
+            username: user.username,
+            first_name: user.first_name,
+            last_name: user.last_name
+          }.to_json
+        })
       interactor = Commands::ElasticSearchIndexUserForTextSearch.new user
 
       interactor.call

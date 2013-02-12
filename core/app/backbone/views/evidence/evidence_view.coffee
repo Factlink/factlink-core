@@ -9,6 +9,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     activityRegion:    '.evidence-activity-region'
     mainRegion:        '.evidence-main-region'
     popoverRegion:     '.evidence-popover-region'
+    bottomRegion:      '.evidence-bottom-region'
     subCommentsRegion: '.evidence-sub-comments-region'
 
   initialize: ->
@@ -30,11 +31,32 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
   evidenceBaseOnRender: ->
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model, verb: @activityVerb
-    @voteRegion.show new VoteUpDownView model: @model
-    @subCommentsRegion.show new SubCommentsView model: @model
+
+    if Factlink.Global.signed_in
+      voteRelevanceView = new InteractiveVoteUpDownView model: @model
+    else
+      voteRelevanceView = new VoteUpDownView model: @model
+
+    @voteRegion.show voteRelevanceView
+    @bottomRegion.show @evidenceBottomView()
 
     @mainRegion.show new @mainView model: @model
-    @setPopover()
+    @setPopover() if Factlink.Global.signed_in
+
+  evidenceBottomView: ->
+    unless @_evidenceBottomView
+      @_evidenceBottomView = new EvidenceBottomView model: @model
+      @bindTo @_evidenceBottomView, 'toggleSubCommentsList', @toggleSubCommentsList, @
+    @_evidenceBottomView
+
+  toggleSubCommentsList: ->
+    if @subCommentsOpen
+      @subCommentsOpen = false
+      @subCommentsRegion.close()
+    else
+      @subCommentsOpen = true
+      @subCommentsRegion.show new SubCommentsListView
+        collection: new SubComments([], parentModel: @model)
 
   highlight: ->
     @$el.animate
@@ -65,9 +87,7 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
     verb: @options.verb
 
 
-ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
-
-class EvidencePopoverView extends ViewWithPopover
+class EvidencePopoverView extends Backbone.Factlink.PopoverView
   template: 'evidence/popover'
 
   initialize: (options)->

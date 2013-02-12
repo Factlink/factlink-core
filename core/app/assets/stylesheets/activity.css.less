@@ -2,25 +2,24 @@
 @import "bootstrap/variables";
 
 #activity_for_channel {
-
   .activity-group {
-    border-bottom: solid 1px @baseBorderColor;
-    margin: 0 -15px;
-    padding: 10px 15px;
+    border-bottom: solid 1px @mutedBorderColor;
+    .reset-main-padding();
+    padding-top: 10px;
+    padding-bottom: 10px;
     .box-sizing(border-box);
     .clearfix();
+    position: relative;
 
     &:last-child {
       border-bottom: solid 1px transparent;
     }
 
-    a { .transition(color .15s ease-in-out); }
-    a:hover { text-decoration: none; }
-
     .activity-group-user {
       padding: 0;
       float: left;
-      img {
+
+      > a > img {
         .border-radius(3px);
         float: left;
         margin: 0 8px 0 0;
@@ -46,16 +45,17 @@
     }
 
     .activity-group-time {
-      float: right;
+      position: absolute;
+      right: 45px;
       color: #ccc;
       line-height: @baseLineHeight;
       font-size: @metaFontSize;
     }
 
     .activity-group-fact {
-      margin-left: 26px;
+      margin-left: 32px;
       .top-right-arrow {
-        top: -32px;
+        top: -35px;
       }
     }
   }

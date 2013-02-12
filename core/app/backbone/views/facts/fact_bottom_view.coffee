@@ -1,17 +1,22 @@
-class window.FactBottomView extends Backbone.Marionette.Layout
-  template: "facts/fact_bottom"
+class window.FactBottomView extends Backbone.Marionette.ItemView
+  className: 'fact-bottom bottom-base'
+
+  template: 'facts/bottom_base'
 
   events:
-    "click .js-add-to-channel": "showAddToChannel",
+    "click .js-add-to-channel": "showAddToChannel"
     "click .js-start-conversation": "showStartConversation"
+    "click .js-open-proxy-link" : "openProxyLink"
 
   templateHelpers: ->
+    showTime: true
+    showRepost: Factlink.Global.signed_in
+    showShare: Factlink.Global.signed_in
+    showSubComments: false
+    showFactInfo: true
+    showDiscussion: true
     fact_url_host: ->
-      if @fact_url?
-        url = document.createElement('a')
-        url.href = @fact_url
-
-        url.host
+      new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
 
   showAddToChannel: (e) ->
     e.preventDefault()
@@ -30,9 +35,18 @@ class window.FactBottomView extends Backbone.Marionette.Layout
     FactlinkApp.Modal.show 'Repost Factlink',
       new AddToChannelModalView(collection: collection, model: @model)
 
+    mp_track "Factlink: Open repost modal"
+
   showStartConversation: (e) ->
     e.preventDefault()
     e.stopPropagation()
 
     FactlinkApp.Modal.show 'Send a message',
       new StartConversationView(model: @model)
+
+    mp_track "Factlink: Open share modal"
+
+
+  openProxyLink: (e) ->
+    mp_track "Factlink: Open proxy link",
+      site_url: @model.get("fact_url")

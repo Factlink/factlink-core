@@ -16,4 +16,16 @@ class SubComment
       FactRelation[parent_id]
     end
   end
+
+  def type
+    if [:weakening, :disbelieves].include? parent.type
+      return :weakening
+    else
+      return :supporting
+    end
+  end
+
+  def valid_for_activity?
+    parent
+  end
 end

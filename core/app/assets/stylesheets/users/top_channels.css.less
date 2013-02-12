@@ -1,0 +1,79 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.top-channel-container {
+  .top-channels {
+    .border-radius(3px);
+    border: 1px solid @mutedBorderColor;
+    list-style-position: inside;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+
+    .top-channels-channel {
+      border-bottom: 1px solid @mutedBorderColor;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+
+      padding: 10px 10px 8px;
+
+      color: @mutedFontColor;
+
+      display: none;
+
+      .top-channels-position {
+        display: inline-block;
+        min-width: 20px;
+      }
+
+      &:nth-child(-n+5) {
+        display: block;
+      }
+
+      &:nth-child(5), &:last-child {
+        border-bottom: solid 1px transparent;
+      }
+
+      .top-channels-channel-authority {
+        font-size: 11px;
+        color: @baseFontColor;
+      }
+
+      .top-channels-add-button {
+        margin-top: -2px;
+        float: right;
+      }
+    }
+  }
+
+  .top-channels-show-more,
+  .top-channels-show-less {
+    float: right;
+    margin-top: 10px;
+  }
+
+  .top-channels-show-less {
+    display: none;
+  }
+
+  &.showMore {
+    .top-channels .top-channels-channel {
+      display: block !important;
+
+      &:nth-child(5) {
+        border-bottom: 1px solid @mutedBorderColor;
+      }
+    }
+
+    .top-channels-show-more {
+      display: none;
+    }
+
+    .top-channels-show-less {
+      display: inline !important;
+    }
+  }
+}

@@ -2,51 +2,20 @@
 @import "bootstrap/mixins";
 
 .related-channels-for-channel {
-  padding-top: 32px;
 
-  ul {
-    margin-top: 10px;
-  }
+  > ul {
+    margin: 10px 0 0 0;
 
-  ul.not_my_channel a.follow {
-    display: none;
-  }
-
-  li {
-    padding-bottom: @baseLineHeight / 2;
-    overflow: auto;
-    width: 100%;
-
-    div.user-avatar {
-      float: left;
-      margin-right: 5px;
-    }
-
-    div.wrapper {
-      float: left;
-
-      a {
-        .ellipsis();
-        width: 146px;
-        display: inline-block;
+    &.not_my_channel {
+      a.follow {
+        display: none;
       }
 
-      > div {
-        color: @metaFontColor;
-      }
-    }
-
-    a.follow {
-      float: left;
-      margin:0 0 0 4px;
-    }
-    &:hover {
-      div.wrapper h3 {
-        text-decoration: underline;
-        cursor: pointer;
-      }
-      div.user-avatar {
-        cursor: pointer;
+      div.wrapper {
+        > a,
+        > div {
+          width: 120px;
+        }
       }
     }
   }
@@ -55,28 +24,39 @@
     color: @metaFontColor;
     font-size: 12px;
   }
+}
 
-  // User block for related users
-  .user-block {
-    height: 32px;
-    padding: 0;
-    background-color: transparent;
-    &:hover {
-      cursor: pointer;
-      h1 {
-        color: @linkColor;
-      }
+.related-channel-container {
+  padding-bottom: @baseLineHeight / 2;
+  overflow: auto;
+  width: 100%;
+  position: relative;
+
+  div.user-avatar {
+    float: left;
+    margin-right: 5px;
+  }
+
+  div.wrapper {
+    float: left;
+
+    > a {
+      .ellipsis();
+      width: 90px;
+      display: inline-block;
     }
-    .wrapper {
-      margin-left: 48px;
-      h3 {
-        color: @linkColor;
-        font-size: @baseFontSize;
-        font-weight: bold;
-        &:hover {
-          color: @linkColorHover;
-        }
-      }
+
+    > div {
+      .ellipsis();
+      width: 90px;
+      color: @metaFontColor;
+      line-height: 12px;
     }
+  }
+
+  a.follow {
+    position: absolute;
+    right: 0;
+    top: 4px;
   }
 }

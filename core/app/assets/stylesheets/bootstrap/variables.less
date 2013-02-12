@@ -19,10 +19,22 @@
 @navbarBackground:          white;
 @navbarBackgroundHighlight: @grayLighter;
 @baseBorderColor:           #d7d7d7;
+@mutedBorderColor:          lighten(@baseBorderColor, 5);
 
 // Layouting
 @siteWidth:   960px;
+@leftColumnWidth: 175px;
+@mainColumnWidth: @siteWidth - @leftColumnWidth;
+@wideLeftColumnWidth: 225px;
+@wideMainColumnWidth: @siteWidth - @wideLeftColumnWidth;
 @max-z-index: 2147483647;
+
+@mainLeftPadding: 20px;
+@mainRightPadding: 20px;
+@mainBottomPadding: 20px;
+
+@bubbleLeftPadding: 15px;
+@bubbleRightPadding: 15px;
 
 // Font sizing
 @baseFontSize:          12px;

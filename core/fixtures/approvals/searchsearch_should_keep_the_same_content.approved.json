@@ -7,23 +7,20 @@
       "site_id": "1",
       "signed_in?": true,
       "containing_channel_ids": [
-        "4",
-        "5"
+
       ],
       "deletable_from_channel?": null,
-      "i_am_owner": true,
-      "modal?": false,
+      "i_am_owner": false,
       "fact_base": {
         "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Baron</a>",
         "fact_id": "1",
         "url": "/baron/f/1",
         "id": "<STRIPPED>",
         "user_signed_in?": true,
-        "i_am_fact_owner": true,
-        "can_edit?": true,
-        "scroll_to_link": null,
+        "i_am_fact_owner": false,
+        "can_edit?": false,
         "displaystring": "Baron",
-        "fact_title": null,
+        "fact_title": "Fact title 1",
         "fact_wheel": {
           "authority": "0.0",
           "opinion_types": {
@@ -52,23 +49,23 @@
       "post_action": null,
       "friendly_time": null,
       "created_by": {
-        "username": "Baron",
-        "avatar": "<img alt=\"Baron\" src=\"https://secure.gravatar.com/avatar/bdcf52014be3eaaf4c83248bc7229900?rating=PG&amp;size=32&amp;default=retro\" title=\"Baron\" width=\"32\" />",
+        "id": "<STRIPPED>",
+        "name": "johndoe2",
+        "username": "johndoe2",
+        "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
         "authority_for_subject": {
           "authority": "1.0",
           "id": "<STRIPPED>"
-        },
-        "url": "/Baron"
+        }
       },
       "created_by_ago": "Created 1 minute ago",
       "believers_count": 0,
       "disbelievers_count": 0,
       "doubters_count": 0,
       "user_signed_in?": true,
-      "i_am_fact_owner": true,
-      "can_edit?": true,
-      "scroll_to_link": null,
-      "fact_title": null,
+      "i_am_fact_owner": false,
+      "can_edit?": false,
+      "fact_title": "Fact title 1",
       "fact_wheel": {
         "authority": "0.0",
         "opinion_types": {

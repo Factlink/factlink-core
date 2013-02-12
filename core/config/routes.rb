@@ -100,6 +100,10 @@ FactlinkUI::Application.routes.draw do
         get     "/disbelievers"     => "facts#disbelievers"
         get     "/doubters"         => "facts#doubters"
       end
+
+      collection do
+        get 'recently_viewed' => "facts#recently_viewed"
+      end
     end
 
     # Search and infinite scrolling
@@ -115,6 +119,10 @@ FactlinkUI::Application.routes.draw do
           put :approve
         end
       end
+    end
+
+    scope "/a" do
+      get "info" => "admin#info", as: "admin_info"
     end
 
     # Seems to me we want to lose the scope "/:username" later and place all
@@ -163,6 +171,7 @@ FactlinkUI::Application.routes.draw do
       resources :activities, only: [:index, :create, :update, :destroy],
                 controller: 'channel_activities' do |variable|
         collection do
+          get "count"
           get "last_fact"
           get "facts/:fact_id" => "facts#extended_show", as: "fact"
         end
@@ -203,6 +212,7 @@ FactlinkUI::Application.routes.draw do
     end
     member do
       get :related_user_channels
+      get :facts
     end
   end
 

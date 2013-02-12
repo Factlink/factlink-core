@@ -16,17 +16,38 @@ describe SitesController do
   end
 
   describe :facts_for_url do
-    it "should work with an existing site" do
-      should_check_can :index, Fact
-      @site = FactoryGirl.create(:site, :url => "http://batman.org")
-      get :facts_for_url, :url => @site.url
-      response.body.should eq("[]")
+    describe "unauthorized" do
+      before do
+        ability.should_receive(:can?).with(:index, Fact).and_return(false)
+      end
+
+      it "should work with an existing site" do
+        @site = FactoryGirl.create(:site, :url => "http://batman.org")
+        get :facts_for_url, :url => @site.url
+        response.body.should eq("{\"error\":\"Unauthorized\"}")
+      end
+
+      it "should work with an non-existing site" do
+        get :facts_for_url, :url => "http://www.thebaronisinthebuilding.com/"
+        response.body.should eq("{\"error\":\"Unauthorized\"}")
+      end
     end
 
-    it "should work with an non-existing site" do
-      should_check_can :index, Fact
-      get :facts_for_url, :url => "http://www.thebaronisinthebuilding.com/"
-      response.body.should eq("[]")
+    describe "authorized" do
+      before do
+        ability.should_receive(:can?).with(:index, Fact).and_return(true)
+      end
+
+      it "should work with an existing site" do
+        @site = FactoryGirl.create(:site, :url => "http://batman.org")
+        get :facts_for_url, :url => @site.url
+        response.body.should eq("[]")
+      end
+
+      it "should work with an non-existing site" do
+        get :facts_for_url, :url => "http://www.thebaronisinthebuilding.com/"
+        response.body.should eq("[]")
+      end
     end
   end
 

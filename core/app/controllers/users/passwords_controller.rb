@@ -6,4 +6,19 @@ class Users::PasswordsController < Devise::PasswordsController
     @step_in_signup_process = :account if params[:msg] == 'welcome'
   end
 
+  def edit
+    # Copied from Devise::PasswordsController
+    self.resource = resource_class.new
+    resource.reset_password_token = params[:reset_password_token]
+    # end of copy
+
+    @user = User.where(reset_password_token: params[:reset_password_token]).first
+
+    if params[:msg] and not @user
+      redirect_to new_user_session_path, notice: 'Your account is already set up. Please log in to continue.'
+    else
+      render
+    end
+  end
+
 end

@@ -2,15 +2,25 @@
 @import "bootstrap/variables";
 
 .fact-relation-search {
-  background: @whiteDarker;
-  border-top: 1px solid @baseBorderColor;
-  padding: 15px;
-  .border-bottom-radius(5px);
+
+  .clearfix();
+
+  .fact-relation-search-container {
+    background: @whiteDarker;
+    padding: 15px @mainRightPadding 15px @mainLeftPadding;
+
+    border-top: 1px solid @baseBorderColor;
+    border-bottom: 1px solid @baseBorderColor;
+  }
 
   .auto-complete-fact-relations {
     overflow: hidden;
     position: relative;
     margin: 0;
+
+    .fact-relation-post {
+      display: none;
+    }
 
     &.active {
       .fact-relation-post {
@@ -29,14 +39,6 @@
     }
   }
 
-  .fact-relation-preview-view .fact-relation-post {
-    display: inline-block;
-  }
-
-  .fact-relation-post {
-    display: none;
-  }
-
   input[type="text"] { font-size: @baseFontSize; }
 
   .view-toggle {
@@ -48,11 +50,5 @@
       margin: -3px 6px 0;
       padding: 0;
     }
-  }
-
-  .fact-relation-preview-view-cancel-action {
-    margin: 6px 10px;
-    float: right;
-    font-size: @baseFontSize;
   }
 }

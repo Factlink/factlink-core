@@ -42,11 +42,6 @@
     <p class="firefox-extension-installed">Great, the extension is installed!</p>
   </div>
 
-  <!-- <div class="visible-when-chrome chrome-extension-installed">
-    <p>Great, the extension is installed!</p>
-  </div> -->
-
-
   <!-- Unsupported browsers -->
   <div class="visible-when-unsupported-browser button-wrapper">
     <p>You can use Factlink with this browser by using the bookmarklet, but keep in mind that this won't give you the full Factlink experience.</p>
@@ -65,8 +60,8 @@
   </div>
 
   <div class="visible-when-firefox bottom">
-    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
-    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_next') %>">Next step</a>
+    <a class="should-install-firefox-extension skip-step" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
+    <a class="firefox-extension-installed btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_next') %>">Next step</a>
   </div>
 
   <div class="visible-when-unsupported-browser bottom">
@@ -100,10 +95,6 @@
 
       $('#chrome-extension-button').mousedown(function() {
         showNextButtonForClient('chrome');
-      });
-
-      $('#firefox-extension-button').mousedown(function() {
-        showNextButtonForClient('firefox');
       });
 
       $('#bookmarklet-button').mousedown(function() {

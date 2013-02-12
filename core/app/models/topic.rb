@@ -5,10 +5,10 @@ class Topic
   include Redis::Aid::Ns(:new_topic)
 
   field :title
-  index :title
+  index(title: 1)
 
   field :slug_title
-  index :slug_title
+  index(slug_title: 1)
 
   validates_uniqueness_of :title
   validates_uniqueness_of :slug_title
@@ -50,7 +50,7 @@ class Topic
   end
 
   def top_users(nr=5)
-    redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}.delete_if { |u| u.nil? }
+    redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}.compact
   end
 
   def top_users_add(user, val)

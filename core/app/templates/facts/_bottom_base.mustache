@@ -1,0 +1,72 @@
+{{! WARNING!! used by fact_bottom AND evidence_bottom }}
+
+<ul class="actions">
+  {{#showSubComments}}
+    <li class="js-sub-comments-link-container"><a class="js-sub-comments-link"></a></li>
+  {{/showSubComments}}
+
+  {{#showDiscussion}}
+    <li>
+      {{#global.signed_in}}
+        {{#modal?}}
+        <a href="{{fact_base.url}}" target="new" class="discussion_link">
+        {{/modal?}}
+
+        {{^modal?}}
+        <a href="{{fact_base.url}}" rel="backbone" class="discussion_link" target="_top">
+        {{/modal?}}
+
+          Discussion</a>
+      {{/global.signed_in}}
+
+      {{^global.signed_in}}
+        <strong>Discussion</strong>
+      {{/global.signed_in}}
+
+      <span class="opinion_indicators">
+        <span class="opinion_indicator agreeing" />{{ fact_base.believe_percentage }}%
+        <span class="opinion_indicator disagreeing" />{{ fact_base.disbelieve_percentage }}%
+      </span>
+    </li>
+  {{/showDiscussion}}
+
+  {{#showRepost}}
+    <li>
+      <a href="#" class="js-add-to-channel">Repost</a>
+    </li>
+  {{/showRepost}}
+
+  {{#showShare}}
+    <li>
+      <a href="#" class="js-start-conversation">Share</a>
+    </li>
+  {{/showShare}}
+
+  {{#showFactInfo}}
+    <li class="fact-info">
+      {{#showTime}}
+        {{#friendly_time}}
+          {{post_action}} {{ friendly_time }} ago
+        {{/friendly_time}}
+
+        {{^friendly_time}}
+          {{created_by_ago}}
+        {{/friendly_time}}
+      {{/showTime}}
+
+      {{#fact_base.proxy_scroll_url}}
+        {{#showTime}}
+          from
+        {{/showTime}}
+        {{#fact_url_host}}
+        <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
+        {{/fact_url_host}}
+        <a href="{{fact_base.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
+          {{fact_base.fact_title}}
+        </a>
+      {{/fact_base.proxy_scroll_url}}
+    </li>
+  {{/showFactInfo}}
+</ul>
+
+<i class="title-overflow"></i>

@@ -2,6 +2,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   tagName: "div"
   className: "wheel"
   defaults:
+    respondsToMouse: true
+
     dimension: 16
     radius: 16
     minimalVisiblePercentage: 15
@@ -47,6 +49,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   renderRaphael: ->
     @$canvasEl = $('<div></div>')
+    @$canvasEl.addClass 'fact-wheel-responding-to-mouse' if @options.respondsToMouse
+
     @$('.raphael_container').html(@$canvasEl)
     @canvas = Raphael(@$canvasEl[0], @options.dimension * 2 + 12, @options.dimension * 2 + 12)
     @bindCustomRaphaelAttributes()
@@ -87,9 +91,11 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       opacity: opacity
 
     # Bind Mouse Events on the path
-    path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
-    path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
-    path.click _.bind(@clickOpinionType, this, opinionType)
+    if @options.respondsToMouse
+      path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
+      path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
+      path.click _.bind(@clickOpinionType, this, opinionType)
+    
     @opinionTypeRaphaels[opinionType.type] = path
 
   animateExistingArc: (opinionType, arc, opacity) ->
@@ -150,15 +156,16 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   clickOpinionType: ->
 
   bindTooltips: ->
-    $("div.tooltip", @$el).remove()
-    @$el.find(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
+    if @options.respondsToMouse
+      @$("div.tooltip").remove()
+      @$(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
 
-    # Create tooltips for each opinionType (believe, disbelieve etc)
-    for key, opinionType of @model.get('opinion_types')
-      raphaelObject = @opinionTypeRaphaels[opinionType.type]
-      $(raphaelObject.node).tooltip
-        title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
-        placement: "left"
+      # Create tooltips for each opinionType (believe, disbelieve etc)
+      for key, opinionType of @model.get('opinion_types')
+        raphaelObject = @opinionTypeRaphaels[opinionType.type]
+        $(raphaelObject.node).tooltip
+          title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
+          placement: "left"
 
   updateTo: (authority, opinionTypes) ->
     @model.set "authority", authority

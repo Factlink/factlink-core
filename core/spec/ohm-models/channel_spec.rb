@@ -307,7 +307,7 @@ describe Channel do
       it "should ensure the topic exists" do
         @ch = FactoryGirl.build :channel
         @ch.save
-        Topic.by_title(@ch.title).should_not be_new
+        Topic.by_title(@ch.title).should_not be_new_record
       end
     end
 
@@ -324,7 +324,7 @@ describe Channel do
       it "should get the topic" do
         @ch1 = create :channel, title: 'hoi'
         @ch1.topic.title.should eq 'hoi'
-        @ch1.topic.should_not be_new
+        @ch1.topic.should_not be_new_record
       end
       it "should get the topic if the topic existed before the channel" do
         @t = create :topic, title: "HoI"

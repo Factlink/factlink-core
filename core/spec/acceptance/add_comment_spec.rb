@@ -21,7 +21,7 @@ feature "adding comments to a fact", type: :request do
     add_comment comment
 
     # Input should be empty
-    find_field('add_comment').value.blank?.should be_true
+    find('.add-comment-content', text: '')
 
     find(evidence_listing_css_selector).should have_content comment
 
@@ -56,8 +56,10 @@ feature "adding comments to a fact", type: :request do
     add_comment comment
 
     within evidence_listing_css_selector do
-      find(evidence_item_css_selector, text: comment).find('.supporting').click
-      find(evidence_item_css_selector, text: comment).find('.total-authority-evidence', text: "0.0")
+      # there is just one factlink in the list
+      find('.total-authority-evidence', text: (user_authority_on_fact+1).to_s)
+      find('.supporting').click
+      find('.total-authority-evidence', text: "0.0")
     end
 
     go_to_discussion_page_of factlink
@@ -138,41 +140,4 @@ feature "adding comments to a fact", type: :request do
     page.should_not have_content comment
   end
 
-  scenario "initially the evidence list should be empty" do
-    go_to_discussion_page_of factlink
-
-    within :css, ".relation-tabs-view" do
-      page.should have_content "This Factlink is not supported by other Factlinks."
-    end
-  end
-
-  scenario "after adding a piece of evidence, evidence list should contain that item" do
-    go_to_discussion_page_of factlink
-
-    supporting_factlink = backend_create_fact
-
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
-      sleep 2
-      within "li.evidence-item" do
-        page.should have_content supporting_factlink.to_s
-      end
-    end
-  end
-
-  scenario "we can click on evidence to go to the page of that factlink" do
-    go_to_discussion_page_of factlink
-
-    supporting_factlink = backend_create_fact
-
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
-
-      within "li.evidence-item" do
-        page.find('span', text: supporting_factlink.to_s).click
-      end
-    end
-
-    page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
-  end
 end

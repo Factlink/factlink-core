@@ -17,34 +17,9 @@
   opacity: @opacity;
 }
 
-.base-text(@font-size: @baseFontSize, @line-height: @baseLineHeight) {
-  font-family: @baseFontFamily;
-  font-size: @font-size;
-  line-height: @line-height;
-}
-
-.heading-text(@font-size: @headingFontSize, @line-height: @baseLineHeight) {
-  font-family: @baseFontFamily;
-  font-size: @font-size;
-  line-height: @line-height;
-}
-
-// sorry WebKit only
-.visible-scroll() {
-  ::-webkit-scrollbar { background:transparent;overflow:visible; width:15px;}
-  ::-webkit-scrollbar-thumb { background-color:rgba(0,0,0,0.2); border:solid #fff;}
-  ::-webkit-scrollbar-thumb:hover { background:rgba(0,0,0,0.4);}
-  ::-webkit-scrollbar-thumb:horizontal { border-width:4px 6px;min-width:40px;}
-  ::-webkit-scrollbar-thumb:vertical { border-width:6px 4px;min-height:40px;}
-  ::-webkit-scrollbar-track-piece { background-color:#fff;}
-  ::-webkit-scrollbar-corner { background:transparent;}
-  ::-webkit-scrollbar-thumb { background-color: #DDD;}
-  ::-webkit-scrollbar-thumb:hover { background-color: #999;}
-}
-
-.unselectable() {
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
+.reset-main-padding() {
+  margin-left: -@mainLeftPadding;
+  margin-right: -@mainRightPadding;
+  padding-left: @mainLeftPadding;
+  padding-right: @mainRightPadding;
 }

@@ -3,14 +3,14 @@ class ChannelItemView extends Backbone.Marionette.ItemView
 
   template: "channels/_single_menu_item"
 
-  initialize: () ->
+  initialize: ->
     @addClassToggle('active')
 
     @model.bind('activate', @activeOn, this)
     @model.bind('deactivate', @activeOff, this)
     @model.bind('change',@render,this)
 
-  onRender: () ->
+  onRender: ->
     @$el.attr('id', 'channel-' + @model.id)
     @activeOn() if @model.isActive
 
@@ -23,7 +23,7 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   template: 'channels/list_header'
 
   templateHelpers: ->
-
+    stream_title: -> Factlink.Global.t.stream.capitalize()
     channel_listing_header: -> Factlink.Global.t.channels.capitalize()
 
   initialize: =>
@@ -75,6 +75,11 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     else
       @collection.setActiveChannel(channel)
 
+
+  # we use setActive to indicate which type is active
+  # this is to be used when something other than a channel is
+  # activated. If the type has no specific element to activate,
+  # everything is deactivated
   setActive: (type) ->
     @collection.unsetActiveChannel()
     @header.currentView.trigger 'activate', type

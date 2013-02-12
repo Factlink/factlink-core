@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
 
     render 'comments/show'
   rescue Pavlov::ValidationError => e
+
     render text: e.message, :status => 400
   end
 
@@ -25,11 +26,13 @@ class CommentsController < ApplicationController
 
   def sub_comments_index
     @sub_comments = interactor :'sub_comments/index_for_comment', get_comment_id_param
+
     render 'sub_comments/index'
   end
 
   def sub_comments_create
     @sub_comment = interactor :'sub_comments/create_for_comment', get_comment_id_param, params[:content]
+
     render 'sub_comments/show'
   end
 

@@ -2,6 +2,7 @@ require 'acceptance_helper'
 
 describe "factlink", type: :request do
   include FactHelper
+  include Acceptance::FactHelper
 
   def create_factlink(user)
     FactoryGirl.create(:fact, created_by: user.graph_user)
@@ -45,12 +46,12 @@ describe "factlink", type: :request do
 
     agreed_path_position = 0
 
-    old_agreed_path_opacity = wheel_path_opactity agreed_path_position
+    old_agreed_path_opacity = wheel_path_opacity agreed_path_position
     old_agreed_path_shape = wheel_path_d agreed_path_position
 
     click_wheel_part agreed_path_position
 
-    old_agreed_path_opacity.should_not eq wheel_path_opactity agreed_path_position
+    old_agreed_path_opacity.should_not eq wheel_path_opacity agreed_path_position
     old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
   end
 
@@ -64,12 +65,12 @@ describe "factlink", type: :request do
 
     neutral_path_position = 1
 
-    old_neutral_path_opacity = wheel_path_opactity neutral_path_position
+    old_neutral_path_opacity = wheel_path_opacity neutral_path_position
     old_neutral_path_shape = wheel_path_d neutral_path_position
 
     click_wheel_part neutral_path_position
 
-    old_neutral_path_opacity.should_not eq wheel_path_opactity neutral_path_position
+    old_neutral_path_opacity.should_not eq wheel_path_opacity neutral_path_position
     old_neutral_path_shape.should eq wheel_path_d neutral_path_position
   end
 
@@ -83,12 +84,12 @@ describe "factlink", type: :request do
 
     disagreed_path_position = 2
 
-    old_disagreed_path_opacity = wheel_path_opactity disagreed_path_position
+    old_disagreed_path_opacity = wheel_path_opacity disagreed_path_position
     old_disagreed_path_shape = wheel_path_d disagreed_path_position
 
     click_wheel_part disagreed_path_position
 
-    old_disagreed_path_opacity.should_not eq wheel_path_opactity disagreed_path_position
+    old_disagreed_path_opacity.should_not eq wheel_path_opacity disagreed_path_position
     old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
   end
 
@@ -113,21 +114,4 @@ describe "factlink", type: :request do
     end
   end
 
-  def wheel_path_d position
-    page.evaluate_script("$('.fact-wheel path')[#{position}].getAttribute('d');");
-  end
-
-  def wheel_path_opactity position
-    page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;");
-  end
-
-  def click_wheel_part position
-    #fire click event on svg element
-    page.execute_script("var path = $('.fact-wheel path')[#{position}];var event = document.createEvent('MouseEvents'); event.initMouseEvent('click');path.dispatchEvent(event);")
-
-    wait_for_ajax
-
-    #wait for animation
-    sleep 0.2
-  end
 end

@@ -10,4 +10,4 @@ class window.DiscussionView extends Backbone.Marionette.Layout
   onRender: ->
     @factView.show new FactView(model: @model)
 
-    @factRelationTabsView.show new FactRelationTabsView(model: @model)
+    @factRelationTabsView.show new FactRelationTabsView(model: @model, tab: @options.tab)

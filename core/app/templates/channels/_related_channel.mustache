@@ -1,12 +1,12 @@
 <div class="user-avatar">
-	{{{ created_by.avatar }}}
+  <img alt=" " title="{{created_by.username}}" src="{{ created_by.avatar_url_32 }}" width="32" height="32">
 </div>
 
 <div class="wrapper">
-	<a href="{{link}}" rel="backbone">{{ title }}</a>
-	<div>
-		{{ created_by.username }}
-	</div>
+  <a href="{{link}}" rel="backbone">{{ title }}</a>
+  <div>
+    {{ created_by.username }}
+  </div>
 </div>
 
-<a class="follow btn btn-micro">Add</a>
+<a class="follow btn btn-mini">Add</a>

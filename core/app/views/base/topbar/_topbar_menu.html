@@ -20,7 +20,7 @@
     </li>
 
     <li>
-      <a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet"
+      <a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome and Firefox." class="bookmarklet"
            <%# here we need singlequotes kthxbye: %>
            href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'>
          <i class='icon-bookmark'></i>
@@ -44,14 +44,13 @@
       <%= link_to "<i class='icon-question-sign'></i> Help".html_safe, pages_path("help") %>
     </li>
 
+    <%= render "base/topbar/pages_menu" %>
+
+    <li class="divider"></li>
+
     <li>
       <%= link_to("<i class='icon-off'></i> Sign out".html_safe, destroy_user_session_path) %>
     </li>
-
-    <% if can_haz :version_number %>
-      <li class="divider"></li>
-      <li><a>Version <%= FactlinkUI::Application.config.version_number %></a></li>
-    <% end %>
 
     <% if can? :access, Ability::AdminArea %>
       <li class="divider"></li>

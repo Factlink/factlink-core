@@ -10,9 +10,13 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
     else
       UserActivitiesGroupView
 
+  templateHelpers: ->
+    user: @user?.toJSON()
+
   constructor: (options) ->
     options.collection = new Backbone.Collection [options.model]
     super(options)
+    @user = new User @collection.first().get('user')
 
   actions: -> []
 
@@ -36,7 +40,7 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   @actions: ["created_channel", "added_subchannel"]
   actions: -> UserActivitiesGroupView.actions
 
-  sameUser: (model) -> @model.get('username') == model.get('username')
+  sameUser: (model) -> @model.user().get('username') == model.user().get('username')
 
   appendable: (model) -> super(model) and @sameUser(model)
 

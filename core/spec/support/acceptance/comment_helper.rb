@@ -4,6 +4,7 @@ module Acceptance
         within add_evidence_form_css_selector do
           evidence_input = page.find_field 'text_input_view'
           evidence_input.trigger 'focus'
+
           page.find('.js-switch').set true
         end
       end
@@ -33,6 +34,7 @@ module Acceptance
           comment_input.trigger 'blur'
 
           click_button 'Post comment'
+
           wait_for_ajax
         end
       end
@@ -46,6 +48,8 @@ module Acceptance
           page.find("li", text: text).click
           page.find("input", visible: false)
           page.find_button("Post Factlink").click
+
+          wait_for_ajax
         end
       end
 
@@ -55,7 +59,15 @@ module Acceptance
         within add_evidence_form_css_selector do
           page.find("input").set(text)
           page.find_button("Post Factlink").click
+
+          wait_for_ajax
         end
+      end
+
+      def add_sub_comment(comment)
+        fill_in 'text_area_view', with: comment
+        find('.evidence-sub-comments-button', text: 'Comment').click
+        find('.evidence-sub-comment-content').should have_content comment
       end
 
       def add_evidence_form_css_selector

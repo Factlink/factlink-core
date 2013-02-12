@@ -2,38 +2,10 @@
 @import "bootstrap/mixins";
 
 .search-results .results {
-  .user-block {
-    padding: 16px 0 0px 5px;
-    height: 48px;
-    list-style: none;
-    border-bottom: 1px solid #e6e6e6;
-
-    .list-block {
-      height: 100%;
-    }
-    .list-block:hover {
-        cursor: pointer;
-    }
-
-    .user-avatar {
-      width: 76px;
-      float: left;
-
-      img {
-        height: 32px;
-        width: 32px;
-        margin: 0 0 0 16px;
-        border: solid 1px #ddd;
-        .border-radius(3px);
-      }
-    }
-  }
-
-  .topic-block {
-    margin: 0 -15px;
-    height: 100px;
-    padding: 15px;
-    border-bottom: 1px solid #e6e6e6;
+  .search-result {
+    padding: 15px 0;
+    border-bottom: 1px solid @baseBorderColor;
+    overflow: hidden;
   }
 
   .list-channel {
