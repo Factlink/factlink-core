@@ -1,5 +1,5 @@
 class window.Conversation extends Backbone.Model
-  urlRoot: '/c'
+  urlRoot: '/m'
 
   recipients: ->
     @_recipients ?= new Users(@get('recipients'))
