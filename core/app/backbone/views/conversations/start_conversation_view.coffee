@@ -17,12 +17,16 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   initialize: ->
     @alertErrorInit ['user_not_found', 'message_empty']
 
+    @options.defaultMessage ||= "Check out this Factlink!"
+
     @recipients = new Users
     @auto_complete_view = new AutoCompleteUsersView(collection: @recipients)
 
   onRender: ->
     @recipients_container.show @auto_complete_view
     @recipients.on 'add', @newRecipient
+
+    @ui.messageTextarea.val @options.defaultMessage
 
   handleTextAreaKeyUp: ->
     keycode = e.keyCode || e.which || e.charCode
@@ -40,7 +44,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
       return false;
 
   focusUnchangedTextArea: ->
-    if @ui.messageTextarea.val() is "Check out this Factlink!"
+    if @ui.messageTextarea.val() is @options.defaultMessage
       @ui.messageTextarea.select()
 
   newRecipient: =>
