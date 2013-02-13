@@ -85,6 +85,5 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   clearForm: ->
     @auto_complete_view.clearSearch()
     @recipients.reset []
-    @ui.messageTextarea.val ''
 
 _.extend(StartConversationView.prototype, Backbone.Factlink.AlertMixin)
