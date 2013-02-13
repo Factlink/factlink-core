@@ -235,7 +235,7 @@ GEM
     less-rails (2.2.6)
       actionpack (>= 3.1)
       less (~> 2.2.0)
-    less-rails-bootstrap (2.2.1)
+    less-rails-bootstrap (2.1.1)
       less-rails (~> 2.2.0)
     letter_opener (1.1.0)
       launchy (~> 2.2.0)
@@ -540,7 +540,7 @@ DEPENDENCIES
   jquery-rails (= 2.1.2)
   json
   less-rails (>= 2.1.5)
-  less-rails-bootstrap (>= 2.1.1)
+  less-rails-bootstrap (= 2.1.1)
   letter_opener
   lograge (~> 0.1.0)
   map
