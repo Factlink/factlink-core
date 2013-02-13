@@ -1,3 +1,5 @@
+require_relative '../../classes/util'
+
 module Queries
   # Given a list of channels this query returns a list of
   # authorities, which match in position
@@ -54,7 +56,7 @@ module Queries
     end
 
     def topics_by_slug
-      @topics_by_slug ||= hash_with_index(:slug_title, topics)
+      @topics_by_slug ||= Utils.hash_with_index(:slug_title, topics)
     end
 
     def topic_for(channel)

@@ -56,7 +56,7 @@ describe Queries::ConversationsWithUsersMessage do
       wrapped_mock_list = mock
 
       query = Queries::ConversationsWithUsersMessage.new(mock, current_user: mock)
-      query.should_receive(:hash_with_index).with(:id, mocklist).and_return(wrapped_mock_list)
+      Utils.should_receive(:hash_with_index).with(:id, mocklist).and_return(wrapped_mock_list)
 
       expect(query.wrap_with_ids(mocklist)).to eq wrapped_mock_list
     end
@@ -88,7 +88,6 @@ describe Queries::ConversationsWithUsersMessage do
       query.should_receive(:query).with(:last_message_for_conversation, conversation20).
         and_return(message25)
 
-
       result = query.call
       expect(result.length.should).to eq(2)
 
@@ -102,7 +101,6 @@ describe Queries::ConversationsWithUsersMessage do
       expect(conversation1.last_message).to eq(message15)
       expect(conversation2.recipients).to eq([user1, user2])
       expect(conversation2.last_message).to eq(message25)
-
     end
   end
 end
