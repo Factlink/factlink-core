@@ -84,3 +84,5 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @collection.unsetActiveChannel()
     @header.currentView.trigger 'activate', type
 
+  unsetActive: () ->
+    @setActive()

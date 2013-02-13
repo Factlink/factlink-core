@@ -40,7 +40,7 @@ class ActivityMailer < ActionMailer::Base
       when :created_conversation
         "#{activity.user.user} has sent you a message"
       when :replied_message
-        "#{activity.user.user} has replied to a conversation"
+        "#{activity.user.user} has replied to a message"
       when :created_comment
         "#{activity.user.user} has commented on a Factlink"
       when :created_sub_comment
