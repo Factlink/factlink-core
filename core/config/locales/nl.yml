@@ -43,6 +43,8 @@ nl:
   related_users: "gerelateerde gebruikers"
   interesting_users: "interessante gebruikers"
 
+  stream: "overzicht"
+
   ago: "geleden"
   show: "toon"
   loading: "laden"

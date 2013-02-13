@@ -23,7 +23,7 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   template: 'channels/list_header'
 
   templateHelpers: ->
-
+    stream_title: -> Factlink.Global.t.stream.capitalize()
     channel_listing_header: -> Factlink.Global.t.channels.capitalize()
 
   initialize: =>
@@ -84,3 +84,5 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @collection.unsetActiveChannel()
     @header.currentView.trigger 'activate', type
 
+  unsetActive: () ->
+    @setActive()

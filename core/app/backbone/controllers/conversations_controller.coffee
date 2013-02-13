@@ -11,7 +11,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
 
   showConversations: ->
     @conversations ?= new Conversations()
-    @main.showTitle "Conversations"
+    @main.showTitle 'Messages'
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
@@ -31,7 +31,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
         title_view = new ConversationTitleView( model: model )
         title_view.on 'showConversations', =>
           @showConversations()
-          Backbone.history.navigate '/c', false
+          Backbone.history.navigate '/m', false
 
         @main.titleRegion.show(title_view)
         model.messages().get(message_id)?.trigger('scroll') if message_id?
@@ -48,4 +48,4 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
     changed = window.Channels.setUsernameAndRefresh(username)
     channelCollectionView = new ChannelsView(collection: window.Channels)
     app.leftMiddleRegion.show(channelCollectionView)
-    channelCollectionView.setActive('conversations')
+    channelCollectionView.unsetActive()
