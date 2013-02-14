@@ -5,8 +5,8 @@ describe Queries::ElasticSearchAll do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'FactData', 'User',
-                 'Topic', 'FactlinkUI::Application'
+    stub_classes 'HTTParty', 'FactData', 'User', 'Topic',
+      'FactlinkUI::Application', 'FactlinkUser'
   end
 
   it 'intializes correctly' do
@@ -42,9 +42,14 @@ describe Queries::ElasticSearchAll do
 
         case type
         when 'user'
+          user_mock_id = mock
+          mongoid_user = mock(id: user_mock_id)
           User.should_receive(:find).
             with(1).
-            and_return(return_object)
+            and_return(mongoid_user)
+          FactlinkUser.should_receive(:map_from_mongoid_document)
+            .with(mongoid_user)
+            .and_return(return_object)
         when 'topic'
           Topic.should_receive(:find).
             with(1).

@@ -88,7 +88,9 @@ module Queries
       elsif (type == 'topic')
         return Topic.find(id)
       elsif (type == 'user')
-        return User.find(id)
+        mongoid_user = User.find(id)
+
+        return FactlinkUser.map_from_mongoid_document mongoid_user
       elsif (type == 'test_class')
         obj = TestClass.new
         obj.id=id
