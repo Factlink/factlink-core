@@ -1,4 +1,4 @@
-require_relative '../../classes/util'
+require_relative '../../classes/hash_utils'
 
 module Queries
   # Given a list of channels this query returns a list of
@@ -56,7 +56,7 @@ module Queries
     end
 
     def topics_by_slug
-      @topics_by_slug ||= Utils.hash_with_index(:slug_title, topics)
+      @topics_by_slug ||= HashUtils.hash_with_index(:slug_title, topics)
     end
 
     def topic_for(channel)

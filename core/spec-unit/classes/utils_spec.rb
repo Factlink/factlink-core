@@ -1,7 +1,7 @@
 require 'minitest/autorun'
-require_relative '../../app/classes/util'
+require_relative '../../app/classes/hash_utils'
 
-describe Utils do
+describe HashUtils do
   describe :hash_with_index do
     it "wraps its input in a hash, with as index the id of the objects in the array" do
 
@@ -15,7 +15,7 @@ describe Utils do
         2 => stublist[1]
       }
 
-      result = Utils.hash_with_index(:id, stublist)
+      result = described_class.hash_with_index(:id, stublist)
       expect(result).to eq wrapped_stub_list
     end
   end

@@ -1,6 +1,6 @@
 require 'pavlov'
 require_relative '../kill_object'
-require_relative '../../classes/util'
+require_relative '../../classes/hash_utils'
 
 module Queries
   class ConversationsWithUsersMessage
@@ -25,7 +25,7 @@ module Queries
     end
 
     def wrap_with_ids(array)
-      Utils.hash_with_index(:id, array)
+      HashUtils.hash_with_index(:id, array)
     end
 
     def users_for_conversations(conversations)
