@@ -38,7 +38,7 @@ module SearchResults
       if klass == FactData
         return Facts::Fact.for(fact: @obj.fact, view: @view)
 
-      elsif klass == User
+      elsif klass == FactlinkUser
         json = JbuilderTemplate.new(@view)
         json.partial! partial: "users/user_partial", formats: [:json], handlers: [:jbuilder], locals: { user: @obj }
         json.attributes!
