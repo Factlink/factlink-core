@@ -8,15 +8,15 @@
       "3"
     ],
     "deletable_from_channel?": true,
-    "i_am_owner": false,
+    "i_am_owner": true,
     "fact_base": {
       "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&amp;scrollto=3\" target=\"_blank\">Fact 3</a>",
       "fact_id": "3",
       "url": "/fact-3/f/3",
       "id": "<STRIPPED>",
       "user_signed_in?": true,
-      "i_am_fact_owner": false,
-      "can_edit?": false,
+      "i_am_fact_owner": true,
+      "can_edit?": true,
       "displaystring": "Fact 3",
       "fact_title": "Fact title 3",
       "fact_wheel": {
@@ -44,13 +44,13 @@
       "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&scrollto=3"
     },
     "url": "/fact-3/f/3",
-    "post_action": "Reposted",
+    "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",
-      "name": "johndoe4",
-      "username": "johndoe4",
-      "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
+      "name": "johndoe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
@@ -61,8 +61,8 @@
     "disbelievers_count": 0,
     "doubters_count": 0,
     "user_signed_in?": true,
-    "i_am_fact_owner": false,
-    "can_edit?": false,
+    "i_am_fact_owner": true,
+    "can_edit?": true,
     "fact_title": "Fact title 3",
     "fact_wheel": {
       "authority": "0.0",
@@ -98,15 +98,15 @@
       "3"
     ],
     "deletable_from_channel?": true,
-    "i_am_owner": false,
+    "i_am_owner": true,
     "fact_base": {
       "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&amp;scrollto=2\" target=\"_blank\">Fact 2</a>",
       "fact_id": "2",
       "url": "/fact-2/f/2",
       "id": "<STRIPPED>",
       "user_signed_in?": true,
-      "i_am_fact_owner": false,
-      "can_edit?": false,
+      "i_am_fact_owner": true,
+      "can_edit?": true,
       "displaystring": "Fact 2",
       "fact_title": "Fact title 2",
       "fact_wheel": {
@@ -134,13 +134,13 @@
       "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2"
     },
     "url": "/fact-2/f/2",
-    "post_action": "Reposted",
+    "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",
-      "name": "johndoe3",
-      "username": "johndoe3",
-      "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
+      "name": "johndoe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
@@ -151,8 +151,8 @@
     "disbelievers_count": 0,
     "doubters_count": 0,
     "user_signed_in?": true,
-    "i_am_fact_owner": false,
-    "can_edit?": false,
+    "i_am_fact_owner": true,
+    "can_edit?": true,
     "fact_title": "Fact title 2",
     "fact_wheel": {
       "authority": "0.0",
@@ -188,15 +188,15 @@
       "3"
     ],
     "deletable_from_channel?": true,
-    "i_am_owner": false,
+    "i_am_owner": true,
     "fact_base": {
       "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Fact 1</a>",
       "fact_id": "1",
       "url": "/fact-1/f/1",
       "id": "<STRIPPED>",
       "user_signed_in?": true,
-      "i_am_fact_owner": false,
-      "can_edit?": false,
+      "i_am_fact_owner": true,
+      "can_edit?": true,
       "displaystring": "Fact 1",
       "fact_title": "Fact title 1",
       "fact_wheel": {
@@ -224,13 +224,13 @@
       "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1"
     },
     "url": "/fact-1/f/1",
-    "post_action": "Reposted",
+    "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",
-      "name": "johndoe2",
-      "username": "johndoe2",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+      "name": "johndoe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
@@ -241,8 +241,8 @@
     "disbelievers_count": 0,
     "doubters_count": 0,
     "user_signed_in?": true,
-    "i_am_fact_owner": false,
-    "can_edit?": false,
+    "i_am_fact_owner": true,
+    "can_edit?": true,
     "fact_title": "Fact title 1",
     "fact_wheel": {
       "authority": "0.0",

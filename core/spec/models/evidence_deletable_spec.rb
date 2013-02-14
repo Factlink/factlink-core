@@ -5,7 +5,8 @@ describe EvidenceDeletable do
   context 'Comment' do
     let(:created_by_user) {create :active_user}
     let(:other_user)      {create :active_user}
-    let(:fact)            {create :fact}
+    let(:fact_user)       {create :active_user}
+    let(:fact)            {create :fact, created_by: fact_user.graph_user}
 
     let(:comment) do
       interactor = Interactors::Comments::Create.new(fact.id.to_i, 'believes', 'content', current_user: created_by_user)

@@ -74,7 +74,7 @@ describe ChannelList do
     end
   end
 
-  describe '.containing_channel_ids' do
+  describe '.containing_channel_ids_for_fact' do
     include Pavlov::Helpers
     let(:current_user) {create :graph_user}
     def pavlov_options
@@ -87,7 +87,7 @@ describe ChannelList do
       ch2 = create :channel, created_by: gu1, title: 'b'
       ch3 = create :channel, created_by: gu1, title: 'c'
 
-      f = create :fact
+      f = create :fact, created_by: gu1
 
       interactor :"channels/add_fact", f, ch1
       interactor :"channels/add_fact", f, ch3
@@ -95,8 +95,32 @@ describe ChannelList do
       list = ChannelList.new(gu1)
 
       expect(list.containing_channel_ids_for_fact(f)).
-        to eq [ch1.id, ch3.id]
+        to eq [gu1.created_facts_channel_id, ch1.id, ch3.id]
+    end
+  end
 
+  describe '.containing_real_channel_ids_for_fact' do
+    include Pavlov::Helpers
+    let(:current_user) {create :graph_user}
+    def pavlov_options
+      {current_user: current_user}
+    end
+    it "returns the channels of the graphuser which contain the fact except created_facts_channel and stream" do
+      gu1 = current_user.graph_user
+
+      ch1 = create :channel, created_by: gu1, title: 'a'
+      ch2 = create :channel, created_by: gu1, title: 'b'
+      ch3 = create :channel, created_by: gu1, title: 'c'
+
+      f = create :fact, created_by: gu1
+
+      interactor :"channels/add_fact", f, ch1
+      interactor :"channels/add_fact", f, ch3
+
+      list = ChannelList.new(gu1)
+
+      expect(list.containing_real_channel_ids_for_fact(f)).
+        to eq [ch1.id, ch3.id]
     end
   end
 
@@ -107,8 +131,8 @@ describe ChannelList do
     let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Something")}
     let(:u2_ch1) {Channel.create(:created_by => u2, :title => "Something")}
 
-    let(:u1) { create :graph_user }
-    let(:u2) { create :graph_user }
+    let(:u1) { create(:user).graph_user }
+    let(:u2) { create(:user).graph_user }
 
     describe "initially" do
       it "is empty" do
