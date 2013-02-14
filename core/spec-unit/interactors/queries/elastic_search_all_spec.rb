@@ -47,7 +47,7 @@ describe Queries::ElasticSearchAll do
           User.should_receive(:find).
             with(1).
             and_return(mongoid_user)
-          FactlinkUser.should_receive(:map_from_mongoid_document)
+          FactlinkUser.should_receive(:map_from_mongoid)
             .with(mongoid_user)
             .and_return(return_object)
         when 'topic'

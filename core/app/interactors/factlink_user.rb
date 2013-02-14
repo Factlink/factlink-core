@@ -8,9 +8,9 @@ class FactlinkUser < Pavlov::Entity
     @attributes
   end
 
-  def self.map_from_mongoid_document
+  def self.map_from_mongoid document
     result = {}
-    FactlinkUser.attributes.each {|attribute| result[attribute] = mongoid_user.send(attribute) if mongoid_user.respond_to? attribute }
+    FactlinkUser.attributes.each {|attribute| result[attribute] = document.send(attribute) if document.respond_to? attribute }
     new result
   end
 end

@@ -90,7 +90,7 @@ module Queries
       elsif (type == 'user')
         mongoid_user = User.find(id)
 
-        return FactlinkUser.map_from_mongoid_document mongoid_user
+        return FactlinkUser.map_from_mongoid(mongoid_user)
       elsif (type == 'test_class')
         obj = TestClass.new
         obj.id=id

@@ -36,7 +36,7 @@ describe Queries::ElasticSearchUser do
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
       User.should_receive(:find).with(1).and_return(mongoid_user)
-      FactlinkUser.should_receive(:map_from_mongoid_document).with(mongoid_user).and_return(user)
+      FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
 
       interactor.call.should eq [user]
     end
@@ -84,7 +84,7 @@ describe Queries::ElasticSearchUser do
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
       User.should_receive(:find).with(1).and_return(mongoid_user)
-      FactlinkUser.should_receive(:map_from_mongoid_document).with(mongoid_user).and_return(user)
+      FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
 
       interactor.call.should eq [user]
     end

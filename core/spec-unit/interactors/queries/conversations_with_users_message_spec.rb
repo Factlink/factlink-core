@@ -56,7 +56,7 @@ describe Queries::ConversationsWithUsersMessage do
       wrapped_mock_list = mock
 
       query = Queries::ConversationsWithUsersMessage.new(mock, current_user: mock)
-      Utils.should_receive(:hash_with_index).with(:id, mocklist).and_return(wrapped_mock_list)
+      HashUtils.should_receive(:hash_with_index).with(:id, mocklist).and_return(wrapped_mock_list)
 
       expect(query.wrap_with_ids(mocklist)).to eq wrapped_mock_list
     end
