@@ -10,11 +10,6 @@ class SubCommentPopoverView extends Backbone.Factlink.PopoverView
   events:
     'click li.delete': 'destroy'
 
-  popover: [
-    selector: '.sub-comments-popover-arrow'
-    popoverSelector: '.sub-comments-popover'
-  ]
-
   destroy: -> @model.destroy wait: true
 
 class window.SubCommentView extends Backbone.Marionette.Layout
@@ -29,7 +24,8 @@ class window.SubCommentView extends Backbone.Marionette.Layout
 
   initialize: -> @bindTo @model, 'change', @render, @
 
-  onRender: -> @setPopover()
+  onRender: ->
+    @setPopover() if Factlink.Global.signed_in
 
   setPopover: ->
     if @model.can_destroy()

@@ -99,9 +99,4 @@ class EvidencePopoverView extends Backbone.Factlink.PopoverView
   events:
     'click li.delete': 'destroy'
 
-  popover: [
-    selector: '.evidence-popover-arrow'
-    popoverSelector: '.evidence-popover'
-  ]
-
   destroy: -> @model.destroy wait: true
