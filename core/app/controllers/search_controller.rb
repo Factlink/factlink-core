@@ -24,8 +24,8 @@ class SearchController < ApplicationController
       @results = interactor :search, search_for, page, row_count
 
       @results = @results.map do |result|
-        SearchResults::SearchResultItem.for(obj: result, view: view_context)
-      end.reject {|x| x.the_object.nil?}
+        SearchResults::SearchResultItem.new(obj: result, view: view_context)
+      end.reject {|x| x.internal_object_to_hash_cached.nil?}
     end
 
     respond_to do |format|

@@ -1,38 +1,25 @@
 module SearchResults
   class SearchResultItem
-
-    def self.for(*args)
-      new(*args)
-    end
-
     def initialize options={}
       @obj = options[:obj]
       @view = options[:view]
     end
 
-    def the_class
-      if @obj.class == "FactData"
-        return Fact.to_s
-      else
-        return @obj.class.to_s
-      end
-    end
-
-    def the_object
-      @the_object ||= the_internal_object
-    end
-
     def to_hash
       json = Jbuilder.new
 
-      json.the_class the_class
-      json.the_object the_object
+      json.the_class internal_object_class_name
+      json.the_object internal_object_to_hash_cached
 
       json.attributes!
     end
 
+    def internal_object_to_hash_cached
+      @internal_object_to_hash_cached ||= internal_object_to_hash
+    end
+
     private
-    def the_internal_object
+    def internal_object_to_hash
       klass = @obj.class
 
       if klass == FactData
@@ -57,7 +44,17 @@ module SearchResults
       end
     end
 
+    def internal_object_class_name
+      if @obj.class == "FactData"
+        return Fact.to_s
+      else
+        return @obj.class.to_s
+      end
+    end
+
     def valid_topic? attributes
+      # This uses the template rendering to check if the topic is valid
+      # for display. Feel free to yell and refactor this ugliness.
       attributes['channels'].length > 0
     end
   end
