@@ -59,8 +59,6 @@ module Acceptance
         within add_evidence_form_css_selector do
           page.find("input").set(text)
           page.find_button("Post Factlink").click
-
-          wait_for_ajax
         end
       end
 
