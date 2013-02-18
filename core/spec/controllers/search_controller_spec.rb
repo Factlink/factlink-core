@@ -15,12 +15,14 @@ describe SearchController do
       response.should render_template("search")
     end
 
-    it "should render json successful" do
+    it "should render json successful and in the same way (approvals)" do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
 
       ElasticSearch.stub synchronous: true
 
+      # This channel should not be displayed since it is not valid.
+      # Recalc heeft nog niet gedraaid en daarom heeft hij geen top channels.
       channel = FactoryGirl.create(:channel, title: "Baron")
       user = FactoryGirl.create(:user, username: "Baron")
       fact = FactoryGirl.create(:fact, data: FactoryGirl.create(:fact_data, displaystring: "Baron"))
@@ -35,5 +37,4 @@ describe SearchController do
       Approvals.verify(response_body, format: :json, name: 'search#search should keep the same content')
     end
   end
-
 end
