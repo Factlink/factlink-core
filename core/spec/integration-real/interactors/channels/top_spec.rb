@@ -10,10 +10,10 @@ describe Interactors::Channels::Top do
   end
 
   it 'should return "count" number of channels' do
-    channel1 = create :channel
+    channel1 = create :channel, created_by: current_user.graph_user
     interactor :'channels/add_fact', (create :fact), channel1
 
-    channel2 = create :channel
+    channel2 = create :channel, created_by: current_user.graph_user
     interactor :'channels/add_fact', (create :fact), channel2
 
     top_channels = TopChannels.new
@@ -52,9 +52,9 @@ describe Interactors::Channels::Top do
   end
 
   it 'should not return "nil" channels' do
-    channel1 = create :channel
+    channel1 = create :channel, created_by: current_user.graph_user
     interactor :'channels/add_fact', (create :fact), channel1
-    channel2 = create :channel
+    channel2 = create :channel, created_by: current_user.graph_user
     interactor :'channels/add_fact', (create :fact), channel2
 
     top_channels = TopChannels.new

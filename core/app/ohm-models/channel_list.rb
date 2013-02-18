@@ -30,17 +30,27 @@ class ChannelList
             .map{ |ch| ch.id }
   end
 
+  def containing_real_channel_ids_for_fact(fact)
+    filter_unreal_ids containing_channel_ids_for_fact(fact)
+  end
+
   def containing_channel_ids_for_channel(channel)
     (channels & channel.containing_channels).ids
   end
 
   private
   def filter_unreal channels
-    forbidden_ids = [
+    channels.reject {|ch| forbidden_ids.include? ch.id }
+  end
+
+  def filter_unreal_ids ids
+    ids.reject {|id| forbidden_ids.include? id }
+  end
+
+  def forbidden_ids
+    [
       graph_user.created_facts_channel_id,
       graph_user.stream_id
     ]
-
-    channels.reject {|ch| forbidden_ids.include? ch.id }
   end
 end

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe FactRelation do
 
-  let(:gu) {create :graph_user}
-  let(:gu2) {create :graph_user}
+  let(:gu) {create(:user).graph_user}
+  let(:gu2) {create(:user).graph_user}
 
   let(:evidence) {create :fact}
   let(:parent) {create :fact}

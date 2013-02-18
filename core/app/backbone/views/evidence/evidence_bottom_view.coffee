@@ -52,3 +52,4 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   openEvidenceProxyLink: (e) ->
     mp_track "Evidence: Open proxy link",
       site_url: @model.get("fact_base").fact_url
+

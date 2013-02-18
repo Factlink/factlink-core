@@ -2,6 +2,8 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   className: "start-conversation-form"
   events:
     "click .js-submit": 'submit'
+    "focus .js-message-textarea": 'handleTextAreaFocus'
+    "keyup .js-message-textarea": 'handleTextAreaFocus'
 
   regions:
     'recipients_container': '.js-region-recipients'
@@ -15,12 +17,35 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   initialize: ->
     @alertErrorInit ['user_not_found', 'message_empty']
 
+    @options.defaultMessage ||= "Check out this Factlink!"
+
     @recipients = new Users
     @auto_complete_view = new AutoCompleteUsersView(collection: @recipients)
 
   onRender: ->
     @recipients_container.show @auto_complete_view
     @recipients.on 'add', @newRecipient
+
+    @ui.messageTextarea.val @options.defaultMessage
+
+  handleTextAreaKeyUp: ->
+    keycode = e.keyCode || e.which || e.charCode
+    return if keycode isnt 9
+
+    @focusUnchangedTextArea()
+
+  handleTextAreaFocus: (e)->
+    @focusUnchangedTextArea()
+
+    # mouseup shouldn't trigger stuff, otherwise
+    # text will be deselected again
+    @ui.messageTextarea.on "mouseup", =>
+      @ui.messageTextarea.off "mouseup"
+      return false;
+
+  focusUnchangedTextArea: ->
+    if @ui.messageTextarea.val() is @options.defaultMessage
+      @ui.messageTextarea.select()
 
   newRecipient: =>
     @ui.messageTextarea.focus() if @recipients.length == 1
@@ -60,6 +85,5 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   clearForm: ->
     @auto_complete_view.clearSearch()
     @recipients.reset []
-    @ui.messageTextarea.val ''
 
 _.extend(StartConversationView.prototype, Backbone.Factlink.AlertMixin)

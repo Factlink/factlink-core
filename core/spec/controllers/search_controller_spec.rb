@@ -25,7 +25,7 @@ describe SearchController do
       # Recalc heeft nog niet gedraaid en daarom heeft hij geen top channels.
       channel = FactoryGirl.create(:channel, title: "Baron")
       user = FactoryGirl.create(:user, username: "Baron")
-      fact = FactoryGirl.create(:fact, data: FactoryGirl.create(:fact_data, displaystring: "Baron"))
+      fact = FactoryGirl.create(:fact, data: FactoryGirl.create(:fact_data, displaystring: "Baron"), created_by: user.graph_user)
 
       authenticate_user!(user)
       get :search, s: "Baron", format: :json
