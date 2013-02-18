@@ -34,6 +34,8 @@ describe SearchController do
       response_body = response.body.to_s
       # strip mongo id, since otherwise comparison will always fail
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      # strip gravatar hash.
+      response_body.gsub!(/"gravatar_hash":\s*"[^"]*"/, '"gravatar_hash": "<STRIPPED>"')
       Approvals.verify(response_body, format: :json, name: 'search#search should keep the same content')
     end
   end

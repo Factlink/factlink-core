@@ -5,7 +5,7 @@
       "id": "<STRIPPED>",
       "name": "Baron",
       "username": "Baron",
-      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734"
+      "gravatar_hash": "<STRIPPED>"
     }
   },
   {
@@ -61,7 +61,7 @@
         "id": "<STRIPPED>",
         "name": "Baron",
         "username": "Baron",
-        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+        "gravatar_hash": "<STRIPPED>",
         "authority_for_subject": {
           "authority": "1.0",
           "id": "<STRIPPED>"
