@@ -22,7 +22,7 @@ describe SearchController do
       ElasticSearch.stub synchronous: true
 
       # This channel should not be displayed since it is not valid.
-      # Recalc heeft nog niet gedraaid en daarom heeft hij geen top channels.
+      # Recalc hasn't run in the mean time so top channels aren't filled in.
       channel = FactoryGirl.create(:channel, title: "Baron")
       user = FactoryGirl.create(:user, username: "Baron")
       fact = FactoryGirl.create(:fact, data: FactoryGirl.create(:fact_data, displaystring: "Baron"), created_by: user.graph_user)
