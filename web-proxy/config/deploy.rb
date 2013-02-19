@@ -33,10 +33,6 @@ ssh_options[:forward_agent] = true
 # don't touch all static files:
 set :normalize_asset_timestamps, false
 
-def set_conf_path
-  "export CONFIG_PATH=/applications/factlink-core/current/config/; export NODE_ENV=#{deploy_env};"
-end
-
 namespace :deploy do
 
   task :build do
