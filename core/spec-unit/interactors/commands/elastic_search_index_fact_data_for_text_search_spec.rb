@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/elastic_search_index_fact_data_for_text_search.rb'
 

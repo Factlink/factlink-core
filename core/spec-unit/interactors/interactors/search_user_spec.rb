@@ -41,15 +41,31 @@ describe Interactors::SearchUser do
     it 'correctly' do
       keywords = 'searching for this user'
       interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
-      topic = mock()
+      user = mock()
+      user.should_receive(:hidden).and_return(false)
       query = mock()
       query.should_receive(:call).
-        and_return([topic])
+        and_return([user])
       Queries::ElasticSearchUser.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
 
-      interactor.call.should eq [topic]
+      interactor.call.should eq [user]
+    end
+
+    it 'should not return hidden users' do
+      keywords = 'searching for this user'
+      interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
+      user = mock()
+      query = mock()
+      user.should_receive(:hidden).and_return(true)
+      query.should_receive(:call).
+        and_return([user])
+      Queries::ElasticSearchUser.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
+
+      interactor.call.should eq []
     end
   end
 end
