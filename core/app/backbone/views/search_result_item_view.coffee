@@ -2,7 +2,7 @@ window.getSearchResultItemView = (opts) ->
   switch opts.model.get("the_class")
     when "FactData"
       new FactView(model: new Fact(opts.model.get("the_object")))
-    when "User"
+    when "FactlinkUser"
       new UserSearchView(model: new User(opts.model.get("the_object")))
     when "Topic"
       new TopicSearchView(model: new Topic(opts.model.get("the_object")))

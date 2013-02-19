@@ -1,5 +1,14 @@
 [
   {
+    "the_class": "FactlinkUser",
+    "the_object": {
+      "id": "<STRIPPED>",
+      "name": "Baron",
+      "username": "Baron",
+      "gravatar_hash": "<STRIPPED>"
+    }
+  },
+  {
     "the_class": "FactData",
     "the_object": {
       "displaystring": "Baron",
@@ -52,7 +61,7 @@
         "id": "<STRIPPED>",
         "name": "Baron",
         "username": "Baron",
-        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+        "gravatar_hash": "<STRIPPED>",
         "authority_for_subject": {
           "authority": "1.0",
           "id": "<STRIPPED>"
