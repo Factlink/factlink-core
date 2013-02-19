@@ -1,9 +1,11 @@
 /*jslint node: true*/
+"use strict";
+
 var validator = require('validator');
 
 function add_protocol(site){
-  protocol_regex = new RegExp("^(?=.*://)");
-  http_regex = new RegExp("^(?=http(s?)://)", "i");
+  var protocol_regex = new RegExp("^(?=.*://)");
+  var http_regex = new RegExp("^(?=http(s?)://)", "i");
   if (http_regex.test(site) === false) {
     if (protocol_regex.test(site) === false) {
       site = "http://" + site;
