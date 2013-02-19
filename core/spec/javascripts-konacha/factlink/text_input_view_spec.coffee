@@ -1,4 +1,5 @@
-#= require jasmine-jquery
+#= require application
+#= require frontend
 
 describe "Backbone.Factlink.TextInputView", ->
   model = view = null
@@ -9,13 +10,13 @@ describe "Backbone.Factlink.TextInputView", ->
     view.render()
 
   it "should show the text", ->
-    expect(view.$el.find('.typeahead')).toHaveValue('hi')
+    view.$el.find('.typeahead').val().should.equal 'hi'
 
   it "should update the input field", ->
     model.set text: 'bla'
-    expect(view.$el.find('.typeahead')).toHaveValue('bla')
+    view.$el.find('.typeahead').val().should.equal 'bla'
 
   it "should update the model", ->
     view.$el.find('.typeahead').attr('value', 'bla')
     view.$el.find('.typeahead').trigger 'keyup'
-    expect(model.get('text')).toEqual('bla')
+    model.get('text').should.equal 'bla'
