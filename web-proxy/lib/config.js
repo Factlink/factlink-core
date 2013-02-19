@@ -1,4 +1,6 @@
 /*jslint node: true*/
+"use strict";
+
 var fs = require('fs');
 
 /**
@@ -17,11 +19,11 @@ function merge_options(obj1, obj2) {
 
 function read_conf(config_path, fs, env) {
   var i;
-  confs = ['static', 'proxy', 'core'];
-  parsed_conf = {};
+  var confs = ['static', 'proxy', 'core'];
+  var parsed_conf = {};
   for(i = 0; i < confs.length; i++) {
     // eval gives jshint issues, but this is because yaml should not use eval, not something we can fix
-    file_conf = require('yaml').eval(
+    var file_conf = require('yaml').eval(
       fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8') + "\n\n")[env]; /* https://github.com/visionmedia/js-yaml/issues/13 */
 
     parsed_conf = merge_options(parsed_conf,file_conf);
@@ -30,10 +32,10 @@ function read_conf(config_path, fs, env) {
 }
 
 function get(process_env){
-  config_path = process_env.CONFIG_PATH || '../config/';
-  env         = process_env.NODE_ENV || 'development';
+  var config_path = process_env.CONFIG_PATH || './config/';
+  var env         = process_env.NODE_ENV || 'development';
 
-  config = read_conf(config_path, fs, env);
+  var config = read_conf(config_path, fs, env);
 
   config.API_URL              = config.core.protocol + config.core.hostname + ':' + config.core.port;
   config.API_OPTIONS          = config.core.htpasswd;
@@ -47,4 +49,4 @@ function get(process_env){
 }
 
 exports.read_conf = read_conf;
-exports.get = get
+exports.get = get;
