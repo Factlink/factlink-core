@@ -7,13 +7,13 @@ describe 'StartConversationView', ->
       view = new StartConversationView defaultMessage: 'henk'
       view.render()
       content = view.$('.js-message-textarea').val()
-      content.should.equal "henk"
+      expect(content).to.equal "henk"
 
     it 'contains the text "Check out this Factlink!"" in the textarea when no default message is given', ->
       view = new StartConversationView
       view.render()
       content = view.$('.js-message-textarea').val()
-      content.should.equal "Check out this Factlink!"
+      expect(content).to.equal "Check out this Factlink!"
 
 
   describe "clicking on the textarea", ->
@@ -29,7 +29,7 @@ describe 'StartConversationView', ->
       selection = $textarea.val().substring(
         $textarea[0].selectionStart, $textarea[0].selectionEnd)
 
-      selection.should.equal "henk"
+      expect(selection).to.equal "henk"
 
     it 'should not select the text when changed', ->
       view = new StartConversationView
@@ -45,4 +45,4 @@ describe 'StartConversationView', ->
       selection = $textarea.val().substring(
         $textarea[0].selectionStart, $textarea[0].selectionEnd)
 
-      selection.should.equal ""
+      expect(selection).to.equal ""

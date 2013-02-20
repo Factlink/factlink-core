@@ -10,13 +10,13 @@ describe "Backbone.Factlink.TextInputView", ->
     view.render()
 
   it "should show the text", ->
-    view.$el.find('.typeahead').val().should.equal 'hi'
+    expect(view.$el.find('.typeahead').val()).to.equal 'hi'
 
   it "should update the input field", ->
     model.set text: 'bla'
-    view.$el.find('.typeahead').val().should.equal 'bla'
+    expect(view.$el.find('.typeahead').val()).to.equal 'bla'
 
   it "should update the model", ->
     view.$el.find('.typeahead').attr('value', 'bla')
     view.$el.find('.typeahead').trigger 'keyup'
-    model.get('text').should.equal 'bla'
+    expect(model.get('text')).to.equal 'bla'
