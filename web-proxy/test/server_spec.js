@@ -1,7 +1,7 @@
 var config = require('../lib/config').get(process.env);
 var server = require('../lib/server').getServer(config);
 
-config_path = process.env.CONFIG_PATH || '../config/';
+config_path = './config/';
 
 testserver_env = {};
 testserver_env.CONFIG_PATH = config_path;

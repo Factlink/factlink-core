@@ -32,7 +32,7 @@ function read_conf(config_path, fs, env) {
 }
 
 function get(process_env){
-  var config_path = process_env.CONFIG_PATH || './config/';
+  var config_path = './config/';
   var env         = process_env.NODE_ENV || 'development';
 
   var config = read_conf(config_path, fs, env);
