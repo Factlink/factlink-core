@@ -147,12 +147,6 @@ group :test do
   gem 'timecop'
 end
 
-group :jstest do
-  gem 'jasmine'
-  gem 'jasmine-headless-webkit', git: 'git@github.com:johnbintz/jasmine-headless-webkit.git'
-  gem "jasmine-spec-extras", "~> 0.0.2"
-end
-
 group :test, :development do
   gem 'konacha'
   gem 'sinon-chai-rails'
