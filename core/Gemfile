@@ -155,6 +155,8 @@ end
 
 group :test, :development do
   gem 'konacha'
+  gem 'sinon-chai-rails'
+  gem 'sinon-rails'
 end
 
 group :metrics do

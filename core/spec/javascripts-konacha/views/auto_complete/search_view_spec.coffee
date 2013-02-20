@@ -1,3 +1,8 @@
+#= require sinon-chai
+#= require sinon
+#= require application
+#= require frontend
+
 describe 'AutoCompleteSearchView', ->
   describe 'initializeChildViews', ->
     it 'should initialize a text input view and search list view', ->
@@ -5,9 +10,10 @@ describe 'AutoCompleteSearchView', ->
       text_input_view = {}
       auto_complete_search_list_view = {}
 
-      spyOn(window, 'AutoCompleteSearchListView').andReturn(auto_complete_search_list_view)
-      spyOn(Backbone.Factlink, 'TextInputView').andReturn(text_input_view)
-      spyOn(view, 'bindTextViewToSteppableViewAndSelf')
+      window.AutoCompleteSearchListView = sinon.stub().returns(auto_complete_search_list_view)
+      Backbone.Factlink.TextInputView = sinon.stub().returns(text_input_view)
+
+      view.bindTextViewToSteppableViewAndSelf = sinon.stub()
 
       view.initializeChildViews(
         search_collection: -> new SearchCollection
@@ -15,23 +21,22 @@ describe 'AutoCompleteSearchView', ->
         placeholder: 'placeholder'
       )
 
-      expect(Backbone.Factlink.TextInputView).toHaveBeenCalledWith(
+      expect(Backbone.Factlink.TextInputView).to.have.been.calledWith(
         model: view.model
         placeholder: 'placeholder'
       )
-      expect(window.AutoCompleteSearchListView).toHaveBeenCalledWith(
+      expect(window.AutoCompleteSearchListView).to.have.been.calledWith(
         model: view.model
         collection: view.search_collection
       )
-      expect(view.bindTextViewToSteppableViewAndSelf).toHaveBeenCalledWith(text_input_view, auto_complete_search_list_view)
+      expect(view.bindTextViewToSteppableViewAndSelf).to.have.been.calledWith(text_input_view, auto_complete_search_list_view)
 
     it 'should create a collectionDifference if filter_on and @collection are given', ->
       collection = new Backbone.Collection []
       view = new AutoCompleteSearchView
         collection: collection
 
-      spyOn(window, 'AutoCompleteSearchListView').andReturn({})
-      spyOn(view, 'bindTextViewToSteppableViewAndSelf')
+      view.bindTextViewToSteppableViewAndSelf = sinon.stub()
 
       view.initializeChildViews(
         search_collection: -> new SearchCollection
@@ -40,24 +45,29 @@ describe 'AutoCompleteSearchView', ->
         filter_on: 'bla'
       )
 
-      expect(view.filtered_search_collection.length).toEqual(0)
+      expect(view.filtered_search_collection).to.have.length(0)
 
-      spyOn(view.search_collection, 'searchFor').andCallFake ->
-        view.search_collection.reset [new Backbone.Model(bla: 1), new Backbone.Model(bla: 2)]
 
-      view.model.set('text', 'hoi')
-      expect(view.filtered_search_collection.length).toEqual(2)
+      # after two results are found:
+      view.search_collection.reset [new Backbone.Model(bla: 1), new Backbone.Model(bla: 2)]
+      expect(view.filtered_search_collection).to.have.length(2)
 
+      # after one is added to the list (on which is filtered)
       collection.add new Backbone.Model(bla: 1)
-      expect(view.filtered_search_collection.length).toEqual(1)
+      expect(view.filtered_search_collection).to.have.length(1)
 
   describe 'searchCollection', ->
     it 'should return a linked model', ->
       view = new AutoCompleteSearchView
-      view.search_collection = new SearchCollection
+
+
+      spied_search_collection = SearchCollection
+      spied_search_collection.searchFor = sinon.stub()
+
+      view.search_collection = spied_search_collection
+
       model = view.initSearchModel()
-      spyOn(view.search_collection, 'searchFor')
 
       model.set('text', 'test')
 
-      expect(view.search_collection.searchFor).toHaveBeenCalledWith('test')
+      expect(view.search_collection.searchFor).to.have.been.calledWith('test')
