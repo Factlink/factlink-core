@@ -1,3 +1,5 @@
+unless defined?(I_AM_ACCEPTANCE_SPEC_HELPER)
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -64,3 +66,5 @@ Devise.setup do |config|
   # https://github.com/plataformatec/devise/wiki/Speed-up-your-unit-tests
   config.stretches = 0
 end
+
+end # don't load if acceptance_helper is loaded
