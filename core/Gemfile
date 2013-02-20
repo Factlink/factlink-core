@@ -133,7 +133,7 @@ group :test do
   gem 'capybara', require: false
   gem 'capybara-screenshot'
   gem 'capybara-email'
-  gem 'poltergeist', require: false
+  gem 'poltergeist', '~> 1.0.2', require: false
 
   gem 'oily_png'
 
