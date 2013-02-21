@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Running unit tests"
 
-OUTPUTFILE=$(tempfile)
+OUTPUTFILE=$(mktemp /tmp/unit.XXXX)
 
 
 bundle exec rspec spec-unit | tee "$OUTPUTFILE"

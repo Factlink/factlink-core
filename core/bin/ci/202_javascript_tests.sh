@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Running Javascript tests"
 
-OUTPUTFILE=$(tempfile)
+OUTPUTFILE=$(mktemp /tmp/javascript.XXXX)
 
 bundle exec rake konacha:run | tee "$OUTPUTFILE"
 
