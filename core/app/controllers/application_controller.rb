@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
       if not current_user
-        format.html { redirect_to new_user_session_path }
+        format.html { redirect_to new_user_session_path(return_to: request.original_url) }
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
         format.any  { raise exception }
       elsif !current_user.agrees_tos
@@ -62,6 +62,11 @@ class ApplicationController < ActionController::Base
   after_filter :set_access_control
 
   def after_sign_in_path_for(user)
+    if params[:return_to]
+      # TODO security check
+      return params[:return_to]
+    end
+
     if session[:return_to]
       return_to = session[:return_to]
       session[:return_to] = nil
