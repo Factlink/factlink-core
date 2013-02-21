@@ -65,6 +65,10 @@ class ApplicationController < ActionController::Base
     if params[:return_to]
       # TODO security check
       return params[:return_to]
+    elsif request.env['omniauth.origin']
+      original_url = URI.parse(request.env['omniauth.origin'])
+      original_query = Rack::Utils.parse_query original_url.query
+      return original_query["return_to"]
     end
 
     if session[:return_to]
