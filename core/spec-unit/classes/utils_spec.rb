@@ -1,4 +1,3 @@
-require 'minitest/autorun'
 require_relative '../../app/classes/hash_utils'
 
 describe HashUtils do
