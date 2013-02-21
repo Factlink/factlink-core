@@ -5,6 +5,10 @@ OUTPUTFILE=$(mktemp /tmp/unit.XXXX)
 
 
 bundle exec rspec spec-unit | tee "$OUTPUTFILE"
-grep ', 0 failures' $OUTPUTFILE || exit 1
+
+if ! grep ', 0 failures' $OUTPUTFILE > /dev/null
+then
+        exit 1
+fi
 
 exit
