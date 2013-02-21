@@ -1,0 +1,10 @@
+Places where return_to needs to be set:
+ ☐ faulty login
+ ☐ login because of routes authenticate(d) / devise
+Social login:
+ ☐ Set something before requesting the oauth
+ ☐ retrieve the something after returning from oauth
+ ☐ delete the something if oauth went wrong?
+Cleanup:
+ ☐ Remove places where session[:return_to] gets set (if possible)
+
