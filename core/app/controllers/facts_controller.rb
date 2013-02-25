@@ -83,12 +83,7 @@ class FactsController < ApplicationController
     url = (params[:url] || params[:fact_url]).to_s
     title = (params[:title] || params[:fact_title]).to_s
 
-    unless current_user
-      session[:return_to] = new_fact_path(layout: @layout, title: title, fact: fact_text, url: url)
-      redirect_to user_session_path(layout: @layout)
-      return
-    end
-
+    authenticate_user!
     authorize! :create, Fact
 
     @fact = interactor :'facts/create', fact_text, url, title
