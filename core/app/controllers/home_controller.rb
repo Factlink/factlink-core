@@ -55,19 +55,4 @@ class HomeController < ApplicationController
       format.html { render "home/pages/index", layout: "static_pages" }
     end
   end
-
-  def set_redirect_to_be_used_after_failed_login
-    original_url = request.original_url
-
-    unless original_url =~ /show_sign_in/
-      if original_url !~ /\?/
-        original_url += '?show_sign_in=1'
-      else
-        original_url += '&show_sign_in=1'
-      end
-    end
-
-    session[:redirect_after_failed_login_path] = original_url
-  end
-
 end

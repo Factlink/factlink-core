@@ -16,7 +16,18 @@ class CustomDeviseFailure < Devise::FailureApp
       # we requested a page, but we aren't authorized to see this page,
       # because we are not authenticated
 
-      root_path(show_sign_in: 1, return_to: request.original_url)
+      options = { return_to: request.original_url }
+
+      if client_page
+        user_session_path(options.merge(layout: 'client'))
+      else
+        root_path(options.merge(show_sign_in: 1))
+      end
     end
   end
+
+  def client_page
+    request.parameters[:layout] == 'client'
+  end
+
 end

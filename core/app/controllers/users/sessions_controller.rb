@@ -15,8 +15,7 @@ class Users::SessionsController < Devise::SessionsController
 
   before_filter :set_layout, only: :new
 
-  before_filter :set_redir, only: :create
-  before_filter :set_redir_after_fail, only: :new
+  before_filter :set_redirect_to_be_used_after_failed_login, only: :new
 
   # remove this entire method when removing :act_as_non_signed_in
   def require_no_authentication
@@ -26,18 +25,5 @@ class Users::SessionsController < Devise::SessionsController
     else
       super
     end
-  end
-
-  private
-  def set_redir
-    if params[:layout] == 'client'
-      session[:redirect_after_failed_login_path] = new_user_session_path(layout:"client")
-    else
-      session[:return_to] = nil
-    end
-  end
-
-  def set_redir_after_fail
-    session[:redirect_after_failed_login_path] = new_user_session_path
   end
 end
