@@ -8,9 +8,10 @@
 
     <% if @layout %>
       <%= hidden_field_tag :layout, @layout %>
-      <%# Check whether this is secure: %>
-      <%= hidden_field_tag :return_to, params[:return_to] %>
     <% end %>
+
+    <%# Check whether this is secure: %>
+    <%= hidden_field_tag :return_to, params[:return_to] %>
 
     <div class="with-credentials">
       <div class="form-box">
