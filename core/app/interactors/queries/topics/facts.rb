@@ -16,7 +16,11 @@ module Queries
 
         results = Ohm::Model::SortedSet.hash_array_for_withscores facts_with_scores_interleaved_array
 
-        results.map {|item| {score: item[:score], item: Fact[item[:item]]}}
+        results
+          .map {|item| {
+            score: item[:score],
+            item: Fact[item[:item]]}}
+          .reject {|item| Fact.invalid item[:item] }
       end
 
       def facts_with_scores_interleaved_array
