@@ -7,6 +7,11 @@ bundle exec rake konacha:run \
  | grep -vE '^(Compiled|method=GET|Served asset)' \
  | tee "$OUTPUTFILE"
 
+if grep 'Timed out waiting for response to' $OUTPUTFILE > /dev/null
+then
+  echo detected random fail
+fi
+
 if ! grep ', 0 failed' $OUTPUTFILE > /dev/null
 then
         exit 1
