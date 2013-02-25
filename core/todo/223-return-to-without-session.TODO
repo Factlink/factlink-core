@@ -1,12 +1,13 @@
 Places where return_to needs to be set:
- ☐ faulty login
- ☐ login because of routes authenticate(d) / devise
- ☐ our custom FailureApp (probably also enough for the other devise point)
+ ✔ faulty login @done (13-02-25 14:59)
+ ✔ login because of routes authenticate(d) / devise @done (13-02-25 14:59)
+ ✔ our custom FailureApp (probably also enough for the other devise point) @done (13-02-25 14:59)
+ ☐ make sure the client uses centralized logic to log in
 Social login:
  ✔ Set something before requesting the oauth @done (13-02-21 15:40)
  ✔ retrieve the something after returning from oauth @done (13-02-21 15:40)
  ✔ delete the something if oauth went wrong? @done (13-02-21 15:40)
 Cleanup:
- ☐ Use same redirect url in error handling in application controller and custom devise failure (authenticate_user!)
+ ✔ Use same redirect url in error handling in application controller and custom devise failure (authenticate_user!) @done (13-02-25 14:59)
  ☐ Remove places where session[:return_to] gets set (if possible)
 
