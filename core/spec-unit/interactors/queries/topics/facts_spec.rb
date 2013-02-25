@@ -29,6 +29,7 @@ describe Queries::Topics::Facts do
       Ohm::Model::SortedSet.should_receive(:hash_array_for_withscores).
         with(interleaved_results).and_return(results)
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
+      Fact.should_receive(:invalid).with(fact).and_return(false)
 
       expect( query.execute ).to eq [{score: 1, item: fact}]
     end
