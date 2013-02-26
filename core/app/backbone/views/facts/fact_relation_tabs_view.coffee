@@ -15,15 +15,13 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     else
       @initial_tab = 'supporting'
 
-  opinionPercentage: (type)->
-    @model.get('fact_wheel').opinion_types[type].percentage
 
   templateHelpers: =>
     believe_tab_name: Factlink.Global.t.fact_believe_collection_name.capitalize()
     disbelieve_tab_name: Factlink.Global.t.fact_disbelieve_collection_name.capitalize()
     doubt_tab_name: Factlink.Global.t.fact_doubt_collection_name.capitalize()
-    believe_percentage: @opinionPercentage('believe')
-    disbelieve_percentage: @opinionPercentage('disbelieve')
+    believe_percentage: @model.opinionPercentage('believe')
+    disbelieve_percentage: @model.opinionPercentage('disbelieve')
 
   onRender: -> @showTab(@initial_tab)
 

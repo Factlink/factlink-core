@@ -11,6 +11,9 @@ class window.Fact extends Backbone.Model
 
   urlRoot: "/facts"
 
+  opinionPercentage: (type)->
+    @get('fact_wheel').opinion_types[type].percentage
+
   removeFromChannel: (channel, opts) ->
     opts.url = channel.url() + "/" + "remove" + "/" + @get("id") + ".json"
     oldSuccess = opts.success
