@@ -58,7 +58,7 @@ describe SupportingEvidenceController do
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
 
         parsed_content = JSON.parse(response.body)
-        parsed_content["fact_base"]["fact_id"].should == f2.id
+        parsed_content["fact_base"]["id"].should == f2.id
 
         response.should be_success
       end
