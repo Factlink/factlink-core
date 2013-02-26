@@ -80,7 +80,6 @@ class ApplicationController < ActionController::Base
 
   def return_to_path
     if params[:return_to]
-      # TODO security check
       params[:return_to]
     elsif request.env['omniauth.origin']
       query_params = QueryParams.new(request.env['omniauth.origin'])
