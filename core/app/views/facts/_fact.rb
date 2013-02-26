@@ -12,18 +12,6 @@ module Facts
       @timestamp = options[:timestamp] || 0
     end
 
-    def displaystring
-      @fact.data.displaystring
-    end
-
-    def id
-      @fact.id
-    end
-
-    def site_id
-      @fact.site_id
-    end
-
     def containing_channel_ids
       return [] unless @view.current_graph_user
 
@@ -93,9 +81,9 @@ module Facts
     def to_hash
       json = JbuilderTemplate.new(@view)
 
-      json.displaystring displaystring
-      json.id id
-      json.site_id site_id
+      json.displaystring @fact.data.displaystring
+      json.id @fact.id
+      json.site_id @fact.site_id
       json.containing_channel_ids containing_channel_ids
       json.deletable_from_channel? deletable_from_channel?
       json.fact_base fact_base
