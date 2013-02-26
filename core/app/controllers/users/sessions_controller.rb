@@ -15,8 +15,6 @@ class Users::SessionsController < Devise::SessionsController
 
   before_filter :set_layout, only: :new
 
-  before_filter :set_redirect_to_be_used_after_failed_login, only: :new
-
   # remove this entire method when removing :act_as_non_signed_in
   def require_no_authentication
     user = warden.user("user")
