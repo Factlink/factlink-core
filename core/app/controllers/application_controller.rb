@@ -63,12 +63,20 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
     if current_user.seen_the_tour
-      return_to_path || channel_activities_path(user, user.graph_user.stream)
+      safe_return_to_path || channel_activities_path(user, user.graph_user.stream)
     else
       almost_done_path
     end
   end
 
+  def safe_return_to_path
+    uri = URI.parse(return_to_path.to_s)
+    if FactlinkUI::Application.config.hostname == uri.host
+      uri.to_s
+    else
+      nil
+    end
+  end
 
   def return_to_path
     if params[:return_to]

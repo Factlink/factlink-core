@@ -11,4 +11,4 @@ Cleanup:
  ✔ Use same redirect url in error handling in application controller and custom devise failure (authenticate_user!) @done (13-02-25 14:59)
  ✔ Remove places where session[:return_to] gets set (if possible) @done (13-02-25 15:56)
  ✔ Try if we can remove session[:redirect_after_failed_login_path] @done (13-02-26 11:00)
- ☐ check security
+ ✔ check security @done (13-02-26 11:24)
