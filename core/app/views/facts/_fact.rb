@@ -68,16 +68,6 @@ module Facts
       "Created #{TimeFormatter.as_time_ago @fact.data.created_at} ago"
     end
 
-    def believers_count
-      @fact.opiniated(:believes).count
-    end
-    def disbelievers_count
-      @fact.opiniated(:disbelieves).count
-    end
-    def doubters_count
-      @fact.opiniated(:doubts).count
-    end
-
     def to_hash
       json = JbuilderTemplate.new(@view)
 
@@ -92,9 +82,6 @@ module Facts
       json.friendly_time friendly_time
       json.created_by created_by
       json.created_by_ago created_by_ago
-      json.believers_count believers_count
-      json.disbelievers_count disbelievers_count
-      json.doubters_count doubters_count
 
       base = BaseViews::FactBubbleBase.new @fact, @view
       base.add_to_json json
