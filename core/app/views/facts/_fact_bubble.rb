@@ -15,6 +15,7 @@ module Facts
       json.fact_id @fact.id
       json.url @view.friendly_fact_path(@fact)
       json.id @fact.id
+      json.displaystring @fact.data.displaystring
 
       base = BaseViews::FactBubbleBase.new @fact, @view
       base.add_to_json json
