@@ -21,11 +21,6 @@ module BaseViews
                       formats: [:json], handlers: [:jbuilder],
                       locals: { fact: @fact }
       end
-      # DEPRECATED, use fact_wheel (or not, but choose one)
-      json.believe_percentage @fact.get_opinion.as_percentages[:believe][:percentage]
-      json.disbelieve_percentage @fact.get_opinion.as_percentages[:disbelieve][:percentage]
-      json.doubt_percentage @fact.get_opinion.as_percentages[:doubt][:percentage]
-      # / DEPRECATED
       json.fact_url(@fact.has_site? ? @fact.site.url : nil)
       json.proxy_scroll_url proxy_scroll_url
     end
