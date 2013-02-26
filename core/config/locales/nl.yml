@@ -45,6 +45,8 @@ nl:
 
   stream: "overzicht"
 
+  topics: "onderwerpen"
+
   ago: "geleden"
   show: "toon"
   loading: "laden"

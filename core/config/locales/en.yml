@@ -44,6 +44,8 @@ en:
 
   stream: "feed"
 
+  topics: "topics"
+
   ago: "ago"
   show: "show"
   loading: "loading"

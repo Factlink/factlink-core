@@ -1,7 +1,7 @@
 #= require ./globals_empty
 
 # ensure we update this file when we update the locales
-# SHASUM of locales: f47e7fceb723f3033a0492b63fb4e360e4f80885
+# SHASUM of locales: b3901b1ff726a4cba42731e7a6b6c604c5590ad2
 
 Factlink.Global =
   path:
@@ -32,9 +32,14 @@ Factlink.Global =
 
 <%
   [
+    :stream,
+
     :channel, :channels, :channel_name,
     :add_to_channels,
     :added_to_channels,
+
+    :topics,
+
     :fact_believe_opinion,
     :fact_doubt_opinion,
     :fact_disbelieve_opinion,
@@ -43,8 +48,7 @@ Factlink.Global =
     :fact_doubt_past_action,
     :fact_believe_collection_name,
     :fact_disbelieve_collection_name,
-    :fact_doubt_collection_name,
-    :stream
+    :fact_doubt_collection_name
   ].each do |translation|
 %>
 
