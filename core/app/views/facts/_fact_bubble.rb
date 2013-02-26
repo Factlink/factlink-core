@@ -8,7 +8,6 @@ module Facts
     def to_hash
       json = JbuilderTemplate.new(@view)
 
-      json.fact_id @fact.id
       json.url @view.friendly_fact_path(@fact)
       json.id @fact.id
       json.displaystring @fact.data.displaystring
