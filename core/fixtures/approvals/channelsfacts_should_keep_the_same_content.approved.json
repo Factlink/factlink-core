@@ -7,12 +7,10 @@
       "3"
     ],
     "deletable_from_channel?": true,
-    "i_am_owner": true,
     "fact_base": {
       "fact_id": "3",
       "url": "/fact-3/f/3",
       "id": "<STRIPPED>",
-      "i_am_fact_owner": true,
       "displaystring": "Fact 3",
       "fact_title": "Fact title 3",
       "fact_wheel": {
@@ -56,7 +54,6 @@
     "believers_count": 0,
     "disbelievers_count": 0,
     "doubters_count": 0,
-    "i_am_fact_owner": true,
     "fact_title": "Fact title 3",
     "fact_wheel": {
       "authority": "0.0",
@@ -91,12 +88,10 @@
       "3"
     ],
     "deletable_from_channel?": true,
-    "i_am_owner": true,
     "fact_base": {
       "fact_id": "2",
       "url": "/fact-2/f/2",
       "id": "<STRIPPED>",
-      "i_am_fact_owner": true,
       "displaystring": "Fact 2",
       "fact_title": "Fact title 2",
       "fact_wheel": {
@@ -140,7 +135,6 @@
     "believers_count": 0,
     "disbelievers_count": 0,
     "doubters_count": 0,
-    "i_am_fact_owner": true,
     "fact_title": "Fact title 2",
     "fact_wheel": {
       "authority": "0.0",
@@ -175,12 +169,10 @@
       "3"
     ],
     "deletable_from_channel?": true,
-    "i_am_owner": true,
     "fact_base": {
       "fact_id": "1",
       "url": "/fact-1/f/1",
       "id": "<STRIPPED>",
-      "i_am_fact_owner": true,
       "displaystring": "Fact 1",
       "fact_title": "Fact title 1",
       "fact_wheel": {
@@ -224,7 +216,6 @@
     "believers_count": 0,
     "disbelievers_count": 0,
     "doubters_count": 0,
-    "i_am_fact_owner": true,
     "fact_title": "Fact title 1",
     "fact_wheel": {
       "authority": "0.0",

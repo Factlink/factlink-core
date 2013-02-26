@@ -35,3 +35,12 @@ class window.Fact extends Backbone.Model
 
   friendlyUrl: ->
     @get("url")
+
+  user: -> new User(@get("created_by"))
+
+  # TODO: rename to is_mine
+  i_am_owner: -> @user().is_current_user()
+
+  toJSON: ->
+    _.extend super(),
+      i_am_owner: @i_am_owner()

@@ -18,12 +18,10 @@
 
       ],
       "deletable_from_channel?": null,
-      "i_am_owner": true,
       "fact_base": {
         "fact_id": "1",
         "url": "/baron/f/1",
         "id": "<STRIPPED>",
-        "i_am_fact_owner": true,
         "displaystring": "Baron",
         "fact_title": "Fact title 1",
         "fact_wheel": {
@@ -67,7 +65,6 @@
       "believers_count": 0,
       "disbelievers_count": 0,
       "doubters_count": 0,
-      "i_am_fact_owner": true,
       "fact_title": "Fact title 1",
       "fact_wheel": {
         "authority": "0.0",

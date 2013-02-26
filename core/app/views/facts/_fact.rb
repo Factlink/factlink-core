@@ -35,10 +35,6 @@ module Facts
       @view.user_signed_in? and @channel and @channel.is_real_channel? and @channel.created_by == @view.current_graph_user
     end
 
-    def i_am_owner
-      (@fact.created_by == @view.current_graph_user)
-    end
-
     def fact_base
       Facts::FactBubble.for(fact: @fact, view: @view).to_hash
     end
@@ -102,7 +98,6 @@ module Facts
       json.site_id site_id
       json.containing_channel_ids containing_channel_ids
       json.deletable_from_channel? deletable_from_channel?
-      json.i_am_owner i_am_owner
       json.fact_base fact_base
       json.url url
       json.post_action post_action

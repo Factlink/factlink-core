@@ -14,9 +14,6 @@ module BaseViews
 
       fact_title =  @fact.data.title
 
-      i_am_fact_owner = (@fact.created_by == @view.current_graph_user)
-
-      json.i_am_fact_owner i_am_fact_owner
       json.displaystring @fact.data.displaystring
       json.fact_title fact_title
       json.fact_wheel do |j|

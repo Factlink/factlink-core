@@ -6,12 +6,10 @@
 
   ],
   "deletable_from_channel?": null,
-  "i_am_owner": false,
   "fact_base": {
     "fact_id": "1",
     "url": "/fact-1/f/1",
     "id": "<STRIPPED>",
-    "i_am_fact_owner": false,
     "displaystring": "Fact 1",
     "fact_title": "Fact title 1",
     "fact_wheel": {
@@ -55,7 +53,6 @@
   "believers_count": 0,
   "disbelievers_count": 0,
   "doubters_count": 0,
-  "i_am_fact_owner": false,
   "fact_title": "Fact title 1",
   "fact_wheel": {
     "authority": "0.0",
