@@ -31,6 +31,11 @@ module Facts
       @view.friendly_fact_path(@fact)
     end
 
+    # TODO : this should be moved to view logic in the frontend,
+    #        however, because of the strong coupling with channel
+    #        this isn't trivial, so I decided to postpone this for
+    #        now, as this might also change in the future (maybe
+    #        'repost' will always suffice for instance)
     def post_action
       if @channel
         if @fact.created_by == @channel.created_by #current_user
