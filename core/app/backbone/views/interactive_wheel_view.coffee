@@ -1,12 +1,6 @@
 class window.InteractiveWheelView extends BaseFactWheelView
-  getFactId: ->
-    if @model.get("fact_id")
-      @model.get "fact_id"
-    else
-      @options.fact.id
-
   clickOpinionType: (opinionType, e) ->
-    fact_id = @getFactId()
+    fact_id = @options.fact.id
 
     if fact_id?
       @toggleActiveOpinionType opinionType
