@@ -17,6 +17,8 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     showDiscussion: true
     fact_url_host: ->
       new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
+    believe_percentage: @model.opinionPercentage('believe')
+    disbelieve_percentage: @model.opinionPercentage('disbelieve')
 
   showAddToChannel: (e) ->
     e.preventDefault()
