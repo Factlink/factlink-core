@@ -56,7 +56,7 @@ class IdentitiesController < ApplicationController
       flash[:alert] = "Error connecting."
     end
 
-  	redirect_to edit_user_path(current_user)
+    redirect_to edit_user_path(current_user)
   end
 
   def sign_in_through_provider provider_name, omniauth_obj
