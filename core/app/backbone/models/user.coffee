@@ -34,9 +34,8 @@ class window.User extends Backbone.Model
         username: @get('username')
 
   toJSON: ->
-    json = Backbone.Model.prototype.toJSON.apply(this);
     username = @get('username')
-    _.extend json,
+    _.extend super(),
       is_current_user: @is_current_user(),
       edit_path: "/#{username}/edit",
       change_password_path: "/#{username}/password/edit"
