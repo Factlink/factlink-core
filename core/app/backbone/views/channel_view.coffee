@@ -8,11 +8,10 @@ class window.ChannelView extends Backbone.Marionette.Layout
     creatorProfileRegion: ".js-region-creator-profile"
 
   events:
-    'click .js-channel': 'showChannelFacts'
-    'click .js-topic': 'showTopicFacts'
+    'change .js-channel-topic-switch': 'showChosenFacts'
 
   onRender: ->
-    @showChannelFacts()
+    @showChosenFacts()
 
     if @model.get('inspectable?')
       @subChannelsRegion.show new SubchannelsView
@@ -26,8 +25,12 @@ class window.ChannelView extends Backbone.Marionette.Layout
       model: @model.user(),
       authority: @model.get('created_by_authority')
 
-  showChannelFacts: -> @showFacts @channelFacts()
-  showTopicFacts: -> @showFacts @topicFacts()
+  showChosenFacts: ->
+    choice = @$('.js-channel-topic-switch').val()
+    if choice == 'topic'
+      @showFacts @topicFacts()
+    else
+      @showFacts @channelFacts()
 
   showFacts: (facts) ->
     @factList.show new FactsView

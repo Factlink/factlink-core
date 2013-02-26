@@ -8,23 +8,33 @@
       <a href="{{ edit_link }}" class="edit">(edit)</a>
     {{/editable?}}
 
+    {{^is_mine}}
     <div class="add-to-channel-region js-region-add-to-channel"></div>
 
     <div class="pull-right">
       <div class="created_by_region js-region-creator-profile"></div>
     </div>
+    {{/is_mine}}
+
+    {{#is_mine}}
+    <div class="pull-right">
+      <ul class="channel-statistics">
+        <li><span class="channel-authority-for-user">{{created_by_authority}}</span> Your authority</li>
+        {{#global.can_haz.topic_facts}}
+        <li class="channel-options">
+          <span class="muted">Show: </span>
+          <select class="option-dropdown js-channel-topic-switch">
+            <option value="topic">All Factlinks</option>
+            <option value="channel">Factlinks from people I follow</option>
+          </select>
+        </li>
+        {{/global.can_haz.topic_facts}}
+      </ul>
+    </div>
+    {{/is_mine}}
   </header>
 
   <div class="js-region-sub-channels channel-subchannels"></div>
-
-  {{#global.can_haz.topic_facts}}
-    <div>
-      <ul>
-        <li class="js-channel">Channel</span>
-        <li class="js-topic">Topic</span>
-      </ul>
-    </div>
-  {{/global.can_haz.topic_facts}}
 
   <div id="facts_for_channel" class="js-region-fact-list"></div>
 </div>
