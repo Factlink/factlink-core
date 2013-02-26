@@ -17,6 +17,8 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     @bindTo @model, 'change', @render, @
 
   templateHelpers: ->
+    fact = @model.getFact()
+
     showTime: false
     showRepost: false
     showShare: false
@@ -28,6 +30,8 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     fact_url_host: ->
       if @fact_base?.fact_url?
         new Backbone.Factlink.Url(@fact_base?.fact_url).host()
+    believe_percentage: fact.opinionPercentage('believe')
+    disbelieve_percentage: fact.opinionPercentage('disbelieve')
 
   onRender: ->
     @bindTo @model, 'change:sub_comments_count', @updateSubCommentsLink, @
