@@ -11,7 +11,7 @@ class window.ChannelView extends Backbone.Marionette.Layout
     'change .js-channel-topic-switch': 'showChosenFacts'
 
   onRender: ->
-    @showChannelFacts()
+    @showChosenFacts()
 
     if @model.get('inspectable?')
       @subChannelsRegion.show new SubchannelsView
@@ -28,12 +28,9 @@ class window.ChannelView extends Backbone.Marionette.Layout
   showChosenFacts: ->
     choice = @$('.js-channel-topic-switch').val()
     if choice == 'topic'
-      @showTopicFacts()
+      @showFacts @topicFacts()
     else
-      @showChannelFacts()
-
-  showChannelFacts: -> @showFacts @channelFacts()
-  showTopicFacts: -> @showFacts @topicFacts()
+      @showFacts @channelFacts()
 
   showFacts: (facts) ->
     @factList.show new FactsView
