@@ -82,3 +82,10 @@ class window.Channel extends Backbone.Model
           subchannel_id: sub_channel.id
 
         options.success?()
+
+  is_mine: -> @user().is_current_user()
+
+  toJSON: ->
+    json = Backbone.Model.prototype.toJSON.apply(this);
+    _.extend json,
+      is_mine: @is_mine()

@@ -8,11 +8,28 @@
       <a href="{{ edit_link }}" class="edit">(edit)</a>
     {{/editable?}}
 
+    {{^is_mine}}
     <div class="add-to-channel-region js-region-add-to-channel"></div>
 
     <div class="pull-right">
       <div class="created_by_region js-region-creator-profile"></div>
     </div>
+    {{/is_mine}}
+
+    {{#is_mine}}
+    <div class="pull-right">
+      <ul class="channel-statistics">
+        <li><span class="channel-authority-for-user">531.2</span> Your authority</li>
+        <li class="channel-options">
+          <span class="muted">Show: </span>
+          <select class="option-dropdown" name="">
+            <option value="">All Factlinks</option>
+            <option value="">Factlinks from people I follow</option>
+          </select>
+        </li>
+      </ul>
+    </div>
+    {{/is_mine}}
   </header>
 
   <div class="js-region-sub-channels channel-subchannels"></div>

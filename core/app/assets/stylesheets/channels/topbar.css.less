@@ -3,6 +3,7 @@
 
 #channel {
   header.channel-header {
+    padding-bottom: 0;
     h1.channel-title {
       display: inline-block;
       margin: 15px 5px 0 0;
@@ -23,6 +24,57 @@
     div.add-to-channel-region {
       display: inline-block;
       margin: 0 25px 0 0;
+    }
+    .channel-statistics {
+      margin: 10px 0 0;
+      li {
+        display: inline-block;
+        line-height: normal;
+        padding: 0 15px 7px;
+        border-left: 1px solid @baseBorderColor;
+        border-width: 0 0 0 1px;
+        -webkit-border-image: -webkit-gradient(linear, 0 100%, 0 0, from(@baseBorderColor), to(rgba(255,255,255,1))) 1 100%;
+        font-size: 11px;
+        span {
+          width: 100%;
+          display: block;
+          &.channel-authority-for-user {
+            font-size: 14px;
+            line-height: normal;
+            padding-left: 18px;
+          }
+        }
+        a {
+          color: @baseFontColor;
+          span {
+            font-size: 14px;
+            color: @linkColor;
+          }
+          &:hover, &:hover span {
+            color: @linkColorHover;
+          }
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+        &.channel-options {
+          vertical-align: top;
+          padding-right: 0;
+          line-height: 30px;
+          span, .option-dropdown {
+            display: inline-block;
+            width: auto;
+            line-height: normal;
+          }
+          .option-dropdown {
+            font-size: 11px;
+            margin: 0;
+            width: 110px;
+            font-family: @baseFontFamily;
+            height: 24px;
+          }
+        }
+      }
     }
   }
 }
