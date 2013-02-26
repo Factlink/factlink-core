@@ -77,9 +77,8 @@ class ApplicationController < ActionController::Base
       # TODO security check
       params[:return_to]
     elsif request.env['omniauth.origin']
-      original_url = URI.parse(request.env['omniauth.origin'])
-      original_query = Rack::Utils.parse_query original_url.query
-      original_query["return_to"]
+      query_params = QueryParams.new(request.env['omniauth.origin'])
+      query_params[:return_to]
     end
   end
 
