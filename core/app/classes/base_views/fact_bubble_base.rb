@@ -12,10 +12,8 @@ module BaseViews
         proxy_scroll_url = nil
       end
 
-      fact_title =  @fact.data.title
-
       json.displaystring @fact.data.displaystring
-      json.fact_title fact_title
+      json.fact_title @fact.data.title
       json.fact_wheel do |j|
         j.partial! partial: 'facts/fact_wheel',
                       formats: [:json], handlers: [:jbuilder],
