@@ -1,9 +1,5 @@
 module Facts
   class FactBubble
-    def self.for(*args)
-      new(*args)
-    end
-
     def initialize options={}
       @fact = options[:fact]
       @view = options[:view]

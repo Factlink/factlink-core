@@ -29,4 +29,4 @@ json.channel_owner_profile_url user_profile_path(object.created_by.user)
 json.channel_title             object.title
 json.channel_url               channel_path(object.created_by.user, object.id)
 
-json.fact Facts::Fact.for(fact: subject, view: self).to_hash
+json.fact Facts::Fact.new(fact: subject, view: self).to_hash

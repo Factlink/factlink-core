@@ -30,7 +30,7 @@ describe  do
     )
 
     Benchmark.bmbm do |bm|
-      bm.report { foo = facts.map {|f| Facts::Fact.for(fact: f, view: view)}.to_json }
+      bm.report { foo = facts.map {|f| Facts::Fact.new(fact: f, view: view)}.to_json }
     end
   end
 end

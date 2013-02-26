@@ -1,9 +1,5 @@
 module Facts
   class Fact
-    def self.for(*args)
-      new(*args)
-    end
-
     def initialize options={}
       @fact = options[:fact]
       @channel = options[:channel]
@@ -24,7 +20,7 @@ module Facts
     end
 
     def fact_base
-      Facts::FactBubble.for(fact: @fact, view: @view).to_hash
+      Facts::FactBubble.new(fact: @fact, view: @view).to_hash
     end
 
     def url

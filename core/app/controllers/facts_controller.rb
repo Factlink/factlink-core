@@ -31,7 +31,7 @@ class FactsController < ApplicationController
         render inline:'', layout: 'client'
       end
       format.json do
-        render json: Facts::Fact.for(fact: @fact, view: view_context)
+        render json: Facts::Fact.new(fact: @fact, view: view_context)
       end
     end
   end
@@ -122,7 +122,7 @@ class FactsController < ApplicationController
         track "Modal: Create"
         redirect_to fact_path(@fact.id, guided: params[:guided])
       end
-      decorated_fact = Facts::Fact.for(fact: @fact,view: view_context)
+      decorated_fact = Facts::Fact.new(fact: @fact,view: view_context)
       format.json { render json: decorated_fact}
     end
   end
@@ -189,7 +189,7 @@ class FactsController < ApplicationController
 
     results = interactor :search_evidence, search_for, @fact.id
 
-    facts = results.map { |result| Facts::Fact.for(fact: result.fact, view: view_context) }
+    facts = results.map { |result| Facts::Fact.new(fact: result.fact, view: view_context) }
 
     render json: facts
   end
@@ -199,7 +199,7 @@ class FactsController < ApplicationController
 
     results = interactor :"facts/recently_viewed"
 
-    facts = results.map { |fact| Facts::Fact.for(fact: fact, view: view_context) }
+    facts = results.map { |fact| Facts::Fact.new(fact: fact, view: view_context) }
 
     render json: facts
   end
