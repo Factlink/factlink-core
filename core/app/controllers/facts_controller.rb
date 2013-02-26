@@ -68,16 +68,12 @@ class FactsController < ApplicationController
 
   def new
     authorize! :new, Fact
+    authenticate_user!
 
-    if current_user
-      if current_ability.signed_in?
-        render inline:'', layout: 'client'
-      else
-        render text: '<h1>Here will be a login screen after removing :act_as_non_signed_in feature</h1>'
-      end
+    if current_ability.signed_in?
+      render inline:'', layout: 'client'
     else
-      session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
-      redirect_to user_session_path(layout: 'client')
+      render text: '<h1>Here will be a login screen after removing :act_as_non_signed_in feature</h1>'
     end
   end
 
@@ -87,12 +83,7 @@ class FactsController < ApplicationController
     url = (params[:url] || params[:fact_url]).to_s
     title = (params[:title] || params[:fact_title]).to_s
 
-    unless current_user
-      session[:return_to] = new_fact_path(layout: @layout, title: title, fact: fact_text, url: url)
-      redirect_to user_session_path(layout: @layout)
-      return
-    end
-
+    authenticate_user!
     authorize! :create, Fact
 
     @fact = interactor :'facts/create', fact_text, url, title

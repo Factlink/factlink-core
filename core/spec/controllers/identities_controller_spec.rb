@@ -48,15 +48,16 @@ describe IdentitiesController do
       provider_name = mock(capitalize: true)
       omniauth_obj = mock(uid: true)
 
-      session = mock()
-      session.stub(:[]).with(:redirect_after_failed_login_path).and_return(true)
 
       stub_const("User", Class.new)
       User.should_receive(:find_for_oauth).with(provider_name, omniauth_obj.uid).and_return(user)
 
-      subject.should_receive(:session).and_return(session)
-      subject.should_receive(:flash).and_return(Hash.new)
-      subject.should_receive(:redirect_to).with(session[:redirect_after_failed_login_path]).and_return(true)
+      redirect_url = mock
+      env_hash = {'omniauth.origin' => redirect_url}
+      subject.stub flash: Hash.new,
+                   request: stub(:request,
+                     env: env_hash)
+      subject.should_receive(:redirect_to).with(redirect_url)
 
       subject.send(:sign_in_through_provider, provider_name, omniauth_obj)
     end

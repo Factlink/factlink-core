@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
       if not current_user
-        format.html { redirect_to new_user_session_path }
+        format.html { redirect_to root_path(return_to: request.original_url, show_sign_in: 1)}
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
         format.any  { raise exception }
       elsif !current_user.agrees_tos
@@ -62,14 +62,28 @@ class ApplicationController < ActionController::Base
   after_filter :set_access_control
 
   def after_sign_in_path_for(user)
-    if session[:return_to]
-      return_to = session[:return_to]
-      session[:return_to] = nil
-      return_to
-    elsif current_user.seen_the_tour
-      stored_location_for(user) || channel_activities_path(user, user.graph_user.stream)
+    if current_user.seen_the_tour
+      safe_return_to_path || channel_activities_path(user, user.graph_user.stream)
     else
       almost_done_path
+    end
+  end
+
+  def safe_return_to_path
+    uri = URI.parse(return_to_path.to_s)
+    if FactlinkUI::Application.config.hostname == uri.host
+      uri.to_s
+    else
+      nil
+    end
+  end
+
+  def return_to_path
+    if params[:return_to]
+      params[:return_to]
+    elsif request.env['omniauth.origin']
+      query_params = QueryParams.new(request.env['omniauth.origin'])
+      query_params[:return_to]
     end
   end
 
