@@ -6,8 +6,6 @@ class HomeController < ApplicationController
 
   #general static pages:
   def pages
-    set_redirect_to_be_used_after_failed_login
-
     if ( /\A([-a-zA-Z_\/]+)\Z/.match(params[:name]))
       respond_to do |format|
         template = "home/pages/#{$1}"
@@ -49,7 +47,6 @@ class HomeController < ApplicationController
   end
 
   def index
-    set_redirect_to_be_used_after_failed_login
     respond_to do |format|
       @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
       format.html { render "home/pages/index", layout: "static_pages" }

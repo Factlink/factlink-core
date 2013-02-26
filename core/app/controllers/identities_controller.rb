@@ -66,7 +66,7 @@ class IdentitiesController < ApplicationController
       sign_in_and_redirect @user
     else
       flash[:alert] = "No connected #{provider_name.capitalize} account found. Please sign in with your credentials and connect your #{provider_name.capitalize} account."
-      redirect_to session[:redirect_after_failed_login_path]
+      redirect_to request.env['omniauth.origin']
     end
   end
 

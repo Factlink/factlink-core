@@ -62,8 +62,6 @@ class ApplicationController < ActionController::Base
   after_filter :set_access_control
 
   def after_sign_in_path_for(user)
-    session[:redirect_after_failed_login_path] = nil
-
     if current_user.seen_the_tour
       return_to_path || channel_activities_path(user, user.graph_user.stream)
     else
@@ -195,20 +193,4 @@ class ApplicationController < ActionController::Base
       allowed_layouts = ['popup', 'client']
       allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
     end
-
-    def set_redirect_to_be_used_after_failed_login
-      original_url = request.original_url
-
-      unless original_url =~ /show_sign_in/ or
-             original_url =~ /\/users\/sign_in/
-        if original_url !~ /\?/
-          original_url += '?show_sign_in=1'
-        else
-          original_url += '&show_sign_in=1'
-        end
-      end
-
-      session[:redirect_after_failed_login_path] = original_url
-    end
-
 end

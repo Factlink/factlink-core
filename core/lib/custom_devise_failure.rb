@@ -18,8 +18,8 @@ class CustomDeviseFailure < Devise::FailureApp
 
   # We are logging in in this request, but we failed.
   def redirect_url_on_failed_login
-      session[:redirect_after_failed_login_path] ||
-      '/?show_sign_in=13'
+    params[:return_to_on_fail] ||
+      '/?show_sign_in=1'
   end
 
   # we requested a page, but we aren't authorized to see this page,
