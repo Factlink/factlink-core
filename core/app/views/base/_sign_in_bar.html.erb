@@ -7,8 +7,7 @@
       <%= form_for("user", :url => user_session_path) do |f| %>
         <h2>Sign in to Factlink</h2>
 
-        <%# Check whether this is secure: %>
-        <%= hidden_field_tag :return_to, params[:return_to] %>
+        <%= return_to_fields_for_sign_in %>
 
         <%= f.text_field     :login,    class: "text",    placeholder: "Username or email",    tabindex: '1' %>
         <%= f.password_field :password, class: "text", placeholder: "Password", tabindex: '2' %>
