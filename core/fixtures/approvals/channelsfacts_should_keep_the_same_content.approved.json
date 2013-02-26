@@ -3,20 +3,16 @@
     "displaystring": "Fact 3",
     "id": "<STRIPPED>",
     "site_id": "3",
-    "signed_in?": true,
     "containing_channel_ids": [
       "3"
     ],
     "deletable_from_channel?": true,
     "i_am_owner": true,
     "fact_base": {
-      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&amp;scrollto=3\" target=\"_blank\">Fact 3</a>",
       "fact_id": "3",
       "url": "/fact-3/f/3",
       "id": "<STRIPPED>",
-      "user_signed_in?": true,
       "i_am_fact_owner": true,
-      "can_edit?": true,
       "displaystring": "Fact 3",
       "fact_title": "Fact title 3",
       "fact_wheel": {
@@ -60,9 +56,7 @@
     "believers_count": 0,
     "disbelievers_count": 0,
     "doubters_count": 0,
-    "user_signed_in?": true,
     "i_am_fact_owner": true,
-    "can_edit?": true,
     "fact_title": "Fact title 3",
     "fact_wheel": {
       "authority": "0.0",
@@ -93,20 +87,16 @@
     "displaystring": "Fact 2",
     "id": "<STRIPPED>",
     "site_id": "2",
-    "signed_in?": true,
     "containing_channel_ids": [
       "3"
     ],
     "deletable_from_channel?": true,
     "i_am_owner": true,
     "fact_base": {
-      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&amp;scrollto=2\" target=\"_blank\">Fact 2</a>",
       "fact_id": "2",
       "url": "/fact-2/f/2",
       "id": "<STRIPPED>",
-      "user_signed_in?": true,
       "i_am_fact_owner": true,
-      "can_edit?": true,
       "displaystring": "Fact 2",
       "fact_title": "Fact title 2",
       "fact_wheel": {
@@ -150,9 +140,7 @@
     "believers_count": 0,
     "disbelievers_count": 0,
     "doubters_count": 0,
-    "user_signed_in?": true,
     "i_am_fact_owner": true,
-    "can_edit?": true,
     "fact_title": "Fact title 2",
     "fact_wheel": {
       "authority": "0.0",
@@ -183,20 +171,16 @@
     "displaystring": "Fact 1",
     "id": "<STRIPPED>",
     "site_id": "1",
-    "signed_in?": true,
     "containing_channel_ids": [
       "3"
     ],
     "deletable_from_channel?": true,
     "i_am_owner": true,
     "fact_base": {
-      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Fact 1</a>",
       "fact_id": "1",
       "url": "/fact-1/f/1",
       "id": "<STRIPPED>",
-      "user_signed_in?": true,
       "i_am_fact_owner": true,
-      "can_edit?": true,
       "displaystring": "Fact 1",
       "fact_title": "Fact title 1",
       "fact_wheel": {
@@ -240,9 +224,7 @@
     "believers_count": 0,
     "disbelievers_count": 0,
     "doubters_count": 0,
-    "user_signed_in?": true,
     "i_am_fact_owner": true,
-    "can_edit?": true,
     "fact_title": "Fact title 1",
     "fact_wheel": {
       "authority": "0.0",

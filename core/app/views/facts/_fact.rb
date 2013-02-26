@@ -24,10 +24,6 @@ module Facts
       @fact.site_id
     end
 
-    def signed_in?
-      @view.user_signed_in?
-    end
-
     def containing_channel_ids
       return [] unless @view.current_graph_user
 
@@ -36,7 +32,7 @@ module Facts
     end
 
     def deletable_from_channel?
-      signed_in? and @channel and @channel.is_real_channel? and @channel.created_by == @view.current_graph_user
+      @view.user_signed_in? and @channel and @channel.is_real_channel? and @channel.created_by == @view.current_graph_user
     end
 
     def i_am_owner
@@ -104,7 +100,6 @@ module Facts
       json.displaystring displaystring
       json.id id
       json.site_id site_id
-      json.signed_in? signed_in?
       json.containing_channel_ids containing_channel_ids
       json.deletable_from_channel? deletable_from_channel?
       json.i_am_owner i_am_owner

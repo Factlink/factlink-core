@@ -28,7 +28,6 @@ creator_authority =
 fact_base = Facts::FactBubble.for(fact: fact_relation.from_fact, view: self)
 
 json.url friendly_fact_path(fact_relation.from_fact)
-json.signed_in? user_signed_in?
 
 json.can_destroy? can_destroy
 json.weight fact_relation.percentage

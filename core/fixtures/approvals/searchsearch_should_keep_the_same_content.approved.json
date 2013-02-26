@@ -14,20 +14,16 @@
       "displaystring": "Baron",
       "id": "<STRIPPED>",
       "site_id": "1",
-      "signed_in?": true,
       "containing_channel_ids": [
 
       ],
       "deletable_from_channel?": null,
       "i_am_owner": true,
       "fact_base": {
-        "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Baron</a>",
         "fact_id": "1",
         "url": "/baron/f/1",
         "id": "<STRIPPED>",
-        "user_signed_in?": true,
         "i_am_fact_owner": true,
-        "can_edit?": true,
         "displaystring": "Baron",
         "fact_title": "Fact title 1",
         "fact_wheel": {
@@ -71,9 +67,7 @@
       "believers_count": 0,
       "disbelievers_count": 0,
       "doubters_count": 0,
-      "user_signed_in?": true,
       "i_am_fact_owner": true,
-      "can_edit?": true,
       "fact_title": "Fact title 1",
       "fact_wheel": {
         "authority": "0.0",

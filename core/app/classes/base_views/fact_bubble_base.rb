@@ -12,16 +12,11 @@ module BaseViews
         proxy_scroll_url = nil
       end
 
-      user_signed_in = @view.user_signed_in?
-
       fact_title =  @fact.data.title
 
       i_am_fact_owner = (@fact.created_by == @view.current_graph_user)
-      can_edit = (user_signed_in and i_am_fact_owner)
 
-      json.user_signed_in? user_signed_in
       json.i_am_fact_owner i_am_fact_owner
-      json.can_edit? can_edit
       json.displaystring @fact.data.displaystring
       json.fact_title fact_title
       json.fact_wheel do |j|
