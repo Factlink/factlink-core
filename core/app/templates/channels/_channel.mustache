@@ -19,29 +19,22 @@
     {{#is_mine}}
     <div class="pull-right">
       <ul class="channel-statistics">
-        <li><span class="channel-authority-for-user">531.2</span> Your authority</li>
+        <li><span class="channel-authority-for-user">{{created_by_authority}}</span> Your authority</li>
+        {{#global.can_haz.topic_facts}}
         <li class="channel-options">
           <span class="muted">Show: </span>
-          <select class="option-dropdown" name="">
-            <option value="">All Factlinks</option>
-            <option value="">Factlinks from people I follow</option>
+          <select class="option-dropdown js-channel-topic-switch">
+            <option value="channel">Factlinks from people I follow</option>
+            <option value="topic">All Factlinks</option>
           </select>
         </li>
+        {{/global.can_haz.topic_facts}}
       </ul>
     </div>
     {{/is_mine}}
   </header>
 
   <div class="js-region-sub-channels channel-subchannels"></div>
-
-  {{#global.can_haz.topic_facts}}
-    <div>
-      <ul>
-        <li class="js-channel">Channel</span>
-        <li class="js-topic">Topic</span>
-      </ul>
-    </div>
-  {{/global.can_haz.topic_facts}}
 
   <div id="facts_for_channel" class="js-region-fact-list"></div>
 </div>

@@ -8,8 +8,7 @@ class window.ChannelView extends Backbone.Marionette.Layout
     creatorProfileRegion: ".js-region-creator-profile"
 
   events:
-    'click .js-channel': 'showChannelFacts'
-    'click .js-topic': 'showTopicFacts'
+    'change .js-channel-topic-switch': 'showChosenFacts'
 
   onRender: ->
     @showChannelFacts()
@@ -25,6 +24,13 @@ class window.ChannelView extends Backbone.Marionette.Layout
     @creatorProfileRegion.show new UserWithAuthorityBox
       model: @model.user(),
       authority: @model.get('created_by_authority')
+
+  showChosenFacts: ->
+    choice = @$('.js-channel-topic-switch').val()
+    if choice == 'topic'
+      @showTopicFacts()
+    else
+      @showChannelFacts()
 
   showChannelFacts: -> @showFacts @channelFacts()
   showTopicFacts: -> @showFacts @topicFacts()
