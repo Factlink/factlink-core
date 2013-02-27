@@ -29,8 +29,11 @@ class window.ChannelView extends Backbone.Marionette.Layout
     choice = @$('.js-channel-topic-switch').val()
     if choice == 'topic'
       @showFacts @topicFacts()
+      @$('.js-region-sub-channels').hide()
     else
       @showFacts @channelFacts()
+      @$('.js-region-sub-channels').show()
+
 
   showFacts: (facts) ->
     @factList.show new FactsView
