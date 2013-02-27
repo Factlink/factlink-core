@@ -1,5 +1,3 @@
-# TODO: check if formatted_time logic is needed at all
-
 class window.FactBottomView extends Backbone.Marionette.ItemView
   className: 'fact-bottom bottom-base'
 
@@ -15,6 +13,8 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
       new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
     formatted_time: ->
       if @friendly_time
+        # this is relevant in a channel, a fact is then 'posted'
+        # or reposted <time> ago
         "#{@post_action} #{@friendly_time} ago"
       else
         @created_by_ago
