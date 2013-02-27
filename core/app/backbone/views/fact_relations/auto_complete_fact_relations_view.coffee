@@ -36,7 +36,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @wheel_region.show new PersistentWheelView(model: @wheel)
 
   addCurrent: ->
-    selected_fact_base = @_search_list_view.currentActiveModel().get 'fact_base'
+    selected_fact_base = @_search_list_view.currentActiveModel().attributes
 
     if selected_fact_base?
       @addSelected(selected_fact_base)

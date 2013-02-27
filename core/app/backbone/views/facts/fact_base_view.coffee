@@ -18,15 +18,15 @@ class window.FactBaseView extends Backbone.Marionette.Layout
       @factBodyRegion.currentView?.render()
 
   wheelView: ->
-    wheel = new Wheel(@model.get("fact_base")["fact_wheel"])
+    wheel = new Wheel(@model.get("fact_wheel"))
 
     wheelViewClass = if Factlink.Global.signed_in then InteractiveWheelView else BaseFactWheelView
     wheelView = new wheelViewClass
-      fact: @model.get("fact_base")
+      fact: @model.attributes
       model: wheel
 
     @bindTo @model, 'change', =>
-      wheel.setRecursive @model.get("fact_base")["fact_wheel"]
+      wheel.setRecursive @model.get("fact_wheel")
       wheelView.render()
 
     wheelView
