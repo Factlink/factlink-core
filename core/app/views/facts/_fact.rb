@@ -23,20 +23,6 @@ module Facts
       @view.friendly_fact_path(@fact)
     end
 
-    def created_by
-      user = @fact.created_by.user
-
-      json = JbuilderTemplate.new(@view)
-      json.partial! partial: "users/user_authority_for_subject_partial",
-                    formats: [:json],
-                    handlers: [:jbuilder],
-                    locals: {
-                      user: user,
-                      subject: @fact
-                    }
-      json.attributes!
-    end
-
     def created_by_ago
       "Created #{TimeFormatter.as_time_ago @fact.data.created_at} ago"
     end
@@ -71,7 +57,16 @@ module Facts
         json.friendly_time friendly_time
       end
 
-      json.created_by created_by
+      json.created_by do |j|
+        j.partial! partial: "users/user_authority_for_subject_partial",
+                      formats: [:json],
+                      handlers: [:jbuilder],
+                      locals: {
+                        user: @fact.created_by.user,
+                        subject: @fact
+                      }
+      end
+
       json.created_by_ago created_by_ago
 
       json.fact_title @fact.data.title
