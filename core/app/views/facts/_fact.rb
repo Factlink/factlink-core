@@ -79,12 +79,29 @@ module Facts
       json.created_by created_by
       json.created_by_ago created_by_ago
 
-      base = BaseViews::FactBubbleBase.new @fact, @view
-      base.add_to_json json
+      add_to_json json
 
       json.timestamp @timestamp
 
       json.attributes!
     end
+
+    def add_to_json json
+      begin
+        proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+      rescue
+        proxy_scroll_url = nil
+      end
+
+      json.fact_title @fact.data.title
+      json.fact_wheel do |j|
+        j.partial! partial: 'facts/fact_wheel',
+                      formats: [:json], handlers: [:jbuilder],
+                      locals: { fact: @fact }
+      end
+      json.fact_url(@fact.has_site? ? @fact.site.url : nil)
+      json.proxy_scroll_url proxy_scroll_url
+    end
+
   end
 end
