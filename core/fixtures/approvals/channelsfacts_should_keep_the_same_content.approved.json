@@ -6,8 +6,8 @@
     "containing_channel_ids": [
       "3"
     ],
-    "deletable_from_channel?": true,
     "url": "/fact-3/f/3",
+    "deletable_from_channel?": true,
     "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
@@ -50,8 +50,8 @@
     "containing_channel_ids": [
       "3"
     ],
-    "deletable_from_channel?": true,
     "url": "/fact-2/f/2",
+    "deletable_from_channel?": true,
     "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
@@ -94,8 +94,8 @@
     "containing_channel_ids": [
       "3"
     ],
-    "deletable_from_channel?": true,
     "url": "/fact-1/f/1",
+    "deletable_from_channel?": true,
     "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {

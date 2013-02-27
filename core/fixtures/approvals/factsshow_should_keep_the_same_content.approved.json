@@ -5,10 +5,7 @@
   "containing_channel_ids": [
 
   ],
-  "deletable_from_channel?": null,
   "url": "/fact-1/f/1",
-  "post_action": null,
-  "friendly_time": null,
   "created_by": {
     "id": "<STRIPPED>",
     "name": "johndoe1",

@@ -23,30 +23,6 @@ module Facts
       @view.friendly_fact_path(@fact)
     end
 
-    # TODO : this should be moved to view logic in the frontend,
-    #        however, because of the strong coupling with channel
-    #        this isn't trivial, so I decided to postpone this for
-    #        now, as this might also change in the future (maybe
-    #        'repost' will always suffice for instance)
-    def post_action
-      if @channel
-        if @fact.created_by == @channel.created_by #current_user
-          'Posted'
-        else
-          'Reposted'
-        end
-      end
-    end
-
-    def friendly_time
-      return nil unless @channel
-
-      timestamp_in_seconds = @timestamp / 1000
-
-
-      TimeFormatter.as_time_ago timestamp_in_seconds
-    end
-
     def created_by
       user = @fact.created_by.user
 
@@ -65,6 +41,12 @@ module Facts
       "Created #{TimeFormatter.as_time_ago @fact.data.created_at} ago"
     end
 
+    def proxy_scroll_url
+      FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+    rescue
+      nil
+    end
+
     def to_hash
       json = JbuilderTemplate.new(@view)
 
@@ -72,26 +54,25 @@ module Facts
       json.id @fact.id
       json.site_id @fact.site_id
       json.containing_channel_ids containing_channel_ids
-      json.deletable_from_channel? deletable_from_channel?
       json.url url
-      json.post_action post_action
-      json.friendly_time friendly_time
+
+      if @channel
+        json.deletable_from_channel? deletable_from_channel?
+        # TODO : this should be moved to view logic in the frontend,
+        #        however, because of the strong coupling with channel
+        #        this isn't trivial, so I decided to postpone this for
+        #        now, as this might also change in the future (maybe
+        #        'repost' will always suffice for instance)
+        post_action = @fact.created_by == @channel.created_by ? 'Posted' : 'Reposted'
+        json.post_action post_action
+
+        timestamp_in_seconds = @timestamp / 1000
+        friendly_time = TimeFormatter.as_time_ago(timestamp_in_seconds)
+        json.friendly_time friendly_time
+      end
+
       json.created_by created_by
       json.created_by_ago created_by_ago
-
-      add_to_json json
-
-      json.timestamp @timestamp
-
-      json.attributes!
-    end
-
-    def add_to_json json
-      begin
-        proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
-      rescue
-        proxy_scroll_url = nil
-      end
 
       json.fact_title @fact.data.title
       json.fact_wheel do |j|
@@ -101,6 +82,10 @@ module Facts
       end
       json.fact_url(@fact.has_site? ? @fact.site.url : nil)
       json.proxy_scroll_url proxy_scroll_url
+
+      json.timestamp @timestamp
+
+      json.attributes!
     end
 
   end
