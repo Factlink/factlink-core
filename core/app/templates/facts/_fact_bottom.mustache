@@ -1,7 +1,7 @@
 <ul class="actions">
   <li>
     {{#global.signed_in}}
-      <a href="{{fact_base.url}}" class="discussion_link"
+      <a href="{{url}}" class="discussion_link"
         {{#modal?}}
           target="new"
         {{/modal?}}{{^modal?}}
@@ -30,15 +30,15 @@
   <li class="fact-info">
     {{formatted_time}}
 
-    {{#fact_base.proxy_scroll_url}}
+    {{#proxy_scroll_url}}
       from
       {{#fact_url_host}}
       <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
       {{/fact_url_host}}
-      <a href="{{fact_base.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
-        {{fact_base.fact_title}}
+      <a href="{{proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
+        {{fact_title}}
       </a>
-    {{/fact_base.proxy_scroll_url}}
+    {{/proxy_scroll_url}}
   </li>
 </ul>
 

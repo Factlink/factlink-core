@@ -5,10 +5,10 @@ describe SupportingEvidenceController do
   include PavlovSupport
   render_views
 
-  let(:user) {create(:user)}
+  let(:user) {create :user}
 
-  let(:f1) {create(:fact)}
-  let(:f2) {create(:fact)}
+  let(:f1) {create :fact, created_by: user.graph_user}
+  let(:f2) {create :fact, created_by: user.graph_user}
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -47,7 +47,7 @@ describe SupportingEvidenceController do
         response.should be_success
 
         parsed_content = JSON.parse(response.body)
-        parsed_content["fact_base"]["displaystring"].should == displaystring
+        parsed_content["from_fact"]["displaystring"].should == displaystring
 
         FactRelation[parsed_content["id"].to_i].fact.id.should == f1.id
       end
@@ -58,7 +58,7 @@ describe SupportingEvidenceController do
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
 
         parsed_content = JSON.parse(response.body)
-        parsed_content["fact_base"]["id"].should == f2.id
+        parsed_content["from_fact"]["id"].should == f2.id
 
         response.should be_success
       end
@@ -74,7 +74,7 @@ describe SupportingEvidenceController do
 
         parsed_content = JSON.parse(response.body)
 
-        opinions = parsed_content["fact_base"]["fact_wheel"]["opinion_types"]
+        opinions = parsed_content["from_fact"]["fact_wheel"]["opinion_types"]
 
         opinions["believe"]["percentage"].should == 0
         opinions["doubt"]["percentage"].should == 0

@@ -3,7 +3,7 @@
 
   {{#showDiscussion}}
     <li>
-      <a href="{{fact_base.url}}" class="discussion_link"
+      <a href="{{from_fact.url}}" class="discussion_link"
         {{#modal?}}
           target="new"
         {{/modal?}}{{^modal?}}
@@ -22,16 +22,16 @@
     </li>
   {{/showDiscussion}}
 
-  {{#fact_base.proxy_scroll_url}}
+  {{#from_fact.proxy_scroll_url}}
     <li class="fact-info">
         {{#fact_url_host}}
         <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
         {{/fact_url_host}}
-        <a href="{{fact_base.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
-          {{fact_base.fact_title}}
+        <a href="{{from_fact.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
+          {{from_fact.fact_title}}
         </a>
     </li>
-  {{/fact_base.proxy_scroll_url}}
+  {{/from_fact.proxy_scroll_url}}
 </ul>
 
 <i class="title-overflow"></i>

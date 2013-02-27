@@ -18,31 +18,6 @@
 
       ],
       "deletable_from_channel?": null,
-      "fact_base": {
-        "url": "/baron/f/1",
-        "id": "<STRIPPED>",
-        "displaystring": "Baron",
-        "fact_title": "Fact title 1",
-        "fact_wheel": {
-          "authority": "0.0",
-          "opinion_types": {
-            "believe": {
-              "percentage": 0,
-              "is_user_opinion": false
-            },
-            "doubt": {
-              "percentage": 100,
-              "is_user_opinion": false
-            },
-            "disbelieve": {
-              "percentage": 0,
-              "is_user_opinion": false
-            }
-          }
-        },
-        "fact_url": "http://example.org/1.html",
-        "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1"
-      },
       "url": "/baron/f/1",
       "post_action": null,
       "friendly_time": null,

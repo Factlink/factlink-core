@@ -1,3 +1,5 @@
+# TODO Rename selected_fact_base
+
 class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-fact-relations"
 
@@ -53,7 +55,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     @trigger 'createFactRelation', new FactRelation
       displaystring: text
-      fact_base: fact.toJSON()
+      from_fact: fact.toJSON()
       created_by: currentUser.toJSON()
 
   switchCheckboxClicked: (e) ->
@@ -66,7 +68,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   addSelected: (selected_fact_base)->
     @trigger 'createFactRelation', new FactRelation
       evidence_id: selected_fact_base.id
-      fact_base: selected_fact_base
+      from_fact: selected_fact_base
       created_by: currentUser.toJSON()
 
   setQuery: (text) -> @model.set text: text

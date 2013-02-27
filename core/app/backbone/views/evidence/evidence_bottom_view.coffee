@@ -20,10 +20,10 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     fact = @model.getFact?()
 
     showDiscussion: ->
-      Factlink.Global.signed_in && @fact_base?
+      Factlink.Global.signed_in && @from_fact?
     fact_url_host: ->
-      if @fact_base?.fact_url?
-        new Backbone.Factlink.Url(@fact_base?.fact_url).host()
+      if @from_fact?.fact_url?
+        new Backbone.Factlink.Url(@from_fact?.fact_url).host()
     believe_percentage: fact?.opinionPercentage('believe')
     disbelieve_percentage: fact?.opinionPercentage('disbelieve')
 
@@ -49,5 +49,5 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
 
   openEvidenceProxyLink: (e) ->
     mp_track "Evidence: Open proxy link",
-      site_url: @model.get("fact_base").fact_url
+      site_url: @model.get("from_fact").fact_url
 

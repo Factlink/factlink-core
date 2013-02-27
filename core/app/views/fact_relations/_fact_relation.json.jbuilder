@@ -25,7 +25,7 @@ creator_authority =
   # is possible because in the current calculation these authorities are the same
   Authority.on(fact_relation.fact, for: fact_relation.created_by).to_s(1.0)
 
-fact_base = Facts::FactBubble.new(fact: fact_relation.from_fact, view: self)
+from_fact = Facts::Fact.new(fact: fact_relation.from_fact, view: self)
 
 json.url friendly_fact_path(fact_relation.from_fact)
 
@@ -33,7 +33,7 @@ json.can_destroy? can_destroy
 json.weight fact_relation.percentage
 json.id fact_relation.id
 json.fact_relation_type fact_relation.type
-json.fact_base fact_base.to_hash
+json.from_fact from_fact.to_hash
 
 json.current_user_opinion current_user_opinion
 
