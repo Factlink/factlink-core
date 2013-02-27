@@ -1,7 +1,7 @@
 class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   className: 'evidence-bottom bottom-base'
 
-  template: 'facts/bottom_base'
+  template: 'facts/evidence_bottom'
 
   triggers:
     'click .js-sub-comments-link': 'toggleSubCommentsList'
@@ -19,14 +19,8 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   templateHelpers: ->
     fact = @model.getFact?()
 
-    showTime: false
-    showRepost: false
-    showShare: false
-    showSubComments: true
     showDiscussion: ->
       Factlink.Global.signed_in && @fact_base?
-    showFactInfo: ->
-      @fact_base?.proxy_scroll_url?
     fact_url_host: ->
       if @fact_base?.fact_url?
         new Backbone.Factlink.Url(@fact_base?.fact_url).host()

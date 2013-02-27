@@ -1,7 +1,9 @@
+# TODO: check if formatted_time logic is needed at all
+
 class window.FactBottomView extends Backbone.Marionette.ItemView
   className: 'fact-bottom bottom-base'
 
-  template: 'facts/bottom_base'
+  template: 'facts/fact_bottom'
 
   events:
     "click .js-add-to-channel": "showAddToChannel"
@@ -9,14 +11,13 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     "click .js-open-proxy-link" : "openProxyLink"
 
   templateHelpers: ->
-    showTime: true
-    showRepost: Factlink.Global.signed_in
-    showShare: Factlink.Global.signed_in
-    showSubComments: false
-    showFactInfo: true
-    showDiscussion: true
     fact_url_host: ->
       new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
+    formatted_time: ->
+      if @friendly_time
+        "#{@post_action} #{@friendly_time} ago"
+      else
+        @created_by_ago
     believe_percentage: @model.opinionPercentage('believe')
     disbelieve_percentage: @model.opinionPercentage('disbelieve')
 
