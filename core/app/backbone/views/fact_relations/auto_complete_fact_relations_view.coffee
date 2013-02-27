@@ -1,5 +1,3 @@
-# TODO Rename selected_fact_base
-
 class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-fact-relations"
 
@@ -38,10 +36,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @wheel_region.show new PersistentWheelView(model: @wheel)
 
   addCurrent: ->
-    selected_fact_base = @_search_list_view.currentActiveModel().attributes
+    selected_fact_attributes = @_search_list_view.currentActiveModel().attributes
 
-    if selected_fact_base?
-      @addSelected(selected_fact_base)
+    if selected_fact_attributes?
+      @addSelected(selected_fact_attributes)
     else
       @addNew()
 
@@ -65,10 +63,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     mp_track "Evidence: Switching to comment"
 
-  addSelected: (selected_fact_base)->
+  addSelected: (selected_fact_attributes)->
     @trigger 'createFactRelation', new FactRelation
-      evidence_id: selected_fact_base.id
-      from_fact: selected_fact_base
+      evidence_id: selected_fact_attributes.id
+      from_fact: selected_fact_attributes
       created_by: currentUser.toJSON()
 
   setQuery: (text) -> @model.set text: text
