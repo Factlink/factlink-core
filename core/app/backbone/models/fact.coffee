@@ -11,6 +11,9 @@ class window.Fact extends Backbone.Model
 
   urlRoot: "/facts"
 
+  opinionPercentage: (type)->
+    @get('fact_wheel').opinion_types[type].percentage
+
   removeFromChannel: (channel, opts) ->
     opts.url = channel.url() + "/" + "remove" + "/" + @get("id") + ".json"
     oldSuccess = opts.success
@@ -31,7 +34,16 @@ class window.Fact extends Backbone.Model
 
     $.ajax _.extend(type: "post", opts)
 
-  getFactWheel: ->  @get("fact_base").fact_wheel
+  getFactWheel: ->  @get("fact_wheel")
 
   friendlyUrl: ->
     @get("url")
+
+  user: -> new User(@get("created_by"))
+
+  # TODO: rename to is_mine
+  i_am_owner: -> @user().is_current_user()
+
+  toJSON: ->
+    _.extend super(),
+      i_am_owner: @i_am_owner()

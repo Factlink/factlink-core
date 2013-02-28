@@ -2,49 +2,10 @@
   "displaystring": "Fact 1",
   "id": "<STRIPPED>",
   "site_id": "1",
-  "signed_in?": true,
   "containing_channel_ids": [
 
   ],
-  "deletable_from_channel?": null,
-  "i_am_owner": false,
-  "fact_base": {
-    "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Fact 1</a>",
-    "fact_id": "1",
-    "url": "/fact-1/f/1",
-    "id": "<STRIPPED>",
-    "user_signed_in?": true,
-    "i_am_fact_owner": false,
-    "can_edit?": false,
-    "displaystring": "Fact 1",
-    "fact_title": "Fact title 1",
-    "fact_wheel": {
-      "authority": "0.0",
-      "opinion_types": {
-        "believe": {
-          "percentage": 0,
-          "is_user_opinion": false
-        },
-        "doubt": {
-          "percentage": 100,
-          "is_user_opinion": false
-        },
-        "disbelieve": {
-          "percentage": 0,
-          "is_user_opinion": false
-        }
-      },
-      "fact_id": "1"
-    },
-    "believe_percentage": 0,
-    "disbelieve_percentage": 0,
-    "doubt_percentage": 100,
-    "fact_url": "http://example.org/1.html",
-    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1"
-  },
   "url": "/fact-1/f/1",
-  "post_action": null,
-  "friendly_time": null,
   "created_by": {
     "id": "<STRIPPED>",
     "name": "johndoe1",
@@ -56,12 +17,6 @@
     }
   },
   "created_by_ago": "Created 1 minute ago",
-  "believers_count": 0,
-  "disbelievers_count": 0,
-  "doubters_count": 0,
-  "user_signed_in?": true,
-  "i_am_fact_owner": false,
-  "can_edit?": false,
   "fact_title": "Fact title 1",
   "fact_wheel": {
     "authority": "0.0",
@@ -78,12 +33,8 @@
         "percentage": 0,
         "is_user_opinion": false
       }
-    },
-    "fact_id": "1"
+    }
   },
-  "believe_percentage": 0,
-  "disbelieve_percentage": 0,
-  "doubt_percentage": 100,
   "fact_url": "http://example.org/1.html",
   "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
   "timestamp": 0

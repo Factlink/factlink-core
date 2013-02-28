@@ -38,7 +38,7 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact         Facts::Fact.for(fact: object, view: self).to_hash
+      json.fact         Facts::Fact.new(fact: object, view: self).to_hash
     end
 
   when "created_comment"
@@ -51,7 +51,7 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact         Facts::Fact.for(fact: object, view: self).to_hash
+      json.fact         Facts::Fact.new(fact: object, view: self).to_hash
     end
 
   when "created_sub_comment"
@@ -64,7 +64,7 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact         Facts::Fact.for(fact: object, view: self).to_hash
+      json.fact         Facts::Fact.new(fact: object, view: self).to_hash
     end
 
   when "added_subchannel"
@@ -101,7 +101,7 @@ json.activity do |json|
         object: object,
         user: user
   when "added_first_factlink"
-    json.fact         Facts::Fact.for(fact: subject, view: self).to_hash
+    json.fact         Facts::Fact.new(fact: subject, view: self).to_hash
   when "believes", "doubts", "disbelieves"
     if showing_notifications
       json.action action
@@ -126,7 +126,7 @@ json.activity do |json|
         json.subject truncate("#{subject.from_fact}", length: 85, separator: ' ')
       end
     else
-      json.fact Facts::Fact.for(fact: subject, view: self).to_hash
+      json.fact Facts::Fact.new(fact: subject, view: self).to_hash
     end
 
   when "created_conversation"

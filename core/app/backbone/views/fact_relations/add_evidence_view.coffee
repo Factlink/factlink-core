@@ -18,7 +18,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   fact_relations_masquerading_as_facts: ->
     @_fact_relations_masquerading_as_facts ?= collectionMap new Backbone.Collection, @collection, (model) ->
-      new Fact model.get('fact_base')
+      new Fact model.get('from_fact')
 
   searchView: ->
     searchView = new AutoCompleteFactRelationsView
@@ -64,7 +64,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     fact_relation.save {},
       error: =>
         @collection.remove fact_relation
-        @inputRegion.getView('search_view').setQuery fact_relation.get('fact_base').displaystring
+        @inputRegion.getView('search_view').setQuery fact_relation.get('from_fact').displaystring
         @showError()
       success: =>
         mp_track "Evidence: Added",
@@ -90,12 +90,12 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       @_recent_collection.fetch()
     @_recent_collection
 
-  addFactBase: (fact_base)->
+  addFromFact: (from_fact)->
     @createFactRelation new FactRelation
-      evidence_id: fact_base.id
-      fact_base: fact_base
+      evidence_id: from_fact.id
+      from_fact: from_fact
       created_by: currentUser.toJSON()
 
   addRecentFact: (args) ->
-    @addFactBase args.model.get 'fact_base'
+    @addFromFact args.model.attributes
 

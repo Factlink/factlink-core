@@ -23,7 +23,7 @@ module SearchResults
       klass = @obj.class
 
       if klass == FactData
-        return Facts::Fact.for(fact: @obj.fact, view: @view)
+        return Facts::Fact.new(fact: @obj.fact, view: @view)
 
       elsif klass == FactlinkUser
         json = JbuilderTemplate.new(@view)

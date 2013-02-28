@@ -14,8 +14,12 @@ class window.FactRelationView extends Backbone.Marionette.Layout
     @factBaseView.show @_factBaseView()
 
   _factBaseView: ->
+    fact = new Fact @model.get('from_fact')
+    @bindTo @model, 'change', =>
+      fact.set @model.get('from_fact')
+
     fbv = new FactBaseView
-      model: @model
+      model: fact
       clickable_body: Factlink.Global.signed_in
 
     if Factlink.Global.signed_in

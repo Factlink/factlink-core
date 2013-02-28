@@ -1,7 +1,7 @@
 class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   className: 'evidence-bottom bottom-base'
 
-  template: 'facts/bottom_base'
+  template: 'facts/evidence_bottom'
 
   triggers:
     'click .js-sub-comments-link': 'toggleSubCommentsList'
@@ -17,17 +17,15 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     @bindTo @model, 'change', @render, @
 
   templateHelpers: ->
-    showTime: false
-    showRepost: false
-    showShare: false
-    showSubComments: true
+    fact = @model.getFact?()
+
     showDiscussion: ->
-      Factlink.Global.signed_in && @fact_base?
-    showFactInfo: ->
-      @fact_base?.proxy_scroll_url?
+      Factlink.Global.signed_in && @from_fact?
     fact_url_host: ->
-      if @fact_base?.fact_url?
-        new Backbone.Factlink.Url(@fact_base?.fact_url).host()
+      if @from_fact?.fact_url?
+        new Backbone.Factlink.Url(@from_fact?.fact_url).host()
+    believe_percentage: fact?.opinionPercentage('believe')
+    disbelieve_percentage: fact?.opinionPercentage('disbelieve')
 
   onRender: ->
     @bindTo @model, 'change:sub_comments_count', @updateSubCommentsLink, @
@@ -51,5 +49,5 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
 
   openEvidenceProxyLink: (e) ->
     mp_track "Evidence: Open proxy link",
-      site_url: @model.get("fact_base").fact_url
+      site_url: @model.get("from_fact").fact_url
 
