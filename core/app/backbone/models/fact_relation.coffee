@@ -23,7 +23,7 @@ class window.FactRelation extends Backbone.Model
         @set data
 
   getFact: ->
-    new Fact(@get('fact_base'))
+    new Fact(@get('from_fact'))
 
   believe: -> @setOpinion "believes"
   disbelieve: -> @setOpinion "disbelieves"

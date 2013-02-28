@@ -20,7 +20,7 @@ class TopicsController < ApplicationController
     @facts = interactor :'topics/facts', params[:id], from, count
 
     respond_to do |format|
-      format.json { render json: @facts.map {|fact| Facts::Fact.for(fact: fact[:item],view: view_context, timestamp: fact[:score])} }
+      format.json { render json: @facts.map {|fact| Facts::Fact.new(fact: fact[:item],view: view_context, timestamp: fact[:score])} }
     end
   end
 

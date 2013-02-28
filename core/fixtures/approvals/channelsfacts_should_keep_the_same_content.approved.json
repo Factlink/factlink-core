@@ -3,47 +3,11 @@
     "displaystring": "Fact 3",
     "id": "<STRIPPED>",
     "site_id": "3",
-    "signed_in?": true,
     "containing_channel_ids": [
       "3"
     ],
-    "deletable_from_channel?": true,
-    "i_am_owner": true,
-    "fact_base": {
-      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&amp;scrollto=3\" target=\"_blank\">Fact 3</a>",
-      "fact_id": "3",
-      "url": "/fact-3/f/3",
-      "id": "<STRIPPED>",
-      "user_signed_in?": true,
-      "i_am_fact_owner": true,
-      "can_edit?": true,
-      "displaystring": "Fact 3",
-      "fact_title": "Fact title 3",
-      "fact_wheel": {
-        "authority": "0.0",
-        "opinion_types": {
-          "believe": {
-            "percentage": 0,
-            "is_user_opinion": false
-          },
-          "doubt": {
-            "percentage": 100,
-            "is_user_opinion": false
-          },
-          "disbelieve": {
-            "percentage": 0,
-            "is_user_opinion": false
-          }
-        },
-        "fact_id": "3"
-      },
-      "believe_percentage": 0,
-      "disbelieve_percentage": 0,
-      "doubt_percentage": 100,
-      "fact_url": "http://example.org/3.html",
-      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&scrollto=3"
-    },
     "url": "/fact-3/f/3",
+    "deletable_from_channel?": true,
     "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
@@ -57,12 +21,6 @@
       }
     },
     "created_by_ago": "Created 1 minute ago",
-    "believers_count": 0,
-    "disbelievers_count": 0,
-    "doubters_count": 0,
-    "user_signed_in?": true,
-    "i_am_fact_owner": true,
-    "can_edit?": true,
     "fact_title": "Fact title 3",
     "fact_wheel": {
       "authority": "0.0",
@@ -79,12 +37,8 @@
           "percentage": 0,
           "is_user_opinion": false
         }
-      },
-      "fact_id": "3"
+      }
     },
-    "believe_percentage": 0,
-    "disbelieve_percentage": 0,
-    "doubt_percentage": 100,
     "fact_url": "http://example.org/3.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&scrollto=3",
     "timestamp": 0
@@ -93,47 +47,11 @@
     "displaystring": "Fact 2",
     "id": "<STRIPPED>",
     "site_id": "2",
-    "signed_in?": true,
     "containing_channel_ids": [
       "3"
     ],
-    "deletable_from_channel?": true,
-    "i_am_owner": true,
-    "fact_base": {
-      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&amp;scrollto=2\" target=\"_blank\">Fact 2</a>",
-      "fact_id": "2",
-      "url": "/fact-2/f/2",
-      "id": "<STRIPPED>",
-      "user_signed_in?": true,
-      "i_am_fact_owner": true,
-      "can_edit?": true,
-      "displaystring": "Fact 2",
-      "fact_title": "Fact title 2",
-      "fact_wheel": {
-        "authority": "0.0",
-        "opinion_types": {
-          "believe": {
-            "percentage": 0,
-            "is_user_opinion": false
-          },
-          "doubt": {
-            "percentage": 100,
-            "is_user_opinion": false
-          },
-          "disbelieve": {
-            "percentage": 0,
-            "is_user_opinion": false
-          }
-        },
-        "fact_id": "2"
-      },
-      "believe_percentage": 0,
-      "disbelieve_percentage": 0,
-      "doubt_percentage": 100,
-      "fact_url": "http://example.org/2.html",
-      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2"
-    },
     "url": "/fact-2/f/2",
+    "deletable_from_channel?": true,
     "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
@@ -147,12 +65,6 @@
       }
     },
     "created_by_ago": "Created 1 minute ago",
-    "believers_count": 0,
-    "disbelievers_count": 0,
-    "doubters_count": 0,
-    "user_signed_in?": true,
-    "i_am_fact_owner": true,
-    "can_edit?": true,
     "fact_title": "Fact title 2",
     "fact_wheel": {
       "authority": "0.0",
@@ -169,12 +81,8 @@
           "percentage": 0,
           "is_user_opinion": false
         }
-      },
-      "fact_id": "2"
+      }
     },
-    "believe_percentage": 0,
-    "disbelieve_percentage": 0,
-    "doubt_percentage": 100,
     "fact_url": "http://example.org/2.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2",
     "timestamp": 0
@@ -183,47 +91,11 @@
     "displaystring": "Fact 1",
     "id": "<STRIPPED>",
     "site_id": "1",
-    "signed_in?": true,
     "containing_channel_ids": [
       "3"
     ],
-    "deletable_from_channel?": true,
-    "i_am_owner": true,
-    "fact_base": {
-      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Fact 1</a>",
-      "fact_id": "1",
-      "url": "/fact-1/f/1",
-      "id": "<STRIPPED>",
-      "user_signed_in?": true,
-      "i_am_fact_owner": true,
-      "can_edit?": true,
-      "displaystring": "Fact 1",
-      "fact_title": "Fact title 1",
-      "fact_wheel": {
-        "authority": "0.0",
-        "opinion_types": {
-          "believe": {
-            "percentage": 0,
-            "is_user_opinion": false
-          },
-          "doubt": {
-            "percentage": 100,
-            "is_user_opinion": false
-          },
-          "disbelieve": {
-            "percentage": 0,
-            "is_user_opinion": false
-          }
-        },
-        "fact_id": "1"
-      },
-      "believe_percentage": 0,
-      "disbelieve_percentage": 0,
-      "doubt_percentage": 100,
-      "fact_url": "http://example.org/1.html",
-      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1"
-    },
     "url": "/fact-1/f/1",
+    "deletable_from_channel?": true,
     "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
@@ -237,12 +109,6 @@
       }
     },
     "created_by_ago": "Created 1 minute ago",
-    "believers_count": 0,
-    "disbelievers_count": 0,
-    "doubters_count": 0,
-    "user_signed_in?": true,
-    "i_am_fact_owner": true,
-    "can_edit?": true,
     "fact_title": "Fact title 1",
     "fact_wheel": {
       "authority": "0.0",
@@ -259,12 +125,8 @@
           "percentage": 0,
           "is_user_opinion": false
         }
-      },
-      "fact_id": "1"
+      }
     },
-    "believe_percentage": 0,
-    "disbelieve_percentage": 0,
-    "doubt_percentage": 100,
     "fact_url": "http://example.org/1.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
     "timestamp": 0

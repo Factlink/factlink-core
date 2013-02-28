@@ -36,7 +36,7 @@ class EvidenceController < FactsController
     authorize! :add_evidence, fact
 
     if params[:displaystring] != nil
-      @evidence = create_new_evidence params[:displaystring], params[:fact_base].andand[:opinion]
+      @evidence = create_new_evidence params[:displaystring], params[:from_fact].andand[:opinion]
     else
       @evidence = retrieve_evidence params[:evidence_id]
     end

@@ -1,0 +1,45 @@
+<ul class="actions">
+  <li>
+    {{#global.signed_in}}
+      <a href="{{url}}" class="discussion_link"
+        {{#modal?}}
+          target="new"
+        {{/modal?}}{{^modal?}}
+          rel="backbone" target="_top"
+        {{/modal?}}
+        >
+          Discussion
+      </a>
+    {{/global.signed_in}}{{^global.signed_in}}
+      <strong>Discussion</strong>
+    {{/global.signed_in}}
+
+    <span class="opinion_indicators">
+      <span class="opinion_indicator agreeing"></span>
+      {{ believe_percentage }}%
+      <span class="opinion_indicator disagreeing"></span>
+      {{ disbelieve_percentage }}%
+    </span>
+  </li>
+
+  {{#global.signed_in}}
+    <li><a href="#" class="js-add-to-channel">Repost</a></li>
+    <li><a href="#" class="js-start-conversation">Share</a></li>
+  {{/global.signed_in}}
+
+  <li class="fact-info">
+    {{formatted_time}}
+
+    {{#proxy_scroll_url}}
+      from
+      {{#fact_url_host}}
+      <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
+      {{/fact_url_host}}
+      <a href="{{proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
+        {{fact_title}}
+      </a>
+    {{/proxy_scroll_url}}
+  </li>
+</ul>
+
+<i class="title-overflow"></i>

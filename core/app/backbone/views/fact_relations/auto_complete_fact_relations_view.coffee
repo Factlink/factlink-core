@@ -36,10 +36,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @wheel_region.show new PersistentWheelView(model: @wheel)
 
   addCurrent: ->
-    selected_fact_base = @_search_list_view.currentActiveModel().get 'fact_base'
+    selected_fact_attributes = @_search_list_view.currentActiveModel().attributes
 
-    if selected_fact_base?
-      @addSelected(selected_fact_base)
+    if selected_fact_attributes?
+      @addSelected(selected_fact_attributes)
     else
       @addNew()
 
@@ -53,7 +53,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     @trigger 'createFactRelation', new FactRelation
       displaystring: text
-      fact_base: fact.toJSON()
+      from_fact: fact.toJSON()
       created_by: currentUser.toJSON()
 
   switchCheckboxClicked: (e) ->
@@ -63,10 +63,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     mp_track "Evidence: Switching to comment"
 
-  addSelected: (selected_fact_base)->
+  addSelected: (selected_fact_attributes)->
     @trigger 'createFactRelation', new FactRelation
-      evidence_id: selected_fact_base.id
-      fact_base: selected_fact_base
+      evidence_id: selected_fact_attributes.id
+      from_fact: selected_fact_attributes
       created_by: currentUser.toJSON()
 
   setQuery: (text) -> @model.set text: text
