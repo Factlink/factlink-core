@@ -140,7 +140,7 @@ class ChannelsController < ApplicationController
     mark_channel_as_read
 
     respond_to do |format|
-      format.json { render json: @facts.map {|fact| Facts::Fact.new(fact: fact[:item],view: view_context,channel: @channel,timestamp: fact[:score])} }
+      format.json { render }
     end
   end
 
