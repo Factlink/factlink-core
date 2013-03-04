@@ -38,7 +38,9 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact         Facts::Fact.new(fact: object, view: self).to_hash
+      json.fact do
+        json.partial! partial: 'facts/fact', locals: { fact: object }
+      end
     end
 
   when "created_comment"
@@ -51,7 +53,9 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact         Facts::Fact.new(fact: object, view: self).to_hash
+      json.fact do
+        json.partial! partial: 'facts/fact', locals: { fact: object }
+      end
     end
 
   when "created_sub_comment"
@@ -64,7 +68,9 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact         Facts::Fact.new(fact: object, view: self).to_hash
+      json.fact do
+        json.partial! partial: 'facts/fact', locals: { fact: object }
+      end
     end
 
   when "added_subchannel"
@@ -126,7 +132,9 @@ json.activity do |json|
         json.subject truncate("#{subject.from_fact}", length: 85, separator: ' ')
       end
     else
-      json.fact Facts::Fact.new(fact: subject, view: self).to_hash
+      json.fact do
+        json.partial! partial: 'facts/fact', locals: { fact: subject }
+      end
     end
 
   when "created_conversation"
