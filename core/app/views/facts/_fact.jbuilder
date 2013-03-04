@@ -1,3 +1,9 @@
+# set optional arguments to nil so we can easily check with if
+channel  ||= nil
+timestamp ||= 0
+# TODO: set timestamp to nil, but this always defaulted to 0
+# so check that nothing depends on it.
+
 json.displaystring fact.data.displaystring
 json.id fact.id
 json.site_id fact.site_id
