@@ -107,7 +107,9 @@ json.activity do |json|
         object: object,
         user: user
   when "added_first_factlink"
-    json.fact         Facts::Fact.new(fact: subject, view: self).to_hash
+    json.fact do
+      json.partial! partial: 'facts/fact', locals: { fact: subject }
+    end
   when "believes", "doubts", "disbelieves"
     if showing_notifications
       json.action action
