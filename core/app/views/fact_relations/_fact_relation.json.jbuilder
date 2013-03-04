@@ -25,15 +25,15 @@ creator_authority =
   # is possible because in the current calculation these authorities are the same
   Authority.on(fact_relation.fact, for: fact_relation.created_by).to_s(1.0)
 
-from_fact = Facts::Fact.new(fact: fact_relation.from_fact, view: self)
-
 json.url friendly_fact_path(fact_relation.from_fact)
 
 json.can_destroy? can_destroy
 json.weight fact_relation.percentage
 json.id fact_relation.id
 json.fact_relation_type fact_relation.type
-json.from_fact from_fact.to_hash
+json.from_fact do
+  json.partial! partial: 'facts/fact', locals: { fact: fact_relation.from_fact }
+end
 
 json.current_user_opinion current_user_opinion
 
