@@ -22,15 +22,11 @@ class SearchController < ApplicationController
 
     if search_for.size > 0
       @results = interactor :search, search_for, page, row_count
-
-      @results = @results.map do |result|
-        SearchResults::SearchResultItem.new(obj: result, view: view_context)
-      end.reject {|x| x.internal_object_to_hash_cached.nil?}
     end
 
     respond_to do |format|
       format.html
-      format.json {render json: @results}
+      format.json { render 'search_results/index' }
     end
   end
 end
