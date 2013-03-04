@@ -30,9 +30,7 @@ class FactsController < ApplicationController
       format.html do
         render inline:'', layout: 'client'
       end
-      format.json do
-        render json: Facts::Fact.new(fact: @fact, view: view_context)
-      end
+      format.json { render }
     end
   end
 
