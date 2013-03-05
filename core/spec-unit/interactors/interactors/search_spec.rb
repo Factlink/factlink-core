@@ -8,7 +8,7 @@ describe Interactors::Search do
 
   before do
     stub_classes 'Fact', 'Queries::ElasticSearchAll', 'FactData',
-                 'User', 'Ability::FactlinkWebapp'
+                 'User', 'Ability::FactlinkWebapp', 'Topic'
   end
 
   it 'initializes' do
