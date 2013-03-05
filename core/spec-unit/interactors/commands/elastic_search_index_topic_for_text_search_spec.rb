@@ -1,6 +1,5 @@
 require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/elastic_search_index_topic_for_text_search.rb'
-require 'json'
 
 describe Commands::ElasticSearchIndexTopicForTextSearch do
   include PavlovSupport
@@ -17,27 +16,32 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
     stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
-  it 'intitializes' do
-    interactor = Commands::ElasticSearchIndexTopicForTextSearch.new topic
+  describe '.new' do
+    it 'returns a new non nil instance' do
+      interactor = described_class.new topic
 
-    interactor.should_not be_nil
+      interactor.should_not be_nil
+    end
+
+    it 'raises when topic is not a Topic' do
+      expect { interactor = described_class.new 'Topic' }.
+        to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
+    end
   end
 
-  it 'raises when topic is not a Topic' do
-    expect { interactor = Commands::ElasticSearchIndexTopicForTextSearch.new 'Topic' }.
-      to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
-  end
-
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/topic/#{topic.id}"
+      interactor = described_class.new topic
+      json_document = mock
+
+      interactor.should_receive(:json_document).and_return(json_document)
       HTTParty.should_receive(:put).with(url,
-        { body: { title: topic.title, slug_title: topic.slug_title}.to_json})
-      interactor = Commands::ElasticSearchIndexTopicForTextSearch.new topic
+        { body: json_document})
 
       interactor.call
     end
