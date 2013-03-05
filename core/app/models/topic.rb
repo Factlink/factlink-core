@@ -43,7 +43,8 @@ class Topic
   end
 
   def top_channels(nr=5)
-    top_users(nr).map { |user| channel_for_user(user) }
+    @top_channels ||= {}
+    @top_channels[nr] ||= top_users(nr).map { |user| channel_for_user(user) }
   end
   def top_channels_with_fact(nr=5)
     redis[id][:top_channels_with_fact].zrevrange(0, (nr-1)).map {|id| Channel[id] }

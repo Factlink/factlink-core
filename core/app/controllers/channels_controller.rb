@@ -140,7 +140,7 @@ class ChannelsController < ApplicationController
     mark_channel_as_read
 
     respond_to do |format|
-      format.json { render json: @facts.map {|fact| Facts::Fact.new(fact: fact[:item],view: view_context,channel: @channel,timestamp: fact[:score])} }
+      format.json { render }
     end
   end
 
@@ -162,7 +162,8 @@ class ChannelsController < ApplicationController
       track "Factlink: Created"
 
       interactor :"channels/add_fact", @fact, @channel
-      render json: Facts::Fact.new(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
+      @timestamp = Ohm::Model::TimestampedSet.current_time
+      render 'channels/fact', formats: [:json]
     else
       render json: @fact.errors, status: :unprocessable_entity
     end
