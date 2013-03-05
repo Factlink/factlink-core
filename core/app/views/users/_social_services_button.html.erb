@@ -1,8 +1,8 @@
 <% content_for :specific_javascript do %>
   <script>
     function connected(service_name){
-      $('span.connect-buttons.<%= service_name %>').hide();
-      $('span.disconnect-buttons.<%= service_name %>').show();
+      $('span.connect-buttons.'+service_name).hide();
+      $('span.disconnect-buttons.'+service_name).show();
     }
 
     document.addEventListener('authorized', function (e) {
