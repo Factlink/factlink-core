@@ -51,13 +51,13 @@ json.fact_wheel do |j|
                 formats: [:json], handlers: [:jbuilder],
                 locals: { fact: fact }
 end
-json.fact_url(fact.has_site? ? fact.site.url : nil)
 
-begin
+if fact.has_site?
+  json.fact_url fact.site.url
   proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(fact.id)
   json.proxy_scroll_url proxy_scroll_url
-rescue
-  nil
+else
+  json.fact_url nil
 end
 
 json.timestamp timestamp
