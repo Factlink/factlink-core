@@ -32,7 +32,7 @@ class window.FactView extends Backbone.Marionette.Layout
   events:
     "click a.discussion_link" : "triggerDiscussionClick"
 
-  template: "facts/_fact"
+  template: "facts/fact"
 
   templateHelpers: ->
     'modal?' : FactlinkApp.modal is true
@@ -54,6 +54,7 @@ class window.FactView extends Backbone.Marionette.Layout
       @setPopover()
 
     @$(".authority").tooltip()
+
     if FactlinkApp.guided
       sometimeWhen(
         => @$el.is ":visible"
