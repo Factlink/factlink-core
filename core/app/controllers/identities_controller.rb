@@ -3,9 +3,9 @@ require_relative 'application_controller'
 class IdentitiesController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
-  def service_callback
-    @provider_name = params[:service]
+  before_filter :get_provider_name
 
+  def service_callback
     omniauth_obj = parse_omniauth_env @provider_name
 
     if user_signed_in?
@@ -20,8 +20,6 @@ class IdentitiesController < ApplicationController
   end
 
   def service_deauthorize
-    @provider_name = params[:service]
-
     case @provider_name
     when 'facebook'
       provider_deauthorize @provider_name do |uid, token|
@@ -116,5 +114,9 @@ class IdentitiesController < ApplicationController
     else
       flash[:alert] = "Already disconnected."
     end
+  end
+
+  def get_provider_name
+    @provider_name = params[:service]
   end
 end
