@@ -38,7 +38,7 @@ class Fact < Basefact
   end
 
   def has_site?
-    self.site and not self.site.url.andand.blank?
+    self.site and self.site.url and not self.site.url.blank?
   end
 
   def to_s

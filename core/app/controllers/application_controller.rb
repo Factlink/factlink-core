@@ -33,11 +33,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #require mustache partial views (the autoloader does not find them)
-  Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path|
-    require_dependency path
-  end
-
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
       if not current_user

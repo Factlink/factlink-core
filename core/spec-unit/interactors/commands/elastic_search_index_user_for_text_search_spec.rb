@@ -17,32 +17,33 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
     stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
-  it 'intitializes' do
-    interactor = Commands::ElasticSearchIndexUserForTextSearch.new user
+  describe '.new' do
+    it 'returns a new non nil instance' do
+      interactor = described_class.new user
 
-    interactor.should_not be_nil
+      interactor.should_not be_nil
+    end
+
+    it 'raises when user is not a User' do
+      expect { interactor = described_class.new 'User' }.
+        to raise_error(RuntimeError, 'user missing fields ([:username, :first_name, :last_name, :id]).')
+    end
   end
 
-  it 'raises when user is not a User' do
-    expect { interactor = Commands::ElasticSearchIndexUserForTextSearch.new 'User' }.
-      to raise_error(RuntimeError, 'user missing fields ([:username, :first_name, :last_name, :id]).')
-  end
-
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/user/#{user.id}"
+      interactor = described_class.new user
+      json_document = mock
+
+      interactor.should_receive(:json_document).and_return(json_document)
       HTTParty.should_receive(:put).with(url, {
-        body: {
-            username: user.username,
-            first_name: user.first_name,
-            last_name: user.last_name
-          }.to_json
+        body: json_document
         })
-      interactor = Commands::ElasticSearchIndexUserForTextSearch.new user
 
       interactor.call
     end

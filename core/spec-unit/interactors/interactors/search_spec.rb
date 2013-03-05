@@ -8,7 +8,7 @@ describe Interactors::Search do
 
   before do
     stub_classes 'Fact', 'Queries::ElasticSearchAll', 'FactData',
-                 'User', 'Ability::FactlinkWebapp'
+                 'User', 'Ability::FactlinkWebapp', 'Topic'
   end
 
   it 'initializes' do
@@ -78,6 +78,23 @@ describe Interactors::Search do
         with(keywords, 1, 20).
         and_return(query)
 
+      query.should_receive(:call).
+        and_return(results)
+
+      interactor.call.should eq []
+    end
+
+    it 'topic without channel is filtered' do
+      keywords = "searching for this channel"
+      interactor = Interactors::Search.new keywords, 1, 20, ability: relaxed_ability
+      topic = Topic.new
+      topic.stub top_channels: []
+      results = [topic]
+
+      query = mock()
+      Queries::ElasticSearchAll.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
       query.should_receive(:call).
         and_return(results)
 

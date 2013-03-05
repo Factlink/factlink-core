@@ -1,8 +1,10 @@
 <% content_for :javascript do %>
   <script>
-    var results = new SearchResults(<%= @results.to_json.html_safe %>, {
+    var results = new SearchResults([], {
       search: "<%= params[:s] %>"
     });
+
+    results.fetch();
 
     var searchResultView = new SearchResultView({
       collection: results
@@ -13,9 +15,3 @@
 <% end %>
 
 <h1>Searched for: <b><%= params[:s] %></b></h1>
-
-<% unless @results.count > 0 %>
-  <div>
-      <p>Sorry, your search didn't return any results.</p>
-  </div>
-<% end %>

@@ -235,4 +235,19 @@ describe Fact do
     end
   end
 
+  describe '.has_site?' do
+    it "returns false when no site is specified" do
+      fact = create :fact, site: nil
+      expect(fact.has_site?).to be_false
+    end
+    it "returns false when the site has no url" do
+      fact = create :fact, site: (create :site, url: nil)
+      expect(fact.has_site?).to be_false
+    end
+    it "returns false when the site has a blank url" do
+      fact = create :fact, site: (create :site, url: ' ')
+      expect(fact.has_site?).to be_false
+    end
+  end
+
 end
