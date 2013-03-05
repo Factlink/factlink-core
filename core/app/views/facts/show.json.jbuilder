@@ -1,3 +1,1 @@
-json.partial! partial: 'facts/fact',
-          formats: [:json], handlers: [:jbuilder],
-          locals: { fact: @fact }
+json.partial! 'facts/fact', fact: @fact

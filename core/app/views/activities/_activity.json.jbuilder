@@ -7,9 +7,7 @@ user =  activity.user.user
 json.subject_class subject.class.to_s
 
 
-json.user do |json|
-  json.partial! 'users/user_partial', user: user
-end
+json.user {|j| j.partial! 'users/user_partial', user: user }
 
 json.action action
 json.translated_action t("fact_#{action.to_sym}_action".to_sym)
@@ -38,9 +36,7 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact do
-        json.partial! partial: 'facts/fact', locals: { fact: object }
-      end
+      json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
 
   when "created_comment"
@@ -53,9 +49,7 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact do
-        json.partial! partial: 'facts/fact', locals: { fact: object }
-      end
+      json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
 
   when "created_sub_comment"
@@ -68,9 +62,7 @@ json.activity do |json|
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
     else
-      json.fact do
-        json.partial! partial: 'facts/fact', locals: { fact: object }
-      end
+      json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
 
   when "added_subchannel"
@@ -107,9 +99,7 @@ json.activity do |json|
         object: object,
         user: user
   when "added_first_factlink"
-    json.fact do
-      json.partial! partial: 'facts/fact', locals: { fact: subject }
-    end
+    json.fact { |j| j.partial! 'facts/fact', fact: subject}
   when "believes", "doubts", "disbelieves"
     if showing_notifications
       json.action action
@@ -134,9 +124,7 @@ json.activity do |json|
         json.subject truncate("#{subject.from_fact}", length: 85, separator: ' ')
       end
     else
-      json.fact do
-        json.partial! partial: 'facts/fact', locals: { fact: subject }
-      end
+      json.fact { |j| j.partial! 'facts/fact', fact: subject}
     end
 
   when "created_conversation"

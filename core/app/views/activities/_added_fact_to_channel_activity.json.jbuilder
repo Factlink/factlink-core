@@ -29,6 +29,4 @@ json.channel_owner_profile_url user_profile_path(object.created_by.user)
 json.channel_title             object.title
 json.channel_url               channel_path(object.created_by.user, object.id)
 
-json.fact do
-  json.partial! partial: 'facts/fact', locals: { fact: subject }
-end
+json.fact { |j| j.partial! 'facts/fact', fact: subject }

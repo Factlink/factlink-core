@@ -1,7 +1,4 @@
-json.partial! partial: 'facts/fact',
-          formats: [:json], handlers: [:jbuilder],
-          locals: {
+json.partial! 'facts/fact',
             fact: @fact,
             channel: @channel,
             timestamp: @timestamp
-          }
