@@ -4,26 +4,30 @@ class TestClass
   attr_accessor :test_field, :id
 end
 
-class TestIndexCommand < Commands::ElasticSearchIndexForTextSearchCommand
-  def define_index
-    type 'test_class'
-    field :test_field
-  end
-end
-
-class TestQuery < Queries::ElasticSearch
-  def define_query
-    type :test_class
-  end
-
-  def validate
-    true
-  end
-end
-
 describe 'elastic search' do
   before do
     ElasticSearch.stub synchronous: true
+  end
+
+  let (:test_query) do
+    Class.new Queries::ElasticSearch do
+      def define_query
+        type :test_class
+      end
+
+      def validate
+        true
+      end
+    end
+  end
+
+  let (:test_index_command) do
+    Class.new Commands::ElasticSearchIndexForTextSearchCommand do
+      def define_index
+        type 'test_class'
+        field :test_field
+      end
+    end
   end
 
   it 'searches for operators' do
@@ -72,8 +76,8 @@ describe 'elastic search' do
     object = TestClass.new
     object.test_field = text
     object.id = '1'
-    (TestIndexCommand.new object).call
+    (test_index_command.new object).call
 
-    (TestQuery.new query, 1, 10).call
+    (test_query.new query, 1, 10).call
   end
 end
