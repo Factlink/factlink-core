@@ -9,3 +9,6 @@ $("span.social-services-button a.popup").click((e) ->
   false
 )
 
+document.addEventListener('signed in', ()->
+  window.location.reload(true)
+)
