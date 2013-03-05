@@ -1,0 +1,37 @@
+<% content_for :specific_javascript do %>
+  <script>
+    if(window.opener) {
+      var evt = document.createEvent('CustomEvent');
+      evt.initCustomEvent('<%= @event %>', true, true, '<%= @provider_name %>');
+
+      window.opener.document.dispatchEvent(evt);
+      window.close();
+    } else {
+    origin = '<%= request.env['omniauth.origin'] %>'
+      if(origin !== ''){
+        console.info(origin);
+        window.location = origin;
+      }
+    }
+  </script>
+<% end %>
+
+
+<% content_for :title do %>
+  Factlink &mdash; Because the web needs what you know
+<% end %>
+
+<% content_for :main do %>
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <h1>Redirecting you back to the application!</h1>
+          <p>
+            Please wait a minute.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

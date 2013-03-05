@@ -4,35 +4,43 @@ class IdentitiesController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
   def service_callback
-    provider_name = params[:service]
+    @provider_name = params[:service]
 
-    omniauth_obj = parse_omniauth_env provider_name
+    omniauth_obj = parse_omniauth_env @provider_name
 
     if user_signed_in?
-      connect_provider provider_name, omniauth_obj
+      connect_provider @provider_name, omniauth_obj
     else
-      sign_in_through_provider provider_name, omniauth_obj
+      sign_in_through_provider @provider_name, omniauth_obj
+    end
+
+    respond_to do |format|
+      @fixed_topbar = false
+      @show_sign_in = false
+      format.html { render :callback, { layout: 'base', locals: {fixed_topbar: false, show_sign_up: false}}}
     end
   end
 
   def service_deauthorize
-    service = params[:service]
+    @provider_name = params[:service]
 
-    case service
+    case @provider_name
     when 'facebook'
-      provider_deauthorize service do |uid, token|
+      provider_deauthorize @provider_name do |uid, token|
         response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
         if response.code != 200 and response.code != 400
           raise "Facebook deauthorize failed: '#{response.body}'."
         end
       end
     when 'twitter'
-      provider_deauthorize service do
+      provider_deauthorize @provider_name do
         flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
       end
     else
       raise "Wrong OAuth provider: #{omniauth[:provider]}"
     end
+
+    redirect_to edit_user_path(current_user)
   end
 
   def oauth_failure
@@ -41,7 +49,10 @@ class IdentitiesController < ApplicationController
     end
 
     flash[:alert] = "Authorization failed: #{params[:error_description]}."
-    redirect_to edit_user_path(current_user)
+
+    respond_to do |format|
+      format.html { render :callback}
+    end
   end
 
   private
@@ -52,21 +63,19 @@ class IdentitiesController < ApplicationController
       current_user.identities[provider_name] = omniauth_obj
       current_user.save
       flash[:notice] = "Succesfully connected."
+      @event = 'authorized'
     else
       flash[:alert] = "Error connecting."
     end
-
-    redirect_to edit_user_path(current_user)
   end
 
   def sign_in_through_provider provider_name, omniauth_obj
     @user = User.find_for_oauth(provider_name, omniauth_obj.uid)
 
     if @user
-      sign_in_and_redirect @user
+      @event = 'signed in'
     else
       flash[:alert] = "No connected #{provider_name.capitalize} account found. Please sign in with your credentials and connect your #{provider_name.capitalize} account."
-      redirect_to request.env['omniauth.origin']
     end
   end
 
@@ -108,7 +117,5 @@ class IdentitiesController < ApplicationController
     else
       flash[:alert] = "Already disconnected."
     end
-
-    redirect_to edit_user_path(current_user)
   end
 end
