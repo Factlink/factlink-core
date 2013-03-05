@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/elastic_search_index_fact_data_for_text_search.rb'
 
@@ -17,27 +16,32 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
     stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
-  it 'intitializes' do
-    interactor = Commands::ElasticSearchIndexFactDataForTextSearch.new fact_data
+  describe '.new' do
+    it 'returns a new non nil instance' do
+      interactor = described_class.new fact_data
 
-    interactor.should_not be_nil
+      interactor.should_not be_nil
+    end
+
+    it 'raises when fact_data is not a FactData' do
+      expect { interactor = described_class.new 'FactData' }.
+        to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
+    end
   end
 
-  it 'raises when fact_data is not a FactData' do
-    expect { interactor = Commands::ElasticSearchIndexFactDataForTextSearch.new 'FactData' }.
-      to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
-  end
-
-  describe '.call' do
-    pending 'correctly' do
+  describe '#call' do
+    it 'correctly' do
       url = 'localhost:9200'
       config = mock()
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/factdata/#{fact_data.id}"
+      interactor = described_class.new fact_data
+      json_document = mock
+
+      interactor.should_receive(:json_document).and_return(json_document)
       HTTParty.should_receive(:put).with(url,
-        { body: { displaystring: fact_data.displaystring, title: fact_data.title }.to_json})
-      interactor = Commands::ElasticSearchIndexFactDataForTextSearch.new fact_data
+        { body:json_document})
 
       interactor.call
     end
