@@ -1,31 +1,47 @@
+<% content_for :specific_javascript do %>
+  <script>
+    function connected(service_name){
+      $('span.connect-buttons.<%= service_name %>').hide();
+      $('span.disconnect-buttons.<%= service_name %>').show();
+    }
+
+    document.addEventListener('authorized', function (e) {
+      if (e.detail === '<%= service_name %>'){
+        connected('<%= service_name %>');
+      }
+    });
+  </script>
+<% end %>
+
 <% connected = (not current_user.id_for_service(service_name).nil?) %>
 <div class="control-group">
   <%= f.label service_name, class: "control-label" %>
   <div class="controls">
 
-  <span class="social-services-button">
-	<% if connected %> 
-    <span class="connected">
-      <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, :class => "btn disabled") do %>
-        <%= image_tag("#{service_name}.png") %>
-        Connected to <%= service_name.capitalize %>     
-      <% end %>
-    </span>
+    <span class="social-services-button">
+      <span class="disconnect-buttons <%= service_name %>" <% if not connected %> style="display: none;"<% end %>>
+        <span class="connected">
+          <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, class: ["btn", "disabled"]) do %>
+            <%= image_tag("#{service_name}.png") %>
+            Connected to <%= service_name.capitalize %>
+          <% end %>
+        </span>
 
-    <span class="disconnect">
-      <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, :class => "btn btn-danger") do %>
-        <%= image_tag("#{service_name}.png") %>
-          Disconnect from <%= service_name.capitalize %>
-      <% end %>
+        <span class="disconnect">
+          <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, class: ["btn", "btn-danger"]) do %>
+            <%= image_tag("#{service_name}.png") %>
+              Disconnect from <%= service_name.capitalize %>
+          <% end %>
+        </span>
+      </span>
+      <span class="connect-buttons <%= service_name %>" <% if connected %> style="display: none;"<% end %>>
+        <span class="connect">
+      		<%= link_to("/auth/#{service_name}", class: ["btn", "popup"], :"data-width" => 600, :"data-height" => 400) do %>
+            <%= image_tag("#{service_name}.png") %>
+              Connect <%= service_name.capitalize %>
+          <% end %>
+        </span>
+      </span>
     </span>
-   
-  	<% else %>
-  		<%= link_to("/auth/#{service_name}", :class => "btn") do %>
-        <%= image_tag("#{service_name}.png") %> 
-          Connect <%= service_name.capitalize %>
-        <% end %>
-  	<% end %>
-    </span>
- 
   </div>
 </div>
