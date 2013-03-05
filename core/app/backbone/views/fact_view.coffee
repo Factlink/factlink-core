@@ -45,6 +45,9 @@ class window.FactView extends Backbone.Marionette.Layout
   initialize: (opts) ->
     @bindTo @model, "destroy", @close, @
     @bindTo @model, "change", @render, @
+    
+    if FactlinkApp.guided
+      @tooltipAdd '.js-close', new TextView(model: new Backbone.Model(text: "blablabla")), side: 'top', align: 'center'
 
   onRender: ->
     @factBaseView.show new FactBaseView(model: @model)
@@ -78,3 +81,5 @@ class window.FactView extends Backbone.Marionette.Layout
 
   triggerDiscussionClick: (e) ->
     FactlinkApp.vent.trigger 'factlink_permalink_clicked', e, @model
+
+_.extend window.FactView.prototype, Backbone.Factlink.TooltipMixin
