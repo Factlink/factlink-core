@@ -56,8 +56,6 @@ if fact.has_site?
   json.fact_url fact.site.url
   proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(fact.id)
   json.proxy_scroll_url proxy_scroll_url
-else
-  json.fact_url nil
 end
 
 json.timestamp timestamp
