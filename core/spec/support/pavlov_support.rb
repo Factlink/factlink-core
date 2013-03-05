@@ -15,6 +15,8 @@ module PavlovSupport
     klass_instance.should_receive(:call)
   end
 
+  # TODO why is this in pavlov support, this should be put in some general
+  # support file or spec_helper.
   def stub_classes *classnames
     classnames.each do |classname|
       stub_const classname, Class.new
