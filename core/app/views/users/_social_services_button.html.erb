@@ -36,7 +36,7 @@
       </span>
       <span class="connect-buttons <%= service_name %>" <% if connected %> style="display: none;"<% end %>>
         <span class="connect">
-      		<%= link_to("/auth/#{service_name}", class: ["btn", "popup"], :"data-width" => 600, :"data-height" => 400) do %>
+      		<%= link_to("/auth/#{service_name}", class: ["btn", "popup"], :"data-width" => 800, :"data-height" => 600) do %>
             <%= image_tag("#{service_name}.png") %>
               Connect <%= service_name.capitalize %>
           <% end %>
