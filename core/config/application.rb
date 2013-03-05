@@ -59,7 +59,6 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
-    config.autoload_paths << "#{config.root}/app/views"
     config.autoload_paths << "#{config.root}/app/workers"
     config.autoload_paths << "#{config.root}/app/observers"
     config.autoload_paths << "#{config.root}/app/interactors"
