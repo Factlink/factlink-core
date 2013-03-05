@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title><%= yield :title %></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <%= yield :specific_stylesheet_tag %>
+  </head>
+  <body>
+    <%= render "base/topbar", fixed_topbar: false %>
+
+    <%= yield :main %>
+
+    <%= render "base/footer", show_sign_up: false %>
+
+    <%= javascript_include_tag "application" %>
+    <%= render 'snippets/raven_js' %>
+
+    <%= yield :specific_javascript %>
+    <%= render 'snippets/google_analytics' %>
+  </body>
+</html>

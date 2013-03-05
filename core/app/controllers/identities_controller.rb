@@ -15,9 +15,7 @@ class IdentitiesController < ApplicationController
     end
 
     respond_to do |format|
-      @fixed_topbar = false
-      @show_sign_in = false
-      format.html { render :callback, { layout: 'base', locals: {fixed_topbar: false, show_sign_up: false}}}
+      format.html { render :callback, { layout: 'popup'}}
     end
   end
 
