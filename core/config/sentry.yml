@@ -2,7 +2,7 @@ testserver:
   sentry:
     public: "0832681aa4c34491af61fd421f4e6030"
     secret: "6e5e8e5d09e9488c8c69843f492e2d34"
-    project_id: "4"
+    project_id: "5"
 
   ravenjs:
     public: "9d44e69d8ed94e40b7ec7d74f3b606f4"
