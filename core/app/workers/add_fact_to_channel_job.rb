@@ -14,10 +14,20 @@ class AddFactToChannelJob
   def perform
     return unless can_perform and should_perform
 
-    add_to_channel
-    add_to_topic
-    add_to_unread
+    to_be_extracted_add_command
+
     propagate_to_channels
+  end
+
+  def to_be_extracted_add_command
+    channel.sorted_cached_facts.add(fact, score)
+    fact.channels.add(channel) if channel.type == 'channel'
+    command :"topics/add_fact", fact.id, channel.slug_title, score.to_s
+    unless posted_by_channel_owner?
+      unless fact_created_by_channel_owner?
+        channel.unread_facts.add(fact)
+      end
+    end
   end
 
   def can_perform
@@ -44,20 +54,16 @@ class AddFactToChannelJob
     channel.sorted_delete_facts.include?(fact)
   end
 
-  def add_to_channel
-    channel.sorted_cached_facts.add(fact, score)
-    fact.channels.add(channel) if channel.type == 'channel'
+  def channel_facts
+    ChannelFacts.new(channel)
   end
 
-  def add_to_topic
-    command :"topics/add_fact", fact.id, channel.slug_title, score.to_s
+  def posted_by_channel_owner?
+    channel.created_by_id == initiated_by_id
   end
 
-  def add_to_unread
-    if (not channel.created_by_id == initiated_by_id) and
-       (not channel.created_by_id == fact.created_by_id)
-      channel.unread_facts.add(fact)
-    end
+  def fact_created_by_channel_owner?
+    channel.created_by_id == fact.created_by_id
   end
 
   def propagate_to_channels
