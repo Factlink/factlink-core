@@ -35,7 +35,7 @@ gem 'stringex'
 
 gem 'mixpanel', git: 'git@github.com:Factlink/mixpanel.git'
 
-gem "sentry-raven"
+gem "sentry-raven", '0.3.1'
 gem "resque-sentry"
 
 # Everyone loves JSON
