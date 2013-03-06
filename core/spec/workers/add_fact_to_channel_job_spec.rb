@@ -15,7 +15,7 @@ describe AddFactToChannelJob do
     it "should call resque on all its containing channels" do
       sup_ch = create :channel
       @ch.containing_channels << sup_ch
-      @ch.sorted_internal_facts << fact
+      @ch.sorted_internal_facts <<@f
 
       Resque.should_receive(:enqueue).with(AddFactToChannelJob, @f.id, sup_ch.id, {})
 
