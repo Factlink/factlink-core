@@ -60,8 +60,7 @@ describe 'when adding a fact to a channel' do
     end
     it "should add the fact to the indirect follower" do
       facts = interactor :'channels/facts', @channel.id, nil, nil
-      latest_fact = facts.map{|i| i[:item]}[0]
-      expect(latest_fact).to eq fact
+      expect(facts).to eq []
     end
   end
 end

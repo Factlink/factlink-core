@@ -61,9 +61,16 @@ class AddFactToChannelJob
   end
 
   def propagate_to_channels
+    return unless should_propagate?
+
     channel.containing_channels.ids.each do |ch_id|
       Resque.enqueue(AddFactToChannelJob, fact.id, ch_id, @options)
     end
+  end
+
+  # only propagate if the fact was added to this channel
+  def should_propagate?
+    channel.sorted_internal_facts.include? fact
   end
 
   def self.perform(fact_id, channel_id, options={})
