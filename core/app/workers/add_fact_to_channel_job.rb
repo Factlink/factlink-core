@@ -20,8 +20,7 @@ class AddFactToChannelJob
   end
 
   def to_be_extracted_add_command
-    channel.sorted_cached_facts.add(fact, score)
-    fact.channels.add(channel) if channel.type == 'channel'
+    interactor :"channels/add_fact_without_propagation", fact, channel, score
     command :"topics/add_fact", fact.id, channel.slug_title, score.to_s
     unless posted_by_channel_owner?
       unless fact_created_by_channel_owner?
