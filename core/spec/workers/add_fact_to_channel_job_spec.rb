@@ -10,15 +10,6 @@ describe AddFactToChannelJob do
       channel.sorted_cached_facts.should include(fact)
       fact.channels.all.should =~ [channel]
     end
-    it "should call resque on all its containing channels" do
-      sup_ch = create :channel
-      channel.containing_channels << sup_ch
-      channel.sorted_internal_facts << fact
-
-      Resque.should_receive(:enqueue).with(AddFactToChannelJob, fact.id, sup_ch.id, {})
-
-      AddFactToChannelJob.perform fact.id, channel.id
-    end
 
     context "when the channel explicitely deletes the fact" do
       before do
