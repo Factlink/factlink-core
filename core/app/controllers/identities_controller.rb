@@ -3,15 +3,13 @@ require_relative 'application_controller'
 class IdentitiesController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
-  before_filter :get_provider_name
-
   def service_callback
-    omniauth_obj = parse_omniauth_env @provider_name
+    omniauth_obj = parse_omniauth_env provider_name
 
     if user_signed_in?
-      connect_provider @provider_name, omniauth_obj
+      connect_provider provider_name, omniauth_obj
     else
-      sign_in_through_provider @provider_name, omniauth_obj
+      sign_in_through_provider provider_name, omniauth_obj
     end
 
     respond_to do |format|
@@ -20,16 +18,16 @@ class IdentitiesController < ApplicationController
   end
 
   def service_deauthorize
-    case @provider_name
+    case provider_name
     when 'facebook'
-      provider_deauthorize @provider_name do |uid, token|
+      provider_deauthorize provider_name do |uid, token|
         response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
         if response.code != 200 and response.code != 400
           raise "Facebook deauthorize failed: '#{response.body}'."
         end
       end
     when 'twitter'
-      provider_deauthorize @provider_name do
+      provider_deauthorize provider_name do
         flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
       end
     else
@@ -116,7 +114,7 @@ class IdentitiesController < ApplicationController
     end
   end
 
-  def get_provider_name
-    @provider_name = params[:service]
+  def provider_name
+    @provider_name ||= params[:service]
   end
 end
