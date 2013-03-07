@@ -37,15 +37,15 @@
 
     background: image-url('help-text-arrow.png');
     height: 17px;
-    width: 11px;
+    width: @arrow-offset;
     background-repeat: no-repeat;
   }
 
   &.bottom {
     margin-top: @arrow-offset;
     .arrow {
-      margin-top: -@arrow-offset;
-      .rotate(270deg);
+      margin-top: -(@arrow-offset + 2);
+      .rotate(90deg);
     }
   }
 
@@ -53,14 +53,14 @@
     margin-bottom: @arrow-offset;
     .arrow {
       margin-bottom: -@arrow-offset;
-      .rotate(90deg);
+      .rotate(270deg);
     }
   }
 
   &.left {
     margin-right: @arrow-offset;
     .arrow {
-      margin-right: - @arrow-offset;
+      margin-left: -3px;
       .rotate(180deg);
     }
   }
