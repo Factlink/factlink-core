@@ -2,12 +2,12 @@
   <script>
     if(window.opener) {
       var evt = document.createEvent('CustomEvent');
-      evt.initCustomEvent('<%= @event %>', true, true, '<%= @provider_name %>');
+      evt.initCustomEvent('<%= @event %>', true, true, '<%= event_details %>');
 
       window.opener.document.dispatchEvent(evt);
       window.close();
     } else {
-    origin = '<%= request.env['omniauth.origin'] %>'
+      origin = '<%= request.env['omniauth.origin'] %>'
       if(origin !== ''){
         console.info(origin);
         window.location = origin;

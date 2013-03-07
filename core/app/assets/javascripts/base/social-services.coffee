@@ -12,3 +12,8 @@ $("span.social-services-button a.popup").click((e) ->
 document.addEventListener('signed in', ()->
   window.location.reload(true)
 )
+
+document.addEventListener('social error', (event) ->
+    FactlinkApp.NotificationCenter.error(event.detail)
+)
+

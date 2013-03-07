@@ -13,7 +13,7 @@ class IdentitiesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'popup'}}
+      format.html { render :callback, { layout: 'popup', locals: {event_details: @provider_name}}}
     end
   end
 
@@ -41,11 +41,11 @@ class IdentitiesController < ApplicationController
     if(params[:error_description].blank?)
       params[:error_description] ||= "unspecified error"
     end
-
-    flash[:alert] = "Authorization failed: #{params[:error_description]}."
+    @event = "social error"
+    @error = "Authorization failed: #{params[:error_description]}."
 
     respond_to do |format|
-      format.html { render :callback}
+      format.html { render :callback, { layout: 'popup', locals: {event_details: @error}}}
     end
   end
 
