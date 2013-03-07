@@ -2,35 +2,45 @@ require 'spec_helper'
 
 describe AddChannelToChannel do
   describe ".perform" do
-    before do
-      @ch = create :channel
-      @sub_ch = create :channel
-    end
+    let (:channel)    { create :channel }
+    let(:sub_channel) { create :channel }
 
     it "should add the fact to the cached facts of the super channel using Resque" do
       fact = create :fact
-      @sub_ch.sorted_cached_facts << fact
+      sub_channel.sorted_cached_facts << fact
 
-      Resque.should_receive(:enqueue).with(AddFactToChannelJob, fact.id, @ch.id)
-      AddChannelToChannel.perform @sub_ch.id, @ch.id
+      Fact.should_receive(:[]).with(fact.id)
+           .and_return(fact)
+      Channel.should_receive(:[]).with(sub_channel.id)
+             .and_return(sub_channel)
+      Channel.should_receive(:[]).with(channel.id)
+             .and_return(channel)
+
+      interactor = mock
+      Interactors::Channels::AddFactWithoutPropagation.should_receive(:new)
+           .with(fact, channel, nil, true).and_return(interactor)
+      interactor.should_receive(:call)
+
+      AddChannelToChannel.perform sub_channel.id, channel.id
     end
 
     it "should only add NUMBER_OF_INITIAL_FACTS facts to the super channel" do
       oldest_fact = create :fact
-      @sub_ch.sorted_cached_facts << oldest_fact
+      sub_channel.sorted_cached_facts << oldest_fact
 
       facts = []
 
-      for i in 1..AddChannelToChannel::NUMBER_OF_INITIAL_FACTS
+      AddChannelToChannel::NUMBER_OF_INITIAL_FACTS.times do |i|
         facts[i] = create :fact
-        @sub_ch.sorted_cached_facts << facts[i]
+        sub_channel.sorted_cached_facts << facts[i]
       end
 
-      for i in 1..AddChannelToChannel::NUMBER_OF_INITIAL_FACTS
-        Resque.should_receive(:enqueue).with(AddFactToChannelJob, facts[i].id, @ch.id)
-      end
+      Interactors::Channels::AddFactWithoutPropagation.should_receive(:new)
+            .exactly(AddChannelToChannel::NUMBER_OF_INITIAL_FACTS)
+            .times
+            .and_return(mock call: nil)
 
-      AddChannelToChannel.perform @sub_ch.id, @ch.id
+      AddChannelToChannel.perform sub_channel.id, channel.id
     end
   end
 end
