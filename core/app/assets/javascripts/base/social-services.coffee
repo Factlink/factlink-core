@@ -6,8 +6,8 @@ popupCenter = (url, width, height, name) ->
 $("span.social-services-button a.popup").click((e) ->
   popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup")
   e.stopPropagation()
-  false
 )
+  e.preventDefault()
 
 document.addEventListener('signed in', ()->
   window.location.reload(true)
