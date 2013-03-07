@@ -9,7 +9,6 @@
     } else {
       origin = '<%= request.env['omniauth.origin'] %>'
       if(origin !== ''){
-        console.info(origin);
         window.location = origin;
       }
     }
