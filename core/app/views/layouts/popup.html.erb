@@ -6,11 +6,15 @@
     <title><%= yield :title %></title>
     <meta name="description" content="Factlink social callback page.">
     <meta name="viewport" content="width=device-width">
-
+    <%= stylesheet_link_tag "base" %>
     <%= yield :specific_stylesheet_tag %>
   </head>
-  <body>
-    <%= yield :main %>
+  <body class="factlink-site">
+    <div class="content">
+      <div class="container">
+        <%= yield :main %>
+      </div>
+    </div>
 
     <%= yield :specific_javascript %>
   </body>
