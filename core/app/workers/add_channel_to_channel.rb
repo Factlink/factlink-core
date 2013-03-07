@@ -9,9 +9,9 @@ class AddChannelToChannel
 
   attr_reader :subchannel, :channel
 
-  def initialize(subchannel_id, channel_id)
-    @subchannel = Channel[subchannel_id]
-    @channel = Channel[channel_id]
+  def initialize(subchannel, channel)
+    @subchannel = subchannel
+    @channel = channel
   end
 
   def perform
@@ -24,7 +24,7 @@ class AddChannelToChannel
     subchannel.sorted_cached_facts.below('inf', count: NUMBER_OF_INITIAL_FACTS)
   end
 
-  def self.perform(subchannel_id, channel_id)
-    new(subchannel_id, channel_id).perform
+  def self.perform(subchannel, channel)
+    new(subchannel, channel).perform
   end
 end

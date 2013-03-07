@@ -11,17 +11,13 @@ describe AddChannelToChannel do
 
       Fact.should_receive(:[]).with(fact.id)
            .and_return(fact)
-      Channel.should_receive(:[]).with(sub_channel.id)
-             .and_return(sub_channel)
-      Channel.should_receive(:[]).with(channel.id)
-             .and_return(channel)
 
       interactor = mock
       Interactors::Channels::AddFactWithoutPropagation.should_receive(:new)
            .with(fact, channel, nil, true).and_return(interactor)
       interactor.should_receive(:call)
 
-      AddChannelToChannel.perform sub_channel.id, channel.id
+      AddChannelToChannel.perform sub_channel, channel
     end
 
     it "should only add NUMBER_OF_INITIAL_FACTS facts to the super channel" do
@@ -40,7 +36,7 @@ describe AddChannelToChannel do
             .times
             .and_return(mock call: nil)
 
-      AddChannelToChannel.perform sub_channel.id, channel.id
+      AddChannelToChannel.perform sub_channel, channel
     end
   end
 end
