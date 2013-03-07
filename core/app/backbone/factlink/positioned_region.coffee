@@ -28,20 +28,6 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
     elPosition = @_extendedPosition(@$el)
     bindElPosition = @_extendedPosition(@$bindEl)
 
-    switch @options.align || 'default'
-      when 'default', 'left', 'top'
-        leftOffset = 0
-        topOffset = 0
-      when 'center'
-        leftOffset = elPosition.width / 2
-        topOffset = elPosition.height / 2
-      when 'right'
-        leftOffset = elPosition.width
-        topOffset = 0
-      when 'bottom'
-        leftOffset = 0
-        topOffset = elPosition.height
-
     switch @options.side || 'left'
       when 'left'
         left: bindElPosition.left - elPosition.width
