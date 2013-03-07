@@ -21,7 +21,7 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
 
   _actuallyUpdatePosition: ->
     @_checkOffsetParent()
-    @currentView.trigger('position')
+    @currentView.trigger 'position', @_offsets()
     @$el.css @_tooltipCss()
 
   _offsets: ->
