@@ -1,12 +1,18 @@
-# 16:30 CET, januari 15th, 2013
+# Changelog
 
-Functional:
+## Not released
+
+### Functional:
+- Social signin/signup now uses a popup instead of full page redirects.
+
+## 16:30 CET, januari 15th, 2013
+
+### Functional:
 - Highlight Factlink when when it enters the visible part of the window
 
+## 15:00 CET, januari 10th, 2013
 
-# 15:00 CET, januari 10th, 2013
-
-Functional:
+### Functional:
 - Notfications when somebody comments on a comment I interacted with.
 - If you don't finish the tour, you will be redirected to the tour when you log in.
 - Extracted and opensourced Pavlov library.
@@ -19,12 +25,12 @@ Functional:
 - Bugfix: Visiting Factlink public pages won't crash IE.
 - Bugfix: Fixed layout of factlink placeholders in tour.
 
-Technical:
+### Technical:
 - Client in a Backbone app (no navigation yet).
 - restructured tests (renamed integration=>acceptence, extracted screenshot tests)
 - Fix db:init
 - Ensured assets are recompiled after locale update. (This was not automatically triggered.)
 
-Operational:
+### Operational:
 - Monitor all servers in New relic
 - Per release keep track of changes in a changelog file.
