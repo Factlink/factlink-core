@@ -1,6 +1,13 @@
 # TODO: extract out interactor, containing both this, and also
 #       some methods which are always called together with this
 
+# README:
+# This classed should be called when doing a repost. It will propagate
+# to its direct followers.
+#
+# It is assumed that this action is performed by the owner of the
+# channel and therefore the unread bit should never be set for the
+# direct add
 class AddFactToChannelJob
   include Pavlov::Helpers
 
@@ -17,7 +24,7 @@ class AddFactToChannelJob
   def perform
     return unless fact and channel
 
-    executed = interactor :"channels/add_fact_without_propagation", fact, channel, score, not(channel.created_by_id == initiated_by_id)
+    executed = interactor :"channels/add_fact_without_propagation", fact, channel, score, false
 
     propagate_to_channels if executed
   end
@@ -31,18 +38,11 @@ class AddFactToChannelJob
   end
 
   def propagate_to_channels
-    return unless should_propagate?
-
     channel.containing_channels.ids.each do |ch_id|
       if ch = Channel[ch_id]
         interactor :"channels/add_fact_without_propagation", fact, ch, score, true
       end
     end
-  end
-
-  # only propagate if the fact was added to this channel
-  def should_propagate?
-    channel.sorted_internal_facts.include? fact
   end
 
   def self.perform(fact_id, channel_id, options={})
