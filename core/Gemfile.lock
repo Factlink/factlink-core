@@ -162,7 +162,7 @@ GEM
     factory_girl_rails (3.6.0)
       factory_girl (~> 3.6.0)
       railties (>= 3.0.0)
-    faraday (0.8.5)
+    faraday (0.8.6)
       multipart-post (~> 1.1)
     fastercsv (1.5.5)
     fattr (2.2.1)
@@ -269,7 +269,7 @@ GEM
     moped (1.4.2)
     multi_json (1.6.1)
     multi_xml (0.5.3)
-    multipart-post (1.1.5)
+    multipart-post (1.2.0)
     nest (1.1.2)
       redis
     net-scp (1.1.0)
@@ -436,8 +436,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
-    sentry-raven (0.4.3)
-      faraday (>= 0.7.6)
+    sentry-raven (0.3.1)
+      faraday (~> 0.8.0.rc2)
       hashie
       multi_json (~> 1.0)
       uuidtools
@@ -573,7 +573,7 @@ DEPENDENCIES
   rspec-rails
   ruby-prof
   rvm-capistrano
-  sentry-raven
+  sentry-raven (= 0.3.1)
   sextant
   simplecov
   simplecov-rcov-text

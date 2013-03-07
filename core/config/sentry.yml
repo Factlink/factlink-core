@@ -1,7 +1,7 @@
 testserver:
   sentry:
-    public: "ed7f90eb59104887bcd04633309dd039"
-    secret: "729bb74c0ee947f3b732a4724011e182"
+    public: "743ecc1c097640a68fc885030e308dd7"
+    secret: "53dd5c85c52e4940aa558fd9983ff9ed"
     project_id: "4"
 
   ravenjs:
@@ -10,8 +10,8 @@ testserver:
 
 staging:
   sentry:
-    public: "167920b2a05b435ab7c44e7bc04ba12b"
-    secret: "af60baa914bb4b1aa80a70d824d411dc"
+    public: "a9fbad21e5a8444e8b865a058c9b9312"
+    secret: "8fff0d1562cb4314a8a3fa48725d1e2a"
     project_id: "3"
 
   ravenjs:
@@ -20,8 +20,8 @@ staging:
 
 production:
   sentry:
-    public: "7b2e9e587402463d851e3cff2c4906d9"
-    secret: "93e23c0a74a7482b9b91ff9d37e487fc"
+    public: "290d2adf2aa5432f8c682f3f650f2852"
+    secret: "bc8fb237712c4297a3d5c06318a62c71"
     project_id: "2"
 
   ravenjs:

@@ -30,9 +30,7 @@ class FactsController < ApplicationController
       format.html do
         render inline:'', layout: 'client'
       end
-      format.json do
-        render json: Facts::Fact.new(fact: @fact, view: view_context)
-      end
+      format.json { render }
     end
   end
 
@@ -113,8 +111,7 @@ class FactsController < ApplicationController
         track "Modal: Create"
         redirect_to fact_path(@fact.id, guided: params[:guided])
       end
-      decorated_fact = Facts::Fact.new(fact: @fact,view: view_context)
-      format.json { render json: decorated_fact}
+      format.json { render 'facts/show' }
     end
   end
 
@@ -178,21 +175,19 @@ class FactsController < ApplicationController
     authorize! :index, Fact
     search_for = params[:s]
 
-    results = interactor :search_evidence, search_for, @fact.id
+    @facts = (interactor :search_evidence, search_for, @fact.id).map do |fd|
+        fd.fact
+      end
 
-    facts = results.map { |result| Facts::Fact.new(fact: result.fact, view: view_context) }
-
-    render json: facts
+    render 'facts/index', formats: [:json]
   end
 
   def recently_viewed
     authorize! :index, Fact
 
-    results = interactor :"facts/recently_viewed"
+    @facts = interactor :"facts/recently_viewed"
 
-    facts = results.map { |fact| Facts::Fact.new(fact: fact, view: view_context) }
-
-    render json: facts
+    render 'facts/index', formats: [:json]
   end
 
   private
