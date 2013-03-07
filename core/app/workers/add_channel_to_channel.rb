@@ -1,3 +1,6 @@
+# TODO: extract out interactor, containing both this, and also
+#       some methods which are always called together with this
+
 class AddChannelToChannel
   include Pavlov::Helpers
   NUMBER_OF_INITIAL_FACTS = 10
