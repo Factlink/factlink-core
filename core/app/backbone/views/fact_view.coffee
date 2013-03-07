@@ -47,7 +47,6 @@ class window.FactView extends Backbone.Marionette.Layout
     @bindTo @model, "change", @render, @
 
     if FactlinkApp.guided
-      tooltip_view = new PopoverView(model: new Backbone.Model(title: 'Title', text: 'Hi my name is popover.'))
       @tooltipAdd '.js-close', 'Title', 'Hi my name is popover', { side: 'bottom', align: 'left' }
 
   onRender: ->
