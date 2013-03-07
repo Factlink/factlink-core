@@ -1,6 +1,8 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+@arrow-offset: 11px;
+
 .help-text-container {
   z-index: @max-z-index;
   position: relative;
@@ -27,11 +29,41 @@
   .arrow {
     position: absolute;
 
-    @image-width: 22px;
-
+    background: image-url('help-text-arrow.png');
     height: 17px;
-    width: @image-width;
-    background: red;
+    width: 11px;
+    background-repeat: no-repeat;
   }
 
+  &.bottom {
+    margin-top: @arrow-offset;
+    .arrow {
+      margin-top: -@arrow-offset;
+      .rotate(270deg);
+    }
+  }
+
+  &.top {
+    margin-bottom: @arrow-offset;
+    .arrow {
+      margin-bottom: -@arrow-offset;
+      .rotate(90deg);
+    }
+  }
+
+  &.left {
+    margin-right: @arrow-offset;
+    .arrow {
+      margin-right: - @arrow-offset;
+      .rotate(180deg);
+    }
+  }
+
+  &.right {
+    margin-left: @arrow-offset;
+    .arrow {
+      margin-left: -@arrow-offset;
+      .rotate(0deg);
+    }
+  }
 }
