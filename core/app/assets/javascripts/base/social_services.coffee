@@ -8,10 +8,8 @@ $("span.social-services-buttons a.popup").click (e) ->
   e.stopPropagation()
   e.preventDefault()
 
-document.addEventListener('signed in', ()->
+$(document).on 'signed_in', ->
   window.location.reload(true)
-)
 
-document.addEventListener('social error', (event) ->
     FactlinkApp.NotificationCenter.error(event.detail)
-)
+$(document).on 'social_error', (e) ->
