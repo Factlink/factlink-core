@@ -117,3 +117,4 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
         f.set containing_channel_ids: channel_ids
         @trigger 'factCreated', f
 
+_.extend window.FactsNewView.prototype, Backbone.Factlink.TooltipMixin
