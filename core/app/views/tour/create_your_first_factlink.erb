@@ -1,5 +1,4 @@
 <div class="left-column">
-  <div class="help-text-container">
 
     <div id="step1" class="tour-block">
       <div class="arrow-right">
@@ -33,8 +32,6 @@
 
       <%= link_to( 'Continue', choose_channels_path, :class => "btn btn-primary btn-mini", 'data-disable-with' => "Loading..." ) %>
     </div>
-
-  </div>
 
   <% if can_haz :skip_create_first_factlink %>
     <%= link_to 'Skip this step', choose_channels_path, id: 'skip-link' %>
