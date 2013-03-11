@@ -1,15 +1,30 @@
+# TODO: extract out interactor, containing both this, and also
+#       some methods which are always called together with this
+
 class AddChannelToChannel
+  include Pavlov::Helpers
   NUMBER_OF_INITIAL_FACTS = 10
 
   @queue = :channel_operations
 
-  def self.perform(subchannel_id, channel_id)
-    subchannel = Channel[subchannel_id]
-    channel = Channel[channel_id]
+  attr_reader :subchannel, :channel
 
-    latest_facts = subchannel.sorted_cached_facts.below('inf', count: NUMBER_OF_INITIAL_FACTS)
+  def initialize(subchannel, channel)
+    @subchannel = subchannel
+    @channel = channel
+  end
+
+  def perform
     latest_facts.each do |fact|
-      Resque.enqueue(AddFactToChannelJob, fact.id, channel.id)
+      interactor :"channels/add_fact_without_propagation", fact, channel, nil, true
     end
+  end
+
+  def latest_facts
+    subchannel.sorted_cached_facts.below('inf', count: NUMBER_OF_INITIAL_FACTS)
+  end
+
+  def self.perform(subchannel, channel)
+    new(subchannel, channel).perform
   end
 end
