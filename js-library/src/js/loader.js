@@ -1,4 +1,10 @@
-(function(){
+(function() {
+  if ( window.FACTLINK !== undefined ) {
+    console.info( "Window.FACTLINK is not undefined" );
+    return;
+  }
+
+  console.info( "Loading FACTLINK" );
 
   /*
    * Temporary workaround for old bookmarklet users
@@ -70,7 +76,7 @@
     }
   };
 
-  if ( window.FACTLINK === undefined ) { window.FACTLINK = {}; }
+  window.FACTLINK = {};
 
   window.FACTLINK.iframeLoaded = function () {
     iframe.contentWindow.document.head.appendChild(flScript);
