@@ -41,7 +41,7 @@ class IdentitiesController < ApplicationController
     if(params[:error_description].blank?)
       params[:error_description] ||= "unspecified error"
     end
-    @event = "social error"
+    @event = "social_error"
     @error = "Authorization failed: #{params[:error_description]}."
 
     respond_to do |format|
@@ -67,7 +67,7 @@ class IdentitiesController < ApplicationController
     @user = User.find_for_oauth(provider_name, omniauth_obj.uid)
 
     if @user
-      @event = 'signed in'
+      @event = 'signed_in'
       sign_in @user
     else
       flash[:alert] = "No connected #{provider_name.capitalize} account found. Please sign in with your credentials and connect your #{provider_name.capitalize} account."
