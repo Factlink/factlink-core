@@ -34,6 +34,8 @@ class Tooltip
 class window.FactsNewView extends Backbone.Marionette.ItemView
   template: "client/facts_new"
 
+  className: 'fact-new'
+
   events:
     'click #submit': 'post_factlink',
     'click .fact-wheel': 'closeWhatIsYourOpinionHelpText'
