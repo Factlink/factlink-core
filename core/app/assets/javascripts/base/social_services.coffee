@@ -11,5 +11,8 @@ $("span.social-services-buttons a.popup").click (e) ->
 $(document).on 'signed_in', ->
   window.location.reload(true)
 
-    FactlinkApp.NotificationCenter.error(event.detail)
 $(document).on 'social_error', (e) ->
+  if typeof FactlinkApp == 'object'
+    FactlinkApp.NotificationCenter.error(e.originalEvent.detail)
+  else
+    _.defer -> alert(e.originalEvent.detail)
