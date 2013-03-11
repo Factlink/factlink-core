@@ -58,7 +58,7 @@ describe 'when adding a fact to a channel' do
 
       interactor :"channels/add_fact", fact, @sub_sub_channel
     end
-    it "should add the fact to the indirect follower" do
+    it "should not add the fact to the indirect follower" do
       facts = interactor :'channels/facts', @channel.id, nil, nil
       expect(facts).to eq []
     end
