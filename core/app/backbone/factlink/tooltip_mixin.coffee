@@ -17,6 +17,11 @@ Backbone.Factlink.TooltipMixin =
     @on 'render', @tooltipBindAll
     @on 'close', @tooltipResetAll
 
+  tooltipRemove: (selector) ->
+    tooltip = @tooltip(selector)
+    tooltip.reset()
+    delete @_tooltips[selector]
+
   tooltipBindAll: ->
     for selector, tooltipHandler of @_tooltips
       $bindEl = @$(selector).first()
