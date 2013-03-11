@@ -82,6 +82,8 @@ class window.InteractiveTour extends Backbone.View
       $("#step#{current_step}").fadeIn 'fast'
     , @helpTextDelay
 
+_.extend window.InteractiveTour.prototype, Backbone.Factlink.TooltipMixin
+
 $ ->
   if $('body').hasClass 'action_create_your_first_factlink'
-    window.tour = new InteractiveTour()
+    window.tour = new InteractiveTour(el: $('body'))
