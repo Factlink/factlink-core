@@ -31,6 +31,9 @@ class window.InteractiveTour extends Backbone.View
 
     @bindLibraryLoad()
 
+    @createStateMachine()
+
+  createStateMachine: ->
     @state = StateMachine.create
       initial: 'started'
       events: [
