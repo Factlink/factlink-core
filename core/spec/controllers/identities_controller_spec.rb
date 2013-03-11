@@ -46,7 +46,7 @@ describe IdentitiesController do
       subject.stub(:provider_name).and_return(provider_name)
 
       subject.send(:sign_in_through_provider, provider_name, omniauth_obj)
-      subject.instance_variable_get('@event').should eq 'signed in'
+      subject.instance_variable_get('@event').should eq 'signed_in'
     end
 
     it 'should redirect to the correct path when no user is found' do
