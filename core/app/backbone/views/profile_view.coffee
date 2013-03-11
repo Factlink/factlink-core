@@ -1,4 +1,4 @@
-#= require './top_channel_view'
+#= require './top_channels_view'
 
 class window.ProfileInformationView extends Backbone.Marionette.ItemView
   template: "users/profile/information"
