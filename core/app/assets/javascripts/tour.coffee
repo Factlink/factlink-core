@@ -33,6 +33,14 @@ class window.InteractiveTour extends Backbone.View
 
     @createStateMachine()
 
+    @createTooltips()
+
+  createTooltips: ->
+    @tooltipAdd '#create-your-first-factlink > p:first',
+        "Let's create a Factlink!",
+        "With Factlink you can select any statement, on any website. Let's try that on this example page. Select any statement on the right to start creating your Factlink.",
+        { side: 'bottom' }
+
   createStateMachine: ->
     @state = StateMachine.create
       initial: 'started'
