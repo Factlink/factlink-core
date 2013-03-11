@@ -26,12 +26,6 @@ class Tooltip
     @$('.fact-wheel').on 'click.whatsyouropinion', =>
       @close()
 
-      if FactlinkApp.guided
-        $('#submit').tooltip(
-          title: "Great! Click here to finish",
-          trigger: "manual"
-        ).tooltip("show");
-
     $(window).on 'resize.whatsyouropinion', =>
       @showTooltip();
 
