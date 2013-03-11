@@ -19,8 +19,8 @@ class Tooltip
     @_shouldShowTooltip = false
     $(window).off 'resize.whatsyouropinion'
     @$('.fact-wheel').off 'click.whatsyouropinion'
-    @$('.js-opinion-animation').hide();
     @$('.fact-wheel').tooltip('destroy')
+    @$('.js-opinion-animation').hide()
 
   render: ->
     @$('.fact-wheel').on 'click.whatsyouropinion', =>
