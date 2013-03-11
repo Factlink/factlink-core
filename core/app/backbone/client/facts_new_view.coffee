@@ -108,17 +108,17 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
     channel_ids = @addToCollection.map (ch)-> ch.id
 
-    f = new Fact
+    fact = new Fact
       opinion: @wheel.userOpinion()
       displaystring:  @$('textarea#fact').val()
       fact_url: @$('input#url').val()
       fact_title: @$('input#title').val()
       channels: channel_ids
 
-    f.save {},
+    fact.save {},
       success: =>
-        f.set containing_channel_ids: channel_ids
-        @trigger 'factCreated', f
+        fact.set containing_channel_ids: channel_ids
+        @trigger 'factCreated', fact
 
   openWhatIsYourOpinionHelpText: ->
     if FactlinkApp.guided
