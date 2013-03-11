@@ -29,6 +29,23 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       expect(interactor.call).to be_true
     end
 
+    it 'does not add the fact if the channel is no real channel' do
+      fact = mock(:fact, channels: mock, id: mock, created_by_id: 14)
+      channel = mock :channel,
+                    sorted_cached_facts: mock,
+                    type: 'notchannel',
+                    slug_title: mock,
+                    created_by_id: 14
+      score = mock(:score, to_s: mock)
+
+      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
+      interactor.stub(should_execute?: true)
+
+      channel.sorted_cached_facts.should_receive(:add).with(fact, score)
+
+      expect(interactor.call).to be_true
+    end
+
     it 'adds the fact to the unread facts if it is indicated and it makes sense' do
       fact = mock(:fact, channels: mock, id: mock, created_by_id: 14)
       channel = mock :channel,
