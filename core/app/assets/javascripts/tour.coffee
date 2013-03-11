@@ -24,7 +24,7 @@ class window.InteractiveTour extends Backbone.View
     @extensionButton = new ExtensionButtonMimic()
     $('.js-extension-button-region').append(@extensionButton.render().el)
 
-  constructor: ->
+  initialize: ->
     @renderExtensionButton()
 
     @bindLibraryLoad()
