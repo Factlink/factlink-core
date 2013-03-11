@@ -25,6 +25,8 @@ class window.InteractiveTour extends Backbone.View
     $('.js-extension-button-region').append(@extensionButton.render().el)
 
   initialize: ->
+    @isClosed = false # Hack to fake Marionette behaviour. Used in TooltipMixin.
+
     @renderExtensionButton()
 
     @bindLibraryLoad()
