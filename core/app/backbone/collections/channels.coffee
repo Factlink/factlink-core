@@ -1,4 +1,4 @@
-class window.GenericChannelList extends Backbone.Collection
+class window.GenericChannelList extends Backbone.Factlink.Collection
   model: Channel
 
 class window.TopChannelList extends window.GenericChannelList
