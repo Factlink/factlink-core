@@ -3,6 +3,7 @@ require "rubygems"
 require "bundler/setup"
 require 'webrick'
 require 'rack'
+require 'yaml'
 
 coredir = File.join(File.dirname(File.expand_path(__FILE__)),'..')
 railsenv = ENV['RAILS_ENV'] || 'development'
