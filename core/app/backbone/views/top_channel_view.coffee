@@ -1,4 +1,4 @@
-class window.TopChannelItemView extends Backbone.Marionette.Layout
+class TopChannelView extends Backbone.Marionette.Layout
   template: 'channels/topchannel'
   className: 'top-channels-channel'
 
@@ -19,10 +19,9 @@ class window.TopChannelItemView extends Backbone.Marionette.Layout
 
     @add_to_channel_button_region.show add_back_button
 
-class window.TopChannelView extends Backbone.Marionette.CompositeView
   template: "users/profile/top_channels"
   className: "top-channel-container"
-  itemView: TopChannelItemView
+  itemView: TopChannelView
   itemViewContainer: ".top-channels"
   events:
     "click a.top-channels-show-more": "showMoreOn"
