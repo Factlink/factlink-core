@@ -22,6 +22,8 @@ class window.ProfileView extends Backbone.Marionette.Layout
     utils = new CollectionUtils(this)
     utils.updatedClone(ordered_channels, @collection)
 
+    @bindTo @collection, 'before:fetch', -> ordered_channels.trigger 'before:fetch'
+
     ordered_channels
 
 
