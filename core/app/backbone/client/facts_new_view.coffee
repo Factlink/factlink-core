@@ -26,8 +26,7 @@ class Tooltip
     @$('.fact-wheel').on 'click.whatsyouropinion', =>
       @close()
 
-    $(window).on 'resize.whatsyouropinion', =>
-      @showTooltip();
+    $(window).on 'resize.whatsyouropinion', => @showTooltip();
 
     @showTooltip()
 
