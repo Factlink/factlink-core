@@ -1,4 +1,4 @@
-class window.InteractiveTour
+class window.InteractiveTour extends Backbone.View
   helpTextDelay: 560
 
   bindLibraryLoad: ->
