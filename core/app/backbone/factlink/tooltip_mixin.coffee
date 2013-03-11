@@ -14,6 +14,9 @@ Backbone.Factlink.TooltipMixin =
     @_tooltips[selector] = new Backbone.Factlink.PositionedRegion _.extend(options, side: side)
     @_tooltips[selector].show view
 
+    unless @isClosed
+      @tooltipBindAll()
+
     @on 'render', @tooltipBindAll
     @on 'close', @tooltipResetAll
 
