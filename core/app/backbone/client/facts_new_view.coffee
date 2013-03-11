@@ -48,7 +48,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @addToCollection = new OwnChannelCollection
-    @tooltip = new Tooltip($)
+    @the_tooltip = new Tooltip($)
 
   onRender: ->
     @renderAddToChannel()
@@ -57,11 +57,11 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     @createCancelEvent()
     sometimeWhen(
       => @$el.is ":visible"
-    , => @tooltip.render()
+    , => @the_tooltip.render()
     )
 
   onBeforeClose: ->
-    @tooltip.close()
+    @the_tooltip.close()
     $('#submit').tooltip('destroy')
 
   renderAddToChannel: ->
