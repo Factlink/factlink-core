@@ -436,8 +436,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
-    sentry-raven (0.4.3)
-      faraday (>= 0.7.6)
+    sentry-raven (0.3.1)
+      faraday (~> 0.8.0.rc2)
       hashie
       multi_json (~> 1.0)
       uuidtools
@@ -573,7 +573,7 @@ DEPENDENCIES
   rspec-rails
   ruby-prof
   rvm-capistrano
-  sentry-raven
+  sentry-raven (= 0.3.1)
   sextant
   simplecov
   simplecov-rcov-text

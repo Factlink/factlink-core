@@ -6,7 +6,7 @@ describe Commands::Channels::AddFact do
   include PavlovSupport
   describe '.call' do
     before do
-      stub_classes 'Resque', 'AddFactToChannelJob', 'Channel::Activities'
+      stub_classes 'AddFactToChannelJob', 'Channel::Activities'
     end
 
     it 'correctly' do
@@ -36,7 +36,8 @@ describe Commands::Channels::AddFact do
 
       sorted_internal_facts.should_receive(:add).with(fact)
 
-      Resque.should_receive(:enqueue).with(AddFactToChannelJob, fact_id, channel_id, initiated_by_id: channel_created_by_id)
+      AddFactToChannelJob.should_receive(:perform)
+                         .with(fact_id, channel_id, initiated_by_id: channel_created_by_id)
 
       command.call
     end

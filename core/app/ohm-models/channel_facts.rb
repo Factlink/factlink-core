@@ -8,7 +8,7 @@ class ChannelFacts
     Channel::Activities.new(channel).add_created
     channel.sorted_delete_facts.delete(fact)
     channel.sorted_internal_facts.add(fact)
-    Resque.enqueue(AddFactToChannelJob, fact.id, channel.id, initiated_by_id: channel.created_by_id)
+    AddFactToChannelJob.perform(fact.id, channel.id, initiated_by_id: channel.created_by_id)
   end
 
   def remove_fact(fact)

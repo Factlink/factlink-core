@@ -27,8 +27,9 @@ testserver:
     default:
       database: factlink_testserver
       hosts:
-       - mongo1-testserver.factlink.com:27017
        - mongo2-testserver.factlink.com:27017
+       - 89.188.27.138:27017
+       - 89.188.27.139:27017
       options:
         consistency: :strong
   options:
@@ -41,6 +42,7 @@ staging:
       hosts:
        - mongo1-staging.factlink.com:27017
        - mongo2-staging.factlink.com:27017
+       - 89.188.27.140:27017
       options:
         consistency: :strong
   options:
@@ -53,6 +55,8 @@ production:
       hosts:
        - mongo1-production.factlink.com:27017
        - mongo4-production.factlink.com:27017
+       - 89.188.27.146:27017
+       - 89.188.27.148:27017
       options:
         consistency: :strong
   options:
