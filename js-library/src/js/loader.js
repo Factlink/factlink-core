@@ -1,10 +1,7 @@
 (function() {
   if ( window.FACTLINK !== undefined ) {
-    console.info( "Window.FACTLINK is not undefined" );
     return;
   }
-
-  console.info( "Loading FACTLINK" );
 
   /*
    * Temporary workaround for old bookmarklet users
