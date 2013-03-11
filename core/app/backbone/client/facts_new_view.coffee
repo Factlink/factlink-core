@@ -9,10 +9,11 @@ class Tooltip
     if FactlinkApp.guided
       @$('.js-opinion-animation').show();
 
-    @$('.fact-wheel').tooltip(
-      title: "What's your opinion?",
-      trigger: "manual"
-    ).tooltip('show');
+    else
+      @$('.fact-wheel').tooltip(
+        title: "What's your opinion?",
+        trigger: "manual"
+      ).tooltip('show');
 
   close: ->
     @_shouldShowTooltip = false
