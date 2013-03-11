@@ -70,7 +70,8 @@ class IdentitiesController < ApplicationController
       @event = 'signed_in'
       sign_in @user
     else
-      flash[:alert] = "No connected #{provider_name.capitalize} account found. Please sign in with your credentials and connect your #{provider_name.capitalize} account."
+      @event = 'social_error'
+      @provider_name = "No connected #{provider_name.capitalize} account found. Please sign in with your credentials and connect your #{provider_name.capitalize} account."
     end
   end
 
