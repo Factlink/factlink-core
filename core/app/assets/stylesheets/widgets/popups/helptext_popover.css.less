@@ -1,7 +1,8 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-@arrow-offset: 11px;
+@arrow-long-side: 17px;
+@arrow-pointy-side: 11px;
 
 .help-text-container {
   z-index: @max-z-index;
@@ -51,49 +52,49 @@
 
     background: image-url('help-text-arrow.png');
 
-    width: @arrow-offset;
+    width: @arrow-long-side;
     background-repeat: no-repeat;
   }
 
   &.bottom {
-    margin-top: @arrow-offset;
+    margin-top: @arrow-pointy-side;
     .arrow {
-      top: -(@arrow-offset + 2);
+      top: -@arrow-pointy-side;
       background-position: -22px 0;
 
-      height: 11px;
-      width: 17px;
+      height: @arrow-pointy-side;
+      width: @arrow-long-side;
     }
   }
 
   &.top {
-    margin-bottom: @arrow-offset;
+    margin-bottom: @arrow-pointy-side;
     .arrow {
-      bottom: -(@arrow-offset + 2);
+      bottom: -@arrow-pointy-side;
       background-position: -39px 0;
-      height: 11px;
-      width: 17px;
+      height: @arrow-pointy-side;
+      width: @arrow-long-side;
     }
   }
 
   &.left {
-    margin-right: @arrow-offset;
+    margin-right: @arrow-pointy-side;
     .arrow {
-      right: -@arrow-offset;
+      right: -@arrow-pointy-side;
       background-position: -11px 0;
 
-      height: 17px;
-      width: 11px;
+      height: @arrow-long-side;
+      width: @arrow-pointy-side;
     }
   }
 
   &.right {
-    margin-left: @arrow-offset;
+    margin-left: @arrow-pointy-side;
     .arrow {
-      left: -@arrow-offset;
+      left: -@arrow-pointy-side;
 
-      height: 17px;
-      width: 11px;
+      height: @arrow-long-side;
+      width: @arrow-pointy-side;
     }
   }
 }
