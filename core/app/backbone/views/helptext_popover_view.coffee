@@ -6,28 +6,14 @@ class window.HelptextPopoverView extends Backbone.Marionette.ItemView
     arrow: '.js-arrow'
 
   initialize: ->
-    @on 'position', @handleposition, @
+    @on 'position', @handlePosition, @
 
   onRender: ->
     @$el.addClass @options.side
 
-  handleposition: (position)->
-    top = 0
-    left = 0
-
+  handlePosition: (position)->
     if @options.side in ['right', 'left']
-      top = position.top - (@ui.arrow.height() / 2)
+      @ui.arrow.css 'top', position.top - (@ui.arrow.height() / 2)
 
     if @options.side in ['top', 'bottom']
-      left = position.left - (@ui.arrow.width() / 2)
-
-    if @options.side is 'left'
-      left = position.left * 2 - @ui.arrow.width()
-
-    if @options.side is 'top'
-      top = position.top * 2 - @ui.arrow.height()
-
-    @ui.arrow.css
-      top: top
-      left: left
-
+      @ui.arrow.css 'left', position.left - (@ui.arrow.width() / 2)
