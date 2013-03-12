@@ -88,16 +88,6 @@ class window.InteractiveTour extends Backbone.View
           StateMachine.ASYNC
           @state.transition()
 
-  hideHelpText: (step) ->
-    $("#step#{step}").fadeOut 'fast', =>
-      @state.transition()
-
-    StateMachine.ASYNC
-
-  showHelpText: (current_step) ->
-    setTimeout =>
-      $("#step#{current_step}").fadeIn 'fast'
-    , @helpTextDelay
 
 _.extend window.InteractiveTour.prototype, Backbone.Factlink.TooltipMixin
 
