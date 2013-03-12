@@ -1,24 +1,38 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-.opinion_indicators {
+span.opinion_indicator_small {
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+  background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
+  position: relative;
+  top: -1px;
 
-  span.opinion_indicator {
-    display: inline-block;
-    color: #777;
-    height: 7px;
-    width: 7px;
-    margin: 0 5px 0 5px;
-    background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
-    position: relative;
-    top: -1px;
+  &.agreeing {
+    background-position: 0 0;
+  }
 
-    &.agreeing {
-      background-position: 0 0;
-    }
+  &.disagreeing {
+    background-position: -8px -0;
+  }
+}
 
-    &.disagreeing {
-      background-position: -8px -0;
-    }
+span.opinion_indicator {
+  display: inline-block;
+  background: image-url('discussions/opinion_type_indicators.png') -18px -7px no-repeat;
+  height: 10px;
+  width: 8px;
+
+  &.agreeing {
+    background-position: 0 -7px;
+  }
+
+  &.disagreeing {
+    background-position: -9px -7px;
+  }
+
+  &.unsuring {
+    background-position: -18px -7px;
   }
 }
