@@ -79,7 +79,6 @@ class ChannelsController < ApplicationController
       @channel.created_by = current_user.graph_user
     end
 
-    # Check if object valid, then execute:
     if @channel.valid?
       @channel.save
 
@@ -127,6 +126,19 @@ class ChannelsController < ApplicationController
       format.html  { redirect_to(channel_activities_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
       format.json  { render :json => {}, :status => :ok }
     end
+  end
+
+  def follow
+    channel = interactor :'channels/follow', channel_id
+
+    if channel
+      render :json => {}, :status => :ok
+    else
+      render :json => {}, :status => :internal_server_error
+    end
+  end
+
+  def unfollow
   end
 
   def facts
