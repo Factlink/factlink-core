@@ -78,10 +78,11 @@ class window.InteractiveTour extends Backbone.View
 
         onfactlink_created: =>
           @extensionButton.increaseCount()
+          view = new TooltipView(template: 'tooltips/first_factlink_created')
           @tooltipAdd '#create-your-first-factlink',
             "Your first Factlink is a fact!",
-            '<a href="choose_channels_path" class="btn btn-primary btn-mini" data-disable-with="Loading...">Continue</a>',
-            { side: 'left' }
+            '',
+            { side: 'left', contentView: view }
 
         onleavefactlink_created: =>
           @tooltipRemove '#create-your-first-factlink'
