@@ -20,12 +20,20 @@ class SubchannelsController < ApplicationController
 
   private
 
+    def channel_id
+      params[:channel_id]
+    end
+
+    def subchannel_id
+      params[:subchannel_id]||params[:id]
+    end
+
     def channel
-      @channel ||= Channel[params[:channel_id]] || raise_404("Channel not found")
+      @channel ||= Channel[channel_id] || raise_404("Channel not found")
     end
 
     def subchannel
-      @subchannel ||= Channel[params[:subchannel_id]||params[:id]] || raise_404("Subchannel not found")
+      @subchannel ||= Channel[subchannel_id] || raise_404("Subchannel not found")
     end
 
     def render_subchannels
