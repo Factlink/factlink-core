@@ -1,5 +1,5 @@
 class window.HelptextPopoverView extends Backbone.Marionette.Layout
-  template: 'generic/helptext_popover'
+  template: 'tooltips/helptext_popover'
   className: 'help-text-container'
 
   ui:
