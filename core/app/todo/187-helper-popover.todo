@@ -4,5 +4,8 @@
  ✔ Create view to be rendered by the popover to allow html in the popover content @done (13-03-12 13:47)
  ✔ Add link to @tooltipAdd '#create-your-first-factlink' in tour.coffee @done (13-03-12 13:47)
 
- ☐ Add optional fade in / out on tooltipAdd and tooltipRemove
+ ✔ Add optional fade in / out on tooltipAdd and tooltipRemove @done (13-03-12 15:59)
  ✔ 1 off position error @done (13-03-12 13:44)
+
+ ☐ Hide explanation of credibility when guided
+ ☐ Show Twitter Bootstrap tooltips on top of ours
