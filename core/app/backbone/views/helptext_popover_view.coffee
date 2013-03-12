@@ -1,15 +1,20 @@
-class window.HelptextPopoverView extends Backbone.Marionette.ItemView
+class window.HelptextPopoverView extends Backbone.Marionette.Layout
   template: 'generic/helptext_popover'
   className: 'help-text-container'
 
   ui:
     arrow: '.js-arrow'
 
+  regions:
+    contentRegion: '.js-help-text-content'
+
   initialize: ->
     @on 'position', @handleposition, @
 
   onRender: ->
     @$el.addClass @options.side
+
+    @contentRegion.show @options.view if @options.view
 
   handleposition: (position)->
     top = 0
