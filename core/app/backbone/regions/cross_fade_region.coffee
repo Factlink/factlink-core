@@ -1,4 +1,4 @@
-class window.crossFadeRegion extends Backbone.Marionette.Region
+class window.CrossFadeRegion extends Backbone.Marionette.Region
 
   theTimeout: 560
 
