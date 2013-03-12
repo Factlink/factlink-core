@@ -26,7 +26,7 @@ Backbone.Factlink.TooltipMixin =
 
   tooltipRemove: (selector) ->
     tooltip = @_tooltips[selector]
-    tooltip.positionedRegion.reset()
+    tooltip.positionedRegion.resetFade()
     delete @_tooltips[selector]
 
   tooltipBindAll: ->

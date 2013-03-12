@@ -63,7 +63,6 @@ class window.InteractiveTour extends Backbone.View
 
         onleavestarted: =>
           @tooltipRemove '#create-your-first-factlink > p:first'
-          StateMachine.ASYNC
           @state.transition()
 
         ontext_selected: =>
@@ -75,7 +74,6 @@ class window.InteractiveTour extends Backbone.View
 
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',
-          StateMachine.ASYNC
           @state.transition()
 
         onfactlink_created: =>
@@ -88,7 +86,6 @@ class window.InteractiveTour extends Backbone.View
 
         onleavefactlink_created: =>
           @tooltipRemove '#create-your-first-factlink'
-          StateMachine.ASYNC
           @state.transition()
 
 
