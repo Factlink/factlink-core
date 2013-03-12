@@ -14,9 +14,9 @@ Backbone.Factlink.TooltipMixin =
     positionedRegion = new Backbone.Factlink.PositionedRegion _.extend({}, options, side: side)
     positionedRegion.show view
 
-    offsetParent = options.offsetParent || @$el
+    container = options.container || @$el
 
-    @_tooltips[selector] = { positionedRegion, offsetParent, view }
+    @_tooltips[selector] = { positionedRegion, container, view }
 
     unless @isClosed
       @tooltipBindAll()
@@ -32,7 +32,7 @@ Backbone.Factlink.TooltipMixin =
   tooltipBindAll: ->
     for selector, tooltip of @_tooltips
       $bindEl = @$(selector).first()
-      tooltip.positionedRegion.bindToElement($bindEl, tooltip.offsetParent)
+      tooltip.positionedRegion.bindToElement($bindEl, tooltip.container)
 
     @tooltipUpdateAll()
 
