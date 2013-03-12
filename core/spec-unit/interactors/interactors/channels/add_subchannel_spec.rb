@@ -23,12 +23,9 @@ describe Interactors::Channels::AddSubchannel do
       end
 
       interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id)
-
-      channel.should_receive(:add_channel).with(subchannel)
+      interactor.should_receive(:command).with(:'channels/add_subchannel', channel, subchannel)
 
       interactor.execute
     end
-
-
   end
 end
