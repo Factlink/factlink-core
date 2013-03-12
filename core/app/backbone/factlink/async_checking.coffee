@@ -1,7 +1,7 @@
 Backbone.Factlink ||= {}
 
-Backbone.Factlink.asyncChecking = (test, func, thisArg=null, timeout=100) ->
-  time = 0; dt = 20; interval = null
+Backbone.Factlink.asyncChecking = (test, func, thisArg=null, timeout=100, dt=3) ->
+  time = 0; interval = null
 
   checkTest = ->
     if test.call(thisArg)
