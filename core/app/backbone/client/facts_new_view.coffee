@@ -38,7 +38,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   events:
     'click #submit': 'post_factlink',
-    'click .fact-wheel': 'closeWhatIsYourOpinionHelpText'
+    'click .fact-wheel': 'closeOpinionHelptext'
 
   templateHelpers: ->
     layout: @options.layout
@@ -53,7 +53,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     @addToCollection = new OwnChannelCollection
     @the_tooltip = new Tooltip($)
 
-    @openWhatIsYourOpinionHelpText()
+    @openOpinionHelptext()
 
   onRender: ->
     @renderAddToChannel()
@@ -122,19 +122,19 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
         fact.set containing_channel_ids: channel_ids
         @trigger 'factCreated', fact
 
-  openWhatIsYourOpinionHelpText: ->
+  openOpinionHelptext: ->
     if FactlinkApp.guided
       @tooltipAdd '.fact-view',
         "What's your opinion?",
         "Here I can tell you something about colors and opinions. Only not in HTML yet.",
         { side: 'left' }
 
-  closeWhatIsYourOpinionHelpText: ->
+  closeOpinionHelptext: ->
     if FactlinkApp.guided
-      @openClickHereToFinishHelpText()
       @tooltipRemove('.fact-view')
+      @openFinishHelptext()
 
-  openClickHereToFinishHelpText: ->
+  openFinishHelptext: ->
     @tooltipAdd '#submit',
       "Great!",
       "Click here to finish.",
