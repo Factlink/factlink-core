@@ -55,10 +55,11 @@ class window.InteractiveTour extends Backbone.View
       ]
       callbacks:
         onstarted: =>
+          view = new TooltipView( template: { text: "<p>With Factlink you can select any statement, on any website. Let's try that on this example page.</p><p>Select any statement on the right to start creating your Factlink.</p>" } )
           @tooltipAdd '#create-your-first-factlink > p:first',
             "Let's create a Factlink!",
-            "With Factlink you can select any statement, on any website. Let's try that on this example page. Select any statement on the right to start creating your Factlink.",
-            { side: 'left' }
+            "",
+            { side: 'left', contentView: view }
 
         onleavestarted: =>
           @tooltipRemove '#create-your-first-factlink > p:first'
