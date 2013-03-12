@@ -34,20 +34,21 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
     bindElDimensions = @_dimensionsOf(@$bindEl)
     bindElPosition = @_bindElPosition()
     offset = @_offsets()
+    margin = @options.margin
 
     switch @options.side
       when 'left'
-        left: bindElPosition.left - elDimensions.width
+        left: bindElPosition.left - elDimensions.width - margin
         top:  bindElPosition.top  + bindElDimensions.height/2 - offset.top
       when 'right'
-        left: bindElPosition.left + bindElDimensions.width
+        left: bindElPosition.left + bindElDimensions.width + margin
         top:  bindElPosition.top  + bindElDimensions.height/2 - offset.top
       when 'top'
         left: bindElPosition.left + bindElDimensions.width/2 - offset.left
-        top:  bindElPosition.top  - elDimensions.height
+        top:  bindElPosition.top  - elDimensions.height - margin
       when 'bottom'
         left: bindElPosition.left + bindElDimensions.width/2 - offset.left
-        top:  bindElPosition.top  + bindElDimensions.height
+        top:  bindElPosition.top  + bindElDimensions.height + margin
 
   _bindElPosition: ->
     elOffset = @$bindEl.offset()

@@ -3,15 +3,15 @@ Backbone.Factlink ||= {}
 Backbone.Factlink.TooltipMixin =
 
   tooltipAdd: (selector, title, text, options) ->
-    @_tooltips ?= {}
-    side = options.side || 'left'
+    options = _.extend {side: 'left', margin: 0}, options
 
+    @_tooltips ?= {}
     if @_tooltips[selector]?
       throw "Cannot call tooltipAdd multiple times with the same selector: #{selector}"
 
-    view = new HelptextPopoverView(model: new Backbone.Model(title: title, text: text), side: side)
+    view = new HelptextPopoverView _.extend {model: new Backbone.Model(title: title, text: text)}, options
 
-    positionedRegion = new Backbone.Factlink.PositionedRegion _.extend({}, options, side: side)
+    positionedRegion = new Backbone.Factlink.PositionedRegion options
     positionedRegion.show view
 
     container = options.container || @$el
