@@ -33,14 +33,6 @@ class window.InteractiveTour extends Backbone.View
 
     @createStateMachine()
 
-    @createTooltips()
-
-  createTooltips: ->
-    @tooltipAdd '#create-your-first-factlink > p:first',
-        "Let's create a Factlink!",
-        "With Factlink you can select any statement, on any website. Let's try that on this example page. Select any statement on the right to start creating your Factlink.",
-        { side: 'bottom' }
-
   createStateMachine: ->
     @state = StateMachine.create
       initial: 'started'
@@ -63,7 +55,11 @@ class window.InteractiveTour extends Backbone.View
       ]
       callbacks:
         onstarted: =>
-          @showHelpText(1)
+          @tooltipAdd '#create-your-first-factlink > p:first',
+            "Let's create a Factlink!",
+            "With Factlink you can select any statement, on any website. Let's try that on this example page. Select any statement on the right to start creating your Factlink.",
+            { side: 'left' }
+
         onleavestarted: =>
           @hideHelpText(1)
           StateMachine.ASYNC
@@ -94,4 +90,4 @@ _.extend window.InteractiveTour.prototype, Backbone.Factlink.TooltipMixin
 
 $ ->
   if $('body').hasClass 'action_create_your_first_factlink'
-    window.tour = new InteractiveTour(el: $('body'))
+    window.tour = new InteractiveTour(el: $('.right-column'))
