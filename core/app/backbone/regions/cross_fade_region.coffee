@@ -14,3 +14,6 @@ class window.CrossFadeRegion extends Backbone.Marionette.Region
     @$el.hide();
     @$el.html view.el
     @$el.fadeIn @fadeTime
+
+  resetFade: ->
+    @$el.fadeOut @fadeTime, (=> @reset())
