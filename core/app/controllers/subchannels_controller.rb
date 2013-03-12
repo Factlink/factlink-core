@@ -6,7 +6,7 @@ class SubchannelsController < ApplicationController
 
   def create
     authorize! :update, channel
-    channel.add_channel subchannel
+    interactor :'channels/add_subchannel', channel_id, subchannel_id
     render_subchannels
   end
 
