@@ -124,10 +124,11 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   openOpinionHelptext: ->
     if FactlinkApp.guided
+      view = new TooltipView(template: 'tooltips/give_your_opinion')
       @tooltipAdd '.fact-view',
         "What's your opinion?",
-        "Here I can tell you something about colors and opinions. Only not in HTML yet.",
-        { side: 'left' }
+        "",
+        { side: 'left', contentView: view }
 
   closeOpinionHelptext: ->
     if FactlinkApp.guided
