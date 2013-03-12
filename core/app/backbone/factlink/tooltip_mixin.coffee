@@ -12,7 +12,7 @@ Backbone.Factlink.TooltipMixin =
     view = new HelptextPopoverView _.extend {model: new Backbone.Model(title: title, text: text)}, options
 
     positionedRegion = new Backbone.Factlink.PositionedRegion options
-    positionedRegion.show view
+    positionedRegion.crossFade view
 
     container = options.container || @$el
 
