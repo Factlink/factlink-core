@@ -58,7 +58,7 @@
   &.bottom {
     margin-top: @arrow-offset;
     .arrow {
-      margin-top: -(@arrow-offset + 2);
+      top: -(@arrow-offset + 2);
       .rotate(90deg);
     }
   }
@@ -66,7 +66,7 @@
   &.top {
     margin-bottom: @arrow-offset;
     .arrow {
-      margin-bottom: -@arrow-offset;
+      bottom: -(@arrow-offset + 2);
       .rotate(270deg);
     }
   }
@@ -74,7 +74,7 @@
   &.left {
     margin-right: @arrow-offset;
     .arrow {
-      margin-left: -3px;
+      right: -@arrow-offset;
       .rotate(180deg);
     }
   }
@@ -82,7 +82,7 @@
   &.right {
     margin-left: @arrow-offset;
     .arrow {
-      margin-left: -@arrow-offset;
+      left: -@arrow-offset;
       .rotate(0deg);
     }
   }

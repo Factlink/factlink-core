@@ -4,12 +4,12 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
 
   el: '<div style="position: absolute"></div>'
 
-  bindToElement: ($bindEl, $offsetParent) ->
+  bindToElement: ($bindEl, $container) ->
     @$bindEl = $bindEl
-    @$offsetParent = $offsetParent
+    @$container = $container
 
     @ensureEl()
-    @$offsetParent.append @$el
+    @$container.append @$el
 
   reset: ->
     @$el?.remove()
@@ -20,42 +20,65 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
       Backbone.Factlink.asyncChecking @_visible, @_actuallyUpdatePosition, @
 
   _actuallyUpdatePosition: ->
-    @_checkOffsetParent()
+    @_checkContainer()
     @currentView.trigger 'position', @_offsets()
     @$el.css @_tooltipCss()
 
   _offsets: ->
-    elPosition = @_extendedPosition(@$el)
-    left: elPosition.width / 2
-    top: elPosition.height / 2
+    elDimensions = @_dimensionsOf(@$el)
+
+    switch @options.align || 'center'
+      when 'left', 'top'
+        left: 0
+        top:  0
+      when 'right'
+        left: elDimensions.width
+        top:  0
+      when 'bottom'
+        left: 0
+        top:  elDimensions.height
+      when 'center'
+        left: elDimensions.width / 2
+        top:  elDimensions.height / 2
+      else
+        throw "Invalid options.align: #{@options.align}"
 
   _tooltipCss: ->
-    elPosition = @_extendedPosition(@$el)
-    bindElPosition = @_extendedPosition(@$bindEl)
+    elDimensions = @_dimensionsOf(@$el)
+    bindElDimensions = @_dimensionsOf(@$bindEl)
+    bindElPosition = @_bindElPosition()
     offset = @_offsets()
+    margin = @options.margin
 
     switch @options.side
       when 'left'
-        left: bindElPosition.left - elPosition.width
-        top:  bindElPosition.top  + bindElPosition.height/2 - offset.top
+        left: bindElPosition.left - elDimensions.width - margin
+        top:  bindElPosition.top  + bindElDimensions.height/2 - offset.top
       when 'right'
-        left: bindElPosition.left + bindElPosition.width
-        top:  bindElPosition.top  + bindElPosition.height/2 - offset.top
+        left: bindElPosition.left + bindElDimensions.width + margin
+        top:  bindElPosition.top  + bindElDimensions.height/2 - offset.top
       when 'top'
-        left: bindElPosition.left + bindElPosition.width/2 - offset.left
-        top:  bindElPosition.top  - elPosition.height
+        left: bindElPosition.left + bindElDimensions.width/2 - offset.left
+        top:  bindElPosition.top  - elDimensions.height - margin
       when 'bottom'
-        left: bindElPosition.left + bindElPosition.width/2 - offset.left
-        top:  bindElPosition.top  + bindElPosition.height
+        left: bindElPosition.left + bindElDimensions.width/2 - offset.left
+        top:  bindElPosition.top  + bindElDimensions.height + margin
+      else
+        throw "Invalid options.side: #{@options.side}"
 
-  _extendedPosition: ($el) ->
-    _.extend $el.position(), # .position() is relative to the offsetParent
-      width: $el.outerWidth()
-      height: $el.outerHeight()
+  _bindElPosition: ->
+    elOffset = @$bindEl.offset()
+    containerOffset = @$container.offset()
 
-  _checkOffsetParent: ->
-    $actualOffsetParent = @$bindEl.offsetParent()
-    unless @$offsetParent.is($actualOffsetParent)
-      console.error "Actual offsetParent is different from the specified one: ", $actualOffsetParent, @$offsetParent
+    left: elOffset.left - containerOffset.left
+    top:  elOffset.top  - containerOffset.top
 
-  _visible: -> @$offsetParent.is ":visible"
+  _dimensionsOf: ($el) ->
+    width: $el.outerWidth()
+    height: $el.outerHeight()
+
+  _checkContainer: ->
+    unless @$container.css('position') in ['relative', 'absolute', 'fixed']
+      console.error "Container is not positioned", @$container
+
+  _visible: -> @$container.is ":visible"

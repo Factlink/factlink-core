@@ -9,30 +9,36 @@ class window.HelptextPopoverView extends Backbone.Marionette.Layout
     contentRegion: '.js-help-text-content'
 
   initialize: ->
-    @on 'position', @handleposition, @
+    @on 'position', @onPosition, @
 
   onRender: ->
     @$el.addClass @options.side
+    @updateMargins()
 
-    @contentRegion.show @options.view if @options.view
+    @contentRegion.show @options.contentView if @options.contentView
 
-  handleposition: (position)->
-    top = 0
-    left = 0
+  updateMargins: ->
+    alignMargin = @options.alignMargin || 18
 
+    marginLeft = 0
+    marginTop  = 0
+
+    switch @options.align
+      when 'left'
+        marginLeft =  alignMargin
+      when 'top'
+        marginTop =   alignMargin
+      when 'right'
+        marginLeft = -alignMargin
+      when 'bottom'
+        marginTop =  -alignMargin
+
+    @ui.arrow.css 'margin-left':  marginLeft, 'margin-top':  marginTop
+    @$el.css      'margin-left': -marginLeft, 'margin-top': -marginTop
+
+  onPosition: (offset)->
     if @options.side in ['right', 'left']
-      top = position.top - (@ui.arrow.height() / 2)
+      @ui.arrow.css 'top', offset.top - (@ui.arrow.height() / 2)
 
     if @options.side in ['top', 'bottom']
-      left = position.left - (@ui.arrow.width() / 2)
-
-    if @options.side is 'left'
-      left = position.left * 2 - @ui.arrow.width()
-
-    if @options.side is 'top'
-      top = position.top * 2 - @ui.arrow.height()
-
-    @ui.arrow.css
-      top: top
-      left: left
-
+      @ui.arrow.css 'left', offset.left - (@ui.arrow.width() / 2)

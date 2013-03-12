@@ -3,16 +3,20 @@ Backbone.Factlink ||= {}
 Backbone.Factlink.TooltipMixin =
 
   tooltipAdd: (selector, title, text, options) ->
-    @_tooltips ?= {}
-    side = options.side || 'left'
+    options = _.extend {side: 'left', align: 'center', margin: 0}, options
 
+    @_tooltips ?= {}
     if @_tooltips[selector]?
       throw "Cannot call tooltipAdd multiple times with the same selector: #{selector}"
 
-    view = new HelptextPopoverView(model: new Backbone.Model(title: title, text: text), side: side, view: options.contentView )
+    view = new HelptextPopoverView _.extend {model: new Backbone.Model(title: title, text: text)}, options
 
-    @_tooltips[selector] = new Backbone.Factlink.PositionedRegion _.extend(options, side: side)
-    @_tooltips[selector].show view
+    positionedRegion = new Backbone.Factlink.PositionedRegion options
+    positionedRegion.show view
+
+    container = options.container || @$el
+
+    @_tooltips[selector] = { positionedRegion, container, view }
 
     unless @isClosed
       @tooltipBindAll()
@@ -21,24 +25,21 @@ Backbone.Factlink.TooltipMixin =
     @on 'close', @tooltipResetAll
 
   tooltipRemove: (selector) ->
-    tooltip = @tooltip(selector)
-    tooltip.reset()
+    tooltip = @_tooltips[selector]
+    tooltip.positionedRegion.reset()
     delete @_tooltips[selector]
 
   tooltipBindAll: ->
-    for selector, tooltipHandler of @_tooltips
+    for selector, tooltip of @_tooltips
       $bindEl = @$(selector).first()
-      tooltipHandler.bindToElement($bindEl, @$el)
+      tooltip.positionedRegion.bindToElement($bindEl, tooltip.container)
 
     @tooltipUpdateAll()
 
   tooltipUpdateAll: ->
-    for selector, tooltipHandler of @_tooltips
-      tooltipHandler.updatePosition()
+    for selector, tooltip of @_tooltips
+      tooltip.positionedRegion.updatePosition()
 
   tooltipResetAll: ->
-    for selector, tooltipHandler of @_tooltips
-      tooltipHandler.reset()
-
-  tooltip: (selector) ->
-    @_tooltips?[selector]
+    for selector, tooltip of @_tooltips
+      tooltip.positionedRegion.reset()

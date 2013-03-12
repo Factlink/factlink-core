@@ -59,7 +59,7 @@ class window.InteractiveTour extends Backbone.View
           @tooltipAdd '#create-your-first-factlink > p:first',
             "Let's create a Factlink!",
             "",
-            { side: 'left', contentView: view }
+            { side: 'left', align: 'top', contentView: view }
 
         onleavestarted: =>
           @tooltipRemove '#create-your-first-factlink > p:first'
@@ -71,7 +71,7 @@ class window.InteractiveTour extends Backbone.View
           @tooltipAdd '#extension-button',
             "That was easy!",
             "",
-            { side: 'left', contentView: view }
+            { side: 'left', align: 'top', alignMargin: 60, contentView: view }
 
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',
@@ -84,7 +84,7 @@ class window.InteractiveTour extends Backbone.View
           @tooltipAdd '#create-your-first-factlink',
             "Your first Factlink is a fact!",
             '',
-            { side: 'left', contentView: view }
+            { side: 'left', align: 'top', contentView: view }
 
         onleavefactlink_created: =>
           @tooltipRemove '#create-your-first-factlink'

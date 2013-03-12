@@ -128,7 +128,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       @tooltipAdd '.fact-view',
         "What's your opinion?",
         "",
-        { side: 'left', contentView: view }
+        { side: 'left', margin: 5, contentView: view }
 
   closeOpinionHelptext: ->
     if FactlinkApp.guided
