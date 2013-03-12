@@ -50,7 +50,7 @@
     position: absolute;
 
     background: image-url('help-text-arrow.png');
-    height: 17px;
+
     width: @arrow-offset;
     background-repeat: no-repeat;
   }
@@ -59,7 +59,10 @@
     margin-top: @arrow-offset;
     .arrow {
       top: -(@arrow-offset + 2);
-      .rotate(90deg);
+      background-position: -22px 0;
+
+      height: 11px;
+      width: 17px;
     }
   }
 
@@ -67,7 +70,9 @@
     margin-bottom: @arrow-offset;
     .arrow {
       bottom: -(@arrow-offset + 2);
-      .rotate(270deg);
+      background-position: -39px 0;
+      height: 11px;
+      width: 17px;
     }
   }
 
@@ -75,7 +80,10 @@
     margin-right: @arrow-offset;
     .arrow {
       right: -@arrow-offset;
-      .rotate(180deg);
+      background-position: -11px 0;
+
+      height: 17px;
+      width: 11px;
     }
   }
 
@@ -83,7 +91,9 @@
     margin-left: @arrow-offset;
     .arrow {
       left: -@arrow-offset;
-      .rotate(0deg);
+
+      height: 17px;
+      width: 11px;
     }
   }
 }
