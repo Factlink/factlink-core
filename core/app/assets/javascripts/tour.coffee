@@ -67,10 +67,11 @@ class window.InteractiveTour extends Backbone.View
           @state.transition()
 
         ontext_selected: =>
+          view = new TooltipView( template: { text: "<p>Now click the Factlink button to create your Factlink.</p><p>This button will always appear here when the Factlink Extension is installed.</p>" } )
           @tooltipAdd '#extension-button',
             "That was easy!",
-            "Now click the Factlink button to create your Factlink. This button will always appear here when the Factlink Extension is installed.",
-            { side: 'left' }
+            "",
+            { side: 'left', contentView: view }
 
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',
