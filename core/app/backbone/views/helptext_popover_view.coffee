@@ -13,31 +13,39 @@ class window.HelptextPopoverView extends Backbone.Marionette.Layout
 
   onRender: ->
     @$el.addClass @options.side
-    @updateMargins()
-
     @contentRegion.show @options.contentView if @options.contentView
 
-  updateMargins: ->
-    alignMargin = @options.alignMargin || 18
+    @updateMargins()
 
-    marginLeft = 0
-    marginTop  = 0
+  alignOffsets: ->
+    alignMargin = @options.alignMargin || 18
 
     switch @options.align
       when 'left'
-        marginLeft =  alignMargin
+        left:  alignMargin
+        top:   0
       when 'top'
-        marginTop =   alignMargin
+        left:  0
+        top:   alignMargin
       when 'right'
-        marginLeft = -alignMargin
+        left: -alignMargin
+        top:   0
       when 'bottom'
-        marginTop =  -alignMargin
+        left:  0
+        top:  -alignMargin
 
-    @ui.arrow.css 'margin-left':  marginLeft, 'margin-top':  marginTop
-    @$el.css      'margin-left': -marginLeft, 'margin-top': -marginTop
+  updateMargins: ->
+    offsets = @alignOffsets()
+
+    if @options.side in ['left', 'right']
+      @ui.arrow.css 'margin-top':   offsets.top
+      @$el.css      'margin-top':  -offsets.top
+    if @options.side in ['top', 'bottom']
+      @ui.arrow.css 'margin-left':  offsets.left
+      @$el.css      'margin-left': -offsets.left
 
   onPosition: (offset)->
-    if @options.side in ['right', 'left']
+    if @options.side in ['left', 'right']
       @ui.arrow.css 'top', offset.top - (@ui.arrow.height() / 2)
 
     if @options.side in ['top', 'bottom']
