@@ -11,8 +11,12 @@ Backbone.Factlink.TooltipMixin =
 
     view = new HelptextPopoverView(model: new Backbone.Model(title: title, text: text), side: side)
 
-    @_tooltips[selector] = new Backbone.Factlink.PositionedRegion _.extend(options, side: side)
-    @_tooltips[selector].show view
+    positionedRegion = new Backbone.Factlink.PositionedRegion _.extend({}, options, side: side)
+    positionedRegion.show view
+
+    offsetParent = options.offsetParent || @$el
+
+    @_tooltips[selector] = { positionedRegion, offsetParent, view }
 
     unless @isClosed
       @tooltipBindAll()
@@ -21,24 +25,24 @@ Backbone.Factlink.TooltipMixin =
     @on 'close', @tooltipResetAll
 
   tooltipRemove: (selector) ->
-    tooltip = @tooltip(selector)
-    tooltip.reset()
+    tooltip = @_tooltips[selector]
+    tooltip.positionedRegion.reset()
     delete @_tooltips[selector]
 
   tooltipBindAll: ->
-    for selector, tooltipHandler of @_tooltips
+    for selector, tooltip of @_tooltips
       $bindEl = @$(selector).first()
-      tooltipHandler.bindToElement($bindEl, @$el)
+      tooltip.positionedRegion.bindToElement($bindEl, tooltip.offsetParent)
 
     @tooltipUpdateAll()
 
   tooltipUpdateAll: ->
-    for selector, tooltipHandler of @_tooltips
-      tooltipHandler.updatePosition()
+    for selector, tooltip of @_tooltips
+      tooltip.positionedRegion.updatePosition()
 
   tooltipResetAll: ->
-    for selector, tooltipHandler of @_tooltips
-      tooltipHandler.reset()
+    for selector, tooltip of @_tooltips
+      tooltip.positionedRegion.reset()
 
   tooltip: (selector) ->
     @_tooltips?[selector]
