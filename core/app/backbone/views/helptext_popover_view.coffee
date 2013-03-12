@@ -33,6 +33,9 @@ class window.HelptextPopoverView extends Backbone.Marionette.Layout
       when 'bottom'
         left:  0
         top:  -alignMargin
+      else
+        left:  0
+        top:   0
 
   updateMargins: ->
     offsets = @alignOffsets()
