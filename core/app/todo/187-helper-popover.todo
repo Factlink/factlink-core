@@ -1,0 +1,6 @@
+187-helper-popover.todo:
+ ☐ Fix error: Actual offsetParent is different from the specified one
+ ☐ Create view to be rendered by the popover to allow html in the popover content
+ ☐ Add link to @tooltipAdd '#create-your-first-factlink' in tour.coffee
+ ☐ fade in / out ?
+ ☐ 1 off position error
