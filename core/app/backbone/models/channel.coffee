@@ -88,3 +88,13 @@ class window.Channel extends Backbone.Model
   toJSON: ->
     _.extend super(),
       is_mine: @is_mine()
+
+  follow: ->
+    followUrl = "#{@normal_url()}/follow"
+    $.ajax
+      url: followUrl
+      type: 'post'
+      success: =>
+        console.info 'Hey, we just followed a channel!', this
+      error: =>
+        console.error 'Error following a channel ', this
