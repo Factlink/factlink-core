@@ -61,19 +61,32 @@ class window.InteractiveTour extends Backbone.View
             { side: 'left' }
 
         onleavestarted: =>
-          @hideHelpText(1)
+          @tooltipRemove '#create-your-first-factlink > p:first'
           StateMachine.ASYNC
+          @state.transition()
+
         ontext_selected: =>
-          @showHelpText(2)
+          @tooltipAdd '#extension-button',
+            "That was easy!",
+            "Now click the Factlink button to create your Factlink. This button will always appear here when the Factlink Extension is installed.",
+            { side: 'left' }
+
         onleavetext_selected: =>
-          @hideHelpText(2)
+          @tooltipRemove '#extension-button',
           StateMachine.ASYNC
+          @state.transition()
+
         onfactlink_created: =>
           @extensionButton.increaseCount()
-          @showHelpText(3)
+          @tooltipAdd '#create-your-first-factlink',
+            "Your first Factlink is a fact!",
+            '<a href="choose_channels_path" class="btn btn-primary btn-mini" data-disable-with="Loading...">Continue</a>',
+            { side: 'left' }
+
         onleavefactlink_created: =>
-          @hideHelpText(3)
+          @tooltipRemove '#create-your-first-factlink'
           StateMachine.ASYNC
+          @state.transition()
 
   hideHelpText: (step) ->
     $("#step#{step}").fadeOut 'fast', =>
