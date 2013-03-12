@@ -43,6 +43,3 @@ Backbone.Factlink.TooltipMixin =
   tooltipResetAll: ->
     for selector, tooltip of @_tooltips
       tooltip.positionedRegion.reset()
-
-  tooltip: (selector) ->
-    @_tooltips?[selector]
