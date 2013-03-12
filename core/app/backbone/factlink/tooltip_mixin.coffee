@@ -9,7 +9,7 @@ Backbone.Factlink.TooltipMixin =
     if @_tooltips[selector]?
       throw "Cannot call tooltipAdd multiple times with the same selector: #{selector}"
 
-    view = new HelptextPopoverView(model: new Backbone.Model(title: title, text: text), side: side)
+    view = new HelptextPopoverView(model: new Backbone.Model(title: title, text: text), side: side, view: options.contentView )
 
     @_tooltips[selector] = new Backbone.Factlink.PositionedRegion _.extend(options, side: side)
     @_tooltips[selector].show view
