@@ -124,15 +124,15 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   openWhatIsYourOpinionHelpText: ->
     if FactlinkApp.guided
-      @tooltipAdd '.fact-wheel',
+      @tooltipAdd '.fact-view',
         "What's your opinion?",
         "Here I can tell you something about colors and opinions. Only not in HTML yet.",
         { side: 'left' }
 
   closeWhatIsYourOpinionHelpText: ->
     if FactlinkApp.guided
-      @tooltipRemove('.fact-wheel')
       @openClickHereToFinishHelpText()
+      @tooltipRemove('.fact-view')
 
   openClickHereToFinishHelpText: ->
     @tooltipAdd '#submit',
