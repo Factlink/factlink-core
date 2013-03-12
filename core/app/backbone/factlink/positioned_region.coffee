@@ -26,8 +26,22 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
 
   _offsets: ->
     elDimensions = @_dimensionsOf(@$el)
-    left: elDimensions.width / 2
-    top: elDimensions.height / 2
+
+    switch @options.align || 'center'
+      when 'left', 'top'
+        left: 0
+        top:  0
+      when 'right'
+        left: elDimensions.width
+        top:  0
+      when 'bottom'
+        left: 0
+        top:  elDimensions.height
+      when 'center'
+        left: elDimensions.width / 2
+        top:  elDimensions.height / 2
+      else
+        throw "Invalid options.align: #{@options.align}"
 
   _tooltipCss: ->
     elDimensions = @_dimensionsOf(@$el)
@@ -49,6 +63,8 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
       when 'bottom'
         left: bindElPosition.left + bindElDimensions.width/2 - offset.left
         top:  bindElPosition.top  + bindElDimensions.height + margin
+      else
+        throw "Invalid options.side: #{@options.side}"
 
   _bindElPosition: ->
     elOffset = @$bindEl.offset()

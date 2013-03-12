@@ -58,7 +58,7 @@ class window.InteractiveTour extends Backbone.View
           @tooltipAdd '#create-your-first-factlink > p:first',
             "Let's create a Factlink!",
             "With Factlink you can select any statement, on any website. Let's try that on this example page. Select any statement on the right to start creating your Factlink.",
-            { side: 'left' }
+            { side: 'left', align: 'top' }
 
         onleavestarted: =>
           @tooltipRemove '#create-your-first-factlink > p:first'
@@ -69,7 +69,7 @@ class window.InteractiveTour extends Backbone.View
           @tooltipAdd '#extension-button',
             "That was easy!",
             "Now click the Factlink button to create your Factlink. This button will always appear here when the Factlink Extension is installed.",
-            { side: 'left' }
+            { side: 'left', align: 'top', alignMargin: 60 }
 
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',
@@ -81,7 +81,7 @@ class window.InteractiveTour extends Backbone.View
           @tooltipAdd '#create-your-first-factlink',
             "Your first Factlink is a fact!",
             '<a href="choose_channels_path" class="btn btn-primary btn-mini" data-disable-with="Loading...">Continue</a>',
-            { side: 'left' }
+            { side: 'left', align: 'top' }
 
         onleavefactlink_created: =>
           @tooltipRemove '#create-your-first-factlink'
