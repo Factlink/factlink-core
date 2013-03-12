@@ -1,24 +1,34 @@
 class window.InteractiveTour extends Backbone.View
   helpTextDelay: 560
 
+  detectSelecting: ->
+    if FACTLINK.getSelectionInfo().text.length > 0
+      @state.select_text()
+
+  detectDeselecting: ->
+    if FACTLINK.getSelectionInfo().text.length <= 0
+      @state.deselect_text()
+
   bindLibraryLoad: ->
-    $(window).on 'factlink.libraryLoaded', ->
-      FACTLINK.hideDimmer()
+    $(window).on 'factlink.libraryLoaded', => @onLibraryLoaded()
 
-      $('#create-your-first-factlink').on 'mouseup', ->
-        if FACTLINK.getSelectionInfo().text.length > 0
-          tour.state.select_text()
-        else
-          tour.state.deselect_text()
+  onLibraryLoaded: ->
+    FACTLINK.hideDimmer()
 
-      FACTLINK.on 'modalOpened', ->
-        tour.state.open_modal()
+    @detectDeselectingInterval = window.setInterval (=> @detectDeselecting()), 200 unless @detectDeselectingInterval?
 
-      FACTLINK.on 'modalClosed', ->
-        tour.state.close_modal()
+    $('#create-your-first-factlink').on 'mouseup', =>
+      @detectSelecting()
+      @detectDeselecting()
 
-      FACTLINK.on 'factlinkAdded', ->
-        tour.state.create_factlink()
+    FACTLINK.on 'modalOpened', =>
+      @state.open_modal()
+
+    FACTLINK.on 'modalClosed', =>
+      @state.close_modal()
+
+    FACTLINK.on 'factlinkAdded', =>
+      @state.create_factlink()
 
   renderExtensionButton: ->
     @extensionButton = new ExtensionButtonMimic()
@@ -32,6 +42,9 @@ class window.InteractiveTour extends Backbone.View
     @bindLibraryLoad()
 
     @createStateMachine()
+
+  close: ->
+    window.clearInterval @detectDeselectingInterval
 
   createStateMachine: ->
     @state = StateMachine.create
