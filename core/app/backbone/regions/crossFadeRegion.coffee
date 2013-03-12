@@ -6,13 +6,13 @@ class window.crossFadeRegion extends Backbone.Marionette.Region
     currentView = @currentView
 
     if currentView
-      @.$el.fadeOut(@theTimeout, () =>
+      @$el.fadeOut(@theTimeout, () =>
         @show(newView)
       )
     else
       @show(newView)
 
   open: (view) ->
-    @.$el.hide();
-    @.$el.html(view.el);
-    @.$el.fadeIn(@theTimeout);
+    @$el.hide();
+    @$el.html(view.el);
+    @$el.fadeIn(@theTimeout);
