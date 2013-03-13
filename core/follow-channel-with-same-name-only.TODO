@@ -1,7 +1,7 @@
 
- ☐ Unfollow functionality in backend
+ ✔ Unfollow functionality in backend @done (13-03-13 19:35)
  ✔ Follow functionality @done (13-03-13 13:21)
  ✔ Add follow functionality to frontend @done (13-03-13 13:22)
  ✔ Add authorization and input validation to follow functionality @done (13-03-13 14:28)
- ☐ Add unfollow functionality to frontend
- ☐ Make routes more restful
+ ✔ Add unfollow functionality to frontend @done (13-03-13 19:35)
+ ✔ Make routes more restful @done (13-03-13 19:35)
