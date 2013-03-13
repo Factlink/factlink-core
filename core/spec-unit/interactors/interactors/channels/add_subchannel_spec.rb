@@ -9,8 +9,8 @@ describe Interactors::Channels::AddSubchannel do
   end
   describe '.execute' do
     it 'adds a subchannel to the channel' do
-      channel = mock :channel, id:12
-      subchannel = mock :subchannel, id:45
+      channel = mock :channel, id:'12'
+      subchannel = mock :subchannel, id:'45'
 
       Channel.stub(:[]) do |id|
         if id == channel.id
