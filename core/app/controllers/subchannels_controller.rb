@@ -12,8 +12,7 @@ class SubchannelsController < ApplicationController
   alias :update :create
 
   def destroy
-    authorize! :update, channel
-    channel.remove_channel subchannel
+    interactor :'channels/remove_subchannel', channel_id, subchannel_id
     render_subchannels
   end
 

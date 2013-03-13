@@ -5,6 +5,7 @@ describe 'following a channel' do
 
   let(:current_user) {create :user}
   let(:other_user)   {create :user}
+  let(:third_user)   {create :user}
 
   it "creating a channel" do
     as current_user do |pavlov|
@@ -61,6 +62,28 @@ describe 'following a channel' do
       bar_ch = pavlov.query 'channels/get_by_slug_title', 'bar'
       sub_channels = pavlov.interactor 'channels/sub_channels', bar_ch
       sub_channels.map(&:id).should =~ [ch2.id]
+    end
+  end
+
+  it "unfollowing a channel" do
+    other_user.graph_user.id
+    ch1,third_ch = ()
+    as(other_user) do |pavlov|
+      ch1 = pavlov.command 'channels/create', 'Foo'
+    end
+    as(current_user) do |pavlov|
+      pavlov.interactor 'channels/follow', ch1.id
+    end
+    as(third_user) do |pavlov|
+      third_ch = pavlov.command 'channels/create', 'Bar'
+      pavlov.interactor 'channels/add_subchannel', third_ch.id, ch1.id
+    end
+    as(current_user) do |pavlov|
+      pavlov.interactor 'channels/unfollow', ch1.id
+    end
+    as(other_user) do |pavlov|
+      foo_ch = pavlov.query 'channels/get_by_slug_title', 'foo'
+      foo_ch.containing_channels.ids.should =~ [third_ch.id]
     end
   end
 end
