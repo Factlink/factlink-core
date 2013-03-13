@@ -89,6 +89,12 @@ class window.Channel extends Backbone.Model
     _.extend super(),
       is_mine: @is_mine()
 
+  toggleFollow: ->
+    if @get('followed?')
+      @unfollow()
+    else
+      @follow()
+
   follow: ->
     followUrl = "#{@normal_url()}/follow"
     @set('followed?', true)

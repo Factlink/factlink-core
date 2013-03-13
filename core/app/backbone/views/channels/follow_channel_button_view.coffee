@@ -8,7 +8,7 @@ class window.FollowChannelButtonView extends Backbone.Marionette.Layout
     @bindTo @model, 'change', @updateButton, @
 
   toggleFollow: ->
-    @model.follow()
+    @model.toggleFollow()
 
   onRender: -> @updateButton()
 
