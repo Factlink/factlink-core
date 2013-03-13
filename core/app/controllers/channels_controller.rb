@@ -134,6 +134,7 @@ class ChannelsController < ApplicationController
   end
 
   def unfollow
+    render json: {}, status: :ok
   end
 
   def facts
