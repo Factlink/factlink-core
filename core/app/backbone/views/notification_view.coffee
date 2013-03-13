@@ -50,9 +50,9 @@ class NotificationAddedSubchannelView extends GenericNotificationView
 
   onRender: ->
     super()
-    @addBackRegion.show new AddChannelToChannelsButtonView
-                                model: @other_channel()
-                                suggested_topics: @suggested_topics()
+    add_back_button = new FollowChannelButtonView(model: @other_channel())
+
+    @addBackRegion.show add_back_button
 
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"
