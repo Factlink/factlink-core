@@ -7,6 +7,10 @@ module Queries
 
       arguments :slug_title
 
+      def validate
+        validate_string :slug_title, slug_title
+      end
+
       def execute
         Channel.find(
             slug_title: slug_title,

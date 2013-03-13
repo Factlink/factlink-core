@@ -6,6 +6,11 @@ module Interactors
 
       arguments :channel_id, :subchannel_id
 
+      def validate
+        validate_integer_string :channel_id, channel_id
+        validate_integer_string :subchannel_id, subchannel_id
+      end
+
       def execute
         # raise 'not found' unless channel and subchannel
         command :'channels/add_subchannel', channel, subchannel
