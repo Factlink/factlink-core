@@ -53,7 +53,7 @@ module PavlovSupport
     end
   end
 
-  def as_user user, &block
+  def as user, &block
     ExecuteAsUser.new(user).execute &block
   end
 end
