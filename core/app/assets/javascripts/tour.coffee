@@ -91,16 +91,23 @@ class window.InteractiveTour extends Backbone.View
 
         onfactlink_created: =>
           @extensionButton.increaseCount()
-          view = new TooltipView(template: 'tooltips/first_factlink_created')
-          @tooltipAdd '#create-your-first-factlink',
-            "Your first Factlink is a fact!",
-            '',
-            { side: 'left', align: 'top', contentView: view }
+
+          Backbone.Factlink.asyncChecking @factlinkFirstExists, @addFactlinkFirstTooltip, @
 
         onleavefactlink_created: =>
-          @tooltipRemove '#create-your-first-factlink'
+          @tooltipRemove '.factlink.fl-first'
           @state.transition()
 
+  factlinkFirstExists: ->
+    @$('.factlink.fl-first').length > 0
+
+  addFactlinkFirstTooltip: ->
+    view = new TooltipView(template: 'tooltips/first_factlink_created')
+
+    @tooltipAdd '.factlink.fl-first',
+      "Your first Factlink is a fact!",
+      '',
+      { side: 'left', align: 'top', margin: 10, contentView: view }
 
 _.extend window.InteractiveTour.prototype, Backbone.Factlink.TooltipMixin
 
