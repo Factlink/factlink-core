@@ -45,7 +45,11 @@ describe 'following a channel' do
     channels = interactor 'channels/visible_of_user_for_user', current_user
     channels.map(&:title).should =~ ['Foo', 'Bar']
 
-    sub_channels = interactor 'channels/sub_channels', ch1
-    sub_channels.map(&:id).should =~ [sub_ch.id]
+    sub_channels = interactor 'channels/sub_channels', sub_ch
+    sub_channels.map(&:id).should =~ [ch1.id]
+
+    bar_ch = query 'channels/get_by_slug_title', 'bar'
+    sub_channels = interactor 'channels/sub_channels', bar_ch
+    sub_channels.map(&:id).should =~ [ch2.id]
   end
 end

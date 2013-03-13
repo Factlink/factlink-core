@@ -25,7 +25,7 @@ describe Interactors::Channels::Follow do
 
         interactor.should_receive(:command)
                   .with(:'channels/add_subchannel',
-                        channel, channel_2)
+                        channel_2, channel)
 
         interactor.execute
       end
@@ -51,7 +51,7 @@ describe Interactors::Channels::Follow do
 
         interactor.should_receive(:command)
                   .with(:'channels/add_subchannel',
-                        channel, new_channel)
+                        new_channel, channel)
 
         interactor.execute
       end
