@@ -30,4 +30,30 @@ module PavlovSupport
   def fail_validation message
     raise_error(Pavlov::ValidationError, message)
   end
+
+  class ExecuteAsUser
+    include Pavlov::Helpers
+
+    attr_reader :current_user
+    def initialize user
+      @current_user = user
+    end
+
+    def pavlov_options
+      { current_user: current_user,
+        ability: current_ability}
+    end
+
+    def current_ability
+      @current_ability ||= Ability.new(current_user)
+    end
+
+    def execute &block
+      yield self
+    end
+  end
+
+  def as_user user, &block
+    ExecuteAsUser.new(user).execute &block
+  end
 end
