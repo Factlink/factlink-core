@@ -139,6 +139,6 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     @tooltipAdd '#submit',
       "Great!",
       "Click here to finish.",
-      { side: 'bottom' }
+      { side: 'bottom', container: @$('.js-finish-popover') }
 
 _.extend window.FactsNewView.prototype, Backbone.Factlink.TooltipMixin
