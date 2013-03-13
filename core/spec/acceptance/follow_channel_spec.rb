@@ -6,6 +6,7 @@ feature "channels", type: :request do
   include Acceptance::AddToChannelModalHelper
 
   scenario "I navigate to somebody else's channel and follow it" do
+    pending "This functionality is changing"
     @user = create :active_user
     other_user = create :active_user
 
