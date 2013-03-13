@@ -18,7 +18,7 @@ class window.HelptextPopoverView extends Backbone.Marionette.Layout
     @updateMargins()
 
   alignOffsets: ->
-    alignMargin = @options.alignMargin || 18
+    alignMargin = @options.alignMargin || 19
 
     switch @options.align
       when 'left'

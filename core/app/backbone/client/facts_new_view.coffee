@@ -125,20 +125,20 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
   openOpinionHelptext: ->
     if FactlinkApp.guided
       view = new TooltipView(template: 'tooltips/give_your_opinion')
-      @tooltipAdd '.fact-view',
+      @tooltipAdd '.fact-wheel',
         "What's your opinion?",
         "",
-        { side: 'left', margin: 5, contentView: view }
+        { side: 'left', align: 'top', margin: 20, contentView: view }
 
   closeOpinionHelptext: ->
     if FactlinkApp.guided
-      @tooltipRemove('.fact-view')
+      @tooltipRemove('.fact-wheel')
       @openFinishHelptext()
 
   openFinishHelptext: ->
     @tooltipAdd '#submit',
-      "Great!",
-      "Click here to finish.",
-      { side: 'bottom', container: @$('.js-finish-popover') }
+      "You're ready to post this!",
+      "You can add this Factlink to a channel so you can find it more easily later, or post this immediately.",
+      { side: 'right', align: 'top', margin: 19, container: @$('.js-finish-popover') }
 
 _.extend window.FactsNewView.prototype, Backbone.Factlink.TooltipMixin
