@@ -91,10 +91,10 @@ class window.Channel extends Backbone.Model
 
   follow: ->
     followUrl = "#{@normal_url()}/follow"
+    @set('followed?', true)
     $.ajax
       url: followUrl
       type: 'post'
-      success: =>
-        console.info 'Hey, we just followed a channel!', this
-      error: =>
-        console.error 'Error following a channel ', this
+      success: => console.info 'Hey, we just followed a channel!', this
+      error: => @set('followed?', false)
+
