@@ -1,5 +1,5 @@
 class window.FollowChannelButtonView extends Backbone.Marionette.Layout
-  template: 'channels/add_channel_to_channels_button'
+  template: 'channels/follow_channel_button'
 
   events:
     "click .js-follow-topic-button": "follow"
