@@ -18,12 +18,6 @@ describe HomeController do
       response.should redirect_to(channel_activities_path user, user.graph_user.stream)
     end
 
-    pending "assigns @facts" do
-      # We now cache the @facts from the FactHelper
-      get :index
-      assigns(:facts).should =~ Fact.all.to_a
-    end
-
     it "assigns @users" do
       get :index
       assigns(:users).to_a.should =~ User.all.to_a
