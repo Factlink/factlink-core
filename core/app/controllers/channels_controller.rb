@@ -129,13 +129,8 @@ class ChannelsController < ApplicationController
   end
 
   def follow
-    channel = interactor :'channels/follow', channel_id
-
-    if channel
-      render :json => {}, :status => :ok
-    else
-      render :json => {}, :status => :internal_server_error
-    end
+    interactor :'channels/follow', channel_id
+    render json: {}, status: :ok
   end
 
   def unfollow
