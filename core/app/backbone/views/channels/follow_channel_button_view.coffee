@@ -16,11 +16,16 @@ class window.FollowChannelButtonView extends Backbone.Marionette.Layout
   initialize: ->
     @bindTo @model, 'change', @updateButton, @
 
-  follow: ->
+  follow: (e) ->
     @justFollowed = true
     @model.follow()
+    e.preventDefault()
+    e.stopPropagation()
 
-  unfollow: -> @model.unfollow()
+  unfollow: (e) ->
+    @model.unfollow()
+    e.preventDefault()
+    e.stopPropagation()
 
   onRender: -> @updateButton()
 
