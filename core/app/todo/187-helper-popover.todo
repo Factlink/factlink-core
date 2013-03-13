@@ -7,6 +7,6 @@
  ✔ Add optional fade in / out on tooltipAdd and tooltipRemove @done (13-03-12 15:59)
  ✔ 1 off position error @done (13-03-12 13:44)
 
- ☐ Hide explanation of credibility when guided
- ☐ Show Twitter Bootstrap tooltips on top of ours
- ☐ Update "Great! Click here to finish." position when adding channels
+ ✔ Show Twitter Bootstrap tooltips on top of ours @done (13-03-13 12:18)
+ ✔ Update "Great! Click here to finish." position when adding channels @done (13-03-13 12:18)
+ ✔ Check design with Jens @done (13-03-13 12:18)
