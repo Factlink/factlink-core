@@ -33,9 +33,9 @@ class NotificationAddedSubchannelView extends GenericNotificationView
     @activity = @model.get('activity')
 
   channel: ->
-    channel = new Channel
-      id: @activity.to_channel_id
-      containing_channel_ids: @activity.to_channel_containing_channel_ids
+    channel = new Channel(id: @activity.to_channel_id)
+    channel.fetch()
+    channel
 
   onRender: ->
     super()
