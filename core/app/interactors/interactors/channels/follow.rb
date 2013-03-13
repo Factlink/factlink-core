@@ -24,7 +24,8 @@ module Interactors
       end
 
       def authorized?
-        true
+         # this is no stub, every user can follow another channel
+        @options[:current_user]
       end
 
     end

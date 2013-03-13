@@ -25,7 +25,7 @@ describe SubchannelsController do
   describe "#create" do
     it "as json should be successful on own channel" do
       authenticate_user!(user)
-      should_check_can :update, ch1
+      ability.should_receive(:can?).with(:update, ch1).and_return true
       ability.should_receive(:can?).with(:index, Channel).and_return true
       post :create, username: user.username, channel_id: ch1.id, id: followed_channel.id, format: 'json'
       response.should be_success

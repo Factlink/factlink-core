@@ -2,6 +2,7 @@ module Interactors
   module Channels
     class AddSubchannel
       include Pavlov::Interactor
+      include Util::CanCan
 
       arguments :channel_id, :subchannel_id
 
@@ -19,7 +20,7 @@ module Interactors
       end
 
       def authorized?
-        true
+        can? :update, channel
       end
     end
   end

@@ -17,18 +17,22 @@ describe 'following a channel' do
   end
 
   it "adding a subchannel" do
-    ch1, ch2 = ()
+    ch1, ch2, sub_ch = ()
 
     as(other_user) do |pavlov|
       ch1 = pavlov.command 'channels/create', 'Foo'
       ch2 = pavlov.command 'channels/create', 'Bar'
     end
 
-    as current_user do |pavlov|
+    as(current_user) do |pavlov|
       sub_ch = pavlov.command 'channels/create', 'Foo'
+    end
 
+    as(other_user) do |pavlov|
       pavlov.interactor 'channels/add_subchannel', ch1.id, sub_ch.id
+    end
 
+    as(current_user) do |pavlov|
       sub_channels = pavlov.interactor 'channels/sub_channels', ch1
       sub_channels.map(&:id).should =~ [sub_ch.id]
     end

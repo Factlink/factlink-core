@@ -22,7 +22,9 @@ describe Interactors::Channels::AddSubchannel do
         end
       end
 
-      interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id)
+      options = {ability: mock(can?: true)}
+
+      interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id, options)
       interactor.should_receive(:command).with(:'channels/add_subchannel', channel, subchannel)
 
       interactor.execute
