@@ -89,6 +89,12 @@ class window.Channel extends Backbone.Model
     _.extend super(),
       is_mine: @is_mine()
 
+  toggleFollow: ->
+    if @get('followed?')
+      @unfollow()
+    else
+      @follow()
+
   follow: ->
     followUrl = "#{@normal_url()}/follow"
     @set('followed?', true)
@@ -98,3 +104,11 @@ class window.Channel extends Backbone.Model
       success: => console.info 'Hey, we just followed a channel!', this
       error: => @set('followed?', false)
 
+  unfollow: ->
+    unfollowUrl = "#{@normal_url()}/unfollow"
+    @set('followed?', false)
+    $.ajax
+      url: unfollowUrl
+      type: 'post'
+      success: => console.info 'we unfollowed channel!', this
+      error: => @set('followed?', true)
