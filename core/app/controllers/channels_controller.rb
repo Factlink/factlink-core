@@ -134,6 +134,8 @@ class ChannelsController < ApplicationController
   end
 
   def unfollow
+    interactor :'channels/unfollow', channel_id
+    render json: {}, status: :ok
   end
 
   def facts
