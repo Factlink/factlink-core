@@ -32,7 +32,7 @@ class window.FactView extends Backbone.Marionette.Layout
   events:
     "click a.discussion_link" : "triggerDiscussionClick"
 
-  template: "facts/_fact"
+  template: "facts/fact"
 
   templateHelpers: ->
     'modal?' : FactlinkApp.modal is true
@@ -46,6 +46,12 @@ class window.FactView extends Backbone.Marionette.Layout
     @bindTo @model, "destroy", @close, @
     @bindTo @model, "change", @render, @
 
+    if FactlinkApp.guided
+      @tooltipAdd '.js-close',
+        "First Factlink is created!",
+        "You can close this up when you're done.",
+        { side: 'right', align: 'top', margin: 8 }
+
   onRender: ->
     @factBaseView.show new FactBaseView(model: @model)
     @factBottomView.show new FactBottomView(model: @model)
@@ -54,6 +60,7 @@ class window.FactView extends Backbone.Marionette.Layout
       @setPopover()
 
     @$(".authority").tooltip()
+
     if FactlinkApp.guided
       sometimeWhen(
         => @$el.is ":visible"
@@ -77,3 +84,5 @@ class window.FactView extends Backbone.Marionette.Layout
 
   triggerDiscussionClick: (e) ->
     FactlinkApp.vent.trigger 'factlink_permalink_clicked', e, @model
+
+_.extend window.FactView.prototype, Backbone.Factlink.TooltipMixin
