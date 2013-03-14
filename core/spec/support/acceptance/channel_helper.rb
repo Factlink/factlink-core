@@ -4,12 +4,12 @@ module Acceptance
       backend_create_channel_of_user @user
     end
 
-    def backend_create_channel_of_user user
-      create :channel, created_by: user.graph_user
+    def backend_create_channel_of_user user, options
+      create :channel, {created_by: user.graph_user}.merge(options)
     end
 
-    def backend_create_viewable_channel_for user
-      channel = backend_create_channel_of_user user
+    def backend_create_viewable_channel_for user, options
+      channel = backend_create_channel_of_user user, options
       fact = create :fact, created_by: user.graph_user
       backend_add_fact_to_channel fact, channel
       channel
