@@ -47,18 +47,11 @@ feature "notifications", type: :request do
     open_notifications
 
     within_nth_notification 1 do
-      click_button "add"
+      click_button "follow"
     end
-
-    within_modal do
-      add_to_channel my_channel.title
-      added_channels_should_contain my_channel.title
-    end
-
-    close_modal
 
     within_nth_notification 1 do
-      find('button', text: 'added')
+      find('button', text: 'following')
     end
 
     sleep 2 # give ajax requests some time to finish
@@ -67,7 +60,7 @@ feature "notifications", type: :request do
 
     open_notifications
     within_nth_notification 1 do
-      find('button', text: 'added')
+      find('button', text: 'following')
     end
   end
 end

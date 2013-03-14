@@ -65,4 +65,8 @@ if is_mine then
   json.new_facts unread_count != 0
 end
 
-json.containing_channel_ids channel.containing_channel_ids
+# We are moving from containing_channel_ids to followed?
+# consider containing_channel_ids as deprecated
+containing_channel_ids = channel.containing_channel_ids
+json.containing_channel_ids containing_channel_ids
+json.followed? channel.containing_channel_ids.length > 0
