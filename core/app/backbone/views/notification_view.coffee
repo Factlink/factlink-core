@@ -32,27 +32,16 @@ class NotificationAddedSubchannelView extends GenericNotificationView
   initialize: ->
     @activity = @model.get('activity')
 
-  suggested_topics: ->
-    topic1 = new Topic
-                  title:      @activity.channel_title,
-                  slug_title: @activity.channel_slug_title
-
-    topic2 = new Topic
-                  title:      @activity.to_channel_title,
-                  slug_title: @activity.to_channel_slug_title
-
-    return new SuggestedTopics [topic1, topic2]
-
-  other_channel: ->
-    new Channel
-      id: @activity.to_channel_id
-      containing_channel_ids: @activity.to_channel_containing_channel_ids
+  channel: ->
+    channel = new Channel(id: @activity.to_channel_id)
+    channel.fetch()
+    channel
 
   onRender: ->
     super()
-    @addBackRegion.show new AddChannelToChannelsButtonView
-                                model: @other_channel()
-                                suggested_topics: @suggested_topics()
+    add_back_button = new FollowChannelButtonView(model: @channel())
+
+    @addBackRegion.show add_back_button
 
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"

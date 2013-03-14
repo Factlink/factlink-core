@@ -371,7 +371,6 @@ describe Channel do
       it "should not exist anymore" do
         Channel[u2_ch1.id].should be_nil
       end
-      it "should not be referred to by other objects"
     end
 
     describe "new unread count functionality" do
