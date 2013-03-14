@@ -4,11 +4,6 @@ require 'pavlov_helper'
 describe Queries::Channels::Get do
   include PavlovSupport
 
-  it '.new' do
-    interactor = Queries::Channels::Get.new '1'
-    interactor.should_not be_nil
-  end
-
   describe '.validate' do
     let(:subject_class) { Queries::Channels::Get }
 
@@ -20,17 +15,17 @@ describe Queries::Channels::Get do
 
   describe '.execute' do
     before do
-      stub_const('Channel', Class.new)
+      stub_classes 'Channel'
     end
 
     it 'correctly' do
-      channel = mock
-      channel_id = '1'
-      query = Queries::Channels::Get.new channel_id
+      channel = mock id: '1'
+      query = Queries::Channels::Get.new channel.id
 
-      Channel.should_receive(:[]).with(channel_id).and_return(channel)
+      Channel.should_receive(:[]).with(channel.id)
+             .and_return(channel)
 
-      query.execute.should eq channel
+      expect(query.execute).to eq channel
     end
     it "raises an exception when the channel is not found" do
       channel_id = '1'
