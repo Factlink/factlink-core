@@ -4,6 +4,8 @@
 
 ### Functional:
 - Social signin/signup now uses a popup instead of full page redirects.
+- New users will get better guidance when 
+- We've simplified the way to follow a channel. You can now just press the follow button to follow a channel.
 
 ## 16:30 CET, januari 15th, 2013
 
