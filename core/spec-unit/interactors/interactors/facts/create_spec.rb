@@ -10,8 +10,6 @@ describe Interactors::Facts::Create do
   end
 
   describe '.validate' do
-    let(:subject_class) { Interactors::Facts::Create }
-
     it 'requires displaystring to be a nonempty string' do
       expect_validating('', 'url', 'title').
         to fail_validation('displaystring should be a nonempty string.')

@@ -10,8 +10,6 @@ describe Interactors::Evidence::ForFactId do
   end
 
   describe '.validate' do
-    let(:subject_class) { Interactors::Evidence::ForFactId }
-
     it 'requires fact_id to be an integer' do
       expect_validating('a', :weakening).
         to fail_validation('fact_id should be an integer string.')

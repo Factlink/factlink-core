@@ -12,7 +12,6 @@ describe Commands::Site::AddTopTopic do
   end
 
   describe 'validations' do
-    let(:subject_class) { Commands::Site::AddTopTopic }
     it 'requires arguments' do
       expect_validating(1, 1).
         to fail_validation('topic_slug should be a string.')

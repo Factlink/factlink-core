@@ -8,8 +8,6 @@ describe Queries::SubComments::Get do
   end
 
   describe '.validate' do
-    let(:subject_class) { Queries::SubComments::Get }
-
     it 'without id doesn''t validate' do
       expect_validating(nil, current_user: mock).
         to fail_validation('id should be an hexadecimal string.')

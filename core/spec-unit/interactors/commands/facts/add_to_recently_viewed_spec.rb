@@ -12,7 +12,6 @@ describe Commands::Facts::AddToRecentlyViewed do
   end
 
   describe 'validations' do
-    let(:subject_class) { Commands::Facts::AddToRecentlyViewed }
     it 'requires arguments' do
       expect_validating('a', '2e').
         to fail_validation('fact_id should be an integer.')

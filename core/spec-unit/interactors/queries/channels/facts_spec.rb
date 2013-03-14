@@ -10,8 +10,6 @@ describe Queries::Channels::Facts do
   end
 
   describe '.validate' do
-    let(:subject_class) { Queries::Channels::Facts }
-
     it 'requires id to be an integer' do
       expect_validating('a', 7, 10).
         to fail_validation('id should be an integer string.')

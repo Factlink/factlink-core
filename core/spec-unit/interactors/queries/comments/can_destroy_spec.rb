@@ -5,8 +5,6 @@ describe Queries::Comments::CanDestroy do
   include PavlovSupport
 
   describe '.validate' do
-    let(:subject_class) { Queries::Comments::CanDestroy }
-
     it 'validates with correct values' do
       expect_validating('1a', '20a').to_not raise_error
     end

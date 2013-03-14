@@ -14,7 +14,6 @@ describe Commands::SubComments::CreateXxx do
   end
 
   describe "validation" do
-    let(:subject_class) { Commands::SubComments::CreateXxx }
     it 'without user doesn''t validate' do
       expect_validating('1', 'Comment' ,'Hoi!', nil).
         to fail_validation('user should not be nil.')

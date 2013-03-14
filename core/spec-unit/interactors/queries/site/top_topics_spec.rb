@@ -5,8 +5,6 @@ describe Queries::Site::TopTopics do
   include PavlovSupport
 
   describe 'validations' do
-    let(:subject_class) { Queries::Site::TopTopics }
-
     it 'requires site_id to be an integer' do
       expect_validating('', 2).
         to fail_validation('site_id should be an integer.')

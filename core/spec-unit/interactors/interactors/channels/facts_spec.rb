@@ -10,8 +10,6 @@ describe Interactors::Channels::Facts do
   end
 
   describe '.validate' do
-    let(:subject_class) { Interactors::Channels::Facts }
-
     it 'fact_id must be an integer' do
       expect_validating('a', 2, 3).
         to fail_validation('id should be an integer string.')

@@ -24,7 +24,7 @@ module PavlovSupport
   end
 
   def expect_validating *args
-    expect {subject_class.new(*args)}
+    expect {described_class.new(*args)}
   end
 
   def fail_validation message

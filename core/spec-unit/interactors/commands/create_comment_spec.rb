@@ -14,7 +14,6 @@ describe Commands::CreateComment do
   end
 
   describe "validation" do
-    let(:subject_class) { Commands::CreateComment }
     it 'without user_id doesn''t validate' do
       expect_validating(1, 'believes', 'Hoi!', '').
         to fail_validation('user_id should be an hexadecimal string.')
