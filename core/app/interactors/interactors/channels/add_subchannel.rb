@@ -12,18 +12,19 @@ module Interactors
       end
 
       def execute
-        raise "Channel #{channel_id} not found" unless channel
-        raise "Channel #{subchannel_id} not found" unless subchannel
-
         command :'channels/add_subchannel', channel, subchannel
       end
 
       def channel
-        @channel ||= Channel[channel_id]
+        @channel ||= get_channel(channel_id)
       end
 
       def subchannel
-        @subchannel ||= Channel[subchannel_id]
+        @subchannel ||= get_channel(subchannel_id)
+      end
+
+      def get_channel id
+        Channel[id] or raise "Channel #{id} not found"
       end
 
       def authorized?

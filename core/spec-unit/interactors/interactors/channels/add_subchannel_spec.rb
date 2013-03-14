@@ -34,8 +34,10 @@ describe Interactors::Channels::AddSubchannel do
           nil
         end
       end
-      interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id, options)
-      expect { interactor.execute}.to raise_error(RuntimeError, "Channel #{channel.id} not found")
+      expect do
+        interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id, options)
+        interactor.execute
+      end.to raise_error(RuntimeError, "Channel #{channel.id} not found")
     end
     it "raises an exception when the channel is not found" do
       Channel.stub(:[]) do |id|
@@ -45,8 +47,10 @@ describe Interactors::Channels::AddSubchannel do
           nil
         end
       end
-      interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id, options)
-      expect { interactor.execute}.to raise_error(RuntimeError, "Channel #{subchannel.id} not found")
+      expect do
+        interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id, options)
+        interactor.execute
+      end.to raise_error(RuntimeError, "Channel #{subchannel.id} not found")
     end
   end
 end
