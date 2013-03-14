@@ -4,10 +4,6 @@ require_relative '../../../../app/interactors/interactors/channels/follow'
 
 describe Interactors::Channels::Follow do
   include PavlovSupport
-  before do
-    stub_classes 'Channel'
-  end
-
   describe '.authorized?' do
     it 'forbids execution without current_user' do
       expect do
@@ -25,7 +21,7 @@ describe Interactors::Channels::Follow do
 
         interactor = Interactors::Channels::Follow.new(channel.id, options)
 
-        Channel.stub(:[]).with(channel.id).and_return(channel)
+        interactor.stub(:query).with(:'channels/get',channel.id).and_return(channel)
 
         interactor.should_receive(:query)
                   .with(:'channels/get_by_slug_title', channel.slug_title)
@@ -48,7 +44,7 @@ describe Interactors::Channels::Follow do
         options = {current_user: mock}
 
         interactor = Interactors::Channels::Follow.new(channel.id, options)
-        Channel.stub(:[]).with(channel.id).and_return(channel)
+        interactor.stub(:query).with(:'channels/get',channel.id).and_return(channel)
 
         interactor.should_receive(:query)
                   .with(:'channels/get_by_slug_title', channel.slug_title)
@@ -63,6 +59,11 @@ describe Interactors::Channels::Follow do
                         new_channel, channel)
 
         interactor.execute
+      end
+    end
+    context "when the channel is not found" do
+      it 'raises an error' do
+
       end
     end
   end

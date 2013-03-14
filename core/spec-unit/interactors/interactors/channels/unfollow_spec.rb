@@ -4,10 +4,6 @@ require_relative '../../../../app/interactors/interactors/channels/unfollow'
 
 describe Interactors::Channels::Unfollow do
   include PavlovSupport
-  before do
-    stub_classes 'Channel'
-  end
-
   describe '.authorized?' do
     it 'forbids execution without current_user' do
       expect do
@@ -26,7 +22,7 @@ describe Interactors::Channels::Unfollow do
 
       interactor = Interactors::Channels::Unfollow.new(channel.id, options)
 
-      Channel.stub(:[]).with(channel.id).and_return(channel)
+      interactor.stub(:query).with(:'channels/get', channel.id).and_return(channel)
 
 
       interactor.stub(:query)
@@ -37,8 +33,9 @@ describe Interactors::Channels::Unfollow do
 
 
       following_channels.length.times do |i|
-        Channel.should_receive(:[]).with(following_channel_ids[i])
-               .and_return(following_channels[i])
+        interactor.should_receive(:query)
+                  .with(:'channels/get', following_channel_ids[i])
+                  .and_return(following_channels[i])
         interactor.should_receive(:command)
                   .with(:'channels/remove_subchannel',
                         following_channels[i], channel)

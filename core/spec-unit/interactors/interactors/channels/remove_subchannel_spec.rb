@@ -4,15 +4,13 @@ require_relative '../../../../app/interactors/interactors/channels/remove_subcha
 
 describe Interactors::Channels::RemoveSubchannel do
   include PavlovSupport
-  before do
-    stub_classes 'Channel'
-  end
   describe '.execute' do
     it 'removes a subchannel from the channel' do
       channel = mock :channel, id:'12'
       subchannel = mock :subchannel, id:'45'
 
-      Channel.stub(:[]) do |id|
+      Pavlov.stub(:query) do |query_name, id|
+        raise 'error' unless query_name == :'channels/get'
         if id == channel.id
           channel
         elsif id == subchannel.id

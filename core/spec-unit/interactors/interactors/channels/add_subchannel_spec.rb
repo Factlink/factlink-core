@@ -4,9 +4,6 @@ require_relative '../../../../app/interactors/interactors/channels/add_subchanne
 
 describe Interactors::Channels::AddSubchannel do
   include PavlovSupport
-  before do
-    stub_classes 'Channel'
-  end
   describe '.execute' do
     let(:channel) { mock :channel, id:'12' }
     let(:subchannel) { mock :subchannel, id:'45' }

@@ -15,7 +15,7 @@ module Interactors
       end
 
       def channel
-        @channel ||= Channel[channel_id]
+        @channel ||= query :'channels/get', channel_id
       end
 
       def prospective_follower

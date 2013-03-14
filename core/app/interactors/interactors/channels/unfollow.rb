@@ -18,11 +18,11 @@ module Interactors
       def following_channels
         channel_ids = query :containing_channel_ids_for_channel_and_user, channel.id, @options[:current_user].graph_user_id
 
-        channel_ids.map {|id| Channel[id]}
+        channel_ids.map {|id| query :'channels/get', id}
       end
 
       def channel
-        @channel ||= Channel[channel_id]
+        @channel ||= query :'channels/get', channel_id
       end
 
       def authorized?

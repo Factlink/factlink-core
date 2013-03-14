@@ -17,11 +17,11 @@ module Interactors
       end
 
       def channel
-        @channel ||= Channel[channel_id]
+        @channel ||= query :'channels/get', channel_id
       end
 
       def subchannel
-        @subchannel ||= Channel[subchannel_id]
+        @subchannel ||= query :'channels/get', subchannel_id
       end
 
       def authorized?
