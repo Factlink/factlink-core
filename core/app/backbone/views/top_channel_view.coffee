@@ -12,11 +12,7 @@ class window.TopChannelItemView extends Backbone.Marionette.Layout
     @renderAddBackButton() unless @model.user().is_current_user()
 
   renderAddBackButton: ->
-    suggested_topics = new SuggestedTopics([@model.topic()])
-    add_back_button  = new AddChannelToChannelsButtonView
-                                model: @model
-                                suggested_topics: suggested_topics
-
+    add_back_button = new FollowChannelButtonView(model: @model)
     @add_to_channel_button_region.show add_back_button
 
 class window.TopChannelView extends Backbone.Marionette.CompositeView

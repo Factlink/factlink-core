@@ -10,9 +10,9 @@ feature "channels", type: :request do
     other_user = create :active_user
 
     other_users_channel =
-      backend_create_viewable_channel_for other_user
+      backend_create_viewable_channel_for other_user, title: 'Henk'
     my_channel =
-      backend_create_viewable_channel_for @user
+      backend_create_viewable_channel_for @user, title: 'Henk'
 
     sign_in_user @user
 
@@ -20,12 +20,7 @@ feature "channels", type: :request do
     assert_on_channel_page other_users_channel.title
 
     within_channel_header do
-      find('button', text: 'add').click
-    end
-
-    within_modal do
-      add_to_channel my_channel.title
-      added_channels_should_contain my_channel.title
+      find('button', text: 'follow').click
     end
 
     go_to_channel_page_of my_channel

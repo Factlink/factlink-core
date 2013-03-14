@@ -9,30 +9,24 @@ class Tooltip
     if FactlinkApp.guided
       @$('.js-opinion-animation').show();
 
-    @$('.fact-wheel').tooltip(
-      title: "What's your opinion?",
-      trigger: "manual"
-    ).tooltip('show');
+    else
+      @$('.fact-wheel').tooltip(
+        title: "What's your opinion?",
+        trigger: "manual"
+      ).tooltip('show');
 
   close: ->
     @_shouldShowTooltip = false
     $(window).off 'resize.whatsyouropinion'
     @$('.fact-wheel').off 'click.whatsyouropinion'
-    @$('.js-opinion-animation').hide();
     @$('.fact-wheel').tooltip('destroy')
+    @$('.js-opinion-animation').hide()
 
   render: ->
     @$('.fact-wheel').on 'click.whatsyouropinion', =>
       @close()
 
-      if FactlinkApp.guided
-        $('#submit').tooltip(
-          title: "Great! Click here to finish",
-          trigger: "manual"
-        ).tooltip("show");
-
-    $(window).on 'resize.whatsyouropinion', =>
-      @showTooltip();
+    $(window).on 'resize.whatsyouropinion', => @showTooltip();
 
     @showTooltip()
 
@@ -40,8 +34,11 @@ class Tooltip
 class window.FactsNewView extends Backbone.Marionette.ItemView
   template: "client/facts_new"
 
+  className: 'fact-new'
+
   events:
-    'click #submit': 'post_factlink'
+    'click #submit': 'post_factlink',
+    'click .fact-wheel': 'closeOpinionHelptext'
 
   templateHelpers: ->
     layout: @options.layout
@@ -54,7 +51,9 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @addToCollection = new OwnChannelCollection
-    @tooltip = new Tooltip($)
+    @the_tooltip = new Tooltip($)
+
+    @openOpinionHelptext()
 
   onRender: ->
     @renderAddToChannel()
@@ -63,11 +62,11 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     @createCancelEvent()
     sometimeWhen(
       => @$el.is ":visible"
-    , => @tooltip.render()
+    , => @the_tooltip.render()
     )
 
   onBeforeClose: ->
-    @tooltip.close()
+    @the_tooltip.close()
     $('#submit').tooltip('destroy')
 
   renderAddToChannel: ->
@@ -111,15 +110,36 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
     channel_ids = @addToCollection.map (ch)-> ch.id
 
-    f = new Fact
+    fact = new Fact
       opinion: @wheel.userOpinion()
       displaystring:  @$('textarea#fact').val()
       fact_url: @$('input#url').val()
       fact_title: @$('input#title').val()
       channels: channel_ids
 
-    f.save {},
+    fact.save {},
       success: =>
-        f.set containing_channel_ids: channel_ids
-        @trigger 'factCreated', f
+        fact.set containing_channel_ids: channel_ids
+        @trigger 'factCreated', fact
 
+  openOpinionHelptext: ->
+    if FactlinkApp.guided
+      view = new TooltipView(template: 'tooltips/give_your_opinion')
+      @tooltipAdd '.fact-wheel',
+        "What's your opinion?",
+        "",
+        { side: 'left', align: 'top', margin: 20, contentView: view }
+
+  closeOpinionHelptext: ->
+    if FactlinkApp.guided
+      @tooltipRemove('.fact-wheel')
+      @openFinishHelptext()
+
+  openFinishHelptext: ->
+    unless @tooltip("#submit")?
+      @tooltipAdd '#submit',
+        "You're ready to post this!",
+        "You can add this Factlink to a channel so you can find it more easily later, or post this immediately.",
+        { side: 'right', align: 'top', margin: 19, container: @$('.js-finish-popover') }
+
+_.extend window.FactsNewView.prototype, Backbone.Factlink.TooltipMixin

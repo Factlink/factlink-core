@@ -5,8 +5,6 @@ describe Commands::Sites::Create do
   include PavlovSupport
 
   describe 'validations' do
-    let(:subject_class) { Commands::Sites::Create }
-
     it 'requires arguments' do
       expect_validating('').
         to fail_validation('url should be a nonempty string.')

@@ -1,5 +1,7 @@
 // from: http://fitzgeraldnick.com/weblog/35/
 
+// WARNING: deprecated, use Backbone.Factlink.asyncChecking
+
 function async (fn) {
     setTimeout(fn, 20);
 }

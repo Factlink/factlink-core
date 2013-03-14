@@ -16,8 +16,6 @@ describe Interactors::SubComments::CreateForComment do
   end
 
   describe '.validate' do
-    let(:subject_class) { Interactors::SubComments::CreateForComment }
-
     it 'without comment_id doesn''t validate' do
       expect_validating(nil, 'hoi', current_user: mock).
         to fail_validation('comment_id should be an hexadecimal string.')
