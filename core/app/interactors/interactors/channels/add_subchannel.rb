@@ -12,7 +12,9 @@ module Interactors
       end
 
       def execute
-        # raise 'not found' unless channel and subchannel
+        raise "Channel #{channel_id} not found" unless channel
+        raise "Channel #{subchannel_id} not found" unless subchannel
+
         command :'channels/add_subchannel', channel, subchannel
       end
 
