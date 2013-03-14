@@ -1,6 +1,7 @@
 require 'pavlov_helper'
 
 require_relative '../../../../app/interactors/interactors/channels/add_subchannel'
+require_relative '../../../../app/interactors/queries/channels/get'
 
 describe Interactors::Channels::AddSubchannel do
   include PavlovSupport

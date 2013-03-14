@@ -24,7 +24,7 @@ module Interactors
       end
 
       def get_channel id
-        Channel[id] or raise "Channel #{id} not found"
+        query 'channels/get', id
       end
 
       def authorized?
