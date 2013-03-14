@@ -8,7 +8,11 @@ module Queries
       arguments :id
 
       def execute
-        Channel[@id]
+        Channel[@id] or fail
+      end
+
+      def fail
+        raise "Channel #{id} not found"
       end
 
       def validate

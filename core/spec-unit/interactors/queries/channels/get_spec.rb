@@ -32,5 +32,13 @@ describe Queries::Channels::Get do
 
       query.execute.should eq channel
     end
+    it "raises an exception when the channel is not found" do
+      channel_id = '1'
+      Channel.should_receive(:[]).with(channel_id).and_return(nil)
+      expect do
+        query = Queries::Channels::Get.new(channel_id)
+        query.execute
+      end.to raise_error(RuntimeError, "Channel #{channel_id} not found")
+    end
   end
 end
