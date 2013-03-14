@@ -3,7 +3,7 @@ echo "Running Javascript tests"
 
 OUTPUTFILE=$(mktemp /tmp/javascript.XXXX)
 
-bundle exec rake konacha:run 2>&1 \
+bundle exec rake  konacha:load_poltergeist konacha:run 2>&1 \
  | grep -vE '^(Compiled|method=GET|Served asset)' \
  | tee "$OUTPUTFILE"
 
