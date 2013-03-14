@@ -95,7 +95,6 @@ class window.Channel extends Backbone.Model
     $.ajax
       url: followUrl
       type: 'post'
-      success: => console.info 'Hey, we just followed a channel!', this
       error: => @set('followed?', false)
 
   unfollow: ->
@@ -104,5 +103,4 @@ class window.Channel extends Backbone.Model
     $.ajax
       url: unfollowUrl
       type: 'post'
-      success: => console.info 'we unfollowed channel!', this
       error: => @set('followed?', true)
