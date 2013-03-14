@@ -15,43 +15,20 @@
 @firefoxButtonWidth: 40px;
 @firefoxButtonHeight: 35px;
 
-.left-column {
-  float: left;
-  width: 200px;
-  min-height: 200px;
-
-  .tour-block {
-    position: relative;
-    top: @chromeTourBlockOffsetTop;
-    width: 190px;
-    padding: 10px;
-    margin-bottom: 30px;
-    color: @baseFontColor;
-    border: 1px solid @baseBorderColor;
-    .border-radius(4px);
-    display: none;
-    background: white;
-
-    > h4 {
-      color: @headingFontColor;
-      padding-bottom: 4px;
-    }
-  }
-
-  #skip-link {
-    position: fixed;
-    top: 654px;
-    margin-left: 54px;
-  }
+#skip-link {
+  position: fixed;
+  top: 654px;
+  margin-left: 54px;
 }
 
-.right-column {
+.create-your-first-factlink {
   position: relative;
   float: left;
   width: @siteWidth - 200px;
+  margin-left: 80px;
   height: 690px;
 
-  #background {
+  .create-your-first-factlink-background {
     background: image-url("tour/chrome_mimic.png");
     height: 720px;
     width: 810px;
@@ -88,7 +65,7 @@
     }
   }
 
-  #create-your-first-factlink {
+  .create-your-first-factlink-content {
     padding: @chromeBrowserPaddingTop 30px 0 80px;
     text-align: center;
     margin-top: 50px;
@@ -117,14 +94,8 @@
 }
 
 html.firefox {
-  .left-column {
-    .tour-block {
-      top: @firefoxTourBlockOffsetTop;
-    }
-  }
-
-  .right-column {
-    #background {
+  .create-your-first-factlink {
+    .create-your-first-factlink-background {
       background: image-url("tour/firefox_mimic.png") !important;
     }
 
@@ -157,7 +128,7 @@ html.firefox {
       }
     }
 
-    #create-your-first-factlink {
+    .create-your-first-factlink-content {
       padding-top: @firefoxBrowserPaddingTop;
     }
   }

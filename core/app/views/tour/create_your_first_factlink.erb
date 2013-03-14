@@ -1,12 +1,6 @@
-<div class="left-column">
-  <% if can_haz :skip_create_first_factlink %>
-    <%= link_to 'Skip this step', choose_channels_path, id: 'skip-link' %>
-  <% end %>
-</div>
-
-<div class="right-column">
-  <div id="background"></div>
-  <div id="create-your-first-factlink">
+<div class="create-your-first-factlink">
+  <div class="create-your-first-factlink-background"></div>
+  <div class="create-your-first-factlink-content">
     <h1>Climate change</h1>
     <hr>
     <p>Climate change is a significant and lasting change in the statistical distribution of weather patterns over periods ranging from decades to millions of years. It may be a change in average weather conditions, or in the distribution of weather around the average conditions (i.e., more or fewer extreme weather events).</p>
@@ -17,6 +11,10 @@
   </div>
   <div class="js-extension-button-region"></div>
 </div>
+
+<% if can_haz :skip_create_first_factlink %>
+  <%= link_to 'Skip this step', choose_channels_path, id: 'skip-link' %>
+<% end %>
 
 <%= content_for :javascript do %>
   <%= javascript_include_tag "frontend" %>

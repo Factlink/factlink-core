@@ -17,7 +17,7 @@ class window.InteractiveTour extends Backbone.View
 
     @detectDeselectingInterval = window.setInterval (=> @detectDeselecting()), 200 unless @detectDeselectingInterval?
 
-    $('#create-your-first-factlink').on 'mouseup', =>
+    $('.create-your-first-factlink-content').on 'mouseup', =>
       @detectSelecting()
       @detectDeselecting()
 
@@ -69,13 +69,13 @@ class window.InteractiveTour extends Backbone.View
       callbacks:
         onstarted: =>
           view = new TooltipView( template: { text: "<p>With Factlink you can select any statement, on any website. Let's try that on this example page.</p><p>Select any statement on the right to start creating your Factlink.</p>" } )
-          @tooltipAdd '#create-your-first-factlink > p:first',
+          @tooltipAdd '.create-your-first-factlink-content > p:first',
             "Let's create a Factlink!",
             "",
             { side: 'left', align: 'top', contentView: view }
 
         onleavestarted: =>
-          @tooltipRemove '#create-your-first-factlink > p:first'
+          @tooltipRemove '.create-your-first-factlink-content > p:first'
           @state.transition()
 
         ontext_selected: =>
@@ -113,4 +113,4 @@ _.extend window.InteractiveTour.prototype, Backbone.Factlink.TooltipMixin
 
 $ ->
   if $('body').hasClass 'action_create_your_first_factlink'
-    window.tour = new InteractiveTour(el: $('.right-column'))
+    window.tour = new InteractiveTour(el: $('.create-your-first-factlink'))
