@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   after_filter :set_access_control
 
   def start_the_tour_path
-    almost_done_path
+    send(:"#{view_context.tour_steps[0]}_path")
   end
 
   def after_sign_in_path_for(user)

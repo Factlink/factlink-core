@@ -55,18 +55,18 @@
   </div>
 
   <div class="visible-when-chrome bottom">
-    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'chrome_extension_skip') %>">Skip this step</a>
-    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'chrome_extension_next') %>">Next step</a>
+    <a class="skip-step" href="<%= next_tourstep_path(ref: 'chrome_extension_skip') %>">Skip this step</a>
+    <a class="next-step btn btn-primary btn-large" href="<%= next_tourstep_path(ref: 'chrome_extension_next') %>">Next step</a>
   </div>
 
   <div class="visible-when-firefox bottom">
-    <a class="should-install-firefox-extension skip-step" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
-    <a class="firefox-extension-installed btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_next') %>">Next step</a>
+    <a class="should-install-firefox-extension skip-step" href="<%= next_tourstep_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
+    <a class="firefox-extension-installed btn btn-primary btn-large" href="<%= next_tourstep_path(ref: 'firefox_extension_next') %>">Next step</a>
   </div>
 
   <div class="visible-when-unsupported-browser bottom">
-    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_skip') %>">Skip this step</a>
-    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_next') %>">Next step</a>
+    <a class="skip-step" href="<%= next_tourstep_path(ref: 'bookmarklet_skip') %>">Skip this step</a>
+    <a class="next-step btn btn-primary btn-large" href="<%= next_tourstep_path(ref: 'bookmarklet_next') %>">Next step</a>
   </div>
 </div>
 
@@ -114,7 +114,7 @@
           mp_track("Extension: Download Chrome Extension -> Successful install #almost-ready");
 
           $('#skip-step').fadeOut(600, function() {
-            window.location = "<%= create_your_first_factlink_path(ref: 'extension_next') %>";
+            window.location = "<%= next_tourstep_path(ref: 'extension_next') %>";
           });
         }
         function errorFn(e) {
