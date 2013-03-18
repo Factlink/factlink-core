@@ -1,6 +1,6 @@
 json.channels topic.top_channels(3) do |json, channel|
   json.created_by do |j|
-    j.partial! 'users/user_partial', user: channel.created_by.user
+    j.partial! 'users/user_partial', user: channel.created_by.user unless channel.created_by.nil?
   end
 
   json.created_by_authority sprintf('%.1f',Authority.from(topic, for: channel.created_by.graph_user).to_f+1.0)
