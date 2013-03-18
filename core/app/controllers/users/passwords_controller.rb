@@ -26,7 +26,9 @@ class Users::PasswordsController < Devise::PasswordsController
     self.resource = resource_class.reset_password_by_token(resource_params)
     # end of copy
 
-    resource.set_names(params[:user][:first_name].to_s, params[:user][:last_name].to_s)
+    if params[:msg]
+      resource.set_names(params[:user][:first_name].to_s, params[:user][:last_name].to_s)
+    end
 
     # Copied from Devise::PasswordsController
     if resource.errors.empty?
