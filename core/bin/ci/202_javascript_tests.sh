@@ -15,7 +15,7 @@ do
   else
     break
   fi
-end
+done
 
 if ! grep ', 0 failed' $OUTPUTFILE > /dev/null
 then
