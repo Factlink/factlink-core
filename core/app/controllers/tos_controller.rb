@@ -20,7 +20,7 @@ class TosController < ApplicationController
     if current_user.sign_tos(agrees_tos, first_name, last_name)
       track_signed_tos
       track_tos_browser
-      redirect_to almost_done_path
+      redirect_to start_the_tour_path
     else
       render :show
     end

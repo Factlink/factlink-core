@@ -56,11 +56,15 @@ class ApplicationController < ActionController::Base
 
   after_filter :set_access_control
 
+  def start_the_tour_path
+    almost_done_path
+  end
+
   def after_sign_in_path_for(user)
     if current_user.seen_the_tour
       safe_return_to_path || channel_activities_path(user, user.graph_user.stream)
     else
-      almost_done_path
+      start_the_tour_path
     end
   end
 
