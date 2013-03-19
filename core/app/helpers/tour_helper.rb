@@ -5,6 +5,19 @@ module TourHelper
     end
   end
 
+  def tour_step_li step, text
+    @stepnr ||= 0
+    @stepnr += 1
+
+    current_step = @step_in_signup_process == step
+    options = current_step ? {class: 'active'} : {}
+
+    content_tag :li, options do
+      content_tag(:span, @stepnr) +
+      text
+    end
+  end
+
   def tour_steps
     [
       :create_your_first_factlink,
