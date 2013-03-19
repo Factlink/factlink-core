@@ -1,14 +1,14 @@
-<div id="almost-done-wrapper">
+<div class="install-extension-wrapper">
   <h1>Congratulations with your first Factlink!</h1>
 
-  <div class="almost-done-middle">
-    <div class="almost-done-picture">
+  <div class="install-extension-middle">
+    <div class="install-extension-picture">
       <%= image_tag("icon-client-chrome.png", class: "visible-when-chrome") %>
       <%= image_tag("icon-client-firefox.png", class: "visible-when-firefox") %>
       <%= image_tag("icon-client-bookmarklet.png", class: "visible-when-unsupported-browser") %>
     </div>
 
-    <div class="almost-done-text">
+    <div class="install-extension-text">
       <div class="visible-when-chrome">
         Now you know how to add a Factlink with the Chrome Extension, it's time to add it to your browser.
 
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <div class="visible-when-unsupported-browser almost-done-text-unsupported">
+      <div class="visible-when-unsupported-browser install-extension-text-unsupported">
         Unfortunately you don't have the appropriate browser to add a Factlink button.
         Fortunately we have a bookmarklet which you can add to your bookmarks.
 
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <div class="almost-done-bottom">
+  <div class="install-extension-bottom">
     <div class="visible-when-chrome">
       <div class="should-install-chrome-extension">
         <a href="<%= next_tourstep_path(ref: 'chrome_extension_skip') %>">Skip this step</a>
