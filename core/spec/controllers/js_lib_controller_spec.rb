@@ -40,7 +40,7 @@ describe JsLibController do
     it "redirects the user to the path" do
       authenticate_user! user
       base_url = 'http://example.com'
-      subject.stub(:redir_url){ base_url }
+      subject.stub(:jslib_url){ base_url }
 
       ['foo','bar'].each do |path|
         get :redir, path: path
@@ -49,28 +49,15 @@ describe JsLibController do
     end
   end
 
-  describe :redir_url do
-    it "calls redir_url_for with the current user" do
-      subject.stub(:current_user) { user }
-      url = mock()
-      url.should_receive(:to_s).and_return('http://example.com/bees/')
-      subject.should_receive(:jslib_url_for).with(user.username).and_return(url)
-      subject.redir_url.should == 'http://example.com/bees/'
-    end
-  end
-
-  describe :jslib_url_for do
+  describe :jslib_url do
     it "constructs a correct JsLibUrl" do
-      jsliburl = mock(JsLibUrl)
-
-      builder = mock()
-      builder.should_receive(:url_for).and_return(jsliburl)
+      jslib_url = mock
 
       FactlinkUI::Application.config.
-          should_receive(:jslib_url_builder).
-          and_return(builder)
+          should_receive(:jslib_url).
+          and_return(jslib_url)
 
-      subject.jslib_url_for('gerard').should == jsliburl
+      subject.jslib_url.should == jslib_url
     end
   end
 end

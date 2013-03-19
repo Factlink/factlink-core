@@ -15,11 +15,7 @@ class JsLibController < ApplicationController
   end
 
   def redir
-    redirect_to redir_url + params[:path]
-  end
-
-  def redir_url
-    jslib_url_for(current_user.username).to_s
+    redirect_to jslib_url + params[:path]
   end
 
   private

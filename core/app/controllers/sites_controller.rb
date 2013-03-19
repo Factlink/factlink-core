@@ -12,7 +12,7 @@ class SitesController < ApplicationController
       @facts_count = site ? site.facts.count : 0
       response = { count: @facts_count }
     end
-    response[:jslib_url] = jslib_url_for(current_user.username).to_s if user_signed_in?
+    response[:jslib_url] = jslib_url
 
     render_jsonp response
   end

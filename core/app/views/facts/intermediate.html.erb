@@ -3,16 +3,8 @@
 <head>
   <title>Intermediate action</title>
 
-  <% if current_user %>
-  <%= javascript_include_tag "#{jslib_url_for(current_user.username)}/easyXDM/easyXDM.min.js" %>
-  <% else %>
+  <%= javascript_include_tag "#{jslib_url}/easyXDM/easyXDM.min.js" %>
 
-  <% if Rails.env == "development" %>
-  <%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}/lib/dist/easyXDM/easyXDM.min.js" %>
-  <% else %>
-  <%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}/public/easyXDM.min.js" %>
-  <% end %>
-  <% end %>
   <style type="text/css">
     html, body {
       height: 100%;
