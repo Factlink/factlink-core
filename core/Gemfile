@@ -16,7 +16,7 @@ gem 'memoist'
 gem 'addressable'
 
 # Mongo
-gem 'mongoid', '~> 3.0.19'
+gem 'mongoid', '~> 3.0.21'
 
 gem 'pavlov', :git => 'git@github.com:Factlink/pavlov.git'
 
