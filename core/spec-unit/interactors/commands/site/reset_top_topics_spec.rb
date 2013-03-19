@@ -5,8 +5,6 @@ describe Commands::Site::ResetTopTopics do
   include PavlovSupport
 
   describe 'validations' do
-    let(:subject_class) { Commands::Site::ResetTopTopics }
-
     it 'requires arguments' do
       expect_validating('11ee').
         to fail_validation('site_id should be an integer.')

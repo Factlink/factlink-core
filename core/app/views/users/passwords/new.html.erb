@@ -12,6 +12,19 @@
 
     <div class="control-group">
       <%= f.label :email, class: "control-label" %>
+      <%# HACK: this should be done with label with a block,
+                 but a bug in rails prevents this:
+                 https://github.com/rails/rails/pull/5691/files
+
+                 Probably we can fix this when upgrading to
+                 Rails 4
+      %>
+      <% if resource.errors[:email].any? %>
+        <div class='field_with_errors'><span class="help-inline">
+         (errors: <%= resource.errors[:email].join(", ") %>)
+        </div></div>
+      <% end %>
+
       <div class="controls">
         <%= f.email_field :email, class: "input-xlarge" %>
       </div>

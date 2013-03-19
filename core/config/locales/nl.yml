@@ -38,6 +38,10 @@ nl:
   added_to_channels: "toegevoegd"
   created_channel: "heeft een kanaal aangemaakt"
 
+  follow: "volgen"
+  following: "volgend"
+  unfollow: "ontvolgen"
+
   related_channels: "gerelateerde channels"
   interesting_channels: "interessante channels"
   related_users: "gerelateerde gebruikers"
@@ -45,7 +49,9 @@ nl:
 
   stream: "overzicht"
 
+  topic: "onderwerp"
   topics: "onderwerpen"
+  topic_name: "naam van onderwerp"
 
   ago: "geleden"
   show: "toon"

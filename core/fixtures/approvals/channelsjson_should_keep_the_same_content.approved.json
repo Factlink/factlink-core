@@ -28,6 +28,7 @@
     "new_facts": false,
     "containing_channel_ids": [
 
-    ]
+    ],
+    "followed?": false
   }
 ]

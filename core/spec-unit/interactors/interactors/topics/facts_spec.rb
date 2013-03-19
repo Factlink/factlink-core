@@ -40,8 +40,6 @@ describe Interactors::Topics::Facts do
   end
 
   describe '#validation' do
-    let(:subject_class) { described_class }
-
     it :slug_title do
       expect_validating(1, 100, 123).
         to fail_validation('slug_title should be a string.')

@@ -37,6 +37,10 @@ en:
   added_to_channels: "added"
   created_channel: "created a channel"
 
+  follow: "follow"
+  following: "following"
+  unfollow: "unfollow"
+
   related_channels: "related channels"
   interesting_channels: "interesting channels"
   related_users: "related users"
@@ -44,7 +48,9 @@ en:
 
   stream: "feed"
 
+  topic:  "topic"
   topics: "topics"
+  channel_name "topic name"
 
   ago: "ago"
   show: "show"

@@ -1,34 +1,52 @@
-class window.InteractiveTour
+class window.InteractiveTour extends Backbone.View
   helpTextDelay: 560
 
+  detectSelecting: ->
+    if FACTLINK.getSelectionInfo().text.length > 0
+      @state.select_text()
+
+  detectDeselecting: ->
+    if FACTLINK.getSelectionInfo().text.length <= 0
+      @state.deselect_text()
+
   bindLibraryLoad: ->
-    $(window).on 'factlink.libraryLoaded', ->
-      FACTLINK.hideDimmer()
+    $(window).on 'factlink.libraryLoaded', => @onLibraryLoaded()
 
-      $('#create-your-first-factlink').on 'mouseup', ->
-        if FACTLINK.getSelectionInfo().text.length > 0
-          tour.state.select_text()
-        else
-          tour.state.deselect_text()
+  onLibraryLoaded: ->
+    FACTLINK.hideDimmer()
 
-      FACTLINK.on 'modalOpened', ->
-        tour.state.open_modal()
+    @detectDeselectingInterval = window.setInterval (=> @detectDeselecting()), 200 unless @detectDeselectingInterval?
 
-      FACTLINK.on 'modalClosed', ->
-        tour.state.close_modal()
+    $('.create-your-first-factlink-content').on 'mouseup', =>
+      @detectSelecting()
+      @detectDeselecting()
 
-      FACTLINK.on 'factlinkAdded', ->
-        tour.state.create_factlink()
+    FACTLINK.on 'modalOpened', =>
+      @state.open_modal()
+
+    FACTLINK.on 'modalClosed', =>
+      @state.close_modal()
+
+    FACTLINK.on 'factlinkAdded', =>
+      @state.create_factlink()
 
   renderExtensionButton: ->
     @extensionButton = new ExtensionButtonMimic()
     $('.js-extension-button-region').append(@extensionButton.render().el)
 
-  constructor: ->
+  initialize: ->
+    @isClosed = false # Hack to fake Marionette behaviour. Used in TooltipMixin.
+
     @renderExtensionButton()
 
     @bindLibraryLoad()
 
+    @createStateMachine()
+
+  close: ->
+    window.clearInterval @detectDeselectingInterval
+
+  createStateMachine: ->
     @state = StateMachine.create
       initial: 'started'
       events: [
@@ -50,33 +68,49 @@ class window.InteractiveTour
       ]
       callbacks:
         onstarted: =>
-          @showHelpText(1)
+          view = new TooltipView( template: { text: "<p>With Factlink you can select any statement, on any website. Let's try that on this example page.</p><p>Select any statement on the right to start creating your Factlink.</p>" } )
+          @tooltipAdd '.create-your-first-factlink-content > p:first',
+            "Let's create a Factlink!",
+            "",
+            { side: 'left', align: 'top', contentView: view }
+
         onleavestarted: =>
-          @hideHelpText(1)
-          StateMachine.ASYNC
+          @tooltipRemove '.create-your-first-factlink-content > p:first'
+          @state.transition()
+
         ontext_selected: =>
-          @showHelpText(2)
+          view = new TooltipView( template: { text: "<p>Now click the Factlink button to create your Factlink.</p><p>This button will always appear here when the Factlink Extension is installed.</p>" } )
+          @tooltipAdd '#extension-button',
+            "That was easy!",
+            "",
+            { side: 'left', align: 'top', alignMargin: 60, contentView: view }
+
         onleavetext_selected: =>
-          @hideHelpText(2)
-          StateMachine.ASYNC
+          @tooltipRemove '#extension-button',
+          @state.transition()
+
         onfactlink_created: =>
           @extensionButton.increaseCount()
-          @showHelpText(3)
+
+          Backbone.Factlink.asyncChecking @factlinkFirstExists, @addFactlinkFirstTooltip, @
+
         onleavefactlink_created: =>
-          @hideHelpText(3)
-          StateMachine.ASYNC
+          @tooltipRemove '.factlink.fl-first'
+          @state.transition()
 
-  hideHelpText: (step) ->
-    $("#step#{step}").fadeOut 'fast', =>
-      @state.transition()
+  factlinkFirstExists: ->
+    @$('.factlink.fl-first').length > 0
 
-    StateMachine.ASYNC
+  addFactlinkFirstTooltip: ->
+    view = new TooltipView(template: 'tooltips/first_factlink_created')
 
-  showHelpText: (current_step) ->
-    setTimeout =>
-      $("#step#{current_step}").fadeIn 'fast'
-    , @helpTextDelay
+    @tooltipAdd '.factlink.fl-first',
+      "Your first Factlink is a fact!",
+      '',
+      { side: 'left', align: 'top', margin: 10, contentView: view }
+
+_.extend window.InteractiveTour.prototype, Backbone.Factlink.TooltipMixin
 
 $ ->
   if $('body').hasClass 'action_create_your_first_factlink'
-    window.tour = new InteractiveTour()
+    window.tour = new InteractiveTour(el: $('.create-your-first-factlink'))

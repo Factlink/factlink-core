@@ -5,8 +5,6 @@ describe Queries::SubComments::Count do
   include PavlovSupport
 
   describe '.validate' do
-    let(:subject_class) { Queries::SubComments::Count }
-
     it 'validates with correct values' do
       expect_validating('1', 'FactRelation').to_not raise_error
     end

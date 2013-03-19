@@ -73,7 +73,6 @@ describe Commands::Topics::AddFact do
   end
 
   describe '#validation' do
-    let(:subject_class) { described_class }
     it :fact_id do
       expect_validating('a', '2e', Time.now).
         to fail_validation('fact_id should be an integer string.')

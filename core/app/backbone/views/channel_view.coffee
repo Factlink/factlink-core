@@ -19,7 +19,7 @@ class window.ChannelView extends Backbone.Marionette.Layout
         model: @model
 
     if @model.get('followable?')
-      @addToChannelRegion.show new AddChannelToChannelsButtonView(model: @model)
+      @addToChannelRegion.show new FollowChannelButtonView(model: @model)
 
     @creatorProfileRegion.show new UserWithAuthorityBox
       model: @model.user(),
