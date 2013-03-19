@@ -41,4 +41,4 @@ class window.TourController extends Backbone.Factlink.BaseController
         unless done
           done = true
           FactlinkApp.leftTopCrossFadeRegion.crossFade(tourstep = new AddChannelsTourStep3())
-          tourstep.on 'next', -> window.location = '/'
+          tourstep.on 'next', -> window.location = window.next_tourstep_path

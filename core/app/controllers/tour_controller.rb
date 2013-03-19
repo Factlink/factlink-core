@@ -13,7 +13,11 @@ class TourController < ApplicationController
   end
 
   def choose_channels
-    render inline:'', layout: "channels", locals: { wide: true }
+    render layout: "channels", locals: { wide: true }
+  end
+
+  def tour_done
+    redirect_to after_sign_in_path_for(current_user)
   end
 
   private

@@ -231,6 +231,7 @@ FactlinkUI::Application.routes.draw do
     get "install-extension" => "tour#install_extension", as: "install_extension"
     get "create-your-first-factlink" => "tour#create_your_first_factlink", as: "create_your_first_factlink"
     get "choose-channels" => "tour#choose_channels", as: "choose_channels"
+    get "tour-done" => "tour#tour_done", as: "tour_done"
   end
 
   get  "/p/privacy" => "privacy#privacy", as: "privacy"
