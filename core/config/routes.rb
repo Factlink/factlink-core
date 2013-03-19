@@ -228,7 +228,7 @@ FactlinkUI::Application.routes.draw do
   post "/p/tos"     => "tos#update",      as: "tos"
 
   scope "/p/tour" do
-    get "youre-almost-done" => "tour#install_extension", as: "install_extension"
+    get "install-extension" => "tour#install_extension", as: "install_extension"
     get "create-your-first-factlink" => "tour#create_your_first_factlink", as: "create_your_first_factlink"
     get "choose-channels" => "tour#choose_channels", as: "choose_channels"
   end
