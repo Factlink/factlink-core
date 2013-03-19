@@ -33,10 +33,6 @@ describe JsLibController do
   end
 
   describe :redir do
-    it "gives an error when the user is not logged in" do
-      get :redir, path: 'sumthing'
-      response.code.should == '403'
-    end
     it "redirects the user to the path" do
       authenticate_user! user
       base_url = 'http://example.com'
