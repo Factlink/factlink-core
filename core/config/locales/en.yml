@@ -50,7 +50,7 @@ en:
 
   topic:  "topic"
   topics: "topics"
-  channel_name "topic name"
+  channel_name: "topic name"
 
   ago: "ago"
   show: "show"
