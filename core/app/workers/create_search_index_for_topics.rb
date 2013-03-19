@@ -1,4 +1,5 @@
 class CreateSearchIndexForTopics
+  include Pavlov::Helpers
 
   @queue = :search_index_operations
 
