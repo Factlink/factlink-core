@@ -39,6 +39,7 @@ class User
   field :agreed_tos_on,   type: DateTime
 
   field :seen_the_tour,  type: Boolean, default: false
+  field :seen_tour_step, type: String,  default: 'account'
   field :receives_mailed_notifications,  type: Boolean, default: true
 
 
