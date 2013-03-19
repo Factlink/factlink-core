@@ -1,10 +1,4 @@
 module TourHelper
-  def show_active_step step_in_signup_proces, step
-    if step_in_signup_proces == step
-      ' class="active"'.html_safe
-    end
-  end
-
   def tour_step_li step, text
     @stepnr ||= 0
     @stepnr += 1
