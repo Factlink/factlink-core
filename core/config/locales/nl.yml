@@ -49,6 +49,7 @@ nl:
 
   stream: "overzicht"
 
+  topic: "onderwerp"
   topics: "onderwerpen"
 
   ago: "geleden"
