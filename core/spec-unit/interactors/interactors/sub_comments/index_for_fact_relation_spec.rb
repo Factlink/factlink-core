@@ -19,8 +19,6 @@ describe Interactors::SubComments::IndexForFactRelation do
   end
 
   describe '.validate' do
-    let(:subject_class) { Interactors::SubComments::IndexForFactRelation }
-
     it 'without fact_relation_id doesn''t validate' do
       expect_validating(nil, current_user: mock).
         to fail_validation('fact_relation_id should be an integer.')

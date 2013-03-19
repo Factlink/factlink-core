@@ -11,8 +11,6 @@ describe Commands::Facts::Create do
   end
 
   describe 'validations' do
-    let(:subject_class) { Commands::Facts::Create }
-
     it 'requires displaystring to be a nonempty string' do
       expect_validating('', 'title', mock, mock).
         to fail_validation('displaystring should be a nonempty string.')

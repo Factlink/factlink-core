@@ -1,29 +1,29 @@
 testserver:
   sentry:
-    public: "743ecc1c097640a68fc885030e308dd7"
-    secret: "53dd5c85c52e4940aa558fd9983ff9ed"
-    project_id: "4"
-
-  ravenjs:
-    public: "9d44e69d8ed94e40b7ec7d74f3b606f4"
-    project_id: "6"
-
-staging:
-  sentry:
-    public: "a9fbad21e5a8444e8b865a058c9b9312"
-    secret: "8fff0d1562cb4314a8a3fa48725d1e2a"
-    project_id: "3"
-
-  ravenjs:
-    public: "6b3eacc43fb54291a3133d0d8a5b7494"
-    project_id: "7"
-
-production:
-  sentry:
-    public: "290d2adf2aa5432f8c682f3f650f2852"
-    secret: "bc8fb237712c4297a3d5c06318a62c71"
+    public: "564f9ffcc0324228a828548ea6d59889"
+    secret: "c3dcb2f390b34a878d0fc0f484375a21"
     project_id: "2"
 
   ravenjs:
-    public: "5e7a8482cfa34884a3888c6d4edc0e9e"
+    public: "4ab2fe43232d4978a06d3530dee52297"
+    project_id: "9"
+
+staging:
+  sentry:
+    public: "f00ceb90aeda4c5f955e87a8f71fa539"
+    secret: "f4d9cf425133412a9431a507b5cf10e5"
+    project_id: "7"
+
+  ravenjs:
+    public: "2f441751a01b433ab8831992e0c22bbb"
+    project_id: "8"
+
+production:
+  sentry:
+    public: "ec6e9d0d44d24ac0a8f2fa4c2c982bf2"
+    secret: "78697de0eb904f9d8fba32d8cb49e4da"
+    project_id: "5"
+
+  ravenjs:
+    public: "6d0dbdf2bc95433586b79176fb94595f"
     project_id: "8"

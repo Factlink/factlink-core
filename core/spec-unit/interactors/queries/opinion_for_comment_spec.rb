@@ -15,7 +15,6 @@ describe Queries::OpinionForComment do
   end
 
   describe 'validation' do
-    let(:subject_class) {Queries::OpinionForComment}
     it 'with a invalid comment_id doesn''t validate' do
       expect_validating('g', mock).
         to fail_validation 'comment_id should be an hexadecimal string.'

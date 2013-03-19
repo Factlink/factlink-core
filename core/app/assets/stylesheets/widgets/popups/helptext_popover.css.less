@@ -1,0 +1,90 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+@arrow-long-side: 17px;
+@arrow-pointy-side: 11px;
+
+.help-text-container {
+  z-index: @max-z-index;
+  position: relative;
+  background: #fff;
+  width: 200px;
+
+  font-size: @baseFontSize;
+
+  border: 1px solid #a6a6a6;
+  .border-radius(3px);
+  .background-clip(padding-box);
+  .box-shadow(0 0 0 3px rgba(0, 0, 0, .15));
+
+  .help-text-header {
+    h1 {
+      font-family: @headingFontFamily;
+      font-size: @modalHeadingFontSize;
+      font-weight: bold;
+
+      padding: 9px 14px;
+      margin: 0;
+    }
+    border-bottom: solid 1px #ccc;
+  }
+
+  .help-text-content {
+    padding: 9px 14px;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .arrow {
+    position: absolute;
+
+    background: image-url('help-text-arrow.png');
+
+    width: @arrow-long-side;
+    background-repeat: no-repeat;
+  }
+
+  &.bottom {
+    margin-top: @arrow-pointy-side;
+    .arrow {
+      top: -@arrow-pointy-side;
+      background-position: -22px 0;
+
+      height: @arrow-pointy-side;
+      width: @arrow-long-side;
+    }
+  }
+
+  &.top {
+    margin-bottom: @arrow-pointy-side;
+    .arrow {
+      bottom: -@arrow-pointy-side;
+      background-position: -39px 0;
+      height: @arrow-pointy-side;
+      width: @arrow-long-side;
+    }
+  }
+
+  &.left {
+    margin-right: @arrow-pointy-side;
+    .arrow {
+      right: -@arrow-pointy-side;
+      background-position: -11px 0;
+
+      height: @arrow-long-side;
+      width: @arrow-pointy-side;
+    }
+  }
+
+  &.right {
+    margin-left: @arrow-pointy-side;
+    .arrow {
+      left: -@arrow-pointy-side;
+
+      height: @arrow-long-side;
+      width: @arrow-pointy-side;
+    }
+  }
+}

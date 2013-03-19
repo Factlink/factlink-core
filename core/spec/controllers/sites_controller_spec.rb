@@ -10,9 +10,6 @@ describe SitesController do
       parsed_content.should have_key("count")
       parsed_content['count'].should == 0
     end
-
-    it "should return the jslib_url if the site isn't blocked"
-    it "should return the jslib_url if the site is blocked"
   end
 
   describe :facts_for_url do

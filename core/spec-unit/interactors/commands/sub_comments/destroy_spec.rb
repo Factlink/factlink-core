@@ -9,8 +9,6 @@ describe Commands::SubComments::Destroy do
   end
 
   describe '.validate' do
-    let(:subject_class) { Commands::SubComments::Destroy }
-
     it 'without id doesn''t validate' do
       expect_validating(nil, current_user: mock).
         to fail_validation('id should be an hexadecimal string.')

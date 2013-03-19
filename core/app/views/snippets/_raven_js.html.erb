@@ -3,9 +3,7 @@
 <% if sentry_conf %>
 
   <script type="text/javascript">
-  Raven.config('<%= "https://#{sentry_conf["public"]}@sentry.factlink.com/#{sentry_conf["project_id"]}" %>');
-
-  window.onerror = Raven.process;
+  Raven.config('<%= "https://#{sentry_conf["public"]}@sentry2.factlink.com/#{sentry_conf["project_id"]}" %>').install();
   </script>
 
 <% end %>

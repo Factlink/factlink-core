@@ -14,13 +14,16 @@ describe TosController do
   describe :update do
     context "with valid credentials" do
       it "should work with" do
+        start_the_tour_path = '/foo/bar'
+        ApplicationController.any_instance
+                .stub start_the_tour_path: start_the_tour_path
         authenticate_user!(user)
         should_check_can :sign_tos, user
 
         user.should_receive(:sign_tos).with(true, 'Sjonnie', 'Akkermans').and_return(true)
 
         post :update, user: {agrees_tos: 1, tos_first_name: 'Sjonnie', tos_last_name: 'Akkermans'}
-        response.should redirect_to(almost_done_path)
+        response.should redirect_to(start_the_tour_path)
       end
     end
     context "with invalid credentials" do

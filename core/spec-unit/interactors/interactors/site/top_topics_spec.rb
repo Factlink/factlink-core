@@ -5,8 +5,6 @@ describe Interactors::Site::TopTopics do
   include PavlovSupport
 
   describe 'validations' do
-    let(:subject_class) { Interactors::Site::TopTopics }
-
     it 'requires url to be a string' do
       expect_validating(nil, 2).
         to fail_validation('url should be a string.')

@@ -6,8 +6,8 @@ source 'http://rubygems.org'
 ruby '1.9.3'
 
 # Defaults
-gem 'rails', '3.2.12'
-gem 'activerecord', '3.2.12'
+gem 'rails', '3.2.13'
+gem 'activerecord', '3.2.13'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'sqlite3', :require => 'sqlite3'
 gem 'rake', '~> 0.9.2', :require => false
@@ -35,7 +35,7 @@ gem 'stringex'
 
 gem 'mixpanel', git: 'git@github.com:Factlink/mixpanel.git'
 
-gem "sentry-raven", '0.3.1'
+gem "sentry-raven", '~> 0.4.4'
 gem "resque-sentry"
 
 # Everyone loves JSON

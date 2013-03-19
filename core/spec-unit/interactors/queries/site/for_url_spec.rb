@@ -5,8 +5,6 @@ describe Queries::Sites::ForUrl do
   include PavlovSupport
 
   describe 'validations' do
-    let(:subject_class) { Queries::Sites::ForUrl }
-
     it 'requires arguments' do
       expect_validating(nil).
         to fail_validation('url should be a string.')

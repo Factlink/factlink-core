@@ -88,3 +88,19 @@ class window.Channel extends Backbone.Model
   toJSON: ->
     _.extend super(),
       is_mine: @is_mine()
+
+  follow: ->
+    followUrl = "#{@normal_url()}/follow"
+    @set('followed?', true)
+    $.ajax
+      url: followUrl
+      type: 'post'
+      error: => @set('followed?', false)
+
+  unfollow: ->
+    unfollowUrl = "#{@normal_url()}/unfollow"
+    @set('followed?', false)
+    $.ajax
+      url: unfollowUrl
+      type: 'post'
+      error: => @set('followed?', true)

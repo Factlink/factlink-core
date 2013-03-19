@@ -4,14 +4,7 @@ require 'pavlov_helper'
 describe Queries::Channels::Get do
   include PavlovSupport
 
-  it '.new' do
-    interactor = Queries::Channels::Get.new '1'
-    interactor.should_not be_nil
-  end
-
   describe '.validate' do
-    let(:subject_class) { Queries::Channels::Get }
-
     it 'requires id to be an integer' do
       expect_validating('a', :id).
         to fail_validation('id should be an integer string.')
@@ -20,17 +13,25 @@ describe Queries::Channels::Get do
 
   describe '.execute' do
     before do
-      stub_const('Channel', Class.new)
+      stub_classes 'Channel'
     end
 
     it 'correctly' do
-      channel = mock
+      channel = mock id: '1'
+      query = Queries::Channels::Get.new channel.id
+
+      Channel.should_receive(:[]).with(channel.id)
+             .and_return(channel)
+
+      expect(query.execute).to eq channel
+    end
+    it "raises an exception when the channel is not found" do
       channel_id = '1'
-      query = Queries::Channels::Get.new channel_id
-
-      Channel.should_receive(:[]).with(channel_id).and_return(channel)
-
-      query.execute.should eq channel
+      Channel.should_receive(:[]).with(channel_id).and_return(nil)
+      expect do
+        query = Queries::Channels::Get.new(channel_id)
+        query.execute
+      end.to raise_error(RuntimeError, "Channel #{channel_id} not found")
     end
   end
 end
