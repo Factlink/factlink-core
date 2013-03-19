@@ -20,6 +20,5 @@ class window.UserChannelSuggestionsView extends Backbone.Marionette.CompositeVie
   checkSuggestionsEmpty: ->
     @trigger 'no_suggestions' if @collection.length == 0
 
-
   showEmptyView: => @$el.hide()
   closeEmptyView: => @$el.show()
