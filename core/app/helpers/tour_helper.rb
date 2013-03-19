@@ -20,10 +20,16 @@ module TourHelper
 
   def tour_steps
     [
+      :account,
       :create_your_first_factlink,
       :install_extension,
       :choose_channels
     ]
+  end
+
+  def first_real_tour_step
+    tour_steps.skip_while {|step| step == :acount}
+              .first
   end
 
   def next_tourstep
