@@ -4,12 +4,16 @@
       <span>1</span>Account
     </li>
 
-    <li<%= show_active_step @step_in_signup_process, :create_factlink %>>
+    <li<%= show_active_step @step_in_signup_process, :create_your_first_factlink %>>
       <span>2</span>Create Factlink
     </li>
 
-    <li<%= show_active_step @step_in_signup_process, :almost_done %>>
-      <span>3</span><%= t(:stream).capitalize %>
+    <li<%= show_active_step @step_in_signup_process, :install_extension %>>
+      <span>3</span>Install extension
+    </li>
+
+    <li<%= show_active_step @step_in_signup_process, :choose_channels %>>
+      <span>4</span><%= t(:stream).capitalize %>
     </li>
   </ul>
 </div>
