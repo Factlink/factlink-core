@@ -3,21 +3,18 @@ require 'screenshot_helper'
 describe "Check the tour", type: :request do
 
   before do
-    @user = make_non_tos_user_and_login
-
-    check "user_agrees_tos"
-
-    click_button "Next"
+    user = FactoryGirl.create(:active_user)
+    sign_in_user(user)
   end
 
-  it 'You\'re almost set page should be the same' do
+  it 'Extension page should be the same' do
+    visit install_extension_path
+
     assume_unchanged_screenshot 'extension'
   end
 
-  it 'Let''s create your first factlink page should be the same' do
-    click_link "Skip this step"
-
-    sleep 10
+  it 'Create your first factlink page should be the same' do
+    visit create_your_first_factlink_path
 
     assume_unchanged_screenshot 'create_your_first_factlink'
   end

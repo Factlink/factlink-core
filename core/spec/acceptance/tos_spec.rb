@@ -28,13 +28,10 @@ describe "Check the ToS", type: :request do
       check "user_agrees_tos"
 
       click_button "Next"
-
-      page.should have_content "You're almost set!"
-      click_link "Skip this step"
     end
 
     it "should redirect to the Interactive Tour" do
-      page.should have_content("Climate change")
+      page.should have_content "Select any statement on the right to start creating your Factlink."
     end
   end
 end
