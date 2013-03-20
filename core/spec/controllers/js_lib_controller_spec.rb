@@ -46,7 +46,7 @@ describe JsLibController do
   end
 
   describe :jslib_url do
-    it "constructs a correct JsLibUrl" do
+    it "retrieves the jslib_url" do
       jslib_url = mock
 
       FactlinkUI::Application.config.
