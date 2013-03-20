@@ -132,12 +132,6 @@ class User
       where(:approved => true)
     end
 
-    def not_agreed_with_tos
-      approved.
-        where(:confirmed_at.ne => nil).
-        where(:agrees_tos => false)
-    end
-
     def find_for_oauth(provider_name, uid)
       where(:"identities.#{provider_name}.uid" => uid).first
     end
