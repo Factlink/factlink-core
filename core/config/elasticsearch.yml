@@ -12,7 +12,7 @@ test:
 
 testserver:
   elasticsearch:
-    hostname: localhost
+    hostname: 89.188.27.177
     port: 9200
     cluster: factlink_testserver
 
