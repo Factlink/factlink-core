@@ -16,21 +16,6 @@ module ApplicationHelper
     path
   end
 
-  def template_as_string(filename)
-    data = ''
-    filename = Rails.root.join('app','templates',filename)
-    File.open(filename, "r") do |f|
-      f.each_line do |line|
-        data += line
-      end
-    end
-    return data.html_safe
-  end
-
-  def render_mustache(*args)
-    render(*args).html_safe
-  end
-
   def minify_js(s)
     res = s
     res = res.gsub(/^\s*\/\/[^\n]*\n/, '')

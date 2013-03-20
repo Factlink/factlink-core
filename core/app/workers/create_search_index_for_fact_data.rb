@@ -12,5 +12,4 @@ class CreateSearchIndexForFactData
       raise "Failed adding index for fact_data with fact_data_id: #{fact_data_id}"
     end
   end
-
 end

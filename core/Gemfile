@@ -6,8 +6,8 @@ source 'http://rubygems.org'
 ruby '1.9.3'
 
 # Defaults
-gem 'rails', '3.2.12'
-gem 'activerecord', '3.2.12'
+gem 'rails', '3.2.13'
+gem 'activerecord', '3.2.13'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'sqlite3', :require => 'sqlite3'
 gem 'rake', '~> 0.9.2', :require => false
@@ -16,7 +16,7 @@ gem 'memoist'
 gem 'addressable'
 
 # Mongo
-gem 'mongoid', '~> 3.0.19'
+gem 'mongoid', '~> 3.0.21'
 
 gem 'pavlov', :git => 'git@github.com:Factlink/pavlov.git'
 
@@ -43,7 +43,7 @@ gem 'json'
 gem 'jbuilder'
 
 # Needed for migrations to be compatible when no sql backend is available
-gem 'mongoid_rails_migrations', '0.0.13'
+gem 'mongoid_rails_migrations', '1.0.0'
 
 # User authentication and authorization
 gem 'devise', '~> 2.2.3'
