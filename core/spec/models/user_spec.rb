@@ -266,4 +266,16 @@ describe User do
     end
 
   end
+
+  describe ".approved" do
+    it "only returns approved users" do
+      expect(User.approved.selector).to eq({"approved" => true})
+    end
+  end
+
+  describe ".active" do
+    it "only returns approved, confirmed, and TOS-signed users" do
+      expect(User.active.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true})
+    end
+  end
 end
