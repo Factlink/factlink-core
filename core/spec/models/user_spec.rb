@@ -16,6 +16,12 @@ describe User do
     it "should not be approved" do
       subject.approved.should == false
     end
+
+    it "should not have a tour step" do
+      # Note: no default should be set for the tour step
+      # rather set the first step in start_the_tour_path
+      expect(subject.seen_tour_step).to eq nil
+    end
   end
 
   it "should have a GraphUser" do
@@ -198,5 +204,17 @@ describe User do
       subject.save
     end
 
+  end
+
+  describe ".approved" do
+    it "only returns approved users" do
+      expect(User.approved.selector).to eq({"approved" => true})
+    end
+  end
+
+  describe ".active" do
+    it "only returns approved, confirmed, and TOS-signed users" do
+      expect(User.active.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true})
+    end
   end
 end
