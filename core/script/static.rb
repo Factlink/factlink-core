@@ -30,7 +30,7 @@ app = Rack::Builder.new do
   map '/jslib' do
     jslibdir = Rack::Directory.new('../js-library/dist')
     run Proc.new {|env|
-      env['PATH_INFO'] = env['PATH_INFO'].gsub /^\/[^\/]*/, ''
+      env['PATH_INFO'] = env['PATH_INFO'].gsub(/^\/[^\/]*/, '')
       jslibdir.call env
     }
   end

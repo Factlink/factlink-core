@@ -20,9 +20,9 @@ describe TosController do
         authenticate_user!(user)
         should_check_can :sign_tos, user
 
-        user.should_receive(:sign_tos).with(true, 'Sjonnie', 'Akkermans').and_return(true)
+        user.should_receive(:sign_tos).with(true).and_return(true)
 
-        post :update, user: {agrees_tos: 1, tos_first_name: 'Sjonnie', tos_last_name: 'Akkermans'}
+        post :update, user: {agrees_tos: 1}
         response.should redirect_to(start_the_tour_path)
       end
     end
@@ -31,9 +31,9 @@ describe TosController do
         authenticate_user!(user)
         should_check_can :sign_tos, user
 
-        user.should_receive(:sign_tos).with(false, 'Sjonnie', 'Akkermans').and_return(false)
+        user.should_receive(:sign_tos).with(false).and_return(false)
 
-        post :update, user: {agrees_tos: 0, tos_first_name: 'Sjonnie', tos_last_name: 'Akkermans'}
+        post :update, user: {agrees_tos: 0}
         response.should render_template(:show)
       end
     end

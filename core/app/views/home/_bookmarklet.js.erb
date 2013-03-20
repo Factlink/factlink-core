@@ -1,6 +1,6 @@
 //IMPORTANT: please use only double quotes to delimit strings
 (function(){
-  var lib_url = "<%= jslib_url_for(current_user.username) %>",
+  var lib_url = "<%= jslib_url %>",
       min = "<%= '.min' unless ['development'].include?(Rails.env) %>",
       <% if ['development'].include?(Rails.env) %>
         clear_cache = "?" + (new Date()).getTime(),

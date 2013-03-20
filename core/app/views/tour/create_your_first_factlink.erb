@@ -21,7 +21,7 @@
     window.next_tourstep_path = '<%=next_tourstep_path%>';
   </script>
   <%= javascript_include_tag "frontend" %>
-  <% lib_url = "#{jslib_url_for(current_user.username)}" %>
+  <% lib_url = "#{jslib_url}" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>
   <script>
     window.FactlinkConfig = {
