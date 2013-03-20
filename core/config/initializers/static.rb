@@ -4,4 +4,4 @@ FactlinkUI::Application.config.static_url =
        ':' + static_conf['port'].to_s
 
 
-FactlinkUI::Application.config.jslib_url = FactlinkUI::Application.config.static_url + '/jslib/dist/'
+FactlinkUI::Application.config.jslib_url = FactlinkUI::Application.config.static_url + '/lib/dist/'
