@@ -43,7 +43,7 @@ gem 'json'
 gem 'jbuilder'
 
 # Needed for migrations to be compatible when no sql backend is available
-gem 'mongoid_rails_migrations', '1.0.1'
+gem 'mongoid_rails_migrations', '1.0.0'
 
 # User authentication and authorization
 gem 'devise', '~> 2.2.3'

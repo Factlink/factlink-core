@@ -37,8 +37,8 @@ class window.TourController extends Backbone.Factlink.BaseController
           addToCollection: window.Channels
           addToActivities: activities
           collection: @suggestedUserChannels))
-      suggestionview.on 'added no_suggestions', =>
+      suggestionview.on 'added', =>
         unless done
           done = true
           FactlinkApp.leftTopCrossFadeRegion.crossFade(tourstep = new AddChannelsTourStep3())
-          tourstep.on 'next', -> window.location = window.next_tourstep_path
+          tourstep.on 'next', -> window.location = '/'

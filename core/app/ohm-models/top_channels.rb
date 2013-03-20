@@ -27,7 +27,6 @@ class TopChannels
   end
 
   def valid channel
-    channel.added_facts.count > 0 and
-      channel.type == 'channel'
+    channel.added_facts.count > 0
   end
 end

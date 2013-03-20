@@ -46,22 +46,13 @@ describe TopChannels do
 
   describe '.members' do
     it "returns the actual channels" do
-      channel = mock added_facts: (stub count: 1), type: 'channel'
+      channel = mock added_facts: (stub count: 1)
       nest = stub smembers: [14]
       Channel.should_receive(:[]).any_number_of_times.with(14).and_return channel
 
       top_channels = TopChannels.new nest
 
       expect(top_channels.members).to eq [channel]
-    end
-    it "returns the actual channels" do
-      channel = mock added_facts: (stub count: 1), type: 'created_facts'
-      nest = stub smembers: [14]
-      Channel.should_receive(:[]).any_number_of_times.with(14).and_return channel
-
-      top_channels = TopChannels.new nest
-
-      expect(top_channels.members).to eq []
     end
     it "doesn't return nil channels" do
       nest = stub smembers: [14]

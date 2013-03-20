@@ -28,6 +28,12 @@ module ApplicationHelper
     s
   end
 
+  def show_active_step step_in_signup_proces, step
+    if step_in_signup_proces == step
+      ' class="active"'.html_safe
+    end
+  end
+
   def home_path
     if user_signed_in?
       channel_activities_path(current_user.username,current_graph_user.stream_id)

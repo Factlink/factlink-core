@@ -102,11 +102,7 @@ class window.InteractiveTour extends Backbone.View
     @$('.factlink.fl-first').length > 0
 
   addFactlinkFirstTooltip: ->
-    class FirstFactlinkCreatedView extends TooltipView
-      templateHelpers:
-        next_tourstep_path: window.next_tourstep_path
-      template: 'tooltips/first_factlink_created'
-    view = new FirstFactlinkCreatedView
+    view = new TooltipView(template: 'tooltips/first_factlink_created')
 
     @tooltipAdd '.factlink.fl-first',
       "Your first Factlink is a fact!",

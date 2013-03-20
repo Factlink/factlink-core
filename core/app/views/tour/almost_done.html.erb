@@ -1,0 +1,127 @@
+<div id="almost-done-wrapper">
+  <h1>You're almost set!</h1>
+
+  <div class="visible-when-chrome visible-when-firefox should-install-firefox-extension">
+    <p>To use Factlink on all of your websites you should install our extension.</p>
+  </div>
+
+  <div class="visible-when-unsupported-browser">
+    <p>This browser is not fully supported. We've build browser extensions that add a layer to the web. To use this extension you need to install Google Chrome or Firefox.</p>
+    <a class="btn download-browser" href="https://google.com/chrome" target="_blank"><%= image_tag("browser-icons/chrome-16x16.png", style: "margin: -4px 8px 0 0") %>Install Google Chrome</a>
+    <a class="btn download-browser" href="http://www.mozilla.org/firefox" target="_blank"><%= image_tag("browser-icons/firefox-16x16.png", style: "margin: 0 8px 0 0") %>Install Firefox</a>
+  </div>
+
+  <div class="visible-when-unsupported-browser or-divider">
+    <span>or</span>
+  </div>
+
+  <!-- Chrome Extension download -->
+  <div class="visible-when-chrome button-wrapper">
+    <span class="transparent-border">
+      <% if use_chrome_webstore %>
+        <a id="chrome-extension-webstore-button" class="btn"><%= image_tag("browser-icons/chrome-16x16.png", style: "margin: -2px 8px 0 0") %>Install Chrome Extension</a>
+      <% else %>
+        <!-- for testserver and staging downloads of the Chrome Extension -->
+        <iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
+        <a id="chrome-extension-button" target="ce-download" class="btn" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("browser-icons/chrome-16x16.png", style: "margin: -2px 8px 0 0") %>Install Chrome Extension</a>
+      <% end %>
+    </span>
+    <p class="extension-explanation support-text">What is an extension?</p>
+  </div>
+
+
+  <!-- Firefox Extension download -->
+  <div class="visible-when-firefox button-wrapper should-install-firefox-extension">
+    <span class="transparent-border">
+      <a id="firefox-extension-button" class="btn" href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>"><%= image_tag("browser-icons/firefox-16x16.png", style: "margin: 0px 8px 0 0") %>Install Firefox Extension</a>
+    </span>
+    <p class="extension-explanation support-text">What is an extension?</p>
+  </div>
+
+  <div class="visible-when-firefox">
+    <p class="firefox-extension-installed">Great, the extension is installed!</p>
+  </div>
+
+  <!-- Unsupported browsers -->
+  <div class="visible-when-unsupported-browser button-wrapper">
+    <p>You can use Factlink with this browser by using the bookmarklet, but keep in mind that this won't give you the full Factlink experience.</p>
+
+    <span class="dashed-border">
+      <a id="bookmarklet-button" class="bookmarklet btn" onclick="return false"
+           <%# here we need singlequotes kthxbye: %>
+           href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'><i class='icon-bookmark'></i><span style="display: none">Factlink</span></a>
+    </span>
+    <p class="support-text">You can drag this Bookmarklet to your bookmarks bar.</p>
+  </div>
+
+  <div class="visible-when-chrome bottom">
+    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'chrome_extension_skip') %>">Skip this step</a>
+    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'chrome_extension_next') %>">Next step</a>
+  </div>
+
+  <div class="visible-when-firefox bottom">
+    <a class="should-install-firefox-extension skip-step" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
+    <a class="firefox-extension-installed btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_next') %>">Next step</a>
+  </div>
+
+  <div class="visible-when-unsupported-browser bottom">
+    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_skip') %>">Skip this step</a>
+    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_next') %>">Next step</a>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script>
+    $('.extension-explanation').popover({placement: 'bottom', title: 'Factlink extension', trigger: 'hover',
+      content: 'Extensions are applications that run inside your browser and provide additional functionality. <br><br>The Factlink extension will enable you to use Factlink on virtually all websites you visit.'
+    })
+  </script>
+
+  <script>
+    $(function() {
+
+      var notClicked = true;
+
+      function showNextButtonForClient(identifier) {
+        setTimeout(function (){
+          if (notClicked) {
+            $('.visible-when-' + identifier +' .skip-step').fadeOut(600, function() {
+              $('.visible-when-' + identifier + ' .next-step').fadeIn(600);
+            });
+            notClicked = false;
+          }
+        }, 1800);
+      }
+
+      $('#chrome-extension-button').mousedown(function() {
+        showNextButtonForClient('chrome');
+      });
+
+      $('#bookmarklet-button').mousedown(function() {
+        mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
+        showNextButtonForClient('unsupported-browser');
+      });
+
+
+      <% if use_chrome_webstore %>
+
+        $('#chrome-extension-webstore-button').bind('click', function() {
+          mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
+          chrome.webstore.install(undefined, successFn, errorFn);
+        });
+
+        function successFn() {
+          mp_track("Extension: Download Chrome Extension -> Successful install #almost-ready");
+
+          $('#skip-step').fadeOut(600, function() {
+            window.location = "<%= create_your_first_factlink_path(ref: 'extension_next') %>";
+          });
+        }
+        function errorFn(e) {
+          mp_track("Extension: Download Chrome Extension -> Failed install #almost-ready");
+          FactlinkApp.NotificationCenter.error("Something went wrong installing the Factlink extension: " + e + ". Please try again.");
+        }
+      <% end %>
+    });
+  </script>
+ <% end %>
