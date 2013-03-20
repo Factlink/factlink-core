@@ -194,36 +194,32 @@ class User
     attr.to_sym == :non_field_error ? '' : super
   end
 
-  def sign_tos(agrees_tos, first_name, last_name)
-    valid = true
-
+  def sign_tos(agrees_tos)
     unless agrees_tos
-      valid = false
       self.errors.add(:non_field_error, "You have to accept the Terms of Service to continue.")
+      return false
     end
 
+    attributes = {agrees_tos: agrees_tos, agreed_tos_on: DateTime.now}
+    self.assign_attributes(attributes, as: :from_tos) and save
+  end
+
+  def set_names(first_name, last_name)
+    self.first_name = first_name
+    self.last_name = last_name
+
+    valid = true
     if first_name.blank?
+      self.errors.add(:first_name, "Please fill in your first name.")
       valid = false
-      self.errors.add(:non_field_error, "Please fill in your first name to accept the Terms of Service.")
     end
 
     if last_name.blank?
+      self.errors.add(:last_name, "Please fill in your last name.")
       valid = false
-      self.errors.add(:non_field_error, "Please fill in your last name to accept the Terms of Service.")
     end
 
-    full_name = [first_name, last_name].join(" ")
-
-    if valid and self.assign_attributes({ agrees_tos: agrees_tos,
-                                          agrees_tos_name: full_name,
-                                          agreed_tos_on: DateTime.now,
-                                          first_name: first_name,
-                                          last_name: last_name},
-                                          as: :from_tos) and save
-      true
-    else
-      false
-    end
+    valid and save
   end
 
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved

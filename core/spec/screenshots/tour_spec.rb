@@ -5,8 +5,6 @@ describe "Check the tour", type: :request do
   before do
     @user = make_non_tos_user_and_login
 
-    fill_in "user_tos_first_name", with: "Sko"
-    fill_in "user_tos_last_name", with: "Brenden"
     check "user_agrees_tos"
 
     click_button "Next"

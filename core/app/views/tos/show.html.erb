@@ -27,34 +27,10 @@
       <%= hidden_field_tag :tos_browser_name %>
       <%= hidden_field_tag :tos_browser_version %>
 
-      <div class="row">
-        <%= f.label "First name*" %>
-        <div class="field">
-          <%= f.text_field :tos_first_name, required: false %>
-        </div>
-      </div>
-
-      <div class="row">
-        <%= f.label "Last name*" %>
-        <div class="field">
-          <%= f.text_field :tos_last_name,  required: false %>
-        </div>
-      </div>
-
-      <div class="row">
-        <%= f.label "Email address*" %>
-        <div class="field">
-        <%= f.email_field :email, value: current_user ? current_user.email : "", required: true, readonly: true %>
-        </div>
-      </div>
-
-
       <div class="tos_checkbox">
         <%= f.check_box :agrees_tos, required: true %>
-        <%= f.label :agrees_tos, "I accept the (pre) beta agreement and terms & conditions. *" %>
+        <%= f.label :agrees_tos, "I accept the (pre) beta agreement and terms & conditions." %>
       </div>
-
-      <div class="explanation">* fields are required</div>
 
       <div class="actions">
         <%= f.submit "Next", class: "btn btn-primary" %>
