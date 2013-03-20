@@ -1,5 +1,6 @@
+require 'pavlov'
+
 class CreateSearchIndexForTopics
-  include Pavlov::Helpers
 
   @queue = :search_index_operations
 
@@ -7,10 +8,9 @@ class CreateSearchIndexForTopics
     topic = Topic.find(topic_id)
 
     if topic
-      command :elastic_search_index_topic_for_text_search, topic
+      Pavlov.command :elastic_search_index_topic_for_text_search, topic
     else
       raise "Failed adding index for topic with topic_id: #{topic_id}"
     end
   end
-
 end
