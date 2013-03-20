@@ -69,8 +69,10 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     if seen_the_tour(user)
       safe_return_to_path || channel_activities_path(user, user.graph_user.stream)
-    else
+    elsif user.agrees_tos
       start_the_tour_path
+    else
+      tos_path
     end
   end
 
