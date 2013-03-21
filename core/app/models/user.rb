@@ -39,6 +39,7 @@ class User
   field :agreed_tos_on,   type: DateTime
 
   field :seen_the_tour,  type: Boolean, default: false
+  field :seen_tour_step, type: String,  default: nil
   field :receives_mailed_notifications,  type: Boolean, default: true
 
 
@@ -122,23 +123,17 @@ class User
 
   class << self
     def active
-      where :approved => true
-      where :confirmed_at.ne => nil
-      where :agrees_tos => true
+      approved.
+        where(:confirmed_at.ne => nil).
+        where(:agrees_tos => true)
     end
 
     def approved
-      where :approved => true
-    end
-
-    def not_agreed_with_tos
-      where :approved => true
-      where :confirmed_at.ne => nil
-      where :agrees_tos => false
+      where(:approved => true)
     end
 
     def find_for_oauth(provider_name, uid)
-      User.where(:"identities.#{provider_name}.uid" => uid).first
+      where(:"identities.#{provider_name}.uid" => uid).first
     end
 
     # List of fields that are stored in Mixpanel.

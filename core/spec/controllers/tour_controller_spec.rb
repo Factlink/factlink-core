@@ -4,12 +4,12 @@ describe TourController do
 
   let(:user) { FactoryGirl.create :user }
 
-  describe :almost_done do
-    it "should render almost_done template" do
+  describe :install_extension do
+    it "should render install_extension template" do
       authenticate_user!(user)
-      get :almost_done
-      response.should render_template(template: /\Atour\/almost_done\Z/, layout: "layouts/tour")
-      assigns(:step_in_signup_process).should eq(:account)
+      get :install_extension
+      response.should render_template(template: /\Atour\/install_extension\Z/, layout: "layouts/tour")
+      assigns(:step_in_signup_process).should eq(:install_extension)
     end
   end
 
