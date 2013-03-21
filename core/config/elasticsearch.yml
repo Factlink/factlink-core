@@ -18,7 +18,7 @@ testserver:
 
 staging:
   elasticsearch:
-    hostname: localhost
+    hostname: 89.188.27.178
     port: 9200
     cluster: factlink_staging
 
