@@ -24,6 +24,6 @@ staging:
 
 production:
   elasticsearch:
-    hostname: localhost
+    hostname: 89.188.27.179
     port: 9200
     cluster: factlink_production
