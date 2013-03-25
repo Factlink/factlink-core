@@ -77,15 +77,14 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     @$('#add-to-channels').html addToChannelView.el
 
   renderSuggestedChannels: ->
-    if @options.url
-      suggested_topics = new SuggestedSiteTopics([], site_url: @options.url)
-      suggested_topics.fetch
-        success: (collection) =>
-          suggestionView = new FilteredSuggestedTopicsView
-            collection: collection
-            addToCollection: @addToCollection
-          suggestionView.render()
-          @$('#suggested-channels-region').html suggestionView.el
+    suggested_topics = new SuggestedSiteTopics([], site_url: @options.url)
+    suggested_topics.fetch
+      success: (collection) =>
+        suggestionView = new FilteredSuggestedTopicsView
+          collection: collection
+          addToCollection: @addToCollection
+        suggestionView.render()
+        @$('#suggested-channels-region').html suggestionView.el
 
   renderPersistentWheelView: ->
     @wheel = new Wheel
