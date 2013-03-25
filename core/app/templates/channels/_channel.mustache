@@ -20,7 +20,6 @@
     <div class="pull-right">
       <ul class="channel-statistics">
         <li><span class="channel-authority-for-user">{{created_by_authority}}</span> Your authority</li>
-        {{#global.can_haz.topic_facts}}
         <li class="channel-options">
           <span class="muted">Show: </span>
           <select class="option-dropdown js-channel-topic-switch">
@@ -28,7 +27,6 @@
             <option value="channel">Factlinks from people I follow</option>
           </select>
         </li>
-        {{/global.can_haz.topic_facts}}
       </ul>
     </div>
     {{/is_mine}}
