@@ -1,4 +1,4 @@
-#= require './top_channel_view'
+#= require './top_channels_view'
 
 class window.ProfileInformationView extends Backbone.Marionette.ItemView
   template: "users/profile/information"
@@ -22,10 +22,12 @@ class window.ProfileView extends Backbone.Marionette.Layout
     utils = new CollectionUtils(this)
     utils.updatedClone(ordered_channels, @collection)
 
+    @bindTo @collection, 'before:fetch', -> ordered_channels.trigger 'before:fetch'
+
     ordered_channels
 
 
   onRender: ->
-    @topChannelsRegion.show         new TopChannelView(collection: @collection)
+    @topChannelsRegion.show         new TopChannelsView(collection: @collection)
     @profileInformationRegion.show  new ProfileInformationView(model: @model)
     @factRegion.show                @options.created_facts_view

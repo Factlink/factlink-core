@@ -1,4 +1,4 @@
-class window.TopChannelItemView extends Backbone.Marionette.Layout
+class TopChannelView extends Backbone.Marionette.Layout
   template: 'channels/topchannel'
   className: 'top-channels-channel'
 
@@ -15,10 +15,25 @@ class window.TopChannelItemView extends Backbone.Marionette.Layout
     add_back_button = new FollowChannelButtonView(model: @model)
     @add_to_channel_button_region.show add_back_button
 
-class window.TopChannelView extends Backbone.Marionette.CompositeView
+class TopChannelsEmptyView extends Backbone.Marionette.ItemView
+  template: 'users/profile/top_channels_empty'
+
+  initialize: ->
+    @bindTo @collection, 'before:fetch reset', @render, @
+
+  onRender: ->
+    if @collection.loading
+      @$('.loading').show()
+      @$('.empty').hide()
+    else
+      @$('.loading').hide()
+      @$('.empty').show()
+
+class window.TopChannelsView extends Backbone.Marionette.CompositeView
   template: "users/profile/top_channels"
   className: "top-channel-container"
-  itemView: TopChannelItemView
+  itemView: TopChannelView
+  emptyView: TopChannelsEmptyView
   itemViewContainer: ".top-channels"
   events:
     "click a.top-channels-show-more": "showMoreOn"
@@ -26,17 +41,10 @@ class window.TopChannelView extends Backbone.Marionette.CompositeView
 
   itemViewOptions: (model) ->
     position: @collection.indexOf(model) + 1
+    collection: @collection
 
   showMoreOn:  -> @$el.addClass 'showMore'
   showMoreOff: -> @$el.removeClass 'showMore'
-
-  showEmptyView: ->
-      @$(".top-channels").hide()
-      @$(".no-channels").show()
-
-  closeEmptyView: ->
-      @$(".no-channels").hide()
-      @$(".top-channels").show()
 
   onCompositeCollectionRendered: ->
     if @collection.length < 6
