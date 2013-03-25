@@ -57,16 +57,24 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @_recentFactsView
 
   createFactRelation: (fact_relation)->
+    return if @saving
+
     @hideError()
     @collection.add fact_relation, highlight: true
     @inputRegion.switchTo('search_view')
-    @inputRegion.getView('search_view').reset()
+
+    @saving = true
     fact_relation.save {},
+
       error: =>
+        @saving = false
         @collection.remove fact_relation
-        @inputRegion.getView('search_view').setQuery fact_relation.get('from_fact').displaystring
         @showError()
+
       success: =>
+        @saving = false
+        @inputRegion.getView('search_view').reset()
+
         mp_track "Evidence: Added",
           factlink_id: @model.fact().id
           type: @model.type()
