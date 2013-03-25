@@ -17,7 +17,8 @@ describe "creating a Factlink", type: :request do
     click_button "submit"
 
     visit created_channel_path(@user)
-
+    page.select 'Factlinks from people I follow', from: 'channel-topic-switch'
+    
     page.should have_content "Feed"
     page.should have_content fact_name
   end
