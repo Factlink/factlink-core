@@ -58,10 +58,7 @@ class window.FactsView extends AutoloadingCompositeView
         @setCreateFactFormToInitialState()
 
       error: (data) =>
-        if Factlink.Global.can_haz.topic_facts
-          alert "Error while adding Factlink to this #{Factlink.Global.t.topic}"
-        else
-          alert "Error while adding Factlink to this #{Factlink.Global.t.channel}"
+        alert "Error while adding Factlink to this #{Factlink.Global.t.topic}"
         @setCreateFactFormToInitialState()
 
   setCreateFactFormToInitialState: ->

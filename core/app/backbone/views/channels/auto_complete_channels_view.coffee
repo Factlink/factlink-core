@@ -14,11 +14,8 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
       search_list_view: (options) -> new AutoCompleteSearchChannelsView(options)
       search_collection: -> new TopicSearchResults [], user: currentUser
       placeholder: -> 
-        if Factlink.Global.can_haz.topic_facts
-          Factlink.Global.t.topic_name.capitalize()
-        else
-          Factlink.Global.t.channel_name.capitalize()
-
+        Factlink.Global.t.topic_name.capitalize()
+        
     @_results_view = new AutoCompleteResultsChannelsView(collection: @collection)
 
   addCurrent: ->

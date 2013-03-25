@@ -1,13 +1,7 @@
 {{#new}}
   <div class="add-new-block">
     <i class="icon-plus"></i>
-    {{#global.can_haz.topic_facts}}
-    	Create a new {{global.t.topic}} called <strong>&ldquo;<span class="search">{{title}}</span>&rdquo;</strong>
-    {{/global.can_haz.topic_facts}}
-    
-    {{^global.can_haz.topic_facts}}
-    	Create a new channel called <strong>&ldquo;<span class="search">{{title}}</span>&rdquo;</strong>
-    {{/global.can_haz.topic_facts}}
+    Create a new {{global.t.topic}} called <strong>&ldquo;<span class="search">{{title}}</span>&rdquo;</strong>
   </div>
 {{/new}}
 {{^new}}
