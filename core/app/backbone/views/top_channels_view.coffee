@@ -18,22 +18,14 @@ class TopChannelView extends Backbone.Marionette.Layout
 class TopChannelsEmptyView extends Backbone.Marionette.ItemView
   template: 'users/profile/top_channels_empty'
 
-  initialize: ->
-    @bindTo @collection, 'before:fetch reset', @render, @
-
-  onRender: ->
-    if @collection.loading
-      @$('.loading').show()
-      @$('.empty').hide()
-    else
-      @$('.loading').hide()
-      @$('.empty').show()
+class TopChannelsEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
+  emptyView: TopChannelsEmptyView
 
 class window.TopChannelsView extends Backbone.Marionette.CompositeView
   template: "users/profile/top_channels"
   className: "top-channel-container"
   itemView: TopChannelView
-  emptyView: TopChannelsEmptyView
+  emptyView: TopChannelsEmptyLoadingView
   itemViewContainer: ".top-channels"
   events:
     "click a.top-channels-show-more": "showMoreOn"

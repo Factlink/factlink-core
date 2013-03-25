@@ -24,7 +24,6 @@ class window.ProfileView extends Backbone.Marionette.Layout
 
     ordered_channels
 
-
   onRender: ->
     @topChannelsRegion.show         new TopChannelsView(collection: @collection)
     @profileInformationRegion.show  new ProfileInformationView(model: @model)
