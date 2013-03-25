@@ -32,6 +32,10 @@ ssh -t "$SSH_USER@$IP2" "sudo monit stop redis"
 #stop recalc
 monit stop recalculate || exit 1
 
+#stop resque
+monit stop resque
+
+
 #factlink uit
 monit stop nginx || exit 1
 
@@ -84,6 +88,9 @@ production: $IP2:6379" > '/applications/core/current/config/resque.yml'
 
 # factlink aan
 monit start nginx
+
+# start resque
+monit start resque
 
 # start recalc
 monit start recalculate
