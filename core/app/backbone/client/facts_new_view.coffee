@@ -45,7 +45,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     fact_text: @options.fact_text
     title: @options.title
     url: @options.url
-    add_to_channel_header: Factlink.Global.t.add_to_channels.capitalize()
+    add_to_topic_header: Factlink.Global.t.add_to_topics.capitalize()
     csrf_token: @options.csrf_token
     guided: FactlinkApp.guided
 
@@ -73,19 +73,18 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection
     addToChannelView.render()
     addToChannelView.on 'error', ->
-      alert('Something went wrong when creating a new channel, sorry!')
+      alert("Something went wrong when creating a new #{Factlink.Global.t.topic}")
     @$('#add-to-channels').html addToChannelView.el
 
   renderSuggestedChannels: ->
-    if @options.url
-      suggested_topics = new SuggestedSiteTopics([], site_url: @options.url)
-      suggested_topics.fetch
-        success: (collection) =>
-          suggestionView = new FilteredSuggestedTopicsView
-            collection: collection
-            addToCollection: @addToCollection
-          suggestionView.render()
-          @$('#suggested-channels-region').html suggestionView.el
+    suggested_topics = new SuggestedSiteTopics([], site_url: @options.url)
+    suggested_topics.fetch
+      success: (collection) =>
+        suggestionView = new FilteredSuggestedTopicsView
+          collection: collection
+          addToCollection: @addToCollection
+        suggestionView.render()
+        @$('#suggested-channels-region').html suggestionView.el
 
   renderPersistentWheelView: ->
     @wheel = new Wheel

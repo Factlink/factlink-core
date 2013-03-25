@@ -33,7 +33,6 @@ en:
   channel: "channel"
   channels: "channels"
   channel_name: "channel name"
-  add_to_channels: "add"
   added_to_channels: "added"
   created_channel: "created a channel"
 
@@ -51,6 +50,7 @@ en:
   topic:  "topic"
   topics: "topics"
   topic_name: "topic name"
+  add_to_topics: "add"
 
   ago: "ago"
   show: "show"

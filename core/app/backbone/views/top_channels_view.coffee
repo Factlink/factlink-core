@@ -31,6 +31,9 @@ class window.TopChannelsView extends Backbone.Marionette.CompositeView
     "click a.top-channels-show-more": "showMoreOn"
     "click a.top-channels-show-less": "showMoreOff"
 
+  ui:
+    showMoreLessButtons: '.js-show-more-less-buttons'
+
   itemViewOptions: (model) ->
     position: @collection.indexOf(model) + 1
     collection: @collection
@@ -39,8 +42,4 @@ class window.TopChannelsView extends Backbone.Marionette.CompositeView
   showMoreOff: -> @$el.removeClass 'showMore'
 
   onCompositeCollectionRendered: ->
-    if @collection.length < 6
-      @showMoreOn()
-    else
-      @showMoreOff()
-
+    @ui.showMoreLessButtons.toggle @collection.length > 5

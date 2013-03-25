@@ -1,13 +1,9 @@
-{{#global.can_haz.topic_facts}}
-  <h1>Top {{global.t.topics}}</h1>
-{{/global.can_haz.topic_facts}}
-
-{{^global.can_haz.topic_facts}}
-  <h1>Top channels</h1>
-{{/global.can_haz.topic_facts}}
+<h1>Top {{global.t.topics}}</h1>
 
 <div class="top-channels">
 </div>
 
-<a class="top-channels-show-more">Show more...</a>
-<a class="top-channels-show-less">Show less...</a>
+<div class="js-show-more-less-buttons">
+  <a class="top-channels-show-more">Show more...</a>
+  <a class="top-channels-show-less">Show less...</a>
+</div>

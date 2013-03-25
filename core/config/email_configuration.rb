@@ -7,6 +7,7 @@ sendgrid_settings = {
   port: 465,
   authentication: :plain,
   enable_starttls_auto: true,
+  openssl_verify_mode: "none" # secure connection, but not verifying
 }
 
 mandrill_settings = {
@@ -19,4 +20,4 @@ mandrill_settings = {
   enable_starttls_auto: true
 }
 
-ActionMailer::Base.smtp_settings = mandrill_settings
+ActionMailer::Base.smtp_settings = sendgrid_settings

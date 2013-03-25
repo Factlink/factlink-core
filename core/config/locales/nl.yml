@@ -34,7 +34,6 @@ nl:
   channel: "kanaal"
   channels: "kanalen"
   channel_name: "naam van kanaal"
-  add_to_channels: "toevoegen"
   added_to_channels: "toegevoegd"
   created_channel: "heeft een kanaal aangemaakt"
 
@@ -52,6 +51,7 @@ nl:
   topic: "onderwerp"
   topics: "onderwerpen"
   topic_name: "naam van onderwerp"
+  add_to_topics: "toevoegen"
 
   ago: "geleden"
   show: "toon"
