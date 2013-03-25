@@ -107,7 +107,7 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title))
         format.html  { redirect_to(channel_path(@channel.created_by.user, @channel),
-                      :notice => 'Channel was successfully updated.' )}
+                      :notice => "#{I18n.t('topic')} was successfully updated." )}
         format.json  { render :json => {}, :status => :ok }
       else
         format.html  { render :edit }
