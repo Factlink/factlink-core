@@ -10,7 +10,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
 
   ui:
     messageTextarea: '.js-message-textarea'
-    submitButton:    '.js-submit'
+    submit:          '.js-submit'
 
   template: 'conversations/start_conversation'
 
@@ -53,6 +53,8 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   submit: (e) ->
     e.preventDefault()
 
+    return if @ui.submit.prop('disabled')
+
     # Check for the length of `@recipients`, not `recipients`, to allow sending message to oneself
     if @recipients.length <= 0
       @alertShow 'error'
@@ -79,8 +81,8 @@ class window.StartConversationView extends Backbone.Marionette.Layout
         @alertError response.responseText
         @enableSubmit()
 
-  enableSubmit:  -> @ui.submitButton.prop('disabled',false).val('Send')
-  disableSubmit: -> @ui.submitButton.prop('disabled',true ).val('Sending')
+  enableSubmit:  -> @ui.submit.prop('disabled',false).val('Send')
+  disableSubmit: -> @ui.submit.prop('disabled',true ).val('Sending')
 
   clearForm: ->
     @auto_complete_view.clearSearch()
