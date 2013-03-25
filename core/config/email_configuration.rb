@@ -19,4 +19,4 @@ mandrill_settings = {
   enable_starttls_auto: true
 }
 
-ActionMailer::Base.smtp_settings = mandrill_settings
+ActionMailer::Base.smtp_settings = sendgrid_settings
