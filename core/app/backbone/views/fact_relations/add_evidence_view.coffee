@@ -26,8 +26,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       collection: @fact_relations_masquerading_as_facts()
       fact_id: @collection.fact.id
       type: @collection.type
-    @bindTo searchView, 'createFactRelation', (fact_relation) =>
-      @createFactRelation(fact_relation)
+    @bindTo searchView, 'createFactRelation', (fact_relation, finish) =>
+      @createFactRelation(fact_relation, finish)
     @bindTo searchView, 'switch_to_comment_view', @switchToCommentView, @
     searchView
 
@@ -56,23 +56,21 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
     @_recentFactsView
 
-  createFactRelation: (fact_relation)->
+  createFactRelation: (fact_relation, finish)->
     return if @saving
 
     @hideError()
     @collection.add fact_relation, highlight: true
     @inputRegion.switchTo('search_view')
 
-    @saving = true
     fact_relation.save {},
-
       error: =>
-        @saving = false
+        finish() if finish?
         @collection.remove fact_relation
         @showError()
 
       success: =>
-        @saving = false
+        finish() if finish?
         @inputRegion.getView('search_view').reset()
 
         mp_track "Evidence: Added",
