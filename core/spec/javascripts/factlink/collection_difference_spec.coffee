@@ -86,3 +86,19 @@ describe 'window.collectionDifference', ->
     collections[1].remove(models[1])
     collections[1].remove(models[4])
     expect(result.pluck('someField')).to.deep.equal([1, 4])
+
+  it 'should pass on the event before:fetch from collection1', ->
+    triggered = false
+    result.on 'before:fetch', -> triggered = true
+
+    collection1.trigger 'before:fetch'
+
+    expect(triggered).to.equal(true);
+
+  it 'should pass on the event before:fetch from other collections', ->
+    triggered = false
+    result.on 'before:fetch', -> triggered = true
+
+    collections[0].trigger 'before:fetch'
+
+    expect(triggered).to.equal(true);
