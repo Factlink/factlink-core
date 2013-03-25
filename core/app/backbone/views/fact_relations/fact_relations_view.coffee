@@ -1,26 +1,26 @@
 #= require ../interactors_view
 
-class EmptyEvidenceView extends Backbone.Marionette.ItemView
-  template: "fact_relations/_fact_relations_empty"
-  className: "no-evidence-listing"
-  tagName: 'li'
+class EvidenceEmptyView extends Backbone.Marionette.ItemView
+  template: "fact_relations/fact_relations_empty"
 
   templateHelpers: =>
-    loading: @options.loading
     past_action:
       switch @options.type
         when 'weakening' then 'weakened'
         when 'supporting' then 'supported'
+
+class EvidenceEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
+  className: "no-evidence-listing"
+  tagName: 'li'
+  emptyView: EvidenceEmptyView
 
 class EvidenceListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   className: 'fact-relation-listing'
 
   itemView: Backbone.View
-  itemViewOptions: => type: @options.type, loading: @options.loading
-  emptyView: EmptyEvidenceView
-
-  initialize: -> @collection.on 'reset', => @options.loading = false
+  itemViewOptions: => type: @options.type, collection: @collection
+  emptyView: EvidenceEmptyLoadingView
 
   addChildView: (item, collection, options) ->
     result = super(item, collection, options)
@@ -70,7 +70,6 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
       @factRelationsRegion.show new EvidenceListView
         collection: @model.evidence()
         type: @model.evidence().type
-        loading: true
 
       @model.evidence()?.fetch()
 
