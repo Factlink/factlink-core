@@ -15,10 +15,10 @@ testserver:
 
 staging:
   redis:
-    hostname: localhost
+    host: localhost
     port: 6379
 
 production:
   redis:
-    hostname: localhost
+    host: localhost
     port: 6379
