@@ -12,6 +12,9 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   template: 'fact_relations/auto_complete'
 
+  ui:
+    submit: '.js-post'
+
   initialize: (options) ->
     recent_collection = options.recent_collection
 
@@ -51,7 +54,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       opinion: @wheel.userOpinion()
       fact_wheel: @wheel.toJSON()
 
-    @trigger 'createFactRelation', new FactRelation
+    @createFactRelation new FactRelation
       displaystring: text
       from_fact: fact.toJSON()
       created_by: currentUser.toJSON()
@@ -64,10 +67,15 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     mp_track "Evidence: Switching to comment"
 
   addSelected: (selected_fact_attributes)->
-    @trigger 'createFactRelation', new FactRelation
+    @createFactRelation new FactRelation
       evidence_id: selected_fact_attributes.id
       from_fact: selected_fact_attributes
       created_by: currentUser.toJSON()
+
+  createFactRelation: (fact_relation) ->
+    return if @submitting
+    @disableSubmit()
+    @trigger 'createFactRelation', fact_relation, => @enableSubmit()
 
   setQuery: (text) -> @model.set text: text
 
@@ -85,3 +93,11 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     unless @query_has_changed
       @query_has_changed = true
       mp_track "Evidence: Started searching"
+
+  enableSubmit: ->
+    @submitting = false
+    @ui.submit.prop('disabled',false).text('Post Factlink')
+
+  disableSubmit: ->
+    @submitting = true
+    @ui.submit.prop('disabled',true ).text('Posting...')
