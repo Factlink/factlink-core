@@ -3,7 +3,7 @@ AutoloadingView = extendWithAutoloading(Backbone.Marionette.Layout);
 class ActivititesBasicEmptyView extends Backbone.Marionette.ItemView
   className: 'empty_stream_content'
   template: """
-    Currently there are no activities related to this channel
+    Currently there are no activities related to this #{Factlink.Global.t.topic}
   """
 
 class window.ActivitiesView extends AutoloadingView
