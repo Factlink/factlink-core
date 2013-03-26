@@ -5,4 +5,7 @@ class window.SuggestedSiteTopics extends Backbone.Collection
 
   url: -> "/site/top_topics"
 
-  fetch: (options) -> super _.extend({}, options, data: {url: @site_url})
+  fetch: (options) ->
+    if @site_url
+      new_options = _.extend({}, options, data: {url: @site_url})
+      super new_options

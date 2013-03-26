@@ -1,4 +1,4 @@
-class window.EvidenceCollection extends Backbone.Collection
+class window.EvidenceCollection extends Backbone.Factlink.Collection
 
   initialize: (models, opts) ->
     @type = opts.type

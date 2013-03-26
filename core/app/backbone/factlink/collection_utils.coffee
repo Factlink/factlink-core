@@ -25,9 +25,10 @@ class window.CollectionUtils
      resultCollection.reset diffmodels
 
     @bindTo collection1, 'add reset remove change', reset
-    for other_collection in collections
-      if other_collection.on
-        @bindTo other_collection, 'add reset remove change', reset
+    for collection in collections
+      if collection.on?
+        @bindTo collection, 'add reset remove change', reset
+
     reset()
     resultCollection
 
@@ -54,4 +55,3 @@ class window.CollectionUtils
     @bindTo collection, 'add remove reset change', reset
     reset()
     resultCollection
-

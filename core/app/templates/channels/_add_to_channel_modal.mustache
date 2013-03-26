@@ -1,22 +1,9 @@
 <div class="alert alert-error js-alert js-alert-error-create_channel hide">
-  {{#global.can_haz.topic_facts}}
-  	The new {{global.t.topic}} could not be created, please try again.
-  {{/global.can_haz.topic_facts}}
-
-  {{^global.can_haz.topic_facts}}
-  	The new channel could not be created, please try again.
-  {{/global.can_haz.topic_facts}}
-
+  The new channel could not be created, please try again.
   <a class="close" href="#" data-dismiss="alert">x</a>
 </div>
-{{#global.can_haz.topic_facts}}
-	<strong>Repost this to one or more {{global.t.topics}}:</strong>
-{{/global.can_haz.topic_facts}}
 
-{{^global.can_haz.topic_facts}}
-	<strong>Repost this to one or more channels:</strong>
-{{/global.can_haz.topic_facts}}
-
+<strong>Repost this to one or more channels:</strong>
 <div class="add-to-channel-form"></div>
 
 <div class="add-to-channel-suggested-topics-region"></div>

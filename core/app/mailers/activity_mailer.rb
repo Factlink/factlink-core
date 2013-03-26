@@ -28,7 +28,7 @@ class ActivityMailer < ActionMailer::Base
     def get_mail_subject_for_activity activity
       case activity.action.to_sym
       when :added_subchannel
-        "#{activity.user.user} is now following you on #{activity.subject.title}"
+        "#{activity.user.user} added your #{activity.subject.title} #{I18n.t :channel} to their own #{activity.object.title} #{I18n.t :channel}"
       when :added_supporting_evidence, :added_weakening_evidence
         if activity.action == 'added_supporting_evidence'
           type = "supporting"

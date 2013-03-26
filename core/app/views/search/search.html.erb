@@ -4,11 +4,11 @@
       search: "<%= params[:s] %>"
     });
 
-    results.fetch();
-
     var searchResultView = new SearchResultView({
       collection: results
     }).render();
+
+    results.fetch();
 
     $('#main-wrapper').append(searchResultView.el);
   </script>

@@ -48,9 +48,7 @@ en:
 
   stream: "feed"
 
-  topic:  "topic"
   topics: "topics"
-  topic_name: "topic name"
 
   ago: "ago"
   show: "show"

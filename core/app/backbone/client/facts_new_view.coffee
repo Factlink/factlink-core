@@ -73,22 +73,18 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection
     addToChannelView.render()
     addToChannelView.on 'error', ->
-      if Factlink.Global.can_haz.topic_facts
-        alert("Something went wrong when creating a new #{Factlink.Global.t.topic}")
-      else
-        alert("Something went wrong when creating a new #{Factlink.Global.t.channel}")
+      alert('Something went wrong when creating a new channel, sorry!')
     @$('#add-to-channels').html addToChannelView.el
 
   renderSuggestedChannels: ->
-    if @options.url
-      suggested_topics = new SuggestedSiteTopics([], site_url: @options.url)
-      suggested_topics.fetch
-        success: (collection) =>
-          suggestionView = new FilteredSuggestedTopicsView
-            collection: collection
-            addToCollection: @addToCollection
-          suggestionView.render()
-          @$('#suggested-channels-region').html suggestionView.el
+    suggested_topics = new SuggestedSiteTopics([], site_url: @options.url)
+    suggested_topics.fetch
+      success: (collection) =>
+        suggestionView = new FilteredSuggestedTopicsView
+          collection: collection
+          addToCollection: @addToCollection
+        suggestionView.render()
+        @$('#suggested-channels-region').html suggestionView.el
 
   renderPersistentWheelView: ->
     @wheel = new Wheel
