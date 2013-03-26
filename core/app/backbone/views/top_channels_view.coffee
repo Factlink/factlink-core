@@ -18,6 +18,11 @@ class TopChannelView extends Backbone.Marionette.Layout
 class TopChannelsEmptyView extends Backbone.Marionette.ItemView
   template: 'users/profile/top_channels_empty'
 
+  templateHelpers: =>
+    topics: Factlink.Global.t.topics.capitalize()
+    username: @options.user.get('username')
+    is_current_user: @options.user.is_current_user()
+
 class TopChannelsEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
   emptyView: TopChannelsEmptyView
 
@@ -37,6 +42,7 @@ class window.TopChannelsView extends Backbone.Marionette.CompositeView
   itemViewOptions: (model) ->
     position: @collection.indexOf(model) + 1
     collection: @options.originalCollection # for the emptyView
+    user: @options.user
 
   showMoreOn:  -> @$el.addClass 'showMore'
   showMoreOff: -> @$el.removeClass 'showMore'
