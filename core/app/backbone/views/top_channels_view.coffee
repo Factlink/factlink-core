@@ -36,7 +36,7 @@ class window.TopChannelsView extends Backbone.Marionette.CompositeView
 
   itemViewOptions: (model) ->
     position: @collection.indexOf(model) + 1
-    collection: @collection
+    collection: @options.originalCollection # for the emptyView
 
   showMoreOn:  -> @$el.addClass 'showMore'
   showMoreOff: -> @$el.removeClass 'showMore'

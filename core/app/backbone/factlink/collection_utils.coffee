@@ -7,8 +7,6 @@ window.collectionMap = (args...) ->
   utils.map(args...)
 
 class window.CollectionUtils
-  passThroughEventNames: ['before:fetch', 'destroy']
-
   constructor: (eventbinder)->
     @eventbinder = eventbinder || new Backbone.Marionette.EventBinder
 
@@ -31,7 +29,6 @@ class window.CollectionUtils
       if collection.on?
         @bindTo collection, 'add reset remove change', reset
 
-    @passThroughEvents resultCollection, collection1, collections...
     reset()
     resultCollection
 
@@ -43,7 +40,6 @@ class window.CollectionUtils
       if collection.on
         @bindTo collection, 'add reset remove change', reset
 
-    @passThroughEvents resultCollection, collections...
     reset()
     resultCollection
 
@@ -57,16 +53,5 @@ class window.CollectionUtils
         resultCollection.add mapFunction(model)
 
     @bindTo collection, 'add remove reset change', reset
-    @passThroughEvents resultCollection, collection
     reset()
     resultCollection
-
-  passThroughEvents: (resultCollection, collections...) ->
-    for collection in collections
-      if collection.on?
-        for eventName in @passThroughEventNames
-          @bindTo collection, eventName, @passThroughEventFunction(resultCollection, eventName)
-
-  passThroughEventFunction: (resultCollection, eventName) ->
-    (args...) ->
-      resultCollection.trigger eventName, args...
