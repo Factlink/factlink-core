@@ -52,6 +52,7 @@ nl:
   topics: "onderwerpen"
   topic_name: "naam van onderwerp"
   add_to_topics: "toevoegen"
+  created_topic: "heeft een onderwerp aangemaakt"
 
   ago: "geleden"
   show: "toon"
