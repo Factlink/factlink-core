@@ -9,6 +9,9 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
   regions:
     textareaRegion: '.js-region-textarea'
 
+  ui:
+    submit: '.js-submit'
+
   templateHelpers: => current_user: currentUser.toJSON()
 
   onRender: ->
@@ -22,18 +25,23 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     @$el.toggleClass 'evidence-sub-comments-form-active', active
 
   submit: ->
+    return if @submitting
+
     @model = new SubComment
       content: @text()
       created_by: currentUser
     
     @alertHide()
-    @textModel().set 'text', ''
+    @disableSubmit()
     @addDefaultModel()
 
-  addModelSuccess: (model) -> @alertHide()
+  addModelSuccess: ->
+    @enableSubmit()
+    @textModel().set 'text', ''
+
   addModelError: ->
+    @enableSubmit()
     @alertError()
-    @textModel().set 'text', @model.get('content')
 
   text: -> @textModel().get('text')
   textModel: -> @_textModel ?= new Backbone.Model text: ''
@@ -46,6 +54,14 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     @bindTo textAreaView, 'focus', @inputFocus, @
     @bindTo textAreaView, 'blur', @inputBlur, @
     textAreaView
+
+  enableSubmit: ->
+    @submitting = false
+    @ui.submit.prop('disabled',false).text('Comment')
+
+  disableSubmit: ->
+    @submitting = true
+    @ui.submit.prop('disabled',true ).text('Posting...')
 
 _.extend SubCommentsAddView.prototype,
   Backbone.Factlink.AddModelToCollectionMixin, Backbone.Factlink.AlertMixin

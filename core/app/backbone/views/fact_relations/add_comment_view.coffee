@@ -3,25 +3,28 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
   events:
     'click .js-post': 'addWithHighlight'
     'click .js-switch': 'switchCheckboxClicked'
-    'blur  .js-content': 'updateModel'
     'keydown .js-content': 'parseKeyDown'
 
   template: 'comments/add_comment'
 
-  initialize: ->
-    @initializeModel()
+  ui:
+    content: '.js-content'
+    submit:  '.js-post'
 
   parseKeyDown: (e) =>
     code = e.keyCode || e.which
-    @updateModel()
     @addWithHighlight() if code is 13
 
   addWithHighlight: ->
-    @addDefaultModel highlight: true
+    return if @submitting
 
-  initializeModel: ->
-    @model = new Comment(content: '', created_by: currentUser)
-    @bindTo @model, 'change', @render, @
+    @model = new Comment
+      content: @formContent()
+      created_by: currentUser
+
+    @alertHide()
+    @disableSubmit()
+    @addDefaultModel highlight: true
 
   templateHelpers: =>
     type_of_action_text: @type_of_action_text()
@@ -32,27 +35,36 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
     else
       'Disagreeing'
 
-  updateModel: ->
-    content = @$('.js-content').val()
-    @model.set {content: content}, silent: true
+  formContent: -> @ui.content.val()
 
-  setFormContent: (content) -> @model.set content: content
+  setFormContent: (content) -> @ui.content.val(content)
 
   addModelSuccess: (model) ->
-    @initializeModel()
-    @alertHide()
+    @enableSubmit()
+    @setFormContent ''
+
     model.trigger 'change'
 
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
       type: @options.addToCollection.type
 
-  addModelError: -> @alertError()
+  addModelError: ->
+    @enableSubmit()
+    @alertError()
 
   switchCheckboxClicked: (e)->
     @trigger 'switch_to_fact_relation_view', @$('.js-content').val()
     e.preventDefault()
     e.stopPropagation()
+
+  enableSubmit: ->
+    @submitting = false
+    @ui.submit.prop('disabled',false).text('Post comment')
+
+  disableSubmit: ->
+    @submitting = true
+    @ui.submit.prop('disabled',true ).text('Posting...')
 
 _.extend AddCommentView.prototype,
   Backbone.Factlink.AddModelToCollectionMixin, Backbone.Factlink.AlertMixin
