@@ -87,7 +87,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
 
   disableSubmit: ->
     @submitting = true
-    @ui.submit.prop('disabled',true ).val('Sending')
+    @ui.submit.prop('disabled',true ).val('Sending...')
 
   clearForm: ->
     @auto_complete_view.clearSearch()

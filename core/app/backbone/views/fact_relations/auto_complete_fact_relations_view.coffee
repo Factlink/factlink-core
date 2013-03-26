@@ -100,4 +100,4 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   disableSubmit: ->
     @submitting = true
-    @ui.submit.prop('disabled',true ).text('Posting')
+    @ui.submit.prop('disabled',true ).text('Posting...')

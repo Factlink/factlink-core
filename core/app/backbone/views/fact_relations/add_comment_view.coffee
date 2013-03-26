@@ -64,7 +64,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   disableSubmit: ->
     @submitting = true
-    @ui.submit.prop('disabled',true ).text('Posting')
+    @ui.submit.prop('disabled',true ).text('Posting...')
 
 _.extend AddCommentView.prototype,
   Backbone.Factlink.AddModelToCollectionMixin, Backbone.Factlink.AlertMixin
