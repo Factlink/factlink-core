@@ -4,15 +4,15 @@ module Acceptance
   module AddToChannelModalHelper
     def add_to_channel name
       type_into_search_box name
-      page.should have_no_content "Add “#{name}” as a new topic"
+      page.should have_no_content "Add “#{name}” as a new channel"
       slow_click('li', text: name)
       page.find('.auto-complete-results-container').should have_content(name)
     end
 
     def add_as_new_channel name
       type_into_search_box name
-      page.should have_content "Create a new topic called “#{name}”"
-      slow_click('li', text: "Create a new topic called “#{name}”")
+      page.should have_content "Create a new channel called “#{name}”"
+      slow_click('li', text: "Create a new channel called “#{name}”")
       page.find('.auto-complete-results-container').should have_content(name)
     end
 

@@ -1,3 +1,3 @@
-class window.Conversations extends Backbone.Collection
+class window.Conversations extends Backbone.Factlink.Collection
   model: Conversation
   url: '/m'

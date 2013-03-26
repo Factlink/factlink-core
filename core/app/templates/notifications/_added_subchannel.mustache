@@ -5,8 +5,11 @@
   <div class="info">
     <div class="text">
       <span class="highlight">{{ user.username }}</span>
-      is now following you on 
+      added your
       <span class="highlight">{{ activity.channel_title }}</span>
+      {{ global.t.channel }} to their own
+      <span class="highlight">{{activity.to_channel_title}}</span>
+      {{ global.t.channel}}
     </div>
 
     <div class="time_ago">

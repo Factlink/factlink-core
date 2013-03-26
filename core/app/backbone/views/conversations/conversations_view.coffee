@@ -19,16 +19,15 @@ class ConversationItemView extends Backbone.Marionette.ItemView
   wholeElementClick: (e) -> @defaultClickHandler e, @model.url()
 
 class ConversationEmptyView extends Backbone.Marionette.ItemView
-  tagName: 'div'
-  className: 'empty'
   template: 'conversations/empty'
-  templateHelpers: => loading: @options.loading
+
+class ConversationEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
+  emptyView: ConversationEmptyView
+  className: 'empty'
 
 class window.ConversationsView extends Backbone.Marionette.CollectionView
   itemView: ConversationItemView
-  emptyView: ConversationEmptyView
-  itemViewOptions: => loading: @options.loading
+  emptyView: ConversationEmptyLoadingView
+  itemViewOptions: => collection: @collection
   tagName: 'ul'
   className: 'conversations'
-
-  initialize: -> @collection.on 'reset', => @options.loading = false

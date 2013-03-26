@@ -11,7 +11,7 @@ class window.RelatedChannelView extends Backbone.Marionette.ItemView
 
   addModelSuccess: (model)-> @$('a.follow').hide()
 
-  addModelError: (model)-> alert("something went wrong while adding this #{Factlink.Global.t.topic}")
+  addModelError: (model)-> alert('something went wrong while adding this channel')
 
   wrapNewModel: (model) -> new Channel(@model.toJSON())
 

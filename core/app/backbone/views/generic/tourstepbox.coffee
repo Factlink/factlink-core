@@ -16,10 +16,6 @@ class window.AddChannelsTourStep1 extends TourStepBox
 
 class window.AddChannelsTourStep2 extends TourStepBox
   template: 'tour/add_channel_step2'
-  templateHelpers: ->
-    topics: Factlink.Global.t.topics.capitalize()
-    channels: Factlink.Global.t.channels.capitalize()
-
 
 class window.AddChannelsTourStep3 extends TourStepBox
   template: 'tour/add_channel_step3'

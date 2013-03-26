@@ -30,8 +30,7 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
         @$('a.btn').hide()
         channel = ch
         na_beide()
-      error: -> 
-        alert("Something went wrong while creating this #{Factlink.Global.t.topic}")
+      error: -> alert('something went wrong while creating this channel')
 
   addActivityToStream: (options)->
     last_fact_activity = @model.lastAddedFactAsActivity()

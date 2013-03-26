@@ -45,7 +45,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     fact_text: @options.fact_text
     title: @options.title
     url: @options.url
-    add_to_topic_header: Factlink.Global.t.add_to_topics.capitalize()
+    add_to_channel_header: Factlink.Global.t.add_to_channels.capitalize()
     csrf_token: @options.csrf_token
     guided: FactlinkApp.guided
 
@@ -73,7 +73,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection
     addToChannelView.render()
     addToChannelView.on 'error', ->
-      alert("Something went wrong when creating a new #{Factlink.Global.t.topic}")
+      alert('Something went wrong when creating a new channel, sorry!')
     @$('#add-to-channels').html addToChannelView.el
 
   renderSuggestedChannels: ->
