@@ -33,8 +33,6 @@ nl:
 
   channel: "kanaal"
   channels: "kanalen"
-  channel_name: "naam van kanaal"
-  added_to_channels: "toegevoegd"
   created_channel: "heeft een kanaal aangemaakt"
 
   follow: "volgen"
