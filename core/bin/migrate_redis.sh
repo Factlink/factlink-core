@@ -25,9 +25,12 @@ if [ "production"  == `hostname` ]; then
   FILENAME_RESQUE="/var/lib/redis/6380/staging_dump_6380.rdb"
 fi
 
-#stop redis on external servers
+echo "stopping remote redis"
+
 ssh -t "$SSH_USER@$IP1" "sudo monit stop redis"
 ssh -t "$SSH_USER@$IP2" "sudo monit stop redis"
+
+echo "stopping local services"
 
 #stop recalc
 monit stop recalculate || exit 1
@@ -43,40 +46,44 @@ monit stop nginx || exit 1
 monit stop redis || exit 1
 monit stop redis-6380 || exit 1
 
-# scp to external servers
+echo "waiting for everything to shut down"
+sleep 5
+
+echo "copying redis databases to remote servers"
 sudo scp "$FILENAME" "$SSH_USER@$IP1:~/dump-6379.rdb" || exit 1
 ssh -t "$SSH_USER@$IP1" "sudo mv ~/dump-6379.rdb /var/lib/redis/dump-6379.rdb"
 sudo scp "$FILENAME_RESQUE" "$SSH_USER@$IP2:~/dump-6379.rdb" || exit 1
 ssh -t "$SSH_USER@$IP2" "sudo mv ~/dump-6379.rdb /var/lib/redis/dump-6379.rdb"
 
-# start redis op external servers
+
+echo  "start redis op external servers"
 ssh -t "$SSH_USER@$IP1" "sudo monit start redis"
 ssh -t "$SSH_USER@$IP2" "sudo monit start redis"
 
-# update config
+echo "updating config"
 echo "development:
   redis:
-    hostname: localhost
+    host: localhost
     port: 6381
 
 test:
   redis:
-    hostname: localhost
+    host: localhost
     port: 6379
 
 testserver:
   redis:
-    hostname: $IP1
+    host: $IP1
     port: 6379
 
 staging:
   redis:
-    hostname: $IP1
+    host: $IP1
     port: 6379
 
 production:
   redis:
-    hostname: $IP1
+    host: $IP1
     port: 6379" > '/applications/core/current/config/redis.yml'
 
 
@@ -86,6 +93,8 @@ testserver: $IP2:6379
 staging: $IP2:6379
 production: $IP2:6379" > '/applications/core/current/config/resque.yml'
 
+
+echo "restarting services"
 # factlink aan
 monit start nginx
 
@@ -94,3 +103,5 @@ monit start resque
 
 # start recalc
 monit start recalculate
+
+echo "Finished"
