@@ -37,7 +37,9 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, {debug: false, js_errors: false})
+      Capybara::Poltergeist::Driver.new(app, { debug: false,
+                                               js_errors: false,
+                                               timeout: 60 })
     end
 
   end
