@@ -19,7 +19,7 @@ feature "adding a fact to a channel" do
     click_link('Repost')
 
     within(:css, ".modal-body") do
-      page.should have_content('Repost this to one or more topics:')
+      page.should have_content('Repost this to one or more channels:')
 
       add_as_new_channel new_channel_name
       added_channels_should_contain new_channel_name
