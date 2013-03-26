@@ -57,8 +57,6 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @_recentFactsView
 
   createFactRelation: (fact_relation, onFinish)->
-    return if @saving
-
     @hideError()
     @collection.add fact_relation, highlight: true
     @inputRegion.switchTo('search_view')
