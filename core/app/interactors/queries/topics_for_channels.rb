@@ -5,7 +5,7 @@ module Queries
     arguments :channels
 
     def execute
-      Topic.any_in(slug_title: slug_titles)
+      Topic.any_in(slug_title: slug_titles).to_a
     end
 
     def slug_titles
