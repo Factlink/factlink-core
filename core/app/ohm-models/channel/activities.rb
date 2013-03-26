@@ -5,11 +5,10 @@ class Channel < OurOhm
     end
 
     def add_created
-      if @channel.sorted_cached_facts.count == 0
-        unless has_created_activity_already
-          Activity::Subject.activity(@channel.created_by, :created_channel, @channel)
-        end
-      end
+      return if  @channel.sorted_cached_facts.count > 0
+      return if has_created_activity_already
+
+      Activity::Subject.activity(@channel.created_by, :created_channel, @channel)
     end
 
     private

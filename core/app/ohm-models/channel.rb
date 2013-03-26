@@ -107,13 +107,15 @@ class Channel < OurOhm
   end
 
   def add_channel(channel)
-    if (! contained_channels.include?(channel)) && channel.is_real_channel?
-      Channel::Activities.new(self).add_created
-      contained_channels << channel
-      channel.containing_channels << self
-      AddChannelToChannel.perform(channel, self)
-      activity(self.created_by,:added_subchannel,channel,:to,self)
-    end
+    return if contained_channels.include?(channel)
+    return unless channel.is_real_channel?
+
+    Channel::Activities.new(self).add_created
+    contained_channels << channel
+    channel.containing_channels << self
+
+    AddChannelToChannel.perform(channel, self)
+    activity(self.created_by,:added_subchannel,channel,:to,self)
   end
 
   def remove_channel(channel)
