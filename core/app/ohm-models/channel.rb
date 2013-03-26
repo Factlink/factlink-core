@@ -117,12 +117,11 @@ class Channel < OurOhm
   end
 
   def remove_channel(channel)
-    if (contained_channels.include?(channel))
-      contained_channels.delete(channel)
-      channel.containing_channels.delete(self)
-      Resque.enqueue(RemoveChannelFromChannel, channel.id, self.id)
-      activity(self.created_by, :removed, channel, :to, self)
-    end
+    return false unless (contained_channels.include?(channel))
+
+    contained_channels.delete(channel)
+    channel.containing_channels.delete(self)
+    true
   end
 
   def containing_channels_for_ids(user)

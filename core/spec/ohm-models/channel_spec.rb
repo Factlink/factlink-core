@@ -122,7 +122,7 @@ describe Channel do
 
           describe "after removing the original channel from the fork" do
             before do
-              @fork.remove_channel(subject)
+              Commands::Channels::RemoveSubchannel.new(@fork, subject).execute
             end
             it {@fork.containing_channels.to_a.should =~ []}
             it {@fork.facts.to_a.should eq [f2]}
@@ -131,7 +131,7 @@ describe Channel do
         end
         describe "after removing the original channel from the fork" do
           before do
-            @fork.remove_channel(subject)
+            Commands::Channels::RemoveSubchannel.new(@fork, subject).execute
           end
           it {@fork.containing_channels.to_a.should =~ []}
           it {@fork.facts.to_a.should eq []}
@@ -154,7 +154,7 @@ describe Channel do
         it {ch2.containing_channels.to_a.should =~ [subject]}
         describe "after deleting the first subchannel" do
           before do
-            subject.remove_channel(ch1)
+            Commands::Channels::RemoveSubchannel.new(subject, ch1).execute
           end
           it {subject.contained_channels.to_a.should =~ [ch2]}
           it {ch1.containing_channels.to_a.should =~ []}
@@ -171,7 +171,7 @@ describe Channel do
       it {subject.containing_channels.to_a.should =~ [ch1,ch2]}
       describe "after removing it from one channel" do
         before do
-          ch1.remove_channel subject
+          Commands::Channels::RemoveSubchannel.new(ch1, subject).execute
         end
         it {subject.containing_channels.to_a.should =~ [ch2]}
       end
