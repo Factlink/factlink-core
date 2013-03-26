@@ -32,7 +32,6 @@ en:
 
   channel: "channel"
   channels: "channels"
-  channel_name: "channel name"
   created_channel: "created a channel"
 
   follow: "follow"
