@@ -12,7 +12,7 @@ class window.SubchannelItemView extends Backbone.Marionette.ItemView
     @model.bind "destroy", @close, this
 
   destroySubchannel: (e) ->
-    @model.destroy()  if confirm("Are you sure you want to unfollow this channel from your #{Factlink.Global.t.topic}?")
+    @model.destroy()  if confirm("Are you sure you want to unfollow this channel?")
     e.stopPropagation()
     false
 
