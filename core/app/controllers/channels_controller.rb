@@ -83,7 +83,7 @@ class ChannelsController < ApplicationController
       @channel.save
 
       respond_to do |format|
-        format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => "#{I18n.t('topic')} successfully created") }
+        format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => "#{t(:topic)} successfully created") }
         format.json do
           @channel = interactor :'channels/get', @channel.id
           render 'channels/show'
@@ -107,7 +107,7 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title))
         format.html  { redirect_to(channel_path(@channel.created_by.user, @channel),
-                      :notice => "#{I18n.t('topic')} was successfully updated." )}
+                      :notice => "#{t(:topic)} was successfully updated." )}
         format.json  { render :json => {}, :status => :ok }
       else
         format.html  { render :edit }
@@ -123,7 +123,7 @@ class ChannelsController < ApplicationController
     @channel.delete
 
     respond_to do |format|
-      format.html  { redirect_to(channel_activities_path(@user, @user.graph_user.stream), :notice => "#{I18n.t('topic')} successfully deleted") }
+      format.html  { redirect_to(channel_activities_path(@user, @user.graph_user.stream), :notice => "#{t(:topic)} successfully deleted") }
       format.json  { render :json => {}, :status => :ok }
     end
   end
@@ -198,7 +198,7 @@ class ChannelsController < ApplicationController
     end
 
     def load_channel
-      @channel ||= Channel[channel_id] || raise_404("#{I18n.t('topic')} not found")
+      @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
     end
 
     def channel_id
