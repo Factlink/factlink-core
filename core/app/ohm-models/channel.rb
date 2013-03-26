@@ -119,7 +119,7 @@ class Channel < OurOhm
   end
 
   def remove_channel(channel)
-    return false unless (contained_channels.include?(channel))
+    return false unless contained_channels.include?(channel)
 
     contained_channels.delete(channel)
     channel.containing_channels.delete(self)
