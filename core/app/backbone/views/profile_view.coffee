@@ -13,7 +13,7 @@ class window.ProfileView extends Backbone.Marionette.Layout
     factRegion:               '.fact-region'
 
   initialize: ->
-    @collection = @ordered(@collection)
+    @orderedCollection = @ordered(@collection)
 
   ordered: (collection)->
     ordered_channels = new ChannelList()
@@ -25,6 +25,9 @@ class window.ProfileView extends Backbone.Marionette.Layout
     ordered_channels
 
   onRender: ->
-    @topChannelsRegion.show         new TopChannelsView(collection: @collection)
+    @topChannelsRegion.show new TopChannelsView
+      collection: @orderedCollection
+      originalCollection: @collection
+
     @profileInformationRegion.show  new ProfileInformationView(model: @model)
     @factRegion.show                @options.created_facts_view
