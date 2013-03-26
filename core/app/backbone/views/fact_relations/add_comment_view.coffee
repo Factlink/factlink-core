@@ -16,7 +16,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
     @addWithHighlight() if code is 13
 
   addWithHighlight: ->
-    return if @ui.submit.prop('disabled')
+    return if @submitting
 
     @model = new Comment
       content: @formContent()
@@ -58,8 +58,13 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
     e.preventDefault()
     e.stopPropagation()
 
-  enableSubmit:  -> @ui.submit.prop('disabled',false).text('Post comment')
-  disableSubmit: -> @ui.submit.prop('disabled',true ).text('Posting')
+  enableSubmit: ->
+    @submitting = false
+    @ui.submit.prop('disabled',false).text('Post comment')
+
+  disableSubmit: ->
+    @submitting = true
+    @ui.submit.prop('disabled',true ).text('Posting')
 
 _.extend AddCommentView.prototype,
   Backbone.Factlink.AddModelToCollectionMixin, Backbone.Factlink.AlertMixin

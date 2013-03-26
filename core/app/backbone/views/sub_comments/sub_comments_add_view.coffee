@@ -25,7 +25,7 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     @$el.toggleClass 'evidence-sub-comments-form-active', active
 
   submit: ->
-    return if @ui.submit.prop('disabled')
+    return if @submitting
 
     @model = new SubComment
       content: @text()
@@ -55,8 +55,13 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     @bindTo textAreaView, 'blur', @inputBlur, @
     textAreaView
 
-  enableSubmit:  -> @ui.submit.prop('disabled',false).text('Comment')
-  disableSubmit: -> @ui.submit.prop('disabled',true ).text('Posting')
+  enableSubmit: ->
+    @submitting = false
+    @ui.submit.prop('disabled',false).text('Comment')
+
+  disableSubmit: ->
+    @submitting = true
+    @ui.submit.prop('disabled',true ).text('Posting')
 
 _.extend SubCommentsAddView.prototype,
   Backbone.Factlink.AddModelToCollectionMixin, Backbone.Factlink.AlertMixin

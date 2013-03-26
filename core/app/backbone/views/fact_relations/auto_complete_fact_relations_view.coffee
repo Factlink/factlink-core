@@ -73,7 +73,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
 
   createFactRelation: (fact_relation) ->
-    return if @ui.submit.prop('disabled')
+    return if @submitting
     @disableSubmit()
     @trigger 'createFactRelation', fact_relation, => @enableSubmit()
 
@@ -94,5 +94,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       @query_has_changed = true
       mp_track "Evidence: Started searching"
 
-  enableSubmit:  -> @ui.submit.prop('disabled',false).text('Post Factlink')
-  disableSubmit: -> @ui.submit.prop('disabled',true ).text('Posting')
+  enableSubmit: ->
+    @submitting = false
+    @ui.submit.prop('disabled',false).text('Post Factlink')
+
+  disableSubmit: ->
+    @submitting = true
+    @ui.submit.prop('disabled',true ).text('Posting')
