@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-SSH_USER="jan" # user to ssh to machines with
+SSH_USER="mark" # user to ssh to machines with
 
 #ssh jan@testserver.factlink.com "cat /etc/redis/6379.conf | grep dbfilename;ls -d1 /var/lib/redis/6379/*.*;cat /etc/redis/6380.conf | grep dbfilename;ls -d1 /var/lib/redis/6380/*.*;"
 if [ "testserver" == `hostname` ]; then
