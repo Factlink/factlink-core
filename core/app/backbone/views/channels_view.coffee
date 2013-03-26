@@ -25,8 +25,11 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   templateHelpers: ->
     stream_title: -> Factlink.Global.t.stream.capitalize()
     channel_listing_header: ->
-      Factlink.Global.t.topics.capitalize()
-      
+      if Factlink.Global.can_haz.topic_facts
+        Factlink.Global.t.topics.capitalize()
+      else
+        Factlink.Global.t.channels.capitalize()
+
   initialize: =>
     @on 'activate', (type)=> @activate(type)
 

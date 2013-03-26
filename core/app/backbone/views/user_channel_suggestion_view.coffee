@@ -31,7 +31,10 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
         channel = ch
         na_beide()
       error: -> 
-        alert("Something went wrong while creating this #{Factlink.Global.t.topic}")
+        if Factlink.Global.can_haz.topic_facts
+          alert("Something went wrong while creating this #{Factlink.Global.t.topic}")
+        else
+          alert("Something went wrong while creating this #{Factlink.Global.t.channel}")
 
   addActivityToStream: (options)->
     last_fact_activity = @model.lastAddedFactAsActivity()
