@@ -28,6 +28,7 @@ class window.ProfileView extends Backbone.Marionette.Layout
     @topChannelsRegion.show new TopChannelsView
       collection: @orderedCollection
       originalCollection: @collection
+      user: @model
 
     @profileInformationRegion.show  new ProfileInformationView(model: @model)
     @factRegion.show                @options.created_facts_view

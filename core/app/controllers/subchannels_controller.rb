@@ -27,11 +27,11 @@ class SubchannelsController < ApplicationController
     end
 
     def channel
-      @channel ||= Channel[channel_id] || raise_404("Channel not found")
+      @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
     end
 
     def subchannel
-      @subchannel ||= Channel[subchannel_id] || raise_404("Subchannel not found")
+      @subchannel ||= Channel[subchannel_id] || raise_404("#{t(:topic)} not found")
     end
 
     def render_subchannels
