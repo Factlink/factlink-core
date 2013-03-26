@@ -12,8 +12,8 @@ if [ "testserver" == `hostname` ]; then
 fi
 
 if [ "staging" == `hostname` ]; then
-  IP1="88" # redis server
-  IP2="88" # redis resque server
+  IP1="89.188.27.176" # redis server
+  IP2="89.188.27.185" # redis resque server
   FILENAME="/var/lib/redis/6379/staging_dump.rdb"
   FILENAME_RESQUE="/var/lib/redis/6380/staging_dump_6380.rdb"
 fi
