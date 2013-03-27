@@ -19,11 +19,8 @@
                  Probably we can fix this when upgrading to
                  Rails 4
       %>
-      <% if resource.errors[:email].any? %>
-        <div class='field_with_errors'><span class="help-inline">
-         (errors: <%= resource.errors[:email].join(", ") %>)
-        </div></div>
-      <% end %>
+      
+      <%= possible_error_for_field(@user, :email) %>    
 
       <div class="controls">
         <%= f.email_field :email, class: "input-xlarge" %>
