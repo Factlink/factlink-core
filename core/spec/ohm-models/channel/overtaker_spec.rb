@@ -23,10 +23,10 @@ describe Channel::Overtaker do
     ch
   end
 
-  let(:ch1) {create_channel :created_by => u1, :title => "Something" }
-  let(:ch2) {create_channel :created_by => u1, :title => "Diddly"}
+  let(:ch1) {create_channel created_by: u1, title: "Something" }
+  let(:ch2) {create_channel created_by: u1, title: "Diddly"}
 
-  let(:subch1) {create_channel :created_by => u1, :title => "Sub"}
+  let(:subch1) {create_channel created_by: u1, title: "Sub"}
 
   let(:u1) { GraphUser.create }
   let(:u2) { GraphUser.create }

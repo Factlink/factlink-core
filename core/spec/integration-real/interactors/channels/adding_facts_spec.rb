@@ -36,8 +36,7 @@ describe 'when adding a fact to a channel' do
       @channel = Channel.create title: 'something', created_by: u1
       @sub_channel = Channel.create title: 'something2', created_by: u1
 
-      @channel.add_channel @sub_channel
-
+      command :"channels/add_subchannel", @channel, @sub_channel
       interactor :"channels/add_fact", fact, @sub_channel
     end
     it "should add the fact to the follower" do
@@ -53,8 +52,8 @@ describe 'when adding a fact to a channel' do
       @sub_channel = Channel.create title: 'something2', created_by: u1
       @sub_sub_channel = Channel.create title: 'something3', created_by: u1
 
-      @channel.add_channel @sub_channel
-      @sub_channel.add_channel @sub_sub_channel
+      command :"channels/add_subchannel", @channel, @sub_channel
+      command :"channels/add_subchannel", @sub_channel, @sub_sub_channel
 
       interactor :"channels/add_fact", fact, @sub_sub_channel
     end

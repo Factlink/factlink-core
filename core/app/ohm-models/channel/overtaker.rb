@@ -9,7 +9,7 @@ class Channel < OurOhm
         self.remove_fact f
       end
       ch.contained_channels.each do |subch|
-        self.add_channel subch
+        Commands::Channels::AddSubchannel.new(self, subch).call
       end
     end
   end

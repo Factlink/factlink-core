@@ -50,7 +50,7 @@ describe MapReduce::TopicAuthority do
 
        1.upto(10) do |i|
          ch = create :channel
-         ch.add_channel ch1
+         Commands::Channels::AddSubchannel.new(ch, ch1).call
        end
 
        result = subject.wrapped_map(channels)
