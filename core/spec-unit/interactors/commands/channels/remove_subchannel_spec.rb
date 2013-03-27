@@ -5,13 +5,39 @@ require_relative '../../../../app/interactors/commands/channels/remove_subchanne
 describe Commands::Channels::RemoveSubchannel do
   include PavlovSupport
   describe '.execute' do
+    before do
+      stub_classes 'Resque', 'RemoveChannelFromChannel'
+    end
     it 'adds a subchannel to the channel' do
+      channel = mock :channel, id: mock, created_by: mock
+      subchannel = mock :subchannel, id: mock
+
+      command = Commands::Channels::RemoveSubchannel.new(channel, subchannel)
+
+      channel.should_receive(:remove_channel).with(subchannel)
+             .and_return(true)
+
+      Resque.should_receive(:enqueue)
+            .with(RemoveChannelFromChannel, subchannel.id, channel.id)
+
+      channel.should_receive(:activity)
+             .with(channel.created_by,
+                   :removed, subchannel,
+                   :to, channel)
+
+      command.execute
+    end
+    it 'does not queue jobs or create activities when the removal fails' do
       channel = mock :channel
       subchannel = mock :subchannel
 
       command = Commands::Channels::RemoveSubchannel.new(channel, subchannel)
 
       channel.should_receive(:remove_channel).with(subchannel)
+             .and_return(false)
+
+      Resque.should_not_receive(:enqueue)
+      channel.should_not_receive(:activity)
 
       command.execute
     end
