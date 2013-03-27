@@ -39,9 +39,8 @@ staging:
     default:
       database: factlink_staging
       hosts:
-       - mongo1-staging.factlink.com:27017
-       - mongo2-staging.factlink.com:27017
        - 89.188.27.140:27017
+       - 89.188.27.186:27017
       options:
         consistency: :strong
   options:
