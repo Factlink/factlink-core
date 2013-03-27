@@ -41,7 +41,7 @@ describe Channel::Overtaker do
       expect(ch1.facts).to match_array []
     end
     it "should take over contained_channels" do
-      ch2.add_channel subch1
+      Commands::Channels::AddSubchannel.new(ch2,subch1).call
       ch1.take_over ch2
       expect(ch1.contained_channels.all).to match_array [subch1]
       expect(subch1.containing_channels.all).to match_array [ch1,ch2]

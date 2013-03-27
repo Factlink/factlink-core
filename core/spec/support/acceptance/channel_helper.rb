@@ -20,7 +20,7 @@ module Acceptance
     end
 
     def backend_channel_add_subchannel channel, subchannel
-      channel.add_channel(subchannel)
+      Commands::Channels::AddSubchannel.new(channel, subchannel).call
     end
 
     def go_to_channel_page_of channel
