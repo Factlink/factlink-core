@@ -21,10 +21,9 @@ describe Channel do
   context "activity on a channel" do
     before do
       # TODO: remove this once creating an activity does not cause an email to be sent
-      interactor = mock()
-      interactor.should_receive(:call).any_number_of_times
+      send_mail_interactor = stub call: nil
       stub_const 'Interactors::SendMailForActivity', Class.new
-      Interactors::SendMailForActivity.should_receive(:new).any_number_of_times.and_return(interactor)
+      Interactors::SendMailForActivity.stub new: send_mail_interactor
     end
 
     describe "when adding a subchannel" do
