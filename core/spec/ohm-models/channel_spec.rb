@@ -29,7 +29,7 @@ describe Channel do
 
     describe "when adding a subchannel" do
       before do
-        channel.add_channel(ch1)
+        Commands::Channels::AddSubchannel.new(channel, ch1).call
       end
       it { Activity.for(channel).to_a.last.action.should eq "added_subchannel" }
     end
@@ -74,7 +74,7 @@ describe Channel do
       describe "after forking" do
         before do
           @fork = Channel.create created_by: u2, title: "Fork"
-          @fork.add_channel(channel)
+          Commands::Channels::AddSubchannel.new(@fork, channel).call
           @fork.title = "Fork"
           @fork.save
         end
@@ -137,13 +137,13 @@ describe Channel do
 
     describe "after adding a subchannel" do
       before do
-        channel.add_channel(ch1)
+        Commands::Channels::AddSubchannel.new(channel, ch1).call
       end
       it {channel.contained_channels.to_a.should =~ [ch1]}
       it {ch1.containing_channels.to_a.should =~ [channel]}
       describe "after adding another subchannel" do
         before do
-          channel.add_channel(ch2)
+          Commands::Channels::AddSubchannel.new(channel, ch2).call
         end
         it {channel.contained_channels.to_a.should =~ [ch1,ch2]}
         it {ch1.containing_channels.to_a.should =~ [channel]}
@@ -161,8 +161,8 @@ describe Channel do
 
     describe "after adding to two channels" do
       before do
-        ch1.add_channel channel
-        ch2.add_channel channel
+        Commands::Channels::AddSubchannel.new(ch1, channel).call
+        Commands::Channels::AddSubchannel.new(ch2, channel).call
       end
       it {channel.containing_channels.to_a.should =~ [ch1,ch2]}
       describe "after removing it from one channel" do
@@ -260,21 +260,21 @@ describe Channel do
       end
       it "should remove itself from other channels' containing_channels" do
         id = ch1.id
-        ch1.add_channel u1_ch1
+        Commands::Channels::AddSubchannel.new(ch1, u1_ch1).call
         u1_ch1.containing_channels.ids.should =~ [id]
         ch1.delete
         u1_ch1.containing_channels.ids.should =~ []
       end
       it "should be removed from the contained_channels when deleted" do
         id = ch1.id
-        ch1.add_channel u1_ch1
+        Commands::Channels::AddSubchannel.new(ch1, u1_ch1).call
         ch1.contained_channels.ids.should =~ [u1_ch1.id]
 
         u1_ch1.delete
         ch1.contained_channels.ids.should =~ []
       end
       it "should remove activities" do
-        ch1.add_channel u1_ch1
+        Commands::Channels::AddSubchannel.new(ch1, u1_ch1).call
         fakech1 = Channel[ch1.id]
         add_fact_to_channel f1, ch1
         ch1.delete
@@ -358,7 +358,7 @@ describe Channel do
       before do
         add_fact_to_channel f1, u1_ch1
         add_fact_to_channel f2, u2_ch1
-        u1_ch1.add_channel u2_ch1
+        Commands::Channels::AddSubchannel.new(u1_ch1, u2_ch1).call
         u2_ch1.delete
       end
       it "should not remove the facts from the channels which follow this channel" do
@@ -383,7 +383,7 @@ describe Channel do
       context "after a fact was added in a channel I followed" do
         before do
           @ch = u1_ch1
-          @ch.add_channel u2_ch1
+          Commands::Channels::AddSubchannel.new(@ch, u2_ch1).call
           add_fact_to_channel u2_f1, u2_ch1
         end
         it "should be one" do
@@ -399,8 +399,8 @@ describe Channel do
           @ch = u1_ch1
           @ch2 = u1_ch2
 
-          @ch.add_channel u2_ch1
-          u2_ch1.add_channel @ch2
+          Commands::Channels::AddSubchannel.new(@ch, u2_ch1).call
+          Commands::Channels::AddSubchannel.new(u2_ch1, @ch2).call
           add_fact_to_channel u2_f1, @ch2
         end
         it "should be zero" do
@@ -410,7 +410,7 @@ describe Channel do
       context "when someone is adding my factlink to a channel I follow" do
         before do
           @ch = u1_ch1
-          @ch.add_channel u2_ch1
+          Commands::Channels::AddSubchannel.new(@ch, u2_ch1).call
           add_fact_to_channel u1_f1, u2_ch1
         end
         it "should be zero" do
