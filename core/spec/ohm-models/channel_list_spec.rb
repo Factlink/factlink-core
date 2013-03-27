@@ -126,10 +126,10 @@ describe ChannelList do
 
   describe ".containing_channel_ids_for_channel" do
     subject {ChannelList.new(u1)}
-    let(:ch) {Channel.create(:created_by => u1, :title => "Subject")}
+    let(:ch) {Channel.create(created_by: u1, title: "Subject")}
 
-    let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Something")}
-    let(:u2_ch1) {Channel.create(:created_by => u2, :title => "Something")}
+    let(:u1_ch1) {Channel.create(created_by: u1, title: "Something")}
+    let(:u2_ch1) {Channel.create(created_by: u2, title: "Something")}
 
     let(:u1) { create(:user).graph_user }
     let(:u2) { create(:user).graph_user }
