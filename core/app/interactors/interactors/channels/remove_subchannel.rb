@@ -12,7 +12,6 @@ module Interactors
       end
 
       def execute
-        # raise 'not found' unless channel and subchannel
         command :'channels/remove_subchannel', channel, subchannel
       end
 

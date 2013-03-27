@@ -10,7 +10,6 @@ module Interactors
       end
 
       def execute
-        # raise 'not found' unless channel and subchannel
         command :'channels/add_subchannel', prospective_follower, channel
       end
 
