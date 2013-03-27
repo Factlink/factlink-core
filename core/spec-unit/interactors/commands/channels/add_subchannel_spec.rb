@@ -19,10 +19,9 @@ describe Commands::Channels::AddSubchannel do
       AddChannelToChannel.should_receive(:perform)
                          .with(subchannel, channel)
 
-      command.should_receive(:command)
-             .with(:'channels/added_subchannel_create_activities', channel, subchannel)
+      command.should_not_receive(:command)
 
-      command.execute
+      expect(command.execute).to eq true
     end
     it 'stops execution when the addition is unsuccesful' do
       stub_classes 'Channel::Activities', 'AddChannelToChannel'
@@ -39,7 +38,7 @@ describe Commands::Channels::AddSubchannel do
 
       command.should_not_receive(:command)
 
-      command.execute
+      expect(command.execute).to eq false
     end
   end
 end

@@ -10,7 +10,10 @@ module Interactors
       end
 
       def execute
-        command :'channels/add_subchannel', prospective_follower, channel
+        success = command :'channels/add_subchannel', prospective_follower, channel
+        if success
+          command :'channels/added_subchannel_create_activities', prospective_follower, channel
+        end
       end
 
       def channel
@@ -18,12 +21,9 @@ module Interactors
       end
 
       def prospective_follower
-        query_result = query :'channels/get_by_slug_title', channel.slug_title
-        if query_result.nil?
-          command :'channels/create', channel.title
-        else
-          query_result
-        end
+        @prospective_follower ||=
+          query(:'channels/get_by_slug_title', channel.slug_title) ||
+          command(:'channels/create', channel.title)
       end
 
       def authorized?

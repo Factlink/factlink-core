@@ -10,8 +10,9 @@ module Commands
 
         if success
           AddChannelToChannel.perform(subchannel, channel)
-          command :'channels/added_subchannel_create_activities', channel, subchannel
         end
+
+        success
       end
     end
   end

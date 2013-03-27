@@ -27,10 +27,12 @@ describe Channel do
     end
 
     describe "when adding a subchannel" do
-      before do
-        Commands::Channels::AddSubchannel.new(channel, ch1).call
+      it "creates an added_subchannel activity" do
+        pavlov_options = {ability: (mock can?: true)}
+        Interactors::Channels::AddSubchannel.new(channel.id, ch1.id, pavlov_options).call
+        last_activity = Activity.for(channel).to_a.last
+        expect(last_activity.action).to eq "added_subchannel"
       end
-      it { Activity.for(channel).to_a.last.action.should eq "added_subchannel" }
     end
   end
 
