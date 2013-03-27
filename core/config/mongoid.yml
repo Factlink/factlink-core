@@ -27,7 +27,6 @@ testserver:
     default:
       database: factlink_testserver
       hosts:
-       - mongo2-testserver.factlink.com:27017
        - 89.188.27.138:27017
        - 89.188.27.139:27017
       options:
