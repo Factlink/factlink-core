@@ -75,7 +75,7 @@ describe "credibility calculation of facts*users" do
     add_fact_to_channel f1, ch2
 
     # some data that shouldn't influence the outcome
-    ch1.add_channel(ch2)
+    Commands::Channels::AddSubchannel.new(ch1, ch2).call
 
     recalculate_credibility
     expect(Authority.on(f1, for: u1).to_f).to eq(15.0)

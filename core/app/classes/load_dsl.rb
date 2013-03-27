@@ -190,7 +190,7 @@ class LoadDsl
 
   def sub_channel(username,title, opts={})
     ch = self.load_channel(load_user(username).graph_user, title, opts)
-    self.state_channel.add_channel(ch)
+    Commands::Channels::AddSubchannel.new(self.state_channel, ch)
   end
 
   def self.export_sub_channel(channel)
