@@ -36,7 +36,7 @@ describe 'activity queries' do
       ch1 = create :channel
       ch2 = create :channel
 
-      ch1.add_channel(ch2)
+      Commands::Channels::AddSubchannel.new(ch1,ch2).call
       ch2.activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
@@ -46,7 +46,7 @@ describe 'activity queries' do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
 
-      ch1.add_channel(ch2)
+      Commands::Channels::AddSubchannel.new(ch1,ch2).call
       ch3 = create :channel, created_by: gu2
 
       # Channel should not be empty
@@ -62,13 +62,12 @@ describe 'activity queries' do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
 
-      ch1.add_channel(ch2)
+      Commands::Channels::AddSubchannel.new(ch1,ch2).call
       ch3 = create :channel, created_by: gu2
 
-      ch3.add_channel (create :channel)
-      ch3.add_channel (create :channel)
-      ch3.add_channel (create :channel)
-      ch3.add_channel (create :channel)
+      4.times do
+        Commands::Channels::AddSubchannel.new(ch3, (create :channel)).call
+      end
 
       stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
       expect(stream_activities).to eq [
@@ -100,7 +99,7 @@ describe 'activity queries' do
       ch1 = create :channel
       ch2 = create :channel
 
-      ch1.add_channel(ch2)
+      Commands::Channels::AddSubchannel.new(ch1,ch2).call
       ch2.created_by.notifications.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
@@ -110,7 +109,7 @@ describe 'activity queries' do
       ch1 = create :channel
       ch2 = create :channel
 
-      ch1.add_channel(ch2)
+      Commands::Channels::AddSubchannel.new(ch1,ch2).call
       ch2.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
