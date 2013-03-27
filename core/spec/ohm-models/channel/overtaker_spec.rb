@@ -7,12 +7,6 @@ class GraphUser < OurOhm;end
 describe Channel::Overtaker do
   include AddFactToChannelSupport
 
-  def create_fact
-    FactoryGirl.create :fact
-  rescue
-    Fact.create
-  end
-
   def create_channel(opts={})
     ch = Channel.create(opts)
     ch.singleton_class.send :include, Channel::Overtaker
@@ -25,12 +19,9 @@ describe Channel::Overtaker do
   let(:subch1) {create_channel created_by: u1, title: "Sub"}
 
   let(:u1) { GraphUser.create }
-  let(:u2) { GraphUser.create }
 
-  let (:f1) { create_fact }
-  let (:f2) { create_fact }
-  let (:f3) { create_fact }
-  let (:f4) { create_fact }
+  let (:f1) { create :fact }
+  let (:f2) { create :fact }
 
   before do
     Fact.stub(:invalid,false)
