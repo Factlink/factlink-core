@@ -9,9 +9,8 @@ module Commands
         success = channel.add_channel(subchannel)
 
         if success
-          Channel::Activities.new(channel).add_created
           AddChannelToChannel.perform(subchannel, channel)
-          channel.activity(channel.created_by,:added_subchannel,subchannel,:to,channel)
+          command :'channels/added_subchannel_create_activities', channel, subchannel
         end
       end
     end
