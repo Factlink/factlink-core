@@ -36,6 +36,7 @@ describe 'activity queries' do
     it "should return activity for when a channel followed this channel" do
       ch1 = create :channel
       ch2 = create :channel
+
       ch1.add_channel(ch2)
       ch2.activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
@@ -343,7 +344,7 @@ describe 'activity queries' do
             {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
           ]
         end
-        
+
         it "creates a notification" do
           fact = create :fact, created_by: current_user.graph_user
 
@@ -373,7 +374,7 @@ describe 'activity queries' do
             {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
           ]
         end
-        
+
         it "creates a notification" do
           fact = create :fact, created_by: current_user.graph_user
 
