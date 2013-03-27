@@ -5,6 +5,7 @@ feature "notifications", type: :request do
   include Acceptance::NotificationHelper
   include Acceptance::NavigationHelper
   include Acceptance::AddToChannelModalHelper
+  include PavlovSupport
 
   scenario %q{When another user follows my channel,
             I get a notification, and can click on it,
@@ -17,7 +18,9 @@ feature "notifications", type: :request do
     my_channel =
       backend_create_viewable_channel_for current_user
 
-    backend_channel_add_subchannel other_users_channel, my_channel
+    as(other_user) do |p|
+      p.interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
+    end
 
     sign_in_user current_user
 
@@ -39,7 +42,9 @@ feature "notifications", type: :request do
     my_channel =
       backend_create_viewable_channel_for current_user
 
-    backend_channel_add_subchannel other_users_channel, my_channel
+    as(other_user) do |p|
+      p.interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
+    end
 
     sign_in_user current_user
 
