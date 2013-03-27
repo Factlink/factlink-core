@@ -1,4 +1,5 @@
-require_relative '../../ohm_helper.rb'
+require 'spec_helper'
+
 class Item < OurOhm;end
 class SortedContainer < OurOhm
   sorted_set :items, Item do |x|
@@ -11,11 +12,11 @@ describe Ohm::Model::SortedSet do
   let(:c1) { SortedContainer.create }
   let(:c2) { SortedContainer.create }
   let(:c3) { SortedContainer.create }
-  
+
   let(:i1) { Item.create }
   let(:i2) { Item.create }
   let(:i3) { Item.create }
-  
+
   describe "union" do
     before do
       c1.items << i1
@@ -32,13 +33,13 @@ describe Ohm::Model::SortedSet do
       @union.all.should =~ [i1,i2]
       c3.items = @union
       c3.items.all.should =~ [i1,i2]
-      
+
       c3.items = c1.items
       c3.items.all.should =~ [i1]
     end
-  end 
-  
-  
+  end
+
+
   it "should have a working difference" do
     c1.items << i1 << i2
     c2.items << i1
@@ -46,7 +47,7 @@ describe Ohm::Model::SortedSet do
     c1.items.all.should =~ [i1,i2]
     c2.items.all.should =~ [i1]
     diff.all.should =~ [i2]
-    
+
     c1.items.delete(i2)
     diff = c1.items - c2.items
     c1.items.all.should =~ [i1]
@@ -65,13 +66,13 @@ describe Ohm::Model::SortedSet do
     it "should return an empty list for an empty set" do
       c1.items.below(3).should =~ []
     end
-    
+
     it "should return all items when no limit is given" do
       c1.items.add(i1,1)
       c1.items.add(i2,2)
       c1.items.below(3).should == [i1,i2]
     end
-  
+
     it "should return only items below the limit" do
       c1.items.add(i1,1)
       c1.items.add(i2,4)
@@ -112,14 +113,14 @@ describe Ohm::Model::SortedSet do
       c1.items.add(i3,3)
       c1.items.below(5,count:2,reversed:false).should == [i3,i2]
     end
-    
+
     it "should return items with scores when the withscores option is given" do
       c1.items.add(i1,1)
       c1.items.add(i2,4)
       c1.items.below(3,withscores:true).should == [{item:i1,score:1}]
     end
   end
-  
+
   describe "#hash_array_for_withscores" do
     it "should work for an empty array" do
       c1.items.class.hash_array_for_withscores([]).should == []

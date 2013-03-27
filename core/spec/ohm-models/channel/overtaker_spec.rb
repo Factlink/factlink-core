@@ -1,8 +1,4 @@
-require 'ohm_helper'
-
-require 'active_support/core_ext/module/delegation'
-require_relative '../../../app/ohm-models/activity.rb'
-require_relative '../../../app/ohm-models/channel.rb'
+require 'spec_helper'
 
 class Basefact < OurOhm;end
 class Fact < Basefact;end
