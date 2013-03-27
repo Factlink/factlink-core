@@ -10,8 +10,9 @@ module Commands
 
         if success
           Resque.enqueue(RemoveChannelFromChannel, subchannel.id, channel.id)
-          channel.activity(channel.created_by, :removed, subchannel, :to, channel)
         end
+
+        success
       end
     end
   end

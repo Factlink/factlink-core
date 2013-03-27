@@ -12,7 +12,10 @@ module Interactors
       end
 
       def execute
-        command :'channels/remove_subchannel', channel, subchannel
+        success = command :'channels/remove_subchannel', channel, subchannel
+        if success
+          channel.activity(channel.created_by, :removed, subchannel, :to, channel)
+        end
       end
 
       def channel

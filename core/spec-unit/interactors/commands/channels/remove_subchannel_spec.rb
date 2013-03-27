@@ -20,12 +20,7 @@ describe Commands::Channels::RemoveSubchannel do
       Resque.should_receive(:enqueue)
             .with(RemoveChannelFromChannel, subchannel.id, channel.id)
 
-      channel.should_receive(:activity)
-             .with(channel.created_by,
-                   :removed, subchannel,
-                   :to, channel)
-
-      command.execute
+      expect(command.execute).to eq true
     end
     it 'does not queue jobs or create activities when the removal fails' do
       channel = mock :channel
@@ -37,9 +32,8 @@ describe Commands::Channels::RemoveSubchannel do
              .and_return(false)
 
       Resque.should_not_receive(:enqueue)
-      channel.should_not_receive(:activity)
 
-      command.execute
+      expect(command.execute).to eq false
     end
   end
 end
