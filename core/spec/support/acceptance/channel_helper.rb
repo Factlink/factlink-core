@@ -20,7 +20,8 @@ module Acceptance
     end
 
     def backend_channel_add_subchannel channel, subchannel
-      Commands::Channels::AddSubchannel.new(channel, subchannel).call
+      options = {ability: (mock can?: true)}
+      Interactors::Channels::AddSubchannel.new(channel.id.to_s, subchannel.id.to_s, options ).call
     end
 
     def go_to_channel_page_of channel
