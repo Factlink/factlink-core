@@ -27,25 +27,24 @@ describe Channel::Overtaker do
     Fact.stub(:invalid,false)
   end
 
-
   describe :take_over do
     it "should move all internal facts" do
       add_fact_to_channel f1, ch1
       add_fact_to_channel f2, ch2
       ch1.take_over(ch2)
-      ch1.facts.should =~ [f1,f2]
+      expect(ch1.facts).to match_array [f1,f2]
     end
     it "should move all deleted facts" do
       add_fact_to_channel f1, ch1
       ch2.remove_fact f1
       ch1.take_over(ch2)
-      ch1.facts.should =~ []
+      expect(ch1.facts).to match_array []
     end
     it "should take over contained_channels" do
       ch2.add_channel subch1
       ch1.take_over ch2
-      ch1.contained_channels.all.should =~ [subch1]
-      subch1.containing_channels.all.should =~ [ch1,ch2]
+      expect(ch1.contained_channels.all).to match_array [subch1]
+      expect(subch1.containing_channels.all).to match_array [ch1,ch2]
     end
   end
 end
