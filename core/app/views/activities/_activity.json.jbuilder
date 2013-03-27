@@ -92,7 +92,7 @@ json.activity do |json|
     json.channel_title             subject.title
     json.channel_url               channel_path(subject.created_by.user, subject.id)
 
-    json.created_channel_definition t(:created_channel)
+    json.created_channel_definition t(:created_topic)
   when "added_fact_to_channel"
     json.partial! 'activities/added_fact_to_channel_activity',
         subject: subject,

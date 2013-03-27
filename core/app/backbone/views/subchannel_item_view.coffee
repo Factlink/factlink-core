@@ -12,7 +12,7 @@ class window.SubchannelItemView extends Backbone.Marionette.ItemView
     @model.bind "destroy", @close, this
 
   destroySubchannel: (e) ->
-    @model.destroy()  if confirm("Are you sure you want to remove this channel from your channel?")
+    @model.destroy()  if confirm("Are you sure you want to unfollow this channel?")
     e.stopPropagation()
     false
 
@@ -20,7 +20,7 @@ class window.SubchannelItemView extends Backbone.Marionette.ItemView
     @$('i.close').hide() unless currentChannel.user().get('id') == currentUser.get('id')
 
   clickHandler: (e) ->
-    mp_track "Channel: Click on subchannel",
+    mp_track "Topic: Click on subchannel",
       channel_id: currentChannel.id
       subchannel_id: @model.id
 

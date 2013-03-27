@@ -9,7 +9,7 @@ Authority means how knowledgeable people are on a single topic. We use authority
 </p>
 <h4>Authority calculation</h4>
 
-<p>We use several ways to calculate authority, and we are still experimenting to find the best way. Generally speaking we mostly look how much other people valuate your actions. So if you create Factlinks which other people find useful, and add as evidence, your authority will go up. If you create factlinks which incite a lot of discussion, your authority will go up. And if you create channels which are followed by a lot of people, this will also result in more authority on the subject of your channel.</p>
+<p>We use several ways to calculate authority, and we are still experimenting to find the best way. Generally speaking we mostly look how much other people valuate your actions. So if you create Factlinks which other people find useful, and add as evidence, your authority will go up. If you create factlinks which incite a lot of discussion, your authority will go up.</p>
 
 <p>You gain authority on a specific topic. This means that you can for instance know a lot about Programming, but little about French Literature. This means we won't weigh your opinion on the Count of Monte Christo as much as your opinion on Object Oriented design in Java.</p>
 
@@ -24,12 +24,11 @@ Authority means how knowledgeable people are on a single topic. We use authority
   <h4>Factlink classification</h4>
 
   <p>
-  When you put a Factlink in a channel you are classifying a Factlink. Since we think this is important we reward classification with authority on the subject. We do this in two (direct) ways:
+  When you put a Factlink in a topic you are classifying a Factlink. Since we think this is important we reward classification with authority on the subject. We do this in two (direct) ways:
   </p>
 
   <ol>
-    <li>When you add a Factlink to a channel, you get a little authority (0.1) on the topic the channel is about. Since we really need others to confirm your authority, the amount of authority you can earn is limited to 4 authority points.</li>
-    <li>When someone follows your channel, you get 1 authority for the topic that channel is about.</li>
+    <li>When you add a Factlink to a topic, you get a little authority (0.1) on the topic. Since we really need others to confirm your authority, the amount of authority you can earn is limited to 4 authority points.</li>
   </ol>
 
   <h4>Fact creation</h4>
@@ -45,11 +44,11 @@ Authority means how knowledgeable people are on a single topic. We use authority
   </ol>
   <h4>Assigning this authority to topics</h4>
   <p>
-    After we calculate how much authority you gain from your Factlink we spread this over the topics it belongs to, according to our users. So for instance, let's say you created a Factlink about Michael Jackson and it gains you 4 authority. If this Fact is in 10 Michael Jackson channels, 20 Music channels and 10 Eighties channels, you will gain 1 authority on Michael Jackson, 2 on Music, and 1 on Eigthies.
+    After we calculate how much authority you gain from your Factlink we spread this over the topics it belongs to, according to our users. So for instance, let's say you created a Factlink about Michael Jackson and it gains you 4 authority.
     </p>
 
   <h4>Calculating how much you know about a fact</h4>
   <p>
-    Finally, to calculate how much you know about a certain fact we take the weigthed average of your authority on the topics this fact is about. So if a fact is in 10 Ruby channels, 20 Programming channels and 10 Rails channels, and your authority on Ruby is 10, on Programming 5 and on Rails 20, your authority on this fact is (10*10+5*20+10*20)/40 = 10.
+    Finally, to calculate how much you know about a certain fact we take the weigthed average of your authority on the topics this fact is about.
   </p>
 <% end %>

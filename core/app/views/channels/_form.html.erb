@@ -6,16 +6,16 @@
 
   <div class="content-header">
     <% if @edit %>
-      <h1>Edit your <%= t(:channel) %></h1>
-      <div style="float: right; margin-top: -32px;"><%= link_to("Delete", channel_path(current_user.username, channel.id), 'data-disable-with' => "Deleting...", :confirm => "Are you sure you want to delete your channel \"#{channel}?\"", :method => :delete, :class => "btn btn-danger") %></div>
+      <h1>Edit your <%= t(:topic) %></h1>
+      <div style="float: right; margin-top: -32px;"><%= link_to("Delete", channel_path(current_user.username, channel.id), 'data-disable-with' => "Deleting...", :confirm => "Are you sure you want to delete the topic \"#{channel}?\"", :method => :delete, :class => "btn btn-danger") %></div>
     <% else %>
-      <h1>Create a new <%= t(:channel) %></h1>
+      <h1>Create a new <%= t(:topic) %></h1>
     <% end %>
   </div>
 
   <% if channel.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
+      <h2><%= pluralize(channel.errors.count, "error") %> prohibited this topic from being saved:</h2>
       <ul>
       <% channel.errors.each do |key, value| %>
         <li><%= key.to_s %> <%= value.to_s %></li>
@@ -25,11 +25,11 @@
   <% end %>
 
   <p class="help-block alert alert-info">
-    <%= t(:channels).titleize %> are there to keep your facts categorized and can be interesting for other users to follow.
+    <%= t(:topics).titleize %> are there to keep your facts categorized and can be interesting for other users to follow.
   </p>
 
   <div class="control-group">
-    <%= f.label "#{t(:channel).titleize} name", class: 'control-label' %>
+    <%= f.label "#{t(:topic).titleize} name", class: 'control-label' %>
     <div class="controls">
       <%= f.text_field :title, placeholder: "Politics, Cooking, Sports, ...", class: "input-xlarge", required: :required, tabindex: 1 %>
     </div>

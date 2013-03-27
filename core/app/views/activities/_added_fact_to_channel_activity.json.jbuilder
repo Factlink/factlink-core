@@ -20,9 +20,9 @@ end
 
 # The Channel owner
 if object.created_by.user == current_user
-  json.channel_owner "your #{t(:channel)}"
+  json.channel_owner "your #{t(:topic)}"
 else
-  json.channel_owner "their #{t(:channel)}"
+  json.channel_owner "their #{t(:topic)}"
 end
 
 json.channel_owner_profile_url user_profile_path(object.created_by.user)
