@@ -26,14 +26,9 @@ describe Interactors::Channels::Follow do
                   .with(:'channels/get',channel.id)
                   .and_return(channel)
 
-        interactor.should_receive(:query)
-                  .with(:'channels/get_by_slug_title', channel.slug_title)
-                  .and_return(channel_2)
-
         interactor.should_receive(:command)
-                  .with(:'channels/add_subchannel',
-                        channel_2, channel)
-                  .and_return(true)
+                  .with(:'channels/follow', channel)
+                  .and_return(channel_2)
 
         interactor.should_receive(:command)
              .with(:'channels/added_subchannel_create_activities', channel_2, channel)
@@ -42,35 +37,6 @@ describe Interactors::Channels::Follow do
       end
     end
 
-
-    context 'channel with matching slug_title did not exist before' do
-      it 'returns newly created channel' do
-        channel = mock :channel, id:'12', title:'Bla', slug_title:'bla'
-        new_channel = mock :new_channel, id:'38', title:'Bla', slug_title:'bla'
-        options = {current_user: mock}
-
-        interactor = Interactors::Channels::Follow.new(channel.id, options)
-        interactor.stub(:query).with(:'channels/get',channel.id).and_return(channel)
-
-        interactor.should_receive(:query)
-                  .with(:'channels/get_by_slug_title', channel.slug_title)
-                  .and_return(nil)
-
-        interactor.should_receive(:command)
-                  .with(:'channels/create', channel.title)
-                  .and_return(new_channel)
-
-        interactor.should_receive(:command)
-                  .with(:'channels/add_subchannel',
-                        new_channel, channel)
-                  .and_return(true)
-
-        interactor.should_receive(:command)
-             .with(:'channels/added_subchannel_create_activities', new_channel, channel)
-
-        interactor.execute
-      end
-    end
     context "when adding the channel fails" do
       it "does not create activities" do
         channel = mock :channel, id:'12', slug_title:'bla'
@@ -81,15 +47,9 @@ describe Interactors::Channels::Follow do
 
         interactor.stub(:query).with(:'channels/get',channel.id).and_return(channel)
 
-        interactor.should_receive(:query)
-                  .with(:'channels/get_by_slug_title', channel.slug_title)
-                  .and_return(channel_2)
-
-
         interactor.should_receive(:command)
-                  .with(:'channels/add_subchannel',
-                        channel_2, channel)
-                  .and_return(false)
+                  .with(:'channels/follow', channel)
+                  .and_return(nil)
 
         interactor.should_not_receive(:command)
              .with(:'channels/added_subchannel_create_activities', channel_2, channel)
