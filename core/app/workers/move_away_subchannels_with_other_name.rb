@@ -2,6 +2,13 @@ class MoveAwaySubchannelsWithOtherName
   def initialize id
     @id = id
   end
+
+  def perform
+    subchannels_with_other_name.each do |ch|
+      reassign_subchannel ch
+    end
+  end
+
   def subchannels_with_other_name
     channel.contained_channels.to_a
            .reject {|ch| ch.slug_title == channel.slug_title}
@@ -16,6 +23,7 @@ class MoveAwaySubchannelsWithOtherName
   def channel_user
     channel.created_by.user
   end
+
   def self.perform *args
     new(*args).perform
   end
