@@ -10,7 +10,7 @@ describe Queries::TopicsForChannels do
       t2 = Topic.by_slug 'b'
 
       query = Queries::TopicsForChannels.new [ch1, ch2, ch3]
-      expect(query.call).to eq([t1, t2])
+      expect(query.call).to match_array [t1, t2]
     end
   end
 end
