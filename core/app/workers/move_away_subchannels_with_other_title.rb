@@ -4,6 +4,8 @@ class MoveAwaySubchannelsWithOtherTitle
   end
 
   def perform
+    return unless channel.is_real_channel?
+
     subchannels_with_other_title.each do |ch|
       reassign_subchannel ch
     end
