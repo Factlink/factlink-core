@@ -12,7 +12,11 @@ module Interactors
       end
 
       def execute
-        command :'channels/add_subchannel', channel, subchannel
+        success = command :'channels/add_subchannel', channel, subchannel
+
+        if success
+          command :'channels/added_subchannel_create_activities', channel, subchannel
+        end
       end
 
       def channel

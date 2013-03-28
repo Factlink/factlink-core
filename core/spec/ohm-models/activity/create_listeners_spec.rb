@@ -6,12 +6,13 @@ describe 'activity queries' do
   let(:gu1) { create(:active_user).graph_user }
   let(:gu2) { create(:active_user).graph_user }
 
+  let(:pavlov_options) { {ability: (mock can?: true)} }
+
   before do
     # TODO: remove this once creating an activity does not cause an email to be sent
-    interactor = mock()
-    interactor.should_receive(:call).any_number_of_times
+    send_mail_interactor = stub call: nil
     stub_const 'Interactors::SendMailForActivity', Class.new
-    Interactors::SendMailForActivity.should_receive(:new).any_number_of_times.and_return(interactor)
+    Interactors::SendMailForActivity.stub new: send_mail_interactor
   end
 
   describe ".fact" do
@@ -36,7 +37,8 @@ describe 'activity queries' do
     it "should return activity for when a channel followed this channel" do
       ch1 = create :channel
       ch2 = create :channel
-      ch1.add_channel(ch2)
+
+      Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
       ch2.activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
@@ -46,7 +48,7 @@ describe 'activity queries' do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
 
-      ch1.add_channel(ch2)
+      Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
       ch3 = create :channel, created_by: gu2
 
       # Channel should not be empty
@@ -62,13 +64,12 @@ describe 'activity queries' do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
 
-      ch1.add_channel(ch2)
+      Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
       ch3 = create :channel, created_by: gu2
 
-      ch3.add_channel (create :channel)
-      ch3.add_channel (create :channel)
-      ch3.add_channel (create :channel)
-      ch3.add_channel (create :channel)
+      4.times do
+        Interactors::Channels::AddSubchannel.new(ch3.id, (create :channel).id, pavlov_options).call
+      end
 
       stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
       expect(stream_activities).to eq [
@@ -100,7 +101,7 @@ describe 'activity queries' do
       ch1 = create :channel
       ch2 = create :channel
 
-      ch1.add_channel(ch2)
+      Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
       ch2.created_by.notifications.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
@@ -110,7 +111,7 @@ describe 'activity queries' do
       ch1 = create :channel
       ch2 = create :channel
 
-      ch1.add_channel(ch2)
+      Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
       ch2.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
@@ -343,7 +344,7 @@ describe 'activity queries' do
             {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
           ]
         end
-        
+
         it "creates a notification" do
           fact = create :fact, created_by: current_user.graph_user
 
@@ -373,7 +374,7 @@ describe 'activity queries' do
             {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
           ]
         end
-        
+
         it "creates a notification" do
           fact = create :fact, created_by: current_user.graph_user
 

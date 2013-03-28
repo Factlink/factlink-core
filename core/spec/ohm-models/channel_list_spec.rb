@@ -125,11 +125,17 @@ describe ChannelList do
   end
 
   describe ".containing_channel_ids_for_channel" do
-    subject {ChannelList.new(u1)}
-    let(:ch) {Channel.create(:created_by => u1, :title => "Subject")}
+    include Pavlov::Helpers
+    let(:current_user) {create :graph_user}
+    def pavlov_options
+      {current_user: current_user}
+    end
 
-    let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Something")}
-    let(:u2_ch1) {Channel.create(:created_by => u2, :title => "Something")}
+    subject {ChannelList.new(u1)}
+    let(:ch) {Channel.create(created_by: u1, title: "Subject")}
+
+    let(:u1_ch1) {Channel.create(created_by: u1, title: "Something")}
+    let(:u2_ch1) {Channel.create(created_by: u2, title: "Something")}
 
     let(:u1) { create(:user).graph_user }
     let(:u2) { create(:user).graph_user }
@@ -141,14 +147,14 @@ describe ChannelList do
     end
     describe "after adding to a own channel" do
       it "contains the channel" do
-        u1_ch1.add_channel ch
+        command :"channels/add_subchannel", u1_ch1, ch
         subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
       end
     end
     describe "after adding to someone else's channel" do
       it "contains only my channels" do
-        u1_ch1.add_channel ch
-        u2_ch1.add_channel ch
+        command :"channels/add_subchannel", u1_ch1, ch
+        command :"channels/add_subchannel", u2_ch1, ch
 
         subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
       end

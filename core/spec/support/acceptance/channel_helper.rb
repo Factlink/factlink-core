@@ -19,10 +19,6 @@ module Acceptance
       Interactors::Channels::AddFact.new(fact, channel, no_current_user:true).call
     end
 
-    def backend_channel_add_subchannel channel, subchannel
-      channel.add_channel(subchannel)
-    end
-
     def go_to_channel_page_of channel
       path = channel_path @user, channel
       visit path

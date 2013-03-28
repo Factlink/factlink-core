@@ -5,6 +5,7 @@ feature "visiting the stream" do
   include Acceptance::ChannelHelper
   include Acceptance::FactHelper
   include Acceptance::ScrollHelper
+  include PavlovSupport
 
   background do
     @user = FactoryGirl.create :active_user
@@ -27,7 +28,10 @@ feature "visiting the stream" do
 
     other_user = FactoryGirl.create :active_user
     other_channel = backend_create_channel_of_user other_user
-    backend_channel_add_subchannel channel, other_channel
+
+    as(@user) do |p|
+      p.interactor :'channels/add_subchannel', channel.id, other_channel.id
+    end
 
     10.times.each do
       factlink = backend_create_fact_of_user other_user

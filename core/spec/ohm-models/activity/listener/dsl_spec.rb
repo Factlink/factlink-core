@@ -1,5 +1,4 @@
-require_relative '../../../ohm_helper.rb'
-require_relative '../../../../app/ohm-models/activity.rb'
+require 'spec_helper'
 
 describe Activity::Listener::Dsl do
   let(:al) { Activity::Listener.new }
@@ -12,21 +11,21 @@ describe Activity::Listener::Dsl do
       Activity::Listener::Dsl.new nil do x.foo end
     end
   end
-  
+
   it "should set the activity_for on the listener" do
     al.should_receive(:activity_for=).with('Blob')
     subject.execute do
       activity_for 'Blob'
     end
   end
-  
+
   it "should set the listname on the listener" do
     al.should_receive(:listname=).with(:notifications)
     subject.execute do
       named :notifications
     end
   end
-  
+
   it "should be able to add a query" do
     al.queries.should_receive(:<<).with({ a: 'b' })
     subject.execute do

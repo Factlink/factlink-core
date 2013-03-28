@@ -8,7 +8,7 @@ describe Interactors::Channels::AddSubchannel do
     let(:channel) { mock :channel, id:'12' }
     let(:subchannel) { mock :subchannel, id:'45' }
     let(:options) { {ability: mock(can?: true)} }
-    it 'adds a subchannel to the channel' do
+    before do
       Pavlov.stub(:query) do |query_name, id|
         raise 'error' unless query_name == :'channels/get'
         if id == channel.id
@@ -19,8 +19,26 @@ describe Interactors::Channels::AddSubchannel do
           nil
         end
       end
+    end
+    it 'adds a subchannel to the channel' do
       interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id, options)
-      interactor.should_receive(:command).with(:'channels/add_subchannel', channel, subchannel)
+      interactor.should_receive(:command)
+                .with(:'channels/add_subchannel', channel, subchannel)
+                .and_return(true)
+
+      interactor.should_receive(:command)
+             .with(:'channels/added_subchannel_create_activities', channel, subchannel)
+
+      interactor.execute
+    end
+    it 'adds a subchannel to the channel, but if the command fails it does not create activity' do
+      interactor = Interactors::Channels::AddSubchannel.new(channel.id, subchannel.id, options)
+      interactor.should_receive(:command)
+                .with(:'channels/add_subchannel', channel, subchannel)
+                .and_return(false)
+
+      interactor.should_not_receive(:command)
+           .with(:'channels/added_subchannel_create_activities', channel, subchannel)
 
       interactor.execute
     end

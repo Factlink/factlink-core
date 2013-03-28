@@ -6,7 +6,13 @@ module Commands
       arguments :channel, :subchannel
 
       def execute
-        channel.add_channel(subchannel)
+        success = channel.add_channel(subchannel)
+
+        if success
+          AddChannelToChannel.perform(subchannel, channel)
+        end
+
+        success
       end
     end
   end

@@ -10,28 +10,20 @@ module Interactors
       end
 
       def execute
-        # raise 'not found' unless channel and subchannel
-        command :'channels/add_subchannel', prospective_follower, channel
+        follower = command :'channels/follow', channel
+        if follower
+          command :'channels/added_subchannel_create_activities', follower, channel
+        end
       end
 
       def channel
         @channel ||= query :'channels/get', channel_id
       end
 
-      def prospective_follower
-        query_result = query :'channels/get_by_slug_title', channel.slug_title
-        if query_result.nil?
-          command :'channels/create', channel.title
-        else
-          query_result
-        end
-      end
-
       def authorized?
          # this is no stub, every user can follow another channel
         @options[:current_user]
       end
-
     end
   end
 end

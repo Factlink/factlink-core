@@ -1,6 +1,4 @@
-require_relative '../ohm_helper.rb'
-require_relative '../../app/ohm-models/authority.rb'
-
+require 'spec_helper'
 
 class GraphUser < OurOhm; end
 

@@ -1,4 +1,4 @@
-require_relative '../../ohm_helper.rb'
+require 'spec_helper'
 
 class GenTest < Ohm::Model
   extend OurOhm::GenericReference
