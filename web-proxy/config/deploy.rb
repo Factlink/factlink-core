@@ -5,7 +5,7 @@ set :keep_releases, 10
 
 ########
 # Stages
-set :stages, %w(proxytest testserver staging production)
+set :stages, %w(testserver staging production)
 set :default_stage, "testserver"
 require 'capistrano/ext/multistage'
 
