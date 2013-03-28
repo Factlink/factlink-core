@@ -21,7 +21,7 @@ class AddChannelToChannel
   end
 
   def latest_facts
-    subchannel.sorted_cached_facts.below('inf', count: NUMBER_OF_INITIAL_FACTS)
+    subchannel.sorted_internal_facts.below('inf', count: NUMBER_OF_INITIAL_FACTS)
   end
 
   def self.perform(subchannel, channel)
