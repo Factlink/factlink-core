@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MoveAwaySubchannelsWithOtherName do
+describe MoveAwaySubchannelsWithOtherTitle do
   include PavlovSupport
 
   let(:user1) {create :user}
@@ -9,7 +9,7 @@ describe MoveAwaySubchannelsWithOtherName do
   let(:user4) {create :user}
   let(:channel_user) {create :user}
 
-  describe '#subchannels_with_other_name' do
+  describe '#subchannels_with_other_title' do
     it "returns all subchannels which don't have the same title as the top channel" do
       channel, ch1, ch2, ch3, ch4 = ()
 
@@ -32,9 +32,9 @@ describe MoveAwaySubchannelsWithOtherName do
         end
       end
 
-      worker = MoveAwaySubchannelsWithOtherName.new(channel.id)
+      worker = MoveAwaySubchannelsWithOtherTitle.new(channel.id)
 
-      subchannel_ids = worker.subchannels_with_other_name
+      subchannel_ids = worker.subchannels_with_other_title
                              .map(&:id)
 
       expect(subchannel_ids).to match_array [ch2.id, ch3.id]
@@ -58,7 +58,7 @@ describe MoveAwaySubchannelsWithOtherName do
         end
       end
 
-      worker = MoveAwaySubchannelsWithOtherName.new(channel.id)
+      worker = MoveAwaySubchannelsWithOtherTitle.new(channel.id)
 
       worker.reassign_subchannel ch2
 
@@ -95,7 +95,7 @@ describe MoveAwaySubchannelsWithOtherName do
         end
       end
 
-      worker = MoveAwaySubchannelsWithOtherName.new(channel.id)
+      worker = MoveAwaySubchannelsWithOtherTitle.new(channel.id)
       worker.perform
 
       as(channel_user) do |pavlov|
