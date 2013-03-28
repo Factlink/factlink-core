@@ -1,4 +1,6 @@
 class MoveAwaySubchannelsWithOtherTitle
+  @queue = :channel_operations
+
   def initialize id
     @id = id
   end
