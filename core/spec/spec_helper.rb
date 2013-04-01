@@ -49,13 +49,13 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
     Timecop.return
   end
-  # config.before :each do
-  #   GC.disable
-  # end
+  config.before :each do
+    GC.disable
+  end
 
-  # config.after :each do
-  #   GC.enable
-  # end
+  config.after :each do
+    GC.enable
+  end
 end
 
 # Speed improvements in password hashing
