@@ -30,10 +30,11 @@ class window.ChannelView extends Backbone.Marionette.Layout
     if choice == 'topic'
       @showFacts @topicFacts()
       @$('.js-region-sub-channels').hide()
+      mp_track "Topic: World view"
     else
       @showFacts @channelFacts()
       @$('.js-region-sub-channels').show()
-
+      mp_track "Topic: People I follow"
 
   showFacts: (facts) ->
     @factList.show new FactsView
