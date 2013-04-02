@@ -18,7 +18,7 @@ module Interactors
       end
 
       def execute_actual_addition
-        Commands::Channels::AddFactWithoutPropagation.new(fact, channel, score).call
+        command :'channels/add_fact_without_propagation', fact, channel, score
       end
 
       def add_fact_to_topic

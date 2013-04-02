@@ -1,6 +1,5 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/channels/add_fact_without_propagation'
-require_relative '../../../../app/interactors/commands/channels/add_fact_without_propagation'
 
 describe Interactors::Channels::AddFactWithoutPropagation do
   include PavlovSupport
@@ -15,10 +14,9 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       score = mock(:score, to_s: mock)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: true)
 
-      channel.sorted_cached_facts.should_receive(:add).with(fact, score)
-      fact.channels.should_receive(:add).with(channel)
+      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+          fact, channel, score).and_return true
 
       interactor.should_receive(:command).with(:"topics/add_fact",
           fact.id, channel.slug_title, score.to_s)
@@ -36,9 +34,8 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       score = mock(:score, to_s: mock)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: true)
-
-      channel.sorted_cached_facts.should_receive(:add).with(fact, score)
+      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+          fact, channel, score).and_return true
 
       expect(interactor.call).to be_true
     end
@@ -56,7 +53,10 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       fact.channels.stub!(:add)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, true
-      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: true)
+
+      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+          fact, channel, score).and_return true
+
       interactor.stub!(:command)
 
       channel.unread_facts.should_receive(:add).with(fact)
@@ -77,8 +77,8 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       fact.channels.stub!(:add)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, true
-      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: true)
-      interactor.stub!(:command)
+      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+          fact, channel, score).and_return false
 
       interactor.call
     end
@@ -92,56 +92,6 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: false)
 
       expect(interactor.call).to be_false
-    end
-  end
-  describe 'should_execute?' do
-    it "should return false if the fact is already added" do
-      fact = mock
-      channel = mock :channel,
-                    sorted_cached_facts: mock,
-                    sorted_delete_facts: mock
-      score = mock
-
-      channel.sorted_cached_facts.should_receive(:include?).any_number_of_times
-                                 .with(fact).and_return(true)
-      channel.sorted_delete_facts.should_receive(:include?).any_number_of_times
-                                 .with(fact).and_return(false)
-
-      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-
-      expect(interactor.should_execute?).to be_false
-    end
-    it "should return false if the fact is already deleted" do
-      fact = mock
-      channel = mock :channel,
-                    sorted_cached_facts: mock,
-                    sorted_delete_facts: mock
-      score = mock
-
-      channel.sorted_cached_facts.should_receive(:include?).any_number_of_times
-                                 .with(fact).and_return(false)
-      channel.sorted_delete_facts.should_receive(:include?).any_number_of_times
-                                 .with(fact).and_return(true)
-
-      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-
-      expect(interactor.should_execute?).to be_false
-    end
-    it "should return true in other cases" do
-      fact = mock
-      channel = mock :channel,
-                    sorted_cached_facts: mock,
-                    sorted_delete_facts: mock
-      score = mock
-
-      channel.sorted_cached_facts.should_receive(:include?).any_number_of_times
-                                 .with(fact).and_return(false)
-      channel.sorted_delete_facts.should_receive(:include?).any_number_of_times
-                                 .with(fact).and_return(false)
-
-      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-
-      expect(interactor.should_execute?).to be_true
     end
   end
 end
