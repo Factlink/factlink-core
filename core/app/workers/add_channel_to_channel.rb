@@ -16,7 +16,7 @@ class AddChannelToChannel
 
   def perform
     latest_facts.each do |fact|
-      interactor :"channels/add_fact_without_propagation", fact, channel, nil, true
+      command :"channels/add_fact_without_propagation", fact, channel, nil
     end
   end
 

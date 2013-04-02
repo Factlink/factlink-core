@@ -12,10 +12,10 @@ describe AddChannelToChannel do
       Fact.should_receive(:[]).with(fact.id)
            .and_return(fact)
 
-      interactor = mock
-      Interactors::Channels::AddFactWithoutPropagation.should_receive(:new)
-           .with(fact, channel, nil, true).and_return(interactor)
-      interactor.should_receive(:call)
+      command = mock
+      Commands::Channels::AddFactWithoutPropagation.should_receive(:new)
+           .with(fact, channel, nil).and_return(command)
+      command.should_receive(:call)
 
       AddChannelToChannel.perform sub_channel, channel
     end
@@ -31,7 +31,7 @@ describe AddChannelToChannel do
         sub_channel.sorted_internal_facts << facts[i]
       end
 
-      Interactors::Channels::AddFactWithoutPropagation.should_receive(:new)
+      Commands::Channels::AddFactWithoutPropagation.should_receive(:new)
             .exactly(AddChannelToChannel::NUMBER_OF_INITIAL_FACTS)
             .times
             .and_return(mock call: nil)
