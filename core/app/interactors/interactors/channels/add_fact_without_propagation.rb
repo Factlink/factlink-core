@@ -18,26 +18,7 @@ module Interactors
       end
 
       def execute_actual_addition
-        return false unless should_execute?
-        add_fact_to_channel
-        true
-      end
-
-      def should_execute?
-        not(already_propagated or already_deleted)
-      end
-
-      def already_propagated
-        channel.sorted_cached_facts.include?(fact)
-      end
-
-      def already_deleted
-        channel.sorted_delete_facts.include?(fact)
-      end
-
-      def add_fact_to_channel
-        channel.sorted_cached_facts.add(fact, score)
-        fact.channels.add(channel) if channel.type == 'channel'
+        Commands::Channels::AddFactWithoutPropagation.new(fact, channel, score).call
       end
 
       def add_fact_to_topic

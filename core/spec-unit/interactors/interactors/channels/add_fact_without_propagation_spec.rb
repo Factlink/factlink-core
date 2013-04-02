@@ -1,5 +1,6 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/channels/add_fact_without_propagation'
+require_relative '../../../../app/interactors/commands/channels/add_fact_without_propagation'
 
 describe Interactors::Channels::AddFactWithoutPropagation do
   include PavlovSupport
@@ -14,7 +15,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       score = mock(:score, to_s: mock)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-      interactor.stub(should_execute?: true)
+      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: true)
 
       channel.sorted_cached_facts.should_receive(:add).with(fact, score)
       fact.channels.should_receive(:add).with(channel)
@@ -35,7 +36,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       score = mock(:score, to_s: mock)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-      interactor.stub(should_execute?: true)
+      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: true)
 
       channel.sorted_cached_facts.should_receive(:add).with(fact, score)
 
@@ -55,7 +56,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       fact.channels.stub!(:add)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, true
-      interactor.stub(should_execute?: true)
+      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: true)
       interactor.stub!(:command)
 
       channel.unread_facts.should_receive(:add).with(fact)
@@ -76,7 +77,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       fact.channels.stub!(:add)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, true
-      interactor.stub(should_execute?: true)
+      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: true)
       interactor.stub!(:command)
 
       interactor.call
@@ -88,7 +89,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       score = mock
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-      interactor.stub(should_execute?: false)
+      Commands::Channels::AddFactWithoutPropagation.any_instance.stub(should_execute?: false)
 
       expect(interactor.call).to be_false
     end
