@@ -5,7 +5,6 @@ describe 'evidence' do
 
   let(:current_user) { create :user }
 
-
   before do
     ElasticSearch.stub synchronous: true
   end
@@ -13,7 +12,7 @@ describe 'evidence' do
   describe 'initially' do
     it 'a fact has no evidence' do
       as(current_user) do |pavlov|
-        f = create :fact
+        f = pavlov.interactor :'facts/create', 'a fact', '', ''
 
         evidence = pavlov.interactor :'evidence/for_fact_id', f.id.to_s, :supporting
 
@@ -25,7 +24,7 @@ describe 'evidence' do
   describe 'adding a few comments' do
     it 'the fact should get the comments we add' do
       as(current_user) do |pavlov|
-        f = create :fact, created_by: (create :user).graph_user
+        f = pavlov.interactor :'facts/create', 'a fact', '', ''
 
         pavlov.interactor :'comments/create', f.id.to_i, 'believes', 'Gekke Gerrit'
         pavlov.interactor :'comments/create', f.id.to_i, 'believes', 'Handige Harrie'
