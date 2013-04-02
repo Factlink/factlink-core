@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe 'when adding a fact to a channel' do
   include PavlovSupport
-  let(:current_user) {create :user}
 
   context 'with no followers' do
+    let(:user) {create :user}
     it "adds the fact to the channel" do
-      as(current_user) do |pavlov|
+      as(user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'a fact', '', ''
 
         channel = pavlov.command :'channels/create', 'something'
@@ -19,7 +19,7 @@ describe 'when adding a fact to a channel' do
     end
 
     it "adds the fact to the channels topic" do
-      as(current_user) do |pavlov|
+      as(user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'a fact', '', ''
 
         channel = pavlov.command :'channels/create', 'something'
@@ -32,16 +32,27 @@ describe 'when adding a fact to a channel' do
   end
 
   context 'with a follower' do
+    let(:follower) {create :user}
+    let(:creator) {create :user}
+
     it "should add the fact to the follower" do
-      as(current_user) do |pavlov|
+      fact, sub_channel, channel = ()
+
+      as(creator) do |pavlov|
+        sub_channel = pavlov.command :'channels/create', 'something'
         fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+      end
 
-        channel = pavlov.command :'channels/create', 'something'
-        sub_channel = pavlov.command :'channels/create', 'something2'
-
+      as(follower) do |pavlov|
+        channel = pavlov.command :'channels/create', 'something2'
         pavlov.command :"channels/add_subchannel", channel, sub_channel
-        pavlov.interactor :"channels/add_fact", fact, sub_channel
+      end
 
+      as(creator) do |pavlov|
+        pavlov.interactor :"channels/add_fact", fact, sub_channel
+      end
+
+      as(follower) do |pavlov|
         facts = pavlov.interactor :'channels/facts', channel.id, nil, nil
         latest_fact = facts.map{|i| i[:item]}[0]
         expect(latest_fact).to eq fact
@@ -50,19 +61,33 @@ describe 'when adding a fact to a channel' do
   end
 
   context 'with a followed follower' do
-    it "should not add the fact to the indirect follower" do
-      as(current_user) do |pavlov|
+    let(:follower) {create :user}
+    let(:followers_follower) {create :user}
+    let(:creator) {create :user}
+
+    it "should add the fact to the follower" do
+      fact, sub_sub_channel, sub_channel, channel = ()
+
+      as(creator) do |pavlov|
+        sub_sub_channel = pavlov.command :'channels/create', 'something'
         fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+      end
 
-        channel = pavlov.command :'channels/create', 'something'
+      as(follower) do |pavlov|
         sub_channel = pavlov.command :'channels/create', 'something2'
-        sub_sub_channel = pavlov.command :'channels/create', 'something3'
-
-        pavlov.command :"channels/add_subchannel", channel, sub_channel
         pavlov.command :"channels/add_subchannel", sub_channel, sub_sub_channel
+      end
 
+      as(followers_follower) do |pavlov|
+        channel = pavlov.command :'channels/create', 'something2'
+        pavlov.command :"channels/add_subchannel", channel, sub_channel
+      end
+
+      as(creator) do |pavlov|
         pavlov.interactor :"channels/add_fact", fact, sub_sub_channel
+      end
 
+      as(followers_follower) do |pavlov|
         facts = pavlov.interactor :'channels/facts', channel.id, nil, nil
         expect(facts).to eq []
       end
