@@ -9,7 +9,7 @@ module Commands
         success = channel.add_channel(subchannel)
 
         if success
-          AddChannelToChannel.perform(subchannel, channel)
+          Commands::Channels::AddFactsFromChannelToChannel.perform(subchannel, channel)
         end
 
         success

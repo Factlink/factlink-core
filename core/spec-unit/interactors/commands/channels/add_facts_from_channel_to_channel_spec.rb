@@ -1,10 +1,10 @@
 require 'pavlov_helper'
-require_relative '../../app/workers/add_channel_to_channel'
+require_relative '../../../../app/interactors/commands/channels/add_facts_from_channel_to_channel'
 
-describe AddChannelToChannel do
+describe Commands::Channels::AddFactsFromChannelToChannel do
   include PavlovSupport
   describe ".perform" do
-    let(:nr_of_initial_facts){ AddChannelToChannel::NUMBER_OF_INITIAL_FACTS }
+    let(:nr_of_initial_facts){ Commands::Channels::AddFactsFromChannelToChannel::NUMBER_OF_INITIAL_FACTS }
 
     before do
       stub_classes 'Commands::Channels::AddFactWithoutPropagation'
@@ -25,7 +25,7 @@ describe AddChannelToChannel do
            .with(fact, channel, nil).and_return(command)
       command.should_receive(:call)
 
-      AddChannelToChannel.perform sub_channel, channel
+      Commands::Channels::AddFactsFromChannelToChannel.perform sub_channel, channel
     end
 
     it "should only add NUMBER_OF_INITIAL_FACTS facts to the super channel" do
@@ -42,7 +42,7 @@ describe AddChannelToChannel do
             .exactly(nr_of_initial_facts).times
             .and_return(mock call: nil)
 
-      AddChannelToChannel.perform sub_channel, channel
+      Commands::Channels::AddFactsFromChannelToChannel.perform sub_channel, channel
     end
   end
 end
