@@ -7,10 +7,10 @@ describe Interactors::Channels::Top do
 
   it 'should return "count" number of channels' do
     as(current_user) do |pavlov|
-      channel1 = create :channel, created_by: current_user.graph_user
+      channel1 = pavlov.command :'channels/create', 'channel1'
       pavlov.interactor :'channels/add_fact', (create :fact), channel1
 
-      channel2 = create :channel, created_by: current_user.graph_user
+      channel2 = pavlov.command :'channels/create', 'channel2'
       pavlov.interactor :'channels/add_fact', (create :fact), channel2
 
       top_channels = TopChannels.new
@@ -26,7 +26,7 @@ describe Interactors::Channels::Top do
 
   it 'should not return channels which do not exist' do
     as(current_user) do |pavlov|
-      channel1 = create :channel
+      channel1 = pavlov.command :'channels/create', 'channel1'
       pavlov.interactor :'channels/add_fact', (create :fact), channel1
 
       top_channels = TopChannels.new
@@ -42,7 +42,7 @@ describe Interactors::Channels::Top do
 
   it "should not return channels without facts" do
     as(current_user) do |pavlov|
-      channel1 = create :channel
+      channel1 = pavlov.command :'channels/create', 'channel1'
 
       top_channels = TopChannels.new
       top_channels.add channel1.id
@@ -55,9 +55,9 @@ describe Interactors::Channels::Top do
 
   it 'should not return "nil" channels' do
     as(current_user) do |pavlov|
-      channel1 = create :channel, created_by: current_user.graph_user
+      channel1 = pavlov.command :'channels/create', 'channel1'
       pavlov.interactor :'channels/add_fact', (create :fact), channel1
-      channel2 = create :channel, created_by: current_user.graph_user
+      channel2 = pavlov.command :'channels/create', 'channel2'
       pavlov.interactor :'channels/add_fact', (create :fact), channel2
 
       top_channels = TopChannels.new
