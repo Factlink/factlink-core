@@ -7,7 +7,7 @@ set :keep_releases, 10
 
 ########
 # Stages
-set :stages, %w(testserver staging production)
+set :stages, %w(chef testserver staging production)
 require 'capistrano/ext/multistage'
 
 #################

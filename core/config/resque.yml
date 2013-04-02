@@ -1,5 +1,6 @@
 development: localhost:6380
 test: localhost:6380
+chef: 10.253.0.1:6380
 testserver: 89.188.27.174:6379
 staging: 89.188.27.185:6379
 production: 89.188.27.181:6379
