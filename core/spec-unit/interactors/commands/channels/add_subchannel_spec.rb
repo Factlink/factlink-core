@@ -4,10 +4,12 @@ require_relative '../../../../app/interactors/commands/channels/add_subchannel'
 
 describe Commands::Channels::AddSubchannel do
   include PavlovSupport
-  describe '.execute' do
+  before do
+    stub_classes 'Channel::Activities',
+                 'Commands::Channels::AddFactsFromChannelToChannel'
+  end
+  describe '.call' do
     it 'adds a subchannel to the channel' do
-      stub_classes 'Channel::Activities', 'AddChannelToChannel'
-
       channel = mock :channel, created_by: mock
       subchannel = mock :subchannel
 
@@ -16,29 +18,26 @@ describe Commands::Channels::AddSubchannel do
       channel.should_receive(:add_channel).with(subchannel)
              .and_return(true)
 
-      AddChannelToChannel.should_receive(:perform)
-                         .with(subchannel, channel)
+      command.should_receive(:command)
+             .with(:'channels/add_facts_from_channel_to_channel',
+                     subchannel, channel)
+             .and_return mock call: nil
 
-      command.should_not_receive(:command)
-
-      expect(command.execute).to eq true
+      expect(command.call).to eq true
     end
     it 'stops execution when the addition is unsuccesful' do
-      stub_classes 'Channel::Activities', 'AddChannelToChannel'
-
       channel = mock :channel, created_by: mock
       subchannel = mock :subchannel
 
       command = Commands::Channels::AddSubchannel.new(channel, subchannel)
 
-      channel.should_receive(:add_channel).with(subchannel)
-             .and_return(false)
-
-      AddChannelToChannel.should_not_receive(:perform)
+      channel.stub(:add_channel).with(subchannel).and_return(false)
 
       command.should_not_receive(:command)
+             .with(:'channels/add_facts_from_channel_to_channel',
+                     subchannel, channel)
 
-      expect(command.execute).to eq false
+      expect(command.call).to eq false
     end
   end
 end
