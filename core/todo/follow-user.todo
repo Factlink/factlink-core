@@ -1,0 +1,8 @@
+ ☐ ui to (un)follow user on user profile
+ ☐ route to (un)follow user
+ ☐ controller action for following and unfollowing
+ ☐ interactor + command to save followed user in redis
+ ☐ query to get followed user
+ ☐ add facts from followed users in create-listener
+ ☐ add follow/unfollow users in create listner
+ ☐ activity, notification and mail for follow user
