@@ -4,10 +4,6 @@ require_relative '../../../../app/interactors/interactors/channels/add_fact_with
 describe Interactors::Channels::AddFactWithoutPropagation do
   include PavlovSupport
   describe '.call' do
-    before do
-      stub_classes
-    end
-
     it 'adds the fact to the topic and the channel' do
       fact = mock(:fact, channels: mock, id: mock, created_by_id: 14)
       channel = mock :channel,
