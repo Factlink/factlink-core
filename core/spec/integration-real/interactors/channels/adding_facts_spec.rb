@@ -6,9 +6,9 @@ describe 'when adding a fact to a channel' do
 
   context 'with no followers' do
     it "adds the fact to the channel" do
-      fact = create :fact
-
       as(current_user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+
         channel = pavlov.command :'channels/create', 'something'
         pavlov.interactor :"channels/add_fact", fact, channel
 
@@ -19,9 +19,9 @@ describe 'when adding a fact to a channel' do
     end
 
     it "adds the fact to the channels topic" do
-      fact = create :fact
-
       as(current_user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+
         channel = pavlov.command :'channels/create', 'something'
         pavlov.interactor :"channels/add_fact", fact, channel
 
@@ -33,9 +33,9 @@ describe 'when adding a fact to a channel' do
 
   context 'with a follower' do
     it "should add the fact to the follower" do
-      fact = create :fact
-
       as(current_user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+
         channel = pavlov.command :'channels/create', 'something'
         sub_channel = pavlov.command :'channels/create', 'something2'
 
@@ -51,9 +51,8 @@ describe 'when adding a fact to a channel' do
 
   context 'with a followed follower' do
     it "should not add the fact to the indirect follower" do
-      fact = create :fact
-
       as(current_user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
 
         channel = pavlov.command :'channels/create', 'something'
         sub_channel = pavlov.command :'channels/create', 'something2'
