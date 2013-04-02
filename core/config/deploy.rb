@@ -26,6 +26,9 @@ set :deploy_via, :remote_cache    # only fetch changes since since last
 
 ssh_options[:forward_agent] = true
 
+set :default_environment, {
+  PATH: '/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH'
+}
 
 namespace :action do
 
