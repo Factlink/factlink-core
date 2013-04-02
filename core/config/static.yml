@@ -16,6 +16,12 @@ testserver:
     port: 443
     protocol: https://
 
+chef:
+  static:
+    hostname: 10.253.0.1
+    port: 8000
+    protocol: http://
+
 staging:
   static:
     hostname: static-staging.factlink.com
