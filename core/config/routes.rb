@@ -158,6 +158,8 @@ FactlinkUI::Application.routes.draw do
       post "/mark_as_read" => "users#mark_activities_as_read", :as => "mark_activities_as_read"
     end
 
+    post   "/follow/:other_user"   => "users#follow"
+    delete "/unfollow/:other_user" => "users#unfollow"
 
     resources :channels do
       collection do
