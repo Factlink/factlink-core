@@ -6,12 +6,20 @@ module Interactors
       arguments :fact, :channel, :score, :should_add_to_unread
 
       def execute
+        success = execute_actual_addition
+
+        if success
+          add_fact_to_topic
+          update_unread_facts
+          true
+        else
+          false
+        end
+      end
+
+      def execute_actual_addition
         return false unless should_execute?
-
         add_fact_to_channel
-        add_fact_to_topic
-        update_unread_facts
-
         true
       end
 
@@ -34,7 +42,7 @@ module Interactors
 
       def add_fact_to_topic
         return unless channel.type == 'channel'
-        
+
         command :"topics/add_fact", fact.id, channel.slug_title, score.to_s
       end
 
