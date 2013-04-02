@@ -19,6 +19,12 @@ testserver:
           username: proxyuser
           password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
 
+chef:
+    core:
+        hostname: localhost
+        port: 3000
+        protocol: http://
+
 staging:
     core:
         hostname: staging.factlink.com
