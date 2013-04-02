@@ -10,7 +10,7 @@ describe RemoveChannelFromChannel do
   end
 
   describe ".perform" do
-    it "should add the fact to the cached facts of the super channel using Resque" do
+    it "should remove facts from the cached facts of the super channel using Resque" do
       ch = mock :channel, id: 10
       sub_ch = mock :sub_channel, id: 15
       fact = mock :fact, id: 78
