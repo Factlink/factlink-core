@@ -8,8 +8,6 @@ describe MoveAwaySubchannelsWithOtherTitle do
   let(:user3) {create :user}
   let(:user4) {create :user}
   let(:channel_user) {create :user}
-  let(:fact1) {create :fact}
-  let(:fact2) {create :fact}
 
   describe '#subchannels_with_other_title' do
     it "returns all subchannels which don't have the same title as the top channel" do
@@ -80,7 +78,7 @@ describe MoveAwaySubchannelsWithOtherTitle do
     end
 
     it "moves facts" do
-      old_channel, new_channel, subchannel = ()
+      old_channel, new_channel, subchannel, fact1 = ()
 
       as(user1) do |pavlov|
         subchannel = pavlov.command :'channels/create', 'bar'
@@ -93,6 +91,7 @@ describe MoveAwaySubchannelsWithOtherTitle do
       end
 
       as(user1) do |pavlov|
+        fact1 = pavlov.interactor :'facts/create', 'a fact 1', '', ''
         pavlov.interactor :'channels/add_fact', fact1, subchannel
       end
 
@@ -110,7 +109,7 @@ describe MoveAwaySubchannelsWithOtherTitle do
     end
 
     it "does not touch topics" do
-      old_channel, new_channel, subchannel, old_foo_topics, old_bar_topics = ()
+      old_channel, new_channel, subchannel, old_foo_topics, old_bar_topics, fact1, fact2 = ()
 
       as(user1) do |pavlov|
         subchannel = pavlov.command :'channels/create', 'bar'
@@ -123,10 +122,12 @@ describe MoveAwaySubchannelsWithOtherTitle do
       end
 
       as(user1) do |pavlov|
+        fact1 = pavlov.interactor :'facts/create', 'a fact 1', '', ''
         pavlov.interactor :'channels/add_fact', fact1, subchannel
       end
 
       as(channel_user) do |pavlov|
+        fact2 = pavlov.interactor :'facts/create', 'a fact 2', '', ''
         pavlov.interactor :'channels/add_fact', fact2, new_channel
         old_foo_topics = pavlov.interactor :'topics/facts', 'foo', nil, nil
         old_bar_topics = pavlov.interactor :'topics/facts', 'bar', nil, nil
