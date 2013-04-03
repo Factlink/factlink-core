@@ -31,21 +31,16 @@ module PavlovSupport
     raise_error(Pavlov::ValidationError, message)
   end
 
-  class ExecuteAsUser
+  class ExecuteAsUser < Struct.new(:user)
     include Pavlov::Helpers
 
-    attr_reader :current_user
-    def initialize user
-      @current_user = user
-    end
-
     def pavlov_options
-      { current_user: current_user,
-        ability: current_ability}
+      { current_user: user,
+        ability: ability}
     end
 
-    def current_ability
-      @current_ability ||= Ability.new(current_user)
+    def ability
+      @ability ||= Ability.new(user)
     end
 
     def execute &block
