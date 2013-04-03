@@ -50,3 +50,25 @@ class window.User extends Backbone.Model
       avatar_url_160: @avatar_url(160)
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
+
+  follow: (user) ->
+    username        = window.currentUser.get('username')
+    follow_username = user.get('username')
+    follow_url       = "#{username}/follow/#{follow_username}"
+
+    @set('followed?', true)
+    $.ajax
+      url: follow_url
+      type: 'post'
+      error: => @set('followed?', false)
+
+  unfollow: (user) ->
+    username        = window.currentUser.get('username')
+    follow_username = user.get('username')
+    unfollow_url    = "#{username}/unfollow/#{follow_username}"
+
+    @set('followed?', false)
+    $.ajax
+      url: unfollow_url
+      type: 'delete'
+      error: => @set('followed?', true)

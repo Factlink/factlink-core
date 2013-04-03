@@ -34,12 +34,12 @@ class FollowUserButtonView extends Backbone.Marionette.Layout
 
   follow: (e) ->
     @justFollowed = true
-    @model.follow()
+    @model.follow(@model)
     e.preventDefault()
     e.stopPropagation()
 
   unfollow: (e) ->
-    @model.unfollow()
+    @model.unfollow(@model)
     e.preventDefault()
     e.stopPropagation()
 
