@@ -3,6 +3,7 @@
  ✔ route to (un)follow user @done (13-04-03 11:00)
    post, delete, get action on /current_user.user_name/follows/other_user.user_name
  ✔ controller action for following and unfollowing @done (13-04-03 11:00)
+ ☐ add MixPanel tracking on follow and unfollow actions
  ☐ call interactors from UserController actions
  ☐ styling of followers / following count
  ☐ dont show "follow" button on your own profile
