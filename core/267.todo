@@ -5,6 +5,7 @@ Backend - Retrieving a single topic:
    ☐ Should call interactor/query for JSON
    ☐ Should show standard backbone page otherwise
  ☐ Interactor and query.
+ ☐ JBuilder view (refactor from index.json.jbuilder)
 
 Frontend - Showing a topic page:
  ☐ New router
@@ -13,7 +14,7 @@ Frontend - Showing a topic page:
  ☐ New topic view
    ☐ Almost identical to current ChannelView, refactor to use topic data (channel_view.coffee)
    ☐ Refactor ChannelView to share logic with the new topic view, since we still need it when viewing other users' channels
- ☐ Change urls of channellist to topic urls
+ ☐ Change urls of channellist (sidebar) to topic urls
 
 Backend - Facts inside a topic:
  ☐ Route (routes.rb:216, add resource :facts)
