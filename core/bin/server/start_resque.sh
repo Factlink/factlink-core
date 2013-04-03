@@ -7,7 +7,8 @@ if [ "$count" -lt "1" ]; then
 
     export PIDFILE=/home/deploy/resque.pid
     export QUEUE=*
+    export PIDFILE=$PIDFILE
 
-    nohup bundle exec rake environment resque:work PIDFILE=$PIDFILE & >> /applications/core/current/log/resque.log 2>&1
+    nohup bundle exec rake environment resque:work &> /applications/core/shared/log/resque.log &
 fi
 exit 0
