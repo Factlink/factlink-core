@@ -3,13 +3,15 @@ require 'spec_helper'
 describe AddAllContainingFactlinksToTopic do
   include PavlovSupport
 
+  let(:user1) { create :user }
+  let(:user2) { create :user }
+  let(:user3) { create :user }
+
+
   it 'adds all containing Factlinks to the Topics Facts' do
     channel1, channel2, channel3 = ()
 
     title = 'Channel Title'
-    user1 = create :user
-    user2 = create :user
-    user3 = create :user
 
     as(user1) do |pavlov|
       fact1 = pavlov.interactor :'facts/create', 'fact 1', '', ''
