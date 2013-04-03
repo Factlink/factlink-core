@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 describe ChannelList do
-  before do
-    @graph_user = create :graph_user
-    @expected_channels = []
-    begin
-      @expected_channels << @graph_user.stream
-      @expected_channels << @graph_user.created_facts_channel
-    rescue
-    end
-  end
   include PavlovSupport
 
   describe ".channels" do
+    before do
+      @graph_user = create :graph_user
+      @expected_channels = []
+      begin
+        @expected_channels << @graph_user.stream
+        @expected_channels << @graph_user.created_facts_channel
+      rescue
+      end
+    end
     describe "initially" do
       it "contains only the expected channels" do
         ChannelList.new(@graph_user).channels.to_a.should =~ []+@expected_channels
@@ -51,10 +51,12 @@ describe ChannelList do
 
   describe 'get_by_topic_slug' do
     it "returns nil if the list does not contain said channel" do
+      @graph_user = create :graph_user
       ch = ChannelList.new(@graph_user).get_by_slug_title 'henk'
       expect(ch).to be_nil
     end
     it "returns one channel by topic slug" do
+      @graph_user = create :graph_user
       @ch1 = Channel.create created_by: @graph_user, title: 'foo'
       ch = ChannelList.new(@graph_user).get_by_slug_title 'foo'
       expect(ch).to eq @ch1
