@@ -54,6 +54,8 @@ module PavlovSupport
   end
 
   def as user, &block
-    ExecuteAsUser.new(user).execute &block
+    @execute_as_user ||= {}
+    @execute_as_user[user] ||= ExecuteAsUser.new(user)
+    @execute_as_user[user].execute &block
   end
 end
