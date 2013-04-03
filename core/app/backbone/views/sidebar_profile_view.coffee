@@ -23,8 +23,6 @@ class FollowUserButtonView extends Backbone.Marionette.Layout
   initialize: ->
     @bindTo @model, 'change', @updateButton, @
 
-    window.henk = @model
-
   templateHelpers: =>
     follow:    Factlink.Global.t.follow.capitalize()
     unfollow:  Factlink.Global.t.unfollow.capitalize()
