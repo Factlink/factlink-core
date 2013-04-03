@@ -5,6 +5,15 @@ class TopicsController < ApplicationController
     render 'channels/index'
   end
 
+  def show
+    authorize! :show, topic # TODO: fills @topic as side-effect
+
+    respond_to do |format|
+      format.json {} # TODO: remove side-effect calling "topic"
+      format.html { render_backbone_page }
+    end
+  end
+
   def top
     render json: top_topics(12)
   end
@@ -28,6 +37,7 @@ class TopicsController < ApplicationController
     def get_top_channels
       interactor :'channels/top', 12
     end
+
     def top_channels_for_topic topic
       interactor :'channels/top_for_topic', topic
     end

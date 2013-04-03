@@ -213,7 +213,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  resources :topics, path: 't', only: [] do
+  resources :topics, path: 't', only: [:show] do
     collection do
       get :top
       get :top_channels
