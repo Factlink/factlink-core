@@ -8,9 +8,9 @@ describe 'suggested_topics' do
   describe 'initially' do
     it 'a site has no top topics' do
       as(current_user) do |pavlov|
-        s = create :site
+        site = pavlov.command :'sites/create', 'http://google.com/'
 
-        topics = pavlov.query :'site/top_topics', s.id.to_i, 10
+        topics = pavlov.query :'site/top_topics', site.id.to_i, 10
 
         expect(topics).to eq []
       end
@@ -20,7 +20,7 @@ describe 'suggested_topics' do
   describe 'counting top topics' do
     it 'registers the calls to the command' do
       as(current_user) do |pavlov|
-        site = create :site
+        site = pavlov.command :'sites/create', 'http://google.com/'
 
         topic_slug_array = [
           'some-topic', 'some-other-topic', 'some-topic', 'beren',
@@ -43,7 +43,7 @@ describe 'suggested_topics' do
   describe 'resetting top topic' do
     it 'counts the topic slugs' do
       as(current_user) do |pavlov|
-        site = create :site
+        site = pavlov.command :'sites/create', 'http://google.com/'
 
         facts = create_list :fact, 3
 
@@ -70,7 +70,7 @@ describe 'suggested_topics' do
   describe 'are returned' do
     it 'in the correct order' do
       as(current_user) do |pavlov|
-        site = create :site
+        site = pavlov.command :'sites/create', 'http://google.com/'
 
         fact1 = create :fact
         fact2 = create :fact
