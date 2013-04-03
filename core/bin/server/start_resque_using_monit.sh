@@ -8,7 +8,7 @@ do
 
   echo "Starting Resque, try #$i:"
 
-  sudo /usr/sbin/monit start resque
+  sudo /usr/bin/monit start resque
 
   # Check the exit status
   if [ "$?" -eq "0" ]; then
