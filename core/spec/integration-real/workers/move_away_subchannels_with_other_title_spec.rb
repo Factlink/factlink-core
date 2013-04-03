@@ -18,15 +18,19 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(user1) do |pavlov|
         ch1 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(user2) do |pavlov|
         ch2 = pavlov.command :'channels/create', 'Bar'
       end
+
       as(user3) do |pavlov|
         ch3 = pavlov.command :'channels/create', 'Baz'
       end
+
       as(user4) do |pavlov|
         ch4 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(channel_user) do |pavlov|
         channel = pavlov.command :'channels/create', 'Foo'
         [ch1, ch2, ch3, ch4].each do |ch|
@@ -50,9 +54,11 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(user1) do |pavlov|
         ch1 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(user2) do |pavlov|
         ch2 = pavlov.command :'channels/create', 'Bar'
       end
+
       as(channel_user) do |pavlov|
         channel = pavlov.command :'channels/create', 'Foo'
         [ch1, ch2].each do |ch|
@@ -145,15 +151,19 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(user1) do |pavlov|
         ch1 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(user2) do |pavlov|
         ch2 = pavlov.command :'channels/create', 'Bar'
       end
+
       as(user3) do |pavlov|
         ch3 = pavlov.command :'channels/create', 'Baz'
       end
+
       as(user4) do |pavlov|
         ch4 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(channel_user) do |pavlov|
         channel = pavlov.command :'channels/create', 'Foo'
         pavlov.command :'channels/create', 'Bar'
