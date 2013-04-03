@@ -27,6 +27,9 @@ describe 'when adding a fact to a channel' do
 
         Topic.for_channel(channel)
         facts = pavlov.interactor :'topics/facts', channel.slug_title, nil, nil
+        fact_displaystrings = facts.map {|f| f[:item].data.displaystring}
+
+        expect(fact_displaystrings).to eq ['a fact']
       end
     end
   end
