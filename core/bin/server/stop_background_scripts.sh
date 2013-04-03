@@ -1,10 +1,20 @@
 #!/bin/bash
 
-sudo monit stop resque
-sudo monit stop recalculate
+for x in {0..120}
+do
+  echo -n "."
 
-for x in {0..120}; do
-  i=`sudo monit status | grep --after-context=1 --extended-regexp 'recalculate|resque' | grep --extended-regexp 'Not monitored' | wc --lines`
-  if $i == 2; break; end
+  # When monit is already busy quiting OR starting, it can throw an error message:
+  # monit: action failed -- Other action already in progress -- please try again later
+  # We don't care for that message, so we just pipe every message to /dev/null
+  sudo monit stop resque > /dev/null 2>&1
+  sudo monit stop recalculate > /dev/null 2>&1
+
+  i=`sudo monit status | grep --after-context=1 --extended-regexp 'recalculate|resque' | grep --extended-regexp 'Not monitored$' | wc --lines`
+  if [ "$i" -eq "2" ]; then
+    echo ""; # Nice little line-break
+    break;
+  fi
+
   sleep 1
 done
