@@ -1,9 +1,6 @@
 class SocialStatisticsView extends Backbone.Marionette.ItemView
-  template:
-    text: """
-    followers: {{ followers_count }}
-    following: {{ following_count }}
-    """
+  template: "users/profile/social_statistics"
+  className: "user-social-statistics"
 
 
 # TODO:  Severe duplication with followChannelButtonView ! please refactor
