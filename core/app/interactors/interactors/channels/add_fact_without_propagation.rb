@@ -6,35 +6,24 @@ module Interactors
       arguments :fact, :channel, :score, :should_add_to_unread
 
       def execute
-        return false unless should_execute?
+        success = execute_actual_addition
 
-        add_fact_to_channel
-        add_fact_to_topic
-        update_unread_facts
-
-        true
+        if success
+          add_fact_to_topic
+          update_unread_facts
+          true
+        else
+          false
+        end
       end
 
-      def should_execute?
-        not(already_propagated or already_deleted)
-      end
-
-      def already_propagated
-        channel.sorted_cached_facts.include?(fact)
-      end
-
-      def already_deleted
-        channel.sorted_delete_facts.include?(fact)
-      end
-
-      def add_fact_to_channel
-        channel.sorted_cached_facts.add(fact, score)
-        fact.channels.add(channel) if channel.type == 'channel'
+      def execute_actual_addition
+        command :'channels/add_fact_without_propagation', fact, channel, score
       end
 
       def add_fact_to_topic
         return unless channel.type == 'channel'
-        
+
         command :"topics/add_fact", fact.id, channel.slug_title, score.to_s
       end
 
