@@ -3,6 +3,8 @@
 count=`ps x | grep -v grep | grep -c 'rake fact_graph:recalculate'`
 
 if [ "$count" -lt "1" ]; then
+    . /home/deploy/.bash_profile
+
     cd /applications/core/current
 
     export PIDFILE=/home/deploy/recalculate.pid
