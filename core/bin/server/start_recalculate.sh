@@ -10,6 +10,6 @@ if [ "$count" -lt "1" ]; then
     export PIDFILE=/home/deploy/recalculate.pid
 
     export NEWRELIC_DISPATCHER="FactGraph recalculate"
-    nohup /usr/local/rbenv/shims/bundle exec rake environment fact_graph:recalculate PIDFILE=$PIDFILE >> /applications/core/current/log/fact_graph.log 2>&1
+    nice -n 10 nohup /usr/local/rbenv/shims/bundle exec rake environment fact_graph:recalculate PIDFILE=$PIDFILE >> /applications/core/current/log/fact_graph.log 2>&1
 fi
 exit 0
