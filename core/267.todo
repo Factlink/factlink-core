@@ -1,12 +1,12 @@
 Backend - Retrieving a single topic:
- ☐ Route (routes.rb:216, only: [:show])
-   ☐ Should be based on slug_title
- ☐ Controller action (topics_controller.rb)
-   ☐ Should call interactor/query for JSON
-   ☐ Should show standard backbone page otherwise
- ☐ Interactor and query.
- ☐ JBuilder view (refactor from index.json.jbuilder)
- ☐ Add topic show ability
+ ✔ Route (routes.rb:216, only: [:show]) @done (13-04-03 13:48)
+   ✔ Should be based on slug_title @done (13-04-03 13:48)
+ ✔ Controller action (topics_controller.rb) @done (13-04-03 13:48)
+   ✔ Should call interactor/query for JSON @done (13-04-03 13:48)
+   ✔ Should show standard backbone page otherwise @done (13-04-03 13:48)
+ ✔ Interactor and query. @done (13-04-03 13:48)
+ ✔ JBuilder view (refactor from index.json.jbuilder) @done (13-04-03 13:48)
+ ✔ Add topic show ability @done (13-04-03 13:48)
 
 Frontend - Showing a topic page:
  ☐ New router

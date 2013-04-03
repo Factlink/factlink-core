@@ -1,15 +1,12 @@
 class TopicsController < ApplicationController
   def related_user_channels
-    authorize! :show, topic
     @channels = top_channels_for_topic(topic)
     render 'channels/index'
   end
 
   def show
-    authorize! :show, topic # TODO: fills @topic as side-effect
-
     respond_to do |format|
-      format.json {} # TODO: remove side-effect calling "topic"
+      format.json { @topic = topic }
       format.html { render_backbone_page }
     end
   end
@@ -43,8 +40,8 @@ class TopicsController < ApplicationController
     end
 
     def topic
-      @topic ||= Topic.by_slug(params[:id])
-      @topic || raise_404("Topic not found")
+      topic = interactor :"topics/get", params[:id]
+      topic || raise_404("Topic not found")
     end
 
     def top_topics(nr)
