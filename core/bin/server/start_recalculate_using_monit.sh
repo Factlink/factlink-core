@@ -3,7 +3,7 @@
 ##
 # This script starts fact_graph:recalculate using Monit.
 
-for i in {1..3}
+for i in $(seq 1 3)
 do
 
   echo "Starting fact_graph:recalculate, try #$i:"

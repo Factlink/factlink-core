@@ -3,7 +3,7 @@
 ##
 # This script starts Resque using Monit.
 
-for i in {1..3}
+for i in $(seq 1 3)
 do
 
   echo "Starting Resque, try #$i:"
