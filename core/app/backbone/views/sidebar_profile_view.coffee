@@ -6,6 +6,7 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
 # TODO:  Severe duplication with followChannelButtonView ! please refactor
 class FollowUserButtonView extends Backbone.Marionette.Layout
   template: 'users/follow_user_button'
+  className: 'user-follow-user-button'
 
   events:
     "click .js-follow-user-button": "follow"
