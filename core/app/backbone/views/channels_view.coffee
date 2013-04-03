@@ -14,6 +14,10 @@ class ChannelItemView extends Backbone.Marionette.ItemView
     @$el.attr('id', 'channel-' + @model.id)
     @activeOn() if @model.isActive
 
+  templateHelpers: =>
+    use_topic_url: @options.use_topic_url
+    topic_url: @model.topicUrl()
+
 _.extend ChannelItemView.prototype, ToggleMixin
 
 class window.ChannelHeaderView extends Backbone.Marionette.ItemView
@@ -45,6 +49,7 @@ class window.ChannelListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   id: 'channel-listing'
   className: 'channel-listing'
+  itemViewOptions: -> use_topic_url: @options.use_topic_url
 
 class window.ChannelsView extends Backbone.Marionette.Layout
   template: 'channels/channel_list'
@@ -58,8 +63,12 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @bindTo @collection, 'reset', @setUserFromChannels, this
 
   onRender: ->
-    @list.show new ChannelListView(collection: @collection)
+    @list.show new ChannelListView(collection: @collection, use_topic_url: @use_topic_url())
     @renderHeader()
+
+  use_topic_url: ->
+    # for now only use topic urls for your own pages
+    @model.is_current_user()
 
   renderHeader: ->
     @header.show new ChannelHeaderView(model: @model, collection: @collection)
