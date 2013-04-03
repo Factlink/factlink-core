@@ -18,7 +18,7 @@ class window.User extends Backbone.Model
     Backbone.sync(method, model, options);
 
   is_current_user: ->
-    window.currentUser != undefined && currentUser.get('id') == this.get('id')
+    currentUser?.get('username') == @attributes.username
 
   avatar_url: (size)->
     md5d_email = @get('gravatar_hash')
