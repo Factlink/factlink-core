@@ -10,6 +10,7 @@ describe ChannelList do
     rescue
     end
   end
+  include PavlovSupport
 
   describe ".channels" do
     describe "initially" do
@@ -75,11 +76,7 @@ describe ChannelList do
   end
 
   describe '.containing_channel_ids_for_fact' do
-    include Pavlov::Helpers
-    let(:current_user) {create :graph_user}
-    def pavlov_options
-      {current_user: current_user}
-    end
+    let(:current_user) {create :user}
     it "returns the channels of the graphuser which contain the fact" do
       gu1 = current_user.graph_user
 
@@ -89,8 +86,10 @@ describe ChannelList do
 
       f = create :fact, created_by: gu1
 
-      interactor :"channels/add_fact", f, ch1
-      interactor :"channels/add_fact", f, ch3
+      as(current_user) do |pavlov|
+        pavlov.interactor :"channels/add_fact", f, ch1
+        pavlov.interactor :"channels/add_fact", f, ch3
+      end
 
       list = ChannelList.new(gu1)
 
@@ -100,11 +99,8 @@ describe ChannelList do
   end
 
   describe '.containing_real_channel_ids_for_fact' do
-    include Pavlov::Helpers
-    let(:current_user) {create :graph_user}
-    def pavlov_options
-      {current_user: current_user}
-    end
+    let(:current_user) {create :user}
+
     it "returns the channels of the graphuser which contain the fact except created_facts_channel and stream" do
       gu1 = current_user.graph_user
 
@@ -114,8 +110,10 @@ describe ChannelList do
 
       f = create :fact, created_by: gu1
 
-      interactor :"channels/add_fact", f, ch1
-      interactor :"channels/add_fact", f, ch3
+      as(current_user) do |pavlov|
+        pavlov.interactor :"channels/add_fact", f, ch1
+        pavlov.interactor :"channels/add_fact", f, ch3
+      end
 
       list = ChannelList.new(gu1)
 
@@ -125,11 +123,7 @@ describe ChannelList do
   end
 
   describe ".containing_channel_ids_for_channel" do
-    include Pavlov::Helpers
-    let(:current_user) {create :graph_user}
-    def pavlov_options
-      {current_user: current_user}
-    end
+    let(:current_user) {create :user}
 
     subject {ChannelList.new(u1)}
     let(:ch) {Channel.create(created_by: u1, title: "Subject")}
@@ -147,15 +141,18 @@ describe ChannelList do
     end
     describe "after adding to a own channel" do
       it "contains the channel" do
-        command :"channels/add_subchannel", u1_ch1, ch
+        as(current_user) do |pavlov|
+          pavlov.command :"channels/add_subchannel", u1_ch1, ch
+        end
         subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
       end
     end
     describe "after adding to someone else's channel" do
       it "contains only my channels" do
-        command :"channels/add_subchannel", u1_ch1, ch
-        command :"channels/add_subchannel", u2_ch1, ch
-
+        as(current_user) do |pavlov|
+          pavlov.command :"channels/add_subchannel", u1_ch1, ch
+          pavlov.command :"channels/add_subchannel", u2_ch1, ch
+        end
         subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
       end
     end
