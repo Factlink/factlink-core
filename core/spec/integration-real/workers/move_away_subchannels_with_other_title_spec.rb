@@ -60,7 +60,7 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(channel_user) do |pavlov|
         channel = pavlov.command :'channels/create', 'Foo'
         [ch1, ch2].each do |ch|
-          pavlov.command :'channels/add_subchannel', channel, ch
+          pavlov.interactor :'channels/add_subchannel', channel.id, ch.id
         end
       end
 
@@ -87,7 +87,7 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(channel_user) do |pavlov|
         old_channel = pavlov.command :'channels/create', 'foo'
         new_channel = pavlov.command :'channels/create', 'bar'
-        pavlov.command :'channels/add_subchannel', old_channel, subchannel
+        pavlov.interactor :'channels/add_subchannel', old_channel.id, subchannel.id
       end
 
       as(user1) do |pavlov|
@@ -118,7 +118,7 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(channel_user) do |pavlov|
         old_channel = pavlov.command :'channels/create', 'foo'
         new_channel = pavlov.command :'channels/create', 'bar'
-        pavlov.command :'channels/add_subchannel', old_channel, subchannel
+        pavlov.interactor :'channels/add_subchannel', old_channel.id, subchannel.id
       end
 
       as(user1) do |pavlov|

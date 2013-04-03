@@ -48,7 +48,7 @@ describe 'when adding a fact to a channel' do
 
       as(follower) do |pavlov|
         channel = pavlov.command :'channels/create', 'something2'
-        pavlov.command :"channels/add_subchannel", channel, sub_channel
+        pavlov.interactor :"channels/add_subchannel", channel.id, sub_channel.id
       end
 
       as(creator) do |pavlov|
@@ -78,12 +78,12 @@ describe 'when adding a fact to a channel' do
 
       as(follower) do |pavlov|
         sub_channel = pavlov.command :'channels/create', 'something2'
-        pavlov.command :"channels/add_subchannel", sub_channel, sub_sub_channel
+        pavlov.interactor :"channels/add_subchannel", sub_channel.id, sub_sub_channel.id
       end
 
       as(followers_follower) do |pavlov|
         channel = pavlov.command :'channels/create', 'something2'
-        pavlov.command :"channels/add_subchannel", channel, sub_channel
+        pavlov.interactor :"channels/add_subchannel", channel.id, sub_channel.id
       end
 
       as(creator) do |pavlov|
