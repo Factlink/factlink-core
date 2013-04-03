@@ -46,6 +46,6 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
   showChannelListing: ->
     username = currentUser.get('username')
     changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels)
+    channelCollectionView = new ChannelsView(collection: window.Channels, model: currentUser)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.unsetActive()

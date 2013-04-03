@@ -60,7 +60,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     app.mainRegion.show(@main)
     @getUser username,
       onInit: (user) =>
-        @setChannelListing(username)
+        @setChannelListing(user)
         @main.showTitle(options.title)
       onFetch: (user) =>
         @showUserLarge(user)
@@ -107,13 +107,13 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
     @main.titleRegion.show( title_view )
 
-    @showChannelListing(fact.get('created_by').username)
+    @showChannelListing(user)
     user.fetch
       success: => @showUserLarge(user)
 
-  showChannelListing: (username)->
-    changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels)
+  showChannelListing: (user)->
+    changed = window.Channels.setUsernameAndRefresh(user.get('username'))
+    channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
 
@@ -121,9 +121,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     userLargeView = new UserLargeView(model: user);
     app.leftTopRegion.show(userLargeView);
 
-  setChannelListing: (username) ->
-    changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels)
+  setChannelListing: (user) ->
+    changed = window.Channels.setUsernameAndRefresh(user.get('username'))
+    channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
 

@@ -55,13 +55,7 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     header: '.channel-listing-header'
 
   initialize: ->
-    @model = if @model? then @model.clone() else new User
-    @setUserFromChannels()
     @bindTo @collection, 'reset', @setUserFromChannels, this
-
-  setUserFromChannels: ->
-    channel = window.Channels.first()
-    @model.set(channel.user().attributes) if channel
 
   onRender: ->
     @list.show new ChannelListView(collection: @collection)
