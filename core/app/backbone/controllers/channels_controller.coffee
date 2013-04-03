@@ -1,10 +1,41 @@
 class window.ChannelsController extends Backbone.Factlink.BaseController
 
-  routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity']
+  routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts']
 
   onShow:   -> @channel_views = new Backbone.Factlink.DetachedViewCache
   onClose:  -> @channel_views.cleanup()
   onAction: -> @unbindFrom @permalink_event if @permalink_event?
+
+  loadTopic: (slug_title, callback) ->
+    topic = new Topic {slug_title}
+    topic.fetch success: (model) -> callback(model)
+
+  restoreTopicView: (slug_title, new_callback) ->
+    @restoreChannelView "topic-#{slug_title}", new_callback
+
+  commonTopicViews: ->
+    FactlinkApp.leftBottomRegion.close()
+    FactlinkApp.leftMiddleRegion.close() # TODO: replace with channel sidebar
+    @showUserProfile currentUser
+
+  getTopicFacts: (slug_title) ->
+    FactlinkApp.mainRegion.show(@channel_views)
+
+    @loadTopic slug_title, (topic) =>
+      onCurrentUserChannelsFetch = =>
+        currentUser.channels.off('reset', onCurrentUserChannelsFetch)
+        
+        channel = topic.existingChannelFor(currentUser)
+        @commonChannelViews(channel)
+        
+        @makePermalinkEvent(channel.url())
+        @restoreTopicView slug_title, => new ChannelView(model: channel)
+
+
+      if currentUser.channels.loading
+        currentUser.channels.on('reset', onCurrentUserChannelsFetch)
+      else
+        onCurrentUserChannelsFetch()
 
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id)

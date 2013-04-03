@@ -9,9 +9,10 @@ Backend - Retrieving a single topic:
  ✔ Add topic show ability @done (13-04-03 13:48)
 
 Frontend - Showing a topic page:
- ☐ New router
- ☐ New controller
-   ☐ Should at first point factlinks to their canonical/profile url (or channel url, whatever is easier)
+(instead of new router/controller we decided to do it in the channels_controller anyway)
+ ✔ Route @done (13-04-03 16:12)
+ ✔ Controller action @done (13-04-03 16:12)
+   ✔ Should at first point factlinks to their canonical/profile url (or channel url, whatever is easier) @done (13-04-03 16:12)
  ☐ New topic view
    ☐ Almost identical to current ChannelView, refactor to use topic data (channel_view.coffee)
    ☐ Refactor ChannelView to share logic with the new topic view, since we still need it when viewing other users' channels
