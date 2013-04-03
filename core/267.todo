@@ -16,7 +16,7 @@ Frontend - Showing a topic page:
  ☐ New topic view
    ☐ Almost identical to current ChannelView, refactor to use topic data (channel_view.coffee)
    ☐ Refactor ChannelView to share logic with the new topic view, since we still need it when viewing other users' channels
- ☐ Change urls of channellist (sidebar) to topic urls
+ ✔ Change urls of channellist (sidebar) to topic urls @done (13-04-03 17:13)
 
 Backend - Facts inside a topic:
  ☐ Route (routes.rb:216, add resource :facts)
