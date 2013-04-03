@@ -12,20 +12,20 @@ describe AddAllContainingFactlinksToTopic do
     user3 = create :user
 
     as(user1) do |pavlov|
-      fact1 = create :fact
-      channel1 = create :channel, title: title, created_by: user1.graph_user
+      fact1 = pavlov.interactor :'facts/create', 'fact 1', '', ''
+      channel1 = pavlov.command :'channels/create', title
       pavlov.interactor :"channels/add_fact", fact1, channel1
     end
 
     as(user2) do |pavlov|
-      fact2 = create :fact
-      channel2 = create :channel, title: title, created_by: user2.graph_user
+      fact2 = pavlov.interactor :'facts/create', 'fact 2', '', ''
+      channel2 = pavlov.command :'channels/create', title
       pavlov.interactor :"channels/add_fact", fact2, channel2
     end
 
     as(user3) do |pavlov|
-      fact3 = create :fact
-      channel3 = create :channel, title: title, created_by: user3.graph_user
+      fact3 = pavlov.interactor :'facts/create', 'fact 3', '', ''
+      channel3 = pavlov.command :'channels/create', title
       pavlov.interactor :"channels/add_fact", fact3, channel3
     end
 
