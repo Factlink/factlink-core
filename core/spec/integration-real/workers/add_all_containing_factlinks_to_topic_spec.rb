@@ -31,6 +31,7 @@ describe AddAllContainingFactlinksToTopic do
 
     slug_title = channel1.slug_title
 
+    # DELETE THE WORKING PROPAGATION, to test the migration
     Topic.redis[slug_title][:facts].del
 
     as(user1) do |pavlov|
