@@ -1,7 +1,9 @@
  ✔ ui to (un)follow user on user profile @done (13-04-03 10:59)
- ☐ route to (un)follow user
+ ☐ refactor follow_user_button / follow_channel_button
+ ✔ route to (un)follow user @done (13-04-03 11:00)
    post, delete, get action on /current_user.user_name/follows/other_user.user_name
- ☐ controller action for following and unfollowing
+ ✔ controller action for following and unfollowing @done (13-04-03 11:00)
+ ☐ call interactors from UserController actions
  ☐ styling of followers / following count
  ☐ dont show "follow" button on your own profile
  ☐ interactor + command to save followed user in redis
