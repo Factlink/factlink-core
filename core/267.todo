@@ -1,0 +1,31 @@
+Backend - Retrieving a single topic:
+ ☐ Route (routes.rb:216, only: [:show])
+   ☐ Should be based on slug_title
+ ☐ Controller action (topics_controller.rb)
+   ☐ Should call interactor/query for JSON
+   ☐ Should show standard backbone page otherwise
+ ☐ Interactor and query.
+
+Frontend - Showing a topic page:
+ ☐ New router
+ ☐ New controller
+   ☐ Should at first point factlinks to their canonical/profile url (or channel url, whatever is easier)
+ ☐ New topic view
+   ☐ Almost identical to current ChannelView, refactor to use topic data (channel_view.coffee)
+   ☐ Refactor ChannelView to share logic with the new topic view, since we still need it when viewing other users' channels
+ ☐ Change urls of channellist to topic urls
+
+Backend - Facts inside a topic:
+ ☐ Route (routes.rb:216, add resource :facts)
+ ☐ Controller action which just renders a backbone page
+
+Frontend - Facts inside a topic:
+ ☐ Routing in topic router
+ ☐ Controller action 
+   ☐ Renders factlink with correct back button (cf. channels_controller.coffee)
+   ☐ Should cache topic view when navigating to factlink (cf. channels_controller.coffee)
+ ☐ Update url when clicking factlink to the new factlink topic url
+
+Frontend/Backend - Updating links in activities:
+ ☐ Add topic_url to added_fact_to_channel_activity  (_added_fact_to_channel_activity.json.jbuilder)
+ ☐ Use topic_url in frontend template (_added_fact_to_channel.mustache)
