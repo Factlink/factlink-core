@@ -118,8 +118,8 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     channelCollectionView.setActive('profile')
 
   showUserLarge: (user) ->
-    userLargeView = new UserLargeView(model: user);
-    app.leftTopRegion.show(userLargeView);
+    sidebarProfileView = new SidebarProfileView(model: user)
+    app.leftTopRegion.show(sidebarProfileView)
 
   setChannelListing: (username) ->
     changed = window.Channels.setUsernameAndRefresh(username)
