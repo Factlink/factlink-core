@@ -6,6 +6,7 @@ Backend - Retrieving a single topic:
    ☐ Should show standard backbone page otherwise
  ☐ Interactor and query.
  ☐ JBuilder view (refactor from index.json.jbuilder)
+ ☐ Add topic show ability
 
 Frontend - Showing a topic page:
  ☐ New router
