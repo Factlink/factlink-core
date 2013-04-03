@@ -48,7 +48,6 @@ namespace :action do
 
 end
 
-# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
 
   task :all do
