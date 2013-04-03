@@ -1,20 +1,4 @@
 module PavlovSupport
-  # DEPRECATED
-  # Just use e.g. interactor.should_receive(:query).with(...)
-  def should_receive_new_and_call(klass)
-    klass_instance = mock()
-    klass.should_receive(:new).and_return(klass_instance)
-    klass_instance.should_receive(:call)
-  end
-
-  # DEPRECATED
-  # Just use e.g. interactor.should_receive(:query).with(...)
-  def should_receive_new_with_and_receive_call(klass, *arguments)
-    klass_instance = mock()
-    klass.should_receive(:new).with(*arguments).and_return(klass_instance)
-    klass_instance.should_receive(:call)
-  end
-
   # TODO why is this in pavlov support, this should be put in some general
   # support file or spec_helper.
   def stub_classes *classnames
