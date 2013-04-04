@@ -29,21 +29,6 @@ class UserFollowingUsers
     relation.has? user_id, other_id
   end
 
-  def following
-    ids_to_objects following_ids
-  end
-
-  def followers
-    ids_to_objects followers_ids
-  end
-
-  def ids_to_objects ids
-    ids.
-      map{|id| User.find(id)}.
-      compact.
-      reject{|user| user.hidden}
-  end
-
   private
   def relation
     @relation
