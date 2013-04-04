@@ -4,7 +4,7 @@ class UserFollowingUsers
 
   attr_reader :user_id
 
-  def initialize user_id, relation=ManyToManyRelation.new(Nest.new(:user)[:users_following_users])
+  def initialize user_id, relation=ManyToManyRelation.new(Nest.new(:user)[:following_users])
     @user_id = user_id
     @relation = relation
   end
