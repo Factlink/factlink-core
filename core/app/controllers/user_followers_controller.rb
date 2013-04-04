@@ -12,7 +12,7 @@ class UserFollowersController < ApplicationController
     @users, @total, @followed_by_me = interactor :'users/followers', @user_name,
       @skip, @take
 
-    render 'facts/interactions', format: 'json'
+    render 'users/followers/index', format: 'json'
   end
 
   def update
