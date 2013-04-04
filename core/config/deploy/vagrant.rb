@@ -2,8 +2,8 @@ server '10.253.0.101', :app, :web, :primary => true
 
 set :full_url, 'https://10.253.0.101'
 
-set :deploy_env, 'chef'
-set :rails_env,  'chef' # Also used by capistrano for some specific tasks
+set :deploy_env, 'vagrant'
+set :rails_env,  'vagrant' # Also used by capistrano for some specific tasks
 
 set :branch, 'feature/chef'
 

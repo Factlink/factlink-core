@@ -19,7 +19,7 @@ testserver:
           username: proxyuser
           password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
 
-chef:
+vagrant:
     core:
         hostname: localhost
         port: 3000

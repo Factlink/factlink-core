@@ -13,7 +13,7 @@ testserver:
     host: 89.188.27.172
     port: 6379
 
-chef:
+vagrant:
   redis:
     host: 10.253.0.1
     port: 6381

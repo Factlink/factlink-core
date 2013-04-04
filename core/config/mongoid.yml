@@ -34,7 +34,7 @@ testserver:
   options:
     raise_not_found_error: false
 
-chef:
+vagrant:
   sessions:
     default:
       database: factlink_ui_development

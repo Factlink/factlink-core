@@ -16,7 +16,7 @@ testserver:
     port: 443
     protocol: https://
 
-chef:
+vagrant:
   static:
     hostname: 10.253.0.1
     port: 8000

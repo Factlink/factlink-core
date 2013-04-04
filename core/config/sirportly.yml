@@ -10,7 +10,7 @@ testserver:
   sirportly:
     webform_id: 93
 
-chef:
+vagrant:
   sirportly:
     webform_id: 91
 

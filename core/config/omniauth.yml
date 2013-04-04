@@ -25,7 +25,7 @@ testserver:
       id: "IeKrZsf2YqPalGJsIwIA"
       secret: "B06JwUyyaOE9rAs5sLEm0CcZ6XLTAcaX4FlSlJu3s"
 
-chef:
+vagrant:
   omniauth:
     facebook:
       id: "394296183970720"

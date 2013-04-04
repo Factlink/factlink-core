@@ -10,7 +10,7 @@ testserver:
   chrome:
     id: bmekjogijonolmphikpeppogdmcclkfc
 
-chef:
+vagrant:
   chrome:
     id: bmekjogijonolmphikpeppogdmcclkfc
 
