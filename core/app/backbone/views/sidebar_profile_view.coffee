@@ -71,4 +71,6 @@ class window.SidebarProfileView extends Backbone.Marionette.Layout
   onRender: ->
     @profilePictureRegion.show   new UserLargeView(model: @model)
     @socialStatisticsRegion.show new SocialStatisticsView(model: @model)
-    #@followUserButtonRegion.show new FollowUserButtonView(model: @model)
+
+    if not @model.is_current_user()
+      @followUserButtonRegion.show new FollowUserButtonView(model: @model)
