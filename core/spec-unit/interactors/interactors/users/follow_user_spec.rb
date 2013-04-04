@@ -15,6 +15,22 @@ describe Interactors::Users::FollowUser do
       expect { described_class.new mock, mock }.
         to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
+
+    it 'throws when updating someone else\'s follow' do
+      username = mock
+      other_username = mock
+      current_user = mock(username: username)
+
+      expect { described_class.new other_username, mock, {current_user: current_user} }.
+        to raise_error Pavlov::AccessDenied,'Unauthorized'
+    end
+
+    it 'doesn\'t throw when updating your own follow' do
+      username = mock
+      current_user = mock(username: username)
+
+      described_class.new username, mock, {current_user: current_user}
+    end
   end
 
   describe '.new' do
