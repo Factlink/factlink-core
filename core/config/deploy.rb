@@ -13,6 +13,7 @@ require 'capistrano/ext/multistage'
 #################
 # Bundler support
 require "bundler/capistrano"
+set :bundle_flags, "--deployment --quiet --binstubs"
 
 set :user, "deploy"
 set :use_sudo,    false
