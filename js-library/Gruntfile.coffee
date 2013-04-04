@@ -111,8 +111,8 @@ module.exports = (grunt) ->
           'dist/server/factlink.start_highlighting.min.js': ['<banner>', 'dist/factlink.start_highlighting.js']
           'dist/server/factlink.stop_highlighting.min.js':  ['<banner>', 'dist/factlink.stop_highlighting.js']
           'dist/server/factlink.min.js':                    ['<banner>', 'dist/factlink.js']
-          'dist/server/easyXDM/easyXDM.min.js':             ['<banner>', 'dist/easyXDM/easyXDM.js']
-          'dist/easyXDM/easyXDM.min.js':                    ['<banner>', 'dist/easyXDM/easyXDM.js']
+          'dist/server/easyXDM/easyXDM.min.js':             ['<banner>', 'libs/easyXDM.js']
+          'dist/easyXDM/easyXDM.min.js':                    ['<banner>', 'libs/easyXDM.js']
 
   grunt.registerTask 'default', ['jshint', 'qunit', 'less', 'concat', 'uglify', 'copy']
   grunt.registerTask 'server',  ['concat', 'uglify', 'less', 'copy']
