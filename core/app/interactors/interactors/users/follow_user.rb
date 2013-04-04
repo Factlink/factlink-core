@@ -13,6 +13,7 @@ module Interactors
 
       def execute
         command :'users/follow_user', user_id, user_to_follow_id
+        nil
       end
 
       def validate

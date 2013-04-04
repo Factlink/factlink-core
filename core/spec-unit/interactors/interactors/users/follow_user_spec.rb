@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/interactors/users/follow_user'
 describe Interactors::Users::FollowUser do
   include PavlovSupport
 
-    describe '#authorized?' do
+  describe '#authorized?' do
     before do
       described_class.any_instance.
         should_receive(:validate).
@@ -49,18 +49,18 @@ describe Interactors::Users::FollowUser do
         and_return(true)
     end
 
-    it 'calls a command to unfollow user and returns the user' do
+    it 'calls a command to follow user and returns the user' do
       user_id = mock
       user_to_follow_id = mock
-      user = mock
 
       interactor = described_class.new user_id, user_to_follow_id
       interactor.should_receive(:command).
-        with(:'users/follow_user', user_id, user_to_follow_id)
+        with(:'users/follow_user', user_id, user_to_follow_id).
+        and_return(mock)
 
-      returned_user = interactor.execute
+      result = interactor.execute
 
-      expect(returned_user).to eq nil
+      expect(result).to eq nil
     end
   end
 
