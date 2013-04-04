@@ -12,7 +12,7 @@ module Interactors
       end
 
       def validate
-        validate_hexadecimal_string :user_name, @user_name
+        validate_nonempty_string :user_name, @user_name
         validate_integer :skip, @skip
         validate_integer :take, @take
       end
