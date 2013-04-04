@@ -13,9 +13,9 @@ describe Interactors::Users::FollowUser do
 
     it 'throws when no current_user' do
       user_id = mock
-      user_to_unfollow_id = mock
+      user_to_follow_id = mock
 
-      expect { described_class.new user_id, user_to_unfollow_id }.
+      expect { described_class.new user_id, user_to_follow_id }.
         to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
@@ -32,8 +32,8 @@ describe Interactors::Users::FollowUser do
 
     it 'returns an object' do
       user_id = mock
-      user_to_unfollow_id = mock
-      interactor = described_class.new user_id, user_to_unfollow_id
+      user_to_follow_id = mock
+      interactor = described_class.new user_id, user_to_follow_id
 
       expect(interactor).to_not be_nil
     end
@@ -51,12 +51,12 @@ describe Interactors::Users::FollowUser do
 
     it 'calls a command to unfollow user and returns the user' do
       user_id = mock
-      user_to_unfollow_id = mock
+      user_to_follow_id = mock
       user = mock
 
-      interactor = described_class.new user_id, user_to_unfollow_id
+      interactor = described_class.new user_id, user_to_follow_id
       interactor.should_receive(:command).
-        with(:'users/follow_user', user_id, user_to_unfollow_id)
+        with(:'users/follow_user', user_id, user_to_follow_id)
 
       returned_user = interactor.execute
 
@@ -73,12 +73,12 @@ describe Interactors::Users::FollowUser do
 
     it 'calls the correct validation methods' do
       user_id = mock
-      user_to_unfollow_id = mock
+      user_to_follow_id = mock
 
       described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_id, user_id)
-      described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_to_unfollow_id, user_to_unfollow_id)
+      described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_to_follow_id, user_to_follow_id)
 
-      interactor = described_class.new user_id, user_to_unfollow_id
+      interactor = described_class.new user_id, user_to_follow_id
     end
   end
 end
