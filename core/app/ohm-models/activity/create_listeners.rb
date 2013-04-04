@@ -1,21 +1,24 @@
 require 'pavlov'
 
 class ActivityListenerCreator
-  def create_activity_listeners
+  def self.followers_for_fact fact
+    Queries::Activities::GraphUserIdsFollowingFact.new(fact).call
+  end
+
+  def self.followers_for_sub_comment sub_comment
+      if sub_comment.parent_class == 'Comment'
+        Queries::Activities::GraphUserIdsFollowingComments.new([sub_comment.parent]).call
+      else
+        Queries::Activities::GraphUserIdsFollowingFactRelations.new([sub_comment.parent]).call
+      end
+  end
+
+  def self.create_activity_listeners
     Activity::Listener.class_eval do
-      people_who_follow_a_fact = lambda { |a|
-        graph_user_ids = Queries::Activities::GraphUserIdsFollowingFact.new(a.object).call
-        graph_user_ids.reject {|id| id == a.user_id}
-      }
+      people_who_follow_a_fact = lambda { |a| ActivityListenerCreator.followers_for_fact(a.object).reject {|id| id == a.user_id} }
 
       people_who_follow_sub_comment = lambda { |a|
-        if a.subject.parent_class == 'Comment'
-          graph_user_ids = Queries::Activities::GraphUserIdsFollowingComments.new([a.subject.parent]).call
-        else
-          graph_user_ids = Queries::Activities::GraphUserIdsFollowingFactRelations.new([a.subject.parent]).call
-        end
-
-        graph_user_ids.reject { |id| id == a.user_id }
+        ActivityListenerCreator.followers_for_sub_comment(a.subject).reject { |id| id == a.user_id }
       }
 
       # evidence was added to a fact which you created or expressed your opinion on
@@ -154,4 +157,4 @@ class ActivityListenerCreator
   end
 end
 
-ActivityListenerCreator.new.create_activity_listeners
+ActivityListenerCreator.create_activity_listeners
