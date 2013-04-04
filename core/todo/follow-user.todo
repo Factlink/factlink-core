@@ -10,8 +10,10 @@
  ☐ route to get followed users
  ✔ interactor + command to save followed user in redis @done (13-04-04 11:31)
  ✔ interactor + command to unfollow user @done (13-04-04 11:31)
- ☐ query to get followed user
- ☐ query to get followed user facts
+ ☐ integration tests for interactors
+ ✔ query to get followed user @done (13-04-04 15:12)
+ ☐ query to get followed user facts [Is this necessary? -JP]
  ☐ add facts from followed users in create-listener
  ☐ add follow/unfollow users in create listner
  ☐ activity, notification and mail for follow user
+ ☐ acceptance tests
