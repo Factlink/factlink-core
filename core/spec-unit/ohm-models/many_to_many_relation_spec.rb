@@ -2,92 +2,86 @@ require_relative '../../app/ohm-models/many_to_many_relation'
 
 describe ManyToManyRelation do
 
-  before do
-    @nest_key = mock
-    @relation_key = mock
-    @reverse_relation_key = mock
+  let(:relation_key) { mock }
+  let(:reverse_relation_key) { mock }
+  let(:relation_key_list) { mock }
+  let(:reverse_relation_key_list) { mock }
+  let(:many_to_many_relation) { ManyToManyRelation.new nest_key }
 
-    @nest_key.stub(:[]).with(:relation).and_return(@relation_key)
-    @nest_key.stub(:[]).with(:reverse_relation).and_return(@reverse_relation_key)
-
-    @many_to_many_relation = ManyToManyRelation.new @nest_key
+  let(:nest_key) do
+    nest_key = mock
+    nest_key.stub(:[]).with(:relation).and_return(relation_key)
+    nest_key.stub(:[]).with(:reverse_relation).and_return(reverse_relation_key)
+    nest_key
   end
 
   describe '.add' do
     it 'adds to_id to relation_key[from_id] and from_id to reverse_relation_key[to_id]' do
-      relation_key_list = mock
-      reverse_relation_key_list = mock
       from_id = mock
       to_id = mock
 
-      @relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
-      @reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
+      relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
+      reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
 
       relation_key_list.should_receive(:sadd).with(to_id)
       reverse_relation_key_list.should_receive(:sadd).with(from_id)
 
-      @many_to_many_relation.add(from_id, to_id)
+      many_to_many_relation.add(from_id, to_id)
     end
   end
 
   describe '.remove' do
     it 'removes to_id from relation_key[from_id] and from_id from reverse_relation_key[to_id]' do
-      relation_key_list = mock
-      reverse_relation_key_list = mock
       from_id = mock
       to_id = mock
 
-      @relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
-      @reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
+      relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
+      reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
 
       relation_key_list.should_receive(:srem).with(to_id)
       reverse_relation_key_list.should_receive(:srem).with(from_id)
 
-      @many_to_many_relation.remove(from_id, to_id)
+      many_to_many_relation.remove(from_id, to_id)
     end
   end
 
   describe '.ids' do
     it 'returns the ids pointed to by from_id' do
-      relation_key_list = mock
       from_id = mock
       ids = mock
 
-      @relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
+      relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.should_receive(:smembers).and_return(ids)
 
-      expect(@many_to_many_relation.ids(from_id)).to eq ids
+      expect(many_to_many_relation.ids(from_id)).to eq ids
     end
   end
 
   describe '.reverse_ids' do
     it 'returns the ids pointed from toward to_id' do
-      reverse_relation_key_list = mock
       to_id = mock
       ids = mock
 
-      @reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
+      reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
       reverse_relation_key_list.should_receive(:smembers).and_return(ids)
 
-      expect(@many_to_many_relation.reverse_ids(to_id)).to eq ids
+      expect(many_to_many_relation.reverse_ids(to_id)).to eq ids
     end
   end
 
   describe '.has?' do
     it 'checks if there is a link from from_id to to_id' do
-      relation_key_list = mock
-      reverse_relation_key_list = mock
       from_id = mock
       to_id = mock
       result = mock
 
-      @relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
+      relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.stub(:sismember).with(to_id).and_return(result)
 
-      @reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
+      reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
       reverse_relation_key_list.stub(:sismember).with(from_id).and_return(result)
 
-      expect(@many_to_many_relation.has?(from_id, to_id)).to eq result
+      expect(many_to_many_relation.has?(from_id, to_id)).to eq result
     end
   end
 end
