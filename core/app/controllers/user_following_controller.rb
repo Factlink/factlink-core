@@ -9,7 +9,7 @@ class UserFollowingController < ApplicationController
     params[:take] ||= '3'
     @take = params[:take].to_i
 
-    @users, @total = interactor :'users/follow_user', @user_name,
+    @users, @total, @followed_by_me = interactor :'users/followers', @user_name,
       @skip, @take
 
     render 'facts/interactions', format: 'json'

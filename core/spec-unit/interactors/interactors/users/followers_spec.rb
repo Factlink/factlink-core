@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/interactors/users/following_users'
+require_relative '../../../../app/interactors/interactors/users/followers'
 
-describe Interactors::Users::FollowingUsers do
+describe Interactors::Users::Followers do
   include PavlovSupport
 
   describe '.new' do
@@ -71,25 +71,28 @@ describe Interactors::Users::FollowingUsers do
       user_name = mock
       skip = mock
       take = mock
-      interactor = described_class.new user_name, skip, take
-      users = mock
+      current_user = mock(id: mock)
+      interactor = described_class.new user_name, skip, take, current_user: current_user
+      users = mock(length: mock)
       count = mock
       user = mock(id: mock)
+      followed_by_me = true
 
       interactor.should_receive(:query).
         with(:'user_by_username', user_name).
         and_return(user)
       interactor.should_receive(:query).
-        with(:'users/following_user_ids', user.id, skip, take).
+        with(:'users/follower_ids', user.id).
         and_return(users)
-      interactor.should_receive(:query).
-        with(:'users/following_count', user.id).
-        and_return(count)
+      users.should_receive(:include?).with(current_user.id).and_return(followed_by_me)
+      users.should_receive(:drop).with(skip).and_return(users)
+      users.should_receive(:take).with(take).and_return(users)
 
-      returned_users, returned_count = interactor.execute
+      returned_users, returned_count, returned_followed_by_me = interactor.execute
 
       expect(returned_users).to eq users
-      expect(returned_count).to eq count
+      expect(returned_count).to eq users.length
+      expect(returned_followed_by_me).to eq followed_by_me
     end
   end
 end
