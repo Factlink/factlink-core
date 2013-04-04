@@ -127,24 +127,26 @@ class ActivityListenerCreator
     }
 
     notification_activities = [
-      forGraphUser_someone_followed_your_channel,
+      forGraphUser_someone_followed_your_channel, # but you're not already following this person
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
       forGraphUser_someone_send_you_a_message,
       forGraphUser_someone_send_you_a_reply,
       forGraphUser_comment_was_added,
       forGraphUser_someone_invited_you,
       forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation
+      #forGraphUser_someone_followed_you
     ]
 
     stream_activities = [
       forGraphUser_someone_followed_your_channel,
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
       forGraphUser_comment_was_added,
-      forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel,
+      forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel,  # and you're not already following the user
       forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
       forGraphUser_someone_opinionated_a_fact_you_created,
       forGraphUser_someone_added_a_fact_you_created_to_his_channel,
       forGraphUser_someone_added_a_fact_to_a_channel_you_follow,
+      #forGraphUser_someone_you_follow_added_a_fact_to_a_channel
       forGraphUser_you_just_created_your_first_factlink
     ]
 
