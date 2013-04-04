@@ -6,6 +6,7 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
     @bindTo @model.followers, 'change', @render, @
 
   templateHelpers: =>
+    plural: @plural()
     followers_count: @followers_count()
 
   followers_count: ->
