@@ -6,14 +6,16 @@
   margin: 0 0 10px;
 
   .social-statistic-block {
-    border-bottom: 1px solid @baseBorderColor;
     float: left;
     padding: 0 0 10px;
     text-align: center;
     width: 50%;
 
+    border-left:   1px solid @baseBorderColor;
+    border-bottom: 1px solid @baseBorderColor;
+
     &:first-child {
-      border-right: 1px solid @baseBorderColor;
+      border-left: 1px solid transparent;
     }
 
     h1 {
@@ -27,5 +29,6 @@
 }
 
 #left-column .user-follow-user-button {
+  margin-bottom: 10px;
   .btn-block + .btn-block { margin: 0;}
 }
