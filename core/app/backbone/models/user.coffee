@@ -54,7 +54,7 @@ class window.User extends Backbone.Model
       profile_path: "/#{username}"
 
   followed_by_current_user: ->
-    _.contains(@followers.models, window.currentUser)
+    @followers.contains window.currentUser
 
   follow: ->
     user = window.currentUser.clone()
