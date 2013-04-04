@@ -8,8 +8,8 @@
  ✔ styling of followers / following count @done (13-04-03 16:14)
  ☐ dont show "follow" button on your own profile
  ☐ route to get followed users
- ☐ interactor + command to save followed user in redis
- ☐ interactor + command to unfollow user
+ ✔ interactor + command to save followed user in redis @done (13-04-04 11:31)
+ ✔ interactor + command to unfollow user @done (13-04-04 11:31)
  ☐ query to get followed user
  ☐ query to get followed user facts
  ☐ add facts from followed users in create-listener
