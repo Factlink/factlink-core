@@ -57,8 +57,7 @@ class window.User extends Backbone.Model
     @followers.contains window.currentUser
 
   follow: ->
-    user = window.currentUser.clone()
-    @followers.addFollower( user )
+    @followers.addFollower(window.currentUser)
 
   unfollow: ->
-    @followers.remove(window.currentUser)
+    @followers.removeFollower(window.currentUser)

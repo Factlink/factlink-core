@@ -2,6 +2,17 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
   template: "users/profile/social_statistics"
   className: "user-social-statistics"
 
+  initialize: ->
+    @bindTo @model.followers, 'change', @render, @
+
+  templateHelpers: =>
+    followers_count: @followers_count()
+
+  followers_count: ->
+    @model.followers.followers_count()
+
+  plural: ->
+    not (@followers_count() == 1)
 
 # TODO:  Severe duplication with followChannelButtonView ! please refactor
 class FollowUserButtonView extends Backbone.Marionette.Layout
@@ -21,7 +32,7 @@ class FollowUserButtonView extends Backbone.Marionette.Layout
     unfollowButton: '.js-unfollow-user-button'
 
   initialize: ->
-    @bindTo @model.followers, 'add remove', @updateButton, @
+    @bindTo @model.followers, 'change', @updateButton, @
 
   templateHelpers: =>
     follow:    Factlink.Global.t.follow.capitalize()
@@ -39,16 +50,14 @@ class FollowUserButtonView extends Backbone.Marionette.Layout
     e.preventDefault()
     e.stopPropagation()
 
-  onRender: -> @updateButton()
-
   updateButton: =>
-    added = @model.followed_by_current_user()
+    added = @model.followers.followed_by_me()
     @$('.js-unfollow-user-button').toggle added
     @$('.js-follow-user-button').toggle not added
 
   enableHoverState: ->
     return if @justFollowed
-    return unless @model.followed_by_current_user()
+    return unless @model.followers.followed_by_me()
     @ui.defaultButton.hide()
     @ui.hoverButton.show()
     @ui.unfollowButton.addClass 'btn-danger'
@@ -69,6 +78,8 @@ class window.SidebarProfileView extends Backbone.Marionette.Layout
     followUserButtonRegion: '.js-region-user-follow-user'
 
   onRender: ->
+    @model.followers.fetch()
+
     @profilePictureRegion.show   new UserLargeView(model: @model)
     @socialStatisticsRegion.show new SocialStatisticsView(model: @model)
 
