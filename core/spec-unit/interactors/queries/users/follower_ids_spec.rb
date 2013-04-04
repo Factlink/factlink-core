@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/users/followers_ids'
+require_relative '../../../../app/interactors/queries/users/follower_ids'
 
-describe Queries::Users::FollowersIds do
+describe Queries::Users::FollowerIds do
   include PavlovSupport
 
   describe '#execute' do
