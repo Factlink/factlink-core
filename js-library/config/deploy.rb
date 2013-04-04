@@ -1,6 +1,6 @@
 #############
 # Application
-set :application, "factlink-js-library"
+set :application, "js-library"
 set :keep_releases, 10
 
 ########
