@@ -16,9 +16,9 @@ end
 json.url friendly_fact_path(fact)
 
 if channel
-  deletable_from_channel = user_signed_in? and
+  deletable_from_channel = (user_signed_in? and
                            channel.is_real_channel? and
-                           channel.created_by == current_graph_user
+                           channel.created_by == current_graph_user)
   json.deletable_from_channel? deletable_from_channel
   # TODO : this should be moved to view logic in the frontend,
   #        however, because of the strong coupling with channel
