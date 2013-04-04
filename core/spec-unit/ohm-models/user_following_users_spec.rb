@@ -9,8 +9,8 @@ describe UserFollowingUsers do
   let(:user_following_users) { UserFollowingUsers.new user_id, relation }
 
   describe '.follow' do
-    it 'calls relation.add' do
-      relation.should_receive(:add).with(user_id, other_id)
+    it 'calls relation.add_now' do
+      relation.should_receive(:add_now).with(user_id, other_id)
       user_following_users.follow other_id
     end
   end
