@@ -1,6 +1,6 @@
 class UserFollowersController < ApplicationController
   before_filter :set_user_name
-  before_filter :set_follower_id, except: :index
+  before_filter :set_follower_user_name, except: :index
 
   def index
     params[:skip] ||= '0'
