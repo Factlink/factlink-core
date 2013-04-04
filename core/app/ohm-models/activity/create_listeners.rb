@@ -1,8 +1,9 @@
 require 'pavlov'
 
 class ActivityListenerCreator
+  include Pavlov::Helpers
   def followers_for_fact fact
-    Queries::Activities::GraphUserIdsFollowingFact.new(fact).call
+    query :'activities/graph_user_ids_following_fact', fact
   end
 
   def followers_for_sub_comment sub_comment
@@ -14,11 +15,11 @@ class ActivityListenerCreator
   end
 
   def followers_for_comment comment
-    Queries::Activities::GraphUserIdsFollowingComments.new([comment]).call
+    query :'activities/graph_user_ids_following_comments', [comment]
   end
 
   def followers_for_fact_relation fact_relation
-    Queries::Activities::GraphUserIdsFollowingFactRelations.new([fact_relation]).call
+    query :'activities/graph_user_ids_following_fact_relations', [fact_relation]
   end
 
   def followers_for_conversation conversation
