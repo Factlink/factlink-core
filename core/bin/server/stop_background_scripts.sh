@@ -12,9 +12,12 @@ do
 
   i=`sudo monit status | grep --after-context=1 --extended-regexp 'recalculate|resque' | grep --extended-regexp 'Not monitored$' | wc --lines`
   if [ "$i" -eq "2" ]; then
-    echo ""; # Nice little line-break
-    break;
+    echo "\nDone."; # Nice little line-break
+    exit 0
   fi
 
   sleep 1
 done
+
+echo "Execution failed"
+exit 1
