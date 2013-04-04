@@ -82,7 +82,7 @@ describe Interactors::Users::Followers do
         with(:'user_by_username', user_name).
         and_return(user)
       interactor.should_receive(:query).
-        with(:'users/follower_ids', user.id).
+        with(:'users/follower_ids', user.id.to_s).
         and_return(users)
       users.should_receive(:include?).with(current_user.id).and_return(followed_by_me)
       users.should_receive(:drop).with(skip).and_return(users)
