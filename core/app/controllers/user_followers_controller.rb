@@ -1,4 +1,4 @@
-class UserFollowingController < ApplicationController
+class UserFollowersController < ApplicationController
   before_filter :set_user_id
   before_filter :set_follower_id, except: :index
 
