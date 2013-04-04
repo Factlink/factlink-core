@@ -23,7 +23,7 @@ module.exports = (grunt) ->
           'src/js/initializers/*',
           'wrap/last.js'
         ]
-        dest: 'tmp/factink.core.js'
+        dest: 'tmp/factlink.core.js'
       core:
         src: [
           '<banner>',
