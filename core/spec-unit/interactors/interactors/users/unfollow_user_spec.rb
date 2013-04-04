@@ -55,11 +55,12 @@ describe Interactors::Users::UnfollowUser do
 
       interactor = described_class.new user_id, user_to_unfollow_id
       interactor.should_receive(:command).
-        with(:'users/unfollow_user', user_id, user_to_unfollow_id)
+        with(:'users/unfollow_user', user_id, user_to_unfollow_id).
+        and_return(mock)
 
-      returned_user = interactor.execute
+      result = interactor.execute
 
-      expect(returned_user).to eq nil
+      expect(result).to eq nil
     end
   end
 

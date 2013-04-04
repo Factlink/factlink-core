@@ -13,6 +13,7 @@ module Interactors
 
       def execute
         command :'users/unfollow_user', user_id, user_to_unfollow_id
+        nil
       end
 
       def validate
