@@ -49,19 +49,17 @@ describe Interactors::Users::UnfollowUser do
         and_return(true)
     end
 
-    it 'calls a command to unfollow user and returns the user' do
+    it 'calls a command to unfollow' do
       user_id = mock
       user_to_unfollow_id = mock
-      user = mock
 
       interactor = described_class.new user_id, user_to_unfollow_id
       interactor.should_receive(:command).
-        with(:'users/unfollow_user', user_id, user_to_unfollow_id).
-        and_return(user)
+        with(:'users/unfollow_user', user_id, user_to_unfollow_id)
 
       returned_user = interactor.execute
 
-      expect(returned_user).to eq user
+      expect(returned_user).to eq nil
     end
   end
 
