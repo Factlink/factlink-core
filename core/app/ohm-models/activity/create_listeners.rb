@@ -25,6 +25,12 @@ class ActivityListenerCreator
     conversation.recipients.map { |r| r.graph_user.id }
   end
 
+  def channel_followers_of_graph_user graph_user
+    ChannelList.new(graph_user).channels
+      .map { |channel| channel.containing_channels.to_a }.flatten
+      .map { |following_channel| following_channel.created_by_id }.uniq
+  end
+
   def reject_self followers, activity
     followers.reject {|id| id == activity.user_id}
   end
@@ -84,7 +90,7 @@ class ActivityListenerCreator
     forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel = {
       subject_class: "Channel",
       action: :created_channel,
-      write_ids: lambda { |a| ChannelList.new(a.subject.created_by).channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.reject { |id| id == a.user_id } }
+      write_ids: lambda { |a| reject_self(channel_followers_of_graph_user(a.subject.created_by),a) }
     }
 
     forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow = {
