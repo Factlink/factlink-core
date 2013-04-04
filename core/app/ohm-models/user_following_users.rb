@@ -17,16 +17,31 @@ class UserFollowingUsers
     relation.remove user_id, other_id
   end
 
-  def following
+  def following_ids
     relation.ids user_id
   end
 
-  def followers
+  def followers_ids
     relation.reverse_ids user_id
   end
 
   def follows? other_id
     relation.has? user_id, other_id
+  end
+
+  def following
+    ids_to_objects following_ids
+  end
+
+  def followers
+    ids_to_objects followers_ids
+  end
+
+  def ids_to_objects ids
+    ids.
+      map{|id| User.find(id)}.
+      compact.
+      reject{|user| user.hidden}
   end
 
   private
