@@ -23,12 +23,18 @@ ssh_options[:forward_agent] = true
 # don't touch all static files:
 set :normalize_asset_timestamps, false
 
-
 namespace :deploy do
+  task :prepare do
+    run "cd #{current_path}; npm install;"
+  end
+
   task :build do
-    run "cd #{current_path}; npm install; grunt server;"
+    run "cd #{current_path}; grunt server;"
   end
 end
 
+before "deploy:build", "deploy:prepare"
+
 after "deploy", "deploy:build"
+
 after 'deploy:update', 'deploy:cleanup'
