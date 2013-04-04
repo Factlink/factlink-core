@@ -2,18 +2,18 @@ require 'pavlov'
 
 module Queries
   module Users
-    class FollowingIds
+    class FollowingGraphUserIds
       include Pavlov::Query
 
-      arguments :user_id
+      arguments :graph_user_id
 
       def execute
-        user_following_users = UserFollowingUsers.new(user_id)
+        user_following_users = UserFollowingUsers.new(graph_user_id)
         user_following_users.following_ids
       end
 
       def validate
-        validate_hexadecimal_string :user_id, user_id
+        validate_integer_string :graph_user_id, graph_user_id
       end
     end
   end

@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/users/following_ids'
+require_relative '../../../../app/interactors/queries/users/following_graph_user_ids'
 
-describe Queries::Users::FollowingIds do
+describe Queries::Users::FollowingGraphUserIds do
   include PavlovSupport
 
   describe '#execute' do
@@ -14,14 +14,14 @@ describe Queries::Users::FollowingIds do
     end
 
     it 'returns the ids of users that the specified user is following' do
-      user_id = mock
+      graph_user_id = mock
       ids = mock
       users_following_users = mock
 
-      UserFollowingUsers.should_receive(:new).with(user_id).and_return(users_following_users)
+      UserFollowingUsers.should_receive(:new).with(graph_user_id).and_return(users_following_users)
       users_following_users.should_receive(:following_ids).and_return(ids)
 
-      query = described_class.new user_id
+      query = described_class.new graph_user_id
       result = query.execute
 
       expect(result).to eq ids
@@ -30,11 +30,11 @@ describe Queries::Users::FollowingIds do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      user_id = mock
+      graph_user_id = mock
 
-      described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_id, user_id)
+      described_class.any_instance.should_receive(:validate_integer_string).with(:graph_user_id, graph_user_id)
 
-      query = described_class.new user_id
+      query = described_class.new graph_user_id
     end
   end
 end

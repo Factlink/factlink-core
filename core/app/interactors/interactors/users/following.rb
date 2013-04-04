@@ -20,7 +20,7 @@ module Interactors
       def execute
         user = query :user_by_username, @user_name
 
-        graph_user_ids = query :'users/following_ids', user.id.to_s
+        graph_user_ids = query :'users/following_graph_user_ids', user.graph_user_id.to_s
         users = query :users_by_graph_user_ids, graph_user_ids
 
         count = users.length

@@ -62,15 +62,15 @@ describe Interactors::Users::FollowUser do
 
     it 'calls a command to follow user and returns the user' do
       user_name = mock
-      user_to_follow_id = mock
-      interactor = described_class.new user_name, user_to_follow_id
-      user = mock(id: mock)
+      user_to_follow_graph_user_id = mock
+      interactor = described_class.new user_name, user_to_follow_graph_user_id
+      user = mock(graph_user_id: mock)
 
       interactor.should_receive(:query).
         with(:'user_by_username', user_name).
         and_return(user)
       interactor.should_receive(:command).
-        with(:'users/follow_user', user.id, user_to_follow_id)
+        with(:'users/follow_user', user.graph_user_id, user_to_follow_graph_user_id)
 
       result = interactor.execute
 
@@ -87,12 +87,12 @@ describe Interactors::Users::FollowUser do
 
     it 'calls the correct validation methods' do
       user_name = mock
-      user_to_follow_id = mock
+      user_to_follow_graph_user_id = mock
 
       described_class.any_instance.should_receive(:validate_nonempty_string).with(:user_name, user_name)
-      described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_to_follow_id, user_to_follow_id)
+      described_class.any_instance.should_receive(:validate_integer_string).with(:user_to_follow_graph_user_id, user_to_follow_graph_user_id)
 
-      interactor = described_class.new user_name, user_to_follow_id
+      interactor = described_class.new user_name, user_to_follow_graph_user_id
     end
   end
 end

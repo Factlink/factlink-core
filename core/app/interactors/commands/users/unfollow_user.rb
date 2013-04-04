@@ -5,16 +5,16 @@ module Commands
     class UnfollowUser
       include Pavlov::Command
 
-      arguments :user_id, :user_to_unfollow_id
+      arguments :graph_user_id, :user_to_unfollow_graph_user_id
 
       def execute
-        user_following_users = UserFollowingUsers.new(user_id)
-        user_following_users.unfollow user_to_unfollow_id
+        user_following_users = UserFollowingUsers.new(graph_user_id)
+        user_following_users.unfollow user_to_unfollow_graph_user_id
       end
 
       def validate
-        validate_hexadecimal_string :user_id, user_id
-        validate_hexadecimal_string :user_to_unfollow_id, user_to_unfollow_id
+        validate_integer_string :graph_user_id, graph_user_id
+        validate_integer_string :user_to_unfollow_graph_user_id, user_to_unfollow_graph_user_id
       end
     end
   end

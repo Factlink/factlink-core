@@ -14,27 +14,27 @@ describe Commands::Users::UnfollowUser do
     end
 
     it 'calls a command to follow user and returns the user' do
-      user_id = mock
-      user_to_unfollow_id = mock
+      graph_user_id = mock
+      user_to_unfollow_graph_user_id = mock
       users_following_users = mock
 
-      UserFollowingUsers.should_receive(:new).with(user_id).and_return(users_following_users)
-      users_following_users.should_receive(:unfollow).with(user_to_unfollow_id)
+      UserFollowingUsers.should_receive(:new).with(graph_user_id).and_return(users_following_users)
+      users_following_users.should_receive(:unfollow).with(user_to_unfollow_graph_user_id)
 
-      query = described_class.new user_id, user_to_unfollow_id
+      query = described_class.new graph_user_id, user_to_unfollow_graph_user_id
       query.execute
     end
   end
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      user_id = mock
-      user_to_unfollow_id = mock
+      graph_user_id = mock
+      user_to_unfollow_graph_user_id = mock
 
-      described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_id, user_id)
-      described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_to_unfollow_id, user_to_unfollow_id)
+      described_class.any_instance.should_receive(:validate_integer_string).with(:graph_user_id, graph_user_id)
+      described_class.any_instance.should_receive(:validate_integer_string).with(:user_to_unfollow_graph_user_id, user_to_unfollow_graph_user_id)
 
-      query = described_class.new user_id, user_to_unfollow_id
+      query = described_class.new graph_user_id, user_to_unfollow_graph_user_id
     end
   end
 end

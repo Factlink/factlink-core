@@ -5,16 +5,16 @@ module Commands
     class FollowUser
       include Pavlov::Command
 
-      arguments :user_id, :user_to_follow_id
+      arguments :graph_user_id, :user_to_follow_graph_user_id
 
       def execute
-        user_following_users = UserFollowingUsers.new(user_id)
-        user_following_users.follow user_to_follow_id
+        user_following_users = UserFollowingUsers.new(graph_user_id)
+        user_following_users.follow user_to_follow_graph_user_id
       end
 
       def validate
-        validate_hexadecimal_string :user_id, user_id
-        validate_hexadecimal_string :user_to_follow_id, user_to_follow_id
+        validate_integer_string :graph_user_id, graph_user_id
+        validate_integer_string :user_to_follow_graph_user_id, user_to_follow_graph_user_id
       end
     end
   end

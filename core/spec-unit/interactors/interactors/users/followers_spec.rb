@@ -71,20 +71,25 @@ describe Interactors::Users::Followers do
       user_name = mock
       skip = mock
       take = mock
-      current_user = mock(id: mock)
+      current_user = mock(graph_user_id: mock)
       interactor = described_class.new user_name, skip, take, current_user: current_user
       users = mock(length: mock)
+      graph_user_ids = mock
       count = mock
-      user = mock(id: mock)
+      user = mock(graph_user_id: mock)
       followed_by_me = true
 
       interactor.should_receive(:query).
         with(:'user_by_username', user_name).
         and_return(user)
       interactor.should_receive(:query).
-        with(:'users/follower_ids', user.id.to_s).
+        with(:'users/follower_graph_user_ids', user.graph_user_id.to_s).
+        and_return(graph_user_ids)
+      interactor.should_receive(:query).
+        with(:users_by_graph_user_ids, graph_user_ids).
         and_return(users)
-      users.should_receive(:include?).with(current_user.id).and_return(followed_by_me)
+
+      graph_user_ids.should_receive(:include?).with(current_user.graph_user_id).and_return(followed_by_me)
       users.should_receive(:drop).with(skip).and_return(users)
       users.should_receive(:take).with(take).and_return(users)
 
