@@ -21,7 +21,7 @@ class FollowUserButtonView extends Backbone.Marionette.Layout
     unfollowButton: '.js-unfollow-user-button'
 
   initialize: ->
-    @bindTo @model, 'change', @updateButton, @
+    @bindTo @model.followers, 'add remove', @updateButton, @
 
   templateHelpers: =>
     follow:    Factlink.Global.t.follow.capitalize()
@@ -30,26 +30,25 @@ class FollowUserButtonView extends Backbone.Marionette.Layout
 
   follow: (e) ->
     @justFollowed = true
-    @model.follow(@model)
+    @model.follow()
     e.preventDefault()
     e.stopPropagation()
 
   unfollow: (e) ->
-    @model.unfollow(@model)
+    @model.unfollow()
     e.preventDefault()
     e.stopPropagation()
 
   onRender: -> @updateButton()
 
   updateButton: =>
-    added = @model.get('followed?')
-
+    added = @model.followed_by_current_user()
     @$('.js-unfollow-user-button').toggle added
     @$('.js-follow-user-button').toggle not added
 
   enableHoverState: ->
     return if @justFollowed
-    return unless @model.get('followed?')
+    return unless @model.followed_by_current_user()
     @ui.defaultButton.hide()
     @ui.hoverButton.show()
     @ui.unfollowButton.addClass 'btn-danger'
