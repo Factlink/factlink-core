@@ -20,7 +20,7 @@ module Interactors
       def execute
         user = query :user_by_username, @user_name
 
-        users = query :'users/follower_ids', user.id
+        users = query :'users/follower_ids', user.id.to_s
         followed_by_me = users.include? @options[:current_user].id
         count = users.length
         users = users.drop(skip).take(take)
