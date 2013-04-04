@@ -158,10 +158,6 @@ FactlinkUI::Application.routes.draw do
       post "/mark_as_read" => "users#mark_activities_as_read", :as => "mark_activities_as_read"
     end
 
-    get    "/follows/:other_user"  => "users#follows"
-    post   "/follow/:other_user"   => "users#follow"
-    delete "/unfollow/:other_user" => "users#unfollow"
-
     resources :channels do
       collection do
         get "find" => "channels#search", :as => "find"
@@ -214,6 +210,8 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+
+    resources :followers, :only => [:destroy, :update, :index]
   end
 
   resources :topics, path: 't', only: [] do

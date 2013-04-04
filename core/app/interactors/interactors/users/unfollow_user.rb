@@ -5,19 +5,20 @@ module Interactors
     class UnfollowUser
       include Pavlov::Interactor
 
-      arguments :user_id, :user_to_unfollow_id
+      arguments :user_name, :user_to_unfollow_id
 
       def authorized?
-        !! @options[:current_user]
+        (!! @options[:current_user]) and (@options[:current_user].username == user_name)
       end
 
       def execute
-        command :'users/unfollow_user', user_id, user_to_unfollow_id
+        user = query :user_by_username, @user_name
+        command :'users/unfollow_user', user.id, user_to_unfollow_id
         nil
       end
 
       def validate
-        validate_hexadecimal_string :user_id, @user_id
+        validate_nonempty_string :user_name, @user_name
         validate_hexadecimal_string :user_to_unfollow_id, @user_to_unfollow_id
       end
     end

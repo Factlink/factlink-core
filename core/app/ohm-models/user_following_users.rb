@@ -4,7 +4,7 @@ class UserFollowingUsers
 
   attr_reader :user_id
 
-  def initialize user_id, relation=ManyToManyRelation.new(Nest.new(:user)[:users_following_users])
+  def initialize user_id, relation=ManyToManyRelation.new(Nest.new(:user)[:following_users])
     @user_id = user_id
     @relation = relation
   end
@@ -27,21 +27,6 @@ class UserFollowingUsers
 
   def follows? other_id
     relation.has? user_id, other_id
-  end
-
-  def following
-    ids_to_objects following_ids
-  end
-
-  def followers
-    ids_to_objects followers_ids
-  end
-
-  def ids_to_objects ids
-    ids.
-      map{|id| User.find(id)}.
-      compact.
-      reject{|user| user.hidden}
   end
 
   private

@@ -49,45 +49,4 @@ describe UserFollowingUsers do
     end
   end
 
-  describe '.following' do
-    it 'calls ids_to_objects with following_ids' do
-      users = mock
-
-      user_following_users.should_receive(:following_ids).and_return(ids)
-      user_following_users.should_receive(:ids_to_objects).and_return(users)
-      result = user_following_users.following
-
-      expect(result).to eq users
-    end
-  end
-
-  describe '.followers' do
-    it 'calls ids_to_objects with following_ids' do
-      users = mock
-      
-      user_following_users.should_receive(:followers_ids).and_return(ids)
-      user_following_users.should_receive(:ids_to_objects).and_return(users)
-      result = user_following_users.followers
-
-      expect(result).to eq users
-    end
-  end
-
-  describe '.ids_to_objects' do
-    it "should filter hidden and non-existing users" do
-      stub_const 'User', Class.new
-
-      user1 = mock(hidden: true)
-      user2 = nil
-      user3 = mock(hidden: false)
-
-      User.should_receive(:find).with(1).and_return(user1)
-      User.should_receive(:find).with(2).and_return(user2)
-      User.should_receive(:find).with(3).and_return(user3)
-
-      result = user_following_users.ids_to_objects [1, 2, 3]
-
-      expect(result).to eq [user3]
-    end
-  end
 end
