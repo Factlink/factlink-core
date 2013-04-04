@@ -62,15 +62,19 @@ describe Interactors::Users::UnfollowUser do
 
     it 'calls a command to unfollow' do
       user_name = mock
-      user_to_unfollow_graph_user_id = mock
+      user_to_unfollow_user_name = mock
+      interactor = described_class.new user_name, user_to_unfollow_user_name
       user = mock(graph_user_id: mock)
-      interactor = described_class.new user_name, user_to_unfollow_graph_user_id
+      user_to_unfollow = mock(graph_user_id: mock)
 
       interactor.should_receive(:query).
         with(:'user_by_username', user_name).
         and_return(user)
+      interactor.should_receive(:query).
+        with(:'user_by_username', user_to_unfollow_user_name).
+        and_return(user_to_unfollow)
       interactor.should_receive(:command).
-        with(:'users/unfollow_user', user.graph_user_id, user_to_unfollow_graph_user_id)
+        with(:'users/unfollow_user', user.graph_user_id, user_to_unfollow.graph_user_id)
 
       result = interactor.execute
 
@@ -87,14 +91,14 @@ describe Interactors::Users::UnfollowUser do
 
     it 'calls the correct validation methods' do
       user_name = mock
-      user_to_unfollow_graph_user_id = mock
+      user_to_unfollow_user_name = mock
 
       described_class.any_instance.should_receive(:validate_nonempty_string).
         with(:user_name, user_name)
-      described_class.any_instance.should_receive(:validate_integer_string).
-        with(:user_to_unfollow_graph_user_id, user_to_unfollow_graph_user_id)
+      described_class.any_instance.should_receive(:validate_nonempty_string).
+        with(:user_to_unfollow_user_name, user_to_unfollow_user_name)
 
-      interactor = described_class.new user_name, user_to_unfollow_graph_user_id
+      interactor = described_class.new user_name, user_to_unfollow_user_name
     end
   end
 end

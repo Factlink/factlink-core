@@ -16,13 +16,13 @@ class UserFollowersController < ApplicationController
   end
 
   def update
-    interactor :'users/follow_user', @user_name, @follower_id
+    interactor :'users/follow_user', @user_name, @follower_user_name
 
     return_ok
   end
 
   def destroy
-    interactor :'users/unfollow_user', @user_name, @follower_id
+    interactor :'users/unfollow_user', @user_name, @follower_user_name
 
     return_ok
   end
@@ -38,7 +38,7 @@ class UserFollowersController < ApplicationController
     @user_name = params[:username]
   end
 
-  def set_follower_id
-    @follower_id = params[:id]
+  def set_follower_user_name
+    @follower_user_name = params[:id]
   end
 end
