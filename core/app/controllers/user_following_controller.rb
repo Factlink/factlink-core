@@ -9,20 +9,20 @@ class UserFollowingController < ApplicationController
     params[:take] ||= '3'
     @take = params[:take].to_i
 
-    @users, @total = interactor :'users/follow_user', user_id,
+    @users, @total = interactor :'users/follow_user', @user_name,
       @skip, @take
 
     render 'facts/interactions', format: 'json'
   end
 
   def update
-    interactor :'users/follow_user', @user_id, @follower_id
+    interactor :'users/follow_user', @user_name, @follower_id
 
     return_ok
   end
 
   def destroy
-    interactor :'users/unfollow_user', @user_id, @follower_id
+    interactor :'users/unfollow_user', @user_name, @follower_id
 
     return_ok
   end
@@ -35,10 +35,10 @@ class UserFollowingController < ApplicationController
   end
 
   def set_user_id
-    @user_id = params[:user_id]
+    @user_name = params[:username]
   end
 
   def set_follower_id
-    @follower_id = params[:follower_id]
+    @follower_id = params[:id]
   end
 end

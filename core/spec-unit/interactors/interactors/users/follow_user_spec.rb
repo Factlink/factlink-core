@@ -12,10 +12,7 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'throws when no current_user' do
-      user_id = mock
-      user_to_follow_id = mock
-
-      expect { described_class.new user_id, user_to_follow_id }.
+      expect { described_class.new mock, mock }.
         to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
@@ -31,9 +28,7 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'returns an object' do
-      user_id = mock
-      user_to_follow_id = mock
-      interactor = described_class.new user_id, user_to_follow_id
+      interactor = described_class.new mock, mock
 
       expect(interactor).to_not be_nil
     end
@@ -50,13 +45,16 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'calls a command to follow user and returns the user' do
-      user_id = mock
+      user_name = mock
       user_to_follow_id = mock
+      interactor = described_class.new user_name, user_to_follow_id
+      user = mock(id: mock)
 
-      interactor = described_class.new user_id, user_to_follow_id
+      interactor.should_receive(:query).
+        with(:'user_by_username', user_name).
+        and_return(user)
       interactor.should_receive(:command).
-        with(:'users/follow_user', user_id, user_to_follow_id).
-        and_return(mock)
+        with(:'users/follow_user', user.id, user_to_follow_id)
 
       result = interactor.execute
 
@@ -72,13 +70,13 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'calls the correct validation methods' do
-      user_id = mock
+      user_name = mock
       user_to_follow_id = mock
 
-      described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_id, user_id)
+      described_class.any_instance.should_receive(:validate_nonempty_string).with(:user_name, user_name)
       described_class.any_instance.should_receive(:validate_hexadecimal_string).with(:user_to_follow_id, user_to_follow_id)
 
-      interactor = described_class.new user_id, user_to_follow_id
+      interactor = described_class.new user_name, user_to_follow_id
     end
   end
 end
