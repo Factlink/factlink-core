@@ -2,7 +2,7 @@ require 'pavlov'
 
 module Interactors
   module Users
-    class FollowingUsers
+    class Following
       include Pavlov::Interactor
 
       arguments :user_name, :skip, :take
@@ -19,8 +19,12 @@ module Interactors
 
       def execute
         user = query :user_by_username, @user_name
-        users = query :'users/following_user_ids', user.id, @skip, @take
-        count = query :'users/following_count', user.id
+
+        graph_user_ids = query :'users/following_ids', user.id.to_s
+        users = query :users_by_graph_user_ids, graph_user_ids
+
+        count = users.length
+        users = users.drop(skip).take(take)
 
         return users, count
       end

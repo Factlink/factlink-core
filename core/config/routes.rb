@@ -211,7 +211,8 @@ FactlinkUI::Application.routes.draw do
       end
     end
 
-    resources :followers, :only => [:destroy, :update, :index]
+    resources :followers, :only => [:destroy, :update, :index], controller: 'user_followers'
+    resources :following, :only => [:index], controller: 'user_following'
   end
 
   resources :topics, path: 't', only: [] do

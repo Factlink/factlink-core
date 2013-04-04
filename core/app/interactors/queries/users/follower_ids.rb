@@ -2,7 +2,7 @@ require 'pavlov'
 
 module Queries
   module Users
-    class FollowersIds
+    class FollowerIds
       include Pavlov::Query
 
       arguments :user_id

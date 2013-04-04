@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/users/followers_ids'
+require_relative '../../../../app/interactors/queries/users/following_ids'
 
-describe Queries::Users::FollowersIds do
+describe Queries::Users::FollowingIds do
   include PavlovSupport
 
   describe '#execute' do
@@ -13,13 +13,13 @@ describe Queries::Users::FollowersIds do
       stub_classes 'UserFollowingUsers'
     end
 
-    it 'returns the ids of followers' do
+    it 'returns the ids of users that the specified user is following' do
       user_id = mock
       ids = mock
       users_following_users = mock
 
       UserFollowingUsers.should_receive(:new).with(user_id).and_return(users_following_users)
-      users_following_users.should_receive(:followers_ids).and_return(ids)
+      users_following_users.should_receive(:following_ids).and_return(ids)
 
       query = described_class.new user_id
       result = query.execute
