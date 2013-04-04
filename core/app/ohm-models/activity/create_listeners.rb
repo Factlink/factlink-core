@@ -21,6 +21,10 @@ class ActivityListenerCreator
     Queries::Activities::GraphUserIdsFollowingFactRelations.new([fact_relation]).call
   end
 
+  def followers_for_conversation conversation
+    conversation.recipients.map { |r| r.graph_user.id }
+  end
+
   def reject_self followers, activity
     followers.reject {|id| id == activity.user_id}
   end
@@ -58,13 +62,25 @@ class ActivityListenerCreator
     forGraphUser_someone_send_you_a_message = {
       subject_class: "Conversation",
       action: [:created_conversation],
-      write_ids: lambda { |a| a.subject.recipients.map { |r| r.graph_user.id }.reject { |id| id == a.user_id } }
+      write_ids: lambda { |a| reject_self(followers_for_conversation(a.subject),a) }
     }
 
     forGraphUser_someone_send_you_a_reply = {
       subject_class: "Message",
       action: [:replied_message],
-      write_ids: lambda { |a| a.subject.conversation.recipients.map { |r| r.graph_user.id }.reject { |id| id == a.user_id } }
+      write_ids: lambda { |a| reject_self(followers_for_conversation(a.subject.conversation),a) }
+    }
+
+    forGraphUser_someone_invited_you = {
+      subject_class: "GraphUser",
+      action: :invites,
+      write_ids: lambda { |a| [a.subject_id] }
+    }
+
+    forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation = {
+      subject_class: "SubComment",
+      action: :created_sub_comment,
+      write_ids: people_who_follow_sub_comment
     }
 
     notification_activities = [
@@ -72,7 +88,9 @@ class ActivityListenerCreator
       forGraphUser_evidence_was_added,
       forGraphUser_someone_send_you_a_message,
       forGraphUser_someone_send_you_a_reply,
-      forGraphUser_comment_was_added
+      forGraphUser_comment_was_added,
+      forGraphUser_someone_invited_you,
+      forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation
     ]
 
     stream_activities = [
@@ -85,19 +103,7 @@ class ActivityListenerCreator
     Activity::Listener.register do
       activity_for "GraphUser"
       named :notifications
-
       notification_activities.each { |a| activity a }
-
-      # you were invited to factlink by this user
-      activity subject_class: "GraphUser",
-               action: :invites,
-               write_ids: lambda { |a| [a.subject_id] }
-
-
-      # someone added a sub comment
-      activity subject_class: "SubComment",
-               action: :created_sub_comment,
-               write_ids: people_who_follow_sub_comment
     end
 
     Activity::Listener.register do
