@@ -33,17 +33,23 @@ set :default_environment, {
 namespace :action do
 
   task :start_recalculate do
-    run "sh #{current_path}/bin/server/start_recalculate_using_monit.sh"
+    run "sudo monit start recalculate"
   end
+
   task :stop_recalculate do
-    run "sh #{current_path}/bin/server/stop_recalculate.sh"
+    run "sudo monit stop recalculate"
   end
 
   task :start_resque do
-    run "sh #{current_path}/bin/server/start_resque_using_monit.sh"
+    run "sudo monit start resque"
   end
+
   task :stop_resque do
-    run "sudo /usr/sbin/monit stop resque"
+    run "sudo monit stop resque"
+  end
+
+  task :stop_background_processes do
+    run "#{current_path}/bin/server/stop_background_scripts.sh"
   end
 
 end
@@ -95,8 +101,7 @@ end
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'
 
-before 'deploy:migrate',  'action:stop_recalculate'
-before 'deploy:migrate',  'action:stop_resque'
+before 'deploy:migrate',  'action:stop_background_processes'
 
 after 'deploy',           'deploy:migrate'
 
@@ -104,6 +109,7 @@ after 'deploy:migrate',   'action:start_recalculate'
 after 'deploy:migrate',   'action:start_resque'
 
 after 'deploy:update',    'deploy:check_installed_packages'
+
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
 after 'deploy',           'deploy:curl_site'
