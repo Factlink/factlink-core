@@ -5,3 +5,7 @@ class window.Followers extends Backbone.Collection
     @user = opts.user
 
   url: -> "/#{@user.get('username')}/followers"
+
+  addFollower: (follower) ->
+    @add follower
+    Backbone.sync('create', follower, url: "#{@url()}/#{follower.get('username')}" )
