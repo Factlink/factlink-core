@@ -7,6 +7,7 @@
  ☐ call interactors from UserController actions
  ✔ styling of followers / following count @done (13-04-03 16:14)
  ☐ dont show "follow" button on your own profile
+ ☐ route to get followed users
  ☐ interactor + command to save followed user in redis
  ☐ interactor + command to unfollow user
  ☐ query to get followed user
