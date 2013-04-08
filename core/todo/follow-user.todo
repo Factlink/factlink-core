@@ -17,3 +17,4 @@
  ☐ add follow/unfollow users in create listner
  ☐ activity, notification and mail for follow user
  ☐ acceptance tests
+ ☐ update followers count when button clicked
