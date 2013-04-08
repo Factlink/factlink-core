@@ -14,15 +14,13 @@ describe Activity::Listener do
     class Foo
       timestamped_set :activities, Activity
     end
+    stub_const 'Interactors::SendMailForActivity', mock
   end
 
   after :all do
     ActivityListenerCreator.new.create_activity_listeners
   end
 
-  before do
-    stub_const('Interactors::SendMailForActivity', mock())
-  end
 
   def send_mail_for_activity_should_be_invoked
     interactor = mock()
