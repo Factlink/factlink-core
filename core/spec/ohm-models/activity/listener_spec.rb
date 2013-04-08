@@ -14,7 +14,7 @@ describe Activity::Listener do
   let(:f2)  { Foo.create }
 
   after :all do
-    create_activity_listeners
+    ActivityListenerCreator.new.create_activity_listeners
   end
 
   before do
