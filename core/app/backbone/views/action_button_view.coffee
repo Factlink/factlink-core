@@ -15,17 +15,17 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     secondaryAction: '.js-action-button-secondary'
 
   updateButton: =>
-    added = @buttonState()
+    added = @buttonEnabled()
     @ui.primaryAction.toggle not added
     @ui.secondaryAction.toggle added
 
-  buttonState: ->
+  buttonEnabled: ->
     # Must be implemented in the view that inherits from ActionButtonView
-    console.error 'buttonState() must be implemented.'
+    console.error 'buttonEnabled() must be implemented.'
 
   enableHoverState: ->
     return if @justClicked
-    return unless @buttonState()
+    return unless @buttonEnabled()
     @ui.defaultState.hide()
     @ui.hoverState.show()
     @ui.secondaryAction.addClass 'btn-danger'

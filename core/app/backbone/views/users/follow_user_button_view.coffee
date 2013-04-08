@@ -9,7 +9,7 @@ class window.FollowUserButtonView extends ActionButtonView
     disable_label:  Factlink.Global.t.unfollow.capitalize()
     enabled_label:  Factlink.Global.t.following.capitalize()
 
-  buttonState: ->
+  buttonEnabled: ->
     @model.followers.followed_by_me()
 
   primaryAction: (e) ->
