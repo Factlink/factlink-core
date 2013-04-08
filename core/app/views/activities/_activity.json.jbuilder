@@ -140,6 +140,10 @@ json.activity do |json|
     json.message do |message|
       message.content truncate("#{subject.content}", length: 85, separator: ' ')
     end
+  when "followed_user"
+    json.followed_user do |followed_user|
+      followed_user.partial! 'users/user_partial', user: subject.user
+    end
   when "invites"
     json.target_url user_profile_path(user)
   end
