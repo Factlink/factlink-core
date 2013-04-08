@@ -74,21 +74,6 @@ class UsersController < ApplicationController
     render json: {}, status: :ok
   end
 
-  def follows
-    # TODO: call follows user interactor
-    render json: {}
-  end
-
-  def follow
-    # TODO: call follow user interactor
-    render json: {}
-  end
-
-  def unfollow
-    # TODO: call unfollow user interactor
-    render json: {}
-  end
-
   private
   def load_user
     username = params[:username] || params[:id]
