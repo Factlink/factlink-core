@@ -485,7 +485,6 @@ describe 'activity queries' do
   end
 
   describe 'following a person' do
-    let(:follower) { create(:active_user) }
     let(:user)     { create(:active_user) }
     let(:followee) { create(:active_user) }
     include PavlovSupport
@@ -499,6 +498,8 @@ describe 'activity queries' do
       ]
     end
     it 'creates a stream activity for your followers' do
+      follower = create(:active_user)
+
       as(follower) do |pavlov|
         pavlov.interactor 'users/follow_user', follower.username, user.username
       end
@@ -513,7 +514,20 @@ describe 'activity queries' do
     end
 
     it 'creates a activity when a user you follow creates a factlink.' do
-      pending
+      as(user) do |pavlov|
+        pavlov.interactor 'users/follow_user', user.username, followee.username
+      end
+
+      displaystring = 'this is a displaystring for fact'
+      fact = nil
+      as(followee) do |backend|
+        fact = backend.interactor :'facts/create', displaystring, '', 'title'
+      end
+
+      user_stream_activities = user.graph_user.stream_activities.map(&:to_hash_without_time)
+      expect(user_stream_activities).to eq [
+        {user: followee.graph_user, action: :created, subject: fact}
+      ]
     end
   end
 end
