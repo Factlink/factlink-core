@@ -25,4 +25,8 @@ module FactHelper
 
     fact.to_s.parameterize.slice(0,max_slug_length)
   end
+
+  def create_factlink(user)
+    FactoryGirl.create(:fact, created_by: user.graph_user)
+  end
 end
