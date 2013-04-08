@@ -3,7 +3,7 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
 
   events:
     "click .js-action-button-primary":   "primaryActionWrapper"
-    "click .js-action-button-secondary": "secondaryAction"
+    "click .js-action-button-secondary": "secondaryActionWrapper"
 
     "mouseleave": "disableHoverState"
     "mouseenter": "enableHoverState"
@@ -37,5 +37,13 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     @ui.secondaryAction.removeClass 'btn-danger'
 
   primaryActionWrapper: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
     @justClicked = true
     @primaryAction(e)
+
+  secondaryActionWrapper: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    @secondaryAction(e)
+

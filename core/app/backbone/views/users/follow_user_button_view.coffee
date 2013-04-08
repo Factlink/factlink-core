@@ -14,10 +14,6 @@ class window.FollowUserButtonView extends ActionButtonView
 
   primaryAction: (e) ->
     @model.follow()
-    e.preventDefault()
-    e.stopPropagation()
 
   secondaryAction: (e) ->
     @model.unfollow()
-    e.preventDefault()
-    e.stopPropagation()
