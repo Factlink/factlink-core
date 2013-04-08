@@ -75,6 +75,8 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
   appendable: (model) -> super(model) and @sameFact(model)
 
 class UsersFollowedGroupView extends UserActivitiesGroupView
+  template: 'activities/users_followed_group'
+
   @actions: ["followed_user"]
   actions: -> UsersFollowedGroupView.actions
 

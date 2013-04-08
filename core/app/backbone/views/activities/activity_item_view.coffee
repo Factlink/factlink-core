@@ -39,6 +39,7 @@ class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"
 
 class FollowedUserView extends ActivityItemView
+  className: 'span'
   template: "activities/followed_user"
   templateHelpers: =>
     followed_user: new User(@model.get('activity').followed_user).toJSON()
