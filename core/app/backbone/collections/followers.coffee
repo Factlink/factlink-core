@@ -40,11 +40,13 @@ class window.Followers extends SocialCollection
   addFollower: (follower) ->
     Backbone.sync('update', follower, url: "#{@url()}/#{follower.get('username')}" )
     @_followed_by_me = true
+    @totalRecords += 1
     @trigger 'change'
 
   removeFollower: (follower) ->
     Backbone.sync('delete', follower, url: "#{@url()}/#{follower.get('username')}" )
     @_followed_by_me = false
+    @totalRecords -= 1
     @trigger 'change'
 
   parse: (response) ->
