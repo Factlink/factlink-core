@@ -64,8 +64,8 @@ describe Interactors::Users::FollowUser do
       user_name = mock
       user_name_to_follow = mock
       interactor = described_class.new user_name, user_name_to_follow
-      user = mock(graph_user_id: mock)
-      user_to_follow = mock(graph_user_id: mock)
+      user = mock(graph_user_id: mock, graph_user: mock)
+      user_to_follow = mock(graph_user_id: mock, graph_user: mock)
 
       interactor.should_receive(:query).
         with(:'user_by_username', user_name).
@@ -75,6 +75,8 @@ describe Interactors::Users::FollowUser do
         and_return(user_to_follow)
       interactor.should_receive(:command).
         with(:'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id)
+      interactor.should_receive(:command).
+        with(:'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil)
 
       result = interactor.execute
 

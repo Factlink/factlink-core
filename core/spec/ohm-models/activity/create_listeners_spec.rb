@@ -484,4 +484,20 @@ describe 'activity queries' do
     end
   end
 
+  describe 'following a person' do
+    let(:follower) { create(:active_user) }
+    let(:user)     { create(:active_user) }
+    let(:followee) { create(:active_user) }
+    include PavlovSupport
+    it 'creates a notification for the followed person' do
+      as(user) do |pavlov|
+        pavlov.interactor 'users/follow_user', user.username, followee.username
+      end
+      followee_notifications = followee.graph_user.notifications.map(&:to_hash_without_time)
+      expect(followee_notifications).to eq [
+        {user: user.graph_user, action: :followed_user, subject: followee.graph_user}
+      ]
+    end
+    it 'creates a stream activity for your followers'
+  end
 end

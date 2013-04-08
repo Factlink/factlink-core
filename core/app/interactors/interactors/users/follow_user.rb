@@ -15,6 +15,7 @@ module Interactors
         user = query :user_by_username, @user_name
         user_to_follow = query :user_by_username, @user_to_follow_user_name
         command :'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id
+        command :'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil
         nil
       end
 

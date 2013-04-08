@@ -126,6 +126,12 @@ class ActivityListenerCreator
       write_ids: lambda { |a| [a.subject.created_by_id] }
     }
 
+    forGraphUser_someone_followed_you = {
+      subject_class: 'GraphUser',
+      action: 'followed_user',
+      write_ids: lambda {|a| [a.subject_id]}
+    }
+
     notification_activities = [
       forGraphUser_someone_followed_your_channel, # but you're not already following this person
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
@@ -133,8 +139,8 @@ class ActivityListenerCreator
       forGraphUser_someone_send_you_a_reply,
       forGraphUser_comment_was_added,
       forGraphUser_someone_invited_you,
-      forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation
-      #forGraphUser_someone_followed_you
+      forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation,
+      forGraphUser_someone_followed_you
     ]
 
     stream_activities = [
