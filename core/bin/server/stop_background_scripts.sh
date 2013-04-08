@@ -10,7 +10,7 @@ do
   sudo monit stop resque > /dev/null 2>&1
   sudo monit stop recalculate > /dev/null 2>&1
 
-  i=`sudo monit status | grep --after-context=1 --extended-regexp 'recalculate|resque' | grep --extended-regexp 'Not monitored$' | wc --lines`
+  i=`sudo monit status | grep --after-context=1 --extended-regexp 'recalculate|resque' | grep --extended-regexp 'not monitored$' | wc --lines`
   if [ "$i" -eq "2" ]; then
     echo "\nDone."; # Nice little line-break
     exit 0
