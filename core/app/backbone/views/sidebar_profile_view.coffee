@@ -7,14 +7,14 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
     @bindTo @model.following, 'change', @render, @
 
   templateHelpers: =>
-    plural: @plural()
-    followers_count: @followers_count()
-    following_count: @following_count()
+    plural_followers: @plural_followers()
+    followers_count:  @followers_count()
+    following_count:  @following_count()
 
   followers_count: ->
     @model.followers.followers_count()
 
-  plural: ->
+  plural_followers: ->
     not (@followers_count() == 1)
 
   following_count: ->
