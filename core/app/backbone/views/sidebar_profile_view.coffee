@@ -4,16 +4,22 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @bindTo @model.followers, 'change', @render, @
+    @bindTo @model.following, 'change', @render, @
 
   templateHelpers: =>
     plural: @plural()
     followers_count: @followers_count()
+    following_count: @following_count()
 
   followers_count: ->
     @model.followers.followers_count()
 
   plural: ->
     not (@followers_count() == 1)
+
+  following_count: ->
+    @model.following.following_count()
+
 
 # TODO:  Severe duplication with followChannelButtonView ! please refactor
 class FollowUserButtonView extends Backbone.Marionette.Layout
@@ -80,6 +86,7 @@ class window.SidebarProfileView extends Backbone.Marionette.Layout
 
   onRender: ->
     @model.followers.fetch()
+    @model.following.fetch()
 
     @profilePictureRegion.show   new UserLargeView(model: @model)
     @socialStatisticsRegion.show new SocialStatisticsView(model: @model)

@@ -45,3 +45,36 @@ class window.Followers extends Backbone.Paginator.requestPager
 
   followers_count: ->
     @totalRecords
+
+class window.Following extends Backbone.Paginator.requestPager
+  model: User,
+  server_api:
+      take: -> @perPage
+      skip: -> (@currentPage-1) * @perPage
+
+  paginator_core:
+    dataType: "json",
+    url: -> @url()
+
+  paginator_ui:
+    perPage: 3
+    firstPage: 1
+    currentPage: 1
+
+  initialize: (models, opts) ->
+    @user = opts.user
+    @totalRecords = 0
+
+  url: -> "/#{@user.get('username')}/following"
+
+  parse: (response) ->
+    @totalRecords = response.total
+    @totalPages = Math.floor(response.total / @perPage)
+    response
+
+  fetch: ->
+    super success: =>
+      @trigger 'change'
+
+  following_count: ->
+    @totalRecords
