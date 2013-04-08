@@ -142,6 +142,12 @@ class ActivityListenerCreator
       write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
     }
 
+    forGraphUser_someone_you_follow_followed_someone_else = {
+      subject_class: 'GraphUser',
+      action: 'followed_user',
+      write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
+    }
+
     notification_activities = [
       forGraphUser_someone_followed_your_channel, # but you're not already following this person
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
@@ -163,6 +169,7 @@ class ActivityListenerCreator
       forGraphUser_someone_added_a_fact_you_created_to_his_channel,
       forGraphUser_someone_added_a_fact_to_a_channel_you_follow,
       forGraphUser_someone_you_follow_added_a_fact_to_a_channel,
+      forGraphUser_someone_you_follow_followed_someone_else,
       forGraphUser_you_just_created_your_first_factlink
     ]
 
