@@ -1,4 +1,4 @@
-class window.Followers extends Backbone.Paginator.requestPager
+class window.SocialCollection extends Backbone.Paginator.requestPager
   model: User,
   server_api:
       take: -> @perPage
@@ -17,6 +17,23 @@ class window.Followers extends Backbone.Paginator.requestPager
     @user = opts.user
     @_followed_by_me = false
     @totalRecords = 0
+
+  parse: (response) ->
+    @totalRecords = response.total
+    @totalPages = Math.floor(response.total / @perPage)
+    response
+
+  fetch: ->
+    super success: =>
+      @trigger 'change'
+
+
+class window.Followers extends SocialCollection
+  initialize: (models, opts) ->
+    super(models, opts)
+    @_followed_by_me = false
+
+    window.henk = @
 
   url: -> "/#{@user.get('username')}/followers"
 
@@ -36,45 +53,14 @@ class window.Followers extends Backbone.Paginator.requestPager
     @_followed_by_me = response.followed_by_me
     response
 
-  fetch: ->
-    super success: =>
-      @trigger 'change'
-
   followed_by_me: ->
     @_followed_by_me
 
   followers_count: ->
     @totalRecords
 
-class window.Following extends Backbone.Paginator.requestPager
-  model: User,
-  server_api:
-      take: -> @perPage
-      skip: -> (@currentPage-1) * @perPage
 
-  paginator_core:
-    dataType: "json",
-    url: -> @url()
-
-  paginator_ui:
-    perPage: 3
-    firstPage: 1
-    currentPage: 1
-
-  initialize: (models, opts) ->
-    @user = opts.user
-    @totalRecords = 0
-
+class window.Following extends SocialCollection
   url: -> "/#{@user.get('username')}/following"
 
-  parse: (response) ->
-    @totalRecords = response.total
-    @totalPages = Math.floor(response.total / @perPage)
-    response
-
-  fetch: ->
-    super success: =>
-      @trigger 'change'
-
-  following_count: ->
-    @totalRecords
+  following_count: -> @totalRecords
