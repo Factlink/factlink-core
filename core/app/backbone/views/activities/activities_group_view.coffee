@@ -5,10 +5,16 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
   @classForModel: (model) ->
     action = model.get("action")
 
-    if action in UserFactActivitiesGroupView.actions
-      UserFactActivitiesGroupView
-    else
-      UserActivitiesGroupView
+    specialized_group_views = [
+      UserFactActivitiesGroupView,
+      UsersFollowedGroupView
+    ]
+
+    for group_view in specialized_group_views
+      if action in group_view.actions
+        return group_view
+
+    return UserActivitiesGroupView
 
   templateHelpers: ->
     user: @user?.toJSON()
@@ -67,3 +73,8 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
     @model.get('activity').fact?.id == model.get('activity').fact?.id
 
   appendable: (model) -> super(model) and @sameFact(model)
+
+class UsersFollowedGroupView extends UserActivitiesGroupView
+  @actions: ["followed_user"]
+  actions: -> UsersFollowedGroupView.actions
+
