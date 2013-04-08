@@ -8,8 +8,11 @@ module Queries
       arguments :graph_user_id
 
       def execute
-        user_following_users = UserFollowingUsers.new(graph_user_id)
         user_following_users.followers_ids
+      end
+
+      def user_following_users
+        UserFollowingUsers.new(graph_user_id)
       end
 
       def validate
