@@ -47,3 +47,5 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     e.stopPropagation()
     @secondaryAction(e)
 
+class window.ActionButtonMiniView extends ActionButtonView
+  template: 'generic/action_button_mini'
