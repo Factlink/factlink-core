@@ -2,7 +2,8 @@ require 'redis-aid'
 
 class UserFollowingUsers
 
-  attr_reader :graph_user_id
+  attr_reader :graph_user_id, :relation
+  private :relation
 
   def initialize graph_user_id, relation=ManyToManyTimestampedRelation.new(Nest.new(:user)[:following_users])
     @graph_user_id = graph_user_id
@@ -28,10 +29,4 @@ class UserFollowingUsers
   def follows? other_id
     relation.has? graph_user_id, other_id
   end
-
-  private
-  def relation
-    @relation
-  end
-
 end
