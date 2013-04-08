@@ -26,6 +26,10 @@ class ActivityListenerCreator
     conversation.recipients.map { |r| r.graph_user.id }
   end
 
+  def followers_for_graph_user graph_user
+    query :'users/follower_graph_user_ids', graph_user.id
+  end
+
   def channel_followers_of_graph_user graph_user
     ChannelList.new(graph_user).channels
       .map { |channel| channel.containing_channels.to_a }.flatten
@@ -132,6 +136,12 @@ class ActivityListenerCreator
       write_ids: lambda {|a| [a.subject_id]}
     }
 
+    forGraphUser_someone_you_follow_added_a_fact_to_a_channel = {
+      subject_class: 'GraphUser',
+      action: 'followed_user',
+      write_ids: lambda {|a| followers_for_graph_user(a.user)}
+    }
+
     notification_activities = [
       forGraphUser_someone_followed_your_channel, # but you're not already following this person
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
@@ -152,7 +162,7 @@ class ActivityListenerCreator
       forGraphUser_someone_opinionated_a_fact_you_created,
       forGraphUser_someone_added_a_fact_you_created_to_his_channel,
       forGraphUser_someone_added_a_fact_to_a_channel_you_follow,
-      #forGraphUser_someone_you_follow_added_a_fact_to_a_channel
+      forGraphUser_someone_you_follow_added_a_fact_to_a_channel,
       forGraphUser_you_just_created_your_first_factlink
     ]
 

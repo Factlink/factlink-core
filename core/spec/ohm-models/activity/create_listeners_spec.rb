@@ -498,6 +498,18 @@ describe 'activity queries' do
         {user: user.graph_user, action: :followed_user, subject: followee.graph_user}
       ]
     end
-    it 'creates a stream activity for your followers'
+    it 'creates a stream activity for your followers' do
+      as(follower) do |pavlov|
+        pavlov.interactor 'users/follow_user', follower.username, user.username
+      end
+      as(user) do |pavlov|
+        pavlov.interactor 'users/follow_user', user.username, followee.username
+      end
+      follower_stream_activities = follower.graph_user.stream_activities.map(&:to_hash_without_time)
+      expect(follower_stream_activities).to eq [
+        {user: user.graph_user, action: :followed_user, subject: followee.graph_user}
+      ]
+
+    end
   end
 end
