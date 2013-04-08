@@ -21,7 +21,7 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
 
   buttonEnabled: ->
     # Must be implemented in the view that inherits from ActionButtonView
-    console.error 'buttonEnabled() must be implemented.'
+    Raven.captureMessage('buttonEnabled() must be implemented.')
 
   enableHoverState: ->
     return if @justClicked
