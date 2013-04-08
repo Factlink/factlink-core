@@ -5,9 +5,9 @@ class window.FollowUserButtonView extends ActionButtonView
     @bindTo @model.followers, 'change', @updateButton, @
 
   templateHelpers: =>
-    primary_action_label:   Factlink.Global.t.follow.capitalize()
-    hover_state_label:      Factlink.Global.t.unfollow.capitalize()
-    secondary_action_label: Factlink.Global.t.following.capitalize()
+    disabled_label: Factlink.Global.t.follow.capitalize()
+    disable_label:  Factlink.Global.t.unfollow.capitalize()
+    enabled_label:  Factlink.Global.t.following.capitalize()
 
   buttonState: ->
     @model.followers.followed_by_me()
