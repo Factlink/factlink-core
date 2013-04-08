@@ -6,7 +6,7 @@ class window.Followers extends Backbone.Paginator.requestPager
 
   paginator_core:
     dataType: "json",
-    url: -> "/#{@user.get('username')}/followers"
+    url: -> @url()
 
   paginator_ui:
     perPage: 3
