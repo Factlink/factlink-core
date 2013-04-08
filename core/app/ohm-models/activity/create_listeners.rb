@@ -26,8 +26,8 @@ class ActivityListenerCreator
     conversation.recipients.map { |r| r.graph_user.id }
   end
 
-  def followers_for_graph_user graph_user
-    query :'users/follower_graph_user_ids', graph_user.id
+  def followers_for_graph_user graph_user_id
+    query :'users/follower_graph_user_ids', graph_user_id
   end
 
   def channel_followers_of_graph_user graph_user
@@ -137,9 +137,9 @@ class ActivityListenerCreator
     }
 
     forGraphUser_someone_you_follow_added_a_fact_to_a_channel = {
-      subject_class: 'GraphUser',
-      action: 'followed_user',
-      write_ids: lambda {|a| followers_for_graph_user(a.user)}
+      subject_class: 'Fact',
+      action: :created,
+      write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
     }
 
     notification_activities = [
