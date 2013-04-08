@@ -8,8 +8,11 @@ module Commands
       arguments :graph_user_id, :user_to_follow_graph_user_id
 
       def execute
-        user_following_users = UserFollowingUsers.new(graph_user_id)
         user_following_users.follow user_to_follow_graph_user_id
+      end
+
+      def user_following_users
+        UserFollowingUsers.new(graph_user_id)
       end
 
       def validate
