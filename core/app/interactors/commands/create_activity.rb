@@ -7,7 +7,7 @@ module Commands
     arguments :graph_user, :action, :subject, :object
 
     def execute
-      Activity.create(user: @graph_user, action: @action, subject: @subject, object: @object)
+      Activity.create(user: graph_user, action: action, subject: subject, object: object)
     end
   end
 end
