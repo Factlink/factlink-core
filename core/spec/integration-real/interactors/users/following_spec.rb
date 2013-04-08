@@ -13,8 +13,8 @@ describe 'user following' do
 
   describe 'following a user' do
     before do
-      interactor :'users/follow_user', current_user.username, other_user.graph_user_id
-      interactor :'users/follow_user', current_user.username, third_user.graph_user_id
+      interactor :'users/follow_user', current_user.username, other_user.username
+      interactor :'users/follow_user', current_user.username, third_user.username
     end
 
     describe 'followers' do
@@ -51,8 +51,8 @@ describe 'user following' do
 
   describe 'unfollowing a user' do
     before do
-      interactor :'users/follow_user', current_user.username, other_user.graph_user_id
-      interactor :'users/unfollow_user', current_user.username, other_user.graph_user_id
+      interactor :'users/follow_user', current_user.username, other_user.username
+      interactor :'users/unfollow_user', current_user.username, other_user.username
     end
 
     describe 'followers' do
@@ -86,9 +86,9 @@ describe 'user following' do
 
   describe 'unfollowing, following multiple times' do
     before do
-      interactor :'users/unfollow_user', current_user.username, other_user.graph_user_id
-      interactor :'users/follow_user', current_user.username, other_user.graph_user_id
-      interactor :'users/follow_user', current_user.username, other_user.graph_user_id
+      interactor :'users/unfollow_user', current_user.username, other_user.username
+      interactor :'users/follow_user', current_user.username, other_user.username
+      interactor :'users/follow_user', current_user.username, other_user.username
     end
 
     describe 'followers' do
