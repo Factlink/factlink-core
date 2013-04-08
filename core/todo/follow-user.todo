@@ -13,7 +13,7 @@
  ✘ query to get followed user facts [Is this necessary? -JP] @cancelled (13-04-08 10:43)
  ✔ add facts from followed users in create-listener @done (13-04-08 10:45)
  ☐ refactor follow_user_button / follow_channel_button
- ☐ add MixPanel tracking on follow and unfollow actions
+ ✔ add MixPanel tracking on follow and unfollow actions @done (13-04-08 11:07)
  ☐ add follow/unfollow users in create listner
  ☐ activity, notification and mail for follow user
  ☐ acceptance tests
