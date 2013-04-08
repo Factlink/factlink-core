@@ -18,8 +18,11 @@ describe Commands::Users::FollowUser do
       user_to_follow_graph_user_id = mock
       users_following_users = mock
 
-      UserFollowingUsers.should_receive(:new).with(graph_user_id).and_return(users_following_users)
-      users_following_users.should_receive(:follow).with(user_to_follow_graph_user_id)
+      UserFollowingUsers.should_receive(:new)
+                        .with(graph_user_id)
+                        .and_return(users_following_users)
+      users_following_users.should_receive(:follow)
+                           .with(user_to_follow_graph_user_id)
 
       query = described_class.new graph_user_id, user_to_follow_graph_user_id
       query.execute
@@ -31,8 +34,10 @@ describe Commands::Users::FollowUser do
       graph_user_id = mock
       user_to_follow_graph_user_id = mock
 
-      described_class.any_instance.should_receive(:validate_integer_string).with(:graph_user_id, graph_user_id)
-      described_class.any_instance.should_receive(:validate_integer_string).with(:user_to_follow_graph_user_id, user_to_follow_graph_user_id)
+      described_class.any_instance.should_receive(:validate_integer_string)
+                                  .with(:graph_user_id, graph_user_id)
+      described_class.any_instance.should_receive(:validate_integer_string)
+                                  .with(:user_to_follow_graph_user_id, user_to_follow_graph_user_id)
 
       query = described_class.new graph_user_id, user_to_follow_graph_user_id
     end
