@@ -511,5 +511,9 @@ describe 'activity queries' do
       ]
 
     end
+
+    it 'creates a activity when a user you follow creates a factlink.' do
+      pending
+    end
   end
 end
