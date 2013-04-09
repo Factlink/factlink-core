@@ -70,10 +70,6 @@ namespace :deploy do
     run "sh #{current_release}/bin/server/check_installed_packages.sh"
   end
 
-  # task :curl_site do
-  #   run <<-CMD
-  #     curl --user deploy:sdU35-YGGdv1tv21jnen3 #{full_url} > /dev/null
-  #   CMD
   # end
 
   #
@@ -111,7 +107,5 @@ after 'deploy:migrate',   'action:start_resque'
 after 'deploy:update',    'deploy:check_installed_packages'
 
 after 'deploy:check_installed_packages', 'deploy:cleanup'
-
-# after 'deploy',           'deploy:curl_site'
 
 require './config/boot'
