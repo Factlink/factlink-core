@@ -36,6 +36,10 @@ class ActivityListenerCreator
       .map { |following_channel| following_channel.created_by_id }.uniq
   end
 
+  def channel_followers_of_graph_user_minus_regular_followers graph_user
+    channel_followers_of_graph_user(graph_user) - followers_for_graph_user(graph_user.id)
+  end
+
   def reject_self followers, activity
     followers.reject {|id| id == activity.user_id}
   end
@@ -58,7 +62,7 @@ class ActivityListenerCreator
     forGraphUser_someone_followed_your_channel = {
       subject_class: "Channel",
       action: 'added_subchannel',
-      extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
+      extra_condition: lambda { |a| a.subject.created_by_id != a.user.id and not followers_for_graph_user(a.subject.created_by_id).include?(a.user.id)},
       write_ids: lambda { |a| [a.subject.created_by_id] }
     }
 
@@ -95,7 +99,7 @@ class ActivityListenerCreator
     forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel = {
       subject_class: "Channel",
       action: :created_channel,
-      write_ids: lambda { |a| reject_self(channel_followers_of_graph_user(a.subject.created_by),a) }
+      write_ids: lambda { |a| reject_self(channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by),a) }
     }
 
     forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow = {
@@ -145,11 +149,11 @@ class ActivityListenerCreator
     forGraphUser_someone_you_follow_followed_someone_else = {
       subject_class: 'GraphUser',
       action: 'followed_user',
-      write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
+      write_ids: lambda {|a| followers_for_graph_user(a.user_id) - [a.subject_id]}
     }
 
     notification_activities = [
-      forGraphUser_someone_followed_your_channel, # but you're not already following this person
+      forGraphUser_someone_followed_your_channel,
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
       forGraphUser_someone_send_you_a_message,
       forGraphUser_someone_send_you_a_reply,
@@ -163,7 +167,7 @@ class ActivityListenerCreator
       forGraphUser_someone_followed_your_channel,
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
       forGraphUser_comment_was_added,
-      forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel,  # and you're not already following the user
+      forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel,
       forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
       forGraphUser_someone_opinionated_a_fact_you_created,
       forGraphUser_someone_added_a_fact_you_created_to_his_channel,
