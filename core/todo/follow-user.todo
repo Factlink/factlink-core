@@ -15,6 +15,6 @@
  ✔ refactor follow_user_button / follow_channel_button @done (13-04-09 10:55)
  ✔ add MixPanel tracking on follow and unfollow actions @done (13-04-08 11:07)
  ✔ add follow/unfollow users in create listner @done (13-04-09 11:26)
- ☐ activity, notification and mail for follow user
+ ✔ activity, notification and mail for follow user @done (13-04-09 11:26)
  ✔ acceptance tests @done (13-04-09 11:16)
  ✔ update followers count when button clicked @done (13-04-08 11:20)
