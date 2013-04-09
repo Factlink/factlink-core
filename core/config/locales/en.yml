@@ -34,6 +34,7 @@ en:
   channels: "channels"
 
   follow: "follow"
+  followed: "followed"
   following: "following"
   unfollow: "unfollow"
   is_now_following_you: "is now following you"

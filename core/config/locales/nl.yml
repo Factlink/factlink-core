@@ -35,6 +35,7 @@ nl:
   channels: "kanalen"
 
   follow: "volgen"
+  followed: "volgt"
   following: "volgend"
   unfollow: "ontvolgen"
   is_now_following_you: "volgt je nu"
