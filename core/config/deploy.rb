@@ -77,13 +77,17 @@ namespace :deploy do
   #
   namespace :assets do
     task :precompile, :roles => :web, :except => { :no_release => true } do
-      # Only precompile if files have changed: http://www.bencurtis.com/2011/12/skipping-asset-compilation-with-capistrano/
-      from = source.next_revision(current_revision)
-      if capture("cd #{latest_release} && #{source.local.log(from)} vendor/assets/ app/assets/ app/backbone/ app/templates/ Gemfile.lock config/application.rb config/deploy.rb config/deploy/ config/locales | wc -l").to_i > 0
+      if previous_release
+        # Only precompile if files have changed: http://www.bencurtis.com/2011/12/skipping-asset-compilation-with-capistrano/
+        from = source.next_revision(current_revision)
+      end
+
+      if not previous_release or capture("cd #{latest_release} && #{source.local.log(from)} vendor/assets/ app/assets/ app/backbone/ app/templates/ Gemfile.lock config/application.rb config/deploy.rb config/deploy/ config/locales | wc -l").to_i > 0
         run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile:primary}
       else
         logger.info "Skipping asset pre-compilation because there were no asset changes"
       end
+
     end
   end
 end

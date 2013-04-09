@@ -16,15 +16,13 @@ module Interactors
       end
 
       def site
-        if @url.blank?
-          nil
+        return nil if @url.blank?
+
+        site = query :'sites/for_url', @url
+
+        if site.nil?
+          command :'sites/create', @url
         else
-          site = query :'sites/for_url', @url
-
-          if site.nil?
-            site = command :'sites/create', @url
-          end
-
           site
         end
       end
