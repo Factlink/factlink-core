@@ -12,9 +12,9 @@
  ✔ query to get followed user @done (13-04-04 15:12)
  ✘ query to get followed user facts [Is this necessary? -JP] @cancelled (13-04-08 10:43)
  ✔ add facts from followed users in create-listener @done (13-04-08 10:45)
- ☐ refactor follow_user_button / follow_channel_button
+ ✔ refactor follow_user_button / follow_channel_button @done (13-04-09 10:55)
  ✔ add MixPanel tracking on follow and unfollow actions @done (13-04-08 11:07)
  ☐ add follow/unfollow users in create listner
  ☐ activity, notification and mail for follow user
- ☐ acceptance tests
+ ✔ acceptance tests @done (13-04-09 11:16)
  ✔ update followers count when button clicked @done (13-04-08 11:20)
