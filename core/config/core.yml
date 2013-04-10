@@ -12,7 +12,7 @@ test:
 
 testserver:
     core:
-        hostname: testserver.factlink.com
+        hostname: factlink-testserver.inverselink.com
         port: 443
         protocol: https://
         htpasswd:
@@ -27,7 +27,7 @@ vagrant:
 
 staging:
     core:
-        hostname: staging.factlink.com
+        hostname: factlink-staging.inverselink.com
         port: 443
         protocol: https://
         htpasswd:
