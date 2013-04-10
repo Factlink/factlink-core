@@ -16,6 +16,12 @@ testserver:
     port: 9200
     cluster: factlink_testserver
 
+vagrant:
+  elasticsearch:
+    hostname: 10.253.0.1
+    port: 9200
+    cluster: factlink_development
+
 staging:
   elasticsearch:
     hostname: 89.188.27.178

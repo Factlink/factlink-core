@@ -34,6 +34,15 @@ testserver:
   options:
     raise_not_found_error: false
 
+vagrant:
+  sessions:
+    default:
+      database: factlink_ui_development
+      hosts:
+       - 10.253.0.1:27017
+  options:
+    raise_not_found_error: false
+
 staging:
   sessions:
     default:
