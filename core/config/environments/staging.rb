@@ -51,7 +51,7 @@ FactlinkUI::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => "staging.factlink.com", protocol: "https" }
+  config.action_mailer.default_url_options = { :host => "factlink-staging.inverselink.com", protocol: "https" }
 
   # Enable threaded mode
   # config.threadsafe!
