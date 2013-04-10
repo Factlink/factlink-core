@@ -27,8 +27,8 @@ testserver:
     default:
       database: factlink_testserver
       hosts:
-       - 89.188.27.138:27017
-       - 89.188.27.139:27017
+       - 172.18.100.6:27017
+       - 172.18.100.13:27017
       options:
         consistency: :strong
   options:
@@ -48,8 +48,8 @@ staging:
     default:
       database: factlink_staging
       hosts:
-       - 89.188.27.140:27017
-       - 89.188.27.186:27017
+       - 172.18.100.49:27017
+       - 172.18.100.14:27017
       options:
         consistency: :strong
   options:
