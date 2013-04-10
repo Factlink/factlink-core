@@ -1,4 +1,7 @@
 /* jslint node: true */
+
+var _ = require('underscore');
+
 function getServer(config) {
 
   /**
@@ -127,8 +130,8 @@ function getServer(config) {
     var request = restler.get(site, form_hash);
 
     // Handle states
-    request.on('complete',  completehandler);
-    request.on('error',     errorhandler);
+    request.on('complete',  _.once(completehandler));
+    request.on('error',     _.once(errorhandler));
   }
 
 
