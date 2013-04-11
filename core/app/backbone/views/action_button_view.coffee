@@ -1,5 +1,6 @@
 class window.ActionButtonView extends Backbone.Marionette.Layout
   template: 'generic/action_button'
+  className: 'action-button'
 
   events:
     "click .js-action-button-primary":   "primaryActionWrapper"
