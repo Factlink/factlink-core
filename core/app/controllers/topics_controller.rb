@@ -5,9 +5,8 @@ class TopicsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.json { @topic = topic }
-      format.html { render_backbone_page }
+    backbone_responder do
+      @topic = topic
     end
   end
 
