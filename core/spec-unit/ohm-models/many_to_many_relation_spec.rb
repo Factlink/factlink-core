@@ -1,4 +1,4 @@
-require_relative '../../app/ohm-models/many_to_many_relation'
+require_relative '../../app/redis-models/many_to_many_relation'
 
 describe ManyToManyRelation do
 

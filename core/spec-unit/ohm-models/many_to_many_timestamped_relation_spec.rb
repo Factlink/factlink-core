@@ -1,4 +1,4 @@
-require_relative '../../app/ohm-models/many_to_many_timestamped_relation'
+require_relative '../../app/redis-models/many_to_many_timestamped_relation'
 
 describe ManyToManyTimestampedRelation do
 
