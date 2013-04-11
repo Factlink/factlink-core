@@ -512,4 +512,23 @@ describe 'activity queries' do
       ]
     end
   end
+
+  describe "following a person" do
+      let(:gu3) { create(:active_user).graph_user }
+
+      before do
+        UserFollowingUsers.new(gu2.id).follow gu1.id
+      end
+
+      it "creates a activity when a user you follow adds a factlink to a channel" do
+        f1 = create :fact, created_by: gu3
+
+        ch1 = create :channel, created_by: gu1
+        add_fact_to_channel f1, ch1
+
+        gu2.stream_activities.map(&:to_hash_without_time).should == [
+          {user: gu1, action: :added_fact_to_channel, subject: f1, object: ch1}
+        ]
+      end
+    end
 end
