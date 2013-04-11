@@ -44,11 +44,10 @@ Authority means how knowledgeable people are on a single topic. We use authority
   </ol>
   <h4>Assigning this authority to topics</h4>
   <p>
-    After we calculate how much authority you gain from your Factlink we spread this over the topics it belongs to, according to our users. So for instance, let's say you created a Factlink about Michael Jackson and it gains you 4 authority.
+    After we calculate how much authority you gain from your Factlink we spread this over the topics it belongs to, according to our users. So for instance, let's say you created a Factlink about Michael Jackson and it gains you 4 authority. If this Fact has been added to the topic 'Michael Jackson' 10 times, 'Music' 20 times channels and 'Eighties' 10 times, you will gain 1 authority on Michael Jackson, 2 on Music, and 1 on Eigthies.
     </p>
 
   <h4>Calculating how much you know about a fact</h4>
   <p>
-    Finally, to calculate how much you know about a certain fact we take the weigthed average of your authority on the topics this fact is about.
+    Finally, to calculate how much you know about a certain fact we take the weigthed average of your authority on the topics this fact is about. So if a fact is added to the topic 'Ruby' 10 times, to 'Programming' 20 times and to 'Rails' 10 times, and your authority on Ruby is 10, on Programming 5 and on Rails 20, your authority on this fact is (10*10+5*20+10*20)/40 = 10.
   </p>
-<% end %>
