@@ -1,9 +1,9 @@
 <h2 class="activity-title">
-  <%= link_to_possibly_dead_user @activity.user.user %>
+  <%= link_to_possibly_dead_user(@activity.user.user) %>
   is now following you
 </h2>
 <p class="activity-action">
   To view their profile, visit:<br>
-    <%= link_to user_profile_url(@activity.user.user) %>
+    <%= link_to_possibly_dead_user(@activity.user.user) %>
 </p>
 
