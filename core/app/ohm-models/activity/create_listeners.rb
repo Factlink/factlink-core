@@ -142,7 +142,7 @@ class ActivityListenerCreator
 
     forGraphUser_someone_you_follow_added_a_fact_to_a_channel = {
       subject_class: 'Fact',
-      action: :created,
+      action: :added_fact_to_channel,
       write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
     }
 
