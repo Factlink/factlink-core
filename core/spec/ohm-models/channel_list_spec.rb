@@ -1,17 +1,18 @@
 require 'spec_helper'
 
 describe ChannelList do
-  before do
-    @graph_user = create :graph_user
-    @expected_channels = []
-    begin
-      @expected_channels << @graph_user.stream
-      @expected_channels << @graph_user.created_facts_channel
-    rescue
-    end
-  end
+  include PavlovSupport
 
   describe ".channels" do
+    before do
+      @graph_user = create :graph_user
+      @expected_channels = []
+      begin
+        @expected_channels << @graph_user.stream
+        @expected_channels << @graph_user.created_facts_channel
+      rescue
+      end
+    end
     describe "initially" do
       it "contains only the expected channels" do
         ChannelList.new(@graph_user).channels.to_a.should =~ []+@expected_channels
@@ -19,44 +20,46 @@ describe ChannelList do
     end
     describe "after creating a channel" do
       it "contains the channel and the expected channels" do
-        @ch1 = Channel.create created_by: @graph_user, title: 'foo'
-        ChannelList.new(@graph_user).channels.to_a.should =~ [@ch1]+@expected_channels
+        ch1 = Channel.create created_by: @graph_user, title: 'foo'
+        ChannelList.new(@graph_user).channels.to_a.should =~ [ch1]+@expected_channels
       end
     end
     describe "after creating two channels" do
       it "contains the two channels and the expected channels" do
-        @ch1 = Channel.create created_by: @graph_user, title: 'foo'
-        @ch2 = Channel.create created_by: @graph_user, title: 'foo2'
-        ChannelList.new(@graph_user).channels.to_a.should =~ [@ch1,@ch2]+@expected_channels
+        ch1 = Channel.create created_by: @graph_user, title: 'foo'
+        ch2 = Channel.create created_by: @graph_user, title: 'foo2'
+        ChannelList.new(@graph_user).channels.to_a.should =~ [ch1,ch2]+@expected_channels
       end
     end
     describe "after creating two channels and deleting the first" do
       it "should contain the second channel and the expected channels" do
-        @ch1 = Channel.create created_by: @graph_user, title: 'foo'
-        @ch2 = Channel.create created_by: @graph_user, title: 'foo2'
-        @ch1.delete
-        ChannelList.new(@graph_user).channels.to_a.should =~ [@ch2]+@expected_channels
+        ch1 = Channel.create created_by: @graph_user, title: 'foo'
+        ch2 = Channel.create created_by: @graph_user, title: 'foo2'
+        ch1.delete
+        ChannelList.new(@graph_user).channels.to_a.should =~ [ch2]+@expected_channels
       end
     end
     describe "after creating a channel, and someone else creates a channel" do
       it "only contains our channel, and the expected channels" do
-        @ch1 = Channel.create created_by: @graph_user, title: 'foo'
-        @ch2 = Channel.create created_by: (create :graph_user), title: 'foo2'
+        ch1 = Channel.create created_by: @graph_user, title: 'foo'
+        ch2 = Channel.create created_by: (create :graph_user), title: 'foo2'
 
-        ChannelList.new(@graph_user).channels.to_a.should =~ [@ch1]+@expected_channels
+        ChannelList.new(@graph_user).channels.to_a.should =~ [ch1]+@expected_channels
       end
     end
   end
 
   describe 'get_by_topic_slug' do
     it "returns nil if the list does not contain said channel" do
-      ch = ChannelList.new(@graph_user).get_by_slug_title 'henk'
+      graph_user = create :graph_user
+      ch = ChannelList.new(graph_user).get_by_slug_title 'henk'
       expect(ch).to be_nil
     end
     it "returns one channel by topic slug" do
-      @ch1 = Channel.create created_by: @graph_user, title: 'foo'
-      ch = ChannelList.new(@graph_user).get_by_slug_title 'foo'
-      expect(ch).to eq @ch1
+      graph_user = create :graph_user
+      channel1 = Channel.create created_by: graph_user, title: 'foo'
+      ch = ChannelList.new(graph_user).get_by_slug_title 'foo'
+      expect(ch).to eq channel1
     end
   end
 
@@ -75,11 +78,7 @@ describe ChannelList do
   end
 
   describe '.containing_channel_ids_for_fact' do
-    include Pavlov::Helpers
-    let(:current_user) {create :graph_user}
-    def pavlov_options
-      {current_user: current_user}
-    end
+    let(:current_user) {create :user}
     it "returns the channels of the graphuser which contain the fact" do
       gu1 = current_user.graph_user
 
@@ -89,8 +88,10 @@ describe ChannelList do
 
       f = create :fact, created_by: gu1
 
-      interactor :"channels/add_fact", f, ch1
-      interactor :"channels/add_fact", f, ch3
+      as(current_user) do |pavlov|
+        pavlov.interactor :"channels/add_fact", f, ch1
+        pavlov.interactor :"channels/add_fact", f, ch3
+      end
 
       list = ChannelList.new(gu1)
 
@@ -100,11 +101,8 @@ describe ChannelList do
   end
 
   describe '.containing_real_channel_ids_for_fact' do
-    include Pavlov::Helpers
-    let(:current_user) {create :graph_user}
-    def pavlov_options
-      {current_user: current_user}
-    end
+    let(:current_user) {create :user}
+
     it "returns the channels of the graphuser which contain the fact except created_facts_channel and stream" do
       gu1 = current_user.graph_user
 
@@ -114,8 +112,10 @@ describe ChannelList do
 
       f = create :fact, created_by: gu1
 
-      interactor :"channels/add_fact", f, ch1
-      interactor :"channels/add_fact", f, ch3
+      as(current_user) do |pavlov|
+        pavlov.interactor :"channels/add_fact", f, ch1
+        pavlov.interactor :"channels/add_fact", f, ch3
+      end
 
       list = ChannelList.new(gu1)
 
@@ -125,11 +125,7 @@ describe ChannelList do
   end
 
   describe ".containing_channel_ids_for_channel" do
-    include Pavlov::Helpers
-    let(:current_user) {create :graph_user}
-    def pavlov_options
-      {current_user: current_user}
-    end
+    let(:current_user) {create :user}
 
     subject {ChannelList.new(u1)}
     let(:ch) {Channel.create(created_by: u1, title: "Subject")}
@@ -147,15 +143,18 @@ describe ChannelList do
     end
     describe "after adding to a own channel" do
       it "contains the channel" do
-        command :"channels/add_subchannel", u1_ch1, ch
+        as(current_user) do |pavlov|
+          pavlov.command :"channels/add_subchannel", u1_ch1, ch
+        end
         subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
       end
     end
     describe "after adding to someone else's channel" do
       it "contains only my channels" do
-        command :"channels/add_subchannel", u1_ch1, ch
-        command :"channels/add_subchannel", u2_ch1, ch
-
+        as(current_user) do |pavlov|
+          pavlov.command :"channels/add_subchannel", u1_ch1, ch
+          pavlov.command :"channels/add_subchannel", u2_ch1, ch
+        end
         subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
       end
     end

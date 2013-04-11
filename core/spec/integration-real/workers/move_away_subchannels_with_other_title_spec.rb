@@ -8,8 +8,6 @@ describe MoveAwaySubchannelsWithOtherTitle do
   let(:user3) {create :user}
   let(:user4) {create :user}
   let(:channel_user) {create :user}
-  let(:fact1) {create :fact}
-  let(:fact2) {create :fact}
 
   describe '#subchannels_with_other_title' do
     it "returns all subchannels which don't have the same title as the top channel" do
@@ -18,15 +16,19 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(user1) do |pavlov|
         ch1 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(user2) do |pavlov|
         ch2 = pavlov.command :'channels/create', 'Bar'
       end
+
       as(user3) do |pavlov|
         ch3 = pavlov.command :'channels/create', 'Baz'
       end
+
       as(user4) do |pavlov|
         ch4 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(channel_user) do |pavlov|
         channel = pavlov.command :'channels/create', 'Foo'
         [ch1, ch2, ch3, ch4].each do |ch|
@@ -50,13 +52,15 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(user1) do |pavlov|
         ch1 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(user2) do |pavlov|
         ch2 = pavlov.command :'channels/create', 'Bar'
       end
+
       as(channel_user) do |pavlov|
         channel = pavlov.command :'channels/create', 'Foo'
         [ch1, ch2].each do |ch|
-          pavlov.command :'channels/add_subchannel', channel, ch
+          pavlov.interactor :'channels/add_subchannel', channel.id, ch.id
         end
       end
 
@@ -74,7 +78,7 @@ describe MoveAwaySubchannelsWithOtherTitle do
     end
 
     it "moves facts" do
-      old_channel, new_channel, subchannel = ()
+      old_channel, new_channel, subchannel, fact1 = ()
 
       as(user1) do |pavlov|
         subchannel = pavlov.command :'channels/create', 'bar'
@@ -83,10 +87,11 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(channel_user) do |pavlov|
         old_channel = pavlov.command :'channels/create', 'foo'
         new_channel = pavlov.command :'channels/create', 'bar'
-        pavlov.command :'channels/add_subchannel', old_channel, subchannel
+        pavlov.interactor :'channels/add_subchannel', old_channel.id, subchannel.id
       end
 
       as(user1) do |pavlov|
+        fact1 = pavlov.interactor :'facts/create', 'a fact 1', '', ''
         pavlov.interactor :'channels/add_fact', fact1, subchannel
       end
 
@@ -104,7 +109,7 @@ describe MoveAwaySubchannelsWithOtherTitle do
     end
 
     it "does not touch topics" do
-      old_channel, new_channel, subchannel, old_foo_topics, old_bar_topics = ()
+      old_channel, new_channel, subchannel, old_foo_topics, old_bar_topics, fact1, fact2 = ()
 
       as(user1) do |pavlov|
         subchannel = pavlov.command :'channels/create', 'bar'
@@ -113,14 +118,16 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(channel_user) do |pavlov|
         old_channel = pavlov.command :'channels/create', 'foo'
         new_channel = pavlov.command :'channels/create', 'bar'
-        pavlov.command :'channels/add_subchannel', old_channel, subchannel
+        pavlov.interactor :'channels/add_subchannel', old_channel.id, subchannel.id
       end
 
       as(user1) do |pavlov|
+        fact1 = pavlov.interactor :'facts/create', 'a fact 1', '', ''
         pavlov.interactor :'channels/add_fact', fact1, subchannel
       end
 
       as(channel_user) do |pavlov|
+        fact2 = pavlov.interactor :'facts/create', 'a fact 2', '', ''
         pavlov.interactor :'channels/add_fact', fact2, new_channel
         old_foo_topics = pavlov.interactor :'topics/facts', 'foo', nil, nil
         old_bar_topics = pavlov.interactor :'topics/facts', 'bar', nil, nil
@@ -145,15 +152,19 @@ describe MoveAwaySubchannelsWithOtherTitle do
       as(user1) do |pavlov|
         ch1 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(user2) do |pavlov|
         ch2 = pavlov.command :'channels/create', 'Bar'
       end
+
       as(user3) do |pavlov|
         ch3 = pavlov.command :'channels/create', 'Baz'
       end
+
       as(user4) do |pavlov|
         ch4 = pavlov.command :'channels/create', 'Foo'
       end
+
       as(channel_user) do |pavlov|
         channel = pavlov.command :'channels/create', 'Foo'
         pavlov.command :'channels/create', 'Bar'

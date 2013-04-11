@@ -8,6 +8,5 @@
   "biography": null,
   "all_channel_id": "1",
   "created_facts_channel_id": "2",
-  "is_current_user": false,
-  "receives_mailed_notifications": true
+  "is_current_user": false
 }
