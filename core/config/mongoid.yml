@@ -60,7 +60,6 @@ production:
     default:
       database: factlink_ui_production
       hosts:
-       - mongo4-production.factlink.com:27017
        - 89.188.27.146:27017
        - 89.188.27.148:27017
       options:
