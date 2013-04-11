@@ -1,10 +1,5 @@
 require 'spec_helper'
 
-class Blob < OurOhm ;end
-class Foo < OurOhm
-  timestamped_set :activities, Activity
-end
-
 describe Activity::Listener do
   let(:gu1) { GraphUser.create }
   let(:gu2) { GraphUser.create }
@@ -13,13 +8,19 @@ describe Activity::Listener do
   let(:f1)  { Foo.create }
   let(:f2)  { Foo.create }
 
-  after :all do
-    create_activity_listeners
+  before do
+    stub_const 'Blob', Class.new(OurOhm)
+    stub_const 'Foo', Class.new(OurOhm)
+    class Foo
+      timestamped_set :activities, Activity
+    end
+    stub_const 'Interactors::SendMailForActivity', mock
   end
 
-  before do
-    stub_const('Interactors::SendMailForActivity', mock())
+  after :all do
+    ActivityListenerCreator.new.create_activity_listeners
   end
+
 
   def send_mail_for_activity_should_be_invoked
     interactor = mock()

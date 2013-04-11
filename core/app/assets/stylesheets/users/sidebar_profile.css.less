@@ -1,0 +1,36 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+#left-column .user-social-statistics {
+  .clearfix();
+  margin: 0 0 10px;
+
+  .social-statistic-block {
+    float: left;
+    padding: 0 0 10px;
+    text-align: center;
+    width: 50%;
+
+    border-left:   1px solid @baseBorderColor;
+    border-bottom: 1px solid @baseBorderColor;
+
+    &:first-child {
+      border-left: 1px solid transparent;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 22px;
+      font-weight: 500;
+      font-family: @headingFontFamily;
+    }
+  }
+}
+
+#left-column .user-follow-user-button {
+  margin-bottom: 10px;
+  .btn-block + .btn-block {
+    margin: 0;
+  }
+}

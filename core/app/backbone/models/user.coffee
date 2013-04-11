@@ -1,5 +1,8 @@
 class window.User extends Backbone.Model
-  initialize: -> @channels = []
+  initialize: ->
+    @channels = []
+    @followers = new Followers([], user: @)
+    @following = new Following([], user: @)
 
   setChannels: (channels) -> @channels = channels
 
@@ -50,3 +53,12 @@ class window.User extends Backbone.Model
       avatar_url_160: @avatar_url(160)
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
+
+  followed_by_current_user: ->
+    @followers.contains window.currentUser
+
+  follow: ->
+    @followers.addFollower(window.currentUser)
+
+  unfollow: ->
+    @followers.removeFollower(window.currentUser)

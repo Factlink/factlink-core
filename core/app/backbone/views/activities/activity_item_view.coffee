@@ -16,6 +16,8 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
         AddedOpinionView
       when "added_fact_to_channel"
         AddedFactToChannelGroupView
+      when 'followed_user'
+        FollowedUserView
       when "added_first_factlink"
         AddedFirstFactlinkView
       else
@@ -35,6 +37,13 @@ class CreatedCommentView extends ActivityItemView
 
 class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"
+
+class FollowedUserView extends ActivityItemView
+  tagName: 'span'
+  className: 'separator-list-item'
+  template: "activities/followed_user"
+  templateHelpers: =>
+    followed_user: new User(@model.get('activity').followed_user).toJSON()
 
 class AddedFirstFactlinkView extends ActivityItemView
   template: "activities/added_first_factlink"

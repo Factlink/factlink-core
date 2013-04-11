@@ -47,6 +47,9 @@ class NotificationCreatedConversationView extends GenericNotificationView
 class NotificationRepliedMessageView extends GenericNotificationView
   template: "notifications/replied_message"
 
+class NotificationUserFollowedUser extends GenericNotificationView
+  template: "notifications/user_followed_user"
+
 class CreatedCommentView extends GenericNotificationView
   template: "notifications/created_comment"
 
@@ -64,5 +67,7 @@ window.NotificationView = (opts) ->
       new NotificationCreatedConversationView(opts)
     when "replied_message"
       new NotificationRepliedMessageView(opts)
+    when "followed_user"
+      new NotificationUserFollowedUser(opts)
     else
       new GenericNotificationView(opts)

@@ -484,4 +484,50 @@ describe 'activity queries' do
     end
   end
 
+  describe 'following a person' do
+    let(:user)     { create(:active_user) }
+    let(:followee) { create(:active_user) }
+    include PavlovSupport
+    it 'creates a notification for the followed person' do
+      as(user) do |pavlov|
+        pavlov.interactor 'users/follow_user', user.username, followee.username
+      end
+      followee_notifications = followee.graph_user.notifications.map(&:to_hash_without_time)
+      expect(followee_notifications).to eq [
+        {user: user.graph_user, action: :followed_user, subject: followee.graph_user}
+      ]
+    end
+    it 'creates a stream activity for your followers' do
+      follower = create(:active_user)
+
+      as(follower) do |pavlov|
+        pavlov.interactor 'users/follow_user', follower.username, user.username
+      end
+      as(user) do |pavlov|
+        pavlov.interactor 'users/follow_user', user.username, followee.username
+      end
+      follower_stream_activities = follower.graph_user.stream_activities.map(&:to_hash_without_time)
+      expect(follower_stream_activities).to eq [
+        {user: user.graph_user, action: :followed_user, subject: followee.graph_user}
+      ]
+
+    end
+
+    it 'creates a activity when a user you follow creates a factlink.' do
+      as(user) do |pavlov|
+        pavlov.interactor 'users/follow_user', user.username, followee.username
+      end
+
+      displaystring = 'this is a displaystring for fact'
+      fact = nil
+      as(followee) do |backend|
+        fact = backend.interactor :'facts/create', displaystring, '', 'title'
+      end
+
+      user_stream_activities = user.graph_user.stream_activities.map(&:to_hash_without_time)
+      expect(user_stream_activities).to eq [
+        {user: followee.graph_user, action: :created, subject: fact}
+      ]
+    end
+  end
 end

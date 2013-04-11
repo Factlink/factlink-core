@@ -1,0 +1,19 @@
+<div class="activity-group-user">
+  <a href="{{ user.link }}" rel="backbone">
+    <img alt=" " src="{{ user.avatar_url_24 }}" width="24" height="24">
+  </a>
+</div>
+
+<div class="activity-group-link">
+  <a href="{{ user.link }}" rel="backbone">{{ user.username }}</a>
+</div>
+
+
+<div class="activity-group-time">{{ time_ago }} ago</div>
+
+<span class="activity-description">{{global.t.followed}}</span>
+
+<span class="activity-inline-group-activities">
+  <span class="js-region-activities separator-list">
+  </span>
+</span>
