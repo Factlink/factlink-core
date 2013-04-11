@@ -64,6 +64,8 @@ feature 'the profile page', type: :request do
     following_user = sign_in_user FactoryGirl.create :active_user
     followed_user = FactoryGirl.create :active_user
 
+    channel = FactoryGirl.create :channel, created_by: followed_user.graph_user
+
     visit user_path(followed_user)
 
     # initial state check of other user profile
@@ -79,7 +81,8 @@ feature 'the profile page', type: :request do
 
     factlink = nil
     as(followed_user) do |backend|
-      backend.interactor :'facts/create', displaystring,'','title'
+      fact = backend.interactor :'facts/create', displaystring,'','title'
+      backend.interactor :'channels/add_fact', fact, channel
     end
 
     visit channel_activities_path(following_user.username,following_user.graph_user.stream_id)
