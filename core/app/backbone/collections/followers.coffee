@@ -33,8 +33,6 @@ class window.Followers extends SocialCollection
     super(models, opts)
     @_followed_by_me = false
 
-    window.henk = @
-
   url: -> "/#{@user.get('username')}/followers"
 
   addFollower: (follower) ->
