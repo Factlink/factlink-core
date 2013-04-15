@@ -37,7 +37,7 @@ class window.ChannelView extends Backbone.Marionette.Layout
       mp_track "Topic: People I follow"
 
   showFacts: (facts) ->
-    @factList.show new FactsView model: @model
+    @factList.show new FactsView collection: facts
 
   channelFacts: -> new ChannelFacts([], channel: @model)
   topicFacts: -> @model.topic().facts()
