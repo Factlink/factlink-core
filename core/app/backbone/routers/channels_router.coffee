@@ -7,4 +7,5 @@ class window.ChannelsRouter extends Backbone.Marionette.AppRouter
     ':username/channels/:channel_id/activities/facts/:fact_id': 'onGetChannelFactForActivity'
 
     't/:slug_title':                                  'onGetTopicFacts'
+    't/:slug_title/facts/:fact_id':                   'onGetTopicFact'
 

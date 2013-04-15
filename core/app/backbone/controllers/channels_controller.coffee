@@ -1,6 +1,6 @@
 class window.ChannelsController extends Backbone.Factlink.BaseController
 
-  routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts']
+  routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
 
   onShow:   -> @channel_views = new Backbone.Factlink.DetachedViewCache
   onClose:  -> @channel_views.cleanup()
@@ -30,10 +30,37 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       window.currentUser.channels.waitForFetch =>
         @commonTopicViews(topic)
         @restoreTopicView slug_title, => new TopicView model: topic
+        @makePermalinkEvent(topic.url())
 
-        # TODO topic permalink
-        channel = topic.existingChannelFor(window.currentUser)
-        @makePermalinkEvent(channel.url())
+  # TODO: refactor this crazy logic into a separate view
+  getTopicFact: (slug_title, fact_id, params={}) ->
+    @main = new TabbedMainRegionLayout();
+    FactlinkApp.mainRegion.show(@main)
+
+    topic = `undefined`
+    fact = `undefined`
+
+    with_both = =>
+      title_view = new ExtendedFactTitleView(
+                                      model: fact,
+                                      return_to_url: topic.url(),
+                                      return_to_text: topic.get('title') )
+      @main.titleRegion.show( title_view )
+
+    callback_with_both = _.after 2, with_both
+
+    @loadTopic slug_title, (model) =>
+      topic = model
+      @commonTopicViews topic
+      callback_with_both()
+
+    fact = new Fact(id: fact_id)
+    fact.fetch
+      success: (model, response) =>
+        dv = new DiscussionView(model: model, tab: params.tab)
+        @main.contentRegion.show(dv)
+        callback_with_both()
+      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
   # </topics>
 
   loadChannel: (username, channel_id, callback) ->

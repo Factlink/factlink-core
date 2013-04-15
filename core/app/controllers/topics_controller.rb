@@ -29,6 +29,10 @@ class TopicsController < ApplicationController
     end
   end
 
+  def fact
+    backbone_responder
+  end
+
   private
     def get_top_channels
       interactor :'channels/top', 12
