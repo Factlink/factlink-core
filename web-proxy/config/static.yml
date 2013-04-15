@@ -14,7 +14,7 @@ test:
 
 testserver:
   static:
-    hostname: static-testserver.factlink.com
+    hostname: factlink-static-testserver.inverselink.com
     port: 443
     protocol: https://
     salt: 'tJx,RiGj:\(HPunB0.FX'
