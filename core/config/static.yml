@@ -24,7 +24,7 @@ vagrant:
 
 staging:
   static:
-    hostname: static-staging.factlink.com
+    hostname: factlink-static-staging.inverselink.com
     port: 443
     protocol: https://
 
