@@ -28,7 +28,7 @@ class window.FactsView extends AutoloadingCompositeView
       @$(".facts-view-more").toggle unread_count > 0
 
   emptyViewOn: ->
-    @emptyView = new EmptyFactsView(model: @model)
+    @emptyView = new EmptyTopicView
     @$("div.no_facts").html @emptyView.render().el
 
   emptyViewOff: ->
