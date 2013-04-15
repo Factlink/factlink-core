@@ -13,21 +13,21 @@ Frontend - Showing a topic page:
  ✔ Route @done (13-04-03 16:12)
  ✔ Controller action @done (13-04-03 16:12)
    ✔ Should at first point factlinks to their canonical/profile url (or channel url, whatever is easier) @done (13-04-03 16:12)
- ☐ New topic view
-   ☐ Almost identical to current ChannelView, refactor to use topic data (channel_view.coffee)
-   ☐ Refactor ChannelView to share logic with the new topic view, since we still need it when viewing other users' channels
+ ✔ New topic view @done (13-04-15 16:08)
+   ✔ Almost identical to current ChannelView, refactor to use topic data (channel_view.coffee) @done (13-04-15 16:08)
+   ✔ Refactor ChannelView to share logic with the new topic view, since we still need it when viewing other users' channels @done (13-04-15 16:08)
  ✔ Change urls of channellist (sidebar) to topic urls @done (13-04-03 17:13)
 
 Backend - Facts inside a topic:
- ☐ Route (routes.rb:216, add resource :facts)
- ☐ Controller action which just renders a backbone page
+ ✔ Route (routes.rb:216, add resource :facts) @done (13-04-15 16:08)
+ ✔ Controller action which just renders a backbone page @done (13-04-15 16:08)
 
 Frontend - Facts inside a topic:
- ☐ Routing in topic router
- ☐ Controller action 
-   ☐ Renders factlink with correct back button (cf. channels_controller.coffee)
-   ☐ Should cache topic view when navigating to factlink (cf. channels_controller.coffee)
- ☐ Update url when clicking factlink to the new factlink topic url
+ ✔ Routing in topic router @done (13-04-15 16:08)
+ ✔ Controller action @done (13-04-15 16:08)
+   ✔ Renders factlink with correct back button (cf. channels_controller.coffee) @done (13-04-15 16:08)
+   ✔ Should cache topic view when navigating to factlink (cf. channels_controller.coffee) @done (13-04-15 16:08)
+ ✔ Update url when clicking factlink to the new factlink topic url @done (13-04-15 16:08)
 
 Frontend/Backend - Updating links in activities:
  ☐ Add topic_url to added_fact_to_channel_activity  (_added_fact_to_channel_activity.json.jbuilder)
@@ -35,3 +35,5 @@ Frontend/Backend - Updating links in activities:
 
 Misc:
  ☐ Re-add empty channel extension help somewhere
+ ☐ Refactor ChannelsController::getTopicFact
+ ☐ Refactor how fact urls are processed (should not be through an event handler but through some kind of "global"/app variable that gives the FactView a context url)
