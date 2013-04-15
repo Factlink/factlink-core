@@ -28,11 +28,12 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
     @loadTopic slug_title, (topic) =>
       window.currentUser.channels.waitForFetch =>
-        channel = topic.existingChannelFor(window.currentUser)
         @commonTopicViews(topic)
-        
+        @restoreTopicView slug_title, => new TopicView model: topic
+
+        # TODO topic permalink
+        channel = topic.existingChannelFor(window.currentUser)
         @makePermalinkEvent(channel.url())
-        @restoreTopicView slug_title, => new ChannelView(model: channel)
   # </topics>
 
   loadChannel: (username, channel_id, callback) ->
