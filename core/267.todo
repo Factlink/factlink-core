@@ -27,3 +27,6 @@ Frontend - Facts inside a topic:
 Frontend/Backend - Updating links in activities:
  ☐ Add topic_url to added_fact_to_channel_activity  (_added_fact_to_channel_activity.json.jbuilder)
  ☐ Use topic_url in frontend template (_added_fact_to_channel.mustache)
+
+Misc:
+ ☐ Re-add empty channel extension help somewhere
