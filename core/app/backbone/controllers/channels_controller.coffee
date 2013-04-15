@@ -16,6 +16,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @restoreChannelView "topic-#{slug_title}", new_callback
 
   commonTopicViews: (topic, channel) ->
+    window.currentChannel = channel
     FactlinkApp.leftBottomRegion.close()
     @showChannelSideBar(window.Channels, channel, currentUser)
     @showUserProfile currentUser
