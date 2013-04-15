@@ -89,9 +89,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
   getFactsView: (channel) ->
     collection = new ChannelFacts [], channel: channel
-    facts_view = new FactsView
-        collection: collection,
-        model: channel
+    facts_view = new FactsView collection: collection
 
   withFact: (fact, params={})->
     @main.contentRegion.show new DiscussionView(model: fact, tab: params.tab)
