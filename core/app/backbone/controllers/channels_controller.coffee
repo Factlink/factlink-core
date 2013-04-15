@@ -15,8 +15,10 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   restoreTopicView: (slug_title, new_callback) ->
     @restoreChannelView "topic-#{slug_title}", new_callback
 
-  commonTopicViews: (topic, channel) ->
+  commonTopicViews: (topic) ->
+    channel = topic.existingChannelFor(currentUser)
     window.currentChannel = channel
+
     FactlinkApp.leftBottomRegion.close()
     @showChannelSideBar(window.Channels, channel, currentUser)
     @showUserProfile currentUser
@@ -25,19 +27,12 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadTopic slug_title, (topic) =>
-      onCurrentUserChannelsFetch = =>
-        currentUser.channels.off('reset', onCurrentUserChannelsFetch)
-        
-        channel = topic.existingChannelFor(currentUser)
-        @commonTopicViews(topic, channel)
+      window.currentUser.channels.waitForFetch =>
+        channel = topic.existingChannelFor(window.currentUser)
+        @commonTopicViews(topic)
         
         @makePermalinkEvent(channel.url())
         @restoreTopicView slug_title, => new ChannelView(model: channel)
-
-      if currentUser.channels.loading
-        currentUser.channels.on('reset', onCurrentUserChannelsFetch)
-      else
-        onCurrentUserChannelsFetch()
   # </topics>
 
   loadChannel: (username, channel_id, callback) ->
