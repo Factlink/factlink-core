@@ -18,12 +18,7 @@ Frontend - Showing a topic page:
    ☐ Refactor ChannelView to share logic with the new topic view, since we still need it when viewing other users' channels
  ✔ Change urls of channellist (sidebar) to topic urls @done (13-04-03 17:13)
 
-Backend - Facts inside a topic:
- ☐ Route (routes.rb:216, add resource :facts)
- ☐ Controller action which just renders a backbone page
-
 Frontend - Facts inside a topic:
- ☐ Routing in topic router
  ☐ Controller action 
    ☐ Renders factlink with correct back button (cf. channels_controller.coffee)
    ☐ Should cache topic view when navigating to factlink (cf. channels_controller.coffee)
