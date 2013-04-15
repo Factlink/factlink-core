@@ -1,17 +1,14 @@
 # global config:true, file:true, task:true, module: true
 
+banner_template = '/*!
+* <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage ? " * " + pkg.homepage : "" %>
+* Date: <%= grunt.template.today("m/d/yyyy") %>
+* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>
+*/'
+
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
-    meta:
-      banner: '/*!
-       * <%= pkg.title || pkg.name %> - v<%= pkg.version %> -
-       <%= pkg.homepage ? " * " + pkg.homepage : "" %>
-       *
-       * Date: <%= grunt.template.today("m/d/yyyy") %>
-       *
-       * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;
-       */'
     concat:
       wrapped_files:
         src: [
@@ -25,8 +22,10 @@ module.exports = (grunt) ->
         ]
         dest: 'tmp/factlink.core.js'
       core:
+        options: {
+          banner: banner_template
+        }
         src: [
-          '<banner>',
           'libs/jquery-1.7.2.js',
           'libs/underscore.js',
           'src/js/core.js',
@@ -35,17 +34,19 @@ module.exports = (grunt) ->
         dest: 'dist/factlink.core.js'
       loader:
         src: [
-          '<banner>',
           'libs/easyXDM.js',
           'src/js/loader.js'
         ]
         dest: 'dist/factlink.js'
 
-      'dist/factlink.start_annotating.js':   '<file_strip_banner:src/js/start_annotating.js>'
-      'dist/factlink.stop_annotating.js':    '<file_strip_banner:src/js/stop_annotating.js>'
-      'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/start_highlighting.js>'
-      'dist/factlink.stop_highlighting.js':  '<file_strip_banner:src/js/stop_highlighting.js>'
-      'dist/easyXDM/easyXDM.js':             '<file_strip_banner:libs/easyXDM.js>'
+      options: {
+        stripBanners: true,
+        'dist/factlink.start_annotating.js':   'src/js/start_annotating.js'
+        'dist/factlink.stop_annotating.js':    'src/js/stop_annotating.js'
+        'dist/factlink.start_highlighting.js': 'src/js/start_highlighting.js'
+        'dist/factlink.stop_highlighting.js':  'src/js/stop_highlighting.js'
+        'dist/easyXDM/easyXDM.js':             'libs/easyXDM.js'
+      }
     copy:
       main:
         files: [
@@ -103,6 +104,9 @@ module.exports = (grunt) ->
           "_": true
           "easyXDM": true
     uglify:
+      options: {
+        banner: banner_template
+      },
       all:
         files:
           'dist/server/factlink.core.min.js':               ['<banner>', 'dist/factlink.core.js']
