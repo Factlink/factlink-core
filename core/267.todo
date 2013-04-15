@@ -7,6 +7,7 @@ Backend - Retrieving a single topic:
  ✔ Interactor and query. @done (13-04-03 13:48)
  ✔ JBuilder view (refactor from index.json.jbuilder) @done (13-04-03 13:48)
  ✔ Add topic show ability @done (13-04-03 13:48)
+ ☐ Add user's authority
 
 Frontend - Showing a topic page:
 (instead of new router/controller we decided to do it in the channels_controller anyway)
@@ -17,6 +18,7 @@ Frontend - Showing a topic page:
    ✔ Almost identical to current ChannelView, refactor to use topic data (channel_view.coffee) @done (13-04-15 16:08)
    ✔ Refactor ChannelView to share logic with the new topic view, since we still need it when viewing other users' channels @done (13-04-15 16:08)
  ✔ Change urls of channellist (sidebar) to topic urls @done (13-04-03 17:13)
+ ☐ Render user's authority
 
 Backend - Facts inside a topic:
  ✔ Route (routes.rb:216, add resource :facts) @done (13-04-15 16:08)
