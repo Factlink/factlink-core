@@ -21,7 +21,7 @@ json.id activity.id
 json.activity do |json|
 
 
-  case action
+case action
   when "added_supporting_evidence", "added_weakening_evidence"
     supporting_or_weakening = (action == "added_supporting_evidence") ? :supporting : :weakening
 
@@ -93,8 +93,8 @@ json.activity do |json|
     json.channel_url               channel_path(subject.created_by.user, subject.id)
 
     json.created_channel_definition t(:created_topic)
-  when "added_fact_to_channel"
-    json.partial! 'activities/added_fact_to_channel_activity',
+  when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
+    json.partial! 'activities/added_fact_to_topic_activity',
         subject: subject,
         object: object,
         user: user
