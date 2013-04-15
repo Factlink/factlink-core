@@ -7,11 +7,19 @@ module Interactors
       arguments :slug_title
 
       def execute
-        topic
+        KillObject.topic topic, current_user_authority: authority
       end
 
       def topic
         @topic ||= query :'topics/get', slug_title
+      end
+
+      def authority
+        query :authority_on_topic_for, topic, graph_user
+      end
+
+      def graph_user
+        @options[:current_user].graph_user
       end
 
       def validate

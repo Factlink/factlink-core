@@ -35,7 +35,7 @@ describe Interactors::Topics::Get do
     end
   end
 
-  describe 'execute' do
+  describe 'topic' do
     it 'returns the topic from the query' do
       topic = stub
 
@@ -47,9 +47,59 @@ describe Interactors::Topics::Get do
         with(:'topics/get', 'foo').
         and_return(topic)
 
-      result = interactor.execute
+      result = interactor.topic
 
       expect(result).to eq topic
+    end
+  end
+
+  describe 'authority' do
+    it 'returns the authority from the query' do
+      topic = stub
+      graph_user = stub
+      user = stub(graph_user: graph_user)
+      authority = stub
+
+      described_class.any_instance.stub(:authorized?).and_return(true)
+
+      interactor = described_class.new 'foo', {current_user: user}
+
+      interactor.stub(:query).
+        with(:'topics/get', 'foo').
+        and_return(topic)
+
+      interactor.should_receive(:query).
+        with(:authority_on_topic_for, topic, graph_user).
+        and_return(authority)
+
+      result = interactor.authority
+
+      expect(result).to eq authority
+    end
+  end
+
+  describe 'execute' do
+    it 'should return a dead object' do
+      topic = stub
+      authority = stub
+      dead_topic = stub
+
+      described_class.any_instance.stub(:authorized?).and_return(true)
+
+      stub_classes 'KillObject'
+
+      interactor = described_class.new 'foo', {}
+
+      interactor.stub(:topic).and_return(topic)
+      interactor.stub(:authority).and_return(authority)
+
+      KillObject.should_receive(:topic).
+        with(topic, current_user_authority: authority).
+        and_return(dead_topic)
+
+      result = interactor.execute
+
+      expect(result).to eq dead_topic
     end
   end
 end
