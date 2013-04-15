@@ -225,8 +225,8 @@ FactlinkUI::Application.routes.draw do
       get :related_user_channels
 
       scope "/facts" do
-        get "/" => "topics#facts"
-        get "/:fact_id" => "topics#fact"
+        get "/" => "topics#facts", as: "topic_facts"
+        get "/:fact_id" => "topics#fact", as: "topic_fact"
       end
     end
   end
