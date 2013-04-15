@@ -37,12 +37,11 @@ class Ability
     end
 
     define_channel_abilities
-    define_topic_abilites
+    define_topic_abilities
     define_fact_abilities
     define_fact_relation_abilities
     define_user_abilities
     define_user_activities_abilities
-    define_topic_abilities
     define_tos_abilities
     define_feature_toggles
   end
@@ -57,9 +56,10 @@ class Ability
     end
   end
 
-  def define_topic_abilites
+  def define_topic_abilities
     if agrees_tos?
       can :index, Topic
+      can :show, Topic
     end
   end
 
@@ -119,10 +119,6 @@ class Ability
         u.id == user.id
       end
     end
-  end
-
-  def define_topic_abilities
-    can :show, Topic
   end
 
   def define_tos_abilities

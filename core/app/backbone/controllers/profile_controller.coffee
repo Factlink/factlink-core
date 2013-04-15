@@ -63,7 +63,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
         @setChannelListing(user)
         @main.showTitle(options.title)
       onFetch: (user) =>
-        @showUserLarge(user)
+        @showSidebarProfile(user)
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         options.render(@main.contentRegion, user)
 
@@ -109,7 +109,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
     @showChannelListing(user)
     user.fetch
-      success: => @showUserLarge(user)
+      success: => @showSidebarProfile(user)
 
   showChannelListing: (user)->
     changed = window.Channels.setUsernameAndRefresh(user.get('username'))
@@ -117,9 +117,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
 
-  showUserLarge: (user) ->
-    userLargeView = new UserLargeView(model: user);
-    app.leftTopRegion.show(userLargeView);
+  showSidebarProfile: (user) ->
+    sidebarProfileView = new SidebarProfileView(model: user)
+    app.leftTopRegion.show(sidebarProfileView)
 
   setChannelListing: (user) ->
     changed = window.Channels.setUsernameAndRefresh(user.get('username'))

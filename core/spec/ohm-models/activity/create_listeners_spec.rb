@@ -484,4 +484,75 @@ describe 'activity queries' do
     end
   end
 
+  describe 'following a person' do
+    let(:user)     { create(:active_user) }
+    let(:followee) { create(:active_user) }
+    include PavlovSupport
+    it 'creates a notification for the followed person' do
+      as(user) do |pavlov|
+        pavlov.interactor 'users/follow_user', user.username, followee.username
+      end
+      followee_notifications = followee.graph_user.notifications.map(&:to_hash_without_time)
+      expect(followee_notifications).to eq [
+        {user: user.graph_user, action: :followed_user, subject: followee.graph_user}
+      ]
+    end
+    it 'creates a stream activity for your followers' do
+      follower = create(:active_user)
+
+      as(follower) do |pavlov|
+        pavlov.interactor 'users/follow_user', follower.username, user.username
+      end
+      as(user) do |pavlov|
+        pavlov.interactor 'users/follow_user', user.username, followee.username
+      end
+      follower_stream_activities = follower.graph_user.stream_activities.map(&:to_hash_without_time)
+      expect(follower_stream_activities).to eq [
+        {user: user.graph_user, action: :followed_user, subject: followee.graph_user}
+      ]
+    end
+  end
+
+  context "when following a person" do
+    let(:gu3) { create(:active_user).graph_user }
+
+    before do
+      UserFollowingUsers.new(gu2.id).follow gu1.id
+    end
+
+    context "when a user you follow adds a factlink to a channel" do
+      it "creates a stream activity" do
+        ch1 = create :channel, created_by: gu1
+
+        # channel should not be empty
+        f1 = create :fact, created_by: gu3
+        add_fact_to_channel f1, ch1
+
+        # remove channel created activity
+        gu2.stream_activities.key.del
+
+        f2 = create :fact, created_by: gu3
+        add_fact_to_channel f2, ch1
+
+        gu2.stream_activities.map(&:to_hash_without_time).should == [
+          {user: gu1, action: :added_fact_to_channel, subject: f2, object: ch1}
+        ]
+      end
+    end
+
+    context "when creating a new channel" do
+      it "creates a channel" do
+        ch1 = create :channel, created_by: gu1
+
+        # channel should not be empty
+        f1 = create :fact, created_by: gu3
+        add_fact_to_channel f1, ch1
+
+        gu2.stream_activities.map(&:to_hash_without_time).should == [
+          {user: gu1, action: :created_channel, subject: ch1 },
+          {user: gu1, action: :added_fact_to_channel, subject: f1, object: ch1}
+        ]
+      end
+    end
+  end
 end

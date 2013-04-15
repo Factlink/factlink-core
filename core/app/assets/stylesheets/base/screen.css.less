@@ -21,7 +21,7 @@ body {
 
 #left-column {
   .box-sizing(border-box);
-  background: #F9F9F9;
+  background: transparent;
   width: @leftColumnWidth;
 }
 
@@ -72,11 +72,8 @@ body.wide {
     height: 100%;
     top: 70px;
     padding-bottom: 70px;
-    overflow-y: hidden;
+    overflow-y: scroll;
     overflow-x: hidden;
-    &:hover {
-      overflow-y: scroll;
-    }
   }
 
   #main-column {

@@ -5,10 +5,14 @@ development:
 test:
   sirportly:
     webform_id: 1
-  
+
 testserver:
   sirportly:
     webform_id: 93
+
+vagrant:
+  sirportly:
+    webform_id: 91
 
 staging:
   sirportly:

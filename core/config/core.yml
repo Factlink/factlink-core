@@ -12,16 +12,22 @@ test:
 
 testserver:
     core:
-        hostname: testserver.factlink.com
+        hostname: factlink-testserver.inverselink.com
         port: 443
         protocol: https://
         htpasswd:
           username: proxyuser
           password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
 
+vagrant:
+    core:
+        hostname: localhost
+        port: 3000
+        protocol: http://
+
 staging:
     core:
-        hostname: staging.factlink.com
+        hostname: factlink-staging.inverselink.com
         port: 443
         protocol: https://
         htpasswd:

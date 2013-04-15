@@ -7,12 +7,11 @@ describe Interactors::Channels::AddFact do
     it 'correctly' do
       fact = mock(id: 1, site: mock(id: 10))
       topic = mock(id: '1e', slug_title: mock)
-      channel = mock(topic: topic)
-      user = mock
 
-      described_class.any_instance.should_receive(:authorized?).and_return true
+      user = mock :user, graph_user_id: 26
+      channel = mock :channel, topic: topic, created_by_id: user.graph_user_id
 
-      interactor = described_class.new fact, channel
+      interactor = described_class.new fact, channel, current_user: user
 
       channel.should_receive(:created_by).and_return(user)
 
@@ -25,11 +24,16 @@ describe Interactors::Channels::AddFact do
   end
 
   describe '.authorized?' do
-    it 'returns the passed current_user' do
-      current_user = mock
-      interactor = described_class.new mock, mock, current_user: current_user
+    it 'returns false if the current user did not create the channel' do
+    end
+    it 'returns true if the current user created the channel' do
+      fact = mock
+      user = mock :user, graph_user_id: 26
+      channel = mock :channel, created_by_id: user.graph_user_id
 
-      expect(interactor.authorized?).to eq current_user
+      interactor = described_class.new fact, channel, current_user: user
+
+      expect(interactor.authorized?).to be_true
     end
 
     it 'returns true when the :no_current_user option is true' do
