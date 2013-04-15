@@ -10,7 +10,7 @@ else
   json.posted 'reposted'
 end
 
-json.channel_title             topic.title
-json.channel_url               topic_path(topic.slug_title)
+json.topic_title             topic.title
+json.topic_url               topic_path(topic.slug_title)
 
 json.fact { |j| j.partial! 'facts/fact', fact: subject }
