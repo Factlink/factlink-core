@@ -51,8 +51,8 @@ module.exports = (grunt) ->
         files: [
           { src: ['dist/css/basic.css'],          dest: 'dist/server/css/basic.css' }
           { src: ['dist/easyXDM/easyXDM.min.js'], dest: 'public/easyXDM.min.js' }
-          { src: ['src/images/**'],               dest: 'dist/server/images/',      filter: 'isFile' }
-          { src: ['src/images/**'],               dest: 'dist/images/',             filter: 'isFile' }
+          { src: ['**'],                          dest: 'dist/server/images/', expand: true, cwd: 'src/images/', filter: 'isFile' }
+          { src: ['**'],                          dest: 'dist/images/',        expand: true, cwd: 'src/images/', filter: 'isFile' }
         ]
     less:
       development:
