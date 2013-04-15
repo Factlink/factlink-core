@@ -21,7 +21,7 @@ testserver:
 
 vagrant:
   proxy:
-    hostname: 10.253.0.1
+    hostname: "10.253.0.1"
     port: 8080
     internal_port: 8080
     protocol: http://
