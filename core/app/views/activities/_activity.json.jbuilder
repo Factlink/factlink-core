@@ -19,9 +19,8 @@ json.time_ago TimeFormatter.as_time_ago(created_at.to_time)
 json.id activity.id
 
 json.activity do |json|
-
-
-case action
+  
+  case action
   when "added_supporting_evidence", "added_weakening_evidence"
     supporting_or_weakening = (action == "added_supporting_evidence") ? :supporting : :weakening
 
