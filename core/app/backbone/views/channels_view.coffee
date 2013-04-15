@@ -74,7 +74,9 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @header.show new ChannelHeaderView(model: @model, collection: @collection)
 
   setActiveChannel: (channel)->
-    if channel.get('is_all')
+    if not channel?
+      @unsetActive()
+    else if channel.get('is_all')
       @setActive('stream')
     else
       @collection.setActiveChannel(channel)
@@ -88,5 +90,5 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @collection.unsetActiveChannel()
     @header.currentView.trigger 'activate', type
 
-  unsetActive: () ->
+  unsetActive: ->
     @setActive()
