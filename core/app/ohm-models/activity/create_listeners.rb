@@ -152,6 +152,12 @@ class ActivityListenerCreator
       write_ids: lambda {|a| followers_for_graph_user(a.user_id) - [a.subject_id]}
     }
 
+    forGraphUser_someone_you_follow_created_a_new_channel = {
+      subject_class: "Channel",
+      action: :created_channel,
+      write_ids: lambda { |a| reject_self(followers_for_graph_user(a.subject.created_by_id), a) }
+    }
+
     notification_activities = [
       forGraphUser_someone_followed_your_channel,
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
@@ -174,6 +180,7 @@ class ActivityListenerCreator
       forGraphUser_someone_added_a_fact_to_a_channel_you_follow,
       forGraphUser_someone_you_follow_added_a_fact_to_a_channel,
       forGraphUser_someone_you_follow_followed_someone_else,
+      forGraphUser_someone_you_follow_created_a_new_channel,
       forGraphUser_you_just_created_your_first_factlink
     ]
 
