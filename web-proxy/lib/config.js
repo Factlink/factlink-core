@@ -22,9 +22,10 @@ function read_conf(config_path, fs, env) {
   var confs = ['static', 'proxy', 'core'];
   var parsed_conf = {};
   for(i = 0; i < confs.length; i++) {
+    var yaml = fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8') + "\n\n";
+
     // eval gives jshint issues, but this is because yaml should not use eval, not something we can fix
-    var file_conf = require('yaml').eval(
-      fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8') + "\n\n")[env]; /* https://github.com/visionmedia/js-yaml/issues/13 */
+    var file_conf = require('yaml').eval(yaml)[env]; /* https://github.com/visionmedia/js-yaml/issues/13 */
 
     parsed_conf = merge_options(parsed_conf,file_conf);
   }
