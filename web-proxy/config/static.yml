@@ -28,7 +28,7 @@ staging:
 
 production:
   static:
-    hostname: static-beta.factlink.com
+    hostname: static.factlink.com
     port: 443
     protocol: https://
     salt: 'tJx,RiGj:\(HPunB0.FX'
