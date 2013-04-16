@@ -37,5 +37,5 @@ Frontend/Backend - Updating links in activities:
 
 Misc:
  ☐ Re-add empty channel extension help somewhere
- ☐ Refactor ChannelsController::getTopicFact
- ☐ Refactor how fact urls are processed (should not be through an event handler but through some kind of "global"/app variable that gives the FactView a context url)
+ ✔ Refactor ChannelsController::getTopicFact @done (13-04-16 10:37)
+ ✔ Refactor how fact urls are processed (should not be through an event handler but through some kind of "global"/app variable that gives the FactView a context url) @done (13-04-16 11:46)
