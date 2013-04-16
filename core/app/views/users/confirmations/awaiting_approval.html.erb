@@ -1,34 +1,29 @@
-<h1>Email confirmed. Awaiting account approval.</h1>
+<div class="waiting-list-wrapper">
+  <h1>Email confirmed. Awaiting account approval.</h1>
 
-<style>
-  #header {
-    padding: 8px 0 0 24px;
-  }
-  #header > ul > li {
-    list-style-type: none;
-    margin: 0 48px 24px 0;
-    font-size: 1.25em;
-    color: #777;
-  }
-  #header > ul > li:last-child {
-    margin-bottom: 4px;
-  }
-  #header > ul > li > i {
-    padding-right: 8px;
-  }
-  .message {
-    padding: 0 0 0 28px;
-  }
-  .green {
-    color: #bada55 !important;
-  }
-</style>
-
-<div id="header">
-  <ul>
+  <ul class="waiting-list-steps">
     <li><i class="icon-ok"></i> Username reserved</li>
     <li><i class="icon-ok"></i> Email confirmed</li>
-    <li class="green"><i class="icon-time"></i> On waiting list to get access...</li>
+    <li class="active"><i class="icon-time"></i> On waiting list to get access...</li>
   </ul>
-  <span class="message">We've added you to our waiting list and will notify you when we're ready to get you access!</span>
+
+  <p>We've added you to our waiting list and will notify you when we're ready to get you access!</p>
+
+  <ul class="waiting-list-social">
+    <li>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://factlink.com" data-text="I just signed up for Factlink. Get yours now! -">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </li>
+    <li>
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=385144638222636";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+      <div class="fb-like" data-href="https://www.facebook.com/Factlink" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+    </li>
+  </ul>
 </div>
