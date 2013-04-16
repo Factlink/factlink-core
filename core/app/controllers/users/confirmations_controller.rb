@@ -1,6 +1,6 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
 
-  layout "frontend"
+  layout "waiting_list"
 
   before_filter :require_no_authentication, :only => :show
   def show
