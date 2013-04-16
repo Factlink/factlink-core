@@ -1,0 +1,32 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+#container .setup-account {
+  margin-top: 100px;
+  position: relative;
+  text-align: center;
+
+  > h1 {
+    font-size: 28px;
+    text-shadow: 0px 1px 0px #fff;
+    margin: 40px 0 30px;
+    font-weight: bold;
+  }
+
+  > .setup-account-form {
+    border: 1px solid @baseBorderColor;
+    .border-radius(5px);
+    padding: 20px;
+    background: white;
+    margin: 0 auto 150px;
+    float: none;
+    width: 500px;
+    .form-actions {
+      margin: 0;
+      > .btn {
+        margin-right: 35px;
+        float: right;
+      }
+    }
+  }
+}
