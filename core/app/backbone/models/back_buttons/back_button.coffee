@@ -1,12 +1,16 @@
 class window.BackButton extends Backbone.Model
 
+  defaults:
+    text: ''
+    url: ''
+
   initialize: (attributes, options) ->
-    @model = options.model
+    @options = options
 
     # TODO: use listenTo when upgrading to new Backbone version
-    @model.on 'change', @update, @
+    @options.model.on 'change', @update, @
     @update()
 
   # TODO: remove when upgrading to new Backbone version
   stopListening: ->
-    @model.off 'change', @update, @
+    @options.model.off 'change', @update, @

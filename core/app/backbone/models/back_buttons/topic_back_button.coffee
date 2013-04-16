@@ -1,5 +1,5 @@
 class window.TopicBackButton extends BackButton
 
   update: ->
-    topic = @model
+    topic = @options.model
     @set url: topic.url(), text: topic.get('title')

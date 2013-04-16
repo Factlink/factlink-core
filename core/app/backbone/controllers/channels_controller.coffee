@@ -11,6 +11,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}
     topic.fetch success: (model) -> callback(model)
+    topic
 
   restoreTopicView: (slug_title, new_callback) ->
     @restoreChannelView "topic-#{slug_title}", new_callback
@@ -37,27 +38,18 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
 
-    topic = `undefined`
-    fact = `undefined`
-
-    with_both = =>
-      title_view = new ExtendedFactTitleView model: fact, back_button: new TopicBackButton([], model: topic)
-      @main.titleRegion.show( title_view )
-
-    callback_with_both = _.after 2, with_both
-
-    @loadTopic slug_title, (model) =>
-      topic = model
-      @commonTopicViews topic
-      callback_with_both()
+    topic = @loadTopic slug_title, => @commonTopicViews topic
 
     fact = new Fact(id: fact_id)
     fact.fetch
       success: (model, response) =>
         dv = new DiscussionView(model: model, tab: params.tab)
         @main.contentRegion.show(dv)
-        callback_with_both()
       error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
+
+    back_button = new TopicBackButton [], model: topic
+    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
+
   # </topics>
 
   loadChannel: (username, channel_id, callback) ->
@@ -78,6 +70,8 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       channel = new Channel({created_by:{username: username}, id: channel_id})
       channel.fetch
         success: (model, response) -> withChannel(model)
+
+    channel
 
   commonChannelViews: (channel) ->
     window.currentChannel = channel
@@ -134,30 +128,18 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
 
-    channel = `undefined`
-    fact = `undefined`
-
-    with_both = =>
-      return_to_url = channel.url()
-      return_to_url = return_to_url + "/activities" if params.for_stream
-
-      title_view = new ExtendedFactTitleView model: fact, back_button: new ChannelBackButton([], model: channel)
-      @main.titleRegion.show( title_view )
-
-    callback_with_both = _.after 2, with_both
-
-    @loadChannel username, channel_id, ( ch ) =>
-      channel = ch
-      @commonChannelViews( ch )
-      callback_with_both()
+    channel = @loadChannel username, channel_id, => @commonChannelViews( ch )
 
     fact = new Fact(id: fact_id)
     fact.fetch
       success: (model, response) =>
         dv = new DiscussionView(model: model, tab: params.tab)
         @main.contentRegion.show(dv)
-        callback_with_both()
       error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
+
+    back_button = new ChannelBackButton [], model: channel, for_stream: params.for_stream
+    title_view = new ExtendedFactTitleView model: fact, back_button: back_button
+    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
   restoreChannelView: (channel_id, new_callback) ->
     if @lastChannelStatus?

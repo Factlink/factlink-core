@@ -94,10 +94,10 @@ class window.ProfileController extends Backbone.Factlink.BaseController
   withFact: (fact, params={})->
     @main.contentRegion.show new DiscussionView(model: fact, tab: params.tab)
 
-    user = new User(fact.get('created_by'))
-    title_view = new ExtendedFactTitleView model: fact, back_button: new UserBackButton([], model: user)
+    user = new User fact.get('created_by')
 
-    @main.titleRegion.show( title_view )
+    back_button = new UserBackButton [], model: user
+    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
     @showChannelListing(user)
     user.fetch
