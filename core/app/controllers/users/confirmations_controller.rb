@@ -1,6 +1,6 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
 
-  layout "one_column_without_sign_up"
+  layout "one_column_simple"
 
   before_filter :require_no_authentication, :only => :show
   def show

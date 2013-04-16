@@ -19,5 +19,6 @@
 <%= render template: "layouts/base", locals: {
   fixed_topbar: false,
   show_footer: true,
-  show_sign_up: (show_sign_up.nil? ? !current_user : show_sign_up)
+  show_sign_up: defined?(show_sign_up) ? show_sign_up : !current_user,
+  slide_down: defined?(slide_down) ? slide_down : true
 } %>
