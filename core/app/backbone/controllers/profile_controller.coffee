@@ -120,14 +120,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     channelCollectionView.setActive('profile')
 
   makePermalinkEvent: ->
-    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
+    FactlinkApp.factlinkBaseUrl = baseUrl
+    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', =>
       @last_profile_status =
         view: @profile_views.currentView()
         scrollTop: $('body').scrollTop()
-
-      navigate_to = fact.get('url')
-      Backbone.history.navigate navigate_to, true
       $('body').scrollTo(0)
-
-      e.preventDefault()
-      e.stopPropagation()
