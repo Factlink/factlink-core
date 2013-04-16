@@ -120,7 +120,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     channelCollectionView.setActive('profile')
 
   makePermalinkEvent: ->
-    FactlinkApp.factlinkBaseUrl = baseUrl
+    FactlinkApp.factlinkBaseUrl = null
     @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', =>
       @last_profile_status =
         view: @profile_views.currentView()
