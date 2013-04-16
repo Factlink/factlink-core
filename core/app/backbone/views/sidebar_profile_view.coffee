@@ -12,7 +12,7 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
     followers:  @followers_count()
 
   plural_followers: ->
-    not (@followers_count() == 1)
+    @followers_count() isnt 1
 
   followers_count: ->
     count = @model.followers.followers_count()
