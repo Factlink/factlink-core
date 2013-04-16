@@ -57,20 +57,19 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
     mp_track("mp_page_view", {mp_page: window.location.href})
 
-    withChannel = (channel) ->
+    withChannel = ->
       channel.set
         new_facts: false
         unread_count: 0
-
       callback(channel)
 
     if (channel)
-      withChannel(channel)
+      withChannel()
     else
-      channel = new Channel({created_by:{username: username}, id: channel_id})
+      channel = new Channel created_by: {username: username}, id: channel_id
       channel.fetch
-        success: (model, response) -> withChannel(model)
-
+        success: -> withChannel()
+    
     channel
 
   commonChannelViews: (channel) ->
@@ -128,7 +127,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
 
-    channel = @loadChannel username, channel_id, => @commonChannelViews( ch )
+    channel = @loadChannel username, channel_id, (channel) => @commonChannelViews channel
 
     fact = new Fact(id: fact_id)
     fact.fetch
