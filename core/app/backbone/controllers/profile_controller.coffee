@@ -95,13 +95,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     @main.contentRegion.show new DiscussionView(model: fact, tab: params.tab)
 
     user = new User(fact.get('created_by'))
-    username = user.get('username')
-    return_to_text = "#{ username.capitalize() }'s profile"
-
-    title_view = new ExtendedFactTitleView(
-                        model: fact,
-                        return_to_url: username,
-                        return_to_text: return_to_text )
+    title_view = new ExtendedFactTitleView model: fact, back_button: new UserBackButton([], model: user)
 
     @main.titleRegion.show( title_view )
 

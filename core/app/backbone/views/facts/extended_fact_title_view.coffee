@@ -3,10 +3,13 @@ class window.BackButtonView extends Backbone.Marionette.ItemView
   className: "back-to-profile btn-back"
 
   template:
-    text: "<span>{{ return_to_text }}</span>"
+    text: "<span>{{ text }}</span>"
+
+  initialize: ->
+    @bindTo @model, 'change', @render
 
   onRender: () ->
-    @$el.attr 'href', @model.get('return_to_url')
+    @$el.attr 'href', @model.get('url')
     @$el.attr 'rel', 'backbone'
 
 class window.ExtendedFactTitleView extends Backbone.Marionette.Layout
@@ -20,11 +23,10 @@ class window.ExtendedFactTitleView extends Backbone.Marionette.Layout
     @opts = opts
 
   onRender: ->
-    back_button_model = new Backbone.Model(
-                              return_to_text: @opts.return_to_text,
-                              return_to_url: @opts.return_to_url)
-
-    @backButtonRegion.show new BackButtonView( model: back_button_model  )
+    @backButtonRegion.show new BackButtonView( model: @options.back_button  )
     @creatorProfileRegion.show new UserWithAuthorityBox
       model: new User(@model.get('created_by'))
       authority: @model.get('created_by').authority_for_subject.authority
+
+  onClose: ->
+    @options.back_button.stopListening()

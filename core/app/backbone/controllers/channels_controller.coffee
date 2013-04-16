@@ -41,10 +41,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     fact = `undefined`
 
     with_both = =>
-      title_view = new ExtendedFactTitleView(
-                                      model: fact,
-                                      return_to_url: topic.url(),
-                                      return_to_text: topic.get('title') )
+      title_view = new ExtendedFactTitleView model: fact, back_button: new TopicBackButton([], model: topic)
       @main.titleRegion.show( title_view )
 
     callback_with_both = _.after 2, with_both
@@ -144,10 +141,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       return_to_url = channel.url()
       return_to_url = return_to_url + "/activities" if params.for_stream
 
-      title_view = new ExtendedFactTitleView(
-                                      model: fact,
-                                      return_to_url: return_to_url,
-                                      return_to_text: channel.get('title') )
+      title_view = new ExtendedFactTitleView model: fact, back_button: new ChannelBackButton([], model: channel)
       @main.titleRegion.show( title_view )
 
     callback_with_both = _.after 2, with_both
