@@ -95,10 +95,6 @@ module FactlinkUI
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
-    config.to_prepare do
-      Devise::PasswordsController.layout "frontend"
-    end
-
     # Block frame busting for all routes except the intermediate
     # If you update this route, also update it here please.
     #
