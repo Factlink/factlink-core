@@ -1,5 +1,5 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/interactors/topics/get'
+require './app/interactors/interactors/topics/get'
 
 describe Interactors::Topics::Get do
   include PavlovSupport
