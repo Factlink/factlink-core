@@ -26,14 +26,13 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
 
   template: 'channels/list_header'
 
-  templateHelpers: ->
-    stream_title: -> Factlink.Global.t.stream.capitalize()
-    channel_listing_header: ->
-      Factlink.Global.t.topics.capitalize()
+  templateHelpers: =>
+    stream_title: Factlink.Global.t.stream.capitalize()
+    channel_listing_header: Factlink.Global.t.topics.capitalize()
+    show_stream: @options.showStream
       
   initialize: =>
     @on 'activate', (type)=> @activate(type)
-
 
   onRender: -> @renderActive()
 
@@ -71,7 +70,7 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @model.is_current_user()
 
   renderHeader: ->
-    @header.show new ChannelHeaderView(model: @model, collection: @collection)
+    @header.show new ChannelHeaderView(@options)
 
   setActiveChannel: (channel)->
     if not channel?

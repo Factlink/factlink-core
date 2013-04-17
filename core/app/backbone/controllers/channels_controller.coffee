@@ -87,7 +87,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
   showChannelSideBar: (channels, currentChannel, user)->
     window.Channels.setUsernameAndRefreshIfNeeded(user.get('username'))
-    channelCollectionView = new ChannelsView(collection: channels, model: user)
+    channelCollectionView = new ChannelsView(collection: channels, model: user, showStream: true)
     FactlinkApp.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActiveChannel(currentChannel)
 
