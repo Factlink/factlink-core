@@ -50,6 +50,14 @@ class NotificationRepliedMessageView extends GenericNotificationView
 class NotificationUserFollowedUser extends GenericNotificationView
   template: "notifications/user_followed_user"
 
+  regions:
+    addBackRegion: ".js-region-add-back"
+
+  onRender: ->
+    super()
+    user = new User(@model.get('activity').followed_user)
+    @addBackRegion.show new FollowUserButtonView(model: user, mini: true)
+
 class CreatedCommentView extends GenericNotificationView
   template: "notifications/created_comment"
 
