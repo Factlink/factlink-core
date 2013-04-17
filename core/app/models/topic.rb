@@ -70,6 +70,10 @@ class Topic
     Channel.find(slug_title: self.slug_title)
   end
 
+  def to_param
+    slug_title
+  end
+
   include OurOhm::RedisTopFunctionality
   def top_score
     channels.count

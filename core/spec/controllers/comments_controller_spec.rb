@@ -1,5 +1,6 @@
-# this test isn't in unit-spec because the identitiescontroller actually
-# requires the applicationcontroller, making this test kind-of slow
+# this test isn't in unit-spec because the CommentsController actually
+# requires the ApplicationController, making this test kind-of slow
+
 require_relative '../../app/controllers/comments_controller.rb'
 
 describe CommentsController do

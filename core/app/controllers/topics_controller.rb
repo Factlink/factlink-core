@@ -1,8 +1,13 @@
 class TopicsController < ApplicationController
   def related_user_channels
-    authorize! :show, topic
     @channels = top_channels_for_topic(topic)
     render 'channels/index'
+  end
+
+  def show
+    backbone_responder do
+      @topic = topic
+    end
   end
 
   def top
@@ -24,17 +29,22 @@ class TopicsController < ApplicationController
     end
   end
 
+  def fact
+    backbone_responder
+  end
+
   private
     def get_top_channels
       interactor :'channels/top', 12
     end
+
     def top_channels_for_topic topic
       interactor :'channels/top_for_topic', topic
     end
 
     def topic
-      @topic ||= Topic.by_slug(params[:id])
-      @topic || raise_404("Topic not found")
+      topic = interactor :"topics/get", params[:id]
+      topic || raise_404("Topic not found")
     end
 
     def top_topics(nr)

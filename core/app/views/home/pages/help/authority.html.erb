@@ -13,42 +13,40 @@ Authority means how knowledgeable people are on a single topic. We use authority
 
 <p>You gain authority on a specific topic. This means that you can for instance know a lot about Programming, but little about French Literature. This means we won't weigh your opinion on the Count of Monte Christo as much as your opinion on Object Oriented design in Java.</p>
 
-<% if can_haz :authority_calculation_details %>
-  <h4>Details</h4>
+<h4>Details</h4>
 
-  <p>A warning up front. We are changing this very regular, so what you read here might be outdated tomorrow.</p>
+<p>A warning up front. We are changing this very regular, so what you read here might be outdated tomorrow.</p>
 
-  <p>We use several factors to gauge how knowledgeable you are on a certain subject. Currently we use two categories of activities for this: Factlink classification and Factlink creation. You also get one authority point for free (since no-one knows nothing).</p>
+<p>We use several factors to gauge how knowledgeable you are on a certain subject. Currently we use two categories of activities for this: Factlink classification and Factlink creation. You also get one authority point for free (since no-one knows nothing).</p>
 
 
-  <h4>Factlink classification</h4>
+<h4>Factlink classification</h4>
 
-  <p>
-  When you put a Factlink in a topic you are classifying a Factlink. Since we think this is important we reward classification with authority on the subject. We do this in two (direct) ways:
+<p>
+When you put a Factlink in a topic you are classifying a Factlink. Since we think this is important we reward classification with authority on the subject. We do this in two (direct) ways:
+</p>
+
+<ol>
+  <li>When you add a Factlink to a topic, you get a little authority (0.1) on the topic. Since we really need others to confirm your authority, the amount of authority you can earn is limited to 4 authority points.</li>
+</ol>
+
+<h4>Fact creation</h4>
+
+<p>
+You can receive authority by creating Factlinks if people find your Factlinks useful. This results in authority on the topic your Factlink is about. This is a two-step process: we first calculate how much authority this Factlink should earn you, and then decide how to spread this over the different topics the Factlink is about according to you and other users.
+<p>
+<h4>How much a Factlink earns you</h4>
+<p>There are two things that determine how much authority a Factlink earns you:</p>
+<ol>
+  <li>How often it is used as evidence. Every time it is used, you gain 1 authority point. At the end, we then take the (2-based) logarithm.</li>
+  <li>How many people give their opinion. We do not care about the opinion itself, just how much interaction your Factlink provokes. You get 1 authority point for every 100 interactions</li>
+</ol>
+<h4>Assigning this authority to topics</h4>
+<p>
+  After we calculate how much authority you gain from your Factlink we spread this over the topics it belongs to, according to our users. So for instance, let's say you created a Factlink about Michael Jackson and it gains you 4 authority. If this Fact has been added to the topic 'Michael Jackson' 10 times, 'Music' 20 times channels and 'Eighties' 10 times, you will gain 1 authority on Michael Jackson, 2 on Music, and 1 on Eigthies.
   </p>
 
-  <ol>
-    <li>When you add a Factlink to a topic, you get a little authority (0.1) on the topic. Since we really need others to confirm your authority, the amount of authority you can earn is limited to 4 authority points.</li>
-  </ol>
-
-  <h4>Fact creation</h4>
-
-  <p>
-  You can receive authority by creating Factlinks if people find your Factlinks useful. This results in authority on the topic your Factlink is about. This is a two-step process: we first calculate how much authority this Factlink should earn you, and then decide how to spread this over the different topics the Factlink is about according to you and other users.
-  <p>
-  <h4>How much a Factlink earns you</h4>
-  <p>There are two things that determine how much authority a Factlink earns you:</p>
-  <ol>
-    <li>How often it is used as evidence. Every time it is used, you gain 1 authority point. At the end, we then take the (2-based) logarithm.</li>
-    <li>How many people give their opinion. We do not care about the opinion itself, just how much interaction your Factlink provokes. You get 1 authority point for every 100 interactions</li>
-  </ol>
-  <h4>Assigning this authority to topics</h4>
-  <p>
-    After we calculate how much authority you gain from your Factlink we spread this over the topics it belongs to, according to our users. So for instance, let's say you created a Factlink about Michael Jackson and it gains you 4 authority.
-    </p>
-
-  <h4>Calculating how much you know about a fact</h4>
-  <p>
-    Finally, to calculate how much you know about a certain fact we take the weigthed average of your authority on the topics this fact is about.
-  </p>
-<% end %>
+<h4>Calculating how much you know about a fact</h4>
+<p>
+  Finally, to calculate how much you know about a certain fact we take the weigthed average of your authority on the topics this fact is about. So if a fact is added to the topic 'Ruby' 10 times, to 'Programming' 20 times and to 'Rails' 10 times, and your authority on Ruby is 10, on Programming 5 and on Rails 20, your authority on this fact is (10*10+5*20+10*20)/40 = 10.
+</p>

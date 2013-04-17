@@ -215,14 +215,19 @@ FactlinkUI::Application.routes.draw do
     resources :following, :only => [:index], controller: 'user_following'
   end
 
-  resources :topics, path: 't', only: [] do
+  resources :topics, path: 't', only: [:show] do
     collection do
       get :top
       get :top_channels
     end
+    
     member do
       get :related_user_channels
-      get :facts
+
+      scope "/facts" do
+        get "/" => "topics#facts", as: "topic_facts"
+        get "/:fact_id" => "topics#fact", as: "topic_fact"
+      end
     end
   end
 

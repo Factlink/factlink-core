@@ -14,6 +14,10 @@ class ChannelItemView extends Backbone.Marionette.ItemView
     @$el.attr('id', 'channel-' + @model.id)
     @activeOn() if @model.isActive
 
+  templateHelpers: =>
+    use_topic_url: @options.use_topic_url
+    topic_url: @model.topicUrl()
+
 _.extend ChannelItemView.prototype, ToggleMixin
 
 class window.ChannelHeaderView extends Backbone.Marionette.ItemView
@@ -22,14 +26,13 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
 
   template: 'channels/list_header'
 
-  templateHelpers: ->
-    stream_title: -> Factlink.Global.t.stream.capitalize()
-    channel_listing_header: ->
-      Factlink.Global.t.topics.capitalize()
+  templateHelpers: =>
+    stream_title: Factlink.Global.t.stream.capitalize()
+    channel_listing_header: Factlink.Global.t.topics.capitalize()
+    show_stream: @options.showStream
       
   initialize: =>
     @on 'activate', (type)=> @activate(type)
-
 
   onRender: -> @renderActive()
 
@@ -45,6 +48,7 @@ class window.ChannelListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   id: 'channel-listing'
   className: 'channel-listing'
+  itemViewOptions: -> use_topic_url: @options.use_topic_url
 
 class window.ChannelsView extends Backbone.Marionette.Layout
   template: 'channels/channel_list'
@@ -55,23 +59,23 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     header: '.channel-listing-header'
 
   initialize: ->
-    @model = if @model? then @model.clone() else new User
-    @setUserFromChannels()
     @bindTo @collection, 'reset', @setUserFromChannels, this
 
-  setUserFromChannels: ->
-    channel = window.Channels.first()
-    @model.set(channel.user().attributes) if channel
-
   onRender: ->
-    @list.show new ChannelListView(collection: @collection)
+    @list.show new ChannelListView(collection: @collection, use_topic_url: @use_topic_url())
     @renderHeader()
 
+  use_topic_url: ->
+    # for now only use topic urls for your own pages
+    @model.is_current_user()
+
   renderHeader: ->
-    @header.show new ChannelHeaderView(model: @model, collection: @collection)
+    @header.show new ChannelHeaderView(@options)
 
   setActiveChannel: (channel)->
-    if channel.get('is_all')
+    if not channel?
+      @unsetActive()
+    else if channel.get('is_all')
       @setActive('stream')
     else
       @collection.setActiveChannel(channel)
@@ -85,5 +89,5 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @collection.unsetActiveChannel()
     @header.currentView.trigger 'activate', type
 
-  unsetActive: () ->
+  unsetActive: ->
     @setActive()

@@ -26,20 +26,10 @@ class window.ChannelView extends Backbone.Marionette.Layout
       authority: @model.get('created_by_authority')
 
   showChosenFacts: ->
-    choice = @$('.js-channel-topic-switch').val()
-    if choice == 'topic'
-      @showFacts @topicFacts()
-      @$('.js-region-sub-channels').hide()
-      mp_track "Topic: World view"
-    else
-      @showFacts @channelFacts()
-      @$('.js-region-sub-channels').show()
-      mp_track "Topic: People I follow"
+    @showFacts @channelFacts()
+    mp_track "Topic: User channel"
 
   showFacts: (facts) ->
-    @factList.show new FactsView
-      model: @model
-      collection: facts
+    @factList.show new FactsView collection: facts
 
   channelFacts: -> new ChannelFacts([], channel: @model)
-  topicFacts: -> @model.topic().facts()
