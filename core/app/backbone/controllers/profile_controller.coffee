@@ -60,7 +60,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     app.mainRegion.show(@main)
     @getUser username,
       onInit: (user) =>
-        @setChannelListing(username)
+        @setChannelListing(user)
         @main.showTitle(options.title)
       onFetch: (user) =>
         @showSidebarProfile(user)
@@ -89,31 +89,23 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
   getFactsView: (channel) ->
     collection = new ChannelFacts [], channel: channel
-    facts_view = new FactsView
-        collection: collection,
-        model: channel
+    facts_view = new FactsView collection: collection
 
   withFact: (fact, params={})->
     @main.contentRegion.show new DiscussionView(model: fact, tab: params.tab)
 
-    user = new User(fact.get('created_by'))
-    username = user.get('username')
-    return_to_text = "#{ username.capitalize() }'s profile"
+    user = new User fact.get('created_by')
 
-    title_view = new ExtendedFactTitleView(
-                        model: fact,
-                        return_to_url: username,
-                        return_to_text: return_to_text )
+    back_button = new UserBackButton [], model: user
+    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
-    @main.titleRegion.show( title_view )
-
-    @showChannelListing(fact.get('created_by').username)
+    @showChannelListing(user)
     user.fetch
       success: => @showSidebarProfile(user)
 
-  showChannelListing: (username)->
-    changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels)
+  showChannelListing: (user)->
+    changed = window.Channels.setUsernameAndRefresh(user.get('username'))
+    channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
 
@@ -121,21 +113,16 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     sidebarProfileView = new SidebarProfileView(model: user)
     app.leftTopRegion.show(sidebarProfileView)
 
-  setChannelListing: (username) ->
-    changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels)
+  setChannelListing: (user) ->
+    changed = window.Channels.setUsernameAndRefresh(user.get('username'))
+    channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
 
   makePermalinkEvent: ->
-    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
+    FactlinkApp.factlinkBaseUrl = null
+    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', =>
       @last_profile_status =
         view: @profile_views.currentView()
         scrollTop: $('body').scrollTop()
-
-      navigate_to = fact.get('url')
-      Backbone.history.navigate navigate_to, true
       $('body').scrollTo(0)
-
-      e.preventDefault()
-      e.stopPropagation()

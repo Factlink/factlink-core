@@ -1,6 +1,8 @@
 require 'acceptance_helper'
 
 describe "creating a Factlink", type: :request do
+  include Acceptance::ProfileHelper
+
   def created_channel_path(user)
     channel_path(user.username, user.graph_user.created_facts_channel.id)
   end
@@ -16,8 +18,7 @@ describe "creating a Factlink", type: :request do
 
     click_button "submit"
 
-    visit created_channel_path(@user)
-    page.select 'Factlinks from people I follow', from: 'channel-topic-switch'
+    go_to_profile_page_of @user
     
     page.should have_content "Feed"
     page.should have_content fact_name
@@ -31,8 +32,7 @@ describe "creating a Factlink", type: :request do
 
     click_button "submit"
 
-    visit created_channel_path(@user)
-    page.select 'Factlinks from people I follow', from: 'channel-topic-switch'
+    go_to_profile_page_of @user
     
     page.should have_content fact_name
 

@@ -19,16 +19,16 @@ class window.FactsView extends AutoloadingCompositeView
     @addShowHideToggle "loadingIndicator", "div.loading"
     @collection.on "startLoading", @loadingIndicatorOn, this
     @collection.on "stopLoading", @loadingIndicatorOff, this
-    @bindTo @model, "change", @showNewPosts, this
 
-  showNewPosts: ->
-    if @model.user().get("username") is currentUser.get("username")
-      unread_count = parseInt(@model.get("unread_count") or 0, 10)
-      @$(".facts-view-more .unread_count").html unread_count
-      @$(".facts-view-more").toggle unread_count > 0
+  # TODO: reimplement unread count for topics
+  # showNewPosts: ->
+  #   if @model.user().get("username") is currentUser.get("username")
+  #     unread_count = parseInt(@model.get("unread_count") or 0, 10)
+  #     @$(".facts-view-more .unread_count").html unread_count
+  #     @$(".facts-view-more").toggle unread_count > 0
 
   emptyViewOn: ->
-    @emptyView = new EmptyFactsView(model: @model)
+    @emptyView = new EmptyTopicView
     @$("div.no_facts").html @emptyView.render().el
 
   emptyViewOff: ->

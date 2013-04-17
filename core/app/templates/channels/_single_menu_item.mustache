@@ -1,4 +1,9 @@
+{{#use_topic_url}}
+<a href="{{topic_url}}" rel="backbone" class="{{type}}" title="{{title}}">
+{{/use_topic_url}}
+{{^use_topic_url}}
 <a href="{{link}}" rel="backbone" class="{{type}}" title="{{title}}">
+{{/use_topic_url}}
   <span class="title">
     {{title}}
   </span>

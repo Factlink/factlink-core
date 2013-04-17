@@ -28,10 +28,6 @@ class FactPopoverView extends Backbone.Factlink.PopoverView
 class window.FactView extends Backbone.Marionette.Layout
   tagName: "div"
   className: "fact-view"
-
-  events:
-    "click a.discussion_link" : "triggerDiscussionClick"
-
   template: "facts/fact"
 
   templateHelpers: ->
@@ -81,8 +77,5 @@ class window.FactView extends Backbone.Marionette.Layout
     ,
       duration: 2000
       complete: -> $(this).animate "background-color": "#ffffff", 2000
-
-  triggerDiscussionClick: (e) ->
-    FactlinkApp.vent.trigger 'factlink_permalink_clicked', e, @model
 
 _.extend window.FactView.prototype, Backbone.Factlink.TooltipMixin

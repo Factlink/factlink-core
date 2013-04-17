@@ -1,0 +1,27 @@
+<div id="channel">
+  <header class="content-header channel-header topic-header">
+    <h1 class="channel-title">
+      {{ title }}
+    </h1>
+
+    <div class="pull-right">
+      <ul class="channel-statistics">
+        <li><span class="channel-authority-for-user">{{ current_user_authority }}</span> Your authority</li>
+        
+        {{#has_channel}}
+        <li class="channel-options">
+          <span class="muted">Show: </span>
+          <select class="option-dropdown js-channel-topic-switch" name="channel-topic-switch">
+            <option value="topic">All Factlinks</option>
+            <option value="channel">Factlinks from people I follow</option>
+          </select>
+        </li>
+        {{/has_channel}}
+      </ul>
+    </div>
+  </header>
+
+  <div class="js-region-sub-channels channel-subchannels"></div>
+
+  <div id="facts_for_channel" class="js-region-fact-list"></div>
+</div>
