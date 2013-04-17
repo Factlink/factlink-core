@@ -47,5 +47,14 @@ window.AutoloadCollectionOnTimestamp = {
         this.stopLoading();
       }, this)
     });
+  },
+
+  loadAgain: function() {
+    if (this._loading) return;
+
+    this.reset([]);
+    this._timestamp = undefined;
+    this.hasMore = true;
+    this.loadMore();
   }
-}
+};
