@@ -13,5 +13,9 @@ module Acceptance
       expect(current_path).to eq topic_path(topic)
     end
 
+    def switch_to_factlinks_from_people_i_follow
+      page.select 'Factlinks from people I follow', from: 'channel-topic-switch'
+    end
+
   end
 end
