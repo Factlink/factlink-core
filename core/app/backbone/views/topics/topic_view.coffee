@@ -20,8 +20,6 @@ class window.TopicView extends Backbone.Marionette.Layout
         collection: @channel().subchannels()
         model: @channel()
 
-    # TODO: send authority of currentUser with topic
-
   showChosenFacts: ->
     choice = @$('.js-channel-topic-switch').val()
     if choice == 'channel'
