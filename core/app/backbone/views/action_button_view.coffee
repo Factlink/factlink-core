@@ -15,6 +15,11 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     primaryAction:   '.js-action-button-primary'
     secondaryAction: '.js-action-button-secondary'
 
+  constructor: (args...) ->
+    super(args...)
+    if @mini or @options.mini
+      @template = 'generic/action_button_mini'
+
   updateButton: =>
     added = @buttonEnabled()
     @ui.primaryAction.toggle not added
@@ -47,7 +52,3 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     e.preventDefault()
     e.stopPropagation()
     @secondaryAction(e)
-
-
-class window.ActionButtonMiniView extends ActionButtonView
-  template: 'generic/action_button_mini'
