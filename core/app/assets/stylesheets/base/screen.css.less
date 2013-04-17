@@ -72,8 +72,11 @@ body.wide {
     height: 100%;
     top: 70px;
     padding-bottom: 70px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
+    &:hover {
+      overflow-y: scroll;
+    }
   }
 
   #main-column {

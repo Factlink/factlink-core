@@ -16,7 +16,7 @@ class window.SocialCollection extends Backbone.Paginator.requestPager
   initialize: (models, opts) ->
     @user = opts.user
     @_followed_by_me = false
-    @totalRecords = 0
+    @totalRecords = null
 
   parse: (response) ->
     @totalRecords = response.total
