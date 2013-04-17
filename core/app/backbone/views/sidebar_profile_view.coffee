@@ -8,17 +8,17 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
 
   templateHelpers: =>
     plural_followers: @plural_followers()
-    following:  @following_count()
-    followers:  @followers_count()
+    following:  @following_count_object()
+    followers:  @followers_count_object()
 
   plural_followers: ->
-    @followers_count() isnt 1
+    @model.followers.followers_count() isnt 1
 
-  followers_count: ->
+  followers_count_object: ->
     count = @model.followers.followers_count()
     if count? then {count: count} else null
 
-  following_count: ->
+  following_count_object: ->
     count = @model.following.following_count()
     if count? then {count: count} else null
 
