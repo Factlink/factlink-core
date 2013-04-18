@@ -53,4 +53,4 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
     @updateTitle()
 
   updateTitle: ->
-    @$('.js-suggestions-title').toggleClass 'hide', @filtered_collection.length <= 0
+    @$el.toggle @filtered_collection.length > 0
