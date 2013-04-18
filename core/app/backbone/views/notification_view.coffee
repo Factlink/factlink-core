@@ -55,7 +55,7 @@ class NotificationUserFollowedUser extends GenericNotificationView
 
   onRender: ->
     super()
-    user = new User(@model.get('activity').followed_user)
+    user = new User(@model.get('activity'))
     @addBackRegion.show new FollowUserButtonView(model: user, mini: true)
 
 class CreatedCommentView extends GenericNotificationView
