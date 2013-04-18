@@ -121,4 +121,25 @@ describe 'user following' do
       end
     end
   end
+
+  describe 'following yourself' do
+    it 'should not be allowed' do
+      expect {interactor :'users/follow_user', current_user.username, current_user.username}.
+        to raise_error
+    end
+
+    it 'should have no followers and following' do
+      begin
+        interactor :'users/follow_user', current_user.username, current_user.username
+      rescue
+      end
+
+      followers = interactor :'users/followers', current_user.username, 0, 10
+      expect(followers[0].size).to eq 0
+
+      following = interactor :'users/following', current_user.username, 0, 10
+      expect(following[0].size).to eq 0
+    end
+  end
+
 end
