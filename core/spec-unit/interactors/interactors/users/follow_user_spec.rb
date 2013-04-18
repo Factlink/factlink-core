@@ -87,7 +87,7 @@ describe Interactors::Users::FollowUser do
   describe '#validate' do
     before do
       described_class.any_instance
-        .should_receive(:authorized?)
+        .stub(:authorized?)
         .and_return(true)
     end
 
@@ -101,6 +101,15 @@ describe Interactors::Users::FollowUser do
         .with(:user_to_follow_user_name, user_to_follow_user_name)
 
       interactor = described_class.new user_name, user_to_follow_user_name
+    end
+
+    it 'calls the correct validation methods' do
+      user_name = mock
+
+      described_class.any_instance.stub(:validate_nonempty_string)
+
+      expect {described_class.new user_name, user_name}.
+        to raise_error(Pavlov::ValidationError, "You cannot follow yourself.")
     end
   end
 end
