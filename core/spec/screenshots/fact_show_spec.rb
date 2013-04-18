@@ -11,6 +11,8 @@ describe "factlink", type: :request do
     go_to_fact_show_of @factlink
     find('a', text: 'Comments (1)').click
 
+    find('a', text: '(more)').click
+
     page.should have_content @factlink.data.displaystring
 
     assume_unchanged_screenshot "fact_show"
@@ -27,6 +29,7 @@ describe "factlink", type: :request do
 
     go_to_fact_show_of @factlink
     find('a', text: 'Comments (1)').click
+    find('a', text: '(more)').click
 
     page.should have_content @factlink.data.displaystring
 
