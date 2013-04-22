@@ -11,7 +11,7 @@ class Users::InvitationsController < Devise::InvitationsController
       invitation_message = view_context.send(:h,params[:invite][:message])
       invitation_message = view_context.simple_format invitation_message
       invitee.invitation_message = invitation_message
-      #invitee.save
+      invitee.save
     end
 
     if resource.errors.empty?
