@@ -9,6 +9,9 @@ class ActivityMailer < ActionMailer::Base
     @user = User.find(user_id)
     @activity = Activity[activity_id]
 
+    blacklisted_activities = [:invites]
+    return if blacklisted_activities.include? @activity.action.to_sym
+
     mail to: @user.email,
          subject: get_mail_subject_for_activity(@activity),
          from: from
