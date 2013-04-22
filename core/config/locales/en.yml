@@ -50,7 +50,7 @@ en:
   topics: "topics"
   topic_name: "topic name"
   add_to_topics: "add"
-  created_topic: "created a topic"
+  created_user_topic: "started posting to a topic"
 
   ago: "ago"
   show: "show"
