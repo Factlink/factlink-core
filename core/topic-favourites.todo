@@ -1,0 +1,17 @@
+Frontend sidebar:
+ ☐ ChannelsView should support topics on the homepage and channels on another users' page (or refactor into different views, etc.)
+
+Frontend topic page:
+ ☐ Favourite/unfavourite button
+
+Backend:
+ ☐ Endpoint to retrieve list of favourite topics for a user (make url for any user, but restrict to current_user, for now)
+ ☐ Endpoint for favouriting a topic
+ ☐ Endpoint for unfavouriting a topic
+ ☐ Redis list of topics per user
+
+Migration:
+ ☐ Initialise favourites with some sane default (discuss)
+
+Misc:
+ ☐ Translations favouriting/unfavouriting/favourites
