@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.registration_code = params[:user][:registration_code]
     end
 
-    if resource.save
+    if resource.save validate: false
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)

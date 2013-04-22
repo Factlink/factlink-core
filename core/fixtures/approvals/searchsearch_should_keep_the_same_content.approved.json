@@ -3,7 +3,7 @@
     "the_class": "FactlinkUser",
     "the_object": {
       "id": "<STRIPPED>",
-      "name": "Baron",
+      "name": "John1 Doe1",
       "username": "Baron",
       "gravatar_hash": "<STRIPPED>"
     }
@@ -20,7 +20,7 @@
       "url": "/baron/f/1",
       "created_by": {
         "id": "<STRIPPED>",
-        "name": "Baron",
+        "name": "John1 Doe1",
         "username": "Baron",
         "gravatar_hash": "<STRIPPED>",
         "authority_for_subject": {

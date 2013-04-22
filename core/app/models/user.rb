@@ -69,6 +69,8 @@ class User
 
   validates_length_of     :username, :within => 1..16, :message => "invalid. A maximum of 16 characters is allowed"
   validates_presence_of   :username, :message => "is required", :allow_blank => false
+  validates_presence_of   :first_name, :message => "is required", :allow_blank => false
+  validates_presence_of   :last_name, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
   validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
@@ -197,24 +199,6 @@ class User
 
     attributes = {agrees_tos: agrees_tos, agreed_tos_on: DateTime.now}
     self.assign_attributes(attributes, as: :from_tos) and save
-  end
-
-  def set_names(first_name, last_name)
-    self.first_name = first_name
-    self.last_name = last_name
-
-    valid = true
-    if first_name.blank?
-      self.errors.add(:first_name, "Please fill in your first name.")
-      valid = false
-    end
-
-    if last_name.blank?
-      self.errors.add(:last_name, "Please fill in your last name.")
-      valid = false
-    end
-
-    valid and save
   end
 
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
