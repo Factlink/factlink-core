@@ -12,6 +12,7 @@
       <%= f.label :username, class: "control-label" %>
       <div class="controls">
         <%= f.text_field :username, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :username) %>
       </div>
     </div>
 
@@ -19,6 +20,7 @@
       <%= f.label :first_name, class: "control-label" %>
       <div class="controls">
         <%= f.text_field :first_name, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :first_name) %>
       </div>
     </div>
 
@@ -26,6 +28,7 @@
       <%= f.label :last_name, class: "control-label" %>
       <div class="controls">
         <%= f.text_field :last_name, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :last_name) %>
       </div>
     </div>
 
@@ -33,6 +36,7 @@
       <%= f.label :password, class: "control-label" %>
       <div class="controls">
         <%= f.password_field :password, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :password) %>
       </div>
     </div>
 
@@ -40,6 +44,7 @@
       <%= f.label :password_confirmation, class: "control-label" %>
       <div class="controls">
         <%= f.password_field :password_confirmation, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :password_confirmation) %>
       </div>
     </div>
 
