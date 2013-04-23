@@ -53,7 +53,7 @@ class User
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
-                          :with => /\A\S\S+\Z/,
+                          :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
                           :with => Regexp.new('^' + ([
