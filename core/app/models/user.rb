@@ -216,6 +216,21 @@ class User
     "#{first_name} #{last_name}".strip
   end
 
+  def validate_username_and_email
+    valid?
+    username_errors = errors[:username]
+    email_errors = errors[:email]
+    errors.clear
+
+    if username_errors.any? or email_errors.any?
+      errors.add :username, username_errors
+      errors.add :email, email_errors
+      false
+    else
+      true
+    end
+  end
+
   def id_for_service service_name
     service_name = service_name.to_s
     if self.identities and self.identities[service_name]
