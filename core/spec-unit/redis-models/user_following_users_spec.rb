@@ -1,4 +1,4 @@
-require_relative '../../app/ohm-models/user_following_users'
+require_relative '../../app/redis-models/user_following_users'
 
 describe UserFollowingUsers do
 
