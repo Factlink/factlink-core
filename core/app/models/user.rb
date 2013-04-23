@@ -217,18 +217,12 @@ class User
   end
 
   def validate_username_and_email
-    valid?
-    username_errors = errors[:username]
-    email_errors = errors[:email]
-    errors.clear
-
-    if username_errors.any? or email_errors.any?
-      errors.add :username, username_errors
-      errors.add :email, email_errors
-      false
-    else
-      true
+    unless valid?
+      errors.to_hash.each do |key, value|
+        errors.delete key unless key == :username or key == :email
+      end
     end
+    not errors.any?
   end
 
   def id_for_service service_name
