@@ -8,9 +8,6 @@ describe Channel do
   let(:ch2) {Channel.create(created_by: u2, title: "Diddly")}
 
   let(:u1_ch1) {Channel.create(created_by: u1, title: "Something")}
-  let(:u1_ch2) {Channel.create(created_by: u1, title: "Diddly")}
-  let(:u2_ch1) {Channel.create(created_by: u2, title: "Something")}
-  let(:u2_ch2) {Channel.create(created_by: u2, title: "Diddly")}
 
   let(:u1) { create :graph_user }
   let(:u2) { create :graph_user }
@@ -40,7 +37,7 @@ describe Channel do
     before do
       # TODO: remove this once activities are not created in the models any more, but in interactors
       stub_const 'Activity::Subject', Class.new
-      Activity::Subject.should_receive(:activity).any_number_of_times
+      Activity::Subject.stub(:activity)
     end
 
     describe "initially" do
@@ -89,49 +86,57 @@ describe Channel do
           before do
             channel.remove_fact(f1)
           end
-          it {channel.facts.to_a.should =~ []}
-          it {channel.sorted_internal_facts.to_a.should =~ []}
-          it {channel.sorted_cached_facts.all.to_a.should =~ []}
-          it {@fork.sorted_internal_facts.to_a.should =~ []}
-          it {@fork.sorted_cached_facts.to_a.should =~ []}
-          it {@fork.facts.to_a.should =~ []}
+          it "there are no facts anywhere anymore" do
+            channel.facts.to_a.should =~ []
+            channel.sorted_internal_facts.to_a.should =~ []
+            channel.sorted_cached_facts.all.to_a.should =~ []
+            @fork.sorted_internal_facts.to_a.should =~ []
+            @fork.sorted_cached_facts.to_a.should =~ []
+            @fork.facts.to_a.should =~ []
+          end
         end
         describe "and removing the fact from the fork" do
-          before do
+          it "the fact should only be in the original" do
              @fork.remove_fact(f1)
+
+             channel.facts.to_a.should =~ [f1]
+             @fork.facts.to_a.should =~ []
           end
-          it {channel.facts.to_a.should =~ [f1]}
-          it {@fork.facts.to_a.should =~ []}
         end
         describe "after adding another fact to the original" do
-          before do
+          it "both original and fork should contain the two facts" do
             add_fact_to_channel f2, channel
+
+            channel.facts.to_a.should eq [f2,f1]
+            @fork.facts.to_a.should eq [f2,f1]
           end
-          it {channel.facts.to_a.should eq [f2,f1]}
-          it {@fork.facts.to_a.should eq [f2,f1]}
         end
         describe "after adding another fact to the fork" do
           before do
             add_fact_to_channel f2, @fork
           end
-          it {channel.facts.to_a.should eq [f1]}
-          it {@fork.facts.to_a.should eq [f2,f1]}
+          it "only the fork contains the another fact" do
+            channel.facts.to_a.should eq [f1]
+            @fork.facts.to_a.should eq [f2,f1]
+          end
 
           describe "after removing the original channel from the fork" do
-            before do
+            it "the fork contains no channels, and only its own facts" do
               Commands::Channels::RemoveSubchannel.new(@fork, channel).call
+
+              @fork.containing_channels.to_a.should =~ []
+              @fork.facts.to_a.should eq [f2]
             end
-            it {@fork.containing_channels.to_a.should =~ []}
-            it {@fork.facts.to_a.should eq [f2]}
           end
 
         end
         describe "after removing the original channel from the fork" do
-          before do
+          it "the fork contains no channels, and no facts" do
             Commands::Channels::RemoveSubchannel.new(@fork, channel).call
+
+            @fork.containing_channels.to_a.should =~ []
+            @fork.facts.to_a.should eq []
           end
-          it {@fork.containing_channels.to_a.should =~ []}
-          it {@fork.facts.to_a.should eq []}
         end
       end
     end
@@ -140,22 +145,27 @@ describe Channel do
       before do
         Commands::Channels::AddSubchannel.new(channel, ch1).call
       end
-      it {channel.contained_channels.to_a.should =~ [ch1]}
-      it {ch1.containing_channels.to_a.should =~ [channel]}
+      it do
+        channel.contained_channels.to_a.should =~ [ch1]
+        ch1.containing_channels.to_a.should =~ [channel]
+      end
       describe "after adding another subchannel" do
         before do
           Commands::Channels::AddSubchannel.new(channel, ch2).call
         end
-        it {channel.contained_channels.to_a.should =~ [ch1,ch2]}
-        it {ch1.containing_channels.to_a.should =~ [channel]}
-        it {ch2.containing_channels.to_a.should =~ [channel]}
+        it do
+          channel.contained_channels.to_a.should =~ [ch1,ch2]
+          ch1.containing_channels.to_a.should =~ [channel]
+          ch2.containing_channels.to_a.should =~ [channel]
+        end
         describe "after deleting the first subchannel" do
-          before do
+          it do
             Commands::Channels::RemoveSubchannel.new(channel, ch1).call
+
+            channel.contained_channels.to_a.should =~ [ch2]
+            ch1.containing_channels.to_a.should =~ []
+            ch2.containing_channels.to_a.should =~ [channel]
           end
-          it {channel.contained_channels.to_a.should =~ [ch2]}
-          it {ch1.containing_channels.to_a.should =~ []}
-          it {ch2.containing_channels.to_a.should =~ [channel]}
         end
       end
     end
@@ -167,10 +177,10 @@ describe Channel do
       end
       it {channel.containing_channels.to_a.should =~ [ch1,ch2]}
       describe "after removing it from one channel" do
-        before do
+        it do
           Commands::Channels::RemoveSubchannel.new(ch1, channel).call
+          channel.containing_channels.to_a.should =~ [ch2]
         end
-        it {channel.containing_channels.to_a.should =~ [ch2]}
       end
     end
 
@@ -207,9 +217,6 @@ describe Channel do
           sleep(0.01)
           add_fact_to_channel f2, channel
         end
-        it "should contain the facts" do
-          channel.facts.to_a.should =~ [f1,f2]
-        end
         it "should contain the facts in order" do
           channel.facts.to_a.should eq [f2,f1]
         end
@@ -231,23 +238,24 @@ describe Channel do
 
     describe "creating a channel" do
       it "should be possible to create a channel given a username and a title" do
-        @ch = Channel.create created_by: u1, title: 'foo'
-        @ch.should_not be_new
+        ch = Channel.create created_by: u1, title: 'foo'
+        ch.should_not be_new
       end
+
       context "should not be possible to create two channels with the same title" do
         before do
           Channel.create title: "foo", created_by: u1
         end
         it "should not be possible using create" do
-          @ch = Channel.create title: "foo", created_by: u1
-          @ch.should be_new
-          @ch.should_not be_valid
+          ch = Channel.create title: "foo", created_by: u1
+          ch.should be_new
+          ch.should_not be_valid
         end
         it "should not be possible using save" do
-          @ch = Channel.new title: "foo", created_by: u1
-          @ch.should_not be_valid
-          @ch.save
-          @ch.should be_new
+          ch = Channel.new title: "foo", created_by: u1
+          ch.should_not be_valid
+          ch.save
+          ch.should be_new
         end
       end
     end
@@ -302,52 +310,55 @@ describe Channel do
 
     describe "save" do
       it "should ensure the topic exists" do
-        @ch = FactoryGirl.build :channel
-        @ch.save
-        Topic.by_title(@ch.title).should_not be_new_record
+        ch = build :channel
+        ch.save
+        Topic.by_title(ch.title).should_not be_new_record
       end
     end
 
     describe 'slugs' do
       it "should not be possible to save two channels with a similar name" do
-        @ch1 = create :channel, title: 'hoi', created_by: u1
-        @ch2 = FactoryGirl.build  :channel, title: 'Hoi', created_by: u1
-        @ch2.save
-        @ch2.should be_new
+        ch1 = create :channel, title: 'hoi', created_by: u1
+        ch2 = FactoryGirl.build  :channel, title: 'Hoi', created_by: u1
+        ch2.save
+        ch2.should be_new
       end
     end
 
     describe :topic do
       it "should get the topic" do
-        @ch1 = create :channel, title: 'hoi'
-        @ch1.topic.title.should eq 'hoi'
-        @ch1.topic.should_not be_new_record
+        ch1 = create :channel, title: 'hoi'
+
+        ch1.topic.title.should eq 'hoi'
+        ch1.topic.should_not be_new_record
       end
       it "should get the topic if the topic existed before the channel" do
-        @t = create :topic, title: "HoI"
-        @ch1 = create :channel, title: 'hoi'
-        @ch1.topic.should eq @t
+        t = create :topic, title: "HoI"
+        ch1 = create :channel, title: 'hoi'
+
+        ch1.topic.should eq t
       end
       it "should get the topic even if I removed the topic" do
-        @t = create :topic, title: "HoI"
-        @ch1 = create :channel, title: 'hoi'
-        @t.delete
-        @ch1.topic.slug_title.should eq 'hoi'
+        t = create :topic, title: "HoI"
+        ch1 = create :channel, title: 'hoi'
+        t.delete
+
+        ch1.topic.slug_title.should eq 'hoi'
       end
     end
 
     describe :facts do
       it "should clean up removed facts" do
-        @ch1 = create :channel, title: 'hoi'
-        @f1 = create :fact
-        @f2 = create :fact
-        add_fact_to_channel @f1, @ch1
-        add_fact_to_channel @f2, @ch1
-        @ch1.facts.should =~ [@f1,@f2]
-        @ch1.sorted_cached_facts.count.should eq 2
-        @f1.delete
-        @ch1.facts.should =~ [@f2]
-        @ch1.sorted_cached_facts.count.should eq 1
+        ch1 = create :channel, title: 'hoi'
+        f1 = create :fact
+        f2 = create :fact
+        add_fact_to_channel f1, ch1
+        add_fact_to_channel f2, ch1
+
+        f1.delete
+
+        ch1.facts.should =~ [f2]
+        ch1.sorted_cached_facts.count.should eq 1
       end
     end
 
@@ -356,6 +367,8 @@ describe Channel do
     end
 
     describe :delete do
+      let(:u2_ch1) {Channel.create(created_by: u2, title: "Something")}
+
       before do
         add_fact_to_channel f1, u1_ch1
         add_fact_to_channel f2, u2_ch1
