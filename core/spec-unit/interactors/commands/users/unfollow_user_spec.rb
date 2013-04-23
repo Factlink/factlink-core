@@ -13,7 +13,7 @@ describe Commands::Users::UnfollowUser do
       stub_classes 'UserFollowingUsers'
     end
 
-    it 'calls a command to follow user and returns the user' do
+    it 'calls a UserFollowingUsers.unfollow to unfollow user' do
       graph_user_id = mock
       user_to_unfollow_graph_user_id = mock
       users_following_users = mock
