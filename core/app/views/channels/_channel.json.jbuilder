@@ -57,14 +57,6 @@ json.inspectable? channel.is_real_channel?
 json.followable?  !is_mine && is_normal
 json.editable?    is_mine && channel.is_real_channel?
 
-# QUICK FIX only show unread count on own channel
-if is_mine then
-  unread_count = is_normal ? channel.unread_count : 0
-
-  json.unread_count unread_count
-  json.new_facts unread_count != 0
-end
-
 # We are moving from containing_channel_ids to followed?
 # consider containing_channel_ids as deprecated
 containing_channel_ids = channel.containing_channel_ids

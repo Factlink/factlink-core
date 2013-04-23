@@ -53,11 +53,6 @@ class window.ChannelList extends window.GenericChannelList
         @_startReloading()
 
 
-  unreadCount: ->
-    @reduce ((memo, channel) ->
-      memo + channel.get("unread_count")
-    ), 0
-
   _startReloading: ->
     args = arguments
 

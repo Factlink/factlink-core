@@ -370,57 +370,6 @@ describe Channel do
       end
     end
 
-    describe "new unread count functionality" do
-      let(:u1_f1) { create :fact, created_by: u1 }
-      let(:u2_f1) { create :fact, created_by: u2 }
-
-      it "should be zero initially" do
-        u1_ch1.unread_count.should eq 0
-      end
-      it "should be zero after adding fact myself" do
-        add_fact_to_channel u2_f1, u1_ch1
-        u1_ch1.unread_count.should eq 0
-      end
-      context "after a fact was added in a channel I followed" do
-        before do
-          @ch = u1_ch1
-          Commands::Channels::AddSubchannel.new(@ch, u2_ch1).call
-          add_fact_to_channel u2_f1, u2_ch1
-        end
-        it "should be one" do
-          @ch.unread_count.should eq 1
-        end
-        it "after reading, it should be zero" do
-          @ch.mark_as_read
-          @ch.unread_count.should eq 0
-        end
-      end
-      context "after my own fact was added in a channel I followed" do
-        before do
-          @ch = u1_ch1
-          @ch2 = u1_ch2
-
-          Commands::Channels::AddSubchannel.new(@ch, u2_ch1).call
-          Commands::Channels::AddSubchannel.new(u2_ch1, @ch2).call
-          add_fact_to_channel u2_f1, @ch2
-        end
-        it "should be zero" do
-          @ch.unread_count.should eq 0
-        end
-      end
-      context "when someone is adding my factlink to a channel I follow" do
-        before do
-          @ch = u1_ch1
-          Commands::Channels::AddSubchannel.new(@ch, u2_ch1).call
-          add_fact_to_channel u1_f1, u2_ch1
-        end
-        it "should be zero" do
-          @ch.unread_count.should eq 0
-        end
-      end
-
-    end
-
     describe "valid_for_activity" do
       it "is false for a channel without facts" do
         ch = create :channel

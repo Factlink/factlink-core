@@ -20,13 +20,6 @@ class window.FactsView extends AutoloadingCompositeView
     @collection.on "startLoading", @loadingIndicatorOn, this
     @collection.on "stopLoading", @loadingIndicatorOff, this
 
-  # TODO: reimplement unread count for topics
-  # showNewPosts: ->
-  #   if @model.user().get("username") is currentUser.get("username")
-  #     unread_count = parseInt(@model.get("unread_count") or 0, 10)
-  #     @$(".facts-view-more .unread_count").html unread_count
-  #     @$(".facts-view-more").toggle unread_count > 0
-
   emptyViewOn: ->
     @emptyView = new EmptyTopicView
     @$("div.no_facts").html @emptyView.render().el
