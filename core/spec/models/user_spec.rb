@@ -217,4 +217,44 @@ describe User do
       expect(User.active.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true})
     end
   end
+
+  describe "#validate_username_and_email" do
+    it "should validate normal username and email address fine" do
+      user = User.new
+      user.username = "some_username"
+      user.email = "some@email.com"
+
+      result = user.validate_username_and_email
+      errors = user.errors
+
+      expect(result).to be_true
+      expect(errors.size).to eq 0
+    end
+
+    it "should keep an error if the username is invalid" do
+      user = User.new
+      user.username = "a"
+      user.email = "some@email.com"
+
+      result = user.validate_username_and_email
+      errors = user.errors
+
+      expect(result).to be_false
+      expect(errors.size).to eq 1
+      expect(errors[:username].any?).to be_true
+    end
+
+    it "should keep an error if the email is invalid" do
+      user = User.new
+      user.username = "some_username"
+      user.email = "a"
+
+      result = user.validate_username_and_email
+      errors = user.errors
+
+      expect(result).to be_false
+      expect(errors.size).to eq 1
+      expect(errors[:email].any?).to be_true
+    end
+  end
 end
