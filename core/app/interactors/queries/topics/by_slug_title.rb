@@ -1,6 +1,6 @@
 module Queries
   module Topics
-    class Get
+    class BySlugTitle
       include Pavlov::Query
 
       arguments :slug_title

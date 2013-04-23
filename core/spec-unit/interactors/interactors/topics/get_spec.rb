@@ -20,7 +20,7 @@ describe Interactors::Topics::Get do
       pavlov_options = { current_user: current_user, ability: ability }
 
       described_class.any_instance.stub(:query).
-        with(:'topics/get', 'foo').
+        with(:'topics/by_slug_title', 'foo').
         and_return(topic)
 
       expect { described_class.new 'foo', pavlov_options }.
@@ -44,7 +44,7 @@ describe Interactors::Topics::Get do
       interactor = described_class.new 'foo', {}
 
       interactor.stub(:query).
-        with(:'topics/get', 'foo').
+        with(:'topics/by_slug_title', 'foo').
         and_return(topic)
 
       result = interactor.topic
@@ -65,7 +65,7 @@ describe Interactors::Topics::Get do
       interactor = described_class.new 'foo', {current_user: user}
 
       interactor.stub(:query).
-        with(:'topics/get', 'foo').
+        with(:'topics/by_slug_title', 'foo').
         and_return(topic)
 
       interactor.should_receive(:query).
