@@ -52,12 +52,6 @@ class window.ChannelList extends window.GenericChannelList
       else if force_reload_now
         @_startReloading()
 
-
-  unreadCount: ->
-    @reduce ((memo, channel) ->
-      memo + channel.get("unread_count")
-    ), 0
-
   _startReloading: ->
     args = arguments
 
@@ -85,7 +79,6 @@ class window.ChannelList extends window.GenericChannelList
     @comparator = (channel) ->
       -parseFloat(channel.get("created_by_authority"))
     @sort()
-
 
   orderedByAuthority: ->
     topchannels = new ChannelList(@models)

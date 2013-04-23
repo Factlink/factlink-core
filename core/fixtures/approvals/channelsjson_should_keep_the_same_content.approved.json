@@ -24,8 +24,6 @@
     "inspectable?": true,
     "followable?": false,
     "editable?": true,
-    "unread_count": 0,
-    "new_facts": false,
     "containing_channel_ids": [
 
     ],
