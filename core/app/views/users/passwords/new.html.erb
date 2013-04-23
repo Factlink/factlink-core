@@ -6,7 +6,7 @@
   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => "form" }) do |f| %>
     <div class="control-group">
       
-      <%= possible_error_for_field(@user, :email) %>    
+      <%= possible_error_for_field(resource, :email) %>    
 
       <div class="controls">
         <%= f.email_field :email, placeholder: "Email address",

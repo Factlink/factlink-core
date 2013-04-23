@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Note: alternative to using ruby -wc we could also use rubocop
+
 find app/classes | grep -E '\.rb$' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK'
 
 
