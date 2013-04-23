@@ -218,7 +218,7 @@ class User
 
   def validate_username_and_email
     unless valid?
-      errors.to_hash.each do |key, value|
+      errors.keys.each do |key|
         errors.delete key unless key == :username or key == :email
       end
     end
