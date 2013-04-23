@@ -1,6 +1,6 @@
-require_relative 'many_to_many_sorted_relation'
+require_relative 'many_to_many_sorted_double_relation'
 
-class ManyToManyTimestampedRelation < ManyToManySortedRelation
+class ManyToManyTimestampedDoubleRelation < ManyToManySortedDoubleRelation
   def add_at_time(from_id, to_id, time)
     add from_id, to_id, time_to_score(time)
   end
