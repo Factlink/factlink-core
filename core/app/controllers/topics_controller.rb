@@ -33,14 +33,6 @@ class TopicsController < ApplicationController
     backbone_responder
   end
 
-  def favourite
-    # TODO
-  end
-
-  def unfavourite
-    # TODO
-  end
-
   private
     def get_top_channels
       interactor :'channels/top', 12
