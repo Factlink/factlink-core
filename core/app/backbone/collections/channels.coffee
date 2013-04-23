@@ -52,7 +52,6 @@ class window.ChannelList extends window.GenericChannelList
       else if force_reload_now
         @_startReloading()
 
-
   _startReloading: ->
     args = arguments
 
@@ -80,7 +79,6 @@ class window.ChannelList extends window.GenericChannelList
     @comparator = (channel) ->
       -parseFloat(channel.get("created_by_authority"))
     @sort()
-
 
   orderedByAuthority: ->
     topchannels = new ChannelList(@models)
