@@ -45,8 +45,6 @@ class window.FactsView extends AutoloadingCompositeView
         fact = new Fact(data)
         @collection.unshift fact
 
-        # HACK this is how backbone marionette stores childviews:
-        # dependent on their implementation though
         @children.findByModel(fact).highlight()
         @setCreateFactFormToInitialState()
 
