@@ -218,13 +218,13 @@ describe User do
     end
   end
 
-  describe "#validate_username_and_email" do
+  describe "#valid_username_and_email?" do
     it "should validate normal username and email address fine" do
       user = User.new
       user.username = "some_username"
       user.email = "some@email.com"
 
-      result = user.validate_username_and_email
+      result = user.valid_username_and_email?
       errors = user.errors
 
       expect(result).to be_true
@@ -236,7 +236,7 @@ describe User do
       user.username = "a"
       user.email = "some@email.com"
 
-      result = user.validate_username_and_email
+      result = user.valid_username_and_email?
       errors = user.errors
 
       expect(result).to be_false
@@ -249,7 +249,7 @@ describe User do
       user.username = "some_username"
       user.email = "a"
 
-      result = user.validate_username_and_email
+      result = user.valid_username_and_email?
       errors = user.errors
 
       expect(result).to be_false

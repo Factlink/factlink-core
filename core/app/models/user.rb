@@ -216,7 +216,7 @@ class User
     "#{first_name} #{last_name}".strip
   end
 
-  def validate_username_and_email
+  def valid_username_and_email?
     unless valid?
       errors.keys.each do |key|
         errors.delete key unless key == :username or key == :email
