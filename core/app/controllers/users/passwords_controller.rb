@@ -32,8 +32,10 @@ class Users::PasswordsController < Devise::PasswordsController
     if recoverable.persisted?
       if recoverable.reset_password_period_valid?
         # <hack>
-        recoverable.first_name = attributes[:first_name]
-        recoverable.last_name = attributes[:last_name]
+        if params[:msg]
+          recoverable.first_name = attributes[:first_name]
+          recoverable.last_name = attributes[:last_name]
+        end
         # </hack>
         recoverable.reset_password!(attributes[:password], attributes[:password_confirmation])
       else
