@@ -6,7 +6,7 @@ class UserFavouriteTopicsController < ApplicationController
     render 'topics/index', format: 'json'
   end
 
-  def update
+  def create
     interactor :'topics/favourite', username, slug_title
     track 'Topic: Favourited'
     return_ok
