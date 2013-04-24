@@ -5,10 +5,10 @@ Frontend topic page:
  ☐ (#268) Favourite/unfavourite button
 
 Backend:
- ☐ (#269) Endpoint to retrieve list of favourite topics for a user (make url for any user, but restrict to current_user, for now)
- ☐ (#268) Endpoint for favouriting a topic
- ☐ (#268) Endpoint for unfavouriting a topic
- ☐ (#269) Redis list of topics per user
+ ✔ (#269) Endpoint to retrieve list of favourite topics for a user (make url for any user, but restrict to current_user, for now) @done (13-04-24 16:33)
+ ✔ (#268) Endpoint for favouriting a topic @done (13-04-24 16:33)
+ ✔ (#268) Endpoint for unfavouriting a topic @done (13-04-24 16:33)
+ ✔ (#269) Redis list of topics per user @done (13-04-24 16:33)
 
 Migration:
  ☐ (#269) Initialise favourites with some sane default (discuss)
