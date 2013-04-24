@@ -27,10 +27,8 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   template: 'channels/list_header'
 
   templateHelpers: =>
-    stream_title: Factlink.Global.t.stream.capitalize()
     channel_listing_header: Factlink.Global.t.topics.capitalize()
-    show_stream: @options.showStream
-      
+
   initialize: =>
     @on 'activate', (type)=> @activate(type)
 

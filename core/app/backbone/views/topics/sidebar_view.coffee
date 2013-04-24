@@ -1,7 +1,7 @@
 class TopicItemView extends Backbone.Marionette.ItemView
   tagName: "li"
 
-  template: "channels/_single_menu_item"
+  template: "topics/sidebar/item"
 
   initialize: ->
     @addClassToggle('active')
@@ -24,12 +24,11 @@ class window.TopicHeaderView extends Backbone.Marionette.ItemView
   tagName: "ul"
   className: "channel-listing"
 
-  template: 'channels/list_header'
+  template: 'topics/sidebar/header'
 
   templateHelpers: =>
     stream_title: Factlink.Global.t.stream.capitalize()
-    channel_listing_header: Factlink.Global.t.topics.capitalize()
-    show_stream: @options.showStream
+    channel_listing_header: Factlink.Global.t.favourites.capitalize()
 
   initialize: =>
     @on 'activate', (type)=> @activate(type)
@@ -51,7 +50,7 @@ class window.TopicListView extends Backbone.Marionette.CollectionView
   itemViewOptions: -> use_topic_url: @options.use_topic_url
 
 class window.TopicSidebarView extends Backbone.Marionette.Layout
-  template: 'channels/channel_list'
+  template: 'topics/sidebar/layout'
   className: 'channel-listing-container-container'
 
   regions:
