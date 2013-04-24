@@ -9,7 +9,7 @@ module ActivityMailerHelper
     case actionString
       when "added_supporting_evidence", "added_weakening_evidence"
         "added_evidence"
-      when "added_subchannel", "created_conversation", "invited",
+      when "added_subchannel", "created_conversation",
            "replied_message", "created_comment", "created_sub_comment",
            "followed_user"
         actionString

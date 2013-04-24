@@ -44,6 +44,8 @@ describe User do
     let (:valid_attributes) {
       {
         username: "TestUser",
+        first_name: "Test",
+        last_name: "User",
         email: "test@emial.nl",
         password: "test123"
       }
@@ -118,37 +120,35 @@ describe User do
     end
   end
 
-  describe '#set_names' do
-    context 'first and last names given' do
-      before do
-        subject.set_names "first", "last"
-      end
-
-      it 'should save the first name' do
-        User.find(subject.id).first_name.should eq "first"
-      end
-
-      it 'should save the last name' do
-        User.find(subject.id).last_name.should eq "last"
-      end
+  describe '#first_name' do
+    before do
+      @u = build :user
     end
 
-    context 'first name empty' do
-      it 'should not save' do
-        subject.set_names(" ", "last").should eq false
-        user = User.find(subject.id)
-        user.first_name.should eq nil
-        user.last_name.should eq nil
-      end
+    it "cannot be empty" do
+      @u.first_name = ""
+      @u.valid?.should be_false
     end
 
-    context 'last name empty' do
-      it 'should not save' do
-        subject.set_names("first", " ").should eq false
-        user = User.find(subject.id)
-        user.first_name.should eq nil
-        user.last_name.should eq nil
-      end
+    it "can be just one letter" do
+      @u.first_name = "a"
+      @u.valid?.should be_true
+    end
+  end
+
+  describe '#last_name' do
+    before do
+      @u = build :user
+    end
+    
+    it "cannot be empty" do
+      @u.last_name = ""
+      @u.valid?.should be_false
+    end
+
+    it "can be just one letter" do
+      @u.last_name = "a"
+      @u.valid?.should be_true
     end
   end
 
@@ -179,7 +179,7 @@ describe User do
       @u.username = "GerardEkdom"
       @u.valid?.should be_true
     end
-    it "should be possible to choose 1 letter as name" do
+    it "should not be possible to choose 1 letter as name" do
       @u.username = "a"
       @u.valid?.should be_false
     end
@@ -215,6 +215,46 @@ describe User do
   describe ".active" do
     it "only returns approved, confirmed, and TOS-signed users" do
       expect(User.active.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true})
+    end
+  end
+
+  describe "#valid_username_and_email?" do
+    it "should validate normal username and email address fine" do
+      user = User.new
+      user.username = "some_username"
+      user.email = "some@email.com"
+
+      result = user.valid_username_and_email?
+      errors = user.errors
+
+      expect(result).to be_true
+      expect(errors.size).to eq 0
+    end
+
+    it "should keep an error if the username is invalid" do
+      user = User.new
+      user.username = "a"
+      user.email = "some@email.com"
+
+      result = user.valid_username_and_email?
+      errors = user.errors
+
+      expect(result).to be_false
+      expect(errors.size).to eq 1
+      expect(errors[:username].any?).to be_true
+    end
+
+    it "should keep an error if the email is invalid" do
+      user = User.new
+      user.username = "some_username"
+      user.email = "a"
+
+      result = user.valid_username_and_email?
+      errors = user.errors
+
+      expect(result).to be_false
+      expect(errors.size).to eq 1
+      expect(errors[:email].any?).to be_true
     end
   end
 end

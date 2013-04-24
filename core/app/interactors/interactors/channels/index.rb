@@ -39,22 +39,10 @@ module Interactors
       end
 
       def kill_channel(ch, owner_authority, containing_channel_ids, user)
-        extra_fields = {
+        KillObject.channel ch,
           owner_authority: owner_authority,
           containing_channel_ids: containing_channel_ids,
           created_by_user: kill_user(user)
-        }
-
-        # While moving towards topics, the fact unread count for the channel
-        # does not seem to make that much sense anymore, since we typically open
-        # topics instead of channels, and the unread counts are not relevant there.
-        #
-        # We might need to replace this, we might need to remove this, just commenting
-        # it out for now
-        # extra_fields[:unread_count] = ch.unread_count if user == @options[:current_user]
-        extra_fields[:unread_count] = 0 if user == @options[:current_user]
-
-        KillObject.channel ch, extra_fields
       end
 
       def kill_user(user)

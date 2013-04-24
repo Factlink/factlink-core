@@ -81,7 +81,7 @@ class Channel < OurOhm
     ChannelFacts.new(self)
   end
   private :channel_facts
-  delegate :unread_count, :mark_as_read, :facts, :remove_fact, :include?,
+  delegate :mark_as_read, :facts, :remove_fact, :include?,
            :to => :channel_facts
 
   def validate

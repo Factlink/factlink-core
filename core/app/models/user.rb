@@ -67,8 +67,10 @@ class User
 
   validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
 
-  validates_length_of     :username, :within => 1..16, :message => "invalid. A maximum of 16 characters is allowed"
-  validates_presence_of   :username, :message => "is required", :allow_blank => false
+  validates_length_of     :username, :within => 0..16, :message => "no more than 16 characters allowed"
+  validates_presence_of   :username, :message => "is required", :allow_blank => true # since we already check for length above
+  validates_presence_of   :first_name, :message => "is required", :allow_blank => false
+  validates_presence_of   :last_name, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
   validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
@@ -114,7 +116,7 @@ class User
     field :invitation_sent_at, type: Time
     field :invitation_accepted_at, type: Time
     field :invitation_limit, type: Integer
-    field :invited_by_id, type: Integer
+    field :invited_by_id, type: String
     field :invited_by_type, type: String
 
   has_and_belongs_to_many :conversations, inverse_of: :recipients
@@ -199,24 +201,6 @@ class User
     self.assign_attributes(attributes, as: :from_tos) and save
   end
 
-  def set_names(first_name, last_name)
-    self.first_name = first_name
-    self.last_name = last_name
-
-    valid = true
-    if first_name.blank?
-      self.errors.add(:first_name, "Please fill in your first name.")
-      valid = false
-    end
-
-    if last_name.blank?
-      self.errors.add(:last_name, "Please fill in your last name.")
-      valid = false
-    end
-
-    valid and save
-  end
-
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
   around_create :create_graph_user
 
@@ -230,6 +214,15 @@ class User
 
   def name
     "#{first_name} #{last_name}".strip
+  end
+
+  def valid_username_and_email?
+    unless valid?
+      errors.keys.each do |key|
+        errors.delete key unless key == :username or key == :email
+      end
+    end
+    not errors.any?
   end
 
   def id_for_service service_name

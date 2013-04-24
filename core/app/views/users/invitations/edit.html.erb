@@ -1,8 +1,8 @@
 <h2>Welcome to Factlink!</h2>
 
 <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put, :class => "form-horizontal" } do |f| %>
-  <%= devise_error_messages! %>
   <%= f.hidden_field :invitation_token %>
+  
   <fieldset>
     <legend>
       Finish your invitation by filling in these forms
@@ -12,6 +12,23 @@
       <%= f.label :username, class: "control-label" %>
       <div class="controls">
         <%= f.text_field :username, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :username) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :first_name, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :first_name, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :first_name) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :last_name, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :last_name, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :last_name) %>
       </div>
     </div>
 
@@ -19,6 +36,7 @@
       <%= f.label :password, class: "control-label" %>
       <div class="controls">
         <%= f.password_field :password, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :password) %>
       </div>
     </div>
 
@@ -26,6 +44,7 @@
       <%= f.label :password_confirmation, class: "control-label" %>
       <div class="controls">
         <%= f.password_field :password_confirmation, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :password_confirmation) %>
       </div>
     </div>
 

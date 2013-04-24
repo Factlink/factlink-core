@@ -57,19 +57,13 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
     mp_track("mp_page_view", {mp_page: window.location.href})
 
-    withChannel = ->
-      channel.set
-        new_facts: false
-        unread_count: 0
-      callback(channel)
-
     if (channel)
-      withChannel()
+      callback(channel)
     else
       channel = new Channel created_by: {username: username}, id: channel_id
       channel.fetch
-        success: -> withChannel()
-    
+        success: -> callback(channel)
+
     channel
 
   commonChannelViews: (channel) ->
