@@ -14,7 +14,6 @@ class TopicItemView extends Backbone.Marionette.ItemView
     @activeOn() if @model.isActive
 
   templateHelpers: =>
-    use_topic_url: @options.use_topic_url
     topic_url: @model.topicUrl()
 
 _.extend TopicItemView.prototype, ToggleMixin
@@ -46,7 +45,6 @@ class window.TopicListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   id: 'channel-listing'
   className: 'channel-listing'
-  itemViewOptions: -> use_topic_url: @options.use_topic_url
 
 class window.TopicSidebarView extends Backbone.Marionette.Layout
   template: 'topics/sidebar/layout'
@@ -60,12 +58,9 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
     @bindTo @collection, 'reset', @setUserFromChannels, this
 
   onRender: ->
-    @list.show new TopicListView(collection: @collection, use_topic_url: @use_topic_url())
+    @list.show new TopicListView(collection: @collection)
     @renderHeader()
 
-  use_topic_url: ->
-    # for now only use topic urls for your own pages
-    @model.is_current_user()
 
   renderHeader: ->
     @header.show new TopicHeaderView(@options)

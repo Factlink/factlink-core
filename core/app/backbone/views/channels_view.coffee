@@ -13,10 +13,6 @@ class ChannelItemView extends Backbone.Marionette.ItemView
   onRender: ->
     @activeOn() if @model.isActive
 
-  templateHelpers: =>
-    use_topic_url: @options.use_topic_url
-    topic_url: @model.topicUrl()
-
 _.extend ChannelItemView.prototype, ToggleMixin
 
 class window.ChannelHeaderView extends Backbone.Marionette.ItemView
@@ -28,24 +24,11 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   templateHelpers: =>
     channel_listing_header: Factlink.Global.t.topics.capitalize()
 
-  initialize: =>
-    @on 'activate', (type)=> @activate(type)
-
-  onRender: -> @renderActive()
-
-  activate: (type) ->
-    @_active = type
-    @renderActive()
-
-  renderActive: ->
-    @$("li.#{@_active}").addClass('active') if @_active?
-
 class window.ChannelListView extends Backbone.Marionette.CollectionView
   itemView: ChannelItemView
   tagName: 'ul'
   id: 'channel-listing'
   className: 'channel-listing'
-  itemViewOptions: -> use_topic_url: @options.use_topic_url
 
 class window.ChannelsView extends Backbone.Marionette.Layout
   template: 'channels/channel_list'
@@ -59,23 +42,14 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @bindTo @collection, 'reset', @setUserFromChannels, this
 
   onRender: ->
-    @list.show new ChannelListView(collection: @collection, use_topic_url: @use_topic_url())
-    @renderHeader()
-
-  use_topic_url: ->
-    # for now only use topic urls for your own pages
-    @model.is_current_user()
-
-  renderHeader: ->
+    @list.show new ChannelListView(collection: @collection)
     @header.show new ChannelHeaderView(@options)
 
   setActiveChannel: (channel)->
-    if not channel?
-      @unsetActive()
-    else if channel.get('is_all')
-      @setActive('stream')
-    else
+    if channel?
       @collection.setActiveChannel(channel)
+    else
+      @unsetActive()
 
 
   # we use setActive to indicate which type is active
