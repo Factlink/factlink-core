@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/interactors/topics/favourite_topics'
+require_relative '../../../../app/interactors/interactors/topics/favourites'
 
-describe Interactors::Topics::FavouriteTopics do
+describe Interactors::Topics::Favourites do
   include PavlovSupport
 
   describe '.new' do

@@ -2,7 +2,7 @@ require 'pavlov'
 
 module Interactors
   module Topics
-    class FavouriteTopics
+    class Favourites
       include Pavlov::Interactor
       include Util::CanCan
 
