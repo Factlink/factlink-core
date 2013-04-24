@@ -67,8 +67,8 @@ class User
 
   validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
 
-  validates_length_of     :username, :within => 1..16, :message => "invalid. A maximum of 16 characters is allowed"
-  validates_presence_of   :username, :message => "is required", :allow_blank => false
+  validates_length_of     :username, :within => 0..16, :message => "no more than 16 characters allowed"
+  validates_presence_of   :username, :message => "is required", :allow_blank => true # since we already check for length above
   validates_presence_of   :first_name, :message => "is required", :allow_blank => false
   validates_presence_of   :last_name, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
