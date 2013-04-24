@@ -46,8 +46,10 @@ class Users::PasswordsController < Devise::PasswordsController
     # Copied from Devise::PasswordsController
     if resource.errors.empty?
       resource.unlock_access! if unlockable?(resource)
-      flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
-      set_flash_message(:notice, flash_message) if is_navigational_format?
+      unless params[:msg]
+        flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
+        set_flash_message(:notice, flash_message) if is_navigational_format?
+      end
       sign_in(resource_name, resource)
       respond_with resource, :location => after_sign_in_path_for(resource)
     else
