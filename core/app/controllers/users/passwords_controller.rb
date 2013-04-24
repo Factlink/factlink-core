@@ -25,7 +25,22 @@ class Users::PasswordsController < Devise::PasswordsController
 
   def update
     # Copied from Devise::PasswordsController
-    self.resource = resource_class.reset_password_by_token(resource_params)
+    # ORIGINAL: self.resource = resource_class.reset_password_by_token(resource_params)
+    # Copied from reset_password_by_token:
+    attributes = resource_params
+    recoverable = User.find_or_initialize_with_error_by(:reset_password_token, attributes[:reset_password_token])
+    if recoverable.persisted?
+      if recoverable.reset_password_period_valid?
+        # <hack>
+        recoverable.first_name = attributes[:first_name]
+        recoverable.last_name = attributes[:last_name]
+        # </hack>
+        recoverable.reset_password!(attributes[:password], attributes[:password_confirmation])
+      else
+        recoverable.errors.add(:reset_password_token, :expired)
+      end
+    end
+    self.resource = recoverable
     # end of copy
 
     # Copied from Devise::PasswordsController
