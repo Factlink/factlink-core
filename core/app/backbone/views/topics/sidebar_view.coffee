@@ -48,7 +48,7 @@ class window.TopicListView extends Backbone.Marionette.CollectionView
 
 class window.TopicSidebarView extends Backbone.Marionette.Layout
   template: 'topics/sidebar/layout'
-  className: 'channel-listing-container-container'
+  className: 'left-sidebar'
 
   regions:
     list:   '.channel-listing-container'
@@ -59,10 +59,6 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
 
   onRender: ->
     @list.show new TopicListView(collection: @collection)
-    @renderHeader()
-
-
-  renderHeader: ->
     @header.show new TopicHeaderView(@options)
 
   setActiveChannel: (channel)->

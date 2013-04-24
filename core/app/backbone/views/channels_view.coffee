@@ -32,7 +32,7 @@ class window.ChannelListView extends Backbone.Marionette.CollectionView
 
 class window.ChannelsView extends Backbone.Marionette.Layout
   template: 'channels/channel_list'
-  className: 'channel-listing-container-container'
+  className: 'left-sidebar'
 
   regions:
     list:   '.channel-listing-container'
