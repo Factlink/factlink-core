@@ -4,15 +4,19 @@ module Interactors
   module Topics
     class Unfavourite
       include Pavlov::Interactor
+      include Util::CanCan
 
       arguments :user_name, :slug_title
 
       def authorized?
-        (!! @options[:current_user]) and (@options[:current_user].username == user_name)
+        @options[:current_user] and can? :edit_favourites, user
+      end
+
+      def user
+        @user ||= query :user_by_username, user_name
       end
 
       def execute
-        user = query :user_by_username, user_name
         topic = query :'topics/by_slug_title', slug_title
         command :'topics/unfavourite', user.graph_user_id, topic.id
         nil

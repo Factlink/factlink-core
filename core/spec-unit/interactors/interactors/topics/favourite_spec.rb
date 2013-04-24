@@ -12,24 +12,41 @@ describe Interactors::Topics::Favourite do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new mock, mock }
-        .to raise_error Pavlov::AccessDenied,'Unauthorized'
+      expect { described_class.new mock, mock, {} }.
+        to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
-    it 'throws when updating someone else\'s favourite' do
-      username = mock
-      other_username = mock
-      current_user = mock(username: username)
+    it 'throws when cannot edit favourites' do
+      user = stub
+      current_user = stub
 
-      expect { described_class.new other_username, mock, {current_user: current_user} }
-        .to raise_error Pavlov::AccessDenied,'Unauthorized'
+      ability = stub
+      ability.stub(:can?).with(:edit_favourites, user).and_return(false)
+
+      pavlov_options = { current_user: current_user, ability: ability }
+
+      described_class.any_instance.stub(:query).
+        with(:user_by_username, 'username').
+        and_return(user)
+
+      expect { described_class.new 'username', 'slug_title', pavlov_options }.
+        to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
 
-    it 'doesn\'t throw when updating your own favourite' do
-      username = mock
-      current_user = mock(username: username)
+    it 'does not throw if current_user is set and favourites can be edited' do
+      user = stub
+      current_user = stub
 
-      described_class.new username, mock, {current_user: current_user}
+      ability = stub
+      ability.stub(:can?).with(:edit_favourites, user).and_return(true)
+
+      pavlov_options = { current_user: current_user, ability: ability }
+
+      described_class.any_instance.stub(:query).
+        with(:user_by_username, 'username').
+        and_return(user)
+
+      described_class.new 'username', 'slug_title', pavlov_options
     end
   end
 
