@@ -113,6 +113,7 @@ class Ability
   def define_user_favourites_abilities
     if agrees_tos?
       can :show_favourites, user
+      can :edit_favourites, user
     end
   end
 
