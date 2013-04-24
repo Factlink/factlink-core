@@ -60,7 +60,7 @@ describe Interactors::Users::FollowUser do
         .and_return(true)
     end
 
-    it 'calls a command to follow user and returns the user' do
+    it 'calls a command to follow user' do
       user_name = mock
       user_name_to_follow = mock
       interactor = described_class.new user_name, user_name_to_follow
