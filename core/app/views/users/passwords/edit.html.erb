@@ -6,18 +6,22 @@
   <% end %>
 
   <div class="setup-account-form">
+    <%= possible_error_for_field(resource, :reset_password_token) %>
+
     <% if params[:msg] %>
       <div class="control-group">
-        <%= f.label "First name", class: "control-label" %>
+        <%= f.label :first_name, "First name", class: "control-label" %>
         <div class="controls">
           <%= f.text_field :first_name, required: true %>
+          <%= possible_error_for_field(resource, :first_name) %>
         </div>
       </div>
 
       <div class="control-group">
-        <%= f.label "Last name", class: "control-label" %>
+        <%= f.label :last_name, "Last name", class: "control-label" %>
         <div class="controls">
           <%= f.text_field :last_name, required: true %>
+          <%= possible_error_for_field(resource, :last_name) %>
         </div>
       </div>
     <% else %>
@@ -29,6 +33,7 @@
 
       <div class="controls">
         <%= f.password_field :password, required: true %>
+        <%= possible_error_for_field(resource, :password) %>
       </div>
     </div>
 
@@ -37,6 +42,7 @@
 
       <div class="controls">
         <%= f.password_field :password_confirmation, required: true %>
+        <%= possible_error_for_field(resource, :password_confirmation) %>
       </div>
     </div>
 
