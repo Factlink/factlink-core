@@ -28,7 +28,7 @@ describe 'Reserving a username', type: :request do
 
     click_button 'Reserve my username'
 
-    page.should have_content('username invalid. A maximum of 16 characters is allowed')
+    page.should have_content('no more than 16 characters allowed')
   end
 
   it 'should make the username appear in the reserved user list' do
