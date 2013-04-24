@@ -6,12 +6,7 @@ describe Interactors::Topics::Favourites do
 
   describe '.new' do
     before do
-      described_class.any_instance.
-        should_receive(:authorized?).
-        and_return(true)
-      described_class.any_instance.
-        should_receive(:validate).
-        and_return(true)
+      described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
     it 'returns an object' do
@@ -23,9 +18,7 @@ describe Interactors::Topics::Favourites do
 
   describe '#authorized?' do
     before do
-      described_class.any_instance.
-        should_receive(:validate).
-        and_return(true)
+      described_class.any_instance.stub(validate: true)
     end
 
     it 'throws when no current_user' do
@@ -86,12 +79,7 @@ describe Interactors::Topics::Favourites do
 
   describe '#execute' do
     before do
-      described_class.any_instance.
-        should_receive(:authorized?).
-        and_return(true)
-      described_class.any_instance.
-        should_receive(:validate).
-        and_return(true)
+      described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
     it 'it calls the query to get a list of followed users' do

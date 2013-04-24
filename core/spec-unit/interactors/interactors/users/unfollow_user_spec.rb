@@ -6,9 +6,7 @@ describe Interactors::Users::UnfollowUser do
 
   describe '#authorized?' do
     before do
-      described_class.any_instance.
-        should_receive(:validate).
-        and_return(true)
+      described_class.any_instance.stub(validate: true)
     end
 
     it 'throws when no current_user' do
@@ -35,12 +33,7 @@ describe Interactors::Users::UnfollowUser do
 
   describe '.new' do
     before do
-      described_class.any_instance.
-        should_receive(:authorized?).
-        and_return(true)
-      described_class.any_instance.
-        should_receive(:validate).
-        and_return(true)
+      described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
     it 'returns an object' do
@@ -52,12 +45,7 @@ describe Interactors::Users::UnfollowUser do
 
   describe '#execute' do
     before do
-      described_class.any_instance.
-        should_receive(:authorized?).
-        and_return(true)
-      described_class.any_instance.
-        should_receive(:validate).
-        and_return(true)
+      described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
     it 'calls a command to unfollow' do
@@ -84,9 +72,7 @@ describe Interactors::Users::UnfollowUser do
 
   describe '#validate' do
     before do
-      described_class.any_instance.
-        should_receive(:authorized?).
-        and_return(true)
+      described_class.any_instance.stub(authorized?: true)
     end
 
     it 'calls the correct validation methods' do

@@ -6,9 +6,7 @@ describe Commands::Users::UnfollowUser do
 
   describe '#execute' do
     before do
-      described_class.any_instance.
-        should_receive(:validate).
-        and_return(true)
+      described_class.any_instance.stub(validate: true)
 
       stub_classes 'UserFollowingUsers'
     end
