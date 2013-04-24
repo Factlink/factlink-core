@@ -11,7 +11,6 @@ class TopicItemView extends Backbone.Marionette.ItemView
     @model.bind('change',@render,this)
 
   onRender: ->
-    @$el.attr('id', 'channel-' + @model.id)
     @activeOn() if @model.isActive
 
   templateHelpers: =>
