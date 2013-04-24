@@ -60,10 +60,10 @@ describe Interactors::Topics::Unfavourite do
       user = mock(graph_user_id: mock)
       topic = mock(id: mock)
 
-      interactor.should_receive(:query)
+      interactor.stub(:query)
         .with(:'user_by_username', user_name)
         .and_return(user)
-      interactor.should_receive(:query)
+      interactor.stub(:query)
         .with(:'topics/by_slug_title', slug_title)
         .and_return(topic)
       interactor.should_receive(:command)
