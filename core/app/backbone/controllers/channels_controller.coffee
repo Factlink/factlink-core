@@ -1,17 +1,31 @@
 window.showChannelSideBar = (channels, currentChannel, user, showStream=true, activepage=null)->
     username = user.get('username')
     window.Channels.setUsernameAndRefreshIfNeeded(username)
-    channelCollectionView = new ChannelsView
-      collection: channels
-      model: user
-      showStream: showStream
-    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
-    if currentChannel?
-      channelCollectionView.setActiveChannel(currentChannel)
-    else if activepage?
-      channelCollectionView.setActive(activepage)
+
+    if user.is_current_user()
+      channelCollectionView = new TopicSidebarView
+        collection: channels
+        model: user
+        showStream: showStream
+      FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+      if currentChannel?
+        channelCollectionView.setActiveChannel(currentChannel)
+      else if activepage?
+        channelCollectionView.setActive(activepage)
+      else
+        channelCollectionView.unsetActive()
     else
-      channelCollectionView.unsetActive()
+      channelCollectionView = new ChannelsView
+        collection: channels
+        model: user
+        showStream: showStream
+      FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+      if currentChannel?
+        channelCollectionView.setActiveChannel(currentChannel)
+      else if activepage?
+        channelCollectionView.setActive(activepage)
+      else
+        channelCollectionView.unsetActive()
 
 
 
