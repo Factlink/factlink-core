@@ -88,23 +88,21 @@ describe Interactors::Topics::Favourites do
       interactor = described_class.new user_name, current_user: current_user
 
       user = mock(graph_user_id: mock)
-      id1 = mock
-      id2 = mock
-      topic1 = mock
-      topic2 = mock
+      topic1 = mock(id: mock)
+      topic2 = mock(id: mock)
 
       interactor.should_receive(:query).
         with(:'user_by_username', user_name).
         and_return(user)
       interactor.should_receive(:query).
         with(:'topics/favourite_topic_ids', user.graph_user_id).
-        and_return([id1, id2])
+        and_return([topic1.id, topic2.id])
 
       interactor.should_receive(:query).
-        with(:'topics/by_id', id1).
+        with(:'topics/by_id', topic1.id).
         and_return(topic1)
       interactor.should_receive(:query).
-        with(:'topics/by_id', id2).
+        with(:'topics/by_id', topic2.id).
         and_return(topic2)
 
       result = interactor.execute
