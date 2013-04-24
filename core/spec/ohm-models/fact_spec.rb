@@ -15,7 +15,6 @@ describe Fact do
   let(:parent) {create :fact}
 
   let(:factlink) {create :fact}
-  let(:factlink2) {create :fact}
 
   let(:gu1) {create(:graph_user)}
   let(:gu2) {create(:graph_user)}
