@@ -9,8 +9,9 @@
   @margin-left: 9px;
   @color-width: 4px;
   .menu-item {
-    .box-sizing(border-box);
     line-height: @baseLineHeight;
+    .box-sizing(border-box);
+    position: relative;
 
     .menu-header-item-link {
       text-shadow: 0px 1px 0px @white;
@@ -24,6 +25,10 @@
         font-weight: bold;
         color: @headingFontColor;
       }
+    }
+
+    .menu-content-box {
+      margin-left: 22px;
     }
 
     .menu-ellipsis-box {
@@ -52,20 +57,17 @@
     // </active box>
   }
 
-  .menu-list-item .menu-content-box {
-    margin-left: 22px;
-  }
-
   .menu-header-item {
     margin-bottom: 4px;
     font-weight: bold;
 
     &:last-child{
-      line-height: 20px;
-      padding: 0;
       margin-bottom:0;
     }
   }
 
-  .menu-header-item-icon { margin-right: 4px; }
+  .menu-header-item-icon {
+    position: absolute;
+    top: 5px;
+  }
 }
