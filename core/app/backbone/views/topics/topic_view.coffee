@@ -4,6 +4,7 @@ class window.TopicView extends Backbone.Marionette.Layout
   regions:
     factList: '.js-region-fact-list'
     subChannelsRegion: '.js-region-sub-channels'
+    favouriteTopicRegion: '.js-region-favourite-topic'
     creatorProfileRegion: ".js-region-creator-profile"
 
   events:
@@ -14,6 +15,7 @@ class window.TopicView extends Backbone.Marionette.Layout
 
   onRender: ->
     @showChosenFacts()
+    @showFavouriteTopicButton()
 
     if @channel() and @channel().get('inspectable?')
       @subChannelsRegion.show new SubchannelsView
@@ -33,6 +35,10 @@ class window.TopicView extends Backbone.Marionette.Layout
 
   showFacts: (facts) ->
     @factList.show new FactsView collection: facts
+
+  showFavouriteTopicButton: ->
+    view = new FavouriteTopicButtonView(model: @model)
+    @favouriteTopicRegion.show view
 
   channel: ->
     @_channel ?= @model.existingChannelFor(currentUser) || false

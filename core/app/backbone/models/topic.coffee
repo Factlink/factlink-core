@@ -28,4 +28,14 @@ class window.Topic extends Backbone.Model
 
   facts: -> new TopicFacts([], topic: this)
 
-  url: -> '/t/' + @get('slug_title')
+  url: ->
+    if @collection?
+      @collection.url() + '/' + @get('slug_title')
+    else
+      '/t/' + @get('slug_title')
+
+  favourite: ->
+    currentUser.favourite_topics.create( @attributes )
+
+  unfavourite: ->
+    currentUser.favourite_topics.remove( @ )
