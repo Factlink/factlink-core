@@ -11,14 +11,14 @@
   @margin: 3px;
   margin: 0 0 0 0;
 
-  .menu-item, .menu-header-item {
+  .menu-item {
     color: @linkColor;
     &:hover { color: @linkColorHover; }
 
     .box-sizing(border-box);
     line-height: @baseLineHeight;
 
-    a, .menu-header-item-link {
+    .menu-header-item-link {
       text-shadow: 0px 1px 0px @white;
       .transition(color .15s ease-in-out);
 
@@ -28,7 +28,7 @@
     }
 
     &.active, &.non-interactive {
-      a, .menu-header-item-link {
+      .menu-header-item-link {
         color: @headingFontColor;
         font-weight: bold;
       }
@@ -36,13 +36,13 @@
   }
 
   .selectable-menu-item {
-    a, .menu-header-item-link {
+    .menu-header-item-link {
       border: 1px solid transparent;
     }
 
     &.active {
       background: @linkColor;
-      a {
+      .menu-header-item-link {
         .background();
         margin-left: 4px;
         border: 1px solid @baseBorderColor;
