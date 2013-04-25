@@ -28,7 +28,7 @@ class UserFavouriteTopicsController < ApplicationController
   end
 
   def slug_title
-    params[:id]
+    params[:slug_title] || params[:id]
   end
   
 end
