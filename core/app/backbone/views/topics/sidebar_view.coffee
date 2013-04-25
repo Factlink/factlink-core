@@ -38,7 +38,7 @@ class window.TopicHeaderView extends Backbone.Marionette.ItemView
     @renderActive()
 
   renderActive: ->
-    @$("li.#{@_active}").addClass('active') if @_active?
+    @$("li.js-#{@_active}").addClass('active') if @_active?
 
 class window.TopicListView extends Backbone.Marionette.CollectionView
   itemView: TopicItemView
