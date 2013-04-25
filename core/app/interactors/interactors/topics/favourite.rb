@@ -18,9 +18,12 @@ module Interactors
         @user ||= query :user_by_username, user_name
       end
 
+      def topic
+        @topic ||= query :'topics/by_slug_title', slug_title
+      end
+
       def execute
-        topic = query :'topics/by_slug_title', slug_title
-        command :'topics/favourite', user.graph_user_id, topic.id
+        command :'topics/favourite', user.graph_user_id, topic.id.to_s
         track_mixpanel
         nil
       end
