@@ -10,7 +10,7 @@ describe Commands::Users::FollowUser do
       stub_classes 'UserFollowingUsers'
     end
 
-    it 'calls a command to follow user and returns the user' do
+    it 'calls a UserFollowingUsers.follow to follow user' do
       graph_user_id = mock
       user_to_follow_graph_user_id = mock
       users_following_users = mock

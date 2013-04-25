@@ -11,7 +11,7 @@ module Interactors
       end
 
       def topic
-        @topic ||= query :'topics/get', slug_title
+        @topic ||= query :'topics/by_slug_title', slug_title
       end
 
       def authority

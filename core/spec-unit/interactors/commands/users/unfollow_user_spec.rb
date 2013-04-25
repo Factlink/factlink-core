@@ -6,14 +6,12 @@ describe Commands::Users::UnfollowUser do
 
   describe '#execute' do
     before do
-      described_class.any_instance.
-        should_receive(:validate).
-        and_return(true)
+      described_class.any_instance.stub(validate: true)
 
       stub_classes 'UserFollowingUsers'
     end
 
-    it 'calls a command to follow user and returns the user' do
+    it 'calls a UserFollowingUsers.unfollow to unfollow user' do
       graph_user_id = mock
       user_to_unfollow_graph_user_id = mock
       users_following_users = mock

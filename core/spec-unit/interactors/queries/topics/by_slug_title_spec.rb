@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/topics/get'
+require_relative '../../../../app/interactors/queries/topics/by_slug_title'
 
-describe Queries::Topics::Get do
+describe Queries::Topics::BySlugTitle do
   include PavlovSupport
 
   describe 'validate' do

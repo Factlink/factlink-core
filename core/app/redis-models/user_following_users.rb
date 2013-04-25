@@ -5,7 +5,7 @@ class UserFollowingUsers
   attr_reader :graph_user_id, :relation
   private :relation
 
-  def initialize graph_user_id, relation=ManyToManyTimestampedRelation.new(Nest.new(:user)[:following_users])
+  def initialize graph_user_id, relation=ManyToManyTimestampedDoubleRelation.new(Nest.new(:user)[:following_users])
     @graph_user_id = graph_user_id
     @relation = relation
   end

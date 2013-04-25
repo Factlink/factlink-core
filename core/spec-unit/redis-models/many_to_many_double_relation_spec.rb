@@ -1,12 +1,12 @@
-require_relative '../../app/redis-models/many_to_many_relation'
+require_relative '../../app/redis-models/many_to_many_double_relation'
 
-describe ManyToManyRelation do
+describe ManyToManyDoubleRelation do
 
   let(:relation_key) { mock }
   let(:reverse_relation_key) { mock }
   let(:relation_key_list) { mock }
   let(:reverse_relation_key_list) { mock }
-  let(:many_to_many_relation) { ManyToManyRelation.new nest_key }
+  let(:many_to_many_double_relation) { ManyToManyDoubleRelation.new nest_key }
 
   let(:nest_key) do
     nest_key = mock
@@ -26,7 +26,7 @@ describe ManyToManyRelation do
       relation_key_list.should_receive(:sadd).with(to_id)
       reverse_relation_key_list.should_receive(:sadd).with(from_id)
 
-      many_to_many_relation.add(from_id, to_id)
+      many_to_many_double_relation.add(from_id, to_id)
     end
   end
 
@@ -41,7 +41,7 @@ describe ManyToManyRelation do
       relation_key_list.should_receive(:srem).with(to_id)
       reverse_relation_key_list.should_receive(:srem).with(from_id)
 
-      many_to_many_relation.remove(from_id, to_id)
+      many_to_many_double_relation.remove(from_id, to_id)
     end
   end
 
@@ -53,7 +53,7 @@ describe ManyToManyRelation do
       relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.should_receive(:smembers).and_return(ids)
 
-      expect(many_to_many_relation.ids(from_id)).to eq ids
+      expect(many_to_many_double_relation.ids(from_id)).to eq ids
     end
   end
 
@@ -65,7 +65,7 @@ describe ManyToManyRelation do
       reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
       reverse_relation_key_list.should_receive(:smembers).and_return(ids)
 
-      expect(many_to_many_relation.reverse_ids(to_id)).to eq ids
+      expect(many_to_many_double_relation.reverse_ids(to_id)).to eq ids
     end
   end
 
@@ -81,7 +81,7 @@ describe ManyToManyRelation do
       reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
       reverse_relation_key_list.stub(:sismember).with(from_id).and_return(result)
 
-      expect(many_to_many_relation.has?(from_id, to_id)).to eq result
+      expect(many_to_many_double_relation.has?(from_id, to_id)).to eq result
     end
   end
 end

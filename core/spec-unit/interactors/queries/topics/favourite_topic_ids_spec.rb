@@ -1,23 +1,23 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/users/following_graph_user_ids'
+require_relative '../../../../app/interactors/queries/topics/favourite_topic_ids'
 
-describe Queries::Users::FollowingGraphUserIds do
+describe Queries::Topics::FavouriteTopicIds do
   include PavlovSupport
 
   describe '#execute' do
     before do
       described_class.any_instance.stub(validate: true)
 
-      stub_classes 'UserFollowingUsers'
+      stub_classes 'UserFavouritedTopics'
     end
 
-    it 'returns the ids of users that the specified user is following' do
+    it 'returns the ids of follower' do
       graph_user_id = mock
       ids = mock
-      users_following_users = mock
+      users_favourited_topics = mock
 
-      UserFollowingUsers.should_receive(:new).with(graph_user_id).and_return(users_following_users)
-      users_following_users.should_receive(:following_ids).and_return(ids)
+      UserFavouritedTopics.should_receive(:new).with(graph_user_id).and_return(users_favourited_topics)
+      users_favourited_topics.should_receive(:topic_ids).and_return(ids)
 
       query = described_class.new graph_user_id
       result = query.execute

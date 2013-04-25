@@ -35,12 +35,7 @@ describe Interactors::Users::FollowUser do
 
   describe '.new' do
     before do
-      described_class.any_instance
-        .should_receive(:authorized?)
-        .and_return(true)
-      described_class.any_instance
-        .should_receive(:validate)
-        .and_return(true)
+      described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
     it 'returns an object' do
@@ -52,15 +47,10 @@ describe Interactors::Users::FollowUser do
 
   describe '#execute' do
     before do
-      described_class.any_instance
-        .should_receive(:authorized?)
-        .and_return(true)
-      described_class.any_instance
-        .should_receive(:validate)
-        .and_return(true)
+      described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
-    it 'calls a command to follow user and returns the user' do
+    it 'calls a command to follow user' do
       user_name = mock
       user_name_to_follow = mock
       interactor = described_class.new user_name, user_name_to_follow
@@ -86,9 +76,7 @@ describe Interactors::Users::FollowUser do
 
   describe '#validate' do
     before do
-      described_class.any_instance
-        .stub(:authorized?)
-        .and_return(true)
+      described_class.any_instance.stub(authorized?: true)
     end
 
     it 'calls the correct validation methods' do

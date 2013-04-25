@@ -1,6 +1,6 @@
 require 'redis-aid'
 
-class ManyToManyRelation
+class ManyToManyDoubleRelation
   attr_reader :relation_key
   attr_reader :reverse_relation_key
 

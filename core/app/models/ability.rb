@@ -41,6 +41,7 @@ class Ability
     define_fact_abilities
     define_fact_relation_abilities
     define_user_abilities
+    define_user_favourites_abilities
     define_user_activities_abilities
     define_tos_abilities
     define_feature_toggles
@@ -106,6 +107,13 @@ class Ability
       else
         cannot :invite, User
       end
+    end
+  end
+
+  def define_user_favourites_abilities
+    if agrees_tos?
+      can :show_favourites, user
+      can :edit_favourites, user
     end
   end
 

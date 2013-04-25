@@ -105,10 +105,11 @@ FactoryGirl.define do
   end
 
   factory :topic do
-    slug_title
+    title
   end
-  sequence :slug_title do |n|
-    "slug-#{n}-title"
+
+  sequence :title do |n|
+    "Title #{n}"
   end
 
   factory :activity do
