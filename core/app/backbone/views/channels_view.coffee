@@ -17,8 +17,6 @@ _.extend ChannelItemView.prototype, ToggleMixin
 
 class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   tagName: 'ul'
-  className: 'channel-listing'
-
   template: 'channels/list_header'
 
   templateHelpers: =>
@@ -27,8 +25,6 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
 class window.ChannelListView extends Backbone.Marionette.CollectionView
   itemView: ChannelItemView
   tagName: 'ul'
-  id: 'channel-listing'
-  className: 'channel-listing'
 
 class window.ChannelsView extends Backbone.Marionette.Layout
   template: 'channels/channel_list'

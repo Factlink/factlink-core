@@ -4,17 +4,10 @@
 .left-sidebar {
   width: 160px;
   margin-bottom: 50px;
-}
-
-.left-sidebar .channel-listing {
+  ul {margin: 0;} // WHY BOOTSTRAP? how is anything other than this a sane default
 
   @margin: 3px;
-  margin: 0 0 0 0;
-
   .menu-item {
-    color: @linkColor;
-    &:hover { color: @linkColorHover; }
-
     .box-sizing(border-box);
     line-height: @baseLineHeight;
 
@@ -29,7 +22,7 @@
       padding: @margin 4px @margin 31px;
     }
 
-    &.active, &.non-interactive {
+    &.active {
       .menu-header-item-link {
         font-weight: bold;
         color: @headingFontColor;

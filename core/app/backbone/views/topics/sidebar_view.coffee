@@ -20,8 +20,6 @@ _.extend TopicItemView.prototype, ToggleMixin
 
 class window.TopicHeaderView extends Backbone.Marionette.ItemView
   tagName: 'ul'
-  className: 'channel-listing'
-
   template: 'topics/sidebar/header'
 
   templateHelpers: =>
@@ -43,8 +41,6 @@ class window.TopicHeaderView extends Backbone.Marionette.ItemView
 class window.TopicListView extends Backbone.Marionette.CollectionView
   itemView: TopicItemView
   tagName: 'ul'
-  id: 'channel-listing'
-  className: 'channel-listing'
 
 class window.TopicSidebarView extends Backbone.Marionette.Layout
   template: 'topics/sidebar/layout'
