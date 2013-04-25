@@ -1,7 +1,6 @@
 class TopicItemView extends Backbone.Marionette.ItemView
-  tagName: "li"
-
-  template: "topics/sidebar/item"
+  tagName: 'li'
+  template: 'topics/sidebar/item'
 
   initialize: ->
     @addClassToggle('active')
@@ -19,8 +18,8 @@ class TopicItemView extends Backbone.Marionette.ItemView
 _.extend TopicItemView.prototype, ToggleMixin
 
 class window.TopicHeaderView extends Backbone.Marionette.ItemView
-  tagName: "ul"
-  className: "channel-listing"
+  tagName: 'ul'
+  className: 'channel-listing'
 
   template: 'topics/sidebar/header'
 

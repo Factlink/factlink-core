@@ -1,7 +1,6 @@
 class ChannelItemView extends Backbone.Marionette.ItemView
-  tagName: "li"
-
-  template: "channels/_single_menu_item"
+  tagName: 'li'
+  template: 'channels/_single_menu_item'
 
   initialize: ->
     @addClassToggle('active')
@@ -16,8 +15,8 @@ class ChannelItemView extends Backbone.Marionette.ItemView
 _.extend ChannelItemView.prototype, ToggleMixin
 
 class window.ChannelHeaderView extends Backbone.Marionette.ItemView
-  tagName: "ul"
-  className: "channel-listing"
+  tagName: 'ul'
+  className: 'channel-listing'
 
   template: 'channels/list_header'
 
