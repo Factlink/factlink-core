@@ -25,7 +25,7 @@ module Acceptance
     end
 
     def go_to_stream
-      find('#left-column .stream a').click
+      find('#left-column .js-stream a').click
     end
 
     def go_to_first_fact
