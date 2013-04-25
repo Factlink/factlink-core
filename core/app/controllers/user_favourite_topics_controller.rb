@@ -8,13 +8,11 @@ class UserFavouriteTopicsController < ApplicationController
 
   def create
     interactor :'topics/favourite', username, slug_title
-    track 'Topic: Favourited'
     return_ok
   end
 
   def destroy
     interactor :'topics/unfavourite', username, slug_title
-    track 'Topic: Unfavourited'
     return_ok
   end
 

@@ -1,10 +1,12 @@
 require 'pavlov'
+require_relative '../../util/mixpanel'
 
 module Interactors
   module Topics
     class Favourite
       include Pavlov::Interactor
       include Util::CanCan
+      include Util::Mixpanel
 
       arguments :user_name, :slug_title
 
@@ -19,7 +21,12 @@ module Interactors
       def execute
         topic = query :'topics/by_slug_title', slug_title
         command :'topics/favourite', user.graph_user_id, topic.id
+        track_mixpanel
         nil
+      end
+
+      def track_mixpanel
+        track 'Topic: Favourited', slug_title: slug_title
       end
 
       def validate

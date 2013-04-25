@@ -68,6 +68,8 @@ describe Interactors::Topics::Unfavourite do
         .and_return(topic)
       interactor.should_receive(:command)
         .with(:'topics/unfavourite', user.graph_user_id, topic.id)
+      interactor.should_receive(:track)
+        .with('Topic: Unfavourited', slug_title: slug_title)
 
       result = interactor.execute
 
