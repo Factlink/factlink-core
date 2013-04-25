@@ -6,7 +6,8 @@
   margin-bottom: 50px;
   ul {margin: 0;} // WHY BOOTSTRAP? how is anything other than this a sane default
 
-  @margin: 3px;
+  @margin-left: 9px;
+  @color-width: 4px;
   .menu-item {
     .box-sizing(border-box);
     line-height: @baseLineHeight;
@@ -15,7 +16,7 @@
       text-shadow: 0px 1px 0px @white;
       width: 100%;
       display: block;
-      padding: @margin 4px @margin 31px;
+      padding: 3px 4px 3px @margin-left; // was 31px
     }
 
     &.active {
@@ -40,27 +41,24 @@
 
       .menu-header-item-link {
         .background();
-        margin-left: 4px;
+
+        margin-left: @color-width;
+        padding-left: @margin-left - @color-width;
+
         border: 1px solid @baseBorderColor;
         border-left: 1px solid transparent;
-
-
-        .menu-content-box {
-          .box-sizing(border-box);
-          position: relative;
-          left: -4px;
-        }
       }
     }
     // </active box>
   }
 
+  .menu-list-item .menu-content-box {
+    margin-left: 22px;
+  }
+
   .menu-header-item {
     margin-bottom: 4px;
     font-weight: bold;
-
-    .menu-header-item-link          {  padding-left: 9px; }
-    &.active .menu-header-item-link {  padding-left: 5px; }
 
     &:last-child{
       line-height: 20px;
