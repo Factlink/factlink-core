@@ -1,5 +1,6 @@
 class ChannelItemView extends Backbone.Marionette.ItemView
   tagName: 'li'
+  className: 'menu-item'
   template: 'channels/_single_menu_item'
 
   initialize: ->
