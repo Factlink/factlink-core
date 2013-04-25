@@ -36,6 +36,12 @@
       }
     }
 
+    .menu-ellipsis-box {
+      width: 110px;
+      display: inline-block;
+      .ellipsis();
+    }
+
     // active box
     &.active {
       background: @linkColor;
@@ -46,19 +52,12 @@
         border: 1px solid @baseBorderColor;
         border-left: 1px solid transparent;
       }
-    }
-  }
 
-  .menu-list-item {
-    .title {
-      width: 110px;
-      display: inline-block;
-      .box-sizing(border-box);
-      position: relative;
-      .ellipsis();
-  }
-    &.active .title {
-       left: -4px;
+      .menu-content-box {
+        .box-sizing(border-box);
+        position: relative;
+        left: -4px;
+      }
     }
   }
 
