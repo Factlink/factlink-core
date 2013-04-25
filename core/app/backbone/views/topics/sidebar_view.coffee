@@ -1,6 +1,6 @@
 class TopicItemView extends Backbone.Marionette.ItemView
   tagName: 'li'
-  className: 'menu-item'
+  className: 'sidebar-item'
   template: 'topics/sidebar/item'
 
   initialize: ->

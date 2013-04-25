@@ -8,39 +8,39 @@
 
   @margin-left: 9px;
   @color-width: 4px;
-  .menu-item {
+  .sidebar-item {
     line-height: @baseLineHeight;
     .box-sizing(border-box);
     position: relative;
 
-    .menu-header-item-link {
+    .sidebar-item-link {
       text-shadow: 0px 1px 0px @white;
       width: 100%;
       display: block;
       padding: 3px 0 3px @margin-left;
     }
 
-    .menu-content-box {
+    .sidebar-item-text {
       margin-left: 22px;
       width: 120px;
       display: inline-block;
       .ellipsis();
     }
 
-    .menu-header-item-icon {
+    .sidebar-item-icon {
       position: absolute;
       top: 5px;
     }
 
     // <active box>
-    .menu-header-item-link {
+    .sidebar-item-link {
       border: 1px solid transparent;
     }
 
     &.active {
       background: @linkColor;
 
-      .menu-header-item-link {
+      .sidebar-item-link {
         .background();
 
         margin-left: @color-width;
@@ -56,7 +56,7 @@
     // </active box>
   }
 
-  .menu-header-item {
+  .sidebar-item_header {
     font-weight: bold;
   }
 }
