@@ -27,8 +27,8 @@
       padding: @margin 4px @margin 31px;
     }
 
-    &.active {
-      a {
+    &.active, &.non-interactive {
+      a, .menu-header-item-link {
         color: @headingFontColor;
         font-weight: bold;
       }
@@ -79,9 +79,6 @@
       line-height: 20px;
       padding: 0;
       margin-bottom:0;
-    }
-    &.my-channels .menu-header-item-link{
-      color: @headingFontColor;
     }
   }
 
