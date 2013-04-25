@@ -17,22 +17,12 @@
       text-shadow: 0px 1px 0px @white;
       width: 100%;
       display: block;
-      padding: 3px 4px 3px @margin-left; // was 31px
-    }
-
-    &.active {
-      .menu-header-item-link {
-        font-weight: bold;
-        color: @headingFontColor;
-      }
+      padding: 3px 0 3px @margin-left;
     }
 
     .menu-content-box {
       margin-left: 22px;
-    }
-
-    .menu-ellipsis-box {
-      width: 110px;
+      width: 120px;
       display: inline-block;
       .ellipsis();
     }
@@ -41,6 +31,7 @@
     .menu-header-item-link {
       border: 1px solid transparent;
     }
+
     &.active {
       background: @linkColor;
 
@@ -48,22 +39,20 @@
         .background();
 
         margin-left: @color-width;
-        padding-left: @margin-left - @color-width;
+        padding-left: @margin-left - @color-width + 1px; // 1px for border
 
         border: 1px solid @baseBorderColor;
-        border-left: 1px solid transparent;
+        border-left: none;
+
+        font-weight: bold;
+        color: @headingFontColor;
       }
     }
     // </active box>
   }
 
   .menu-header-item {
-    margin-bottom: 4px;
     font-weight: bold;
-
-    &:last-child{
-      margin-bottom:0;
-    }
   }
 
   .menu-header-item-icon {
