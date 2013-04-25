@@ -12,47 +12,55 @@
   margin: 0 0 0 0;
 
   .menu-item, .menu-header-item {
-    background: @linkColor;
-    .box-sizing(border-box);
+    color: @linkColor;
+    &:hover { color: @linkColorHover; }
 
-    a {
+    .box-sizing(border-box);
+    line-height: @baseLineHeight;
+
+    a, .menu-header-item-link {
+      text-shadow: 0px 1px 0px @white;
+      .transition(color .15s ease-in-out);
+
       width: 100%;
       display: block;
       padding: @margin 4px @margin 31px;
-
-      .background();
-      border: 1px solid transparent;
-
-      color: @linkColor;
-      text-shadow: 0px 1px 0px @white;
-      line-height: @baseLineHeight;
-
-      .transition(color .15s ease-in-out);
-
-      &:hover { color: @linkColorHover; }
-      &.stream { background: image-url("glyphicons/home.png") 7px 8px no-repeat; }
-
-      .title {
-        width: 110px;
-        display: inline-block;
-        .ellipsis();
-      }
     }
 
     &.active {
       a {
         color: @headingFontColor;
         font-weight: bold;
+      }
+    }
+  }
+
+  .selectable-menu-item {
+    a, .menu-header-item-link {
+      border: 1px solid transparent;
+    }
+
+    &.active {
+      background: @linkColor;
+      a {
+        .background();
         margin-left: 4px;
         border: 1px solid @baseBorderColor;
         border-left: 1px solid transparent;
-
-        span {
-          .box-sizing(border-box);
-          position: relative;
-          left: -4px;
-        }
       }
+    }
+  }
+
+  .menu-item {
+    .title {
+      width: 110px;
+      display: inline-block;
+      .box-sizing(border-box);
+      position: relative;
+      .ellipsis();
+  }
+    &.active .title {
+       left: -4px;
     }
   }
 
@@ -60,21 +68,21 @@
     margin-bottom: 4px;
     font-weight: bold;
 
-    &.active {
-      .menu-header-item-link { padding-left: 5px; }
+    .menu-header-item-link          {  padding-left: 9px; }
+    &.active .menu-header-item-link {  padding-left: 5px; }
+
+    .menu-header-item-link.stream {
+      background: image-url("glyphicons/home.png") 7px 8px no-repeat;
     }
 
-    .menu-header-item-link {
-      padding-left: 9px;
+    &:last-child{
+      line-height: 20px;
+      padding: 0;
+      margin-bottom:0;
     }
-  }
-
-  .my-channels {
-    .background();
-    color: @headingFontColor;
-    line-height: 20px;
-    margin: 0 0 0 10px;
-    padding: 0;
+    &.my-channels .menu-header-item-link{
+      color: @headingFontColor;
+    }
   }
 
   .menu-header-item-icon { margin-right: 4px; }
