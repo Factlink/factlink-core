@@ -12,8 +12,6 @@
     line-height: @baseLineHeight;
 
     .menu-header-item-link {
-      border: 1px solid transparent;
-
       text-shadow: 0px 1px 0px @white;
       width: 100%;
       display: block;
@@ -33,7 +31,10 @@
       .ellipsis();
     }
 
-    // active box
+    // <active box>
+    .menu-header-item-link {
+      border: 1px solid transparent;
+    }
     &.active {
       background: @linkColor;
 
@@ -42,14 +43,16 @@
         margin-left: 4px;
         border: 1px solid @baseBorderColor;
         border-left: 1px solid transparent;
-      }
 
-      .menu-content-box {
-        .box-sizing(border-box);
-        position: relative;
-        left: -4px;
+
+        .menu-content-box {
+          .box-sizing(border-box);
+          position: relative;
+          left: -4px;
+        }
       }
     }
+    // </active box>
   }
 
   .menu-header-item {
