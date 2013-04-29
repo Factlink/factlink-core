@@ -24,10 +24,14 @@ module Interactors
         query :'topics/favourite_topic_ids', user.graph_user_id
       end
 
-      def execute
+      def favourite_topics
         favourite_topic_ids.map do |topic_id|
           query :'topics/by_id', topic_id
         end
+      end
+
+      def execute
+        favourite_topics.sort {|a,b| a.slug_title <=> b.slug_title}
       end
     end
   end
