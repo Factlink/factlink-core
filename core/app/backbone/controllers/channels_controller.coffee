@@ -1,4 +1,4 @@
-window.showChannelSideBar = (channels, currentChannel, user, showStream=true, activepage=null)->
+window.showChannelSideBar = (channels, currentChannel, user, activepage=null)->
     username = user.get('username')
     window.Channels.setUsernameAndRefreshIfNeeded(username)
 
