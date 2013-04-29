@@ -13,9 +13,6 @@ class TopicItemView extends Backbone.Marionette.ItemView
   onRender: ->
     @activeOn() if @model.isActive
 
-  templateHelpers: =>
-    topic_url: @model.topicUrl()
-
 _.extend TopicItemView.prototype, ToggleMixin
 
 class window.TopicHeaderView extends Backbone.Marionette.ItemView
