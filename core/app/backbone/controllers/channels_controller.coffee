@@ -17,26 +17,17 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @restoreChannelView "topic-#{slug_title}", new_callback
 
   commonTopicViews: (topic) ->
-    @commonTopicViewsBeforeFetchOfCurrentUsersChannels(topic)
-    @commonTopicViewsAfterFetchOfCurrentUsersChannels(topic)
-
-  commonTopicViewsBeforeFetchOfCurrentUsersChannels: (topic) ->
     FactlinkApp.leftBottomRegion.close()
     @showUserProfile currentUser
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic, currentUser)
-
-  commonTopicViewsAfterFetchOfCurrentUsersChannels: (topic) ->
-    channel = topic.existingChannelFor(currentUser) # implicitly uses currentUser.channels
-    window.currentChannel = channel
 
   getTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadTopic slug_title, (topic) =>
-      window.currentUser.channels.waitForFetch =>
-        @commonTopicViews(topic)
-        @restoreTopicView slug_title, => new TopicView model: topic
-        @makePermalinkEvent(topic.url())
+      @commonTopicViews(topic)
+      @restoreTopicView slug_title, => new TopicView model: topic
+      @makePermalinkEvent(topic.url())
 
   # TODO: refactor this crazy logic into a separate view
   getTopicFact: (slug_title, fact_id, params={}) ->
