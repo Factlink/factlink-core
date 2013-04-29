@@ -17,18 +17,16 @@ class window.Topic extends Backbone.Model
       ch = @newChannelForUser(user)
       user.channels.add(ch)
       console.info "saving channel #{ch.get 'title'} to #{ch.url()}"
-      ch.save({},
+      ch.save {},
         success: (m,r)-> options.success?(m,r)
         error:   (m,r)->
           user.channels.remove(ch)
           options.error?(m,r)
-      )
 
   existingChannelFor: (user)->
     user.channels.getBySlugTitle(@get 'slug_title')
 
-
-  facts: -> new TopicFacts([], topic: this)
+  facts: -> new TopicFacts([], topic: @)
 
   # TODO: check if we can refactor this to use idAttribute and baseUrl
   url: ->
