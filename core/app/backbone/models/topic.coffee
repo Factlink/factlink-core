@@ -28,15 +28,8 @@ class window.Topic extends Backbone.Model
 
   facts: -> new TopicFacts([], topic: @)
 
-  # TODO: check if we can refactor this to use idAttribute and baseUrl
-  url: ->
-    if @collection?
-      @collection.url() + '/' + @get('slug_title')
-    else
-      @canonicalUrl()
-
-  canonicalUrl: ->
-    '/t/' + @get('slug_title')
+  urlRoot: ->
+    '/t' unless @collection?
 
   favourite: ->
     currentUser.favourite_topics.create( @attributes )
@@ -46,4 +39,4 @@ class window.Topic extends Backbone.Model
 
   toJSON: ->
     _.extend super(),
-      link: @canonicalUrl()
+      link: '/t/' + @get('slug_title')
