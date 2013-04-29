@@ -27,7 +27,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   commonTopicViewsAfterFetchOfCurrentUsersChannels: (topic) ->
     channel = topic.existingChannelFor(currentUser) # implicitly uses currentUser.channels
     window.currentChannel = channel
-    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, channel, currentUser)
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic, currentUser)
 
   getTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.show(@channel_views)
@@ -100,13 +100,17 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
       @restoreChannelView channel_id, => new ChannelView(model: channel)
 
+  # TODO: this is only ever used for the stream,
+  #       don't act like this is a general function
   getChannelActivities: (username, channel_id) ->
+    # getStream
     FactlinkApp.leftTopRegion.close()
 
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
+      FactlinkApp.Sidebar.activate('stream')
       @makePermalinkEvent(channel.url() + '/activities')
 
       @restoreChannelView channel_id, =>
