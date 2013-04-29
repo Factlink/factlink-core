@@ -6,12 +6,10 @@ window.showChannelSideBar = (channels, currentChannel, user, showStream=true, ac
                               new TopicSidebarView
                                 collection: channels
                                 model: user
-                                showStream: showStream
                             else
                               new ChannelsView
                                 collection: channels
                                 model: user
-                                showStream: showStream
     FactlinkApp.leftMiddleRegion.show(channelCollectionView)
     if currentChannel?
       channelCollectionView.setActiveChannel(currentChannel)

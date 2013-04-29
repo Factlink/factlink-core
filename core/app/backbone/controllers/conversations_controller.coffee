@@ -16,7 +16,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
-    showChannelSideBar(window.Channels, null, currentUser, true)
+    showChannelSideBar(window.Channels, null, currentUser)
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
@@ -24,7 +24,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
     app.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
-    showChannelSideBar(window.Channels, null, currentUser, true)
+    showChannelSideBar(window.Channels, null, currentUser)
     @conversation.fetch
       success: (model, response) =>
         @renderMessages(model)
