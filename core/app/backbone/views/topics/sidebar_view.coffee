@@ -1,4 +1,6 @@
 class TopicItemView extends Backbone.Marionette.ItemView
+  _.extend @prototype, ToggleMixin
+
   tagName: 'li'
   className: 'sidebar-item'
   template: 'topics/sidebar/item'
@@ -13,7 +15,6 @@ class TopicItemView extends Backbone.Marionette.ItemView
   onRender: ->
     @activeOn() if @model.isActive()
 
-_.extend TopicItemView.prototype, ToggleMixin
 
 class window.TopicHeaderView extends Backbone.Marionette.ItemView
   tagName: 'ul'
@@ -55,13 +56,11 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
     @list.show new TopicListView(collection: @collection)
     @header.show new TopicHeaderView(@options)
 
-  setActiveChannel: (channel)->
-    if not channel?
-      @unsetActive()
-    else if channel.get('is_all')
-      @setActive('stream')
+  setActiveTopic: (topic)->
+    if topic?
+      @collection.setActive(topic)
     else
-      @collection.setActive(channel.topic())
+      @unsetActive()
 
   # we use setActive to indicate which type is active
   # this is to be used when something other than a channel is
