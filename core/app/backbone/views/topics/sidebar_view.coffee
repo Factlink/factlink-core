@@ -61,14 +61,14 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
     else if channel.get('is_all')
       @setActive('stream')
     else
-      @collection.setActiveChannel(channel)
+      @collection.setActive(channel.topic())
 
   # we use setActive to indicate which type is active
   # this is to be used when something other than a channel is
   # activated. If the type has no specific element to activate,
   # everything is deactivated
   setActive: (type) ->
-    @collection.unsetActiveChannel()
+    @collection.unsetActive()
     @header.currentView.trigger 'activate', type
 
   unsetActive: ->

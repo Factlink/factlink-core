@@ -2,7 +2,7 @@ class window.Topic extends Backbone.Model
 
   idAttribute: 'slug_title'
 
-  isActive: -> false
+  isActive: -> @collection.isActive(@)
 
   newChannelForUser: (user) ->
     new Channel
