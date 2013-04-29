@@ -23,11 +23,11 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   commonTopicViewsBeforeFetchOfCurrentUsersChannels: (topic) ->
     FactlinkApp.leftBottomRegion.close()
     @showUserProfile currentUser
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic, currentUser)
 
   commonTopicViewsAfterFetchOfCurrentUsersChannels: (topic) ->
     channel = topic.existingChannelFor(currentUser) # implicitly uses currentUser.channels
     window.currentChannel = channel
-    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic, currentUser)
 
   getTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.show(@channel_views)
