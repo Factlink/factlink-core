@@ -63,7 +63,7 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
       @unsetActive()
 
   # we use setActive to indicate which type is active
-  # this is to be used when something other than a channel is
+  # this is to be used when something other than a topic is
   # activated. If the type has no specific element to activate,
   # everything is deactivated
   setActive: (type) ->
