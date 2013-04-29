@@ -80,14 +80,14 @@ describe Interactors::Topics::Favourites do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
-    it 'it calls the query to get a list of followed users' do
+    it 'it calls the query to get an alphabetically list of followed users' do
       user_name = mock
       current_user = mock
       interactor = described_class.new user_name, current_user: current_user
 
       user = mock(graph_user_id: mock)
-      topic1 = mock(id: mock)
-      topic2 = mock(id: mock)
+      topic1 = mock(id: mock, slug_title: 'b')
+      topic2 = mock(id: mock, slug_title: 'a')
 
       interactor.should_receive(:query).
         with(:'user_by_username', user_name).
@@ -105,7 +105,7 @@ describe Interactors::Topics::Favourites do
 
       result = interactor.execute
 
-      expect(result).to eq [topic1, topic2]
+      expect(result).to eq [topic2, topic1]
     end
   end
 end
