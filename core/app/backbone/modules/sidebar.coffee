@@ -2,27 +2,37 @@ FactlinkApp.module "Sidebar", (Sidebar, MyApp, Backbone, Marionette, $, _) ->
 
   Sidebar.showForChannelsOrTopicsAndActivateCorrectItem = (channels, currentChannel, user)->
     if user.is_current_user()
-      favouriteTopics = new FavouriteTopics
-      favouriteTopics.fetch()
-      topicSidebarView = new TopicSidebarView
-        collection: favouriteTopics
-        model: user
-      FactlinkApp.leftMiddleRegion.show(topicSidebarView)
-
-      @activateTopicForChannel(currentChannel, topicSidebarView)
+      @showForTopicsAndActivateCorrectItem(currentChannel?.topic(), user)
     else
-      username = user.get('username')
-      window.Channels.setUsernameAndRefreshIfNeeded(username)
+      @showForChannelsAndActivateCorrectItem(channels, currentChannel, user)
 
-      channelCollectionView = new ChannelsView
-        collection: channels
-        model: user
-      FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+  Sidebar.showForTopicsAndActivateCorrectItem = (topic, user)->
+    @setUsernameOnWindowChannels(user)
+    favouriteTopics = new FavouriteTopics
+    favouriteTopics.fetch()
+    @sidebarView = new TopicSidebarView
+      collection: favouriteTopics
+      model: user
+    FactlinkApp.leftMiddleRegion.show @sidebarView
 
-      channelCollectionView.setActiveChannel(currentChannel)
+    @activateTopic topic
 
-  Sidebar.activateTopicForChannel = (channel, topicSidebarView) ->
-    if channel?.get('is_all')
-      topicSidebarView.setActive('stream')
-    else
-      topicSidebarView.setActiveTopic(channel?.topic())
+  Sidebar.showForChannelsAndActivateCorrectItem = (channels, currentChannel, user) ->
+    @setUsernameOnWindowChannels(user)
+    channelCollectionView = new ChannelsView
+      collection: channels
+      model: user
+    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+
+    channelCollectionView.setActiveChannel(currentChannel)
+
+  # TODO: why is this done here, move to controller
+  Sidebar.setUsernameOnWindowChannels = (user) ->
+    username = user.get('username')
+    window.Channels.setUsernameAndRefreshIfNeeded(username)
+
+  Sidebar.activateTopic = (topic) ->
+    @sidebarView.setActiveTopic(topic)
+
+  Sidebar.activate = (type) ->
+    @sidebarView.setActive(type)

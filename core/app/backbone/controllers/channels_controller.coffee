@@ -17,21 +17,17 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @restoreChannelView "topic-#{slug_title}", new_callback
 
   commonTopicViews: (topic) ->
-    channel = topic.existingChannelFor(currentUser)
-    window.currentChannel = channel
-
     FactlinkApp.leftBottomRegion.close()
-    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, channel, currentUser)
     @showUserProfile currentUser
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic, currentUser)
 
   getTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadTopic slug_title, (topic) =>
-      window.currentUser.channels.waitForFetch =>
-        @commonTopicViews(topic)
-        @restoreTopicView slug_title, => new TopicView model: topic
-        @makePermalinkEvent(topic.url())
+      @commonTopicViews(topic)
+      @restoreTopicView slug_title, => new TopicView model: topic
+      @makePermalinkEvent(topic.url())
 
   # TODO: refactor this crazy logic into a separate view
   getTopicFact: (slug_title, fact_id, params={}) ->
@@ -67,8 +63,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     channel
 
   commonChannelViews: (channel) ->
-    window.currentChannel = channel
-
     @showRelatedChannels channel
     @showUserProfile channel.user()
     FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, channel.user()
@@ -95,13 +89,17 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
       @restoreChannelView channel_id, => new ChannelView(model: channel)
 
+  # TODO: this is only ever used for the stream,
+  #       don't act like this is a general function
   getChannelActivities: (username, channel_id) ->
+    # getStream
     FactlinkApp.leftTopRegion.close()
 
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
+      FactlinkApp.Sidebar.activate('stream')
       @makePermalinkEvent(channel.url() + '/activities')
 
       @restoreChannelView channel_id, =>

@@ -16,7 +16,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
-    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, currentUser)
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null, currentUser)
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
@@ -24,7 +24,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
     app.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
-    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, currentUser)
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null, currentUser)
     @conversation.fetch
       success: (model, response) =>
         @renderMessages(model)

@@ -43,19 +43,10 @@ class window.ChannelList extends window.GenericChannelList
 
     clearTimeout @_currentTimeout if @_currentTimeout?
     delete @_currentTimeout
-    callMyselfSoon = =>
-      @_currentTimeout = setTimeout _.bind(args.callee, this), (10*60*1000)-1
-
 
     @fetch
-      success: (collection, response) =>
-        if typeof window.currentChannel isnt "undefined"
-          newCurrentChannel = collection.get(currentChannel.id)
-          if newCurrentChannel?
-            currentChannel.set newCurrentChannel.attributes
-        callMyselfSoon()
-
-      error: callMyselfSoon()
+      complete: =>
+        @_currentTimeout = setTimeout _.bind(args.callee, this), (10*60*1000)-1
 
   getBySlugTitle: (slug_title)->
     results = @filter (ch)-> ch.get('slug_title') == slug_title

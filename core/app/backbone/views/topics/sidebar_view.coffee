@@ -12,9 +12,7 @@ class TopicItemView extends Backbone.Marionette.ItemView
     @model.bind('deactivate', @activeOff, this)
     @model.bind('change',@render,this)
 
-  onRender: ->
-    @activeOn() if @model.isActive()
-
+  onRender: -> @activeOn() if @model.isActive()
 
 class window.TopicHeaderView extends Backbone.Marionette.ItemView
   tagName: 'ul'
@@ -63,7 +61,7 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
       @unsetActive()
 
   # we use setActive to indicate which type is active
-  # this is to be used when something other than a channel is
+  # this is to be used when something other than a topic is
   # activated. If the type has no specific element to activate,
   # everything is deactivated
   setActive: (type) ->
