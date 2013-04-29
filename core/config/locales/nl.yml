@@ -50,13 +50,15 @@ nl:
   topic: "onderwerp"
   topics: "onderwerpen"
   topic_name: "naam van onderwerp"
-  add_to_topics: "toevoegen"
+  add_to_topics: "waar gaat deze Factlink over"
   created_user_topic: "is begonnen met posten naar een onderwerp"
   favourites: "favorieten"
 
   ago: "geleden"
   show: "toon"
   loading: "laden"
+
+  optional: "optioneel"
 
   fact_added_fact_to_channel_action: "heeft jouw Factlink toegevoegd aan zijn/haar kanaal"
 
