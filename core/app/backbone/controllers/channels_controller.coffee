@@ -3,8 +3,10 @@ window.showChannelSideBar = (channels, currentChannel, user, showStream=true, ac
     window.Channels.setUsernameAndRefreshIfNeeded(username)
 
     channelCollectionView = if user.is_current_user()
+                              favouriteTopics = new FavouriteTopics
+                              favouriteTopics.fetch()
                               new TopicSidebarView
-                                collection: channels
+                                collection: favouriteTopics
                                 model: user
                             else
                               new ChannelsView
