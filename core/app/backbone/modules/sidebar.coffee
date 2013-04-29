@@ -9,7 +9,7 @@ FactlinkApp.module "Sidebar", (Sidebar, MyApp, Backbone, Marionette, $, _) ->
         model: user
       FactlinkApp.leftMiddleRegion.show(topicSidebarView)
 
-      topicSidebarView.setActiveChannel(currentChannel)
+      @activateTopicForChannel(currentChannel, topicSidebarView)
     else
       username = user.get('username')
       window.Channels.setUsernameAndRefreshIfNeeded(username)
@@ -20,3 +20,9 @@ FactlinkApp.module "Sidebar", (Sidebar, MyApp, Backbone, Marionette, $, _) ->
       FactlinkApp.leftMiddleRegion.show(channelCollectionView)
 
       channelCollectionView.setActiveChannel(currentChannel)
+
+  Sidebar.activateTopicForChannel = (channel, topicSidebarView) ->
+    if channel?.get('is_all')
+      topicSidebarView.setActive('stream')
+    else
+      topicSidebarView.setActiveTopic(channel?.topic())
