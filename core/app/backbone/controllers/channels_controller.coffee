@@ -7,7 +7,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   onAction: -> @unbindFrom @permalink_event if @permalink_event?
 
   # <topics>
-  # TODO: refactor until we don't refer to channels any more
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}
     topic.fetch success: (model) -> callback(model)
