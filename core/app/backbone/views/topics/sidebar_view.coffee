@@ -1,4 +1,6 @@
 class TopicItemView extends Backbone.Marionette.ItemView
+  _.extend @prototype, ToggleMixin
+
   tagName: 'li'
   className: 'sidebar-item'
   template: 'topics/sidebar/item'
@@ -13,7 +15,6 @@ class TopicItemView extends Backbone.Marionette.ItemView
   onRender: ->
     @activeOn() if @model.isActive()
 
-_.extend TopicItemView.prototype, ToggleMixin
 
 class window.TopicHeaderView extends Backbone.Marionette.ItemView
   tagName: 'ul'

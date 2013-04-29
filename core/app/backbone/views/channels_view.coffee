@@ -1,4 +1,6 @@
 class ChannelItemView extends Backbone.Marionette.ItemView
+  _.extend @prototype, ToggleMixin
+
   tagName: 'li'
   className: 'sidebar-item'
   template: 'channels/single_menu_item'
@@ -13,7 +15,6 @@ class ChannelItemView extends Backbone.Marionette.ItemView
   onRender: ->
     @activeOn() if @model.isActive()
 
-_.extend ChannelItemView.prototype, ToggleMixin
 
 class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   tagName: 'ul'
