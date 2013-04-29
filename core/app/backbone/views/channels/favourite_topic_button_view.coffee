@@ -13,8 +13,7 @@ class window.FavouriteTopicButtonView extends ActionButtonView
     enabled_label:  Factlink.Global.t.favourited.capitalize()
 
   buttonEnabled: ->
-    # @model.id is the Topic slug_title
-    @model.id in @user.favourite_topics.pluck('slug_title')
+    @model.get('slug_title') in @user.favourite_topics.pluck('slug_title')
 
   primaryAction: (e) ->
     @model.favourite()
