@@ -1,27 +1,3 @@
-window.showChannelSideBar = (channels, currentChannel, user, activepage=null)->
-    username = user.get('username')
-    window.Channels.setUsernameAndRefreshIfNeeded(username)
-
-    channelCollectionView = if user.is_current_user()
-                              favouriteTopics = new FavouriteTopics
-                              favouriteTopics.fetch()
-                              new TopicSidebarView
-                                collection: favouriteTopics
-                                model: user
-                            else
-                              new ChannelsView
-                                collection: channels
-                                model: user
-    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
-    if currentChannel?
-      channelCollectionView.setActiveChannel(currentChannel)
-    else if activepage?
-      channelCollectionView.setActive(activepage)
-    else
-      channelCollectionView.unsetActive()
-
-
-
 class window.ChannelsController extends Backbone.Factlink.BaseController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
@@ -45,7 +21,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     window.currentChannel = channel
 
     FactlinkApp.leftBottomRegion.close()
-    showChannelSideBar(window.Channels, channel, currentUser)
+    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, channel, currentUser)
     @showUserProfile currentUser
 
   getTopicFacts: (slug_title) ->
@@ -95,7 +71,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
     @showRelatedChannels channel
     @showUserProfile channel.user()
-    showChannelSideBar window.Channels, channel, channel.user()
+    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, channel.user()
 
   showRelatedChannels: (channel)->
     if channel.get('is_normal')
