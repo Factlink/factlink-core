@@ -8,7 +8,8 @@ class FactPopoverView extends Backbone.Factlink.PopoverView
 
   removeFactFromChannel: (e) ->
     e.preventDefault()
-    @model.removeFromChannel currentChannel,
+    channel = @model.collection.channel
+    @model.removeFromChannel channel,
       error: ->
         alert "Error while hiding Factlink from #{Factlink.Global.t.topic}"
 
@@ -16,7 +17,7 @@ class FactPopoverView extends Backbone.Factlink.PopoverView
         @model.collection.remove @model
         mp_track "Topic: Silence Factlink from Topic",
           factlink_id: @model.id
-          channel_id: currentChannel.id
+          channel_id: channel.id
 
   destroyFact: (e) ->
     e.preventDefault()
