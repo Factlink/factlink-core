@@ -4,7 +4,6 @@ class ChannelsController < ApplicationController
 
   before_filter :load_channel,
     :only => [
-      :show,
       :edit,
       :destroy,
       :update,
@@ -27,10 +26,10 @@ class ChannelsController < ApplicationController
   end
 
   def show
-    authorize! :show, @channel
     respond_to do |format|
       format.json do
         @channel = interactor :'channels/get', @channel.id
+        authorize! :show, @channel
       end
       format.js
       format.html do
