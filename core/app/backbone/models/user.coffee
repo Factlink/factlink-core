@@ -3,7 +3,7 @@ class window.User extends Backbone.Model
     @channels = []
     @followers = new Followers([], user: @)
     @following = new Following([], user: @)
-    @favourite_topics = new FavouriteTopics([])
+    @favourite_topics = new FavouriteTopics([], user: @)
 
   setChannels: (channels) -> @channels = channels
 

@@ -8,7 +8,7 @@ FactlinkApp.module "Sidebar", (Sidebar, MyApp, Backbone, Marionette, $, _) ->
 
   Sidebar.showForTopicsAndActivateCorrectItem = (topic, user)->
     @setUsernameOnWindowChannels(user)
-    favouriteTopics = new FavouriteTopics
+    favouriteTopics = currentUser.favourite_topics
     favouriteTopics.fetch()
     @sidebarView = new TopicSidebarView
       collection: favouriteTopics
