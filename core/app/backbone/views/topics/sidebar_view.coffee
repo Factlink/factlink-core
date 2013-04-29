@@ -11,7 +11,7 @@ class TopicItemView extends Backbone.Marionette.ItemView
     @model.bind('change',@render,this)
 
   onRender: ->
-    @activeOn() if @model.isActive
+    @activeOn() if @model.isActive()
 
 _.extend TopicItemView.prototype, ToggleMixin
 
