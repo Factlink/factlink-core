@@ -33,6 +33,7 @@ class window.Topic extends Backbone.Model
 
   favourite: ->
     currentUser.favourite_topics.create( @attributes )
+    currentUser.favourite_topics.sort()
 
   unfavourite: ->
     currentUser.favourite_topics.get(@).destroy()
