@@ -7,12 +7,3 @@ class window.FavouriteTopics extends Backbone.Collection
     @user = options.user
 
   url: -> "/#{@user.get('username')}/favourite_topics"
-
-  removeTopic: (topic) ->
-    unfollowUrl = "#{@url()}/#{topic.get('slug_title')}"
-
-    @remove topic
-
-    $.ajax
-      url: unfollowUrl
-      type: 'delete'
