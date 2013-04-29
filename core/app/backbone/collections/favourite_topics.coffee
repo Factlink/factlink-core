@@ -13,17 +13,14 @@ ActivatableCollection =
     @_activeId = model.id
     @getActive()?.trigger 'activate'
 
-  isActive: (model) ->
-    model.id == @_activeId
+  isActive: (model) -> model.id == @_activeId
 
   getActive: -> @get(@_activeId)
 
 
-
 class window.FavouriteTopics extends Backbone.Collection
+  _.extend @prototype, ActivatableCollection
 
   model: Topic
 
   url: -> "/#{currentUser.get('username')}/favourite_topics"
-
-_.extend window.FavouriteTopics.prototype, ActivatableCollection
