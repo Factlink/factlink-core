@@ -1,3 +1,4 @@
+#= require './channels_controller'
 app = FactlinkApp
 
 class window.ConversationsController extends Backbone.Factlink.BaseController
@@ -15,7 +16,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
-    @showChannelListing()
+    showChannelSideBar(window.Channels, null, currentUser, true)
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
@@ -23,7 +24,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
     app.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
-    @showChannelListing()
+    showChannelSideBar(window.Channels, null, currentUser, true)
     @conversation.fetch
       success: (model, response) =>
         @renderMessages(model)
@@ -42,10 +43,3 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
       collection: conversation.messages()
 
     @main.contentRegion.show conversationView
-
-  showChannelListing: ->
-    username = currentUser.get('username')
-    changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels, model: currentUser, showStream: true)
-    app.leftMiddleRegion.show(channelCollectionView)
-    channelCollectionView.unsetActive()

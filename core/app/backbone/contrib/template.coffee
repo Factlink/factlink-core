@@ -11,7 +11,10 @@ underscored = (template_location)-> template_location.replace(/^(.*)\/([^_\/][^\
 
 getTemplate = (template)->
   if typeof(template) == "string"
-    HoganTemplates[underscored(template)]
+    retrieved_template = HoganTemplates[underscored(template)]
+    unless retrieved_template
+      console.error "Template '#{template}' not found"
+    retrieved_template
   else
     Hogan.compile(template.text)
 

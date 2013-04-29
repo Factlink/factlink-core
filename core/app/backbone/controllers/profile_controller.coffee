@@ -60,7 +60,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     app.mainRegion.show(@main)
     @getUser username,
       onInit: (user) =>
-        @setChannelListing(user)
+        showChannelSideBar(window.Channels, null, user, false, 'profile')
         @main.showTitle(options.title)
       onFetch: (user) =>
         @showSidebarProfile(user)
@@ -99,25 +99,13 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     back_button = new UserBackButton [], model: user
     @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
-    @showChannelListing(user)
+    showChannelSideBar(window.Channels, null, user, false, 'profile')
     user.fetch
       success: => @showSidebarProfile(user)
-
-  showChannelListing: (user)->
-    changed = window.Channels.setUsernameAndRefresh(user.get('username'))
-    channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
-    app.leftMiddleRegion.show(channelCollectionView)
-    channelCollectionView.setActive('profile')
 
   showSidebarProfile: (user) ->
     sidebarProfileView = new SidebarProfileView(model: user)
     app.leftTopRegion.show(sidebarProfileView)
-
-  setChannelListing: (user) ->
-    changed = window.Channels.setUsernameAndRefresh(user.get('username'))
-    channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
-    app.leftMiddleRegion.show(channelCollectionView)
-    channelCollectionView.setActive('profile')
 
   makePermalinkEvent: ->
     FactlinkApp.factlinkBaseUrl = null

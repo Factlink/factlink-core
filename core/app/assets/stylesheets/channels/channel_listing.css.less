@@ -1,85 +1,62 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-.channel-listing-container-container {
+.left-sidebar {
   width: 160px;
   margin-bottom: 50px;
-}
+  ul {margin: 0;} // WHY BOOTSTRAP? how is anything other than this a sane default
 
-#container .channel-listing-container-container .channel-listing {
-
-  .menu-item {
-    margin-bottom: 4px;
-
-    &.active {
-      .menu-item-link { padding-left: 5px; }
-    }
-
-    .menu-item-link {
-      padding-left: 9px;
-      font-size: @baseFontSize;
-      font-weight: bold;
-    }
-  }
-
-  .my-channels {
-    .background();
-    font-size: @baseFontSize;
-    color: @headingFontColor;
-    line-height: 20px;
-    font-weight: bold;
-
-    margin: 0 0 0 10px;
-    padding: 0;
-  }
-
-  .menu-item-icon { margin-right: 4px; }
-
-  @margin: 3px;
-  margin: 0 0 0 0;
-
-  li {
-    background: @linkColor;
+  @margin-left: 9px;
+  @color-width: 4px;
+  .sidebar-item {
+    line-height: @baseLineHeight;
     .box-sizing(border-box);
+    position: relative;
 
-    a {
+    .sidebar-item-link {
+      text-shadow: 0px 1px 0px @white;
       width: 100%;
       display: block;
-      padding: @margin 4px @margin 31px;
+      padding: 3px 0 3px @margin-left;
+    }
 
-      .background();
+    .sidebar-item-text {
+      margin-left: 22px;
+      width: 120px;
+      display: inline-block;
+      .ellipsis();
+    }
+
+    .sidebar-item-icon {
+      position: absolute;
+      top: 5px;
+    }
+
+    // <active box>
+    .sidebar-item-link {
       border: 1px solid transparent;
-
-      color: @linkColor;
-      text-shadow: 0px 1px 0px @white;
-      line-height: @baseLineHeight;
-
-      .transition(color .15s ease-in-out);
-
-      &:hover { color: @linkColorHover; }
-      &.stream { background: image-url("glyphicons/home.png") 7px 8px no-repeat; }
-
-      .title {
-        width: 110px;
-        display: inline-block;
-        .ellipsis();
-      }
     }
 
     &.active {
-      a {
-        color: @headingFontColor;
-        font-weight: bold;
-        margin-left: 4px;
-        border: 1px solid @baseBorderColor;
-        border-left: 1px solid transparent;
+      background: @linkColor;
 
-        span {
-          .box-sizing(border-box);
-          position: relative;
-          left: -4px;
-        }
+      .sidebar-item-link {
+        .background();
+
+        margin-left: @color-width;
+        padding-left: @margin-left - @color-width + 1px; // 1px for border
+
+        border: 1px solid @baseBorderColor;
+        border-left: none;
+
+        font-weight: bold;
+        color: @headingFontColor;
       }
     }
+    // </active box>
+  }
+
+  .sidebar-item_header {
+    font-weight: bold;
   }
 }

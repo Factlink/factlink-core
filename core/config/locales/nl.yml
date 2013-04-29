@@ -51,7 +51,8 @@ nl:
   topics: "onderwerpen"
   topic_name: "naam van onderwerp"
   add_to_topics: "toevoegen"
-  created_topic: "is begonnen met posten naar een onderwerp"
+  created_user_topic: "is begonnen met posten naar een onderwerp"
+  favourites: "favorieten"
 
   ago: "geleden"
   show: "toon"
