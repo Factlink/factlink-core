@@ -8,10 +8,12 @@ class window.Channel extends Backbone.Model
     @on "deactivate", @setNotActive
 
   setActive: ->
-    @isActive = true
+    @_isActive = true
 
   setNotActive: ->
-    @isActive = false
+    @_isActive = false
+
+  isActive: -> @_isActive
 
   user: -> new User(@get("created_by"))
 

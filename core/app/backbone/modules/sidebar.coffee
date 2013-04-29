@@ -4,10 +4,17 @@ FactlinkApp.module "Sidebar", (Sidebar, MyApp, Backbone, Marionette, $, _) ->
     if user.is_current_user()
       favouriteTopics = new FavouriteTopics
       favouriteTopics.fetch()
-      channelCollectionView = new TopicSidebarView
+      topicSidebarView = new TopicSidebarView
         collection: favouriteTopics
         model: user
-      FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+      FactlinkApp.leftMiddleRegion.show(topicSidebarView)
+
+      if currentChannel?
+        topicSidebarView.setActiveChannel(currentChannel)
+      else if activepage?
+        topicSidebarView.setActive(activepage)
+      else
+        topicSidebarView.unsetActive()
     else
       username = user.get('username')
       window.Channels.setUsernameAndRefreshIfNeeded(username)
