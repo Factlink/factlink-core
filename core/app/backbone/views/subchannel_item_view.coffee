@@ -17,11 +17,11 @@ class window.SubchannelItemView extends Backbone.Marionette.ItemView
     false
 
   onRender: ->
-    @$('i.close').hide() unless currentChannel.user().get('id') == currentUser.get('id')
+    @$('i.close').hide() unless @model.containingChannel().user().get('id') == currentUser.get('id')
 
   clickHandler: (e) ->
     mp_track "Topic: Click on subchannel",
-      channel_id: currentChannel.id
+      channel_id: @model.containingChannel().id
       subchannel_id: @model.id
 
     @defaultClickHandler e
