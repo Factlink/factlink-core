@@ -52,7 +52,7 @@ feature "notifications", type: :request do
     open_notifications
 
     within_nth_notification 1 do
-      click_button "follow"
+      click_button 'Follow'
     end
 
     within_nth_notification 1 do

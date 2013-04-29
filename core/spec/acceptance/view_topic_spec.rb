@@ -19,7 +19,7 @@ feature "viewing a topic", type: :request do
     assert_on_channel_page other_users_channel.title
 
     within_channel_header do
-      find('button', text: 'follow').click
+      find('button', text: 'Follow').click
     end
 
     go_to_profile_page_of @user

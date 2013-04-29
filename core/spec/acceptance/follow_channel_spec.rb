@@ -21,7 +21,7 @@ feature "channels", type: :request do
     assert_on_channel_page other_users_channel.title
 
     within_channel_header do
-      find('button', text: 'follow').click
+      find('button', text: 'Follow').click
     end
 
     go_to_channel_page_of my_channel
@@ -42,7 +42,7 @@ feature "channels", type: :request do
     assert_on_channel_page other_users_channel.title
 
     within_channel_header do
-      find('button', text: 'follow').click
+      find('button', text: 'Follow').click
     end
 
     go_to_topic_page_of other_users_channel.topic
