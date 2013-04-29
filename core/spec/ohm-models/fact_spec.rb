@@ -15,7 +15,6 @@ describe Fact do
   let(:parent) {create :fact}
 
   let(:factlink) {create :fact}
-  let(:factlink2) {create :fact}
 
   let(:gu1) {create(:graph_user)}
   let(:gu2) {create(:graph_user)}
@@ -28,56 +27,46 @@ describe Fact do
 
   context "initially" do
     it "should be findable" do
-      fact.should be_a(Fact)
+      expect(fact).to be_a(Fact)
     end
     it "should have an authority of 1" do
-      Authority.from(fact).to_f.should == 0.0
+      expect(Authority.from(fact).to_f).to eq 0.0
     end
     it "should be persisted" do
-      Fact[fact.id].should == fact
+      expect(Fact[fact.id]).to eq fact
     end
     describe ".delete" do
       it " should work" do
         old_id = fact.id
         data_id = fact.data.id
         fact.delete
-        Fact[old_id].should be_nil
-        FactData.find(data_id).should be_nil
+        expect(Fact[old_id]).to be_nil
+        expect(FactData.find(data_id)).to be_nil
       end
     end
   end
 
   it "should have the GraphUser set when a opinion is added" do
     parent.add_opinion(:believes, gu1)
-    parent.opiniated(:believes).to_a.should =~ [gu1]
-  end
-
-  it "should have working fact_relations" do
-    parent.add_evidence(:supporting, factlink, gu1)
+    expect(parent.opiniated(:believes).to_a).to match_array [gu1]
   end
 
   it "should have a creator" do
-    fact.created_by.class.should == GraphUser
+    expect(fact.created_by.class).to eq GraphUser
   end
 
   it "should be in the created_facts set of the creator" do
-    @gu = fact.created_by
-    @gu.created_facts.to_a.should =~ [fact]
+    gu = fact.created_by
+    expect(gu.created_facts.to_a).to match_array [fact]
   end
 
 
-  context "evidence" do
-    describe "should initially be empty" do
-
+  context "initially" do
+    it "should have no evidence for a type, or the :both type" do
       [:supporting, :weakening].each do |relation|
-        it "should have no evidence for a type " do
-          fact.evidence(relation).count.should == 0
-        end
+        expect(fact.evidence(relation).count).to eq 0
       end
-
-      it "should have no evidence for :both type " do
-        fact.evidence(:both).count.should == 0
-      end
+      expect(fact.evidence(:both).count).to eq 0
     end
   end
 
@@ -86,7 +75,7 @@ describe Fact do
     describe ".evidence" do
       [:supporting, :weakening, :both].each do |relation|
         it "should initially be empty" do
-          fact.evidence(relation).count.should == 0
+          expect(fact.evidence(relation).count).to eq 0
         end
       end
     end
@@ -102,10 +91,10 @@ describe Fact do
 
         describe "should have one evidence" do
           it "for the relation #{relation}" do
-            fact.evidence(relation).count.should == 1
+            expect(fact.evidence(relation).count).to eq 1
           end
           it "for :both" do
-            fact.evidence(:both).count.should == 1
+            expect(fact.evidence(:both).count).to eq 1
           end
         end
 
@@ -117,13 +106,13 @@ describe Fact do
             fact.delete
           end
           it "should remove the fact" do
-            Fact[@fact_id].should be_nil
+            expect(Fact[@fact_id]).to be_nil
           end
           it "should remove the associated factdata" do
-            FactData.find(@data_id).should be_nil
+            expect(FactData.find(@data_id)).to be_nil
           end
           it "should remove the #{relation} factrelation" do
-            FactRelation[@relation_id].should be_nil
+            expect(FactRelation[@relation_id]).to be_nil
           end
         end
         describe ".delete the #{relation} fact" do
@@ -134,45 +123,40 @@ describe Fact do
             factlink.delete
           end
           it "should remove the fact" do
-            Fact[@factlink_id].should be_nil
+            expect(Fact[@factlink_id]).to be_nil
           end
           it "should remove the associated factdata" do
-            FactData.find(@data_id).should be_nil
+            expect(FactData.find(@data_id)).to be_nil
           end
           it "should remove the #{relation} factrelation" do
-            FactRelation[@relation_id].should be_nil
+            expect(FactRelation[@relation_id]).to be_nil
           end
         end
       end
 
       context "with two #{relation} fact" do
-        before do
+        it "should have two #{relation} facts and two facts for :both" do
+
+          factlink2 = create :fact
+
           fact.add_evidence(relation,factlink,gu1)
           fact.add_evidence(relation,factlink2,gu1)
-        end
 
-        it "should have two #{relation} facts" do
-          fact.evidence(relation).count.should == 2
-        end
-        it "should have two facts for :both" do
-          fact.evidence(:both).count.should == 2
+          expect(fact.evidence(relation).count).to eq 2
+          expect(fact.evidence(:both).count).to eq 2
         end
       end
 
       context "with one #{relation} fact and one #{other_one(relation)} fact" do
-        before do
+        it "should have one #{relation}, one #{other_one(relation)} fact and two for :both" do
+          factlink2 = create :fact
+
           fact.add_evidence(relation,factlink,gu1)
           fact.add_evidence(other_one(relation),factlink2,gu1)
-        end
 
-        it "should have one #{relation} fact" do
-          fact.evidence(relation).count.should == 1
-        end
-        it "should have one #{other_one(relation)} fact" do
-          fact.evidence(other_one(relation)).count.should == 1
-        end
-        it "should have two facts for :both" do
-          fact.evidence(:both).count.should == 2
+          expect(fact.evidence(relation).count).to eq 1
+          expect(fact.evidence(other_one(relation)).count).to eq 1
+          expect(fact.evidence(:both).count).to eq 2
         end
       end
     end
@@ -181,25 +165,21 @@ describe Fact do
 
   describe "Mongoid properties: " do
     [:displaystring, :title].each do |attr|
-      context "#{attr} should be changeable" do
-        before do
-          fact.data.send "#{attr}=" , "quux"
-        end
-        it {fact.data.send("#{attr}").should == "quux"}
+      it "#{attr} should be changeable" do
+        fact.data.send "#{attr}=" , "quux"
+        fact.data.send("#{attr}").should == "quux"
       end
-      context "#{attr} should persist" do
-        before do
-          fact.data.send "#{attr}=" , "xuuq"
-          fact.data.save
-        end
-        it {Fact[fact.id].data.send("#{attr}").should == "xuuq"}
+      it "#{attr} persists" do
+        fact.data.send "#{attr}=" , "xuuq"
+        fact.data.save
+        Fact[fact.id].data.send("#{attr}").should == "xuuq"
       end
     end
     context "after setting a displaystring to 'hiephoi'" do
-      before do
+      it "the facts to_s is 'hiephoi'" do
         fact.data.displaystring = "hiephoi"
+        expect(fact.to_s).to eq "hiephoi"
       end
-      its(:to_s){should == "hiephoi"}
     end
 
     it "should not give a give a document not found for Factdata" do
@@ -210,11 +190,11 @@ describe Fact do
 
       f2 = Fact[f.id]
 
-      f2.data.displaystring.should == "This is a fact"
+      expect(f2.data.displaystring).to eq "This is a fact"
     end
     it "should not be possible to save a fact with a string consisting out of only spaces" do
       fact.data.displaystring = '     '
-      fact.data.save.should be_false
+      expect(fact.data.save).to be_false
     end
 
     it "should not be possible to save a fact with a string consisting out of only spaces" do

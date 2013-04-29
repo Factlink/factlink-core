@@ -1,3 +1,27 @@
+window.showChannelSideBar = (channels, currentChannel, user, showStream=true, activepage=null)->
+    username = user.get('username')
+    window.Channels.setUsernameAndRefreshIfNeeded(username)
+
+    channelCollectionView = if user.is_current_user()
+                              new TopicSidebarView
+                                collection: channels
+                                model: user
+                                showStream: showStream
+                            else
+                              new ChannelsView
+                                collection: channels
+                                model: user
+                                showStream: showStream
+    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+    if currentChannel?
+      channelCollectionView.setActiveChannel(currentChannel)
+    else if activepage?
+      channelCollectionView.setActive(activepage)
+    else
+      channelCollectionView.unsetActive()
+
+
+
 class window.ChannelsController extends Backbone.Factlink.BaseController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
@@ -21,7 +45,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     window.currentChannel = channel
 
     FactlinkApp.leftBottomRegion.close()
-    @showChannelSideBar(window.Channels, channel, currentUser)
+    showChannelSideBar(window.Channels, channel, currentUser)
     @showUserProfile currentUser
 
   getTopicFacts: (slug_title) ->
@@ -71,19 +95,13 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
     @showRelatedChannels channel
     @showUserProfile channel.user()
-    @showChannelSideBar window.Channels, channel, channel.user()
+    showChannelSideBar window.Channels, channel, channel.user()
 
   showRelatedChannels: (channel)->
     if channel.get('is_normal')
       FactlinkApp.leftBottomRegion.show(new RelatedChannelsView(model: channel))
     else
       FactlinkApp.leftBottomRegion.close()
-
-  showChannelSideBar: (channels, currentChannel, user)->
-    window.Channels.setUsernameAndRefreshIfNeeded(user.get('username'))
-    channelCollectionView = new ChannelsView(collection: channels, model: user, showStream: true)
-    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
-    channelCollectionView.setActiveChannel(currentChannel)
 
   showUserProfile: (user)->
     unless user.is_current_user()

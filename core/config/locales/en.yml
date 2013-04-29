@@ -51,6 +51,7 @@ en:
   topic_name: "topic name"
   add_to_topics: "add"
   created_user_topic: "started posting to a topic"
+  favourites: "favourites"
 
   ago: "ago"
   show: "show"
