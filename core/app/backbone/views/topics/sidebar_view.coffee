@@ -12,9 +12,7 @@ class TopicItemView extends Backbone.Marionette.ItemView
     @model.bind('deactivate', @activeOff, this)
     @model.bind('change',@render,this)
 
-  onRender: ->
-    @activeOn() if @model.isActive()
-
+  onRender: -> @activeOn() if @model.isActive()
 
 class window.TopicHeaderView extends Backbone.Marionette.ItemView
   tagName: 'ul'
