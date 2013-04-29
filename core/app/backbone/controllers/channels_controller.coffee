@@ -63,8 +63,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     channel
 
   commonChannelViews: (channel) ->
-    window.currentChannel = channel
-
     @showRelatedChannels channel
     @showUserProfile channel.user()
     FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, channel.user()
