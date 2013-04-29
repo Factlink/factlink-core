@@ -46,4 +46,4 @@ class window.Topic extends Backbone.Model
 
   toJSON: ->
     _.extend super(),
-      canonical_url: @canonicalUrl()
+      link: @canonicalUrl()
