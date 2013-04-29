@@ -54,9 +54,6 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
     list:   '.channel-listing-container'
     header: '.channel-listing-header'
 
-  initialize: ->
-    @bindTo @collection, 'reset', @setUserFromChannels, this
-
   onRender: ->
     @list.show new TopicListView(collection: @collection)
     @header.show new TopicHeaderView(@options)
@@ -68,7 +65,6 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
       @setActive('stream')
     else
       @collection.setActiveChannel(channel)
-
 
   # we use setActive to indicate which type is active
   # this is to be used when something other than a channel is
