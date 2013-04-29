@@ -43,18 +43,6 @@ class window.ChannelsView extends Backbone.Marionette.Layout
 
   setActiveChannel: (channel)->
     if channel?
-      @collection.setActiveChannel(channel)
+      @collection.setActive(channel)
     else
-      @unsetActive()
-
-
-  # we use setActive to indicate which type is active
-  # this is to be used when something other than a channel is
-  # activated. If the type has no specific element to activate,
-  # everything is deactivated
-  setActive: (type) ->
-    @collection.unsetActiveChannel()
-    @header.currentView.trigger 'activate', type
-
-  unsetActive: ->
-    @setActive()
+      @collection.unsetActive()

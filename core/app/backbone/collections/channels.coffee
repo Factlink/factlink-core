@@ -5,25 +5,11 @@ class window.TopChannelList extends window.GenericChannelList
   url: "/t/top_channels"
 
 class window.ChannelList extends window.GenericChannelList
+  _.extend @prototype, Backbone.Factlink.ActivatableCollectionMixin
+
   reloadingEnabled: false
-  initialize: -> @on "reset", @checkActiveChannel
 
   url: -> "/#{@getUsername()}/channels"
-
-  unsetActiveChannel: ->
-    activeChannel = @get(@activeChannelId)
-    activeChannel.trigger "deactivate"  if activeChannel
-    delete @activeChannelId
-
-  setActiveChannel: (channel) ->
-    @unsetActiveChannel()  if @activeChannelId and @activeChannelId isnt channel.id
-    @activeChannelId = channel.id
-    @checkActiveChannel()
-
-  checkActiveChannel: ->
-    if @activeChannelId
-      activeChannel = @get(@activeChannelId)
-      activeChannel.trigger "activate", activeChannel  if activeChannel
 
   setUsernameAndRefresh: (username)->
     @setUsername username
