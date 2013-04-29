@@ -4,8 +4,8 @@ class window.FavouriteTopicButtonView extends ActionButtonView
   onRender: -> @updateButton()
 
   initialize: ->
-    @bindTo @model, 'change', @updateButton, @
     @user = currentUser
+    @bindTo @user.favourite_topics, 'add remove change', @updateButton, @
 
   templateHelpers: =>
     disabled_label: Factlink.Global.t.favourite.capitalize()

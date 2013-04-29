@@ -35,7 +35,7 @@ class window.Topic extends Backbone.Model
     currentUser.favourite_topics.create( @attributes )
 
   unfavourite: ->
-    currentUser.favourite_topics.remove( @ )
+    currentUser.favourite_topics.removeTopic( @ )
 
   toJSON: ->
     _.extend super(),
