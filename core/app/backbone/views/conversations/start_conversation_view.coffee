@@ -1,4 +1,6 @@
 class window.StartConversationView extends Backbone.Marionette.Layout
+  _.extend @prototype, Backbone.Factlink.AlertMixin
+
   className: "start-conversation-form"
   events:
     "click .js-submit": 'submit'
@@ -92,5 +94,3 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   clearForm: ->
     @auto_complete_view.clearSearch()
     @recipients.reset []
-
-_.extend(StartConversationView.prototype, Backbone.Factlink.AlertMixin)

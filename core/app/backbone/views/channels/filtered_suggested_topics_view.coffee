@@ -1,4 +1,6 @@
 class SuggestedTopicView extends Backbone.Marionette.ItemView
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
+
   tagName: 'li'
   template: 'channels/suggested_topic'
 
@@ -18,7 +20,6 @@ class SuggestedTopicView extends Backbone.Marionette.ItemView
   addModelError: (model) ->
     console.info "SuggestedTopicView - error while adding #{@name}"
 
-_.extend(SuggestedTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
 
 
 class SuggestedTopicsView extends Backbone.Marionette.CollectionView

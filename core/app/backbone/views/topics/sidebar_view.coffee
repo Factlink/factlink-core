@@ -1,22 +1,15 @@
 class TopicItemView extends Backbone.Marionette.ItemView
+  _.extend @prototype, ClassToggleMixin('active')
+
   tagName: 'li'
   className: 'sidebar-item'
   template: 'topics/sidebar/item'
 
   initialize: ->
-    @addClassToggle('active')
-
     @model.bind('activate', @activeOn, this)
     @model.bind('deactivate', @activeOff, this)
-    @model.bind('change',@render,this)
 
-  onRender: ->
-    @activeOn() if @model.isActive
-
-  templateHelpers: =>
-    topic_url: @model.topicUrl()
-
-_.extend TopicItemView.prototype, ToggleMixin
+  onRender: -> @activeOn() if @model.isActive()
 
 class window.TopicHeaderView extends Backbone.Marionette.ItemView
   tagName: 'ul'
@@ -54,28 +47,22 @@ class window.TopicSidebarView extends Backbone.Marionette.Layout
     list:   '.channel-listing-container'
     header: '.channel-listing-header'
 
-  initialize: ->
-    @bindTo @collection, 'reset', @setUserFromChannels, this
-
   onRender: ->
     @list.show new TopicListView(collection: @collection)
     @header.show new TopicHeaderView(@options)
 
-  setActiveChannel: (channel)->
-    if not channel?
-      @unsetActive()
-    else if channel.get('is_all')
-      @setActive('stream')
+  setActiveTopic: (topic)->
+    if topic?
+      @collection.setActive(topic)
     else
-      @collection.setActiveChannel(channel)
-
+      @unsetActive()
 
   # we use setActive to indicate which type is active
-  # this is to be used when something other than a channel is
+  # this is to be used when something other than a topic is
   # activated. If the type has no specific element to activate,
   # everything is deactivated
   setActive: (type) ->
-    @collection.unsetActiveChannel()
+    @collection.unsetActive()
     @header.currentView.trigger 'activate', type
 
   unsetActive: ->

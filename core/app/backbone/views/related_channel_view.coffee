@@ -1,4 +1,5 @@
 class window.RelatedChannelView extends Backbone.Marionette.ItemView
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
   tagName: "li"
   className: "related-channel-container"
 
@@ -15,4 +16,3 @@ class window.RelatedChannelView extends Backbone.Marionette.ItemView
 
   wrapNewModel: (model) -> new Channel(@model.toJSON())
 
-_.extend(window.RelatedChannelView.prototype, Backbone.Factlink.AddModelToCollectionMixin)

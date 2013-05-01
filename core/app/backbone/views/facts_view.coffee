@@ -1,4 +1,6 @@
 class window.FactsView extends AutoloadingCompositeView
+  _.extend @prototype, ToggleMixin
+
   className: "facts-view"
   itemViewContainer: ".facts"
   itemView: FactView
@@ -70,5 +72,3 @@ class window.FactsView extends AutoloadingCompositeView
     $target = $(e.target)
     if not $target.is(":input")
       $(e.target).closest("form").find("textarea").focus()
-
-_.extend window.FactsView.prototype, ToggleMixin

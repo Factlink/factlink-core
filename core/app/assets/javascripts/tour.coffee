@@ -1,4 +1,6 @@
 class window.InteractiveTour extends Backbone.View
+  _.extend @prototype, Backbone.Factlink.TooltipMixin
+
   helpTextDelay: 560
 
   detectSelecting: ->
@@ -112,8 +114,6 @@ class window.InteractiveTour extends Backbone.View
       "Your first Factlink is a fact!",
       '',
       { side: 'left', align: 'top', margin: 10, contentView: view }
-
-_.extend window.InteractiveTour.prototype, Backbone.Factlink.TooltipMixin
 
 $ ->
   if $('body').hasClass 'action_create_your_first_factlink'

@@ -1,27 +1,3 @@
-window.showChannelSideBar = (channels, currentChannel, user, showStream=true, activepage=null)->
-    username = user.get('username')
-    window.Channels.setUsernameAndRefreshIfNeeded(username)
-
-    channelCollectionView = if user.is_current_user()
-                              new TopicSidebarView
-                                collection: channels
-                                model: user
-                                showStream: showStream
-                            else
-                              new ChannelsView
-                                collection: channels
-                                model: user
-                                showStream: showStream
-    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
-    if currentChannel?
-      channelCollectionView.setActiveChannel(currentChannel)
-    else if activepage?
-      channelCollectionView.setActive(activepage)
-    else
-      channelCollectionView.unsetActive()
-
-
-
 class window.ChannelsController extends Backbone.Factlink.BaseController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
@@ -31,7 +7,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   onAction: -> @unbindFrom @permalink_event if @permalink_event?
 
   # <topics>
-  # TODO: refactor until we don't refer to channels any more
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}
     topic.fetch success: (model) -> callback(model)
@@ -40,29 +15,26 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   restoreTopicView: (slug_title, new_callback) ->
     @restoreChannelView "topic-#{slug_title}", new_callback
 
-  commonTopicViews: (topic) ->
-    channel = topic.existingChannelFor(currentUser)
-    window.currentChannel = channel
-
+  showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
-    showChannelSideBar(window.Channels, channel, currentUser)
     @showUserProfile currentUser
+    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
   getTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadTopic slug_title, (topic) =>
-      window.currentUser.channels.waitForFetch =>
-        @commonTopicViews(topic)
-        @restoreTopicView slug_title, => new TopicView model: topic
-        @makePermalinkEvent(topic.url())
+      @showSidebarForTopic(topic)
+      @restoreTopicView slug_title, => new TopicView model: topic
+      @makePermalinkEvent(topic.url())
 
   # TODO: refactor this crazy logic into a separate view
   getTopicFact: (slug_title, fact_id, params={}) ->
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
 
-    topic = @loadTopic slug_title, => @commonTopicViews topic
+    topic = @loadTopic slug_title, => @showSidebarForTopic topic
 
     fact = new Fact(id: fact_id)
     fact.fetch
@@ -90,12 +62,12 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
     channel
 
-  commonChannelViews: (channel) ->
-    window.currentChannel = channel
-
+  showSidebarForChannel: (channel) ->
     @showRelatedChannels channel
-    @showUserProfile channel.user()
-    showChannelSideBar window.Channels, channel, channel.user()
+    user = channel.user()
+    @showUserProfile user
+    window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
+    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, user
 
   showRelatedChannels: (channel)->
     if channel.get('is_normal')
@@ -114,18 +86,22 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>
-      @commonChannelViews(channel)
+      @showSidebarForChannel(channel)
       @makePermalinkEvent(channel.url())
 
       @restoreChannelView channel_id, => new ChannelView(model: channel)
 
+  # TODO: this is only ever used for the stream,
+  #       don't act like this is a general function
   getChannelActivities: (username, channel_id) ->
+    # getStream
     FactlinkApp.leftTopRegion.close()
 
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>
-      @commonChannelViews(channel)
+      @showSidebarForChannel(channel)
+      FactlinkApp.Sidebar.activate('stream')
       @makePermalinkEvent(channel.url() + '/activities')
 
       @restoreChannelView channel_id, =>
@@ -139,7 +115,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
 
-    channel = @loadChannel username, channel_id, (channel) => @commonChannelViews channel
+    channel = @loadChannel username, channel_id, (channel) => @showSidebarForChannel channel
 
     fact = new Fact(id: fact_id)
     fact.fetch

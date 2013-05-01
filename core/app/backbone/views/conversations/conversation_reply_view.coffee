@@ -1,4 +1,6 @@
 class window.ConversationReplyView extends Backbone.Marionette.ItemView
+  _.extend @prototype, Backbone.Factlink.AlertMixin
+
   tagName: 'div'
   template: 'conversations/reply'
   events:
@@ -12,7 +14,7 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
 
   submit: ->
     return if @submitting
-    
+
     @alertHide()
     @disableSubmit()
 
@@ -25,7 +27,7 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
         @alertError response.responseText
         @enableSubmit()
 
-  enableSubmit:  -> 
+  enableSubmit:  ->
     @submitting = false
     @ui.submit.prop('disabled',false).val('Send message')
 
@@ -34,5 +36,3 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
     @ui.submit.prop('disabled',true ).val('Sending...')
 
   clearForm:     -> @$('.recipients, .message-textarea').val('')
-
-_.extend(ConversationReplyView.prototype, Backbone.Factlink.AlertMixin)

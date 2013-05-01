@@ -16,10 +16,6 @@
     $(function() {
       Channels.setUsername("<%= current_user.username %>");
 
-      <% if @channel && !@channel.new? %>
-        window.currentChannel = new Channel({id: <%= @channel.id %>});
-      <% end %>
-
       Backbone.history.start({pushState:Modernizr.history});
 
     });

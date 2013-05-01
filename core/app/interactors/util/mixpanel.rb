@@ -11,7 +11,7 @@ module Util
         )
       end
 
-      Resque.enqueue(Mixpanel::TrackEventJob, event, opts, {})
+      Resque.enqueue(::Mixpanel::TrackEventJob, event, opts, {})
     end
 
     def track_event *args

@@ -6,7 +6,7 @@ class UserFavouriteTopicsController < ApplicationController
     render 'topics/index', format: 'json'
   end
 
-  def create
+  def update
     interactor :'topics/favourite', username, slug_title
     return_ok
   end
@@ -30,5 +30,5 @@ class UserFavouriteTopicsController < ApplicationController
   def slug_title
     params[:slug_title] || params[:id]
   end
-  
+
 end

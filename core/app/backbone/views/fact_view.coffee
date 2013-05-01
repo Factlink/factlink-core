@@ -8,7 +8,8 @@ class FactPopoverView extends Backbone.Factlink.PopoverView
 
   removeFactFromChannel: (e) ->
     e.preventDefault()
-    @model.removeFromChannel currentChannel,
+    channel = @model.collection.channel
+    @model.removeFromChannel channel,
       error: ->
         alert "Error while hiding Factlink from #{Factlink.Global.t.topic}"
 
@@ -16,7 +17,7 @@ class FactPopoverView extends Backbone.Factlink.PopoverView
         @model.collection.remove @model
         mp_track "Topic: Silence Factlink from Topic",
           factlink_id: @model.id
-          channel_id: currentChannel.id
+          channel_id: channel.id
 
   destroyFact: (e) ->
     e.preventDefault()
@@ -26,6 +27,8 @@ class FactPopoverView extends Backbone.Factlink.PopoverView
       success: -> mp_track "Factlink: Destroy"
 
 class window.FactView extends Backbone.Marionette.Layout
+  _.extend @prototype, Backbone.Factlink.TooltipMixin
+
   tagName: "div"
   className: "fact-view"
   template: "facts/fact"
@@ -77,5 +80,3 @@ class window.FactView extends Backbone.Marionette.Layout
     ,
       duration: 2000
       complete: -> $(this).animate "background-color": "#ffffff", 2000
-
-_.extend window.FactView.prototype, Backbone.Factlink.TooltipMixin

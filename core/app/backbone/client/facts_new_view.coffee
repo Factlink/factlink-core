@@ -32,6 +32,8 @@ class Tooltip
 
 
 class window.FactsNewView extends Backbone.Marionette.ItemView
+  _.extend @prototype, Backbone.Factlink.TooltipMixin
+
   template: "client/facts_new"
 
   className: 'fact-new'
@@ -141,5 +143,3 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
         "You're ready to post this!",
         "You can add this Factlink to a " + Factlink.Global.t.topic + " so you can find it more easily later, or post this immediately.",
         { side: 'right', align: 'top', margin: 19, container: @$('.js-finish-popover') }
-
-_.extend window.FactsNewView.prototype, Backbone.Factlink.TooltipMixin
