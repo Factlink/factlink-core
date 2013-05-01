@@ -63,8 +63,8 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/observers"
     config.autoload_paths << "#{config.root}/app/interactors"
 
-    Rails.logger.level = Logger::INFO
-    Moped.logger = Mongoid.logger = Rails.logger
+    config.log_level = :info
+
     config.mongoid.observers = :user_observer, :topic_observer, :fact_data_observer
 
     require_dependency "#{config.root}/app/classes/map_reduce.rb"
