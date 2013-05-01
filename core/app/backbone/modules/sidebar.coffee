@@ -9,18 +9,14 @@ FactlinkApp.module "Sidebar", (Sidebar, MyApp, Backbone, Marionette, $, _) ->
   Sidebar.showForTopicsAndActivateCorrectItem = (topic, user)->
     @setUsernameOnWindowChannels(user)
     currentUser.favourite_topics.fetch()
-    @sidebarView = new TopicSidebarView
-      collection: currentUser.favourite_topics
-      model: user
+    @sidebarView = new TopicSidebarView collection: currentUser.favourite_topics
     FactlinkApp.leftMiddleRegion.show @sidebarView
 
     @activateTopic topic
 
   Sidebar.showForChannelsAndActivateCorrectItem = (channels, currentChannel, user) ->
     @setUsernameOnWindowChannels(user)
-    channelCollectionView = new ChannelsView
-      collection: channels
-      model: user
+    channelCollectionView = new ChannelsView collection: channels
     FactlinkApp.leftMiddleRegion.show(channelCollectionView)
 
     channelCollectionView.setActiveChannel(currentChannel)
