@@ -1,4 +1,4 @@
-class window.ConversationsController extends Backbone.Factlink.BaseController
+class window.ConversationsController extends Backbone.Factlink.CachingController
 
   routes: ['showConversations', 'showMessages']
 

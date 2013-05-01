@@ -1,20 +1,10 @@
-class window.ProfileController extends Backbone.Factlink.BaseController
+class window.ProfileController extends Backbone.Factlink.CachingController
 
   routes: ['showProfile', 'showNotificationSettings', 'showFact']
 
-  onShow:   -> @profile_views = new Backbone.Factlink.DetachedViewCache
-  onClose:  -> @profile_views.cleanup()
+  onShow:   -> @cached_views = new Backbone.Factlink.DetachedViewCache
+  onClose:  -> @cached_views.cleanup()
   onAction: -> @unbindFrom @permalink_event if @permalink_event?
-
-  # CACHE HELPERS
-  restoreProfileView: (username, new_callback) ->
-    if @last_profile_status?
-      view = @profile_views.switchCacheView( username )
-      $('body').scrollTo(@last_profile_status.scrollTop) if view == @last_profile_status?.view
-      delete @last_profile_status
-    @profile_views.clearUnshowedViews()
-
-    @profile_views.renderCacheView( username, new_callback() ) unless view?
 
   # ACTIONS
   showProfile: (username) ->
@@ -44,9 +34,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     render: (main_region, user) =>
       @makePermalinkEvent()
 
-      main_region.show @profile_views
+      main_region.show @cached_views
 
-      @restoreProfileView username, =>
+      @restoreCachedView username, =>
         new ProfileView
           model: user
           collection: window.Channels
@@ -92,17 +82,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       forProfile: true
 
   getFactsView: (channel) ->
-    collection = new ChannelFacts [], channel: channel
-    facts_view = new FactsView collection: collection
+    new FactsView
+      collection: new ChannelFacts([], channel: channel)
 
   showSidebarProfile: (user) ->
     sidebarProfileView = new SidebarProfileView(model: user)
     FactlinkApp.leftTopRegion.show(sidebarProfileView)
-
-  makePermalinkEvent: ->
-    FactlinkApp.factlinkBaseUrl = null
-    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', =>
-      @last_profile_status =
-        view: @profile_views.currentView()
-        scrollTop: $('body').scrollTop()
-      $('body').scrollTo(0)

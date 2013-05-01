@@ -1,10 +1,6 @@
-class window.ChannelsController extends Backbone.Factlink.BaseController
+class window.ChannelsController extends Backbone.Factlink.CachingController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
-
-  onShow:   -> @channel_views = new Backbone.Factlink.DetachedViewCache
-  onClose:  -> @channel_views.cleanup()
-  onAction: -> @unbindFrom @permalink_event if @permalink_event?
 
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}
@@ -12,7 +8,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     topic
 
   restoreTopicView: (slug_title, new_callback) ->
-    @restoreChannelView "topic-#{slug_title}", new_callback
+    @restoreCachedView "topic-#{slug_title}", new_callback
 
   showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
@@ -20,7 +16,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic, currentUser)
 
   getTopicFacts: (slug_title) ->
-    FactlinkApp.mainRegion.show(@channel_views)
+    FactlinkApp.mainRegion.show(@cached_views)
 
     @loadTopic slug_title, (topic) =>
       @showSidebarForTopic(topic)
@@ -70,13 +66,13 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       FactlinkApp.leftTopRegion.show(userView)
 
   getChannelFacts: (username, channel_id) ->
-    FactlinkApp.mainRegion.show(@channel_views)
+    FactlinkApp.mainRegion.show(@cached_views)
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       @makePermalinkEvent(channel.url())
 
-      @restoreChannelView channel_id, => new ChannelView(model: channel)
+      @restoreCachedView channel_id, => new ChannelView(model: channel)
 
   # TODO: this is only ever used for the stream,
   #       don't act like this is a general function
@@ -84,14 +80,14 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     # getStream
     FactlinkApp.leftTopRegion.close()
 
-    FactlinkApp.mainRegion.show(@channel_views)
+    FactlinkApp.mainRegion.show(@cached_views)
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       FactlinkApp.Sidebar.activate('stream')
       @makePermalinkEvent(channel.url() + '/activities')
 
-      @restoreChannelView channel_id, =>
+      @restoreCachedView channel_id, =>
         activities = new ChannelActivities([],{ channel: channel })
         new ChannelActivitiesView(model: channel, collection: activities)
 
@@ -106,21 +102,3 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       model: new Fact(id: fact_id)
       back_button: back_button
       tab: params.tab
-
-  restoreChannelView: (channel_id, new_callback) ->
-    if @lastChannelStatus?
-      view = @channel_views.switchCacheView(channel_id)
-      $('body').scrollTo(@lastChannelStatus.scrollTop) if view == @lastChannelStatus?.view
-      delete @lastChannelStatus
-
-    @channel_views.clearUnshowedViews()
-
-    @channel_views.renderCacheView(channel_id, new_callback()) if not view?
-
-  makePermalinkEvent: (baseUrl) ->
-    FactlinkApp.factlinkBaseUrl = baseUrl
-    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', =>
-      @lastChannelStatus =
-        view: @channel_views.currentView()
-        scrollTop: $('body').scrollTop()
-      $('body').scrollTo(0)
