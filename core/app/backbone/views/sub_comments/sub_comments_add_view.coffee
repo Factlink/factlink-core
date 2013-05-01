@@ -33,7 +33,7 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     @model = new SubComment
       content: @text()
       created_by: currentUser
-    
+
     @alertHide()
     @disableSubmit()
     @addDefaultModel()

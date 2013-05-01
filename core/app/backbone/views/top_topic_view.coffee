@@ -12,6 +12,6 @@ class window.TopTopicView extends Backbone.Marionette.ItemView
 
   addModelError: (model)->
         alert("Something went wrong while creating this #{Factlink.Global.t.topic}")
-   
+
   wrapNewModel: (model) -> @model.newChannelForUser(window.currentUser)
 

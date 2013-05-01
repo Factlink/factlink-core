@@ -14,7 +14,7 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
 
   submit: ->
     return if @submitting
-    
+
     @alertHide()
     @disableSubmit()
 
@@ -27,7 +27,7 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
         @alertError response.responseText
         @enableSubmit()
 
-  enableSubmit:  -> 
+  enableSubmit:  ->
     @submitting = false
     @ui.submit.prop('disabled',false).val('Send message')
 
