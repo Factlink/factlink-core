@@ -1,4 +1,3 @@
-#= require './channels_controller'
 app = FactlinkApp
 
 class window.ConversationsController extends Backbone.Factlink.BaseController
