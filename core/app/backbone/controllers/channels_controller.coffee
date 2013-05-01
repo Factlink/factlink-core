@@ -18,7 +18,8 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
     @showUserProfile currentUser
-    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic, currentUser)
+    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
   getTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.show(@channel_views)
@@ -63,8 +64,10 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
   showSidebarForChannel: (channel) ->
     @showRelatedChannels channel
-    @showUserProfile channel.user()
-    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, channel.user()
+    user = channel.user()
+    @showUserProfile user
+    window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
+    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, user
 
   showRelatedChannels: (channel)->
     if channel.get('is_normal')

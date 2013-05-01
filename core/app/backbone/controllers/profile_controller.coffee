@@ -60,6 +60,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     app.mainRegion.show(@main)
     @getUser username,
       onInit: (user) =>
+        window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
         FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
         @main.showTitle(options.title)
       onFetch: (user) =>
@@ -99,6 +100,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     back_button = new UserBackButton [], model: user
     @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
+    window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
     FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
     user.fetch
       success: => @showSidebarProfile(user)
