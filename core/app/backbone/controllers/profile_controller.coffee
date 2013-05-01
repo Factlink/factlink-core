@@ -25,13 +25,19 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     @showPage username, @notification_options(username)
 
   showFact: (slug, fact_id, params={})->
-    @main = new TabbedMainRegionLayout();
-    app.mainRegion.show(@main)
-
     fact = new Fact(id: fact_id)
-    fact.fetch
-      success: (model, response) => @withFact(model, params)
-      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
+    user = new User fact.get('created_by')
+    back_button = new UserBackButton [], model: user
+
+    fact.on 'change', (fact)=>
+      user.set fact.get('created_by')
+      FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
+      @showSidebarProfile(user)
+
+    FactlinkApp.mainRegion.show new DiscussionPageView
+      model: fact
+      back_button: back_button
+      tab: params.tab
 
   # HELPERS
   profile_options: (username) ->
@@ -90,18 +96,6 @@ class window.ProfileController extends Backbone.Factlink.BaseController
   getFactsView: (channel) ->
     collection = new ChannelFacts [], channel: channel
     facts_view = new FactsView collection: collection
-
-  withFact: (fact, params={})->
-    @main.contentRegion.show new DiscussionView(model: fact, tab: params.tab)
-
-    user = new User fact.get('created_by')
-
-    back_button = new UserBackButton [], model: user
-    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
-
-    FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
-    user.fetch
-      success: => @showSidebarProfile(user)
 
   showSidebarProfile: (user) ->
     sidebarProfileView = new SidebarProfileView(model: user)

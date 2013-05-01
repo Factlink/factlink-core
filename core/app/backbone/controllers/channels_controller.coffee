@@ -33,7 +33,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     back_button = new TopicBackButton [], model: topic
 
     FactlinkApp.mainRegion.show new DiscussionPageView
-      fact_id: fact_id
+      model: new Fact(id: fact_id)
       back_button: back_button
       tab: params.tab
 
@@ -103,7 +103,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     back_button = new ChannelBackButton [], model: channel, for_stream: params.for_stream
 
     FactlinkApp.mainRegion.show new DiscussionPageView
-      fact_id: fact_id
+      model: new Fact(id: fact_id)
       back_button: back_button
       tab: params.tab
 
