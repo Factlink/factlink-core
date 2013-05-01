@@ -2,10 +2,6 @@ class window.ProfileController extends Backbone.Factlink.CachingController
 
   routes: ['showProfile', 'showNotificationSettings', 'showFact']
 
-  onShow:   -> @cached_views = new Backbone.Factlink.DetachedViewCache
-  onClose:  -> @cached_views.cleanup()
-  onAction: -> @unbindFrom @permalink_event if @permalink_event?
-
   # ACTIONS
   showProfile: (username) ->
     @showPage username, @profile_options(username)
