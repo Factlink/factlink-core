@@ -100,5 +100,3 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
 
   _unbindWindowClick: ->
     $(window).off "click.notifications"
-
-_.extend NotificationsView::, TemplateMixin
