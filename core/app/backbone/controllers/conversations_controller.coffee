@@ -13,7 +13,8 @@ class window.ConversationsController extends Backbone.Factlink.CachingController
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
-    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null, currentUser)
+    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username')  # TODO: check if this can be removed
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null)
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
@@ -21,7 +22,8 @@ class window.ConversationsController extends Backbone.Factlink.CachingController
     FactlinkApp.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
-    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null, currentUser)
+    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null)
     @conversation.fetch
       success: (model, response) =>
         @renderMessages(model)

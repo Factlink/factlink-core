@@ -15,6 +15,7 @@ class window.ProfileController extends Backbone.Factlink.CachingController
 
     fact.on 'change', (fact)=>
       user.set fact.get('created_by')
+      window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
       FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
       @showSidebarProfile(user)
 
@@ -50,6 +51,7 @@ class window.ProfileController extends Backbone.Factlink.CachingController
     FactlinkApp.mainRegion.show(@main)
     @getUser username,
       onInit: (user) =>
+        window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
         FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
         @main.showTitle(options.title)
       onFetch: (user) =>
