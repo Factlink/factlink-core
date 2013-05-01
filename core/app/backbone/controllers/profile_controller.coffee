@@ -1,5 +1,3 @@
-app = FactlinkApp
-
 class window.ProfileController extends Backbone.Factlink.BaseController
 
   routes: ['showProfile', 'showNotificationSettings', 'showFact']
@@ -61,9 +59,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       main_region.show(new NotificationSettingsView model: user)
 
   showPage: (username, options) ->
-    app.leftBottomRegion.close()
+    FactlinkApp.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
-    app.mainRegion.show(@main)
+    FactlinkApp.mainRegion.show(@main)
     @getUser username,
       onInit: (user) =>
         FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
@@ -99,7 +97,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
   showSidebarProfile: (user) ->
     sidebarProfileView = new SidebarProfileView(model: user)
-    app.leftTopRegion.show(sidebarProfileView)
+    FactlinkApp.leftTopRegion.show(sidebarProfileView)
 
   makePermalinkEvent: ->
     FactlinkApp.factlinkBaseUrl = null
