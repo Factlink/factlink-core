@@ -1,4 +1,6 @@
 class window.ChannelFacts extends Backbone.Collection
+  _.extend @prototype, AutoloadCollectionOnTimestamp
+
   model: Fact
 
   initialize: (models, opts) -> @channel = opts.channel
@@ -7,4 +9,3 @@ class window.ChannelFacts extends Backbone.Collection
 
   canAddFact: -> @channel.get('editable?')
 
-_.extend(ChannelFacts.prototype, AutoloadCollectionOnTimestamp)

@@ -1,4 +1,6 @@
 class window.TopicFacts extends Backbone.Collection
+  _.extend @prototype, AutoloadCollectionOnTimestamp
+
   model: Fact
 
   initialize: (models, opts) -> @topic = opts.topic
@@ -7,4 +9,3 @@ class window.TopicFacts extends Backbone.Collection
 
   canAddFact: -> false
 
-_.extend(TopicFacts.prototype, AutoloadCollectionOnTimestamp)

@@ -1,4 +1,5 @@
 class window.TopTopicView extends Backbone.Marionette.ItemView
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
   template: "activities/suggested_topic"
   tagName: "li"
 
@@ -14,4 +15,3 @@ class window.TopTopicView extends Backbone.Marionette.ItemView
    
   wrapNewModel: (model) -> @model.newChannelForUser(window.currentUser)
 
-_.extend(window.TopTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
