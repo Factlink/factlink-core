@@ -122,7 +122,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
 
     back_button = new ChannelBackButton [], model: channel, for_stream: params.for_stream
-    title_view = new ExtendedFactTitleView model: fact, back_button: back_button
     @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
   restoreChannelView: (channel_id, new_callback) ->
