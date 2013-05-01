@@ -15,7 +15,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   restoreTopicView: (slug_title, new_callback) ->
     @restoreChannelView "topic-#{slug_title}", new_callback
 
-  commonTopicViews: (topic) ->
+  showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
     @showUserProfile currentUser
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic, currentUser)
@@ -24,7 +24,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadTopic slug_title, (topic) =>
-      @commonTopicViews(topic)
+      @showSidebarForTopic(topic)
       @restoreTopicView slug_title, => new TopicView model: topic
       @makePermalinkEvent(topic.url())
 
@@ -33,7 +33,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
 
-    topic = @loadTopic slug_title, => @commonTopicViews topic
+    topic = @loadTopic slug_title, => @showSidebarForTopic topic
 
     fact = new Fact(id: fact_id)
     fact.fetch
@@ -61,7 +61,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
     channel
 
-  commonChannelViews: (channel) ->
+  showSidebarForChannel: (channel) ->
     @showRelatedChannels channel
     @showUserProfile channel.user()
     FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, channel.user()
@@ -83,7 +83,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>
-      @commonChannelViews(channel)
+      @showSidebarForChannel(channel)
       @makePermalinkEvent(channel.url())
 
       @restoreChannelView channel_id, => new ChannelView(model: channel)
@@ -97,7 +97,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     FactlinkApp.mainRegion.show(@channel_views)
 
     @loadChannel username, channel_id, (channel) =>
-      @commonChannelViews(channel)
+      @showSidebarForChannel(channel)
       FactlinkApp.Sidebar.activate('stream')
       @makePermalinkEvent(channel.url() + '/activities')
 
