@@ -17,5 +17,11 @@ module Acceptance
       page.select 'Factlinks from people I follow', from: 'channel-topic-switch'
     end
 
+    def within_topic_header &block
+      within(:css, "#channel > header") do
+        yield
+      end
+    end
+
   end
 end
