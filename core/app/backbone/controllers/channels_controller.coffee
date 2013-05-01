@@ -1,19 +1,14 @@
-class window.ChannelsController extends Backbone.Factlink.BaseController
+class window.ChannelsController extends Backbone.Factlink.CachingController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
 
-  onShow:   -> @channel_views = new Backbone.Factlink.DetachedViewCache
-  onClose:  -> @channel_views.cleanup()
-  onAction: -> @unbindFrom @permalink_event if @permalink_event?
-
-  # <topics>
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}
     topic.fetch success: (model) -> callback(model)
     topic
 
   restoreTopicView: (slug_title, new_callback) ->
-    @restoreChannelView "topic-#{slug_title}", new_callback
+    @restoreCachedView "topic-#{slug_title}", new_callback
 
   showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
@@ -22,31 +17,22 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
   getTopicFacts: (slug_title) ->
-    FactlinkApp.mainRegion.show(@channel_views)
+    FactlinkApp.mainRegion.show(@cached_views)
 
     @loadTopic slug_title, (topic) =>
       @showSidebarForTopic(topic)
       @restoreTopicView slug_title, => new TopicView model: topic
       @makePermalinkEvent(topic.url())
 
-  # TODO: refactor this crazy logic into a separate view
   getTopicFact: (slug_title, fact_id, params={}) ->
-    @main = new TabbedMainRegionLayout();
-    FactlinkApp.mainRegion.show(@main)
-
-    topic = @loadTopic slug_title, => @showSidebarForTopic topic
-
-    fact = new Fact(id: fact_id)
-    fact.fetch
-      success: (model, response) =>
-        dv = new DiscussionView(model: model, tab: params.tab)
-        @main.contentRegion.show(dv)
-      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
-
+    topic = @loadTopic slug_title,
+      => @showSidebarForTopic topic
     back_button = new TopicBackButton [], model: topic
-    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
-  # </topics>
+    FactlinkApp.mainRegion.show new DiscussionPageView
+      model: new Fact(id: fact_id)
+      back_button: back_button
+      tab: params.tab
 
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id)
@@ -76,20 +62,20 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       FactlinkApp.leftBottomRegion.close()
 
   showUserProfile: (user)->
-    unless user.is_current_user()
+    if user.is_current_user()
+      FactlinkApp.leftTopRegion.close()
+    else
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
-    else
-      FactlinkApp.leftTopRegion.close()
 
   getChannelFacts: (username, channel_id) ->
-    FactlinkApp.mainRegion.show(@channel_views)
+    FactlinkApp.mainRegion.show(@cached_views)
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       @makePermalinkEvent(channel.url())
 
-      @restoreChannelView channel_id, => new ChannelView(model: channel)
+      @restoreCachedView channel_id, => new ChannelView(model: channel)
 
   # TODO: this is only ever used for the stream,
   #       don't act like this is a general function
@@ -97,14 +83,14 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     # getStream
     FactlinkApp.leftTopRegion.close()
 
-    FactlinkApp.mainRegion.show(@channel_views)
+    FactlinkApp.mainRegion.show(@cached_views)
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       FactlinkApp.Sidebar.activate('stream')
       @makePermalinkEvent(channel.url() + '/activities')
 
-      @restoreChannelView channel_id, =>
+      @restoreCachedView channel_id, =>
         activities = new ChannelActivities([],{ channel: channel })
         new ChannelActivitiesView(model: channel, collection: activities)
 
@@ -112,36 +98,10 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @getChannelFact(username, channel_id, fact_id, for_stream: true)
 
   getChannelFact: (username, channel_id, fact_id, params={}) ->
-    @main = new TabbedMainRegionLayout();
-    FactlinkApp.mainRegion.show(@main)
-
     channel = @loadChannel username, channel_id, (channel) => @showSidebarForChannel channel
-
-    fact = new Fact(id: fact_id)
-    fact.fetch
-      success: (model, response) =>
-        dv = new DiscussionView(model: model, tab: params.tab)
-        @main.contentRegion.show(dv)
-      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
-
     back_button = new ChannelBackButton [], model: channel, for_stream: params.for_stream
-    title_view = new ExtendedFactTitleView model: fact, back_button: back_button
-    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
-  restoreChannelView: (channel_id, new_callback) ->
-    if @lastChannelStatus?
-      view = @channel_views.switchCacheView(channel_id)
-      $('body').scrollTo(@lastChannelStatus.scrollTop) if view == @lastChannelStatus?.view
-      delete @lastChannelStatus
-
-    @channel_views.clearUnshowedViews()
-
-    @channel_views.renderCacheView(channel_id, new_callback()) if not view?
-
-  makePermalinkEvent: (baseUrl) ->
-    FactlinkApp.factlinkBaseUrl = baseUrl
-    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', =>
-      @lastChannelStatus =
-        view: @channel_views.currentView()
-        scrollTop: $('body').scrollTop()
-      $('body').scrollTo(0)
+    FactlinkApp.mainRegion.show new DiscussionPageView
+      model: new Fact(id: fact_id)
+      back_button: back_button
+      tab: params.tab

@@ -1,5 +1,5 @@
 class NotificationsEmptyView extends Backbone.Marionette.ItemView
-   template: "notifications/_notifications"
+   template: "notifications/notifications"
 
 
 class window.NotificationsView extends Backbone.Factlink.CompositeView
@@ -10,7 +10,7 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
   events:
     "click .unread": "clickHandler"
 
-  template: "notifications/_notifications"
+  template: "notifications/notifications"
   initialize: ->
     @itemView = NotificationView
     @setupNotificationsFetch()
@@ -100,5 +100,3 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
 
   _unbindWindowClick: ->
     $(window).off "click.notifications"
-
-_.extend NotificationsView::, TemplateMixin
