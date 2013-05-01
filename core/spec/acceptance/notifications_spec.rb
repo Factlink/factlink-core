@@ -52,11 +52,11 @@ feature "notifications", type: :request do
     open_notifications
 
     within_nth_notification 1 do
-      click_button "follow"
+      click_button 'Follow'
     end
 
     within_nth_notification 1 do
-      find('button', text: 'following')
+      find('button', text: 'Following')
     end
 
     sleep 2 # give ajax requests some time to finish
@@ -65,7 +65,7 @@ feature "notifications", type: :request do
 
     open_notifications
     within_nth_notification 1 do
-      find('button', text: 'following')
+      find('button', text: 'Following')
     end
   end
 end

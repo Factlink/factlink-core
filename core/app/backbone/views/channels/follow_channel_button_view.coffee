@@ -5,9 +5,9 @@ class window.FollowChannelButtonView extends ActionButtonView
     @bindTo @model, 'change', @updateButton, @
 
   templateHelpers: =>
-    disabled_label: Factlink.Global.t.follow
-    disable_label:  Factlink.Global.t.unfollow
-    enabled_label:  Factlink.Global.t.following
+    disabled_label: Factlink.Global.t.follow.capitalize()
+    disable_label:  Factlink.Global.t.unfollow.capitalize()
+    enabled_label:  Factlink.Global.t.following.capitalize()
 
   buttonEnabled: ->
     @model.get('followed?')

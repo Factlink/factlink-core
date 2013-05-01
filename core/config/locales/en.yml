@@ -49,7 +49,7 @@ en:
   topic:  "topic"
   topics: "topics"
   topic_name: "topic name"
-  add_to_topics: "add"
+  add_to_topics: "what is this Factlink about"
   created_user_topic: "started posting to a topic"
   favourites: "favourites"
   favourite: "favorite"
@@ -59,6 +59,8 @@ en:
   ago: "ago"
   show: "show"
   loading: "loading"
+
+  optional: "optional"
 
   fact_added_fact_to_channel_action: "added your Factlink to their channel"
 
