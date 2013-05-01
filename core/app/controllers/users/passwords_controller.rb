@@ -17,9 +17,10 @@ class Users::PasswordsController < Devise::PasswordsController
     @user = User.where(reset_password_token: params[:reset_password_token]).first
 
     if params[:msg] and not @user
-      redirect_to new_user_session_path, notice: 'Your account is already set up. Please log in to continue.'
+      redirect_to new_user_session_path,
+        notice: 'Your account is already set up. Please log in to continue.'
     else
-      render
+      render template
     end
   end
 
@@ -55,9 +56,17 @@ class Users::PasswordsController < Devise::PasswordsController
       sign_in(resource_name, resource)
       respond_with resource, :location => after_sign_in_path_for(resource)
     else
-      respond_with resource
+      respond_with resource, template: template
     end
     # end of copy
+  end
+
+  def template
+    if params[:msg]
+      'users/passwords/setup_account'
+    else
+      'users/passwords/edit'
+    end
   end
 
 end
