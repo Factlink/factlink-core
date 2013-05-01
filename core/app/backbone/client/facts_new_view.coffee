@@ -139,7 +139,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     unless @tooltip("#submit")?
       @tooltipAdd '#submit',
         "You're ready to post this!",
-        "You can add this Factlink to a channel so you can find it more easily later, or post this immediately.",
+        "You can add this Factlink to a " + Factlink.Global.t.topic + " so you can find it more easily later, or post this immediately.",
         { side: 'right', align: 'top', margin: 19, container: @$('.js-finish-popover') }
 
 _.extend window.FactsNewView.prototype, Backbone.Factlink.TooltipMixin
