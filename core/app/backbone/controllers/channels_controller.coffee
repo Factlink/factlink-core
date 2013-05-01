@@ -6,7 +6,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
   onClose:  -> @channel_views.cleanup()
   onAction: -> @unbindFrom @permalink_event if @permalink_event?
 
-  # <topics>
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}
     topic.fetch success: (model) -> callback(model)
@@ -28,24 +27,15 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       @restoreTopicView slug_title, => new TopicView model: topic
       @makePermalinkEvent(topic.url())
 
-  # TODO: refactor this crazy logic into a separate view
   getTopicFact: (slug_title, fact_id, params={}) ->
-    @main = new TabbedMainRegionLayout();
-    FactlinkApp.mainRegion.show(@main)
-
-    topic = @loadTopic slug_title, => @showSidebarForTopic topic
-
-    fact = new Fact(id: fact_id)
-    fact.fetch
-      success: (model, response) =>
-        dv = new DiscussionView(model: model, tab: params.tab)
-        @main.contentRegion.show(dv)
-      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
-
+    topic = @loadTopic slug_title,
+      => @showSidebarForTopic topic
     back_button = new TopicBackButton [], model: topic
-    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
 
-  # </topics>
+    FactlinkApp.mainRegion.show new DiscussionPageView
+      fact_id: fact_id
+      back_button: back_button
+      tab: params.tab
 
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id)
@@ -73,11 +63,11 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       FactlinkApp.leftBottomRegion.close()
 
   showUserProfile: (user)->
-    unless user.is_current_user()
+    if user.is_current_user()
+      FactlinkApp.leftTopRegion.close()
+    else
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
-    else
-      FactlinkApp.leftTopRegion.close()
 
   getChannelFacts: (username, channel_id) ->
     FactlinkApp.mainRegion.show(@channel_views)
@@ -109,20 +99,13 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @getChannelFact(username, channel_id, fact_id, for_stream: true)
 
   getChannelFact: (username, channel_id, fact_id, params={}) ->
-    @main = new TabbedMainRegionLayout();
-    FactlinkApp.mainRegion.show(@main)
-
-    channel = @loadChannel username, channel_id, (channel) => @commonChannelViews channel
-
-    fact = new Fact(id: fact_id)
-    fact.fetch
-      success: (model, response) =>
-        dv = new DiscussionView(model: model, tab: params.tab)
-        @main.contentRegion.show(dv)
-      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
-
+    channel = @loadChannel username, channel_id, (channel) => @showSidebarForChannel channel
     back_button = new ChannelBackButton [], model: channel, for_stream: params.for_stream
-    @main.titleRegion.show new ExtendedFactTitleView model: fact, back_button: back_button
+
+    FactlinkApp.mainRegion.show new DiscussionPageView
+      fact_id: fact_id
+      back_button: back_button
+      tab: params.tab
 
   restoreChannelView: (channel_id, new_callback) ->
     if @lastChannelStatus?
