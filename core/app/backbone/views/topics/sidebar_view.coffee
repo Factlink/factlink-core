@@ -8,7 +8,6 @@ class TopicItemView extends Backbone.Marionette.ItemView
   initialize: ->
     @model.bind('activate', @activeOn, this)
     @model.bind('deactivate', @activeOff, this)
-    @model.bind('change',@render,this)
 
   onRender: -> @activeOn() if @model.isActive()
 
