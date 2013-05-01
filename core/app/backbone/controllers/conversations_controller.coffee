@@ -1,13 +1,11 @@
-app = FactlinkApp
-
 class window.ConversationsController extends Backbone.Factlink.BaseController
 
   routes: ['showConversations', 'showMessages']
 
   onShow: ->
-    app.closeAllContentRegions()
+    FactlinkApp.closeAllContentRegions()
     @main ?= new TabbedMainRegionLayout()
-    app.mainRegion.show(@main)
+    FactlinkApp.mainRegion.show(@main)
 
   showConversations: ->
     @conversations ?= new Conversations()
@@ -20,7 +18,7 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
 
   showMessages: (conversation_id, message_id=null)->
     @main = new TabbedMainRegionLayout()
-    app.mainRegion.show(@main)
+    FactlinkApp.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null, currentUser)
