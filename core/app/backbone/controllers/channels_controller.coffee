@@ -112,7 +112,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
 
-    channel = @loadChannel username, channel_id, (channel) => @commonChannelViews channel
+    channel = @loadChannel username, channel_id, (channel) => @showSidebarForChannel channel
 
     fact = new Fact(id: fact_id)
     fact.fetch
