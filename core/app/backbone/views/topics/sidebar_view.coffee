@@ -1,13 +1,11 @@
 class TopicItemView extends Backbone.Marionette.ItemView
-  _.extend @prototype, ToggleMixin
+  _.extend @prototype, ClassToggleMixin('active')
 
   tagName: 'li'
   className: 'sidebar-item'
   template: 'topics/sidebar/item'
 
   initialize: ->
-    @addClassToggle('active')
-
     @model.bind('activate', @activeOn, this)
     @model.bind('deactivate', @activeOff, this)
     @model.bind('change',@render,this)
