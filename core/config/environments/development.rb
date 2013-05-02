@@ -31,6 +31,8 @@ FactlinkUI::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.logger = Logger.new(STDOUT)
+
   I18n.default_locale = :nl
 
   config.force_ssl = false
@@ -56,8 +58,6 @@ silence_warnings do
     puts "Error: Failed on loading Pry as shell"
   end
 end
-
-Rails.logger = Logger.new(STDOUT)
 
 # cache_classes on, but don't cache views (over requests)
 # http://madebynathan.com/2011/02/10/rails3-is-caching-views-in-development-mode-but-i-told-it-not-to/

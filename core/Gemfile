@@ -17,6 +17,7 @@ gem 'addressable'
 
 # Mongo
 gem 'mongoid', '~> 3.0.21'
+gem 'moped', git: 'git@github.com:Factlink/moped.git', :branch => '1.4.0-stable'
 
 gem 'pavlov', :git => 'git@github.com:Factlink/pavlov.git'
 
