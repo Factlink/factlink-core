@@ -1,7 +1,6 @@
 /* jslint node: true */
 
-var _   = require('underscore');
-var get = require('get');
+var _ = require('underscore');
 
 function getServer(config) {
 
@@ -14,6 +13,10 @@ function getServer(config) {
     server.set('views', __dirname + '/../views');
   });
 
+  /**
+   *  We execute our requests using Restler (supports redirects)
+   */
+  var restler       = require('restler');
   var urlvalidation = require('./urlvalidation');
   var blacklist     = require('./blacklist');
   var urlbuilder    = require('./urlbuilder');
@@ -81,58 +84,56 @@ function getServer(config) {
   }
 
   function handleProxyRequest(res, url, scrollto, modus, form_hash) {
+    var errorhandler = function(data) {
+      res.render('something_went_wrong', {
+        layout: false,
+        locals: {
+          static_url: config.STATIC_URL,
+          proxy_url: config.PROXY_URL,
+          site: url,
+          factlinkModus : modus
+        }
+      });
+    };
+
+    var completehandler = function(data) {
+      injectFactlinkJs(data, site, scrollto, modus, function(html) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(html);
+        res.end();
+      });
+    };
+
+    // Welcome page
+    if ( typeof url !== "string" || url.length === 0) {
+      res.render('welcome.jade',{
+        layout:false,
+        locals: {
+          proxy_url:      config.PROXY_URL,
+          core_url:       config.API_URL,
+          static_url:     config.STATIC_URL,
+          factlinkModus:  modus
+        }
+      });
+      return;
+    }
+
     modus = get_modus(modus);
 
-    if ( typeof url !== "string" || url.length === 0) {
-      renderWelcomePage(res, modus);
+    // A site is needed
+    site = urlvalidation.clean_url(url);
+    if (site === undefined) {
+      errorhandler({});
       return;
-    } else {
-      site = urlvalidation.clean_url(url);
-      if (site === undefined) {
-        renderErrorPage(res, url, modus);
-      } else {
-        get(site).asString(function(err, str) {
-          if(err) {
-            renderErrorPage(res, url, modus);
-          } else {
-            renderProxiedPage(res, site, scrollto, modus, str);
-          }
-        });
-      }
     }
+
+    var request = restler.get(site, form_hash);
+
+    // Handle states
+    request.on('complete',  _.once(completehandler));
+    request.on('error',     _.once(errorhandler));
   }
 
-  function renderProxiedPage(res, site, scrollto, modus, html_in) {
-    injectFactlinkJs(html_in, site, scrollto, modus, function(html) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(html);
-      res.end();
-    });
-  }
-
-  function renderErrorPage(res, url, modus){
-    res.render('something_went_wrong', {
-      layout: false,
-      locals: {
-        static_url: config.STATIC_URL,
-        proxy_url: config.PROXY_URL,
-        site: url,
-        factlinkModus : modus
-      }
-    });
-  }
-
-  function renderWelcomePage(res, modus){
-    res.render('welcome.jade',{
-      layout:false,
-      locals: {
-        proxy_url:      config.PROXY_URL,
-        core_url:       config.API_URL,
-        static_url:     config.STATIC_URL,
-        factlinkModus:  modus
-      }
-    });
-  }
 
   /**
    *  Render a jade template

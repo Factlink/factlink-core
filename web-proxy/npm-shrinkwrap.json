@@ -4,123 +4,80 @@
   "dependencies": {
     "express": {
       "version": "2.5.9",
-      "from": "express@2.5.9",
-      "resolved": "https://registry.npmjs.org/express/-/express-2.5.9.tgz",
       "dependencies": {
         "connect": {
-          "version": "1.9.2",
-          "from": "connect@1.9.2",
-          "resolved": "https://registry.npmjs.org/connect/-/connect-1.9.2.tgz",
+          "version": "1.8.7",
           "dependencies": {
             "qs": {
-              "version": "0.6.1",
-              "from": "qs@0.6.1",
-              "resolved": "https://registry.npmjs.org/qs/-/qs-0.6.1.tgz"
+              "version": "0.5.0"
             },
             "mime": {
-              "version": "1.2.9",
-              "from": "mime@1.2.9",
-              "resolved": "https://registry.npmjs.org/mime/-/mime-1.2.9.tgz"
+              "version": "1.2.5"
             },
             "formidable": {
-              "version": "1.0.13",
-              "from": "formidable@1.0.x",
-              "resolved": "https://registry.npmjs.org/formidable/-/formidable-1.0.13.tgz"
+              "version": "1.0.11"
             }
           }
         },
         "mime": {
-          "version": "1.2.4",
-          "from": "mime@1.2.4",
-          "resolved": "https://registry.npmjs.org/mime/-/mime-1.2.4.tgz"
+          "version": "1.2.4"
         },
         "qs": {
-          "version": "0.4.2",
-          "from": "qs@0.4.2",
-          "resolved": "https://registry.npmjs.org/qs/-/qs-0.4.2.tgz"
+          "version": "0.4.2"
         },
         "mkdirp": {
-          "version": "0.3.0",
-          "from": "mkdirp@0.3.0",
-          "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.0.tgz"
+          "version": "0.3.0"
         }
       }
     },
     "jade": {
       "version": "0.26.1",
-      "from": "jade@0.26.1",
-      "resolved": "https://registry.npmjs.org/jade/-/jade-0.26.1.tgz",
       "dependencies": {
         "commander": {
-          "version": "0.5.2",
-          "from": "commander@0.5.2",
-          "resolved": "https://registry.npmjs.org/commander/-/commander-0.5.2.tgz"
+          "version": "0.5.2"
         },
         "mkdirp": {
-          "version": "0.3.0",
-          "from": "mkdirp@0.3.0",
-          "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.0.tgz"
+          "version": "0.3.0"
         }
       }
     },
     "restler": {
-      "version": "2.0.1",
-      "from": "restler@2.0.1",
-      "resolved": "https://registry.npmjs.org/restler/-/restler-2.0.1.tgz"
-    },
-    "get": {
-      "version": "1.2.1",
-      "from": "get@1.2.1",
-      "resolved": "https://registry.npmjs.org/get/-/get-1.2.1.tgz"
+      "version": "2.0.1"
     },
     "yaml": {
-      "version": "0.2.3",
-      "from": "yaml@0.2.3",
-      "resolved": "https://registry.npmjs.org/yaml/-/yaml-0.2.3.tgz"
+      "version": "0.2.3"
     },
     "validator": {
-      "version": "0.4.6-2",
-      "from": "validator@0.4.6-2"
+      "version": "0.4.6-2"
     },
     "expresso": {
-      "version": "0.9.2",
-      "from": "expresso@0.9.2",
-      "resolved": "https://registry.npmjs.org/expresso/-/expresso-0.9.2.tgz"
+      "version": "0.9.2"
     },
     "underscore": {
-      "version": "1.4.4",
-      "from": "underscore@1.4.4",
-      "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.4.4.tgz"
+      "version": "1.4.4"
     },
     "jshint": {
       "version": "0.7.1",
-      "from": "jshint@0.7.1",
       "dependencies": {
         "cli": {
           "version": "0.4.3",
-          "from": "cli@0.4.3",
           "dependencies": {
             "glob": {
               "version": "3.1.9",
-              "from": "glob@3.1.9",
               "dependencies": {
                 "minimatch": {
                   "version": "0.2.5",
-                  "from": "minimatch@0.2.5",
                   "dependencies": {
                     "lru-cache": {
-                      "version": "1.1.0",
-                      "from": "lru-cache@1.1.0"
+                      "version": "1.1.0"
                     }
                   }
                 },
                 "graceful-fs": {
-                  "version": "1.1.8",
-                  "from": "graceful-fs@1.1.8"
+                  "version": "1.1.8"
                 },
                 "inherits": {
-                  "version": "1.0.0",
-                  "from": "inherits@1.0.0"
+                  "version": "1.0.0"
                 }
               }
             }
@@ -128,11 +85,9 @@
         },
         "minimatch": {
           "version": "0.0.5",
-          "from": "minimatch@0.0.5",
           "dependencies": {
             "lru-cache": {
-              "version": "1.0.6",
-              "from": "lru-cache@1.0.6"
+              "version": "1.0.6"
             }
           }
         }
