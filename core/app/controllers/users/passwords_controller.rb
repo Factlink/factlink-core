@@ -42,7 +42,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
     if resource.errors.empty?
       sign_in(resource_name, resource)
-      respond_with resource, :location => after_sign_in_path_for(resource)
+      respond_with resource, location: after_sign_in_path_for(resource)
     else
       respond_with resource, template: 'users/passwords/setup_account'
     end    
