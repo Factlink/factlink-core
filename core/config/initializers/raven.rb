@@ -10,10 +10,13 @@ if sentry_conf
     config.processors = [Raven::Processor::SanitizeData]
   end
 
-  stdout_logger = Logger.new(STDOUT)
-
   Moped::Connection.class_eval do
     alias :unchecked_connect :connect unless method_defined?(:unchecked_connect)
+
+    def stdout_logger
+      @stdout_logger ||= Logger.new(STDOUT)
+    end
+
     def connect
       unchecked_connect
     rescue StandardError => exception
