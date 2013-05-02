@@ -35,6 +35,7 @@ nl:
   channels: "kanalen"
 
   follow: "volgen"
+  follow_user: "gebruiker volgen"
   followed: "volgt"
   following: "volgend"
   unfollow: "ontvolgen"

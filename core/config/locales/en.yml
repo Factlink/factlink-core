@@ -34,6 +34,7 @@ en:
   channels: "channels"
 
   follow: "follow"
+  follow_user: "follow user"
   followed: "followed"
   following: "following"
   unfollow: "unfollow"
