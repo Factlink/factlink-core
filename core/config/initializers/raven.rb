@@ -10,6 +10,8 @@ if sentry_conf
     config.processors = [Raven::Processor::SanitizeData]
   end
 
+  stdout_logger = Logger.new(STDOUT)
+
   Moped::Connection.class_eval do
     alias :unchecked_connect :connect unless method_defined?(:unchecked_connect)
     def connect
@@ -18,7 +20,7 @@ if sentry_conf
       begin
         Raven.captureException(exception)
       rescue
-        Rails.logger.error("Could not connect to Sentry")
+        stdout_logger.error("Could not connect to Sentry")
       end
       raise
     end

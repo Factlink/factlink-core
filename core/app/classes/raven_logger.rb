@@ -24,10 +24,18 @@ class RavenLogger < Logger
     # End copy
 
     if severity >= raven_minimum_level
-      Raven.capture_message(message)
+      begin
+        Raven.captureMessage(message)
+      rescue
+        stdout_logger.error("Could not connect to Sentry")
+      end
     end
 
     super(severity, message, progname)
+  end
+
+  def stdout_logger
+    @stdout_logger ||= Logger.new(STDOUT)
   end
 
 end
