@@ -8,7 +8,7 @@ class window.FavouriteTopicButtonView extends ActionButtonView
     @bindTo @user.favourite_topics, 'add remove change reset', @updateButton, @
 
   templateHelpers: =>
-    disabled_label: Factlink.Global.t.favourite.capitalize()
+    disabled_label: Factlink.Global.t.follow_topic.capitalize()
     disable_label:  Factlink.Global.t.unfavourite.capitalize()
     enabled_label:  Factlink.Global.t.favourited.capitalize()
 

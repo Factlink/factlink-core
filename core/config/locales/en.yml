@@ -35,6 +35,7 @@ en:
 
   follow: "follow"
   follow_user: "follow user"
+  follow_topic: "follow topic"
   followed: "followed"
   following: "following"
   unfollow: "unfollow"

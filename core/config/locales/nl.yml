@@ -36,6 +36,7 @@ nl:
 
   follow: "volgen"
   follow_user: "gebruiker volgen"
+  follow_topic: "onderwerp volgen"
   followed: "volgt"
   following: "volgend"
   unfollow: "ontvolgen"
