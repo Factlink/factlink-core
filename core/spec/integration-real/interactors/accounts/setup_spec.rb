@@ -47,7 +47,7 @@ describe 'setting up an account' do
     end
 
     it 'returns a user with errors if no user could be found for the reset_password_token' do
-      user = nil
+      returned_user = nil
 
       attributes = {
         reset_password_token: 'some token',
@@ -58,11 +58,56 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.interactor :'accounts/setup_approved',
             attributes[:reset_password_token], attributes
       end
 
-      expect(user.errors.size).to eq 1
+      expect(returned_user.errors.size).to eq 1
+      expect(returned_user.errors[:reset_password_token]).to match_array ["is invalid"]
+    end
+
+    it 'returns a user with errors if no first name was given' do
+      user = create_approved_user 'username', 'example@example.org'
+      returned_user = nil
+
+      attributes = {
+        reset_password_token: user.reset_password_token,
+        password: 'example',
+        password_confirmation: 'example',
+        first_name: '',
+        last_name: 'Pietersen'
+      }
+
+      as(anonymous) do |pavlov|
+        returned_user = pavlov.interactor :'accounts/setup_approved',
+            user.reset_password_token, attributes
+      end
+
+      expect(returned_user.errors.size).to eq 1
+      expect(returned_user.errors[:first_name]).to match_array ["is required"]
+    end
+
+    it 'returns a user with errors if the passwords don\'t match' do
+      user = create_approved_user 'username', 'example@example.org'
+      returned_user = nil
+
+      attributes = {
+        reset_password_token: user.reset_password_token,
+        password: 'example',
+        password_confirmation: 'example2',
+        first_name: 'Henk',
+        last_name: 'Pietersen'
+      }
+
+      as(anonymous) do |pavlov|
+        returned_user = pavlov.interactor :'accounts/setup_approved',
+            user.reset_password_token, attributes
+      end
+
+      puts returned_user.errors.inspect
+
+      expect(returned_user.errors.size).to eq 1
+      expect(returned_user.errors[:password]).to match_array ["doesn't match confirmation"]
     end
   end
 end
