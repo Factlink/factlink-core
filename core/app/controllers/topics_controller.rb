@@ -1,9 +1,4 @@
 class TopicsController < ApplicationController
-  def related_user_channels
-    @channels = top_channels_for_topic(topic)
-    render 'channels/index'
-  end
-
   def show
     backbone_responder do
       @topic = topic
@@ -36,10 +31,6 @@ class TopicsController < ApplicationController
   private
     def get_top_channels
       interactor :'channels/top', 12
-    end
-
-    def top_channels_for_topic topic
-      interactor :'channels/top_for_topic', topic
     end
 
     def topic
