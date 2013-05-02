@@ -258,32 +258,4 @@ describe User do
     end
   end
 
-  describe '#reset_password_and_set_other_attributes_by_token' do
-    before do
-      stub_const 'UserMailer', Class.new
-      UserMailer.stub welcome_instructions: mock(deliver: nil)
-    end
-
-    let(:user) do
-      user = User.new
-      user.username = 'username'
-      user.email = 'example@example.org'
-      user.save validate: false
-      user.send_welcome_instructions
-      user
-    end
-
-    it 'resets the password' do
-      attributes = {
-        reset_password_token: user.reset_password_token,
-        password: 'example',
-        password_confirmation: 'example'
-      }
-
-      User.reset_password_and_set_other_attributes_by_token(attributes)
-
-      updated_user = User.find(user.id)
-      expect(updated_user.valid_password?(attributes[:password])).to be_true
-    end
-  end
 end
