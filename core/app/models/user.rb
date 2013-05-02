@@ -311,4 +311,11 @@ class User
     self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 
+  def self.reset_password_and_set_other_attributes_by_token(attributes)
+    user = find_or_initialize_with_error_by(:reset_password_token, attributes[:reset_password_token])
+    user.password = attributes[:password]
+    user.password_confirmation = attributes[:password_confirmation]
+    user.save validate: false
+    user
+  end
 end
