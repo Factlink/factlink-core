@@ -5,7 +5,7 @@ class window.FollowUserButtonView extends ActionButtonView
     @bindTo @model.followers, 'change', @updateButton, @
 
   templateHelpers: =>
-    disabled_label: Factlink.Global.t.follow.capitalize()
+    disabled_label: Factlink.Global.t.follow_user.capitalize()
     disable_label:  Factlink.Global.t.unfollow.capitalize()
     enabled_label:  Factlink.Global.t.following.capitalize()
 
