@@ -9,8 +9,8 @@ class window.FavouriteTopicButtonView extends ActionButtonView
 
   templateHelpers: =>
     disabled_label: Factlink.Global.t.follow_topic.capitalize()
-    disable_label:  Factlink.Global.t.unfavourite.capitalize()
-    enabled_label:  Factlink.Global.t.favourited.capitalize()
+    disable_label:  Factlink.Global.t.unfollow.capitalize()
+    enabled_label:  Factlink.Global.t.followed.capitalize()
 
   buttonEnabled: ->
     @model.get('slug_title') in @user.favourite_topics.pluck('slug_title')
