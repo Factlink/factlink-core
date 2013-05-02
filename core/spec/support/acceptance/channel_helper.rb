@@ -37,6 +37,10 @@ module Acceptance
       find('#channel > header h1', text: channel_title)
     end
 
+    def assert_on_stream
+      find('#channel > header h1', text: 'Feed')
+    end
+
     def within_channel_header &block
       within(:css, "#channel > header") do
         yield
