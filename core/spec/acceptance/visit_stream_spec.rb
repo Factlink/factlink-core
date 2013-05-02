@@ -39,17 +39,17 @@ feature "visiting the stream" do
     end
 
     sign_in_user @user
+
     go_to_stream
+    go_to_first_fact
+    go_to_stream
+    assert_on_stream
 
     sleep 1
-
     set_scroll_top_to 100
-
     go_to_first_fact
     go_back_using_button
-
     sleep 3
-
     scroll_top_should_eq 100
   end
 end
