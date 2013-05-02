@@ -160,4 +160,28 @@ describe 'user following' do
     end
   end
 
+  describe 'posing as someone else' do
+    it 'should not be allowed' do
+      as(user1) do |pavlov|
+        expect {pavlov.interactor :'users/follow_user', user2.username, user3.username}.
+          to raise_error
+      end
+    end
+
+    it 'should have no followers and following' do
+      as(user1) do |pavlov|
+        begin
+          pavlov.interactor :'users/follow_user', user2.username, user3.username
+        rescue
+        end
+
+        followers = pavlov.interactor :'users/followers', user2.username, 0, 10
+        expect(followers[0].size).to eq 0
+
+        following = pavlov.interactor :'users/following', user2.username, 0, 10
+        expect(following[0].size).to eq 0
+      end
+    end
+  end
+
 end
