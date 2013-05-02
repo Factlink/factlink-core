@@ -1,4 +1,5 @@
 var restler       = require('restler');
+var _             = require('underscore');
 
 var API_URL,
     API_OPTIONS;
@@ -19,19 +20,21 @@ function if_allowed(url, successFn, errorFn) {
     options.password = API_OPTIONS.password
   }
 
+  onceSuccessFn = _.once(successFn);
+
   restler.get(factlink_blacklist_url, options)
-  .on('complete', function(data) {
+  .on('complete', _.once(function(data) {
     if ("blacklisted" in data) {
       errorFn();
     } else {
-      successFn();
+      onceSuccessFn();
     }
-  })
-  .on('error', function(data) {
+  }))
+  .on('error', _.once(function(data) {
     // In case something went wrong with the call to the blacklist API,
     // allow the site.
-    successFn();
-  });
+    onceSuccessFn();
+  }));
 }
 
 exports.set_API_URL = set_API_URL;

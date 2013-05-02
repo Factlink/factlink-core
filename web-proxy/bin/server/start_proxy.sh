@@ -10,4 +10,4 @@ cd $PROXY_PATH;
 export NODE_ENV=$ENVIRONMENT;
 
 npm install;
-forever start server.js;
+forever start -l /var/log/factlink-proxy.log -a server.js;

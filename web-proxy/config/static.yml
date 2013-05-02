@@ -14,21 +14,21 @@ test:
 
 testserver:
   static:
-    hostname: static-testserver.factlink.com
+    hostname: factlink-static-testserver.inverselink.com
     port: 443
     protocol: https://
     salt: 'tJx,RiGj:\(HPunB0.FX'
 
 staging:
   static:
-    hostname: static-staging.factlink.com
+    hostname: factlink-static-staging.inverselink.com
     port: 443
     protocol: https://
     salt: 'tJx,RiGj:\(HPunB0.FX'
 
 production:
   static:
-    hostname: static-beta.factlink.com
+    hostname: static.factlink.com
     port: 443
     protocol: https://
     salt: 'tJx,RiGj:\(HPunB0.FX'

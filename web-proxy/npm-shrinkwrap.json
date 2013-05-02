@@ -92,6 +92,9 @@
       "from": "underscore@1.4.4",
       "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.4.4.tgz"
     },
+    "underscore": {
+      "version": "1.4.4"
+    },
     "jshint": {
       "version": "0.7.1",
       "from": "jshint@0.7.1",

@@ -46,7 +46,7 @@ function getServer(config) {
   /**
    * Add base url and inject proxy.js, and return the proxied site
    */
-  function injectFactlinkJs(html_in, site, scrollto, modus, successFn, errorFn) {
+  function injectFactlinkJs(html_in, site, scrollto, modus, successFn) {
     var FactlinkConfig = {
       modus: modus,
       api: config.API_URL,
