@@ -61,8 +61,6 @@ nl:
   show: "toon"
   loading: "laden"
 
-  optional: "optioneel"
-
   fact_added_fact_to_channel_action: "heeft jouw Factlink toegevoegd aan zijn/haar kanaal"
 
   facts:

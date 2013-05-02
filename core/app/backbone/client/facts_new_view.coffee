@@ -47,7 +47,6 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
     fact_text: @options.fact_text
     title: @options.title
     url: @options.url
-    optional: Factlink.Global.t.optional
     add_to_topic_header: Factlink.Global.t.add_to_topics.capitalize()
     csrf_token: @options.csrf_token
     guided: FactlinkApp.guided

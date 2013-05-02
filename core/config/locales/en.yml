@@ -60,8 +60,6 @@ en:
   show: "show"
   loading: "loading"
 
-  optional: "optional"
-
   fact_added_fact_to_channel_action: "added your Factlink to their channel"
 
   facts:
