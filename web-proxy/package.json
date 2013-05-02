@@ -15,7 +15,8 @@
     "yaml":"0.2.3",
     "validator": "",
     "expresso": "0.9.2",
-  "jshint": ""
+    "underscore": "1.4.4",
+    "jshint": ""
   },
   "devDependencies": {}
 }
