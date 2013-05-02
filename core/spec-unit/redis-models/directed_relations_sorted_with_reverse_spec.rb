@@ -1,12 +1,12 @@
-require_relative '../../app/redis-models/many_to_many_sorted_double_relation'
+require_relative '../../app/redis-models/directed_relations_sorted_with_reverse'
 
-describe ManyToManySortedDoubleRelation do
+describe DirectedRelationsSortedWithReverse do
 
   let(:relation_key) { mock }
   let(:reverse_relation_key) { mock }
   let(:relation_key_list) { mock }
   let(:reverse_relation_key_list) { mock }
-  let(:many_to_many_sorted_double_relation) { ManyToManySortedDoubleRelation.new nest_key }
+  let(:directed_relations_sorted_with_reverse) { DirectedRelationsSortedWithReverse.new nest_key }
 
   let(:nest_key) do
     nest_key = mock
@@ -22,7 +22,7 @@ describe ManyToManySortedDoubleRelation do
         to_id = mock
         score = mock
 
-        many_to_many_sorted_double_relation.stub(:has?).and_return(false)
+        directed_relations_sorted_with_reverse.stub(:has?).and_return(false)
 
         relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
         reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
@@ -30,7 +30,7 @@ describe ManyToManySortedDoubleRelation do
         relation_key_list.should_receive(:zadd).with(score, to_id)
         reverse_relation_key_list.should_receive(:zadd).with(score, from_id)
 
-        many_to_many_sorted_double_relation.add(from_id, to_id, score)
+        directed_relations_sorted_with_reverse.add(from_id, to_id, score)
       end
     end
 
@@ -40,9 +40,9 @@ describe ManyToManySortedDoubleRelation do
         to_id = mock
         score = mock
 
-        many_to_many_sorted_double_relation.stub(:has?).and_return(true)
+        directed_relations_sorted_with_reverse.stub(:has?).and_return(true)
 
-        many_to_many_sorted_double_relation.add(from_id, to_id, score)
+        directed_relations_sorted_with_reverse.add(from_id, to_id, score)
       end
     end
   end
@@ -54,7 +54,7 @@ describe ManyToManySortedDoubleRelation do
         to_id = mock
         score = mock
 
-        many_to_many_sorted_double_relation.stub(:has?).and_return(false)
+        directed_relations_sorted_with_reverse.stub(:has?).and_return(false)
 
         relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
         reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
@@ -62,7 +62,7 @@ describe ManyToManySortedDoubleRelation do
         relation_key_list.should_receive(:zadd).with(score, to_id)
         reverse_relation_key_list.should_receive(:zadd).with(score, from_id)
 
-        many_to_many_sorted_double_relation.replace(from_id, to_id, score)
+        directed_relations_sorted_with_reverse.replace(from_id, to_id, score)
       end
     end
 
@@ -72,7 +72,7 @@ describe ManyToManySortedDoubleRelation do
         to_id = mock
         score = mock
 
-        many_to_many_sorted_double_relation.stub(:has?).and_return(true)
+        directed_relations_sorted_with_reverse.stub(:has?).and_return(true)
 
         relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
         reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
@@ -80,7 +80,7 @@ describe ManyToManySortedDoubleRelation do
         relation_key_list.should_receive(:zadd).with(score, to_id)
         reverse_relation_key_list.should_receive(:zadd).with(score, from_id)
 
-        many_to_many_sorted_double_relation.replace(from_id, to_id, score)
+        directed_relations_sorted_with_reverse.replace(from_id, to_id, score)
       end
     end
   end
@@ -96,7 +96,7 @@ describe ManyToManySortedDoubleRelation do
       relation_key_list.should_receive(:zrem).with(to_id)
       reverse_relation_key_list.should_receive(:zrem).with(from_id)
 
-      many_to_many_sorted_double_relation.remove(from_id, to_id)
+      directed_relations_sorted_with_reverse.remove(from_id, to_id)
     end
   end
 
@@ -108,7 +108,7 @@ describe ManyToManySortedDoubleRelation do
       relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.should_receive(:zrange).with(0, -1).and_return(ids)
 
-      expect(many_to_many_sorted_double_relation.ids(from_id)).to eq ids
+      expect(directed_relations_sorted_with_reverse.ids(from_id)).to eq ids
     end
   end
 
@@ -120,7 +120,7 @@ describe ManyToManySortedDoubleRelation do
       reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
       reverse_relation_key_list.should_receive(:zrange).with(0, -1).and_return(ids)
 
-      expect(many_to_many_sorted_double_relation.reverse_ids(to_id)).to eq ids
+      expect(directed_relations_sorted_with_reverse.reverse_ids(to_id)).to eq ids
     end
   end
 
@@ -136,7 +136,7 @@ describe ManyToManySortedDoubleRelation do
       reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
       reverse_relation_key_list.stub(:sismember).with(from_id).and_return(result)
 
-      expect(many_to_many_sorted_double_relation.has?(from_id, to_id)).to eq true
+      expect(directed_relations_sorted_with_reverse.has?(from_id, to_id)).to eq true
     end
   end
 end

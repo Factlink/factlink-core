@@ -1,6 +1,6 @@
 require 'redis-aid'
 
-class ManyToManySingleRelation
+class DirectedRelations
   attr_reader :relation_key
 
   def initialize nest_key

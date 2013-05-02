@@ -1,10 +1,10 @@
-require_relative '../../app/redis-models/many_to_many_single_relation'
+require_relative '../../app/redis-models/directed_relations'
 
-describe ManyToManySingleRelation do
+describe DirectedRelations do
 
   let(:relation_key) { mock }
   let(:relation_key_list) { mock }
-  let(:many_to_many_single_relation) { ManyToManySingleRelation.new nest_key }
+  let(:directed_relations) { DirectedRelations.new nest_key }
 
   let(:nest_key) do
     nest_key = mock
@@ -20,7 +20,7 @@ describe ManyToManySingleRelation do
       relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.should_receive(:sadd).with(to_id)
 
-      many_to_many_single_relation.add(from_id, to_id)
+      directed_relations.add(from_id, to_id)
     end
   end
 
@@ -32,7 +32,7 @@ describe ManyToManySingleRelation do
       relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.should_receive(:srem).with(to_id)
 
-      many_to_many_single_relation.remove(from_id, to_id)
+      directed_relations.remove(from_id, to_id)
     end
   end
 
@@ -44,7 +44,7 @@ describe ManyToManySingleRelation do
       relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.should_receive(:smembers).and_return(ids)
 
-      expect(many_to_many_single_relation.ids(from_id)).to eq ids
+      expect(directed_relations.ids(from_id)).to eq ids
     end
   end
 
@@ -57,7 +57,7 @@ describe ManyToManySingleRelation do
       relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.stub(:sismember).with(to_id).and_return(result)
 
-      expect(many_to_many_single_relation.has?(from_id, to_id)).to eq result
+      expect(directed_relations.has?(from_id, to_id)).to eq result
     end
   end
 end

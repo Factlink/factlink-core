@@ -1,6 +1,6 @@
 require 'redis-aid'
 
-class ManyToManySortedDoubleRelation
+class DirectedRelationsSortedWithReverse
   attr_reader :relation_key
   attr_reader :reverse_relation_key
 
