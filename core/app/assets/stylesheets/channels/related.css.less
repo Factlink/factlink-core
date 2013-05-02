@@ -1,31 +1,6 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-.related-channels-for-channel {
-
-  > ul {
-    margin: 10px 0 0 0;
-
-    &.not_my_channel {
-      a.follow {
-        display: none;
-      }
-
-      div.wrapper {
-        > a,
-        > div {
-          width: 120px;
-        }
-      }
-    }
-  }
-
-  .related-user {
-    color: @metaFontColor;
-    font-size: 12px;
-  }
-}
-
 .related-channel-container {
   padding-bottom: @baseLineHeight / 2;
   overflow: auto;

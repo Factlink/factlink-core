@@ -49,17 +49,10 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
     channel
 
   showSidebarForChannel: (channel) ->
-    @showRelatedChannels channel
     user = channel.user()
     @showUserProfile user
     window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
     FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, user
-
-  showRelatedChannels: (channel)->
-    if channel.get('is_normal')
-      FactlinkApp.leftBottomRegion.show(new RelatedChannelsView(model: channel))
-    else
-      FactlinkApp.leftBottomRegion.close()
 
   showUserProfile: (user)->
     if user.is_current_user()
