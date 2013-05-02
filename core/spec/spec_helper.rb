@@ -66,6 +66,11 @@ module Devise
         def password_digest(password)
           password
         end
+
+        def valid_password?(password)
+          return false if encrypted_password.blank?
+          encrypted_password == password
+        end
     end
   end
 end
