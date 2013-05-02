@@ -17,10 +17,7 @@ class window.TopicHeaderView extends Backbone.Marionette.ItemView
 
   templateHelpers: =>
     stream_title: Factlink.Global.t.stream.capitalize()
-    channel_listing_header: if Factlink.Global.can_haz.favourites
-                              Factlink.Global.t.favourites.capitalize()
-                            else
-                              Factlink.Global.t.topics.capitalize()
+    channel_listing_header: Factlink.Global.t.topics.capitalize()
 
 
   initialize: =>
