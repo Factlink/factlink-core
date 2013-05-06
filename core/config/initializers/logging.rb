@@ -1,1 +1,1 @@
-Moped.logger = Mongoid.logger = Rails.logger
+Moped.logger = RavenLogger.new(STDOUT)
