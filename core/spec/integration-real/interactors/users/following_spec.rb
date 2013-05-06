@@ -170,10 +170,8 @@ describe 'user following' do
 
     it 'should have no followers and following' do
       as(user1) do |pavlov|
-        begin
-          pavlov.interactor :'users/follow_user', user2.username, user3.username
-        rescue
-        end
+        expect {pavlov.interactor :'users/follow_user', user2.username, user3.username}.
+          to raise_error
 
         followers = pavlov.interactor :'users/followers', user2.username, 0, 10
         expect(followers[0].size).to eq 0
