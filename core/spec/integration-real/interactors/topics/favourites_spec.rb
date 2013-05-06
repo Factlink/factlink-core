@@ -5,9 +5,6 @@ describe 'favouriting topics' do
 
   let(:user1)   { create :user }
   let(:user2)   { create :user }
-  let(:topic1)  { create :topic }
-  let(:topic2)  { create :topic }
-  let(:ability) { mock(can?: true) }
 
   before do
     Interactors::Topics::Favourite.any_instance.stub :track
