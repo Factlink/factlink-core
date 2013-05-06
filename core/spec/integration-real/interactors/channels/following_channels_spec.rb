@@ -91,4 +91,20 @@ describe 'following a channel' do
       foo_ch.containing_channels.ids.should =~ [third_ch.id]
     end
   end
+
+  it "following a channel favourites the topic" do
+    ch1= ()
+
+    as(other_user) do |pavlov|
+      ch1 = pavlov.command :'channels/create', 'Foo'
+    end
+
+    as current_user do |pavlov|
+      pavlov.interactor :'channels/follow', ch1.id
+
+      favourites = pavlov.interactor :'topics/favourites', current_user.username
+      favourites_slugs = favourites.map(&:slug_title)
+      expect(favourites_slugs).to match_array [ch1.slug_title]
+    end
+  end
 end
