@@ -37,8 +37,6 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id)
 
-    mp_track("mp_page_view", {mp_page: window.location.href})
-
     if (channel)
       callback(channel)
     else
