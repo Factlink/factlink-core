@@ -1,144 +1,184 @@
 require 'spec_helper'
 
 describe 'user following' do
-  include Pavlov::Helpers
+  include PavlovSupport
 
-  let(:current_user) { create :user }
-  let(:other_user)   { create :user }
-  let(:third_user)   { create :user }
-
-  def pavlov_options
-    {current_user: current_user}
-  end
+  let(:user1) { create :user }
+  let(:user2) { create :user }
+  let(:user3) { create :user }
 
   describe 'following a user' do
     before do
-      interactor :'users/follow_user', current_user.username, other_user.username
-      interactor :'users/follow_user', current_user.username, third_user.username
+      as(user1) do |pavlov|
+        pavlov.interactor :'users/follow_user', user1.username, user2.username
+        pavlov.interactor :'users/follow_user', user1.username, user3.username
+      end
     end
 
     describe 'followers' do
       it 'returns that the current user has no followers' do
-        result = interactor :'users/followers', current_user.username, 0, 10
-
-        expect(result[0].size).to eq 0
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/followers', user1.username, 0, 10
+          expect(result[0].size).to eq 0
+        end
       end
 
-      it 'returns that the other user has current_user as follower' do
-        result = interactor :'users/followers', other_user.username, 0, 10
-
-        expect(result[0].size).to eq 1
-        expect(result[0][0].username).to eq current_user.username
+      it 'returns that the other user has user1 as follower' do
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/followers', user2.username, 0, 10
+          expect(result[0].size).to eq 1
+          expect(result[0][0].username).to eq user1.username
+        end
       end
     end
 
     describe 'following' do
-      it 'returns that the current user follows other_user and third_user' do
-        result = interactor :'users/following', current_user.username, 0, 10
-
-        expect(result[0].size).to eq 2
-        expect(result[0][0].username).to eq other_user.username
-        expect(result[0][1].username).to eq third_user.username
+      it 'returns that the current user follows user2 and user3' do
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/following', user1.username, 0, 10
+          expect(result[0].size).to eq 2
+          expect(result[0][0].username).to eq user2.username
+          expect(result[0][1].username).to eq user3.username
+        end
       end
 
       it 'returns that the other user is not following users' do
-        result = interactor :'users/following', other_user.username, 0, 10
-
-        expect(result[0].size).to eq 0
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/following', user2.username, 0, 10
+          expect(result[0].size).to eq 0
+        end
       end
     end
   end
 
   describe 'unfollowing a user' do
     before do
-      interactor :'users/follow_user', current_user.username, other_user.username
-      interactor :'users/unfollow_user', current_user.username, other_user.username
+      as(user1) do |pavlov|
+        pavlov.interactor :'users/follow_user', user1.username, user2.username
+        pavlov.interactor :'users/unfollow_user', user1.username, user2.username
+      end
     end
 
     describe 'followers' do
       it 'returns that the current user has no followers' do
-        result = interactor :'users/followers', current_user.username, 0, 10
-
-        expect(result[0].size).to eq 0
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/followers', user1.username, 0, 10
+          expect(result[0].size).to eq 0
+        end
       end
 
       it 'returns that the other user has no followers' do
-        result = interactor :'users/followers', other_user.username, 0, 10
-
-        expect(result[0].size).to eq 0
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/followers', user2.username, 0, 10
+          expect(result[0].size).to eq 0
+        end
       end
     end
 
     describe 'following' do
       it 'returns that the current user is not following users' do
-        result = interactor :'users/following', current_user.username, 0, 10
-
-        expect(result[0].size).to eq 0
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/following', user1.username, 0, 10
+          expect(result[0].size).to eq 0
+        end
       end
 
       it 'returns that the other user is not following users' do
-        result = interactor :'users/following', other_user.username, 0, 10
-
-        expect(result[0].size).to eq 0
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/following', user2.username, 0, 10
+          expect(result[0].size).to eq 0
+        end
       end
     end
   end
 
   describe 'unfollowing, following multiple times' do
     before do
-      interactor :'users/unfollow_user', current_user.username, other_user.username
-      interactor :'users/follow_user', current_user.username, other_user.username
-      interactor :'users/follow_user', current_user.username, other_user.username
+      as(user1) do |pavlov|
+        pavlov.interactor :'users/unfollow_user', user1.username, user2.username
+        pavlov.interactor :'users/follow_user', user1.username, user2.username
+        pavlov.interactor :'users/follow_user', user1.username, user2.username
+      end
     end
 
     describe 'followers' do
       it 'returns that the current user has no followers' do
-        result = interactor :'users/followers', current_user.username, 0, 10
-
-        expect(result[0].size).to eq 0
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/followers', user1.username, 0, 10
+          expect(result[0].size).to eq 0
+        end
       end
 
-      it 'returns that the other user has current_user as follower' do
-        result = interactor :'users/followers', other_user.username, 0, 10
-
-        expect(result[0].size).to eq 1
-        expect(result[0][0].username).to eq current_user.username
+      it 'returns that the other user has user1 as follower' do
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/followers', user2.username, 0, 10
+          expect(result[0].size).to eq 1
+          expect(result[0][0].username).to eq user1.username
+        end
       end
     end
 
     describe 'following' do
       it 'returns that the current user follow the other user' do
-        result = interactor :'users/following', current_user.username, 0, 10
-
-        expect(result[0].size).to eq 1
-        expect(result[0][0].username).to eq other_user.username
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/following', user1.username, 0, 10
+          expect(result[0].size).to eq 1
+          expect(result[0][0].username).to eq user2.username
+        end
       end
 
       it 'returns that the other user is not following users' do
-        result = interactor :'users/following', other_user.username, 0, 10
-
-        expect(result[0].size).to eq 0
+        as(user1) do |pavlov|
+          result = pavlov.interactor :'users/following', user2.username, 0, 10
+          expect(result[0].size).to eq 0
+        end
       end
     end
   end
 
   describe 'following yourself' do
     it 'should not be allowed' do
-      expect {interactor :'users/follow_user', current_user.username, current_user.username}.
-        to raise_error
+      as(user1) do |pavlov|
+        expect {pavlov.interactor :'users/follow_user', user1.username, user1.username}.
+          to raise_error
+      end
     end
 
     it 'should have no followers and following' do
-      begin
-        interactor :'users/follow_user', current_user.username, current_user.username
-      rescue
+      as(user1) do |pavlov|
+        begin
+          pavlov.interactor :'users/follow_user', user1.username, user1.username
+        rescue
+        end
+
+        followers = pavlov.interactor :'users/followers', user1.username, 0, 10
+        expect(followers[0].size).to eq 0
+
+        following = pavlov.interactor :'users/following', user1.username, 0, 10
+        expect(following[0].size).to eq 0
       end
+    end
+  end
 
-      followers = interactor :'users/followers', current_user.username, 0, 10
-      expect(followers[0].size).to eq 0
+  describe 'posing as someone else' do
+    it 'should not be allowed' do
+      as(user1) do |pavlov|
+        expect {pavlov.interactor :'users/follow_user', user2.username, user3.username}.
+          to raise_error
+      end
+    end
 
-      following = interactor :'users/following', current_user.username, 0, 10
-      expect(following[0].size).to eq 0
+    it 'should have no followers and following' do
+      as(user1) do |pavlov|
+        expect {pavlov.interactor :'users/follow_user', user2.username, user3.username}.
+          to raise_error
+
+        followers = pavlov.interactor :'users/followers', user2.username, 0, 10
+        expect(followers[0].size).to eq 0
+
+        following = pavlov.interactor :'users/following', user2.username, 0, 10
+        expect(following[0].size).to eq 0
+      end
     end
   end
 
