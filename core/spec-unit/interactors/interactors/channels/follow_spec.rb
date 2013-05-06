@@ -36,7 +36,6 @@ describe Interactors::Channels::Follow do
 
         interactor.should_receive(:command)
                   .with(:'topics/favourite', current_user.graph_user_id, channel.topic.id.to_s)
-                  .and_return(channel_2)
 
         interactor.execute
       end
@@ -53,16 +52,15 @@ describe Interactors::Channels::Follow do
 
         interactor.stub(:query).with(:'channels/get',channel.id).and_return(channel)
 
-        interactor.should_receive(:command)
+        interactor.should_receive(:command).once
                   .with(:'channels/follow', channel)
                   .and_return(nil)
 
         interactor.should_not_receive(:command)
-             .with(:'channels/added_subchannel_create_activities', channel_2, channel)
+                  .with(:'channels/added_subchannel_create_activities', channel_2, channel)
 
         interactor.should_not_receive(:command)
                   .with(:'topics/favourite', current_user.graph_user_id, channel.topic.id)
-                  .and_return(channel_2)
 
         interactor.execute
       end

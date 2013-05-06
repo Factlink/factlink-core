@@ -13,9 +13,9 @@ module Interactors
         follower = command :'channels/follow', channel
         if follower
           command :'channels/added_subchannel_create_activities', follower, channel
+          command :'topics/favourite', current_graph_user_id,
+                                       channel.topic.id.to_s
         end
-        command :'topics/favourite', current_graph_user_id,
-                                     channel.topic.id.to_s
       end
 
       def current_graph_user_id
