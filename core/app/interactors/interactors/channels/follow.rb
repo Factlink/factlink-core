@@ -14,6 +14,12 @@ module Interactors
         if follower
           command :'channels/added_subchannel_create_activities', follower, channel
         end
+        command :'topics/favourite', current_graph_user_id,
+                                     channel.topic.id.to_s
+      end
+
+      def current_graph_user_id
+        @options[:current_user].graph_user_id
       end
 
       def channel
