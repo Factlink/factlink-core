@@ -257,4 +257,5 @@ describe User do
       expect(errors[:email].any?).to be_true
     end
   end
+
 end
