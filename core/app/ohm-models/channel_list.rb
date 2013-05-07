@@ -31,7 +31,8 @@ class ChannelList
   end
 
   def containing_real_channel_ids_for_fact(fact)
-    filter_unreal_ids containing_channel_ids_for_fact(fact)
+    # Might not be necessary to filter unreal ids here
+    filter_unreal_ids((channels & fact.channels).ids)
   end
 
   def containing_channel_ids_for_channel(channel)
