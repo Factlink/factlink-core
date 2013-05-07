@@ -41,11 +41,6 @@ en:
   unfollow: "unfollow"
   is_now_following_you: "is now following you"
 
-  related_channels: "related channels"
-  interesting_channels: "interesting channels"
-  related_users: "related users"
-  interesting_users: "interesting users"
-
   stream: "feed"
 
   topic:  "topic"

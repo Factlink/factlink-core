@@ -1,7 +1,10 @@
 user = channel.created_by_user
 topic_authority = channel.owner_authority
 
-is_mine = (user.id == current_user.id) #DEPRECATED, CALCULATE THIS IN FRONTEND SEE related_users_view.coffee
+# DEPRECATED, CALCULATE THIS IN FRONTEND
+# e.g. `@model.get('username') == currentUser.get('username')`
+is_mine = (user.id == current_user.id)
+
 is_created = (channel.type == 'created')
 is_all = (channel.type == 'stream')
 is_normal = !is_all && !is_created

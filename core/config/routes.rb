@@ -223,8 +223,6 @@ FactlinkUI::Application.routes.draw do
     end
 
     member do
-      get :related_user_channels
-
       scope "/facts" do
         get "/" => "topics#facts", as: "topic_facts"
         get "/:fact_id" => "topics#fact", as: "topic_fact"

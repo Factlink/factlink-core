@@ -19,6 +19,7 @@ class Topic
     self.slug_title = new_title.to_url
   end
 
+  # TODO: remove this when removing top channels from search
   def channel_for_user(user)
     ChannelList.new(user.graph_user).get_by_slug_title slug_title
   end
@@ -42,11 +43,13 @@ class Topic
     by_slug(ch.slug_title) or ensure_for_channel(ch)
   end
 
+  # TODO: remove this when removing top channels from search
   def top_channels(nr=5)
     @top_channels ||= {}
     @top_channels[nr] ||= top_users(nr).map { |user| channel_for_user(user) }.compact
   end
 
+  # TODO: remove this when removing top channels from search
   def top_channels_with_fact(nr=5)
     redis[id][:top_channels_with_fact].zrevrange(0, (nr-1)).map {|id| Channel[id] }
   end
@@ -57,12 +60,16 @@ class Topic
 
   def top_users_add(user, val)
     redis[id][:top_users].zadd val, user.id
+
+    # TODO: remove this when removing top channels from search
     ch = channel_for_user(user)
     redis[id][:top_channels_with_fact].zadd val, ch.id if ch and (ch.added_facts.count > 0)
   end
 
   def top_users_clear
     redis[id][:top_users].del
+
+    # TODO: remove this when removing top channels from search
     redis[id][:top_channels_with_fact].del
   end
 
