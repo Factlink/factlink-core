@@ -24,12 +24,7 @@ class ChannelList
   def get_by_slug_title slug_title
     channels.find(slug_title: slug_title).first
   end
-
-  def containing_channel_ids_for_fact(fact)
-    channels.to_a.select { |ch| ch.include? fact }
-            .map{ |ch| ch.id }
-  end
-
+  
   def containing_real_channel_ids_for_fact(fact)
     # Might not be necessary to filter unreal ids here
     filter_unreal_ids((channels & fact.channels).ids)
