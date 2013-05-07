@@ -24,9 +24,6 @@ class window.Channel extends Backbone.Model
   subchannels: ->
     @cached 'subchannels', => fetched(new Subchannels([], channel: this))
 
-  relatedChannels: ->
-    @cached 'relatedchannels', => fetched(new RelatedChannels [], forChannel: this)
-
   lastAddedFactAsActivity: ->
     @cached 'lastFactAsActivity', =>
       console.info('creating new lastfactactivity')

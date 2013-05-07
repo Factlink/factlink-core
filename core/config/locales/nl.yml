@@ -42,11 +42,6 @@ nl:
   unfollow: "ontvolgen"
   is_now_following_you: "volgt je nu"
 
-  related_channels: "gerelateerde channels"
-  interesting_channels: "interessante channels"
-  related_users: "gerelateerde gebruikers"
-  interesting_users: "interessante gebruikers"
-
   stream: "overzicht"
 
   topic: "onderwerp"
