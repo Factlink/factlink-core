@@ -104,8 +104,6 @@ describe 'setting up an account' do
             user.reset_password_token, attributes
       end
 
-      puts returned_user.errors.inspect
-
       expect(returned_user.errors.size).to eq 1
       expect(returned_user.errors[:password]).to match_array ["doesn't match confirmation"]
     end
