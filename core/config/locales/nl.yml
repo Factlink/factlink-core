@@ -37,8 +37,8 @@ nl:
   follow: "volgen"
   follow_user: "gebruiker volgen"
   follow_topic: "onderwerp volgen"
-  followed: "volgt"
-  following: "volgend"
+  followed: "gevolgt"
+  following: "volgt"
   unfollow: "ontvolgen"
   is_now_following_you: "volgt je nu"
 
