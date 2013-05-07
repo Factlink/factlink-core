@@ -49,7 +49,7 @@ feature "visiting the stream" do
     set_scroll_top_to 100
     go_to_first_fact
     go_back_using_button
-    sleep 3
+    sleep 6
     scroll_top_should_eq 100
   end
 end
