@@ -29,7 +29,7 @@ testserver:
       hosts:
        - 172.18.100.6:27017
        - 172.18.100.13:27017
-       - 89.188.27.166:27017
+       - 172.18.100.25:27017
       options:
         consistency: :strong
   options:
