@@ -29,7 +29,7 @@ namespace :fact_graph do
         while true
           puts "now recalculating factgraph"
           $stdout.flush
-          FactGraph.recalculate
+          FactGraph.recalculate_shallow
           sleep sleep_time
         end
       end
