@@ -243,5 +243,9 @@ production:
 # here.  By default, the staging environment has the agent turned on.
 staging:
   <<: *default_settings
-  monitor_mode: false
+  monitor_mode: true
   app_name: Factlink (Staging)
+  # The newrelic agent generates its own log file to keep its logging
+  # information separate from that of your application.  Specify its
+  # log level here.
+  log_level: debug
