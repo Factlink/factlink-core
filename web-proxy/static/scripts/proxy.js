@@ -23,7 +23,7 @@ domReady(function(){
     var href = a[i].href;
 
     if ( href.search(/https?:\/\//) === 0 ) {
-      a[i].href = window.FactlinkConfig.proxy + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
+      a[i].href = window.FactlinkConfig.proxy + '/?url=' + escape(href);
       a[i].target = "_top";
 
       //prevent quietly changing the url afterwards
@@ -69,13 +69,6 @@ domReady(function(){
       input.setAttribute('name', 'factlinkFormUrl');
       input.setAttribute('value', action);
       form.appendChild(input);
-
-      var input = document.createElement('input');
-      input.setAttribute('type', 'hidden');
-      input.setAttribute('name', 'factlinkModus');
-      input.setAttribute('value', FactlinkConfig.modus);
-      form.appendChild(input);
-
 
       // Set the proxied URL
       form.action = action.replace(/^http(s|):\/\/.*/, window.FactlinkConfig.proxy + '/submit/');
