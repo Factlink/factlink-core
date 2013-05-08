@@ -2,9 +2,6 @@ class FactGraph
   def self.recalculate
     new.recalculate
   end
-  def self.recalculate_shallow
-    new.recalculate_shallow
-  end
 
   def debug x
     @logger ||= Logger.new(STDERR)
