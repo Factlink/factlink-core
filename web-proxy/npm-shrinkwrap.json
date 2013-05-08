@@ -8,22 +8,11 @@
       "dependencies": {
         "connect": {
           "version": "1.9.2",
-          "from": "connect@1.9.2",
+          "from": "connect@1.x",
           "dependencies": {
-            "qs": {
-              "version": "0.6.4",
-              "from": "qs@0.6.4",
-              "resolved": "https://registry.npmjs.org/qs/-/qs-0.6.4.tgz"
-            },
-            "mime": {
-              "version": "1.2.9",
-              "from": "mime@1.2.9",
-              "resolved": "https://registry.npmjs.org/mime/-/mime-1.2.9.tgz"
-            },
             "formidable": {
               "version": "1.0.14",
-              "from": "formidable@1.0.14",
-              "resolved": "https://registry.npmjs.org/formidable/-/formidable-1.0.14.tgz"
+              "from": "formidable@1.0.x"
             }
           }
         },
@@ -33,7 +22,7 @@
         },
         "qs": {
           "version": "0.4.2",
-          "from": "qs@0.4.2"
+          "from": "qs@0.4.x"
         },
         "mkdirp": {
           "version": "0.3.0",
@@ -57,16 +46,16 @@
     },
     "get": {
       "version": "1.2.1",
-      "from": "https://registry.npmjs.org/get/-/get-1.2.1.tgz",
-      "resolved": "https://registry.npmjs.org/get/-/get-1.2.1.tgz"
+      "from": "get@git://github.com/RSO/node-get.git#master",
+      "resolved": "git://github.com/RSO/node-get.git#282e960dd5345c70a156281f2dcbea6c24fec155"
     },
     "yaml": {
       "version": "0.2.3",
       "from": "yaml@0.2.3"
     },
     "validator": {
-      "version": "0.4.6-2",
-      "from": "validator@0.4.6-2"
+      "version": "1.1.1",
+      "from": "validator@"
     },
     "expresso": {
       "version": "0.9.2",
@@ -74,50 +63,56 @@
     },
     "underscore": {
       "version": "1.4.4",
-      "from": "underscore@1.4.4",
-      "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.4.4.tgz"
+      "from": "underscore@1.4.4"
     },
     "jshint": {
-      "version": "0.7.1",
-      "from": "jshint@0.7.1",
+      "version": "1.1.0",
+      "from": "jshint@",
       "dependencies": {
+        "esprima": {
+          "version": "1.1.0-dev",
+          "from": "https://github.com/ariya/esprima/tarball/master",
+          "resolved": "https://github.com/ariya/esprima/tarball/master"
+        },
+        "shelljs": {
+          "version": "0.1.3",
+          "from": "shelljs@0.1.x"
+        },
+        "peakle": {
+          "version": "0.0.1",
+          "from": "peakle@0.0.x"
+        },
         "cli": {
-          "version": "0.4.3",
-          "from": "cli@0.4.3",
+          "version": "0.4.4-2",
+          "from": "cli@0.4.x",
           "dependencies": {
             "glob": {
-              "version": "3.1.9",
-              "from": "glob@3.1.9",
+              "version": "3.2.1",
+              "from": "glob@>= 3.1.4",
               "dependencies": {
-                "minimatch": {
-                  "version": "0.2.5",
-                  "from": "minimatch@0.2.5",
-                  "dependencies": {
-                    "lru-cache": {
-                      "version": "1.1.0",
-                      "from": "lru-cache@1.1.0"
-                    }
-                  }
-                },
                 "graceful-fs": {
-                  "version": "1.1.8",
-                  "from": "graceful-fs@1.1.8"
+                  "version": "1.2.1",
+                  "from": "graceful-fs@~1.2.0"
                 },
                 "inherits": {
                   "version": "1.0.0",
-                  "from": "inherits@1.0.0"
+                  "from": "inherits@1"
                 }
               }
             }
           }
         },
         "minimatch": {
-          "version": "0.0.5",
-          "from": "minimatch@0.0.5",
+          "version": "0.2.12",
+          "from": "minimatch@0.x.x",
           "dependencies": {
             "lru-cache": {
-              "version": "1.0.6",
-              "from": "lru-cache@1.0.6"
+              "version": "2.3.0",
+              "from": "lru-cache@2"
+            },
+            "sigmund": {
+              "version": "1.0.0",
+              "from": "sigmund@~1.0.0"
             }
           }
         }
