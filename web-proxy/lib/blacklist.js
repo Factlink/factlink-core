@@ -13,12 +13,12 @@ function set_API_OPTIONS(api_options) {
   API_OPTIONS = api_options;
 }
 
-function if_allowed(url_to_check, successFn, errorFn) {
+function if_allowed(url_to_check, notBlacklistedFn, blacklistedFn) {
   get(factlink_blacklist_url()).asString(function(err, data) {
     if (data && "blacklisted" in data) {
-      errorFn();
+      blacklistedFn();
     } else {
-      successFn();
+      notBlacklistedFn();
     }
   });
 }
