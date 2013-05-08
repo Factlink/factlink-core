@@ -76,7 +76,6 @@ function getServer(config) {
       successFn(html);
     },function(){
       successFn(html_in);
-
     });
   }
 
