@@ -2,7 +2,7 @@
 
 # Note: alternative to using ruby -wc we could also use rubocop
 
-find app/classes -name'*.rb$' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK'
+find app/classes -name '*.rb' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK'
 
 
 TODO=`find app/classes -name '*.rb' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK' | wc -l | perl -pe 's/\s*//'`
