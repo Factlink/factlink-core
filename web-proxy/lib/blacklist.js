@@ -14,7 +14,7 @@ function set_API_OPTIONS(api_options) {
 }
 
 function if_allowed(url_to_check, notBlacklistedFn, blacklistedFn) {
-  get(factlink_blacklist_url()).asString(function(err, data) {
+  get(factlink_blacklist_url(url_to_check)).asString(function(err, data) {
     if (data && "blacklisted" in data) {
       blacklistedFn();
     } else {
