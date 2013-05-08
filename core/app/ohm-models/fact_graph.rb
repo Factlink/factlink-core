@@ -25,10 +25,6 @@ class FactGraph
       cut_off_top
   end
 
-  def recalculate_shallow
-    calculate_fact_relation_influencing_opinions 1
-  end
-
   def cut_off_top
     Fact.cut_off_top
   end
