@@ -17,7 +17,7 @@ class TopicsController < ApplicationController
   def facts
     from = params[:timestamp].to_i if params[:timestamp]
     count = params[:number].to_i if params[:number]
-    @facts = interactor :'topics/facts', params[:id], from, count
+    @facts = interactor :'topics/facts', params[:id], count, from
 
     respond_to do |format|
       format.json { render }
