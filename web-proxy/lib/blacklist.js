@@ -21,6 +21,9 @@ function if_allowed(url_to_check, notBlacklistedFn, blacklistedFn) {
 
   get(options).asString(function(err, data) {
     var json = data && JSON.parse(data);
+
+    if (err) console.error('Error when retrieving blacklist: ', err);
+
     if (json && "blacklisted" in json) {
       blacklistedFn();
     } else {
