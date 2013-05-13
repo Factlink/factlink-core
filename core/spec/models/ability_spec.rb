@@ -144,6 +144,23 @@ describe Ability do
     end
   end
 
+  describe "to manage Comments" do
+    let(:c1) { FactoryGirl.create :comment, created_by: user }
+    let(:c2) { FactoryGirl.create :comment, created_by: other_user }
+
+    describe "of my own" do
+      it {subject.should be_able_to :read, c1 }
+    end
+
+    describe "of someone else" do
+      it {subject.should be_able_to :read, c2 }
+    end
+
+    describe "without logging in" do
+      it {anonymous.should_not be_able_to :read, c1 }
+    end
+  end
+
   describe "accessing the admin area" do
     it "should only be allowed as admin" do
       admin.should         be_able_to :access, Ability::AdminArea

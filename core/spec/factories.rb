@@ -99,6 +99,9 @@ FactoryGirl.define do
     type :supporting
   end
 
+  factory :comment do
+  end
+
   factory :channel do
     association :created_by, :factory => :graph_user
     sequence(:title) {|n| "Channel title #{n}"}
