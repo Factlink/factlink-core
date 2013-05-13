@@ -58,6 +58,18 @@ FactlinkUI::Application.routes.draw do
     collection do
       get 'recently_viewed' => "facts#recently_viewed"
     end
+
+    resources :supporting_evidence, only: [] do
+      collection do
+        get     "combined"      => "supporting_evidence#combined_index"
+      end
+    end
+
+    resources :weakening_evidence, only: [] do
+      collection do
+        get     "combined"      => "weakening_evidence#combined_index"
+      end
+    end
   end
 
   resources :feedback
@@ -70,17 +82,6 @@ FactlinkUI::Application.routes.draw do
   authenticated :user do
 
     resources :facts, only: [] do
-      resources :supporting_evidence, only: [] do
-        collection do
-          get     "combined"      => "supporting_evidence#combined_index"
-        end
-      end
-
-      resources :weakening_evidence, only: [] do
-        collection do
-          get     "combined"      => "weakening_evidence#combined_index"
-        end
-      end
 
       resources :supporting_evidence, :weakening_evidence, only: [:create, :destroy] do
         member do
