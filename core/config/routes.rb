@@ -68,8 +68,6 @@ FactlinkUI::Application.routes.draw do
   authenticated :user do
 
     resources :facts, only: [:show, :destroy] do
-      resources :evidence
-
       resources :supporting_evidence do
         collection do
           get     "combined"      => "supporting_evidence#combined_index"

@@ -92,9 +92,6 @@ class EvidenceController < FactsController
   end
 
   private
-    def relation
-      :both
-    end
     # TODO This should not be a Controller method. Move to FactRelation
     def create_believed_factrelation(evidence, type, fact)
       type     = type.to_sym
