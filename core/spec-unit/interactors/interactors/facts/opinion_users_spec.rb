@@ -1,33 +1,45 @@
+require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/facts/opinion_users.rb'
 
 describe Interactors::Facts::OpinionUsers do
-  it 'initializes correctly' do
-    interactor = Interactors::Facts::OpinionUsers.new 1, 0, 3, 'believes', current_user: mock
-    interactor.should_not be_nil
+  include PavlovSupport
+
+  describe '.authorized?' do
+    it 'should check if the fact can be shown' do
+      fact_id = 1
+      fact = mock
+      
+      stub_classes 'Fact'
+      Fact.stub(:[]).with(fact_id).and_return(fact)
+
+      ability = mock
+      ability.should_receive(:can?).with(:show, fact).and_return(false)
+
+      expect do
+        interactor = described_class.new fact_id, 0, 0, 'believes', ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
+    end
   end
 
-  it 'gives an authorized error when there isn''t a logged in user' do
-    expect { Interactors::Facts::OpinionUsers.new 1, 0, 3, 'believes' }.
-      to raise_error(Pavlov::AccessDenied, 'Unauthorized')
-  end
-
-  describe '.call' do
+  describe '.execute' do
     before do
-      stub_const('Queries', Class.new)
-      stub_const('Queries::FactInteractingUsers', Class.new)
+      stub_classes 'Queries', 'Queries::FactInteractingUsers'
+      described_class.any_instance.stub(:authorized?).and_return(true)
     end
 
     it 'correctly' do
       fact_id = 1
       skip = 0
       take = 0
-      user = mock()
-      query = mock()
-      u1 = mock()
-      Queries::FactInteractingUsers.should_receive(:new).with(fact_id, skip, take, 'believes', current_user: user).and_return(query)
-      query.should_receive(:call).and_return({users: [u1], total: 1})
+      u1 = mock
 
-      results = Interactors::Facts::OpinionUsers.perform fact_id, skip, take, 'believes', current_user: user
+      interactor = described_class.new fact_id, skip, take, 'believes'
+
+      interactor.should_receive(:query).
+        with(:fact_interacting_users, fact_id, skip, take, 'believes').
+        and_return(users: [u1], total: 1)
+
+      results = interactor.execute
 
       results[:total].should eq 1
       results[:users].should eq [u1]
