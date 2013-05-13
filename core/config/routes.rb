@@ -80,7 +80,7 @@ FactlinkUI::Application.routes.draw do
         end
       end
 
-      resources :supporting_evidence, :weakening_evidence, :except => [:index, :edit] do
+      resources :supporting_evidence, :weakening_evidence, only: [:create, :destroy] do
         member do
           get     "opinion"       => "evidence#opinion"
           post    "opinion/:type" => "evidence#set_opinion",      as: "set_opinion"
