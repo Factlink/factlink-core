@@ -1,6 +1,7 @@
 /* jslint node: true */
 
-var _ = require('underscore');
+var _   = require('underscore');
+var get = require('get');
 
 function getServer(config) {
 
@@ -13,10 +14,6 @@ function getServer(config) {
     server.set('views', __dirname + '/../views');
   });
 
-  /**
-   *  We execute our requests using Restler (supports redirects)
-   */
-  var restler       = require('restler');
   var urlvalidation = require('./urlvalidation');
   var blacklist     = require('./blacklist');
   var urlbuilder    = require('./urlbuilder');
@@ -49,9 +46,9 @@ function getServer(config) {
   /**
    * Add base url and inject proxy.js, and return the proxied site
    */
-  function injectFactlinkJs(html_in, site, scrollto, modus, successFn) {
+  function injectFactlinkJs(html_in, site, scrollto, successFn) {
     var FactlinkConfig = {
-      modus: modus,
+      modus: 'default',
       api: config.API_URL,
       lib: config.LIB_URL,
       proxy: config.PROXY_URL,
@@ -79,61 +76,58 @@ function getServer(config) {
       successFn(html);
     },function(){
       successFn(html_in);
-
     });
   }
 
-  function handleProxyRequest(res, url, scrollto, modus, form_hash) {
-    var errorhandler = function(data) {
-      res.render('something_went_wrong', {
-        layout: false,
-        locals: {
-          static_url: config.STATIC_URL,
-          proxy_url: config.PROXY_URL,
-          site: url,
-          factlinkModus : modus
-        }
-      });
-    };
-
-    var completehandler = function(data) {
-      injectFactlinkJs(data, site, scrollto, modus, function(html) {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(html);
-        res.end();
-      });
-    };
-
-    // Welcome page
+  function handleProxyRequest(res, url, scrollto, form_hash) {
     if ( typeof url !== "string" || url.length === 0) {
-      res.render('welcome.jade',{
-        layout:false,
-        locals: {
-          proxy_url:      config.PROXY_URL,
-          core_url:       config.API_URL,
-          static_url:     config.STATIC_URL,
-          factlinkModus:  modus
-        }
-      });
+      renderWelcomePage(res);
       return;
+    } else {
+      site = urlvalidation.clean_url(url);
+      if (site === undefined) {
+        renderErrorPage(res, url);
+      } else {
+        get(site).asString(function(err, str) {
+          if(err) {
+            renderErrorPage(res, url);
+          } else {
+            renderProxiedPage(res, site, scrollto, str);
+          }
+        });
+      }
     }
-
-    modus = get_modus(modus);
-
-    // A site is needed
-    site = urlvalidation.clean_url(url);
-    if (site === undefined) {
-      errorhandler({});
-      return;
-    }
-
-    var request = restler.get(site, form_hash);
-
-    // Handle states
-    request.on('complete',  _.once(completehandler));
-    request.on('error',     _.once(errorhandler));
   }
 
+  function renderProxiedPage(res, site, scrollto, html_in) {
+    injectFactlinkJs(html_in, site, scrollto, function(html) {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(html);
+      res.end();
+    });
+  }
+
+  function renderErrorPage(res, url){
+    res.render('something_went_wrong', {
+      layout: false,
+      locals: {
+        static_url: config.STATIC_URL,
+        proxy_url: config.PROXY_URL,
+        site: url
+      }
+    });
+  }
+
+  function renderWelcomePage(res){
+    res.render('welcome.jade',{
+      layout:false,
+      locals: {
+        proxy_url:      config.PROXY_URL,
+        core_url:       config.API_URL,
+        static_url:     config.STATIC_URL
+      }
+    });
+  }
 
   /**
    *  Render a jade template
@@ -150,7 +144,7 @@ function getServer(config) {
           core_url: config.API_URL,
           page_url: req.query.url,
           clean_page_url: urlvalidation.clean_url(req.query.url),
-          factlinkModus: get_modus(req.query.factlinkModus),
+          factlinkModus: req.query.factlinkModus,
           header_url: header_url,
           parse_url: parse_url
         }
@@ -158,24 +152,12 @@ function getServer(config) {
     };
   }
 
-
-  /**
-   *  Proxy modus
-   */
-  function get_modus(modus) {
-    if (modus === undefined){
-      return 'default';
-    } else {
-      return modus;
-    }
-  }
-
   /**
    *  Search on Factlink enabled Google
    */
   function get_search(req, res) {
     var query             = req.query.query;
-    var search_redir_url  = urlbuilder.search_redir_url(config.PROXY_URL, query, get_modus(req.query.factlinkModus));
+    var search_redir_url  = urlbuilder.search_redir_url(config.PROXY_URL, query, req.query.factlinkModus);
 
     res.redirect(search_redir_url);
   }
@@ -186,9 +168,7 @@ function getServer(config) {
   function get_parse(req, res) {
     var site      = req.query.url;
     var scrollto  = req.query.scrollto;
-    var modus     = get_modus(req.query.factlinkModus);
-
-    handleProxyRequest(res, site, scrollto, modus, {});
+    handleProxyRequest(res, site, scrollto, {});
   }
 
   /**
@@ -198,12 +178,10 @@ function getServer(config) {
    */
   function get_submit(req, res) {
     var form_hash = req.query;
-    var modus     = get_modus(form_hash.factlinkModus);
-    delete form_hash.factlinkModus;
     var site      = form_hash.factlinkFormUrl;
     delete form_hash.factlinkFormUrl;
 
-    handleProxyRequest(res, site, undefined, modus, {
+    handleProxyRequest(res, site, undefined, {
       'query': form_hash
     });
   }

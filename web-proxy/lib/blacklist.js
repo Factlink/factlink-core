@@ -1,40 +1,60 @@
-var restler       = require('restler');
-var _             = require('underscore');
+var get = require('get');
+var _   = require('underscore');
+var url = require('url');
 
 var API_URL,
     API_OPTIONS;
+
 function set_API_URL(api_url) {
   API_URL = api_url;
 }
+
 function set_API_OPTIONS(api_options) {
   API_OPTIONS = api_options;
 }
 
-function if_allowed(url, successFn, errorFn) {
-  var factlink_blacklist_url = API_URL + '/site/blacklisted?url=' + encodeURIComponent(url);
+function if_allowed(url_to_check, notBlacklistedFn, blacklistedFn) {
+  var options = {
+    uri: factlink_blacklist_url(url_to_check),
+    headers: factlink_blacklist_url_headers()
+  };
 
-  var options = { parser: restler.parsers.json }
+  get(options).asString(function(err, data) {
+    var json = data && JSON.parse(data);
+
+    if (err) console.error('Error when retrieving blacklist: ', err);
+
+    if (json && "blacklisted" in json) {
+      blacklistedFn();
+    } else {
+      notBlacklistedFn();
+    }
+  });
+}
+
+function factlink_blacklist_url_headers() {
+  var headers = {
+    'Accept-Encoding': 'none',
+    'Connection': 'close',
+    'User-Agent': 'curl'
+  };
 
   if (API_OPTIONS !== undefined) {
-    options.username = API_OPTIONS.username,
-    options.password = API_OPTIONS.password
+    var buffer = new Buffer(API_OPTIONS.username + ':' + API_OPTIONS.password);
+    headers.Authorization = 'Basic ' + buffer.toString('base64');
   }
 
-  onceSuccessFn = _.once(successFn);
+  return headers;
+}
 
-  restler.get(factlink_blacklist_url, options)
-  .on('complete', _.once(function(data) {
-    if ("blacklisted" in data) {
-      errorFn();
-    } else {
-      onceSuccessFn();
-    }
-  }))
-  .on('error', _.once(function(data) {
-    // In case something went wrong with the call to the blacklist API,
-    // allow the site.
-    onceSuccessFn();
-  }));
+function factlink_blacklist_url(url_to_check) {
+  var blacklist_url = url.parse(API_URL + '/site/blacklisted');
+
+  blacklist_url.query = {
+    url: url_to_check
+  };
+
+  return url.format(blacklist_url);
 }
 
 exports.set_API_URL = set_API_URL;
