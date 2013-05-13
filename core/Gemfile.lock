@@ -224,7 +224,6 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    memoist (0.2.0)
     method_source (0.8.1)
     mime-types (1.23)
     modernizr-rails (2.0.6)
@@ -479,7 +478,6 @@ DEPENDENCIES
   letter_opener (~> 1)
   lograge (~> 0)
   marionette-rails (= 1.0.0.rc.2)!
-  memoist (~> 0.2.0)
   mixpanel!
   modernizr-rails (= 2.0.6)
   mongoid (~> 3.0.21)
