@@ -41,6 +41,11 @@ FactlinkUI::Application.routes.draw do
     member do
       post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
+      match   "/evidence_search"  => "facts#evidence_search"
+      get     "/believers"        => "facts#believers"
+      get     "/disbelievers"     => "facts#disbelievers"
+      get     "/doubters"         => "facts#doubters"
+
       scope '/comments' do
         post "/:type" => 'comments#create'
         delete "/:type/:id" => 'comments#destroy'
@@ -93,13 +98,6 @@ FactlinkUI::Application.routes.draw do
             delete "/:sub_comment_id" => 'sub_comments#destroy'
           end
         end
-      end
-
-      member do
-        match   "/evidence_search"  => "facts#evidence_search"
-        get     "/believers"        => "facts#believers"
-        get     "/disbelievers"     => "facts#disbelievers"
-        get     "/doubters"         => "facts#doubters"
       end
     end
 
