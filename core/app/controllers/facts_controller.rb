@@ -125,6 +125,7 @@ class FactsController < ApplicationController
   end
 
   # This update now only supports setting the title, for use in Backbone Views
+  # TODO this isn't used anymore, throw away
   def update
     authorize! :update, @fact
 

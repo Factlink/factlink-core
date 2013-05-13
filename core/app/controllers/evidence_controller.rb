@@ -1,4 +1,4 @@
-class EvidenceController < FactsController
+class EvidenceController < FactsController # TODO remove this inheritance
 
   before_filter :authenticate_user!, except: [:index]
 
