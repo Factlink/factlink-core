@@ -170,8 +170,6 @@ class FactsController < ApplicationController
   end
 
   def recently_viewed
-    authorize! :index, Fact
-
     @facts = interactor :"facts/recently_viewed"
 
     render 'facts/index', formats: [:json]

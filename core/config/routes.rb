@@ -55,6 +55,9 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+    collection do
+      get 'recently_viewed' => "facts#recently_viewed"
+    end
   end
 
   resources :feedback
@@ -99,10 +102,6 @@ FactlinkUI::Application.routes.draw do
         get     "/believers"        => "facts#believers"
         get     "/disbelievers"     => "facts#disbelievers"
         get     "/doubters"         => "facts#doubters"
-      end
-
-      collection do
-        get 'recently_viewed' => "facts#recently_viewed"
       end
     end
 
