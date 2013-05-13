@@ -43,7 +43,11 @@ class SitesController < ApplicationController
 
   private
     def render_jsonp json_able
-      render :json => json_able , :callback => params[:callback], :content_type => "application/javascript"
+      if params[:callback]
+        render json: json_able, callback: params[:callback], content_type: "application/javascript"
+      else
+        render json: json_able
+      end
     end
 
     def is_blacklisted
