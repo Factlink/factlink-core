@@ -97,8 +97,6 @@ FactlinkUI::Application.routes.draw do
       end
 
       member do
-        post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
-        delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
         match   "/evidence_search"  => "facts#evidence_search"
         get     "/believers"        => "facts#believers"
         get     "/disbelievers"     => "facts#disbelievers"
