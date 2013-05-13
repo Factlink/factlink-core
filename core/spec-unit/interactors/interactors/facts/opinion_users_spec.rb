@@ -7,7 +7,7 @@ describe Interactors::Facts::OpinionUsers do
   end
 
   it 'gives an authorized error when there isn''t a logged in user' do
-    expect { Interactors::Facts::OpinionUsers.new 1, 0, 3 }.
+    expect { Interactors::Facts::OpinionUsers.new 1, 0, 3, 'believes' }.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
