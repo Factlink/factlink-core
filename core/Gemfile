@@ -17,14 +17,14 @@ gem 'addressable', '~> 2.3.4'
 
 # Mongo
 gem 'mongoid', '~> 3.0.21'
-gem 'moped', git: 'git@github.com:Factlink/moped.git', branch: '1.4.0-stable'
+gem 'moped', github: 'Factlink/moped', branch: '1.4.0-stable'
 
-gem 'pavlov', git: 'git@github.com:Factlink/pavlov.git', ref: 'f95f3775961046151114ce13cb9dcb1091f56777'
+gem 'pavlov', github: 'Factlink/pavlov', ref: 'f95f3775961046151114ce13cb9dcb1091f56777'
 
 # Redis
 gem 'redis', '~> 2.2.1'
-gem 'ohm', git: 'git@github.com:Factlink/ohm.git' # we need the tribalvibes fork (0.1.4), for polymorphism
-gem 'ohm-contrib', git: 'git@github.com:Factlink/ohm-contrib.git'
+gem 'ohm', github: 'Factlink/ohm' # we need the tribalvibes fork (0.1.4), for polymorphism
+gem 'ohm-contrib', github: 'Factlink/ohm-contrib'
 gem 'redis-aid', '~> 0.1.0'
 gem 'redis-objects', '~> 0.5.3'
 gem 'multi_json', '~> 1.7.3'
@@ -34,7 +34,7 @@ gem 'resque_mailer', '~> 2.2.3'
 
 gem 'stringex', '~> 1.5.1'
 
-gem 'mixpanel', git: 'git@github.com:Factlink/mixpanel.git'
+gem 'mixpanel', github: 'Factlink/mixpanel'
 
 gem "sentry-raven", '~> 0.4.4'
 gem "resque-sentry", '~> 0.1.0'
@@ -74,7 +74,7 @@ gem 'roadie', '~> 2.3.4'
 gem 'rmagick', '~> 2.13.2', require: false
 
 # Set X-Frame-Headers
-gem 'rack-xframe-options', git: 'git@github.com:Factlink/rack-xframe-options.git'
+gem 'rack-xframe-options', github: 'Factlink/rack-xframe-options'
 gem 'rack-rewrite', '~> 1.3.3'
 
 group :production do
@@ -96,7 +96,7 @@ group :assets do
 
   gem "rails-backbone", '= 0.7.2' # we want a specific version of the js library
 
-  gem "marionette-rails", '= 1.0.0.rc.2', git: 'git@github.com:janpaul123/marionette-rails.git'  # we want a specific version of the js library
+  gem "marionette-rails", '= 1.0.0.rc.2', github: 'janpaul123/marionette-rails'  # we want a specific version of the js library
 end
 
 group :development do

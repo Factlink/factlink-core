@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:Factlink/mixpanel.git
+  remote: git://github.com/Factlink/mixpanel.git
   revision: 51ba36f9df4ac911923b8cb15ee1ae487ae0c2b7
   specs:
     mixpanel (1.1.3)
@@ -8,27 +8,27 @@ GIT
       rack
 
 GIT
-  remote: git@github.com:Factlink/moped.git
+  remote: git://github.com/Factlink/moped.git
   revision: 704b21c22c8c5ada5e6e27a6238451e2653699e4
   branch: 1.4.0-stable
   specs:
     moped (1.4.5)
 
 GIT
-  remote: git@github.com:Factlink/ohm-contrib.git
+  remote: git://github.com/Factlink/ohm-contrib.git
   revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
   specs:
     ohm-contrib (0.0.31)
 
 GIT
-  remote: git@github.com:Factlink/ohm.git
+  remote: git://github.com/Factlink/ohm.git
   revision: bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac
   specs:
     ohm (0.2.0)
       nest (~> 1.0)
 
 GIT
-  remote: git@github.com:Factlink/pavlov.git
+  remote: git://github.com/Factlink/pavlov.git
   revision: f95f3775961046151114ce13cb9dcb1091f56777
   ref: f95f3775961046151114ce13cb9dcb1091f56777
   specs:
@@ -37,13 +37,13 @@ GIT
       activesupport (>= 3.2.7)
 
 GIT
-  remote: git@github.com:Factlink/rack-xframe-options.git
+  remote: git://github.com/Factlink/rack-xframe-options.git
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
     rack-xframe-options (0.1.2)
 
 GIT
-  remote: git@github.com:janpaul123/marionette-rails.git
+  remote: git://github.com/janpaul123/marionette-rails.git
   revision: 4d30805fdaef8a73a97a7df4332ba52a267ba93d
   specs:
     marionette-rails (1.0.0.rc.2)
