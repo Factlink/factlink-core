@@ -12,10 +12,6 @@ class Ability
     user and not user.features.include? :act_as_non_signed_in
   end
 
-  def user_acting_as_non_signed_in
-    user and user.features.include? :act_as_non_signed_in
-  end
-
   def agrees_tos?
     signed_in? and user.agrees_tos
   end
@@ -26,6 +22,8 @@ class Ability
     # Anonymous user
     can :get_fact_count, Site
     can :new, Fact
+    can :index, Fact
+    can :read, Fact
 
     can :show, String do |template|
       ! /^home\/pages\/help/.match template
@@ -73,9 +71,6 @@ class Ability
       can :manage, Fact do |f|
         f.created_by_id == user.graph_user_id
       end
-    elsif user_acting_as_non_signed_in
-      can :index, Fact
-      can :read, Fact
     end
   end
 
