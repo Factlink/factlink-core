@@ -1,6 +1,6 @@
 class EvidenceController < FactsController
 
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!, except: [:index]
 
   respond_to :json
 
