@@ -13,11 +13,7 @@ module Interactors
       end
 
       def authorized?
-        can? :show, fact
-      end
-
-      def fact
-        @fact ||= Fact[fact_id]
+        can? :show, Fact
       end
     end
   end

@@ -6,17 +6,13 @@ describe Interactors::Facts::OpinionUsers do
 
   describe '.authorized?' do
     it 'should check if the fact can be shown' do
-      fact_id = 1
-      fact = mock
-      
       stub_classes 'Fact'
-      Fact.stub(:[]).with(fact_id).and_return(fact)
 
       ability = mock
-      ability.should_receive(:can?).with(:show, fact).and_return(false)
+      ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
       expect do
-        interactor = described_class.new fact_id, 0, 0, 'believes', ability: ability
+        interactor = described_class.new 0, 0, 0, 'believes', ability: ability
       end.to raise_error(Pavlov::AccessDenied)
     end
   end

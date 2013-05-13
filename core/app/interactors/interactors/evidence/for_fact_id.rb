@@ -9,7 +9,7 @@ module Interactors
       arguments :fact_id, :type
 
       def authorized?
-        can? :show, fact
+        can? :show, Fact
       end
 
       def validate
@@ -19,10 +19,6 @@ module Interactors
 
       def execute
         query :'evidence/for_fact_id', @fact_id, @type
-      end
-
-      def fact
-        @fact ||= ::Fact[fact_id]
       end
     end
   end
