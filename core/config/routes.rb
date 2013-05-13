@@ -68,19 +68,19 @@ FactlinkUI::Application.routes.draw do
   authenticated :user do
 
     resources :facts, only: [:show, :destroy] do
-      resources :supporting_evidence do
+      resources :supporting_evidence, only: [] do
         collection do
           get     "combined"      => "supporting_evidence#combined_index"
         end
       end
 
-      resources :weakening_evidence do
+      resources :weakening_evidence, only: [] do
         collection do
           get     "combined"      => "weakening_evidence#combined_index"
         end
       end
 
-      resources :supporting_evidence, :weakening_evidence, :except => [:index] do
+      resources :supporting_evidence, :weakening_evidence, :except => [:index, :edit] do
         member do
           get     "opinion"       => "evidence#opinion"
           post    "opinion/:type" => "evidence#set_opinion",      as: "set_opinion"
