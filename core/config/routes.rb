@@ -67,7 +67,7 @@ FactlinkUI::Application.routes.draw do
 
   authenticated :user do
 
-    resources :facts, :except => [:edit, :index, :update] do
+    resources :facts, only: [:show, :destroy] do
       resources :evidence
 
       resources :supporting_evidence do
