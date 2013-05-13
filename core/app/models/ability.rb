@@ -19,12 +19,6 @@ class Ability
   def initialize(user=nil)
     @user=user
 
-    # Anonymous user
-    can :get_fact_count, Site
-    can :new, Fact
-    can :index, Fact
-    can :read, Fact
-
     can :show, String do |template|
       ! /^home\/pages\/help/.match template
     end
@@ -34,6 +28,7 @@ class Ability
       can :show, String
     end
 
+    define_anonymous_user_abilities
     define_channel_abilities
     define_topic_abilities
     define_fact_abilities
@@ -43,6 +38,13 @@ class Ability
     define_user_activities_abilities
     define_tos_abilities
     define_feature_toggles
+  end
+
+  def define_anonymous_user_abilities
+    can :get_fact_count, Site
+    can :new, Fact
+    can :index, Fact
+    can :read, Fact
   end
 
   def define_channel_abilities
