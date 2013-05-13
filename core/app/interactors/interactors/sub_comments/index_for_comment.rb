@@ -4,6 +4,7 @@ module Interactors
   module SubComments
     class IndexForComment
       include Pavlov::Interactor
+      include Util::CanCan
 
       arguments :comment_id
 
@@ -12,7 +13,7 @@ module Interactors
       end
 
       def authorized?
-        @options[:current_user]
+        can? :show, comment
       end
 
       def execute

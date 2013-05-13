@@ -40,6 +40,7 @@ class Ability
     define_topic_abilities
     define_fact_abilities
     define_fact_relation_abilities
+    define_comment_abilities
     define_user_abilities
     define_user_favourites_abilities
     define_user_activities_abilities
@@ -81,10 +82,21 @@ class Ability
 
   def define_fact_relation_abilities
     if agrees_tos?
+      can :read, FactRelation
       can :opinionate, FactRelation
       can :destroy, FactRelation do |fr|
         fr.created_by_id == user.graph_user_id && fr.deletable?
       end
+    elsif user_acting_as_non_signed_in
+      can :read, FactRelation
+    end
+  end
+
+  def define_comment_abilities
+    if agrees_tos?
+      can :read, Comment
+    elsif user_acting_as_non_signed_in
+      can :read, Comment
     end
   end
 
