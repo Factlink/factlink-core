@@ -227,7 +227,6 @@ GEM
     memoist (0.2.0)
     method_source (0.8.1)
     mime-types (1.23)
-    mock_redis (0.7.0)
     modernizr-rails (2.0.6)
     mongoid (3.0.23)
       activemodel (~> 3.1)
@@ -482,7 +481,6 @@ DEPENDENCIES
   marionette-rails (= 1.0.0.rc.2)!
   memoist (~> 0.2.0)
   mixpanel!
-  mock_redis (~> 0.7)
   modernizr-rails (= 2.0.6)
   mongoid (~> 3.0.21)
   mongoid_rails_migrations (= 1.0.1)

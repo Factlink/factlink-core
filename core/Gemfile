@@ -129,7 +129,6 @@ group :test do
   gem 'rspec-rails', '~> 2.13'
   gem 'factory_girl_rails', '~> 3.6'
   gem 'database_cleaner', '~> 0.9'
-  gem 'mock_redis', '~> 0.7' # TODO remove
 
   gem 'capybara', '~> 1.1', require: false
   gem 'capybara-screenshot', '~> 0.3'
