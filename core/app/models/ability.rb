@@ -81,6 +81,7 @@ class Ability
 
   def define_fact_relation_abilities
     if agrees_tos?
+      can :read, FactRelation
       can :opinionate, FactRelation
       can :destroy, FactRelation do |fr|
         fr.created_by_id == user.graph_user_id && fr.deletable?
