@@ -268,6 +268,22 @@ describe Ability do
         acting_anonymous.should_not be_able_to :invite, User
       end
     end
+
+    describe "to manage FactRelations" do
+      let(:fr1) { FactoryGirl.create :fact_relation, created_by: user.graph_user }
+
+      describe "without logging in" do
+        it {acting_anonymous.should be_able_to :read, fr1 }
+      end
+    end
+
+    describe "to manage Comments" do
+      let(:c1) { FactoryGirl.create :comment, created_by: user }
+
+      describe "without logging in" do
+        it {acting_anonymous.should be_able_to :read, c1 }
+      end
+    end
   end
 
 end
