@@ -52,7 +52,6 @@ FactlinkUI::Application.routes.draw do
             post '' => 'sub_comments#create'
             delete "/:sub_comment_id" => 'sub_comments#destroy'
           end
-          #resource :sub_comments, only: [:index,:create,:destroy]
         end
       end
     end
