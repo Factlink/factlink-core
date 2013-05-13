@@ -82,7 +82,7 @@ gem 'rack-rewrite'
 group :production do
   gem 'newrelic_moped'
   gem 'newrelic-redis'
-  gem 'newrelic_rpm', '~> 3.5.6'
+  gem 'newrelic_rpm'
 end
 
 group :assets do
