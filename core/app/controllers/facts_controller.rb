@@ -124,20 +124,6 @@ class FactsController < ApplicationController
     respond_with(@fact)
   end
 
-  # This update now only supports setting the title, for use in Backbone Views
-  # TODO this isn't used anymore, throw away
-  def update
-    authorize! :update, @fact
-
-    @fact.data.title = params[:title]
-
-    if @fact.data.save
-      render :json => {}, :status => :ok
-    else
-      render :json => @fact.errors, :status => :unprocessable_entity
-    end
-  end
-
   def opinion
     render :json => {"opinions" => @fact.get_opinion(3).as_percentages}, :callback => params[:callback], :content_type => "text/javascript"
   end
