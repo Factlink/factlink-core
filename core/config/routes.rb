@@ -85,8 +85,8 @@ FactlinkUI::Application.routes.draw do
       resources :supporting_evidence, :weakening_evidence, :except => [:index] do
         member do
           get     "opinion"       => "evidence#opinion"
-          post    "opinion/:type" => "evidence#set_opinion",      :as => "set_opinion"
-          delete  "opinion/"      => "evidence#remove_opinions",  :as => "delete_opinion"
+          post    "opinion/:type" => "evidence#set_opinion",      as: "set_opinion"
+          delete  "opinion/"      => "evidence#remove_opinions",  as: "delete_opinion"
           scope '/sub_comments' do
             get '' => 'sub_comments#index'
             post '' => 'sub_comments#create'
@@ -96,8 +96,8 @@ FactlinkUI::Application.routes.draw do
       end
 
       member do
-        post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
-        delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
+        post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
+        delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
         match   "/evidence_search"  => "facts#evidence_search"
         get     "/believers"        => "facts#believers"
         get     "/disbelievers"     => "facts#disbelievers"
