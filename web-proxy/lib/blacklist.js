@@ -14,7 +14,12 @@ function set_API_OPTIONS(api_options) {
 }
 
 function if_allowed(url_to_check, notBlacklistedFn, blacklistedFn) {
-  get(factlink_blacklist_url(url_to_check)).asString(function(err, data) {
+  var options = {
+    uri: factlink_blacklist_url(url_to_check),
+    headers: factlink_blacklist_url_headers()
+  };
+
+  get(options).asString(function(err, data) {
     var json = data && JSON.parse(data);
     if (json && "blacklisted" in json) {
       blacklistedFn();
@@ -24,16 +29,27 @@ function if_allowed(url_to_check, notBlacklistedFn, blacklistedFn) {
   });
 }
 
+function factlink_blacklist_url_headers() {
+  var headers = {
+    'Accept-Encoding': 'none',
+    'Connection': 'close',
+    'User-Agent': 'curl'
+  };
+
+  if (API_OPTIONS !== undefined) {
+    var buffer = new Buffer(API_OPTIONS.username + ':' + API_OPTIONS.password);
+    headers.Authorization = 'Basic ' + buffer.toString('base64');
+  }
+
+  return headers;
+}
+
 function factlink_blacklist_url(url_to_check) {
   var blacklist_url = url.parse(API_URL + '/site/blacklisted');
 
   blacklist_url.query = {
     url: url_to_check
   };
-
-  if (API_OPTIONS !== undefined) {
-    blacklist_url.auth = API_OPTIONS.username + ':' + API_OPTIONS.password;
-  }
 
   return url.format(blacklist_url);
 }
