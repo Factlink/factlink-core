@@ -41,21 +41,21 @@ class FactsController < ApplicationController
 
   def believers
     fact_id = params[:id].to_i
-    data = interactor :fact_believers, fact_id, @skip, @take
+    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'believes'
 
     render_interactions data
   end
 
   def disbelievers
     fact_id = params[:id].to_i
-    data = interactor :fact_disbelievers, fact_id, @skip, @take
+    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'disbelieves'
 
     render_interactions data
   end
 
   def doubters
     fact_id = params[:id].to_i
-    data = interactor :fact_doubters, fact_id, @skip, @take
+    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'doubts'
 
     render_interactions data
   end
