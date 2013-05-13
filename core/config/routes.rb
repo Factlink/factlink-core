@@ -62,6 +62,9 @@ FactlinkUI::Application.routes.draw do
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
+  # Search and infinite scrolling
+  match "/search(/page/:page)(/:sort/:direction)" => "search#search", :as => "factlink_overview"
+
   authenticated :user do
 
     resources :facts, :except => [:edit, :index, :update] do
@@ -106,9 +109,6 @@ FactlinkUI::Application.routes.draw do
       end
     end
 
-    # Search and infinite scrolling
-    match "/search(/page/:page)(/:sort/:direction)" => "search#search", :as => "factlink_overview"
-
     namespace :admin, path: 'a' do
       resources :users, :only => [:show, :new, :create, :edit, :update, :index] do
         collection do
@@ -120,7 +120,6 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-
     scope "/a" do
       get "info" => "admin#info", as: "admin_info"
     end
