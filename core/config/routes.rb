@@ -77,6 +77,15 @@ FactlinkUI::Application.routes.draw do
         get     "combined"      => "weakening_evidence#combined_index"
       end
     end
+    resources :supporting_evidence, :weakening_evidence, only: [:create, :destroy] do
+      member do
+        post    "opinion/:type" => "evidence#set_opinion",      as: "set_opinion"
+        delete  "opinion/"      => "evidence#remove_opinions",  as: "delete_opinion"
+        scope '/sub_comments' do
+          get '' => 'sub_comments#index'
+        end
+      end
+    end
   end
 
   resources :feedback
@@ -90,12 +99,9 @@ FactlinkUI::Application.routes.draw do
 
     resources :facts, only: [] do
 
-      resources :supporting_evidence, :weakening_evidence, only: [:create, :destroy] do
+      resources :supporting_evidence, :weakening_evidence, only: [] do
         member do
-          post    "opinion/:type" => "evidence#set_opinion",      as: "set_opinion"
-          delete  "opinion/"      => "evidence#remove_opinions",  as: "delete_opinion"
           scope '/sub_comments' do
-            get '' => 'sub_comments#index'
             post '' => 'sub_comments#create'
             delete "/:sub_comment_id" => 'sub_comments#destroy'
           end
