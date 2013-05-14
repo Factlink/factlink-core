@@ -4,9 +4,11 @@ module Interactors
   module SubComments
     class CreateForGeneric
       include Pavlov::Interactor
+      include Util::CanCan
 
       def authorized?
-        @options[:current_user]
+        can?(:show, parent) and
+          can?(:create, SubComment)
       end
 
       def execute
