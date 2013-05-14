@@ -10,6 +10,7 @@
     .box-sizing(border-box);
     .clearfix();
     position: relative;
+    color: @mutedFontColor;
 
     &:last-child {
       border-bottom: solid 1px transparent;
@@ -33,10 +34,6 @@
       font-size: @metaFontSize;
     }
 
-    .activity-description {
-      color: @mutedFontColor;
-    }
-
     .activity-group-link {
       float: left;
       padding: 0 3px 0 0;
@@ -50,7 +47,7 @@
     .activity-group-time {
       position: absolute;
       right: 45px;
-      color: #ccc;
+      opacity: 0.6;
     }
 
     .activity-group-fact {

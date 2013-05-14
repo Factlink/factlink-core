@@ -19,38 +19,6 @@ require 'coffee_script'
 # you've limited to :test, :development, or :production.
 # Bundler.require(:default, Rails.env) if defined?(Bundler)
 
-if ENV['RUN_METRICS'] == "TRUE" and ['test', 'development'].include? Rails.env
-  require 'metric_fu'
-  require "fattr"
-  require "arrayfields"
-  require "map"
-
-  require 'simplecov'
-  require 'simplecov-rcov-text'
-
-  class SimpleCov::Formatter::MergedFormatter
-      def format(result)
-         SimpleCov::Formatter::HTMLFormatter.new.format(result)
-         SimpleCov::Formatter::RcovTextFormatter.new.format(result)
-      end
-  end
-  SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
-
-  MetricFu::Configuration.run do |config|
-    config.flay ={:dirs_to_flay => ['app', 'lib', 'spec'],
-                  :minimum_score => 10,
-                  :filetypes => ['rb'] }
-    config.rcov[:external] = 'coverage/rcov/rcov.txt'
-
-    # Fix the compine bug (see https://github.com/jscruggs/metric_fu/issues/61)
-    config.syntax_highlighting = false
-
-    #remove non-working metrics
-    config.metrics -= [:flog, :reek, :roodi]
-  end
-end
-
-
 ActiveSupport.escape_html_entities_in_json = true
 
 

@@ -1,9 +1,7 @@
 class FactsController < ApplicationController
-  include FactHelper
-
   layout "client"
 
-  before_filter :set_layout, :only => [:new, :create]
+  before_filter :set_layout, only: [:new, :create]
 
   respond_to :json, :html
 
@@ -11,7 +9,7 @@ class FactsController < ApplicationController
     only: [:believers, :disbelievers, :doubters]
 
   before_filter :load_fact,
-    :only => [
+    only: [
       :show,
       :extended_show,
       :destroy,
@@ -39,23 +37,24 @@ class FactsController < ApplicationController
     render_backbone_page
   end
 
+  # TODO combine next three methods
   def believers
     fact_id = params[:id].to_i
-    data = interactor :fact_believers, fact_id, @skip, @take
+    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'believes'
 
     render_interactions data
   end
 
   def disbelievers
     fact_id = params[:id].to_i
-    data = interactor :fact_disbelievers, fact_id, @skip, @take
+    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'disbelieves'
 
     render_interactions data
   end
 
   def doubters
     fact_id = params[:id].to_i
-    data = interactor :fact_doubters, fact_id, @skip, @take
+    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'doubts'
 
     render_interactions data
   end
@@ -124,23 +123,6 @@ class FactsController < ApplicationController
     respond_with(@fact)
   end
 
-  # This update now only supports setting the title, for use in Backbone Views
-  def update
-    authorize! :update, @fact
-
-    @fact.data.title = params[:title]
-
-    if @fact.data.save
-      render :json => {}, :status => :ok
-    else
-      render :json => @fact.errors, :status => :unprocessable_entity
-    end
-  end
-
-  def opinion
-    render :json => {"opinions" => @fact.get_opinion(3).as_percentages}, :callback => params[:callback], :content_type => "text/javascript"
-  end
-
   def set_opinion
     type = params[:type].to_sym
     @basefact = Basefact[params[:id]]
@@ -183,8 +165,6 @@ class FactsController < ApplicationController
   end
 
   def recently_viewed
-    authorize! :index, Fact
-
     @facts = interactor :"facts/recently_viewed"
 
     render 'facts/index', formats: [:json]
