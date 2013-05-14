@@ -112,7 +112,8 @@ group :development do
   gem 'lograge', '~> 0'
   gem 'sextant', '~> 0'
 
-  gem 'rb-readline', '~> 0' # needed for Guard
+  # Locked to 0.4.2 per http://stackoverflow.com/questions/16288331/rails-3-uninitialized-constant-irbreadlineinputmethodreadline-nameerror-i
+  gem 'rb-readline', '~> 0.4.2' # needed for Guard
 
   # SHUT THE FUCK UP
   gem 'quiet_assets', '~> 1'
