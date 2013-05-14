@@ -81,8 +81,9 @@ json.activity do |json|
 
     json.target_url                channel_path(object.created_by.user, object.id)
   when "created_channel"
-    json.channel_title             subject.title
-    json.channel_url               channel_path(subject.created_by.user, subject.id)
+    topic = subject.topic
+    json.topic_title               topic.title
+    json.topic_url                 topic_path(topic.slug_title)
 
     json.created_channel_definition t(:created_user_topic)
   when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
