@@ -1,5 +1,3 @@
-# TODO eliminate all match
-
 FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -26,7 +24,7 @@ FactlinkUI::Application.routes.draw do
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb
   # as well (frame busting)
-  match "/factlink/intermediate" => "facts#intermediate"
+  get "/factlink/intermediate" => "facts#intermediate"
 
   # Static js micro templates
   get "/templates/:name" => "js_lib#show_template",
@@ -43,7 +41,7 @@ FactlinkUI::Application.routes.draw do
     member do
       post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
-      match   "/evidence_search"  => "facts#evidence_search"
+      get     "/evidence_search"  => "facts#evidence_search"
       get     "/believers"        => "facts#believers"
       get     "/disbelievers"     => "facts#disbelievers"
       get     "/doubters"         => "facts#doubters"
@@ -93,7 +91,7 @@ FactlinkUI::Application.routes.draw do
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
   # Search and infinite scrolling
-  match "/search(/page/:page)(/:sort/:direction)" => "search#search", as: "factlink_overview"
+  get "/search(/page/:page)(/:sort/:direction)" => "search#search", as: "factlink_overview"
 
   authenticated :user do
 
@@ -142,9 +140,9 @@ FactlinkUI::Application.routes.draw do
   end
 
   # old conversation urls
-  match "/c" => redirect("/m")
-  match "/c/:id" => redirect("/m/%{id}")
-  match "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
+  get "/c" => redirect("/m")
+  get "/c/:id" => redirect("/m/%{id}")
+  get "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
 
   scope "/:username" do
     get "/" => "users#show", as: "user_profile"
@@ -197,7 +195,7 @@ FactlinkUI::Application.routes.draw do
           scope "/:fact_id" do
             delete "/" => "channels#remove_fact",  as: "remove_fact_from"
 
-            match "/evidence_search" => "facts#evidence_search"
+            get "/evidence_search" => "facts#evidence_search"
 
             resource :supporting_evidence, :weakening_evidence do
               scope '/:evidence_id' do
