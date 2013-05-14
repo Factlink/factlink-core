@@ -44,7 +44,7 @@ feature "favouriting a topic", type: :request do
 
     go_to_topic_page_of topic
     within_topic_header do
-      find('button', text: 'Followed').click
+      find('button', text: 'Following').click
     end
 
     go_to_profile_page_of @user

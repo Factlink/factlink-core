@@ -97,7 +97,6 @@ describe Ability do
     it {subject.should be_able_to :create, Fact }
 
     describe "of my own" do
-      it {subject.should be_able_to :update, f1 }
       it {subject.should be_able_to :read, f1 }
       it {subject.should be_able_to :opinionate, f1 }
       it {subject.should be_able_to :add_evidence, f1 }
