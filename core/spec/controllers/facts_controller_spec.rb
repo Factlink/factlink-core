@@ -1,17 +1,20 @@
 require 'spec_helper'
 
 describe FactsController do
+  include PavlovSupport
+
   render_views
 
   let(:user) { FactoryGirl.create(:user) }
-  let(:fact) { FactoryGirl.create(:fact) }
 
   describe :show do
     it "should render successful" do
-      user = FactoryGirl.create :user
       authenticate_user!(user)
+      fact = nil
       
-      fact = create :fact, created_by: user.graph_user
+      as(user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+      end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
       should_check_can :show, fact
@@ -24,10 +27,12 @@ describe FactsController do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
 
-      user = FactoryGirl.create :user
       authenticate_user!(user)
+      fact = nil
 
-      fact = create :fact, created_by: user.graph_user
+      as(user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+      end
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
       should_check_can :show, fact
@@ -44,10 +49,13 @@ describe FactsController do
 
   describe :extended_show do
     it "should escape html in fields" do
-      user = FactoryGirl.create :user
       authenticate_user!(user)
+      fact = nil
 
-      fact = create :fact, created_by: user.graph_user
+      as(user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+      end
+
       fact.data.displaystring = "baas<xss> of niet"
       fact.data.title = "baas<xss> of niet"
       fact.data.save
@@ -62,10 +70,12 @@ describe FactsController do
 
   describe :destroy do
     it "should delete the fact" do
-      user = FactoryGirl.create :user
       authenticate_user!(user)
+      fact = nil
 
-      fact = create :fact, created_by: user.graph_user
+      as(user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+      end
       fact_id = fact.id
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
@@ -118,6 +128,12 @@ describe FactsController do
   describe :evidence_search do
     it "should work" do
       authenticate_user!(user)
+      fact = nil
+      
+      as(user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+      end
+      
       get :evidence_search, id: fact.id, s: "Baron"
       response.should be_success
     end
