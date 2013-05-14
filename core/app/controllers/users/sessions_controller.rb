@@ -14,14 +14,4 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   before_filter :set_layout, only: :new
-
-  # remove this entire method when removing :act_as_non_signed_in
-  def require_no_authentication
-    user = warden.user("user")
-    if params[:layout] == 'client' and user and user.features.include? :act_as_non_signed_in
-      # do nothing and show the login screen
-    else
-      super
-    end
-  end
 end

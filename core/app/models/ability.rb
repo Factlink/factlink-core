@@ -9,7 +9,7 @@ class Ability
   end
 
   def signed_in?
-    user and not user.features.include? :act_as_non_signed_in
+    user
   end
 
   def agrees_tos?
@@ -145,7 +145,7 @@ class Ability
     end
   end
 
-  FEATURES = %w(pink_feedback_button skip_create_first_factlink memory_profiling act_as_non_signed_in)
+  FEATURES = %w(pink_feedback_button skip_create_first_factlink memory_profiling)
   GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list
