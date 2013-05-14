@@ -14,10 +14,13 @@ FactlinkApp.module "Sidebar", (Sidebar, MyApp, Backbone, Marionette, $, _) ->
     @activateTopic topic
 
   Sidebar.showForChannelsAndActivateCorrectItem = (channels, currentChannel) ->
-    channelCollectionView = new ChannelsView collection: channels
-    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+    if Factlink.Global.can_haz['sees_channels']
+      channelCollectionView = new ChannelsView collection: channels
+      FactlinkApp.leftMiddleRegion.show(channelCollectionView)
 
-    channelCollectionView.setActiveChannel(currentChannel)
+      channelCollectionView.setActiveChannel(currentChannel)
+    else
+      FactlinkApp.leftMiddleRegion.close()    
 
   Sidebar.activateTopic = (topic) ->
     @sidebarView.setActiveTopic(topic)
