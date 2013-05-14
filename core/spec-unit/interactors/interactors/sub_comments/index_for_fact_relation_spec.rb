@@ -7,20 +7,29 @@ describe Interactors::SubComments::IndexForFactRelation do
     stub_classes 'SubComment', 'FactRelation', 'KillObject'
   end
 
-  it 'initializes correctly' do
-    interactor = Interactors::SubComments::IndexForFactRelation.new 1, current_user: mock
+  describe '.authorized' do
+    it 'checks if the fact relation can be shown' do
+      fact_relation_id = 1
+      fact_relation = mock
+      
+      FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
 
-    expect( interactor ).to_not be_nil
-  end
+      ability = mock
+      ability.should_receive(:can?).with(:show, fact_relation).and_return(false)
 
-  it '.authorized denied when no user is given' do
-    expect{ Interactors::SubComments::IndexForFactRelation.new 1, current_user: nil }.
-      to raise_error Pavlov::AccessDenied, 'Unauthorized'
+      expect do
+        interactor = described_class.new fact_relation_id, ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
+    end
   end
 
   describe '.validate' do
+    before do
+      described_class.any_instance.stub(:authorized?).and_return(true)
+    end
+
     it 'without fact_relation_id doesn''t validate' do
-      expect_validating(nil, current_user: mock).
+      expect_validating(nil).
         to fail_validation('fact_relation_id should be an integer.')
     end
   end
@@ -28,6 +37,7 @@ describe Interactors::SubComments::IndexForFactRelation do
   describe '.execute' do
     before do
       stub_classes 'Queries::SubComments::Index'
+      described_class.any_instance.stub(:authorized?).and_return(true)
     end
 
     it do
@@ -37,7 +47,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       dead_sub_comments = [mock, mock]
       authorities = [10, 20]
 
-      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id, current_user: user
+      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id
       interactor.stub fact_relation: mock
 
       interactor.should_receive(:query).with(:"sub_comments/index", fact_relation_id, 'FactRelation').
@@ -66,7 +76,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     it 'throws an error when the fact relation does not exist' do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
-      interactor = Interactors::SubComments::IndexForFactRelation.new 1, current_user: mock
+      interactor = Interactors::SubComments::IndexForFactRelation.new 1
       interactor.should_receive(:fact_relation).and_return(nil)
 
       expect{interactor.call}.to raise_error(Pavlov::ValidationError, "fact relation does not exist any more")
@@ -74,13 +84,17 @@ describe Interactors::SubComments::IndexForFactRelation do
   end
 
   describe '.top_fact' do
+    before do
+      described_class.any_instance.stub(:authorized?).and_return(true)
+    end
+
     it 'returns the top fact for the fact_relation_id' do
       fact_relation_id = 1
       fact = mock
       fact_relation = mock(fact: fact)
       FactRelation.should_receive(:[]).with(fact_relation_id).and_return(fact_relation)
 
-      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id, current_user: mock
+      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id
 
       result = interactor.top_fact
 
@@ -93,7 +107,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       fact_relation = mock(fact: fact)
       FactRelation.should_receive(:[]).with(fact_relation_id).and_return(fact_relation)
 
-      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id, current_user: mock
+      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id
 
       result = interactor.top_fact
 
@@ -106,6 +120,7 @@ describe Interactors::SubComments::IndexForFactRelation do
   describe '.authority_of_user_who_created' do
     before do
       stub_classes 'Queries::AuthorityOnFactFor'
+      described_class.any_instance.stub(:authorized?).and_return(true)
     end
 
     it 'retrieves the authority and kills the subcomment' do
@@ -115,7 +130,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       authority = mock
       user = mock
       sub_comment = mock(created_by: mock(graph_user: graph_user))
-      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id, current_user: user
+      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id
 
       interactor.should_receive(:top_fact).and_return(fact)
       interactor.should_receive(:query).with(:authority_on_fact_for, fact, graph_user).

@@ -6,12 +6,6 @@ require 'rspec/rails'
 require 'rubygems'
 require 'database_cleaner'
 
-begin
-  require 'simplecov'
-  SimpleCov.start
-rescue
-end
-
 I_AM_SPEC_HELPER = true
 
 # Requires supporting ruby files with custom matchers and macros, etc,

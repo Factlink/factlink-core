@@ -4,6 +4,7 @@ module Interactors
   module SubComments
     class IndexForFactRelation
       include Pavlov::Interactor
+      include Util::CanCan
 
       arguments :fact_relation_id
 
@@ -12,7 +13,7 @@ module Interactors
       end
 
       def authorized?
-        @options[:current_user]
+        can? :show, fact_relation
       end
 
       def execute

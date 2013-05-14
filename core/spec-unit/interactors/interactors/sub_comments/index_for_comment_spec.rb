@@ -7,20 +7,29 @@ describe Interactors::SubComments::IndexForComment do
     stub_classes 'SubComment', 'Comment', 'KillObject'
   end
 
-  it 'initializes correctly' do
-    interactor = Interactors::SubComments::IndexForComment.new '2a', current_user: mock
+  describe '.authorized' do
+    it 'checks if the comment can be shown' do
+      comment_id = '1a'
+      comment = mock
+      
+      Comment.stub(:find).with(comment_id).and_return(comment)
 
-    expect( interactor ).to_not be_nil
-  end
+      ability = mock
+      ability.should_receive(:can?).with(:show, comment).and_return(false)
 
-  it '.authorized denied when no user is given' do
-    expect{ Interactors::SubComments::IndexForComment.new '2a', current_user: nil }.
-      to raise_error Pavlov::AccessDenied, 'Unauthorized'
+      expect do
+        interactor = described_class.new comment_id, ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
+    end
   end
 
   describe '.validate' do
+    before do
+      described_class.any_instance.stub(:authorized?).and_return(true)
+    end
+
     it 'without comment_id doesn''t validate' do
-      expect_validating(nil, current_user: mock).
+      expect_validating(nil).
         to fail_validation('comment_id should be an hexadecimal string.')
     end
   end
@@ -28,16 +37,16 @@ describe Interactors::SubComments::IndexForComment do
   describe '.execute' do
     before do
       stub_classes 'Queries::SubComments::Index'
+      described_class.any_instance.stub(:authorized?).and_return(true)
     end
 
     it do
       comment_id = '2b'
-      user = mock
       sub_comments = [mock, mock]
       dead_sub_comments = [mock, mock]
       authorities = [10, 20]
 
-      interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: user
+      interactor = Interactors::SubComments::IndexForComment.new comment_id
       interactor.stub comment: mock
 
       interactor.should_receive(:query).with(:"sub_comments/index", comment_id, 'Comment').
@@ -65,7 +74,7 @@ describe Interactors::SubComments::IndexForComment do
     it 'throws an error when the comment does not exist' do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
-      interactor = Interactors::SubComments::IndexForComment.new '2b', current_user: mock
+      interactor = Interactors::SubComments::IndexForComment.new '2b'
       interactor.should_receive(:comment).and_return(nil)
 
       expect{interactor.call}.to raise_error(Pavlov::ValidationError, "comment does not exist any more")
@@ -73,13 +82,17 @@ describe Interactors::SubComments::IndexForComment do
   end
 
   describe '.top_fact' do
+    before do
+      described_class.any_instance.stub(:authorized?).and_return(true)
+    end
+
     it 'returns the top fact for the comment_id' do
       comment_id = '2a'
       fact = mock
       comment = mock(fact_data: mock(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
 
-      interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: mock
+      interactor = Interactors::SubComments::IndexForComment.new comment_id
 
       result = interactor.top_fact
 
@@ -92,7 +105,7 @@ describe Interactors::SubComments::IndexForComment do
       comment = mock(fact_data: mock(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
 
-      interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: mock
+      interactor = Interactors::SubComments::IndexForComment.new comment_id
 
       result = interactor.top_fact
 
@@ -105,6 +118,7 @@ describe Interactors::SubComments::IndexForComment do
   describe '.authority_of_user_who_created' do
     before do
       stub_classes 'Queries::AuthorityOnFactFor'
+      described_class.any_instance.stub(:authorized?).and_return(true)
     end
 
     it 'retrieves the authority and kills the subcomment' do
@@ -112,9 +126,8 @@ describe Interactors::SubComments::IndexForComment do
       fact = mock
       graph_user = mock
       authority = mock
-      user = mock
       sub_comment = mock(created_by: mock(graph_user: graph_user))
-      interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: user
+      interactor = Interactors::SubComments::IndexForComment.new comment_id
 
       interactor.should_receive(:top_fact).and_return(fact)
       interactor.should_receive(:query).with(:"authority_on_fact_for", fact, graph_user).

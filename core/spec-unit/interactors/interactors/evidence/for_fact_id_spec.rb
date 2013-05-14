@@ -4,12 +4,11 @@ require_relative '../../../../app/interactors/interactors/evidence/for_fact_id.r
 describe Interactors::Evidence::ForFactId do
   include PavlovSupport
 
-  it '.new' do
-    interactor = Interactors::Evidence::ForFactId.new '1', :weakening, current_user: mock
-    interactor.should_not be_nil
-  end
-
   describe '.validate' do
+    before do
+      described_class.any_instance.stub(:authorized?).and_return(true)
+    end
+
     it 'requires fact_id to be an integer' do
       expect_validating('a', :weakening).
         to fail_validation('fact_id should be an integer string.')
@@ -26,17 +25,31 @@ describe Interactors::Evidence::ForFactId do
     end
   end
 
-  it '.authorized raises when not logged in' do
-    expect{ Interactors::Evidence::ForFactId.new '1', :weakening, current_user: nil }.
-      to raise_error Pavlov::AccessDenied, "Unauthorized"
+  describe '.authorized?' do
+    it 'should check if the fact can be shown' do
+      stub_classes 'Fact'
+
+      ability = mock
+      ability.should_receive(:can?).with(:show, Fact).and_return(false)
+
+      expect do
+        interactor = described_class.new '1', :supporting, ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
+    end
   end
 
   describe '.execute' do
+    before do
+      described_class.any_instance.stub(:authorized?).and_return(true)
+    end
+
     it 'correctly' do
       fact_id = '1'
       type = :supporting
       result = mock
-      interactor = Interactors::Evidence::ForFactId.new '1', type, current_user: mock
+      options = {current_user: mock}
+
+      interactor = Interactors::Evidence::ForFactId.new '1', type, current_user: options
 
       interactor.should_receive(:query).with(:'evidence/for_fact_id', fact_id, type).and_return(mock)
 
