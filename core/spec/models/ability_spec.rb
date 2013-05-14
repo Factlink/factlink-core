@@ -95,11 +95,11 @@ describe Ability do
     it {subject.should be_able_to :create, Fact }
 
     describe "of my own" do
-      it {subject.should be_able_to :update, f1 }
-      it {subject.should be_able_to :read, f1 }
-      it {subject.should be_able_to :opinionate, f1 }
-      it {subject.should be_able_to :add_evidence, f1 }
-      it {subject.should be_able_to :create, f1 }
+      it {subject.should_not be_able_to :update, f1 }
+      it {subject.should     be_able_to :read, f1 }
+      it {subject.should     be_able_to :opinionate, f1 }
+      it {subject.should     be_able_to :add_evidence, f1 }
+      it {subject.should     be_able_to :create, f1 }
     end
 
     describe "of someone else" do
@@ -115,6 +115,7 @@ describe Ability do
       it {anonymous.should      be_able_to :read, f1 }
 
       it {anonymous.should_not  be_able_to :create, Fact }
+      it {anonymous.should_not  be_able_to :update, f1 }
       it {anonymous.should_not  be_able_to :opinionate, Fact }
       it {anonymous.should_not  be_able_to :add_evidence, f1 }
     end
@@ -137,7 +138,7 @@ describe Ability do
     end
 
     describe "without logging in" do
-      it {anonymous.should_not  be_able_to :read, fr1 }
+      it {anonymous.should      be_able_to :read, fr1 }
       it {anonymous.should_not  be_able_to :opinionate, fr1 }
       it {anonymous.should_not  be_able_to :destroy, fr1 }
     end
@@ -156,7 +157,7 @@ describe Ability do
     end
 
     describe "without logging in" do
-      it {anonymous.should_not be_able_to :read, c1 }
+      it {anonymous.should be_able_to :read, c1 }
     end
   end
 
@@ -213,5 +214,5 @@ describe Ability do
       end
     end
   end
-  
+
 end

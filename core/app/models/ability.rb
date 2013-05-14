@@ -46,6 +46,8 @@ class Ability
     can :new, Fact
     can :index, Fact
     can :read, Fact
+    can :read, FactRelation
+    can :read, Comment
   end
 
   def define_channel_abilities
@@ -85,15 +87,11 @@ class Ability
       can :destroy, FactRelation do |fr|
         fr.created_by_id == user.graph_user_id && fr.deletable?
       end
-    elsif user_acting_as_non_signed_in
-      can :read, FactRelation
     end
   end
 
   def define_comment_abilities
     if agrees_tos?
-      can :read, Comment
-    elsif user_acting_as_non_signed_in
       can :read, Comment
     end
   end
