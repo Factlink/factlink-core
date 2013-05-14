@@ -5,6 +5,10 @@ class window.ClientController
     fact.fetch success: => @showFact fact
 
   newFact: (params={}) => #(layout, fact_text, title, url, site_id) =>
+    unless window.currentUser?
+      window.location = Factlink.Global.path.sign_in_client()
+      return
+
     csrf_token = $('meta[name=csrf-token]').attr('content')
 
     FactlinkApp.guided = params.guided == 'true'
