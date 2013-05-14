@@ -67,11 +67,7 @@ class FactsController < ApplicationController
     authorize! :new, Fact
     authenticate_user!
 
-    if current_ability.signed_in?
-      render inline:'', layout: 'client'
-    else
-      render text: '<h1>Here will be a login screen after removing :act_as_non_signed_in feature</h1>'
-    end
+    render inline:'', layout: 'client'
   end
 
   def create
