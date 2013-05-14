@@ -514,13 +514,10 @@ describe 'activity queries' do
   end
 
   describe "following a person" do
-      let(:gu3) { create(:active_user).graph_user }
-
-      before do
-        UserFollowingUsers.new(gu2.id).follow gu1.id
-      end
-
       it "creates a activity when a user you follow adds a factlink to a channel" do
+        gu3 =create(:active_user).graph_user
+        UserFollowingUsers.new(gu2.id).follow gu1.id
+
         f1 = create :fact, created_by: gu3
 
         ch1 = create :channel, created_by: gu1
