@@ -11,12 +11,12 @@ describe FactsController do
       user = FactoryGirl.create :user
       authenticate_user!(user)
       
-      @fact = create :fact, created_by: user.graph_user
+      fact = create :fact, created_by: user.graph_user
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      should_check_can :show, @fact
+      should_check_can :show, fact
 
-      get :show, :id => @fact.id
+      get :show, id: fact.id
       response.should be_success
     end
 
@@ -27,12 +27,12 @@ describe FactsController do
       user = FactoryGirl.create :user
       authenticate_user!(user)
 
-      @fact = create :fact, created_by: user.graph_user
+      fact = create :fact, created_by: user.graph_user
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      should_check_can :show, @fact
+      should_check_can :show, fact
 
-      get :show, id: @fact.id, format: :json
+      get :show, id: fact.id, format: :json
       response.should be_success
 
       response_body = response.body.to_s
@@ -47,15 +47,15 @@ describe FactsController do
       user = FactoryGirl.create :user
       authenticate_user!(user)
 
-      @fact = create :fact, created_by: user.graph_user
-      @fact.data.displaystring = "baas<xss> of niet"
-      @fact.data.title = "baas<xss> of niet"
-      @fact.data.save
+      fact = create :fact, created_by: user.graph_user
+      fact.data.displaystring = "baas<xss> of niet"
+      fact.data.title = "baas<xss> of niet"
+      fact.data.save
 
-      ability.stub(:can?).and_return(true)
-      should_check_can :show, @fact
+      ability.stub can?: true
+      should_check_can :show, fact
 
-      get :extended_show, :id => @fact.id, :fact_slug => 'hoi'
+      get :extended_show, id: fact.id, fact_slug: 'hoi'
       response.body.should_not match(/<xss>/)
     end
   end
@@ -65,22 +65,22 @@ describe FactsController do
       user = FactoryGirl.create :user
       authenticate_user!(user)
 
-      @fact = create :fact, created_by: user.graph_user
-      @fact_id = @fact.id
+      fact = create :fact, created_by: user.graph_user
+      fact_id = fact.id
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
-      should_check_can :destroy, @fact
-      get :destroy, id: @fact.id, format: :json
+      should_check_can :destroy, fact
+      get :destroy, id: fact.id, format: :json
       response.should be_success
 
-      Fact[@fact_id].should == nil
+      Fact[fact_id].should == nil
     end
   end
 
   describe :intermediate do
     it "should have the correct assignments" do
       subject.stub(:current_user) {user}
-      post :intermediate, :the_action => "prepare"
+      post :intermediate, the_action: "prepare"
       response.code.should eq("200")
     end
   end
@@ -89,20 +89,20 @@ describe FactsController do
     it "should work" do
       authenticate_user!(user)
       should_check_can :create, anything
-      post 'create', :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
+      post 'create', url: "http://example.org/", fact: "Facity Fact", title: "Title"
       response.should redirect_to(fact_path(Fact.all.all[-1].id))
     end
 
     it "should work with json" do
       authenticate_user!(user)
       should_check_can :create, anything
-      post 'create', :format => :json, :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
+      post 'create', format: :json, url: "http://example.org/", fact: "Facity Fact", title: "Title"
       response.code.should eq("200")
     end
     it "should work with json, with initial belief" do
       authenticate_user!(user)
       should_check_can :create, anything
-      post 'create', :format => :json, :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title", :opinion => :believes
+      post 'create', format: :json, url: "http://example.org/", fact: "Facity Fact", title: "Title", :opinion => :believes
       response.code.should eq("200")
     end
   end
@@ -110,7 +110,7 @@ describe FactsController do
   describe :new do
     it "should work" do
       authenticate_user!(user)
-      post 'new', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
+      post 'new', url: "http://example.org/", displaystring: "Facity Fact", title: "Title"
       response.should be_success
     end
   end
