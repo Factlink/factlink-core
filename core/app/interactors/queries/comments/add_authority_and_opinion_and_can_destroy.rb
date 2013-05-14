@@ -23,12 +23,10 @@ module Queries
       end
 
       def current_user_opinion
-        if current_graph_user
-          query :'comments/graph_user_opinion',
+        return nil if current_graph_user.nil?
+        
+        query :'comments/graph_user_opinion',
               @comment.id.to_s, current_graph_user
-        else
-          nil
-        end
       end
 
       def current_graph_user
@@ -36,15 +34,9 @@ module Queries
       end
 
       def can_destroy
-        if current_user_id
-          query :'comments/can_destroy', @comment.id.to_s, current_user_id
-        else
-          false
-        end
-      end
-
-      def current_user_id
-        @options[:current_user].andand.id.to_s
+        return false if @options[:current_user].nil?
+        
+        query :'comments/can_destroy', @comment.id.to_s, @options[:current_user].id.to_s
       end
     end
   end
