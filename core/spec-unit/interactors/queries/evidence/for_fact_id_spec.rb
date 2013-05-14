@@ -48,7 +48,7 @@ describe Queries::Evidence::ForFactId do
       stub_classes 'KillObject'
     end
 
-    it 'correctly' do
+    it 'returns a dead object' do
       fact_relation = mock(id: '1', class: 'FactRelation')
       graph_user = mock
       opinion_on = mock
@@ -67,6 +67,28 @@ describe Queries::Evidence::ForFactId do
       interactor.should_receive(:fact_relations).and_return([fact_relation])
       KillObject.should_receive(:fact_relation).with(fact_relation,
         {current_user_opinion:opinion_on,opinion:opinion,evidence_class: 'FactRelation'}).
+        and_return(dead_fact_relation)
+
+      result = interactor.dead_fact_relations_with_opinion
+
+      expect(result).to eq [dead_fact_relation]
+    end
+
+    it 'works without a current user' do
+      fact_relation = mock(id: '1', class: 'FactRelation')
+      opinion = mock
+
+      dead_fact_relation = mock
+      sub_comments_count = 2
+      interactor = Queries::Evidence::ForFactId.new '1', :supporting
+
+      interactor.should_receive(:query).with(:'sub_comments/count',fact_relation.id, fact_relation.class).
+        and_return(sub_comments_count)
+      fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
+      fact_relation.should_receive(:get_user_opinion).and_return(opinion)
+      interactor.should_receive(:fact_relations).and_return([fact_relation])
+      KillObject.should_receive(:fact_relation).with(fact_relation,
+        {current_user_opinion:nil,opinion:opinion,evidence_class: 'FactRelation'}).
         and_return(dead_fact_relation)
 
       result = interactor.dead_fact_relations_with_opinion
