@@ -33,9 +33,6 @@ FactlinkUI::Application.routes.draw do
   get "/jslib/:path" => "js_lib#redir",
       constraints: { path: /[-a-zA-Z0-9_.\/]*/ }
 
-  # Generate the images for the indicator used in the js-lib
-  get "/system/wheel/:percentages" => "wheel#show"
-
   # Show Facts#new as unauthenticated user to show the correct login link
   resources :facts, only: [:new, :create, :show, :destroy] do
     member do

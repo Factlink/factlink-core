@@ -355,7 +355,6 @@ GEM
       sentry-raven (>= 0.1)
     resque_mailer (2.2.3)
       actionmailer (~> 3.0)
-    rmagick (2.13.2)
     roadie (2.3.4)
       actionmailer (> 3.0.0, < 3.3.0)
       css_parser
@@ -511,7 +510,6 @@ DEPENDENCIES
   resque (~> 1.23.0)
   resque-sentry (~> 0.1.0)
   resque_mailer (~> 2.2.3)
-  rmagick (~> 2.13.2)
   roadie (~> 2.3.4)
   rspec-rails (~> 2.13)
   ruby-prof (~> 0)
