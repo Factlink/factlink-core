@@ -37,6 +37,7 @@ class FactsController < ApplicationController
     render_backbone_page
   end
 
+  # TODO combine next three methods
   def believers
     fact_id = params[:id].to_i
     data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'believes'
