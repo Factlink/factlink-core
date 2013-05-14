@@ -51,53 +51,53 @@ class Ability
   end
 
   def define_channel_abilities
-    if agrees_tos?
-      can :index, Channel
-      can :read, Channel
-      can :manage, Channel do |ch|
-        ch.created_by_id == user.graph_user_id
-      end
+    return unless agrees_tos?
+    can :index, Channel
+    can :read, Channel
+    can :manage, Channel do |ch|
+      ch.created_by_id == user.graph_user_id
     end
   end
 
   def define_topic_abilities
-    if agrees_tos?
-      can :index, Topic
-      can :show, Topic
-    end
+    return unless agrees_tos?
+
+    can :index, Topic
+    can :show, Topic
   end
 
   def define_fact_abilities
-    if agrees_tos?
-      can :index, Fact
-      can :read, Fact
-      can :opinionate, Fact
-      can :add_evidence, Fact
-      can :manage, Fact do |f|
-        f.created_by_id == user.graph_user_id
-      end
-      cannot :update, Fact
+    return unless agrees_tos?
+
+    can :index, Fact
+    can :read, Fact
+    can :opinionate, Fact
+    can :add_evidence, Fact
+    can :manage, Fact do |f|
+      f.created_by_id == user.graph_user_id
     end
+    cannot :update, Fact
   end
 
   def define_fact_relation_abilities
-    if agrees_tos?
-      can :read, FactRelation
-      can :opinionate, FactRelation
-      can :destroy, FactRelation do |fr|
-        fr.created_by_id == user.graph_user_id && fr.deletable?
-      end
+    return unless agrees_tos?
+
+    can :read, FactRelation
+    can :opinionate, FactRelation
+    can :destroy, FactRelation do |fr|
+      fr.created_by_id == user.graph_user_id && fr.deletable?
     end
   end
 
   def define_comment_abilities
-    if agrees_tos?
-      can :read, Comment
-    end
+    return unless agrees_tos?
+    
+    can :read, Comment
   end
 
   def define_user_abilities
     can :read, user if signed_in?
+
     if agrees_tos?
       can :update, user
       can :read, User do
@@ -119,21 +119,21 @@ class Ability
   end
 
   def define_user_favourites_abilities
-    if agrees_tos?
-      can :show_favourites, user
-      can :edit_favourites, user
-    end
+    return unless agrees_tos?
+
+    can :show_favourites, user
+    can :edit_favourites, user
   end
 
   def define_user_activities_abilities
-    if agrees_tos?
-      can :index, Activity
-      can :mark_activities_as_read, User do |u|
-        u.id == user.id
-      end
-      can :see_activities, User do |u|
-        u.id == user.id
-      end
+    return unless agrees_tos?
+
+    can :index, Activity
+    can :mark_activities_as_read, User do |u|
+      u.id == user.id
+    end
+    can :see_activities, User do |u|
+      u.id == user.id
     end
   end
 
