@@ -17,7 +17,7 @@ class window.TopicHeaderView extends Backbone.Marionette.ItemView
 
   templateHelpers: =>
     stream_title: Factlink.Global.t.stream.capitalize()
-    channel_listing_header: Factlink.Global.t.topics.capitalize()
+    channel_listing_header: Factlink.Global.t.favourites.capitalize()
 
   initialize: =>
     @on 'activate', (type)=> @activate(type)
