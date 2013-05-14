@@ -1,7 +1,7 @@
 class FactsController < ApplicationController
   layout "client"
 
-  before_filter :set_layout, :only => [:new, :create]
+  before_filter :set_layout, only: [:new, :create]
 
   respond_to :json, :html
 
@@ -9,7 +9,7 @@ class FactsController < ApplicationController
     only: [:believers, :disbelievers, :doubters]
 
   before_filter :load_fact,
-    :only => [
+    only: [
       :show,
       :extended_show,
       :destroy,
