@@ -35,7 +35,7 @@ module Queries
       end
 
       def current_user_opinion_on fact_relation
-        return nil if @options[:current_user].nil?
+        return unless @options[:current_user]
 
         @options[:current_user].graph_user.opinion_on(fact_relation)
       end
