@@ -106,6 +106,9 @@ class Ability
     return unless agrees_tos?
 
     can :create, SubComment
+    can :destroy, SubComment do |sub_comment|
+      sub_comment.created_by_id == user.id
+    end
   end
 
   def define_user_abilities

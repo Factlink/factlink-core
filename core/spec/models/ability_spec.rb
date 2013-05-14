@@ -292,6 +292,14 @@ describe Ability do
         nonnda.should_not      be_able_to :create, SubComment
       end
     end
+    describe "removing a sub_comment" do
+      let(:sub_comment) { create :sub_comment, created_by: user }
+      let(:other_sub_comment) { create :sub_comment, created_by: other_user }
+      it "is only allowed to the owner" do
+        subject.should         be_able_to :destroy, sub_comment
+        subject.should_not     be_able_to :destroy, other_sub_comment
+      end
+    end
   end
 
 end
