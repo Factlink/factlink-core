@@ -46,7 +46,45 @@ describe 'activity queries' do
       ]
     end
 
-    it "should return activity for all users following a channel of User1 when User1 creates a new channel" do
+    context 'seeing channels' do
+      let(:gu1) { create(:seeing_channels_user).graph_user }
+      let(:gu2) { create(:seeing_channels_user).graph_user }
+
+      it "should return activity for all users following a channel of User1 when User1 creates a new channel" do
+        ch1 = create :channel, created_by: gu1
+        ch2 = create :channel, created_by: gu2
+
+        Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
+        ch3 = create :channel, created_by: gu2
+
+        # Channel should not be empty
+        f1 = create :fact
+        add_fact_to_channel f1, ch3
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: gu2, action: :created_channel, subject: ch3}
+        ]
+      end
+
+      it "should return only one created activity when adding subchannels" do
+        ch1 = create :channel, created_by: gu1
+        ch2 = create :channel, created_by: gu2
+
+        Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
+        ch3 = create :channel, created_by: gu2
+
+        4.times do
+          Interactors::Channels::AddSubchannel.new(ch3.id, (create :channel).id, pavlov_options).call
+        end
+
+        stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
+        expect(stream_activities).to eq [
+          {user: gu2, action: :created_channel, subject: ch3}
+        ]
+      end
+    end
+
+    it "should *not* return activity for all users following a channel of User1 when User1 creates a new channel" do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
 
@@ -57,12 +95,10 @@ describe 'activity queries' do
       f1 = create :fact
       add_fact_to_channel f1, ch3
 
-      gu1.stream_activities.map(&:to_hash_without_time).should == [
-        {user: gu2, action: :created_channel, subject: ch3}
-      ]
+      gu1.stream_activities.map(&:to_hash_without_time).should == []
     end
 
-    it "should return only one created activity when adding subchannels" do
+    it "should *not* return created activity when adding subchannels" do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
 
@@ -74,9 +110,7 @@ describe 'activity queries' do
       end
 
       stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
-      expect(stream_activities).to eq [
-        {user: gu2, action: :created_channel, subject: ch3}
-      ]
+      expect(stream_activities).to eq []
     end
 
     [:supporting, :weakening].each do |type|
@@ -99,24 +133,45 @@ describe 'activity queries' do
   end
 
   describe ".user" do
-    it "should return notification when a user follows your channel" do
-      ch1 = create :channel
-      ch2 = create :channel
+    context 'seeing channels' do
+      let(:gu1) { create(:seeing_channels_user).graph_user }
+      let(:gu2) { create(:seeing_channels_user).graph_user }
 
-      Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
-      ch2.created_by.notifications.map(&:to_hash_without_time).should == [
-        {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
-      ]
+      it "should return notification when a user follows your channel" do
+        ch1 = create :channel, created_by: gu1
+        ch2 = create :channel, created_by: gu2
+
+        Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
+        ch2.created_by.notifications.map(&:to_hash_without_time).should == [
+          {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
+        ]
+      end
+
+      it "should return stream activity when a user follows your channel" do
+        ch1 = create :channel, created_by: gu1
+        ch2 = create :channel, created_by: gu2
+
+        Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
+        ch2.created_by.stream_activities.map(&:to_hash_without_time).should == [
+          {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
+        ]
+      end
     end
 
-    it "should return stream activity when a user follows your channel" do
-      ch1 = create :channel
-      ch2 = create :channel
+    it "should *not* return notification when a user follows your channel" do
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu2
 
       Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
-      ch2.created_by.stream_activities.map(&:to_hash_without_time).should == [
-        {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
-      ]
+      ch2.created_by.notifications.map(&:to_hash_without_time).should == []
+    end
+
+    it "should *not* return stream activity when a user follows your channel" do
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu2
+
+      Interactors::Channels::AddSubchannel.new(ch1.id,ch2.id, pavlov_options).call
+      ch2.created_by.stream_activities.map(&:to_hash_without_time).should == []
     end
 
     it "should only return other users activities, not User his own activities" do
