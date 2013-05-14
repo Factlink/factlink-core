@@ -74,6 +74,7 @@ class Ability
       can :manage, Fact do |f|
         f.created_by_id == user.graph_user_id
       end
+      cannot :update, Fact
     elsif user_acting_as_non_signed_in
       can :index, Fact
       can :read, Fact

@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
 
   layout "frontend"
+  before_filter :authenticate_user!
 
   # Search
   # Not using the same search for the client popup, since we probably want\
