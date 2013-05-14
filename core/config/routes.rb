@@ -81,6 +81,7 @@ FactlinkUI::Application.routes.draw do
         delete  "opinion/"      => "evidence#remove_opinions",  as: "delete_opinion"
         scope '/sub_comments' do
           get '' => 'sub_comments#index'
+          post '' => 'sub_comments#create'
         end
       end
     end
@@ -100,7 +101,6 @@ FactlinkUI::Application.routes.draw do
       resources :supporting_evidence, :weakening_evidence, only: [] do
         member do
           scope '/sub_comments' do
-            post '' => 'sub_comments#create'
             delete "/:sub_comment_id" => 'sub_comments#destroy'
           end
         end
