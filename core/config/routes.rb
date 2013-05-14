@@ -82,6 +82,7 @@ FactlinkUI::Application.routes.draw do
         scope '/sub_comments' do
           get '' => 'sub_comments#index'
           post '' => 'sub_comments#create'
+            delete "/:sub_comment_id" => 'sub_comments#destroy'
         end
       end
     end
@@ -95,18 +96,6 @@ FactlinkUI::Application.routes.draw do
   get "/search(/page/:page)(/:sort/:direction)" => "search#search", as: "factlink_overview"
 
   authenticated :user do
-
-    resources :facts, only: [] do
-
-      resources :supporting_evidence, :weakening_evidence, only: [] do
-        member do
-          scope '/sub_comments' do
-            delete "/:sub_comment_id" => 'sub_comments#destroy'
-          end
-        end
-      end
-    end
-
     namespace :admin, path: 'a' do
       resources :users, only: [:show, :new, :create, :edit, :update, :index] do
         collection do
