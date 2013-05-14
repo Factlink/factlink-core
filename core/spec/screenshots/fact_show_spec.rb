@@ -18,14 +18,12 @@ describe "factlink", type: :request do
     assume_unchanged_screenshot "fact_show"
   end
 
-  it "the layout of the discussion page is correct for a user acting_as_non_signed_in_user" do
+  it "the layout of the discussion page is correct for an anonymous user" do
     @user = sign_in_user FactoryGirl.create :active_user
 
     @factlink = create_discussion
 
     sign_out_user
-
-    @user = sign_in_user FactoryGirl.create :acting_as_non_signed_in_user
 
     go_to_fact_show_of @factlink
     find('a', text: 'Comments (1)').click
