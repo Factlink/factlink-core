@@ -1,6 +1,4 @@
 class FactsController < ApplicationController
-  include FactHelper
-
   layout "client"
 
   before_filter :set_layout, :only => [:new, :create]
