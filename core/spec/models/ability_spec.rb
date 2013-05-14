@@ -283,6 +283,23 @@ describe Ability do
         it {acting_anonymous.should be_able_to :read, c1 }
       end
     end
+
+    describe "creating a subcomment" do
+      it "is allowed for logged in users" do
+        admin.should           be_able_to :create, SubComment
+        subject.should         be_able_to :create, SubComment
+        anonymous.should_not   be_able_to :create, SubComment
+        nonnda.should_not      be_able_to :create, SubComment
+      end
+    end
+    describe "removing a sub_comment" do
+      let(:sub_comment) { create :sub_comment, created_by: user }
+      let(:other_sub_comment) { create :sub_comment, created_by: other_user }
+      it "is only allowed to the owner" do
+        subject.should         be_able_to :destroy, sub_comment
+        subject.should_not     be_able_to :destroy, other_sub_comment
+      end
+    end
   end
 
 end

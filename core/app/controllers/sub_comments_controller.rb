@@ -7,7 +7,7 @@ class SubCommentsController < ApplicationController
     end
     render 'sub_comments/index'
   rescue Pavlov::ValidationError => e
-    render text: e.message, :status => 400
+    render text: e.message, status: 400
   end
 
   def create
@@ -18,7 +18,7 @@ class SubCommentsController < ApplicationController
     end
     render 'sub_comments/show'
   rescue Pavlov::ValidationError => e
-    render text: e.message, :status => 400
+    render text: e.message, status: 400
   end
 
   def destroy

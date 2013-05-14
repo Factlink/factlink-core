@@ -80,7 +80,7 @@ FactoryGirl.define do
     # The reason for this is that when `gu = create :graph_user` then `gu.user.graph_user` does not equal `gu`.
     # Leads to strange and very annoying bugs.
     # Also, it is slower, since for every graph_user a user must be created.
-    
+
     # If you need a graph_user with a user, make a user and use `user.graph_user`.
   end
 
@@ -100,6 +100,9 @@ FactoryGirl.define do
   end
 
   factory :comment do
+  end
+
+  factory :sub_comment do
   end
 
   factory :channel do

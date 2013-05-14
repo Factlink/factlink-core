@@ -41,6 +41,7 @@ class Ability
     define_fact_abilities
     define_fact_relation_abilities
     define_comment_abilities
+    define_sub_comment_abilities
     define_user_abilities
     define_user_favourites_abilities
     define_user_activities_abilities
@@ -98,6 +99,15 @@ class Ability
       can :read, Comment
     elsif user_acting_as_non_signed_in
       can :read, Comment
+    end
+  end
+
+  def define_sub_comment_abilities
+    return unless agrees_tos?
+
+    can :create, SubComment
+    can :destroy, SubComment do |sub_comment|
+      sub_comment.created_by_id == user.id
     end
   end
 
