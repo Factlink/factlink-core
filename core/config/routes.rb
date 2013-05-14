@@ -82,7 +82,7 @@ FactlinkUI::Application.routes.draw do
         scope '/sub_comments' do
           get '' => 'sub_comments#index'
           post '' => 'sub_comments#create'
-            delete "/:sub_comment_id" => 'sub_comments#destroy'
+          delete "/:sub_comment_id" => 'sub_comments#destroy'
         end
       end
     end
