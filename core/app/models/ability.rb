@@ -161,7 +161,7 @@ class Ability
   end
 
   FEATURES = %w(pink_feedback_button skip_create_first_factlink memory_profiling act_as_non_signed_in sees_channels)
-  GLOBAL_ENABLED_FEATURES = [:sees_channels]
+  GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list
     list.each do |feature|
