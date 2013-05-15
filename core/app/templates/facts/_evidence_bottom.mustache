@@ -3,15 +3,17 @@
 
   {{#showDiscussion}}
     <li>
-      <a href="{{from_fact.url}}" class="discussion_link"
-        {{#modal?}}
-          target="new"
-        {{/modal?}}{{^modal?}}
-          rel="backbone" target="_top"
-        {{/modal?}}
-        >
-          Discussion
-      </a>
+      {{#global.signed_in}}
+        <a href="{{from_fact.url}}" class="discussion_link"
+          {{#modal?}}
+            target="new"
+          {{/modal?}}{{^modal?}}
+            rel="backbone" target="_top"
+          {{/modal?}}
+          >
+            Discussion
+        </a>
+      {{/global.signed_in}}
 
       <span class="opinion_indicators">
         <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
