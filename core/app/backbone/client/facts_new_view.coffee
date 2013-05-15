@@ -66,6 +66,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       => @$el.is ":visible"
     , => @the_tooltip.render()
     )
+    activateDisableWith(@$el)
 
   onBeforeClose: ->
     @the_tooltip.close()
