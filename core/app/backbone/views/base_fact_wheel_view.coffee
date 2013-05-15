@@ -3,6 +3,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   className: "wheel"
   defaults:
     respondsToMouse: true
+    showsTooltips: true
 
     dimension: 16
     radius: 16
@@ -91,7 +92,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       opacity: opacity
 
     # Bind Mouse Events on the path
-    if @options.respondsToMouse
+    if @options.respondsToMouse || @options.showsTooltips
       path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
       path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
       path.click _.bind(@clickOpinionType, this, opinionType)
@@ -156,7 +157,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   clickOpinionType: ->
 
   bindTooltips: ->
-    if @options.respondsToMouse
+    if @options.showsTooltips
       @$("div.tooltip").remove()
       @$(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
 
