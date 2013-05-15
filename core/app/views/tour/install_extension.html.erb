@@ -119,10 +119,7 @@
 
         function successFn() {
           mp_track("Extension: Download Chrome Extension -> Successful install #almost-ready");
-
-          $('#skip-step').fadeOut(600, function() {
-            window.location = "<%= next_tourstep_path(ref: 'extension_next') %>";
-          });
+          window.location = "<%= next_tourstep_path(ref: 'chrome_extension_redirect') %>";
         }
         function errorFn(e) {
           mp_track("Extension: Download Chrome Extension -> Failed install #almost-ready");
