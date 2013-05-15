@@ -4,6 +4,7 @@ class TopChannelView extends Backbone.Marionette.Layout
 
   templateHelpers: =>
     position: @options.position
+    topic_link: @model.topic().url()
 
 class TopChannelsEmptyView extends Backbone.Marionette.ItemView
   template: 'users/profile/top_channels_empty'

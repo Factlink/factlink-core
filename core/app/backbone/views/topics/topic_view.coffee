@@ -41,6 +41,8 @@ class window.TopicView extends Backbone.Marionette.Layout
     @favouriteTopicRegion.show view
 
   channel: ->
+    return false unless Factlink.Global.can_haz['sees_channels']
+    
     @_channel ?= @model.existingChannelFor(currentUser) || false
 
   channelFacts: -> new ChannelFacts [], channel: @channel()
