@@ -1,24 +1,26 @@
 <ul class="actions">
   <li class="js-sub-comments-link-container"><a class="js-sub-comments-link"></a></li>
 
-  <li>
-    {{#showDiscussion}}
-      <a href="{{from_fact.url}}" class="discussion_link"
-        {{#modal?}}
-          target="new"
-        {{/modal?}}{{^modal?}}
-          rel="backbone" target="_top"
-        {{/modal?}}
-        >
-          Discussion
-      </a>
-    {{/showDiscussion}}
+  {{#showDiscussion}}
+    <li>
+      {{#global.signed_in}}
+        <a href="{{from_fact.url}}" class="discussion_link"
+          {{#modal?}}
+            target="new"
+          {{/modal?}}{{^modal?}}
+            rel="backbone" target="_top"
+          {{/modal?}}
+          >
+            Discussion
+        </a>
+      {{/global.signed_in}}
 
-    <span class="opinion_indicators">
-      <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
-      <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
-    </span>
-  </li>
+      <span class="opinion_indicators">
+        <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
+        <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
+      </span>
+    </li>
+  {{/showDiscussion}}
 
   {{#from_fact.proxy_scroll_url}}
     <li class="fact-info">
