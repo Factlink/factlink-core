@@ -38,6 +38,9 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   className: 'fact-new'
 
+  ui:
+    'post_factlink': '#submit'
+
   events:
     'click #submit': 'post_factlink',
     'click .fact-wheel': 'closeOpinionHelptext'
@@ -66,7 +69,6 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       => @$el.is ":visible"
     , => @the_tooltip.render()
     )
-    activateDisableWith(@$el)
 
   onBeforeClose: ->
     @the_tooltip.close()
@@ -109,6 +111,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
   post_factlink: (e)->
     e.preventDefault()
     e.stopPropagation()
+    disableInputWithDisableWith(@ui.post_factlink)
 
     channel_ids = @addToCollection.map (ch)-> ch.id
 
