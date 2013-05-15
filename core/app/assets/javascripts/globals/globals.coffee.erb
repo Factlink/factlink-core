@@ -7,7 +7,9 @@ Factlink.Global =
   path:
     homepage: '/'
     sign_in: '/users/sign_in'
-    sign_in_client: '/users/sign_in?layout=client'
+    sign_in_client: ->
+      return_to = encodeURIComponent('<%= FactlinkUI::Application.config.core_url %>/' + Backbone.history.fragment)
+      '/users/sign_in?layout=client&return_to=' + return_to
   brain_image: '<%= image_path("brain.png") %>'
   trash_image: '<%= image_path("trash.png") %>'
   trash_hover_image: '<%= image_path("trash-hover.png") %>'

@@ -1,6 +1,6 @@
 class EvidenceController < ApplicationController
 
-  before_filter :authenticate_user!, except: [:index]
+  before_filter :authenticate_user!, except: [:index, :combined_index]
 
   respond_to :json
 

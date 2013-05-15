@@ -23,20 +23,20 @@ module Queries
       end
 
       def current_user_opinion
+        return unless current_graph_user
+        
         query :'comments/graph_user_opinion',
               @comment.id.to_s, current_graph_user
       end
 
       def current_graph_user
-        @options[:current_user].graph_user
+        @options[:current_user].andand.graph_user
       end
 
       def can_destroy
-        query :'comments/can_destroy', @comment.id.to_s, current_user_id
-      end
-
-      def current_user_id
-        @options[:current_user].id.to_s
+        return false unless @options[:current_user]
+        
+        query :'comments/can_destroy', @comment.id.to_s, @options[:current_user].id.to_s
       end
     end
   end

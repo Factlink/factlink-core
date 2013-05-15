@@ -26,11 +26,18 @@ module Queries
         fact_relations.map do |fact_relation|
           fact_relation.sub_comments_count = query :'sub_comments/count', fact_relation.id.to_s, fact_relation.class.to_s
           opinion = fact_relation.get_user_opinion
+
           KillObject.fact_relation(fact_relation,
-            current_user_opinion: @options[:current_user].graph_user.opinion_on(fact_relation),
+            current_user_opinion: current_user_opinion_on(fact_relation),
             opinion: opinion,
             evidence_class: 'FactRelation')
         end
+      end
+
+      def current_user_opinion_on fact_relation
+        return unless @options[:current_user]
+
+        @options[:current_user].graph_user.opinion_on(fact_relation)
       end
 
       def sort result

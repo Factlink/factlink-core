@@ -8,14 +8,12 @@ describe Ability do
   let(:anonymous)        { Ability.new}
   let(:admin)            { Ability.new admin_user}
   let(:nonnda)           { Ability.new nonnda_user}
-  let(:acting_anonymous) { Ability.new acting_as_non_signed_in_user}
 
   #users used as object
   let(:user)        {create :active_user}
   let(:other_user)  {create :active_user }
   let(:admin_user)  {create :admin_user}
   let(:nonnda_user) {create :user, agrees_tos: false}
-  let(:acting_as_non_signed_in_user) {create :acting_as_non_signed_in_user}
 
   describe "to manage a user" do
     context "as a normal user" do
@@ -97,10 +95,11 @@ describe Ability do
     it {subject.should be_able_to :create, Fact }
 
     describe "of my own" do
-      it {subject.should be_able_to :read, f1 }
-      it {subject.should be_able_to :opinionate, f1 }
-      it {subject.should be_able_to :add_evidence, f1 }
-      it {subject.should be_able_to :create, f1 }
+      it {subject.should_not be_able_to :update, f1 }
+      it {subject.should     be_able_to :read, f1 }
+      it {subject.should     be_able_to :opinionate, f1 }
+      it {subject.should     be_able_to :add_evidence, f1 }
+      it {subject.should     be_able_to :create, f1 }
     end
 
     describe "of someone else" do
@@ -112,11 +111,13 @@ describe Ability do
     end
 
     describe "without logging in" do
-      it {anonymous.should_not  be_able_to :index, Fact }
+      it {anonymous.should      be_able_to :index, Fact }
+      it {anonymous.should      be_able_to :read, f1 }
+
       it {anonymous.should_not  be_able_to :create, Fact }
+      it {anonymous.should_not  be_able_to :update, f1 }
       it {anonymous.should_not  be_able_to :opinionate, Fact }
       it {anonymous.should_not  be_able_to :add_evidence, f1 }
-      it {anonymous.should_not  be_able_to :read, f1 }
     end
   end
 
@@ -137,7 +138,7 @@ describe Ability do
     end
 
     describe "without logging in" do
-      it {anonymous.should_not  be_able_to :read, fr1 }
+      it {anonymous.should      be_able_to :read, fr1 }
       it {anonymous.should_not  be_able_to :opinionate, fr1 }
       it {anonymous.should_not  be_able_to :destroy, fr1 }
     end
@@ -156,7 +157,7 @@ describe Ability do
     end
 
     describe "without logging in" do
-      it {anonymous.should_not be_able_to :read, c1 }
+      it {anonymous.should be_able_to :read, c1 }
     end
   end
 
@@ -210,94 +211,6 @@ describe Ability do
       it "should be possible when you have no invites" do
         subject.should be_able_to :invite, User
         admin.should be_able_to :invite, User
-      end
-    end
-  end
-
-
-  context "acting as an anonymous user" do
-    describe "to get the fact count of a site" do
-      context "as any user" do
-        it {acting_anonymous.should be_able_to :get_fact_count, Site}
-      end
-    end
-
-    describe "to manage channels" do
-
-      let(:ch1) { FactoryGirl.create :channel, created_by: user.graph_user }
-      let(:ch2) { FactoryGirl.create :channel, created_by: other_user.graph_user }
-
-      describe "without logging in" do
-        it {acting_anonymous.should_not be_able_to :index, Channel }
-        it {acting_anonymous.should_not be_able_to :create, Channel }
-        it {acting_anonymous.should_not be_able_to :read, ch1 }
-        it {acting_anonymous.should_not be_able_to :update, ch1 }
-        it {acting_anonymous.should_not be_able_to :create, ch1 }
-      end
-    end
-
-    describe "to manage facts" do
-      let(:f1) { FactoryGirl.create :fact, created_by: user.graph_user }
-      let(:f2) { FactoryGirl.create :fact, created_by: other_user.graph_user }
-
-      describe "without logging in" do
-        it {acting_anonymous.should  be_able_to :index, Fact }
-        it {acting_anonymous.should  be_able_to :read, f1 }
-
-        it {acting_anonymous.should_not  be_able_to :create, Fact }
-        it {acting_anonymous.should_not  be_able_to :opinionate, Fact }
-        it {acting_anonymous.should_not  be_able_to :add_evidence, f1 }
-      end
-    end
-
-    describe "accessing the admin area" do
-      it "should only be allowed as admin" do
-        acting_anonymous.should_not be_able_to :access, Ability::AdminArea
-      end
-    end
-
-    describe "accessing factlink" do
-      it "should be allowed to users who signed the nda" do
-        acting_anonymous.should_not   be_able_to :access, Ability::FactlinkWebapp
-      end
-    end
-
-    describe "to invite users" do
-      it "should not be possible when you have no invites" do
-        acting_anonymous.should_not be_able_to :invite, User
-      end
-    end
-
-    describe "to manage FactRelations" do
-      let(:fr1) { FactoryGirl.create :fact_relation, created_by: user.graph_user }
-
-      describe "without logging in" do
-        it {acting_anonymous.should be_able_to :read, fr1 }
-      end
-    end
-
-    describe "to manage Comments" do
-      let(:c1) { FactoryGirl.create :comment, created_by: user }
-
-      describe "without logging in" do
-        it {acting_anonymous.should be_able_to :read, c1 }
-      end
-    end
-
-    describe "creating a subcomment" do
-      it "is allowed for logged in users" do
-        admin.should           be_able_to :create, SubComment
-        subject.should         be_able_to :create, SubComment
-        anonymous.should_not   be_able_to :create, SubComment
-        nonnda.should_not      be_able_to :create, SubComment
-      end
-    end
-    describe "removing a sub_comment" do
-      let(:sub_comment) { create :sub_comment, created_by: user }
-      let(:other_sub_comment) { create :sub_comment, created_by: other_user }
-      it "is only allowed to the owner" do
-        subject.should         be_able_to :destroy, sub_comment
-        subject.should_not     be_able_to :destroy, other_sub_comment
       end
     end
   end

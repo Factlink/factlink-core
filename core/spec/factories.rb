@@ -44,10 +44,6 @@ FactoryGirl.define do
       admin true
     end
 
-    trait :acting_as_non_signed_in do
-      features [:act_as_non_signed_in]
-    end
-
     trait :seeing_channels do
       features [:sees_channels]
     end
@@ -57,7 +53,6 @@ FactoryGirl.define do
     factory :approved_confirmed_user, traits: [:approved, :confirmed]
     factory :active_user, traits: [:approved, :confirmed, :seen_the_tour]
     factory :admin_user, traits: [:admin]
-    factory :acting_as_non_signed_in_user, traits: [:acting_as_non_signed_in, :approved, :confirmed, :seen_the_tour]
     factory :seeing_channels_user, traits: [:seeing_channels, :approved, :confirmed, :seen_the_tour]
   end
 
