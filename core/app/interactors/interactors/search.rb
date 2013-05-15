@@ -1,3 +1,5 @@
+require_relative '../util/search.rb'
+
 module Interactors
   class Search
     include Pavlov::Interactor
@@ -22,11 +24,7 @@ module Interactors
     def invalid_result?(res)
         res.nil? or
         (res.class == FactData and FactData.invalid(res)) or
-        (res.class == User and res.hidden) or
-
-        # Top channels for topic functionality can be removed when removing from search;
-        # See comments in topic.rb
-        (res.class == Topic and res.top_channels(3).length <= 0)
+        (res.class == User and res.hidden)
     end
 
     def keyword_min_length
