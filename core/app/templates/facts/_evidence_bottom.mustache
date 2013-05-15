@@ -1,8 +1,8 @@
 <ul class="actions">
   <li class="js-sub-comments-link-container"><a class="js-sub-comments-link"></a></li>
 
-  <li>
-    {{#showDiscussion}}
+  {{#showDiscussion}}
+    <li>
       {{#global.signed_in}}
         <a href="{{from_fact.url}}" class="discussion_link"
           {{#modal?}}
@@ -19,8 +19,8 @@
         <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
         <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
       </span>
-    {{/showDiscussion}}
-  </li>
+    </li>
+  {{/showDiscussion}}
 
   {{#from_fact.proxy_scroll_url}}
     <li class="fact-info">
