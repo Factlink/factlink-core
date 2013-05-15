@@ -1,4 +1,9 @@
 #!/bin/bash
+sudo npm install jslint -g
+sudo npm install supervisor -g
+sudo npm install grunt-cli -g
+gem install bundler
+
 git clone git@github.com:Factlink/chrome-extension.git -b master
 git clone git@github.com:Factlink/firefox-extension -b master
 git clone git@github.com:Factlink/core.git -b master
@@ -7,9 +12,6 @@ git clone git@github.com:Factlink/web-proxy.git -b master
 git clone git@github.com:Factlink/server-management -b master
 
 ln -s core/config config
-gem install bundler
-sudo npm install jslint -g
-sudo npm install supervisor -g
 
 cd core
 	# Bootstrap script should be run with path in core
