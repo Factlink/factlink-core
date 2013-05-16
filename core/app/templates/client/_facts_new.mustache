@@ -1,8 +1,7 @@
 <form accept-charset="UTF-8" action="/facts{{#guided}}?guided={{guided}}{{/guided}}" class="post-factlink-page" method="post">
-<div class="post-factlink-page-div">
   <input name="utf8" type="hidden" value="&#x2713;" />
   <input name="authenticity_token" type="hidden" value="{{csrf_token}}" />
-</div>
+
   <div class="fact-view">
     {{#guided}}
       <div class="js-opinion-animation" style="position:absolute"><img src="{{global.opinion_animation}}" alt="" /></div>
