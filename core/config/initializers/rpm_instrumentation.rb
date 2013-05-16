@@ -17,6 +17,7 @@ if defined?(NewRelic)
     add_transaction_tracer :calculate_user_opinions_of_all_base_facts, category: :task, name: 'calculate_user_opinions_of_all_base_facts'
     add_transaction_tracer :calculate_fact_relation_influencing_opinions, category: :task, name: 'calculate_fact_relation_influencing_opinions'
     add_transaction_tracer :calculate_fact_opinions, category: :task, name: 'calculate_fact_opinions'
+    add_transaction_tracer :cut_off_top, category: :task, name: 'cut_off_top'
   end
 
   MapReduce.class_eval do

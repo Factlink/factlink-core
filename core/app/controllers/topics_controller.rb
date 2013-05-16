@@ -5,6 +5,10 @@ class TopicsController < ApplicationController
     end
   end
 
+  def top
+    render json: top_topics(12)
+  end
+
   def top_channels
     @channels = get_top_channels
     render 'channels/index'
@@ -32,5 +36,9 @@ class TopicsController < ApplicationController
     def topic
       topic = interactor :"topics/get", params[:id]
       topic || raise_404("Topic not found")
+    end
+
+    def top_topics(nr)
+      Topic.top(nr+2).reject {|t| t.nil? or ['created','all'].include? t.slug_title}
     end
 end

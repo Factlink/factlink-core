@@ -41,6 +41,14 @@ class Channel < OurOhm
     self.title = self.title
   end
 
+  after :save, :after_save_actions
+  def after_save_actions
+    if type == 'channel'
+      t = Topic.for_channel(self)
+      t.reposition_in_top
+    end
+  end
+
   reference :created_by, GraphUser
   alias :graph_user :created_by
   index :created_by_id
