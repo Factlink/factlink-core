@@ -5,7 +5,7 @@ describe Queries::ElasticSearchChannel do
   include PavlovSupport
 
   before do
-    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application'
+    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application', 'KillObject'
   end
 
   it 'initializes' do
@@ -32,9 +32,17 @@ describe Queries::ElasticSearchChannel do
       HTTParty.should_receive(:get).
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
+
       return_object = mock()
+      
+      topic = mock
+
       Topic.should_receive(:find).
         with(1).
+        and_return(topic)
+
+      KillObject.should_receive(:topic).
+        with(topic).
         and_return(return_object)
 
       query.call.should eq [return_object]
@@ -78,12 +86,11 @@ describe Queries::ElasticSearchChannel do
       HTTParty.should_receive(:get).
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
-      return_object = mock()
-      Topic.should_receive(:find).
-        with(1).
-        and_return(return_object)
+      
+      Topic.stub find: stub
+      KillObject.stub topic: stub
 
-      query.call.should eq [return_object]
+      query.call.should
     end
   end
 end
