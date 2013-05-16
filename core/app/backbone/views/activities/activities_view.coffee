@@ -1,10 +1,9 @@
 AutoloadingView = extendWithAutoloading(Backbone.Marionette.Layout);
 
-class ActivititesBasicEmptyView extends Backbone.Marionette.ItemView
+class FeedEmptyView extends Backbone.Marionette.ItemView
   className: 'empty_stream_content'
-  template: """
-    Currently there are no activities related to this #{Factlink.Global.t.topic}
-  """
+  template:
+    text: "Currently there are no activities in your #{Factlink.Global.t.stream} yet. Please use the search in the top bar to find interesting users and topics to follow."
 
 class window.ActivitiesView extends AutoloadingView
   _.extend @prototype, ToggleMixin
@@ -64,15 +63,7 @@ class window.ActivitiesView extends AutoloadingView
 
   emptyViewOn: ->
     unless @options.disableEmptyView
-      if @collection.channel.get('discover_stream?')
-        @topTopics = new TopTopics()
-        @topTopics.fetch()
-        @emptyView = new TopTopicsView
-          model: new Backbone.Model(current_url: @collection.link())
-          collection: collectionDifference new TopTopics, 'slug_title', @topTopics, window.Channels
-      else
-        @emptyView = new ActivititesBasicEmptyView
-
+      @emptyView = new FeedEmptyView
       @$('.js-empty-stream').html @emptyView.render().el
 
   emptyViewOff: ->
