@@ -92,7 +92,7 @@ class LoadDsl
     "fact_relation \"#{quote_string(fact_relation.from_fact.data.displaystring)}\", :#{fact_relation.type.to_sym}, \"#{quote_string(fact_relation.fact.data.displaystring)}\"\n"
   end
 
-  def load_user(username,email=nil, password=nil, twitter=nil)
+  def load_user(username,email=nil, password=nil, twitter=nil, first_name=nil, last_name=nil)
     u = User.where(:username => username).first
     if not u
       if email and password
@@ -100,7 +100,9 @@ class LoadDsl
           :username => username,
           :password => password,
           :password_confirmation => password,
-          :twitter => twitter)
+          :twitter => twitter,
+	  :first_name => first_name,
+	  :last_name => last_name)
         u.approved = true
         u.agrees_tos = true
         u.agreed_tos_on = DateTime.now
@@ -120,8 +122,8 @@ class LoadDsl
     u
   end
 
-  def user(username,email=nil, password=nil, twitter=nil)
-    self.state_user = self.load_user(username,email,password,twitter)
+  def user(username,email=nil, password=nil, twitter=nil, first_name=nil, last_name=nil)
+    self.state_user = self.load_user(username,email,password,twitter, first_name, last_name)
   end
 
   def self.export_user(graph_user)
