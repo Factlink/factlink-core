@@ -4,7 +4,7 @@
     "the_object": {
       "title": "Baron",
       "slug_title": "baron",
-      "current_user_authority": "1.3",
+      "current_user_authority": 1.0,
       "facts_count": 0
     }
   },
