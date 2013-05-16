@@ -45,7 +45,7 @@ describe Interactors::SearchChannel do
       query.should_receive(:call).
         and_return([topic])
       Queries::ElasticSearchChannel.should_receive(:new).
-        with(keywords, 1, 20).
+        with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
 
       interactor.call.should eq [topic]

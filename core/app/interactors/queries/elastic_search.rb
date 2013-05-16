@@ -86,7 +86,13 @@ module Queries
       if(type == 'factdata')
         return FactData.find(id)
       elsif (type == 'topic')
-        return KillObject.topic Topic.find(id)
+        topic = Topic.find(id)
+        facts_count = query :'topics/facts_count', topic.slug_title
+        current_user_authority = query :authority_on_topic_for, topic,
+                                  @options[:current_user].graph_user
+
+        return KillObject.topic topic, facts_count: facts_count,
+                            current_user_authority: current_user_authority
       elsif (type == 'user')
         mongoid_user = User.find(id)
 
