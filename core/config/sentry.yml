@@ -26,4 +26,4 @@ production:
 
   ravenjs:
     public: "6d0dbdf2bc95433586b79176fb94595f"
-    project_id: "8"
+    project_id: "6"

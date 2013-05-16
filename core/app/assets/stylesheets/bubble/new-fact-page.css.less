@@ -1,0 +1,36 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+@import "bubble/variables";
+
+form.post-factlink-page {
+  margin: 0 0 -15px;
+
+  article.fact {
+    padding-bottom: 12px;
+    border-bottom: 1px solid @baseBorderColor;
+  }
+
+  textarea {
+    display: none;
+  }
+
+  .add-to-topic-container {
+    margin: 0 0 0 60px;
+    width: 300px;
+
+    .add-to-topic-header, .js-suggestions-title {
+      display: inline-block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      font-size: @baseFontSize;
+    }
+  }
+
+  .buttons {
+    .clearfix();
+    margin: @popup-padding 0;
+    .cancel-post-factlink { float: left; }
+    .submit-post-factlink { float: right; }
+  }
+}

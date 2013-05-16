@@ -11,6 +11,9 @@ class window.SearchResultView extends Backbone.Marionette.CompositeView
   itemViewContainer: ".results"
   itemViewOptions: => type: @options.type
 
+  templateHelpers: =>
+    query: @collection.query()
+
   buildItemView: (item, ItemView, itemViewOptions) ->
     if ItemView == SearchResultEmptyLoadingView
       new ItemView collection: @collection
