@@ -1,10 +1,13 @@
 window.disableInputWithDisableWith = ($el)->
+  disable_with_text = $el.attr("data-disable-with")
+  return unless disable_with_text
+
   if $el.is("input")
-    $el.val($el.attr("data-disable-with"))
+    $el.val(disable_with_text)
        .addClass("disabled")
        .prop('disabled', true)
   else
-    $el.html($el.attr("data-disable-with"))
+    $el.html(disable_with_text)
        .addClass("disabled")
 
 setLoadingText = ->
