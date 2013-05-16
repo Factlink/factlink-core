@@ -11,6 +11,7 @@ describe Queries::LastMessageForConversation do
   before do
     stub_const "Message", Class.new
     stub_const "Pavlov::ValidationError", Class.new(StandardError)
+    stub_const "KillObject", Class.new
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
@@ -42,8 +43,11 @@ describe Queries::LastMessageForConversation do
       criteria = mock('criteria', last: mock('message', message))
       Message.should_receive(:where).with(conversation_id: conversation.id.to_s).and_return(criteria)
 
+      dead_message = mock
+      KillObject.stub(:message).with(criteria.last).and_return(dead_message)
+
       results = Queries::LastMessageForConversation.new(conversation, current_user: user).call
-      expect(results).to eq(OpenStruct.new(message))
+      expect(results).to eq(dead_message)
     end
   end
 end
