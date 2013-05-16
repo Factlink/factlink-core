@@ -16,26 +16,16 @@ describe Queries::Topics::FactsCount do
       
       query = described_class.new slug_title
 
-      query.should_receive(:facts_key).and_return(facts_key)
-      facts_key.should_receive(:zcard).and_return(count)
-
-      expect( query.execute ).to eq count
-    end
-  end
-
-  describe '#facts_key' do
-    it 'calls nest correcly' do
-      slug_title = 'slug-title'
-      command = described_class.new slug_title
       nest = mock
       key = mock
-      final_key = mock
+      facts_key = mock
 
       Topic.should_receive(:redis).and_return(nest)
       nest.should_receive(:[]).with(slug_title).and_return(key)
-      key.should_receive(:[]).with(:facts).and_return(final_key)
+      key.should_receive(:[]).with(:facts).and_return(facts_key)
+      facts_key.should_receive(:zcard).and_return(count)
 
-      expect(command.facts_key).to eq final_key
+      expect( query.execute ).to eq count
     end
   end
 
