@@ -86,7 +86,10 @@ module Queries
       if(type == 'factdata')
         return FactData.find(id)
       elsif (type == 'topic')
-        return KillObject.topic Topic.find(id)
+        topic = Topic.find(id)
+        facts_count = query :'topics/facts_count', topic.slug_title
+
+        return KillObject.topic topic, facts_count: facts_count
       elsif (type == 'user')
         mongoid_user = User.find(id)
 

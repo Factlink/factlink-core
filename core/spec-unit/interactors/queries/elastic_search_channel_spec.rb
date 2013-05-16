@@ -35,14 +35,19 @@ describe Queries::ElasticSearchChannel do
 
       return_object = mock()
       
-      topic = mock
+      topic = mock(slug_title: mock)
+      facts_count = mock
 
-      Topic.should_receive(:find).
+      Topic.stub(:find).
         with(1).
         and_return(topic)
 
+      query.stub(:query).
+        with(:'topics/facts_count', topic.slug_title).
+        and_return(facts_count)
+
       KillObject.should_receive(:topic).
-        with(topic).
+        with(topic, facts_count: facts_count).
         and_return(return_object)
 
       query.call.should eq [return_object]
@@ -87,10 +92,9 @@ describe Queries::ElasticSearchChannel do
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
       
-      Topic.stub find: stub
-      KillObject.stub topic: stub
+      query.stub get_object: stub
 
-      query.call.should
+      query.call
     end
   end
 end
