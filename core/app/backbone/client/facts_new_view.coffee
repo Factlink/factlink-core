@@ -39,10 +39,11 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
   className: 'fact-new'
 
   ui:
-    'post_factlink': '#submit'
+    'post_factlink': '.js-submit-post-factlink'
+    'cancel': '.js-cancel-post-factlink'
 
   events:
-    'click #submit': 'post_factlink',
+    'click .js-submit-post-factlink': 'post_factlink',
     'click .fact-wheel': 'closeOpinionHelptext'
 
   templateHelpers: ->
@@ -72,14 +73,14 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   onBeforeClose: ->
     @the_tooltip.close()
-    $('#submit').tooltip('destroy')
+    @ui.post_factlink.tooltip('destroy')
 
   renderAddToChannel: ->
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection
     addToChannelView.render()
     addToChannelView.on 'error', ->
       alert("Something went wrong when creating a new #{Factlink.Global.t.topic}")
-    @$('#add-to-channels').html addToChannelView.el
+    @$('.js-add-to-channels').html addToChannelView.el
 
   renderSuggestedChannels: ->
     suggested_topics = new SuggestedSiteTopics([], site_url: @options.url)
@@ -89,7 +90,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
           collection: collection
           addToCollection: @addToCollection
         suggestionView.render()
-        @$('#suggested-channels-region').html suggestionView.el
+        @$('.js-suggested-channels-region').html suggestionView.el
 
   renderPersistentWheelView: ->
     @wheel = new Wheel
@@ -102,7 +103,7 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       parent?.remote?.trigger('opinionSet')
 
   createCancelEvent: ->
-    @$('#cancel').on 'click', (e)->
+    @ui.cancel.on 'click', (e)->
       mp_track("Modal: Cancel")
       e.preventDefault()
       # TODO when refactoring this view, move parent.remote code to clientcontroller
@@ -141,8 +142,8 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
       @openFinishHelptext()
 
   openFinishHelptext: ->
-    unless @tooltip("#submit")?
-      @tooltipAdd '#submit',
+    unless @tooltip(".js-submit-post-factlink")?
+      @tooltipAdd '.js-submit-post-factlink',
         "You're ready to post this!",
         "You can add this Factlink to a " + Factlink.Global.t.topic + " so you can find it more easily later, or post this immediately.",
         { side: 'right', align: 'top', margin: 19, container: @$('.js-finish-popover') }

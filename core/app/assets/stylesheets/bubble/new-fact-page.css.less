@@ -3,8 +3,14 @@
 
 @import "bubble/variables";
 
-form.fact-block {
+form.post-factlink-page {
   margin: 0 0 -15px;
+
+  .post-factlink-page-div {
+     margin:0;
+     padding:0;
+     display:inline
+  }
 
   article.fact {
     padding-bottom: 12px;
@@ -15,12 +21,10 @@ form.fact-block {
     display: none;
   }
 
-  h4 { margin: 10px; }
-
   .buttons {
     .clearfix();
     margin: @popup-padding 0;
-    #cancel { float: left; }
-    #submit { float: right; }
+    .cancel-post-factlink { float: left; }
+    .submit-post-factlink { float: right; }
   }
 }
