@@ -1,9 +1,15 @@
-<a href="{{channel_url}}"><img alt=" " width="80" height="80" src="{{created_by.avatar_url_80}}" class="list-channel-avatar"></a>
-<strong>
-  <a href="{{link}}" class="link-channel-link">{{title}}</a>
-</strong>
-<p class="list-channel-user"><a href="{{created_by.link}}">by {{created_by.username}}</a></p>
-<div>
-  <img src="{{global.brain_image}}">
-  <span>{{created_by_authority}}</span>
+<div class="search-result-topic-title">
+  <strong>
+    <a href="{{link}}">{{title}}</a>
+  </strong>
+</div>
+<div class="pull-right">
+  <div class="search-result-topic-statistics-block">
+    <span class="topic-statistic-title">Factlinks</span><br>
+    {{ facts_count }}
+  </div>
+  <div class="search-result-topic-statistics-block">
+    <span class="topic-statistic-title">Your authority</span><br>
+    <img src="{{global.brain_image}}"> <span class="topic-statistic-authority">{{ current_user_authority }}</span>
+  </div>
 </div>

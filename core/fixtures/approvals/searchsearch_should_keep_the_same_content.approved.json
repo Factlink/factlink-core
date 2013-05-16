@@ -1,5 +1,14 @@
 [
   {
+    "the_class": "Topic",
+    "the_object": {
+      "title": "Baron",
+      "slug_title": "baron",
+      "current_user_authority": "1.0",
+      "facts_count": 0
+    }
+  },
+  {
     "the_class": "FactlinkUser",
     "the_object": {
       "id": "<STRIPPED>",
