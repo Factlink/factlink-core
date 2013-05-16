@@ -4,7 +4,7 @@ class window.ClientController
     fact = new Fact id: fact_id
     fact.fetch success: => @showFact fact
 
-  newFact: (params={}) => #(layout, fact_text, title, url, site_id) =>
+  newFact: (params={}) =>
     unless window.currentUser?
       window.location = Factlink.Global.path.sign_in_client()
       return

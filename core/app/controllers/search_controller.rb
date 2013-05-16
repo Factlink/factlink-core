@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
 
-  layout "frontend"
+  layout "channels"
   before_filter :authenticate_user!
 
   # Search
@@ -13,22 +13,19 @@ class SearchController < ApplicationController
 
     track "Search: Top bar search"
 
-    respond_to do |format|
-      format.html
-      format.json do
-        row_count = 20
+    backbone_responder do
+      row_count = 20
 
-        page = params[:page] || 1
-        search_for = params[:s] || ""
+      search_for = params[:s] || ""
+      page = 1
 
-        @results = []
+      @results = []
 
-        if search_for.size > 0
-          @results = interactor :search, search_for, page, row_count
-        end
-
-        render 'search_results/index'
+      if search_for.size > 0
+        @results = interactor :search, search_for, page, row_count
       end
+
+      render 'search_results/index'
     end
   end
 end
