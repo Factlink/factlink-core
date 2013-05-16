@@ -1,5 +1,3 @@
-require_relative '../util/search.rb'
-
 module Interactors
   class Search
     include Pavlov::Interactor
