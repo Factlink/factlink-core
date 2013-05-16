@@ -5,7 +5,7 @@ describe Queries::ElasticSearchChannel do
   include PavlovSupport
 
   before do
-    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application', 'KillObject'
+    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application'
   end
 
   it 'initializes' do
@@ -16,13 +16,12 @@ describe Queries::ElasticSearchChannel do
   describe '.call' do
     it 'correctly' do
       config = mock()
-      current_user = mock(graph_user: mock)
       base_url = "1.0.0.0:4000/index"
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for this channel'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)'
-      query = Queries::ElasticSearchChannel.new keywords, 1, 20, current_user: current_user
+      query = Queries::ElasticSearchChannel.new keywords, 1, 20
       hit = mock()
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('topic')
@@ -36,24 +35,8 @@ describe Queries::ElasticSearchChannel do
 
       return_object = mock()
       
-      topic = mock(slug_title: mock)
-      facts_count = mock
-      current_user_authority = mock
-
-      Topic.stub(:find).
-        with(1).
-        and_return(topic)
-
       query.stub(:query).
-        with(:'topics/facts_count', topic.slug_title).
-        and_return(facts_count)
-
-      query.stub(:query).
-        with(:authority_on_topic_for, topic, current_user.graph_user).
-        and_return(current_user_authority)
-
-      KillObject.should_receive(:topic).
-        with(topic, facts_count: facts_count, current_user_authority: current_user_authority).
+        with(:'topics/by_id_with_authority_and_facts_count', 1).
         and_return(return_object)
 
       query.call.should eq [return_object]

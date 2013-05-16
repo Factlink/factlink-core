@@ -101,8 +101,8 @@ class LoadDsl
           :password => password,
           :password_confirmation => password,
           :twitter => twitter,
-	  :first_name => first_name,
-	  :last_name => last_name)
+          :first_name => first_name,
+          :last_name => last_name)
         u.approved = true
         u.agrees_tos = true
         u.agreed_tos_on = DateTime.now
