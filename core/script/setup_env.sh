@@ -1,8 +1,15 @@
 #!/bin/bash
-sudo npm install jslint -g
-sudo npm install supervisor -g
-sudo npm install grunt-cli -g
+#abort this script on any error:
+set -e
+
+echo 'Installing jslint, supervisor and grunt-cli (sudo may ask for your password)'
+
+npm install supervisor -g
+npm install grunt-cli -g
 gem install bundler
+gem install foreman
+
+rbenv rehash
 
 git clone git@github.com:Factlink/chrome-extension.git -b master
 git clone git@github.com:Factlink/firefox-extension -b master
