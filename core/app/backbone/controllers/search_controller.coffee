@@ -1,6 +1,11 @@
 class window.SearchController
+
   search: (params={}) =>
-    results = new SearchResults [], search: params['s']
+    query = params['s']
+
+    $('#factlink_search').val(query)
+
+    results = new SearchResults [], search: query
 
     FactlinkApp.mainRegion.show new SearchResultView
       collection: results
