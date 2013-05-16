@@ -1,6 +1,6 @@
 FactlinkApp.addInitializer (options) ->
 
-  $('#factlink_search_form').on 'submit', ->
-    url = '/search?s=' + encodeURIComponent $('#factlink_search').val()
+  $('.js-navbar-search-form').on 'submit', ->
+    url = '/search?s=' + encodeURIComponent $('.js-navbar-search-box').val()
     Backbone.history.navigate url, true
     false
