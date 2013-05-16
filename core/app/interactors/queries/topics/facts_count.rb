@@ -6,10 +6,10 @@ module Queries
       arguments :slug_title
 
       def execute
-        redis_key.zcard
+        facts_key.zcard
       end
 
-      def redis_key
+      def facts_key
         Topic.redis[slug_title][:facts]
       end
 

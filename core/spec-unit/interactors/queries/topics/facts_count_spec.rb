@@ -11,19 +11,19 @@ describe Queries::Topics::FactsCount do
   describe '#execute' do
     it 'correctly' do
       slug_title = 'slug-title'
-      redis_key = mock
+      facts_key = mock
       count = mock
       
       query = described_class.new slug_title
 
-      query.should_receive(:redis_key).and_return(redis_key)
-      redis_key.should_receive(:zcard).and_return(count)
+      query.should_receive(:facts_key).and_return(facts_key)
+      facts_key.should_receive(:zcard).and_return(count)
 
       expect( query.execute ).to eq count
     end
   end
 
-  describe '#redis_key' do
+  describe '#facts_key' do
     it 'calls nest correcly' do
       slug_title = 'slug-title'
       command = described_class.new slug_title
@@ -35,7 +35,7 @@ describe Queries::Topics::FactsCount do
       nest.should_receive(:[]).with(slug_title).and_return(key)
       key.should_receive(:[]).with(:facts).and_return(final_key)
 
-      expect(command.redis_key).to eq final_key
+      expect(command.facts_key).to eq final_key
     end
   end
 
