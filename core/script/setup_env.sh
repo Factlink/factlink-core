@@ -27,7 +27,6 @@ cd core
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
 	bundle install
-	rake db:migrate
 	mkdir -p log
 	cd log
 		touch development.log
