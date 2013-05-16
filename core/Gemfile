@@ -70,7 +70,6 @@ gem 'browser', '~> 0.1.6'
 
 gem 'capistrano', '~> 2.14.2', require: false
 gem 'capistrano-ext', '~> 1.2.1',  require: false
-gem 'rvm-capistrano', '~> 1.2.7', require: false
 
 gem 'roadie', '~> 2.3.4'
 
