@@ -1,0 +1,32 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.topic-search-result {
+  .search-result-topic-title {
+    font-size: 15px;
+    line-height: 55px;
+    float: left;
+  }
+
+  .search-result-topic-statistics-block {
+    float: left;
+    padding: 10px 15px 3px;
+
+    border-left:  1px solid @baseBorderColor;
+    border-right: 0px;
+
+    .fading-border(@baseBorderColor);
+
+    &:first-child {
+      border-left: 0 solid transparent;
+    }
+
+    > .authority {
+      font-size: 11px;
+    }
+
+    > span.topic-statistic-title {
+      color: @mutedFontColor;
+    }
+  }
+}
