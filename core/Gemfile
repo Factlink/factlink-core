@@ -95,7 +95,7 @@ group :assets do
 
   gem "rails-backbone", '= 0.7.2' # we want a specific version of the js library
 
-  gem "marionette-rails", '= 1.0.0.rc.2', github: 'janpaul123/marionette-rails'  # we want a specific version of the js library
+  gem "marionette-rails", '= 1.0.0.rc.2' # we want a specific version of the js library
 end
 
 group :development do
