@@ -56,7 +56,6 @@ cd ..
 cd js-library
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
-	npm install -g grunt
 	npm install
 	grunt
 cd ..
