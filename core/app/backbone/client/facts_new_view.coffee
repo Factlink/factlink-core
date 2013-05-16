@@ -118,9 +118,9 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
     fact = new Fact
       opinion: @wheel.userOpinion()
-      displaystring:  @$('textarea#fact').val()
-      fact_url: @$('input#url').val()
-      fact_title: @$('input#title').val()
+      displaystring:  @$('textarea.js-fact').val()
+      fact_url: @$('input.js-url').val()
+      fact_title: @$('input.js-title').val()
       channels: channel_ids
 
     fact.save {},
