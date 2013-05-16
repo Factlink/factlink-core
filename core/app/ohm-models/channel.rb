@@ -41,6 +41,11 @@ class Channel < OurOhm
     self.title = self.title
   end
 
+  after :save, :after_save_actions
+  def after_save_actions
+    Topic.ensure_for_channel(self)
+  end
+
   reference :created_by, GraphUser
   alias :graph_user :created_by
   index :created_by_id
