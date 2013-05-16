@@ -10,7 +10,7 @@ module Util
       page = @page || 1
       row_count = @row_count || 20
 
-      results = Pavlov.query query_name, filtered_keywords, page, row_count, @options
+      results = query query_name, filtered_keywords, page, row_count
       results.select { |result| valid_result? result}
     end
     def filtered_keywords
