@@ -2,13 +2,14 @@
 
 LoadDsl.load do
 
-  user "merijn", "merijn@gmail.com", "123hoi", "merijn481"
-  user "tomdev", "tom@factlink.com", "123hoi", "tomdev"
-  user "remon", "remon@factlink.com", "123hoi", "R51"
-  user "mark", "mark@factlink.com", "123hoi", "markijbema"
-  user "jjoos", "deelstra@factlink.com", "123hoi", "jjoos"
-  user "jens", "jens@factlink.com", "123hoi", "jens"
-  user "martijn", "martijn@factlink.com", "123hoi", "martijn"
+  user "merijn", "merijn@gmail.com", "123hoi", "merijn481", "Merijn", "Terheggen"
+  user "tomdev", "tom@factlink.com", "123hoi", "tomdev", "Tom", "de Vries"
+  user "remon", "remon@factlink.com", "123hoi", "R51", "Remon", "Oldenbeuving"
+  user "mark", "mark@factlink.com", "123hoi", "markijbema", "Mark", "IJbema"
+  user "jjoos", "deelstra@factlink.com", "123hoi", "jjoos", "Jan", "Deelstra"
+  user "jens", "jens@factlink.com", "123hoi", "jens", "Jens", "Kanis"
+  user "martijn", "martijn@factlink.com", "123hoi", "martijn", "Martijn", "Russchen"
+  user "eamon", "eamon@factlink.com", "123hoi", "eamon", "Eamon", "Nerbonne"
 
   user "tomdev"
     fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
