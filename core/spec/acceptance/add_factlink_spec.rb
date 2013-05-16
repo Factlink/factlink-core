@@ -16,10 +16,10 @@ describe "creating a Factlink", type: :request do
 
     visit new_fact_path(fact: fact_name)
 
-    click_button "submit"
+    click_button "Post to Factlink"
 
     go_to_profile_page_of @user
-    
+
     page.should have_content "Feed"
     page.should have_content fact_name
   end
@@ -30,10 +30,10 @@ describe "creating a Factlink", type: :request do
     # create fact:
     visit new_fact_path(fact: fact_name)
 
-    click_button "submit"
+    click_button "Post to Factlink"
 
     go_to_profile_page_of @user
-    
+
     page.should have_content fact_name
 
     # and delete it:
