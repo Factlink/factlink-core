@@ -128,7 +128,7 @@ end
 group :test do
   # we allow tests to upgrade everything but major
   gem 'rspec-rails', '~> 2.13'
-  gem 'factory_girl_rails', '~> 3.6'
+  gem 'factory_girl_rails', '~> 4.2'
   gem 'database_cleaner', '~> 0.9'
 
   gem 'capybara', '~> 1.1', require: false
