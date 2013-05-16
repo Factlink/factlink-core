@@ -213,7 +213,8 @@ GEM
       actionpack
       activesupport
     lumberjack (1.0.3)
-    mail (2.5.4)
+    mail (2.5.3)
+      i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     marionette-rails (1.0.0.rc2)
@@ -470,6 +471,7 @@ DEPENDENCIES
   less-rails-bootstrap (= 2.1.1)
   letter_opener (~> 1)
   lograge (~> 0)
+  mail (= 2.5.3)
   marionette-rails (= 1.0.0.rc.2)
   mixpanel!
   modernizr-rails (= 2.0.6)
