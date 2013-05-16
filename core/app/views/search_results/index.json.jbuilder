@@ -8,11 +8,7 @@ json.array!(@results) do |json, result|
     json.the_object {|j| j.partial! 'users/user_partial', user: result }
   elsif result.class == OpenStruct && result.dead_object_name == :topic
     json.the_class "Topic"
-    json.the_object do |j|
-      j.partial! 'topics/topic', topic: result
-      j.current_user_authority NumberFormatter.new(result.current_user_authority).as_authority
-      j.facts_count result.facts_count
-    end
+    json.the_object {|j| j.partial! 'search_results/topic', topic: result }
   else
     raise "Error: SearchResults::SearchResultItem#the_object: No match on class."
   end
