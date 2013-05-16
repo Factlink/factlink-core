@@ -10,7 +10,7 @@ json.array!(@results) do |json, result|
     json.the_class "Topic"
     json.the_object do |j|
       j.partial! 'topics/topic', topic: result
-      j.current_user_authority result.current_user_authority
+      j.current_user_authority NumberFormatter.new(result.current_user_authority).as_authority
       j.facts_count result.facts_count
     end
   else
