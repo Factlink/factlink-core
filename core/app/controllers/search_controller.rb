@@ -16,13 +16,12 @@ class SearchController < ApplicationController
     backbone_responder do
       row_count = 20
 
-      page = params[:page] || 1
       search_for = params[:s] || ""
 
       @results = []
 
       if search_for.size > 0
-        @results = interactor :search, search_for, page, row_count
+        @results = interactor :search, search_for, 1, row_count
       end
 
       render 'search_results/index'
