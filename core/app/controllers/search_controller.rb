@@ -16,10 +16,9 @@ class SearchController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @row_count = 20
-        row_count = @row_count
-        page = params[:page] || 1;
+        row_count = 20
 
+        page = params[:page] || 1
         search_for = params[:s] || ""
 
         @results = []

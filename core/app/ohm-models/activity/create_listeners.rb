@@ -44,6 +44,13 @@ class ActivityListenerCreator
     followers.reject {|id| id == activity.user_id}
   end
 
+  def select_users_that_see_channels user_ids
+    user_ids.select do |id|
+      user = GraphUser[id].andand.user
+      user && user.features.include?(:sees_channels)
+    end
+  end
+
   def create_activity_listeners
     #
     # in the following code, 'you' is anyone in the write_ids
@@ -63,7 +70,7 @@ class ActivityListenerCreator
       subject_class: "Channel",
       action: 'added_subchannel',
       extra_condition: lambda { |a| a.subject.created_by_id != a.user.id and not followers_for_graph_user(a.subject.created_by_id).include?(a.user.id)},
-      write_ids: lambda { |a| [a.subject.created_by_id] }
+      write_ids: lambda { |a| select_users_that_see_channels([a.subject.created_by_id]) }
     }
 
     forGraphUser_comment_was_added = {
@@ -99,7 +106,7 @@ class ActivityListenerCreator
     forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel = {
       subject_class: "Channel",
       action: :created_channel,
-      write_ids: lambda { |a| reject_self(channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by),a) }
+      write_ids: lambda { |a| select_users_that_see_channels(reject_self(channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by),a)) }
     }
 
     forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow = {

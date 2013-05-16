@@ -26,7 +26,11 @@ module Interactors
 
         # Top channels for topic functionality can be removed when removing from search;
         # See comments in topic.rb
-        (res.class == Topic and res.top_channels(3).length <= 0)
+        (res.class == Topic and res.top_channels(3).length <= 0) or
+
+        # the user doesn't see channels, and therefore topic results
+        # are disabled until they aren't displayed as a list of three channels
+        (res.class == Topic and not can?(:"see_feature_sees_channels", Ability::FactlinkWebapp) )
     end
 
     def keyword_min_length

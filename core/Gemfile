@@ -28,7 +28,10 @@ gem 'redis-aid', '~> 0.1.0'
 gem 'redis-objects', '~> 0.5.3'
 gem 'multi_json', '~> 1.7.3'
 
-gem 'resque', '~> 1.23.0', require: 'resque/server'
+# We should upgrade this to at least the latest 1.* version,
+# but 1.23.1 has a breaking change, and 1.24+ requires a redis-namespace
+# which requires redis > 3.0
+gem 'resque', '= 1.23.0', require: 'resque/server'
 gem 'resque_mailer', '~> 2.2.3'
 
 gem 'stringex', '~> 1.5.1'
@@ -92,7 +95,7 @@ group :assets do
 
   gem "rails-backbone", '= 0.7.2' # we want a specific version of the js library
 
-  gem "marionette-rails", '= 1.0.0.rc.2', github: 'janpaul123/marionette-rails'  # we want a specific version of the js library
+  gem "marionette-rails", '= 1.0.0.rc.2' # we want a specific version of the js library
 end
 
 group :development do
