@@ -43,6 +43,8 @@ class Channel < OurOhm
 
   after :save, :after_save_actions
   def after_save_actions
+    return unless type == 'channel'
+
     Topic.ensure_for_channel(self)
   end
 
