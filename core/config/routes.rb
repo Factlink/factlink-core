@@ -90,7 +90,7 @@ FactlinkUI::Application.routes.draw do
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
   # Search
-  get "/search" => "search#search", as: "factlink_overview"
+  get "/search" => "search#search", as: "search"
 
   authenticated :user do
     namespace :admin, path: 'a' do
