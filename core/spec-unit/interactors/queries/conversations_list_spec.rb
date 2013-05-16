@@ -1,11 +1,13 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/conversations_list.rb'
 
 describe Queries::ConversationsList do
+  include PavlovSupport
+
   let(:user)           {mock('user', id: 13)}
 
   before do
-    stub_const 'User', Class.new
-    stub_const 'KillObject', Class.new
+    stub_classes 'User', 'KillObject'
   end
 
   it 'it initializes correctly' do
