@@ -17,11 +17,12 @@ class SearchController < ApplicationController
       row_count = 20
 
       search_for = params[:s] || ""
+      page = 1
 
       @results = []
 
       if search_for.size > 0
-        @results = interactor :search, search_for, 1, row_count
+        @results = interactor :search, search_for, page, row_count
       end
 
       render 'search_results/index'
