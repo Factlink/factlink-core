@@ -1,6 +1,9 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/last_message_for_conversation.rb'
 
 describe Queries::LastMessageForConversation do
+  include PavlovSupport
+
   let(:empty_mongo_criteria) {mock('criteria', last: nil, first: nil)}
   let(:user)                 {mock('user', id: 13)}
   let(:conversation)         {mock('conversation', id: 14, recipient_ids: [13])}
@@ -9,7 +12,7 @@ describe Queries::LastMessageForConversation do
   end
 
   before do
-    stub_const "Message", Class.new
+    stub_classes "Message", "KillObject"
     stub_const "Pavlov::ValidationError", Class.new(StandardError)
   end
 
@@ -42,8 +45,11 @@ describe Queries::LastMessageForConversation do
       criteria = mock('criteria', last: mock('message', message))
       Message.should_receive(:where).with(conversation_id: conversation.id.to_s).and_return(criteria)
 
+      dead_message = mock
+      KillObject.stub(:message).with(criteria.last).and_return(dead_message)
+
       results = Queries::LastMessageForConversation.new(conversation, current_user: user).call
-      expect(results).to eq(OpenStruct.new(message))
+      expect(results).to eq(dead_message)
     end
   end
 end

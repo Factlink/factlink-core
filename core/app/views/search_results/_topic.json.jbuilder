@@ -1,9 +1,3 @@
-json.channels topic.top_channels(3) do |json, channel|
-  json.created_by do |j|
-    j.partial! 'users/user_partial', user: channel.created_by.user
-  end
-
-  json.created_by_authority sprintf('%.1f',Authority.from(topic, for: channel.created_by.graph_user).to_f+1.0)
-  json.link channel_path(channel.created_by.user, channel)
-  json.title channel.title
-end
+json.partial! 'topics/topic', topic: topic
+json.current_user_authority NumberFormatter.new(topic.current_user_authority).as_authority
+json.facts_count topic.facts_count
