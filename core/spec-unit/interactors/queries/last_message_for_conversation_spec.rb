@@ -1,6 +1,9 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/last_message_for_conversation.rb'
 
 describe Queries::LastMessageForConversation do
+  include PavlovSupport
+
   let(:empty_mongo_criteria) {mock('criteria', last: nil, first: nil)}
   let(:user)                 {mock('user', id: 13)}
   let(:conversation)         {mock('conversation', id: 14, recipient_ids: [13])}
@@ -9,9 +12,8 @@ describe Queries::LastMessageForConversation do
   end
 
   before do
-    stub_const "Message", Class.new
+    stub_classes "Message", "KillObject"
     stub_const "Pavlov::ValidationError", Class.new(StandardError)
-    stub_const "KillObject", Class.new
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
