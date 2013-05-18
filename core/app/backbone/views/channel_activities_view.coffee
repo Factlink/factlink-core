@@ -42,7 +42,7 @@ class window.ChannelActivitiesView extends Backbone.Marionette.Layout
     @$('.activities-more').toggle(@collection.get_new_activity_count() > 0);
 
   refresh: (e) ->
-    @collection.fetch()
+    @collection.loadAgain()
     e.preventDefault()
     e.stopPropagation()
 

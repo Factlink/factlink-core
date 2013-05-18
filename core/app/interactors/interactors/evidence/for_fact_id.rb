@@ -4,11 +4,12 @@ module Interactors
   module Evidence
     class ForFactId
       include Pavlov::Interactor
+      include Util::CanCan
 
       arguments :fact_id, :type
 
       def authorized?
-        @options[:current_user]
+        can? :show, Fact
       end
 
       def validate

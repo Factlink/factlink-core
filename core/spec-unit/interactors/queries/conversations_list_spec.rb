@@ -1,10 +1,13 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/conversations_list.rb'
 
 describe Queries::ConversationsList do
+  include PavlovSupport
+
   let(:user)           {mock('user', id: 13)}
 
   before do
-    stub_const 'User', Class.new
+    stub_classes 'User', 'KillObject'
   end
 
   it 'it initializes correctly' do
@@ -27,16 +30,21 @@ describe Queries::ConversationsList do
 
       mock_conversations[0].should respond_to(:recipient_ids)
 
-      dead_conversations = [
-        OpenStruct.new(conversation1.merge(fact_id: fact_data1.fact_id)),
-        OpenStruct.new(conversation2.merge(fact_id: fact_data2.fact_id))
-      ]
-
       criteria = mock(:criteria)
 
       User.should_receive(:find).with(user.id.to_s).and_return(user)
       user.should_receive(:conversations).and_return(criteria)
       criteria.should_receive(:desc).and_return(mock_conversations)
+
+      dead_conversations = [mock, mock]
+
+      KillObject.stub(:conversation).
+        with(mock_conversations[0], fact_id: fact_data1.fact_id).
+        and_return(dead_conversations[0])
+
+      KillObject.stub(:conversation).
+        with(mock_conversations[1], fact_id: fact_data2.fact_id).
+        and_return(dead_conversations[1])
 
       result = Queries::ConversationsList.new(user.id.to_s, current_user: user).call
       expect(result).to eq(dead_conversations)

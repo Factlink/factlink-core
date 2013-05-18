@@ -41,7 +41,7 @@ class Admin::UsersController < AdminController
   def approve
     @user.approved = true
 
-    if @user.save
+    if @user.save validate: false
       render :json => {}, :status => :ok
     else
       render :json => @user.errors, :status => :unprocessable_entity

@@ -24,7 +24,7 @@ FactlinkUI::Application.routes.draw do
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb
   # as well (frame busting)
-  match "/factlink/intermediate" => "facts#intermediate"
+  get "/factlink/intermediate" => "facts#intermediate"
 
   # Static js micro templates
   get "/templates/:name" => "js_lib#show_template",
@@ -33,14 +33,16 @@ FactlinkUI::Application.routes.draw do
   get "/jslib/:path" => "js_lib#redir",
       constraints: { path: /[-a-zA-Z0-9_.\/]*/ }
 
-  # Generate the images for the indicator used in the js-lib
-  get "/system/wheel/:percentages" => "wheel#show"
-
   # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new, :update, :create] do
+  resources :facts, only: [:new, :create, :show, :destroy] do
     member do
-      post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
-      delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
+      post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
+      delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
+      get     "/evidence_search"  => "facts#evidence_search"
+      get     "/believers"        => "facts#believers"
+      get     "/disbelievers"     => "facts#disbelievers"
+      get     "/doubters"         => "facts#doubters"
+
       scope '/comments' do
         post "/:type" => 'comments#create'
         delete "/:type/:id" => 'comments#destroy'
@@ -52,7 +54,32 @@ FactlinkUI::Application.routes.draw do
             post '' => 'sub_comments#create'
             delete "/:sub_comment_id" => 'sub_comments#destroy'
           end
-          #resource :sub_comments, only: [:index,:create,:destroy]
+        end
+      end
+    end
+    collection do
+      get 'recently_viewed' => "facts#recently_viewed"
+    end
+
+    resources :supporting_evidence, only: [] do
+      collection do
+        get     "combined"      => "supporting_evidence#combined_index"
+      end
+    end
+
+    resources :weakening_evidence, only: [] do
+      collection do
+        get     "combined"      => "weakening_evidence#combined_index"
+      end
+    end
+    resources :supporting_evidence, :weakening_evidence, only: [:create, :destroy] do
+      member do
+        post    "opinion/:type" => "evidence#set_opinion",      as: "set_opinion"
+        delete  "opinion/"      => "evidence#remove_opinions",  as: "delete_opinion"
+        scope '/sub_comments' do
+          get '' => 'sub_comments#index'
+          post '' => 'sub_comments#create'
+          delete "/:sub_comment_id" => 'sub_comments#destroy'
         end
       end
     end
@@ -62,55 +89,12 @@ FactlinkUI::Application.routes.draw do
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
+  # Search
+  get "/search" => "search#search", as: "search"
+
   authenticated :user do
-
-    resources :facts, :except => [:edit, :index, :update] do
-      resources :evidence
-
-      resources :supporting_evidence do
-        collection do
-          get     "combined"      => "supporting_evidence#combined_index"
-        end
-      end
-
-      resources :weakening_evidence do
-        collection do
-          get     "combined"      => "weakening_evidence#combined_index"
-        end
-      end
-
-      resources :supporting_evidence, :weakening_evidence, :except => [:index] do
-        member do
-          get     "opinion"       => "evidence#opinion"
-          post    "opinion/:type" => "evidence#set_opinion",      :as => "set_opinion"
-          delete  "opinion/"      => "evidence#remove_opinions",  :as => "delete_opinion"
-          scope '/sub_comments' do
-            get '' => 'sub_comments#index'
-            post '' => 'sub_comments#create'
-            delete "/:sub_comment_id" => 'sub_comments#destroy'
-          end
-        end
-      end
-
-      member do
-        post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
-        delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
-        match   "/evidence_search"  => "facts#evidence_search"
-        get     "/believers"        => "facts#believers"
-        get     "/disbelievers"     => "facts#disbelievers"
-        get     "/doubters"         => "facts#doubters"
-      end
-
-      collection do
-        get 'recently_viewed' => "facts#recently_viewed"
-      end
-    end
-
-    # Search and infinite scrolling
-    match "/search(/page/:page)(/:sort/:direction)" => "search#search", :as => "factlink_overview"
-
     namespace :admin, path: 'a' do
-      resources :users, :only => [:show, :new, :create, :edit, :update, :index] do
+      resources :users, only: [:show, :new, :create, :edit, :update, :index] do
         collection do
           get :reserved
         end
@@ -120,7 +104,6 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-
     scope "/a" do
       get "info" => "admin#info", as: "admin_info"
     end
@@ -143,33 +126,32 @@ FactlinkUI::Application.routes.draw do
   end
 
   # old conversation urls
-  match "/c" => redirect("/m")
-  match "/c/:id" => redirect("/m/%{id}")
-  match "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
+  get "/c" => redirect("/m")
+  get "/c/:id" => redirect("/m/%{id}")
+  get "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
 
   scope "/:username" do
-    get "/" => "users#show", :as => "user_profile"
+    get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
 
     get 'notification-settings' => "channels#backbone_page", as: "user_notification_settings"
 
     scope "/activities" do
-      get "/" => "users#activities", :as => "activities"
-      post "/mark_as_read" => "users#mark_activities_as_read", :as => "mark_activities_as_read"
+      get "/" => "users#activities", as: "activities"
+      post "/mark_as_read" => "users#mark_activities_as_read", as: "mark_activities_as_read"
     end
-
 
     resources :channels do
       collection do
-        get "find" => "channels#search", :as => "find"
+        get "find" => "channels#search", as: "find"
       end
 
       get "/facts/:fact_id" => "facts#extended_show", as: "fact"
 
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
-          post "add/:id/",     :as => "add",     :action => "create"
-          post "remove/:id/",  :as => "remove",  :action => "destroy"
+          post "add/:id/",     as: "add",     action: "create"
+          post "remove/:id/",  as: "remove",  action: "destroy"
         end
       end
 
@@ -193,34 +175,41 @@ FactlinkUI::Application.routes.draw do
         post "unfollow" => "channels#unfollow"
 
         scope "/facts" do
-          get "/" => "channels#facts", :as => "get_facts_for"
-          post "/" => "channels#create_fact", :as => "create_fact_for"
+          get "/" => "channels#facts", as: "get_facts_for"
+          post "/" => "channels#create_fact", as: "create_fact_for"
 
           scope "/:fact_id" do
-            delete "/" => "channels#remove_fact",  :as => "remove_fact_from"
+            delete "/" => "channels#remove_fact",  as: "remove_fact_from"
 
-            match "/evidence_search" => "facts#evidence_search"
+            get "/evidence_search" => "facts#evidence_search"
 
             resource :supporting_evidence, :weakening_evidence do
               scope '/:evidence_id' do
-                post    "/opinion/:type", action: :set_opinion,  :as => "set_opinion"
-                delete  "/opinion/", action:  :remove_opinions,  :as => "delete_opinion"
+                post    "/opinion/:type", action: :set_opinion,  as: "set_opinion"
+                delete  "/opinion/", action:  :remove_opinions,  as: "delete_opinion"
               end
             end
           end
         end
       end
     end
+
+    resources :followers, only: [:destroy, :update, :index], controller: 'user_followers'
+    resources :following, only: [:index], controller: 'user_following'
+    resources :favourite_topics, only: [:destroy, :update, :index], controller: 'user_favourite_topics'
   end
 
-  resources :topics, path: 't', only: [] do
+  resources :topics, path: 't', only: [:show] do
     collection do
       get :top
       get :top_channels
     end
+
     member do
-      get :related_user_channels
-      get :facts
+      scope "/facts" do
+        get "/" => "topics#facts", as: "topic_facts"
+        get "/:fact_id" => "topics#fact", as: "topic_fact"
+      end
     end
   end
 
@@ -237,7 +226,7 @@ FactlinkUI::Application.routes.draw do
   get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do
-    get ":name" => "home#pages", :as => "pages",  :constraints => {:name => /([-a-zA-Z_\/]+)/}
+    get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
   end
 
 

@@ -24,14 +24,11 @@ class ChannelList
   def get_by_slug_title slug_title
     channels.find(slug_title: slug_title).first
   end
-
-  def containing_channel_ids_for_fact(fact)
-    channels.to_a.select { |ch| ch.include? fact }
-            .map{ |ch| ch.id }
-  end
-
+  
   def containing_real_channel_ids_for_fact(fact)
-    filter_unreal_ids containing_channel_ids_for_fact(fact)
+    # The filter shouldn't be necessary, but we're not sure that in the
+    # production database all (historical) fact.channels are stream and created_facts free
+    filter_unreal_ids((channels & fact.channels).ids)
   end
 
   def containing_channel_ids_for_channel(channel)

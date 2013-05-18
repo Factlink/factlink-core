@@ -4,14 +4,17 @@ require_relative '../../../../app/interactors/interactors/sub_comments/create_fo
 describe Interactors::SubComments::CreateForFactRelation do
   include PavlovSupport
 
-  it 'initializes correctly' do
-    interactor = Interactors::SubComments::CreateForFactRelation.new 1, ' hoi ', current_user: mock
-
-    expect( interactor ).to_not be_nil
+  before do
+    stub_classes 'FactRelation', 'SubComment'
   end
 
-  it '.authorized denied when no user is given' do
-    expect{ Interactors::SubComments::CreateForFactRelation.new 1, 'hoi', current_user: nil }.
+  it '.authorized denied when the user isn not allowed to see the fact_relation' do
+    fact_relation = mock
+    ability = mock
+    ability.stub(:can?).with(:show, fact_relation).and_return(false)
+    FactRelation.should_receive(:[]).and_return(fact_relation)
+
+    expect{ Interactors::SubComments::CreateForFactRelation.new 1, 'hoi', current_user: nil, ability: ability }.
       to raise_error Pavlov::AccessDenied, 'Unauthorized'
   end
 
@@ -44,8 +47,14 @@ describe Interactors::SubComments::CreateForFactRelation do
       authority = mock
       dead_sub_comment = mock
       content = 'hoi'
-      interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, content, current_user: user
-      interactor.stub fact_relation: mock
+      fact_relation = mock
+      FactRelation.stub :[] => fact_relation
+
+      ability = mock
+      ability.stub(:can?).with(:show, fact_relation).and_return(true)
+      ability.stub(:can?).with(:create, SubComment).and_return(true)
+
+      interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, content, current_user: user, ability: ability
 
       interactor.should_receive(:command).with(:"sub_comments/create_xxx", fact_relation_id, 'FactRelation', content, user).
         and_return(sub_comment)
@@ -63,25 +72,22 @@ describe Interactors::SubComments::CreateForFactRelation do
     it 'throws an error when the fact relation does not exist' do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
-      interactor = Interactors::SubComments::CreateForFactRelation.new 1, 'content', current_user: mock
-      interactor.stub fact_relation: nil
+      ability = mock can?: true
+      FactRelation.stub :[] => nil
+      interactor = Interactors::SubComments::CreateForFactRelation.new 1, 'content', current_user: mock, ability: ability
 
       expect{interactor.call}.to raise_error(Pavlov::ValidationError, "parent does not exist any more")
     end
   end
 
   describe '.top_fact' do
-    before do
-      stub_classes 'FactRelation'
-    end
-
     it 'returns the top fact for the fact_relation_id' do
-      fact_relation_id = 1
       fact = mock
-      fact_relation = mock(fact:fact)
-      FactRelation.should_receive(:[]).with(fact_relation_id).and_return(fact_relation)
+      fact_relation = mock id: 1, fact: fact
+      FactRelation.should_receive(:[]).with(fact_relation.id).and_return(fact_relation)
+      ability = mock can?: true
 
-      interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, 'hoi', current_user: mock
+      interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation.id, 'hoi', current_user: mock, ability: ability
 
       result = interactor.top_fact
 
@@ -89,12 +95,13 @@ describe Interactors::SubComments::CreateForFactRelation do
     end
 
     it 'caches the fact' do
-      fact_relation_id = 1
       fact = mock
-      fact_relation = mock(fact:fact)
-      FactRelation.should_receive(:[]).with(fact_relation_id).and_return(fact_relation)
+      fact_relation = mock id: 1, fact: fact
+      FactRelation.should_receive(:[]).with(fact_relation.id).and_return(fact_relation)
 
-      interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, 'hoi', current_user: mock
+      ability = mock can?: true
+
+      interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation.id, 'hoi', current_user: mock, ability: ability
 
       result = interactor.top_fact
 
@@ -116,7 +123,9 @@ describe Interactors::SubComments::CreateForFactRelation do
       authority = mock
       user = mock
       sub_comment = mock(created_by: mock(graph_user: graph_user))
-      interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, 'hoi', current_user: user
+      FactRelation.stub :[] => nil
+      ability = mock can?: true
+      interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, 'hoi', current_user: user, ability: ability
 
       interactor.should_receive(:top_fact).and_return(fact)
       interactor.should_receive(:query).with(:authority_on_fact_for, fact, graph_user).

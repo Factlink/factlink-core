@@ -1,15 +1,18 @@
 #!/bin/bash
-
 count=`ps x | grep -v grep | grep -c 'rake fact_graph:recalculate'`
 
 if [ "$count" -lt "1" ]; then
-    . /home/deploy/.bash_profile
+  . /etc/profile
+  . /home/deploy/.bash_profile
 
-    cd /applications/core/current
+  cd /applications/core/current
 
-    export PIDFILE=/home/deploy/recalculate.pid
+  export NRCONFIG=/applications/core/current/config/newrelic.yml
+  export NEW_RELIC_LOG=/applications/core/shared/log/newrelic_agent.log
 
-    export NEWRELIC_DISPATCHER="FactGraph recalculate"
-    nohup bundle exec rake environment fact_graph:recalculate PIDFILE=$PIDFILE >> /applications/core/current/log/fact_graph.log 2>&1
+  export PIDFILE=/home/deploy/recalculate.pid
+  export NEWRELIC_DISPATCHER="FactGraph recalculate"
+
+  nohup nice -n 10 bundle exec rake environment fact_graph:recalculate &>> /applications/core/current/log/fact_graph.log &
 fi
 exit 0

@@ -25,7 +25,7 @@ module Acceptance
     end
 
     def go_to_stream
-      find('#left-column .stream a').click
+      find('#left-column .js-stream a').click
     end
 
     def go_to_first_fact
@@ -35,6 +35,10 @@ module Acceptance
     def assert_on_channel_page channel_title
       # wait until the new header with the new title appears
       find('#channel > header h1', text: channel_title)
+    end
+
+    def assert_on_stream
+      find('#channel > header h1', text: 'Feed')
     end
 
     def within_channel_header &block

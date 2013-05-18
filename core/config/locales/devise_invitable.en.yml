@@ -7,4 +7,15 @@ en:
       no_invitations_remaining: "No invitations remaining"
     mailer:
       invitation_instructions:
+        subject: 'You have been invited to Factlink'
+
+nl:
+  devise:
+    invitations:
+      send_instructions: 'Een uitnodigingsmail is gestuurd naar %{email}.'
+      invitation_token_invalid: 'De token is niet valide!'
+      updated: 'Je wachtwoord is ingesteld. Je bent nu ingelogd.'
+      no_invitations_remaining: "Geen uitnodigingen meer over"
+    mailer:
+      invitation_instructions:
         subject: 'Je bent uitgenodigd voor Factlink'

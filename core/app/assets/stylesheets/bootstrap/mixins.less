@@ -23,3 +23,14 @@
   padding-left: @mainLeftPadding;
   padding-right: @mainRightPadding;
 }
+
+.background() {
+  background-color: #ecedef;
+  background-image: image-url('background.png');
+}
+
+.fading-border(@color) {
+  -webkit-border-image: -webkit-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
+  -moz-border-image:    -moz-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
+  -ms-border-image:     -ms-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
+}

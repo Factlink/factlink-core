@@ -5,7 +5,7 @@ describe Interactors::SendMailForActivity do
   include PavlovSupport
 
   before do
-    stub_classes 'Queries::UsersByGraphUserIds', 'Commands::SendActivityMailToUser', 'Queries::ObjectIdsByActivity'
+    stub_classes 'Queries::UsersByGraphUserIds', 'Commands::SendActivityMailToUser', 'Queries::ObjectIdsByActivity', 'Resque'
   end
 
   describe '.call' do
@@ -19,7 +19,7 @@ describe Interactors::SendMailForActivity do
 
       interactor.should_receive(:recipients).and_return([user])
 
-      interactor.should_receive(:command).with(:send_activity_mail_to_user, user.id, activity.id)
+      Resque.should_receive(:enqueue).with(Commands::SendActivityMailToUser, user.id, activity.id, {})
 
       interactor.call
     end

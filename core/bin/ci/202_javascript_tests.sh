@@ -1,5 +1,4 @@
 #!/bin/bash
-exit 0 # FIXME: Temporarily disabling JS tests
 echo "Running Javascript tests"
 
 OUTPUTFILE=$(mktemp /tmp/javascript.XXXX)

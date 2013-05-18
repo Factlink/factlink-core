@@ -9,6 +9,9 @@ class ActivityMailer < ActionMailer::Base
     @user = User.find(user_id)
     @activity = Activity[activity_id]
 
+    blacklisted_activities = [:invites]
+    return if blacklisted_activities.include? @activity.action.to_sym
+
     mail to: @user.email,
          subject: get_mail_subject_for_activity(@activity),
          from: from
@@ -45,6 +48,8 @@ class ActivityMailer < ActionMailer::Base
         "#{activity.user.user} has commented on a Factlink"
       when :created_sub_comment
         "#{activity.user.user} has commented on a Factlink"
+      when :followed_user
+        "#{activity.user.user} is now following you"
       else
         'New notification!'
       end

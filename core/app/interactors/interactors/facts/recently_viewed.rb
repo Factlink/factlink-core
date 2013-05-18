@@ -4,13 +4,14 @@ module Interactors
   module Facts
     class RecentlyViewed
       include Pavlov::Interactor
+      include Util::CanCan
 
       def execute
         recently_viewed_facts.top(5)
       end
 
       def authorized?
-        @options[:current_user]
+        can? :index, Fact
       end
 
       private

@@ -53,8 +53,8 @@ module Acceptance
 
       wait_until_scope_exists '.conversation .messages' do
         page.should have_content message
-        page.should have_content @user.username
-        page.should_not have_content recipient.username if recipient
+        page.should have_content @user.name
+        page.should_not have_content recipient.name if recipient
       end
     end
 

@@ -1,0 +1,19 @@
+<a href="{{ activity.target_url }}">
+  <div class="avatar">
+    <img alt=" " src="{{ user.avatar_url_24 }}" width="24" height="24">
+  </div>
+  <div class="info">
+    <div class="text">
+      <span class="highlight">{{ user.username }}</span>
+      {{global.t.is_now_following_you}}
+    </div>
+
+    <div class="time_ago">
+      <img src="{{global.time_ago_image}}">
+      <span>{{time_ago}} {{ global.t.ago }}</span>
+    </div>
+
+    <div class="js-region-add-back add-back"></div>
+  </div>
+  <div class="clear"></div>
+</a>

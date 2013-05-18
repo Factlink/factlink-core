@@ -19,10 +19,6 @@ class Topic
     self.slug_title = new_title.to_url
   end
 
-  def channel_for_user(user)
-    ChannelList.new(user.graph_user).get_by_slug_title slug_title
-  end
-
   def self.by_title(title)
     where(slug_title: title.to_url || '').first || new(title: title)
   end
@@ -42,32 +38,24 @@ class Topic
     by_slug(ch.slug_title) or ensure_for_channel(ch)
   end
 
-  def top_channels(nr=5)
-    @top_channels ||= {}
-    @top_channels[nr] ||= top_users(nr).map { |user| channel_for_user(user) }.compact
-  end
-
-  def top_channels_with_fact(nr=5)
-    redis[id][:top_channels_with_fact].zrevrange(0, (nr-1)).map {|id| Channel[id] }
-  end
-
   def top_users(nr=5)
     redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}.compact
   end
 
   def top_users_add(user, val)
     redis[id][:top_users].zadd val, user.id
-    ch = channel_for_user(user)
-    redis[id][:top_channels_with_fact].zadd val, ch.id if ch and (ch.added_facts.count > 0)
   end
 
   def top_users_clear
     redis[id][:top_users].del
-    redis[id][:top_channels_with_fact].del
   end
 
   def channels
     Channel.find(slug_title: self.slug_title)
+  end
+
+  def to_param
+    slug_title
   end
 
   include OurOhm::RedisTopFunctionality

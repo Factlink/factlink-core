@@ -1,15 +1,14 @@
-<form accept-charset="UTF-8" action="/facts{{#guided}}?guided={{guided}}{{/guided}}" class="fact-block" id="new_fact_form" method="post">
-<div style="margin:0;padding:0;display:inline">
+<form accept-charset="UTF-8" action="/facts{{#guided}}?guided={{guided}}{{/guided}}" class="post-factlink-page" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
   <input name="authenticity_token" type="hidden" value="{{csrf_token}}" />
-</div>
+
   <div class="fact-view">
     {{#guided}}
       <div class="js-opinion-animation" style="position:absolute"><img src="{{global.opinion_animation}}" alt="" /></div>
     {{/guided}}
-    <textarea id="fact" name="fact">{{fact_text}}</textarea>
-    <input type='hidden' id="url" name="url" value="{{url}}">
-    <input type='hidden' id="title" name="title" value="{{title}}">
+    <textarea name="fact" class="js-fact">{{fact_text}}</textarea>
+    <input type='hidden' class="js-url" name="url" value="{{url}}">
+    <input type='hidden' class="js-title" name="title" value="{{title}}">
 
     <div class="fact-wheel"></div>
 
@@ -18,16 +17,16 @@
     </div>
   </div>
 
-  <div id="add-to-container">
-    <strong>{{add_to_topic_header}}:</strong>
-    <div id="add-to-channels"></div>
+  <div class="add-to-topic-container">
+    <strong class="add-to-topic-header">{{add_to_topic_header}}?</strong>
+    <div class="js-add-to-channels"></div>
 
-    <div id="suggested-channels-region"></div>
+    <div class="js-suggested-channels-region"></div>
   </div>
 
   <div class="buttons">
-    <button class="btn" name="cancel" id="cancel">Cancel</button>
-    <input class="btn btn-primary" data-disable-with="Posting..." id="submit" name="commit" type="submit" value="Post to Factlink">
+    <button class="btn" name="cancel" class="js-cancel-post-factlink cancel-post-factlink">Cancel</button>
+    <input class="btn btn-primary js-submit-post-factlink submit-post-factlink" data-disable-with="Posting..." name="commit" type="submit" value="Post to Factlink">
 
     <div class="js-finish-popover finish-popover"></div>
   </div>

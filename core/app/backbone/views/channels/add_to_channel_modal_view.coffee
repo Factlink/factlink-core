@@ -1,6 +1,8 @@
 #= require ./filtered_suggested_topics_view
 
 class window.AddToChannelModalView extends Backbone.Marionette.Layout
+  _.extend @prototype, Backbone.Factlink.AlertMixin
+
   template: 'channels/add_to_channel_modal'
 
   regions:
@@ -31,4 +33,3 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
 
         @suggestedChannelsRegion.show suggestions
 
-_.extend(AddToChannelModalView.prototype, Backbone.Factlink.AlertMixin)

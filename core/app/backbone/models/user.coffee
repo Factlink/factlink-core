@@ -1,5 +1,9 @@
 class window.User extends Backbone.Model
-  initialize: -> @channels = []
+  initialize: ->
+    @channels = []
+    @followers = new Followers([], user: @)
+    @following = new Following([], user: @)
+    @favourite_topics = new FavouriteTopics([], user: @)
 
   setChannels: (channels) -> @channels = channels
 
@@ -18,7 +22,7 @@ class window.User extends Backbone.Model
     Backbone.sync(method, model, options);
 
   is_current_user: ->
-    window.currentUser != undefined && currentUser.get('id') == this.get('id')
+    currentUser?.get('username') == @attributes.username
 
   avatar_url: (size)->
     md5d_email = @get('gravatar_hash')
@@ -50,3 +54,12 @@ class window.User extends Backbone.Model
       avatar_url_160: @avatar_url(160)
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
+
+  followed_by_current_user: ->
+    @followers.contains window.currentUser
+
+  follow: ->
+    @followers.addFollower(window.currentUser)
+
+  unfollow: ->
+    @followers.removeFollower(window.currentUser)

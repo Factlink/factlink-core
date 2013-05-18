@@ -7,9 +7,19 @@ FactoryGirl.define do
     "johndoe#{n}"
   end
 
+  sequence :first_name do |n|
+    "John#{n}"
+  end
+
+  sequence :last_name do |n|
+    "Doe#{n}"
+  end
+
   factory :user do
     username
     email
+    first_name
+    last_name
     password '123hoi'
     password_confirmation '123hoi'
     agrees_tos true
@@ -34,8 +44,8 @@ FactoryGirl.define do
       admin true
     end
 
-    trait :acting_as_non_signed_in do
-      features [:act_as_non_signed_in]
+    trait :seeing_channels do
+      features [:sees_channels]
     end
 
     factory :approved_user, traits: [:approved]
@@ -43,7 +53,7 @@ FactoryGirl.define do
     factory :approved_confirmed_user, traits: [:approved, :confirmed]
     factory :active_user, traits: [:approved, :confirmed, :seen_the_tour]
     factory :admin_user, traits: [:admin]
-    factory :acting_as_non_signed_in_user, traits: [:acting_as_non_signed_in, :approved, :confirmed, :seen_the_tour]
+    factory :seeing_channels_user, traits: [:seeing_channels, :approved, :confirmed, :seen_the_tour]
   end
 
   sequence :displaystring do |n|
@@ -70,7 +80,7 @@ FactoryGirl.define do
     # The reason for this is that when `gu = create :graph_user` then `gu.user.graph_user` does not equal `gu`.
     # Leads to strange and very annoying bugs.
     # Also, it is slower, since for every graph_user a user must be created.
-    
+
     # If you need a graph_user with a user, make a user and use `user.graph_user`.
   end
 
@@ -83,7 +93,16 @@ FactoryGirl.define do
   end
 
   factory :fact_relation do
+    association :fact
+    association :from_fact, factory: :fact
     association :created_by, :factory => :graph_user
+    type :supporting
+  end
+
+  factory :comment do
+  end
+
+  factory :sub_comment do
   end
 
   factory :channel do
@@ -95,10 +114,11 @@ FactoryGirl.define do
   end
 
   factory :topic do
-    slug_title
+    title
   end
-  sequence :slug_title do |n|
-    "slug-#{n}-title"
+
+  sequence :title do |n|
+    "Title #{n}"
   end
 
   factory :activity do

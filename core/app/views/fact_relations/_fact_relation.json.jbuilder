@@ -2,8 +2,10 @@
 #moving to current_user_opinion
 if fact_relation.respond_to? :current_user_opinion
   current_user_opinion = fact_relation.current_user_opinion
-else
+elsif current_user
   current_user_opinion = current_user.andand.graph_user.andand.opinion_on(fact_relation)
+else
+  current_user_opinion = nil
 end
 
 # moving to opinion
@@ -13,11 +15,14 @@ else
   opinion = fact_relation.opinion
 end
 
+# Also move this one to interactors!
 if fact_relation.class.to_s == 'FactRelation'
   can_destroy = can? :destroy, fact_relation
-else
+elsif current_user
   can_destroy = fact_relation.deletable? &&
                 current_user.graph_user_id == fact_relation.created_by.id
+else
+  can_destroy = false
 end
 
 creator_authority =

@@ -20,10 +20,15 @@ class window.FactBaseView extends Backbone.Marionette.Layout
   wheelView: ->
     wheel = new Wheel(@model.get("fact_wheel"))
 
-    wheelViewClass = if Factlink.Global.signed_in then InteractiveWheelView else BaseFactWheelView
-    wheelView = new wheelViewClass
-      fact: @model.attributes
-      model: wheel
+    if Factlink.Global.signed_in
+      wheelView = new InteractiveWheelView
+        fact: @model.attributes
+        model: wheel
+    else
+      wheelView = new BaseFactWheelView
+        fact: @model.attributes
+        model: wheel
+        respondsToMouse: false
 
     @bindTo @model, 'change', =>
       wheel.setRecursive @model.get("fact_wheel")
@@ -42,6 +47,8 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     bodyView
 
 class FactBodyView extends Backbone.Marionette.ItemView
+  _.extend @prototype, Backbone.Factlink.Trunk8MoreLessMixin
+
   template: "facts/fact_body"
 
   events:
@@ -56,5 +63,3 @@ class FactBodyView extends Backbone.Marionette.ItemView
   onRender: ->
     if @options.clickable
       @$('.js-displaystring').css(cursor: 'pointer')
-
-_.extend(FactBodyView.prototype, Backbone.Factlink.Trunk8MoreLessMixin)

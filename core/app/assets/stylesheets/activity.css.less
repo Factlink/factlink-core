@@ -10,6 +10,7 @@
     .box-sizing(border-box);
     .clearfix();
     position: relative;
+    color: @mutedFontColor;
 
     &:last-child {
       border-bottom: solid 1px transparent;
@@ -26,30 +27,27 @@
       }
     }
 
+    .activity-group-time, .activity-group-link,
+    .activity-group-activities, .activity-description,
+    .activity-inline-group-activities {
+      line-height: @baseLineHeight;
+      font-size: @metaFontSize;
+    }
+
     .activity-group-link {
       float: left;
       padding: 0 3px 0 0;
-      font-size: @metaFontSize;
-      line-height: @baseLineHeight;
     }
 
     .activity-group-activities {
       .box-sizing(border-box);
       padding: 0 0 0 32px;
-      line-height: @baseLineHeight;
-      font-size: @metaFontSize;
-
-      .activity-description {
-        color: @mutedFontColor;
-      }
     }
 
     .activity-group-time {
       position: absolute;
       right: 45px;
-      color: #ccc;
-      line-height: @baseLineHeight;
-      font-size: @metaFontSize;
+      opacity: 0.6;
     }
 
     .activity-group-fact {

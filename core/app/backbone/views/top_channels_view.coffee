@@ -2,18 +2,9 @@ class TopChannelView extends Backbone.Marionette.Layout
   template: 'channels/topchannel'
   className: 'top-channels-channel'
 
-  regions:
-    add_to_channel_button_region: '.js-add-to-channel-button-region'
-
   templateHelpers: =>
     position: @options.position
-
-  onRender: ->
-    @renderAddBackButton() unless @model.user().is_current_user()
-
-  renderAddBackButton: ->
-    add_back_button = new FollowChannelButtonView(model: @model)
-    @add_to_channel_button_region.show add_back_button
+    topic_link: @model.topic().url()
 
 class TopChannelsEmptyView extends Backbone.Marionette.ItemView
   template: 'users/profile/top_channels_empty'
@@ -38,6 +29,9 @@ class window.TopChannelsView extends Backbone.Marionette.CompositeView
 
   ui:
     showMoreLessButtons: '.js-show-more-less-buttons'
+
+  templateHelpers: =>
+    topics: Factlink.Global.t.topics.capitalize()
 
   itemViewOptions: (model) ->
     position: @collection.indexOf(model) + 1

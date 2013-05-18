@@ -1,22 +1,6 @@
-app = FactlinkApp
-
-class window.ProfileController extends Backbone.Factlink.BaseController
+class window.ProfileController extends Backbone.Factlink.CachingController
 
   routes: ['showProfile', 'showNotificationSettings', 'showFact']
-
-  onShow:   -> @profile_views = new Backbone.Factlink.DetachedViewCache
-  onClose:  -> @profile_views.cleanup()
-  onAction: -> @unbindFrom @permalink_event if @permalink_event?
-
-  # CACHE HELPERS
-  restoreProfileView: (username, new_callback) ->
-    if @last_profile_status?
-      view = @profile_views.switchCacheView( username )
-      $('body').scrollTo(@last_profile_status.scrollTop) if view == @last_profile_status?.view
-      delete @last_profile_status
-    @profile_views.clearUnshowedViews()
-
-    @profile_views.renderCacheView( username, new_callback() ) unless view?
 
   # ACTIONS
   showProfile: (username) ->
@@ -25,13 +9,20 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     @showPage username, @notification_options(username)
 
   showFact: (slug, fact_id, params={})->
-    @main = new TabbedMainRegionLayout();
-    app.mainRegion.show(@main)
-
     fact = new Fact(id: fact_id)
-    fact.fetch
-      success: (model, response) => @withFact(model, params)
-      error: => FactlinkApp.NotificationCenter.error("This Factlink could not be found. <a onclick='history.go(-1);$(this).closest(\"div.alert\").remove();'>Click here to go back.</a>")
+    user = new User fact.get('created_by')
+    back_button = new UserBackButton [], model: user
+
+    fact.on 'change', (fact)=>
+      user.set fact.get('created_by')
+      window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
+      FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
+      @showSidebarProfile(user)
+
+    FactlinkApp.mainRegion.show new DiscussionPageView
+      model: fact
+      back_button: back_button
+      tab: params.tab
 
   # HELPERS
   profile_options: (username) ->
@@ -40,9 +31,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     render: (main_region, user) =>
       @makePermalinkEvent()
 
-      main_region.show @profile_views
+      main_region.show @cached_views
 
-      @restoreProfileView username, =>
+      @restoreCachedView username, =>
         new ProfileView
           model: user
           collection: window.Channels
@@ -55,15 +46,16 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       main_region.show(new NotificationSettingsView model: user)
 
   showPage: (username, options) ->
-    app.leftBottomRegion.close()
+    FactlinkApp.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
-    app.mainRegion.show(@main)
+    FactlinkApp.mainRegion.show(@main)
     @getUser username,
       onInit: (user) =>
-        @setChannelListing(username)
+        window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
+        FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
         @main.showTitle(options.title)
       onFetch: (user) =>
-        @showUserLarge(user)
+        @showSidebarProfile(user)
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         options.render(@main.contentRegion, user)
 
@@ -88,54 +80,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       forProfile: true
 
   getFactsView: (channel) ->
-    collection = new ChannelFacts [], channel: channel
-    facts_view = new FactsView
-        collection: collection,
-        model: channel
+    new FactsView
+      collection: new ChannelFacts([], channel: channel)
 
-  withFact: (fact, params={})->
-    @main.contentRegion.show new DiscussionView(model: fact, tab: params.tab)
-
-    user = new User(fact.get('created_by'))
-    username = user.get('username')
-    return_to_text = "#{ username.capitalize() }'s profile"
-
-    title_view = new ExtendedFactTitleView(
-                        model: fact,
-                        return_to_url: username,
-                        return_to_text: return_to_text )
-
-    @main.titleRegion.show( title_view )
-
-    @showChannelListing(fact.get('created_by').username)
-    user.fetch
-      success: => @showUserLarge(user)
-
-  showChannelListing: (username)->
-    changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels)
-    app.leftMiddleRegion.show(channelCollectionView)
-    channelCollectionView.setActive('profile')
-
-  showUserLarge: (user) ->
-    userLargeView = new UserLargeView(model: user);
-    app.leftTopRegion.show(userLargeView);
-
-  setChannelListing: (username) ->
-    changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels)
-    app.leftMiddleRegion.show(channelCollectionView)
-    channelCollectionView.setActive('profile')
-
-  makePermalinkEvent: ->
-    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
-      @last_profile_status =
-        view: @profile_views.currentView()
-        scrollTop: $('body').scrollTop()
-
-      navigate_to = fact.get('url')
-      Backbone.history.navigate navigate_to, true
-      $('body').scrollTo(0)
-
-      e.preventDefault()
-      e.stopPropagation()
+  showSidebarProfile: (user) ->
+    sidebarProfileView = new SidebarProfileView(model: user)
+    FactlinkApp.leftTopRegion.show(sidebarProfileView)

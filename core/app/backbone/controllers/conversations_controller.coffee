@@ -1,13 +1,11 @@
-app = FactlinkApp
-
-class window.ConversationsController extends Backbone.Factlink.BaseController
+class window.ConversationsController extends Backbone.Factlink.CachingController
 
   routes: ['showConversations', 'showMessages']
 
   onShow: ->
-    app.closeAllContentRegions()
+    FactlinkApp.closeAllContentRegions()
     @main ?= new TabbedMainRegionLayout()
-    app.mainRegion.show(@main)
+    FactlinkApp.mainRegion.show(@main)
 
   showConversations: ->
     @conversations ?= new Conversations()
@@ -15,15 +13,17 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
-    @showChannelListing()
+    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username')  # TODO: check if this can be removed
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null)
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
     @main = new TabbedMainRegionLayout()
-    app.mainRegion.show(@main)
+    FactlinkApp.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
-    @showChannelListing()
+    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
+    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(null)
     @conversation.fetch
       success: (model, response) =>
         @renderMessages(model)
@@ -42,10 +42,3 @@ class window.ConversationsController extends Backbone.Factlink.BaseController
       collection: conversation.messages()
 
     @main.contentRegion.show conversationView
-
-  showChannelListing: ->
-    username = currentUser.get('username')
-    changed = window.Channels.setUsernameAndRefresh(username)
-    channelCollectionView = new ChannelsView(collection: window.Channels)
-    app.leftMiddleRegion.show(channelCollectionView)
-    channelCollectionView.unsetActive()

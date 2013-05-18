@@ -1,0 +1,18 @@
+{{! when updating this template, also update _action_button }}
+
+<button class="btn btn-mini js-action-button-primary">
+  {{disabled_label}}
+</button>
+
+<button class="btn btn-mini js-action-button-secondary" style="display:none">
+  <span class="js-default-state">
+    <img src="{{global.checkmark}}"></img>
+    {{enabled_label}}
+  </span>
+
+  <span class="js-hover-state" style="display:none">
+    <img src="{{global.unfollow}}"></img>
+    {{disable_label}}
+  </span>
+</button>
+

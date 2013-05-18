@@ -19,38 +19,6 @@ require 'coffee_script'
 # you've limited to :test, :development, or :production.
 # Bundler.require(:default, Rails.env) if defined?(Bundler)
 
-if ENV['RUN_METRICS'] == "TRUE" and ['test', 'development'].include? Rails.env
-  require 'metric_fu'
-  require "fattr"
-  require "arrayfields"
-  require "map"
-
-  require 'simplecov'
-  require 'simplecov-rcov-text'
-
-  class SimpleCov::Formatter::MergedFormatter
-      def format(result)
-         SimpleCov::Formatter::HTMLFormatter.new.format(result)
-         SimpleCov::Formatter::RcovTextFormatter.new.format(result)
-      end
-  end
-  SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
-
-  MetricFu::Configuration.run do |config|
-    config.flay ={:dirs_to_flay => ['app', 'lib', 'spec'],
-                  :minimum_score => 10,
-                  :filetypes => ['rb'] }
-    config.rcov[:external] = 'coverage/rcov/rcov.txt'
-
-    # Fix the compine bug (see https://github.com/jscruggs/metric_fu/issues/61)
-    config.syntax_highlighting = false
-
-    #remove non-working metrics
-    config.metrics -= [:flog, :reek, :roodi]
-  end
-end
-
-
 ActiveSupport.escape_html_entities_in_json = true
 
 
@@ -63,8 +31,8 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/observers"
     config.autoload_paths << "#{config.root}/app/interactors"
 
-    Mongoid.logger.level = Logger::INFO
-    Moped.logger.level = Logger::INFO
+    config.log_level = :info
+
     config.mongoid.observers = :user_observer, :topic_observer, :fact_data_observer
 
     require_dependency "#{config.root}/app/classes/map_reduce.rb"
@@ -94,10 +62,6 @@ module FactlinkUI
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-
-    config.to_prepare do
-      Devise::PasswordsController.layout "frontend"
-    end
 
     # Block frame busting for all routes except the intermediate
     # If you update this route, also update it here please.

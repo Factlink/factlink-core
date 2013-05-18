@@ -32,9 +32,11 @@ describe Queries::ElasticSearchChannel do
       HTTParty.should_receive(:get).
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
+
       return_object = mock()
-      Topic.should_receive(:find).
-        with(1).
+      
+      query.stub(:query).
+        with(:'topics/by_id_with_authority_and_facts_count', 1).
         and_return(return_object)
 
       query.call.should eq [return_object]
@@ -78,12 +80,10 @@ describe Queries::ElasticSearchChannel do
       HTTParty.should_receive(:get).
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
-      return_object = mock()
-      Topic.should_receive(:find).
-        with(1).
-        and_return(return_object)
+      
+      query.stub get_object: stub
 
-      query.call.should eq [return_object]
+      query.call
     end
   end
 end

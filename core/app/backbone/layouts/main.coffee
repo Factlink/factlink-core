@@ -6,8 +6,8 @@ FactlinkApp.startSiteRegions = ->
     notificationsRegion: '#notifications'
 
     leftTopCrossFadeRegion:  CrossFadeRegion.extend( el: '#left-column .left-top-x-fade' )
-    leftTopRegion:       '#left-column .user-block-container'
-    leftBottomRegion:    '#left-column .js-related-channels'
+    leftTopRegion:       '#left-column .js-left-top-region'
+    leftBottomRegion:    '#left-column .js-left-bottom-region'
     leftMiddleRegion:    '#left-column .channel-listing-container'
 
   FactlinkApp.closeAllContentRegions = ->

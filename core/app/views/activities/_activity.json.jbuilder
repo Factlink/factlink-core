@@ -20,7 +20,6 @@ json.id activity.id
 
 json.activity do |json|
 
-
   case action
   when "added_supporting_evidence", "added_weakening_evidence"
     supporting_or_weakening = (action == "added_supporting_evidence") ? :supporting : :weakening
@@ -69,13 +68,6 @@ json.activity do |json|
     subject_creator_graph_user = subject.created_by
     subject_creator_user = subject_creator_graph_user.user
 
-    if subject.created_by.user == current_user
-      json.channel_owner "your"
-    else
-      json.channel_owner "#{subject.created_by.user.username}'s"
-    end
-
-    json.channel_owner_profile_url channel_path(subject_creator_user, subject_creator_graph_user.stream_id)
     json.channel_title             subject.title
     json.channel_slug_title        subject.slug_title
     json.channel_url               channel_path(subject_creator_user, subject.id)
@@ -89,12 +81,13 @@ json.activity do |json|
 
     json.target_url                channel_path(object.created_by.user, object.id)
   when "created_channel"
-    json.channel_title             subject.title
-    json.channel_url               channel_path(subject.created_by.user, subject.id)
+    topic = subject.topic
+    json.topic_title               topic.title
+    json.topic_url                 topic_path(topic.slug_title)
 
-    json.created_channel_definition t(:created_topic)
-  when "added_fact_to_channel"
-    json.partial! 'activities/added_fact_to_channel_activity',
+    json.created_channel_definition t(:created_user_topic)
+  when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
+    json.partial! 'activities/added_fact_to_topic_activity',
         subject: subject,
         object: object,
         user: user
@@ -139,6 +132,11 @@ json.activity do |json|
 
     json.message do |message|
       message.content truncate("#{subject.content}", length: 85, separator: ' ')
+    end
+  when "followed_user"
+    json.target_url user_profile_path(user.username)
+    json.followed_user do |followed_user|
+      followed_user.partial! 'users/user_partial', user: subject.user
     end
   when "invites"
     json.target_url user_profile_path(user)

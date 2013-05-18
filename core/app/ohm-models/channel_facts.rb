@@ -49,10 +49,6 @@ class ChannelFacts
     res
   end
 
-  def unread_count
-    channel.unread_facts.size
-  end
-
   def mark_as_read
     channel.unread_facts.make_empty
   end

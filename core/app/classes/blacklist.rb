@@ -15,6 +15,7 @@ class Blacklist
   def self.default
     @@default ||= self.new [
       /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
+      domain('inverselink.com'),
       domain('fct.li'),
       /^http:\/\/localhost[:\/]/,
     ] + privacy + flash + frames + weird_bugs + browserpages

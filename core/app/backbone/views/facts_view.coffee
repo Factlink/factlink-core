@@ -1,4 +1,6 @@
 class window.FactsView extends AutoloadingCompositeView
+  _.extend @prototype, ToggleMixin
+
   className: "facts-view"
   itemViewContainer: ".facts"
   itemView: FactView
@@ -19,16 +21,9 @@ class window.FactsView extends AutoloadingCompositeView
     @addShowHideToggle "loadingIndicator", "div.loading"
     @collection.on "startLoading", @loadingIndicatorOn, this
     @collection.on "stopLoading", @loadingIndicatorOff, this
-    @bindTo @model, "change", @showNewPosts, this
-
-  showNewPosts: ->
-    if @model.user().get("username") is currentUser.get("username")
-      unread_count = parseInt(@model.get("unread_count") or 0, 10)
-      @$(".facts-view-more .unread_count").html unread_count
-      @$(".facts-view-more").toggle unread_count > 0
 
   emptyViewOn: ->
-    @emptyView = new EmptyFactsView(model: @model)
+    @emptyView = new EmptyTopicView
     @$("div.no_facts").html @emptyView.render().el
 
   emptyViewOff: ->
@@ -52,8 +47,6 @@ class window.FactsView extends AutoloadingCompositeView
         fact = new Fact(data)
         @collection.unshift fact
 
-        # HACK this is how backbone marionette stores childviews:
-        # dependent on their implementation though
         @children.findByModel(fact).highlight()
         @setCreateFactFormToInitialState()
 
@@ -79,5 +72,3 @@ class window.FactsView extends AutoloadingCompositeView
     $target = $(e.target)
     if not $target.is(":input")
       $(e.target).closest("form").find("textarea").focus()
-
-_.extend window.FactsView.prototype, ToggleMixin

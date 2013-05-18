@@ -35,21 +35,24 @@ nl:
   channels: "kanalen"
 
   follow: "volgen"
-  following: "volgend"
+  follow_user: "gebruiker volgen"
+  follow_topic: "onderwerp volgen"
+  followed: "volgt"
+  following: "volgt"
   unfollow: "ontvolgen"
-
-  related_channels: "gerelateerde channels"
-  interesting_channels: "interessante channels"
-  related_users: "gerelateerde gebruikers"
-  interesting_users: "interessante gebruikers"
+  is_now_following_you: "volgt je nu"
 
   stream: "overzicht"
 
   topic: "onderwerp"
   topics: "onderwerpen"
   topic_name: "naam van onderwerp"
-  add_to_topics: "toevoegen"
-  created_topic: "heeft een onderwerp aangemaakt"
+  add_to_topics: "waar gaat deze Factlink over"
+  created_user_topic: "is begonnen met posten naar een onderwerp"
+  favourites: "gevolgde topics"
+  favourite: "volgen"
+  unfavourite: "ontvolgen"
+  favourited: "volgend"
 
   ago: "geleden"
   show: "toon"

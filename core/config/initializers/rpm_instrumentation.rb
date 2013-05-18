@@ -11,13 +11,13 @@ if defined?(NewRelic)
   FactGraph.class_eval do
     include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
     include NewRelic::Agent::MethodTracer
-    add_transaction_tracer :recalculate, category: :task, name: 'recalculate'
+    #add_transaction_tracer :recalculate, category: :task, name: 'recalculate'
 
-    add_method_tracer :calculate_authority
-    add_method_tracer :calculate_user_opinions_of_all_base_facts
-    add_method_tracer :calculate_fact_relation_influencing_opinions
-    add_method_tracer :calculate_fact_opinions
-    add_method_tracer :cut_off_top
+    add_transaction_tracer :calculate_authority, category: :task, name: 'calculate_authority'
+    add_transaction_tracer :calculate_user_opinions_of_all_base_facts, category: :task, name: 'calculate_user_opinions_of_all_base_facts'
+    add_transaction_tracer :calculate_fact_relation_influencing_opinions, category: :task, name: 'calculate_fact_relation_influencing_opinions'
+    add_transaction_tracer :calculate_fact_opinions, category: :task, name: 'calculate_fact_opinions'
+    add_transaction_tracer :cut_off_top, category: :task, name: 'cut_off_top'
   end
 
   MapReduce.class_eval do

@@ -1,4 +1,5 @@
 class window.NotificationSettingsView extends Backbone.Marionette.ItemView
+  _.extend @prototype, Backbone.Factlink.ModelBinding
   template: 'users/notification_settings'
 
   modelBindings:
@@ -11,4 +12,3 @@ class window.NotificationSettingsView extends Backbone.Marionette.ItemView
     @model.save [],
       error: -> FactlinkApp.NotificationCenter.error 'Something went wrong while saving your preferences'
 
-_.extend window.NotificationSettingsView.prototype, Backbone.Factlink.ModelBinding

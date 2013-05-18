@@ -8,6 +8,7 @@ class FactlinkAppClass extends Backbone.Marionette.Application
 
     @addInitializer (options)->
       new ProfileRouter controller: new ProfileController # first, as then it doesn't match index pages such as "/m" using "/:username"
+      new SearchRouter controller: new SearchController
       new ChannelsRouter controller: new ChannelsController
       new ConversationsRouter controller: new ConversationsController
       new TourRouter controller: new TourController

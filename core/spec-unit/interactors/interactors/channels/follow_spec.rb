@@ -15,9 +15,10 @@ describe Interactors::Channels::Follow do
   describe '.execute' do
     context 'a channel with the same slug_title exists' do
       it 'returns the channel with the same slug_title' do
-        channel = mock :channel, id:'12', slug_title:'bla'
+        channel = mock :channel, id:'12', slug_title:'bla', topic: mock(id: mock)
         channel_2 = mock :channel_2, id:'38', slug_title:'bla'
-        options = {current_user: mock}
+        current_user = mock graph_user_id: mock
+        options = {current_user: current_user}
 
         interactor = Interactors::Channels::Follow.new(channel.id, options)
 
@@ -33,26 +34,33 @@ describe Interactors::Channels::Follow do
         interactor.should_receive(:command)
              .with(:'channels/added_subchannel_create_activities', channel_2, channel)
 
+        interactor.should_receive(:command)
+                  .with(:'topics/favourite', current_user.graph_user_id, channel.topic.id.to_s)
+
         interactor.execute
       end
     end
 
     context "when adding the channel fails" do
       it "does not create activities" do
-        channel = mock :channel, id:'12', slug_title:'bla'
+        channel = mock :channel, id:'12', slug_title:'bla', topic: mock(id: mock)
         channel_2 = mock :channel_2, id:'38', slug_title:'bla'
-        options = {current_user: mock}
+        current_user = mock graph_user_id: mock
+        options = {current_user: current_user}
 
         interactor = Interactors::Channels::Follow.new(channel.id, options)
 
         interactor.stub(:query).with(:'channels/get',channel.id).and_return(channel)
 
-        interactor.should_receive(:command)
+        interactor.should_receive(:command).once
                   .with(:'channels/follow', channel)
                   .and_return(nil)
 
         interactor.should_not_receive(:command)
-             .with(:'channels/added_subchannel_create_activities', channel_2, channel)
+                  .with(:'channels/added_subchannel_create_activities', channel_2, channel)
+
+        interactor.should_not_receive(:command)
+                  .with(:'topics/favourite', current_user.graph_user_id, channel.topic.id)
 
         interactor.execute
       end

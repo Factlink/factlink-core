@@ -1,9 +1,18 @@
 [
   {
+    "the_class": "Topic",
+    "the_object": {
+      "title": "Baron",
+      "slug_title": "baron",
+      "current_user_authority": "1.0",
+      "facts_count": 0
+    }
+  },
+  {
     "the_class": "FactlinkUser",
     "the_object": {
       "id": "<STRIPPED>",
-      "name": "Baron",
+      "name": "John1 Doe1",
       "username": "Baron",
       "gravatar_hash": "<STRIPPED>"
     }
@@ -20,7 +29,7 @@
       "url": "/baron/f/1",
       "created_by": {
         "id": "<STRIPPED>",
-        "name": "Baron",
+        "name": "John1 Doe1",
         "username": "Baron",
         "gravatar_hash": "<STRIPPED>",
         "authority_for_subject": {

@@ -1,32 +1,32 @@
 class RemoveFactFromChannel
   @queue = :channel_operations
 
-  def included_from_elsewhere?
+  def included_from_elsewhere_internal?
     return true if channel.sorted_internal_facts.include? fact
     channel.contained_channels.each do |subch|
       return true if subch.include? fact
     end
     return false
   end
+  def included_from_elsewhere?
+    @included_from_elsewhere ||= included_from_elsewhere_internal?
+  end
 
   def already_deleted?
-    not channel.sorted_cached_facts.include?(fact)
+    @already_deleted ||= not(channel.sorted_cached_facts.include?(fact))
   end
 
   def explicitely_deleted?
-    channel.sorted_delete_facts.include?(fact)
+    @explicitely_deleted ||= channel.sorted_delete_facts.include?(fact)
   end
 
   def fact
-    Fact[@fact_id]
+    @fact ||= Fact[@fact_id]
   end
 
   def channel
-    Channel[@channel_id]
+    @channel ||= Channel[@channel_id]
   end
-
-  extend Memoist
-  memoize :channel, :fact, :explicitely_deleted?, :already_deleted?, :included_from_elsewhere?
 
   def perform
     should_delete = (explicitely_deleted? or not included_from_elsewhere?)

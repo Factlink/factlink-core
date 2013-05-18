@@ -5,25 +5,11 @@ class window.TopChannelList extends window.GenericChannelList
   url: "/t/top_channels"
 
 class window.ChannelList extends window.GenericChannelList
+  _.extend @prototype, Backbone.Factlink.ActivatableCollectionMixin
+
   reloadingEnabled: false
-  initialize: -> @on "reset", @checkActiveChannel
 
   url: -> "/#{@getUsername()}/channels"
-
-  unsetActiveChannel: ->
-    activeChannel = @get(@activeChannelId)
-    activeChannel.trigger "deactivate"  if activeChannel
-    delete @activeChannelId
-
-  setActiveChannel: (channel) ->
-    @unsetActiveChannel()  if @activeChannelId and @activeChannelId isnt channel.id
-    @activeChannelId = channel.id
-    @checkActiveChannel()
-
-  checkActiveChannel: ->
-    if @activeChannelId
-      activeChannel = @get(@activeChannelId)
-      activeChannel.trigger "activate", activeChannel  if activeChannel
 
   setUsernameAndRefresh: (username)->
     @setUsername username
@@ -52,30 +38,15 @@ class window.ChannelList extends window.GenericChannelList
       else if force_reload_now
         @_startReloading()
 
-
-  unreadCount: ->
-    @reduce ((memo, channel) ->
-      memo + channel.get("unread_count")
-    ), 0
-
   _startReloading: ->
     args = arguments
 
     clearTimeout @_currentTimeout if @_currentTimeout?
     delete @_currentTimeout
-    callMyselfSoon = =>
-      @_currentTimeout = setTimeout _.bind(args.callee, this), (10*60*1000)-1
-
 
     @fetch
-      success: (collection, response) =>
-        if typeof window.currentChannel isnt "undefined"
-          newCurrentChannel = collection.get(currentChannel.id)
-          if newCurrentChannel?
-            currentChannel.set newCurrentChannel.attributes
-        callMyselfSoon()
-
-      error: callMyselfSoon()
+      complete: =>
+        @_currentTimeout = setTimeout _.bind(args.callee, this), (10*60*1000)-1
 
   getBySlugTitle: (slug_title)->
     results = @filter (ch)-> ch.get('slug_title') == slug_title
@@ -85,7 +56,6 @@ class window.ChannelList extends window.GenericChannelList
     @comparator = (channel) ->
       -parseFloat(channel.get("created_by_authority"))
     @sort()
-
 
   orderedByAuthority: ->
     topchannels = new ChannelList(@models)

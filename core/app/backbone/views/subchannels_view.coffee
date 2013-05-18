@@ -7,3 +7,6 @@ class window.SubchannelsView extends Backbone.Factlink.CompositeView
 
   showEmptyView: => @$el.hide()
   closeEmptyView: => @$el.show()
+
+  templateHelpers:
+    header: Factlink.Global.t.following.capitalize()

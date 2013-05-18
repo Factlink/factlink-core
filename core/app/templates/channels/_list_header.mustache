@@ -1,12 +1,6 @@
-{{#is_current_user}}
-<li class="stream menu-item">
-  <a href="{{stream_path}}" rel="backbone">
-    <i class="icon-home"></i> {{stream_title}}
-  </a>
-</li>
-{{/is_current_user}}
-
-<li class="my-channels">
-  <i class="icon-list"></i>
-  {{ channel_listing_header }}
+<li class="sidebar-item sidebar-item_header">
+  <span class="sidebar-item-link">
+    <i class="icon-list sidebar-item-icon"></i>
+    <span class="sidebar-item-text">{{ channel_listing_header }}</span>
+  </span>
 </li>

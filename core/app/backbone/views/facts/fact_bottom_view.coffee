@@ -7,10 +7,12 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     "click .js-add-to-channel": "showAddToChannel"
     "click .js-start-conversation": "showStartConversation"
     "click .js-open-proxy-link" : "openProxyLink"
+    "click .js-discussion-link" : "triggerDiscussionClick"
 
   templateHelpers: ->
     fact_url_host: ->
       new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
+
     formatted_time: ->
       if @friendly_time
         # this is relevant in a channel, a fact is then 'posted'
@@ -18,6 +20,13 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
         "#{@post_action} #{@friendly_time} ago"
       else
         @created_by_ago
+
+    discussion_url: ->
+      if FactlinkApp.factlinkBaseUrl?
+        "#{FactlinkApp.factlinkBaseUrl}/facts/#{@id}"
+      else
+        @url
+
     believe_percentage: @model.opinionPercentage('believe')
     disbelieve_percentage: @model.opinionPercentage('disbelieve')
 
@@ -31,7 +40,7 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
 
     collection.on "remove", (channel) =>
       @model.removeFromChannel channel, {}
-      if window.currentChannel and currentChannel.get("id") is channel.get("id")
+      if @model.collection?.channel? and @model.collection.channel.get("id") is channel.get("id")
         @model.collection.remove @model
         FactlinkApp.Modal.close()
 
@@ -53,3 +62,7 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
   openProxyLink: (e) ->
     mp_track "Factlink: Open proxy link",
       site_url: @model.get("fact_url")
+
+  triggerDiscussionClick: (e) ->
+    FactlinkApp.vent.trigger 'factlink_permalink_clicked'
+    @defaultClickHandler e

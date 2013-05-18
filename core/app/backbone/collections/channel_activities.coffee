@@ -1,4 +1,5 @@
 class window.ChannelActivities extends Backbone.Collection
+  _.extend @prototype, AutoloadCollectionOnTimestamp
   model: Activity
 
   initialize: (models, opts) ->
@@ -29,7 +30,6 @@ class window.ChannelActivities extends Backbone.Collection
 
   latest_timestamp: -> @first()?.get('timestamp')
 
-_.extend(ChannelActivities.prototype, AutoloadCollectionOnTimestamp);
 
 class ChannelActivityCount extends Backbone.Model
   initialize: (attributes, options) ->

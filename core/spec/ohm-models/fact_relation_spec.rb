@@ -75,6 +75,7 @@ describe FactRelation do
   end
 
   describe :deletable? do
+    include PavlovSupport
     let(:fr) {FactRelation.get_or_create(fact1,:supporting,fact2,gu)}
 
     it "should be true initially" do
@@ -97,8 +98,10 @@ describe FactRelation do
       fr.deletable?.should be_true
     end
     it "should be false after someone comments on it" do
-      interactor = Interactors::SubComments::CreateForFactRelation.new fr.id.to_i, 'hoi', current_user: fr.created_by.user
-      interactor.execute
+      as(fr.created_by.user) do |pavlov|
+        pavlov.interactor :'sub_comments/create_for_fact_relation', fr.id.to_i, 'hoi'
+      end
+
       fr.deletable?.should be_false
     end
   end

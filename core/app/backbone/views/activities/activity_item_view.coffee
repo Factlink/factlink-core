@@ -14,8 +14,10 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
         AddedSubchannelView
       when "believes", "doubts", "disbelieves"
         AddedOpinionView
-      when "added_fact_to_channel"
-        AddedFactToChannelGroupView
+      when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
+        AddedFactToTopicGroupView
+      when 'followed_user'
+        FollowedUserView
       when "added_first_factlink"
         AddedFirstFactlinkView
       else
@@ -36,18 +38,25 @@ class CreatedCommentView extends ActivityItemView
 class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"
 
+class FollowedUserView extends ActivityItemView
+  tagName: 'span'
+  className: 'separator-list-item'
+  template: "activities/followed_user"
+  templateHelpers: =>
+    followed_user: new User(@model.get('activity').followed_user).toJSON()
+
 class AddedFirstFactlinkView extends ActivityItemView
   template: "activities/added_first_factlink"
 
-class AddedFactToChannelView extends ActivityItemView
+class AddedFactToTopicView extends ActivityItemView
   tagName: 'span'
   className: 'separator-list-item'
-  template: 'activities/added_fact_to_channel'
+  template: 'activities/added_fact_to_topic'
 
-class AddedFactToChannelGroupView extends ActivitiesGroupView
-  template: 'activities/added_fact_to_channel_group'
+class AddedFactToTopicGroupView extends ActivitiesGroupView
+  template: 'activities/added_fact_to_topic_group'
   className: ''
-  itemView: AddedFactToChannelView
+  itemView: AddedFactToTopicView
   itemViewContainer: '.js-region-channels'
 
   actions: -> ["added_fact_to_channel"]

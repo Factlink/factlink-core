@@ -1,4 +1,7 @@
 class window.AddCommentView extends Backbone.Marionette.ItemView
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
+                       Backbone.Factlink.AlertMixin
+
   className: 'add-comment'
   events:
     'click .js-post': 'addWithHighlight'
@@ -65,6 +68,3 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
   disableSubmit: ->
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
-
-_.extend AddCommentView.prototype,
-  Backbone.Factlink.AddModelToCollectionMixin, Backbone.Factlink.AlertMixin

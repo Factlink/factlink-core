@@ -2,6 +2,8 @@ class window.Topic extends Backbone.Model
 
   idAttribute: 'slug_title'
 
+  isActive: -> @collection.isActive(@)
+
   newChannelForUser: (user) ->
     new Channel
       title: @get 'title'
@@ -15,17 +17,27 @@ class window.Topic extends Backbone.Model
       ch = @newChannelForUser(user)
       user.channels.add(ch)
       console.info "saving channel #{ch.get 'title'} to #{ch.url()}"
-      ch.save({},
+      ch.save {},
         success: (m,r)-> options.success?(m,r)
         error:   (m,r)->
           user.channels.remove(ch)
           options.error?(m,r)
-      )
 
   existingChannelFor: (user)->
     user.channels.getBySlugTitle(@get 'slug_title')
 
+  facts: -> new TopicFacts([], topic: @)
 
-  facts: -> new TopicFacts([], topic: this)
+  urlRoot: ->
+    '/t' unless @collection?
 
-  url: -> '/t/' + @get('slug_title')
+  favourite: ->
+    currentUser.favourite_topics.create( @attributes )
+    currentUser.favourite_topics.sort()
+
+  unfavourite: ->
+    currentUser.favourite_topics.get(@).destroy()
+
+  toJSON: ->
+    _.extend super(),
+      link: '/t/' + @get('slug_title')

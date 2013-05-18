@@ -1,7 +1,10 @@
 user = channel.created_by_user
 topic_authority = channel.owner_authority
 
-is_mine = (user.id == current_user.id) #DEPRECATED, CALCULATE THIS IN FRONTEND SEE related_users_view.coffee
+# DEPRECATED, CALCULATE THIS IN FRONTEND
+# e.g. `@model.get('username') == currentUser.get('username')`
+is_mine = (user.id == current_user.id)
+
 is_created = (channel.type == 'created')
 is_all = (channel.type == 'stream')
 is_normal = !is_all && !is_created
@@ -56,14 +59,6 @@ json.created_by_id created_by_id
 json.inspectable? channel.is_real_channel?
 json.followable?  !is_mine && is_normal
 json.editable?    is_mine && channel.is_real_channel?
-
-# QUICK FIX only show unread count on own channel
-if is_mine then
-  unread_count = is_normal ? channel.unread_count : 0
-
-  json.unread_count unread_count
-  json.new_facts unread_count != 0
-end
 
 # We are moving from containing_channel_ids to followed?
 # consider containing_channel_ids as deprecated

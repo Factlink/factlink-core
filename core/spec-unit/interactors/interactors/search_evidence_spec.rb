@@ -51,7 +51,7 @@ describe Interactors::SearchEvidence do
       query = mock()
 
       Queries::ElasticSearchFactData.should_receive(:new).
-        with(keywords, 1, 20).
+        with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
 
       query.should_receive(:call).
@@ -70,7 +70,7 @@ describe Interactors::SearchEvidence do
       query = mock()
 
       Queries::ElasticSearchFactData.should_receive(:new).
-        with(keywords, 1, 20).
+        with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
 
       query.should_receive(:call).
@@ -91,7 +91,7 @@ describe Interactors::SearchEvidence do
       query = mock()
 
       Queries::ElasticSearchFactData.should_receive(:new).
-        with('zoeken interessante dingen', 1, 20).
+        with('zoeken interessante dingen', 1, 20, ability: relaxed_ability).
         and_return(query)
 
       query.should_receive(:call).

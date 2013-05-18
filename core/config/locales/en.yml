@@ -34,21 +34,24 @@ en:
   channels: "channels"
 
   follow: "follow"
+  follow_user: "follow user"
+  follow_topic: "follow topic"
+  followed: "followed"
   following: "following"
   unfollow: "unfollow"
-
-  related_channels: "related channels"
-  interesting_channels: "interesting channels"
-  related_users: "related users"
-  interesting_users: "interesting users"
+  is_now_following_you: "is now following you"
 
   stream: "feed"
 
   topic:  "topic"
   topics: "topics"
   topic_name: "topic name"
-  add_to_topics: "add"
-  created_topic: "created a topic"
+  add_to_topics: "what is this Factlink about"
+  created_user_topic: "started posting to a topic"
+  favourites: "followed topics"
+  favourite: "follow"
+  unfavourite: "unfollow"
+  favourited: "followed"
 
   ago: "ago"
   show: "show"

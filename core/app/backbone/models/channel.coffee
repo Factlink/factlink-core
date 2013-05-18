@@ -8,10 +8,12 @@ class window.Channel extends Backbone.Model
     @on "deactivate", @setNotActive
 
   setActive: ->
-    @isActive = true
+    @_isActive = true
 
   setNotActive: ->
-    @isActive = false
+    @_isActive = false
+
+  isActive: -> @_isActive
 
   user: -> new User(@get("created_by"))
 
@@ -21,9 +23,6 @@ class window.Channel extends Backbone.Model
 
   subchannels: ->
     @cached 'subchannels', => fetched(new Subchannels([], channel: this))
-
-  relatedChannels: ->
-    @cached 'relatedchannels', => fetched(new RelatedChannels [], forChannel: this)
 
   lastAddedFactAsActivity: ->
     @cached 'lastFactAsActivity', =>

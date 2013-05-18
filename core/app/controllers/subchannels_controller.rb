@@ -1,3 +1,7 @@
+# This controllers manages which channel you follow in your channel
+# Since it's now only allowed to follow channels with the same name,
+# we use the channels/follow and unfollow interactors.
+
 class SubchannelsController < ApplicationController
   def index
     authorize! :show, channel
@@ -5,14 +9,16 @@ class SubchannelsController < ApplicationController
   end
 
   def create
-    interactor :'channels/add_subchannel', channel_id, subchannel_id
+    authorize! :update, channel
+    interactor :'channels/follow', subchannel_id
     render_subchannels
   end
 
   alias :update :create
 
   def destroy
-    interactor :'channels/remove_subchannel', channel_id, subchannel_id
+    authorize! :update, channel
+    interactor :'channels/unfollow', subchannel_id
     render_subchannels
   end
 

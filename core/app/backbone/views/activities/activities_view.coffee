@@ -7,6 +7,8 @@ class ActivititesBasicEmptyView extends Backbone.Marionette.ItemView
   """
 
 class window.ActivitiesView extends AutoloadingView
+  _.extend @prototype, ToggleMixin
+
   template: 'activities/list'
 
   regions:
@@ -79,5 +81,3 @@ class window.ActivitiesView extends AutoloadingView
       delete @emptyView
 
   addAtBottom:(view) -> @bottomRegion.show view
-
-_.extend(ActivitiesView.prototype, ToggleMixin)
