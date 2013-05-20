@@ -92,6 +92,8 @@ GEM
     browser (0.1.6)
     builder (3.0.4)
     cancan (1.6.10)
+    cane (2.5.2)
+      parallel
     capistrano (2.14.2)
       highline
       net-scp (>= 1.0.0)
@@ -277,6 +279,7 @@ GEM
       omniauth-oauth (~> 1.0)
     origin (1.1.0)
     orm_adapter (0.4.0)
+    parallel (0.6.5)
     poltergeist (1.0.3)
       capybara (~> 1.1)
       childprocess (~> 0.3)
@@ -449,6 +452,7 @@ DEPENDENCIES
   brakeman (~> 1)
   browser (~> 0.1.6)
   cancan (~> 1.6.10)
+  cane (~> 2)
   capistrano (~> 2.14.2)
   capistrano-ext (~> 1.2.1)
   capybara (~> 1.1)
