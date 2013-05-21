@@ -156,3 +156,4 @@ group :test, :development do # TODO why is there a :development here?
 end
 
 gem 'brakeman', '~> 1', require: false # always update, we want the latest version always
+gem 'cane', '~> 2', require: false
