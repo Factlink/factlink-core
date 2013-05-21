@@ -24,7 +24,7 @@ class ChannelList
   def get_by_slug_title slug_title
     channels.find(slug_title: slug_title).first
   end
-  
+
   def containing_real_channel_ids_for_fact(fact)
     # The filter shouldn't be necessary, but we're not sure that in the
     # production database all (historical) fact.channels are stream and created_facts free

@@ -11,7 +11,7 @@ class DirectedRelationsSortedWithReverse
 
   def add from_id, to_id, score
     return if has? from_id, to_id
-    
+
     replace from_id, to_id, score
   end
 
