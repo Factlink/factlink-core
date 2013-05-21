@@ -157,7 +157,7 @@ class User
         "receives_mailed_notifications" => "receives_mailed_notifications",
         "receives_digest" => "receives_digest",
         "location"        => "location",
-        "bio"             => "bio"
+        "biography"       => "biography"
       }
     end
   end
