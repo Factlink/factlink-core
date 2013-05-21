@@ -3,10 +3,16 @@
     <fieldset>
       <legend></legend>
       <label class="checkbox">
-        <input type="checkbox" class="send_mail"
+        <input type="checkbox" class="js-receives_mailed_notifications"
           {{#receives_mailed_notifications}}checked=checked{{/receives_mailed_notifications}}
         >
         Send me an email when I receive a notification
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" class="js-receives_digest"
+          {{#receives_digest}}checked=checked{{/receives_digest}}
+        >
+        Send me a weekly digest
       </label>
     </fieldset>
   </div>
