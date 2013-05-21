@@ -154,6 +154,7 @@ class User
         "email"           => "email",
         "created_at"      => "created",
         "last_sign_in_at" => "last_login",
+        "receives_mailed_notifications" => "receives_mailed_notifications",
         "receives_digest" => "receives_digest",
         "location"        => "location",
         "bio"             => "bio"
