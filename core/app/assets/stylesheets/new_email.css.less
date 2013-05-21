@@ -51,7 +51,7 @@ table.body-wrap {
 
 .content {
   background: #FFFFFF;
-  padding:30px;
+  padding:30px 30px 0;
   max-width:600px;
   margin:30px auto;
   display:block;
@@ -70,7 +70,7 @@ table.body-wrap {
 
 p { margin-bottom: 1em; }
 
-.body, p {
+.body, p, td {
   color: #555;
   font-size: 13px;
   line-height: 20px;
@@ -119,14 +119,15 @@ p { margin-bottom: 1em; }
 }
 
 .quoted-factlink {
-  padding: 24px 24px 0 48px;
-  > img {
-    float: left;
+  width: 494px !important;
+
+  .quoted-factlink-image {
+    vertical-align: top;
+    width: 40px;
   }
 
-  p {
+  .quoted-factlink-quote {
     color: #333;
-    float: left;
     font-size: 18px;
     line-height: 28px;
     margin-left: 10px;
