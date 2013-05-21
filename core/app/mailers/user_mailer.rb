@@ -8,4 +8,11 @@ class UserMailer < ActionMailer::Base
     mail to: @user.email, subject: 'Start using Factlink'
   end
 
+  # TODO: Remove me when done developing
+  def discussion(fact_id=88)
+    @fact = Fact[fact_id]
+
+    mail to: 'tom@factlink.com', subject: 'Discussion of the Week'
+  end
+
 end
