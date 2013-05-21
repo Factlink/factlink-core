@@ -8,7 +8,7 @@ if [ $? -eq 0 ]; then
   exit 1
 fi
 
-if ["$1" == ""]; then
+if [ "$1" == "" ]; then
   echo "please specify the name of the feature (without spaces)"
   exit 1
 fi
