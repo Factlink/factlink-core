@@ -11,7 +11,7 @@ describe FactsController do
     it "should render successful" do
       authenticate_user!(user)
       fact = nil
-      
+
       as(user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
       end
@@ -130,11 +130,11 @@ describe FactsController do
     it "should work" do
       authenticate_user!(user)
       fact = nil
-      
+
       as(user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
       end
-      
+
       get :evidence_search, id: fact.id, s: "Baron"
       response.should be_success
     end
