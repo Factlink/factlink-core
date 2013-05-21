@@ -61,6 +61,7 @@ describe FactsController do
       fact.data.save
 
       ability.stub can?: true
+      should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, fact
 
       get :extended_show, id: fact.id, fact_slug: 'hoi'
