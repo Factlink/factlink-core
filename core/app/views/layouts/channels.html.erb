@@ -14,10 +14,7 @@
 <% content_for :javascript do %>
   <script>
     $(function() {
-      Channels.setUsername("<%= current_user.username %>");
-
       Backbone.history.start({pushState:Modernizr.history});
-
     });
   </script>
 <% end %>
