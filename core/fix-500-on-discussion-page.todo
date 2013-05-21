@@ -1,3 +1,3 @@
- ☐ make fact page not crash when not logged in
+ ✔ make fact page not crash when not logged in @done (13-05-21 14:52)
  ☐ redirect user when not logged in when accessing factpage
  ☐ test that the user is redirected when not logged in
