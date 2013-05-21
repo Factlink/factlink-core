@@ -49,7 +49,7 @@ class ActivityMailer < ActionMailer::Base
       when :created_sub_comment
         "#{activity.user.user} has commented on a Factlink"
       when :followed_user
-        "#{activity.user.user} is now following you"
+        "#{activity.user.user} is now following you on Factlink"
       else
         'New notification!'
       end

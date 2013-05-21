@@ -16,7 +16,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
     @user = User.where(reset_password_token: params[:reset_password_token]).first
 
-    if params[:msg] 
+    if params[:msg]
       if @user
         render :setup_account
       else
@@ -45,7 +45,7 @@ class Users::PasswordsController < Devise::PasswordsController
       respond_with resource, location: after_sign_in_path_for(resource)
     else
       respond_with resource, template: 'users/passwords/setup_account'
-    end    
+    end
   end
 
 end

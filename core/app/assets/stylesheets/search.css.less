@@ -5,7 +5,9 @@
 .search-results .results {
   .search-result {
     .reset-main-padding();
-    border-top: 1px solid @baseBorderColor;
+    &:first-child {
+      border-top: 1px solid @baseBorderColor;
+    }
     border-bottom: 1px solid @baseBorderColor;
     overflow: hidden;
   }
