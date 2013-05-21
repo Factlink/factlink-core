@@ -2,7 +2,19 @@
 echo "Running acceptance tests"
 
 OUTPUTFILE=$(mktemp /tmp/acceptance.XXXX)
-bundle exec rspec spec/acceptance/ | tee "$OUTPUTFILE"
+
+for i in {1..2}
+do
+  bundle exec rspec spec/acceptance/ | tee "$OUTPUTFILE"
+
+  if grep 'Capybara::Poltergeist::DeadClient' $OUTPUTFILE > /dev/null
+  then
+    echo "Detected random fail, retrying (retry $i)"
+  else
+    break
+  fi
+done
+
 
 if ! grep ', 0 failures' $OUTPUTFILE > /dev/null
 then

@@ -47,7 +47,7 @@ describe Interactors::SearchUser do
       query.should_receive(:call).
         and_return([user])
       Queries::ElasticSearchUser.should_receive(:new).
-        with(keywords, 1, 20).
+        with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
 
       interactor.call.should eq [user]
@@ -62,7 +62,7 @@ describe Interactors::SearchUser do
       query.should_receive(:call).
         and_return([user])
       Queries::ElasticSearchUser.should_receive(:new).
-        with(keywords, 1, 20).
+        with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
 
       interactor.call.should eq []

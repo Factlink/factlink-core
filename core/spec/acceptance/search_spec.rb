@@ -22,7 +22,7 @@ describe "searching", type: :request do
     # create factlink:
     fact_title = "fact to be found"
     visit new_fact_path fact: fact_title
-    click_button "submit"
+    click_button "Post to Factlink"
 
     # and search for it:
     visit root_path

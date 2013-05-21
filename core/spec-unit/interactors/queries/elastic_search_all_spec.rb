@@ -5,7 +5,7 @@ describe Queries::ElasticSearchAll do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'FactData', 'User', 'Topic',
+    stub_classes 'HTTParty', 'FactData', 'User',
       'FactlinkUI::Application', 'FactlinkUser'
   end
 
@@ -16,7 +16,7 @@ describe Queries::ElasticSearchAll do
   end
 
   describe '.call' do
-    ['user', 'topic', 'factdata'].each do |type|
+    ['user', 'factdata'].each do |type|
       it "correctly with return value of #{type} class" do
         config = mock()
         base_url = '1.0.0.0:4000/index'
@@ -51,9 +51,7 @@ describe Queries::ElasticSearchAll do
             .with(mongoid_user)
             .and_return(return_object)
         when 'topic'
-          Topic.should_receive(:find).
-            with(1).
-            and_return(return_object)
+          fail 'We test topics in elastic_search_channel_spec'
         when 'factdata'
           FactData.should_receive(:find).
             with(1).

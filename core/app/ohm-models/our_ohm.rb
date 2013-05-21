@@ -4,7 +4,6 @@ require_relative 'our_ohm/generic_reference'
 require_relative 'our_ohm/value_reference'
 require_relative 'our_ohm/monkey'
 require_relative 'our_ohm/timestamped_set'
-require_relative 'our_ohm/redis_top_functionality'
 
 class OurOhm < Ohm::Model
   include Ohm::Contrib

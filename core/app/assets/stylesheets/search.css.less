@@ -1,29 +1,14 @@
+//=require_tree ./search
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 .search-results .results {
   .search-result {
-    padding: 15px 0;
+    .reset-main-padding();
+    &:first-child {
+      border-top: 1px solid @baseBorderColor;
+    }
     border-bottom: 1px solid @baseBorderColor;
     overflow: hidden;
-  }
-
-  .list-channel {
-    width: 200px;
-    float: left;
-    margin-right: 10px;
-  }
-
-  .list-channel-avatar {
-    float: left;
-    margin-right: 10px;
-  }
-
-  .list-channel-user {
-    color: #AFAFAF;
-    font-size: @metaFontSize;
-    font-weight: normal;
-    line-height: @baseLineHeight;
-    font-family: @baseFontFamily;
   }
 }

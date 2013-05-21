@@ -42,7 +42,7 @@ describe Interactors::Search do
 
       query = mock()
       Queries::ElasticSearchAll.should_receive(:new).
-        with(keywords, 1, 20).
+        with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
       query.should_receive(:call).
         and_return(results)
@@ -57,7 +57,7 @@ describe Interactors::Search do
       results =  [fact_data]
       query = mock()
       Queries::ElasticSearchAll.should_receive(:new).
-        with(keywords, 1, 20).
+        with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
       query.should_receive(:call).
         and_return(results)
@@ -75,26 +75,9 @@ describe Interactors::Search do
 
       query = mock()
       Queries::ElasticSearchAll.should_receive(:new).
-        with(keywords, 1, 20).
+        with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
 
-      query.should_receive(:call).
-        and_return(results)
-
-      interactor.call.should eq []
-    end
-
-    it 'topic without channel is filtered' do
-      keywords = "searching for this channel"
-      interactor = Interactors::Search.new keywords, 1, 20, ability: relaxed_ability
-      topic = Topic.new
-      topic.stub top_channels: []
-      results = [topic]
-
-      query = mock()
-      Queries::ElasticSearchAll.should_receive(:new).
-        with(keywords, 1, 20).
-        and_return(query)
       query.should_receive(:call).
         and_return(results)
 

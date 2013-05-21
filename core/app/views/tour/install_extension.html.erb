@@ -13,12 +13,12 @@
         Now you know how to add a Factlink with the Chrome Extension, it's time to add it to your browser.
 
         <div class="transparent-border">
-          <% if use_chrome_webstore %>
+          <% if FactlinkUI::Application.config.use_chrome_webstore %>
             <a id="chrome-extension-webstore-button" class="btn btn-primary">Install Chrome Extension</a>
           <% else %>
             <!-- for testserver and staging downloads of the Chrome Extension -->
             <iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
-            <a id="chrome-extension-button" target="ce-download" class="btn btn-primary" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Add Factlink to Chrome</a>
+            <a id="chrome-extension-button" target="ce-download" class="btn btn-primary" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Install Chrome Extension (<%= Rails.env %>)</a>
           <% end %>
         </div>
       </div>
@@ -57,7 +57,7 @@
       </div>
 
       <div class="chrome-extension-installed">
-        <a class="btn btn-primary" href="<%= next_tourstep_path(ref: 'bookmarklet_next') %>">Next step</a>
+        <a class="btn btn-primary" href="<%= next_tourstep_path(ref: 'chrome_extension_next') %>">Next step</a>
       </div>
     </div>
 
@@ -67,7 +67,7 @@
       </div>
       
       <div class="firefox-extension-installed">
-        <a class="btn btn-primary" href="<%= next_tourstep_path(ref: 'bookmarklet_next') %>">Next step</a>
+        <a class="btn btn-primary" href="<%= next_tourstep_path(ref: 'firefox_extension_next') %>">Next step</a>
       </div>
     </div>
 
@@ -110,8 +110,7 @@
       });
 
 
-      <% if use_chrome_webstore %>
-
+      <% if FactlinkUI::Application.config.use_chrome_webstore %>
         $('#chrome-extension-webstore-button').bind('click', function() {
           mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
           chrome.webstore.install(undefined, successFn, errorFn);
@@ -119,10 +118,7 @@
 
         function successFn() {
           mp_track("Extension: Download Chrome Extension -> Successful install #almost-ready");
-
-          $('#skip-step').fadeOut(600, function() {
-            window.location = "<%= next_tourstep_path(ref: 'extension_next') %>";
-          });
+          window.location = "<%= next_tourstep_path(ref: 'chrome_extension_redirect') %>";
         }
         function errorFn(e) {
           mp_track("Extension: Download Chrome Extension -> Failed install #almost-ready");

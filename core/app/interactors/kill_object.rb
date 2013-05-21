@@ -4,7 +4,7 @@ module KillObject
   def self.dead_object(name, fields)
     self.class.send(:define_method, name) do |*args|
       alive_object, extra_fields = *args
-      kill alive_object, fields, extra_fields || {}
+      kill name, alive_object, fields, extra_fields || {}
     end
   end
 
@@ -34,8 +34,8 @@ module KillObject
     [:id]
 
 
-  def self.kill alive_object, take_fields, extra_fields={}
-    hash = {}
+  def self.kill name, alive_object, take_fields, extra_fields={}
+    hash = {dead_object_name: name}
     take_fields.each do |key|
       hash[key] = alive_object.send(key) if alive_object.respond_to? key
     end

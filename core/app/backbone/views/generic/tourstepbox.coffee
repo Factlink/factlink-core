@@ -5,10 +5,11 @@ class TourStepBox extends Backbone.Marionette.ItemView
     'click .next-step': 'next'
 
   next: ->
-    next_button = @$el.find('.next-step')
+    next_button = @$('.next-step')
 
-    if next_button and next_button.data('disable-with')
-      next_button.addClass('disabled').text(next_button.data('disable-with'))
+    if next_button
+      disableInputWithDisableWith(next_button)
+
     @trigger('next')
 
 class window.AddChannelsTourStep1 extends TourStepBox
@@ -19,7 +20,6 @@ class window.AddChannelsTourStep2 extends TourStepBox
   templateHelpers: ->
     topics: Factlink.Global.t.topics.capitalize()
     channels: Factlink.Global.t.channels.capitalize()
-
 
 class window.AddChannelsTourStep3 extends TourStepBox
   template: 'tour/add_channel_step3'
