@@ -5,4 +5,8 @@ machine:
     - elasticsearch
 test:
   override:
+    - bundle exec rspec spec-unit --trace
+    - bundle exec rspec spec --trace
     - bundle exec rake konacha:load_poltergeist konacha:run --trace
+    - bundle exec rspec spec/acceptance --trace
+    - bundle exec rspec spec/screenshots
