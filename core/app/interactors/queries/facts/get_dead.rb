@@ -6,7 +6,9 @@ module Queries
       arguments :id
 
       def execute
-        DeadFact.new fact.id, site_url
+        DeadFact.new fact.id,
+                     site_url,
+                     fact.data.displaystring
       end
 
       def fact

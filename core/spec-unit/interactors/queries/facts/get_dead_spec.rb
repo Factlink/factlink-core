@@ -18,7 +18,8 @@ describe Queries::Facts::GetDead do
     end
 
     it 'returns a fact' do
-      live_fact = mock :fact, id: '1', has_site?: false
+      fact_data = mock displaystring: 'example fact text'
+      live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
@@ -26,10 +27,12 @@ describe Queries::Facts::GetDead do
       dead_fact = interactor.execute
 
       expect(dead_fact.id).to eq live_fact.id
+      expect(dead_fact.displaystring).to eq live_fact.data.displaystring
     end
 
     it 'returns a fact which has no site without site_url' do
-      live_fact = mock :fact, id: '1', has_site?: false
+      fact_data = mock displaystring: 'example fact text'
+      live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
@@ -38,9 +41,11 @@ describe Queries::Facts::GetDead do
 
       expect(dead_fact.site_url).to be_nil
     end
+
     it 'returns a fact which has a site with site_url' do
+      fact_data = mock displaystring: 'example fact text'
       site = mock :site, url: 'http://example.org/'
-      live_fact = mock :fact, id: '1', has_site?: true, site: site
+      live_fact = mock :fact, id: '1', has_site?: true, site: site, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)

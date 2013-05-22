@@ -6,7 +6,7 @@ timestamp ||= 0
 
 dead_fact = query :'facts/get_dead', fact.id.to_s
 
-json.displaystring fact.data.displaystring
+json.displaystring dead_fact.displaystring
 json.id dead_fact.id
 json.site_id fact.site_id
 
@@ -15,7 +15,7 @@ if current_graph_user
   containing_channel_ids = channel_list.containing_real_channel_ids_for_fact fact
   json.containing_channel_ids containing_channel_ids
 end
-json.url friendly_fact_path(fact)
+json.url friendly_fact_path(dead_fact)
 
 if channel
   deletable_from_channel = (user_signed_in? and
