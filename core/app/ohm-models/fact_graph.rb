@@ -18,12 +18,6 @@ class FactGraph
 
         calculate_fact_opinions i
       end
-
-      cut_off_top
-  end
-
-  def cut_off_top
-    Fact.cut_off_top
   end
 
   def calculate_fact_relation_influencing_opinions i
@@ -35,7 +29,6 @@ class FactGraph
     debug "Calculating fact opinions (#{i})"
     Fact.all.to_a.each do |f|
       f.calculate_opinion
-      f.reposition_in_top
     end
   end
 

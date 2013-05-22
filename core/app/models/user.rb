@@ -41,14 +41,15 @@ class User
   field :seen_the_tour,  type: Boolean, default: false
   field :seen_tour_step, type: String,  default: nil
   field :receives_mailed_notifications,  type: Boolean, default: true
+  field :receives_digest, type: Boolean, default: true
 
 
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications, :receives_digest
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications, :email, :approved, :admin, :registration_code, as: :admin
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications, :receives_digest, :email, :approved, :admin, :registration_code, as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
@@ -124,6 +125,10 @@ class User
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
   class << self
+    def receives_digest
+      active.where(:receives_digest => true)
+    end
+
     def seen_the_tour
       active.where(:seen_tour_step => 'tour_done')
     end
@@ -152,7 +157,11 @@ class User
         "username"        => "username",
         "email"           => "email",
         "created_at"      => "created",
-        "last_sign_in_at" => "last_login"
+        "last_sign_in_at" => "last_login",
+        "receives_mailed_notifications" => "receives_mailed_notifications",
+        "receives_digest" => "receives_digest",
+        "location"        => "location",
+        "biography"       => "biography"
       }
     end
   end
