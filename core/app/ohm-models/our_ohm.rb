@@ -42,7 +42,11 @@ class OurOhm < Ohm::Model
       end
     end
     def timestamped_set(name, model, &block)
-      define_memoized_method(name) { Ohm::Model::TimestampedSet.new(key[name], Ohm::Model::Wrapper.wrap(model)) { |x| Ohm::Model::TimestampedSet.current_time } }
+      define_memoized_method(name) do
+         Ohm::Model::TimestampedSet.new(key[name], Ohm::Model::Wrapper.wrap(model)) do |x|
+           Ohm::Model::TimestampedSet.current_time
+         end
+      end
       define_method(:"#{name}=") do |value|
         @_memo.delete(name)
         send(name).assign(value)
