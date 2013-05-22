@@ -3,7 +3,13 @@
 <% if sentry_conf %>
 
   <script type="text/javascript">
-  Raven.config('<%= "https://#{sentry_conf["public"]}@sentry2.factlink.com/#{sentry_conf["project_id"]}" %>').install();
+  Raven.config('<%= "https://#{sentry_conf["public"]}@sentry2.factlink.com/#{sentry_conf["project_id"]}" %>', {
+
+      ignoreErrors: [
+        'Error connecting to extension gkndfifopckmhdkohjeoljlbfnjhekfg' // 1Password
+      ]
+
+  }).install();
   </script>
 
 <% end %>
