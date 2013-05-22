@@ -1,5 +1,7 @@
 //= require_tree ./email
 
+@import "bootstrap/mixins";
+
 * {
   margin:0;
   padding:0;
@@ -56,16 +58,10 @@ table.body-wrap {
   margin:30px auto;
   display:block;
   border: 1px solid #cbcbcb;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
   background-color: #fff;
-  -moz-box-shadow: 0 1px 3px rgba(0,0,0,.1);
-  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
-  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  .border-radius(4px);
+  .background-clip(padding-box);
+  .box-shadow(0 1px 3px rgba(0,0,0,.1));
 }
 
 p { margin-bottom: 1em; }
@@ -87,7 +83,7 @@ p { margin-bottom: 1em; }
   background-repeat: repeat-x;
 
   border: 1px solid #e79300;
-  border-radius: 4px;
+  .border-radius(4px);
 
   padding: 8px 20px;
   width: 150px;
