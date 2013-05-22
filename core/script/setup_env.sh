@@ -56,7 +56,8 @@ if [ ! -d "server-management/.git" ]; then
 	git clone "git@github.com:Factlink/server-management.git"
 fi
 
-RUBY_VERSION=1.9.3-p429
+RUBY_VERSION=1.9.3-p392
+#warning; p429 and later (including 2.0.0) breaks Time.at Time.zone.now 
 
 if [ -e `which brew` ]; then
     echo "Brew already installed; updating."
