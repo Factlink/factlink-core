@@ -3,7 +3,7 @@ require 'pavlov'
 class FactlinkUser < Pavlov::Entity
   attributes :id, :name, :username, :location, :biography,
     :gravatar_hash, :email, :receives_mailed_notifications,
-    :hidden
+    :hidden, :receives_digest
 
   def self.attributes
     @attributes

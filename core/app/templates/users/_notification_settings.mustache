@@ -1,13 +1,21 @@
 <div class="row" id="edit_user">
   <div class="span8">
-    <fieldset>
-      <legend></legend>
-      <label class="checkbox">
-        <input type="checkbox" class="send_mail"
-          {{#receives_mailed_notifications}}checked=checked{{/receives_mailed_notifications}}
-        >
-        Send me an email when I receive a notification
-      </label>
-    </fieldset>
+    <form>
+      <fieldset>
+        <legend></legend>
+        <label class="checkbox">
+          <input type="checkbox" class="js-receives-mailed-notifications"
+            {{#receives_mailed_notifications}}checked=checked{{/receives_mailed_notifications}}
+          >
+          Send me an email when I receive a notification
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" class="js-receives-digest"
+            {{#receives_digest}}checked=checked{{/receives_digest}}
+          >
+          Send me a weekly digest
+        </label>
+      </fieldset>
+    </form>
   </div>
 </div>
