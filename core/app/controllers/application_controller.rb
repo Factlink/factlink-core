@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
       mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true)
     }
   end
+  helper_method :query
 
   before_filter :check_preferred_browser
   def check_preferred_browser

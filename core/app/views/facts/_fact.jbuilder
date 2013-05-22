@@ -4,8 +4,10 @@ timestamp ||= 0
 # TODO: set timestamp to nil, but this always defaulted to 0
 # so check that nothing depends on it.
 
+dead_fact = query :'facts/get_dead', fact.id.to_s
+
 json.displaystring fact.data.displaystring
-json.id fact.id
+json.id dead_fact.id
 json.site_id fact.site_id
 
 if current_graph_user
@@ -52,9 +54,9 @@ json.fact_wheel do |j|
                 locals: { fact: fact }
 end
 
-if fact.has_site?
-  json.fact_url fact.site.url
-  proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(fact.id)
+if dead_fact.site_url
+  json.fact_url dead_fact.site_url
+  proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(dead_fact.site_url) + "&scrollto=" + URI.escape(dead_fact.id)
   json.proxy_scroll_url proxy_scroll_url
 end
 
