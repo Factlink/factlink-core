@@ -140,7 +140,7 @@ describe User do
     before do
       @u = build :user
     end
-    
+
     it "cannot be empty" do
       @u.last_name = ""
       @u.valid?.should be_false
