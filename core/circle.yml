@@ -3,3 +3,6 @@ machine:
     version: 1.9.3-p392
   services:
     - elasticsearch
+  test:
+    override:
+      - bundle exec rake konacha:load_poltergeist konacha:run --trace
