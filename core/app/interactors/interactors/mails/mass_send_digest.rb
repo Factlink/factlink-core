@@ -15,7 +15,7 @@ module Interactors
 
       def mails
         User.receives_digest.map do |user|
-          DigestMailer.discussion_of_the_week(user, fact, url)
+          DigestMailer.discussion_of_the_week(user.id, fact.id, url)
         end
       end
 

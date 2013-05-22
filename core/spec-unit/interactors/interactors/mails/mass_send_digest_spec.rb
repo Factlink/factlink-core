@@ -32,8 +32,8 @@ describe Interactors::Mails::MassSendDigest do
 
     it 'sends an email to every user with receives_digest' do
       fact  = mock(id: mock)
-      user1 = mock
-      user2 = mock
+      user1 = mock(id: mock)
+      user2 = mock(id: mock)
       mail1 = mock
       mail2 = mock
       url   = mock
@@ -42,8 +42,8 @@ describe Interactors::Mails::MassSendDigest do
 
       User.stub receives_digest: [user1, user2]
       Fact.stub(:[]).with(fact.id).and_return(fact)
-      DigestMailer.stub(:discussion_of_the_week).with(user1, fact, url).and_return(mail1)
-      DigestMailer.stub(:discussion_of_the_week).with(user2, fact, url).and_return(mail2)
+      DigestMailer.stub(:discussion_of_the_week).with(user1.id, fact.id, url).and_return(mail1)
+      DigestMailer.stub(:discussion_of_the_week).with(user2.id, fact.id, url).and_return(mail2)
 
       mail1.should_receive :deliver
       mail2.should_receive :deliver
