@@ -218,6 +218,12 @@ describe User do
     end
   end
 
+  describe ".seen_the_tour" do
+    it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
+      expect(User.seen_the_tour.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "seen_tour_step"=>"tour_done"})
+    end
+  end
+
   describe "#valid_username_and_email?" do
     it "should validate normal username and email address fine" do
       user = User.new
