@@ -8,6 +8,8 @@ dead_fact = query :'facts/get_dead', fact.id.to_s
 
 json.displaystring dead_fact.displaystring
 json.id dead_fact.id
+
+# TODO i don't think this site_id is ever needed, check if it can be removed:
 json.site_id fact.site_id
 
 if current_graph_user
@@ -41,7 +43,7 @@ json.created_by do |j|
                 handlers: [:jbuilder],
                 locals: {
                   user: fact.created_by.user,
-                  subject: fact
+                  subject: dead_fact
                 }
 end
 

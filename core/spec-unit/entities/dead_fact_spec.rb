@@ -7,5 +7,10 @@ describe DeadFact do
       dead_fact = DeadFact.new 1, 'http://example.org', displaystring
       expect(dead_fact.to_s).to eq dead_fact.displaystring
     end
+
+    it "should act as Fact for Authority.on" do
+      dead_fact = DeadFact.new 1, 'http://example.org', 'displaystring'
+      expect(dead_fact.acts_as_class_for_authority).to eq 'Fact'
+    end
   end
 end
