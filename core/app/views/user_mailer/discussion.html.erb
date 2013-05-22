@@ -36,14 +36,15 @@
     <tr>
 
       <td align="center">
-        <a href="/" class="btn-email">Join the discussion</a>
+        <%= link_to 'Join the discussion', @url, class: 'btn-email' %>
       </td>
 
     </tr>
 
     <tr>
       <td style="padding: 30px 0 0">
-        Join the discussion by clicking the button above or copying this link to your browser: <a href="/">http://blog.factlink.com/post/857218/certain-foods-can-effect</a>
+        Join the discussion by clicking the button above or copying this link to your browser:
+        <%= link_to @url, @url %>
       </td>
     </tr>
 

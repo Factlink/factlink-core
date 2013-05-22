@@ -12,6 +12,7 @@ class UserMailer < ActionMailer::Base
   def discussion(fact_id, user_id)
     @fact = Fact[fact_id]
     @user = User.find(user_id)
+    @url  = url
 
     mail to: @user.email, subject: 'Discussion of the Week'
   end
