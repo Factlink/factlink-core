@@ -1,4 +1,4 @@
-class DiscussionMailer < ActionMailer::Base
+class DigestMailer < ActionMailer::Base
   include Resque::Mailer
 
   default from: "Factlink <support@factlink.com>"
