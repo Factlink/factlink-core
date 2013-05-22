@@ -3,8 +3,8 @@ class window.NotificationSettingsView extends Backbone.Marionette.ItemView
   template: 'users/notification_settings'
 
   modelBindings:
-    "change input.js-receives-mailed-notifications" : 'receives-mailed-notifications'
-    "change input.js-receives-digest" : 'receives-digest'
+    "change input.js-receives-mailed-notifications" : 'receives_mailed_notifications'
+    "change input.js-receives-digest" : 'receives_digest'
 
   onRender: -> @bind()
 

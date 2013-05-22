@@ -15,11 +15,13 @@
       <tr>
         <td></td>
         <td class="container" bgcolor="#EEEEEE">
-          <div class="content">
+          <div class="content white-well">
             <table>
               <tr>
                 <td>
+                  <% unless @hide_header_image %>
                   <p><img src="http://cdn.factlink.com/1/emailLogo.png" /></p>
+                  <% end %>
                   <div class="body">
                     <%= yield :email_body %>
                     <%= yield %>
@@ -31,6 +33,25 @@
         </td>
         <td></td>
       </tr>
+
+      <tr>
+        <td></td>
+        <td class="container" bgcolor="#EEEEEE">
+          <div class="content">
+            <table>
+              <tr>
+                <td>
+                  <div class="footer">
+                    <%= yield :email_footer %>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+
     </table>
     <%# /BODY %>
   </body>

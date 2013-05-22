@@ -1,0 +1,11 @@
+machine:
+  ruby:
+    version: 1.9.3-p392
+  services:
+    - elasticsearch
+test:
+  override:
+    - bundle exec rspec spec-unit
+    - bundle exec rspec spec
+    - bundle exec rake konacha:load_poltergeist konacha:run
+    - bundle exec rspec spec/acceptance
