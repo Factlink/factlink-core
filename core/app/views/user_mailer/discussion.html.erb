@@ -4,7 +4,7 @@
       <td>
         <img src="http://cdn.factlink.com/1/factlink-digest.jpg" class="factlink-post-stamp" height="104" width="208" alt="Factlink Digest" />
         <h1>Discussion of the Week</h1>
-        <h2>Hello Jens Kanis,</h2>
+        <h2>Hello <%= @user.name %>,</h2>
       </td>
 
     </tr>
@@ -58,7 +58,7 @@
 <% end %>
 
 <% content_for :email_footer do %>
-  <a href="#">Manage your subscriptions</a>
+  <%= link_to 'Manage your subscriptions', user_notification_settings_url(@user) %>
 <% end %>
 
 <%= render template: "layouts/new_email" %>
