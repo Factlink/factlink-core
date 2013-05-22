@@ -47,7 +47,9 @@ describe EvidenceDeletable do
       deletable(comment).should be_true
     end
     it "should be false after someone comments on it" do
-      interactor = Interactors::SubComments::CreateForComment.new comment.id.to_s, 'hoi', current_user: comment.created_by, ability: Ability.new(comment.created_by)
+      interactor = Interactors::SubComments::CreateForComment.new comment.id.to_s,
+                     'hoi', current_user: comment.created_by,
+                     ability: Ability.new(comment.created_by)
       interactor.execute
       deletable(comment).should be_false
     end
