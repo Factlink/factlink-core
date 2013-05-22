@@ -79,7 +79,7 @@ feature 'the profile page', type: :request do
 
     displaystring = 'this is a displaystring for fact'
 
-    factlink = nil
+    fact = nil
     as(followed_user) do |backend|
       fact = backend.interactor :'facts/create', displaystring,'','title'
       backend.interactor :'channels/add_fact', fact, channel
