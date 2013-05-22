@@ -5,7 +5,7 @@ module Interactors
     class MassSendDigest
       include Pavlov::Interactor
 
-      arguments :fact_id
+      arguments :fact_id, :url
 
       def execute
         mails.each do |mail|
@@ -14,10 +14,13 @@ module Interactors
       end
 
       def mails
-        fact = Fact[fact_id]
         User.receives_digest.map do |user|
-          DigestMailer.discussion_of_the_week(user, fact)
+          DigestMailer.discussion_of_the_week(user, fact, url)
         end
+      end
+
+      def fact
+        @fact ||= Fact[fact_id]
       end
 
       def authorized?
@@ -26,6 +29,7 @@ module Interactors
 
       def validate
         validate_integer_string :fact_id, fact_id
+        validate_string :url, url
       end
     end
   end

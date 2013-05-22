@@ -12,11 +12,14 @@ describe Interactors::Mails::MassSendDigest do
 
     it 'calls the correct validation methods' do
       fact_id = mock
+      url = mock
 
       described_class.any_instance.should_receive(:validate_integer_string)
         .with(:fact_id, fact_id)
+      described_class.any_instance.should_receive(:validate_string)
+        .with(:url, url)
 
-      interactor = described_class.new fact_id
+      interactor = described_class.new fact_id, url
     end
   end
 
@@ -28,18 +31,19 @@ describe Interactors::Mails::MassSendDigest do
     end
 
     it 'sends an email to every user with receives_digest' do
-      fact = mock(id: mock)
+      fact  = mock(id: mock)
       user1 = mock
       user2 = mock
       mail1 = mock
       mail2 = mock
+      url   = mock
 
-      interactor = described_class.new fact.id
+      interactor = described_class.new fact.id, url
 
       User.stub receives_digest: [user1, user2]
       Fact.stub(:[]).with(fact.id).and_return(fact)
-      DigestMailer.stub(:discussion_of_the_week).with(user1, fact).and_return(mail1)
-      DigestMailer.stub(:discussion_of_the_week).with(user2, fact).and_return(mail2)
+      DigestMailer.stub(:discussion_of_the_week).with(user1, fact, url).and_return(mail1)
+      DigestMailer.stub(:discussion_of_the_week).with(user2, fact, url).and_return(mail2)
 
       mail1.should_receive :deliver
       mail2.should_receive :deliver
