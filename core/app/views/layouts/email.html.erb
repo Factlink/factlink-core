@@ -19,7 +19,9 @@
             <table>
               <tr>
                 <td>
+                  <% unless @hide_header_image %>
                   <p><img src="http://cdn.factlink.com/1/emailLogo.png" /></p>
+                  <% end %>
                   <div class="body">
                     <%= yield :email_body %>
                     <%= yield %>

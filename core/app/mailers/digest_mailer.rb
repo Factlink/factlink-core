@@ -8,6 +8,8 @@ class DigestMailer < ActionMailer::Base
     @fact = Fact[fact_id]
     @url  = url
 
+    @hide_header_image = true
+
     mail to: @user.email, subject: 'Discussion of the Week'
   end
 
