@@ -9,4 +9,3 @@ test:
     - bundle exec rspec spec
     - bundle exec rake konacha:load_poltergeist konacha:run
     - bundle exec rspec spec/acceptance
-    - bundle exec rspec spec/screenshots
