@@ -11,7 +11,7 @@ describe FactsController do
     it "should render successful" do
       authenticate_user!(user)
       fact = nil
-      
+
       as(user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
       end
@@ -61,6 +61,7 @@ describe FactsController do
       fact.data.save
 
       ability.stub can?: true
+      should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, fact
 
       get :extended_show, id: fact.id, fact_slug: 'hoi'
@@ -129,11 +130,11 @@ describe FactsController do
     it "should work" do
       authenticate_user!(user)
       fact = nil
-      
+
       as(user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
       end
-      
+
       get :evidence_search, id: fact.id, s: "Baron"
       response.should be_success
     end
