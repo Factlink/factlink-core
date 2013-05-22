@@ -33,7 +33,9 @@ module Acceptance
 
     def click_wheel_part position
       #fire click event on svg element
-      page.execute_script("var path = $('.fact-wheel path')[#{position}];var event = document.createEvent('MouseEvents'); event.initMouseEvent('click');path.dispatchEvent(event);")
+      page.execute_script("var path = $('.fact-wheel path')[#{position}];
+                           var event = document.createEvent('MouseEvents');
+                           event.initMouseEvent('click');path.dispatchEvent(event);")
       wait_for_ajax
 
       #wait for animation
