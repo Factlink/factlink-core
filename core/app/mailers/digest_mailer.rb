@@ -4,8 +4,8 @@ class DigestMailer < ActionMailer::Base
   default from: "Factlink <support@factlink.com>"
 
   def discussion_of_the_week(user, fact, url)
-    @fact = fact
     @user = user
+    @fact = fact
     @url  = url
 
     mail to: @user.email, subject: 'Discussion of the Week'
