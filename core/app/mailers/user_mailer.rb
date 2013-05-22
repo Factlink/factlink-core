@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
   end
 
   # TODO: Remove me when done developing
-  def discussion(fact_id=88)
+  def discussion(fact_id)
     @fact = Fact[fact_id]
 
     mail to: 'tom@factlink.com', subject: 'Discussion of the Week'
