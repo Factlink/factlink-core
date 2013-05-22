@@ -124,6 +124,10 @@ class User
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
   class << self
+    def receives_digest
+      active.where(:receives_digest => true)
+    end
+
     def seen_the_tour
       active.where(:seen_tour_step => 'tour_done')
     end

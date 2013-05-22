@@ -224,6 +224,12 @@ describe User do
     end
   end
 
+  describe ".receives_digest" do
+    it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
+      expect(User.receives_digest.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "receives_digest"=>true})
+    end
+  end
+
   describe "#valid_username_and_email?" do
     it "should validate normal username and email address fine" do
       user = User.new
