@@ -6,7 +6,7 @@ class UserObserver < Mongoid::Observer
   end
 
   def after_update user
-    UserObserverTask.send_welcome_instructions user
+    UserObserverTask.handle_changes user
 
     if user.changed? and not (user.changed & ['username']).empty?
       command :elastic_search_index_user_for_text_search, user
@@ -22,7 +22,7 @@ end
 
 class UserObserverTask
 
-  def self.send_welcome_instructions user
+  def self.handle_changes user
     @sending ||= {}
 
     if user.approved_changed? and user.approved? and not @sending[user.id] and not user.invitation_accepted_at

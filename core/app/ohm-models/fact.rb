@@ -162,17 +162,4 @@ class Fact < Basefact
   def channel_ids
     channels.map {|ch| ch.id}
   end
-
-  include OurOhm::RedisTopFunctionality
-  def top_score
-    self.get_opinion().a
-  end
-  def self.top_key
-    Fact.key[:top_facts]
-  end
-  def self.top_instance id
-    Fact[id]
-  end
-  before :delete, :remove_from_top
-
 end

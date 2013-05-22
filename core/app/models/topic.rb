@@ -57,17 +57,4 @@ class Topic
   def to_param
     slug_title
   end
-
-  include OurOhm::RedisTopFunctionality
-  def top_score
-    channels.count
-  end
-  def self.top_key
-    Topic.redis[:top]
-  end
-  def self.top_instance id
-    Topic.find(id)
-  end
-  before_destroy :remove_from_top
-
 end
