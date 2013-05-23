@@ -1,5 +1,4 @@
 class window.FollowChannelButtonView extends ActionButtonView
-  mini: true
 
   initialize: ->
     @bindTo @model, 'change', @updateButton, @

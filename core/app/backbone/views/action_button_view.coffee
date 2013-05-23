@@ -31,13 +31,28 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
 
   enableHoverState: ->
     return if @justClicked
-    return unless @buttonEnabled()
+    if @buttonEnabled()
+      @_enableSecondaryHoverState()
+    else
+      @_enablePrimaryHoverState()
+      
+  _enablePrimaryHoverState: ->
+    @ui.primaryAction.addClass 'btn-primary'
+
+  _enableSecondaryHoverState: ->
     @ui.defaultState.hide()
     @ui.hoverState.show()
     @ui.secondaryAction.addClass 'btn-danger'
 
   disableHoverState: ->
     delete @justClicked
+    @_disablePrimaryHoverState()
+    @_disableSecondaryHoverState()
+
+  _disablePrimaryHoverState: ->
+    @ui.primaryAction.removeClass 'btn-primary'
+
+  _disableSecondaryHoverState: ->
     @ui.defaultState.show()
     @ui.hoverState.hide()
     @ui.secondaryAction.removeClass 'btn-danger'
