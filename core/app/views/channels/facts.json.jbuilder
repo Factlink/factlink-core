@@ -1,4 +1,4 @@
-json.array!(@facts) do |json, fact|
+json.array!(@facts) do |fact|
   json.partial! 'facts/fact',
               fact: fact[:item],
               channel: @channel,

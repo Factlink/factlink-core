@@ -1,4 +1,4 @@
-json.array!(@activities) do |json, activity_hash|
+json.array!(@activities) do |activity_hash|
   activity = activity_hash[:item]
   json.timestamp activity_hash[:score]
 

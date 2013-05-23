@@ -1,4 +1,4 @@
-json.array!(@results) do |json, result|
+json.array!(@results) do |result|
 
   if result.class == FactData
     json.the_class "FactData"
