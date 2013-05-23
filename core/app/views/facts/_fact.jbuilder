@@ -9,9 +9,6 @@ dead_fact = query :'facts/get_dead', fact.id.to_s
 json.displaystring dead_fact.displaystring
 json.id dead_fact.id
 
-# TODO i don't think this site_id is ever needed, check if it can be removed:
-json.site_id fact.site_id
-
 if current_graph_user
   channel_list = ChannelList.new(current_graph_user)
   containing_channel_ids = channel_list.containing_real_channel_ids_for_fact fact

@@ -2,7 +2,6 @@
   {
     "displaystring": "Fact 3",
     "id": "<STRIPPED>",
-    "site_id": "3",
     "containing_channel_ids": [
       "3"
     ],
@@ -46,7 +45,6 @@
   {
     "displaystring": "Fact 2",
     "id": "<STRIPPED>",
-    "site_id": "2",
     "containing_channel_ids": [
       "3"
     ],
@@ -90,7 +88,6 @@
   {
     "displaystring": "Fact 1",
     "id": "<STRIPPED>",
-    "site_id": "1",
     "containing_channel_ids": [
       "3"
     ],
