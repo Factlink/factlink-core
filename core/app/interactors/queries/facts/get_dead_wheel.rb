@@ -9,7 +9,8 @@ module Queries
         DeadFactWheel.new percentages[:authority],
           percentages[:believe][:percentage],
           percentages[:disbelieve][:percentage],
-          percentages[:doubt][:percentage]
+          percentages[:doubt][:percentage],
+          user_opinion
       end
 
       def percentages
@@ -22,6 +23,11 @@ module Queries
 
       def fact
         Fact[id]
+      end
+
+      def user_opinion
+        @options[:current_user].graph_user
+          .opinion_on(fact)
       end
 
       def validate

@@ -25,8 +25,13 @@ describe Queries::Facts::GetDeadWheel do
         doubt: {percentage: 20},
       }
       live_fact = mock :fact, id: '1', get_opinion: opinion
-      interactor = Queries::Facts::GetDeadWheel.new live_fact.id
+      user = mock :user, graph_user: mock
+      interactor = Queries::Facts::GetDeadWheel.new live_fact.id, current_user: user
 
+
+      user.graph_user.should_receive(:opinion_on)
+                     .with(live_fact)
+                     .and_return(:believes)
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact_wheel = interactor.execute
@@ -39,6 +44,8 @@ describe Queries::Facts::GetDeadWheel do
         to eq live_fact.get_opinion.as_percentages[:disbelieve][:percentage]
       expect(dead_fact_wheel.doubt_percentage).
         to eq live_fact.get_opinion.as_percentages[:doubt][:percentage]
+      expect(dead_fact_wheel.user_opinion).
+        to eq :believes
     end
 
   end
