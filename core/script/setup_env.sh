@@ -109,6 +109,16 @@ npm install supervisor -g
 npm install grunt-cli -g
 npm install smoosh -g
 
+if ! type grunt 2>&1 >/dev/null; then
+	#/usr/local/share/npm/bin isn't yet in path
+	export PATH=$PATH:/usr/local/share/npm/bin
+	if ! type grunt 2>&1 >/dev/null; then
+		echo "ERROR: Cannot find grunt in path nor in /usr/local/share/npm/bin; exiting."
+		exit 1
+	fi
+	echo 'export PATH=$PATH:/usr/local/share/npm/bin' >> ~/.bash_profile
+fi
+
 ensureGem bundler
 ensureGem foreman
 
