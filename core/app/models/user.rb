@@ -182,9 +182,11 @@ class User
   end
 
   def hidden
-    approved == false or
-      not confirmed_at or
-      agrees_tos == false
+    !active
+  end
+
+  def active
+    approved && confirmed_at && agrees_tos
   end
 
   def graph_user

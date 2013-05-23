@@ -1,6 +1,8 @@
 if defined?(NewRelic)
   require 'new_relic/agent/method_tracer'
 
+  GC::Profiler.enable
+
   Ability.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :initialize
