@@ -10,7 +10,8 @@ module Queries
                      site_url,
                      fact.data.displaystring,
                      fact.data.created_at,
-                     fact.data.title
+                     fact.data.title,
+                     wheel
       end
 
       def fact
@@ -23,6 +24,10 @@ module Queries
         else
           nil
         end
+      end
+
+      def wheel
+        query :'facts/get_dead_wheel', id
       end
 
       def validate

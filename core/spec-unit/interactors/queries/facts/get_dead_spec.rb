@@ -24,8 +24,13 @@ describe Queries::Facts::GetDead do
           title: 'title'
       live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
+      wheel = mock
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
+
+      Pavlov.should_receive(:query)
+            .with(:'facts/get_dead_wheel', live_fact.id)
+            .and_return(wheel)
 
       dead_fact = interactor.execute
 
@@ -33,6 +38,7 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.displaystring).to eq live_fact.data.displaystring
       expect(dead_fact.created_at).to eq live_fact.data.created_at
       expect(dead_fact.title).to eq live_fact.data.title
+      expect(dead_fact.wheel).to eq wheel
     end
 
     it 'returns a fact which has no site without site_url' do
@@ -43,6 +49,7 @@ describe Queries::Facts::GetDead do
       live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
 
+      Pavlov.stub query: mock
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact = interactor.execute
@@ -59,6 +66,7 @@ describe Queries::Facts::GetDead do
       live_fact = mock :fact, id: '1', has_site?: true, site: site, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
 
+      Pavlov.stub query: mock
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact = interactor.execute
