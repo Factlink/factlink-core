@@ -27,16 +27,11 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
       @render()
 
   templateHelpers: =>
-    if @collection.totalRecords > 1
-      translation = switch @collection.type
-        when 'weakening' then 'fact_disbelieve_past_plural_action'
-        when 'supporting' then 'fact_believe_past_plural_action'
-        when 'doubting' then 'fact_doubt_past_plural_action'
-    else
-      translation = switch @collection.type
-        when 'weakening' then 'fact_disbelieve_past_singular_action'
-        when 'supporting' then 'fact_believe_past_singular_action'
-        when 'doubting' then 'fact_doubt_past_singular_action'
+    multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
+    translation = switch @collection.type
+      when 'weakening' then "fact_disbelieve_past_#{multiplicity}_action"
+      when 'supporting' then "fact_believe_past_#{multiplicity}_action"
+      when 'doubting' then "fact_doubt_past_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
 
