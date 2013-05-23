@@ -1,14 +1,23 @@
 //= require_tree ./email
 
+@import "bootstrap/mixins";
+
 * {
   margin:0;
   padding:0;
 }
 
-h2 {
+h1, h2 {
   color: #333;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
   font-size: 18px;
 }
 
@@ -31,6 +40,7 @@ body {
 }
 
 table.body-wrap {
+  margin-top: 30px;
   width: 100%;
   background-color:#EEEEEE;
 }
@@ -43,27 +53,24 @@ table.body-wrap {
 }
 
 .content {
-  background: #FFFFFF;
-  padding:30px;
+  margin: 0 auto;
   max-width:600px;
-  margin:30px auto;
   display:block;
+}
+
+.white-well {
+  margin-top: 30px;
+  padding:30px 30px 0;
+  background: #fff;
   border: 1px solid #cbcbcb;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  background-color: #fff;
-  -moz-box-shadow: 0 1px 3px rgba(0,0,0,.1);
-  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
-  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  .border-radius(4px);
+  .background-clip(padding-box);
+  .box-shadow(0 1px 3px rgba(0,0,0,.1));
 }
 
 p { margin-bottom: 1em; }
 
-.body {
+.body, p, td {
   color: #555;
   font-size: 13px;
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
@@ -73,17 +80,24 @@ p { margin-bottom: 1em; }
   margin: 36px 0;
   line-height: 36px;
 }
+
 .btn-email {
   background-color: #FDBA39;
-  border-color: #FDBA39 #FDBA39 #DC941F;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAgCAIAAABVbCU3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpi/Pt2OQMSYPn99CgKn+H/P1Q+w3/88hjq/5Gm/v9fFP5/EtWjyzOi2f+fgHpSzWf4jz88/pOonhFD/j/+8Efj/8fQz4BPPUCAAQDuID5laZoI7wAAAABJRU5ErkJggg==);
+  background-repeat: repeat-x;
 
-  border: 1px solid #d59d30;
-  padding: 8px;
+  border: 1px solid #e79300;
+  .border-radius(4px);
+
+  padding: 8px 20px;
   width: 150px;
   text-align: center;
   color: #313131;
-  font-weight: normal;
-  border-radius: 3px;
+
+  color: #845729;
+  text-shadow: 0px 1px 1px rgba(255,255,255,0.5);
+  font-weight: bolder;
+  font-size: 14px;
 }
 
 .content table { width: 100%; }
@@ -91,3 +105,43 @@ p { margin-bottom: 1em; }
 .content table a { word-break: break-word; }
 
 .clear { display: block; clear: both; }
+
+.factlink-post-stamp {
+  float: right;
+  padding: 4px 4px 0 0;
+}
+
+.discussion-of-the-week {
+  h1 { margin-top: 40px; }
+  h2 { margin: 32px 0 6px; }
+}
+
+.quoted-factlink {
+  width: 494px !important;
+
+  .quoted-factlink-image {
+    vertical-align: top;
+    width: 40px;
+    img { margin-top: 2px; }
+  }
+
+  .quoted-factlink-quote {
+    color: #333;
+    font-size: 18px;
+    line-height: 31px;
+    margin-left: 10px;
+  }
+
+}
+
+.footer {
+  text-align: right;
+  padding-top: 5px;
+
+  a {
+    font-size: 12px;
+    font-weight: normal;
+    color: #aaa;
+    text-shadow: 0px 1px 1px rgba(255,255,255,0.7);
+  }
+}
