@@ -126,10 +126,7 @@ class User
 
   class << self
     def receives_digest
-      approved.
-        where(:confirmed_at.ne => nil).
-        where(:username.ne => nil).
-        where(:receives_digest => true)
+      active.where(:receives_digest => true)
     end
 
     def seen_the_tour
