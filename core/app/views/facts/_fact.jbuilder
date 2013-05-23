@@ -7,19 +7,17 @@ timestamp ||= 0
 dead_fact = query :'facts/get_dead', fact.id.to_s
 dead_fact_creator = query(:'users_by_graph_user_ids', [fact.created_by_id]).first
 dead_fact_creator_graph_user = Struct.new(:id).new(fact.created_by_id)
-
+containing_channel_ids = query :'facts/containing_channel_ids_for_user', fact
+fact = nil # TODO remove me, i'm only evidence
 
 
 json.displaystring dead_fact.displaystring
 json.id dead_fact.id
 
 if current_graph_user
-  channel_list = ChannelList.new(current_graph_user)
-  containing_channel_ids = channel_list.containing_real_channel_ids_for_fact fact
   json.containing_channel_ids containing_channel_ids
 end
 
-fact = nil # TODO remove me, i'm only evidence
 
 json.url friendly_fact_path(dead_fact)
 
