@@ -39,7 +39,7 @@ end
 
 json.created_by_ago "Created #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
 
-json.fact_title fact.data.title
+json.fact_title dead_fact.title
 json.fact_wheel do |j|
   j.partial! partial: 'facts/fact_wheel',
                 formats: [:json], handlers: [:jbuilder],

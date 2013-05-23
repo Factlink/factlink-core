@@ -2,7 +2,8 @@ DeadFact = Struct.new(
   :id,
   :site_url,
   :displaystring,
-  :created_at
+  :created_at,
+  :title
 ) do
   def to_s
     displaystring

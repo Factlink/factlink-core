@@ -9,7 +9,8 @@ module Queries
         DeadFact.new fact.id,
                      site_url,
                      fact.data.displaystring,
-                     fact.data.created_at
+                     fact.data.created_at,
+                     fact.data.title
       end
 
       def fact

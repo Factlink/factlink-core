@@ -18,7 +18,10 @@ describe Queries::Facts::GetDead do
     end
 
     it 'returns a fact' do
-      fact_data = mock displaystring: 'example fact text', created_at: 15
+      fact_data = mock :fact_data,
+          displaystring: 'example fact text',
+          created_at: 15,
+          title: 'title'
       live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
 
@@ -33,7 +36,10 @@ describe Queries::Facts::GetDead do
     end
 
     it 'returns a fact which has no site without site_url' do
-      fact_data = mock displaystring: 'example fact text', created_at: 15
+      fact_data = mock :fact_data,
+          displaystring: 'example fact text',
+          created_at: 15,
+          title: 'title'
       live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
 
@@ -45,7 +51,10 @@ describe Queries::Facts::GetDead do
     end
 
     it 'returns a fact which has a site with site_url' do
-      fact_data = mock displaystring: 'example fact text', created_at: 15
+      fact_data = mock :fact_data,
+          displaystring: 'example fact text',
+          created_at: 15,
+          title: 'title'
       site = mock :site, url: 'http://example.org/'
       live_fact = mock :fact, id: '1', has_site?: true, site: site, data: fact_data
       interactor = Queries::Facts::GetDead.new live_fact.id
