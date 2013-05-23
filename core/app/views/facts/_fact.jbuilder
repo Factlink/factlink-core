@@ -18,6 +18,9 @@ if current_graph_user
   containing_channel_ids = channel_list.containing_real_channel_ids_for_fact fact
   json.containing_channel_ids containing_channel_ids
 end
+
+fact = nil # TODO remove me, i'm only evidence
+
 json.url friendly_fact_path(dead_fact)
 
 if channel
