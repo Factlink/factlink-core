@@ -125,6 +125,10 @@ class User
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
   class << self
+    def receives_digest
+      active.where(:receives_digest => true)
+    end
+
     def seen_the_tour
       active.where(:seen_tour_step => 'tour_done')
     end
@@ -172,9 +176,11 @@ class User
   end
 
   def hidden
-    approved == false or
-      not confirmed_at or
-      agrees_tos == false
+    !active
+  end
+
+  def active
+    approved && confirmed_at && agrees_tos
   end
 
   def graph_user
