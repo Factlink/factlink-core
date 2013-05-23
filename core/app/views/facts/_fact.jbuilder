@@ -21,13 +21,6 @@ if channel
                            channel.is_real_channel? and
                            channel.created_by == current_graph_user)
   json.deletable_from_channel? deletable_from_channel
-  # TODO : this should be moved to view logic in the frontend,
-  #        however, because of the strong coupling with channel
-  #        this isn't trivial, so I decided to postpone this for
-  #        now, as this might also change in the future (maybe
-  #        'repost' will always suffice for instance)
-  post_action = fact.created_by == channel.created_by ? 'Posted' : 'Reposted'
-  json.post_action post_action
 
   timestamp_in_seconds = timestamp / 1000
   friendly_time = TimeFormatter.as_time_ago(timestamp_in_seconds)
