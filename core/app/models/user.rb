@@ -47,10 +47,16 @@ class User
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications, :receives_digest
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
+                  :password, :password_confirmation, :receives_mailed_notifications,
+                  :receives_digest
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications, :receives_digest, :email, :approved, :admin, :registration_code, as: :admin
-  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name, as: :from_tos
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
+                  :password, :password_confirmation, :receives_mailed_notifications,
+                  :receives_digest, :email, :approved, :admin, :registration_code,
+        as: :admin
+  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
+        as: :from_tos
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,

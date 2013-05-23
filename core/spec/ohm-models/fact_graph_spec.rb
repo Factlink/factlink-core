@@ -7,7 +7,7 @@ describe FactGraph do
       @ch = FactoryGirl.create :channel
       @ch.created_by.user = FactoryGirl.create :user
       @ch.created_by.save
-      
+
       writer = mock('writer', write: nil)
       FactGraph.export(writer)
     end

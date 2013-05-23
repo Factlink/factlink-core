@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "/users/_account_block.html.erb" do
 
   let (:user) {FactoryGirl.create :user}
-  
+
   context "when not signed in" do
     before do
       view.stub(:user_signed_in?) { false }
