@@ -44,7 +44,7 @@ json.created_by do |j|
                 }
 end
 
-json.created_by_ago "Created #{TimeFormatter.as_time_ago fact.data.created_at} ago"
+json.created_by_ago "Created #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
 
 json.fact_title fact.data.title
 json.fact_wheel do |j|
