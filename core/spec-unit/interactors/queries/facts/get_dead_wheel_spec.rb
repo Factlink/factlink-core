@@ -19,7 +19,10 @@ describe Queries::Facts::GetDeadWheel do
 
     it 'returns a fact_wheel representation' do
       opinion = mock :opinion, as_percentages: {
-        authority: 14
+        authority: 14,
+        believe: {percentage: 10},
+        disbelieve: {percentage: 80},
+        doubt: {percentage: 20},
       }
       live_fact = mock :fact, id: '1', get_opinion: opinion
       interactor = Queries::Facts::GetDeadWheel.new live_fact.id
@@ -28,7 +31,14 @@ describe Queries::Facts::GetDeadWheel do
 
       dead_fact_wheel = interactor.execute
 
-      expect(dead_fact_wheel.authority).to eq live_fact.get_opinion.as_percentages[:authority]
+      expect(dead_fact_wheel.authority).
+        to eq live_fact.get_opinion.as_percentages[:authority]
+      expect(dead_fact_wheel.believe_percentage).
+        to eq live_fact.get_opinion.as_percentages[:believe][:percentage]
+      expect(dead_fact_wheel.disbelieve_percentage).
+        to eq live_fact.get_opinion.as_percentages[:disbelieve][:percentage]
+      expect(dead_fact_wheel.doubt_percentage).
+        to eq live_fact.get_opinion.as_percentages[:doubt][:percentage]
     end
 
   end

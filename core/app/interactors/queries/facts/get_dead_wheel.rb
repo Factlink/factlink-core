@@ -6,7 +6,10 @@ module Queries
       arguments :id
 
       def execute
-        DeadFactWheel.new percentages[:authority]
+        DeadFactWheel.new percentages[:authority],
+          percentages[:believe][:percentage],
+          percentages[:disbelieve][:percentage],
+          percentages[:doubt][:percentage]
       end
 
       def percentages
