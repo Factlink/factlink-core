@@ -3,7 +3,7 @@
 set -e
 
 if git status >/dev/null 2>&1; then
-	echo `pwd` "appears to be in a git repository.  Aborting - perhaps you are in the hackerone repo already?"
+	echo `pwd` "appears to be in a git repository: Aborting."
 	exit
 fi
 
@@ -45,6 +45,11 @@ if [ ! -d "core/.git" ]; then
 	read -p "Are you sure sure? " resp && echo $resp | egrep "^[yY]"
 fi
 
+if ! type java 2>&1 >/dev/null; then
+	echo "ERROR: Java is not yet installed - you can trigger the installer by running any java program (such as Java VisualVM)"
+	exit 1
+fi
+
 cloneRepo core
 cloneRepo chrome-extension
 cloneRepo firefox-extension
@@ -77,9 +82,6 @@ ensureBrew node
 ensureBrew git-flow
 ensureBrew qt
 ensureBrew phantomjs
-
-#TODO: java?
-
 
 ensureBrew rbenv
 ensureBrew ruby-build
@@ -123,10 +125,6 @@ ensureGem bundler
 ensureGem foreman
 
 rbenv rehash
-
-#TODO: REVIEW: ported from old script: why are we symlinking config?
-ln -sf core/config config
-
 
 cd web-proxy
 	git flow init -d
