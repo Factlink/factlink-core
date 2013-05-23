@@ -1,3 +1,6 @@
+
+dead_fact_wheel = query 'facts/get_dead_wheel', fact.id.to_s
+
 def is_user_opinion(fact, type)
   return false unless user_signed_in?
 
@@ -12,7 +15,8 @@ def opinion_type(fact, type)
   }
 end
 
-json.authority fact.get_opinion.as_percentages[:authority]
+
+json.authority dead_fact_wheel.authority
 
 json.opinion_types do |json|
   json.believe    opinion_type(fact, :believe)

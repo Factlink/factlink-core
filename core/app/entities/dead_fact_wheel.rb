@@ -1,0 +1,1 @@
+DeadFactWheel = Struct.new(:authority)
