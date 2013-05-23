@@ -43,7 +43,9 @@ json.fact_title dead_fact.title
 json.fact_wheel do |j|
   j.partial! partial: 'facts/fact_wheel',
                 formats: [:json], handlers: [:jbuilder],
-                locals: { fact: fact }
+                locals: {
+                  dead_fact_wheel: query('facts/get_dead_wheel', dead_fact.id.to_s)
+                }
 end
 
 if dead_fact.site_url

@@ -123,28 +123,33 @@ class FactsController < ApplicationController
 
   def set_opinion
     type = params[:type].to_sym
-    @basefact = Basefact[params[:id]]
+    fact = Fact[params[:id]]
 
-    authorize! :opinionate, @basefact
+    authorize! :opinionate, fact
 
-    @basefact.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), @basefact)
+    fact.add_opinion(type, current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), fact)
 
-    @basefact.calculate_opinion(2)
+    fact.calculate_opinion(2)
 
-    render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
+    render_factwheel(fact_id)
   end
 
   def remove_opinions
-    @basefact = Basefact[params[:id]]
+    fact = Fact[params[:id]]
 
-    authorize! :opinionate, @basefact
+    authorize! :opinionate, fact
 
-    @basefact.remove_opinions(current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@basefact)
-    @basefact.calculate_opinion(2)
+    fact.remove_opinions(current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user,:removed_opinions,fact)
+    fact.calculate_opinion(2)
 
-    render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
+    render_factwheel(fact_id)
+  end
+
+  def render_factwheel(fact_id)
+    dead_fact_wheel = query 'facts/get_dead_wheel', fact_id.to_s
+    render 'facts/_fact_wheel', format: :json, locals: {dead_fact_wheel: dead_fact_wheel}
   end
 
   # TODO: This search is way to simple now, we need to make sure already

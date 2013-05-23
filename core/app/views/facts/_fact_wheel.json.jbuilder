@@ -1,5 +1,3 @@
-dead_fact_wheel = query 'facts/get_dead_wheel', fact.id.to_s
-
 json.authority dead_fact_wheel.authority
 
 json.opinion_types do |json|
