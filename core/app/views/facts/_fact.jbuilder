@@ -5,6 +5,10 @@ timestamp ||= 0
 # so check that nothing depends on it.
 
 dead_fact = query :'facts/get_dead', fact.id.to_s
+dead_fact_creator = query(:'users_by_graph_user_ids', [fact.created_by_id]).first
+dead_fact_creator_graph_user = Struct.new(:id).new(fact.created_by_id)
+
+
 
 json.displaystring dead_fact.displaystring
 json.id dead_fact.id
@@ -27,10 +31,11 @@ if channel
   json.friendly_time friendly_time
 end
 
+
 json.created_by do |j|
-  json.partial! 'users/user_partial', user: fact.created_by.user
+  json.partial! 'users/user_partial', user: dead_fact_creator
   json.authority_for_subject do |json|
-    authority = Authority.on(dead_fact, for: fact.created_by).to_f + 1.0
+    authority = Authority.on(dead_fact, for: dead_fact_creator_graph_user).to_f + 1.0
     json.authority NumberFormatter.new(authority).as_authority
     json.id dead_fact.id
   end
