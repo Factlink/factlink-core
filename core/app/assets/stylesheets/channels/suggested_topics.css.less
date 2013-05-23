@@ -5,5 +5,11 @@
   .action-list(#edf3f7, @linkColor, #c5d7e3);
   margin-bottom: 15px;
 
-  li:hover { cursor: pointer; }
+  > li:hover {
+    cursor: pointer;
+
+    > a.add-to-channel-action-icon {
+      .opacity(0.85);
+    }
+  }
 }
