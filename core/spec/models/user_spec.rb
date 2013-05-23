@@ -225,8 +225,8 @@ describe User do
   end
 
   describe ".receives_digest" do
-    it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
-      expect(User.receives_digest.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "receives_digest"=>true})
+    it "only returns approved, confirmed users with a username that have selected to receive digests" do
+      expect(User.receives_digest.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "username"=>{"$ne"=>nil}, "receives_digest"=>true})
     end
   end
 
