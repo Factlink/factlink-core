@@ -25,11 +25,11 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
 
   renderSuggestedChannels: ->
     suggested_topics = new SuggestedSiteTopics([], site_url: @model.get('fact_url'))
-    suggested_topics.fetch
-      success: (collection) =>
-        suggestions = new FilteredSuggestedTopicsView
-                            collection: collection
-                            addToCollection: @collection
+    suggested_topics.fetch()
 
-        @suggestedChannelsRegion.show suggestions
+    suggestions = new FilteredSuggestedTopicsView
+                        collection: suggested_topics
+                        addToCollection: @collection
+
+    @suggestedChannelsRegion.show suggestions
 

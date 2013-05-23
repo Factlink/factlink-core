@@ -34,6 +34,10 @@ class SuggestedTopicsView extends Backbone.Marionette.CollectionView
 class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
   template: 'channels/filtered_suggested_topics'
 
+  ui:
+    loadingIndicator: '.js-suggested-topics-loading-indicator'
+    content: '.js-content'
+
   regions:
     suggestedTopicsRegion: '.js-region-suggested-topics'
 
@@ -44,14 +48,20 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
                                                   @collection,
                                                   @options.addToCollection)
 
-    @bindTo @filtered_collection, 'add remove reset change', @updateTitle, @
+    @bindTo @filtered_collection, 'add remove reset change', @updateVisibilities, @
+
+    console.info @collection
 
   onRender: ->
     @suggestedTopicsRegion.show new SuggestedTopicsView
       collection: @filtered_collection
       addToCollection: @options.addToCollection
 
-    @updateTitle()
+    @updateVisibilities()
 
-  updateTitle: ->
-    @$el.toggle @filtered_collection.length > 0
+    @collection.waitForFetch =>
+      @updateVisibilities()
+
+  updateVisibilities: ->
+    @ui.loadingIndicator.toggle @collection.loading
+    @ui.content.toggle @filtered_collection.length > 0

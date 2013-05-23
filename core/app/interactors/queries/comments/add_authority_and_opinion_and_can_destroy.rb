@@ -24,7 +24,7 @@ module Queries
 
       def current_user_opinion
         return unless current_graph_user
-        
+
         query :'comments/graph_user_opinion',
               @comment.id.to_s, current_graph_user
       end
@@ -35,7 +35,7 @@ module Queries
 
       def can_destroy
         return false unless @options[:current_user]
-        
+
         query :'comments/can_destroy', @comment.id.to_s, @options[:current_user].id.to_s
       end
     end
