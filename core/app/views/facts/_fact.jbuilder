@@ -28,13 +28,12 @@ if channel
 end
 
 json.created_by do |j|
-  j.partial! partial: "users/user_authority_for_subject_partial",
-                formats: [:json],
-                handlers: [:jbuilder],
-                locals: {
-                  user: fact.created_by.user,
-                  subject: dead_fact
-                }
+  json.partial! 'users/user_partial', user: fact.created_by.user
+  json.authority_for_subject do |json|
+    authority = Authority.on(dead_fact, for: fact.created_by).to_f + 1.0
+    json.authority NumberFormatter.new(authority).as_authority
+    json.id dead_fact.id
+  end
 end
 
 json.created_by_ago "Created #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
