@@ -3,10 +3,10 @@ Retrieving a list of handpicked users with their top topics (backend):
  ✔ Query for handpicked users @done (13-05-27 11:51)
  ☐ Query for user top topics
  ✔ Interactor for handpicked users with top topics @done (13-05-27 12:29)
- ☐ Add top topics to interactor for handpicked users
- ☐ Controller?
- ☐ Controller action
- ☐ Route
+ ☐ Add top topics to interactor/view/route for handpicked users
+ ✔ Controller action @done (13-05-27 13:34)
+ ✔ View @done (13-05-27 13:34)
+ ✔ Route @done (13-05-27 13:34)
  ☐ Integration test
  ☐ Handpicked users in db:init
 
