@@ -2,11 +2,13 @@ Retrieving a list of handpicked users with their top topics (backend):
  ✔ HandpickedUsers redis list @done (13-05-27 11:47)
  ✔ Query for handpicked users @done (13-05-27 11:51)
  ☐ Query for user top topics
- ☐ Interactor for handpicked users with top topics
+ ✔ Interactor for handpicked users with top topics @done (13-05-27 12:29)
+ ☐ Add top topics to interactor for handpicked users
  ☐ Controller?
  ☐ Controller action
  ☐ Route
  ☐ Integration test
+ ☐ Handpicked users in db:init
 
 Following a user with stream activity (backend):
  ☐ Command for adding last N stream activities of a user with correct timestamps
@@ -56,3 +58,6 @@ Authority popover (frontend):
 Misc frontend:
  ☐ Connect follow button with api call
  ☐ "Skip this step" and "Finish" (take unfollow into account)
+
+Misc followup:
+ ☐ Make top topics on profile page use new interactors/queries
