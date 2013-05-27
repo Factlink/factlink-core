@@ -1,4 +1,4 @@
-json.array!(@evidence) do |json, evidence|
+json.array!(@evidence) do |evidence|
 
   if evidence.evidence_class == 'Comment'
     json.evidence_type 'Comment'

@@ -92,7 +92,7 @@ class Ability
 
   def define_comment_abilities
     return unless agrees_tos?
-    
+
     can :read, Comment
   end
 

@@ -1,3 +1,3 @@
-json.array!(@topics) do |json, topic|
+json.array!(@topics) do |topic|
   json.partial! 'topics/topic', topic: topic
 end

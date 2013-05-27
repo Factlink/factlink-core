@@ -39,10 +39,19 @@ function ensureGem {
 if [ ! -d "core/.git" ]; then 
 	echo "This script will install the factlink dev environment and all prerequisites."
 	echo "The repositories will be cloned to subdirectories within" `pwd`
+
+	echo "This script will ask for confirmation up to 4 times then install."
+	echo "Confirmations:"
+	echo " - whether you want to run this script"
+	echo " - your password for sudo installing brew"
+	echo " - whether you want to install brew"
+	echo " - whether you want to add github's ssh key to the known_hosts"
+	echo "Once git is cloning, no more prompts should interrupt the installation process."
+
 	if [ -d "hackerone/.git" ]; then
 		echo "Warning: the hackerone repo is in this directory, which may be confusing."
 	fi
-	read -p "Are you sure sure? " resp && echo $resp | egrep "^[yY]"
+	read -p "Are you sure sure you want to install factlink here? " resp && echo $resp | egrep "^[yY]"
 fi
 
 if ! type java 2>&1 >/dev/null; then
@@ -50,27 +59,33 @@ if ! type java 2>&1 >/dev/null; then
 	exit 1
 fi
 
+
+if type brew 2>&1 >/dev/null; then
+    echo "Brew already installed; updating."
+    brew update
+else
+	#do brew install before all other slow things so that the user doesn't need to wait
+	#brew install requires user interaction (sudo)
+    echo "Installing brew: brew will ask for confirmation."
+    ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+fi
+
+#cloneRepo server-management
+#we can't cloneRepo because there's no develop branch!
+if [ ! -d "server-management/.git" ]; then 
+	git clone "git@github.com:Factlink/server-management.git"
+	#do one small git clone before  anything else so that git's ssh key is cached
+	#we want all user interaction early.
+fi
+
 cloneRepo core
 cloneRepo chrome-extension
 cloneRepo firefox-extension
 cloneRepo js-library
 cloneRepo web-proxy
-#cloneRepo server-management
-#we can't cloneRepo because there's no develop branch!
-if [ ! -d "server-management/.git" ]; then 
-	git clone "git@github.com:Factlink/server-management.git"
-fi
 
 RUBY_VERSION=1.9.3-p392
 #warning; p429 and later (including 2.0.0) breaks Time.at Time.zone.now 
-
-if [ -e `which brew` ]; then
-    echo "Brew already installed; updating."
-    brew update
-else
-    echo "Installing brew: brew will ask for confirmation."
-    ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-fi
 
 #Add a directory for the second redis instance we need for resque: 
 mkdir -p /usr/local/var/db/redis-6380

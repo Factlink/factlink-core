@@ -111,12 +111,17 @@ describe Basefact do
        end
 
         context "after both existing believers change their opinion from #{opinion} to #{other_opinion}" do
-          before do
+          it do
             subject.add_opinion(other_opinion, user)
             subject.add_opinion(other_opinion, user2)
             FactGraph.recalculate
+
+            first_user_opinion = user_fact_opinion(user, other_opinion, subject)
+            second_user_opinion = user_fact_opinion(user2, other_opinion, subject)
+            resulting_opinion = Basefact[subject.id].get_user_opinion
+
+            expect(resulting_opinion).to eq first_user_opinion + second_user_opinion
           end
-          it { Basefact[subject.id].get_user_opinion.should == (user_fact_opinion(user, other_opinion, subject) + user_fact_opinion(user2, other_opinion, subject)) }
         end
 
       end

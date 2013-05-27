@@ -1,4 +1,4 @@
-class window.SuggestedSiteTopics extends Backbone.Collection
+class window.SuggestedSiteTopics extends Backbone.Factlink.Collection
   model: Topic
 
   initialize: (models, options) -> @site_url = options.site_url

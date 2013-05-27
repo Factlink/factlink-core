@@ -5,5 +5,5 @@ module FormHelper
 
       content_tag :div, content, class: 'text-error'
     end
-  end 
+  end
 end

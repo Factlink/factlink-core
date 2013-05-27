@@ -1,5 +1,4 @@
 class window.FavouriteTopicButtonView extends ActionButtonView
-  mini: true
 
   onRender: -> @updateButton()
 

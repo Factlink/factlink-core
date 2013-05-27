@@ -49,7 +49,7 @@ describe RemoveFactFromChannel do
         end
       end
     end
-    
+
     context "when the channel itself contains the fact" do
       before do
         @ch.sorted_internal_facts << @f

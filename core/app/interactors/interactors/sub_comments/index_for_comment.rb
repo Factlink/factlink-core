@@ -18,7 +18,7 @@ module Interactors
 
       def execute
         raise Pavlov::ValidationError, "comment does not exist any more" unless comment
-        
+
         result = query :'sub_comments/index', @comment_id, 'Comment'
 
         result.map do |sub_comment|

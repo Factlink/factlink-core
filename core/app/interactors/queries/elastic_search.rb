@@ -16,7 +16,9 @@ module Queries
     def execute
       from = (@page - 1) * @row_count
 
-      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&analyze_wildcard=true"
+      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/" +
+            "#{@types.join(',')}/" +
+            "_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&analyze_wildcard=true"
 
       results = HTTParty.get url
       handle_httparty_error results

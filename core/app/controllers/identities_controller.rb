@@ -71,7 +71,8 @@ class IdentitiesController < ApplicationController
       sign_in @user
     else
       @event = 'social_error'
-      @provider_name = "No connected #{provider_name.capitalize} account found. Please sign in with your credentials and connect your #{provider_name.capitalize} account."
+      @provider_name = "No connected #{provider_name.capitalize} account found. "+
+                       "Please sign in with your credentials and connect your #{provider_name.capitalize} account."
     end
   end
 
