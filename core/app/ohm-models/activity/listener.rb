@@ -35,6 +35,13 @@ class Activity < OurOhm
       res
     end
 
+    def matches_any? activity
+      queries.each do |query|
+        return true if matches(query, activity)
+      end
+      return false
+    end
+
     def matches query, activity
       fields_to_match = :subject_class, :object_class, :action
       return false if query.slice(:extra_condition, *fields_to_match) == {}

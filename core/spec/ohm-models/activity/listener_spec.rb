@@ -59,6 +59,47 @@ describe Activity::Listener do
     end
   end
 
+  describe '#matches_any?' do
+    before do
+      send_mail_for_activity_should_be_invoked
+    end
+
+    it "should return no result when no queries are defined" do
+      listener = Activity::Listener.new do
+        activity_for "Blob"
+        named :foo
+      end
+
+      activity = Activity.create subject: Blob.create, action: :foobar
+      listener.matches_any?(activity).should == false
+    end
+    it "should return the id of the blob and list to which to add if a query matches" do
+      listener = Activity::Listener.new do
+        activity_for "Blob"
+        named :foo
+
+        activity subject_class: "Blob",
+                 action: :foobar
+      end
+
+      activity = Activity.create subject: Blob.create, action: :foobar
+      listener.matches_any?(activity).should == true
+    end
+    it "should return false when the query doesn't match" do
+      listener = Activity::Listener.new do
+        activity_for "Blob"
+        named :foo
+
+        activity subject_class: "Bar",
+                 action: :foobar
+      end
+
+      activity = Activity.create subject: Blob.create, action: :foobar
+      listener.matches_any?(activity).should == false
+    end
+  end
+
+
   describe :matches do
     before do
       subject.activity_for = Blob
