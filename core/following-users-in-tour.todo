@@ -1,1 +1,55 @@
-placeholder todo
+Retrieving a list of handpicked users with their top topics (backend):
+ ☐ HandpickedUsers redis list
+ ☐ Query for handpicked users
+ ☐ Query for user top topics
+ ☐ Interactor for handpicked users with top topics
+ ☐ Controller?
+ ☐ Controller action
+ ☐ Route
+ ☐ Integration test
+
+Following a user with stream activity (backend):
+ ☐ Command for adding last N stream activities of a user with correct timestamps
+
+Following a user and favouriting the top topics (backend):
+ ☐ Interactor
+ ☐ Controller action
+ ☐ Route
+ ☐ Integration test
+
+Note: we will not bother with unfavouriting topics when unfollowing again!
+
+Rename choose_channels to follow_users:
+ ☐ Rename everywhere
+ ☐ Migrate seen_tour_step
+
+Cleanup of choose channels (frontend):
+ ☐ Remove old TourController method
+ ☐ Remove views/models
+ ☐ Remove banana assets
+
+Basic page without pagination (frontend):
+ ☐ New template
+ ☐ New backbone controller action
+ ☐ View for entire page
+ ☐ Tour users collection
+ ☐ Tour users collection view
+ ☐ Tour user box view
+ ☐ Connect user box view state with follow button state
+
+Page with pagination (frontend):
+ ☐ Pagination collection which splits up one collection into a collection of collections (generic "PagesCollection"/"PaginationCollection"?)
+ ☐ Containing view for pagination collection
+ ☐ Pagination buttons
+ ☐ jQuery effects!
+
+Authority popover (frontend):
+ ☐ Semi-transparent layer (yay)
+ ☐ Popover positioned at the first topic
+ ☐ Re-render first topic on top of semi-transparent layer (or use z-index or whatever)
+ ☐ Popover text
+ ☐ Button that removes the popover
+
+Misc frontend:
+ ☐ Connect follow button with api call
+ ☐ "Skip this step" and "Finish" (take unfollow into account)
