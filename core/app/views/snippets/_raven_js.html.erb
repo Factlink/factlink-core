@@ -6,8 +6,10 @@
   Raven.config('<%= "https://#{sentry_conf["public"]}@sentry2.factlink.com/#{sentry_conf["project_id"]}" %>', {
 
       ignoreErrors: [
-        'Error connecting to extension gkndfifopckmhdkohjeoljlbfnjhekfg' // 1Password
+        'Uncaught Error: Error connecting to extension gkndfifopckmhdkohjeoljlbfnjhekfg' // 1Password
       ]
+
+      // Perhaps we also want to look at this list, but we should be careful about not logging extension errors: http://raven-js.readthedocs.org/en/latest/tips/index.html
 
   }).install();
   </script>
