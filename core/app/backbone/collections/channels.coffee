@@ -54,12 +54,6 @@ class window.ChannelList extends window.GenericChannelList
       -parseFloat(channel.get("created_by_authority"))
     @sort()
 
-  orderedByAuthority: ->
-    topchannels = new ChannelList(@models)
-    topchannels.orderByAuthority()
-
-    topchannels
-
   channelArrayForIds: (ids) ->
     array = []
     @each (ch) ->
