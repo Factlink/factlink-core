@@ -1,6 +1,8 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
+require 'terminal-notifier-guard'
+
 guard :rspec, {
   spec_paths: ["spec", "spec-unit"],
   bundler: false,
