@@ -20,3 +20,8 @@ module Sprockets
     end
   end
 end
+
+# fixes incompatibility between rails and newer rubies
+# see: https://github.com/rails/rails/pull/10686
+# Can probably be removed when upgrading to Rails 4.0
+ActiveSupport::TimeWithZone.send :alias_method, :to_int, :to_i
