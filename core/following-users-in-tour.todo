@@ -29,8 +29,8 @@ Rename choose_channels to follow_users:
  ✔ Migrate seen_tour_step @done (13-05-27 15:58)
 
 Backend cleanup:
- ☐ Handpicked channels / top channels
- ☐ Perhaps we can remove last Factlink from channel, was used for bananas
+ ✔ Handpicked channels / top channels @done (13-05-27 16:47)
+ ✔ Perhaps we can remove last Factlink from channel, was used for bananas @done (13-05-27 16:47)
 
 Cleanup of choose channels (frontend):
  ✔ Remove old TourController method @done (13-05-27 15:58)
