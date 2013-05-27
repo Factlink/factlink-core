@@ -1,6 +1,10 @@
 require 'pavlov'
 
 class ActivityListenerCreator
+  #
+  # in the following code, 'you' is anyone in the write_ids
+  #
+
   include Pavlov::Helpers
   def followers_for_fact fact
     query :'activities/graph_user_ids_following_fact', fact
@@ -51,15 +55,15 @@ class ActivityListenerCreator
     end
   end
 
+  def people_who_follow_sub_comment
+    lambda { |a| reject_self(followers_for_sub_comment(a.subject), a) }
+  end
+
+  def people_who_follow_a_fact_which_is_object
+    lambda { |a| reject_self(followers_for_fact(a.object),a) }
+  end
+
   def create_activity_listeners
-    #
-    # in the following code, 'you' is anyone in the write_ids
-    #
-
-    people_who_follow_sub_comment = lambda { |a| reject_self(followers_for_sub_comment(a.subject), a) }
-
-    people_who_follow_a_fact_which_is_object = lambda { |a| reject_self(followers_for_fact(a.object),a) }
-
     forGraphUser_someone_added_evidence_to_a_fact_you_follow = {
       subject_class: "Fact",
       action: [:added_supporting_evidence, :added_weakening_evidence],
