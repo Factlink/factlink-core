@@ -45,7 +45,7 @@ gem "resque-sentry", '~> 0.1.0'
 
 # Everyone loves JSON
 gem 'json', '~> 1.8.0'
-gem 'jbuilder', '~> 1.0.2'
+gem 'jbuilder', '~> 1.4.1'
 
 # Needed for migrations to be compatible when no sql backend is available
 gem 'mongoid_rails_migrations', '1.0.1' # TODO look if this needs to be pinned
