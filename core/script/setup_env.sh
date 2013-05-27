@@ -100,7 +100,7 @@ if bash -c "rbenv global ${RUBY_VERSION}" ; then
 	echo "Ruby ${RUBY_VERSION} already installed."
 else
     echo "Installing ruby ${RUBY_VERSION}..." 
-    rbenv install ${RUBY_VERSION}
+    CC="clang" CXX="clang++" CFLAGS="-march=native -Os" rbenv install ${RUBY_VERSION}
 fi
 rbenv global ${RUBY_VERSION}
 rbenv rehash
