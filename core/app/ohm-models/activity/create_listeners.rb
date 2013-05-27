@@ -1,11 +1,8 @@
 require 'pavlov'
 
-class ActivityListenerCreator
-  #
-  # in the following code, 'you' is anyone in the write_ids
-  #
-
+module Followers
   include Pavlov::Helpers
+
   def followers_for_fact fact
     query :'activities/graph_user_ids_following_fact', fact
   end
@@ -43,6 +40,14 @@ class ActivityListenerCreator
   def channel_followers_of_graph_user_minus_regular_followers graph_user
     channel_followers_of_graph_user(graph_user) - followers_for_graph_user(graph_user.id)
   end
+end
+
+class ActivityListenerCreator
+  #
+  # in the following code, 'you' is anyone in the write_ids
+  #
+  include Followers
+
 
   def reject_self followers, activity
     followers.reject {|id| id == activity.user_id}
