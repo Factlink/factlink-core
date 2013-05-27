@@ -30,6 +30,7 @@ Rename choose_channels to follow_users:
 
 Backend cleanup:
  ☐ Handpicked channels / top channels
+ ☐ Perhaps we can remove last Factlink from channel, was used for bananas
 
 Cleanup of choose channels (frontend):
  ☐ Remove old TourController method
