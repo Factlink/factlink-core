@@ -237,6 +237,7 @@ FactlinkUI::Application.routes.draw do
   scope "/u" do
     put "/seen_messages" => "users#seen_message", as: 'see_message'
     get "/search" => "users#search", as: 'search_users'
+    get "/tour_users" => "users#tour_users", as: 'tour_users'
   end
 
 end

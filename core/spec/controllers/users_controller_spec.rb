@@ -91,4 +91,20 @@ describe UsersController do
     end
   end
 
+  describe :tour_users do
+    it 'calls the tour users interactor' do
+      tour_users = mock
+
+      controller.should_receive(:interactor).
+        with(:'users/tour_users').
+        and_return(tour_users)
+
+      controller.should_receive(:render).with('users/tour_users')
+
+      controller.tour_users
+
+      controller.instance_variable_get(:@tour_users).should eq tour_users
+    end
+  end
+
 end
