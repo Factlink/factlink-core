@@ -8,7 +8,7 @@ Retrieving a list of handpicked users with their top topics (backend):
  ✔ View @done (13-05-27 13:34)
  ✔ Route @done (13-05-27 13:34)
  ☐ Integration test
- ☐ Handpicked users in db:init
+ ✔ Handpicked users in db:init @done (13-05-27 14:05)
 
 Following a user with stream activity (backend):
  ☐ Command for adding last N stream activities of a user with correct timestamps
