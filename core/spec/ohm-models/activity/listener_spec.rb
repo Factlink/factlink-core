@@ -173,8 +173,9 @@ describe Activity::Listener do
         named :bar
       end
       Activity::Listener.all.length.should == 1
-      Activity::Listener.all.first[1].activity_for.should == "Foo"
-      Activity::Listener.all.first[1].listname.should == :bar
+      Activity::Listener.all.first[1].length.should == 1
+      Activity::Listener.all.first[1][0].activity_for.should == "Foo"
+      Activity::Listener.all.first[1][0].listname.should == :bar
     end
   end
 

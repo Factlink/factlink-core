@@ -12,8 +12,13 @@ class Activity < OurOhm
 
     def self.register &block
       a = new &block
+      register_listener a
+    end
+
+    def self.register_listener a
       @all ||= {}
-      @all[{class: a.activity_for, list: a.listname}] = a
+      @all[{class: a.activity_for, list: a.listname}] ||= []
+      @all[{class: a.activity_for, list: a.listname}] << a
     end
 
     def self.reset
