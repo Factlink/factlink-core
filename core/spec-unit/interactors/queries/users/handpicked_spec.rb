@@ -1,12 +1,12 @@
-require_relative '../../../../app/interactors/queries/users/handpicked'
 require 'pavlov_helper'
+require_relative '../../../../app/interactors/queries/users/handpicked'
 
 describe Queries::Users::Handpicked do
   include PavlovSupport
 
-  describe '.execute' do
+  describe '#execute' do
     before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
+      described_class.any_instance.stub(authorized?: true, validate: true)
       stub_classes 'HandpickedTourUsers', 'KillObject'
     end
 
