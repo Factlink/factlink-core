@@ -1,5 +1,5 @@
 Retrieving a list of handpicked users with their top topics (backend):
- ☐ HandpickedUsers redis list
+ ✔ HandpickedUsers redis list @done (13-05-27 11:47)
  ☐ Query for handpicked users
  ☐ Query for user top topics
  ☐ Interactor for handpicked users with top topics
@@ -22,6 +22,9 @@ Note: we will not bother with unfavouriting topics when unfollowing again!
 Rename choose_channels to follow_users:
  ☐ Rename everywhere
  ☐ Migrate seen_tour_step
+
+Backend cleanup:
+ ☐ Handpicked channels / top channels
 
 Cleanup of choose channels (frontend):
  ☐ Remove old TourController method
