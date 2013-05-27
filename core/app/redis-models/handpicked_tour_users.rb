@@ -13,11 +13,11 @@ class HandpickedTourUsers
   end
 
   def add id
-    handpicked_tour_users_interface.sadd id
+    handpicked_tour_users_interface.sadd id.to_s
   end
 
   def remove id
-    handpicked_tour_users_interface.srem id
+    handpicked_tour_users_interface.srem id.to_s
   end
 
   private
