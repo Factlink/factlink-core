@@ -25,17 +25,17 @@ Following a user and favouriting the top topics (backend):
 Note: we will not bother with unfavouriting topics when unfollowing again!
 
 Rename choose_channels to follow_users:
- ☐ Rename everywhere
- ☐ Migrate seen_tour_step
+ ✔ Rename everywhere @done (13-05-27 15:58)
+ ✔ Migrate seen_tour_step @done (13-05-27 15:58)
 
 Backend cleanup:
  ☐ Handpicked channels / top channels
  ☐ Perhaps we can remove last Factlink from channel, was used for bananas
 
 Cleanup of choose channels (frontend):
- ☐ Remove old TourController method
- ☐ Remove views/models
- ☐ Remove banana assets
+ ✔ Remove old TourController method @done (13-05-27 15:58)
+ ✔ Remove views/models @done (13-05-27 15:58)
+ ✔ Remove banana assets @done (13-05-27 15:58)
 
 Basic page without pagination (frontend):
  ☐ New template
