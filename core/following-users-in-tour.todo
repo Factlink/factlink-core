@@ -1,14 +1,17 @@
 Retrieving a list of handpicked users with their top topics (backend):
  ✔ HandpickedUsers redis list @done (13-05-27 11:47)
  ✔ Query for handpicked users @done (13-05-27 11:51)
- ☐ Query for user top topics
  ✔ Interactor for handpicked users with top topics @done (13-05-27 12:29)
- ☐ Add top topics to interactor/view/route for handpicked users
  ✔ Controller action @done (13-05-27 13:34)
  ✔ View @done (13-05-27 13:34)
  ✔ Route @done (13-05-27 13:34)
- ☐ Integration test
+ ✔ Integration test @done (13-05-27 14:30)
  ✔ Handpicked users in db:init @done (13-05-27 14:05)
+
+Top topics for a user (backend):
+ ☐ Query for user top topics
+ ☐ Add top topics to interactor
+ ☐ Add top topics to JSON view
 
 Following a user with stream activity (backend):
  ☐ Command for adding last N stream activities of a user with correct timestamps
