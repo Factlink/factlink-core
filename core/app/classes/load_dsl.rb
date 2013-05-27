@@ -117,6 +117,7 @@ class LoadDsl
           u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
           raise err_msg if u.new_record?
         end
+        HandpickedTourUsers.new.add u.id
       else
         raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
       end
