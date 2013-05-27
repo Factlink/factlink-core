@@ -3,7 +3,7 @@ require_relative '../interactors/interactors/channels'
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:search]
+  before_filter :load_user, except: [:search, :tour_users]
 
   def show
     authorize! :show, @user
@@ -72,6 +72,12 @@ class UsersController < ApplicationController
     raise HackAttempt unless params[:message] =~ /\A[a-zA-Z_0-9]+\Z/
     @user.seen_messages << params[:message]
     render json: {}, status: :ok
+  end
+
+  def tour_users
+    @tour_users = interactor :"users/tour_users"
+
+    render 'users/tour_users'
   end
 
   private
