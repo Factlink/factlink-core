@@ -199,6 +199,7 @@ class ActivityListenerCreator
   end
 
   def create_activity_listeners
+    # TODO clear activity listeners for develop
     create_notification_activities
     create_stream_activities
     create_obsolete_activities
