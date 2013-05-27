@@ -48,7 +48,6 @@ class ActivityListenerCreator
   #
   include Followers
 
-
   def reject_self followers, activity
     followers.reject {|id| id == activity.user_id}
   end
@@ -68,106 +67,144 @@ class ActivityListenerCreator
     lambda { |a| reject_self(followers_for_fact(a.object),a) }
   end
 
-  def create_activity_listeners
-    forGraphUser_someone_added_evidence_to_a_fact_you_follow = {
+  def forGraphUser_someone_added_evidence_to_a_fact_you_follow
+    {
       subject_class: "Fact",
       action: [:added_supporting_evidence, :added_weakening_evidence],
       write_ids: people_who_follow_a_fact_which_is_object
     }
+  end
 
-    forGraphUser_someone_followed_your_channel = {
+  def forGraphUser_someone_followed_your_channel
+    {
       subject_class: "Channel",
       action: 'added_subchannel',
       extra_condition: lambda { |a| a.subject.created_by_id != a.user.id and not followers_for_graph_user(a.subject.created_by_id).include?(a.user.id)},
       write_ids: lambda { |a| select_users_that_see_channels([a.subject.created_by_id]) }
     }
+  end
 
-    forGraphUser_comment_was_added = {
+  def forGraphUser_comment_was_added
+    {
       subject_class: "Comment",
       action: :created_comment,
       write_ids: people_who_follow_a_fact_which_is_object
     }
+  end
 
-    forGraphUser_someone_send_you_a_message = {
+  def forGraphUser_someone_send_you_a_message
+    {
       subject_class: "Conversation",
       action: [:created_conversation],
       write_ids: lambda { |a| reject_self(followers_for_conversation(a.subject),a) }
     }
+  end
 
-    forGraphUser_someone_send_you_a_reply = {
+  def forGraphUser_someone_send_you_a_reply
+    {
       subject_class: "Message",
       action: [:replied_message],
       write_ids: lambda { |a| reject_self(followers_for_conversation(a.subject.conversation),a) }
     }
+  end
 
-    forGraphUser_someone_invited_you = {
+  def forGraphUser_someone_invited_you
+    {
       subject_class: "GraphUser",
       action: :invites,
       write_ids: lambda { |a| [a.subject_id] }
     }
+  end
 
-    forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation = {
+  def forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation
+    {
       subject_class: "SubComment",
       action: :created_sub_comment,
       write_ids: people_who_follow_sub_comment
     }
+  end
 
-    forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel = {
+  def forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel
+    {
       subject_class: "Channel",
       action: :created_channel,
       write_ids: lambda { |a| select_users_that_see_channels(reject_self(channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by),a)) }
     }
+  end
 
-    forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow = {
+  def forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow
+    {
       subject_class: "SubComment",
       action: :created_sub_comment,
       write_ids: people_who_follow_a_fact_which_is_object
     }
+  end
 
-    forGraphUser_someone_opinionated_a_fact_you_created = {
+  def forGraphUser_someone_opinionated_a_fact_you_created
+    {
       subject_class: "Fact",
       action: [:believes, :doubts, :disbelieves],
       extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
       write_ids: lambda { |a| [a.subject.created_by_id] }
     }
+  end
 
-    forGraphUser_someone_added_a_fact_you_created_to_his_channel = {
+  def forGraphUser_someone_added_a_fact_you_created_to_his_channel
+    {
       subject_class: "Fact",
       action: :added_fact_to_channel,
       extra_condition: lambda { |a| (a.subject.created_by_id != a.user_id) and (a.object.type == 'channel')},
       write_ids: lambda { |a| [a.subject.created_by_id] }
     }
+  end
 
-    forGraphUser_someone_added_a_fact_to_a_channel_you_follow = {
+  def forGraphUser_someone_added_a_fact_to_a_channel_you_follow
+    {
       subject_class: "Fact",
       action: :added_fact_to_channel,
       write_ids: lambda { |a| [a.object.containing_channels.map {|ch| ch.created_by_id }.select { |id| id != a.user_id } ].flatten }
     }
+  end
 
-    forGraphUser_you_just_created_your_first_factlink = {
+  def forGraphUser_you_just_created_your_first_factlink
+    {
       subject_class: "Fact",
       action: :added_first_factlink,
       write_ids: lambda { |a| [a.subject.created_by_id] }
     }
+  end
 
-    forGraphUser_someone_followed_you = {
+  def forGraphUser_someone_followed_you
+    {
       subject_class: 'GraphUser',
       action: 'followed_user',
       write_ids: lambda {|a| [a.subject_id]}
     }
+  end
 
-    forGraphUser_someone_you_follow_added_a_fact_to_a_channel = {
+  def forGraphUser_someone_you_follow_added_a_fact_to_a_channel
+    {
       subject_class: 'Fact',
       action: :added_fact_to_channel,
       write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
     }
+  end
 
-    forGraphUser_someone_you_follow_followed_someone_else = {
+  def forGraphUser_someone_you_follow_followed_someone_else
+    {
       subject_class: 'GraphUser',
       action: 'followed_user',
       write_ids: lambda {|a| followers_for_graph_user(a.user_id) - [a.subject_id]}
     }
+  end
 
+  def create_activity_listeners
+    create_notification_activities
+    create_stream_activities
+    create_obsolete_activities
+  end
+
+  def create_notification_activities
     notification_activities = [
       forGraphUser_someone_followed_your_channel,
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
@@ -178,7 +215,14 @@ class ActivityListenerCreator
       forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation,
       forGraphUser_someone_followed_you
     ]
+    Activity::Listener.register do
+      activity_for "GraphUser"
+      named :notifications
+      notification_activities.each { |a| activity a }
+    end
+  end
 
+  def create_stream_activities
     stream_activities = [
       forGraphUser_someone_followed_your_channel,
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,
@@ -192,19 +236,26 @@ class ActivityListenerCreator
       forGraphUser_someone_you_follow_followed_someone_else,
       forGraphUser_you_just_created_your_first_factlink
     ]
-
-    Activity::Listener.register do
-      activity_for "GraphUser"
-      named :notifications
-      notification_activities.each { |a| activity a }
-    end
-
     Activity::Listener.register do
       activity_for "GraphUser"
       named :stream_activities
       stream_activities.each { |a| activity a }
     end
+  end
 
+  def create_obsolete_activities
+    # This was used for the activities tab of the channel
+    # however, we removed access to this view a long time ago
+    create_channel_activities
+    # This is used for adding channels in the tour, and can be
+    # Removed as soon as we switch to following people in the tour
+    create_channel_added_facts
+    # I don't know why this was ever added, is not used as far
+    # as I can see
+    create_fact_interactions
+  end
+
+  def create_channel_activities
     Activity::Listener.register do
       activity_for "Channel"
       named :activities
@@ -217,7 +268,8 @@ class ActivityListenerCreator
                action: [:added_supporting_evidence, :added_weakening_evidence],
                write_ids: lambda { |a| a.object.channels.ids }
     end
-
+  end
+  def create_channel_added_facts
     Activity::Listener.register do
       activity_for "Channel"
       named :added_facts
@@ -227,7 +279,9 @@ class ActivityListenerCreator
                action: :added_fact_to_channel,
                write_ids: lambda { |a| [a.object_id] }
     end
+  end
 
+  def create_fact_interactions
     Activity::Listener.register do
       activity_for "Fact"
       named :interactions
