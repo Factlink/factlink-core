@@ -8,7 +8,9 @@ module Queries
       arguments
 
       def execute
-        HandpickedTourUsers.new.members
+        HandpickedTourUsers.new.members.map do |user|
+          KillObject.user user
+        end
       end
 
     end

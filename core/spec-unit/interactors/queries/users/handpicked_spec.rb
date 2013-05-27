@@ -7,16 +7,22 @@ describe Queries::Users::Handpicked do
   describe '.execute' do
     before do
       described_class.any_instance.stub(:authorized?).and_return(true)
-      stub_classes 'HandpickedTourUsers'
+      stub_classes 'HandpickedTourUsers', 'KillObject'
     end
 
-    it 'should return the non_dead_handpicked_users' do
-      users = mock
-      HandpickedTourUsers.should_receive(:new).and_return (stub members: users)
+    it 'should return the dead handpicked_users' do
+      user1 = mock
+      user2 = mock
+      dead_user1 = mock
+      dead_user2 = mock
 
-      query = described_class.new {}
+      HandpickedTourUsers.stub(:new).and_return stub(members: [user1, user2])
+      KillObject.stub(:user).with(user1).and_return(dead_user1)
+      KillObject.stub(:user).with(user2).and_return(dead_user2)
 
-      expect(query.execute).to eq users
+      query = described_class.new
+
+      expect(query.execute).to match_array [dead_user1, dead_user2]
     end
   end
 
