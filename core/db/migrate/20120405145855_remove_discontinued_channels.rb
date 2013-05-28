@@ -1,8 +1,6 @@
 class RemoveDiscontinuedChannels < Mongoid::Migration
   def self.up
-    #Channel.find(discontinued: 'true').each do |ch|
-    #  ch.delete
-    #end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

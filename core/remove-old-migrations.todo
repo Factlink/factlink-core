@@ -1,0 +1,4 @@
+ ☐ remove AddFactToChannelJob?
+ ☐ remove RemoveFactFromChannel?
+ ☐ Create rake task for recreating an elastic search index (index elastic search are only ever used from migrations, but multiple times)
+ ☐ Check if migrations to create initial index are needed (also when starting with fresh database, that is)

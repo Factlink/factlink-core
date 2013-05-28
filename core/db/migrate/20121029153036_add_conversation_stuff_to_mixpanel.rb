@@ -1,12 +1,6 @@
 class AddConversationStuffToMixpanel < Mongoid::Migration
   def self.up
-    @mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-
-    Message.all.each do |m|
-      if m.sender
-        @mixpanel.increment_person_event m.sender.id.to_s, messages_created: 1
-      end
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
