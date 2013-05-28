@@ -17,9 +17,6 @@
 <% end %>
 
 <%= content_for :javascript do %>
-  <script>
-    window.next_tourstep_path = '<%=next_tourstep_path%>';
-  </script>
   <%= javascript_include_tag "frontend" %>
   <% lib_url = "#{jslib_url}" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>

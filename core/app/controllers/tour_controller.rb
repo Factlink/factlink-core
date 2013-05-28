@@ -13,7 +13,7 @@ class TourController < ApplicationController
   end
 
   def interests
-    render layout: "tour"
+    render text: "", layout: "tour"
   end
 
   def tour_done

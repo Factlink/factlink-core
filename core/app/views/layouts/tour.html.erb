@@ -6,6 +6,7 @@
     <%= yield :javascript %>
     <script>
       FactlinkApp.startAsSite();
+      window.next_tourstep_path = '<%=next_tourstep_path%>';
     </script>
 <% end %>
 
