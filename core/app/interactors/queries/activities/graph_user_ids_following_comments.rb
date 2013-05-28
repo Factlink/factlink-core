@@ -1,5 +1,5 @@
 require 'pavlov'
-
+# TODO add specs
 module Queries
   module Activities
     class GraphUserIdsFollowingComments
