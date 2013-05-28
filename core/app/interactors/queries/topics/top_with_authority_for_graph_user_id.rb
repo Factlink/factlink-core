@@ -3,7 +3,7 @@ module Queries
     class TopWithAuthorityForGraphUserId
       include Pavlov::Query
 
-      attributes :graph_user_id, :limit_topics
+      arguments :graph_user_id, :limit_topics
 
       def execute
 
