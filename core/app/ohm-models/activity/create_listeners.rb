@@ -192,6 +192,7 @@ class Activity < OurOhm
     def create_obsolete_activities
       # This was used for the activities tab of the channel
       # however, we removed access to this view a long time ago
+      # Although we have been talking of bringing this back..!
       create_channel_activities
       # This is used for adding channels in the tour, and can be
       # Removed as soon as we switch to following people in the tour
