@@ -1,79 +1,5 @@
 require 'pavlov'
 
-module Followers
-  include Pavlov::Helpers
-
-  def followers_for_fact fact
-    query :'activities/graph_user_ids_following_fact', fact
-  end
-
-  def followers_for_sub_comment sub_comment
-      if sub_comment.parent_class == 'Comment'
-        followers_for_comment sub_comment.parent
-      else
-        followers_for_fact_relation sub_comment.parent
-      end
-  end
-
-  def followers_for_comment comment
-    query :'activities/graph_user_ids_following_comments', [comment]
-  end
-
-  def followers_for_fact_relation fact_relation
-    query :'activities/graph_user_ids_following_fact_relations', [fact_relation]
-  end
-
-  def followers_for_conversation conversation
-    conversation.recipients.map { |r| r.graph_user.id }
-  end
-
-  def followers_for_graph_user graph_user_id
-    query :'users/follower_graph_user_ids', graph_user_id
-  end
-
-  def channel_followers_of_graph_user graph_user
-    ChannelList.new(graph_user).channels
-      .map { |channel| channel.containing_channels.to_a }.flatten
-      .map { |following_channel| following_channel.created_by_id }.uniq
-  end
-
-  def channel_followers_of_graph_user_minus_regular_followers graph_user
-    channel_followers_of_graph_user(graph_user) - followers_for_graph_user(graph_user.id)
-  end
-end
-
-class StreamActivityListener < Activity::Listener
-  include Followers
-  def initialize
-    stream_activities_because_you_follow_someone = [
-      forGraphUser_someone_you_follow_added_a_fact_to_a_channel,
-      forGraphUser_someone_you_follow_followed_someone_else,
-    ]
-    super do
-      activity_for "GraphUser"
-      named :stream_activities
-      stream_activities_because_you_follow_someone.each { |a| activity a }
-    end
-  end
-
-  def forGraphUser_someone_you_follow_added_a_fact_to_a_channel
-    {
-      subject_class: 'Fact',
-      action: :added_fact_to_channel,
-      write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
-    }
-  end
-
-  def forGraphUser_someone_you_follow_followed_someone_else
-    {
-      subject_class: 'GraphUser',
-      action: 'followed_user',
-      write_ids: lambda {|a| followers_for_graph_user(a.user_id) - [a.subject_id]}
-    }
-  end
-
-end
-
 class ActivityListenerCreator
   #
   # in the following code, 'you' is anyone in the write_ids
@@ -240,12 +166,9 @@ class ActivityListenerCreator
     end
   end
 
-  def create_stream_activities_for_following_someone
-    Activity::Listener.register_listener StreamActivityListener.new
-  end
-
   def create_stream_activities
-    create_stream_activities_for_following_someone
+    Activity::Listener.register_listener Activity::Listener::Stream.new
+
     stream_activities1 = [
       forGraphUser_someone_followed_your_channel,
       forGraphUser_someone_added_evidence_to_a_fact_you_follow,

@@ -2,6 +2,7 @@ require 'active_support/core_ext/hash/slice'
 
 class Activity < OurOhm
   class Listener
+    require_relative 'listener/stream'
 
     def self.all
       @all ||= {}
