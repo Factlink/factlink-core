@@ -2,8 +2,13 @@ Backbone.Factlink ||= {}
 
 Backbone.Factlink.TooltipMixin =
 
+  default_options:
+    side: 'left'
+    align: 'center'
+    margin: 0
+
   tooltipAdd: (selector, title, text, options) ->
-    options = _.extend {side: 'left', align: 'center', margin: 0}, options
+    options = _.extend @default_options, options
 
     @_tooltips ?= {}
     if @_tooltips[selector]?
