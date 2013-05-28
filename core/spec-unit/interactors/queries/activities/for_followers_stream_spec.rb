@@ -45,7 +45,7 @@ describe Queries::Activities::ForFollowersStream do
               .with({user_id: graph_user_id})
               .and_return(activity_set)
       activity_set.stub(:sort)
-                  .with(order: 'DESC', limit: 23)
+                  .with(order: 'DESC', limit: 40)
                   .and_return(activity_ids)
 
       expect(query.recent_activities).to eq activity_ids
