@@ -42,6 +42,38 @@ module Followers
   end
 end
 
+class StreamActivityListener < Activity::Listener
+  include Followers
+  def initialize
+    stream_activities_because_you_follow_someone = [
+      forGraphUser_someone_you_follow_added_a_fact_to_a_channel,
+      forGraphUser_someone_you_follow_followed_someone_else,
+    ]
+    super do
+      activity_for "GraphUser"
+      named :stream_activities
+      stream_activities_because_you_follow_someone.each { |a| activity a }
+    end
+  end
+
+  def forGraphUser_someone_you_follow_added_a_fact_to_a_channel
+    {
+      subject_class: 'Fact',
+      action: :added_fact_to_channel,
+      write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
+    }
+  end
+
+  def forGraphUser_someone_you_follow_followed_someone_else
+    {
+      subject_class: 'GraphUser',
+      action: 'followed_user',
+      write_ids: lambda {|a| followers_for_graph_user(a.user_id) - [a.subject_id]}
+    }
+  end
+
+end
+
 class ActivityListenerCreator
   #
   # in the following code, 'you' is anyone in the write_ids
@@ -182,23 +214,8 @@ class ActivityListenerCreator
     }
   end
 
-  def forGraphUser_someone_you_follow_added_a_fact_to_a_channel
-    {
-      subject_class: 'Fact',
-      action: :added_fact_to_channel,
-      write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
-    }
-  end
-
-  def forGraphUser_someone_you_follow_followed_someone_else
-    {
-      subject_class: 'GraphUser',
-      action: 'followed_user',
-      write_ids: lambda {|a| followers_for_graph_user(a.user_id) - [a.subject_id]}
-    }
-  end
-
   def create_activity_listeners
+    Activity::Listener.reset
     # TODO clear activity listeners for develop
     create_notification_activities
     create_stream_activities
@@ -223,20 +240,8 @@ class ActivityListenerCreator
     end
   end
 
-  def stream_activities_for_following_someone_listener
-    stream_activities_because_you_follow_someone = [
-      forGraphUser_someone_you_follow_added_a_fact_to_a_channel,
-      forGraphUser_someone_you_follow_followed_someone_else,
-    ]
-    Activity::Listener.new do
-      activity_for "GraphUser"
-      named :stream_activities
-      stream_activities_because_you_follow_someone.each { |a| activity a }
-    end
-  end
-
   def create_stream_activities_for_following_someone
-    Activity::Listener.register_listener stream_activities_for_following_someone_listener
+    Activity::Listener.register_listener StreamActivityListener.new
   end
 
   def create_stream_activities
