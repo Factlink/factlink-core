@@ -1,8 +1,6 @@
 class SaveChannels < Mongoid::Migration
   def self.up
-    Channel.all.each do |ch|
-      ch.save
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

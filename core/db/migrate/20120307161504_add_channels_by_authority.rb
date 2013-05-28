@@ -1,8 +1,6 @@
 class AddChannelsByAuthority < Mongoid::Migration
   def self.up
-    Channel.all.each do |ch|
-      ch.add_to_graph_user
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

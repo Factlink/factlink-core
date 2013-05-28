@@ -1,11 +1,6 @@
 class ResetChannelsByAuthority < Mongoid::Migration
   def self.up
-    GraphUser.all.each do |gu|
-      gu.channels_by_authority.key.del
-      ChannelList.new(gu).real_channels_as_array.each do |ch|
-        gu.channels_by_authority.add ch
-      end
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

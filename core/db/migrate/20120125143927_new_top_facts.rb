@@ -1,6 +1,6 @@
 class NewTopFacts < Mongoid::Migration
   def self.up
-    # now a no-op, since top users don't exist anymore
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
