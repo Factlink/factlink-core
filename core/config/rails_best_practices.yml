@@ -19,7 +19,7 @@ NotUseTimeAgoInWordsCheck: { }
 #OveruseRouteCustomizationsCheck: { customize_count: 3 }
 ProtectMassAssignmentCheck: { }
 RemoveEmptyHelpersCheck: { }
-#RemoveTabCheck: { }
+RemoveTabCheck: { }
 #RemoveTrailingWhitespaceCheck: { }
 #RemoveUnusedMethodsInControllersCheck: { except_methods: [] }
 #RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
