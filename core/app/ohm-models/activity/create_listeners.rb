@@ -210,16 +210,6 @@ class ActivityListenerCreator
     end
 
     Activity::Listener.register do
-      activity_for "Channel"
-      named :added_facts
-
-      # someone added a fact created to his channel
-      activity subject_class: "Fact",
-               action: :added_fact_to_channel,
-               write_ids: lambda { |a| [a.object_id] }
-    end
-
-    Activity::Listener.register do
       activity_for "Fact"
       named :interactions
 
