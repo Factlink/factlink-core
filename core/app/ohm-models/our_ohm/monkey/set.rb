@@ -26,13 +26,6 @@ class Ohm::Model::Set < Ohm::Model::Collection
     model.to_proc[key.srandmember]
   end
 
-  def clean_non_existing
-    old_ids = key.smembers
-    old_ids.each do |id|
-      key.srem(id) if model[id].nil?
-    end
-  end
-
   def make_empty
     key.del
   end

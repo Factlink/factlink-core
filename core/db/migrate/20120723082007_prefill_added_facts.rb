@@ -1,8 +1,6 @@
 class PrefillAddedFacts < Mongoid::Migration
   def self.up
-    Activity.all.find(action: 'added_fact_to_channel').ids.each do |id|
-      Resque.enqueue(ProcessActivity, id)
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

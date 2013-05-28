@@ -1,9 +1,6 @@
 class ResetTopicTopUsers < Mongoid::Migration
   def self.up
-    Topic.all.each do |t|
-      puts "yo #{t}"
-      t.top_users_clear
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

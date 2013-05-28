@@ -1,6 +1,6 @@
 class RemoveEmptyTopics < Mongoid::Migration
   def self.up
-    Resque.enqueue(Janitor::RemoveTopicsWithoutChannels)
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

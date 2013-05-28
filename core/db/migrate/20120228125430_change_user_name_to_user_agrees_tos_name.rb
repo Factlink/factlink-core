@@ -1,12 +1,6 @@
 class ChangeUserNameToUserAgreesTosName < Mongoid::Migration
   def self.up
-    say_with_time "Changing user.name to user.agrees_tos_name" do
-      User.all.each do |user|
-        user.agrees_tos_name = user.name
-        user.unset(:name)
-        user.save
-      end
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
