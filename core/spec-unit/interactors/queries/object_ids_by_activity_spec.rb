@@ -27,8 +27,8 @@ describe Queries::ObjectIdsByActivity do
     end
   end
 
-  describe '.listener' do
-    it 'gets the listener' do
+  describe '.listeners' do
+    it 'gets the listeners' do
       class_name = mock
       list = mock
       listener = mock

@@ -5,7 +5,7 @@ describe Commands::Stream::AddActivities do
   include PavlovSupport
 
   describe '#call' do
-    it '' do
+    it 'should add the activities interleaved with existing activities' do
       activities = [mock, mock, mock]
       user = mock :user, graph_user: (mock stream_activities: mock)
 
