@@ -18,7 +18,7 @@ describe Activity::Listener do
   end
 
   after :all do
-    ActivityListenerCreator.new.create_activity_listeners
+    Activity::ListenerCreator.new.create_activity_listeners
   end
 
 
