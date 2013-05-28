@@ -2,5 +2,9 @@ class window.TourController extends Backbone.Factlink.BaseController
 
   routes: ['interests']
 
-  onInterests: ->
-    FactlinkApp.closeAllContentRegions()
+  interests: ->
+    users = new TourUsers
+    users.fetch()
+    containerRegion = new Backbone.Marionette.Region el: $("#container")
+    containerRegion.show new TourUsersListView 
+      collection: users
