@@ -170,7 +170,7 @@ class Activity < OurOhm
     def create_stream_activities
       Activity::Listener.register_listener Activity::Listener::Stream.new
 
-      stream_activities1 = [
+      stream_activities = [
         forGraphUser_someone_followed_your_channel,
         forGraphUser_someone_added_evidence_to_a_fact_you_follow,
         forGraphUser_comment_was_added,
@@ -179,19 +179,13 @@ class Activity < OurOhm
         forGraphUser_someone_opinionated_a_fact_you_created,
         forGraphUser_someone_added_a_fact_you_created_to_his_channel,
         forGraphUser_someone_added_a_fact_to_a_channel_you_follow,
-      ]
-      stream_activities3 = [
         forGraphUser_you_just_created_your_first_factlink
       ]
+
       Activity::Listener.register do
         activity_for "GraphUser"
         named :stream_activities
-        stream_activities1.each { |a| activity a }
-      end
-      Activity::Listener.register do
-        activity_for "GraphUser"
-        named :stream_activities
-        stream_activities3.each { |a| activity a }
+        stream_activities.each { |a| activity a }
       end
     end
 
