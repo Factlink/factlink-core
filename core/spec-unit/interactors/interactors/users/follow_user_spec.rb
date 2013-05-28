@@ -67,6 +67,8 @@ describe Interactors::Users::FollowUser do
         .with(:'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id)
       interactor.should_receive(:command)
         .with(:'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil)
+      interactor.should_receive(:command)
+        .with(:'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id)
 
       result = interactor.execute
 
