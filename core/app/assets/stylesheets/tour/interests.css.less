@@ -2,6 +2,49 @@
   margin:20px;
   width:208px;
   height:177px;
-  background: repeating-linear-gradient(45deg, yellow, yellow 10px, pink 10px, pink 20px, yellow 20px);
-  float:left;
+  background:rgba(0,255,0,0.1);
+  display:inline-block;
+  overflow:hidden;
+  vertical-align:top;
+  position:relative;
+
+
+  .tour-follow-user-block {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    position:absolute;
+    bottom:0;
+    left:0;right:0;
+    top:2em;
+    padding:2em 0 0 1em;
+  }
+  .tour-follow-user-heading {
+    position: absolute;
+    top:-2em;
+    padding-left:1em;
+  }
+
+  input { display:none; }
+  .tour-follow-topic-heading {
+    color: #888;
+  }
+  ul{margin:0;}
+  li {
+    margin:0.25em;
+  }
+  .tour-user-topic {
+    padding:0.1em 1em;
+    border-radius:5px;
+    border: 2px solid #ccc;
+    display:inline-block;
+  }
+  label {font-size:100%; font-weight: normal; }
+  .btn {
+    
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+  }
 }
