@@ -1,35 +1,29 @@
-<input type="checkbox" id="checkbox-follow-{{id}}"/>
-<label for="checkbox-follow-{{id}}">
-  <div class="tour-follow-user-block">
-    <div class="tour-follow-user-heading">
-      <span class="tour-follow-user-avatar"><img src="{{avatar_url_32}}" /></span>
-      {{name}}</div>
-    <span class="tour-follow-topic-heading">
-      Posts Factlinks about:
-    </span>
-    <ul>
-      <li><span class="tour-user-topic"><b>Todo-abc</b> ? 2k</span></li>
-      <li><span class="tour-user-topic"><b>Todo-xyz</b> ? 123.4</span></li>
-    </ul>
-    
-  {{! TODO: use partial }}
-  <button class="btn btn-block js-action-button-primary">
-    Disabled
-  </button>
+<div class="tour-follow-user-block">
+  <div class="tour-follow-user-heading">
+    <span class="tour-follow-user-avatar"><img src="{{avatar_url_32}}" /></span>
+    {{name}}</div>
+  <span class="tour-follow-topic-heading">
+    Posts Factlinks about:
+  </span>
+  <ul>
+    <li><span class="tour-user-topic"><b>Todo-abc</b> ? 2k</span></li>
+    <li><span class="tour-user-topic"><b>Todo-xyz</b> ? 123.4</span></li>
+  </ul>
+</div>
+  
+{{! TODO: refactor }}
+<button class="btn btn-block js-action-button-primary">
+  {{disabled_label}}
+</button>
 
-  <button class="btn btn-block js-action-button-secondary" style="display:none">
-    <span class="js-default-state">
-      <img src="{{global.checkmark}}"></img>
-      Enabled
-    </span>
+<button class="btn btn-block js-action-button-secondary" style="display:none">
+  <span class="js-default-state">
+    <img src="{{global.checkmark}}"></img>
+    {{enabled_label}}
+  </span>
 
-    <span class="js-hover-state" style="display:none">
-      <img src="{{global.unfollow}}"></img>
-      Disable
-    </span>
-  </button>
-
-  </div>
-</label>
-
-
+  <span class="js-hover-state" style="display:none">
+    <img src="{{global.unfollow}}"></img>
+    {{disable_label}}
+  </span>
+</button>

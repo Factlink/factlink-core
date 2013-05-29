@@ -1,6 +1,10 @@
 class TourUserView extends ActionButtonView
   template: 'tour/interesting_user'
   className: 'tour-interesting-user'
+  templateHelpers: =>
+    disabled_label: Factlink.Global.t.follow_user.capitalize()
+    disable_label:  Factlink.Global.t.unfollow.capitalize()
+    enabled_label:  Factlink.Global.t.following.capitalize()
 
   enableHoverState: ->
     return if @justClicked
