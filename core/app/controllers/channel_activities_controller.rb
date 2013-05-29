@@ -28,11 +28,6 @@ class ChannelActivitiesController < ApplicationController
     render json: {count: @number_of_activities, timestamp: timestamp }
   end
 
-  def last_fact
-    authorize! :show, @channel
-    render 'channels/last_fact_activity'
-  end
-
   def create
     authorize! :update, @channel
     activity = Activity[params[:id]] || raise_404

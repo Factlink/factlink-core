@@ -12,8 +12,8 @@ class TourController < ApplicationController
     render layout: "tour"
   end
 
-  def choose_channels
-    render layout: "channels", locals: { wide: true }
+  def interests
+    render layout: "tour"
   end
 
   def tour_done

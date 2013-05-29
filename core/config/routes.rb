@@ -159,7 +159,6 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "last_fact"
           get "facts/:fact_id" => "facts#extended_show", as: "fact"
         end
       end
@@ -202,7 +201,6 @@ FactlinkUI::Application.routes.draw do
   resources :topics, path: 't', only: [:show] do
     collection do
       get :top
-      get :top_channels
     end
 
     member do
@@ -219,7 +217,7 @@ FactlinkUI::Application.routes.draw do
   scope "/p/tour" do
     get "install-extension" => "tour#install_extension", as: "install_extension"
     get "create-your-first-factlink" => "tour#create_your_first_factlink", as: "create_your_first_factlink"
-    get "choose-channels" => "tour#choose_channels", as: "choose_channels"
+    get "interests" => "tour#interests", as: "interests"
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end
 
