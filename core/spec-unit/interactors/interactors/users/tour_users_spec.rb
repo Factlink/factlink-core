@@ -4,16 +4,14 @@ require_relative '../../../../app/interactors/interactors/users/tour_users'
 describe Interactors::Users::TourUsers do
   include PavlovSupport
 
-  describe '.authorized?' do
-    before do
-      described_class.any_instance.stub(validate: true)
-    end
-
-    it 'should check if the fact can be shown' do
+  before do
       stub_classes 'User'
+  end
 
+  describe '#authorized?' do
+    it 'check if User can be indexed' do
       ability = mock
-      ability.should_receive(:can?).with(:index, User).and_return(false)
+      ability.stub(:can?).with(:index, User).and_return(false)
 
       expect do
         interactor = described_class.new ability: ability
@@ -22,31 +20,22 @@ describe Interactors::Users::TourUsers do
   end
 
   describe '#validate' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
-    end
-
     it 'always succeeds' do
-      interactor = described_class.new
+      described_class.new ability: mock(can?: true)
     end
   end
 
   describe '#execute' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
     it 'calls the handpicked users query' do
       dead_users = mock
+      options = { ability: mock(can?: true) }
 
-      interactor = described_class.new
-      interactor.should_receive(:query).
-        with(:'users/handpicked').
-        and_return(dead_users)
+      interactor = described_class.new options
+      Pavlov.should_receive(:query)
+            .with(:'users/handpicked', options)
+            .and_return(dead_users)
 
-      result = interactor.execute
-
-      expect(result).to eq dead_users
+      expect(interactor.call).to eq dead_users
     end
   end
 
