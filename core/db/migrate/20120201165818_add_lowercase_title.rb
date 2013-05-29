@@ -1,12 +1,6 @@
 class AddLowercaseTitle < Mongoid::Migration
   def self.up
-    say_with_time "adding lowercase title to channel" do
-      Channel.all.each do |ch|
-        ch.title = ch.title
-        ch.save
-      end
-    end
-
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

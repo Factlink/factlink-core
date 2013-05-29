@@ -1,44 +1,44 @@
 <!doctype html>
 <html>
-	<head>
-		<%= stylesheet_link_tag "frontend" %>
-		<%= javascript_include_tag "feedback" %>
-	</head>
-	<body class="feedback_form">
-		<p>
-			Got stuck somewhere or is something not working properly? Just send us a quick note and we'll be on it.
-		</p>
+  <head>
+    <%= stylesheet_link_tag "frontend" %>
+    <%= javascript_include_tag "feedback" %>
+  </head>
+  <body class="feedback_form">
+    <p>
+      Got stuck somewhere or is something not working properly? Just send us a quick note and we'll be on it.
+    </p>
 
-		<% if params[:state] %>
-			<% if params[:state] == "success" %>
-				<div class="alert alert-success">
-					<a class="close" href="#" data-dismiss="alert">x</a>
-					Your feedback has succesfully been submitted.
-				</div>
-			<% elsif params[:state] == "error" %>
-				<div class="alert alert-error">
-					<a class="close" href="#" data-dismiss="alert">x</a>
-					Something went wrong while submitting your feedback, did you fill in all the fields?
-				</div>
-			<% end %>
-		<% end %>
+    <% if params[:state] %>
+      <% if params[:state] == "success" %>
+        <div class="alert alert-success">
+          <a class="close" href="#" data-dismiss="alert">x</a>
+          Your feedback has succesfully been submitted.
+        </div>
+      <% elsif params[:state] == "error" %>
+        <div class="alert alert-error">
+          <a class="close" href="#" data-dismiss="alert">x</a>
+          Something went wrong while submitting your feedback, did you fill in all the fields?
+        </div>
+      <% end %>
+    <% end %>
 
-		<form action='https://factlink.sirportly.com/remote_form/<%= FactlinkUI::Application.config.sirportly_webform_id %>' method='POST'>
-			<% if current_user %>
-				<div class="hidden">
-					<input name='ticket[name]'  id="ticket_name"  value="<%= current_user.username %>">
-					<input name='ticket[email]' id="ticket_email" value="<%= current_user.email %>">
-				</div>
-			<% else %>
-				<input type="text" id="ticket_name"  name='ticket[name]' placeholder='Full name'>
-				<input type="text" id="ticket_email" name='ticket[email]' placeholder='E-mail address'>
-			<% end %>
+    <form action='https://factlink.sirportly.com/remote_form/<%= FactlinkUI::Application.config.sirportly_webform_id %>' method='POST'>
+      <% if current_user %>
+        <div class="hidden">
+          <input name='ticket[name]'  id="ticket_name"  value="<%= current_user.username %>">
+          <input name='ticket[email]' id="ticket_email" value="<%= current_user.email %>">
+        </div>
+      <% else %>
+        <input type="text" id="ticket_name"  name='ticket[name]' placeholder='Full name'>
+        <input type="text" id="ticket_email" name='ticket[email]' placeholder='E-mail address'>
+      <% end %>
 
-			<input type="text" id="ticket_subject" name="ticket[subject]" placeholder="Message subject">
-			<textarea  id="ticket_message" name="ticket[message]" placeholder="How can we be of service to you?"></textarea>
+      <input type="text" id="ticket_subject" name="ticket[subject]" placeholder="Message subject">
+      <textarea  id="ticket_message" name="ticket[message]" placeholder="How can we be of service to you?"></textarea>
 
-			<input type="button" class="btn cancel" value="Cancel">
-			<%= submit_tag "Send feedback", "data-disable-with" => "Sending feedback...", :class => "submit btn btn-primary", :name => "send" %>
-		</form>
-	</body>
+      <input type="button" class="btn cancel" value="Cancel">
+      <%= submit_tag "Send feedback", "data-disable-with" => "Sending feedback...", :class => "submit btn btn-primary", :name => "send" %>
+    </form>
+  </body>
 </html>

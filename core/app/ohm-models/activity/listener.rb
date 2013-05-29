@@ -2,6 +2,7 @@ require 'active_support/core_ext/hash/slice'
 
 class Activity < OurOhm
   class Listener
+    require_relative 'listener/stream'
 
     def self.all
       @all ||= {}
@@ -12,8 +13,13 @@ class Activity < OurOhm
 
     def self.register &block
       a = new &block
+      register_listener a
+    end
+
+    def self.register_listener a
       @all ||= {}
-      @all[{class: a.activity_for, list: a.listname}] = a
+      @all[{class: a.activity_for, list: a.listname}] ||= []
+      @all[{class: a.activity_for, list: a.listname}] << a
     end
 
     def self.reset
@@ -33,6 +39,13 @@ class Activity < OurOhm
         end
       end
       res
+    end
+
+    def matches_any? activity
+      queries.each do |query|
+        return true if matches(query, activity)
+      end
+      return false
     end
 
     def matches query, activity

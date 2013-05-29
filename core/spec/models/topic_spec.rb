@@ -53,11 +53,6 @@ describe Topic do
       subject.top_users_add u, 3
       subject.top_users.should == [u]
     end
-    it "should be possible to clear the top users" do
-      subject.top_users_add u, 3
-      subject.top_users_clear
-      subject.top_users.should == []
-    end
   end
 
 end

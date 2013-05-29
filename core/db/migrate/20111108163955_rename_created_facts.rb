@@ -1,13 +1,6 @@
-class GraphUser < OurOhm
-  reference :created_facts_channel, Channel::CreatedFacts
-end
-
 class RenameCreatedFacts < Mongoid::Migration
   def self.up
-    GraphUser.all.each do |gu|
-      gu.created_facts_channel.add_fields
-      gu.created_facts_channel.save
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

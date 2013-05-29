@@ -1,11 +1,6 @@
-class Channel < OurOhm
-end
-
 class RemoveChannelDescription < Mongoid::Migration
   def self.up
-    Channel.all.each do |ch|
-      ch.key.hdel(:description)
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
