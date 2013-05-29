@@ -1,3 +1,17 @@
+// "div" is necessary here to have the "> h1" get precedence over h1 in typography.css.less
+// You don't make this shit up.
+div.tour-interesting-users {
+  overflow: hidden;
+  padding-top: 30px;
+
+  > h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
 .tour-interesting-user {
   margin:20px;
   width:208px;

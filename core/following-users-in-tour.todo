@@ -14,13 +14,7 @@ Top topics for a user (backend):
  ☐ Add top topics to JSON view
 
 Following a user with stream activity (backend):
- ☐ Command for adding last N stream activities of a user with correct timestamps
-
-Following a user and favouriting the top topics (backend):
- ☐ Interactor
- ☐ Controller action
- ☐ Route
- ☐ Integration test
+ ✔ Command for adding last N stream activities of a user with correct timestamps @done (13-05-29 10:33)
 
 Note: we will not bother with unfavouriting topics when unfollowing again!
 
@@ -38,11 +32,11 @@ Cleanup of choose channels (frontend):
  ✔ Remove banana assets @done (13-05-27 15:58)
 
 Basic page without pagination (frontend):
- ☐ New template
- ☐ New backbone controller action
- ☐ View for entire page
- ☐ Tour users collection
- ☐ Tour users collection view
+ ✔ New template @done (13-05-29 10:56)
+ ✔ New backbone controller action @done (13-05-29 10:56)
+ ✔ View for entire page @done (13-05-29 10:56)
+ ✔ Tour users collection @done (13-05-29 10:56)
+ ✔ Tour users collection view @done (13-05-29 10:56)
  ☐ Tour user box view
  ☐ Connect user box view state with follow button state
 
@@ -60,8 +54,11 @@ Authority popover (frontend):
  ☐ Button that removes the popover
 
 Misc frontend:
- ☐ Connect follow button with api call
+ ☐ Connect follow button with api calls for following and favouriting
  ☐ "Skip this step" and "Finish" (take unfollow into account)
+
+Finishing up:
+ ☐ Acceptance tests
 
 Misc followup:
  ☐ Make top topics on profile page use new interactors/queries

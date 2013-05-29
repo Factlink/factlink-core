@@ -7,10 +7,14 @@ module Queries
     arguments :activity, :class_name, :list
 
     def execute
-      listener.add_to(@activity)
+      ids = []
+      listeners.each do |listener|
+        ids += listener.add_to(@activity)
+      end
+      ids
     end
 
-    def listener
+    def listeners
       Activity::Listener.all[{class: @class_name, list: @list}]
     end
   end
