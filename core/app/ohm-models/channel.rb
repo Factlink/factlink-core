@@ -1,7 +1,6 @@
 require_relative 'channel/generated_channel'
 require_relative 'channel/created_facts'
 require_relative 'channel/user_stream'
-require_relative 'channel/overtaker'
 require_relative 'channel/activities'
 
 class Channel < OurOhm
