@@ -19,6 +19,9 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
   numberOfUsersInX: 4
   numberOfUsersInY: 2
 
+  templateHelpers: ->
+    next_tourstep_path: window.next_tourstep_path
+
   initialize: ->
     @page = 0
 
