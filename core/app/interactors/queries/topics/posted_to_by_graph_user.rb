@@ -12,7 +12,7 @@ module Queries
       def topics
         topic_slugs.map do |slug|
           query :'topics/by_slug_title', slug
-        end
+        end.compact
       end
 
       def topic_slugs
