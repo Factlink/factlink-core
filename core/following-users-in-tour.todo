@@ -63,5 +63,8 @@ Misc frontend:
  ☐ Connect follow button with api call
  ☐ "Skip this step" and "Finish" (take unfollow into account)
 
+Finishing up:
+ ☐ Acceptance tests
+
 Misc followup:
  ☐ Make top topics on profile page use new interactors/queries
