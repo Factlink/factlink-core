@@ -18,7 +18,7 @@ describe Activity::Listener do
   end
 
   after :all do
-    ActivityListenerCreator.new.create_activity_listeners
+    Activity::ListenerCreator.new.create_activity_listeners
   end
 
 
@@ -34,6 +34,7 @@ describe Activity::Listener do
       Activity::Listener::Dsl.should_receive(:new)
       Activity::Listener.new &block
     end
+    
     it "should not call the dsl when no block is provided" do
       Activity::Listener::Dsl.should_not_receive(:new)
       Activity::Listener.new
@@ -49,15 +50,60 @@ describe Activity::Listener do
 
       @a = Activity.create subject: b1, object: f1, action: :foobar
     end
+    
     it "should return no result when no queries are defined" do
-      subject.add_to(@a).should == []
+      expect(subject.add_to(@a)).to eq []
     end
+    
     it "should return the id of the blob and list to which to add if a query matches" do
       subject.queries << {subject: Blob, write_ids: lambda {|a| [1,2,3]}}
       subject.stub(matches: true)
-      subject.add_to(@a).should == [1,2,3]
+      expect(subject.add_to(@a)).to eq [1,2,3]
     end
   end
+
+  describe '#matches_any?' do
+    before do
+      send_mail_for_activity_should_be_invoked
+    end
+    
+    it "should return no result when no queries are defined" do
+      listener = Activity::Listener.new do
+        activity_for "Blob"
+        named :foo
+      end
+
+      activity = Activity.create subject: Blob.create, action: :foobar
+      expect(listener.matches_any?(activity)).to eq false
+    end
+    
+    it "should return the id of the blob and list to which to add if a query matches" do
+      listener = Activity::Listener.new do
+        activity_for "Blob"
+        named :foo
+
+        activity subject_class: "Blob",
+                 action: :foobar
+      end
+
+      activity = Activity.create subject: Blob.create, action: :foobar
+      expect(listener.matches_any?(activity)).to eq true
+    end
+    
+    it "should return false when the query doesn't match" do
+      listener = Activity::Listener.new do
+        activity_for "Blob"
+        named :foo
+
+        activity subject_class: "Bar",
+                 action: :foobar
+      end
+
+      activity = Activity.create subject: Blob.create, action: :foobar
+      expect(listener.matches_any?(activity)).to eq false
+    end
+  end
+
 
   describe :matches do
     before do
@@ -68,32 +114,38 @@ describe Activity::Listener do
 
       @a = Activity.create subject: b1, object: f1, action: :foobar
     end
+    
     it "should not match for an empty query" do
-      subject.matches({}, @a).should be_false
-      subject.matches({baron: 0b100}, @a).should be_false
+      expect(subject.matches({}, @a)).to be_false
+      expect(subject.matches({baron: 0b100}, @a)).to be_false
     end
+    
     it "should match if a property is the same" do
-      subject.matches({subject_class: Blob },@a).should be_true
-      subject.matches({object_class: Foo },@a).should be_true
-      subject.matches({action: :foobar},@a).should be_true
+      expect(subject.matches({subject_class: Blob },@a)).to be_true
+      expect(subject.matches({object_class: Foo },@a)).to be_true
+      expect(subject.matches({action: :foobar},@a)).to be_true
     end
+    
     it "should not match if a property is different" do
-      subject.matches({subject_class: Foo },@a).should be_false
-      subject.matches({object_class: Blob },@a).should be_false
-      subject.matches({action: :barfoo},@a).should be_false
+      expect(subject.matches({subject_class: Foo },@a)).to be_false
+      expect(subject.matches({object_class: Blob },@a)).to be_false
+      expect(subject.matches({action: :barfoo},@a)).to be_false
     end
+    
     it "should match if a property is in a list" do
-      subject.matches({action: [:foobar, :jigglypuff]},@a).should be_true
+      expect(subject.matches({action: [:foobar, :jigglypuff]},@a)).to be_true
     end
+    
     it "should not match if a property is not in a list" do
-      subject.matches({action: [:barfoo, :humbug, :dizzly]},@a).should be_false
+      expect(subject.matches({action: [:barfoo, :humbug, :dizzly]},@a)).to be_false
     end
+    
     it "should execute the extra_condition query to see if the activity matches" do
-      subject.matches({
+      expect(subject.matches({
         subject_class: Blob,
         extra_condition: lambda { |a| a.action.to_s == 'foobar' }
-        },@a).should be_true
-      subject.matches({subject_class: Blob, extra_condition: lambda {|a| a.action.to_s == 'barfoo'} },@a).should be_false
+      },@a)).to be_true
+      expect(subject.matches({subject_class: Blob, extra_condition: lambda {|a| a.action.to_s == 'barfoo'} },@a)).to be_false
     end
   end
 
@@ -101,6 +153,7 @@ describe Activity::Listener do
     before do
       send_mail_for_activity_should_be_invoked
     end
+    
     it "should add the activities to a timestamped set on the object" do
       subject.activity_for = 'Foo'
       subject.listname = :activities
@@ -108,9 +161,10 @@ describe Activity::Listener do
 
       a1 = Activity.create subject: f1, object: f1, action: :foobar
       subject.process a1
-      f1.activities.ids.should =~ [a1.id]
-      f2.activities.ids.should =~ []
+      expect(f1.activities.ids).to match_array [a1.id]
+      expect(f2.activities.ids).to match_array []
     end
+    
     it "should pass the activity to the write_ids" do
       subject.activity_for = 'Foo'
       subject.listname = :activities
@@ -118,8 +172,8 @@ describe Activity::Listener do
 
       a1 = Activity.create subject: f1, object: f1, action: :foobar
       subject.process a1
-      f1.activities.ids.should =~ [a1.id]
-      f2.activities.ids.should =~ []
+      expect(f1.activities.ids).to match_array [a1.id]
+      expect(f2.activities.ids).to match_array []
 
     end
   end
@@ -131,20 +185,22 @@ describe Activity::Listener do
         activity_for "Foo"
         named :bar
       end
-      Activity::Listener.all.length.should == 1
-      Activity::Listener.all.first[1].activity_for.should == "Foo"
-      Activity::Listener.all.first[1].listname.should == :bar
+      expect(Activity::Listener.all.length).to eq 1
+      expect(Activity::Listener.all.first[1].length).to eq 1
+      expect(Activity::Listener.all.first[1][0].activity_for).to eq "Foo"
+      expect(Activity::Listener.all.first[1][0].listname).to eq :bar
     end
   end
 
   describe "attributes" do
     it do
       subject.activity_for = "hoi"
-      subject.activity_for.should == "hoi"
+      expect(subject.activity_for).to eq "hoi"
     end
+    
     it do
       subject.listname = "doei"
-      subject.listname.should == "doei"
+      expect(subject.listname).to eq "doei"
     end
   end
 

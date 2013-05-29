@@ -8,14 +8,14 @@ describe 'user following' do
   let(:user3) { create :user }
 
   describe 'following a user' do
-    before do
-      as(user1) do |pavlov|
-        pavlov.interactor :'users/follow_user', user1.username, user2.username
-        pavlov.interactor :'users/follow_user', user1.username, user3.username
-      end
-    end
-
     describe 'followers' do
+      before do
+        as(user1) do |pavlov|
+          pavlov.interactor :'users/follow_user', user1.username, user2.username
+          pavlov.interactor :'users/follow_user', user1.username, user3.username
+        end
+      end
+
       it 'returns that the current user has no followers' do
         as(user1) do |pavlov|
           result = pavlov.interactor :'users/followers', user1.username, 0, 10
@@ -33,6 +33,13 @@ describe 'user following' do
     end
 
     describe 'following' do
+      before do
+        as(user1) do |pavlov|
+          pavlov.interactor :'users/follow_user', user1.username, user2.username
+          pavlov.interactor :'users/follow_user', user1.username, user3.username
+        end
+      end
+      
       it 'returns that the current user follows user2 and user3' do
         as(user1) do |pavlov|
           result = pavlov.interactor :'users/following', user1.username, 0, 10
@@ -47,6 +54,37 @@ describe 'user following' do
           result = pavlov.interactor :'users/following', user2.username, 0, 10
           expect(result[0].size).to eq 0
         end
+      end
+    end
+
+    describe 'stream activities' do
+      it "adds relevant activities" do
+        a1, a2, a3, a4 = ()
+
+        as(user2) do |pavlov|
+          fact = pavlov.interactor :'facts/create', 'test', '', ''
+          channel = pavlov.command :'channels/create', 'henk'
+
+          a1 = Activity::Subject.activity user2.graph_user,
+            :somethings, fact
+
+          a2 = Activity::Subject.activity user2.graph_user,
+            :added_fact_to_channel, fact,
+            :to, channel
+
+          a3 = Activity::Subject.activity user2.graph_user,
+            :something_elses, fact
+
+          a4 = Activity::Subject.activity user2.graph_user,
+            :followed_user, user3.graph_user
+        end
+
+        as(user1) do |pavlov|
+          pavlov.interactor :'users/follow_user', user1.username, user2.username
+        end
+
+        expect(user1.graph_user.stream_activities.ids)
+          .to match_array [a2.id, a4.id]
       end
     end
   end
@@ -181,5 +219,4 @@ describe 'user following' do
       end
     end
   end
-
 end
