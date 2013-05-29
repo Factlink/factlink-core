@@ -28,6 +28,36 @@ describe UsersController do
     end
   end
 
+  describe :tour_users do
+    render_views
+
+    it "should render json successful" do
+      FactoryGirl.reload # hack because of fixture in check
+
+      user1 = create :user
+      user2 = create :user
+      Pavlov.command :"users/add_handpicked_user", user1.id.to_s
+      Pavlov.command :"users/add_handpicked_user", user2.id.to_s
+
+      authenticate_user!(user)
+      ability.stub(:can?).with(:index, User)
+             .and_return(true)
+
+      get :tour_users, format: :json
+      response.should be_success
+      response_body = response.body.to_s
+
+
+      puts "\n\n\n\n<< #{response_body} >>"
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      response_body = JSON.parse(response_body).sort do |a,b|
+        a[:username] <=> b[:username]
+      end.to_json
+      Approvals.verify(response_body, format: :json, name: 'users#tour_users should keep the same content')
+    end
+  end
+
   describe :activities do
     render_views
     it "should render succesful" do
@@ -88,21 +118,4 @@ describe UsersController do
       new_user.username.should == "new_username"
     end
   end
-
-  describe :tour_users do
-    it 'calls the tour users interactor' do
-      tour_users = mock
-
-      controller.should_receive(:interactor).
-        with(:'users/tour_users').
-        and_return(tour_users)
-
-      controller.should_receive(:render).with('users/tour_users')
-
-      controller.tour_users
-
-      controller.instance_variable_get(:@tour_users).should eq tour_users
-    end
-  end
-
 end
