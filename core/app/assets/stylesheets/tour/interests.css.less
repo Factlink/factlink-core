@@ -1,7 +1,8 @@
+@import "bootstrap/mixins";
+
 // "div" is necessary here to have the "> h1" get precedence over h1 in typography.css.less
 // You don't make this shit up.
 div.tour-interesting-users {
-  overflow: hidden;
   padding-top: 30px;
 
   > h1 {
@@ -9,6 +10,43 @@ div.tour-interesting-users {
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
+  }
+
+  .tour-interesting-users-scrolling-container {
+    overflow: hidden;
+  }
+
+  .tour-interesting-users-footer {
+    margin: 20px 0 150px;
+    padding: 0 20px;
+    text-align: center;
+    min-height: 30px;
+  }
+
+  .tour-interesting-users-finish {
+    margin-top: -6px;
+  }
+
+  .tour-interesting-users-arrow-left,
+  .tour-interesting-users-arrow-right {
+    display: inline-block;
+    width: 16px;
+    height: 23px;
+    .opacity(0.5);
+
+    &:hover {
+      .opacity(1);
+    }
+  }
+
+  .tour-interesting-users-arrow-left {
+    background: asset-data-url("pagination/arrow_left.png");
+    float: left;
+  }
+
+  .tour-interesting-users-arrow-right {
+    background: asset-data-url("pagination/arrow_right.png");
+    float: right;
   }
 }
 
