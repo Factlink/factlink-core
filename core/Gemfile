@@ -111,7 +111,7 @@ group :development do
   gem 'rack', '~> 1'
   gem 'thin', '~> 1'
 
-  gem 'letter_opener', '~> 1'
+  gem 'mailcatcher', require: false
 
   gem 'lograge', '~> 0'
   gem 'sextant', '~> 0'
