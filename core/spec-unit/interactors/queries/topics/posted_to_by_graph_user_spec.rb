@@ -15,7 +15,7 @@ describe Queries::Topics::PostedToByGraphUser do
         mock(:channel, slug_title: 'food'),
         mock(:channel, slug_title: 'programming')
       ]
-      channel_list = mock channels: channels
+      channel_list = mock real_channels_as_array: channels
       topics = [mock, mock]
 
       query = described_class.new graph_user

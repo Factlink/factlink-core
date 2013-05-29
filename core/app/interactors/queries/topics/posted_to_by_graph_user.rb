@@ -20,7 +20,7 @@ module Queries
       end
 
       def channels
-        ChannelList.new(graph_user).channels
+        ChannelList.new(graph_user).real_channels_as_array
       end
     end
   end
