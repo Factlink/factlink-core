@@ -1,7 +1,5 @@
 class window.FavouriteTopicButtonView extends ActionButtonView
 
-  onRender: -> @updateButton()
-
   initialize: ->
     @user = currentUser
     @bindTo @user.favourite_topics, 'add remove change reset', @updateButton, @
@@ -19,3 +17,5 @@ class window.FavouriteTopicButtonView extends ActionButtonView
 
   secondaryAction: (e) ->
     @model.unfavourite()
+
+  onRender: -> @updateButton()
