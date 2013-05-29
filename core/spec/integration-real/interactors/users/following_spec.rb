@@ -39,7 +39,7 @@ describe 'user following' do
           pavlov.interactor :'users/follow_user', user1.username, user3.username
         end
       end
-      
+
       it 'returns that the current user follows user2 and user3' do
         as(user1) do |pavlov|
           result = pavlov.interactor :'users/following', user1.username, 0, 10
