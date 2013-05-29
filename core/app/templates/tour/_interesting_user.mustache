@@ -11,7 +11,24 @@
       <li><span class="tour-user-topic"><b>Todo-abc</b> ? 2k</span></li>
       <li><span class="tour-user-topic"><b>Todo-xyz</b> ? 123.4</span></li>
     </ul>
-    <div class="btn">Follow user</div>
+    
+  {{! TODO: use partial }}
+  <button class="btn btn-block js-action-button-primary">
+    Disabled
+  </button>
+
+  <button class="btn btn-block js-action-button-secondary" style="display:none">
+    <span class="js-default-state">
+      <img src="{{global.checkmark}}"></img>
+      Enabled
+    </span>
+
+    <span class="js-hover-state" style="display:none">
+      <img src="{{global.unfollow}}"></img>
+      Disable
+    </span>
+  </button>
+
   </div>
 </label>
 
