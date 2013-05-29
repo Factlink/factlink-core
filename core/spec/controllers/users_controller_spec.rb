@@ -47,8 +47,6 @@ describe UsersController do
       response.should be_success
       response_body = response.body.to_s
 
-
-      puts "\n\n\n\n<< #{response_body} >>"
       # strip mongo id, since otherwise comparison will always fail
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
       response_body = JSON.parse(response_body).sort do |a,b|
