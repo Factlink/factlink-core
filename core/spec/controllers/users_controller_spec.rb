@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { create(:user) }
 
   describe :show do
     render_views
@@ -17,10 +17,8 @@ describe UsersController do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
 
-      @user = FactoryGirl.create(:user)
-
-      should_check_can :show, @user
-      get :show, username: @user.username, format: :json
+      should_check_can :show, user
+      get :show, username: user.username, format: :json
       response.should be_success
 
       response_body = response.body.to_s
