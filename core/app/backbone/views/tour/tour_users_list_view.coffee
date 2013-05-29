@@ -6,6 +6,11 @@ class TourUserView extends ActionButtonView
     disable_label:  Factlink.Global.t.unfollow.capitalize()
     enabled_label:  Factlink.Global.t.following.capitalize()
 
+  templateHelpers: =>
+    disabled_label: Factlink.Global.t.follow_user.capitalize()
+    disable_label:  Factlink.Global.t.unfollow.capitalize()
+    enabled_label:  Factlink.Global.t.following.capitalize()
+
   enableHoverState: ->
     return if @justClicked
     super
@@ -20,16 +25,15 @@ class TourUserView extends ActionButtonView
     @$el.toggleClass 'secondary', @buttonEnabled()
 
   buttonEnabled: ->
-    @somestate # TODO
+    @model.followers.followed_by_me()
 
   primaryAction: ->
-    #TODO follow + favourite topics
-    @somestate = true
+    @model.follow()
+    # TODO: favourite
     @updateButton()
 
   secondaryAction: ->
-    #TODO unfollow
-    @somestate = false
+    @model.unfollow()
     @updateButton()
 
 class window.TourUsersListView extends Backbone.Marionette.CollectionView

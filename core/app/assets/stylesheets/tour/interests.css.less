@@ -1,3 +1,4 @@
+@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 // "div" is necessary here to have the "> h1" get precedence over h1 in typography.css.less
@@ -121,6 +122,15 @@ div.tour-interesting-users {
     left:0;right:0;
     top:2em;
     padding:1.25em 0 0 1.25em;
+  }
+
+  .tour-follow-user-authority {
+    color: @mutedFontColor;
+    margin-left: 15px;
+
+    > img {
+      margin-top: -2px;
+    }
   }
 
 
