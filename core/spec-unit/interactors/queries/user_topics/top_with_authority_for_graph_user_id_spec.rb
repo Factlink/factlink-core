@@ -2,7 +2,7 @@ require 'pavlov_helper'
 require_relative '../../../../app/entities/dead_user_topic'
 require_relative '../../../../app/interactors/queries/user_topics/top_with_authority_for_graph_user_id'
 
-describe Queries::Topics::TopWithAuthorityForGraphUserId do
+describe Queries::UserTopics::TopWithAuthorityForGraphUserId do
   include PavlovSupport
 
   before do

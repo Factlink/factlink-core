@@ -1,5 +1,5 @@
 module Queries
-  module Topics
+  module UserTopics
     class TopWithAuthorityForGraphUserId
       include Pavlov::Query
 
