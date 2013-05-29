@@ -20,7 +20,7 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     if @mini or @options.mini
       @template = 'generic/action_button_mini'
 
-  updateButton: =>
+  updateButton: ->
     added = @buttonEnabled()
     @ui.primaryAction.toggle not added
     @ui.secondaryAction.toggle added
