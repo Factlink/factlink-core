@@ -30,3 +30,4 @@ class TourUserView extends ActionButtonView
 
 class window.TourUsersListView extends Backbone.Marionette.CollectionView
   itemView: TourUserView
+  className: 'tour-interesting-users-list'

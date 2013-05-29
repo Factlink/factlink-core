@@ -41,10 +41,9 @@ Basic page without pagination (frontend):
  ☐ Connect user box view state with follow button state
 
 Page with pagination (frontend):
- ☐ Pagination collection which splits up one collection into a collection of collections (generic "PagesCollection"/"PaginationCollection"?)
- ☐ Containing view for pagination collection
- ☐ Pagination buttons
- ☐ jQuery effects!
+ ✔ Containing view for pagination collection @done (13-05-29 16:24)
+ ✔ Pagination buttons @done (13-05-29 16:24)
+ ✔ CSS effects! @done (13-05-29 16:24)
 
 Authority popover (frontend):
  ☐ Semi-transparent layer (yay)
