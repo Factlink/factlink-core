@@ -6,5 +6,5 @@ class window.TourController extends Backbone.Factlink.BaseController
     users = new TourUsers
     users.fetch()
     containerRegion = new Backbone.Marionette.Region el: $("#container")
-    containerRegion.show new TourUsersListView 
+    containerRegion.show new TourInterestingUsersView
       collection: users
