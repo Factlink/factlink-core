@@ -14,7 +14,7 @@ Top topics for a user (backend):
  ☐ Add top topics to JSON view
 
 Following a user with stream activity (backend):
- ☐ Command for adding last N stream activities of a user with correct timestamps
+ ✔ Command for adding last N stream activities of a user with correct timestamps @done (13-05-29 10:33)
 
 Following a user and favouriting the top topics (backend) -- or frontend?:
  ☐ Interactor
@@ -62,6 +62,9 @@ Authority popover (frontend):
 Misc frontend:
  ☐ Connect follow button with api call
  ☐ "Skip this step" and "Finish" (take unfollow into account)
+
+Finishing up:
+ ☐ Acceptance tests
 
 Misc followup:
  ☐ Make top topics on profile page use new interactors/queries
