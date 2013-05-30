@@ -1,14 +1,38 @@
 [
   {
     "id": "<STRIPPED>",
-    "name": "John2 Doe2",
-    "username": "johndoe2",
-    "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734"
+    "name": "John1 Doe1",
+    "username": "johndoe1",
+    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+    "user_topics": [
+      {
+        "title": "story",
+        "slug_title": "story",
+        "formatted_authority": "4.0"
+      },
+      {
+        "title": "toy",
+        "slug_title": "toy",
+        "formatted_authority": "1.0"
+      }
+    ]
   },
   {
     "id": "<STRIPPED>",
-    "name": "John1 Doe1",
-    "username": "johndoe1",
-    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900"
+    "name": "John2 Doe2",
+    "username": "johndoe2",
+    "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
+    "user_topics": [
+      {
+        "title": "games",
+        "slug_title": "games",
+        "formatted_authority": "4k"
+      },
+      {
+        "title": "war",
+        "slug_title": "war",
+        "formatted_authority": "1.0"
+      }
+    ]
   }
 ]
