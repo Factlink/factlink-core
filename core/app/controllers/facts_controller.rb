@@ -16,6 +16,8 @@ class FactsController < ApplicationController
       :update,
       :opinion,
       :evidence_search,
+      :set_opinion,
+      :remove_opinions
       ]
 
   around_filter :allowed_type,
@@ -123,28 +125,24 @@ class FactsController < ApplicationController
 
   def set_opinion
     type = params[:type].to_sym
-    fact = Fact[params[:id]]
+    authorize! :opinionate, @fact
 
-    authorize! :opinionate, fact
+    @fact.add_opinion(type, current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), @fact)
 
-    fact.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), fact)
+    @fact.calculate_opinion(2)
 
-    fact.calculate_opinion(2)
-
-    render_factwheel(fact_id)
+    render_factwheel(@fact.id)
   end
 
   def remove_opinions
-    fact = Fact[params[:id]]
+    authorize! :opinionate, @fact
 
-    authorize! :opinionate, fact
+    @fact.remove_opinions(current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
+    @fact.calculate_opinion(2)
 
-    fact.remove_opinions(current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user,:removed_opinions,fact)
-    fact.calculate_opinion(2)
-
-    render_factwheel(fact_id)
+    render_factwheel(@fact.id)
   end
 
   def render_factwheel(fact_id)
