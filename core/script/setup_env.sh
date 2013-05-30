@@ -84,7 +84,7 @@ cloneRepo firefox-extension
 cloneRepo js-library
 cloneRepo web-proxy
 
-RUBY_VERSION=1.9.3-p392
+RUBY_VERSION=`cat core/.ruby-version`
 #warning; p429 and later (including 2.0.0) breaks Time.at Time.zone.now 
 
 #Add a directory for the second redis instance we need for resque: 
@@ -136,10 +136,13 @@ if ! type grunt 2>&1 >/dev/null; then
 	echo 'export PATH=$PATH:/usr/local/share/npm/bin' >> ~/.bash_profile
 fi
 
+rbenv shell $RUBY_VERSION
+
 ensureGem bundler
 ensureGem foreman
-
+ensureGem git-up
 rbenv rehash
+rbenv shell --unset
 
 cd web-proxy
 	git flow init -d
