@@ -10,8 +10,8 @@ Retrieving a list of handpicked users with their top topics (backend):
 
 Top topics for a user (backend):
  ✔ Query for user top topics @done (13-05-29 11:50)
- ☐ Add top topics to interactor
- ☐ Add top topics to JSON view
+ ✔ Add top topics to interactor @done (13-05-30 12:23)
+ ✔ Add top topics to JSON view @done (13-05-30 12:23)
 
 Following a user with stream activity (backend):
  ✔ Command for adding last N stream activities of a user with correct timestamps @done (13-05-29 10:33)
@@ -37,8 +37,8 @@ Basic page without pagination (frontend):
  ✔ View for entire page @done (13-05-29 10:56)
  ✔ Tour users collection @done (13-05-29 10:56)
  ✔ Tour users collection view @done (13-05-29 10:56)
- ☐ Tour user box view
- ☐ Connect user box view state with follow button state
+ ✔ Tour user box view @done (13-05-30 12:23)
+ ✔ Connect user box view state with follow button state @done (13-05-30 12:23)
 
 Page with pagination (frontend):
  ✔ Containing view for pagination collection @done (13-05-29 16:24)
@@ -46,15 +46,15 @@ Page with pagination (frontend):
  ✔ CSS effects! @done (13-05-29 16:24)
 
 Authority popover (frontend):
- ☐ Semi-transparent layer (yay)
- ☐ Popover positioned at the first topic
- ☐ Re-render first topic on top of semi-transparent layer (or use z-index or whatever)
- ☐ Popover text
- ☐ Button that removes the popover
+ ✔ Semi-transparent layer (yay) @done (13-05-30 12:23)
+ ✔ Popover positioned at the first topic @done (13-05-30 12:23)
+ ✔ Re-render first topic on top of semi-transparent layer (or use z-index or whatever) @done (13-05-30 12:23)
+ ✔ Popover text @done (13-05-30 12:23)
+ ✔ Button that removes the popover @done (13-05-30 12:23)
 
 Misc frontend:
- ☐ Connect follow button with api calls for following and favouriting
- ☐ "Skip this step" and "Finish" (take unfollow into account)
+ ✔ Connect follow button with api calls for following and favouriting @done (13-05-30 12:23)
+ ✔ "Skip this step" and "Finish" (take unfollow into account) @done (13-05-30 12:23)
 
 Finishing up:
  ☐ Acceptance tests
