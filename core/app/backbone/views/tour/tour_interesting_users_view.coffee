@@ -36,7 +36,7 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     @updateShuffledCollection()
 
   updateShuffledCollection: ->
-    @shuffledCollection.reset @collection.shuffle()
+    @shuffledCollection.reset [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]#@collection.shuffle()
     @resizeScrollingInner()
     @updateButtonStates()
     @listView().children.first()?.showAuthorityPopover()
@@ -50,12 +50,12 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
       @ui.finish.fadeIn()
 
   resizeScrollingInner: ->
-    width = @userListItemWidth * @totalNumberOfItemsInX()
+    width = @userListItemWidth() * @totalNumberOfItemsInX()
     @ui.scrollingInner.width width
 
   showPage: (page) ->
     @page = page
-    xOffset = @userListItemWidth * @numberOfUsersInX * @page
+    xOffset = @userListItemWidth() * @numberOfUsersInX * @page
     @ui.scrollingInner.css 'left', -xOffset
     @updateButtonStates()
 
@@ -75,6 +75,14 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
 
   totalNumberOfItemsInX: ->
     Math.ceil(@shuffledCollection.size() / @numberOfUsersInY)
+
+  userListItemWidth: ->
+    # Return some random number so on subsequent renders the
+    # TourUserViews are not clipped
+    return 500 if @shuffledCollection.isEmpty()
+
+    # width of TourUserView including margin
+    @listView().children.first().$el.outerWidth(true)
 
   updateButtonStates: ->
     @ui.left.toggleClass  'enabled', @hasPreviousPage()
