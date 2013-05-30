@@ -100,7 +100,7 @@
   .tour-follow-user-avatar:after {
     display:block;
     top:-3px; left:-3px; right:-3px; bottom:-3px;
-    background: #ddd;
+    background: @tableBorder;
     border-radius: 4px;
     content: ' ';
     position: absolute;
@@ -117,7 +117,7 @@
   }
 
   .tour-follow-user-block {
-    border: 1px solid #ddd;
+    border: 1px solid @tableBorder;
     border-radius: 4px;
     background: white;
     position:absolute;
@@ -152,11 +152,10 @@
     position: relative;
     padding:0 0.6em;
     border-radius:5px;
-    border: 2px solid #ddd;
+    border: 2px solid @tableBorder;
     display:inline-block;
     background: white;
   }
-  label {font-size:100%; font-weight: normal; }
 
   .tour-user-button {
     position:absolute;
@@ -167,15 +166,15 @@
   }
 }
 .hover > .tour-follow-user-block {
-  border-color: #3d75a3;
+  border-color: @linkColor;
   border-width: 2px;
   margin:-1px;
   box-shadow: none;
 }
 .secondary > .tour-follow-user-block {
-  border-color: #ddd;
+  border-color: @tableBorder;
 }
 
 .secondary.hover > .tour-follow-user-block {
-  border-color: #c0544d;
+  border-color: @dangerButtonColor;
 }
