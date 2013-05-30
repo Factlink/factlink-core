@@ -5,7 +5,16 @@
     "username": "johndoe1",
     "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
     "user_topics": [
-
+      {
+        "title": "story",
+        "slug_title": "story",
+        "authority": 4.0
+      },
+      {
+        "title": "toy",
+        "slug_title": "toy",
+        "authority": 1.0
+      }
     ]
   },
   {
@@ -14,7 +23,16 @@
     "username": "johndoe2",
     "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
     "user_topics": [
-
+      {
+        "title": "games",
+        "slug_title": "games",
+        "authority": 8.0
+      },
+      {
+        "title": "war",
+        "slug_title": "war",
+        "authority": 1.0
+      }
     ]
   }
 ]
