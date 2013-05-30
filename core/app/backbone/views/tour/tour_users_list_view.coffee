@@ -6,7 +6,8 @@ class TourUserView extends ActionButtonView
   _.extend @prototype, Backbone.Factlink.TooltipMixin
 
   template: 'tour/interesting_user'
-  className: 'tour-interesting-user'
+  className: 'tour-interesting-user action-button'
+
   initialize: ->
     @bindTo @model.followers, 'change', @updateButton, @
 
