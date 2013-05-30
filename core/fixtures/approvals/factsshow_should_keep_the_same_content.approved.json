@@ -18,14 +18,14 @@
   "created_by_ago": "Created 1 minute ago",
   "fact_title": "title",
   "fact_wheel": {
-    "authority": "0.0",
+    "authority": "1.0",
     "opinion_types": {
       "believe": {
-        "percentage": 0,
-        "is_user_opinion": false
+        "percentage": 100,
+        "is_user_opinion": true
       },
       "doubt": {
-        "percentage": 100,
+        "percentage": 0,
         "is_user_opinion": false
       },
       "disbelieve": {
