@@ -76,6 +76,8 @@
   position: relative;
 
   .tour-follow-user-heading {
+    //the user's avatar+name should be raised slightly above + overlapping
+    //the overall user-info block.
     position: absolute;
     top: -1.75em;
   }
@@ -83,17 +85,16 @@
   .tour-follow-user-avatar {
     position: relative;
     display: inline-block;
-    margin-right: 0.5em;
+    margin-right: 0.5em; //avatar is inline with text, wants space after it.
     vertical-align: top;
-    top: -2px;
-
+    top: -2px; //raise avatar a little out of the text line.
 
     img {
       border-radius: 2px;
       width: 32px;
       height: 32px;
       position: relative;
-      z-index: 1;
+      z-index: 1; //stacking is necessary due to fake border construct explained below.
     }
   }
 
@@ -126,10 +127,13 @@
     border-radius: 4px;
     background: white;
     position: absolute;
-    bottom: 0;
-    left: 0;right: 0;
-    top: 2em;
+    //the user's info box should leave some extra space on the top of
+    //its container to make room for the jutting-out avatar.
+    top: 2em; bottom: 0;
+    left: 0; right: 0;
     padding: 1.25em 0 0 1.25em;
+
+    //very subtle box-shadow.
     box-shadow: 0 2px 3px -3px rgba(0,0,0,0.5);
   }
 
@@ -170,11 +174,13 @@
     bottom: 0;
     left: 0;
     right: 0;
+    //the button is an integral part of the user-info box design; don't round top corners.
     border-radius: 0 0 4px 4px;
   }
 }
 .hover > .tour-follow-user-block {
   border-color: @linkColor;
+  //on hover, make border 1px and compensate with margin.
   border-width: 2px;
   margin: -1px;
   box-shadow: none;
