@@ -1,12 +1,4 @@
-class TourAuthorityPopover extends Backbone.Marionette.ItemView
-  template: 'tour/authority_popover'
-
-  triggers:
-    'click .js-next': 'next'
-
 class window.TourInterestingUsersView extends Backbone.Marionette.Layout
-
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
 
   template: 'tour/interesting_users_layout'
   className: 'tour-interesting-users'
@@ -46,24 +38,7 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     @shuffledCollection.reset @collection.shuffle()
     @resizeListView()
     @updateButtonStates()
-    @showAuthorityPopover()
-
-  authorityPopover: ->
-    unless @_authorityPopover?
-      @_authorityPopover = new TourAuthorityPopover
-      @bindTo @_authorityPopover, 'next', @tooltipResetAll
-    @_authorityPopover
-
-  showAuthorityPopover: ->
-    return if @shuffledCollection.isEmpty()
-
-    @tooltipAdd '.js-topic', "What is this?", "",
-      side: 'right'
-      align: 'top'
-      orthogonalOffset: -2
-      contentView: @authorityPopover()
-      show_overlay: true
-      focus_on: @$('.js-topic')[0]
+    @listView().children.first()?.showAuthorityPopover()
 
   listView: ->
     @_listView ?= new TourUsersListView
