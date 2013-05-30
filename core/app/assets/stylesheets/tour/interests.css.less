@@ -4,6 +4,7 @@
 // "div" is necessary here to have the "> h1" get precedence over h1 in typography.css.less
 // You don't make this shit up.
 div.tour-interesting-users {
+  position: relative;
   padding-top: 30px;
 
   > h1 {
@@ -131,6 +132,8 @@ div.tour-interesting-users {
 
     > img {
       margin-top: -2px;
+      width: 13px;
+      height: 12px;
     }
   }
 
@@ -144,10 +147,12 @@ div.tour-interesting-users {
     margin:0.5em 0;
   }
   .tour-user-topic {
+    position: relative;
     padding:0 0.6em;
     border-radius:5px;
     border: 2px solid #ddd;
     display:inline-block;
+    background: white;
   }
   label {font-size:100%; font-weight: normal; }
   .btn {
