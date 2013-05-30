@@ -46,6 +46,8 @@ class TourUserView extends ActionButtonView
     @_authorityPopover
 
   showAuthorityPopover: ->
+    return if @model.user_topics().isEmpty()
+
     @tooltipAdd '.js-topic', "What is this?", "",
       side: 'right'
       align: 'top'
