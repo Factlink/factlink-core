@@ -37,9 +37,7 @@ Backbone.Factlink.TooltipMixin =
 
     @_tooltips[selector] = { positionedRegion, container, view }
 
-    unless @isClosed
-      @tooltipBindAll()
-
+    @tooltipBindAll() unless @isClosed
     @on 'render', @tooltipBindAll
     @on 'close', @tooltipResetAll
 
