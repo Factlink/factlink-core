@@ -9,10 +9,7 @@
 
       FactlinkApp.startAsSite();
       window.next_tourstep_path = '<%=next_tourstep_path%>';
-
-      $(function() { //TODO: refactor this
-        Backbone.history.start({pushState:Modernizr.history});
-      });
+      Backbone.Factlink.startHistory();
     </script>
 <% end %>
 
