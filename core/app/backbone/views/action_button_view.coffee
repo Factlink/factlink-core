@@ -39,12 +39,13 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     Raven.captureMessage('buttonEnabled() must be implemented.')
 
   enableHoverState: ->
-    return if @justClicked
+    return false if @justClicked
     if @buttonEnabled()
       @_enableSecondaryHoverState()
     else
       @_enablePrimaryHoverState()
-      
+    true
+
   _enablePrimaryHoverState: ->
     @ui.primaryAction.addClass 'btn-primary'
 

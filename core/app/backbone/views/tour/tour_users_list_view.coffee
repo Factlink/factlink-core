@@ -7,9 +7,8 @@ class TourUserView extends ActionButtonView
     enabled_label:  Factlink.Global.t.following.capitalize()
 
   enableHoverState: ->
-    return if @justClicked
-    super
-    @$el.addClass 'hover'
+    super and
+      @$el.addClass 'hover'
 
   disableHoverState: ->
     super
