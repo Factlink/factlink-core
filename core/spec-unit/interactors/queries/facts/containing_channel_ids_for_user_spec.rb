@@ -1,5 +1,5 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/facts/containing_channel_ids_for_fact.rb'
+require_relative '../../../../app/interactors/queries/facts/containing_channel_ids_for_user.rb'
 
 describe Queries::Facts::ContainingChannelIdsForUser do
 
