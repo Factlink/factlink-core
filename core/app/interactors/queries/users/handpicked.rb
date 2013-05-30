@@ -5,14 +5,11 @@ module Queries
     class Handpicked
       include Pavlov::Query
 
-      arguments
-
       def execute
         HandpickedTourUsers.new.members.map do |user|
           KillObject.user user
         end
       end
-
     end
   end
 end
