@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { create(:user) }
 
   describe :show do
     render_views
@@ -17,16 +17,54 @@ describe UsersController do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
 
-      @user = FactoryGirl.create(:user)
-
-      should_check_can :show, @user
-      get :show, username: @user.username, format: :json
+      should_check_can :show, user
+      get :show, username: user.username, format: :json
       response.should be_success
 
       response_body = response.body.to_s
       # strip mongo id, since otherwise comparison will always fail
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
       Approvals.verify(response_body, format: :json, name: 'users#show should keep the same content')
+    end
+  end
+
+  describe :tour_users do
+    render_views
+    include PavlovSupport
+
+    it "should render json successful" do
+      FactoryGirl.reload # hack because of fixture in check
+
+      user1 = create :user
+      user2 = create :user
+      Pavlov.command :"users/add_handpicked_user", user1.id.to_s
+      Pavlov.command :"users/add_handpicked_user", user2.id.to_s
+
+      as(user1) do |pavlov|
+        pavlov.command :'channels/create', 'toy'
+        ch = pavlov.command :'channels/create', 'story'
+        Authority.from(ch.topic, for: user1.graph_user) << 3
+      end
+      as(user2) do |pavlov|
+        pavlov.command :'channels/create', 'war'
+        ch = pavlov.command :'channels/create', 'games'
+        Authority.from(ch.topic, for: user2.graph_user) << 4568
+      end
+
+      authenticate_user!(user)
+      ability.stub(:can?).with(:index, User)
+             .and_return(true)
+
+      get :tour_users, format: :json
+      response.should be_success
+      response_body = response.body.to_s
+
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      response_body = JSON.parse(response_body).sort do |a,b|
+        a["username"] <=> b["username"]
+      end.to_json
+      Approvals.verify(response_body, format: :json, name: 'users#tour_users should keep the same content')
     end
   end
 
@@ -90,5 +128,4 @@ describe UsersController do
       new_user.username.should == "new_username"
     end
   end
-
 end

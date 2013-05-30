@@ -45,7 +45,7 @@ gem "resque-sentry", '~> 0.1.0'
 
 # Everyone loves JSON
 gem 'json', '~> 1.8.0'
-gem 'jbuilder', '~> 1.0.2'
+gem 'jbuilder', '~> 1.4.1'
 
 # Needed for migrations to be compatible when no sql backend is available
 gem 'mongoid_rails_migrations', '1.0.1' # TODO look if this needs to be pinned
@@ -141,8 +141,9 @@ group :test do
   gem 'headless', '~> 1.0'
 
   gem 'rb-fsevent', '~> 0.9.1'
-  gem 'guard', '~> 1.8'
-  gem 'guard-rspec', '~> 3.0'
+  gem 'guard', '~> 1.8', require: false
+  gem 'guard-rspec', '~> 3.0', require: false
+  gem 'terminal-notifier-guard', '~> 1.5', require: false
 
   gem 'approvals', '~> 0' # not locked, since test will break if something goes wrong here
   gem 'timecop', '~> 0.6'
@@ -155,5 +156,8 @@ group :test, :development do # TODO why is there a :development here?
   gem 'sinon-rails', '~> 1.4'
 end
 
-gem 'brakeman', '~> 1', require: false # always update, we want the latest version always
-gem 'cane', '~> 2', require: false
+group :development do
+  gem 'brakeman', '~> 1', require: false # always update, we want the latest version always
+  gem 'cane', '~> 2', require: false
+  gem 'rails_best_practices', '~> 1', require: false
+end

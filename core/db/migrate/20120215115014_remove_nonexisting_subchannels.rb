@@ -1,8 +1,6 @@
 class RemoveNonexistingSubchannels < Mongoid::Migration
   def self.up
-    Channel.all.each do |ch|
-      ch.contained_channels.clean_non_existing if ch.type == 'channel'
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

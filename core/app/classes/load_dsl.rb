@@ -89,7 +89,9 @@ class LoadDsl
   end
 
   def self.export_fact_relation(fact_relation)
-    "fact_relation \"#{quote_string(fact_relation.from_fact.data.displaystring)}\", :#{fact_relation.type.to_sym}, \"#{quote_string(fact_relation.fact.data.displaystring)}\"\n"
+    "fact_relation \"#{quote_string(fact_relation.from_fact.data.displaystring)}\","+
+      " :#{fact_relation.type.to_sym},"+
+      " \"#{quote_string(fact_relation.fact.data.displaystring)}\"\n"
   end
 
   def load_user(username,email=nil, password=nil, twitter=nil, first_name=nil, last_name=nil)
@@ -115,6 +117,7 @@ class LoadDsl
           u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
           raise err_msg if u.new_record?
         end
+        HandpickedTourUsers.new.add u.id
       else
         raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
       end

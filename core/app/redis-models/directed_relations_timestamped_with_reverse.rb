@@ -4,7 +4,7 @@ class DirectedRelationsTimestampedWithReverse < DirectedRelationsSortedWithRever
   def add_at_time(from_id, to_id, time)
     add from_id, to_id, time_to_score(time)
   end
-  
+
   def replace_at_time(from_id, to_id, time)
     replace from_id, to_id, time_to_score(time)
   end
@@ -13,7 +13,7 @@ class DirectedRelationsTimestampedWithReverse < DirectedRelationsSortedWithRever
     time = DateTime.now
     add from_id, to_id, time_to_score(time)
   end
-  
+
   def replace_now(from_id, to_id)
     time = DateTime.now
     replace from_id, to_id, time_to_score(time)

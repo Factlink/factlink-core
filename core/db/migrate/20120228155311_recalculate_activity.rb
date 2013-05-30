@@ -1,8 +1,6 @@
 class RecalculateActivity < Mongoid::Migration
   def self.up
-    Activity.all.each do |a|
-      a.process_activity
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

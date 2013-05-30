@@ -18,7 +18,7 @@ module Interactors
 
       def execute
         raise Pavlov::ValidationError, "fact relation does not exist any more" unless fact_relation
-        
+
         result = query :'sub_comments/index', @fact_relation_id, 'FactRelation'
 
         result.map do |sub_comment|

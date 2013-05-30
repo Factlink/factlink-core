@@ -1,0 +1,70 @@
+Retrieving a list of handpicked users with their top topics (backend):
+ ✔ HandpickedUsers redis list @done (13-05-27 11:47)
+ ✔ Query for handpicked users @done (13-05-27 11:51)
+ ✔ Interactor for handpicked users with top topics @done (13-05-27 12:29)
+ ✔ Controller action @done (13-05-27 13:34)
+ ✔ View @done (13-05-27 13:34)
+ ✔ Route @done (13-05-27 13:34)
+ ✔ Integration test @done (13-05-27 14:30)
+ ✔ Handpicked users in db:init @done (13-05-27 14:05)
+
+Top topics for a user (backend):
+ ✔ Query for user top topics @done (13-05-29 11:50)
+ ☐ Add top topics to interactor
+ ☐ Add top topics to JSON view
+
+Following a user with stream activity (backend):
+ ✔ Command for adding last N stream activities of a user with correct timestamps @done (13-05-29 10:33)
+
+Following a user and favouriting the top topics (backend):
+ ☐ Interactor
+ ☐ Controller action
+ ☐ Route
+ ☐ Integration test
+
+Note: we will not bother with unfavouriting topics when unfollowing again!
+
+Rename choose_channels to follow_users:
+ ☐ Rename everywhere
+ ☐ Migrate seen_tour_step
+
+Backend cleanup:
+ ☐ Handpicked channels / top channels
+ ☐ Perhaps we can remove last Factlink from channel, was used for bananas
+
+Cleanup of choose channels (frontend):
+ ☐ Remove old TourController method
+ ☐ Remove views/models
+ ☐ Remove banana assets
+
+Basic page without pagination (frontend):
+ ☐ New template
+ ☐ New backbone controller action
+ ☐ View for entire page
+ ☐ Tour users collection
+ ☐ Tour users collection view
+ ☐ Tour user box view
+ ☐ Connect user box view state with follow button state
+
+Page with pagination (frontend):
+ ☐ Pagination collection which splits up one collection into a collection of collections (generic "PagesCollection"/"PaginationCollection"?)
+ ☐ Containing view for pagination collection
+ ☐ Pagination buttons
+ ☐ jQuery effects!
+
+Authority popover (frontend):
+ ☐ Semi-transparent layer (yay)
+ ☐ Popover positioned at the first topic
+ ☐ Re-render first topic on top of semi-transparent layer (or use z-index or whatever)
+ ☐ Popover text
+ ☐ Button that removes the popover
+
+Misc frontend:
+ ☐ Connect follow button with api call
+ ☐ "Skip this step" and "Finish" (take unfollow into account)
+
+Finishing up:
+ ☐ Acceptance tests
+
+Misc followup:
+ ☐ Make top topics on profile page use new interactors/queries

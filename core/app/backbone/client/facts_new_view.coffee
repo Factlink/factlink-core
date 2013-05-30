@@ -31,7 +31,7 @@ class Tooltip
     @showTooltip()
 
 
-class window.FactsNewView extends Backbone.Marionette.ItemView
+class window.FactsNewView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.TooltipMixin
 
   template: "client/facts_new"
@@ -45,6 +45,9 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
   events:
     'click .js-submit-post-factlink': 'post_factlink',
     'click .fact-wheel': 'closeOpinionHelptext'
+
+  regions:
+    suggestedTopicsRegion: '.js-region-suggested-topics'
 
   templateHelpers: ->
     layout: @options.layout
@@ -84,13 +87,12 @@ class window.FactsNewView extends Backbone.Marionette.ItemView
 
   renderSuggestedChannels: ->
     suggested_topics = new SuggestedSiteTopics([], site_url: @options.url)
-    suggested_topics.fetch
-      success: (collection) =>
-        suggestionView = new FilteredSuggestedTopicsView
-          collection: collection
-          addToCollection: @addToCollection
-        suggestionView.render()
-        @$('.js-suggested-channels-region').html suggestionView.el
+    suggested_topics.fetch()
+
+    suggestionView = new FilteredSuggestedTopicsView
+      collection: suggested_topics
+      addToCollection: @addToCollection
+    @suggestedTopicsRegion.show suggestionView
 
   renderPersistentWheelView: ->
     @wheel = new Wheel
