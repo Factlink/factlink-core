@@ -60,6 +60,7 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     @tooltipAdd '.js-topic', "What is this?", "",
       side: 'right'
       align: 'top'
+      sidewaysOffset: -2
       contentView: @authorityPopover()
       show_overlay: true
       focus_on: @$('.js-topic')[0]
