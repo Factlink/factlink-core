@@ -10,34 +10,37 @@ describe Queries::ObjectIdsByActivity do
 
   describe '.call' do
     it 'retrieves the specified ids' do
-      activity = mock()
-      class_name = mock()
-      list = mock()
-      listener = mock()
-      result = mock()
+      activity = mock
+      class_name = mock
+      list = mock
+      listener = mock
+      ids = [mock(:id)]
 
       interactor = Queries::ObjectIdsByActivity.new activity, class_name, list
-      interactor.should_receive(:listener).and_return(listener)
-      listener.should_receive(:add_to).with(activity).and_return(result)
+      interactor.should_receive(:listeners)
+                .and_return([listener])
+      listener.should_receive(:add_to)
+              .with(activity)
+              .and_return(ids)
 
-      expect(interactor.call).to eq(result)
+      expect(interactor.call).to eq(ids)
     end
   end
 
-  describe '.listener' do
-    it 'gets the listener' do
-      class_name = mock()
-      list = mock()
-      listener = mock()
-      listener_hash = mock()
+  describe '.listeners' do
+    it 'gets the listeners' do
+      class_name = mock
+      list = mock
+      listener = mock
+      listener_hash = mock
 
       interactor = Queries::ObjectIdsByActivity.new mock(), class_name, list
 
       listener_hash.should_receive(:[]).with(class: class_name, list: list).
-        and_return(listener)
+        and_return([listener])
       Activity::Listener.stub(all: listener_hash)
 
-      expect(interactor.listener).to eq(listener)
+      expect(interactor.listeners).to eq([listener])
     end
   end
 end
