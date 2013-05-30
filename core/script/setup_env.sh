@@ -85,7 +85,6 @@ cloneRepo js-library
 cloneRepo web-proxy
 
 RUBY_VERSION=`cat core/.ruby-version`
-#warning; p429 and later (including 2.0.0) breaks Time.at Time.zone.now 
 
 #Add a directory for the second redis instance we need for resque: 
 mkdir -p /usr/local/var/db/redis-6380
