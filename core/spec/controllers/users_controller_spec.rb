@@ -50,7 +50,7 @@ describe UsersController do
       # strip mongo id, since otherwise comparison will always fail
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
       response_body = JSON.parse(response_body).sort do |a,b|
-        a[:username] <=> b[:username]
+        a["username"] <=> b["username"]
       end.to_json
       Approvals.verify(response_body, format: :json, name: 'users#tour_users should keep the same content')
     end
