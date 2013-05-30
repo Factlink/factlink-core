@@ -48,7 +48,7 @@ describe UsersController do
       as(user2) do |pavlov|
         pavlov.command :'channels/create', 'war'
         ch = pavlov.command :'channels/create', 'games'
-        Authority.from(ch.topic, for: user2.graph_user) << 7
+        Authority.from(ch.topic, for: user2.graph_user) << 4568
       end
 
       authenticate_user!(user)

@@ -8,12 +8,12 @@
       {
         "title": "story",
         "slug_title": "story",
-        "authority": 4.0
+        "formatted_authority": "4.0"
       },
       {
         "title": "toy",
         "slug_title": "toy",
-        "authority": 1.0
+        "formatted_authority": "1.0"
       }
     ]
   },
@@ -26,12 +26,12 @@
       {
         "title": "games",
         "slug_title": "games",
-        "authority": 8.0
+        "formatted_authority": "4k"
       },
       {
         "title": "war",
         "slug_title": "war",
-        "authority": 1.0
+        "formatted_authority": "1.0"
       }
     ]
   }
