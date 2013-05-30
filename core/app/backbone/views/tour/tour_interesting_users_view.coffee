@@ -37,7 +37,7 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
 
   updateShuffledCollection: ->
     @shuffledCollection.reset @collection.shuffle()
-    @resizeListView()
+    @resizeScrollingInner()
     @updateButtonStates()
     @listView().children.first()?.showAuthorityPopover()
 
