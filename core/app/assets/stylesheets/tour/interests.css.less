@@ -1,0 +1,181 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.tour-interesting-users {
+  position: relative;
+  padding-top: 30px;
+
+  h1.tour-interesting-users-header {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .tour-interesting-users-scrolling-outer {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 430px;
+
+    .tour-interesting-users-scrolling-inner {
+      position: absolute;
+      top: 0px;
+      .transition(left 0.3s)
+    }
+  }
+
+  .tour-interesting-users-footer {
+    margin: 20px 0 150px;
+    padding: 0 20px;
+    text-align: center;
+    min-height: 30px;
+  }
+
+  .tour-interesting-users-finish {
+    margin-top: -6px;
+  }
+
+  .tour-interesting-users-arrow-left,
+  .tour-interesting-users-arrow-right {
+    width: 16px;
+    height: 23px;
+    .opacity(0.2);
+
+    &.enabled {
+      cursor:pointer;
+      .opacity(0.6);
+
+      &:hover {
+        .opacity(1);
+      }
+    }
+  }
+
+  .tour-interesting-users-arrow-left {
+    background: asset-data-url("pagination/arrow_left.png");
+    float: left;
+  }
+
+  .tour-interesting-users-arrow-right {
+    background: asset-data-url("pagination/arrow_right.png");
+    float: right;
+  }
+}
+
+.tour-interesting-users-list {
+  position: relative;
+}
+
+.tour-interesting-user {
+  margin:20px;
+  width:200px;
+  height:170px;
+  display:inline-block;
+
+  position:relative;
+
+  .tour-follow-user-heading {
+    position: absolute;
+    top:-1.75em;
+  }
+
+  .tour-follow-user-avatar {
+    position:relative;
+    display:inline-block;
+    margin-right: 0.5em;
+    vertical-align: top;
+    top:-2px;
+
+
+    img {
+      border-radius: 2px;
+      width:32px;
+      height:32px;
+      position:relative;
+      z-index: 1;
+    }
+  }
+
+  .tour-follow-user-avatar:after {
+    display:block;
+    top:-3px; left:-3px; right:-3px; bottom:-3px;
+    background: #ddd;
+    border-radius: 4px;
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+  }
+
+  .tour-follow-user-avatar:before {
+    display:block;
+    top:-2px; left:-2px; right:-2px; bottom:-2px;
+    background: white;
+    border-radius: 3px;
+    content: ' ';
+    position: absolute;
+  }
+
+  .tour-follow-user-block {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    position:absolute;
+    bottom:0;
+    left:0;right:0;
+    top:2em;
+    padding:1.25em 0 0 1.25em;
+    box-shadow: 0 2px 3px -3px rgba(0,0,0,0.5);
+  }
+
+  .tour-follow-user-authority {
+    color: @mutedFontColor;
+    margin-left: 15px;
+
+    > img {
+      margin-top: -2px;
+      width: 13px;
+      height: 12px;
+    }
+  }
+
+
+  input { display:none; }
+  .tour-follow-topic-heading {
+    color: #888;
+  }
+  ul{margin:0;}
+  li {
+    margin:0.5em 0;
+  }
+  .tour-user-topic {
+    position: relative;
+    padding:0 0.6em;
+    border-radius:5px;
+    border: 2px solid #ddd;
+    display:inline-block;
+    background: white;
+  }
+  label {font-size:100%; font-weight: normal; }
+
+  .tour-user-button {
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    border-radius:0 0 4px 4px;
+  }
+}
+.hover > .tour-follow-user-block {
+  border-color: #3d75a3;
+  border-width: 2px;
+  margin:-1px;
+  box-shadow: none;
+}
+.secondary > .tour-follow-user-block {
+  border-color: #ddd;
+}
+
+.secondary.hover > .tour-follow-user-block {
+  border-color: #c0544d;
+}

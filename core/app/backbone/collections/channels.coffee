@@ -1,9 +1,6 @@
 class window.GenericChannelList extends Backbone.Factlink.Collection
   model: Channel
 
-class window.TopChannelList extends window.GenericChannelList
-  url: "/t/top_channels"
-
 class window.ChannelList extends window.GenericChannelList
   _.extend @prototype, Backbone.Factlink.ActivatableCollectionMixin
 
@@ -56,12 +53,6 @@ class window.ChannelList extends window.GenericChannelList
     @comparator = (channel) ->
       -parseFloat(channel.get("created_by_authority"))
     @sort()
-
-  orderedByAuthority: ->
-    topchannels = new ChannelList(@models)
-    topchannels.orderByAuthority()
-
-    topchannels
 
   channelArrayForIds: (ids) ->
     array = []

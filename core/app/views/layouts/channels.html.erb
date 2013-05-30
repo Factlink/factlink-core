@@ -1,9 +1,6 @@
 <% unless defined? not_fixed %>
   <% not_fixed = false %>
 <% end %>
-<% unless defined? wide %>
-  <% wide = false %>
-<% end %>
 <% content_for :left_column do %>
   <div class="left-top-x-fade"></div>
   <div class="js-left-top-region user-block-container"></div>
@@ -19,4 +16,4 @@
   </script>
 <% end %>
 
-<%= render template: 'layouts/frontend', locals: { not_fixed: not_fixed, wide: wide } %>
+<%= render template: 'layouts/frontend', locals: { not_fixed: not_fixed } %>

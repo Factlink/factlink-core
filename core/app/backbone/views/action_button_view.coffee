@@ -3,9 +3,7 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
   className: 'action-button'
 
   events:
-    "click .js-action-button-primary":   "primaryActionWrapper"
-    "click .js-action-button-secondary": "secondaryActionWrapper"
-
+    "click":   "toggleAction"
     "mouseleave": "disableHoverState"
     "mouseenter": "enableHoverState"
 
@@ -20,7 +18,18 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     if @mini or @options.mini
       @template = 'generic/action_button_mini'
 
-  updateButton: =>
+
+  toggleAction: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+
+    if @buttonEnabled()
+      @secondaryAction(e)
+    else
+      @justClicked = true
+      @primaryAction(e)
+
+  updateButton: ->
     added = @buttonEnabled()
     @ui.primaryAction.toggle not added
     @ui.secondaryAction.toggle added
@@ -30,12 +39,13 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     Raven.captureMessage('buttonEnabled() must be implemented.')
 
   enableHoverState: ->
-    return if @justClicked
+    return false if @justClicked
     if @buttonEnabled()
       @_enableSecondaryHoverState()
     else
       @_enablePrimaryHoverState()
-      
+    true
+
   _enablePrimaryHoverState: ->
     @ui.primaryAction.addClass 'btn-primary'
 
@@ -57,13 +67,3 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     @ui.hoverState.hide()
     @ui.secondaryAction.removeClass 'btn-danger'
 
-  primaryActionWrapper: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-    @justClicked = true
-    @primaryAction(e)
-
-  secondaryActionWrapper: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-    @secondaryAction(e)

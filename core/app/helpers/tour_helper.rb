@@ -17,7 +17,7 @@ module TourHelper
       :account,
       :create_your_first_factlink,
       :install_extension,
-      :choose_channels,
+      :interests,
       :tour_done
     ]
   end
