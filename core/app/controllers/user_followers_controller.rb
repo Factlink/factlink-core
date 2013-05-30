@@ -30,7 +30,7 @@ class UserFollowersController < ApplicationController
   private
   def return_ok
     respond_to do |format|
-      format.json { head :ok }
+      format.json { render json: {} }
     end
   end
 
