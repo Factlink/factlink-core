@@ -7,6 +7,8 @@ class TourUserView extends ActionButtonView
 
   template: 'tour/interesting_user'
   className: 'tour-interesting-user'
+  initialize: ->
+    @bindTo @model.followers, 'change', @updateButton, @
 
   templateHelpers: =>
     disabled_label: Factlink.Global.t.follow_user.capitalize()
@@ -46,6 +48,8 @@ class TourUserView extends ActionButtonView
     @_authorityPopover
 
   showAuthorityPopover: ->
+    return if @model.user_topics().isEmpty()
+
     @tooltipAdd '.js-topic', "What is this?", "",
       side: 'right'
       align: 'top'

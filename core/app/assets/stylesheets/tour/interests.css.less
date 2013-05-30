@@ -43,7 +43,7 @@
     .opacity(0.2);
 
     &.enabled {
-      cursor:pointer;
+      cursor: pointer;
       .opacity(0.6);
 
       &:hover {
@@ -68,39 +68,44 @@
 }
 
 .tour-interesting-user {
-  margin:20px;
-  width:200px;
-  height:170px;
-  display:inline-block;
+  margin: 20px;
+  width: 200px;
+  height: 170px;
+  display: inline-block;
 
-  position:relative;
+  position: relative;
 
   .tour-follow-user-heading {
     position: absolute;
-    top:-1.75em;
+    top: -1.75em;
   }
 
   .tour-follow-user-avatar {
-    position:relative;
-    display:inline-block;
+    position: relative;
+    display: inline-block;
     margin-right: 0.5em;
     vertical-align: top;
-    top:-2px;
+    top: -2px;
 
 
     img {
       border-radius: 2px;
-      width:32px;
-      height:32px;
-      position:relative;
+      width: 32px;
+      height: 32px;
+      position: relative;
       z-index: 1;
     }
   }
 
+  //The following two css rules generate nested rounded boxes around the image.
+  //this is equivalent to a fake border + white padding, with the advantage
+  //that the "padding" overlays the wrapping boxes border, whereas the 
+  //"border" is underneath it.  This causes the visual border to appear
+  //continuously to wrap the jutting out avatar image.
   .tour-follow-user-avatar:after {
-    display:block;
-    top:-3px; left:-3px; right:-3px; bottom:-3px;
-    background: #ddd;
+    display: block;
+    top: -3px; left: -3px; right: -3px; bottom: -3px;
+    background: @tableBorder;
     border-radius: 4px;
     content: ' ';
     position: absolute;
@@ -108,8 +113,8 @@
   }
 
   .tour-follow-user-avatar:before {
-    display:block;
-    top:-2px; left:-2px; right:-2px; bottom:-2px;
+    display: block;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
     background: white;
     border-radius: 3px;
     content: ' ';
@@ -117,14 +122,14 @@
   }
 
   .tour-follow-user-block {
-    border: 1px solid #ddd;
+    border: 1px solid @tableBorder;
     border-radius: 4px;
     background: white;
-    position:absolute;
-    bottom:0;
-    left:0;right:0;
-    top:2em;
-    padding:1.25em 0 0 1.25em;
+    position: absolute;
+    bottom: 0;
+    left: 0;right: 0;
+    top: 2em;
+    padding: 1.25em 0 0 1.25em;
     box-shadow: 0 2px 3px -3px rgba(0,0,0,0.5);
   }
 
@@ -139,43 +144,45 @@
     }
   }
 
-
-  input { display:none; }
   .tour-follow-topic-heading {
-    color: #888;
+    color: @mutedFontColor;
   }
-  ul{margin:0;}
+
+  ul { 
+    margin: 0;
+  }
+
   li {
-    margin:0.5em 0;
+    margin: 0.5em 0;
   }
+
   .tour-user-topic {
     position: relative;
-    padding:0 0.6em;
-    border-radius:5px;
-    border: 2px solid #ddd;
-    display:inline-block;
+    padding: 0 0.6em;
+    border-radius: 5px;
+    border: 2px solid @tableBorder;
+    display: inline-block;
     background: white;
   }
-  label {font-size:100%; font-weight: normal; }
 
   .tour-user-button {
-    position:absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    border-radius:0 0 4px 4px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0 0 4px 4px;
   }
 }
 .hover > .tour-follow-user-block {
-  border-color: #3d75a3;
+  border-color: @linkColor;
   border-width: 2px;
-  margin:-1px;
+  margin: -1px;
   box-shadow: none;
 }
 .secondary > .tour-follow-user-block {
-  border-color: #ddd;
+  border-color: @tableBorder;
 }
 
 .secondary.hover > .tour-follow-user-block {
-  border-color: #c0544d;
+  border-color: @dangerButtonColor;
 }

@@ -35,14 +35,26 @@ class window.Followers extends SocialCollection
 
   url: -> "/#{@user.get('username')}/followers"
 
+
+  # TODO fix this mess
   addFollower: (follower) ->
-    Backbone.sync('update', follower, url: "#{@url()}/#{follower.get('username')}" )
+    Backbone.sync 'update', follower,
+      url: "#{@url()}/#{follower.get('username')}"
+      error: => @_removeFollower()
+    @_addFollower()
+
+  _addFollower: ->
     @_followed_by_me = true
     @totalRecords += 1
     @trigger 'change'
 
   removeFollower: (follower) ->
-    Backbone.sync('delete', follower, url: "#{@url()}/#{follower.get('username')}" )
+    Backbone.sync 'delete', follower,
+      url: "#{@url()}/#{follower.get('username')}"
+      error: => @_addFollower()
+    @_removeFollower()
+
+  _removeFollower: ->
     @_followed_by_me = false
     @totalRecords -= 1
     @trigger 'change'
