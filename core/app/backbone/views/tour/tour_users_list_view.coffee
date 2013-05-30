@@ -7,6 +7,8 @@ class TourUserView extends ActionButtonView
 
   template: 'tour/interesting_user'
   className: 'tour-interesting-user'
+  initialize: ->
+    @bindTo @model.followers, 'change', @updateButton, @
 
   templateHelpers: =>
     disabled_label: Factlink.Global.t.follow_user.capitalize()
