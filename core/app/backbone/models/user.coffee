@@ -54,6 +54,7 @@ class window.User extends Backbone.Model
       avatar_url_160: @avatar_url(160)
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
+      user_topics: @user_topics().toJSON()
 
   followed_by_current_user: ->
     @followers.contains window.currentUser
@@ -63,3 +64,6 @@ class window.User extends Backbone.Model
 
   unfollow: ->
     @followers.removeFollower(window.currentUser)
+
+  user_topics: ->
+    new UserTopics @get('user_topics')
