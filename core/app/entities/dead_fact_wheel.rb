@@ -6,6 +6,6 @@ DeadFactWheel = Struct.new(
   :user_opinion
 ) do
   def is_user_opinion(type)
-    user_opinion == type
+    user_opinion.to_s == "#{type.to_s}s"
   end
 end
