@@ -24,21 +24,23 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
 
   initialize: ->
     @page = 0
+    @shuffledCollection = new TourUsers
 
   onRender: ->
     @ui.finish.hide()
     @tourUsersRegion.show @listView()
 
-    @bindTo @collection, 'add remove reset', @renderListAndPagination
-    @renderListAndPagination()
+    @bindTo @collection, 'add remove reset', @updateShuffledCollection
+    @updateShuffledCollection()
 
-  renderListAndPagination: ->
+  updateShuffledCollection: ->
+    @shuffledCollection.reset @collection.shuffle()
     @resizeListView()
     @updateButtonStates()
 
   listView: ->
     @_listView ?= new TourUsersListView
-      collection: @collection
+      collection: @shuffledCollection
 
   showFinishButton: ->
     @ui.skip.fadeOut =>
