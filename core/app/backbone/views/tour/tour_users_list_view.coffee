@@ -24,8 +24,8 @@ class TourUserView extends ActionButtonView
 
   primaryAction: ->
     @model.follow()
-    # TODO: favourite
     @$el.removeClass 'hover'
+    @model.user_topics().invoke 'favourite'
     @updateButton()
 
   secondaryAction: ->
