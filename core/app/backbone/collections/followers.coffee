@@ -27,6 +27,9 @@ class SocialCollection extends Backbone.Paginator.requestPager
     super success: =>
       @trigger 'change'
 
+  total_count: ->
+    @totalRecords
+
 
 class window.Followers extends SocialCollection
   url: -> "/#{@user.get('username')}/followers"
@@ -62,11 +65,5 @@ class window.Followers extends SocialCollection
   followed_by_me: ->
     @_followed_by_me
 
-  followers_count: ->
-    @totalRecords
-
-
 class window.Following extends SocialCollection
   url: -> "/#{@user.get('username')}/following"
-
-  following_count: -> @totalRecords

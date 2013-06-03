@@ -12,14 +12,14 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
     followers:  @followers_count_object()
 
   plural_followers: ->
-    @model.followers.followers_count() isnt 1
+    @model.followers.total_count() isnt 1
 
   followers_count_object: ->
-    count = @model.followers.followers_count()
+    count = @model.followers.total_count()
     if count? then {count: count} else null
 
   following_count_object: ->
-    count = @model.following.following_count()
+    count = @model.following.total_count()
     if count? then {count: count} else null
 
 class window.SidebarProfileView extends Backbone.Marionette.Layout
