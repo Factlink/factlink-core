@@ -10,16 +10,8 @@ class window.User extends Backbone.Model
   url: (forProfile) ->
     if @collection?
       super
-    else if (forProfile)
-      '/' + this.get('username') + ".json"
     else
-      '/' + this.get('username')
-
-  sync: (method, model, options)->
-    options ||= {}
-    forProfile = options.forProfile
-    options.url = model.url(forProfile)
-    Backbone.sync(method, model, options)
+      '/' + @get('username')
 
   is_current_user: ->
     currentUser?.get('username') == @attributes.username
