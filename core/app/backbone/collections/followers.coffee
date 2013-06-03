@@ -22,9 +22,13 @@ class SocialCollection extends Backbone.Paginator.requestPager
     @totalPages = Math.floor(response.total / @perPage)
     response.users
 
-  fetch: ->
-    super success: =>
-      @trigger 'change'
+  fetch: (options={})->
+    success = options.success
+    new_success = (args...) =>
+        @trigger 'change'
+        success(args...) if success?
+
+    super _.extend({ success: new_success }, options)
 
   total_count: ->
     @totalRecords
