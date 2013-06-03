@@ -5,7 +5,7 @@ class TourController < ApplicationController
   # search for @step_in_signup_process = :account
 
   def create_your_first_factlink
-    render layout: "one_column"
+    render layout: "tour"
   end
 
   def install_extension
