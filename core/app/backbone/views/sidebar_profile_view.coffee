@@ -15,8 +15,8 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
     followers: count_object_or_null(@followers_count())
 
   plural_followers: -> @followers_count() isnt 1
-  followers_count: -> @model.followers.total_count()
-  following_count: -> @model.following.total_count()
+  followers_count: -> @model.followers.length
+  following_count: -> @model.following.length
 
 class window.SidebarProfileView extends Backbone.Marionette.Layout
   template: 'users/profile/sidebar_profile'

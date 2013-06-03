@@ -7,13 +7,10 @@ class SocialCollection extends Backbone.Collection
   fetch: (options={})->
     success = options.success
     new_success = (args...) =>
-      @totalRecords = @length
       @trigger 'change'
       success(args...) if success?
 
     super _.extend({ success: new_success }, options)
-
-  total_count: -> @totalRecords
 
 class window.Followers extends SocialCollection
   url: -> "/#{@user.get('username')}/followers"
@@ -30,7 +27,6 @@ class window.Followers extends SocialCollection
 
   _addFollower: (follower) ->
     @add follower
-    @totalRecords += 1
     @trigger 'change'
 
   removeFollower: (follower) ->
@@ -41,7 +37,6 @@ class window.Followers extends SocialCollection
 
   _removeFollower: (follower)->
     @remove follower
-    @totalRecords -= 1
     @trigger 'change'
 
   followed_by_me: ->
