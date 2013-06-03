@@ -160,7 +160,7 @@ class ApplicationController < ActionController::Base
     unless params[:ref].blank?
       ref = params[:ref]
       if ['extension_skip', 'extension_next'].include?(ref)
-        track "#{ref} click".capitalize
+        mp_track "#{ref} click".capitalize
       end
     end
 

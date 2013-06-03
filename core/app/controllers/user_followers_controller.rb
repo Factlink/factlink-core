@@ -17,13 +17,13 @@ class UserFollowersController < ApplicationController
 
   def update
     interactor :'users/follow_user', @follower_user_name, @user_name
-    track 'User: Followed'
+    mp_track 'User: Followed'
     return_ok
   end
 
   def destroy
     interactor :'users/unfollow_user', @follower_user_name, @user_name
-    track 'User: Unfollowed'
+    mp_track 'User: Unfollowed'
     return_ok
   end
 
