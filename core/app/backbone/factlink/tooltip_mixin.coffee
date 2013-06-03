@@ -17,6 +17,7 @@ Backbone.Factlink.TooltipMixin =
     show_overlay: false
     focus_on: null
     margin: 0
+    orthogonalOffset: 0
 
   tooltipAdd: (selector, title, text, options) ->
     @tooltip_options = _.extend {}, @default_options, options
