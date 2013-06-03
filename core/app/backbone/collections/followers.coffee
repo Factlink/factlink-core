@@ -15,9 +15,6 @@ class SocialCollection extends Backbone.Collection
 class window.Followers extends SocialCollection
   url: -> "/#{@user.get('username')}/followers"
 
-  initialize: (args...) ->
-    super(args...)
-
   # TODO fix this mess
   addFollower: (follower) ->
     Backbone.sync 'update', follower,
