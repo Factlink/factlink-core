@@ -8,7 +8,6 @@ class SocialCollection extends Backbone.Collection
     success = options.success
     new_success = (args...) =>
       @totalRecords = @length
-      @followed_by_me = @followed_by_m()
       @trigger 'change'
       success(args...) if success?
 
@@ -16,44 +15,38 @@ class SocialCollection extends Backbone.Collection
 
   total_count: -> @totalRecords
 
-  followed_by_m: ->
-    @find (model) ->
-      model.get('username') == currentUser.get('username')
-
-
 class window.Followers extends SocialCollection
   url: -> "/#{@user.get('username')}/followers"
 
   initialize: (args...) ->
     super(args...)
-    @followed_by_me = false
 
   # TODO fix this mess
   addFollower: (follower) ->
     Backbone.sync 'update', follower,
       url: "#{@url()}/#{follower.get('username')}"
-      error: => @_removeFollower()
-    @_addFollower()
+      error: => @_removeFollower(follower)
+    @_addFollower(follower)
 
-  _addFollower: ->
-    @followed_by_me = true
+  _addFollower: (follower) ->
+    @add follower
     @totalRecords += 1
     @trigger 'change'
 
   removeFollower: (follower) ->
     Backbone.sync 'delete', follower,
       url: "#{@url()}/#{follower.get('username')}"
-      error: => @_addFollower()
-    @_removeFollower()
+      error: => @_addFollower(follower)
+    @_removeFollower(follower)
 
-  _removeFollower: ->
-    @followed_by_me = false
+  _removeFollower: (follower)->
+    @remove follower
     @totalRecords -= 1
     @trigger 'change'
 
-  parse: (response) ->
-    @followed_by_me = response.followed_by_me
-    super(response)
+  followed_by_me: ->
+    !! @find (model) ->
+      model.get('username') == currentUser.get('username')
 
 class window.Following extends SocialCollection
   url: -> "/#{@user.get('username')}/following"
