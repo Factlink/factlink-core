@@ -1,3 +1,6 @@
+count_object_or_null = (count) ->
+  if count? then {count: count} else null
+
 class SocialStatisticsView extends Backbone.Marionette.ItemView
   template: "users/profile/social_statistics"
   className: "user-social-statistics"
@@ -8,19 +11,12 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
 
   templateHelpers: =>
     plural_followers: @plural_followers()
-    following:  @following_count_object()
-    followers:  @followers_count_object()
+    following: count_object_or_null(@following_count())
+    followers: count_object_or_null(@followers_count())
 
-  plural_followers: ->
-    @model.followers.total_count() isnt 1
-
-  followers_count_object: ->
-    count = @model.followers.total_count()
-    if count? then {count: count} else null
-
-  following_count_object: ->
-    count = @model.following.total_count()
-    if count? then {count: count} else null
+  plural_followers: -> @followers_count() isnt 1
+  followers_count: -> @model.followers.total_count()
+  following_count: -> @model.following.total_count()
 
 class window.SidebarProfileView extends Backbone.Marionette.Layout
   template: 'users/profile/sidebar_profile'
