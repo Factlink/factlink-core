@@ -7,7 +7,7 @@ class window.Followers extends Backbone.Collection
   url: -> "/#{@user.get('username')}/followers"
 
   followed_by_me: ->
-    !! @find (model) ->
+    @some (model) ->
       model.get('username') == currentUser.get('username')
 
 class window.Following extends Backbone.Collection
