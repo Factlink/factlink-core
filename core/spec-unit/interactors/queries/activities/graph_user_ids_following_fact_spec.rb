@@ -21,4 +21,17 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
       expect(query.execute).to eq [1, 2, 3, 4]
     end
   end
+
+  describe '#creator_ids' do
+    it 'returns the Facts creator id' do
+      fact = mock
+      created_by_id = 1
+      fact.should_receive(:created_by_id).and_return(created_by_id)
+
+      query = described_class.new fact
+
+      expect(query.creator_ids).to eq [created_by_id]
+    end
+  end
+
 end
