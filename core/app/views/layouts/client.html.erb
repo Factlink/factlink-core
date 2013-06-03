@@ -51,7 +51,7 @@
       FactlinkApp.guided = false;
     <% end %>
     <%= render 'backbone/currentUser' %>
-    Backbone.Factlink.startHistory();
+    Backbone.history.start({pushState: Modernizr.history});
   </script>
 
   <%= yield :javascript %>

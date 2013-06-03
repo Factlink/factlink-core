@@ -10,7 +10,9 @@
 
 <% content_for :javascript do %>
   <script>
-    Backbone.Factlink.startHistory();
+    $(function() {
+      Backbone.history.start({pushState: Modernizr.history});
+    });
   </script>
 <% end %>
 

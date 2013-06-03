@@ -7,9 +7,12 @@
     <script>
       <%= render 'backbone/currentUser' %>
 
-      FactlinkApp.startAsSite();
       window.next_tourstep_path = '<%=next_tourstep_path%>';
-      Backbone.Factlink.startHistory();
+
+      $(function() {
+        FactlinkApp.startAsSite();
+        Backbone.history.start({pushState: Modernizr.history});
+      });
     </script>
 <% end %>
 
