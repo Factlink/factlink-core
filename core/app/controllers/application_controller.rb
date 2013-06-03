@@ -133,7 +133,7 @@ class ApplicationController < ActionController::Base
     Lazy.new(*args, &block)
   end
 
-  def track(event, opts={})
+  def mp_track(event, opts={})
     new_opts =  if current_user
                    opts.update({
                      :mp_name_tag => current_user.username,
