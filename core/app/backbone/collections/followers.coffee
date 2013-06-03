@@ -1,15 +1,19 @@
-class SocialCollection extends Backbone.Collection
+class window.Followers extends Backbone.Collection
   model: User
 
   initialize: (models, opts) ->
     @user = opts.user
 
-class window.Followers extends SocialCollection
   url: -> "/#{@user.get('username')}/followers"
 
   followed_by_me: ->
     !! @find (model) ->
       model.get('username') == currentUser.get('username')
 
-class window.Following extends SocialCollection
+class window.Following extends Backbone.Collection
+  model: User
+
+  initialize: (models, opts) ->
+    @user = opts.user
+
   url: -> "/#{@user.get('username')}/following"
