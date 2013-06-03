@@ -21,6 +21,10 @@
   <% lib_url = "#{jslib_url}" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>
   <script>
+    $(function() {
+      window.tour = new InteractiveTour({el: $('.create-your-first-factlink')});
+    });
+
     window.FactlinkConfig = {
       modus: "default",
       api: "<%= FactlinkUI::Application.config.api_url %>",
