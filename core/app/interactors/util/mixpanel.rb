@@ -1,7 +1,7 @@
 module Util
   module Mixpanel
 
-    def track(event, opts={})
+    def mp_track(event, opts={})
       current_user = @options[:current_user]
       if current_user
         opts = opts.update(
