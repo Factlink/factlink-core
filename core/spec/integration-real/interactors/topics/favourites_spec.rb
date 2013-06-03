@@ -7,8 +7,8 @@ describe 'favouriting topics' do
   let(:user2)   { create :user }
 
   before do
-    Interactors::Topics::Favourite.any_instance.stub :track
-    Interactors::Topics::Unfavourite.any_instance.stub :track
+    Interactors::Topics::Favourite.any_instance.stub :mp_track
+    Interactors::Topics::Unfavourite.any_instance.stub :mp_track
   end
 
   describe 'user initially' do
