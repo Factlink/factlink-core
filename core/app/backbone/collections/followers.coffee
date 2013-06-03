@@ -1,4 +1,4 @@
-class window.SocialCollection extends Backbone.Paginator.requestPager
+class SocialCollection extends Backbone.Paginator.requestPager
   model: User,
   server_api:
       take: -> @perPage
