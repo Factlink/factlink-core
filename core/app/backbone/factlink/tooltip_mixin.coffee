@@ -19,7 +19,7 @@ Backbone.Factlink.TooltipMixin =
     margin: 0
 
   tooltipAdd: (selector, title, text, options) ->
-    @tooltip_options = _.extend @default_options, options
+    @tooltip_options = _.extend {}, @default_options, options
 
     @_tooltips ?= {}
     if @_tooltips[selector]?
