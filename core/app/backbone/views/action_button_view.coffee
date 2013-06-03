@@ -1,11 +1,16 @@
+class ActionButtonState extends Backbone.Model
+  defaults:
+    checked: false
+    hovering: false
+
 class window.ActionButtonView extends Backbone.Marionette.Layout
   template: 'generic/action_button'
   className: 'action-button'
 
   events:
-    "click":   "toggleAction"
-    "mouseleave": "disableHoverState"
-    "mouseenter": "enableHoverState"
+    "click":   "onClick"
+    "mouseenter": "onMouseEnter"
+    "mouseleave": "onMouseLeave"
 
   ui:
     hoverState:      '.js-hover-state'
@@ -14,37 +19,56 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     secondaryAction: '.js-action-button-secondary'
 
   constructor: (args...) ->
+    @stateModel = new ActionButtonState
+
     super(args...)
+
+    @bindTo @stateModel, 'change:checked', @onCheckedChange
+    @bindTo @stateModel, 'change:hovering', @onHoveringChange
+
     if @mini or @options.mini
       @template = 'generic/action_button_mini'
 
-
-  toggleAction: (e) ->
+  onClick: (e) ->
+    console.info 'onClick'
     e.preventDefault()
     e.stopPropagation()
 
-    if @buttonEnabled()
-      @secondaryAction(e)
+    if @stateModel.get 'checked'
+      @secondaryAction()
     else
-      @justClicked = true
-      @primaryAction(e)
+      @primaryAction()
 
-  updateButton: ->
-    added = @buttonEnabled()
-    @ui.primaryAction.toggle not added
-    @ui.secondaryAction.toggle added
+    @stateModel.set 'hovering', false
+
+  onMouseEnter: ->
+    @stateModel.set 'hovering', true
+
+  onMouseLeave: ->
+    @stateModel.set 'hovering', false
+
+  onCheckedChange: ->
+    @ui.primaryAction.toggle not @stateModel.get 'checked'
+    @ui.secondaryAction.toggle @stateModel.get 'checked'
 
   buttonEnabled: ->
     # Must be implemented in the view that inherits from ActionButtonView
     Raven.captureMessage('buttonEnabled() must be implemented.')
 
+  updateButton: ->
+    @stateModel.set 'checked', @buttonEnabled()
+
+  onHoveringChange: ->
+    if @stateModel.get('hovering')
+      @enableHoverState()
+    else
+      @disableHoverState()
+
   enableHoverState: ->
-    return false if @justClicked
-    if @buttonEnabled()
+    if @stateModel.get('checked')
       @_enableSecondaryHoverState()
     else
       @_enablePrimaryHoverState()
-    true
 
   _enablePrimaryHoverState: ->
     @ui.primaryAction.addClass 'btn-primary'
@@ -55,7 +79,6 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
     @ui.secondaryAction.addClass 'btn-danger'
 
   disableHoverState: ->
-    delete @justClicked
     @_disablePrimaryHoverState()
     @_disableSecondaryHoverState()
 
