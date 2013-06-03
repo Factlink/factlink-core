@@ -1,1 +1,4 @@
-placeholder todo
+ ☐ fix logic so it doesn't only work for current user
+ ☐ make followers/following collections use proper backbone rest
+ ☐ use following collection of current user to check who we follow
+
