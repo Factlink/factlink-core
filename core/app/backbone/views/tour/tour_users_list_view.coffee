@@ -1,32 +1,45 @@
 # We might want to look into refactoring ActionButtonView to use a model so we
 # can reuse state and state transitions of the model instead of overriding
 # a lot of methods.
-class TourUserView extends ActionButtonView
+class TourUserView extends Backbone.Marionette.Layout
 
   _.extend @prototype, Backbone.Factlink.TooltipMixin
 
   template: 'tour/interesting_user'
-  className: 'tour-interesting-user action-button'
+  className: 'tour-interesting-user'
+
+  events:
+    "click":   "onClick"
+    "mouseenter": "onMouseEnter"
+    "mouseleave": "onMouseLeave"
+
+  regions:
+    buttonRegion: '.js-region-button'
 
   initialize: ->
-    @bindTo @model.followers, 'change', =>
-      @stateModel.set 'checked', @model.followers.followed_by_me()
-
-    @bindTo @stateModel, 'click:unchecked', =>
-      @model.follow()
+    @bindTo @stateModel(), 'click:unchecked', =>
       @model.user_topics().invoke 'favourite'
-    @bindTo @stateModel, 'click:checked', => @model.unfollow()
 
-    @bindTo @stateModel, 'change:checked', =>
-      @$el.toggleClass 'secondary', @stateModel.get('checked')
+  onClick: -> @stateModel().onClick()
+  onMouseEnter: -> @stateModel().set 'hovering', true
+  onMouseLeave: -> @stateModel().set 'hovering', false
 
-    @bindTo @stateModel, 'change:hovering', =>
-      @$el.toggleClass 'hover', @stateModel.get('hovering')
+  onRender: ->
+    @buttonRegion.show @followUserButton()
 
-  templateHelpers: =>
-    disabled_label: Factlink.Global.t.follow_user.capitalize()
-    disable_label:  Factlink.Global.t.unfollow.capitalize()
-    enabled_label:  Factlink.Global.t.following.capitalize()
+    @bindTo @stateModel(), 'change:checked', =>
+      @$el.toggleClass 'secondary', @stateModel().get('checked')
+
+    @bindTo @stateModel(), 'change:hovering', =>
+      @$el.toggleClass 'hover', @stateModel().get('hovering')
+
+  stateModel: ->
+    @followUserButton().stateModel
+
+  followUserButton: ->
+    @_followUserButton ?= new FollowUserButtonView
+      model: @model
+      noEvents: true
 
   authorityPopover: ->
     unless @_authorityPopover?
