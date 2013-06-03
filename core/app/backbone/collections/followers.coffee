@@ -20,7 +20,7 @@ class SocialCollection extends Backbone.Paginator.requestPager
   parse: (response) ->
     @totalRecords = response.total
     @totalPages = Math.floor(response.total / @perPage)
-    response
+    response.users
 
   fetch: ->
     super success: =>
