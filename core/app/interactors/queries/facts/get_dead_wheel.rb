@@ -14,7 +14,7 @@ module Queries
       end
 
       def percentages
-        opinion.as_percentages
+        @percentages ||= opinion.as_percentages
       end
 
       def opinion
@@ -22,7 +22,7 @@ module Queries
       end
 
       def fact
-        Fact[id]
+        @fact ||= Fact[id]
       end
 
       def user_opinion
