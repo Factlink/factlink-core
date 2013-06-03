@@ -4,14 +4,6 @@ class SocialCollection extends Backbone.Collection
   initialize: (models, opts) ->
     @user = opts.user
 
-  fetch: (options={})->
-    success = options.success
-    new_success = (args...) =>
-      @trigger 'change'
-      success(args...) if success?
-
-    super _.extend({ success: new_success }, options)
-
 class window.Followers extends SocialCollection
   url: -> "/#{@user.get('username')}/followers"
 
@@ -24,7 +16,6 @@ class window.Followers extends SocialCollection
 
   _addFollower: (follower) ->
     @add follower
-    @trigger 'change'
 
   removeFollower: (follower) ->
     Backbone.sync 'delete', follower,
@@ -34,7 +25,6 @@ class window.Followers extends SocialCollection
 
   _removeFollower: (follower)->
     @remove follower
-    @trigger 'change'
 
   followed_by_me: ->
     !! @find (model) ->
