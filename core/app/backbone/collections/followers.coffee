@@ -35,7 +35,7 @@ class window.Followers extends SocialCollection
 
   initialize: (args...) ->
     super(args...)
-    @_followed_by_me = false
+    @followed_by_me = false
 
   # TODO fix this mess
   addFollower: (follower) ->
@@ -45,7 +45,7 @@ class window.Followers extends SocialCollection
     @_addFollower()
 
   _addFollower: ->
-    @_followed_by_me = true
+    @followed_by_me = true
     @totalRecords += 1
     @trigger 'change'
 
@@ -56,16 +56,13 @@ class window.Followers extends SocialCollection
     @_removeFollower()
 
   _removeFollower: ->
-    @_followed_by_me = false
+    @followed_by_me = false
     @totalRecords -= 1
     @trigger 'change'
 
   parse: (response) ->
-    @_followed_by_me = response.followed_by_me
+    @followed_by_me = response.followed_by_me
     super(response)
-
-  followed_by_me: ->
-    @_followed_by_me
 
 class window.Following extends SocialCollection
   url: -> "/#{@user.get('username')}/following"
