@@ -1,15 +1,15 @@
 {{#checked}}
   {{#hovering}}
     <img src="{{global.unfollow}}"></img>
-    {{disable_label}}
+    {{checked_hovered_label}}
   {{/hovering}}
 
   {{^hovering}}
     <img src="{{global.checkmark}}"></img>
-    {{enabled_label}}
+    {{checked_unhovered_label}}
   {{/hovering}}
 {{/checked}}
 
 {{^checked}}
-  {{disabled_label}}
+  {{unchecked_label}}
 {{/checked}}

@@ -11,9 +11,9 @@ class window.FavouriteTopicButtonView extends ActionButtonView
 
   templateHelpers: =>
     _.extend super,
-      disabled_label: Factlink.Global.t.follow_topic.capitalize()
-      disable_label:  Factlink.Global.t.unfollow.capitalize()
-      enabled_label:  Factlink.Global.t.following.capitalize()
+      unchecked_label:         Factlink.Global.t.follow_topic.capitalize()
+      checked_hovered_label:   Factlink.Global.t.unfollow.capitalize()
+      checked_unhovered_label: Factlink.Global.t.following.capitalize()
 
   updateStateModel: ->
     checked = @model.get('slug_title') in @user.favourite_topics.pluck('slug_title')

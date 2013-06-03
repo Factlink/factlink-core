@@ -10,9 +10,9 @@ class window.FollowUserButtonView extends ActionButtonView
 
   templateHelpers: =>
     _.extend super,
-      disabled_label: Factlink.Global.t.follow_user.capitalize()
-      disable_label:  Factlink.Global.t.unfollow.capitalize()
-      enabled_label:  Factlink.Global.t.following.capitalize()
+      unchecked_label:         Factlink.Global.t.follow_user.capitalize()
+      checked_hovered_label:   Factlink.Global.t.unfollow.capitalize()
+      checked_unhovered_label: Factlink.Global.t.following.capitalize()
 
   updateStateModel: ->
     @stateModel.set 'checked', @model.followers.followed_by_me()

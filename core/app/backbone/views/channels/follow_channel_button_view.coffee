@@ -9,9 +9,9 @@ class window.FollowChannelButtonView extends ActionButtonView
 
   templateHelpers: =>
     _.extend super,
-      disabled_label: Factlink.Global.t.follow.capitalize()
-      disable_label:  Factlink.Global.t.unfollow.capitalize()
-      enabled_label:  Factlink.Global.t.following.capitalize()
+      unchecked_label:         Factlink.Global.t.follow.capitalize()
+      checked_hovered_label:   Factlink.Global.t.unfollow.capitalize()
+      checked_unhovered_label: Factlink.Global.t.following.capitalize()
 
   updateStateModel: ->
     @stateModel.set 'checked', @model.get('followed?')
