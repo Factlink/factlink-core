@@ -55,9 +55,6 @@ class window.User extends Backbone.Model
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
 
-  followed_by_current_user: ->
-    @followers.contains window.currentUser
-
   follow: ->
     @followers.addFollower(window.currentUser)
 
