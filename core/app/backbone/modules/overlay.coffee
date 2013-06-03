@@ -4,7 +4,7 @@ FactlinkApp.module "Overlay", (Overlay, FactlinkApp, Backbone, Marionette, $, _)
     .appendTo('body')
 
   Overlay.show = ->
-    $overlay_element.show()
+    $overlay_element.fadeIn(300)
 
   Overlay.hide = ->
-    $overlay_element.hide()
+    $overlay_element.fadeOut(300)
