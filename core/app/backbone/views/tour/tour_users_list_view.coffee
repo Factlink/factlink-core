@@ -1,6 +1,3 @@
-# We might want to look into refactoring ActionButtonView to use a model so we
-# can reuse state and state transitions of the model instead of overriding
-# a lot of methods.
 class TourUserView extends Backbone.Marionette.Layout
 
   _.extend @prototype, Backbone.Factlink.TooltipMixin
