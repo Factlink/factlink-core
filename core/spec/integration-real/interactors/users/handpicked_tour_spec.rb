@@ -25,14 +25,10 @@ describe 'user following' do
   end
 
   describe 'adding a handpicked user' do
-    before do
-      as(user) do |pavlov|
-        pavlov.command :'users/add_handpicked_user', handpicked_user.id.to_s
-      end
-    end
-
     it 'shows up in the tour users list' do
       as(user) do |pavlov|
+        pavlov.command :'users/add_handpicked_user', handpicked_user.id.to_s
+
         result = pavlov.interactor :'users/tour_users'
         expect(result.size).to eq 1
         expect(result[0].username).to eq handpicked_user.username
@@ -40,6 +36,9 @@ describe 'user following' do
     end
 
     it "also shows up in the user's own tour users list" do
+      as(user) do |pavlov|
+        pavlov.command :'users/add_handpicked_user', handpicked_user.id.to_s
+      end
       as(handpicked_user) do |pavlov|
         result = pavlov.interactor :'users/tour_users'
         expect(result.size).to eq 1
@@ -49,6 +48,7 @@ describe 'user following' do
 
     it "doens't show up after removing again" do
       as(user) do |pavlov|
+        pavlov.command :'users/add_handpicked_user', handpicked_user.id.to_s
         pavlov.command :'users/remove_handpicked_user', handpicked_user.id.to_s
 
         result = pavlov.interactor :'users/tour_users'
