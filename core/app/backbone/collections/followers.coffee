@@ -11,19 +11,13 @@ class window.Followers extends SocialCollection
   addFollower: (follower) ->
     Backbone.sync 'update', follower,
       url: "#{@url()}/#{follower.get('username')}"
-      error: => @_removeFollower(follower)
-    @_addFollower(follower)
-
-  _addFollower: (follower) ->
+      error: => @remove follower
     @add follower
 
   removeFollower: (follower) ->
     Backbone.sync 'delete', follower,
       url: "#{@url()}/#{follower.get('username')}"
-      error: => @_addFollower(follower)
-    @_removeFollower(follower)
-
-  _removeFollower: (follower)->
+      error: => @add follower
     @remove follower
 
   followed_by_me: ->
