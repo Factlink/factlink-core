@@ -47,10 +47,8 @@ class HomeController < ApplicationController
   end
 
   def index
-    respond_to do |format|
-      @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
-      format.html { render "home/pages/index", layout: "static_pages" }
-      track 'Pageview: Landing page'
-    end
+    @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
+    track "Pageview: Landing page"
+    render "home/pages/index", layout: "static_pages"
   end
 end
