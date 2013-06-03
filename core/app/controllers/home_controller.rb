@@ -50,6 +50,7 @@ class HomeController < ApplicationController
     respond_to do |format|
       @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
       format.html { render "home/pages/index", layout: "static_pages" }
+      track 'Pageview: Landing page'
     end
   end
 end
