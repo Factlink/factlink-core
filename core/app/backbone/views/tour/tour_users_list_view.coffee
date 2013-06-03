@@ -17,28 +17,28 @@ class TourUserView extends Backbone.Marionette.Layout
     buttonRegion: '.js-region-button'
 
   initialize: ->
-    @bindTo @stateModel(), 'click:unchecked', =>
+    @bindTo @actionButtonModel(), 'click:unchecked', =>
       @model.user_topics().invoke 'favourite'
 
-  onClick: -> @stateModel().onClick()
-  onMouseEnter: -> @stateModel().set 'hovering', true
-  onMouseLeave: -> @stateModel().set 'hovering', false
+  onClick: -> @actionButtonModel().onClick()
+  onMouseEnter: -> @actionButtonModel().set 'hovering', true
+  onMouseLeave: -> @actionButtonModel().set 'hovering', false
 
   onRender: ->
     @buttonRegion.show @followUserButton()
 
-    @bindTo @stateModel(), 'change:checked', =>
-      @$el.toggleClass 'secondary', @stateModel().get('checked')
+    @bindTo @actionButtonModel(), 'change:checked', =>
+      @$el.toggleClass 'secondary', @actionButtonModel().get('checked')
 
-    @bindTo @stateModel(), 'change:hovering', =>
-      @$el.toggleClass 'hover', @stateModel().get('hovering')
+    @bindTo @actionButtonModel(), 'change:hovering', =>
+      @$el.toggleClass 'hover', @actionButtonModel().get('hovering')
 
-  stateModel: ->
-    @followUserButton().stateModel
+  actionButtonModel: ->
+    @followUserButton().model
 
   followUserButton: ->
     @_followUserButton ?= new FollowUserButtonView
-      model: @model
+      user: @model
       noEvents: true
 
   authorityPopover: ->

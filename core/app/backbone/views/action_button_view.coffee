@@ -19,12 +19,8 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
     "mouseenter": "onMouseEnter"
     "mouseleave": "onMouseLeave"
 
-  templateHelpers: =>
-    checked: => @stateModel.get('checked')
-    hovering: => @stateModel.get('hovering')
-
   constructor: (options={}) ->
-    @stateModel = new ActionButtonState
+    @model = new ActionButtonState
 
     @className += ' action-button btn'
     if @mini or options.mini
@@ -32,29 +28,29 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
     super
 
-    @bindTo @stateModel, 'change:checked', @onCheckedChange
-    @bindTo @stateModel, 'change:hovering', @onHoveringChange
-    @bindTo @stateModel, 'change', @render
+    @bindTo @model, 'change:checked', @onCheckedChange
+    @bindTo @model, 'change:hovering', @onHoveringChange
+    @bindTo @model, 'change', @render
 
   onClick: (e) ->
     return if @options.noEvents
     e.preventDefault()
     e.stopPropagation()
-    @stateModel.onClick()
+    @model.onClick()
 
   onMouseEnter: ->
     return if @options.noEvents
-    @stateModel.set 'hovering', true
+    @model.set 'hovering', true
 
   onMouseLeave: ->
     return if @options.noEvents
-    @stateModel.set 'hovering', false
+    @model.set 'hovering', false
 
   onRender: ->
     @$el.removeClass 'btn-primary btn-danger'
 
-    if @stateModel.get('hovering')
-      if @stateModel.get('checked')
+    if @model.get('hovering')
+      if @model.get('checked')
         @$el.addClass 'btn-danger'
       else
         @$el.addClass 'btn-primary'
