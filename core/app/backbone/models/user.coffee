@@ -8,7 +8,9 @@ class window.User extends Backbone.Model
   setChannels: (channels) -> @channels = channels
 
   url: (forProfile) ->
-    if (forProfile)
+    if @collection?
+      super
+    else if (forProfile)
       '/' + this.get('username') + ".json"
     else
       '/' + this.get('username')
