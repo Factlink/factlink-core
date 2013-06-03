@@ -1,37 +1,24 @@
-class SocialCollection extends Backbone.Paginator.requestPager
-  model: User,
-  server_api:
-      take: -> @perPage
-      skip: -> (@currentPage-1) * @perPage
-
-  paginator_core:
-    dataType: "json",
-    url: -> @url()
-
-  paginator_ui:
-    perPage: 3
-    firstPage: 1
-    currentPage: 1
+class SocialCollection extends Backbone.Collection
+  model: User
 
   initialize: (models, opts) ->
     @user = opts.user
-    @totalRecords = null
-
-  parse: (response) ->
-    @totalRecords = response.total
-    @totalPages = Math.floor(response.total / @perPage)
-    response.users
 
   fetch: (options={})->
     success = options.success
     new_success = (args...) =>
-        @trigger 'change'
-        success(args...) if success?
+      @totalRecords = @length
+      @followed_by_me = @followed_by_m()
+      @trigger 'change'
+      success(args...) if success?
 
     super _.extend({ success: new_success }, options)
 
-  total_count: ->
-    @totalRecords
+  total_count: -> @totalRecords
+
+  followed_by_m: ->
+    @find (model) ->
+      model.get('username') == currentUser.get('username')
 
 
 class window.Followers extends SocialCollection
