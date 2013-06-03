@@ -16,12 +16,10 @@ class window.User extends Backbone.Model
       '/' + this.get('username')
 
   sync: (method, model, options)->
-    options = options || {};
-    forProfile = options.forProfile;
-
-    options.url = model.url(forProfile);
-
-    Backbone.sync(method, model, options);
+    options ||= {}
+    forProfile = options.forProfile
+    options.url = model.url(forProfile)
+    Backbone.sync(method, model, options)
 
   is_current_user: ->
     currentUser?.get('username') == @attributes.username
