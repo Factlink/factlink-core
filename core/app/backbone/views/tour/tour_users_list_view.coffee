@@ -9,38 +9,24 @@ class TourUserView extends ActionButtonView
   className: 'tour-interesting-user action-button'
 
   initialize: ->
-    @bindTo @model.followers, 'change', @updateButton, @
+    @bindTo @model.followers, 'change', =>
+      @stateModel.set 'checked', @model.followers.followed_by_me()
+
+    @bindTo @stateModel, 'click:unchecked', =>
+      @model.follow()
+      @model.user_topics().invoke 'favourite'
+    @bindTo @stateModel, 'click:checked', => @model.unfollow()
+
+    @bindTo @stateModel, 'change:checked', =>
+      @$el.toggleClass 'secondary', @stateModel.get('checked')
+
+    @bindTo @stateModel, 'change:hovering', =>
+      @$el.toggleClass 'hover', @stateModel.get('hovering')
 
   templateHelpers: =>
     disabled_label: Factlink.Global.t.follow_user.capitalize()
     disable_label:  Factlink.Global.t.unfollow.capitalize()
     enabled_label:  Factlink.Global.t.following.capitalize()
-
-  enableHoverState: ->
-    super
-    @$el.addClass 'hover'
-
-  disableHoverState: ->
-    super
-    @$el.removeClass 'hover'
-
-  updateButton: ->
-    super
-    @$el.toggleClass 'secondary', @buttonEnabled()
-
-  buttonEnabled: ->
-    @model.followers.followed_by_me()
-
-  primaryAction: ->
-    @model.follow()
-    @$el.removeClass 'hover'
-    @model.user_topics().invoke 'favourite'
-    @updateButton()
-
-  secondaryAction: ->
-    @model.unfollow()
-    @$el.removeClass 'hover'
-    @updateButton()
 
   authorityPopover: ->
     unless @_authorityPopover?

@@ -3,6 +3,13 @@ class ActionButtonState extends Backbone.Model
     checked: false
     hovering: false
 
+  onClick: ->
+    if @get('checked')
+      @trigger 'click:checked'
+    else
+      @trigger 'click:unchecked'
+    @set 'hovering', false
+
 class window.ActionButtonView extends Backbone.Marionette.Layout
   template: 'generic/action_button'
   className: 'action-button'
@@ -30,16 +37,9 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
       @template = 'generic/action_button_mini'
 
   onClick: (e) ->
-    console.info 'onClick'
     e.preventDefault()
     e.stopPropagation()
-
-    if @stateModel.get 'checked'
-      @secondaryAction()
-    else
-      @primaryAction()
-
-    @stateModel.set 'hovering', false
+    @stateModel.onClick()
 
   onMouseEnter: ->
     @stateModel.set 'hovering', true
@@ -47,16 +47,13 @@ class window.ActionButtonView extends Backbone.Marionette.Layout
   onMouseLeave: ->
     @stateModel.set 'hovering', false
 
+  onRender: ->
+    @onCheckedChange()
+    @onHoveringChange()
+
   onCheckedChange: ->
     @ui.primaryAction.toggle not @stateModel.get 'checked'
     @ui.secondaryAction.toggle @stateModel.get 'checked'
-
-  buttonEnabled: ->
-    # Must be implemented in the view that inherits from ActionButtonView
-    Raven.captureMessage('buttonEnabled() must be implemented.')
-
-  updateButton: ->
-    @stateModel.set 'checked', @buttonEnabled()
 
   onHoveringChange: ->
     if @stateModel.get('hovering')
