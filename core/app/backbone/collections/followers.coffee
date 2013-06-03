@@ -29,10 +29,6 @@ class SocialCollection extends Backbone.Paginator.requestPager
 
 
 class window.Followers extends SocialCollection
-  initialize: (models, opts) ->
-    super(models, opts)
-    @_followed_by_me = false
-
   url: -> "/#{@user.get('username')}/followers"
 
 
