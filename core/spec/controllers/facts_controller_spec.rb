@@ -47,6 +47,30 @@ describe FactsController do
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
       Approvals.verify(response_body, format: :json, name: 'facts#show should keep the same content')
     end
+
+    it "should render json successful for non-logged in users" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check
+
+      fact = nil
+
+      as(user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+        fact.add_opinion :believes, user.graph_user
+        fact.calculate_opinion(2)
+      end
+
+      ability.should_receive(:can?).with(:show, Fact).and_return(true)
+      should_check_can :show, fact
+
+      get :show, id: fact.id, format: :json
+      response.should be_success
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'facts#show should keep the same content for anonymous')
+    end
   end
 
   describe :extended_show do
