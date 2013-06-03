@@ -12,7 +12,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def track_sign_in
-    track_people_event sign_in_count: current_user.sign_in_count
+    mp_track_people_event sign_in_count: current_user.sign_in_count
     mp_track "User: Sign in"
   end
 
