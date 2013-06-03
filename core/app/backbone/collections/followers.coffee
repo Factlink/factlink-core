@@ -56,10 +56,8 @@ class window.Followers extends SocialCollection
     @trigger 'change'
 
   parse: (response) ->
-    @totalRecords = response.total
-    @totalPages = Math.floor(response.total / @perPage)
     @_followed_by_me = response.followed_by_me
-    response
+    super(response)
 
   followed_by_me: ->
     @_followed_by_me
