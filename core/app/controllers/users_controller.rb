@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   def tour_users
     @tour_users = interactor :"users/tour_users"
 
-    render 'users/tour_users'
+    render
   end
 
   private

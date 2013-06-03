@@ -9,7 +9,7 @@ Retrieving a list of handpicked users with their top topics (backend):
  ✔ Handpicked users in db:init @done (13-05-27 14:05)
 
 Top topics for a user (backend):
- ☐ Query for user top topics
+ ✔ Query for user top topics @done (13-05-29 11:50)
  ☐ Add top topics to interactor
  ☐ Add top topics to JSON view
 
