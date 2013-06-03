@@ -9,7 +9,7 @@ class window.User extends Backbone.Model
 
   url: (forProfile) ->
     if @collection?
-      super
+      @collection.url() + '/' + @get('username')
     else
       '/' + @get('username')
 
@@ -48,7 +48,10 @@ class window.User extends Backbone.Model
       profile_path: "/#{username}"
 
   follow: ->
-    @followers.addFollower(window.currentUser)
+    @followers.create window.currentUser,
+      error: => @followers.remove window.currentUser
 
   unfollow: ->
-    @followers.removeFollower(window.currentUser)
+    me = @followers.get(window.currentUser.id)
+    me.destroy
+      error: => @followers.add window.currentUser
