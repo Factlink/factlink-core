@@ -30,6 +30,7 @@ describe UsersController do
 
   describe :tour_users do
     render_views
+    include PavlovSupport
 
     it "should render json successful" do
       FactoryGirl.reload # hack because of fixture in check
@@ -38,6 +39,17 @@ describe UsersController do
       user2 = create :user
       Pavlov.command :"users/add_handpicked_user", user1.id.to_s
       Pavlov.command :"users/add_handpicked_user", user2.id.to_s
+
+      as(user1) do |pavlov|
+        pavlov.command :'channels/create', 'toy'
+        ch = pavlov.command :'channels/create', 'story'
+        Authority.from(ch.topic, for: user1.graph_user) << 3
+      end
+      as(user2) do |pavlov|
+        pavlov.command :'channels/create', 'war'
+        ch = pavlov.command :'channels/create', 'games'
+        Authority.from(ch.topic, for: user2.graph_user) << 4568
+      end
 
       authenticate_user!(user)
       ability.stub(:can?).with(:index, User)
