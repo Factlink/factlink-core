@@ -38,4 +38,4 @@ class window.SidebarProfileView extends Backbone.Marionette.Layout
     @socialStatisticsRegion.show new SocialStatisticsView(model: @model)
 
     if not @model.is_current_user()
-      @followUserButtonRegion.show new FollowUserButtonView(model: @model)
+      @followUserButtonRegion.show new FollowUserButtonView(user: @model)

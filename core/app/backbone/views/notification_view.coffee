@@ -34,7 +34,7 @@ class NotificationAddedSubchannelView extends GenericNotificationView
 
   onRender: ->
     super()
-    add_back_button = new FollowChannelButtonView(model: @model.channel())
+    add_back_button = new FollowChannelButtonView(channel: @model.channel())
 
     @addBackRegion.show add_back_button
 
@@ -57,7 +57,7 @@ class NotificationUserFollowedUser extends GenericNotificationView
     super()
     user = new User(@model.get('user'))
     user.followers.fetch() # TODO: send this with the user or activity
-    @addBackRegion.show new FollowUserButtonView(model: user, mini: true)
+    @addBackRegion.show new FollowUserButtonView(user: user, mini: true)
 
 class CreatedCommentView extends GenericNotificationView
   template: "notifications/created_comment"

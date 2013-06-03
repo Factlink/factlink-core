@@ -1,46 +1,42 @@
-# We might want to look into refactoring ActionButtonView to use a model so we
-# can reuse state and state transitions of the model instead of overriding
-# a lot of methods.
-class TourUserView extends ActionButtonView
+class TourUserView extends Backbone.Marionette.Layout
 
   _.extend @prototype, Backbone.Factlink.TooltipMixin
 
   template: 'tour/interesting_user'
-  className: 'tour-interesting-user action-button'
+  className: 'tour-interesting-user'
+
+  events:
+    "click":   "onClick"
+    "mouseenter": "onMouseEnter"
+    "mouseleave": "onMouseLeave"
+
+  regions:
+    buttonRegion: '.js-region-button'
 
   initialize: ->
-    @bindTo @model.followers, 'change', @updateButton, @
+    @bindTo @actionButtonModel(), 'click:unchecked', =>
+      @model.user_topics().invoke 'favourite'
 
-  templateHelpers: =>
-    disabled_label: Factlink.Global.t.follow_user.capitalize()
-    disable_label:  Factlink.Global.t.unfollow.capitalize()
-    enabled_label:  Factlink.Global.t.following.capitalize()
+  onClick: -> @actionButtonModel().onClick()
+  onMouseEnter: -> @actionButtonModel().set 'hovering', true
+  onMouseLeave: -> @actionButtonModel().set 'hovering', false
 
-  enableHoverState: ->
-    super and
-      @$el.addClass 'hover'
+  onRender: ->
+    @buttonRegion.show @followUserButton()
 
-  disableHoverState: ->
-    super
-    @$el.removeClass 'hover'
+    @bindTo @actionButtonModel(), 'change:checked', =>
+      @$el.toggleClass 'secondary', @actionButtonModel().get('checked')
 
-  updateButton: ->
-    super
-    @$el.toggleClass 'secondary', @buttonEnabled()
+    @bindTo @actionButtonModel(), 'change:hovering', =>
+      @$el.toggleClass 'hover', @actionButtonModel().get('hovering')
 
-  buttonEnabled: ->
-    @model.followers.followed_by_me()
+  actionButtonModel: ->
+    @followUserButton().model
 
-  primaryAction: ->
-    @model.follow()
-    @$el.removeClass 'hover'
-    @model.user_topics().invoke 'favourite'
-    @updateButton()
-
-  secondaryAction: ->
-    @model.unfollow()
-    @$el.removeClass 'hover'
-    @updateButton()
+  followUserButton: ->
+    @_followUserButton ?= new FollowUserButtonView
+      user: @model
+      noEvents: true
 
   authorityPopover: ->
     unless @_authorityPopover?
