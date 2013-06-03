@@ -15,7 +15,6 @@ class SocialCollection extends Backbone.Paginator.requestPager
 
   initialize: (models, opts) ->
     @user = opts.user
-    @_followed_by_me = false
     @totalRecords = null
 
   parse: (response) ->
@@ -34,6 +33,9 @@ class SocialCollection extends Backbone.Paginator.requestPager
 class window.Followers extends SocialCollection
   url: -> "/#{@user.get('username')}/followers"
 
+  initialize: (args...) ->
+    super(args...)
+    @_followed_by_me = false
 
   # TODO fix this mess
   addFollower: (follower) ->
