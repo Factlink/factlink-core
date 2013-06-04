@@ -4,8 +4,9 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
   className: 'tour-interesting-users'
 
   events:
-    'click .js-left':  'showPreviousPage'
-    'click .js-right': 'showNextPage'
+    'click .js-left':   'showPreviousPage'
+    'click .js-right':  'showNextPage'
+    'click .js-finish': 'onClickFinish'
 
   regions:
     tourUsersRegion: '.js-region-tour-users'
@@ -93,3 +94,6 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
   updateButtonStates: ->
     @ui.left.toggleClass  'enabled', @hasPreviousPage()
     @ui.right.toggleClass 'enabled', @hasNextPage()
+
+  onClickFinish: ->
+    window.disableInputWithDisableWith @ui.finish
