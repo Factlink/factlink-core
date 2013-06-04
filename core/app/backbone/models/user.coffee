@@ -51,6 +51,9 @@ class window.User extends Backbone.Model
       profile_path: "/#{username}"
       user_topics: @user_topics().toJSON()
 
+  is_following_users: ->
+    !@following.isEmpty()
+
   follow: ->
     currentUser.following.create @,
       error: =>

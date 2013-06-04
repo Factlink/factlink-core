@@ -35,6 +35,9 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     @bindTo @collection, 'add remove reset', @updateShuffledCollection
     @updateShuffledCollection()
 
+    @bindTo currentUser, 'follow_action', @updateFinishButton
+    @updateFinishButton()
+
   updateShuffledCollection: ->
     @shuffledCollection.reset @collection.shuffle()
     @resizeScrollingInner()
@@ -44,6 +47,9 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
   listView: ->
     @_listView ?= new TourUsersListView
       collection: @shuffledCollection
+
+  updateFinishButton: ->
+    @showFinishButton() if currentUser.is_following_users()
 
   showFinishButton: ->
     @ui.skip.fadeOut =>
