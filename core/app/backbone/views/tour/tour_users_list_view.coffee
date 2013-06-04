@@ -35,7 +35,7 @@ class TourUserView extends Backbone.Marionette.Layout
 
   followUserButton: ->
     @_followUserButton ?= new FollowUserButtonView
-      user: @model
+      user: @model.clone()
       noEvents: true
 
   authorityPopover: ->
