@@ -2,30 +2,18 @@ class window.FollowUserButtonView extends ActionButtonView
   className: 'user-follow-user-button'
 
   initialize: ->
-    currentUser.following.fetch()
-    @updates_bound = false
+    @bindTo @model, 'click:unchecked', => @options.user.follow()
+    @bindTo @model, 'click:checked', => @options.user.unfollow()
 
-  onRender: ->
-    @bindUpdates()
-    @updateButton() # TODO remove, this should be behaviour
-                    #      of ActionButtonView
+    @bindTo currentUser, 'follow_action', @updateStateModel
+    @updateStateModel()
 
-  bindUpdates: ->
-    return if @updates_bound
-    @updates_bound = true
-
-    @bindTo currentUser, 'follow_action', @updateButton, @
+    currentUser.following.fetchOnce()
 
   templateHelpers: =>
-    disabled_label: Factlink.Global.t.follow_user.capitalize()
-    disable_label:  Factlink.Global.t.unfollow.capitalize()
-    enabled_label:  Factlink.Global.t.following.capitalize()
+    unchecked_label:         Factlink.Global.t.follow_user.capitalize()
+    checked_hovered_label:   Factlink.Global.t.unfollow.capitalize()
+    checked_unhovered_label: Factlink.Global.t.following.capitalize()
 
-  buttonEnabled: ->
-    @model.followed_by_me()
-
-  primaryAction: (e) ->
-    @model.follow()
-
-  secondaryAction: (e) ->
-    @model.unfollow()
+  updateStateModel: ->
+    @model.set 'checked', @options.user.followed_by_me()

@@ -12,7 +12,6 @@ class Channel < OurOhm
   index :title
 
   timestamped_set :activities, Activity
-  timestamped_set :added_facts, Activity
 
   attribute :lowercase_title
 

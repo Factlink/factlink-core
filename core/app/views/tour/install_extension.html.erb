@@ -1,5 +1,5 @@
 <div class="install-extension-wrapper">
-  <h1>Congratulations with your first Factlink!</h1>
+  <h1 class="tour-header">Congratulations with your first Factlink!</h1>
 
   <div class="install-extension-middle">
     <div class="install-extension-picture">
@@ -65,7 +65,7 @@
       <div class="should-install-firefox-extension">
         <a href="<%= next_tourstep_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
       </div>
-      
+
       <div class="firefox-extension-installed">
         <a class="btn btn-primary" href="<%= next_tourstep_path(ref: 'firefox_extension_next') %>">Next step</a>
       </div>
@@ -83,7 +83,7 @@
   </div>
 </div>
 
-<% content_for :javascript do %>
+<% content_for :tour_javascript do %>
   <script>
     $(function() {
 
