@@ -39,7 +39,7 @@ class ActivityMailer < ActionMailer::Base
           type = "weakening"
         end
 
-        "#{activity.user.user} added #{type} evidence to a Factlink"
+        "#{activity.user.user} added a #{type} argument to a Factlink"
       when :created_conversation
         "#{activity.user.user} has sent you a message"
       when :replied_message

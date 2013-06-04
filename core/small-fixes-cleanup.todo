@@ -5,5 +5,5 @@
  ✔ Change meta data opacity to .25 in the stream, 1 on hover @done (13-06-04 13:23)
  ☐ Remove arguments link on arguments page and remove percentages next to supporting/weakening links for top factlink
  ✔ Remove the "added: " for arguments @done (13-06-04 13:32)
- ☐ Rename supporting/weakening to supporting arguments/weakening arguments
+ ✔ Rename supporting/weakening to supporting arguments/weakening arguments @done (13-06-04 15:19)
  ☐ Fix top padding in the sidebar
