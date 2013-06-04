@@ -3,6 +3,7 @@ require 'acceptance_helper'
 feature "follow_users_in_tour", type: :request do
   include PavlovSupport
   include Acceptance::ProfileHelper
+  include Acceptance::TopicHelper
 
   before do
     @user = create :approved_confirmed_user
@@ -64,6 +65,20 @@ feature "follow_users_in_tour", type: :request do
 
     go_to_profile_page_of @user
     check_follower_following_count 1, 0
+  end
+
+  scenario "When following a user, we also follow her topics" do
+    sign_in_user @user
+    visit interests_path
+    click_on 'Got it!'
+
+    click_on 'Follow user'
+    wait_for_ajax
+    click_on 'Follow user'
+    wait_for_ajax
+
+    click_on 'Finish tour'
+    click_topic_in_sidebar 'toy'
   end
 
   scenario "The user should be able to unfollow users from the tour" do
