@@ -35,7 +35,7 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     @bindTo @collection, 'add remove reset', @updateShuffledCollection
     @updateShuffledCollection()
 
-    @bindTo currentUser, 'follow_action', @updateFinishButton
+    @bindTo currentUser.following, 'sync', @updateFinishButton
     @updateFinishButton()
 
   updateShuffledCollection: ->
