@@ -1,1 +1,20 @@
-placeholder todo
+Use topics:
+ ☐ Remove OwnChannelCollection from AddToChannelModalView
+ ☐ Remove getOwnContainingChannels from FactBottomView
+ ☐ **** withCurrentOrCreatedChannelFor
+
+Rename stuff:
+ ☐ AddToChannelModalView -> RepostToTopicModalView
+
+Cleanup:
+ ☐ Remove getOwnContainingChannels from Channel
+ ☐ Remove getOwnContainingChannels from Fact
+ ☐ Remove withCurrentOrCreatedChannelFor from Topic
+
+If we remove functionality for viewing a channel list on a topic page...:
+ ☐ Remove channel from TopicView
+ ☐ Remove existingChannelFor from Topic
+ ☐ Remove currentUser.setChannel from _currentUser.html.erb
+ ☐ Remove channels and setChannels from User
+ ☐ Remove OwnChannelCollection
+ ☐ Verify that currentUser.channels is really eliminated!
