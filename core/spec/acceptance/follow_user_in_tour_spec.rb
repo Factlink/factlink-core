@@ -50,14 +50,18 @@ feature "follow_users_in_tour", type: :request do
     page.should have_content('Finish tour')
 
     click_on 'Follow user' # Click the other user
-
-    page.should_not have_content('Follow user')
-
     wait_for_ajax
-
+    page.should_not have_content('Follow user')
     as(@user) do |pavlov|
       result = pavlov.interactor :'users/following', @user.username, 0, 10
       expect(result[0].size).to eq 2
+    end
+
+    click_on 'Following' # Unfollow one of the users
+    wait_for_ajax
+    as(@user) do |pavlov|
+      result = pavlov.interactor :'users/following', @user.username, 0, 10
+      expect(result[0].size).to eq 1
     end
   end
 end
