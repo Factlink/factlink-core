@@ -3,7 +3,7 @@
  ✔ Make the active state in the sidebar more prominent (background-color:white) @done (13-06-04 13:19)
  ☐ As a user, I want to see my avatar in front of the add-comment text box
  ✔ Change meta data opacity to .25 in the stream, 1 on hover @done (13-06-04 13:23)
- ☐ Remove arguments link on arguments page and remove percentages next to supporting/weakening links for top factlink
+ ✔ Remove arguments link on arguments page and remove percentages next to supporting/weakening links for top factlink @done (13-06-04 16:38)
  ✔ Remove the "added: " for arguments @done (13-06-04 13:32)
  ✔ Rename supporting/weakening to supporting arguments/weakening arguments @done (13-06-04 16:23)
  ✔ Fix top padding in the sidebar @done (13-06-04 16:06)
