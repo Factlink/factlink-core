@@ -1,6 +1,5 @@
 class UserFollowersController < ApplicationController
   before_filter :set_user_name
-  before_filter :set_follower_user_name, except: :index
 
   def index
     params[:skip] ||= 0
@@ -16,29 +15,21 @@ class UserFollowersController < ApplicationController
   end
 
   def update
-    interactor :'users/follow_user', @follower_user_name, @user_name
+    follower_username = params[:id]
+    interactor :'users/follow_user', follower_username, @user_name
     mp_track 'User: Followed'
-    return_ok
+    render json: {}
   end
 
   def destroy
-    interactor :'users/unfollow_user', @follower_user_name, @user_name
+    follower_username = params[:id]
+    interactor :'users/unfollow_user', follower_username, @user_name
     mp_track 'User: Unfollowed'
-    return_ok
+    render json: {}
   end
 
   private
-  def return_ok
-    respond_to do |format|
-      format.json { render json: {} }
-    end
-  end
-
   def set_user_name
     @user_name = params[:username]
-  end
-
-  def set_follower_user_name
-    @follower_user_name = params[:id]
   end
 end

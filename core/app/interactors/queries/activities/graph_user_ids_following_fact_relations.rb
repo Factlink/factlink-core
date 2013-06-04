@@ -8,7 +8,13 @@ module Queries
       arguments :fact_relations
 
       def execute
-        (fact_relations_creators_ids + fact_relations_opinionated_ids + sub_comments_on_fact_relations_creators_ids).uniq
+        follower_ids.uniq
+      end
+
+      def follower_ids
+        fact_relations_creators_ids +
+          fact_relations_opinionated_ids +
+          sub_comments_on_fact_relations_creators_ids
       end
 
       def fact_relations_creators_ids

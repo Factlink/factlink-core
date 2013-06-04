@@ -12,8 +12,8 @@ class Activity < OurOhm
     attr_accessor :activity_for, :listname, :queries
 
     def self.register &block
-      a = new(&block)
-      register_listener a
+      listener = new(&block)
+      register_listener listener
     end
 
     def self.register_listener a
