@@ -1,1 +1,9 @@
-placeholder todo
+ ☐ As a user, when viewing a Factlink from the stream, I don't want to see the created-at timestamp of that Factlink, since it's confusing me (also remove "from")
+ ☐ Delete "about" in timestamps
+ ☐ Make the active state in the sidebar more prominent (background-color:white)
+ ☐ As a user, I want to see my avatar in front of the add-comment text box
+ ☐ Change meta data opacity to .25 in the stream, 1 on hover
+ ☐ Remove arguments link on arguments page and remove percentages next to supporting/weakening links for top factlink
+ ☐ Remove the "added: " for arguments
+ ☐ Rename supporting/weakening to supporting arguments/weakening arguments
+ ☐ Fix top padding in the sidebar
