@@ -9,7 +9,8 @@ class window.User extends Backbone.Model
 
   setChannels: (channels) -> @channels = channels
 
-  url: (forProfile) ->
+  url: ->
+    # We do this because we cannot (yet) set the idAttribute to "username"
     if @collection?
       @collection.url() + '/' + @get('username')
     else
