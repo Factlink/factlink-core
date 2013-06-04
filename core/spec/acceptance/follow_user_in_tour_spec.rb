@@ -2,6 +2,7 @@ require 'acceptance_helper'
 
 feature "follow_users_in_tour", type: :request do
   include PavlovSupport
+  include Acceptance::ProfileHelper
 
   before do
     @user = create :approved_confirmed_user
@@ -60,12 +61,9 @@ feature "follow_users_in_tour", type: :request do
 
     click_on 'Follow user'
     wait_for_ajax
-    page.should have_content('Following')
 
-    as(@user) do |pavlov|
-      result = pavlov.interactor :'users/following', @user.username, 0, 10
-      expect(result[0].size).to eq 1
-    end
+    go_to_profile_page_of @user
+    check_follower_following_count 1, 0
   end
 
   scenario "The user should be able to unfollow users from the tour" do
@@ -78,9 +76,8 @@ feature "follow_users_in_tour", type: :request do
 
     click_on 'Following' # Unfollow
     wait_for_ajax
-    as(@user) do |pavlov|
-      result = pavlov.interactor :'users/following', @user.username, 0, 10
-      expect(result[0].size).to eq 0
-    end
+
+    go_to_profile_page_of @user
+    check_follower_following_count 0, 0
   end
 end
