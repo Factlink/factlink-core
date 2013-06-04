@@ -39,7 +39,8 @@ describe Interactors::ReplyToConversation do
       options = {current_user: current_user, mixpanel: mixpanel}
       interactor = Interactors::ReplyToConversation.new mock(), current_user.id.to_s, mock(), options
 
-      mixpanel.should_receive(:mp_increment_person_property).with(current_user.id.to_s, replies_created: 1)
+      interactor.should_receive(:mp_increment_person_property)
+                .with(:replies_created)
       interactor.should_receive(:mp_track).with(:reply_created)
 
       interactor.track_mixpanel
