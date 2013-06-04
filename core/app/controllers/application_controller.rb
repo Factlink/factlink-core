@@ -129,10 +129,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def lazy *args, &block
-    Lazy.new(*args, &block)
-  end
-
   def track(event, opts={})
     new_opts =  if current_user
                    opts.update({
