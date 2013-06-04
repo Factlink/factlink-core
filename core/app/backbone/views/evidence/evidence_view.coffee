@@ -30,7 +30,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
 
   evidenceBaseOnRender: ->
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
-    @activityRegion.show   new EvidenceActivityView model: @model, verb: @activityVerb
+    @activityRegion.show   new EvidenceActivityView model: @model
 
     if Factlink.Global.signed_in
       voteRelevanceView = new InteractiveVoteUpDownView model: @model
@@ -84,7 +84,6 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
 
   templateHelpers: =>
     creator: @model.creator().toJSON()
-    verb: @options.verb
 
 
 class EvidencePopoverView extends Backbone.Factlink.PopoverView
