@@ -8,7 +8,6 @@ dead_fact = query :'facts/get_dead', fact.id.to_s
 dead_fact_creator = query(:'users_by_graph_user_ids', [fact.created_by_id]).first
 dead_fact_creator_graph_user = Struct.new(:id).new(fact.created_by_id)
 containing_channel_ids = query :'facts/containing_channel_ids_for_user', fact
-fact = nil # TODO remove me, i'm only evidence
 
 
 json.displaystring dead_fact.displaystring
