@@ -24,7 +24,9 @@ describe Interactors::CreateConversationWithMessage do
 
       interactor = Interactors::CreateConversationWithMessage.new fact_id, usernames, sender.id, content, options
 
-      interactor.should_receive(:track_mixpanel)
+      interactor.should_receive(:mp_track).with(:conversation_created)
+      interactor.should_receive(:mp_increment_person_property)
+                .with(:conversations_created)
 
       User.should_receive(:find).with(sender.id).and_return(sender)
       interactor.should_receive(:command).with(:create_conversation, fact_id, usernames).
@@ -51,24 +53,6 @@ describe Interactors::CreateConversationWithMessage do
       conversation.should_receive(:delete)
 
       expect{interactor.call}.to raise_error('some_error')
-    end
-  end
-
-  describe '.track_mixpanel' do
-    it "should track an event" do
-      mixpanel = mock
-      current_user = mock(id: mock(to_s: mock))
-      options = {mixpanel: mixpanel, current_user: current_user}
-
-      Interactors::CreateConversationWithMessage.any_instance.should_receive(:authorized?).and_return true
-
-      interactor = Interactors::CreateConversationWithMessage.new mock, mock, mock, mock, options
-
-      interactor.should_receive(:mp_track).with(:conversation_created)
-      interactor.should_receive(:mp_increment_person_property)
-                .with(:conversations_created)
-
-      interactor.track_mixpanel
     end
   end
 
