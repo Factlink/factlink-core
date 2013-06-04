@@ -15,7 +15,7 @@
     <div class="application-background">
     </div>
 
-    <div id="container" class="container<%= " fixed" unless defined? not_fixed and not_fixed %>">
+    <div id="container" class="container">
       <section id="left-column">
         <% if content_for?(:left_column) %>
           <%= yield(:left_column) %>
