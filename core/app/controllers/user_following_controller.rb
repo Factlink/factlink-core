@@ -14,6 +14,20 @@ class UserFollowingController < ApplicationController
     render 'users/following/index', format: 'json'
   end
 
+  def update
+    following_username = params[:id]
+    interactor :'users/follow_user', @user_name, following_username
+    mp_track 'User: Followed'
+    render json: {}
+  end
+
+  def destroy
+    following_username = params[:id]
+    interactor :'users/unfollow_user', @user_name, following_username
+    mp_track 'User: Unfollowed'
+    render json: {}
+  end
+
   private
   def set_user_name
     @user_name = params[:username]
