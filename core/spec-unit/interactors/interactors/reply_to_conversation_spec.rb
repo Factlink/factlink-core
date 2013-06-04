@@ -40,7 +40,7 @@ describe Interactors::ReplyToConversation do
       interactor = Interactors::ReplyToConversation.new mock(), current_user.id.to_s, mock(), options
 
       mixpanel.should_receive(:increment_person_event).with(current_user.id.to_s, replies_created: 1)
-      mixpanel.should_receive(:track_event).with(:reply_created)
+      interactor.should_receive(:mp_track).with(:reply_created)
 
       interactor.track_mixpanel
     end

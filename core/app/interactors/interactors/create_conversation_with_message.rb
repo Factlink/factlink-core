@@ -27,7 +27,7 @@ module Interactors
     end
 
     def track_mixpanel
-      track_event :conversation_created
+      mp_track :conversation_created
       increment_person_event :conversations_created
     end
 
