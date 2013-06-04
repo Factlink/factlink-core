@@ -48,13 +48,21 @@ class window.User extends Backbone.Model
       profile_path: "/#{username}"
 
   follow: ->
-    @followers.create window.currentUser,
-      error: => @followers.remove window.currentUser
+    currentUser.following.create @,
+      error: =>
+        currentUser.following.remove @
+        @followers.remove currentUser
+
+    @followers.add currentUser.clone()
 
   unfollow: ->
-    me = @followers.get(window.currentUser.id)
-    me.destroy
-      error: => @followers.add window.currentUser
+    self = currentUser.following.get(@id)
+    self.destroy
+      error: =>
+        currentUser.following.add @
+        @followers.add currentUser.clone()
+
+    @followers.remove currentUser
 
   followed_by_me: ->
     @followers.some (model) ->
