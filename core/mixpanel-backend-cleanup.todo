@@ -1,1 +1,4 @@
-placeholder todo
+ ☐ Remove unused function from mixpanel.rb
+ ☐ Change old mixpanel track_events to mp_track
+ ☐ Rename increment_person_event to mp_increment_person_property
+ ☐ Create a resque job for icrement person event
