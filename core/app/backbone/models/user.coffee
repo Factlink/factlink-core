@@ -5,6 +5,8 @@ class window.User extends Backbone.Model
     @following = new Following([], user: @)
     @favourite_topics = new FavouriteTopics([], user: @)
 
+    @following.on 'all', => @trigger 'follow_action'
+
   setChannels: (channels) -> @channels = channels
 
   url: (forProfile) ->
@@ -67,5 +69,5 @@ class window.User extends Backbone.Model
     @followers.remove currentUser
 
   followed_by_me: ->
-    @followers.some (model) ->
-      model.get('username') == currentUser.get('username')
+    currentUser.following.some (model) =>
+      model.get('username') == @get('username')
