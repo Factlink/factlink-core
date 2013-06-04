@@ -15,7 +15,9 @@ class Authority < OurOhm
     end
 
     def related(label, subject, opts={})
-      AuthorityObject.by_reference self.key+"NEW", label, class_for(subject), subject.id.to_s, opts[:for].andand.id
+      AuthorityObject.by_reference self.key+"NEW", label,
+        class_for(subject), subject.id.to_s,
+        opts[:for].andand.id
     end
 
     def from(subject, opts={})
@@ -27,7 +29,8 @@ class Authority < OurOhm
     end
 
     def all_related(label, subject)
-      return AuthorityObject.all_for self.key+"NEW", label, class_for(subject), subject.id.to_s
+      return AuthorityObject.all_for self.key+"NEW", label,
+        class_for(subject), subject.id.to_s
     end
 
     def all_from(subject)
