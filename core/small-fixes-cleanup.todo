@@ -1,4 +1,4 @@
- ☐ As a user, when viewing a Factlink from the stream, I don't want to see the created-at timestamp of that Factlink, since it's confusing me (also remove "from")
+ ✔ As a user, when viewing a Factlink from the stream, I don't want to see the created-at timestamp of that Factlink, since it's confusing me (also remove "from") @done (13-06-04 17:13)
  ✔ Delete "about" in timestamps @done (13-06-04 14:52)
  ✔ Make the active state in the sidebar more prominent (background-color:white) @done (13-06-04 13:19)
  ☐ As a user, I want to see my avatar in front of the add-comment text box

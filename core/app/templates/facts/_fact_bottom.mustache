@@ -32,7 +32,9 @@
   {{/global.signed_in}}
 
   <li class="fact-info">
-    {{formatted_time}}
+    {{^hide_timestamp}}
+      {{formatted_time}}
+    {{/hide_timestamp}}
 
     {{#proxy_scroll_url}}
       from
