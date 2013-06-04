@@ -1,69 +1,56 @@
-class window.ActionButtonView extends Backbone.Marionette.Layout
+class ActionButtonState extends Backbone.Model
+  defaults:
+    checked: false
+    hovering: false
+
+  onClick: ->
+    if @get('checked')
+      @trigger 'click:checked'
+    else
+      @trigger 'click:unchecked'
+    @set 'hovering', false
+
+class window.ActionButtonView extends Backbone.Marionette.ItemView
+  tagName: 'button'
   template: 'generic/action_button'
-  className: 'action-button'
 
   events:
-    "click":   "toggleAction"
-    "mouseleave": "disableHoverState"
-    "mouseenter": "enableHoverState"
+    "click":   "onClick"
+    "mouseenter": "onMouseEnter"
+    "mouseleave": "onMouseLeave"
 
-  ui:
-    hoverState:      '.js-hover-state'
-    defaultState:    '.js-default-state'
-    primaryAction:   '.js-action-button-primary'
-    secondaryAction: '.js-action-button-secondary'
+  constructor: (options={}) ->
+    @model = new ActionButtonState
 
-  constructor: (args...) ->
-    super(args...)
-    if @mini or @options.mini
-      @template = 'generic/action_button_mini'
+    @className += ' action-button btn'
+    if @mini or options.mini
+      @className += ' btn-mini'
 
+    super
 
-  toggleAction: (e) ->
+    @bindTo @model, 'change:checked', @onCheckedChange
+    @bindTo @model, 'change:hovering', @onHoveringChange
+    @bindTo @model, 'change', @render
+
+  onClick: (e) ->
+    return if @options.noEvents
     e.preventDefault()
     e.stopPropagation()
+    @model.onClick()
 
-    if @buttonEnabled()
-      @secondaryAction(e)
-    else
-      @justClicked = true
-      @primaryAction(e)
+  onMouseEnter: ->
+    return if @options.noEvents
+    @model.set 'hovering', true
 
-  updateButton: ->
-    added = @buttonEnabled()
-    @ui.primaryAction.toggle not added
-    @ui.secondaryAction.toggle added
+  onMouseLeave: ->
+    return if @options.noEvents
+    @model.set 'hovering', false
 
-  buttonEnabled: ->
-    # Must be implemented in the view that inherits from ActionButtonView
-    Raven.captureMessage('buttonEnabled() must be implemented.')
+  onRender: ->
+    @$el.removeClass 'btn-primary btn-danger'
 
-  enableHoverState: ->
-    return false if @justClicked
-    if @buttonEnabled()
-      @_enableSecondaryHoverState()
-    else
-      @_enablePrimaryHoverState()
-    true
-
-  _enablePrimaryHoverState: ->
-    @ui.primaryAction.addClass 'btn-primary'
-
-  _enableSecondaryHoverState: ->
-    @ui.defaultState.hide()
-    @ui.hoverState.show()
-    @ui.secondaryAction.addClass 'btn-danger'
-
-  disableHoverState: ->
-    delete @justClicked
-    @_disablePrimaryHoverState()
-    @_disableSecondaryHoverState()
-
-  _disablePrimaryHoverState: ->
-    @ui.primaryAction.removeClass 'btn-primary'
-
-  _disableSecondaryHoverState: ->
-    @ui.defaultState.show()
-    @ui.hoverState.hide()
-    @ui.secondaryAction.removeClass 'btn-danger'
-
+    if @model.get('hovering')
+      if @model.get('checked')
+        @$el.addClass 'btn-danger'
+      else
+        @$el.addClass 'btn-primary'

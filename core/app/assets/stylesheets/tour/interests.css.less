@@ -5,13 +5,6 @@
   position: relative;
   padding-top: 30px;
 
-  h1.tour-interesting-users-header {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
   .tour-interesting-users-scrolling-outer {
     position: relative;
     overflow: hidden;
@@ -72,6 +65,7 @@
   width: 200px;
   height: 170px;
   display: inline-block;
+  cursor: pointer;
 
   position: relative;
 
@@ -100,7 +94,7 @@
 
   //The following two css rules generate nested rounded boxes around the image.
   //this is equivalent to a fake border + white padding, with the advantage
-  //that the "padding" overlays the wrapping boxes border, whereas the 
+  //that the "padding" overlays the wrapping boxes border, whereas the
   //"border" is underneath it.  This causes the visual border to appear
   //continuously to wrap the jutting out avatar image.
   .tour-follow-user-avatar:after {
@@ -152,7 +146,7 @@
     color: @mutedFontColor;
   }
 
-  ul { 
+  ul {
     margin: 0;
   }
 
@@ -169,7 +163,7 @@
     background: white;
   }
 
-  .tour-user-button {
+  .tour-user-button-region > button {
     position: absolute;
     bottom: 0;
     left: 0;

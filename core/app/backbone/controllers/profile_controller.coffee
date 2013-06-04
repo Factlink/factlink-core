@@ -77,7 +77,6 @@ class window.ProfileController extends Backbone.Factlink.CachingController
     options.onInit(user)
     user.fetch
       success: -> options.onFetch(user)
-      forProfile: true
 
   getFactsView: (channel) ->
     new FactsView

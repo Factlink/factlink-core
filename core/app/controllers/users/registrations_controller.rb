@@ -23,6 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
         expire_session_data_after_sign_in!
+        mp_track 'User: Reserved username'
 
         location = after_inactive_sign_up_path_for(resource)
       end

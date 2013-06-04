@@ -17,3 +17,7 @@ class Backbone.Factlink.Collection extends Backbone.Collection
       @on 'reset', resetCallback, @
     else
       callback.call(this, this)
+
+  fetchOnce: (args...) ->
+    return if @loading
+    @fetch(args...)

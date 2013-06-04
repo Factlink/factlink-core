@@ -37,12 +37,12 @@ class window.TopicView extends Backbone.Marionette.Layout
     @factList.show new FactsView collection: facts
 
   showFavouriteTopicButton: ->
-    view = new FavouriteTopicButtonView(model: @model)
+    view = new FavouriteTopicButtonView(topic: @model)
     @favouriteTopicRegion.show view
 
   channel: ->
     return false unless Factlink.Global.can_haz['sees_channels']
-    
+
     @_channel ?= @model.existingChannelFor(currentUser) || false
 
   channelFacts: -> new ChannelFacts [], channel: @channel()

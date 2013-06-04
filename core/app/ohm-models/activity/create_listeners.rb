@@ -38,7 +38,10 @@ class Activity < OurOhm
       {
         subject_class: "Channel",
         action: 'added_subchannel',
-        extra_condition: lambda { |a| a.subject.created_by_id != a.user.id and not followers_for_graph_user(a.subject.created_by_id).include?(a.user.id)},
+        extra_condition: lambda do |a|
+          a.subject.created_by_id != a.user.id and
+            not followers_for_graph_user(a.subject.created_by_id).include?(a.user.id)
+        end,
         write_ids: lambda { |a| select_users_that_see_channels([a.subject.created_by_id]) }
       }
     end
@@ -87,7 +90,10 @@ class Activity < OurOhm
       {
         subject_class: "Channel",
         action: :created_channel,
-        write_ids: lambda { |a| select_users_that_see_channels(reject_self(channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by),a)) }
+        write_ids: lambda do |a|
+          followers = channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by)
+          select_users_that_see_channels(reject_self(followers,a))
+        end
       }
     end
 
@@ -112,7 +118,10 @@ class Activity < OurOhm
       {
         subject_class: "Fact",
         action: :added_fact_to_channel,
-        extra_condition: lambda { |a| (a.subject.created_by_id != a.user_id) and (a.object.type == 'channel')},
+        extra_condition: lambda do |a|
+          (a.subject.created_by_id != a.user_id) and
+            (a.object.type == 'channel')
+        end,
         write_ids: lambda { |a| [a.subject.created_by_id] }
       }
     end

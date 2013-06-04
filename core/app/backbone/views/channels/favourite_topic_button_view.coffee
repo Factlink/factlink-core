@@ -2,20 +2,18 @@ class window.FavouriteTopicButtonView extends ActionButtonView
 
   initialize: ->
     @user = currentUser
-    @bindTo @user.favourite_topics, 'add remove change reset', @updateButton, @
+
+    @bindTo @model, 'click:unchecked', => @options.topic.favourite()
+    @bindTo @model, 'click:checked', => @options.topic.unfavourite()
+
+    @bindTo @user.favourite_topics, 'add remove change reset', @updateStateModel
+    @updateStateModel()
 
   templateHelpers: =>
-    disabled_label: Factlink.Global.t.follow_topic.capitalize()
-    disable_label:  Factlink.Global.t.unfollow.capitalize()
-    enabled_label:  Factlink.Global.t.following.capitalize()
+    unchecked_label:         Factlink.Global.t.follow_topic.capitalize()
+    checked_hovered_label:   Factlink.Global.t.unfollow.capitalize()
+    checked_unhovered_label: Factlink.Global.t.following.capitalize()
 
-  buttonEnabled: ->
-    @model.get('slug_title') in @user.favourite_topics.pluck('slug_title')
-
-  primaryAction: (e) ->
-    @model.favourite()
-
-  secondaryAction: (e) ->
-    @model.unfavourite()
-
-  onRender: -> @updateButton()
+  updateStateModel: ->
+    checked = @options.topic.get('slug_title') in @user.favourite_topics.pluck('slug_title')
+    @model.set 'checked', checked
