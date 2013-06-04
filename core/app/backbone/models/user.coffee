@@ -57,6 +57,8 @@ class window.User extends Backbone.Model
 
   unfollow: ->
     self = currentUser.following.get(@id)
+    return unless self
+
     self.destroy
       error: =>
         currentUser.following.add @
