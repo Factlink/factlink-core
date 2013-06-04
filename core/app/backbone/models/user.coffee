@@ -8,18 +8,10 @@ class window.User extends Backbone.Model
   setChannels: (channels) -> @channels = channels
 
   url: (forProfile) ->
-    if (forProfile)
-      '/' + this.get('username') + ".json"
+    if @collection?
+      @collection.url() + '/' + @get('username')
     else
-      '/' + this.get('username')
-
-  sync: (method, model, options)->
-    options = options || {};
-    forProfile = options.forProfile;
-
-    options.url = model.url(forProfile);
-
-    Backbone.sync(method, model, options);
+      '/' + @get('username')
 
   is_current_user: ->
     currentUser?.get('username') == @attributes.username
@@ -55,11 +47,11 @@ class window.User extends Backbone.Model
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
 
-  followed_by_current_user: ->
-    @followers.contains window.currentUser
-
   follow: ->
-    @followers.addFollower(window.currentUser)
+    @followers.create window.currentUser,
+      error: => @followers.remove window.currentUser
 
   unfollow: ->
-    @followers.removeFollower(window.currentUser)
+    me = @followers.get(window.currentUser.id)
+    me.destroy
+      error: => @followers.add window.currentUser

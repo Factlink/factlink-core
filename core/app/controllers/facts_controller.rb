@@ -85,7 +85,7 @@ class FactsController < ApplicationController
     @site = @fact.site
 
     respond_to do |format|
-      track "Factlink: Created"
+      mp_track "Factlink: Created"
 
       #TODO switch the following two if blocks if possible
       if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
@@ -96,7 +96,7 @@ class FactsController < ApplicationController
       end
 
       format.html do
-        track "Modal: Create"
+        mp_track "Modal: Create"
         redirect_to fact_path(@fact.id, guided: params[:guided])
       end
       format.json { render 'facts/show' }

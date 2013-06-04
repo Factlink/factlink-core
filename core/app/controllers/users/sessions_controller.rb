@@ -8,12 +8,12 @@ class Users::SessionsController < Devise::SessionsController
   before_filter :track_sign_out, only: :destroy
 
   def track_sign_out
-    track "User: Sign out"
+    mp_track "User: Sign out"
   end
 
   def track_sign_in
-    track_people_event sign_in_count: current_user.sign_in_count
-    track "User: Sign in"
+    mp_track_people_event sign_in_count: current_user.sign_in_count
+    mp_track "User: Sign in"
   end
 
   before_filter :set_layout, only: :new

@@ -3,10 +3,10 @@ class UserFollowersController < ApplicationController
   before_filter :set_follower_user_name, except: :index
 
   def index
-    params[:skip] ||= '0'
+    params[:skip] ||= 0
     @skip = params[:skip].to_i
 
-    params[:take] ||= '3'
+    params[:take] ||= 99999 # 'infinite'
     @take = params[:take].to_i
 
     @users, @total, @followed_by_me = interactor :'users/followers', @user_name,
@@ -17,20 +17,20 @@ class UserFollowersController < ApplicationController
 
   def update
     interactor :'users/follow_user', @follower_user_name, @user_name
-    track 'User: Followed'
+    mp_track 'User: Followed'
     return_ok
   end
 
   def destroy
     interactor :'users/unfollow_user', @follower_user_name, @user_name
-    track 'User: Unfollowed'
+    mp_track 'User: Unfollowed'
     return_ok
   end
 
   private
   def return_ok
     respond_to do |format|
-      format.json { head :ok }
+      format.json { render json: {} }
     end
   end
 
