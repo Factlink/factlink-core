@@ -29,7 +29,7 @@ module Interactors
       end
 
       def track_mixpanel
-        track 'Topic: Favourited', slug_title: slug_title
+        mp_track 'Topic: Favourited', slug_title: slug_title
       end
 
       def validate

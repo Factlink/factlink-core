@@ -194,7 +194,7 @@ FactlinkUI::Application.routes.draw do
     end
 
     resources :followers, only: [:destroy, :update, :index], controller: 'user_followers'
-    resources :following, only: [:index], controller: 'user_following'
+    resources :following, only: [:destroy, :update, :index], controller: 'user_following'
     resources :favourite_topics, only: [:destroy, :update, :index], controller: 'user_favourite_topics'
   end
 

@@ -20,4 +20,15 @@ mandrill_settings = {
   enable_starttls_auto: true
 }
 
-ActionMailer::Base.smtp_settings = sendgrid_settings
+mailcatcher_settings = {
+  :address => '127.0.0.1',
+  :port => 1025,
+  :domain => "hackerone.com"
+}
+
+if ['production', 'staging', 'testserver'].include? Rails.env
+  ActionMailer::Base.smtp_settings = sendgrid_settings
+else 
+  ActionMailer::Base.smtp_settings = mailcatcher_settings
+end
+

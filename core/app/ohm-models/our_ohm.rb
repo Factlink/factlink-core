@@ -21,7 +21,7 @@ class OurOhm < Ohm::Model
     alias :ohm_sorted_set :sorted_set
 
     def create! *args
-      new_instance = new *args
+      new_instance = new(*args)
       raise "Error creating instance of {@this.name}" unless new_instance.save
       new_instance
     end

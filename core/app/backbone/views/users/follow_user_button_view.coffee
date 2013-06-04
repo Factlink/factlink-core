@@ -2,7 +2,19 @@ class window.FollowUserButtonView extends ActionButtonView
   className: 'user-follow-user-button'
 
   initialize: ->
-    @bindTo @model.followers, 'change', @updateButton, @
+    currentUser.following.fetch()
+    @updates_bound = false
+
+  onRender: ->
+    @bindUpdates()
+    @updateButton() # TODO remove, this should be behaviour
+                    #      of ActionButtonView
+
+  bindUpdates: ->
+    return if @updates_bound
+    @updates_bound = true
+
+    @bindTo currentUser, 'follow_action', @updateButton, @
 
   templateHelpers: =>
     disabled_label: Factlink.Global.t.follow_user.capitalize()
@@ -10,7 +22,7 @@ class window.FollowUserButtonView extends ActionButtonView
     enabled_label:  Factlink.Global.t.following.capitalize()
 
   buttonEnabled: ->
-    @model.followers.followed_by_me()
+    @model.followed_by_me()
 
   primaryAction: (e) ->
     @model.follow()
