@@ -45,7 +45,6 @@ feature "follow_users_in_tour", type: :request do
     page.should have_content('Skip this step')
 
     click_on 'Follow user' # Click one of both users
-
     page.should have_content('Following')
     page.should have_content('Finish tour')
 
