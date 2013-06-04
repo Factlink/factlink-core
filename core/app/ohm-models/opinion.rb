@@ -77,7 +77,7 @@ class Opinion < OurOhm
     unless list.length > 0
       Opinion.identity
     else
-      a = list.inject(Opinion.identity) { | result, element |  result + element }
+      list.inject(Opinion.identity) { | result, element |  result + element }
     end
   end
 
