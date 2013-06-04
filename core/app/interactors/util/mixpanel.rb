@@ -14,7 +14,7 @@ module Util
       Resque.enqueue(::Mixpanel::TrackEventJob, event, opts, {})
     end
 
-    def increment_person_event event
+    def mp_increment_person_property event
       return unless @options[:current_user]
       
       current_user_id = @options[:current_user].id.to_s

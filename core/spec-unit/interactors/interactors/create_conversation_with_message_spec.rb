@@ -65,7 +65,7 @@ describe Interactors::CreateConversationWithMessage do
       interactor = Interactors::CreateConversationWithMessage.new mock, mock, mock, mock, options
 
       interactor.should_receive(:mp_track).with(:conversation_created)
-      mixpanel.should_receive(:increment_person_event).with(current_user.id.to_s, conversations_created: 1)
+      mixpanel.should_receive(:mp_increment_person_property).with(current_user.id.to_s, conversations_created: 1)
 
       interactor.track_mixpanel
     end

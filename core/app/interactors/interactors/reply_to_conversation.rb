@@ -21,7 +21,7 @@ module Interactors
     end
 
     def track_mixpanel
-      increment_person_event :replies_created
+      mp_increment_person_property :replies_created
       mp_track :reply_created
     end
 

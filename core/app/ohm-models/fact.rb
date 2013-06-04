@@ -18,7 +18,7 @@ class Fact < Basefact
     if self.has_site? and self.created_by.user
       mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
 
-      mixpanel.increment_person_event self.created_by.user.id.to_s, factlinks_created_with_url: 1
+      mixpanel.mp_increment_person_property self.created_by.user.id.to_s, factlinks_created_with_url: 1
     end
   end
 
