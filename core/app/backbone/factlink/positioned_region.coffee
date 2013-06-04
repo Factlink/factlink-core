@@ -49,20 +49,21 @@ class Backbone.Factlink.PositionedRegion extends window.CrossFadeRegion
     bindElDimensions = @_dimensionsOf(@$bindEl)
     bindElPosition = @_bindElPosition()
     offset = @_offsets()
-    margin = @options.margin
+    margin = @options.margin || 0
+    orthogonalOffset = @options.orthogonalOffset || 0
 
     switch @options.side
       when 'left'
         left: bindElPosition.left - elDimensions.width - margin
-        top:  bindElPosition.top  + bindElDimensions.height/2 - offset.top
+        top:  bindElPosition.top  + bindElDimensions.height/2 - offset.top + orthogonalOffset
       when 'right'
         left: bindElPosition.left + bindElDimensions.width + margin
-        top:  bindElPosition.top  + bindElDimensions.height/2 - offset.top
+        top:  bindElPosition.top  + bindElDimensions.height/2 - offset.top + orthogonalOffset
       when 'top'
-        left: bindElPosition.left + bindElDimensions.width/2 - offset.left
+        left: bindElPosition.left + bindElDimensions.width/2 - offset.left + orthogonalOffset
         top:  bindElPosition.top  - elDimensions.height - margin
       when 'bottom'
-        left: bindElPosition.left + bindElDimensions.width/2 - offset.left
+        left: bindElPosition.left + bindElDimensions.width/2 - offset.left + orthogonalOffset
         top:  bindElPosition.top  + bindElDimensions.height + margin
       else
         throw "Invalid options.side: #{@options.side}"
