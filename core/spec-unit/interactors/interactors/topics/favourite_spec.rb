@@ -82,7 +82,7 @@ describe Interactors::Topics::Favourite do
         .and_return(topic)
       interactor.should_receive(:command)
         .with(:'topics/favourite', user.graph_user_id, topic.id.to_s)
-      interactor.should_receive(:track)
+      interactor.should_receive(:mp_track)
         .with('Topic: Favourited', slug_title: slug_title)
 
       result = interactor.execute

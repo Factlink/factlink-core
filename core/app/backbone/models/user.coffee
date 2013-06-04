@@ -5,21 +5,15 @@ class window.User extends Backbone.Model
     @following = new Following([], user: @)
     @favourite_topics = new FavouriteTopics([], user: @)
 
+    @following.on 'all', => @trigger 'follow_action'
+
   setChannels: (channels) -> @channels = channels
 
   url: (forProfile) ->
-    if (forProfile)
-      '/' + this.get('username') + ".json"
+    if @collection?
+      @collection.url() + '/' + @get('username')
     else
-      '/' + this.get('username')
-
-  sync: (method, model, options)->
-    options = options || {};
-    forProfile = options.forProfile;
-
-    options.url = model.url(forProfile);
-
-    Backbone.sync(method, model, options);
+      '/' + @get('username')
 
   is_current_user: ->
     currentUser?.get('username') == @attributes.username
@@ -56,14 +50,28 @@ class window.User extends Backbone.Model
       profile_path: "/#{username}"
       user_topics: @user_topics().toJSON()
 
-  followed_by_current_user: ->
-    @followers.contains window.currentUser
-
   follow: ->
-    @followers.addFollower(window.currentUser)
+    currentUser.following.create @,
+      error: =>
+        currentUser.following.remove @
+        @followers.remove currentUser
+
+    @followers.add currentUser.clone()
 
   unfollow: ->
-    @followers.removeFollower(window.currentUser)
+    self = currentUser.following.get(@id)
+    return unless self
+
+    self.destroy
+      error: =>
+        currentUser.following.add @
+        @followers.add currentUser.clone()
+
+    @followers.remove currentUser
+
+  followed_by_me: ->
+    currentUser.following.some (model) =>
+      model.get('username') == @get('username')
 
   user_topics: ->
     new UserTopics @get('user_topics')

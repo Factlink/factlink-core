@@ -145,7 +145,10 @@ describe Activity::Listener do
         subject_class: Blob,
         extra_condition: lambda { |a| a.action.to_s == 'foobar' }
       },@a)).to be_true
-      expect(subject.matches({subject_class: Blob, extra_condition: lambda {|a| a.action.to_s == 'barfoo'} },@a)).to be_false
+      expect(subject.matches({
+        subject_class: Blob,
+        extra_condition: lambda {|a| a.action.to_s == 'barfoo'}
+      },@a)).to be_false
     end
   end
 

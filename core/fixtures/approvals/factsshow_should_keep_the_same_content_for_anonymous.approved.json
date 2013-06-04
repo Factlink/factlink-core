@@ -1,9 +1,6 @@
 {
   "displaystring": "displaystring",
   "id": "<STRIPPED>",
-  "containing_channel_ids": [
-
-  ],
   "url": "/displaystring/f/1",
   "created_by": {
     "id": "<STRIPPED>",
@@ -22,7 +19,7 @@
     "opinion_types": {
       "believe": {
         "percentage": 100,
-        "is_user_opinion": true
+        "is_user_opinion": false
       },
       "doubt": {
         "percentage": 0,

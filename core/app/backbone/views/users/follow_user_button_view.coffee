@@ -5,8 +5,10 @@ class window.FollowUserButtonView extends ActionButtonView
     @bindTo @model, 'click:unchecked', => @options.user.follow()
     @bindTo @model, 'click:checked', => @options.user.unfollow()
 
-    @bindTo @options.user.followers, 'change', @updateStateModel
+    @bindTo currentUser, 'follow_action', @updateStateModel
     @updateStateModel()
+
+    currentUser.following.fetch()
 
   templateHelpers: =>
     unchecked_label:         Factlink.Global.t.follow_user.capitalize()
@@ -14,4 +16,4 @@ class window.FollowUserButtonView extends ActionButtonView
     checked_unhovered_label: Factlink.Global.t.following.capitalize()
 
   updateStateModel: ->
-    @model.set 'checked', @options.user.followers.followed_by_me()
+    @model.set 'checked', @options.user.followed_by_me()
