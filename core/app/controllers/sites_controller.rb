@@ -58,6 +58,6 @@ class SitesController < ApplicationController
       extension_version = request.headers["extensionVersion"]
       user_agent        = request.headers["userAgent"]
 
-      track_people_event user_agent: user_agent, extension_version: extension_version
+      mp_track_people_event user_agent: user_agent, extension_version: extension_version
     end
 end

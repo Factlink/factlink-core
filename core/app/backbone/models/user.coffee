@@ -5,21 +5,16 @@ class window.User extends Backbone.Model
     @following = new Following([], user: @)
     @favourite_topics = new FavouriteTopics([], user: @)
 
+    @following.on 'all', => @trigger 'follow_action'
+
   setChannels: (channels) -> @channels = channels
 
-  url: (forProfile) ->
-    if (forProfile)
-      '/' + this.get('username') + ".json"
+  url: ->
+    # We do this because we cannot (yet) set the idAttribute to "username"
+    if @collection?
+      @collection.url() + '/' + @get('username')
     else
-      '/' + this.get('username')
-
-  sync: (method, model, options)->
-    options = options || {};
-    forProfile = options.forProfile;
-
-    options.url = model.url(forProfile);
-
-    Backbone.sync(method, model, options);
+      '/' + @get('username')
 
   is_current_user: ->
     currentUser?.get('username') == @attributes.username
@@ -54,12 +49,33 @@ class window.User extends Backbone.Model
       avatar_url_160: @avatar_url(160)
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
+      user_topics: @user_topics().toJSON()
 
-  followed_by_current_user: ->
-    @followers.contains window.currentUser
+  is_following_users: ->
+    !@following.isEmpty()
 
   follow: ->
-    @followers.addFollower(window.currentUser)
+    currentUser.following.create @,
+      error: =>
+        currentUser.following.remove @
+        @followers.remove currentUser
+
+    @followers.add currentUser.clone()
 
   unfollow: ->
-    @followers.removeFollower(window.currentUser)
+    self = currentUser.following.get(@id)
+    return unless self
+
+    self.destroy
+      error: =>
+        currentUser.following.add @
+        @followers.add currentUser.clone()
+
+    @followers.remove currentUser
+
+  followed_by_me: ->
+    currentUser.following.some (model) =>
+      model.get('username') == @get('username')
+
+  user_topics: ->
+    new UserTopics @get('user_topics')

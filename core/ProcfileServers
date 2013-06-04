@@ -3,3 +3,4 @@ redis: redis-server config/developmentservers/redis.conf
 redisfortests: redis-server config/developmentservers/redis-for-tests.conf
 resqueredis: redis-server config/developmentservers/redis-resque.conf
 mongo: mongod --config config/developmentservers/mongo.conf
+mailcatcher: bundle exec mailcatcher -fbv

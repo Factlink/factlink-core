@@ -1,4 +1,15 @@
 --style-measure 160
 --no-doc
 --no-readme
---max-violations 11
+--abc-exclude FactGraph.export
+--abc-exclude OurOhm::GenericReference#generic_reference
+--abc-exclude ChannelsController#create
+--abc-exclude FactsController#create
+--abc-exclude RegistrationsController#create
+--abc-exclude OurOhm::ValueReference#value_reference
+--abc-exclude ActivityMailer#get_mail_subject_for_activity
+--abc-exclude ChannelsController#update
+--abc-exclude Activity::ListenerCreator#forGraphUser_someone_followed_your_channel
+--abc-exclude Opinion#+
+--abc-exclude FactGraph.export_opiniated
+--abc-exclude Activity::Listener#matches

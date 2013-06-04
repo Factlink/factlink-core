@@ -3,9 +3,16 @@
 
     <%= javascript_include_tag "frontend" %>
 
-    <%= yield :javascript %>
+    <%= yield :tour_javascript %>
     <script>
-      FactlinkApp.startAsSite();
+      <%= render 'backbone/currentUser' %>
+
+      window.next_tourstep_path = '<%=next_tourstep_path%>';
+
+      $(function() {
+        FactlinkApp.startAsSite();
+        Backbone.history.start({pushState: Modernizr.history});
+      });
     </script>
 <% end %>
 

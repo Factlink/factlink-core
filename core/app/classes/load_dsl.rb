@@ -185,7 +185,6 @@ class LoadDsl
     ch = ChannelList.new(graph_user).channels.find(:title => title).first
     unless ch
       ch = Channel.create(:created_by => graph_user, :title => title)
-      TopChannels.new.add ch.id
     end
     ch
   end

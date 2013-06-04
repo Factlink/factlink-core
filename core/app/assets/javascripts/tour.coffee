@@ -114,7 +114,3 @@ class window.InteractiveTour extends Backbone.View
       "Your first Factlink is a fact!",
       '',
       { side: 'left', align: 'top', margin: 10, contentView: view }
-
-$ ->
-  if $('body').hasClass 'action_create_your_first_factlink'
-    window.tour = new InteractiveTour(el: $('.create-your-first-factlink'))

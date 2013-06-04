@@ -1,69 +1,56 @@
-class window.ActionButtonView extends Backbone.Marionette.Layout
+class ActionButtonState extends Backbone.Model
+  defaults:
+    checked: false
+    hovering: false
+
+  onClick: ->
+    if @get('checked')
+      @trigger 'click:checked'
+    else
+      @trigger 'click:unchecked'
+    @set 'hovering', false
+
+class window.ActionButtonView extends Backbone.Marionette.ItemView
+  tagName: 'button'
   template: 'generic/action_button'
-  className: 'action-button'
 
   events:
-    "click .js-action-button-primary":   "primaryActionWrapper"
-    "click .js-action-button-secondary": "secondaryActionWrapper"
+    "click":   "onClick"
+    "mouseenter": "onMouseEnter"
+    "mouseleave": "onMouseLeave"
 
-    "mouseleave": "disableHoverState"
-    "mouseenter": "enableHoverState"
+  constructor: (options={}) ->
+    @model = new ActionButtonState
 
-  ui:
-    hoverState:      '.js-hover-state'
-    defaultState:    '.js-default-state'
-    primaryAction:   '.js-action-button-primary'
-    secondaryAction: '.js-action-button-secondary'
+    @className += ' action-button btn'
+    if @mini or options.mini
+      @className += ' btn-mini'
 
-  constructor: (args...) ->
-    super(args...)
-    if @mini or @options.mini
-      @template = 'generic/action_button_mini'
+    super
 
-  updateButton: =>
-    added = @buttonEnabled()
-    @ui.primaryAction.toggle not added
-    @ui.secondaryAction.toggle added
+    @bindTo @model, 'change:checked', @onCheckedChange
+    @bindTo @model, 'change:hovering', @onHoveringChange
+    @bindTo @model, 'change', @render
 
-  buttonEnabled: ->
-    # Must be implemented in the view that inherits from ActionButtonView
-    Raven.captureMessage('buttonEnabled() must be implemented.')
-
-  enableHoverState: ->
-    return if @justClicked
-    if @buttonEnabled()
-      @_enableSecondaryHoverState()
-    else
-      @_enablePrimaryHoverState()
-      
-  _enablePrimaryHoverState: ->
-    @ui.primaryAction.addClass 'btn-primary'
-
-  _enableSecondaryHoverState: ->
-    @ui.defaultState.hide()
-    @ui.hoverState.show()
-    @ui.secondaryAction.addClass 'btn-danger'
-
-  disableHoverState: ->
-    delete @justClicked
-    @_disablePrimaryHoverState()
-    @_disableSecondaryHoverState()
-
-  _disablePrimaryHoverState: ->
-    @ui.primaryAction.removeClass 'btn-primary'
-
-  _disableSecondaryHoverState: ->
-    @ui.defaultState.show()
-    @ui.hoverState.hide()
-    @ui.secondaryAction.removeClass 'btn-danger'
-
-  primaryActionWrapper: (e) ->
+  onClick: (e) ->
+    return if @options.noEvents
     e.preventDefault()
     e.stopPropagation()
-    @justClicked = true
-    @primaryAction(e)
+    @model.onClick()
 
-  secondaryActionWrapper: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-    @secondaryAction(e)
+  onMouseEnter: ->
+    return if @options.noEvents
+    @model.set 'hovering', true
+
+  onMouseLeave: ->
+    return if @options.noEvents
+    @model.set 'hovering', false
+
+  onRender: ->
+    @$el.removeClass 'btn-primary btn-danger'
+
+    if @model.get('hovering')
+      if @model.get('checked')
+        @$el.addClass 'btn-danger'
+      else
+        @$el.addClass 'btn-primary'
