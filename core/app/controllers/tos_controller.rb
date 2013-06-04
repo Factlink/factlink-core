@@ -25,13 +25,13 @@ class TosController < ApplicationController
 
   private
   def track_signed_tos
-    track_people_event signed_tos: true
+    mp_track_people_event signed_tos: true
   end
 
   def track_tos_browser
     tos_browser_name    = params[:tos_browser_name]
     tos_browser_version = params[:tos_browser_version]
-    track_people_event tos_browser_name: tos_browser_name, tos_browser_version: tos_browser_version
+    mp_track_people_event tos_browser_name: tos_browser_name, tos_browser_version: tos_browser_version
   end
 
 end
