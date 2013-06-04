@@ -7,11 +7,9 @@ module Queries
     arguments :activity, :class_name, :list
 
     def execute
-      ids = []
-      listeners.each do |listener|
-        ids += listener.add_to(@activity)
-      end
-      ids
+      listeners.map do |listener|
+        listener.add_to(@activity)
+      end.flatten
     end
 
     def listeners

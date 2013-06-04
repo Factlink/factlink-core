@@ -5,6 +5,8 @@ class window.User extends Backbone.Model
     @following = new Following([], user: @)
     @favourite_topics = new FavouriteTopics([], user: @)
 
+    @following.on 'all', => @trigger 'follow_action'
+
   setChannels: (channels) -> @channels = channels
 
   url: (forProfile) ->
@@ -48,10 +50,24 @@ class window.User extends Backbone.Model
       profile_path: "/#{username}"
 
   follow: ->
-    @followers.create window.currentUser,
-      error: => @followers.remove window.currentUser
+    currentUser.following.create @,
+      error: =>
+        currentUser.following.remove @
+        @followers.remove currentUser
+
+    @followers.add currentUser.clone()
 
   unfollow: ->
-    me = @followers.get(window.currentUser.id)
-    me.destroy
-      error: => @followers.add window.currentUser
+    self = currentUser.following.get(@id)
+    return unless self
+
+    self.destroy
+      error: =>
+        currentUser.following.add @
+        @followers.add currentUser.clone()
+
+    @followers.remove currentUser
+
+  followed_by_me: ->
+    currentUser.following.some (model) =>
+      model.get('username') == @get('username')
