@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
     }
   end
 
+  # expose query to views, so we can rewrite inline
+  # retrieval to proper queries. The queries should
+  # be pulled back to controllers, and then to interactors
+  helper_method :query # TODO remove me ASAP
+
   before_filter :check_preferred_browser
   def check_preferred_browser
     if current_user
@@ -127,10 +132,6 @@ class ApplicationController < ActionController::Base
       format.html { render_backbone_page }
       format.json { yield } if block_given?
     end
-  end
-
-  def lazy *args, &block
-    Lazy.new(*args, &block)
   end
 
   def mp_track(event, opts={})
