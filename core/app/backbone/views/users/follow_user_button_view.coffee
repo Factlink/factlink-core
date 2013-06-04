@@ -10,7 +10,7 @@ class window.FollowUserButtonView extends ActionButtonView
     enabled_label:  Factlink.Global.t.following.capitalize()
 
   buttonEnabled: ->
-    @model.followers.followed_by_me()
+    @model.followed_by_me()
 
   primaryAction: (e) ->
     @model.follow()

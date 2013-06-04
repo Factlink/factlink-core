@@ -55,3 +55,7 @@ class window.User extends Backbone.Model
     me = @followers.get(window.currentUser.id)
     me.destroy
       error: => @followers.add window.currentUser
+
+  followed_by_me: ->
+    @followers.some (model) ->
+      model.get('username') == currentUser.get('username')
