@@ -6,7 +6,7 @@ class window.Followers extends Backbone.Collection
 
   url: -> "/#{@user.get('username')}/followers"
 
-class window.Following extends Backbone.Collection
+class window.Following extends Backbone.Factlink.Collection
   model: User
 
   initialize: (models, opts) ->
