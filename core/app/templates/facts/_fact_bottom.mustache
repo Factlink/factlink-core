@@ -1,26 +1,30 @@
-<ul class="actions">
-  <li>
-    {{#global.signed_in}}
-      <a href="{{discussion_url}}" class="discussion_link js-discussion-link"
-        {{#modal?}}
-          target="new"
-        {{/modal?}}{{^modal?}}
-          rel="backbone" target="_top"
-        {{/modal?}}
-        >
-          Discussion
-      </a>
-    {{/global.signed_in}}{{^global.signed_in}}
-      <strong>Discussion</strong>
-    {{/global.signed_in}}
+<ul class="actions
+  {{^show_discussion_link}}without_discussion{{/show_discussion_link}}">
 
-    <span class="opinion_indicators">
-      <span class="opinion_indicator_small agreeing"></span>
-      {{ believe_percentage }}%
-      <span class="opinion_indicator_small disagreeing"></span>
-      {{ disbelieve_percentage }}%
-    </span>
+  {{#show_discussion_link}}
+  <li>
+      {{#global.signed_in}}
+        <a href="{{discussion_url}}" class="discussion_link js-discussion-link"
+          {{#modal?}}
+            target="new"
+          {{/modal?}}{{^modal?}}
+            rel="backbone" target="_top"
+          {{/modal?}}
+          >
+            Discussion
+        </a>
+      {{/global.signed_in}}{{^global.signed_in}}
+        <strong>Discussion</strong>
+      {{/global.signed_in}}
+
+      <span class="opinion_indicators">
+        <span class="opinion_indicator_small agreeing"></span>
+        {{ believe_percentage }}%
+        <span class="opinion_indicator_small disagreeing"></span>
+        {{ disbelieve_percentage }}%
+      </span>
   </li>
+  {{/show_discussion_link}}
 
   {{#global.signed_in}}
     <li><a href="#" class="js-add-to-channel">Repost</a></li>

@@ -27,6 +27,8 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
       else
         @url
 
+    show_discussion_link: !@options.hide_discussion_link
+
     believe_percentage: @model.opinionPercentage('believe')
     disbelieve_percentage: @model.opinionPercentage('disbelieve')
 
