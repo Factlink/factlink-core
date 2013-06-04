@@ -103,15 +103,14 @@ class LoadDsl
           :password => password,
           :password_confirmation => password,
           :twitter => twitter,
-          :first_name => first_name,
-          :last_name => last_name)
+          :first_name => first_name || username,
+          :last_name => last_name || username )
         u.approved = true
         u.agrees_tos = true
         u.agreed_tos_on = DateTime.now
         u.email = email
         u.confirmed_at = DateTime.now
         u.save
-        u.send(:create_graph_user) {}
         if u.new_record?
           err_msg = "User #{username} could not be created."
           u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
