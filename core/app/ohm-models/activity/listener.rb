@@ -12,7 +12,7 @@ class Activity < OurOhm
     attr_accessor :activity_for, :listname, :queries
 
     def self.register &block
-      listener = new &block
+      listener = new(&block)
       register_listener listener
     end
 
@@ -28,7 +28,7 @@ class Activity < OurOhm
 
     def initialize(&block)
       self.queries = []
-      Dsl.new self, &block if block_given?
+      Dsl.new(self, &block) if block_given?
     end
 
     def add_to activity
@@ -54,7 +54,7 @@ class Activity < OurOhm
       extra_keys = query.keys - query.slice(:extra_condition, :write_ids, *fields_to_match).keys
       raise Exception.exception("Extra keys: #{extra_keys}") if extra_keys != []
 
-      field_query = query.slice *fields_to_match
+      field_query = query.slice(*fields_to_match)
       field_query.each_pair do |field, value|
         real = activity.send(field)
         if value.respond_to? :map
@@ -83,11 +83,11 @@ class Activity < OurOhm
     class Dsl
       def initialize(listener,&block)
         @listener = listener
-        execute &block if block_given?
+        execute(&block) if block_given?
       end
 
       def execute &block
-        instance_eval &block
+        instance_eval(&block)
       end
 
       def activity_for klass

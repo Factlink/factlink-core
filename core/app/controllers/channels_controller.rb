@@ -168,7 +168,7 @@ class ChannelsController < ApplicationController
     @fact = Fact.build_with_data(nil, params[:displaystring].to_s, params[:title].to_s, current_graph_user)
 
     if @fact.data.save and @fact.save
-      track "Factlink: Created"
+      mp_track "Factlink: Created"
 
       interactor :"channels/add_fact", @fact, @channel
       @timestamp = Ohm::Model::TimestampedSet.current_time

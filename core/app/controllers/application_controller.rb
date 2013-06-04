@@ -134,11 +134,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def lazy *args, &block
-    Lazy.new(*args, &block)
-  end
-
-  def track(event, opts={})
+  def mp_track(event, opts={})
     new_opts =  if current_user
                    opts.update({
                      :mp_name_tag => current_user.username,
@@ -153,7 +149,7 @@ class ApplicationController < ActionController::Base
     Resque.enqueue(Mixpanel::TrackEventJob, event, new_opts, req_env)
   end
 
-  def track_people_event(opts={})
+  def mp_track_people_event(opts={})
     if current_user
       req_env = MixpanelRequestPresenter.new(request).to_hash
       Resque.enqueue(Mixpanel::TrackPeopleEventJob, current_user.id, opts, req_env)
@@ -165,7 +161,7 @@ class ApplicationController < ActionController::Base
     unless params[:ref].blank?
       ref = params[:ref]
       if ['extension_skip', 'extension_next'].include?(ref)
-        track "#{ref} click".capitalize
+        mp_track "#{ref} click".capitalize
       end
     end
 
@@ -188,7 +184,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_last_interaction_for_user
   def set_last_interaction_for_user
     if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
-      track_people_event last_interaction_at: DateTime.now
+      mp_track_people_event last_interaction_at: DateTime.now
       Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
     end
   end

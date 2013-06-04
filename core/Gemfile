@@ -111,7 +111,7 @@ group :development do
   gem 'rack', '~> 1'
   gem 'thin', '~> 1'
 
-  gem 'letter_opener', '~> 1'
+  gem 'mailcatcher', '~> 0', require: false
 
   gem 'lograge', '~> 0'
   gem 'sextant', '~> 0'
@@ -160,4 +160,5 @@ group :development do
   gem 'brakeman', '~> 1', require: false # always update, we want the latest version always
   gem 'cane', '~> 2', require: false
   gem 'rails_best_practices', '~> 1', require: false
+  gem 'hub', '~> 1', require: false
 end

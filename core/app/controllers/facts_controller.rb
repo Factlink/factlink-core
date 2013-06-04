@@ -87,7 +87,7 @@ class FactsController < ApplicationController
     @site = @fact.site
 
     respond_to do |format|
-      track "Factlink: Created"
+      mp_track "Factlink: Created"
 
       #TODO switch the following two if blocks if possible
       if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
@@ -97,17 +97,8 @@ class FactsController < ApplicationController
         @fact.calculate_opinion(1)
       end
 
-      if params[:channels]
-        params[:channels].each do |channel_id|
-          channel = Channel[channel_id]
-          if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
-            interactor :"channels/add_fact", @fact, channel
-          end
-        end
-      end
-
       format.html do
-        track "Modal: Create"
+        mp_track "Modal: Create"
         redirect_to fact_path(@fact.id, guided: params[:guided])
       end
       format.json { render 'facts/show' }
