@@ -29,7 +29,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @bindTo @model, 'change', updatePopover
 
   evidenceBaseOnRender: ->
-    @userAvatarRegion.show new EvidenceUserAvatarView model: @model
+    @userAvatarRegion.show new AvatarView model: @model.creator()
     @activityRegion.show   new EvidenceActivityView model: @model
 
     if Factlink.Global.signed_in
@@ -67,14 +67,6 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
         $(this).animate
           'background-color': '#ffffff'
         , 2500
-
-
-class EvidenceUserAvatarView extends Backbone.Marionette.ItemView
-  className: 'evidence-user-avatar'
-  template:  'evidence/user_avatar'
-
-  templateHelpers: => creator: @model.creator().toJSON()
-
 
 class EvidenceActivityView extends Backbone.Marionette.ItemView
   className: 'evidence-activity'
