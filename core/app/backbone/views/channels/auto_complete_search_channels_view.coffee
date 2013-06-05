@@ -26,9 +26,7 @@ class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
     new_list: '.js-list-new'
 
   appendHtml: (collectionView, itemView, index) ->
-    model = itemView.model
-
-    if not model.get('new')
-      @ui.all_list.append itemView.el
-    else
+    if itemView.model.get('new')
       @ui.new_list.append itemView.el
+    else
+      @ui.all_list.append itemView.el
