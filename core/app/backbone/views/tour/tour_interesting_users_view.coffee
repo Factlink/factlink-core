@@ -17,15 +17,15 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     finish: '.js-finish'
     scrollingInner: '.js-scrolling-inner'
 
-  numberOfUsersInX: 4
-  numberOfUsersInY: 2
-
   templateHelpers: ->
     next_tourstep_path: window.next_tourstep_path
 
   initialize: ->
     @page = 0
     @shuffledCollection = new TourUsers
+
+    @options.numberOfUsersInX ?= 4
+    @options.numberOfUsersInY ?= 2
 
   onRender: ->
     @ui.finish.hide()
@@ -60,7 +60,7 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
 
   showPage: (page) ->
     @page = page
-    xOffset = @userListItemWidth() * @numberOfUsersInX * @page
+    xOffset = @userListItemWidth() * @options.numberOfUsersInX * @page
     @ui.scrollingInner.css 'left', -xOffset
     @updateButtonStates()
 
@@ -76,12 +76,15 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     @page > 0
 
   hasNextPage: ->
-    (@page+1) * @numberOfUsersInX < @totalNumberOfItemsInX()
+    (@page+1) * @options.numberOfUsersInX < @totalNumberOfItemsInX()
 
   totalNumberOfItemsInX: ->
-    Math.ceil(@shuffledCollection.size() / @numberOfUsersInY)
+    Math.ceil(@shuffledCollection.size() / @options.numberOfUsersInY)
 
   userListItemWidth: ->
+    # Fixed width from options overrides calculation
+    return @options.userListItemWidth if @options.userListItemWidth?
+
     # Return some random number so on subsequent renders the
     # TourUserViews are not clipped
     return 500 if @shuffledCollection.isEmpty()
