@@ -17,7 +17,6 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     finish: '.js-finish'
     scrollingInner: '.js-scrolling-inner'
 
-  userListItemWidth: 200 + 2*20 # width of .tour-interesting-user including margin
   numberOfUsersInX: 4
   numberOfUsersInY: 2
 
