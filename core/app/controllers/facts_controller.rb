@@ -200,13 +200,11 @@ class FactsController < ApplicationController
     end
 
     def add_to_channels fact, channel_ids
-      if channel_ids
-        channel_ids.each do |channel_id|
-          channel = Channel[channel_id]
-          if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
-            interactor :"channels/add_fact", fact, channel
-          end
-        end
+      return unless channel_ids
+
+      channels = channel_ids.map{|id| Channel[id]}.compact
+      channels.each do |channel|
+        interactor :"channels/add_fact", fact, channel
       end
     end
 end
