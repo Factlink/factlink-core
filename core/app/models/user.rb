@@ -234,7 +234,13 @@ class User
   end
 
   def name
-    "#{first_name} #{last_name}".strip
+    name = "#{first_name} #{last_name}".strip
+
+    unless name.blank?
+      name
+    else
+      username
+    end
   end
 
   def valid_username_and_email?
