@@ -83,11 +83,13 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
 
   userListItemWidth: ->
     # Fixed width from options overrides calculation
-    return @options.userListItemWidth if @options.userListItemWidth?
+    if @options.userListItemWidth?
+      return @options.userListItemWidth
 
     # Return some random number so on subsequent renders the
     # TourUserViews are not clipped
-    return 500 if @shuffledCollection.isEmpty()
+    if @shuffledCollection.isEmpty()
+      return 500
 
     # width of TourUserView including margin
     @listView().children.first().$el.outerWidth(true)
