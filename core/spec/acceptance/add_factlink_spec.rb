@@ -2,6 +2,8 @@ require 'acceptance_helper'
 
 describe "creating a Factlink", type: :request do
   include Acceptance::ProfileHelper
+  include Acceptance::AddToChannelModalHelper
+  include Acceptance::NavigationHelper
 
   def created_channel_path(user)
     channel_path(user.username, user.graph_user.created_facts_channel.id)
@@ -22,6 +24,25 @@ describe "creating a Factlink", type: :request do
 
     page.should have_content "Feed"
     page.should have_content fact_name
+  end
+
+  it "should add a factlink to a topic" do
+    fact_name = "baronnenbillen"
+    new_topic_name = 'Gerrit'
+
+    visit new_fact_path(fact: fact_name)
+
+    add_as_new_channel new_topic_name
+    click_button "Post to Factlink"
+
+    open_modal 'Repost' do
+      added_channels_should_contain new_topic_name
+    end
+
+    visit current_path
+    open_modal 'Repost' do
+      added_channels_should_contain new_topic_name
+    end
   end
 
   it "should be able to delete a factlink" do
