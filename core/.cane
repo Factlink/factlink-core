@@ -9,9 +9,7 @@
 --abc-exclude OurOhm::ValueReference#value_reference
 --abc-exclude ActivityMailer#get_mail_subject_for_activity
 --abc-exclude ChannelsController#update
---abc-exclude LoadDsl#load_user
 --abc-exclude Activity::ListenerCreator#forGraphUser_someone_followed_your_channel
 --abc-exclude Opinion#+
 --abc-exclude FactGraph.export_opiniated
---abc-exclude UserObserverTask.initialize_mixpanel_for
 --abc-exclude Activity::Listener#matches

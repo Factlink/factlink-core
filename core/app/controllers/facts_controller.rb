@@ -97,6 +97,8 @@ class FactsController < ApplicationController
         @fact.calculate_opinion(1)
       end
 
+      add_to_channels @fact, params[:channels]
+
       format.html do
         mp_track "Modal: Create"
         redirect_to fact_path(@fact.id, guided: params[:guided])
@@ -195,5 +197,14 @@ class FactsController < ApplicationController
       @total = data[:total]
 
       render 'facts/interactions', format: 'json'
+    end
+
+    def add_to_channels fact, channel_ids
+      return unless channel_ids
+
+      channels = channel_ids.map{|id| Channel[id]}.compact
+      channels.each do |channel|
+        interactor :"channels/add_fact", fact, channel
+      end
     end
 end

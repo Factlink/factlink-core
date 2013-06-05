@@ -9,7 +9,8 @@ class window.User extends Backbone.Model
 
   setChannels: (channels) -> @channels = channels
 
-  url: (forProfile) ->
+  url: ->
+    # We do this because we cannot (yet) set the idAttribute to "username"
     if @collection?
       @collection.url() + '/' + @get('username')
     else
@@ -48,6 +49,10 @@ class window.User extends Backbone.Model
       avatar_url_160: @avatar_url(160)
       stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
       profile_path: "/#{username}"
+      user_topics: @user_topics().toJSON()
+
+  is_following_users: ->
+    !@following.isEmpty()
 
   follow: ->
     currentUser.following.create @,
@@ -71,3 +76,6 @@ class window.User extends Backbone.Model
   followed_by_me: ->
     currentUser.following.some (model) =>
       model.get('username') == @get('username')
+
+  user_topics: ->
+    new UserTopics @get('user_topics')

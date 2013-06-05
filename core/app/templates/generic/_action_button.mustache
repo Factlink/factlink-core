@@ -1,17 +1,15 @@
-{{! when updating this template, also update _action_button_mini }}
+{{#checked}}
+  {{#hovering}}
+    <span class="factlink-icon-cross-white"></span>
+    {{checked_hovered_label}}
+  {{/hovering}}
 
-<button class="btn btn-block js-action-button-primary">
-  {{disabled_label}}
-</button>
+  {{^hovering}}
+    <span class="factlink-icon-checkmark"></span>
+    {{checked_unhovered_label}}
+  {{/hovering}}
+{{/checked}}
 
-<button class="btn btn-block js-action-button-secondary" style="display:none">
-  <span class="js-default-state">
-    <img src="{{global.checkmark}}"></img>
-    {{enabled_label}}
-  </span>
-
-  <span class="js-hover-state" style="display:none">
-    <img src="{{global.unfollow}}"></img>
-    {{disable_label}}
-  </span>
-</button>
+{{^checked}}
+  {{unchecked_label}}
+{{/checked}}

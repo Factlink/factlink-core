@@ -42,20 +42,16 @@ class UserObserverTask
 
   private
   def self.update_mixpanel_for user
-    mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-
     fields = user.changes
               .slice( *User.mixpaneled_fields.keys )
               .inject({}){|memo, (k,v)| memo[User.mixpaneled_fields[k]] = v[1]; memo }
 
-    if fields.length > 0
-      mixpanel.set_person_event user.id.to_s, fields
-    end
+    return if fields.length == 0
+
+    mixpanel.set_person_event user.id.to_s, fields
   end
 
   def self.initialize_mixpanel_for user
-    mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-
     new_attributes = user.attributes
                       .slice( *User.mixpaneled_fields.keys )
                       .inject({}){|memo,(k,v)| memo[User.mixpaneled_fields[k].to_sym] = v; memo}
@@ -63,6 +59,10 @@ class UserObserverTask
     new_attributes[:approved_at] = DateTime.now
 
     mixpanel.set_person_event user.id.to_s, new_attributes
+  end
+
+  def self.mixpanel
+    FactlinkUI::Application.config.mixpanel.new({}, true)
   end
 
 end

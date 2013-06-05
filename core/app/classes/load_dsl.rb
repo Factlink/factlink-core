@@ -94,34 +94,40 @@ class LoadDsl
       " \"#{quote_string(fact_relation.fact.data.displaystring)}\"\n"
   end
 
+  def raise_undefined_user_error
+    raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
+  end
+
+  def raise_error_if_not_saved u
+    return unless u.new_record?
+
+    err_msg = "User #{username} could not be created."
+    u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
+    raise err_msg
+  end
+
   def load_user(username,email=nil, password=nil, twitter=nil, first_name=nil, last_name=nil)
     u = User.where(:username => username).first
-    if not u
-      if email and password
-        u = User.new(
-          :username => username,
-          :password => password,
-          :password_confirmation => password,
-          :twitter => twitter,
-          :first_name => first_name,
-          :last_name => last_name)
-        u.approved = true
-        u.agrees_tos = true
-        u.agreed_tos_on = DateTime.now
-        u.email = email
-        u.confirmed_at = DateTime.now
-        u.save
-        u.send(:create_graph_user) {}
-        if u.new_record?
-          err_msg = "User #{username} could not be created."
-          u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
-          raise err_msg if u.new_record?
-        end
-        HandpickedTourUsers.new.add u.id
-      else
-        raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
-      end
-    end
+    return u if u
+    raise_undefined_user_error unless email and password
+
+    u = User.new(
+      :username => username,
+      :password => password,
+      :password_confirmation => password,
+      :twitter => twitter,
+      :first_name => first_name || username,
+      :last_name => last_name || username )
+    u.approved = true
+    u.agrees_tos = true
+    u.agreed_tos_on = DateTime.now
+    u.email = email
+    u.confirmed_at = DateTime.now
+    u.save
+
+    raise_error_if_not_saved(u)
+    HandpickedTourUsers.new.add u.id
+
     u
   end
 
@@ -179,7 +185,6 @@ class LoadDsl
     ch = ChannelList.new(graph_user).channels.find(:title => title).first
     unless ch
       ch = Channel.create(:created_by => graph_user, :title => title)
-      TopChannels.new.add ch.id
     end
     ch
   end
