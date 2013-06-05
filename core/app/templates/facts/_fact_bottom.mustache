@@ -31,21 +31,25 @@
     <li><a href="#" class="js-start-conversation">Share</a></li>
   {{/global.signed_in}}
 
-  <li class="fact-info">
-    {{^hide_timestamp}}
-      {{formatted_time}}
-    {{/hide_timestamp}}
+  {{#show_timestamp_or_fact_url_host}}
+    <li class="fact-info">
+      {{^hide_timestamp}}
+        {{formatted_time}}
+        {{#proxy_scroll_url}}
+          from
+        {{/proxy_scroll_url}}
+      {{/hide_timestamp}}
 
-    {{#proxy_scroll_url}}
-      from
-      {{#fact_url_host}}
-      <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
-      {{/fact_url_host}}
-      <a href="{{proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
-        {{fact_title}}
-      </a>
-    {{/proxy_scroll_url}}
-  </li>
+      {{#proxy_scroll_url}}
+        {{#fact_url_host}}
+        <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
+        {{/fact_url_host}}
+        <a href="{{proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
+          {{fact_title}}
+        </a>
+      {{/proxy_scroll_url}}
+    </li>
+  {{/show_timestamp_or_fact_url_host}}
 </ul>
 
 <i class="title-overflow"></i>
