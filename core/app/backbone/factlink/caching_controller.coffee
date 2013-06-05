@@ -1,6 +1,12 @@
 class Backbone.Factlink.CachingController extends Backbone.Factlink.BaseController
-  onShow:   -> @cached_views = new Backbone.Factlink.DetachedViewCache
-  onClose:  -> @cached_views.cleanup()
+  openController: ->
+    super
+    @cached_views = new Backbone.Factlink.DetachedViewCache
+
+  closeController: ->
+    super
+    @cached_views.cleanup()
+
   onAction: -> @unbindFrom @permalink_event if @permalink_event?
 
   makePermalinkEvent: (baseUrl=null)->
