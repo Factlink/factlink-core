@@ -15,11 +15,10 @@ class Fact < Basefact
   timestamped_set :interactions, Activity
 
   def increment_mixpanel_count
-    if self.has_site? and self.created_by.user
-      mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
+    return unless self.has_site? and self.created_by.user
 
-      mixpanel.increment_person_event self.created_by.user.id.to_s, factlinks_created_with_url: 1
-    end
+    mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
+    mixpanel.increment_person_property self.created_by.user.id.to_s, factlinks_created_with_url: 1
   end
 
   def set_activity!

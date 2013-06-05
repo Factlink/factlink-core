@@ -1,5 +1,3 @@
-json.total @total
-json.followed_by_me @followed_by_me
-json.users @users do |user|
+json.array! @users do |user|
   json.partial! 'users/user_partial', user: user
 end

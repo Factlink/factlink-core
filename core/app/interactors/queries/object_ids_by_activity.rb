@@ -7,10 +7,12 @@ module Queries
     arguments :activity, :class_name, :list
 
     def execute
-      listener.add_to(@activity)
+      listeners.map do |listener|
+        listener.add_to(@activity)
+      end.flatten
     end
 
-    def listener
+    def listeners
       Activity::Listener.all[{class: @class_name, list: @list}]
     end
   end

@@ -16,6 +16,8 @@ class FactsController < ApplicationController
       :update,
       :opinion,
       :evidence_search,
+      :set_opinion,
+      :remove_opinions
       ]
 
   around_filter :allowed_type,
@@ -85,7 +87,7 @@ class FactsController < ApplicationController
     @site = @fact.site
 
     respond_to do |format|
-      track "Factlink: Created"
+      mp_track "Factlink: Created"
 
       #TODO switch the following two if blocks if possible
       if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
@@ -95,17 +97,10 @@ class FactsController < ApplicationController
         @fact.calculate_opinion(1)
       end
 
-      if params[:channels]
-        params[:channels].each do |channel_id|
-          channel = Channel[channel_id]
-          if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
-            interactor :"channels/add_fact", @fact, channel
-          end
-        end
-      end
+      add_to_channels @fact, params[:channels]
 
       format.html do
-        track "Modal: Create"
+        mp_track "Modal: Create"
         redirect_to fact_path(@fact.id, guided: params[:guided])
       end
       format.json { render 'facts/show' }
@@ -123,28 +118,29 @@ class FactsController < ApplicationController
 
   def set_opinion
     type = params[:type].to_sym
-    @basefact = Basefact[params[:id]]
+    authorize! :opinionate, @fact
 
-    authorize! :opinionate, @basefact
+    @fact.add_opinion(type, current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), @fact)
 
-    @basefact.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), @basefact)
+    @fact.calculate_opinion(2)
 
-    @basefact.calculate_opinion(2)
-
-    render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
+    render_factwheel(@fact.id)
   end
 
   def remove_opinions
-    @basefact = Basefact[params[:id]]
+    authorize! :opinionate, @fact
 
-    authorize! :opinionate, @basefact
+    @fact.remove_opinions(current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
+    @fact.calculate_opinion(2)
 
-    @basefact.remove_opinions(current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@basefact)
-    @basefact.calculate_opinion(2)
+    render_factwheel(@fact.id)
+  end
 
-    render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
+  def render_factwheel(fact_id)
+    dead_fact_wheel = query 'facts/get_dead_wheel', fact_id.to_s
+    render 'facts/_fact_wheel', format: :json, locals: {dead_fact_wheel: dead_fact_wheel}
   end
 
   # TODO: This search is way to simple now, we need to make sure already
@@ -201,5 +197,14 @@ class FactsController < ApplicationController
       @total = data[:total]
 
       render 'facts/interactions', format: 'json'
+    end
+
+    def add_to_channels fact, channel_ids
+      return unless channel_ids
+
+      channels = channel_ids.map{|id| Channel[id]}.compact
+      channels.each do |channel|
+        interactor :"channels/add_fact", fact, channel
+      end
     end
 end

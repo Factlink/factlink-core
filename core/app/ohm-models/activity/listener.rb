@@ -2,18 +2,23 @@ require 'active_support/core_ext/hash/slice'
 
 class Activity < OurOhm
   class Listener
+    require_relative 'listener/stream'
 
     def self.all
       @all ||= {}
-      @all
     end
 
     attr_accessor :activity_for, :listname, :queries
 
     def self.register &block
-      a = new &block
+      listener = new(&block)
+      register_listener listener
+    end
+
+    def self.register_listener a
       @all ||= {}
-      @all[{class: a.activity_for, list: a.listname}] = a
+      @all[{class: a.activity_for, list: a.listname}] ||= []
+      @all[{class: a.activity_for, list: a.listname}] << a
     end
 
     def self.reset
@@ -22,7 +27,7 @@ class Activity < OurOhm
 
     def initialize(&block)
       self.queries = []
-      Dsl.new self, &block if block_given?
+      Dsl.new(self, &block) if block_given?
     end
 
     def add_to activity
@@ -35,27 +40,38 @@ class Activity < OurOhm
       res
     end
 
+    def matches_any? activity
+      queries.any? { |query| matches(query, activity) }
+    end
+
     def matches query, activity
+      field_query = get_fields_query(query)
+      return false if field_query == {} and
+                      query[:extra_condition].nil?
+
+      extra_condition = query.fetch(:extra_condition) do
+        ->(a) {true}
+      end
+
+      field_query.each_pair do |field, value|
+        actual_value = activity.send(field).to_s
+        allowed_values = Array(value).map(&:to_s)
+        return false unless allowed_values.include? actual_value
+      end
+
+      extra_condition.call(activity)
+    end
+
+    def get_fields_query query
       fields_to_match = :subject_class, :object_class, :action
-      return false if query.slice(:extra_condition, *fields_to_match) == {}
-      extra_keys = query.keys - query.slice(:extra_condition, :write_ids, *fields_to_match).keys
+      fields_query = query.slice(*fields_to_match)
+
+      extra_keys = query.keys -
+                   fields_query.keys -
+                   [:extra_condition, :write_ids]
       raise Exception.exception("Extra keys: #{extra_keys}") if extra_keys != []
 
-      field_query = query.slice *fields_to_match
-      field_query.each_pair do |field, value|
-        real = activity.send(field)
-        if value.respond_to? :map
-          return false unless value.map(&:to_s).include? real.to_s
-        else
-          return false unless real.to_s == value.to_s
-        end
-      end
-
-      if query[:extra_condition]
-        query[:extra_condition].call(activity)
-      else
-        return true
-      end
+      fields_query
     end
 
     def process activity
@@ -70,11 +86,11 @@ class Activity < OurOhm
     class Dsl
       def initialize(listener,&block)
         @listener = listener
-        execute &block if block_given?
+        execute(&block) if block_given?
       end
 
       def execute &block
-        instance_eval &block
+        instance_eval(&block)
       end
 
       def activity_for klass

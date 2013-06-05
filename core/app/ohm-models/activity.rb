@@ -4,6 +4,7 @@ require 'pavlov'
 class GraphUser < OurOhm;end # needed because of removed const_missing from ohm
 
 require_relative 'activity/subject'
+require_relative 'activity/followers'
 require_relative 'activity/listener'
 require_relative 'activity/create_listeners'
 require_relative '../interactors/interactors/send_mail_for_activity'
@@ -32,10 +33,11 @@ class Activity < OurOhm
   index     :action
 
   def self.for(search_for)
-    res = find(subject_id: search_for.id, subject_class: search_for.class) | find(object_id: search_for.id, object_class: search_for.class)
-    if search_for.class == GraphUser
-      res |= find(user_id: search_for.id)
-    end
+    res = find(subject_id: search_for.id, subject_class: search_for.class) |
+          find(object_id: search_for.id, object_class: search_for.class)
+
+    res |= find(user_id: search_for.id) if search_for.class == GraphUser
+
     res
   end
 

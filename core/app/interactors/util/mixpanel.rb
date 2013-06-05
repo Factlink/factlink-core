@@ -1,7 +1,7 @@
 module Util
   module Mixpanel
 
-    def track(event, opts={})
+    def mp_track(event, opts={})
       current_user = @options[:current_user]
       if current_user
         opts = opts.update(
@@ -14,13 +14,13 @@ module Util
       Resque.enqueue(::Mixpanel::TrackEventJob, event, opts, {})
     end
 
-    def track_event *args
-      @options[:mixpanel].track_event *args
-    end
+    def mp_increment_person_property event
+      return unless @options[:current_user]
 
-    def increment_person_event event
       current_user_id = @options[:current_user].id.to_s
-      @options[:mixpanel].increment_person_event current_user_id, {event => 1}
+      opts = {event => 1}
+
+      Resque.enqueue(::Mixpanel::TrackPeopleEventJob, current_user_id, opts, {})
     end
   end
 end

@@ -12,7 +12,6 @@ class Channel < OurOhm
   index :title
 
   timestamped_set :activities, Activity
-  timestamped_set :added_facts, Activity
 
   attribute :lowercase_title
 
@@ -21,11 +20,10 @@ class Channel < OurOhm
 
   after :create, :increment_mixpanel_count
   def increment_mixpanel_count
-    if type == 'channel' and self.created_by.user
-      mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
+    return unless type == 'channel' and self.created_by.user
 
-      mixpanel.increment_person_event self.created_by.user.id.to_s, channels_created: 1
-    end
+    mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
+    mixpanel.increment_person_property self.created_by.user.id.to_s, channels_created: 1
   end
 
   alias :old_set_title :title= unless method_defined?(:old_set_title)

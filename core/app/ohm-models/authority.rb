@@ -15,7 +15,9 @@ class Authority < OurOhm
     end
 
     def related(label, subject, opts={})
-      AuthorityObject.by_reference self.key+"NEW", label, subject.class.to_s, subject.id.to_s, opts[:for].andand.id
+      AuthorityObject.by_reference self.key+"NEW", label,
+        class_for(subject), subject.id.to_s,
+        opts[:for].andand.id
     end
 
     def from(subject, opts={})
@@ -27,7 +29,8 @@ class Authority < OurOhm
     end
 
     def all_related(label, subject)
-      return AuthorityObject.all_for self.key+"NEW", label, subject.class.to_s, subject.id.to_s
+      return AuthorityObject.all_for self.key+"NEW", label,
+        class_for(subject), subject.id.to_s
     end
 
     def all_from(subject)
@@ -43,6 +46,15 @@ class Authority < OurOhm
         obj = mr.new
         debug "Running #{obj.class}"
         obj.process_all
+      end
+    end
+
+    private
+    def class_for object
+      if object.respond_to? :acts_as_class_for_authority
+        object.acts_as_class_for_authority
+      else
+        object.class.to_s
       end
     end
   end

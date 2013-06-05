@@ -1,11 +1,11 @@
 <h2 class="activity-title">
-	<%= link_to_possibly_dead_user @activity.user.user %> 
-	has sent you a message:
+  <%= link_to_possibly_dead_user @activity.user.user %>
+  has sent you a message:
 </h2>
 <p class="activity-body">
-	<%= @activity.subject.messages.last.content %>
+  <%= @activity.subject.messages.last.content %>
 </p>
 <p class="activity-action">
-	To view the full conversation, visit:<br>
-	<%= link_to conversation_url(@activity.subject), conversation_url(@activity.subject) %>
+  To view the full conversation, visit:<br>
+  <%= link_to conversation_url(@activity.subject), conversation_url(@activity.subject) %>
 </p>

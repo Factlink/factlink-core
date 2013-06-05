@@ -16,14 +16,15 @@
   <%= link_to 'Skip this step', next_tourstep_path, id: 'skip-link' %>
 <% end %>
 
-<%= content_for :javascript do %>
-  <script>
-    window.next_tourstep_path = '<%=next_tourstep_path%>';
-  </script>
+<%= content_for :tour_javascript do %>
   <%= javascript_include_tag "frontend" %>
   <% lib_url = "#{jslib_url}" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>
   <script>
+    $(function() {
+      window.tour = new InteractiveTour({el: $('.create-your-first-factlink')});
+    });
+
     window.FactlinkConfig = {
       modus: "default",
       api: "<%= FactlinkUI::Application.config.api_url %>",

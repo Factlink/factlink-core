@@ -1,9 +1,9 @@
 <h2 class="activity-title">
-	<%= link_to_possibly_dead_user @activity.user.user %> 
-	is now following you on <%= @activity.subject.title %> 
+  <%= link_to_possibly_dead_user @activity.user.user %>
+  is now following you on <%= @activity.subject.title %>
 </h2>
 <p class="activity-action">
-	To view their <%= @activity.object.title %> channel, visit:<br>
-	<%= link_to channel_url(@activity.object.created_by.user, @activity.object.id), channel_url(@activity.object.created_by.user, @activity.object.id) %>
+  To view their <%= @activity.object.title %> channel, visit:<br>
+  <%= link_to channel_url(@activity.object.created_by.user, @activity.object.id), channel_url(@activity.object.created_by.user, @activity.object.id) %>
 </p>
 

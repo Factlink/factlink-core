@@ -8,7 +8,13 @@ module Queries
       arguments :comments
 
       def execute
-        (comments_creators_ids + comments_opinionated_ids + sub_comments_on_comments_creators_ids).uniq
+        follower_ids.uniq
+      end
+
+      def follower_ids
+        comments_creators_ids +
+          comments_opinionated_ids +
+          sub_comments_on_comments_creators_ids
       end
 
       def comments_creators_ids

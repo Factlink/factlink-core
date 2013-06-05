@@ -19,9 +19,5 @@ module Queries
 
       query :users_by_ids, ids
     end
-
-    def authorized?
-      @options[:current_user]
-    end
   end
 end
