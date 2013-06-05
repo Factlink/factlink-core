@@ -4,7 +4,6 @@
 describe 'TourInterestingUsersView', ->
 
   describe '8 users in total, spanning 2 pages, 2x2 grid', ->
-
     beforeEach ->
       window.currentUser = new User
 
@@ -30,7 +29,6 @@ describe 'TourInterestingUsersView', ->
         expect(@view.$('.js-scrolling-inner').width()).to.equal 40
 
     describe 'after going to the second page', ->
-
       beforeEach ->
         @view.showNextPage()
 
