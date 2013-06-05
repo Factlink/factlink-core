@@ -6,7 +6,6 @@ class Activity < OurOhm
 
     def self.all
       @all ||= {}
-      @all
     end
 
     attr_accessor :activity_for, :listname, :queries
@@ -42,10 +41,7 @@ class Activity < OurOhm
     end
 
     def matches_any? activity
-      queries.each do |query|
-        return true if matches(query, activity)
-      end
-      return false
+      queries.any? { |query| matches(query, activity) }
     end
 
     def matches query, activity
