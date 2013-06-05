@@ -56,19 +56,19 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
     @_recentFactsView
 
-  createFactRelation: (fact_relation, onFinish)->
+  createFactRelation: (fact_relation, onFinish=->)->
     @hideError()
     @collection.add fact_relation, highlight: true
     @inputRegion.switchTo('search_view')
 
     fact_relation.save {},
       error: =>
-        onFinish() if onFinish?
+        onFinish()
         @collection.remove fact_relation
         @showError()
 
       success: =>
-        onFinish() if onFinish?
+        onFinish()
         @inputRegion.getView('search_view').reset()
 
         mp_track "Evidence: Added",
