@@ -97,14 +97,7 @@ class FactsController < ApplicationController
         @fact.calculate_opinion(1)
       end
 
-      if params[:channels]
-        params[:channels].each do |channel_id|
-          channel = Channel[channel_id]
-          if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
-            interactor :"channels/add_fact", @fact, channel
-          end
-        end
-      end
+      add_to_channels @fact, params[:channels]
 
       format.html do
         mp_track "Modal: Create"
@@ -204,5 +197,16 @@ class FactsController < ApplicationController
       @total = data[:total]
 
       render 'facts/interactions', format: 'json'
+    end
+
+    def add_to_channels fact, channel_ids
+      if channel_ids
+        channel_ids.each do |channel_id|
+          channel = Channel[channel_id]
+          if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
+            interactor :"channels/add_fact", fact, channel
+          end
+        end
+      end
     end
 end
