@@ -23,7 +23,7 @@ class Channel < OurOhm
     if type == 'channel' and self.created_by.user
       mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
 
-      mixpanel.increment_person_event self.created_by.user.id.to_s, channels_created: 1
+      mixpanel.mp_increment_person_property self.created_by.user.id.to_s, channels_created: 1
     end
   end
 

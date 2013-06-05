@@ -27,8 +27,8 @@ module Interactors
     end
 
     def track_mixpanel
-      track_event :conversation_created
-      increment_person_event :conversations_created
+      mp_track :conversation_created
+      mp_increment_person_property :conversations_created
     end
 
     def authorized?
