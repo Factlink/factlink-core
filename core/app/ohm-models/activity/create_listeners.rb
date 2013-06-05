@@ -38,7 +38,10 @@ class Activity < OurOhm
       {
         subject_class: "Channel",
         action: 'added_subchannel',
-        extra_condition: lambda { |a| a.subject.created_by_id != a.user.id and not followers_for_graph_user(a.subject.created_by_id).include?(a.user.id)},
+        extra_condition: lambda do |a|
+          a.subject.created_by_id != a.user.id and
+            not followers_for_graph_user(a.subject.created_by_id).include?(a.user.id)
+        end,
         write_ids: lambda { |a| select_users_that_see_channels([a.subject.created_by_id]) }
       }
     end
@@ -87,7 +90,10 @@ class Activity < OurOhm
       {
         subject_class: "Channel",
         action: :created_channel,
-        write_ids: lambda { |a| select_users_that_see_channels(reject_self(channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by),a)) }
+        write_ids: lambda do |a|
+          followers = channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by)
+          select_users_that_see_channels(reject_self(followers,a))
+        end
       }
     end
 
@@ -112,7 +118,10 @@ class Activity < OurOhm
       {
         subject_class: "Fact",
         action: :added_fact_to_channel,
-        extra_condition: lambda { |a| (a.subject.created_by_id != a.user_id) and (a.object.type == 'channel')},
+        extra_condition: lambda do |a|
+          (a.subject.created_by_id != a.user_id) and
+            (a.object.type == 'channel')
+        end,
         write_ids: lambda { |a| [a.subject.created_by_id] }
       }
     end
@@ -193,9 +202,6 @@ class Activity < OurOhm
       # This was used for the activities tab of the channel
       # however, we removed access to this view a long time ago
       create_channel_activities
-      # This is used for adding channels in the tour, and can be
-      # Removed as soon as we switch to following people in the tour
-      create_channel_added_facts
       # I don't know why this was ever added, is not used as far
       # as I can see
       create_fact_interactions
@@ -213,17 +219,6 @@ class Activity < OurOhm
         activity object_class: "Fact",
                  action: [:added_supporting_evidence, :added_weakening_evidence],
                  write_ids: lambda { |a| a.object.channels.ids }
-      end
-    end
-    def create_channel_added_facts
-      Activity::Listener.register do
-        activity_for "Channel"
-        named :added_facts
-
-        # someone added a fact created to his channel
-        activity subject_class: "Fact",
-                 action: :added_fact_to_channel,
-                 write_ids: lambda { |a| [a.object_id] }
       end
     end
 

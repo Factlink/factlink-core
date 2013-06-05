@@ -35,7 +35,7 @@ class MapReduce
     end
 
     def write_output fact_id, value
-      f = Fact[fact_id]
+      f = DeadFact.new fact_id
       if f
         Authority.from(f) << value
       end

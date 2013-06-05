@@ -12,8 +12,8 @@ class Activity < OurOhm
     attr_accessor :activity_for, :listname, :queries
 
     def self.register &block
-      a = new &block
-      register_listener a
+      listener = new(&block)
+      register_listener listener
     end
 
     def self.register_listener a
@@ -28,7 +28,7 @@ class Activity < OurOhm
 
     def initialize(&block)
       self.queries = []
-      Dsl.new self, &block if block_given?
+      Dsl.new(self, &block) if block_given?
     end
 
     def add_to activity
@@ -90,11 +90,11 @@ class Activity < OurOhm
     class Dsl
       def initialize(listener,&block)
         @listener = listener
-        execute &block if block_given?
+        execute(&block) if block_given?
       end
 
       def execute &block
-        instance_eval &block
+        instance_eval(&block)
       end
 
       def activity_for klass

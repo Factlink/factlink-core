@@ -15,7 +15,7 @@ module Util
     end
 
     def track_event *args
-      @options[:mixpanel].track_event *args
+      @options[:mixpanel].track_event(*args)
     end
 
     def increment_person_event event

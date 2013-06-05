@@ -14,3 +14,4 @@
 --abc-exclude Opinion#+
 --abc-exclude FactGraph.export_opiniated
 --abc-exclude UserObserverTask.initialize_mixpanel_for
+--abc-exclude Activity::Listener#matches

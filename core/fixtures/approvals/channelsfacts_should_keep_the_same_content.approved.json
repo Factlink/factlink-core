@@ -2,13 +2,11 @@
   {
     "displaystring": "Fact 3",
     "id": "<STRIPPED>",
-    "site_id": "3",
     "containing_channel_ids": [
       "3"
     ],
     "url": "/fact-3/f/3",
     "deletable_from_channel?": true,
-    "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",
@@ -46,13 +44,11 @@
   {
     "displaystring": "Fact 2",
     "id": "<STRIPPED>",
-    "site_id": "2",
     "containing_channel_ids": [
       "3"
     ],
     "url": "/fact-2/f/2",
     "deletable_from_channel?": true,
-    "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",
@@ -90,13 +86,11 @@
   {
     "displaystring": "Fact 1",
     "id": "<STRIPPED>",
-    "site_id": "1",
     "containing_channel_ids": [
       "3"
     ],
     "url": "/fact-1/f/1",
     "deletable_from_channel?": true,
-    "post_action": "Posted",
     "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",

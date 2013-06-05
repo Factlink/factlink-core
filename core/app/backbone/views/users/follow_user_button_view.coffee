@@ -2,18 +2,18 @@ class window.FollowUserButtonView extends ActionButtonView
   className: 'user-follow-user-button'
 
   initialize: ->
-    @bindTo @model.followers, 'all', @updateButton, @
+    @bindTo @model, 'click:unchecked', => @options.user.follow()
+    @bindTo @model, 'click:checked', => @options.user.unfollow()
+
+    @bindTo currentUser, 'follow_action', @updateStateModel
+    @updateStateModel()
+
+    currentUser.following.fetchOnce()
 
   templateHelpers: =>
-    disabled_label: Factlink.Global.t.follow_user.capitalize()
-    disable_label:  Factlink.Global.t.unfollow.capitalize()
-    enabled_label:  Factlink.Global.t.following.capitalize()
+    unchecked_label:         Factlink.Global.t.follow_user.capitalize()
+    checked_hovered_label:   Factlink.Global.t.unfollow.capitalize()
+    checked_unhovered_label: Factlink.Global.t.following.capitalize()
 
-  buttonEnabled: ->
-    @model.followers.followed_by_me()
-
-  primaryAction: (e) ->
-    @model.follow()
-
-  secondaryAction: (e) ->
-    @model.unfollow()
+  updateStateModel: ->
+    @model.set 'checked', @options.user.followed_by_me()

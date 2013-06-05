@@ -1,0 +1,15 @@
+<div class="tour-follow-user-block">
+  <div class="tour-follow-user-heading">
+    <span class="tour-follow-user-avatar"><img src="{{avatar_url_32}}" /></span>
+    {{name}}</div>
+  <span class="tour-follow-topic-heading">
+    Posts Factlinks about:
+  </span>
+  <ul>
+    {{#user_topics}}
+      <li><span class="tour-user-topic js-topic"><span class="tour-user-topic-title">{{title}}</span> <span class="tour-user-topic-authority"><img src="{{global.brain_image}}"> {{authority}}</span></span></li>
+    {{/user_topics}}
+  </ul>
+</div>
+
+<div class="js-region-button tour-user-button-region"></div>

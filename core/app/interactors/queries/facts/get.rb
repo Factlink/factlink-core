@@ -6,11 +6,11 @@ module Queries
       arguments :id
 
       def execute
-        Fact[@id]
+        Fact[id]
       end
 
       def validate
-        validate_integer_string :id, @id
+        validate_integer_string :id, id
       end
     end
   end
