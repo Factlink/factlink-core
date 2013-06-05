@@ -8,6 +8,6 @@ class window.DiscussionView extends Backbone.Marionette.Layout
     factRelationTabsView: ".fact-relations-region"
 
   onRender: ->
-    @factView.show new FactView(model: @model)
+    @factView.show new FactView(model: @model, standalone: true)
 
     @factRelationTabsView.show new FactRelationTabsView(model: @model, tab: @options.tab)

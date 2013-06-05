@@ -29,6 +29,5 @@ class window.FactRelationView extends Backbone.Marionette.Layout
     fbv
 
 class window.FactRelationEvidenceView extends EvidenceBaseView
-  activityVerb: 'added'
   mainView: FactRelationView
   delete_message: 'Remove this Factlink as evidence'
