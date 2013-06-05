@@ -117,7 +117,6 @@ describe Activity::Listener do
 
     it "should not match for an empty query" do
       expect(subject.matches({}, @a)).to be_false
-      expect(subject.matches({baron: 0b100}, @a)).to be_false
     end
 
     it "should match if a property is the same" do
