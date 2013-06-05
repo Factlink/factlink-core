@@ -23,6 +23,10 @@
     margin: 0;
     padding: 0;
 
+    &.without_discussion {
+      padding-left: 55px;
+    }
+
     > li {
       display: inline-block;
 
@@ -72,7 +76,7 @@
 div.facts-view, #activity_for_channel .activity-group {
   div.fact-view {
     .bottom-base > ul.actions {
-      .opacity(.60);
+      .opacity(.25);
       .transition(opacity .15s ease-in-out);
     }
     &:hover {

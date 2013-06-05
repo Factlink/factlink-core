@@ -1,4 +1,4 @@
-class window.AddCommentView extends Backbone.Marionette.ItemView
+class window.AddCommentView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
                        Backbone.Factlink.AlertMixin
 
@@ -13,6 +13,13 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
   ui:
     content: '.js-content'
     submit:  '.js-post'
+
+  regions:
+    avatarRegion: '.js-avatar-region'
+
+  onRender: ->
+    @avatarRegion.show new AvatarView(model: currentUser)
+
 
   parseKeyDown: (e) =>
     code = e.keyCode || e.which

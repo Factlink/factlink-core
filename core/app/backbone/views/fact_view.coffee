@@ -53,7 +53,7 @@ class window.FactView extends Backbone.Marionette.Layout
 
   onRender: ->
     @factBaseView.show new FactBaseView(model: @model)
-    @factBottomView.show new FactBottomView(model: @model)
+    @factBottomView.show @newFactBottomView()
 
     if Factlink.Global.signed_in
       @setPopover()
@@ -67,6 +67,12 @@ class window.FactView extends Backbone.Marionette.Layout
         @$('#close').tooltip(trigger: 'manual')
                     .tooltip('show')
       )
+
+  newFactBottomView: ->
+    new FactBottomView
+      model: @model
+      hide_discussion_link: @options.standalone
+      show_timestamp: @options.standalone
 
   setPopover: ->
     popoverView = new FactPopoverView model: @model
