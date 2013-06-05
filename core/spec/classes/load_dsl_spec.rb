@@ -5,14 +5,14 @@ describe LoadDsl do
     subject.user "merijn", "merijn@gmail.com", "123hoi"
     subject.channel "hoi"
     subject.channel "hoi"
-    Channel.all.size.should == 2 + 2
+    Channel.all.size.should == 2 + 1
   end
 
-  it "should error when a user is made without passoword" do
+  it "should error when a user is made without password" do
       expect { subject.user "merijn" }.to raise_error(LoadDsl::UndefinedUserError)
   end
 
-  it "should error when a user is made without passoword" do
+  it "should error when a user is made without password" do
       expect { subject.fact "hoi" }.to raise_error(LoadDsl::UndefinedUserError)
   end
 
