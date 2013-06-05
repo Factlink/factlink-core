@@ -14,7 +14,7 @@ is_discover_stream = is_all && is_mine
 title = if is_all
           I18n.t(:stream).capitalize
         elsif is_created
-          is_mine ? 'My Factlinks' : 'Created by ' + user.username
+          is_mine ? 'My Factlinks' : 'Created by ' + user.name
         else
           channel.title
         end
