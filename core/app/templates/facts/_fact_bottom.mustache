@@ -3,19 +3,15 @@
 
   {{#show_discussion_link}}
   <li>
-      {{#global.signed_in}}
-        <a href="{{discussion_url}}" class="discussion_link js-discussion-link"
-          {{#modal?}}
-            target="new"
-          {{/modal?}}{{^modal?}}
-            rel="backbone" target="_top"
-          {{/modal?}}
-          >
-            Arguments
-        </a>
-      {{/global.signed_in}}{{^global.signed_in}}
-        <strong>Arguments</strong>
-      {{/global.signed_in}}
+      <a href="{{discussion_url}}" class="discussion_link js-discussion-link"
+        {{#modal?}}
+          target="new"
+        {{/modal?}}{{^modal?}}
+          rel="backbone" target="_top"
+        {{/modal?}}
+        >
+          Arguments
+      </a>
 
       <span class="opinion_indicators">
         <span class="opinion_indicator_small agreeing"></span>
