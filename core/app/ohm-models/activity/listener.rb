@@ -53,7 +53,7 @@ class Activity < OurOhm
       return false if field_query == {} and
                       query[:extra_condition].nil?
 
-      extra_condition = query.fetch(:extra_condition) do |variable|
+      extra_condition = query.fetch(:extra_condition) do
         ->(a) {true}
       end
 
