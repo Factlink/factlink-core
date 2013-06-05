@@ -1,1 +1,7 @@
-placeholder todo
+ ☐ Find out where to put JS tests (konacha?)
+ ☐ Figure out how to write a JS test
+ ☐ Write JS test verifying current behavior (test passes)
+ ☐ Alter JS test to verify new behavior (text-area automatically grows as text is added) (test fails)
+ ☐ Choose jquery plugin or other example implementing that feature (should be trivial)
+ ☐ Implement & verify basic behavior
+ ☐ Consider corner cases: what if text is deleted again, should textarea shrink?  Or when it loses focus?
