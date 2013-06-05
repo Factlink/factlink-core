@@ -226,7 +226,7 @@ class User
   around_create :create_graph_user
 
   def to_s
-    username
+    name
   end
 
   def to_param
