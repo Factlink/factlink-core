@@ -15,5 +15,6 @@ class window.FavouriteTopicButtonView extends ActionButtonView
     checked_unhovered_label: Factlink.Global.t.following.capitalize()
 
   updateStateModel: ->
-    checked = @options.topic.get('slug_title') in @user.favourite_topics.pluck('slug_title')
+    slug_title = @options.topic.get('slug_title')
+    checked = slug_title in @user.favourite_topics.pluck('slug_title')
     @model.set 'checked', checked

@@ -16,7 +16,7 @@
   <%= link_to 'Skip this step', next_tourstep_path, id: 'skip-link' %>
 <% end %>
 
-<%= content_for :javascript do %>
+<%= content_for :tour_javascript do %>
   <%= javascript_include_tag "frontend" %>
   <% lib_url = "#{jslib_url}" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>

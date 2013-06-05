@@ -60,10 +60,12 @@
   position: relative;
 }
 
+@user-width: 200px;
+@user-height: 170px;
 .tour-interesting-user {
   margin: 20px;
-  width: 200px;
-  height: 170px;
+  width: @user-width;
+  height: @user-height;
   display: inline-block;
   cursor: pointer;
 
@@ -73,13 +75,13 @@
     //the user's avatar+name should be raised slightly above + overlapping
     //the overall user-info block.
     position: absolute;
-    top: -1.75em;
+    top: -21px;
   }
 
   .tour-follow-user-avatar {
     position: relative;
     display: inline-block;
-    margin-right: 0.5em; //avatar is inline with text, wants space after it.
+    margin-right: 6px; //avatar is inline with text, wants space after it.
     vertical-align: top;
     top: -2px; //raise avatar a little out of the text line.
 
@@ -116,6 +118,8 @@
     position: absolute;
   }
 
+  @user-block-padding-horizontal: 15px;
+  @user-block-padding-vertical: 20px;
   .tour-follow-user-block {
     border: 1px solid @tableBorder;
     border-radius: 4px;
@@ -123,23 +127,12 @@
     position: absolute;
     //the user's info box should leave some extra space on the top of
     //its container to make room for the jutting-out avatar.
-    top: 2em; bottom: 0;
+    top: 24px; bottom: 0;
     left: 0; right: 0;
-    padding: 1.25em 0 0 1.25em;
+    padding: @user-block-padding-vertical 0 0 @user-block-padding-horizontal;
 
     //very subtle box-shadow.
     box-shadow: 0 2px 3px -3px rgba(0,0,0,0.5);
-  }
-
-  .tour-follow-user-authority {
-    color: @mutedFontColor;
-    margin-left: 15px;
-
-    > img {
-      margin-top: -2px;
-      width: 13px;
-      height: 12px;
-    }
   }
 
   .tour-follow-topic-heading {
@@ -151,16 +144,40 @@
   }
 
   li {
-    margin: 0.5em 0;
+    margin: 6px 0;
   }
 
   .tour-user-topic {
     position: relative;
-    padding: 0 0.6em;
+    padding: 0 7px;
     border-radius: 5px;
     border: 2px solid @tableBorder;
     display: inline-block;
     background: white;
+
+    max-width: @user-width - 2*@user-block-padding-horizontal - 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    padding-right: 50px;
+  }
+
+  .tour-user-topic-title {
+    font-weight: bold;
+    margin-right: 15px;
+  }
+
+  .tour-user-topic-authority {
+    position: absolute;
+    right: 8px;
+    color: @mutedFontColor;
+
+    > img {
+      margin-top: -2px;
+      width: 13px;
+      height: 12px;
+    }
   }
 
   .tour-user-button-region > button {
@@ -170,6 +187,7 @@
     right: 0;
     //the button is an integral part of the user-info box design; don't round top corners.
     border-radius: 0 0 4px 4px;
+    width: 100%;
   }
 }
 .hover > .tour-follow-user-block {

@@ -16,33 +16,26 @@ describe Interactors::ReplyToConversation do
       content      = 'geert'
       conversation = mock(:conversation, id: 20)
       message      = mock
+      options      = {current_user: sender}
 
-      interactor = Interactors::ReplyToConversation.new conversation.id.to_s, sender.id.to_s, content, current_user: sender
+      interactor = Interactors::ReplyToConversation.new conversation.id.to_s, sender.id.to_s, content, options
 
       Conversation.should_receive(:find).with(conversation.id.to_s).and_return(conversation)
-      interactor.should_receive(:command).with(:create_message, sender.id.to_s, content, conversation).
-        and_return(message)
+      Pavlov.should_receive(:command)
+            .with(:create_message, sender.id.to_s, content, conversation, options)
+            .and_return(message)
 
       User.should_receive(:find).with(sender.id.to_s).and_return(sender)
-      interactor.should_receive(:command).with(:create_activity, graph_user, :replied_message, message, nil)
+      Pavlov.should_receive(:command)
+                .with(:create_activity, graph_user, :replied_message, message, nil, options)
 
-      interactor.should_receive(:track_mixpanel)
+      # TODO: refactor mixpanel utility class such that
+      #       we don't need to check expectations on the object under test
+      interactor.should_receive(:mp_increment_person_property)
+                .with(:replies_created)
+      interactor.should_receive(:mp_track).with(:reply_created)
 
       interactor.call
-    end
-  end
-
-  describe ".track_mixpanel" do
-    it "calls the right mixpanel methods" do
-      mixpanel = mock()
-      current_user = mock(id: 1)
-      options = {current_user: current_user, mixpanel: mixpanel}
-      interactor = Interactors::ReplyToConversation.new mock(), current_user.id.to_s, mock(), options
-
-      mixpanel.should_receive(:increment_person_event).with(current_user.id.to_s, replies_created: 1)
-      mixpanel.should_receive(:track_event).with(:reply_created)
-
-      interactor.track_mixpanel
     end
   end
 end
