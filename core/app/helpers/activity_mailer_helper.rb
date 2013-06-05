@@ -23,6 +23,6 @@ module ActivityMailerHelper
   end
 
   def link_to_possibly_dead_user(dead_user)
-    link_to dead_user.username, user_profile_url(dead_user.username)
+    link_to dead_user.name, user_profile_url(dead_user.username)
   end
 end
