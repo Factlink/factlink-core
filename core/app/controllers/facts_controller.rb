@@ -97,6 +97,15 @@ class FactsController < ApplicationController
         @fact.calculate_opinion(1)
       end
 
+      if params[:channels]
+        params[:channels].each do |channel_id|
+          channel = Channel[channel_id]
+          if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
+            interactor :"channels/add_fact", @fact, channel
+          end
+        end
+      end
+
       format.html do
         mp_track "Modal: Create"
         redirect_to fact_path(@fact.id, guided: params[:guided])
