@@ -21,6 +21,7 @@ describe "Check the tour", type: :request do
   end
 
   it 'Interests page should be the same' do
+    create :user # HACK create user with id 2 (so the next user has an id that is not hardcoded in TopWithAuthorityForGraphUserId Query)
     @user1 = create :user
     Pavlov.command :"users/add_handpicked_user", @user1.id.to_s
 
