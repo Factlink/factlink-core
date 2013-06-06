@@ -80,7 +80,7 @@ class Factlink.Fact
 
       @highlight()
 
-      if not @balloon.isVisible()
+      unless @balloon.isVisible()
         # Need to call a direct .hide() here to make sure not two popups are
         # open at a time
         Factlink.el.find('div.fl-popup').hide()
@@ -90,7 +90,7 @@ class Factlink.Fact
     @blur (e) =>
       clearTimeout(@timeout)
 
-      if not @balloon.loading()
+      unless @balloon.loading()
         @stopHighlighting()
 
         @timeout = setTimeout =>
@@ -107,7 +107,7 @@ class Factlink.Fact
   destroy: ->
     for el in @elements
       $el = $(el)
-      if not $el.is('.fl-first')
+      unless $el.is('.fl-first')
         $el.before $el.html()
 
       $el.remove()
