@@ -1,6 +1,6 @@
  ✔ revert nasty hacks @done (13-06-06 13:55)
  ✔ create topicslist for (user) topics sorted on authority for user @done (13-06-06 14:52)
  ☐ modify TopWithAuthorityForGraphUserId such that it uses this topicslist
- ☐ extract command update_user_authority from map_reduce/topic authority, which manages the side-effects and can and will be run in the background.
- ☐ update the topicslist in the update_user_authority command
+ ✔ extract command update_user_authority from map_reduce/topic authority, which manages the side-effects and can and will be run in the background. @done (13-06-06 15:27)
+ ✔ update the topicslist in the update_user_authority command @done (13-06-06 15:27)
  ☐ create migration
