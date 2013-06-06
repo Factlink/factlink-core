@@ -39,9 +39,6 @@ module Queries
         @comments ||= Comment.where(fact_data_id: fact.data_id)
       end
 
-      def fact
-        @fact
-      end
     end
   end
 end
