@@ -1,4 +1,7 @@
 class Ohm::Model::SortedSet < Ohm::Model::Collection
+
+  extend RedisUtils
+
   alias :count :size
 
   def assign(set)
@@ -49,17 +52,6 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
 
   def ids
     key.zrange(0, -1)
-  end
-
-  def self.hash_array_for_withscores(arr)
-    res = []
-    (arr.length / 2).times do |i|
-      res << {
-        item:arr[i*2],
-        score:arr[i*2+1].to_f
-      }
-    end
-    res
   end
 
   protected

@@ -1,6 +1,8 @@
 require 'redis-aid'
 
 class UserTopicsByAuthority
+  include RedisUtils
+
   def initialize user_id, nest_key=Nest.new(:user)[:topics_by_authority]
     @user_id = user_id
     @key = nest_key
@@ -25,10 +27,10 @@ class UserTopicsByAuthority
   end
 
   def flat_array_to_hash flat_array
-    array_of_pairs = flat_array.each_slice(2)
+    array = hash_array_for_withscores flat_array
 
-    array_of_pairs.map do |pair|
-      {id: pair[0], authority: pair[1].to_f}
+    array.map do |hash|
+      {id: hash[:item], authority: hash[:score]}
     end
   end
 end

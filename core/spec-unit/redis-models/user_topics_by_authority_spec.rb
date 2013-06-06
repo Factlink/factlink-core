@@ -1,3 +1,4 @@
+require_relative '../../app/classes/redis_utils'
 require_relative '../../app/redis-models/user_topics_by_authority'
 
 describe UserTopicsByAuthority do
