@@ -1,5 +1,5 @@
- ☐ Find out where to put JS tests (konacha?)
- ☐ Figure out how to write a JS test
+ ✔ Find out where to put JS tests (konacha?) @done (13-06-06 14:52)
+ ✔ Figure out how to write a JS test @done (13-06-06 14:52)
  ☐ Write JS test verifying current behavior (test passes)
  ☐ Alter JS test to verify new behavior (text-area automatically grows as text is added) (test fails)
  ☐ Choose jquery plugin or other example implementing that feature (should be trivial)
