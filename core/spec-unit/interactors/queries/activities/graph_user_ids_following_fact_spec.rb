@@ -14,9 +14,12 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
 
       query = described_class.new mock
 
-      query.should_receive(:creator_ids).and_return(creator_ids)
-      query.should_receive(:opinionated_users_ids).and_return(opinionated_users_ids)
-      query.should_receive(:evidence_followers_ids).and_return(evidence_followers_ids)
+      query.should_receive(:creator_ids)
+              .and_return(creator_ids)
+      query.should_receive(:opinionated_users_ids)
+              .and_return(opinionated_users_ids)
+      query.should_receive(:evidence_followers_ids)
+              .and_return(evidence_followers_ids)
 
       expect(query.execute).to eq [1, 2, 3, 4]
     end
