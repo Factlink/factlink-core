@@ -7,7 +7,7 @@ describe UserTopicsByAuthority do
   let(:user_topics_by_authority) { described_class.new user_id, key }
 
   describe '.set' do
-    it 'adds a user id to the list of handpicked users' do
+    it 'uses zadd to add the topic_id to the set with authority as the score' do
       authority = mock
       topic_id  = mock
       user_key  = mock
@@ -20,7 +20,7 @@ describe UserTopicsByAuthority do
   end
 
   describe '.ids_and_authorities_desc' do
-    it "returns the users" do
+    it "returns an array of hashes sorted descending by authority" do
       user_key = mock
 
       key.stub(:[]).with(user_id).and_return(user_key)
