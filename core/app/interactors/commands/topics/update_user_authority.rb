@@ -9,7 +9,12 @@ module Commands
 
       def execute
         update_authority
+
+        return unless graph_user.user
+          # HACK: needed for tests which has gu's without user
+
         update_top_users
+        update_top_user_topics
       end
 
       def update_authority
@@ -17,10 +22,12 @@ module Commands
       end
 
       def update_top_users
-        return unless graph_user.user
-          # HACK: needed for tests which has gu's without user
-
         topic.top_users_add(graph_user.user, authority)
+      end
+
+      def update_top_user_topics
+        user_topics = UserTopicsByAuthority.new(graph_user.user.id)
+        user_topics.set(topic.id, authority)
       end
 
       def topic

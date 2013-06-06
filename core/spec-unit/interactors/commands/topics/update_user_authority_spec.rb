@@ -5,11 +5,11 @@ describe Commands::Topics::UpdateUserAuthority do
   include PavlovSupport
 
   before do
-    stub_classes 'Authority', 'GraphUser'
+    stub_classes 'Authority', 'GraphUser', 'UserTopicsByAuthority'
   end
 
   describe '#call' do
-    let(:graph_user) { mock id: '12', user: mock }
+    let(:graph_user) { mock id: '12', user: mock(id: 'a87') }
     let(:topic) { mock id: 'a5', slug_title: 'foo' }
     let(:authority) { 15 }
 
@@ -31,6 +31,7 @@ describe Commands::Topics::UpdateUserAuthority do
       Authority.stub(:from).with(topic, for: graph_user)
                .and_return authority_object
       topic.stub(top_users_add: nil)
+      UserTopicsByAuthority.stub new: (mock set:nil)
 
       authority_object.should_receive(:<<)
                       .with(authority)
@@ -44,9 +45,28 @@ describe Commands::Topics::UpdateUserAuthority do
       query = described_class.new graph_user.id, topic.slug_title, authority
 
       Authority.stub from: mock(:<< => nil)
+      UserTopicsByAuthority.stub new: (mock set:nil)
 
       topic.should_receive(:top_users_add)
            .with(graph_user.user, authority)
+
+      query.call
+    end
+
+    it "updates the top topics of the user" do
+      user_topics_list = mock
+
+      query = described_class.new graph_user.id, topic.slug_title, authority
+
+      Authority.stub from: mock(:<< => nil)
+      topic.stub(top_users_add: nil)
+
+      UserTopicsByAuthority.stub(:new)
+                           .with(graph_user.user.id)
+                           .and_return(user_topics_list)
+
+      user_topics_list.should_receive(:set)
+                      .with(topic.id, authority)
 
       query.call
     end
