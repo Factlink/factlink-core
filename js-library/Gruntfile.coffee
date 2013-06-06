@@ -18,15 +18,15 @@ module.exports = (grunt) ->
       wrapped_files:
         src: [
           'wrap/first.js',
-          'plugins/*',
-          'src/js/models/*',
-          'tmp/compiled_coffee/models/*',
-          'src/js/views/*',
-          'tmp/compiled_coffee/views/*',
-          'src/js/util/*',
-          'tmp/compiled_coffee/util/*',
-          'src/js/initializers/*',
-          'tmp/compiled_coffee/initializers/*',
+          'plugins/*.js',
+          'src/js/models/*.js',
+          'tmp/compiled_coffee/models/*.js',
+          'src/js/views/*.js',
+          'tmp/compiled_coffee/views/*.js',
+          'src/js/util/*.js',
+          'tmp/compiled_coffee/util/*.js',
+          'src/js/initializers/*.js',
+          'tmp/compiled_coffee/initializers/*.js',
           'wrap/last.js'
         ]
         dest: 'tmp/factlink.core.js'
