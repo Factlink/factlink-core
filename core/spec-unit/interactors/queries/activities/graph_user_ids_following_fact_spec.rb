@@ -6,7 +6,6 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
   include PavlovSupport
 
   describe '#call' do
-
     it 'returns a unique list of ids' do
       creator_ids = [1, 2]
       opinionated_users_ids = [2, 3]
