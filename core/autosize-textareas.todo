@@ -1,3 +1,4 @@
+General Process:
  ✔ Find out where to put JS tests (konacha?) @done (13-06-06 14:52)
  ✔ Figure out how to write a JS test @done (13-06-06 14:52)
  ☐ Write JS test verifying current behavior (test passes)
@@ -5,3 +6,12 @@
  ☐ Choose jquery plugin or other example implementing that feature (should be trivial)
  ☐ Implement & verify basic behavior
  ☐ Consider corner cases: what if text is deleted again, should textarea shrink?  Or when it loses focus?
+
+Stuff to do:
+ ☐ Mention to Jens that the design is inconsistent between text areas and inputs.
+ ☐ Fix text area key-handling to not catch arrows/enter (kill inheritance).
+ ☐ kill inheritance
+ ☐ Avoid every-keystroke re-render by modifying template.
+ ☐ stick mustache templates into their own file.
+ ☐ Figure out how to do two-way data-binding in backbone without causing event overload.
+ ☐ Why is autocomplete off?
