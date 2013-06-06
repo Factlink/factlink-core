@@ -6,29 +6,27 @@ module Queries
       arguments :graph_user_id, :limit_topics
 
       def execute
-        sorted_user_topics.take(limit_topics)
-      end
-
-      def sorted_user_topics
-        user_topics.sort do |a,b|
-          - (a.authority <=> b.authority)
-        end
+        user_topics
       end
 
       def user_topics
-        topics.map do |topic|
-          DeadUserTopic.new topic.slug_title,
-                            topic.title,
-                            authority_for(topic)
-        end
+        sorted_topics_hashes.map do |hash|
+          user_topic_for_hash hash
+        end.compact
       end
 
-      def authority_for topic
-        query :authority_on_topic_for, topic, graph_user
+      def sorted_topics_hashes
+        user_topics_by_authority = UserTopicsByAuthority.new(graph_user.user_id.to_s)
+        user_topics_by_authority.ids_and_authorities_desc_limit limit_topics
       end
 
-      def topics
-        query :'topics/posted_to_by_graph_user', graph_user
+      def user_topic_for_hash hash
+        topic = Topic.find(hash[:id])
+        return nil unless topic
+
+        DeadUserTopic.new topic.slug_title,
+                          topic.title,
+                          hash[:authority]
       end
 
       def graph_user
