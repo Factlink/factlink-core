@@ -31,7 +31,7 @@ class Factlink.Fact
 
   # This may look like some magic, but here we expose the Fact.blur/focus/click
   # methods
-  createEventHandlers: (events) =>
+  createEventHandlers: (events) ->
     @createEventHandler event_handle for event_handle in events
 
   createEventHandler: (event_handle) =>
