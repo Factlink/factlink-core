@@ -8,9 +8,7 @@ feature "follow_users_in_tour", type: :request do
   before do
     @user = create :approved_confirmed_user
 
-    create :user # HACK create user with id 2 (so the next user has an id that is not hardcoded in TopWithAuthorityForGraphUserId Query)
     @user1 = create :user
-    create :user # HACK create user with id 4 (so the next user has an id that is not hardcoded in TopWithAuthorityForGraphUserId Query)
     @user2 = create :user
     Pavlov.command :"users/add_handpicked_user", @user1.id.to_s
     Pavlov.command :"users/add_handpicked_user", @user2.id.to_s

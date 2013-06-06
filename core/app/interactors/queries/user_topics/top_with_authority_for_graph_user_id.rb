@@ -28,8 +28,6 @@ module Queries
       end
 
       def hard_coded_topic_slugs_for_graphuser_id id
-        # TODO when removing these hard coded users:
-        # remove the `HACK create :user` from follow_user_in_tour acceptance test
         user_hash = {
           17 => :Jens,
           46 => :martijn,
