@@ -1,6 +1,13 @@
+require 'pavlov_helper'
 require_relative '../../app/redis-models/handpicked_tour_users'
 
 describe HandpickedTourUsers do
+  include PavlovSupport
+
+  before do
+    stub_classes 'Nest'
+  end
+
   describe '.add' do
     it 'adds a user id to the list of handpicked users' do
       id = 1

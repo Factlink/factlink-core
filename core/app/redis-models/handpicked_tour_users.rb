@@ -1,5 +1,3 @@
-require 'redis-aid'
-
 class HandpickedTourUsers
   attr_reader :handpicked_tour_users_interface
 

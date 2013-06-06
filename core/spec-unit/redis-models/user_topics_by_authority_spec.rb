@@ -1,11 +1,17 @@
+require 'pavlov_helper'
 require_relative '../../app/classes/redis_utils'
 require_relative '../../app/redis-models/user_topics_by_authority'
 
 describe UserTopicsByAuthority do
+  include PavlovSupport
 
   let(:key)      {mock}
   let(:user_id)  {mock}
   let(:user_topics_by_authority) { described_class.new user_id, key }
+
+  before do
+    stub_classes 'Nest'
+  end
 
   describe '.set' do
     it 'uses zadd to add the topic_id to the set with authority as the score' do

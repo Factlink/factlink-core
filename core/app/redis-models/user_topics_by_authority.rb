@@ -1,5 +1,3 @@
-require 'redis-aid'
-
 class UserTopicsByAuthority
   include RedisUtils
 
