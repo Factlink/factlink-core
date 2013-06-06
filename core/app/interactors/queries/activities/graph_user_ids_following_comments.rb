@@ -36,9 +36,6 @@ module Queries
         comments.map(&:id)
       end
 
-      def comments
-        @comments
-      end
     end
   end
 end
