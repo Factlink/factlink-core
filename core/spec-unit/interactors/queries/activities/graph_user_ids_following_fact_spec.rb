@@ -5,7 +5,7 @@ require 'pavlov_helper'
 describe Queries::Activities::GraphUserIdsFollowingFact do
   include PavlovSupport
 
-  describe '#execute' do
+  describe '#call' do
 
     it 'returns a unique list of ids' do
       creator_ids = [1, 2]
@@ -21,7 +21,7 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
       query.should_receive(:evidence_followers_ids)
               .and_return(evidence_followers_ids)
 
-      expect(query.execute).to eq [1, 2, 3, 4]
+      expect(query.call).to eq [1, 2, 3, 4]
     end
   end
 
