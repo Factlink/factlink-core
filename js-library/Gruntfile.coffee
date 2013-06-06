@@ -58,7 +58,7 @@ module.exports = (grunt) ->
       all: ['test/*.html']
     watch:
       files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'grunt.js', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
-      tasks: 'jshint qunit concat less copy'
+      tasks: ['jshint', 'qunit', 'concat', 'less', 'copy']
     jshint:
       all: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
       options:
