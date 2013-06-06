@@ -14,7 +14,8 @@
     .tour-interesting-users-scrolling-inner {
       position: absolute;
       top: 0px;
-      .transition(left 0.3s)
+      .transition(left 0.3s);
+      min-width: 100%;
     }
   }
 
@@ -58,6 +59,12 @@
 
 .tour-interesting-users-list {
   position: relative;
+}
+
+.tour-interesting-users-list-empty {
+  width: 100%;
+  text-align: center;
+  margin-top: 200px;
 }
 
 @user-width: 200px;
