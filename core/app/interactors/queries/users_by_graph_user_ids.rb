@@ -9,15 +9,17 @@ module Queries
     arguments :graph_user_ids
 
     def validate
-      @graph_user_ids.each { |id| raise "id should be a positive integer." unless id.to_i > 0 }
+      graph_user_ids.each { |id| raise "id should be a positive integer." unless id.to_i > 0 }
     end
 
     def execute
-      ids = @graph_user_ids.map do |graph_user_id|
+      query :users_by_ids, user_ids
+    end
+
+    def user_ids
+      graph_user_ids.map do |graph_user_id|
         GraphUser[graph_user_id].user_id
       end
-
-      query :users_by_ids, ids
     end
   end
 end
