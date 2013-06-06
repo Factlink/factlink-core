@@ -7,7 +7,8 @@ describe UserTopicsByAuthority do
 
   let(:key)      {mock}
   let(:user_id)  {mock}
-  let(:user_topics_by_authority) { described_class.new user_id, key }
+
+  subject(:user_topics_by_authority) { described_class.new user_id, key }
 
   before do
     stub_classes 'Nest'
