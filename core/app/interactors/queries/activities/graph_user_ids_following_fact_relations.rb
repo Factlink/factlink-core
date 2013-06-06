@@ -36,9 +36,6 @@ module Queries
         fact_relations.map(&:id)
       end
 
-      def fact_relations
-        @fact_relations
-      end
     end
   end
 end
