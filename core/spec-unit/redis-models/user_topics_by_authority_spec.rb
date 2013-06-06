@@ -3,8 +3,8 @@ require_relative '../../app/redis-models/user_topics_by_authority'
 describe UserTopicsByAuthority do
 
   let(:key)      {mock}
-  let(:user_id)  {mock}
-  let(:user_topics_by_authority) { described_class.new user_id, key }
+  let(:graph_user_id)  {mock}
+  let(:user_topics_by_authority) { described_class.new graph_user_id, key }
 
   describe '.set' do
     it 'uses zadd to add the topic_id to the set with authority as the score' do
@@ -12,7 +12,7 @@ describe UserTopicsByAuthority do
       topic_id  = mock
       user_key  = mock
 
-      key.stub(:[]).with(user_id).and_return(user_key)
+      key.stub(:[]).with(graph_user_id).and_return(user_key)
       user_key.should_receive(:zadd).with(authority, topic_id)
 
       user_topics_by_authority.set topic_id, authority
@@ -23,7 +23,7 @@ describe UserTopicsByAuthority do
     it "returns an array of hashes sorted descending by authority" do
       user_key = mock
 
-      key.stub(:[]).with(user_id).and_return(user_key)
+      key.stub(:[]).with(graph_user_id).and_return(user_key)
       user_key.stub(:zrevrange).
         with(0, -1, withscores: true).
         and_return ["2", "20", "1", "10"]
@@ -38,7 +38,7 @@ describe UserTopicsByAuthority do
       user_key = mock
       limit = 5
 
-      key.stub(:[]).with(user_id).and_return(user_key)
+      key.stub(:[]).with(graph_user_id).and_return(user_key)
       user_key.stub(:zrevrange).
         with(0, limit-1, withscores: true).
         and_return ["2", "20", "1", "10"]
