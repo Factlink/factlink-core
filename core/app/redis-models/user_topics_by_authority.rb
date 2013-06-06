@@ -28,7 +28,7 @@ class UserTopicsByAuthority
     array = hash_array_for_withscores flat_array
 
     array.map do |hash|
-      {id: hash[:item], authority: hash[:score]}
+      {id: hash[:item], authority: hash[:score]+1}
     end
   end
 end

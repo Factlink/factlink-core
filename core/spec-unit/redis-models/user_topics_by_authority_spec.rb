@@ -36,7 +36,7 @@ describe UserTopicsByAuthority do
         and_return ["2", "20", "1", "10"]
 
       result = user_topics_by_authority.ids_and_authorities_desc
-      expect(result).to match_array [{id: "2", authority: 20}, {id: "1", authority: 10}]
+      expect(result).to match_array [{id: "2", authority: 21}, {id: "1", authority: 11}]
     end
   end
 
@@ -51,7 +51,7 @@ describe UserTopicsByAuthority do
         and_return ["2", "20", "1", "10"]
 
       result = user_topics_by_authority.ids_and_authorities_desc_limit 5
-      expect(result).to match_array [{id: "2", authority: 20}, {id: "1", authority: 10}]
+      expect(result).to match_array [{id: "2", authority: 21}, {id: "1", authority: 11}]
     end
   end
 
