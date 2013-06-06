@@ -8,3 +8,4 @@ public/
 dump.rdb
 
 tmp/factlink.core.js
+tmp/compiled_coffee
