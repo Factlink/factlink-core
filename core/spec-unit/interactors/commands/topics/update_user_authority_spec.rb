@@ -9,28 +9,44 @@ describe Commands::Topics::UpdateUserAuthority do
   end
 
   describe '#call' do
+    let(:graph_user) { mock id: '12', user: mock }
+    let(:topic) { mock id: 'a5', slug_title: 'foo' }
+    let(:authority) { 15 }
+
+    before do
+      GraphUser.stub(:[]).once.with(graph_user.id)
+               .and_return(graph_user)
+
+      Pavlov.stub(:query).once
+            .with(:'topics/by_slug_title', topic.slug_title)
+            .and_return(topic)
+    end
+
     it 'updates the authority' do
-      graph_user = mock id: '12'
-      topic = mock id: 'a5', slug_title: 'foo'
-      authority = 15
-
       authority_object = mock
-
 
       query = described_class.new graph_user.id, topic.slug_title, authority
 
-      GraphUser.stub(:[]).with(graph_user.id)
-               .and_return(graph_user)
-
-      Pavlov.stub(:query)
-            .with(:'topics/by_slug_title', topic.slug_title)
-            .and_return(topic)
 
       Authority.stub(:from).with(topic, for: graph_user)
                .and_return authority_object
+      topic.stub(top_users_add: nil)
 
       authority_object.should_receive(:<<)
                       .with(authority)
+
+      query.call
+    end
+
+    it "updates the top_users of the topic" do
+      authority_object = mock
+
+      query = described_class.new graph_user.id, topic.slug_title, authority
+
+      Authority.stub from: mock(:<< => nil)
+
+      topic.should_receive(:top_users_add)
+           .with(graph_user.user, authority)
 
       query.call
     end
