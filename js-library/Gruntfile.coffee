@@ -68,7 +68,7 @@ module.exports = (grunt) ->
       all: ['test/*.html']
     watch:
       files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'grunt.js', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
-      tasks: ['jshint', 'qunit', 'coffee', 'concat', 'less', 'copy']
+      tasks: ['coffee', 'jshint', 'qunit', 'concat', 'less', 'copy']
     jshint:
       all: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
       options:
@@ -123,7 +123,7 @@ module.exports = (grunt) ->
           'dist/server/easyXDM/easyXDM.min.js':             ['libs/easyXDM.js']
           'dist/easyXDM/easyXDM.min.js':                    ['libs/easyXDM.js']
 
-  grunt.registerTask 'default', ['jshint', 'qunit', 'less', 'coffee', 'concat', 'uglify', 'copy']
+  grunt.registerTask 'default', ['coffee', 'jshint', 'qunit', 'less', 'concat', 'uglify', 'copy']
   grunt.registerTask 'server',  ['coffee', 'concat', 'uglify', 'less', 'copy']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
