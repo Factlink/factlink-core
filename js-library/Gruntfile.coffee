@@ -9,18 +9,28 @@ banner_template = '/*!
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
+    coffee:
+      compile:
+        files: [
+          { src: ['**/*.coffee'], cwd: 'src/js', ext: '.js', dest: 'tmp/compiled_coffee/', expand: true }
+        ]
     concat:
       wrapped_files:
         src: [
           'wrap/first.js',
           'plugins/*',
           'src/js/models/*',
+          'tmp/compiled_coffee/models/*',
           'src/js/views/*',
+          'tmp/compiled_coffee/views/*',
           'src/js/util/*',
+          'tmp/compiled_coffee/util/*',
           'src/js/initializers/*',
+          'tmp/compiled_coffee/initializers/*',
           'wrap/last.js'
         ]
         dest: 'tmp/factlink.core.js'
+        ext: '.js'
       core:
         options:
           banner: banner_template
@@ -58,7 +68,7 @@ module.exports = (grunt) ->
       all: ['test/*.html']
     watch:
       files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'grunt.js', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
-      tasks: ['jshint', 'qunit', 'concat', 'less', 'copy']
+      tasks: ['jshint', 'qunit', 'coffee', 'concat', 'less', 'copy']
     jshint:
       all: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
       options:
@@ -113,8 +123,8 @@ module.exports = (grunt) ->
           'dist/server/easyXDM/easyXDM.min.js':             ['libs/easyXDM.js']
           'dist/easyXDM/easyXDM.min.js':                    ['libs/easyXDM.js']
 
-  grunt.registerTask 'default', ['jshint', 'qunit', 'less', 'concat', 'uglify', 'copy']
-  grunt.registerTask 'server',  ['concat', 'uglify', 'less', 'copy']
+  grunt.registerTask 'default', ['jshint', 'qunit', 'less', 'coffee', 'concat', 'uglify', 'copy']
+  grunt.registerTask 'server',  ['coffee', 'concat', 'uglify', 'less', 'copy']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
