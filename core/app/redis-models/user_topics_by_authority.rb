@@ -11,7 +11,16 @@ class UserTopicsByAuthority
   end
 
   def ids_and_authorities_desc
-    flat_array = @key[@user_id].zrevrange 0, -1, withscores: true
+    flat_array_to_hash zrevrange_with_scores 0, -1
+  end
+
+  private
+
+  def zrevrange_with_scores start, stop
+    @key[@user_id].zrevrange start, stop, withscores: true
+  end
+
+  def flat_array_to_hash flat_array
     array_of_pairs = flat_array.each_slice(2)
 
     array_of_pairs.map do |pair|
