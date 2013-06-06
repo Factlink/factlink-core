@@ -1,4 +1,3 @@
-#graph_user_ids_following_fact_spec.rb
 require_relative '../../../../app/interactors/queries/activities/graph_user_ids_following_fact'
 require 'pavlov_helper'
 
