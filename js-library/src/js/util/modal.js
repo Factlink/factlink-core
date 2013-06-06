@@ -53,6 +53,14 @@ Factlink.modal = {
     //@TODO: Authority & opinions need to be added back in
 
     Factlink.trigger("factlinkAdded");
+
+    Factlink.modal.hide.method();
+
+    $('#fl').append("<div class='fl-message' style='display:none'>Factlink is created!</div>");
+    $('#fl .fl-message').fadeIn('slow');
+    setTimeout(function() {
+      $('#fl .fl-message').fadeOut('slow');
+    }, 2545);
     return fct;
   },
   stopHighlightingFactlink: function(id) {
