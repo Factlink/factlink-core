@@ -42,6 +42,13 @@ GIT
   specs:
     rack-xframe-options (0.1.2)
 
+GIT
+  remote: git://github.com/defunkt/hub.git
+  revision: 6976010b92b4af00e6de9bea9dde3afec7aff26e
+  ref: 6976010b92b4af00e6de9bea9dde3afec7aff26e
+  specs:
+    hub (1.10.6)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -183,7 +190,6 @@ GEM
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
     httpauth (0.2.0)
-    hub (1.10.6)
     i18n (0.6.1)
     jbuilder (1.4.1)
       activesupport (>= 3.0.0)
@@ -489,7 +495,7 @@ DEPENDENCIES
   headless (~> 1.0)
   hogan_assets (~> 1.0.3)
   httparty (~> 0.10.2)
-  hub (~> 1)
+  hub!
   jbuilder (~> 1.4.1)
   jquery-rails (= 2.1.2)
   json (~> 1.8.0)

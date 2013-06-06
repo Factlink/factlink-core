@@ -160,5 +160,6 @@ group :development do
   gem 'brakeman', '~> 1', require: false # always update, we want the latest version always
   gem 'cane', '~> 2', require: false
   gem 'rails_best_practices', '~> 1', require: false
-  gem 'hub', '~> 1', require: false
+  # We need the latest git repository version which supports hub pull-request -F -
+  gem 'hub', github: 'defunkt/hub', ref: '6976010b92b4af00e6de9bea9dde3afec7aff26e', require: false
 end
