@@ -55,17 +55,16 @@ class LoadDsl
 
   def load_fact(fact_string,url="http://example.org/", opts={})
     f = Fact.by_display_string(fact_string)
-    if not f
-      f = Fact.create(
-        :site => load_site(url),
-        :created_by => state_graph_user
-      )
-      f.require_saved_data
-      f.data.displaystring = fact_string
-      f.data.title = opts[:title] if opts[:title]
-      f.data.save
-    end
-    f
+    return f if f
+
+    f = Fact.create(
+      :site => load_site(url),
+      :created_by => state_graph_user
+    )
+    f.require_saved_data
+    f.data.displaystring = fact_string
+    f.data.title = opts[:title] if opts[:title]
+    f.data.save
   end
 
   def fact(fact_string,url="http://example.org/", opts={})
