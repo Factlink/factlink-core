@@ -3,7 +3,7 @@ class GraphUser < OurOhm
   def graph_user;return self;end
 
   # data
-  reference :user, lambda { |id| id && User.find(id) }
+  reference :user, ->(id) { id && User.find(id) }
 
   timestamped_set :notifications, Activity
   timestamped_set :stream_activities, Activity
