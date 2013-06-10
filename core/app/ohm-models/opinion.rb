@@ -81,10 +81,11 @@ class Opinion < OurOhm
 
   # inefficient, but allows for quickly changing the + def
   def self.combine(list)
-    unless list.length > 0
-      Opinion.identity
-    else
+    # TODO check if if is neccesary
+    if list.length > 0
       list.inject(Opinion.identity) { | result, element |  result + element }
+    else
+      Opinion.identity
     end
   end
 
