@@ -1,0 +1,2 @@
+RAILS_ENV=development
+ASSETS_DEBUG=TRUE
