@@ -6,7 +6,7 @@ describe UserTopicsByAuthority do
   include PavlovSupport
 
   let(:key)      {mock}
-  let(:user_id)  {mock}
+  let(:user_id)  {'1a'}
 
   subject(:user_topics_by_authority) { described_class.new user_id, key }
 
@@ -16,8 +16,8 @@ describe UserTopicsByAuthority do
 
   describe '.set' do
     it 'uses zadd to add the topic_id to the set with authority as the score' do
-      authority = mock
-      topic_id  = mock
+      authority = 100
+      topic_id  = '1a'
       user_key  = mock
 
       key.stub(:[]).with(user_id).and_return(user_key)
