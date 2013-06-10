@@ -1,6 +1,6 @@
 class Factlink.Fact
   # If you want to support more events add them to this variable:
-  _events = ["focus", "blur", "click", "update"]
+  _events: ["focus", "blur", "click", "update"]
 
   constructor: (id, elems, opinions) ->
     # Internal object which will hold all bound event handlers
@@ -12,7 +12,7 @@ class Factlink.Fact
       id: id
       opinions: opinions
 
-    @createEventHandlers(_events)
+    @createEventHandlers(@_events)
 
     @highlight(1500)
 
