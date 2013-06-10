@@ -63,9 +63,9 @@ describe Admin::UsersController do
         @new_user = User.new valid_attributes
         User.stub(:new) { @new_user }
         should_check_can :create, @new_user
-        expect {
+        expect do
           post :create, :user => valid_attributes
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
       end
     end
   end
