@@ -8,6 +8,7 @@ class RemoveFactFromChannel
     end
     return false
   end
+
   def included_from_elsewhere?
     @included_from_elsewhere ||= included_from_elsewhere_internal?
   end
