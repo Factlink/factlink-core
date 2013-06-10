@@ -63,9 +63,10 @@ class Factlink.Fact
     clearTimeout(@highlight_timeout)
 
     if timer
-      @highlight_timeout = setTimeout( =>
-        $( @elements ).removeClass('fl-active')
-      , timer)
+      deActivateElements = =>
+        $(@elements).removeClass('fl-active')
+
+      @highlight_timeout = setTimeout deActivateElements, timer
     else
       $( @elements ).removeClass('fl-active')
 
@@ -88,9 +89,10 @@ class Factlink.Fact
       unless @balloon.loading()
         @stopHighlighting()
 
-        @timeout = setTimeout =>
+        hideBalloon = =>
           @balloon.hide()
-        , 300
+
+        @timeout = setTimeout hideBalloon, 300
 
   bindClick: (id) ->
     @click =>
