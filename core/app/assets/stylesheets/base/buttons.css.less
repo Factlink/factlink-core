@@ -15,18 +15,12 @@ body.client {
     color: @baseFontColor
   }
 
-  .btn-danger {
-    color: white;
-    background: @dangerButtonColor;
-    &:hover {
-      color: white;
-    }
-  }
 
   .btn-mini {
     padding: 2px 5px;
     font-size: 11px;
   }
+<<<<<<< HEAD
 
   .btn-action, .tour-interesting-user.secondary {
     &.btn-action-checked.btn {
@@ -44,6 +38,22 @@ body.client {
       border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
       .box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05));
     }
+=======
+  .btn-action-checked {
+    color: #359e7f;
+    border: 1px solid #d9d9d9;
+    background-color: #fffeff;
+    .box-shadow(inset 0 1px 3px rgba(0,0,0,.06));
+    .button-background(#f0f0f0, #f8f8f8);
+    font-weight: bold;
+  }
+  .btn-danger {
+    color: white;
+    background: @dangerButtonColor;
+    font-weight:normal;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    .box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05));
+>>>>>>> Simplify CSS selectors.
   }
 
   .btn.disabled, .btn[disabled] {
