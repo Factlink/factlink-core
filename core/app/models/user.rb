@@ -292,6 +292,7 @@ class User
   def active_for_authentication?
     super && approved?
   end
+
   def inactive_message
     if !approved?
       :not_approved
