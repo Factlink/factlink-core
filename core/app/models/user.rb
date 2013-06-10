@@ -236,10 +236,10 @@ class User
   def name
     name = "#{first_name} #{last_name}".strip
 
-    unless name.blank?
-      name
-    else
+    if name.blank?
       username
+    else
+      name
     end
   end
 
