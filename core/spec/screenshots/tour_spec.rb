@@ -26,8 +26,9 @@ describe "Check the tour", type: :request do
 
     as(@user1) do |pavlov|
       @user1_channel1 = pavlov.command :'channels/create', 'toy'
+      pavlov.command :'topics/update_user_authority', @user1.graph_user_id.to_s, @user1_channel1.slug_title, 0
       @user1_channel2 = pavlov.command :'channels/create', 'story'
-      Authority.from(@user1_channel2.topic, for: @user1.graph_user) << 3
+      pavlov.command :'topics/update_user_authority', @user1.graph_user_id.to_s, @user1_channel2.slug_title, 3
     end
 
     visit interests_path
