@@ -12,12 +12,12 @@ class Factlink.Views.Notification
   constructor: (options) ->
     @options = _.extend {}, @default_options, options
 
-  render: ->
     @$el = $("<#{@tagName}/>")
-              .addClass(@className)
-              .hide()
-              .text(@options.message)
+          .addClass(@className)
+          .hide()
+          .text(@options.message)
 
+  render: ->
     $(@appendTo).append(@$el)
 
     @$el.fadeIn @options.fade_time, =>
