@@ -94,18 +94,18 @@ class Opinion < OurOhm
     return (self.b + self.d + self.u)*self.a
   end
 
-  def +(second)
-    a = self.a + second.a
   # CHANGE weight ALONG WITH + !!!
+  def +(other)
+    a = self.a + other.a
 
     if a == 0
       # No authority
       return Opinion.identity
     end
 
-    b = (self.b*self.a + second.b*second.a)/a
-    d = (self.d*self.a + second.d*second.a)/a
-    u = (self.u*self.a + second.u*second.a)/a
+    b = (self.b*self.a + other.b*other.a)/a
+    d = (self.d*self.a + other.d*other.a)/a
+    u = (self.u*self.a + other.u*other.a)/a
     return Opinion.tuple(b,d,u,a)
   end
 
