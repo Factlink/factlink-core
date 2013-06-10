@@ -35,7 +35,7 @@ describe Queries::UsersByIds do
       KillObject.stub(:user).with(mock_user1).and_return(mash_user1)
       KillObject.stub(:user).with(mock_user2).and_return(mash_user2)
       KillObject.stub(:user).with(mock_user3).and_return(mash_user3)
-      
+
       result = Queries::UsersByIds.new([1, 2, 3], current_user: mock_user1).call
 
       expect(result).to eq([mash_user1, mash_user2, mash_user3])
