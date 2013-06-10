@@ -35,20 +35,14 @@ class Factlink.Fact
   createEventHandlers: (events) ->
     @createEventHandler event_handle for event_handle in events
 
-  createEventHandler: (event_handle) =>
+  createEventHandler: (event_handle) ->
     @_bound_events[event_handle] = []
 
-    @[event_handle] = (() =>
-      e = event_handle
-
-      (supplied_args...) =>
-        args = [e].concat supplied_args
-
-        if $.isFunction args[1]
-          @bind.apply this, args
-        else
-          @trigger.apply this, args
-    )()
+    @[event_handle] = (event, args...) =>
+      if $.isFunction event
+        @bind event_handle, event
+      else
+        @trigger event_handle, event, args...
 
   bind: (type, fn) ->
     @_bound_events[type].push fn
