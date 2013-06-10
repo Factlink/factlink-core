@@ -13,8 +13,6 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
 
       query.should_receive(:follower_ids)
               .and_return(follower_ids)
-      follower_ids.should_receive(:uniq)
-                      .and_return(ids)
 
       expect(query.call).to eq ids
     end
@@ -81,16 +79,12 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
 
       query = described_class.new comments
 
-              .and_return(comments.map(&:id))
-      query.should_receive(:comment_ids)
+      query.stub(:comment_ids)
+           .and_return(comments.map(&:id))
 
-      SubComment.should_receive(:where)
-                  .with(parent_class: 'Comment')
-                  .and_return(finder)
-
-      finder.should_receive(:any_in)
-                  .with(parent_id: comments.map(&:id))
-                  .and_return(sub_comments)
+      Pavlov.stub(:query)
+            .with(:'sub_comments/index', comments.map(&:id), 'Comment')
+            .and_return(sub_comments)
 
       expect(query.sub_comments_on_comments_creators_ids).to eq [5, 6]
     end
@@ -98,11 +92,11 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
 
   describe '#comment_ids' do
     it 'returns the comments ids' do
-      comments = [stub(id: 73), stub(id: 74)]
+      comments = [stub(id: '73'), stub(id: '74')]
 
       query = described_class.new comments
 
-      expect(query.comment_ids).to eq [73, 74]
+      expect(query.comment_ids).to eq comments.map(&:id)
     end
   end
 end

@@ -37,14 +37,6 @@ describe Queries::SubComments::Index do
     it 'no subcomments' do
       parent_id = 1
       parent_class = 'FactRelation'
-      sub_comment_finder = mock
-
-      SubComment.stub(:where).with(parent_id: parent_id.to_s,
-        parent_class: parent_class).and_return(sub_comment_finder)
-      sub_comment_finder.stub(:asc).with(:created_at).
-        and_return([])
-
-
       sub_comment_finder1, sub_comment_finder2 = mock, mock
 
       SubComment.stub(:where)
@@ -68,15 +60,6 @@ describe Queries::SubComments::Index do
       parent_class = 'Comment'
       sub_comments = [mock, mock]
       dead_sub_comments = [mock, mock]
-      sub_comment_finder = mock
-
-      SubComment.stub(:where)
-                .with(parent_id: parent_id, parent_class: parent_class)
-                .and_return(sub_comment_finder)
-      sub_comment_finder.stub(:asc)
-                        .with(:created_at)
-                        .and_return(sub_comments)
-
       sub_comment_finder1, sub_comment_finder2 = mock, mock
 
       SubComment.stub(:where)
@@ -107,7 +90,6 @@ describe Queries::SubComments::Index do
       parent_class = 'Comment'
       sub_comments = [mock, mock]
       dead_sub_comments = [mock, mock]
-
       sub_comment_finder1, sub_comment_finder2 = mock, mock
 
       SubComment.stub(:where)

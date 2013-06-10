@@ -25,14 +25,16 @@ module Queries
       end
 
       def sub_comments_on_comments_creators_ids
-        SubComment.where(parent_class: 'Comment').
-                   any_in(parent_id: comments_ids.map(&:to_s)).
-                   map(&:created_by).
-                   map(&:graph_user_id)
+        sub_comments.map(&:created_by)
+                    .map(&:graph_user_id)
       end
 
       def comment_ids
-        comments.map(&:id)
+        comments.map(&:id).map(&:to_s)
+      end
+
+      def sub_comments
+        query :'sub_comments/index', comment_ids, 'Comment'
       end
 
     end
