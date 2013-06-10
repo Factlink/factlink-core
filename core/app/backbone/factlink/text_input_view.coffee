@@ -12,8 +12,7 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
   templateHelpers: =>
     placeholder: @options.placeholder
 
-  template:
-    text: '<input name="text_input_view" autocomplete="off" type="text" value="{{text}}" class="typeahead" placeholder="{{placeholder}}">'
+  template: 'generic/text_input'
 
   initialize: ->
     @bindTo @model, 'change', @updateHtml, this
