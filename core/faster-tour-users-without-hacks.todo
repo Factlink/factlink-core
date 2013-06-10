@@ -3,4 +3,4 @@
  ✔ modify TopWithAuthorityForGraphUserId such that it uses this topicslist @done (13-06-06 16:05)
  ✔ extract command update_user_authority from map_reduce/topic authority, which manages the side-effects and can and will be run in the background. @done (13-06-06 15:27)
  ✔ update the topicslist in the update_user_authority command @done (13-06-06 15:27)
- ☐ create migration
+ ✔ create migration @done (13-06-10 08:47)
