@@ -264,6 +264,9 @@ FavorPercentR:
 # Use self when defining module/class methods.
 ClassMethods:
   Enabled: false
+  # this goes wrong when including modules with the same name, ie:
+  # class Foo
+  #    include Bar::Foo
 
 # Avoid single-line methods.
 SingleLineMethods:
