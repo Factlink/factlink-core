@@ -23,5 +23,5 @@ class Factlink.Views.Notification
     @$el.fadeIn @options.fade_time, =>
       setTimeout(@remove, @options.in_screen_time)
 
-  remove: ->
+  remove: =>
     @$el.fadeOut(@options.fade_time, => @$el.remove())
