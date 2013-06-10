@@ -93,8 +93,9 @@ class ChannelsController < ApplicationController
     else
       respond_to do |format|
         format.html { render :new }
-        format.json { render :json => @channel.errors,
-                      :status => :unprocessable_entity }
+        format.json do
+          render :json => @channel.errors, :status => :unprocessable_entity
+        end
       end
     end
   end
@@ -111,8 +112,9 @@ class ChannelsController < ApplicationController
         format.json  { render :json => {}, :status => :ok }
       else
         format.html  { render :edit }
-        format.json  { render :json => @channel.errors,
-                      :status => :unprocessable_entity }
+        format.json  do
+          render :json => @channel.errors, :status => :unprocessable_entity
+        end
       end
     end
   end
