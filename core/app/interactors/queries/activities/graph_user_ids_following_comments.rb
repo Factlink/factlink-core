@@ -31,7 +31,7 @@ module Queries
                    map(&:graph_user_id)
       end
 
-      def comments_ids
+      def comment_ids
         comments.map(&:id)
       end
 

@@ -81,8 +81,8 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
 
       query = described_class.new comments
 
-      query.should_receive(:comments_ids)
               .and_return(comments.map(&:id))
+      query.should_receive(:comment_ids)
 
       SubComment.should_receive(:where)
                   .with(parent_class: 'Comment')
@@ -96,13 +96,13 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
     end
   end
 
-  describe '#comments_ids' do
+  describe '#comment_ids' do
     it 'returns the comments ids' do
       comments = [stub(id: 73), stub(id: 74)]
 
       query = described_class.new comments
 
-      expect(query.comments_ids).to eq [73, 74]
+      expect(query.comment_ids).to eq [73, 74]
     end
   end
 end
