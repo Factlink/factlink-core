@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 
   #general static pages:
   def pages
-    if ( /\A([-a-zA-Z_\/]+)\Z/.match(params[:name]))
+    if /\A([-a-zA-Z_\/]+)\Z/.match(params[:name])
       respond_to do |format|
         template = "home/pages/#{$1}"
 
@@ -47,7 +47,7 @@ class HomeController < ApplicationController
   end
 
   def index
-    @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
+    @code = params[:code] if /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code])
     render "home/pages/index", layout: "static_pages"
   end
 end
