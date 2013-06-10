@@ -29,7 +29,7 @@ describe "Backbone.Factlink.TextAreaView", ->
     expect(model.get('text')).to.equal 'bla - bla!'
 
   it "is initially small and scrollbarless", ->
-    expect(textarea().height()).to.be.below 32
+    expect(textarea().height()).to.be.below 45
     expect(textarea()[0].scrollHeight).to.equal textarea()[0].clientHeight
 
   it "remains small but gains a scrollbar when text doesn't fit", ->
