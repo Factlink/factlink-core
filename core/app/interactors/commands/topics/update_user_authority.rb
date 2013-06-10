@@ -9,10 +9,6 @@ module Commands
 
       def execute
         update_authority
-
-        return unless graph_user.user
-          # HACK: needed for tests which has gu's without user
-
         update_top_users
         update_top_user_topics
       end
