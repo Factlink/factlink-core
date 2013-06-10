@@ -1,3 +1,5 @@
+require_relative '../../../classes/hash_utils'
+
 module Queries
   module UserTopics
     class TopWithAuthorityForGraphUserId
@@ -10,23 +12,50 @@ module Queries
       end
 
       def user_topics
-        sorted_topics_hashes.map do |hash|
-          user_topic_for_hash hash
+        topics_with_authorities.compact
+      end
+
+      def topics_with_authorities
+        sorted_authorities.zip(sorted_topics).map do |args|
+          dead_topic_for *args
         end.compact
       end
 
-      def sorted_topics_hashes
-        user_topics_by_authority = UserTopicsByAuthority.new(graph_user.user_id.to_s)
-        user_topics_by_authority.ids_and_authorities_desc_limit limit_topics
+      def sorted_authorities
+        sorted_topics_hashes.map {|h| h[:authority]}
       end
 
-      def user_topic_for_hash hash
-        topic = Topic.find(hash[:id])
+      def sorted_topics
+        topics_for_ids = topics_for_hashes(sorted_topics_hashes)
+
+        sorted_topics_hashes.map do |hash|
+          topics_for_ids[hash[:id].to_s]
+        end
+      end
+
+      def dead_topic_for authority, topic
         return nil unless topic
 
         DeadUserTopic.new topic.slug_title,
                           topic.title,
-                          hash[:authority]
+                          authority
+      end
+
+      def sorted_topics_hashes
+        @sorted_topics_hashes ||=
+          user_topics_by_authority.ids_and_authorities_desc_limit limit_topics
+      end
+
+      def user_topics_by_authority
+        UserTopicsByAuthority.new(graph_user.user_id.to_s)
+      end
+
+      def topics_for_hashes hashes
+        ids = hashes.map {|h| h[:id]}
+
+        topics = Topic.any_in(id: ids).to_a
+
+        HashUtils.hash_with_index(:id, topics)
       end
 
       def graph_user

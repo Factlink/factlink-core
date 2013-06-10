@@ -16,31 +16,36 @@ describe Queries::UserTopics::TopWithAuthorityForGraphUserId do
       limit_topics = 2
 
       topics = [
-        mock(:topic, title: 'Bye', slug_title: 'bye'),
-        mock(:topic, title: 'Yo', slug_title: 'yo'),
+        mock(:topic, id: "1", title: 'Bye', slug_title: 'bye'),
+        mock(:topic, id: "2", title: 'Yo', slug_title: 'yo'),
       ]
 
       query = described_class.new graph_user.id, limit_topics
 
-      GraphUser.stub(:[]).
-        with(graph_user.id).
-        and_return(graph_user)
+      GraphUser.stub(:[])
+        .with(graph_user.id)
+        .and_return(graph_user)
 
-      UserTopicsByAuthority.stub(:new).
-        with(graph_user.user_id.to_s).
-        and_return(user_topics_by_authority)
+      UserTopicsByAuthority.stub(:new)
+        .with(graph_user.user_id.to_s)
+        .and_return(user_topics_by_authority)
 
-      user_topics_by_authority.stub(:ids_and_authorities_desc_limit).
-        with(limit_topics).
-        and_return [{id: "2", authority: 20}, {id: "1", authority: 10}]
+      user_topics_by_authority.stub(:ids_and_authorities_desc_limit)
+        .with(limit_topics)
+        .once
+        .and_return [{id: topics[1].id, authority: 20}, {id: topics[0].id, authority: 10}]
 
-      Topic.stub(:find).
-        with("1").
-        and_return(topics[0])
+      Topic.stub(:find)
+        .with(topics[0].id)
+        .and_return(topics[0])
 
-      Topic.stub(:find).
-        with("2").
-        and_return(topics[1])
+      Topic.stub(:find)
+        .with(topics[1].id)
+        .and_return(topics[1])
+
+      Topic.stub(:any_in)
+           .with(id: [topics[1].id, topics[0].id])
+           .and_return(topics)
 
       user_topics = [
         DeadUserTopic.new(topics[1].slug_title, topics[1].title, 20),
