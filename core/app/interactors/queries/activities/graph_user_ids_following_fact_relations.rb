@@ -25,16 +25,17 @@ module Queries
       end
 
       def sub_comments_on_fact_relations_creators_ids
-        SubComment.where(parent_class: 'FactRelation').
-                   any_in(parent_id: fact_relations_ids.map(&:to_s)).
-                   map(&:created_by).
-                   map(&:graph_user_id)
+        sub_comments.map(&:created_by)
+                    .map(&:graph_user_id)
       end
 
-      def fact_relations_ids
+      def fact_relation_ids
         fact_relations.map(&:id)
       end
 
+      def sub_comments
+        query :'sub_comments/index', fact_relation_ids, 'FactRelation'
+      end
     end
   end
 end
