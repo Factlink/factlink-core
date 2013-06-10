@@ -24,11 +24,11 @@ module Acceptance
     end
 
     def wheel_path_d position
-      page.evaluate_script("$('.fact-wheel path')[#{position}].getAttribute('d');");
+      page.evaluate_script("$('.fact-wheel path')[#{position}].getAttribute('d');")
     end
 
     def wheel_path_opacity position
-      page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;");
+      page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;")
     end
 
     def click_wheel_part position
