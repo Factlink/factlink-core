@@ -1,11 +1,12 @@
 General Process:
  ✔ Find out where to put JS tests (konacha?) @done (13-06-06 14:52)
  ✔ Figure out how to write a JS test @done (13-06-06 14:52)
- ☐ Write JS test verifying current behavior: no autosizing, can't include newlines. (test passes)
+ ✔ Write JS test verifying current behavior: no autosizing. (test passes) @done (13-06-10 20:54)
  ☐ Alter JS test to verify new behavior (text-area automatically grows as text is added) (test fails)
  ☐ Choose jquery plugin or other example implementing that feature (should be trivial)
  ☐ Implement & verify basic behavior
  ☐ Consider corner cases: what if text is deleted again, should textarea shrink?  Or when it loses focus?
+ ☐ Manually verify that stuff like up/down/enter/copy/paste work as these can't be tested.
 
 Stuff to do:
  ☐ Mention to Jens that the design is inconsistent between text areas and inputs.

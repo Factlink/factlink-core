@@ -2,6 +2,7 @@
 #= require frontend
 
 describe "Backbone.Factlink.TextAreaView", ->
+  initialText = 'something.'
   sampleShortText = 'some text.'
   sampleLongText = 'Various\nbits\nof text\non\nseveral\nlines\n\n\n!'
   model = view = null
@@ -9,14 +10,14 @@ describe "Backbone.Factlink.TextAreaView", ->
   textarea = -> view.$el.find('textarea')
 
   beforeEach ->
-    model = new Backbone.Model({text: 'nothing.'})
+    model = new Backbone.Model({text: initialText})
     view = new Backbone.Factlink.TextAreaView(model: model)
     #since we need to check how layout works, we need to to include
     #the view in the document.
     $(document.body).append view.render().$el
 
   it "shows the text", ->
-    expect(textarea().val()).to.equal sampleShortText
+    expect(textarea().val()).to.equal initialText
 
   it "updates the textarea when the model changes", ->
     model.set text: sampleShortText
@@ -36,3 +37,8 @@ describe "Backbone.Factlink.TextAreaView", ->
     textarea().val(sampleLongText)
     expect(textarea().height()).to.equal initialHeight
     expect(textarea()[0].scrollHeight).not.to.equal textarea()[0].clientHeight
+
+  #it 'swallows any return-key presses.', ->
+    #unfortunately this is untestable due to the JS sandbox.
+    #you can simulate keydown/keypress/keyup, but the browser itself
+    #ignores those simulated events so the textarea isn't updated.
