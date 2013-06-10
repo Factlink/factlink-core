@@ -18,24 +18,31 @@ class Opinion < OurOhm
   def b
     self.b_r.to_f
   end
+
   def d
     self.d_r.to_f
   end
+
   def u
     self.u_r.to_f
   end
+
   def a
     self.a_r.to_f
   end
+
   def b=(val)
     self.b_r=val
   end
+
   def d=(val)
     self.d_r=val
   end
+
   def u=(val)
     self.u_r=val
   end
+
   def a=(val)
     self.a_r=val
   end
