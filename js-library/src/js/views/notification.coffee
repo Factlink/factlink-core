@@ -10,7 +10,7 @@ class Factlink.Views.Notification
     fade_time: 'slow'
 
   constructor: (options) ->
-    @options = $.extend {}, @default_options, options
+    @options = _.extend {}, @default_options, options
 
   render: ->
     @$el = $("<#{@tagName}/>")
