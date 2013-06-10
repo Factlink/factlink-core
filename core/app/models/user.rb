@@ -261,7 +261,7 @@ class User
 
   def serializable_hash(options={})
     options ||= {}
-    options[:except] ||= Array.new
+    options[:except] ||= []
     options[:except] += [:admin, :agrees_tos, :agreed_tos_on, :agrees_tos_name, ]
     super(options)
   end
