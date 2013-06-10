@@ -79,7 +79,7 @@ test("Hovering highlights all the elements of the match, and no others", functio
     show_fast: true});
 
   equal($(facts[0].elements[0]).hasClass('fl-active'), false);
-  // equal($(facts[1].elements[0]).hasClass('fl-active'), true);
+  equal($(facts[1].elements[0]).hasClass('fl-active'), true);
   equal($(facts[2].elements[0]).hasClass('fl-active'), false);
-  // equal($(facts[3].elements[0]).hasClass('fl-active'), false);
+  equal($(facts[3].elements[0]).hasClass('fl-active'), false);
 });
