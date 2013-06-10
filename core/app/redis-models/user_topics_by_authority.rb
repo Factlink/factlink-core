@@ -10,10 +10,6 @@ class UserTopicsByAuthority
     key.zadd authority, topic_id
   end
 
-  def ids_and_authorities_desc
-    flat_array_to_hash zrevrange_with_scores 0, -1
-  end
-
   def ids_and_authorities_desc_limit limit
     flat_array_to_hash zrevrange_with_scores 0, limit-1
   end

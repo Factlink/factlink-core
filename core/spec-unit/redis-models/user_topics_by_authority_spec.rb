@@ -27,20 +27,6 @@ describe UserTopicsByAuthority do
     end
   end
 
-  describe '.ids_and_authorities_desc' do
-    it "returns an array of hashes sorted descending by authority" do
-      user_key = mock
-
-      key.stub(:[]).with(user_id).and_return(user_key)
-      user_key.stub(:zrevrange).
-        with(0, -1, withscores: true).
-        and_return ["2", "20", "1", "10"]
-
-      result = user_topics_by_authority.ids_and_authorities_desc
-      expect(result).to match_array [{id: "2", authority: 21}, {id: "1", authority: 11}]
-    end
-  end
-
   describe '.ids_and_authorities_desc_limit' do
     it "returns an array of hashes sorted descending by authority" do
       user_key = mock
