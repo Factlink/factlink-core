@@ -14,7 +14,7 @@ MethodLength:
 
 # No hard tabs.
 Tab:
-  Enabled: false
+  Enabled: true
 
 # Avoid trailing whitespace.
 TrailingWhitespace:
@@ -26,7 +26,7 @@ CaseIndentation:
 
 # Use empty lines between defs.
 EmptyLineBetweenDefs:
-  Enabled: false
+  Enabled: true
 
 # Don't use several empty lines in a row.
 EmptyLines:
@@ -70,11 +70,11 @@ HashSyntax:
 
 # Use Unix-style line endings.
 EndOfLine:
-  Enabled: false
+  Enabled: true
 
 # Add underscores to large numeric literals to improve their readability.
 NumericLiterals:
-  Enabled: false
+  Enabled: true
 
 # Align the parameters of a method call if they span more than one line.
 AlignParameters:
@@ -90,7 +90,7 @@ DefWithoutParentheses:
 
 # Never use if x; .... Use the ternary operator instead.
 IfWithSemicolon:
-  Enabled: false
+  Enabled: true
 
 # Never use then for multi-line if/unless.
 MultilineIfThen:
@@ -98,12 +98,12 @@ MultilineIfThen:
 
 # Favor the ternary operator(?:) over if/then/else/end constructs.
 OneLineConditional:
-  Enabled: false
+  Enabled: true
 
 # Avoid using {...} for multi-line blocks (multiline chaining is always ugly).
 # Prefer {...} over do...end for single-line blocks.
 Blocks:
-  Enabled: false
+  Enabled: true
 
 # Avoid parameter lists longer than three or four parameters.
 ParameterLists:
@@ -115,15 +115,15 @@ StringLiterals:
 
 # Avoid multi-line ?: (the ternary operator); use if/unless instead.
 MultilineTernaryOperator:
-  Enabled: false
+  Enabled: true
 
 # Use one expression per branch in a ternary operator.
 NestedTernaryOperator:
-  Enabled: false
+  Enabled: true
 
 # Never use unless with else. Rewrite these with the positive case first.
 UnlessElse:
-  Enabled: false
+  Enabled: true
 
 # Use &&/|| instead of and/or.
 AndOr:
@@ -135,7 +135,7 @@ WhenThen:
 
 # Favor modifier if/unless usage when you have a single-line body.
 IfUnlessModifier:
-  Enabled: false
+  Enabled: true
 
 # Favor modifier while/until usage when you have a single-line body.
 WhileUntilModifier:
@@ -147,7 +147,7 @@ FavorUnlessOverNegatedIf:
 
 # Favor until over while for negative conditions.
 FavorUntilOverNegatedWhile:
-  Enabled: false
+  Enabled: true
 
 # Use spaces around the = operator when assigning default values in def params.
 SpaceAroundEqualsInParameterDefault:
@@ -155,7 +155,7 @@ SpaceAroundEqualsInParameterDefault:
 
 # Don't use parentheses around the condition of an if/unless/while.
 ParenthesesAroundCondition:
-  Enabled: false
+  Enabled: true
 
 # Use snake_case for symbols, methods and variables.
 MethodAndVariableSnakeCase:
@@ -163,7 +163,7 @@ MethodAndVariableSnakeCase:
 
 # Use CamelCase for classes and modules.
 ClassAndModuleCamelCase:
-  Enabled: false
+  Enabled: true
 
 # Causes Ruby to check the syntax of the script and exit without executing.
 Syntax:
@@ -179,7 +179,7 @@ AvoidFor:
 
 # Avoid Perl-style global variables.
 AvoidPerlisms:
-  Enabled: false
+  Enabled: true
 
 # Avoid Perl-style regex back references.
 AvoidPerlBackrefs:
@@ -203,7 +203,7 @@ FavorSprintf:
 
 # Use Array#join instead of Array#*.
 FavorJoin:
-  Enabled: false
+  Enabled: true
 
 # Use alias_method instead of alias.
 Alias:
@@ -215,11 +215,11 @@ Not:
 
 # Avoid using rescue in its modifier form.
 RescueModifier:
-  Enabled: false
+  Enabled: true
 
 # Never use return in an ensure block.
 EnsureReturn:
-  Enabled: false
+  Enabled: true
 
 # Don't suppress exception.
 HandleExceptions:
@@ -227,7 +227,7 @@ HandleExceptions:
 
 # Use only ascii symbols in identifiers.
 AsciiIdentifiers:
-  Enabled: false
+  Enabled: true
 
 # Use only ascii symbols in comments.
 AsciiComments:
@@ -267,7 +267,7 @@ ClassMethods:
 
 # Avoid single-line methods.
 SingleLineMethods:
-  Enabled: false
+  Enabled: true
 
 # Use %w or %W for arrays of words.
 WordArray:
@@ -279,7 +279,7 @@ SpaceInsideHashLiteralBraces:
 
 # Avoid the use of line continuation (/).
 LineContinuation:
-  Enabled: false
+  Enabled: true
 
 # Prefer attr_* methods to trivial readers/writers.
 TrivialAccessors:
@@ -299,7 +299,7 @@ AvoidGlobalVars:
 
 # The use of eval represents a serious security risk.
 Eval:
-  Enabled: false
+  Enabled: true
 
 # Symbol literals should use snake_case.
 SymbolName:
@@ -315,4 +315,4 @@ AccessControl:
 
 # Use Kernel#loop with break rather than begin/end/until or begin/end/while for post-loop tests.
 Loop:
-  Enabled: false
+  Enabled: true
