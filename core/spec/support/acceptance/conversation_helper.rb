@@ -24,7 +24,7 @@ module Acceptance
       click_on "Share"
 
       wait_until_scope_exists '.start-conversation-form' do
-        recipients.each {|r| add_recipient r.username}
+        recipients.each {|r| add_recipient r.name}
         find(:css, 'textarea').click
         sleep 0.1
         find(:css, 'textarea').set(message)

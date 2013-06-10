@@ -42,7 +42,7 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     @shuffledCollection.reset @collection.shuffle()
     @resizeScrollingInner()
     @updateButtonStates()
-    @listView().children.first()?.showAuthorityPopover()
+    @listView().children.first()?.showAuthorityPopover?()
 
   listView: ->
     @_listView ?= new TourUsersListView
