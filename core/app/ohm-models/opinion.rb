@@ -68,7 +68,7 @@ class Opinion < OurOhm
     self.new(:b_r=>0,:d_r=>0,:u_r=>1,:a_r=>0)
   end
 
-  def Opinion.for_type(type, authority=0)
+  def self.for_type(type, authority=0)
     case type
     when :believes
       Opinion.new(:b=>1,:d=>0,:u=>0,:a=>authority)
@@ -80,7 +80,7 @@ class Opinion < OurOhm
   end
 
   # inefficient, but allows for quickly changing the + def
-  def Opinion.combine(list)
+  def self.combine(list)
     unless list.length > 0
       Opinion.identity
     else
