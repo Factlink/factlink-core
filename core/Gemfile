@@ -58,6 +58,7 @@ gem 'cancan', '~> 1.6.10'
 # social connections
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-twitter', '= 0.0.14' # locked down, because semver does not appear to be used
+gem 'twitter', '~> 4.7.0'
 
 gem 'httparty', '~> 0.10.2'
 
