@@ -68,9 +68,7 @@ class Blacklist
 
   def matches?(str)
     @blacklist.each do |regex|
-      if regex.match(str)
-        return true
-      end
+      return true if regex.match(str)
     end
 
     false
