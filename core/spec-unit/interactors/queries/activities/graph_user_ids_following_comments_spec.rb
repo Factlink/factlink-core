@@ -10,7 +10,7 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
 
   describe '#call' do
     it 'returns unique follower ids' do
-      comments   = [
+      comments = [
         stub(id: '1',
              created_by: stub(graph_user_id: 1),
              believable: stub(opinionated_users_ids: 2)
@@ -26,11 +26,11 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
         mock( created_by: mock( graph_user_id: 4 ))
       ]
 
-      query = described_class.new comments
-
       Pavlov.stub(:query)
             .with(:'sub_comments/index', comments.map(&:id), 'Comment')
             .and_return(sub_comments)
+
+      query = described_class.new comments
 
       expect(query.call).to eq [1, 2, 3, 4]
     end
