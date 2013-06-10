@@ -1,1 +1,3 @@
-placeholder todo
+ ✔ Fix Twitter tokens @done (13-06-10 16:17)
+ ☐ Include Twitter gem (http://sferik.github.io/twitter/) with config
+ ☐ Command to post arbitrary message
