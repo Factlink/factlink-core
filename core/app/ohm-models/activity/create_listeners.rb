@@ -130,7 +130,7 @@ class Activity < OurOhm
       {
         subject_class: "Fact",
         action: :added_fact_to_channel,
-        write_ids: ->(a) { [a.object.containing_channels.map {|ch| ch.created_by_id }.select { |id| id != a.user_id } ].flatten }
+        write_ids: ->(a) { [a.object.containing_channels.map {|ch| ch.created_by_id }.select { |id| id != a.user_id }].flatten }
       }
     end
 
