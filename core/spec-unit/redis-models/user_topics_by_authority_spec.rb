@@ -62,7 +62,7 @@ describe UserTopicsByAuthority do
       key.stub(:[]).with(user_id).and_return(user_key)
       user_key.stub(:zrevrange).
         with(0, limit-1, withscores: true).
-        and_return ["2", "20", "1", "10"]
+        and_return ["2", "20"]
 
       result = user_topics_by_authority.ids_and_authorities_desc_limit limit
       expect(result.length).to eq 1
