@@ -29,7 +29,7 @@ class EvidenceController < ApplicationController
     Fact[evidence_id] or raise EvidenceNotFoundException
   end
 
-  #TODO move to a fact_relation resource
+  # TODO move to a fact_relation resource
   def create
     fact = Fact[params[:fact_id]]
 
@@ -78,7 +78,7 @@ class EvidenceController < ApplicationController
     render 'fact_relations/show'
   end
 
-  #TODO move to a fact_relation resource
+  # TODO move to a fact_relation resource
   def destroy
     fact_relation = FactRelation[params[:id]]
 

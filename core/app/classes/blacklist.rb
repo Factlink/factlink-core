@@ -51,7 +51,7 @@ class Blacklist
 
   def self.weird_bugs
     [
-      #show factlink button not full width
+      # show factlink button not full width
       domain('smashingmagazine.com'),
     ]
   end

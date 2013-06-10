@@ -1,5 +1,5 @@
 class SitesController < ApplicationController
-  #TODO: make sure this is executed whenever possible
+  # TODO: make sure this is executed whenever possible
   before_filter :register_client_version_numbers, only: :facts_count_for_url
 
   def facts_count_for_url

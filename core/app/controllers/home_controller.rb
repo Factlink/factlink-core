@@ -4,7 +4,8 @@ class HomeController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
-  #general static pages:
+  # general static pages:
+  # TODO unfold big nested if
   def pages
     if /\A([-a-zA-Z_\/]+)\Z/.match(params[:name])
       respond_to do |format|

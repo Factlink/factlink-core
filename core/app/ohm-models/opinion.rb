@@ -89,14 +89,14 @@ class Opinion < OurOhm
     end
   end
 
-  #CHANGE ALONG WITH + !!!!
+  # CHANGE ALONG WITH + !!!!
   def weight
     return (self.b + self.d + self.u)*self.a
   end
 
-  #CHANGE weight ALONG WITH + !!!
   def +(second)
     a = self.a + second.a
+  # CHANGE weight ALONG WITH + !!!
 
     if a == 0
       # No authority
