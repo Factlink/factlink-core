@@ -79,7 +79,7 @@ Factlink.Balloon = function() {
   };
 
   function initializeTemplate(tmpl) {
-    el = $(tmpl(factObj.getObject())).appendTo(Factlink.el);
+    el = $(tmpl(factObj._obj)).appendTo(Factlink.el);
 
     el.bind('mouseenter', function() {
       factObj.focus();
