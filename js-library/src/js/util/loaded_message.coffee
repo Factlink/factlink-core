@@ -5,5 +5,5 @@ showLoadedMessage = ->
   loaded_message.render()
 
 $(window).on 'factlink.factsLoaded', ->
-  if Factlink? and FactlinkConfig? and FactlinkConfig.client == 'bookmarklet'
+  if FactlinkConfig?.client == 'bookmarklet'
     showLoadedMessage()
