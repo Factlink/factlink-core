@@ -20,6 +20,7 @@ class MapReduce
     end
 
     def write_output ident, value
+      # TODO use dead channel and dead graph user
       ch = Channel[ident[:channel_id]]
       gu = GraphUser[ident[:user_id]]
       if ch and gu

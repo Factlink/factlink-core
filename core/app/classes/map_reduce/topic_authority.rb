@@ -4,6 +4,8 @@ class MapReduce
       Channel.all
     end
 
+    # TODO: convert to using topic ids
+    # make sure to cache topics
     def map iterator
       iterator.each do |ch|
         if ch.type == 'channel'
@@ -35,7 +37,7 @@ class MapReduce
     def write_output ident, value
       topic = Topic.by_slug(ident[:topic])
 
-      gu = GraphUser[ident[:user_id]]
+      gu = GraphUser[ident[:user_id]] # TODO use dead graph_user
       topic.top_users_add(gu.user, value) if gu.user
       Authority.from(topic, for: gu) << value
     end

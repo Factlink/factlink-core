@@ -27,8 +27,8 @@ class MapReduce
     end
 
     def write_output bucket, value
-      f = FactRelation[bucket[:fact_id]]
-      gu = GraphUser[bucket[:user_id]]
+      f = FactRelation[bucket[:fact_id]] # TODO use dead fact relation
+      gu = GraphUser[bucket[:user_id]] # TODO use dead graph user
       if f and gu
         Authority.on(f, for: gu) << value
       end
