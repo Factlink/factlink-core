@@ -26,9 +26,9 @@ unbindClick = -> $(document).unbind 'click', clickHandler
 Factlink.modal =
   hide: ->
     unbindClick()
-    iFrame.fadeOut('fast')
+    iFrame.fadeOut 'fast'
+    Factlink.trigger 'modalClosed'
 
-    Factlink.trigger('modalClosed')
   show: ->
     bindClick()
     iFrame.fadeIn('fast')
@@ -37,7 +37,7 @@ Factlink.modal =
 
     _.extend Factlink.Facts, fct
 
-    Factlink.trigger("factlinkAdded")
+    Factlink.trigger 'factlinkAdded'
 
     Factlink.modal.hide.method()
 
