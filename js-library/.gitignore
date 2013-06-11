@@ -1,11 +1,5 @@
 .DS_Store
 dist/
 node_modules/
-public/
-*.un~
-*.rej
-*.orig
 dump.rdb
-
-tmp/factlink.core.js
-tmp/compiled_coffee
+tmp
