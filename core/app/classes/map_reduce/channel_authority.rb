@@ -5,7 +5,8 @@ class MapReduce
     end
 
     def map iterator
-      iterator.each do |fact|
+      iterator.ids.each do |id|
+        fact = Fact[id]
         fact.channel_ids.each do |ch_id|
           authority = Authority.from(fact).to_f
           if authority > 0

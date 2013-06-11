@@ -5,7 +5,8 @@ class MapReduce
     end
 
     def map iterator
-      iterator.each do |fr|
+      iterator.ids.each do |fr_id|
+        fr = FactRelation[fr_id]
         yield fr.from_fact_id, fr.created_by_id
       end
     end

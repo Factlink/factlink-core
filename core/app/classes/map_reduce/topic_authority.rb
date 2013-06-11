@@ -7,7 +7,8 @@ class MapReduce
     # TODO: convert to using topic ids
     # make sure to cache topics
     def map iterator
-      iterator.each do |ch|
+      iterator.ids.each do |ch_id|
+        ch = Channel[ch_id]
         if ch.type == 'channel'
           Topic.ensure_for_channel(ch)
           Authority.all_from(ch).each do |authority|

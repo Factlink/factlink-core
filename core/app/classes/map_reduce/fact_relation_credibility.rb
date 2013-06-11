@@ -10,9 +10,11 @@ class MapReduce
     end
 
     def map iterator
-      iterator.each do |fact_relation|
+      iterator.ids.each do |fact_relation_id|
         # Warning: facts/_fact_relation.json.jbuilder depends on
         # that the fact relation credibility equals the to_fact credibility
+        fact_relation = FactRelation[fact_relation_id]
+
         authorities_on_fact_id(fact_relation.fact_id).each do |a|
           yield({fact_id: fact_relation.id, user_id: a.user_id}, a.to_f)
         end
