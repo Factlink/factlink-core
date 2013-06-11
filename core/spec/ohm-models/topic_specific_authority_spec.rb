@@ -4,6 +4,10 @@ describe "topic specific authority"  do
   include TopicBeliefExpressions
   include AddFactToChannelSupport
 
+  before do
+    Commands::Topics::UpdateUserAuthority.stub new: (stub call: nil)
+  end
+
   let(:u1) { create :graph_user }
   let(:u2) { create :graph_user }
   let(:u3) { create :graph_user }

@@ -41,6 +41,7 @@ class OurOhm < Ohm::Model
         send(name).assign(value)
       end
     end
+
     def timestamped_set(name, model, &block)
       define_memoized_method(name) do
          Ohm::Model::TimestampedSet.new(key[name], Ohm::Model::Wrapper.wrap(model)) do |x|
@@ -53,6 +54,7 @@ class OurOhm < Ohm::Model
       end
       collections(self) << name unless collections.include?(name)
     end
+
     def opinion_reference(name, &block)
       value_reference name, Opinion
       define_method(:"get_#{name}") do |*args|

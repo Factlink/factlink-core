@@ -13,11 +13,15 @@ describe UrlNormalizer do
     it { normalized(base + '?_r=1').should == base }
     it { normalized(base + '?_r=1&utm_source=frank').should == base }
 
-    it { normalized(base + '?pagewanted=all&_r=0').should ==
-                    base + '?pagewanted=all' }
+    it do
+     normalized(base + '?pagewanted=all&_r=0').should ==
+                    base + '?pagewanted=all'
+    end
 
-    it { normalized(base + '?pagewanted=2&_r=1utm_source=buffer&buffer_share=b0b26').should ==
-                    base + '?pagewanted=2' }
+    it do
+     normalized(base + '?pagewanted=2&_r=1utm_source=buffer&buffer_share=b0b26').should ==
+                    base + '?pagewanted=2'
+    end
 
   end
 end

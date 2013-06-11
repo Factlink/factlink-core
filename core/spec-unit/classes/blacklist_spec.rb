@@ -1,12 +1,12 @@
 require_relative '../../app/classes/blacklist.rb'
 describe Blacklist do
-  subject {
+  subject do
     Blacklist.new([
       /^http(s)?:\/\/([^\/]+\.)?facebook\.com/,
       /^http(s)?:\/\/([^\/]+\.)?factlink\.com/,
       /^http(s)?:\/\/([^\/]+\.)?twitter\.com/,
     ])
-  }
+  end
 
   describe "#should_return_true_on_match" do
     it {subject.matches?('http://facebook.com').should == true}

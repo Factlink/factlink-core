@@ -12,31 +12,18 @@ class LoadDsl
   end
 
   def state_graph_user
-    u = @user
+    u = @state_user
     unless u
       raise UndefinedUserError, "A user was needed but wasn't found", caller
     end
     u.graph_user
   end
 
-  def state_user=(value)
-    @user = value
-  end
-
-  def state_fact=(value)
-    @fact = value
-  end
-
-  def state_fact
-    @fact
-  end
+  attr_writer :state_user, :state_channel
+  attr_accessor :state_fact
 
   def state_channel
-    @channel || self.load_channel(self.state_graph_user,"Main channel")
-  end
-
-  def state_channel=(value)
-    @channel = value
+    @state_channel || self.load_channel(self.state_graph_user,"Main channel")
   end
 
   def load_site(url)
@@ -55,17 +42,16 @@ class LoadDsl
 
   def load_fact(fact_string,url="http://example.org/", opts={})
     f = Fact.by_display_string(fact_string)
-    if not f
-      f = Fact.create(
-        :site => load_site(url),
-        :created_by => state_graph_user
-      )
-      f.require_saved_data
-      f.data.displaystring = fact_string
-      f.data.title = opts[:title] if opts[:title]
-      f.data.save
-    end
-    f
+    return f if f
+
+    f = Fact.create(
+      :site => load_site(url),
+      :created_by => state_graph_user
+    )
+    f.require_saved_data
+    f.data.displaystring = fact_string
+    f.data.title = opts[:title] if opts[:title]
+    f.data.save
   end
 
   def fact(fact_string,url="http://example.org/", opts={})
@@ -183,10 +169,8 @@ class LoadDsl
 
   def load_channel(graph_user, title, opts={})
     ch = ChannelList.new(graph_user).channels.find(:title => title).first
-    unless ch
-      ch = Channel.create(:created_by => graph_user, :title => title)
-    end
-    ch
+
+    ch || Channel.create(:created_by => graph_user, :title => title)
   end
 
   def channel(title, opts={})

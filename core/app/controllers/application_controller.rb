@@ -24,18 +24,18 @@ class ApplicationController < ActionController::Base
 
   before_filter :check_preferred_browser
   def check_preferred_browser
-    if current_user
-      message = :supported_browser_warning
+    supported_not_preferred_browser = (view_context.browser_supported? and
+                                 (not view_context.browser_preferred?))
+    controller_without_warnings = ["tour", "tos"].include? controller_name
 
-      supported_browser = (view_context.browser_supported? and (not view_context.browser_preferred?))
-      allowed_controller = (not ["tour", "tos"].include? controller_name)
+    return unless current_user
+    return unless supported_not_preferred_browser
+    return if controller_without_warnings
 
-      if supported_browser and allowed_controller
-        if not current_user.seen_messages.include? message.to_s
-          @show_supported_browser_warning = true
-        end
-      end
-    end
+    message = :supported_browser_warning
+    seen_message = current_user.seen_messages.include?(message.to_s)
+
+    @show_supported_browser_warning = !seen_message
   end
 
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
