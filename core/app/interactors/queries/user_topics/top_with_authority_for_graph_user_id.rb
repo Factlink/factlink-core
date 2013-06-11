@@ -8,6 +8,11 @@ module Queries
 
       arguments :graph_user_id, :limit_topics
 
+      def validate
+        validate_integer_string :graph_user_id, graph_user_id
+        validate_integer :limit_topics, limit_topics
+      end
+
       def execute
         user_topics
       end
