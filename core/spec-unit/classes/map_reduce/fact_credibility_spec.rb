@@ -38,7 +38,7 @@ describe MapReduce::FactCredibility do
              .and_return([authority])
 
       result = subject.wrapped_map([ch1])
-      expect(result).to eq({{user_id: 13, fact_id: 20 } => [57.0]})
+      expect(result).to eq({{graph_user_id: 13, fact_id: 20 } => [57.0]})
     end
   end
 

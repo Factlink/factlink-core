@@ -36,10 +36,10 @@ describe MapReduce::ChannelAuthority do
       Fact.stub(:[]) { |id| fact_db[id] }
 
       subject.wrapped_map(facts).should == {
-        {user_id: 20, channel_id:10} => [18],
-        {user_id: 21, channel_id:10} => [18,18],
-        {user_id: 20, channel_id:11} => [18],
-        {user_id: 21, channel_id:11} => [18],
+        {graph_user_id: 20, channel_id:10} => [18],
+        {graph_user_id: 21, channel_id:10} => [18,18],
+        {graph_user_id: 20, channel_id:11} => [18],
+        {graph_user_id: 21, channel_id:11} => [18],
       }
     end
   end

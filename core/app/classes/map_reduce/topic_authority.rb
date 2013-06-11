@@ -8,26 +8,33 @@ class MapReduce
     # make sure to cache topics
     def map iterator
       iterator.ids.each do |ch_id|
-        ch = Channel[ch_id]
-        if ch.type == 'channel'
-          Topic.ensure_for_channel(ch)
-          Authority.all_from(ch).each do |authority|
-            yield({topic: ch.slug_title, user_id: authority.user_id}, authority.to_f)
+        channel = Channel[ch_id]
+        if channel.type == 'channel'
+          Topic.ensure_for_channel(channel)
+          Authority.all_from(channel).each do |authority|
+            yield({
+              topic: channel.slug_title,
+              user_id: authority.user_id
+            }, authority.to_f)
           end
-          auth = (authority_from_added_facts(ch) + authority_from_followers(ch))
+          auth = (authority_from_added_facts(channel) +
+                  authority_from_followers(channel))
           if auth > 0
-            yield({topic: ch.slug_title, user_id: ch.created_by_id}, auth)
+            yield({
+              topic: channel.slug_title,
+              user_id: channel.created_by_id
+            }, auth)
           end
         end
       end
     end
 
-    def authority_from_followers ch
-      ch.containing_channels.count
+    def authority_from_followers channel
+      channel.containing_channels.count
     end
 
-    def authority_from_added_facts ch
-      [ch.sorted_internal_facts.count.to_f / 10, 5].min
+    def authority_from_added_facts channel
+      [channel.sorted_internal_facts.count.to_f / 10, 5].min
     end
 
     def reduce bucket, values
@@ -36,11 +43,11 @@ class MapReduce
 
     def write_output ident, value
       topic = Topic.by_slug(ident[:topic])
-      gu = DeadGraphUser.new(ident[:user_id])
-      Authority.from(topic, for: gu) << value
+      graph_user = DeadGraphUser.new(ident[:user_id])
+      Authority.from(topic, for: graph_user) << value
 
       Resque.enqueue Commands::Topics::UpdateUserAuthority,
-         gu.id, topic.slug_title, value
+         graph_user.id, topic.slug_title, value
     end
   end
 end

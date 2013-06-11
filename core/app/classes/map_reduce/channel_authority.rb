@@ -7,10 +7,13 @@ class MapReduce
     def map iterator
       iterator.ids.each do |id|
         fact = Fact[id]
-        fact.channel_ids.each do |ch_id|
+        fact.channel_ids.each do |channel_id|
           authority = Authority.from(fact).to_f
           if authority > 0
-            yield({user_id: fact.created_by_id, channel_id: ch_id }, authority)
+            yield({
+              graph_user_id: fact.created_by_id,
+              channel_id: channel_id
+            }, authority)
           end
         end
       end
@@ -22,10 +25,10 @@ class MapReduce
 
     def write_output ident, value
       # TODO use dead channel
-      ch = DeadChannel.new ident[:channel_id]
-      gu = DeadGraphUser.new ident[:user_id]
+      channel = DeadChannel.new ident[:channel_id]
+      graph_user = DeadGraphUser.new ident[:graph_user_id]
 
-      Authority.from(ch, for: gu) << value
+      Authority.from(channel, for: graph_user) << value
     end
   end
 end

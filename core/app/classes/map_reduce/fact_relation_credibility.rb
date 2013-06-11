@@ -16,7 +16,10 @@ class MapReduce
         fact_relation = FactRelation[fact_relation_id]
 
         authorities_on_fact_id(fact_relation.fact_id).each do |a|
-          yield({fact_id: fact_relation.id, user_id: a.user_id}, a.to_f)
+          yield({
+            fact_id: fact_relation.id,
+            user_id: a.user_id
+          }, a.to_f)
         end
       end
     end
@@ -28,10 +31,10 @@ class MapReduce
     end
 
     def write_output bucket, value
-      fr = DeadFactRelation.new bucket[:fact_id]
-      gu = DeadGraphUser.new bucket[:user_id]
+      fact_relation = DeadFactRelation.new bucket[:fact_id]
+      graph_user = DeadGraphUser.new bucket[:user_id]
 
-      Authority.on(fr, for: gu) << value
+      Authority.on(fact_relation, for: graph_user) << value
     end
   end
 end

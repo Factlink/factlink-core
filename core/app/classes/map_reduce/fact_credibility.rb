@@ -1,7 +1,10 @@
 class MapReduce
   class FactCredibility < MapReduce
     def all_set
-      Channel.all.find_all { |ch| ch.type == "channel" }
+      # TODO don't retrieve all and filter clientside, do something smarter
+      Channel.all.find_all do |channel|
+        channel.type == "channel"
+      end
     end
 
     def authorities_from_topic(topic)
@@ -10,11 +13,14 @@ class MapReduce
     end
 
     def map iterator
-      iterator.each do |ch|
-        fact_ids = ch.sorted_cached_facts.ids
-        authorities_from_topic(ch.topic).each do |a|
+      iterator.each do |channel|
+        fact_ids = channel.sorted_cached_facts.ids
+        authorities_from_topic(channel.topic).each do |authority|
           fact_ids.each do |fact_id|
-            yield({fact_id: fact_id, user_id: a.user_id}, a.to_f)
+            yield({
+              fact_id: fact_id,
+              graph_user_id: authority.user_id
+            }, authority.to_f)
           end
         end
       end
@@ -25,10 +31,10 @@ class MapReduce
     end
 
     def write_output bucket, value
-      f = DeadFact.new(bucket[:fact_id])
-      gu = DeadGraphUser.new bucket[:user_id]
+      fact = DeadFact.new(bucket[:fact_id])
+      graph_user = DeadGraphUser.new bucket[:graph_user_id]
 
-      Authority.on(f, for: gu) << value
+      Authority.on(fact, for: graph_user) << value
     end
   end
 end
