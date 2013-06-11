@@ -4,6 +4,10 @@ require 'pavlov_helper'
 describe Queries::Activities::GraphUserIdsFollowingFact do
   include PavlovSupport
 
+  before do
+    stub_classes 'Comment'
+  end
+
   describe '#call' do
     it 'returns a unique list of ids' do
       fact = mock :fact,
@@ -21,25 +25,14 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
     end
   end
 
-  describe '#fact_relations_followers_ids' do
+  describe '#fact_relations_follower_ids' do
     it 'calls the correct query' do
       fact = mock
       query = described_class.new fact
+      fact.stub fact_relations: mock
 
-      fact.should_receive(:fact_relations)
-
-      query.fact_relations
-    end
-  end
-
-  describe '#fact_relations' do
-    it 'calls the correct query' do
-      fact_relations = mock
-      query = described_class.new mock
-
-      query.stub fact_relations: fact_relations
       query.should_receive(:query)
-              .with(:"activities/graph_user_ids_following_fact_relations", fact_relations)
+              .with(:"activities/graph_user_ids_following_fact_relations", fact.fact_relations)
               .and_return [1,2]
 
       expect(query.fact_relations_followers_ids).to eq [1,2]
@@ -48,25 +41,9 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
 
   describe '#comment_followers_ids' do
     it 'calls the correct query' do
+      fact = stub data_id: 133
       comments = mock
       comment_followers_ids = mock
-
-      query = described_class.new mock
-
-      query.stub comments: comments
-      query.stub(:query)
-              .with(:"activities/graph_user_ids_following_comments", comments)
-              .and_return(comment_followers_ids)
-
-      expect(query.comments_followers_ids).to eq comment_followers_ids
-    end
-  end
-
-  describe '#comments' do
-    it 'calls the correct query' do
-      stub_classes 'Comment'
-      comments = mock
-      fact = stub data_id: 133
 
       query = described_class.new fact
 
@@ -74,8 +51,11 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
              .with(fact_data_id: fact.data_id)
              .and_return(comments)
 
-      expect(query.comments).to eq comments
+      query.stub(:query)
+              .with(:"activities/graph_user_ids_following_comments", comments)
+              .and_return(comment_followers_ids)
+
+      expect(query.comments_followers_ids).to eq comment_followers_ids
     end
   end
-
 end
