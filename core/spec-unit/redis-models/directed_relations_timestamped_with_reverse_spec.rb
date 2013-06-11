@@ -1,3 +1,4 @@
+require_relative '../../app/redis-models/directed_relations_sorted_with_reverse'
 require_relative '../../app/redis-models/directed_relations_timestamped_with_reverse'
 
 describe DirectedRelationsTimestampedWithReverse do

@@ -37,6 +37,7 @@ module FactlinkUI
     config.mongoid.observers = :user_observer, :topic_observer, :fact_data_observer
 
     require_dependency "#{config.root}/app/classes/map_reduce.rb"
+    require_dependency "#{config.root}/app/classes/redis_utils.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
     require_dependency "#{config.root}/app/ohm-models/authority.rb"
