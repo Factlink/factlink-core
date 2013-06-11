@@ -8,6 +8,8 @@ module Queries
 
     arguments :graph_user_ids
 
+    private
+
     def validate
       graph_user_ids.each do |id|
         raise "id should be a positive integer." unless id.to_i > 0

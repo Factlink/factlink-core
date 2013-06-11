@@ -7,6 +7,8 @@ module Commands
 
       arguments :graph_user_id, :topic_slug, :authority
 
+      private
+
       def execute
         update_authority
         update_top_users
