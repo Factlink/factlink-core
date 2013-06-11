@@ -45,8 +45,8 @@ class Factlink.Views.Notification
 
 Factlink.Views.Notifications.showFactlinkCreated = ->
   Factlink.Views.Notifications.show
-    message: 'Factlink loaded!'
-    type_classes: 'fl-message-success fl-message-icon-time'
+    message: 'Factlink posted!'
+    type_classes: 'fl-message-success fl-message-icon-logo'
 
 Factlink.Views.Notifications.showShouldSelectText = ->
   Factlink.Views.Notifications.show
