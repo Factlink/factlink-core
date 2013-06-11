@@ -4,7 +4,8 @@ DeadFact = Struct.new(
   :displaystring,
   :created_at,
   :title,
-  :wheel
+  :wheel,
+  :proxy_scroll_url
 ) do
   def to_s
     displaystring
