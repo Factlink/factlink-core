@@ -1,6 +1,8 @@
 class GraphUser < OurOhm
   # helper
-  def graph_user;return self;end
+  def graph_user
+    self
+  end
 
   # data
   reference :user, ->(id) { id && User.find(id) }

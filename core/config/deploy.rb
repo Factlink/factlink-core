@@ -60,8 +60,10 @@ namespace :deploy do
     set_conf_path="export CONFIG_PATH=#{deploy_to}/current; export NODE_ENV=#{deploy_env};"
   end
 
-  task :start do ; end
-  task :stop do ; end
+  task :start do
+  end
+  task :stop do
+  end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end

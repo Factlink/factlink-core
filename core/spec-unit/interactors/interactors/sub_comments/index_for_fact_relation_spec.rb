@@ -11,7 +11,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     it 'checks if the fact relation can be shown' do
       fact_relation_id = 1
       fact_relation = mock
-      
+
       FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
 
       ability = mock
