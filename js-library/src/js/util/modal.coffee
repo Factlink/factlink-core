@@ -7,13 +7,12 @@ iFrame.appendTo(Factlink.el)
 
 Factlink.hideDimmer = -> iFrame.css 'background', 'none'
 
-Factlink.showInfo = (factId, successCallback) ->
+Factlink.showInfo = (factId, successCallback = ->) ->
   Factlink.remote.showFactlink factId, ->
     Factlink.modal.show.method()
     Factlink.trigger('modalOpened')
 
-    if $.isFunction successCallback
-      successCallback()
+    successCallback()
 
 clickHandler = -> Factlink.modal.hide.method()
 
