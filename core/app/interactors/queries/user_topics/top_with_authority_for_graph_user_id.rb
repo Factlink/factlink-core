@@ -4,6 +4,7 @@ module Queries
   module UserTopics
     class TopWithAuthorityForGraphUserId
       include Pavlov::Query
+      include HashUtils
 
       arguments :graph_user_id, :limit_topics
 
@@ -55,7 +56,7 @@ module Queries
 
         topics = Topic.any_in(id: ids).to_a
 
-        HashUtils.hash_with_index(:id, topics)
+        hash_with_index(:id, topics)
       end
 
       def graph_user
