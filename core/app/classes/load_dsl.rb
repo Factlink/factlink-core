@@ -42,6 +42,8 @@ class LoadDsl
     f.data.displaystring = fact_string
     f.data.title = opts[:title] if opts[:title]
     f.data.save
+
+    f
   end
 
   def fact(fact_string,url="http://example.org/", opts={})
