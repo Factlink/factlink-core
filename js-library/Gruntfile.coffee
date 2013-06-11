@@ -1,10 +1,12 @@
 # global config:true, file:true, task:true, module: true
 
-banner_template = '/*!
+banner_template = """
+/*!
 * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage ? " * " + pkg.homepage : "" %>
 * Date: <%= grunt.template.today("m/d/yyyy") %>
 * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>
-*/'
+*/
+"""
 
 module.exports = (grunt) ->
   grunt.initConfig
