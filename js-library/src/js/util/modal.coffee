@@ -48,7 +48,7 @@ Factlink.modal =
     fct
 
   stopHighlightingFactlink: (id) ->
-    for $el in $("span.factlink[data-factid=#{id}]")
-      $el.contents().unwrap()
+    $("span.factlink[data-factid=#{id}]").each (i, val) ->
+      $(val).contents().unwrap()
 
   trigger: (e) -> Factlink.trigger(e)
