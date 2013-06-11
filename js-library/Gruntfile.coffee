@@ -23,43 +23,45 @@ module.exports = (grunt) ->
     concat:
       wrap:
         src: [
-          'wrap/first.js',
-          'plugins/*.js',
-          'src/js/models/*.js',
-          'tmp/compiled_coffee/models/*.js',
-          'src/js/views/*.js',
-          'tmp/compiled_coffee/views/*.js',
-          'src/js/util/*.js',
-          'tmp/compiled_coffee/util/*.js',
-          'src/js/initializers/*.js',
-          'tmp/compiled_coffee/initializers/*.js',
-          'wrap/last.js'
+          'dist/js/wrap/first.js',
+          'dist/js/plugins/*.js',
+          'dist/js/models/*.js',
+          'dist/js/views/*.js',
+          'dist/js/util/*.js',
+          'dist/js/initializers/*.js',
+          'dist/js/wrap/last.js'
         ]
-        dest: 'tmp/factlink.core.js'
+        dest: 'dist/wrapped.js'
       core:
         options:
           banner: banner_template
         src: [
-          'libs/jquery-1.7.2.js',
-          'libs/underscore.js',
-          'src/js/core.js',
-          'tmp/factlink.core.js'
+          'dist/js/libs/jquery-1.7.2.js',
+          'dist/js/libs/underscore.js',
+          'dist/js/core.js',
+          'dist/wrapped.js'
         ]
         dest: 'dist/factlink.core.js'
       loader:
         src: [
-          'libs/easyXDM.js',
-          'src/js/loader.js'
+          'dist/js/libs/easyXDM.js',
+          'dist/js/loader.js'
         ]
         dest: 'dist/factlink.js'
     copy:
       main:
         files: [
-          { src: ['dist/css/basic.css'],          dest: 'dist/server/css/basic.css' }
-          { src: ['dist/easyXDM/easyXDM.min.js'], dest: 'public/easyXDM.min.js' }
-          { src: ['**'],                          dest: 'dist/server/images/', expand: true, cwd: 'src/images/', filter: 'isFile' }
-          { src: ['**'],                          dest: 'dist/images/',        expand: true, cwd: 'src/images/', filter: 'isFile' }
+          { src: ['dist/css/basic.css'], dest: 'dist/server/css/basic.css' }
+          { src: ['**'],                 dest: 'dist/server/images/',   expand: true, cwd: 'src/images/', filter: 'isFile' }
+          { src: ['**'],                 dest: 'dist/images/',          expand: true, cwd: 'src/images/', filter: 'isFile' }
+        ]
       js_files:
+        files: [
+          { src: ['**/*.js'], dest: 'dist/js/',         expand: true, cwd: 'src/js/'}
+          { src: ['**/*.js'], dest: 'dist/js/plugins/', expand: true, cwd: 'plugins/'}
+          { src: ['**/*.js'], dest: 'dist/js/wrap/',    expand: true, cwd: 'wrap/'}
+          { src: ['**/*.js'], dest: 'dist/js/libs/',    expand: true, cwd: 'libs/'}
+          { src: ['libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
           {
             src: ['start_annotating.js', 'stop_annotating.js', 'start_highlighting.js', 'stop_highlighting.js']
             cwd: 'src/js/'
@@ -128,8 +130,8 @@ module.exports = (grunt) ->
           'dist/server/factlink.start_highlighting.min.js': ['dist/factlink.start_highlighting.js']
           'dist/server/factlink.stop_highlighting.min.js':  ['dist/factlink.stop_highlighting.js']
           'dist/server/factlink.min.js':                    ['dist/factlink.js']
-          'dist/server/easyXDM/easyXDM.min.js':             ['libs/easyXDM.js']
-          'dist/easyXDM/easyXDM.min.js':                    ['libs/easyXDM.js']
+          'dist/server/easyXDM/easyXDM.min.js':             ['dist/js/libs/easyXDM.js']
+
   grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'concat']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
