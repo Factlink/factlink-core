@@ -60,10 +60,7 @@ module.exports = (grunt) ->
       js_files:
         files: [
           { src: ['**/*.js'], dest: 'dist/js/',         expand: true, cwd: 'app/js/'}
-          { src: ['**/*.js'], dest: 'dist/js/plugins/', expand: true, cwd: 'plugins/'}
-          { src: ['**/*.js'], dest: 'dist/js/wrap/',    expand: true, cwd: 'wrap/'}
-          { src: ['**/*.js'], dest: 'dist/js/libs/',    expand: true, cwd: 'libs/'}
-          { src: ['libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
+          { src: ['app/libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
           {
             src: ['start_annotating.js', 'stop_annotating.js', 'start_highlighting.js', 'stop_highlighting.js']
             cwd: 'app/js/'
@@ -79,10 +76,23 @@ module.exports = (grunt) ->
     qunit:
       all: ['test/*.html']
     watch:
-      files: ['app/js/**/*', 'app/css/**/*', 'test/**/*', 'Gruntfile.coffee', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
+      files: ['app/js/**/*', 'app/css/**/*', 'test/**/*', 'Gruntfile.coffee']
       tasks: ['compile', 'test']
+    uglify:
+      options: {
+        banner: banner_template
+      },
+      all:
+        files:
+          'dist/server/factlink.core.min.js':               ['dist/factlink.core.js']
+          'dist/server/factlink.start_annotating.min.js':   ['dist/factlink.start_annotating.js']
+          'dist/server/factlink.stop_annotating.min.js':    ['dist/factlink.stop_annotating.js']
+          'dist/server/factlink.start_highlighting.min.js': ['dist/factlink.start_highlighting.js']
+          'dist/server/factlink.stop_highlighting.min.js':  ['dist/factlink.stop_highlighting.js']
+          'dist/server/factlink.min.js':                    ['dist/factlink.js']
+          'dist/server/easyXDM/easyXDM.min.js':             ['dist/js/libs/easyXDM.js']
     jshint:
-      all: ['app/js/**/*.js', 'test/**/*.js']
+      all: ['app/js/initializers/*.js', 'app/js/models/*.js', 'app/js/util/*.js', 'app/js/views/*.js', 'app/js/.js', 'test/**/*.js']
       options:
         # Whether jQuery globals should be predefined.
         jquery: true
@@ -120,19 +130,6 @@ module.exports = (grunt) ->
           "escape": true
           "_": true
           "easyXDM": true
-    uglify:
-      options: {
-        banner: banner_template
-      },
-      all:
-        files:
-          'dist/server/factlink.core.min.js':               ['dist/factlink.core.js']
-          'dist/server/factlink.start_annotating.min.js':   ['dist/factlink.start_annotating.js']
-          'dist/server/factlink.stop_annotating.min.js':    ['dist/factlink.stop_annotating.js']
-          'dist/server/factlink.start_highlighting.min.js': ['dist/factlink.start_highlighting.js']
-          'dist/server/factlink.stop_highlighting.min.js':  ['dist/factlink.stop_highlighting.js']
-          'dist/server/factlink.min.js':                    ['dist/factlink.js']
-          'dist/server/easyXDM/easyXDM.min.js':             ['dist/js/libs/easyXDM.js']
 
   grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'concat']
   grunt.registerTask 'test',    ['jshint', 'qunit']
