@@ -8,8 +8,4 @@ Factlink.triggerClick = ->
 
     Factlink.createFactFromSelection()
   else
-    select_text_message = new Factlink.Views.Notification
-      message: 'To create a Factlink, select a statement and click the Factlink button.'
-      type_classes: 'fl-message-icon-add'
-
-    select_text_message.render()
+    Factlink.Views.Notifications.showShouldSelectText()

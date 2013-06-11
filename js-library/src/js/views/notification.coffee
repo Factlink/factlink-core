@@ -49,3 +49,17 @@ Factlink.Views.Notifications.showFactlinkCreated = ->
     type_classes: 'fl-message-success fl-message-icon-time'
 
   created_message.render()
+
+Factlink.Views.Notifications.showShouldSelectText = ->
+  select_text_message = new Factlink.Views.Notification
+    message: 'To create a Factlink, select a statement and click the Factlink button.'
+    type_classes: 'fl-message-icon-add'
+
+  select_text_message.render()
+
+Factlink.Views.Notifications.showLoaded = ->
+  loaded_message = new Factlink.Views.Notification
+    message: 'Factlink is loaded!'
+    type_classes: 'fl-message-success fl-message-icon-time'
+
+  loaded_message.render()
