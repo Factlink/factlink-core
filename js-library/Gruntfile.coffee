@@ -12,7 +12,13 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files: [
-          { src: ['**/*.coffee'], cwd: 'src/js', ext: '.js', dest: 'tmp/compiled_coffee/', expand: true }
+          {
+            src: ['**/*.coffee']
+            cwd: 'src/js'
+            ext: '.js'
+            dest: 'dist/js/'
+            expand: true
+          }
         ]
     concat:
       wrapped_files:
