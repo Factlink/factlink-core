@@ -37,7 +37,7 @@ class window.TopicView extends Backbone.Marionette.Layout
     @factList.show new FactsView collection: facts
 
   showFavouriteTopicButton: ->
-    view = new FavouriteTopicButtonView topic: @model, mini: true
+    view = new FavouriteTopicButtonView(topic: @model, mini: true)
     @favouriteTopicRegion.show view
 
   channel: ->
