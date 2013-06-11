@@ -21,13 +21,11 @@ class MapReduce
     end
 
     def write_output ident, value
-      # TODO use dead channel and dead graph user
-      ch = Channel[ident[:channel_id]]
-      gu = GraphUser[ident[:user_id]]
-      if ch and gu
-        Authority.from(ch, for: gu) << value
-      end
-    end
+      # TODO use dead channel
+      ch = DeadChannel.new ident[:channel_id]
+      gu = DeadGraphUser.new ident[:user_id]
 
+      Authority.from(ch, for: gu) << value
+    end
   end
 end
