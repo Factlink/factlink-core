@@ -1,6 +1,6 @@
 # The iFrame which holds the intermediate
-iFrame = $("<div />").attr
-  "id": "factlink-modal-frame"
+iFrame = $('<div />').attr
+  id: 'factlink-modal-frame'
 
 iFrame.hide()
 iFrame.appendTo(Factlink.el)
