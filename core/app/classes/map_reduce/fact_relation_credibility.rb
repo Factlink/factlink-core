@@ -20,9 +20,8 @@ class MapReduce
     end
 
     def reduce bucket, authorities
-      if authorities.size != 1
-        raise 'Only one authority per fact relation expected!'
-      end
+      raise 'Only one authority per fact relation expected!' if authorities.size != 1
+
       authorities[0]
     end
 
