@@ -35,7 +35,7 @@ Factlink.modal =
   highlightNewFactlink: (fact, id, opinions) ->
     fct = Factlink.selectRanges(Factlink.search(fact), id, opinions)
 
-    $.merge(Factlink.Facts, fct)
+    _.extend Factlink.Facts, fct
 
     Factlink.trigger("factlinkAdded")
 
