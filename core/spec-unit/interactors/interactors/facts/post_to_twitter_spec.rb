@@ -6,7 +6,7 @@ describe Interactors::Facts::PostToTwitter do
   include PavlovSupport
 
   before do
-    stub_classes 'FactHelper'
+    stub_classes 'FactHelper', 'Fact'
   end
 
   describe '#authorized?' do
@@ -14,9 +14,14 @@ describe Interactors::Facts::PostToTwitter do
       described_class.any_instance.stub(validate: true)
     end
 
-    it 'throws when no current_user' do
-      expect { described_class.new mock, mock }
-        .to raise_error Pavlov::AccessDenied, 'Unauthorized'
+    it 'throws when cannot share facts' do
+      ability = stub
+      ability.stub(:can?).with(:share, Fact).and_return(false)
+
+      pavlov_options = {current_user: stub, ability: ability}
+
+      expect { described_class.new mock, mock, pavlov_options }.
+        to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
 
@@ -30,7 +35,9 @@ describe Interactors::Facts::PostToTwitter do
       message = "message"
       fact = mock(id: "1", proxy_scroll_url: "proxy_scroll_url")
 
-      interactor = described_class.new fact.id, message, current_user: user
+      pavlov_options = {current_user: user, ability: mock(can?: true)}
+
+      interactor = described_class.new fact.id, message, pavlov_options
 
       interactor.stub(:query)
         .with(:"facts/get_dead", fact.id)
@@ -48,7 +55,9 @@ describe Interactors::Facts::PostToTwitter do
       fact = mock(id: "1", proxy_scroll_url: nil, to_s: 'displaystring')
       friendly_fact_url = "friendly_fact_url"
 
-      interactor = described_class.new fact.id, message, current_user: user
+      pavlov_options = {current_user: user, ability: mock(can?: true)}
+
+      interactor = described_class.new fact.id, message, pavlov_options
 
       interactor.stub(:query)
         .with(:"facts/get_dead", fact.id)

@@ -2,11 +2,16 @@ module Interactors
   module Facts
     class PostToTwitter
       include Pavlov::Command
+      include Util::CanCan
 
       # TODO: Let's move this to a query some time...
       include ::FactHelper
 
       arguments :fact_id, :message
+
+      def authorized?
+        can? :share, Fact
+      end
 
       private
 
@@ -27,10 +32,6 @@ module Interactors
         end
       end
 
-      def authorized?
-        @options[:current_user]
-      end
-
       def url
         fact.proxy_scroll_url || friendly_fact_url(fact)
       end
@@ -40,11 +41,9 @@ module Interactors
       end
 
       def maximum_message_length
-        140 - short_url_length_https - 1 # -1 for space
-      end
+        short_url_length_https = ::Twitter.configuration.short_url_length_https
 
-      def short_url_length_https
-        ::Twitter.configuration.short_url_length_https
+        140 - short_url_length_https - 1 # -1 for space
       end
     end
   end

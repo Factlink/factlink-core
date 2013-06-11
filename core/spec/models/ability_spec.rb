@@ -100,6 +100,7 @@ describe Ability do
       it {subject.should     be_able_to :opinionate, f1 }
       it {subject.should     be_able_to :add_evidence, f1 }
       it {subject.should     be_able_to :create, f1 }
+      it {subject.should     be_able_to :share, f1 }
     end
 
     describe "of someone else" do
@@ -108,6 +109,7 @@ describe Ability do
       it {subject.should      be_able_to :opinionate, f2 }
       it {subject.should      be_able_to :add_evidence, f2 }
       it {subject.should_not  be_able_to :create, f2 }
+      it {subject.should      be_able_to :share, f2 }
     end
 
     describe "without logging in" do
@@ -118,6 +120,7 @@ describe Ability do
       it {anonymous.should_not  be_able_to :update, f1 }
       it {anonymous.should_not  be_able_to :opinionate, Fact }
       it {anonymous.should_not  be_able_to :add_evidence, f1 }
+      it {anonymous.should_not  be_able_to :share, f1 }
     end
   end
 
