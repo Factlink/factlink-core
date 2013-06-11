@@ -1,4 +1,5 @@
 Factlink.Views ||= {}
+Factlink.Views.Notifications ||= {}
 
 class Factlink.Views.Notification
   appendTo: '#fl'
@@ -41,3 +42,10 @@ class Factlink.Views.Notification
 
   remove: =>
     @$el.fadeOut(@options.fade_time, => @$el.remove())
+
+Factlink.Views.Notifications.showFactlinkCreated = ->
+  created_message = new Factlink.Views.Notification
+    message: 'Factlink loaded!'
+    type_classes: 'fl-message-success fl-message-icon-time'
+
+  created_message.render()

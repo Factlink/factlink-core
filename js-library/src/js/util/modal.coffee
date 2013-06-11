@@ -43,11 +43,7 @@ Factlink.modal =
 
     Factlink.modal.hide.method()
 
-    created_message = new Factlink.Views.Notification
-      message: 'Factlink loaded!'
-      type_classes: 'fl-message-success fl-message-icon-time'
-
-    created_message.render()
+    Factlink.Views.Notifications.showFactlinkCreated()
 
     fct
 
