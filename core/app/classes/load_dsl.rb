@@ -30,10 +30,6 @@ class LoadDsl
     Site.find(:url => url).first || Site.create(:url => url)
   end
 
-  def site(url)
-    load_site(url)
-  end
-
   def load_fact(fact_string,url="http://example.org/", opts={})
     f = Fact.by_display_string(fact_string)
     return f if f
@@ -141,11 +137,6 @@ class LoadDsl
     fact = self.load_fact(fact_string)
 
     interactor :'channels/add_fact', fact, self.state_channel
-  end
-
-  def del_fact(fact_string)
-    f = self.load_fact(fact_string)
-    self.state_channel.remove_fact(f)
   end
 
   def run(&block)
