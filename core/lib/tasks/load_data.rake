@@ -64,8 +64,7 @@ namespace :db do
       rake db:truncate              # Truncate database
       rake db:truncate_keep_users   # Truncate database, but keep the users
       rake db:export file=filename  # Exports the current database
-      rake db:init:list             # Lists all available seeds
-      rake db:init:filename         # Import the dump to the database
+      rake db:init                  # Import the dump to the database
       rake db:help                  # Show this help file
 
     eos
