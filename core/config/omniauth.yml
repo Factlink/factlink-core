@@ -4,8 +4,8 @@ development:
       id: "283748838400237"
       secret: "608b02f9697512a72bd2174abdf98395"
     twitter:
-      id: "zt9YJ7Yg7oYhxkkX2NaGA"
-      secret: "yUkf4zhzoGFHY4B7UsGZrXaV7taabhrxTYTAo1xljvo"
+      id: "92a5EJxmFDrEs6mH3oyvmQ"
+      secret: "4m8rGSizfiZol85kNDHJrgd4TZOmKmss530ZF4Tuc"
 
 test:
   omniauth:
@@ -13,8 +13,8 @@ test:
       id: "283748838400237"
       secret: "608b02f9697512a72bd2174abdf98395"
     twitter:
-      id: "zt9YJ7Yg7oYhxkkX2NaGA"
-      secret: "yUkf4zhzoGFHY4B7UsGZrXaV7taabhrxTYTAo1xljvo"
+      id: "92a5EJxmFDrEs6mH3oyvmQ"
+      secret: "4m8rGSizfiZol85kNDHJrgd4TZOmKmss530ZF4Tuc"
 
 testserver:
   omniauth:
