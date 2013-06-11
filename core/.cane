@@ -1,7 +1,6 @@
 --style-measure 160
 --no-doc
 --no-readme
---abc-exclude FactGraph.export
 --abc-exclude OurOhm::GenericReference#generic_reference
 --abc-exclude ChannelsController#create
 --abc-exclude FactsController#create
@@ -11,5 +10,4 @@
 --abc-exclude ChannelsController#update
 --abc-exclude Activity::ListenerCreator#forGraphUser_someone_followed_your_channel
 --abc-exclude Opinion#+
---abc-exclude FactGraph.export_opiniated
 --abc-exclude Activity::Listener#matches
