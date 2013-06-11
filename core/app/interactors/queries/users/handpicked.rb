@@ -6,9 +6,15 @@ module Queries
       include Pavlov::Query
 
       def execute
-        HandpickedTourUsers.new.members.map do |user|
-          KillObject.user user
-        end
+        users
+      end
+
+      def users
+        query :"users_by_ids", user_ids
+      end
+
+      def user_ids
+        HandpickedTourUsers.new.ids
       end
     end
   end

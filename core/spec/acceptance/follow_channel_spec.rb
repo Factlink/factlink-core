@@ -26,7 +26,7 @@ feature "channels", type: :request do
 
     go_to_channel_page_of my_channel
 
-    find('#contained-channels a', text: other_users_channel.created_by.user.username)
+    find('#contained-channels a', text: other_users_channel.created_by.user.name)
   end
 
   scenario "I navigate to somebody else's channel and follow it, and then go to my channel via a topic" do
@@ -48,6 +48,6 @@ feature "channels", type: :request do
     go_to_topic_page_of other_users_channel.topic
     switch_to_factlinks_from_people_i_follow
 
-    find('#contained-channels a', text: other_users_channel.created_by.user.username)
+    find('#contained-channels a', text: other_users_channel.created_by.user.name)
   end
 end

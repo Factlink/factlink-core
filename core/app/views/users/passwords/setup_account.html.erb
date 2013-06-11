@@ -1,7 +1,7 @@
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => "form-horizontal setup-account" }) do |f| %>
   <%= f.hidden_field :reset_password_token %>
 
-  <h1>Hi <%= @user.username %>, set up your account here:</h1>
+  <h1>Hi <%= @user.name %>, set up your account here:</h1>
 
   <div class="setup-account-form">
     <%= possible_error_for_field(resource, :reset_password_token) %>

@@ -31,8 +31,8 @@ en:
   fact_remove_opinion_past_action: "removed opinion"
   fact_add_evidence_past_action: "added evidence"
 
-  fact_believe_collection_name: "supporting"
-  fact_disbelieve_collection_name: "weakening"
+  fact_believe_collection_name: "supporting arguments"
+  fact_disbelieve_collection_name: "weakening arguments"
   fact_doubt_collection_name: "unsure"
 
   channel: "channel"

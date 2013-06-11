@@ -4,25 +4,29 @@ require_relative '../../../../app/interactors/queries/users/handpicked'
 describe Queries::Users::Handpicked do
   include PavlovSupport
 
-  describe '#execute' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-      stub_classes 'HandpickedTourUsers', 'KillObject'
-    end
+  before do
+    stub_classes 'HandpickedTourUsers'
+  end
+
+  describe '#call' do
 
     it 'should return the dead handpicked_users' do
-      user1 = mock
-      user2 = mock
-      dead_user1 = mock
-      dead_user2 = mock
+      dead_users = [
+        mock(:dead_user, id: mock),
+        mock(:dead_user, id: mock),
+      ]
 
-      HandpickedTourUsers.stub(:new).and_return stub(members: [user1, user2])
-      KillObject.stub(:user).with(user1).and_return(dead_user1)
-      KillObject.stub(:user).with(user2).and_return(dead_user2)
+      user_ids = dead_users.map(&:id)
+
+      HandpickedTourUsers.stub(:new)
+        .and_return stub(ids: user_ids)
 
       query = described_class.new
 
-      expect(query.execute).to match_array [dead_user1, dead_user2]
+      Pavlov.stub(:query).with(:'users_by_ids', user_ids)
+            .and_return(dead_users)
+
+      expect(query.call).to match_array dead_users
     end
   end
 

@@ -11,7 +11,6 @@ class CommentView extends Backbone.Marionette.ItemView
 
 
 class window.CommentEvidenceView extends EvidenceBaseView
-  activityVerb: 'commented'
   mainView: CommentView
   delete_message: 'Remove this comment'
 

@@ -72,11 +72,9 @@ describe Interactors::CreateConversationWithMessage do
 
       options = {current_user: user_a}
 
-      initialization = lambda do
+      expect do
         Interactors::CreateConversationWithMessage.new mock, mock, user_b.id, mock, options
-      end
-
-      expect(initialization).to raise_error(Pavlov::AccessDenied)
+      end.to raise_error(Pavlov::AccessDenied)
     end
   end
 end

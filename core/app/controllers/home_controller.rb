@@ -4,9 +4,10 @@ class HomeController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
-  #general static pages:
+  # general static pages:
+  # TODO unfold big nested if
   def pages
-    if ( /\A([-a-zA-Z_\/]+)\Z/.match(params[:name]))
+    if /\A([-a-zA-Z_\/]+)\Z/.match(params[:name])
       respond_to do |format|
         template = "home/pages/#{$1}"
 
@@ -47,8 +48,12 @@ class HomeController < ApplicationController
   end
 
   def index
-    @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
-    mp_track "Pageview: Landing page"
+    @code = params[:code] if /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code])
+
+    unless params[:show_sign_in]
+      mp_track "Pageview: Landing page", code: @code
+    end
+
     render "home/pages/index", layout: "static_pages"
   end
 end

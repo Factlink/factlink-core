@@ -14,7 +14,7 @@ module Queries
 
       conversations.map do |conversation|
         KillObject.conversation(conversation,
-          recipients: conversation.recipient_ids.map {|id| users_by_id[id]},
+          recipients: conversation.recipient_ids.map {|id| users_by_id[id.to_s]},
           last_message: (query :last_message_for_conversation, conversation)
         )
       end

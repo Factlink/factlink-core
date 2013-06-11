@@ -13,7 +13,7 @@ class window.AutoCompleteUsersView extends AutoCompleteSearchView
       filter_on: 'username'
       search_list_view: (options) -> new AutoCompleteSearchUsersView(options)
       search_collection: -> new UserSearchResults
-      placeholder: 'Type a username'
+      placeholder: 'Type a name'
 
     @_results_view = new AutoCompleteResultsUsersView(collection: @collection)
 

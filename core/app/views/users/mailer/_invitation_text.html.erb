@@ -1,7 +1,7 @@
 <p>Hi there!</p>
 
 <% user = @resource.invited_by || current_user %>
-<% name = user.name.blank? ? user.username : user.name %>
+<% name = user.name %>
 
 <p>You've been invited to Factlink by <b><%= name %></b>. We have created an account for you to explore Factlink.</p>
 

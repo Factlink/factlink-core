@@ -29,8 +29,8 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @bindTo @model, 'change', updatePopover
 
   evidenceBaseOnRender: ->
-    @userAvatarRegion.show new EvidenceUserAvatarView model: @model
-    @activityRegion.show   new EvidenceActivityView model: @model, verb: @activityVerb
+    @userAvatarRegion.show new AvatarView model: @model.creator()
+    @activityRegion.show   new EvidenceActivityView model: @model
 
     if Factlink.Global.signed_in
       voteRelevanceView = new InteractiveVoteUpDownView model: @model
@@ -68,14 +68,6 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
           'background-color': '#ffffff'
         , 2500
 
-
-class EvidenceUserAvatarView extends Backbone.Marionette.ItemView
-  className: 'evidence-user-avatar'
-  template:  'evidence/user_avatar'
-
-  templateHelpers: => creator: @model.creator().toJSON()
-
-
 class EvidenceActivityView extends Backbone.Marionette.ItemView
   className: 'evidence-activity'
   template:  'evidence/activity'
@@ -84,7 +76,6 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
 
   templateHelpers: =>
     creator: @model.creator().toJSON()
-    verb: @options.verb
 
 
 class EvidencePopoverView extends Backbone.Factlink.PopoverView

@@ -63,7 +63,7 @@ loadUrl = (url)->
     showFrame.src = url
 
 # initialize the page, so we are ready to render new pages fast
-loadUrl '/facts/new'
+loadUrl '/facts/new?layout=client'
 
 $("iframe").preventScrollPropagation()
 $("iframe").on 'click', (e) -> e.stopPropagation()

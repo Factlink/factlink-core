@@ -1,6 +1,13 @@
+require 'pavlov_helper'
 require_relative '../../app/redis-models/handpicked_tour_users'
 
 describe HandpickedTourUsers do
+  include PavlovSupport
+
+  before do
+    stub_classes 'Nest'
+  end
+
   describe '.add' do
     it 'adds a user id to the list of handpicked users' do
       id = 1
@@ -40,7 +47,7 @@ describe HandpickedTourUsers do
     end
   end
 
-  describe '.members' do
+  describe '.ids' do
     before do
       stub_const 'User', Class.new
     end
@@ -48,19 +55,10 @@ describe HandpickedTourUsers do
     it "returns the users" do
       user = mock
       nest = stub smembers: ["1"]
-      User.stub(:find).with("1").and_return user
 
       handpicked_tour_users = described_class.new nest
 
-      expect(handpicked_tour_users.members).to eq [user]
-    end
-    it "doesn't return nil users" do
-      nest = stub smembers: ["1"]
-      User.stub(:find).with("1").and_return nil
-
-      handpicked_tour_users = described_class.new nest
-
-      expect(handpicked_tour_users.members).to eq []
+      expect(handpicked_tour_users.ids).to eq ["1"]
     end
   end
 end

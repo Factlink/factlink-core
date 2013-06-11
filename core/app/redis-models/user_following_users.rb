@@ -1,5 +1,3 @@
-require 'redis-aid'
-
 class UserFollowingUsers
 
   attr_reader :graph_user_id, :relation

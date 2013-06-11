@@ -16,7 +16,7 @@ module Queries
       end
 
       def topic_slugs
-        channels.map {|ch| ch.slug_title}
+        channels.map(&:slug_title)
       end
 
       def channels

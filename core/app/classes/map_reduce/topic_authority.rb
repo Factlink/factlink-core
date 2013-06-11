@@ -34,10 +34,11 @@ class MapReduce
 
     def write_output ident, value
       topic = Topic.by_slug(ident[:topic])
-
       gu = GraphUser[ident[:user_id]]
-      topic.top_users_add(gu.user, value) if gu.user
       Authority.from(topic, for: gu) << value
+
+      Resque.enqueue Commands::Topics::UpdateUserAuthority,
+         gu.id, topic.slug_title, value
     end
   end
 end

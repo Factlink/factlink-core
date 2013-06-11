@@ -226,7 +226,7 @@ class User
   around_create :create_graph_user
 
   def to_s
-    username
+    name
   end
 
   def to_param
@@ -234,7 +234,13 @@ class User
   end
 
   def name
-    "#{first_name} #{last_name}".strip
+    name = "#{first_name} #{last_name}".strip
+
+    if name.blank?
+      username
+    else
+      name
+    end
   end
 
   def valid_username_and_email?
@@ -255,7 +261,7 @@ class User
 
   def serializable_hash(options={})
     options ||= {}
-    options[:except] ||= Array.new
+    options[:except] ||= []
     options[:except] += [:admin, :agrees_tos, :agreed_tos_on, :agrees_tos_name, ]
     super(options)
   end
@@ -286,6 +292,7 @@ class User
   def active_for_authentication?
     super && approved?
   end
+
   def inactive_message
     if !approved?
       :not_approved
