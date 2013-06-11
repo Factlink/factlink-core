@@ -25,7 +25,7 @@ module Queries
     include Pavlov::Query
     arguments :channels
     def execute
-      @channels.map {|ch| authority_for(ch)}
+      channels.map &method(:authority_for)
     end
 
     def authority_for(channel)

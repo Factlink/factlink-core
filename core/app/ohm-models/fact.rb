@@ -159,6 +159,6 @@ class Fact < Basefact
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
   def channel_ids
-    channels.map {|ch| ch.id}
+    channels.map(&:id)
   end
 end

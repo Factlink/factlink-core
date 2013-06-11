@@ -5,7 +5,7 @@ module Interactors
       include Util::CanCan
 
       def execute
-        users.map {|u| with_user_topics(u)}
+        users.map(&method(:with_user_topics))
       end
 
       def with_user_topics user
