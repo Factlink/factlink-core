@@ -38,7 +38,7 @@ class IdentitiesController < ApplicationController
   end
 
   def oauth_failure
-    if(params[:error_description].blank?)
+    if params[:error_description].blank?
       params[:error_description] ||= "unspecified error"
     end
     @event = "social_error"
@@ -98,7 +98,7 @@ class IdentitiesController < ApplicationController
   def provider_deauthorize provider_name, &block
     authorize! :update, current_user
 
-    if(current_user.identities[provider_name])
+    if current_user.identities[provider_name]
 
       uid = current_user.identities[provider_name]['uid']
       token = current_user.identities[provider_name]['credentials']['token']

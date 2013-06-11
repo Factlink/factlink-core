@@ -11,7 +11,7 @@ describe Interactors::SubComments::IndexForComment do
     it 'checks if the comment can be shown' do
       comment_id = '1a'
       comment = mock
-      
+
       Comment.stub(:find).with(comment_id).and_return(comment)
 
       ability = mock

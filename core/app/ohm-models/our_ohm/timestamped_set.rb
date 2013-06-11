@@ -10,8 +10,8 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
   end
 
   def unread_count
-    last_read = key['last_read'].get()
-    if(last_read)
+    last_read = key['last_read'].get
+    if last_read
       key.zcount(last_read,'+inf')
     else
       key.zcard

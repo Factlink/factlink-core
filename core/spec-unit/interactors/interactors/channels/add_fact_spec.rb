@@ -43,7 +43,7 @@ describe Interactors::Channels::AddFact do
     end
 
     it 'returns false when neither :current_user or :no_current_user are passed' do
-      expect(lambda { described_class.new mock, mock }).to raise_error(Pavlov::AccessDenied)
+      expect { described_class.new mock, mock }.to raise_error(Pavlov::AccessDenied)
     end
   end
 end

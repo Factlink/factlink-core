@@ -25,13 +25,21 @@ describe UrlNormalizer do
 
     it { normalized( 'http://www.example.org/file\bier.png').should == 'http://www.example.org/file%5Cbier.png' }
 
-    it { normalized( 'http://www.ikea.com/nl/nl/catalog/products/30101154/?icid=nl|ic|hp_main|smarteasyliving|ikea365').should ==
-                             'http://www.ikea.com/nl/nl/catalog/products/30101154/?icid=nl%7Cic%7Chp_main%7Csmarteasyliving%7Cikea365'}
+    it do
+     normalized( 'http://www.ikea.com/nl/nl/catalog/products/30101154/?icid=nl|ic|hp_main|smarteasyliving|ikea365').should ==
+                             'http://www.ikea.com/nl/nl/catalog/products/30101154/?icid=nl%7Cic%7Chp_main%7Csmarteasyliving%7Cikea365'
+    end
 
-    it { normalized( 'http://www.amazon.de/s/url=search-alias%3Daps').should ==
-                            'http://www.amazon.de/s/url=search-alias=aps'}
-    it { normalized( 'http://www.amazon.de/s/?url=search-alias%3Daps').should ==
-                             'http://www.amazon.de/s/?url=search-alias=aps'}
+    it do
+     normalized( 'http://www.amazon.de/s/url=search-alias%3Daps').should ==
+                            'http://www.amazon.de/s/url=search-alias=aps'
+    end
+
+    it do
+     normalized( 'http://www.amazon.de/s/?url=search-alias%3Daps').should ==
+                             'http://www.amazon.de/s/?url=search-alias=aps'
+    end
+
     describe "improvements" do
 
       it { normalized( 'http://www.google.com/a[b]').should == 'http://www.google.com/a%5Bb%5D' } # [ and ] are not allowed according to RFC 2732 http://www.ietf.org/rfc/rfc2732.txt

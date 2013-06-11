@@ -32,7 +32,7 @@ describe Queries::ElasticSearchAll do
 
         results = mock()
         results.stub code: 200
-        results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
+        results.stub parsed_response: { 'hits' => { 'hits' => [hit] } }
 
         HTTParty.should_receive(:get).
           with("http://#{base_url}/factdata,topic,user/_search?q=(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)&from=0&size=20&analyze_wildcard=true").
@@ -93,7 +93,7 @@ describe Queries::ElasticSearchAll do
 
       results = mock()
       results.stub code: 200
-      results.stub parsed_response: { 'hits' => { 'hits' => [ ] } }
+      results.stub parsed_response: { 'hits' => { 'hits' => [] } }
 
       HTTParty.should_receive(:get).
         with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").

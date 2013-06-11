@@ -2,7 +2,9 @@ class Channel < OurOhm
   class UserStream < Channel
     include Channel::GeneratedChannel
 
-    def type; "stream" end
+    def type
+      "stream"
+    end
 
     def add_fields
       self.title = "All"
