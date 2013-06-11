@@ -44,8 +44,8 @@ describe Queries::ConversationsWithUsersMessage do
 
       result = query.all_recipients_by_ids(querylist)
       expect(result).to eq({
-        mocklist[0].id => mocklist[0],
-        mocklist[1].id => mocklist[1]
+        mocklist[0].id.to_s => mocklist[0],
+        mocklist[1].id.to_s => mocklist[1]
       })
     end
   end
