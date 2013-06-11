@@ -16,7 +16,7 @@ module.exports = (grunt) ->
         files: [
           {
             src: ['**/*.coffee']
-            cwd: 'src/js'
+            cwd: 'app/js'
             ext: '.js'
             dest: 'dist/js/'
             expand: true
@@ -54,19 +54,19 @@ module.exports = (grunt) ->
       main:
         files: [
           { src: ['dist/css/basic.css'], dest: 'dist/server/css/basic.css' }
-          { src: ['**'],                 dest: 'dist/server/images/',   expand: true, cwd: 'src/images/', filter: 'isFile' }
-          { src: ['**'],                 dest: 'dist/images/',          expand: true, cwd: 'src/images/', filter: 'isFile' }
+          { src: ['**'],                 dest: 'dist/server/images/',   expand: true, cwd: 'app/images/', filter: 'isFile' }
+          { src: ['**'],                 dest: 'dist/images/',          expand: true, cwd: 'app/images/', filter: 'isFile' }
         ]
       js_files:
         files: [
-          { src: ['**/*.js'], dest: 'dist/js/',         expand: true, cwd: 'src/js/'}
+          { src: ['**/*.js'], dest: 'dist/js/',         expand: true, cwd: 'app/js/'}
           { src: ['**/*.js'], dest: 'dist/js/plugins/', expand: true, cwd: 'plugins/'}
           { src: ['**/*.js'], dest: 'dist/js/wrap/',    expand: true, cwd: 'wrap/'}
           { src: ['**/*.js'], dest: 'dist/js/libs/',    expand: true, cwd: 'libs/'}
           { src: ['libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
           {
             src: ['start_annotating.js', 'stop_annotating.js', 'start_highlighting.js', 'stop_highlighting.js']
-            cwd: 'src/js/'
+            cwd: 'app/js/'
             expand: true
             dest: 'dist/'
             rename: (dest, src) -> "#{dest}factlink.#{src}"
@@ -75,14 +75,14 @@ module.exports = (grunt) ->
     less:
       development:
         files:
-          'dist/css/basic.css': 'src/css/basic.less'
+          'dist/css/basic.css': 'app/css/basic.less'
     qunit:
       all: ['test/*.html']
     watch:
-      files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'Gruntfile.coffee', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
+      files: ['app/js/**/*', 'app/css/**/*', 'test/**/*', 'Gruntfile.coffee', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
       tasks: ['compile', 'test']
     jshint:
-      all: ['src/js/**/*.js', 'test/**/*.js']
+      all: ['app/js/**/*.js', 'test/**/*.js']
       options:
         # Whether jQuery globals should be predefined.
         jquery: true
