@@ -1,0 +1,64 @@
+@import "elements.less";
+
+#fl {
+  .fl-message {  // Message after loading the Bookmarklet
+    #fl > .resetStyles;
+
+    position: fixed;
+    z-index: @max-z-index;
+    background: #fff;
+    min-height: 65px;
+    line-height: 65px;
+    .box-shadow(0 0 0 4px rgba(0, 0, 0, .08));
+    border-bottom: 2px solid #999999;
+    border-radius: 4px;
+    max-width: 400px;
+    overflow: hidden;
+
+    > .fl-message-icon {
+      #fl > .resetStyles;
+      background-color: #ebecee;
+      width: 70px;
+      position: absolute;
+      top: 0; bottom: 0;
+    }
+
+    > .fl-message-content {
+      #fl > .resetStyles;
+      margin-left: 70px;
+      font-size: 15px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      padding: 15px 20px;
+      display: inline-block;
+      line-height: 1.5;
+      vertical-align: middle;
+    }
+
+    &.fl-message-success {
+      background: #17ab75;
+      text-shadow: 0 1px 0 #2a8b67;
+      border-bottom: 2px solid #1c845e;
+
+      > .fl-message-icon {
+        background-color: #1f966a;
+      }
+
+      > .fl-message-content {
+        font-size: 19px;
+        color: #fff;
+      }
+    }
+
+    &.fl-message-icon-time > .fl-message-icon {
+      background: data-uri('../images/icon-logo.png') center center no-repeat;
+    }
+
+    &.fl-message-icon-add > .fl-message-icon {
+      background: data-uri('../images/icon-logo-add.png') center center no-repeat;
+    }
+
+    &.fl-message-icon-logo > .fl-message-icon {
+      background: data-uri('../images/icon-logo.png') center center no-repeat;
+    }
+  }
+}
