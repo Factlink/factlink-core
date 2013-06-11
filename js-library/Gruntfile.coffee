@@ -21,7 +21,7 @@ module.exports = (grunt) ->
           }
         ]
     concat:
-      wrapped_files:
+      wrap:
         src: [
           'wrap/first.js',
           'plugins/*.js',
