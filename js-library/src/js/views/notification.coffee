@@ -58,6 +58,6 @@ Factlink.Views.Notifications.showLoaded = ->
     message: 'Factlink is loaded!'
     type_classes: 'fl-message-success fl-message-icon-time'
 
-Factlink.Views.Notifications.show (options) = ->
+Factlink.Views.Notifications.show = (options) ->
   message = new Factlink.Views.Notification options
   message.render()
