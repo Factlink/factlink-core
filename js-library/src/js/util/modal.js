@@ -56,11 +56,13 @@ Factlink.modal = {
 
     Factlink.modal.hide.method();
 
-    $('#fl').append("<div class='fl-message' style='display:none'>Factlink is created!</div>");
-    $('#fl .fl-message').fadeIn('slow');
-    setTimeout(function() {
-      $('#fl .fl-message').fadeOut('slow');
-    }, 2545);
+    var created_message = new Factlink.Views.Notification({
+      message: 'Factlink loaded!',
+      type_classes: 'fl-message-success fl-message-icon-time'
+    });
+
+    created_message.render();
+
     return fct;
   },
   stopHighlightingFactlink: function(id) {
