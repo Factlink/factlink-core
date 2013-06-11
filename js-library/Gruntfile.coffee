@@ -36,7 +36,6 @@ module.exports = (grunt) ->
           'wrap/last.js'
         ]
         dest: 'tmp/factlink.core.js'
-        ext: '.js'
       core:
         options:
           banner: banner_template
