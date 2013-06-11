@@ -22,8 +22,11 @@ module Commands
       end
 
       def update_users_top_topics
-        users_top_topics = TopicsSortedByAuthority.new(graph_user.user.id)
         users_top_topics.set(topic.id, authority)
+      end
+
+      def users_top_topics
+        TopicsSortedByAuthority.new(graph_user.user.id)
       end
 
       def topic
