@@ -27,11 +27,13 @@ Factlink.modal =
   hide: ->
     unbindClick()
     iFrame.fadeOut 'fast'
+
     Factlink.trigger 'modalClosed'
 
   show: ->
     bindClick()
     iFrame.fadeIn('fast')
+
   highlightNewFactlink: (fact, id, opinions) ->
     fct = Factlink.selectRanges(Factlink.search(fact), id, opinions)
 
@@ -48,7 +50,9 @@ Factlink.modal =
     created_message.render()
 
     fct
+
   stopHighlightingFactlink: (id) ->
     $("span.factlink[data-factid=#{id}]").each (i, val) ->
       $(val).contents().unwrap()
+
   trigger: (e) -> Factlink.trigger(e)
