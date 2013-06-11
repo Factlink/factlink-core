@@ -4,11 +4,11 @@ require_relative '../../../../app/interactors/interactors/evidence/for_fact_id.r
 describe Interactors::Evidence::ForFactId do
   include PavlovSupport
 
-  describe '.validate' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
+  before do
+    stub_classes 'Fact'
+  end
 
+  describe '.validate' do
     it 'requires fact_id to be an integer' do
       expect_validating('a', :weakening).
         to fail_validation('fact_id should be an integer string.')
@@ -27,35 +27,32 @@ describe Interactors::Evidence::ForFactId do
 
   describe '.authorized?' do
     it 'should check if the fact can be shown' do
-      stub_classes 'Fact'
-
       ability = mock
-      ability.should_receive(:can?).with(:show, Fact).and_return(false)
+      ability.should_receive(:can?)
+             .with(:show, Fact)
+             .and_return(false)
+      options = { ability: ability }
 
       expect do
-        interactor = described_class.new '1', :supporting, ability: ability
+        interactor = described_class.new '1', :supporting, options
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
 
-  describe '.execute' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
+  describe '.call' do
     it 'correctly' do
       fact_id = '1'
       type = :supporting
       result = mock
-      options = {current_user: mock}
+      options = {current_user: mock, ability: mock(can?: true)}
 
-      interactor = Interactors::Evidence::ForFactId.new '1', type, current_user: options
+      interactor = Interactors::Evidence::ForFactId.new '1', type, options
 
-      interactor.should_receive(:query).with(:'evidence/for_fact_id', fact_id, type).and_return(mock)
+      interactor.stub(:query)
+                .with(:'evidence/for_fact_id', fact_id, type)
+                .and_return(result)
 
-      result = interactor.execute
-
-      expect(result).to eq result
+      expect(interactor.call).to eq result
     end
   end
 end
