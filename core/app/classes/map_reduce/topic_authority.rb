@@ -22,7 +22,6 @@ class MapReduce
       end
     end
 
-
     def authority_from_followers ch
       ch.containing_channels.count
     end
