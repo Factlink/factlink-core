@@ -10,7 +10,7 @@ module Commands
       def execute
         update_authority
         update_top_users
-        update_top_user_topics
+        update_users_top_topics
       end
 
       def update_authority
@@ -21,9 +21,9 @@ module Commands
         topic.top_users_add(graph_user.user, authority)
       end
 
-      def update_top_user_topics
-        user_topics = UserTopicsByAuthority.new(graph_user.user.id)
-        user_topics.set(topic.id, authority)
+      def update_users_top_topics
+        users_top_topics = TopicsSortedByAuthority.new(graph_user.user.id)
+        users_top_topics.set(topic.id, authority)
       end
 
       def topic

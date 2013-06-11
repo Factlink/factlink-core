@@ -5,7 +5,7 @@ describe Commands::Topics::UpdateUserAuthority do
   include PavlovSupport
 
   before do
-    stub_classes 'Authority', 'GraphUser', 'UserTopicsByAuthority'
+    stub_classes 'Authority', 'GraphUser', 'TopicsSortedByAuthority'
   end
 
   describe '#call' do
@@ -31,7 +31,7 @@ describe Commands::Topics::UpdateUserAuthority do
       Authority.stub(:from).with(topic, for: graph_user)
                .and_return authority_object
       topic.stub(top_users_add: nil)
-      UserTopicsByAuthority.stub new: (mock set:nil)
+      TopicsSortedByAuthority.stub new: (mock set:nil)
 
       authority_object.should_receive(:<<)
                       .with(authority)
@@ -45,7 +45,7 @@ describe Commands::Topics::UpdateUserAuthority do
       query = described_class.new graph_user.id, topic.slug_title, authority
 
       Authority.stub from: mock(:<< => nil)
-      UserTopicsByAuthority.stub new: (mock set:nil)
+      TopicsSortedByAuthority.stub new: (mock set:nil)
 
       topic.should_receive(:top_users_add)
            .with(graph_user.user, authority)
@@ -61,7 +61,7 @@ describe Commands::Topics::UpdateUserAuthority do
       Authority.stub from: mock(:<< => nil)
       topic.stub(top_users_add: nil)
 
-      UserTopicsByAuthority.stub(:new)
+      TopicsSortedByAuthority.stub(:new)
                            .with(graph_user.user.id)
                            .and_return(user_topics_list)
 

@@ -43,11 +43,11 @@ module Queries
 
       def sorted_topics_hashes
         @sorted_topics_hashes ||=
-          user_topics_by_authority.ids_and_authorities_desc_limit limit_topics
+          topics_sorted_by_authority.ids_and_authorities_desc_limit limit_topics
       end
 
-      def user_topics_by_authority
-        UserTopicsByAuthority.new(graph_user.user_id.to_s)
+      def topics_sorted_by_authority
+        TopicsSortedByAuthority.new(graph_user.user_id.to_s)
       end
 
       def topics_for_hashes hashes

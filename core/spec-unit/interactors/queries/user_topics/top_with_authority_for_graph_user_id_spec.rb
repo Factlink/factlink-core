@@ -6,7 +6,7 @@ describe Queries::UserTopics::TopWithAuthorityForGraphUserId do
   include PavlovSupport
 
   before do
-    stub_classes 'GraphUser', 'UserTopicsByAuthority', 'Topic'
+    stub_classes 'GraphUser', 'TopicsSortedByAuthority', 'Topic'
   end
 
   describe '#call' do
@@ -26,7 +26,7 @@ describe Queries::UserTopics::TopWithAuthorityForGraphUserId do
         .with(graph_user.id)
         .and_return(graph_user)
 
-      UserTopicsByAuthority.stub(:new)
+      TopicsSortedByAuthority.stub(:new)
         .with(graph_user.user_id.to_s)
         .and_return(user_topics_by_authority)
 

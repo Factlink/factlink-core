@@ -1,8 +1,8 @@
 require 'pavlov_helper'
 require_relative '../../app/classes/redis_utils'
-require_relative '../../app/redis-models/user_topics_by_authority'
+require_relative '../../app/redis-models/topics_sorted_by_authority'
 
-describe UserTopicsByAuthority do
+describe TopicsSortedByAuthority do
   include PavlovSupport
 
   let(:key)      {mock}

@@ -1,4 +1,4 @@
-class UserTopicsByAuthority
+class TopicsSortedByAuthority
   include RedisUtils
 
   def initialize user_id, nest_key=Nest.new(:user)[:topics_by_authority]
