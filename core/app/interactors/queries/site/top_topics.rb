@@ -9,12 +9,12 @@ module Queries
       arguments :site_id, :nr
 
       def validate
-        validate_integer :site_id, @site_id
-        validate_integer :nr, @nr
+        validate_integer :site_id, site_id
+        validate_integer :nr, nr
       end
 
       def key
-        redis[@site_id][:top_topics]
+        redis[site_id][:top_topics]
       end
 
       def execute
@@ -26,7 +26,7 @@ module Queries
       end
 
       def topic_slugs
-        key.zrevrange(0, @nr-1)
+        key.zrevrange(0, nr-1)
       end
     end
   end

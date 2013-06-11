@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Fact do
   def self.other_one(this)
-    (this == :supporting) ? :weakening : :supporting
+    this == :supporting ? :weakening : :supporting
   end
 
   def other_one(this)

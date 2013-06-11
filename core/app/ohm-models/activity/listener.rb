@@ -76,7 +76,7 @@ class Activity < OurOhm
 
     def process activity
       add_to(activity).each do |id|
-                                     #constantize
+                                     # constantize
         klass = self.activity_for.split('::').inject(Kernel) {|x,y|x.const_get(y)}
         instance = klass[id]
         activity.add_to_list_with_score(instance.send(listname)) if instance

@@ -85,15 +85,15 @@ module Queries
     end
 
     def get_object id, type
-      if(type == 'factdata')
+      if type == 'factdata'
         return FactData.find(id)
-      elsif (type == 'topic')
+      elsif type == 'topic'
         return query :'topics/by_id_with_authority_and_facts_count', id
-      elsif (type == 'user')
+      elsif type == 'user'
         mongoid_user = User.find(id)
 
         return FactlinkUser.map_from_mongoid(mongoid_user)
-      elsif (type == 'test_class')
+      elsif type == 'test_class'
         obj = TestClass.new
         obj.id=id
         return obj
