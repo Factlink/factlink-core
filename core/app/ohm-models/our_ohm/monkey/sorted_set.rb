@@ -1,5 +1,4 @@
 class Ohm::Model::SortedSet < Ohm::Model::Collection
-
   extend RedisUtils
 
   alias :count :size
