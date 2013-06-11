@@ -4,7 +4,7 @@ class Factlink.Views.Notification
   appendTo: '#fl'
   template: """
     <div class="fl-message">
-      <div class="icon"></div><span></span>
+      <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
     </div>
   """
 
@@ -23,7 +23,7 @@ class Factlink.Views.Notification
     @setMessage(@options.message)
 
   setMessage: (message) ->
-    @$el.find('span').text(message)
+    @$el.find('.fl-js-message').text(message)
 
   render: ->
     $(@appendTo).append(@$el)
