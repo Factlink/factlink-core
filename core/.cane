@@ -13,3 +13,4 @@
 --abc-exclude Opinion#+
 --abc-exclude FactGraph.export_opiniated
 --abc-exclude Activity::Listener#matches
+--abc-exclude TopicAuthority#map
