@@ -75,10 +75,10 @@ module.exports = (grunt) ->
     qunit:
       all: ['test/*.html']
     watch:
-      files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'grunt.js', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
       tasks: ['coffee', 'jshint', 'qunit', 'concat', 'less', 'copy']
+      files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'Gruntfile.coffee', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
     jshint:
-      all: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
+      all: ['src/js/**/*.js', 'test/**/*.js']
       options:
         # Whether jQuery globals should be predefined.
         jquery: true
