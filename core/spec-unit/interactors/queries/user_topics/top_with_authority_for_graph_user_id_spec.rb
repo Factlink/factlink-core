@@ -6,42 +6,52 @@ describe Queries::UserTopics::TopWithAuthorityForGraphUserId do
   include PavlovSupport
 
   before do
-    stub_classes 'GraphUser', 'ChannelList', 'Topic'
+    stub_classes 'GraphUser', 'TopicsSortedByAuthority', 'Topic'
   end
 
   describe '#call' do
     it 'returns dead objects for the user topics based on the topics' do
-      graph_user = mock id: 6
+      user_topics_by_authority = mock
+      graph_user = mock id: "6", user_id: 'asdf'
+      limit_topics = 2
+
       topics = [
-        mock(:topic, title: 'Bye', slug_title: 'bye'),
-        mock(:topic, title: 'Yo', slug_title: 'yo'),
-        mock(:topic, title: 'Hi', slug_title: 'hi')
+        mock(:topic, id: "1", title: 'Bye', slug_title: 'bye'),
+        mock(:topic, id: "2", title: 'Yo', slug_title: 'yo'),
       ]
 
-      query = described_class.new graph_user.id, 2
+      query = described_class.new graph_user.id, limit_topics
 
-      Pavlov.stub(:query)
-            .with(:'topics/posted_to_by_graph_user')
-            .and_return(topics)
+      GraphUser.stub(:[])
+        .with(graph_user.id)
+        .and_return(graph_user)
 
-      Pavlov.stub(:query)
-            .with(:'authority_on_topic_for',topics[0], graph_user)
-            .and_return 2
-      Pavlov.stub(:query)
-            .with(:'authority_on_topic_for',topics[1], graph_user)
-            .and_return 1
-      Pavlov.stub(:query)
-            .with(:'authority_on_topic_for',topics[2], graph_user)
-            .and_return 8
-      GraphUser.stub(:[]).with(graph_user.id)
-               .and_return(graph_user)
+      TopicsSortedByAuthority.stub(:new)
+        .with(graph_user.user_id.to_s)
+        .and_return(user_topics_by_authority)
 
-      query.stub topics: topics
+      user_topics_by_authority.stub(:ids_and_authorities_desc_limit)
+        .with(limit_topics)
+        .once
+        .and_return [{id: topics[1].id, authority: 20}, {id: topics[0].id, authority: 10}]
+
+      Topic.stub(:find)
+        .with(topics[0].id)
+        .and_return(topics[0])
+
+      Topic.stub(:find)
+        .with(topics[1].id)
+        .and_return(topics[1])
+
+      Topic.stub(:any_in)
+           .with(id: [topics[1].id, topics[0].id])
+           .and_return(topics)
 
       user_topics = [
-        DeadUserTopic.new(topics[2].slug_title, topics[2].title, 8),
-        DeadUserTopic.new(topics[0].slug_title, topics[0].title, 2)
+        DeadUserTopic.new(topics[1].slug_title, topics[1].title, 20),
+        DeadUserTopic.new(topics[0].slug_title, topics[0].title, 10)
       ]
+
       expect(query.call).to eq user_topics
     end
   end

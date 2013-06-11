@@ -15,7 +15,7 @@ describe "conversation", type: :request do
 
     send_message(message_content, factlink, @recipients)
 
-    recipient_ids = Message.last.conversation.recipients.map {|r| r.id}
+    recipient_ids = Message.last.conversation.recipients.map(&:id)
 
     @recipients.each do |recipient|
       expect(recipient_ids).to include recipient.id
@@ -31,7 +31,7 @@ describe "conversation", type: :request do
 
     send_message(message_content, factlink, @recipients)
 
-    recipient_ids = Message.last.conversation.recipients.map {|r| r.id}
+    recipient_ids = Message.last.conversation.recipients.map(&:id)
 
     @recipients.each do |recipient|
       expect(recipient_ids).to include recipient.id

@@ -1,5 +1,3 @@
-require 'redis-aid'
-
 class UserFavouritedTopics
 
   attr_reader :graph_user_id, :relation

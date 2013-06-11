@@ -38,8 +38,8 @@ module ScreenshotTest
       pixels_changed = 0
       changed_amount = 0
 
-      height = images.map {|i| i.height}.max
-      width = images.map {|i| i.width}.max
+      height = images.map(&:height).max
+      width = images.map(&:width).max
       diff_image = ChunkyPNG::Image.new(width, height)
 
       height.times do |y|
