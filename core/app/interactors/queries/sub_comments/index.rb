@@ -18,7 +18,7 @@ module Queries
 
       def validate_id id, index
         if parent_class == 'FactRelation'
-          validate_integer "parent_id[#{index}]", id
+          validate_integer_string "parent_id[#{index}]", id.to_s
         elsif parent_class == 'Comment'
           validate_hexadecimal_string "parent_id[#{index}]", id
         end

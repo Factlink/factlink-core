@@ -16,7 +16,7 @@ describe Queries::SubComments::Index do
 
     it 'without valid parent_id for FactRelation doesn''t validate' do
       expect_validating('2a', 'FactRelation').
-        to fail_validation('parent_id[0] should be an integer.')
+        to fail_validation('parent_id[0] should be an integer string.')
     end
 
     it 'without valid parent_id for Comment doesn''t validate' do
