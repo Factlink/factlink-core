@@ -75,8 +75,8 @@ module.exports = (grunt) ->
     qunit:
       all: ['test/*.html']
     watch:
-      tasks: ['coffee', 'jshint', 'qunit', 'concat', 'less', 'copy']
       files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'Gruntfile.coffee', 'libs/**/*.js', 'plugins/**/*.js', 'wrap/*.js']
+      tasks: ['compile', 'test']
     jshint:
       all: ['src/js/**/*.js', 'test/**/*.js']
       options:
@@ -130,9 +130,11 @@ module.exports = (grunt) ->
           'dist/server/factlink.min.js':                    ['dist/factlink.js']
           'dist/server/easyXDM/easyXDM.min.js':             ['libs/easyXDM.js']
           'dist/easyXDM/easyXDM.min.js':                    ['libs/easyXDM.js']
+  grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'concat']
+  grunt.registerTask 'test',    ['jshint', 'qunit']
 
-  grunt.registerTask 'default', ['coffee', 'jshint', 'qunit', 'less', 'concat', 'uglify', 'copy']
-  grunt.registerTask 'server',  ['coffee', 'concat', 'uglify', 'less', 'copy']
+  grunt.registerTask 'default', ['compile', 'test', 'uglify']
+  grunt.registerTask 'server',  ['compile', 'uglify']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
