@@ -53,11 +53,6 @@ module.exports = (grunt) ->
           'src/js/loader.js'
         ]
         dest: 'dist/factlink.js'
-      'dist/factlink.start_annotating.js':   'src/js/start_annotating.js'
-      'dist/factlink.stop_annotating.js':    'src/js/stop_annotating.js'
-      'dist/factlink.start_highlighting.js': 'src/js/start_highlighting.js'
-      'dist/factlink.stop_highlighting.js':  'src/js/stop_highlighting.js'
-      'dist/easyXDM/easyXDM.js':             'libs/easyXDM.js'
     copy:
       main:
         files: [
@@ -65,6 +60,14 @@ module.exports = (grunt) ->
           { src: ['dist/easyXDM/easyXDM.min.js'], dest: 'public/easyXDM.min.js' }
           { src: ['**'],                          dest: 'dist/server/images/', expand: true, cwd: 'src/images/', filter: 'isFile' }
           { src: ['**'],                          dest: 'dist/images/',        expand: true, cwd: 'src/images/', filter: 'isFile' }
+      js_files:
+          {
+            src: ['start_annotating.js', 'stop_annotating.js', 'start_highlighting.js', 'stop_highlighting.js']
+            cwd: 'src/js/'
+            expand: true
+            dest: 'dist/'
+            rename: (dest, src) -> "#{dest}factlink.#{src}"
+          }
         ]
     less:
       development:
