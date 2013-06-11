@@ -29,7 +29,11 @@ FactlinkUI::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  # set environment variable ASSETS_DEBUG to true to enable
+  # You can do this by running:
+  # foreman start -e .debug_env
+  enable_assets_debug = ENV["ASSETS_DEBUG"]
+  config.assets.debug = !!(enable_assets_debug =~ /^true$/i)
 
   config.logger = Logger.new(STDOUT)
 
