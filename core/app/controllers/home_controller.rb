@@ -48,6 +48,12 @@ class HomeController < ApplicationController
 
   def index
     @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
+
+    # Don't track users who're thrown to the frontpage for signing in, as
+    # this includes everyone not signed in but with the extension installed
+    unless params[:show_sign_in]
+      mp_track "Pageview: Landing page", code: @code
+
     render "home/pages/index", layout: "static_pages"
   end
 end
