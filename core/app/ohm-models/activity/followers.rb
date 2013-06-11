@@ -32,8 +32,9 @@ class Activity < OurOhm
 
     def channel_followers_of_graph_user graph_user
       ChannelList.new(graph_user).channels
-        .map { |channel| channel.containing_channels.to_a }.flatten
-        .map { |following_channel| following_channel.created_by_id }.uniq
+        .map { |channel| channel.containing_channels.to_a }
+        .flatten
+        .map(&:created_by_id).uniq
     end
 
     def channel_followers_of_graph_user_minus_regular_followers graph_user
