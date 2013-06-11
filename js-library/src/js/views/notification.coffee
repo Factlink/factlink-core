@@ -44,22 +44,20 @@ class Factlink.Views.Notification
     @$el.fadeOut(@options.fade_time, => @$el.remove())
 
 Factlink.Views.Notifications.showFactlinkCreated = ->
-  created_message = new Factlink.Views.Notification
+  Factlink.Views.Notifications.show
     message: 'Factlink loaded!'
     type_classes: 'fl-message-success fl-message-icon-time'
 
-  created_message.render()
-
 Factlink.Views.Notifications.showShouldSelectText = ->
-  select_text_message = new Factlink.Views.Notification
+  Factlink.Views.Notifications.show
     message: 'To create a Factlink, select a statement and click the Factlink button.'
     type_classes: 'fl-message-icon-add'
 
-  select_text_message.render()
-
 Factlink.Views.Notifications.showLoaded = ->
-  loaded_message = new Factlink.Views.Notification
+  Factlink.Views.Notifications.show
     message: 'Factlink is loaded!'
     type_classes: 'fl-message-success fl-message-icon-time'
 
-  loaded_message.render()
+Factlink.Views.Notifications.show (options) = ->
+  message = new Factlink.Views.Notification options
+  message.render()
