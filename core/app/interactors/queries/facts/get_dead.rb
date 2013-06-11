@@ -20,11 +20,9 @@ module Queries
       end
 
       def site_url
-        if fact.has_site?
-          fact.site.url
-        else
-          nil
-        end
+        return nil unless fact.has_site?
+
+        fact.site.url
       end
 
       def wheel
@@ -32,11 +30,9 @@ module Queries
       end
 
       def proxy_scroll_url
-        if fact.has_site?
-          FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(id)
-        else
-          nil
-        end
+        return nil unless fact.has_site?
+
+        FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(id)
       end
 
       def validate

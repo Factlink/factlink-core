@@ -7,6 +7,8 @@ module Commands
 
       arguments :username, :message
 
+      private
+
       def execute
         client.update message
       end
@@ -16,9 +18,8 @@ module Commands
         validate_nonempty_string :message, message
       end
 
-      private
       def user
-        query :user_by_username, username
+        @user ||= query :user_by_username, username
       end
 
       def client
@@ -28,11 +29,14 @@ module Commands
       end
 
       def credentials
-        unless user.identities && user.identities['twitter']
-          raise Pavlov::ValidationError, 'no twitter account linked'
-        end
+        unless @credentials
+          unless user.identities && user.identities['twitter']
+            raise Pavlov::ValidationError, 'no twitter account linked'
+          end
 
-        user.identities['twitter']['credentials']
+          @credentials = user.identities['twitter']['credentials']
+        end
+        @credentials
       end
     end
   end

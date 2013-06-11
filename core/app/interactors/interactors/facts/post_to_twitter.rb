@@ -3,10 +3,12 @@ module Interactors
     class PostToTwitter
       include Pavlov::Command
 
-      # Let's move this to a query some time...
+      # TODO: Let's move this to a query some time...
       include ::FactHelper
 
       arguments :fact_id, :message
+
+      private
 
       def execute
         username = @options[:current_user].username
@@ -29,7 +31,6 @@ module Interactors
         @options[:current_user]
       end
 
-      private
       def url
         fact.proxy_scroll_url || friendly_fact_url(fact)
       end
@@ -43,7 +44,7 @@ module Interactors
       end
 
       def short_url_length_https
-        @short_url_length_https ||= ::Twitter.configuration.short_url_length_https
+        ::Twitter.configuration.short_url_length_https
       end
     end
   end

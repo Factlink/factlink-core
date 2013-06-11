@@ -24,7 +24,11 @@ describe Queries::Facts::GetDead do
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: false,
+          data: fact_data
+
       interactor = Queries::Facts::GetDead.new live_fact.id
       wheel = mock
 
@@ -48,7 +52,11 @@ describe Queries::Facts::GetDead do
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: false,
+          data: fact_data
+
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Pavlov.stub query: mock
@@ -66,7 +74,12 @@ describe Queries::Facts::GetDead do
           created_at: 15,
           title: 'title'
       site = mock :site, url: 'http://example.org/'
-      live_fact = mock :fact, id: '1', has_site?: true, site: site, data: fact_data
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: true,
+          site: site,
+          data: fact_data
+
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Pavlov.stub query: mock
@@ -77,17 +90,23 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.site_url).to eq site.url
     end
 
-    it 'returns a fact which has a proxy_scroll_url with site_url' do
+    it 'returns a fact which has an (escaped) proxy_scroll_url with site_url' do
       fact_data = mock :fact_data,
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
       site = mock :site, url: 'http://example.org/'
-      live_fact = mock :fact, id: '1', has_site?: true, site: site, data: fact_data
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: true,
+          site: site,
+          data: fact_data
+
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Pavlov.stub query: mock
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
+
       CGI.should_receive(:escape).with(site.url).and_return('escaped_url')
 
       dead_fact = interactor.execute

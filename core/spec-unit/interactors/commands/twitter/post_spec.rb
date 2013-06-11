@@ -4,9 +4,8 @@ require_relative '../../../../app/interactors/commands/twitter/post'
 describe Commands::Twitter::Post do
   include PavlovSupport
 
-  describe '#execute' do
+  describe '#call' do
     before do
-      described_class.any_instance.stub validate: true
       stub_classes 'Twitter::Client'
     end
 
@@ -21,18 +20,19 @@ describe Commands::Twitter::Post do
 
       query = described_class.new username, message
 
-      query.stub(:query).
-        with(:user_by_username, username).
-        and_return(user)
+      query.stub(:query)
+        .with(:user_by_username, username)
+        .and_return(user)
 
       client = mock
-      Twitter::Client.stub(:new).
-        with(oauth_token: token, oauth_token_secret: secret).
-        and_return(client)
+      Twitter::Client.stub(:new)
+        .with(oauth_token: token, oauth_token_secret: secret)
+        .and_return(client)
+
       client.should_receive(:update).
         with(message)
 
-      query.execute
+      query.call
     end
 
     it 'throws an error if no twitter account is linked' do
@@ -45,11 +45,11 @@ describe Commands::Twitter::Post do
 
       query = described_class.new username, message
 
-      query.stub(:query).
-        with(:user_by_username, username).
-        and_return(user)
+      query.stub(:query)
+        .with(:user_by_username, username)
+        .and_return(user)
 
-      expect { query.execute }.
+      expect { query.call }.
         to raise_error(Pavlov::ValidationError, 'no twitter account linked')
     end
   end
