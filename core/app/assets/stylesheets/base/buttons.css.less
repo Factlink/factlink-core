@@ -21,11 +21,11 @@ body.client {
     font-size: 11px;
   }
   .btn-action-checked {
-    color: #359e7f;
+    color: @greenLabelColor;
     border: 1px solid @mutedBorderColor;
     background-color: @backgroundGray;
     .box-shadow(inset 0 1px 3px rgba(0,0,0,.06));
-    .button-background(#f0f0f0, #f8f8f8);
+    .button-background(@disabledButtonStartColor, @disabledButtonEndColor);
     font-weight: bold;
   }
   .btn-danger {
@@ -38,9 +38,9 @@ body.client {
 
   .btn.disabled, .btn[disabled] {
     border: 1px solid @mutedBorderColor;
-    background-color: @backgroundGray;;
+    background-color: @backgroundGray;
     .box-shadow(inset 0 1px 3px rgba(0,0,0,.06));
-    .button-background(#f0f0f0, #f8f8f8);
+    .button-background(@disabledButtonStartColor, @disabledButtonEndColor);
   }
 }
 
