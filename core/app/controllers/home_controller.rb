@@ -53,6 +53,7 @@ class HomeController < ApplicationController
     # this includes everyone not signed in but with the extension installed
     unless params[:show_sign_in]
       mp_track "Pageview: Landing page", code: @code
+    end
 
     render "home/pages/index", layout: "static_pages"
   end
