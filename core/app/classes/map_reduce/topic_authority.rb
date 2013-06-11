@@ -36,7 +36,7 @@ class MapReduce
 
     def write_output ident, value
       topic = Topic.by_slug(ident[:topic])
-      gu = GraphUser[ident[:user_id]] # TODO use dead graph_user
+      gu = DeadGraphUser.new(ident[:user_id])
       Authority.from(topic, for: gu) << value
 
       Resque.enqueue Commands::Topics::UpdateUserAuthority,
