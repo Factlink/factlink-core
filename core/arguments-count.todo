@@ -1,1 +1,12 @@
-placeholder todo
+Backend:
+ ☐ Query for argument count
+ ☐ Call query in interactor or other query (?)
+ ☐ Pass to frontend in view
+
+Frontend:
+ ☐ Add arguments count
+
+Tests:
+ ☐ Test in acceptance test
+ ☐ Update fixtures
+ ☐ Update screenshot test
