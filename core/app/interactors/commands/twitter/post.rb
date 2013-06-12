@@ -29,14 +29,13 @@ module Commands
       end
 
       def credentials
-        unless @credentials
+        @credentials ||= begin
           unless user.identities && user.identities['twitter']
             raise Pavlov::ValidationError, 'no twitter account linked'
           end
 
-          @credentials = user.identities['twitter']['credentials']
+          user.identities['twitter']['credentials']
         end
-        @credentials
       end
     end
   end
