@@ -7,9 +7,6 @@ describe "Backbone.Factlink.TextAreaView", ->
   sampleLongText = 'Various\nbits\nof text\non\nseveral\nlines\n\n\n!'
   model = view = null
 
-  console.info '\n\n\n\n'
-  console.info Object.getOwnPropertyNames(window.parent).sort().join("\n")
-
   textarea = -> view.$el.find('textarea')
 
   beforeEach ->
@@ -37,7 +34,14 @@ describe "Backbone.Factlink.TextAreaView", ->
 
   it "grows vertically and avoids a scrollbar when text doesn't fit", ->
     initialHeight = textarea().height()
-    textarea().val(sampleLongText)
+    textarea().val sampleLongText
+    textarea().trigger 'input'
+    expect(textarea().height()).not.to.equal initialHeight
+    expect(textarea()[0].scrollHeight).to.equal textarea()[0].clientHeight
+
+  it "autosizes also whe the model is updated", ->
+    initialHeight = textarea().height()
+    model.set text: sampleLongText
     expect(textarea().height()).not.to.equal initialHeight
     expect(textarea()[0].scrollHeight).to.equal textarea()[0].clientHeight
 
