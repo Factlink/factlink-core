@@ -16,3 +16,8 @@ Stuff to do:
  ☐ stick mustache templates into their own file.
  ☐ Figure out how to do two-way data-binding in backbone without causing event overload.
  ☐ Why is autocomplete off?
+
+ http://unwrongest.com/projects/elastic/
+http://www.myjqueryplugins.com/jquery-plugin/autosize
+http://www.webnel.org/perso/projects/jquery/autoResize.html
+document.getElementById('foo').addEventListener('input',function(e){ e.target.style.height = e.target.scrollHeight+'px'; });
