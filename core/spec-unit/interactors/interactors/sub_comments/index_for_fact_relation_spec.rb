@@ -7,7 +7,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     stub_classes 'SubComment', 'FactRelation', 'KillObject'
   end
 
-  describe '.authorized' do
+  describe '#authorized' do
     it 'checks if the fact relation can be shown' do
       fact_relation_id = 1
       fact_relation = mock
@@ -23,7 +23,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     end
   end
 
-  describe '.validate' do
+  describe '#validate' do
     before do
       described_class.any_instance.stub(:authorized?).and_return(true)
     end
@@ -34,7 +34,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     end
   end
 
-  describe '.execute' do
+  describe '#execute' do
     before do
       stub_classes 'Queries::SubComments::Index'
       described_class.any_instance.stub(:authorized?).and_return(true)
@@ -83,7 +83,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     end
   end
 
-  describe '.top_fact' do
+  describe '#top_fact' do
     before do
       described_class.any_instance.stub(:authorized?).and_return(true)
     end
@@ -117,7 +117,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     end
   end
 
-  describe '.authority_of_user_who_created' do
+  describe '#authority_of_user_who_created' do
     before do
       stub_classes 'Queries::AuthorityOnFactFor'
       described_class.any_instance.stub(:authorized?).and_return(true)

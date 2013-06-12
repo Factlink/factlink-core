@@ -11,7 +11,8 @@ module Queries
                      fact.data.displaystring,
                      fact.data.created_at,
                      fact.data.title,
-                     wheel
+                     wheel,
+                     proxy_scroll_url
       end
 
       def fact
@@ -19,15 +20,19 @@ module Queries
       end
 
       def site_url
-        if fact.has_site?
-          fact.site.url
-        else
-          nil
-        end
+        return nil unless fact.has_site?
+
+        fact.site.url
       end
 
       def wheel
         query :'facts/get_dead_wheel', id
+      end
+
+      def proxy_scroll_url
+        return nil unless fact.has_site?
+
+        FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(id)
       end
 
       def validate

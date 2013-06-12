@@ -1,11 +1,12 @@
 require 'pavlov'
-
 module Queries
   module Activities
     class GraphUserIdsFollowingComments
       include Pavlov::Query
 
       arguments :comments
+
+      private
 
       def execute
         follower_ids.uniq
@@ -18,26 +19,27 @@ module Queries
       end
 
       def comments_creators_ids
-        comments.map {|comment| comment.created_by.graph_user_id}
+        comments.map(&:created_by)
+                .map(&:graph_user_id)
       end
 
       def comments_opinionated_ids
-        comments.flat_map {|comment| comment.believable.opinionated_users_ids}
+        comments.flat_map do |comment|
+          comment.believable.opinionated_users_ids
+        end
       end
 
       def sub_comments_on_comments_creators_ids
-        SubComment.where(parent_class: 'Comment').
-                   any_in(parent_id: comments_ids.map(&:to_s)).
-                   map(&:created_by).
-                   map(&:graph_user_id)
+        sub_comments.map(&:created_by)
+                    .map(&:graph_user_id)
       end
 
-      def comments_ids
-        comments.map(&:id)
+      def comment_ids
+        comments.map(&:id).map(&:to_s)
       end
 
-      def comments
-        @comments
+      def sub_comments
+        query :'sub_comments/index', comment_ids, 'Comment'
       end
     end
   end

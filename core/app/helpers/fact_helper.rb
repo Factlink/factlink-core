@@ -7,7 +7,7 @@ module FactHelper
   end
 
   def friendly_fact_path(fact, max_slug_length = 1024)
-    slug = friendly_fact_slug(fact, max_slug_length)
+    slug = Pavlov.query :"facts/slug", fact, max_slug_length
     frurl_fact_path(slug, fact.id)
   end
 
@@ -16,13 +16,7 @@ module FactHelper
   end
 
   def friendly_fact_url(fact, max_slug_length = 1024)
-    slug = friendly_fact_slug(fact, max_slug_length)
+    slug = Pavlov.query :"facts/slug", fact, max_slug_length
     frurl_fact_url(slug, fact.id)
-  end
-
-  def friendly_fact_slug(fact, max_slug_length = 1024)
-    return fact.id if fact.to_s.blank?
-
-    fact.to_s.parameterize.slice(0,max_slug_length)
   end
 end

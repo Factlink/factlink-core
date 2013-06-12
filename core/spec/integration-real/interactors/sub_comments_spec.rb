@@ -6,7 +6,7 @@ describe 'subcomments' do
   let(:current_user) { create :user }
 
   describe 'initially' do
-    it 'has no subcomments and can be deleted' do
+    it 'a comment has no subcomments and can be deleted' do
       as(current_user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'a fact', '', ''
         comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', 'Gekke Gerrit'
@@ -20,7 +20,7 @@ describe 'subcomments' do
     end
   end
 
-  describe 'after adding a few subcomments' do
+  describe 'after adding a few subcomments to a comment' do
     it 'should have the subcomments we added and cannot be deleted' do
       as(current_user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'a fact', '', ''
@@ -53,6 +53,23 @@ describe 'subcomments' do
         end
       end
     end
+  end
+  describe 'after adding a few subcomments to a fact_relation' do
+    it "should only contain the sub_comments" do
+      as(current_user) do |pavlov|
+        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+        sub_fact = pavlov.interactor :'facts/create', 'a supporting fact', '', ''
 
+        fact_relation = FactRelation.get_or_create(
+          sub_fact, :supporting, fact, current_user.graph_user
+        )
+
+        sub_comment1 = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'Gekke Gerrit'
+        sub_comment2 = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'Handige Harrie'
+
+        sub_comments = pavlov.interactor :'sub_comments/index_for_fact_relation', fact_relation.id.to_i
+        expect(sub_comments.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
+      end
+    end
   end
 end
