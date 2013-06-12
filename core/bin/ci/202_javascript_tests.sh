@@ -10,7 +10,7 @@ do
    | tee "$OUTPUTFILE"
 
   ERROR1='Timed out waiting for response to'
-  ERROR2='method `method_missing'' called on terminated object'
+  ERROR2='method .method_missing. called on terminated object'
   if grep --extended-regex "$ERROR1|$ERROR2" $OUTPUTFILE > /dev/null
   then
     echo "Detected random fail, retrying (retry $i)"
