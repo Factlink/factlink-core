@@ -3,7 +3,7 @@ Backend:
  ✔ Call query in facts/get interactor @done (13-06-12 16:16)
  ✔ Call query in topics/facts interactor or query (?) @done (13-06-12 16:58)
  ✔ Call query in channels/facts interactor or query (?) @done (13-06-12 17:05)
- ☐ Call query in search
+ ☐ Call query in search (return fact instead of FactData, and use interactor for getting fact)
  ✔ Pass to frontend in view @done (13-06-12 17:36)
 
 Frontend:
@@ -11,5 +11,5 @@ Frontend:
 
 Tests:
  ☐ Test in acceptance test
- ☐ Update fixtures
+ ✔ Update fixtures @done (13-06-12 17:40)
  ☐ Update screenshot test
