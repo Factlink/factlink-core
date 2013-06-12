@@ -2,10 +2,10 @@ require 'pavlov'
 
 module Queries
   module Evidence
-    class CountForFactId
+    class CountForFact
       include Pavlov::Query
 
-      arguments :fact_id
+      arguments :fact
 
       private
 
@@ -14,7 +14,7 @@ module Queries
       end
 
       def validate
-        validate_integer_string :fact_id, fact_id
+        validate_not_nil :fact, fact
       end
 
       def fact_relations_count
@@ -24,10 +24,6 @@ module Queries
       def comments_count
         fact_data_id = fact.data_id
         Comment.where(fact_data_id: fact_data_id).size
-      end
-
-      def fact
-        @fact ||= Fact[fact_id]
       end
     end
   end

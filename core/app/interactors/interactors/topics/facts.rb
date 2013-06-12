@@ -14,7 +14,15 @@ module Interactors
       def execute
         setup_defaults
 
-        query :'topics/facts', @slug_title, @count, @max_timestamp
+        facts.each do |fact|
+          fact.evidence_count = query :"evidence/count_for_fact", fact
+        end
+
+        facts
+      end
+
+      def facts
+        @facts ||= query :'topics/facts', @slug_title, @count, @max_timestamp
       end
 
       def validate

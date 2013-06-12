@@ -42,7 +42,7 @@ describe Interactors::Facts::Get do
 
       Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
         .and_return(fact)
-      Pavlov.stub(:query).with(:'evidence/count_for_fact_id', fact.id, pavlov_options)
+      Pavlov.stub(:query).with(:'evidence/count_for_fact', fact, pavlov_options)
         .and_return(evidence_count)
       fact.stub(:evidence_count=).with(evidence_count)
 
@@ -59,7 +59,7 @@ describe Interactors::Facts::Get do
 
       Pavlov.stub(:query).with(:'facts/get', fact.id)
         .and_return(fact)
-      Pavlov.stub(:query).with(:'evidence/count_for_fact_id', fact.id)
+      Pavlov.stub(:query).with(:'evidence/count_for_fact', fact)
         .and_return(evidence_count)
 
       fact.should_receive(:evidence_count=).with(evidence_count)

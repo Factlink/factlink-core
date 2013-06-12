@@ -14,7 +14,7 @@ module Interactors
 
       def fact_with_evidence_count
         fact = query :'facts/get', id
-        fact.evidence_count = query :'evidence/count_for_fact_id', id
+        fact.evidence_count = query :'evidence/count_for_fact', fact
         fact
       end
 
