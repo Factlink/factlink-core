@@ -9,7 +9,13 @@ module Queries
       private
 
       def execute
-        (creator_ids + opinionated_users_ids + evidence_followers_ids).uniq
+        follower_ids.uniq
+      end
+
+      def follower_ids
+        creator_ids +
+          opinionated_users_ids +
+          evidence_followers_ids
       end
 
       def creator_ids
@@ -39,7 +45,6 @@ module Queries
       def comments
         @comments ||= Comment.where(fact_data_id: fact.data_id)
       end
-
     end
   end
 end

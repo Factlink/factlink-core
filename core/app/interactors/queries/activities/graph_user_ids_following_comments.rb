@@ -19,11 +19,14 @@ module Queries
       end
 
       def comments_creators_ids
-        comments.map {|comment| comment.created_by.graph_user_id}
+        comments.map(&:created_by)
+                .map(&:graph_user_id)
       end
 
       def comments_opinionated_ids
-        comments.flat_map {|comment| comment.believable.opinionated_users_ids}
+        comments.flat_map do |comment|
+          comment.believable.opinionated_users_ids
+        end
       end
 
       def sub_comments_on_comments_creators_ids
@@ -38,7 +41,6 @@ module Queries
       def sub_comments
         query :'sub_comments/index', comment_ids, 'Comment'
       end
-
     end
   end
 end
