@@ -4,7 +4,8 @@ DeadFact = Struct.new(
   :displaystring,
   :created_at,
   :title,
-  :wheel
+  :wheel,
+  :evidence_count
 ) do
   def to_s
     displaystring
