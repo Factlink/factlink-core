@@ -59,6 +59,9 @@ gem 'cancan', '~> 1.6.10'
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-twitter', '= 0.0.14' # locked down, because semver does not appear to be used
 
+# social sharing
+gem 'fb_graph', '~> 2.7.1'
+
 gem 'httparty', '~> 0.10.2'
 
 # Andand is a library to handle nil more easily
