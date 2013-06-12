@@ -5,18 +5,18 @@ require_relative '../../../../app/entities/dead_fact.rb'
 describe Queries::Facts::GetDead do
   include PavlovSupport
 
-  describe '.validate' do
+  before do
+    stub_classes 'Fact'
+  end
+
+  describe '#validate' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a', :id).
+      expect_validating('a').
         to fail_validation('id should be an integer string.')
     end
   end
 
-  describe '.execute' do
-    before do
-      stub_const('Fact',Class.new)
-    end
-
+  describe '#call' do
     it 'returns a fact' do
       fact_data = mock :fact_data,
           displaystring: 'example fact text',
@@ -32,7 +32,7 @@ describe Queries::Facts::GetDead do
             .with(:'facts/get_dead_wheel', live_fact.id)
             .and_return(wheel)
 
-      dead_fact = interactor.execute
+      dead_fact = interactor.call
 
       expect(dead_fact.id).to eq live_fact.id
       expect(dead_fact.displaystring).to eq live_fact.data.displaystring
@@ -52,7 +52,7 @@ describe Queries::Facts::GetDead do
       Pavlov.stub query: mock
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      dead_fact = interactor.execute
+      dead_fact = interactor.call
 
       expect(dead_fact.site_url).to be_nil
     end
@@ -69,7 +69,7 @@ describe Queries::Facts::GetDead do
       Pavlov.stub query: mock
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      dead_fact = interactor.execute
+      dead_fact = interactor.call
 
       expect(dead_fact.site_url).to eq site.url
     end

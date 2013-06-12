@@ -6,7 +6,7 @@ describe Queries::Channels::Get do
 
   describe '.validate' do
     it 'requires id to be an integer' do
-      expect_validating('a', :id).
+      expect_validating('a').
         to fail_validation('id should be an integer string.')
     end
   end
