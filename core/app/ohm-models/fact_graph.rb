@@ -22,19 +22,26 @@ class FactGraph
 
   def calculate_fact_relation_influencing_opinions i
     debug "Calculating fact relation influencing opinions (#{i})"
-    FactRelation.all.to_a.each {|f| f.calculate_influencing_opinion}
+    FactRelation.all.ids.each do |id|
+      fr = FactRelation[id]
+      fr.calculate_influencing_opinion
+    end
   end
 
   def calculate_fact_opinions i
     debug "Calculating fact opinions (#{i})"
-    Fact.all.to_a.each do |f|
+    Fact.all.ids.each do |id|
+      f = Fact[id]
       f.calculate_opinion
     end
   end
 
   def calculate_user_opinions_of_all_base_facts
     debug "Calculating user opinions on basefacts"
-    Basefact.all.to_a.each {|f| f.calculate_user_opinion }
+    Basefact.all.ids.each do |id|
+      bf = Basefact[id]
+      bf.calculate_user_opinion
+    end
   end
 
   def calculate_authority

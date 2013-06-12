@@ -4,22 +4,19 @@ class MapReduce
       FactRelation.all
     end
 
-    def set_for_one f
-      FactRelation.all.find(from_fact_id: f.id)
-    end
-
     def map iterator
-      iterator.each do |fr|
-        yield fr.from_fact_id, fr.created_by_id
+      iterator.ids.each do |fact_relation_id|
+        fact_relation = FactRelation[fact_relation_id]
+        yield fact_relation.from_fact_id, fact_relation.created_by_id
       end
     end
 
     def reduce fact_id, created_by_ids
-      f = Fact[fact_id]
-      return nil unless f
+      fact = Fact[fact_id]
+      return nil unless fact
 
-      authority_from_used_as_evidence(f.created_by_id, created_by_ids) +
-            authority_from_opiniated_users(f)
+      authority_from_used_as_evidence(fact.created_by_id, created_by_ids) +
+            authority_from_opiniated_users(fact)
     end
 
     def authority_from_used_as_evidence fact_creator_id, used_by_user_ids
@@ -34,11 +31,10 @@ class MapReduce
       fact.opinionated_users_count / 100
     end
 
-    def write_output fact_id, value
-      f = DeadFact.new fact_id
-      if f
-        Authority.from(f) << value
-      end
+    def write_output fact_id, authority
+      fact = DeadFact.new fact_id
+
+      Authority.from(fact) << authority
     end
   end
 end
