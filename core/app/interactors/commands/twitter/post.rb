@@ -5,7 +5,7 @@ module Commands
     class Post
       include Pavlov::Command
 
-      arguments :username, :message
+      arguments :message
 
       private
 
@@ -14,7 +14,6 @@ module Commands
       end
 
       def validate
-        validate_nonempty_string :username, username
         validate_nonempty_string :message, message
 
         unless user.identities && user.identities['twitter']
@@ -23,7 +22,7 @@ module Commands
       end
 
       def user
-        @user ||= query :user_by_username, username
+        @options[:current_user]
       end
 
       def client

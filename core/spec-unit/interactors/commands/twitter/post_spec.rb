@@ -14,11 +14,7 @@ describe Commands::Twitter::Post do
       token  = 'qwerty'
       secret = 'asdf'
       identities = {'twitter' => {'credentials' => {'token' => token, 'secret' => secret}}}
-      user = mock(username: 'henk', identities: identities)
-
-      Pavlov.stub(:query)
-        .with(:user_by_username, user.username)
-        .and_return(user)
+      user = mock(identities: identities)
 
       client = mock
       Twitter::Client.stub(:new)
@@ -28,7 +24,7 @@ describe Commands::Twitter::Post do
       client.should_receive(:update).
         with(message)
 
-      command = described_class.new user.username, message
+      command = described_class.new message, current_user: user
       command.call
     end
 
@@ -37,31 +33,21 @@ describe Commands::Twitter::Post do
   describe '#validate' do
     it 'calls the correct validation methods' do
       message  = 'message'
-      user = mock(username: 'henk', identities: {'twitter' => {}})
+      user = mock(identities: {'twitter' => {}})
 
-      Pavlov.stub(:query)
-        .with(:user_by_username, user.username)
-        .and_return(user)
-
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-                                  .with(:username, user.username)
       described_class.any_instance.should_receive(:validate_nonempty_string)
                                   .with(:message, message)
 
-      command = described_class.new user.username, message
+      command = described_class.new message, current_user: user
     end
 
     it 'throws an error if no twitter account is linked' do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
       message  = 'message'
-      user = mock(username: 'henk', identities: {'twitter' => nil})
+      user = mock(identities: {'twitter' => nil})
 
-      Pavlov.stub(:query)
-        .with(:user_by_username, user.username)
-        .and_return(user)
-
-      expect { described_class.new user.username, message }.
+      expect { described_class.new message, current_user: user }.
         to raise_error(Pavlov::ValidationError, 'no twitter account linked')
     end
   end

@@ -17,16 +17,16 @@ module Interactors
       private
 
       def execute
-        username = @options[:current_user].username
         message_with_url = message + ' ' + url
 
-        command :"twitter/post", username, message_with_url
+        command :"twitter/post", message_with_url
       end
 
       def validate
         validate_integer_string  :fact_id, fact_id
         validate_nonempty_string :message, message
         validate_string_length   :message, message, maximum_message_length
+        validate_not_nil         :current_user, @options[:current_user]
       end
 
       def url
