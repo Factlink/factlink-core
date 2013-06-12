@@ -10,6 +10,10 @@ module Commands
       private
 
       def execute
+        unless user.identities && user.identities['twitter']
+          raise Pavlov::ValidationError, 'no twitter account linked'
+        end
+
         client.update message
       end
 
@@ -23,18 +27,12 @@ module Commands
       end
 
       def client
-        token  = credentials['token']
-        secret = credentials['secret']
-        @client ||= ::Twitter::Client.new oauth_token: token, oauth_token_secret: secret
-      end
+        @client ||= begin
+          credentials = user.identities['twitter']['credentials']
+          token  = credentials['token']
+          secret = credentials['secret']
 
-      def credentials
-        @credentials ||= begin
-          unless user.identities && user.identities['twitter']
-            raise Pavlov::ValidationError, 'no twitter account linked'
-          end
-
-          user.identities['twitter']['credentials']
+          ::Twitter::Client.new oauth_token: token, oauth_token_secret: secret
         end
       end
     end
