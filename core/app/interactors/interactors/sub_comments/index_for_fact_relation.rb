@@ -9,7 +9,7 @@ module Interactors
       arguments :fact_relation_id
 
       def validate
-        validate_integer :fact_relation_id, @fact_relation_id
+        validate_integer :fact_relation_id, fact_relation_id
       end
 
       def authorized?
@@ -17,14 +17,25 @@ module Interactors
       end
 
       def execute
-        raise Pavlov::ValidationError, "fact relation does not exist any more" unless fact_relation
+        raise_error_if_non_existent
 
-        result = query :'sub_comments/index', @fact_relation_id, 'FactRelation'
+        sub_comments.map(&method(:kill))
+      end
 
-        result.map do |sub_comment|
-          KillObject.sub_comment sub_comment,
-            authority: authority_of_user_who_created(sub_comment)
-        end
+      def kill sub_comment
+        KillObject.sub_comment sub_comment,
+          authority: authority_of_user_who_created(sub_comment)
+      end
+
+      def sub_comments
+        query :'sub_comments/index', fact_relation_id, 'FactRelation'
+      end
+
+      def raise_error_if_non_existent
+        return if fact_relation
+
+        raise Pavlov::ValidationError,
+          "fact relation does not exist any more"
       end
 
       def top_fact
@@ -32,7 +43,7 @@ module Interactors
       end
 
       def fact_relation
-        @fact_relation ||= FactRelation[@fact_relation_id]
+        @fact_relation ||= FactRelation[fact_relation_id]
       end
 
       def authority_of_user_who_created sub_comment
