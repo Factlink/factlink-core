@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/interactors/facts/get.rb'
 describe Interactors::Facts::Get do
   include PavlovSupport
 
-  describe '.validate' do
+  describe '#validate' do
     before do
       described_class.any_instance.stub(:authorized?).and_return(true)
     end
@@ -15,7 +15,7 @@ describe Interactors::Facts::Get do
     end
   end
 
-  describe '.authorized?' do
+  describe '#authorized?' do
     it 'should check if the fact can be shown' do
       stub_classes 'Fact'
 
@@ -28,38 +28,34 @@ describe Interactors::Facts::Get do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       described_class.any_instance.stub(:authorized?).and_return(true)
     end
 
-    it 'calls a command and query if a user is present' do
-      fact_id = '1'
-      user = mock id: '1e'
+    it 'stores the recently viewed if a user is present' do
+      fact = mock(id: '1')
+      user = mock(id: '1e')
 
-      result = mock
-      interactor = described_class.new '1', current_user: user
+      pavlov_options = {current_user: user}
 
-      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id.to_i, user.id.to_s)
+      Pavlov.stub(:query)
 
-      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(mock)
+      Pavlov.should_receive(:command)
+        .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
-      result = interactor.execute
-
-      expect(result).to eq result
+      interactor = described_class.new fact.id, pavlov_options
+      interactor.call
     end
 
-    it 'calls just a query if no user is present' do
-      fact_id = '1'
+    it 'returns the fact' do
+      fact = mock(id: '1')
 
-      result = mock
-      interactor = described_class.new '1'
+      Pavlov.stub(:query).with(:'facts/get', fact.id)
+        .and_return(fact)
 
-      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(mock)
-
-      result = interactor.execute
-
-      expect(result).to eq result
+      interactor = described_class.new fact.id
+      expect(interactor.execute).to eq fact
     end
   end
 end
