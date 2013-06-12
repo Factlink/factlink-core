@@ -30,8 +30,8 @@ describe Interactors::Facts::Get do
     it 'calls a command and query if a user is present' do
       fact_id = '1'
       user = mock id: '1e'
+      fact = mock
 
-      result = mock
 
       options = { current_user: user, ability: mock(can?: true)}
 
@@ -43,25 +43,23 @@ describe Interactors::Facts::Get do
 
       interactor.stub(:query)
                 .with(:'facts/get', fact_id)
-                .and_return(result)
+                .and_return(fact)
 
-      expect(interactor.call).to eq result
+      expect(interactor.call).to eq fact
     end
 
     it 'calls just a query if no user is present' do
       fact_id = '1'
-
-      result = mock
+      fact = mock
 
       options = { ability: mock(can?: true)}
 
       interactor = described_class.new '1', options
-
       interactor.should_receive(:query)
                 .with(:'facts/get', fact_id)
-                .and_return(result)
+                .and_return(fact)
 
-      expect(interactor.call).to eq result
+      expect(interactor.call).to eq fact
     end
   end
 end

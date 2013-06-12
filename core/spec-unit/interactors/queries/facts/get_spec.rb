@@ -23,15 +23,15 @@ describe Queries::Facts::Get do
 
     it 'correctly' do
       fact_id = '1'
+      fact = mock
 
-      result = mock
       interactor = Queries::Facts::Get.new '1'
 
-      Fact.should_receive(:[]).with(fact_id).and_return(result)
+      Fact.should_receive(:[]).with(fact_id).and_return(fact)
 
       result = interactor.execute
 
-      expect(result).to eq result
+      expect(result).to eq fact
     end
   end
 end

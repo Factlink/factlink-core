@@ -43,16 +43,16 @@ describe Interactors::Evidence::ForFactId do
     it 'correctly' do
       fact_id = '1'
       type = :supporting
-      result = mock
+      fact = mock
       options = {current_user: mock, ability: mock(can?: true)}
 
       interactor = Interactors::Evidence::ForFactId.new '1', type, options
 
       interactor.stub(:query)
                 .with(:'evidence/for_fact_id', fact_id, type)
-                .and_return(result)
+                .and_return(fact)
 
-      expect(interactor.call).to eq result
+      expect(interactor.call).to eq fact
     end
   end
 end
