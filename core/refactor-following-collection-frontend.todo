@@ -1,4 +1,0 @@
- ☐ fix logic so it doesn't only work for current user
- ✔ make followers/following collections use proper backbone rest @done (13-06-03 16:51)
- ☐ use following collection of current user to check who we follow
-

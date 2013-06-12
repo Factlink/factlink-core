@@ -50,7 +50,7 @@ class Fact < Basefact
 
   reference :site, Site # The site on which the factlink should be shown
 
-  reference :data, lambda { |id| id && FactData.find(id) }
+  reference :data, ->(id) { id && FactData.find(id) }
 
   def self.build_with_data(url, displaystring, title, creator)
     site = url && (Site.find(url: url).first || Site.create(url: url))
@@ -159,6 +159,6 @@ class Fact < Basefact
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
   def channel_ids
-    channels.map {|ch| ch.id}
+    channels.map(&:id)
   end
 end

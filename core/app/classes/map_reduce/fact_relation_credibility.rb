@@ -10,28 +10,31 @@ class MapReduce
     end
 
     def map iterator
-      iterator.each do |fact_relation|
+      iterator.ids.each do |fact_relation_id|
         # Warning: facts/_fact_relation.json.jbuilder depends on
         # that the fact relation credibility equals the to_fact credibility
+        fact_relation = FactRelation[fact_relation_id]
+
         authorities_on_fact_id(fact_relation.fact_id).each do |a|
-          yield({fact_id: fact_relation.id, user_id: a.user_id}, a.to_f)
+          yield({
+            fact_id: fact_relation.id,
+            user_id: a.user_id
+          }, a.to_f)
         end
       end
     end
 
     def reduce bucket, authorities
-      if authorities.size != 1
-        raise 'Only one authority per fact relation expected!'
-      end
+      raise 'Only one authority per fact relation expected!' if authorities.size != 1
+
       authorities[0]
     end
 
     def write_output bucket, value
-      f = FactRelation[bucket[:fact_id]]
-      gu = GraphUser[bucket[:user_id]]
-      if f and gu
-        Authority.on(f, for: gu) << value
-      end
+      fact_relation = DeadFactRelation.new bucket[:fact_id]
+      graph_user = DeadGraphUser.new bucket[:user_id]
+
+      Authority.on(fact_relation, for: graph_user) << value
     end
   end
 end

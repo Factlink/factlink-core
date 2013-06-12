@@ -5,27 +5,30 @@ class MapReduce
     end
 
     def map iterator
-      iterator.each do |fact|
-        fact.channel_ids.each do |ch_id|
+      iterator.ids.each do |id|
+        fact = Fact[id]
+        fact.channel_ids.each do |channel_id|
           authority = Authority.from(fact).to_f
           if authority > 0
-            yield({user_id: fact.created_by_id, channel_id: ch_id }, authority)
+            yield({
+              graph_user_id: fact.created_by_id,
+              channel_id: channel_id
+            }, authority)
           end
         end
       end
     end
 
     def reduce bucket, values
-      return values.inject(0) {|sum, value| sum += value }
+      values.inject(0, :+)
     end
 
     def write_output ident, value
-      ch = Channel[ident[:channel_id]]
-      gu = GraphUser[ident[:user_id]]
-      if ch and gu
-        Authority.from(ch, for: gu) << value
-      end
-    end
+      # TODO use dead channel
+      channel = DeadChannel.new ident[:channel_id]
+      graph_user = DeadGraphUser.new ident[:graph_user_id]
 
+      Authority.from(channel, for: graph_user) << value
+    end
   end
 end

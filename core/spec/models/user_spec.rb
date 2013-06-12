@@ -41,7 +41,7 @@ describe User do
   end
 
   describe :assign_attributes do
-    let (:valid_attributes) {
+    let (:valid_attributes) do
       {
         username: "TestUser",
         first_name: "Test",
@@ -49,7 +49,7 @@ describe User do
         email: "test@emial.nl",
         password: "test123"
       }
-    }
+    end
 
     it "should not fail when trying assign a username" do
       user = User.new

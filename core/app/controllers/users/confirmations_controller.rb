@@ -9,10 +9,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     if resource.errors.empty?
       set_flash_message(:notice, :confirmed) if is_navigational_format?
 
-      unless resource.approved?
-        respond_with_navigational(resource){ render "awaiting_approval" }
-      else
+      if resource.approved?
         redirect_to "/"
+      else
+        respond_with_navigational(resource){ render "awaiting_approval" }
       end
     else
       if params[:confirmation_token]

@@ -9,7 +9,7 @@ module Queries
     end
 
     def slug_titles
-      @channels.map {|ch| ch.slug_title}
+      @channels.map(&:slug_title)
     end
   end
 end
