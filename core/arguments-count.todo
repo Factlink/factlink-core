@@ -1,6 +1,8 @@
 Backend:
  ✔ Query for argument count @done (13-06-12 14:27)
- ✔ Call query in interactor or other query (?) @done (13-06-12 15:20)
+ ✔ Call query in facts/get interactor @done (13-06-12 16:16)
+ ☐ Call query in topics/facts interactor or query (?)
+ ☐ Call query in channels/facts interactor or query (?)
  ☐ Pass to frontend in view
 
 Frontend:
