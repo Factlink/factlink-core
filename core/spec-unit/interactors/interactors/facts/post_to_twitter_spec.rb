@@ -31,19 +31,18 @@ describe Interactors::Facts::PostToTwitter do
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
 
-      interactor = described_class.new fact.id, message, pavlov_options
-
-      interactor.stub(:query)
-        .with(:"facts/get_dead", fact.id)
+      Pavlov.stub(:query)
+        .with(:"facts/get_dead", fact.id, pavlov_options)
         .and_return(fact)
 
-      interactor.stub(:query)
-        .with(:"facts/sharing_url", fact)
+      Pavlov.stub(:query)
+        .with(:"facts/sharing_url", fact, pavlov_options)
         .and_return(sharing_url)
 
-      interactor.should_receive(:command)
-        .with(:"twitter/post", "message sharing_url")
+      Pavlov.should_receive(:command)
+        .with(:"twitter/post", "message sharing_url", pavlov_options)
 
+      interactor = described_class.new fact.id, message, pavlov_options
       interactor.call
     end
   end
