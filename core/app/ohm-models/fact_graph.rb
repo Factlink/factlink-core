@@ -51,8 +51,4 @@ class FactGraph
       MapReduce::FactRelationCredibility
     ]
   end
-
-  def self.export(writer, options={})
-    raise "Functionality removed"
-  end
 end
