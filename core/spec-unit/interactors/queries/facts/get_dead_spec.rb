@@ -14,7 +14,9 @@ describe Queries::Facts::GetDead do
 
   describe '.execute' do
     before do
-      stub_const('Fact',Class.new)
+      stub_classes 'Fact', 'FactlinkUI::Application', 'CGI'
+      FactlinkUI::Application.stub config: mock(proxy_url: "proxy_url")
+      CGI.stub escape: ''
     end
 
     it 'returns a fact' do
@@ -22,7 +24,11 @@ describe Queries::Facts::GetDead do
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: false,
+          data: fact_data
+
       interactor = Queries::Facts::GetDead.new live_fact.id
       wheel = mock
 
@@ -41,12 +47,16 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.wheel).to eq wheel
     end
 
-    it 'returns a fact which has no site without site_url' do
+    it 'returns a fact which has no site or proxy_scroll_url without site_url' do
       fact_data = mock :fact_data,
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      live_fact = mock :fact, id: '1', has_site?: false, data: fact_data
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: false,
+          data: fact_data
+
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Pavlov.stub query: mock
@@ -55,6 +65,7 @@ describe Queries::Facts::GetDead do
       dead_fact = interactor.execute
 
       expect(dead_fact.site_url).to be_nil
+      expect(dead_fact.proxy_scroll_url).to be_nil
     end
 
     it 'returns a fact which has a site with site_url' do
@@ -63,7 +74,12 @@ describe Queries::Facts::GetDead do
           created_at: 15,
           title: 'title'
       site = mock :site, url: 'http://example.org/'
-      live_fact = mock :fact, id: '1', has_site?: true, site: site, data: fact_data
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: true,
+          site: site,
+          data: fact_data
+
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Pavlov.stub query: mock
@@ -72,6 +88,30 @@ describe Queries::Facts::GetDead do
       dead_fact = interactor.execute
 
       expect(dead_fact.site_url).to eq site.url
+    end
+
+    it 'returns a fact which has an (escaped) proxy_scroll_url with site_url' do
+      fact_data = mock :fact_data,
+          displaystring: 'example fact text',
+          created_at: 15,
+          title: 'title'
+      site = mock :site, url: 'http://example.org/'
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: true,
+          site: site,
+          data: fact_data
+
+      interactor = Queries::Facts::GetDead.new live_fact.id
+
+      Pavlov.stub query: mock
+      Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
+
+      CGI.should_receive(:escape).with(site.url).and_return('escaped_url')
+
+      dead_fact = interactor.execute
+
+      expect(dead_fact.proxy_scroll_url).to eq "proxy_url/?url=escaped_url&scrollto=1"
     end
   end
 end
