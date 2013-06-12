@@ -5,13 +5,10 @@ require_relative '../../../../app/interactors/interactors/facts/post_to_twitter.
 describe Interactors::Facts::PostToTwitter do
   include PavlovSupport
 
-  let(:maximum_message_length) { 130 }
-
   before do
     stub_classes 'FactHelper', 'Fact', 'Twitter'
 
-    short_url_length_https = 140-maximum_message_length-1 # -1 for space
-    Twitter.stub configuration: mock(short_url_length_https: short_url_length_https)
+    Twitter.stub configuration: mock(short_url_length_https: 20)
   end
 
   describe '#authorized?' do
@@ -73,6 +70,9 @@ describe Interactors::Facts::PostToTwitter do
     it 'calls the correct validation methods' do
       fact_id = "1"
       message = "message"
+
+      # 140 Twitter characters, minus url length, minus 1 for space
+      maximum_message_length = 140 - Twitter.configuration.short_url_length_https - 1
 
       described_class.any_instance.should_receive(:validate_integer_string)
         .with(:fact_id, fact_id)
