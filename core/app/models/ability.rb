@@ -4,9 +4,7 @@ class Ability
 
   include CanCan::Ability
 
-  def user
-    @user
-  end
+  attr_reader :user
 
   def signed_in?
     user

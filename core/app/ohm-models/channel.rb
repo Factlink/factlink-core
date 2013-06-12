@@ -6,7 +6,9 @@ require_relative 'channel/activities'
 class Channel < OurOhm
   include Activity::Subject
 
-  def type; "channel" end
+  def type
+    "channel"
+  end
 
   attribute :title
   index :title

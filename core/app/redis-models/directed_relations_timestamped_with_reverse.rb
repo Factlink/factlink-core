@@ -1,5 +1,3 @@
-require_relative 'directed_relations_sorted_with_reverse'
-
 class DirectedRelationsTimestampedWithReverse < DirectedRelationsSortedWithReverse
   def add_at_time(from_id, to_id, time)
     add from_id, to_id, time_to_score(time)

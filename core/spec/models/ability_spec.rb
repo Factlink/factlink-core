@@ -3,13 +3,13 @@ require "cancan/matchers"
 
 describe Ability do
 
-  #abilities
+  # abilities
   subject                { Ability.new(user)}
   let(:anonymous)        { Ability.new}
   let(:admin)            { Ability.new admin_user}
   let(:nonnda)           { Ability.new nonnda_user}
 
-  #users used as object
+  # users used as object
   let(:user)        {create :active_user}
   let(:other_user)  {create :active_user }
   let(:admin_user)  {create :admin_user}

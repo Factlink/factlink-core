@@ -4,7 +4,7 @@ class SearchController < ApplicationController
   before_filter :authenticate_user!
 
   # Search
-  # Not using the same search for the client popup, since we probably want\
+  # Not using the same search for the client popup, since we probably want
   # to use a more advanced search on the Factlink website.
   def search
     if params[:s]

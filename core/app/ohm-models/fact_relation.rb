@@ -21,7 +21,7 @@ class FactRelation < Basefact
     assert_unique [:from_fact_id, :fact_id, :type]
   end
 
-  def FactRelation.get_or_create(from, type, to, user)
+  def self.get_or_create(from, type, to, user)
     id = get_id(from,type,to)
     if id
       FactRelation[id]
@@ -30,15 +30,15 @@ class FactRelation < Basefact
     end
   end
 
-  def FactRelation.get_by(from,type,to)
+  def self.get_by(from,type,to)
     FactRelation[get_id(from,type,to)]
   end
 
-  def FactRelation.get_id(from,type,to)
+  def self.get_id(from,type,to)
     key['gcby'][from.id][type][to.id].get()
   end
 
-  def FactRelation.create_new(from,type,to,user)
+  def self.create_new(from,type,to,user)
     fl = FactRelation.create(
       :created_by => user.graph_user,
       :from_fact => from,
@@ -56,11 +56,11 @@ class FactRelation < Basefact
   end
 
   def percentage
-    if self.fact.get_opinion.weight == 0
-      return 0
-    else
-      return (100 * self.get_influencing_opinion.weight / (self.fact.get_opinion.weight)).round.to_i
-    end
+    return 0 if fact.get_opinion.weight == 0
+
+    part = get_influencing_opinion.weight / fact.get_opinion.weight
+
+    (100 * part).round.to_i
   end
 
   def get_type_opinion

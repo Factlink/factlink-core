@@ -8,22 +8,27 @@ feature "follow_users_in_tour", type: :request do
   before do
     @user = create :approved_confirmed_user
 
-    create :user # HACK create user with id 2 (so the next user has an id that is not hardcoded in TopWithAuthorityForGraphUserId Query)
     @user1 = create :user
-    create :user # HACK create user with id 4 (so the next user has an id that is not hardcoded in TopWithAuthorityForGraphUserId Query)
     @user2 = create :user
     Pavlov.command :"users/add_handpicked_user", @user1.id.to_s
     Pavlov.command :"users/add_handpicked_user", @user2.id.to_s
 
     as(@user1) do |pavlov|
       @user1_channel1 = pavlov.command :'channels/create', 'toy'
+      pavlov.command :'topics/update_user_authority',
+        @user1.graph_user_id.to_s, @user1_channel1.slug_title, 0
       @user1_channel2 = pavlov.command :'channels/create', 'story'
-      Authority.from(@user1_channel2.topic, for: @user1.graph_user) << 3
+      pavlov.command :'topics/update_user_authority',
+        @user1.graph_user_id.to_s, @user1_channel2.slug_title, 3
     end
     as(@user2) do |pavlov|
       @user2_channel1 = pavlov.command :'channels/create', 'war'
+      pavlov.command :'topics/update_user_authority',
+        @user2.graph_user_id.to_s, @user2_channel1.slug_title, 0
+
       @user2_channel2 = pavlov.command :'channels/create', 'games'
-      Authority.from(@user2_channel2.topic, for: @user2.graph_user) << 4568
+      pavlov.command :'topics/update_user_authority',
+        @user2.graph_user_id.to_s, @user2_channel2.slug_title, 4568
     end
   end
 

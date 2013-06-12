@@ -139,8 +139,6 @@ group :test do
 
   gem 'oily_png', '~> 1.1'
 
-  gem 'headless', '~> 1.0'
-
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard', '~> 1.8', require: false
   gem 'guard-rspec', '~> 3.0', require: false
@@ -161,5 +159,6 @@ group :development do
   gem 'brakeman', '~> 1', require: false # always update, we want the latest version always
   gem 'cane', '~> 2', require: false
   gem 'rails_best_practices', '~> 1', require: false
+  gem 'rubocop', require: false
   gem 'hub', '~> 1', require: false
 end

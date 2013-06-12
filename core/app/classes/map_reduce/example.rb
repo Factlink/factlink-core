@@ -1,15 +1,17 @@
 class MapReduce
   class Example < MapReduce
+    def initialize &block
+      @block = block
+    end
+
     def all_set
       @all || []
     end
+
     def all_set=(list)
       @all = list
     end
 
-    def initialize &block
-      @block = block
-    end
     def map iterator
       iterator.each do |i|
         i.each_pair do |k,v|

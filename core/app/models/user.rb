@@ -236,10 +236,10 @@ class User
   def name
     name = "#{first_name} #{last_name}".strip
 
-    unless name.blank?
-      name
-    else
+    if name.blank?
       username
+    else
+      name
     end
   end
 
@@ -261,7 +261,7 @@ class User
 
   def serializable_hash(options={})
     options ||= {}
-    options[:except] ||= Array.new
+    options[:except] ||= []
     options[:except] += [:admin, :agrees_tos, :agreed_tos_on, :agrees_tos_name, ]
     super(options)
   end
@@ -292,6 +292,7 @@ class User
   def active_for_authentication?
     super && approved?
   end
+
   def inactive_message
     if !approved?
       :not_approved

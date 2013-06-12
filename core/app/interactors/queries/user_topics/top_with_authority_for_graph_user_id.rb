@@ -1,90 +1,69 @@
+require_relative '../../../classes/hash_utils'
+
 module Queries
   module UserTopics
     class TopWithAuthorityForGraphUserId
       include Pavlov::Query
+      include HashUtils
 
       arguments :graph_user_id, :limit_topics
 
-      def execute
-        sorted_user_topics.take(limit_topics)
+      private
+
+      def validate
+        validate_integer_string :graph_user_id, graph_user_id
+        validate_integer :limit_topics, limit_topics
       end
 
-      def sorted_user_topics
-        user_topics.sort do |a,b|
-          - (a.authority <=> b.authority)
-        end
+      def execute
+        user_topics
       end
 
       def user_topics
-        topics.map do |topic|
-          DeadUserTopic.new topic.slug_title,
-                            topic.title,
-                            authority_for(topic)
-        end
+        topics_with_authorities.compact
       end
 
-      def authority_for topic
-        query :authority_on_topic_for, topic, graph_user
-      end
-
-      def hard_coded_topic_slugs_for_graphuser_id id
-        # TODO when removing these hard coded users:
-        # remove the `HACK create :user` from follow_user_in_tour acceptance test
-        user_hash = {
-          17 => :Jens,
-          46 => :martijn,
-          2 => :tomdev,
-          23 => :Vikingmobile,
-          1 => :merijn,
-          20 => :jobert,
-          27 => :janpaul,
-          6 => :mark,
-          59 => :melvin,
-          9 => :michiel,
-          4 => :RSO,
-          170 => :lbekkema,
-          466 => :Nathan,
-          166 => :JJoos,
-          935 => :EamonNerbonne,
-          227 => :annie
-        }
-
-        topic_hash = {
-          :Jens=>["startups", "security"],
-          :martijn=>["apple", "pinterest"],
-          :tomdev=>["apple", "health"],
-          :Vikingmobile=>["sustainability", "energy"],
-          :merijn=>["apple", "startups"],
-          :jobert=>["security", "programming"],
-          :janpaul=>["education", "startups"],
-          :mark=>["security", "programming"],
-          :melvin=>["security", "development"],
-          :michiel=>["programming", "security"],
-          :RSO=>["coding", "server-management"],
-          :lbekkema=>["growth-hacking", "ux-slash-ui"],
-          :Nathan=>["apple", "ui-design"],
-          :JJoos=>["big-data", "software-development"],
-          :EamonNerbonne=>["big-data", "health"],
-          :annie=>["sleep", "factlink"]
-        }
-
-        topic_hash.fetch(user_hash[id.to_i]) { :no_topic_slugs_for_graph_user }
-      end
-
-      def hardcoded_topics
-        topic_slugs = hard_coded_topic_slugs_for_graphuser_id(graph_user_id)
-        return :no_hardcoded_topics if topic_slugs == :no_topic_slugs_for_graph_user
-
-        topic_slugs.map do |slug|
-          query :'topics/by_slug_title', slug
+      def topics_with_authorities
+        sorted_authorities.zip(sorted_topics).map do |args|
+          dead_topic_for *args
         end.compact
       end
 
-      def topics
-        predefined_topics = hardcoded_topics
-        return predefined_topics unless predefined_topics == :no_hardcoded_topics
+      def sorted_authorities
+        sorted_topics_hashes.map {|h| h[:authority]}
+      end
 
-        query :'topics/posted_to_by_graph_user', graph_user
+      def sorted_topics
+        topics_for_ids = topics_for_hashes(sorted_topics_hashes)
+
+        sorted_topics_hashes.map do |hash|
+          topics_for_ids[hash[:id].to_s]
+        end
+      end
+
+      def dead_topic_for authority, topic
+        return nil unless topic
+
+        DeadUserTopic.new topic.slug_title,
+                          topic.title,
+                          authority
+      end
+
+      def sorted_topics_hashes
+        @sorted_topics_hashes ||=
+          topics_sorted_by_authority.ids_and_authorities_desc_limit limit_topics
+      end
+
+      def topics_sorted_by_authority
+        TopicsSortedByAuthority.new(graph_user.user_id.to_s)
+      end
+
+      def topics_for_hashes hashes
+        ids = hashes.map {|h| h[:id]}
+
+        topics = Topic.any_in(id: ids).to_a
+
+        hash_with_index(:id, topics)
       end
 
       def graph_user

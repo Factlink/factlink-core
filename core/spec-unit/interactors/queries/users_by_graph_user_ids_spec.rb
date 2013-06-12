@@ -5,7 +5,7 @@ describe Queries::UsersByGraphUserIds do
   include PavlovSupport
 
   before do
-    stub_classes "GraphUser", "User"
+    stub_classes "GraphUser"
   end
 
   it 'throws when initialized with a argument that is not an integer' do
@@ -15,37 +15,39 @@ describe Queries::UsersByGraphUserIds do
 
   describe ".call" do
     it "should work with an empty list of ids" do
-      query = Queries::UsersByGraphUserIds.new([], current_user: mock)
+      query = Queries::UsersByGraphUserIds.new([])
 
-      query.should_receive(:query).with(:users_by_ids, [],).and_return([])
+      Pavlov.stub(:query)
+            .with(:users_by_ids, [],)
+            .and_return([])
 
-      Queries::UsersByGraphUserIds.any_instance.stub(authorized?: true)
-
-      result = query.call
-
-      expect(result).to eq([])
+      expect(query.call).to eq([])
     end
 
     it "should work with multiple ids" do
-      graph_users = [mock(user_id: 4), mock(user_id: 5), mock(user_id: 6)]
-      gu_ids = [1, 2, 3]
+      graph_users = [
+        mock(id: 1, user_id: 4),
+        mock(id: 2, user_id: 5),
+        mock(id: 3, user_id: 6)
+      ]
+      gu_ids = graph_users.map(&:id)
+      user_ids = graph_users.map(&:user_id)
 
       users = mock()
 
-      gu_ids.each_with_index do |graph_user_id, index|
-        GraphUser.should_receive(:[]).with(graph_user_id).and_return(graph_users[index])
+      graph_users.each do |graph_user|
+        GraphUser.should_receive(:[])
+                 .with(graph_user.id)
+                 .and_return(graph_user)
       end
 
-      query = Queries::UsersByGraphUserIds.new(gu_ids, current_user: mock)
+      query = Queries::UsersByGraphUserIds.new(gu_ids)
 
-      query.should_receive(:query).with(:users_by_ids, graph_users.map {|gu| gu.user_id }).
-          and_return(users)
+      Pavlov.stub(:query)
+            .with(:users_by_ids, user_ids)
+            .and_return(users)
 
-      Queries::UsersByGraphUserIds.any_instance.stub(authorized?: true)
-
-      result = query.call
-
-      expect(result).to eq(users)
+      expect(query.call).to eq(users)
     end
   end
 end

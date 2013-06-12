@@ -93,8 +93,9 @@ class ChannelsController < ApplicationController
     else
       respond_to do |format|
         format.html { render :new }
-        format.json { render :json => @channel.errors,
-                      :status => :unprocessable_entity }
+        format.json do
+          render json: @channel.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -106,13 +107,16 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title))
-        format.html  { redirect_to(channel_path(@channel.created_by.user, @channel),
-                      :notice => "#{t(:topic)} was successfully updated." )}
-        format.json  { render :json => {}, :status => :ok }
+        format.html  do
+          redirect_to channel_path(@channel.created_by.user, @channel),
+                      notice: "#{t(:topic)} was successfully updated."
+        end
+        format.json  { render json: {}, status: :ok }
       else
         format.html  { render :edit }
-        format.json  { render :json => @channel.errors,
-                      :status => :unprocessable_entity }
+        format.json  do
+          render json: @channel.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -158,7 +162,7 @@ class ChannelsController < ApplicationController
 
     interactor :"channels/add_fact", fact, @channel
 
-    render nothing: true, :status => :no_content
+    render nothing: true, status: :no_content
   end
 
   def create_fact

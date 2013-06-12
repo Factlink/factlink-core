@@ -8,7 +8,7 @@ describe Activity::Listener::Dsl do
     it "should call execute when called with a block" do
       x = mock()
       x.should_receive(:foo)
-      Activity::Listener::Dsl.new nil do x.foo end
+      Activity::Listener::Dsl.new(nil) { x.foo }
     end
   end
 

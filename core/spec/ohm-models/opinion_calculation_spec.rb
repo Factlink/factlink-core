@@ -4,6 +4,10 @@ require 'spec_helper'
 describe "opinion should work as described in the google doc" do
   include BeliefExpressions
 
+  before do
+    Commands::Topics::UpdateUserAuthority.stub new: (stub call: nil)
+  end
+
   let(:u1) {create(:graph_user)}
   let(:u2) {create(:graph_user)}
   let(:u3) {create(:graph_user)}

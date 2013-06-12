@@ -19,11 +19,11 @@ class Activity < OurOhm
     end
 
     def people_who_follow_sub_comment
-      lambda { |a| reject_self(followers_for_sub_comment(a.subject), a) }
+      ->(a) { reject_self(followers_for_sub_comment(a.subject), a) }
     end
 
     def people_who_follow_a_fact_which_is_object
-      lambda { |a| reject_self(followers_for_fact(a.object),a) }
+      ->(a) { reject_self(followers_for_fact(a.object),a) }
     end
 
     def forGraphUser_someone_added_evidence_to_a_fact_you_follow
@@ -38,11 +38,11 @@ class Activity < OurOhm
       {
         subject_class: "Channel",
         action: 'added_subchannel',
-        extra_condition: lambda do |a|
+        extra_condition: ->(a) do
           a.subject.created_by_id != a.user.id and
             not followers_for_graph_user(a.subject.created_by_id).include?(a.user.id)
         end,
-        write_ids: lambda { |a| select_users_that_see_channels([a.subject.created_by_id]) }
+        write_ids: ->(a) { select_users_that_see_channels([a.subject.created_by_id]) }
       }
     end
 
@@ -58,7 +58,7 @@ class Activity < OurOhm
       {
         subject_class: "Conversation",
         action: [:created_conversation],
-        write_ids: lambda { |a| reject_self(followers_for_conversation(a.subject),a) }
+        write_ids: ->(a) { reject_self(followers_for_conversation(a.subject),a) }
       }
     end
 
@@ -66,7 +66,7 @@ class Activity < OurOhm
       {
         subject_class: "Message",
         action: [:replied_message],
-        write_ids: lambda { |a| reject_self(followers_for_conversation(a.subject.conversation),a) }
+        write_ids: ->(a) { reject_self(followers_for_conversation(a.subject.conversation),a) }
       }
     end
 
@@ -74,7 +74,7 @@ class Activity < OurOhm
       {
         subject_class: "GraphUser",
         action: :invites,
-        write_ids: lambda { |a| [a.subject_id] }
+        write_ids: ->(a) { [a.subject_id] }
       }
     end
 
@@ -90,7 +90,7 @@ class Activity < OurOhm
       {
         subject_class: "Channel",
         action: :created_channel,
-        write_ids: lambda do |a|
+        write_ids: ->(a) do
           followers = channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by)
           select_users_that_see_channels(reject_self(followers,a))
         end
@@ -109,8 +109,8 @@ class Activity < OurOhm
       {
         subject_class: "Fact",
         action: [:believes, :doubts, :disbelieves],
-        extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
-        write_ids: lambda { |a| [a.subject.created_by_id] }
+        extra_condition: ->(a) { a.subject.created_by_id != a.user.id },
+        write_ids: ->(a) { [a.subject.created_by_id] }
       }
     end
 
@@ -118,11 +118,11 @@ class Activity < OurOhm
       {
         subject_class: "Fact",
         action: :added_fact_to_channel,
-        extra_condition: lambda do |a|
+        extra_condition: ->(a) do
           (a.subject.created_by_id != a.user_id) and
             (a.object.type == 'channel')
         end,
-        write_ids: lambda { |a| [a.subject.created_by_id] }
+        write_ids: ->(a) { [a.subject.created_by_id] }
       }
     end
 
@@ -130,7 +130,7 @@ class Activity < OurOhm
       {
         subject_class: "Fact",
         action: :added_fact_to_channel,
-        write_ids: lambda { |a| [a.object.containing_channels.map {|ch| ch.created_by_id }.select { |id| id != a.user_id } ].flatten }
+        write_ids: ->(a) { [a.object.containing_channels.map {|ch| ch.created_by_id }.select { |id| id != a.user_id }].flatten }
       }
     end
 
@@ -138,7 +138,7 @@ class Activity < OurOhm
       {
         subject_class: "Fact",
         action: :added_first_factlink,
-        write_ids: lambda { |a| [a.subject.created_by_id] }
+        write_ids: ->(a) { [a.subject.created_by_id] }
       }
     end
 
@@ -146,7 +146,7 @@ class Activity < OurOhm
       {
         subject_class: 'GraphUser',
         action: 'followed_user',
-        write_ids: lambda {|a| [a.subject_id]}
+        write_ids: ->(a) { [a.subject_id]}
       }
     end
 
@@ -214,11 +214,11 @@ class Activity < OurOhm
 
         activity subject_class: "Channel",
                  action: 'added_subchannel',
-                 write_ids: lambda { |a| [a.subject_id] }
+                 write_ids: ->(a) { [a.subject_id] }
 
         activity object_class: "Fact",
                  action: [:added_supporting_evidence, :added_weakening_evidence],
-                 write_ids: lambda { |a| a.object.channels.ids }
+                 write_ids: ->(a) { a.object.channels.ids }
       end
     end
 
@@ -229,7 +229,7 @@ class Activity < OurOhm
 
         activity subject_class: "Fact",
                  action: [:created, :believes, :disbelieves, :doubts, :removed_opinions],
-                 write_ids: lambda { |a| [a.subject.id]}
+                 write_ids: ->(a) { [a.subject.id]}
 
       end
     end
