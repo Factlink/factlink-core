@@ -10,18 +10,14 @@ describe Commands::Twitter::Post do
     end
 
     it 'calls Twitter::Client#update' do
-      username = 'henk'
       message  = 'some message'
-
       token  = 'qwerty'
       secret = 'asdf'
       identities = {'twitter' => {'credentials' => {'token' => token, 'secret' => secret}}}
-      user = mock(identities: identities)
+      user = mock(username: 'henk', identities: identities)
 
-      query = described_class.new username, message
-
-      query.stub(:query)
-        .with(:user_by_username, username)
+      Pavlov.stub(:query)
+        .with(:user_by_username, user.username)
         .and_return(user)
 
       client = mock
@@ -32,39 +28,41 @@ describe Commands::Twitter::Post do
       client.should_receive(:update).
         with(message)
 
-      query.call
+      command = described_class.new user.username, message
+      command.call
+    end
+
+  end
+
+  describe '#validate' do
+    it 'calls the correct validation methods' do
+      message  = 'message'
+      user = mock(username: 'henk', identities: {'twitter' => {}})
+
+      Pavlov.stub(:query)
+        .with(:user_by_username, user.username)
+        .and_return(user)
+
+      described_class.any_instance.should_receive(:validate_nonempty_string)
+                                  .with(:username, user.username)
+      described_class.any_instance.should_receive(:validate_nonempty_string)
+                                  .with(:message, message)
+
+      command = described_class.new user.username, message
     end
 
     it 'throws an error if no twitter account is linked' do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
-      username = 'henk'
-      message  = 'some message'
+      message  = 'message'
+      user = mock(username: 'henk', identities: {'twitter' => nil})
 
-      user = mock(identities: {'twitter' => nil})
-
-      query = described_class.new username, message
-
-      query.stub(:query)
-        .with(:user_by_username, username)
+      Pavlov.stub(:query)
+        .with(:user_by_username, user.username)
         .and_return(user)
 
-      expect { query.call }.
+      expect { described_class.new user.username, message }.
         to raise_error(Pavlov::ValidationError, 'no twitter account linked')
-    end
-  end
-
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      username = mock
-      message  = mock
-
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-                                  .with(:username, username)
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-                                  .with(:message, message)
-
-      query = described_class.new username, message
     end
   end
 end

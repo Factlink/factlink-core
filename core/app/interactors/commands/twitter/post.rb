@@ -10,16 +10,16 @@ module Commands
       private
 
       def execute
-        unless user.identities && user.identities['twitter']
-          raise Pavlov::ValidationError, 'no twitter account linked'
-        end
-
         client.update message
       end
 
       def validate
         validate_nonempty_string :username, username
         validate_nonempty_string :message, message
+
+        unless user.identities && user.identities['twitter']
+          raise Pavlov::ValidationError, 'no twitter account linked'
+        end
       end
 
       def user
