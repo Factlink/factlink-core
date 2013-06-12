@@ -3,6 +3,7 @@ module Interactors
     class PostToTwitter
       include Pavlov::Command
       include Util::CanCan
+      include Util::Validations
 
       # TODO: Let's move this to a query some time...
       include ::FactHelper
@@ -23,13 +24,9 @@ module Interactors
       end
 
       def validate
-        validate_integer_string :fact_id, fact_id
+        validate_integer_string  :fact_id, fact_id
         validate_nonempty_string :message, message
-
-        if message.length > maximum_message_length
-          raise Pavlov::ValidationError,
-            "message cannot be longer than #{maximum_message_length} characters"
-        end
+        validate_string_length   :message, message, maximum_message_length
       end
 
       def url

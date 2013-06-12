@@ -72,26 +72,16 @@ describe Interactors::Facts::PostToTwitter do
   describe '#validate' do
     it 'calls the correct validation methods' do
       fact_id = "1"
-      message = "a"*maximum_message_length
+      message = "message"
 
       described_class.any_instance.should_receive(:validate_integer_string)
         .with(:fact_id, fact_id)
       described_class.any_instance.should_receive(:validate_nonempty_string)
         .with(:message, message)
+      described_class.any_instance.should_receive(:validate_string_length)
+        .with(:message, message, maximum_message_length)
 
       interactor = described_class.new fact_id, message, ability: mock(can?: true)
-    end
-
-    it 'disallows messages longer than maximum_message_length' do
-      fact_id = "1"
-      message = "a"*(maximum_message_length+1)
-      user_name = mock
-
-      described_class.any_instance.stub(:validate_nonempty_string)
-
-      expect {described_class.new fact_id, message, ability: mock(can?: true)}.
-        to raise_error(Pavlov::ValidationError,
-          "message cannot be longer than #{maximum_message_length} characters")
     end
   end
 
