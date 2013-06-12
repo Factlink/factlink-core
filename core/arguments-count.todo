@@ -2,7 +2,7 @@ Backend:
  ✔ Query for argument count @done (13-06-12 14:27)
  ✔ Call query in facts/get interactor @done (13-06-12 16:16)
  ✔ Call query in topics/facts interactor or query (?) @done (13-06-12 16:58)
- ☐ Call query in channels/facts interactor or query (?)
+ ✔ Call query in channels/facts interactor or query (?) @done (13-06-12 17:05)
  ☐ Pass to frontend in view
 
 Frontend:
