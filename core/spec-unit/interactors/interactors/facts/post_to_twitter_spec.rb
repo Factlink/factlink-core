@@ -1,12 +1,11 @@
 require 'pavlov_helper'
-require_relative '../../../../app/helpers/fact_helper.rb'
 require_relative '../../../../app/interactors/interactors/facts/post_to_twitter.rb'
 
 describe Interactors::Facts::PostToTwitter do
   include PavlovSupport
 
   before do
-    stub_classes 'FactHelper', 'Fact', 'Twitter'
+    stub_classes 'Fact', 'Twitter'
 
     Twitter.stub configuration: mock(short_url_length_https: 20)
   end
@@ -24,10 +23,11 @@ describe Interactors::Facts::PostToTwitter do
   end
 
   describe '#call' do
-    it 'posts a fact with a proxy_scroll_url if available' do
+    it 'posts a fact with a sharing_url if available' do
       user = mock
       message = "message"
-      fact = mock(id: "1", proxy_scroll_url: "proxy_scroll_url")
+      fact = mock(id: "1")
+      sharing_url = 'sharing_url'
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
 
@@ -37,32 +37,12 @@ describe Interactors::Facts::PostToTwitter do
         .with(:"facts/get_dead", fact.id)
         .and_return(fact)
 
-      interactor.should_receive(:command)
-        .with(:"twitter/post", "message proxy_scroll_url")
-
-      interactor.call
-    end
-
-    it 'posts a fact with a friendly_fact_url otherwise' do
-      user = mock
-      message = "message"
-      fact = mock(id: "1", proxy_scroll_url: nil, to_s: 'displaystring')
-      friendly_fact_url = "friendly_fact_url"
-
-      pavlov_options = {current_user: user, ability: mock(can?: true)}
-
-      interactor = described_class.new fact.id, message, pavlov_options
-
       interactor.stub(:query)
-        .with(:"facts/get_dead", fact.id)
-        .and_return(fact)
-
-      interactor.stub(:frurl_fact_url)
-        .with('displaystring', fact.id)
-        .and_return(friendly_fact_url)
+        .with(:"facts/sharing_url", fact)
+        .and_return(sharing_url)
 
       interactor.should_receive(:command)
-        .with(:"twitter/post", "message friendly_fact_url")
+        .with(:"twitter/post", "message sharing_url")
 
       interactor.call
     end

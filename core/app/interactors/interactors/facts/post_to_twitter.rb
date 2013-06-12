@@ -5,9 +5,6 @@ module Interactors
       include Util::CanCan
       include Util::Validations
 
-      # TODO: Let's move this to a query some time...
-      include ::FactHelper
-
       arguments :fact_id, :message
 
       def authorized?
@@ -30,11 +27,8 @@ module Interactors
       end
 
       def url
-        fact.proxy_scroll_url || friendly_fact_url(fact)
-      end
-
-      def fact
-        @fact ||= query :"facts/get_dead", fact_id
+        fact = query :"facts/get_dead", fact_id
+        query :'facts/sharing_url', fact
       end
 
       def maximum_message_length
