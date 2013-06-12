@@ -14,8 +14,8 @@ module Interactors
       def execute
         setup_defaults
 
-        facts.each do |fact|
-          fact.evidence_count = query :"evidence/count_for_fact", fact
+        facts.each do |hash|
+          hash[:item].evidence_count = query :"evidence/count_for_fact", hash[:item]
         end
 
         facts

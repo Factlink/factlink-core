@@ -14,7 +14,7 @@ describe Interactors::Topics::Facts do
       fact2 = mock
       evidence_count1 = 10
       evidence_count2 = 20
-      results = [fact1, fact2]
+      results = [{item: fact1}, {item: fact2}]
 
       pavlov_options = {current_user: mock}
 
