@@ -5,6 +5,8 @@ module Queries
 
       arguments :id
 
+      private
+
       def execute
         DeadFact.new fact.id,
                      site_url,
