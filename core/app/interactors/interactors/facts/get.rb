@@ -9,7 +9,13 @@ module Interactors
       def execute
         add_to_recently_viewed
 
-        query :'facts/get', id
+        fact_with_evidence_count
+      end
+
+      def fact_with_evidence_count
+        fact = query :'facts/get', id
+        fact.evidence_count = query :'evidence/count_for_fact_id', id
+        fact
       end
 
       def add_to_recently_viewed

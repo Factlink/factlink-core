@@ -34,12 +34,17 @@ describe Interactors::Facts::Get do
     end
 
     it 'stores the recently viewed if a user is present' do
-      fact = mock(id: '1')
+      fact = mock(id: '1', evidence_count: nil)
       user = mock(id: '1e')
+      evidence_count = 10
 
       pavlov_options = {current_user: user}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
+        .and_return(fact)
+      Pavlov.stub(:query).with(:'evidence/count_for_fact_id', fact.id, pavlov_options)
+        .and_return(evidence_count)
+      fact.stub(:evidence_count=).with(evidence_count)
 
       Pavlov.should_receive(:command)
         .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
@@ -48,11 +53,16 @@ describe Interactors::Facts::Get do
       interactor.call
     end
 
-    it 'returns the fact' do
-      fact = mock(id: '1')
+    it 'returns the fact and evidence count' do
+      fact = mock(id: '1', evidence_count: nil)
+      evidence_count = 10
 
       Pavlov.stub(:query).with(:'facts/get', fact.id)
         .and_return(fact)
+      Pavlov.stub(:query).with(:'evidence/count_for_fact_id', fact.id)
+        .and_return(evidence_count)
+
+      fact.should_receive(:evidence_count=).with(evidence_count)
 
       interactor = described_class.new fact.id
       expect(interactor.execute).to eq fact

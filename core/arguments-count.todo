@@ -1,6 +1,6 @@
 Backend:
  ✔ Query for argument count @done (13-06-12 14:27)
- ☐ Call query in interactor or other query (?)
+ ✔ Call query in interactor or other query (?) @done (13-06-12 15:20)
  ☐ Pass to frontend in view
 
 Frontend:
