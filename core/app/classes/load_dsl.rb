@@ -40,7 +40,7 @@ class LoadDsl
     )
     f.require_saved_data
     f.data.displaystring = fact_string
-    f.data.title = opts[:title] if opts[:title]
+    f.data.title = opts[:title] || url
     f.data.save
 
     f
