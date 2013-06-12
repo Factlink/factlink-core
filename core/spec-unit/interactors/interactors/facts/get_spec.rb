@@ -36,30 +36,30 @@ describe Interactors::Facts::Get do
     it 'calls a command and query if a user is present' do
       fact_id = '1'
       user = mock id: '1e'
+      fact = mock
 
-      result = mock
       interactor = described_class.new '1', current_user: user
 
       interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id.to_i, user.id.to_s)
 
-      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(mock)
+      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(fact)
 
       result = interactor.execute
 
-      expect(result).to eq result
+      expect(result).to eq fact
     end
 
     it 'calls just a query if no user is present' do
       fact_id = '1'
+      fact = mock
 
-      result = mock
       interactor = described_class.new '1'
 
-      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(mock)
+      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(fact)
 
       result = interactor.execute
 
-      expect(result).to eq result
+      expect(result).to eq fact
     end
   end
 end
