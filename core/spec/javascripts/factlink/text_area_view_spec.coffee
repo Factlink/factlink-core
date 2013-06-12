@@ -7,6 +7,9 @@ describe "Backbone.Factlink.TextAreaView", ->
   sampleLongText = 'Various\nbits\nof text\non\nseveral\nlines\n\n\n!'
   model = view = null
 
+  console.info '\n\n\n\n'
+  console.info Object.getOwnPropertyNames(window.parent).sort().join("\n")
+
   textarea = -> view.$el.find('textarea')
 
   beforeEach ->
@@ -32,11 +35,11 @@ describe "Backbone.Factlink.TextAreaView", ->
     expect(textarea().height()).to.be.below 45
     expect(textarea()[0].scrollHeight).to.equal textarea()[0].clientHeight
 
-  it "remains small but gains a scrollbar when text doesn't fit", ->
+  it "grows vertically and avoids a scrollbar when text doesn't fit", ->
     initialHeight = textarea().height()
     textarea().val(sampleLongText)
-    expect(textarea().height()).to.equal initialHeight
-    expect(textarea()[0].scrollHeight).not.to.equal textarea()[0].clientHeight
+    expect(textarea().height()).not.to.equal initialHeight
+    expect(textarea()[0].scrollHeight).to.equal textarea()[0].clientHeight
 
   #it 'swallows any return-key presses.', ->
     #unfortunately this is untestable due to the JS sandbox.
