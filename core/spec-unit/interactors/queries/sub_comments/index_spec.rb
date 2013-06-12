@@ -44,7 +44,7 @@ describe Queries::SubComments::Index do
                   .and_return(sub_comment_finder1)
 
       sub_comment_finder1.stub(:any_in)
-                  .with(parent_id: [parent_id])
+                  .with(parent_id: [parent_id.to_s])
                   .and_return(sub_comment_finder2)
 
       sub_comment_finder2.stub(:asc)

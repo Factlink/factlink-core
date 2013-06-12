@@ -2,34 +2,43 @@ module Queries
   module SubComments
     class Index
       include Pavlov::Query
-      arguments :parent_id, :parent_class
+      arguments :parent_ids_in, :parent_class
 
       def execute
-        @parent_id = Array(parent_id)
+        sub_comments.map(&method(:kill))
+      end
 
-        sub_comments.asc(:created_at)
-          .map {|sub_comment| KillObject.sub_comment sub_comment }
+      def kill sub_comment
+        KillObject.sub_comment sub_comment
       end
 
       def sub_comments
         SubComment.where(parent_class: parent_class)
-                  .any_in(parent_id: parent_id)
+                  .any_in(parent_id: parent_ids)
+                  .asc(:created_at)
       end
 
       def validate_id id, index
         if parent_class == 'FactRelation'
-          validate_integer_string "parent_id[#{index}]", id.to_s
+          validate_integer_string "parent_id[#{index}]", id
         elsif parent_class == 'Comment'
           validate_hexadecimal_string "parent_id[#{index}]", id
         end
       end
 
-      def validate
-        @parent_id = Array(parent_id)
+      def parent_ids
+        ids = Array(parent_ids_in)
+        if parent_class == 'FactRelation'
+          ids.map(&:to_s)
+        else
+          ids
+        end
+      end
 
+      def validate
         validate_in_set :parent_class, parent_class, ['Comment','FactRelation']
 
-        parent_id.each_with_index do |id, index|
+        parent_ids.each_with_index do |id, index|
           validate_id id, index
         end
       end
