@@ -57,3 +57,11 @@ if dead_fact.site_url
 end
 
 json.timestamp timestamp
+
+# Only still necessary for activities
+if fact.respond_to?(:evidence_count)
+  evidence_count = fact.evidence_count
+else
+  evidence_count = query :'evidence/count_for_fact', fact
+end
+json.evidence_count evidence_count
