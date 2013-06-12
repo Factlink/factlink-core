@@ -19,6 +19,19 @@ describe Queries::Evidence::CountForFact do
 
       expect(query.call).to eq 2
     end
+
+    it 'works with dead facts' do
+      fact = mock(id: '1', data_id: '2a', evidence: [mock])
+      dead_fact = mock(id: fact.id)
+
+      Fact.stub(:[]).with(fact.id).and_return(fact)
+      Comment.stub(:where).with(fact_data_id: fact.data_id)
+        .and_return([mock])
+
+      query = described_class.new dead_fact
+
+      expect(query.call).to eq 2
+    end
   end
 
   describe '#validate' do
