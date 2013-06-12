@@ -6,6 +6,8 @@ module Queries
 
       arguments :fact_relations
 
+      private
+
       def execute
         follower_ids.uniq
       end

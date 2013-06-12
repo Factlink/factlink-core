@@ -6,6 +6,8 @@ module Queries
 
       arguments :fact
 
+      private
+
       def execute
         (creator_ids + opinionated_users_ids + evidence_followers_ids).uniq
       end

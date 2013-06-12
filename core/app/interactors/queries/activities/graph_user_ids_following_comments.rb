@@ -6,6 +6,8 @@ module Queries
 
       arguments :comments
 
+      private
+
       def execute
         follower_ids.uniq
       end
