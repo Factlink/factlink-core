@@ -8,7 +8,7 @@ DeadFact = Struct.new(
   :proxy_scroll_url
 ) do
   def to_s
-    displaystring
+    displaystring || ""
   end
 
   def acts_as_class_for_authority
