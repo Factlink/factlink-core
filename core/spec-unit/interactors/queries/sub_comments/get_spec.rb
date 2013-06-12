@@ -4,12 +4,12 @@ require_relative '../../../../app/interactors/queries/sub_comments/get'
 describe Queries::SubComments::Get do
   include PavlovSupport
   before do
-    stub_classes 'SubComment'
+    stub_classes 'SubComment', 'KillObject'
   end
 
   describe '.validate' do
     it 'without id doesn''t validate' do
-      expect_validating(nil, current_user: mock).
+      expect_validating(nil).
         to fail_validation('id should be an hexadecimal string.')
     end
   end

@@ -4,21 +4,19 @@ require_relative '../../../../app/interactors/interactors/facts/get.rb'
 describe Interactors::Facts::Get do
   include PavlovSupport
 
-  describe '.validate' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
+  before do
+    stub_classes 'Fact'
+  end
 
+  describe '.validate' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a', :id).
+      expect_validating('a').
         to fail_validation('id should be an integer string.')
     end
   end
 
   describe '.authorized?' do
     it 'should check if the fact can be shown' do
-      stub_classes 'Fact'
-
       ability = mock
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
@@ -29,37 +27,39 @@ describe Interactors::Facts::Get do
   end
 
   describe '.execute' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
     it 'calls a command and query if a user is present' do
       fact_id = '1'
       user = mock id: '1e'
       fact = mock
 
-      interactor = described_class.new '1', current_user: user
 
-      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id.to_i, user.id.to_s)
+      options = { current_user: user, ability: mock(can?: true)}
 
-      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(fact)
+      interactor = described_class.new '1', options
 
-      result = interactor.execute
+      interactor.should_receive(:command)
+                .with(:'facts/add_to_recently_viewed',
+                       fact_id.to_i, user.id.to_s)
 
-      expect(result).to eq fact
+      interactor.stub(:query)
+                .with(:'facts/get', fact_id)
+                .and_return(fact)
+
+      expect(interactor.call).to eq fact
     end
 
     it 'calls just a query if no user is present' do
       fact_id = '1'
       fact = mock
 
-      interactor = described_class.new '1'
+      options = { ability: mock(can?: true)}
 
-      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(fact)
+      interactor = described_class.new '1', options
+      interactor.should_receive(:query)
+                .with(:'facts/get', fact_id)
+                .and_return(fact)
 
-      result = interactor.execute
-
-      expect(result).to eq fact
+      expect(interactor.call).to eq fact
     end
   end
 end
