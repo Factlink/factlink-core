@@ -14,6 +14,7 @@ module Queries
                      fact.data.created_at,
                      fact.data.title,
                      wheel,
+                     evidence_count,
                      proxy_scroll_url
       end
 
@@ -29,6 +30,10 @@ module Queries
 
       def wheel
         query :'facts/get_dead_wheel', id
+      end
+
+      def evidence_count
+        query :'evidence/count_for_fact', fact
       end
 
       def proxy_scroll_url

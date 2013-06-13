@@ -56,3 +56,5 @@ if dead_fact.site_url
 end
 
 json.timestamp timestamp
+
+json.evidence_count dead_fact.evidence_count

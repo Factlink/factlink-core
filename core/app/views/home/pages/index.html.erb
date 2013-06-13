@@ -8,7 +8,7 @@
     <div class="span4 sign_up_form">
       <h2>Sign up for the beta now:</h2>
 
-     <%= render template: "users/registrations/new2", locals: { form_id: "top_registration_form" } %>
+     <%= render "users/registrations/form2", form_id: "top_registration_form" %>
 
     </div>
     <div class="span4 video">
@@ -58,4 +58,13 @@
       <p>As an app for your browser, Factlink works as a layer over the web, and, for any web page or article, enables you to add what you know and see what others have added.</p>
     </div>
   </div>
+<% end %>
+<% content_for :specific_javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      mp_track('Pageview: Landing page', { 
+        code: '<%= @code %>'
+      });
+    });
+  </script>
 <% end %>
