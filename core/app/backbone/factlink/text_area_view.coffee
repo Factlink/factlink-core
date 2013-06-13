@@ -23,6 +23,8 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @bindTo @model, 'change', @updateDom, this
+    #we will init autosize not on render, but on focus: this way the
+    #textarea remains small in its unfocused state.
     @on 'focus', @initAutosize
 
   updateModel: ->
