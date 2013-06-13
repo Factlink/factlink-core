@@ -7,14 +7,16 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   template: 'generic/text_area'
   events:
-    'keyup .typeahead': 'updateModel'
+    'keyup textarea': 'updateModel'
 
   triggers:
-    'focus .typeahead': 'focus'
-    'blur .typeahead': 'blur'
+    'focus textarea': 'focus'
+    'blur textarea': 'blur'
 
   ui:
-    inputField: '.typeahead'
+    inputField: 'textarea'
+
+  className: 'TextAreaView'
 
   templateHelpers: =>
     placeholder: @options.placeholder
@@ -30,7 +32,7 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
       @ui.inputField.val(@model.get('text')).trigger('autosize')
 
   enable: -> @ui.inputField.prop 'disabled', false
-  disable: ->@ui.inputField.prop 'disabled', true
+  disable:-> @ui.inputField.prop 'disabled', true
 
   initAutosize: ->
     return if @autosizeInitialized
