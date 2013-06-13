@@ -413,9 +413,9 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
-    sentry-raven (0.4.8)
+    sentry-raven (0.4.6)
       faraday (>= 0.7.6)
-      hashie (>= 1.1.0)
+      hashie
       multi_json (~> 1.0)
       uuidtools
     sexp_processor (4.2.1)
@@ -549,7 +549,7 @@ DEPENDENCIES
   rspec-rails (~> 2.13)
   rubocop
   ruby-prof (~> 0)
-  sentry-raven (~> 0.4.4)
+  sentry-raven (= 0.4.6)
   sextant (~> 0)
   sinon-chai-rails (~> 1.0)
   sinon-rails (~> 1.4)
