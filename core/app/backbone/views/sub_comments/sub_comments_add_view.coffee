@@ -53,7 +53,6 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
       model: @textModel()
       placeholder: 'Comment..'
 
-    @bindTo textAreaView, 'return', @submit, @
     @bindTo textAreaView, 'focus', @inputFocus, @
     @bindTo textAreaView, 'blur', @inputBlur, @
     textAreaView
