@@ -1,6 +1,6 @@
 Backend:
  ✔ Query for argument count @done (13-06-12 14:27)
- ☐ Call query in facts/get_dead query
+ ✔ Call query in facts/get_dead query @done (13-06-13 09:46)
  ✔ Pass to frontend in view @done (13-06-12 17:36)
 
 Frontend:

@@ -11,7 +11,8 @@ module Queries
                      fact.data.displaystring,
                      fact.data.created_at,
                      fact.data.title,
-                     wheel
+                     wheel,
+                     evidence_count
       end
 
       def fact
@@ -28,6 +29,10 @@ module Queries
 
       def wheel
         query :'facts/get_dead_wheel', id
+      end
+
+      def evidence_count
+        query :'evidence/count_for_fact', fact
       end
 
       def validate
