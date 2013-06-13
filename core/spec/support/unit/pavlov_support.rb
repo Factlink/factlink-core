@@ -8,7 +8,8 @@ module PavlovSupport
   end
 
   def expect_validating *args
-    expect {described_class.new(*args)}
+    options = {ability: mock(can?: true)}
+    expect {described_class.new(*args, options)}
   end
 
   def fail_validation message

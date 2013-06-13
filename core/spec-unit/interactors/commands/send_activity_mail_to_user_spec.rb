@@ -10,16 +10,16 @@ describe Commands::SendActivityMailToUser do
 
   describe '.call' do
     it 'creates a mailer' do
-      user = mock()
-      activity = mock()
+      user_id = mock
+      activity_id = mock
+      mailer = mock
 
-      mailer = mock()
+      command = described_class.new user_id, activity_id
 
-      Commands::SendActivityMailToUser.any_instance.stub(authorized?: true)
+      ActivityMailer.stub(:new_activity)
+                    .with(user_id, activity_id)
+                    .and_return mailer
 
-      command = Commands::SendActivityMailToUser.new user, activity
-
-      ActivityMailer.should_receive(:new_activity).with(user, activity).and_return mailer
       mailer.should_receive(:deliver)
 
       command.call

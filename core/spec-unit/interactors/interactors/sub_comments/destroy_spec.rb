@@ -25,7 +25,7 @@ describe Interactors::SubComments::Destroy do
 
   describe '.validate' do
     it 'without id doesn''t validate' do
-      expect_validating(nil, current_user: mock).
+      expect_validating(nil).
         to fail_validation('id should be an hexadecimal string.')
     end
   end

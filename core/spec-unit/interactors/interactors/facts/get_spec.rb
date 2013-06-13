@@ -4,21 +4,19 @@ require_relative '../../../../app/interactors/interactors/facts/get.rb'
 describe Interactors::Facts::Get do
   include PavlovSupport
 
-  describe '#validate' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
+  before do
+    stub_classes 'Fact'
+  end
 
+  describe '.validate' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a', :id).
+      expect_validating('a').
         to fail_validation('id should be an integer string.')
     end
   end
 
   describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      stub_classes 'Fact'
-
       ability = mock
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
@@ -29,16 +27,12 @@ describe Interactors::Facts::Get do
   end
 
   describe '#call' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
     it 'stores the recently viewed if a user is present' do
       fact = mock(id: '1', evidence_count: nil)
       user = mock(id: '1e')
       evidence_count = 10
 
-      pavlov_options = {current_user: user}
+      pavlov_options = {current_user: user, ability: mock(can?: true)}
 
       Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
         .and_return(fact)
@@ -54,11 +48,13 @@ describe Interactors::Facts::Get do
       fact = mock(id: '1', evidence_count: nil)
       evidence_count = 10
 
-      Pavlov.stub(:query).with(:'facts/get', fact.id)
+      pavlov_options = { ability: mock(can?: true)}
+
+      Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
         .and_return(fact)
 
-      interactor = described_class.new fact.id
-      expect(interactor.execute).to eq fact
+      interactor = described_class.new fact.id, pavlov_options
+      expect(interactor.call).to eq fact
     end
   end
 end

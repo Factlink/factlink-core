@@ -4,10 +4,11 @@ require_relative '../../../../app/interactors/interactors/sub_comments/index_for
 describe Interactors::SubComments::IndexForFactRelation do
   include PavlovSupport
   before do
-    stub_classes 'SubComment', 'FactRelation', 'KillObject'
+    stub_classes 'SubComment', 'FactRelation', 'KillObject',
+                 'Queries::SubComments::Index'
   end
 
-  describe '.authorized' do
+  describe '#authorized' do
     it 'checks if the fact relation can be shown' do
       fact_relation_id = 1
       fact_relation = mock
@@ -23,32 +24,29 @@ describe Interactors::SubComments::IndexForFactRelation do
     end
   end
 
-  describe '.validate' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
+  describe '#validate' do
     it 'without fact_relation_id doesn''t validate' do
       expect_validating(nil).
         to fail_validation('fact_relation_id should be an integer.')
     end
   end
 
-  describe '.execute' do
-    before do
-      stub_classes 'Queries::SubComments::Index'
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
+  describe '#execute' do
 
     it do
+      fact_relation = mock
       fact_relation_id = 1
       user = mock
       sub_comments = [mock, mock]
       dead_sub_comments = [mock, mock]
       authorities = [10, 20]
 
-      interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id
-      interactor.stub fact_relation: mock
+      options = {ability: mock(can?: true)}
+
+      FactRelation.stub(:[]).with(fact_relation_id)
+                  .and_return fact_relation
+
+      interactor = described_class.new fact_relation_id, options
 
       interactor.should_receive(:query).with(:"sub_comments/index", fact_relation_id, 'FactRelation').
         and_return(sub_comments)
@@ -75,15 +73,18 @@ describe Interactors::SubComments::IndexForFactRelation do
 
     it 'throws an error when the fact relation does not exist' do
       stub_const 'Pavlov::ValidationError', RuntimeError
+      options = {ability: mock(can?: true)}
 
-      interactor = Interactors::SubComments::IndexForFactRelation.new 1
-      interactor.should_receive(:fact_relation).and_return(nil)
+      FactRelation.stub(:[]).with(1)
+                  .and_return nil
+
+      interactor = described_class.new 1, options
 
       expect{interactor.call}.to raise_error(Pavlov::ValidationError, "fact relation does not exist any more")
     end
   end
 
-  describe '.top_fact' do
+  describe '#top_fact' do
     before do
       described_class.any_instance.stub(:authorized?).and_return(true)
     end
@@ -117,7 +118,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     end
   end
 
-  describe '.authority_of_user_who_created' do
+  describe '#authority_of_user_who_created' do
     before do
       stub_classes 'Queries::AuthorityOnFactFor'
       described_class.any_instance.stub(:authorized?).and_return(true)

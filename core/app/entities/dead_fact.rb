@@ -5,10 +5,11 @@ DeadFact = Struct.new(
   :created_at,
   :title,
   :wheel,
-  :evidence_count
+  :evidence_count,
+  :proxy_scroll_url
 ) do
   def to_s
-    displaystring
+    displaystring || ""
   end
 
   def acts_as_class_for_authority
