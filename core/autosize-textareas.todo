@@ -1,0 +1,25 @@
+General Process:
+ ✔ Find out where to put JS tests (konacha?) @done (13-06-06 14:52)
+ ✔ Figure out how to write a JS test @done (13-06-06 14:52)
+ ✔ Write JS test verifying current behavior: no autosizing. (test passes) @done (13-06-10 20:54)
+ ✔ Alter JS test to verify new behavior (text-area automatically grows as text is added) (test fails) @done (13-06-12 09:59)
+ ✔ Choose jquery plugin or other example implementing that feature (should be trivial) @done (13-06-12 17:36)
+ ✔ Implement & verify basic behavior @done (13-06-12 17:36)
+ ✔ Consider corner cases: what if text is deleted again, should textarea shrink?  Or when it loses focus? @done (13-06-13 14:14)
+ ✔ Manually verify that stuff like up/down/enter/copy/paste work as these can't be tested. @done (13-06-13 14:13)
+
+Stuff to do:
+ ✔ Fix text area key-handling to not catch arrows/enter (kill inheritance). @done (13-06-13 13:59)
+ ✔ kill inheritance @done (13-06-13 13:56)
+ ✔ stick mustache templates into their own file. @done (13-06-13 13:59)
+ ✔ Why is autocomplete off? @done (13-06-13 14:03)
+
+For later to-do-ness:
+ ☐ Mention to Jens that the design is inconsistent between text areas and inputs.
+ ☐ Investigate occasional every-keystroke re-render by modifying template.
+ ☐ Figure out how to do two-way data-binding in backbone without causing event overload.
+
+ http://unwrongest.com/projects/elastic/
+http://www.myjqueryplugins.com/jquery-plugin/autosize
+http://www.webnel.org/perso/projects/jquery/autoResize.html
+document.getElementById('foo').addEventListener('input',function(e){ e.target.style.height = e.target.scrollHeight+'px'; });
