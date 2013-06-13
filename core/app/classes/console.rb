@@ -31,6 +31,6 @@ class Console
   def post_to_twitter(fact_id, message)
     id = Integer(fact_id).to_s
 
-    interactor :'facts/post_to_twitter', fact_id, message
+    interactor :'facts/post_to_twitter', id, message
   end
 end
