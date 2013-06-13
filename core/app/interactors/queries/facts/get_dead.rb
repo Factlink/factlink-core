@@ -1,3 +1,5 @@
+require_relative '../../../../app/classes/url_builder'
+
 module Queries
   module Facts
     class GetDead
@@ -15,7 +17,8 @@ module Queries
                      fact.data.title,
                      wheel,
                      evidence_count,
-                     proxy_scroll_url
+                     proxy_scroll_url,
+                     url
       end
 
       def fact
@@ -40,6 +43,10 @@ module Queries
         return nil unless fact.has_site?
 
         FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(id)
+      end
+
+      def url
+        ::UrlBuilder.fact_url fact
       end
 
       def validate

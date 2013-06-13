@@ -21,6 +21,8 @@ describe Queries::Facts::GetDead do
       stub_classes 'Fact', 'FactlinkUI::Application', 'CGI'
       FactlinkUI::Application.stub config: mock(proxy_url: "proxy_url")
       CGI.stub escape: ''
+
+      described_class.any_instance.stub(:url).and_return("")
     end
 
     it 'returns a fact' do
@@ -122,6 +124,30 @@ describe Queries::Facts::GetDead do
       dead_fact = interactor.call
 
       expect(dead_fact.proxy_scroll_url).to eq "proxy_url/?url=escaped_url&scrollto=1"
+    end
+
+    it 'returns a fact which has an url' do
+      fact_data = mock :fact_data,
+          displaystring: 'example fact text',
+          created_at: 15,
+          title: 'title'
+      site = mock :site, url: 'http://example.org/'
+      live_fact = mock :fact,
+          id: '1',
+          has_site?: true,
+          site: site,
+          data: fact_data
+
+      interactor = Queries::Facts::GetDead.new live_fact.id
+
+      Pavlov.stub query: mock
+      Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
+
+      interactor.stub(:url).and_return("/facts/1")
+
+      dead_fact = interactor.call
+
+      expect(dead_fact.url).to eq "/facts/1"
     end
   end
 end

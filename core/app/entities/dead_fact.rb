@@ -6,7 +6,8 @@ DeadFact = Struct.new(
   :title,
   :wheel,
   :evidence_count,
-  :proxy_scroll_url
+  :proxy_scroll_url,
+  :url
 ) do
   def to_s
     displaystring || ""
