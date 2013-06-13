@@ -9,11 +9,15 @@ describe Interactors::Topics::Facts do
       slug_title = 'slug-title'
       count = 10
       max_timestamp = 100
-      interactor = described_class.new slug_title, count, max_timestamp, current_user: mock
       results = mock
 
-      interactor.should_receive(:query).with(:'topics/facts', slug_title, count, max_timestamp).
-        and_return(results)
+      pavlov_options = {current_user: mock}
+
+      Pavlov.stub(:query)
+        .with(:'topics/facts', slug_title, count, max_timestamp, pavlov_options)
+        .and_return(results)
+
+      interactor = described_class.new slug_title, count, max_timestamp, pavlov_options
 
       expect( interactor.execute ).to eq results
     end

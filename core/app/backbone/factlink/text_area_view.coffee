@@ -1,6 +1,43 @@
-#= require ./text_input_view
+#= require jquery.autosize
+
+#we're using jquery autosize rather than jquery elastic since this works
+#even if initialized before the element is in the DOM.
 
 Backbone.Factlink ||= {}
-class Backbone.Factlink.TextAreaView extends Backbone.Factlink.TextInputView
-  template:
-    text: '<textarea name="text_area_view" class="typeahead" placeholder="{{placeholder}}">{{text}}</textarea>'
+class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
+  template: 'generic/text_area'
+  events:
+    'keyup textarea': 'updateModel'
+    'input textarea': 'updateModel'
+
+  triggers:
+    'focus textarea': 'focus'
+    'blur textarea': 'blur'
+
+  ui:
+    inputField: 'textarea'
+
+  className: 'TextAreaView'
+
+  templateHelpers: =>
+    placeholder: @options.placeholder
+
+  initialize: ->
+    @bindTo @model, 'change', @updateDom, this
+    #we will init autosize not on render, but on focus: this way the
+    #textarea remains small in its unfocused state.
+    @on 'focus', @initAutosize
+
+  updateModel: ->
+    @model.set text: @ui.inputField.val()
+  updateDom: ->
+    if @model.get('text') != @ui.inputField.val()
+      @ui.inputField.val(@model.get('text')).trigger('autosize')
+
+  enable: -> @ui.inputField.prop 'disabled', false
+  disable:-> @ui.inputField.prop 'disabled', true
+
+  initAutosize: ->
+    return if @autosizeInitialized
+    @autosizeInitialized = true
+    @ui.inputField.autosize append: '\n\n'

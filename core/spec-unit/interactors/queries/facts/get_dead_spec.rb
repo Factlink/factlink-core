@@ -35,12 +35,17 @@ describe Queries::Facts::GetDead do
 
       interactor = Queries::Facts::GetDead.new live_fact.id
       wheel = mock
+      evidence_count = 10
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      Pavlov.should_receive(:query)
+      Pavlov.stub(:query)
             .with(:'facts/get_dead_wheel', live_fact.id)
             .and_return(wheel)
+
+      Pavlov.stub(:query)
+            .with(:'evidence/count_for_fact', live_fact)
+            .and_return(evidence_count)
 
       dead_fact = interactor.call
 
@@ -49,6 +54,7 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.created_at).to eq live_fact.data.created_at
       expect(dead_fact.title).to eq live_fact.data.title
       expect(dead_fact.wheel).to eq wheel
+      expect(dead_fact.evidence_count).to eq evidence_count
     end
 
     it 'returns a fact which has no site or proxy_scroll_url without site_url' do

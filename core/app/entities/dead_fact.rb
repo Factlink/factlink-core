@@ -5,6 +5,7 @@ DeadFact = Struct.new(
   :created_at,
   :title,
   :wheel,
+  :evidence_count,
   :proxy_scroll_url
 ) do
   def to_s
