@@ -47,4 +47,4 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
 
   $inputField: -> @$('.typeahead')
   onRender: ->
-    @$el.find('textarea').autosize append: '\n'
+    @$el.find('textarea').autosize append: '\n\n'

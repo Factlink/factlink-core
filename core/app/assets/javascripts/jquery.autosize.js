@@ -153,10 +153,8 @@
 
         height += boxOffset;
         ta.style.overflowY = overflow || hidden;
-        ta.scrollTop = 0;
         if (original !== height) {
           ta.style.height = height + 'px';
-          // ta.scrollTop = 0;
           if (callback) {
             options.callback.call(ta,ta);
           }
