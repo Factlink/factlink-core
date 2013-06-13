@@ -1,3 +1,12 @@
+# Usage:
+#
+# > console = Console.new('mark')
+# > console.post_to_twitter 10, "This is a cool fact"
+#
+# or even invoke other commands/interactors
+#
+# > console.interactor :'facts/post_to_twitter', '10', 'hi'
+
 class Console
   include Pavlov::Helper
   def initialize username
