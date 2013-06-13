@@ -1,5 +1,7 @@
 omniauth_conf = YAML::load_file(Rails.root.join('config/omniauth.yml'))[Rails.env]['omniauth']
 
+FactlinkUI::Application.config.omniauth_conf = omniauth_conf
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, omniauth_conf['twitter']['id'], omniauth_conf['twitter']['secret']
   provider :facebook,
