@@ -8,13 +8,14 @@
 # > console.interactor :'facts/post_to_twitter', '10', 'hi'
 
 class Console
-  include Pavlov::Helper
+  include Pavlov::Helpers
+
   def initialize username
     @username = username
   end
 
   def user
-    @user ||= (User.find(username) || raise("user not found"))
+    @user ||= (User.find(@username) || raise("user not found"))
   end
 
   def ability
