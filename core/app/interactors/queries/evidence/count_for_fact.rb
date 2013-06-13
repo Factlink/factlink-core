@@ -23,7 +23,7 @@ module Queries
 
       def comments_count
         fact_data_id = fact.data_id
-        Comment.where(fact_data_id: fact_data_id).size
+        Comment.where(fact_data_id: fact_data_id).count
       end
     end
   end

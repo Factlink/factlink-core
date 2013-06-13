@@ -13,7 +13,7 @@ describe Queries::Evidence::CountForFact do
       fact = mock(id: '1', data_id: '2a', evidence: [mock])
 
       Comment.stub(:where).with(fact_data_id: fact.data_id)
-        .and_return([mock])
+        .and_return(mock(count: 1)) # count instead of size: http://two.mongoid.org/docs/querying/finders.html#count
 
       query = described_class.new fact
 
