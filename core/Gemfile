@@ -40,7 +40,7 @@ gem 'stringex', '~> 1.5.1'
 
 gem 'mixpanel', github: 'Factlink/mixpanel'
 
-gem "sentry-raven", '= 0.4.6'
+gem "sentry-raven", '= 0.4.6' # Upgrading to 0.4.8 breaks error reporting from the web-app
 gem "resque-sentry", '~> 0.1.0'
 
 # Everyone loves JSON
