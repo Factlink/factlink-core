@@ -3,6 +3,10 @@ class SitesController < ApplicationController
   before_filter :register_client_version_numbers, only: :facts_count_for_url
 
   def facts_count_for_url
+    # this action is called so many times, and is so fast
+    # it totally distorts our newrelic stats, therefore disabled:
+    NewRelic::Agent.abort_transaction! if defined?(NewRelic)
+
     authorize! :get_fact_count, Site
     url = params[:url]
     if is_blacklisted
