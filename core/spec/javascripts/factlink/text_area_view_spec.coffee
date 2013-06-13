@@ -15,6 +15,8 @@ describe "Backbone.Factlink.TextAreaView", ->
     #since we need to check how layout works, we need to to include
     #the view in the document.
     $(document.body).append view.render().$el
+    textarea().trigger 'focus'
+
 
   it "shows the text", ->
     expect(textarea().val()).to.equal initialText
@@ -29,7 +31,7 @@ describe "Backbone.Factlink.TextAreaView", ->
     expect(model.get('text')).to.equal 'bla - bla!'
 
   it "is initially small and scrollbarless", ->
-    expect(textarea().height()).to.be.below 45
+    expect(textarea().height()).to.be.below 55
     expect(textarea()[0].scrollHeight).to.equal textarea()[0].clientHeight
 
   it "grows vertically and avoids a scrollbar when text doesn't fit", ->
