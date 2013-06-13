@@ -1,8 +1,8 @@
 //Not from gem: gem is quite outdated (2013-06-12).
 /*!
-  jQuery Autosize v1.16.16
+  jQuery Autosize v1.16.17
   (c) 2013 Jack Moore - jacklmoore.com
-  updated: 2013-06-11
+  updated: 2013-06-12
   license: http://www.opensource.org/licenses/mit-license.php
 */
 (function ($) {
@@ -16,10 +16,10 @@
   hidden = 'hidden',
   borderBox = 'border-box',
   lineHeight = 'lineHeight',
-  useSubpixels,
+  useSubpixels = window.getComputedStyle !== undefined,
 
   // border:0 is unnecessary, but avoids a bug in FireFox on OSX
-  copy = '<textarea tabindex="-1" style=" position:absolute; top:-999px; left:0; right:auto; bottom:auto; border:0; -moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box; word-wrap:break-word; height:0 !important; min-height:0 !important; overflow:hidden; transition:none; -webkit-transition:none; -moz-transition:none;"/>',
+  copy = '<textarea tabindex="-1" style="position:absolute; top:-999px; left:0; right:auto; bottom:auto; border:0; -moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box; word-wrap:break-word; height:0 !important; min-height:0 !important; overflow:hidden; transition:none; -webkit-transition:none; -moz-transition:none;"/>',
 
   // line-height is conditionally included because IE7/IE8/old Opera do not return the correct value.
   copyStyle = [
@@ -47,9 +47,6 @@
     copyStyle.push(lineHeight);
   }
   mirror.style.lineHeight = '';
-
-  // test for subpixel rendering
-  useSubpixels = mirror.getBoundingClientRect().width !== undefined;
 
   $.fn.autosize = function (options) {
     options = $.extend({}, defaults, options || {});
@@ -116,7 +113,7 @@
       // Using mainly bare JS in this function because it is going
       // to fire very often while typing, and needs to very efficient.
       function adjust() {
-        var height, overflow, original, width;
+        var height, overflow, original, width, style;
 
         if (mirrored !== ta) {
           initMirror();
@@ -127,10 +124,11 @@
         original = parseInt(ta.style.height,10);
 
         if (useSubpixels) {
+          style = window.getComputedStyle(ta);
           // The mirror width much exactly match the textarea width, so using getBoundingClientRect because it doesn't round the subpixel value.
           width = ta.getBoundingClientRect().width;
-          $.each($(ta).css(['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth']), function(){
-            width -= parseInt(this, 10);
+          $.each(['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'], function(i,property){
+            width -= parseInt(style[property], 10);
           });
           mirror.style.width = width + 'px';
         }
@@ -155,9 +153,10 @@
 
         height += boxOffset;
         ta.style.overflowY = overflow || hidden;
-
+        ta.scrollTop = 0;
         if (original !== height) {
           ta.style.height = height + 'px';
+          // ta.scrollTop = 0;
           if (callback) {
             options.callback.call(ta,ta);
           }
