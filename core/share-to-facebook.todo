@@ -1,1 +1,3 @@
-placeholder todo
+share to Facebook:
+ ☐ Make sure facts show page (/facts/:id) contains the Facebook meta data
+ ☐ Check texts and links that get posted to Facebook (link to friendly fact page, get metadata from show page)
