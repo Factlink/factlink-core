@@ -54,3 +54,4 @@ class window.Fact extends Backbone.Model
     _.extend super(),
       i_am_owner: @i_am_owner()
       fact_url_host: @factUrlHost()
+      fact_url_title: @get('fact_title') || @factUrlHost()
