@@ -22,7 +22,6 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     showDiscussion: ->
       @from_fact?
 
-
     believe_percentage: fact?.opinionPercentage('believe')
     disbelieve_percentage: fact?.opinionPercentage('disbelieve')
 
