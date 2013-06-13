@@ -1,5 +1,5 @@
-require_relative '../../../../app/interactors/interactors/channels/facts.rb'
 require 'pavlov_helper'
+require_relative '../../../../app/interactors/interactors/channels/facts.rb'
 
 describe Interactors::Channels::Facts do
   include PavlovSupport
@@ -53,10 +53,15 @@ describe Interactors::Channels::Facts do
       count = 3
       fact = mock
       result = [{item: fact}]
-      interactor = Interactors::Channels::Facts.new '1', from, count, current_user: user
+      evidence_count = 10
 
-      interactor.should_receive(:query).with(:'channels/facts', channel_id, from, count).and_return(result)
-      Fact.should_receive(:invalid).with(fact).and_return(false)
+      pavlov_options = {current_user: user}
+      interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
+
+      Pavlov.stub(:query)
+        .with(:'channels/facts', channel_id, from, count, pavlov_options)
+        .and_return(result)
+      Fact.stub(:invalid).with(fact).and_return(false)
 
       expect(interactor.execute).to eq result
     end
@@ -68,10 +73,15 @@ describe Interactors::Channels::Facts do
       count = 3
       fact = mock
       result = [{item: fact}]
-      interactor = Interactors::Channels::Facts.new '1', from, count, current_user: user
 
-      interactor.should_receive(:query).with(:'channels/facts', channel_id, from, count).and_return(result)
-      Fact.should_receive(:invalid).with(fact).and_return(true)
+      pavlov_options = {current_user: user}
+      interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
+
+      Pavlov.stub(:query)
+        .with(:'channels/facts', channel_id, from, count, pavlov_options)
+        .and_return(result)
+      Fact.stub(:invalid).with(fact).and_return(true)
+
       Resque.should_receive(:enqueue).with(CleanChannel, channel_id)
 
       expect(interactor.execute).to eq []

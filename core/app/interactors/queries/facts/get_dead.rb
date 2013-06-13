@@ -5,13 +5,17 @@ module Queries
 
       arguments :id
 
+      private
+
       def execute
         DeadFact.new fact.id,
                      site_url,
                      fact.data.displaystring,
                      fact.data.created_at,
                      fact.data.title,
-                     wheel
+                     wheel,
+                     evidence_count,
+                     proxy_scroll_url
       end
 
       def fact
@@ -19,15 +23,23 @@ module Queries
       end
 
       def site_url
-        if fact.has_site?
-          fact.site.url
-        else
-          nil
-        end
+        return nil unless fact.has_site?
+
+        fact.site.url
       end
 
       def wheel
         query :'facts/get_dead_wheel', id
+      end
+
+      def evidence_count
+        query :'evidence/count_for_fact', fact
+      end
+
+      def proxy_scroll_url
+        return nil unless fact.has_site?
+
+        FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(id)
       end
 
       def validate

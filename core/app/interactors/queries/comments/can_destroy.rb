@@ -11,7 +11,7 @@ module Queries
       end
 
       def comment
-        @comment ||= Comment.find(@comment_id)
+        @comment ||= Comment.find(comment_id)
       end
 
       def deletable
@@ -27,12 +27,12 @@ module Queries
       end
 
       def created_by_user
-        comment.created_by_id.to_s == @user_id
+        comment.created_by_id.to_s == user_id
       end
 
       def validate
-        validate_hexadecimal_string :comment_id, @comment_id
-        validate_hexadecimal_string :user_id, @user_id
+        validate_hexadecimal_string :comment_id, comment_id
+        validate_hexadecimal_string :user_id, user_id
       end
     end
   end

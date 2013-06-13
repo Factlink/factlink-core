@@ -10,12 +10,12 @@ describe Queries::Comments::CanDestroy do
     end
 
     it 'without valid comment_id doesn''t validate' do
-      expect_validating(1, '20a' 'Comment').
+      expect_validating(1, '20a').
         to fail_validation('comment_id should be an hexadecimal string.')
     end
 
     it 'without valid user_id doesn''t validate' do
-      expect_validating('1a', 20, 'Comment').
+      expect_validating('1a', 20).
         to fail_validation('user_id should be an hexadecimal string.')
     end
   end

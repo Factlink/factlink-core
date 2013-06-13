@@ -2,6 +2,11 @@ class SitesController < ApplicationController
   # TODO: make sure this is executed whenever possible
   before_filter :register_client_version_numbers, only: :facts_count_for_url
 
+  # this action is called so many times, and is so fast
+  # it totally distorts our newrelic stats, therefore
+  # not counted in apdex
+  newrelic_ignore_apdex only: [:facts_count_for_url] if defined?(NewRelic)
+
   def facts_count_for_url
     authorize! :get_fact_count, Site
     url = params[:url]

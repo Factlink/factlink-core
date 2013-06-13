@@ -4,21 +4,19 @@ require_relative '../../../../app/interactors/interactors/facts/get.rb'
 describe Interactors::Facts::Get do
   include PavlovSupport
 
-  describe '.validate' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
+  before do
+    stub_classes 'Fact'
+  end
 
+  describe '.validate' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a', :id).
+      expect_validating('a').
         to fail_validation('id should be an integer string.')
     end
   end
 
-  describe '.authorized?' do
+  describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      stub_classes 'Fact'
-
       ability = mock
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
@@ -28,38 +26,35 @@ describe Interactors::Facts::Get do
     end
   end
 
-  describe '.execute' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
+  describe '#call' do
+    it 'stores the recently viewed if a user is present' do
+      fact = mock(id: '1', evidence_count: nil)
+      user = mock(id: '1e')
+      evidence_count = 10
+
+      pavlov_options = {current_user: user, ability: mock(can?: true)}
+
+      Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
+        .and_return(fact)
+
+      Pavlov.should_receive(:command)
+        .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
+
+      interactor = described_class.new fact.id, pavlov_options
+      interactor.call
     end
 
-    it 'calls a command and query if a user is present' do
-      fact_id = '1'
-      user = mock id: '1e'
+    it 'returns the fact' do
+      fact = mock(id: '1', evidence_count: nil)
+      evidence_count = 10
 
-      result = mock
-      interactor = described_class.new '1', current_user: user
+      pavlov_options = { ability: mock(can?: true)}
 
-      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id.to_i, user.id.to_s)
+      Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
+        .and_return(fact)
 
-      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(mock)
-
-      result = interactor.execute
-
-      expect(result).to eq result
-    end
-
-    it 'calls just a query if no user is present' do
-      fact_id = '1'
-
-      result = mock
-      interactor = described_class.new '1'
-
-      interactor.should_receive(:query).with(:'facts/get', fact_id).and_return(mock)
-
-      result = interactor.execute
-
-      expect(result).to eq result
+      interactor = described_class.new fact.id, pavlov_options
+      expect(interactor.call).to eq fact
     end
   end
 end

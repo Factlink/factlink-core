@@ -52,8 +52,9 @@ end
 
 if dead_fact.site_url
   json.fact_url dead_fact.site_url
-  proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(dead_fact.site_url) + "&scrollto=" + URI.escape(dead_fact.id)
-  json.proxy_scroll_url proxy_scroll_url
+  json.proxy_scroll_url dead_fact.proxy_scroll_url
 end
 
 json.timestamp timestamp
+
+json.evidence_count dead_fact.evidence_count
