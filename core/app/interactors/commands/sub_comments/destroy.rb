@@ -4,7 +4,7 @@ module Commands
       include Pavlov::Command
       arguments :id
       def validate
-        validate_hexadecimal_string :id, @id
+        validate_hexadecimal_string :id, id
       end
 
       def execute
@@ -12,7 +12,7 @@ module Commands
       end
 
       def comment
-        SubComment.find(@id)
+        SubComment.find(id)
       end
     end
   end

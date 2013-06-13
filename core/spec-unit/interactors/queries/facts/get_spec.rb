@@ -11,7 +11,7 @@ describe Queries::Facts::Get do
 
   describe '.validate' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a', :id).
+      expect_validating('a').
         to fail_validation('id should be an integer string.')
     end
   end
@@ -23,15 +23,15 @@ describe Queries::Facts::Get do
 
     it 'correctly' do
       fact_id = '1'
+      fact = mock
 
-      result = mock
       interactor = Queries::Facts::Get.new '1'
 
-      Fact.should_receive(:[]).with(fact_id).and_return(result)
+      Fact.should_receive(:[]).with(fact_id).and_return(fact)
 
       result = interactor.execute
 
-      expect(result).to eq result
+      expect(result).to eq fact
     end
   end
 end

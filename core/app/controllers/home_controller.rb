@@ -51,7 +51,7 @@ class HomeController < ApplicationController
     @code = params[:code] if /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code])
 
     unless params[:show_sign_in]
-      mp_track "Pageview: Landing page", code: @code
+      mp_track "Pageview: Landing page", code: @code, browser: browser.to_s
     end
 
     render "home/pages/index", layout: "static_pages"
