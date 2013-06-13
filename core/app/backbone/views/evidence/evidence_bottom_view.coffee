@@ -22,9 +22,6 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     showDiscussion: ->
       @from_fact?
 
-    fact_url_host: ->
-      if @from_fact?.fact_url?
-        new Backbone.Factlink.Url(@from_fact?.fact_url).host()
 
     believe_percentage: fact?.opinionPercentage('believe')
     disbelieve_percentage: fact?.opinionPercentage('disbelieve')

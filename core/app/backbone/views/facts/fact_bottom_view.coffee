@@ -10,8 +10,6 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     "click .js-discussion-link" : "triggerDiscussionClick"
 
   templateHelpers: ->
-    fact_url_host: ->
-      new Backbone.Factlink.Url(@fact_url).host() if @fact_url?
 
     formatted_time: ->
       if @friendly_time
