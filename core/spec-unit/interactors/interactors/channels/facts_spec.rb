@@ -56,14 +56,12 @@ describe Interactors::Channels::Facts do
       evidence_count = 10
 
       pavlov_options = {current_user: user}
+      interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
 
       Pavlov.stub(:query)
         .with(:'channels/facts', channel_id, from, count, pavlov_options)
         .and_return(result)
       Fact.stub(:invalid).with(fact).and_return(false)
-
-
-      interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
 
       expect(interactor.execute).to eq result
     end
@@ -77,6 +75,7 @@ describe Interactors::Channels::Facts do
       result = [{item: fact}]
 
       pavlov_options = {current_user: user}
+      interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
 
       Pavlov.stub(:query)
         .with(:'channels/facts', channel_id, from, count, pavlov_options)
@@ -84,8 +83,6 @@ describe Interactors::Channels::Facts do
       Fact.stub(:invalid).with(fact).and_return(true)
 
       Resque.should_receive(:enqueue).with(CleanChannel, channel_id)
-
-      interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
 
       expect(interactor.execute).to eq []
     end
