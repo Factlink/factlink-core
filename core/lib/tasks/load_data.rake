@@ -27,31 +27,6 @@ namespace :db do
     puts "Imported #{file} succesfully"
   end
 
-  task :export => :environment do
-    filename = ENV['file']
-
-    if filename.nil? or filename.blank?
-      puts "A file name is required. Usage: rake db:export file=filename"
-      next
-    end
-
-    file = get_file(filename)
-
-    if File.exists?(file) or filename == 'list'
-      puts "File '#{filename}' already exists. Please choose another file name."
-      next
-    else
-
-      # Dump the exports to the file
-      File.open(file, 'w') do |f|
-        FactGraph.export(f, verbose: true)
-      end
-    end
-
-    puts "Exported succesfully"
-    puts "Your export was saved to #{file}"
-  end
-
   task :help do
     message = <<-eos
 
@@ -63,9 +38,7 @@ namespace :db do
 
       rake db:truncate              # Truncate database
       rake db:truncate_keep_users   # Truncate database, but keep the users
-      rake db:export file=filename  # Exports the current database
-      rake db:init:list             # Lists all available seeds
-      rake db:init:filename         # Import the dump to the database
+      rake db:init                  # Import the dump to the database
       rake db:help                  # Show this help file
 
     eos

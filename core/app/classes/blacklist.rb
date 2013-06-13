@@ -51,7 +51,7 @@ class Blacklist
 
   def self.weird_bugs
     [
-      #show factlink button not full width
+      # show factlink button not full width
       domain('smashingmagazine.com'),
     ]
   end
@@ -68,9 +68,7 @@ class Blacklist
 
   def matches?(str)
     @blacklist.each do |regex|
-      if regex.match(str)
-        return true
-      end
+      return true if regex.match(str)
     end
 
     false

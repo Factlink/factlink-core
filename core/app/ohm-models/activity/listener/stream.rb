@@ -21,7 +21,7 @@ class Activity < OurOhm
         {
           subject_class: 'Fact',
           action: :added_fact_to_channel,
-          write_ids: lambda {|a| followers_for_graph_user(a.user_id)}
+          write_ids: ->(a) { followers_for_graph_user(a.user_id)}
         }
       end
 
@@ -31,7 +31,7 @@ class Activity < OurOhm
         {
           subject_class: 'GraphUser',
           action: 'followed_user',
-          write_ids: lambda {|a| followers_for_graph_user(a.user_id) - [a.subject_id]}
+          write_ids: ->(a) { followers_for_graph_user(a.user_id) - [a.subject_id]}
         }
       end
     end

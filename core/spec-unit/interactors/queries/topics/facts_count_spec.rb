@@ -13,7 +13,7 @@ describe Queries::Topics::FactsCount do
       slug_title = 'slug-title'
       facts_key = mock
       count = mock
-      
+
       query = described_class.new slug_title
 
       nest = mock

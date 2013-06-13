@@ -1,5 +1,3 @@
-require 'redis-aid'
-
 class DirectedRelationsWithReverse
   attr_reader :relation_key
   attr_reader :reverse_relation_key

@@ -32,6 +32,19 @@ describe LoadDsl do
     Channel.all.size.should == 2+2+2
   end
 
+  it "should add beliefs" do
+    subject.run do
+      user "merijn", "merijn@gmail.com", "123hoi", "merijn481", "Merijn", "Terheggen"
+      user "tomdev", "tom@factlink.com", "123hoi", "tomdev", "Tom", "de Vries"
+      user "mark", "mark@example.com", "123hoi", "markijbema"
+
+      user "mark"
+        fact "something is true", "http://example.org/"
+          believers "merijn","tomdev"
+          disbelievers "mark"
+    end # shouldn't raise
+  end
+
   it "should throw an error if a user with a non-unique email is added" do
     expect do
       subject.run do

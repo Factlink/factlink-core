@@ -56,7 +56,7 @@ describe Activity::Listener do
     end
 
     it "should return the id of the blob and list to which to add if a query matches" do
-      subject.queries << {subject: Blob, write_ids: lambda {|a| [1,2,3]}}
+      subject.queries << {subject: Blob, write_ids: ->(a) { [1,2,3]}}
       subject.stub(matches: true)
       expect(subject.add_to(@a)).to eq [1,2,3]
     end
@@ -142,11 +142,11 @@ describe Activity::Listener do
     it "should execute the extra_condition query to see if the activity matches" do
       expect(subject.matches({
         subject_class: Blob,
-        extra_condition: lambda { |a| a.action.to_s == 'foobar' }
+        extra_condition: ->(a) { a.action.to_s == 'foobar' }
       },@a)).to be_true
       expect(subject.matches({
         subject_class: Blob,
-        extra_condition: lambda {|a| a.action.to_s == 'barfoo'}
+        extra_condition: ->(a) { a.action.to_s == 'barfoo'}
       },@a)).to be_false
     end
   end
@@ -159,7 +159,7 @@ describe Activity::Listener do
     it "should add the activities to a timestamped set on the object" do
       subject.activity_for = 'Foo'
       subject.listname = :activities
-      subject.queries << {subject_class: Foo, write_ids: lambda { |a| [f1.id] } }
+      subject.queries << {subject_class: Foo, write_ids: ->(a) { [f1.id] } }
 
       a1 = Activity.create subject: f1, object: f1, action: :foobar
       subject.process a1
@@ -170,7 +170,7 @@ describe Activity::Listener do
     it "should pass the activity to the write_ids" do
       subject.activity_for = 'Foo'
       subject.listname = :activities
-      subject.queries << {subject_class: Foo, write_ids: lambda { |a| [a.subject.id] } }
+      subject.queries << {subject_class: Foo, write_ids: ->(a) { [a.subject.id] } }
 
       a1 = Activity.create subject: f1, object: f1, action: :foobar
       subject.process a1

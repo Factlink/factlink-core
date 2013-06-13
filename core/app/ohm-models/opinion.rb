@@ -18,24 +18,31 @@ class Opinion < OurOhm
   def b
     self.b_r.to_f
   end
+
   def d
     self.d_r.to_f
   end
+
   def u
     self.u_r.to_f
   end
+
   def a
     self.a_r.to_f
   end
+
   def b=(val)
     self.b_r=val
   end
+
   def d=(val)
     self.d_r=val
   end
+
   def u=(val)
     self.u_r=val
   end
+
   def a=(val)
     self.a_r=val
   end
@@ -54,50 +61,51 @@ class Opinion < OurOhm
   end
 
   def self.tuple(b,d,u,a=0)
-    self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
+    self.new(b_r: b,d_r: d,u_r: u,a_r: a)
   end
 
   def self.identity
     self.new(:b_r=>0,:d_r=>0,:u_r=>1,:a_r=>0)
   end
 
-  def Opinion.for_type(type, authority=0)
+  def self.for_type(type, authority=0)
     case type
     when :believes
-      Opinion.new(:b=>1,:d=>0,:u=>0,:a=>authority)
+      Opinion.new(b: 1,d: 0,u: 0,a: authority)
     when :disbelieves
-      Opinion.new(:b=>0,:d=>1,:u=>0,:a=>authority)
+      Opinion.new(b: 0,d: 1,u: 0,a: authority)
     when :doubts
-      Opinion.new(:b=>0,:d=>0,:u=>1,:a=>authority)
+      Opinion.new(b: 0,d: 0,u: 1,a: authority)
     end
   end
 
   # inefficient, but allows for quickly changing the + def
-  def Opinion.combine(list)
-    unless list.length > 0
-      Opinion.identity
-    else
+  def self.combine(list)
+    # TODO check if if is neccesary
+    if list.length > 0
       list.inject(Opinion.identity) { | result, element |  result + element }
+    else
+      Opinion.identity
     end
   end
 
-  #CHANGE ALONG WITH + !!!!
+  # CHANGE ALONG WITH + !!!!
   def weight
     return (self.b + self.d + self.u)*self.a
   end
 
-  #CHANGE weight ALONG WITH + !!!
-  def +(second)
-    a = self.a + second.a
+  # CHANGE weight ALONG WITH + !!!
+  def +(other)
+    a = self.a + other.a
 
     if a == 0
       # No authority
       return Opinion.identity
     end
 
-    b = (self.b*self.a + second.b*second.a)/a
-    d = (self.d*self.a + second.d*second.a)/a
-    u = (self.u*self.a + second.u*second.a)/a
+    b = (self.b*self.a + other.b*other.a)/a
+    d = (self.d*self.a + other.d*other.a)/a
+    u = (self.u*self.a + other.u*other.a)/a
     return Opinion.tuple(b,d,u,a)
   end
 

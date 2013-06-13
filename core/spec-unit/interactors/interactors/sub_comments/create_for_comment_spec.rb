@@ -29,17 +29,17 @@ describe Interactors::SubComments::CreateForComment do
 
   describe '.validate' do
     it 'without comment_id doesn''t validate' do
-      expect_validating(nil, 'hoi', current_user: mock).
+      expect_validating(nil, 'hoi').
         to fail_validation('comment_id should be an hexadecimal string.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating('2a', '', current_user: mock).
+      expect_validating('2a', '').
         to fail_validation('content should not be empty.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating('2a', '  ', current_user: mock).
+      expect_validating('2a', '  ').
         to fail_validation('content should not be empty.')
     end
   end

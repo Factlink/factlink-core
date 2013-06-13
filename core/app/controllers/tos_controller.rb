@@ -12,7 +12,7 @@ class TosController < ApplicationController
   def update
     authorize! :sign_tos, current_user
 
-    agrees_tos = (params[:user][:agrees_tos].to_i == 1) ? true : false
+    agrees_tos = params[:user][:agrees_tos].to_i == 1
 
     if current_user.sign_tos(agrees_tos)
       track_signed_tos

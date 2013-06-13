@@ -34,7 +34,7 @@ class NotificationAddedSubchannelView extends GenericNotificationView
 
   onRender: ->
     super()
-    add_back_button = new FollowChannelButtonView(channel: @model.channel())
+    add_back_button = new FollowChannelButtonView(channel: @model.channel(), mini: true)
 
     @addBackRegion.show add_back_button
 

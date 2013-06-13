@@ -4,17 +4,17 @@ module ActivityMailerHelper
   end
 
   def mail_template_for_action(action)
-    actionString = action.to_s
+    action_string = action.to_s
 
-    case actionString
-      when "added_supporting_evidence", "added_weakening_evidence"
-        "added_evidence"
-      when "added_subchannel", "created_conversation",
-           "replied_message", "created_comment", "created_sub_comment",
-           "followed_user"
-        actionString
-      else
-        "generic"
+    case action_string
+    when "added_supporting_evidence", "added_weakening_evidence"
+      "added_evidence"
+    when "added_subchannel", "created_conversation",
+         "replied_message", "created_comment", "created_sub_comment",
+         "followed_user"
+      action_string
+    else
+      "generic"
     end
   end
 

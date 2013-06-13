@@ -4,14 +4,15 @@ require_relative '../../../../app/interactors/interactors/sub_comments/index_for
 describe Interactors::SubComments::IndexForComment do
   include PavlovSupport
   before do
-    stub_classes 'SubComment', 'Comment', 'KillObject'
+    stub_classes 'SubComment', 'Comment', 'KillObject',
+                 'Queries::SubComments::Index'
   end
 
   describe '.authorized' do
     it 'checks if the comment can be shown' do
       comment_id = '1a'
       comment = mock
-      
+
       Comment.stub(:find).with(comment_id).and_return(comment)
 
       ability = mock
@@ -24,10 +25,6 @@ describe Interactors::SubComments::IndexForComment do
   end
 
   describe '.validate' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
     it 'without comment_id doesn''t validate' do
       expect_validating(nil).
         to fail_validation('comment_id should be an hexadecimal string.')
@@ -35,19 +32,18 @@ describe Interactors::SubComments::IndexForComment do
   end
 
   describe '.execute' do
-    before do
-      stub_classes 'Queries::SubComments::Index'
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
     it do
       comment_id = '2b'
       sub_comments = [mock, mock]
       dead_sub_comments = [mock, mock]
       authorities = [10, 20]
 
-      interactor = Interactors::SubComments::IndexForComment.new comment_id
-      interactor.stub comment: mock
+      options = {ability: mock(can?: true)}
+
+      Comment.stub(:find).with(comment_id)
+             .and_return(mock)
+
+      interactor = described_class.new comment_id, options
 
       interactor.should_receive(:query).with(:"sub_comments/index", comment_id, 'Comment').
         and_return(sub_comments)
@@ -74,8 +70,12 @@ describe Interactors::SubComments::IndexForComment do
     it 'throws an error when the comment does not exist' do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
-      interactor = Interactors::SubComments::IndexForComment.new '2b'
-      interactor.should_receive(:comment).and_return(nil)
+      options = {ability: mock(can?: true)}
+
+      Comment.stub(:find).with('2b')
+             .and_return(nil)
+
+      interactor = described_class.new '2b', options
 
       expect{interactor.call}.to raise_error(Pavlov::ValidationError, "comment does not exist any more")
     end

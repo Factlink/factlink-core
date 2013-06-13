@@ -20,17 +20,17 @@ describe Interactors::SubComments::CreateForFactRelation do
 
   describe '.validate' do
     it 'without fact_relation_id doesn''t validate' do
-      expect_validating(nil, 'hoi', current_user: mock).
+      expect_validating(nil, 'hoi').
         to fail_validation('fact_relation_id should be an integer.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating(1, '', current_user: mock).
+      expect_validating(1, '').
         to fail_validation('content should not be empty.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating(1, '  ', current_user: mock).
+      expect_validating(1, '  ').
         to fail_validation('content should not be empty.')
     end
   end

@@ -111,7 +111,7 @@ FactlinkUI::Application.routes.draw do
     # Seems to me we want to lose the scope "/:username" later and place all
     # stuff in this resource?
     devise_scope :user do
-      resources :users, path: "", only: [ :edit, :update ] do
+      resources :users, path: "", only: [:edit, :update] do
         get "/password/edit" => "users/registrations#edit_password"
         put "/password" => "users/registrations#update_password", as: "update_password"
       end

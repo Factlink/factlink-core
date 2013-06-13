@@ -33,7 +33,6 @@ describe UsersController do
     include PavlovSupport
 
     it "should render json successful" do
-      pending "removal of dirty hack"
       FactoryGirl.reload # hack because of fixture in check
 
       user1 = create :user
@@ -42,14 +41,18 @@ describe UsersController do
       Pavlov.command :"users/add_handpicked_user", user2.id.to_s
 
       as(user1) do |pavlov|
-        pavlov.command :'channels/create', 'toy'
-        ch = pavlov.command :'channels/create', 'story'
-        Authority.from(ch.topic, for: user1.graph_user) << 3
+        ch1 = pavlov.command :'channels/create', 'toy'
+        pavlov.command :'topics/update_user_authority', user1.graph_user_id.to_s, ch1.slug_title, 0
+
+        ch2 = pavlov.command :'channels/create', 'story'
+        pavlov.command :'topics/update_user_authority', user1.graph_user_id.to_s, ch2.slug_title, 3
       end
       as(user2) do |pavlov|
-        pavlov.command :'channels/create', 'war'
-        ch = pavlov.command :'channels/create', 'games'
-        Authority.from(ch.topic, for: user2.graph_user) << 4568
+        ch1 = pavlov.command :'channels/create', 'war'
+        pavlov.command :'topics/update_user_authority', user2.graph_user_id.to_s, ch1.slug_title, 0
+
+        ch2 = pavlov.command :'channels/create', 'games'
+        pavlov.command :'topics/update_user_authority', user2.graph_user_id.to_s, ch2.slug_title, 4568
       end
 
       authenticate_user!(user)

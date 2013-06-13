@@ -32,7 +32,7 @@ describe Interactors::Channels::ActivityCount do
     end
 
     it 'returns false when neither :current_user or :no_current_user are passed' do
-      expect(lambda { Interactors::Channels::ActivityCount.new mock, mock }).to raise_error(Pavlov::AccessDenied)
+      expect { Interactors::Channels::ActivityCount.new mock, mock }.to raise_error(Pavlov::AccessDenied)
     end
   end
 end

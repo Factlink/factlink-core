@@ -4,9 +4,7 @@ class Ability
 
   include CanCan::Ability
 
-  def user
-    @user
-  end
+  attr_reader :user
 
   def signed_in?
     user
@@ -78,6 +76,7 @@ class Ability
       f.created_by_id == user.graph_user_id
     end
     cannot :update, Fact
+    can :share, Fact
   end
 
   def define_fact_relation_abilities

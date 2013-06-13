@@ -58,6 +58,7 @@ gem 'cancan', '~> 1.6.10'
 # social connections
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-twitter', '= 0.0.14' # locked down, because semver does not appear to be used
+gem 'twitter', '~> 4.7.0'
 
 # social sharing
 gem 'koala', '~> 1.7.0rc1'
@@ -141,8 +142,6 @@ group :test do
 
   gem 'oily_png', '~> 1.1'
 
-  gem 'headless', '~> 1.0'
-
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard', '~> 1.8', require: false
   gem 'guard-rspec', '~> 3.0', require: false
@@ -163,5 +162,6 @@ group :development do
   gem 'brakeman', '~> 1', require: false # always update, we want the latest version always
   gem 'cane', '~> 2', require: false
   gem 'rails_best_practices', '~> 1', require: false
+  gem 'rubocop', require: false
   gem 'hub', '~> 1', require: false
 end

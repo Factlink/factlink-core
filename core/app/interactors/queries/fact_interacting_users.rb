@@ -17,7 +17,7 @@ module Queries
 
     def execute
       graph_users= users_who(@opinion)
-      paginated_users = paginate(graph_users).map {|gu| gu.user}
+      paginated_users = paginate(graph_users).map(&:user)
 
       {
         users: paginated_users.map{|u| KillObject.user u},

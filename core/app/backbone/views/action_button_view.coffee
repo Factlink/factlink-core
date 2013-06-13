@@ -22,7 +22,7 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
   constructor: (options={}) ->
     @model = new ActionButtonState
 
-    @className += ' action-button btn'
+    @className += ' btn-action btn'
     if @mini or options.mini
       @className += ' btn-mini'
 
@@ -54,3 +54,5 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
         @$el.addClass 'btn-danger'
       else
         @$el.addClass 'btn-primary'
+
+    @$el.toggleClass 'btn-action-checked', @model.get('checked')
