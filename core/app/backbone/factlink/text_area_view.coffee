@@ -7,7 +7,7 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   template: 'generic/text_area'
   events:
-    'click': 'focusInput'
+    # 'click': 'focusInput'
     'keydown .typeahead': 'parseKeyDown'
     'keyup .typeahead': 'updateModel'
 
@@ -21,7 +21,7 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   initialize: ->
     @bindTo @model, 'change', @updateHtml, this
 
-  focusInput: -> @$inputField().focus()
+  # focusInput: -> @$inputField().focus()
 
   parseKeyDown: (e) ->
     eventHandled = false
@@ -47,4 +47,4 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
 
   $inputField: -> @$('.typeahead')
   onRender: ->
-    @$el.find('textarea').autosize()
+    @$el.find('textarea').autosize append: '\n'
