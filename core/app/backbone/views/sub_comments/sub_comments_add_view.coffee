@@ -22,7 +22,6 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     @toggleForm false
 
   inputFocus: -> @toggleForm true
-  inputBlur: -> @toggleForm false if @text().length <= 0
 
   toggleForm: (active) ->
     @$el.toggleClass 'evidence-sub-comments-form-active', active
@@ -54,7 +53,6 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
       placeholder: 'Comment..'
 
     @bindTo textAreaView, 'focus', @inputFocus, @
-    @bindTo textAreaView, 'blur', @inputBlur, @
     textAreaView
 
   enableSubmit: ->
