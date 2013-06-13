@@ -59,3 +59,13 @@
     </div>
   </div>
 <% end %>
+<% content_for :specific_javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      console.info(mixpanel);
+      mp_track('Pageview: Landing page', { 
+        code: '<%= @code %>'
+      });
+    });
+  </script>
+<% end %>
