@@ -58,10 +58,4 @@ end
 
 json.timestamp timestamp
 
-# Only still necessary for activities
-if fact.evidence_count.nil?
-  evidence_count = query :'evidence/count_for_fact', fact
-else
-  evidence_count = fact.evidence_count
-end
-json.evidence_count evidence_count
+json.evidence_count dead_fact.evidence_count
