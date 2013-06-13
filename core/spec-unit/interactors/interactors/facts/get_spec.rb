@@ -42,9 +42,6 @@ describe Interactors::Facts::Get do
 
       Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
         .and_return(fact)
-      Pavlov.stub(:query).with(:'evidence/count_for_fact', fact, pavlov_options)
-        .and_return(evidence_count)
-      fact.stub(:evidence_count=).with(evidence_count)
 
       Pavlov.should_receive(:command)
         .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
@@ -53,16 +50,12 @@ describe Interactors::Facts::Get do
       interactor.call
     end
 
-    it 'returns the fact and evidence count' do
+    it 'returns the fact' do
       fact = mock(id: '1', evidence_count: nil)
       evidence_count = 10
 
       Pavlov.stub(:query).with(:'facts/get', fact.id)
         .and_return(fact)
-      Pavlov.stub(:query).with(:'evidence/count_for_fact', fact)
-        .and_return(evidence_count)
-
-      fact.should_receive(:evidence_count=).with(evidence_count)
 
       interactor = described_class.new fact.id
       expect(interactor.execute).to eq fact

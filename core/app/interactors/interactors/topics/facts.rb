@@ -14,15 +14,7 @@ module Interactors
       def execute
         setup_defaults
 
-        facts.each do |hash|
-          hash[:item].evidence_count = query :"evidence/count_for_fact", hash[:item]
-        end
-
-        facts
-      end
-
-      def facts
-        @facts ||= query :'topics/facts', @slug_title, @count, @max_timestamp
+        query :'topics/facts', @slug_title, @count, @max_timestamp
       end
 
       def validate

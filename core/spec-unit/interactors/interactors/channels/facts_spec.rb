@@ -60,12 +60,8 @@ describe Interactors::Channels::Facts do
       Pavlov.stub(:query)
         .with(:'channels/facts', channel_id, from, count, pavlov_options)
         .and_return(result)
-      Pavlov.stub(:query)
-        .with(:'evidence/count_for_fact', fact, pavlov_options)
-        .and_return(evidence_count)
       Fact.stub(:invalid).with(fact).and_return(false)
 
-      fact.should_receive(:evidence_count=).with(evidence_count)
 
       interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
 

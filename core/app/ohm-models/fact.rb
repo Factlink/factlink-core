@@ -152,9 +152,6 @@ class Fact < Basefact
     end
   end
 
-  # TODO: Remove this when moving to DeadFact completely...
-  attr_accessor :evidence_count
-
   #TODO also remove yourself from channels, possibly using resque
   before :delete, :delete_data
   before :delete, :delete_all_evidence

@@ -9,29 +9,13 @@ describe Interactors::Topics::Facts do
       slug_title = 'slug-title'
       count = 10
       max_timestamp = 100
-
-      fact1 = mock
-      fact2 = mock
-      evidence_count1 = 10
-      evidence_count2 = 20
-      results = [{item: fact1}, {item: fact2}]
+      results = mock
 
       pavlov_options = {current_user: mock}
 
       Pavlov.stub(:query)
         .with(:'topics/facts', slug_title, count, max_timestamp, pavlov_options)
         .and_return(results)
-
-      Pavlov.stub(:query)
-        .with(:'evidence/count_for_fact', fact1, pavlov_options)
-        .and_return(evidence_count1)
-
-      Pavlov.stub(:query)
-        .with(:'evidence/count_for_fact', fact2, pavlov_options)
-        .and_return(evidence_count2)
-
-      fact1.should_receive(:evidence_count=).with(evidence_count1)
-      fact2.should_receive(:evidence_count=).with(evidence_count2)
 
       interactor = described_class.new slug_title, count, max_timestamp, pavlov_options
 

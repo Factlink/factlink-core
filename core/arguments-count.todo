@@ -1,9 +1,6 @@
 Backend:
  ✔ Query for argument count @done (13-06-12 14:27)
- ✔ Call query in facts/get interactor @done (13-06-12 16:16)
- ✔ Call query in topics/facts interactor or query (?) @done (13-06-12 16:58)
- ✔ Call query in channels/facts interactor or query (?) @done (13-06-12 17:05)
- ☐ Call query in search (return fact instead of FactData, and use interactor for getting fact)
+ ☐ Call query in facts/get_dead query
  ✔ Pass to frontend in view @done (13-06-12 17:36)
 
 Frontend:

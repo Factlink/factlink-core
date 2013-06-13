@@ -13,10 +13,7 @@ module Interactors
         setup_defaults
 
         facts = query :'channels/facts', @id, @from, @count
-        facts = remove_invalid facts
-
-        add_evidence_counts facts
-        facts
+        remove_invalid facts
       end
 
       def remove_invalid facts
@@ -31,13 +28,6 @@ module Interactors
         end
 
         valid_facts
-      end
-
-      def add_evidence_counts facts
-        facts.each do |hash|
-          fact = hash[:item]
-          fact.evidence_count = query :'evidence/count_for_fact', fact
-        end
       end
 
       def invalid fact_with_score
