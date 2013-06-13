@@ -4,6 +4,7 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
     'click': 'focusInput'
     'keydown .typeahead': 'parseKeyDown'
     'keyup .typeahead': 'updateModel'
+    'input .typeahead': 'updateModel'
 
   triggers:
     'focus .typeahead': 'focus'

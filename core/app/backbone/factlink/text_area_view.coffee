@@ -8,6 +8,7 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   template: 'generic/text_area'
   events:
     'keyup textarea': 'updateModel'
+    'input textarea': 'updateModel'
 
   triggers:
     'focus textarea': 'focus'
