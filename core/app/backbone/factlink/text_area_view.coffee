@@ -21,6 +21,7 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @bindTo @model, 'change', @updateDom, this
+    @on 'focus', @initAutosize
 
   updateModel: ->
     @model.set text: @ui.inputField.val()
@@ -31,5 +32,7 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   enable: -> @ui.inputField.prop 'disabled', false
   disable: ->@ui.inputField.prop 'disabled', true
 
-  onRender: ->
+  initAutosize: ->
+    return if @autosizeInitialized
+    @autosizeInitialized = true
     @ui.inputField.autosize append: '\n\n'
