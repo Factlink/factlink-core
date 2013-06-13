@@ -1,4 +1,5 @@
-//Not from gem: gem is quite outdated (2013-06-12).
+//Including jquery autosize directly, not from the gem the gem is quite outdated (checked on 2013-06-12).
+
 /*!
   jQuery Autosize v1.16.17
   (c) 2013 Jack Moore - jacklmoore.com
