@@ -1,1 +1,10 @@
-placeholder todo
+Frontend popover:
+ ☐ Create a TopicPopover
+ ☐ Show the TopicPopover for the relevant activities in the feed
+ ☐ Add a follow button to the TopicPopover
+ ☐ Show the authority in the TopicPopover
+ ☐ Show the number of followers
+ ☐ Make sure the popover cannot fall outside of the feed
+
+Other statistics (?):
+ ☐ Show number of contributors
