@@ -68,6 +68,10 @@ module Acceptance
         wait_for_ajax
       end
 
+      def assert_sub_comment_exists(comment)
+        find('.evidence-sub-comment-content').should have_content comment
+      end
+
       def add_evidence_form_css_selector
         '.fact-relation-search'
       end

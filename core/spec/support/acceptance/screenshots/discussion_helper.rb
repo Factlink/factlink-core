@@ -30,7 +30,7 @@ module Screenshots
 
         find('a', text: 'Comments').click
         add_sub_comment(sub_comment_text)
-        find('.evidence-sub-comment-content').should have_content sub_comment_text_normalized
+        assert_sub_comment_exists sub_comment_text_normalized
       end
 
       within('.fact-relation-listing .evidence-item', text: factlink3.data.displaystring) do
@@ -38,7 +38,7 @@ module Screenshots
 
         find('a', text: 'Comments').click
         add_sub_comment(sub_comment_text)
-        find('.evidence-sub-comment-content').should have_content sub_comment_text_normalized
+        assert_sub_comment_exists sub_comment_text_normalized
       end
       # sleep 0.6
 
