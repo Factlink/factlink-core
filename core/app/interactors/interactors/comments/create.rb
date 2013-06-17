@@ -42,7 +42,7 @@ module Interactors
       end
 
       def validate
-        validate_regex   :content, @content, /\A.+\Z/,
+        validate_regex   :content, @content, /\S/,
           "should not be empty."
         validate_integer :fact_id, @fact_id
         validate_in_set  :type, @type, ['believes', 'disbelieves', 'doubts']

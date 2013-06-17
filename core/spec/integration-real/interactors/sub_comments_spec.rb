@@ -9,7 +9,7 @@ describe 'subcomments' do
     it 'a comment has no subcomments and can be deleted' do
       as(current_user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'a fact', '', ''
-        comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', 'Gekke Gerrit'
+        comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', "Gekke \n Gerrit"
 
         sub_comments = pavlov.interactor :'sub_comments/index_for_comment', comment.id.to_s
         comments = pavlov.interactor :'evidence/for_fact_id', fact.id.to_s, :supporting
@@ -24,15 +24,15 @@ describe 'subcomments' do
     it 'should have the subcomments we added and cannot be deleted' do
       as(current_user) do |pavlov|
         fact = pavlov.interactor :'facts/create', 'a fact', '', ''
-        comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', 'Gekke Gerrit'
+        comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', "Gekke \n Gerrit"
 
-        sub_comment1 = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'Gekke Gerrit'
+        sub_comment1 = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, "Gekke \n Gerrit"
         sub_comment2 = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'Handige Harrie'
 
         sub_comments = pavlov.interactor :'sub_comments/index_for_comment', comment.id.to_s
         comments = pavlov.interactor :'evidence/for_fact_id', fact.id.to_s, :supporting
 
-        expect(sub_comments.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
+        expect(sub_comments.map(&:content)).to eq ["Gekke \n Gerrit", 'Handige Harrie']
         expect(comments.map(&:can_destroy?)).to eq [false]
       end
     end
@@ -41,9 +41,9 @@ describe 'subcomments' do
       it "should only contain the other comment" do
         as(current_user) do |pavlov|
           fact = pavlov.interactor :'facts/create', 'a fact', '', ''
-          comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', 'Gekke Gerrit'
+          comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', "Gekke \n Gerrit"
 
-          sub_comment1 = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'Gekke Gerrit'
+          sub_comment1 = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, "Gekke \n Gerrit"
           sub_comment2 = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'Handige Harrie'
 
           pavlov.interactor :'sub_comments/destroy', sub_comment1.id.to_s
@@ -64,11 +64,11 @@ describe 'subcomments' do
           sub_fact, :supporting, fact, current_user.graph_user
         )
 
-        sub_comment1 = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'Gekke Gerrit'
+        sub_comment1 = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, "Gekke \n Gerrit"
         sub_comment2 = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'Handige Harrie'
 
         sub_comments = pavlov.interactor :'sub_comments/index_for_fact_relation', fact_relation.id.to_i
-        expect(sub_comments.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
+        expect(sub_comments.map(&:content)).to eq ["Gekke \n Gerrit", 'Handige Harrie']
       end
     end
   end

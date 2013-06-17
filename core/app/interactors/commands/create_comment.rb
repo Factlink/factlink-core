@@ -30,7 +30,7 @@ module Commands
 
     def validate
       validate_hexadecimal_string :user_id, @user_id
-      validate_regex              :content, @content, /\A.+\Z/,
+      validate_regex              :content, @content, /\S/,
         "should not be empty."
       validate_integer            :fact_id, @fact_id
       validate_in_set             :type,    @type, ['believes', 'disbelieves', 'doubts']

@@ -30,7 +30,7 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     return if @submitting
 
     @model = new SubComment
-      content: @text()
+      content: $.trim(@text())
       created_by: currentUser
 
     @alertHide()
