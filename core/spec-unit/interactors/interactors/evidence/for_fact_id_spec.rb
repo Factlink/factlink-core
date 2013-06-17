@@ -28,7 +28,7 @@ describe Interactors::Evidence::ForFactId do
   describe '.authorized?' do
     it 'should check if the fact can be shown' do
       ability = mock
-      ability.should_receive(:can?)
+      ability.stub(:can?)
              .with(:show, Fact)
              .and_return(false)
       options = { ability: ability }

@@ -55,7 +55,7 @@ describe Interactors::Facts::Get do
       options = { ability: mock(can?: true)}
 
       interactor = described_class.new '1', options
-      interactor.should_receive(:query)
+      interactor.stub(:query)
                 .with(:'facts/get', fact_id)
                 .and_return(fact)
 
