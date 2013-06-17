@@ -7,11 +7,10 @@ describe UrlBuilder do
     it 'returns the correct url for a fact' do
       stub_const 'FactlinkUI::Application', Class.new
 
+      fact     = stub( id: '1' )
       core_url = "https://factlink.com/"
-      fact = stub( id: '1' )
+      config   = stub core_url: core_url
 
-      config.stub(:core_url)
-        .and_return( core_url )
       FactlinkUI::Application.stub( config: config)
 
       expect(described_class.fact_url fact).to eq "https://factlink.com/facts/1"
