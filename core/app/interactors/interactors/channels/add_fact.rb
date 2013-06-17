@@ -20,6 +20,7 @@ module Interactors
       end
 
       def authorized?
+        # TODO use cancan
         return true if @options[:no_current_user]
         return false unless @options[:current_user]
 
