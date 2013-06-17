@@ -39,7 +39,7 @@ describe Commands::Facebook::ShareFactlink do
             .with(:'facts/get_dead', fact_id, current_user: current_user)
             .and_return(fact)
 
-      command = described_class.new message, fact_id, current_user: current_user
+      command = described_class.new fact_id, message, current_user: current_user
 
       command.call
     end
@@ -53,7 +53,7 @@ describe Commands::Facebook::ShareFactlink do
         .should_receive(:validate_nonempty_string)
         .with(:message, message)
 
-      command = described_class.new message, '1'
+      command = described_class.new '1', message
     end
 
     it 'should validate if the fact_id is an integer string' do
@@ -63,7 +63,7 @@ describe Commands::Facebook::ShareFactlink do
         .should_receive(:validate_integer_string)
         .with(:fact_id, fact_id)
 
-      command = described_class.new 'message', fact_id
+      command = described_class.new fact_id, 'message'
     end
   end
 end

@@ -5,7 +5,7 @@ module Commands
     class ShareFactlink
       include Pavlov::Command
 
-      arguments :message, :fact_id
+      arguments :fact_id, :message
 
       private
 
