@@ -37,13 +37,13 @@ describe Interactors::Facts::Get do
 
       interactor = described_class.new '1', options
 
-      interactor.should_receive(:command)
-                .with(:'facts/add_to_recently_viewed',
-                       fact_id.to_i, user.id.to_s)
-
       interactor.stub(:query)
                 .with(:'facts/get', fact_id)
                 .and_return(fact)
+
+      interactor.should_receive(:command)
+                .with(:'facts/add_to_recently_viewed',
+                       fact_id.to_i, user.id.to_s)
 
       expect(interactor.call).to eq fact
     end
