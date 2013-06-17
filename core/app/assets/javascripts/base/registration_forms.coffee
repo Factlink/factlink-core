@@ -41,16 +41,19 @@ reposition_elements_popover = (element, placement)->
     console.error 'placement not supported'
   element.after(popover)
 
-window.bindForm = (formId) ->
+bindRegistrationForm = (formId) ->
   form = $('#' + formId)
 
-  form.on("ajax:success", (event, data, status, response) ->
-
+  form.on "ajax:success", (event, data, status, response) ->
     forms = $('.sign_up_form > form')
     _.each forms, (el) ->
       $(el).toggleClass 'success'
       clearPreviousErrorsForForm($(el))
-  ).on "ajax:error", (event, response, error) ->
+
+    registration_code = $("#" + formId + "_user_registration_code").val()
+    mp_track 'User: Reserved username', code: registration_code
+
+  form.on "ajax:error", (event, response, error) ->
     clearPreviousErrorsForForm(form)
 
     fieldErrors = JSON.parse(response.responseText)
@@ -62,5 +65,5 @@ window.bindForm = (formId) ->
       $(el).css border: "1px solid #ccc"
       $(el).popover "destroy"
 
-bindForm "top_registration_form"
-bindForm "bottom_registration_form"
+bindRegistrationForm "top_registration_form"
+bindRegistrationForm "bottom_registration_form"

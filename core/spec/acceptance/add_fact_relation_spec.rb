@@ -64,4 +64,18 @@ feature "adding factlinks to a fact", type: :request do
 
     page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
   end
+
+  scenario "factlink should show Arguments (1) on profile page" do
+    go_to_discussion_page_of factlink
+
+    supporting_factlink = backend_create_fact
+
+    within ".relation-tabs-view" do
+      add_existing_factlink supporting_factlink
+    end
+
+    visit user_path(@user)
+
+    page.should have_content 'Arguments (1)'
+  end
 end

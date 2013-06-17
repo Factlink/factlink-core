@@ -6,20 +6,38 @@ module Interactors
       arguments :fact, :channel
 
       def execute
-        command :"channels/add_fact", @fact, @channel
+        command :"channels/add_fact", fact, channel
 
-        if @fact.site
-          command :'site/add_top_topic', @fact.site.id.to_i, @channel.topic.slug_title
-        end
+        add_top_topic
+        create_activity
+      end
 
-        command :create_activity, @channel.created_by, :added_fact_to_channel, @fact, @channel
+      def add_top_topic
+        return unless site
+
+        command :'site/add_top_topic',
+          site.id.to_i, topic.slug_title
+      end
+
+      def create_activity
+        # if there is no topic, this isn't a real channel,
+        # but a created_facts, or a stream
+        return unless topic
+
+        command :create_activity, channel.created_by,
+          :added_fact_to_channel, fact, channel
+      end
+
+      def site
+        fact.site
       end
 
       def topic
-        @channel.topic
+        channel.topic
       end
 
       def authorized?
+        # TODO use cancan
         return true if @options[:no_current_user]
         return false unless @options[:current_user]
 

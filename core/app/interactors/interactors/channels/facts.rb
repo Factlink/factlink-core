@@ -13,7 +13,6 @@ module Interactors
         setup_defaults
 
         facts = query :'channels/facts', @id, @from, @count
-
         remove_invalid facts
       end
 

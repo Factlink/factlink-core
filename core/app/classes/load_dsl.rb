@@ -30,16 +30,6 @@ class LoadDsl
     Site.find(:url => url).first || Site.create(:url => url)
   end
 
-  def site(url)
-    load_site(url)
-  end
-
-  def self.export_site(site)
-    rv = "site \"#{quote_string(site.url)}\""
-    rv += "\n"
-    rv
-  end
-
   def load_fact(fact_string,url="http://example.org/", opts={})
     f = Fact.by_display_string(fact_string)
     return f if f
@@ -50,8 +40,10 @@ class LoadDsl
     )
     f.require_saved_data
     f.data.displaystring = fact_string
-    f.data.title = opts[:title] if opts[:title]
+    f.data.title = opts[:title] || url
     f.data.save
+
+    f
   end
 
   def fact(fact_string,url="http://example.org/", opts={})
@@ -59,25 +51,11 @@ class LoadDsl
     self.state_fact = f
   end
 
-  def self.export_fact(fact)
-    rv = "fact \"#{quote_string(fact.data.displaystring)}\""
-    rv += ", \"#{quote_string(fact.site.url)}\"" if fact.site
-    rv += ", :title => \"#{quote_string(fact.data.title)}\"" if fact.data.title
-    rv += "\n"
-    rv
-  end
-
   def fact_relation(fact1,relation,fact2)
     f1 = self.fact(fact1)
     f2 = self.fact(fact2)
     fr = f2.add_evidence(relation,f1,state_graph_user)
     self.state_fact = fr
-  end
-
-  def self.export_fact_relation(fact_relation)
-    "fact_relation \"#{quote_string(fact_relation.from_fact.data.displaystring)}\","+
-      " :#{fact_relation.type.to_sym},"+
-      " \"#{quote_string(fact_relation.fact.data.displaystring)}\"\n"
   end
 
   def raise_undefined_user_error
@@ -121,16 +99,6 @@ class LoadDsl
     self.state_user = self.load_user(username,email,password,twitter, first_name, last_name)
   end
 
-  def self.export_user(graph_user)
-    rv = "user \"#{quote_string(graph_user.user.username)}\", \"#{quote_string(graph_user.user.email)}\", \"123hoi\""
-    rv += ", \"#{graph_user.user.twitter}\"" if graph_user.user.twitter and graph_user.user.twitter != ''
-    rv += "\n"
-  end
-
-  def self.export_activate_user(graph_user)
-    "user \"#{quote_string(graph_user.user.username)}\"\n"
-  end
-
   def believers(*l)
     self.set_opinion(:believes,*l)
   end
@@ -141,22 +109,6 @@ class LoadDsl
 
   def doubters(*l)
     self.set_opinion(:doubts,*l)
-  end
-
-  def self.export_userlist(l)
-    l.map {|graph_user| "\"#{quote_string(graph_user.user.username)}\""}.join(',')
-  end
-
-  def self.export_believers(l)
-    "believers " + export_userlist(l) + "\n"
-  end
-
-  def self.export_disbelievers(l)
-    "disbelievers " + export_userlist(l) + "\n"
-  end
-
-  def self.export_doubters(l)
-    "doubters " + export_userlist(l) + "\n"
   end
 
   def set_opinion(opinion_type,*users)
@@ -178,50 +130,15 @@ class LoadDsl
     self.state_channel = ch
   end
 
-  def self.export_channel(channel)
-    rv = "channel \"#{quote_string(channel.title)}\""
-    rv += "\n"
-  end
-
   def sub_channel(username,title, opts={})
     ch = self.load_channel(load_user(username).graph_user, title, opts)
     Commands::Channels::AddSubchannel.new(self.state_channel, ch)
-  end
-
-  def self.export_sub_channel(channel)
-    rv = "sub_channel \"#{quote_string(channel.created_by.user.username)}\", \"#{quote_string(channel.title)}\""
-    rv += "\n"
   end
 
   def add_fact(fact_string)
     fact = self.load_fact(fact_string)
 
     interactor :'channels/add_fact', fact, self.state_channel
-  end
-
-  def self.export_add_fact(fact)
-    "add_fact \"#{quote_string(fact.data.displaystring)}\"\n"
-  end
-
-  def del_fact(fact_string)
-    f = self.load_fact(fact_string)
-    self.state_channel.remove_fact(f)
-  end
-
-  def self.export_del_fact(fact)
-    "del_fact \"#{quote_string(fact.data.displaystring)}\"\n"
-  end
-
-  def self.quote_string(v)
-    v.to_s.gsub(/\\/, '\&\&').gsub(/"/, "\\\"")
-  end
-
-  def self.export_header
-    "# coding: utf-8\n\nload_fact_data do\n\n"
-  end
-
-  def self.export_footer
-    "end"
   end
 
   def run(&block)

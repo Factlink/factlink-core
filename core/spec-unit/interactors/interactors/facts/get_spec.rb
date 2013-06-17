@@ -15,7 +15,7 @@ describe Interactors::Facts::Get do
     end
   end
 
-  describe '.authorized?' do
+  describe '#authorized?' do
     it 'should check if the fact can be shown' do
       ability = mock
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
@@ -26,39 +26,34 @@ describe Interactors::Facts::Get do
     end
   end
 
-  describe '.execute' do
-    it 'calls a command and query if a user is present' do
-      fact_id = '1'
-      user = mock id: '1e'
-      fact = mock
+  describe '#call' do
+    it 'stores the recently viewed if a user is present' do
+      fact = mock(id: '1', evidence_count: nil)
+      user = mock(id: '1e')
+      evidence_count = 10
 
+      pavlov_options = {current_user: user, ability: mock(can?: true)}
 
-      options = { current_user: user, ability: mock(can?: true)}
+      Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
+        .and_return(fact)
 
-      interactor = described_class.new '1', options
+      Pavlov.should_receive(:command)
+        .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
-      interactor.stub(:query)
-                .with(:'facts/get', fact_id)
-                .and_return(fact)
-
-      interactor.should_receive(:command)
-                .with(:'facts/add_to_recently_viewed',
-                       fact_id.to_i, user.id.to_s)
-
-      expect(interactor.call).to eq fact
+      interactor = described_class.new fact.id, pavlov_options
+      interactor.call
     end
 
-    it 'calls just a query if no user is present' do
-      fact_id = '1'
-      fact = mock
+    it 'returns the fact' do
+      fact = mock(id: '1', evidence_count: nil)
+      evidence_count = 10
 
-      options = { ability: mock(can?: true)}
+      pavlov_options = { ability: mock(can?: true)}
 
-      interactor = described_class.new '1', options
-      interactor.stub(:query)
-                .with(:'facts/get', fact_id)
-                .and_return(fact)
+      Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
+        .and_return(fact)
 
+      interactor = described_class.new fact.id, pavlov_options
       expect(interactor.call).to eq fact
     end
   end
