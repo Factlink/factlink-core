@@ -23,6 +23,7 @@ feature "sub_comments", type: :request do
     find('a', text: 'Comments').click
 
     add_sub_comment(sub_comment_text)
+    find('.evidence-sub-comment-content').should have_content sub_comment_text
 
     switch_to_user(@user_b)
 
@@ -43,6 +44,7 @@ feature "sub_comments", type: :request do
     find('a', text: 'Comments').click
 
     add_sub_comment(sub_comment_text)
+    find('.evidence-sub-comment-content').should have_content sub_comment_text
 
     switch_to_user(@user_b)
     go_to_discussion_page_of @factlink_user_a
@@ -66,6 +68,7 @@ feature "sub_comments", type: :request do
     find('a', text: 'Comments').click
 
     add_sub_comment(sub_comment_text)
+    find('.evidence-sub-comment-content').should have_content sub_comment_text
 
     within evidence_listing_css_selector do
       page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
