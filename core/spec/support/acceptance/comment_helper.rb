@@ -65,6 +65,7 @@ module Acceptance
       def add_sub_comment(comment)
         fill_in 'text_area_view', with: comment
         find('.evidence-sub-comments-button', text: 'Comment').click
+        wait_for_ajax
       end
 
       def add_evidence_form_css_selector
