@@ -1,10 +1,9 @@
 FactlinkApp.module "Overlay", (Overlay, FactlinkApp, Backbone, Marionette, $, _) ->
-  $overlay_element = $('<div></div>')
-    .addClass('modal-overlay')
+  $overlay_elements = $('<div class="modal-overlay"></div><div class="modal-overlay-transparent"></div>')
     .appendTo('body')
 
   Overlay.show = ->
-    $overlay_element.fadeIn(300)
+    $overlay_elements.fadeIn(300)
 
   Overlay.hide = ->
-    $overlay_element.fadeOut(300)
+    $overlay_elements.fadeOut(300)

@@ -1,7 +1,7 @@
 module Interactors
   module Facts
     class PostToTwitter
-      include Pavlov::Command
+      include Pavlov::Interactor
       include Util::CanCan
       include Util::Validations
 
