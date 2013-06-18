@@ -46,6 +46,9 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   @actions: ["created_channel", "added_subchannel"]
   actions: -> UserActivitiesGroupView.actions
 
+  itemViewOptions: ->
+    offsetParent: @$el
+
   sameUser: (model) -> @model.user().get('username') == model.user().get('username')
 
   appendable: (model) -> super(model) and @sameUser(model)
