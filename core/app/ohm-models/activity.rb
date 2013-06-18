@@ -94,15 +94,15 @@ class Activity < OurOhm
 
   private
   def user_valid?
-    !! (user or not user_id)
+    user or not user_id
   end
 
   def subject_valid?
-    !! (subject or not subject_id)
+    subject or not subject_id
   end
 
   def object_valid?
-    !! (object or not object_id)
+    object or not object_id
   end
 
 end
