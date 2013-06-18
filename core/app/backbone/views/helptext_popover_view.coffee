@@ -14,6 +14,7 @@ class window.HelptextPopoverView extends Backbone.Marionette.Layout
   onRender: ->
     @$el.addClass @options.side
     @contentRegion.show @options.contentView if @options.contentView
+    @$el.toggleClass 'help-text-container-flexible', @options.flexible || false
 
     @updateMargins()
 
