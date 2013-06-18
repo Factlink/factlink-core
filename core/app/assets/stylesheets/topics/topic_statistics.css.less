@@ -1,24 +1,28 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-.topic-statistic {
-  float: left;
-  padding: 10px 15px 3px;
+.topic-statistics {
+  white-space: nowrap;
 
-  border-left:  1px solid @baseBorderColor;
-  border-right: 0px;
+  .topic-statistic {
+    display: inline-block;
+    padding: 10px 15px 3px;
 
-  .fading-border(@baseBorderColor);
+    border-left:  1px solid @baseBorderColor;
+    border-right: 0px;
 
-  &:first-child {
-    border-left: 0 solid transparent;
-  }
+    .fading-border(@baseBorderColor);
 
-  > .topic-statistic-authority {
-    font-size: 11px;
-  }
+    &:first-child {
+      border-left: 0 solid transparent;
+    }
 
-  > span.topic-statistic-title {
-    color: @mutedFontColor;
+    > .topic-statistic-authority {
+      font-size: 11px;
+    }
+
+    > span.topic-statistic-title {
+      color: @mutedFontColor;
+    }
   }
 }
