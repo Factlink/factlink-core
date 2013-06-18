@@ -11,5 +11,5 @@ else
   json.posted 'reposted'
 end
 
-json.topic { |j| j.partial! 'topics/topic', topic: topic }
+json.topic { |j| j.partial! 'user_topics/user_topic', user_topic: topic }
 json.fact { |j| j.partial! 'facts/fact', fact: subject }
