@@ -10,60 +10,67 @@ describe Commands::Facebook::ShareFactlink do
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      message = 'message'
-      fact_id = '1'
+      fact          = stub id: '1', url: mock
+      message       = 'message'
+      token, secret = mock, mock
 
-      fact = stub( url: mock )
-      current_user = mock
-
-      token = mock
-      secret = mock
       identities = {
         'facebook' =>  {
           'credentials' => {
             'token' => token, 'secret' => secret}
             }
           }
-      current_user.stub( identities: identities )
+
+      current_user = stub identities: identities
+
+      pavlov_options = { current_user: current_user,
+                         facebook_app_namespace: 'namespace' }
 
       client = mock
+      client.should_receive(:put_connections)
+            .with("me", "factlinkdevelopment:share", factlink: fact.url)
+
       Koala::Facebook::API.stub(:new)
                           .with(token)
                           .and_return(client)
 
-      client.should_receive(:put_connections)
-            .with("me", "factlinkdevelopment:share", factlink: fact.url)
-
-      # TODO: I don't want to pass `current_user: current_user` here. Why is this needed?
       Pavlov.stub(:query)
-            .with(:'facts/get_dead', fact_id, current_user: current_user)
+            .with(:'facts/get_dead', fact.id, pavlov_options)
             .and_return(fact)
 
-      command = described_class.new fact_id, message, current_user: current_user
+      command = described_class.new fact.id, message, pavlov_options
 
       command.call
     end
   end
 
   describe '#validate' do
-    it 'should validate if the message is a nonempty_string' do
-      message = 'message'
+    it 'if the message and @options[:facebook_app_namespace]
+        are a nonempty_string' do
+      message        = 'message'
+      namespace      = 'factlinkapp'
+      pavlov_options = { facebook_app_namespace: namespace }
 
       described_class.any_instance
         .should_receive(:validate_nonempty_string)
         .with(:message, message)
 
-      command = described_class.new '1', message
+      described_class.any_instance
+        .should_receive(:validate_nonempty_string)
+        .with(:facebook_app_namespace, namespace)
+
+      command = described_class.new '1', message, pavlov_options
     end
 
-    it 'should validate if the fact_id is an integer string' do
+    it 'if the fact_id is an integer string' do
       fact_id = '1'
 
       described_class.any_instance
         .should_receive(:validate_integer_string)
         .with(:fact_id, fact_id)
 
-      command = described_class.new fact_id, 'message'
+      command = described_class.new fact_id, 'message',
+                                    facebook_app_namespace: 'namespace'
     end
   end
 end

@@ -10,6 +10,7 @@ module Commands
       private
 
       def execute
+        # TODO: Use correct Facebook app here, depending on environment
         client.put_connections("me",
                 "factlinkdevelopment:share",
                 factlink: fact.url)
@@ -30,6 +31,8 @@ module Commands
       def validate
         validate_nonempty_string :message, message
         validate_integer_string :fact_id, fact_id
+        validate_nonempty_string :facebook_app_namespace,
+                                  @options[:facebook_app_namespace]
       end
     end
   end
