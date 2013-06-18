@@ -56,8 +56,8 @@ class Activity < OurOhm
 
   def valid_for_show?
     still_valid? and
-    ((not object.respond_to?(:valid_for_activity?))  or object.valid_for_activity?) and
-    ((not subject.respond_to?(:valid_for_activity?)) or subject.valid_for_activity?)
+      valid_for_activity?(subject) and
+      valid_for_activity?(object)
   end
 
   def timestamp
@@ -105,5 +105,10 @@ class Activity < OurOhm
     object or not object_id
   end
 
+  def valid_for_activity? thing
+    return true unless thing.respond_to?(:valid_for_activity?)
+
+    thing.valid_for_activity?
+  end
 end
 
