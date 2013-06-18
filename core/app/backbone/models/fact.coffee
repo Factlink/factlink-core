@@ -44,6 +44,14 @@ class window.Fact extends Backbone.Model
   # TODO: rename to is_mine
   i_am_owner: -> @user().is_current_user()
 
+  factUrlHost: ->
+    fact_url = @get('fact_url')
+    return '' unless fact_url
+
+    new Backbone.Factlink.Url(fact_url).host()
+
   toJSON: ->
     _.extend super(),
       i_am_owner: @i_am_owner()
+      fact_url_host: @factUrlHost()
+      fact_url_title: @get('fact_title') || @factUrlHost()
