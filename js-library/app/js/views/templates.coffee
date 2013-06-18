@@ -14,7 +14,7 @@ Factlink.templates.getTemplate = (str, callback = ->) ->
 Factlink.templates.preload = ->
   Factlink.templates.getTemplate 'indicator'
   Factlink.templates.getTemplate 'create', (template) ->
-    Factlink.prepare = new Factlink.Prepare template
+    Factlink.prepare = new Factlink.Prepare(template)
 
 fetchTemplate = (str, callback) ->
   requesting[str] = true
