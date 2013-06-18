@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Janitor::CleanActivityList do
   describe ".perform" do
-    it "should remove topics without channels" do
+    it "should remove activities which no longer exist from the list" do
       user = create :graph_user
 
       activity1 = create :activity
