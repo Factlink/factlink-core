@@ -1,3 +1,2 @@
 #!/bin/bash
-grunt jshint --no-color || exit 1
-exit
+grunt jshint --no-color

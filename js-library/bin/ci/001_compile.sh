@@ -1,3 +1,2 @@
 #!/bin/bash
-grunt compile --no-color || exit 1;
-exit
+grunt compile --no-color
