@@ -9,7 +9,7 @@
     background: #fff;
     min-height: 65px;
     line-height: 65px;
-    .box-shadow(0 0 0 4px rgba(0, 0, 0, .08));
+    .box-shadow(0 0 0 4px rgba(0, 0, 0, .05));
     border-bottom: 2px solid #999999;
     border-radius: 4px;
     max-width: 400px;
@@ -28,7 +28,7 @@
       margin-left: 70px;
       font-size: 15px;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      padding: 15px 20px;
+      padding: 18px 20px;
       display: inline-block;
       line-height: 1.5;
       vertical-align: middle;
@@ -50,15 +50,21 @@
     }
 
     &.fl-message-icon-time > .fl-message-icon {
-      background: data-uri('../images/icon-logo.png') center center no-repeat;
+      background-image: data-uri('../images/icon-clock.png');
+      background-position: center center;
+      background-repeat: no-repeat;
     }
 
     &.fl-message-icon-add > .fl-message-icon {
-      background: data-uri('../images/icon-logo-add.png') center center no-repeat;
+      background-image: data-uri('../images/icon-logo-add.png');
+      background-position: center center;
+      background-repeat: no-repeat;
     }
 
     &.fl-message-icon-logo > .fl-message-icon {
-      background: data-uri('../images/icon-logo.png') center center no-repeat;
+      background-image: data-uri('../images/icon-logo.png');
+      background-position: center center;
+      background-repeat: no-repeat;
     }
   }
 }
