@@ -35,6 +35,12 @@ class Activity < OurOhm
                         self, {current_user: true}
   end
 
+  before :delete, :remove_from_containing_sorted_sets
+  def remove_from_containing_sorted_sets
+    self.key[:containing_sorted_sets].smembers.each do |list|
+      Nest.new(list).zrem self.id
+    end
+    self.key[:containing_sorted_sets].del
   end
 
 
@@ -77,15 +83,6 @@ class Activity < OurOhm
   def remove_from_list list
     list.delete self
     self.key[:containing_sorted_sets].srem list.key.to_s
-  end
-
-  before :delete, :remove_from_containing_sorted_sets
-
-  def remove_from_containing_sorted_sets
-    self.key[:containing_sorted_sets].smembers.each do |list|
-      Nest.new(list).zrem self.id
-    end
-    self.key[:containing_sorted_sets].del
   end
 
   private
