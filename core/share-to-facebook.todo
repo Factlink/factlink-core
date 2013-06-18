@@ -1,8 +1,8 @@
 share to Facebook:
- ☐ Make sure facts show page (/facts/:id) contains the Facebook meta data
+ ✔ Make sure facts show page (/facts/:id) contains the Facebook meta data @done (13-06-18 15:55)
  ☐ Check texts and links that get posted to Facebook
 
- ☐ share to the correct Facebook app (depending on environment)
+ ✔ share to the correct Facebook app (depending on environment) @done (13-06-18 15:55)
 
  Create 'Share a Factlink' story in Facebook app:
  ✔ FactlinkDevelopment @done (13-06-18 10:01)
