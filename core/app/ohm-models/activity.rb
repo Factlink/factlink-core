@@ -19,8 +19,6 @@ class Activity < OurOhm
   attribute :action
   index     :action
 
-  include Pavlov::Helpers
-
   alias :old_set_user :user= unless method_defined?(:old_set_user)
   def user=(new_user)
     old_set_user new_user.graph_user
@@ -33,7 +31,10 @@ class Activity < OurOhm
 
   after :create, :send_mail_for_activity
   def send_mail_for_activity
-    interactor :send_mail_for_activity, self
+    Pavlov.interactor :send_mail_for_activity,
+                        self, {current_user: true}
+  end
+
   end
 
 
@@ -85,11 +86,6 @@ class Activity < OurOhm
       Nest.new(list).zrem self.id
     end
     self.key[:containing_sorted_sets].del
-  end
-
-  #Hack to make sure the mail interactor gets executed with authorization errors.
-  def pavlov_options
-    {current_user: true}
   end
 
   private
