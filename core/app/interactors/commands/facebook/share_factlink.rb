@@ -10,10 +10,7 @@ module Commands
       private
 
       def execute
-        # TODO: Use correct Facebook app here, depending on environment
-        client.put_connections("me",
-                "#{namespace}:share",
-                factlink: fact.url)
+        client.put_connections("me", "#{namespace}:share", factlink: fact.url)
       end
 
       def token
