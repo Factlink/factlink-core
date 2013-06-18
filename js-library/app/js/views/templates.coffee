@@ -9,14 +9,14 @@ Factlink.templates.getTemplate = (str, callback = ->) ->
     Factlink.el.bind "factlink.tmpl.#{str}", ->
       callback Factlink.tmpl[str]
 
-    fetchTemplate str, callback unless requesting[str]
+    fetchTemplate str unless requesting[str]
 
 Factlink.templates.preload = ->
   Factlink.templates.getTemplate 'indicator'
   Factlink.templates.getTemplate 'create', (template) ->
     Factlink.prepare = new Factlink.Prepare(template)
 
-fetchTemplate = (str, callback) ->
+fetchTemplate = (str) ->
   requesting[str] = true
 
   $.ajax
