@@ -4,6 +4,15 @@ module Commands
       include Pavlov::Command
       arguments :list_key
 
+      private
+
+      def execute
+        # the redis lib does not seem to accept removal of multiple elements
+        members_to_remove.each do |member_id|
+          list.zrem member_id
+        end
+      end
+
       def list
         @list ||= Nest.new(list_key)
       end
@@ -15,12 +24,6 @@ module Commands
         end
       end
 
-      def execute
-        # the redis lib does not seem to accept removal of multiple elements
-        members_to_remove.each do |member_id|
-          list.zrem member_id
-        end
-      end
     end
   end
 end
