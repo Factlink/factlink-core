@@ -2,7 +2,6 @@ module Commands
   module Activities
     class CleanList
       include Pavlov::Command
-      @queue = :janitor
       arguments :list_key
 
       def list
