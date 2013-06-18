@@ -7,7 +7,7 @@ class Channel < OurOhm
   include Activity::Subject
 
   def type
-    "channel"
+    'channel'
   end
 
   attribute :title
