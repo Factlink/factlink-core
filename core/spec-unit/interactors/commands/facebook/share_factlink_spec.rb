@@ -26,9 +26,6 @@ describe Commands::Facebook::ShareFactlink do
       pavlov_options = { current_user: stub(identities: identities),
                          facebook_app_namespace: namespace }
 
-      client.should_receive(:put_connections)
-            .with("me", "#{namespace}:share", factlink: fact.url)
-
       Koala::Facebook::API.stub(:new)
                           .with(token)
                           .and_return(client)
@@ -36,6 +33,9 @@ describe Commands::Facebook::ShareFactlink do
       Pavlov.stub(:query)
             .with(:'facts/get_dead', fact.id, pavlov_options)
             .and_return(fact)
+
+      client.should_receive(:put_connections)
+            .with("me", "#{namespace}:share", factlink: fact.url)
 
       command = described_class.new fact.id, message, pavlov_options
 
