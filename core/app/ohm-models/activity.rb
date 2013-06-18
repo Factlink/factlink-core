@@ -69,9 +69,7 @@ class Activity < OurOhm
   end
 
   def valid_for_show?
-    still_valid? and
-      valid_for_activity?(subject) and
-      valid_for_activity?(object)
+    still_valid?
   end
 
   def timestamp
@@ -104,12 +102,6 @@ class Activity < OurOhm
 
   def object_valid?
     object or not object_id
-  end
-
-  def valid_for_activity? thing
-    return true unless thing.respond_to?(:valid_for_activity?)
-
-    thing.valid_for_activity?
   end
 end
 

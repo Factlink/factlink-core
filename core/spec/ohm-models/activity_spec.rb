@@ -144,31 +144,6 @@ describe Activity do
       @a.stub(:still_valid?, 'false')
       @a.should_not be_valid_for_show
     end
-
-    it "is false when the subject is invalid" do
-      @a.subject.stub(valid_for_activity?: false)
-      @a.should_not be_valid_for_show
-    end
-    it 'is true when the subject is valid' do
-      @a.subject.stub(valid_for_activity?: true)
-      @a.should be_valid_for_show
-    end
-    it 'is true when the subject has no validity test' do
-      @a.should be_valid_for_show
-    end
-
-    it "is false when the object is invalid" do
-      @a.object.stub(valid_for_activity?: false)
-      @a.should_not be_valid_for_show
-    end
-    it 'is true when the object is valid' do
-      @a.object.stub(valid_for_activity?: true)
-      @a.should be_valid_for_show
-    end
-    it 'is true when the object has no validity test' do
-      @a.should be_valid_for_show
-    end
-
   end
 
   describe :to_hash_without_time do
