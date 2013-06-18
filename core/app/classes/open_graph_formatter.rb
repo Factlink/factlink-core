@@ -10,7 +10,11 @@ class OpenGraphFormatter
   private
 
   def rules
-    @rules ||= {
+    @rules ||= default_rules.clone
+  end
+
+  def default_rules
+    {
       'fb:app_id' => FactlinkUI::Application.config.omniauth_conf['facebook']['id'],
       'og:image'  => 'http://cdn.factlink.com/1/avatar.png'
     }
