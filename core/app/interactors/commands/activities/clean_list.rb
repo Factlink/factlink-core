@@ -20,11 +20,11 @@ module Commands
       def members_to_remove
         list.zrange(0,-1).select do |id|
           activity = Activity[id]
-          not valid_for_show(activity)
+          not valid(activity)
         end
       end
 
-      def valid_for_show activity
+      def valid activity
         activity and activity.still_valid?
       end
 
