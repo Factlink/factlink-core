@@ -29,7 +29,7 @@ class FactsController < ApplicationController
     respond_to do |format|
       format.html do
         dead_fact = query :'facts/get_dead', @fact.id
-        open_graph_fact = OpenGraph::Objects::Fact.new dead_fact
+        open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
         open_graph_formatter.add open_graph_fact
 
         render inline:'', layout: 'client'
