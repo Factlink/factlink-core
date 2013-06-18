@@ -50,7 +50,7 @@ class Activity < OurOhm
   def to_hash_without_time
     h = { user: user,
           action: action.to_sym,
-          subject: subject, }
+          subject: subject }
     h[:object] = object if object
     h
   end
