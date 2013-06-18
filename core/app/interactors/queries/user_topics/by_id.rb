@@ -6,9 +6,10 @@ module Queries
       arguments :id
 
       def execute
-        KillObject.topic topic,
-          facts_count: facts_count,
-          current_user_authority: current_user_authority
+        DeadUserTopic.new topic.slug_title,
+                          topic.title,
+                          current_user_authority,
+                          facts_count
       end
 
       def topic
