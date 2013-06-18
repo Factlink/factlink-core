@@ -26,14 +26,16 @@ describe OpenGraph::Object do
       expect(open_graph_object.to_hash).to eq({ 'og:foo' => 'bar' })
     end
 
-    it 'should raise when the value is falsy' do
-      DummyClass = Class.new OpenGraph::Object do
+    it 'should raise when no value is passed' do
+      OtherDummyClass = Class.new OpenGraph::Object do
         def initialize
-          open_graph_field :foo, ''
+          open_graph_field :foo
         end
       end
 
-      expect(DummyClass.new).to raise_error
+      expect {
+        OtherDummyClass.new
+      }.to raise_error
     end
   end
 end
