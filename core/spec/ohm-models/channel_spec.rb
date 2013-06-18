@@ -382,17 +382,5 @@ describe Channel do
         Channel[u2_ch1.id].should be_nil
       end
     end
-
-    describe "valid_for_activity" do
-      it "is false for a channel without facts" do
-        ch = create :channel
-        expect(ch.valid_for_activity?).to be_false
-      end
-      it "is false for a channel without facts" do
-        ch = create :channel
-        add_fact_to_channel create(:fact), ch
-        expect(ch.valid_for_activity?).to be_true
-      end
-    end
   end
 end

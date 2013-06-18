@@ -128,8 +128,4 @@ class Channel < OurOhm
   def topic
     Topic.for_channel self
   end
-
-  def valid_for_activity?
-    sorted_cached_facts.size > 0
-  end
 end
