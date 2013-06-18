@@ -4,7 +4,7 @@
   {{#showDiscussion}}
     <li>
       {{#global.signed_in}}
-        <a href="{{from_fact.url}}" class="discussion_link"
+        <a href="{{from_fact_sanitized.url}}" class="discussion_link"
           {{#modal?}}
             target="new"
           {{/modal?}}{{^modal?}}
@@ -22,17 +22,17 @@
     </li>
   {{/showDiscussion}}
 
-  {{#from_fact.proxy_scroll_url}}
+  {{#from_fact_sanitized.proxy_scroll_url}}
     <li class="fact-info">
-        {{#from_fact.fact_url_host}}
+        {{#from_fact_sanitized.fact_url_host}}
           <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain=
-        {{from_fact.fact_url_host}}" />
-        {{/from_fact.fact_url_host}}
-        <a href="{{from_fact.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
-          {{from_fact.fact_url_title}}
+        {{from_fact_sanitized.fact_url_host}}" />
+        {{/from_fact_sanitized.fact_url_host}}
+        <a href="{{from_fact_sanitized.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
+          {{from_fact_sanitized.fact_url_title}}
         </a>
     </li>
-  {{/from_fact.proxy_scroll_url}}
+  {{/from_fact_sanitized.proxy_scroll_url}}
 </ul>
 
 <i class="title-overflow"></i>
