@@ -16,7 +16,7 @@ describe Queries::UserTopics::ById do
   end
 
   describe '#call' do
-    it 'returns the topic Topic.find' do
+    it 'returns the user topic' do
       stub_classes 'Topic', 'DeadUserTopic'
 
       id = '1a'
