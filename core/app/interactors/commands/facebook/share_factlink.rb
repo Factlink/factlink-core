@@ -28,12 +28,6 @@ module Commands
         ::Koala::Facebook::API.new(token)
       end
 
-      def validate
-        validate_nonempty_string :message, message
-        validate_integer_string :fact_id, fact_id
-        validate_nonempty_string :facebook_app_namespace,
-                                  @options[:facebook_app_namespace]
-      end
     end
   end
 end

@@ -15,7 +15,9 @@ describe Interactors::Facts::ShareOnFacebook do
              .with(:share, Fact)
              .and_return(false)
 
-      pavlov_options = { current_user: mock, ability: ability }
+      pavlov_options = { current_user: mock,
+                         ability: ability,
+                         facebook_app_namespace: 'namespace' }
 
       expect do
         described_class.new '1', 'message', pavlov_options
@@ -30,7 +32,9 @@ describe Interactors::Facts::ShareOnFacebook do
       user    = mock
       ability = stub can?: true
 
-      pavlov_options = { current_user: user, ability: ability }
+      pavlov_options = { current_user: user,
+                         ability: ability,
+                         facebook_app_namespace: 'namespace' }
 
       Pavlov.should_receive(:command)
         .with(:'facts/share_on_facebook', fact_id, message, pavlov_options)
@@ -42,10 +46,11 @@ describe Interactors::Facts::ShareOnFacebook do
 
   describe '.validate' do
     it 'calls the correct validation methods' do
-      fact_id = '1'
-      message = 'message'
-      user    = mock
-      ability = stub can?: true
+      fact_id   = '1'
+      message   = 'message'
+      namespace = 'namespace'
+      user      = mock
+      ability   = stub can?: true
 
       described_class
         .any_instance
@@ -62,7 +67,14 @@ describe Interactors::Facts::ShareOnFacebook do
         .should_receive(:validate_not_nil)
         .with(:current_user, user)
 
-      pavlov_options = { current_user: user, ability: ability }
+      described_class.any_instance
+        .should_receive(:validate_nonempty_string)
+        .with(:facebook_app_namespace, namespace)
+
+      pavlov_options = { current_user: user,
+                         ability: ability,
+                         facebook_app_namespace: namespace
+                       }
 
       interactor = described_class.new fact_id, message, pavlov_options
     end

@@ -42,33 +42,4 @@ describe Commands::Facebook::ShareFactlink do
     end
   end
 
-  describe '#validate' do
-    it 'if the message and @options[:facebook_app_namespace]
-        are a nonempty_string' do
-      message        = 'message'
-      namespace      = 'factlinkapp'
-      pavlov_options = { facebook_app_namespace: namespace }
-
-      described_class.any_instance
-        .should_receive(:validate_nonempty_string)
-        .with(:message, message)
-
-      described_class.any_instance
-        .should_receive(:validate_nonempty_string)
-        .with(:facebook_app_namespace, namespace)
-
-      command = described_class.new '1', message, pavlov_options
-    end
-
-    it 'if the fact_id is an integer string' do
-      fact_id = '1'
-
-      described_class.any_instance
-        .should_receive(:validate_integer_string)
-        .with(:fact_id, fact_id)
-
-      command = described_class.new fact_id, 'message',
-                                    facebook_app_namespace: 'namespace'
-    end
-  end
 end
