@@ -31,6 +31,10 @@ class Activity < OurOhm
     Resque.enqueue(ProcessActivity, self.id)
   end
 
+  after :create, :send_mail_for_activity
+  def send_mail_for_activity
+    interactor :send_mail_for_activity, self
+  end
 
 
   def self.for(search_for)
@@ -86,10 +90,6 @@ class Activity < OurOhm
   #Hack to make sure the mail interactor gets executed with authorization errors.
   def pavlov_options
     {current_user: true}
-  end
-
-  def after_create
-    interactor :send_mail_for_activity, self
   end
 
   private
