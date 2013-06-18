@@ -64,8 +64,9 @@ module Acceptance
 
       def add_sub_comment(comment)
         fill_in 'text_area_view', with: comment
-        sleep 0.5 # To allow for the CSS animation
+        sleep 0.5 # To allow for the getting bigger CSS animation
         find('.evidence-sub-comments-button', text: 'Comment').click
+        sleep 0.5 # To allow for the getting smaller CSS animation
       end
 
       def assert_sub_comment_exists(comment)
