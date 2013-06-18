@@ -128,20 +128,22 @@ describe Queries::Facts::GetDead do
 
     it 'returns a fact which has an url' do
       fact_data = mock :fact_data,
-          displaystring: 'example fact text',
-          created_at: 15,
-          title: 'title'
-      site = mock :site, url: 'http://example.org/'
+                          displaystring: 'example fact text',
+                          created_at: 15,
+                          title: 'title'
+      site      = mock :site, url: 'http://example.org/'
       live_fact = mock :fact,
-          id: '1',
-          has_site?: true,
-          site: site,
-          data: fact_data
+                          id: '1',
+                          has_site?: true,
+                          site: site,
+                          data: fact_data
 
       interactor = Queries::Facts::GetDead.new live_fact.id
 
       Pavlov.stub query: mock
-      Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
+      Fact.stub(:[])
+          .with(live_fact.id)
+          .and_return(live_fact)
 
       interactor.stub(:url).and_return("/facts/1")
 

@@ -4,7 +4,7 @@ describe OpenGraphFormatter do
   describe '#to_hash' do
     it 'returns a hash with the two default keys by default' do
       default_rules = {}
-      formatter = described_class.new
+      formatter     = described_class.new
 
       formatter.should_receive(:default_rules).and_return(default_rules)
 
@@ -15,8 +15,8 @@ describe OpenGraphFormatter do
   describe '#add' do
     it 'adds the passed GraphObjects hash presentation to the rules' do
       default_rules = {foo: 'bar'}
-      graph_object = mock(to_hash: {bla: 'foo'})
-      formatter = described_class.new
+      graph_object  = mock to_hash: {bla: 'foo'}
+      formatter     = described_class.new
 
       formatter.should_receive(:default_rules).and_return(default_rules)
 
@@ -27,8 +27,8 @@ describe OpenGraphFormatter do
 
     it 'overwrites the default values when a GraphObject with the same key gets added' do
       default_rules = { foo: 'bar' }
-      graph_object = mock(to_hash: { foo: 'bla' })
-      formatter = described_class.new
+      graph_object  = mock to_hash: { foo: 'bla' }
+      formatter     = described_class.new
 
       formatter.should_receive(:default_rules).and_return(default_rules)
 
