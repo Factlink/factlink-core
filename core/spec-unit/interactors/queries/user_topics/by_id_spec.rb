@@ -1,7 +1,7 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/queries/user_topics/by_id'
 
-describe Queries::DeadUserTopics::ById do
+describe Queries::UserTopics::ById do
   include PavlovSupport
 
   describe '#validate' do
@@ -29,27 +29,17 @@ describe Queries::DeadUserTopics::ById do
 
       id = mock
       topic = mock(slug_title: mock, title: mock)
-      facts_count = mock
-      current_user_authority = mock
-      current_user = mock(graph_user: mock)
       dead_topic = mock
+      pavlov_options = {current_user: mock}
 
-      query = described_class.new id, current_user: current_user
+      query = described_class.new id, pavlov_options
 
       Topic.stub(:find).
         with(id).
         and_return(topic)
 
       query.stub(:query).
-        with(:'topics/facts_count', topic.slug_title).
-        and_return(facts_count)
-
-      query.stub(:query).
-        with(:authority_on_topic_for, topic, current_user.graph_user).
-        and_return(current_user_authority)
-
-      DeadUserTopic.stub(:new).
-        with(topic.slug_title, topic.title, current_user_authority, facts_count).
+        with(:'user_topics/by_topic', topic).
         and_return(dead_topic)
 
       result = query.execute
