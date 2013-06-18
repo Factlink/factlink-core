@@ -6,6 +6,7 @@ module Interactors
 
       # How to use this interactor:
       # Pavlov.interactor :'facts/share_on_facebook', :fact_id, :message,
+      #                     ability: Ability.new(user),
       #                     facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
 
       arguments :fact_id, :message
