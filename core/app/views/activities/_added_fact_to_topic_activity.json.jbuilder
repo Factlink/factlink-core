@@ -1,5 +1,7 @@
 channel = object
-topic = channel.topic
+
+pavlov_options = {current_user: current_user, ability: current_ability}
+topic = Pavlov.interactor :'topics/get', channel.slug_title, pavlov_options
 
 json.fact_displaystring truncate(subject.data.displaystring.to_s, length: 48)
 json.fact_url friendly_fact_path(subject)
@@ -10,7 +12,5 @@ else
   json.posted 'reposted'
 end
 
-json.topic_title             topic.title
-json.topic_url               topic_path(topic.slug_title)
-
+json.topic { |j| j.partial! 'topics/topic', topic: topic }
 json.fact { |j| j.partial! 'facts/fact', fact: subject }
