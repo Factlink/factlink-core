@@ -1,7 +1,7 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/queries/user_topics/by_id'
 
-describe Queries::UserTopics::ById do
+describe Queries::DeadUserTopics::ById do
   include PavlovSupport
 
   describe '#validate' do
@@ -25,10 +25,10 @@ describe Queries::UserTopics::ById do
     end
 
     it 'returns the topic Topic.find' do
-      stub_classes 'Topic', 'KillObject'
+      stub_classes 'Topic', 'DeadUserTopic'
 
       id = mock
-      topic = mock(slug_title: mock)
+      topic = mock(slug_title: mock, title: mock)
       facts_count = mock
       current_user_authority = mock
       current_user = mock(graph_user: mock)
@@ -48,8 +48,8 @@ describe Queries::UserTopics::ById do
         with(:authority_on_topic_for, topic, current_user.graph_user).
         and_return(current_user_authority)
 
-      KillObject.should_receive(:topic).
-        with(topic, facts_count: facts_count, current_user_authority: current_user_authority).
+      DeadUserTopic.stub(:new).
+        with(topic.slug_title, topic.title, current_user_authority, facts_count).
         and_return(dead_topic)
 
       result = query.execute
