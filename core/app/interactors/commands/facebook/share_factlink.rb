@@ -12,7 +12,7 @@ module Commands
       def execute
         # TODO: Use correct Facebook app here, depending on environment
         client.put_connections("me",
-                "factlinkdevelopment:share",
+                "#{namespace}:share",
                 factlink: fact.url)
       end
 
@@ -22,6 +22,10 @@ module Commands
 
       def fact
         @fact ||= query :'facts/get_dead', @fact_id
+      end
+
+      def namespace
+        @options[:facebook_app_namespace]
       end
 
       def client

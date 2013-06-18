@@ -14,6 +14,7 @@ describe Commands::Facebook::ShareFactlink do
       message  = 'message'
       token    = mock
       client   = mock
+      namespace = 'namespace'
 
       identities = {
         'facebook' =>  {
@@ -23,10 +24,10 @@ describe Commands::Facebook::ShareFactlink do
           }
 
       pavlov_options = { current_user: stub(identities: identities),
-                         facebook_app_namespace: 'namespace' }
+                         facebook_app_namespace: namespace }
 
       client.should_receive(:put_connections)
-            .with("me", "factlinkdevelopment:share", factlink: fact.url)
+            .with("me", "#{namespace}:share", factlink: fact.url)
 
       Koala::Facebook::API.stub(:new)
                           .with(token)
