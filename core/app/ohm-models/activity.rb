@@ -13,6 +13,12 @@ class Activity < OurOhm
   include Ohm::Timestamping
   reference :user, GraphUser
 
+  generic_reference :subject
+  generic_reference :object
+
+  attribute :action
+  index     :action
+
   include Pavlov::Helpers
 
   alias :old_set_user :user= unless method_defined?(:old_set_user)
@@ -26,11 +32,6 @@ class Activity < OurOhm
   end
 
 
-  generic_reference :subject
-  generic_reference :object
-
-  attribute :action
-  index     :action
 
   def self.for(search_for)
     res = find(subject_id: search_for.id, subject_class: search_for.class) |
