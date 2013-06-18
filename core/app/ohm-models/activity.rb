@@ -93,6 +93,7 @@ class Activity < OurOhm
   end
 
   private
+
   def user_valid?
     user or not user_id
   end
