@@ -1,5 +1,5 @@
 Frontend popover:
- ☐ Refactor HelptextPopover to not require a title
+ ✔ Refactor HelptextPopover to not require a title @done (13-06-18 09:37)
  ☐ Create a TopicPopover
  ☐ Show the TopicPopover for the relevant activities in the feed
  ☐ Add a follow button to the TopicPopover
