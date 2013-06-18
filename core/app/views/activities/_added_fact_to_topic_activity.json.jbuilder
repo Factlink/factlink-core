@@ -1,7 +1,6 @@
 channel = object
 
-pavlov_options = {current_user: current_user, ability: current_ability}
-topic = Pavlov.interactor :'topics/get', channel.slug_title, pavlov_options
+topic = query :'user_topics/by_slug_title', channel.slug_title
 
 json.fact_displaystring truncate(subject.data.displaystring.to_s, length: 48)
 json.fact_url friendly_fact_path(subject)
