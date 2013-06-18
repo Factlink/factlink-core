@@ -135,17 +135,6 @@ describe Activity do
     end
   end
 
-  describe '.valid' do
-    before :each do
-      @a = Activity.create user: gu, action: :foo, subject: Blob.create, object: Blob.create
-    end
-
-    it 'is false when still_valid is false' do
-      @a.stub(:still_valid?, 'false')
-      @a.should_not be_valid_for_show
-    end
-  end
-
   describe :to_hash_without_time do
     it "should return a hash without time" do
       hash = {user: gu, action: :does, subject: b1, object: b2}

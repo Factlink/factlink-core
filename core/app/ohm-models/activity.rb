@@ -68,10 +68,6 @@ class Activity < OurOhm
     user_valid? and subject_valid? and object_valid?
   end
 
-  def valid_for_show?
-    still_valid?
-  end
-
   def timestamp
     Ohm::Model::TimestampedSet.current_time(DateTime.parse(created_at))
   end

@@ -51,7 +51,7 @@ class ChannelActivitiesController < ApplicationController
       retrieved_activities = block.call(activities)
 
       resulting_activities = retrieved_activities.select do |a|
-        a[:item] and a[:item].valid_for_show?
+        a[:item] and a[:item].still_valid?
       end
 
       if resulting_activities.length != retrieved_activities.length
