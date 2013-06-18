@@ -63,7 +63,7 @@ class AddedFactToTopicView extends ActivityItemView
       container: @options.offsetParent
       align: 'left'
       side: 'bottom'
-      contentView: new TopicPopoverContentView
+      contentView: new TopicPopoverContentView model: @topic()
 
   topic: -> @_topic ?= new Topic(@model.get('activity').topic)
 
