@@ -1,6 +1,6 @@
 module Queries
-  module Topics
-    class ByIdWithAuthorityAndFactsCount
+  module UserTopics
+    class ById
       include Pavlov::Query
 
       arguments :id
