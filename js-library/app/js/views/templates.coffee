@@ -2,12 +2,12 @@ requesting = {}
 
 Factlink.templates = {}
 
-Factlink.templates.getTemplate = (str, callback) ->
+Factlink.templates.getTemplate = (str, callback = ->) ->
   if Factlink.tmpl[str]?
     callback Factlink.tmpl[str]
   else
     Factlink.el.bind "factlink.tmpl.#{str}", ->
-      callback(Factlink.tmpl[str]) if callback
+      callback Factlink.tmpl[str]
 
     if not requesting[str]
       requesting[str] = true
