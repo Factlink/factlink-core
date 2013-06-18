@@ -26,7 +26,7 @@ class Activity < OurOhm
 
   after :create, :process_activity
   def process_activity
-    Resque.enqueue(ProcessActivity, self.id)
+    Resque.enqueue(ProcessActivity, id)
   end
 
   after :create, :send_mail_for_activity
@@ -38,7 +38,7 @@ class Activity < OurOhm
   before :delete, :remove_from_containing_sorted_sets
   def remove_from_containing_sorted_sets
     self.key[:containing_sorted_sets].smembers.each do |list|
-      Nest.new(list).zrem self.id
+      Nest.new(list).zrem id
     end
     self.key[:containing_sorted_sets].del
   end
