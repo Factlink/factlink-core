@@ -55,12 +55,17 @@ class AddedFactToTopicView extends ActivityItemView
   className: 'separator-list-item'
   template: 'activities/added_fact_to_topic'
 
+  templateHelpers: ->
+    topic: @topic().toJSON()
+
   initialize: ->
     @tooltipAdd '.js-link', null, null,
       container: @options.offsetParent
       align: 'left'
       side: 'bottom'
       contentView: new TopicPopoverContentView
+
+  topic: -> @_topic ?= new Topic(@model.get('activity').topic)
 
 class AddedFactToTopicGroupView extends ActivitiesGroupView
   template: 'activities/added_fact_to_topic_group'
