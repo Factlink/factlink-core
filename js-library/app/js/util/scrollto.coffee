@@ -7,6 +7,6 @@ Factlink.scrollTo = (fact_id) ->
         axis: 'y'
 
 $(window).bind 'factlink.factsLoaded', ->
-  if Factlink? and FactlinkConfig? and FactlinkConfig.scrollto
+  if FactlinkConfig?.scrollto
     # Get al the facts on the current page
-    Factlink.scrollTo FactlinkConfig.scrollto
+    Factlink?.scrollTo FactlinkConfig.scrollto
