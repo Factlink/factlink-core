@@ -5,6 +5,8 @@ module Queries
 
       arguments :id
 
+      private
+
       def execute
         topic = Topic.find id
         query :'user_topics/by_topic', topic
