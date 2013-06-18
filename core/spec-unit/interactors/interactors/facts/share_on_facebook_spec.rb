@@ -37,7 +37,7 @@ describe Interactors::Facts::ShareOnFacebook do
                          facebook_app_namespace: 'namespace' }
 
       Pavlov.should_receive(:command)
-        .with(:'facts/share_on_facebook', fact_id, message, pavlov_options)
+        .with(:'facebook/share_factlink', fact_id, message, pavlov_options)
 
       interactor = described_class.new fact_id, message, pavlov_options
       interactor.call
