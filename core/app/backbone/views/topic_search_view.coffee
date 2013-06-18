@@ -6,4 +6,4 @@ class window.TopicSearchView extends Backbone.Marionette.Layout
     topicStatisticsRegion: '.js-topic-statistics-region'
 
   onRender: ->
-    @topicStatisticsRegion.show new TopicStatisticsView model: @model
+    @topicStatisticsRegion.show new TopicStatisticsView(model: @model)
