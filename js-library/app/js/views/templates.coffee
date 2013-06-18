@@ -12,7 +12,7 @@ Factlink.templates.getTemplate = (str, callback = ->) ->
     if not requesting[str]
       requesting[str] = true
 
-      $.ajax(
+      $.ajax
         url: "#{FactlinkConfig.api}/templates/#{str}"
         dataType: 'jsonp'
         crossDomain: true
@@ -21,7 +21,6 @@ Factlink.templates.getTemplate = (str, callback = ->) ->
         success: (data) ->
           Factlink.tmpl[str] = _.template(data)
           Factlink.el.trigger "factlink.tmpl.#{str}"
-      )
 
 Factlink.templates.preload = ->
   Factlink.templates.getTemplate 'indicator'
