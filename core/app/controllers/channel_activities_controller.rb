@@ -56,7 +56,7 @@ class ChannelActivitiesController < ApplicationController
         end
       end
       if resulting_activities.length != retrieved_activities.length
-        Resque.enqueue(Janitor::CleanActivityList,activities.key.to_s)
+        Resque.enqueue(Commands::Activities::CleanList,activities.key.to_s)
       end
       return resulting_activities
     end
