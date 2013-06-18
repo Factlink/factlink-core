@@ -74,6 +74,14 @@ module.exports = (grunt) ->
       development:
         files:
           'dist/css/basic.css': 'app/css/basic.less'
+    cssmin:
+      minify:
+        options:
+          banner: banner_template
+        expand: true,
+        cwd: 'dist/css/',
+        src: ['*.css'],
+        dest: 'dist/server/css/'
     qunit:
       all: ['test/*.html']
     watch:
@@ -136,7 +144,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
   grunt.registerTask 'default', ['compile', 'test', 'uglify']
-  grunt.registerTask 'server',  ['compile', 'uglify']
+  grunt.registerTask 'server',  ['compile', 'uglify', 'cssmin']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
@@ -146,3 +154,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-qunit'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-cssmin'
