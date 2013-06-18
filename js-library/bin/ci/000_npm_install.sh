@@ -1,3 +1,2 @@
 #!/bin/bash
-npm install --no-color || exit 1
-exit
+npm install --no-color
