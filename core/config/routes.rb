@@ -85,7 +85,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  resources :feedback
+  resources :feedback # TODO RESTRICT
 
   get "/:fact_slug/f/:id" => "facts#discussion_page", as: "frurl_fact"
 
