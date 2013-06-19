@@ -1,5 +1,5 @@
-class SubCommentPopoverView extends Backbone.Factlink.PopoverView
-  template: 'sub_comments/popover'
+class SubCommentPoparrowView extends Backbone.Factlink.PopArrowView
+  template: 'sub_comments/poparrow'
 
   initialize: (options)->
     @delete_message = options.delete_message
@@ -18,18 +18,18 @@ class window.SubCommentView extends Backbone.Marionette.Layout
   template: 'sub_comments/sub_comment'
 
   regions:
-    popoverRegion: '.js-region-evidence-sub-comment-popover'
+    poparrowRegion: '.js-region-evidence-sub-comment-poparrow'
 
   templateHelpers: => creator: @model.creator().toJSON()
 
   initialize: -> @bindTo @model, 'change', @render, @
 
   onRender: ->
-    @setPopover() if Factlink.Global.signed_in
+    @setPoparrow() if Factlink.Global.signed_in
 
-  setPopover: ->
+  setPoparrow: ->
     if @model.can_destroy()
-      popoverView = new SubCommentPopoverView
+      poparrowView = new SubCommentPoparrowView
                           model: @model,
                           delete_message: 'Remove this comment'
-      @popoverRegion.show popoverView
+      @poparrowRegion.show poparrowView

@@ -1,6 +1,6 @@
 #= require ./facts/fact_base_view
-class FactPopoverView extends Backbone.Factlink.PopoverView
-  template: 'facts/popover'
+class FactPoparrowView extends Backbone.Factlink.PopArrowView
+  template: 'facts/poparrow'
 
   events:
     "click .hide-from-channel": "removeFactFromChannel"
@@ -39,7 +39,7 @@ class window.FactView extends Backbone.Marionette.Layout
   regions:
     factBaseView: '.fact-base-region'
     factBottomView: '.fact-bottom-region'
-    popoverRegion: '.js-region-popover'
+    poparrowRegion: '.js-region-poparrow'
 
   initialize: (opts) ->
     @bindTo @model, "destroy", @close, @
@@ -56,7 +56,7 @@ class window.FactView extends Backbone.Marionette.Layout
     @factBottomView.show @newFactBottomView()
 
     if Factlink.Global.signed_in
-      @setPopover()
+      @setPoparrow()
 
     @$(".authority").tooltip()
 
@@ -74,9 +74,9 @@ class window.FactView extends Backbone.Marionette.Layout
       hide_discussion_link: @options.standalone
       show_timestamp: @options.standalone
 
-  setPopover: ->
-    popoverView = new FactPopoverView model: @model
-    @popoverRegion.show popoverView
+  setPoparrow: ->
+    poparrowView = new FactPoparrowView model: @model
+    @poparrowRegion.show poparrowView
 
   remove: -> @$el.fadeOut "fast", -> $(this).remove()
 

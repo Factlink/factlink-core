@@ -129,7 +129,7 @@ feature "adding comments to a fact", type: :request do
     add_comment comment
 
     within evidence_listing_css_selector do
-      find('.evidence-popover-arrow').click
+      find('.evidence-poparrow-arrow').click
       find('.delete').click
     end
 
