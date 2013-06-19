@@ -1,7 +1,7 @@
 require 'pavlov'
 require 'cgi'
 
-class UrlBuilder
+class FactUrl
 
   def initialize fact
     @fact = fact

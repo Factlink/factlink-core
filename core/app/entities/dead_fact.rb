@@ -16,6 +16,6 @@ DeadFact = Struct.new(
   end
 
   def url
-    @url_builder || ::UrlBuilder.new(self)
+    @fact_url || FactUrl.new(self)
   end
 end

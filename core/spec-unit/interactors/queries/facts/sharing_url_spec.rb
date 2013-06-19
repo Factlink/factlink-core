@@ -18,10 +18,10 @@ describe Queries::Facts::SharingUrl do
       fact = mock(id: "1", proxy_scroll_url: nil, slug: 'slug')
       friendly_fact_url = "friendly_fact_url"
 
-      stub_classes('UrlBuilder')
+      stub_classes('FactUrl')
 
       url_builder = stub friendly_fact_url: friendly_fact_url
-      UrlBuilder.stub(:new)
+      FactUrl.stub(:new)
                 .with(fact)
                 .and_return(url_builder)
 
