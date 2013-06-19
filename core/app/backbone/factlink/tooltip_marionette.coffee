@@ -5,6 +5,9 @@ do ->
   #  parentView: marionette view
   #  tooltipViewFactory: -> view
   #  selector: selector identifying what can be hovered over.
+  #  $offsetParent: a dom node within which to position the
+  #    tooltip with respect to the target (hovered) node. By
+  #    default, uses parentView.$el.
 
   Backbone.Factlink.Tooltip = (options) ->
     positionedRegion = null
@@ -18,7 +21,8 @@ do ->
       positionedRegion =
         new Backbone.Factlink.PositionedRegion regionOptions
       positionedRegion.show new PopoverView regionOptions
-      positionedRegion.bindToElement($target, $el)
+      positionedRegion.bindToElement $target,
+        options.$offsetParent || $el
       positionedRegion.updatePosition()
       positionedRegion.$el
 
