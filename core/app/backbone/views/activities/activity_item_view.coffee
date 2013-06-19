@@ -59,7 +59,7 @@ class AddedFactToTopicView extends ActivityItemView
     topic: @topic().toJSON()
 
   initialize: ->
-    @tooltipAdd '.js-link', null, null,
+    @tooltipAdd '.js-link',
       container: @options.offsetParent
       align: 'left'
       side: 'bottom'
