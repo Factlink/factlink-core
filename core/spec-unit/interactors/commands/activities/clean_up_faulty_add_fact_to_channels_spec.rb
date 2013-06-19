@@ -24,11 +24,11 @@ describe Commands::Activities::CleanUpFaultyAddFactToChannels do
         activities_by_id[id]
       end
 
-      command = described_class.new
 
       activities_by_id[2].should_receive(:delete)
       activities_by_id[4].should_receive(:delete)
 
+      command = described_class.new
       command.call
     end
   end

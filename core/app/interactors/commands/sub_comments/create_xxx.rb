@@ -20,7 +20,7 @@ module Commands
 
       def validate
         validate_not_nil            :user, @user
-        validate_regex              :content, @content, /\A.+\Z/,
+        validate_regex              :content, @content, /\S/,
           "should not be empty."
         validate_in_set             :parent_class, @parent_class,
           ['Comment','FactRelation']

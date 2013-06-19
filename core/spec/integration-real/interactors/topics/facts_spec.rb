@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Interactors::Topics::Facts do
   include PavlovSupport
-  include Pavlov::Helpers
 
   let(:user1) {create :user}
   let(:user2) {create :user}
