@@ -10,7 +10,8 @@ Backbone.Factlink ||= {}
 
 Backbone.Factlink.Tooltip = (options) ->
   positionedRegion =
-    new Backbone.Factlink.PositionedRegion options.positioning
+    new Backbone.Factlink.PositionedRegion _.defaults options.positioning,
+      fadeTime: 100
 
   makeTooltip = ($el, $target) ->
     popoverOptions = _.defaults
