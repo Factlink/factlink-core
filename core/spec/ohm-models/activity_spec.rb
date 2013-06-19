@@ -20,7 +20,26 @@ describe Activity do
     end
   end
 
+  describe "mailing activities" do
+    context "creating an activity" do
+      it "should invoke send_mail_for_activity" do
+        interactor = mock()
+        Interactors::SendMailForActivity.stub(:new)
+            .and_return(interactor)
+        interactor.should_receive(:call)
+
+        Activity.create
+      end
+    end
+  end
+
   context "after creating one activity" do
+    before do
+      Pavlov.stub(:interactor)
+            .with(:send_mail_for_activity, anything, anything)
+            .and_return(nil)
+    end
+
     before :each do
       a = Activity.create(
              :user => gu,
@@ -114,42 +133,6 @@ describe Activity do
       @a.object = nil
       @a.should be_still_valid
     end
-  end
-
-  describe '.valid' do
-    before :each do
-      @a = Activity.create user: gu, action: :foo, subject: Blob.create, object: Blob.create
-    end
-
-    it 'is false when still_valid is false' do
-      @a.stub(:still_valid?, 'false')
-      @a.should_not be_valid_for_show
-    end
-
-    it "is false when the subject is invalid" do
-      @a.subject.stub(valid_for_activity?: false)
-      @a.should_not be_valid_for_show
-    end
-    it 'is true when the subject is valid' do
-      @a.subject.stub(valid_for_activity?: true)
-      @a.should be_valid_for_show
-    end
-    it 'is true when the subject has no validity test' do
-      @a.should be_valid_for_show
-    end
-
-    it "is false when the object is invalid" do
-      @a.object.stub(valid_for_activity?: false)
-      @a.should_not be_valid_for_show
-    end
-    it 'is true when the object is valid' do
-      @a.object.stub(valid_for_activity?: true)
-      @a.should be_valid_for_show
-    end
-    it 'is true when the object has no validity test' do
-      @a.should be_valid_for_show
-    end
-
   end
 
   describe :to_hash_without_time do

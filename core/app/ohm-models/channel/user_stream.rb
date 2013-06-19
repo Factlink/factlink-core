@@ -3,11 +3,11 @@ class Channel < OurOhm
     include Channel::GeneratedChannel
 
     def type
-      "stream"
+      'stream'
     end
 
     def add_fields
-      self.title = "All"
+      self.title = 'All'
     end
 
     def activities

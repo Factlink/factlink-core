@@ -49,16 +49,16 @@ class ChannelActivitiesController < ApplicationController
   private
     def sanitized_activities(activities, &block)
       retrieved_activities = block.call(activities)
-      resulting_activities = []
-      retrieved_activities.each do |a|
-        if a.andand[:item].andand.valid_for_show?
-          resulting_activities << a
-        end
+
+      resulting_activities = retrieved_activities.select do |a|
+        a[:item] and a[:item].still_valid?
       end
+
       if resulting_activities.length != retrieved_activities.length
-        Resque.enqueue(Janitor::CleanActivityList,activities.key.to_s)
+        Resque.enqueue(Commands::Activities::CleanList,activities.key.to_s)
       end
-      return resulting_activities
+
+      resulting_activities
     end
 
     def get_user

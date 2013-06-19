@@ -40,4 +40,3 @@ class window.FactRelation extends Backbone.Model
   validate: (attributes) ->
     unless attributes.evidence_id? or /^.*\S.*$/.test(attributes.displaystring)
       'Should have either an evidence_id or a displaystring'
-

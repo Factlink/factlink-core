@@ -3,11 +3,11 @@ class Channel < OurOhm
     include Channel::GeneratedChannel
 
     def type
-      "created"
+      'created'
     end
 
     def add_fields
-      self.title = "Created"
+      self.title = 'Created'
     end
     before :validate, :add_fields
 
