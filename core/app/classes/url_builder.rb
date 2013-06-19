@@ -1,7 +1,6 @@
 require 'pavlov'
 
 class UrlBuilder
-  include Pavlov::Helpers
 
   def self.fact_url fact
     self.full_url "facts/#{fact.id}"
