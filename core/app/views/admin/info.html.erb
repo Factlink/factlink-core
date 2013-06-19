@@ -11,3 +11,15 @@
 Version <%= RUBY_VERSION %>-p<%= RUBY_PATCHLEVEL %>
 <h1>Rails::Info</h1>
 <%= @info.html_safe %>
+<h1>ENV</h1>
+<table>
+  <tbody>
+    <% ENV.each do |env| %>
+    <tr>
+      <th style="text-align: left;"><%= env[0] %></th>
+      <td><%= env[1] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
