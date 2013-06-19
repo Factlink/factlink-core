@@ -43,7 +43,7 @@ class SitesController < ApplicationController
 
   def top_topics
     @topics = interactor :'site/top_topics', params[:url], 3
-    render 'topics/index'
+    render 'topics/index', formats: [:json]
   end
 
   private
