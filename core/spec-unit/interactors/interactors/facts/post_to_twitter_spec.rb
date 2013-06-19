@@ -5,7 +5,7 @@ describe Interactors::Facts::PostToTwitter do
   include PavlovSupport
 
   before do
-    stub_classes 'Fact', 'Twitter'
+    stub_classes 'Fact', 'Twitter', 'FactUrl'
 
     Twitter.stub configuration: mock(short_url_length_https: 20)
   end
@@ -28,6 +28,7 @@ describe Interactors::Facts::PostToTwitter do
       message = "message"
       fact = mock(id: "1")
       sharing_url = 'sharing_url'
+      fact_url = mock sharing_url: sharing_url
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
 
@@ -35,9 +36,9 @@ describe Interactors::Facts::PostToTwitter do
         .with(:"facts/get_dead", fact.id, pavlov_options)
         .and_return(fact)
 
-      Pavlov.stub(:query)
-        .with(:"facts/sharing_url", fact, pavlov_options)
-        .and_return(sharing_url)
+      FactUrl.stub(:new)
+             .with(fact)
+             .and_return(fact_url)
 
       Pavlov.should_receive(:command)
         .with(:"twitter/post", "message sharing_url", pavlov_options)

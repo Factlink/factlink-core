@@ -11,9 +11,12 @@ class FactUrl
     full_url "facts/#{@fact.id}"
   end
 
+  def friendly_fact_path
+    "#{slug}/f/#{@fact.id}"
+  end
+
   def friendly_fact_url
-    slug = Pavlov.query :"facts/slug", @fact, nil
-    full_url "#{slug}/f/#{@fact.id}"
+    full_url friendly_fact_path
   end
 
   def proxy_scroll_url
@@ -21,6 +24,10 @@ class FactUrl
 
     proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
       "&scrollto=" + URI.escape(@fact.id)
+  end
+
+  def sharing_url
+    proxy_scroll_url || friendly_fact_url
   end
 
   private
@@ -35,6 +42,11 @@ class FactUrl
 
   def proxy_url
     FactlinkUI::Application.config.proxy_url
+  end
+
+  def slug
+    max_slug_length = 1024
+    @fact.to_s.parameterize[0, max_slug_length]
   end
 
 end

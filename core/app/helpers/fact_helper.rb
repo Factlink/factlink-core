@@ -7,8 +7,9 @@ module FactHelper
   end
 
   def friendly_fact_path(fact, max_slug_length = 1024)
-    slug = Pavlov.query :"facts/slug", fact, max_slug_length
-    frurl_fact_path(slug, fact.id)
+    # Obsolete method
+    dead_fact = Pavlov.query :'facts/get_dead', fact.id.to_s
+    FactUrl.new(dead_fact).friendly_fact_path
   end
 
   def friendly_fact_with_opened_tab_url(fact, tab_type)
@@ -16,7 +17,8 @@ module FactHelper
   end
 
   def friendly_fact_url(fact, max_slug_length = 1024)
-    slug = Pavlov.query :"facts/slug", fact, max_slug_length
-    frurl_fact_url(slug, fact.id)
+    # Obsolete method
+    dead_fact = Pavlov.query :'facts/get_dead', fact.id.to_s
+    FactUrl.new(dead_fact).friendly_fact_url
   end
 end
