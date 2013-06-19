@@ -9,7 +9,7 @@ unFocusElement = (element) ->
   $(element).css('z-index', oldZIndex)
   oldZIndex = 0
 
-Backbone.Factlink.TooltipMixin =
+Backbone.Factlink.PopoverMixin =
 
   default_options:
     side: 'left'
@@ -20,12 +20,12 @@ Backbone.Factlink.TooltipMixin =
     orthogonalOffset: 0
     helpStyle: true
 
-  tooltipAdd: (selector, options) ->
+  popoverAdd: (selector, options) ->
     @tooltip_options = _.extend {}, @default_options, options
 
     @_tooltips ?= {}
     if @_tooltips[selector]?
-      throw "Cannot call tooltipAdd multiple times with the same selector: #{selector}"
+      throw "Cannot call popoverAdd multiple times with the same selector: #{selector}"
 
     unless options.contentView?
       @tooltip_options.contentView = new Backbone.Marionette.ItemView template: options.contentTemplate
