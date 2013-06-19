@@ -32,6 +32,3 @@ Backbone.Factlink.Tooltip = (options) ->
 
   options.parentView.on 'close', closeHandler.close
 
-
-
-

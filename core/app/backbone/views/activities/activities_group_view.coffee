@@ -47,7 +47,7 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   actions: -> UserActivitiesGroupView.actions
 
   itemViewOptions: ->
-    offsetParent: @$el
+    $offsetParent: @$el
 
   sameUser: (model) -> @model.user().get('username') == model.user().get('username')
 

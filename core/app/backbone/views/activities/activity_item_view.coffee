@@ -65,7 +65,7 @@ class AddedFactToTopicView extends ActivityItemView
         align: 'left'
         side: 'bottom'
       selector: '.js-link'
-      $offsetParent: @options.offsetParent
+      $offsetParent: @options.$offsetParent
       tooltipViewFactory: =>
         new TopicPopoverContentView model: @topic()
 
