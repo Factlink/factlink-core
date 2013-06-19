@@ -19,15 +19,10 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   templateHelpers: ->
     fact = @model.getFact?()
 
-    showDiscussion: ->
-      @from_fact?
-
-    fact_url_host: ->
-      if @from_fact?.fact_url?
-        new Backbone.Factlink.Url(@from_fact?.fact_url).host()
-
+    showDiscussion: -> @from_fact?
     believe_percentage: fact?.opinionPercentage('believe')
     disbelieve_percentage: fact?.opinionPercentage('disbelieve')
+    from_fact_sanitized: fact?.toJSON()
 
   onRender: ->
     @bindTo @model, 'change:sub_comments_count', @updateSubCommentsLink, @

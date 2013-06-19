@@ -1,5 +1,8 @@
 class GraphUser < OurOhm
-  # helper
+  # small helper so we can write functions which
+  # accept both users and graph_users
+  # mostly legacy, but hard to debug whether we still need
+  # this, so leaving for now.
   def graph_user
     self
   end

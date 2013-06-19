@@ -24,8 +24,4 @@ class SubComment
       return :supporting
     end
   end
-
-  def valid_for_activity?
-    parent
-  end
 end

@@ -7,7 +7,7 @@ class Channel < OurOhm
   include Activity::Subject
 
   def type
-    "channel"
+    'channel'
   end
 
   attribute :title
@@ -127,9 +127,5 @@ class Channel < OurOhm
 
   def topic
     Topic.for_channel self
-  end
-
-  def valid_for_activity?
-    sorted_cached_facts.size > 0
   end
 end
