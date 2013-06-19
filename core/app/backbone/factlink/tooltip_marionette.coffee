@@ -20,14 +20,14 @@ do ->
 
       positionedRegion =
         new Backbone.Factlink.PositionedRegion regionOptions
-      positionedRegion.show new PopoverView regionOptions
       positionedRegion.bindToElement $target,
         options.$offsetParent || $el
+      positionedRegion.show new PopoverView regionOptions
       positionedRegion.updatePosition()
       positionedRegion.$el
 
     remover = ->
-      positionedRegion.reset()
+      positionedRegion.resetFade()
       positionedRegion = null
 
 
