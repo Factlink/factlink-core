@@ -22,6 +22,7 @@ describe ChannelActivitiesController do
   describe "#index" do
     it "should render" do
       authenticate_user!(user)
+      should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, ch1
       get :index, username: user.username, channel_id: ch1.id
       response.should be_success
