@@ -12,7 +12,7 @@ class FactUrl
   end
 
   def friendly_fact_path
-    "#{slug}/f/#{@fact.id}"
+    "/#{slug}/f/#{@fact.id}"
   end
 
   def friendly_fact_url

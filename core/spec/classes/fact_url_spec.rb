@@ -27,7 +27,7 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.friendly_fact_path)
-        .to eq "this-is-a-friendly-fact/f/2"
+        .to eq "/this-is-a-friendly-fact/f/2"
     end
   end
 
