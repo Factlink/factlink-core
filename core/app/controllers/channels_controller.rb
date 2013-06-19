@@ -22,10 +22,6 @@ class ChannelsController < ApplicationController
     @channels = interactor :'channels/visible_of_user_for_user', @user
   end
 
-  def backbone_page
-    render_backbone_page
-  end
-
   def show
     authorize! :show, @channel
     respond_to do |format|

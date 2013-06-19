@@ -47,6 +47,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def notification_settings
+    render_backbone_page
+  end
+
   def search
     authorize! :index, User
     @users = interactor :search_user, params[:s]

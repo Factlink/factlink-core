@@ -134,7 +134,7 @@ FactlinkUI::Application.routes.draw do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
 
-    get 'notification-settings' => "channels#backbone_page", as: "user_notification_settings"
+    get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
     scope "/activities" do
       get "/" => "users#activities", as: "activities"
