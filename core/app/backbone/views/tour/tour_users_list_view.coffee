@@ -47,7 +47,7 @@ class TourUserView extends Backbone.Marionette.Layout
   showAuthorityPopover: ->
     return if @model.user_topics().isEmpty()
 
-    @tooltipAdd '.js-topic', "What is this?", "",
+    @tooltipAdd '.js-topic',
       side: 'right'
       align: 'top'
       orthogonalOffset: -2

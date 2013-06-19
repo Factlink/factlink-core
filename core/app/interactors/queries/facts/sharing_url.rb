@@ -1,3 +1,5 @@
+require_relative '../../../../app/classes/url_builder'
+
 module Queries
   module Facts
     class SharingUrl
@@ -14,8 +16,7 @@ module Queries
       end
 
       def friendly_fact_url
-        slug = query :"facts/slug", fact, nil
-        frurl_fact_url(slug, fact.id)
+        ::UrlBuilder.friendly_fact_url fact
       end
     end
   end

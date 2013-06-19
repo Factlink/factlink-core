@@ -18,15 +18,12 @@ describe Queries::Facts::SharingUrl do
       fact = mock(id: "1", proxy_scroll_url: nil, slug: 'slug')
       friendly_fact_url = "friendly_fact_url"
 
-      Pavlov.stub(:query)
-        .with(:"facts/slug", fact, nil)
-        .and_return(fact.slug)
+      stub_classes('UrlBuilder')
+      UrlBuilder.stub(friendly_fact_url)
+                .with(fact)
+                .and_return(friendly_fact_url)
 
       query = described_class.new fact
-
-      query.stub(:frurl_fact_url)
-        .with(fact.slug, fact.id)
-        .and_return(friendly_fact_url)
 
       expect(query.call).to eq friendly_fact_url
     end
