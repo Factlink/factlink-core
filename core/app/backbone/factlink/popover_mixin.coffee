@@ -21,57 +21,55 @@ Backbone.Factlink.PopoverMixin =
     helpStyle: true
 
   popoverAdd: (selector, options) ->
-    @tooltip_options = _.extend {}, @default_options, options
+    @popover_options = _.extend {}, @default_options, options
 
-    @_tooltips ?= {}
-    if @_tooltips[selector]?
+    @_popovers ?= {}
+    if @_popovers[selector]?
       throw "Cannot call popoverAdd multiple times with the same selector: #{selector}"
 
     unless options.contentView?
-      @tooltip_options.contentView = new Backbone.Marionette.ItemView template: options.contentTemplate
+      @popover_options.contentView = new Backbone.Marionette.ItemView template: options.contentTemplate
 
-    view = new PopoverView @tooltip_options
+    view = new PopoverView @popover_options
 
-    FactlinkApp.Overlay.show() if @tooltip_options['show_overlay']
-    focusElement(@tooltip_options['focus_on']) if @tooltip_options['focus_on']
+    FactlinkApp.Overlay.show() if @popover_options['show_overlay']
+    focusElement(@popover_options['focus_on']) if @popover_options['focus_on']
 
-    positionedRegion = new Backbone.Factlink.PositionedRegion @tooltip_options
+    positionedRegion = new Backbone.Factlink.PositionedRegion @popover_options
     positionedRegion.crossFade view
 
-    container = @tooltip_options.container || @$el
+    container = @popover_options.container || @$el
 
-    @_tooltips[selector] = { positionedRegion, container, view }
+    @_popovers[selector] = { positionedRegion, container, view }
 
-    @tooltipBindAll() unless @isClosed
-    @on 'render', @tooltipBindAll
-    @on 'close', @tooltipResetAll
+    @_popoverBindAll() unless @isClosed
+    @on 'render', @_popoverBindAll
+    @on 'close', @popoverResetAll
 
-  tooltipRemove: (selector, fade=true) ->
-    tooltip = @_tooltips[selector]
-    if tooltip?
-      FactlinkApp.Overlay.hide() if @tooltip_options['show_overlay']
-      unFocusElement(@tooltip_options['focus_on']) if @tooltip_options['focus_on']
+  popoverRemove: (selector, fade=true) ->
+    popover = @_popovers[selector]
+    if popover?
+      FactlinkApp.Overlay.hide() if @popover_options['show_overlay']
+      unFocusElement(@popover_options['focus_on']) if @popover_options['focus_on']
 
       if fade
-        tooltip.positionedRegion.resetFade()
+        popover.positionedRegion.resetFade()
       else
-        tooltip.positionedRegion.reset()
+        popover.positionedRegion.reset()
 
-      delete @_tooltips[selector]
+      delete @_popovers[selector]
 
-  tooltipBindAll: ->
-    for selector, tooltip of @_tooltips
+  _popoverBindAll: ->
+    for selector, popover of @_popovers
       $bindEl = @$(selector).first()
-      tooltip.positionedRegion.bindToElement($bindEl, tooltip.container)
+      popover.positionedRegion.bindToElement($bindEl, popover.container)
 
-    @tooltipUpdateAll()
+    @_popoverUpdateAll()
 
-  tooltipUpdateAll: ->
-    for selector, tooltip of @_tooltips
-      tooltip.positionedRegion.updatePosition()
+  _popoverUpdateAll: ->
+    for selector, popover of @_popovers
+      popover.positionedRegion.updatePosition()
 
-  tooltipResetAll: ->
-    for selector, tooltip of @_tooltips
-      @tooltipRemove(selector, false)
-
-  tooltip: (selector) -> @_tooltips[selector]
+  popoverResetAll: ->
+    for selector, popover of @_popovers
+      @popoverRemove(selector, false)

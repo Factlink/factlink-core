@@ -41,7 +41,7 @@ class TourUserView extends Backbone.Marionette.Layout
   authorityPopover: ->
     unless @_authorityPopover?
       @_authorityPopover = new TourAuthorityPopoverView
-      @bindTo @_authorityPopover, 'next', @tooltipResetAll
+      @bindTo @_authorityPopover, 'next', @popoverResetAll
     @_authorityPopover
 
   showAuthorityPopover: ->

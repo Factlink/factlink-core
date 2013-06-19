@@ -81,7 +81,7 @@ class window.InteractiveTour extends Backbone.View
             contentTemplate: 'tour/lets_create'
 
         onleavestarted: =>
-          @tooltipRemove '.create-your-first-factlink-content > p:first'
+          @popoverRemove '.create-your-first-factlink-content > p:first'
           @state.transition()
 
         ontext_selected: =>
@@ -92,7 +92,7 @@ class window.InteractiveTour extends Backbone.View
             contentTemplate: 'tour/extension_button'
 
         onleavetext_selected: =>
-          @tooltipRemove '#extension-button',
+          @popoverRemove '#extension-button',
           @state.transition()
 
         onfactlink_created: =>
@@ -101,7 +101,7 @@ class window.InteractiveTour extends Backbone.View
           Backbone.Factlink.asyncChecking @factlinkFirstExists, @addFactlinkFirstTooltip, @
 
         onleavefactlink_created: =>
-          @tooltipRemove '.factlink.fl-first'
+          @popoverRemove '.factlink.fl-first'
           @state.transition()
 
   factlinkFirstExists: ->

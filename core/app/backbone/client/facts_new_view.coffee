@@ -140,7 +140,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   closeOpinionHelptext: ->
     if FactlinkApp.guided
-      @tooltipRemove('.fact-wheel')
+      @popoverRemove('.fact-wheel')
       @openFinishHelptext()
 
   openFinishHelptext: ->
