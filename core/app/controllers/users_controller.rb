@@ -84,6 +84,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def load_user
     username = params[:username] || params[:id]
     @user = query :user_by_username, username
