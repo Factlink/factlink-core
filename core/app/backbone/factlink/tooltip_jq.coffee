@@ -19,30 +19,30 @@ ttCounter = 0
 
 #returns an object with a close method which when called
 #removes all open tooltips
-Backbone.Factlink.TooltipJQ = (cfg) ->
+Backbone.Factlink.TooltipJQ = (options) ->
   uid = ttCounter++
   uidStr = 'tooltipUid-' + uid
   instCounter = 0
   instances = {}
 
-  $el = cfg.$el
-  _.defaults cfg, defaults
+  $el = options.$el
+  _.defaults options, defaults
 
   openInstance = ($target) ->
     instId = 'tt' + instCounter++
     inTooltip = false
     inTarget = true
 
-    $tooltip = cfg.makeTooltip $el, $target
+    $tooltip = options.makeTooltip $el, $target
     $tooltip.hoverIntent
-      timeout: cfg.closingtimeout
+      timeout: options.closingtimeout
       over: -> inTooltip = true; check()
       out: -> inTooltip = false; check()
 
     check = -> remove() if !(inTarget || inTooltip)
     remove = ->
       delete instances[instId]
-      cfg.removeTooltip $el, $target, $tooltip
+      options.removeTooltip $el, $target, $tooltip
       $target.removeData(uidStr)
 
     instances[instId] =
@@ -60,8 +60,8 @@ Backbone.Factlink.TooltipJQ = (cfg) ->
       openInstance $target
 
   $el.hoverIntent
-    timeout: cfg.closingtimeout
-    selector: cfg.selector
+    timeout: options.closingtimeout
+    selector: options.selector
     over: hoverTarget true
     out: hoverTarget false
 
