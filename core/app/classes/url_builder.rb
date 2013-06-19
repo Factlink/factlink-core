@@ -1,14 +1,7 @@
-require 'pavlov'
-
 class UrlBuilder
 
   def self.fact_url fact
     self.full_url "facts/#{fact.id}"
-  end
-
-  def self.friendly_fact_url fact
-    slug = Pavlov.query :"facts/slug", fact, nil
-    self.full_url "#{slug}/f/#{fact.id}"
   end
 
   def self.full_url uri
