@@ -21,6 +21,7 @@ class TourController < ApplicationController
   end
 
   private
+
   def common_tour
     authenticate_user!
     authorize! :access, Ability::FactlinkWebapp
@@ -40,5 +41,4 @@ class TourController < ApplicationController
   rescue
     Raven.capture_exception(exception)
   end
-
 end
