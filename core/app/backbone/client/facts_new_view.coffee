@@ -132,11 +132,11 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   openOpinionHelptext: ->
     if FactlinkApp.guided
-      view = new HelptextPopoverView(template: 'tooltips/give_your_opinion')
       @tooltipAdd '.fact-wheel',
-        '',
-        '',
-        { side: 'left', align: 'top', margin: 20, contentView: view }
+        side: 'left'
+        align: 'top'
+        margin: 20
+        helptextTemplate: 'tooltips/give_your_opinion'
 
   closeOpinionHelptext: ->
     if FactlinkApp.guided
@@ -146,6 +146,8 @@ class window.FactsNewView extends Backbone.Marionette.Layout
   openFinishHelptext: ->
     unless @tooltip(".js-submit-post-factlink")?
       @tooltipAdd '.js-submit-post-factlink',
-        "You're ready to post this!",
-        "You can add this Factlink to a " + Factlink.Global.t.topic + " so you can find it more easily later, or post this immediately.",
-        { side: 'right', align: 'top', margin: 19, container: @$('.js-finish-popover') }
+        side: 'right'
+        align: 'top'
+        margin: 19
+        container: @$('.js-finish-popover')
+        helptextTemplate: 'tooltips/post_factlink'

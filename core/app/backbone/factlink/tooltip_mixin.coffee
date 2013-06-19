@@ -18,9 +18,8 @@ Backbone.Factlink.TooltipMixin =
     focus_on: null
     margin: 0
     orthogonalOffset: 0
-    flexible: false
 
-  tooltipAdd: (selector, title, text, options) ->
+  tooltipAdd: (selector, options) ->
     @tooltip_options = _.extend {}, @default_options, options
 
     @_tooltips ?= {}
@@ -28,8 +27,7 @@ Backbone.Factlink.TooltipMixin =
       throw "Cannot call tooltipAdd multiple times with the same selector: #{selector}"
 
     unless options.contentView?
-      helpTextPopoverViewOptions = _.extend {model: new Backbone.Model(title: title, text: text)}, @tooltip_options
-      @tooltip_options.contentView = new HelptextPopoverView helpTextPopoverViewOptions
+      @tooltip_options.contentView = new HelptextPopoverView template: options.helptextTemplate
 
     view = new PopoverView @tooltip_options
 
