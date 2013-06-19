@@ -27,8 +27,6 @@ class window.ClientController
 
     factsNewView.on 'factCreated', (fact) =>
       parent.$(parent.document).trigger("factlinkCreated", fact.id )
-      Backbone.history.navigate "facts/#{fact.id}", false
-      @showFact fact
 
     FactlinkApp.mainRegion.show factsNewView
 
