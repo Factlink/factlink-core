@@ -124,6 +124,8 @@ class ApplicationController < ActionController::Base
   end
 
   def render_backbone_page
+    authorize! :access, Ability::FactlinkWebapp
+
     render inline:'', layout: 'channels'
   end
 

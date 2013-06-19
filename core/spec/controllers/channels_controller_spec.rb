@@ -90,6 +90,7 @@ describe ChannelsController do
       authenticate_user!(user)
       should_check_can :show, ch1
       get :show, username: user.username, id: ch1.id
+      should_check_can :access, Ability::FactlinkWebapp
       response.should be_success
     end
 
@@ -108,6 +109,7 @@ describe ChannelsController do
       @ch.created_by = user.graph_user
       @ch.save
 
+      should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, @ch
       get :show, :id => @ch.id, :username => user.username
 

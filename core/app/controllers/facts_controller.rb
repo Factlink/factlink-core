@@ -35,7 +35,6 @@ class FactsController < ApplicationController
   end
 
   def extended_show
-    authorize! :access, Ability::FactlinkWebapp
     authorize! :show, @fact
 
     render_backbone_page
