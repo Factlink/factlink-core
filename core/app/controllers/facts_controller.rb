@@ -98,10 +98,6 @@ class FactsController < ApplicationController
 
       add_to_channels @fact, params[:channels]
 
-      format.html do
-        mp_track "Modal: Create"
-        redirect_to fact_path(@fact.id, guided: params[:guided])
-      end
       format.json { render 'facts/show' }
     end
   end
