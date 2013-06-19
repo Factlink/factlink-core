@@ -16,6 +16,7 @@ DeadFact = Struct.new(
   end
 
   def url
-    @fact_url || FactUrl.new(self)
+    @fact_url ||= FactUrl.new(self)
   end
+
 end
