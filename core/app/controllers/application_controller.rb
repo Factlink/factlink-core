@@ -123,15 +123,13 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: 500
   end
 
-  def render_backbone_page
-    authorize! :access, Ability::FactlinkWebapp
-
-    render inline:'', layout: 'channels'
-  end
-
   def backbone_responder &block
     respond_to do |format|
-      format.html { render_backbone_page }
+      format.html do
+        authorize! :access, Ability::FactlinkWebapp
+
+        render inline:'', layout: 'channels'
+      end
       format.json { yield } if block_given?
     end
   end

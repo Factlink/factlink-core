@@ -48,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def notification_settings
-    render_backbone_page
+    backbone_responder
   end
 
   def search

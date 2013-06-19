@@ -37,7 +37,7 @@ class FactsController < ApplicationController
   def extended_show
     authorize! :show, @fact
 
-    render_backbone_page
+    backbone_responder
   end
 
   # TODO combine next three methods
