@@ -1,6 +1,7 @@
 Backbone.Factlink ||= {}
 
 class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
+  _.extend @prototype, Backbone.Factlink.CrossFadeRegionMixin
 
   el: '<div style="position: absolute"></div>'
 
@@ -83,9 +84,3 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
       console.error "Container is not positioned", @$container
 
   _visible: -> @$container.is ":visible"
-
-class Backbone.Factlink.PositionedCrossFadeRegion extends Backbone.Factlink.PositionedRegion
-  _.extend @prototype, Backbone.Factlink.CrossFadeRegionMixin
-
-  initialize: ->
-    @fade = @options.fade
