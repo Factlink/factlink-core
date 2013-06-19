@@ -87,7 +87,7 @@ FactlinkUI::Application.routes.draw do
 
   resources :feedback
 
-  get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
+  get "/:fact_slug/f/:id" => "facts#discussion_page", as: "frurl_fact"
 
   # Search
   get "/search" => "search#search", as: "search"
@@ -146,7 +146,7 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", as: "find"
       end
 
-      get "/facts/:fact_id" => "facts#extended_show", as: "fact"
+      get "/facts/:fact_id" => "facts#discussion_page", as: "fact"
 
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
@@ -159,7 +159,7 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "facts/:fact_id" => "facts#extended_show", as: "fact"
+          get "facts/:fact_id" => "facts#discussion_page", as: "fact"
         end
       end
 

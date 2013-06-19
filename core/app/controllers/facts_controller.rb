@@ -11,7 +11,7 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     only: [
       :show,
-      :extended_show,
+      :discussion_page,
       :destroy,
       :update,
       :opinion,
@@ -34,7 +34,7 @@ class FactsController < ApplicationController
     end
   end
 
-  def extended_show
+  def discussion_page
     authorize! :show, @fact
 
     backbone_responder
