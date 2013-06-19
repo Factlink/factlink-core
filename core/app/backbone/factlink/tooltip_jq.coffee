@@ -11,6 +11,8 @@ do ->
 
   ttCounter = 0
 
+  #returns an object with a close method which when called
+  #removes all open tooltips
   Backbone.Factlink.TooltipJQ = (cfg) ->
     uid = ttCounter++
     uidStr = 'tooltipUid-' + uid
@@ -33,18 +35,14 @@ do ->
 
       check = -> remove() if !(inTarget || inTooltip)
       remove = ->
-        console.log 'remove', uidStr, instId
         delete instances[instId]
         cfg.rmTooltip $el, $target, $tooltip
         $target.removeData(uidStr)
-
-      setTargetHover = (state) ->
-        inTarget = state
-        check()
+      $target.on 'remove', remove
 
       instances[instId] =
         remove: remove
-        setTargetHover: setTargetHover
+        setTargetHover: (state) -> inTarget = state; check()
 
       $target.data(uidStr, instId)
 
@@ -71,6 +69,9 @@ do ->
       selector: 'a'
       mkTooltip: ($el, $target) ->
         $('<span class="testTooltip">This is a <a href="#">Link!</a></span>')
-          .appendTo($target)
+          .append($('<b>kill</b>').on('click', (e) ->
+            e.stopPropagation()
+            $target.remove()))
+          .insertAfter($target)
       rmTooltip: ($el, $target, $tooltip) ->
         $tooltip.remove()
