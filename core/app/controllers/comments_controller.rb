@@ -39,23 +39,17 @@ class CommentsController < ApplicationController
   private
     def get_fact_id_param
       id_string = params[:id]
-      if id_string == nil
-        raise 'No Fact id is supplied.'
-      end
+      raise 'No Fact id is supplied.' if id_string == nil
 
       id = id_string.to_i
-      if id == 0
-        raise 'No valid Fact id is supplied.'
-      end
+      raise 'No valid Fact id is supplied.' if id == 0
 
       id
     end
 
     def get_comment_id_param
       id_string = params[:id]
-      if id_string == nil
-        raise 'No Comment id is supplied.'
-      end
+      raise 'No Comment id is supplied.' if id_string == nil
 
       id_string
     end
