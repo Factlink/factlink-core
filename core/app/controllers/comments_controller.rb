@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     fact_id = get_fact_id_param
     @comment = interactor :"comments/create", fact_id, type, params[:content]
 
-    render 'comments/show'
+    render 'comments/show', formats: [:json]
   rescue Pavlov::ValidationError => e
 
     render text: e.message, :status => 400
@@ -21,19 +21,19 @@ class CommentsController < ApplicationController
   def update
     @comment = interactor 'comments/update_opinion', get_comment_id_param, params[:opinion]
 
-    render 'comments/show'
+    render 'comments/show', formats: [:json]
   end
 
   def sub_comments_index
     @sub_comments = interactor :'sub_comments/index_for_comment', get_comment_id_param
 
-    render 'sub_comments/index'
+    render 'sub_comments/index', formats: [:json]
   end
 
   def sub_comments_create
     @sub_comment = interactor :'sub_comments/create_for_comment', get_comment_id_param, params[:content]
 
-    render 'sub_comments/show'
+    render 'sub_comments/show', formats: [:json]
   end
 
   private
