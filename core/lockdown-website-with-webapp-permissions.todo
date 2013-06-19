@@ -1,1 +1,3 @@
-placeholder todo
+ ✔ fix backbone helper methods to check access @done (13-06-19 10:57)
+ ☐ check methods which don't use the helpers
+ ☐ clean up multiple helpers mess
