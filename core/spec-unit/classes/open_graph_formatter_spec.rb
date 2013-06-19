@@ -26,8 +26,8 @@ describe OpenGraphFormatter do
     end
 
     it 'overwrites the default values when a GraphObject with the same key gets added' do
-      default_rules = { foo: 'bar' }
-      graph_object  = mock to_hash: { foo: 'bla' }
+      default_rules = { key: 'old_value' }
+      graph_object  = mock to_hash: { key: 'new_value' }
       formatter     = described_class.new
 
       formatter.stub(:default_rules).and_return(default_rules)
