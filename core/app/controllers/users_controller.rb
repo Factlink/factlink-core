@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # TODO: convert this page to backbone
   def edit
     authorize! :access, Ability::FactlinkWebapp
     authorize! :update, @user
@@ -83,6 +84,7 @@ class UsersController < ApplicationController
 
   def tour_users
     authorize! :access, Ability::FactlinkWebapp
+    # TODO add proper authorization check
     @tour_users = interactor :"users/tour_users"
 
     render
