@@ -16,7 +16,7 @@ module Queries
       end
 
       def friendly_fact_url
-        ::UrlBuilder.friendly_fact_url fact
+        ::FactUrl.new(fact).friendly_fact_url
       end
     end
   end
