@@ -1,14 +1,14 @@
 module OpenGraph
   class Object
     def to_hash
-      Hash[open_graph_hash.map { |key,value| ["og:#{key}", value] }]
+      open_graph_hash
     end
 
     private
 
     def open_graph_field key, value
       raise "Graph fied requires value" unless value
-      open_graph_hash[key] = value
+      open_graph_hash["og:#{key}"] = value
     end
 
     def open_graph_hash
