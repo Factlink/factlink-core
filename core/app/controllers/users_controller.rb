@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    authorize! :access, Ability::FactlinkWebapp
     authorize! :update, @user
   end
 
@@ -29,7 +30,10 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :edit}
+        format.html do
+          authorize! :access, Ability::FactlinkWebapp
+          render :edit
+        end
         format.json { render json: { :status => :unprocessable_entity }}
       end
     end
@@ -78,6 +82,7 @@ class UsersController < ApplicationController
   end
 
   def tour_users
+    authorize! :access, Ability::FactlinkWebapp
     @tour_users = interactor :"users/tour_users"
 
     render
