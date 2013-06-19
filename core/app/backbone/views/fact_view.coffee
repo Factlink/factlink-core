@@ -45,13 +45,6 @@ class window.FactView extends Backbone.Marionette.Layout
     @bindTo @model, "destroy", @close, @
     @bindTo @model, "change", @render, @
 
-    if FactlinkApp.guided
-      @tooltipAdd '.js-close',
-        side: 'right'
-        align: 'top'
-        margin: 8
-        helptextTemplate: 'tooltips/first_factlink_created'
-
   onRender: ->
     @factBaseView.show new FactBaseView(model: @model)
     @factBottomView.show @newFactBottomView()
