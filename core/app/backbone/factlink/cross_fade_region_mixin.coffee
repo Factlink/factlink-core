@@ -1,4 +1,4 @@
-class window.CrossFadeRegion extends Backbone.Marionette.Region
+Backbone.Factlink.CrossFadeRegionMixin =
 
   fadeTime: 560
 

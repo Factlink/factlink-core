@@ -34,7 +34,7 @@ Backbone.Factlink.TooltipMixin =
     FactlinkApp.Overlay.show() if @tooltip_options['show_overlay']
     focusElement(@tooltip_options['focus_on']) if @tooltip_options['focus_on']
 
-    positionedRegion = new Backbone.Factlink.PositionedRegion @tooltip_options
+    positionedRegion = new Backbone.Factlink.PositionedCrossFadeRegion @tooltip_options
     positionedRegion.crossFade view
 
     container = @tooltip_options.container || @$el
