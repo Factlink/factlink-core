@@ -27,7 +27,11 @@ Backbone.Factlink.TooltipMixin =
     if @_tooltips[selector]?
       throw "Cannot call tooltipAdd multiple times with the same selector: #{selector}"
 
-    view = new HelptextPopoverView _.extend {model: new Backbone.Model(title: title, text: text)}, @tooltip_options
+    unless options.contentView?
+      helpTextPopoverViewOptions = _.extend {model: new Backbone.Model(title: title, text: text)}, @tooltip_options
+      @tooltip_options.contentView = new HelptextPopoverView helpTextPopoverViewOptions
+
+    view = new PopoverView @tooltip_options
 
     FactlinkApp.Overlay.show() if @tooltip_options['show_overlay']
     focusElement(@tooltip_options['focus_on']) if @tooltip_options['focus_on']

@@ -132,10 +132,10 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   openOpinionHelptext: ->
     if FactlinkApp.guided
-      view = new TooltipView(template: 'tooltips/give_your_opinion')
+      view = new HelptextPopoverView(template: 'tooltips/give_your_opinion')
       @tooltipAdd '.fact-wheel',
-        "What's your opinion?",
-        "",
+        '',
+        '',
         { side: 'left', align: 'top', margin: 20, contentView: view }
 
   closeOpinionHelptext: ->
