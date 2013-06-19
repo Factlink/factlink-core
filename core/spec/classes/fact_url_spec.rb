@@ -20,6 +20,17 @@ describe FactUrl do
     end
   end
 
+  describe '.friendly_fact_path' do
+    it 'returns the correct path' do
+      fact = stub id: '2', to_s: 'THIS IS A FRIENDLY FACT'
+
+      fact_url = FactUrl.new fact
+
+      expect(fact_url.friendly_fact_path)
+        .to eq "this-is-a-friendly-fact/f/2"
+    end
+  end
+
   describe '.friendly_fact_url' do
     it 'returns the correct url' do
       fact = stub id: '2', to_s: 'THIS IS A FRIENDLY FACT'

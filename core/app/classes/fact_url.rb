@@ -11,8 +11,12 @@ class FactUrl
     full_url "facts/#{@fact.id}"
   end
 
+  def friendly_fact_path
+    "#{slug}/f/#{@fact.id}"
+  end
+
   def friendly_fact_url
-    full_url "#{slug}/f/#{@fact.id}"
+    full_url friendly_fact_path
   end
 
   def proxy_scroll_url
