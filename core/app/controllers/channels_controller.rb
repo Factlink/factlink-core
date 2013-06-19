@@ -24,16 +24,12 @@ class ChannelsController < ApplicationController
 
   def show
     authorize! :show, @channel
-    respond_to do |format|
-      format.json do
-        @channel = interactor :'channels/get', @channel.id
-      end
-      format.js
-      format.html do
-        render_backbone_page
-        mark_channel_as_read
-      end
+
+    backbone_responder do
+      @channel = interactor :'channels/get', @channel.id
     end
+
+    mark_channel_as_read if request.format.html?
   end
 
   def new
