@@ -2,20 +2,26 @@ require 'pavlov'
 
 class UrlBuilder
 
-  def self.fact_url fact
-    self.full_url "facts/#{fact.id}"
+  def initialize fact
+    @fact = fact
   end
 
-  def self.friendly_fact_url fact
-    slug = Pavlov.query :"facts/slug", fact, nil
-    self.full_url "#{slug}/f/#{fact.id}"
+  def fact_url
+    full_url "facts/#{@fact.id}"
   end
 
-  def self.full_url uri
+  def friendly_fact_url
+    slug = Pavlov.query :"facts/slug", @fact, nil
+    full_url "#{slug}/f/#{@fact.id}"
+  end
+
+  private
+
+  def full_url uri
     URI.join(application_url, uri).to_s
   end
 
-  def self.application_url
+  def application_url
     FactlinkUI::Application.config.core_url
   end
 
