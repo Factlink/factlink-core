@@ -1,4 +1,4 @@
-class window.TourAuthorityPopoverView extends HelptextPopoverView
+class window.TourAuthorityPopoverView extends Backbone.Marionette.ItemView
   template: 'tour/authority_popover'
 
   triggers:

@@ -3,5 +3,13 @@
     <a href="{{link}}">{{title}}</a>
   </strong>
 </div>
-<div class="pull-right js-topic-statistics-region">
+<div class="pull-right">
+  <div class="search-result-topic-statistics-block">
+    <span class="topic-statistic-title">Factlinks</span><br>
+    {{ facts_count }}
+  </div>
+  <div class="search-result-topic-statistics-block">
+    <span class="topic-statistic-title">Your authority</span><br>
+    <img src="{{global.brain_image}}"> <span class="topic-statistic-authority">{{ current_user_authority }}</span>
+  </div>
 </div>
