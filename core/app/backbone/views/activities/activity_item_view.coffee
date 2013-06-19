@@ -59,26 +59,11 @@ class AddedFactToTopicView extends ActivityItemView
     topic: @topic().toJSON()
 
   initialize: ->
-    # Backbone.Factlink.TooltipJQ
-    #   $el: @$el
-    #   selector: '.js-link'
-    #   mkTooltip: ($el, $target) ->
-    #     $('<span class="testTooltip2">')
-    #       .text($target.text())
-    #       .appendTo($el)
-    #   rmTooltip: ($el, $target, $tooltip) ->
-    #     $tooltip.remove()
-
-    # @tooltipAdd '.js-link',
-    #   container: @options.offsetParent
-    #   align: 'left'
-    #   side: 'bottom'
-    #   flexible: true
-    #   contentView: new TopicPopoverContentView model: @topic()
     Backbone.Factlink.Tooltip
       parentView: @
-      align: 'left'
-      side: 'bottom'
+      positioning:
+        align: 'left'
+        side: 'bottom'
       selector: '.js-link'
       $offsetParent: @options.offsetParent
       tooltipViewFactory: =>

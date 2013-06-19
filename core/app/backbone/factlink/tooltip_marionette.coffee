@@ -10,11 +10,13 @@ Backbone.Factlink ||= {}
 
 Backbone.Factlink.Tooltip = (options) ->
   positionedRegion =
-    new Backbone.Factlink.PositionedRegion options
+    new Backbone.Factlink.PositionedRegion options.positioning
 
   maker = ($el, $target) ->
-    popoverOptions = _.extend {}, options,
-      contentView: options.tooltipViewFactory()
+    popoverOptions = _.defaults
+      contentView: options.tooltipViewFactory(),
+      options.positioning
+
 
     positionedRegion.bindToElement $target,
       options.$offsetParent || $el
