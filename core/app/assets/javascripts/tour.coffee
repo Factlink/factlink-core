@@ -70,21 +70,22 @@ class window.InteractiveTour extends Backbone.View
       ]
       callbacks:
         onstarted: =>
+          view = new TooltipView( template: { text: "<p>With Factlink you can select any statement, on any website. Let's try that on this example page.</p><p>Select any statement on the right to start creating your Factlink.</p>" } )
           @tooltipAdd '.create-your-first-factlink-content > p:first',
-            side: 'left'
-            align: 'top'
-            helptextTemplate: 'tooltips/lets_create'
+            "Let's create a Factlink!",
+            "",
+            { side: 'left', align: 'top', contentView: view }
 
         onleavestarted: =>
           @tooltipRemove '.create-your-first-factlink-content > p:first'
           @state.transition()
 
         ontext_selected: =>
+          view = new TooltipView( template: { text: "<p>Now click the Factlink button to create your Factlink.</p><p>This button will always appear here when the Factlink Extension is installed.</p>" } )
           @tooltipAdd '#extension-button',
-            side: 'left'
-            align: 'top'
-            alignMargin: 60
-            helptextTemplate: 'tooltips/extension_button'
+            "That was easy!",
+            "",
+            { side: 'left', align: 'top', alignMargin: 60, contentView: view }
 
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',
@@ -103,14 +104,13 @@ class window.InteractiveTour extends Backbone.View
     @$('.factlink.fl-first').length > 0
 
   addFactlinkFirstTooltip: ->
-    class FirstFactlinkFactView extends HelptextPopoverView
+    class FirstFactlinkCreatedView extends TooltipView
       templateHelpers:
         next_tourstep_path: window.next_tourstep_path
-      template: 'tooltips/first_factlink_fact'
+      template: 'tooltips/first_factlink_created'
+    view = new FirstFactlinkCreatedView
 
-    view = new FirstFactlinkFactView
     @tooltipAdd '.factlink.fl-first',
-      side: 'left'
-      align: 'top'
-      margin: 10
-      contentView: new FirstFactlinkFactView
+      "Your first Factlink is a fact!",
+      '',
+      { side: 'left', align: 'top', margin: 10, contentView: view }
