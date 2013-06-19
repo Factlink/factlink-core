@@ -19,8 +19,8 @@ class FactUrl
   def proxy_scroll_url
     return unless @fact.site_url
 
-    proxy_url + "/?url=" +
-      CGI.escape(@fact.site_url) + "&scrollto=" + URI.escape(@fact.id)
+    proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
+      "&scrollto=" + URI.escape(@fact.id)
   end
 
   private
