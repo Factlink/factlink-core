@@ -14,10 +14,10 @@ Version <%= RUBY_VERSION %>-p<%= RUBY_PATCHLEVEL %>
 <h1>ENV</h1>
 <table>
   <tbody>
-    <% ENV.each do |env| %>
+    <% ENV.each do |key, value| %>
     <tr>
-      <th style="text-align: left;"><%= env[0] %></th>
-      <td><%= env[1] %></td>
+      <th style="text-align: left;"><%= key %></th>
+      <td><%= value %></td>
     </tr>
     <% end %>
   </tbody>
