@@ -1,13 +1,20 @@
 #= require jquery.hoverIntent
 
+#BUG/KNOWN LIMITATION: hoverIntent supports only one handler
+#per event.  This means that you certainly cannot support
+#more than 1 tooltip per element, but perhaps also not more
+#than one per owner.  The workaround is likely to not use
+#hoverIntent (sigh), if we ever need this.
+
+
 Backbone.Factlink ||= {}
 do ->
   defaults =
-    closingtimeout: 300
+    closingtimeout: 500
     #$el: owner
     #selector: what to hover over
-    #mkTooltip: $el, $target -> $tooltip
-    #rmTooltip: $el, $target, $tooltip ->
+    #makeTooltip: $el, $target -> $tooltip
+    #removeTooltip: $el, $target, $tooltip ->
 
   ttCounter = 0
 
@@ -27,7 +34,7 @@ do ->
       inTooltip = false
       inTarget = true
 
-      $tooltip = cfg.mkTooltip $el, $target
+      $tooltip = cfg.makeTooltip $el, $target
       $tooltip.hoverIntent
         timeout: cfg.closingtimeout
         over: -> inTooltip = true; check()
@@ -36,7 +43,7 @@ do ->
       check = -> remove() if !(inTarget || inTooltip)
       remove = ->
         delete instances[instId]
-        cfg.rmTooltip $el, $target, $tooltip
+        cfg.removeTooltip $el, $target, $tooltip
         $target.removeData(uidStr)
 
       instances[instId] =
@@ -62,15 +69,3 @@ do ->
     close: -> for id, ttActions of instances
       ttActions.remove()
 
-  $ ->
-    Backbone.Factlink.TooltipJQ
-      $el: $('body')
-      selector: 'a'
-      mkTooltip: ($el, $target) ->
-        $('<span class="testTooltip">This is a <a href="#">Link!</a></span>')
-          .append($('<b>kill</b>').on('click', (e) ->
-            e.stopPropagation()
-            $target.remove()))
-          .insertAfter($target)
-      rmTooltip: ($el, $target, $tooltip) ->
-        $tooltip.remove()
