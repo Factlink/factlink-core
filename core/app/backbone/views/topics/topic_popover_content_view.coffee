@@ -1,9 +1,11 @@
 class window.TopicPopoverContentView extends Backbone.Marionette.Layout
+  className: 'topic-popover-content'
+
   template:
     text: """
-      <strong>{{title}}</strong>
+      <div class="js-favourite-button-region topic-popover-content-button"></div>
+      <div class="topic-popover-content-title">{{title}}</div>
       <div class="js-topic-statistics-region"></div>
-      <div class="js-favourite-button-region"></div>
     """
 
   regions:
