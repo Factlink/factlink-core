@@ -1,4 +1,5 @@
 require 'pavlov'
+require 'cgi'
 
 class UrlBuilder
 
@@ -15,6 +16,13 @@ class UrlBuilder
     full_url "#{slug}/f/#{@fact.id}"
   end
 
+  def proxy_scroll_url
+    return unless @fact.site_url
+
+    proxy_url + "/?url=" +
+      CGI.escape(@fact.site_url) + "&scrollto=" + URI.escape(@fact.id)
+  end
+
   private
 
   def full_url uri
@@ -23,6 +31,10 @@ class UrlBuilder
 
   def application_url
     FactlinkUI::Application.config.core_url
+  end
+
+  def proxy_url
+    FactlinkUI::Application.config.proxy_url
   end
 
 end
