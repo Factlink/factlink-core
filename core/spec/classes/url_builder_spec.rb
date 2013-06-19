@@ -6,7 +6,7 @@ describe UrlBuilder do
 
     before do
       stub_const 'FactlinkUI::Application', Class.new
-      FactlinkUI::Application.stub( config: stub(core_url: "https://factlink.com/"))
+      FactlinkUI::Application.stub( config: stub(core_url: "https://a-random-website.com"))
     end
 
     describe '.fact_url' do
@@ -14,7 +14,7 @@ describe UrlBuilder do
         fact = stub id: '1'
 
         expect(described_class.fact_url(fact))
-          .to eq "https://factlink.com/facts/1"
+          .to eq "https://a-random-website.com/facts/1"
       end
     end
 
@@ -28,7 +28,7 @@ describe UrlBuilder do
               .and_return(slug)
 
         expect(described_class.friendly_fact_url fact)
-          .to eq "https://factlink.com/this-is-a-friendly-fact/f/1"
+          .to eq "https://a-random-website.com/this-is-a-friendly-fact/f/1"
       end
     end
   end
@@ -49,7 +49,7 @@ describe UrlBuilder do
     it 'uses the core application url' do
       stub_const 'FactlinkUI::Application', Class.new
 
-      core_url = "https://factlink.com/"
+      core_url = "https://a-random-website.com/"
 
       config = mock
       config.should_receive(:core_url)
