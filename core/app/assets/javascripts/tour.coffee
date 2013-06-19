@@ -76,6 +76,8 @@ class window.InteractiveTour extends Backbone.View
             "",
             { side: 'left', align: 'top', contentView: view }
 
+            mp_track "Tour: Loaded tour"
+
         onleavestarted: =>
           @tooltipRemove '.create-your-first-factlink-content > p:first'
           @state.transition()
@@ -86,6 +88,8 @@ class window.InteractiveTour extends Backbone.View
             "That was easy!",
             "",
             { side: 'left', align: 'top', alignMargin: 60, contentView: view }
+
+          mp_track "Tour: Selected text"
 
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',
