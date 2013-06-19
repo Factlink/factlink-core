@@ -1,4 +1,4 @@
-require_relative '../../../../app/classes/url_builder'
+require_relative '../../../../app/classes/fact_url'
 
 module Queries
   module Facts
