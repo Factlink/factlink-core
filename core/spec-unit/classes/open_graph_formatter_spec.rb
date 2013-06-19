@@ -14,8 +14,8 @@ describe OpenGraphFormatter do
 
   describe '#add' do
     it 'adds the passed GraphObjects hash presentation to the rules' do
-      default_rules = {foo: 'bar'}
-      graph_object  = mock to_hash: {bla: 'foo'}
+      default_rules = { foo: 'bar' }
+      graph_object  = mock to_hash: { bla: 'foo' }
       formatter     = described_class.new
 
       formatter.stub(:default_rules).and_return(default_rules)
