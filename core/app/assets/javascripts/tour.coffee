@@ -1,7 +1,7 @@
 class FirstFactlinkFactView extends Backbone.Marionette.ItemView
   templateHelpers: ->
     next_tourstep_path: window.next_tourstep_path
-  template: 'tooltips/first_factlink_fact'
+  template: 'tour/first_factlink_fact'
 
 class window.InteractiveTour extends Backbone.View
   _.extend @prototype, Backbone.Factlink.TooltipMixin
@@ -78,7 +78,7 @@ class window.InteractiveTour extends Backbone.View
           @tooltipAdd '.create-your-first-factlink-content > p:first',
             side: 'left'
             align: 'top'
-            contentTemplate: 'tooltips/lets_create'
+            contentTemplate: 'tour/lets_create'
 
         onleavestarted: =>
           @tooltipRemove '.create-your-first-factlink-content > p:first'
@@ -89,7 +89,7 @@ class window.InteractiveTour extends Backbone.View
             side: 'left'
             align: 'top'
             alignMargin: 60
-            contentTemplate: 'tooltips/extension_button'
+            contentTemplate: 'tour/extension_button'
 
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',
