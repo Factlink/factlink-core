@@ -5,9 +5,7 @@ class ChannelsController < ApplicationController
   before_filter :load_channel,
     :only => [
       :show,
-      :edit,
       :destroy,
-      :update,
       :facts,
       :create_fact,
       :remove_fact,
