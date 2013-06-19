@@ -78,7 +78,7 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
     creator: @model.creator().toJSON()
 
 
-class EvidencePoparrowView extends Backbone.Factlink.PopArrowView
+class EvidencePoparrowView extends Backbone.Factlink.PoparrowView
   template: 'evidence/poparrow'
 
   initialize: (options)->

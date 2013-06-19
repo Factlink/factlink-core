@@ -1,4 +1,4 @@
-class SubCommentPoparrowView extends Backbone.Factlink.PopArrowView
+class SubCommentPoparrowView extends Backbone.Factlink.PoparrowView
   template: 'sub_comments/poparrow'
 
   initialize: (options)->

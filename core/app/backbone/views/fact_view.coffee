@@ -1,5 +1,5 @@
 #= require ./facts/fact_base_view
-class FactPoparrowView extends Backbone.Factlink.PopArrowView
+class FactPoparrowView extends Backbone.Factlink.PoparrowView
   template: 'facts/poparrow'
 
   events:
