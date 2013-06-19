@@ -1,8 +1,4 @@
 source 'http://rubygems.org'
-
-# for rvm:
-#ruby=1.9.3-p374
-# for bundler
 ruby '1.9.3'
 
 # Defaults
