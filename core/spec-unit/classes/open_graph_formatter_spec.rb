@@ -3,10 +3,10 @@ require_relative '../../app/classes/open_graph_formatter.rb'
 describe OpenGraphFormatter do
   describe '#to_hash' do
     it 'returns a hash with the two default keys by default' do
-      default_rules = {}
+      default_rules = { key: mock }
       formatter     = described_class.new
 
-      formatter.should_receive(:default_rules).and_return(default_rules)
+      formatter.stub(:default_rules).and_return(default_rules)
 
       expect(formatter.to_hash).to eq default_rules
     end
@@ -18,7 +18,7 @@ describe OpenGraphFormatter do
       graph_object  = mock to_hash: {bla: 'foo'}
       formatter     = described_class.new
 
-      formatter.should_receive(:default_rules).and_return(default_rules)
+      formatter.stub(:default_rules).and_return(default_rules)
 
       formatter.add graph_object
 
@@ -30,7 +30,7 @@ describe OpenGraphFormatter do
       graph_object  = mock to_hash: { foo: 'bla' }
       formatter     = described_class.new
 
-      formatter.should_receive(:default_rules).and_return(default_rules)
+      formatter.stub(:default_rules).and_return(default_rules)
 
       formatter.add graph_object
 
