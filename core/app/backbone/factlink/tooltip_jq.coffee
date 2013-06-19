@@ -38,7 +38,6 @@ do ->
         delete instances[instId]
         cfg.rmTooltip $el, $target, $tooltip
         $target.removeData(uidStr)
-      $target.on 'remove', remove
 
       instances[instId] =
         remove: remove
