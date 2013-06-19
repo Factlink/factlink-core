@@ -20,15 +20,6 @@ describe ChannelsController do
 
   let(:ch_light) { create :channel, created_by: user.graph_user }
 
-  describe "#new" do
-    it "should be succesful" do
-      authenticate_user!(user)
-      should_check_can :new, Channel
-      get :new, username: user.username
-      response.should be_success
-    end
-  end
-
   describe "#index" do
     it "as json should be successful" do
       ch_light

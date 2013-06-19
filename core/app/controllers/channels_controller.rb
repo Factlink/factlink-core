@@ -32,19 +32,11 @@ class ChannelsController < ApplicationController
     mark_channel_as_read if request.format.html?
   end
 
-  def new
-    authorize! :new, Channel
-    @channel = Channel.new
-  end
-
-  def edit
-    authorize! :edit, @channel
-  end
-
   #TODO Move to topicscontroller, this searches for topics, not for channels
   def search
+    # TODO add access control
     @topics = interactor :search_channel, params[:s]
-    render 'topics/index'
+    render 'topics/index', formats: [:json]
   end
 
   def create
@@ -75,7 +67,6 @@ class ChannelsController < ApplicationController
       @channel.save
 
       respond_to do |format|
-        format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => "#{t(:topic)} successfully created") }
         format.json do
           @channel = interactor :'channels/get', @channel.id
           render 'channels/show'
@@ -84,29 +75,7 @@ class ChannelsController < ApplicationController
 
     else
       respond_to do |format|
-        format.html { render :new }
         format.json do
-          render json: @channel.errors, status: :unprocessable_entity
-        end
-      end
-    end
-  end
-
-  def update
-    authorize! :update, @channel
-
-    channel_params = params[:channel] || params
-
-    respond_to do |format|
-      if @channel.update_attributes!(channel_params.slice(:title))
-        format.html  do
-          redirect_to channel_path(@channel.created_by.user, @channel),
-                      notice: "#{t(:topic)} was successfully updated."
-        end
-        format.json  { render json: {}, status: :ok }
-      else
-        format.html  { render :edit }
-        format.json  do
           render json: @channel.errors, status: :unprocessable_entity
         end
       end
@@ -181,7 +150,7 @@ class ChannelsController < ApplicationController
 
     @channel.remove_fact(@fact)
 
-    respond_with(@channel)
+    respond_with(@channel) # TODO what is this supposed to render
   end
 
   private

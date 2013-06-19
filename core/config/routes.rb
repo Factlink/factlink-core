@@ -141,7 +141,7 @@ FactlinkUI::Application.routes.draw do
       post "/mark_as_read" => "users#mark_activities_as_read", as: "mark_activities_as_read"
     end
 
-    resources :channels do
+    resources :channels, except: [:new, :edit, :update] do
       collection do
         get "find" => "channels#search", as: "find"
       end
