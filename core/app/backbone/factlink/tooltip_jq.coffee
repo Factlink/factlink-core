@@ -2,49 +2,75 @@
 
 Backbone.Factlink ||= {}
 do ->
-  PositionedRegion = Backbone.Factlink.PositionedRegion
-
   defaults =
-    side: 'left'
-    align: 'center'
     closingtimeout: 300
+    #$el: owner
+    #selector: what to hover over
+    #mkTooltip: $el, $target -> $tooltip
+    #rmTooltip: $el, $target, $tooltip ->
 
-    #$target: owner
-    #mkTooltip: $target -> $tooltip
-    #rmTooltip: $target, $tooltip ->
-
-  hoverStateByEvent =
-    mouseenter: true
-    mouseleave: false
-
+  ttCounter = 0
 
   Backbone.Factlink.TooltipJQ = (cfg) ->
-    $target = cfg.$target
-    inTarget = inTooltip = showing = false
-    $tooltip = null
-    cfg = $.extend defaults, cfg
+    uid = ttCounter++
+    uidStr = 'tooltipUid-' + uid
+    instCounter = 0
+    instances = {}
 
-    updateTooltip = ->
-      shouldShow = inTarget || inTooltip
-      if shouldShow && !showing then
-        showing = true
-        $tooltip = cfg.mkTooltip $target
-        $tooltip.hoverIntent
-          timeout: cfg.closingtimeout
-          over: hoverTooltip
-      else if showing && !shouldShow then
-        showing = false
-        $tooltip = null
-        cfg.rmTooltip $target, $tooltip
+    $el = cfg.$el
+    _.defaults cfg, defaults
 
-    hoverTarget = (e) ->
-      console.log e
-      inTarget = hoverStateByEvent[e.type]
+    openInstance = ($target) ->
+      instId = 'tt' + instCounter++
+      inTooltip = false
+      inTarget = true
 
-    hoverTooltip = (e) ->
-      console.log e
-      inTooltip = hoverStateByEvent[e.type]
+      $tooltip = cfg.mkTooltip $el, $target
+      $tooltip.hoverIntent
+        timeout: cfg.closingtimeout
+        over: -> inTooltip = true; check()
+        out: -> inTooltip = false; check()
 
-    $target.hoverIntent
+      check = -> remove() if !(inTarget || inTooltip)
+      remove = ->
+        console.log 'remove', uidStr, instId
+        delete instances[instId]
+        cfg.rmTooltip $el, $target, $tooltip
+        $target.removeData(uidStr)
+
+      setTargetHover = (state) ->
+        inTarget = state
+        check()
+
+      instances[instId] =
+        remove: remove
+        setTargetHover: setTargetHover
+
+      $target.data(uidStr, instId)
+
+    hoverTarget = (inTarget) -> (e) ->
+      $target = $(e.currentTarget)
+      ttActions = instances[$target.data(uidStr)]
+      if ttActions
+        ttActions.setTargetHover inTarget
+      else if inTarget
+        openInstance $target
+
+    $el.hoverIntent
       timeout: cfg.closingtimeout
-      over: hoverTarget
+      selector: cfg.selector
+      over: hoverTarget true
+      out: hoverTarget false
+
+    close: -> for id, ttActions of instances
+      ttActions.remove()
+
+  $ ->
+    Backbone.Factlink.TooltipJQ
+      $el: $('body')
+      selector: 'a'
+      mkTooltip: ($el, $target) ->
+        $('<span class="testTooltip">This is a <a href="#">Link!</a></span>')
+          .appendTo($target)
+      rmTooltip: ($el, $target, $tooltip) ->
+        $tooltip.remove()
