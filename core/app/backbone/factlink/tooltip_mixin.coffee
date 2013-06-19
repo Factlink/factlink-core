@@ -27,7 +27,7 @@ Backbone.Factlink.TooltipMixin =
       throw "Cannot call tooltipAdd multiple times with the same selector: #{selector}"
 
     unless options.contentView?
-      @tooltip_options.contentView = new HelptextPopoverView template: options.helptextTemplate
+      @tooltip_options.contentView = new Backbone.Marionette.ItemView template: options.contentTemplate
 
     view = new PopoverView @tooltip_options
 

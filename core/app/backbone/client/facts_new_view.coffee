@@ -136,7 +136,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
         side: 'left'
         align: 'top'
         margin: 20
-        helptextTemplate: 'tooltips/give_your_opinion'
+        contentTemplate: 'tooltips/give_your_opinion'
 
   closeOpinionHelptext: ->
     if FactlinkApp.guided
@@ -150,4 +150,4 @@ class window.FactsNewView extends Backbone.Marionette.Layout
         align: 'top'
         margin: 19
         container: @$('.js-finish-popover')
-        helptextTemplate: 'tooltips/post_factlink'
+        contentTemplate: 'tooltips/post_factlink'
