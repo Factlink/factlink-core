@@ -1,9 +1,12 @@
 Frontend popover:
  ✔ Refactor HelptextPopover to not require a title @done (13-06-18 09:37)
- ☐ Create a TopicPopover
- ☐ Show the TopicPopover for the relevant activities in the feed
- ☐ Add a follow button to the TopicPopover
- ☐ Show the authority in the TopicPopover
+ ✔ Create a TopicPopover @done (13-06-18 16:56)
+ ✔ Show the TopicPopover for the relevant activities in the feed @done (13-06-18 16:56)
+ ✔ Add a follow button to the TopicPopover @done (13-06-18 16:56)
+ ✔ Show the authority in the TopicPopover @done (13-06-18 16:56)
+ ✔ Show the number of factlinks @done (13-06-18 16:56)
+ ☐ Refactor HelptextPopoverView to a PopoverView and HelptextContentView (or such)
+ ☐ Style the popover according to design
  ☐ Show the number of followers
  ☐ Make sure the popover cannot fall outside of the feed
 
