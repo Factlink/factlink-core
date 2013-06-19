@@ -61,7 +61,7 @@ module.exports = (grunt) ->
       js_files:
         files: [
           { src: ['**/*.js'], dest: 'dist/js/',         expand: true, cwd: 'app/js/'}
-          { src: ['app/libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
+          { src: ['app/js/libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
           {
             src: ['start_annotating.js', 'stop_annotating.js', 'start_highlighting.js', 'stop_highlighting.js']
             cwd: 'app/js/'
