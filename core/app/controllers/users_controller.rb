@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   def search
     authorize! :index, User
     @users = interactor :search_user, params[:s]
-    render :index
+    render :index, formats: [:json]
   end
 
   def mark_activities_as_read
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
     # TODO add proper authorization check
     @tour_users = interactor :"users/tour_users"
 
-    render
+    render :tour_users, formats: [:json]
   end
 
   private
