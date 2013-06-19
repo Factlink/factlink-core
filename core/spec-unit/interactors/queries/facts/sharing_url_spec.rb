@@ -20,10 +20,10 @@ describe Queries::Facts::SharingUrl do
 
       stub_classes('FactUrl')
 
-      url_builder = stub friendly_fact_url: friendly_fact_url
+      fact_url = stub friendly_fact_url: friendly_fact_url
       FactUrl.stub(:new)
                 .with(fact)
-                .and_return(url_builder)
+                .and_return(fact_url)
 
       query = described_class.new fact
 
