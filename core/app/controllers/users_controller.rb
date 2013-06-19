@@ -7,9 +7,8 @@ class UsersController < ApplicationController
 
   def show
     authorize! :show, @user
-    respond_to do |format|
-      format.html { render layout: 'channels'}
-      format.json { render @user }
+    backbone_responder do
+      render @user
     end
   end
 
