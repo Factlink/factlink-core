@@ -5,16 +5,13 @@ class ChannelActivitiesController < ApplicationController
   def index
     authorize! :show, @channel
 
-    respond_to do |format|
-      format.json do
-        @activities = sanitized_activities @channel.activities do |list|
-          list.below( params[:timestamp] || 'inf',
-            count: params[:number].andand.to_i || 11,
-            reversed: true, withscores: true)
-        end
-        render 'channels/activities'
+    backbone_responder do
+      @activities = sanitized_activities @channel.activities do |list|
+        list.below( params[:timestamp] || 'inf',
+          count: params[:number].andand.to_i || 11,
+          reversed: true, withscores: true)
       end
-      format.html { render inline: '', layout: 'channels' }
+      render 'channels/activities'
     end
   end
 
@@ -47,33 +44,34 @@ class ChannelActivitiesController < ApplicationController
   end
 
   private
-    def sanitized_activities(activities, &block)
-      retrieved_activities = block.call(activities)
 
-      resulting_activities = retrieved_activities.select do |a|
-        a[:item] and a[:item].still_valid?
-      end
+  def sanitized_activities(activities, &block)
+    retrieved_activities = block.call(activities)
 
-      if resulting_activities.length != retrieved_activities.length
-        Resque.enqueue(Commands::Activities::CleanList,activities.key.to_s)
-      end
-
-      resulting_activities
+    resulting_activities = retrieved_activities.select do |a|
+      a[:item] and a[:item].still_valid?
     end
 
-    def get_user
-      if @channel
-        @user ||= @channel.created_by.user
-      elsif params[:username]
-        @user ||= User.find_by(username: params[:username]) || raise_404
-      end
+    if resulting_activities.length != retrieved_activities.length
+      Resque.enqueue(Commands::Activities::CleanList,activities.key.to_s)
     end
 
-    def channel_id
-      params[:channel_id] || params[:id]
-    end
+    resulting_activities
+  end
 
-    def load_channel
-      @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
+  def get_user
+    if @channel
+      @user ||= @channel.created_by.user
+    elsif params[:username]
+      @user ||= User.find_by(username: params[:username]) || raise_404
     end
+  end
+
+  def channel_id
+    params[:channel_id] || params[:id]
+  end
+
+  def load_channel
+    @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
+  end
 end

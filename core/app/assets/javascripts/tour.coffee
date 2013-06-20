@@ -87,6 +87,8 @@ class window.InteractiveTour extends Backbone.View
             "",
             { side: 'left', align: 'top', alignMargin: 60, contentView: view }
 
+          mp_track "Tour: Selected text"
+
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',
           @state.transition()

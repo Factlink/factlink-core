@@ -1,5 +1,6 @@
 channel = object
-topic = channel.topic
+
+topic = query :'topics/by_slug_title_with_authority_and_facts_count', channel.slug_title
 
 json.fact_displaystring truncate(subject.data.displaystring.to_s, length: 48)
 json.fact_url friendly_fact_path(subject)
@@ -10,7 +11,5 @@ else
   json.posted 'reposted'
 end
 
-json.topic_title             topic.title
-json.topic_url               topic_path(topic.slug_title)
-
+json.topic { |j| j.partial! 'topics/topic_with_authority_and_facts_count', topic: topic }
 json.fact { |j| j.partial! 'facts/fact', fact: subject }

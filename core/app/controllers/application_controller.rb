@@ -41,7 +41,11 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
       if not current_user
-        format.html { redirect_to root_path(return_to: request.original_url, show_sign_in: 1)}
+        format.html do
+          flash[:alert] = t('devise.failure.unauthenticated')
+          redirect_to root_path(return_to: request.original_url, show_sign_in: 1)
+        end
+
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
         format.any  { raise exception }
       elsif !current_user.agrees_tos
@@ -123,26 +127,31 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: 500
   end
 
-  def render_backbone_page
-    render inline:'', layout: 'channels'
-  end
-
   def backbone_responder &block
     respond_to do |format|
-      format.html { render_backbone_page }
+      format.html do
+        authorize! :access, Ability::FactlinkWebapp
+
+        render inline:'', layout: 'channels'
+      end
       format.json { yield } if block_given?
     end
   end
 
   def mp_track(event, opts={})
-    new_opts =  if current_user
-                   opts.update({
+    user = opts.fetch(:current_user) { current_user }
+    opts.delete :current_user
+
+    new_opts = if current_user
+                    opts.update({
                      :mp_name_tag => current_user.username,
                      :distinct_id => current_user.id,
-                     :time => Time.now.utc.to_i })
+                    })
                 else
                   opts
                 end
+
+    new_opts[:time] = Time.now.utc.to_i
 
     req_env = MixpanelRequestPresenter.new(request).to_hash
 
@@ -200,17 +209,18 @@ class ApplicationController < ActionController::Base
   helper_method :open_graph_formatter
 
   private
-    def action_is_intermediate?
-      action_name == "intermediate" and controller_name == "facts"
-    end
 
-    def can_haz feature
-      can? :"see_feature_#{feature}", Ability::FactlinkWebapp
-    end
-    helper_method :can_haz
+  def action_is_intermediate?
+    action_name == "intermediate" and controller_name == "facts"
+  end
 
-    def set_layout
-      allowed_layouts = ['popup', 'client']
-      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
-    end
+  def can_haz feature
+    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+  end
+  helper_method :can_haz
+
+  def set_layout
+    allowed_layouts = ['popup', 'client']
+    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
+  end
 end

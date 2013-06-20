@@ -1,19 +1,19 @@
 module Queries
   module Topics
-    class ByIdWithAuthorityAndFactsCount
+    class BySlugTitleWithAuthorityAndFactsCount
       include Pavlov::Query
 
-      arguments :id
+      arguments :slug_title
 
       private
 
       def execute
-        topic = Topic.find id
+        topic = query :'topics/by_slug_title', slug_title
         query :'topics/dead_topic_with_authority_and_facts_count_by_topic', topic
       end
 
       def validate
-        validate_hexadecimal_string :id, id
+        validate_string :slug_title, slug_title
       end
     end
   end

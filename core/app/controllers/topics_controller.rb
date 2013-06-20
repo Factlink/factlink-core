@@ -20,8 +20,9 @@ class TopicsController < ApplicationController
   end
 
   private
-    def topic
-      topic = interactor :"topics/get", params[:id]
-      topic || raise_404("Topic not found")
-    end
+
+  def topic
+    topic = interactor :"topics/get", params[:id]
+    topic || raise_404("Topic not found")
+  end
 end
