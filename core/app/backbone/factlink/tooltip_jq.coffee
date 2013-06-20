@@ -8,21 +8,22 @@
 
 
 Backbone.Factlink ||= {}
-defaults =
-  closingtimeout: 500
-  #$el: owner
-  #selector: what to hover over
-  #makeTooltip: $el, $target -> $tooltip
-  #removeTooltip: $el, $target, $tooltip ->
 
-ttCounter = 0 #each call to TooltipJQ gets its own id based on this.
 
 #returns an object with a close method which when called
 #removes all open tooltips
 class Backbone.Factlink.TooltipJQ
 
+  defaults =
+    closingtimeout: 500
+    #$el: owner
+    #selector: what to hover over
+    #makeTooltip: $el, $target -> $tooltip
+    #removeTooltip: $el, $target, $tooltip ->
+
+  ttCounter = 0 #each call to TooltipJQ gets its own id based on this.
+
   constructor: (options) ->
-    console.info 'constructor!'
     @_options = options
 
     @_uid = ttCounter++
