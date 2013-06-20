@@ -195,17 +195,18 @@ class ApplicationController < ActionController::Base
   helper_method :jslib_url
 
   private
-    def action_is_intermediate?
-      action_name == "intermediate" and controller_name == "facts"
-    end
 
-    def can_haz feature
-      can? :"see_feature_#{feature}", Ability::FactlinkWebapp
-    end
-    helper_method :can_haz
+  def action_is_intermediate?
+    action_name == "intermediate" and controller_name == "facts"
+  end
 
-    def set_layout
-      allowed_layouts = ['popup', 'client']
-      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
-    end
+  def can_haz feature
+    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+  end
+  helper_method :can_haz
+
+  def set_layout
+    allowed_layouts = ['popup', 'client']
+    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
+  end
 end

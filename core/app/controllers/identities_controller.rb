@@ -50,6 +50,7 @@ class IdentitiesController < ApplicationController
   end
 
   private
+
   def connect_provider provider_name, omniauth_obj
     authorize! :update, current_user
 
