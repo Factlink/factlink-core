@@ -5,6 +5,8 @@ module Queries
 
       arguments :alive_topic
 
+      private
+
       def execute
         DeadTopic.new alive_topic.slug_title,
                       alive_topic.title,
