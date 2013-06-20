@@ -10,14 +10,17 @@ class TourController < ApplicationController
 
   def install_extension
     render layout: "tour"
+    mp_track "Tour: Loaded install extension"
   end
 
   def interests
     render text: "", layout: "tour"
+    mp_track "Tour: Loaded interesting users"
   end
 
   def tour_done
     redirect_to after_sign_in_path_for(current_user)
+    mp_track "Tour: Finished"
   end
 
   private
