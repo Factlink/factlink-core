@@ -1,19 +1,20 @@
-class window.HelptextPopoverView extends Backbone.Marionette.Layout
-  template: 'tooltips/helptext_popover'
-  className: 'help-text-container'
+class window.PopoverView extends Backbone.Marionette.Layout
+  template: 'popovers/popover'
+  className: 'popover-container'
 
   ui:
     arrow: '.js-arrow'
 
   regions:
-    contentRegion: '.js-help-text-content'
+    contentRegion: '.js-popover-content'
 
   initialize: ->
     @on 'position', @onPosition, @
 
   onRender: ->
     @$el.addClass @options.side
-    @contentRegion.show @options.contentView if @options.contentView
+    @$el.addClass 'popover-help' if @options.helpStyle
+    @contentRegion.show @options.contentView
 
     @updateMargins()
 
