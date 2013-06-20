@@ -1,6 +1,9 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
 // "body" is necessary to get precedence over h1 in typography.css.less
 body h1.tour-header {
-  font-size: 28px;
+  font-size: @frontendHeading1FontSize;
   text-shadow: 0px 1px 0px #fff;
   font-weight: bold;
   margin-bottom: 20px;

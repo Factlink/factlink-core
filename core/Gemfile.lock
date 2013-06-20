@@ -195,6 +195,10 @@ GEM
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    koala (1.7.0rc1)
+      addressable
+      faraday
+      multi_json
     konacha (2.7.0)
       actionpack (>= 3.1, < 5)
       capybara
@@ -504,6 +508,7 @@ DEPENDENCIES
   jbuilder (~> 1.4.1)
   jquery-rails (= 2.1.2)
   json (~> 1.8.0)
+  koala (~> 1.7.0rc1)
   konacha (~> 2.7)
   less-rails (~> 2.2.6)
   less-rails-bootstrap (= 2.1.1)

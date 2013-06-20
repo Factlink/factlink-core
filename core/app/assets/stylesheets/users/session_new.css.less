@@ -52,13 +52,13 @@
 /* / CLIENT SPECIFIC STYLES */
 
 .new-session {
-  > h3 {
-    font-size: 20px;
+  > h1 {
+    font-size: @heading1FontSize;
     margin-bottom: 0;
   }
 
   > form > a {
-    font-size: 12px;
+    font-size: @baseFontSize;
     font-weight: bold;
   }
 
@@ -77,7 +77,7 @@
       label {
         display: inline-block;
         color: #555;
-        font-size: 12px;
+        font-size: @baseFontSize;
         margin: 3px 0 0 0;
       }
     }
@@ -90,7 +90,7 @@
     .box-sizing(border-box);
 
     a {
-      font-size: 13px;
+      font-size: @baseFontSize;
       color: #333;
       font-weight: bold;
       .box-sizing(border-box);
@@ -128,15 +128,15 @@
       padding: 7px 0 9px;
       position: absolute;
       top: 50%;
-      margin: -16px 0 0 -9px;
+      margin: -16px 0 0 -7px;
       background: white;
       z-index: 100;
-      font-size: 20px;
+      font-size: @heading1FontSize;
       color: #555;
     }
   }
 
   .alert {
-    font-size: 13px;
+    font-size: @baseFontSize;
   }
 }
