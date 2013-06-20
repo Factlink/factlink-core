@@ -134,8 +134,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def mp_track(event, opts={}, user=nil)
-    user ||= current_user
+  def mp_track(event, opts={})
+    user = opts.fetch(:current_user) { current_user }
+    opts.delete :current_user
+    
     new_opts =  if user
                    opts.update({
                      :mp_name_tag => user.username,
