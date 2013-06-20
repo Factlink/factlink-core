@@ -66,7 +66,8 @@ class AddedFactToTopicGroupView extends ActivitiesGroupView
   itemView: AddedFactToTopicView
   itemViewContainer: '.js-region-channels'
 
-  itemViewOptions: -> @options
+  itemViewOptions: ->
+    $offsetParent: @options.$offsetParent
 
   actions: -> ["added_fact_to_channel"]
 
