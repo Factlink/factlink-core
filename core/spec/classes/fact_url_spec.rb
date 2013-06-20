@@ -81,4 +81,14 @@ describe FactUrl do
     end
   end
 
+  describe 'xss protection' do
+    it '.friendly_fact_url cannot contain funky characters' do
+      fact = stub id: '22', to_s: 'this<script>funky stuff'
+
+      fact_url = FactUrl.new fact
+
+      expect(fact_url.friendly_fact_url)
+        .to eq "https://site.com/this-script-funky-stuff/f/#{fact.id}"
+    end
+  end
 end
