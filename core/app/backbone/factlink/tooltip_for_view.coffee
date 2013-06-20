@@ -29,7 +29,7 @@ Backbone.Factlink.TooltipForView = (options) ->
     positionedRegion.updatePosition()
     positionedRegion.$el
 
-  closeHandler = Backbone.Factlink.TooltipJQ
+  closeHandler = new Backbone.Factlink.TooltipJQ
     $el: options.parentView.$el
     selector: options.selector
     makeTooltip: makeTooltip

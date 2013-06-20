@@ -19,57 +19,59 @@ ttCounter = 0 #each call to TooltipJQ gets its own id based on this.
 
 #returns an object with a close method which when called
 #removes all open tooltips
-Backbone.Factlink.TooltipJQ = (options) ->
-  _options = options
+class Backbone.Factlink.TooltipJQ
 
-  _uid = ttCounter++
-  _uidStr = 'tooltip_Uid-' + _uid
-  _instCounter = 0 #one call can cause multiple tooltips
-  #we track each tooltip using the _instCounter and store them
-  #in `_instances`: this means we can close them not just
-  #in reponse to an event handler, but also on request
-  _instances = {}
+  constructor: (options) ->
+    console.info 'constructor!'
+    @_options = options
 
-  _$el = _options.$el
-  _.defaults _options, defaults
+    @_uid = ttCounter++
+    @_uidStr = 'tooltip_Uid-' + @_uid
+    @_instCounter = 0 #one call can cause multiple tooltips
+    #we track each tooltip using the @_instCounter and store them
+    #in `@_instances`: this means we can close them not just
+    #in reponse to an event handler, but also on request
+    @_instances = {}
 
-  _openInstance = ($target) ->
-    instId = 'tt' + _instCounter++
+    _.defaults @_options, defaults
+
+    @_options.$el.hoverIntent
+      timeout: @_options.closingtimeout
+      selector: @_options.selector
+      over: @_hoverTarget true
+      out: @_hoverTarget false
+
+  _openInstance: ($target) ->
+    instId = 'tt' + @_instCounter++
     inTooltip = false
     inTarget = true #opened on hover over target
 
-    $tooltip = _options.makeTooltip _$el, $target
+    $tooltip = @_options.makeTooltip @_options.$el, $target
     $tooltip.hoverIntent
-      timeout: _options.closingtimeout
+      timeout: @_options.closingtimeout
       over: -> inTooltip = true; check()
       out: -> inTooltip = false; check()
 
     check = -> remove() if !(inTarget || inTooltip)
-    remove = ->
-      delete _instances[instId]
-      _options.removeTooltip _$el, $target, $tooltip
-      $target.removeData(_uidStr)
+    remove = =>
+      delete @_instances[instId]
+      @_options.removeTooltip @_options.$el, $target, $tooltip
+      $target.removeData(@_uidStr)
 
-    _instances[instId] =
+    @_instances[instId] =
       remove: remove
       setTargetHover: (state) -> inTarget = state; check()
 
-    $target.data(_uidStr, instId)
+    $target.data(@_uidStr, instId)
 
-  _hoverTarget = (inTarget) -> (e) ->
-    $target = $(e.currentTarget)
-    ttActions = _instances[$target.data(_uidStr)]
-    if ttActions #this is a known (i.e. open) tooltip
-      ttActions.setTargetHover inTarget
-    else if inTarget #target has no tooltip but is hovered
-      _openInstance $target
+  _hoverTarget: (inTarget) ->
+    (e) =>
+      $target = $(e.currentTarget)
+      ttActions = @_instances[$target.data(@_uidStr)]
+      if ttActions #this is a known (i.e. open) tooltip
+        ttActions.setTargetHover inTarget
+      else if inTarget #target has no tooltip but is hovered
+        @_openInstance $target
 
-  _$el.hoverIntent
-    timeout: _options.closingtimeout
-    selector: _options.selector
-    over: _hoverTarget true
-    out: _hoverTarget false
-
-  close: -> for id, ttActions of _instances
-    ttActions.remove()
-
+  close: ->
+    ttActions.remove() for id, ttActions of @_instances
