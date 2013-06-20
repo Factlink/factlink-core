@@ -76,7 +76,7 @@ class window.InteractiveTour extends Backbone.View
             "",
             { side: 'left', align: 'top', contentView: view }
 
-            mp_track "Tour: Loaded tour"
+            mp_track "Tour: Loaded create your first Factlink"
 
         onleavestarted: =>
           @tooltipRemove '.create-your-first-factlink-content > p:first'
