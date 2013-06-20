@@ -1,6 +1,6 @@
 channel = object
 
-topic = query :'user_topics/by_slug_title', channel.slug_title
+topic = query :'topics/by_slug_title_with_authority_and_facts_count', channel.slug_title
 
 json.fact_displaystring truncate(subject.data.displaystring.to_s, length: 48)
 json.fact_url friendly_fact_path(subject)

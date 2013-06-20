@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/user_topics/by_id'
+require_relative '../../../../app/interactors/queries/topics/by_id_with_authority_and_facts_count'
 
-describe Queries::UserTopics::ById do
+describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
   include PavlovSupport
 
   describe '#validate' do
@@ -30,7 +30,7 @@ describe Queries::UserTopics::ById do
         .and_return(topic)
 
       Pavlov.stub(:query)
-        .with(:'user_topics/by_topic', topic, pavlov_options)
+        .with(:'topics/dead_topic_with_authority_and_facts_count_by_topic', topic, pavlov_options)
         .and_return(dead_topic)
 
       query = described_class.new id, pavlov_options

@@ -1,6 +1,6 @@
 module Queries
-  module UserTopics
-    class ByTopic
+  module Topics
+    class DeadTopicWithAuthorityAndFactsCountByTopic
       include Pavlov::Query
 
       arguments :alive_topic

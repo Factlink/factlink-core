@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/user_topics/by_topic'
+require_relative '../../../../app/interactors/queries/topics/dead_topic_with_authority_and_facts_count_by_topic'
 
-describe Queries::UserTopics::ByTopic do
+describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
   include PavlovSupport
 
   describe '#validate' do
