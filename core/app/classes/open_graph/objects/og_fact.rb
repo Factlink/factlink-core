@@ -7,7 +7,7 @@ module OpenGraph::Objects
     end
 
     def facebook_app_namespace
-      FactlinkUI::Application.config.facebook_app_namespace
+      FactlinkUI::Application.config.andand.facebook_app_namespace
     end
   end
 end
