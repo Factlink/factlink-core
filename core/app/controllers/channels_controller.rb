@@ -80,6 +80,13 @@ class ChannelsController < ApplicationController
     end
   end
 
+  def update
+    # HACK! SHOULD BE REMOVED!
+    # BUG IN SuggestedTopicView, which erroneously saves channels, but that should
+    # be the concern of the class that uses it.
+    render json: {}
+  end
+
   def destroy
     authorize! :destroy, @channel
 
