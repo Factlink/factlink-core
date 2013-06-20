@@ -1,0 +1,11 @@
+development:
+  facebook_app_namespace: 'factlinkdevelopment'
+
+testserver:
+  facebook_app_namespace: 'factlinktestserver'
+
+staging:
+  facebook_app_namespace: 'factlinkstaging'
+
+production:
+  facebook_app_namespace: 'factlink'

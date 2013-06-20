@@ -5,8 +5,7 @@ DeadFact = Struct.new(
   :created_at,
   :title,
   :wheel,
-  :evidence_count,
-  :proxy_scroll_url
+  :evidence_count
 ) do
   def to_s
     displaystring || ""
@@ -15,4 +14,9 @@ DeadFact = Struct.new(
   def acts_as_class_for_authority
     'Fact'
   end
+
+  def url
+    @fact_url ||= FactUrl.new(self)
+  end
+
 end
