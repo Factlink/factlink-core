@@ -1,7 +1,6 @@
 Backbone.Factlink ||= {}
 
-class Backbone.Factlink.PositionedRegion extends Backbone.Marionette.Region
-  _.extend @prototype, Backbone.Factlink.CrossFadeRegionMixin
+class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegion
 
   el: '<div style="position: absolute"></div>'
 
