@@ -7,13 +7,14 @@ class UsersController < ApplicationController
 
   def show
     authorize! :show, @user
-    respond_to do |format|
-      format.html { render layout: 'channels'}
-      format.json { render @user }
+    backbone_responder do
+      render @user
     end
   end
 
+  # TODO: convert this page to backbone
   def edit
+    authorize! :access, Ability::FactlinkWebapp
     authorize! :update, @user
   end
 
@@ -30,7 +31,10 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { render :edit}
+        format.html do
+          authorize! :access, Ability::FactlinkWebapp
+          render :edit
+        end
         format.json { render json: { :status => :unprocessable_entity }}
       end
     end
@@ -47,10 +51,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def notification_settings
+    backbone_responder
+  end
+
   def search
     authorize! :index, User
     @users = interactor :search_user, params[:s]
-    render :index
+    render :index, formats: [:json]
   end
 
   def mark_activities_as_read
@@ -75,12 +83,15 @@ class UsersController < ApplicationController
   end
 
   def tour_users
+    authorize! :access, Ability::FactlinkWebapp
+    # TODO add proper authorization check
     @tour_users = interactor :"users/tour_users"
 
-    render
+    render :tour_users, formats: [:json]
   end
 
   private
+
   def load_user
     username = params[:username] || params[:id]
     @user = query :user_by_username, username

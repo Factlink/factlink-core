@@ -11,7 +11,7 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     only: [
       :show,
-      :extended_show,
+      :discussion_page,
       :destroy,
       :update,
       :opinion,
@@ -38,11 +38,10 @@ class FactsController < ApplicationController
     end
   end
 
-  def extended_show
-    authorize! :access, Ability::FactlinkWebapp
+  def discussion_page
     authorize! :show, @fact
 
-    render_backbone_page
+    backbone_responder
   end
 
   # TODO combine next three methods
@@ -103,10 +102,6 @@ class FactsController < ApplicationController
 
       add_to_channels @fact, params[:channels]
 
-      format.html do
-        mp_track "Modal: Create"
-        redirect_to fact_path(@fact.id, guided: params[:guided])
-      end
       format.json { render 'facts/show' }
     end
   end
@@ -117,7 +112,7 @@ class FactsController < ApplicationController
     @fact_id = @fact.id
     @fact.delete
 
-    respond_with(@fact)
+    render json: @fact
   end
 
   def set_opinion

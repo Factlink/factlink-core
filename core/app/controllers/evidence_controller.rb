@@ -7,7 +7,7 @@ class EvidenceController < ApplicationController
   def combined_index
     @evidence = interactor :"evidence/for_fact_id", params[:fact_id], relation
 
-    render 'evidence/index'
+    render 'evidence/index', formats: [:json]
   end
 
   class EvidenceNotFoundException < StandardError
@@ -45,7 +45,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.calculate_opinion
 
-    render 'fact_relations/show'
+    render 'fact_relations/show', formats: [:json]
   rescue EvidenceNotFoundException
     render json: [], status: :unprocessable_entity
   end
@@ -62,7 +62,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.calculate_opinion
 
-    render 'fact_relations/show'
+    render 'fact_relations/show', formats: [:json]
   end
 
   def remove_opinions
@@ -75,7 +75,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.calculate_opinion
 
-    render 'fact_relations/show'
+    render 'fact_relations/show', formats: [:json]
   end
 
   # TODO move to a fact_relation resource
