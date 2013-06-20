@@ -6,6 +6,7 @@ class TourController < ApplicationController
 
   def create_your_first_factlink
     render layout: "tour"
+    mp_track "Tour: Loaded create your first Factlink"
   end
 
   def install_extension
