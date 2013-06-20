@@ -134,11 +134,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def mp_track(event, opts={})
-    new_opts =  if current_user
+  def mp_track(event, opts={}, user=nil)
+    user ||= current_user
+    new_opts =  if user
                    opts.update({
-                     :mp_name_tag => current_user.username,
-                     :distinct_id => current_user.id,
+                     :mp_name_tag => user.username,
+                     :distinct_id => user.id,
                      :time => Time.now.utc.to_i })
                 else
                   opts
