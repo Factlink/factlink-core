@@ -17,7 +17,7 @@ describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
 
   describe '#call' do
     it 'returns the user topic' do
-      stub_classes 'Topic', 'DeadUserTopic'
+      stub_classes 'Topic'
 
       id = '1a'
       topic = mock(slug_title: mock, title: mock)
