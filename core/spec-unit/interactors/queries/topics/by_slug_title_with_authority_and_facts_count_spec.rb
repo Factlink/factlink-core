@@ -16,7 +16,7 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
   end
 
   describe '#call' do
-    it 'returns the user topic' do
+    it 'returns the topic' do
       topic = mock(slug_title: 'slug_title', title: mock)
       dead_topic = mock
       pavlov_options = {current_user: mock}

@@ -16,7 +16,7 @@ describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
   end
 
   describe '#call' do
-    it 'returns the user topic' do
+    it 'returns the topic' do
       stub_classes 'Topic'
 
       id = '1a'

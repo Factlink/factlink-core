@@ -16,7 +16,7 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
   end
 
   describe '#execute' do
-    it 'returns the user topic' do
+    it 'returns the topic' do
       stub_classes 'DeadTopic'
 
       topic = mock(slug_title: mock, title: mock)
