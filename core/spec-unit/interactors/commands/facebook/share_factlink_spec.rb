@@ -19,9 +19,10 @@ describe Commands::Facebook::ShareFactlink do
       identities = {
         'facebook' =>  {
           'credentials' => {
-            'token' => token, 'secret' => mock}
+            'token' => token, 'secret' => mock
           }
         }
+      }
 
       pavlov_options = { current_user: stub(identities: identities),
                          facebook_app_namespace: namespace }
