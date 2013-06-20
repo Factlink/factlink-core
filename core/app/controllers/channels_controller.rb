@@ -152,23 +152,24 @@ class ChannelsController < ApplicationController
   end
 
   private
-    def get_user
-      if @channel
-        @user ||= @channel.created_by.user
-      elsif params[:username]
-        @user ||= query(:user_by_username, params[:username]) or raise_404
-      end
-    end
 
-    def load_channel
-      @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
+  def get_user
+    if @channel
+      @user ||= @channel.created_by.user
+    elsif params[:username]
+      @user ||= query(:user_by_username, params[:username]) or raise_404
     end
+  end
 
-    def channel_id
-      params[:channel_id] || params[:id]
-    end
+  def load_channel
+    @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
+  end
 
-    def mark_channel_as_read
-      @channel.mark_as_read if @channel.created_by == current_graph_user
-    end
+  def channel_id
+    params[:channel_id] || params[:id]
+  end
+
+  def mark_channel_as_read
+    @channel.mark_as_read if @channel.created_by == current_graph_user
+  end
 end
