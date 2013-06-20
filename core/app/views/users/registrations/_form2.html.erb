@@ -1,6 +1,6 @@
 <%= form_for(User.new, :as => :user, :url => registration_path(:user), remote: true, html: { id: form_id, novalidate: "novalidate" }) do |f| %>
 
-  <%= f.text_field :username, placeholder: "Choose a username",
+  <%= f.text_field :username, placeholder: "Choose a username", maxlength: "16",
     class:"text", id: "#{form_id}_user_username" %>
   <%= f.email_field :email, placeholder: "Email address",
     class:"text", id: "#{form_id}_user_email" %>
