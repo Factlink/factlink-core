@@ -78,7 +78,7 @@ class window.InteractiveTour extends Backbone.View
           @tooltipAdd '.create-your-first-factlink-content > p:first',
             side: 'left'
             align: 'top'
-            contentTemplate: 'tour/lets_create'
+            contentView: new Backbone.Marionette.ItemView(template: 'tour/lets_create')
 
         onleavestarted: =>
           @tooltipRemove '.create-your-first-factlink-content > p:first'
@@ -89,7 +89,9 @@ class window.InteractiveTour extends Backbone.View
             side: 'left'
             align: 'top'
             alignMargin: 60
-            contentTemplate: 'tour/extension_button'
+            contentView: new Backbone.Marionette.ItemView(template: 'tour/extension_button')
+
+          mp_track "Tour: Selected text"
 
         onleavetext_selected: =>
           @tooltipRemove '#extension-button',

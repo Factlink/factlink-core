@@ -5,10 +5,8 @@ class Backbone.Factlink.CrossFadeRegion extends Backbone.Marionette.Region
   defaultFadeTime: 560
 
   crossFade: (newView) ->
-    currentView = @currentView
-
-    if currentView
-      @$el.fadeOut @fadeTime(), (=> @show newView)
+    if @currentView
+      @$el.fadeOut @fadeTime(), => @show newView
     else
       @show(newView)
 
@@ -18,7 +16,7 @@ class Backbone.Factlink.CrossFadeRegion extends Backbone.Marionette.Region
     @$el.fadeIn @fadeTime()
 
   resetFade: ->
-    @$el.fadeOut @fadeTime(), (=> @reset())
+    @$el.fadeOut @fadeTime(), => @reset()
 
   fadeTime: ->
     @options?.fadeTime || @defaultFadeTime

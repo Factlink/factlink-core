@@ -27,9 +27,6 @@ Backbone.Factlink.TooltipMixin =
     if @_tooltips[selector]?
       throw "Cannot call tooltipAdd multiple times with the same selector: #{selector}"
 
-    unless options.contentView?
-      @tooltip_options.contentView = new Backbone.Marionette.ItemView template: options.contentTemplate
-
     view = new PopoverView @tooltip_options
 
     FactlinkApp.Overlay.show() if @tooltip_options['show_overlay']
