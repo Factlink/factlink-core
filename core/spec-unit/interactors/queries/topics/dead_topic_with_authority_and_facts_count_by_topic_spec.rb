@@ -17,7 +17,7 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
 
   describe '#execute' do
     it 'returns the user topic' do
-      stub_classes 'DeadUserTopic'
+      stub_classes 'DeadTopic'
 
       topic = mock(slug_title: mock, title: mock)
       facts_count = mock
@@ -34,7 +34,7 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
         .with(:authority_on_topic_for, topic, current_user.graph_user, pavlov_options)
         .and_return(current_user_authority)
 
-      DeadUserTopic.stub(:new)
+      DeadTopic.stub(:new)
         .with(topic.slug_title, topic.title, current_user_authority, facts_count)
         .and_return(dead_topic)
 
