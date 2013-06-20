@@ -123,13 +123,13 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: 500
   end
 
-  def render_backbone_page
-    render inline:'', layout: 'channels'
-  end
-
   def backbone_responder &block
     respond_to do |format|
-      format.html { render_backbone_page }
+      format.html do
+        authorize! :access, Ability::FactlinkWebapp
+
+        render inline:'', layout: 'channels'
+      end
       format.json { yield } if block_given?
     end
   end
@@ -194,18 +194,24 @@ class ApplicationController < ActionController::Base
   end
   helper_method :jslib_url
 
+  def open_graph_formatter
+    @open_graph_formatter ||= OpenGraphFormatter.new
+  end
+  helper_method :open_graph_formatter
+
   private
-    def action_is_intermediate?
-      action_name == "intermediate" and controller_name == "facts"
-    end
 
-    def can_haz feature
-      can? :"see_feature_#{feature}", Ability::FactlinkWebapp
-    end
-    helper_method :can_haz
+  def action_is_intermediate?
+    action_name == "intermediate" and controller_name == "facts"
+  end
 
-    def set_layout
-      allowed_layouts = ['popup', 'client']
-      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
-    end
+  def can_haz feature
+    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+  end
+  helper_method :can_haz
+
+  def set_layout
+    allowed_layouts = ['popup', 'client']
+    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
+  end
 end

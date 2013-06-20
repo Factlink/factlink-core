@@ -1,6 +1,6 @@
 module Queries
-  module UserTopics
-    class ById
+  module Topics
+    class ByIdWithAuthorityAndFactsCount
       include Pavlov::Query
 
       arguments :id
@@ -9,7 +9,7 @@ module Queries
 
       def execute
         topic = Topic.find id
-        query :'user_topics/by_topic', topic
+        query :'topics/dead_topic_with_authority_and_facts_count_by_topic', topic
       end
 
       def validate

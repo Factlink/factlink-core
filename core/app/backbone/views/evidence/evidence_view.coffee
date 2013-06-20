@@ -8,25 +8,25 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     userAvatarRegion:  '.evidence-user-avatar-region'
     activityRegion:    '.evidence-activity-region'
     mainRegion:        '.evidence-main-region'
-    popoverRegion:     '.evidence-popover-region'
+    poparrowRegion:    '.evidence-poparrow-region'
     bottomRegion:      '.evidence-bottom-region'
     subCommentsRegion: '.evidence-sub-comments-region'
 
   initialize: ->
     @on 'render', @evidenceBaseOnRender, @
 
-  setPopover: ->
-    updatePopover = =>
+  setPoparrow: ->
+    updatePoparrow = =>
       if @model.can_destroy()
-        popoverView = new EvidencePopoverView
+        poparrowView = new EvidencePoparrowView
                             model: @model,
                             delete_message: @delete_message
-        @popoverRegion.show popoverView
+        @poparrowRegion.show poparrowView
       else
-        @popoverRegion.close()
+        @poparrowRegion.close()
 
-    updatePopover()
-    @bindTo @model, 'change', updatePopover
+    updatePoparrow()
+    @bindTo @model, 'change', updatePoparrow
 
   evidenceBaseOnRender: ->
     @userAvatarRegion.show new AvatarView model: @model.creator()
@@ -41,7 +41,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @bottomRegion.show @evidenceBottomView()
 
     @mainRegion.show new @mainView model: @model
-    @setPopover() if Factlink.Global.signed_in
+    @setPoparrow() if Factlink.Global.signed_in
 
   evidenceBottomView: ->
     unless @_evidenceBottomView
@@ -78,8 +78,8 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
     creator: @model.creator().toJSON()
 
 
-class EvidencePopoverView extends Backbone.Factlink.PopoverView
-  template: 'evidence/popover'
+class EvidencePoparrowView extends Backbone.Factlink.PoparrowView
+  template: 'evidence/poparrow'
 
   initialize: (options)->
     @delete_message = options.delete_message

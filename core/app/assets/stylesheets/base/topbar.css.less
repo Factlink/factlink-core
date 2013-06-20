@@ -17,7 +17,7 @@ body.show_sign_in {
   position: relative;
   height: @navbarHeight;
   margin-bottom: @navbarMargin;
-  font-size: 13px;
+  font-size: @baseFontSize;
   z-index: 120; // on top of the overlay in widgets/modal_overlay
 
   &.navbar-fixed-top {
@@ -79,7 +79,7 @@ body.show_sign_in {
         > a {
           color: @linkColor;
           font-weight: bold;
-          font-size: 13px;
+          font-size: @baseFontSize;
           line-height: 20px;
 
           &.profile {

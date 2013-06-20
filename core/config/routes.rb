@@ -85,9 +85,9 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  resources :feedback
+  resources :feedback # TODO RESTRICT
 
-  get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
+  get "/:fact_slug/f/:id" => "facts#discussion_page", as: "frurl_fact"
 
   # Search
   get "/search" => "search#search", as: "search"
@@ -134,19 +134,19 @@ FactlinkUI::Application.routes.draw do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
 
-    get 'notification-settings' => "channels#backbone_page", as: "user_notification_settings"
+    get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
     scope "/activities" do
       get "/" => "users#activities", as: "activities"
       post "/mark_as_read" => "users#mark_activities_as_read", as: "mark_activities_as_read"
     end
 
-    resources :channels do
+    resources :channels, except: [:new, :edit, :update] do
       collection do
         get "find" => "channels#search", as: "find"
       end
 
-      get "/facts/:fact_id" => "facts#extended_show", as: "fact"
+      get "/facts/:fact_id" => "facts#discussion_page", as: "fact"
 
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
@@ -159,7 +159,7 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "facts/:fact_id" => "facts#extended_show", as: "fact"
+          get "facts/:fact_id" => "facts#discussion_page", as: "fact"
         end
       end
 

@@ -56,6 +56,8 @@ describe UsersController do
       end
 
       authenticate_user!(user)
+      ability.stub(:can?).with(:access, Ability::FactlinkWebapp)
+             .and_return(true)
       ability.stub(:can?).with(:index, User)
              .and_return(true)
 

@@ -14,8 +14,7 @@ module Queries
                      fact.data.created_at,
                      fact.data.title,
                      wheel,
-                     evidence_count,
-                     proxy_scroll_url
+                     evidence_count
       end
 
       def fact
@@ -34,12 +33,6 @@ module Queries
 
       def evidence_count
         query :'evidence/count_for_fact', fact
-      end
-
-      def proxy_scroll_url
-        return nil unless fact.has_site?
-
-        FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(fact.site.url) + "&scrollto=" + URI.escape(id)
       end
 
       def validate

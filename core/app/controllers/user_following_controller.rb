@@ -29,6 +29,7 @@ class UserFollowingController < ApplicationController
   end
 
   private
+
   def set_user_name
     @user_name = params[:username]
   end

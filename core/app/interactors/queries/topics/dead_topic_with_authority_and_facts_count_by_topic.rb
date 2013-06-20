@@ -1,15 +1,17 @@
 module Queries
-  module UserTopics
-    class ByTopic
+  module Topics
+    class DeadTopicWithAuthorityAndFactsCountByTopic
       include Pavlov::Query
 
       arguments :alive_topic
 
+      private
+
       def execute
-        DeadUserTopic.new alive_topic.slug_title,
-                          alive_topic.title,
-                          current_user_authority,
-                          facts_count
+        DeadTopic.new alive_topic.slug_title,
+                      alive_topic.title,
+                      current_user_authority,
+                      facts_count
       end
 
       def facts_count
