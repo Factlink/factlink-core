@@ -1,1 +1,4 @@
-placeholder todo
+fix xss protextion in urls:
+ ☐ ensure xss is not possible in the slug (FactUrl)
+ ☐ ensure xss is not possible in the Site.url (when creating) (and check existing)
+
