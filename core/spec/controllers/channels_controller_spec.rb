@@ -10,26 +10,19 @@ describe ChannelsController do
   let (:f2) {create :fact, created_by: user.graph_user}
   let (:f3) {create :fact, created_by: user.graph_user}
 
-  let (:ch1) do
-    ch1 = create :channel, created_by: user.graph_user
+  let (:ch_heavy) do
+    ch_heavy = create :channel, created_by: user.graph_user
     [f1,f2,f3].each do |f|
-      Interactors::Channels::AddFact.new(f, ch1, no_current_user: true).call
+      Interactors::Channels::AddFact.new(f, ch_heavy, no_current_user: true).call
     end
-    ch1
+    ch_heavy
   end
 
-  describe "#new" do
-    it "should be succesful" do
-      authenticate_user!(user)
-      should_check_can :new, Channel
-      get :new, username: user.username
-      response.should be_success
-    end
-  end
+  let(:ch_light) { create :channel, created_by: user.graph_user }
 
   describe "#index" do
     it "as json should be successful" do
-      ch1
+      ch_light
       authenticate_user!(user)
       ability.should_receive(:can?).with(:index, Channel).and_return(true)
       get :index, username: user.username, format: 'json'
@@ -39,7 +32,7 @@ describe ChannelsController do
     it "should render the same json as previously (regression check)" do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
-      ch1
+      ch_heavy
       authenticate_user!(user)
       ability.should_receive(:can?).with(:index, Channel).and_return(true)
       get :index, username: user.username, format: 'json'
@@ -61,8 +54,8 @@ describe ChannelsController do
   describe "#facts" do
     it "should render" do
       authenticate_user!(user)
-      should_check_can :show, ch1
-      get :facts, username: user.username, id: ch1.id, :format => :json
+      should_check_can :show, ch_heavy
+      get :facts, username: user.username, id: ch_heavy.id, :format => :json
       response.should be_success
     end
 
@@ -72,9 +65,9 @@ describe ChannelsController do
       FactoryGirl.reload # hack because of fixture in check
 
       authenticate_user!(user)
-      should_check_can :show, ch1
+      should_check_can :show, ch_heavy
 
-      get :facts, username: user.username, id: ch1.id, :format => :json
+      get :facts, username: user.username, id: ch_heavy.id, :format => :json
       response.should be_success
 
       response_body = response.body.to_s
@@ -88,28 +81,30 @@ describe ChannelsController do
   describe "#show" do
     it "a channel should be succesful" do
       authenticate_user!(user)
-      should_check_can :show, ch1
-      get :show, username: user.username, id: ch1.id
+      should_check_can :access, Ability::FactlinkWebapp
+      should_check_can :show, ch_light
+      get :show, username: user.username, id: ch_light.id
       response.should be_success
     end
 
     it "a channel as json should be succesful" do
       authenticate_user!(user)
-      should_check_can :show, ch1
+      should_check_can :show, ch_heavy
       ability.should_receive(:can?).with(:index, Channel).and_return true
-      get :show, username: user.username, id: ch1.id, format: 'json'
+      get :show, username: user.username, id: ch_heavy.id, format: 'json'
       response.should be_success
     end
 
     it "should escape html in fields" do
       authenticate_user!(user)
-      @ch = FactoryGirl.create(:channel)
-      @ch.title = "baas<xss> of niet"
-      @ch.created_by = user.graph_user
-      @ch.save
+      ch = FactoryGirl.create(:channel)
+      ch.title = "baas<xss> of niet"
+      ch.created_by = user.graph_user
+      ch.save
 
-      should_check_can :show, @ch
-      get :show, :id => @ch.id, :username => user.username
+      should_check_can :access, Ability::FactlinkWebapp
+      should_check_can :show, ch
+      get :show, :id => ch.id, :username => user.username
 
       response.body.should_not match(/<xss>/)
     end

@@ -17,6 +17,7 @@ class UserFavouriteTopicsController < ApplicationController
   end
 
   private
+
   def return_ok
     respond_to do |format|
       format.json { head :ok }
@@ -30,5 +31,4 @@ class UserFavouriteTopicsController < ApplicationController
   def slug_title
     params[:slug_title] || params[:id]
   end
-
 end

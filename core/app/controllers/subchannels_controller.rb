@@ -24,24 +24,24 @@ class SubchannelsController < ApplicationController
 
   private
 
-    def channel_id
-      params[:channel_id]
-    end
+  def channel_id
+    params[:channel_id]
+  end
 
-    def subchannel_id
-      params[:subchannel_id]||params[:id]
-    end
+  def subchannel_id
+    params[:subchannel_id]||params[:id]
+  end
 
-    def channel
-      @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
-    end
+  def channel
+    @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
+  end
 
-    def subchannel
-      @subchannel ||= Channel[subchannel_id] || raise_404("#{t(:topic)} not found")
-    end
+  def subchannel
+    @subchannel ||= Channel[subchannel_id] || raise_404("#{t(:topic)} not found")
+  end
 
-    def render_subchannels
-      @channels = interactor :'channels/sub_channels', channel
-      render 'channels/index', format: 'json', location: channel_path(channel.created_by.user.username, channel.id)
-    end
+  def render_subchannels
+    @channels = interactor :'channels/sub_channels', channel
+    render 'channels/index', format: 'json', location: channel_path(channel.created_by.user.username, channel.id)
+  end
 end

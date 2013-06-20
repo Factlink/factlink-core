@@ -5,16 +5,13 @@ class ChannelActivitiesController < ApplicationController
   def index
     authorize! :show, @channel
 
-    respond_to do |format|
-      format.json do
-        @activities = sanitized_activities @channel.activities do |list|
-          list.below( params[:timestamp] || 'inf',
-            count: params[:number].andand.to_i || 11,
-            reversed: true, withscores: true)
-        end
-        render 'channels/activities'
+    backbone_responder do
+      @activities = sanitized_activities @channel.activities do |list|
+        list.below( params[:timestamp] || 'inf',
+          count: params[:number].andand.to_i || 11,
+          reversed: true, withscores: true)
       end
-      format.html { render inline: '', layout: 'channels' }
+      render 'channels/activities'
     end
   end
 
