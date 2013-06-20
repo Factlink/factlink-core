@@ -53,6 +53,11 @@ class AddedFactToTopicView extends ActivityItemView
   className: 'separator-list-item'
   template: 'activities/added_fact_to_topic'
 
+  templateHelpers: ->
+    topic: @topic().toJSON()
+
+  topic: -> @_topic ?= new Topic(@model.get('activity').topic)
+
 class AddedFactToTopicGroupView extends ActivitiesGroupView
   template: 'activities/added_fact_to_topic_group'
   className: ''

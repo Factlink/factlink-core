@@ -6,9 +6,9 @@ json.array!(@results) do |result|
   elsif result.class == FactlinkUser
     json.the_class "FactlinkUser"
     json.the_object {|j| j.partial! 'users/user_partial', user: result }
-  elsif result.class == OpenStruct && result.dead_object_name == :topic
+  elsif result.class == DeadUserTopic
     json.the_class "Topic"
-    json.the_object {|j| j.partial! 'search_results/topic', topic: result }
+    json.the_object {|j| j.partial! 'user_topics/user_topic', user_topic: result }
   else
     raise "Error: SearchResults::SearchResultItem#the_object: No match on class."
   end
