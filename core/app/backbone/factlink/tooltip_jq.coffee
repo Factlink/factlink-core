@@ -42,6 +42,9 @@ class Backbone.Factlink.TooltipJQ
       over: @_hoverTarget true
       out: @_hoverTarget false
 
+  close: ->
+    ttActions.remove() for id, ttActions of @_instances
+
   _openInstance: ($target) ->
     instId = 'tt' + @_instCounter++
     inTooltip = false
@@ -73,6 +76,3 @@ class Backbone.Factlink.TooltipJQ
         ttActions.setTargetHover inTarget
       else if inTarget #target has no tooltip but is hovered
         @_openInstance $target
-
-  close: ->
-    ttActions.remove() for id, ttActions of @_instances
