@@ -108,7 +108,7 @@ class FactsController < ApplicationController
     @fact_id = @fact.id
     @fact.delete
 
-    respond_with(@fact) # TODO check what this does
+    render json: @fact
   end
 
   def set_opinion

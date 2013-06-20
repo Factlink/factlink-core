@@ -148,7 +148,7 @@ class ChannelsController < ApplicationController
 
     @channel.remove_fact(@fact)
 
-    respond_with(@channel) # TODO what is this supposed to render
+    render json: @channel
   end
 
   private
