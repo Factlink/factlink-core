@@ -37,34 +37,35 @@ class CommentsController < ApplicationController
   end
 
   private
-    def get_fact_id_param
-      id_string = params[:id]
-      raise 'No Fact id is supplied.' if id_string == nil
 
-      id = id_string.to_i
-      raise 'No valid Fact id is supplied.' if id == 0
+  def get_fact_id_param
+    id_string = params[:id]
+    raise 'No Fact id is supplied.' if id_string == nil
 
-      id
+    id = id_string.to_i
+    raise 'No valid Fact id is supplied.' if id == 0
+
+    id
+  end
+
+  def get_comment_id_param
+    id_string = params[:id]
+    raise 'No Comment id is supplied.' if id_string == nil
+
+    id_string
+  end
+
+  def sort_by_relevance comments
+    comments.sort do |a,b|
+      OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
     end
+  end
 
-    def get_comment_id_param
-      id_string = params[:id]
-      raise 'No Comment id is supplied.' if id_string == nil
-
-      id_string
+  def type
+    case params[:type]
+    when 'supporting' then 'believes'
+    when 'weakening' then 'disbelieves'
+    else params[:type]
     end
-
-    def sort_by_relevance comments
-      comments.sort do |a,b|
-        OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
-      end
-    end
-
-    def type
-      case params[:type]
-      when 'supporting' then 'believes'
-      when 'weakening' then 'disbelieves'
-      else params[:type]
-      end
-    end
+  end
 end
