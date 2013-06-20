@@ -27,6 +27,7 @@ class TosController < ApplicationController
 
   def track_signed_tos
     mp_track_people_event signed_tos: true
+    mp_track "Tour: Signed ToS"
   end
 
   def track_tos_browser

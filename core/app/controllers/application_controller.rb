@@ -135,14 +135,19 @@ class ApplicationController < ActionController::Base
   end
 
   def mp_track(event, opts={})
-    new_opts =  if current_user
-                   opts.update({
+    user = opts.fetch(:current_user) { current_user }
+    opts.delete :current_user
+
+    new_opts = if current_user
+                    opts.update({
                      :mp_name_tag => current_user.username,
                      :distinct_id => current_user.id,
-                     :time => Time.now.utc.to_i })
+                    })
                 else
                   opts
                 end
+
+    new_opts[:time] = Time.now.utc.to_i
 
     req_env = MixpanelRequestPresenter.new(request).to_hash
 
