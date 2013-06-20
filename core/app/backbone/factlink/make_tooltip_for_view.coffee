@@ -29,11 +29,11 @@ Backbone.Factlink.makeTooltipForView = (options) ->
     positionedRegion.updatePosition()
     positionedRegion.$el
 
-  closeHandler = new Backbone.Factlink.TooltipDefinition
-    $el: options.parentView.$el
+  tooltipDefinition = new Backbone.Factlink.TooltipDefinition
+    $container: options.parentView.$el
     selector: options.selector
     makeTooltip: makeTooltip
     removeTooltip: -> positionedRegion.resetFade()
 
-  options.parentView.on 'close', closeHandler.close
+  options.parentView.on 'close', tooltipDefinition.close
 
