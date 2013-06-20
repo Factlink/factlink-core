@@ -1,7 +1,6 @@
-#= require './../regions/cross_fade_region'
 Backbone.Factlink ||= {}
 
-class Backbone.Factlink.PositionedRegion extends window.CrossFadeRegion
+class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegion
 
   el: '<div style="position: absolute"></div>'
 

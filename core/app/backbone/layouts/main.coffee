@@ -1,17 +1,14 @@
-#= require_directory ./../regions
-
 FactlinkApp.startSiteRegions = ->
   FactlinkApp.addRegions
     mainRegion:          '#main-wrapper'
     notificationsRegion: '#notifications'
 
-    leftTopCrossFadeRegion:  CrossFadeRegion.extend( el: '#left-column .left-top-x-fade' )
     leftTopRegion:       '#left-column .js-left-top-region'
     leftBottomRegion:    '#left-column .js-left-bottom-region'
     leftMiddleRegion:    '#left-column .js-left-middle-region'
 
   FactlinkApp.closeAllContentRegions = ->
-    for region in ['leftTopCrossFadeRegion', 'leftTopRegion', 'leftBottomRegion', 'leftMiddleRegion', 'mainRegion']
+    for region in ['leftTopRegion', 'leftBottomRegion', 'leftMiddleRegion', 'mainRegion']
       FactlinkApp[region].close()
 
 FactlinkApp.startClientRegions = ->

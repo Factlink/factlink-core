@@ -49,6 +49,8 @@ class AddedFirstFactlinkView extends ActivityItemView
   template: "activities/added_first_factlink"
 
 class AddedFactToTopicView extends ActivityItemView
+  _.extend @prototype, Backbone.Factlink.TooltipMixin
+
   tagName: 'span'
   className: 'separator-list-item'
   template: 'activities/added_fact_to_topic'
@@ -63,6 +65,9 @@ class AddedFactToTopicGroupView extends ActivitiesGroupView
   className: ''
   itemView: AddedFactToTopicView
   itemViewContainer: '.js-region-channels'
+
+  itemViewOptions: ->
+    $offsetParent: @options.$offsetParent
 
   actions: -> ["added_fact_to_channel"]
 

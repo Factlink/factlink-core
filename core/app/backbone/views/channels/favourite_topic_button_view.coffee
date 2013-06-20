@@ -1,4 +1,5 @@
 class window.FavouriteTopicButtonView extends ActionButtonView
+  className: 'favourite-topic-button'
 
   initialize: ->
     @user = currentUser
