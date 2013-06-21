@@ -7,7 +7,7 @@
 #
 # > console.interactor :'facts/post_to_twitter', '10', 'hi'
 
-class Console
+class TwitterConsoleHelper
   include Pavlov::Helpers
 
   def initialize username
