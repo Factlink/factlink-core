@@ -48,6 +48,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   regions:
     suggestedTopicsRegion: '.js-region-suggested-topics'
+    shareNewFactRegion: '.js-region-share-new-fact'
 
   templateHelpers: ->
     layout: @options.layout
@@ -69,6 +70,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @renderSuggestedChannels()
     @renderPersistentWheelView()
     @createCancelEvent()
+    @renderShareNewFact()
     sometimeWhen(
       => @$el.is ":visible"
     , => @the_tooltip.render()
@@ -103,6 +105,12 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
     persistentWheelView.on 'opinionSet', ->
       parent?.remote?.trigger('opinionSet')
+
+  renderShareNewFact: ->
+    @shareNewFactRegion.show @shareNewFactView()
+
+  shareNewFactView: ->
+    @_shareNewFactView ?= new ShareNewFactView
 
   createCancelEvent: ->
     @ui.cancel.on 'click', (e)->
