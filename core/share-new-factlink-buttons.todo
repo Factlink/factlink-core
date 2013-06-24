@@ -6,7 +6,7 @@ Showing buttons in frontend (non-functional):
 
 Make buttons work:
  ✔ Send buttons state when saving Factlink @done (13-06-24 11:59)
- ☐ Call appropriate interactors in facts/create
+ ✔ Call appropriate interactors in facts/create @done (13-06-24 16:08)
 
 Hide buttons:
  ☐ Return to frontend through currentUser whether the user has connected Twitter/Facebook
