@@ -27,9 +27,6 @@ Backbone.Factlink.PopoverMixin =
     if @_popovers[selector]?
       throw "Cannot call popoverAdd multiple times with the same selector: #{selector}"
 
-    unless options.contentView?
-      @popover_options.contentView = new Backbone.Marionette.ItemView template: options.contentTemplate
-
     view = new PopoverView @popover_options
 
     FactlinkApp.Overlay.show() if @popover_options['show_overlay']
