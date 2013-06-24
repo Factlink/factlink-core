@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/user_topics/by_slug_title'
+require_relative '../../../../app/interactors/queries/topics/by_slug_title_with_authority_and_facts_count'
 
-describe Queries::UserTopics::BySlugTitle do
+describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
   include PavlovSupport
 
   describe '#validate' do
@@ -16,9 +16,7 @@ describe Queries::UserTopics::BySlugTitle do
   end
 
   describe '#call' do
-    it 'returns the user topic' do
-      stub_classes 'DeadUserTopic'
-
+    it 'returns the topic' do
       topic = mock(slug_title: 'slug_title', title: mock)
       dead_topic = mock
       pavlov_options = {current_user: mock}
@@ -28,7 +26,7 @@ describe Queries::UserTopics::BySlugTitle do
         .and_return(topic)
 
       Pavlov.stub(:query)
-        .with(:'user_topics/by_topic', topic, pavlov_options)
+        .with(:'topics/dead_topic_with_authority_and_facts_count_by_topic', topic, pavlov_options)
         .and_return(dead_topic)
 
       query = described_class.new topic.slug_title, pavlov_options

@@ -73,7 +73,7 @@ describe FactsController do
     end
   end
 
-  describe :extended_show do
+  describe :discussion_page do
     it "should escape html in fields" do
       authenticate_user!(user)
       fact = nil
@@ -90,7 +90,7 @@ describe FactsController do
       should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, fact
 
-      get :extended_show, id: fact.id, fact_slug: 'hoi'
+      get :discussion_page, id: fact.id, fact_slug: 'hoi'
       response.body.should_not match(/<xss>/)
     end
   end
@@ -123,13 +123,6 @@ describe FactsController do
   end
 
   describe :create do
-    it "should work" do
-      authenticate_user!(user)
-      should_check_can :create, anything
-      post 'create', url: "http://example.org/", fact: "Facity Fact", title: "Title"
-      response.should redirect_to(fact_path(Fact.all.all[-1].id))
-    end
-
     it "should work with json" do
       authenticate_user!(user)
       should_check_can :create, anything

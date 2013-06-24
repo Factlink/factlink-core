@@ -29,9 +29,7 @@ describe TopicsController do
       it 'should render a backbone page' do
         format = mock(json: nil, html: nil)
 
-        controller.should_receive(:respond_to).and_yield format
-        format.should_receive(:html).and_yield
-        controller.should_receive(:render_backbone_page)
+        controller.should_receive(:backbone_responder)
 
         controller.show
       end

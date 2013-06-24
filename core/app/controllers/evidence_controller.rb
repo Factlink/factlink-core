@@ -7,7 +7,7 @@ class EvidenceController < ApplicationController
   def combined_index
     @evidence = interactor :"evidence/for_fact_id", params[:fact_id], relation
 
-    render 'evidence/index'
+    render 'evidence/index', formats: [:json]
   end
 
   class EvidenceNotFoundException < StandardError
@@ -45,7 +45,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.calculate_opinion
 
-    render 'fact_relations/show'
+    render 'fact_relations/show', formats: [:json]
   rescue EvidenceNotFoundException
     render json: [], status: :unprocessable_entity
   end
@@ -62,7 +62,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.calculate_opinion
 
-    render 'fact_relations/show'
+    render 'fact_relations/show', formats: [:json]
   end
 
   def remove_opinions
@@ -75,7 +75,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.calculate_opinion
 
-    render 'fact_relations/show'
+    render 'fact_relations/show', formats: [:json]
   end
 
   # TODO move to a fact_relation resource
@@ -92,15 +92,16 @@ class EvidenceController < ApplicationController
   end
 
   private
-    # TODO This should not be a Controller method. Move to FactRelation
-    def create_believed_factrelation(evidence, type, fact)
-      type     = type.to_sym
 
-      # Create FactRelation
-      fact_relation = fact.add_evidence(type, evidence, current_user)
-      fact_relation.add_opinion(:believes, current_graph_user)
-      Activity::Subject.activity(current_graph_user, Opinion.real_for(:believes),fact_relation)
+  # TODO This should not be a Controller method. Move to FactRelation
+  def create_believed_factrelation(evidence, type, fact)
+    type     = type.to_sym
 
-      fact_relation
-    end
+    # Create FactRelation
+    fact_relation = fact.add_evidence(type, evidence, current_user)
+    fact_relation.add_opinion(:believes, current_graph_user)
+    Activity::Subject.activity(current_graph_user, Opinion.real_for(:believes),fact_relation)
+
+    fact_relation
+  end
 end

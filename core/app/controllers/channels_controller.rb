@@ -5,9 +5,7 @@ class ChannelsController < ApplicationController
   before_filter :load_channel,
     :only => [
       :show,
-      :edit,
       :destroy,
-      :update,
       :facts,
       :create_fact,
       :remove_fact,
@@ -22,37 +20,21 @@ class ChannelsController < ApplicationController
     @channels = interactor :'channels/visible_of_user_for_user', @user
   end
 
-  def backbone_page
-    render_backbone_page
-  end
-
   def show
     authorize! :show, @channel
-    respond_to do |format|
-      format.json do
-        @channel = interactor :'channels/get', @channel.id
-      end
-      format.js
-      format.html do
-        render_backbone_page
-        mark_channel_as_read
-      end
+
+    backbone_responder do
+      @channel = interactor :'channels/get', @channel.id
     end
-  end
 
-  def new
-    authorize! :new, Channel
-    @channel = Channel.new
-  end
-
-  def edit
-    authorize! :edit, @channel
+    mark_channel_as_read if request.format.html?
   end
 
   #TODO Move to topicscontroller, this searches for topics, not for channels
   def search
+    # TODO add access control
     @topics = interactor :search_channel, params[:s]
-    render 'topics/index'
+    render 'topics/index', formats: [:json]
   end
 
   def create
@@ -83,7 +65,6 @@ class ChannelsController < ApplicationController
       @channel.save
 
       respond_to do |format|
-        format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => "#{t(:topic)} successfully created") }
         format.json do
           @channel = interactor :'channels/get', @channel.id
           render 'channels/show'
@@ -92,29 +73,7 @@ class ChannelsController < ApplicationController
 
     else
       respond_to do |format|
-        format.html { render :new }
         format.json do
-          render json: @channel.errors, status: :unprocessable_entity
-        end
-      end
-    end
-  end
-
-  def update
-    authorize! :update, @channel
-
-    channel_params = params[:channel] || params
-
-    respond_to do |format|
-      if @channel.update_attributes!(channel_params.slice(:title))
-        format.html  do
-          redirect_to channel_path(@channel.created_by.user, @channel),
-                      notice: "#{t(:topic)} was successfully updated."
-        end
-        format.json  { render json: {}, status: :ok }
-      else
-        format.html  { render :edit }
-        format.json  do
           render json: @channel.errors, status: :unprocessable_entity
         end
       end
@@ -189,27 +148,28 @@ class ChannelsController < ApplicationController
 
     @channel.remove_fact(@fact)
 
-    respond_with(@channel)
+    render json: @channel
   end
 
   private
-    def get_user
-      if @channel
-        @user ||= @channel.created_by.user
-      elsif params[:username]
-        @user ||= query(:user_by_username, params[:username]) or raise_404
-      end
-    end
 
-    def load_channel
-      @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
+  def get_user
+    if @channel
+      @user ||= @channel.created_by.user
+    elsif params[:username]
+      @user ||= query(:user_by_username, params[:username]) or raise_404
     end
+  end
 
-    def channel_id
-      params[:channel_id] || params[:id]
-    end
+  def load_channel
+    @channel ||= Channel[channel_id] || raise_404("#{t(:topic)} not found")
+  end
 
-    def mark_channel_as_read
-      @channel.mark_as_read if @channel.created_by == current_graph_user
-    end
+  def channel_id
+    params[:channel_id] || params[:id]
+  end
+
+  def mark_channel_as_read
+    @channel.mark_as_read if @channel.created_by == current_graph_user
+  end
 end

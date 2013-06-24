@@ -28,7 +28,7 @@ module Interactors
 
       def url
         fact = query :"facts/get_dead", fact_id
-        query :'facts/sharing_url', fact
+        ::FactUrl.new(fact).sharing_url
       end
 
       def maximum_message_length

@@ -43,26 +43,27 @@ class SitesController < ApplicationController
 
   def top_topics
     @topics = interactor :'site/top_topics', params[:url], 3
-    render 'topics/index'
+    render 'topics/index', formats: [:json]
   end
 
   private
-    def render_jsonp json_able
-      if params[:callback]
-        render json: json_able, callback: params[:callback], content_type: "application/javascript"
-      else
-        render json: json_able
-      end
-    end
 
-    def is_blacklisted
-      Blacklist.default.matches? params[:url]
+  def render_jsonp json_able
+    if params[:callback]
+      render json: json_able, callback: params[:callback], content_type: "application/javascript"
+    else
+      render json: json_able
     end
+  end
 
-    def register_client_version_numbers
-      extension_version = request.headers["extensionVersion"]
-      user_agent        = request.headers["userAgent"]
+  def is_blacklisted
+    Blacklist.default.matches? params[:url]
+  end
 
-      mp_track_people_event user_agent: user_agent, extension_version: extension_version
-    end
+  def register_client_version_numbers
+    extension_version = request.headers["extensionVersion"]
+    user_agent        = request.headers["userAgent"]
+
+    mp_track_people_event user_agent: user_agent, extension_version: extension_version
+  end
 end

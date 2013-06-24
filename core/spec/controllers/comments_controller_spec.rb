@@ -16,7 +16,7 @@ describe CommentsController do
       comment = stub(type: type, content: content)
 
       controller.should_receive(:interactor).with(:"comments/create", fact_id, type, content).and_return(comment)
-      controller.should_receive(:render).with('comments/show')
+      controller.should_receive(:render).with('comments/show', {formats: [:json]})
 
       controller.create
 
@@ -47,7 +47,7 @@ describe CommentsController do
       controller.stub(params: {opinion: opinion})
 
       controller.should_receive(:interactor).with('comments/update_opinion', comment_id, opinion)
-      controller.should_receive(:render).with('comments/show')
+      controller.should_receive(:render).with('comments/show', {formats: [:json]})
 
       controller.update
     end
@@ -61,7 +61,7 @@ describe CommentsController do
 
       controller.should_receive(:interactor).with(:'sub_comments/index_for_comment', comment_id).
         and_return(sub_comments)
-      controller.should_receive(:render).with('sub_comments/index')
+      controller.should_receive(:render).with('sub_comments/index', {formats: [:json]})
 
       controller.sub_comments_index
 
@@ -79,7 +79,7 @@ describe CommentsController do
 
       controller.should_receive(:interactor).with(:'sub_comments/create_for_comment', comment_id, content).
         and_return(sub_comment)
-      controller.should_receive(:render).with('sub_comments/show')
+      controller.should_receive(:render).with('sub_comments/show', {formats: [:json]})
 
       controller.sub_comments_create
 

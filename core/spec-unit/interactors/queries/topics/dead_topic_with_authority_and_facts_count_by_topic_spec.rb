@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/user_topics/by_topic'
+require_relative '../../../../app/interactors/queries/topics/dead_topic_with_authority_and_facts_count_by_topic'
 
-describe Queries::UserTopics::ByTopic do
+describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
   include PavlovSupport
 
   describe '#validate' do
@@ -16,8 +16,8 @@ describe Queries::UserTopics::ByTopic do
   end
 
   describe '#execute' do
-    it 'returns the user topic' do
-      stub_classes 'DeadUserTopic'
+    it 'returns the topic' do
+      stub_classes 'DeadTopic'
 
       topic = mock(slug_title: mock, title: mock)
       facts_count = mock
@@ -34,7 +34,7 @@ describe Queries::UserTopics::ByTopic do
         .with(:authority_on_topic_for, topic, current_user.graph_user, pavlov_options)
         .and_return(current_user_authority)
 
-      DeadUserTopic.stub(:new)
+      DeadTopic.stub(:new)
         .with(topic.slug_title, topic.title, current_user_authority, facts_count)
         .and_return(dead_topic)
 

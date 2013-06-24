@@ -11,7 +11,7 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     only: [
       :show,
-      :extended_show,
+      :discussion_page,
       :destroy,
       :update,
       :opinion,
@@ -28,17 +28,20 @@ class FactsController < ApplicationController
 
     respond_to do |format|
       format.html do
+        dead_fact = query :'facts/get_dead', @fact.id
+        open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
+        open_graph_formatter.add open_graph_fact
+
         render inline:'', layout: 'client'
       end
       format.json { render }
     end
   end
 
-  def extended_show
-    authorize! :access, Ability::FactlinkWebapp
+  def discussion_page
     authorize! :show, @fact
 
-    render_backbone_page
+    backbone_responder
   end
 
   # TODO combine next three methods
@@ -99,10 +102,6 @@ class FactsController < ApplicationController
 
       add_to_channels @fact, params[:channels]
 
-      format.html do
-        mp_track "Modal: Create"
-        redirect_to fact_path(@fact.id, guided: params[:guided])
-      end
       format.json { render 'facts/show' }
     end
   end
@@ -113,7 +112,7 @@ class FactsController < ApplicationController
     @fact_id = @fact.id
     @fact.delete
 
-    respond_with(@fact)
+    render json: @fact
   end
 
   def set_opinion
@@ -165,46 +164,47 @@ class FactsController < ApplicationController
   end
 
   private
-    def load_fact
-      @fact = interactor :'facts/get', fact_id || raise_404
+
+  def load_fact
+    @fact = interactor :'facts/get', fact_id || raise_404
+  end
+
+  def fact_id
+    params[:fact_id] || params[:id]
+  end
+
+  def allowed_type
+    allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
+    type = params[:type].to_sym
+    if allowed_types.include?(type)
+      yield
+    else
+      render :json => {"error" => "type not allowed"}, :status => 500
+      false
     end
+  end
 
-    def fact_id
-      params[:fact_id] || params[:id]
+  def parse_pagination_parameters
+    params[:skip] ||= '0'
+    @skip = params[:skip].to_i
+
+    params[:take] ||= '3'
+    @take = params[:take].to_i
+  end
+
+  def render_interactions data
+    @users = data[:users]
+    @total = data[:total]
+
+    render 'facts/interactions', format: 'json'
+  end
+
+  def add_to_channels fact, channel_ids
+    return unless channel_ids
+
+    channels = channel_ids.map{|id| Channel[id]}.compact
+    channels.each do |channel|
+      interactor :"channels/add_fact", fact, channel
     end
-
-    def allowed_type
-      allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
-      type = params[:type].to_sym
-      if allowed_types.include?(type)
-        yield
-      else
-        render :json => {"error" => "type not allowed"}, :status => 500
-        false
-      end
-    end
-
-    def parse_pagination_parameters
-      params[:skip] ||= '0'
-      @skip = params[:skip].to_i
-
-      params[:take] ||= '3'
-      @take = params[:take].to_i
-    end
-
-    def render_interactions data
-      @users = data[:users]
-      @total = data[:total]
-
-      render 'facts/interactions', format: 'json'
-    end
-
-    def add_to_channels fact, channel_ids
-      return unless channel_ids
-
-      channels = channel_ids.map{|id| Channel[id]}.compact
-      channels.each do |channel|
-        interactor :"channels/add_fact", fact, channel
-      end
-    end
+  end
 end

@@ -58,19 +58,6 @@ class AddedFactToTopicView extends ActivityItemView
   templateHelpers: ->
     topic: @topic().toJSON()
 
-  initialize: ->
-    Backbone.Factlink.Tooltip
-      parentView: @
-      positioning:
-        align: 'left'
-        side: 'bottom'
-      selector: '.js-link'
-      $offsetParent: @options.$offsetParent
-      tooltipViewFactory: =>
-        new TopicPopoverContentView model: @topic()
-
-
-
   topic: -> @_topic ?= new Topic(@model.get('activity').topic)
 
 class AddedFactToTopicGroupView extends ActivitiesGroupView
@@ -79,7 +66,8 @@ class AddedFactToTopicGroupView extends ActivitiesGroupView
   itemView: AddedFactToTopicView
   itemViewContainer: '.js-region-channels'
 
-  itemViewOptions: -> @options
+  itemViewOptions: ->
+    $offsetParent: @options.$offsetParent
 
   actions: -> ["added_fact_to_channel"]
 

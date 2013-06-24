@@ -24,8 +24,10 @@ class TosController < ApplicationController
   end
 
   private
+
   def track_signed_tos
     mp_track_people_event signed_tos: true
+    mp_track "Tour: Signed ToS"
   end
 
   def track_tos_browser
@@ -33,5 +35,4 @@ class TosController < ApplicationController
     tos_browser_version = params[:tos_browser_version]
     mp_track_people_event tos_browser_name: tos_browser_name, tos_browser_version: tos_browser_version
   end
-
 end

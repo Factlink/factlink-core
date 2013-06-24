@@ -52,7 +52,7 @@ end
 
 if dead_fact.site_url
   json.fact_url dead_fact.site_url
-  json.proxy_scroll_url dead_fact.proxy_scroll_url
+  json.proxy_scroll_url dead_fact.url.proxy_scroll_url
 end
 
 json.timestamp timestamp
