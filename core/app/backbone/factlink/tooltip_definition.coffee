@@ -9,22 +9,11 @@
 
 Backbone.Factlink ||= {}
 
-#This class defines how tooltips should be shown for elements matching
-#a selector within $container.  There can be multiple definitions.  Each
-#definition can (potentially) show multiple tooltips.
 
 class Backbone.Factlink.TooltipDefinition
   defaults = closingtimeout: 500
   ttCounter = 0 #each TooltipDefinition gets its own id based on this.
 
-  #$container:   the owning element.
-  #selector:     elements inside $container matching selector show tooltips
-  #makeTooltip:  callback:  $container, $target -> $tooltip
-  #   called when a tooltip is to be shown.  TooltipDefinition will
-  #   not alter, add or show this element: you should do that.
-  #removeTooltip: callback: $container, $target, $tooltip ->
-  #   called when an open tooltip should be hidden.  TooltipDefinition
-  #   does not alter, remove or hide this element: you should do that.
 
   constructor: (options) ->
     @_options = _.defaults options, defaults
@@ -32,9 +21,6 @@ class Backbone.Factlink.TooltipDefinition
     @_uid = ttCounter++
     @_uidStr = 'tooltip_Uid-' + @_uid
     @_instCounter = 0 #one call can cause multiple tooltips
-    #we track each tooltip using the @_instCounter and store them
-    #in `@_instances`: this means we can close them not just
-    #in reponse to an event handler, but also on request
     @_instances = {}
 
     @_options.$container.hoverIntent
