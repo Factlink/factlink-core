@@ -21,20 +21,7 @@
 <body class="client">
   <div id='alerts'></div>
 
-  <div class="factlink-modal-container">
-    <div class="js-region-factlink-modal-top"></div>
-
-    <div class="factlink-modal modal-box">
-      <div class="drag-handler top"   ></div>
-      <div class="drag-handler bottom"></div>
-      <div class="drag-handler left"  ></div>
-      <div class="drag-handler right" ></div>
-      <div class="factlink-modal-content">
-        <%= yield %>
-      </div>
-      <div class="js-region-factlink-modal-bottom"></div>
-    </div>
-  </div>
+  <div class="js-client-modal-region"><%= yield %></div>
 
   <div id='modal_region'></div>
   <%= javascript_include_tag "modal" %>

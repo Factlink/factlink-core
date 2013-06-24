@@ -13,6 +13,9 @@ class window.ClientController
       window.location = Factlink.Global.path.sign_in_client()
       return
 
+    clientModal = new ClientModalLayout
+    FactlinkApp.mainRegion.show clientModal
+
     csrf_token = $('meta[name=csrf-token]').attr('content')
 
     FactlinkApp.guided = params.guided == 'true'
@@ -32,23 +35,27 @@ class window.ClientController
     factsNewView.on 'factCreated', (fact) =>
       parent.$(parent.document).trigger("factlinkCreated", fact.id )
 
-    FactlinkApp.mainRegion.show factsNewView
+    clientModal.mainRegion.show factsNewView
 
   onFactRemoved: (id)->
     parent.remote.hide()
     parent.remote.stopHighlightingFactlink id
 
   showFact: (fact)->
+    clientModal = new ClientModalLayout
+    FactlinkApp.mainRegion.show clientModal
+
     view = new DiscussionView model: fact
     view.on 'render', =>
       parent.$(parent.document).trigger "modalready"
-    FactlinkApp.mainRegion.show view
+
+    clientModal.mainRegion.show view
 
     fact.on "destroy", => @onFactRemoved(fact.id)
 
     unless Factlink.Global.signed_in
-      FactlinkApp.topRegion.show new LearnMorePopupView()
-      FactlinkApp.bottomRegion.show new LearnMoreBottomView()
+      clientModal.topRegion.show new LearnMorePopupView()
+      clientModal.bottomRegion.show new LearnMoreBottomView()
 
   showNewFact: (fact) ->
     view = new NewDiscussionView model: fact
