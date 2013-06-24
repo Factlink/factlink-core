@@ -58,13 +58,13 @@ class window.ClientController
       clientModal.bottomRegion.show new LearnMoreBottomView()
 
   showNewFact: (fact) ->
-    clientModal = new NewClientModalLayout
-    FactlinkApp.mainRegion.show clientModal
+    newClientModal = new ClientModalLayout2
+    FactlinkApp.mainRegion.show newClientModal
 
     view = new NewDiscussionView model: fact
     view.on 'render', =>
       parent.$(parent.document).trigger 'modalready'
 
-    clientModal.mainRegion.show view
+    newClientModal.mainRegion.show view
 
     fact.on 'destroy', => @onFactRemoved fact.id
