@@ -44,9 +44,9 @@ module Interactors
       end
 
       def validate
+        validate_nonempty_string :displaystring, displaystring
         validate_string :title, title
         validate_string :url, url
-        validate_nonempty_string :displaystring, displaystring
         validate_not_nil :sharing_options, sharing_options
       end
     end

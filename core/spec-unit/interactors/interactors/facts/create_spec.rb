@@ -10,19 +10,22 @@ describe Interactors::Facts::Create do
   end
 
   describe '.validate' do
-    it 'requires displaystring to be a nonempty string' do
-      expect_validating('', 'url', 'title', mock).
-        to fail_validation('displaystring should be a nonempty string.')
-    end
+    it 'calls the correct validation methods' do
+      displaystring = 'displaystring'
+      url = 'url'
+      title = 'title'
+      sharing_options = mock
 
-    it 'requires url to be a string' do
-      expect_validating('displaystring', 3, 'title', mock).
-        to fail_validation('url should be a string.')
-    end
+      described_class.any_instance.should_receive(:validate_nonempty_string)
+                                  .with(:displaystring, displaystring)
+      described_class.any_instance.should_receive(:validate_string)
+                                  .with(:url, url)
+      described_class.any_instance.should_receive(:validate_string)
+                                  .with(:title, title)
+      described_class.any_instance.should_receive(:validate_not_nil)
+                                  .with(:sharing_options, sharing_options)
 
-    it 'requires title to be a string' do
-      expect_validating('displaystring', 'url', 1, mock).
-        to fail_validation('title should be a string.')
+      described_class.new displaystring, url, title, sharing_options, current_user: mock
     end
   end
 
