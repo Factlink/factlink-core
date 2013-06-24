@@ -28,24 +28,28 @@ class Backbone.Factlink.TooltipDefinition
       out: @_hoverTarget false
 
   close: ->
-    @instance?.remove()
-    @_open_tooltip = null #reuse hereafter is a bug: this causes a crash then.
+    @removeTooltip()
+    delete @_open_tooltip #reuse hereafter is a bug: this causes a crash then.
     @_options.$container.off(".hoverIntent") #unfortunately, we can't do better than this.
 
   _openInstance: ($target) ->
-    @_open_tooltip =
-      new TooltipInstance @_options, $target, ($tooltip) =>
-        delete @_open_tooltip
-        @_options.removeTooltip @_options.$container, $target, $tooltip
+    @$target = $target
+    @_open_tooltip = new Tooltip @_options, @$target, => @removeTooltip()
+
+  removeTooltip: =>
+    @_options.removeTooltip @_options.$container, @$target, @_open_tooltip._$tooltip
+    delete @_open_tooltip
 
   _hoverTarget: (target_is_hovered) -> (e) =>
-      $target = $(e.currentTarget)
-      if @_open_tooltip
-        @_open_tooltip.setTargetHover target_is_hovered
-      else if target_is_hovered
-        @_openInstance $target
+    if @_open_tooltip
+      setTargetHover target_is_hovered
+    else if target_is_hovered
+      @_openInstance $(e.currentTarget)
 
-class TooltipInstance #only local!
+  setTargetHover: (target_is_hovered) ->
+    @_open_tooltip.setTargetHover target_is_hovered
+
+class Tooltip #only local!
   constructor: (@_options, @$target, @closeCallback) ->
     @_inTooltip = false
     @_inTarget = true #opened on hover over target
