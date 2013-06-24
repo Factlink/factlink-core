@@ -30,10 +30,7 @@ class Backbone.Factlink.TooltipDefinition extends Backbone.Marionette.View
 
   render: ->
     @$target = @options.$container.find(@options.selector)
-    @$target.hoverIntent
-      timeout: @_closingtimeout
-      over: => @model.set inTarget: true
-      out:  => @model.set inTarget: false
+    @_hoverintent @$target, 'inTarget'
 
   onClose: ->
     @_removeTooltip()
@@ -41,10 +38,7 @@ class Backbone.Factlink.TooltipDefinition extends Backbone.Marionette.View
 
   _openTooltip: ->
     @_$tooltip = @options.makeTooltip @options.$container, @$target
-    @_$tooltip.hoverIntent
-      timeout: @_closingtimeout
-      over: => @model.set inTooltip: true
-      out:  => @model.set inTooltip: false
+    @_hoverintent @_$tooltip, 'inTooltip'
 
   _removeTooltip: ->
     @options.removeTooltip @options.$container, @$target, @_$tooltip
@@ -56,4 +50,9 @@ class Backbone.Factlink.TooltipDefinition extends Backbone.Marionette.View
     else
       @_openTooltip() if @model.hovered()
 
+  _hoverintent: ($element, property)->
+    @_$tooltip.hoverIntent
+      timeout: @_closingtimeout
+      over: => @model.set property, true
+      out:  => @model.set property, false
 
