@@ -4,11 +4,6 @@ require_relative '../../../../app/interactors/interactors/facts/create.rb'
 describe Interactors::Facts::Create do
   include PavlovSupport
 
-  it '.new' do
-    interactor = Interactors::Facts::Create.new 'displaystring','url','title', mock, current_user: mock
-    interactor.should_not be_nil
-  end
-
   describe '.validate' do
     it 'calls the correct validation methods' do
       displaystring = 'displaystring'
@@ -30,7 +25,7 @@ describe Interactors::Facts::Create do
   end
 
   it '.authorized raises when not logged in' do
-    expect{ Interactors::Facts::Create.new 'displaystring', 'url', 'title', mock, current_user: nil }.
+    expect{ described_class.new 'displaystring', 'url', 'title', mock, current_user: nil }.
       to raise_error Pavlov::AccessDenied, "Unauthorized"
   end
 
@@ -50,13 +45,25 @@ describe Interactors::Facts::Create do
       sharing_options = mock
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
-      interactor = Interactors::Facts::Create.new displaystring, url, title, sharing_options, pavlov_options
+      interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
 
-      interactor.should_receive(:query).with(:'sites/for_url', url).and_return(nil)
-      interactor.should_receive(:command).with(:'sites/create', url).and_return(site)
-      interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
-      interactor.should_receive(:command).with(:'facts/share_new', fact.id.to_s, sharing_options)
-      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s)
+      Pavlov.stub(:query)
+            .with(:'sites/for_url', url, pavlov_options)
+            .and_return(nil)
+
+      Pavlov.should_receive(:command)
+            .with(:'sites/create', url, pavlov_options)
+            .and_return(site)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/create', displaystring, title, user, site, pavlov_options)
+            .and_return(fact)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
       expect(interactor.call).to eq fact
     end
@@ -72,12 +79,22 @@ describe Interactors::Facts::Create do
       sharing_options = mock
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
-      interactor = Interactors::Facts::Create.new displaystring, url, title, sharing_options, pavlov_options
+      interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
 
-      interactor.should_receive(:query).with(:'sites/for_url',url).and_return(site)
-      interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
-      interactor.should_receive(:command).with(:'facts/share_new', fact.id.to_s, sharing_options)
-      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s)
+      Pavlov.stub(:query)
+            .with(:'sites/for_url',url, pavlov_options)
+            .and_return(site)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/create', displaystring, title, user, site, pavlov_options)
+            .and_return(fact)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
+
 
       expect(interactor.call).to eq fact
     end
