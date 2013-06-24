@@ -2,7 +2,11 @@ class window.ClientController
 
   show: (fact_id) =>
     fact = new Fact id: fact_id
-    fact.fetch success: => @showFact fact
+    fact.fetch success: =>
+      if Factlink.Global.can_haz['new_discussion_page']
+        @showNewFact fact
+      else
+        @showFact fact
 
   newFact: (params={}) =>
     unless window.currentUser?
@@ -45,3 +49,12 @@ class window.ClientController
     unless Factlink.Global.signed_in
       FactlinkApp.topRegion.show new LearnMorePopupView()
       FactlinkApp.bottomRegion.show new LearnMoreBottomView()
+
+  showNewFact: (fact) ->
+    view = new NewDiscussionView model: fact
+    view.on 'render', =>
+      parent.$(parent.document).trigger 'modalready'
+
+    FactlinkApp.mainRegion.show view
+
+    fact.on 'destroy', => @onFactRemoved fact.id
