@@ -35,5 +35,7 @@ Backbone.Factlink.makeTooltipForView = (options) ->
     makeTooltip: makeTooltip
     removeTooltip: -> positionedRegion.resetFade()
 
+  tooltipDefinition.render()
+
   options.parentView.on 'close', tooltipDefinition.close
 

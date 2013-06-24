@@ -20,6 +20,7 @@ class Backbone.Factlink.TooltipDefinition
     @_uidStr = 'tooltip_Uid-' + counter++
     @_open_tooltip = null
 
+  render: ->
     @_options.$container.hoverIntent
       timeout: @_options.closingtimeout
       selector: @_options.selector
