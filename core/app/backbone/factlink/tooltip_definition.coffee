@@ -46,10 +46,10 @@ class Backbone.Factlink.TooltipDefinition
     @_options.removeTooltip @_options.$container, @$target, @_$tooltip
     delete @_$tooltip
 
-  start_tooltip: (options, $target) ->
-    @_$tooltip = options.makeTooltip options.$container, $target
+  start_tooltip: ->
+    @_$tooltip = @_options.makeTooltip @_options.$container, @$target
     @_$tooltip.hoverIntent
-      timeout: options.closingtimeout
+      timeout: @_options.closingtimeout
       over: => @state.set inTooltip: true
       out:  => @state.set inTooltip: false
 
@@ -57,6 +57,6 @@ class Backbone.Factlink.TooltipDefinition
     if @_$tooltip
       @removeTooltip() unless @state.hovered()
     else
-      start_tooltip if @state.hovered()
+      @start_tooltip() if @state.hovered()
 
 
