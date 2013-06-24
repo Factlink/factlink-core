@@ -107,10 +107,10 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       parent?.remote?.trigger('opinionSet')
 
   renderShareNewFact: ->
-    @shareNewFactRegion.show @shareNewFactView()
+    @factSharingOptions = new FactSharingOptions
 
-  shareNewFactView: ->
-    @_shareNewFactView ?= new ShareNewFactView
+    shareNewFactView = new ShareNewFactView model: @factSharingOptions
+    @shareNewFactRegion.show shareNewFactView
 
   createCancelEvent: ->
     @ui.cancel.on 'click', (e)->
@@ -132,7 +132,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       fact_url: @$('input.js-url').val()
       fact_title: @$('input.js-title').val()
       channels: channel_ids
-      share: @shareNewFactView().shareModel().toJSON()
+      fact_sharing_options: @factSharingOptions.toJSON()
 
     fact.save {},
       success: =>
