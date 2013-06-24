@@ -15,50 +15,50 @@ class Backbone.Factlink.TooltipDefinition
 
   constructor: (options) ->
     @_options = _.defaults options, @defaults
+    @state = new Backbone.Model
+      inTooltip: false
+      inTarget: false
 
   render: ->
     @_options.$container.hoverIntent
       timeout: @_options.closingtimeout
       selector: @_options.selector
-      over: @_hoverTarget true
-      out: @_hoverTarget false
+      over:(e) => @_hoverTarget e, true
+      out: (e) => @_hoverTarget e, false
 
   close: ->
     @removeTooltip()
     @_options.$container.off(".hoverIntent") #unfortunately, we can't do better than this.
 
-  _openInstance: ($target) ->
-    @$target = $target
-    @start_tooltip @_options, @$target
-
   removeTooltip: =>
     @_options.removeTooltip @_options.$container, @$target, @_$tooltip
-    delete @we_have_tooltip
+    delete @_$tooltip
 
-  _hoverTarget: (target_is_hovered) -> (e) =>
-    if @we_have_tooltip
+  _hoverTarget: (e, target_is_hovered) ->
+    if @_$tooltip
       @setTargetHover target_is_hovered
     else if target_is_hovered
-      @_openInstance $(e.currentTarget)
+     @$target = $(e.currentTarget)
+     @start_tooltip @_options, @$target
 
   start_tooltip: (options, $target) ->
-    @we_have_tooltip = true
-    @_inTooltip = false
-    @_inTarget = true #opened on hover over target
-
+    @state.set('inTarget', true)
     @_$tooltip = options.makeTooltip options.$container, $target
     @_$tooltip.hoverIntent
       timeout: options.closingtimeout
       over: => @setTooltipHover(true)
       out: => @setTooltipHover(false)
 
-  _check: -> @removeTooltip() if !(@_inTarget || @_inTooltip)
+  _check: -> @removeTooltip() unless @hovered()
+
+  hovered: ->
+    @state.get('inTarget') || @state.get('inTooltip')
 
   setTooltipHover: (state) ->
-    @_inTooltip = state
+    @state.set('inTooltip',state)
     @_check()
 
   setTargetHover: (state) ->
-    @_inTarget = state
+    @state.set('inTarget', state)
     @_check()
 
