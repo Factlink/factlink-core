@@ -38,3 +38,5 @@ class window.ShareNewFactView extends Backbone.Marionette.Layout
 
     @twitterRegion.show  new ShareButtonView(model: @model, name: 'twitter')
     @facebookRegion.show new ShareButtonView(model: @model, name: 'facebook')
+
+  shareModel: -> @model

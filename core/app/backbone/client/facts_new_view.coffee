@@ -132,6 +132,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       fact_url: @$('input.js-url').val()
       fact_title: @$('input.js-title').val()
       channels: channel_ids
+      share: @shareNewFactView().shareModel().toJSON()
 
     fact.save {},
       success: =>
