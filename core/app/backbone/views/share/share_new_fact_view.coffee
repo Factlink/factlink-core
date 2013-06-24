@@ -28,5 +28,8 @@ class window.ShareNewFactView extends Backbone.Marionette.Layout
   onRender: ->
     @$el.toggle Factlink.Global.can_haz.share_new_factlink_buttons || false
 
-    @twitterRegion.show  new ShareButtonView(model: @model, name: 'twitter')
-    @facebookRegion.show new ShareButtonView(model: @model, name: 'facebook')
+    if currentUser.get('services').twitter
+      @twitterRegion.show  new ShareButtonView(model: @model, name: 'twitter')
+
+    if currentUser.get('services').facebook
+      @facebookRegion.show new ShareButtonView(model: @model, name: 'facebook')
