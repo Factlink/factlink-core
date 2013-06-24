@@ -1,0 +1,20 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.share-new-fact {
+  line-height: 25px;
+
+  .share-new-fact-button {
+    margin-right: 3px;
+    cursor: pointer;
+    .opacity(0.5);
+
+    &:hover {
+      .opacity(0.7);
+    }
+
+    &.share-new-fact-button-checked {
+      .opacity(1);
+    }
+  }
+}
