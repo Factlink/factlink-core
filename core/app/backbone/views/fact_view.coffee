@@ -27,7 +27,7 @@ class FactPoparrowView extends Backbone.Factlink.PoparrowView
       success: -> mp_track "Factlink: Destroy"
 
 class window.FactView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   tagName: "div"
   className: "fact-view"

@@ -1,6 +1,6 @@
 class TourUserView extends Backbone.Marionette.Layout
 
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   template: 'tour/interesting_user'
   className: 'tour-interesting-user'
@@ -41,13 +41,13 @@ class TourUserView extends Backbone.Marionette.Layout
   authorityPopover: ->
     unless @_authorityPopover?
       @_authorityPopover = new TourAuthorityPopoverView
-      @bindTo @_authorityPopover, 'next', @tooltipResetAll
+      @bindTo @_authorityPopover, 'next', @popoverResetAll
     @_authorityPopover
 
   showAuthorityPopover: ->
     return if @model.user_topics().isEmpty()
 
-    @tooltipAdd '.js-topic',
+    @popoverAdd '.js-topic',
       side: 'right'
       align: 'top'
       orthogonalOffset: -2
