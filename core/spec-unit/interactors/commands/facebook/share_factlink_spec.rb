@@ -11,7 +11,6 @@ describe Commands::Facebook::ShareFactlink do
   describe '#call' do
     it 'should share a Factlink to Facebook' do
       fact      = stub id: '1', url: mock
-      message   = 'message'
       token     = mock
       client    = mock
       namespace = 'namespace'
@@ -38,7 +37,7 @@ describe Commands::Facebook::ShareFactlink do
       client.should_receive(:put_connections)
             .with("me", "#{namespace}:share", factlink: fact.url)
 
-      command = described_class.new fact.id, message, pavlov_options
+      command = described_class.new fact.id, pavlov_options
 
       command.call
     end
@@ -46,21 +45,16 @@ describe Commands::Facebook::ShareFactlink do
 
 
   describe '#validate' do
-    it 'if the message and @options[:facebook_app_namespace]
+    it 'if the @options[:facebook_app_namespace]
         are a nonempty_string' do
-      message        = 'message'
       namespace      = 'factlinkapp'
       pavlov_options = { facebook_app_namespace: namespace }
 
       described_class.any_instance
         .should_receive(:validate_nonempty_string)
-        .with(:message, message)
-
-      described_class.any_instance
-        .should_receive(:validate_nonempty_string)
         .with(:facebook_app_namespace, namespace)
 
-      command = described_class.new '1', message, pavlov_options
+      command = described_class.new '1', pavlov_options
     end
 
     it 'if the fact_id is an integer string' do
@@ -70,7 +64,7 @@ describe Commands::Facebook::ShareFactlink do
         .should_receive(:validate_integer_string)
         .with(:fact_id, fact_id)
 
-      command = described_class.new fact_id, 'message',
+      command = described_class.new fact_id,
                                     facebook_app_namespace: 'namespace'
     end
   end
