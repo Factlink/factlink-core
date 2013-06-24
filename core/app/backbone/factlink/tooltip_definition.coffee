@@ -15,10 +15,8 @@ class Backbone.Factlink.TooltipDefinition
 
   constructor: (options) ->
     @_options = _.defaults options, defaults
-
     @_uid =
     @_uidStr = 'tooltip_Uid-' + counter++
-    @_open_tooltip = null
 
   render: ->
     @_options.$container.hoverIntent
@@ -29,38 +27,40 @@ class Backbone.Factlink.TooltipDefinition
 
   close: ->
     @removeTooltip()
-    delete @_open_tooltip #reuse hereafter is a bug: this causes a crash then.
     @_options.$container.off(".hoverIntent") #unfortunately, we can't do better than this.
 
   _openInstance: ($target) ->
     @$target = $target
-    @_open_tooltip = new Tooltip @_options, @$target, => @removeTooltip()
+    @start_tooltip @_options, @$target
 
   removeTooltip: =>
-    @_options.removeTooltip @_options.$container, @$target, @_open_tooltip._$tooltip
-    delete @_open_tooltip
+    @_options.removeTooltip @_options.$container, @$target, @_$tooltip
+    delete @we_have_tooltip
 
   _hoverTarget: (target_is_hovered) -> (e) =>
-    if @_open_tooltip
-      setTargetHover target_is_hovered
+    if @we_have_tooltip
+      @setTargetHover target_is_hovered
     else if target_is_hovered
       @_openInstance $(e.currentTarget)
 
-  setTargetHover: (target_is_hovered) ->
-    @_open_tooltip.setTargetHover target_is_hovered
-
-class Tooltip #only local!
-  constructor: (@_options, @$target, @closeCallback) ->
+  start_tooltip: (options, $target) ->
+    @we_have_tooltip = true
     @_inTooltip = false
     @_inTarget = true #opened on hover over target
 
-    @_$tooltip = @_options.makeTooltip @_options.$container, $target
+    @_$tooltip = options.makeTooltip options.$container, $target
     @_$tooltip.hoverIntent
-      timeout: @_options.closingtimeout
-      over: => @_inTooltip = true; @_check()
-      out: => @_inTooltip = false; @_check()
+      timeout: options.closingtimeout
+      over: => @setTooltipHover(true)
+      out: => @setTooltipHover(false)
 
-  _check: -> @closeCallback(@_$tooltip) if !(@_inTarget || @_inTooltip)
+  _check: -> @removeTooltip() if !(@_inTarget || @_inTooltip)
 
-  setTargetHover: (state) -> @_inTarget = state; @_check()
+  setTooltipHover: (state) ->
+    @_inTooltip = state
+    @_check()
+
+  setTargetHover: (state) ->
+    @_inTarget = state
+    @_check()
 
