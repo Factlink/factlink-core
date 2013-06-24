@@ -1,1 +1,13 @@
-placeholder todo
+Showing buttons in frontend (non-functional):
+ ☐ Add feature toggle
+ ☐ Make buttons work like checkboxes
+ ☐ Show buttons when feature toggle is enabled
+
+Make buttons work:
+ ☐ Send buttons state when saving Factlink
+ ☐ Call appropriate interactors in facts/create
+
+Hide buttons:
+ ☐ Return to frontend through currentUser whether the user has connected Twitter/Facebook
+ ☐ Hide buttons for unconnected services
+
