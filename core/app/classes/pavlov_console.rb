@@ -1,13 +1,9 @@
 # Usage:
 #
-# > console = Console.new('mark')
-# > console.post_to_twitter 10, "This is a cool fact"
-#
-# or even invoke other commands/interactors
-#
+# > console = PavlovConsole.new('mark')
 # > console.interactor :'facts/post_to_twitter', '10', 'hi'
 
-class Console
+class PavlovConsole
   include Pavlov::Helpers
 
   def initialize username

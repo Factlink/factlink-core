@@ -49,7 +49,7 @@ class AddedFirstFactlinkView extends ActivityItemView
   template: "activities/added_first_factlink"
 
 class AddedFactToTopicView extends ActivityItemView
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   tagName: 'span'
   className: 'separator-list-item'
