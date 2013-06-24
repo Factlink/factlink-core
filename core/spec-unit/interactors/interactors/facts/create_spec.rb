@@ -31,7 +31,7 @@ describe Interactors::Facts::Create do
       to raise_error Pavlov::AccessDenied, "Unauthorized"
   end
 
-  describe '.execute' do
+  describe '#call' do
     it 'correctly when site doesn''t exist' do
       url = 'www.fmf.nl'
       displaystring = 'this is the annotated text'
@@ -49,7 +49,7 @@ describe Interactors::Facts::Create do
       interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
       interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id_i, user_id_s)
 
-      expect(interactor.execute).to eq fact
+      expect(interactor.call).to eq fact
     end
 
     it 'correctly when site exists' do
@@ -68,7 +68,7 @@ describe Interactors::Facts::Create do
       interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
       interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id_i, user_id_s)
 
-      expect(interactor.execute).to eq fact
+      expect(interactor.call).to eq fact
     end
   end
 end
