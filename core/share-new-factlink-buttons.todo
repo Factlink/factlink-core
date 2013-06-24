@@ -1,13 +1,13 @@
 Showing buttons in frontend (non-functional):
- ☐ Add feature toggle
- ☐ Make buttons work like checkboxes
- ☐ Show buttons when feature toggle is enabled
+ ✔ Add feature toggle @done (13-06-24 11:59)
+ ✔ Make buttons work like checkboxes @done (13-06-24 11:59)
+ ✔ Show buttons when feature toggle is enabled @done (13-06-24 11:59)
+ ☐ Style buttons properly with @jenskanis
 
 Make buttons work:
- ☐ Send buttons state when saving Factlink
+ ✔ Send buttons state when saving Factlink @done (13-06-24 11:59)
  ☐ Call appropriate interactors in facts/create
 
 Hide buttons:
  ☐ Return to frontend through currentUser whether the user has connected Twitter/Facebook
  ☐ Hide buttons for unconnected services
-
