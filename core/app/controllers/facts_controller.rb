@@ -83,10 +83,12 @@ class FactsController < ApplicationController
     url = (params[:url] || params[:fact_url]).to_s
     title = (params[:title] || params[:fact_title]).to_s
 
+    sharing_options = params[:fact_sharing_options] || {}
+
     authenticate_user!
     authorize! :create, Fact
 
-    @fact = interactor :'facts/create', fact_text, url, title, {}
+    @fact = interactor :'facts/create', fact_text, url, title, sharing_options
     @site = @fact.site
 
     respond_to do |format|
