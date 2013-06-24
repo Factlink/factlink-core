@@ -9,22 +9,31 @@
 
 Backbone.Factlink ||= {}
 
+class HoverState extends Backbone.Model
+  defaults:
+    inTooltip: false
+    inTarget: false
+
+  hovered: ->
+    @get('inTarget') || @get('inTooltip')
+
+
 class Backbone.Factlink.TooltipDefinition
   defaults:
     closingtimeout: 500
 
   constructor: (options) ->
     @_options = _.defaults options, @defaults
-    @state = new Backbone.Model
-      inTooltip: false
-      inTarget: false
+    @state = new HoverState
+    @state.on 'change', => @toggleTooltip()
 
   render: ->
     @_options.$container.hoverIntent
       timeout: @_options.closingtimeout
       selector: @_options.selector
-      over:(e) => @_hoverTarget e, true
-      out: (e) => @_hoverTarget e, false
+      over:(e) => @state.set inTarget: true
+      out: (e) => @state.set inTarget: false
+    @$target = @_options.$container.find(@_options.selector)
 
   close: ->
     @removeTooltip()
@@ -34,31 +43,17 @@ class Backbone.Factlink.TooltipDefinition
     @_options.removeTooltip @_options.$container, @$target, @_$tooltip
     delete @_$tooltip
 
-  _hoverTarget: (e, target_is_hovered) ->
-    if @_$tooltip
-      @setTargetHover target_is_hovered
-    else if target_is_hovered
-     @$target = $(e.currentTarget)
-     @start_tooltip @_options, @$target
-
   start_tooltip: (options, $target) ->
-    @state.set('inTarget', true)
     @_$tooltip = options.makeTooltip options.$container, $target
     @_$tooltip.hoverIntent
       timeout: options.closingtimeout
-      over: => @setTooltipHover(true)
-      out: => @setTooltipHover(false)
+      over: => @state.set inTooltip: true
+      out: => @state.set inTooltip: false
 
-  _check: -> @removeTooltip() unless @hovered()
+  toggleTooltip: ->
+    if @_$tooltip
+      @removeTooltip() unless @state.hovered()
+    else
+      start_tooltip if @state.hovered()
 
-  hovered: ->
-    @state.get('inTarget') || @state.get('inTooltip')
-
-  setTooltipHover: (state) ->
-    @state.set('inTooltip',state)
-    @_check()
-
-  setTargetHover: (state) ->
-    @state.set('inTarget', state)
-    @_check()
 
