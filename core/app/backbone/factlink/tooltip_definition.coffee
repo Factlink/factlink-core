@@ -11,12 +11,9 @@ Backbone.Factlink ||= {}
 
 class Backbone.Factlink.TooltipDefinition
   defaults = closingtimeout: 500
-  counter = 0
 
   constructor: (options) ->
     @_options = _.defaults options, defaults
-    @_uid =
-    @_uidStr = 'tooltip_Uid-' + counter++
 
   render: ->
     @_options.$container.hoverIntent
