@@ -13,49 +13,47 @@
 
 Backbone.Factlink ||= {}
 
-class HoverState extends Backbone.Model
+class Hovermodel extends Backbone.Model
   defaults:
     inTooltip: false
     inTarget: false
 
   hovered: -> @get('inTarget') || @get('inTooltip')
 
+class Backbone.Factlink.TooltipDefinition extends Backbone.Marionette.View
+  _closingtimeout: 500
 
-class Backbone.Factlink.TooltipDefinition
-  closingtimeout: 500
+  modelEvents:
+    'change': '_toggleTooltip'
 
-  constructor: (options) ->
-    @_options = options
-    @state = new HoverState
-    @state.on 'change', => @toggleTooltip()
+  initialize: -> @model = new Hovermodel
 
   render: ->
-    @_options.$container.hoverIntent
-      timeout: @closingtimeout
-      selector: @_options.selector
-      over: => @state.set inTarget: true
-      out:  => @state.set inTarget: false
-    @$target = @_options.$container.find(@_options.selector)
+    @$target = @options.$container.find(@options.selector)
+    @$target.hoverIntent
+      timeout: @_closingtimeout
+      over: => @model.set inTarget: true
+      out:  => @model.set inTarget: false
 
-  close: ->
-    @removeTooltip()
-    @_options.$container.off(".hoverIntent")
+  onClose: ->
+    @_removeTooltip()
+    @options.$container.off(".hoverIntent")
 
-  removeTooltip: =>
-    @_options.removeTooltip @_options.$container, @$target, @_$tooltip
+  _openTooltip: ->
+    @_$tooltip = @options.makeTooltip @options.$container, @$target
+    @_$tooltip.hoverIntent
+      timeout: @_closingtimeout
+      over: => @model.set inTooltip: true
+      out:  => @model.set inTooltip: false
+
+  _removeTooltip: ->
+    @options.removeTooltip @options.$container, @$target, @_$tooltip
     delete @_$tooltip
 
-  start_tooltip: ->
-    @_$tooltip = @_options.makeTooltip @_options.$container, @$target
-    @_$tooltip.hoverIntent
-      timeout: @closingtimeout
-      over: => @state.set inTooltip: true
-      out:  => @state.set inTooltip: false
-
-  toggleTooltip: ->
+  _toggleTooltip: ->
     if @_$tooltip
-      @removeTooltip() unless @state.hovered()
+      @_removeTooltip() unless @model.hovered()
     else
-      @start_tooltip() if @state.hovered()
+      @_openTooltip() if @model.hovered()
 
 
