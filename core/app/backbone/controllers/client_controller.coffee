@@ -58,7 +58,7 @@ class window.ClientController
       clientModal.bottomRegion.show new LearnMoreBottomView()
 
   showNewFact: (fact) ->
-    newClientModal = new NewClientModalLayout
+    newClientModal = new ClientModalLayout2
     FactlinkApp.mainRegion.show newClientModal
 
     view = new NewDiscussionView model: fact
