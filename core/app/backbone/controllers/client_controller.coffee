@@ -2,12 +2,19 @@ class window.ClientController
 
   show: (fact_id) =>
     fact = new Fact id: fact_id
-    fact.fetch success: => @showFact fact
+    fact.fetch success: =>
+      if Factlink.Global.can_haz['new_discussion_page']
+        @showNewFact fact
+      else
+        @showFact fact
 
   newFact: (params={}) =>
     unless window.currentUser?
       window.location = Factlink.Global.path.sign_in_client()
       return
+
+    clientModal = new ClientModalLayout
+    FactlinkApp.mainRegion.show clientModal
 
     csrf_token = $('meta[name=csrf-token]').attr('content')
 
@@ -28,20 +35,36 @@ class window.ClientController
     factsNewView.on 'factCreated', (fact) =>
       parent.$(parent.document).trigger("factlinkCreated", fact.id )
 
-    FactlinkApp.mainRegion.show factsNewView
+    clientModal.mainRegion.show factsNewView
 
   onFactRemoved: (id)->
     parent.remote.hide()
     parent.remote.stopHighlightingFactlink id
 
   showFact: (fact)->
+    clientModal = new ClientModalLayout
+    FactlinkApp.mainRegion.show clientModal
+
     view = new DiscussionView model: fact
     view.on 'render', =>
       parent.$(parent.document).trigger "modalready"
-    FactlinkApp.mainRegion.show view
+
+    clientModal.mainRegion.show view
 
     fact.on "destroy", => @onFactRemoved(fact.id)
 
     unless Factlink.Global.signed_in
-      FactlinkApp.topRegion.show new LearnMorePopupView()
-      FactlinkApp.bottomRegion.show new LearnMoreBottomView()
+      clientModal.topRegion.show new LearnMorePopupView()
+      clientModal.bottomRegion.show new LearnMoreBottomView()
+
+  showNewFact: (fact) ->
+    newClientModal = new ClientModalLayout2
+    FactlinkApp.mainRegion.show newClientModal
+
+    view = new NewDiscussionView model: fact
+    view.on 'render', =>
+      parent.$(parent.document).trigger 'modalready'
+
+    newClientModal.mainRegion.show view
+
+    fact.on 'destroy', => @onFactRemoved fact.id
