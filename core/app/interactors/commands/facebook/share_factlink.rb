@@ -5,7 +5,7 @@ module Commands
     class ShareFactlink
       include Pavlov::Command
 
-      arguments :fact_id, :message
+      arguments :fact_id
 
       private
 
@@ -30,7 +30,6 @@ module Commands
       end
 
       def validate
-        validate_nonempty_string :message, message
         validate_integer_string  :fact_id, fact_id
         validate_nonempty_string :facebook_app_namespace,
                                   @options[:facebook_app_namespace]

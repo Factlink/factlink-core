@@ -32,7 +32,7 @@ class Tooltip
 
 
 class window.FactsNewView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   template: "client/facts_new"
 
@@ -48,6 +48,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   regions:
     suggestedTopicsRegion: '.js-region-suggested-topics'
+    shareNewFactRegion: '.js-region-share-new-fact'
 
   templateHelpers: ->
     layout: @options.layout
@@ -69,6 +70,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @renderSuggestedChannels()
     @renderPersistentWheelView()
     @createCancelEvent()
+    @renderShareNewFact()
     sometimeWhen(
       => @$el.is ":visible"
     , => @the_tooltip.render()
@@ -104,6 +106,12 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     persistentWheelView.on 'opinionSet', ->
       parent?.remote?.trigger('opinionSet')
 
+  renderShareNewFact: ->
+    @factSharingOptions = new FactSharingOptions
+
+    shareNewFactView = new ShareNewFactView model: @factSharingOptions
+    @shareNewFactRegion.show shareNewFactView
+
   createCancelEvent: ->
     @ui.cancel.on 'click', (e)->
       mp_track("Modal: Cancel")
@@ -124,6 +132,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       fact_url: @$('input.js-url').val()
       fact_title: @$('input.js-title').val()
       channels: channel_ids
+      fact_sharing_options: @factSharingOptions.toJSON()
 
     fact.save {},
       success: =>
@@ -132,7 +141,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   openOpinionHelptext: ->
     if FactlinkApp.guided
-      @tooltipAdd '.fact-wheel',
+      @popoverAdd '.fact-wheel',
         side: 'left'
         align: 'top'
         margin: 20
@@ -140,12 +149,12 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   closeOpinionHelptext: ->
     if FactlinkApp.guided
-      @tooltipRemove('.fact-wheel')
+      @popoverRemove('.fact-wheel')
       @openFinishHelptext()
 
   openFinishHelptext: ->
     unless @tooltip(".js-submit-post-factlink")?
-      @tooltipAdd '.js-submit-post-factlink',
+      @popoverAdd '.js-submit-post-factlink',
         side: 'right'
         align: 'top'
         margin: 19
