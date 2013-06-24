@@ -32,7 +32,7 @@ class Tooltip
 
 
 class window.FactsNewView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   template: "client/facts_new"
 
@@ -141,7 +141,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   openOpinionHelptext: ->
     if FactlinkApp.guided
-      @tooltipAdd '.fact-wheel',
+      @popoverAdd '.fact-wheel',
         side: 'left'
         align: 'top'
         margin: 20
@@ -149,12 +149,12 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   closeOpinionHelptext: ->
     if FactlinkApp.guided
-      @tooltipRemove('.fact-wheel')
+      @popoverRemove('.fact-wheel')
       @openFinishHelptext()
 
   openFinishHelptext: ->
     unless @tooltip(".js-submit-post-factlink")?
-      @tooltipAdd '.js-submit-post-factlink',
+      @popoverAdd '.js-submit-post-factlink',
         side: 'right'
         align: 'top'
         margin: 19
