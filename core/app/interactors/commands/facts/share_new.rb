@@ -3,11 +3,11 @@ module Commands
     class ShareNew
       include Pavlov::Command
 
-      arguments :fact_id, :share_hash
+      arguments :fact_id, :sharing_options
 
       def execute
-        command :'twitter/share_factlink', fact_id if share_hash[:twitter]
-        command :'facebook/share_factlink', fact_id if share_hash[:facebook]
+        command :'twitter/share_factlink', fact_id if sharing_options[:twitter]
+        command :'facebook/share_factlink', fact_id if sharing_options[:facebook]
       end
 
       def validate_connected service
@@ -18,8 +18,8 @@ module Commands
 
       def validate
         validate_integer_string :fact_id, fact_id
-        validate_connected 'twitter' if share_hash[:twitter]
-        validate_connected 'facebook' if share_hash[:facebook]
+        validate_connected 'twitter' if sharing_options[:twitter]
+        validate_connected 'facebook' if sharing_options[:facebook]
       end
     end
   end

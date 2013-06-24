@@ -4,7 +4,7 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :displaystring, :url, :title, :share_hash
+      arguments :displaystring, :url, :title, :sharing_options
 
       def authorized?
         user
@@ -21,7 +21,7 @@ module Interactors
         command :"facts/add_to_recently_viewed", fact.id.to_i, user.id.to_s
 
         if can? :share, Fact
-          command :"facts/share_new", fact.id.to_s, share_hash
+          command :"facts/share_new", fact.id.to_s, sharing_options
         end
 
         fact
@@ -47,7 +47,7 @@ module Interactors
         validate_string :title, title
         validate_string :url, url
         validate_nonempty_string :displaystring, displaystring
-        validate_not_nil :share_hash, share_hash
+        validate_not_nil :sharing_options, sharing_options
       end
     end
   end

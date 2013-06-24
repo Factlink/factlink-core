@@ -46,15 +46,15 @@ describe Interactors::Facts::Create do
       fact = mock(id: mock(to_i: fact_id_i), errors: [], data: fact_data)
       user_id_s = mock
       user = mock(id: mock(to_s: user_id_s))
-      share_hash = mock
+      sharing_options = mock
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
-      interactor = Interactors::Facts::Create.new displaystring, url, title, share_hash, pavlov_options
+      interactor = Interactors::Facts::Create.new displaystring, url, title, sharing_options, pavlov_options
 
       interactor.should_receive(:query).with(:'sites/for_url', url).and_return(nil)
       interactor.should_receive(:command).with(:'sites/create', url).and_return(site)
       interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
-      interactor.should_receive(:command).with(:'facts/share_new', fact.id.to_s, share_hash)
+      interactor.should_receive(:command).with(:'facts/share_new', fact.id.to_s, sharing_options)
       interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id_i, user_id_s)
 
       expect(interactor.call).to eq fact
@@ -70,14 +70,14 @@ describe Interactors::Facts::Create do
       fact = mock(id: mock(to_i: fact_id_i), errors: [], data: fact_data)
       user_id_s = mock
       user = mock(id: mock(to_s: user_id_s))
-      share_hash = mock
+      sharing_options = mock
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
-      interactor = Interactors::Facts::Create.new displaystring, url, title, share_hash, pavlov_options
+      interactor = Interactors::Facts::Create.new displaystring, url, title, sharing_options, pavlov_options
 
       interactor.should_receive(:query).with(:'sites/for_url',url).and_return(site)
       interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
-      interactor.should_receive(:command).with(:'facts/share_new', fact.id.to_s, share_hash)
+      interactor.should_receive(:command).with(:'facts/share_new', fact.id.to_s, sharing_options)
       interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id_i, user_id_s)
 
       expect(interactor.call).to eq fact
