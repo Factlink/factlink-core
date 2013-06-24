@@ -9,19 +9,16 @@
 
 Backbone.Factlink ||= {}
 
-
 class Backbone.Factlink.TooltipDefinition
   defaults = closingtimeout: 500
-  ttCounter = 0 #each TooltipDefinition gets its own id based on this.
-
+  counter = 0
 
   constructor: (options) ->
     @_options = _.defaults options, defaults
 
-    @_uid = ttCounter++
-    @_uidStr = 'tooltip_Uid-' + @_uid
-    @_instCounter = 0 #one call can cause multiple tooltips
-    @_instances = {}
+    @_uid =
+    @_uidStr = 'tooltip_Uid-' + counter++
+    @_open_tooltip = null
 
     @_options.$container.hoverIntent
       timeout: @_options.closingtimeout
@@ -30,27 +27,21 @@ class Backbone.Factlink.TooltipDefinition
       out: @_hoverTarget false
 
   close: ->
-    ttActions.remove() for id, ttActions of @_instances
-    @_instances = null #reuse hereafter is a bug: this causes a crash then.
+    @instance?.remove()
+    @_open_tooltip = null #reuse hereafter is a bug: this causes a crash then.
     @_options.$container.off(".hoverIntent") #unfortunately, we can't do better than this.
 
   _openInstance: ($target) ->
-    console.log @_options, $target
-    instId = 'tt' + @_instCounter++
-    $target.data(@_uidStr, instId)
-    @_instances[instId] =
+    @_open_tooltip =
       new TooltipInstance @_options, $target, ($tooltip) =>
-        delete @_instances[instId]
-        $target.removeData(@_uidStr)
+        delete @_open_tooltip
         @_options.removeTooltip @_options.$container, $target, $tooltip
 
-  _hoverTarget: (inTarget) ->
-    (e) =>
+  _hoverTarget: (target_is_hovered) -> (e) =>
       $target = $(e.currentTarget)
-      ttActions = @_instances[$target.data(@_uidStr)]
-      if ttActions #this is a known (i.e. open) tooltip
-        ttActions.setTargetHover inTarget
-      else if inTarget #target has no tooltip but is hovered
+      if @_open_tooltip
+        @_open_tooltip.setTargetHover target_is_hovered
+      else if target_is_hovered
         @_openInstance $target
 
 class TooltipInstance #only local!
