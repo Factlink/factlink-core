@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../app/classes/console.rb'
+require_relative '../../app/classes/pavlov_console.rb'
 
-describe TwitterConsoleHelper do
+describe PavlovConsole do
   include PavlovSupport
 
   before do
@@ -24,7 +24,7 @@ describe TwitterConsoleHelper do
     Pavlov.should_receive(:interactor)
           .with(:foo, param1, param2, options)
 
-    console = TwitterConsoleHelper.new(user.username)
+    console = PavlovConsole.new(user.username)
     console.interactor :foo, param1, param2
   end
 end
