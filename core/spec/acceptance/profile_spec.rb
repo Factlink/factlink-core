@@ -81,7 +81,7 @@ feature 'the profile page', type: :request do
 
     fact = nil
     as(followed_user) do |backend|
-      fact = backend.interactor :'facts/create', displaystring,'','title'
+      fact = backend.interactor :'facts/create', displaystring,'','title', {}
       backend.interactor :'channels/add_fact', fact, channel
     end
 

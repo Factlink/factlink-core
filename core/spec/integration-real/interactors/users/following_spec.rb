@@ -62,7 +62,7 @@ describe 'user following' do
         a1, a2, a3, a4 = ()
 
         as(user2) do |pavlov|
-          fact = pavlov.interactor :'facts/create', 'test', '', ''
+          fact = pavlov.interactor :'facts/create', 'test', '', '', {}
           channel = pavlov.command :'channels/create', 'henk'
 
           a1 = Activity::Subject.activity user2.graph_user,

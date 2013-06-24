@@ -86,7 +86,7 @@ class FactsController < ApplicationController
     authenticate_user!
     authorize! :create, Fact
 
-    @fact = interactor :'facts/create', fact_text, url, title
+    @fact = interactor :'facts/create', fact_text, url, title, {}
     @site = @fact.site
 
     respond_to do |format|

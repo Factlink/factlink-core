@@ -2,8 +2,9 @@ module Interactors
   module Facts
     class Create
       include Pavlov::Interactor
+      include Util::CanCan
 
-      arguments :displaystring, :url, :title
+      arguments :displaystring, :url, :title, :share_hash
 
       def authorized?
         user
@@ -18,6 +19,11 @@ module Interactors
         raise "Errors when saving fact.data" unless fact.data.persisted?
 
         command :"facts/add_to_recently_viewed", fact.id.to_i, user.id.to_s
+
+        if can? :share, Fact
+          command :"facts/share_new", fact.id.to_s, share_hash
+        end
+
         fact
       end
 
@@ -41,6 +47,7 @@ module Interactors
         validate_string :title, title
         validate_string :url, url
         validate_nonempty_string :displaystring, displaystring
+        validate_not_nil :share_hash, share_hash
       end
     end
   end
