@@ -4,8 +4,11 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
+      # TODO: rewrite this to use Console once we also have a facebook_app_namespace
+      # in pavlov_options in ApplicationController
       # How to use this interactor:
-      # Pavlov.interactor :'facts/share_on_facebook', :fact_id,
+      # Pavlov.interactor :'facts/share_on_facebook', '10',
+      #                     current_user: user,
       #                     ability: Ability.new(user),
       #                     facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
 
