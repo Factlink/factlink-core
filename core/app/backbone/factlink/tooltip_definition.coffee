@@ -22,17 +22,16 @@ class HoverState extends Backbone.Model
 
 
 class Backbone.Factlink.TooltipDefinition
-  defaults:
-    closingtimeout: 500
+  closingtimeout: 500
 
   constructor: (options) ->
-    @_options = _.defaults options, @defaults
+    @_options = options
     @state = new HoverState
     @state.on 'change', => @toggleTooltip()
 
   render: ->
     @_options.$container.hoverIntent
-      timeout: @_options.closingtimeout
+      timeout: @closingtimeout
       selector: @_options.selector
       over: => @state.set inTarget: true
       out:  => @state.set inTarget: false
@@ -49,7 +48,7 @@ class Backbone.Factlink.TooltipDefinition
   start_tooltip: ->
     @_$tooltip = @_options.makeTooltip @_options.$container, @$target
     @_$tooltip.hoverIntent
-      timeout: @_options.closingtimeout
+      timeout: @closingtimeout
       over: => @state.set inTooltip: true
       out:  => @state.set inTooltip: false
 
