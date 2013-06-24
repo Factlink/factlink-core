@@ -4,7 +4,6 @@ require_relative '../../../../app/interactors/commands/facts/share_new.rb'
 describe Commands::Facts::ShareNew do
   include PavlovSupport
 
-
   describe '#validate' do
     before do
       stub_const 'Pavlov::ValidationError', RuntimeError
