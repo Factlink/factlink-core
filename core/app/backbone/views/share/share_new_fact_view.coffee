@@ -5,7 +5,7 @@ class ShareButtonView extends Backbone.Marionette.ItemView
     text: ''
 
   events:
-    'click': 'onClick'
+    'click': 'toggleChecked'
 
   modelEvents:
     'change': 'render'
@@ -14,7 +14,7 @@ class ShareButtonView extends Backbone.Marionette.ItemView
     @$el.addClass "factlink-icon-#{@options.name}"
     @$el.toggleClass 'share-button-checked', @model.get(@options.name)
 
-  onClick: ->
+  toggleChecked: ->
     @model.set @options.name, !@model.get(@options.name)
 
 
