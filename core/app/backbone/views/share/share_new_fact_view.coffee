@@ -1,8 +1,7 @@
 class ShareButtonView extends Backbone.Marionette.ItemView
   tagName: 'span'
   className: 'share-button'
-  template:
-    text: ''
+  template: 'generic/empty'
 
   events:
     'click': 'toggleChecked'
@@ -20,11 +19,7 @@ class ShareButtonView extends Backbone.Marionette.ItemView
 
 class window.ShareNewFactView extends Backbone.Marionette.Layout
   className: 'share-new-fact'
-  template:
-    text: """
-      <span class="js-twitter-region"></span>
-      <span class="js-facebook-region"></span>
-    """
+  template: 'share/new_fact'
 
   regions:
     twitterRegion:  '.js-twitter-region'
