@@ -10,7 +10,8 @@ class ShareButtonView extends Backbone.Marionette.ItemView
     'change': 'render'
 
   onRender: ->
-    @$el.addClass "factlink-icon-#{@options.name}"
+    @$el.attr 'title', 'Share to ' + @options.name.capitalize()
+    @$el.addClass "share-button-#{@options.name}"
     @$el.toggleClass 'share-button-checked', @model.get(@options.name) || false
 
   toggleChecked: ->
@@ -28,5 +29,8 @@ class window.ShareNewFactView extends Backbone.Marionette.Layout
   onRender: ->
     @$el.toggle Factlink.Global.can_haz.share_new_factlink_buttons || false
 
-    @twitterRegion.show  new ShareButtonView(model: @model, name: 'twitter')
-    @facebookRegion.show new ShareButtonView(model: @model, name: 'facebook')
+    if currentUser.get('services').twitter
+      @twitterRegion.show  new ShareButtonView(model: @model, name: 'twitter')
+
+    if currentUser.get('services').facebook
+      @facebookRegion.show new ShareButtonView(model: @model, name: 'facebook')
