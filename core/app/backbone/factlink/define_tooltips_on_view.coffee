@@ -19,19 +19,18 @@ Backbone.Factlink.defineTooltipsOnView = (options) ->
     new Backbone.Factlink.PositionedRegion _.defaults options.positioning,
       fadeTime: 100
 
-  makeTooltip = ($el, $target) ->
+  displayTooltip = ($target) ->
     popoverOptions = _.defaults
       contentView: options.tooltipViewFactory(), options.positioning
 
-    positionedRegion.bindToElement $target, options.$offsetParent || $el
+    positionedRegion.bindToElement $target, options.$offsetParent
     positionedRegion.show new PopoverView popoverOptions
     positionedRegion.updatePosition()
     positionedRegion.$el
 
-  closeHandler = Backbone.Factlink.defineTooltips
-    $container: options.parentView.$el
-    selector: options.selector
-    showTooltip: makeTooltip
+  closeHandler = Backbone.Factlink.defineTooltip
+    $target: options.parentView.$el.find(options.selector)
+    showTooltip: displayTooltip
     hideTooltip: -> positionedRegion.resetFade()
 
   options.parentView.on 'close', closeHandler.close
