@@ -1,6 +1,8 @@
 class window.FollowChannelButtonView extends ActionButtonView
 
   initialize: ->
+    @model.set loaded: true
+
     @bindTo @model, 'click:unchecked', => @options.channel.follow()
     @bindTo @model, 'click:checked', => @options.channel.unfollow()
 
