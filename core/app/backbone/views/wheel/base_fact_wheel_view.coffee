@@ -7,14 +7,11 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     radius: 16
     minimalVisiblePercentage: 15
 
-    defaultStroke:
-      opacity: 0.2
+    defaultStrokeOpacity: 0.2
 
-    hoverStroke:
-      opacity: 0.5
+    hoverStrokeOpacity: 0.5
 
-    userOpinionStroke:
-      opacity: 1.0
+    userOpinionStrokeOpacity: 1.0
 
     opinionStyles:
       believe:
@@ -80,7 +77,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @randomActions()
 
   createOrAnimateArc: (opinionType, percentageOffset) ->
-    opacity = (if opinionType.is_user_opinion then @options.userOpinionStroke.opacity else @options.defaultStroke.opacity)
+    opacity = (if opinionType.is_user_opinion then @options.userOpinionStrokeOpacity else @options.defaultStrokeOpacity)
 
     # Our custom Raphael arc attribute
     arc = [opinionType.displayPercentage, percentageOffset, @options.radius]
@@ -153,16 +150,16 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       path: [["M", start.x, start.y], ["A", radius, radius, 0, direction, 0, end.x, end.y]]
 
   mouseoverOpinionType: (path, opinionType) ->
-    destinationOpacity = @options.hoverStroke.opacity
-    destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
+    destinationOpacity = @options.hoverStrokeOpacity
+    destinationOpacity = @options.userOpinionStrokeOpacity  if opinionType.is_user_opinion
     path.animate(
       "stroke-width": @hoverStrokeWidth()
       opacity: destinationOpacity
     , 200, "<>")
 
   mouseoutOpinionType: (path, opinionType) ->
-    destinationOpacity = @options.defaultStroke.opacity
-    destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
+    destinationOpacity = @options.defaultStrokeOpacity
+    destinationOpacity = @options.userOpinionStrokeOpacity  if opinionType.is_user_opinion
     path.animate(
       "stroke-width": @defaultStrokeWidth()
       opacity: destinationOpacity
