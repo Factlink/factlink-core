@@ -40,8 +40,8 @@ describe Interactors::Facts::Create do
       title = 'this is the title'
       site = mock
       fact_data = mock(persisted?: true)
-      fact = mock(id: mock(to_i: mock), errors: [], data: fact_data)
-      user = mock(id: mock)
+      fact = mock(id: '1', errors: [], data: fact_data)
+      user = mock(id: '123abc')
       sharing_options = {}
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
@@ -74,8 +74,8 @@ describe Interactors::Facts::Create do
       title = 'this is the title'
       site = mock
       fact_data = mock(persisted?: true)
-      fact = mock(id: mock(to_i: mock), errors: [], data: fact_data)
-      user = mock(id: mock)
+      fact = mock(id: '1', errors: [], data: fact_data)
+      user = mock(id: '123abc')
       sharing_options = mock
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
