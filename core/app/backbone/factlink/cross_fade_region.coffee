@@ -11,7 +11,7 @@ class Backbone.Factlink.CrossFadeRegion extends Backbone.Marionette.Region
       @show(newView)
 
   open: (view) ->
-    @$el.hide();
+    @$el.hide()
     @$el.html view.el
     @$el.fadeIn @fadeTime()
 
