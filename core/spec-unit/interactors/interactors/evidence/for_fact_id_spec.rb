@@ -25,13 +25,14 @@ describe Interactors::Evidence::ForFactId do
     end
   end
 
-  describe '.authorized?' do
+  describe '#authorized?' do
     it 'should check if the fact can be shown' do
       ability = mock
-      ability.should_receive(:can?)
+      options = { ability: ability }
+
+      ability.stub(:can?)
              .with(:show, Fact)
              .and_return(false)
-      options = { ability: ability }
 
       expect do
         interactor = described_class.new '1', :supporting, options
@@ -39,17 +40,16 @@ describe Interactors::Evidence::ForFactId do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       fact_id = '1'
       type = :supporting
       fact = mock
       options = {current_user: mock, ability: mock(can?: true)}
+      interactor = Interactors::Evidence::ForFactId.new fact_id, type, options
 
-      interactor = Interactors::Evidence::ForFactId.new '1', type, options
-
-      interactor.stub(:query)
-                .with(:'evidence/for_fact_id', fact_id, type)
+      Pavlov.stub(:query)
+                .with(:'evidence/for_fact_id', fact_id, type, options)
                 .and_return(fact)
 
       expect(interactor.call).to eq fact
