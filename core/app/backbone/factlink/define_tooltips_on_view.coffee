@@ -13,7 +13,7 @@ Backbone.Factlink ||= {}
 #    tooltip with respect to the target (hovered) node.
 #    If unspecified, uses parentView.$el.
 
-Backbone.Factlink.TooltipForView = (options) ->
+Backbone.Factlink.defineTooltipsOnView = (options) ->
   positionedRegion =
     new Backbone.Factlink.PositionedRegion _.defaults options.positioning,
       fadeTime: 100
