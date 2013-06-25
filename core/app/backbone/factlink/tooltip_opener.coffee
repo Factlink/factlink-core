@@ -32,9 +32,7 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
     @$target = @options.$container.find(@options.selector)
     @_hoverintent @$target, 'inTarget'
 
-  onClose: ->
-    @_removeTooltip()
-    @options.$target.off(".hoverIntent")
+  onClose: -> @_removeTooltip()
 
   _openTooltip: ->
     @_$tooltip = @options.tooltipCreator.createTooltip @$target
@@ -55,4 +53,6 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
       timeout: @_closingtimeout
       over: => @model.set property, true
       out:  => @model.set property, false
+
+    @on 'close', -> $element.off('.hoverIntent')
 
