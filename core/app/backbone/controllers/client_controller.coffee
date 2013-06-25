@@ -61,7 +61,7 @@ class window.ClientController
     newClientModal = new ClientModalLayout2
     FactlinkApp.mainRegion.show newClientModal
 
-    view = new NewDiscussionView model: fact
+    view = new DiscussionView2 model: fact
     view.on 'render', =>
       parent.$(parent.document).trigger 'modalready'
 

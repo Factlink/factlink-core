@@ -2,19 +2,35 @@
 @import "bootstrap/variables";
 
 .share-button {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
   margin-right: 3px;
   cursor: pointer;
-  .opacity(0.3);
+
+  transition: all 0.1s;
 
   &:hover {
-    .opacity(0.5);
+    .opacity(0.4);
+  }
+
+  &.share-button-checked {
+    .opacity(1);
   }
 }
 
-.share-button-checked {
-  .opacity(0.9);
+.share-button-twitter {
+  background: asset-data-url("sharing_icons/twitter_disabled.png");
 
-  &:hover {
-    .opacity(1);
+  &:hover, &.share-button-checked {
+    background: asset-data-url("sharing_icons/twitter.png");
+  }
+}
+
+.share-button-facebook {
+  background: asset-data-url("sharing_icons/facebook_disabled.png");
+
+  &:hover, &.share-button-checked {
+    background: asset-data-url("sharing_icons/facebook.png");
   }
 }
