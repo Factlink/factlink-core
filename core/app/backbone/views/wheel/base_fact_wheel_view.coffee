@@ -96,7 +96,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
       path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
       path.click _.bind(@clickOpinionType, this, opinionType)
-    
+
     @opinionTypeRaphaels[opinionType.type] = path
 
   animateExistingArc: (opinionType, arc, opacity) ->
