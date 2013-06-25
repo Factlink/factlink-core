@@ -7,7 +7,7 @@ Backbone.Factlink.makeTooltipForView = (options) ->
   positionedRegion =
     new Backbone.Factlink.PositionedRegion options.positioning
 
-  makeTooltip = ($el, $target) ->
+  createTooltip = ($el, $target) ->
     popoverOptions = _.defaults
       contentView: options.tooltipViewFactory(),
       options.positioning
@@ -20,7 +20,7 @@ Backbone.Factlink.makeTooltipForView = (options) ->
   tooltipDefinition = new Backbone.Factlink.TooltipDefinition
     $container: options.parentView.$el
     selector: options.selector
-    makeTooltip: makeTooltip
+    createTooltip: createTooltip
     removeTooltip: -> positionedRegion.resetFade()
 
   tooltipDefinition.render()
