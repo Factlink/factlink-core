@@ -3,18 +3,13 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   defaults:
     respondsToMouse: true
     showsTooltips: true
-
     radius: 16
+
     minimalVisiblePercentage: 15
 
-    defaultStroke:
-      opacity: 0.2
-
-    hoverStroke:
-      opacity: 0.5
-
-    userOpinionStroke:
-      opacity: 1.0
+    defaultStrokeOpacity: 0.2
+    hoverStrokeOpacity: 0.5
+    userOpinionStrokeOpacity: 1.0
 
     opinionStyles:
       believe:
@@ -43,7 +38,13 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   onRender: ->
     @renderRaphael()
-    @randomActions()
+
+    offset = 0
+    @calculateDisplayablePercentages()
+    for key, opinionType of @model.get('opinion_types')
+      @createOrAnimateArc opinionType, offset
+      offset += opinionType.displayPercentage
+    @bindTooltips()
 
   render: ->
     if @already_rendered
@@ -58,18 +59,10 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @$canvasEl.addClass 'fact-wheel-responding-to-mouse' if @options.respondsToMouse
 
     @$('.raphael_container').html(@$canvasEl)
-    @canvas = new Raphael @$canvasEl[0], @boxSize(), @boxSize()
+    @canvas = Raphael @$canvasEl[0], @boxSize(), @boxSize()
     @bindCustomRaphaelAttributes()
 
   boxSize: -> @options.radius * 2 + @maxStrokeWidth()
-
-  randomActions: ->
-    offset = 0
-    @calculateDisplayablePercentages()
-    for key, opinionType of @model.get('opinion_types')
-      @createOrAnimateArc opinionType, offset
-      offset += opinionType.displayPercentage
-    @bindTooltips()
 
   reRender: ->
     @$('.authority').text(@model.get('authority'))
@@ -80,7 +73,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @randomActions()
 
   createOrAnimateArc: (opinionType, percentageOffset) ->
-    opacity = (if opinionType.is_user_opinion then @options.userOpinionStroke.opacity else @options.defaultStroke.opacity)
+    opacity = (if opinionType.is_user_opinion then @options.userOpinionStrokeOpacity else @options.defaultStrokeOpacity)
 
     # Our custom Raphael arc attribute
     arc = [opinionType.displayPercentage, percentageOffset, @options.radius]
@@ -134,10 +127,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   bindCustomRaphaelAttributes: ->
     polarToRegular = (origin, radius, angle)->
-      [
-        origin[0] + radius * Math.cos(angle),
-        origin[1] - radius * Math.sin(angle)
-      ]
+      x: origin[0] + radius * Math.cos(angle),
+      y: origin[1] - radius * Math.sin(angle)
 
     @canvas.customAttributes.arc = (percentage, percentageOffset, radius) =>
       padding = 32/@options.radius
@@ -147,23 +138,24 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       endAngle = (percentageOffset + percentage) * 2 * Math.PI / 100
 
       origin = [@boxSize() / 2, @boxSize() / 2]
-      [startX,  startY] = polarToRegular(origin, radius, startAngle)
-      [endX,  endY] = polarToRegular(origin, radius, endAngle)
+
+      start = polarToRegular(origin, radius, startAngle)
+      end = polarToRegular(origin, radius, endAngle)
 
       direction = if percentage > 50 then 1 else 0
-      path: [["M", startX, startY], ["A", radius, radius, 0, direction, 0, endX, endY]]
+      path: [["M", start.x, start.y], ["A", radius, radius, 0, direction, 0, end.x, end.y]]
 
   mouseoverOpinionType: (path, opinionType) ->
-    destinationOpacity = @options.hoverStroke.opacity
-    destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
+    destinationOpacity = @options.hoverStrokeOpacity
+    destinationOpacity = @options.userOpinionStrokeOpacity  if opinionType.is_user_opinion
     path.animate(
       "stroke-width": @hoverStrokeWidth()
       opacity: destinationOpacity
     , 200, "<>")
 
   mouseoutOpinionType: (path, opinionType) ->
-    destinationOpacity = @options.defaultStroke.opacity
-    destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
+    destinationOpacity = @options.defaultStrokeOpacity
+    destinationOpacity = @options.userOpinionStrokeOpacity  if opinionType.is_user_opinion
     path.animate(
       "stroke-width": @defaultStrokeWidth()
       opacity: destinationOpacity
