@@ -3,14 +3,12 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   defaults:
     respondsToMouse: true
     showsTooltips: true
-
     radius: 16
+
     minimalVisiblePercentage: 15
 
     defaultStrokeOpacity: 0.2
-
     hoverStrokeOpacity: 0.5
-
     userOpinionStrokeOpacity: 1.0
 
     opinionStyles:
@@ -40,7 +38,13 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   onRender: ->
     @renderRaphael()
-    @randomActions()
+
+    offset = 0
+    @calculateDisplayablePercentages()
+    for key, opinionType of @model.get('opinion_types')
+      @createOrAnimateArc opinionType, offset
+      offset += opinionType.displayPercentage
+    @bindTooltips()
 
   render: ->
     if @already_rendered
@@ -59,14 +63,6 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @bindCustomRaphaelAttributes()
 
   boxSize: -> @options.radius * 2 + @maxStrokeWidth()
-
-  randomActions: ->
-    offset = 0
-    @calculateDisplayablePercentages()
-    for key, opinionType of @model.get('opinion_types')
-      @createOrAnimateArc opinionType, offset
-      offset += opinionType.displayPercentage
-    @bindTooltips()
 
   reRender: ->
     @$('.authority').text(@model.get('authority'))
