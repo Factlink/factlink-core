@@ -1,1 +1,3 @@
-placeholder todo
+ ☐ exclude unimportant tests from regular testrun
+ ☐ add unimportant tests to seperate testrun
+ ☐ for acceptance (but not screenshot) https://www.relishapp.com/rspec/rspec-core/v/2-0/docs/configuration/fail-fast
