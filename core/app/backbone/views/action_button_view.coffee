@@ -14,11 +14,6 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
   tagName: 'button'
   template: 'generic/action_button'
 
-  events:
-    "click":   "onClick"
-    "mouseenter": "onMouseEnter"
-    "mouseleave": "onMouseLeave"
-
   constructor: (options={}) ->
     @model = new ActionButtonState
 
@@ -27,22 +22,22 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
     super
 
+    el = options.listenToEl || @$el
+
+    @bindTo el, 'click', @onClick, @
+    @bindTo el, 'mouseenter', @onMouseEnter, @
+    @bindTo el, 'mouseleave', @onMouseLeave, @
+
     @on 'render', @showCurrentState, @
     @bindTo @model, 'change', @render, @
 
   onClick: (e) ->
-    return if @options.noEvents
     e.preventDefault()
     e.stopPropagation()
     @model.onClick()
 
-  onMouseEnter: ->
-    return if @options.noEvents
-    @model.set 'hovering', true
-
-  onMouseLeave: ->
-    return if @options.noEvents
-    @model.set 'hovering', false
+  onMouseEnter: -> @model.set 'hovering', true
+  onMouseLeave: -> @model.set 'hovering', false
 
   showCurrentState: ->
     hovering = @model.get('hovering')
@@ -51,3 +46,5 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
     @$el.toggleClass 'btn-danger', checked and hovering
     @$el.toggleClass 'btn-primary', hovering and not checked
     @$el.toggleClass 'btn-action-checked', checked
+
+    @trigger 'render_state', hovering, checked
