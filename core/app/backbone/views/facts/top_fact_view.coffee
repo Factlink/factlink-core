@@ -9,4 +9,4 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   onRender: ->
     @userHeadingRegion.show new UserInFactHeadingView
-        model: new User @model.get 'created_by'
+        model: @model.user()
