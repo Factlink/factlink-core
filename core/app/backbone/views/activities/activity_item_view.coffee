@@ -59,8 +59,7 @@ class AddedFactToTopicView extends ActivityItemView
     topic: @topic().toJSON()
 
   onRender: ->
-    Backbone.Factlink.makeTooltipForView
-      parentView: @
+    Backbone.Factlink.makeTooltipForView @,
       positioning:
         align: 'left'
         side: 'bottom'

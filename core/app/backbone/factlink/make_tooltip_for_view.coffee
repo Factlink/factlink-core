@@ -20,18 +20,18 @@ class TooltipCreator
     @positionedRegion.resetFade()
 
 
-Backbone.Factlink.makeTooltipForView = (options) ->
-  _.defaults options, $offsetParent: options.parentView.$el
+Backbone.Factlink.makeTooltipForView = (parentView, options) ->
+  _.defaults options, $offsetParent: parentView.$el
 
   tooltipCreator = new TooltipCreator options.$offsetParent,
     options.positioning, options.tooltipViewFactory
 
   tooltipOpener = new Backbone.Factlink.TooltipOpener
-    $container: options.parentView.$el
+    $container: parentView.$el
     selector: options.selector
     tooltipCreator: tooltipCreator
 
   tooltipOpener.render()
 
-  options.parentView.on 'close', => tooltipOpener.close()
+  parentView.on 'close', => tooltipOpener.close()
 
