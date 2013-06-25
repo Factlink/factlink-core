@@ -20,7 +20,7 @@ class Hovermodel extends Backbone.Model
 
   hovered: -> @get('inTarget') || @get('inTooltip')
 
-class Backbone.Factlink.TooltipDefinition extends Backbone.Marionette.View
+class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
   _closingtimeout: 500
 
   modelEvents:
