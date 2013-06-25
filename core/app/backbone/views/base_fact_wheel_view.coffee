@@ -32,7 +32,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   template: "facts/fact_wheel"
 
   initialize: (options) ->
-    @options = $.extend({}, @defaults, options)
+    @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
 
   onRender: ->
