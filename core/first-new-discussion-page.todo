@@ -1,0 +1,12 @@
+Backend:
+ ✔ Create feature toggle which shows a white page in the client @done (13-06-24 16:02)
+
+ CoffeeScript:
+ ☐ Render Simple Factlink
+ ☐ Enlarge (or test if it works) the Fact Wheel
+ ☐ Add Repost button to this page
+
+ Styling:
+ ☐ Test browser blur support
+ ☐ Slice the page without Bootstrap
+ ☐ Make the page work with Bootstrap
