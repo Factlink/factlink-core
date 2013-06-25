@@ -6,6 +6,7 @@
   position: absolute;
   top: -38px;
 }
+
 .user-fact-heading-avatar-wrapper {
   position: relative;
   display: inline-block;
@@ -15,7 +16,6 @@
   background-color: white;
   border-radius: 4px;
 
-
   > img {
     border-radius: 3px;
     width: 48px;
@@ -23,8 +23,8 @@
     position: relative;
     z-index: 1; //stacking is necessary due to fake border construct explained below.
   }
-  //The following two css rules generate nested rounded boxes around the image.
-  //this is equivalent to a fake border + white padding, with the advantage
+  //The following css generates a surrounding rounded box around the image.
+  //this is equivalent to a fake border, with the advantage
   //that the "padding" overlays the wrapping boxes border, whereas the
   //"border" is underneath it.  This causes the visual border to appear
   //continuously to wrap the jutting out avatar image.
@@ -37,9 +37,8 @@
     position: absolute;
     z-index: -1;
   }
-
-
 }
+
 .user-fact-heading-text {
   display: inline-block;
   vertical-align: top;
