@@ -4,16 +4,14 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     respondsToMouse: true
     showsTooltips: true
 
-    dimension: 16
     radius: 16
     minimalVisiblePercentage: 15
+
     defaultStroke:
       opacity: 0.2
-      width: 9
 
     hoverStroke:
       opacity: 0.5
-      width: 11
 
     userOpinionStroke:
       opacity: 1.0
