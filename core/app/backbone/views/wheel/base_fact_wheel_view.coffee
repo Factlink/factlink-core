@@ -28,12 +28,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
 
-  defaultStrokeWidth: ->
-    3/5 * @options.radius
-
-  hoverStrokeWidth: ->
-    @defaultStrokeWidth() + 2
-
+  defaultStrokeWidth: -> 3/5 * @options.radius
+  hoverStrokeWidth: -> @defaultStrokeWidth() + 2
   maxStrokeWidth: -> Math.max(@defaultStrokeWidth(), @hoverStrokeWidth())
 
   onRender: ->
@@ -134,11 +130,11 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       y: origin[1] - radius * Math.sin(angle)
 
     @canvas.customAttributes.arc = (percentage, percentageOffset, radius) =>
-      padding = 32/@options.radius
-      percentage = percentage - padding
+      paddingPixels = 2
+      paddingRadians = paddingPixels / @options.radius
 
-      startAngle = percentageOffset * 2 * Math.PI / 100
-      endAngle = (percentageOffset + percentage) * 2 * Math.PI / 100
+      startAngle = percentageOffset / 100 * 2 * Math.PI
+      endAngle = startAngle + percentage / 100 * 2 * Math.PI - paddingRadians
 
       origin = [@boxSize() / 2, @boxSize() / 2]
 
