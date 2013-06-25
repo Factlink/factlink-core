@@ -15,6 +15,13 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
   initialize: ->
     @alertErrorInit ['create_channel']
 
+    @collection = @model.getOwnContainingChannels(this)
+    @collection.on "add", (channel) =>
+      @model.addToChannel channel, {}
+
+    @collection.on "remove", (channel) =>
+      @model.removeFromChannel channel, {}
+
   onRender: ->
     unless @addToChannelView?
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
