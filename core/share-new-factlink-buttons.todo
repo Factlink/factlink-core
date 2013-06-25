@@ -9,5 +9,5 @@ Make buttons work:
  ☐ Call appropriate interactors in facts/create
 
 Hide buttons:
- ☐ Return to frontend through currentUser whether the user has connected Twitter/Facebook
- ☐ Hide buttons for unconnected services
+ ✔ Return to frontend through currentUser whether the user has connected Twitter/Facebook @done (13-06-24 16:28)
+ ✔ Hide buttons for unconnected services @done (13-06-24 16:28)
