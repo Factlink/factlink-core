@@ -7,7 +7,7 @@ module Interactors
       arguments :displaystring, :url, :title, :sharing_options
 
       def authorized?
-        user
+        can? :create, Fact
       end
 
       private

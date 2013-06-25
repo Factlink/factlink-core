@@ -4,6 +4,10 @@ require_relative '../../../../app/interactors/interactors/facts/create.rb'
 describe Interactors::Facts::Create do
   include PavlovSupport
 
+  before do
+    stub_classes 'Fact'
+  end
+
   describe '.validate' do
     it 'calls the correct validation methods' do
       displaystring = 'displaystring'
@@ -20,20 +24,16 @@ describe Interactors::Facts::Create do
       described_class.any_instance.should_receive(:validate_not_nil)
                                   .with(:sharing_options, sharing_options)
 
-      described_class.new displaystring, url, title, sharing_options, current_user: mock
+      described_class.new displaystring, url, title, sharing_options, ability: mock(can?: true)
     end
   end
 
-  it '.authorized raises when not logged in' do
-    expect{ described_class.new 'displaystring', 'url', 'title', mock, current_user: nil }.
+  it '.authorized raises when not able to create facts' do
+    expect{ described_class.new 'displaystring', 'url', 'title', mock, ability: mock(can?: false) }.
       to raise_error Pavlov::AccessDenied, "Unauthorized"
   end
 
   describe '#call' do
-    before do
-      stub_classes 'Fact'
-    end
-
     it 'correctly when site doesn''t exist' do
       url = 'www.fmf.nl'
       displaystring = 'this is the annotated text'
