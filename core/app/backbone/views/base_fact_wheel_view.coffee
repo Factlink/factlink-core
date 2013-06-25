@@ -1,5 +1,4 @@
 class window.BaseFactWheelView extends Backbone.Marionette.ItemView
-  tagName: "div"
   className: "wheel"
   defaults:
     respondsToMouse: true
