@@ -12,6 +12,7 @@ Backbone.Factlink ||= {}
 #  $offsetParent: a dom node within which to position the
 #    tooltip with respect to the target (hovered) node.
 #    If unspecified, uses parentView.$el.
+#  positioning: options for PositionedRegion.
 
 Backbone.Factlink.defineTooltipsOnView = (options) ->
   positionedRegion =
