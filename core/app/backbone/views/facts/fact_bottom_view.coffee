@@ -35,15 +35,8 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     e.preventDefault()
     e.stopPropagation()
 
-    collection = @model.getOwnContainingChannels(this)
-    collection.on "add", (channel) =>
-      @model.addToChannel channel, {}
-
-    collection.on "remove", (channel) =>
-      @model.removeFromChannel channel, {}
-
     FactlinkApp.Modal.show 'Repost Factlink',
-      new AddToChannelModalView(collection: collection, model: @model)
+      new AddToChannelModalView(model: @model)
 
     mp_track "Factlink: Open repost modal"
 
