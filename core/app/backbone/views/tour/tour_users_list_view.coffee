@@ -24,6 +24,7 @@ class TourUserView extends Backbone.Marionette.Layout
       @bindTo @_followUserButton, 'render_state', (loaded, hovering, checked)=>
         @$el.toggleClass 'hover', hovering and loaded
         @$el.toggleClass 'secondary', checked and loaded
+        @$el.toggleClass 'loaded', loaded
 
     @_followUserButton
 
