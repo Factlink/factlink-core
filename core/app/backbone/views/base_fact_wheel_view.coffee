@@ -35,6 +35,12 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
 
+  defaultStrokeWidth: ->
+    3/5 * @defaults.radius
+
+  hoverStrokeWidth: ->
+    @defaultStrokeWidth() + 2
+
   maxStrokeWidth: -> Math.max(@defaultStrokeWidth(), @hoverStrokeWidth())
 
   onRender: ->
@@ -91,7 +97,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       # Our custom arc attribute
       arc: arc
       stroke: @options.opinionStyles[opinionType.type].color
-      "stroke-width": @options.defaultStroke.width
+      "stroke-width": @defaultStrokeWidth()
       opacity: opacity
 
     # Bind Mouse Events on the path
@@ -150,7 +156,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     destinationOpacity = @options.hoverStroke.opacity
     destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
     path.animate(
-      "stroke-width": @options.hoverStroke.width
+      "stroke-width": @hoverStrokeWidth()
       opacity: destinationOpacity
     , 200, "<>")
 
@@ -158,7 +164,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     destinationOpacity = @options.defaultStroke.opacity
     destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
     path.animate(
-      "stroke-width": @options.defaultStroke.width
+      "stroke-width": @defaultStrokeWidth()
       opacity: destinationOpacity
     , 200, "<>")
 
