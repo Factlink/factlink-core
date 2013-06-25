@@ -3,6 +3,7 @@ module Commands
     class ShareNew
       include Pavlov::Command
       include Util::Sanitations
+      include Util::CanCan
 
       arguments :fact_id, :sharing_options
 
@@ -14,7 +15,7 @@ module Commands
       end
 
       def validate_connected service
-        if !@options[:current_user].identities[service]
+        unless can? :share_to, service
           raise Pavlov::ValidationError, "no #{service} account linked"
         end
       end
@@ -23,8 +24,8 @@ module Commands
         sanitize_boolean_hash :sharing_options
 
         validate_integer_string :fact_id, fact_id
-        validate_connected 'twitter' if sharing_options[:twitter]
-        validate_connected 'facebook' if sharing_options[:facebook]
+        validate_connected :twitter if sharing_options[:twitter]
+        validate_connected :facebook if sharing_options[:facebook]
       end
     end
   end
