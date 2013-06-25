@@ -5,7 +5,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   regions:
     wheelRegion: '.js-fact-wheel-region'
-    userHeadingRegion: '.js-region-user-heading'
+    userHeadingRegion: '.js-user-heading-region'
 
   onRender: ->
     @userHeadingRegion.show new UserInFactHeadingView
