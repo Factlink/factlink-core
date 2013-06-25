@@ -1,0 +1,47 @@
+@import "bootstrap/variables";
+
+.user-fact-heading {
+  //the user's avatar+name should be raised slightly above + overlapping
+  //the overall user-info block.
+  position: absolute;
+  top: -38px;
+}
+.user-fact-heading-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-right: 6px; //avatar is inline with text, wants space after it.
+  vertical-align: top;
+  padding:3px;
+  background-color: white;
+  border-radius: 4px;
+
+
+  > img {
+    border-radius: 3px;
+    width: 48px;
+    height: 48px;
+    position: relative;
+    z-index: 1; //stacking is necessary due to fake border construct explained below.
+  }
+  //The following two css rules generate nested rounded boxes around the image.
+  //this is equivalent to a fake border + white padding, with the advantage
+  //that the "padding" overlays the wrapping boxes border, whereas the
+  //"border" is underneath it.  This causes the visual border to appear
+  //continuously to wrap the jutting out avatar image.
+  &:after {
+    display: block;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    background: @tableBorder;
+    border-radius: 5px;
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+  }
+
+
+}
+.user-fact-heading-text {
+  display: inline-block;
+  vertical-align: top;
+}
+
