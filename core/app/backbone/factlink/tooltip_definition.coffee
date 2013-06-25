@@ -37,11 +37,11 @@ class Backbone.Factlink.TooltipDefinition extends Backbone.Marionette.View
     @options.$target.off(".hoverIntent")
 
   _openTooltip: ->
-    @_$tooltip = @options.createTooltip @options.$container, @$target
+    @_$tooltip = @options.tooltipCreator.createTooltip @$target
     @_hoverintent @_$tooltip, 'inTooltip'
 
   _removeTooltip: ->
-    @options.removeTooltip @options.$container, @$target, @_$tooltip
+    @options.tooltipCreator.removeTooltip()
     delete @_$tooltip
 
   _toggleTooltip: ->
