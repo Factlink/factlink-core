@@ -36,7 +36,6 @@ describe Commands::Twitter::ShareFactlink do
       fact = mock(id: "1", displaystring: '   12345   asdf  ')
       fact_url = mock sharing_url: 'sharing_url'
 
-      # Only leave 10 characters besides the url
       Twitter.stub configuration: mock(short_url_length_https: 140-10)
 
       Pavlov.stub(:query)
