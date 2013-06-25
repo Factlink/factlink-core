@@ -12,8 +12,7 @@ describe Commands::Twitter::ShareFactlink do
     it 'posts a fact with quote and sharing url' do
       user = mock
       fact = mock(id: "1", displaystring: '   displaystring    ')
-      sharing_url = 'sharing_url'
-      fact_url = mock sharing_url: sharing_url
+      fact_url = mock sharing_url: 'sharing_url'
 
       Twitter.stub configuration: mock(short_url_length_https: 20)
 
