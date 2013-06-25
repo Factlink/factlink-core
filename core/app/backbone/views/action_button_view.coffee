@@ -27,7 +27,8 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
     super
 
-    @bindTo @model, 'change', @render
+    @on 'render', @showCurrentState, @
+    @bindTo @model, 'change', @render, @
 
   onClick: (e) ->
     return if @options.noEvents
@@ -43,13 +44,10 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
     return if @options.noEvents
     @model.set 'hovering', false
 
-  onRender: ->
-    @$el.removeClass 'btn-primary btn-danger'
+  showCurrentState: ->
+    hovering = @model.get('hovering')
+    checked = @model.get('checked')
 
-    if @model.get('hovering')
-      if @model.get('checked')
-        @$el.addClass 'btn-danger'
-      else
-        @$el.addClass 'btn-primary'
-
-    @$el.toggleClass 'btn-action-checked', @model.get('checked')
+    @$el.toggleClass 'btn-danger', checked and hovering
+    @$el.toggleClass 'btn-primary', hovering and not checked
+    @$el.toggleClass 'btn-action-checked', checked
