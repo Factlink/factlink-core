@@ -8,20 +8,19 @@
 
 
 Backbone.Factlink ||= {}
-defaults =
-  closingtimeout: 500
   #$el: owner
   #selector: what to hover over
   #makeTooltip: $el, $target -> $tooltip
   #removeTooltip: $el, $target, $tooltip ->
 
-ttCounter = 0 #each call to TooltipJQ gets its own id based on this.
+defaults =
+closingtimeout = 500
+definitionCounter = 0
 
 #returns an object with a close method which when called
 #removes all open tooltips
-Backbone.Factlink.TooltipJQ = (options) ->
-  uid = ttCounter++
-  uidStr = 'tooltipUid-' + uid
+Backbone.Factlink.defineTooltips = (options) ->
+  definitionIdStr = 'tooltipUid-' + definitionCounter++
   instCounter = 0 #one call can cause multiple tooltips
   #we track each tooltip using the instCounter and store them
   #in `instances`: this means we can close them not just
@@ -38,7 +37,7 @@ Backbone.Factlink.TooltipJQ = (options) ->
 
     $tooltip = options.makeTooltip $el, $target
     $tooltip.hoverIntent
-      timeout: options.closingtimeout
+      timeout: closingtimeout
       over: -> inTooltip = true; check()
       out: -> inTooltip = false; check()
 
@@ -46,24 +45,24 @@ Backbone.Factlink.TooltipJQ = (options) ->
     remove = ->
       delete instances[instId]
       options.removeTooltip $el, $target, $tooltip
-      $target.removeData(uidStr)
+      $target.removeData(definitionIdStr)
 
     instances[instId] =
       remove: remove
       setTargetHover: (state) -> inTarget = state; check()
 
-    $target.data(uidStr, instId)
+    $target.data(definitionIdStr, instId)
 
   hoverTarget = (inTarget) -> (e) ->
     $target = $(e.currentTarget)
-    ttActions = instances[$target.data(uidStr)]
+    ttActions = instances[$target.data(definitionIdStr)]
     if ttActions #this is a known (i.e. open) tooltip
       ttActions.setTargetHover inTarget
     else if inTarget #target has no tooltip but is hovered
       openInstance $target
 
   $el.hoverIntent
-    timeout: options.closingtimeout
+    timeout: closingtimeout
     selector: options.selector
     over: hoverTarget true
     out: hoverTarget false
