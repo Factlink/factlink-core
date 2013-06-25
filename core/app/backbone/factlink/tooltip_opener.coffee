@@ -28,14 +28,12 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
 
   initialize: -> @model = new Hovermodel
 
-  render: ->
-    @$target = @options.$container.find(@options.selector)
-    @_hoverintent @$target, 'inTarget'
+  render: -> @_hoverintent @$el, 'inTarget'
 
   onClose: -> @_removeTooltip()
 
   _openTooltip: ->
-    @_$tooltip = @options.tooltipCreator.createTooltip @$target
+    @_$tooltip = @options.tooltipCreator.createTooltip @$el
     @_hoverintent @_$tooltip, 'inTooltip'
 
   _removeTooltip: ->

@@ -27,8 +27,7 @@ Backbone.Factlink.makeTooltipForView = (parentView, options) ->
     options.positioning, options.tooltipViewFactory
 
   tooltipOpener = new Backbone.Factlink.TooltipOpener
-    $container: parentView.$el
-    selector: options.selector
+    el: parentView.$(options.selector)
     tooltipCreator: tooltipCreator
 
   tooltipOpener.render()
