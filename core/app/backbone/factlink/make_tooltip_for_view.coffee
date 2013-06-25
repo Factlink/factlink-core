@@ -2,11 +2,11 @@ Backbone.Factlink ||= {}
 
 class TooltipCreator
   constructor: (@_$offsetParent, @positioning, @_tooltipViewFactory)->
-    region_options = _.defaults fadeTime: 100, positioning
+    region_options = _.extend {fadeTime: 100} , positioning
     @positionedRegion = new Backbone.Factlink.PositionedRegion region_options
 
   createTooltip: ($target) ->
-    popoverOptions = _.defaults
+    popoverOptions = _.extend {},
       contentView: @_tooltipViewFactory(),
       @positioning
 
