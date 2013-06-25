@@ -41,9 +41,6 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
 
     collection.on "remove", (channel) =>
       @model.removeFromChannel channel, {}
-      if @model.collection?.channel? and @model.collection.channel.get("id") is channel.get("id")
-        @model.collection.remove @model
-        FactlinkApp.Modal.close()
 
     FactlinkApp.Modal.show 'Repost Factlink',
       new AddToChannelModalView(collection: collection, model: @model)
