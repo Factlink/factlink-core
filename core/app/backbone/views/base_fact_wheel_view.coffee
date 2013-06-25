@@ -142,15 +142,18 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       ]
 
     @canvas.customAttributes.arc = (percentage, percentageOffset, radius) =>
-      percentage = percentage - 2 # add padding after arc
-      largeAngle = percentage > 50
-      boxDimension = @options.dimension + 6
+      padding = 32/@options.radius
+      percentage = percentage - padding
+
       startAngle = percentageOffset * 2 * Math.PI / 100
       endAngle = (percentageOffset + percentage) * 2 * Math.PI / 100
-      path: [["M", startX, startY], ["A", radius, radius, 0, ((if largeAngle then 1 else 0)), 0, endX, endY]]
+
       origin = [@boxSize() / 2, @boxSize() / 2]
       [startX,  startY] = polarToRegular(origin, radius, startAngle)
       [endX,  endY] = polarToRegular(origin, radius, endAngle)
+
+      direction = if percentage > 50 then 1 else 0
+      path: [["M", startX, startY], ["A", radius, radius, 0, direction, 0, endX, endY]]
 
   mouseoverOpinionType: (path, opinionType) ->
     destinationOpacity = @options.hoverStroke.opacity
