@@ -8,4 +8,4 @@ class window.DiscussionView2 extends Backbone.Marionette.Layout
     factRegion: '.fact-region'
 
   onRender: ->
-    @factRegion.show new FactView2(model: @model)
+    @factRegion.show new TopFactView(model: @model)
