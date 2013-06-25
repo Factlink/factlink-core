@@ -35,11 +35,10 @@ describe Commands::Twitter::ShareFactlink do
     it 'trims strings that are too long and strips whitespace also for the shorter version' do
       user = mock
       fact = mock(id: "1", displaystring: '   12345   asdf  ')
-      sharing_url = 'sharing_url'
-      fact_url = mock sharing_url: sharing_url
+      fact_url = mock sharing_url: 'sharing_url'
 
       # Only leave 10 characters besides the url
-      Twitter.stub configuration: mock(short_url_length_https: 130)
+      Twitter.stub configuration: mock(short_url_length_https: 140-10)
 
       Pavlov.stub(:query)
         .with(:"facts/get_dead", fact.id)

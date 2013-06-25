@@ -9,7 +9,7 @@ describe Interactors::Facts::Create do
       displaystring = 'displaystring'
       url = 'url'
       title = 'title'
-      sharing_options = mock
+      sharing_options = {}
 
       described_class.any_instance.should_receive(:validate_nonempty_string)
                                   .with(:displaystring, displaystring)
@@ -42,7 +42,7 @@ describe Interactors::Facts::Create do
       fact_data = mock(persisted?: true)
       fact = mock(id: mock(to_i: mock), errors: [], data: fact_data)
       user = mock(id: mock)
-      sharing_options = mock
+      sharing_options = {}
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
       interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options

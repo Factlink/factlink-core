@@ -29,7 +29,7 @@ describe Commands::Facts::ShareNew do
         .to raise_error(Pavlov::ValidationError, 'no twitter account linked')
     end
 
-    it 'throws an error if no twitter account is linked but wants to post to twitter' do
+    it 'throws an error if no facebook account is linked but wants to post to facebook' do
       fact_id = '1'
       sharing_options = {twitter: false, facebook: true}
       user = mock(identities: {})
