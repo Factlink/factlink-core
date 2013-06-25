@@ -8,10 +8,10 @@
 
 
 Backbone.Factlink ||= {}
-  #$el: owner
+  #$container: owner
   #selector: what to hover over
-  #makeTooltip: $el, $target -> $tooltip
-  #removeTooltip: $el, $target, $tooltip ->
+  #makeTooltip: $container, $target -> $tooltip
+  #removeTooltip: $container, $target, $tooltip ->
 
 defaults =
 closingtimeout = 500
@@ -27,7 +27,7 @@ Backbone.Factlink.defineTooltips = (options) ->
   #in reponse to an event handler, but also on request
   instances = {}
 
-  $el = options.$el
+  $container = options.$container
   _.defaults options, defaults
 
   openInstance = ($target) ->
@@ -35,7 +35,7 @@ Backbone.Factlink.defineTooltips = (options) ->
     inTooltip = false
     inTarget = true #opened on hover over target
 
-    $tooltip = options.makeTooltip $el, $target
+    $tooltip = options.makeTooltip $container, $target
     $tooltip.hoverIntent
       timeout: closingtimeout
       over: -> inTooltip = true; check()
@@ -44,7 +44,7 @@ Backbone.Factlink.defineTooltips = (options) ->
     check = -> remove() if !(inTarget || inTooltip)
     remove = ->
       delete instances[instId]
-      options.removeTooltip $el, $target, $tooltip
+      options.removeTooltip $container, $target, $tooltip
       $target.removeData(definitionIdStr)
 
     instances[instId] =
@@ -61,7 +61,7 @@ Backbone.Factlink.defineTooltips = (options) ->
     else if inTarget #target has no tooltip but is hovered
       openInstance $target
 
-  $el.hoverIntent
+  $container.hoverIntent
     timeout: closingtimeout
     selector: options.selector
     over: hoverTarget true
