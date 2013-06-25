@@ -8,65 +8,61 @@
 
 
 Backbone.Factlink ||= {}
-  #$container: owner
-  #selector: what to hover over
-  #makeTooltip: $container, $target -> $tooltip
-  #removeTooltip: $container, $target, $tooltip ->
 
-defaults =
 closingtimeout = 500
 definitionCounter = 0
 
-#returns an object with a close method which when called
-#removes all open tooltips
 Backbone.Factlink.defineTooltips = (options) ->
-  definitionIdStr = 'tooltipUid-' + definitionCounter++
-  instCounter = 0 #one call can cause multiple tooltips
-  #we track each tooltip using the instCounter and store them
-  #in `instances`: this means we can close them not just
-  #in reponse to an event handler, but also on request
-  instances = {}
+  #$container: context for selector
+  #selector: what to hover over
+  #showTooltip: $container, $target -> $tooltip
+  #hideTooltip: $container, $target, $tooltip ->
 
+  #returns: object with close method that closes all open tooltips stops
+  #   opening new ones
+
+  definitionId = 'tooltipUid-' + definitionCounter++
+  instanceCounter = 0
+  instances = {}
   $container = options.$container
-  _.defaults options, defaults
 
   openInstance = ($target) ->
-    instId = 'tt' + instCounter++
-    inTooltip = false
-    inTarget = true #opened on hover over target
+    instId = 'tt' + instanceCounter++
+    mouseInTooltip = false
+    mouseInTarget = true
 
-    $tooltip = options.makeTooltip $container, $target
+    $tooltip = options.showTooltip $container, $target
     $tooltip.hoverIntent
       timeout: closingtimeout
-      over: -> inTooltip = true; check()
-      out: -> inTooltip = false; check()
+      over: -> mouseInTooltip = true; check()
+      out: -> mouseInTooltip = false; check()
 
-    check = -> remove() if !(inTarget || inTooltip)
-    remove = ->
+    check = -> close() if !(mouseInTarget || mouseInTooltip)
+    close = ->
       delete instances[instId]
-      options.removeTooltip $container, $target, $tooltip
-      $target.removeData(definitionIdStr)
+      options.hideTooltip $container, $target, $tooltip
+      $target.removeData(definitionId)
 
     instances[instId] =
-      remove: remove
-      setTargetHover: (state) -> inTarget = state; check()
+      close: close
+      setTargetHover: (state) -> mouseInTarget = state; check()
 
-    $target.data(definitionIdStr, instId)
+    $target.data(definitionId, instId)
 
-  hoverTarget = (inTarget) -> (e) ->
+  onTargetHover = (mouseInTarget) -> (e) ->
     $target = $(e.currentTarget)
-    ttActions = instances[$target.data(definitionIdStr)]
-    if ttActions #this is a known (i.e. open) tooltip
-      ttActions.setTargetHover inTarget
-    else if inTarget #target has no tooltip but is hovered
+    openedInstance = instances[$target.data(definitionId)]
+    if openedInstance
+      openedInstance.setTargetHover mouseInTarget
+    else if mouseInTarget
       openInstance $target
 
   $container.hoverIntent
     timeout: closingtimeout
     selector: options.selector
-    over: hoverTarget true
-    out: hoverTarget false
+    over: onTargetHover true
+    out: onTargetHover false
 
-  close: -> for id, ttActions of instances
-    ttActions.remove()
-
+  close: ->
+    openInstance.close() for id, openInstance of instances
+    $container.off(".hoverIntent") #unfortunately, we can't do better than this.
