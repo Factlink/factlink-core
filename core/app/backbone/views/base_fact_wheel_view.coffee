@@ -103,7 +103,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
       path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
       path.click _.bind(@clickOpinionType, this, opinionType)
-    
+
     @opinionTypeRaphaels[opinionType.type] = path
 
   animateExistingArc: (opinionType, arc, opacity) ->
@@ -134,10 +134,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   bindCustomRaphaelAttributes: ->
     polarToRegular = (origin, radius, angle)->
-      [
-        origin[0] + radius * Math.cos(angle),
-        origin[1] - radius * Math.sin(angle)
-      ]
+      x: origin[0] + radius * Math.cos(angle),
+      y: origin[1] - radius * Math.sin(angle)
 
     @canvas.customAttributes.arc = (percentage, percentageOffset, radius) =>
       padding = 32/@options.radius
@@ -147,11 +145,12 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       endAngle = (percentageOffset + percentage) * 2 * Math.PI / 100
 
       origin = [@boxSize() / 2, @boxSize() / 2]
-      [startX,  startY] = polarToRegular(origin, radius, startAngle)
-      [endX,  endY] = polarToRegular(origin, radius, endAngle)
+
+      start = polarToRegular(origin, radius, startAngle)
+      end = polarToRegular(origin, radius, endAngle)
 
       direction = if percentage > 50 then 1 else 0
-      path: [["M", startX, startY], ["A", radius, radius, 0, direction, 0, endX, endY]]
+      path: [["M", start.x, start.y], ["A", radius, radius, 0, direction, 0, end.x, end.y]]
 
   mouseoverOpinionType: (path, opinionType) ->
     destinationOpacity = @options.hoverStroke.opacity
