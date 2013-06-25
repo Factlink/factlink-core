@@ -2,6 +2,7 @@ class ActionButtonState extends Backbone.Model
   defaults:
     checked: false
     hovering: false
+    loaded: false
 
   onClick: ->
     if @get('checked')
@@ -34,6 +35,8 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
   onClick: (e) ->
     e.preventDefault()
     e.stopPropagation()
+    return unless @model.get('loaded')
+
     @model.onClick()
 
   onMouseEnter: -> @model.set 'hovering', true
@@ -42,9 +45,12 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
   showCurrentState: ->
     hovering = @model.get('hovering')
     checked = @model.get('checked')
+    loaded = @model.get('loaded')
 
-    @$el.toggleClass 'btn-danger', checked and hovering
-    @$el.toggleClass 'btn-primary', hovering and not checked
-    @$el.toggleClass 'btn-action-checked', checked
+    @$el.toggleClass 'disabled', not loaded
 
-    @trigger 'render_state', hovering, checked
+    @$el.toggleClass 'btn-danger', hovering and checked and loaded
+    @$el.toggleClass 'btn-primary', hovering and not checked and loaded
+    @$el.toggleClass 'btn-action-checked', checked and loaded
+
+    @trigger 'render_state', loaded, hovering, checked
