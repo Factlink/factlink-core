@@ -34,7 +34,7 @@ class Backbone.Factlink.TooltipDefinition extends Backbone.Marionette.View
 
   onClose: ->
     @_removeTooltip()
-    @options.$container.off(".hoverIntent")
+    @options.$target.off(".hoverIntent")
 
   _openTooltip: ->
     @_$tooltip = @options.makeTooltip @options.$container, @$target
@@ -51,7 +51,7 @@ class Backbone.Factlink.TooltipDefinition extends Backbone.Marionette.View
       @_openTooltip() if @model.hovered()
 
   _hoverintent: ($element, property)->
-    @_$tooltip.hoverIntent
+    $element.hoverIntent
       timeout: @_closingtimeout
       over: => @model.set property, true
       out:  => @model.set property, false
