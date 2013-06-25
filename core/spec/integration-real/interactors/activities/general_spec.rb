@@ -7,7 +7,7 @@ describe Interactors::Topics::Facts do
 
   it 'after adding activities they exist' do
     as(user) do |pavlov|
-      fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+      fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
       channel = pavlov.command :'channels/create', 'something'
 
       created_facts = channel.created_by.created_facts_channel
@@ -31,7 +31,7 @@ describe Interactors::Topics::Facts do
   context 'after cleaning up faulty added_fact_to_channel activities' do
     it 'faulty activities are removed' do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
         channel = pavlov.command :'channels/create', 'something'
 
         created_facts = channel.created_by.created_facts_channel
@@ -60,9 +60,9 @@ describe Interactors::Topics::Facts do
   context 'after cleanup' do
     it 'invalid activities are removed from a list' do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
-        fact2 = pavlov.interactor :'facts/create', 'a fact', '', ''
-        fact3 = pavlov.interactor :'facts/create', 'a fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
+        fact2 = pavlov.interactor :'facts/create', 'a fact', '', '', {}
+        fact3 = pavlov.interactor :'facts/create', 'a fact', '', '', {}
         channel = pavlov.command :'channels/create', 'something'
         channel2 = pavlov.command :'channels/create', 'something else'
 

@@ -37,6 +37,7 @@ class Ability
     define_user_favourites_abilities
     define_user_activities_abilities
     define_tos_abilities
+    define_sharing_abilities
     define_feature_toggles
   end
 
@@ -76,7 +77,6 @@ class Ability
       f.created_by_id == user.graph_user_id
     end
     cannot :update, Fact
-    can :share, Fact
   end
 
   def define_fact_relation_abilities
@@ -151,6 +151,18 @@ class Ability
 
     if signed_in? and not agrees_tos?
       can :sign_tos, user
+    end
+  end
+
+  def define_sharing_abilities
+    return unless agrees_tos?
+
+    can :share, Fact
+    if user.andand.identities && user.identities['twitter']
+      can :share_to, :twitter
+    end
+    if user.andand.identities && user.identities['facebook']
+      can :share_to, :facebook
     end
   end
 
