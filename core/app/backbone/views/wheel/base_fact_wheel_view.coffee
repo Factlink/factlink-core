@@ -29,7 +29,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @opinionTypeRaphaels = {}
 
   defaultStrokeWidth: ->
-    3/5 * @defaults.radius
+    3/5 * @options.radius
 
   hoverStrokeWidth: ->
     @defaultStrokeWidth() + 2
