@@ -28,12 +28,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
 
-  defaultStrokeWidth: ->
-    3/5 * @options.radius
-
-  hoverStrokeWidth: ->
-    @defaultStrokeWidth() + 2
-
+  defaultStrokeWidth: -> 3/5 * @options.radius
+  hoverStrokeWidth: -> @defaultStrokeWidth() + 2
   maxStrokeWidth: -> Math.max(@defaultStrokeWidth(), @hoverStrokeWidth())
 
   onRender: ->
