@@ -37,6 +37,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   maxStrokeWidth: -> Math.max(@defaultStrokeWidth(), @hoverStrokeWidth())
 
   onRender: ->
+    @$el.addClass @options.extraClassName
     @renderRaphael()
     @postRenderActions()
 
