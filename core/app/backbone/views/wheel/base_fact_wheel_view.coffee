@@ -1,20 +1,17 @@
 class window.BaseFactWheelView extends Backbone.Marionette.ItemView
-  tagName: "div"
   className: "wheel"
   defaults:
     respondsToMouse: true
     showsTooltips: true
 
-    dimension: 16
     radius: 16
     minimalVisiblePercentage: 15
+
     defaultStroke:
       opacity: 0.2
-      width: 9
 
     hoverStroke:
       opacity: 0.5
-      width: 11
 
     userOpinionStroke:
       opacity: 1.0
@@ -33,8 +30,16 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   template: "facts/fact_wheel"
 
   initialize: (options) ->
-    @options = $.extend({}, @defaults, options)
+    @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
+
+  defaultStrokeWidth: ->
+    3/5 * @defaults.radius
+
+  hoverStrokeWidth: ->
+    @defaultStrokeWidth() + 2
+
+  maxStrokeWidth: -> Math.max(@defaultStrokeWidth(), @hoverStrokeWidth())
 
   onRender: ->
     @renderRaphael()
@@ -53,8 +58,10 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @$canvasEl.addClass 'fact-wheel-responding-to-mouse' if @options.respondsToMouse
 
     @$('.raphael_container').html(@$canvasEl)
-    @canvas = Raphael(@$canvasEl[0], @options.dimension * 2 + 12, @options.dimension * 2 + 12)
+    @canvas = new Raphael @$canvasEl[0], @boxSize(), @boxSize()
     @bindCustomRaphaelAttributes()
+
+  boxSize: -> @options.radius * 2 + @maxStrokeWidth()
 
   randomActions: ->
     offset = 0
@@ -88,7 +95,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       # Our custom arc attribute
       arc: arc
       stroke: @options.opinionStyles[opinionType.type].color
-      "stroke-width": @options.defaultStroke.width
+      "stroke-width": @defaultStrokeWidth()
       opacity: opacity
 
     # Bind Mouse Events on the path
@@ -126,23 +133,31 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       opinionType.displayPercentage = percentage
 
   bindCustomRaphaelAttributes: ->
+    polarToRegular = (origin, radius, angle)->
+      [
+        origin[0] + radius * Math.cos(angle),
+        origin[1] - radius * Math.sin(angle)
+      ]
+
     @canvas.customAttributes.arc = (percentage, percentageOffset, radius) =>
-      percentage = percentage - 2 # add padding after arc
-      largeAngle = percentage > 50
-      boxDimension = @options.dimension + 6
+      padding = 32/@options.radius
+      percentage = percentage - padding
+
       startAngle = percentageOffset * 2 * Math.PI / 100
       endAngle = (percentageOffset + percentage) * 2 * Math.PI / 100
-      startX = boxDimension + radius * Math.cos(startAngle)
-      startY = boxDimension - radius * Math.sin(startAngle)
-      endX = boxDimension + radius * Math.cos(endAngle)
-      endY = boxDimension - radius * Math.sin(endAngle)
-      path: [["M", startX, startY], ["A", radius, radius, 0, ((if largeAngle then 1 else 0)), 0, endX, endY]]
+
+      origin = [@boxSize() / 2, @boxSize() / 2]
+      [startX,  startY] = polarToRegular(origin, radius, startAngle)
+      [endX,  endY] = polarToRegular(origin, radius, endAngle)
+
+      direction = if percentage > 50 then 1 else 0
+      path: [["M", startX, startY], ["A", radius, radius, 0, direction, 0, endX, endY]]
 
   mouseoverOpinionType: (path, opinionType) ->
     destinationOpacity = @options.hoverStroke.opacity
     destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
     path.animate(
-      "stroke-width": @options.hoverStroke.width
+      "stroke-width": @hoverStrokeWidth()
       opacity: destinationOpacity
     , 200, "<>")
 
@@ -150,7 +165,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     destinationOpacity = @options.defaultStroke.opacity
     destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
     path.animate(
-      "stroke-width": @options.defaultStroke.width
+      "stroke-width": @defaultStrokeWidth()
       opacity: destinationOpacity
     , 200, "<>")
 
