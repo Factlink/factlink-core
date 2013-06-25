@@ -38,13 +38,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   onRender: ->
     @renderRaphael()
-
-    offset = 0
-    @calculateDisplayablePercentages()
-    for key, opinionType of @model.get('opinion_types')
-      @createOrAnimateArc opinionType, offset
-      offset += opinionType.displayPercentage
-    @bindTooltips()
+    @postRenderActions()
 
   render: ->
     if @already_rendered
@@ -70,7 +64,15 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       chosen = opinionType.is_user_opinion
       @$(".js-opinion-#{type}").attr
         checked:  if chosen then 'checked' else false
-    @randomActions()
+    @postRenderActions()
+
+  postRenderActions: ->
+    offset = 0
+    @calculateDisplayablePercentages()
+    for key, opinionType of @model.get('opinion_types')
+      @createOrAnimateArc opinionType, offset
+      offset += opinionType.displayPercentage
+    @bindTooltips()
 
   createOrAnimateArc: (opinionType, percentageOffset) ->
     opacity = (if opinionType.is_user_opinion then @options.userOpinionStrokeOpacity else @options.defaultStrokeOpacity)
