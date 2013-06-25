@@ -35,6 +35,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
 
+  maxStrokeWidth: -> Math.max(@defaultStrokeWidth(), @hoverStrokeWidth())
+
   onRender: ->
     @renderRaphael()
     @randomActions()
@@ -54,6 +56,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @$('.raphael_container').html(@$canvasEl)
     @canvas = Raphael(@$canvasEl[0], @options.dimension * 2 + 12, @options.dimension * 2 + 12)
     @bindCustomRaphaelAttributes()
+
+  boxSize: -> @options.radius * 2 + @maxStrokeWidth()
 
   randomActions: ->
     offset = 0
@@ -125,17 +129,22 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       opinionType.displayPercentage = percentage
 
   bindCustomRaphaelAttributes: ->
+    polarToRegular = (origin, radius, angle)->
+      [
+        origin[0] + radius * Math.cos(angle),
+        origin[1] - radius * Math.sin(angle)
+      ]
+
     @canvas.customAttributes.arc = (percentage, percentageOffset, radius) =>
       percentage = percentage - 2 # add padding after arc
       largeAngle = percentage > 50
       boxDimension = @options.dimension + 6
       startAngle = percentageOffset * 2 * Math.PI / 100
       endAngle = (percentageOffset + percentage) * 2 * Math.PI / 100
-      startX = boxDimension + radius * Math.cos(startAngle)
-      startY = boxDimension - radius * Math.sin(startAngle)
-      endX = boxDimension + radius * Math.cos(endAngle)
-      endY = boxDimension - radius * Math.sin(endAngle)
       path: [["M", startX, startY], ["A", radius, radius, 0, ((if largeAngle then 1 else 0)), 0, endX, endY]]
+      origin = [@boxSize() / 2, @boxSize() / 2]
+      [startX,  startY] = polarToRegular(origin, radius, startAngle)
+      [endX,  endY] = polarToRegular(origin, radius, endAngle)
 
   mouseoverOpinionType: (path, opinionType) ->
     destinationOpacity = @options.hoverStroke.opacity
