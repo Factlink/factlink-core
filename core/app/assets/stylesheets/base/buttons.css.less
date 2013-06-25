@@ -84,3 +84,31 @@ body.client {
   }
 }
 
+.button-blue {
+  .new-design-font();
+
+  height: 24px;
+  line-height: 22px;
+  padding: 0 12px;
+  .border-radius(3px);
+
+  background: #3d75a3;
+  color: white;
+  text-shadow: 0 1px 0 #316492;
+  border: none;
+  border-bottom: 2px solid #1c5c90;
+
+  transition: all 0.1s;
+
+  &:hover {
+    background: #1c5c90;
+    border-bottom-color: #124977;
+  }
+
+  &:active {
+    background: #1c5c90;
+    border-bottom-color: #1c5c90;
+    padding-top: 1px;
+    box-shadow: inset 0 2px #124977;
+  }
+}

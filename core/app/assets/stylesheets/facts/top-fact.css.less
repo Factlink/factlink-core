@@ -2,10 +2,11 @@
 @import "bootstrap/mixins";
 
 .top-fact {
+  .new-design-box();
+  .new-design-font();
+
+  background: white;
   position: relative;
-  border: 1px solid @mutedBorderColor;
-  border-radius: 4px;
-  box-shadow: 0px 1px rgba(0,0,0,0.2);
 }
 
 .top-fact-avatar {
@@ -21,7 +22,19 @@
 }
 
 .top-fact-controls {
+  position: relative;
   padding: 0 35px 25px;
+
+  .top-fact-time-ago {
+    .top-fact-time-ago-icon {
+      margin-right: 5px;
+    }
+
+    position: absolute;
+    top: 2px;
+    right: 35px;
+    color: @mutedFontColor;
+  }
 }
 
 .top-fact-wheel {
