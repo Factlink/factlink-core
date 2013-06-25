@@ -55,12 +55,5 @@ describe "When visiting the Factlink website", type: :request do
         page.should have_content("Privacy Policy")
       end
     end
-
-    it "should be able to view the Privacy Policy page" do
-      click_link "Privacy"
-      within(:css, "h1") do
-        page.should have_content("Privacy Policy")
-      end
-    end
   end
 end
