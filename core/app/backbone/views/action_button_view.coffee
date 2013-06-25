@@ -27,8 +27,6 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
     super
 
-    @bindTo @model, 'change:checked', @onCheckedChange
-    @bindTo @model, 'change:hovering', @onHoveringChange
     @bindTo @model, 'change', @render
 
   onClick: (e) ->
