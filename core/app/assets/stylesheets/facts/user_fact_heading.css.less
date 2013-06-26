@@ -1,4 +1,5 @@
 @import "bootstrap/variables";
+@import "bootstrap/mixins";
 
 .user-fact-heading {
   //the user's avatar+name should be raised slightly above + overlapping
@@ -44,3 +45,10 @@
   vertical-align: top;
 }
 
+.user-fact-heading-link {
+  .new-design-link();
+}
+
+.user-fact-heading-authority {
+  margin-top: -2px;
+}
