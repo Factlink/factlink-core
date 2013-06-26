@@ -6,16 +6,12 @@ require 'pavlov'
 class ApplicationController < ActionController::Base
 
   include Pavlov::Helpers
+  include Util::PavlovContextSerialization
 
   DEFAULT_LAYOUT = 'frontend'
 
   def pavlov_options
-    {
-      current_user: current_user,
-      ability: current_ability,
-      mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true)
-      facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
-    }
+    pavlov_context_by_user current_user
   end
 
   # expose query to views, so we can rewrite inline
