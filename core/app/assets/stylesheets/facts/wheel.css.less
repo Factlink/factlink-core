@@ -26,6 +26,10 @@ div.fact-wheel,
     text-align: center;
   }
 
+  svg {
+    display: block;
+  }
+
   .fact-wheel-responding-to-mouse {
     svg {
       path:hover {
@@ -42,5 +46,35 @@ div.fact-wheel,
     left: 31px;
     top: 52px;
     font-size: @topFactFontSize;
+  }
+}
+
+.top-fact-wheel {
+  left: 0; right: 0;
+  position: absolute;
+  bottom: -68px;
+  text-align: center;
+
+  > .js-fact-wheel-region {
+    padding: 3px;
+    display: inline-block;
+    background-color: white;
+    border-radius: 10000px;
+    float: none;
+
+    //The following css generates a surrounding rounded box around the image.
+    //this is equivalent to a fake border, with the advantage
+    //that the "padding" overlays the wrapping boxes border, whereas the
+    //"border" is underneath it.  This causes the visual border to appear
+    //continuously to wrap the jutting out avatar image.
+    &:after {
+      display: block;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 10000px;
+      content: ' ';
+      position: absolute;
+      z-index: -1;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+    }
   }
 }
