@@ -17,12 +17,14 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
 
     @collection = @model.getOwnContainingChannels(this)
     @collection.on "add", (channel) =>
-      @model.addToChannel channel, {}
+      @model.addToChannel channel
 
     @collection.on "remove", (channel) =>
-      @model.removeFromChannel channel, {}
+      @model.removeFromChannel channel
 
   onRender: ->
+    mp_track "Factlink: Open repost modal"
+
     unless @addToChannelView?
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
       @addToChannelRegion.show @addToChannelView

@@ -1,10 +1,13 @@
+// TODO: let's rename these mixins when we're using the new design throughout
+
 .new-design-font() {
-  font-family: Roboto;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial;
   font-weight: 300;
   font-size: 12px;
 }
 
-.new-design-box() {
+.new-design-white-block-with-shadow() {
+  background: white;
   .border-radius(4px);
   box-shadow: 0 0 0 1px rgba(0,0,1,0.06), 0 1px 1px rgba(0,0,1,0.15);
 }

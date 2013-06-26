@@ -85,9 +85,6 @@ body.client {
 }
 
 .button-blue {
-  @button-blue-dark-blue: #1c5c90;
-  @button-blue-darker-blue: #124977;
-
   .new-design-font();
 
   height: 24px;
@@ -97,21 +94,21 @@ body.client {
 
   background: @linkColor;
   color: white;
-  text-shadow: 0 1px 0 #316492;
+  text-shadow: 0 1px 0 @buttonTextShadow;
   border: none;
-  border-bottom: 2px solid @button-blue-dark-blue;
+  border-bottom: 2px solid @buttonBlueDark;
 
   transition: all 0.1s;
 
   &:hover {
-    background: @button-blue-dark-blue;
-    border-bottom-color: @button-blue-darker-blue;
+    background: @buttonBlueDark;
+    border-bottom-color: @buttonBlueDarker;
   }
 
   &:active {
-    background: @button-blue-dark-blue;
-    border-bottom-color: @button-blue-dark-blue;
+    background: @buttonBlueDark;
+    border-bottom-color: @buttonBlueDark;
     padding-top: 1px;
-    box-shadow: inset 0 2px @button-blue-darker-blue;
+    box-shadow: inset 0 2px @buttonBlueDarker;
   }
 }

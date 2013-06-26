@@ -14,8 +14,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
     FactlinkApp.Modal.show 'Repost Factlink',
       new AddToChannelModalView(model: @model)
 
-    mp_track "Factlink: Open repost modal"
-
   onRender: ->
     @userHeadingRegion.show new UserInFactHeadingView
         model: @model.user()
