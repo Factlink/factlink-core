@@ -19,7 +19,7 @@ class TourUserView extends Backbone.Marionette.Layout
     unless @_followUserButton?
       @_followUserButton = new FollowUserButtonView
         user: @cloned_user()
-        listenToEl: @$el
+        $listenToEl: @$el
 
       @bindTo @_followUserButton, 'render_state', (loaded, hovering, checked)=>
         @$el.toggleClass 'hover', hovering and loaded

@@ -23,11 +23,13 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
     super
 
-    el = options.listenToEl || @$el
+    @bindInteractionEvents options.$listenToEl || @$el
 
-    @bindTo el, 'click', @onClick, @
-    @bindTo el, 'mouseenter', @onMouseEnter, @
-    @bindTo el, 'mouseleave', @onMouseLeave, @
+
+  bindInteractionEvents: ($listenToEl)->
+    @bindTo $listenToEl, 'click', @onClick, @
+    @bindTo $listenToEl, 'mouseenter', @onMouseEnter, @
+    @bindTo $listenToEl, 'mouseleave', @onMouseLeave, @
 
     @on 'render', @showCurrentState, @
     @bindTo @model, 'change', @render, @
