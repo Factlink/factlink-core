@@ -10,8 +10,15 @@ module Commands
       private
 
       def execute
-        command :'twitter/share_factlink', fact_id if sharing_options[:twitter]
-        command :'facebook/share_factlink', fact_id if sharing_options[:facebook]
+        if sharing_options[:twitter]
+          Resque.enqueue Commands::Twitter::ShareFactlink,
+            fact_id, Util::PavlovContextSerialization.serialize_pavlov_context(@options)
+        end
+
+        if sharing_options[:facebook]
+          Resque.enqueue Commands::Facebook::ShareFactlink,
+            fact_id, Util::PavlovContextSerialization.serialize_pavlov_context(@options)
+        end
       end
 
       def validate_connected service

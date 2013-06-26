@@ -10,11 +10,7 @@ class ApplicationController < ActionController::Base
   DEFAULT_LAYOUT = 'frontend'
 
   def pavlov_options
-    {
-      current_user: current_user,
-      ability: current_ability,
-      mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true)
-    }
+    Util::PavlovContextSerialization.pavlov_context_by_user current_user, current_ability
   end
 
   # expose query to views, so we can rewrite inline

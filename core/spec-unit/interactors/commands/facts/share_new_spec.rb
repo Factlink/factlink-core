@@ -51,16 +51,21 @@ describe Commands::Facts::ShareNew do
   end
 
   describe '.execute' do
+    before do
+      stub_classes 'Resque', 'Commands::Twitter::ShareFactlink', 'Commands::Facebook::ShareFactlink'
+    end
+
     it 'posts to twitter if specified' do
       fact_id = '1'
       sharing_options = {twitter: true, facebook: false}
       ability = mock(can?: true)
+      current_user = mock(id: '123asdf')
 
-      pavlov_options = {ability: ability}
+      pavlov_options = {current_user: current_user, ability: ability}
       command = described_class.new fact_id, sharing_options, pavlov_options
 
-      Pavlov.should_receive(:command)
-            .with(:'twitter/share_factlink', fact_id, pavlov_options)
+      Resque.should_receive(:enqueue)
+            .with(Commands::Twitter::ShareFactlink, fact_id, 'serialize_id' => current_user.id)
 
       command.call
     end
@@ -69,12 +74,13 @@ describe Commands::Facts::ShareNew do
       fact_id = '1'
       sharing_options = {twitter: false, facebook: true}
       ability = mock(can?: true)
+      current_user = mock(id: '123asdf')
 
-      pavlov_options = {ability: ability}
+      pavlov_options = {current_user: current_user, ability: ability}
       command = described_class.new fact_id, sharing_options, pavlov_options
 
-      Pavlov.should_receive(:command)
-            .with(:'facebook/share_factlink', fact_id, pavlov_options)
+      Resque.should_receive(:enqueue)
+            .with(Commands::Facebook::ShareFactlink, fact_id, 'serialize_id' => current_user.id)
 
       command.call
     end

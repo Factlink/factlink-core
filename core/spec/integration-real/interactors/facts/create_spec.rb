@@ -47,7 +47,7 @@ describe 'fact' do
       .and_return(facebook_client)
 
     facebook_client.should_receive(:put_connections)
-                   .with("me", "factlink:share", factlink: "http://localhost:3000/facts/1")
+                   .with("me", "factlinktest:share", factlink: "http://localhost:3000/facts/1")
 
     as(facebook_user) do |pavlov|
       pavlov.interactor :'facts/create', displaystring, '', '', facebook: true
