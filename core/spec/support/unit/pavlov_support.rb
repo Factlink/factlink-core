@@ -23,7 +23,7 @@ module PavlovSupport
       {
         current_user: user,
         ability: ability,
-        facebook_app_namespace: 'factlink'
+        facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
       }
     end
 
