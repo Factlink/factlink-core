@@ -1,5 +1,8 @@
 module Util
   module PavlovContextSerialization
+
+    module_function
+
     def serialize_pavlov_context pavlov_context
       return nil unless pavlov_context[:current_user]
 

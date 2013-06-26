@@ -6,12 +6,11 @@ require 'pavlov'
 class ApplicationController < ActionController::Base
 
   include Pavlov::Helpers
-  include Util::PavlovContextSerialization
 
   DEFAULT_LAYOUT = 'frontend'
 
   def pavlov_options
-    pavlov_context_by_user current_user
+    Util::PavlovContextSerialization.pavlov_context_by_user current_user
   end
 
   # expose query to views, so we can rewrite inline
