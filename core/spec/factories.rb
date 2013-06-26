@@ -48,12 +48,17 @@ FactoryGirl.define do
       features [:sees_channels]
     end
 
+    trait :connected_twitter do
+      identities('twitter' => {'credentials' => {'token' => 'token', 'secret' => 'secret'}})
+    end
+
     factory :approved_user, traits: [:approved]
     factory :confirmed_user, traits: [:confirmed]
     factory :approved_confirmed_user, traits: [:approved, :confirmed]
     factory :active_user, traits: [:approved, :confirmed, :seen_the_tour]
     factory :admin_user, traits: [:admin]
     factory :seeing_channels_user, traits: [:seeing_channels, :approved, :confirmed, :seen_the_tour]
+    factory :twitter_user, traits: [:approved, :confirmed, :connected_twitter]
   end
 
   sequence :displaystring do |n|
