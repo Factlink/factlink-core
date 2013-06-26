@@ -14,14 +14,7 @@ class PavlovConsole
     @user ||= (User.find(@username) || raise("user not found"))
   end
 
-  def ability
-    @ability ||= Ability.new(user)
-  end
-
   def pavlov_options
-    {
-      current_user: user,
-      ability: ability
-    }
+    Util::PavlovContextSerialization.pavlov_context_by_user user
   end
 end
