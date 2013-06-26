@@ -84,3 +84,34 @@ body.client {
   }
 }
 
+.button-blue {
+  .new-design-font();
+
+  @height: 24px;
+  @baselinePixelsUp: 1px;
+
+  height: @height;
+  line-height: @height - 2*@baselinePixelsUp;
+  padding: 0 12px;
+  .border-radius(3px);
+
+  background: @linkColor;
+  color: white;
+  text-shadow: 0 1px 0 @buttonTextShadow;
+  border: none;
+  border-bottom: 2px solid @buttonBlueDark;
+
+  transition: all 0.1s;
+
+  &:hover {
+    background: @buttonBlueDark;
+    border-bottom-color: @buttonBlueDarker;
+  }
+
+  &:active {
+    background: @buttonBlueDark;
+    border-bottom-color: @buttonBlueDark;
+    padding-top: 1px;
+    box-shadow: inset 0 2px @buttonBlueDarker;
+  }
+}
