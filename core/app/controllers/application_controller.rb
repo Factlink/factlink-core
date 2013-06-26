@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
       current_user: current_user,
       ability: current_ability,
       mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true)
+      facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
     }
   end
 
