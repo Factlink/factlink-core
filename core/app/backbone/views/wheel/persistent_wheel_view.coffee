@@ -1,5 +1,5 @@
 class window.PersistentWheelView extends BaseFactWheelView
-  clickOpinionType: (optionType, e)->
+  clickOpinionType: (opinionType, e)->
     @trigger 'opinionSet'
 
     @updateTo '1.0',
