@@ -20,8 +20,11 @@ module PavlovSupport
     include Pavlov::Helpers
 
     def pavlov_options
-      { current_user: user,
-        ability: ability}
+      {
+        current_user: user,
+        ability: ability,
+        facebook_app_namespace: 'factlink'
+      }
     end
 
     def ability

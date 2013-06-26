@@ -3,8 +3,9 @@ require 'spec_helper'
 describe 'fact' do
   include PavlovSupport
 
-  let(:current_user) { create :active_user }
-  let(:twitter_user) { create :twitter_user }
+  let(:current_user)  { create :active_user }
+  let(:twitter_user)  { create :twitter_user }
+  let(:facebook_user) { create :facebook_user }
 
   it 'can be created' do
     displaystring = 'displaystring'
@@ -33,6 +34,23 @@ describe 'fact' do
 
     as(twitter_user) do |pavlov|
       pavlov.interactor :'facts/create', displaystring, '', '', twitter: true
+    end
+  end
+
+  it 'can be posted to Facebook' do
+    displaystring = 'displaystring'
+    facebook_client = mock
+
+    stub_classes 'Koala::Facebook::API'
+    Koala::Facebook::API.stub(:new)
+      .with('token')
+      .and_return(facebook_client)
+
+    facebook_client.should_receive(:put_connections)
+                   .with("me", "factlink:share", factlink: "http://localhost:3000/facts/1")
+
+    as(facebook_user) do |pavlov|
+      pavlov.interactor :'facts/create', displaystring, '', '', facebook: true
     end
   end
 
