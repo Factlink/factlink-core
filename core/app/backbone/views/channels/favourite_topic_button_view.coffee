@@ -4,6 +4,11 @@ class window.FavouriteTopicButtonView extends ActionButtonView
   initialize: ->
     @user = currentUser
 
+    # TODO: invent some way to ensure favourite topics are actually loaded.
+    # the current view seems to assume it already is loaded, so it wouldn't
+    # need a loading state
+    @model.set loaded: true
+
     @bindTo @model, 'click:unchecked', => @options.topic.favourite()
     @bindTo @model, 'click:checked', => @options.topic.unfavourite()
 
