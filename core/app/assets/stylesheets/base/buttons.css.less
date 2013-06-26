@@ -87,8 +87,11 @@ body.client {
 .button-blue {
   .new-design-font();
 
-  height: 24px;
-  line-height: 22px;
+  @height: 24px;
+  @baselinePixelsUp: 1px;
+
+  height: @height;
+  line-height: @height - 2*@baselinePixelsUp;
   padding: 0 12px;
   .border-radius(3px);
 
