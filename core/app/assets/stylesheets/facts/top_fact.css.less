@@ -2,12 +2,11 @@
 @import "bootstrap/mixins";
 
 .top-fact {
+  .new-design-white-block-with-shadow();
+  .new-design-font();
+
   position: relative;
-  border: 1px solid @mutedBorderColor;
-  border-radius: 4px;
-  box-shadow: 0px 1px rgba(0,0,0,0.2);
-  padding: 35px;
-  background:white;
+  padding: 35px 35px 25px;
 }
 
 .top-fact-user-heading {
@@ -19,19 +18,17 @@
 .top-fact-text {
   font-size: @topFactFontSize;
   line-height: @topFactFontSize * 1.5;
+  margin-bottom: 25px;
 }
 
 .top-fact-controls {
-  padding: 0 35px 25px;
+  position: relative;
+  z-index: 1; // Should be placed above FactWheel
 }
 
-.top-fact-wheel {
+.top-fact-time-ago {
   position: absolute;
-  left: 50%;
-  bottom: -10px;
-
-  // TODO: remove this and style properly
-  width: 50px;
-  margin-left: -25px;
-  text-align: center;
+  top: 2px;
+  right: 0;
+  color: @mutedFontColor;
 }
