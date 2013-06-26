@@ -10,7 +10,7 @@ module Commands
       private
 
       def execute
-        client.put_connections("me", "#{namespace}:share", factlink: fact.url)
+        client.put_connections("me", "#{namespace}:share", factlink: fact.url.fact_url)
       end
 
       def token
