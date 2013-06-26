@@ -4,6 +4,8 @@ module Interactors
   class NormalizeSiteUrl
     include Pavlov::Interactor
 
+    # TODO WTF? this shouldn't both include pavlov interactor and override initialize
+
     def initialize site_id, normalizer_class_name
       @site = ::Site[site_id]
       @normalizer_class = Kernel.const_get(normalizer_class_name.to_s)
