@@ -10,3 +10,9 @@ Backend:
  ☐ Test browser blur support
  ☐ Slice the page without Bootstrap
  ☐ Make the page work with Bootstrap
+
+Finishing touch:
+ ☐ Replace all new- and -2 and new-design stuff from names.
+   ☐ .new-design-font
+   ☐ DiscussionView2
+   ☐ And any other I couldn't think of
