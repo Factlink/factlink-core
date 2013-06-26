@@ -29,8 +29,8 @@ GIT
 
 GIT
   remote: git://github.com/Factlink/pavlov.git
-  revision: 44babcbdea4f342da948cfd3e8473a25f84b4155
-  ref: 44babcbdea4f342da948cfd3e8473a25f84b4155
+  revision: f95f3775961046151114ce13cb9dcb1091f56777
+  ref: f95f3775961046151114ce13cb9dcb1091f56777
   specs:
     pavlov (0.0.1)
       activemodel (>= 3.2.7)
