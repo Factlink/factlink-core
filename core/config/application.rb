@@ -111,6 +111,9 @@ module FactlinkUI
     # Add /app/backbone to asset path
     config.assets.paths << Rails.root.join("app", "backbone")
 
+    # Add the fonts path
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -141,6 +144,9 @@ module FactlinkUI
       'modernizr-loader.js',
       'admin.js',
     ]
+
+    # Precompile additional assets
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store
