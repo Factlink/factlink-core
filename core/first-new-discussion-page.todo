@@ -3,7 +3,7 @@ Backend:
 
  CoffeeScript:
  ☐ Render Simple Factlink
- ☐ Enlarge (or test if it works) the Fact Wheel
+ ✔ Enlarge (or test if it works) the Fact Wheel @done (13-06-26 10:49)
  ☐ Add Repost button to this page
 
  Styling:
