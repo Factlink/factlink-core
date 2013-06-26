@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   DEFAULT_LAYOUT = 'frontend'
 
   def pavlov_options
-    Util::PavlovContextSerialization.pavlov_context_by_user current_user
+    Util::PavlovContextSerialization.pavlov_context_by_user current_user, current_ability
   end
 
   # expose query to views, so we can rewrite inline

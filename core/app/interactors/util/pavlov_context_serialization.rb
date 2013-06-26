@@ -17,10 +17,10 @@ module Util
       pavlov_context_by_user User.find(user_id)
     end
 
-    def pavlov_context_by_user user
+    def pavlov_context_by_user user, ability=nil
       {
         current_user: user,
-        ability: Ability.new(user),
+        ability: ability || Ability.new(user),
         mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true),
         facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
       }
