@@ -6,12 +6,19 @@ module Interactors
 
     # TODO WTF? this shouldn't both include pavlov interactor and override initialize
 
-    def initialize site_id, normalizer_class_name
-      @site = ::Site[site_id]
-      @normalizer_class = Kernel.const_get(normalizer_class_name.to_s)
+    arguments :site_id, :normalizer_class_name
+
+    def authorized?
+      true # TODO maybe we should implement some logic here?
+           #      on the other hand, only migrations should call this apparantly
     end
 
+    private
+
     def execute
+      @site = ::Site[site_id]
+      @normalizer_class = Kernel.const_get(normalizer_class_name.to_s)
+
       normalized_url = @normalizer_class.normalize @site.url
 
       unless save_site_with_new_url(@site, normalized_url)
@@ -20,8 +27,6 @@ module Interactors
         cleanup_site_if_empty @site
       end
     end
-
-    private
 
     def cleanup_site_if_empty site
       site.delete if site.facts.count == 0
