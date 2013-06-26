@@ -20,7 +20,6 @@ class window.TopFactView extends Backbone.Marionette.Layout
       fact: @model.attributes
       model: wheel
       radius: 45
-      extraClassName: 'fact-wheel-large'
 
     if Factlink.Global.signed_in
       wheel_view = new InteractiveWheelView wheel_view_options

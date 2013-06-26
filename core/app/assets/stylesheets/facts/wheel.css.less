@@ -1,8 +1,7 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-div.fact-wheel,
-.js-fact-wheel-region {
+.fact-wheel {
   .box-sizing(border-box);
   float: left;
   margin: 0;
@@ -39,28 +38,26 @@ div.fact-wheel,
   }
 }
 
-.fact-wheel-large {
-  .authority {
-    width: 60px;
-    height: 20px;
-    left: 31px;
-    top: 52px;
-    font-size: @topFactFontSize;
-  }
-}
-
 .top-fact-wheel {
   left: 0; right: 0;
   position: absolute;
   bottom: -68px;
   text-align: center;
 
-  > .js-fact-wheel-region {
+  > .fact-wheel {
     padding: 3px;
     display: inline-block;
     background-color: white;
     border-radius: 10000px;
     float: none;
+
+    .authority {
+      width: 60px;
+      height: 20px;
+      left: 31px;
+      top: 52px;
+      font-size: @topFactFontSize;
+    }
 
     //The following css generates a surrounding rounded box around the image.
     //this is equivalent to a fake border, with the advantage
