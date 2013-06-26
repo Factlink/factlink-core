@@ -1,6 +1,9 @@
 development:
   facebook_app_namespace: 'factlinkdevelopment'
 
+test:
+  facebook_app_namespace: 'factlinktest'
+
 testserver:
   facebook_app_namespace: 'factlinktestserver'
 

@@ -44,6 +44,11 @@ module Commands
       end
 
       def validate
+        # HACK! Fix this through pavlov serialization (ask @markijbema or @janpaul123)
+        if @options['serialize_id']
+          @options = Util::PavlovContextSerialization.deserialize_pavlov_context(@options)
+        end
+
         validate_integer_string  :fact_id, fact_id
       end
     end
