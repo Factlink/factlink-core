@@ -18,6 +18,8 @@ class Backbone.Factlink.Collection extends Backbone.Collection
     else
       callback.call(this, this)
 
-  fetchOnce: (args...) ->
-    return if @loading
-    @fetch(args...)
+  fetchOnce: (options={}) ->
+    if @loading
+      @waitForFetch options.success if options.success?
+    else
+      @fetch options

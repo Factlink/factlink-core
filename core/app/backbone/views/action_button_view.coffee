@@ -2,6 +2,7 @@ class ActionButtonState extends Backbone.Model
   defaults:
     checked: false
     hovering: false
+    loaded: false
 
   onClick: ->
     if @get('checked')
@@ -14,45 +15,44 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
   tagName: 'button'
   template: 'generic/action_button'
 
-  events:
-    "click":   "onClick"
-    "mouseenter": "onMouseEnter"
-    "mouseleave": "onMouseLeave"
-
   constructor: (options={}) ->
     @model = new ActionButtonState
 
     @className += ' btn-action btn'
-    if @mini or options.mini
-      @className += ' btn-mini'
+    @className += ' btn-mini' if options.mini
 
     super
 
-    @bindTo @model, 'change:checked', @onCheckedChange
-    @bindTo @model, 'change:hovering', @onHoveringChange
-    @bindTo @model, 'change', @render
+    @bindInteractionEvents options.$listenToEl || @$el
+
+
+  bindInteractionEvents: ($listenToEl)->
+    @bindTo $listenToEl, 'click', @onClick, @
+    @bindTo $listenToEl, 'mouseenter', @onMouseEnter, @
+    @bindTo $listenToEl, 'mouseleave', @onMouseLeave, @
+
+    @on 'render', @showCurrentState, @
+    @bindTo @model, 'change', @render, @
 
   onClick: (e) ->
-    return if @options.noEvents
     e.preventDefault()
     e.stopPropagation()
+    return unless @model.get('loaded')
+
     @model.onClick()
 
-  onMouseEnter: ->
-    return if @options.noEvents
-    @model.set 'hovering', true
+  onMouseEnter: -> @model.set 'hovering', true
+  onMouseLeave: -> @model.set 'hovering', false
 
-  onMouseLeave: ->
-    return if @options.noEvents
-    @model.set 'hovering', false
+  showCurrentState: ->
+    hovering = @model.get('hovering')
+    checked = @model.get('checked')
+    loaded = @model.get('loaded')
 
-  onRender: ->
-    @$el.removeClass 'btn-primary btn-danger'
+    @$el.toggleClass 'disabled', not loaded
 
-    if @model.get('hovering')
-      if @model.get('checked')
-        @$el.addClass 'btn-danger'
-      else
-        @$el.addClass 'btn-primary'
+    @$el.toggleClass 'btn-danger', hovering and checked and loaded
+    @$el.toggleClass 'btn-primary', hovering and not checked and loaded
+    @$el.toggleClass 'btn-action-checked', checked and loaded
 
-    @$el.toggleClass 'btn-action-checked', @model.get('checked')
+    @trigger 'render_state', loaded, hovering, checked
