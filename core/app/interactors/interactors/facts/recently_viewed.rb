@@ -15,6 +15,7 @@ module Interactors
       end
 
       private
+
       def recently_viewed_facts
         RecentlyViewedFacts.by_user_id(@options[:current_user].id)
       end
