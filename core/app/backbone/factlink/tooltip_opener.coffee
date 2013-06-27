@@ -45,6 +45,5 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
       over: => @model.set property, true
       out:  => @model.set property, false
 
-    @on 'close', ->
-      $element.off('.hoverIntent')
+    @on 'close', -> $element.off('.hoverIntent')
 
