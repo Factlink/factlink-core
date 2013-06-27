@@ -18,17 +18,4 @@ describe "factlink", type: :request do
 
     assume_unchanged_screenshot "discussion_page"
   end
-
-  it "the layout of the discussion page is correct" do
-    enable_features(@user, :new_discussion_page)
-    @factlink = create_discussion
-
-    go_to_discussion_page_of @factlink
-    find('a', text: 'Comments (1)').click
-    find('a', text: '(more)').click
-
-    page.should have_content @factlink.data.displaystring
-
-    assume_unchanged_screenshot "new_discussion_page"
-  end
 end
