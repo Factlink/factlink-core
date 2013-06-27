@@ -4,8 +4,6 @@ module Interactors
   class NormalizeSiteUrl
     include Pavlov::Interactor
 
-    # TODO WTF? this shouldn't both include pavlov interactor and override initialize
-
     arguments :site_id, :normalizer_class_name
 
     def authorized?
