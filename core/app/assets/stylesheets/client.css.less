@@ -4,6 +4,7 @@
 //= require_tree ./facts
 //= require_tree ./comments
 //= require_tree ./widgets
+//= require_tree ./share
 //= require channels/suggested_topics
 
 @import "bootstrap/variables";
@@ -16,4 +17,11 @@ body.client {
 
   padding: 0 0 100px;
   .box-sizing(border-box);
+}
+
+.client-modal-region {
+  width: 810px;
+  margin: 0 auto;
+  z-index: 0;
+  position: relative;
 }

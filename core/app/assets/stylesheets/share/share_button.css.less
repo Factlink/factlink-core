@@ -1,0 +1,36 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.share-button {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 3px;
+  cursor: pointer;
+
+  transition: all 0.1s;
+
+  &:hover {
+    .opacity(0.4);
+  }
+
+  &.share-button-checked {
+    .opacity(1);
+  }
+}
+
+.share-button-twitter {
+  background: asset-data-url("sharing_icons/twitter_disabled.png");
+
+  &:hover, &.share-button-checked {
+    background: asset-data-url("sharing_icons/twitter.png");
+  }
+}
+
+.share-button-facebook {
+  background: asset-data-url("sharing_icons/facebook_disabled.png");
+
+  &:hover, &.share-button-checked {
+    background: asset-data-url("sharing_icons/facebook.png");
+  }
+}

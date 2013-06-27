@@ -1,53 +1,46 @@
 class TourUserView extends Backbone.Marionette.Layout
 
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   template: 'tour/interesting_user'
   className: 'tour-interesting-user'
-
-  events:
-    "click":   "onClick"
-    "mouseenter": "onMouseEnter"
-    "mouseleave": "onMouseLeave"
 
   regions:
     buttonRegion: '.js-region-button'
 
   initialize: ->
-    @bindTo @actionButtonModel(), 'click:unchecked', =>
+    @bindTo @cloned_user(), 'followed', =>
       @model.user_topics().invoke 'favourite'
-
-  onClick: -> @actionButtonModel().onClick()
-  onMouseEnter: -> @actionButtonModel().set 'hovering', true
-  onMouseLeave: -> @actionButtonModel().set 'hovering', false
 
   onRender: ->
     @buttonRegion.show @followUserButton()
 
-    @bindTo @actionButtonModel(), 'change:checked', =>
-      @$el.toggleClass 'secondary', @actionButtonModel().get('checked')
-
-    @bindTo @actionButtonModel(), 'change:hovering', =>
-      @$el.toggleClass 'hover', @actionButtonModel().get('hovering')
-
-  actionButtonModel: ->
-    @followUserButton().model
-
   followUserButton: ->
-    @_followUserButton ?= new FollowUserButtonView
-      user: @model.clone()
-      noEvents: true
+    unless @_followUserButton?
+      @_followUserButton = new FollowUserButtonView
+        user: @cloned_user()
+        $listenToEl: @$el
+
+      @bindTo @_followUserButton, 'render_state', (loaded, hovering, checked)=>
+        @$el.toggleClass 'hover', hovering and loaded
+        @$el.toggleClass 'secondary', checked and loaded
+        @$el.toggleClass 'loaded', loaded
+
+    @_followUserButton
+
+
+  cloned_user: -> @_cloned_user ?= @model.clone()
 
   authorityPopover: ->
     unless @_authorityPopover?
       @_authorityPopover = new TourAuthorityPopoverView
-      @bindTo @_authorityPopover, 'next', @tooltipResetAll
+      @bindTo @_authorityPopover, 'next', @popoverResetAll
     @_authorityPopover
 
   showAuthorityPopover: ->
     return if @model.user_topics().isEmpty()
 
-    @tooltipAdd '.js-topic',
+    @popoverAdd '.js-topic',
       side: 'right'
       align: 'top'
       orthogonalOffset: -2

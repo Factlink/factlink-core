@@ -218,4 +218,33 @@ describe Ability do
     end
   end
 
+  describe "sharing" do
+    it "should not be allowed by default" do
+      admin.should_not     be_able_to :share_to, :twitter
+      subject.should_not   be_able_to :share_to, :twitter
+      nonnda.should_not    be_able_to :share_to, :twitter
+      anonymous.should_not be_able_to :share_to, :twitter
+      admin.should_not     be_able_to :share_to, :facebook
+      subject.should_not   be_able_to :share_to, :facebook
+      nonnda.should_not    be_able_to :share_to, :facebook
+      anonymous.should_not be_able_to :share_to, :facebook
+    end
+
+    describe "when connected to Twitter" do
+      it "should be possible to share to Twitter" do
+        user.identities['twitter'] = {}
+
+        subject.should be_able_to :share_to, :twitter
+      end
+    end
+
+    describe "when connected to Facebook" do
+      it "should be possible to share to Facebook" do
+        user.identities['facebook'] = {}
+
+        subject.should be_able_to :share_to, :facebook
+      end
+    end
+  end
+
 end

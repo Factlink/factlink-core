@@ -49,7 +49,7 @@ class AddedFirstFactlinkView extends ActivityItemView
   template: "activities/added_first_factlink"
 
 class AddedFactToTopicView extends ActivityItemView
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   tagName: 'span'
   className: 'separator-list-item'
@@ -58,18 +58,26 @@ class AddedFactToTopicView extends ActivityItemView
   templateHelpers: ->
     topic: @topic().toJSON()
 
+  # onRender: ->
+  #   Backbone.Factlink.makeTooltipForView @,
+  #     positioning:
+  #       align: 'left'
+  #       side: 'bottom'
+  #     selector: '.js-link'
+  #     $offsetParent: @options.$offsetParent
+  #     tooltipViewFactory: =>
+  #       new TopicPopoverContentView model: @topic()
+
   onRender: ->
     Backbone.Factlink.defineTooltipsOnView
       parentView: @
       positioning:
         align: 'left'
         side: 'bottom'
-      selector: '.js-link'
+      $target: @$('.js-link')
       $offsetParent: @options.$offsetParent
       tooltipViewFactory: =>
         new TopicPopoverContentView model: @topic()
-
-
 
   topic: -> @_topic ?= new Topic(@model.get('activity').topic)
 
@@ -79,7 +87,8 @@ class AddedFactToTopicGroupView extends ActivitiesGroupView
   itemView: AddedFactToTopicView
   itemViewContainer: '.js-region-channels'
 
-  itemViewOptions: -> @options
+  itemViewOptions: ->
+    $offsetParent: @options.$offsetParent
 
   actions: -> ["added_fact_to_channel"]
 

@@ -4,52 +4,68 @@ require_relative '../../../../app/interactors/interactors/facts/create.rb'
 describe Interactors::Facts::Create do
   include PavlovSupport
 
-  it '.new' do
-    interactor = Interactors::Facts::Create.new 'displaystring','url','title', current_user: mock
-    interactor.should_not be_nil
+  before do
+    stub_classes 'Fact'
   end
 
   describe '.validate' do
-    it 'requires displaystring to be a nonempty string' do
-      expect_validating('', 'url', 'title').
-        to fail_validation('displaystring should be a nonempty string.')
-    end
+    it 'calls the correct validation methods' do
+      displaystring = 'displaystring'
+      url = 'url'
+      title = 'title'
+      sharing_options = {}
 
-    it 'requires url to be a string' do
-      expect_validating('displaystring', 3, 'title').
-        to fail_validation('url should be a string.')
-    end
+      described_class.any_instance.should_receive(:validate_nonempty_string)
+                                  .with(:displaystring, displaystring)
+      described_class.any_instance.should_receive(:validate_string)
+                                  .with(:url, url)
+      described_class.any_instance.should_receive(:validate_string)
+                                  .with(:title, title)
+      described_class.any_instance.should_receive(:validate_not_nil)
+                                  .with(:sharing_options, sharing_options)
 
-    it 'requires title to be a string' do
-      expect_validating('displaystring', 'url', 1).
-        to fail_validation('title should be a string.')
+      described_class.new displaystring, url, title, sharing_options, ability: mock(can?: true)
     end
   end
 
-  it '.authorized raises when not logged in' do
-    expect{ Interactors::Facts::Create.new 'displaystring', 'url', 'title', current_user: nil }.
+  it '.authorized raises when not able to create facts' do
+    expect{ described_class.new 'displaystring', 'url', 'title', mock, ability: mock(can?: false) }.
       to raise_error Pavlov::AccessDenied, "Unauthorized"
   end
 
-  describe '.execute' do
+  describe '#call' do
     it 'correctly when site doesn''t exist' do
       url = 'www.fmf.nl'
       displaystring = 'this is the annotated text'
       title = 'this is the title'
       site = mock
-      fact_id_i = mock
       fact_data = mock(persisted?: true)
-      fact = mock(id: mock(to_i: fact_id_i), errors: [], data: fact_data)
-      user_id_s = mock
-      user = mock(id: mock(to_s: user_id_s))
-      interactor = Interactors::Facts::Create.new displaystring, url, title, current_user: user
+      fact = mock(id: '1', errors: [], data: fact_data)
+      user = mock(id: '123abc')
+      sharing_options = {}
 
-      interactor.should_receive(:query).with(:'sites/for_url', url).and_return(nil)
-      interactor.should_receive(:command).with(:'sites/create', url).and_return(site)
-      interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
-      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id_i, user_id_s)
+      pavlov_options = {current_user: user, ability: mock(can?: true)}
+      interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
 
-      expect(interactor.execute).to eq fact
+      Pavlov.stub(:query)
+            .with(:'sites/for_url', url, pavlov_options)
+            .and_return(nil)
+
+      Pavlov.should_receive(:command)
+            .with(:'sites/create', url, pavlov_options)
+            .and_return(site)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/create', displaystring, title, user, site, pavlov_options)
+            .and_return(fact)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
+
+      expect(interactor.call).to eq fact
     end
 
     it 'correctly when site exists' do
@@ -57,18 +73,30 @@ describe Interactors::Facts::Create do
       displaystring = 'this is the annotated text'
       title = 'this is the title'
       site = mock
-      fact_id_i = mock
       fact_data = mock(persisted?: true)
-      fact = mock(id: mock(to_i: fact_id_i), errors: [], data: fact_data)
-      user_id_s = mock
-      user = mock(id: mock(to_s: user_id_s))
-      interactor = Interactors::Facts::Create.new displaystring, url, title, current_user: user
+      fact = mock(id: '1', errors: [], data: fact_data)
+      user = mock(id: '123abc')
+      sharing_options = mock
 
-      interactor.should_receive(:query).with(:'sites/for_url',url).and_return(site)
-      interactor.should_receive(:command).with(:'facts/create', displaystring, title, user, site).and_return(fact)
-      interactor.should_receive(:command).with(:'facts/add_to_recently_viewed', fact_id_i, user_id_s)
+      pavlov_options = {current_user: user, ability: mock(can?: true)}
+      interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
 
-      expect(interactor.execute).to eq fact
+      Pavlov.stub(:query)
+            .with(:'sites/for_url',url, pavlov_options)
+            .and_return(site)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/create', displaystring, title, user, site, pavlov_options)
+            .and_return(fact)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
+
+
+      expect(interactor.call).to eq fact
     end
   end
 end

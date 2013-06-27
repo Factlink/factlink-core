@@ -8,29 +8,31 @@ Backbone.Factlink ||= {}
 #options:
 #  parentView: the marionette view owning this tooltip
 #  tooltipViewFactory: -> called to created a view on hover
-#  selector: selector identifying what can be hovered over.
+#  $target: jquery node which when hovered over should show tooltip
 #  $offsetParent: a dom node within which to position the
 #    tooltip with respect to the target (hovered) node.
-#    If unspecified, uses parentView.$el.
 #  positioning: options for PositionedRegion.
 
 Backbone.Factlink.defineTooltipsOnView = (options) ->
-  positionedRegion =
-    new Backbone.Factlink.PositionedRegion _.defaults options.positioning,
-      fadeTime: 100
+  positionedRegion = null
 
-  displayTooltip = ($target) ->
-    popoverOptions = _.defaults
-      contentView: options.tooltipViewFactory(), options.positioning
+  tooltipOptions =
+    $target: options.$target
 
-    positionedRegion.bindToElement $target, options.$offsetParent
-    positionedRegion.show new PopoverView popoverOptions
-    positionedRegion.updatePosition()
-    positionedRegion.$el
+    showTooltip: ($target) ->
+      popoverOptions = _.defaults
+        contentView: options.tooltipViewFactory(), options.positioning
+      positionedRegion =
+        new Backbone.Factlink.PositionedRegion _.extend options.positioning,
+          fadeTime: 100
+      positionedRegion.bindToElement $target, options.$offsetParent
+      positionedRegion.show new PopoverView popoverOptions
+      positionedRegion.updatePosition()
 
-  closeHandler = Backbone.Factlink.defineTooltip
-    $target: options.parentView.$el.find(options.selector)
-    showTooltip: displayTooltip
-    hideTooltip: -> positionedRegion.resetFade()
+      positionedRegion.$el
 
-  options.parentView.on 'close', closeHandler.close
+    hideTooltip: -> positionedRegion?.resetFade()
+
+  tooltipHandler = Backbone.Factlink.defineTooltip tooltipOptions
+
+  options.parentView.on 'close', tooltipHandler.close

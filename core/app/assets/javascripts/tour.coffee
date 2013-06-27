@@ -4,7 +4,7 @@ class FirstFactlinkFactView extends Backbone.Marionette.ItemView
   template: 'tour/first_factlink_fact'
 
 class window.InteractiveTour extends Backbone.View
-  _.extend @prototype, Backbone.Factlink.TooltipMixin
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   helpTextDelay: 560
 
@@ -42,7 +42,7 @@ class window.InteractiveTour extends Backbone.View
     $('.js-extension-button-region').append(@extensionButton.render().el)
 
   initialize: ->
-    @isClosed = false # Hack to fake Marionette behaviour. Used in TooltipMixin.
+    @isClosed = false # Hack to fake Marionette behaviour. Used in PopoverMixin.
 
     @renderExtensionButton()
 
@@ -75,24 +75,26 @@ class window.InteractiveTour extends Backbone.View
       ]
       callbacks:
         onstarted: =>
-          @tooltipAdd '.create-your-first-factlink-content > p:first',
+          @popoverAdd '.create-your-first-factlink-content > p:first',
             side: 'left'
             align: 'top'
-            contentTemplate: 'tour/lets_create'
+            contentView: new Backbone.Marionette.ItemView(template: 'tour/lets_create')
 
         onleavestarted: =>
-          @tooltipRemove '.create-your-first-factlink-content > p:first'
+          @popoverRemove '.create-your-first-factlink-content > p:first'
           @state.transition()
 
         ontext_selected: =>
-          @tooltipAdd '#extension-button',
+          @popoverAdd '#extension-button',
             side: 'left'
             align: 'top'
             alignMargin: 60
-            contentTemplate: 'tour/extension_button'
+            contentView: new Backbone.Marionette.ItemView(template: 'tour/extension_button')
+
+          mp_track "Tour: Selected text"
 
         onleavetext_selected: =>
-          @tooltipRemove '#extension-button',
+          @popoverRemove '#extension-button',
           @state.transition()
 
         onfactlink_created: =>
@@ -101,7 +103,7 @@ class window.InteractiveTour extends Backbone.View
           Backbone.Factlink.asyncChecking @factlinkFirstExists, @addFactlinkFirstTooltip, @
 
         onleavefactlink_created: =>
-          @tooltipRemove '.factlink.fl-first'
+          @popoverRemove '.factlink.fl-first'
           @state.transition()
 
   factlinkFirstExists: ->
@@ -109,7 +111,7 @@ class window.InteractiveTour extends Backbone.View
 
   addFactlinkFirstTooltip: ->
     view = new FirstFactlinkFactView
-    @tooltipAdd '.factlink.fl-first',
+    @popoverAdd '.factlink.fl-first',
       side: 'left'
       align: 'top'
       margin: 10

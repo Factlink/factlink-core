@@ -60,7 +60,7 @@ module Queries
     end
 
     def topic_for(channel)
-      topics_by_slug[channel.slug_title]
+      topics_by_slug[channel.slug_title] # TODO return symbol instead of nil if not found
     end
   end
 end

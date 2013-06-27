@@ -1,13 +1,9 @@
 # Usage:
 #
-# > console = Console.new('mark')
-# > console.post_to_twitter 10, "This is a cool fact"
-#
-# or even invoke other commands/interactors
-#
+# > console = PavlovConsole.new('mark')
 # > console.interactor :'facts/post_to_twitter', '10', 'hi'
 
-class Console
+class PavlovConsole
   include Pavlov::Helpers
 
   def initialize username
@@ -18,14 +14,7 @@ class Console
     @user ||= (User.find(@username) || raise("user not found"))
   end
 
-  def ability
-    @ability ||= Ability.new(user)
-  end
-
   def pavlov_options
-    {
-      current_user: user,
-      ability: ability
-    }
+    Util::PavlovContextSerialization.pavlov_context_by_user user
   end
 end

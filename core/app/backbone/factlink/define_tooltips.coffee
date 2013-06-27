@@ -9,12 +9,10 @@ Backbone.Factlink ||= {}
 closingtimeout = 500
 
 Backbone.Factlink.defineTooltip = (options) ->
+  #options:
   #$target: what to hover over
   #showTooltip: $target -> $tooltip
   #hideTooltip: $target, $tooltip ->
-
-  #returns: object with close() method that closes existing tooltips and
-  #         removes all event listeners.
 
   $target = options.$target
   $tooltip = null
@@ -27,10 +25,11 @@ Backbone.Factlink.defineTooltip = (options) ->
       over: -> mouseInTooltip = true; check()
       out: -> mouseInTooltip = false; check()
 
-  closeTooltip = -> options.hideTooltip $target, $tooltip
+  closeTooltip = ->
+    options.hideTooltip $target, $tooltip
+    $tooltip = null
 
   check = ->
-    console.log "checking"
     if $tooltip && !(mouseInTarget || mouseInTooltip)
       closeTooltip()
     else if !$tooltip && (mouseInTarget || mouseInTooltip)
@@ -41,4 +40,6 @@ Backbone.Factlink.defineTooltip = (options) ->
     over: -> mouseInTarget = true; check()
     out: -> mouseInTarget = false; check()
 
-  close: -> $target.off(".hoverIntent")
+  close: ->
+    closeTooltip() if $tooltip
+    $target.off(".hoverIntent")

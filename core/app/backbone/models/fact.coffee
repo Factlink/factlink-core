@@ -14,7 +14,7 @@ class window.Fact extends Backbone.Model
   opinionPercentage: (type)->
     @get('fact_wheel').opinion_types[type].percentage
 
-  removeFromChannel: (channel, opts) ->
+  removeFromChannel: (channel, opts={}) ->
     opts.url = channel.url() + "/" + "remove" + "/" + @get("id") + ".json"
     oldSuccess = opts.success
     opts.success = =>
@@ -25,7 +25,7 @@ class window.Fact extends Backbone.Model
 
     $.ajax _.extend(type: "post", opts)
 
-  addToChannel: (channel, opts) ->
+  addToChannel: (channel, opts={}) ->
     opts.url = channel.url() + "/" + "add" + "/" + @get("id") + ".json"
     oldSuccess = opts.success
     opts.success = =>
