@@ -4,14 +4,15 @@ class TooltipCreator
   constructor: (@_$offsetParent, @_positioning, @_tooltipViewFactory)->
 
   createTooltip: ($target) ->
-    @_positionedRegion().bindToElement $target, @_$offsetParent
-    @_positionedRegion().show @_tooltipView()
-    @_positionedRegion().updatePosition()
+    @_ensureRegion()
+    @_positionedRegion.bindToElement $target, @_$offsetParent
+    @_positionedRegion.show @_tooltipView()
+    @_positionedRegion.updatePosition()
 
-    @_positionedRegion().$el
+    @_positionedRegion.$el
 
   removeTooltip: ->
-    @_positionedRegion().resetFade()
+    @_positionedRegion.resetFade() if @_positionedRegion
 
   _tooltipView: ->
     tooltipOptions = _.extend {},
@@ -19,11 +20,10 @@ class TooltipCreator
       @_positioning
     new PopoverView tooltipOptions
 
-  _positionedRegion: ->
-    return @__positionedRegion if @__positionedRegion?
-
-    region_options = _.extend {fadeTime: 100} , @_positioning
-    @__positionedRegion = new Backbone.Factlink.PositionedRegion region_options
+  _ensureRegion: ->
+    if !@_positionedRegion?
+      region_options = _.extend { fadeTime: 100 }, @_positioning
+      @_positionedRegion = new Backbone.Factlink.PositionedRegion region_options
 
 
 Backbone.Factlink.makeTooltipForView = (parentView, options) ->
