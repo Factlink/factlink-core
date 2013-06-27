@@ -9,12 +9,7 @@ module Queries
     end
 
     def authority
-      # TODO fix properly somewhere else, make sure this is a topic before here
-      if topic
-        Authority.from(topic , for: graph_user).to_f
-      else
-        0
-      end
+      Authority.from(topic , for: graph_user).to_f
     end
   end
 end
