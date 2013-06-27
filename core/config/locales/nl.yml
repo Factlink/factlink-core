@@ -32,8 +32,8 @@ nl:
   fact_remove_opinion_past_action: "trok zijn mening terug"
   fact_add_evidence_past_action: "voegde argument toe"
 
-  fact_believe_collection_name: "onderst. argumenten"
-  fact_disbelieve_collection_name: "verzw. argumenten"
+  fact_believe_collection_name: "ondersteunend"
+  fact_disbelieve_collection_name: "verzwakkend"
   fact_doubt_collection_name: "onzeker"
 
   channel: "kanaal"
