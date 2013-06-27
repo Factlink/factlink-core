@@ -30,7 +30,8 @@ class Topic
   def self.ensure_for_channel(ch)
     unless Topic.where(slug_title: ch.slug_title || '').first
       t = Topic.by_title(ch.title)
-      t.save and t
+      # TODO: fix this mess of silly methods
+      (t.save and t) or :topic_ensure_for_channel_failed_to_ensure_topic
     end
   end
 
