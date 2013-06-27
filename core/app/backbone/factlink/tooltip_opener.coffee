@@ -1,8 +1,8 @@
 #= require jquery.hoverIntent
 
-#BUG/KNOWN LIMITATION: hoverIntent supports only one handler per element.
-#This means that we cannot support multiple tooltips per target.
-#The workaround is likely to not use hoverIntent (sigh), if we ever need this.
+# BUG/KNOWN LIMITATION: hoverIntent supports only one handler per element.
+# This means that we cannot support multiple tooltips per target.
+# The workaround is likely to not use hoverIntent (sigh), if we ever need this.
 
 Backbone.Factlink ||= {}
 
@@ -23,7 +23,7 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
 
   render: -> @_hoverintent @$el, 'inTarget'
 
-  onClose: -> @_removeTooltip() if @model.hovered()
+  onClose: -> @_removeTooltip() if @_$tooltip
 
   _openTooltip: ->
     @_$tooltip = @options.tooltipCreator.createTooltip @$el
