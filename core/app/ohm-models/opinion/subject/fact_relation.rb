@@ -1,8 +1,7 @@
 class Opinion < OurOhm
   module Subject
     module FactRelation
-
-      def FactRelation.included(klass)
+      def self.included(klass)
         klass.send :alias_method, :get_opinion, :get_user_opinion
         klass.send :alias_method, :calculate_opinion, :calculate_user_opinion
 

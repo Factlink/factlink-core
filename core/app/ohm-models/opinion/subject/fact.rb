@@ -1,7 +1,7 @@
 class Opinion < OurOhm
   module Subject
     module Fact
-      def Fact.included(klass)
+      def self.included(klass)
         klass.opinion_reference :evidence_opinion do |depth|
           opinions = evidence(:both).map { |fr| fr.get_influencing_opinion(depth-1) }
           Opinion.combine(opinions)
