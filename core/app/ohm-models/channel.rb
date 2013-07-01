@@ -44,7 +44,7 @@ class Channel < OurOhm
   def after_save_actions
     return unless type == 'channel'
 
-    Topic.ensure_for_channel(self)
+    Topic.get_or_create_by_channel(self)
   end
 
   reference :created_by, GraphUser
@@ -126,6 +126,6 @@ class Channel < OurOhm
   end
 
   def topic
-    Topic.for_channel self
+    Topic.get_or_create_by_channel self
   end
 end

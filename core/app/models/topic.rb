@@ -19,24 +19,19 @@ class Topic
     self.slug_title = new_title.to_url
   end
 
-  def self.by_title(title)
-    where(slug_title: title.to_url || '').first || new(title: title)
+  def self.create_by_title(title)
+    topic = new(title: title)
+    topic.save or raise "Topic.create_by_title failed to save"
+    topic
   end
+  private_class_method :create_by_title
 
   def self.by_slug(slug)
     where(slug_title: slug || '').first
   end
 
-  def self.ensure_for_channel(ch)
-    unless Topic.where(slug_title: ch.slug_title || '').first
-      t = Topic.by_title(ch.title)
-      # TODO: fix this mess of silly methods
-      (t.save and t) or :topic_ensure_for_channel_failed_to_ensure_topic
-    end
-  end
-
-  def self.for_channel(ch)
-    by_slug(ch.slug_title) or ensure_for_channel(ch)
+  def self.get_or_create_by_channel(ch)
+    by_slug(ch.slug_title) || create_by_title(ch.title)
   end
 
   def top_users(nr=5)

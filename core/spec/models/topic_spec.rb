@@ -1,22 +1,6 @@
 require'spec_helper'
 
 describe Topic do
-
-  describe ".by_title" do
-    it "should return a new object when no topic with the title exists" do
-      Topic.by_title("idontexist").should be_a(Topic)
-      Topic.by_title("idontexist").title.should == "idontexist"
-   end
-    it "should return the topic with given title if the title exists" do
-      t1 = Topic.create title: "foo"
-      Topic.by_title("foo").should == t1
-    end
-    it "should return a topic with a similar title if the topic already existed" do
-      t1 = Topic.create title: "foo"
-      Topic.by_title("Foo").should == t1
-    end
-  end
-
   describe "create" do
     it "should not be able to create multiple topics with the same name" do
       t1 = Topic.create title: "foo"
@@ -43,7 +27,7 @@ describe Topic do
       ch = mock(Channel)
       ch.stub!(:title).and_return('<EVIL>')
       ch.stub!(:slug_title).and_return(nil)
-      Topic.for_channel(ch)
+      Topic.get_or_create_by_channel(ch)
     end
   end
 
