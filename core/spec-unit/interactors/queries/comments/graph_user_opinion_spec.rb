@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/queries/comments/graph_user_opinio
 describe Queries::Comments::GraphUserOpinion do
   include PavlovSupport
   before do
-    stub_classes 'Opinion', 'Believable::Commentje'
+    stub_classes 'OpinionType', 'Believable::Commentje'
   end
 
   describe '.call' do
@@ -28,7 +28,7 @@ describe Queries::Comments::GraphUserOpinion do
 
       query = Queries::Comments::GraphUserOpinion.new id, graph_user
 
-      Opinion.stub types: types
+      OpinionType.stub types: types
 
       expect(query.possible_opinions).to eq types
     end

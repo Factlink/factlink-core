@@ -111,15 +111,7 @@ describe Opinion do
   end
 
   describe '.real_for' do
-    it "should return the proper opinion" do
-      expect(Opinion.real_for(:believes)).to eq :believes
-      expect(Opinion.real_for(:beliefs)).to eq :believes
-      expect(Opinion.real_for(:disbelieves)).to eq :disbelieves
-      expect(Opinion.real_for(:disbeliefs)).to eq :disbelieves
-      expect(Opinion.real_for(:doubts)).to eq :doubts
-    end
-    it "should raise when improper input is given" do
-      expect {Opinion.real_for(:henk)}.to raise_error RuntimeError, "invalid opinion"
+    it do
     end
   end
 end

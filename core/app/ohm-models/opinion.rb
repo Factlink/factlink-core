@@ -122,28 +122,6 @@ class Opinion < OurOhm
     }
   end
 
-  def self.types
-    [:believes, :doubts, :disbelieves]
-  end
-
-  def self.for_relation_type(type)
-    case type.to_sym
-    when :supporting
-      Opinion.for_type(:believes)
-    when :weakening
-      Opinion.for_type(:disbelieves)
-    end
-  end
-
-  def self.real_for(type)
-    case type.to_sym
-    when :beliefs, :believes       then :believes
-    when :doubts                   then :doubts
-    when :disbeliefs, :disbelieves then :disbelieves
-    else raise "invalid opinion"
-    end
-  end
-
   protected
 
   def discount_by(other)
