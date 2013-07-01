@@ -90,9 +90,8 @@ class Opinion < OurOhm
     Opinion.tuple(b, d, u, a)
   end
 
-  def positive_opinion
-    auth = [authority * (b-d), 0].max
-    Opinion.for_type(:believes, auth)
+  def net_authority
+    authority * (b-d)
   end
 
   def ==(other)
