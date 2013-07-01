@@ -31,21 +31,10 @@ class Opinion < OurOhm
     self.a_r.to_f
   end
 
-  def b=(val)
-    self.b_r=val
-  end
-
-  def d=(val)
-    self.d_r=val
-  end
-
-  def u=(val)
-    self.u_r=val
-  end
-
-  def a=(val)
-    self.a_r=val
-  end
+  alias :b= :b_r=
+  alias :d= :d_r=
+  alias :u= :u_r=
+  alias :a= :a_r=
 
   alias :authority :a
   alias :beliefs :b
@@ -81,12 +70,7 @@ class Opinion < OurOhm
 
   # inefficient, but allows for quickly changing the + def
   def self.combine(list)
-    # TODO check if if is neccesary
-    if list.length > 0
-      list.inject(Opinion.identity) { | result, element |  result + element }
-    else
-      Opinion.identity
-    end
+    list.reduce(Opinion.identity, :+)
   end
 
   # CHANGE ALONG WITH + !!!!
