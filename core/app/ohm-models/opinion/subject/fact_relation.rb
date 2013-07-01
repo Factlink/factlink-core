@@ -8,7 +8,10 @@ class Opinion < OurOhm
         klass.opinion_reference :influencing_opinion do |depth|
           truth = from_fact.get_opinion(depth)
           relevance = get_user_opinion(depth)
-          get_type_opinion.calculate_impact(truth, relevance)
+
+          auth = [truth.positive_opinion.a, relevance.positive_opinion.a].min
+          xtype = OpinionType.for_relation_type(self.type)
+          Opinion.for_type(xtype,auth)
         end
       end
     end

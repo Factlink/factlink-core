@@ -90,12 +90,9 @@ class Opinion < OurOhm
     Opinion.tuple(b, d, u, a)
   end
 
-  def calculate_impact(truth_opinion, relevance_opinion)
-    result = self.discount_by(truth_opinion).discount_by(relevance_opinion)
-
-    result.a = [truth_opinion.a, relevance_opinion.a].min
-
-    result
+  def positive_opinion
+    auth = [authority * (b-d), 0].max
+    Opinion.for_type(:believes, auth)
   end
 
   def ==(other)
