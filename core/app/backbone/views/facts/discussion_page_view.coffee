@@ -13,6 +13,6 @@ class window.DiscussionPageView extends TabbedMainRegionLayout
   go_back: ->
     url = @options.back_button.get('url')
     if url
-      FactlinkApp.NotificationCenter.info 'Factlink deleted.'
+      FactlinkApp.NotificationCenter.success 'Factlink deleted.'
       Backbone.history.navigate(url, true)
 
