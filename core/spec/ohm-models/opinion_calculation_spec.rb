@@ -17,10 +17,10 @@ describe "opinion should work as described in the google doc" do
   let(:f2) {create(:fact)}
 
   # f1 --> f2
-  let(:f22) { f2.add_evidence(:supporting,f1,u1) }
+  let(:f1sup2) { f2.add_evidence(:supporting, f1, u1) }
 
   # f1 !-> f2
-  let(:f23) { f2.add_evidence(:weakening,f1,u1) }
+  let(:f1weak2) { f2.add_evidence(:weakening, f1, u1) }
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -30,69 +30,70 @@ describe "opinion should work as described in the google doc" do
   end
 
   it "scenario 0" do
-    opinion?(f1) == _(0.0,0.0,1.0,0.0)
+    opinion?(f1) == _(0.0, 0.0, 1.0, 0.0)
   end
 
   it "scenario 1" do
-    believes(u1,f1)
-    believes(u2,f1)
-    opinion?(f1) == _(1.0,0.0,0.0,2.0)
+    believes(u1, f1)
+    believes(u2, f1)
+    opinion?(f1) == _(1.0, 0.0, 0.0, 2.0)
   end
 
   it "scenario 2" do
-    believes(u1,f1)
-    disbelieves(u2,f1)
-    opinion?(f1) == _(0.5,0.5,0.0,2.0)
+    believes(u1, f1)
+    disbelieves(u2, f1)
+    opinion?(f1) == _(0.5, 0.5, 0.0, 2.0)
   end
 
   it "scenario 3" do
-    believes(u1,f1)
-    doubts(u2,f1)
-    opinion?(f1) == _(0.5,0.0,0.5,2.0)
+    believes(u1, f1)
+    doubts(u2, f1)
+    opinion?(f1) == _(0.5, 0.0, 0.5, 2.0)
   end
 
   it "scenario 4" do
-    believes(u1,f1)
-    believes(u2,f1)
-    believes(u2,f22)
-    opinion?(f22) == _(1.0,0.0,0.0,1.0)
-    opinion?(f2) == _(1.0,0.0,0.0,1.0)
+    believes(u1, f1)
+    believes(u2, f1)
+    believes(u2, f1sup2)
+    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    opinion?(f2) == _(1.0, 0.0, 0.0, 1.0)
   end
 
   it "scenario 5" do
-    believes(u1,f1)
-    believes(u2,f1)
-    believes(u2,f23)
-    opinion?(f23) == _(1.0,0.0,0.0,1.0)
-    opinion?(f2) == _(0.0,1.0,0.0,1.0)
+    believes(u1, f1)
+    believes(u2, f1)
+    believes(u2, f1weak2)
+    opinion?(f1weak2) == _(1.0, 0.0, 0.0, 1.0)
+    opinion?(f2) == _(0.0, 1.0, 0.0, 1.0)
   end
 
   it "scenario 6" do
-    believes(u1,f1)
-    believes(u2,f1)
-    believes(u1,f22)
-    disbelieves(u2,f22)
-    opinion?(f22) == _(0.5,0.5,0.0,2.0)
-    opinion?(f2) == _(0.5,0.0,0.5,2.0)
+    believes(u1, f1)
+    believes(u2, f1)
+    believes(u1, f1sup2)
+    disbelieves(u2, f1sup2)
+    opinion?(f1sup2) == _(0.5, 0.5, 0.0, 2.0)
+    opinion?(f2) == _(0.5, 0.0, 0.5, 2.0)
   end
 
   it "scenario 7" do
-    believes(u1,f1)
-    disbelieves(u2,f1)
-    believes(u1,f22)
-    opinion?(f1) == _(0.5,0.5,0.0,2.0)
-    opinion?(f22) == _(1.0,0.0,0.0,1.0)
-    opinion?(f2) == _(0.5,0.0,0.5,1.0)
+    believes(u1, f1)
+    disbelieves(u2, f1)
+    believes(u1, f1sup2)
+    opinion?(f1) == _(0.5, 0.5, 0.0, 2.0)
+    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    opinion?(f2) == _(0.5, 0.0, 0.5, 1.0)
   end
 
   it "scenario 8" do
-    believes(u1,f1)
-    believes(u2,f1)
-    believes(u1,f22)
-    disbelieves(u3,f2)
-    opinion?(f1) == _(1.0,0.0,0.0,2.0)
-    opinion?(f22) == _(1.0,0.0,0.0,1.0)
-    opinion?(f2) == _(0.5,0.5,0.0,2.0)
+    believes(u1, f1)
+    believes(u2, f1)
+    believes(u1, f1sup2)
+    disbelieves(u3, f2)
+    opinion?(f1) == _(1.0, 0.0, 0.0, 2.0)
+    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    opinion?(f2) == _(0.5, 0.5, 0.0, 2.0)
   end
+
 
 end
