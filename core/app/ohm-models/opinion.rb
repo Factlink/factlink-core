@@ -118,12 +118,8 @@ class Opinion < OurOhm
       doubt:      { percentage: l_doubt_percentage  },
       # TODO this logic should go elsewhere, but only after letting the update_opinion and
       #     remove opinion build proper json (instead of fact.to_json)
-      authority: friendly_authority
+      authority: NumberFormatter.new(a).as_authority
     }
-  end
-
-  def friendly_authority
-    NumberFormatter.new(a).as_authority
   end
 
   def self.types
