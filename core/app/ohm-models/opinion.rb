@@ -54,17 +54,17 @@ class Opinion < OurOhm
   end
 
   def self.identity
-    self.new(b_r: 0, d_r: 0, u_r: 1, a_r: 0)
+    tuple(0, 0, 1, 0)
   end
 
   def self.for_type(type, authority=0)
     case type
     when :believes
-      Opinion.new(b: 1, d: 0, u: 0, a: authority)
+      tuple(1, 0, 0, authority)
     when :disbelieves
-      Opinion.new(b: 0, d: 1, u: 0, a: authority)
+      tuple(0, 1, 0, authority)
     when :doubts
-      Opinion.new(b: 0, d: 0, u: 1, a: authority)
+      tuple(0, 0, 1, authority)
     end
   end
 
