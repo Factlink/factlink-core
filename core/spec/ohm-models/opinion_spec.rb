@@ -97,19 +97,6 @@ describe Opinion do
     (o1+o2+o3).weight.should == o1.weight + o2.weight + o3.weight
   end
 
-  describe "#as_percentages" do
-    it "should use the NumberFormatter for the formatting of authority" do
-      authority = 13
-      friendly_authority = mock
-      number_formatter = mock as_authority: friendly_authority
-
-      NumberFormatter.stub(:new).with(authority).and_return(number_formatter)
-
-      calculated_friendly_authority = Opinion.tuple(0, 0, 0, authority).as_percentages[:authority]
-      expect(calculated_friendly_authority).to eq friendly_authority
-    end
-  end
-
   describe '.real_for' do
     it do
     end

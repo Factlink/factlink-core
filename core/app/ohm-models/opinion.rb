@@ -105,23 +105,6 @@ class Opinion < OurOhm
       self.u == other.u
   end
 
-  define_memoized_method :as_percentages do
-    total = b + d + u
-
-    l_believe_percentage = calc_percentage(total, b)
-    l_disbelieve_percentage = calc_percentage(total, d)
-    l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
-
-    @percentage_hash = {
-      believe:    { percentage: l_believe_percentage },
-      disbelieve: { percentage: l_disbelieve_percentage },
-      doubt:      { percentage: l_doubt_percentage  },
-      # TODO this logic should go elsewhere, but only after letting the update_opinion and
-      #     remove opinion build proper json (instead of fact.to_json)
-      authority: NumberFormatter.new(a).as_authority
-    }
-  end
-
   protected
 
   def discount_by(other)
@@ -130,15 +113,5 @@ class Opinion < OurOhm
     u = other.d + other.u + self.u * other.b
 
     Opinion.tuple(b, d, u, a)
-  end
-
-  private
-
-  def calc_percentage(total, part)
-    if total > 0
-      ((100 * part) / total).round.to_i
-    else
-      0
-    end
   end
 end
