@@ -14,7 +14,7 @@ class OpinionPresenter
   end
 
   def disbelief_authority
-   authority :disbeliefs
+    authority :disbeliefs
   end
 
   def formatted_disbelief_authority
