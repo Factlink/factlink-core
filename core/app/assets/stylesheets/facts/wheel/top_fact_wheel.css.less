@@ -2,17 +2,16 @@
 @import "bootstrap/variables";
 
 .top-fact-wheel {
-  left: 0; right: 0;
-  position: absolute;
-  bottom: -68px;
-  text-align: center;
+  bottom:0;left:50%;
+  position:absolute;
 
   > .fact-wheel {
+    margin-left:-50%;
+    margin-bottom:-50%;
+
     padding: 3px;
-    display: inline-block;
     background-color: white;
     border-radius: 10000px;
-    float: none;
 
     .authority {
       width: 60px;
@@ -32,10 +31,10 @@
       display: block;
       top: 0; left: 0; right: 0; bottom: 0;
       border-radius: 10000px;
-      content: ' ';
+      content: '';
       position: absolute;
       z-index: -1;
-      box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+      .new-design-box-shadow();
     }
   }
 }

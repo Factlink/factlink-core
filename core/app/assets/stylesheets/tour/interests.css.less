@@ -69,6 +69,9 @@
 
 @user-width: 200px;
 @user-height: 170px;
+@user-block-padding-horizontal: 15px;
+@user-block-padding-vertical: 20px;
+
 .tour-interesting-user {
   margin: 20px;
   width: @user-width;
@@ -80,73 +83,6 @@
 
   position: relative;
 
-  .tour-follow-user-heading {
-    //the user's avatar+name should be raised slightly above + overlapping
-    //the overall user-info block.
-    position: absolute;
-    top: -21px;
-  }
-
-  .tour-follow-user-avatar {
-    position: relative;
-    display: inline-block;
-    margin-right: 6px; //avatar is inline with text, wants space after it.
-    vertical-align: top;
-    top: -2px; //raise avatar a little out of the text line.
-
-    img {
-      border-radius: 2px;
-      width: 32px;
-      height: 32px;
-      position: relative;
-      z-index: 1; //stacking is necessary due to fake border construct explained below.
-    }
-  }
-
-  //The following two css rules generate nested rounded boxes around the image.
-  //this is equivalent to a fake border + white padding, with the advantage
-  //that the "padding" overlays the wrapping boxes border, whereas the
-  //"border" is underneath it.  This causes the visual border to appear
-  //continuously to wrap the jutting out avatar image.
-  .tour-follow-user-avatar:after {
-    display: block;
-    top: -3px; left: -3px; right: -3px; bottom: -3px;
-    background: @tableBorder;
-    border-radius: 4px;
-    content: ' ';
-    position: absolute;
-    z-index: -1;
-  }
-
-  .tour-follow-user-avatar:before {
-    display: block;
-    top: -2px; left: -2px; right: -2px; bottom: -2px;
-    background: white;
-    border-radius: 3px;
-    content: ' ';
-    position: absolute;
-  }
-
-  @user-block-padding-horizontal: 15px;
-  @user-block-padding-vertical: 20px;
-  .tour-follow-user-block {
-    border: 1px solid @tableBorder;
-    border-radius: 4px;
-    background: white;
-    position: absolute;
-    //the user's info box should leave some extra space on the top of
-    //its container to make room for the jutting-out avatar.
-    top: 24px; bottom: 0;
-    left: 0; right: 0;
-    padding: @user-block-padding-vertical 0 0 @user-block-padding-horizontal;
-
-    //very subtle box-shadow.
-    box-shadow: 0 2px 3px -3px rgba(0,0,0,0.5);
-  }
-
-  .tour-follow-topic-heading {
-    color: @mutedFontColor;
-  }
 
   ul {
     margin: 0;
@@ -155,50 +91,112 @@
   li {
     margin: 6px 0;
   }
+}
 
-  .tour-user-topic {
+.tour-follow-user-heading {
+  //the user's avatar+name should be raised slightly above + overlapping
+  //the overall user-info block.
+  position: absolute;
+  top: -21px;
+}
+@avatarWhiteBorderWidth: 2px;
+.tour-follow-user-avatar {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  padding: @avatarWhiteBorderWidth;
+  margin: -@avatarWhiteBorderWidth; //compensate for padding.
+  margin-right: 4px; //avatar is inline with text, wants space after it.
+  background-color: white;
+  top: -2px; //raise avatar a little out of the text line.
+  border-radius: @avatarWhiteBorderWidth + 1;
+
+  > img {
+    border-radius: @avatarWhiteBorderWidth;
+    width: 32px;
+    height: 32px;
     position: relative;
-    padding: 0 7px;
-    border-radius: 5px;
-    border: 2px solid @tableBorder;
-    display: inline-block;
-    background: white;
-
-    max-width: @user-width - 2*@user-block-padding-horizontal - 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    display: inline-block;
-    text-overflow: ellipsis;
-    padding-right: 50px;
+    z-index: 1; //stacking is necessary due to fake border construct explained below.
   }
 
-  .tour-user-topic-title {
-    font-weight: bold;
-    margin-right: 15px;
-  }
-
-  .tour-user-topic-authority {
+  //The following css generates a surrounding rounded box around the image.
+  //this is equivalent to a fake border, with the advantage
+  //that the "padding" overlays the wrapping boxes border, whereas the
+  //"border" is underneath it.  This causes the visual border to appear
+  //continuously to wrap the jutting out avatar image.
+  &:after {
+    display: block;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    background: @tableBorder;
+    border-radius: @avatarWhiteBorderWidth + 2;
+    content: '';
     position: absolute;
-    right: 8px;
-    color: @mutedFontColor;
-
-    > img {
-      margin-top: -2px;
-      width: 13px;
-      height: 12px;
-    }
-  }
-
-  .tour-user-button-region > button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    //the button is an integral part of the user-info box design; don't round top corners.
-    border-radius: 0 0 4px 4px;
-    width: 100%;
+    z-index: -1;
   }
 }
+
+.tour-follow-user-block {
+  border: 1px solid @tableBorder;
+  border-radius: 4px;
+  background: white;
+  position: absolute;
+  //the user's info box should leave some extra space on the top of
+  //its container to make room for the jutting-out avatar.
+  top: 24px; bottom: 0;
+  left: 0; right: 0;
+  padding: @user-block-padding-vertical 0 0 @user-block-padding-horizontal;
+
+  //very subtle box-shadow.
+  box-shadow: 0 2px 3px -3px rgba(0,0,0,0.5);
+}
+
+.tour-follow-topic-heading {
+  color: @mutedFontColor;
+}
+
+.tour-user-topic {
+  position: relative;
+  padding: 0 7px;
+  border-radius: 5px;
+  border: 2px solid @tableBorder;
+  display: inline-block;
+  background: white;
+
+  max-width: @user-width - 2*@user-block-padding-horizontal - 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  padding-right: 50px;
+}
+
+.tour-user-topic-title {
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.tour-user-topic-authority {
+  position: absolute;
+  right: 8px;
+  color: @mutedFontColor;
+
+  > img {
+    margin-top: -2px;
+    width: 13px;
+    height: 12px;
+  }
+}
+
+.tour-user-button-region > button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  //the button is an integral part of the user-info box design; don't round top corners.
+  border-radius: 0 0 4px 4px;
+  width: 100%;
+}
+
 .hover > .tour-follow-user-block {
   border-color: @linkColor;
   //on hover, make border 1px and compensate with margin.
