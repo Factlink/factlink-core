@@ -50,7 +50,7 @@ class Opinion < OurOhm
   end
 
   def self.tuple(b, d, u, a=0)
-    self.new(b_r: b, d_r: d, u_r: u, a_r: a)
+    new(b_r: b, d_r: d, u_r: u, a_r: a)
   end
 
   def self.identity
