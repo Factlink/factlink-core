@@ -179,7 +179,6 @@ class Ability
   def define_feature_toggles
     @features ||= []
     if agrees_tos?
-      enable_features [:beginners_hints] if (user.sign_in_count || 0) < 10
       enable_features user.features
       enable_features GLOBAL_ENABLED_FEATURES
     end
