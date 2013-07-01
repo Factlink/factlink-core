@@ -166,12 +166,10 @@ class Opinion < OurOhm
 
   protected
 
-  def discount_by(fl)
-    pu = self
-
-    b = pu.b * fl.b
-    d = pu.d * fl.b
-    u = fl.d + fl.u + pu.u * fl.b
+  def discount_by(other)
+    b = self.b * other.b
+    d = self.d * other.b
+    u = other.d + other.u + self.u * other.b
 
     Opinion.tuple(b, d, u, a)
   end
