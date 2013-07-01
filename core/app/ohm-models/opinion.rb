@@ -60,22 +60,22 @@ class Opinion < OurOhm
     save
   end
 
-  def self.tuple(b,d,u,a=0)
-    self.new(b_r: b,d_r: d,u_r: u,a_r: a)
+  def self.tuple(b, d, u, a=0)
+    self.new(b_r: b, d_r: d, u_r: u, a_r: a)
   end
 
   def self.identity
-    self.new(:b_r=>0,:d_r=>0,:u_r=>1,:a_r=>0)
+    self.new(b_r: 0, d_r: 0, u_r: 1, a_r: 0)
   end
 
   def self.for_type(type, authority=0)
     case type
     when :believes
-      Opinion.new(b: 1,d: 0,u: 0,a: authority)
+      Opinion.new(b: 1, d: 0, u: 0, a: authority)
     when :disbelieves
-      Opinion.new(b: 0,d: 1,u: 0,a: authority)
+      Opinion.new(b: 0, d: 1, u: 0, a: authority)
     when :doubts
-      Opinion.new(b: 0,d: 0,u: 1,a: authority)
+      Opinion.new(b: 0, d: 0, u: 1, a: authority)
     end
   end
 
@@ -91,27 +91,23 @@ class Opinion < OurOhm
 
   # CHANGE ALONG WITH + !!!!
   def weight
-    return (self.b + self.d + self.u)*self.a
+    (self.b + self.d + self.u)*self.a
   end
 
   # CHANGE weight ALONG WITH + !!!
   def +(other)
     a = self.a + other.a
-
-    if a == 0
-      # No authority
-      return Opinion.identity
-    end
+    return Opinion.identity if a == 0
 
     b = (self.b*self.a + other.b*other.a)/a
     d = (self.d*self.a + other.d*other.a)/a
     u = (self.u*self.a + other.u*other.a)/a
-    return Opinion.tuple(b,d,u,a)
+
+    Opinion.tuple(b, d, u, a)
   end
 
-
-  #TODO : better name
-  def dfa(fr,fl)
+  # TODO : better name
+  def dfa(fr, fl)
     result = self.discount_by(fr).discount_by(fl)
 
     result.a = [fr.a, fl.a].min
@@ -169,16 +165,19 @@ class Opinion < OurOhm
   end
 
   protected
+
   def discount_by(fl)
     pu = self
 
     b = pu.b * fl.b
     d = pu.d * fl.b
     u = fl.d + fl.u + pu.u * fl.b
-    return Opinion.tuple(b,d,u,a)
+
+    Opinion.tuple(b, d, u, a)
   end
 
   private
+
   def calc_percentage(total, part)
     if total > 0
       ((100 * part) / total).round.to_i
@@ -186,6 +185,4 @@ class Opinion < OurOhm
       0
     end
   end
-
-
 end
