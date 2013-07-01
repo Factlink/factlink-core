@@ -9,7 +9,7 @@ module Queries
     end
 
     def authority
-      Authority.from(topic , for: graph_user).to_f
+      Authority.from(topic, for: graph_user).to_f
     end
   end
 end
