@@ -90,12 +90,12 @@ class Opinion < OurOhm
     Opinion.tuple(b, d, u, a)
   end
 
-  # TODO : better name
-  def dfa(fr, fl)
-    result = self.discount_by(fr).discount_by(fl)
+  def calculate_impact(truth_opinion, relevance_opinion)
+    result = self.discount_by(truth_opinion).discount_by(relevance_opinion)
 
-    result.a = [fr.a, fl.a].min
-    return result
+    result.a = [truth_opinion.a, relevance_opinion.a].min
+
+    result
   end
 
   def ==(other)
