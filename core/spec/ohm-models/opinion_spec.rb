@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe Opinion do
 
-  before(:each) do
-    @o1 = Opinion.tuple(2,3,5,7)
-    @o2 = Opinion.tuple(11,13,19,23)
-    @o3 = Opinion.tuple(29,31,37,41)
-  end
+  let(:o1) { Opinion.tuple(2,3,5,7) }
+  let(:o2) { Opinion.tuple(11,13,19,23) }
+  let(:o3) { Opinion.tuple(29,31,37,41) }
 
   describe ".new" do
     subject {Opinion.tuple(1.3,1.4,1.5,1.6)}
@@ -74,19 +72,20 @@ describe Opinion do
   end
 
   it "should have a commutative + operation" do
-    (@o1+@o2).should == (@o2+@o1)
-    (@o2+@o3).should == (@o3+@o2)
-    (@o1+@o3).should == (@o3+@o1)
+    (o1+o2).should == (o2+o1)
+    (o2+o3).should == (o3+o2)
+    (o1+o3).should == (o3+o1)
   end
 
   it "should have an associative + operation" do
-    ((@o1+@o2)+@o3).should == (@o1+(@o2+@o3))
+    ((o1+o2)+o3).should == (o1+(o2+o3))
   end
 
   it "should have a combine operation which does the same as the + operation" do
-    Opinion.combine([@o1]).should == @o1
-    Opinion.combine([@o1,@o2]).should == @o1+@o2
-    Opinion.combine([@o1,@o2,@o3]).should == @o1+@o2+@o3
+    Opinion.combine([]).should == Opinion.identity
+    Opinion.combine([o1]).should == o1
+    Opinion.combine([o1,o2]).should == o1+o2
+    Opinion.combine([o1,o2,o3]).should == o1+o2+o3
   end
 
   it "should have zero weight when authority is zero" do
@@ -94,8 +93,8 @@ describe Opinion do
   end
 
   it "should have weights which add up" do
-    (@o1+@o2).weight.should == @o1.weight + @o2.weight
-    (@o1+@o2+@o3).weight.should == @o1.weight + @o2.weight + @o3.weight
+    (o1+o2).weight.should == o1.weight + o2.weight
+    (o1+o2+o3).weight.should == o1.weight + o2.weight + o3.weight
   end
 
   describe :friendly_authority do
