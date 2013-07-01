@@ -160,15 +160,11 @@ class Opinion < OurOhm
   end
 
   def self.real_for(type)
-    type = type.to_sym
-    if [:beliefs,:believes].include?(type)
-      :believes
-    elsif [:doubts].include?(type)
-      :doubts
-    elsif [:disbeliefs,:disbelieves].include?(type)
-      :disbelieves
-    else
-      raise "invalid opinion"
+    case type.to_sym
+    when :beliefs, :believes       then :believes
+    when :doubts                   then :doubts
+    when :disbeliefs, :disbelieves then :disbelieves
+    else raise "invalid opinion"
     end
   end
 
