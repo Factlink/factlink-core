@@ -27,6 +27,7 @@ describe Opinion do
     it { expect {subject.u = 1.3}.to change{subject.u}.to(1.3) }
     it { expect {subject.a = 1.3}.to change{subject.a}.to(1.3) }
   end
+
   it "should not change if you sum it with another one" do
     a = Opinion.tuple(1,0,0,1)
     b = Opinion.tuple(0,1,0,1)
@@ -34,7 +35,6 @@ describe Opinion do
     a.b.should == 1
     b.d.should == 1
   end
-
 
   it "should be equal to an opinion with the same numbers" do
     Opinion.tuple(1,2,3,4).should == Opinion.tuple(1,2,3,4)
