@@ -92,9 +92,4 @@ describe Opinion do
     (o1+o2).authority.should == o1.authority + o2.authority
     (o1+o2+o3).authority.should == o1.authority + o2.authority + o3.authority
   end
-
-  describe '.real_for' do
-    it do
-    end
-  end
 end
