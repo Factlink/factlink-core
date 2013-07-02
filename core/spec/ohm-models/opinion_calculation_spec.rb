@@ -102,7 +102,7 @@ describe "computed opinion" do
     believes(u1, f1sup2)
     disbelieves(u2, f1sup2)
     opinion?(f1sup2) == _(0.5, 0.5, 0.0, 2.0)
-    opinion?(f2) == Opinion.identity
+    opinion?(f2) == Opinion.zero
   end
 
   it "should be zero when there is only a supporting fact relation that is
@@ -112,7 +112,7 @@ describe "computed opinion" do
     believes(u1, f1sup2)
     opinion?(f1) == _(0.5, 0.5, 0.0, 2.0)
     opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
-    opinion?(f2) == Opinion.identity
+    opinion?(f2) == Opinion.zero
   end
 
   it "should weigh one vote for supporting evidence as heavily as a direct

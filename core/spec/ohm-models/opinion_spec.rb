@@ -82,7 +82,7 @@ describe Opinion do
   end
 
   it "should have a combine operation which does the same as the + operation" do
-    Opinion.combine([]).should == Opinion.identity
+    Opinion.combine([]).should == Opinion.zero
     Opinion.combine([o1]).should == o1
     Opinion.combine([o1,o2]).should == o1+o2
     Opinion.combine([o1,o2,o3]).should == o1+o2+o3

@@ -53,7 +53,7 @@ class Opinion < OurOhm
     new(b_r: b, d_r: d, u_r: u, a_r: a)
   end
 
-  def self.identity
+  def self.zero
     tuple(0, 0, 1, 0)
   end
 
@@ -70,7 +70,7 @@ class Opinion < OurOhm
 
   # inefficient, but allows for quickly changing the + def
   def self.combine(list)
-    list.reduce(Opinion.identity, :+)
+    list.reduce(Opinion.zero, :+)
   end
 
   # CHANGE ALONG WITH + !!!!
@@ -81,7 +81,7 @@ class Opinion < OurOhm
   # CHANGE weight ALONG WITH + !!!
   def +(other)
     a = self.a + other.a
-    return Opinion.identity if a == 0
+    return Opinion.zero if a == 0
 
     b = (self.b*self.a + other.b*other.a)/a
     d = (self.d*self.a + other.d*other.a)/a
