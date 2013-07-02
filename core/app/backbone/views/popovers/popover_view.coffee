@@ -1,6 +1,6 @@
 class window.PopoverView extends Backbone.Marionette.Layout
   template: 'popovers/popover'
-  className: 'popover-container'
+  className: 'popover-container popover-help'
 
   ui:
     arrow: '.js-arrow'
@@ -13,7 +13,6 @@ class window.PopoverView extends Backbone.Marionette.Layout
 
   onRender: ->
     @$el.addClass @options.side
-    @$el.addClass 'popover-help' if @options.helpStyle
     @contentRegion.show @options.contentView
 
     @updateMargins()
