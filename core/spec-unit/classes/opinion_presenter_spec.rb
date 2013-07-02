@@ -1,7 +1,11 @@
 require_relative '../../app/classes/opinion_presenter'
 
 describe OpinionPresenter do
-  describe '.belief_authority' do
+  before do
+    stub_const 'NumberFormatter', Class.new
+  end
+
+  describe '#belief_authority' do
     it 'is 0 when the authority of the opinion is 0' do
       opinion = mock authority: 0, beliefs: 0
 
@@ -24,7 +28,7 @@ describe OpinionPresenter do
     end
   end
 
-  describe '.disbelief_authority' do
+  describe '#disbelief_authority' do
     it 'is 0 when the authority of the opinion is 0' do
       opinion = mock authority: 0, disbeliefs: 0
 
@@ -47,7 +51,7 @@ describe OpinionPresenter do
     end
   end
 
-  describe '.relevance' do
+  describe '#relevance' do
     it 'is 0 when the authority of the opinion is 0' do
       opinion = mock authority: 0, disbeliefs: 0, beliefs: 0
 
@@ -77,7 +81,7 @@ describe OpinionPresenter do
     end
   end
 
-  describe '.formatted_belief_authority' do
+  describe '#formatted_belief_authority' do
     it 'calls format with belief_authority and returns that result' do
       belief_authority = mock
       format = mock
@@ -91,7 +95,7 @@ describe OpinionPresenter do
     end
   end
 
-  describe '.formatted_disbelief_authority' do
+  describe '#formatted_disbelief_authority' do
     it 'calls format with disbelief_authority and returns that result' do
       disbelief_authority = mock
       format = mock
@@ -105,7 +109,7 @@ describe OpinionPresenter do
     end
   end
 
-  describe '.formatted_relevance' do
+  describe '#formatted_relevance' do
     it 'calls format with relevance and returns that result' do
       relevance = mock
       format = mock
@@ -119,7 +123,7 @@ describe OpinionPresenter do
     end
   end
 
-  describe '.format' do
+  describe '#format' do
     it 'uses NumberFormatter.as_authority and returns that value' do
       number_formatter = mock
       number = mock
@@ -134,7 +138,7 @@ describe OpinionPresenter do
     end
   end
 
-  describe '.authority' do
+  describe '#authority' do
     it 'Multiplies the value of opinion.type with the authority' do
       opinion = mock
       type_sym = :symbol
@@ -149,6 +153,20 @@ describe OpinionPresenter do
       type_val.should_receive(:*).with(authority).and_return(result)
 
       expect(op.authority(type_sym)).to eq result
+    end
+  end
+
+  describe "#as_percentages_hash" do
+    it "should use the NumberFormatter for the formatting of authority" do
+      authority = 13
+      friendly_authority = mock
+      number_formatter = mock as_authority: friendly_authority
+
+      NumberFormatter.stub(:new).with(authority).and_return(number_formatter)
+
+      opinion = mock b: 0, d: 0, u: 0, a: authority
+      calculated_friendly_authority = OpinionPresenter.new(opinion).as_percentages_hash[:authority]
+      expect(calculated_friendly_authority).to eq friendly_authority
     end
   end
 end
