@@ -28,4 +28,5 @@ class window.FactRelationView extends Backbone.Marionette.Layout
 
 class window.FactRelationEvidenceView extends EvidenceBaseView
   mainView: FactRelationView
+  voteView: InteractiveVoteUpDownFactRelationView
   delete_message: 'Remove this Factlink as evidence'

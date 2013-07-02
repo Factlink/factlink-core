@@ -7,9 +7,10 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
     @bindTo @model, "change", @render, @
 
 class window.InteractiveVoteUpDownView extends window.VoteUpDownView
+
   events:
-    "click .weakening": "disbelieve"
-    "click .supporting": "believe"
+    "click .supporting": "on_up_vote"
+    "click .weakening":  "on_down_vote"
 
   templateHelpers: -> interactive: true
 
@@ -30,35 +31,63 @@ class window.InteractiveVoteUpDownView extends window.VoteUpDownView
       placement: "bottom"
 
   renderActive: ->
-    if @model.get('current_user_opinion') == 'believes'
-      @$('a.supporting').addClass('active')
-    if @model.get('current_user_opinion') == 'disbelieves'
-      @$('a.weakening').addClass('active')
+    @$('a.supporting').addClass('active') if @current_opinion() == 'believes'
+    @$('a.weakening').addClass('active')  if @current_opinion() == 'disbelieves'
+
+  current_opinion: ->
 
   onBeforeClose: ->
     @$(".weakening").tooltip "destroy"
     @$(".supporting").tooltip "destroy"
 
-  disbelieve: ->
+  on_up_vote: ->
     @hideTooltips()
+    mp_track "Factlink: Upvote evidence click"
 
-    if @model.isDisBelieving()
-      @model.removeOpinion()
-      mp_track "Factlink: Removed relevance vote",
-        type: "Not relevant"
-    else
-      @model.disbelieve()
-      mp_track "Factlink: Added relevance vote",
-        type: "Not relevant"
-
-  believe: ->
+  on_down_vote: ->
     @hideTooltips()
+    mp_track "Factlink: Downvote evidence click"
+
+
+class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVoteUpDownView
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
+
+  current_opinion: ->
+    @model.get('current_user_opinion')
+
+  on_up_vote: ->
+    @popoverRemove '.weakening', false
+
+    @popoverAdd '.supporting',
+      side: 'right'
+      align: 'center'
+      contentView: new Backbone.Marionette.ItemView(template: 'tour/lets_create')
+
+  on_down_vote: ->
+    @popoverRemove '.supporting', false
+
+    @popoverAdd '.weakening',
+      side: 'right'
+      align: 'center'
+      contentView: new Backbone.Marionette.ItemView(template: 'tour/lets_create')
+
+class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDownView
+
+  current_opinion: ->
+    @model.get('current_user_opinion')
+
+  on_up_vote: ->
+    super
 
     if @model.isBelieving()
       @model.removeOpinion()
-      mp_track "Factlink: Removed relevance vote",
-        type: "Relevant"
     else
       @model.believe()
-      mp_track "Factlink: Added relevance vote",
-        type: "Relevant"
+
+  on_down_vote: ->
+    super
+
+    if @model.isDisBelieving()
+      @model.removeOpinion()
+    else
+      @model.disbelieve()
