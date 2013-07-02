@@ -25,7 +25,7 @@ describe 'when adding a fact to a channel' do
         channel = pavlov.command :'channels/create', 'something'
         pavlov.interactor :"channels/add_fact", fact, channel
 
-        Topic.for_channel(channel)
+        Topic.get_or_create_by_channel(channel)
         facts = pavlov.interactor :'topics/facts', channel.slug_title, nil, nil
         fact_displaystrings = facts.map {|f| f[:item].data.displaystring}
 

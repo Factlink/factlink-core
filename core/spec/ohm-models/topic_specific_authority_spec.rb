@@ -62,7 +62,7 @@ describe "topic specific authority"  do
       c = create :channel, title: "foo"
       add_fact_to_channel f, c
 
-      foo_t = Topic.by_title("foo")
+      foo_t = Topic.by_slug("foo")
 
       authority for:u1, from: foo_t, should_be: 0.0
     end
@@ -80,7 +80,7 @@ describe "topic specific authority"  do
       c = create :channel, title: "foo"
       add_fact_to_channel f, c
 
-      foo_t = Topic.by_title "foo"
+      foo_t = Topic.by_slug "foo"
 
       authority for:u1, from: foo_t, should_be: 0.0
     end
@@ -88,7 +88,7 @@ describe "topic specific authority"  do
     it "should give authority on a topic when a fact with authority is in it" do
       foo_ch = create :channel, title: "foo"
       add_fact_to_channel fact_of_u1_which_supports_two, foo_ch
-      foo_t = Topic.by_title "foo"
+      foo_t = Topic.by_slug "foo"
       authority for:u1, from: foo_t, should_be: 1.0
     end
   end

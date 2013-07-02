@@ -312,7 +312,8 @@ describe Channel do
       it "should ensure the topic exists" do
         ch = build :channel
         ch.save
-        Topic.by_title(ch.title).should_not be_new_record
+        Topic.by_slug(ch.slug_title).should_not be_nil
+        Topic.by_slug(ch.slug_title).should_not be_new_record
       end
     end
 
