@@ -18,6 +18,7 @@ describe "computed opinion" do
 
   # f1 --> f2
   let(:f1sup2) { f2.add_evidence(:supporting, f1, u1) }
+  let(:f2sup1) { f1.add_evidence(:supporting, f2, u1) }
 
   # f1 !-> f2
   let(:f1weak2) { f2.add_evidence(:weakening, f1, u1) }
@@ -137,5 +138,30 @@ describe "computed opinion" do
     opinion?(f2) == _(0.5, 0.5, 0.0, 2.0)
   end
 
+  it "weighs both the direct vote of a user and evidence added and believed
+      by that user." do
+    believes(u1, f1)
+    believes(u1, f2)
+    believes(u1, f1sup2)
+    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    opinion?(f1) == _(1.0, 0.0, 0.0, 1.0)
+    opinion?(f2) == _(1.0, 0.0, 0.0, 2.0)
+  end
+
+  it "weighs all evidence even if that evidence is only supported by the current
+      fact (nasty echo chamber)" do
+    facts = Array.new(4) { create(:fact) }
+    topfact = facts[0]
+    believes(u1, topfact)
+
+    facts.combination(2).each do |a, b|
+      ab = a.add_evidence :supporting, b, u1
+      ba = b.add_evidence :supporting, a, u1
+      believes(u1, ab)
+      believes(u1, ba)
+    end
+
+    opinion?(topfact) == _(1.0, 0.0, 0.0, 4.0)
+  end
 
 end
