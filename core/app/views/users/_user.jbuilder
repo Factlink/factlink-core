@@ -25,7 +25,7 @@ if is_current_user
   json.receives_digest user.receives_digest
 
   json.services do |json|
-    json.twitter  !!user.identities['twitter']
-    json.facebook !!user.identities['facebook']
+    json.twitter  can?(:share_to, :twitter)
+    json.facebook can?(:share_to, :facebook)
   end
 end
