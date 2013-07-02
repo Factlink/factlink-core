@@ -11,8 +11,8 @@ class Opinion < OurOhm
 
           authority = [[net_fact_authority, net_relevance_authority].min, 0].max
 
-          xtype = OpinionType.for_relation_type(self.type)
-          Opinion.for_type(xtype, authority)
+          evidence_type = OpinionType.for_relation_type(self.type)
+          Opinion.for_type(evidence_type, authority)
         end
       end
     end
