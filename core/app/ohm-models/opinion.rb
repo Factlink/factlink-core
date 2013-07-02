@@ -73,12 +73,6 @@ class Opinion < OurOhm
     list.reduce(Opinion.zero, :+)
   end
 
-  # CHANGE ALONG WITH + !!!!
-  def weight
-    (self.b + self.d + self.u)*self.a
-  end
-
-  # CHANGE weight ALONG WITH + !!!
   def +(other)
     a = self.a + other.a
     return Opinion.zero if a == 0
