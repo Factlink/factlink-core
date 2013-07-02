@@ -96,9 +96,4 @@ describe Opinion do
     (o1+o2).weight.should == o1.weight + o2.weight
     (o1+o2+o3).weight.should == o1.weight + o2.weight + o3.weight
   end
-
-  describe '.real_for' do
-    it do
-    end
-  end
 end
