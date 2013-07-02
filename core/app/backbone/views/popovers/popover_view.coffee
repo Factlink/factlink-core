@@ -1,6 +1,6 @@
 class window.PopoverView extends Backbone.Marionette.Layout
   template: 'popovers/popover'
-  className: 'popover-container popover-help'
+  className: 'popover-container'
 
   ui:
     arrow: '.js-arrow'
