@@ -14,27 +14,26 @@
             Discussion
         </a>
 
-      <span class="opinion_indicators">
-        <span class="opinion_indicator_small agreeing"></span>
-        <a href="{{from_fact_sanitized.url}}?tab=supporting" class="discussion_link">
-          {{ believe_percentage }}%
-        </a>
-        <span class="opinion_indicator_small disagreeing"></span>
-         <a href="{{from_fact_sanitized.url}}?tab=weakening" class="discussion_link">
-          {{ disbelieve_percentage }}%
-        </a>
-      </span>
-    {{/global.signed_in}}
-      
-      <span class="opinion_indicators">
-        <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
-        <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
-      </span>
+        <span class="opinion_indicators">
+          <span class="opinion_indicator_small agreeing"></span>
+          <a href="{{from_fact_sanitized.url}}?tab=supporting" class="discussion_link">
+            {{ believe_percentage }}%
+          </a>
+          <span class="opinion_indicator_small disagreeing"></span>
+           <a href="{{from_fact_sanitized.url}}?tab=weakening" class="discussion_link">
+            {{ disbelieve_percentage }}%
+          </a>
+        </span>
+      {{/global.signed_in}}
+
       {{^global.signed_in}}
         <span class="opinion_indicators">
           <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
           <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
+        </span>
+      {{/global.signed_in}}
     </li>
+
   {{/showDiscussion}}
 
   {{#from_fact_sanitized.proxy_scroll_url}}
