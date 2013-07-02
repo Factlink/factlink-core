@@ -97,7 +97,7 @@ class FactsController < ApplicationController
       #TODO switch the following two if blocks if possible
       if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
         @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
-        Activity::Subject.activity(current_user.graph_user, Opinion.real_for(params[:opinion]), @fact)
+        Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
 
         @fact.calculate_opinion(1)
       end
@@ -122,7 +122,7 @@ class FactsController < ApplicationController
     authorize! :opinionate, @fact
 
     @fact.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), @fact)
+    Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
 
     @fact.calculate_opinion(2)
 

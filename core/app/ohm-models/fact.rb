@@ -104,7 +104,7 @@ class Fact < Basefact
     return {} unless self.data
     super.merge(:_id => id,
                 :displaystring => self.data.displaystring,
-                :score_dict_as_percentage => get_opinion.as_percentages,
+                :score_dict_as_percentage => OpinionPresenter.new(get_opinion).as_percentages_hash,
                 :title => self.data.title)
   end
 

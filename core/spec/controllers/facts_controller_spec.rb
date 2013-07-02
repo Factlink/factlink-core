@@ -16,7 +16,9 @@ describe FactsController do
         fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
       end
 
-      ability.should_receive(:can?).with(:show, Fact).and_return(true)
+      ability.stub(:can?).with(:show, Fact).and_return(true)
+      ability.stub(:can?).with(:share_to, :twitter).and_return(false)
+      ability.stub(:can?).with(:share_to, :facebook).and_return(false)
       should_check_can :show, fact
 
       get :show, id: fact.id
