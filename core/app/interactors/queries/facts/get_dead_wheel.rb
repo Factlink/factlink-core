@@ -16,7 +16,7 @@ module Queries
       end
 
       def percentages
-        @percentages ||= opinion.as_percentages
+        @percentages ||= OpinionPresenter.new(opinion).as_percentages_hash
       end
 
       def opinion
