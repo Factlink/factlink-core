@@ -94,14 +94,4 @@ class Opinion < OurOhm
       self.d == other.d and
       self.u == other.u
   end
-
-  protected
-
-  def discount_by(other)
-    b = self.b * other.b
-    d = self.d * other.b
-    u = other.d + other.u + self.u * other.b
-
-    Opinion.tuple(b, d, u, a)
-  end
 end
