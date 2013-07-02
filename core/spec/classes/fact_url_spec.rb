@@ -82,13 +82,27 @@ describe FactUrl do
   end
 
   describe 'xss protection' do
-    it '.friendly_fact_url cannot contain funky characters' do
-      fact = stub id: '22', to_s: 'this<script>funky stuff'
+    describe '.friendly_fact_url' do
+      it 'does not contain tags' do
+        fact = stub id: '22', to_s: 'this<script>funky stuff'
 
-      fact_url = FactUrl.new fact
+        fact_url = FactUrl.new fact
 
-      expect(fact_url.friendly_fact_url)
-        .to eq "https://site.com/this-script-funky-stuff/f/#{fact.id}"
+        expect(fact_url.friendly_fact_url)
+          .not_to match '<'
+        expect(fact_url.friendly_fact_url)
+          .not_to match '>'
+      end
+      it 'does not escape from quotes' do
+        fact = stub id: '22', to_s: 'double " single \' quote'
+
+        fact_url = FactUrl.new fact
+
+        expect(fact_url.friendly_fact_url)
+          .not_to match "'"
+        expect(fact_url.friendly_fact_url)
+          .not_to match '"'
+      end
     end
   end
 end
