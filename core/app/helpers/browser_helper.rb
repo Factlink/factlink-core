@@ -5,7 +5,7 @@ module BrowserHelper
   def browser_supported?
     return true if browser_preferred?
 
-    browser.safari?
+    browser.safari? or browser.opera?
   end
 
   def browser_preferred?
