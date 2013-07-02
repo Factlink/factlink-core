@@ -2,10 +2,10 @@
 
 class window.FactRelationView extends Backbone.Marionette.Layout
   className: 'fact-relation-body'
-  template: 'fact_relations/fact_relation'
+  template:  'fact_relations/fact_relation'
 
   regions:
-    factBaseView:             '.fact-base-region'
+    factBaseView: '.fact-base-region'
 
   templateHelpers: =>
     creator: @model.creator().toJSON()
@@ -14,9 +14,7 @@ class window.FactRelationView extends Backbone.Marionette.Layout
     @factBaseView.show @_factBaseView()
 
   _factBaseView: ->
-    fact = new Fact @model.get('from_fact')
-    @bindTo @model, 'change', =>
-      fact.set @model.get('from_fact')
+    fact = @model.getFact()
 
     fbv = new FactBaseView
       model: fact
