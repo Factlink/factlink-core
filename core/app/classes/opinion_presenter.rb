@@ -1,5 +1,3 @@
-require_relative '../../app/classes/number_formatter'
-
 class OpinionPresenter
   def initialize opinion
     @opinion = opinion
