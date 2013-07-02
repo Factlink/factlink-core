@@ -13,13 +13,25 @@
           >
             Arguments
         </a>
+
+        <span class="opinion_indicators">
+          <a href="{{from_fact_sanitized.url}}?tab=supporting" class="discussion_link">
+            <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
+          </a>
+          <a href="{{from_fact_sanitized.url}}?tab=weakening" class="discussion_link">
+            <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
+          </a>
+        </span>
       {{/global.signed_in}}
 
-      <span class="opinion_indicators">
-        <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
-        <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
-      </span>
+      {{^global.signed_in}}
+        <span class="opinion_indicators">
+          <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
+          <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
+        </span>
+      {{/global.signed_in}}
     </li>
+
   {{/showDiscussion}}
 
   {{#from_fact_sanitized.proxy_scroll_url}}

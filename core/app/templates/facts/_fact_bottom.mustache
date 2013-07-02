@@ -14,10 +14,12 @@
       </a>
 
       <span class="opinion_indicators">
-        <span class="opinion_indicator_small agreeing"></span>
-        {{ believe_percentage }}%
-        <span class="opinion_indicator_small disagreeing"></span>
-        {{ disbelieve_percentage }}%
+        <a href="{{discussion_url}}?tab=supporting" class="discussion_link js-discussion-link">  
+          <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
+        </a>
+        <a href="{{discussion_url}}?tab=weakening" class="discussion_link js-discussion-link">
+          <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
+        </a>
       </span>
   </li>
   {{/show_discussion_link}}
