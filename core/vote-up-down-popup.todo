@@ -1,1 +1,6 @@
-placeholder todo
+vote-up-down-popup:
+
+ ☐ Split InteractiveVoteUpDownView to a CommentView and FactRelationView
+ ☐ Let EvidenceView show the correct InteractiveVoteUpDownView
+ ☐ Add the Fact to InteractiveVoteUpDownFactRelationView and bidn the actions
+ ☐ Create the Popover and show when clicking InteractiveVoteUpDownFactRelationView
