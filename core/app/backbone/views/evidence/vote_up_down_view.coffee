@@ -58,18 +58,24 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
   on_up_vote: ->
     @popoverRemove '.weakening', false
 
+    fact_relation_vote_up_view = new FactRelationVoteUpView model: @model
+    @bindTo fact_relation_vote_up_view, 'saved', => @popoverRemove '.supporting'
+
     @popoverAdd '.supporting',
       side: 'right'
       align: 'center'
-      contentView: new Backbone.Marionette.ItemView(template: 'tour/lets_create')
+      contentView: fact_relation_vote_up_view
 
   on_down_vote: ->
     @popoverRemove '.supporting', false
 
+    fact_relation_vote_down_view = new FactRelationVoteDownView model: @model
+    @bindTo fact_relation_vote_down_view, 'saved', => @popoverRemove '.weakening'
+
     @popoverAdd '.weakening',
       side: 'right'
       align: 'center'
-      contentView: new Backbone.Marionette.ItemView(template: 'tour/lets_create')
+      contentView: fact_relation_vote_down_view
 
 class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDownView
 
