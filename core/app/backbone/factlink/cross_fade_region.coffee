@@ -4,6 +4,8 @@ class Backbone.Factlink.CrossFadeRegion extends Backbone.Marionette.Region
 
   defaultFadeTime = 560
 
+  initialize: -> @on 'close', -> @$el?.stop()
+
   crossFade: (newView) ->
     if @currentView
       @$el.stop().fadeOut(@_fadeTime(), => @show newView)
