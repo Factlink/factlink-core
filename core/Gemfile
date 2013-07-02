@@ -1,5 +1,4 @@
 source 'http://rubygems.org'
-ruby '1.9.3'
 
 # Defaults
 gem 'rails', '3.2.13' # this is too important to update automaticly

@@ -1,6 +1,6 @@
 class window.DiscussionPageView extends TabbedMainRegionLayout
   initialize: ->
-    @bindTo @model, "destroy", @go_back, @
+    @bindTo @model, "destroy", @on_destroy, @
 
   onRender: ->
     @model.fetch
@@ -10,9 +10,9 @@ class window.DiscussionPageView extends TabbedMainRegionLayout
 
     @titleRegion.show new ExtendedFactTitleView model: @model, back_button: @options.back_button
 
-  go_back: ->
+  on_destroy: ->
     url = @options.back_button.get('url')
     if url
-      FactlinkApp.NotificationCenter.info 'Factlink deleted.'
+      FactlinkApp.NotificationCenter.success 'Factlink deleted.'
       Backbone.history.navigate(url, true)
 

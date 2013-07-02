@@ -73,9 +73,9 @@ describe MapReduce::TopicAuthority do
 
    describe "#write_output" do
      it "should add the user to the top_users of the topic" do
-       Topic.ensure_for_channel(Channel.create(created_by: gu1, title: 'Foo'))
+       Topic.get_or_create_by_channel(Channel.create(created_by: gu1, title: 'Foo'))
        subject.write_output({user_id: gu1.id, topic: 'foo'}, 10)
-       Topic.by_title('foo').top_users(3).should =~ [gu1.user]
+       Topic.by_slug('foo').top_users(3).should =~ [gu1.user]
      end
    end
 end

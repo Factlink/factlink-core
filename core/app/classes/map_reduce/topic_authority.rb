@@ -10,7 +10,7 @@ class MapReduce
       iterator.ids.each do |ch_id|
         channel = Channel[ch_id]
         if channel.type == 'channel'
-          Topic.ensure_for_channel(channel)
+          Topic.get_or_create_by_channel(channel)
           Authority.all_from(channel).each do |authority|
             yield({
               topic: channel.slug_title,

@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe Opinion do
 
-  before(:each) do
-    @o1 = Opinion.tuple(2,3,5,7)
-    @o2 = Opinion.tuple(11,13,19,23)
-    @o3 = Opinion.tuple(29,31,37,41)
-  end
+  let(:o1) { Opinion.tuple(2,3,5,7) }
+  let(:o2) { Opinion.tuple(11,13,19,23) }
+  let(:o3) { Opinion.tuple(29,31,37,41) }
 
   describe ".new" do
     subject {Opinion.tuple(1.3,1.4,1.5,1.6)}
@@ -29,6 +27,7 @@ describe Opinion do
     it { expect {subject.u = 1.3}.to change{subject.u}.to(1.3) }
     it { expect {subject.a = 1.3}.to change{subject.a}.to(1.3) }
   end
+
   it "should not change if you sum it with another one" do
     a = Opinion.tuple(1,0,0,1)
     b = Opinion.tuple(0,1,0,1)
@@ -36,7 +35,6 @@ describe Opinion do
     a.b.should == 1
     b.d.should == 1
   end
-
 
   it "should be equal to an opinion with the same numbers" do
     Opinion.tuple(1,2,3,4).should == Opinion.tuple(1,2,3,4)
@@ -74,19 +72,20 @@ describe Opinion do
   end
 
   it "should have a commutative + operation" do
-    (@o1+@o2).should == (@o2+@o1)
-    (@o2+@o3).should == (@o3+@o2)
-    (@o1+@o3).should == (@o3+@o1)
+    (o1+o2).should == (o2+o1)
+    (o2+o3).should == (o3+o2)
+    (o1+o3).should == (o3+o1)
   end
 
   it "should have an associative + operation" do
-    ((@o1+@o2)+@o3).should == (@o1+(@o2+@o3))
+    ((o1+o2)+o3).should == (o1+(o2+o3))
   end
 
   it "should have a combine operation which does the same as the + operation" do
-    Opinion.combine([@o1]).should == @o1
-    Opinion.combine([@o1,@o2]).should == @o1+@o2
-    Opinion.combine([@o1,@o2,@o3]).should == @o1+@o2+@o3
+    Opinion.combine([]).should == Opinion.identity
+    Opinion.combine([o1]).should == o1
+    Opinion.combine([o1,o2]).should == o1+o2
+    Opinion.combine([o1,o2,o3]).should == o1+o2+o3
   end
 
   it "should have zero weight when authority is zero" do
@@ -94,20 +93,7 @@ describe Opinion do
   end
 
   it "should have weights which add up" do
-    (@o1+@o2).weight.should == @o1.weight + @o2.weight
-    (@o1+@o2+@o3).weight.should == @o1.weight + @o2.weight + @o3.weight
-  end
-
-  describe :friendly_authority do
-    it "should use the NumberFormatter for the formatting of authority" do
-      authority = 0
-      number_formatter = mock
-      friendly_authority = mock
-
-      NumberFormatter.should_receive(:new).with(authority).and_return(number_formatter)
-      number_formatter.should_receive(:as_authority).and_return(friendly_authority)
-
-      expect(Opinion.tuple(0, 0, 0, authority).friendly_authority).to eq friendly_authority
-    end
+    (o1+o2).weight.should == o1.weight + o2.weight
+    (o1+o2+o3).weight.should == o1.weight + o2.weight + o3.weight
   end
 end

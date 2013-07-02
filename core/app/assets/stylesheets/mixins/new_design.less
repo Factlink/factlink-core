@@ -6,12 +6,26 @@
   font-size: 12px;
 }
 
+.new-design-border-radius() {
+  border-radius: 4px;
+}
+
+.new-design-box-shadow() {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.06),
+              0 1px 1px 0 rgba(0,0,0,0.15);
+}
+
+.new-design-extra-opacity-shadow() {
+  box-shadow: 0 0 150px 55px rgba(233, 234, 238, .8);
+}
+
 .new-design-white-block-with-shadow() {
   background: white;
-  .border-radius(4px);
-  box-shadow: 0 0 0 1px rgba(0,0,1,0.06), 0 1px 1px rgba(0,0,1,0.15), 0 0 150px 55px rgba(233, 234, 238, .8);
+  .new-design-border-radius();
+  .new-design-box-shadow()
 }
 
 .new-design-link() {
   font-weight: 500;
 }
+

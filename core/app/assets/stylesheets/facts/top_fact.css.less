@@ -4,9 +4,17 @@
 .top-fact {
   .new-design-white-block-with-shadow();
   .new-design-font();
-
   position: relative;
-  padding: 35px 35px 25px;
+  padding: 30px 35px 25px;
+
+  &:before {
+    content: '';
+    z-index: -10;
+    position: absolute;
+    top:0; bottom:0; right:0; left:0;
+    .new-design-extra-opacity-shadow();
+    .new-design-border-radius();
+  }
 }
 
 .top-fact-user-heading {
@@ -23,7 +31,6 @@
 
 .top-fact-controls {
   position: relative;
-  z-index: 1; // Should be placed above FactWheel
 }
 
 .top-fact-time-ago {
