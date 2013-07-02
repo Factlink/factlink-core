@@ -10,14 +10,14 @@ class FactGraph
   end
 
   def recalculate
-      calculate_authority
+    calculate_authority
 
-      calculate_user_opinions_of_all_base_facts
-      5.times do |i|
-        calculate_fact_relation_influencing_opinions i
+    calculate_user_opinions_of_all_base_facts
+    5.times do |i|
+      calculate_fact_relation_influencing_opinions i
 
-        calculate_fact_opinions i
-      end
+      calculate_fact_opinions i
+    end
   end
 
   def calculate_fact_relation_influencing_opinions i

@@ -64,7 +64,7 @@ class FactRelation < Basefact
   end
 
   def get_type_opinion
-    Opinion.for_relation_type(self.type)
+    Opinion.for_type(OpinionType.for_relation_type(type))
   end
 
   def deletable?

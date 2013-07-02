@@ -18,7 +18,7 @@ module Queries
       end
 
       def possible_opinions
-        Opinion.types
+        OpinionType.types
       end
 
       def has_opinion? type
