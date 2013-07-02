@@ -60,7 +60,7 @@ module Queries
     end
 
     def topic_for(channel)
-      topics_by_slug[channel.slug_title] # TODO return symbol instead of nil if not found
+      topics_by_slug.fetch(channel.slug_title) {:topic_for_did_not_return_topic}
     end
   end
 end
