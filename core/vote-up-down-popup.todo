@@ -1,6 +1,5 @@
 vote-up-down-popup:
-
- ☐ Split InteractiveVoteUpDownView to a CommentView and FactRelationView
- ☐ Let EvidenceView show the correct InteractiveVoteUpDownView
- ☐ Add the Fact to InteractiveVoteUpDownFactRelationView and bidn the actions
+ ✔ Split InteractiveVoteUpDownView to a CommentView and FactRelationView @done (13-07-02 13:39)
+ ✔ Let EvidenceView show the correct InteractiveVoteUpDownView @done (13-07-02 13:52)
+ ☐ Add the Fact to InteractiveVoteUpDownFactRelationView and bind the actions
  ☐ Create the Popover and show when clicking InteractiveVoteUpDownFactRelationView
