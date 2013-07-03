@@ -172,7 +172,7 @@ class Ability
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
     sees_channels new_discussion_page share_new_factlink_buttons
-    share_to_twitter share_to_facebook topic_popover
+    share_to_twitter share_to_facebook
   )
   GLOBAL_ENABLED_FEATURES = []
 
