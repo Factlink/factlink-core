@@ -1,1 +1,1 @@
-extract-model-functionality-from-wheel-view
+Extract model functionality from WheelView
