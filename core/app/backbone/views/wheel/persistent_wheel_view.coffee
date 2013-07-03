@@ -7,6 +7,8 @@ class window.PersistentWheelView extends BaseFactWheelView
       disbelieve: getHash opinionType.type, 'disbelieve'
       doubt: getHash opinionType.type, 'doubt'
 
+    # TODO: Remove global jQuery call. You can currently have only one
+    #       persistent wheel view per page
     $("input[name=opinion][value=#{opinionType.type}s]")
       .prop 'checked', true
 
