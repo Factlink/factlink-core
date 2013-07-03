@@ -85,7 +85,7 @@ body.client {
 }
 
 @baseButtonHeight: 24px;
-@largeButtonHeight: 29px;
+@largeButtonHeight: 30px;
 
 @baseButtonPadding: 12px;
 @largeButtonPadding: 16px;
@@ -182,5 +182,24 @@ body.client {
     background: @buttonGreenDarkBackground;
     border-bottom-color: @buttonGreenDarkBackground;
     box-shadow: inset 0 2px @buttonGreenDarkBorder;
+  }
+}
+
+.button-disabled {
+  line-height: @baseButtonHeight - 4*@baselinePixelsUp;
+  background: @buttonDisabledBackground;
+  color: @mutedFontColor;
+  text-shadow: 0 1px 0 @buttonDisabledTextShadow;
+  border-style: solid;
+  border-width: @baseButtonBorderWidth;
+  border-color: @buttonDisabledBorder;
+  &.button-large {
+    line-height: @largeButtonHeight - 4*@baselinePixelsUp;
+  }
+  &:hover {
+    cursor: not-allowed;
+  }
+  &:active {
+    padding-top: 0;
   }
 }
