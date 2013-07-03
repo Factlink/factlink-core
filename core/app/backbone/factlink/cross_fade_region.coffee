@@ -16,4 +16,4 @@ class Backbone.Factlink.CrossFadeRegion extends Backbone.Marionette.Region
 
   resetFade: -> @$el?.stop().fadeOut(@_fadeTime(), => @reset())
 
-  _fadeTime: -> 3000 #@options?.fadeTime || defaultFadeTime
+  _fadeTime: -> @options?.fadeTime || defaultFadeTime
