@@ -1,5 +1,7 @@
 class FactRelationVoteView extends Backbone.Marionette.ItemView
 
+  className: 'vote-up-down'
+
   events:
     'click .btn-primary': 'save'
 
@@ -20,17 +22,7 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
     fact_relation: '.js-fact-relation-believe'
     fact: '.js-fact-believe'
 
-  template:
-    text: '''
-    <div style="width: 300px; padding: 15px;">
-      <h5>Why do you believe this argument is supporting?</h5>
-
-      <label><input type="checkbox" class="js-fact-relation-believe" {{#believes_fact_relation}}checked="checked"{{/believes_fact_relation}}>This argument is relevant to the upper Factlink</label>
-      <label><input type="checkbox" class="js-fact-believe" {{#believes_fact}}checked="checked"{{/believes_fact}}>The Factlink in this argument is correct or true.</label>
-
-      <a class="btn btn-primary pull-right">Done</a>
-    </div>
-    '''
+  template: 'fact_relations/vote_up_down'
 
   templateHelpers: =>
     believes_fact_relation: => @believes_fact_relation()
@@ -64,14 +56,12 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
 
   template:
     text: '''
-    <div style="width: 300px; padding: 15px;">
       <h5>Why do you believe this argument is not supporting?</h5>
 
       <label><input type="checkbox" class="js-fact-relation-disbelieve" {{#disbelieves_fact_relation}}checked="checked"{{/disbelieves_fact_relation}}>This argument is not relevant to the upper Factlink</label>
       <label><input type="checkbox" class="js-fact-disbelieve" {{#disbelieves_fact}}checked="checked"{{/disbelieves_fact}}>The Factlink in this argument is not correct or true.</label>
 
       <a class="btn btn-primary pull-right">Done</a>
-    </div>
     '''
 
   templateHelpers: =>
