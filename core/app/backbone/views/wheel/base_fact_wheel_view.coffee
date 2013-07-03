@@ -93,7 +93,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     if @options.respondsToMouse || @options.showsTooltips
       path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
       path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
-      path.click _.bind(@clickOpinionType, this, opinionType)
+      path.click _.bind(@clickOpinionType, this, opinionType.type)
 
     @opinionTypeRaphaels[opinionType.type] = path
 

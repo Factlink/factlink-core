@@ -44,6 +44,8 @@ class window.Wheel extends Backbone.Model
     # which are required by the BaseFactWheelView!
     @setRecursive(new Wheel().attributes)
 
+  isUserOpinion: (type) -> @get('opinion_types')[type].is_user_opinion
+
   userOpinion: ->
     @_userOpinions()[0]
 

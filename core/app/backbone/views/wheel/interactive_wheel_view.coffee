@@ -1,20 +1,20 @@
 class window.InteractiveWheelView extends BaseFactWheelView
-  clickOpinionType: (opinionType) ->
+  clickOpinionType: (opinion_type) ->
     fact_id = @options.fact.id
 
-    @toggleActiveOpinionType opinionType.type
-    if opinionType.is_user_opinion
+    @toggleActiveOpinionType opinion_type
+    if @model.isUserOpinion(opinion_type)
       $.ajax
-        url: "/facts/" + fact_id + "/opinion/" + opinionType.type + "s.json"
+        url: "/facts/" + fact_id + "/opinion/" + opinion_type + "s.json"
         type: "POST"
         success: (data) =>
           @updateTo data.authority, data.opinion_types
           mp_track "Factlink: Opinionate",
             factlink: @options.fact.id
-            opinion: opinionType.type
+            opinion: opinion_type
 
         error: =>
-          @toggleActiveOpinionType opinionType.type
+          @toggleActiveOpinionType opinion_type
           alert "Something went wrong while setting your opinion on the Factlink, please try again"
 
     else
@@ -27,7 +27,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
             factlink: @options.fact.id
 
         error: =>
-          @toggleActiveOpinionType opinionType.type
+          @toggleActiveOpinionType opinion_type
           alert "Something went wrong while removing your opinion on the Factlink, please try again"
 
   toggleActiveOpinionType: (toggle_type) ->
