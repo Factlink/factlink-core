@@ -84,24 +84,42 @@ body.client {
   }
 }
 
-.button-blue {
+@baseButtonHeight: 24px;
+@largeButtonHeight: 29px;
+
+@baseButtonPadding: 12px;
+@largeButtonPadding: 16px;
+
+@baseButtonBorderWidth: 2px;
+@largeButtonBorderWidth: 3px;
+
+@baselinePixelsUp: 1px;
+
+.button {
   .new-design-font();
-
-  @height: 24px;
-  @baselinePixelsUp: 1px;
-
-  height: @height;
-  line-height: @height - 2*@baselinePixelsUp;
-  padding: 0 12px;
   .border-radius(3px);
-
-  background: @linkColor;
-  color: white;
-  text-shadow: 0 1px 0 @buttonTextShadow;
+  height: @baseButtonHeight;
+  line-height: @baseButtonHeight - 2*@baselinePixelsUp;
+  padding: 0 @baseButtonPadding;
   border: none;
-  border-bottom: 2px solid @buttonBlueDark;
-
+  border-bottom-width: @baseButtonBorderWidth;
+  border-bottom-style: solid;
   transition: all 0.1s;
+  &:active {
+    padding-top: 1px;
+  }
+}
+
+.button-large {
+  font-size: 13px;
+  height: @largeButtonHeight;
+  line-height: @largeButtonHeight - 2*@baselinePixelsUp;
+  padding: 0 @largeButtonPadding;
+  border-bottom-width: @largeButtonBorderWidth;
+  &:active {
+    padding-top: 2px;
+  }
+}
 
   &:hover {
     background: @buttonBlueDark;
