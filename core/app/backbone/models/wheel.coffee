@@ -37,8 +37,6 @@ class window.Wheel extends Backbone.Model
       opinion_types[type] = _.defaults(@get('opinion_types')[type] ? {}, opinion_type)
     opinion_types
 
-  opinionTypesArray: -> _.values @get('opinion_types')
-
   reset: ->
     # DO NOT RUN CLEAR HERE, since then the objects 'believe', 'doubt', and 'disbelieve' are lost,
     # which are required by the BaseFactWheelView!
@@ -61,7 +59,3 @@ class window.Wheel extends Backbone.Model
     @set
       authority: authority
       opinion_types: new_opinion_types
-
-  toJSON: ->
-    _.extend {}, super(),
-      opinion_types_array: @opinionTypesArray()
