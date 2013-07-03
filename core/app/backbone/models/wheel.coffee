@@ -21,13 +21,13 @@ class window.Wheel extends Backbone.Model
     @set 'opinion_types', @mergedOpinionTypes()
 
   setRecursive: (attributes) ->
-    @_updateAttributes @attributes, attributes
+    @_recursivelyUpdateAttributes @attributes, attributes
 
-  _updateAttributes: (oldAttributes, newAttributes) ->
+  _recursivelyUpdateAttributes: (oldAttributes, newAttributes) ->
     for key, value of newAttributes
       if typeof value is 'object'
         oldAttributes[key] ?= {}
-        @_updateAttributes oldAttributes[key], value
+        @_recursivelyUpdateAttributes oldAttributes[key], value
       else
         oldAttributes[key] = value
 
