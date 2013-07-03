@@ -1,25 +1,22 @@
 class window.PersistentWheelView extends BaseFactWheelView
-  clickOpinionType: (opinionType, e)->
+  clickOpinionType: (opinion_type) ->
     @trigger 'opinionSet'
 
-    @updateTo '1.0',
-      believe: getHash opinionType.type, 'believe'
-      disbelieve: getHash opinionType.type, 'disbelieve'
-      doubt: getHash opinionType.type, 'doubt'
+    @model.updateTo '1.0',
+      believe: getHash opinion_type, 'believe'
+      disbelieve: getHash opinion_type, 'disbelieve'
+      doubt: getHash opinion_type, 'doubt'
 
-    $("input[name=opinion][value=#{opinionType.type}s]")
+    # TODO: Remove global jQuery call. You can currently have only one
+    #       persistent wheel view per page
+    #       Even better: look into this, probably is not needed.
+    $("input[name=opinion][value=#{opinion_type}s]")
       .prop 'checked', true
 
 getHash = (selectedType, type)->
   if selectedType == type
-    selected
+    percentage: 100
+    is_user_opinion: true
   else
-    notSelected
-
-selected =
-  percentage: 100
-  is_user_opinion: true
-
-notSelected =
-  percentage: 0
-  is_user_opinion: false
+    percentage: 0
+    is_user_opinion: false
