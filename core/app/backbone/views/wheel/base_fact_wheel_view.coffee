@@ -93,8 +93,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
     # Bind Mouse Events on the path
     if @options.respondsToMouse || @options.showsTooltips
-      path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
-      path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
+      path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType.type)
+      path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType.type)
       path.click _.bind(@clickOpinionType, this, opinionType.type)
 
     @opinionTypeRaphaels[opinionType.type] = path
@@ -145,8 +145,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       direction = if percentage > 50 then 1 else 0
       path: [["M", start.x, start.y], ["A", radius, radius, 0, direction, 0, end.x, end.y]]
 
-  mouseoverOpinionType: (path, opinionType) ->
-    destinationOpacity = if opinionType.is_user_opinion
+  mouseoverOpinionType: (path, opinion_type) ->
+    destinationOpacity = if @model.isUserOpinion(opinion_type)
                            @options.userOpinionStrokeOpacity
                          else
                            @options.hoverStrokeOpacity
@@ -156,8 +156,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       opacity: destinationOpacity
     , 200, "<>")
 
-  mouseoutOpinionType: (path, opinionType) ->
-    destinationOpacity = if opinionType.is_user_opinion
+  mouseoutOpinionType: (path, opinion_type) ->
+    destinationOpacity = if @model.isUserOpinion(opinion_type)
                            @options.userOpinionStrokeOpacity
                          else
                            @options.defaultStrokeOpacity
