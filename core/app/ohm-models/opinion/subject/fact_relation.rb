@@ -6,9 +6,13 @@ class Opinion < OurOhm
         klass.send :alias_method, :calculate_opinion, :calculate_user_opinion
 
         klass.opinion_reference :influencing_opinion do |depth|
-          truth = from_fact.get_opinion(depth)
-          relevance = get_user_opinion(depth)
-          get_type_opinion.calculate_impact(truth, relevance)
+          net_fact_authority = from_fact.get_opinion(depth).net_authority
+          net_relevance_authority = get_user_opinion(depth).net_authority
+
+          authority = [[net_fact_authority, net_relevance_authority].min, 0].max
+
+          evidence_type = OpinionType.for_relation_type(self.type)
+          Opinion.for_type(evidence_type, authority)
         end
       end
     end

@@ -60,7 +60,7 @@ class OurOhm < Ohm::Model
       define_method(:"get_#{name}") do |*args|
         depth = args[0] || 0
         self.send(:"calculate_#{name}",depth) if depth > 0
-        send(name) || Opinion.identity
+        send(name) || Opinion.zero
       end
       define_method(:"calculate_#{name}") do |*args|
         depth = args[0] || 0

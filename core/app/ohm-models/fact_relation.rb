@@ -56,9 +56,9 @@ class FactRelation < Basefact
   end
 
   def percentage
-    return 0 if fact.get_opinion.weight == 0
+    return 0 if fact.get_opinion.authority == 0
 
-    part = get_influencing_opinion.weight / fact.get_opinion.weight
+    part = get_influencing_opinion.authority / fact.get_opinion.authority
 
     (100 * part).round.to_i
   end

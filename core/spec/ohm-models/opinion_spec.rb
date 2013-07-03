@@ -82,18 +82,14 @@ describe Opinion do
   end
 
   it "should have a combine operation which does the same as the + operation" do
-    Opinion.combine([]).should == Opinion.identity
+    Opinion.combine([]).should == Opinion.zero
     Opinion.combine([o1]).should == o1
     Opinion.combine([o1,o2]).should == o1+o2
     Opinion.combine([o1,o2,o3]).should == o1+o2+o3
   end
 
-  it "should have zero weight when authority is zero" do
-    Opinion.tuple(100,100,100,0).weight.should == 0
-  end
-
-  it "should have weights which add up" do
-    (o1+o2).weight.should == o1.weight + o2.weight
-    (o1+o2+o3).weight.should == o1.weight + o2.weight + o3.weight
+  it "should have authorities which add up" do
+    (o1+o2).authority.should == o1.authority + o2.authority
+    (o1+o2+o3).authority.should == o1.authority + o2.authority + o3.authority
   end
 end
