@@ -121,6 +121,10 @@ body.client {
   }
 }
 
+.button-loading {
+  .animate-stripes(1.5s);
+}
+
 .button-grey {
   background: @buttonGreyBackground;
   color: @linkColor;
@@ -136,6 +140,7 @@ body.client {
     box-shadow: inset 0 2px @buttonGreyDarkBorder;
   }
   &.button-loading {
+    .background-size(40px 40px);
     .striped(@buttonGreyBackground, 45deg, rgba(0,0,0,0.07));
   }
 }
@@ -155,6 +160,7 @@ body.client {
     box-shadow: inset 0 2px @buttonBlueDarkBorder;
   }
   &.button-loading {
+    .background-size(40px 40px);
     .striped(@buttonBlueBackground, 45deg);
   }
 }
@@ -174,6 +180,7 @@ body.client {
     box-shadow: inset 0 2px @buttonRedDarkBorder;
   }
   &.button-loading {
+    .background-size(40px 40px);
     .striped(@buttonRedBackground, 45deg);
   }
 }
@@ -193,6 +200,7 @@ body.client {
     box-shadow: inset 0 2px @buttonGreenDarkBorder;
   }
   &.button-loading {
+    .background-size(40px 40px);
     .striped(@buttonGreenBackground, 45deg);
   }
 }
