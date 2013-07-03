@@ -4,7 +4,7 @@ class UserOpinion
   end
 
   def on(fact)
-    Opinion.types.each do |opinion|
+    OpinionType.types.each do |opinion|
       return opinion if has_opinion?(opinion,fact)
     end
     return nil

@@ -7,6 +7,8 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
+  USERNAME_MAX_LENGTH = 16
+
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
@@ -74,7 +76,7 @@ class User
 
   validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
 
-  validates_length_of     :username, :within => 0..16, :message => "no more than 16 characters allowed"
+  validates_length_of     :username, :within => 0..USERNAME_MAX_LENGTH, :message => "no more than #{USERNAME_MAX_LENGTH} characters allowed"
   validates_presence_of   :username, :message => "is required", :allow_blank => true # since we already check for length above
   validates_presence_of   :first_name, :message => "is required", :allow_blank => false
   validates_presence_of   :last_name, :message => "is required", :allow_blank => false

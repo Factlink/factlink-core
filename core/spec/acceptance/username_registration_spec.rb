@@ -23,12 +23,12 @@ describe 'Reserving a username', type: :request do
     visit '/'
     disable_html5_validations(page)
 
-    fill_in 'user[username]', with: 'teh_user_has_a_way_too_long_username'
+    fill_in 'user[username]', with: 't'
     fill_in 'user[email]',    with: random_email
 
     click_button 'Reserve my username'
 
-    page.should have_content('no more than 16 characters allowed')
+    page.should have_content('username at least 2 characters needed')
   end
 
   it 'should make the username appear in the reserved user list' do

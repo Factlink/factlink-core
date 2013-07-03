@@ -19,7 +19,7 @@ class EvidenceController < ApplicationController
     (evidence.data.save and evidence.save) or raise EvidenceNotFoundException
     if opinion
       evidence.add_opinion(opinion, current_graph_user)
-      Activity::Subject.activity(current_graph_user, Opinion.real_for(opinion),evidence)
+      Activity::Subject.activity(current_graph_user, OpinionType.real_for(opinion),evidence)
     end
 
     evidence
@@ -58,7 +58,7 @@ class EvidenceController < ApplicationController
     authorize! :opinionate, @fact_relation
 
     @fact_relation.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type),@fact_relation)
+    Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type),@fact_relation)
 
     @fact_relation.calculate_opinion
 
@@ -100,7 +100,7 @@ class EvidenceController < ApplicationController
     # Create FactRelation
     fact_relation = fact.add_evidence(type, evidence, current_user)
     fact_relation.add_opinion(:believes, current_graph_user)
-    Activity::Subject.activity(current_graph_user, Opinion.real_for(:believes),fact_relation)
+    Activity::Subject.activity(current_graph_user, OpinionType.real_for(:believes),fact_relation)
 
     fact_relation
   end

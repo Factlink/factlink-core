@@ -31,21 +31,10 @@ class Opinion < OurOhm
     self.a_r.to_f
   end
 
-  def b=(val)
-    self.b_r=val
-  end
-
-  def d=(val)
-    self.d_r=val
-  end
-
-  def u=(val)
-    self.u_r=val
-  end
-
-  def a=(val)
-    self.a_r=val
-  end
+  alias :b= :b_r=
+  alias :d= :d_r=
+  alias :u= :u_r=
+  alias :a= :a_r=
 
   alias :authority :a
   alias :beliefs :b
@@ -60,62 +49,43 @@ class Opinion < OurOhm
     save
   end
 
-  def self.tuple(b,d,u,a=0)
-    self.new(b_r: b,d_r: d,u_r: u,a_r: a)
+  def self.tuple(b, d, u, a=0)
+    new(b_r: b, d_r: d, u_r: u, a_r: a)
   end
 
-  def self.identity
-    self.new(:b_r=>0,:d_r=>0,:u_r=>1,:a_r=>0)
+  def self.zero
+    tuple(0, 0, 1, 0)
   end
 
   def self.for_type(type, authority=0)
     case type
     when :believes
-      Opinion.new(b: 1,d: 0,u: 0,a: authority)
+      tuple(1, 0, 0, authority)
     when :disbelieves
-      Opinion.new(b: 0,d: 1,u: 0,a: authority)
+      tuple(0, 1, 0, authority)
     when :doubts
-      Opinion.new(b: 0,d: 0,u: 1,a: authority)
+      tuple(0, 0, 1, authority)
     end
   end
 
   # inefficient, but allows for quickly changing the + def
   def self.combine(list)
-    # TODO check if if is neccesary
-    if list.length > 0
-      list.inject(Opinion.identity) { | result, element |  result + element }
-    else
-      Opinion.identity
-    end
+    list.reduce(Opinion.zero, :+)
   end
 
-  # CHANGE ALONG WITH + !!!!
-  def weight
-    return (self.b + self.d + self.u)*self.a
-  end
-
-  # CHANGE weight ALONG WITH + !!!
   def +(other)
     a = self.a + other.a
-
-    if a == 0
-      # No authority
-      return Opinion.identity
-    end
+    return Opinion.zero if a == 0
 
     b = (self.b*self.a + other.b*other.a)/a
     d = (self.d*self.a + other.d*other.a)/a
     u = (self.u*self.a + other.u*other.a)/a
-    return Opinion.tuple(b,d,u,a)
+
+    Opinion.tuple(b, d, u, a)
   end
 
-
-  #TODO : better name
-  def dfa(fr,fl)
-    result = self.discount_by(fr).discount_by(fl)
-
-    result.a = [fr.a, fl.a].min
-    return result
+  def net_authority
+    authority * (b-d)
   end
 
   def ==(other)
@@ -124,72 +94,4 @@ class Opinion < OurOhm
       self.d == other.d and
       self.u == other.u
   end
-
-  define_memoized_method :as_percentages do
-    total = b + d + u
-
-    l_believe_percentage = calc_percentage(total, b)
-    l_disbelieve_percentage = calc_percentage(total, d)
-    l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
-
-    @percentage_hash = {
-      believe:    { percentage: l_believe_percentage },
-      disbelieve: { percentage: l_disbelieve_percentage },
-      doubt:      { percentage: l_doubt_percentage  },
-      # TODO this logic should go elsewhere, but only after letting the update_opinion and
-      #     remove opinion build proper json (instead of fact.to_json)
-      authority: friendly_authority
-    }
-  end
-
-  def friendly_authority
-    NumberFormatter.new(a).as_authority
-  end
-
-  def self.types
-    [:believes, :doubts, :disbelieves]
-  end
-
-  def self.for_relation_type(type)
-    case type.to_sym
-    when :supporting
-      Opinion.for_type(:believes)
-    when :weakening
-      Opinion.for_type(:disbelieves)
-    end
-  end
-
-  def self.real_for(type)
-    type = type.to_sym
-    if [:beliefs,:believes].include?(type)
-      :believes
-    elsif [:doubts].include?(type)
-      :doubts
-    elsif [:disbeliefs,:disbelieves].include?(type)
-      :disbelieves
-    else
-      raise "invalid opinion"
-    end
-  end
-
-  protected
-  def discount_by(fl)
-    pu = self
-
-    b = pu.b * fl.b
-    d = pu.d * fl.b
-    u = fl.d + fl.u + pu.u * fl.b
-    return Opinion.tuple(b,d,u,a)
-  end
-
-  private
-  def calc_percentage(total, part)
-    if total > 0
-      ((100 * part) / total).round.to_i
-    else
-      0
-    end
-  end
-
-
 end
