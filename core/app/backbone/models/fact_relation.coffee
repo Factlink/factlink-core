@@ -26,7 +26,7 @@ class window.FactRelation extends Backbone.Model
     return @_fact if @_fact?
 
     @_fact = new Fact(@get('from_fact'))
-    @_fact.on 'change', =>
+    @on 'change', =>
       @_fact.set @get('from_fact')
     @_fact
 
