@@ -2,7 +2,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
   clickOpinionType: (opinionType) ->
     fact_id = @options.fact.id
 
-    @toggleActiveOpinionType opinionType
+    @toggleActiveOpinionType opinionType.type
     if opinionType.is_user_opinion
       $.ajax
         url: "/facts/" + fact_id + "/opinion/" + opinionType.type + "s.json"
@@ -14,7 +14,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
             opinion: opinionType.type
 
         error: =>
-          @toggleActiveOpinionType opinionType
+          @toggleActiveOpinionType opinionType.type
           alert "Something went wrong while setting your opinion on the Factlink, please try again"
 
     else
@@ -27,17 +27,27 @@ class window.InteractiveWheelView extends BaseFactWheelView
             factlink: @options.fact.id
 
         error: =>
-          @toggleActiveOpinionType opinionType
+          @toggleActiveOpinionType opinionType.type
           alert "Something went wrong while removing your opinion on the Factlink, please try again"
 
-  toggleActiveOpinionType: (opinionType) ->
-    oldAuthority = @model.get("authority")
-    updateObj = {}
-    _.each @model.get('opinion_types'), (oldOpinionType) ->
-      updateObj[oldOpinionType.type] = _.clone(oldOpinionType)
-      unless opinionType.is_user_opinion
-        updateObj[oldOpinionType.type].is_user_opinion = false
-      if oldOpinionType == opinionType
-        updateObj[oldOpinionType.type].is_user_opinion = !opinionType.is_user_opinion
+  toggleActiveOpinionType: (toggle_type) ->
+    new_opinion_types = {}
 
-    @updateTo oldAuthority, updateObj
+    opinion_types = @model.get('opinion_types')
+
+    activating_an_opinion = not opinion_types[toggle_type].is_user_opinion
+
+    _.each opinion_types, (old_opinion_type) ->
+
+      new_opinion_type = {}
+      new_opinion_type.percentage = old_opinion_type.percentage
+
+      new_opinion_type.is_user_opinion =
+        if old_opinion_type.type == toggle_type
+          not old_opinion_type.is_user_opinion
+        else
+          false
+
+      new_opinion_types[old_opinion_type.type] = new_opinion_type
+
+    @updateTo @model.get("authority"), new_opinion_types
