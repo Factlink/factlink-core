@@ -22,6 +22,7 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     doubt_tab_name: Factlink.Global.t.fact_doubt_collection_name.capitalize()
     believe_percentage: @model.opinionPercentage('believe')
     disbelieve_percentage: @model.opinionPercentage('disbelieve')
+    doubt_percentage: @model.opinionPercentage('doubt')
 
   onRender: -> @showTab(@initial_tab)
 
