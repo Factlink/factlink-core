@@ -84,7 +84,6 @@ class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDo
 
   on_up_vote: ->
     super
-
     if @model.isBelieving()
       @model.removeOpinion()
     else
@@ -92,7 +91,6 @@ class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDo
 
   on_down_vote: ->
     super
-
     if @model.isDisBelieving()
       @model.removeOpinion()
     else
