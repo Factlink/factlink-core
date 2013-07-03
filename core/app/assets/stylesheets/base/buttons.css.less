@@ -222,6 +222,11 @@ body.client {
   &:active {
     padding-top: 0;
   }
+  &.button-loading {
+    .background-size(40px 40px);
+    .striped(@buttonGreyBackground, 45deg, rgba(0,0,0,0.04));
+    color: @mutedFontColor;
+  }
 }
 
 .button-loading {
