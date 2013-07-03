@@ -121,10 +121,6 @@ body.client {
   }
 }
 
-.button-loading {
-  .animate-stripes(1.5s);
-}
-
 .button-grey {
   background: @buttonGreyBackground;
   color: @linkColor;
@@ -222,4 +218,9 @@ body.client {
   &:active {
     padding-top: 0;
   }
+}
+
+.button-loading {
+  .animate-stripes(1.5s);
+  text-shadow: none;
 }
