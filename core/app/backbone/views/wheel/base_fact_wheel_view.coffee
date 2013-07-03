@@ -187,15 +187,3 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       opinionType.is_user_opinion = newOpinionType.is_user_opinion
 
     @reRender()
-
-  toggleActiveOpinionType: (opinionType) ->
-    oldAuthority = @model.get("authority")
-    updateObj = {}
-    _.each @model.get('opinion_types'), (oldOpinionType) ->
-      updateObj[oldOpinionType.type] = _.clone(oldOpinionType)
-      unless opinionType.is_user_opinion
-        updateObj[oldOpinionType.type].is_user_opinion = false
-      if oldOpinionType == opinionType
-        updateObj[oldOpinionType.type].is_user_opinion = !opinionType.is_user_opinion
-
-    @updateTo oldAuthority, updateObj
