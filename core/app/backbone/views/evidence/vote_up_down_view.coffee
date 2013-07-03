@@ -56,26 +56,53 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
     @model.get('current_user_opinion')
 
   on_up_vote: ->
-    @popoverRemove '.weakening', false
+    @open_vote_up_popup()
 
-    fact_relation_vote_up_view = new FactRelationVoteUpView model: @model
-    @bindTo fact_relation_vote_up_view, 'saved', => @popoverRemove '.supporting'
+  on_down_vote: ->
+    @open_vote_down_popup()
+
+  open_vote_up_popup: ->
+    return if @_up_is_opened
+
+    @close_vote_down_popup() if @_down_is_opened
+    @_up_is_opened = true
 
     @popoverAdd '.supporting',
       side: 'right'
       align: 'top'
-      contentView: fact_relation_vote_up_view
+      contentView: @fact_relation_vote_up_view()
 
-  on_down_vote: ->
-    @popoverRemove '.supporting', false
+  fact_relation_vote_up_view: ->
+    view = new FactRelationVoteUpView model: @model
 
-    fact_relation_vote_down_view = new FactRelationVoteDownView model: @model
-    @bindTo fact_relation_vote_down_view, 'saved', => @popoverRemove '.weakening'
+    @bindTo view, 'saved', =>
+      @close_vote_up_popup()
+    view
+
+  open_vote_down_popup: ->
+    return if @_down_is_opened
+
+    @close_vote_up_popup() if @_up_is_opened
+    @_down_is_opened = true
 
     @popoverAdd '.weakening',
       side: 'right'
       align: 'top'
-      contentView: fact_relation_vote_down_view
+      contentView: @fact_relation_vote_down_view()
+
+  fact_relation_vote_down_view: ->
+    view = new FactRelationVoteDownView model: @model
+    @bindTo view, 'saved', =>
+      @close_vote_down_popup()
+    view
+
+  close_vote_up_popup: ->
+    @popoverRemove '.supporting', false
+    @_up_is_opened = false
+
+  close_vote_down_popup: ->
+    @popoverRemove '.weakening', false
+    @_down_is_opened = false
 
 class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDownView
 
