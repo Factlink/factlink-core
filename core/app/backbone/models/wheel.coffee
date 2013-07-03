@@ -87,9 +87,7 @@ class window.Wheel extends Backbone.Model
         mp_track "Factlink: Opinionate",
           factlink: fact_id
           opinion: opinion_type
-
         options.success?()
-
       error: =>
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.
@@ -107,7 +105,6 @@ class window.Wheel extends Backbone.Model
         mp_track "Factlink: De-opinionate",
           factlink: fact_id
         options.success?()
-
       error: =>
         @turnOnActiveOpinionType opinion_type
         options.error?()
