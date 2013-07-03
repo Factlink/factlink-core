@@ -58,7 +58,7 @@ feature "adding factlinks to a fact", type: :request do
       add_existing_factlink supporting_factlink
 
       within "li.evidence-item" do
-        click_link 'Discussion'
+        click_link 'Arguments'
       end
     end
 
