@@ -63,7 +63,7 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
 
     @popoverAdd '.supporting',
       side: 'right'
-      align: 'center'
+      align: 'top'
       contentView: fact_relation_vote_up_view
 
   on_down_vote: ->
@@ -74,7 +74,7 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
 
     @popoverAdd '.weakening',
       side: 'right'
-      align: 'center'
+      align: 'top'
       contentView: fact_relation_vote_down_view
 
 class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDownView
