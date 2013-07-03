@@ -144,16 +144,21 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       path: [["M", start.x, start.y], ["A", radius, radius, 0, direction, 0, end.x, end.y]]
 
   mouseoverOpinionType: (path, opinionType) ->
-    destinationOpacity = @options.hoverStrokeOpacity
-    destinationOpacity = @options.userOpinionStrokeOpacity  if opinionType.is_user_opinion
+    destinationOpacity = if opinionType.is_user_opinion
+                           @options.userOpinionStrokeOpacity
+                         else
+                           @options.hoverStrokeOpacity
+
     path.animate(
       "stroke-width": @hoverStrokeWidth()
       opacity: destinationOpacity
     , 200, "<>")
 
   mouseoutOpinionType: (path, opinionType) ->
-    destinationOpacity = @options.defaultStrokeOpacity
-    destinationOpacity = @options.userOpinionStrokeOpacity  if opinionType.is_user_opinion
+    destinationOpacity = if opinionType.is_user_opinion
+                           @options.userOpinionStrokeOpacity
+                         else
+                           @options.defaultStrokeOpacity
     path.animate(
       "stroke-width": @defaultStrokeWidth()
       opacity: destinationOpacity
