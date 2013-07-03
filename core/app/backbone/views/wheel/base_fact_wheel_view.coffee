@@ -27,6 +27,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   initialize: (options) ->
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
+    @bindTo @model, 'change', @reRender, @
 
   defaultStrokeWidth: -> 3/5 * @options.radius
   hoverStrokeWidth: -> @defaultStrokeWidth() + 2
@@ -187,4 +188,4 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       opinionType.percentage = newOpinionType.percentage
       opinionType.is_user_opinion = newOpinionType.is_user_opinion
 
-    @reRender()
+    @model.trigger 'change'
