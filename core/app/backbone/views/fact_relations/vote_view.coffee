@@ -10,6 +10,10 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
     else if @model.get('current_user_opinion') != opinion
       @model.setOpinion opinion
 
+  set_fact_opinion: (opinion) ->
+    # TODO should be able to unset the opinion from here as well.
+    return if opinion == 'none'
+    @model.getFact().getFactWheel().setActiveOpinionType opinion
 
 class window.FactRelationVoteUpView extends FactRelationVoteView
   ui:
@@ -40,14 +44,12 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
 
     @set_fact_relation_opinion opinion
 
-
-
     believe = if @ui.fact.is(':checked')
-                'believes'
+                'believe'
               else
                 'none'
 
-    # TODO: implement setting of the believe on the fact
+    @set_fact_opinion believe
 
     @trigger 'saved'
 
