@@ -1,5 +1,5 @@
 class window.InteractiveWheelView extends BaseFactWheelView
-  clickOpinionType: (opinionType, e) ->
+  clickOpinionType: (opinionType) ->
     fact_id = @options.fact.id
 
     if fact_id?
