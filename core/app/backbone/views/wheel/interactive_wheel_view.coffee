@@ -6,7 +6,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
       @toggleActiveOpinionType opinion_type
       if @model.isUserOpinion(opinion_type)
         $.ajax
-          url: "/facts/" + fact_id + "/opinion/" + opinion_type + "s.json"
+          url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
           type: "POST"
           success: (data) =>
             @model.updateTo data.authority, data.opinion_types
@@ -21,7 +21,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
       else
         $.ajax
           type: "DELETE"
-          url: "/facts/" + fact_id + "/opinion.json"
+          url: "/facts/#{fact_id}/opinion.json"
           success: (data) =>
             @model.updateTo data.authority, data.opinion_types
             mp_track "Factlink: De-opinionate",
