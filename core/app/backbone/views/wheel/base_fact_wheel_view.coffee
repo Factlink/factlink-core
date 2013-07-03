@@ -180,13 +180,3 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       $(raphaelObject.node).tooltip
         title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
         placement: "left"
-
-  updateTo: (authority, opinionTypes) ->
-    @model.set "authority", authority
-
-    for key, opinionType of @model.get('opinion_types')
-      newOpinionType = opinionTypes[opinionType.type]
-      opinionType.percentage = newOpinionType.percentage
-      opinionType.is_user_opinion = newOpinionType.is_user_opinion
-
-    @model.trigger 'change'

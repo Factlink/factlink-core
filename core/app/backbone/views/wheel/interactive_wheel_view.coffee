@@ -13,7 +13,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
       url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
       type: "POST"
       success: (data) =>
-        @updateTo data.authority, data.opinion_types
+        @model.updateTo data.authority, data.opinion_types
         mp_track "Factlink: Opinionate",
           factlink: @options.fact.id
           opinion: opinion_type
@@ -28,7 +28,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
       type: "DELETE"
       url: "/facts/#{fact_id}/opinion.json"
       success: (data) =>
-        @updateTo data.authority, data.opinion_types
+        @model.updateTo data.authority, data.opinion_types
         mp_track "Factlink: De-opinionate",
           factlink: @options.fact.id
 
@@ -47,4 +47,4 @@ class window.InteractiveWheelView extends BaseFactWheelView
                          else
                            false
 
-    @updateTo @model.get("authority"), new_opinion_types
+    @model.updateTo @model.get("authority"), new_opinion_types

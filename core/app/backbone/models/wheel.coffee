@@ -52,6 +52,16 @@ class window.Wheel extends Backbone.Model
   _userOpinions: ->
     "#{type}s" for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
 
+  updateTo: (authority, opinionTypes) ->
+    @set "authority", authority
+
+    for key, opinionType of @get('opinion_types')
+      newOpinionType = opinionTypes[opinionType.type]
+      opinionType.percentage = newOpinionType.percentage
+      opinionType.is_user_opinion = newOpinionType.is_user_opinion
+
+    @trigger 'change'
+
   toJSON: ->
     _.extend {}, super(),
       opinion_types_array: @opinionTypesArray()

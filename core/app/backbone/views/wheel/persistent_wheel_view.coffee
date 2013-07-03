@@ -2,7 +2,7 @@ class window.PersistentWheelView extends BaseFactWheelView
   clickOpinionType: (opinion_type) ->
     @trigger 'opinionSet'
 
-    @updateTo '1.0',
+    @model.updateTo '1.0',
       believe: getHash opinion_type, 'believe'
       disbelieve: getHash opinion_type, 'disbelieve'
       doubt: getHash opinion_type, 'doubt'
