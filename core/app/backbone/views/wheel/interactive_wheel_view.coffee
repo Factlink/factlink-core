@@ -8,7 +8,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
       @setActiveOpinionType fact_id, opinion_type
 
   setActiveOpinionType: (fact_id, opinion_type) ->
-    @toggleActiveOpinionType opinion_type
+    @turnOnActiveOpinionType opinion_type
     $.ajax
       url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
       type: "POST"
@@ -19,11 +19,13 @@ class window.InteractiveWheelView extends BaseFactWheelView
           opinion: opinion_type
 
       error: =>
-        @toggleActiveOpinionType opinion_type
+        # TODO: This is not a proper undo. Should be restored to the current
+        #       state when the request fails.
+        @turnOffActiveOpinionType opinion_type
         alert "Something went wrong while setting your opinion on the Factlink, please try again"
 
   unsetActiveOpinionType: (fact_id, opinion_type) ->
-    @toggleActiveOpinionType opinion_type
+    @turnOffActiveOpinionType opinion_type
     $.ajax
       type: "DELETE"
       url: "/facts/#{fact_id}/opinion.json"
@@ -33,17 +35,19 @@ class window.InteractiveWheelView extends BaseFactWheelView
           factlink: @options.fact.id
 
       error: =>
-        @toggleActiveOpinionType opinion_type
+        @turnOnActiveOpinionType opinion_type
         alert "Something went wrong while removing your opinion on the Factlink, please try again"
 
-  toggleActiveOpinionType: (toggle_type) ->
-    new_opinion_types = {}
-    for key, old_opinion_type of @model.get('opinion_types')
-      new_opinion_types[old_opinion_type.type] =
-        percentage: old_opinion_type.percentage
-        is_user_opinion: if old_opinion_type.type == toggle_type
-                           not old_opinion_type.is_user_opinion
-                         else
-                           false
+  turned_off_topinion_types: ->
+    believe:    is_user_opinion: false
+    disbelieve: is_user_opinion: false
+    doubt:      is_user_opinion: false
+
+  turnOffActiveOpinionType: (toggle_type) ->
+    @model.updateTo @model.get("authority"), @turned_off_topinion_types()
+
+  turnOnActiveOpinionType: (toggle_type) ->
+    new_opinion_types = @turned_off_topinion_types()
+    new_opinion_types[toggle_type].is_user_opinion = true
 
     @model.updateTo @model.get("authority"), new_opinion_types
