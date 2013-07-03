@@ -76,7 +76,8 @@ class window.Wheel extends Backbone.Model
 
     @updateTo @get("authority"), new_opinion_types
 
-  setActiveOpinionType: (fact_id, opinion_type, options={}) ->
+  setActiveOpinionType: (opinion_type, options={}) ->
+    fact_id = @get('fact_id')
     @turnOnActiveOpinionType opinion_type
     $.ajax
       url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
@@ -95,7 +96,8 @@ class window.Wheel extends Backbone.Model
         @turnOffActiveOpinionType opinion_type
         options.error?()
 
-  unsetActiveOpinionType: (fact_id, opinion_type, options={}) ->
+  unsetActiveOpinionType: (opinion_type, options={}) ->
+    fact_id = @get('fact_id')
     @turnOffActiveOpinionType opinion_type
     $.ajax
       type: "DELETE"
