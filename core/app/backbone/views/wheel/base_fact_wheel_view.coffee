@@ -169,14 +169,13 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   clickOpinionType: ->
 
   bindTooltips: ->
-    return unless @options.showsTooltips
+    if @options.showsTooltips
+      @$("div.tooltip").remove()
+      @$(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
 
-    @$("div.tooltip").remove()
-    @$(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
-
-    # Create tooltips for each opinionType (believe, disbelieve etc)
-    for key, opinionType of @model.get('opinion_types')
-      raphaelObject = @opinionTypeRaphaels[opinionType.type]
-      $(raphaelObject.node).tooltip
-        title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
-        placement: "left"
+      # Create tooltips for each opinionType (believe, disbelieve etc)
+      for key, opinionType of @model.get('opinion_types')
+        raphaelObject = @opinionTypeRaphaels[opinionType.type]
+        $(raphaelObject.node).tooltip
+          title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
+          placement: "left"
