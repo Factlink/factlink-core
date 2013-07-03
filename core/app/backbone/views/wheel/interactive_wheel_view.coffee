@@ -22,7 +22,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.
         @turnOffActiveOpinionType opinion_type
-        alert "Something went wrong while setting your opinion on the Factlink, please try again"
+        FactlinkApp.NotificationCenter.error "Something went wrong while setting your opinion on the Factlink, please try again."
 
   unsetActiveOpinionType: (fact_id, opinion_type) ->
     @turnOffActiveOpinionType opinion_type
@@ -36,7 +36,7 @@ class window.InteractiveWheelView extends BaseFactWheelView
 
       error: =>
         @turnOnActiveOpinionType opinion_type
-        alert "Something went wrong while removing your opinion on the Factlink, please try again"
+        FactlinkApp.NotificationCenter.error "Something went wrong while removing your opinion on the Factlink, please try again."
 
   turned_off_topinion_types: ->
     believe:    is_user_opinion: false
