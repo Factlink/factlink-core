@@ -121,15 +121,66 @@ body.client {
   }
 }
 
+.button-grey {
+  background: @buttonGreyBackground;
+  color: @linkColor;
+  text-shadow: 0 1px 0 @buttonGreyTextShadow;
+  border-bottom-color: @buttonGreyBorder;
   &:hover {
-    background: @buttonBlueDark;
-    border-bottom-color: @buttonBlueDarker;
+    background: @buttonGreyDarkBackground;
+    border-bottom-color: @buttonGreyDarkBorder;
   }
-
   &:active {
-    background: @buttonBlueDark;
-    border-bottom-color: @buttonBlueDark;
-    padding-top: 1px;
-    box-shadow: inset 0 2px @buttonBlueDarker;
+    background: @buttonGreyDarkBackground;
+    border-bottom-color: @buttonGreyDarkBackground;
+    box-shadow: inset 0 2px @buttonGreyDarkBorder;
+  }
+}
+
+.button-blue {
+  background: @buttonBlueBackground;
+  color: white;
+  text-shadow: 0 1px 0 @buttonBlueTextShadow;
+  border-bottom-color: @buttonBlueBorder;
+  &:hover {
+    background: @buttonBlueDarkBackground;
+    border-bottom-color: @buttonBlueDarkBorder;
+  }
+  &:active {
+    background: @buttonBlueDarkBackground;
+    border-bottom-color: @buttonBlueDarkBackground;
+    box-shadow: inset 0 2px @buttonBlueDarkBorder;
+  }
+}
+
+.button-red {
+  background: @buttonRedBackground;
+  color: white;
+  text-shadow: 0 1px 0 @buttonRedTextShadow;
+  border-bottom-color: @buttonRedBorder;
+  &:hover {
+    background: @buttonRedDarkBackground;
+    border-bottom-color: @buttonRedDarkBorder;
+  }
+  &:active {
+    background: @buttonRedDarkBackground;
+    border-bottom-color: @buttonRedDarkBackground;
+    box-shadow: inset 0 2px @buttonRedDarkBorder;
+  }
+}
+
+.button-green {
+  background: @buttonGreenBackground;
+  color: white;
+  text-shadow: 0 1px 0 @buttonGreenTextShadow;
+  border-bottom-color: @buttonGreenBorder;
+  &:hover {
+    background: @buttonGreenDarkBackground;
+    border-bottom-color: @buttonGreenDarkBorder;
+  }
+  &:active {
+    background: @buttonGreenDarkBackground;
+    border-bottom-color: @buttonGreenDarkBackground;
+    box-shadow: inset 0 2px @buttonGreenDarkBorder;
   }
 }
