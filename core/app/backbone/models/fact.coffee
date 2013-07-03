@@ -40,10 +40,6 @@ class window.Fact extends Backbone.Model
     @_fact_wheel = new Wheel _.extend {}, @get("fact_wheel"),
                         fact_id: @id
 
-    @_fact_wheel.on 'change', =>
-      @set 'fact_wheel', @_fact_wheel.attributes
-    @_fact_wheel
-
   friendlyUrl: -> @get("url")
 
   user: -> new User(@get("created_by"))
