@@ -13,10 +13,6 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     @factWheelRegion.show @wheelView()
     @factBodyRegion.show @bodyView()
 
-  initialize: ->
-    @bindTo @model, 'change', =>
-      @factBodyRegion.currentView?.render()
-
   wheelView: ->
     wheel = @model.getFactWheel()
 
@@ -56,6 +52,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @trunk8Init 3, '.js-displaystring', '.less'
+    @bindTo @model, 'change', @render, @
 
   triggerViewClick: (e) ->
     @trigger 'click:body', e
