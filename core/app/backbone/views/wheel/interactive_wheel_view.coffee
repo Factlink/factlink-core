@@ -32,22 +32,12 @@ class window.InteractiveWheelView extends BaseFactWheelView
 
   toggleActiveOpinionType: (toggle_type) ->
     new_opinion_types = {}
-
-    opinion_types = @model.get('opinion_types')
-
-    activating_an_opinion = not opinion_types[toggle_type].is_user_opinion
-
-    _.each opinion_types, (old_opinion_type) ->
-
-      new_opinion_type = {}
-      new_opinion_type.percentage = old_opinion_type.percentage
-
-      new_opinion_type.is_user_opinion =
-        if old_opinion_type.type == toggle_type
-          not old_opinion_type.is_user_opinion
-        else
-          false
-
-      new_opinion_types[old_opinion_type.type] = new_opinion_type
+    for key, old_opinion_type of @model.get('opinion_types')
+      new_opinion_types[old_opinion_type.type] =
+        percentage: old_opinion_type.percentage
+        is_user_opinion: if old_opinion_type.type == toggle_type
+                           not old_opinion_type.is_user_opinion
+                         else
+                           false
 
     @updateTo @model.get("authority"), new_opinion_types
