@@ -2,34 +2,33 @@ class window.InteractiveWheelView extends BaseFactWheelView
   clickOpinionType: (opinion_type) ->
     fact_id = @options.fact.id
 
-    if true # This if is removed in another branch.
-      @toggleActiveOpinionType opinion_type
-      if @model.isUserOpinion(opinion_type)
-        $.ajax
-          url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
-          type: "POST"
-          success: (data) =>
-            @model.updateTo data.authority, data.opinion_types
-            mp_track "Factlink: Opinionate",
-              factlink: @options.fact.id
-              opinion: opinion_type
+    @toggleActiveOpinionType opinion_type
+    if @model.isUserOpinion(opinion_type)
+      $.ajax
+        url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
+        type: "POST"
+        success: (data) =>
+          @model.updateTo data.authority, data.opinion_types
+          mp_track "Factlink: Opinionate",
+            factlink: @options.fact.id
+            opinion: opinion_type
 
-          error: =>
-            @toggleActiveOpinionType opinion_type
-            alert "Something went wrong while setting your opinion on the Factlink, please try again"
+        error: =>
+          @toggleActiveOpinionType opinion_type
+          alert "Something went wrong while setting your opinion on the Factlink, please try again"
 
-      else
-        $.ajax
-          type: "DELETE"
-          url: "/facts/#{fact_id}/opinion.json"
-          success: (data) =>
-            @model.updateTo data.authority, data.opinion_types
-            mp_track "Factlink: De-opinionate",
-              factlink: @options.fact.id
+    else
+      $.ajax
+        type: "DELETE"
+        url: "/facts/#{fact_id}/opinion.json"
+        success: (data) =>
+          @model.updateTo data.authority, data.opinion_types
+          mp_track "Factlink: De-opinionate",
+            factlink: @options.fact.id
 
-          error: =>
-            @toggleActiveOpinionType opinion_type
-            alert "Something went wrong while removing your opinion on the Factlink, please try again"
+        error: =>
+          @toggleActiveOpinionType opinion_type
+          alert "Something went wrong while removing your opinion on the Factlink, please try again"
 
   toggleActiveOpinionType: (toggle_type) ->
     new_opinion_types = {}
