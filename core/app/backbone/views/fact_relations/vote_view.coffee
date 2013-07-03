@@ -86,10 +86,13 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
 
     @set_fact_relation_opinion opinion
 
-    @trigger 'saved'
+    believe = if @ui.fact.is(':checked')
+                'disbelieve'
+              else
+                'none'
+    @set_fact_opinion believe
 
-    will_believe_fact = @ui.fact.is(':checked')
-    # TODO: implement setting of the believe on the fact
+    @trigger 'saved'
 
   disbelieves_fact_relation: -> @model.isDisBelieving()
   disbelieves_fact: ->
