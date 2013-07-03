@@ -175,12 +175,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   updateTo: (authority, opinionTypes) ->
     @model.set "authority", authority
-    if _.isArray(opinionTypes)
-      tempObject = {}
-      _.each opinionTypes, (opinionType) ->
-        tempObject[opinionType.type] = opinionType
 
-      opinionTypes = tempObject
     for key, opinionType of @model.get('opinion_types')
       newOpinionType = opinionTypes[opinionType.type]
       opinionType.percentage = newOpinionType.percentage
