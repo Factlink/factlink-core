@@ -76,6 +76,40 @@ class window.Wheel extends Backbone.Model
 
     @updateTo @get("authority"), new_opinion_types
 
+  setActiveOpinionType: (fact_id, opinion_type, options={}) ->
+    @turnOnActiveOpinionType opinion_type
+    $.ajax
+      url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
+      type: "POST"
+      success: (data) =>
+        @updateTo data.authority, data.opinion_types
+        mp_track "Factlink: Opinionate",
+          factlink: fact_id
+          opinion: opinion_type
+
+        options.success?()
+
+      error: =>
+        # TODO: This is not a proper undo. Should be restored to the current
+        #       state when the request fails.
+        @turnOffActiveOpinionType opinion_type
+        options.error?()
+
+  unsetActiveOpinionType: (fact_id, opinion_type, options={}) ->
+    @turnOffActiveOpinionType opinion_type
+    $.ajax
+      type: "DELETE"
+      url: "/facts/#{fact_id}/opinion.json"
+      success: (data) =>
+        @updateTo data.authority, data.opinion_types
+        mp_track "Factlink: De-opinionate",
+          factlink: fact_id
+        options.success?()
+
+      error: =>
+        @turnOnActiveOpinionType opinion_type
+        options.error?()
+
   toJSON: ->
     _.extend {}, super(),
       opinion_types_array: @opinionTypesArray()
