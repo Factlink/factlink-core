@@ -56,6 +56,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   reRender: ->
     @$('.authority').text(@model.get('authority'))
+    # TODO shouldn't this be moved to persistent wheel view
     for type, opinionType of @model.get('opinion_types')
       chosen = opinionType.is_user_opinion
       @$(".js-opinion-#{type}").attr
