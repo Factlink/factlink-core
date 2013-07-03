@@ -59,15 +59,14 @@ class AddedFactToTopicView extends ActivityItemView
     topic: @topic().toJSON()
 
   onRender: ->
-    if Factlink.Global.can_haz["topic_popover"]
-      Backbone.Factlink.makeTooltipForView @,
-        positioning:
-          align: 'left'
-          side: 'bottom'
-        selector: '.js-link'
-        $offsetParent: @options.$offsetParent
-        tooltipViewFactory: =>
-          new TopicPopoverContentView model: @topic()
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        align: 'left'
+        side: 'bottom'
+      selector: '.js-link'
+      $offsetParent: @options.$offsetParent
+      tooltipViewFactory: =>
+        new TopicPopoverContentView model: @topic()
 
   topic: -> @_topic ?= new Topic(@model.get('activity').topic)
 
