@@ -15,14 +15,8 @@ class window.PersistentWheelView extends BaseFactWheelView
 
 getHash = (selectedType, type)->
   if selectedType == type
-    selected
+    percentage: 100
+    is_user_opinion: true
   else
-    notSelected
-
-selected =
-  percentage: 100
-  is_user_opinion: true
-
-notSelected =
-  percentage: 0
-  is_user_opinion: false
+    percentage: 0
+    is_user_opinion: false
