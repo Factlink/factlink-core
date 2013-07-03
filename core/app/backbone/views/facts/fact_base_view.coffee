@@ -38,7 +38,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
 
   bodyView: ->
     bodyView = new FactBodyView
-      model:@model
+      model: @model
       clickable: @options.clickable_body
 
     @bindTo bodyView, 'click:body', (e) =>
