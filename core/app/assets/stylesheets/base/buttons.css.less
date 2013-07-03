@@ -105,8 +105,30 @@ body.client {
   border-bottom-width: @baseButtonBorderWidth;
   border-bottom-style: solid;
   transition: all 0.1s;
+
+  background: @buttonGreyBackground;
+  color: @linkColor;
+  text-shadow: 0 1px 0 @buttonGreyTextShadow;
+  border-bottom-color: @buttonGreyBorder;
+
+  &:hover {
+    background: @buttonGreyDarkBackground;
+    border-bottom-color: @buttonGreyDarkBorder;
+  }
+
   &:active {
     padding-top: 1px;
+
+    background: @buttonGreyDarkBackground;
+    border-bottom-color: @buttonGreyDarkBackground;
+    box-shadow: inset 0 2px @buttonGreyDarkBorder;
+  }
+
+  &.button-loading {
+    .background-size(40px 40px);
+    .striped(@buttonGreyBackground, 45deg, rgba(0,0,0,0.07));
+    .animate-stripes(1.5s);
+    color: @mutedFontColor;
   }
 }
 
@@ -118,27 +140,6 @@ body.client {
   border-bottom-width: @largeButtonBorderWidth;
   &:active {
     padding-top: 2px;
-  }
-}
-
-.button-grey {
-  background: @buttonGreyBackground;
-  color: @linkColor;
-  text-shadow: 0 1px 0 @buttonGreyTextShadow;
-  border-bottom-color: @buttonGreyBorder;
-  &:hover {
-    background: @buttonGreyDarkBackground;
-    border-bottom-color: @buttonGreyDarkBorder;
-  }
-  &:active {
-    background: @buttonGreyDarkBackground;
-    border-bottom-color: @buttonGreyDarkBackground;
-    box-shadow: inset 0 2px @buttonGreyDarkBorder;
-  }
-  &.button-loading {
-    .background-size(40px 40px);
-    .striped(@buttonGreyBackground, 45deg, rgba(0,0,0,0.07));
-    color: @mutedFontColor;
   }
 }
 
@@ -230,6 +231,5 @@ body.client {
 }
 
 .button-loading {
-  .animate-stripes(1.5s);
   text-shadow: none;
 }
