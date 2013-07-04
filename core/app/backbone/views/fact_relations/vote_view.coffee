@@ -23,53 +23,29 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
     believes_fact: => @believes_fact()
 
   save: ->
-    opinion = if @ui.fact_relation.is(':checked')
-                'believes'
-              else
-                'none'
-
-    @set_fact_relation_opinion opinion
-
-    believe = if @ui.fact.is(':checked')
-                'believe'
-              else
-                'none'
-
-    @set_fact_opinion believe
+    @set_fact_relation_opinion @ui.fact_relation.is(':checked')
+    @set_fact_opinion @ui.fact.is(':checked')
 
     @trigger 'saved'
 
   believes_fact_relation: -> @model.isBelieving()
-  believes_fact: ->
-    @model.getFact().get('fact_wheel').opinion_types.believe.is_user_opinion
+  believes_fact: -> @model.getFact().getFactWheel().isUserOpinion 'believe'
 
-  set_fact_relation_opinion: (new_opinion) ->
-    # TODO: Refactor - almost same as in FactRelationVoteDownVIew
-    old_opinion = @model.current_opinion()
+  set_fact_relation_opinion: (enable_opinion, opinion='believes') ->
+    is_current_opinion = @model.current_opinion() == opinion
 
-    if old_opinion == null || 'disbelieves'
-      if new_opinion == 'believes'
-        @model.setOpinion new_opinion
+    if enable_opinion
+      @model.setOpinion opinion unless is_current_opinion
+    else
+      @model.removeOpinion() if is_current_opinion
 
-    if old_opinion == 'believes'
-      if new_opinion == 'none'
-        @model.removeOpinion()
+  set_fact_opinion: (enable_opinion, opinion='believe') ->
+    is_current_opinion = @model.getFact().getFactWheel().isUserOpinion opinion
 
-  set_fact_opinion: (new_opinion) ->
-    # TODO: Refactor - almost same as in FactRelationVoteDownVIew
-    old_opinion = @model.getFact().getFactWheel().userOpinion()
-
-    if !old_opinion
-      if new_opinion == 'believe'
-        @_set_fact_opinion new_opinion
-
-    if old_opinion == 'believes'
-      if new_opinion == 'none'
-        @_unset_fact_opinion new_opinion
-
-    if old_opinion == 'doubt' || 'disbelieve'
-      if new_opinion == 'believe'
-        @_set_fact_opinion new_opinion
+    if enable_opinion
+      @_set_fact_opinion opinion unless is_current_opinion
+    else
+      @_unset_fact_opinion opinion if is_current_opinion
 
 class window.FactRelationVoteDownView extends FactRelationVoteView
   ui:
@@ -99,8 +75,7 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
     @trigger 'saved'
 
   disbelieves_fact_relation: -> @model.isDisBelieving()
-  disbelieves_fact: ->
-    @model.getFact().get('fact_wheel').opinion_types.disbelieve.is_user_opinion
+  disbelieves_fact: -> @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
 
   set_fact_relation_opinion: (new_opinion) ->
     # TODO: Refactor - almost same as in FactRelationVoteUpVIew
