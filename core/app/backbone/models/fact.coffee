@@ -36,8 +36,7 @@ class window.Fact extends Backbone.Model
 
   getFactWheel: ->  @get("fact_wheel")
 
-  friendlyUrl: ->
-    @get("url")
+  friendlyUrl: -> @get("url")
 
   user: -> new User(@get("created_by"))
 

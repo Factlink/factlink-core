@@ -21,13 +21,13 @@ class window.Wheel extends Backbone.Model
     @set 'opinion_types', @mergedOpinionTypes()
 
   setRecursive: (attributes) ->
-    @_updateAttributes @attributes, attributes
+    @_recursivelyUpdateAttributes @attributes, attributes
 
-  _updateAttributes: (oldAttributes, newAttributes) ->
+  _recursivelyUpdateAttributes: (oldAttributes, newAttributes) ->
     for key, value of newAttributes
       if typeof value is 'object'
         oldAttributes[key] ?= {}
-        @_updateAttributes oldAttributes[key], value
+        @_recursivelyUpdateAttributes oldAttributes[key], value
       else
         oldAttributes[key] = value
 
@@ -42,13 +42,25 @@ class window.Wheel extends Backbone.Model
   reset: ->
     # DO NOT RUN CLEAR HERE, since then the objects 'believe', 'doubt', and 'disbelieve' are lost,
     # which are required by the BaseFactWheelView!
+    # TODO above warning isn't true anymore, see if we can make this simpler now
     @setRecursive(new Wheel().attributes)
+
+  isUserOpinion: (type) -> @get('opinion_types')[type].is_user_opinion
 
   userOpinion: ->
     @_userOpinions()[0]
 
   _userOpinions: ->
     "#{type}s" for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
+
+  updateTo: (authority, opinionTypes) ->
+    new_opinion_types = {}
+    for type, oldOpinionType of @get('opinion_types')
+      new_opinion_types[type] = _.extend _.clone(oldOpinionType), opinionTypes[type]
+
+    @set
+      authority: authority
+      opinion_types: new_opinion_types
 
   toJSON: ->
     _.extend {}, super(),
