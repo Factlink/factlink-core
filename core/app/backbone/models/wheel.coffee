@@ -18,7 +18,7 @@ class window.Wheel extends Backbone.Model
       percentage: 33
 
   initialize: ->
-    @set 'opinion_types', @mergedOpinionTypes()
+    @_setDefaults()
 
   setRecursive: (newAttributes, oldAttributes=@attributes) ->
     for key, value of newAttributes
@@ -28,11 +28,10 @@ class window.Wheel extends Backbone.Model
       else
         oldAttributes[key] = value
 
-  mergedOpinionTypes: ->
-    opinion_types = {}
+  _setDefaults: ->
     for type, opinion_type of @default_opinion_types
-      opinion_types[type] = _.defaults(@get('opinion_types')[type] ? {}, opinion_type)
-    opinion_types
+      @get('opinion_types')[type] ?= {}
+      _.defaults @get('opinion_types')[type] , opinion_type
 
   opinionTypesArray: -> _.values @get('opinion_types')
 
