@@ -64,6 +64,7 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
   default_popover_options: ->
     side: 'right'
     align: 'top'
+    fadeTime: 100
 
   open_vote_up_popup: ->
     return if @_up_is_opened
