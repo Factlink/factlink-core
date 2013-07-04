@@ -1,1 +1,1 @@
-remove-martijn-from-team-page
+Removed Martijn van der Weide from our team page
