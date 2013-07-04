@@ -18,8 +18,14 @@ class Site < OurOhm
   end
 
   def self.normalize_url(opts)
+    return opts if opts[:url].nil?
+
+    opts[:url].gsub! /[<>"]/,
+      '<' => '%3C',
+      '>' => '%3E',
+      '"' => '%22'
     url_normalizer_class = opts[:url_normalizer_class] || UrlNormalizer
-    opts[:url] = url_normalizer_class.normalize(opts[:url]) if opts[:url]
+    opts[:url] = url_normalizer_class.normalize(opts[:url])
     opts
   end
 
