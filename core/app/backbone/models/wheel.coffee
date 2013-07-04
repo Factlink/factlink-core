@@ -106,7 +106,3 @@ class window.Wheel extends Backbone.Model
       error: =>
         @turnOnActiveOpinionType opinion_type
         options.error?()
-
-  toJSON: ->
-    _.extend {}, super(),
-      opinion_types_array: @opinionTypesArray()
