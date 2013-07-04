@@ -60,6 +60,11 @@ describe Site do
         expect(url).to eq 'http://hoi/%22'
       end
 
+      it "encodes all explicit spacing to a space" do
+        url = Site.normalize_url(url: "http://hoi/ a\tb\nc\rd")[:url]
+        expect(url).to eq 'http://hoi/%20a%20b%20c%20d'
+      end
+
       it "leaves ' in the url (valid)" do
         url = Site.normalize_url(url: "http://hoi/'")[:url]
         expect(url).to eq "http://hoi/'"
