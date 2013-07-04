@@ -18,7 +18,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
       @factBodyRegion.currentView?.render()
 
   wheelView: ->
-    wheel = new Wheel(@model.get("fact_wheel"))
+    wheel = @model.getFactWheel()
 
     if Factlink.Global.signed_in
       wheelView = new InteractiveWheelView

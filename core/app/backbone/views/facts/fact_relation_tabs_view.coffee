@@ -15,7 +15,6 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     else
       @initial_tab = 'supporting'
 
-
   templateHelpers: =>
     believe_tab_name: Factlink.Global.t.fact_believe_collection_name.capitalize()
     disbelieve_tab_name: Factlink.Global.t.fact_disbelieve_collection_name.capitalize()
