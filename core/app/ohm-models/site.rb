@@ -21,11 +21,6 @@ class Site < OurOhm
     return options if options[:url].nil?
     url = options[:url]
 
-    url.gsub!(/[<>"]/,
-      '<' => '%3C',
-      '>' => '%3E',
-      '"' => '%22')
-    url.gsub!(/\s/, '%20')
     url_normalizer_class = options[:url_normalizer_class] || UrlNormalizer
     url = url_normalizer_class.normalize(url)
 
