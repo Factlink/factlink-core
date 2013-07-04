@@ -106,27 +106,27 @@ body.client {
   border-bottom-style: solid;
   transition: all 0.1s;
 
-  background: @buttonGreyBackground;
+  background: @buttonBackground;
   color: @linkColor;
-  text-shadow: 0 1px 0 @buttonGreyTextShadow;
-  border-bottom-color: @buttonGreyBorder;
+  text-shadow: 0 1px 0 @buttonTextShadow;
+  border-bottom-color: @buttonBorder;
 
   &:hover {
-    background: @buttonGreyDarkBackground;
-    border-bottom-color: @buttonGreyDarkBorder;
+    background: @buttonDarkBackground;
+    border-bottom-color: @buttonDarkBorder;
   }
 
   &:active {
     padding-top: 1px;
 
-    background: @buttonGreyDarkBackground;
-    border-bottom-color: @buttonGreyDarkBackground;
-    box-shadow: inset 0 2px @buttonGreyDarkBorder;
+    background: @buttonDarkBackground;
+    border-bottom-color: @buttonDarkBackground;
+    box-shadow: inset 0 2px @buttonDarkBorder;
   }
 
   &.button-loading {
     .background-size(40px 40px);
-    .striped(@buttonGreyBackground, 45deg, rgba(0,0,0,0.07));
+    .striped(@buttonBackground, 45deg, rgba(0,0,0,0.07));
     .animate-stripes(1.5s);
     color: @mutedFontColor;
   }
@@ -143,65 +143,65 @@ body.client {
   }
 }
 
-.button-blue {
-  background: @buttonBlueBackground;
+.button-confirm {
+  background: @buttonConfirmBackground;
   color: white;
-  text-shadow: 0 1px 0 @buttonBlueTextShadow;
-  border-bottom-color: @buttonBlueBorder;
+  text-shadow: 0 1px 0 @buttonConfirmTextShadow;
+  border-bottom-color: @buttonConfirmBorder;
   &:hover {
-    background: @buttonBlueDarkBackground;
-    border-bottom-color: @buttonBlueDarkBorder;
+    background: @buttonConfirmDarkBackground;
+    border-bottom-color: @buttonConfirmDarkBorder;
   }
   &:active {
-    background: @buttonBlueDarkBackground;
-    border-bottom-color: @buttonBlueDarkBackground;
-    box-shadow: inset 0 2px @buttonBlueDarkBorder;
+    background: @buttonConfirmDarkBackground;
+    border-bottom-color: @buttonConfirmDarkBackground;
+    box-shadow: inset 0 2px @buttonConfirmDarkBorder;
   }
   &.button-loading {
     .background-size(40px 40px);
-    .striped(@buttonBlueBackground, 45deg);
+    .striped(@buttonConfirmBackground, 45deg);
     color: rgba(255,255,255,0.6);
   }
 }
 
-.button-red {
-  background: @buttonRedBackground;
+.button-danger {
+  background: @buttonDangerBackground;
   color: white;
-  text-shadow: 0 1px 0 @buttonRedTextShadow;
-  border-bottom-color: @buttonRedBorder;
+  text-shadow: 0 1px 0 @buttonDangerTextShadow;
+  border-bottom-color: @buttonDangerBorder;
   &:hover {
-    background: @buttonRedDarkBackground;
-    border-bottom-color: @buttonRedDarkBorder;
+    background: @buttonDangerDarkBackground;
+    border-bottom-color: @buttonDangerDarkBorder;
   }
   &:active {
-    background: @buttonRedDarkBackground;
-    border-bottom-color: @buttonRedDarkBackground;
-    box-shadow: inset 0 2px @buttonRedDarkBorder;
+    background: @buttonDangerDarkBackground;
+    border-bottom-color: @buttonDangerDarkBackground;
+    box-shadow: inset 0 2px @buttonDangerDarkBorder;
   }
   &.button-loading {
     .background-size(40px 40px);
-    .striped(@buttonRedBackground, 45deg);
+    .striped(@buttonDangerBackground, 45deg);
     color: rgba(255,255,255,0.6);
   }
 }
 
-.button-green {
-  background: @buttonGreenBackground;
+.button-success {
+  background: @buttonSuccessBackground;
   color: white;
-  text-shadow: 0 1px 0 @buttonGreenTextShadow;
-  border-bottom-color: @buttonGreenBorder;
+  text-shadow: 0 1px 0 @buttonSuccessTextShadow;
+  border-bottom-color: @buttonSuccessBorder;
   &:hover {
-    background: @buttonGreenDarkBackground;
-    border-bottom-color: @buttonGreenDarkBorder;
+    background: @buttonSuccessDarkBackground;
+    border-bottom-color: @buttonSuccessDarkBorder;
   }
   &:active {
-    background: @buttonGreenDarkBackground;
-    border-bottom-color: @buttonGreenDarkBackground;
-    box-shadow: inset 0 2px @buttonGreenDarkBorder;
+    background: @buttonSuccessDarkBackground;
+    border-bottom-color: @buttonSuccessDarkBackground;
+    box-shadow: inset 0 2px @buttonSuccessDarkBorder;
   }
   &.button-loading {
     .background-size(40px 40px);
-    .striped(@buttonGreenBackground, 45deg);
+    .striped(@buttonSuccessBackground, 45deg);
     color: rgba(255,255,255,0.6);
   }
 }
@@ -225,7 +225,7 @@ body.client {
   }
   &.button-loading {
     .background-size(40px 40px);
-    .striped(@buttonGreyBackground, 45deg, rgba(0,0,0,0.04));
+    .striped(@buttonBackground, 45deg, rgba(0,0,0,0.04));
     color: @mutedFontColor;
   }
 }
