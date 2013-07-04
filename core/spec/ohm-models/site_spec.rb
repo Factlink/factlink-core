@@ -5,47 +5,52 @@ describe Site do
   let(:fact1)    { create :fact }
   let(:fact2)    { create :fact }
 
-  context "initially" do
-    it "should have an empty facts list" do
-      site.facts.to_a.should =~ []
+  describe '#facts' do
+    context "initially" do
+      it "is empty" do
+        expect(site.facts.to_a).to match_array []
+      end
+    end
+
+    context "after creating one fact with this site " do
+      it "contains this fact" do
+        fact1.site = site
+        fact1.save
+
+        expect(site.facts.to_a).to match_array [fact1]
+      end
+    end
+
+    context "after creating two facts with this site " do
+      it "contains the two facts" do
+        fact1.site = site
+        fact1.save
+        fact2.site = site
+        fact2.save
+
+        expect(site.facts.to_a).to match_array [fact1,fact2]
+      end
     end
   end
 
-  context "after creating one fact with this site " do
-    before do
-      fact1.site = site
-      fact1.save
-    end
-    it "should contain this fact in the factslist" do
-      site.facts.to_a.should =~ [fact1]
-    end
-  end
+  describe '.find_or_create_by' do
+    it 'creates a site if non exists' do
+      site = Site.find_or_create_by(url: 'http://example.org')
 
-  context "after creating two facts with this site " do
-    before do
-      fact1.site = site
-      fact1.save
-      fact2.site = site
-      fact2.save
+      expect(site).not_to be_nil
     end
-    it "should contain this fact in the factslist" do
-      site.facts.to_a.should =~ [fact1,fact2]
-    end
-  end
+    it 'retrieves a site if the site exists' do
+      site = Site.find_or_create_by(url: 'http://example.org')
+      site2 = Site.find_or_create_by(url: 'http://example.org')
 
-  it "should have a working find_or_create_by" do
-    site = Site.find_or_create_by(:url => 'http://example.org')
-    site.should_not == nil
-    site2 = Site.find_or_create_by(:url => 'http://example.org')
-    site2.id.should == site.id
+      expect(site2.id).to eq site.id
+    end
   end
 
   describe ".normalize_url" do
-    it "should call UrlNormalizer.normalize" do
+    it "calls UrlNormalizer.normalize" do
       UrlNormalizer.should_receive(:normalize).with('http://hoi')
       Site.normalize_url(url: 'http://hoi')
     end
   end
-
-
 end
