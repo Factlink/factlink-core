@@ -5,13 +5,6 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
   events:
     'click .btn-primary': 'save'
 
-  set_fact_relation_opinion: (opinion) ->
-    if opinion == 'none'
-      if @model.get('current_user_opinion')
-        @model.removeOpinion()
-    else if @model.get('current_user_opinion') != opinion
-      @model.setOpinion opinion
-
   set_fact_opinion: (opinion) ->
     # TODO should be able to unset the opinion from here as well.
     return if opinion == 'none'
@@ -49,6 +42,17 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
   believes_fact: ->
     @model.getFact().get('fact_wheel').opinion_types.believe.is_user_opinion
 
+  set_fact_relation_opinion: (new_opinion) ->
+    old_opinion = @model.current_opinion()
+
+    if old_opinion == null || 'disbelieves'
+      if new_opinion == 'believes'
+        @model.setOpinion new_opinion
+
+    if old_opinion == 'believes'
+      if new_opinion == 'none'
+        @model.removeOpinion()
+
 class window.FactRelationVoteDownView extends FactRelationVoteView
   ui:
     fact_relation: '.js-fact-relation-disbelieve'
@@ -79,3 +83,14 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
   disbelieves_fact_relation: -> @model.isDisBelieving()
   disbelieves_fact: ->
     @model.getFact().get('fact_wheel').opinion_types.disbelieve.is_user_opinion
+
+  set_fact_relation_opinion: (new_opinion) ->
+    old_opinion = @model.current_opinion()
+
+    if old_opinion == null || 'believes'
+      if new_opinion == 'disbelieves'
+        @model.setOpinion new_opinion
+
+    if old_opinion == 'disbelieves'
+      if new_opinion == 'none'
+        @model.removeOpinion()
