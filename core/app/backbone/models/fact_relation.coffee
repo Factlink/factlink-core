@@ -36,6 +36,8 @@ class window.FactRelation extends Backbone.Model
   isBelieving: -> @get('current_user_opinion') == 'believes'
   isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
 
+  current_opinion: -> @get('current_user_opinion')
+
   creator: -> new User(@get('created_by'))
 
   can_destroy: -> @get 'can_destroy?'
