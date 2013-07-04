@@ -82,145 +82,150 @@ body.client {
   .btn-primary[disabled] {
     background-color: @linkColor;
   }
-}
 
-@baseButtonHeight: 24px;
-@largeButtonHeight: 30px;
+  @baseButtonHeight: 24px;
+  @largeButtonHeight: 30px;
 
-@baseButtonPadding: 12px;
-@largeButtonPadding: 16px;
+  @baseButtonPadding: 12px;
+  @largeButtonPadding: 16px;
 
-@baseButtonBorderWidth: 2px;
-@largeButtonBorderWidth: 3px;
+  @baseButtonBorderWidth: 2px;
+  @largeButtonBorderWidth: 3px;
 
-@baselinePixelsUp: 1px;
+  @baselinePixelsUp: 1px;
 
-.button {
-  .new-design-font();
-  .border-radius(3px);
-  height: @baseButtonHeight;
-  line-height: @baseButtonHeight - 2*@baselinePixelsUp;
-  padding: 0 @baseButtonPadding;
-  border: none;
-  border-bottom-width: @baseButtonBorderWidth;
-  border-bottom-style: solid;
-  transition: all 0.1s;
-  background-color: @buttonBackground;
-  color: @linkColor;
-  text-shadow: 0 1px 0 @buttonTextShadow;
-  border-bottom-color: @buttonBorder;
-  &:hover {
-    background-color: @buttonDarkBackground;
-    border-bottom-color: @buttonDarkBorder;
+  .button {
+    .new-design-font();
+    font-size: 13px;
+    .border-radius(3px);
+    height: @largeButtonHeight;
+    line-height: @largeButtonHeight - 2*@baselinePixelsUp;
+    padding: 0 @largeButtonPadding;
+    border: none;
+    border-bottom-width: @largeButtonBorderWidth;
+    border-bottom-style: solid;
+    transition: all 0.1s;
+    background-color: @buttonBackground;
+    color: @linkColor;
+    text-shadow: 0 1px 0 @buttonTextShadow;
+    border-bottom-color: @buttonBorder;
+    &:hover {
+      background-color: @buttonDarkBackground;
+      border-bottom-color: @buttonDarkBorder;
+    }
+    &:active {
+      padding-top: 2px;
+      background-color: @buttonDarkBackground;
+      border-bottom-color: @buttonDarkBackground;
+      box-shadow: inset 0 2px @buttonDarkBorder;
+    }
+    &.button-loading {
+      .background-size(40px 40px);
+      .striped(45deg, rgba(0,0,0,0.07));
+      .animate-stripes(1.5s);
+      color: @mutedFontColor;
+    }
   }
-  &:active {
-    padding-top: 1px;
-    background-color: @buttonDarkBackground;
-    border-bottom-color: @buttonDarkBackground;
-    box-shadow: inset 0 2px @buttonDarkBorder;
+
+  .button-small {
+    font-size: 12px;
+    height: @baseButtonHeight;
+    line-height: @baseButtonHeight - 2*@baselinePixelsUp;
+    padding: 0 @baseButtonPadding;
+    border-bottom-width: @baseButtonBorderWidth;
+    &:active {
+      padding-top: 1px;
+    }
   }
-  &.button-loading {
-    .background-size(40px 40px);
-    .striped(45deg, rgba(0,0,0,0.07));
-    .animate-stripes(1.5s);
+
+  .button-confirm {
+    background-color: @buttonConfirmBackground;
+    color: white;
+    text-shadow: 0 1px 0 @buttonConfirmTextShadow;
+    border-bottom-color: @buttonConfirmBorder;
+    &:hover {
+      color: white;
+      background-color: @buttonConfirmDarkBackground;
+      border-bottom-color: @buttonConfirmDarkBorder;
+    }
+    &:active {
+      background-color: @buttonConfirmDarkBackground;
+      border-bottom-color: @buttonConfirmDarkBackground;
+      box-shadow: inset 0 2px @buttonConfirmDarkBorder;
+    }
+    &.button-loading {
+      .striped(45deg);
+      color: rgba(255,255,255,0.6);
+    }
+  }
+
+  .button-danger {
+    background-color: @buttonDangerBackground;
+    color: white;
+    text-shadow: 0 1px 0 @buttonDangerTextShadow;
+    border-bottom-color: @buttonDangerBorder;
+    &:hover {
+      color: white;
+      background-color: @buttonDangerDarkBackground;
+      border-bottom-color: @buttonDangerDarkBorder;
+    }
+    &:active {
+      background-color: @buttonDangerDarkBackground;
+      border-bottom-color: @buttonDangerDarkBackground;
+      box-shadow: inset 0 2px @buttonDangerDarkBorder;
+    }
+    &.button-loading {
+      .striped(45deg);
+      color: rgba(255,255,255,0.6);
+    }
+  }
+
+  .button-success {
+    background-color: @buttonSuccessBackground;
+    color: white;
+    text-shadow: 0 1px 0 @buttonSuccessTextShadow;
+    border-bottom-color: @buttonSuccessBorder;
+    &:hover {
+      color: white;
+      background-color: @buttonSuccessDarkBackground;
+      border-bottom-color: @buttonSuccessDarkBorder;
+    }
+    &:active {
+      background-color: @buttonSuccessDarkBackground;
+      border-bottom-color: @buttonSuccessDarkBackground;
+      box-shadow: inset 0 2px @buttonSuccessDarkBorder;
+    }
+    &.button-loading {
+      .striped(45deg);
+      color: rgba(255,255,255,0.6);
+    }
+  }
+
+  .button-disabled {
+    line-height: @baseButtonHeight - 4*@baselinePixelsUp;
+    background-color: @buttonDisabledBackground;
     color: @mutedFontColor;
+    text-shadow: 0 1px 0 @buttonDisabledTextShadow;
+    border-style: solid;
+    border-width: @baseButtonBorderWidth;
+    border-color: @buttonDisabledBorder;
+    &.button-large {
+      line-height: @largeButtonHeight - 4*@baselinePixelsUp;
+    }
+    &:hover {
+      cursor: not-allowed;
+    }
+    &:active {
+      padding-top: 0;
+    }
+    &.button-loading {
+      .striped(45deg, rgba(0,0,0,0.04));
+      color: @mutedFontColor;
+    }
   }
-}
 
-.button-large {
-  font-size: 13px;
-  height: @largeButtonHeight;
-  line-height: @largeButtonHeight - 2*@baselinePixelsUp;
-  padding: 0 @largeButtonPadding;
-  border-bottom-width: @largeButtonBorderWidth;
-  &:active {
-    padding-top: 2px;
+  .button-loading {
+    text-shadow: none;
   }
-}
 
-.button-confirm {
-  background-color: @buttonConfirmBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonConfirmTextShadow;
-  border-bottom-color: @buttonConfirmBorder;
-  &:hover {
-    background-color: @buttonConfirmDarkBackground;
-    border-bottom-color: @buttonConfirmDarkBorder;
-  }
-  &:active {
-    background-color: @buttonConfirmDarkBackground;
-    border-bottom-color: @buttonConfirmDarkBackground;
-    box-shadow: inset 0 2px @buttonConfirmDarkBorder;
-  }
-  &.button-loading {
-    .striped(45deg);
-    color: rgba(255,255,255,0.6);
-  }
-}
-
-.button-danger {
-  background-color: @buttonDangerBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonDangerTextShadow;
-  border-bottom-color: @buttonDangerBorder;
-  &:hover {
-    background-color: @buttonDangerDarkBackground;
-    border-bottom-color: @buttonDangerDarkBorder;
-  }
-  &:active {
-    background-color: @buttonDangerDarkBackground;
-    border-bottom-color: @buttonDangerDarkBackground;
-    box-shadow: inset 0 2px @buttonDangerDarkBorder;
-  }
-  &.button-loading {
-    .striped(45deg);
-    color: rgba(255,255,255,0.6);
-  }
-}
-
-.button-success {
-  background-color: @buttonSuccessBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonSuccessTextShadow;
-  border-bottom-color: @buttonSuccessBorder;
-  &:hover {
-    background-color: @buttonSuccessDarkBackground;
-    border-bottom-color: @buttonSuccessDarkBorder;
-  }
-  &:active {
-    background-color: @buttonSuccessDarkBackground;
-    border-bottom-color: @buttonSuccessDarkBackground;
-    box-shadow: inset 0 2px @buttonSuccessDarkBorder;
-  }
-  &.button-loading {
-    .striped(45deg);
-    color: rgba(255,255,255,0.6);
-  }
-}
-
-.button-disabled {
-  line-height: @baseButtonHeight - 4*@baselinePixelsUp;
-  background-color: @buttonDisabledBackground;
-  color: @mutedFontColor;
-  text-shadow: 0 1px 0 @buttonDisabledTextShadow;
-  border-style: solid;
-  border-width: @baseButtonBorderWidth;
-  border-color: @buttonDisabledBorder;
-  &.button-large {
-    line-height: @largeButtonHeight - 4*@baselinePixelsUp;
-  }
-  &:hover {
-    cursor: not-allowed;
-  }
-  &:active {
-    padding-top: 0;
-  }
-  &.button-loading {
-    .striped(45deg, rgba(0,0,0,0.04));
-    color: @mutedFontColor;
-  }
-}
-
-.button-loading {
-  text-shadow: none;
 }
