@@ -45,13 +45,15 @@ class window.Wheel extends Backbone.Model
 
   isUserOpinion: (type) -> @get('opinion_types')[type].is_user_opinion
 
-  userOpinionWithS: -> @userOpinion()
+  userOpinionWithS: ->
+    opinion = @userOpinion()
+    opinion and (opinion + 's')
 
   userOpinion: ->
     @_userOpinions()[0]
 
   _userOpinions: ->
-    "#{type}s" for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
+    type for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
 
   updateTo: (authority, opinionTypes) ->
     new_opinion_types = {}
