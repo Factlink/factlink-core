@@ -79,6 +79,7 @@ class window.Wheel extends Backbone.Model
     @updateTo @get("authority"), new_opinion_types
 
   setActiveOpinionType: (opinion_type, options={}) ->
+    old_opinion_type = @userOpinion()
     fact_id = @get('fact_id')
     @turnOnActiveOpinionType opinion_type
     $.ajax
@@ -93,7 +94,10 @@ class window.Wheel extends Backbone.Model
       error: =>
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.
-        @turnOffActiveOpinionType()
+        if old_opinion_type
+          @turnOnActiveOpinionType old_opinion_type
+        else
+          @turnOffActiveOpinionType()
         options.error?()
 
   unsetActiveOpinionType: (opinion_type, options={}) ->
