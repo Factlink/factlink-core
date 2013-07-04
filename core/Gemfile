@@ -15,7 +15,7 @@ gem 'mail', '2.5.3' # newer versions seem to timeout sending mail. Seems like la
 gem 'mongoid', '~> 3.0.21'
 gem 'moped', github: 'Factlink/moped', branch: '1.4.0-stable'
 
-gem 'pavlov', github: 'Factlink/pavlov', ref: '72a5ebb1577a377e7fff05cee028129d452cdb8c'
+gem 'pavlov', github: 'Factlink/pavlov', ref: '0b4bd6af62c4210b4c9b7187eb82b3780c755213'
 
 # Redis
 gem 'redis', '~> 2.2.1'
