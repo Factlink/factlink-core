@@ -60,16 +60,16 @@ class window.Wheel extends Backbone.Model
       authority: authority
       opinion_types: new_opinion_types
 
-  turned_off_topinion_types: ->
+  turned_off_opinion_types: ->
     believe:    is_user_opinion: false
     disbelieve: is_user_opinion: false
     doubt:      is_user_opinion: false
 
   turnOffActiveOpinionType: (toggle_type) ->
-    @updateTo @get("authority"), @turned_off_topinion_types()
+    @updateTo @get("authority"), @turned_off_opinion_types()
 
   turnOnActiveOpinionType: (toggle_type) ->
-    new_opinion_types = @turned_off_topinion_types()
+    new_opinion_types = @turned_off_opinion_types()
     new_opinion_types[toggle_type].is_user_opinion = true
 
     @updateTo @get("authority"), new_opinion_types
