@@ -22,7 +22,7 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
     fact_relation: '.js-fact-relation-believe'
     fact: '.js-fact-believe'
 
-  template: 'fact_relations/vote_up_down'
+  template: 'fact_relations/vote_up_popover'
 
   templateHelpers: =>
     believes_fact_relation: => @believes_fact_relation()
@@ -54,15 +54,7 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
     fact_relation: '.js-fact-relation-disbelieve'
     fact: '.js-fact-disbelieve'
 
-  template:
-    text: '''
-      <h5>Why do you believe this argument is not supporting?</h5>
-
-      <label><input type="checkbox" class="js-fact-relation-disbelieve" {{#disbelieves_fact_relation}}checked="checked"{{/disbelieves_fact_relation}}>This argument is not relevant to the upper Factlink</label>
-      <label><input type="checkbox" class="js-fact-disbelieve" {{#disbelieves_fact}}checked="checked"{{/disbelieves_fact}}>The Factlink in this argument is not correct or true.</label>
-
-      <a class="btn btn-primary pull-right">Done</a>
-    '''
+  template: 'fact_relations/vote_down_popover'
 
   templateHelpers: =>
     disbelieves_fact_relation: => @disbelieves_fact_relation()
