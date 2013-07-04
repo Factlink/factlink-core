@@ -5,6 +5,22 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
   events:
     'click .btn-primary': 'save'
 
+  set_fact_relation_opinion: (opinion, enable_opinion) ->
+    is_current_opinion = @model.current_opinion() == opinion
+
+    if enable_opinion
+      @model.setOpinion opinion unless is_current_opinion
+    else
+      @model.removeOpinion() if is_current_opinion
+
+  set_fact_opinion: (opinion, enable_opinion) ->
+    is_current_opinion = @model.getFact().getFactWheel().isUserOpinion opinion
+
+    if enable_opinion
+      @_set_fact_opinion opinion unless is_current_opinion
+    else
+      @_unset_fact_opinion opinion if is_current_opinion
+
   _set_fact_opinion: (opinion) ->
     @model.getFact().getFactWheel().setActiveOpinionType opinion
 
@@ -23,29 +39,13 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
     believes_fact: => @believes_fact()
 
   save: ->
-    @set_fact_relation_opinion @ui.fact_relation.is(':checked')
-    @set_fact_opinion @ui.fact.is(':checked')
+    @set_fact_relation_opinion 'believes', @ui.fact_relation.is(':checked')
+    @set_fact_opinion 'believe', @ui.fact.is(':checked')
 
     @trigger 'saved'
 
   believes_fact_relation: -> @model.isBelieving()
   believes_fact: -> @model.getFact().getFactWheel().isUserOpinion 'believe'
-
-  set_fact_relation_opinion: (enable_opinion, opinion='believes') ->
-    is_current_opinion = @model.current_opinion() == opinion
-
-    if enable_opinion
-      @model.setOpinion opinion unless is_current_opinion
-    else
-      @model.removeOpinion() if is_current_opinion
-
-  set_fact_opinion: (enable_opinion, opinion='believe') ->
-    is_current_opinion = @model.getFact().getFactWheel().isUserOpinion opinion
-
-    if enable_opinion
-      @_set_fact_opinion opinion unless is_current_opinion
-    else
-      @_unset_fact_opinion opinion if is_current_opinion
 
 class window.FactRelationVoteDownView extends FactRelationVoteView
   ui:
