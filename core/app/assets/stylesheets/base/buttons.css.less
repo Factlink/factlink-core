@@ -105,17 +105,17 @@ body.client {
   border-bottom-width: @baseButtonBorderWidth;
   border-bottom-style: solid;
   transition: all 0.1s;
-  background: @buttonBackground;
+  background-color: @buttonBackground;
   color: @linkColor;
   text-shadow: 0 1px 0 @buttonTextShadow;
   border-bottom-color: @buttonBorder;
   &:hover {
-    background: @buttonDarkBackground;
+    background-color: @buttonDarkBackground;
     border-bottom-color: @buttonDarkBorder;
   }
   &:active {
     padding-top: 1px;
-    background: @buttonDarkBackground;
+    background-color: @buttonDarkBackground;
     border-bottom-color: @buttonDarkBackground;
     box-shadow: inset 0 2px @buttonDarkBorder;
   }
@@ -140,16 +140,16 @@ body.client {
 }
 
 .button-confirm {
-  background: @buttonConfirmBackground;
+  background-color: @buttonConfirmBackground;
   color: white;
   text-shadow: 0 1px 0 @buttonConfirmTextShadow;
   border-bottom-color: @buttonConfirmBorder;
   &:hover {
-    background: @buttonConfirmDarkBackground;
+    background-color: @buttonConfirmDarkBackground;
     border-bottom-color: @buttonConfirmDarkBorder;
   }
   &:active {
-    background: @buttonConfirmDarkBackground;
+    background-color: @buttonConfirmDarkBackground;
     border-bottom-color: @buttonConfirmDarkBackground;
     box-shadow: inset 0 2px @buttonConfirmDarkBorder;
   }
@@ -160,16 +160,16 @@ body.client {
 }
 
 .button-danger {
-  background: @buttonDangerBackground;
+  background-color: @buttonDangerBackground;
   color: white;
   text-shadow: 0 1px 0 @buttonDangerTextShadow;
   border-bottom-color: @buttonDangerBorder;
   &:hover {
-    background: @buttonDangerDarkBackground;
+    background-color: @buttonDangerDarkBackground;
     border-bottom-color: @buttonDangerDarkBorder;
   }
   &:active {
-    background: @buttonDangerDarkBackground;
+    background-color: @buttonDangerDarkBackground;
     border-bottom-color: @buttonDangerDarkBackground;
     box-shadow: inset 0 2px @buttonDangerDarkBorder;
   }
@@ -180,16 +180,16 @@ body.client {
 }
 
 .button-success {
-  background: @buttonSuccessBackground;
+  background-color: @buttonSuccessBackground;
   color: white;
   text-shadow: 0 1px 0 @buttonSuccessTextShadow;
   border-bottom-color: @buttonSuccessBorder;
   &:hover {
-    background: @buttonSuccessDarkBackground;
+    background-color: @buttonSuccessDarkBackground;
     border-bottom-color: @buttonSuccessDarkBorder;
   }
   &:active {
-    background: @buttonSuccessDarkBackground;
+    background-color: @buttonSuccessDarkBackground;
     border-bottom-color: @buttonSuccessDarkBackground;
     box-shadow: inset 0 2px @buttonSuccessDarkBorder;
   }
@@ -201,7 +201,7 @@ body.client {
 
 .button-disabled {
   line-height: @baseButtonHeight - 4*@baselinePixelsUp;
-  background: @buttonDisabledBackground;
+  background-color: @buttonDisabledBackground;
   color: @mutedFontColor;
   text-shadow: 0 1px 0 @buttonDisabledTextShadow;
   border-style: solid;
