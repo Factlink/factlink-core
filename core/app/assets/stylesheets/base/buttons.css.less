@@ -202,6 +202,27 @@ body.client {
     }
   }
 
+  .button-home {
+    background-color: @buttonHomeBackground;
+    color: @buttonHomeLink;
+    text-shadow: 0 1px 0 @buttonHomeTextShadow;
+    border-bottom-color: @buttonHomeBorder;
+    &:hover {
+      color: @buttonHomeLink;
+      background-color: @buttonHomeDarkBackground;
+      border-bottom-color: @buttonHomeDarkBorder;
+    }
+    &:active {
+      background-color: @buttonHomeDarkBackground;
+      border-bottom-color: @buttonHomeDarkBackground;
+      box-shadow: inset 0 2px @buttonHomeDarkBorder;
+    }
+    &.button-loading {
+      .striped(45deg);
+      color: @buttonHomeLink;
+    }
+  }
+
   .button-disabled {
     line-height: @baseButtonHeight - 4*@baselinePixelsUp;
     background-color: @buttonDisabledBackground;
