@@ -45,6 +45,8 @@ class window.Wheel extends Backbone.Model
 
   isUserOpinion: (type) -> @get('opinion_types')[type].is_user_opinion
 
+  userOpinionWithS: -> @userOpinion()
+
   userOpinion: ->
     @_userOpinions()[0]
 
