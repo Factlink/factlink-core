@@ -86,7 +86,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   reset: ->
     @setQuery ''
-    @wheel.reset()
+    @wheel.clear()
     @wheel_region.currentView.render()
 
   queryChanges: ->
