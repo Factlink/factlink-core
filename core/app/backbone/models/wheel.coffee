@@ -65,7 +65,7 @@ class window.Wheel extends Backbone.Model
     disbelieve: is_user_opinion: false
     doubt:      is_user_opinion: false
 
-  turnOffActiveOpinionType: (toggle_type) ->
+  turnOffActiveOpinionType: ->
     @updateTo @get("authority"), @turned_off_opinion_types()
 
   turnOnActiveOpinionType: (toggle_type) ->
@@ -89,12 +89,12 @@ class window.Wheel extends Backbone.Model
       error: =>
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.
-        @turnOffActiveOpinionType opinion_type
+        @turnOffActiveOpinionType()
         options.error?()
 
   unsetActiveOpinionType: (opinion_type, options={}) ->
     fact_id = @get('fact_id')
-    @turnOffActiveOpinionType opinion_type
+    @turnOffActiveOpinionType()
     $.ajax
       type: "DELETE"
       url: "/facts/#{fact_id}/opinion.json"
