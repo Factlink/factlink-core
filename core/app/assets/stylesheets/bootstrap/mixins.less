@@ -45,8 +45,7 @@
     background: linear-gradient(@angle, @stop 0%, @start 100%);
 }
 
-.striped(@color: @linkColor, @angle: 45deg, @stripeColor: rgba(255,255,255,.15)) {
-  background-color: @color;
+.striped(@angle: 45deg, @stripeColor: rgba(255,255,255,.15)) {
   background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, @stripeColor), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, @stripeColor), color-stop(.75, @stripeColor), color-stop(.75, transparent), to(transparent));
   background-image: -webkit-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
   background-image: -moz-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
