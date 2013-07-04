@@ -11,7 +11,7 @@
 
         <%= f.text_field     :login,    class: "text",    placeholder: "Username or email",    tabindex: '1' %>
         <%= f.password_field :password, class: "text", placeholder: "Password", tabindex: '2' %>
-        <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'btn', tabindex: '4' %>
+        <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'button', tabindex: '4' %>
 
         <div class="toolbar">
           <span>
@@ -27,8 +27,8 @@
       <div class="separator">or</div>
       <div class="social">
         <span class="social-services-buttons">
-          <a href="/auth/twitter?return_to=<%= params[:return_to] %>" class="btn twitter popup" data-disable-with="<i></i>Signing in..." data-width="640" data-height="400"><i></i>Sign in with Twitter</a>
-          <a href="/auth/facebook?return_to=<%= params[:return_to] %>" class="btn facebook popup" data-disable-with="<i></i>Signing in..." data-width="640" data-height="400"><i></i>Sign in with Facebook</a>
+          <a href="/auth/twitter?return_to=<%= params[:return_to] %>" class="button twitter popup" data-disable-with="<i></i>Signing in..." data-width="640" data-height="400"><i></i>Sign in with Twitter</a>
+          <a href="/auth/facebook?return_to=<%= params[:return_to] %>" class="button facebook popup" data-disable-with="<i></i>Signing in..." data-width="640" data-height="400"><i></i>Sign in with Facebook</a>
         </span>
       </div>
     <% end %>
