@@ -1,4 +1,0 @@
-fix xss protextion in urls:
- ✔ ensure xss is not possible in the slug (FactUrl) @done (13-07-02 08:43)
- ☐ ensure xss is not possible in the Site.url (when creating) (and check existing)
-
