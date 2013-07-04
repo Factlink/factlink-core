@@ -41,7 +41,12 @@ describe Interactors::Facts::RecentlyViewed do
       expect(recent_facts).to eq [fact]
     end
 
+    it 'returns an empty list when not logged in' do
+      ability = mock can?: true
+      interactor = described_class.new(current_user: nil, ability: ability)
+      recent_facts = interactor.call
 
+      expect(recent_facts).to eq []
     end
   end
 end
