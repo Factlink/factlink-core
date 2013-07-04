@@ -44,6 +44,7 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
     @model.getFact().get('fact_wheel').opinion_types.believe.is_user_opinion
 
   set_fact_relation_opinion: (new_opinion) ->
+    # TODO: Refactor - almost same as in FactRelationVoteDownVIew
     old_opinion = @model.current_opinion()
 
     if old_opinion == null || 'disbelieves'
@@ -55,6 +56,7 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
         @model.removeOpinion()
 
   set_fact_opinion: (new_opinion) ->
+    # TODO: Refactor - almost same as in FactRelationVoteDownVIew
     old_opinion = @model.getFact().getFactWheel().userOpinion()
 
     if !old_opinion
@@ -101,6 +103,7 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
     @model.getFact().get('fact_wheel').opinion_types.disbelieve.is_user_opinion
 
   set_fact_relation_opinion: (new_opinion) ->
+    # TODO: Refactor - almost same as in FactRelationVoteUpVIew
     old_opinion = @model.current_opinion()
 
     if old_opinion == null || 'believes'
@@ -112,6 +115,7 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
         @model.removeOpinion()
 
   set_fact_opinion: (new_opinion) ->
+    # TODO: Refactor - almost same as in FactRelationVoteUpVIew
     old_opinion = @model.getFact().getFactWheel().userOpinion()
 
     if !old_opinion
