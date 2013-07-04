@@ -61,16 +61,20 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
   on_down_vote: ->
     @open_vote_down_popup()
 
+  default_popover_options: ->
+    side: 'right'
+    align: 'top'
+
   open_vote_up_popup: ->
     return if @_up_is_opened
 
     @close_vote_down_popup() if @_down_is_opened
     @_up_is_opened = true
 
-    @popoverAdd '.supporting',
-      side: 'right'
-      align: 'top'
-      contentView: @fact_relation_vote_up_view()
+    popover_options = _.extend {}, @default_popover_options(),
+                               contentView: @fact_relation_vote_up_view()
+
+    @popoverAdd '.supporting', popover_options
 
   fact_relation_vote_up_view: ->
     view = new FactRelationVoteUpView model: @model
@@ -85,10 +89,10 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
     @close_vote_up_popup() if @_up_is_opened
     @_down_is_opened = true
 
-    @popoverAdd '.weakening',
-      side: 'right'
-      align: 'top'
-      contentView: @fact_relation_vote_down_view()
+    popover_options = _.extend {}, @default_popover_options(),
+                               contentView: @fact_relation_vote_down_view()
+
+    @popoverAdd '.weakening', popover_options
 
   fact_relation_vote_down_view: ->
     view = new FactRelationVoteDownView model: @model
