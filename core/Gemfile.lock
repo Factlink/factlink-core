@@ -403,6 +403,10 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    rspec_junit_formatter (0.1.6)
+      builder
+      rspec (~> 2.0)
+      rspec-core (!= 2.12.0)
     rubocop (0.8.3)
       parser (= 2.0.0.beta5)
       rainbow (>= 1.1.4)
@@ -557,6 +561,7 @@ DEPENDENCIES
   resque_mailer (~> 2.2.3)
   roadie (~> 2.3.4)
   rspec-rails (~> 2.13)
+  rspec_junit_formatter (~> 0)
   rubocop
   ruby-prof (~> 0)
   sentry-raven (= 0.4.6)
