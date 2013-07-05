@@ -1,14 +1,7 @@
 #!/bin/bash
 echo "Running unit tests"
 
-OUTPUTFILE=$(mktemp /tmp/unit.XXXX)
+bundle exec rspec spec-unit --format RspecJunitFormatter  --out tmp/rspec-unit.xml
 
-
-bundle exec rspec spec-unit | tee "$OUTPUTFILE"
-
-if ! grep ', 0 failures' $OUTPUTFILE > /dev/null
-then
-        exit 1
-fi
-
-exit
+echo "Aborting to keep things fast..."
+exit 10 #intentional failure for now
