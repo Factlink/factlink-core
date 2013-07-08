@@ -3,62 +3,72 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
 
   template: "evidence/vote_up_down"
 
-  initialize: ->
+  constructor: ->
+    super
     @bindTo @model, "change", @render, @
 
 class window.InteractiveVoteUpDownView extends window.VoteUpDownView
+
   events:
-    "click .weakening": "disbelieve"
-    "click .supporting": "believe"
+    "click .supporting": "_on_up_vote"
+    "click .weakening":  "_on_down_vote"
 
   templateHelpers: -> interactive: true
 
-  hideTooltips: ->
-    @$(".weakening").tooltip "hide"
-    @$(".supporting").tooltip "hide"
-
   onRender: ->
-    @renderTooltips()
     @renderActive()
 
-  renderTooltips: ->
-    @$(".supporting").tooltip
-      title: "This is relevant"
-
-    @$(".weakening").tooltip
-      title: "This is not relevant"
-      placement: "bottom"
-
   renderActive: ->
-    if @model.get('current_user_opinion') == 'believes'
-      @$('a.supporting').addClass('active')
-    if @model.get('current_user_opinion') == 'disbelieves'
-      @$('a.weakening').addClass('active')
+    @$('a.supporting').addClass('active') if @current_opinion() == 'believes'
+    @$('a.weakening').addClass('active')  if @current_opinion() == 'disbelieves'
 
-  onBeforeClose: ->
-    @$(".weakening").tooltip "destroy"
-    @$(".supporting").tooltip "destroy"
+  _on_up_vote: ->
+    mp_track "Factlink: Upvote evidence click"
+    @on_up_vote()
 
-  disbelieve: ->
-    @hideTooltips()
+  _on_down_vote: ->
+    mp_track "Factlink: Downvote evidence click"
+    @on_down_vote()
 
-    if @model.isDisBelieving()
-      @model.removeOpinion()
-      mp_track "Factlink: Removed relevance vote",
-        type: "Not relevant"
-    else
-      @model.disbelieve()
-      mp_track "Factlink: Added relevance vote",
-        type: "Not relevant"
 
-  believe: ->
-    @hideTooltips()
+class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVoteUpDownView
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
 
+  current_opinion: -> @model.get('current_user_opinion')
+
+  on_up_vote: ->   @open_vote_popup '.supporting', FactRelationVoteUpView
+  on_down_vote: -> @open_vote_popup '.weakening', FactRelationVoteDownView
+
+  open_vote_popup: (selector, view_klass) ->
+    return if @popoverOpened selector
+
+    @popoverResetAll()
+    @popoverAdd selector,
+      side: 'right'
+      align: 'top'
+      fadeTime: 40
+      contentView: @bound_popup_view view_klass
+
+  bound_popup_view: (view_klass) ->
+    view = new view_klass model: @model
+
+    @bindTo view, 'saved', =>
+      @popoverResetAll()
+
+    view
+
+class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDownView
+
+  current_opinion: -> @model.get('current_user_opinion')
+
+  on_up_vote: ->
     if @model.isBelieving()
       @model.removeOpinion()
-      mp_track "Factlink: Removed relevance vote",
-        type: "Relevant"
     else
       @model.believe()
-      mp_track "Factlink: Added relevance vote",
-        type: "Relevant"
+
+  on_down_vote: ->
+    if @model.isDisBelieving()
+      @model.removeOpinion()
+    else
+      @model.disbelieve()
