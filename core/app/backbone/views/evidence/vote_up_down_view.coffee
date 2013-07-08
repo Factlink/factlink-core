@@ -3,7 +3,8 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
 
   template: "evidence/vote_up_down"
 
-  initialize: ->
+  constructor: ->
+    super
     @bindTo @model, "change", @render, @
 
 class window.InteractiveVoteUpDownView extends window.VoteUpDownView
