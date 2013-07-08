@@ -1,1 +1,0 @@
-add-index-to-cdn
