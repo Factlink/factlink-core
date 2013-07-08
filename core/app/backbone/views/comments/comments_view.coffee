@@ -1,4 +1,5 @@
 #= require ./../evidence/evidence_view
+#= require ./../evidence/vote_up_down_view
 
 class CommentView extends Backbone.Marionette.ItemView
   _.extend @prototype, Backbone.Factlink.Trunk8MoreLessMixin
@@ -12,5 +13,6 @@ class CommentView extends Backbone.Marionette.ItemView
 
 class window.CommentEvidenceView extends EvidenceBaseView
   mainView: CommentView
+  voteView: InteractiveVoteUpDownCommentView
   delete_message: 'Remove this comment'
 
