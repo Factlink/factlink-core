@@ -69,7 +69,7 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
     @popoverAdd selector,
       side: 'right'
       align: 'top'
-      fadeTime: 100
+      fadeTime: 40
       contentView: @bound_popup_view view_klass
 
   bound_popup_view: (view_klass) ->
