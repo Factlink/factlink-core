@@ -4,25 +4,49 @@ require_relative '../../../../app/interactors/interactors/facts/recently_viewed.
 describe Interactors::Facts::RecentlyViewed do
   include PavlovSupport
 
-  describe '.call' do
-    before do
-      stub_classes 'RecentlyViewedFacts', 'KillObject', 'Fact'
-    end
+  before do
+    stub_classes 'RecentlyViewedFacts', 'KillObject', 'Fact'
+  end
 
+  describe 'authorization' do
+    it 'raises when the user cannot index facts' do
+      ability = mock
+      ability.stub(:can?)
+             .with(:index, Fact)
+             .and_return(false)
+
+      expect { described_class.new(ability: ability).call }.
+        to raise_error(Pavlov::AccessDenied)
+    end
+  end
+
+  describe '#call' do
     it 'calls RecentlyViewedFacts.top' do
       user = mock id: '20e'
       recently_viewed_facts = mock
       fact = mock
-      ability = mock
+      ability = mock can?: true
 
-      RecentlyViewedFacts.should_receive(:by_user_id).with(user.id).and_return(recently_viewed_facts)
+      RecentlyViewedFacts.stub(:by_user_id).with(user.id)
+                         .and_return(recently_viewed_facts)
 
-      recently_viewed_facts.should_receive(:top).with(5).and_return([fact])
-      ability.should_receive(:can?).with(:index, Fact).and_return(true)
+      recently_viewed_facts
+        .stub(:top)
+        .with(5)
+        .and_return([fact])
 
-      result = Interactors::Facts::RecentlyViewed.new(current_user: user, ability: ability).call
+      interactor = described_class.new(current_user: user, ability: ability)
+      recent_facts = interactor.call
 
-      expect(result).to eq [fact]
+      expect(recent_facts).to eq [fact]
+    end
+
+    it 'returns an empty list when not logged in' do
+      ability = mock can?: true
+      interactor = described_class.new(current_user: nil, ability: ability)
+      recent_facts = interactor.call
+
+      expect(recent_facts).to eq []
     end
   end
 end

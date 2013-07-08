@@ -27,6 +27,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   initialize: (options) ->
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
+    @bindTo @model, 'change', @reRender, @
 
   defaultStrokeWidth: -> 3/5 * @options.radius
   hoverStrokeWidth: -> @defaultStrokeWidth() + 2
@@ -56,10 +57,6 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   reRender: ->
     @$('.authority').text(@model.get('authority'))
-    for type, opinionType of @model.get('opinion_types')
-      chosen = opinionType.is_user_opinion
-      @$(".js-opinion-#{type}").attr
-        checked:  if chosen then 'checked' else false
     @postRenderActions()
 
   postRenderActions: ->
@@ -91,9 +88,9 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
     # Bind Mouse Events on the path
     if @options.respondsToMouse || @options.showsTooltips
-      path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
-      path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
-      path.click _.bind(@clickOpinionType, this, opinionType)
+      path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType.type)
+      path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType.type)
+      path.click _.bind(@clickOpinionType, this, opinionType.type)
 
     @opinionTypeRaphaels[opinionType.type] = path
 
@@ -143,17 +140,22 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       direction = if percentage > 50 then 1 else 0
       path: [["M", start.x, start.y], ["A", radius, radius, 0, direction, 0, end.x, end.y]]
 
-  mouseoverOpinionType: (path, opinionType) ->
-    destinationOpacity = @options.hoverStrokeOpacity
-    destinationOpacity = @options.userOpinionStrokeOpacity  if opinionType.is_user_opinion
+  mouseoverOpinionType: (path, opinion_type) ->
+    destinationOpacity = if @model.isUserOpinion(opinion_type)
+                           @options.userOpinionStrokeOpacity
+                         else
+                           @options.hoverStrokeOpacity
+
     path.animate(
       "stroke-width": @hoverStrokeWidth()
       opacity: destinationOpacity
     , 200, "<>")
 
-  mouseoutOpinionType: (path, opinionType) ->
-    destinationOpacity = @options.defaultStrokeOpacity
-    destinationOpacity = @options.userOpinionStrokeOpacity  if opinionType.is_user_opinion
+  mouseoutOpinionType: (path, opinion_type) ->
+    destinationOpacity = if @model.isUserOpinion(opinion_type)
+                           @options.userOpinionStrokeOpacity
+                         else
+                           @options.defaultStrokeOpacity
     path.animate(
       "stroke-width": @defaultStrokeWidth()
       opacity: destinationOpacity
@@ -172,30 +174,3 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         $(raphaelObject.node).tooltip
           title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
           placement: "left"
-
-  updateTo: (authority, opinionTypes) ->
-    @model.set "authority", authority
-    if _.isArray(opinionTypes)
-      tempObject = {}
-      _.each opinionTypes, (opinionType) ->
-        tempObject[opinionType.type] = opinionType
-
-      opinionTypes = tempObject
-    for key, opinionType of @model.get('opinion_types')
-      newOpinionType = opinionTypes[opinionType.type]
-      opinionType.percentage = newOpinionType.percentage
-      opinionType.is_user_opinion = newOpinionType.is_user_opinion
-
-    @reRender()
-
-  toggleActiveOpinionType: (opinionType) ->
-    oldAuthority = @model.get("authority")
-    updateObj = {}
-    _.each @model.get('opinion_types'), (oldOpinionType) ->
-      updateObj[oldOpinionType.type] = _.clone(oldOpinionType)
-      unless opinionType.is_user_opinion
-        updateObj[oldOpinionType.type].is_user_opinion = false
-      if oldOpinionType == opinionType
-        updateObj[oldOpinionType.type].is_user_opinion = !opinionType.is_user_opinion
-
-    @updateTo oldAuthority, updateObj

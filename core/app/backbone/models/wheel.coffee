@@ -21,13 +21,13 @@ class window.Wheel extends Backbone.Model
     @set 'opinion_types', @mergedOpinionTypes()
 
   setRecursive: (attributes) ->
-    @_updateAttributes @attributes, attributes
+    @_recursivelyUpdateAttributes @attributes, attributes
 
-  _updateAttributes: (oldAttributes, newAttributes) ->
+  _recursivelyUpdateAttributes: (oldAttributes, newAttributes) ->
     for key, value of newAttributes
       if typeof value is 'object'
         oldAttributes[key] ?= {}
-        @_updateAttributes oldAttributes[key], value
+        @_recursivelyUpdateAttributes oldAttributes[key], value
       else
         oldAttributes[key] = value
 
@@ -37,19 +37,80 @@ class window.Wheel extends Backbone.Model
       opinion_types[type] = _.defaults(@get('opinion_types')[type] ? {}, opinion_type)
     opinion_types
 
-  opinionTypesArray: -> _.values @get('opinion_types')
-
   reset: ->
     # DO NOT RUN CLEAR HERE, since then the objects 'believe', 'doubt', and 'disbelieve' are lost,
     # which are required by the BaseFactWheelView!
+    # TODO above warning isn't true anymore, see if we can make this simpler now
     @setRecursive(new Wheel().attributes)
+
+  isUserOpinion: (type) -> @get('opinion_types')[type].is_user_opinion
+
+  userOpinionWithS: ->
+    opinion = @userOpinion()
+    opinion and (opinion + 's')
 
   userOpinion: ->
     @_userOpinions()[0]
 
   _userOpinions: ->
-    "#{type}s" for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
+    type for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
 
-  toJSON: ->
-    _.extend {}, super(),
-      opinion_types_array: @opinionTypesArray()
+  updateTo: (authority, opinionTypes) ->
+    new_opinion_types = {}
+    for type, oldOpinionType of @get('opinion_types')
+      new_opinion_types[type] = _.extend _.clone(oldOpinionType), opinionTypes[type]
+
+    @set
+      authority: authority
+      opinion_types: new_opinion_types
+
+  turned_off_opinion_types: ->
+    believe:    is_user_opinion: false
+    disbelieve: is_user_opinion: false
+    doubt:      is_user_opinion: false
+
+  turnOffActiveOpinionType: ->
+    @updateTo @get("authority"), @turned_off_opinion_types()
+
+  turnOnActiveOpinionType: (toggle_type) ->
+    new_opinion_types = @turned_off_opinion_types()
+    new_opinion_types[toggle_type].is_user_opinion = true
+
+    @updateTo @get("authority"), new_opinion_types
+
+  setActiveOpinionType: (opinion_type, options={}) ->
+    old_opinion_type = @userOpinion()
+    fact_id = @get('fact_id')
+    @turnOnActiveOpinionType opinion_type
+    $.ajax
+      url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
+      type: "POST"
+      success: (data) =>
+        @updateTo data.authority, data.opinion_types
+        mp_track "Factlink: Opinionate",
+          factlink: fact_id
+          opinion: opinion_type
+        options.success?()
+      error: =>
+        # TODO: This is not a proper undo. Should be restored to the current
+        #       state when the request fails.
+        if old_opinion_type
+          @turnOnActiveOpinionType old_opinion_type
+        else
+          @turnOffActiveOpinionType()
+        options.error?()
+
+  unsetActiveOpinionType: (opinion_type, options={}) ->
+    fact_id = @get('fact_id')
+    @turnOffActiveOpinionType()
+    $.ajax
+      type: "DELETE"
+      url: "/facts/#{fact_id}/opinion.json"
+      success: (data) =>
+        @updateTo data.authority, data.opinion_types
+        mp_track "Factlink: De-opinionate",
+          factlink: fact_id
+        options.success?()
+      error: =>
+        @turnOnActiveOpinionType opinion_type
+        options.error?()

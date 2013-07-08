@@ -46,6 +46,4 @@ describe Site do
       Site.normalize_url(url: 'http://hoi')
     end
   end
-
-
 end
