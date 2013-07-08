@@ -15,21 +15,8 @@ class window.InteractiveVoteUpDownView extends window.VoteUpDownView
 
   templateHelpers: -> interactive: true
 
-  hideTooltips: ->
-    @$(".weakening").tooltip "hide"
-    @$(".supporting").tooltip "hide"
-
   onRender: ->
-    @renderTooltips()
     @renderActive()
-
-  renderTooltips: ->
-    @$(".supporting").tooltip
-      title: "This is relevant"
-
-    @$(".weakening").tooltip
-      title: "This is not relevant"
-      placement: "bottom"
 
   renderActive: ->
     @$('a.supporting').addClass('active') if @current_opinion() == 'believes'
@@ -37,16 +24,10 @@ class window.InteractiveVoteUpDownView extends window.VoteUpDownView
 
   current_opinion: ->
 
-  onBeforeClose: ->
-    @$(".weakening").tooltip "destroy"
-    @$(".supporting").tooltip "destroy"
-
   on_up_vote: ->
-    @hideTooltips()
     mp_track "Factlink: Upvote evidence click"
 
   on_down_vote: ->
-    @hideTooltips()
     mp_track "Factlink: Downvote evidence click"
 
 
