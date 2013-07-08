@@ -127,7 +127,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     channel_ids = @addToCollection.map (ch)-> ch.id
 
     fact = new Fact
-      opinion: @wheel.userOpinion()
+      opinion: @wheel.userOpinionWithS()
       displaystring:  @$('textarea.js-fact').val()
       fact_url: @$('input.js-url').val()
       fact_title: @$('input.js-title').val()
