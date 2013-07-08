@@ -52,67 +52,37 @@ class window.InteractiveVoteUpDownView extends window.VoteUpDownView
 class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVoteUpDownView
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
-  current_opinion: ->
-    @model.get('current_user_opinion')
+  current_opinion: -> @model.get('current_user_opinion')
 
   on_up_vote: ->
-    @open_vote_up_popup()
+    super
+    @open_vote_popup '.supporting', FactRelationVoteUpView
 
   on_down_vote: ->
-    @open_vote_down_popup()
+    super
+    @open_vote_popup '.weakening', FactRelationVoteDownView
 
-  default_popover_options: ->
-    side: 'right'
-    align: 'top'
-    fadeTime: 100
+  open_vote_popup: (selector, view_klass) ->
+    return if @popoverOpened selector
 
-  open_vote_up_popup: ->
-    return if @_up_is_opened
+    @popoverResetAll()
+    @popoverAdd selector,
+      side: 'right'
+      align: 'top'
+      fadeTime: 100
+      contentView: @bound_popup_view view_klass
 
-    @close_vote_down_popup() if @_down_is_opened
-    @_up_is_opened = true
-
-    popover_options = _.extend {}, @default_popover_options(),
-                               contentView: @fact_relation_vote_up_view()
-
-    @popoverAdd '.supporting', popover_options
-
-  fact_relation_vote_up_view: ->
-    view = new FactRelationVoteUpView model: @model
+  bound_popup_view: (view_klass) ->
+    view = new view_klass model: @model
 
     @bindTo view, 'saved', =>
-      @close_vote_up_popup()
+      @popoverResetAll()
+
     view
-
-  open_vote_down_popup: ->
-    return if @_down_is_opened
-
-    @close_vote_up_popup() if @_up_is_opened
-    @_down_is_opened = true
-
-    popover_options = _.extend {}, @default_popover_options(),
-                               contentView: @fact_relation_vote_down_view()
-
-    @popoverAdd '.weakening', popover_options
-
-  fact_relation_vote_down_view: ->
-    view = new FactRelationVoteDownView model: @model
-    @bindTo view, 'saved', =>
-      @close_vote_down_popup()
-    view
-
-  close_vote_up_popup: ->
-    @popoverRemove '.supporting', false
-    @_up_is_opened = false
-
-  close_vote_down_popup: ->
-    @popoverRemove '.weakening', false
-    @_down_is_opened = false
 
 class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDownView
 
-  current_opinion: ->
-    @model.get('current_user_opinion')
+  current_opinion: -> @model.get('current_user_opinion')
 
   on_up_vote: ->
     super

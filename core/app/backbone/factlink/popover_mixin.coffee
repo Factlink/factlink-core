@@ -55,6 +55,8 @@ Backbone.Factlink.PopoverMixin =
 
       delete @_popovers[selector]
 
+  popoverOpened: (selector) -> @_popovers?[selector]
+
   _popoverBindAll: ->
     for selector, popover of @_popovers
       $bindEl = @$(selector).first()
