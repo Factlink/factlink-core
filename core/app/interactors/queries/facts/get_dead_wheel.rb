@@ -20,7 +20,7 @@ module Queries
       end
 
       def opinion
-        fact.get_opinion
+        query :'facts/get_opinion', fact
       end
 
       def fact
