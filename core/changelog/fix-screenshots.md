@@ -1,1 +1,1 @@
-fix-screenshots
+Fixed screenshots in tests
