@@ -1,0 +1,1 @@
+fix-closing-of-popover
