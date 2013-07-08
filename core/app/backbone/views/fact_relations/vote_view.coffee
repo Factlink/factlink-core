@@ -3,7 +3,8 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
   className: 'vote-up-down'
 
   events:
-    'click .btn-primary': 'save'
+    'click .js-done': 'save'
+    'click .js-cancel': 'close'
 
   set_fact_relation_opinion: (opinion, enable_opinion) ->
     is_current_opinion = @model.current_opinion() == opinion
@@ -35,8 +36,17 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
   template: 'fact_relations/vote_up_popover'
 
   templateHelpers: =>
-    believes_fact_relation: => @model.isBelieving()
-    believes_fact: => @model.getFact().getFactWheel().isUserOpinion 'believe'
+    believes_fact_relation = @model.isBelieving()
+    believes_fact = @model.getFact().getFactWheel().isUserOpinion 'believe'
+
+    has_some_opinion = @model.current_opinion() or @model.getFact().getFactWheel().userOpinion()
+
+    if has_some_opinion
+      believes_fact_relation: believes_fact_relation
+      believes_fact: believes_fact
+    else
+      believes_fact_relation: true
+      believes_fact: true
 
   save: ->
     @set_fact_relation_opinion 'believes', @ui.fact_relation.is(':checked')
@@ -52,8 +62,8 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
   template: 'fact_relations/vote_down_popover'
 
   templateHelpers: =>
-    disbelieves_fact_relation: => @model.isDisBelieving()
-    disbelieves_fact: => @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
+    disbelieves_fact_relation: @model.isDisBelieving()
+    disbelieves_fact: @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
 
   save: ->
     @set_fact_relation_opinion 'disbelieves', @ui.fact_relation.is(':checked')
