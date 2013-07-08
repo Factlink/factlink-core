@@ -4,8 +4,8 @@ describe FactUrl do
 
   before do
     stub_const 'FactlinkUI::Application', Class.new
-    config = stub core_url:  'https://a-random-website.com',
-                  proxy_url: 'http://the-proxy.com'
+    config = stub core_url:  'https://site.com',
+                  proxy_url: 'http://proxy.com'
     FactlinkUI::Application.stub(config: config)
   end
 
@@ -16,7 +16,7 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.fact_url)
-        .to eq 'https://a-random-website.com/facts/1'
+        .to eq 'https://site.com/facts/1'
     end
   end
 
@@ -38,7 +38,7 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.friendly_fact_url)
-        .to eq "https://a-random-website.com/this-is-a-friendly-fact/f/2"
+        .to eq "https://site.com/this-is-a-friendly-fact/f/2"
     end
   end
 
@@ -49,7 +49,7 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.proxy_scroll_url)
-        .to eq 'http://the-proxy.com/?url=http%3A%2F%2Fsciencedaily.com&scrollto=3'
+        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&scrollto=3'
     end
 
     it 'returns nil when fact has no site_url' do
@@ -68,7 +68,7 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.sharing_url)
-        .to eq 'http://the-proxy.com/?url=http%3A%2F%2Fsciencedaily.com&scrollto=3'
+        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&scrollto=3'
     end
 
     it 'returns friendly_fact_url when fact has no site_url' do
@@ -77,8 +77,32 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.sharing_url)
-        .to eq "https://a-random-website.com/this-is-a-friendly-fact/f/2"
+        .to eq "https://site.com/this-is-a-friendly-fact/f/2"
     end
   end
 
+  describe 'xss protection' do
+    describe '.friendly_fact_url' do
+      it 'does not contain tags' do
+        fact = stub id: '22', to_s: 'this<script>funky stuff'
+
+        fact_url = FactUrl.new fact
+
+        expect(fact_url.friendly_fact_url)
+          .not_to match '<'
+        expect(fact_url.friendly_fact_url)
+          .not_to match '>'
+      end
+      it 'does not escape from quotes' do
+        fact = stub id: '22', to_s: 'double " single \' quote'
+
+        fact_url = FactUrl.new fact
+
+        expect(fact_url.friendly_fact_url)
+          .not_to match "'"
+        expect(fact_url.friendly_fact_url)
+          .not_to match '"'
+      end
+    end
+  end
 end

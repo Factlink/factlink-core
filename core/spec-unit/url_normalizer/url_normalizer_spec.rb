@@ -70,5 +70,26 @@ describe UrlNormalizer do
       normalized( decode_utf8_b64("http%3A%2F%2Fwww.mercuryserver.com%2Fforums%2Fshowthread.php%3F100800-Stephan-Bodzin-amp-Marc-Romboy-%2596-Live-Luna-Live-Tour-(Harry-Klein-M%25FCnchen)-%2596-23-04-2")).should ==
                "http://www.mercuryserver.com/forums/showthread.php?100800-Stephan-Bodzin-amp-Marc-Romboy-%96-Live-Luna-Live-Tour-(Harry-Klein-M%FCnchen)-%96-23-04-2"
     end
+    describe 'xss protection' do
+      it "url encodes < and >" do
+        url = 'http://hoi/<>'
+        expect(normalized(url)).to eq 'http://hoi/%3C%3E'
+      end
+
+      it "url encodes \"" do
+        url = 'http://hoi/"'
+        expect(normalized(url)).to eq 'http://hoi/%22'
+      end
+
+      it "encodes all explicit spacing to a space" do
+        url = "http://hoi/%20a%09b%0Ac%0Dd"
+        expect(normalized(url)).to eq  "http://hoi/%20a%09b%0Ac%0Dd"
+      end
+
+      it "leaves ' in the url (valid)" do
+        url = "http://hoi/'"
+        expect(normalized(url)).to eq "http://hoi/'"
+      end
+    end
   end
 end
