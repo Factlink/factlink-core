@@ -10,8 +10,8 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
 class window.InteractiveVoteUpDownView extends window.VoteUpDownView
 
   events:
-    "click .supporting": "on_up_vote"
-    "click .weakening":  "on_down_vote"
+    "click .supporting": "_on_up_vote"
+    "click .weakening":  "_on_down_vote"
 
   templateHelpers: -> interactive: true
 
@@ -22,11 +22,13 @@ class window.InteractiveVoteUpDownView extends window.VoteUpDownView
     @$('a.supporting').addClass('active') if @current_opinion() == 'believes'
     @$('a.weakening').addClass('active')  if @current_opinion() == 'disbelieves'
 
-  on_up_vote: ->
+  _on_up_vote: ->
     mp_track "Factlink: Upvote evidence click"
+    @on_up_vote()
 
-  on_down_vote: ->
+  _on_down_vote: ->
     mp_track "Factlink: Downvote evidence click"
+    @on_down_vote()
 
 
 class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVoteUpDownView
@@ -34,13 +36,8 @@ class window.InteractiveVoteUpDownFactRelationView extends window.InteractiveVot
 
   current_opinion: -> @model.get('current_user_opinion')
 
-  on_up_vote: ->
-    super
-    @open_vote_popup '.supporting', FactRelationVoteUpView
-
-  on_down_vote: ->
-    super
-    @open_vote_popup '.weakening', FactRelationVoteDownView
+  on_up_vote: ->   @open_vote_popup '.supporting', FactRelationVoteUpView
+  on_down_vote: -> @open_vote_popup '.weakening', FactRelationVoteDownView
 
   open_vote_popup: (selector, view_klass) ->
     return if @popoverOpened selector
@@ -65,14 +62,12 @@ class window.InteractiveVoteUpDownCommentView extends window.InteractiveVoteUpDo
   current_opinion: -> @model.get('current_user_opinion')
 
   on_up_vote: ->
-    super
     if @model.isBelieving()
       @model.removeOpinion()
     else
       @model.believe()
 
   on_down_vote: ->
-    super
     if @model.isDisBelieving()
       @model.removeOpinion()
     else
