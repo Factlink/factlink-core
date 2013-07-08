@@ -145,10 +145,12 @@ end
 
 group :test, :development do # TODO why is there a :development here?
   # we allow tests to upgrade everything but major
-  gem 'konacha', '~> 2.7'
+  gem 'konacha', :github => 'EamonNerbonne/konacha'
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
   gem 'yarjuf'
+  gem 'ci_reporter'
+  gem 'rspec_junit_formatter'
 end
 
 group :development do

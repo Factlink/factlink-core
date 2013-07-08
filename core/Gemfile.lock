@@ -1,4 +1,15 @@
 GIT
+  remote: /Users/eamon/dev/konacha
+  revision: 9f98a8321185264ed04a210823e35ca69fdfd5ec
+  specs:
+    konacha (3.0.0)
+      actionpack (>= 3.1, < 5)
+      capybara
+      colorize
+      railties (>= 3.1, < 5)
+      sprockets
+
+GIT
   remote: git://github.com/Factlink/mixpanel.git
   revision: 51ba36f9df4ac911923b8cb15ee1ae487ae0c2b7
   specs:
@@ -120,6 +131,8 @@ GEM
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.2.8)
+    ci_reporter (1.9.0)
+      builder (>= 2.1.2)
     code_analyzer (0.3.2)
       sexp_processor
     coderay (1.0.9)
@@ -201,12 +214,6 @@ GEM
       addressable
       faraday
       multi_json
-    konacha (2.7.0)
-      actionpack (>= 3.1, < 5)
-      capybara
-      colorize
-      railties (>= 3.1, < 5)
-      sprockets
     less (2.2.2)
       commonjs (~> 0.2.6)
     less-rails (2.2.6)
@@ -403,6 +410,10 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    rspec_junit_formatter (0.1.6)
+      builder
+      rspec (~> 2.0)
+      rspec-core (!= 2.12.0)
     rubocop (0.8.3)
       parser (= 2.0.0.beta5)
       rainbow (>= 1.1.4)
@@ -505,6 +516,7 @@ DEPENDENCIES
   capybara (~> 1.1)
   capybara-email (~> 1.0)
   capybara-screenshot (~> 0.3)
+  ci_reporter
   database_cleaner (~> 0.9)
   devise (~> 2.2.3)
   devise_invitable (= 1.1.6)
@@ -518,7 +530,7 @@ DEPENDENCIES
   jquery-rails (= 2.1.2)
   json (~> 1.8.0)
   koala (~> 1.7.0rc1)
-  konacha (~> 2.7)
+  konacha!
   less-rails (~> 2.2.6)
   less-rails-bootstrap (= 2.1.1)
   lograge (~> 0)
@@ -560,6 +572,7 @@ DEPENDENCIES
   resque_mailer (~> 2.2.3)
   roadie (~> 2.3.4)
   rspec-rails (~> 2.13)
+  rspec_junit_formatter
   rubocop
   ruby-prof (~> 0)
   sentry-raven (= 0.4.6)
