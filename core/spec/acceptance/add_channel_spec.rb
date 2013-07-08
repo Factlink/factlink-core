@@ -8,5 +8,6 @@ describe "channels", type: :request do
     visit channel_path(user, channel)
 
     page.should have_content(channel.title)
+    1.should == 0
   end
 end
