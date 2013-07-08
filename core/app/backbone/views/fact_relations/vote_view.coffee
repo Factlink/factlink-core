@@ -35,17 +35,14 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
   template: 'fact_relations/vote_up_popover'
 
   templateHelpers: =>
-    believes_fact_relation: => @believes_fact_relation()
-    believes_fact: => @believes_fact()
+    believes_fact_relation: => @model.isBelieving()
+    believes_fact: => @model.getFact().getFactWheel().isUserOpinion 'believe'
 
   save: ->
     @set_fact_relation_opinion 'believes', @ui.fact_relation.is(':checked')
     @set_fact_opinion 'believe', @ui.fact.is(':checked')
 
     @trigger 'saved'
-
-  believes_fact_relation: -> @model.isBelieving()
-  believes_fact: -> @model.getFact().getFactWheel().isUserOpinion 'believe'
 
 class window.FactRelationVoteDownView extends FactRelationVoteView
   ui:
@@ -55,14 +52,11 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
   template: 'fact_relations/vote_down_popover'
 
   templateHelpers: =>
-    disbelieves_fact_relation: => @disbelieves_fact_relation()
-    disbelieves_fact: => @disbelieves_fact()
+    disbelieves_fact_relation: => @model.isDisBelieving()
+    disbelieves_fact: => @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
 
   save: ->
     @set_fact_relation_opinion 'disbelieves', @ui.fact_relation.is(':checked')
     @set_fact_opinion 'disbelieve', @ui.fact.is(':checked')
 
     @trigger 'saved'
-
-  disbelieves_fact_relation: -> @model.isDisBelieving()
-  disbelieves_fact: -> @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
