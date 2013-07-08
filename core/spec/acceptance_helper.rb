@@ -29,7 +29,6 @@ RSpec.configure do |config|
 
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
-  config.include ScreenshotTest
 
   config.before(:suite) do
     ElasticSearch.create
