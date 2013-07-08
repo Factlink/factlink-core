@@ -128,7 +128,7 @@ group :test do
   gem 'database_cleaner', '~> 0.9'
 
   gem 'capybara', '~> 1.1', require: false
-  gem 'capybara-screenshot', '~> 0.3'
+  gem 'capybara-screenshot', '= 0.3.6' # updating breaks something with files
   gem 'capybara-email', '~> 1.0'
   gem 'poltergeist', '~> 1.0', require: false
 
