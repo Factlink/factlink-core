@@ -1,6 +1,6 @@
 GIT
-  remote: /Users/eamon/dev/konacha
-  revision: 9f98a8321185264ed04a210823e35ca69fdfd5ec
+  remote: git://github.com/EamonNerbonne/konacha.git
+  revision: 1301ef98c7d8393623e7f1fdd2b98afb6d17f57e
   specs:
     konacha (3.0.0)
       actionpack (>= 3.1, < 5)
