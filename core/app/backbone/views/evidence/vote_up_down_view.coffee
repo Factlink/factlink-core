@@ -22,8 +22,6 @@ class window.InteractiveVoteUpDownView extends window.VoteUpDownView
     @$('a.supporting').addClass('active') if @current_opinion() == 'believes'
     @$('a.weakening').addClass('active')  if @current_opinion() == 'disbelieves'
 
-  current_opinion: ->
-
   on_up_vote: ->
     mp_track "Factlink: Upvote evidence click"
 
