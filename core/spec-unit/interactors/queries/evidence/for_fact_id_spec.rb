@@ -44,9 +44,6 @@ describe Queries::Evidence::ForFactId do
   end
 
   describe '.dead_fact_relations_with_opinion' do
-    before do
-      stub_classes 'KillObject'
-    end
 
     it 'returns a dead object' do
       fact_relation = mock(id: '1', class: 'FactRelation')
