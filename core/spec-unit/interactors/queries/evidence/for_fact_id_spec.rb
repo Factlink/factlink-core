@@ -16,7 +16,7 @@ describe Queries::Evidence::ForFactId do
          disbeliefs: 0
   end
 
-  describe '.validate' do
+  describe '#validate' do
     it 'requires fact_id to be an integer' do
       expect_validating('a', :weakening).
         to fail_validation('fact_id should be an integer string.')
@@ -33,7 +33,7 @@ describe Queries::Evidence::ForFactId do
     end
   end
 
-  describe '.execute' do
+  describe '#execute' do
     it 'correctly' do
       dead_fact_relations_with_opinion = [
         mock(:fact_relation1, opinion: fake_opinion(1)),
@@ -60,7 +60,7 @@ describe Queries::Evidence::ForFactId do
     end
   end
 
-  describe '.dead_fact_relations_with_opinion' do
+  describe '#dead_fact_relations_with_opinion' do
 
     it 'returns a dead object' do
       fact = mock id: '1'
@@ -81,7 +81,7 @@ describe Queries::Evidence::ForFactId do
 
   end
 
-  describe '.dead_comments_with_opinion' do
+  describe '#dead_comments_with_opinion' do
     it 'correctly' do
       comment = mock(id: '2a', class: 'Comment')
       fact = mock
@@ -106,7 +106,7 @@ describe Queries::Evidence::ForFactId do
     end
   end
 
-  describe '.comments' do
+  describe '#comments' do
     it 'retrieves the array of comments' do
       fact = mock(data_id: '10')
       comments = [mock]
