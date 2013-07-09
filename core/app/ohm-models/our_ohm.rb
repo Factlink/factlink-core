@@ -20,12 +20,6 @@ class OurOhm < Ohm::Model
     alias :ohm_set :set
     alias :ohm_sorted_set :sorted_set
 
-    def create! *args
-      new_instance = new(*args)
-      raise "Error creating instance of {@this.name}" unless new_instance.save
-      new_instance
-    end
-
     def set(name,model)
       ohm_set(name, model)
       define_method(:"#{name}=") do |value|
