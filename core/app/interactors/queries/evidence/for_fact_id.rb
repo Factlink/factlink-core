@@ -47,13 +47,9 @@ module Queries
       end
 
       def comments
-        type = map_supporting_to_believes @type
+        type = OpinionType.for_relation_type(@type).to_s
         fact_data_id = fact.data_id
         Comment.where({fact_data_id: fact_data_id, type: type}).to_a
-      end
-
-      def map_supporting_to_believes type
-        OpinionType.for_relation_type(type).to_s
       end
 
       def dead_comments_with_opinion
