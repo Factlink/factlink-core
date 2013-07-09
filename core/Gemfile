@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+ruby '2.0.0'
+
 # Defaults
 gem 'rails', '3.2.13' # this is too important to update automaticly
 gem 'activerecord', '3.2.13' # this is too important to update automaticly
