@@ -29,8 +29,8 @@ GIT
 
 GIT
   remote: git://github.com/Factlink/pavlov.git
-  revision: 72a5ebb1577a377e7fff05cee028129d452cdb8c
-  ref: 72a5ebb1577a377e7fff05cee028129d452cdb8c
+  revision: 0b4bd6af62c4210b4c9b7187eb82b3780c755213
+  ref: 0b4bd6af62c4210b4c9b7187eb82b3780c755213
   specs:
     pavlov (0.0.1)
       activemodel (>= 3.2.7)
@@ -41,6 +41,16 @@ GIT
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
     rack-xframe-options (0.1.2)
+
+GIT
+  remote: git://github.com/jjoos/korsakov.git
+  revision: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
+  ref: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
+  specs:
+    korsakov (0.0.1)
+      activemodel (>= 3.2.7)
+      activesupport (>= 3.2.7)
+      pavlov
 
 GEM
   remote: http://rubygems.org/
@@ -115,7 +125,7 @@ GEM
     capybara-email (1.0.2)
       capybara (~> 1.0)
       mail
-    capybara-screenshot (0.3.8)
+    capybara-screenshot (0.3.6)
       capybara (>= 1.0, < 3)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
@@ -501,7 +511,7 @@ DEPENDENCIES
   capistrano-ext (~> 1.2.1)
   capybara (~> 1.1)
   capybara-email (~> 1.0)
-  capybara-screenshot (~> 0.3)
+  capybara-screenshot (= 0.3.6)
   database_cleaner (~> 0.9)
   devise (~> 2.2.3)
   devise_invitable (= 1.1.6)
@@ -516,6 +526,7 @@ DEPENDENCIES
   json (~> 1.8.0)
   koala (~> 1.7.0rc1)
   konacha (~> 2.7)
+  korsakov!
   less-rails (~> 2.2.6)
   less-rails-bootstrap (= 2.1.1)
   lograge (~> 0)
