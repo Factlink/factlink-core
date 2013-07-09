@@ -1,5 +1,6 @@
 require 'pavlov_helper'
 require_relative '../../../../app/classes/opinion_type.rb'
+require_relative '../../../../app/classes/opinion_presenter.rb'
 require_relative '../../../../app/interactors/queries/evidence/for_fact_id.rb'
 
 describe Queries::Evidence::ForFactId do
@@ -7,6 +8,12 @@ describe Queries::Evidence::ForFactId do
 
   before do
     stub_classes 'Comment', 'KillObject'
+  end
+
+  def fake_opinion relevance
+    mock authority: relevance,
+         beliefs: 1,
+         disbeliefs: 0
   end
 
   describe '.validate' do
@@ -28,14 +35,24 @@ describe Queries::Evidence::ForFactId do
 
   describe '.execute' do
     it 'correctly' do
-      dead_fact_relations_with_opinion = [mock,mock]
-      dead_comments_with_opinion = [mock,mock]
-      sorted_result = mock
+      dead_fact_relations_with_opinion = [
+        mock(:fact_relation1, opinion: fake_opinion(1)),
+        mock(:fact_relation2, opinion: fake_opinion(3))
+      ]
+      dead_comments_with_opinion = [
+        mock(:comment1, opinion: fake_opinion(2)),
+        mock(:comment2, opinion: fake_opinion(4))
+      ]
+      sorted_result = [
+        dead_comments_with_opinion[1],
+        dead_fact_relations_with_opinion[1],
+        dead_comments_with_opinion[0],
+        dead_fact_relations_with_opinion[0]
+      ]
       interactor = Queries::Evidence::ForFactId.new '1', :weakening, current_user: mock
 
       interactor.should_receive(:dead_fact_relations_with_opinion).and_return(dead_fact_relations_with_opinion)
       interactor.should_receive(:dead_comments_with_opinion).and_return(dead_comments_with_opinion)
-      interactor.should_receive(:sort).with(dead_fact_relations_with_opinion+dead_comments_with_opinion).and_return(sorted_result)
 
       result = interactor.execute
 
@@ -84,8 +101,11 @@ describe Queries::Evidence::ForFactId do
       fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
       fact_relation.should_receive(:get_user_opinion).and_return(opinion)
       interactor.should_receive(:fact_relations).and_return([fact_relation])
-      KillObject.should_receive(:fact_relation).with(fact_relation,
-        {current_user_opinion:nil,opinion:opinion,evidence_class: 'FactRelation'}).
+      KillObject.should_receive(:fact_relation)
+                .with(fact_relation,
+                      current_user_opinion:nil,
+                      opinion:opinion,
+                      evidence_class: 'FactRelation').
         and_return(dead_fact_relation)
 
       result = interactor.dead_fact_relations_with_opinion
