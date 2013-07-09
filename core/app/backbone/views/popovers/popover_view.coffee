@@ -17,8 +17,6 @@ class window.PopoverView extends Backbone.Marionette.Layout
 
     @updateMargins()
 
-    @bindTo @options.contentView, 'close', @close, @
-
   alignOffsets: ->
     alignMargin = @options.alignMargin || 19
 

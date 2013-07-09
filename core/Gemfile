@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+ruby '2.0.0'
+
 # Defaults
 gem 'rails', '3.2.13' # this is too important to update automaticly
 gem 'activerecord', '3.2.13' # this is too important to update automaticly
@@ -15,7 +17,8 @@ gem 'mail', '2.5.3' # newer versions seem to timeout sending mail. Seems like la
 gem 'mongoid', '~> 3.0.21'
 gem 'moped', github: 'Factlink/moped', branch: '1.4.0-stable'
 
-gem 'pavlov', github: 'Factlink/pavlov', ref: '72a5ebb1577a377e7fff05cee028129d452cdb8c'
+gem 'pavlov', github: 'Factlink/pavlov', ref: '0b4bd6af62c4210b4c9b7187eb82b3780c755213'
+gem 'korsakov', github: 'jjoos/korsakov', ref: '72db865b99a3e8dee2840a191fe67ecd8f32ccef'
 
 # Redis
 gem 'redis', '~> 2.2.1'
@@ -128,7 +131,7 @@ group :test do
   gem 'database_cleaner', '~> 0.9'
 
   gem 'capybara', '~> 1.1', require: false
-  gem 'capybara-screenshot', '~> 0.3'
+  gem 'capybara-screenshot', '= 0.3.6' # updating breaks something with files, https://github.com/mattheworiordan/capybara-screenshot/commit/d21b51b66fc6766e32176b7b22f5d06530efea4b?w=1
   gem 'capybara-email', '~> 1.0'
   gem 'poltergeist', '~> 1.0', require: false
 
