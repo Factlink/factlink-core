@@ -5,10 +5,6 @@ describe Queries::Facts::GetOpinion do
   include PavlovSupport
 
   describe '#call' do
-    before do
-
-    end
-
     it 'returns the opinion on the fact' do
       opinion = mock
       fact = mock get_opinion: opinion
