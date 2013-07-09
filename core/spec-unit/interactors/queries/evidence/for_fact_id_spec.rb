@@ -7,7 +7,7 @@ describe Queries::Evidence::ForFactId do
   include PavlovSupport
 
   before do
-    stub_classes 'Comment', 'KillObject'
+    stub_classes 'Comment', 'KillObject', 'Fact'
   end
 
   def fake_opinion relevance
@@ -63,55 +63,22 @@ describe Queries::Evidence::ForFactId do
   describe '.dead_fact_relations_with_opinion' do
 
     it 'returns a dead object' do
-      fact_relation = mock(id: '1', class: 'FactRelation')
-      graph_user = mock
-      opinion_on = mock
-      user = mock(graph_user: graph_user)
-      opinion = mock
+      fact = mock id: '1'
+      dead_fact_relations = mock
+      type = :supporting
+      pavlov_options = { current_user: mock }
 
-      dead_fact_relation = mock
-      sub_comments_count = 2
-      interactor = Queries::Evidence::ForFactId.new '1', :supporting, current_user: user
+      Fact.stub(:[]).with(fact.id).and_return(fact)
+      Pavlov.stub(:query)
+            .with(:'fact_relations/for_fact', fact, type, pavlov_options)
+            .and_return dead_fact_relations
 
-      interactor.should_receive(:query).with(:'sub_comments/count',fact_relation.id, fact_relation.class).
-        and_return(sub_comments_count)
-      fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
-      graph_user.should_receive(:opinion_on).with(fact_relation).and_return(opinion_on)
-      fact_relation.should_receive(:get_user_opinion).and_return(opinion)
-      interactor.should_receive(:fact_relations).and_return([fact_relation])
-      KillObject.should_receive(:fact_relation).with(fact_relation,
-        {current_user_opinion:opinion_on,opinion:opinion,evidence_class: 'FactRelation'}).
-        and_return(dead_fact_relation)
-
+      interactor = described_class.new fact.id, type , pavlov_options
       result = interactor.dead_fact_relations_with_opinion
 
-      expect(result).to eq [dead_fact_relation]
+      expect(result).to eq dead_fact_relations
     end
 
-    it 'works without a current user' do
-      fact_relation = mock(id: '1', class: 'FactRelation')
-      opinion = mock
-
-      dead_fact_relation = mock
-      sub_comments_count = 2
-      interactor = Queries::Evidence::ForFactId.new '1', :supporting
-
-      interactor.should_receive(:query).with(:'sub_comments/count',fact_relation.id, fact_relation.class).
-        and_return(sub_comments_count)
-      fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
-      fact_relation.should_receive(:get_user_opinion).and_return(opinion)
-      interactor.should_receive(:fact_relations).and_return([fact_relation])
-      KillObject.should_receive(:fact_relation)
-                .with(fact_relation,
-                      current_user_opinion:nil,
-                      opinion:opinion,
-                      evidence_class: 'FactRelation').
-        and_return(dead_fact_relation)
-
-      result = interactor.dead_fact_relations_with_opinion
-
-      expect(result).to eq [dead_fact_relation]
-    end
   end
 
   describe '.dead_comments_with_opinion' do
@@ -153,23 +120,6 @@ describe Queries::Evidence::ForFactId do
       results = interactor.comments
 
       expect(results).to eq comments
-    end
-  end
-
-  describe '.fact_relations' do
-    it 'returns a list of fact relations' do
-      fact_relations = [mock]
-      fact = mock
-      type = :supporting
-
-      interactor = Queries::Evidence::ForFactId.new '1', type, current_user: mock
-
-      interactor.should_receive(:fact).and_return(fact)
-      fact.should_receive(:evidence).with(type).and_return(fact_relations)
-
-      results = interactor.fact_relations
-
-      expect(results).to eq fact_relations
     end
   end
 end

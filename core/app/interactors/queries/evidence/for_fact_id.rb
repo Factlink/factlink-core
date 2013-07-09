@@ -18,20 +18,8 @@ module Queries
         sort result
       end
 
-      def fact_relations
-        fact.evidence(@type)
-      end
-
       def dead_fact_relations_with_opinion
-        fact_relations.map do |fact_relation|
-          fact_relation.sub_comments_count = query :'sub_comments/count', fact_relation.id.to_s, fact_relation.class.to_s
-          opinion = fact_relation.get_user_opinion
-
-          KillObject.fact_relation(fact_relation,
-            current_user_opinion: current_user_opinion_on(fact_relation),
-            opinion: opinion,
-            evidence_class: 'FactRelation')
-        end
+        query :'fact_relations/for_fact', fact, type
       end
 
       def current_user_opinion_on fact_relation
