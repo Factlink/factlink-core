@@ -35,6 +35,8 @@ describe Queries::Evidence::ForFactId do
 
   describe '#execute' do
     it 'correctly' do
+      fact = mock id: '1'
+
       dead_fact_relations_with_opinion = [
         mock(:fact_relation1, opinion: fake_opinion(1)),
         mock(:fact_relation2, opinion: fake_opinion(3))
@@ -43,42 +45,30 @@ describe Queries::Evidence::ForFactId do
         mock(:comment1, opinion: fake_opinion(2)),
         mock(:comment2, opinion: fake_opinion(4))
       ]
-      sorted_result = [
+      type = :weakening
+      pavlov_options = { current_user: mock }
+
+      Fact.stub(:[])
+          .with(fact.id)
+          .and_return(fact)
+      Pavlov.stub(:query)
+            .with(:'fact_relations/for_fact', fact, type, pavlov_options)
+            .and_return dead_fact_relations_with_opinion
+
+      interactor = Queries::Evidence::ForFactId.new '1', type, pavlov_options
+
+      interactor.should_receive(:dead_comments_with_opinion).and_return(dead_comments_with_opinion)
+
+      result = interactor.execute
+
+      expected_sorted_result = [
         dead_comments_with_opinion[1],
         dead_fact_relations_with_opinion[1],
         dead_comments_with_opinion[0],
         dead_fact_relations_with_opinion[0]
       ]
-      interactor = Queries::Evidence::ForFactId.new '1', :weakening, current_user: mock
-
-      interactor.should_receive(:dead_fact_relations_with_opinion).and_return(dead_fact_relations_with_opinion)
-      interactor.should_receive(:dead_comments_with_opinion).and_return(dead_comments_with_opinion)
-
-      result = interactor.execute
-
-      expect(result).to eq sorted_result
+      expect(result).to eq expected_sorted_result
     end
-  end
-
-  describe '#dead_fact_relations_with_opinion' do
-
-    it 'returns a dead object' do
-      fact = mock id: '1'
-      dead_fact_relations = mock
-      type = :supporting
-      pavlov_options = { current_user: mock }
-
-      Fact.stub(:[]).with(fact.id).and_return(fact)
-      Pavlov.stub(:query)
-            .with(:'fact_relations/for_fact', fact, type, pavlov_options)
-            .and_return dead_fact_relations
-
-      interactor = described_class.new fact.id, type , pavlov_options
-      result = interactor.dead_fact_relations_with_opinion
-
-      expect(result).to eq dead_fact_relations
-    end
-
   end
 
   describe '#dead_comments_with_opinion' do
