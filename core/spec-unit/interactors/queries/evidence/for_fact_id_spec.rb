@@ -1,4 +1,5 @@
 require 'pavlov_helper'
+require_relative '../../../../app/classes/opinion_type.rb'
 require_relative '../../../../app/interactors/queries/evidence/for_fact_id.rb'
 
 describe Queries::Evidence::ForFactId do

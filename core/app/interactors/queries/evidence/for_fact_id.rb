@@ -53,11 +53,7 @@ module Queries
       end
 
       def map_supporting_to_believes type
-        if type == :weakening
-          'disbelieves'
-        elsif type == :supporting
-          'believes'
-        end
+        OpinionType.for_relation_type(type).to_s
       end
 
       def dead_comments_with_opinion
