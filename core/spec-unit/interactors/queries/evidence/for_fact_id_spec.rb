@@ -4,9 +4,8 @@ require_relative '../../../../app/interactors/queries/evidence/for_fact_id.rb'
 describe Queries::Evidence::ForFactId do
   include PavlovSupport
 
-  it '.new' do
-    interactor = Queries::Evidence::ForFactId.new '1', :weakening, current_user: mock
-    interactor.should_not be_nil
+  before do
+    stub_classes 'Comment', 'KillObject'
   end
 
   describe '.validate' do
@@ -120,10 +119,6 @@ describe Queries::Evidence::ForFactId do
   end
 
   describe '.comments' do
-    before do
-      stub_classes 'Comment'
-    end
-
     it 'retrieves the array of comments' do
       fact = mock(data_id: '10')
       comments = [mock]
