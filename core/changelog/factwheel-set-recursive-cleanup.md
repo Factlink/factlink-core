@@ -1,1 +1,1 @@
-cleaned up our own functions which override default backbone model behaviour a little
+Cleaned up Factwheel model so we are overriding less default backbone behaviour.
