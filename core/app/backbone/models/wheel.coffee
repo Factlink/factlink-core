@@ -33,7 +33,7 @@ class window.Wheel extends Backbone.Model
       @get('opinion_types')[type] ?= {}
       _.defaults @get('opinion_types')[type] , opinion_type
 
-  clear: (options)->
+  clear: (options={})->
     super _.extend {}, options, silent: true
     @set new Wheel().attributes, _.pick(options, 'silent')
 
