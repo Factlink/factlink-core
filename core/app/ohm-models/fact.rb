@@ -112,11 +112,6 @@ class Fact < Basefact
     supporting_facts | weakening_facts
   end
 
-  def sorted_fact_relations
-    res = self.fact_relations.sort { |a, b| a.percentage <=> b.percentage }
-    res.reverse
-  end
-
   def evidence(type=:both)
     return fact_relations if type == :both
 
