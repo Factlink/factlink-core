@@ -18,30 +18,24 @@ class window.Wheel extends Backbone.Model
       percentage: 33
 
   initialize: ->
-    @set 'opinion_types', @mergedOpinionTypes()
+    @_setDefaults()
 
-  setRecursive: (attributes) ->
-    @_recursivelyUpdateAttributes @attributes, attributes
-
-  _recursivelyUpdateAttributes: (oldAttributes, newAttributes) ->
+  setRecursive: (newAttributes, oldAttributes=@attributes) ->
     for key, value of newAttributes
       if typeof value is 'object'
         oldAttributes[key] ?= {}
-        @_recursivelyUpdateAttributes oldAttributes[key], value
+        @setRecursive value, oldAttributes[key]
       else
         oldAttributes[key] = value
 
-  mergedOpinionTypes: ->
-    opinion_types = {}
+  _setDefaults: ->
     for type, opinion_type of @default_opinion_types
-      opinion_types[type] = _.defaults(@get('opinion_types')[type] ? {}, opinion_type)
-    opinion_types
+      @get('opinion_types')[type] ?= {}
+      _.defaults @get('opinion_types')[type] , opinion_type
 
-  reset: ->
-    # DO NOT RUN CLEAR HERE, since then the objects 'believe', 'doubt', and 'disbelieve' are lost,
-    # which are required by the BaseFactWheelView!
-    # TODO above warning isn't true anymore, see if we can make this simpler now
-    @setRecursive(new Wheel().attributes)
+  clear: (options={})->
+    super _.extend {}, options, silent: true
+    @set new Wheel().attributes, _.pick(options, 'silent')
 
   isUserOpinion: (type) -> @get('opinion_types')[type].is_user_opinion
 
