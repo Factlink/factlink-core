@@ -115,7 +115,7 @@ GEM
     capybara-email (1.0.2)
       capybara (~> 1.0)
       mail
-    capybara-screenshot (0.3.8)
+    capybara-screenshot (0.3.6)
       capybara (>= 1.0, < 3)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
@@ -501,7 +501,7 @@ DEPENDENCIES
   capistrano-ext (~> 1.2.1)
   capybara (~> 1.1)
   capybara-email (~> 1.0)
-  capybara-screenshot (~> 0.3)
+  capybara-screenshot (= 0.3.6)
   database_cleaner (~> 0.9)
   devise (~> 2.2.3)
   devise_invitable (= 1.1.6)
