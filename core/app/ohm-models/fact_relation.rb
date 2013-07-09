@@ -55,14 +55,6 @@ class FactRelation < Basefact
     fl
   end
 
-  def percentage
-    return 0 if fact.get_opinion.authority == 0
-
-    part = get_influencing_opinion.authority / fact.get_opinion.authority
-
-    (100 * part).round.to_i
-  end
-
   def get_type_opinion
     Opinion.for_type(OpinionType.for_relation_type(type))
   end
