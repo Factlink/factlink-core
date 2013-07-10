@@ -1,4 +1,4 @@
-class FactRelationVoteView extends Backbone.Marionette.ItemView
+class window.FactRelationVoteView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down'
 
@@ -27,46 +27,3 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
 
   _unset_fact_opinion: (opinion) ->
     @model.getFact().getFactWheel().unsetActiveOpinionType opinion
-
-class window.FactRelationVoteUpView extends FactRelationVoteView
-  ui:
-    fact_relation: '.js-fact-relation-believe'
-    fact: '.js-fact-believe'
-
-  template: 'fact_relations/vote_up_popover'
-
-  templateHelpers: =>
-    believes_fact_relation = @model.isBelieving()
-    believes_fact = @model.getFact().getFactWheel().isUserOpinion 'believe'
-
-    has_some_opinion = @model.current_opinion() or @model.getFact().getFactWheel().userOpinion()
-
-    if has_some_opinion
-      believes_fact_relation: believes_fact_relation
-      believes_fact: believes_fact
-    else
-      believes_fact_relation: true
-      believes_fact: true
-
-  save: ->
-    @set_fact_relation_opinion 'believes', @ui.fact_relation.is(':checked')
-    @set_fact_opinion 'believe', @ui.fact.is(':checked')
-
-    @trigger 'saved'
-
-class window.FactRelationVoteDownView extends FactRelationVoteView
-  ui:
-    fact_relation: '.js-fact-relation-disbelieve'
-    fact: '.js-fact-disbelieve'
-
-  template: 'fact_relations/vote_down_popover'
-
-  templateHelpers: =>
-    disbelieves_fact_relation: @model.isDisBelieving()
-    disbelieves_fact: @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
-
-  save: ->
-    @set_fact_relation_opinion 'disbelieves', @ui.fact_relation.is(':checked')
-    @set_fact_opinion 'disbelieve', @ui.fact.is(':checked')
-
-    @trigger 'saved'
