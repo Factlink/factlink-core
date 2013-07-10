@@ -33,7 +33,7 @@ describe Queries::Evidence::ForFactId do
     end
   end
 
-  describe '#execute' do
+  describe '#call' do
     it 'correctly' do
       fact = mock id: '1'
 
@@ -54,12 +54,13 @@ describe Queries::Evidence::ForFactId do
       Pavlov.stub(:query)
             .with(:'fact_relations/for_fact', fact, type, pavlov_options)
             .and_return dead_fact_relations_with_opinion
+      Pavlov.stub(:query)
+            .with(:'comments/for_fact', fact, type, pavlov_options)
+            .and_return dead_comments_with_opinion
 
       interactor = Queries::Evidence::ForFactId.new '1', type, pavlov_options
 
-      interactor.should_receive(:dead_comments_with_opinion).and_return(dead_comments_with_opinion)
-
-      result = interactor.execute
+      result = interactor.call
 
       expected_sorted_result = [
         dead_comments_with_opinion[1],
@@ -68,48 +69,6 @@ describe Queries::Evidence::ForFactId do
         dead_fact_relations_with_opinion[0]
       ]
       expect(result).to eq expected_sorted_result
-    end
-  end
-
-  describe '#dead_comments_with_opinion' do
-    it 'correctly' do
-      comment = mock(id: '2a', class: 'Comment')
-      fact = mock
-      dead_comment = mock
-
-      sub_comments_count = 2
-      interactor = Queries::Evidence::ForFactId.new '1', :supporting, current_user: mock
-
-      interactor.should_receive(:query).with(:'sub_comments/count',comment.id, comment.class).
-        and_return(sub_comments_count)
-      comment.should_receive(:sub_comments_count=).with(sub_comments_count)
-      interactor.should_receive(:comments).and_return([comment])
-      interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query).with(:'comments/add_authority_and_opinion_and_can_destroy', comment, fact).
-        and_return(dead_comment)
-
-      dead_comment.should_receive(:evidence_class=).with('Comment')
-
-      result = interactor.dead_comments_with_opinion
-
-      expect(result).to eq [dead_comment]
-    end
-  end
-
-  describe '#comments' do
-    it 'retrieves the array of comments' do
-      fact = mock(data_id: '10')
-      comments = [mock]
-
-      interactor = Queries::Evidence::ForFactId.new '1', :supporting, current_user: mock
-
-      interactor.should_receive(:fact).and_return(fact)
-      Comment.should_receive(:where).with(fact_data_id: fact.data_id, type: 'believes').
-        and_return comments
-
-      results = interactor.comments
-
-      expect(results).to eq comments
     end
   end
 end
