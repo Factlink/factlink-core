@@ -70,10 +70,6 @@ class OurOhm < Ohm::Model
     id
   end
 
-  def encode_json(encoder)
-    return self.to_json
-  end
-
   def created_at_as_datetime
    parse_ohm_datetime self.created_at
   end
