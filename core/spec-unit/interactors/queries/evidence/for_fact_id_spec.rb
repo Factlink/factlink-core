@@ -1,13 +1,11 @@
 require 'pavlov_helper'
-require_relative '../../../../app/classes/opinion_type.rb'
-require_relative '../../../../app/classes/opinion_presenter.rb'
 require_relative '../../../../app/interactors/queries/evidence/for_fact_id.rb'
 
 describe Queries::Evidence::ForFactId do
   include PavlovSupport
 
   before do
-    stub_classes 'Comment', 'KillObject', 'Fact'
+    stub_classes 'Comment', 'KillObject', 'Fact', 'OpinionPresenter'
   end
 
   def fake_opinion relevance
@@ -34,17 +32,23 @@ describe Queries::Evidence::ForFactId do
   end
 
   describe '#call' do
-    it 'correctly' do
+    it 'interleaves and sorts the comments and factrelation it retrieves' do
       fact = mock id: '1'
 
-      dead_fact_relations_with_opinion = [
-        mock(:fact_relation1, opinion: fake_opinion(1)),
-        mock(:fact_relation2, opinion: fake_opinion(3))
-      ]
-      dead_comments_with_opinion = [
-        mock(:comment1, opinion: fake_opinion(2)),
-        mock(:comment2, opinion: fake_opinion(4))
-      ]
+      fact_relation1 = mock :fact_relation1, opinion: mock
+      fact_relation2 = mock :fact_relation2, opinion: mock
+      OpinionPresenter.stub(:new).with(fact_relation1.opinion)
+                      .and_return mock(relevance: 1)
+      OpinionPresenter.stub(:new).with(fact_relation2.opinion)
+                      .and_return mock(relevance: 3)
+
+      comment1 = mock :comment1, opinion: mock
+      comment2 = mock :comment2, opinion: mock
+      OpinionPresenter.stub(:new).with(comment1.opinion)
+                      .and_return mock(relevance: 2)
+      OpinionPresenter.stub(:new).with(comment2.opinion)
+                      .and_return mock(relevance: 4)
+
       type = :weakening
       pavlov_options = { current_user: mock }
 
@@ -53,22 +57,16 @@ describe Queries::Evidence::ForFactId do
           .and_return(fact)
       Pavlov.stub(:query)
             .with(:'fact_relations/for_fact', fact, type, pavlov_options)
-            .and_return dead_fact_relations_with_opinion
+            .and_return [fact_relation1, fact_relation2]
       Pavlov.stub(:query)
             .with(:'comments/for_fact', fact, type, pavlov_options)
-            .and_return dead_comments_with_opinion
+            .and_return [comment1, comment2]
 
-      interactor = Queries::Evidence::ForFactId.new '1', type, pavlov_options
+      interactor = described_class.new '1', type, pavlov_options
 
       result = interactor.call
 
-      expected_sorted_result = [
-        dead_comments_with_opinion[1],
-        dead_fact_relations_with_opinion[1],
-        dead_comments_with_opinion[0],
-        dead_fact_relations_with_opinion[0]
-      ]
-      expect(result).to eq expected_sorted_result
+      expect(result).to eq [comment2, fact_relation2, comment1, fact_relation1]
     end
   end
 end
