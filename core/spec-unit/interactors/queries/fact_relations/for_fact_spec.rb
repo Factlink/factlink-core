@@ -33,7 +33,6 @@ describe Queries::FactRelations::ForFact do
 
       fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
       graph_user.stub(:opinion_on).with(fact_relation).and_return(opinion_on)
-      fact_relation.stub get_user_opinion: opinion
       KillObject.stub(:fact_relation)
                 .with(fact_relation,
                       current_user_opinion: opinion_on,
@@ -65,7 +64,6 @@ describe Queries::FactRelations::ForFact do
             .and_return(opinion)
 
       fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
-      fact_relation.stub get_user_opinion: opinion
       KillObject.stub(:fact_relation)
                 .with(fact_relation,
                       current_user_opinion:nil,
