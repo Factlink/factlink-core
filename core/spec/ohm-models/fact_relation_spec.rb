@@ -55,22 +55,22 @@ describe FactRelation do
   end
 
   it "should add itself to the list of evidence" do
-    fr = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
     fact2.evidence(:supporting).to_a.collect{ |x| x.from_fact }.should =~ [fact1]
   end
 
   it "should delete itself from lists referring to it" do
-    fr = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
     fact1.delete
     expect(fact2.evidence(:supporting).size).to eq 0
   end
 
   it "should not be able to create identical factRelations" do
-    fr1 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    fr2 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
     expect(FactRelation.all.size).to eq 1
-    fr3 = FactRelation.create_new(fact2,:supporting,fact1,gu)
-    fr4 = FactRelation.create_new(fact2,:supporting,fact1,gu)
+    FactRelation.get_or_create(fact2,:supporting,fact1,gu)
+    FactRelation.get_or_create(fact2,:supporting,fact1,gu)
     expect(FactRelation.all.size).to eq 2
   end
 
