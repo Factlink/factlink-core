@@ -23,8 +23,8 @@ class Factlink.Fact
       .on('mouseenter', @focus)
       .on('mouseleave', @blur)
       .on('click', @click)
-      .on 'inview', (event, isInView) =>
-        @highlight(1500) if ( isInView )
+      .on 'inview', (event, isInView, visiblePart) =>
+        @highlight(1500) if ( isInView && visiblePart == 'both' )
 
     @bindFocus()
 
