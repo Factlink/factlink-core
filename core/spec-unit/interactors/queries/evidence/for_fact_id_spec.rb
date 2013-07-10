@@ -16,18 +16,18 @@ describe Queries::Evidence::ForFactId do
 
   describe '#validate' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a', :weakening).
-        to fail_validation('fact_id should be an integer string.')
+      expect_validating('a', :weakening)
+        .to fail_validation('fact_id should be an integer string.')
     end
 
     it 'requires fact_id not to be nil' do
-      expect_validating(nil, :weakening).
-        to fail_validation('fact_id should be an integer string.')
+      expect_validating(nil, :weakening)
+        .to fail_validation('fact_id should be an integer string.')
     end
 
     it 'requires type be :weakening or :supporting' do
-      expect_validating('1', :bla).
-        to fail_validation('type should be on of these values: [:weakening, :supporting].')
+      expect_validating('1', :bla)
+        .to fail_validation('type should be on of these values: [:weakening, :supporting].')
     end
   end
 
