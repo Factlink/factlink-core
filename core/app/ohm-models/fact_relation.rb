@@ -31,7 +31,7 @@ class FactRelation < Basefact
   end
 
   def self.get_id(from,type,to)
-    key['gcby'][from.id][type][to.id].get()
+    key['gcby'][from.id][type][to.id].get
   end
 
   def self.create_new(from,type,to,user)
@@ -60,7 +60,7 @@ class FactRelation < Basefact
   end
 
   def delete_key
-    self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
+    self.class.key['gcby'][from_fact.id][self.type][fact.id].del
   end
 
   def delete_from_evidence
