@@ -155,7 +155,7 @@ class ChannelsController < ApplicationController
 
     @channel.remove_fact(@fact)
 
-    render json: @channel
+    render json: {}
   end
 
   private
