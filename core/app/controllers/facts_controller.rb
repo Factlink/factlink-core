@@ -197,6 +197,7 @@ class FactsController < ApplicationController
   def render_interactions data
     @users = data[:users]
     @total = data[:total]
+    @impact = data[:impact]
 
     render 'facts/interactions', format: 'json'
   end
