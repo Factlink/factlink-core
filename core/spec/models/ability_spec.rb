@@ -218,4 +218,49 @@ describe Ability do
     end
   end
 
+  describe "sharing" do
+    it "should not be allowed by default" do
+      admin.should_not     be_able_to :share_to, :twitter
+      subject.should_not   be_able_to :share_to, :twitter
+      nonnda.should_not    be_able_to :share_to, :twitter
+      anonymous.should_not be_able_to :share_to, :twitter
+      admin.should_not     be_able_to :share_to, :facebook
+      subject.should_not   be_able_to :share_to, :facebook
+      nonnda.should_not    be_able_to :share_to, :facebook
+      anonymous.should_not be_able_to :share_to, :facebook
+    end
+
+    context "when connected to Twitter" do
+      it "should be possible to share to Twitter" do
+        user.identities['twitter'] = {}
+
+        subject.should_not be_able_to :share_to, :twitter
+      end
+      context "with the feature toggle enabled" do
+        it "should be possible to share to Twitter" do
+          user.identities['twitter'] = {}
+          user.features = [:share_to_twitter]
+
+          Ability.new(user).should be_able_to :share_to, :twitter
+        end
+      end
+    end
+
+    context "when connected to Facebook" do
+      it "should be possible to share to Facebook" do
+        user.identities['facebook'] = {}
+
+        subject.should_not be_able_to :share_to, :facebook
+      end
+      context "with the feature toggle enabled" do
+        it "should be possible to share to Facebook" do
+          user.identities['facebook'] = {}
+          user.features = [:share_to_facebook]
+
+          Ability.new(user).should be_able_to :share_to, :facebook
+        end
+      end
+    end
+  end
+
 end

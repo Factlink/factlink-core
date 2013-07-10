@@ -34,7 +34,7 @@ describe Basefact do
 
   context "initially" do
     opinions.each do |opinion|
-      it { expect_opinion(subject,Opinion.identity)}
+      it { expect_opinion(subject,Opinion.zero)}
     end
   end
 
@@ -56,7 +56,7 @@ describe Basefact do
       it "should be findable via find" do
         Basefact.find(:created_by_id => user.id).all.should include(subject)
       end
-      it { expect_opinion(subject,Opinion.identity)}
+      it { expect_opinion(subject,Opinion.zero)}
     end
   end
 
@@ -86,7 +86,7 @@ describe Basefact do
         subject.add_opinion(opinion, user)
         subject.remove_opinions user
       end
-      it { expect_opinion(subject,Opinion.identity)}
+      it { expect_opinion(subject,Opinion.zero)}
     end
 
     context "after two believers are added" do

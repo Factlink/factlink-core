@@ -5,7 +5,11 @@ module Queries
     arguments :topic, :graph_user
 
     def execute
-      Authority.from(topic , for: graph_user).to_f + 1
+      authority + 1
+    end
+
+    def authority
+      Authority.from(topic, for: graph_user).to_f
     end
   end
 end

@@ -30,9 +30,10 @@ RSpec.configure do |config|
   end
   config.mock_with :rspec
 
+  config.fail_fast = true
+
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
-  config.include ScreenshotTest
 
   config.before(:suite) do
     ElasticSearch.create

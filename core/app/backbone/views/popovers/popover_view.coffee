@@ -13,10 +13,11 @@ class window.PopoverView extends Backbone.Marionette.Layout
 
   onRender: ->
     @$el.addClass @options.side
-    @$el.addClass 'popover-help' if @options.helpStyle
     @contentRegion.show @options.contentView
 
     @updateMargins()
+
+    @bindTo @options.contentView, 'close', @close, @
 
   alignOffsets: ->
     alignMargin = @options.alignMargin || 19

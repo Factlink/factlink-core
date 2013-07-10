@@ -18,7 +18,6 @@ Backbone.Factlink.PopoverMixin =
     focus_on: null
     margin: 0
     orthogonalOffset: 0
-    helpStyle: true
 
   popoverAdd: (selector, options) ->
     @popover_options = _.extend {}, @default_options, options
@@ -38,6 +37,7 @@ Backbone.Factlink.PopoverMixin =
     container = @popover_options.container || @$el
 
     @_popovers[selector] = { positionedRegion, container, view }
+    @bindTo? view, 'close', => @popoverRemove(selector)
 
     @_popoverBindAll() unless @isClosed
     @on 'render', @_popoverBindAll

@@ -1,15 +1,22 @@
-{{#checked}}
-  {{#hovering}}
-    <span class="factlink-icon-cross-white"></span>
-    {{checked_hovered_label}}
-  {{/hovering}}
+{{#loaded}}
+  {{#checked}}
+    {{#hovering}}
+      <span class="factlink-icon-cross-white"></span>
+      {{checked_hovered_label}}
+    {{/hovering}}
 
-  {{^hovering}}
-    <span class="factlink-icon-checkmark"></span>
-    {{checked_unhovered_label}}
-  {{/hovering}}
-{{/checked}}
+    {{^hovering}}
+      <span class="factlink-icon-checkmark"></span>
+      {{checked_unhovered_label}}
+    {{/hovering}}
+  {{/checked}}
 
-{{^checked}}
-  {{unchecked_label}}
-{{/checked}}
+  {{^checked}}
+    {{unchecked_label}}
+  {{/checked}}
+{{/loaded}}
+
+{{^loaded}}
+  <img class="ajax-loader" src="{{global.ajax_loader_image}}">
+  Loading ...
+{{/loaded}}

@@ -1,7 +1,9 @@
+//= require_tree ./wheel
+
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-div.fact-wheel {
+.fact-wheel {
   .box-sizing(border-box);
   float: left;
   margin: 0;
@@ -23,6 +25,10 @@ div.fact-wheel {
     line-height: @baseLineHeight;
     color: #999;
     text-align: center;
+  }
+
+  svg {
+    display: block;
   }
 
   .fact-wheel-responding-to-mouse {

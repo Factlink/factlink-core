@@ -61,6 +61,7 @@ class window.User extends Backbone.Model
         @followers.remove currentUser
 
     @followers.add currentUser.clone()
+    @trigger 'followed'
 
   unfollow: ->
     self = currentUser.following.get(@id)

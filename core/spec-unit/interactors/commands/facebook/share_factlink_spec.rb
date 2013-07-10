@@ -10,7 +10,7 @@ describe Commands::Facebook::ShareFactlink do
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      fact      = stub id: '1', url: mock
+      fact      = stub id: '1', url: mock(fact_url: 'fact_url')
       token     = mock
       client    = mock
       namespace = 'namespace'
@@ -35,7 +35,7 @@ describe Commands::Facebook::ShareFactlink do
             .and_return(fact)
 
       client.should_receive(:put_connections)
-            .with("me", "#{namespace}:share", factlink: fact.url)
+            .with("me", "#{namespace}:share", factlink: fact.url.fact_url)
 
       command = described_class.new fact.id, pavlov_options
 

@@ -27,6 +27,9 @@ class Ability
     end
 
     define_anonymous_user_abilities
+
+    define_feature_toggles
+
     define_channel_abilities
     define_topic_abilities
     define_fact_abilities
@@ -37,7 +40,7 @@ class Ability
     define_user_favourites_abilities
     define_user_activities_abilities
     define_tos_abilities
-    define_feature_toggles
+    define_sharing_abilities
   end
 
   def define_anonymous_user_abilities
@@ -76,7 +79,6 @@ class Ability
       f.created_by_id == user.graph_user_id
     end
     cannot :update, Fact
-    can :share, Fact
   end
 
   def define_fact_relation_abilities
@@ -154,7 +156,24 @@ class Ability
     end
   end
 
-  FEATURES = %w(pink_feedback_button skip_create_first_factlink memory_profiling sees_channels share_new_factlink_buttons)
+  def define_sharing_abilities
+    return unless agrees_tos?
+    identities = user.identities || {}
+
+    can :share, Fact
+    if identities['twitter'] and can?(:see_feature_share_to_twitter, FactlinkWebapp)
+      can :share_to, :twitter
+    end
+    if identities['facebook'] and can?(:see_feature_share_to_facebook, FactlinkWebapp)
+      can :share_to, :facebook
+    end
+  end
+
+  FEATURES = %w(
+    pink_feedback_button skip_create_first_factlink memory_profiling
+    sees_channels new_discussion_page share_new_factlink_buttons
+    share_to_twitter share_to_facebook
+  )
   GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list
@@ -167,7 +186,6 @@ class Ability
   def define_feature_toggles
     @features ||= []
     if agrees_tos?
-      enable_features [:beginners_hints] if (user.sign_in_count || 0) < 10
       enable_features user.features
       enable_features GLOBAL_ENABLED_FEATURES
     end

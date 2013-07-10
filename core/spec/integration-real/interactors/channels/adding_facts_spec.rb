@@ -7,7 +7,7 @@ describe 'when adding a fact to a channel' do
     let(:user) {create :user}
     it "adds the fact to the channel" do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
 
         channel = pavlov.command :'channels/create', 'something'
         pavlov.interactor :"channels/add_fact", fact, channel
@@ -20,12 +20,12 @@ describe 'when adding a fact to a channel' do
 
     it "adds the fact to the channels topic" do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
 
         channel = pavlov.command :'channels/create', 'something'
         pavlov.interactor :"channels/add_fact", fact, channel
 
-        Topic.for_channel(channel)
+        Topic.get_or_create_by_channel(channel)
         facts = pavlov.interactor :'topics/facts', channel.slug_title, nil, nil
         fact_displaystrings = facts.map {|f| f[:item].data.displaystring}
 
@@ -43,7 +43,7 @@ describe 'when adding a fact to a channel' do
 
       as(creator) do |pavlov|
         sub_channel = pavlov.command :'channels/create', 'something'
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
       end
 
       as(follower) do |pavlov|
@@ -73,7 +73,7 @@ describe 'when adding a fact to a channel' do
 
       as(creator) do |pavlov|
         sub_sub_channel = pavlov.command :'channels/create', 'something'
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
       end
 
       as(follower) do |pavlov|

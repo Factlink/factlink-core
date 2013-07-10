@@ -5,21 +5,20 @@ describe PavlovConsole do
   include PavlovSupport
 
   before do
-    stub_classes 'Ability', 'User'
+    stub_classes 'User', 'Util::PavlovContextSerialization'
   end
 
-  it 'forwards interactor methods to Pavlov, with correct user and ability' do
+  it 'forwards interactor methods to Pavlov, with correct options' do
     user = mock :user, username: 'mark'
-    ability = mock
-    options = { current_user: user, ability: ability }
+    options = mock
     param1, param2 = mock, mock
 
     User.stub(:find)
         .with(user.username)
         .and_return(user)
-    Ability.stub(:new)
+    Util::PavlovContextSerialization.stub(:pavlov_context_by_user)
            .with(user)
-           .and_return(ability)
+           .and_return(options)
 
     Pavlov.should_receive(:interactor)
           .with(:foo, param1, param2, options)

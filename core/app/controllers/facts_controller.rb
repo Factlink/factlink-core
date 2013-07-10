@@ -83,10 +83,12 @@ class FactsController < ApplicationController
     url = (params[:url] || params[:fact_url]).to_s
     title = (params[:title] || params[:fact_title]).to_s
 
+    sharing_options = params[:fact_sharing_options] || {}
+
     authenticate_user!
     authorize! :create, Fact
 
-    @fact = interactor :'facts/create', fact_text, url, title
+    @fact = interactor :'facts/create', fact_text, url, title, sharing_options
     @site = @fact.site
 
     respond_to do |format|
@@ -95,7 +97,7 @@ class FactsController < ApplicationController
       #TODO switch the following two if blocks if possible
       if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
         @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
-        Activity::Subject.activity(current_user.graph_user, Opinion.real_for(params[:opinion]), @fact)
+        Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
 
         @fact.calculate_opinion(1)
       end
@@ -112,7 +114,7 @@ class FactsController < ApplicationController
     @fact_id = @fact.id
     @fact.delete
 
-    render json: @fact
+    render json: {}
   end
 
   def set_opinion
@@ -120,7 +122,7 @@ class FactsController < ApplicationController
     authorize! :opinionate, @fact
 
     @fact.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), @fact)
+    Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
 
     @fact.calculate_opinion(2)
 

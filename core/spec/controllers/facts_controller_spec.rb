@@ -13,10 +13,13 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
       end
 
-      ability.should_receive(:can?).with(:show, Fact).and_return(true)
+      ability.stub(:can?).with(:show, Fact).and_return(true)
+      ability.stub(:can?).with(:see_feature_new_discussion_page, Ability::FactlinkWebapp).and_return(false)
+      ability.stub(:can?).with(:share_to, :twitter).and_return(false)
+      ability.stub(:can?).with(:share_to, :facebook).and_return(false)
       should_check_can :show, fact
 
       get :show, id: fact.id
@@ -31,7 +34,7 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
         fact.add_opinion :believes, user.graph_user
         fact.calculate_opinion(2)
       end
@@ -55,7 +58,7 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
         fact.add_opinion :believes, user.graph_user
         fact.calculate_opinion(2)
       end
@@ -79,7 +82,7 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
       end
 
       fact.data.displaystring = "baas<xss> of niet"
@@ -101,7 +104,7 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
       end
       fact_id = fact.id
 
@@ -125,13 +128,11 @@ describe FactsController do
   describe :create do
     it "should work with json" do
       authenticate_user!(user)
-      should_check_can :create, anything
       post 'create', format: :json, url: "http://example.org/", fact: "Facity Fact", title: "Title"
       response.code.should eq("200")
     end
     it "should work with json, with initial belief" do
       authenticate_user!(user)
-      should_check_can :create, anything
       post 'create', format: :json, url: "http://example.org/", fact: "Facity Fact", title: "Title", :opinion => :believes
       response.code.should eq("200")
     end
@@ -151,7 +152,7 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title'
+        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
       end
 
       get :evidence_search, id: fact.id, s: "Baron"

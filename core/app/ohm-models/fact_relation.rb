@@ -24,47 +24,35 @@ class FactRelation < Basefact
   def self.get_or_create(from, type, to, user)
     id = get_id(from,type,to)
     if id
-      FactRelation[id]
+      self[id]
     else
-      FactRelation.create_new(from,type,to, user)
+      create_new(from,type,to, user)
     end
-  end
-
-  def self.get_by(from,type,to)
-    FactRelation[get_id(from,type,to)]
   end
 
   def self.get_id(from,type,to)
-    key['gcby'][from.id][type][to.id].get()
+    key['gcby'][from.id][type][to.id].get
   end
 
   def self.create_new(from,type,to,user)
-    fl = FactRelation.create(
-      :created_by => user.graph_user,
-      :from_fact => from,
-      :fact => to,
-      :type => type
+    fact_relation = FactRelation.create(
+      created_by: user.graph_user,
+      from_fact: from,
+      fact: to,
+      type: type
     )
+    raise "Creating FactRelation went wrong" if fact_relation.new?
 
-    unless fl.new?
-      #TODO this should use a collection
-      to.evidence(type) << fl
-      key['gcby'][from.id][type][to.id].set(fl.id)
-    end
+    #TODO this should use a collection
+    to.evidence(type) << fact_relation
+    key['gcby'][from.id][type][to.id].set(fact_relation.id)
 
-    fl
+    fact_relation
   end
-
-  def percentage
-    return 0 if fact.get_opinion.weight == 0
-
-    part = get_influencing_opinion.weight / fact.get_opinion.weight
-
-    (100 * part).round.to_i
-  end
+  private_class_method :create_new, :get_id
 
   def get_type_opinion
-    Opinion.for_relation_type(self.type)
+    Opinion.for_type(OpinionType.for_relation_type(type))
   end
 
   def deletable?
@@ -72,7 +60,7 @@ class FactRelation < Basefact
   end
 
   def delete_key
-    self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
+    self.class.key['gcby'][from_fact.id][self.type][fact.id].del
   end
 
   def delete_from_evidence

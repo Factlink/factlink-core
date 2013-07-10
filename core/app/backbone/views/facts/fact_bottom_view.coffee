@@ -14,7 +14,7 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
       if @friendly_time
         # this is relevant in a channel, a fact is then 'posted'
         # or reposted <time> ago
-        "Posted #{@friendly_time} ago"
+        "Originally posted #{@friendly_time} ago"
       else
         @created_by_ago
 
@@ -35,20 +35,8 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     e.preventDefault()
     e.stopPropagation()
 
-    collection = @model.getOwnContainingChannels(this)
-    collection.on "add", (channel) =>
-      @model.addToChannel channel, {}
-
-    collection.on "remove", (channel) =>
-      @model.removeFromChannel channel, {}
-      if @model.collection?.channel? and @model.collection.channel.get("id") is channel.get("id")
-        @model.collection.remove @model
-        FactlinkApp.Modal.close()
-
     FactlinkApp.Modal.show 'Repost Factlink',
-      new AddToChannelModalView(collection: collection, model: @model)
-
-    mp_track "Factlink: Open repost modal"
+      new AddToChannelModalView(model: @model)
 
   showStartConversation: (e) ->
     e.preventDefault()

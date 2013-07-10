@@ -20,12 +20,7 @@ module PavlovSupport
     include Pavlov::Helpers
 
     def pavlov_options
-      { current_user: user,
-        ability: ability}
-    end
-
-    def ability
-      @ability ||= Ability.new(user)
+      Util::PavlovContextSerialization.pavlov_context_by_user user
     end
 
     def execute &block

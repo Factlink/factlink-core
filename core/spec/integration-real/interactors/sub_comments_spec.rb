@@ -8,7 +8,7 @@ describe 'subcomments' do
   describe 'initially' do
     it 'a comment has no subcomments and can be deleted' do
       as(current_user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
         comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', "Gekke \n Gerrit"
 
         sub_comments = pavlov.interactor :'sub_comments/index_for_comment', comment.id.to_s
@@ -23,7 +23,7 @@ describe 'subcomments' do
   describe 'after adding a few subcomments to a comment' do
     it 'should have the subcomments we added and cannot be deleted' do
       as(current_user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
         comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', "Gekke \n Gerrit"
 
         sub_comment1 = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, "Gekke \n Gerrit"
@@ -40,7 +40,7 @@ describe 'subcomments' do
     describe "after removing one subcomment again" do
       it "should only contain the other comment" do
         as(current_user) do |pavlov|
-          fact = pavlov.interactor :'facts/create', 'a fact', '', ''
+          fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
           comment = pavlov.interactor :'comments/create', fact.id.to_i, 'believes', "Gekke \n Gerrit"
 
           sub_comment1 = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, "Gekke \n Gerrit"
@@ -57,8 +57,8 @@ describe 'subcomments' do
   describe 'after adding a few subcomments to a fact_relation' do
     it "should only contain the sub_comments" do
       as(current_user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', ''
-        sub_fact = pavlov.interactor :'facts/create', 'a supporting fact', '', ''
+        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
+        sub_fact = pavlov.interactor :'facts/create', 'a supporting fact', '', '', {}
 
         fact_relation = FactRelation.get_or_create(
           sub_fact, :supporting, fact, current_user.graph_user

@@ -1,0 +1,40 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.top-fact-wheel {
+  bottom:0;left:50%;
+  position:absolute;
+
+  > .fact-wheel {
+    margin-left:-50%;
+    margin-bottom:-50%;
+
+    padding: 3px;
+    background-color: white;
+    border-radius: 10000px;
+
+    .authority {
+      width: 60px;
+      height: 20px;
+      left: 31px;
+      top: 52px;
+      .new-design-font();
+      font-size: @topFactFontSize;
+    }
+
+    //The following css generates a surrounding rounded box around the image.
+    //this is equivalent to a fake border, with the advantage
+    //that the "padding" overlays the wrapping boxes border, whereas the
+    //"border" is underneath it.  This causes the visual border to appear
+    //continuously to wrap the jutting out avatar image.
+    &:after {
+      display: block;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 10000px;
+      content: '';
+      position: absolute;
+      z-index: -1;
+      .new-design-box-shadow();
+    }
+  }
+}
