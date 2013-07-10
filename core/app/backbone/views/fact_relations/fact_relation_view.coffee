@@ -26,7 +26,33 @@ class window.FactRelationView extends Backbone.Marionette.Layout
 
     fbv
 
+class VoteUpDownFactRelationView extends VoteUpDownView
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
+
+  current_opinion: -> @model.get('current_user_opinion')
+
+  on_up_vote: ->   @open_vote_popup '.supporting', FactRelationVoteUpView
+  on_down_vote: -> @open_vote_popup '.weakening', FactRelationVoteDownView
+
+  open_vote_popup: (selector, view_klass) ->
+    return if @popoverOpened selector
+
+    @popoverResetAll()
+    @popoverAdd selector,
+      side: 'right'
+      align: 'top'
+      fadeTime: 40
+      contentView: @bound_popup_view view_klass
+
+  bound_popup_view: (view_klass) ->
+    view = new view_klass model: @model
+
+    @bindTo view, 'saved', =>
+      @popoverResetAll()
+
+    view
+
 class window.FactRelationEvidenceView extends EvidenceBaseView
   mainView: FactRelationView
-  voteView: InteractiveVoteUpDownFactRelationView
+  voteView: VoteUpDownFactRelationView
   delete_message: 'Remove this Factlink as evidence'
