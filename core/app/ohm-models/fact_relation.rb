@@ -40,10 +40,10 @@ class FactRelation < Basefact
 
   def self.create_new(from,type,to,user)
     fl = FactRelation.create(
-      :created_by => user.graph_user,
-      :from_fact => from,
-      :fact => to,
-      :type => type
+      created_by: user.graph_user,
+      from_fact: from,
+      fact: to,
+      type: type
     )
 
     unless fl.new?
