@@ -69,8 +69,8 @@ describe FactRelation do
     fr1 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
     fr2 = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
     expect(FactRelation.all.size).to eq 1
-    fr3 = FactRelation.create_new(fact2,:supporting,fact1,gu)
-    fr4 = FactRelation.create_new(fact2,:supporting,fact1,gu)
+    fr3 = FactRelation.get_or_create(fact2,:supporting,fact1,gu)
+    fr4 = FactRelation.get_or_create(fact2,:supporting,fact1,gu)
     expect(FactRelation.all.size).to eq 2
   end
 
