@@ -47,7 +47,6 @@ describe Queries::FactRelations::ForFact do
       opinion = mock
       type = :supporting
       fact = mock
-      type = :supporting
       fact.stub(:evidence).with(type).and_return([fact_relation])
       dead_fact_relation = mock
       sub_comments_count = 2
