@@ -43,7 +43,6 @@ module Screenshots
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized
       end
-      # sleep 0.6
 
       factlink
     end
