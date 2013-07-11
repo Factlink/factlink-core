@@ -1,0 +1,1 @@
+centralize_opinion_recalculation
