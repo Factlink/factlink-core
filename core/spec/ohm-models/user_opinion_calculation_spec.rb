@@ -45,39 +45,36 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
   end
 
   opinions.each do |opinion|
-
-    describe "#add_opinion" do
-      context "after 1 person has stated its #{opinion}" do
-        before do
-          subject.add_opinion(opinion, user)
-        end
-        it { expect_opinion(subject,user_fact_opinion(user, opinion, subject))}
+    context "after 1 person has stated its #{opinion}" do
+      it do
+        subject.add_opinion(opinion, user)
+        expect_opinion(subject,user_fact_opinion(user, opinion, subject))
       end
+    end
 
-      context "after 1 person has stated its #{opinion} twice" do
-        before do
-          subject.add_opinion(opinion, user)
-          subject.add_opinion(opinion, user)
-        end
-        it { expect_opinion(subject,user_fact_opinion(user, opinion, subject))}
+    context "after 1 person has stated its #{opinion} twice" do
+      it do
+        subject.add_opinion(opinion, user)
+        subject.add_opinion(opinion, user)
+        expect_opinion(subject,user_fact_opinion(user, opinion, subject))
       end
     end
 
 
     context "after one person who #{opinion} is added and deleted" do
-      before do
+      it do
         subject.add_opinion(opinion, user)
         subject.remove_opinions user
+        expect_opinion(subject,Opinion.zero)
       end
-      it { expect_opinion(subject,Opinion.zero)}
     end
 
     context "after two believers are added" do
       before do
         subject.add_opinion(opinion, user)
         subject.add_opinion(opinion, user2)
+        expect_opinion(subject,user_fact_opinion(user, opinion, subject) + user_fact_opinion(user2, opinion, subject))
       end
-      it { expect_opinion(subject,user_fact_opinion(user, opinion, subject) + user_fact_opinion(user2, opinion, subject))}
     end
 
     others(opinion).each do |other_opinion|
@@ -87,11 +84,11 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
           subject.add_opinion(opinion, user2)
         end
         context "after person changes its opinion from #{opinion} to #{other_opinion}" do
-          before do
+          it do
             subject.add_opinion(other_opinion, user)
+            expect_opinion(subject,user_fact_opinion(user, other_opinion, subject) + user_fact_opinion(user2, opinion, subject))
           end
-          it { expect_opinion(subject,user_fact_opinion(user, other_opinion, subject) + user_fact_opinion(user2, opinion, subject))}
-       end
+        end
 
         context "after both existing believers change their opinion from #{opinion} to #{other_opinion}" do
           it do
@@ -110,5 +107,4 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
       end
     end
   end
-
 end
