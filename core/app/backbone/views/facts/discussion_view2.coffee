@@ -5,7 +5,7 @@ class window.DiscussionView2 extends Backbone.Marionette.Layout
   template: 'facts/discussion2'
 
   regions:
-    factRegion: '.fact-region'
+    factRegion: '.fact2-region'
     argumentsRegion: '.arguments-region'
 
   onRender: ->
