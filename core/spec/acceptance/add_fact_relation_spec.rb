@@ -78,4 +78,31 @@ feature "adding factlinks to a fact", type: :request do
 
     page.should have_content 'Arguments (1)'
   end
+
+  scenario "unsetting relevance" do
+    go_to_discussion_page_of factlink
+
+    supporting_factlink = backend_create_fact
+
+    within ".relation-tabs-view" do
+      add_existing_factlink supporting_factlink
+
+      within "li.evidence-item" do
+        page.should have_content supporting_factlink.to_s
+
+        within '.total-authority-evidence' do
+          page.should have_content '1.0'
+        end
+
+        find('.supporting').click
+        find('.js-fact-relation-believe').set false
+        page.find('a', text: 'Done').click
+
+        within '.total-authority-evidence' do
+          page.should have_content '0.0'
+        end
+
+      end
+    end
+  end
 end
