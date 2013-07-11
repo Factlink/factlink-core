@@ -6,8 +6,6 @@ require 'spec_helper'
 describe "calculating an opinion based on a set of believers, disbelievers and doubters" do
   subject {create(:basefact)}
 
-  let(:fact2) {create(:basefact)}
-
   let(:user)  {create(:graph_user)}
   let(:user2) {create(:graph_user)}
 
