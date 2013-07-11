@@ -52,58 +52,11 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
       end
     end
 
-    context "after 1 person has stated its #{opinion} twice" do
-      it do
-        subject.add_opinion(opinion, user)
-        subject.add_opinion(opinion, user)
-        expect_opinion(subject,user_fact_opinion(user, opinion, subject))
-      end
-    end
-
-
-    context "after one person who #{opinion} is added and deleted" do
-      it do
-        subject.add_opinion(opinion, user)
-        subject.remove_opinions user
-        expect_opinion(subject,Opinion.zero)
-      end
-    end
-
     context "after two believers are added" do
       before do
         subject.add_opinion(opinion, user)
         subject.add_opinion(opinion, user2)
         expect_opinion(subject,user_fact_opinion(user, opinion, subject) + user_fact_opinion(user2, opinion, subject))
-      end
-    end
-
-    others(opinion).each do |other_opinion|
-      context "when two persons start with #{opinion}" do
-        before do
-          subject.add_opinion(opinion, user)
-          subject.add_opinion(opinion, user2)
-        end
-        context "after person changes its opinion from #{opinion} to #{other_opinion}" do
-          it do
-            subject.add_opinion(other_opinion, user)
-            expect_opinion(subject,user_fact_opinion(user, other_opinion, subject) + user_fact_opinion(user2, opinion, subject))
-          end
-        end
-
-        context "after both existing believers change their opinion from #{opinion} to #{other_opinion}" do
-          it do
-            subject.add_opinion(other_opinion, user)
-            subject.add_opinion(other_opinion, user2)
-            FactGraph.recalculate
-
-            first_user_opinion = user_fact_opinion(user, other_opinion, subject)
-            second_user_opinion = user_fact_opinion(user2, other_opinion, subject)
-            resulting_opinion = Basefact[subject.id].get_user_opinion
-
-            expect(resulting_opinion).to eq first_user_opinion + second_user_opinion
-          end
-        end
-
       end
     end
   end
