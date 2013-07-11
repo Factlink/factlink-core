@@ -13,51 +13,52 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
     [:believes, :doubts, :disbelieves]
   end
 
-  def self.others(opinion)
-    others = [:believes, :doubts, :disbelieves]
-    others.delete(opinion)
-    others
-  end
-
   def opinion_on(subject)
-    calculation = UserOpinionCalculation.new(subject) do
-      Authority.on(fact, for: user).to_f + 1
-    end
+    calculation = UserOpinionCalculation.new(subject) { 1 }
     calculation.opinion
   end
 
-  # TODO : all tests using this function should be tests
-  #        of UserOpinionCalculation
-  def expect_opinion(subject,opinion)
-    FactGraph.recalculate
-    subject.class[subject.id].get_user_opinion.should == opinion
-  end
-
   def user_fact_opinion(user, opinion, fact)
-    authority = Authority.on(fact, for: user).to_f + 1
-    Opinion.for_type(opinion,authority)
+    Opinion.for_type(opinion,1)
   end
 
   describe 'a basefact with no creator' do
     it 'has no opinion' do
-      expect(opinion_on(subject)).to eq Opinion.zero
+      actual_opinion = opinion_on(subject)
+      expect(actual_opinion).to eq Opinion.zero
     end
   end
 
   opinions.each do |opinion|
-    context "after 1 person has stated its #{opinion}" do
-      it do
+    context "after 1 person has stated she #{opinion}" do
+      it 'has the opinion #{opinion} with authority of the user' do
         subject.add_opinion(opinion, user)
-        expect_opinion(subject,user_fact_opinion(user, opinion, subject))
+        actual_opinion = opinion_on(subject)
+        expected_opinion = user_fact_opinion(user, opinion, subject)
+        expect(actual_opinion).to eq expected_opinion
       end
     end
+  end
 
-    context "after two believers are added" do
-      before do
-        subject.add_opinion(opinion, user)
-        subject.add_opinion(opinion, user2)
-        expect_opinion(subject,user_fact_opinion(user, opinion, subject) + user_fact_opinion(user2, opinion, subject))
-      end
+  context "after two users express belief" do
+    it 'returns a beliefing opinion with the authority of both users combined' do
+      subject.add_opinion(:believes, user)
+      subject.add_opinion(:believes, user2)
+      actual_opinion = opinion_on(subject)
+      expected_opinion = user_fact_opinion(user, :believes, subject) +
+                         user_fact_opinion(user2, :believes, subject)
+      expect(actual_opinion).to eq expected_opinion
+    end
+  end
+
+  context "after one user expresses belief, and the other disbelief" do
+    it 'returns a opinion which combines the two' do
+      subject.add_opinion(:believes, user)
+      subject.add_opinion(:disbelieves, user2)
+      actual_opinion = opinion_on(subject)
+      expected_opinion = user_fact_opinion(user, :believes, subject) +
+                         user_fact_opinion(user2, :disbelieves, subject)
+      expect(actual_opinion).to eq expected_opinion
     end
   end
 end
