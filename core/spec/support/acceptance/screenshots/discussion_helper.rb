@@ -36,7 +36,7 @@ module Screenshots
       within('.fact-relation-listing .evidence-item', text: factlink3.data.displaystring) do
         find('.supporting').click
 
-        find('.js-fact-believe').set false
+        find('.js-fact-relation-believe').set false
         page.find('a', text: 'Done').click
 
         find('a', text: 'Comments').click

@@ -32,7 +32,7 @@ class VoteUpDownFactRelationView extends VoteUpDownView
   current_opinion: -> @model.get('current_user_opinion')
 
   on_up_vote: ->   @open_vote_popup '.supporting', FactRelationVoteUpView
-  on_down_vote: -> @open_vote_popup '.weakening', FactRelationVoteDownView
+  on_down_vote: -> @open_vote_popup '.weakening',  FactRelationVoteDownView
 
   open_vote_popup: (selector, view_klass) ->
     return if @popoverOpened selector
