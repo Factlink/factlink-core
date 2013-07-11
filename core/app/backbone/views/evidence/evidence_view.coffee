@@ -32,10 +32,9 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     @userAvatarRegion.show new AvatarView model: @model.creator()
     @activityRegion.show   new EvidenceActivityView model: @model
 
-    if Factlink.Global.signed_in
-      voteRelevanceView = new InteractiveVoteUpDownView model: @model
-    else
-      voteRelevanceView = new VoteUpDownView model: @model
+    voteRelevanceView = new @voteView
+      model: @model,
+      interactive: Factlink.Global.signed_in
 
     @voteRegion.show voteRelevanceView
     @bottomRegion.show @evidenceBottomView()
