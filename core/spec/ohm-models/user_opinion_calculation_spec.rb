@@ -40,14 +40,6 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
 
   describe 'a basefact with no creator' do
     it 'has no opinion' do
-    end
-  end
-
-  describe 'a basefact with creator' do
-    it 'has no opinion' do
-      subject.created_by = user
-      subject.save
-      expect_opinion(subject,Opinion.zero)
       expect(opinion_on(subject)).to eq Opinion.zero
     end
   end
