@@ -19,6 +19,13 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
     others
   end
 
+  def opinion_on(subject)
+    calculation = UserOpinionCalculation.new(subject) do
+      Authority.on(fact, for: user).to_f + 1
+    end
+    calculation.opinion
+  end
+
   # TODO : all tests using this function should be tests
   #        of UserOpinionCalculation
   def expect_opinion(subject,opinion)
@@ -33,7 +40,6 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
 
   describe 'a basefact with no creator' do
     it 'has no opinion' do
-      expect_opinion(subject,Opinion.zero)
     end
   end
 
@@ -42,6 +48,7 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
       subject.created_by = user
       subject.save
       expect_opinion(subject,Opinion.zero)
+      expect(opinion_on(subject)).to eq Opinion.zero
     end
   end
 
