@@ -11,7 +11,7 @@ if defined?(Konacha)
       puts "!!!!!REOPENING FILE!!!!!"
       config.formatters = [
         RspecJunitFormatter.new(
-          File.new('tmp/konacha.junit.xml', 'w')
+          File.new('tmp/konacha.junit.xml', 'a')
         )]
     end
   end
