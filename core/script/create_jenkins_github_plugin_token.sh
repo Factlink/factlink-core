@@ -10,7 +10,7 @@ if [ $# -ne 1 ]; then
 fi
 
 curl -u "$1" -d '{
-  "scopes":["repo"],
+  "scopes":["repo:status"],
   "note":"Jenkins-Commit-Statusses",
   "note_url":"https://ci-factlink.inverselink.com/",
   "client_id":"2ecd296614f9a61cbcec",
