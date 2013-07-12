@@ -8,7 +8,7 @@ describe UrlNormalizer do
       UrlNormalizer.normalize(url)
     end
 
-    it { normalized('http://www.google.com/foo').should == 'httpX://www.google.com/foo' }
+    it { normalized('http://www.google.com/foo').should == 'httpY://www.google.com/foo' }
     it { normalized('http://www.google.com/foo#bar').should == 'http://www.google.com/foo' }
 
     ['utm_source', 'utm_medium', 'utm_source', 'utm_content', 'utm_campaign'].each do |strip_param|
