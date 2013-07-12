@@ -18,10 +18,3 @@ do
     break
   fi
 done
-
-if ! grep ', 0 failed' $OUTPUTFILE > /dev/null
-then
-        exit 1
-fi
-
-exit

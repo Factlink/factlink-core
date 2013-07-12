@@ -2,7 +2,8 @@
 echo "Running screenshot tests"
 
 OUTPUTFILE=$(mktemp /tmp/screenshot.XXXX)
-bundle exec rspec spec/screenshots/ | tee "$OUTPUTFILE"
+bundle exec rspec --require yarjuf --format JUnit spec/screenshots/ \
+  --out tmp/spec-screenshots-report.xml | tee "$OUTPUTFILE"
 
 if ! grep ', 0 failures' $OUTPUTFILE > /dev/null
 then
