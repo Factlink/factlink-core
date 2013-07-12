@@ -11,10 +11,11 @@ export RUBY_GC_MALLOC_LIMIT=100000000
 export RUBY_HEAP_FREE_MIN=500000
 
 rm -f TEST_FAILURE
+rm -f tmp/*.junit.xml
 
 for action in bin/ci/*.sh; do
   banner $action;
   time /bin/bash "$action"
   if [ "$?" -gt "0" ] ; then exit 1; fi
-  if [ -e TEST_FAILURE ] ; then exit; fi
+  if [ -f TEST_FAILURE ] ; then exit; fi
 done
