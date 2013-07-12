@@ -10,7 +10,7 @@ if defined?(Konacha)
     if ENV['JENKINS_URL']
       config.formatters = [
         RspecJunitFormatter.new(
-          File.new('tmp/konacha-report.xml', 'w')
+          File.new('tmp/konacha.junit.xml', 'w')
         )]
     end
   end

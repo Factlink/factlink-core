@@ -6,7 +6,7 @@ OUTPUTFILE=$(mktemp /tmp/acceptance.XXXX)
 for i in {1..2}
 do
   bundle exec rspec --require yarjuf --format JUnit spec/acceptance/ \
-    --out tmp/spec-acceptance-report.xml  | tee "$OUTPUTFILE"
+    --out tmp/spec-acceptance.junit.xml  | tee "$OUTPUTFILE"
 
   if grep 'Capybara::Poltergeist::DeadClient' $OUTPUTFILE > /dev/null
   then
