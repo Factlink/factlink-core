@@ -8,6 +8,7 @@ if defined?(Konacha)
     config.driver       = :poltergeist
     config.stylesheets  = []
     if ENV['JENKINS_URL']
+      puts "!!!!!REOPENING FILE!!!!!"
       config.formatters = [
         RspecJunitFormatter.new(
           File.new('tmp/konacha.junit.xml', 'w')
