@@ -1,15 +1,4 @@
 GIT
-  remote: git://github.com/EamonNerbonne/konacha.git
-  revision: 1301ef98c7d8393623e7f1fdd2b98afb6d17f57e
-  specs:
-    konacha (3.0.0)
-      actionpack (>= 3.1, < 5)
-      capybara
-      colorize
-      railties (>= 3.1, < 5)
-      sprockets
-
-GIT
   remote: git://github.com/Factlink/mixpanel.git
   revision: 51ba36f9df4ac911923b8cb15ee1ae487ae0c2b7
   specs:
@@ -224,6 +213,12 @@ GEM
       addressable
       faraday
       multi_json
+    konacha (3.0.0)
+      actionpack (>= 3.1, < 5)
+      capybara
+      colorize
+      railties (>= 3.1, < 5)
+      sprockets
     less (2.2.2)
       commonjs (~> 0.2.6)
     less-rails (2.2.6)
@@ -540,7 +535,7 @@ DEPENDENCIES
   jquery-rails (= 2.1.2)
   json (~> 1.8.0)
   koala (~> 1.7.0rc1)
-  konacha!
+  konacha
   korsakov!
   less-rails (~> 2.2.6)
   less-rails-bootstrap (= 2.1.1)
