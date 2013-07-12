@@ -9,8 +9,9 @@ else
 end
 
 # moving to opinion
-if fact_relation.respond_to? :get_user_opinion
-  opinion = fact_relation.get_user_opinion
+if fact_relation.class.to_s == 'FactRelation'
+  # this is a live fact_relation
+  opinion = query :'fact_relations/relevance_opinion', fact_relation
 else
   opinion = fact_relation.opinion
 end
@@ -33,7 +34,6 @@ creator_authority =
 json.url friendly_fact_path(fact_relation.from_fact)
 
 json.can_destroy? can_destroy
-json.weight fact_relation.percentage
 json.id fact_relation.id
 json.fact_relation_type fact_relation.type
 json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }

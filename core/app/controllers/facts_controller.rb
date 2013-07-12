@@ -114,7 +114,7 @@ class FactsController < ApplicationController
     @fact_id = @fact.id
     @fact.delete
 
-    render json: @fact
+    render json: {}
   end
 
   def set_opinion
