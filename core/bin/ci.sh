@@ -10,8 +10,11 @@ export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=100000000
 export RUBY_HEAP_FREE_MIN=500000
 
+rm -f TEST_FAILURE
+
 for action in bin/ci/*.sh; do
   banner $action;
   time /bin/bash "$action"
   if [ "$?" -gt "0" ] ; then exit 1; fi
+  if [ -e TEST_FAILURE ] ; then exit; fi
 done
