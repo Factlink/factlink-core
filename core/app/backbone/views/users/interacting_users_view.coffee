@@ -1,6 +1,4 @@
-class window.AgreeingInteractingUsersView extends Backbone.Marionette.Layout
-
-  className: 'evidence-box interacting-users-box-agree'
+class window.InteractingUsersView extends Backbone.Marionette.Layout
 
   template: 'evidence/interacting_users'
 
