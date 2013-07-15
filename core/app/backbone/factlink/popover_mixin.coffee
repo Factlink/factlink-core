@@ -37,13 +37,14 @@ Backbone.Factlink.PopoverMixin =
     container = @popover_options.container || @$el
 
     @_popovers[selector] = { positionedRegion, container, view }
+    @bindTo? view, 'close', => @popoverRemove(selector)
 
     @_popoverBindAll() unless @isClosed
     @on 'render', @_popoverBindAll
     @on 'close', @popoverResetAll
 
   popoverRemove: (selector, fade=true) ->
-    popover = @_popovers[selector]
+    popover = @_popovers?[selector]
     if popover?
       FactlinkApp.Overlay.hide() if @popover_options['show_overlay']
       unFocusElement(@popover_options['focus_on']) if @popover_options['focus_on']
@@ -54,6 +55,8 @@ Backbone.Factlink.PopoverMixin =
         popover.positionedRegion.reset()
 
       delete @_popovers[selector]
+
+  popoverOpened: (selector) -> @_popovers?[selector]
 
   _popoverBindAll: ->
     for selector, popover of @_popovers
