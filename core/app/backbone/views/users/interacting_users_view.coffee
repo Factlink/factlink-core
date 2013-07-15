@@ -7,10 +7,6 @@ class window.InteractingUsersView extends Backbone.Marionette.Layout
     interactingUsersAvatarRegion: '.js-region-interacting-users-avatars'
 
   onRender: ->
-    interactors = @model.opinionaters()
-    interactors.fetch
-      success: => @$('.js-number').html(interactors.impact)
-
     @interactingUsersRegion.show new NDPInteractorNamesView
       model: @model
 
