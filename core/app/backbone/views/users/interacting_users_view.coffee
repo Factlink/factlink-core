@@ -13,12 +13,12 @@ class window.AgreeingInteractingUsersView extends Backbone.Marionette.Layout
     new NDPFactBelieversPage fact: @model
 
   onRender: ->
-    @interactingUsersRegion.show new NDPInteractorNamesView
-      collection: @getInteractors()
-
-    @interactingUsersAvatarRegion.show new NDPInteractorsAvatarView
-      collection: @getInteractors()
-
     interactors = @getInteractors()
     interactors.fetch
       success: => @$('.js-number').html(interactors.impact)
+
+    @interactingUsersRegion.show new NDPInteractorNamesView
+      collection: interactors
+
+    @interactingUsersAvatarRegion.show new NDPInteractorsAvatarView
+      collection: interactors

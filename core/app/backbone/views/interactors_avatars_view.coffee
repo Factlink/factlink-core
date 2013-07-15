@@ -25,8 +25,6 @@ class window.NDPInteractorsAvatarView extends Backbone.Marionette.CompositeView
         numberNotDisplayed: @collection.totalRecords - @collection.length
         multipleNotDisplayed: (@collection.totalRecords - @collection.length)>1
 
-    @collection.fetch()
-
   templateHelpers: =>
     multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
     translation = switch @collection.type

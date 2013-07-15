@@ -24,8 +24,6 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
         numberNotDisplayed: @collection.totalRecords - @show_number_of_names
         multipleNotDisplayed: (@collection.totalRecords - @show_number_of_names) > 1
 
-    @collection.fetch()
-
   appendHtml: (collectionView, itemView, index) ->
     super if index < @show_number_of_names
 
