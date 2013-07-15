@@ -5,7 +5,7 @@ describe Interactors::Facts::Create do
   include PavlovSupport
 
   before do
-    stub_classes 'Fact'
+    stub_classes 'Fact', 'Blacklist'
   end
 
   describe '.validate' do
@@ -43,6 +43,8 @@ describe Interactors::Facts::Create do
       fact = mock(id: '1', errors: [], data: fact_data)
       user = mock(id: '123abc')
       sharing_options = {}
+      Blacklist.stub default: mock
+      Blacklist.default.stub(:matches?).with(url).and_return false
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
       interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
@@ -77,6 +79,8 @@ describe Interactors::Facts::Create do
       fact = mock(id: '1', errors: [], data: fact_data)
       user = mock(id: '123abc')
       sharing_options = mock
+      Blacklist.stub default: mock
+      Blacklist.default.stub(:matches?).with(url).and_return false
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
       interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
@@ -95,6 +99,32 @@ describe Interactors::Facts::Create do
       Pavlov.should_receive(:command)
             .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
+
+      expect(interactor.call).to eq fact
+    end
+    it 'creates nor retrieves a site for a blacklisted url' do
+      url = 'www.fmf.nl'
+      displaystring = 'this is the annotated text'
+      title = 'this is the title'
+      fact_data = mock(persisted?: true)
+      fact = mock(id: '1', errors: [], data: fact_data)
+      user = mock(id: '123abc')
+      sharing_options = mock
+      Blacklist.stub default: mock
+      Blacklist.default.stub(:matches?).with(url).and_return true
+
+      pavlov_options = {current_user: user, ability: mock(can?: true)}
+      interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/create', displaystring, title, user, nil, pavlov_options)
+            .and_return(fact)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
+
+      Pavlov.should_receive(:command)
+            .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
       expect(interactor.call).to eq fact
     end

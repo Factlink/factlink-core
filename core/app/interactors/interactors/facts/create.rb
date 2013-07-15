@@ -29,6 +29,7 @@ module Interactors
 
       def site
         return nil if url.blank?
+        return nil if Blacklist.default.matches? url
 
         site = query :'sites/for_url', url
 
