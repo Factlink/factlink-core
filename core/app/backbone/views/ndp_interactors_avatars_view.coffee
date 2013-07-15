@@ -10,7 +10,7 @@ class window.NDPInteractorsAvatarView extends Backbone.Marionette.CompositeView
   itemViewContainer: ".js-interactor-avatars-collection"
 
   events:
-    'click .showAll' : 'showAll'
+    'click .js-show-all' : 'show_all'
 
   initialize: (options) ->
     @collection = @model.opinionaters()
@@ -19,7 +19,7 @@ class window.NDPInteractorsAvatarView extends Backbone.Marionette.CompositeView
   templateHelpers: =>
     numberNotDisplayed: => @collection.totalRecords - @collection.length
 
-  showAll: (e) ->
+  show_all: (e) ->
     e.stopPropagation()
     e.preventDefault()
     @collection.howManyPer(1000000)

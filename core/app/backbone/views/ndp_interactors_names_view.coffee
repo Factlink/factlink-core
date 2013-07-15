@@ -9,7 +9,7 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
   itemViewContainer: ".js-interactors-collection"
 
   events:
-    'click a.showAll' : 'showAll'
+    'click a.js-show-all' : 'show_all'
 
   show_number_of_names: 2
 
@@ -31,7 +31,7 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
     numberNotDisplayed: => @collection.totalRecords - @show_number_of_names
     multipleNotDisplayed: => (@collection.totalRecords - @show_number_of_names) > 1
 
-  showAll: (e) ->
+  show_all: (e) ->
     e.stopPropagation()
     e.preventDefault()
     @collection.howManyPer(1000000)
