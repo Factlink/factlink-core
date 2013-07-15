@@ -1,8 +1,12 @@
-@middleColumnWidth: 66px;
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+@middleColumnWidth: 100px;
 @topFactWheelOverhang: 70px;
-@impactCircleRadius: 16px;
+@impactCircleRadius: 26px;
 @argumentBoxTopOverhang: 10px;
-@impactCircleMargin: 10px;
+@impactCircleSpacing: 30px;
+@evidenceBoxSpacing: 10px;
 
 @triangleSize: 8px;
 @innerTriangleOffset: @triangleSize - 1px;
@@ -11,10 +15,10 @@
 @impactCircleDiameter: @impactCircleRadius * 2;
 @perColumnPadding: @middleColumnWidth/2;
 @evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
-@evidenceBoxMinHeight:  @argumentBoxTopOverhang + @impactCircleRadius + @triangleSize + 1px;
-@unsureBoxTopToImpactTop: @impactCircleDiameter + @impactCircleMargin + @triangleSize/2;
+// @evidenceBoxMinHeight:  @argumentBoxTopOverhang + @impactCircleRadius + @triangleSize + 1px;
+@unsureBoxTopToImpactTop: @impactCircleDiameter + @impactCircleSpacing + @triangleSize/2;
 
-// @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
+@evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 .top-fact-evidence {
   position:relative;
@@ -40,7 +44,8 @@
 
 .evidence-terminator { display:block; content:''; clear:both; }
 
-.evidence-supporting-impact, .evidence-weakening-impact, .evidence-supporting-box, .evidence-weakening-box, .evidence-unsure-impact, .evidence-unsure-box {
+.evidence-supporting-impact, .evidence-weakening-impact, .evidence-supporting-box
+, .evidence-weakening-box, .evidence-unsure-impact, .evidence-unsure-box {
   position:relative;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
@@ -48,7 +53,7 @@
 
 .evidence-supporting-impact, .evidence-supporting-box {
   float:left; clear:left;
-  background:#afa;
+  background: white;
 }
 
 .evidence-supporting-box:after, .evidence-supporting-box:before {
@@ -65,7 +70,7 @@
   border-width: @triangleSize;
   margin-top: -@triangleSize;
   right:-@innerTriangleOffset;
-  border-left-color: #afa;
+  border-left-color: white;
 }
 .evidence-supporting-box:before {
   border-width: @triangleSize;
@@ -88,7 +93,7 @@
   border-width: @triangleSize;
   margin-top: -@triangleSize;
   left:-@innerTriangleOffset;
-  border-right-color: #faa;
+  border-right-color: white;
 }
 .evidence-weakening-box:before {
   border-width: @triangleSize;
@@ -110,7 +115,7 @@
   top: -@innerTriangleOffset;
   margin-left: -@triangleSize;
   border-width: @triangleSize;
-  border-bottom-color: #aaf;
+  border-bottom-color: white;
 }
 .evidence-unsure-box:before {
   top: -@triangleSize;
@@ -121,7 +126,7 @@
 
 .evidence-weakening-impact, .evidence-weakening-box {
   float:right; clear:right;
-  background: #faa;
+  background: white;
 }
 
 .evidence-supporting-impact, .evidence-weakening-impact, .evidence-unsure-impact {
@@ -132,7 +137,7 @@
 }
 
 .evidence-supporting-impact, .evidence-weakening-impact {
-  margin-top:@impactCircleMargin;
+  margin-top:@impactCircleSpacing;
   position:relative;
 }
 
@@ -146,23 +151,22 @@
 }
 
 .evidence-supporting-box, .evidence-weakening-box {
-  margin: @evidenceBoxTopOffset -@perColumnPadding 5px -@perColumnPadding;
+  margin: @evidenceBoxTopOffset -@perColumnPadding @evidenceBoxSpacing -@perColumnPadding;
   min-height: @evidenceBoxMinHeight;
 }
 
 .evidence-unsure-right-spacer, .evidence-unsure-left-spacer {
-  width:2px;
-  height: @unsureBoxTopToImpactTop + @impactCircleMargin;
+  width:0;
+  visibility: hidden;
+  height: @unsureBoxTopToImpactTop + @impactCircleSpacing;
 }
 
-
-
-.evidence-unsure-right-spacer { float:right; background: red;}
-.evidence-unsure-left-spacer { float:left; background:green;}
+.evidence-unsure-right-spacer { float:right; }
+.evidence-unsure-left-spacer { float:left; }
 
 .evidence-unsure-impact, .evidence-unsure-box {
   margin:auto;
-  background:#aaf;
+  background: white;
   clear:both;
 }
 
@@ -172,20 +176,6 @@
 }
 
 .evidence-unsure-box {
-  margin-bottom:5px;
+  margin-bottom:@evidenceBoxSpacing;
 }
 
-
-
-.shadow
-{
-
-  content:'';
-  position:absolute;
-  display:block;
-  left:0;right:0;top:0;bottom:0;
-  box-shadow:0 0 30px rgba(0,0,0,0.5);
-  background:blue;
-  z-index:-1;
-  border-radius:inherit;
-}
