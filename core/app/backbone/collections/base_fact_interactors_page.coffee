@@ -16,10 +16,3 @@ class window.BaseFactInteractorsPage extends Backbone.Paginator.requestPager
     @totalRecords = response.total
     @totalPages = Math.floor(response.total / @perPage)
     response.users
-
-# TODO: use `perPage: 6` here
-class window.BaseFactInteractorsPage2 extends BaseFactInteractorsPage
-  paginator_ui:
-    perPage: 2
-    firstPage: 1
-    currentPage: 1
