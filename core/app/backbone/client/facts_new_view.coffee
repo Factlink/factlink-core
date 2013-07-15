@@ -153,7 +153,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       @openFinishHelptext()
 
   openFinishHelptext: ->
-    unless @tooltip(".js-submit-post-factlink")?
+    unless @popoverOpened(".js-submit-post-factlink")?
       @popoverAdd '.js-submit-post-factlink',
         side: 'right'
         align: 'top'
