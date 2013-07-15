@@ -39,12 +39,11 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
     evidenceRegion: '.js-region-evidence'
 
   onRender: ->
-    @factRegion.show     new TopFactView model: @model
+    @factRegion.show new TopFactView model: @model
 
     believers_model = new OpinionatersEvidence
       type: 'believe'
       fact_id: @model.id
 
     @evidenceRegion.show new AgreeingInteractingUsersView
-      collection: believers_model.opinionaters()
       model: believers_model

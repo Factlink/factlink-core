@@ -9,7 +9,7 @@ class window.AgreeingInteractingUsersView extends Backbone.Marionette.Layout
     interactingUsersAvatarRegion: '.js-region-interacting-users-avatars'
 
   onRender: ->
-    interactors = @collection
+    interactors = @model.opinionaters()
     interactors.fetch
       success: => @$('.js-number').html(interactors.impact)
 
