@@ -5,7 +5,7 @@ describe Queries::Facts::InteractingUsersImpact do
   include PavlovSupport
 
   before do
-    stub_classes('OpinionPresenter','Fact')
+    stub_classes 'OpinionPresenter','Fact'
   end
 
   it 'should retrieve impact for a fact and opinion type' do
