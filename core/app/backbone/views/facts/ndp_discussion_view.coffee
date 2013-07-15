@@ -1,15 +1,16 @@
+#= require ../users/interacting_users_view
 class Evidence extends Backbone.Model
 
 class OpinionatersEvidence extends Evidence
 
   initialize: (opts) ->
-    @type = opts.type
-    @fact_id = opts.fact_id
+    @set type: opts.type
+    @set fact_id: opts.fact_id
 
   opinionaters: ->
     @_opinionaters ?= new NDPInteractorsPage
-      fact_id: @fact_id
-      type: @type
+      fact_id: @get('fact_id')
+      type: @get('type')
 
 group_for_type = (type) ->
   switch type
@@ -41,9 +42,14 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
   onRender: ->
     @factRegion.show new TopFactView model: @model
 
-    believers_model = new OpinionatersEvidence
-      type: 'believe'
-      fact_id: @model.id
+    opinionaters_collection = new Backbone.Collection [
+      new OpinionatersEvidence(type: 'believe',    fact_id: @model.id),
+      new OpinionatersEvidence(type: 'disbelieve', fact_id: @model.id),
+      new OpinionatersEvidence(type: 'doubt',      fact_id: @model.id)
+    ]
 
-    @evidenceRegion.show new AgreeingInteractingUsersView
-      model: believers_model
+    @evidenceRegion.show new NDPEvidenceCollectionView
+      collection: opinionaters_collection
+
+class NDPEvidenceCollectionView extends Backbone.Marionette.CollectionView
+  itemView: AgreeingInteractingUsersView
