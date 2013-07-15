@@ -6,6 +6,8 @@ class window.DiscussionView2 extends Backbone.Marionette.Layout
 
   regions:
     factRegion: '.fact-region'
+    evidenceRegion: '.js-region-evidence'
 
   onRender: ->
-    @factRegion.show new TopFactView(model: @model)
+    @factRegion.show     new TopFactView model: @model
+    @evidenceRegion.show new AgreeingInteractingUsersView model: @model
