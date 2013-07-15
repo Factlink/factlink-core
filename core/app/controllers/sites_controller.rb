@@ -29,6 +29,14 @@ class SitesController < ApplicationController
       site = Site.find(:url => url).first
       @facts = site ? site.facts.to_a : []
 
+      @facts = @facts.map do |fact|
+        {
+          id: fact.id,
+          displaystring: fact.data.displaystring,
+          title: fact.data.title
+        }
+      end
+
       render_jsonp @facts
     elsif is_blacklisted
       render_jsonp blacklisted: 'This site is not supported'
