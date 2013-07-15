@@ -14,14 +14,15 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
 
   initialize: (options) ->
     @model = new Backbone.Model
-    @fetch()
+    @model.on 'change', =>
+      @render()
 
-  fetch: ->
-    @collection.fetch success: =>
+    @collection.on 'reset', =>
       @model.set
         numberNotDisplayed: @collection.totalRecords - @collection.length
         multipleNotDisplayed: (@collection.totalRecords - @collection.length)>1
-      @render()
+
+    @collection.fetch()
 
   templateHelpers: =>
     multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
@@ -36,4 +37,4 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
     e.stopPropagation()
     e.preventDefault()
     @collection.howManyPer(1000000)
-    @fetch()
+    @collection.fetch()
