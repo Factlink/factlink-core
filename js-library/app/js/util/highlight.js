@@ -27,7 +27,7 @@ Factlink.startHighlighting = function() {
         $.merge( Factlink.Facts,
                  Factlink.selectRanges(
                    Factlink.search(data[i].displaystring),
-                   data[i]._id,
+                   data[i].id
                  )
                 );
       }
