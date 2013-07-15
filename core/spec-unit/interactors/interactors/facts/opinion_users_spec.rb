@@ -51,11 +51,11 @@ describe Interactors::Facts::OpinionUsers do
       take = 0
       u1 = mock
       interactor = described_class.new fact_id, skip, take, 'believes'
-      interactor.stub(:query).
+      Pavlov.stub(:query).
         with(:fact_interacting_users, fact_id, skip, take, 'believes').
         and_return(users: [u1], total: 1)
       impact = mock
-      interactor.stub(:query).
+      Pavlov.stub(:query).
         with(:'facts/interacting_users_impact', fact_id, 'believes').
         and_return(impact)
 
