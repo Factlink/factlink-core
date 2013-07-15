@@ -1,3 +1,7 @@
+{{#global.signed_in}}
 <a href='/{{user.username}}' rel='backbone'>
+{{/global.signed_in}}
   <img src="{{ user.avatar_url_32 }}" height="32" width="32" class="user-avatar-image" title="{{user.name}}">
+{{#global.signed_in}}
 </a>
+{{/global.signed_in}}
