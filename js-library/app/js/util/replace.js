@@ -80,7 +80,7 @@ var createFactSpan = function(text, id, first) {
   };
 
 // Function to select the found ranges
-Factlink.selectRanges = function(ranges, id, opinions) {
+Factlink.selectRanges = function(ranges, id) {
   // Loop through ranges (backwards)
   var matches = [];
   var results = [];
@@ -129,7 +129,7 @@ Factlink.selectRanges = function(ranges, id, opinions) {
 
   for ( var matchId in elements ) {
     if ( elements.hasOwnProperty(matchId) ) {
-      ret.push( new Factlink.Fact(id, elements[matchId], opinions) );
+      ret.push( new Factlink.Fact(id, elements[matchId]) );
     }
   }
 

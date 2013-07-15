@@ -34,8 +34,8 @@ Factlink.modal =
     bindClick()
     iFrame.fadeIn('fast')
 
-  highlightNewFactlink: (fact, id, opinions) ->
-    fct = Factlink.selectRanges(Factlink.search(fact), id, opinions)
+  highlightNewFactlink: (fact, id) ->
+    fct = Factlink.selectRanges(Factlink.search(fact), id)
 
     _.extend Factlink.Facts, fct
 

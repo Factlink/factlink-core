@@ -28,7 +28,6 @@ Factlink.startHighlighting = function() {
                  Factlink.selectRanges(
                    Factlink.search(data[i].displaystring),
                    data[i]._id,
-                   data[i].score_dict_as_percentage
                  )
                 );
       }
