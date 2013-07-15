@@ -7,10 +7,11 @@ class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
         {{/is_unsure}}
         <div class="evidence-{{opinion_type_css}}-impact">
           <div class="shadow"></div>
+          {{impact}}
         </div>
         <div class="evidence-{{opinion_type_css}}-box">
           <div class="shadow"></div>
-          Blah.
+          Impact: {{impact}}
         </div>
       """
 
@@ -23,9 +24,16 @@ class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
 
     is_unsure: -> @opinion_type == 'doubt'
 
-class window.TopFactEvidenceView extends Backbone.Marionette.CollectionView
+class window.TopFactEvidenceView extends Backbone.Marionette.CompositeView
   className: 'top-fact-evidence'
+  template:
+    text: """
+      <div class="js-evidence-item-view-container"></div>
+      <div class="evidence-terminator"></div>
+    """
+
   itemView: TopFactEvidenceLayoutView
+  itemViewContainer: '.js-evidence-item-view-container'
 
   constructor: ->
     @collection = new Backbone.Collection [
