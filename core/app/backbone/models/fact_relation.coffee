@@ -23,13 +23,20 @@ class window.FactRelation extends Backbone.Model
         @set data
 
   getFact: ->
-    new Fact(@get('from_fact'))
+    return @_fact if @_fact?
+
+    @_fact = new Fact(@get('from_fact'))
+    @on 'change', =>
+      @_fact.set @get('from_fact')
+    @_fact
 
   believe: -> @setOpinion "believes"
   disbelieve: -> @setOpinion "disbelieves"
 
   isBelieving: -> @get('current_user_opinion') == 'believes'
   isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
+
+  current_opinion: -> @get('current_user_opinion')
 
   creator: -> new User(@get('created_by'))
 
