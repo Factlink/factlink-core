@@ -15,7 +15,8 @@ class window.NDPInteractorsAvatarView extends Backbone.Marionette.CompositeView
     'click .showAll' : 'showAll'
 
   initialize: (options) ->
-    @collection.on 'reset', @render, @
+    @collection = @model.opinionaters()
+    @collection.on 'add remove reset', @render, @
 
   templateHelpers: =>
     numberNotDisplayed: => @collection.totalRecords - @collection.length
