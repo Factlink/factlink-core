@@ -3,8 +3,6 @@ class NDPInteractorAvatarView extends Backbone.Marionette.Layout
   className: 'interactor-avatar user-avatar'
   template: 'fact_relations/interactor_avatar'
 
-  templateHelpers: => user: new User(@model).toJSON()
-
 class window.NDPInteractorsAvatarView extends Backbone.Marionette.CompositeView
   template: "fact_relations/ndp_interactors_avatars"
   itemView: NDPInteractorAvatarView

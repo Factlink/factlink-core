@@ -6,7 +6,7 @@ group_for_type = (type) ->
     else throw "group_for_type: Unrecognized type: #{type}"
 
 class window.NDPInteractorsPage extends Backbone.Paginator.requestPager
-  model: Interaction,
+  model: User,
   server_api:
     take: -> @perPage
     skip: -> (@currentPage-1) * @perPage
