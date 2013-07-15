@@ -8,13 +8,6 @@ module Queries
 
     arguments :fact_id, :skip, :take, :opinion
 
-    def validate
-      validate_integer :fact_id, @fact_id
-      validate_integer :skip,    @skip
-      validate_integer :take,    @take
-      validate_in_set  :opinion, @opinion, ['believes','disbelieves','doubts']
-    end
-
     def execute
       graph_users= users_who(@opinion)
       paginated_users = paginate(graph_users).map(&:user)

@@ -41,6 +41,9 @@ class Opinion < OurOhm
   alias :disbeliefs :d
   alias :doubts :u
 
+  alias :believes :b
+  alias :disbelieves :d
+
   def take_values(other)
     self.a = other.a
     self.b = other.b
