@@ -178,18 +178,16 @@
   right: floor(@impactCircleDiameter/2) - 2px;
   border-top-left-radius: 1000px;
   border-bottom-left-radius: 1000px;
-  border-left: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
-  border-top: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
-  border-bottom: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
+  border: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
+  border-right: none;
 }
 
 .evidence-unsure-impact::after {
   top: floor(@impactCircleDiameter/2) - 1px;
   border-bottom-left-radius: 1000px;
   border-bottom-right-radius: 1000px;
-  border-bottom: @impactColouredBorderWidth solid rgba(90,140,170, 0.9);
-  border-left: @impactColouredBorderWidth solid rgba(90,140,170, 0.9);
-  border-right: @impactColouredBorderWidth solid rgba(90,140,170, 0.9);
+  border: @impactColouredBorderWidth solid rgba(90,140,170, 0.9);
+  border-top: none;
 }
 
 .evidence-supporting-box, .evidence-weakening-box, .evidence-unsure-box {
