@@ -45,7 +45,7 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
   tagName: 'section'
   className: 'discussion2'
 
-  template: 'facts/discussion2'
+  template: 'facts/ndp_discussion'
 
   regions:
     factRegion: '.fact-region'
