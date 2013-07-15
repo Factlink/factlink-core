@@ -1,1 +1,1 @@
-format-as-authority-in-frontend
+Authority number formatting can now be done in the frontend (javascript).
