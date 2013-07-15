@@ -26,7 +26,7 @@ class SitesController < ApplicationController
     url = params[:url]
 
     if not is_blacklisted and can? :index, Fact
-      site = Site.find(:url => url).first
+      site = Site.find(url: url).first
       @facts = site ? site.facts.to_a : []
 
       @facts = @facts.map do |fact|
