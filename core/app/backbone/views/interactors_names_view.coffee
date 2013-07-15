@@ -15,14 +15,7 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
   show_number_of_names: 2
 
   initialize: (options) ->
-    @model = new Backbone.Model
-    @model.on 'change', =>
-      @render()
-
-    @collection.on 'reset', =>
-      @model.set
-        numberNotDisplayed: @collection.totalRecords - @show_number_of_names
-        multipleNotDisplayed: (@collection.totalRecords - @show_number_of_names) > 1
+    @collection.on 'add remove reset', @render, @
 
   appendHtml: (collectionView, itemView, index) ->
     super if index < @show_number_of_names
@@ -35,6 +28,8 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
       when 'doubting' then "fact_doubt_present_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
+    numberNotDisplayed: => @collection.totalRecords - @show_number_of_names
+    multipleNotDisplayed: => (@collection.totalRecords - @show_number_of_names) > 1
 
   showAll: (e) ->
     e.stopPropagation()
