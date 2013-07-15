@@ -3,16 +3,15 @@
 
 @middleColumnWidth: 100px;
 @topFactWheelOverhang: 70px;
-@impactCircleRadius: 26px;
+@impactCircleDiameter: 53px;
 @argumentBoxTopOverhang: 10px;
 @impactCircleSpacing: 30px;
 @evidenceBoxSpacing: 10px;
 
 @triangleSize: 8px;
 @innerTriangleOffset: @triangleSize - 1px;
-@triangleTop: @impactCircleRadius + @argumentBoxTopOverhang - 1px;
+@triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang - 1px;
 
-@impactCircleDiameter: @impactCircleRadius * 2;
 @perColumnPadding: @middleColumnWidth/2;
 @evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
 // @evidenceBoxMinHeight:  @argumentBoxTopOverhang + @impactCircleRadius + @triangleSize + 1px;
@@ -34,12 +33,12 @@
   content:'';
   position:absolute;
   left:50%;
-  width:2px;
-  margin-left:-1px;
+  width:3px;
+  margin-left:-2px;
   z-index: -2;
   top:-@topFactWheelOverhang;
   bottom:0;
-  background:#888;
+  background: #888;
 }
 
 .evidence-terminator { display:block; content:''; clear:both; }
@@ -141,8 +140,8 @@
   position:relative;
 }
 
-.evidence-supporting-impact { margin-left: 50%; left:-@impactCircleRadius; }
-.evidence-weakening-impact { margin-right: 50%; right:-@impactCircleRadius; }
+.evidence-supporting-impact { margin-left: 50%; left: floor(-@impactCircleDiameter/2); }
+.evidence-weakening-impact { margin-right: 50%; right: ceil(-@impactCircleDiameter/2); }
 
 .evidence-supporting-box, .evidence-weakening-box, .evidence-unsure-box {
   width:50%;
