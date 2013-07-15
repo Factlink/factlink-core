@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# One FL dev can use this to generate a token for https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin
-# This token can be used (e.g.) by the Jenkins set commit status post-build action.
-
-
 if [ $# -ne 4 ]; then
+  echo 'Set the github build status for a commit (this includes the commit'\''s pull request)'.
   echo "Usage: $0 <sha> <status> <tartget_url> <description>"
   exit 1
 fi
