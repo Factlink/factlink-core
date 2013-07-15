@@ -9,7 +9,7 @@ module Queries
         OpinionPresenter.new(fact.get_user_opinion).authority(type)
       end
 
-      def fact 
+      def fact
         Fact[fact_id]
       end
     end
