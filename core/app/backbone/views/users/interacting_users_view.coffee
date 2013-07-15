@@ -18,3 +18,7 @@ class window.AgreeingInteractingUsersView extends Backbone.Marionette.Layout
 
     @interactingUsersAvatarRegion.show new NDPInteractorsAvatarView
       collection: @getInteractors()
+
+    interactors = @getInteractors()
+    interactors.fetch
+      success: => @$('.js-number').html(interactors.impact)
