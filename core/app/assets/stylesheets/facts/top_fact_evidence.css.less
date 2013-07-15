@@ -11,7 +11,7 @@
 
 @triangleSize: 8px;
 @innerTriangleOffset: @triangleSize - 1px;
-@triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang - 1px;
+@triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
 
 @perColumnPadding: @middleColumnWidth/2;
 @evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
@@ -37,7 +37,7 @@
   position:absolute;
   left:50%;
   width:3px;
-  margin-left:-2px;
+  margin-left:-1px;
   z-index: -2;
   top:-@topFactWheelOverhang;
   bottom:0;
@@ -66,6 +66,8 @@
   border-style: solid;
   border-left: none;
   border-color: transparent;
+  height:1px;
+  width:0px;
 }
 
 
@@ -90,6 +92,8 @@
   border-style: solid;
   border-right:none;
   border-color: transparent;
+  height:1px;
+  width:0px;
 }
 
 .evidence-weakening-box:after {
@@ -109,6 +113,8 @@
   position:absolute;
   content:'';
   left:50%;
+  height: 0;
+  width: 1px;
   border-style:solid;
   border-top:none;
   border-color: transparent;
@@ -160,16 +166,16 @@
 }
 
 .evidence-supporting-impact::after {
-  left: floor(@impactCircleDiameter/2) - 1px;
+  left: ceil(@impactCircleDiameter/2) - 1px;
   border-top-right-radius: 1000px;
   border-bottom-right-radius: 1000px;
-  border-right: @impactColouredBorderWidth solid rgba(100,190,160, 0.9);
-  border-top: @impactColouredBorderWidth solid rgba(100,190,160, 0.9);
-  border-bottom: @impactColouredBorderWidth solid rgba(100,190,160, 0.9);
+
+  border: @impactColouredBorderWidth solid rgba(100,190,160, 0.9);
+  border-left:none;
 }
 
 .evidence-weakening-impact::after {
-  right: floor(@impactCircleDiameter/2) - 1px;
+  right: floor(@impactCircleDiameter/2) - 2px;
   border-top-left-radius: 1000px;
   border-bottom-left-radius: 1000px;
   border-left: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
