@@ -7,7 +7,9 @@ class OpinionatersEvidence extends Evidence
     @fact_id = opts.fact_id
 
   opinionaters: ->
-    new NDPInteractorsPage fact_id: @fact_id, type: @type
+    @_opinionaters ?= new NDPInteractorsPage
+      fact_id: @fact_id
+      type: @type
 
 group_for_type = (type) ->
   switch type
@@ -26,7 +28,7 @@ class NDPInteractorsPage extends window.BaseFactInteractorsPage
   initialize: (opts) ->
     @paginator_core.url = "/facts/#{opts.fact_id}/#{group_for_type(opts.type)}"
 
-class window.DiscussionView2 extends Backbone.Marionette.Layout
+class window.NDPDiscussionView extends Backbone.Marionette.Layout
   tagName: 'section'
   className: 'discussion2'
 
@@ -45,3 +47,4 @@ class window.DiscussionView2 extends Backbone.Marionette.Layout
 
     @evidenceRegion.show new AgreeingInteractingUsersView
       collection: believers_model.opinionaters()
+      model: believers_model
