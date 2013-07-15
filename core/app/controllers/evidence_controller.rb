@@ -86,9 +86,7 @@ class EvidenceController < ApplicationController
 
     fact_relation.delete
 
-    respond_to do |format|
-      format.json  { render :json => {}, :status => :ok }
-    end
+    render json: {}, status: :ok
   end
 
   private
