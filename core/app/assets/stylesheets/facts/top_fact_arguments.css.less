@@ -1,21 +1,24 @@
 @middleColumnWidth: 66px;
 @topFactWheelOverhang: 70px;
-@impactCircleRadius: 26px;
+@impactCircleRadius: 16px;
 @argumentBoxTopOverhang: 10px;
+@impactCircleMargin: 10px;
 
 @triangleSize: 8px;
 @innerTriangleOffset: @triangleSize - 1px;
 @triangleTop: @impactCircleRadius + @argumentBoxTopOverhang - 1px;
 
-@impactCircleWidth: @impactCircleRadius * 2;
+@impactCircleDiameter: @impactCircleRadius * 2;
 @perColumnPadding: @middleColumnWidth/2;
-@argumentBoxTopOffset: -(@impactCircleWidth + @argumentBoxTopOverhang);
+@evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
+@evidenceBoxMinHeight:  @argumentBoxTopOverhang + @impactCircleRadius + @triangleSize;
+// @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 .top-fact-evidence {
   position:relative;
-  padding: @topFactWheelOverhang @perColumnPadding 10px;
+  padding: 0 @perColumnPadding 10px;
 
-  margin:0 auto;
+  margin:@topFactWheelOverhang auto 0;
   box-sizing: content-box;
 }
 
@@ -28,7 +31,8 @@
   width:2px;
   margin-left:-1px;
   z-index: -2;
-  top:0;bottom:0;
+  top:-@topFactWheelOverhang;
+  bottom:0;
   background:#888;
 }
 
@@ -53,7 +57,6 @@
   border-right:none;
   border-color: transparent;
 }
-
 
 
 .evidence-supporting-box:after {
@@ -120,13 +123,13 @@
 }
 
 .evidence-supporting-impact, .evidence-weakening-impact, .evidence-unsure-impact {
-  width:@impactCircleWidth; height:@impactCircleWidth;
+  width:@impactCircleDiameter; height:@impactCircleDiameter;
   border:1px solid black;
   border-radius:1000px;
 }
 
 .evidence-supporting-impact, .evidence-weakening-impact {
-  margin-top:10px;
+  margin-top:@impactCircleMargin;
   position:relative;
 }
 
@@ -140,14 +143,16 @@
 }
 
 .evidence-supporting-box, .evidence-weakening-box {
-  margin: @argumentBoxTopOffset -@perColumnPadding 5px -@perColumnPadding;
-  min-height: (2 * @argumentBoxTopOverhang + @impactCircleWidth);
+  margin: @evidenceBoxTopOffset -@perColumnPadding 5px -@perColumnPadding;
+  min-height: @evidenceBoxMinHeight;
+}
+//impactCircleDiameter
+.evidence-unsure-right-spacer, .evidence-unsure-left-spacer {
+  width:2px;
+  height: @impactCircleDiameter + 2 * @impactCircleMargin;
 }
 
-.evidence-unsure-right-spacer, .evidence-unsure-left-spacer {
-  width:1px;
-  height:35px;
-}
+
 
 .evidence-unsure-right-spacer { float:right; background: red;}
 .evidence-unsure-left-spacer { float:left; background:green;}
@@ -159,8 +164,8 @@
 }
 
 .evidence-unsure-impact {
-  top:-25px;
-  margin-bottom:-20px;
+  top:-@impactCircleDiameter - @impactCircleMargin;
+  margin-bottom:-@impactCircleDiameter;
 }
 
 .evidence-unsure-box {
