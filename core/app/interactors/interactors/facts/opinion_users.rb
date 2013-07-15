@@ -20,10 +20,10 @@ module Interactors
       end
 
       def validate
-        validate_integer :fact_id, @fact_id
-        validate_integer :skip,    @skip
-        validate_integer :take,    @take
-        validate_in_set  :type,    @type, ['believes','disbelieves','doubts']
+        validate_integer :fact_id, fact_id
+        validate_integer :skip,    skip
+        validate_integer :take,    take
+        validate_in_set  :type,    type, ['believes','disbelieves','doubts']
       end
     end
   end
