@@ -55,7 +55,7 @@
 }
 
 .evidence-supporting-impact, .evidence-supporting-box {
-  float:left; clear:left;
+  float:right; clear:right;
   background: white;
 }
 
@@ -64,7 +64,7 @@
   content:'';
   top: @triangleTop;
   border-style: solid;
-  border-right:none;
+  border-left: none;
   border-color: transparent;
 }
 
@@ -72,14 +72,14 @@
 .evidence-supporting-box:after {
   border-width: @triangleSize;
   margin-top: -@triangleSize;
-  right:-@innerTriangleOffset;
-  border-left-color: white;
+  left:-@innerTriangleOffset;
+  border-right-color: white;
 }
 .evidence-supporting-box:before {
   border-width: @triangleSize;
   margin-top: -@triangleSize;
-  right:-@triangleSize;
-  border-left-color: @evidenceBoxBorderColor;
+  left:-@triangleSize;
+  border-right-color: @evidenceBoxBorderColor;
   z-index:-1;
 }
 
@@ -88,21 +88,21 @@
   content:'';
   top: @triangleTop;
   border-style: solid;
-  border-left:none;
+  border-right:none;
   border-color: transparent;
 }
 
 .evidence-weakening-box:after {
   border-width: @triangleSize;
   margin-top: -@triangleSize;
-  left:-@innerTriangleOffset;
-  border-right-color: white;
+  right:-@innerTriangleOffset;
+  border-left-color: white;
 }
 .evidence-weakening-box:before {
   border-width: @triangleSize;
   margin-top: -@triangleSize;
-  left:-@triangleSize;
-  border-right-color: @evidenceBoxBorderColor;
+  right:-@triangleSize;
+  border-left-color: @evidenceBoxBorderColor;
 }
 
 .evidence-unsure-box:after, .evidence-unsure-box:before {
@@ -128,7 +128,7 @@
 }
 
 .evidence-weakening-impact, .evidence-weakening-box {
-  float:right; clear:right;
+  float:left; clear:left;
   background: white;
 }
 
@@ -143,8 +143,8 @@
   position:relative;
 }
 
-.evidence-supporting-impact { margin-left: 50%; left: floor(-@impactCircleDiameter/2); }
-.evidence-weakening-impact { margin-right: 50%; right: ceil(-@impactCircleDiameter/2); }
+.evidence-supporting-impact { margin-right: 50%; right: ceil(-@impactCircleDiameter/2); }
+.evidence-weakening-impact { margin-left: 50%; left: floor(-@impactCircleDiameter/2); }
 
 .evidence-supporting-impact::after, .evidence-weakening-impact::after, .evidence-unsure-impact::after {
   content: '';
