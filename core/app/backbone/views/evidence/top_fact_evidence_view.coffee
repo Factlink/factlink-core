@@ -14,6 +14,7 @@ class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
     is_unsure: -> @type == 'doubt'
 
   onRender: ->
+    @$el.toggle @model.get('impact') != ''
     @contentRegion.show new InteractingUsersView model: @model
 
 class window.TopFactEvidenceView extends Backbone.Marionette.CompositeView
@@ -21,3 +22,6 @@ class window.TopFactEvidenceView extends Backbone.Marionette.CompositeView
   template: 'evidence/top_fact_evidence'
   itemView: TopFactEvidenceLayoutView
   itemViewContainer: '.js-evidence-item-view-container'
+
+  initialize: ->
+    @bindTo @collection, 'change:impact', @render
