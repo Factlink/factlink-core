@@ -7,7 +7,6 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
   template: 'fact_relations/ndp_interactors_names'
   itemView: NDPInteractorNameView
   itemViewContainer: ".js-interactors-collection"
-  # emptyView: InteractorEmptyView
 
   events:
     'click a.showAll' : 'showAll'

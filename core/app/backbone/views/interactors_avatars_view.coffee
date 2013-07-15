@@ -8,7 +8,6 @@ class NDPInteractorAvatarView extends Backbone.Marionette.Layout
 class window.NDPInteractorsAvatarView extends Backbone.Marionette.CompositeView
   template: "fact_relations/ndp_interactors_avatars"
   itemView: NDPInteractorAvatarView
-  # emptyView: InteractorEmptyView
 
   itemViewContainer: ".js-interactor-avatars-collection"
 
