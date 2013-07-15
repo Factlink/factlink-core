@@ -1,19 +1,5 @@
 class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
-  template:
-    text: """
-        {{#is_unsure}}
-          <div class="evidence-unsure-right-spacer"></div>
-          <div class="evidence-unsure-left-spacer"></div>
-        {{/is_unsure}}
-        <div class="evidence-{{opinion_type_css}}-impact">
-          <div class="shadow"></div>
-          {{impact}}
-        </div>
-        <div class="evidence-{{opinion_type_css}}-box">
-          <div class="shadow"></div>
-          Impact: {{impact}}
-        </div>
-      """
+  template: 'evidence/top_fact_evidence_layout'
 
   templateHelpers:
     opinion_type_css: ->
@@ -24,14 +10,10 @@ class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
 
     is_unsure: -> @opinion_type == 'doubt'
 
+
 class window.TopFactEvidenceView extends Backbone.Marionette.CompositeView
   className: 'top-fact-evidence'
-  template:
-    text: """
-      <div class="js-evidence-item-view-container"></div>
-      <div class="evidence-terminator"></div>
-    """
-
+  template: 'evidence/top_fact_evidence'
   itemView: TopFactEvidenceLayoutView
   itemViewContainer: '.js-evidence-item-view-container'
 
