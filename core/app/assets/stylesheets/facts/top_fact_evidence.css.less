@@ -7,6 +7,7 @@
 @argumentBoxTopOverhang: 12px;
 @impactCircleSpacing: 30px;
 @evidenceBoxSpacing: 10px;
+@impactColouredBorderWidth: 3px;
 
 @triangleSize: 8px;
 @innerTriangleOffset: @triangleSize - 1px;
@@ -144,6 +145,42 @@
 
 .evidence-supporting-impact { margin-left: 50%; left: floor(-@impactCircleDiameter/2); }
 .evidence-weakening-impact { margin-right: 50%; right: ceil(-@impactCircleDiameter/2); }
+
+.evidence-supporting-impact::after, .evidence-weakening-impact::after, .evidence-unsure-impact::after {
+  content: '';
+  position: absolute;
+  top: -@impactColouredBorderWidth;
+  bottom: -@impactColouredBorderWidth;
+  left: -@impactColouredBorderWidth;
+  right: -@impactColouredBorderWidth;
+}
+
+.evidence-supporting-impact::after {
+  left: floor(@impactCircleDiameter/2) - 1px;
+  border-top-right-radius: 1000px;
+  border-bottom-right-radius: 1000px;
+  border-right: @impactColouredBorderWidth solid rgba(100,190,160, 0.9);
+  border-top: @impactColouredBorderWidth solid rgba(100,190,160, 0.9);
+  border-bottom: @impactColouredBorderWidth solid rgba(100,190,160, 0.9);
+}
+
+.evidence-weakening-impact::after {
+  right: floor(@impactCircleDiameter/2) - 1px;
+  border-top-left-radius: 1000px;
+  border-bottom-left-radius: 1000px;
+  border-left: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
+  border-top: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
+  border-bottom: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
+}
+
+.evidence-unsure-impact::after {
+  top: floor(@impactCircleDiameter/2) - 1px;
+  border-bottom-left-radius: 1000px;
+  border-bottom-right-radius: 1000px;
+  border-bottom: @impactColouredBorderWidth solid rgba(90,140,170, 0.9);
+  border-left: @impactColouredBorderWidth solid rgba(90,140,170, 0.9);
+  border-right: @impactColouredBorderWidth solid rgba(90,140,170, 0.9);
+}
 
 .evidence-supporting-box, .evidence-weakening-box, .evidence-unsure-box {
   width:50%;
