@@ -11,7 +11,9 @@
 @impactCircleDiameter: @impactCircleRadius * 2;
 @perColumnPadding: @middleColumnWidth/2;
 @evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
-@evidenceBoxMinHeight:  @argumentBoxTopOverhang + @impactCircleRadius + @triangleSize;
+@evidenceBoxMinHeight:  @argumentBoxTopOverhang + @impactCircleRadius + @triangleSize + 1px;
+@unsureBoxTopToImpactTop: @impactCircleDiameter + @impactCircleMargin + @triangleSize/2;
+
 // @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 .top-fact-evidence {
@@ -123,7 +125,8 @@
 }
 
 .evidence-supporting-impact, .evidence-weakening-impact, .evidence-unsure-impact {
-  width:@impactCircleDiameter; height:@impactCircleDiameter;
+  width:@impactCircleDiameter;
+  height:@impactCircleDiameter;
   border:1px solid black;
   border-radius:1000px;
 }
@@ -146,10 +149,10 @@
   margin: @evidenceBoxTopOffset -@perColumnPadding 5px -@perColumnPadding;
   min-height: @evidenceBoxMinHeight;
 }
-//impactCircleDiameter
+
 .evidence-unsure-right-spacer, .evidence-unsure-left-spacer {
   width:2px;
-  height: @impactCircleDiameter + 2 * @impactCircleMargin;
+  height: @unsureBoxTopToImpactTop + @impactCircleMargin;
 }
 
 
@@ -164,7 +167,7 @@
 }
 
 .evidence-unsure-impact {
-  top:-@impactCircleDiameter - @impactCircleMargin;
+  top:-@unsureBoxTopToImpactTop;
   margin-bottom:-@impactCircleDiameter;
 }
 
