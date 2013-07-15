@@ -8,12 +8,8 @@ class window.AgreeingInteractingUsersView extends Backbone.Marionette.Layout
     interactingUsersRegion: '.js-region-interacting-users-names'
     interactingUsersAvatarRegion: '.js-region-interacting-users-avatars'
 
-  # TODO: Move to some model
-  getInteractors: ->
-    new NDPFactBelieversPage fact: @model
-
   onRender: ->
-    interactors = @getInteractors()
+    interactors = @collection
     interactors.fetch
       success: => @$('.js-number').html(interactors.impact)
 

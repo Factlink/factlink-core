@@ -10,4 +10,5 @@ class window.DiscussionView2 extends Backbone.Marionette.Layout
 
   onRender: ->
     @factRegion.show     new TopFactView model: @model
-    @evidenceRegion.show new AgreeingInteractingUsersView model: @model
+    @evidenceRegion.show new AgreeingInteractingUsersView
+      collection: new NDPFactBelieversPage fact: @model
