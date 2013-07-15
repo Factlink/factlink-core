@@ -12,6 +12,8 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
   events:
     'click a.showAll' : 'showAll'
 
+  show_number_of_names: 2
+
   initialize: (options) ->
     @model = new Backbone.Model
     @model.on 'change', =>
@@ -19,10 +21,13 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
 
     @collection.on 'reset', =>
       @model.set
-        numberNotDisplayed: @collection.totalRecords - @collection.length
-        multipleNotDisplayed: (@collection.totalRecords - @collection.length)>1
+        numberNotDisplayed: @collection.totalRecords - @show_number_of_names
+        multipleNotDisplayed: (@collection.totalRecords - @show_number_of_names) > 1
 
     @collection.fetch()
+
+  appendHtml: (collectionView, itemView, index) ->
+    super if index < @show_number_of_names
 
   templateHelpers: =>
     multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
