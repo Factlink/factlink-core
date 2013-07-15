@@ -19,6 +19,8 @@
 
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
+@evidenceBoxBorderColor: rgba(0,0,0,0.2);
+
 .top-fact-evidence {
   position:relative;
   padding: 0 @perColumnPadding 10px;
@@ -48,6 +50,7 @@
   position:relative;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
+  .new-design-white-block-with-shadow();
 }
 
 .evidence-supporting-impact, .evidence-supporting-box {
@@ -75,7 +78,7 @@
   border-width: @triangleSize;
   margin-top: -@triangleSize;
   right:-@triangleSize;
-  border-left-color: blue;
+  border-left-color: @evidenceBoxBorderColor;
   z-index:-1;
 }
 
@@ -98,7 +101,7 @@
   border-width: @triangleSize;
   margin-top: -@triangleSize;
   left:-@triangleSize;
-  border-right-color: blue;
+  border-right-color: @evidenceBoxBorderColor;
 }
 
 .evidence-unsure-box:after, .evidence-unsure-box:before {
@@ -120,7 +123,7 @@
   top: -@triangleSize;
   margin-left: -@triangleSize;
   border-width: @triangleSize;
-  border-bottom-color: blue;
+  border-bottom-color: @evidenceBoxBorderColor;
 }
 
 .evidence-weakening-impact, .evidence-weakening-box {
@@ -147,7 +150,6 @@
 .evidence-supporting-box, .evidence-weakening-box, .evidence-unsure-box {
   width:50%;
   padding:5px;
-  border:1px solid blue;
 }
 
 .evidence-supporting-box, .evidence-weakening-box {
