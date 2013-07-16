@@ -1,1 +1,1 @@
-remove-_id-from-sites_controller_facts_for_url
+removed _id field from the json returned to the jslib
