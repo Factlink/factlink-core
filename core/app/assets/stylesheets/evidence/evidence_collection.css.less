@@ -3,12 +3,14 @@
 
 // Layout variables
 @middleColumnWidth: 100px;
-@topFactWheelOverhang: 70px;
+@topFactWheelOverhang: 62px;
 @impactCircleDiameter: 53px;
 @argumentBoxTopOverhang: 12px;
 @impactCircleSpacing: 30px;
 @evidenceBoxSpacing: 10px;
 @impactColouredBorderWidth: 3px;
+@evidenceRegionHorizontalMargin: 16px;
+@evidenceRegionBottomPadding: 10px;
 
 // Triangles:
 // - An inner triangle with the box's background color
@@ -21,8 +23,8 @@
 // This means we need some negative margins to make it fit.
 @negativeColumnMargin: @middleColumnWidth/2;
 
-// Evidence boxes are after imact circles in DOM, but are pulled up so their
-// visual top is above the imact circle top.
+// Evidence boxes are after impact circles in DOM, but are pulled up so their
+// visual top is above the impact circle top.
 @evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
 
 
@@ -49,8 +51,8 @@
 
 .evidence-collection {
   position: relative;
-  padding: 0 @negativeColumnMargin 10px;
-  margin: @topFactWheelOverhang auto 0;
+  padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
+  margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
   box-sizing: content-box;
 }
 

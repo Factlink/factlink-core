@@ -36,7 +36,7 @@ describe "factlink", type: :request do
 
     page.should have_content factlink.data.displaystring
 
-    assume_unchanged_screenshot "new_fact_show"
+    assume_unchanged_screenshot "new_fact_show_A"
   end
 
   it "the layout of the new discussion page is correct with believers on top" do
@@ -59,7 +59,7 @@ describe "factlink", type: :request do
 
     page.should have_content factlink.data.displaystring
 
-    assume_unchanged_screenshot "new_fact_show"
+    assume_unchanged_screenshot "new_fact_show_B"
   end
 
 
