@@ -28,7 +28,7 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
       when 'doubting' then "fact_doubt_present_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
-    numberNotDisplayed: => @collection.totalRecords - @show_number_of_names
+    numberNotDisplayed: => Math.max(0, @collection.totalRecords - @show_number_of_names)
     multipleNotDisplayed: => (@collection.totalRecords - @show_number_of_names) > 1
 
   show_all: (e) ->
