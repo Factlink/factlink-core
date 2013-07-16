@@ -20,6 +20,15 @@ module Queries
         }
       end
 
+      def with_me_up_front list
+        me = list.delete(current_graph_user_id)
+        if me
+          list.unshift me
+        else
+          list
+        end
+      end
+
       def paginate(data)
         data.drop(skip).take(take)
       end
