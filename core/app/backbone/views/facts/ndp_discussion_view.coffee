@@ -6,7 +6,7 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
 
   regions:
     factRegion: '.fact-region'
-    evidenceRegion: '.js-region-evidence'
+    evidenceRegion: '.evidence-region'
 
   onRender: ->
     @factRegion.show new TopFactView model: @model

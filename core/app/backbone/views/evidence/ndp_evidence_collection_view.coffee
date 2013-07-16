@@ -15,8 +15,10 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
       when 'disbelieve' then 'weakening'
       when 'doubt' then 'unsure'
 
+  shouldShow: -> @model.has('impact') && @model.get('impact') > 0.0
+
   onRender: ->
-    @$el.toggle @model.has('impact')
+    @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
 
 class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
