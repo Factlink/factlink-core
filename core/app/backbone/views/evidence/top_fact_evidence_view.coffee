@@ -1,5 +1,4 @@
 class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
-  className: 'evidence-box'
   template: 'evidence/top_fact_evidence_layout'
 
   regions:
