@@ -1,18 +1,22 @@
 class window.Evidence extends Backbone.Model
 
 class window.OpinionatersEvidence extends Evidence
-  defaults:
-    impact: ''
 
+  # TODO: eventually, fetching this model should populate
+  #       the collection, not the other way around
   initialize: ->
     @fetchImpact()
 
   opinionaters: ->
-    @_opinionaters ?= new NDPInteractorsPage
+    return @_opinionaters if @_opinionaters?
+    @_opinionaters = new NDPInteractorsPage
       fact_id: @get('fact_id')
       type: @get('type')
+    @_opinionaters.on 'reset', =>
+      @set impact: @_opinionaters.impact
 
-  # Hack: the evidence endpoint should just return the impact of OpinionatersEvidence
+    @_opinionaters
+
   fetchImpact: ->
     @opinionaters().fetch
       success: => @set 'impact', @opinionaters().impact

@@ -13,8 +13,10 @@ class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
 
     is_unsure: -> @type == 'doubt'
 
+    formatted_impact: -> format_as_authority @impact
+
   onRender: ->
-    @$el.toggle @model.get('impact') != ''
+    @$el.toggle @model.has('impact')
     @contentRegion.show new InteractingUsersView model: @model
 
 class window.TopFactEvidenceView extends Backbone.Marionette.CompositeView
