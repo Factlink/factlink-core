@@ -12,7 +12,7 @@ class window.Discussion extends Backbone.Model
     new EvidenceCollection [], type: @type(), fact: @fact()
 
   interactorsPage: (type)->
-    new NDPInteractorsPage(type: type, fact_id: @fact().id, perPage: 3)
+    new InteractorsPage(type: type, fact_id: @fact().id, perPage: 3)
 
   getInteractors: ->
     switch @type()

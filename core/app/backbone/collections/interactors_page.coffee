@@ -5,7 +5,7 @@ group_for_type = (type) ->
     when 'disbelieve' then 'disbelievers'
     else throw "group_for_type: Unrecognized type: #{type}"
 
-class window.NDPInteractorsPage extends Backbone.Paginator.requestPager
+class window.InteractorsPage extends Backbone.Paginator.requestPager
   model: User,
   server_api:
     take: -> @perPage
