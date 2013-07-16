@@ -1,8 +1,7 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-//layout variables
-
+// Layout variables
 @middleColumnWidth: 100px;
 @topFactWheelOverhang: 70px;
 @impactCircleDiameter: 53px;
@@ -11,37 +10,37 @@
 @evidenceBoxSpacing: 10px;
 @impactColouredBorderWidth: 3px;
 
-//triangles:
-// - an inner triangle with the box's background color
-// - an outer triangle "fake border" that's 1px offset
+// Triangles:
+// - An inner triangle with the box's background color
+// - An outer triangle "fake border" that's 1px offset
 @triangleSize: 8px;
 @innerTriangleOffset: @triangleSize - 1px;
 @triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
 
-//the dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
-//this means we need some negative margins to make it fit.
+// The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
+// This means we need some negative margins to make it fit.
 @negativeColumnMargin: @middleColumnWidth/2;
 
-//evidence boxes are after imact circles in DOM, but are pulled up so they're
-//visual top is above the imact circle top.
+// Evidence boxes are after imact circles in DOM, but are pulled up so their
+// visual top is above the imact circle top.
 @evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
 
 
-//It would look weird for the evidence boxes to end before the impact circles.
-//therefore, the supporting/weaking boxes need a minimum height.
+// It would look weird for the evidence boxes to end before the impact circles.
+// Therefore, the supporting/weaking boxes need a minimum height.
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 
 @unsureImpactToBoxDistance: @impactCircleSpacing/2 + @triangleSize;
 
-//The unsure (middle) box needs to leave space for the impact circle since its
-//imact circle cannot be floated (both left/right would be problematic).
-@unsureImpactRelativeTop: -@impactCircleDiameter
+// The unsure (middle) box needs to leave space for the impact circle since its
+// impact circle cannot be floated (both left/right would be problematic).
+@unsureImpactRelativeTop: - @impactCircleDiameter
                           - @unsureImpactToBoxDistance
                           + @impactCircleSpacing
                           - @argumentBoxTopOverhang;
 
-
+// Colours
 @evidenceBoxBorderColor: rgba(0,0,0,0.2);
 @supportingImpactColor: rgba(100,190,160, 0.9);
 @weakeningImpactColor: rgba(220,120,120, 0.9);
@@ -163,24 +162,24 @@
 .evidence-impact::after {
   content: '';
   position: absolute;
-  top: -@impactColouredBorderWidth;
+  top:    -@impactColouredBorderWidth;
   bottom: -@impactColouredBorderWidth;
-  left: -@impactColouredBorderWidth;
-  right: -@impactColouredBorderWidth;
+  left:   -@impactColouredBorderWidth;
+  right:  -@impactColouredBorderWidth;
 }
 
 .evidence-supporting > .evidence-impact::after {
   left: ceil(@impactCircleDiameter/2) - 1px;
-  border-top-right-radius: 1000px;
+  border-top-right-radius:    1000px;
   border-bottom-right-radius: 1000px;
 
   border: @impactColouredBorderWidth solid @supportingImpactColor;
-  border-left:none;
+  border-left: none;
 }
 
 .evidence-weakening > .evidence-impact::after {
   right: floor(@impactCircleDiameter/2) - 2px;
-  border-top-left-radius: 1000px;
+  border-top-left-radius:    1000px;
   border-bottom-left-radius: 1000px;
   border: @impactColouredBorderWidth solid @weakeningImpactColor;
   border-right: none;
@@ -188,7 +187,7 @@
 
 .evidence-unsure > .evidence-impact::after {
   top: floor(@impactCircleDiameter/2) - 1px;
-  border-bottom-left-radius: 1000px;
+  border-bottom-left-radius:  1000px;
   border-bottom-right-radius: 1000px;
   border: @impactColouredBorderWidth solid @unsureImpactColor;
   border-top: none;
