@@ -5,14 +5,16 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   regions:
     contentRegion: '.js-content-region'
 
-  templateHelpers:
-    type_css: ->
-      switch @type
-        when 'believe' then 'supporting'
-        when 'disbelieve' then 'weakening'
-        when 'doubt' then 'unsure'
+  templateHelpers: =>
+    type_css: => @typeCss()
     is_unsure: -> @type == 'doubt'
     formatted_impact: -> format_as_authority @impact
+
+  typeCss: ->
+    switch @model.get('type')
+      when 'believe' then 'supporting'
+      when 'disbelieve' then 'weakening'
+      when 'doubt' then 'unsure'
 
   onRender: ->
     @$el.toggle @model.has('impact')
