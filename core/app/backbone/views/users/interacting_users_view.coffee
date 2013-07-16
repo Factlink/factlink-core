@@ -11,7 +11,9 @@ class window.AgreeingInteractingUsersView extends Backbone.Marionette.Layout
   onRender: ->
     interactors = @model.opinionaters()
     interactors.fetch
-      success: => @$('.js-number').html(interactors.impact)
+      success: =>
+        impact = format_as_authority interactors.impact
+        @$('.js-number').html impact
 
     @interactingUsersRegion.show new NDPInteractorNamesView
       model: @model
