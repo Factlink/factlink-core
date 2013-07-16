@@ -10,7 +10,8 @@
 @impactCircleSpacing: 30px;
 @evidenceBoxSpacing: 10px;
 @impactColouredBorderWidth: 3px;
-@evidenceRegionHorizondalMargin: 16px;
+@evidenceRegionHorizontalMargin: 16px;
+@evidenceRegionBottomPadding: 10px;
 
 //triangles:
 // - an inner triangle with the box's background color
@@ -39,9 +40,9 @@
 
 .top-fact-evidence {
   position:relative;
-  padding: 0 @negativeColumnMargin 10px;
+  padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
 
-  margin:@topFactWheelOverhang @evidenceRegionHorizondalMargin 0;
+  margin:@topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
   box-sizing: content-box;
 }
 
