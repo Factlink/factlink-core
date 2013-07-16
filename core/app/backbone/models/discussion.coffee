@@ -9,7 +9,7 @@ class window.Discussion extends Backbone.Model
   type: -> @_type
 
   _getEvidence: ->
-    new EvidenceCollection [], type: @type(), fact: @fact()
+    new OneSidedEvidenceCollection [], type: @type(), fact: @fact()
 
   getInteractors: ->
     collectionType = switch @type()
