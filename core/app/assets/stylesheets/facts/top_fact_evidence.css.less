@@ -25,9 +25,7 @@
 //evidence boxes are after imact circles in DOM, but are pulled up so they're
 //visual top is above the imact circle top.
 @evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
-//The unsure (middle) box needs to leave space for the impact circle since its
-//imact circle cannot be floated (both left/right would be problematic).
-@unsureBoxTopToImpactTop: @impactCircleDiameter + @impactCircleSpacing/2 + @triangleSize;
+
 
 //It would look weird for the evidence boxes to end before the impact circles.
 //therefore, the supporting/weaking boxes need a minimum height.
@@ -143,11 +141,6 @@
   min-height: @evidenceBoxMinHeight;
 }
 
-.evidence-unsure-right-spacer, .evidence-unsure-left-spacer {
-  width:0;
-  visibility: hidden;
-  height: @unsureBoxTopToImpactTop + @impactCircleSpacing;
-}
 
 .evidence-unsure-right-spacer { float:right; }
 .evidence-unsure-left-spacer { float:left; }
@@ -158,15 +151,34 @@
   clear:both;
 }
 
+@unsureImpactToBoxDistance: @impactCircleSpacing/2 + @triangleSize;
+
+//The unsure (middle) box needs to leave space for the impact circle since its
+//imact circle cannot be floated (both left/right would be problematic).
+@unsureImpactRelativeTop: -@impactCircleDiameter
+                          - @unsureImpactToBoxDistance
+                          + @impactCircleSpacing
+                          - @argumentBoxTopOverhang;
+
+
+
+.evidence-unsure-right-spacer, .evidence-unsure-left-spacer {
+  width:0;
+  visibility: hidden;
+  height: @impactCircleSpacing - @unsureImpactRelativeTop;
+}
+
+
 .evidence-unsure-impact {
-  top:-@unsureBoxTopToImpactTop;
-  margin-bottom:-@impactCircleDiameter;
+
+  top: @unsureImpactRelativeTop;
+  margin-bottom: @unsureImpactRelativeTop;
 }
 
 .evidence-unsure-box {
-  margin-bottom:@evidenceBoxSpacing;
+  margin-top: @unsureImpactToBoxDistance;
+  margin-bottom: @evidenceBoxSpacing;
 }
-
 
 
 //Evidence triangles (arrows)
