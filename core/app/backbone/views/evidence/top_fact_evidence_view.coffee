@@ -1,4 +1,5 @@
 class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
+  className: 'evidence-box'
   template: 'evidence/top_fact_evidence_layout'
 
   regions:
@@ -20,7 +21,7 @@ class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
     @contentRegion.show new InteractingUsersView model: @model
 
 class window.TopFactEvidenceView extends Backbone.Marionette.CompositeView
-  className: 'top-fact-evidence evidence-box'
+  className: 'top-fact-evidence'
   template: 'evidence/top_fact_evidence'
   itemView: TopFactEvidenceLayoutView
   itemViewContainer: '.js-evidence-item-view-container'
