@@ -1,6 +1,9 @@
 class window.Evidence extends Backbone.Model
 
 class window.OpinionatersEvidence extends Evidence
+  # TODO: eventually, fetching this model should populate
+  #       the collection, not the other way around
+
   opinionaters: ->
     return @_opinionaters if @_opinionaters?
     @_opinionaters = new NDPInteractorsPage
@@ -8,7 +11,6 @@ class window.OpinionatersEvidence extends Evidence
       type: @get('type')
 
     @_opinionaters.on 'reset', =>
-      console.info 'yo', @_opinionaters.impact
       @set impact: @_opinionaters.impact
 
     @_opinionaters
