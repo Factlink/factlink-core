@@ -39,7 +39,7 @@ describe Interactors::Facts::OpinionUsers do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'Queries', 'Queries::FactInteractingUsers'
       described_class.any_instance.stub(:authorized?).and_return(true)
