@@ -1,6 +1,8 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
+//layout variables
+
 @middleColumnWidth: 100px;
 @topFactWheelOverhang: 70px;
 @impactCircleDiameter: 53px;
@@ -9,22 +11,33 @@
 @evidenceBoxSpacing: 10px;
 @impactColouredBorderWidth: 3px;
 
+//triangles:
+// - an inner triangle with the box's background color
+// - an outer triangle "fake border" that's 1px offset
 @triangleSize: 8px;
 @innerTriangleOffset: @triangleSize - 1px;
 @triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
 
-@perColumnPadding: @middleColumnWidth/2;
-@evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
-// @evidenceBoxMinHeight:  @argumentBoxTopOverhang + @impactCircleRadius + @triangleSize + 1px;
-@unsureBoxTopToImpactTop: @impactCircleDiameter + @impactCircleSpacing + @triangleSize/2;
+//the dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
+//this means we need some negative margins to make it fit.
+@negativeColumnMargin: @middleColumnWidth/2;
 
+//evidence boxes are after imact circles in DOM, but are pulled up so they're
+//visual top is above the imact circle top.
+@evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
+//The unsure (middle) box needs to leave space for the impact circle since its
+//imact circle cannot be floated (both left/right would be problematic).
+@unsureBoxTopToImpactTop: @impactCircleDiameter + @impactCircleSpacing/2 + @triangleSize;
+
+//It would look weird for the evidence boxes to end before the impact circles.
+//therefore, the supporting/weaking boxes need a minimum height.
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 @evidenceBoxBorderColor: rgba(0,0,0,0.2);
 
 .top-fact-evidence {
   position:relative;
-  padding: 0 @perColumnPadding 10px;
+  padding: 0 @negativeColumnMargin 10px;
 
   margin:@topFactWheelOverhang auto 0;
   box-sizing: content-box;
@@ -194,7 +207,7 @@
 }
 
 .evidence-supporting-box, .evidence-weakening-box {
-  margin: @evidenceBoxTopOffset -@perColumnPadding @evidenceBoxSpacing -@perColumnPadding;
+  margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
   min-height: @evidenceBoxMinHeight;
 }
 
