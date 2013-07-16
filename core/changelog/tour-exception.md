@@ -1,1 +1,1 @@
-tour-exception
+Fixed logging of errors in tour
