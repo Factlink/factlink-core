@@ -46,30 +46,29 @@
 @supportingImpactColor: rgba(100,190,160, 0.9);
 @weakeningImpactColor: rgba(220,120,120, 0.9);
 @unsureImpactColor: rgba(90,140,170, 0.9);
+@lineColor: rgba(0,0,0,0.15);
 
-.top-fact-evidence {
-  position:relative;
+.evidence-collection {
+  position: relative;
   padding: 0 @negativeColumnMargin 10px;
-
-  margin:@topFactWheelOverhang auto 0;
+  margin: @topFactWheelOverhang auto 0;
   box-sizing: content-box;
 }
 
-.top-fact-evidence:before {
-  //Fake middle line.
-  display:block;
-  content:'';
-  position:absolute;
-  left:50%;
-  width:3px;
-  margin-left:-1px;
+.evidence-line {
+  position: absolute;
+  left: 50%;
+  width: 3px;
+  margin-left: -1px;
   z-index: -2;
-  top:-@topFactWheelOverhang;
-  bottom:0;
-  background:rgba(0,0,0,0.15);
+  top: -@topFactWheelOverhang;
+  bottom: 0;
+  background: @lineColor;
 }
 
-.evidence-terminator { display:block; content:''; clear:both; }
+.evidence-terminator {
+  clear:both;
+}
 
 .evidence-impact, .evidence-box {
   position:relative;
@@ -258,7 +257,7 @@
   border-bottom-color: white;
 
   &:before {
-    content:'';
+    content: '';
     top: -1px;
     margin-left: -@triangleSize;
     border-bottom-color: @evidenceBoxBorderColor;

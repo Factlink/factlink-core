@@ -21,7 +21,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
     @$el.addClass @typeCss()
 
 class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
-  className: 'top-fact-evidence'
+  className: 'evidence-collection'
   template: 'evidence/ndp_evidence_collection'
   itemView: NDPEvidenceLayoutView
   itemViewContainer: '.js-evidence-item-view-container'
