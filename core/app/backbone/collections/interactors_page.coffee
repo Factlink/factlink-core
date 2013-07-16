@@ -5,7 +5,7 @@ group_for_type = (type) ->
     when 'disbelieve' then 'disbelievers'
     else throw "group_for_type: Unrecognized type: #{type}"
 
-class window.NDPInteractorsPage extends Backbone.Paginator.requestPager
+class window.InteractorsPage extends Backbone.Paginator.requestPager
   model: User,
   server_api:
     take: -> @perPage
@@ -17,12 +17,13 @@ class window.NDPInteractorsPage extends Backbone.Paginator.requestPager
     @totalPages = Math.floor(response.total / @perPage)
     response.users
 
-  paginator_ui:
-    perPage: 6
-    firstPage: 1
-    currentPage: 1
-
-  initialize: (opts) ->
+  initialize: (options) ->
+    fact_id = options.fact_id
+    group = group_for_type(options.type)
     @paginator_core =
       dataType: "json"
-      url: "/facts/#{opts.fact_id}/#{group_for_type(opts.type)}"
+      url: "/facts/#{fact_id}/#{group}"
+    @paginator_ui =
+      perPage: options.perPage || 6
+      firstPage: 1
+      currentPage: 1

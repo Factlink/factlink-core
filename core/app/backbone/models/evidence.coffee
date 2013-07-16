@@ -6,7 +6,7 @@ class window.OpinionatersEvidence extends Evidence
 
   opinionaters: ->
     return @_opinionaters if @_opinionaters?
-    @_opinionaters = new NDPInteractorsPage
+    @_opinionaters = new InteractorsPage
       fact_id: @get('fact_id')
       type: @get('type')
 
