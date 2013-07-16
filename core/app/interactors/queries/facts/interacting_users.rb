@@ -1,6 +1,4 @@
 require 'pavlov'
-require_relative '../../kill_object'
-require 'andand'
 
 module Queries
   module Facts
