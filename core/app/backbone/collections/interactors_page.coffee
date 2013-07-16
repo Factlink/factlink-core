@@ -18,8 +18,10 @@ class window.InteractorsPage extends Backbone.Paginator.requestPager
     response.users
 
   initialize: (options) ->
+    @type = options.type
+
     fact_id = options.fact_id
-    group = group_for_type(options.type)
+    group = group_for_type(@type)
     @paginator_core =
       dataType: "json"
       url: "/facts/#{fact_id}/#{group}"
