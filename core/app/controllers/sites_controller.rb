@@ -14,8 +14,8 @@ class SitesController < ApplicationController
       response = { blacklisted: 'This site is not supported' }
     else
       site = Site.find(:url => url).first
-      @facts_count = site ? site.facts.count : 0
-      response = { count: @facts_count }
+      facts_count = site ? site.facts.count : 0
+      response = { count: facts_count }
     end
     response[:jslib_url] = jslib_url
 
@@ -27,9 +27,9 @@ class SitesController < ApplicationController
 
     if not is_blacklisted and can? :index, Fact
       site = Site.find(url: url).first
-      @facts = site ? site.facts.to_a : []
+      facts = site ? site.facts.to_a : []
 
-      @facts = @facts.map do |fact|
+      facts = facts.map do |fact|
         {
           id: fact.id,
           displaystring: fact.data.displaystring,
@@ -37,7 +37,7 @@ class SitesController < ApplicationController
         }
       end
 
-      render_jsonp @facts
+      render_jsonp facts
     elsif is_blacklisted
       render_jsonp blacklisted: 'This site is not supported'
     else
