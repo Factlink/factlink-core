@@ -17,11 +17,13 @@ class window.InteractorsPage extends Backbone.Paginator.requestPager
     @totalPages = Math.floor(response.total / @perPage)
     response.users
 
-  initialize: (opts) ->
+  initialize: (options) ->
+    fact_id = options.fact_id
+    group = group_for_type(options.type)
     @paginator_core =
       dataType: "json"
-      url: "/facts/#{opts.fact_id}/#{group_for_type(opts.type)}"
+      url: "/facts/#{fact_id}/#{group}"
     @paginator_ui =
-      perPage: opts.perPage || 6
+      perPage: options.perPage || 6
       firstPage: 1
       currentPage: 1
