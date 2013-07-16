@@ -1,6 +1,6 @@
 class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   className: 'evidence-box'
-  template: 'evidence/top_fact_evidence_layout'
+  template: 'evidence/ndp_evidence_layout'
 
   regions:
     contentRegion: '.js-content-region'
@@ -22,7 +22,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
 class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
   className: 'top-fact-evidence'
-  template: 'evidence/top_fact_evidence'
+  template: 'evidence/ndp_evidence_collection'
   itemView: NDPEvidenceLayoutView
   itemViewContainer: '.js-evidence-item-view-container'
 
