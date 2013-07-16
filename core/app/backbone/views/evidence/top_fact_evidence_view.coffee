@@ -11,9 +11,7 @@ class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
         when 'believe' then 'supporting'
         when 'disbelieve' then 'weakening'
         when 'doubt' then 'unsure'
-
     is_unsure: -> @type == 'doubt'
-
     formatted_impact: -> format_as_authority @impact
 
   onRender: ->
