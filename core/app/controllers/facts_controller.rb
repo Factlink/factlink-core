@@ -5,9 +5,6 @@ class FactsController < ApplicationController
 
   respond_to :json, :html
 
-  before_filter :parse_pagination_parameters,
-    only: [:believers, :disbelievers, :doubters]
-
   before_filter :load_fact,
     only: [
       :show,
@@ -42,28 +39,6 @@ class FactsController < ApplicationController
     authorize! :show, @fact
 
     backbone_responder
-  end
-
-  # TODO combine next three methods
-  def believers
-    fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'believes'
-
-    render_interactions data
-  end
-
-  def disbelievers
-    fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'disbelieves'
-
-    render_interactions data
-  end
-
-  def doubters
-    fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'doubts'
-
-    render_interactions data
   end
 
   def intermediate
@@ -186,21 +161,6 @@ class FactsController < ApplicationController
     end
   end
 
-  def parse_pagination_parameters
-    params[:skip] ||= '0'
-    @skip = params[:skip].to_i
-
-    params[:take] ||= '3'
-    @take = params[:take].to_i
-  end
-
-  def render_interactions data
-    @users = data[:users]
-    @total = data[:total]
-    @impact = data[:impact]
-
-    render 'facts/interactions', format: 'json'
-  end
 
   def add_to_channels fact, channel_ids
     return unless channel_ids
