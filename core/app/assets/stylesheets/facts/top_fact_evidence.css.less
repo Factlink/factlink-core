@@ -34,6 +34,9 @@
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 @evidenceBoxBorderColor: rgba(0,0,0,0.2);
+@supportingImpactColor: rgba(100,190,160, 0.9);
+@weakeningImpactColor: rgba(220,120,120, 0.9);
+@unsureImpactColor: rgba(90,140,170, 0.9);
 
 .top-fact-evidence {
   position:relative;
@@ -181,7 +184,7 @@
   border-top-right-radius: 1000px;
   border-bottom-right-radius: 1000px;
 
-  border: @impactColouredBorderWidth solid rgba(100,190,160, 0.9);
+  border: @impactColouredBorderWidth solid @supportingImpactColor;
   border-left:none;
 }
 
@@ -189,7 +192,7 @@
   right: floor(@impactCircleDiameter/2) - 2px;
   border-top-left-radius: 1000px;
   border-bottom-left-radius: 1000px;
-  border: @impactColouredBorderWidth solid rgba(220,120,120, 0.9);
+  border: @impactColouredBorderWidth solid @weakeningImpactColor;
   border-right: none;
 }
 
@@ -197,7 +200,7 @@
   top: floor(@impactCircleDiameter/2) - 1px;
   border-bottom-left-radius: 1000px;
   border-bottom-right-radius: 1000px;
-  border: @impactColouredBorderWidth solid rgba(90,140,170, 0.9);
+  border: @impactColouredBorderWidth solid @unsureImpactColor;
   border-top: none;
 }
 
