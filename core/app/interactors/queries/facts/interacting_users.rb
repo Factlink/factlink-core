@@ -8,6 +8,8 @@ module Queries
 
       arguments :fact_id, :skip, :take, :opinion
 
+      private
+
       def execute
         graph_users= users_who(opinion)
         paginated_users = paginate(graph_users).map(&:user)
