@@ -31,6 +31,17 @@
 //therefore, the supporting/weaking boxes need a minimum height.
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
+
+@unsureImpactToBoxDistance: @impactCircleSpacing/2 + @triangleSize;
+
+//The unsure (middle) box needs to leave space for the impact circle since its
+//imact circle cannot be floated (both left/right would be problematic).
+@unsureImpactRelativeTop: -@impactCircleDiameter
+                          - @unsureImpactToBoxDistance
+                          + @impactCircleSpacing
+                          - @argumentBoxTopOverhang;
+
+
 @evidenceBoxBorderColor: rgba(0,0,0,0.2);
 @supportingImpactColor: rgba(100,190,160, 0.9);
 @weakeningImpactColor: rgba(220,120,120, 0.9);
@@ -60,44 +71,97 @@
 
 .evidence-terminator { display:block; content:''; clear:both; }
 
-.evidence-supporting-impact, .evidence-weakening-impact, .evidence-supporting-box
-, .evidence-weakening-box, .evidence-unsure-impact, .evidence-unsure-box {
+.evidence-impact, .evidence-box {
   position:relative;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
   .new-design-white-block-with-shadow();
-}
-
-.evidence-supporting-impact, .evidence-supporting-box {
-  float:right; clear:right;
   background: white;
 }
 
-
-.evidence-weakening-impact, .evidence-weakening-box {
-  float:left; clear:left;
-  background: white;
-}
-
-.evidence-supporting-impact, .evidence-weakening-impact, .evidence-unsure-impact {
+.evidence-impact {
   .new-design-font();
   font-size: @heading1FontSize;
   line-height: @impactCircleDiameter;
   text-align: center;
-  width:@impactCircleDiameter;
-  height:@impactCircleDiameter;
+  width:  @impactCircleDiameter;
+  height: @impactCircleDiameter;
   border-radius: 1000px;
 }
 
-.evidence-supporting-impact, .evidence-weakening-impact {
-  margin-top:@impactCircleSpacing;
-  position:relative;
+.evidence-box {
+  width: 50%;
+  padding: 16px;
 }
 
-.evidence-supporting-impact { margin-right: 50%; right: ceil(-@impactCircleDiameter/2); }
-.evidence-weakening-impact { margin-left: 50%; left: floor(-@impactCircleDiameter/2); }
+.evidence-supporting > .evidence-box, .evidence-weakening > .evidence-box {
+  margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
+  min-height: @evidenceBoxMinHeight;
+}
 
-.evidence-supporting-impact::after, .evidence-weakening-impact::after, .evidence-unsure-impact::after {
+.evidence-supporting {
+  > .evidence-impact, > .evidence-box {
+    float:right;
+    clear:right;
+  }
+
+  > .evidence-impact {
+    margin-top: @impactCircleSpacing;
+    position: relative;
+    margin-right: 50%;
+    right: ceil(-@impactCircleDiameter/2);
+  }
+
+  > .evidence-spacer {
+    display: none;
+  }
+}
+
+.evidence-weakening {
+  > .evidence-impact, > .evidence-box {
+    float: left;
+    clear: left;
+  }
+
+  > .evidence-impact {
+    margin-top: @impactCircleSpacing;
+    position: relative;
+    margin-left: 50%;
+    left: floor(-@impactCircleDiameter/2);
+  }
+
+  > .evidence-spacer {
+    display: none;
+  }
+}
+
+.evidence-unsure {
+  > .evidence-impact, > .evidence-box {
+    margin: auto;
+    clear: both;
+  }
+
+  > .evidence-impact {
+    top: @unsureImpactRelativeTop;
+    margin-bottom: @unsureImpactRelativeTop;
+  }
+
+  > .evidence-box {
+    margin-top: @unsureImpactToBoxDistance;
+    margin-bottom: @evidenceBoxSpacing;
+  }
+
+  > .evidence-spacer {
+    width: 0;
+    visibility: hidden;
+    height: @impactCircleSpacing - @unsureImpactRelativeTop;
+  }
+  > .evidence-spacer-left  { float: left; }
+  > .evidence-spacer-right { float: right; }
+}
+
+// Coloured half-circles
+.evidence-impact::after {
   content: '';
   position: absolute;
   top: -@impactColouredBorderWidth;
@@ -106,7 +170,7 @@
   right: -@impactColouredBorderWidth;
 }
 
-.evidence-supporting-impact::after {
+.evidence-supporting > .evidence-impact::after {
   left: ceil(@impactCircleDiameter/2) - 1px;
   border-top-right-radius: 1000px;
   border-bottom-right-radius: 1000px;
@@ -115,7 +179,7 @@
   border-left:none;
 }
 
-.evidence-weakening-impact::after {
+.evidence-weakening > .evidence-impact::after {
   right: floor(@impactCircleDiameter/2) - 2px;
   border-top-left-radius: 1000px;
   border-bottom-left-radius: 1000px;
@@ -123,7 +187,7 @@
   border-right: none;
 }
 
-.evidence-unsure-impact::after {
+.evidence-unsure > .evidence-impact::after {
   top: floor(@impactCircleDiameter/2) - 1px;
   border-bottom-left-radius: 1000px;
   border-bottom-right-radius: 1000px;
@@ -131,126 +195,73 @@
   border-top: none;
 }
 
-.evidence-supporting-box, .evidence-weakening-box, .evidence-unsure-box {
-  width:50%;
-  padding:16px;
-}
-
-.evidence-supporting-box, .evidence-weakening-box {
-  margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
-  min-height: @evidenceBoxMinHeight;
-}
-
-
-.evidence-unsure-right-spacer { float:right; }
-.evidence-unsure-left-spacer { float:left; }
-
-.evidence-unsure-impact, .evidence-unsure-box {
-  margin:auto;
-  background: white;
-  clear:both;
-}
-
-@unsureImpactToBoxDistance: @impactCircleSpacing/2 + @triangleSize;
-
-//The unsure (middle) box needs to leave space for the impact circle since its
-//imact circle cannot be floated (both left/right would be problematic).
-@unsureImpactRelativeTop: -@impactCircleDiameter
-                          - @unsureImpactToBoxDistance
-                          + @impactCircleSpacing
-                          - @argumentBoxTopOverhang;
-
-
-
-.evidence-unsure-right-spacer, .evidence-unsure-left-spacer {
-  width:0;
-  visibility: hidden;
-  height: @impactCircleSpacing - @unsureImpactRelativeTop;
-}
-
-
-.evidence-unsure-impact {
-
-  top: @unsureImpactRelativeTop;
-  margin-bottom: @unsureImpactRelativeTop;
-}
-
-.evidence-unsure-box {
-  margin-top: @unsureImpactToBoxDistance;
-  margin-bottom: @evidenceBoxSpacing;
-}
-
-
-//Evidence triangles (arrows)
+// Evidence triangles (arrows)
 .evidence-triangle-base() {
-  position:absolute;
+  position: absolute;
   border-style: solid;
   border-color: transparent;
-  height:1px;
-  width:0;
+  height: 1px;
+  width: 0;
   .box-sizing(content-box);
   border-width: @triangleSize;
 }
 
-.evidence-triangle-vertical-container() {
-  .evidence-triangle-base();
-  top: @triangleTop;
-  margin-top: -@triangleSize;
+.evidence-supporting, .evidence-weakening {
+  > .evidence-box > .evidence-box-triangle {
+    .evidence-triangle-base();
+    top: @triangleTop;
+    margin-top: -@triangleSize;
+
+    &:before {
+      .evidence-triangle-base();
+      content: '';
+      z-index: -1;
+      margin-top: -@triangleSize;
+    }
+  }
 }
 
-.evidence-triangle-vertical-background() {
-  .evidence-triangle-base();
-  content:'';
-  z-index:-1;
-  margin-top: -@triangleSize;
+.evidence-supporting > .evidence-box > .evidence-box-triangle {
+  right: 100%;
+  border-right-color: white;
+
+  &:before {
+    border-left: none;
+    border-right-color: @evidenceBoxBorderColor;
+    margin-left: -1px;
+  }
 }
 
-.evidence-triangle-unsure-base() {
+.evidence-weakening > .evidence-box > .evidence-box-triangle {
+  left: 100%;
+  border-left-color: white;
+
+  &:before {
+    border-right: none;
+    border-left-color: @evidenceBoxBorderColor;
+    right:-1px;
+  }
+}
+
+.evidence-unsure > .evidence-box > .evidence-box-triangle,
+.evidence-unsure > .evidence-box > .evidence-box-triangle:before {
   .evidence-triangle-base();
   height: 0;
   width: 1px;
-  border-top:none;
+  border-top: none;
 }
 
-.evidence-supporting-box-triangle {
-  .evidence-triangle-vertical-container();
-  right: 100%;
-  border-right-color: white;
-}
-
-.evidence-weakening-box-triangle {
-  .evidence-triangle-vertical-container();
-  left: 100%;
-  border-left-color: white;
-}
-
-.evidence-supporting-box-triangle:before {
-  .evidence-triangle-vertical-background();
-  border-left: none;
-  border-right-color: @evidenceBoxBorderColor;
-  margin-left: -1px;
-}
-
-.evidence-weakening-box-triangle:before {
-  .evidence-triangle-vertical-background();
-  border-right: none;
-  border-left-color: @evidenceBoxBorderColor;
-  right:-1px;
-}
-
-.evidence-unsure-box-triangle {
-  .evidence-triangle-unsure-base();
+.evidence-unsure > .evidence-box > .evidence-box-triangle {
   left:50%;
   top: -@innerTriangleOffset;
   margin-left: -@triangleSize;
   border-bottom-color: white;
-}
-.evidence-unsure-box-triangle:before {
-  .evidence-triangle-unsure-base();
-  content:'';
-  top: -1px;
-  margin-left: -@triangleSize;
-  border-bottom-color: @evidenceBoxBorderColor;
-  z-index:-1;
-}
 
+  &:before {
+    content:'';
+    top: -1px;
+    margin-left: -@triangleSize;
+    border-bottom-color: @evidenceBoxBorderColor;
+    z-index: -1;
+  }
+}
