@@ -17,5 +17,5 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
       new OpinionatersEvidence(type: 'doubt',      fact_id: @model.id)
     ]
 
-    @evidenceRegion.show new TopFactEvidenceView
+    @evidenceRegion.show new NDPEvidenceCollectionView
       collection: opinionaters_collection

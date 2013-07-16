@@ -1,28 +1,28 @@
-class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
+class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   template: 'evidence/top_fact_evidence_layout'
 
   regions:
     contentRegion: '.js-content-region'
 
-  templateHelpers:
-    type_css: ->
-      switch @type
-        when 'believe' then 'supporting'
-        when 'disbelieve' then 'weakening'
-        when 'doubt' then 'unsure'
-
+  templateHelpers: =>
+    type_css: => @typeCss()
     is_unsure: -> @type == 'doubt'
-
     formatted_impact: -> format_as_authority @impact
+
+  typeCss: ->
+    switch @model.get('type')
+      when 'believe' then 'supporting'
+      when 'disbelieve' then 'weakening'
+      when 'doubt' then 'unsure'
 
   onRender: ->
     @$el.toggle @model.has('impact')
     @contentRegion.show new InteractingUsersView model: @model
 
-class window.TopFactEvidenceView extends Backbone.Marionette.CompositeView
+class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
   className: 'top-fact-evidence'
   template: 'evidence/top_fact_evidence'
-  itemView: TopFactEvidenceLayoutView
+  itemView: NDPEvidenceLayoutView
   itemViewContainer: '.js-evidence-item-view-container'
 
   initialize: ->

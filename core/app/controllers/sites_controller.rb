@@ -32,6 +32,7 @@ class SitesController < ApplicationController
       @facts = @facts.map do |fact|
         {
           id: fact.id,
+          _id: fact.id,
           displaystring: fact.data.displaystring,
           title: fact.data.title
         }
