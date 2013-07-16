@@ -111,10 +111,6 @@
     margin-right: 50%;
     right: ceil(-@impactCircleDiameter/2);
   }
-
-  > .evidence-spacer {
-    display: none;
-  }
 }
 
 .evidence-weakening {
@@ -128,10 +124,6 @@
     position: relative;
     margin-left: 50%;
     left: floor(-@impactCircleDiameter/2);
-  }
-
-  > .evidence-spacer {
-    display: none;
   }
 }
 
@@ -151,7 +143,8 @@
     margin-bottom: @evidenceBoxSpacing;
   }
 
-  > .evidence-spacer {
+  > .evidence-spacer-left,
+  > .evidence-spacer-right {
     width: 0;
     visibility: hidden;
     height: @impactCircleSpacing - @unsureImpactRelativeTop;
