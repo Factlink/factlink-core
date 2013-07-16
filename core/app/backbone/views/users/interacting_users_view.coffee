@@ -1,6 +1,4 @@
-class window.AgreeingInteractingUsersView extends Backbone.Marionette.Layout
-
-  className: 'evidence-box interacting-users-box-agree'
+class window.InteractingUsersView extends Backbone.Marionette.Layout
 
   template: 'evidence/interacting_users'
 
@@ -9,12 +7,6 @@ class window.AgreeingInteractingUsersView extends Backbone.Marionette.Layout
     interactingUsersAvatarRegion: '.js-region-interacting-users-avatars'
 
   onRender: ->
-    interactors = @model.opinionaters()
-    interactors.fetch
-      success: =>
-        impact = format_as_authority interactors.impact
-        @$('.js-number').html impact
-
     @interactingUsersRegion.show new NDPInteractorNamesView
       model: @model
 
