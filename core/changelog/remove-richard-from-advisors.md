@@ -1,0 +1,1 @@
+remove-richard-from-advisors
