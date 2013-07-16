@@ -10,7 +10,7 @@ module Queries
       arguments :fact_id, :skip, :take, :opinion
 
       def execute
-        graph_users= users_who(@opinion)
+        graph_users= users_who(opinion)
         paginated_users = paginate(graph_users).map(&:user)
 
         {
@@ -20,11 +20,11 @@ module Queries
       end
 
       def paginate(data)
-        data.drop(@skip).take(@take)
+        data.drop(skip).take(take)
       end
 
       def users_who(opinion)
-        Fact[@fact_id].send("people_#{opinion}").to_a
+        Fact[fact_id].send("people_#{opinion}").to_a
       end
     end
   end
