@@ -5,7 +5,7 @@ class window.OpinionatersEvidence extends Evidence
   # TODO: eventually, fetching this model should populate
   #       the collection, not the other way around
   initialize: ->
-    @fetchImpact()
+    @opinionaters().fetch()
 
   opinionaters: ->
     return @_opinionaters if @_opinionaters?
@@ -16,7 +16,3 @@ class window.OpinionatersEvidence extends Evidence
       @set impact: @_opinionaters.impact
 
     @_opinionaters
-
-  fetchImpact: ->
-    @opinionaters().fetch
-      success: => @set 'impact', @opinionaters().impact
