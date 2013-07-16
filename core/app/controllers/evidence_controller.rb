@@ -51,7 +51,7 @@ class EvidenceController < ApplicationController
   end
 
   def set_opinion
-    type = params[:type].to_sym
+    type = OpinionType.real_for(params[:type])
 
     @fact_relation = FactRelation[params[:id]]
 
