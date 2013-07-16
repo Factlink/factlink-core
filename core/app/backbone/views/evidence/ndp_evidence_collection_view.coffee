@@ -1,19 +1,18 @@
 class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
-  template: 'evidence/top_fact_evidence_layout'
+  templates =
+    believe: 'evidence/top_fact_supporting_evidence_layout'
+    disbelieve: 'evidence/top_fact_weakening_evidence_layout'
+    doubt: 'evidence/top_fact_unsure_evidence_layout'
+
+  getTemplate: ->
+    @template = templates[@model.get 'type']
+    super()
 
   regions:
     contentRegion: '.js-content-region'
 
-  templateHelpers: =>
-    type_css: => @typeCss()
-    is_unsure: -> @type == 'doubt'
+  templateHelpers:
     formatted_impact: -> format_as_authority @impact
-
-  typeCss: ->
-    switch @model.get('type')
-      when 'believe' then 'supporting'
-      when 'disbelieve' then 'weakening'
-      when 'doubt' then 'unsure'
 
   onRender: ->
     @$el.toggle @model.has('impact')
