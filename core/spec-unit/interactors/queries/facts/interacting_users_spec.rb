@@ -1,9 +1,9 @@
-require_relative '../../../app/interactors/queries/fact_interacting_users.rb'
+require_relative '../../../../app/interactors/queries/facts/interacting_users.rb'
 
-describe Queries::FactInteractingUsers do
+describe Queries::Facts::InteractingUsers do
 
   it 'it initializes correctly' do
-    query = Queries::FactInteractingUsers.new 1, 0, 3, 'believes'
+    query = described_class.new 1, 0, 3, 'believes'
     query.should_not be_nil
   end
 
