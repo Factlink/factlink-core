@@ -14,8 +14,10 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   templateHelpers:
     formatted_impact: -> format_as_authority @impact
 
+  shouldShow: -> @model.has('impact') && @model.get('impact') > 0.0
+
   onRender: ->
-    @$el.toggle @model.has('impact')
+    @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
 
 class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
