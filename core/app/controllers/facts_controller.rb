@@ -44,27 +44,20 @@ class FactsController < ApplicationController
     backbone_responder
   end
 
-  # TODO combine next three methods
-  def believers
+  def believers; interactors('believes'); end
+  def disbelievers; interactors('disbelieves'); end
+  def doubters; interactors('doubts'); end
+  def interactors(type)
     fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'believes'
+    data = interactor :'facts/opinion_users', fact_id, @skip, @take, type
 
-    render_interactions data
+    @users = data[:users]
+    @total = data[:total]
+    @impact = data[:impact]
+
+    render 'facts/interactions', format: 'json'
   end
-
-  def disbelievers
-    fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'disbelieves'
-
-    render_interactions data
-  end
-
-  def doubters
-    fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'doubts'
-
-    render_interactions data
-  end
+  private :interactors
 
   def intermediate
     render layout: nil
@@ -192,14 +185,6 @@ class FactsController < ApplicationController
 
     params[:take] ||= '3'
     @take = params[:take].to_i
-  end
-
-  def render_interactions data
-    @users = data[:users]
-    @total = data[:total]
-    @impact = data[:impact]
-
-    render 'facts/interactions', format: 'json'
   end
 
   def add_to_channels fact, channel_ids
