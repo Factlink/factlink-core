@@ -39,9 +39,9 @@ FactlinkUI::Application.routes.draw do
       post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
       get     "/evidence_search"  => "facts#evidence_search"
-      get     "/believers"        => "fact_interactors#interactors", defaults: { type: 'believes' }
-      get     "/disbelievers"     => "fact_interactors#interactors", defaults: { type: 'disbelieves' }
-      get     "/doubters"         => "fact_interactors#interactors", defaults: { type: 'doubts' }
+      get     "/believers"        => "facts#believers"
+      get     "/disbelievers"     => "facts#disbelievers"
+      get     "/doubters"         => "facts#doubters"
 
       scope '/comments' do
         post "/:type" => 'comments#create'
