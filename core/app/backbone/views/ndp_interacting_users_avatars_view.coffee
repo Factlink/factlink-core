@@ -13,15 +13,21 @@ class window.NDPInteractingUsersAvatarsView extends Backbone.Marionette.Composit
   events:
     'click .js-show-all' : 'show_all'
 
+  show_number_of_users: 6
+
   initialize: (options) ->
     @collection = @model.opinionaters()
-    @collection.on 'add remove reset', @render, @
+    @bindTo @collection, 'add remove reset', @render
+
+  appendHtml: (collectionView, itemView, index) ->
+    super if index < @show_number_of_users
 
   templateHelpers: =>
-    numberNotDisplayed: => @collection.totalRecords - @collection.length
+    numberNotDisplayed: => Math.max(0, @collection.totalRecords - @show_number_of_users)
 
   show_all: (e) ->
     e.stopPropagation()
     e.preventDefault()
+    @show_number_of_users = Infinity
     @collection.howManyPer(1000000)
     @collection.fetch()
