@@ -1,24 +1,20 @@
-require_relative '../../../app/interactors/queries/fact_interacting_users.rb'
+require 'pavlov_helper'
+require_relative '../../../../app/interactors/queries/facts/interacting_users.rb'
 
-describe Queries::FactInteractingUsers do
+describe Queries::Facts::InteractingUsers do
+  include PavlovSupport
 
-  it 'it initializes correctly' do
-    query = Queries::FactInteractingUsers.new 1, 0, 3, 'believes'
-    query.should_not be_nil
+  before do
+    stub_classes 'Fact'
   end
 
   describe '.call' do
-
-    before do
-      stub_const 'Fact', Class.new
-    end
-
     it "returns a user who believes the fact" do
-      fact = mock(id: 1)
-      Fact.should_receive(:[]).with(fact.id).and_return(fact)
       user = mock(id: 2, username: 'mijn username', name: 'Joop Bouwhuis' )
       graph_user = mock(user: user)
-      fact.should_receive(:people_believes).and_return([graph_user])
+
+      fact = mock id: 1, people_believes: [graph_user]
+      Fact.stub(:[]).with(fact.id).and_return(fact)
 
       result = described_class.new(1, 0, 3, 'believes').call
 
@@ -27,11 +23,11 @@ describe Queries::FactInteractingUsers do
     end
 
     it "returns a user who disbelieves the fact" do
-      fact = mock(id: 1)
-      Fact.should_receive(:[]).with(fact.id).and_return(fact)
       user = mock(id: 2, username: 'mijn username', name: 'Joop Bouwhuis' )
       graph_user = mock(user: user)
-      fact.should_receive(:people_disbelieves).and_return([graph_user])
+
+      fact = mock id: 1, people_disbelieves: [graph_user]
+      Fact.stub(:[]).with(fact.id).and_return(fact)
 
       result = described_class.new(1, 0, 3, 'disbelieves').call
 
@@ -40,11 +36,11 @@ describe Queries::FactInteractingUsers do
     end
 
     it "returns a user who doubts the fact" do
-      fact = mock(id: 1)
-      Fact.should_receive(:[]).with(fact.id).and_return(fact)
       user = mock(id: 2, username: 'mijn username', name: 'Joop Bouwhuis' )
       graph_user = mock(user: user)
-      fact.should_receive(:people_doubts).and_return([graph_user])
+
+      fact = mock id: 1, people_doubts: [graph_user]
+      Fact.stub(:[]).with(fact.id).and_return(fact)
 
       result = described_class.new(1, 0, 3, 'doubts').call
 
@@ -53,15 +49,15 @@ describe Queries::FactInteractingUsers do
     end
 
     it "correctly skips and takes" do
-      fact = mock(id: 1)
-      Fact.should_receive(:[]).with(fact.id).and_return(fact)
       user1 = mock(id: 2, username: 'mijn username', name: 'Joop Bouwhuis' )
       user2 = mock(id: 3, username: 'mijn username', name: 'Joop Bouwhuis' )
       user3 = mock(id: 4, username: 'mijn username', name: 'Joop Bouwhuis' )
       graph_user1 = mock(user: user1)
       graph_user2 = mock(user: user2)
       graph_user3 = mock(user: user3)
-      fact.should_receive(:people_believes).and_return([graph_user1, graph_user2, graph_user3])
+
+      fact = mock id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
+      Fact.stub(:[]).with(fact.id).and_return(fact)
 
       result = described_class.new(1, 1, 1, 'believes').call
 
