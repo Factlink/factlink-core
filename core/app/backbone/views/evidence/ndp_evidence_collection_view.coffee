@@ -1,4 +1,4 @@
-class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
+class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   className: 'evidence-box'
   template: 'evidence/top_fact_evidence_layout'
 
@@ -18,10 +18,10 @@ class TopFactEvidenceLayoutView extends Backbone.Marionette.Layout
     @$el.toggle @model.has('impact')
     @contentRegion.show new InteractingUsersView model: @model
 
-class window.TopFactEvidenceView extends Backbone.Marionette.CompositeView
+class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
   className: 'top-fact-evidence'
   template: 'evidence/top_fact_evidence'
-  itemView: TopFactEvidenceLayoutView
+  itemView: NDPEvidenceLayoutView
   itemViewContainer: '.js-evidence-item-view-container'
 
   initialize: ->
