@@ -1,5 +1,12 @@
 #!/bin/bash
 echo "Running unit tests"
 
+REPORTFILE=tmp/spec-unit.junit.xml
+
 bundle exec rspec -e Florgy --format RspecJunitFormatter spec-unit \
- --out tmp/spec-unit.junit.xml || echo > TEST_FAILURE
+ --out $REPORTFILE || echo > TEST_FAILURE
+
+if ! grep -qe '<testcase' < $REPORTFILE ; then
+  echo "No testcases found in $REPORTFILE"
+  exit 1
+fi
