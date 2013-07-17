@@ -1,16 +1,13 @@
+#= require ./interactor_name_view
+
 class InteractorEmptyView extends Backbone.Marionette.ItemView
   tagName: 'span'
   template: "fact_relations/interactor_empty"
 
-class InteractorView extends Backbone.Marionette.Layout
-  tagName: 'span'
-  className: 'separator-list-item'
-  template: "fact_relations/interactor"
-
 class window.InteractorsView extends Backbone.Marionette.CompositeView
   template: "fact_relations/interactors"
   emptyView: InteractorEmptyView
-  itemView: InteractorView
+  itemView: InteractorNameView
   itemViewContainer: ".js-interactors-collection"
   events:
     'click a.showAll' : 'showAll'
