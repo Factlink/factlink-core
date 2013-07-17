@@ -1,6 +1,6 @@
 class NDPInteractingUsersNameView extends Backbone.Marionette.Layout
   tagName: 'span'
-  className: 'ndp-interacting-users-name separator-list-item'
+  className: 'separator-list-item'
   template: 'fact_relations/interactor_name'
 
 class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeView
