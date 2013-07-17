@@ -1,1 +1,0 @@
-small-cleanup-facts-controller
