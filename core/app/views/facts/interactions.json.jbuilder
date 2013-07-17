@@ -1,5 +1,5 @@
-json.total @total
-json.impact @impact
-json.users @users do |user|
+json.total @data[:total]
+json.impact @data[:impact]
+json.users @data[:users] do |user|
   json.partial! 'users/user_partial', user: user
 end
