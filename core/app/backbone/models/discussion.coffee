@@ -12,9 +12,9 @@ class window.Discussion extends Backbone.Model
     new OneSidedEvidenceCollection [], type: @type(), fact: @fact()
 
   _interactorsPage: (type)->
-    new InteractorsPage(type: type, fact_id: @fact().id, perPage: 3)
+    new OpinionatersEvidence({type: type}, fact: @_fact)
 
-  getInteractors: ->
+  getInteractorsEvidence: ->
     @_interactors ?= switch @type()
       when 'supporting' then @_interactorsPage('believe')
       when 'weakening' then @_interactorsPage('disbelieve')
