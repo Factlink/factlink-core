@@ -8,7 +8,7 @@ class FactInteractorsController < ApplicationController
   def filtered_interactors
     @data = interactor :'facts/opinion_users', fact_id, skip, take, type
 
-    render 'facts/interactions', formats: ['json']
+    render 'facts/filtered_interactors', formats: ['json']
   end
 
   def fact_id
