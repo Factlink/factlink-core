@@ -4,7 +4,7 @@
 cd `dirname $0`
 cd ..
 
-./script/set-status.sh "$GIT_COMMIT" pending "$BUILD_URL" "$BUILD_TAG"
+./script/set-status.sh "$GIT_COMMIT" pending "$BUILD_URL" "$BUILD_TAG" > github_pending_response.json
 
 
 export RUBY_HEAP_MIN_SLOTS=1000000
@@ -28,4 +28,4 @@ for action in bin/ci/*.sh; do
     exit
   fi
 done
-./script/set-status.sh "$GIT_COMMIT" success "$BUILD_URL" "$BUILD_TAG"
+./script/set-status.sh "$GIT_COMMIT" success "$BUILD_URL" "$BUILD_TAG"  > github_success_response.json
