@@ -3,7 +3,8 @@ echo "Running screenshot tests"
 
 REPORTFILE=tmp/spec-screenshots.junit.xml
 
-bundle exec rspec -e Florgy --format RspecJunitFormatter spec/screenshots/ \
+bundle exec rspec
+ --format RspecJunitFormatter spec/screenshots/ \
   --out $REPORTFILE \
   || echo > TEST_FAILURE
 

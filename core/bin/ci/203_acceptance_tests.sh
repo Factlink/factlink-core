@@ -3,7 +3,8 @@ echo "Running acceptance tests"
 
 REPORTFILE=tmp/spec-acceptance.junit.xml
 
-bundle exec rspec -e Florgy --format RspecJunitFormatter spec/acceptance/ \
+bundle exec rspec
+ --format RspecJunitFormatter spec/acceptance/ \
   --out $REPORTFILE \
   || echo > TEST_FAILURE
 

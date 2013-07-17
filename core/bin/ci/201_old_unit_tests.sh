@@ -3,7 +3,8 @@ echo "Running old unit tests"
 
 REPORTFILE=tmp/spec.junit.xml
 
-bundle exec rspec -e Florgy --format RspecJunitFormatter --out $REPORTFILE \
+bundle exec rspec
+ --format RspecJunitFormatter --out $REPORTFILE \
   || echo > TEST_FAILURE
 
 if ! grep -qe '<testcase' < $REPORTFILE ; then

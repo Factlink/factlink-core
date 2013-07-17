@@ -3,7 +3,8 @@ echo "Running unit tests"
 
 REPORTFILE=tmp/spec-unit.junit.xml
 
-bundle exec rspec -e Florgy --format RspecJunitFormatter spec-unit \
+bundle exec rspec
+ --format RspecJunitFormatter spec-unit \
  --out $REPORTFILE || echo > TEST_FAILURE
 
 if ! grep -qe '<testcase' < $REPORTFILE ; then
