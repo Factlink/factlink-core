@@ -2,6 +2,10 @@ class FactInteractorsController < ApplicationController
   respond_to :json
 
   def interactors
+
+  end
+
+  def filtered_interactors
     data = interactor :'facts/opinion_users', fact_id, skip, take, type
 
     @users = data[:users]

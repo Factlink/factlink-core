@@ -7,7 +7,7 @@ describe FactInteractorsController do
 
   let(:user) { FactoryGirl.create(:user) }
 
-  describe :show do
+  describe :filtered_interactors do
     it "should render successful" do
       fact = create :fact
 
@@ -15,7 +15,7 @@ describe FactInteractorsController do
         fact.add_opiniated :disbelieves, (create :user).graph_user
       end
 
-      get :interactors, id: fact.id, type: 'disbelieves'
+      get :filtered_interactors, id: fact.id, type: 'disbelieves'
       response.should be_success
     end
   end
