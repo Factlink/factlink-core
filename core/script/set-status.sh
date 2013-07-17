@@ -6,8 +6,6 @@ if [ $# -ne 4 ]; then
   exit 1
 fi
 
-echo "https://api.github.com/repos/Factlink/core/statuses/$1"
-
 curl -H 'Authorization: token b5e2ff58da90bd178ee24c7e51260653db7386d2' \
   "https://api.github.com/repos/Factlink/core/statuses/$1" \
   -d "{\"state\":\"$2\",\"target_url\":\"$3\",\"description\":\"$4\"}"
