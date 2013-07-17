@@ -37,6 +37,7 @@ describe "creating a Factlink", type: :request do
 
     wait_for_ajax
 
+    puts fact_path(Fact.last.id)
     visit fact_path(Fact.last.id)
 
     open_modal 'Repost' do

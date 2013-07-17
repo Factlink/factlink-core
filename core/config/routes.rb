@@ -41,8 +41,8 @@ FactlinkUI::Application.routes.draw do
       get     "/evidence_search"  => "facts#evidence_search"
 
       scope '/interactors' do
-        get "/"      => "fact_interactors#interactors"
-        get "/:type" => "fact_interactors#filtered_interactors"
+        get "/"      => "fact_interactors#interactors", as: 'facts_interactors'
+        get "/:type" => "fact_interactors#filtered_interactors", as: 'facts_filtered_interactors'
       end
 
       scope '/comments' do
