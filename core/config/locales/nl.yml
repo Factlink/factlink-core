@@ -24,6 +24,10 @@ nl:
   fact_disbelieve_present_singular_action: "ontkent"
   fact_doubt_present_singular_action: "is onzeker"
 
+  fact_believe_present_singular_second_person_action: "stemt in"
+  fact_disbelieve_present_singular_second_person_action: "ontkent"
+  fact_doubt_present_singular_second_person_action: "bent onzeker"
+
   fact_believe_present_plural_action: "stemmen in"
   fact_disbelieve_present_plural_action: "ontkennen"
   fact_doubt_present_plural_action: "zijn onzeker"

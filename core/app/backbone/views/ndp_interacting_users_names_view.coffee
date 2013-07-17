@@ -20,7 +20,12 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
     super if index < @truncatedListSizes().numberToShow
 
   templateHelpers: =>
-    multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
+    multiplicity = if @collection.totalRecords > 1
+                     'plural'
+                   else if @collection.at(0)?.is_current_user()
+                     'singular_second_person'
+                   else
+                     'singular'
     translation = "fact_#{@collection.type}_present_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
