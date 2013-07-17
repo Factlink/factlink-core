@@ -150,6 +150,7 @@ class FactsController < ApplicationController
   end
 
   def allowed_type
+    # TODO REFACTOR SUCH THAT set_opinion rescues exception from opiniontype
     allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
     type = params[:type].to_sym
     if allowed_types.include?(type)
