@@ -1,6 +1,11 @@
+class InteractorEmptyView extends Backbone.Marionette.ItemView
+  tagName: 'span'
+  template: "fact_relations/interactor_empty"
+
 class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeView
   template: 'fact_relations/ndp_interactors_names'
   itemView: InteractorNameView
+  emptyView: InteractorEmptyView
   itemViewContainer: ".js-interactors-collection"
 
   events:
@@ -9,7 +14,6 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
   show_number_of_users: 2
 
   initialize: (options) ->
-    @collection = @model.opinionaters()
     @bindTo @collection, 'add remove reset', @render
 
   appendHtml: (collectionView, itemView, index) ->

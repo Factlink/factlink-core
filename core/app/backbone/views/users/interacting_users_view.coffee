@@ -9,7 +9,7 @@ class window.InteractingUsersView extends Backbone.Marionette.Layout
 
   onRender: ->
     @interactingUsersRegion.show new NDPInteractingUsersNamesView
-      model: @model
+      collection: @model.opinionaters()
 
     @interactingUsersAvatarRegion.show new NDPInteractingUsersAvatarsView
       model: @model

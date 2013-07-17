@@ -1,5 +1,3 @@
-#= require ../interactors_view
-
 class EvidenceEmptyView extends Backbone.Marionette.ItemView
   template: "fact_relations/fact_relations_empty"
 
@@ -63,8 +61,10 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
   onRender: ->
     @$el.addClass @model.type()
 
-    @interactingUserRegion.show new InteractorsView
+    @interactingUserRegion.show new NDPInteractingUsersNamesView
       collection: @model.getInteractors()
+    @model.getInteractors().fetch()
+
 
     if @model.type() == 'supporting' or @model.type() == 'weakening'
       @factRelationsRegion.show new EvidenceListView
