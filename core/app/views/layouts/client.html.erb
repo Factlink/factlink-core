@@ -49,7 +49,6 @@
   <%= yield :javascript %>
 
   <script type="text/javascript">
-    $(".factlink-modal-container").draggable({handle: '.drag-handler'});
     $( document ).bind('click', function(e) {
       if( $(e.target).is('body') ) {
         if (parent.remote) {
