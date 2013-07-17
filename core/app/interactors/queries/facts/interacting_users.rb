@@ -25,8 +25,10 @@ module Queries
       end
 
       def with_me_up_front list
+        return list unless current_user
+
         where_i_am = list.index do |graph_user|
-          graph_user.id == current_graph_user_id
+          graph_user.id == current_user.graph_user_id
         end
 
         if where_i_am
@@ -37,8 +39,8 @@ module Queries
         end
       end
 
-      def current_graph_user_id
-        @options[:current_user].graph_user_id
+      def current_user
+        @options[:current_user]
       end
 
       def paginate(data)
