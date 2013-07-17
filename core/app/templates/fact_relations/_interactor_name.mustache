@@ -1,3 +1,9 @@
-{{#global.signed_in}}<a href='/{{username}}' rel='backbone'>{{/global.signed_in}}{{name}}{{#global.signed_in}}</a>{{/global.signed_in}}<span class="separator-list-sep"></span>
+{{#show_links}}{{!
+  }}<a href='/{{username}}' rel='backbone'>{{name}}</a>{{!
+}}{{/show_links}}{{!
+}}{{^show_links}}{{!
+  }}{{name}}{{!
+}}{{/show_links}}{{!
+}}<span class="separator-list-sep"></span>
 
 {{! don't add whitespace here, that screws up the comma's !}}

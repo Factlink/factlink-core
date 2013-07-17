@@ -3,6 +3,16 @@ class NDPInteractorNameView extends Backbone.Marionette.Layout
   className: 'separator-list-item'
   template: 'fact_relations/interactor_name'
 
+  templateHelpers: =>
+    if Factlink.Global.signed_in
+      show_links: => not @model.is_current_user()
+      name: => if @model.is_current_user()
+                'You'
+               else
+                @model.get('name')
+    else
+      show_links: false
+
 class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
   template: 'fact_relations/ndp_interactors_names'
   itemView: NDPInteractorNameView
