@@ -29,6 +29,8 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
     numberNotDisplayed: => Math.max(0, @collection.totalRecords - @show_number_of_users)
     multipleNotDisplayed: => (@collection.totalRecords - @show_number_of_users) > 1
 
+  #Possible method restrict names to one line: http://jsbin.com/esikiv/3/edit
+
   show_all: (e) ->
     e.stopPropagation()
     e.preventDefault()
