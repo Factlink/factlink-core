@@ -1,5 +1,6 @@
 class window.InteractingUsersView extends Backbone.Marionette.Layout
 
+  className: 'ndp-interacting-users'
   template: 'evidence/interacting_users'
 
   regions:
@@ -7,8 +8,8 @@ class window.InteractingUsersView extends Backbone.Marionette.Layout
     interactingUsersAvatarRegion: '.js-region-interacting-users-avatars'
 
   onRender: ->
-    @interactingUsersRegion.show new NDPInteractorNamesView
+    @interactingUsersRegion.show new NDPInteractingUsersNamesView
       model: @model
 
-    @interactingUsersAvatarRegion.show new NDPInteractorsAvatarView
+    @interactingUsersAvatarRegion.show new NDPInteractingUsersAvatarsView
       model: @model

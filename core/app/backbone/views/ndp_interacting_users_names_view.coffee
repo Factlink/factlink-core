@@ -1,4 +1,5 @@
 class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
+  className: 'ndp-interacting-users-names'
   template: 'fact_relations/ndp_interactors_names'
   itemView: InteractorNameView
   itemViewContainer: ".js-interactors-collection"
@@ -6,25 +7,28 @@ class window.NDPInteractorNamesView extends Backbone.Marionette.CompositeView
   events:
     'click a.js-show-all' : 'show_all'
 
-  show_number_of_names: 2
+  show_number_of_users: 2
 
   initialize: (options) ->
     @collection = @model.opinionaters()
-    @collection.on 'add remove reset', @render, @
+    @bindTo @collection, 'add remove reset', @render
 
   appendHtml: (collectionView, itemView, index) ->
-    super if index < @show_number_of_names
+    super if index < @show_number_of_users
 
   templateHelpers: =>
     multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
     translation = "fact_#{@collection.type}_present_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
-    numberNotDisplayed: => Math.max(0, @collection.totalRecords - @show_number_of_names)
-    multipleNotDisplayed: => (@collection.totalRecords - @show_number_of_names) > 1
+    numberNotDisplayed: => Math.max(0, @collection.totalRecords - @show_number_of_users)
+    multipleNotDisplayed: => (@collection.totalRecords - @show_number_of_users) > 1
+
+  #Possible method restrict names to one line: http://jsbin.com/esikiv/3/edit
 
   show_all: (e) ->
     e.stopPropagation()
     e.preventDefault()
+    @show_number_of_users = Infinity
     @collection.howManyPer(1000000)
     @collection.fetch()
