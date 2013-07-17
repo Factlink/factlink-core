@@ -9,9 +9,9 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
   typeCss: ->
     switch @model.get('type')
-      when 'believe' then 'evidence-supporting'
-      when 'disbelieve' then 'evidence-weakening'
-      when 'doubt' then 'evidence-unsure'
+      when 'believes' then 'evidence-supporting'
+      when 'disbelieves' then 'evidence-weakening'
+      when 'doubts' then 'evidence-unsure'
 
   shouldShow: -> @model.has('impact') && @model.get('impact') > 0.0
 

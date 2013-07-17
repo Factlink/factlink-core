@@ -16,6 +16,6 @@ class window.Discussion extends Backbone.Model
 
   getInteractors: ->
     switch @type()
-      when 'supporting' then @interactorsPage('believe')
-      when 'weakening' then @interactorsPage('disbelieve')
-      when 'doubting' then @interactorsPage('doubt')
+      when 'supporting' then @interactorsPage('believes')
+      when 'weakening' then @interactorsPage('disbelieves')
+      when 'doubting' then @interactorsPage('doubts')
