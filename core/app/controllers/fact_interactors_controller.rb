@@ -2,7 +2,13 @@ class FactInteractorsController < ApplicationController
   respond_to :json
 
   def interactors
+    @interactors = [
+      @data = interactor(:'facts/opinion_users', fact_id, skip, take, 'believes'),
+      @data = interactor(:'facts/opinion_users', fact_id, skip, take, 'disbelieves'),
+      @data = interactor(:'facts/opinion_users', fact_id, skip, take, 'doubts')
+    ]
 
+    render 'facts/interactors', formats: ['json']
   end
 
   def filtered_interactors
