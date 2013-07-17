@@ -36,12 +36,12 @@ class EvidenceController < ApplicationController
     authorize! :add_evidence, fact
 
     if params[:displaystring] != nil
-      @evidence = create_new_evidence params[:displaystring], params[:from_fact].andand[:opinion]
+      evidence = create_new_evidence params[:displaystring], params[:from_fact].andand[:opinion]
     else
-      @evidence = retrieve_evidence params[:evidence_id]
+      evidence = retrieve_evidence params[:evidence_id]
     end
 
-    @fact_relation = create_believed_factrelation(@evidence, relation, fact)
+    @fact_relation = create_believed_factrelation(evidence, relation, fact)
 
     @fact_relation.calculate_opinion
 
@@ -86,9 +86,7 @@ class EvidenceController < ApplicationController
 
     fact_relation.delete
 
-    respond_to do |format|
-      format.json  { render :json => {}, :status => :ok }
-    end
+    render json: {}, status: :ok
   end
 
   private

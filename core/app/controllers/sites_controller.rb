@@ -26,8 +26,17 @@ class SitesController < ApplicationController
     url = params[:url]
 
     if not is_blacklisted and can? :index, Fact
-      site = Site.find(:url => url).first
+      site = Site.find(url: url).first
       @facts = site ? site.facts.to_a : []
+
+      @facts = @facts.map do |fact|
+        {
+          id: fact.id,
+          _id: fact.id,
+          displaystring: fact.data.displaystring,
+          title: fact.data.title
+        }
+      end
 
       render_jsonp @facts
     elsif is_blacklisted
