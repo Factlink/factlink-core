@@ -1,5 +1,4 @@
 class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeView
-  className: 'ndp-interacting-users-names'
   template: 'fact_relations/ndp_interactors_names'
   itemView: InteractorNameView
   itemViewContainer: ".js-interactors-collection"
