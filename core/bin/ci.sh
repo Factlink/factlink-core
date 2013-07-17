@@ -20,11 +20,11 @@ for action in bin/ci/*.sh; do
   banner $action;
   time /bin/bash "$action"
   if [ "$?" -gt "0" ] ; then
-    ./script/set-status.sh "$GIT_COMMIT" error "$BUILD_URL" "$BUILD_TAG"
+    ./script/set-status.sh "$GIT_COMMIT" error "$BUILD_URL" "$BUILD_TAG" > github_error_response.json
     exit 1
   fi
   if [ -f TEST_FAILURE ] ; then
-    ./script/set-status.sh "$GIT_COMMIT" failure "$BUILD_URL" "$BUILD_TAG"
+    ./script/set-status.sh "$GIT_COMMIT" failure "$BUILD_URL" "$BUILD_TAG" > github_failure_response.json
     exit
   fi
 done
