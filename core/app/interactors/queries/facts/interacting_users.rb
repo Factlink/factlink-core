@@ -11,22 +11,34 @@ module Queries
       private
 
       def execute
-        graph_users= users_who(opinion)
-        paginated_users = paginate(graph_users).map(&:user)
+
+        paginated_users = paginate(sorted_graph_users).map(&:user)
 
         {
           users: paginated_users.map{|u| KillObject.user u},
-          total: graph_users.size
+          total: sorted_graph_users.size
         }
       end
 
+      def sorted_graph_users
+        @sorted_graph_users ||= with_me_up_front(users_who(opinion))
+      end
+
       def with_me_up_front list
-        me = list.delete(current_graph_user_id)
-        if me
-          list.unshift me
+        where_i_am = list.index do |graph_user|
+          graph_user.id == current_graph_user_id
+        end
+
+        if where_i_am
+          me = list.slice!(where_i_am)
+          list.unshift(me)
         else
           list
         end
+      end
+
+      def current_graph_user_id
+        @options[:current_user].graph_user_id
       end
 
       def paginate(data)
