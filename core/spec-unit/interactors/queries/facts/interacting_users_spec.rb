@@ -16,7 +16,7 @@ describe Queries::Facts::InteractingUsers do
       fact = mock id: 1, people_believes: [graph_user]
       Fact.stub(:[]).with(fact.id).and_return(fact)
 
-      pavlov_options = { current_user: mock(graph_user_id: 666)}
+      pavlov_options = { current_user: mock(graph_user_id: 666) }
 
       query = described_class.new(1, 0, 3, 'believes', pavlov_options)
       result = query.call
@@ -32,7 +32,7 @@ describe Queries::Facts::InteractingUsers do
       fact = mock id: 1, people_disbelieves: [graph_user]
       Fact.stub(:[]).with(fact.id).and_return(fact)
 
-      pavlov_options = { current_user: mock(graph_user_id: 666)}
+      pavlov_options = { current_user: mock(graph_user_id: 666) }
 
       query = described_class.new(1, 0, 3, 'disbelieves', pavlov_options)
       result = query.call
@@ -48,7 +48,7 @@ describe Queries::Facts::InteractingUsers do
       fact = mock id: 1, people_doubts: [graph_user]
       Fact.stub(:[]).with(fact.id).and_return(fact)
 
-      pavlov_options = { current_user: mock(graph_user_id: 666)}
+      pavlov_options = { current_user: mock(graph_user_id: 666) }
 
       query = described_class.new(1, 0, 3, 'doubts', pavlov_options)
       result = query.call
@@ -68,7 +68,7 @@ describe Queries::Facts::InteractingUsers do
       fact = mock id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
       Fact.stub(:[]).with(fact.id).and_return(fact)
 
-      pavlov_options = { current_user: mock(graph_user_id: 666)}
+      pavlov_options = { current_user: mock(graph_user_id: 666) }
 
       query = described_class.new(1, 1, 1, 'believes', pavlov_options)
       result = query.call
