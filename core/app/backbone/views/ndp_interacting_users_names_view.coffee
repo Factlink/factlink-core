@@ -1,6 +1,6 @@
 class NDPInteractingUsersNameView extends Backbone.Marionette.Layout
   tagName: 'span'
-  className: 'ndp-interacting-users-name separator-list-item'
+  className: 'separator-list-item'
   template: 'fact_relations/interactor_name'
 
 class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeView
@@ -30,6 +30,8 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
 
   truncatedListSizes: ->
     truncatedListSizes @collection.totalRecords, @number_of_items
+
+  #Possible method restrict names to one line: http://jsbin.com/esikiv/3/edit
 
   show_all: (e) ->
     e.stopPropagation()
