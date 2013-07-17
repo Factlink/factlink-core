@@ -17,6 +17,7 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
     @bindTo @collection, 'add remove reset', @render
 
   appendHtml: (collectionView, itemView, index) ->
+    return super if @collection.length == 0 # emptyview
     super if index < @truncatedListSizes().numberToShow
 
   templateHelpers: =>
