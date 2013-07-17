@@ -2,8 +2,9 @@
 # and maximum number of items. To be used for lists which have an
 # "and 4 others" postfix. This method prevents showing "and 1 other".
 
-window.truncateList = (listSize, maximumItems) ->
+window.truncatedListSizes = (listSize, maximumItems) ->
   if listSize <= maximumItems
-    {number: listSize, others: false}
+    {numberToShow: listSize, numberOfOthers: 0}
   else
-    {number: maximumItems - 1, others: true}
+    numberToShow = maximumItems - 1
+    {numberToShow: numberToShow, numberOfOthers: listSize-numberToShow}

@@ -19,19 +19,17 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
     @bindTo @collection, 'add remove reset', @render
 
   appendHtml: (collectionView, itemView, index) ->
-    super if index < @truncatedList().number
+    super if index < @truncatedListSizes().numberToShow
 
   templateHelpers: =>
     multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
     translation = "fact_#{@collection.type}_present_#{multiplicity}_action"
-    truncatedList = @truncatedList()
 
     past_action: Factlink.Global.t[translation]
-    numberOfOthers: @collection.totalRecords - truncatedList.number
-    showOthers: truncatedList.others
+    numberOfOthers: @truncatedListSizes().numberOfOthers
 
-  truncatedList: ->
-    truncateList @collection.totalRecords, @number_of_items
+  truncatedListSizes: ->
+    truncatedListSizes @collection.totalRecords, @number_of_items
 
   show_all: (e) ->
     e.stopPropagation()

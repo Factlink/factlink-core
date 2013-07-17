@@ -20,16 +20,13 @@ class window.NDPInteractingUsersAvatarsView extends Backbone.Marionette.Composit
     @bindTo @collection, 'add remove reset', @render
 
   appendHtml: (collectionView, itemView, index) ->
-    super if index < @truncatedList().number
+    super if index < @truncatedListSizes().numberToShow
 
   templateHelpers: =>
-    truncatedList = @truncatedList()
+    numberOfOthers: @truncatedListSizes().numberOfOthers
 
-    numberOfOthers: @collection.totalRecords - truncatedList.number
-    showOthers: truncatedList.others
-
-  truncatedList: ->
-    truncateList @collection.totalRecords, @number_of_items
+  truncatedListSizes: ->
+    truncatedListSizes @collection.totalRecords, @number_of_items
 
   show_all: (e) ->
     e.stopPropagation()
