@@ -28,3 +28,12 @@ describe 'window.truncateList', ->
 
     expect(result.number).eq maximumItems-1
     expect(result.others).eq true
+
+  it "returns listSize when maximumItems is Infinity", ->
+    listSize = 15
+    maximumItems = Infinity
+
+    result = truncateList(listSize, maximumItems)
+
+    expect(result.number).eq listSize
+    expect(result.others).eq false
