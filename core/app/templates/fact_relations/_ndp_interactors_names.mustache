@@ -1,7 +1,7 @@
-<span class="separator-list js-interactors-collection {{#numberNotDisplayed}}separator-list-hide-and{{/numberNotDisplayed}}"></span>
-{{#numberNotDisplayed}}
-  and <a href='javascript:void();' class='js-show-all'>{{numberNotDisplayed}}
-  other{{#multipleNotDisplayed}}s{{/multipleNotDisplayed}}
+<span class="separator-list js-interactors-collection {{#numberOfOthers}}separator-list-hide-and{{/numberOfOthers}}"></span>
+{{#numberOfOthers}}
+  and <a href='javascript:void();' class='js-show-all'>{{numberOfOthers}}
+  others
   </a>
-{{/numberNotDisplayed}}
+{{/numberOfOthers}}
 {{past_action}}.

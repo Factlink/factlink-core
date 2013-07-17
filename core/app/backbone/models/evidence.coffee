@@ -17,6 +17,7 @@ class window.OpinionatersEvidence extends Evidence
     @_opinionaters = new InteractorsPage
       fact_id: @_wheel.get('fact_id')
       type: @get('type')
+      perPage: 7
     @_opinionaters.on 'reset', =>
       @set impact: @_opinionaters.impact
 
