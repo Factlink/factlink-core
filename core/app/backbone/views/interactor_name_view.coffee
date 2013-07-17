@@ -4,11 +4,7 @@ class window.InteractorNameView extends Backbone.Marionette.ItemView
   template: 'fact_relations/interactor_name'
 
   templateHelpers: =>
-    if Factlink.Global.signed_in
-      show_links: => not @model.is_current_user()
-      name: => if @model.is_current_user()
-                'You'
-               else
-                @model.get('name')
-    else
-      show_links: false
+    name: =>
+      if @model.is_current_user() then 'You' else @model.get('name')
+    show_links: =>
+      Factlink.Global.signed_in and not @model.is_current_user()
