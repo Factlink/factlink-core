@@ -86,7 +86,6 @@ class FactsController < ApplicationController
   def destroy
     authorize! :destroy, @fact
 
-    @fact_id = @fact.id
     @fact.delete
 
     render json: {}
