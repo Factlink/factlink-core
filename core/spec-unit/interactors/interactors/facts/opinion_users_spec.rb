@@ -64,6 +64,7 @@ describe Interactors::Facts::OpinionUsers do
       results[:total].should eq 1
       results[:users].should eq [u1]
       results[:impact].should eq impact
+      results[:type].should eq 'believes'
     end
   end
 end
