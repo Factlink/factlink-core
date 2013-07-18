@@ -1,22 +1,29 @@
 class FactInteractorsController < ApplicationController
   respond_to :json
 
-  def interactors
-    data = interactor :'facts/opinion_users', fact_id, skip, take, type
+  def index
+    # TODO: Make an interactor that does this once we get rid of "show"
+    @interactors = [
+      interactor(:'facts/opinion_users', fact_id, skip, take, 'believes'),
+      interactor(:'facts/opinion_users', fact_id, skip, take, 'disbelieves'),
+      interactor(:'facts/opinion_users', fact_id, skip, take, 'doubts')
+    ]
 
-    @users = data[:users]
-    @total = data[:total]
-    @impact = data[:impact]
+    render 'fact_interactors/index', formats: ['json']
+  end
 
-    render 'facts/interactions', formats: ['json']
+  def show
+    @data = interactor :'facts/opinion_users', fact_id, skip, take, type
+
+    render 'fact_interactors/show', formats: ['json']
   end
 
   def fact_id
-    params[:id].to_i
+    params[:fact_id].to_i
   end
 
   def type
-    OpinionType.real_for(params[:type]).to_s
+    OpinionType.real_for(params[:id]).to_s
   end
 
   def skip

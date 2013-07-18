@@ -38,6 +38,13 @@ class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
     return super if @collection.length == 0 # emptyview
     super if index < @truncatedListSizes().numberToShow
 
+  # TODO: only use one name throughout the application
+  singularType: ->
+    switch @collection.type
+      when 'believes' then 'believe'
+      when 'disbelieves' then 'disbelieve'
+      when 'doubts' then 'doubt'
+
   templateHelpers: =>
     multiplicity = if @collection.totalRecords > 1
                      'plural'
@@ -45,7 +52,7 @@ class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
                      'singular_second_person'
                    else
                      'singular'
-    translation = "fact_#{@collection.type}_past_#{multiplicity}_action"
+    translation = "fact_#{@singularType()}_past_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
     numberOfOthers: @truncatedListSizes().numberOfOthers
