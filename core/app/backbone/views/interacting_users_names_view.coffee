@@ -53,8 +53,6 @@ class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
   truncatedListSizes: ->
     truncatedListSizes @collection.totalRecords, @number_of_items
 
-  #Possible method restrict names to one line: http://jsbin.com/esikiv/3/edit
-
   show_all: (e) ->
     e.stopPropagation()
     e.preventDefault()
