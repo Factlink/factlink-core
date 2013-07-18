@@ -7,9 +7,9 @@ class window.NDPEvidenceCollection extends Backbone.Collection
     super
     unless models and models.length > 0
       @reset [
-        new OpinionatersEvidence({type: 'believe'   }, fact: @fact),
-        new OpinionatersEvidence({type: 'disbelieve'}, fact: @fact),
-        new OpinionatersEvidence({type: 'doubt'     }, fact: @fact)
+        new OpinionatersEvidence {type: 'believe'},    collection: this
+        new OpinionatersEvidence {type: 'disbelieve'}, collection: this
+        new OpinionatersEvidence {type: 'doubt'},      collection: this
       ]
 
   comparator: (item) -> - item.get('impact')
