@@ -7,16 +7,11 @@ class window.OpinionatersEvidence extends Evidence
   initialize: (attributes, options) ->
     @_fact_id = options.fact_id ? @collection.fact.id
 
-  opinionaters: ->
-    return @_opinionaters if @_opinionaters?
+    @on 'change:users', =>
+      @opinionaters().reset @get('users')
 
-    @_opinionaters = new InteractorsPage @get('users') ? [],
+  opinionaters: ->
+    @_opinionaters ?= new InteractorsPage @get('users') ? [],
       fact_id: @_fact_id
       type: @get('type')
       perPage: 7
-    @_opinionaters.on 'reset', =>
-      @set impact: @_opinionaters.impact
-    @on 'change:users', =>
-      @_opinionaters.reset @get('users')
-
-    @_opinionaters
