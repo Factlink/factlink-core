@@ -4,6 +4,8 @@
 cd `dirname $0`
 cd ..
 
+rm -f tmp/*.junit.xml
+
 ./script/set-status.sh "$GIT_COMMIT" pending "$BUILD_URL" "$BUILD_TAG" > github_pending_response.json
 
 
