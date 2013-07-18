@@ -17,7 +17,7 @@ class window.User extends Backbone.Model
       '/' + @get('username')
 
   is_current_user: ->
-    currentUser?.get('username') == @attributes.username
+    currentUser?.get('username') == @get('username')
 
   avatar_url: (size)->
     md5d_email = @get('gravatar_hash')
