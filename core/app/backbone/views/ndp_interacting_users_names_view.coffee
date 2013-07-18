@@ -12,28 +12,30 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
   events:
     'click a.js-show-all' : 'show_all'
 
-  show_number_of_users: 2
+  number_of_items: 3
 
   initialize: (options) ->
     @collection = @model.opinionaters()
     @bindTo @collection, 'add remove reset', @render
 
   appendHtml: (collectionView, itemView, index) ->
-    super if index < @show_number_of_users
+    super if index < @truncatedListSizes().numberToShow
 
   templateHelpers: =>
     multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
     translation = "fact_#{@collection.type}_present_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
-    numberNotDisplayed: => Math.max(0, @collection.totalRecords - @show_number_of_users)
-    multipleNotDisplayed: => (@collection.totalRecords - @show_number_of_users) > 1
+    numberOfOthers: @truncatedListSizes().numberOfOthers
+
+  truncatedListSizes: ->
+    truncatedListSizes @collection.totalRecords, @number_of_items
 
   #Possible method restrict names to one line: http://jsbin.com/esikiv/3/edit
 
   show_all: (e) ->
     e.stopPropagation()
     e.preventDefault()
-    @show_number_of_users = Infinity
+    @number_of_items = Infinity
     @collection.howManyPer(1000000)
     @collection.fetch()
