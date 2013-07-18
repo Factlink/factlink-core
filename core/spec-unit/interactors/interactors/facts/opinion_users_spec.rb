@@ -48,22 +48,24 @@ describe Interactors::Facts::OpinionUsers do
       take = 0
       u1 = mock
       impact = mock
+      type = 'believes'
 
       pavlov_options = { ability: mock(can?: true)}
 
       Pavlov.stub(:query)
-        .with(:'facts/interacting_users', fact_id, skip, take, 'believes', pavlov_options)
+        .with(:'facts/interacting_users', fact_id, skip, take, type, pavlov_options)
         .and_return(users: [u1], total: 1)
       Pavlov.stub(:query)
-        .with(:'facts/interacting_users_impact', fact_id, 'believes', pavlov_options)
+        .with(:'facts/interacting_users_impact', fact_id, type, pavlov_options)
         .and_return(impact)
 
-      interactor = described_class.new fact_id, skip, take, 'believes', pavlov_options
+      interactor = described_class.new fact_id, skip, take, type, pavlov_options
       results = interactor.call
 
-      results[:total].should eq 1
-      results[:users].should eq [u1]
-      results[:impact].should eq impact
+      expect(results[:total]).to eq 1
+      expect(results[:users]).to eq [u1]
+      expect(results[:impact]).to eq impact
+      expect(results[:type]).to eq type
     end
   end
 end
