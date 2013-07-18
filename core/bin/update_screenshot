@@ -1,2 +1,37 @@
 #!/bin/bash
-wget --user=$JENKINS_USER --ask-password https://ci.factlink.com/job/DevelopCore/ws/tmp/capybarascreenshot-$1-new.png -O spec/screenshots/screenshots/$1.png
+
+MY_DIR=`dirname $0`
+. $MY_DIR/lib.sh
+
+
+branchname=`current_branch_name`
+
+
+fetch_screenshots(){
+  job=$1
+  screenshots=`ls $MY_DIR/../spec/screenshots/screenshots/ | perl -pe 's/\.png//'`
+  for screenshot in $screenshots; do
+    write_file="spec/screenshots/screenshots/$1.png"
+    fetch_url="https://$CREDENTIALS@$JENKINS_HOSTNAME/job/$job/ws/tmp/capybarascreenshot-$1-new.png"
+
+    wget  "$fetch_url" -O "$write_file"
+  done
+}
+
+case $branchname in
+  develop )
+    echo 'hallo develop'
+    ;;
+  feature/* )
+    echo 'hallo feature branch'
+
+    echo "$screenshots"
+
+    job=`jenkins_job_for_feature_branch "$branchname"`
+    fetch_screenshots "$job"
+    ;;
+  * )
+    echo onherkende branch
+    ;;
+esac
+#wget --user=$JENKINS_USER --ask-password https://ci.factlink.com/job/DevelopCore/ws/tmp/capybarascreenshot-$1-new.png -O spec/screenshots/screenshots/$1.png
