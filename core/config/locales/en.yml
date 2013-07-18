@@ -19,21 +19,33 @@ en:
 
   fact_removed_opinions_past_action: "withdrew opinion"
 
-  fact_believe_present_singular_action: "agreed"
-  fact_disbelieve_present_singular_action: "disagreed"
+  fact_believe_present_singular_action: "agrees"
+  fact_disbelieve_present_singular_action: "disagrees"
   fact_doubt_present_singular_action: "is unsure"
 
-  fact_believe_present_plural_action: "agreed"
-  fact_disbelieve_present_plural_action: "disagreed"
+  fact_believe_present_plural_action: "agree"
+  fact_disbelieve_present_plural_action: "disagree"
   fact_doubt_present_plural_action: "are unsure"
 
-  fact_believe_past_singular_action: "agreed with"
-  fact_doubt_past_singular_action: "was unsure about"
-  fact_disbelieve_past_singular_action: "disagreed with"
+  fact_believe_past_singular_action: "agreed"
+  fact_doubt_past_singular_action: "was unsure"
+  fact_disbelieve_past_singular_action: "disagreed"
 
-  fact_believe_past_plural_action: "agreed with"
-  fact_doubt_past_plural_action: "were unsure about"
-  fact_disbelieve_past_plural_action: "disagreed with"
+  fact_believe_past_singular_second_person_action: "agreed"
+  fact_doubt_past_singular_second_person_action: "were unsure"
+  fact_disbelieve_past_singular_second_person_action: "disagreed"
+
+  fact_believe_past_plural_action: "agreed"
+  fact_doubt_past_plural_action: "were unsure"
+  fact_disbelieve_past_plural_action: "disagreed"
+
+  fact_believe_past_singular_action_about: "agreed with"
+  fact_doubt_past_singular_action_about: "was unsure about"
+  fact_disbelieve_past_singular_action_about: "disagreed with"
+
+  fact_believe_past_plural_action_about: "agreed with"
+  fact_doubt_past_plural_action_about: "were unsure about"
+  fact_disbelieve_past_plural_action_about: "disagreed with"
 
   fact_create_past_action: "created"
   fact_remove_opinion_past_action: "removed opinion"
@@ -69,6 +81,9 @@ en:
   ago: "ago"
   show: "show"
   loading: "loading"
+
+  you: "you"
+  nobody: "nobody"
 
   fact_added_fact_to_channel_action: "added your Factlink to their channel"
 
