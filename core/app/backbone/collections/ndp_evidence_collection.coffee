@@ -5,6 +5,10 @@ class window.NDPEvidenceCollection extends Backbone.Collection
     @on 'change', @sort, @
     @fact = options.fact
 
+    @_wheel = @fact.getFactWheel()
+    @_wheel.on 'change', =>
+      @fetch()
+
   comparator: (item) -> - item.get('impact')
 
   url: ->
