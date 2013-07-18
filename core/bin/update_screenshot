@@ -21,18 +21,17 @@ fetch_screenshots(){
 
 case $branchname in
   develop )
-    echo 'hallo develop'
+    fetch_screenshots "DevelopCore" ""
     ;;
   feature/* )
-    echo 'hallo feature branch'
-
-    echo "$screenshots"
-
     job=`jenkins_job_for_feature_branch "$branchname"`
     fetch_screenshots "$job" "view/5%20-%20Features/"
     ;;
+  master )
+    echo "please don't update screenshots directly in master"
+    ;;
   * )
-    echo onherkende branch
+    echo "Unrecognized type of branch"
     ;;
 esac
 #wget --user=$JENKINS_USER --ask-password https://ci.factlink.com/job/DevelopCore/ws/tmp/capybarascreenshot-$1-new.png -O spec/screenshots/screenshots/$1.png
