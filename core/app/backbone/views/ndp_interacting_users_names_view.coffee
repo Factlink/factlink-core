@@ -28,7 +28,7 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
                      'singular_second_person'
                    else
                      'singular'
-    translation = "fact_#{@collection.type}_present_#{multiplicity}_action"
+    translation = "fact_#{@collection.type}_past_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
     numberOfOthers: @truncatedListSizes().numberOfOthers
