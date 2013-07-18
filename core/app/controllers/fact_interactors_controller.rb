@@ -19,7 +19,6 @@ class FactInteractorsController < ApplicationController
   end
 
   def fact_id
-    puts params.inspect
     params[:fact_id].to_i
   end
 
