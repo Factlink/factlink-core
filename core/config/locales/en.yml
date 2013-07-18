@@ -31,13 +31,13 @@ en:
   fact_disbelieve_present_plural_action: "disagree"
   fact_doubt_present_plural_action: "are unsure"
 
-  fact_believe_past_singular_action: "agreed with"
-  fact_doubt_past_singular_action: "was unsure about"
-  fact_disbelieve_past_singular_action: "disagreed with"
+  fact_believe_past_singular_action_about: "agreed with"
+  fact_doubt_past_singular_action_about: "was unsure about"
+  fact_disbelieve_past_singular_action_about: "disagreed with"
 
-  fact_believe_past_plural_action: "agreed with"
-  fact_doubt_past_plural_action: "were unsure about"
-  fact_disbelieve_past_plural_action: "disagreed with"
+  fact_believe_past_plural_action_about: "agreed with"
+  fact_doubt_past_plural_action_about: "were unsure about"
+  fact_disbelieve_past_plural_action_about: "disagreed with"
 
   fact_create_past_action: "created"
   fact_remove_opinion_past_action: "removed opinion"

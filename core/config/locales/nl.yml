@@ -32,13 +32,13 @@ nl:
   fact_disbelieve_present_plural_action: "ontkennen"
   fact_doubt_present_plural_action: "zijn onzeker"
 
-  fact_believe_past_singular_action: "stemde in met"
-  fact_doubt_past_singular_action: "was onzeker over"
-  fact_disbelieve_past_singular_action: "ontkende"
+  fact_believe_past_singular_action_about: "stemde in met"
+  fact_doubt_past_singular_action_about: "was onzeker over"
+  fact_disbelieve_past_singular_action_about: "ontkende"
 
-  fact_believe_past_plural_action: "stemden in met"
-  fact_doubt_past_plural_action: "waren onzeker over"
-  fact_disbelieve_past_plural_action: "ontkenden"
+  fact_believe_past_plural_action_about: "stemden in met"
+  fact_doubt_past_plural_action_about: "waren onzeker over"
+  fact_disbelieve_past_plural_action_about: "ontkenden"
 
   fact_create_past_action: "maakte aan"
   fact_remove_opinion_past_action: "trok zijn mening terug"
