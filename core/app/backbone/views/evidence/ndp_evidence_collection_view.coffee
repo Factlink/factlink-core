@@ -22,13 +22,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
 class NDPEvidenceLoadingView extends Backbone.Marionette.ItemView
   className: "evidence-loading"
-  template: text: '''
-    <div class="evidence-impact">
-      <div class="new-design-background-shadow"></div>
-      <img class="ajax-loader" src="{{global.ajax_loader_image}}">
-    </div>
-    '''
-
+  template: 'evidence/ndp_evidence_loading_indicator'
 
 class NDPEvidenceEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
   loadingView: NDPEvidenceLoadingView
