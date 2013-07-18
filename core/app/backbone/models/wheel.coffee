@@ -103,7 +103,7 @@ class window.Wheel extends Backbone.Model
     $.ajax
       type: "DELETE"
       url: "/facts/#{fact_id}/opinion.json"
-      success: (data) =>
+      success: (data, status, response) =>
         @updateTo data.authority, data.opinion_types
         mp_track "Factlink: De-opinionate",
           factlink: fact_id
