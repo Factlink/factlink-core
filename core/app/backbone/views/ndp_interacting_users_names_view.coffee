@@ -21,9 +21,16 @@ class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeV
   appendHtml: (collectionView, itemView, index) ->
     super if index < @truncatedListSizes().numberToShow
 
+  # TODO: only use one name throughout the application
+  singularType: ->
+    switch @collection.type
+      when 'believes' then 'believe'
+      when 'disbelieves' then 'disbelieve'
+      when 'doubts' then 'doubt'
+
   templateHelpers: =>
     multiplicity = if @collection.totalRecords > 1 then 'plural' else 'singular'
-    translation = "fact_#{@collection.type}_present_#{multiplicity}_action"
+    translation = "fact_#{@singularType()}_present_#{multiplicity}_action"
 
     past_action: Factlink.Global.t[translation]
     numberOfOthers: @truncatedListSizes().numberOfOthers
