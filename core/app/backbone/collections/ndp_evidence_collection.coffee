@@ -6,7 +6,7 @@ class window.NDPEvidenceCollection extends Backbone.Collection
     @fact = options.fact
 
     @_wheel = @fact.getFactWheel()
-    @_wheel.on 'change', =>
+    @_wheel.on 'sync', =>
       @fetch()
 
   comparator: (item) -> - item.get('impact')

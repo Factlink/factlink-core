@@ -72,6 +72,7 @@ class window.Wheel extends Backbone.Model
 
     @updateTo @get("authority"), new_opinion_types
 
+  # TODO: Use Backbone sync here!!
   setActiveOpinionType: (opinion_type, options={}) ->
     old_opinion_type = @userOpinion()
     fact_id = @get('fact_id')
@@ -79,12 +80,13 @@ class window.Wheel extends Backbone.Model
     $.ajax
       url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
       type: "POST"
-      success: (data) =>
+      success: (data, status, response) =>
         @updateTo data.authority, data.opinion_types
         mp_track "Factlink: Opinionate",
           factlink: fact_id
           opinion: opinion_type
         options.success?()
+        @trigger 'sync', this, response, options
       error: =>
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.

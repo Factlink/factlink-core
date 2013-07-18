@@ -6,7 +6,7 @@ class window.Discussion extends Backbone.Model
     @getInteractorsEvidence().opinionaters().fetch()
 
     @_wheel = @_fact.getFactWheel()
-    @_wheel.on 'change', =>
+    @_wheel.on 'sync', =>
       @getInteractorsEvidence().opinionaters().fetch()
 
   evidence:  -> @_evidence ?= @_getEvidence()
