@@ -13,4 +13,4 @@ class window.NDPEvidenceCollection extends Backbone.Collection
   comparator: (item) -> - item.get('impact')
 
   url: ->
-    '/facts/#{@fact.id}/interactors'
+    "/facts/#{@fact.id}/interactors"
