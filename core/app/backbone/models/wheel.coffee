@@ -86,7 +86,7 @@ class window.Wheel extends Backbone.Model
           factlink: fact_id
           opinion: opinion_type
         options.success?()
-        @trigger 'sync', this, response, options
+        @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
       error: =>
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.
@@ -96,6 +96,7 @@ class window.Wheel extends Backbone.Model
           @turnOffActiveOpinionType()
         options.error?()
 
+  # TODO: Use Backbone sync here!!
   unsetActiveOpinionType: (opinion_type, options={}) ->
     fact_id = @get('fact_id')
     @turnOffActiveOpinionType()
@@ -107,6 +108,7 @@ class window.Wheel extends Backbone.Model
         mp_track "Factlink: De-opinionate",
           factlink: fact_id
         options.success?()
+        @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
       error: =>
         @turnOnActiveOpinionType opinion_type
         options.error?()
