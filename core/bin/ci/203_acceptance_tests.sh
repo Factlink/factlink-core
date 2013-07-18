@@ -2,10 +2,22 @@
 echo "Running acceptance tests"
 
 REPORTFILE=tmp/spec-acceptance.junit.xml
+OUTPUTFILE=rspec-acceptance-output.log
 
-bundle exec rspec --format RspecJunitFormatter spec/acceptance/ \
-  --out $REPORTFILE \
-  || echo > TEST_FAILURE
+function do_tests {
+  bundle exec rspec --format RspecJunitFormatter spec/acceptance/ \
+    --out $REPORTFILE \
+    2>&1 | tee $OUTPUTFILE \
+    || echo > TEST_FAILURE
+}
+
+
+do_tests
+if grep -qe 'PhantomJS has crashed.' < $OUTPUTFILE ; then
+  echo "Detected random fail, retrying"
+  do_tests
+fi
+
 
 
 if ! grep -qe '<testcase' < $REPORTFILE ; then
