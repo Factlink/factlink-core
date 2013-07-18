@@ -82,6 +82,8 @@ en:
   show: "show"
   loading: "loading"
 
+  you: "you"
+
   fact_added_fact_to_channel_action: "added your Factlink to their channel"
 
   facts:
