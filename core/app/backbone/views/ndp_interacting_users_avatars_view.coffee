@@ -16,7 +16,6 @@ class window.NDPInteractingUsersAvatarsView extends Backbone.Marionette.Composit
   number_of_items: 7
 
   initialize: (options) ->
-    @collection = @model.opinionaters()
     @bindTo @collection, 'add remove reset', @render
 
   appendHtml: (collectionView, itemView, index) ->
