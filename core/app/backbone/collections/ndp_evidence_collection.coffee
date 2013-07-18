@@ -1,5 +1,5 @@
 class window.NDPEvidenceCollection extends Backbone.Collection
-  initialize: (models=[], options={}) ->
+  initialize: (models, options) ->
     @on 'change', @sort, @
     @fact = options.fact
 
