@@ -4,8 +4,8 @@ class window.OpinionatersEvidence extends Evidence
 
   # TODO: eventually, fetching this model should populate
   #       the collection, not the other way around
-  initialize: (attributes, options) ->
-    @_wheel = options.fact.getFactWheel()
+  initialize: ->
+    @_wheel = @collection.fact.getFactWheel()
     @opinionaters().fetch()
 
     @_wheel.on 'change', =>
