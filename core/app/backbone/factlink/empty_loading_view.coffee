@@ -13,6 +13,9 @@ class Backbone.Factlink.EmptyLoadingView extends Backbone.Marionette.Layout
     loadingRegion: '.js-region-loading'
 
   initialize: ->
+    unless @collection.loading?
+      throw "Cannot show loading view for plain backbone collection"
+
     @emptyView   = @options.emptyView   if @options.emptyView?
     @loadingView = @options.loadingView if @options.loadingView?
     @bindTo @collection, 'before:fetch reset', @updateLoading, @
@@ -23,9 +26,5 @@ class Backbone.Factlink.EmptyLoadingView extends Backbone.Marionette.Layout
     @updateLoading()
 
   updateLoading: ->
-    if @collection.loading
-      @$('.js-region-loading').show()
-      @$('.js-region-empty').hide()
-    else
-      @$('.js-region-loading').hide()
-      @$('.js-region-empty').show()
+    @$('.js-region-loading').toggle @collection.loading
+    @$('.js-region-empty').toggle !@collection.loading
