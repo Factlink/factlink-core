@@ -10,7 +10,7 @@ class window.InteractorsPage extends Backbone.Paginator.requestPager
     @totalPages = Math.floor(response.total / @perPage)
     response.users
 
-  initialize: (options) ->
+  initialize: (models, options) ->
     @type = options.type
 
     fact_id = options.fact_id

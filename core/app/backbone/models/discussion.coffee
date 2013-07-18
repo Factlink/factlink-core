@@ -12,7 +12,10 @@ class window.Discussion extends Backbone.Model
     new OneSidedEvidenceCollection [], type: @type(), fact: @fact()
 
   interactorsPage: (type)->
-    new InteractorsPage(type: type, fact_id: @fact().id, perPage: 3)
+    new InteractorsPage [],
+      type: type
+      fact_id: @fact().id
+      perPage: 3
 
   getInteractors: ->
     switch @type()

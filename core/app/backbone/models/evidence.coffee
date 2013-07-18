@@ -14,7 +14,8 @@ class window.OpinionatersEvidence extends Evidence
 
   opinionaters: ->
     return @_opinionaters if @_opinionaters?
-    @_opinionaters = new InteractorsPage
+
+    @_opinionaters = new InteractorsPage [],
       fact_id: @_wheel.get('fact_id')
       type: @get('type')
       perPage: 7
