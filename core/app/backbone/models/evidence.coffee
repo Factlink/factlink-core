@@ -7,20 +7,20 @@ class window.OpinionatersEvidence extends Evidence
   initialize: (attributes, options) ->
     fact = options.fact ? @collection.fact
     @_wheel = fact.getFactWheel()
-    @opinionaters().fetch()
 
     @_wheel.on 'change', =>
       @_opinionaters?.fetch()
 
-
   opinionaters: ->
     return @_opinionaters if @_opinionaters?
 
-    @_opinionaters = new InteractorsPage [],
+    @_opinionaters = new InteractorsPage @get('users') ? [],
       fact_id: @_wheel.get('fact_id')
       type: @get('type')
       perPage: 7
     @_opinionaters.on 'reset', =>
       @set impact: @_opinionaters.impact
+    @on 'change:users', =>
+      @_opinionaters.reset @get('users')
 
     @_opinionaters
