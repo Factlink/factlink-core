@@ -61,7 +61,7 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
   onRender: ->
     @$el.addClass @model.type()
 
-    @interactingUserRegion.show new NDPInteractingUsersNamesView
+    @interactingUserRegion.show new InteractingUsersNamesView
       model: @model.getInteractorsEvidence()
 
     if @model.type() == 'supporting' or @model.type() == 'weakening'
