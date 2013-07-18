@@ -9,13 +9,13 @@ class FactInteractorsController < ApplicationController
       interactor(:'facts/opinion_users', fact_id, skip, take, 'doubts')
     ]
 
-    render 'facts/interactors', formats: ['json']
+    render 'fact_interactors/index', formats: ['json']
   end
 
   def show
     @data = interactor :'facts/opinion_users', fact_id, skip, take, type
 
-    render 'facts/filtered_interactors', formats: ['json']
+    render 'fact_interactors/show', formats: ['json']
   end
 
   def fact_id
