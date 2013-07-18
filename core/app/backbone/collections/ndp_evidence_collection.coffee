@@ -3,9 +3,7 @@ class window.NDPEvidenceCollection extends Backbone.Collection
     @on 'change', @sort, @
     @fact = options.fact
 
-  constructor: (models, options) ->
-    super
-    unless models and models.length > 0
+    unless models?.length > 0
       @reset [
         new OpinionatersEvidence {type: 'believe'},    collection: this
         new OpinionatersEvidence {type: 'disbelieve'}, collection: this
