@@ -1,6 +1,9 @@
 class InteractorEmptyView extends Backbone.Marionette.ItemView
   tagName: 'span'
-  template: "fact_relations/interactor_empty"
+  template: "generic/text"
+
+  templateHelpers:
+    text: Factlink.Global.t.nobody.capitalize()
 
 class window.NDPInteractingUsersNamesView extends Backbone.Marionette.CompositeView
   template: 'fact_relations/ndp_interactors_names'
