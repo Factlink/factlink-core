@@ -14,7 +14,7 @@ class window.Discussion extends Backbone.Model
   _interactorsPage: (type)->
     new OpinionatersEvidence({type: type}, fact: @_fact)
 
-  getInteractors: ->
+  getInteractorsEvidence: ->
     switch @type()
       when 'supporting' then @_interactorsPage('believes')
       when 'weakening' then @_interactorsPage('disbelieves')
