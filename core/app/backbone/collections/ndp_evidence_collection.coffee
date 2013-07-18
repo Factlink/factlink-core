@@ -1,4 +1,4 @@
-class window.NDPEvidenceCollection extends Backbone.Collection
+class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
   initialize: ->
     @on 'change', @sort, @
 
