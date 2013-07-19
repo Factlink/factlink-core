@@ -5,17 +5,14 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
   template: 'facts/ndp_discussion'
 
   regions:
-    factRegion: '.fact-region'
+    factRegion: '.js-region-ndp-fact'
     evidenceRegion: '.js-region-evidence'
 
   onRender: ->
     @factRegion.show new TopFactView model: @model
 
-    opinionaters_collection = new NDPEvidenceCollection [
-      new OpinionatersEvidence({type: 'believe'   }, fact: @model),
-      new OpinionatersEvidence({type: 'disbelieve'}, fact: @model),
-      new OpinionatersEvidence({type: 'doubt'     }, fact: @model)
-    ]
+    opinionaters_collection = new NDPEvidenceCollection null, fact: @model
+    opinionaters_collection.fetch()
 
     @evidenceRegion.show new NDPEvidenceCollectionView
       collection: opinionaters_collection

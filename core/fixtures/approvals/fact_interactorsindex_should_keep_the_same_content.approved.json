@@ -1,0 +1,48 @@
+[
+  {
+    "total": 1,
+    "impact": 0.0,
+    "type": "believes",
+    "users": [
+      {
+        "id": "<STRIPPED>",
+        "name": "John1 Doe1",
+        "username": "johndoe1",
+        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900"
+      }
+    ]
+  },
+  {
+    "total": 5,
+    "impact": 0.0,
+    "type": "disbelieves",
+    "users": [
+      {
+        "id": "<STRIPPED>",
+        "name": "John2 Doe2",
+        "username": "johndoe2",
+        "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734"
+      },
+      {
+        "id": "<STRIPPED>",
+        "name": "John3 Doe3",
+        "username": "johndoe3",
+        "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3"
+      },
+      {
+        "id": "<STRIPPED>",
+        "name": "John4 Doe4",
+        "username": "johndoe4",
+        "gravatar_hash": "4a44954117cfc0852a0cbd709a634789"
+      }
+    ]
+  },
+  {
+    "total": 0,
+    "impact": 0.0,
+    "type": "doubts",
+    "users": [
+
+    ]
+  }
+]

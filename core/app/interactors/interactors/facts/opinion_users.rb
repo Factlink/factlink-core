@@ -9,8 +9,9 @@ module Interactors
       arguments :fact_id, :skip, :take, :type
 
       def execute
-        interacting_users = query :fact_interacting_users, fact_id, skip, take, type
+        interacting_users = query :'facts/interacting_users', fact_id, skip, take, type
         interacting_users[:impact] = query :'facts/interacting_users_impact', fact_id, type
+        interacting_users[:type] = type
 
         interacting_users
       end

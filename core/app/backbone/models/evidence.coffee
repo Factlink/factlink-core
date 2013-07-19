@@ -5,19 +5,18 @@ class window.OpinionatersEvidence extends Evidence
   # TODO: eventually, fetching this model should populate
   #       the collection, not the other way around
   initialize: (attributes, options) ->
-    @_wheel = options.fact.getFactWheel()
-    @opinionaters().fetch()
+    @_fact_id = options.fact_id ? @collection.fact.id
 
-    @_wheel.on 'change', =>
-      @_opinionaters?.fetch()
+    @on 'change', =>
+      @updateOpinionators()
 
+    @updateOpinionators()
 
   opinionaters: ->
-    return @_opinionaters if @_opinionaters?
-    @_opinionaters = new InteractorsPage
-      fact_id: @_wheel.get('fact_id')
+    @_opinionaters ?= new InteractorsPage null,
+      fact_id: @_fact_id
       type: @get('type')
-    @_opinionaters.on 'reset', =>
-      @set impact: @_opinionaters.impact
+      perPage: 7
 
-    @_opinionaters
+  updateOpinionators: ->
+    @opinionaters().reset @opinionaters().parse(@attributes)

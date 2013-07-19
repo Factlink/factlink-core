@@ -1,17 +1,25 @@
 #!/bin/bash
 echo "Running screenshot tests"
 
-OUTPUTFILE=$(mktemp /tmp/screenshot.XXXX)
-bundle exec rspec spec/screenshots/ | tee "$OUTPUTFILE"
+REPORTFILE=tmp/spec-screenshots.junit.xml
+OUTPUTFILE=rspec-screenshots-output.log
 
-if ! grep ', 0 failures' $OUTPUTFILE > /dev/null
-then
-        exit 1
+function do_tests {
+  bundle exec rspec --format RspecJunitFormatter spec/screenshots/ \
+    --out $REPORTFILE \
+    2>&1 | tee $OUTPUTFILE \
+    || touch TEST_FAILURE
+}
+
+
+do_tests
+if grep -qe 'PhantomJS has crashed.' < $OUTPUTFILE ; then
+  echo "Detected random fail, retrying"
+  do_tests
 fi
 
-if grep "^0 examples, 0 failures" $OUTPUTFILE > /dev/null
-then
-        exit 1
-fi
 
-exit
+if ! grep -qe '<testcase' < $REPORTFILE ; then
+  echo "FAILING BUILD: No testcases found in $REPORTFILE"
+  exit 1
+fi

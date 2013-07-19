@@ -4,10 +4,12 @@ require_relative '../../../../app/interactors/interactors/facts/opinion_users.rb
 describe Interactors::Facts::OpinionUsers do
   include PavlovSupport
 
+  before do
+    stub_classes 'Fact'
+  end
+
   describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      stub_classes 'Fact'
-
       ability = mock
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
@@ -39,31 +41,31 @@ describe Interactors::Facts::OpinionUsers do
     end
   end
 
-  describe '.execute' do
-    before do
-      stub_classes 'Queries', 'Queries::FactInteractingUsers'
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
+  describe '#call' do
     it 'correctly' do
       fact_id = 1
       skip = 0
       take = 0
       u1 = mock
-      interactor = described_class.new fact_id, skip, take, 'believes'
-      Pavlov.stub(:query).
-        with(:fact_interacting_users, fact_id, skip, take, 'believes').
-        and_return(users: [u1], total: 1)
       impact = mock
-      Pavlov.stub(:query).
-        with(:'facts/interacting_users_impact', fact_id, 'believes').
-        and_return(impact)
+      type = 'believes'
 
+      pavlov_options = { ability: mock(can?: true)}
+
+      Pavlov.stub(:query)
+        .with(:'facts/interacting_users', fact_id, skip, take, type, pavlov_options)
+        .and_return(users: [u1], total: 1)
+      Pavlov.stub(:query)
+        .with(:'facts/interacting_users_impact', fact_id, type, pavlov_options)
+        .and_return(impact)
+
+      interactor = described_class.new fact_id, skip, take, type, pavlov_options
       results = interactor.call
 
-      results[:total].should eq 1
-      results[:users].should eq [u1]
-      results[:impact].should eq impact
+      expect(results[:total]).to eq 1
+      expect(results[:users]).to eq [u1]
+      expect(results[:impact]).to eq impact
+      expect(results[:type]).to eq type
     end
   end
 end

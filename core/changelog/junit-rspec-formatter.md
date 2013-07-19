@@ -1,0 +1,2 @@
+- For our tests, we now use JUnit xml output formatting to communicate individual test status to jenkins.  This means that we can much more easily see which tests failed with which error message and how long each test took.
+- When builds are started and/or finished, the status of the build is sent to github.  This means we can see whether the build is OK or not directly on github, and have a backlink from github to any failing tests when there are errors.
