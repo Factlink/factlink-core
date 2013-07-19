@@ -8,8 +8,10 @@ class window.InteractingUsersView extends Backbone.Marionette.Layout
     interactingUsersAvatarRegion: '.js-region-interacting-users-avatars'
 
   onRender: ->
+    opinionaters = @model.opinionaters()
+
     @interactingUsersRegion.show new InteractingUsersNamesView
-      model: @model
+      collection: opinionaters
 
     @interactingUsersAvatarRegion.show new NDPInteractingUsersAvatarsView
-      model: @model
+      collection: opinionaters

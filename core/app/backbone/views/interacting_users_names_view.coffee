@@ -31,7 +31,6 @@ class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
   number_of_items: 3
 
   initialize: (options) ->
-    @collection = @model.opinionaters()
     @bindTo @collection, 'add remove reset', @render
 
   appendHtml: (collectionView, itemView, index) ->
