@@ -5,6 +5,7 @@ cd `dirname $0`
 cd ..
 
 rm -f tmp/*.junit.xml
+rm -f TEST_FAILURE
 
 ./script/set-status.sh "$GIT_COMMIT" pending "$BUILD_URL" "$BUILD_TAG" > github_pending_response.json
 
@@ -15,8 +16,6 @@ export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=100000000
 export RUBY_HEAP_FREE_MIN=500000
 
-rm -f TEST_FAILURE
-rm -f tmp/*.junit.xml
 
 for action in bin/ci/*.sh; do
   banner $action;
