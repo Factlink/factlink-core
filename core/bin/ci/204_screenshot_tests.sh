@@ -8,7 +8,7 @@ function do_tests {
   bundle exec rspec --format RspecJunitFormatter spec/screenshots/ \
     --out $REPORTFILE \
     2>&1 | tee $OUTPUTFILE \
-    || echo > TEST_FAILURE
+    || touch TEST_FAILURE
 }
 
 

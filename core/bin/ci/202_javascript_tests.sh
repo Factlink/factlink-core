@@ -7,7 +7,7 @@ OUTPUTFILE=konacha-output.log
 function do_tests {
   bundle exec rake konacha:load_poltergeist konacha:run \
     2>&1 | tee $OUTPUTFILE \
-    || echo > TEST_FAILURE
+    || touch TEST_FAILURE
 }
 
 

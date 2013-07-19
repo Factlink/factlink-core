@@ -4,7 +4,7 @@ echo "Running unit tests"
 REPORTFILE=tmp/spec-unit.junit.xml
 
 bundle exec rspec --format RspecJunitFormatter spec-unit \
- --out $REPORTFILE || echo > TEST_FAILURE
+ --out $REPORTFILE || touch TEST_FAILURE
 
 if ! grep -qe '<testcase' < $REPORTFILE ; then
   echo "FAILING BUILD: No testcases found in $REPORTFILE"
