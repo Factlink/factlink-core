@@ -16,7 +16,6 @@ RSpec.configure do |config|
   # Exclude integration tests in normal suite
   config.filter_run_excluding type: :request
   config.mock_with :rspec
-  config.pattern = "**/*_specZIGGY.rb"
 
   config.include FactoryGirl::Syntax::Methods
   config.include ControllerMethods, type: :controller
