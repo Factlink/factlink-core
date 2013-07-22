@@ -16,8 +16,7 @@ class Opinion < OurOhm
         if evidence_opinion
           evidence_opinion.take_values new_opinion
         else
-          new_opinion.save
-          send :"evidence_opinion=", new_opinion
+          send :"evidence_opinion=", new_opinion.save
         end
       end
 
@@ -36,8 +35,7 @@ class Opinion < OurOhm
         if opinion
           opinion.take_values new_opinion
         else
-          new_opinion.save
-          send :"opinion=", new_opinion
+          send :"opinion=", new_opinion.save
         end
       end
 

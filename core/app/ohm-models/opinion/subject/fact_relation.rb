@@ -18,8 +18,7 @@ class Opinion < OurOhm
         if influencing_opinion
           influencing_opinion.take_values new_opinion
         else
-          new_opinion.save
-          send :"influencing_opinion=", new_opinion
+          send :"influencing_opinion=", new_opinion.save
         end
       end
 
