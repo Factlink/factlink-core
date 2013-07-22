@@ -30,7 +30,9 @@ window.remote = new xdm.Rpc {},
       onFactlinkCreated = (e, id) ->
         remote.highlightNewFactlink text, id
 
-      $(document).bind "factlinkCreated", onFactlinkCreated
+      $(document).bind "factlinkCreated", (e, id, created_text) ->
+        onFactlinkCreated(e, id) if created_text == text
+
       return # don't return anything unless you have a callback on the other site of easyXdm
 
     position: (top, left) ->
