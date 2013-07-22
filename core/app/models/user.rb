@@ -7,7 +7,7 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
-  USERNAME_MAX_LENGTH = 16
+  USERNAME_MAX_LENGTH = 20
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'

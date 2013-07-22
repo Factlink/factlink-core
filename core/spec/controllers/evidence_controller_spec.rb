@@ -63,9 +63,21 @@ describe SupportingEvidenceController do
         response.should be_success
       end
 
+      it "should initially believe the fact relation" do
+        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+
+        parsed_content = JSON.parse(response.body)
+
+        opinions = parsed_content["opinions"]
+
+        expect(opinions["formatted_belief_authority"]).to eq "1.0"
+        expect(opinions["formatted_disbelief_authority"]).to eq "0.0"
+        expect(opinions["formatted_relevance"]).to eq "1.0"
+      end
+
       it "should not set the user's opinion on the evidence to believe" do
         f2.add_opinion(:disbelieves, user.graph_user)
-        f2.calculate_opinion 2
+        Pavlov.command :'opinions/recalculate_fact_opinion', f2
 
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
         response.should be_success

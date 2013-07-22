@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe SitesController do
-  describe :facts_count_for_url do
+  include PavlovSupport
 
+  let(:user) { FactoryGirl.create(:user) }
+
+  describe :facts_count_for_url do
     it "should return 0 for site with no facts" do
       should_check_can :get_fact_count, Site
       get "facts_count_for_url", { :url => "http://baronie.nl" }
@@ -44,6 +47,20 @@ describe SitesController do
       it "should work with an non-existing site" do
         get :facts_for_url, :url => "http://www.thebaronisinthebuilding.com/"
         response.body.should eq("[]")
+      end
+
+      it "should render json successful" do
+        url = 'http://bla.com/foo'
+        fact = nil
+
+        as(user) do |pavlov|
+          fact = pavlov.interactor :'facts/create', 'displaystring', url, 'title', {}
+        end
+
+        get :facts_for_url, url: url, format: :json
+        response.should be_success
+
+        Approvals.verify(response.body.to_s, format: :json, name: 'sites#facts_for_url_should_keep_the_same_content')
       end
     end
   end

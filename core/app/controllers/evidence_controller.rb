@@ -36,14 +36,12 @@ class EvidenceController < ApplicationController
     authorize! :add_evidence, fact
 
     if params[:displaystring] != nil
-      @evidence = create_new_evidence params[:displaystring], params[:from_fact].andand[:opinion]
+      evidence = create_new_evidence params[:displaystring], params[:from_fact].andand[:opinion]
     else
-      @evidence = retrieve_evidence params[:evidence_id]
+      evidence = retrieve_evidence params[:evidence_id]
     end
 
-    @fact_relation = create_believed_factrelation(@evidence, relation, fact)
-
-    @fact_relation.calculate_opinion
+    @fact_relation = create_believed_factrelation(evidence, relation, fact)
 
     render 'fact_relations/show', formats: [:json]
   rescue EvidenceNotFoundException
@@ -59,8 +57,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type),@fact_relation)
-
-    @fact_relation.calculate_opinion
+    command :'opinions/recalculate_fact_opinion', @fact_relation
 
     render 'fact_relations/show', formats: [:json]
   end
@@ -72,8 +69,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact_relation)
-
-    @fact_relation.calculate_opinion
+    command :'opinions/recalculate_fact_opinion', @fact_relation
 
     render 'fact_relations/show', formats: [:json]
   end
@@ -86,9 +82,7 @@ class EvidenceController < ApplicationController
 
     fact_relation.delete
 
-    respond_to do |format|
-      format.json  { render :json => {}, :status => :ok }
-    end
+    render json: {}, status: :ok
   end
 
   private
@@ -101,6 +95,7 @@ class EvidenceController < ApplicationController
     fact_relation = fact.add_evidence(type, evidence, current_user)
     fact_relation.add_opinion(:believes, current_graph_user)
     Activity::Subject.activity(current_graph_user, OpinionType.real_for(:believes),fact_relation)
+    command :'opinions/recalculate_fact_opinion', fact_relation
 
     fact_relation
   end

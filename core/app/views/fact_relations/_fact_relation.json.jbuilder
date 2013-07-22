@@ -9,8 +9,9 @@ else
 end
 
 # moving to opinion
-if fact_relation.respond_to? :get_user_opinion
-  opinion = fact_relation.get_user_opinion
+if fact_relation.class.to_s == 'FactRelation'
+  # this is a live fact_relation
+  opinion = query :'opinions/relevance_opinion_for_fact_relation', fact_relation
 else
   opinion = fact_relation.opinion
 end

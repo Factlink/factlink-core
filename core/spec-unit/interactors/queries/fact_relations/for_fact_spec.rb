@@ -27,9 +27,12 @@ describe Queries::FactRelations::ForFact do
       Pavlov.stub(:query)
             .with(:'sub_comments/count',fact_relation.id, fact_relation.class, pavlov_options)
             .and_return(sub_comments_count)
+      Pavlov.stub(:query)
+            .with(:'opinions/relevance_opinion_for_fact_relation', fact_relation, pavlov_options)
+            .and_return(opinion)
+
       fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
       graph_user.stub(:opinion_on).with(fact_relation).and_return(opinion_on)
-      fact_relation.stub get_user_opinion: opinion
       KillObject.stub(:fact_relation)
                 .with(fact_relation,
                       current_user_opinion: opinion_on,
@@ -56,8 +59,11 @@ describe Queries::FactRelations::ForFact do
       Pavlov.stub(:query)
             .with(:'sub_comments/count',fact_relation.id, fact_relation.class)
             .and_return(sub_comments_count)
+      Pavlov.stub(:query)
+            .with(:'opinions/relevance_opinion_for_fact_relation', fact_relation)
+            .and_return(opinion)
+
       fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
-      fact_relation.stub get_user_opinion: opinion
       KillObject.stub(:fact_relation)
                 .with(fact_relation,
                       current_user_opinion:nil,

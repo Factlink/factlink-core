@@ -35,13 +35,12 @@ FactlinkUI::Application.routes.draw do
 
   # Show Facts#new as unauthenticated user to show the correct login link
   resources :facts, only: [:new, :create, :show, :destroy] do
+    resources :interactors, only: [:index, :show], controller: 'fact_interactors'
+
     member do
       post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
       get     "/evidence_search"  => "facts#evidence_search"
-      get     "/believers"        => "facts#believers"
-      get     "/disbelievers"     => "facts#disbelievers"
-      get     "/doubters"         => "facts#doubters"
 
       scope '/comments' do
         post "/:type" => 'comments#create'

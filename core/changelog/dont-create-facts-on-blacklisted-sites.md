@@ -1,1 +1,0 @@
-Don't add a site to factlinks created on blacklisted sites. This means that we don't have an url anymore for the factlink created in the tour (the only blacklisted site where it is possible to create a factlink). This means worthless topic suggestions in the tour are also removed.

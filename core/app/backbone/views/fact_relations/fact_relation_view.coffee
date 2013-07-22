@@ -31,8 +31,23 @@ class VoteUpDownFactRelationView extends VoteUpDownView
 
   current_opinion: -> @model.get('current_user_opinion')
 
-  on_up_vote: ->   @open_vote_popup '.supporting', FactRelationVoteUpView
-  on_down_vote: -> @open_vote_popup '.weakening',  FactRelationVoteDownView
+  on_up_vote: ->
+    if Factlink.Global.can_haz['vote_up_down_popup']
+      @open_vote_popup '.supporting', FactRelationVoteUpView
+    else
+      if @model.isBelieving()
+        @model.removeOpinion()
+      else
+        @model.setOpinion 'believes'
+
+  on_down_vote: ->
+    if Factlink.Global.can_haz['vote_up_down_popup']
+      @open_vote_popup '.weakening',  FactRelationVoteDownView
+    else
+      if @model.isDisBelieving()
+        @model.removeOpinion()
+      else
+        @model.setOpinion 'disbelieves'
 
   open_vote_popup: (selector, view_klass) ->
     return if @popoverOpened selector

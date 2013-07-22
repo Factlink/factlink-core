@@ -64,7 +64,7 @@ module BeliefExpressions
     possible_reset
     # values are recalculated in Redis, so get the object fresh from Redis
     fact = fact.class[fact.id]
-    opinion = Pavlov.query 'facts/opinion', fact
+    opinion = Pavlov.query 'opinions/opinion_for_fact', fact
     opinion.should
   end
 end

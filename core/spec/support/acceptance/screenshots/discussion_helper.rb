@@ -36,8 +36,9 @@ module Screenshots
       within('.fact-relation-listing .evidence-item', text: factlink3.data.displaystring) do
         find('.supporting').click
 
-        find('.js-fact-relation-believe').set false
-        page.find('a', text: 'Done').click
+        # TODO: Enable when removing feature toggle 'vote_up_down_popup'
+        # find('.js-fact-relation-believe').set false
+        # page.find('a', text: 'Done').click
 
         find('a', text: 'Comments').click
         add_sub_comment(sub_comment_text)
