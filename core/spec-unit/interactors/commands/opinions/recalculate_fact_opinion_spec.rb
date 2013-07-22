@@ -5,11 +5,6 @@ describe Commands::Opinions::RecalculateFactOpinion do
   include PavlovSupport
 
   describe '#call' do
-    before do
-      described_class.any_instance.stub validate: true
-      stub_classes 'Topic', 'KillObject'
-    end
-
     it 'calls fact.calculate_opinion(1)' do
       fact = mock
 
