@@ -5,8 +5,8 @@ class Opinion < OurOhm
       OurOhm.value_reference :influencing_opinion, Opinion
 
       def get_influencing_opinion(depth=0)
-        calculate_evidence_influencing_opinion if depth > 0
-        evidence_influencing_opinion || Opinion.zero
+        calculate_influencing_opinion if depth > 0
+        influencing_opinion || Opinion.zero
       end
 
       def calculate_influencing_opinion(depth=0)
