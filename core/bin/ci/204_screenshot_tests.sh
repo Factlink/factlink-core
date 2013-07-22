@@ -7,8 +7,8 @@ OUTPUTFILE=rspec-screenshots-output.log
 function do_tests {
   bundle exec rspec --format RspecJunitFormatter spec/screenshots/ \
     --out $REPORTFILE \
-    2>&1 | tee $OUTPUTFILE \
-    || touch TEST_FAILURE
+    2>&1 | tee $OUTPUTFILE
+  test ${PIPESTATUS[0]} -eq 0 || touch TEST_FILE
 }
 
 
