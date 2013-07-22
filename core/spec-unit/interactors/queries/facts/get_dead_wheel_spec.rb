@@ -33,7 +33,7 @@ describe Queries::Facts::GetDeadWheel do
       pavlov_options = {current_user: user}
 
       Pavlov.stub(:query)
-            .with(:'facts/opinion', live_fact, pavlov_options)
+            .with(:'opinions/opinion_for_fact', live_fact, pavlov_options)
             .and_return(opinion)
 
       interactor = described_class.new live_fact.id, pavlov_options
@@ -75,7 +75,7 @@ describe Queries::Facts::GetDeadWheel do
       pavlov_options = {current_user: user}
 
       Pavlov.stub(:query)
-            .with(:'facts/opinion', live_fact, pavlov_options)
+            .with(:'opinions/opinion_for_fact', live_fact, pavlov_options)
             .and_return(opinion)
 
       interactor = described_class.new live_fact.id, pavlov_options

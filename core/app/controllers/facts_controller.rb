@@ -29,7 +29,7 @@ class FactsController < ApplicationController
         open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
         open_graph_formatter.add open_graph_fact
 
-        render inline:'', layout: 'client'
+        render inline: '', layout: 'client'
       end
       format.json { render }
     end
@@ -49,7 +49,7 @@ class FactsController < ApplicationController
     authorize! :new, Fact
     authenticate_user!
 
-    render inline:'', layout: 'client'
+    render inline: '', layout: 'client'
   end
 
   def create
@@ -74,7 +74,7 @@ class FactsController < ApplicationController
         @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
 
-        @fact.calculate_opinion(1)
+        command :'opinions/recalculate_fact_opinion', @fact
       end
 
       add_to_channels @fact, params[:channels]
@@ -97,8 +97,7 @@ class FactsController < ApplicationController
 
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
-
-    @fact.calculate_opinion(2)
+    command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
@@ -108,7 +107,7 @@ class FactsController < ApplicationController
 
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
-    @fact.calculate_opinion(2)
+    command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
