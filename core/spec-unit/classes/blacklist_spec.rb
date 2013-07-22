@@ -9,7 +9,7 @@ describe Blacklist do
   end
 
   describe "#should_return_true_on_match" do
-    it {subject.matches?('http://facebookX.com').should == true}
+    it {subject.matches?('http://facebook.com').should == true}
   end
 
   describe "#should_return_false_when_no_match" do
