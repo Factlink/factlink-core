@@ -1,3 +1,8 @@
+#22-07-2013
+
+- Show 'you' in list of interacting users, instead of your name.
+- Added percentage to the neutral tab
+
 #07-06-2013
 
 - We’ve improved the welcome tour for new users with a new section with featured users to follow on Factlink
@@ -32,7 +37,7 @@
 
 - We’ve added loading indicators to our search, discussion page and the profile page.
 - Channels has been renamed to topics. We’re working on a new more simple architecture with generic topics instead of user channels.
-- When clicking on a topic you will see everything that has been posted to that topic. 
+- When clicking on a topic you will see everything that has been posted to that topic.
 
 # 21-03-2013
 
