@@ -128,7 +128,7 @@ class ApplicationController < ActionController::Base
       format.html do
         authorize! :access, Ability::FactlinkWebapp
 
-        render inline:'', layout: 'channels'
+        render inline: '', layout: 'channels'
       end
       format.json { yield } if block_given?
     end

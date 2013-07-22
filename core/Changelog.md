@@ -1,6 +1,6 @@
 #22-07-2013
 
-- Show 'you' in list of interacting users, instead of your name.
+- Instead of showing the name of the logged-in user in a list of interacting users, show 'you' instead.
 - Added percentage to the neutral tab
 
 #07-06-2013
