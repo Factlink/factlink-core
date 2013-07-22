@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/fact_relations/relevance_opinion.rb'
+require_relative '../../../../app/interactors/queries/opinions/relevance_opinion_for_fact_relation.rb'
 
-describe Queries::FactRelations::RelevanceOpinion do
+describe Queries::Opinions::RelevanceOpinionForFactRelation do
   include PavlovSupport
 
   describe '#call' do

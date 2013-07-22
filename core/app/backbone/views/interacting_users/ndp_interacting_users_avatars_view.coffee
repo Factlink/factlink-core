@@ -1,11 +1,11 @@
 class NDPInteractingUsersAvatarView extends Backbone.Marionette.Layout
   tagName: 'li'
   className: 'interactor-avatar user-avatar'
-  template: 'fact_relations/interactor_avatar'
+  template: 'interacting_users/avatar'
 
 class window.NDPInteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
   className: 'ndp-interacting-users-avatars'
-  template: "fact_relations/ndp_interactors_avatars"
+  template: "interacting_users/avatars"
   itemView: NDPInteractingUsersAvatarView
 
   itemViewContainer: ".js-interactor-avatars-collection"
