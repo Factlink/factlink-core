@@ -98,7 +98,7 @@ class FactsController < ApplicationController
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
 
-    @fact.calculate_opinion(2)
+    @fact.calculate_opinion(1)
 
     render_factwheel(@fact.id)
   end
@@ -108,7 +108,7 @@ class FactsController < ApplicationController
 
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
-    @fact.calculate_opinion(2)
+    @fact.calculate_opinion(1)
 
     render_factwheel(@fact.id)
   end
