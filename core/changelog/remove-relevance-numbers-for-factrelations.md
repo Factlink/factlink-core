@@ -1,1 +1,1 @@
-remove-relevance-numbers-for-factrelations
+Removed relevance numbers for factrelations and comments
