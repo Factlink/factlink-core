@@ -8,7 +8,7 @@ class InteractorEmptyView extends Backbone.Marionette.ItemView
 class InteractorNameView extends Backbone.Marionette.ItemView
   tagName: 'span'
   className: 'separator-list-item'
-  template: 'fact_relations/interactor_name'
+  template: 'interacting_users/name'
 
   templateHelpers: =>
     name: if @model.is_current_user()
@@ -20,7 +20,7 @@ class InteractorNameView extends Backbone.Marionette.ItemView
 
 
 class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
-  template: 'fact_relations/ndp_interactors_names'
+  template: 'interacting_users/names'
   itemView: InteractorNameView
   emptyView: InteractorEmptyView
   itemViewContainer: ".js-interactors-collection"
