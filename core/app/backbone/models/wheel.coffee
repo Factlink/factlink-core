@@ -71,14 +71,14 @@ class window.Wheel extends Backbone.Model
 
     @set @parse authority: @get("authority"), opinion_types: new_opinion_types
 
-  # TODO: Use Backbone sync here!!
+  # TODO: Use @save here!!
   setActiveOpinionType: (opinion_type, options={}) ->
     old_opinion_type = @userOpinion()
     fact_id = @get('fact_id')
     @turnOnActiveOpinionType opinion_type
-    $.ajax
+    Backbone.sync 'create', this,
+      attrs: {}
       url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
-      type: "POST"
       success: (data, status, response) =>
         @set @parse data
         mp_track "Factlink: Opinionate",
@@ -95,12 +95,12 @@ class window.Wheel extends Backbone.Model
           @turnOffActiveOpinionType()
         options.error?()
 
-  # TODO: Use Backbone sync here!!
+  # TODO: Use @save here!!
   unsetActiveOpinionType: (opinion_type, options={}) ->
     fact_id = @get('fact_id')
     @turnOffActiveOpinionType()
-    $.ajax
-      type: "DELETE"
+    Backbone.sync 'delete', this,
+      attrs: {}
       url: "/facts/#{fact_id}/opinion.json"
       success: (data, status, response) =>
         @set @parse data
