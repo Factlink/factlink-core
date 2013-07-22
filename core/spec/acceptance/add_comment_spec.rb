@@ -42,7 +42,7 @@ feature "adding comments to a fact", type: :request do
     go_to_discussion_page_of factlink
 
     within evidence_listing_css_selector do
-      find('.total-authority-evidence').should have_content user_authority_on_fact + 1
+      find('.authorities-evidence').should have_content user_authority_on_fact + 1
     end
   end
 
