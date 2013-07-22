@@ -7,7 +7,8 @@ module Queries
 
     arguments :keywords, :page, :row_count
 
-    def finish_initialize
+    def initialize *arguments
+      super
       @types = []
       @logger = @options[:logger] || Logger.new(STDERR)
       define_query

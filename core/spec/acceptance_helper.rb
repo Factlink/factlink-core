@@ -22,12 +22,6 @@ RSpec.configure do |config|
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
-  # skip tests which are almost certain to succeed
-  if ENV['skip_improbable_acceptance']
-    config.pattern = "**/*_spec.rb"
-  else
-    config.pattern = "**/*_(improbable)spec.rb"
-  end
   config.mock_with :rspec
 
   config.fail_fast = true
