@@ -16,8 +16,6 @@
       "displaystring": "Fact 1"
     },
     "opinions": {
-      "formatted_belief_authority": "1.0",
-      "formatted_disbelief_authority": "0.0",
       "formatted_relevance": "1.0"
     },
     "current_user_opinion": "believes",
@@ -41,8 +39,6 @@
       "displaystring": "Fact 1"
     },
     "opinions": {
-      "formatted_belief_authority": "1.0",
-      "formatted_disbelief_authority": "0.0",
       "formatted_relevance": "1.0"
     },
     "current_user_opinion": "believes",

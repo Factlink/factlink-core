@@ -70,8 +70,6 @@ describe SupportingEvidenceController do
 
         opinions = parsed_content["opinions"]
 
-        expect(opinions["formatted_belief_authority"]).to eq "1.0"
-        expect(opinions["formatted_disbelief_authority"]).to eq "0.0"
         expect(opinions["formatted_relevance"]).to eq "1.0"
       end
 

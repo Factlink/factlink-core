@@ -7,16 +7,8 @@ class OpinionPresenter
     authority :beliefs
   end
 
-  def formatted_belief_authority
-    format belief_authority
-  end
-
   def disbelief_authority
     authority :disbeliefs
-  end
-
-  def formatted_disbelief_authority
-    format disbelief_authority
   end
 
   def relevance
@@ -54,8 +46,6 @@ class OpinionPresenter
 
   def to_hash
     {
-      formatted_belief_authority: formatted_belief_authority,
-      formatted_disbelief_authority: formatted_disbelief_authority,
       formatted_relevance: formatted_relevance,
     }
   end
