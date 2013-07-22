@@ -1,6 +1,6 @@
 module Queries
-  module FactRelations
-    class RelevanceOpinion
+  module Opinions
+    class RelevanceOpinionForFactRelation
       include Pavlov::Query
 
       arguments :fact_relation

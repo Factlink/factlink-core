@@ -1,6 +1,6 @@
 module Queries
-  module Facts
-    class Opinion
+  module Opinions
+    class OpinionForFact
       include Pavlov::Query
 
       arguments :fact
