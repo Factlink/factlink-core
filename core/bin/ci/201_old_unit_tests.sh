@@ -1,18 +1,12 @@
 #!/bin/bash
-echo "Running unit tests"
+echo "Running old unit tests"
 
-OUTPUTFILE=$(mktemp /tmp/integration.XXXX)
+REPORTFILE=tmp/spec.junit.xml
 
-bundle exec rspec spec | tee "$OUTPUTFILE"
+bundle exec rspec --format RspecJunitFormatter --out $REPORTFILE \
+  || touch TEST_FAILURE
 
-if ! grep ', 0 failures' $OUTPUTFILE > /dev/null
-then
-        exit 1
+if ! grep -qe '<testcase' < $REPORTFILE ; then
+  echo "FAILING BUILD: No testcases found in $REPORTFILE"
+  exit 1
 fi
-
-if grep "^0 examples, 0 failures" $OUTPUTFILE > /dev/null
-then
-        exit 1
-fi
-
-exit

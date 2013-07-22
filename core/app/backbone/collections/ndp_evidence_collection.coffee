@@ -10,6 +10,7 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
 
     @_wheel = @fact.getFactWheel()
     @_wheel.on 'sync', =>
+      @reset []
       @fetch()
 
   comparator: (item) -> - item.get('impact')
@@ -18,4 +19,5 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
     "/facts/#{@fact.id}/interactors"
 
   fetch: (options={}) ->
-    super _.defaults options, @default_fetch_data
+    options.data = _.extend {}, @default_fetch_data, options.data || {}
+    super options

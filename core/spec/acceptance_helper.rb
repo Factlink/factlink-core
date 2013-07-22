@@ -22,7 +22,6 @@ RSpec.configure do |config|
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
-  config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
 
   config.fail_fast = true
