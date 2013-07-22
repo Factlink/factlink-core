@@ -6,7 +6,7 @@ class Opinion < OurOhm
 
       def calculate_evidence_opinion(depth=0)
         opinions = evidence(:both).map { |fr| fr.get_influencing_opinion(depth-1) }
-        update_attribute :evidence_opinion, Opinion.combine(opinions)
+        send :"evidence_opinion=", Opinion.combine(opinions)
       end
 
       def get_opinion(depth=0)
@@ -17,7 +17,7 @@ class Opinion < OurOhm
       OurOhm.value_reference :opinion, Opinion
 
       def calculate_opinion(depth=0)
-        update_attribute :opinion, self.get_user_opinion(depth) + self.get_evidence_opinion( depth < 1 ? 1 : depth )
+        send :"opinion=", self.get_user_opinion(depth) + self.get_evidence_opinion( depth < 1 ? 1 : depth )
       end
 
       def get_opinion(depth=0)

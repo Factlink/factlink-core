@@ -9,7 +9,7 @@ class Opinion < OurOhm
           Authority.on(self, for: user).to_f + 1.0
         end.opinion
 
-        update_attribute :user_opinion, user_opinion
+        send :"user_opinion=", user_opinion
       end
 
       def get_user_opinion(depth=0)
