@@ -1,16 +1,30 @@
 class Opinion < OurOhm
   module Subject
     module Fact
-      def self.included(klass)
-        klass.opinion_reference :evidence_opinion do |depth|
-          opinions = evidence(:both).map { |fr| fr.get_influencing_opinion(depth-1) }
-          Opinion.combine(opinions)
-        end
 
-        klass.opinion_reference :opinion do |depth|
-          self.get_user_opinion(depth) + self.get_evidence_opinion( depth < 1 ? 1 : depth )
-        end
+      OurOhm.value_reference :evidence_opinion, Opinion
+
+      def calculate_evidence_opinion(depth=0)
+        opinions = evidence(:both).map { |fr| fr.get_influencing_opinion(depth-1) }
+        update_attribute :evidence_opinion, Opinion.combine(opinions)
       end
+
+      def get_opinion(depth=0)
+        calculate_evidence_opinion if depth > 0
+        evidence_opinion || Opinion.zero
+      end
+
+      OurOhm.value_reference :opinion, Opinion
+
+      def calculate_opinion(depth=0)
+        update_attribute :opinion, self.get_user_opinion(depth) + self.get_evidence_opinion( depth < 1 ? 1 : depth )
+      end
+
+      def get_opinion(depth=0)
+        calculate_opinion if depth > 0
+        opinion || Opinion.zero
+      end
+
     end
   end
 end
