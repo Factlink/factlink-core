@@ -2,11 +2,25 @@ class Opinion < OurOhm
   module Subject
     module FactRelation
 
-      OurOhm.value_reference :influencing_opinion, Opinion
+      def self.included(klass)
+        klass.reference :influencing_opinion, Opinion
+
+        klass.send :alias_method, :get_opinion, :get_user_opinion
+        klass.send :alias_method, :calculate_opinion, :calculate_user_opinion
+      end
 
       def get_influencing_opinion(depth=0)
         calculate_influencing_opinion if depth > 0
         influencing_opinion || Opinion.zero
+      end
+
+      def set_influencing_opinion(new_opinion)
+        if influencing_opinion
+          influencing_opinion.take_values new_opinion
+        else
+          new_opinion.save
+          send :"influencing_opinion=", new_opinion
+        end
       end
 
       def calculate_influencing_opinion(depth=0)
@@ -17,7 +31,7 @@ class Opinion < OurOhm
 
         evidence_type = OpinionType.for_relation_type(self.type)
 
-        send :"influencing_opinion=", Opinion.for_type(evidence_type, authority)
+        set_influencing_opinion Opinion.for_type(evidence_type, authority)
       end
 
     end
