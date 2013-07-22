@@ -114,7 +114,7 @@ class AuthorityObject
 
   def self.all_for(basekey, type, subject_class, subject_id)
     @index = index_key_for(basekey, type, subject_class, subject_id)
-    res = @index.smembers.map { |key| AuthorityObject.new (Nest.new key, Ohm.redis), @index}
+    res = @index.smembers.map { |key| AuthorityObject.new(Nest.new(key, Ohm.redis), @index) }
     res.class.send(:define_method,:all) { return self }
     res
   end
