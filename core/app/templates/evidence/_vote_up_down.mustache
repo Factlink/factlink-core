@@ -1,17 +1,9 @@
 {{#interactive}}
 <a class="supporting"> &nbsp; </a>
 {{/interactive}}
-<div class="authorities-evidence">
-  <span class="belief-authority-evidence">
-    +{{ opinions.formatted_belief_authority }}
-  </span>
-  <span class="total-authority-evidence">
-    {{ opinions.formatted_relevance }}
-  </span>
-  <span class="disbelief-authority-evidence">
-    -{{ opinions.formatted_disbelief_authority }}
-  </span>
-</div>
+<span class="authorities-evidence">
+  {{ opinions.formatted_relevance }}
+</span>
 {{#interactive}}
 <a class="weakening"> &nbsp; </a>
 {{/interactive}}
