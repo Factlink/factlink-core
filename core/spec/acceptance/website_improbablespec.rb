@@ -1,6 +1,7 @@
 require 'acceptance_helper'
 
 describe "When visiting the Factlink website", type: :request do
+  pending if ENV['skip_improbable_acceptance']
 
   before do
     visit "/"
