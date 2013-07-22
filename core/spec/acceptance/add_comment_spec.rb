@@ -57,15 +57,15 @@ feature "adding comments to a fact", type: :request do
 
     within evidence_listing_css_selector do
       # there is just one factlink in the list
-      find('.total-authority-evidence', text: (user_authority_on_fact+1).to_s)
+      find('.authorities-evidence', text: (user_authority_on_fact+1).to_s)
       find('.supporting').click
-      find('.total-authority-evidence', text: "0.0")
+      find('.authorities-evidence', text: "0.0")
     end
 
     go_to_discussion_page_of factlink
 
     within evidence_listing_css_selector do
-      find('.total-authority-evidence', text: "0.0")
+      find('.authorities-evidence', text: "0.0")
     end
   end
 
