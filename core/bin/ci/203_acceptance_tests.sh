@@ -8,7 +8,7 @@ function do_tests {
   bundle exec rspec --format RspecJunitFormatter spec/acceptance/ \
     --out $REPORTFILE \
     2>&1 | tee $OUTPUTFILE
-  test ${PIPESTATUS[0]} -eq 0 || touch TEST_FILE
+  test ${PIPESTATUS[0]} -eq 0 || touch TEST_FAILURE
 }
 
 
