@@ -83,6 +83,7 @@ cloneRepo chrome-extension
 cloneRepo firefox-extension
 cloneRepo js-library
 cloneRepo web-proxy
+cloneRepo chef
 
 RUBY_VERSION=`cat core/.ruby-version`
 
@@ -164,6 +165,12 @@ cd js-library
 	npm install
 	grunt
 cd ..
+
+cd chef-repo
+  ./script/bootstrap
+cd ..
+
+
 cd core
 	git flow init -d
 	bundle install
