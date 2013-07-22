@@ -4,8 +4,7 @@ class Opinion < OurOhm
 
       OurOhm.value_reference :user_opinion, Opinion
 
-      def calculate_user_opinion(depth=0)
-        # depth has no meaning here unless we want the depth to also recalculate authorities
+      def calculate_user_opinion
         user_opinion = UserOpinionCalculation.new(believable) do |user|
           Authority.on(self, for: user).to_f + 1.0
         end.opinion
