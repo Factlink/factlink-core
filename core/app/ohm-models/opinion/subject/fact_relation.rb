@@ -32,6 +32,7 @@ class Opinion < OurOhm
         evidence_type = OpinionType.for_relation_type(self.type)
 
         set_influencing_opinion Opinion.for_type(evidence_type, authority)
+        save
       end
 
     end

@@ -26,6 +26,7 @@ class Opinion < OurOhm
         end.opinion
 
         set_user_opinion user_opinion
+        save
       end
 
     end
