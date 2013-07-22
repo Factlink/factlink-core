@@ -1,6 +1,6 @@
 module Queries
-  module Facts
-    class InteractingUsersImpact
+  module Opinions
+    class InteractingUsersImpactForFact
       include Pavlov::Query
 
       arguments :fact_id, :type
