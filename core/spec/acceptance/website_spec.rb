@@ -6,12 +6,6 @@ describe "When visiting the Factlink website", type: :request do
   end
 
   context "when not logged in" do
-    it "the Home page" do
-      within(:css, "h1") do
-        page.should have_content("A layer over the web to add and view credibility")
-      end
-    end
-
     it "should be able to view the About page" do
       pending if ENV['skip_improbable_acceptance']
 
