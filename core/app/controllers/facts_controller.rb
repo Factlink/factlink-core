@@ -29,7 +29,7 @@ class FactsController < ApplicationController
         open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
         open_graph_formatter.add open_graph_fact
 
-        render inline:'', layout: 'client'
+        render inline: '', layout: 'client'
       end
       format.json { render }
     end
@@ -49,7 +49,7 @@ class FactsController < ApplicationController
     authorize! :new, Fact
     authenticate_user!
 
-    render inline:'', layout: 'client'
+    render inline: '', layout: 'client'
   end
 
   def create
