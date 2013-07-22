@@ -1,8 +1,6 @@
 require 'acceptance_helper'
 
 describe "When visiting the Factlink website", type: :request do
-  pending if ENV['skip_improbable_acceptance']
-
   before do
     visit "/"
   end
@@ -15,6 +13,8 @@ describe "When visiting the Factlink website", type: :request do
     end
 
     it "should be able to view the About page" do
+      pending if ENV['skip_improbable_acceptance']
+
       click_link "About"
 
       within(:css, "h1") do
@@ -23,6 +23,8 @@ describe "When visiting the Factlink website", type: :request do
     end
 
     it "should be able to view the Team page" do
+      pending if ENV['skip_improbable_acceptance']
+
       click_link "Team"
       within(:css, "h1") do
         page.should have_content("The people behind Factlink")
@@ -30,6 +32,8 @@ describe "When visiting the Factlink website", type: :request do
     end
 
     it "should be able to view the Jobs page" do
+      pending if ENV['skip_improbable_acceptance']
+
       click_link "Jobs"
       within(:css, "h1") do
         page.should have_content("Jobs")
@@ -37,6 +41,8 @@ describe "When visiting the Factlink website", type: :request do
     end
 
     it "should be able to view the Contact page" do
+      pending if ENV['skip_improbable_acceptance']
+
       click_link "Contact"
       within(:css, "h1") do
         page.should have_content("Get in touch")
@@ -44,6 +50,8 @@ describe "When visiting the Factlink website", type: :request do
     end
 
     it "should be able to view the TOS page" do
+      pending if ENV['skip_improbable_acceptance']
+
       click_link "Terms of Service"
       within(:css, "h1") do
         page.should have_content("Terms of Service")
@@ -51,6 +59,8 @@ describe "When visiting the Factlink website", type: :request do
     end
 
     it "should be able to view the Privacy Policy page" do
+      pending if ENV['skip_improbable_acceptance']
+
       click_link "Privacy"
       within(:css, "h1") do
         page.should have_content("Privacy Policy")
