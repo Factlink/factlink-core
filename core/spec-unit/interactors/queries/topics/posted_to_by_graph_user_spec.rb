@@ -9,7 +9,7 @@ describe Queries::Topics::PostedToByGraphUser do
   end
 
   describe '#call' do
-    it "returns the topics this graph_user posted to" do
+    it 'returns the topics this graph_user posted to' do
       graph_user = mock
       channels = [
         mock(:channel, slug_title: 'food'),
@@ -18,7 +18,7 @@ describe Queries::Topics::PostedToByGraphUser do
       channel_list = mock real_channels_as_array: channels
       topics = [mock, mock]
 
-      query = described_class.new graph_user
+      query = described_class.new graph_user: graph_user
 
       ChannelList.stub(:new).with(graph_user)
                  .and_return(channel_list)
