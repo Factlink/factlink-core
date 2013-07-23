@@ -27,8 +27,8 @@ class Opinion < OurOhm
           original_opinion.take_values new_opinion
         else
           send "#{type}=", new_opinion.save
+          save
         end
-        save
       end
 
     end
