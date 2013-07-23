@@ -12,9 +12,9 @@ class Opinion < OurOhm
       fact_relation.influencing_opinion || Opinion.zero
     end
 
-    def calculate_influencing_opinion(depth=0)
-      net_fact_authority = FactCalculation.new(fact_relation.from_fact).get_opinion(depth).net_authority
-      net_relevance_authority = BaseFactCalculation.new(fact_relation).get_user_opinion(depth).net_authority
+    def calculate_influencing_opinion
+      net_fact_authority = FactCalculation.new(fact_relation.from_fact).get_opinion.net_authority
+      net_relevance_authority = BaseFactCalculation.new(fact_relation).get_user_opinion.net_authority
 
       authority = [[net_fact_authority, net_relevance_authority].min, 0].max
 
