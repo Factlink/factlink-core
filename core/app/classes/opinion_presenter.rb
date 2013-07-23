@@ -8,7 +8,7 @@ class OpinionPresenter
   end
 
   def authority(type)
-    @opinion.send(type) * @opinion.authority
+    @opinion.send(type) * @opinion.a
   end
 
   def format number
@@ -43,10 +43,10 @@ class OpinionPresenter
   end
 
   def belief_authority
-    authority :beliefs
+    authority :b
   end
 
   def disbelief_authority
-    authority :disbeliefs
+    authority :d
   end
 end

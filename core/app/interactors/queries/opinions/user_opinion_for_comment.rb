@@ -12,7 +12,11 @@ module Queries
       end
 
       def execute
-        calculator.opinion
+        dead_opinion
+      end
+
+      def dead_opinion
+        DeadOpinion.from_opinion calculator.opinion
       end
 
       def calculator
