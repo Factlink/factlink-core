@@ -21,7 +21,6 @@ describe Commands::Opinions::RecalculateFactOpinion do
         .and_return(fact_calculation)
 
       base_fact_calculation.should_receive(:calculate_user_opinion)
-      fact_calculation.should_receive(:calculate_evidence_opinion)
       fact_calculation.should_receive(:calculate_opinion)
 
       command = described_class.new fact
