@@ -4,9 +4,6 @@ class Opinion < OurOhm
 
       def self.included(klass)
         klass.reference :influencing_opinion, Opinion
-
-        klass.send :alias_method, :get_opinion, :get_user_opinion
-        klass.send :alias_method, :calculate_opinion, :calculate_user_opinion
       end
 
       def get_influencing_opinion(depth=0)
