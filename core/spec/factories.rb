@@ -24,9 +24,6 @@ FactoryGirl.define do
     password_confirmation '123hoi'
     agrees_tos true
 
-    # TODO: Remove when feature :vote_up_down_popup is removed.
-    features [:vote_up_down_popup]
-
     trait :approved do
       approved true
     end

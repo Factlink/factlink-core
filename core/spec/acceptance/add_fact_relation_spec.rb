@@ -80,6 +80,9 @@ feature "adding factlinks to a fact", type: :request do
   end
 
   scenario "unsetting relevance" do
+    use_features :vote_up_down_popup
+    switch_to_user(@user)
+
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
