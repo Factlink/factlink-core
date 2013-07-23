@@ -40,4 +40,10 @@ class Basefact < OurOhm
       save
     end
   end
+
+  def insert_or_update_dead_opinion(opinion_name, new_dead_opinion)
+    new_opinion = Opinion.new
+    new_opinion.take_values new_dead_opinion
+    insert_or_update_opinion opinion_name, new_opinion
+  end
 end
