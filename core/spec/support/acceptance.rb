@@ -45,8 +45,7 @@ module Acceptance
   end
 
   def use_features *new_features
-    features = @current_user.features
-    features << new_features
+    features = @current_user.features.to_a + new_features
     @current_user.features = features
   end
 
