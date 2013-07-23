@@ -50,6 +50,10 @@ li.evidence-item {
       &.active {
         background: image-url("relation_actions.png") no-repeat top left transparent;
       }
+      &.disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
     }
 
     .weakening {
@@ -57,35 +61,19 @@ li.evidence-item {
       &.active {
         background: image-url("relation_actions.png") no-repeat bottom right transparent;
       }
+      &.disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
     }
 
     .authorities-evidence {
-      display: inline-block;
+      display: block;
       text-align: center;
       line-height: normal;
-
-      > span {
-        color: #555;
-        text-align: center;
-        font-size: @baseFontSize;
-        line-height: normal;
-      }
-
-      > .belief-authority-evidence,
-      > .disbelief-authority-evidence {
-        color: #ababab;
-        font-size: 8px;
-        line-height: 9px;
-        margin-top: 7px;
-        margin-bottom: 0;
-        display: inline-block;
-        text-align: center;
-      }
-
-      > .disbelief-authority-evidence {
-        margin-top: 0;
-        margin-bottom: 7px;
-      }
+      font-size: @baseFontSize;
+      margin: 10px 0;
+      color: @baseFontColor;
     }
   }
 

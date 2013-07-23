@@ -1,4 +1,4 @@
-class window.FactRelation extends Backbone.Model
+class window.FactRelation extends Evidence
 
   defaults:
     evidence_type: 'FactRelation'
