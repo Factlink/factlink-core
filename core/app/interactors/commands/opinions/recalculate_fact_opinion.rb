@@ -9,7 +9,6 @@ module Commands
 
       def execute
         Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
-        fact_calculation.calculate_evidence_opinion
         fact_calculation.calculate_opinion
       end
 
