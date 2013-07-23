@@ -8,7 +8,7 @@ class Opinion < OurOhm
     end
 
     def get_evidence_opinion
-      fact.evidence_opinion || Opinion.zero
+      DeadOpinion.from_opinion(fact.evidence_opinion || Opinion.zero)
     end
 
     def calculate_evidence_opinion
