@@ -5,7 +5,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
     contentRegion: '.js-content-region'
 
   templateHelpers:
-    formatted_impact: -> format_as_authority @impact
+    formatted_impact: -> format_as_short_number @impact
 
   typeCss: ->
     switch @model.get('type')
