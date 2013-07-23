@@ -29,12 +29,13 @@ GIT
 
 GIT
   remote: git://github.com/Factlink/pavlov.git
-  revision: 0b4bd6af62c4210b4c9b7187eb82b3780c755213
-  ref: 0b4bd6af62c4210b4c9b7187eb82b3780c755213
+  revision: db768892f7e498285e0c010158358c914310ca4c
+  ref: db76889
   specs:
-    pavlov (0.0.1)
+    pavlov (0.1.0)
       activemodel (>= 3.2.7)
       activesupport (>= 3.2.7)
+      virtus (= 0.5.5)
 
 GIT
   remote: git://github.com/Factlink/rack-xframe-options.git
@@ -90,6 +91,7 @@ GEM
     arel (3.0.2)
     ast (1.1.0)
     awesome_print (1.1.0)
+    backports (3.3.3)
     bcrypt-ruby (3.0.1)
     brakeman (2.0.0)
       erubis (~> 2.6)
@@ -144,6 +146,7 @@ GEM
       addressable
     daemons (1.1.9)
     database_cleaner (0.9.1)
+    descendants_tracker (0.0.1)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -492,6 +495,9 @@ GEM
     uuidtools (2.1.4)
     vegas (0.1.11)
       rack (>= 1.0.0)
+    virtus (0.5.5)
+      backports (~> 3.3)
+      descendants_tracker (~> 0.0.1)
     warden (1.2.1)
       rack (>= 1.0)
     websocket (1.0.7)
