@@ -37,34 +37,24 @@ describe OpinionPresenter do
 
   describe '#format' do
     it 'uses NumberFormatter.as_authority and returns that value' do
-      number_formatter = mock
       number = mock
-      as_authority = mock
+      number_formatter = mock as_authority: mock
 
       op = OpinionPresenter.new mock
 
-      NumberFormatter.should_receive(:new).and_return(number_formatter)
-      number_formatter.should_receive(:as_authority).and_return(as_authority)
+      NumberFormatter.stub(:new).with(number).and_return(number_formatter)
 
-      expect(op.format number).to eq as_authority
+      expect(op.format number).to eq number_formatter.as_authority
     end
   end
 
   describe '#authority' do
     it 'Multiplies the value of opinion.type with the authority' do
-      opinion = mock
-      type_sym = :symbol
-      type_val = mock
-      result = mock
-      authority = mock
+      opinion = mock believes: 2, authority: 3
 
       op = OpinionPresenter.new opinion
 
-      opinion.should_receive(type_sym).and_return(type_val)
-      opinion.should_receive(:authority).and_return(authority)
-      type_val.should_receive(:*).with(authority).and_return(result)
-
-      expect(op.authority(type_sym)).to eq result
+      expect(op.authority(:believes)).to eq 6
     end
   end
 
