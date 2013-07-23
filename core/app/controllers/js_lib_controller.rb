@@ -1,17 +1,22 @@
 class JsLibController < ApplicationController
-  def show_template
-    respond_to do |format|
-      format.html do
-        begin
-          render "templates/" + params[:name], :layout => "templates", :content_type => "text/javascript"
-        rescue ActionView::MissingTemplate
-          raise_404
-        end
-      end
-    end
+  def create
+    render_template 'create'
+  end
+
+  def indicator
+    render_template 'indicator'
   end
 
   def redir
     redirect_to jslib_url + params[:path]
   end
+
+  private
+
+  def render_template name
+    render "templates/#{name}",
+      layout: "templates",
+      content_type: "text/javascript"
+  end
+
 end

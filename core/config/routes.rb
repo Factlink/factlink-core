@@ -27,8 +27,8 @@ FactlinkUI::Application.routes.draw do
   get "/factlink/intermediate" => "facts#intermediate"
 
   # Static js micro templates
-  get "/templates/:name" => "js_lib#show_template",
-      constraints: { name: /[-a-zA-Z_]+/ }
+  get "/templates/create" => "js_lib#create"
+  get "/templates/indicator" => "js_lib#indicator"
 
   get "/jslib/:path" => "js_lib#redir",
       constraints: { path: /[-a-zA-Z0-9_.\/]*/ }
