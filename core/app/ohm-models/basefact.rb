@@ -30,7 +30,7 @@ class Basefact < OurOhm
     remove_opinionateds(user)
   end
 
-  def set_opinion_of_type(type, new_opinion)
+  def insert_or_update_opinion(type, new_opinion)
     original_opinion = send(type)
     if original_opinion
       original_opinion.take_values new_opinion

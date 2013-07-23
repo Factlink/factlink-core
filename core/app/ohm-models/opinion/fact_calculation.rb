@@ -15,7 +15,7 @@ class Opinion < OurOhm
       opinions = fact.evidence(:both).map do |fr|
         FactRelationCalculation.new(fr).get_influencing_opinion
       end
-      fact.set_opinion_of_type :evidence_opinion, Opinion.combine(opinions)
+      fact.insert_or_update_opinion :evidence_opinion, Opinion.combine(opinions)
     end
 
     def get_opinion
@@ -25,7 +25,7 @@ class Opinion < OurOhm
     def calculate_opinion(depth=0)
       opinion = BaseFactCalculation.new(fact).get_user_opinion + get_evidence_opinion
 
-      fact.set_opinion_of_type :opinion, opinion
+      fact.insert_or_update_opinion :opinion, opinion
     end
 
   end
