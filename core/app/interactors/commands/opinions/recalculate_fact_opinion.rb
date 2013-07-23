@@ -9,7 +9,12 @@ module Commands
 
       def execute
         Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
-        Opinion::FactCalculation.new(fact).calculate_opinion
+        fact_calculation.calculate_evidence_opinion
+        fact_calculation.calculate_opinion
+      end
+
+      def fact_calculation
+        @fact_calculation ||= Opinion::FactCalculation.new(fact)
       end
 
       def validate
