@@ -7,8 +7,7 @@ class Opinion < OurOhm
       @base_fact = base_fact
     end
 
-    def get_user_opinion(depth=0)
-      calculate_user_opinion if depth > 0
+    def get_user_opinion
       base_fact.user_opinion || Opinion.zero
     end
 
