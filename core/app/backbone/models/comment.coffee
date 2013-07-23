@@ -3,8 +3,7 @@ class window.Comment extends Backbone.Model
   defaults:
     evidence_type: 'Comment'
     current_user_opinion: "believes"
-    opinions:
-      formatted_relevance: "?"
+    impact: "?"
 
   validate: (attributes) ->
     'Content should not be empty' unless /^.*\S.*$/.test(attributes.content)

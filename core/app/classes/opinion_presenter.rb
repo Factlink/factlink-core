@@ -44,12 +44,6 @@ class OpinionPresenter
     }
   end
 
-  def to_hash
-    {
-      formatted_relevance: formatted_relevance,
-    }
-  end
-
   private
 
   def calc_percentage(total, part)

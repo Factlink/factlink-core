@@ -2,8 +2,7 @@ class window.FactRelation extends Backbone.Model
 
   defaults:
     evidence_type: 'FactRelation'
-    opinions:
-      formatted_relevance: "?"
+    impact: "?"
 
   setOpinion: (type) ->
     $.ajax
