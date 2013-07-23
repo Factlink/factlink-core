@@ -2,7 +2,6 @@ module Commands
   module Facts
     class ShareNew
       include Pavlov::Command
-      include Util::Sanitations
       include Util::CanCan
 
       arguments :fact_id, :sharing_options
@@ -28,8 +27,6 @@ module Commands
       end
 
       def validate
-        sanitize_boolean_hash :sharing_options
-
         validate_integer_string :fact_id, fact_id
         validate_connected :twitter if sharing_options[:twitter]
         validate_connected :facebook if sharing_options[:facebook]
