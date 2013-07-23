@@ -30,12 +30,12 @@ class Basefact < OurOhm
     remove_opinionateds(user)
   end
 
-  def insert_or_update_opinion(key, new_opinion)
-    original_opinion = send(key)
+  def insert_or_update_opinion(opinion_name, new_opinion)
+    original_opinion = send(opinion_name)
     if original_opinion
       original_opinion.take_values new_opinion
     else
-      send "#{key}=", new_opinion.save
+      send "#{opinion_name}=", new_opinion.save
       save
     end
   end
