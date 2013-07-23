@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def show
     authorize! :show, @user
     backbone_responder do
-      render @user
+      render 'users/_user', user: @user
     end
   end
 
