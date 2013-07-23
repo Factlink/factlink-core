@@ -1,4 +1,6 @@
 class JsLibController < ApplicationController
+  layout 'templates'
+
   def create
     render_template 'create'
   end
@@ -10,8 +12,6 @@ class JsLibController < ApplicationController
   private
 
   def render_template name
-    render "templates/#{name}",
-      layout: "templates",
-      content_type: "text/javascript"
+    render "templates/#{name}", content_type: "text/javascript"
   end
 end
