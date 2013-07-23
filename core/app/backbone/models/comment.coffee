@@ -1,4 +1,6 @@
-class window.Comment extends Backbone.Model
+#= require './evidence'
+
+class window.Comment extends Evidence
 
   defaults:
     evidence_type: 'Comment'
@@ -23,7 +25,3 @@ class window.Comment extends Backbone.Model
   removeOpinion: -> @unset('opinion'); @save()
 
   urlRoot: -> @collection.commentsUrl()
-
-  toJSON: ->
-    _.extend super(),
-      formatted_impact: format_as_short_number(@get('impact'))

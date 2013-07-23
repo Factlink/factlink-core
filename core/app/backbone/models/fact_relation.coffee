@@ -1,4 +1,4 @@
-class window.FactRelation extends Backbone.Model
+class window.FactRelation extends Evidence
 
   defaults:
     evidence_type: 'FactRelation'
@@ -47,7 +47,3 @@ class window.FactRelation extends Backbone.Model
   validate: (attributes) ->
     unless attributes.evidence_id? or /^.*\S.*$/.test(attributes.displaystring)
       'Should have either an evidence_id or a displaystring'
-
-  toJSON: ->
-    _.extend super(),
-      formatted_impact: format_as_short_number(@get('impact'))
