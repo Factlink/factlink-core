@@ -83,7 +83,7 @@ cloneRepo chrome-extension
 cloneRepo firefox-extension
 cloneRepo js-library
 cloneRepo web-proxy
-cloneRepo chef
+cloneRepo chef-repo
 
 RUBY_VERSION=`cat core/.ruby-version`
 
