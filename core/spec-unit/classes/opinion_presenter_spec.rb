@@ -5,52 +5,6 @@ describe OpinionPresenter do
     stub_const 'NumberFormatter', Class.new
   end
 
-  describe '#belief_authority' do
-    it 'is 0 when the authority of the opinion is 0' do
-      opinion = mock authority: 0, beliefs: 0
-
-      op = OpinionPresenter.new opinion
-      expect(op.belief_authority).to eq 0
-    end
-
-    it 'is 1 when every user beliefs and the sum of every users authority is 1' do
-      opinion = stub :opinion, authority: 1, beliefs: 1
-
-      op = OpinionPresenter.new opinion
-      expect(op.belief_authority).to eq 1
-    end
-
-    it 'is 0 when no user beliefs' do
-      opinion = stub :opinion, authority: 1, beliefs: 0, disbeliefs: 1
-
-      op = OpinionPresenter.new opinion
-      expect(op.belief_authority).to eq 0
-    end
-  end
-
-  describe '#disbelief_authority' do
-    it 'is 0 when the authority of the opinion is 0' do
-      opinion = mock authority: 0, disbeliefs: 0
-
-      op = OpinionPresenter.new opinion
-      expect(op.disbelief_authority).to eq 0
-    end
-
-    it 'is 1 when every user disbeliefs and the sum of every users authority is 1' do
-      opinion = stub :opinion, authority: 1, disbeliefs: 1
-
-      op = OpinionPresenter.new opinion
-      expect(op.disbelief_authority).to eq 1
-    end
-
-    it 'is 0 when no user disbeliefs' do
-      opinion = stub :opinion, authority: 1, beliefs: 1, disbeliefs: 0
-
-      op = OpinionPresenter.new opinion
-      expect(op.disbelief_authority).to eq 0
-    end
-  end
-
   describe '#relevance' do
     it 'is 0 when the authority of the opinion is 0' do
       opinion = mock authority: 0, disbeliefs: 0, beliefs: 0
