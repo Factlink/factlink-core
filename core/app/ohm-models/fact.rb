@@ -14,6 +14,9 @@ class Fact < Basefact
 
   timestamped_set :interactions, Activity
 
+  reference :evidence_opinion, Opinion
+  reference :opinion, Opinion
+
   def increment_mixpanel_count
     return unless self.has_site? and self.created_by.user
 

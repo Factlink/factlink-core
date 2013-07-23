@@ -2,10 +2,6 @@ class Opinion < OurOhm
   module Subject
     module Basefact
 
-      def self.included(klass)
-        klass.reference :user_opinion, Opinion
-      end
-
       def get_user_opinion(depth=0)
         calculate_user_opinion if depth > 0
         user_opinion || Opinion.zero

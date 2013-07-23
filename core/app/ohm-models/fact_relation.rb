@@ -13,6 +13,8 @@ class FactRelation < Basefact
   attribute :type # => :supporting || :weakening
   index :type
 
+  reference :influencing_opinion, Opinion
+
   def validate
     assert_present :from_fact_id
     assert_present :fact_id

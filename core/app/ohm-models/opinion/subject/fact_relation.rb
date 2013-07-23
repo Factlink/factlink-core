@@ -2,10 +2,6 @@ class Opinion < OurOhm
   module Subject
     module FactRelation
 
-      def self.included(klass)
-        klass.reference :influencing_opinion, Opinion
-      end
-
       def get_influencing_opinion(depth=0)
         calculate_influencing_opinion if depth > 0
         influencing_opinion || Opinion.zero

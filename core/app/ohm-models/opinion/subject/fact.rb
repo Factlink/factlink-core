@@ -2,11 +2,6 @@ class Opinion < OurOhm
   module Subject
     module Fact
 
-      def self.included(klass)
-        klass.reference :evidence_opinion, Opinion
-        klass.reference :opinion, Opinion
-      end
-
       def get_evidence_opinion(depth=0)
         calculate_evidence_opinion if depth > 0
         evidence_opinion || Opinion.zero

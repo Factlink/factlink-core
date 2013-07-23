@@ -4,6 +4,8 @@ class Basefact < OurOhm
 
   reference :created_by, GraphUser
 
+  reference :user_opinion, Opinion
+
   def believable
     @believable ||= Believable.new(self.key)
   end
