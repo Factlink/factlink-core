@@ -62,7 +62,7 @@ module BeliefExpressions
 
   def opinion?(fact)
     possible_reset
-    case fact.class
+    case fact
     when Fact
       # values are recalculated in Redis, so get the object fresh from Redis
       opinion = Pavlov.query 'opinions/opinion_for_fact', Fact[fact.id]
