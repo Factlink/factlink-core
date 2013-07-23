@@ -29,4 +29,8 @@ DeadOpinion = Struct.new(:b, :d, :u, :a) do
 
     DeadOpinion.new(b, d, u, a)
   end
+
+  def net_authority
+    a * (b-d)
+  end
 end
