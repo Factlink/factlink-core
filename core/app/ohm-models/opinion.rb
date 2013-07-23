@@ -1,5 +1,3 @@
-require_relative 'opinion/subject.rb'
-
 class Opinion < OurOhm
   # naming conventions as in the document describing the calculations
   # b = belief

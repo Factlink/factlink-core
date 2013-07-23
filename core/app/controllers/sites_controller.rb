@@ -14,8 +14,8 @@ class SitesController < ApplicationController
       response = { blacklisted: 'This site is not supported' }
     else
       site = Site.find(:url => url).first
-      @facts_count = site ? site.facts.count : 0
-      response = { count: @facts_count }
+      facts_count = site ? site.facts.count : 0
+      response = { count: facts_count }
     end
     response[:jslib_url] = jslib_url
 
@@ -25,25 +25,28 @@ class SitesController < ApplicationController
   def facts_for_url
     url = params[:url]
 
-    if not is_blacklisted and can? :index, Fact
-      site = Site.find(url: url).first
-      @facts = site ? site.facts.to_a : []
-
-      @facts = @facts.map do |fact|
-        {
-          id: fact.id,
-          _id: fact.id,
-          displaystring: fact.data.displaystring,
-          title: fact.data.title
-        }
-      end
-
-      render_jsonp @facts
-    elsif is_blacklisted
+    if is_blacklisted
       render_jsonp blacklisted: 'This site is not supported'
-    else
-      render_jsonp error: 'Unauthorized'
+      return
     end
+
+    unless can? :index, Fact
+      render_jsonp error: 'Unauthorized'
+      return
+    end
+
+    site = Site.find(url: url).first
+    facts = site ? site.facts.to_a : []
+
+    facts = facts.map do |fact|
+      {
+        id: fact.id,
+        displaystring: fact.data.displaystring,
+        title: fact.data.title
+      }
+    end
+
+    render_jsonp facts
   end
 
   def blacklisted
