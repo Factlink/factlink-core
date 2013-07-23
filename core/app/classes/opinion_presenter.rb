@@ -3,14 +3,6 @@ class OpinionPresenter
     @opinion = opinion
   end
 
-  def belief_authority
-    authority :beliefs
-  end
-
-  def disbelief_authority
-    authority :disbeliefs
-  end
-
   def relevance
     belief_authority - disbelief_authority
   end
@@ -52,5 +44,13 @@ class OpinionPresenter
     else
       0
     end
+  end
+
+  def belief_authority
+    authority :beliefs
+  end
+
+  def disbelief_authority
+    authority :disbeliefs
   end
 end
