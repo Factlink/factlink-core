@@ -7,8 +7,7 @@ class Opinion < OurOhm
       @fact_relation = fact_relation
     end
 
-    def get_influencing_opinion(depth=0)
-      calculate_influencing_opinion if depth > 0
+    def get_influencing_opinion
       fact_relation.influencing_opinion || Opinion.zero
     end
 

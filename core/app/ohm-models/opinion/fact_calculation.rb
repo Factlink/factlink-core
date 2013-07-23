@@ -7,20 +7,18 @@ class Opinion < OurOhm
       @fact = fact
     end
 
-    def get_evidence_opinion(depth=0)
-      calculate_evidence_opinion if depth > 0
+    def get_evidence_opinion
       fact.evidence_opinion || Opinion.zero
     end
 
-    def calculate_evidence_opinion(depth=0)
+    def calculate_evidence_opinion
       opinions = fact.evidence(:both).map do |fr|
-        FactRelationCalculation.new(fr).get_influencing_opinion(depth-1)
+        FactRelationCalculation.new(fr).get_influencing_opinion
       end
       fact.set_opinion_of_type :evidence_opinion, Opinion.combine(opinions)
     end
 
-    def get_opinion(depth=0)
-      calculate_opinion if depth > 0
+    def get_opinion
       fact.opinion || Opinion.zero
     end
 
