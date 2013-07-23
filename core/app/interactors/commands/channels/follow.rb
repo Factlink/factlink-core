@@ -6,7 +6,7 @@ module Commands
       arguments :channel
 
       def execute
-        success = command :'channels/add_subchannel', follower, channel
+        success = old_command :'channels/add_subchannel', follower, channel
 
         success ? follower : nil
       end

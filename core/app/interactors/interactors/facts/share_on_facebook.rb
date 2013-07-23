@@ -19,7 +19,7 @@ module Interactors
       end
 
       def execute
-        command :'facebook/share_factlink', fact_id
+        old_command :'facebook/share_factlink', fact_id
       end
 
       def validate

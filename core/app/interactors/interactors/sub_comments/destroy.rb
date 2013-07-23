@@ -19,7 +19,7 @@ module Interactors
       end
 
       def execute
-        command :'sub_comments/destroy', id
+        old_command :'sub_comments/destroy', id
       end
 
     end

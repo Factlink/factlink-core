@@ -11,18 +11,18 @@ module Interactors
 
       def execute
         following_channels.each do |follower|
-          command :'channels/remove_subchannel', follower, channel
+          old_command :'channels/remove_subchannel', follower, channel
         end
       end
 
       def following_channels
-        channel_ids = query :containing_channel_ids_for_channel_and_user, channel.id, @options[:current_user].graph_user_id
+        channel_ids = old_query :containing_channel_ids_for_channel_and_user, channel.id, @options[:current_user].graph_user_id
 
-        channel_ids.map {|id| query :'channels/get', id}
+        channel_ids.map {|id| old_query :'channels/get', id}
       end
 
       def channel
-        @channel ||= query :'channels/get', channel_id
+        @channel ||= old_query :'channels/get', channel_id
       end
 
       def authorized?

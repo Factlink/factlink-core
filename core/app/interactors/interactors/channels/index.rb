@@ -22,7 +22,7 @@ module Interactors
       end
 
       def channels_with_authorities
-        authorities = query :creator_authorities_for_channels, visible_channels
+        authorities = old_query :creator_authorities_for_channels, visible_channels
         visible_channels.zip authorities
       end
 
@@ -35,7 +35,7 @@ module Interactors
       end
 
       def containing_channel_ids(channel)
-        query :containing_channel_ids_for_channel_and_user, channel.id, @options[:current_user].graph_user_id
+        old_query :containing_channel_ids_for_channel_and_user, channel.id, @options[:current_user].graph_user_id
       end
 
       def kill_channel(ch, owner_authority, containing_channel_ids, user)

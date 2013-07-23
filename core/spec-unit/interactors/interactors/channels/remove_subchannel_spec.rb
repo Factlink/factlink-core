@@ -9,7 +9,7 @@ describe Interactors::Channels::RemoveSubchannel do
     let(:subchannel){ mock :subchannel, id:'45' }
 
     before do
-      Pavlov.stub(:query) do |query_name, id|
+      Pavlov.stub(:old_query) do |query_name, id|
         raise 'error' unless query_name == :'channels/get'
         if id == channel.id
           channel

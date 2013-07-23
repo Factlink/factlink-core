@@ -6,7 +6,7 @@ module Interactors
       arguments :fact, :channel
 
       def execute
-        command :"channels/add_fact", fact, channel
+        old_command :"channels/add_fact", fact, channel
 
         add_top_topic
         create_activity
@@ -15,7 +15,7 @@ module Interactors
       def add_top_topic
         return unless site
 
-        command :'site/add_top_topic',
+        old_command :'site/add_top_topic',
           site.id.to_i, topic.slug_title
       end
 
@@ -24,7 +24,7 @@ module Interactors
         # but a created_facts, or a stream
         return unless topic
 
-        command :create_activity, channel.created_by,
+        old_command :create_activity, channel.created_by,
           :added_fact_to_channel, fact, channel
       end
 

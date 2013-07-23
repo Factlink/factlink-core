@@ -8,7 +8,7 @@ module Interactors
       arguments :comment_id
 
       def execute
-        command :delete_comment, @comment_id, @options[:current_user].id.to_s
+        old_command :delete_comment, @comment_id, @options[:current_user].id.to_s
       end
 
       def validate

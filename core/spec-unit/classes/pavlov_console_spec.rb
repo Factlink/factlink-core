@@ -20,7 +20,7 @@ describe PavlovConsole do
            .with(user)
            .and_return(options)
 
-    Pavlov.should_receive(:interactor)
+    Pavlov.should_receive(:old_interactor)
           .with(:foo, param1, param2, options)
 
     console = PavlovConsole.new(user.username)

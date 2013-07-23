@@ -24,10 +24,10 @@ describe Queries::FactRelations::ForFact do
 
       interactor = described_class.new fact, :supporting, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'sub_comments/count',fact_relation.id, fact_relation.class, pavlov_options)
             .and_return(sub_comments_count)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'opinions/relevance_opinion_for_fact_relation', fact_relation, pavlov_options)
             .and_return(opinion)
 
@@ -56,10 +56,10 @@ describe Queries::FactRelations::ForFact do
 
       interactor = described_class.new fact, type
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'sub_comments/count',fact_relation.id, fact_relation.class)
             .and_return(sub_comments_count)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'opinions/relevance_opinion_for_fact_relation', fact_relation)
             .and_return(opinion)
 

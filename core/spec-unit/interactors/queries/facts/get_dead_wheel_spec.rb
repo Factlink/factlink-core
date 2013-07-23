@@ -32,7 +32,7 @@ describe Queries::Facts::GetDeadWheel do
       user = mock :user, graph_user: mock
       pavlov_options = {current_user: user}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'opinions/opinion_for_fact', live_fact, pavlov_options)
             .and_return(opinion)
 
@@ -74,7 +74,7 @@ describe Queries::Facts::GetDeadWheel do
       user = nil
       pavlov_options = {current_user: user}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'opinions/opinion_for_fact', live_fact, pavlov_options)
             .and_return(opinion)
 

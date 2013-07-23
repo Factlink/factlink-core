@@ -8,22 +8,22 @@ module Interactors
       arguments :fact_id, :type, :content
 
       def execute
-        comment = command :create_comment, @fact_id, @type,
+        comment = old_command :create_comment, @fact_id, @type,
           @content, @options[:current_user].id.to_s
 
-        command :'comments/set_opinion', comment.id.to_s, 'believes', @options[:current_user].graph_user
+        old_command :'comments/set_opinion', comment.id.to_s, 'believes', @options[:current_user].graph_user
 
         create_activity comment
 
-        query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
+        old_query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
       end
 
       def authority_of comment
-        query :authority_on_fact_for, fact, comment.created_by.graph_user
+        old_query :authority_on_fact_for, fact, comment.created_by.graph_user
       end
 
       def opinion_of comment
-        query :opinion_for_comment, comment.id.to_s, fact
+        old_query :opinion_for_comment, comment.id.to_s, fact
       end
 
       def fact
@@ -32,7 +32,7 @@ module Interactors
 
       def create_activity comment
         # TODO fix this ugly data access shit, need to think about where to kill objects, etc
-        command :create_activity,
+        old_command :create_activity,
           @options[:current_user].graph_user, :created_comment,
           Comment.find(comment.id), comment.fact_data.fact
       end

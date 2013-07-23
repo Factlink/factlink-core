@@ -9,7 +9,7 @@ module Queries
     arguments :user_id
 
     def execute
-      conversations = query :conversations_list, @user_id
+      conversations = old_query :conversations_list, @user_id
       users_by_id = all_recipients_by_ids(conversations)
 
       conversations.map do |conversation|
@@ -29,7 +29,7 @@ module Queries
     end
 
     def users_for_conversations(conversations)
-      query :users_by_ids, all_recipient_ids(conversations)
+      old_query :users_by_ids, all_recipient_ids(conversations)
     end
 
     def all_recipient_ids conversations

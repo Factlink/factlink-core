@@ -26,7 +26,7 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
         mock( created_by: mock( graph_user_id: 4 ))
       ]
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'sub_comments/index', comments.map(&:id), 'Comment')
             .and_return(sub_comments)
 

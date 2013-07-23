@@ -10,10 +10,10 @@ module Interactors
       end
 
       def execute
-        follower = command :'channels/follow', channel
+        follower = old_command :'channels/follow', channel
         if follower
-          command :'channels/added_subchannel_create_activities', follower, channel
-          command :'topics/favourite', current_graph_user_id,
+          old_command :'channels/added_subchannel_create_activities', follower, channel
+          old_command :'topics/favourite', current_graph_user_id,
                                        channel.topic.id.to_s
         end
       end
@@ -23,7 +23,7 @@ module Interactors
       end
 
       def channel
-        @channel ||= query :'channels/get', channel_id
+        @channel ||= old_query :'channels/get', channel_id
       end
 
       def authorized?

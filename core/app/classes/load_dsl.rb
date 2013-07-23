@@ -138,7 +138,7 @@ class LoadDsl
   def add_fact(fact_string)
     fact = self.load_fact(fact_string)
 
-    interactor :'channels/add_fact', fact, self.state_channel
+    old_interactor :'channels/add_fact', fact, self.state_channel
   end
 
   def run(&block)

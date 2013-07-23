@@ -8,7 +8,7 @@ module Queries
       arguments :id, :from, :count
 
       def execute
-        channel = query :'channels/get', @id
+        channel = old_query :'channels/get', @id
 
         options = {reversed: true, withscores: true, count: @count}
 

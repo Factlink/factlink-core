@@ -22,7 +22,7 @@ class SearchController < ApplicationController
       @results = []
 
       if search_for.size > 0
-        @results = interactor :search, search_for, page, row_count
+        @results = old_interactor :search, search_for, page, row_count
       end
 
       render 'search_results/index'

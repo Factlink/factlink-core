@@ -18,10 +18,10 @@ module Interactors
       end
 
       def execute
-        user = query :user_by_username, @user_name
+        user = old_query :user_by_username, @user_name
 
-        graph_user_ids = query :'users/following_graph_user_ids', user.graph_user_id.to_s
-        users = query :users_by_graph_user_ids, graph_user_ids
+        graph_user_ids = old_query :'users/following_graph_user_ids', user.graph_user_id.to_s
+        users = old_query :users_by_graph_user_ids, graph_user_ids
 
         count = users.length
         users = users.drop(skip).take(take)

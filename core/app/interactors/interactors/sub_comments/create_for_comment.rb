@@ -19,7 +19,7 @@ module Interactors
       end
 
       def create_sub_comment
-        command :'sub_comments/create_xxx', @comment_id, 'Comment', @content, @options[:current_user]
+        old_command :'sub_comments/create_xxx', @comment_id, 'Comment', @content, @options[:current_user]
       end
 
       def top_fact

@@ -13,7 +13,7 @@ module Interactors
         else
           command 'comments/remove_opinion', @comment_id, @options[:current_user].graph_user
         end
-        query :'comments/get', @comment_id
+        old_query :'comments/get', @comment_id
       end
 
       def validate

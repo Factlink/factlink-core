@@ -11,7 +11,7 @@ module Interactors
       end
 
       def execute
-        query :"site/top_topics", site.id.to_i, @nr if site
+        old_query :"site/top_topics", site.id.to_i, @nr if site
       end
 
       def site
