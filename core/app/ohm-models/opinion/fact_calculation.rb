@@ -22,7 +22,7 @@ class Opinion < OurOhm
       fact.opinion || Opinion.zero
     end
 
-    def calculate_opinion(depth=0)
+    def calculate_opinion
       opinion = BaseFactCalculation.new(fact).get_user_opinion + get_evidence_opinion
 
       fact.insert_or_update_opinion :opinion, opinion
