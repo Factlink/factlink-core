@@ -70,8 +70,8 @@ class FactsController < ApplicationController
       mp_track "Factlink: Created"
 
       #TODO switch the following two if blocks if possible
-      if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
-        @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+      if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
+        @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
 
         command :'opinions/recalculate_fact_opinion', @fact
@@ -92,7 +92,7 @@ class FactsController < ApplicationController
   end
 
   def set_opinion
-    type = params[:type].to_sym
+    type = OpinionType.real_for(params[:type])
     authorize! :opinionate, @fact
 
     @fact.add_opinion(type, current_user.graph_user)
@@ -150,8 +150,8 @@ class FactsController < ApplicationController
 
   def allowed_type
     # TODO REFACTOR SUCH THAT set_opinion rescues exception from opiniontype
-    allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
-    type = params[:type].to_sym
+    allowed_types = ['beliefs', 'doubts', 'disbeliefs', 'believes', 'disbelieves']
+    type = params[:type]
     if allowed_types.include?(type)
       yield
     else
