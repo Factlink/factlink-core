@@ -24,7 +24,7 @@ class FactGraph
     debug "Calculating fact relation influencing opinions (#{i})"
     FactRelation.all.ids.each do |id|
       fr = FactRelation[id]
-      fr.calculate_influencing_opinion
+      Opinion::FactRelationCalculation.new(fr).calculate_influencing_opinion
     end
   end
 

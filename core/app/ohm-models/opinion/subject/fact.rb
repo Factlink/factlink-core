@@ -8,7 +8,9 @@ class Opinion < OurOhm
       end
 
       def calculate_evidence_opinion(depth=0)
-        opinions = evidence(:both).map { |fr| fr.get_influencing_opinion(depth-1) }
+        opinions = evidence(:both).map do |fr|
+          FactRelationCalculation.new(fr).get_influencing_opinion(depth-1)
+        end
         set_opinion :evidence_opinion, Opinion.combine(opinions)
       end
 
