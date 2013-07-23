@@ -6,11 +6,6 @@ class Opinion < OurOhm
         klass.reference :user_opinion, Opinion
       end
 
-      def initialize
-        super
-        user_opinion = Opinion.zero
-      end
-
       def get_user_opinion(depth=0)
         calculate_user_opinion if depth > 0
         user_opinion || Opinion.zero
