@@ -50,12 +50,20 @@ li.evidence-item {
       &.active {
         background: image-url("relation_actions.png") no-repeat top left transparent;
       }
+      &.disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
     }
 
     .weakening {
       background: image-url("relation_actions.png") no-repeat bottom left transparent;
       &.active {
         background: image-url("relation_actions.png") no-repeat bottom right transparent;
+      }
+      &.disabled {
+        opacity: 0.4;
+        cursor: default;
       }
     }
 
