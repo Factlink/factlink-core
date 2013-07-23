@@ -96,7 +96,7 @@ describe Interactors::Comments::Create do
       interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
 
       interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query).with(:opinion_for_comment, comment.id, fact).and_return(opinion)
+      interactor.should_receive(:query).with(:'opinions/user_opinion_for_comment', comment.id, fact).and_return(opinion)
 
       interactor.opinion_of comment
     end

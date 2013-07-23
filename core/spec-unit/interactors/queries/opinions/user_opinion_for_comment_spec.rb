@@ -1,5 +1,5 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/queries/opinions/user_opinion_for_comment.rb'
+require_relative '../../../../app/interactors/queries/opinions/user_opinion_for_comment.rb'
 
 
 describe Queries::Opinions::UserOpinionForComment do

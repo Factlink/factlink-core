@@ -19,7 +19,7 @@ module Queries
       end
 
       def opinion
-        query :opinion_for_comment, @comment.id.to_s, @fact
+        query :'opinions/user_opinion_for_comment', @comment.id.to_s, @fact
       end
 
       def current_user_opinion
