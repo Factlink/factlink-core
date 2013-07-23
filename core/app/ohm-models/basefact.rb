@@ -35,7 +35,8 @@ class Basefact < OurOhm
     if original_opinion
       original_opinion.take_values new_opinion
     else
-      send "#{opinion_name}=", new_opinion.save
+      new_opinion.save or raise "could not save opinion #{opinion_name}"
+      send "#{opinion_name}=", new_opinion
       save
     end
   end
