@@ -32,7 +32,7 @@ class FactGraph
     debug "Calculating fact opinions (#{i})"
     Fact.all.ids.each do |id|
       f = Fact[id]
-      f.calculate_opinion
+      Opinion::FactCalculation.new(f).calculate_opinion
     end
   end
 

@@ -8,7 +8,7 @@ module Commands
       arguments :fact
 
       def execute
-        fact.calculate_opinion(1)
+        Opinion::FactCalculation.new(fact).calculate_opinion(1)
       end
 
       def validate

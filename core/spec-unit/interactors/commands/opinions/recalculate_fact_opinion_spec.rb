@@ -5,10 +5,18 @@ describe Commands::Opinions::RecalculateFactOpinion do
   include PavlovSupport
 
   describe '#call' do
-    it 'calls fact.calculate_opinion(1)' do
-      fact = mock
+    before do
+      stub_classes 'Opinion::FactCalculation'
+    end
 
-      fact.should_receive(:calculate_opinion).with(1)
+    it 'calls fact.calculate_opinion(1)' do
+      opinion = mock
+      fact = mock
+      fact_calculation = mock
+      Opinion::FactCalculation.stub(:new).with(fact)
+        .and_return(fact_calculation)
+
+      fact_calculation.should_receive(:calculate_opinion).with(1)
 
       command = described_class.new fact
       result = command.call
