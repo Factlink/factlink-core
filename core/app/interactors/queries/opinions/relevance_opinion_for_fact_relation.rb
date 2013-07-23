@@ -8,7 +8,8 @@ module Queries
       private
 
       def execute
-        Opinion::BaseFactCalculation.new(fact_relation).get_user_opinion
+        opinion = Opinion::BaseFactCalculation.new(fact_relation).get_user_opinion
+        DeadOpinion.from_opinion opinion
       end
     end
   end
