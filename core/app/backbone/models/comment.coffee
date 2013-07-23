@@ -26,7 +26,7 @@ class window.Comment extends Backbone.Model
 
   toJSON: ->
     _.extend super(),
-      formatted_impact: if @get('impact')
+      formatted_impact: if @get('impact')?
                           format_as_authority(@get('impact'))
                         else
                           "?"
