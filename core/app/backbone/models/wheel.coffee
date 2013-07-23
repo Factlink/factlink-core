@@ -49,14 +49,13 @@ class window.Wheel extends Backbone.Model
   _userOpinions: ->
     type for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
 
-  updateTo: (authority, opinionTypes) ->
+  parse: (response) ->
     new_opinion_types = {}
     for type, oldOpinionType of @get('opinion_types')
-      new_opinion_types[type] = _.extend _.clone(oldOpinionType), opinionTypes[type]
+      new_opinion_types[type] = _.extend _.clone(oldOpinionType), response.opinion_types[type]
 
-    @set
-      authority: authority
-      opinion_types: new_opinion_types
+    authority: response.authority
+    opinion_types: new_opinion_types
 
   turned_off_opinion_types: ->
     believe:    is_user_opinion: false
@@ -64,27 +63,29 @@ class window.Wheel extends Backbone.Model
     doubt:      is_user_opinion: false
 
   turnOffActiveOpinionType: ->
-    @updateTo @get("authority"), @turned_off_opinion_types()
+    @set @parse authority: @get("authority"), opinion_types: @turned_off_opinion_types()
 
   turnOnActiveOpinionType: (toggle_type) ->
     new_opinion_types = @turned_off_opinion_types()
     new_opinion_types[toggle_type].is_user_opinion = true
 
-    @updateTo @get("authority"), new_opinion_types
+    @set @parse authority: @get("authority"), opinion_types: new_opinion_types
 
+  # TODO: Use @save here!!
   setActiveOpinionType: (opinion_type, options={}) ->
     old_opinion_type = @userOpinion()
     fact_id = @get('fact_id')
     @turnOnActiveOpinionType opinion_type
-    $.ajax
+    Backbone.sync 'create', this,
+      attrs: {}
       url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
-      type: "POST"
-      success: (data) =>
-        @updateTo data.authority, data.opinion_types
+      success: (data, status, response) =>
+        @set @parse data
         mp_track "Factlink: Opinionate",
           factlink: fact_id
           opinion: opinion_type
         options.success?()
+        @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
       error: =>
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.
@@ -94,17 +95,19 @@ class window.Wheel extends Backbone.Model
           @turnOffActiveOpinionType()
         options.error?()
 
+  # TODO: Use @save here!!
   unsetActiveOpinionType: (opinion_type, options={}) ->
     fact_id = @get('fact_id')
     @turnOffActiveOpinionType()
-    $.ajax
-      type: "DELETE"
+    Backbone.sync 'delete', this,
+      attrs: {}
       url: "/facts/#{fact_id}/opinion.json"
-      success: (data) =>
-        @updateTo data.authority, data.opinion_types
+      success: (data, status, response) =>
+        @set @parse data
         mp_track "Factlink: De-opinionate",
           factlink: fact_id
         options.success?()
+        @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
       error: =>
         @turnOnActiveOpinionType opinion_type
         options.error?()

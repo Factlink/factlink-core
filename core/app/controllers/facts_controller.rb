@@ -5,9 +5,6 @@ class FactsController < ApplicationController
 
   respond_to :json, :html
 
-  before_filter :parse_pagination_parameters,
-    only: [:believers, :disbelievers, :doubters]
-
   before_filter :load_fact,
     only: [
       :show,
@@ -32,7 +29,7 @@ class FactsController < ApplicationController
         open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
         open_graph_formatter.add open_graph_fact
 
-        render inline:'', layout: 'client'
+        render inline: '', layout: 'client'
       end
       format.json { render }
     end
@@ -44,28 +41,6 @@ class FactsController < ApplicationController
     backbone_responder
   end
 
-  # TODO combine next three methods
-  def believers
-    fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'believes'
-
-    render_interactions data
-  end
-
-  def disbelievers
-    fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'disbelieves'
-
-    render_interactions data
-  end
-
-  def doubters
-    fact_id = params[:id].to_i
-    data = interactor :'facts/opinion_users', fact_id, @skip, @take, 'doubts'
-
-    render_interactions data
-  end
-
   def intermediate
     render layout: nil
   end
@@ -74,7 +49,7 @@ class FactsController < ApplicationController
     authorize! :new, Fact
     authenticate_user!
 
-    render inline:'', layout: 'client'
+    render inline: '', layout: 'client'
   end
 
   def create
@@ -95,11 +70,11 @@ class FactsController < ApplicationController
       mp_track "Factlink: Created"
 
       #TODO switch the following two if blocks if possible
-      if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
-        @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+      if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
+        @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
 
-        @fact.calculate_opinion(1)
+        command :'opinions/recalculate_fact_opinion', @fact
       end
 
       add_to_channels @fact, params[:channels]
@@ -111,20 +86,18 @@ class FactsController < ApplicationController
   def destroy
     authorize! :destroy, @fact
 
-    @fact_id = @fact.id
     @fact.delete
 
     render json: {}
   end
 
   def set_opinion
-    type = params[:type].to_sym
+    type = OpinionType.real_for(params[:type])
     authorize! :opinionate, @fact
 
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
-
-    @fact.calculate_opinion(2)
+    command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
@@ -134,7 +107,7 @@ class FactsController < ApplicationController
 
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
-    @fact.calculate_opinion(2)
+    command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
@@ -176,8 +149,9 @@ class FactsController < ApplicationController
   end
 
   def allowed_type
-    allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
-    type = params[:type].to_sym
+    # TODO REFACTOR SUCH THAT set_opinion rescues exception from opiniontype
+    allowed_types = ['beliefs', 'doubts', 'disbeliefs', 'believes', 'disbelieves']
+    type = params[:type]
     if allowed_types.include?(type)
       yield
     else
@@ -186,20 +160,6 @@ class FactsController < ApplicationController
     end
   end
 
-  def parse_pagination_parameters
-    params[:skip] ||= '0'
-    @skip = params[:skip].to_i
-
-    params[:take] ||= '3'
-    @take = params[:take].to_i
-  end
-
-  def render_interactions data
-    @users = data[:users]
-    @total = data[:total]
-
-    render 'facts/interactions', format: 'json'
-  end
 
   def add_to_channels fact, channel_ids
     return unless channel_ids

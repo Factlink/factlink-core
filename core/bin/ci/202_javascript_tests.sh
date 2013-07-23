@@ -1,27 +1,24 @@
 #!/bin/bash
 echo "Running Javascript tests"
 
-OUTPUTFILE=$(mktemp /tmp/javascript.XXXX)
+REPORTFILE=tmp/konacha.junit.xml
+OUTPUTFILE=konacha-output.log
 
-for i in {1..5}
-do
-  bundle exec rake konacha:load_poltergeist konacha:run 2>&1 \
-   | grep -vE '^(Compiled|method=GET|Served asset)' \
-   | tee "$OUTPUTFILE"
+function do_tests {
+  bundle exec rake konacha:load_poltergeist konacha:run \
+    2>&1 | tee $OUTPUTFILE
+  test ${PIPESTATUS[0]} -eq 0 || touch TEST_FAILURE
+}
 
-  ERROR1='Timed out waiting for response to'
-  ERROR2='method .method_missing. called on terminated object'
-  if grep --extended-regex "$ERROR1|$ERROR2" $OUTPUTFILE > /dev/null
-  then
-    echo "Detected random fail, retrying (retry $i)"
-  else
-    break
-  fi
-done
 
-if ! grep ', 0 failed' $OUTPUTFILE > /dev/null
-then
-        exit 1
+do_tests
+if grep -qe 'PhantomJS has crashed.' < $OUTPUTFILE ; then
+  echo "Detected random fail, retrying"
+  do_tests
 fi
 
-exit
+
+if ! grep -qe '<testcase' < $REPORTFILE ; then
+  echo "FAILING BUILD: No testcases found in $REPORTFILE"
+  exit 1
+fi

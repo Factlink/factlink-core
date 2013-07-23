@@ -10,7 +10,7 @@ json.subject_class subject.class.to_s
 json.user {|j| j.partial! 'users/user_partial', user: user }
 
 json.action action
-json.translated_action t("fact_#{action.to_sym}_action".to_sym)
+json.translated_action t("fact_#{action.to_s}_action".to_sym)
 
 json.subject subject.to_s
 
@@ -97,15 +97,13 @@ json.activity do |json|
     if showing_notifications
       json.action action
 
-      json.translated_action case action.to_sym
-        when :believes
-          t(:fact_believe_past_singular_action)
-        when :disbelieves
-          t(:fact_disbelieve_past_singular_action)
-        when :doubts
-          t(:fact_doubt_past_singular_action)
-        else
-          ""
+      json.translated_action case action
+        when 'believes'
+          t(:fact_believe_past_singular_action_about)
+        when 'disbelieves'
+          t(:fact_disbelieve_past_singular_action_about)
+        when 'doubts'
+          t(:fact_doubt_past_singular_action_about)
         end
 
 

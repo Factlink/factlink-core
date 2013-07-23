@@ -1,29 +1,26 @@
 #!/bin/bash
 echo "Running acceptance tests"
 
-OUTPUTFILE=$(mktemp /tmp/acceptance.XXXX)
+REPORTFILE=tmp/spec-acceptance.junit.xml
+OUTPUTFILE=rspec-acceptance-output.log
 
-for i in {1..2}
-do
-  bundle exec rspec spec/acceptance/ | tee "$OUTPUTFILE"
-
-  if grep 'Capybara::Poltergeist::DeadClient' $OUTPUTFILE > /dev/null
-  then
-    echo "Detected random fail, retrying (retry $i)"
-  else
-    break
-  fi
-done
+function do_tests {
+  bundle exec rspec --format RspecJunitFormatter spec/acceptance/ \
+    --out $REPORTFILE \
+    2>&1 | tee $OUTPUTFILE
+  test ${PIPESTATUS[0]} -eq 0 || touch TEST_FAILURE
+}
 
 
-if ! grep ', 0 failures' $OUTPUTFILE > /dev/null
-then
-        exit 1
+do_tests
+if grep -qe 'PhantomJS has crashed.' < $OUTPUTFILE ; then
+  echo "Detected random fail, retrying"
+  do_tests
 fi
 
-if grep "^0 examples, 0 failures" $OUTPUTFILE > /dev/null
-then
-        exit 1
-fi
 
-exit
+
+if ! grep -qe '<testcase' < $REPORTFILE ; then
+  echo "FAILING BUILD: No testcases found in $REPORTFILE"
+  exit 1
+fi

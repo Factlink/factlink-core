@@ -20,13 +20,33 @@ nl:
 
   fact_removed_opinions_past_action: "trok mening in"
 
-  fact_believe_past_singular_action: "stemde in met"
-  fact_doubt_past_singular_action: "was onzeker over"
+  fact_believe_present_singular_action: "stemt in"
+  fact_disbelieve_present_singular_action: "ontkent"
+  fact_doubt_present_singular_action: "is onzeker"
+
+  fact_believe_present_plural_action: "stemmen in"
+  fact_disbelieve_present_plural_action: "ontkennen"
+  fact_doubt_present_plural_action: "zijn onzeker"
+
+  fact_believe_past_singular_action: "stemde in"
+  fact_doubt_past_singular_action: "was onzeker"
   fact_disbelieve_past_singular_action: "ontkende"
 
-  fact_believe_past_plural_action: "stemden in met"
-  fact_doubt_past_plural_action: "waren onzeker over"
+  fact_believe_past_singular_second_person_action: "stemde in"
+  fact_disbelieve_past_singular_second_person_action: "ontkende"
+  fact_doubt_past_singular_second_person_action: "was onzeker"
+
+  fact_believe_past_plural_action: "stemden in"
+  fact_doubt_past_plural_action: "waren onzeker"
   fact_disbelieve_past_plural_action: "ontkenden"
+
+  fact_believe_past_singular_action_about: "stemde in met"
+  fact_doubt_past_singular_action_about: "was onzeker over"
+  fact_disbelieve_past_singular_action_about: "ontkende"
+
+  fact_believe_past_plural_action_about: "stemden in met"
+  fact_doubt_past_plural_action_about: "waren onzeker over"
+  fact_disbelieve_past_plural_action_about: "ontkenden"
 
   fact_create_past_action: "maakte aan"
   fact_remove_opinion_past_action: "trok zijn mening terug"
@@ -62,6 +82,9 @@ nl:
   ago: "geleden"
   show: "toon"
   loading: "laden"
+
+  you: "jij"
+  nobody: "niemand"
 
   fact_added_fact_to_channel_action: "heeft jouw Factlink toegevoegd aan zijn/haar kanaal"
 
