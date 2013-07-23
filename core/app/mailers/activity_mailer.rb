@@ -9,8 +9,8 @@ class ActivityMailer < ActionMailer::Base
     @user = User.find(user_id)
     @activity = Activity[activity_id]
 
-    blacklisted_activities = [:invites]
-    return if blacklisted_activities.include? @activity.action.to_sym
+    blacklisted_activities = ['invites']
+    return if blacklisted_activities.include? @activity.action
 
     mail to: @user.email,
          subject: get_mail_subject_for_activity(@activity),
@@ -29,10 +29,10 @@ class ActivityMailer < ActionMailer::Base
     end
 
     def get_mail_subject_for_activity activity
-      case activity.action.to_sym
-      when :added_subchannel
+      case activity.action
+      when 'added_subchannel'
         "#{activity.user.user} is now following you on #{activity.subject.title}"
-      when :added_supporting_evidence, :added_weakening_evidence
+      when 'added_supporting_evidence', 'added_weakening_evidence'
         if activity.action == 'added_supporting_evidence'
           type = "supporting"
         else
@@ -40,15 +40,15 @@ class ActivityMailer < ActionMailer::Base
         end
 
         "#{activity.user.user} added a #{type} argument to a Factlink"
-      when :created_conversation
+      when 'created_conversation'
         "#{activity.user.user} has sent you a message"
-      when :replied_message
+      when 'replied_message'
         "#{activity.user.user} has replied to a message"
-      when :created_comment
+      when 'created_comment'
         "#{activity.user.user} has commented on a Factlink"
-      when :created_sub_comment
+      when 'created_sub_comment'
         "#{activity.user.user} has commented on a Factlink"
-      when :followed_user
+      when 'followed_user'
         "#{activity.user.user} is now following you on Factlink"
       else
         'New notification!'

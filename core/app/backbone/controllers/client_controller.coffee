@@ -33,7 +33,7 @@ class window.ClientController
       parent.$(parent.document).trigger "modalready"
 
     factsNewView.on 'factCreated', (fact) =>
-      parent.$(parent.document).trigger("factlinkCreated", fact.id )
+      parent.$(parent.document).trigger("factlinkCreated", [ fact.id, params['fact'] ] )
 
     clientModal.mainRegion.show factsNewView
 
