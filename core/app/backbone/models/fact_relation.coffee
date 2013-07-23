@@ -2,7 +2,6 @@ class window.FactRelation extends Backbone.Model
 
   defaults:
     evidence_type: 'FactRelation'
-    impact: "?"
 
   setOpinion: (type) ->
     $.ajax
@@ -48,3 +47,11 @@ class window.FactRelation extends Backbone.Model
   validate: (attributes) ->
     unless attributes.evidence_id? or /^.*\S.*$/.test(attributes.displaystring)
       'Should have either an evidence_id or a displaystring'
+
+  toJSON: ->
+    _.extend super(),
+      formatted_impact: if @get('impact')
+                          format_as_authority(@get('impact'))
+                        else
+                          "?"
+

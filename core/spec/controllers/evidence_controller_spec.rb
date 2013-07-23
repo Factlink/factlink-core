@@ -68,9 +68,9 @@ describe SupportingEvidenceController do
 
         parsed_content = JSON.parse(response.body)
 
-        opinions = parsed_content["opinions"]
+        impact = parsed_content["impact"]
 
-        expect(opinions["formatted_relevance"]).to eq "1.0"
+        expect(impact).to eq 1
       end
 
       it "should not set the user's opinion on the evidence to believe" do

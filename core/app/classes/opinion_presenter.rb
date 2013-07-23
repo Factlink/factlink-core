@@ -7,10 +7,6 @@ class OpinionPresenter
     belief_authority - disbelief_authority
   end
 
-  def formatted_relevance
-    format relevance
-  end
-
   def authority(type)
     @opinion.send(type) * @opinion.authority
   end

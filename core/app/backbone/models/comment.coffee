@@ -3,7 +3,6 @@ class window.Comment extends Backbone.Model
   defaults:
     evidence_type: 'Comment'
     current_user_opinion: "believes"
-    impact: "?"
 
   validate: (attributes) ->
     'Content should not be empty' unless /^.*\S.*$/.test(attributes.content)
@@ -24,3 +23,10 @@ class window.Comment extends Backbone.Model
   removeOpinion: -> @unset('opinion'); @save()
 
   urlRoot: -> @collection.commentsUrl()
+
+  toJSON: ->
+    _.extend super(),
+      formatted_impact: if @get('impact')
+                          format_as_authority(@get('impact'))
+                        else
+                          "?"

@@ -35,20 +35,6 @@ describe OpinionPresenter do
     end
   end
 
-  describe '#formatted_relevance' do
-    it 'calls format with relevance and returns that result' do
-      relevance = mock
-      format = mock
-
-      op = OpinionPresenter.new mock
-
-      op.should_receive(:relevance).and_return(relevance)
-      op.should_receive(:format).with(relevance).and_return(format)
-
-      expect(op.formatted_relevance).to eq format
-    end
-  end
-
   describe '#format' do
     it 'uses NumberFormatter.as_authority and returns that value' do
       number_formatter = mock

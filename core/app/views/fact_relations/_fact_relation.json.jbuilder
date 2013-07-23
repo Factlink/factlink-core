@@ -41,7 +41,7 @@ json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }
 json.current_user_opinion current_user_opinion
 
 # TODO: Change to actually use the impact
-json.impact OpinionPresenter.new(opinion).formatted_relevance
+json.impact OpinionPresenter.new(opinion).relevance
 
 json.time_ago TimeFormatter.as_time_ago(fact_relation.created_at.to_time)
 
