@@ -64,7 +64,7 @@ class FactRelation < Basefact
   end
 
   def delete_from_evidence
-    fact.evidence(self.type.to_sym).delete(self)
+    fact.evidence(self.type).delete(self)
   end
 
   before :delete, :delete_key

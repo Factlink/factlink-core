@@ -89,8 +89,6 @@ class EvidenceController < ApplicationController
 
   # TODO This should not be a Controller method. Move to FactRelation
   def create_believed_factrelation(evidence, type, fact)
-    type     = type.to_sym
-
     # Create FactRelation
     fact_relation = fact.add_evidence(type, evidence, current_user)
     fact_relation.add_opinion(:believes, current_graph_user)

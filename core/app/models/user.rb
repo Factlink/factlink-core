@@ -211,7 +211,7 @@ class User
   end
 
   def self.human_attribute_name(attr, options = {})
-    attr.to_sym == :non_field_error ? '' : super
+    attr.to_s == 'non_field_error' ? '' : super
   end
 
   def sign_tos(agrees_tos)
