@@ -104,8 +104,6 @@ json.activity do |json|
           t(:fact_disbelieve_past_singular_action_about)
         when :doubts
           t(:fact_doubt_past_singular_action_about)
-        else
-          ""
         end
 
 
