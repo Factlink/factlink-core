@@ -31,29 +31,4 @@ describe JsLibController do
       response.should be_success
     end
   end
-
-  describe :redir do
-    it "redirects the user to the path" do
-      authenticate_user! user
-      base_url = 'http://example.com'
-      subject.stub(:jslib_url){ base_url }
-
-      ['foo','bar'].each do |path|
-        get :redir, path: path
-        response.should redirect_to( base_url + path)
-      end
-    end
-  end
-
-  describe :jslib_url do
-    it "retrieves the jslib_url" do
-      jslib_url = mock
-
-      FactlinkUI::Application.config.
-          should_receive(:jslib_url).
-          and_return(jslib_url)
-
-      subject.jslib_url.should == jslib_url
-    end
-  end
 end

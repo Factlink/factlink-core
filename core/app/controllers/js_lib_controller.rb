@@ -7,10 +7,6 @@ class JsLibController < ApplicationController
     render_template 'indicator'
   end
 
-  def redir
-    redirect_to jslib_url + params[:path]
-  end
-
   private
 
   def render_template name
@@ -18,5 +14,4 @@ class JsLibController < ApplicationController
       layout: "templates",
       content_type: "text/javascript"
   end
-
 end
