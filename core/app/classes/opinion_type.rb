@@ -9,9 +9,9 @@ class OpinionType
   end
 
   def self.for_relation_type type
-    case type.to_sym
-    when :supporting then :believes
-    when :weakening  then :disbelieves
+    case type.to_s
+    when 'supporting' then :believes
+    when 'weakening'  then :disbelieves
     end
   end
 
