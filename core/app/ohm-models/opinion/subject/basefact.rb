@@ -16,12 +16,12 @@ class Opinion < OurOhm
           Authority.on(self, for: user).to_f + 1.0
         end.opinion
 
-        set_opinion :user_opinion, user_opinion
+        insert_or_update_opinion :user_opinion, user_opinion
       end
 
       protected
 
-      def set_opinion(type, new_opinion)
+      def insert_or_update_opinion(type, new_opinion)
         original_opinion = send(type)
         if original_opinion
           original_opinion.take_values new_opinion

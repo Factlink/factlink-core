@@ -19,7 +19,7 @@ class Opinion < OurOhm
 
         evidence_type = OpinionType.for_relation_type(self.type)
 
-        set_opinion :influencing_opinion, Opinion.for_type(evidence_type, authority)
+        insert_or_update_opinion :influencing_opinion, Opinion.for_type(evidence_type, authority)
       end
 
     end
