@@ -11,14 +11,6 @@ class Opinion < OurOhm
         influencing_opinion || Opinion.zero
       end
 
-      def set_influencing_opinion(new_opinion)
-        if influencing_opinion
-          influencing_opinion.take_values new_opinion
-        else
-          send :"influencing_opinion=", new_opinion.save
-        end
-      end
-
       def calculate_influencing_opinion(depth=0)
         net_fact_authority = from_fact.get_opinion(depth).net_authority
         net_relevance_authority = get_user_opinion(depth).net_authority
@@ -27,8 +19,7 @@ class Opinion < OurOhm
 
         evidence_type = OpinionType.for_relation_type(self.type)
 
-        set_influencing_opinion Opinion.for_type(evidence_type, authority)
-        save
+        set_opinion :influencing_opinion, Opinion.for_type(evidence_type, authority)
       end
 
     end

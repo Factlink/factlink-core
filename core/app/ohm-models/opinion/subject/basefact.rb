@@ -11,20 +11,23 @@ class Opinion < OurOhm
         user_opinion || Opinion.zero
       end
 
-      def set_user_opinion(new_opinion)
-        if user_opinion
-          user_opinion.take_values new_opinion
-        else
-          send :"user_opinion=", new_opinion.save
-        end
-      end
-
       def calculate_user_opinion
         user_opinion = UserOpinionCalculation.new(believable) do |user|
           Authority.on(self, for: user).to_f + 1.0
         end.opinion
 
-        set_user_opinion user_opinion
+        set_opinion :user_opinion, user_opinion
+      end
+
+      protected
+
+      def set_opinion(type, new_opinion)
+        original_opinion = send(type)
+        if original_opinion
+          original_opinion.take_values new_opinion
+        else
+          send "#{type}=", new_opinion.save
+        end
         save
       end
 
