@@ -48,13 +48,13 @@ describe Interactors::Comments::Create do
       interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
       comment = mock(:comment, id: mock(to_s: '10a'))
 
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:create_comment,fact_id, type, content, user.id)
         .and_return(comment)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:'comments/set_opinion',comment.id.to_s, 'believes', user.graph_user)
 
-      interactor.should_receive(:query).with(:"comments/add_authority_and_opinion_and_can_destroy", comment, fact).
+      interactor.should_receive(:old_query).with(:"comments/add_authority_and_opinion_and_can_destroy", comment, fact).
         and_return(comment)
 
       interactor.should_receive(:create_activity).with(comment)
@@ -77,7 +77,7 @@ describe Interactors::Comments::Create do
       interactor = Interactors::Comments::Create.new fact.id, type, content, current_user: user
 
       interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query).with(:authority_on_fact_for, fact, comment.created_by.graph_user).and_return(authority)
+      interactor.should_receive(:old_query).with(:authority_on_fact_for, fact, comment.created_by.graph_user).and_return(authority)
 
       interactor.authority_of(comment).should eq authority
     end
@@ -96,7 +96,7 @@ describe Interactors::Comments::Create do
       interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
 
       interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query).with(:opinion_for_comment, comment.id, fact).and_return(opinion)
+      interactor.should_receive(:old_query).with(:opinion_for_comment, comment.id, fact).and_return(opinion)
 
       interactor.opinion_of comment
     end
@@ -141,7 +141,7 @@ describe Interactors::Comments::Create do
       returned_comment.stub(fact_data: fact_data)
 
       Comment.should_receive(:find).with(returned_comment.id).and_return(mongoid_comment)
-      interactor.should_receive(:command).with(:create_activity,graph_user, :created_comment, mongoid_comment, fact)
+      interactor.should_receive(:old_command).with(:create_activity,graph_user, :created_comment, mongoid_comment, fact)
 
       interactor.create_activity returned_comment
     end

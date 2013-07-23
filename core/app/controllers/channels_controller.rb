@@ -164,7 +164,7 @@ class ChannelsController < ApplicationController
     if @channel
       @user ||= @channel.created_by.user
     elsif params[:username]
-      @user ||= query(:user_by_username, params[:username]) or raise_404
+      @user ||= old_query(:user_by_username, params[:username]) or raise_404
     end
   end
 

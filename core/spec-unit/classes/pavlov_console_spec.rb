@@ -24,6 +24,6 @@ describe PavlovConsole do
           .with(:foo, param1, param2, options)
 
     console = PavlovConsole.new(user.username)
-    console.interactor :foo, param1, param2
+    console.old_interactor :foo, param1, param2
   end
 end

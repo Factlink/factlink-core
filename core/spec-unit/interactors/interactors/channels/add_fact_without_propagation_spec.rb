@@ -16,10 +16,10 @@ describe Interactors::Channels::AddFactWithoutPropagation do
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
 
-      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
 
-      interactor.should_receive(:command).with(:"topics/add_fact",
+      interactor.should_receive(:old_command).with(:"topics/add_fact",
           fact.id, channel.slug_title, score.to_s)
 
       expect(interactor.call).to be_true
@@ -36,7 +36,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       score = mock(:score, to_s: mock)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
 
       expect(interactor.call).to be_true
@@ -55,7 +55,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, true
 
-      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
 
       interactor.stub!(:command)
@@ -77,7 +77,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       score = mock(:score, to_s: mock)
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, true
-      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return false
 
       interactor.call
@@ -87,7 +87,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       fact, channel, score = mock, mock, mock
 
       interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
-      interactor.should_receive(:command).with(:"channels/add_fact_without_propagation",
+      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return false
 
       expect(interactor.call).to be_false

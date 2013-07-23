@@ -13,12 +13,12 @@ describe Commands::Channels::AddSubchannel do
       channel = mock :channel, created_by: mock
       subchannel = mock :subchannel
 
-      command = Commands::Channels::AddSubchannel.new(channel, subchannel)
+      command = described_class.new(channel: channel, subchannel: subchannel)
 
       channel.should_receive(:add_channel).with(subchannel)
              .and_return(true)
 
-      command.should_receive(:command)
+      command.should_receive(:old_command)
              .with(:'channels/add_facts_from_channel_to_channel',
                      subchannel, channel)
              .and_return mock call: nil
@@ -29,11 +29,11 @@ describe Commands::Channels::AddSubchannel do
       channel = mock :channel, created_by: mock
       subchannel = mock :subchannel
 
-      command = Commands::Channels::AddSubchannel.new(channel, subchannel)
+      command = described_class.new(channel: channel, subchannel: subchannel)
 
       channel.stub(:add_channel).with(subchannel).and_return(false)
 
-      command.should_not_receive(:command)
+      command.should_not_receive(:old_command)
              .with(:'channels/add_facts_from_channel_to_channel',
                      subchannel, channel)
 

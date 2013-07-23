@@ -56,17 +56,17 @@ describe Interactors::Users::FollowUser do
 
       interactor = described_class.new user.username, user_to_follow.username, current_user: user
 
-      interactor.should_receive(:query)
+      interactor.should_receive(:old_query)
         .with(:'user_by_username', user.username)
         .and_return(user)
-      interactor.should_receive(:query)
+      interactor.should_receive(:old_query)
         .with(:'user_by_username', user_to_follow.username)
         .and_return(user_to_follow)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id)
 
       result = interactor.execute

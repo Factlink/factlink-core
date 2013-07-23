@@ -18,11 +18,11 @@ describe Queries::ConversationWithRecipientsAndMessages do
     recipient_list = mock('list of recipients')
 
 
-    query.should_receive(:query).with(:conversation_get, conversation.id).and_return(conversation)
+    query.should_receive(:old_query).with(:conversation_get, conversation.id).and_return(conversation)
 
-    query.should_receive(:query).with(:messages_for_conversation, conversation).and_return(message_list)
+    query.should_receive(:old_query).with(:messages_for_conversation, conversation).and_return(message_list)
 
-    query.should_receive(:query).with(:users_by_ids, recipient_ids).and_return(recipient_list)
+    query.should_receive(:old_query).with(:users_by_ids, recipient_ids).and_return(recipient_list)
 
 
     new_conversation = mock()
@@ -38,7 +38,7 @@ describe Queries::ConversationWithRecipientsAndMessages do
     nonexistingid = mock()
     query = Queries::ConversationWithRecipientsAndMessages.new(nonexistingid, options)
 
-    query.should_receive(:query).with(:conversation_get, nonexistingid).and_return(nil)
+    query.should_receive(:old_query).with(:conversation_get, nonexistingid).and_return(nil)
 
     result = query.call
 

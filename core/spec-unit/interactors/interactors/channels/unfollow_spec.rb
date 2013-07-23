@@ -33,10 +33,10 @@ describe Interactors::Channels::Unfollow do
 
 
       following_channels.length.times do |i|
-        interactor.should_receive(:query)
+        interactor.should_receive(:old_query)
                   .with(:'channels/get', following_channel_ids[i])
                   .and_return(following_channels[i])
-        interactor.should_receive(:command)
+        interactor.should_receive(:old_command)
                   .with(:'channels/remove_subchannel',
                         following_channels[i], channel)
       end

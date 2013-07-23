@@ -68,7 +68,7 @@ describe Interactors::Topics::Get do
         with(:'topics/by_slug_title', 'foo').
         and_return(topic)
 
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:authority_on_topic_for, topic, graph_user).
         and_return(authority)
 

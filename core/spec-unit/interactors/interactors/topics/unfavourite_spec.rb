@@ -66,7 +66,7 @@ describe Interactors::Topics::Unfavourite do
       interactor.stub(:query)
         .with(:'topics/by_slug_title', slug_title)
         .and_return(topic)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:'topics/unfavourite', user.graph_user_id, topic.id.to_s)
       interactor.should_receive(:mp_track)
         .with('Topic: Unfavourited', slug_title: slug_title)

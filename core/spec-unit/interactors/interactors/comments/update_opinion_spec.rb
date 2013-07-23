@@ -41,8 +41,8 @@ describe Interactors::Comments::UpdateOpinion do
 
       interactor = Interactors::Comments::UpdateOpinion.new comment.id, opinion, current_user: user
 
-      interactor.should_receive(:command).with('comments/set_opinion', comment.id, opinion, user.graph_user)
-      interactor.should_receive(:query).with(:'comments/get', comment.id).and_return(mock_comment)
+      interactor.should_receive(:old_command).with('comments/set_opinion', comment.id, opinion, user.graph_user)
+      interactor.should_receive(:old_query).with(:'comments/get', comment.id).and_return(mock_comment)
 
       expect(interactor.call).to eq mock_comment
     end
@@ -56,8 +56,8 @@ describe Interactors::Comments::UpdateOpinion do
 
       interactor = Interactors::Comments::UpdateOpinion.new comment.id, nil, current_user: user
 
-      interactor.should_receive(:command).with('comments/remove_opinion', comment.id, user.graph_user)
-      interactor.should_receive(:query).with(:'comments/get', comment.id).and_return(mock_comment)
+      interactor.should_receive(:old_command).with('comments/remove_opinion', comment.id, user.graph_user)
+      interactor.should_receive(:old_query).with(:'comments/get', comment.id).and_return(mock_comment)
 
       expect(interactor.call).to eq mock_comment
     end

@@ -63,13 +63,13 @@ describe Interactors::Users::Following do
       count = mock
       user = mock(graph_user_id: mock)
 
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:'user_by_username', user_name).
         and_return(user)
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:'users/following_graph_user_ids', user.graph_user_id.to_s).
         and_return(graph_user_ids)
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:users_by_graph_user_ids, graph_user_ids).
         and_return(users)
 

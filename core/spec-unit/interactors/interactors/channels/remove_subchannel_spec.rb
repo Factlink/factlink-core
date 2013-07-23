@@ -24,7 +24,7 @@ describe Interactors::Channels::RemoveSubchannel do
       options = {ability: mock(can?: true)}
 
       interactor = Interactors::Channels::RemoveSubchannel.new(channel.id, subchannel.id, options)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
                 .with(:'channels/remove_subchannel', channel, subchannel)
                 .and_return(true)
 
@@ -39,7 +39,7 @@ describe Interactors::Channels::RemoveSubchannel do
       options = {ability: mock(can?: true)}
 
       interactor = Interactors::Channels::RemoveSubchannel.new(channel.id, subchannel.id, options)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
                 .with(:'channels/remove_subchannel', channel, subchannel)
                 .and_return(false)
 

@@ -34,7 +34,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       query.should_receive(:graph_user_for).with(channel).
             and_return(channel_creator)
 
-      query.should_receive(:query).
+      query.should_receive(:old_query).
             with(:authority_on_topic_for,topic, channel_creator).
             and_return(topic_authority)
 
@@ -130,7 +130,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       topics = mock
       query = Queries::CreatorAuthoritiesForChannels.new channels
 
-      query.should_receive(:query).
+      query.should_receive(:old_query).
             with(:topics_for_channels,channels).
             and_return(topics)
 
@@ -141,7 +141,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       topics = mock
       query = Queries::CreatorAuthoritiesForChannels.new channels
 
-      query.should_receive(:query).
+      query.should_receive(:old_query).
             with(:topics_for_channels,channels).once.
             and_return(topics)
 

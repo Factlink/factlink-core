@@ -22,7 +22,7 @@ describe SupportingEvidenceController do
     it 'response with success' do
       fact_id = 1
       authenticate_user!(current_user)
-      controller.should_receive(:interactor).
+      controller.should_receive(:old_interactor).
         with(:"evidence/for_fact_id", fact_id.to_s, :supporting).
         and_return []
 

@@ -14,7 +14,7 @@ describe Commands::Channels::AddedSubchannelCreateActivities do
     Channel::Activities.stub(:new).with(channel)
                        .and_return(channel_activities)
 
-    command = Commands::Channels::AddedSubchannelCreateActivities.new(channel, subchannel)
+    command = described_class.new channel: channel, subchannel: subchannel
 
     channel_activities.should_receive(:add_created)
     channel.should_receive(:activity)

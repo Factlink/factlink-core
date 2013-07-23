@@ -19,7 +19,7 @@ describe Commands::Channels::AddFact do
       sorted_internal_facts = mock
       channel_activities = mock
 
-      command = Commands::Channels::AddFact.new fact, channel
+      command = Commands::Channels::AddFact.new fact: fact, channel: channel
 
       fact.should_receive(:id).and_return fact_id
 

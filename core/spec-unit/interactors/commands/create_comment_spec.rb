@@ -8,29 +8,30 @@ describe Commands::CreateComment do
   end
 
   it 'should initialize correctly' do
-    command = Commands::CreateComment.new 1, 'believes', 'hoi', '2a'
+    command = described_class.new fact_id: 1, type: 'believes', content: 'hoi',
+      user_id: '2a'
 
     command.should_not be_nil
   end
 
   describe "validation" do
     it 'without user_id doesn''t validate' do
-      expect_validating(1, 'believes', 'Hoi!', '').
+      expect_validating({fact_id: 1, type: 'believes', content: 'Hoi!', user_id: ''}).
         to fail_validation('user_id should be an hexadecimal string.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating(1, 'believes', '', '2a').
+      expect_validating({fact_id: 1, type: 'believes', content: '', user_id: '2a'}).
         to fail_validation('content should not be empty.')
     end
 
     it 'with a invalid fact_data_id doesn''t validate' do
-      expect_validating('x', 'believes', 'Hoi!', '2a').
+      expect_validating({fact_id: 'x', type: 'believes', content: 'Hoi!', user_id: '2a'}).
         to fail_validation('fact_id should be an integer.')
     end
 
     it 'with a invalid type doesn''t validate' do
-      expect_validating(1, 'dunno', 'Hoi!', '2a').
+      expect_validating({fact_id: 1, type: 'dunno', content: 'Hoi!', user_id: '2a'}).
         to fail_validation('type should be on of these values: ["believes", "disbelieves", "doubts"].')
     end
   end
@@ -45,7 +46,8 @@ describe Commands::CreateComment do
       type = 'believes'
       content = 'message'
       user_id = '1a'
-      command = Commands::CreateComment.new fact_id, type, content, user_id
+      command = described_class.new fact_id: fact_id, type: type,
+        content: content, user_id: user_id
       comment = mock(:comment, id: 10)
       fact = mock
       fact_data = mock fact: fact
@@ -76,7 +78,8 @@ describe Commands::CreateComment do
       type = 'believes'
       content = 'message'
       user_id = '1a'
-      command = Commands::CreateComment.new fact_id, type, content, user_id
+      command = described_class.new fact_id: fact_id, type: type,
+        content: content, user_id: user_id
       fact_data = mock
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)

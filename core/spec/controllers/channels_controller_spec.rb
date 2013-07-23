@@ -117,7 +117,7 @@ describe ChannelsController do
       channel_id = '1a'
       channel = mock
 
-      controller.should_receive(:interactor).
+      controller.should_receive(:old_interactor).
         with(:'channels/follow', channel_id).
         and_return(channel)
 
