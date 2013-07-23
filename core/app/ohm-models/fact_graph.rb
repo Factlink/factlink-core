@@ -40,7 +40,7 @@ class FactGraph
     debug "Calculating user opinions on basefacts"
     Basefact.all.ids.each do |id|
       bf = Basefact[id]
-      bf.calculate_user_opinion
+      Opinion::BaseFactCalculation.new(bf).calculate_user_opinion
     end
   end
 

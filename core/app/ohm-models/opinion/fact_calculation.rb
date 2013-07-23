@@ -25,7 +25,7 @@ class Opinion < OurOhm
     end
 
     def calculate_opinion(depth=0)
-      opinion = fact.get_user_opinion(depth) + FactCalculation.new(fact).get_evidence_opinion( depth < 1 ? 1 : depth )
+      opinion = BaseFactCalculation.new(fact).get_user_opinion(depth) + FactCalculation.new(fact).get_evidence_opinion( depth < 1 ? 1 : depth )
       fact.set_opinion_of_type :opinion, opinion
     end
 

@@ -8,7 +8,7 @@ module Commands
       arguments :fact_relation
 
       def execute
-        fact_relation.calculate_user_opinion
+        Opinion::BaseFactCalculation.new(fact_relation).calculate_user_opinion
       end
 
       def validate
