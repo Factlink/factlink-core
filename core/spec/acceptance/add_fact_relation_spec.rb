@@ -93,7 +93,7 @@ feature "adding factlinks to a fact", type: :request do
       within "li.evidence-item" do
         page.should have_content supporting_factlink.to_s
 
-        within '.total-authority-evidence' do
+        within '.authorities-evidence' do
           page.should have_content '1.0'
         end
 
@@ -101,7 +101,7 @@ feature "adding factlinks to a fact", type: :request do
         find('.js-fact-relation-believe').set false
         page.find('a', text: 'Done').click
 
-        within '.total-authority-evidence' do
+        within '.authorities-evidence' do
           page.should have_content '0.0'
         end
 
