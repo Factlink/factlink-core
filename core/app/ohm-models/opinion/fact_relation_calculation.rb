@@ -8,7 +8,7 @@ class Opinion < OurOhm
     end
 
     def get_influencing_opinion
-      fact_relation.get_dead_opinion :influencing_opinion
+      opinion_store.store :FactRelation, fact_relation.id, :influencing_opinion
     end
 
     def calculate_influencing_opinion
@@ -20,8 +20,13 @@ class Opinion < OurOhm
       evidence_type = OpinionType.for_relation_type(fact_relation.type)
       influencing_opinion = DeadOpinion.for_type(evidence_type, authority)
 
-      fact_relation.insert_or_update_dead_opinion :influencing_opinion, influencing_opinion
+      opinion_store.store :FactRelation, fact_relation.id, :influencing_opinion, influencing_opinion
     end
 
+    private
+
+    def opinion_store
+      Opinion::Store.new
+    end
   end
 end
