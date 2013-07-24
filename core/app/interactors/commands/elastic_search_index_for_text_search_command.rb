@@ -11,7 +11,7 @@ module Commands
       @missing_fields = []
       @document = {}
 
-      @logger = pavlov_options[:logger] || Logger.new(STDERR)
+      @logger = pavlov_options.andand[:logger] || Logger.new(STDERR)
 
       define_index
 

@@ -77,7 +77,7 @@ describe SupportingEvidenceController do
 
       it "should not set the user's opinion on the evidence to believe" do
         f2.add_opinion(:disbelieves, user.graph_user)
-        Pavlov.command :'opinions/recalculate_fact_opinion', f2
+        Pavlov.old_command :'opinions/recalculate_fact_opinion', f2
 
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
         response.should be_success

@@ -24,7 +24,7 @@ module Interactors
 
       def create_activity sub_comment
         old_command :create_activity,
-          @options[:current_user].graph_user, :created_sub_comment,
+          pavlov_options[:current_user].graph_user, :created_sub_comment,
           sub_comment, top_fact
       end
 

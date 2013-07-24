@@ -8,7 +8,7 @@ module Interactors
 
     def execute
       recipients.each do |user|
-        Resque.enqueue Commands::SendActivityMailToUser, user.id, @activity.id, @options
+        Resque.enqueue(Commands::SendActivityMailToUser, user_id: user.id, activity_id: @activity.id, pavlov_options: @options)
       end
     end
 
@@ -22,7 +22,7 @@ module Interactors
     end
 
     def authorized?
-      @options[:current_user]
+      pavlov_options[:current_user]
     end
   end
 end

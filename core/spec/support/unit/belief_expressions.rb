@@ -65,10 +65,10 @@ module BeliefExpressions
     case fact
     when Fact
       # values are recalculated in Redis, so get the object fresh from Redis
-      opinion = Pavlov.query 'opinions/opinion_for_fact', Fact[fact.id]
+      opinion = Pavlov.old_query 'opinions/opinion_for_fact', Fact[fact.id]
     when FactRelation
       # values are recalculated in Redis, so get the object fresh from Redis
-      opinion = Pavlov.query 'opinions/user_opinion_for_fact_relation', FactRelation[fact.id]
+      opinion = Pavlov.old_query 'opinions/user_opinion_for_fact_relation', FactRelation[fact.id]
     else
       raise 'Unknown fact class'
     end
