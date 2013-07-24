@@ -30,6 +30,10 @@ class DeadOpinion
     end
   end
 
+  def value_by_type(type)
+    send(type)
+  end
+
   # TODO: fix this for authority=0
   def ==(other)
     self.authority == other.authority and
@@ -44,9 +48,9 @@ class DeadOpinion
   end
 
   def +(other)
-    believes    = weighted_sum(other, :believes)
-    disbelieves = weighted_sum(other, :disbelieves)
-    doubts      = weighted_sum(other, :doubts)
+    believes    = weighted_sum_of_type(other, :believes)
+    disbelieves = weighted_sum_of_type(other, :disbelieves)
+    doubts      = weighted_sum_of_type(other, :doubts)
     authority   = self.authority + other.authority
 
     DeadOpinion.new(believes, disbelieves, doubts, authority).normalized
@@ -63,9 +67,9 @@ class DeadOpinion
 
   private
 
-  def weighted_sum(other, type)
-    self_value = send(type)
-    other_value = other.send(type)
+  def weighted_sum_of_type(other, type)
+    self_value      = self.value_by_type(type)
+    other_value     = other.value_by_type(type)
     total_authority = self.authority + other.authority
 
     (self_value*self.authority + other_value*other.authority)/total_authority
