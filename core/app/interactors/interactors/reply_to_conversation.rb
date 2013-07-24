@@ -23,6 +23,7 @@ module Interactors
     def track_mixpanel
       mp_increment_person_property :replies_created
       mp_track :reply_created
+      mp_track "Conversation: Replied to conversation",
     end
 
     def authorized?
