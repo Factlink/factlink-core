@@ -20,11 +20,6 @@ describe DeadOpinion do
     it { should respond_to :disbelieves }
     it { should respond_to :doubts }
     it { should respond_to :authority }
-
-    it { expect {subject.believes = 1.3}.to change{subject.believes}.to(1.3) }
-    it { expect {subject.disbelieves = 1.3}.to change{subject.disbelieves}.to(1.3) }
-    it { expect {subject.doubts = 1.3}.to change{subject.doubts}.to(1.3) }
-    it { expect {subject.authority = 1.3}.to change{subject.authority}.to(1.3) }
   end
 
   it "should not change if you sum it with another one" do
