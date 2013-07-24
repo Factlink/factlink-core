@@ -37,7 +37,7 @@ DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
 
   def +(other)
     believes    = weighted_sum(other, :believes)
-    disbelieves = weighted_sum(other, :believes)
+    disbelieves = weighted_sum(other, :disbelieves)
     doubts      = weighted_sum(other, :doubts)
     authority   = self.authority + other.authority
 
