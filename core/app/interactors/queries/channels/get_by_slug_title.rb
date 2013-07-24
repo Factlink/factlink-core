@@ -5,7 +5,7 @@ module Queries
     class GetBySlugTitle
       include Pavlov::Query
 
-      arguments :slug_title
+      arguments :slug_title, :pavlov_options
 
       def validate
         validate_string :slug_title, slug_title

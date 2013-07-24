@@ -5,7 +5,7 @@ module Commands
     class UpdateUserAuthority
       include Pavlov::Command
 
-      arguments :graph_user_id, :topic_slug, :authority
+      arguments :graph_user_id, :topic_slug, :authority, :pavlov_options
 
       private
 

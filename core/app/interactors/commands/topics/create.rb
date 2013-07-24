@@ -5,7 +5,7 @@ module Commands
     class Create
       include Pavlov::Command
 
-      arguments :title
+      arguments :title, :pavlov_options
 
       def execute
         topic = Topic.create title: title

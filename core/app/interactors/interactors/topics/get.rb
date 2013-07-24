@@ -4,7 +4,7 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :slug_title
+      arguments :slug_title, :pavlov_options
 
       def execute
         KillObject.topic topic, current_user_authority: authority

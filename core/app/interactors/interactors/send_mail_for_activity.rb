@@ -4,7 +4,7 @@ module Interactors
   class SendMailForActivity
     include Pavlov::Interactor
 
-    arguments :activity
+    arguments :activity, :pavlov_options
 
     def execute
       recipients.each do |user|

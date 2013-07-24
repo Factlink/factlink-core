@@ -2,7 +2,7 @@ module Queries
   class AuthorityOnTopicFor
     include Pavlov::Query
 
-    arguments :topic, :graph_user
+    arguments :topic, :graph_user, :pavlov_options
 
     def execute
       authority + 1

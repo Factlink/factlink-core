@@ -5,7 +5,7 @@ module Queries
     class Facts
       include Pavlov::Query
 
-      arguments :id, :from, :count
+      arguments :id, :from, :count, :pavlov_options
 
       def execute
         channel = old_query :'channels/get', id

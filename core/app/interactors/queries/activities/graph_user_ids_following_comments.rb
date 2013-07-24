@@ -4,7 +4,7 @@ module Queries
     class GraphUserIdsFollowingComments
       include Pavlov::Query
 
-      arguments :comments
+      arguments :comments, :pavlov_options
 
       private
 

@@ -5,7 +5,7 @@ module Interactors
     class SetupApproved
       include Pavlov::Interactor
 
-      arguments :reset_password_token, :attribut
+      arguments :reset_password_token, :attribut, :pavlov_options
 
       def authorized?
         true

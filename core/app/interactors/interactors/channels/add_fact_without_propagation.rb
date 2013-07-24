@@ -3,7 +3,7 @@ module Interactors
     class AddFactWithoutPropagation
       include Pavlov::Interactor
 
-      arguments :fact, :channel, :score, :should_add_to_unread
+      arguments :fact, :channel, :score, :should_add_to_unread, :pavlov_options
 
       def execute
         success = execute_actual_addition

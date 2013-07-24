@@ -5,7 +5,7 @@ module Commands
     class AddHandpickedUser
       include Pavlov::Command
 
-      arguments :user_id
+      arguments :user_id, :pavlov_options
 
       def execute
         HandpickedTourUsers.new.add user_id

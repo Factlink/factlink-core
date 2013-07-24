@@ -5,7 +5,7 @@ module Commands
     class AddFact
       include Pavlov::Command
 
-      arguments :fact_id, :topic_slug_title, :score
+      arguments :fact_id, :topic_slug_title, :score, :pavlov_options
 
       def execute
         redis_key.zadd score, @fact_id

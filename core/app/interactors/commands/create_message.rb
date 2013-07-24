@@ -4,7 +4,7 @@ module Commands
   class CreateMessage
     include Pavlov::Command
 
-    arguments :sender_id, :content, :conversation
+    arguments :sender_id, :content, :conversation, :pavlov_options
 
     def validate
       raise Pavlov::ValidationError, 'message_empty' unless @content.strip.length > 0

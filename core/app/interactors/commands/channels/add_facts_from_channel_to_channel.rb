@@ -4,7 +4,7 @@ module Commands
       include Pavlov::Command
       NUMBER_OF_INITIAL_FACTS = 10
 
-      arguments :subchannel, :channel
+      arguments :subchannel, :channel, :pavlov_options
 
       def execute
         latest_facts.each do |fact|

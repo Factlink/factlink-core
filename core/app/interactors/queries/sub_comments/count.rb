@@ -2,7 +2,7 @@ module Queries
   module SubComments
     class Count
       include Pavlov::Query
-      arguments :parent_id, :parent_class
+      arguments :parent_id, :parent_class, :pavlov_options
 
       def execute
         SubComment.where(parent_id: normalized_parent_id.to_s, parent_class: @parent_class).count

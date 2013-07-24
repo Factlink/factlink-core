@@ -3,7 +3,7 @@ module Interactors
     class TopTopics
       include Pavlov::Interactor
 
-      arguments :url, :nr
+      arguments :url, :nr, :pavlov_options
 
       def validate
         validate_string :url, @url

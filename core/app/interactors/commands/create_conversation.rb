@@ -4,7 +4,7 @@ module Commands
   class CreateConversation
     include Pavlov::Command
 
-    arguments :fact_id, :recipient_usernames
+    arguments :fact_id, :recipient_usernames, :pavlov_options
 
     def validate
       raise 'recipient_usernames should be a list'    unless @recipient_usernames.respond_to? :each

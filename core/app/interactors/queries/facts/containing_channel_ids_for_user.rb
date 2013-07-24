@@ -3,7 +3,7 @@ module Queries
     class ContainingChannelIdsForUser
       include Pavlov::Query
 
-      arguments :fact
+      arguments :fact, :pavlov_options
 
       def execute
         return [] unless pavlov_options[:current_user]

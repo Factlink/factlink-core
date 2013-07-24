@@ -5,7 +5,7 @@ module Interactors
     class Followers
       include Pavlov::Interactor
 
-      arguments :user_name, :skip, :take
+      arguments :user_name, :skip, :take, :pavlov_options
 
       def authorized?
         !! pavlov_options[:current_user]

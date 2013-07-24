@@ -3,7 +3,7 @@ module Commands
     class RemoveSubchannel
       include Pavlov::Command
 
-      arguments :channel, :subchannel
+      arguments :channel, :subchannel, :pavlov_options
 
       def execute
         success = channel.remove_channel(subchannel)

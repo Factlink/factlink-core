@@ -4,7 +4,7 @@ module Queries
   class OpinionForComment
     include Pavlov::Query
 
-    arguments :comment_id, :fact
+    arguments :comment_id, :fact, :pavlov_options
 
     def validate
       validate_hexadecimal_string :comment_id, @comment_id

@@ -8,7 +8,7 @@ module Interactors
       include Util::CanCan
       include Util::Mixpanel
 
-      arguments :user_name, :slug_title
+      arguments :user_name, :slug_title, :pavlov_options
 
       def authorized?
         pavlov_options[:current_user] and can? :edit_favourites, user

@@ -3,7 +3,7 @@ module Queries
     class GetDead
       include Pavlov::Query
 
-      arguments :id
+      arguments :id, :pavlov_options
 
       private
 

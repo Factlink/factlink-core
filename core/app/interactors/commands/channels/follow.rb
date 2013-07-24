@@ -3,7 +3,7 @@ module Commands
     class Follow
       include Pavlov::Command
 
-      arguments :channel
+      arguments :channel, :pavlov_options
 
       def execute
         success = old_command :'channels/add_subchannel', follower, channel

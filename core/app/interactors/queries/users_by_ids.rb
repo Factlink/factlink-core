@@ -4,7 +4,7 @@ module Queries
   class UsersByIds
     include Pavlov::Query
 
-    arguments :user_ids
+    arguments :user_ids, :pavlov_options
 
     def validate
       @user_ids.each { |id| validate_hexadecimal_string :id, id.to_s }

@@ -5,7 +5,7 @@ module Interactors
       include Util::CanCan
       include Util::Validations
 
-      arguments :fact_id, :message
+      arguments :fact_id, :message, :pavlov_options
 
       def authorized?
         can? :share, Fact

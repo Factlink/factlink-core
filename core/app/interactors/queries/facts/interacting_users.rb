@@ -6,7 +6,7 @@ module Queries
     class InteractingUsers
       include Pavlov::Query
 
-      arguments :fact_id, :skip, :take, :opinion
+      arguments :fact_id, :skip, :take, :opinion, :pavlov_options
 
       private
 

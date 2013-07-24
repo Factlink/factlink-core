@@ -3,7 +3,7 @@ module Queries
     class BySlugTitle
       include Pavlov::Query
 
-      arguments :slug_title
+      arguments :slug_title, :pavlov_options
 
       def execute
         Topic.by_slug slug_title

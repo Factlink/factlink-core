@@ -4,7 +4,7 @@ module Commands
   class DeleteComment
     include Pavlov::Command
 
-    arguments :comment_id, :user_id
+    arguments :comment_id, :user_id, :pavlov_options
 
     def execute
       authorized_in_execute

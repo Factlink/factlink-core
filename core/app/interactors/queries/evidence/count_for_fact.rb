@@ -5,7 +5,7 @@ module Queries
     class CountForFact
       include Pavlov::Query
 
-      arguments :fact
+      arguments :fact, :pavlov_options
 
       private
 

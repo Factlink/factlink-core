@@ -4,7 +4,7 @@ module Queries
   class AuthorityOnFactFor
     include Pavlov::Query
 
-    arguments :fact, :graph_user
+    arguments :fact, :graph_user, :pavlov_options
 
     def execute
       authority = Authority.on(@fact, for: @graph_user)

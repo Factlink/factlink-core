@@ -5,7 +5,7 @@ module Queries
   class ElasticSearch
     include Pavlov::Query
 
-    arguments :keywords, :page, :row_count
+    arguments :keywords, :page, :row_count, :pavlov_options
 
     def execute
       @types = []

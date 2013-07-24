@@ -2,7 +2,7 @@ module Queries
   module SubComments
     class Get
       include Pavlov::Query
-      arguments :id
+      arguments :id, :pavlov_options
 
       def validate
         validate_hexadecimal_string :id, id

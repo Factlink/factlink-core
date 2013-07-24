@@ -3,7 +3,7 @@ module Queries
     class UserOpinionForFactRelation
       include Pavlov::Query
 
-      arguments :fact_relation
+      arguments :fact_relation, :pavlov_options
 
       private
 

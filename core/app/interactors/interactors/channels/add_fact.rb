@@ -3,7 +3,7 @@ module Interactors
     class AddFact
       include Pavlov::Interactor
 
-      arguments :fact, :channel
+      arguments :fact, :channel, :pavlov_options
 
       def execute
         old_command :"channels/add_fact", fact, channel

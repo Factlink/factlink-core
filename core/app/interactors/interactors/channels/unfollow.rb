@@ -3,7 +3,7 @@ module Interactors
     class Unfollow
       include Pavlov::Interactor
 
-      arguments :channel_id
+      arguments :channel_id, :pavlov_options
 
       def validate
         validate_integer_string :channel_id, channel_id

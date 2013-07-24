@@ -6,7 +6,7 @@ module Interactors
     class CreateForFactRelation < CreateForGeneric
       include Pavlov::Interactor
 
-      arguments :fact_relation_id, :content
+      arguments :fact_relation_id, :content, :pavlov_options
 
       def validate
         validate_integer :fact_relation_id, fact_relation_id

@@ -3,7 +3,7 @@ module Queries
     class Get
       include Pavlov::Query
 
-      arguments :id
+      arguments :id, :pavlov_options
 
       def execute
         Fact[id]

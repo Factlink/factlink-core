@@ -2,7 +2,7 @@ module Queries
   class TopicsForChannels
     include Pavlov::Query
 
-    arguments :channels
+    arguments :channels, :pavlov_options
 
     def execute
       Topic.any_in(slug_title: slug_titles).to_a

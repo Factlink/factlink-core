@@ -6,7 +6,7 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :fact_id, :skip, :take, :type
+      arguments :fact_id, :skip, :take, :type, :pavlov_options
 
       def execute
         interacting_users = old_query :'facts/interacting_users', fact_id, skip, take, type

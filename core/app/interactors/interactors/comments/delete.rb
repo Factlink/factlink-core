@@ -5,7 +5,7 @@ module Interactors
     class Delete
       include Pavlov::Interactor
 
-      arguments :comment_id
+      arguments :comment_id, :pavlov_options
 
       def execute
         old_command :delete_comment, comment_id, pavlov_options[:current_user].id.to_s

@@ -5,7 +5,7 @@ module Queries
   class ConversationWithRecipientsAndMessages
     include Pavlov::Query
 
-    arguments :id
+    arguments :id, :pavlov_options
 
     def execute
       conversation = old_query :conversation_get, @id

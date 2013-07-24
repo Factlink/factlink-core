@@ -3,7 +3,7 @@ module Commands
     class Create
       include Pavlov::Command
 
-      arguments :displaystring, :title, :creator, :site
+      arguments :displaystring, :title, :creator, :site, :pavlov_options
 
       def execute
         fact_params = {created_by: creator.graph_user}

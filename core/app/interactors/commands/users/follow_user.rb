@@ -5,7 +5,7 @@ module Commands
     class FollowUser
       include Pavlov::Command
 
-      arguments :graph_user_id, :user_to_follow_graph_user_id
+      arguments :graph_user_id, :user_to_follow_graph_user_id, :pavlov_options
 
       def execute
         user_following_users.follow user_to_follow_graph_user_id

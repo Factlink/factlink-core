@@ -5,7 +5,7 @@ module Commands
     class RemoveHandpickedUser
       include Pavlov::Command
 
-      arguments :user_id
+      arguments :user_id, :pavlov_options
 
       def execute
         HandpickedTourUsers.new.remove user_id

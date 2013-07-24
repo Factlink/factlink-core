@@ -2,7 +2,7 @@ module Commands
   module Stream
     class AddActivities
       include Pavlov::Command
-      arguments :activities
+      arguments :activities, :pavlov_options
 
       def execute
         activities.each do |activity|

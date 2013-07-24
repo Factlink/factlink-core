@@ -5,7 +5,7 @@ module Queries
     class Slug
       include Pavlov::Query
 
-      arguments :fact, :max_slug_length_in
+      arguments :fact, :max_slug_length_in, :pavlov_options
 
       private
 

@@ -5,7 +5,7 @@ module Queries
     class GetDeadWheel
       include Pavlov::Query
 
-      arguments :id
+      arguments :id, :pavlov_options
 
       def execute
         DeadFactWheel.new percentages[:authority],

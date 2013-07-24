@@ -5,7 +5,7 @@ module Commands
     class Create
       include Pavlov::Query
 
-      arguments :title
+      arguments :title, :pavlov_options
 
       def validate
         validate_string :title, @title

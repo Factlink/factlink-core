@@ -3,7 +3,7 @@ module Commands
     class AddedSubchannelCreateActivities
       include Pavlov::Command
 
-      arguments :channel, :subchannel
+      arguments :channel, :subchannel, :pavlov_options
 
       def execute
         Channel::Activities.new(channel).add_created

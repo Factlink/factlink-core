@@ -5,7 +5,7 @@ module Commands
     class RecalculateFactOpinion
       include Pavlov::Command
 
-      arguments :fact
+      arguments :fact, :pavlov_options
 
       def execute
         fact.calculate_opinion(1)

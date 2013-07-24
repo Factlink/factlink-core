@@ -6,7 +6,7 @@ module Queries
   class UsersByGraphUserIds
     include Pavlov::Query
 
-    arguments :graph_user_ids
+    arguments :graph_user_ids, :pavlov_options
 
     private
 

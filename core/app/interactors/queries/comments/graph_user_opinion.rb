@@ -4,7 +4,7 @@ module Queries
   module Comments
     class GraphUserOpinion
       include Pavlov::Query
-      arguments :comment_id, :graph_user
+      arguments :comment_id, :graph_user, :pavlov_options
 
       def validate
         validate_hexadecimal_string :comment_id, @comment_id

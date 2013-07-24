@@ -6,7 +6,7 @@ module Queries
       include Pavlov::Query
       include HashUtils
 
-      arguments :graph_user_id, :limit_topics
+      arguments :graph_user_id, :limit_topics, :pavlov_options
 
       private
 

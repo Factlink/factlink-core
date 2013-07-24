@@ -3,7 +3,7 @@ module Commands
     class AddTopTopic
       include Pavlov::Command
 
-      arguments :site_id, :topic_slug
+      arguments :site_id, :topic_slug, :pavlov_options
 
       def execute
         increase_topic_by @topic_slug, 1

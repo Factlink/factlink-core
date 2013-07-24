@@ -3,7 +3,7 @@ module Queries
     class InteractingUsersImpactForFact
       include Pavlov::Query
 
-      arguments :fact_id, :type
+      arguments :fact_id, :type, :pavlov_options
 
       def execute
         OpinionPresenter.new(fact.get_user_opinion).authority(type)

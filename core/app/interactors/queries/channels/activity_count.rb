@@ -5,7 +5,7 @@ module Queries
     class ActivityCount
       include Pavlov::Query
 
-      arguments :channel_id, :timestamp
+      arguments :channel_id, :timestamp, :pavlov_options
 
       def execute
         Channel[@channel_id].activities.count_above(@timestamp)

@@ -5,7 +5,7 @@ module Interactors
     class Create
       include Pavlov::Interactor
 
-      arguments :fact_id, :type, :content
+      arguments :fact_id, :type, :content, :pavlov_options
 
       def execute
         comment = old_command :create_comment, @fact_id, @type,

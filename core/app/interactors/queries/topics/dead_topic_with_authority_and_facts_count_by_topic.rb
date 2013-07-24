@@ -3,7 +3,7 @@ module Queries
     class DeadTopicWithAuthorityAndFactsCountByTopic
       include Pavlov::Query
 
-      arguments :alive_topic
+      arguments :alive_topic, :pavlov_options
 
       private
 

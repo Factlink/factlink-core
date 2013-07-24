@@ -6,7 +6,7 @@ module Queries
   class ConversationGet
     include Pavlov::Query
 
-    arguments :id
+    arguments :id, :pavlov_options
 
     def validate
       validate_hexadecimal_string :id, id.to_s

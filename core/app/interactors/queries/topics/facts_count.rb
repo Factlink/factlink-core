@@ -3,7 +3,7 @@ module Queries
     class FactsCount
       include Pavlov::Query
 
-      arguments :slug_title
+      arguments :slug_title, :pavlov_options
 
       def execute
         facts_key.zcard

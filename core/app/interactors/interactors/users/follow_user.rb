@@ -5,7 +5,7 @@ module Interactors
     class FollowUser
       include Pavlov::Interactor
 
-      arguments :user_name, :user_to_follow_user_name
+      arguments :user_name, :user_to_follow_user_name, :pavlov_options
 
       def authorized?
         (!! pavlov_options[:current_user]) and (pavlov_options[:current_user].username == user_name)

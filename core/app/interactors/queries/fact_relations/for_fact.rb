@@ -5,7 +5,7 @@ module Queries
     class ForFact
       include Pavlov::Query
 
-      arguments :fact, :type
+      arguments :fact, :type, :pavlov_options
 
       def execute
         dead_fact_relations_with_opinion

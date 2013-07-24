@@ -2,7 +2,7 @@ module Commands
   module Activities
     class CleanList
       include Pavlov::Command
-      arguments :list_key
+      arguments :list_key, :pavlov_options
 
       private
 

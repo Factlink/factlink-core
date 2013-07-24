@@ -6,7 +6,7 @@ module Interactors
     include Pavlov::Interactor
     include Util::Mixpanel
 
-    arguments :conversation_id, :sender_id, :content
+    arguments :conversation_id, :sender_id, :content, :pavlov_options
 
     def execute
       conversation = Conversation.find(@conversation_id)

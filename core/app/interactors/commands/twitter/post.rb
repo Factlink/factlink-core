@@ -5,7 +5,7 @@ module Commands
     class Post
       include Pavlov::Command
 
-      arguments :message
+      arguments :message, :pavlov_options
 
       private
 

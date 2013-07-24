@@ -3,7 +3,7 @@ module Queries
     class OpinionForFact
       include Pavlov::Query
 
-      arguments :fact
+      arguments :fact, :pavlov_options
 
       private
 

@@ -4,7 +4,7 @@ module Queries
   class ObjectIdsByActivity
     include Pavlov::Query
 
-    arguments :activity, :class_name, :list
+    arguments :activity, :class_name, :list, :pavlov_options
 
     def execute
       listeners.map do |listener|

@@ -4,7 +4,7 @@ module Commands
       include Pavlov::Command
       include Util::CanCan
 
-      arguments :fact_id, :sharing_options
+      arguments :fact_id, :sharing_options, :pavlov_options
 
       private
 

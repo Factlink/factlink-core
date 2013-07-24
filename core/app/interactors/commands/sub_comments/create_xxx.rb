@@ -5,7 +5,7 @@ module Commands
     class CreateXxx
       include Pavlov::Command
 
-      arguments :parent_id, :parent_class, :content, :user
+      arguments :parent_id, :parent_class, :content, :user, :pavlov_options
 
       def execute
         sub_comment = SubComment.new

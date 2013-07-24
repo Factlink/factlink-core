@@ -5,7 +5,7 @@ module Interactors
     class Facts
       include Pavlov::Interactor
 
-      arguments :slug_title, :count, :max_timestamp
+      arguments :slug_title, :count, :max_timestamp, :pavlov_options
 
       def setup_defaults
         @count = 7 if @count.blank?

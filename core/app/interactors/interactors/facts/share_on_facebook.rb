@@ -12,7 +12,7 @@ module Interactors
       #                     ability: Ability.new(user),
       #                     facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
 
-      arguments :fact_id
+      arguments :fact_id, :pavlov_options
 
       def authorized?
         can? :share, Fact

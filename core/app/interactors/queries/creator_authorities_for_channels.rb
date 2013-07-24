@@ -24,7 +24,7 @@ module Queries
   class CreatorAuthoritiesForChannels
     include Pavlov::Query
 
-    arguments :channels
+    arguments :channels, :pavlov_options
 
     def execute
       channels.map &method(:authority_for)

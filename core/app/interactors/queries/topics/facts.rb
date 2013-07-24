@@ -5,7 +5,7 @@ module Queries
     class Facts
       include Pavlov::Query
 
-      arguments :slug_title, :count, :max_timestamp
+      arguments :slug_title, :count, :max_timestamp, :pavlov_options
 
       def setup_defaults
         @max_timestamp = 'inf' if @max_timestamp.blank?

@@ -31,8 +31,8 @@ class Activity < OurOhm
 
   after :create, :send_mail_for_activity
   def send_mail_for_activity
-    Pavlov.old_interactor :send_mail_for_activity,
-                        self, {current_user: true}
+    Pavlov.old_interactor :send_mail_for_activity, self,
+      { current_user: true }
   end
 
   before :delete, :remove_from_containing_sorted_sets

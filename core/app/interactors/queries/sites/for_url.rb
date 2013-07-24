@@ -3,7 +3,7 @@ module Queries
     class ForUrl
       include Pavlov::Query
 
-      arguments :url
+      arguments :url, :pavlov_options
 
       def validate
         validate_string :url, @url

@@ -6,7 +6,7 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :pavlov_options
+      arguments :pavlov_options, :pavlov_options
 
       def execute
         return [] unless pavlov_options[:current_user]

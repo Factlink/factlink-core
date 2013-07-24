@@ -5,7 +5,7 @@ module Queries
     class FollowerGraphUserIds
       include Pavlov::Query
 
-      arguments :graph_user_id
+      arguments :graph_user_id, :pavlov_options
 
       def execute
         user_following_users.followers_ids

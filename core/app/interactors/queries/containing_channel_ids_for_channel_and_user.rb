@@ -8,7 +8,7 @@ module Queries
   # this for a channel of the graph_user
   class ContainingChannelIdsForChannelAndUser
     include Pavlov::Query
-    arguments :channel_id, :graph_user_id
+    arguments :channel_id, :graph_user_id, :pavlov_options
 
     def execute
       return [] if channel.created_by_id == @graph_user_id
