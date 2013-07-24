@@ -1,4 +1,4 @@
-require_relative '../../../app/classes/nested_hash_store.rb'
+require_relative '../../../app/classes/hash_store/in_memory.rb'
 require_relative '../../../app/ohm-models/opinion/store.rb'
 require_relative '../../../app/entities/dead_opinion.rb'
 

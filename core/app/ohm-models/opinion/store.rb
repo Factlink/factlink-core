@@ -1,12 +1,12 @@
 
 class Opinion
   class Store
-    def initialize(store=NestedHashHashStore.new)
+    def initialize(store=HashStore::InMemory.new)
       @store = store
     end
 
     def store object_type, object_id, opinion_type, opinion
-      @store[object_type,object_id,opinion_type] = opinion.to_hash
+      @store[object_type,object_id,opinion_type].set opinion.to_hash
     end
 
     def retrieve object_type, object_id, opinion_type
