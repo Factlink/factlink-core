@@ -26,6 +26,7 @@ describe DeadOpinion do
     a = DeadOpinion.new(1,0,0,1)
     b = DeadOpinion.new(0,1,0,1)
     c = a + b
+
     expect(a.believes).to    eq 1
     expect(b.disbelieves).to eq 1
   end
@@ -56,8 +57,9 @@ describe DeadOpinion do
   end
 
   it "should result in the same opinion when you sum it with an opinion with 0 authority" do
-    a = DeadOpinion.new(1,2,3,1)
+    a    = DeadOpinion.new(1,2,3,1)
     zero = DeadOpinion.new(1000,1000,1000,0)
+
     expect(a).to eq a+zero
   end
 
