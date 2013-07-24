@@ -19,7 +19,7 @@ module Interactors
       end
 
       def graph_user
-        @options[:current_user].graph_user
+        pavlov_options[:current_user].graph_user
       end
 
       def validate
@@ -27,7 +27,7 @@ module Interactors
       end
 
       def authorized?
-        return unless @options[:current_user]
+        return unless pavlov_options[:current_user]
         can? :show, topic
       end
     end

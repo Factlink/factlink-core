@@ -29,13 +29,14 @@ describe Interactors::Evidence::ForFactId do
     it 'should check if the fact can be shown' do
       ability = mock
       options = { ability: ability }
-
       ability.stub(:can?)
              .with(:show, Fact)
              .and_return(false)
+      interactor = described_class.new(fact_id: '1', type: :supporting,
+        pavlov_options: options)
 
       expect do
-        interactor = described_class.new '1', :supporting, options
+        interactor.call
       end.to raise_error(Pavlov::AccessDenied)
     end
   end

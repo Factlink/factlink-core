@@ -16,7 +16,7 @@ describe Commands::CreateComment do
 
   describe 'validations' do
     it 'without user_id doesn\'t validate' do
-      expect_validating(fact_id: 1, type: 'believes', content: 'Hoi!', user_id: \')
+      expect_validating(fact_id: 1, type: 'believes', content: 'Hoi!', user_id: 'not hex')
         .to fail_validation('user_id should be an hexadecimal string.')
     end
 
