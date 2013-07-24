@@ -9,8 +9,9 @@ module Interactors
     arguments :keywords
 
     def validate
-      raise 'Keywords should be a string.' unless @keywords.kind_of? String
-      raise 'Keywords must not be empty.'  unless @keywords.length > 0
+      # raise 'Keywords should be a string.' unless @keywords.kind_of? String
+      # raise 'Keywords must not be empty.'  unless @keywords.length > 0
+      validate_nonempty_string :keywords, keywords
     end
 
     def use_query

@@ -15,8 +15,9 @@ describe Interactors::Facts::RecentlyViewed do
              .with(:index, Fact)
              .and_return(false)
 
-      expect { described_class.new(ability: ability).call }.
-        to raise_error(Pavlov::AccessDenied)
+      interactor = described_class.new(pavlov_options: { ability: ability })
+      expect { interactor.call }
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
 
@@ -35,7 +36,8 @@ describe Interactors::Facts::RecentlyViewed do
         .with(5)
         .and_return([fact])
 
-      interactor = described_class.new(current_user: user, ability: ability)
+      interactor = described_class.new pavlov_options: { current_user: user,
+        ability: ability }
       recent_facts = interactor.call
 
       expect(recent_facts).to eq [fact]
@@ -43,7 +45,8 @@ describe Interactors::Facts::RecentlyViewed do
 
     it 'returns an empty list when not logged in' do
       ability = mock can?: true
-      interactor = described_class.new(current_user: nil, ability: ability)
+      interactor = described_class.new pavlov_options: { current_user: nil,
+        ability: ability }
       recent_facts = interactor.call
 
       expect(recent_facts).to eq []

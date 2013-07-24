@@ -6,8 +6,10 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
+      arguments :pavlov_options
+
       def execute
-        return [] unless @options[:current_user]
+        return [] unless pavlov_options[:current_user]
 
         recently_viewed_facts.top(5)
       end
@@ -19,7 +21,7 @@ module Interactors
       private
 
       def recently_viewed_facts
-        RecentlyViewedFacts.by_user_id(@options[:current_user].id)
+        RecentlyViewedFacts.by_user_id(pavlov_options[:current_user].id)
       end
     end
   end

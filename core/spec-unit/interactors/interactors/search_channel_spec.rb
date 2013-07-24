@@ -11,35 +11,32 @@ describe Interactors::SearchChannel do
                  'Fact','Ability::FactlinkWebapp'
   end
 
-  it 'initializes' do
-    interactor = Interactors::SearchChannel.new 'keywords', ability: relaxed_ability
-    interactor.should_not be_nil
-  end
-
-  it 'raises when initialized with keywords that is not a string' do
-    expect { interactor = Interactors::SearchChannel.new nil }.
-      to raise_error(RuntimeError, 'Keywords should be a string.')
-  end
-
-  it 'raises when initialized with an empty keywords string' do
-    expect { interactor = Interactors::SearchChannel.new '' }.
-      to raise_error(RuntimeError, 'Keywords must not be empty.')
+  describe 'validation' do
+    it 'requires keywords to be a nonempty string' do
+      interactor = described_class.new keywords: nil
+      expect { interactor.call }
+        .to fail_validation 'keywords should be a nonempty string.'
+    end
   end
 
   describe '.initialize' do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
       ability = stub(:ability, can?: false)
-      expect do
-        Interactors::SearchChannel.new keywords, ability: ability
-      end.to raise_error(Pavlov::AccessDenied)
+
+      interactor = described_class.new keywords: keywords,
+          pavlov_options: { ability: ability }
+
+      expect { interactor.call }
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
 
   describe '.call' do
     it 'correctly' do
       keywords = 'searching for this channel'
-      interactor = Interactors::SearchChannel.new keywords, ability: relaxed_ability
+      interactor = described_class.new keywords: keywords,
+        pavlov_options: { ability: relaxed_ability }
       topic = mock()
       query = mock()
       query.should_receive(:call).
