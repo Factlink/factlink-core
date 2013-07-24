@@ -12,7 +12,7 @@ class DeadOpinion
   def self.from_opinion(opinion)
     return DeadOpinion.zero unless opinion
 
-    DeadOpinion.new opinion.believes, opinion.disbelieves, opinion.doubts, opinion.authority
+    DeadOpinion.new opinion.b, opinion.d, opinion.u, opinion.a
   end
 
   def self.zero
