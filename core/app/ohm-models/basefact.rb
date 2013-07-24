@@ -30,6 +30,15 @@ class Basefact < OurOhm
     remove_opinionateds(user)
   end
 
+  # TODO: use separate redis stores instead of using references inside the models
+  def insert_or_update_dead_opinion(opinion_name, new_dead_opinion)
+    new_opinion = Opinion.new
+    new_opinion.take_values new_dead_opinion
+    insert_or_update_opinion opinion_name, new_opinion
+  end
+
+  private
+
   def insert_or_update_opinion(opinion_name, new_opinion)
     original_opinion = send(opinion_name)
     if original_opinion
@@ -39,11 +48,5 @@ class Basefact < OurOhm
       send "#{opinion_name}=", new_opinion
       save
     end
-  end
-
-  def insert_or_update_dead_opinion(opinion_name, new_dead_opinion)
-    new_opinion = Opinion.new
-    new_opinion.take_values new_dead_opinion
-    insert_or_update_opinion opinion_name, new_opinion
   end
 end
