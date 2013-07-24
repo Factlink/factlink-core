@@ -24,18 +24,21 @@ class Activity < OurOhm
     old_set_user new_user.graph_user
   end
 
-  after :create, :process_activity
-  def process_activity
-    Resque.enqueue(ProcessActivity, id)
-  end
+  def create
+    result = super
 
-  after :create, :send_mail_for_activity
-  def send_mail_for_activity
+    Resque.enqueue(ProcessActivity, id)
     Pavlov.interactor :send_mail_for_activity,
                         self, {current_user: true}
+
+    result
   end
 
-  before :delete, :remove_from_containing_sorted_sets
+  def delete
+    remove_from_containing_sorted_sets
+    super
+  end
+
   def remove_from_containing_sorted_sets
     containing_sorted_sets.smembers.each do |list|
       Nest.new(list).zrem id

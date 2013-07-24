@@ -59,14 +59,11 @@ class FactRelation < Basefact
     EvidenceDeletable.new(self, self.class.to_s, believable, created_by_id).deletable?
   end
 
-  def delete_key
+  def delete
     self.class.key['gcby'][from_fact.id][self.type][fact.id].del
-  end
-
-  def delete_from_evidence
     fact.evidence(self.type).delete(self)
+
+    super
   end
 
-  before :delete, :delete_key
-  before :delete, :delete_from_evidence
 end
