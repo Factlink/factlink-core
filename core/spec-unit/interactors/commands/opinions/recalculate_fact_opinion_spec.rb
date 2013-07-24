@@ -17,8 +17,8 @@ describe Commands::Opinions::RecalculateFactOpinion do
 
   describe 'validation' do
     it 'without fact_id doesn\'t validate' do
-      expect_validating({fact: nil}).
-        to fail_validation('fact should not be nil.')
+      expect_validating(fact: nil)
+        .to fail_validation('fact should not be nil.')
     end
   end
 end

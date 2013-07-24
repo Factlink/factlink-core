@@ -11,7 +11,7 @@ module Interactors
       arguments :user_name, :slug_title
 
       def authorized?
-        @options[:current_user] and can? :edit_favourites, user
+        pavlov_options[:current_user] and can? :edit_favourites, user
       end
 
       def user

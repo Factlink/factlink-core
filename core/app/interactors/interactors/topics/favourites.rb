@@ -9,7 +9,7 @@ module Interactors
       arguments :user_name
 
       def authorized?
-        @options[:current_user] and can? :show_favourites, user
+        pavlov_options[:current_user] and can? :show_favourites, user
       end
 
       def validate

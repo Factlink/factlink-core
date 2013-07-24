@@ -8,13 +8,13 @@ module Interactors
       arguments :user_name, :user_to_follow_user_name
 
       def authorized?
-        (!! @options[:current_user]) and (@options[:current_user].username == user_name)
+        (!! pavlov_options[:current_user]) and (pavlov_options[:current_user].username == user_name)
       end
 
       def execute
         user = old_query :user_by_username, user_name
 
-        unless user.id.to_s == @options[:current_user].id.to_s
+        unless user.id.to_s == pavlov_options[:current_user].id.to_s
           throw "Only supporting user == current_user when following user"
         end
 

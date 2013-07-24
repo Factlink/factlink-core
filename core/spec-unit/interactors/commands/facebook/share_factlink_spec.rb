@@ -46,8 +46,8 @@ describe Commands::Facebook::ShareFactlink do
 
   describe 'validations' do
     it 'requires integer fact_id' do
-      expect_validating(fact_id: '').
-        to fail_validation('fact_id should be an integer string.')
+      expect_validating(fact_id: '')
+        .to fail_validation('fact_id should be an integer string.')
     end
 
     it 'requires the pavlov_options[:facebook_app_namespace]

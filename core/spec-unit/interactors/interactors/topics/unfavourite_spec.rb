@@ -10,45 +10,29 @@ describe Interactors::Topics::Unfavourite do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new mock, mock, {} }.
+      expect { described_class.new(user_name: mock, slug_title: mock).call }.
         to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
     it 'throws when cannot edit favourites' do
       user = stub
       current_user = stub
-
       ability = stub
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
-
       pavlov_options = { current_user: current_user, ability: ability }
+      interactor = described_class.new(user_name: 'username',
+        slug_title: 'slug_title', pavlov_options: pavlov_options)
 
-      described_class.any_instance.stub(:old_query).
+      interactor.stub(:old_query).
         with(:user_by_username, 'username').
         and_return(user)
 
-      expect { described_class.new 'username', 'slug_title', pavlov_options }.
+      expect { interactor.call }.
         to raise_error Pavlov::AccessDenied, 'Unauthorized'
-    end
-
-    it 'does not throw if current_user is set and favourites can be edited' do
-      user = stub
-      current_user = stub
-
-      ability = stub
-      ability.stub(:can?).with(:edit_favourites, user).and_return(true)
-
-      pavlov_options = { current_user: current_user, ability: ability }
-
-      described_class.any_instance.stub(:old_query).
-        with(:user_by_username, 'username').
-        and_return(user)
-
-      described_class.new 'username', 'slug_title', pavlov_options
     end
   end
 
-  describe '#execute' do
+  describe '#call' do
     before do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
@@ -56,7 +40,8 @@ describe Interactors::Topics::Unfavourite do
     it 'calls a command to unfavourite topic' do
       user_name = mock
       slug_title = mock
-      interactor = described_class.new user_name, slug_title
+      interactor = described_class.new(user_name: user_name,
+        slug_title: slug_title)
       user = mock(graph_user_id: mock)
       topic = mock(id: mock)
 
@@ -71,27 +56,19 @@ describe Interactors::Topics::Unfavourite do
       interactor.should_receive(:mp_track)
         .with('Topic: Unfavourited', slug_title: slug_title)
 
-      result = interactor.execute
-
-      expect(result).to eq nil
+      expect(interactor.call).to eq nil
     end
   end
 
-  describe '#validate' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
+  describe 'validations' do
+    it 'without user_id doesn\t validate' do
+      expect_validating(user_name: 1, slug_title: 'headline')
+        .to fail_validation('user_name should be a nonempty string.')
     end
 
-    it 'calls the correct validation methods' do
-      user_name = mock
-      slug_title = mock
-
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-        .with(:user_name, user_name)
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-        .with(:slug_title, slug_title)
-
-      interactor = described_class.new user_name, slug_title
+    it 'without user_id doesn\t validate' do
+      expect_validating(user_name: 'karel', slug_title: 43)
+        .to fail_validation('slug_title should be a nonempty string.')
     end
   end
 end
