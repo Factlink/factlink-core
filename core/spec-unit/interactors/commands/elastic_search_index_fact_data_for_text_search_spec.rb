@@ -5,27 +5,19 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
   include PavlovSupport
 
   let(:fact_data) do
-    fact_data = stub()
-    fact_data.stub id: 1,
-                   displaystring: 'displaystring',
-                   title: 'title'
-    fact_data
+    double(id: 1, displaystring: 'displaystring', title: 'title')
   end
 
   before do
     stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
-  describe '.new' do
-    it 'returns a new non nil instance' do
-      interactor = described_class.new fact_data
-
-      interactor.should_not be_nil
-    end
-
+  describe 'validations' do
     it 'raises when fact_data is not a FactData' do
-      expect { interactor = described_class.new 'FactData' }.
-        to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
+      command = described_class.new(object: 'FactData')
+
+      expect { command.call }
+        .to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
     end
   end
 
@@ -36,14 +28,14 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/factdata/#{fact_data.id}"
-      interactor = described_class.new fact_data
+      command = described_class.new(object: fact_data)
       json_document = mock
 
-      interactor.should_receive(:json_document).and_return(json_document)
+      command.should_receive(:json_document).and_return(json_document)
       HTTParty.should_receive(:put).with(url,
         { body:json_document})
 
-      interactor.call
+      command.call
     end
   end
 end

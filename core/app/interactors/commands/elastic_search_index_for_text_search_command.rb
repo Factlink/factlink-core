@@ -3,27 +3,26 @@ require_relative '../../classes/elastic_search'
 
 module Commands
   class ElasticSearchIndexForTextSearchCommand
-    # TODO: Rewrite this command to be fully compatible with Pavlov
+    include Pavlov::Command
 
-    def initialize object, options={}
+    arguments :object
+
+    def execute
       @missing_fields = []
       @document = {}
-      @object = object
 
-      @logger = options[:logger] || Logger.new(STDERR)
+      @logger = pavlov_options[:logger] || Logger.new(STDERR)
 
       define_index
 
-      raise 'Type_name is not set.' unless @type_name
-
       @missing_fields << :id unless field_exists :id
 
-      raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
-    end
+      raise 'Type_name is not set.' unless @type_name
 
-    def call
+      raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
+
       index = ElasticSearch::Index.new @type_name
-      index.add @object.id, json_document
+      index.add object.id, json_document
     end
 
     def json_document
@@ -36,12 +35,12 @@ module Commands
     end
 
     def field_exists name
-      @object.respond_to? name
+      object.respond_to? name
     end
 
     def field name
       if field_exists name
-        @document[name] = @object.send name
+        @document[name] = object.send name
       else
         @missing_fields << name
       end

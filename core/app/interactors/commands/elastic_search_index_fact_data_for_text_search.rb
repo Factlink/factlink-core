@@ -1,4 +1,4 @@
-require_relative 'elastic_search_index_for_text_search_command.rb'
+require_relative 'elastic_search_index_for_text_search_command'
 
 module Commands
   class ElasticSearchIndexFactDataForTextSearch < ElasticSearchIndexForTextSearchCommand
