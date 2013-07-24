@@ -27,6 +27,5 @@ module Queries
     def believable
       Believable::Commentje.new(@comment_id)
     end
-
   end
 end

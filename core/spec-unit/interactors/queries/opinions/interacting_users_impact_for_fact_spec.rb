@@ -9,10 +9,10 @@ describe Queries::Opinions::InteractingUsersImpactForFact do
   end
 
   it 'should retrieve impact for a fact and opinion type' do
-    user = mock :user, graph_user: mock
     fact = mock :fact, id: '3'
     type = mock
-    query = described_class.new fact.id, type, current_user: user
+    query = described_class.new fact_id: fact.id, type: type
+
     Fact.stub(:[])
       .with(fact.id)
       .and_return(fact)

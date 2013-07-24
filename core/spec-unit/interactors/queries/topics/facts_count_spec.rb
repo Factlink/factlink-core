@@ -8,13 +8,13 @@ describe Queries::Topics::FactsCount do
     stub_classes 'Topic'
   end
 
-  describe '#execute' do
+  describe '#call' do
     it 'correctly' do
       slug_title = 'slug-title'
       facts_key = mock
       count = mock
 
-      query = described_class.new slug_title
+      query = described_class.new slug_title: slug_title
 
       nest = mock
       key = mock
@@ -25,13 +25,13 @@ describe Queries::Topics::FactsCount do
       key.should_receive(:[]).with(:facts).and_return(facts_key)
       facts_key.should_receive(:zcard).and_return(count)
 
-      expect( query.execute ).to eq count
+      expect( query.call ).to eq count
     end
   end
 
   describe '#validation' do
     it :slug_title do
-      expect_validating(1).
+      expect_validating(slug_title: 1).
         to fail_validation('slug_title should be a string.')
     end
   end

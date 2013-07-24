@@ -8,11 +8,9 @@ describe Queries::Opinions::OpinionForFact do
     it 'returns the opinion on the fact' do
       opinion = mock
       fact = mock get_opinion: opinion
+      query = described_class.new fact: fact
 
-      query = described_class.new fact
-      result = query.call
-
-      expect(result).to eq opinion
+      expect(query.call).to eq opinion
     end
   end
 end

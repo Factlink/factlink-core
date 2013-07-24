@@ -19,7 +19,7 @@ module Queries
       end
 
       def current_user_authority
-        old_query :authority_on_topic_for, alive_topic, @options[:current_user].graph_user
+        old_query :authority_on_topic_for, alive_topic, pavlov_options[:current_user].graph_user
       end
 
       def validate
