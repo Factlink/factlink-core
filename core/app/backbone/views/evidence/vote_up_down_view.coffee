@@ -16,16 +16,18 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
     interactive: @options.interactive ? true
 
   onRender: ->
-    @renderActive()
+    @renderActive() if @options.interactive
 
   renderActive: ->
     @$('a.supporting').addClass('active') if @current_opinion() == 'believes'
     @$('a.weakening').addClass('active')  if @current_opinion() == 'disbelieves'
 
   _on_up_vote: ->
+    return unless @options.interactive
     mp_track "Factlink: Upvote evidence click"
     @on_up_vote()
 
   _on_down_vote: ->
+    return unless @options.interactive
     mp_track "Factlink: Downvote evidence click"
     @on_down_vote()

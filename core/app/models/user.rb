@@ -66,7 +66,7 @@ class User
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
                           :with => Regexp.new('^' + ([
-                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink, :auth
+                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink, :auth, :reserved
                           ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
@@ -211,7 +211,7 @@ class User
   end
 
   def self.human_attribute_name(attr, options = {})
-    attr.to_sym == :non_field_error ? '' : super
+    attr.to_s == 'non_field_error' ? '' : super
   end
 
   def sign_tos(agrees_tos)

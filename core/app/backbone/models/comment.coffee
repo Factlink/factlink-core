@@ -1,12 +1,10 @@
-class window.Comment extends Backbone.Model
+#= require './evidence'
+
+class window.Comment extends Evidence
 
   defaults:
     evidence_type: 'Comment'
     current_user_opinion: "believes"
-    opinions:
-      formatted_belief_authority: "+?"
-      formatted_disbelief_authority: "-?"
-      formatted_relevance: "?"
 
   validate: (attributes) ->
     'Content should not be empty' unless /^.*\S.*$/.test(attributes.content)

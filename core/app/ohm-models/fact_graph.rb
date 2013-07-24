@@ -24,7 +24,7 @@ class FactGraph
     debug "Calculating fact relation influencing opinions (#{i})"
     FactRelation.all.ids.each do |id|
       fr = FactRelation[id]
-      fr.calculate_influencing_opinion
+      Opinion::FactRelationCalculation.new(fr).calculate_influencing_opinion
     end
   end
 
@@ -32,7 +32,9 @@ class FactGraph
     debug "Calculating fact opinions (#{i})"
     Fact.all.ids.each do |id|
       f = Fact[id]
-      f.calculate_opinion
+      fact_calculation = Opinion::FactCalculation.new(f)
+      fact_calculation.calculate_evidence_opinion
+      fact_calculation.calculate_opinion
     end
   end
 
@@ -40,7 +42,7 @@ class FactGraph
     debug "Calculating user opinions on basefacts"
     Basefact.all.ids.each do |id|
       bf = Basefact[id]
-      bf.calculate_user_opinion
+      Opinion::BaseFactCalculation.new(bf).calculate_user_opinion
     end
   end
 

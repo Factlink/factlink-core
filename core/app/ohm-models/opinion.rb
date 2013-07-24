@@ -1,5 +1,3 @@
-require_relative 'opinion/subject.rb'
-
 class Opinion < OurOhm
   # naming conventions as in the document describing the calculations
   # b = belief
@@ -92,6 +90,8 @@ class Opinion < OurOhm
   end
 
   def ==(other)
+    raise 'Can only compare with other Opinion' unless other.class == Opinion
+
     self.a == other.a and
       self.b == other.b and
       self.d == other.d and

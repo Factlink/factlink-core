@@ -1,7 +1,6 @@
 require 'ohm/contrib'
 
 class FactRelation < Basefact
-  include Opinion::Subject::FactRelation
   include Ohm::ExtraValidations
   include Ohm::Timestamping
 
@@ -12,6 +11,8 @@ class FactRelation < Basefact
 
   attribute :type # => :supporting || :weakening
   index :type
+
+  reference :influencing_opinion, Opinion
 
   def validate
     assert_present :from_fact_id
@@ -64,7 +65,7 @@ class FactRelation < Basefact
   end
 
   def delete_from_evidence
-    fact.evidence(self.type.to_sym).delete(self)
+    fact.evidence(self.type).delete(self)
   end
 
   before :delete, :delete_key

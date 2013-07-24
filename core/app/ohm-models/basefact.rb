@@ -1,9 +1,9 @@
 class Basefact < OurOhm
   include Activity::Subject
-  include Opinion::Subject::Basefact
 
   reference :created_by, GraphUser
-  reference :opinion, Opinion
+
+  reference :user_opinion, Opinion
 
   def believable
     @believable ||= Believable.new(self.key)
@@ -28,5 +28,16 @@ class Basefact < OurOhm
 
   def remove_opinions(user)
     remove_opinionateds(user)
+  end
+
+  def insert_or_update_opinion(opinion_name, new_opinion)
+    original_opinion = send(opinion_name)
+    if original_opinion
+      original_opinion.take_values new_opinion
+    else
+      new_opinion.save or raise "could not save opinion #{opinion_name}"
+      send "#{opinion_name}=", new_opinion
+      save
+    end
   end
 end

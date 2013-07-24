@@ -1,14 +1,14 @@
 $top_bar = $('.navbar > .navbar-inner')
 $dimmed_top_bar = $top_bar.clone().addClass('dimmed').insertAfter($top_bar)
-$earth = $('.header > .background > .earth')
+$earth_background = $('.header > .background > .earth_background')
 
 $top_bar.on 'click', 'a.sign_in', ->
-  $('body').animate marginTop: 0, 'slow', -> resetPlaceholders()
+  $('.sign_in_bar').animate marginTop: 0, 'slow', -> resetPlaceholders()
   $top_bar.fadeOut "slow"
-  $earth.animate marginTop: 104, 'slow'
+  $earth_background.animate marginTop: 104, 'slow'
 
 
 $dimmed_top_bar.on 'click', 'a.sign_in', ->
-  $('body').animate marginTop: -160, 'slow', -> resetPlaceholders()
+  $('.sign_in_bar').animate marginTop: -160, 'slow', -> resetPlaceholders()
   $top_bar.fadeIn "slow"
-  $earth.animate marginTop: 0, 'slow'
+  $earth_background.animate marginTop: 0, 'slow'
