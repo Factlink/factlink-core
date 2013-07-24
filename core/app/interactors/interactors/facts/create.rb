@@ -1,3 +1,5 @@
+require 'active_support/core_ext/object/blank'
+
 module Interactors
   module Facts
     class Create
@@ -41,7 +43,7 @@ module Interactors
       end
 
       def user
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
 
       def validate

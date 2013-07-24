@@ -8,29 +8,37 @@ describe Interactors::Facts::Create do
     stub_classes 'Fact', 'Blacklist'
   end
 
-  describe '.validate' do
-    it 'calls the correct validation methods' do
-      displaystring = 'displaystring'
-      url = 'url'
-      title = 'title'
-      sharing_options = {}
+  describe 'validation' do
+    it 'requires displaystring to be a nonempty string' do
+      hash = { displaystring: '', url: 'u', title: 't', sharing_options: 'a' }
+      expect_validating(hash)
+        .to fail_validation('displaystring should be a nonempty string.')
+    end
 
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-                                  .with(:displaystring, displaystring)
-      described_class.any_instance.should_receive(:validate_string)
-                                  .with(:url, url)
-      described_class.any_instance.should_receive(:validate_string)
-                                  .with(:title, title)
-      described_class.any_instance.should_receive(:validate_not_nil)
-                                  .with(:sharing_options, sharing_options)
+    it 'requires title to be a string' do
+      hash = { displaystring: 'ds', url: 'u', title: 4, sharing_options: 'a' }
+      expect_validating(hash)
+        .to fail_validation('title should be a string.')
+    end
 
-      described_class.new displaystring, url, title, sharing_options, ability: mock(can?: true)
+    it 'requires url to be a string' do
+      hash = { displaystring: 'ds', url: 6, title: 't', sharing_options: 'a' }
+      expect_validating(hash)
+        .to fail_validation('url should be a string.')
     end
   end
 
   it '.authorized raises when not able to create facts' do
-    expect{ described_class.new 'displaystring', 'url', 'title', mock, ability: mock(can?: false) }.
-      to raise_error Pavlov::AccessDenied, "Unauthorized"
+    ability = mock
+    ability.stub(:can?)
+             .with(:create, Fact)
+             .and_return(false)
+
+    interactor = described_class.new displaystring: 'displaystring', url: 'url',
+      title: 'title', sharing_options: mock, pavlov_options: { ability:ability }
+
+    expect { interactor.call }
+      .to raise_error Pavlov::AccessDenied, "Unauthorized"
   end
 
   describe '#call' do
@@ -46,8 +54,10 @@ describe Interactors::Facts::Create do
       Blacklist.stub default: mock
       Blacklist.default.stub(:matches?).with(url).and_return false
 
-      pavlov_options = {current_user: user, ability: mock(can?: true)}
-      interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
+      pavlov_options = { current_user: user, ability: mock(can?: true) }
+      interactor = described_class.new displaystring: displaystring, url: url,
+        title: title, sharing_options: sharing_options,
+        pavlov_options: pavlov_options
 
       Pavlov.stub(:old_query)
             .with(:'sites/for_url', url, pavlov_options)
@@ -82,8 +92,10 @@ describe Interactors::Facts::Create do
       Blacklist.stub default: mock
       Blacklist.default.stub(:matches?).with(url).and_return false
 
-      pavlov_options = {current_user: user, ability: mock(can?: true)}
-      interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
+      pavlov_options = { current_user: user, ability: mock(can?: true) }
+      interactor = described_class.new displaystring: displaystring, url: url,
+        title: title, sharing_options: sharing_options,
+        pavlov_options: pavlov_options
 
       Pavlov.stub(:old_query)
             .with(:'sites/for_url',url, pavlov_options)
@@ -113,8 +125,10 @@ describe Interactors::Facts::Create do
       Blacklist.stub default: mock
       Blacklist.default.stub(:matches?).with(url).and_return true
 
-      pavlov_options = {current_user: user, ability: mock(can?: true)}
-      interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
+      pavlov_options = { current_user: user, ability: mock(can?: true) }
+      interactor = described_class.new displaystring: displaystring, url: url,
+        title: title, sharing_options: sharing_options,
+        pavlov_options: pavlov_options
 
       Pavlov.should_receive(:old_command)
             .with(:'facts/create', displaystring, title, user, nil, pavlov_options)
