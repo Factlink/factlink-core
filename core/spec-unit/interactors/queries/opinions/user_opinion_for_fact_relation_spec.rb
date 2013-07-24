@@ -9,17 +9,17 @@ describe Queries::Opinions::UserOpinionForFactRelation do
       stub_classes 'Opinion::BaseFactCalculation'
     end
 
-    it 'returns Opinion::BaseFactCalculation::get_user_opinion' do
+    it 'returns the dead user opinion' do
       fact_relation = mock
-      opinion = mock
-      base_fact_calculation = mock get_user_opinion: opinion
+      dead_opinion = mock
+      base_fact_calculation = mock get_user_opinion: dead_opinion
 
       Opinion::BaseFactCalculation.stub(:new).with(fact_relation)
         .and_return(base_fact_calculation)
 
       query = described_class.new fact_relation
 
-      expect(query.call).to eq opinion
+      expect(query.call).to eq dead_opinion
     end
   end
 

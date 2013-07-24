@@ -23,12 +23,12 @@ describe Queries::Opinions::UserOpinionForComment do
 
   describe '.call' do
     it "returns the dead opinion the calculator calculates" do
-      opinion = mock
-      calculator = mock(:calculator, opinion: opinion)
+      dead_opinion = mock
+      calculator = mock(:calculator, opinion: dead_opinion)
       query = described_class.new 'a1', mock
       query.stub calculator: calculator
 
-      expect(query.call).to eq opinion
+      expect(query.call).to eq dead_opinion
     end
   end
 
