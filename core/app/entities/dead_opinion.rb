@@ -1,6 +1,6 @@
 class DeadOpinion
 
-  attr_accessor :believes, :disbelieves, :doubts, :authority
+  attr_reader :believes, :disbelieves, :doubts, :authority
 
   def initialize(believes, disbelieves, doubts, authority=0.0)
     @believes = believes.to_f
