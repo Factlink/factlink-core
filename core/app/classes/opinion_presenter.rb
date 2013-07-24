@@ -4,35 +4,35 @@ class OpinionPresenter
   end
 
   def relevance
-    belief_authority - disbelief_authority
+    believes_authority - disbelieves_authority
   end
 
   def authority(type)
-    @opinion.send(type) * @opinion.a
-  end
-
-  def format number
-    NumberFormatter.new(number).as_authority
+    @opinion.send(type) * @opinion.authority
   end
 
   def as_percentages_hash
-    total = @opinion.b + @opinion.d + @opinion.u
+    total = @opinion.believes + @opinion.disbelieves + @opinion.doubts
 
-    l_believe_percentage = calc_percentage(total, @opinion.b)
-    l_disbelieve_percentage = calc_percentage(total, @opinion.d)
-    l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
+    l_believes_percentage    = calc_percentage(total, @opinion.believes)
+    l_disbelieves_percentage = calc_percentage(total, @opinion.disbelieves)
+    l_doubts_percentage      = 100 - l_believes_percentage - l_disbelieves_percentage
 
     {
-      believe:    { percentage: l_believe_percentage },
-      disbelieve: { percentage: l_disbelieve_percentage },
-      doubt:      { percentage: l_doubt_percentage  },
+      believe:    { percentage: l_believes_percentage },
+      disbelieve: { percentage: l_disbelieves_percentage },
+      doubt:      { percentage: l_doubts_percentage  },
       # TODO this logic should go elsewhere, but only after letting the update_opinion and
       #     remove opinion build proper json (instead of fact.to_json)
-      authority: format(@opinion.a)
+      authority: format(@opinion.authority)
     }
   end
 
   private
+
+  def format number
+    NumberFormatter.new(number).as_authority
+  end
 
   def calc_percentage(total, part)
     if total > 0
@@ -42,11 +42,11 @@ class OpinionPresenter
     end
   end
 
-  def belief_authority
-    authority :b
+  def believes_authority
+    authority :believes
   end
 
-  def disbelief_authority
-    authority :d
+  def disbelieves_authority
+    authority :disbelieves
   end
 end

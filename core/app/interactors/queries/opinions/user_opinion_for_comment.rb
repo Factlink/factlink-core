@@ -8,7 +8,7 @@ module Queries
       arguments :comment_id, :fact
 
       def validate
-        validate_hexadecimal_string :comment_id, @comment_id
+        validate_hexadecimal_string :comment_id, comment_id
       end
 
       def execute
@@ -25,12 +25,12 @@ module Queries
 
       def authority_for
         Proc.new do |graph_user|
-          Authority.on(@fact, for: graph_user).to_f + 1
+          Authority.on(fact, for: graph_user).to_f + 1
         end
       end
 
       def believable
-        Believable::Commentje.new(@comment_id)
+        Believable::Commentje.new(comment_id)
       end
 
     end

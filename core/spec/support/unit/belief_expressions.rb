@@ -14,8 +14,8 @@ module BeliefExpressions
     fact.add_opinion(:doubts,user.graph_user)
   end
 
-  def _(b, d, u, a)
-    DeadOpinion.new(b, d, u, a)
+  def _(believes, disbelieves, doubts, authority)
+    DeadOpinion.new(believes, disbelieves, doubts, authority)
   end
 
   alias :believes :b
