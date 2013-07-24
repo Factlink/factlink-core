@@ -7,25 +7,25 @@ describe RedisHashStore do
 
   it "does one request per set" do
     nr_commands = number_of_commands_on Redis.current do
-      subject['someplace']['foo']['bar'] = { a: 'hash'}
+      subject['someplace','foo','bar'] = { a: 'hash'}
     end
     expect(nr_commands).to eq 1
   end
 
   it "does one request per get" do
-    subject['someplace']['foo']['bar'] = { a: 'hash'}
+    subject['someplace','foo','bar'] = { a: 'hash'}
 
     nr_commands = number_of_commands_on Redis.current do
-      subject['someplace']['foo']['bar'].get
+      subject['someplace','foo','bar'].get
     end
     expect(nr_commands).to eq 1
   end
 
   it "does one request for multiple gets/value? s" do
-    subject['someplace']['foo']['bar'] = { a: 'hash'}
+    subject['someplace','foo','bar'] = { a: 'hash'}
 
     nr_commands = number_of_commands_on Redis.current do
-      retrieved = subject['someplace']['foo']['bar']
+      retrieved = subject['someplace','foo','bar']
       retrieved.value?
       retrieved.get
       retrieved.value?
