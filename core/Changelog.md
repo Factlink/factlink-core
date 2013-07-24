@@ -1,3 +1,9 @@
+#24-07-2013
+
+- Increased the max length of a username to 20 characters
+- Fixed a longstanding bug. We now highlight the correct factlink when the cancel button has been used. (instead of also highlighting 'canceled' factlinks)
+- Removed relevance numbers for arguments
+
 #22-07-2013
 
 - Instead of showing the name of the logged-in user in a list of interacting users, show 'you' instead.
