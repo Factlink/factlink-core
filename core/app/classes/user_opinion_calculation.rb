@@ -14,7 +14,7 @@ class UserOpinionCalculation
   end
 
   def user_opinion user, type
-    Opinion.for_type(type, @authority_for.call(user))
+    DeadOpinion.for_type(type, @authority_for.call(user))
   end
 
   def opinion
