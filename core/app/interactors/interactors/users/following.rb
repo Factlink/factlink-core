@@ -8,7 +8,7 @@ module Interactors
       arguments :user_name, :skip, :take
 
       def authorized?
-        !! @options[:current_user]
+        !! pavlov_options[:current_user]
       end
 
       def validate

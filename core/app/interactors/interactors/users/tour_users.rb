@@ -4,6 +4,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
+      arguments :pavlov_options
+
       def execute
         users.map(&method(:with_user_topics))
       end
@@ -15,7 +17,7 @@ module Interactors
 
       def user_topics user
         old_query :'user_topics/top_with_authority_for_graph_user_id',
-              user.graph_user_id, 2
+          user.graph_user_id, 2
       end
 
       def users
