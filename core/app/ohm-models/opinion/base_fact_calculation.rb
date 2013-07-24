@@ -8,7 +8,7 @@ class Opinion < OurOhm
     end
 
     def get_user_opinion
-      base_fact.get_dead_opinion :user_opinion
+      user_opinion_store.retrieve base_fact.class_name, base_fact.id, :user_opinion
     end
 
     def calculate_user_opinion
@@ -16,8 +16,13 @@ class Opinion < OurOhm
         Authority.on(base_fact, for: user).to_f + 1.0
       end.opinion
 
-      base_fact.insert_or_update_dead_opinion :user_opinion, user_opinion
+      user_opinion_store.store base_fact.class_name, base_fact.id, :user_opinion, user_opinion
     end
 
+    private
+
+    def user_opinion_store
+      Opinion::Store.new
+    end
   end
 end
