@@ -3,10 +3,10 @@ class DeadOpinion
   attr_accessor :believes, :disbelieves, :doubts, :authority
 
   def initialize(believes, disbelieves, doubts, authority=0.0)
-    @believes = believes
-    @disbelieves = disbelieves
-    @doubts = doubts
-    @authority = authority
+    @believes = believes.to_f
+    @disbelieves = disbelieves.to_f
+    @doubts = doubts.to_f
+    @authority = authority.to_f
   end
 
   def self.from_opinion(opinion)
