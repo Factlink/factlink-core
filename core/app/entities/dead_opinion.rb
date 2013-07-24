@@ -36,17 +36,30 @@ DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
   end
 
   def +(other)
-    authority = self.authority + other.authority
-    return DeadOpinion.zero if authority == 0
+    believes    = weighted_sum(other, :believes)
+    disbelieves = weighted_sum(other, :believes)
+    doubts      = weighted_sum(other, :doubts)
+    authority   = self.authority + other.authority
 
-    believes    = (self.believes*self.authority + other.believes*other.authority)/authority
-    disbelieves = (self.disbelieves*self.authority + other.disbelieves*other.authority)/authority
-    doubts = (self.doubts*self.authority + other.doubts*other.authority)/authority
-
-    DeadOpinion.new(believes, disbelieves, doubts, authority)
+    DeadOpinion.new(believes, disbelieves, doubts, authority).normalized
   end
 
   def net_authority
     authority * (believes-disbelieves)
+  end
+
+  def normalized
+    return DeadOpinion.zero if authority == 0
+    self
+  end
+
+  private
+
+  def weighted_sum(other, type)
+    self_value = send(type)
+    other_value = other.send(type)
+    total_authority = self.authority + other.authority
+
+    (self_value*self.authority + other_value*other.authority)/total_authority
   end
 end
