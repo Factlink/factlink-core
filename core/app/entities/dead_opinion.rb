@@ -10,11 +10,11 @@ DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
   def self.for_type(type, authority=0)
     case type
     when :believes
-      DeadOpinion.new(1, 0, 0, authority)
+      DeadOpinion.new(1.0, 0.0, 0.0, authority)
     when :disbelieves
-      DeadOpinion.new(0, 1, 0, authority)
+      DeadOpinion.new(0.0, 1.0, 0.0, authority)
     when :doubts
-      DeadOpinion.new(0, 0, 1, authority)
+      DeadOpinion.new(0.0, 0.0, 1.0, authority)
     end
   end
 
