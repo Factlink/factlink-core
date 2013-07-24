@@ -24,7 +24,7 @@ module Interactors
       end
 
       def authorized?
-        not @options[:current_user].blank?
+        not pavlov_options[:current_user].blank?
       end
     end
   end
