@@ -18,9 +18,9 @@ class Opinion < OurOhm
       authority = [[net_fact_authority, net_relevance_authority].min, 0].max
 
       evidence_type = OpinionType.for_relation_type(fact_relation.type)
-      influencing_opinion = Opinion.for_type(evidence_type, authority)
+      influencing_opinion = DeadOpinion.for_type(evidence_type, authority)
 
-      fact_relation.insert_or_update_opinion :influencing_opinion, influencing_opinion
+      fact_relation.insert_or_update_dead_opinion :influencing_opinion, influencing_opinion
     end
 
   end
