@@ -55,3 +55,22 @@
 - Social signin/signup now uses a popup instead of full page redirects.
 - New users will get better guidance when creating their first Factlink.
 - We’ve simplified the way to follow a channel. You can now just press the follow button to follow a channel.
+
+#15-01-2013
+
+- Highlight Factlink when it enters the visible part of the window
+
+#10-01-2013
+
+- Notfications when somebody comments on a comment I interacted with.
+- If you don't finish the tour, you will be redirected to the tour when you log in.
+- Extracted and opensourced Pavlov library.
+- Names on team page.
+- Added animation in tour to show how you express your opinion. (by clicking the factwheel.)
+- Manage the suggested topics list in the tour. (So no non english topics appear.)
+- Bugfix: link of comment activity.
+- Bugfix: fixed text of "A, B and C agreed this Factlink" (in client).
+- Bugfix: HTML 5 placeholders don't work in ie7/ie8.
+- Bugfix: Visiting Factlink public pages won't crash IE.
+- Bugfix: Fixed layout of factlink placeholders in tour.
+
