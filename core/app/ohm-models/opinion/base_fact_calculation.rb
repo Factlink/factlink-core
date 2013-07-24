@@ -21,7 +21,7 @@ class Opinion < OurOhm
 
     private
 
-    def user_opinion_store
+    def opinion_store
       Opinion::Store.new
     end
   end
