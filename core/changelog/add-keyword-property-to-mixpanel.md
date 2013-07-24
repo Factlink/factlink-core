@@ -1,1 +1,1 @@
-add-keyword-property-to-mixpanel
+Added keyword as property to search event
