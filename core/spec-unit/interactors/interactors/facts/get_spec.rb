@@ -17,14 +17,15 @@ describe Interactors::Facts::Get do
 
   describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      ability = stub(:can?)
+      ability = mock
+      ability.stub(:can?)
         .with(:show, Fact)
         .and_return(false)
 
       interactor = described_class.new id: '1',
-        pavlov_options: { abillity: ability }
+        pavlov_options: { ability: ability }
 
-      expect( interactor.call )
+      expect{ interactor.call }
         .to raise_error(Pavlov::AccessDenied)
     end
   end
