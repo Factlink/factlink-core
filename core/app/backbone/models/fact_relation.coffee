@@ -7,7 +7,7 @@ class window.FactRelation extends Evidence
     $.ajax
       url: @url() + "/opinion/" + type
       success: (data) =>
-        mp_track "Evidence: opinionate",
+        mp_track "Evidence: Opinionate",
           type: type
           evidence_id: @id
 

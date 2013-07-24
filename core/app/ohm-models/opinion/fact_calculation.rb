@@ -8,24 +8,24 @@ class Opinion < OurOhm
     end
 
     def get_evidence_opinion
-      fact.evidence_opinion || Opinion.zero
+      fact.get_dead_opinion :evidence_opinion
     end
 
     def calculate_evidence_opinion
       opinions = fact.evidence(:both).map do |fr|
         FactRelationCalculation.new(fr).get_influencing_opinion
       end
-      fact.insert_or_update_opinion :evidence_opinion, Opinion.combine(opinions)
+      fact.insert_or_update_dead_opinion :evidence_opinion, DeadOpinion.combine(opinions)
     end
 
     def get_opinion
-      fact.opinion || Opinion.zero
+      fact.get_dead_opinion :opinion
     end
 
     def calculate_opinion
       opinion = BaseFactCalculation.new(fact).get_user_opinion + get_evidence_opinion
 
-      fact.insert_or_update_opinion :opinion, opinion
+      fact.insert_or_update_dead_opinion :opinion, opinion
     end
 
   end
