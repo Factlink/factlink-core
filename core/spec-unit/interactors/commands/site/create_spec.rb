@@ -7,7 +7,7 @@ describe Commands::Sites::Create do
   describe 'validations' do
     it 'requires arguments' do
       expect_validating(url: '').
-        to fail_validation('url should be a nonempty string.')
+        .to fail_validation('url should be a nonempty string.')
     end
   end
 

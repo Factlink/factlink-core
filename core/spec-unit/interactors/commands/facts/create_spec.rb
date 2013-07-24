@@ -13,18 +13,18 @@ describe Commands::Facts::Create do
 
   describe 'validations' do
     it 'requires displaystring to be a nonempty string' do
-      expect_validating(displaystring: '', title: 'title', creator: mock, site: mock).
-        to fail_validation('displaystring should be a nonempty string.')
+      expect_validating(displaystring: '', title: 'title', creator: mock, site: mock)
+        .to fail_validation('displaystring should be a nonempty string.')
     end
 
     it 'requires title to be a string' do
-      expect_validating(displaystring: 'displaystring', title: 1, creator: mock, site: mock).
-        to fail_validation('title should be a string.')
+      expect_validating(displaystring: 'displaystring', title: 1, creator: mock, site: mock)
+        .to fail_validation('title should be a string.')
     end
 
     it 'requires user not to be nil' do
-      expect_validating(displaystring: 'displaystring', title: 'title', creator: nil, site: mock).
-        to fail_validation('creator should not be nil.')
+      expect_validating(displaystring: 'displaystring', title: 'title', creator: nil, site: mock)
+        .to fail_validation('creator should not be nil.')
     end
   end
 

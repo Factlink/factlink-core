@@ -14,25 +14,25 @@ describe Commands::CreateComment do
     command.should_not be_nil
   end
 
-  describe "validation" do
-    it 'without user_id doesn''t validate' do
-      expect_validating({fact_id: 1, type: 'believes', content: 'Hoi!', user_id: ''}).
-        to fail_validation('user_id should be an hexadecimal string.')
+  describe 'validations' do
+    it 'without user_id doesn\'t validate' do
+      expect_validating(fact_id: 1, type: 'believes', content: 'Hoi!', user_id: \')
+        .to fail_validation('user_id should be an hexadecimal string.')
     end
 
-    it 'without content doesn''t validate' do
-      expect_validating({fact_id: 1, type: 'believes', content: '', user_id: '2a'}).
-        to fail_validation('content should not be empty.')
+    it 'without content doesn\'t validate' do
+      expect_validating(fact_id: 1, type: 'believes', content: '', user_id: '2a')
+        .to fail_validation('content should not be empty.')
     end
 
-    it 'with a invalid fact_data_id doesn''t validate' do
-      expect_validating({fact_id: 'x', type: 'believes', content: 'Hoi!', user_id: '2a'}).
-        to fail_validation('fact_id should be an integer.')
+    it 'with a invalid fact_data_id doesn\'t validate' do
+      expect_validating(fact_id: 'x', type: 'believes', content: 'Hoi!', user_id: '2a')
+        .to fail_validation('fact_id should be an integer.')
     end
 
-    it 'with a invalid type doesn''t validate' do
-      expect_validating({fact_id: 1, type: 'dunno', content: 'Hoi!', user_id: '2a'}).
-        to fail_validation('type should be on of these values: ["believes", "disbelieves", "doubts"].')
+    it 'with a invalid type doesn\'t validate' do
+      expect_validating(fact_id: 1, type: 'dunno', content: 'Hoi!', user_id: '2a')
+        .to fail_validation('type should be on of these values: ["believes", "disbelieves", "doubts"].')
     end
   end
 
