@@ -86,6 +86,6 @@ describe DeadOpinion do
 
   it "should have authorities which add up" do
     expect((opinion1+opinion2).authority).to          eq opinion1.authority + opinion2.authority
-    expect((opinion1+opinion2+opinion3).authority).to eq o1.authority + opinion2.authority + opinion3.authority
+    expect((opinion1+opinion2+opinion3).authority).to eq opinion1.authority + opinion2.authority + opinion3.authority
   end
 end
