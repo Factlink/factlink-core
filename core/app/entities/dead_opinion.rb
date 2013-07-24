@@ -61,8 +61,11 @@ class DeadOpinion
   end
 
   def normalized
-    return DeadOpinion.zero if authority == 0
-    self
+    if authority == 0
+      return DeadOpinion.zero
+    else
+      self
+    end
   end
 
   private
