@@ -6,7 +6,7 @@ describe Commands::Sites::Create do
 
   describe 'validations' do
     it 'requires arguments' do
-      expect_validating('').
+      expect_validating(url: '').
         to fail_validation('url should be a nonempty string.')
     end
   end
@@ -18,7 +18,7 @@ describe Commands::Sites::Create do
 
     it 'creates a site and returns it' do
       url = 'http://jsdares.com'
-      command = Commands::Sites::Create.new url
+      command = described_class.new url: url
       site = mock
 
       Site.should_receive(:create).with(url: url).and_return(site)

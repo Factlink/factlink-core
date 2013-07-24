@@ -27,7 +27,7 @@ describe Commands::Twitter::ShareFactlink do
       Pavlov.should_receive(:old_command)
         .with(:"twitter/post", "\u201c" + "displaystring" + "\u201d" + " sharing_url")
 
-      interactor = described_class.new fact.id
+      interactor = described_class.new fact_id: fact.id
       interactor.call
     end
 
@@ -49,20 +49,15 @@ describe Commands::Twitter::ShareFactlink do
       Pavlov.should_receive(:old_command)
         .with(:"twitter/post", "\u201c" + "12345" + "\u2026" + "\u201d" + " sharing_url")
 
-      interactor = described_class.new fact.id
+      interactor = described_class.new fact_id: fact.id
       interactor.call
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      fact_id = "1"
-
-      described_class.any_instance.should_receive(:validate_integer_string)
-        .with(:fact_id, fact_id)
-
-      interactor = described_class.new fact_id
+  describe 'validations' do
+    it 'requires integer fact_id' do
+      expect_validating(fact_id: '').
+        to fail_validation('fact_id should be an integer string.')
     end
   end
-
 end

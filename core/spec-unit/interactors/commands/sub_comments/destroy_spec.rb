@@ -9,8 +9,8 @@ describe Commands::SubComments::Destroy do
   end
 
   describe '.validate' do
-    it 'without id doesn''t validate' do
-      expect_validating(nil).
+    it 'without id doesn\'t validate' do
+      expect_validating(id: nil).
         to fail_validation('id should be an hexadecimal string.')
     end
   end
@@ -20,7 +20,7 @@ describe Commands::SubComments::Destroy do
     it "should remove the comment" do
       sub_comment = mock id: '1a'
 
-      command = Commands::SubComments::Destroy.new sub_comment.id
+      command = described_class.new id: sub_comment.id
       SubComment.should_receive(:find).with(sub_comment.id)
                 .and_return(sub_comment)
 

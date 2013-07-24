@@ -10,19 +10,15 @@ describe Commands::Opinions::RecalculateFactOpinion do
 
       fact.should_receive(:calculate_opinion).with(1)
 
-      command = described_class.new fact
+      command = described_class.new fact: fact
       result = command.call
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      fact = mock
-
-      described_class.any_instance.should_receive(:validate_not_nil)
-                                  .with(:fact, fact)
-
-      command = described_class.new fact
+  describe 'validation' do
+    it 'without fact_id doesn\'t validate' do
+      expect_validating({fact: nil}).
+        to fail_validation('fact should not be nil.')
     end
   end
 end

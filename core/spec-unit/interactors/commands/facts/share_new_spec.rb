@@ -4,38 +4,24 @@ require_relative '../../../../app/interactors/commands/facts/share_new.rb'
 describe Commands::Facts::ShareNew do
   include PavlovSupport
 
-  describe '#validate' do
-    before do
-      stub_const 'Pavlov::ValidationError', RuntimeError
+  describe 'validation' do
+    it 'without fact_id doesn\'t validate' do
+      expect_validating({fact_id: '' }).
+        to fail_validation('fact_id should be an integer string.')
     end
 
-    it 'calls the correct validation methods' do
-      fact_id = '1'
-      sharing_options = {twitter: true, facebook: true}
-      ability = mock(can?: true)
+    it 'without connected Twitter doesn\'t validate' do
+      hash = {fact_id: '1', sharing_options: { twitter: true } }
 
-      described_class.any_instance.should_receive(:validate_integer_string)
-                                  .with(:fact_id, fact_id)
-
-      command = described_class.new fact_id, sharing_options, ability: ability
+      expect_validating( hash, false )
+        .to fail_validation('no twitter account linked')
     end
 
-    it 'throws an error if no twitter account is linked but wants to post to twitter' do
-      fact_id = '1'
-      sharing_options = {twitter: true, facebook: false}
-      ability = mock(can?: false)
+    it 'without connected Facebook doesn\'t validate' do
+      hash = {fact_id: '1', sharing_options: { facebook: true } }
 
-      expect { described_class.new fact_id, sharing_options, ability: ability }
-        .to raise_error(Pavlov::ValidationError, 'no twitter account linked')
-    end
-
-    it 'throws an error if no facebook account is linked but wants to post to facebook' do
-      fact_id = '1'
-      sharing_options = {twitter: false, facebook: true}
-      ability = mock(can?: false)
-
-      expect { described_class.new fact_id, sharing_options, ability: ability }
-        .to raise_error(Pavlov::ValidationError, 'no facebook account linked')
+      expect_validating( hash, false )
+        .to fail_validation('no facebook account linked')
     end
   end
 
@@ -51,7 +37,8 @@ describe Commands::Facts::ShareNew do
       current_user = mock(id: '123asdf')
 
       pavlov_options = {current_user: current_user, ability: ability}
-      command = described_class.new fact_id, sharing_options, pavlov_options
+      command = described_class.new fact_id: fact_id,
+        sharing_options: sharing_options, pavlov_options: pavlov_options
 
       Resque.should_receive(:enqueue)
             .with(Commands::Twitter::ShareFactlink, fact_id, 'serialize_id' => current_user.id)
@@ -66,7 +53,8 @@ describe Commands::Facts::ShareNew do
       current_user = mock(id: '123asdf')
 
       pavlov_options = {current_user: current_user, ability: ability}
-      command = described_class.new fact_id, sharing_options, pavlov_options
+      command = described_class.new fact_id: fact_id,
+        sharing_options: sharing_options, pavlov_options: pavlov_options
 
       Resque.should_receive(:enqueue)
             .with(Commands::Facebook::ShareFactlink, fact_id, 'serialize_id' => current_user.id)

@@ -10,19 +10,15 @@ describe Commands::Opinions::RecalculateFactRelationUserOpinion do
 
       fact_relation.should_receive(:calculate_user_opinion)
 
-      command = described_class.new fact_relation
+      command = described_class.new fact_relation: fact_relation
       result = command.call
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      fact_relation = mock
-
-      described_class.any_instance.should_receive(:validate_not_nil)
-                                  .with(:fact_relation, fact_relation)
-
-      command = described_class.new fact_relation
+  describe 'validation' do
+    it 'without fact_relation doesn\'t validate' do
+      expect_validating({fact_relation: nil}).
+        to fail_validation('fact_relation should not be nil.')
     end
   end
 end

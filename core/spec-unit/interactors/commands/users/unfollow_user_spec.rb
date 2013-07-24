@@ -19,20 +19,21 @@ describe Commands::Users::UnfollowUser do
       UserFollowingUsers.should_receive(:new).with(graph_user_id).and_return(users_following_users)
       users_following_users.should_receive(:unfollow).with(user_to_unfollow_graph_user_id)
 
-      query = described_class.new graph_user_id, user_to_unfollow_graph_user_id
+      query = described_class.new graph_user_id: graph_user_id,
+        user_to_unfollow_graph_user_id: user_to_unfollow_graph_user_id
       query.execute
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      graph_user_id = mock
-      user_to_unfollow_graph_user_id = mock
+  describe 'validations' do
+    it 'requires valid graph_user_id' do
+      expect_validating(graph_user_id: '', user_to_follow_graph_user_id: '1').
+        to fail_validation('graph_user_id should be an integer string.')
+    end
 
-      described_class.any_instance.should_receive(:validate_integer_string).with(:graph_user_id, graph_user_id)
-      described_class.any_instance.should_receive(:validate_integer_string).with(:user_to_unfollow_graph_user_id, user_to_unfollow_graph_user_id)
-
-      query = described_class.new graph_user_id, user_to_unfollow_graph_user_id
+    it 'requires valid user_to_follow_graph_user_id' do
+      expect_validating(graph_user_id: '12', user_to_follow_graph_user_id: '').
+        to fail_validation('user_to_unfollow_graph_user_id should be an integer string.')
     end
   end
 end

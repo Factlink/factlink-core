@@ -20,20 +20,16 @@ describe Commands::Users::AddHandpickedUser do
       handpicked_tour_users.should_receive(:add)
                            .with(user_id)
 
-      command = described_class.new user_id
+      command = described_class.new user_id: user_id
 
       command.execute
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      user_id = mock
-
-      described_class.any_instance.should_receive(:validate_hexadecimal_string)
-                                  .with(:user_id, user_id)
-
-      command = described_class.new user_id
+  describe 'validations' do
+    it 'requires valid user_id' do
+      expect_validating(fact_id: '').
+        to fail_validation('user_id should be an hexadecimal string.')
     end
   end
 end

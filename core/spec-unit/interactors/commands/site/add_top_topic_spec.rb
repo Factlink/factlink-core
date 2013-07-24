@@ -4,21 +4,14 @@ require_relative '../../../../app/interactors/commands/site/add_top_topic.rb'
 describe Commands::Site::AddTopTopic do
   include PavlovSupport
 
-  describe '.new' do
-    it 'should initialize correctly' do
-      command = Commands::Site::AddTopTopic.new 1, "2e"
-      expect(command).not_to be_nil
-    end
-  end
-
   describe 'validations' do
-    it 'requires arguments' do
-      expect_validating(1, 1).
+    it 'requires topic_slug' do
+      expect_validating(topic_slug: 15, site_id: 1).
         to fail_validation('topic_slug should be a string.')
     end
 
-    it 'requires arguments' do
-      expect_validating('', '11ee').
+    it 'requires site_id' do
+      expect_validating(topic_slug: '', site_id: '11ee').
         to fail_validation('site_id should be an integer.')
     end
   end
@@ -30,7 +23,7 @@ describe Commands::Site::AddTopTopic do
       topic_slug = '12ab34cd'
       redis_helper = mock
 
-      command = Commands::Site::AddTopTopic.new site_id, topic_slug
+      command = described_class.new site_id: site_id, topic_slug: topic_slug
       command.should_receive(:redis).and_return( redis_helper )
 
       key = mock
@@ -46,7 +39,7 @@ describe Commands::Site::AddTopTopic do
       site_id = 6
       topic_slug = '12ab34cd'
 
-      command = Commands::Site::AddTopTopic.new site_id, topic_slug
+      command = described_class.new site_id: site_id, topic_slug: topic_slug
 
       key_mock = mock()
       key_mock.should_receive(:zincrby).with(1, topic_slug)
