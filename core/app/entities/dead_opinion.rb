@@ -34,17 +34,17 @@ DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
   end
 
   def +(other)
-    a = self.a + other.a
-    return DeadOpinion.zero if a == 0
+    authority = self.authority + other.authority
+    return DeadOpinion.zero if authority == 0
 
-    b = (self.b*self.a + other.b*other.a)/a
-    d = (self.d*self.a + other.d*other.a)/a
-    u = (self.u*self.a + other.u*other.a)/a
+    believes    = (self.believes*self.authority + other.believes*other.authority)/authority
+    disbelieves = (self.disbelieves*self.authority + other.disbelieves*other.authority)/authority
+    doubts = (self.doubts*self.authority + other.doubts*other.authority)/authority
 
-    DeadOpinion.new(b, d, u, a)
+    DeadOpinion.new(believes, disbelieves, doubts, authority)
   end
 
   def net_authority
-    a * (b-d)
+    authority * (believes-disbelieves)
   end
 end
