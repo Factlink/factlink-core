@@ -17,10 +17,6 @@ DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
       self.doubts == other.doubts
   end
 
-  def self.zero
-    DeadOpinion.new(0, 0, 1, 0)
-  end
-
   # inefficient, but allows for quickly changing the + def
   def self.combine(list)
     list.reduce(DeadOpinion.zero, :+)
