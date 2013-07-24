@@ -27,28 +27,4 @@ class Basefact < OurOhm
   def remove_opinions(user)
     remove_opinionateds(user)
   end
-
-  # TODO: use separate redis stores instead of using references inside the models
-  def insert_or_update_dead_opinion(opinion_name, new_dead_opinion)
-    original_opinion = opinion_by_name(opinion_name)
-    if original_opinion
-      original_opinion.take_values_from_dead_opinion new_dead_opinion
-    else
-      new_opinion = Opinion.new
-      new_opinion.take_values_from_dead_opinion new_dead_opinion
-      send "#{opinion_name}=", new_opinion
-      save
-    end
-  end
-
-  # TODO: use separate redis stores instead of using references inside the models
-  def get_dead_opinion(opinion_name)
-    DeadOpinion.from_opinion(opinion_by_name(opinion_name))
-  end
-
-  private
-
-  def opinion_by_name(opinion_name)
-    send(opinion_name)
-  end
 end
