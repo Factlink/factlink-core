@@ -28,7 +28,7 @@ class OpinionPresenter
       doubt:      { percentage: l_doubts_percentage  },
       # TODO this logic should go elsewhere, but only after letting the update_opinion and
       #     remove opinion build proper json (instead of fact.to_json)
-      authority: format(@opinion.a)
+      authority: format(@opinion.authority)
     }
   end
 
