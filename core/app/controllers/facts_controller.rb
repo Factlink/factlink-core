@@ -67,7 +67,9 @@ class FactsController < ApplicationController
     @site = @fact.site
 
     respond_to do |format|
-      mp_track "Factlink: Created"
+      mp_track "Factlink: Created",
+        opinion: params[:opinion],
+        channels: params[:channels]
 
       #TODO switch the following two if blocks if possible
       if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
