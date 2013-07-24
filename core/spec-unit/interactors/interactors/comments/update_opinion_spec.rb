@@ -7,23 +7,24 @@ describe Interactors::Comments::UpdateOpinion do
 
   it 'initializes correctly' do
     user = mock()
-    interactor = Interactors::Comments::UpdateOpinion.new '1', 'believes', current_user: user
+    interactor = described_class.new comment_id: '1', opinion: 'believes',
+      pavlov_options: { current_user: user }
     interactor.should_not be_nil
   end
 
   it 'without current user gives an unauthorized exception' do
-    expect { Interactors::Comments::UpdateOpinion.new '1', 'believes'}.
-      to raise_error(Pavlov::AccessDenied, 'Unauthorized')
+    expect_validating( comment_id: '1', opinion: 'believes' )
+      .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
-  it 'with a invalid comment_id doesn''t validate' do
-    expect { Interactors::Comments::UpdateOpinion.new 'g', 'believes'}.
-      to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
+  it 'with a invalid comment_id doesn\'t validate' do
+    expect_validating( comment_id: 'g', opinion: 'believes' )
+      .to fail_validation 'comment_id should be an hexadecimal string.'
   end
 
-  it 'with a invalid opinion doesn''t validate' do
-    expect { Interactors::Comments::UpdateOpinion.new '1', 'dunno'}.
-      to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].')
+  it 'with a invalid opinion doesn\'t validate' do
+    expect_validating( comment_id: '1', opinion: 'dunno')
+      .to fail_validation 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].'
   end
 
   describe '.call' do
@@ -39,10 +40,13 @@ describe Interactors::Comments::UpdateOpinion do
 
       mock_comment = mock
 
-      interactor = Interactors::Comments::UpdateOpinion.new comment.id, opinion, current_user: user
+      interactor = described_class.new comment_id: comment.id, opinion: opinion,
+        pavlov_options: { current_user: user }
 
-      interactor.should_receive(:old_command).with('comments/set_opinion', comment.id, opinion, user.graph_user)
-      interactor.should_receive(:old_query).with(:'comments/get', comment.id).and_return(mock_comment)
+      interactor.should_receive(:old_command).with('comments/set_opinion',
+          comment_id: comment.id, opinion: opinion, graph_user: user.graph_user)
+      interactor.should_receive(:old_query).with(:'comments/get', comment.id)
+        .and_return(mock_comment)
 
       expect(interactor.call).to eq mock_comment
     end
@@ -54,9 +58,11 @@ describe Interactors::Comments::UpdateOpinion do
 
       mock_comment = mock
 
-      interactor = Interactors::Comments::UpdateOpinion.new comment.id, nil, current_user: user
+      interactor = described_class.new comment_id: comment.id, opinion: nil,
+        pavlov_options: { current_user: user }
 
-      interactor.should_receive(:old_command).with('comments/remove_opinion', comment.id, user.graph_user)
+      interactor.should_receive(:old_command).with('comments/remove_opinion',
+        comment_id: comment.id, graph_user: user.graph_user)
       interactor.should_receive(:old_query).with(:'comments/get', comment.id).and_return(mock_comment)
 
       expect(interactor.call).to eq mock_comment

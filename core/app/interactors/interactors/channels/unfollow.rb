@@ -16,7 +16,7 @@ module Interactors
       end
 
       def following_channels
-        channel_ids = old_query :containing_channel_ids_for_channel_and_user, channel.id, @options[:current_user].graph_user_id
+        channel_ids = old_query :containing_channel_ids_for_channel_and_user, channel.id, pavlov_options[:current_user].graph_user_id
 
         channel_ids.map {|id| old_query :'channels/get', id}
       end
@@ -27,7 +27,7 @@ module Interactors
 
       def authorized?
          # this is no stub, every user can unfollow another channel
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
 
     end

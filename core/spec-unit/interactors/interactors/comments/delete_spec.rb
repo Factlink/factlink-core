@@ -4,37 +4,24 @@ require_relative '../../../../app/interactors/interactors/comments/delete.rb'
 describe Interactors::Comments::Delete do
   include PavlovSupport
 
-  it 'initializes correctly' do
-    user = mock()
-    interactor = Interactors::Comments::Delete.new '1', current_user: user
-    interactor.should_not be_nil
-  end
+  describe 'validations' do
+    it 'requires a valid comment_id' do
+      expect_validating( comment_id: 'g6')
+        .to fail_validation 'comment_id should be an hexadecimal string.'
+    end
 
-  it 'when supplied invalid comment_id doesn''t validate' do
-    user = mock()
-    expect { Interactors::Comments::Delete.new 'g6', current_user: user }.
-      to raise_error( Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
-  end
-
-  it 'when not supplied with a user doesn''t authorize' do
-    expect { Interactors::Comments::Delete.new 'a'}.
-      to raise_error( Pavlov::AccessDenied, 'Unauthorized')
+    it 'requires an authorized user' do
+      expect_validating( comment_id: 'a', pavlov_options: { current_user: nil })
+        .to raise_error( Pavlov::AccessDenied, 'Unauthorized')
+    end
   end
 
   describe '.call' do
     it 'correctly' do
       comment_id = 'a12f'
       user = mock(id: 1)
-      interactor = Interactors::Comments::Delete.new comment_id, current_user: user
-      interactor.should_receive(:old_command).with(:delete_comment, comment_id, user.id.to_s)
-
-      interactor.call
-    end
-
-    it 'correctly' do
-      comment_id = 'a12f'
-      user = mock(id: 1)
-      interactor = Interactors::Comments::Delete.new comment_id, current_user: user
+      interactor = described_class.new comment_id: comment_id,
+        pavlov_options: { current_user: user }
       interactor.should_receive(:old_command).with(:delete_comment, comment_id, user.id.to_s)
 
       interactor.call

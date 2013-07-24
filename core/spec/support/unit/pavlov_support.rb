@@ -10,7 +10,7 @@ module PavlovSupport
   def expect_validating hash, ability_can=true
     hash[:pavlov_options] ||= {}
     hash[:pavlov_options][:ability] = mock(can?: ability_can)
-    expect {described_class.new(hash).call}
+    expect { described_class.new(hash).call }
   end
 
   def fail_validation message

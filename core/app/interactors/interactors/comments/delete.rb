@@ -8,15 +8,15 @@ module Interactors
       arguments :comment_id
 
       def execute
-        old_command :delete_comment, @comment_id, @options[:current_user].id.to_s
+        old_command :delete_comment, comment_id, pavlov_options[:current_user].id.to_s
       end
 
       def validate
-        validate_hexadecimal_string :comment_id, @comment_id
+        validate_hexadecimal_string :comment_id, comment_id
       end
 
       def authorized?
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
     end
   end

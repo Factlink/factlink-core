@@ -19,7 +19,7 @@ module Interactors
       end
 
       def current_graph_user_id
-        @options[:current_user].graph_user_id
+        pavlov_options[:current_user].graph_user_id
       end
 
       def channel
@@ -28,7 +28,7 @@ module Interactors
 
       def authorized?
          # this is no stub, every user can follow another channel
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
     end
   end

@@ -9,9 +9,9 @@ module Interactors
 
       def execute
         comment = old_command :create_comment, @fact_id, @type,
-          @content, @options[:current_user].id.to_s
+          @content, pavlov_options[:current_user].id.to_s
 
-        old_command :'comments/set_opinion', comment.id.to_s, 'believes', @options[:current_user].graph_user
+        old_command :'comments/set_opinion', comment.id.to_s, 'believes', pavlov_options[:current_user].graph_user
 
         create_activity comment
 
@@ -33,12 +33,12 @@ module Interactors
       def create_activity comment
         # TODO fix this ugly data access shit, need to think about where to kill objects, etc
         old_command :create_activity,
-          @options[:current_user].graph_user, :created_comment,
+          pavlov_options[:current_user].graph_user, :created_comment,
           Comment.find(comment.id), comment.fact_data.fact
       end
 
       def authorized?
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
 
       def validate
