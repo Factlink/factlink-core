@@ -90,6 +90,8 @@ class Opinion < OurOhm
   end
 
   def ==(other)
+    raise 'Can only compare with other Opinion' unless other.class == Opinion
+
     self.a == other.a and
       self.b == other.b and
       self.d == other.d and
