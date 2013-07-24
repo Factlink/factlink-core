@@ -1,1 +1,2 @@
-rename-mixpanel-event
+- Renamed conversation_created and reply_created to normal event names
+- Added properties of fact_id and receiptments for those events
