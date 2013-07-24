@@ -1,9 +1,9 @@
 require_relative '../../app/entities/dead_opinion.rb'
 
 describe DeadOpinion do
-  let(:o1) { DeadOpinion.new(2,3,5,7) }
-  let(:o2) { DeadOpinion.new(11,13,19,23) }
-  let(:o3) { DeadOpinion.new(29,31,37,41) }
+  let(:opinion1) { DeadOpinion.new(2,3,5,7) }
+  let(:opinion2) { DeadOpinion.new(11,13,19,23) }
+  let(:opinion3) { DeadOpinion.new(29,31,37,41) }
 
   describe ".new" do
     subject {DeadOpinion.new(1,1.4,1.5,1.6)}
@@ -36,12 +36,12 @@ describe DeadOpinion do
   end
 
   it "should be unequal to an opinion with different numbers" do
-    a = DeadOpinion.new(1,1,1,1)
+    opinion = DeadOpinion.new(1,1,1,1)
 
-    expect(a).to_not eq DeadOpinion.new(2,1,1,1)
-    expect(a).to_not eq DeadOpinion.new(1,2,1,1)
-    expect(a).to_not eq DeadOpinion.new(1,2,1,1)
-    expect(a).to_not eq DeadOpinion.new(1,2,1,1)
+    expect(opinion).to_not eq DeadOpinion.new(2,1,1,1)
+    expect(opinion).to_not eq DeadOpinion.new(1,2,1,1)
+    expect(opinion).to_not eq DeadOpinion.new(1,2,1,1)
+    expect(opinion).to_not eq DeadOpinion.new(1,2,1,1)
   end
 
   it "should have the proper values when retrieved with for_type without explicit authority" do
@@ -57,10 +57,10 @@ describe DeadOpinion do
   end
 
   it "should result in the same opinion when you sum it with an opinion with 0 authority" do
-    a    = DeadOpinion.new(1,2,3,1)
-    zero = DeadOpinion.new(1000,1000,1000,0)
+    opinion = DeadOpinion.new(1,2,3,1)
+    zero    = DeadOpinion.new(1000,1000,1000,0)
 
-    expect(a).to eq a+zero
+    expect(opinion).to eq opinion+zero
   end
 
   it "should have a + which does not crash when adding opinions with 0 authority" do
@@ -68,24 +68,24 @@ describe DeadOpinion do
   end
 
   it "should have a commutative + operation" do
-    expect((o1+o2)).to eq (o2+o1)
-    expect((o2+o3)).to eq (o3+o2)
-    expect((o1+o3)).to eq (o3+o1)
+    expect((opinion1+opinion2)).to eq (opinion2+opinion1)
+    expect((opinion2+opinion3)).to eq (opinion3+opinion2)
+    expect((opinion1+opinion3)).to eq (opinion3+opinion1)
   end
 
   it "should have an associative + operation" do
-    expect(((o1+o2)+o3)).to eq (o1+(o2+o3))
+    expect(((opinion1+opinion2)+opinion3)).to eq (opinion1+(opinion2+opinion3))
   end
 
   it "should have a combine operation which does the same as the + operation" do
-    expect(DeadOpinion.combine([])).to         eq DeadOpinion.zero
-    expect(DeadOpinion.combine([o1])).to       eq o1
-    expect(DeadOpinion.combine([o1,o2])).to    eq o1+o2
-    expect(DeadOpinion.combine([o1,o2,o3])).to eq o1+o2+o3
+    expect(DeadOpinion.combine([])).to                           eq DeadOpinion.zero
+    expect(DeadOpinion.combine([opinion1])).to                   eq opinion1
+    expect(DeadOpinion.combine([opinion1,opinion2])).to          eq opinion1+opinion2
+    expect(DeadOpinion.combine([opinion1,opinion2,opinion3])).to eq opinion1+opinion2+opinion3
   end
 
   it "should have authorities which add up" do
-    expect((o1+o2).authority).to    eq o1.authority + o2.authority
-    expect((o1+o2+o3).authority).to eq o1.authority + o2.authority + o3.authority
+    expect((opinion1+opinion2).authority).to          eq opinion1.authority + opinion2.authority
+    expect((opinion1+opinion2+opinion3).authority).to eq o1.authority + opinion2.authority + opinion3.authority
   end
 end

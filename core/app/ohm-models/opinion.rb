@@ -1,3 +1,4 @@
+# TODO: remove this entire class when moving to DeadOpinion completely
 class Opinion < OurOhm
   # naming conventions as in the document describing the calculations
   # b = belief

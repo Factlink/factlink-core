@@ -43,6 +43,7 @@ class Basefact < OurOhm
     end
   end
 
+  # TODO: use separate redis stores instead of using references inside the models
   def get_dead_opinion(opinion_name)
     DeadOpinion.from_opinion(send(opinion_name))
   end

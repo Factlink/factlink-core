@@ -1,5 +1,4 @@
 class DeadOpinion
-
   attr_reader :believes, :disbelieves, :doubts, :authority
 
   def initialize(believes, disbelieves, doubts, authority=0.0)
@@ -71,5 +70,4 @@ class DeadOpinion
 
     (self_value*self.authority + other_value*other.authority)/total_authority
   end
-
 end

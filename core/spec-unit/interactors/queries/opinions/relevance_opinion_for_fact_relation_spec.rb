@@ -13,11 +13,11 @@ describe Queries::Opinions::RelevanceOpinionForFactRelation do
       dead_opinion = mock
       fact_relation = mock
       base_fact_calculation = mock get_user_opinion: dead_opinion
+      query = described_class.new fact_relation
 
       Opinion::BaseFactCalculation.stub(:new).with(fact_relation)
         .and_return(base_fact_calculation)
 
-      query = described_class.new fact_relation
       result = query.call
 
       expect(result).to eq dead_opinion

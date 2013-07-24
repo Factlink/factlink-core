@@ -21,7 +21,7 @@ describe Queries::Opinions::UserOpinionForComment do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it "returns the dead opinion the calculator calculates" do
       dead_opinion = mock
       calculator = mock(:calculator, opinion: dead_opinion)
