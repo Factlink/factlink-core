@@ -33,8 +33,6 @@ class DeadOpinion
 
   # TODO: fix this for authority=0
   def ==(other)
-    raise 'Can only compare with other DeadOpinion' unless other.class == DeadOpinion
-
     self.authority == other.authority and
       self.believes == other.believes and
       self.disbelieves == other.disbelieves and
