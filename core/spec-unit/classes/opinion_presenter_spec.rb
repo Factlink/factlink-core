@@ -35,19 +35,6 @@ describe OpinionPresenter do
     end
   end
 
-  describe '#format' do
-    it 'uses NumberFormatter.as_authority and returns that value' do
-      number = mock
-      number_formatter = mock as_authority: mock
-
-      op = OpinionPresenter.new mock
-
-      NumberFormatter.stub(:new).with(number).and_return(number_formatter)
-
-      expect(op.format number).to eq number_formatter.as_authority
-    end
-  end
-
   describe '#authority' do
     it 'Multiplies the value of opinion.type with the authority' do
       opinion = mock believes: 2, authority: 3

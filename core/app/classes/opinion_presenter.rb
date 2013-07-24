@@ -11,10 +11,6 @@ class OpinionPresenter
     @opinion.send(type) * @opinion.authority
   end
 
-  def format number
-    NumberFormatter.new(number).as_authority
-  end
-
   def as_percentages_hash
     total = @opinion.believes + @opinion.disbelieves + @opinion.doubts
 
@@ -33,6 +29,10 @@ class OpinionPresenter
   end
 
   private
+
+  def format number
+    NumberFormatter.new(number).as_authority
+  end
 
   def calc_percentage(total, part)
     if total > 0
