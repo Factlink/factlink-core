@@ -8,7 +8,7 @@ class Opinion < OurOhm
     end
 
     def get_evidence_opinion
-      DeadOpinion.from_opinion(fact.evidence_opinion || Opinion.zero)
+      fact.get_dead_opinion :evidence_opinion
     end
 
     def calculate_evidence_opinion
@@ -19,7 +19,7 @@ class Opinion < OurOhm
     end
 
     def get_opinion
-      DeadOpinion.from_opinion(fact.opinion || Opinion.zero)
+      fact.get_dead_opinion :opinion
     end
 
     def calculate_opinion

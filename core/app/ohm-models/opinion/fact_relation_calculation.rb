@@ -8,7 +8,7 @@ class Opinion < OurOhm
     end
 
     def get_influencing_opinion
-      DeadOpinion.from_opinion(fact_relation.influencing_opinion || Opinion.zero)
+      fact_relation.get_dead_opinion :influencing_opinion
     end
 
     def calculate_influencing_opinion

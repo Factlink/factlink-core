@@ -8,7 +8,7 @@ class Opinion < OurOhm
     end
 
     def get_user_opinion
-      DeadOpinion.from_opinion(base_fact.user_opinion || Opinion.zero)
+      base_fact.get_dead_opinion :user_opinion
     end
 
     def calculate_user_opinion

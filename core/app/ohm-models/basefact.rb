@@ -37,6 +37,10 @@ class Basefact < OurOhm
     insert_or_update_opinion opinion_name, new_opinion
   end
 
+  def get_dead_opinion(opinion_name)
+    DeadOpinion.from_opinion(send(opinion_name) || Opinion.zero)
+  end
+
   private
 
   def insert_or_update_opinion(opinion_name, new_opinion)
