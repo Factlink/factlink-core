@@ -6,6 +6,7 @@ module Queries
     include Pavlov::Query
 
     arguments :id
+
     def execute
       conversation = old_query :conversation_get, @id
       return nil unless conversation

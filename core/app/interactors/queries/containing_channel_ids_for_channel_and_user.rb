@@ -28,5 +28,4 @@ module Queries
       @channel ||= Channel[@channel_id]
     end
   end
-
 end

@@ -16,17 +16,17 @@ describe Queries::Evidence::ForFactId do
 
   describe '#validate' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a', :weakening)
+      expect_validating(fact_id: 'a', type: :weakening)
         .to fail_validation('fact_id should be an integer string.')
     end
 
     it 'requires fact_id not to be nil' do
-      expect_validating(nil, :weakening)
+      expect_validating(fact_id: nil, type: :weakening)
         .to fail_validation('fact_id should be an integer string.')
     end
 
     it 'requires type be :weakening or :supporting' do
-      expect_validating('1', :bla)
+      expect_validating(fact_id: '1', type: :bla)
         .to fail_validation('type should be on of these values: [:weakening, :supporting].')
     end
   end
@@ -51,6 +51,8 @@ describe Queries::Evidence::ForFactId do
 
       type = :weakening
       pavlov_options = { current_user: mock }
+      interactor = described_class.new fact_id: '1', type: type,
+        pavlov_options: pavlov_options
 
       Fact.stub(:[])
           .with(fact.id)
@@ -61,8 +63,6 @@ describe Queries::Evidence::ForFactId do
       Pavlov.stub(:old_query)
             .with(:'comments/for_fact', fact, type, pavlov_options)
             .and_return [comment1, comment2]
-
-      interactor = described_class.new '1', type, pavlov_options
 
       result = interactor.call
 

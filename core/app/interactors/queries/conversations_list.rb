@@ -1,4 +1,5 @@
 require 'pavlov'
+require 'andand'
 
 module Queries
   class ConversationsList

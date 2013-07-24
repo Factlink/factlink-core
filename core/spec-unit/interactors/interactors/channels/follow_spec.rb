@@ -50,7 +50,7 @@ describe Interactors::Channels::Follow do
 
         interactor = Interactors::Channels::Follow.new(channel.id, options)
 
-        interactor.stub(:query).with(:'channels/get',channel.id).and_return(channel)
+        interactor.stub(:old_query).with(:'channels/get',channel.id).and_return(channel)
 
         interactor.should_receive(:old_command).once
                   .with(:'channels/follow', channel)

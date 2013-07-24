@@ -10,8 +10,8 @@ module Queries
       private
 
       def validate
-        validate_integer_string :fact_id, @fact_id
-        validate_in_set         :type,    @type, [:weakening, :supporting]
+        validate_integer_string :fact_id, fact_id
+        validate_in_set         :type,    type, [:weakening, :supporting]
       end
 
       def execute
@@ -28,12 +28,13 @@ module Queries
 
       def sort result
         result.sort do |a,b|
-          OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
+          OpinionPresenter.new(b.opinion).relevance <=>
+            OpinionPresenter.new(a.opinion).relevance
         end
       end
 
       def fact
-        @fact ||= Fact[@fact_id]
+        @fact ||= Fact[fact_id]
       end
     end
   end

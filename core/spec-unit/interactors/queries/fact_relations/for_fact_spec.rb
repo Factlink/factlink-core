@@ -22,7 +22,8 @@ describe Queries::FactRelations::ForFact do
       fact.stub(:evidence).with(type).and_return([fact_relation])
       pavlov_options = { current_user: user }
 
-      interactor = described_class.new fact, :supporting, pavlov_options
+      query = described_class.new fact: fact, type: :supporting,
+        pavlov_options: pavlov_options
 
       Pavlov.stub(:old_query)
             .with(:'sub_comments/count',fact_relation.id, fact_relation.class, pavlov_options)
@@ -40,7 +41,7 @@ describe Queries::FactRelations::ForFact do
                       evidence_class: 'FactRelation')
                 .and_return(dead_fact_relation)
 
-      result = interactor.call
+      result = query.call
 
       expect(result).to eq [dead_fact_relation]
     end
@@ -54,7 +55,7 @@ describe Queries::FactRelations::ForFact do
       dead_fact_relation = mock
       sub_comments_count = 2
 
-      interactor = described_class.new fact, type
+      query = described_class.new fact: fact, type: type
 
       Pavlov.stub(:old_query)
             .with(:'sub_comments/count',fact_relation.id, fact_relation.class)
@@ -71,7 +72,7 @@ describe Queries::FactRelations::ForFact do
                       evidence_class: 'FactRelation')
                 .and_return(dead_fact_relation)
 
-      result = interactor.call
+      result = query.call
 
       expect(result).to eq [dead_fact_relation]
     end

@@ -35,7 +35,7 @@ describe Interactors::Topics::Favourites do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      described_class.any_instance.stub(:query).
+      described_class.any_instance.stub(:old_query).
         with(:user_by_username, 'username').
         and_return(user)
 
@@ -52,7 +52,7 @@ describe Interactors::Topics::Favourites do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      described_class.any_instance.stub(:query).
+      described_class.any_instance.stub(:old_query).
         with(:user_by_username, 'username').
         and_return(user)
 

@@ -36,7 +36,7 @@ module Queries
       end
 
       def current_user
-        @options[:current_user] || AnonymousUser.new
+        pavlov_options[:current_user] || AnonymousUser.new
       end
 
       def validate

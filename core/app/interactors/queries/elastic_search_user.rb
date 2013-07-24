@@ -1,4 +1,4 @@
-require_relative "elastic_search.rb"
+require_relative "elastic_search"
 
 module Queries
   class ElasticSearchUser < Queries::ElasticSearch

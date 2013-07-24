@@ -23,7 +23,7 @@ describe Interactors::Topics::Unfavourite do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      described_class.any_instance.stub(:query).
+      described_class.any_instance.stub(:old_query).
         with(:user_by_username, 'username').
         and_return(user)
 
@@ -40,7 +40,7 @@ describe Interactors::Topics::Unfavourite do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      described_class.any_instance.stub(:query).
+      described_class.any_instance.stub(:old_query).
         with(:user_by_username, 'username').
         and_return(user)
 
@@ -60,10 +60,10 @@ describe Interactors::Topics::Unfavourite do
       user = mock(graph_user_id: mock)
       topic = mock(id: mock)
 
-      interactor.stub(:query)
+      interactor.stub(:old_query)
         .with(:'user_by_username', user_name)
         .and_return(user)
-      interactor.stub(:query)
+      interactor.stub(:old_query)
         .with(:'topics/by_slug_title', slug_title)
         .and_return(topic)
       interactor.should_receive(:old_command)
