@@ -38,7 +38,7 @@ class Basefact < OurOhm
   end
 
   def get_dead_opinion(opinion_name)
-    DeadOpinion.from_opinion(send(opinion_name) || Opinion.zero)
+    DeadOpinion.from_opinion(send(opinion_name))
   end
 
   private

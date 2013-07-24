@@ -1,5 +1,7 @@
 DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
   def self.from_opinion(opinion)
+    return DeadOpinion.zero unless opinion
+
     DeadOpinion.new opinion.believes, opinion.disbelieves, opinion.doubts, opinion.authority
   end
 
