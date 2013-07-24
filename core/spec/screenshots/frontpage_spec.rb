@@ -1,8 +1,14 @@
 require 'screenshot_helper'
 
-describe "Compare screens", type: :request do
-  it "should render the frontpage as expected" do
+describe "Homepage rendering", type: :request do
+  it "with sign-in open as expected" do
     visit "/?show_sign_in=true"
     assume_unchanged_screenshot "homepage"
+  end
+  it "with empty submit and open feedback as expected" do
+    visit "/"
+    find('input[value="Reserve my username"]').click
+    find('a', text: 'Feedback').click
+    assume_unchanged_screenshot "homepage_with_feedback"
   end
 end
