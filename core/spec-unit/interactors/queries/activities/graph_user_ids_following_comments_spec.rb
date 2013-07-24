@@ -20,17 +20,15 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
              believable: stub(opinionated_users_ids: 3)
           )
       ]
-
       sub_comments = [
         mock( created_by: mock( graph_user_id: 3 )),
         mock( created_by: mock( graph_user_id: 4 ))
       ]
+      query = described_class.new comments: comments
 
       Pavlov.stub(:old_query)
             .with(:'sub_comments/index', comments.map(&:id), 'Comment')
             .and_return(sub_comments)
-
-      query = described_class.new comments
 
       expect(query.call).to eq [1, 2, 3, 4]
     end

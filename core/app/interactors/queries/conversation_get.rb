@@ -1,5 +1,6 @@
 require 'pavlov'
 require 'andand'
+require_relative '../kill_object'
 
 module Queries
   class ConversationGet
@@ -8,11 +9,11 @@ module Queries
     arguments :id
 
     def validate
-      validate_hexadecimal_string :id, @id.to_s
+      validate_hexadecimal_string :id, id.to_s
     end
 
     def execute
-      conversation = Conversation.find(@id)
+      conversation = Conversation.find(id)
       return nil unless conversation
       raise_unauthorized unless authorized_to_get(conversation)
 
@@ -23,11 +24,11 @@ module Queries
 
     def authorized?
       # postpone check until we retrieved conversation, only require an initiating user
-      @options[:current_user]
+      pavlov_options[:current_user]
     end
 
     def authorized_to_get(conversation)
-      conversation.recipient_ids.include? @options[:current_user].id
+      conversation.recipient_ids.include? pavlov_options[:current_user].id
     end
   end
 end

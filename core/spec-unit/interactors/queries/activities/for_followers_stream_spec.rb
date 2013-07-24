@@ -13,8 +13,8 @@ describe Queries::Activities::ForFollowersStream do
       activities = [mock, mock, mock]
       filtered_activities = [activities[0], activities[2]]
       listener = mock
+      query = described_class.new(graph_user_id: graph_user_id)
 
-      query = described_class.new graph_user_id
       query.stub recent_activities: activities
 
       Activity::Listener::Stream.should_receive(:new)
@@ -39,7 +39,7 @@ describe Queries::Activities::ForFollowersStream do
       graph_user_id = 3
       activity_ids = mock
       activity_set = mock
-      query = described_class.new graph_user_id
+      query = described_class.new(graph_user_id: graph_user_id)
 
       Activity.stub(:find)
               .with({user_id: graph_user_id})
@@ -51,5 +51,4 @@ describe Queries::Activities::ForFollowersStream do
       expect(query.recent_activities).to eq activity_ids
     end
   end
-
 end

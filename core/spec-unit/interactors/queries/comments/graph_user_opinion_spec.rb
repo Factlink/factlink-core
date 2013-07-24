@@ -7,26 +7,26 @@ describe Queries::Comments::GraphUserOpinion do
     stub_classes 'OpinionType', 'Believable::Commentje'
   end
 
-  describe '.call' do
-    it "retrieves the current opinion for the graphuser" do
+  describe '#call' do
+    it 'retrieves the current opinion for the graphuser' do
       id = 'a1'
-      graph_user = mock
-      op1, op2 = mock, mock
+      graph_user = double
+      op1, op2 = double, double
+      query = described_class.new comment_id: id, graph_user: graph_user
 
-      query = Queries::Comments::GraphUserOpinion.new id, graph_user
       query.stub possible_opinions: [op1, op2]
       query.stub!(:has_opinion?) {|type| type == op2}
+
       expect(query.call).to eq op2
     end
   end
 
-  describe '.possible_opinions' do
-    it "should use Opinion.types" do
+  describe '#possible_opinions' do
+    it 'should use Opinion.types' do
       id = 'a1'
-      graph_user = mock
-      types = mock
-
-      query = Queries::Comments::GraphUserOpinion.new id, graph_user
+      graph_user = double
+      types = double
+      query = described_class.new comment_id: id, graph_user: graph_user
 
       OpinionType.stub types: types
 
@@ -34,16 +34,16 @@ describe Queries::Comments::GraphUserOpinion do
     end
   end
 
-  describe '.has_opinion?' do
-    it "should ask the people with this opinion if they include the graph_user" do
+  describe '#has_opinion?' do
+    it 'should ask the people with this opinion if they include the graph_user' do
       id = 'a1'
-      graph_user = mock
+      graph_user = double
 
-      query = Queries::Comments::GraphUserOpinion.new id, graph_user
+      query = described_class.new comment_id: id, graph_user: graph_user
 
-      opinion = mock
-      opiniated = mock
-      answer = mock
+      opinion = double
+      opiniated = double
+      answer = double
 
       query.should_receive(:people_who_believe).with(opinion)
            .and_return(opiniated)
@@ -57,12 +57,12 @@ describe Queries::Comments::GraphUserOpinion do
   describe '.people_who_believe' do
     it "should retrieve the people who believe something from believable" do
       id = 'a1'
-      graph_user = mock
-      believable = mock
-      opinion = mock
-      answer = mock
+      graph_user = double
+      believable = double
+      opinion = double
+      answer = double
 
-      query = Queries::Comments::GraphUserOpinion.new id, graph_user
+      query = described_class.new comment_id: id, graph_user: graph_user
       query.stub believable: believable
       believable.should_receive(:opiniated).with(opinion)
                 .and_return(answer)
@@ -71,13 +71,12 @@ describe Queries::Comments::GraphUserOpinion do
     end
   end
 
-  describe '.believable' do
-
-    it "retrieves a cached Believable object for the comment" do
+  describe '#believable' do
+    it 'retrieves a cached Believable object for the comment' do
       id = 'a1'
-      graph_user = mock
-      query = Queries::Comments::GraphUserOpinion.new id, graph_user
-      believable = mock
+      graph_user = double
+      query = described_class.new comment_id: id, graph_user: graph_user
+      believable = double
 
       Believable::Commentje.should_receive(:new).once
          .with(id).and_return(believable)
