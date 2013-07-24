@@ -8,7 +8,8 @@ module Interactors
 
     def execute
       recipients.each do |user|
-        Resque.enqueue Commands::SendActivityMailToUser, user.id, @activity.id, @options
+        Resque.enqueue Commands::SendActivityMailToUser, user.id, @activity.id,
+          pavlov_options
       end
     end
 
@@ -17,12 +18,13 @@ module Interactors
     end
 
     def users_by_graph_user_ids
-      graph_user_ids = old_query :object_ids_by_activity, @activity, "GraphUser", :notifications
+      graph_user_ids = old_query :object_ids_by_activity, @activity,
+        "GraphUser", :notifications
       return old_query :users_by_graph_user_ids, graph_user_ids
     end
 
     def authorized?
-      @options[:current_user]
+      pavlov_options[:current_user]
     end
   end
 end
