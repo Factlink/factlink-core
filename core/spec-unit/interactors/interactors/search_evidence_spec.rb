@@ -12,40 +12,47 @@ describe Interactors::SearchEvidence do
   end
 
   it 'initializes' do
-    interactor = Interactors::SearchEvidence.new 'zoeken interessante dingen', '1', ability: relaxed_ability
+    interactor = described_class.new keywords: 'zoeken interessante dingen',
+      fact_id: '1', pavlov_options: { ability: relaxed_ability }
     interactor.should_not be_nil
   end
 
   it 'raises when initialized with keywords that is not a string' do
-    expect { interactor = Interactors::SearchEvidence.new nil, '1' }.
+    interactor = described_class.new keywords: nil, fact_id: '1'
+    expect { interactor.call }.
       to raise_error(RuntimeError,'Keywords should be an string.')
   end
 
   it 'raises when initialized with a fact_id that is not a string' do
-    expect { interactor = Interactors::SearchEvidence.new 'key words', nil }.
+    interactor = described_class.new keywords: 'key words', fact_id: nil
+    expect { interactor.call }.
       to raise_error(RuntimeError, 'Fact_id should be an number.')
   end
 
   describe '.initialize' do
     it 'raises when executed without any permission' do
       ability = stub(:ability, can?: false)
-      expect do
-        Interactors::SearchEvidence.new 'zoeken interessante dingen', '1', ability: ability
-      end.to raise_error(Pavlov::AccessDenied)
+
+      interactor = described_class.new keywords: 'zoeken interessante dingen',
+          fact_id: '1', pavlov_options: { ability: ability }
+      expect { interactor.call }
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
 
   describe '.call' do
     it 'returns a empty array when the keyword string is empty' do
       keywords = 'zoeken interessante dingen'
-      interactor = Interactors::SearchEvidence.new '', '1', ability: relaxed_ability
+      interactor = described_class.new keywords: '', fact_id: '1',
+        pavlov_options: { ability: relaxed_ability }
 
       interactor.call.should eq []
     end
 
     it 'shouldn''t return itself' do
       keywords = 'zoeken interessante dingen'
-      interactor = Interactors::SearchEvidence.new keywords, '2', ability: relaxed_ability
+      interactor = described_class.new keywords: keywords, fact_id: '2',
+        pavlov_options: { ability: relaxed_ability }
 
       result = [get_fact_data('2')]
       query = mock()
@@ -64,7 +71,8 @@ describe Interactors::SearchEvidence do
 
     it 'correctly' do
       keywords = 'zoeken interessante dingen'
-      interactor = Interactors::SearchEvidence.new keywords, '1', ability: relaxed_ability
+      interactor = described_class.new keywords: keywords, fact_id: '1',
+        pavlov_options: { ability: relaxed_ability }
 
       result = [get_fact_data('2')]
       query = mock()
@@ -83,7 +91,8 @@ describe Interactors::SearchEvidence do
 
     it 'shouldn''t return invalid results' do
       keywords = 'zoeken interessante dingen'
-      interactor = Interactors::SearchEvidence.new keywords, '1', ability: relaxed_ability
+      interactor = described_class.new keywords: keywords, fact_id: '1',
+        pavlov_options: { ability: relaxed_ability }
       fact_data = get_fact_data '2'
       fact_data2 = get_fact_data '3'
 

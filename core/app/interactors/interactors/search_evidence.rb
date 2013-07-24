@@ -1,3 +1,5 @@
+require_relative '../util/search'
+
 module Interactors
   class SearchEvidence
     include Pavlov::Interactor

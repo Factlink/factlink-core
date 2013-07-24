@@ -11,19 +11,16 @@ describe Interactors::SearchUser do
                  'Fact','Ability::FactlinkWebapp'
   end
 
-  it 'initializes' do
-    interactor = Interactors::SearchUser.new 'keywords', ability: relaxed_ability
-    interactor.should_not be_nil
-  end
-
   it 'raises when initialized with keywords that is not a string' do
-    expect { interactor = Interactors::SearchUser.new nil }.
-      to raise_error(RuntimeError, 'Keywords should be a string.')
+    interactor = described_class.new nil
+    expect { interactor.call }
+      .to raise_error(RuntimeError, 'Keywords should be a string.')
   end
 
   it 'raises when initialized with an empty keywords string' do
-    expect { interactor = Interactors::SearchUser.new '' }.
-      to raise_error(RuntimeError, 'Keywords must not be empty.')
+    interactor = described_class.new keywords: ''
+    expect { interactor.call }
+      .to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
   describe '.initialize' do
@@ -32,15 +29,18 @@ describe Interactors::SearchUser do
       ability = mock()
       ability.stub can?: false
 
-      expect do
-        Interactors::SearchUser.new keywords, ability: ability
-      end.to raise_error(Pavlov::AccessDenied)
+      interactor = described_class.new keywords: keywords,
+        pavlov_options: { ability: ability }
+
+      expect { interactor.call }
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
   describe '.call' do
     it 'correctly' do
       keywords = 'searching for this user'
-      interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
+      interactor = described_class.new keywords: keywords,
+        pavlov_options: { ability: relaxed_ability }
       user = mock()
       user.should_receive(:hidden).and_return(false)
       query = mock()
@@ -55,7 +55,8 @@ describe Interactors::SearchUser do
 
     it 'should not return hidden users' do
       keywords = 'searching for this user'
-      interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
+      interactor = described_class.new keywords: keywords,
+        pavlov_options: { ability: relaxed_ability }
       user = mock()
       query = mock()
       user.should_receive(:hidden).and_return(true)
