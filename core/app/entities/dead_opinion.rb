@@ -1,4 +1,14 @@
-DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
+class DeadOpinion
+
+  attr_accessor :believes, :disbelieves, :doubts, :authority
+
+  def initialize(believes, disbelieves, doubts, authority=0.0)
+    @believes = believes
+    @disbelieves = disbelieves
+    @doubts = doubts
+    @authority = authority
+  end
+
   def self.from_opinion(opinion)
     return DeadOpinion.zero unless opinion
 
@@ -62,4 +72,5 @@ DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
 
     (self_value*self.authority + other_value*other.authority)/total_authority
   end
+
 end
