@@ -11,16 +11,16 @@ describe Commands::Facts::ShareNew do
     end
 
     it 'without connected Twitter doesn\'t validate' do
-      hash = {fact_id: '1', sharing_options: { twitter: true } }
+      hash = {fact_id: '1', sharing_options: { twitter: true }, pavlov_options: {ability: double(can?: false)} }
 
-      expect_validating( hash, false )
+      expect_validating( hash )
         .to fail_validation('no twitter account linked')
     end
 
     it 'without connected Facebook doesn\'t validate' do
-      hash = {fact_id: '1', sharing_options: { facebook: true } }
+      hash = {fact_id: '1', sharing_options: { facebook: true }, pavlov_options: {ability: double(can?: false)} }
 
-      expect_validating( hash, false )
+      expect_validating( hash )
         .to fail_validation('no facebook account linked')
     end
   end
@@ -41,7 +41,7 @@ describe Commands::Facts::ShareNew do
         sharing_options: sharing_options, pavlov_options: pavlov_options
 
       Resque.should_receive(:enqueue)
-            .with(Commands::Twitter::ShareFactlink, fact_id, 'serialize_id' => current_user.id)
+            .with(Commands::Twitter::ShareFactlink, fact_id: fact_id, pavlov_options: { 'serialize_id' => current_user.id })
 
       command.call
     end
@@ -57,7 +57,7 @@ describe Commands::Facts::ShareNew do
         sharing_options: sharing_options, pavlov_options: pavlov_options
 
       Resque.should_receive(:enqueue)
-            .with(Commands::Facebook::ShareFactlink, fact_id, 'serialize_id' => current_user.id)
+            .with(Commands::Facebook::ShareFactlink, fact_id: fact_id, pavlov_options: { 'serialize_id' => current_user.id })
 
       command.call
     end

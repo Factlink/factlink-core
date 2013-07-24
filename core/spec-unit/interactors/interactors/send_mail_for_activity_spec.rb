@@ -8,8 +8,8 @@ describe Interactors::SendMailForActivity do
     stub_classes 'Queries::UsersByGraphUserIds', 'Commands::SendActivityMailToUser', 'Queries::ObjectIdsByActivity', 'Resque'
   end
 
-  describe '.call' do
-    it 'correctly' do
+  describe '#call' do
+    it do
       user = mock(id: 1)
 
       activity = mock(id: 2)
@@ -20,13 +20,13 @@ describe Interactors::SendMailForActivity do
       interactor.should_receive(:recipients).and_return([user])
 
       Resque.should_receive(:enqueue).with(Commands::SendActivityMailToUser,
-        user.id, activity.id, {})
+        user_id: user.id, activity_id: activity.id, pavlov_options: nil)
 
       interactor.call
     end
   end
 
-  describe '.recipients' do
+  describe '#recipients' do
     it 'returns only the users which want to receive notifications' do
       user2 = mock('user2', receives_mailed_notifications: true)
       user1 = mock('user1', receives_mailed_notifications: false)
@@ -41,7 +41,7 @@ describe Interactors::SendMailForActivity do
     end
   end
 
-  describe '.users_by_graph_user_ids' do
+  describe '#users_by_graph_user_ids' do
     it 'calls the relevant queries to retrieve users' do
       user2 = mock()
       user1 = mock()
