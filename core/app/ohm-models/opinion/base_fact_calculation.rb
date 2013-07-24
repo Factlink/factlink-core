@@ -1,4 +1,4 @@
-class Opinion < OurOhm
+module Opinion
   class BaseFactCalculation
 
     attr_reader :base_fact

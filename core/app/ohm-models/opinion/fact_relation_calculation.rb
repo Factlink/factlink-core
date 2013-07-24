@@ -1,4 +1,4 @@
-class Opinion < OurOhm
+module Opinion
   class FactRelationCalculation
 
     attr_reader :fact_relation
