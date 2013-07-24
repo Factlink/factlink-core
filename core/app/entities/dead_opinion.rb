@@ -9,6 +9,7 @@ class DeadOpinion
     @authority = authority.to_f
   end
 
+  # TODO: remove when removing Opinion
   def self.from_opinion(opinion)
     return DeadOpinion.zero unless opinion
 
