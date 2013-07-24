@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "When visiting the Factlink website", type: :request do
+describe "Logged-out visitors", type: :request do
   before do
     visit "/"
   end
