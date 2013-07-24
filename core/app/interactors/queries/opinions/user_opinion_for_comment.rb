@@ -16,7 +16,7 @@ module Queries
       end
 
       def dead_opinion
-        DeadOpinion.from_opinion calculator.opinion
+        calculator.opinion
       end
 
       def calculator

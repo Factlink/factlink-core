@@ -7,6 +7,17 @@ DeadOpinion = Struct.new(:believes, :disbelieves, :doubts, :authority) do
     DeadOpinion.new 0.0, 0.0, 1.0, 0.0
   end
 
+  def self.for_type(type, authority=0)
+    case type
+    when :believes
+      DeadOpinion.new(1, 0, 0, authority)
+    when :disbelieves
+      DeadOpinion.new(0, 1, 0, authority)
+    when :doubts
+      DeadOpinion.new(0, 0, 1, authority)
+    end
+  end
+
   # TODO: fix this for authority=0
   def ==(other)
     raise 'Can only compare with other DeadOpinion' unless other.class == DeadOpinion

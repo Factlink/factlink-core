@@ -16,7 +16,7 @@ class Opinion < OurOhm
         Authority.on(base_fact, for: user).to_f + 1.0
       end.opinion
 
-      base_fact.insert_or_update_opinion :user_opinion, user_opinion
+      base_fact.insert_or_update_dead_opinion :user_opinion, user_opinion
     end
 
   end

@@ -7,7 +7,7 @@ describe Queries::Opinions::UserOpinionForComment do
 
   before do
     stub_classes 'Believable::Commentje', 'UserOpinionCalculation',
-                 'Authority', 'DeadOpinion'
+                 'Authority'
   end
 
   it 'initializes' do
@@ -24,14 +24,11 @@ describe Queries::Opinions::UserOpinionForComment do
   describe '.call' do
     it "returns the dead opinion the calculator calculates" do
       opinion = mock
-      dead_opinion = mock
       calculator = mock(:calculator, opinion: opinion)
       query = described_class.new 'a1', mock
       query.stub calculator: calculator
 
-      DeadOpinion.stub(:from_opinion).with(opinion).and_return(dead_opinion)
-
-      expect(query.call).to eq dead_opinion
+      expect(query.call).to eq opinion
     end
   end
 

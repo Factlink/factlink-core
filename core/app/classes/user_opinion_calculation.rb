@@ -24,6 +24,6 @@ class UserOpinionCalculation
         opinions << user_opinion(user, type)
       end
     end
-    Opinion.combine(opinions)
+    DeadOpinion.combine(opinions)
   end
 end

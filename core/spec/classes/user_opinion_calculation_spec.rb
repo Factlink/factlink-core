@@ -14,7 +14,7 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
       calculation = UserOpinionCalculation.new(subject) { 1 }
       actual_opinion = calculation.opinion
 
-      expect(actual_opinion).to eq Opinion.zero
+      expect(actual_opinion).to eq DeadOpinion.zero
     end
   end
 
@@ -26,7 +26,7 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
         calculation = UserOpinionCalculation.new(subject) { 1 }
         actual_opinion = calculation.opinion
 
-        expected_opinion = Opinion.for_type(opinion, 1)
+        expected_opinion = DeadOpinion.for_type(opinion, 1)
         expect(actual_opinion).to eq expected_opinion
       end
     end
@@ -40,8 +40,8 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
       calculation = UserOpinionCalculation.new(subject) { 1 }
       actual_opinion = calculation.opinion
 
-      expected_opinion = Opinion.for_type(:believes, 1) +
-                         Opinion.for_type(:believes, 1)
+      expected_opinion = DeadOpinion.for_type(:believes, 1) +
+                         DeadOpinion.for_type(:believes, 1)
       expect(actual_opinion).to eq expected_opinion
     end
   end
@@ -54,8 +54,8 @@ describe "calculating an opinion based on a set of believers, disbelievers and d
       calculation = UserOpinionCalculation.new(subject) { 1 }
       actual_opinion = calculation.opinion
 
-      expected_opinion = Opinion.for_type(:believes, 1) +
-                         Opinion.for_type(:disbelieves, 1)
+      expected_opinion = DeadOpinion.for_type(:believes, 1) +
+                         DeadOpinion.for_type(:disbelieves, 1)
       expect(actual_opinion).to eq expected_opinion
     end
   end
