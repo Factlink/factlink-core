@@ -1,8 +1,8 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/queries/opinion_for_comment.rb'
+require_relative '../../../../app/interactors/queries/opinions/user_opinion_for_comment.rb'
 
 
-describe Queries::OpinionForComment do
+describe Queries::Opinions::UserOpinionForComment do
   include PavlovSupport
 
   before do
@@ -11,7 +11,7 @@ describe Queries::OpinionForComment do
   end
 
   it 'initializes' do
-    Queries::OpinionForComment.new '1', mock
+    described_class.new '1', mock
   end
 
   describe 'validation' do
@@ -21,14 +21,14 @@ describe Queries::OpinionForComment do
     end
   end
 
-  describe '.call' do
-    it "returns the opinion the calculator calculates" do
-      opinion = mock
-      calculator = mock(:calculator, opinion: opinion)
-      query = Queries::OpinionForComment.new 'a1', mock
+  describe '#call' do
+    it "returns the dead opinion the calculator calculates" do
+      dead_opinion = mock
+      calculator = mock(:calculator, opinion: dead_opinion)
+      query = described_class.new 'a1', mock
       query.stub calculator: calculator
 
-      expect(query.call).to eq opinion
+      expect(query.call).to eq dead_opinion
     end
   end
 
@@ -38,7 +38,7 @@ describe Queries::OpinionForComment do
       authority_block = Proc.new {|u| 1 }
       calculator = mock
 
-      query = Queries::OpinionForComment.new '1', mock
+      query = described_class.new '1', mock
 
       query.stub believable: believable,
                  authority_for: authority_block
@@ -57,7 +57,7 @@ describe Queries::OpinionForComment do
       graph_user = mock
       authority = 1515
 
-      query = Queries::OpinionForComment.new '1', fact
+      query = described_class.new '1', fact
       auth = query.authority_for
 
       Authority.should_receive(:on)
@@ -72,7 +72,7 @@ describe Queries::OpinionForComment do
     it "returns the Believable::Commentje for this comment" do
       id = 'a1'
       believable = mock
-      query = Queries::OpinionForComment.new id, mock
+      query = described_class.new id, mock
 
       Believable::Commentje.should_receive(:new)
                        .with(id)
