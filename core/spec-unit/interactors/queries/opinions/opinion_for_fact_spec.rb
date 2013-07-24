@@ -6,18 +6,16 @@ describe Queries::Opinions::OpinionForFact do
 
   describe '#call' do
     before do
-      stub_classes 'Opinion::FactCalculation', 'DeadOpinion'
+      stub_classes 'Opinion::FactCalculation'
     end
 
-    it 'returns the opinion on the fact' do
-      opinion = mock
+    it 'returns the dead opinion on the fact' do
       dead_opinion = mock
       fact = mock
-      fact_calculation = mock(get_opinion: opinion)
+      fact_calculation = mock(get_opinion: dead_opinion)
       Opinion::FactCalculation.stub(:new).with(fact)
         .and_return(fact_calculation)
 
-      DeadOpinion.stub(:from_opinion).with(opinion).and_return(dead_opinion)
 
       query = described_class.new fact
       result = query.call
