@@ -50,9 +50,6 @@ class FactGraph
     end
   end
 
-  def calculate_evidence_opinion(fact)
-  end
-
   def get_influencing_opinions(fact)
     fact.evidence(:both).map do |fr|
       Opinion::FactRelationCalculation.new(fr).get_influencing_opinion
