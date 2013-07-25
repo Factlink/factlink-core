@@ -30,4 +30,27 @@ shared_examples_for 'a hash store' do
     subject['foo','bar'].set({ some: 'hash' })
     expect(subject['foo','bar'].get).to eq({ some: 'hash' })
   end
+
+  describe 'namespace' do
+    it "doesn't write values when in another namespace" do
+      store1 = described_class.new 'namespace1'
+      store2 = described_class.new 'namespace2'
+
+      store1['someplace'].set({some: 'hash'})
+
+      expect(store2['someplace'].value?).to be_false
+    end
+
+    it "doesn't overwrite values when in another namespace" do
+      store1 = described_class.new 'namespace1'
+      store2 = described_class.new 'namespace2'
+
+      store1['someplace'].set({some: 'hash'})
+      store2['someplace'].set({some: 'other hash'})
+
+      expect(store1['someplace'].get).to eq({some: 'hash'})
+    end
+
+    # it doesn't guarantee to give the same value for the same namespace
+  end
 end
