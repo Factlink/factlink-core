@@ -15,6 +15,8 @@ module Opinion
       user_opinion = real_calculate_user_opinion(base_fact)
 
       opinion_store.store base_fact.class.name, base_fact.id, :user_opinion, user_opinion
+
+      user_opinion
     end
 
     private
