@@ -8,11 +8,7 @@ module Queries
       private
 
       def execute
-        opinion_store.retrieve :Fact, fact.id, :opinion
-      end
-
-      def opinion_store
-        Opinion::Store.new HashStore::Redis.new
+        FactGraph.new.opinion_for_fact(fact)
       end
     end
   end

@@ -28,6 +28,18 @@ class FactGraph
     opinion_store.store :FactRelation, fact_relation.id, :user_opinion, user_opinion
   end
 
+  def user_opinion_for_fact(fact)
+    opinion_store.retrieve :Fact, fact.id, :user_opinion
+  end
+
+  def user_opinion_for_fact_relation(fact_relation)
+    opinion_store.retrieve :FactRelation, fact_relation.id, :user_opinion
+  end
+
+  def opinion_for_fact(fact)
+    opinion_store.retrieve :Fact, fact.id, :opinion
+  end
+
   private
 
   def calculate_user_opinions

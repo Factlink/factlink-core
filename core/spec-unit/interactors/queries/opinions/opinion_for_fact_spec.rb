@@ -6,25 +6,21 @@ describe Queries::Opinions::OpinionForFact do
 
   describe '#call' do
     before do
-      stub_classes 'Opinion::Store', 'HashStore::Redis'
+      stub_classes 'FactGraph'
     end
 
     it 'returns the dead opinion on the fact' do
       dead_opinion = mock
       fact = mock(id: mock)
-      opinion_store = mock
+      fact_graph = mock
+      query = described_class.new fact
 
-      HashStore::Redis.stub new: mock
-      Opinion::Store.stub(:new).with(HashStore::Redis.new)
-        .and_return(opinion_store)
+      FactGraph.stub new: fact_graph
 
-      opinion_store.stub(:retrieve).with(:Fact, fact.id, :opinion)
+      fact_graph.stub(:opinion_for_fact).with(fact)
         .and_return(dead_opinion)
 
-      query = described_class.new fact
-      result = query.call
-
-      expect(result).to eq dead_opinion
+      expect(query.call).to eq dead_opinion
     end
   end
 end

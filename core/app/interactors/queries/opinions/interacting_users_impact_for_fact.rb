@@ -10,11 +10,7 @@ module Queries
       end
 
       def user_opinion
-        opinion_store.retrieve :Fact, fact.id, :user_opinion
-      end
-
-      def opinion_store
-        Opinion::Store.new HashStore::Redis.new
+        FactGraph.new.user_opinion_for_fact(fact)
       end
 
       def fact
