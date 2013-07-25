@@ -66,15 +66,16 @@ class FactGraph
 
   def influencing_opinion_for_fact_relation(fact_relation)
     from_fact_opinion = opinion_for_fact(fact_relation.from_fact)
-    user_opinion = retrieve :FactRelation, fact_relation.id, :user_opinion
-    evidence_type = OpinionType.for_relation_type(fact_relation.type)
+    user_opinion      = retrieve :FactRelation, fact_relation.id, :user_opinion
+    evidence_type     = OpinionType.for_relation_type(fact_relation.type)
 
     calculated_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
   end
 
   def calculated_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
-    net_fact_authority = from_fact_opinion.net_authority
+    net_fact_authority      = from_fact_opinion.net_authority
     net_relevance_authority = user_opinion.net_authority
+
     authority = [[net_fact_authority, net_relevance_authority].min, 0].max
 
     DeadOpinion.for_type(evidence_type, authority)
