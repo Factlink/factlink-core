@@ -51,13 +51,17 @@ class FactGraph
   def calculate_graph
     5.times do |i|
       Fact.all.each do |fact|
-        influencing_opinions = fact.fact_relations.all.map do |fact_relation|
-          influencing_opinion_for_fact_relation(fact_relation)
-        end
-
-        store :Fact, fact.id, :evidence_opinion, DeadOpinion.combine(influencing_opinions)
+        store :Fact, fact.id, :evidence_opinion, calculated_evidence_opinion(fact)
       end
     end
+  end
+
+  def calculated_evidence_opinion(fact)
+    influencing_opinions = fact.fact_relations.all.map do |fact_relation|
+      influencing_opinion_for_fact_relation(fact_relation)
+    end
+
+    DeadOpinion.combine(influencing_opinions)
   end
 
   def influencing_opinion_for_fact_relation(fact_relation)
