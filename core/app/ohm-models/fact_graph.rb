@@ -39,19 +39,19 @@ class FactGraph
   private
 
   def calculate_user_opinions
-    Fact.all.each do |fact|
-      store :Fact, fact.id, :user_opinion, calculated_user_opinion_for(fact)
+    Fact.all.ids.each do |id|
+      store :Fact, id, :user_opinion, calculated_user_opinion_for(Fact[id])
     end
 
-    FactRelation.all.each do |fact_relation|
-      store :FactRelation, fact_relation.id, :user_opinion, calculated_user_opinion_for(fact_relation)
+    FactRelation.all.ids.each do |id|
+      store :FactRelation, id, :user_opinion, calculated_user_opinion_for(FactRelation[id])
     end
   end
 
   def calculate_graph
     5.times do |i|
-      Fact.all.each do |fact|
-        store :Fact, fact.id, :evidence_opinion, calculated_evidence_opinion(fact)
+      Fact.all.ids.each do |id|
+        store :Fact, id, :evidence_opinion, calculated_evidence_opinion(Fact[id])
       end
     end
   end
