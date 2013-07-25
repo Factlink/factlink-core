@@ -7,10 +7,6 @@ module Opinion
       @fact = fact
     end
 
-    def get_evidence_opinion
-      opinion_store.retrieve :Fact, fact.id, :evidence_opinion
-    end
-
     def calculate_evidence_opinion
       opinion_store.store :Fact, fact.id, :evidence_opinion, real_calculate_evidence_opinion(fact)
     end
@@ -20,7 +16,12 @@ module Opinion
     end
 
     def calculate_opinion
-      opinion_store.store :Fact, fact.id, :opinion, real_calculate_opinion(fact)
+      user_opinion = BaseFactCalculation.new(fact).get_user_opinion
+      evidence_opinion = opinion_store.retrieve :Fact, fact.id, :evidence_opinion
+
+      opinion = real_calculate_opinion(user_opinion, evidence_opinion)
+
+      opinion_store.store :Fact, fact.id, :opinion, opinion
     end
 
     private
@@ -33,8 +34,8 @@ module Opinion
       DeadOpinion.combine(opinions)
     end
 
-    def real_calculate_opinion(fact)
-      BaseFactCalculation.new(fact).get_user_opinion + get_evidence_opinion
+    def real_calculate_opinion(user_opinion, evidence_opinion)
+      user_opinion + evidence_opinion
     end
 
     def opinion_store
