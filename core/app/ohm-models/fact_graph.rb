@@ -10,7 +10,11 @@ class FactGraph
   end
 
   def calculate_fact_when_user_opinion_changed(fact)
-    calculate_fact_opinion(fact, true, false)
+    user_opinion = real_calculate_user_opinion(fact)
+    opinion_store.store :Fact, fact.id, :user_opinion, user_opinion
+
+    opinion = real_calculate_opinion(user_opinion, evidence_opinion)
+    opinion_store.store :Fact, fact.id, :opinion, opinion
   end
 
   def calculate_authority
@@ -42,29 +46,19 @@ class FactGraph
         fact.fact_relations.all.each do |fact_relation|
           calculate_influencing_opinion(fact_relation)
         end
-        calculate_fact_opinion(fact, false, true)
+        calculate_fact_opinion(fact)
       end
     end
   end
 
-  def calculate_fact_opinion(fact, should_calculate_user_opinion, should_calculate_evidence_opinion)
-    if should_calculate_user_opinion
-      user_opinion = real_calculate_user_opinion(fact)
-      opinion_store.store :Fact, fact.id, :user_opinion, user_opinion
-    else
-      user_opinion = opinion_store.retrieve :Fact, fact.id, :user_opinion
-    end
+  def calculate_fact_opinion(fact)
+    user_opinion = opinion_store.retrieve :Fact, fact.id, :user_opinion
+    influencing_opinions = get_influencing_opinions(fact)
 
-    if should_calculate_evidence_opinion
-      influencing_opinions = get_influencing_opinions(fact)
-      evidence_opinion = real_calculate_evidence_opinion(influencing_opinions)
-      opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
-    else
-      evidence_opinion = opinion_store.retrieve :Fact, fact.id, :evidence_opinion
-    end
+    evidence_opinion = real_calculate_evidence_opinion(influencing_opinions)
+    opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
 
     opinion = real_calculate_opinion(user_opinion, evidence_opinion)
-
     opinion_store.store :Fact, fact.id, :opinion, opinion
   end
 
