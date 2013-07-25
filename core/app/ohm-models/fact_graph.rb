@@ -31,9 +31,13 @@ class FactGraph
   def calculate_fact_opinions i
     debug "Calculating fact opinions (#{i})"
     Fact.all.ids.each do |id|
-      f = Fact[id]
-      fact_calculation = Opinion::FactCalculation.new(f)
-      fact_calculation.calculate_evidence_opinion
+      fact = Fact[id]
+      fact_calculation = Opinion::FactCalculation.new(fact)
+
+      influencing_opinions = get_influencing_opinions(fact)
+      evidence_opinion = real_calculate_evidence_opinion(influencing_opinions)
+      opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
+
       fact_calculation.calculate_opinion
     end
   end
@@ -44,6 +48,23 @@ class FactGraph
       bf = Basefact[id]
       Opinion::BaseFactCalculation.new(bf).calculate_user_opinion
     end
+  end
+
+  def calculate_evidence_opinion(fact)
+  end
+
+  def get_influencing_opinions(fact)
+    fact.evidence(:both).map do |fr|
+      Opinion::FactRelationCalculation.new(fr).get_influencing_opinion
+    end
+  end
+
+  def real_calculate_evidence_opinion(influencing_opinions)
+    DeadOpinion.combine(influencing_opinions)
+  end
+
+  def opinion_store
+    Opinion::Store.new HashStore::Redis.new
   end
 
   def calculate_authority
