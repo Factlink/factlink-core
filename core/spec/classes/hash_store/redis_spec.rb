@@ -1,9 +1,9 @@
-require_relative '../../../spec-unit/classes/hash_store_shared.rb'
+require_relative '../../../spec-unit/classes/hash_store/shared.rb'
 require 'spec_helper'
 
 describe HashStore::Redis do
   include RedisSupport
-  it_behaves_like 'a nested hash store'
+  it_behaves_like 'a hash store'
 
   it "does one request per set" do
     nr_commands = number_of_commands_on Redis.current do

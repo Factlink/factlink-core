@@ -1,4 +1,4 @@
-shared_examples_for 'a nested hash store' do
+shared_examples_for 'a hash store' do
   it 'can store a hash' do
     subject['someplace'].set({a: 'hash'})
   end
@@ -27,7 +27,7 @@ shared_examples_for 'a nested hash store' do
   end
 
   it "supports multiple values for the key" do
-    subject['foo','bar'].set({ some: 'nested hash' })
-    expect(subject['foo','bar'].get).to eq({ some: 'nested hash' })
+    subject['foo','bar'].set({ some: 'hash' })
+    expect(subject['foo','bar'].get).to eq({ some: 'hash' })
   end
 end
