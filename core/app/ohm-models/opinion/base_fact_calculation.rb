@@ -12,14 +12,18 @@ module Opinion
     end
 
     def calculate_user_opinion
-      user_opinion = UserOpinionCalculation.new(base_fact.believable) do |user|
-        Authority.on(base_fact, for: user).to_f + 1.0
-      end.opinion
+      user_opinion = real_calculate_user_opinion(basefact)
 
       opinion_store.store base_fact.class.name, base_fact.id, :user_opinion, user_opinion
     end
 
     private
+
+    def real_calculate_user_opinion(base_fact)
+      UserOpinionCalculation.new(base_fact.believable) do |user|
+        Authority.on(base_fact, for: user).to_f + 1.0
+      end.opinion
+    end
 
     def opinion_store
       Opinion::Store.new HashStore::Redis.new

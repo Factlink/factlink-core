@@ -12,18 +12,21 @@ module Opinion
     end
 
     def calculate_influencing_opinion
+      opinion_store.store :FactRelation, fact_relation.id, :influencing_opinion, real_calculate_influencing_opinion(fact_relation)
+    end
+
+    private
+
+    def real_calculate_influencing_opinion(fact_relation)
       net_fact_authority = FactCalculation.new(fact_relation.from_fact).get_opinion.net_authority
       net_relevance_authority = BaseFactCalculation.new(fact_relation).get_user_opinion.net_authority
 
       authority = [[net_fact_authority, net_relevance_authority].min, 0].max
 
       evidence_type = OpinionType.for_relation_type(fact_relation.type)
-      influencing_opinion = DeadOpinion.for_type(evidence_type, authority)
 
-      opinion_store.store :FactRelation, fact_relation.id, :influencing_opinion, influencing_opinion
+      DeadOpinion.for_type(evidence_type, authority)
     end
-
-    private
 
     def opinion_store
       Opinion::Store.new HashStore::Redis.new
