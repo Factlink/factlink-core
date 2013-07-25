@@ -8,7 +8,7 @@ module Opinion
     end
 
     def get_influencing_opinion
-      opinion_store.store :FactRelation, fact_relation.id, :influencing_opinion
+      opinion_store.retrieve :FactRelation, fact_relation.id, :influencing_opinion
     end
 
     def calculate_influencing_opinion
