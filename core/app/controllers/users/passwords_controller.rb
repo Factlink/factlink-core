@@ -15,11 +15,10 @@ class Users::PasswordsController < Devise::PasswordsController
     # end of copy
 
     @user = User.where(reset_password_token: params[:reset_password_token]).first
-    @current_user = @user
 
     if params[:msg]
       if @user
-        mp_track "Tour: Started account setup"
+        mp_track "Tour: Started account setup", current_user: @user
         render :setup_account
       else
         redirect_to new_user_session_path,
