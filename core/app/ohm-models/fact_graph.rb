@@ -33,6 +33,10 @@ class FactGraph
     Authority.run_calculation(authority_calculators)
   end
 
+  def calculate_fact_relation_when_user_opinion_changed(fact_relation)
+    Opinion::BaseFactCalculation.new(fact_relation).calculate_user_opinion
+  end
+
   private
 
   def calculate_fact_opinion(fact, should_calculate_user_opinion, should_calculate_evidence_opinion)
