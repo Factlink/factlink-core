@@ -1,6 +1,8 @@
 require 'acceptance_helper'
 
 describe "Logged-out visitors", type: :request do
+  include SlowSpecs
+
   before do
     visit "/"
   end

@@ -28,7 +28,6 @@ RSpec.configure do |config|
 
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
-  config.extend SlowSpecs
 
   config.before(:suite) do
     ElasticSearch.create
