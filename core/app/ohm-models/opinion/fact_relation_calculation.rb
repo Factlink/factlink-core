@@ -12,7 +12,7 @@ module Opinion
     end
 
     def calculate_influencing_opinion
-      from_fact_opinion = FactCalculation.new(fact_relation.from_fact).get_opinion
+      from_fact_opinion = opinion_store.retrieve :Fact, fact_relation.from_fact.id, :opinion
       user_opinion = BaseFactCalculation.new(fact_relation).get_user_opinion
       evidence_type = OpinionType.for_relation_type(fact_relation.type)
 

@@ -15,10 +15,6 @@ module Opinion
       opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
     end
 
-    def get_opinion
-      opinion_store.retrieve :Fact, fact.id, :opinion
-    end
-
     def calculate_opinion
       user_opinion = BaseFactCalculation.new(fact).get_user_opinion
       evidence_opinion = opinion_store.retrieve :Fact, fact.id, :evidence_opinion
