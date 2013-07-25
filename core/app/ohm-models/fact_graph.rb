@@ -6,13 +6,17 @@ class FactGraph
   def recalculate
     calculate_authority
 
-    Basefact.all.each do |bf|
-      Opinion::BaseFactCalculation.new(bf).calculate_user_opinion
+    Fact.all.each do |fact|
+      Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
+    end
+
+    FactRelation.all.each do |fact_relation|
+      Opinion::BaseFactCalculation.new(fact_relation).calculate_user_opinion
     end
 
     5.times do |i|
-      FactRelation.all.each do |fr|
-        Opinion::FactRelationCalculation.new(fr).calculate_influencing_opinion
+      FactRelation.all.each do |fact_relation|
+        calculate_influencing_opinion(fact_relation)
       end
 
       Fact.all.each do |fact|
@@ -41,9 +45,27 @@ class FactGraph
     opinion_store.store :Fact, fact.id, :opinion, opinion
   end
 
+  def calculate_influencing_opinion(fact_relation)
+    from_fact_opinion = opinion_store.retrieve :Fact, fact_relation.from_fact.id, :opinion
+    user_opinion = Opinion::BaseFactCalculation.new(fact_relation).get_user_opinion
+    evidence_type = OpinionType.for_relation_type(fact_relation.type)
+
+    influencing_opinion = real_calculate_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
+
+    opinion_store.store :FactRelation, fact_relation.id, :influencing_opinion, influencing_opinion
+  end
+
+  def real_calculate_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
+    net_fact_authority = from_fact_opinion.net_authority
+    net_relevance_authority = user_opinion.net_authority
+    authority = [[net_fact_authority, net_relevance_authority].min, 0].max
+
+    DeadOpinion.for_type(evidence_type, authority)
+  end
+
   def get_influencing_opinions(fact)
-    fact.evidence(:both).map do |fr|
-      Opinion::FactRelationCalculation.new(fr).get_influencing_opinion
+    fact.evidence(:both).map do |fact_relation|
+      opinion_store.retrieve :FactRelation, fact_relation.id, :influencing_opinion
     end
   end
 
