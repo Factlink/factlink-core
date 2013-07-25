@@ -5,26 +5,8 @@ class FactGraph
 
   def recalculate
     calculate_authority
-
-    Fact.all.each do |fact|
-      user_opinion = real_calculate_user_opinion(fact)
-      opinion_store.store :Fact, fact.id, :user_opinion, user_opinion
-    end
-
-    FactRelation.all.each do |fact_relation|
-      user_opinion = real_calculate_user_opinion(fact_relation)
-      opinion_store.store :FactRelation, fact_relation.id, :user_opinion, user_opinion
-    end
-
-    5.times do |i|
-      FactRelation.all.each do |fact_relation|
-        calculate_influencing_opinion(fact_relation)
-      end
-
-      Fact.all.each do |fact|
-        calculate_fact_opinion(fact, false, true)
-      end
-    end
+    calculate_user_opinions
+    calculate_graph
   end
 
   def calculate_fact_when_user_opinion_changed(fact)
@@ -41,6 +23,29 @@ class FactGraph
   end
 
   private
+
+  def calculate_user_opinions
+    Fact.all.each do |fact|
+      user_opinion = real_calculate_user_opinion(fact)
+      opinion_store.store :Fact, fact.id, :user_opinion, user_opinion
+    end
+
+    FactRelation.all.each do |fact_relation|
+      user_opinion = real_calculate_user_opinion(fact_relation)
+      opinion_store.store :FactRelation, fact_relation.id, :user_opinion, user_opinion
+    end
+  end
+
+  def calculate_graph
+    5.times do |i|
+      Fact.all.each do |fact|
+        fact.fact_relations.all.each do |fact_relation|
+          calculate_influencing_opinion(fact_relation)
+        end
+        calculate_fact_opinion(fact, false, true)
+      end
+    end
+  end
 
   def calculate_fact_opinion(fact, should_calculate_user_opinion, should_calculate_evidence_opinion)
     if should_calculate_user_opinion
