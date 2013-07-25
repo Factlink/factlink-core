@@ -7,9 +7,9 @@ module HashStore
     end
 
     def [](*args)
-      namespace = args.join '::'
+      namespace = args.join ':'
 
-      Entry.new(RedisBackend.new(@namespace + "::" + namespace))
+      Entry.new(RedisBackend.new(@namespace + ":" + namespace))
     end
   end
 

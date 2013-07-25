@@ -8,7 +8,7 @@ module HashStore
     end
 
     def [](*args)
-      key = @namespace + "::" + args.join('::')
+      key = @namespace + ":" + args.join(':')
       @hash[key] ||= Entry.new(InMemoryBackend.new(key))
     end
   end
