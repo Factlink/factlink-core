@@ -1,1 +1,0 @@
-dead-opinion-store
