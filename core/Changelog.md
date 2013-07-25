@@ -62,15 +62,15 @@
 
 #10-01-2013
 
-- Notfications when somebody comments on a comment I interacted with.
+- Notifications when somebody comments on a comment I interacted with.
 - If you don't finish the tour, you will be redirected to the tour when you log in.
-- Extracted and opensourced Pavlov library.
+- Extracted and open sourced Pavlov library.
 - Names on team page.
 - Added animation in tour to show how you express your opinion. (by clicking the factwheel.)
 - Manage the suggested topics list in the tour. (So no non english topics appear.)
 - Bugfix: link of comment activity.
 - Bugfix: fixed text of "A, B and C agreed this Factlink" (in client).
-- Bugfix: HTML 5 placeholders don't work in ie7/ie8.
+- Bugfix: HTML 5 placeholders don't work in IE7/IE8.
 - Bugfix: Visiting Factlink public pages won't crash IE.
 - Bugfix: Fixed layout of factlink placeholders in tour.
 
