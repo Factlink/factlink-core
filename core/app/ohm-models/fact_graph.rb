@@ -13,6 +13,8 @@ class FactGraph
     user_opinion = real_calculate_user_opinion(fact)
     opinion_store.store :Fact, fact.id, :user_opinion, user_opinion
 
+    evidence_opinion = opinion_store.retrieve :Fact, fact.id, :evidence_opinion
+
     opinion = real_calculate_opinion(user_opinion, evidence_opinion)
     opinion_store.store :Fact, fact.id, :opinion, opinion
   end
