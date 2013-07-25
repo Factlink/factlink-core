@@ -64,6 +64,11 @@ class FactGraph
     Opinion::Store.new HashStore::Redis.new
   end
 
+  def calculate_fact_when_user_authority_changed(fact)
+    Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
+    Opinion::FactCalculation.new(fact).calculate_opinion
+  end
+
   def calculate_authority
     debug "Calculating Authority"
     Authority.run_calculation(authority_calculators)
