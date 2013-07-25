@@ -7,12 +7,12 @@ module HashStore
     def get
       raise "no value" unless value?
 
-      hash = {}
-      backend.get.each do |k, v|
-        hash[k.to_sym] = v
+      symbol_hash = {}
+      backend.get.each do |key, value|
+        symbol_hash[key.to_sym] = value
       end
 
-      hash
+      symbol_hash
     end
 
     def set value
