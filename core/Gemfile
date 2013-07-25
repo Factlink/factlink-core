@@ -162,5 +162,4 @@ group :development do
   gem 'rails_best_practices', '~> 1', require: false
   gem 'rubocop', require: false
   gem 'hub', '~> 1', require: false
-  gem 'libxml-ruby', require:false
 end

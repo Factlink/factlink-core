@@ -225,7 +225,6 @@ GEM
     less-rails-bootstrap (2.1.1)
       less-rails (~> 2.2.0)
     libv8 (3.11.8.17)
-    libxml-ruby (2.6.0)
     listen (1.2.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -537,7 +536,6 @@ DEPENDENCIES
   korsakov!
   less-rails (~> 2.2.6)
   less-rails-bootstrap (= 2.1.1)
-  libxml-ruby
   lograge (~> 0)
   mail (= 2.5.3)
   mailcatcher (~> 0)
