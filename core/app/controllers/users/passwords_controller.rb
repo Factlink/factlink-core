@@ -15,6 +15,7 @@ class Users::PasswordsController < Devise::PasswordsController
     # end of copy
 
     @user = User.where(reset_password_token: params[:reset_password_token]).first
+    @current_user = @user
 
     if params[:msg]
       if @user
