@@ -26,7 +26,7 @@ module Opinion
     private
 
     def opinion_store
-      Opinion::Store.new
+      Opinion::Store.new HashStore::Redis.new
     end
   end
 end
