@@ -6,32 +6,18 @@ class FactGraph
   def recalculate
     calculate_authority
 
-    calculate_user_opinions_of_all_base_facts
-    5.times do |i|
-      calculate_fact_relation_influencing_opinions i
-
-      calculate_fact_opinions i
-    end
-  end
-
-  def calculate_fact_relation_influencing_opinions i
-    FactRelation.all.ids.each do |id|
-      fr = FactRelation[id]
-      Opinion::FactRelationCalculation.new(fr).calculate_influencing_opinion
-    end
-  end
-
-  def calculate_fact_opinions i
-    Fact.all.ids.each do |id|
-      fact = Fact[id]
-      calculate_fact_opinion(fact, false, true)
-    end
-  end
-
-  def calculate_user_opinions_of_all_base_facts
-    Basefact.all.ids.each do |id|
-      bf = Basefact[id]
+    Basefact.all.each do |bf|
       Opinion::BaseFactCalculation.new(bf).calculate_user_opinion
+    end
+
+    5.times do |i|
+      FactRelation.all.each do |fr|
+        Opinion::FactRelationCalculation.new(fr).calculate_influencing_opinion
+      end
+
+      Fact.all.each do |fact|
+        calculate_fact_opinion(fact, false, true)
+      end
     end
   end
 
