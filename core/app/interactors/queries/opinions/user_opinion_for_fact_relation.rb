@@ -8,7 +8,11 @@ module Queries
       private
 
       def execute
-        Opinion::BaseFactCalculation.new(fact_relation).get_user_opinion
+        opinion_store.retrieve :FactRelation, fact_relation.id, :user_opinion
+      end
+
+      def opinion_store
+        Opinion::Store.new HashStore::Redis.new
       end
 
       def validate

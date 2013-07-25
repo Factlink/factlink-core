@@ -6,17 +6,21 @@ describe Queries::Opinions::RelevanceOpinionForFactRelation do
 
   describe '#call' do
     before do
-      stub_classes 'Opinion::BaseFactCalculation'
+      stub_classes 'Opinion::Store', 'HashStore::Redis'
     end
 
     it 'returns the dead opinion on the fact_relation' do
       dead_opinion = mock
-      fact_relation = mock
-      base_fact_calculation = mock get_user_opinion: dead_opinion
+      fact_relation = mock(id: mock)
+      opinion_store = mock
       query = described_class.new fact_relation
 
-      Opinion::BaseFactCalculation.stub(:new).with(fact_relation)
-        .and_return(base_fact_calculation)
+      HashStore::Redis.stub new: mock
+      Opinion::Store.stub(:new).with(HashStore::Redis.new)
+        .and_return(opinion_store)
+
+      opinion_store.stub(:retrieve).with(:FactRelation, fact_relation.id, :user_opinion)
+        .and_return(dead_opinion)
 
       result = query.call
 

@@ -29,7 +29,7 @@ class FactGraph
     if should_calculate_user_opinion
       user_opinion = Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
     else
-      user_opinion = Opinion::BaseFactCalculation.new(fact).get_user_opinion
+      user_opinion = opinion_store.retrieve :Fact, fact.id, :user_opinion
     end
 
     if should_calculate_evidence_opinion
@@ -47,7 +47,7 @@ class FactGraph
 
   def calculate_influencing_opinion(fact_relation)
     from_fact_opinion = opinion_store.retrieve :Fact, fact_relation.from_fact.id, :opinion
-    user_opinion = Opinion::BaseFactCalculation.new(fact_relation).get_user_opinion
+    user_opinion = opinion_store.retrieve :FactRelation, fact_relation.id, :user_opinion
     evidence_type = OpinionType.for_relation_type(fact_relation.type)
 
     influencing_opinion = real_calculate_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)

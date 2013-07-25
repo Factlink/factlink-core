@@ -6,7 +6,15 @@ module Queries
       arguments :fact_id, :type
 
       def execute
-        OpinionPresenter.new(Opinion::BaseFactCalculation.new(fact).get_user_opinion).authority(type)
+        OpinionPresenter.new(user_opinion).authority(type)
+      end
+
+      def user_opinion
+        opinion_store.retrieve :Fact, fact.id, :user_opinion
+      end
+
+      def opinion_store
+        Opinion::Store.new HashStore::Redis.new
       end
 
       def fact

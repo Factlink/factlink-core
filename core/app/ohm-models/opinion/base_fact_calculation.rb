@@ -7,10 +7,6 @@ module Opinion
       @base_fact = base_fact
     end
 
-    def get_user_opinion
-      opinion_store.retrieve base_fact.class.name, base_fact.id, :user_opinion
-    end
-
     def calculate_user_opinion
       user_opinion = real_calculate_user_opinion(base_fact)
 
