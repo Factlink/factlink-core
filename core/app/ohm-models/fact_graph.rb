@@ -60,20 +60,19 @@ class FactGraph
         fact.fact_relations.all.each do |fact_relation|
           calculate_influencing_opinion(fact_relation)
         end
-        calculate_fact_opinion(fact)
+
+        user_opinion = opinion_store.retrieve :Fact, fact.id, :user_opinion
+        influencing_opinions = fact.fact_relations.all.map do |fact_relation|
+          opinion_store.retrieve :FactRelation, fact_relation.id, :influencing_opinion
+        end
+
+        evidence_opinion = DeadOpinion.combine(influencing_opinions)
+        opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
+
+        opinion = user_opinion + evidence_opinion
+        opinion_store.store :Fact, fact.id, :opinion, opinion
       end
     end
-  end
-
-  def calculate_fact_opinion(fact)
-    user_opinion = opinion_store.retrieve :Fact, fact.id, :user_opinion
-    influencing_opinions = get_influencing_opinions(fact)
-
-    evidence_opinion = DeadOpinion.combine(influencing_opinions)
-    opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
-
-    opinion = user_opinion + evidence_opinion
-    opinion_store.store :Fact, fact.id, :opinion, opinion
   end
 
   def calculate_influencing_opinion(fact_relation)
@@ -92,12 +91,6 @@ class FactGraph
     authority = [[net_fact_authority, net_relevance_authority].min, 0].max
 
     DeadOpinion.for_type(evidence_type, authority)
-  end
-
-  def get_influencing_opinions(fact)
-    fact.evidence(:both).map do |fact_relation|
-      opinion_store.retrieve :FactRelation, fact_relation.id, :influencing_opinion
-    end
   end
 
   def opinion_store
