@@ -57,14 +57,15 @@ class FactGraph
   def calculate_graph
     5.times do |i|
       Fact.all.each do |fact|
-        fact.fact_relations.all.each do |fact_relation|
-          calculate_influencing_opinion(fact_relation)
+        influencing_opinions = fact.fact_relations.all.map do |fact_relation|
+          from_fact_opinion = opinion_store.retrieve :Fact, fact_relation.from_fact.id, :opinion
+          fr_user_opinion = opinion_store.retrieve :FactRelation, fact_relation.id, :user_opinion
+          evidence_type = OpinionType.for_relation_type(fact_relation.type)
+
+          real_calculate_influencing_opinion(from_fact_opinion, fr_user_opinion, evidence_type)
         end
 
         user_opinion = opinion_store.retrieve :Fact, fact.id, :user_opinion
-        influencing_opinions = fact.fact_relations.all.map do |fact_relation|
-          opinion_store.retrieve :FactRelation, fact_relation.id, :influencing_opinion
-        end
 
         evidence_opinion = DeadOpinion.combine(influencing_opinions)
         opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
@@ -73,16 +74,6 @@ class FactGraph
         opinion_store.store :Fact, fact.id, :opinion, opinion
       end
     end
-  end
-
-  def calculate_influencing_opinion(fact_relation)
-    from_fact_opinion = opinion_store.retrieve :Fact, fact_relation.from_fact.id, :opinion
-    user_opinion = opinion_store.retrieve :FactRelation, fact_relation.id, :user_opinion
-    evidence_type = OpinionType.for_relation_type(fact_relation.type)
-
-    influencing_opinion = real_calculate_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
-
-    opinion_store.store :FactRelation, fact_relation.id, :influencing_opinion, influencing_opinion
   end
 
   def real_calculate_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
