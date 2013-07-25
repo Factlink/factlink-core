@@ -32,12 +32,7 @@ class FactGraph
     debug "Calculating fact opinions (#{i})"
     Fact.all.ids.each do |id|
       fact = Fact[id]
-
-      influencing_opinions = get_influencing_opinions(fact)
-      evidence_opinion = real_calculate_evidence_opinion(influencing_opinions)
-      opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
-
-      calculate_opinion(fact)
+      calculate_fact_opinion(fact, false, true)
     end
   end
 
@@ -47,6 +42,20 @@ class FactGraph
       bf = Basefact[id]
       Opinion::BaseFactCalculation.new(bf).calculate_user_opinion
     end
+  end
+
+  def calculate_fact_opinion(fact, should_calculate_user_opinion, should_calculate_evidence_opinion)
+    if should_calculate_user_opinion
+      Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
+    end
+
+    if should_calculate_evidence_opinion
+      influencing_opinions = get_influencing_opinions(fact)
+      evidence_opinion = real_calculate_evidence_opinion(influencing_opinions)
+      opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
+    end
+
+    calculate_opinion(fact)
   end
 
   def get_influencing_opinions(fact)
@@ -63,13 +72,8 @@ class FactGraph
     Opinion::Store.new HashStore::Redis.new
   end
 
-  def calculate_fact_when_user_authority_changed(fact)
-    Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
-    calculate_opinion(fact)
-  end
-
   def calculate_opinion(fact)
-    user_opinion = BaseFactCalculation.new(fact).get_user_opinion
+    user_opinion = Opinion::BaseFactCalculation.new(fact).get_user_opinion
     evidence_opinion = opinion_store.retrieve :Fact, fact.id, :evidence_opinion
 
     opinion = real_calculate_opinion(user_opinion, evidence_opinion)
@@ -79,6 +83,10 @@ class FactGraph
 
   def real_calculate_opinion(user_opinion, evidence_opinion)
     user_opinion + evidence_opinion
+  end
+
+  def calculate_fact_when_user_authority_changed(fact)
+    calculate_fact_opinion(fact, true, false)
   end
 
   def calculate_authority
