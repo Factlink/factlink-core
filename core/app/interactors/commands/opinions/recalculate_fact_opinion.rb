@@ -8,7 +8,7 @@ module Commands
       arguments :fact
 
       def execute
-        FactGraph.new.calculate_fact_when_user_authority_changed(fact)
+        FactGraph.new.calculate_fact_when_user_opinion_changed(fact)
       end
 
       def validate

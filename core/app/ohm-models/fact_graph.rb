@@ -25,6 +25,14 @@ class FactGraph
     end
   end
 
+  def calculate_fact_when_user_opinion_changed(fact)
+    calculate_fact_opinion(fact, true, false)
+  end
+
+  def calculate_authority
+    Authority.run_calculation(authority_calculators)
+  end
+
   def calculate_fact_opinion(fact, should_calculate_user_opinion, should_calculate_evidence_opinion)
     if should_calculate_user_opinion
       user_opinion = Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
@@ -79,14 +87,6 @@ class FactGraph
 
   def real_calculate_opinion(user_opinion, evidence_opinion)
     user_opinion + evidence_opinion
-  end
-
-  def calculate_fact_when_user_authority_changed(fact)
-    calculate_fact_opinion(fact, true, false)
-  end
-
-  def calculate_authority
-    Authority.run_calculation(authority_calculators)
   end
 
   def authority_calculators

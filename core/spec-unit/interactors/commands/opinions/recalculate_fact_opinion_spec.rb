@@ -17,7 +17,7 @@ describe Commands::Opinions::RecalculateFactOpinion do
 
       FactGraph.stub new: fact_graph
 
-      fact_graph.should_receive(:calculate_fact_when_user_authority_changed)
+      fact_graph.should_receive(:calculate_fact_when_user_opinion_changed)
         .with(fact)
 
       command.call
