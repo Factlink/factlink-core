@@ -46,7 +46,7 @@ class MapReduce
       graph_user = DeadGraphUser.new(ident[:user_id])
       Authority.from(topic, for: graph_user) << value
 
-      Resque.enqueue(Commands::Topics::UpdateUserAuthority, graph_user_id: graph_user.id, topic_slug: topic.slug_title, authority: value)
+      Resque.enqueue(Commands::Topics::UpdateUserAuthority, { graph_user_id: graph_user.id, topic_slug: topic.slug_title, authority: value })
     end
   end
 end

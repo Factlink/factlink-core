@@ -10,13 +10,13 @@ module Commands
 
       def execute
         if sharing_options[:twitter]
-          Resque.enqueue(Commands::Twitter::ShareFactlink, fact_id: fact_id,
-            pavlov_options: Util::PavlovContextSerialization.serialize_pavlov_context(pavlov_options))
+          Resque.enqueue(Commands::Twitter::ShareFactlink, { fact_id: fact_id,
+            pavlov_options: Util::PavlovContextSerialization.serialize_pavlov_context(pavlov_options) })
         end
 
         if sharing_options[:facebook]
-          Resque.enqueue(Commands::Facebook::ShareFactlink, fact_id: fact_id,
-            pavlov_options: Util::PavlovContextSerialization.serialize_pavlov_context(pavlov_options))
+          Resque.enqueue(Commands::Facebook::ShareFactlink, { fact_id: fact_id,
+            pavlov_options: Util::PavlovContextSerialization.serialize_pavlov_context(pavlov_options) })
         end
       end
 
