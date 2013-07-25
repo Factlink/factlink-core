@@ -11,7 +11,7 @@ end
 # moving to opinion
 if fact_relation.class.to_s == 'FactRelation'
   # this is a live fact_relation
-  opinion = query :'fact_relations/relevance_opinion', fact_relation
+  opinion = query :'opinions/relevance_opinion_for_fact_relation', fact_relation
 else
   opinion = fact_relation.opinion
 end
@@ -40,7 +40,8 @@ json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }
 
 json.current_user_opinion current_user_opinion
 
-json.opinions OpinionPresenter.new opinion
+# TODO: Change to actually use the impact
+json.impact OpinionPresenter.new(opinion).relevance
 
 json.time_ago TimeFormatter.as_time_ago(fact_relation.created_at.to_time)
 

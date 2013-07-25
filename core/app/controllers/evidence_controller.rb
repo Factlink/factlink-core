@@ -43,15 +43,13 @@ class EvidenceController < ApplicationController
 
     @fact_relation = create_believed_factrelation(evidence, relation, fact)
 
-    @fact_relation.calculate_opinion
-
     render 'fact_relations/show', formats: [:json]
   rescue EvidenceNotFoundException
     render json: [], status: :unprocessable_entity
   end
 
   def set_opinion
-    type = params[:type].to_sym
+    type = OpinionType.real_for(params[:type])
 
     @fact_relation = FactRelation[params[:id]]
 
@@ -59,8 +57,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type),@fact_relation)
-
-    @fact_relation.calculate_opinion
+    command :'opinions/recalculate_fact_relation_user_opinion', @fact_relation
 
     render 'fact_relations/show', formats: [:json]
   end
@@ -72,8 +69,7 @@ class EvidenceController < ApplicationController
 
     @fact_relation.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact_relation)
-
-    @fact_relation.calculate_opinion
+    command :'opinions/recalculate_fact_relation_user_opinion', @fact_relation
 
     render 'fact_relations/show', formats: [:json]
   end
@@ -93,12 +89,11 @@ class EvidenceController < ApplicationController
 
   # TODO This should not be a Controller method. Move to FactRelation
   def create_believed_factrelation(evidence, type, fact)
-    type     = type.to_sym
-
     # Create FactRelation
     fact_relation = fact.add_evidence(type, evidence, current_user)
     fact_relation.add_opinion(:believes, current_graph_user)
     Activity::Subject.activity(current_graph_user, OpinionType.real_for(:believes),fact_relation)
+    command :'opinions/recalculate_fact_relation_user_opinion', fact_relation
 
     fact_relation
   end

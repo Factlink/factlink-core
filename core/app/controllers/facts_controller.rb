@@ -29,7 +29,7 @@ class FactsController < ApplicationController
         open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
         open_graph_formatter.add open_graph_fact
 
-        render inline:'', layout: 'client'
+        render inline: '', layout: 'client'
       end
       format.json { render }
     end
@@ -49,7 +49,7 @@ class FactsController < ApplicationController
     authorize! :new, Fact
     authenticate_user!
 
-    render inline:'', layout: 'client'
+    render inline: '', layout: 'client'
   end
 
   def create
@@ -67,14 +67,16 @@ class FactsController < ApplicationController
     @site = @fact.site
 
     respond_to do |format|
-      mp_track "Factlink: Created"
+      mp_track "Factlink: Created",
+        opinion: params[:opinion],
+        channels: params[:channels]
 
       #TODO switch the following two if blocks if possible
-      if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
-        @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+      if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
+        @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
 
-        @fact.calculate_opinion(1)
+        command :'opinions/recalculate_fact_opinion', @fact
       end
 
       add_to_channels @fact, params[:channels]
@@ -92,13 +94,12 @@ class FactsController < ApplicationController
   end
 
   def set_opinion
-    type = params[:type].to_sym
+    type = OpinionType.real_for(params[:type])
     authorize! :opinionate, @fact
 
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
-
-    @fact.calculate_opinion(2)
+    command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
@@ -108,7 +109,7 @@ class FactsController < ApplicationController
 
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
-    @fact.calculate_opinion(2)
+    command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
@@ -151,8 +152,8 @@ class FactsController < ApplicationController
 
   def allowed_type
     # TODO REFACTOR SUCH THAT set_opinion rescues exception from opiniontype
-    allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
-    type = params[:type].to_sym
+    allowed_types = ['beliefs', 'doubts', 'disbeliefs', 'believes', 'disbelieves']
+    type = params[:type]
     if allowed_types.include?(type)
       yield
     else

@@ -12,7 +12,8 @@ end
 
 json.time_ago TimeFormatter.as_time_ago(comment.created_at)
 
-json.opinions OpinionPresenter.new comment.opinion
+# TODO: Change to actually use the impact
+json.impact OpinionPresenter.new(comment.opinion).relevance
 
 json.current_user_opinion comment.current_user_opinion
 

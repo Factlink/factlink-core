@@ -1,3 +1,14 @@
+#24-07-2013
+
+- Increased the max length of a username to 20 characters
+- Fixed a longstanding bug. We now highlight the correct factlink when the cancel button has been used. (instead of also highlighting 'canceled' factlinks)
+- Removed relevance numbers for arguments
+
+#22-07-2013
+
+- Instead of showing the name of the logged-in user in a list of interacting users, show 'you' instead.
+- Added percentage to the neutral tab
+
 #07-06-2013
 
 - We’ve improved the welcome tour for new users with a new section with featured users to follow on Factlink
@@ -32,7 +43,7 @@
 
 - We’ve added loading indicators to our search, discussion page and the profile page.
 - Channels has been renamed to topics. We’re working on a new more simple architecture with generic topics instead of user channels.
-- When clicking on a topic you will see everything that has been posted to that topic. 
+- When clicking on a topic you will see everything that has been posted to that topic.
 
 # 21-03-2013
 

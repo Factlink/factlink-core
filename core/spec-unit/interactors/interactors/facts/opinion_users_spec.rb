@@ -56,7 +56,7 @@ describe Interactors::Facts::OpinionUsers do
         .with(:'facts/interacting_users', fact_id, skip, take, type, pavlov_options)
         .and_return(users: [u1], total: 1)
       Pavlov.stub(:query)
-        .with(:'facts/interacting_users_impact', fact_id, type, pavlov_options)
+        .with(:'opinions/interacting_users_impact_for_fact', fact_id, type, pavlov_options)
         .and_return(impact)
 
       interactor = described_class.new fact_id, skip, take, type, pavlov_options
