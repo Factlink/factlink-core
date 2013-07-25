@@ -8,7 +8,11 @@ module Opinion
     end
 
     def calculate_evidence_opinion
-      opinion_store.store :Fact, fact.id, :evidence_opinion, real_calculate_evidence_opinion(fact)
+      influencing_opinions = get_influencing_opinions(fact)
+
+      evidence_opinion = real_calculate_evidence_opinion(influencing_opinions)
+
+      opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
     end
 
     def get_opinion
@@ -26,12 +30,14 @@ module Opinion
 
     private
 
-    def real_calculate_evidence_opinion(fact)
-      opinions = fact.evidence(:both).map do |fr|
+    def get_influencing_opinions(fact)
+      fact.evidence(:both).map do |fr|
         FactRelationCalculation.new(fr).get_influencing_opinion
       end
+    end
 
-      DeadOpinion.combine(opinions)
+    def real_calculate_evidence_opinion(influencing_opinions)
+      DeadOpinion.combine(influencing_opinions)
     end
 
     def real_calculate_opinion(user_opinion, evidence_opinion)
