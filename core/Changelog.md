@@ -1,7 +1,7 @@
 #24-07-2013
 
 - Increased the max length of a username to 20 characters
-- Fixed a longstanding bug. We now highlight the correct factlink when the cancel button has been used. (instead of also highlighting 'canceled' factlinks)
+- Fixed a longstanding bug. We now highlight the correct Factlink when the cancel button has been used. (instead of also highlighting 'canceled' Factlinks)
 - Removed relevance numbers for arguments
 
 #22-07-2013
@@ -52,7 +52,7 @@
 
 # 14-03-2013
 
-- Social signin/signup now uses a popup instead of full page redirects.
+- Social sign in/signup now uses a popup instead of full page redirects.
 - New users will get better guidance when creating their first Factlink.
 - We’ve simplified the way to follow a channel. You can now just press the follow button to follow a channel.
 
@@ -72,5 +72,4 @@
 - Bugfix: fixed text of "A, B and C agreed this Factlink" (in client).
 - Bugfix: HTML 5 placeholders don't work in IE7/IE8.
 - Bugfix: Visiting Factlink public pages won't crash IE.
-- Bugfix: Fixed layout of factlink placeholders in tour.
-
+- Bugfix: Fixed layout of Factlink placeholders in tour.
