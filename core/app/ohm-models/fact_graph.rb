@@ -3,12 +3,6 @@ class FactGraph
     new.recalculate
   end
 
-  def debug x
-    @logger ||= Logger.new(STDERR)
-    @logger.info "#{Time.now} #{x}"
-    $stdout.flush
-  end
-
   def recalculate
     calculate_authority
 
@@ -21,7 +15,6 @@ class FactGraph
   end
 
   def calculate_fact_relation_influencing_opinions i
-    debug "Calculating fact relation influencing opinions (#{i})"
     FactRelation.all.ids.each do |id|
       fr = FactRelation[id]
       Opinion::FactRelationCalculation.new(fr).calculate_influencing_opinion
@@ -29,7 +22,6 @@ class FactGraph
   end
 
   def calculate_fact_opinions i
-    debug "Calculating fact opinions (#{i})"
     Fact.all.ids.each do |id|
       fact = Fact[id]
       calculate_fact_opinion(fact, false, true)
@@ -37,7 +29,6 @@ class FactGraph
   end
 
   def calculate_user_opinions_of_all_base_facts
-    debug "Calculating user opinions on basefacts"
     Basefact.all.ids.each do |id|
       bf = Basefact[id]
       Opinion::BaseFactCalculation.new(bf).calculate_user_opinion
@@ -87,7 +78,6 @@ class FactGraph
   end
 
   def calculate_authority
-    debug "Calculating Authority"
     Authority.run_calculation(authority_calculators)
   end
 
