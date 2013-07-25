@@ -15,7 +15,7 @@ class FactGraph
 
     evidence_opinion = opinion_store.retrieve :Fact, fact.id, :evidence_opinion
 
-    opinion = real_calculate_opinion(user_opinion, evidence_opinion)
+    opinion = user_opinion + evidence_opinion
     opinion_store.store :Fact, fact.id, :opinion, opinion
   end
 
@@ -69,10 +69,10 @@ class FactGraph
     user_opinion = opinion_store.retrieve :Fact, fact.id, :user_opinion
     influencing_opinions = get_influencing_opinions(fact)
 
-    evidence_opinion = real_calculate_evidence_opinion(influencing_opinions)
+    evidence_opinion = DeadOpinion.combine(influencing_opinions)
     opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
 
-    opinion = real_calculate_opinion(user_opinion, evidence_opinion)
+    opinion = user_opinion + evidence_opinion
     opinion_store.store :Fact, fact.id, :opinion, opinion
   end
 
@@ -100,16 +100,8 @@ class FactGraph
     end
   end
 
-  def real_calculate_evidence_opinion(influencing_opinions)
-    DeadOpinion.combine(influencing_opinions)
-  end
-
   def opinion_store
     Opinion::Store.new HashStore::Redis.new
-  end
-
-  def real_calculate_opinion(user_opinion, evidence_opinion)
-    user_opinion + evidence_opinion
   end
 
   def real_calculate_user_opinion(base_fact)
