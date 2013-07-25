@@ -32,13 +32,12 @@ class FactGraph
     debug "Calculating fact opinions (#{i})"
     Fact.all.ids.each do |id|
       fact = Fact[id]
-      fact_calculation = Opinion::FactCalculation.new(fact)
 
       influencing_opinions = get_influencing_opinions(fact)
       evidence_opinion = real_calculate_evidence_opinion(influencing_opinions)
       opinion_store.store :Fact, fact.id, :evidence_opinion, evidence_opinion
 
-      fact_calculation.calculate_opinion
+      calculate_opinion(fact)
     end
   end
 
@@ -66,7 +65,20 @@ class FactGraph
 
   def calculate_fact_when_user_authority_changed(fact)
     Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
-    Opinion::FactCalculation.new(fact).calculate_opinion
+    calculate_opinion(fact)
+  end
+
+  def calculate_opinion(fact)
+    user_opinion = BaseFactCalculation.new(fact).get_user_opinion
+    evidence_opinion = opinion_store.retrieve :Fact, fact.id, :evidence_opinion
+
+    opinion = real_calculate_opinion(user_opinion, evidence_opinion)
+
+    opinion_store.store :Fact, fact.id, :opinion, opinion
+  end
+
+  def real_calculate_opinion(user_opinion, evidence_opinion)
+    user_opinion + evidence_opinion
   end
 
   def calculate_authority
