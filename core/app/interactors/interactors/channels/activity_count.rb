@@ -3,7 +3,8 @@ module Interactors
     class ActivityCount
       include Pavlov::Interactor
 
-      arguments :channel_id, :timestamp, :pavlov_options
+      arguments :channel_id, :timestamp
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         old_query :"channels/activity_count", @channel_id, @timestamp

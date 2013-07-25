@@ -32,6 +32,5 @@ module Commands
 
       # @logger.info "Removing #{@type_name} from ElasticSearch index."
     end
-
   end
 end

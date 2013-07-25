@@ -3,7 +3,8 @@ module Queries
     class ByIdWithAuthorityAndFactsCount
       include Pavlov::Query
 
-      arguments :id, :pavlov_options
+      arguments :id
+      attribute :pavlov_options, Hash, default: {}
 
       private
 

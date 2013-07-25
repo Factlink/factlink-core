@@ -2,7 +2,8 @@ module Queries
   class VisibleChannelsOfUser
     include Pavlov::Query
 
-    arguments :user, :pavlov_options
+    arguments :user
+    attribute :pavlov_options, Hash, default: {}
 
     def execute
       channels = real_channels_for(@user.graph_user)

@@ -4,7 +4,8 @@ module Queries
     class GraphUserIdsFollowingFactRelations
       include Pavlov::Query
 
-      arguments :fact_relations, :pavlov_options
+      arguments :fact_relations
+      attribute :pavlov_options, Hash, default: {}
 
       private
 

@@ -5,7 +5,8 @@ module Commands
     class Unfavourite
       include Pavlov::Command
 
-      arguments :graph_user_id, :topic_id, :pavlov_options
+      arguments :graph_user_id, :topic_id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         users_favourited_topics.unfavourite topic_id

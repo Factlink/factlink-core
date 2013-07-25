@@ -5,7 +5,8 @@ module Commands
     class UnfollowUser
       include Pavlov::Command
 
-      arguments :graph_user_id, :user_to_unfollow_graph_user_id, :pavlov_options
+      arguments :graph_user_id, :user_to_unfollow_graph_user_id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         user_following_users.unfollow user_to_unfollow_graph_user_id

@@ -3,7 +3,8 @@ module Commands
     class Create
       include Pavlov::Command
 
-      arguments :url, :pavlov_options
+      arguments :url
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         ::Site.create(url: @url)

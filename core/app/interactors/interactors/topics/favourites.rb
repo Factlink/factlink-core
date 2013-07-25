@@ -6,7 +6,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :user_name, :pavlov_options
+      arguments :user_name
+      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         pavlov_options[:current_user] and can? :show_favourites, user

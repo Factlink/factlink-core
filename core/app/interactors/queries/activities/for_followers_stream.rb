@@ -2,7 +2,8 @@ module Queries
   module Activities
     class ForFollowersStream
       include Pavlov::Query
-      arguments :graph_user_id, :pavlov_options
+      arguments :graph_user_id
+      attribute :pavlov_options, Hash, default: {}
 
       # We currently only use this for selecting some activities
       # when following another user.

@@ -4,7 +4,8 @@ module Queries
   module Comments
     class CanDestroy
       include Pavlov::Query
-      arguments :comment_id, :user_id, :pavlov_options
+      arguments :comment_id, :user_id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         created_by_user && deletable

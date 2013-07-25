@@ -5,7 +5,8 @@ module Commands
     class AddToRecentlyViewed
       include Pavlov::Command
 
-      arguments :fact_id, :user_id, :pavlov_options
+      arguments :fact_id, :user_id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         RecentlyViewedFacts.by_user_id(@user_id).add_fact_id @fact_id

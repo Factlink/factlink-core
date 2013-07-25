@@ -5,7 +5,7 @@ module Commands
     class CleanUpFaultyAddFactToChannels
       include Pavlov::Command
 
-      arguments :pavlov_options
+      attribute :pavlov_options, Hash, default: {}
 
       private
 

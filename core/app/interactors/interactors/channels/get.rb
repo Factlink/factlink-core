@@ -4,7 +4,8 @@ module Interactors
     class Get
       include Pavlov::Interactor
 
-      arguments :id, :pavlov_options
+      arguments :id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         channels = old_interactor :'channels/all_by_id', @id

@@ -3,7 +3,8 @@ module Queries
     class RelevanceOpinionForFactRelation
       include Pavlov::Query
 
-      arguments :fact_relation, :pavlov_options
+      arguments :fact_relation
+      attribute :pavlov_options, Hash, default: {}
 
       private
 

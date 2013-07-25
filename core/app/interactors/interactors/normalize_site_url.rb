@@ -4,7 +4,8 @@ module Interactors
   class NormalizeSiteUrl
     include Pavlov::Interactor
 
-    arguments :site_id, :normalizer_class_name, :pavlov_options
+    arguments :site_id, :normalizer_class_name
+    attribute :pavlov_options, Hash, default: {}
 
     def authorized?
       true # TODO maybe we should implement some logic here?

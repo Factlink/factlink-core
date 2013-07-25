@@ -6,7 +6,8 @@ module Queries
   class ConversationsWithUsersMessage
     include Pavlov::Query
 
-    arguments :user_id, :pavlov_options
+    arguments :user_id
+    attribute :pavlov_options, Hash, default: {}
 
     def execute
       conversations = old_query :conversations_list, user_id

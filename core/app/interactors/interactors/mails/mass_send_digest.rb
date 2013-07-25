@@ -5,7 +5,8 @@ module Interactors
     class MassSendDigest
       include Pavlov::Interactor
 
-      arguments :fact_id, :url, :pavlov_options
+      arguments :fact_id, :url
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         mails.each do |mail|

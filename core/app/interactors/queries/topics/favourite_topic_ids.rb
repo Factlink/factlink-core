@@ -5,7 +5,8 @@ module Queries
     class FavouriteTopicIds
       include Pavlov::Query
 
-      arguments :graph_user_id, :pavlov_options
+      arguments :graph_user_id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         users_favourited_topics.topic_ids

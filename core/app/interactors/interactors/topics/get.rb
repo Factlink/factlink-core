@@ -4,7 +4,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :slug_title, :pavlov_options
+      arguments :slug_title
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         KillObject.topic topic, current_user_authority: authority

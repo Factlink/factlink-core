@@ -3,7 +3,8 @@ module Queries
     class BySlugTitleWithAuthorityAndFactsCount
       include Pavlov::Query
 
-      arguments :slug_title, :pavlov_options
+      arguments :slug_title
+      attribute :pavlov_options, Hash, default: {}
 
       private
 

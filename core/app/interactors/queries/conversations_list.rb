@@ -5,7 +5,8 @@ module Queries
   class ConversationsList
     include Pavlov::Query
 
-    arguments :user_id, :pavlov_options
+    arguments :user_id
+    attribute :pavlov_options, Hash, default: {}
 
     def execute
       User.find(@user_id).conversations.desc(:updated_at).map do |conversation|

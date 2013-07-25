@@ -3,7 +3,8 @@ module Queries
     class ById
       include Pavlov::Query
 
-      arguments :id, :pavlov_options
+      arguments :id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         KillObject.topic topic

@@ -3,7 +3,8 @@ module Commands
     class ShareFactlink
       include Pavlov::Command
 
-      arguments :fact_id, :pavlov_options
+      arguments :fact_id
+      attribute :pavlov_options, Hash, default: {}
 
       private
 

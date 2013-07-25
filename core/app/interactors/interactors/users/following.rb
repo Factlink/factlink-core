@@ -5,7 +5,8 @@ module Interactors
     class Following
       include Pavlov::Interactor
 
-      arguments :user_name, :skip, :take, :pavlov_options
+      arguments :user_name, :skip, :take
+      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         !! pavlov_options[:current_user]

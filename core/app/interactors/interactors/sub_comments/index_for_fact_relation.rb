@@ -6,7 +6,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :fact_relation_id, :pavlov_options
+      arguments :fact_relation_id
+      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_integer :fact_relation_id, fact_relation_id

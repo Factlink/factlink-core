@@ -3,7 +3,8 @@ module Queries
     class PostedToByGraphUser
       include Pavlov::Query
 
-      arguments :graph_user, :pavlov_options
+      arguments :graph_user
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         topics

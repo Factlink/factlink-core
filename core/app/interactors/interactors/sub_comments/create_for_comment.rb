@@ -6,7 +6,8 @@ module Interactors
     class CreateForComment < CreateForGeneric
       include Pavlov::Interactor
 
-      arguments :comment_id, :content, :pavlov_options
+      arguments :comment_id, :content
+      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_hexadecimal_string :comment_id, @comment_id

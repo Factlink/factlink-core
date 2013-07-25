@@ -5,7 +5,8 @@ module Commands
   class ElasticSearchIndexForTextSearchCommand
     include Pavlov::Command
 
-    arguments :object, :pavlov_options
+    arguments :object
+    attribute :pavlov_options, Hash, default: {}
 
     def execute
       @missing_fields = []

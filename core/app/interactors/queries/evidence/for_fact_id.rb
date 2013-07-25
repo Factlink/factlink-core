@@ -5,7 +5,8 @@ module Queries
     class ForFactId
       include Pavlov::Query
 
-      arguments :fact_id, :type, :pavlov_options
+      arguments :fact_id, :type
+      attribute :pavlov_options, Hash, default: {}
 
       private
 

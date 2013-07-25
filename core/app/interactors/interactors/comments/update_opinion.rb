@@ -5,7 +5,8 @@ module Interactors
     class UpdateOpinion
       include Pavlov::Interactor
 
-      arguments :comment_id, :opinion, :pavlov_options
+      arguments :comment_id, :opinion
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         if opinion

@@ -5,7 +5,8 @@ module Queries
   class MessagesForConversation
     include Pavlov::Query
 
-    arguments :conversation, :pavlov_options
+    arguments :conversation
+    attribute :pavlov_options, Hash, default: {}
 
     def execute
       messages = Message.where(conversation_id: conversation.id)

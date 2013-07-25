@@ -2,7 +2,8 @@ module Commands
   module Stream
     class AddActivitiesOfUserToStream
       include Pavlov::Command
-      arguments :graph_user_id, :pavlov_options
+      arguments :graph_user_id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         old_command :'stream/add_activities', activities

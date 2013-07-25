@@ -4,7 +4,8 @@ module Queries
   module Comments
     class AddAuthorityAndOpinionAndCanDestroy
       include Pavlov::Query
-      arguments :comment, :fact, :pavlov_options
+      arguments :comment, :fact
+      attribute :pavlov_options, Hash, default: {}
       def execute
         KillObject.comment @comment,
           opinion: opinion,

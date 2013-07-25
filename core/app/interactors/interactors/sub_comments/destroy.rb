@@ -6,7 +6,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :id, :pavlov_options
+      arguments :id
+      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_hexadecimal_string :id, id

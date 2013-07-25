@@ -5,7 +5,8 @@ module Commands
     class RemoveOpinion
       include Pavlov::Command
 
-      arguments :comment_id, :graph_user, :pavlov_options
+      arguments :comment_id, :graph_user
+      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_hexadecimal_string :comment_id, @comment_id

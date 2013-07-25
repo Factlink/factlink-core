@@ -6,7 +6,8 @@ module Queries
       include Redis::Aid::Ns(:site)
       include Pavlov::Query
 
-      arguments :site_id, :nr, :pavlov_options
+      arguments :site_id, :nr
+      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_integer :site_id, site_id

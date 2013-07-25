@@ -6,7 +6,8 @@ module Interactors
     include Util::CanCan
     include Util::Search
 
-    arguments :keywords, :fact_id, :pavlov_options
+    arguments :keywords, :fact_id
+    attribute :pavlov_options, Hash, default: {}
 
     def validate
       raise 'Keywords should be an string.' unless @keywords.kind_of? String

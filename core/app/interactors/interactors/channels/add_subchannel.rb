@@ -4,7 +4,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :channel_id, :subchannel_id, :pavlov_options
+      arguments :channel_id, :subchannel_id
+      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_integer_string :channel_id, channel_id

@@ -5,7 +5,8 @@ module Queries
     class FollowingGraphUserIds
       include Pavlov::Query
 
-      arguments :graph_user_id, :pavlov_options
+      arguments :graph_user_id
+      attribute :pavlov_options, Hash, default: {}
 
       def execute
         user_following_users = UserFollowingUsers.new(graph_user_id)

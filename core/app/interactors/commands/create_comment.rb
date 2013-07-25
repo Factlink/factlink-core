@@ -4,7 +4,8 @@ module Commands
   class CreateComment
     include Pavlov::Command
 
-    arguments :fact_id, :type, :content, :user_id, :pavlov_options
+    arguments :fact_id, :type, :content, :user_id
+    attribute :pavlov_options, Hash, default: {}
 
     def execute
       comment = Comment.new

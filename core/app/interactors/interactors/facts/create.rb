@@ -6,7 +6,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :displaystring, :url, :title, :sharing_options, :pavlov_options
+      arguments :displaystring, :url, :title, :sharing_options
+      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         can? :create, Fact

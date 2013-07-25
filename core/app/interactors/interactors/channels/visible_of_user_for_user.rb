@@ -2,7 +2,8 @@ require_relative './index.rb'
 module Interactors
   module Channels
     class VisibleOfUserForUser < Index
-      arguments :user, :pavlov_options
+      arguments :user
+      attribute :pavlov_options, Hash, default: {}
 
       def get_alive_channels
         old_query :visible_channels_of_user, @user

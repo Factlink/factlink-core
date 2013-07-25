@@ -4,7 +4,8 @@ module Queries
   class LastMessageForConversation
     include Pavlov::Query
 
-    arguments :conversation, :pavlov_options
+    arguments :conversation
+    attribute :pavlov_options, Hash, default: {}
 
     def validate
       validate_hexadecimal_string :id, conversation.id.to_s
