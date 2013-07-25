@@ -113,7 +113,7 @@ class FactsController < ApplicationController
   end
 
   def render_factwheel(fact_id)
-    dead_fact_wheel = query 'facts/get_dead_wheel', fact_id.to_s
+    dead_fact_wheel = old_query 'facts/get_dead_wheel', fact_id.to_s
     render 'facts/_fact_wheel', format: :json, locals: {dead_fact_wheel: dead_fact_wheel}
   end
 
