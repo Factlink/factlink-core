@@ -8,7 +8,7 @@ module Opinion
     end
 
     def get_user_opinion
-      user_opinion_store.retrieve base_fact.class_name, base_fact.id, :user_opinion
+      opinion_store.retrieve base_fact.class.name, base_fact.id, :user_opinion
     end
 
     def calculate_user_opinion
@@ -16,7 +16,7 @@ module Opinion
         Authority.on(base_fact, for: user).to_f + 1.0
       end.opinion
 
-      user_opinion_store.store base_fact.class_name, base_fact.id, :user_opinion, user_opinion
+      opinion_store.store base_fact.class.name, base_fact.id, :user_opinion, user_opinion
     end
 
     private
