@@ -29,8 +29,8 @@ GIT
 
 GIT
   remote: git://github.com/Factlink/pavlov.git
-  revision: db768892f7e498285e0c010158358c914310ca4c
-  ref: db76889
+  revision: 02d05883003b189fcd12a1ce086e0f28eb9489b1
+  ref: 02d0588
   specs:
     pavlov (0.1.0)
       activemodel (>= 3.2.7)
@@ -46,7 +46,7 @@ GIT
 GIT
   remote: git://github.com/jjoos/korsakov.git
   revision: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
-  ref: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
+  ref: 72db865
   specs:
     korsakov (0.0.1)
       activemodel (>= 3.2.7)

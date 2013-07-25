@@ -13,7 +13,7 @@ describe ChannelsController do
   let (:ch_heavy) do
     ch_heavy = create :channel, created_by: user.graph_user
     [f1,f2,f3].each do |f|
-      Interactors::Channels::AddFact.new(f, ch_heavy, no_current_user: true).call
+      Interactors::Channels::AddFact.new(fact: f, channel: ch_heavy, pavlov_options: { no_current_user: true }).call
     end
     ch_heavy
   end

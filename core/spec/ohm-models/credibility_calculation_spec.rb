@@ -9,18 +9,18 @@ describe "credibility calculation of facts*users" do
       pavlov_options: { no_current_user: true }).call
   end
 
-  let(:u1) {FactoryGirl.create(:graph_user)}
-  let(:u2) {FactoryGirl.create(:graph_user)}
-  let(:u3) {FactoryGirl.create(:graph_user)}
-  let(:u4) {FactoryGirl.create(:graph_user)}
+  let(:u1) { create(:graph_user) }
+  let(:u2) { create(:graph_user) }
+  let(:u3) { create(:graph_user) }
+  let(:u4) { create(:graph_user) }
 
-  let(:f1) {FactoryGirl.create(:fact)}
-  let(:f2) {FactoryGirl.create(:fact)}
-  let(:f3) {FactoryGirl.create(:fact)}
-  let(:f4) {FactoryGirl.create(:fact)}
-  let(:f5) {FactoryGirl.create(:fact)}
-  let(:f6) {FactoryGirl.create(:fact)}
-  let(:f7) {FactoryGirl.create(:fact)}
+  let(:f1) { create(:fact) }
+  let(:f2) { create(:fact) }
+  let(:f3) { create(:fact) }
+  let(:f4) { create(:fact) }
+  let(:f5) { create(:fact) }
+  let(:f6) { create(:fact) }
+  let(:f7) { create(:fact) }
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -76,7 +76,7 @@ describe "credibility calculation of facts*users" do
     add_fact_to_channel f1, ch2
 
     # some data that shouldn't influence the outcome
-    Commands::Channels::AddSubchannel.new(ch1, ch2).call
+    Commands::Channels::AddSubchannel.new(channel: ch1, subchannel: ch2).call
 
     recalculate_credibility
     expect(Authority.on(f1, for: u1).to_f).to eq(15.0)

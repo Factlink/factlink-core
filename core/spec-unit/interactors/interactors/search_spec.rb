@@ -40,12 +40,10 @@ describe Interactors::Search do
         pavlov_options: { ability: relaxed_ability }
       results = ['a','b','c']
 
-      query = mock()
-      Queries::ElasticSearchAll.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
-      query.should_receive(:call).
-        and_return(results)
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_all, keywords, 1, 20,
+          ability: relaxed_ability)
+        .and_return(results)
 
       interactor.call.should eq results
     end
@@ -56,12 +54,11 @@ describe Interactors::Search do
         pavlov_options: { ability: relaxed_ability }
       fact_data = FactData.new
       results =  [fact_data]
-      query = mock()
-      Queries::ElasticSearchAll.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
-      query.should_receive(:call).
-        and_return(results)
+
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_all, keywords, 1, 20,
+          ability: relaxed_ability)
+        .and_return(results)
       FactData.stub invalid: true
 
       interactor.call.should eq []
@@ -75,13 +72,10 @@ describe Interactors::Search do
       user.stub hidden: true
       results = [user]
 
-      query = mock()
-      Queries::ElasticSearchAll.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
-
-      query.should_receive(:call).
-        and_return(results)
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_all, keywords, 1, 20,
+          ability: relaxed_ability)
+        .and_return(results)
 
       interactor.call.should eq []
     end

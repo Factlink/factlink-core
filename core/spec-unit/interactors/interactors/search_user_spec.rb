@@ -23,7 +23,7 @@ describe Interactors::SearchUser do
       .to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
-  describe '.initialize' do
+  describe '#authorized?' do
     it 'raises when executed without any permission' do
       keywords = "searching for this user"
       ability = mock()
@@ -36,37 +36,33 @@ describe Interactors::SearchUser do
         .to raise_error(Pavlov::AccessDenied)
     end
   end
-  describe '.call' do
-    it 'correctly' do
+  describe '#call' do
+    it do
       keywords = 'searching for this user'
       interactor = described_class.new keywords: keywords,
         pavlov_options: { ability: relaxed_ability }
-      user = mock()
-      user.should_receive(:hidden).and_return(false)
-      query = mock()
-      query.should_receive(:call).
-        and_return([user])
-      Queries::ElasticSearchUser.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
+      user = double(hidden: false)
 
-      interactor.call.should eq [user]
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_user, keywords, 1, 20,
+          ability: relaxed_ability)
+        .and_return([user])
+
+      expect( interactor.call ).to eq [user]
     end
 
     it 'should not return hidden users' do
       keywords = 'searching for this user'
       interactor = described_class.new keywords: keywords,
         pavlov_options: { ability: relaxed_ability }
-      user = mock()
-      query = mock()
-      user.should_receive(:hidden).and_return(true)
-      query.should_receive(:call).
-        and_return([user])
-      Queries::ElasticSearchUser.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
+      user = double(hidden: true)
 
-      interactor.call.should eq []
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_user, keywords, 1, 20,
+          ability: relaxed_ability)
+        .and_return([user])
+
+      expect( interactor.call ).to eq []
     end
   end
 end

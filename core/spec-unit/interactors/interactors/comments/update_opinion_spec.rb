@@ -44,7 +44,7 @@ describe Interactors::Comments::UpdateOpinion do
         pavlov_options: { current_user: user }
 
       interactor.should_receive(:old_command).with('comments/set_opinion',
-          comment_id: comment.id, opinion: opinion, graph_user: user.graph_user)
+        comment.id, opinion, user.graph_user)
       interactor.should_receive(:old_query).with(:'comments/get', comment.id)
         .and_return(mock_comment)
 
@@ -62,7 +62,7 @@ describe Interactors::Comments::UpdateOpinion do
         pavlov_options: { current_user: user }
 
       interactor.should_receive(:old_command).with('comments/remove_opinion',
-        comment_id: comment.id, graph_user: user.graph_user)
+        comment.id, user.graph_user)
       interactor.should_receive(:old_query).with(:'comments/get', comment.id).and_return(mock_comment)
 
       expect(interactor.call).to eq mock_comment

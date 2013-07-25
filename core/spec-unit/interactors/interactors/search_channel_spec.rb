@@ -11,7 +11,7 @@ describe Interactors::SearchChannel do
                  'Fact','Ability::FactlinkWebapp'
   end
 
-  describe 'validation' do
+  describe 'validations' do
     it 'requires keywords to be a nonempty string' do
       interactor = described_class.new keywords: nil
       expect { interactor.call }
@@ -19,7 +19,7 @@ describe Interactors::SearchChannel do
     end
   end
 
-  describe '.initialize' do
+  describe '#authorized?' do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
       ability = stub(:ability, can?: false)
@@ -32,18 +32,17 @@ describe Interactors::SearchChannel do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       keywords = 'searching for this channel'
       interactor = described_class.new keywords: keywords,
         pavlov_options: { ability: relaxed_ability }
       topic = mock()
-      query = mock()
-      query.should_receive(:call).
-        and_return([topic])
-      Queries::ElasticSearchChannel.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
+
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_channel, keywords, 1, 20,
+          { ability: relaxed_ability })
+        .and_return([topic])
 
       interactor.call.should eq [topic]
     end

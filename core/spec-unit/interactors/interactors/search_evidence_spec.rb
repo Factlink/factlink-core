@@ -40,33 +40,29 @@ describe Interactors::SearchEvidence do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'returns a empty array when the keyword string is empty' do
       keywords = 'zoeken interessante dingen'
       interactor = described_class.new keywords: '', fact_id: '1',
         pavlov_options: { ability: relaxed_ability }
 
-      interactor.call.should eq []
+      expect( interactor.call ).to eq []
     end
 
-    it 'shouldn''t return itself' do
+    it 'shouldn\'t return itself' do
       keywords = 'zoeken interessante dingen'
       interactor = described_class.new keywords: keywords, fact_id: '2',
         pavlov_options: { ability: relaxed_ability }
 
       result = [get_fact_data('2')]
-      query = mock()
 
-      Queries::ElasticSearchFactData.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
-
-      query.should_receive(:call).
-        and_return(result)
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_fact_data, keywords, 1, 20, ability: relaxed_ability)
+        .and_return(result)
 
       FactData.stub :valid => true
 
-      interactor.call.should eq []
+      expect( interactor.call ).to eq []
     end
 
     it 'correctly' do
@@ -75,21 +71,17 @@ describe Interactors::SearchEvidence do
         pavlov_options: { ability: relaxed_ability }
 
       result = [get_fact_data('2')]
-      query = mock()
 
-      Queries::ElasticSearchFactData.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
-
-      query.should_receive(:call).
-        and_return(result)
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_fact_data, keywords, 1, 20, ability: relaxed_ability)
+        .and_return(result)
 
       FactData.stub :valid => true
 
-      interactor.call.should eq result
+      expect( interactor.call ).to eq result
     end
 
-    it 'shouldn''t return invalid results' do
+    it 'shouldn\'t return invalid results' do
       keywords = 'zoeken interessante dingen'
       interactor = described_class.new keywords: keywords, fact_id: '1',
         pavlov_options: { ability: relaxed_ability }
@@ -97,14 +89,10 @@ describe Interactors::SearchEvidence do
       fact_data2 = get_fact_data '3'
 
       result = [fact_data, fact_data2]
-      query = mock()
 
-      Queries::ElasticSearchFactData.should_receive(:new).
-        with('zoeken interessante dingen', 1, 20, ability: relaxed_ability).
-        and_return(query)
-
-      query.should_receive(:call).
-        and_return(result)
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_fact_data, 'zoeken interessante dingen', 1, 20, ability: relaxed_ability)
+        .and_return(result)
 
       FactData.should_receive(:valid).with(fact_data).and_return(false)
       FactData.should_receive(:valid).with(fact_data2).and_return(true)
