@@ -7,11 +7,13 @@ class FactGraph
     calculate_authority
 
     Fact.all.each do |fact|
-      Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
+      user_opinion = real_calculate_user_opinion(fact)
+      opinion_store.store :Fact, fact.id, :user_opinion, user_opinion
     end
 
     FactRelation.all.each do |fact_relation|
-      Opinion::BaseFactCalculation.new(fact_relation).calculate_user_opinion
+      user_opinion = real_calculate_user_opinion(fact_relation)
+      opinion_store.store :FactRelation, fact_relation.id, :user_opinion, user_opinion
     end
 
     5.times do |i|
@@ -34,14 +36,16 @@ class FactGraph
   end
 
   def calculate_fact_relation_when_user_opinion_changed(fact_relation)
-    Opinion::BaseFactCalculation.new(fact_relation).calculate_user_opinion
+    user_opinion = real_calculate_user_opinion(fact_relation)
+    opinion_store.store :FactRelation, fact_relation.id, :user_opinion, user_opinion
   end
 
   private
 
   def calculate_fact_opinion(fact, should_calculate_user_opinion, should_calculate_evidence_opinion)
     if should_calculate_user_opinion
-      user_opinion = Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
+      user_opinion = real_calculate_user_opinion(fact)
+      opinion_store.store :Fact, fact.id, :user_opinion, user_opinion
     else
       user_opinion = opinion_store.retrieve :Fact, fact.id, :user_opinion
     end
@@ -93,6 +97,12 @@ class FactGraph
 
   def real_calculate_opinion(user_opinion, evidence_opinion)
     user_opinion + evidence_opinion
+  end
+
+  def real_calculate_user_opinion(base_fact)
+    UserOpinionCalculation.new(base_fact.believable) do |user|
+      Authority.on(base_fact, for: user).to_f + 1.0
+    end.opinion
   end
 
   def authority_calculators
