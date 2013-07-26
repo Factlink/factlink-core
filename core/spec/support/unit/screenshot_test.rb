@@ -34,57 +34,57 @@ module ScreenshotTest
     end
 
     def changed?
-      changed = false
       pixels_changed = 0
-      changed_amount = 0
 
-      height = images.map(&:height).max
-      width = images.map(&:width).max
+      height = images.map(&:height).min
+      width = images.map(&:width).min
       diff_image = ChunkyPNG::Image.new(width, height)
+      y=0
+      while y < height
+        x=0
+        while x < width
+          pixel_old = images.first.get_pixel(x,y)
+          pixel_new = images.last.get_pixel(x,y)
 
-      height.times do |y|
-        width.times do |x|
-          pixel_old = get_pixel(images.first,x,y)
-          pixel_new = get_pixel(images.last,x,y)
-
-          changed_pixel = (pixel_old != pixel_new)
-
-          changed ||= changed_pixel
-
-          if changed_pixel
+          if pixel_old != pixel_new
             pixels_changed += 1
 
-            red_delta = [r(pixel_old), r(pixel_new)].max - [r(pixel_old), r(pixel_new)].min
-            green_delta = [g(pixel_old), g(pixel_new)].max - [g(pixel_old), g(pixel_new)].min
-            blue_delta = [b(pixel_old), b(pixel_new)].max - [b(pixel_old), b(pixel_new)].min
+            red_delta = (r(pixel_old) - r(pixel_new)).abs
+            green_delta = (g(pixel_old) - g(pixel_new)).abs
+            blue_delta = (b(pixel_old) - b(pixel_new)).abs
 
-            changed_amount += red_delta + green_delta + blue_delta
+            changed_amount = red_delta + green_delta + blue_delta
 
             # give changed pixel a red color with a value of red between 125 and 254
             # indication how much has changed
-            delta = ((red_delta + green_delta + blue_delta)/6) + 124
+            delta = changed_amount/6 + 128
             diff_image[x,y] = rgb(delta,0,0)
           else
             # fading out the pixel by reducing the distance to white by two thirds
-            grey_scale = 255-((255 - ((b(pixel_old)+g(pixel_old)+b(pixel_old))/3))/3)
+            grey_scale = 255*2/3 + (b(pixel_old)+g(pixel_old)+r(pixel_old))/9
 
             diff_image[x,y] = rgb(grey_scale, grey_scale, grey_scale)
           end
+          x += 1
         end
+        y += 1
       end
 
-      if changed
+      if pixels_changed > 0
         diff_image.save(diff_file)
-        puts "Pixels changed #{pixels_changed}."
+        total_pixels = width * height
+        percentage = 100.0 * pixels_changed / total_pixels
+
+        puts "Pixels changed #{percentage}%  (#{pixels_changed}/#{total_pixels}."
       end
 
-      changed
+      pixels_changed > 0
     end
 
     def take
       # binding.pry
       # Need this to let the animations settle.
-      sleep 1
+      sleep 0.5
       @page.driver.save_screenshot new_file, full: true
     end
   end
