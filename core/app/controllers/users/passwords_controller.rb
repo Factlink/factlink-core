@@ -18,7 +18,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
     if params[:msg]
       if @user
-        mp_track "Tour: Started account setup"
+        mp_track "Tour: Started account setup", current_user: @user
         render :setup_account
       else
         redirect_to new_user_session_path,

@@ -11,7 +11,8 @@ class SearchController < ApplicationController
       raise HackAttempt unless params[:s].is_a? String
     end
 
-    mp_track "Search: Top bar search"
+    mp_track "Search: Top bar search",
+      searched_for: params[:s]
 
     backbone_responder do
       row_count = 20
