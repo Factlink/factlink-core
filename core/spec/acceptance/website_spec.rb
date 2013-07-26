@@ -1,14 +1,12 @@
 require 'acceptance_helper'
 
 describe "Logged-out visitors", type: :request do
-  self.singleton_class.send(:include, SlowSpecs)
-
   before do
     visit "/"
   end
 
   context "when not logged in" do
-    slow_test_it "should be able to view the About page" do
+    it "should be able to view the About page", slow: true do
       click_link "About"
 
       within(:css, "h1") do
@@ -16,35 +14,35 @@ describe "Logged-out visitors", type: :request do
       end
     end
 
-    slow_test_it "should be able to view the Team page" do
+    it "should be able to view the Team page", slow: true do
       click_link "Team"
       within(:css, "h1") do
         page.should have_content("The people behind Factlink")
       end
     end
 
-    slow_test_it "should be able to view the Jobs page" do
+    it "should be able to view the Jobs page", slow: true do
       click_link "Jobs"
       within(:css, "h1") do
         page.should have_content("Jobs")
       end
     end
 
-    slow_test_it "should be able to view the Contact page" do
+    it "should be able to view the Contact page", slow: true do
       click_link "Contact"
       within(:css, "h1") do
         page.should have_content("Get in touch")
       end
     end
 
-    slow_test_it "should be able to view the TOS page" do
+    it "should be able to view the TOS page", slow: true do
       click_link "Terms of Service"
       within(:css, "h1") do
         page.should have_content("Terms of Service")
       end
     end
 
-    slow_test_it "should be able to view the Privacy Policy page" do
+    it "should be able to view the Privacy Policy page", slow: true do
       click_link "Privacy"
       within(:css, "h1") do
         page.should have_content("Privacy Policy")
