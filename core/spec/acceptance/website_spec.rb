@@ -1,7 +1,7 @@
 require 'acceptance_helper'
 
 describe "Logged-out visitors", type: :request do
-  include SlowSpecs
+  self.singleton_class.send(:include, SlowSpecs)
 
   before do
     visit "/"
