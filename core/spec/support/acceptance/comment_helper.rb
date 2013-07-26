@@ -16,11 +16,11 @@ module Acceptance
       end
 
       def posting_factlink?
-        find('button').has_content? 'Post Factlink'
+        !all(:button,'Post Factlink', visible:false).empty?
       end
 
       def posting_comment?
-        find('button').has_content? 'Post Comment'
+        !all(:button,'Post Comment', visible:false).empty?
       end
 
       def add_comment comment
