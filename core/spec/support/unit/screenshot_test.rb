@@ -81,16 +81,11 @@ module ScreenshotTest
       changed
     end
 
-    def force_scroll_bars
-      ['y'].each { |dir| @page.execute_script "$('body').css('overflow-#{dir}','scroll');" }
-    end
-
     def take
-      force_scroll_bars
+      # binding.pry
       # Need this to let the animations settle.
       sleep 1
-      @page.driver.resize 1024, 2000
-      @page.driver.render new_file
+      @page.driver.save_screenshot new_file, full: true
     end
   end
 
