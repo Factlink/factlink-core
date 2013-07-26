@@ -1,7 +1,7 @@
 require 'acceptance_helper'
 
 # TODO rename to add_evidence_spec
-feature "adding comments to a fact", type: :request do
+feature "adding comments to a fact", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper

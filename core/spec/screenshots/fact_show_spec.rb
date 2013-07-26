@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :request do
+describe "factlink", type: :feature do
   include Screenshots::DiscussionHelper
 
   it "the layout of the discussion page is correct" do

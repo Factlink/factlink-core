@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "When visiting the Factlink website", type: :request do
+describe "When visiting the Factlink website", type: :feature do
 
   before do
     visit "/"

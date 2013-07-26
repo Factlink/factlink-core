@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "follow_users_in_tour", type: :request do
+feature "follow_users_in_tour", type: :feature do
   include PavlovSupport
   include Acceptance::ProfileHelper
   include Acceptance::TopicHelper

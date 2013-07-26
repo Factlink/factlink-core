@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "notifications", type: :request do
+feature "notifications", type: :feature do
   include Acceptance::ChannelHelper
   include Acceptance::NotificationHelper
   include Acceptance::NavigationHelper

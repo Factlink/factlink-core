@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "factlink", type: :request do
+describe "factlink", type: :feature do
   include FactHelper
   include Acceptance::FactHelper
   include Acceptance::AuthenticationHelper

@@ -107,7 +107,7 @@ group :development do
 
   # mesa want speed:
   gem 'rails-dev-tweaks', '~> 0'
-  gem 'pry', '~> 0', require: false
+  gem 'pry', '~> 0'
 
   #for static files serving
   gem 'rack', '~> 1'
@@ -130,11 +130,6 @@ group :test do
   gem 'factory_girl_rails', '~> 4.2'
   gem 'database_cleaner', '~> 0.9'
 
-  gem 'capybara', '~> 1.1', require: false
-  gem 'capybara-screenshot', '= 0.3.6' # updating breaks something with files, https://github.com/mattheworiordan/capybara-screenshot/commit/d21b51b66fc6766e32176b7b22f5d06530efea4b?w=1
-  gem 'capybara-email', '~> 1.0'
-  gem 'poltergeist', '~> 1.0', require: false
-
   gem 'oily_png', '~> 1.1'
 
   gem 'rb-fsevent', '~> 0.9.1'
@@ -149,6 +144,12 @@ end
 group :test, :development do # TODO why is there a :development here?
   # we allow tests to upgrade everything but major
   gem 'konacha', '~> 3.0'
+
+  gem 'poltergeist', '~> 1.3', require: false
+  gem 'capybara', '~> 2.1', require: false
+  gem 'capybara-screenshot', '~> 0.3'
+  gem 'capybara-email', '~> 2.0'
+
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
   gem 'yarjuf', '~> 1.0', require: false #formatter for rspec

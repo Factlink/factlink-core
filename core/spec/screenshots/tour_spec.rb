@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "Check the tour", type: :request do
+describe "Check the tour", type: :feature do
   include PavlovSupport
 
   before do

@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe 'Password recovery', type: :request do
+describe 'Password recovery', type: :feature do
 
   before do
     @user = FactoryGirl.create :active_user

@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "sub_comments", type: :request do
+feature "sub_comments", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Pavlov::Helpers

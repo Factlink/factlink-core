@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe 'Reserving a username', type: :request do
+describe 'Reserving a username', type: :feature do
   it 'should get success note with valid username' do
     visit '/'
     disable_html5_validations(page)

@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature 'the profile page', type: :request do
+feature 'the profile page', type: :feature do
   include Acceptance::ProfileHelper
   include Acceptance::FactHelper
   include PavlovSupport

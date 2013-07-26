@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "adding factlinks to a fact", type: :request do
+feature "adding factlinks to a fact", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper

@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "Feedback modal", type: :request do
+describe "Feedback modal", type: :feature do
 
   context "as a logged out user" do
 
