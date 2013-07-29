@@ -9,7 +9,7 @@ module HashStore
 
       symbol_hash = {}
       backend.get.each do |key, value|
-        symbol_hash[key.to_sym] = value
+        symbol_hash[key.to_sym] = value.to_s
       end
 
       symbol_hash
