@@ -72,7 +72,7 @@ class FactGraph
     end
 
     influencing_opinions += Comment.where({fact_data_id: fact.data_id}).map do |comment|
-      influencing_opinion_for_comment(comment)
+      influencing_opinion_for_comment(comment, fact)
     end
 
     DeadOpinion.combine(influencing_opinions)
@@ -86,15 +86,14 @@ class FactGraph
     calculated_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
   end
 
-  def influencing_opinion_for_comment(comment)
+  def influencing_opinion_for_comment(comment, fact)
     user_opinion = retrieve :Comment, comment.id, :user_opinion
     evidence_type = OpinionType.real_for(comment.type)
 
-    calculated_influencing_opinion(intrinsic_opinion_for_comment(comment), user_opinion, evidence_type)
+    calculated_influencing_opinion(intrinsic_opinion_for_comment(comment, fact), user_opinion, evidence_type)
   end
 
-  def intrinsic_opinion_for_comment(comment)
-    fact = comment.fact_data.fact
+  def intrinsic_opinion_for_comment(comment, fact)
     creator_authority = Authority.on(fact, for: comment.created_by).to_f + 1.0
 
     DeadOpinion.new(1,0,0, authority_of_comment_based_on_creator_authority(creator_authority))
