@@ -20,8 +20,8 @@ module Queries
         query :authority_on_fact_for, fact, comment.created_by.graph_user
       end
 
-        query :'opinions/user_opinion_for_comment', comment.id.to_s, fact
       def impact_opinion
+        query :'opinions/impact_opinion_for_comment', comment
       end
 
       def current_user_opinion

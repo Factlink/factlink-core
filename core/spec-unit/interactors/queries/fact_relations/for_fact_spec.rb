@@ -28,7 +28,7 @@ describe Queries::FactRelations::ForFact do
             .with(:'sub_comments/count',fact_relation.id, fact_relation.class, pavlov_options)
             .and_return(sub_comments_count)
       Pavlov.stub(:query)
-            .with(:'opinions/relevance_opinion_for_fact_relation', fact_relation, pavlov_options)
+            .with(:'opinions/impact_opinion_for_fact_relation', fact_relation, pavlov_options)
             .and_return(impact_opinion)
 
       fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
@@ -60,7 +60,7 @@ describe Queries::FactRelations::ForFact do
             .with(:'sub_comments/count',fact_relation.id, fact_relation.class)
             .and_return(sub_comments_count)
       Pavlov.stub(:query)
-            .with(:'opinions/relevance_opinion_for_fact_relation', fact_relation)
+            .with(:'opinions/impact_opinion_for_fact_relation', fact_relation)
             .and_return(impact_opinion)
 
       fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)

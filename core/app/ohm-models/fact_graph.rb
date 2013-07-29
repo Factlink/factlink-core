@@ -42,6 +42,21 @@ class FactGraph
     user_opinion + evidence_opinion
   end
 
+  def impact_opinion_for_fact_relation(fact_relation)
+    from_fact_opinion = opinion_for_fact(fact_relation.from_fact)
+    user_opinion      = retrieve :FactRelation, fact_relation.id, :user_opinion
+    evidence_type     = OpinionType.for_relation_type(fact_relation.type)
+
+    calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type)
+  end
+
+  def impact_opinion_for_comment(comment)
+    user_opinion = user_opinion_for_comment(comment)
+    evidence_type = OpinionType.real_for(comment.type)
+
+    calculated_impact_opinion(intrinsic_opinion_for_comment(comment), user_opinion, evidence_type)
+  end
+
   private
 
   def calculate_user_opinions
@@ -80,21 +95,6 @@ class FactGraph
     end
 
     DeadOpinion.combine(impact_opinions)
-  end
-
-  def impact_opinion_for_fact_relation(fact_relation)
-    from_fact_opinion = opinion_for_fact(fact_relation.from_fact)
-    user_opinion      = retrieve :FactRelation, fact_relation.id, :user_opinion
-    evidence_type     = OpinionType.for_relation_type(fact_relation.type)
-
-    calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type)
-  end
-
-  def impact_opinion_for_comment(comment)
-    user_opinion = user_opinion_for_comment(comment)
-    evidence_type = OpinionType.real_for(comment.type)
-
-    calculated_impact_opinion(intrinsic_opinion_for_comment(comment), user_opinion, evidence_type)
   end
 
   def intrinsic_opinion_for_comment(comment)
