@@ -53,7 +53,7 @@ class FactGraph
       store :FactRelation, id, :user_opinion, calculated_user_opinion(FactRelation[id], fact)
     end
 
-    Comment.where({fact_data_id: fact.data_id}).each do |comment|
+    Comment.where(fact_data_id: fact.data_id).each do |comment|
       store :Comment, comment.id, :user_opinion, calculated_user_opinion(comment, fact)
     end
   end
