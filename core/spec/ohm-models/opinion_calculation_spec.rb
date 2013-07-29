@@ -106,7 +106,7 @@ describe "computed opinion" do
     believes(u1, f1sup2)
     disbelieves(u2, f1sup2)
     fact_relation_user_opinion?(f1sup2) == _(0.5, 0.5, 0.0, 2.0)
-    fact_relation_impact_opinion?(f1sup2) == DeadOpinion.zero
+    fact_relation_impact_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 0.0)
     opinion?(f2) == DeadOpinion.zero
   end
 
@@ -117,7 +117,16 @@ describe "computed opinion" do
     believes(u1, f1sup2)
     opinion?(f1) == _(0.5, 0.5, 0.0, 2.0)
     fact_relation_user_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
-    fact_relation_impact_opinion?(f1sup2) == DeadOpinion.zero
+    fact_relation_impact_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 0.0)
+    opinion?(f2) == DeadOpinion.zero
+  end
+
+  it "should have an impact with negative authority when more people disbelieve" do
+    believes(u1, f1)
+    disbelieves(u1, f1sup2)
+    disbelieves(u2, f1sup2)
+    fact_relation_user_opinion?(f1sup2) == _(0.0, 1.0, 0.0, 2.0)
+    fact_relation_impact_opinion?(f1sup2) == _(1.0, 0.0, 0.0, -2.0)
     opinion?(f2) == DeadOpinion.zero
   end
 

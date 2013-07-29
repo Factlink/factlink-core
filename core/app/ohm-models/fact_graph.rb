@@ -91,11 +91,11 @@ class FactGraph
 
   def calculated_evidence_opinion(fact)
     impact_opinions = fact.fact_relations.all.map do |fact_relation|
-      impact_opinion_for_fact_relation(fact_relation)
+      impact_opinion_for_fact_relation(fact_relation).normalized
     end
 
     impact_opinions += Comment.where(fact_data_id: fact.data_id).map do |comment|
-      impact_opinion_for_comment_and_fact(comment, fact)
+      impact_opinion_for_comment_and_fact(comment, fact).normalized
     end
 
     DeadOpinion.combine(impact_opinions)
@@ -126,7 +126,7 @@ class FactGraph
 
     authority = [net_fact_authority, net_relevance_authority].min
 
-    DeadOpinion.for_type(evidence_type, authority).normalized
+    DeadOpinion.for_type(evidence_type, authority)
   end
 
   def calculated_user_opinion(thing_with_believable, fact)
