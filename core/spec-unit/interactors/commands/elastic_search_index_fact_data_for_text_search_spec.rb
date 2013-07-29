@@ -32,8 +32,7 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
       json_document = mock
 
       command.should_receive(:json_document).and_return(json_document)
-      HTTParty.should_receive(:put).with(url,
-        { body:json_document})
+      HTTParty.should_receive(:put).with(url, { body: json_document })
 
       command.call
     end
