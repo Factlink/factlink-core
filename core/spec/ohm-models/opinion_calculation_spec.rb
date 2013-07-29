@@ -192,7 +192,7 @@ describe "computed opinion" do
       believes_comment(u1, comment)
 
       opinion?(comment) == _(1.0, 0.0, 0.0, 1.0)
-      opinion?(f1) == _(1.0, 0.0, 0.0, 1.0)
+      opinion?(f1) == _(0.0, 1.0, 0.0, 1.0)
     end
 
     it "behaves as a fact that is fully believed and has authority 10 times that of the creator" do
