@@ -12,18 +12,15 @@ module HashStore
     end
   end
 
-  class InMemoryBackend
-    def initialize(key, hash={})
-      @hash = hash
-      @key = key
-    end
+  private
 
+  InMemoryBackend = Struct.new(:key, :hash) do
     def get
-      @hash[@key]
+      hash[key]
     end
 
     def set value
-      @hash[@key] = value
+      hash[key] = value
     end
   end
 end
