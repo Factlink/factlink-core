@@ -19,7 +19,7 @@ class Admin::UsersController < AdminController
 
     authorize! :create, @user
     if @user.save
-      redirect_to admin_user_path(@user), notice: 'User was successfully created.'
+      redirect_to admin_user_path, notice: 'User was successfully created.'
     else
       render :new
     end
