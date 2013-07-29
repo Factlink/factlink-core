@@ -14,11 +14,13 @@ class FactGraph
   end
 
   def calculate_fact_when_user_opinion_changed(fact)
-    store :Fact, fact.id, :user_opinion, calculated_user_opinion_for_base_fact(fact)
+    user_opinion = calculated_user_opinion(fact, fact)
+    store :Fact, fact.id, :user_opinion, user_opinion
   end
 
   def calculate_fact_relation_when_user_opinion_changed(fact_relation)
-    store :FactRelation, fact_relation.id, :user_opinion, calculated_user_opinion_for_base_fact(fact_relation)
+    user_opinion = calculated_user_opinion(fact_relation, fact_relation.fact)
+    store :FactRelation, fact_relation.id, :user_opinion, user_opinion
   end
 
   def user_opinion_for_fact(fact)
@@ -40,15 +42,16 @@ class FactGraph
 
   def calculate_user_opinions
     Fact.all.ids.each do |id|
-      store :Fact, id, :user_opinion, calculated_user_opinion_for_base_fact(Fact[id])
-    end
+      fact = Fact[id]
+      store :Fact, id, :user_opinion, calculated_user_opinion(fact, fact)
 
-    FactRelation.all.ids.each do |id|
-      store :FactRelation, id, :user_opinion, calculated_user_opinion_for_base_fact(FactRelation[id])
-    end
+      fact.fact_relations.ids.each do |fr_id|
+        store :FactRelation, fr_id, :user_opinion, calculated_user_opinion(FactRelation[fr_id], fact)
+      end
 
-    Comment.all.each do |comment|
-      store :Comment, comment.id.to_s, :user_opinion, calculated_user_opinion_for_comment(comment)
+      Comment.where({fact_data_id: fact.data_id}).each do |comment|
+        store :Comment, comment.id.to_s, :user_opinion, calculated_user_opinion(comment, fact)
+      end
     end
   end
 
@@ -106,16 +109,8 @@ class FactGraph
     DeadOpinion.for_type(evidence_type, authority)
   end
 
-  def calculated_user_opinion_for_base_fact(base_fact)
-    UserOpinionCalculation.new(base_fact.believable) do |user|
-      Authority.on(base_fact, for: user).to_f + 1.0
-    end.opinion
-  end
-
-  def calculated_user_opinion_for_comment(comment)
-    fact = Comment.find(comment.id).fact_data.fact
-
-    UserOpinionCalculation.new(comment.believable) do |user|
+  def calculated_user_opinion(thing_with_believable, fact)
+    UserOpinionCalculation.new(thing_with_believable.believable) do |user|
       Authority.on(fact, for: user).to_f + 1.0
     end.opinion
   end
@@ -131,8 +126,7 @@ class FactGraph
       MapReduce::FactAuthority,
       MapReduce::ChannelAuthority,
       MapReduce::TopicAuthority,
-      MapReduce::FactCredibility,
-      MapReduce::FactRelationCredibility
+      MapReduce::FactCredibility
     ]
   end
 end
