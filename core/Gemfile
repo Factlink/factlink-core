@@ -11,7 +11,7 @@ gem 'rake', '~> 10.0.4', require: false
 
 gem 'addressable', '~> 2.3.4'
 
-gem 'mail', '2.5.4' # newer versions than 2.5.3 seem to timeout sending mail. Seems like large changes on patchlevel?
+gem 'mail', '~> 2.5.4'
 
 # Mongo
 gem 'mongoid', '~> 3.0.21'

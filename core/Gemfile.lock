@@ -538,7 +538,7 @@ DEPENDENCIES
   less-rails (~> 2.2.6)
   less-rails-bootstrap (= 2.1.1)
   lograge (~> 0)
-  mail (= 2.5.4)
+  mail (~> 2.5.4)
   mailcatcher (~> 0)
   marionette-rails (= 1.0.0.rc.2)
   mixpanel!
