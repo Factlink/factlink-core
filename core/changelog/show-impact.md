@@ -1,1 +1,1 @@
-show-impact
+Show impact instead of relevance
