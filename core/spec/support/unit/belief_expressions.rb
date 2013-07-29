@@ -97,4 +97,16 @@ module BeliefExpressions
     opinion = FactGraph.new.user_opinion_for_comment comment
     opinion.should
   end
+
+  def fact_relation_impact_opinion?(fact_relation)
+    possible_reset
+    opinion = FactGraph.new.impact_opinion_for_fact_relation fact_relation
+    opinion.should
+  end
+
+  def comment_impact_opinion?(comment)
+    possible_reset
+    opinion = FactGraph.new.impact_opinion_for_comment comment
+    opinion.should
+  end
 end

@@ -126,7 +126,7 @@ class FactGraph
 
     authority = [[net_fact_authority, net_relevance_authority].min, 0].max
 
-    DeadOpinion.for_type(evidence_type, authority)
+    DeadOpinion.for_type(evidence_type, authority).normalized
   end
 
   def calculated_user_opinion(thing_with_believable, fact)
