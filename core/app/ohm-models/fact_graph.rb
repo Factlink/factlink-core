@@ -57,10 +57,8 @@ class FactGraph
   end
 
   def impact_opinion_for_comment(comment)
-    user_opinion = user_opinion_for_comment(comment)
-    evidence_type = OpinionType.real_for(comment.type)
-
-    calculated_impact_opinion(intrinsic_opinion_for_comment(comment), user_opinion, evidence_type)
+    fact = comment.fact_data.fact
+    impact_opinion_for_comment_and_fact(comment, fact)
   end
 
   private
@@ -72,13 +70,13 @@ class FactGraph
   end
 
   def calculate_user_opinions_for(fact)
-    store :Fact, id, :user_opinion, calculated_user_opinion(fact, fact)
+    store :Fact, fact.id, :user_opinion, calculated_user_opinion(fact, fact)
 
     fact.fact_relations.ids.each do |id|
       store :FactRelation, id, :user_opinion, calculated_user_opinion(FactRelation[id], fact)
     end
 
-    Comment.where({fact_data_id: fact.data_id}).each do |comment|
+    Comment.where(fact_data_id: fact.data_id).each do |comment|
       store :Comment, comment.id, :user_opinion, calculated_user_opinion(comment, fact)
     end
   end
@@ -96,18 +94,24 @@ class FactGraph
       impact_opinion_for_fact_relation(fact_relation)
     end
 
-    impact_opinions += Comment.where({fact_data_id: fact.data_id}).map do |comment|
-      impact_opinion_for_comment(comment)
+    impact_opinions += Comment.where(fact_data_id: fact.data_id).map do |comment|
+      impact_opinion_for_comment(comment, fact)
     end
 
     DeadOpinion.combine(impact_opinions)
   end
 
-  def intrinsic_opinion_for_comment(comment)
-    fact = comment.fact_data.fact
+  def impact_opinion_for_comment_and_fact(comment, fact)
+    user_opinion = retrieve :Comment, comment.id, :user_opinion
+    evidence_type = OpinionType.real_for(comment.type)
+
+    calculated_impact_opinion(intrinsic_opinion_for_comment(comment, fact), user_opinion, evidence_type)
+  end
+
+  def intrinsic_opinion_for_comment(comment, fact)
     creator_authority = Authority.on(fact, for: comment.created_by).to_f + 1.0
 
-    DeadOpinion.new(1,0,0, authority_of_comment_based_on_creator_authority(creator_authority))
+    DeadOpinion.for_type(:believes, authority_of_comment_based_on_creator_authority(creator_authority))
   end
 
   COMMENT_AUTHORITY_MULTIPLIER = 10
@@ -132,7 +136,7 @@ class FactGraph
   end
 
   def opinion_store
-    Opinion::Store.new HashStore::Redis.new
+    Opinion::Store.new HashStore::Redis.new('FactGraphOpinion')
   end
 
   delegate :store, :retrieve, to: :opinion_store
