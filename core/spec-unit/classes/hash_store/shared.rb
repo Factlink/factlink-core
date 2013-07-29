@@ -17,10 +17,10 @@ shared_examples_for 'a hash store' do
   end
 
   describe "#value?" do
-    it "is for values which have not been set" do
+    it "is false for a value which has not been set" do
       expect(subject['not set'].value?).to be_false
     end
-    it "is true for values which are set" do
+    it "is true for a value which is set" do
       subject['set'].set({some: 'hash'})
       expect(subject['set'].value?).to be_true
     end
