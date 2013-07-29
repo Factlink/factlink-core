@@ -174,7 +174,12 @@ class Ability
     sees_channels new_discussion_page share_new_factlink_buttons
     share_to_twitter share_to_facebook vote_up_down_popup
   )
-  GLOBAL_ENABLED_FEATURES = []
+
+  AVAILABLE_GLOBAL_FEATURES = []
+
+  def enabled_global_features
+    Pavlov.interactor :'global_features/all'
+  end
 
   def enable_features list
     list.each do |feature|
@@ -187,7 +192,7 @@ class Ability
     @features ||= []
     if agrees_tos?
       enable_features user.features
-      enable_features GLOBAL_ENABLED_FEATURES
+      enable_features enabled_global_features
     end
   end
 
