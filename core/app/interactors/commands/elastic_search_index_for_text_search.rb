@@ -22,11 +22,7 @@ module Commands
       raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
 
       index = ElasticSearch::Index.new @type_name
-      index.add object.id, json_document
-    end
-
-    def json_document
-      @document.to_json
+      index.add object.id, document.to_json
     end
 
     private
