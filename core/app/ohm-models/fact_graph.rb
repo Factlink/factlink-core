@@ -14,11 +14,11 @@ class FactGraph
   end
 
   def calculate_fact_when_user_opinion_changed(fact)
-    store :Fact, fact.id, :user_opinion, calculated_user_opinion_for(fact)
+    store :Fact, fact.id, :user_opinion, calculated_user_opinion_for_base_fact(fact)
   end
 
   def calculate_fact_relation_when_user_opinion_changed(fact_relation)
-    store :FactRelation, fact_relation.id, :user_opinion, calculated_user_opinion_for(fact_relation)
+    store :FactRelation, fact_relation.id, :user_opinion, calculated_user_opinion_for_base_fact(fact_relation)
   end
 
   def user_opinion_for_fact(fact)
@@ -40,11 +40,15 @@ class FactGraph
 
   def calculate_user_opinions
     Fact.all.ids.each do |id|
-      store :Fact, id, :user_opinion, calculated_user_opinion_for(Fact[id])
+      store :Fact, id, :user_opinion, calculated_user_opinion_for_base_fact(Fact[id])
     end
 
     FactRelation.all.ids.each do |id|
-      store :FactRelation, id, :user_opinion, calculated_user_opinion_for(FactRelation[id])
+      store :FactRelation, id, :user_opinion, calculated_user_opinion_for_base_fact(FactRelation[id])
+    end
+
+    Comment.all.each do |comment|
+      store :Comment, comment.id.to_s, :user_opinion, calculated_user_opinion_for_comment(comment)
     end
   end
 
@@ -61,6 +65,10 @@ class FactGraph
       influencing_opinion_for_fact_relation(fact_relation)
     end
 
+    influencing_opinions += Comment.where({fact_data_id: fact.data_id}).map do |comment|
+      influencing_opinion_for_comment(comment)
+    end
+
     DeadOpinion.combine(influencing_opinions)
   end
 
@@ -72,6 +80,23 @@ class FactGraph
     calculated_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
   end
 
+  def influencing_opinion_for_comment(comment)
+    user_opinion = retrieve :Comment, comment.id.to_s, :user_opinion
+
+    calculated_influencing_opinion(comment_opinion(comment), user_opinion, comment.type.to_sym)
+  end
+
+  def comment_opinion(comment)
+    fact = comment.fact_data.fact
+    creator_authority = Authority.on(fact, for: comment.created_by).to_f + 1.0
+
+    DeadOpinion.new(1,0,0, authority_of_comment_based_on_creator_authority(creator_authority))
+  end
+
+  def authority_of_comment_based_on_creator_authority(creator_authority)
+    10 * creator_authority
+  end
+
   def calculated_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
     net_fact_authority      = from_fact_opinion.net_authority
     net_relevance_authority = user_opinion.net_authority
@@ -81,9 +106,17 @@ class FactGraph
     DeadOpinion.for_type(evidence_type, authority)
   end
 
-  def calculated_user_opinion_for(base_fact)
+  def calculated_user_opinion_for_base_fact(base_fact)
     UserOpinionCalculation.new(base_fact.believable) do |user|
       Authority.on(base_fact, for: user).to_f + 1.0
+    end.opinion
+  end
+
+  def calculated_user_opinion_for_comment(comment)
+    fact = Comment.find(comment.id).fact_data.fact
+
+    UserOpinionCalculation.new(comment.believable) do |user|
+      Authority.on(fact, for: user).to_f + 1.0
     end.opinion
   end
 
