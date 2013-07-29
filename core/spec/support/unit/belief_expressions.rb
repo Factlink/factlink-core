@@ -22,6 +22,26 @@ module BeliefExpressions
   alias :disbelieves :d
   alias :doubts :u
 
+  def add_supporting_comment(user, fact)
+    comment = Pavlov.command :create_comment, fact.id.to_i, 'believes', 'comment', user.id.to_s
+    something_happened
+    comment
+  end
+
+  def add_weakening_comment(user, fact)
+    comment = Pavlov.command :create_comment, fact.id.to_i, 'disbelieves', 'comment', user.id.to_s
+    something_happened
+    comment
+  end
+
+  def believes_comment(user, comment)
+    Pavlov.command :'comments/set_opinion', comment.id.to_s, 'believes', user.graph_user
+  end
+
+  def disbelieves_comment(user, comment)
+    Pavlov.command :'comments/set_opinion', comment.id.to_s, 'disbelieves', user.graph_user
+  end
+
   def god_user
     @god_user ||= GraphUser.create
   end
