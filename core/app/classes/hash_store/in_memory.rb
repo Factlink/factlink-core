@@ -1,28 +1,29 @@
+require_relative './generic.rb'
 require_relative './entry.rb'
 
 module HashStore
-  class InMemory
-    def initialize(namespace = 'RedisHashStoreNamespace')
-      @namespace = namespace
-      @hash = {}
+  class InMemory < Generic
+    def backend key
+      InMemoryBackend.new(key, store_hash)
     end
 
-    def [](*args)
-      key = @namespace + ":" + args.join(':')
-      @hash[key] ||= Entry.new(InMemoryBackend.new(key))
+    def store_hash
+      @hash ||= {}
     end
   end
 
   class InMemoryBackend
-    def initialize(key)
+    def initialize(key, hash={})
+      @hash = hash
+      @key = key
     end
 
     def get
-      @value
+      @hash[@key]
     end
 
     def set value
-      @value = value
+      @hash[@key] = value
     end
   end
 end
