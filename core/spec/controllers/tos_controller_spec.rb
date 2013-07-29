@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TosController do
-  let(:user) { FactoryGirl.create :user, agrees_tos: false }
+  let(:user) { create :user, agrees_tos: false }
 
   describe :show do
     it "should render show" do

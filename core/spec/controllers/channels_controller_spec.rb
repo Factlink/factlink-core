@@ -97,7 +97,7 @@ describe ChannelsController do
 
     it "should escape html in fields" do
       authenticate_user!(user)
-      ch = FactoryGirl.create(:channel)
+      ch = create(:channel)
       ch.title = "baas<xss> of niet"
       ch.created_by = user.graph_user
       ch.save
