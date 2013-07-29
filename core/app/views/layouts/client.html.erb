@@ -21,7 +21,11 @@
 <body class="client">
   <div id='alerts'></div>
 
-  <div class="js-client-modal-region client-modal-region"><%= yield %></div>
+  <% if can_haz :new_discussion_page %>
+    <div class="js-client-modal-region client-modal-region new-discussion-page"><%= yield %></div>
+  <% else %>
+    <div class="js-client-modal-region client-modal-region"><%= yield %></div>
+  <% end %>
 
   <div id='modal_region'></div>
   <%= javascript_include_tag "modal" %>
@@ -45,10 +49,12 @@
   <%= yield :javascript %>
 
   <script type="text/javascript">
-    $(".factlink-modal-container").draggable({handle: '.drag-handler'});
     $( document ).bind('click', function(e) {
-      if( $(e.target).is('body') )
-        parent.remote.hide();
+      if( $(e.target).is('body') ) {
+        if (parent.remote) {
+          parent.remote.hide();
+        }
+      }
     });
   </script>
 

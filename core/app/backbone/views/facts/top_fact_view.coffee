@@ -21,7 +21,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
     @wheelRegion.show @wheelView()
 
   wheelView: ->
-    wheel = new Wheel @model.get('fact_wheel')
+    wheel = @model.getFactWheel()
 
     wheel_view_options =
       fact: @model.attributes

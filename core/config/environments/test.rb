@@ -40,5 +40,7 @@ FactlinkUI::Application.configure do
   config.static_cache_control = "public, max-age=3600"
 
   config.assets.debug = false
+
+  config.roadie.enabled = false
 end
 

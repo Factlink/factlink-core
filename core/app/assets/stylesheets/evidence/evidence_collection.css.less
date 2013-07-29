@@ -1,0 +1,266 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+// Layout variables
+@middleColumnWidth: 100px;
+@topFactWheelOverhang: 62px;
+@impactCircleDiameter: 53px;
+@argumentBoxTopOverhang: 12px;
+@impactCircleSpacing: 30px;
+@evidenceBoxSpacing: 10px;
+@impactColouredBorderWidth: 3px;
+@evidenceRegionHorizontalMargin: 16px;
+@evidenceRegionBottomPadding: 10px;
+
+// Triangles:
+// - An inner triangle with the box's background color
+// - An outer triangle "fake border" that's 1px offset
+@triangleSize: 8px;
+@innerTriangleOffset: @triangleSize - 1px;
+@triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
+
+// The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
+// This means we need some negative margins to make it fit.
+@negativeColumnMargin: @middleColumnWidth/2;
+
+// Evidence boxes are after impact circles in DOM, but are pulled up so their
+// visual top is above the impact circle top.
+@evidenceBoxTopOffset: -(@impactCircleDiameter + @argumentBoxTopOverhang);
+
+
+// It would look weird for the evidence boxes to end before the impact circles.
+// Therefore, the supporting/weaking boxes need a minimum height.
+@evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
+
+
+@unsureImpactToBoxDistance: @impactCircleSpacing/2 + @triangleSize;
+
+// The unsure (middle) box needs to leave space for the impact circle since its
+// impact circle cannot be floated (both left/right would be problematic).
+@unsureImpactRelativeTop: -@impactCircleDiameter
+                          - @unsureImpactToBoxDistance
+                          + @impactCircleSpacing
+                          - @argumentBoxTopOverhang;
+
+// Colours
+@evidenceBoxBorderColor: rgba(0,0,0,0.2);
+@supportingImpactColor: rgba(100,190,160, 0.9);
+@weakeningImpactColor: rgba(220,120,120, 0.9);
+@unsureImpactColor: rgba(90,140,170, 0.9);
+@lineColor: rgba(0,0,0,0.15);
+
+.evidence-collection {
+  position: relative;
+  padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
+  margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
+  box-sizing: content-box;
+}
+
+.evidence-line {
+  position: absolute;
+  left: 50%;
+  width: 3px;
+  margin-left: -1px;
+  z-index: -2;
+  top: -@topFactWheelOverhang;
+  bottom: 0;
+  background: @lineColor;
+  visibility: visible;
+}
+
+.evidence-terminator {
+  clear: both;
+  visibility: visible;
+}
+
+.evidence-impact, .evidence-box {
+  position: relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  .new-design-white-block-with-shadow();
+  background: white;
+  visibility: visible;
+}
+
+.evidence-impact {
+  .new-design-font();
+  font-size: @heading1FontSize;
+  line-height: @impactCircleDiameter;
+  text-align: center;
+  width:  @impactCircleDiameter;
+  height: @impactCircleDiameter;
+  border-radius: 1000px;
+}
+
+.evidence-box {
+  width: 50%;
+}
+
+.evidence-supporting > .evidence-box, .evidence-weakening > .evidence-box {
+  margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
+  min-height: @evidenceBoxMinHeight;
+}
+
+.evidence-supporting, .evidence-loading {
+  > .evidence-impact, > .evidence-box {
+    float: right;
+    clear: right;
+  }
+
+  > .evidence-impact {
+    margin-top: @impactCircleSpacing;
+    position: relative;
+    margin-right: 50%;
+    right: ceil(-@impactCircleDiameter/2);
+  }
+}
+
+.evidence-weakening {
+  > .evidence-impact, > .evidence-box {
+    float: left;
+    clear: left;
+  }
+
+  > .evidence-impact {
+    margin-top: @impactCircleSpacing;
+    position: relative;
+    margin-left: 50%;
+    left: floor(-@impactCircleDiameter/2);
+  }
+}
+
+.evidence-unsure {
+  > .evidence-impact, > .evidence-box {
+    margin: auto;
+    clear: both;
+  }
+
+  > .evidence-impact {
+    top: @unsureImpactRelativeTop;
+    margin-bottom: @unsureImpactRelativeTop;
+  }
+
+  > .evidence-box {
+    margin-top: @unsureImpactToBoxDistance;
+    margin-bottom: @evidenceBoxSpacing;
+  }
+
+  > .evidence-spacer-left,
+  > .evidence-spacer-right {
+    width: 0;
+    visibility: hidden;
+    height: @impactCircleSpacing - @unsureImpactRelativeTop;
+  }
+  > .evidence-spacer-left  { float: left; }
+  > .evidence-spacer-right { float: right; }
+}
+
+.evidence-loading > .evidence-impact img {
+  position: absolute;
+  top: 50%; left: 50%;
+  margin:-8px;
+}
+
+// Coloured half-circles
+.evidence-impact::after {
+  content: '';
+  position: absolute;
+  top:    -@impactColouredBorderWidth;
+  bottom: -@impactColouredBorderWidth;
+  left:   -@impactColouredBorderWidth;
+  right:  -@impactColouredBorderWidth;
+}
+
+.evidence-supporting > .evidence-impact::after {
+  left: ceil(@impactCircleDiameter/2) - 1px;
+  border-top-right-radius:    1000px;
+  border-bottom-right-radius: 1000px;
+
+  border: @impactColouredBorderWidth solid @supportingImpactColor;
+  border-left: none;
+}
+
+.evidence-weakening > .evidence-impact::after {
+  right: floor(@impactCircleDiameter/2) - 2px;
+  border-top-left-radius:    1000px;
+  border-bottom-left-radius: 1000px;
+  border: @impactColouredBorderWidth solid @weakeningImpactColor;
+  border-right: none;
+}
+
+.evidence-unsure > .evidence-impact::after {
+  top: floor(@impactCircleDiameter/2) - 1px;
+  border-bottom-left-radius:  1000px;
+  border-bottom-right-radius: 1000px;
+  border: @impactColouredBorderWidth solid @unsureImpactColor;
+  border-top: none;
+}
+
+// Evidence triangles (arrows)
+.evidence-triangle-base() {
+  position: absolute;
+  border-style: solid;
+  border-color: transparent;
+  height: 1px;
+  width: 0;
+  .box-sizing(content-box);
+  border-width: @triangleSize;
+}
+
+.evidence-box > .evidence-box-triangle {
+  .evidence-triangle-base();
+  top: @triangleTop;
+  margin-top: -@triangleSize;
+
+  &:before {
+    .evidence-triangle-base();
+    content: '';
+    z-index: -1;
+    margin-top: -@triangleSize;
+  }
+}
+
+.evidence-supporting > .evidence-box > .evidence-box-triangle {
+  right: 100%;
+  border-right-color: white;
+
+  &:before {
+    border-left: none;
+    border-right-color: @evidenceBoxBorderColor;
+    margin-left: -1px;
+  }
+}
+
+.evidence-weakening > .evidence-box > .evidence-box-triangle {
+  left: 100%;
+  border-left-color: white;
+
+  &:before {
+    border-right: none;
+    border-left-color: @evidenceBoxBorderColor;
+    right: -1px;
+  }
+}
+
+.evidence-unsure {
+  > .evidence-box > .evidence-box-triangle,
+  > .evidence-box > .evidence-box-triangle:before {
+    height: 0;
+    width: 1px;
+    margin-top: 0;
+    margin-left: -@triangleSize;
+    border-top: none;
+    top: 0;
+  }
+
+  > .evidence-box > .evidence-box-triangle {
+    left: 50%;
+    top: -@innerTriangleOffset;
+    border-bottom-color: white;
+
+    &:before {
+      top: -1px;
+      border-bottom-color: @evidenceBoxBorderColor;
+    }
+  }
+}

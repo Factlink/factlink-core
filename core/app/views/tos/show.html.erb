@@ -49,8 +49,8 @@
 <% content_for :javascript do %>
 <script type="text/javascript">
   (function() {
-    var tos_browser_name    = detectBrowser().browser;
-    var tos_browser_version = detectBrowser().version;
+    var tos_browser_name    = "<%= browser.name %>"
+    var tos_browser_version = "<%= browser.version %>";
 
     $('#tos_browser_name').val(tos_browser_name);
     $('#tos_browser_version').val(tos_browser_version);

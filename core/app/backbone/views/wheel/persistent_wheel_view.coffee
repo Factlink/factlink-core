@@ -1,25 +1,18 @@
 class window.PersistentWheelView extends BaseFactWheelView
-  clickOpinionType: (opinionType, e)->
+  clickOpinionType: (opinion_type) ->
     @trigger 'opinionSet'
 
-    @updateTo '1.0',
-      believe: getHash opinionType.type, 'believe'
-      disbelieve: getHash opinionType.type, 'disbelieve'
-      doubt: getHash opinionType.type, 'doubt'
-
-    $("input[name=opinion][value=#{opinionType.type}s]")
-      .prop 'checked', true
+    @model.set @model.parse
+      authority: '1.0',
+      opinion_types:
+        believe: getHash opinion_type, 'believe'
+        disbelieve: getHash opinion_type, 'disbelieve'
+        doubt: getHash opinion_type, 'doubt'
 
 getHash = (selectedType, type)->
   if selectedType == type
-    selected
+    percentage: 100
+    is_user_opinion: true
   else
-    notSelected
-
-selected =
-  percentage: 100
-  is_user_opinion: true
-
-notSelected =
-  percentage: 0
-  is_user_opinion: false
+    percentage: 0
+    is_user_opinion: false

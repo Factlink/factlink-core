@@ -3,24 +3,28 @@ class Site < OurOhm
   index :url
   collection :facts, Fact
 
-  def self.find_or_create_by(opts)
-    self.find(opts.slice [:url]).first || self.create(opts)
+  def self.find_or_create_by(options)
+    find(options.slice [:url]).first || create(options)
   end
 
-  def self.find(opts)
-    opts = normalize_url(opts)
+  def self.find(options)
+    options = normalize_url(options)
     super
   end
 
-  def self.create(opts)
-    opts = normalize_url(opts)
+  def self.create(options)
+    options = normalize_url(options)
     super
   end
 
-  def self.normalize_url(opts)
-    url_normalizer_class = opts[:url_normalizer_class] || UrlNormalizer
-    opts[:url] = url_normalizer_class.normalize(opts[:url]) if opts[:url]
-    opts
+  def self.normalize_url(options)
+    return options if options[:url].nil?
+    url = options[:url]
+
+    url_normalizer_class = options[:url_normalizer_class] || UrlNormalizer
+    url = url_normalizer_class.normalize(url)
+
+    options.merge url: url
   end
 
   def validate

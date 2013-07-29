@@ -1,11 +1,11 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-div.header {
+.header {
   width: 100%;
   overflow: hidden;
 
-  div.background {
+  .background {
     z-index: -1;
     position: fixed;
     width: 100%;
@@ -17,28 +17,28 @@ div.header {
     text-align: center;
     background-color: #00294e;
 
-    img.stars {
+    .stars {
       position: absolute;
       left: 0px;
       top: 0px;
       z-index: 1;
       width: 100%;
     }
-
-    img.earth {
-      position: relative;
-      z-index: 2;
-      left: 0;
-      top: 190px; // corresponds to JS
-      margin: 0 auto;
-      width: 960px;
-      // we want an image that is not smaller than 960 in width, otherwise we have to use the height property to ensure
-      // the image is kept in the centred when resizing the page, but this leads to deformation and thus lower quality
-    }
   }
 }
 
-.show_sign_in div.header div.background img.earth {
+.earth_background {
+  position: relative;
+  z-index: 2;
+  left: 0;
+  top: 190px; // corresponds to JS
+  margin: 0 auto;
+  width: 960px;
+  // we want an image that is not smaller than 960 in width, otherwise we have to use the height property to ensure
+  // the image is kept in the centred when resizing the page, but this leads to deformation and thus lower quality
+}
+
+.show_sign_in .earth_background {
   margin-top: 104px; // corresponds to JS
 }
 

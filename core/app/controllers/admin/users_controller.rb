@@ -19,7 +19,7 @@ class Admin::UsersController < AdminController
 
     authorize! :create, @user
     if @user.save
-      redirect_to admin_user_path(@user), notice: 'User was successfully created.'
+      redirect_to admin_users_path, notice: 'User was successfully created.'
     else
       render :new
     end
@@ -32,7 +32,7 @@ class Admin::UsersController < AdminController
     end
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
       @user.features = params[:user][:features].andand.keys
-      redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
+      redirect_to admin_users_path, notice: 'User was successfully updated.'
     else
       render :edit
     end
@@ -59,10 +59,12 @@ class Admin::UsersController < AdminController
   end
 
   def get_activated_users
+    # TODO eliminate to_sym on the next line. This is a DoS
     @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def get_reserved_users
+    # TODO eliminate to_sym on the next line. This is a DoS
     @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 

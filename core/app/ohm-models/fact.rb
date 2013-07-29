@@ -3,7 +3,6 @@ class Site < OurOhm; end # needed because of removed const_missing from ohm
 class FactRelation < Basefact;end # needed because of removed const_missing from ohm
 
 class Fact < Basefact
-  include Opinion::Subject::Fact
   include Pavlov::Helpers
 
   after :create, :set_activity!
@@ -99,22 +98,8 @@ class Fact < Basefact
     end
   end
 
-  # Ohm Model needs to have a definition of which fields to render
-  def to_hash
-    return {} unless self.data
-    super.merge(:_id => id,
-                :displaystring => self.data.displaystring,
-                :score_dict_as_percentage => OpinionPresenter.new(get_opinion).as_percentages_hash,
-                :title => self.data.title)
-  end
-
   def fact_relations
     supporting_facts | weakening_facts
-  end
-
-  def sorted_fact_relations
-    res = self.fact_relations.sort { |a, b| a.percentage <=> b.percentage }
-    res.reverse
   end
 
   def evidence(type=:both)

@@ -15,29 +15,30 @@ class window.Fact extends Backbone.Model
     @get('fact_wheel').opinion_types[type].percentage
 
   removeFromChannel: (channel, opts={}) ->
-    opts.url = channel.url() + "/" + "remove" + "/" + @get("id") + ".json"
-    oldSuccess = opts.success
-    opts.success = =>
-      indexOf = @get("containing_channel_ids").indexOf(channel.id)
-      @get("containing_channel_ids").splice indexOf, 1  if indexOf
-      if oldSuccess isnt `undefined`
-        oldSuccess()
+    $.ajax _.extend {}, opts,
+      type: "post"
+      url: channel.url() + "/remove/" + @get("id") + ".json"
+      success: =>
+        indexOf = @get("containing_channel_ids").indexOf(channel.id)
+        @get("containing_channel_ids").splice indexOf, 1  if indexOf
+        opts.success?()
 
-    $.ajax _.extend(type: "post", opts)
 
   addToChannel: (channel, opts={}) ->
-    opts.url = channel.url() + "/" + "add" + "/" + @get("id") + ".json"
-    oldSuccess = opts.success
-    opts.success = =>
-      @get("containing_channel_ids").push channel.id
-      oldSuccess()  if oldSuccess isnt `undefined`
+    $.ajax _.extend {}, opts,
+      type: "post"
+      url: channel.url() + "/add/" + @get("id") + ".json"
+      success: =>
+        @get("containing_channel_ids").push channel.id
+        opts.success?()
 
-    $.ajax _.extend(type: "post", opts)
+  getFactWheel: ->
+    return @_fact_wheel if @_fact_wheel?
 
-  getFactWheel: ->  @get("fact_wheel")
+    @_fact_wheel = new Wheel _.extend {}, @get("fact_wheel"),
+                        fact_id: @id
 
-  friendlyUrl: ->
-    @get("url")
+  friendlyUrl: -> @get("url")
 
   user: -> new User(@get("created_by"))
 

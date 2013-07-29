@@ -1,21 +1,24 @@
 source 'http://rubygems.org'
 
+ruby '2.0.0'
+
 # Defaults
-gem 'rails', '3.2.13' # this is too important to update automaticly
-gem 'activerecord', '3.2.13' # this is too important to update automaticly
+gem 'rails', '3.2.14' # this is too important to update automaticly
+gem 'activerecord', '3.2.14' # this is too important to update automaticly
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'sqlite3', '~> 1.3.7' # TODO: seems to break rails when removed
 gem 'rake', '~> 10.0.4', require: false
 
 gem 'addressable', '~> 2.3.4'
 
-gem 'mail', '2.5.3' # newer versions seem to timeout sending mail. Seems like large changes on patchlevel?
+gem 'mail', '~> 2.5.4'
 
 # Mongo
 gem 'mongoid', '~> 3.0.21'
 gem 'moped', github: 'Factlink/moped', branch: '1.4.0-stable'
 
-gem 'pavlov', github: 'Factlink/pavlov', ref: '72a5ebb1577a377e7fff05cee028129d452cdb8c'
+gem 'pavlov', github: 'Factlink/pavlov', ref: '0b4bd6af62c4210b4c9b7187eb82b3780c755213'
+gem 'korsakov', github: 'jjoos/korsakov', ref: '72db865b99a3e8dee2840a191fe67ecd8f32ccef'
 
 # Redis
 gem 'redis', '~> 2.2.1'
@@ -128,7 +131,7 @@ group :test do
   gem 'database_cleaner', '~> 0.9'
 
   gem 'capybara', '~> 1.1', require: false
-  gem 'capybara-screenshot', '~> 0.3'
+  gem 'capybara-screenshot', '= 0.3.6' # updating breaks something with files, https://github.com/mattheworiordan/capybara-screenshot/commit/d21b51b66fc6766e32176b7b22f5d06530efea4b?w=1
   gem 'capybara-email', '~> 1.0'
   gem 'poltergeist', '~> 1.0', require: false
 
@@ -145,13 +148,16 @@ end
 
 group :test, :development do # TODO why is there a :development here?
   # we allow tests to upgrade everything but major
-  gem 'konacha', '~> 2.7'
+  gem 'konacha', '~> 3.0'
   gem 'sinon-chai-rails', '~> 1.0'
   gem 'sinon-rails', '~> 1.4'
+  gem 'yarjuf', '~> 1.0', require: false #formatter for rspec
+  gem 'rspec_junit_formatter', require:false  #formatter for konacha since yarjuf doesn't work.
+  #rspec_junit_formatter has no version.
 end
 
 group :development do
-  gem 'brakeman', '~> 1', require: false # always update, we want the latest version always
+  gem 'brakeman', '~> 2', require: false # always update, we want the latest version always
   gem 'cane', '~> 2', require: false
   gem 'rails_best_practices', '~> 1', require: false
   gem 'rubocop', require: false

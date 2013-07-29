@@ -14,8 +14,8 @@ module BeliefExpressions
     fact.add_opinion(:doubts,user.graph_user)
   end
 
-  def _(believes,disbelieves,doubts,authority)
-    Opinion.new(b:believes,d:disbelieves,u:doubts,a:authority)
+  def _(believes, disbelieves, doubts, authority)
+    DeadOpinion.new(believes, disbelieves, doubts, authority)
   end
 
   alias :believes :b
@@ -60,10 +60,16 @@ module BeliefExpressions
     (Authority.on(@random_fact, for: GraphUser[user.graph_user.id]).to_f+1).should
   end
 
-  def opinion?(fact)
+  def opinion?(base_fact)
     possible_reset
-    # values are recalculated in Redis, so get the object fresh from Redis
-    fact = fact.class[fact.id]
-    fact.get_opinion.should
+    case base_fact
+    when Fact
+      opinion = Pavlov.query 'opinions/opinion_for_fact', base_fact
+    when FactRelation
+      opinion = FactGraph.new.user_opinion_for_fact_relation base_fact
+    else
+      raise 'Unknown base_fact class'
+    end
+    opinion.should
   end
 end

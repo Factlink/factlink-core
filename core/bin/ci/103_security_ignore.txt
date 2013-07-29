@@ -1,3 +1,1 @@
-.*app/controllers/home_controller.rb.*Dynamic Render Path.*home/pages/.*
-.*app/controllers/js_lib_controller.rb.*Dynamic Render Path.*templates/.*
-.*app/controllers/js_lib_controller.rb.*Possible unprotected redirect_to.*templates/.*
+^$ # empty check for now

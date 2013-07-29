@@ -13,12 +13,8 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     @factWheelRegion.show @wheelView()
     @factBodyRegion.show @bodyView()
 
-  initialize: ->
-    @bindTo @model, 'change', =>
-      @factBodyRegion.currentView?.render()
-
   wheelView: ->
-    wheel = new Wheel(@model.get("fact_wheel"))
+    wheel = @model.getFactWheel()
 
     if Factlink.Global.signed_in
       wheelView = new InteractiveWheelView
@@ -38,7 +34,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
 
   bodyView: ->
     bodyView = new FactBodyView
-      model:@model
+      model: @model
       clickable: @options.clickable_body
 
     @bindTo bodyView, 'click:body', (e) =>
@@ -56,6 +52,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @trunk8Init 3, '.js-displaystring', '.less'
+    @bindTo @model, 'change', @render, @
 
   triggerViewClick: (e) ->
     @trigger 'click:body', e

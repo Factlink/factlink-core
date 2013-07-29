@@ -127,7 +127,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     channel_ids = @addToCollection.map (ch)-> ch.id
 
     fact = new Fact
-      opinion: @wheel.userOpinion()
+      opinion: @wheel.userOpinionWithS()
       displaystring:  @$('textarea.js-fact').val()
       fact_url: @$('input.js-url').val()
       fact_title: @$('input.js-title').val()
@@ -153,7 +153,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       @openFinishHelptext()
 
   openFinishHelptext: ->
-    unless @tooltip(".js-submit-post-factlink")?
+    unless @popoverOpened(".js-submit-post-factlink")?
       @popoverAdd '.js-submit-post-factlink',
         side: 'right'
         align: 'top'

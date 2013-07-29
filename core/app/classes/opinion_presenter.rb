@@ -3,64 +3,36 @@ class OpinionPresenter
     @opinion = opinion
   end
 
-  def belief_authority
-    authority :beliefs
-  end
-
-  def formatted_belief_authority
-    format belief_authority
-  end
-
-  def disbelief_authority
-    authority :disbeliefs
-  end
-
-  def formatted_disbelief_authority
-    format disbelief_authority
-  end
-
   def relevance
-    belief_authority - disbelief_authority
-  end
-
-  def formatted_relevance
-    format relevance
+    believes_authority - disbelieves_authority
   end
 
   def authority(type)
     @opinion.send(type) * @opinion.authority
   end
 
-  def format number
-    NumberFormatter.new(number).as_authority
-  end
-
   def as_percentages_hash
-    total = @opinion.b + @opinion.d + @opinion.u
+    total = @opinion.believes + @opinion.disbelieves + @opinion.doubts
 
-    l_believe_percentage = calc_percentage(total, @opinion.b)
-    l_disbelieve_percentage = calc_percentage(total, @opinion.d)
-    l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
+    l_believes_percentage    = calc_percentage(total, @opinion.believes)
+    l_disbelieves_percentage = calc_percentage(total, @opinion.disbelieves)
+    l_doubts_percentage      = 100 - l_believes_percentage - l_disbelieves_percentage
 
     {
-      believe:    { percentage: l_believe_percentage },
-      disbelieve: { percentage: l_disbelieve_percentage },
-      doubt:      { percentage: l_doubt_percentage  },
+      believe:    { percentage: l_believes_percentage },
+      disbelieve: { percentage: l_disbelieves_percentage },
+      doubt:      { percentage: l_doubts_percentage  },
       # TODO this logic should go elsewhere, but only after letting the update_opinion and
       #     remove opinion build proper json (instead of fact.to_json)
-      authority: format(@opinion.a)
-    }
-  end
-
-  def to_hash
-    {
-      formatted_belief_authority: formatted_belief_authority,
-      formatted_disbelief_authority: formatted_disbelief_authority,
-      formatted_relevance: formatted_relevance,
+      authority: format(@opinion.authority)
     }
   end
 
   private
+
+  def format number
+    NumberFormatter.new(number).as_authority
+  end
 
   def calc_percentage(total, part)
     if total > 0
@@ -68,5 +40,13 @@ class OpinionPresenter
     else
       0
     end
+  end
+
+  def believes_authority
+    authority :believes
+  end
+
+  def disbelieves_authority
+    authority :disbelieves
   end
 end

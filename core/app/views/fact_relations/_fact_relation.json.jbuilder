@@ -9,8 +9,9 @@ else
 end
 
 # moving to opinion
-if fact_relation.respond_to? :get_user_opinion
-  opinion = fact_relation.get_user_opinion
+if fact_relation.class.to_s == 'FactRelation'
+  # this is a live fact_relation
+  opinion = query :'opinions/relevance_opinion_for_fact_relation', fact_relation
 else
   opinion = fact_relation.opinion
 end
@@ -33,14 +34,14 @@ creator_authority =
 json.url friendly_fact_path(fact_relation.from_fact)
 
 json.can_destroy? can_destroy
-json.weight fact_relation.percentage
 json.id fact_relation.id
 json.fact_relation_type fact_relation.type
 json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }
 
 json.current_user_opinion current_user_opinion
 
-json.opinions OpinionPresenter.new opinion
+# TODO: Change to actually use the impact
+json.impact OpinionPresenter.new(opinion).relevance
 
 json.time_ago TimeFormatter.as_time_ago(fact_relation.created_at.to_time)
 

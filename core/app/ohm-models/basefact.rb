@@ -1,9 +1,7 @@
 class Basefact < OurOhm
   include Activity::Subject
-  include Opinion::Subject::Basefact
 
   reference :created_by, GraphUser
-  reference :opinion, Opinion
 
   def believable
     @believable ||= Believable.new(self.key)

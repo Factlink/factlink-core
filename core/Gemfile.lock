@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Factlink/mixpanel.git
-  revision: 51ba36f9df4ac911923b8cb15ee1ae487ae0c2b7
+  revision: b4ceac4277ec24a8cc35f2f9df511fb8a4e3a0e2
   specs:
     mixpanel (1.1.3)
       escape
@@ -29,8 +29,8 @@ GIT
 
 GIT
   remote: git://github.com/Factlink/pavlov.git
-  revision: 72a5ebb1577a377e7fff05cee028129d452cdb8c
-  ref: 72a5ebb1577a377e7fff05cee028129d452cdb8c
+  revision: 0b4bd6af62c4210b4c9b7187eb82b3780c755213
+  ref: 0b4bd6af62c4210b4c9b7187eb82b3780c755213
   specs:
     pavlov (0.0.1)
       activemodel (>= 3.2.7)
@@ -42,15 +42,25 @@ GIT
   specs:
     rack-xframe-options (0.1.2)
 
+GIT
+  remote: git://github.com/jjoos/korsakov.git
+  revision: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
+  ref: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
+  specs:
+    korsakov (0.0.1)
+      activemodel (>= 3.2.7)
+      activesupport (>= 3.2.7)
+      pavlov
+
 GEM
   remote: http://rubygems.org/
   specs:
-    actionmailer (3.2.13)
-      actionpack (= 3.2.13)
-      mail (~> 2.5.3)
-    actionpack (3.2.13)
-      activemodel (= 3.2.13)
-      activesupport (= 3.2.13)
+    actionmailer (3.2.14)
+      actionpack (= 3.2.14)
+      mail (~> 2.5.4)
+    actionpack (3.2.14)
+      activemodel (= 3.2.14)
+      activesupport (= 3.2.14)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
@@ -58,19 +68,19 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    activemodel (3.2.13)
-      activesupport (= 3.2.13)
+    activemodel (3.2.14)
+      activesupport (= 3.2.14)
       builder (~> 3.0.0)
-    activerecord (3.2.13)
-      activemodel (= 3.2.13)
-      activesupport (= 3.2.13)
+    activerecord (3.2.14)
+      activemodel (= 3.2.14)
+      activesupport (= 3.2.14)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.13)
-      activemodel (= 3.2.13)
-      activesupport (= 3.2.13)
-    activesupport (3.2.13)
-      i18n (= 0.6.1)
+    activeresource (3.2.14)
+      activemodel (= 3.2.14)
+      activesupport (= 3.2.14)
+    activesupport (3.2.14)
+      i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.5)
     andand (1.3.3)
@@ -81,13 +91,13 @@ GEM
     ast (1.1.0)
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
-    brakeman (1.9.5)
+    brakeman (2.0.0)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
       haml (>= 3.0, < 5.0)
-      highline (~> 1.6)
+      highline (~> 1.6.19)
       multi_json (~> 1.2)
-      ruby2ruby (= 2.0.3)
+      ruby2ruby (~> 2.0.5)
       ruby_parser (~> 3.1.1)
       sass (~> 3.0)
       slim (~> 1.3.6)
@@ -115,7 +125,7 @@ GEM
     capybara-email (1.0.2)
       capybara (~> 1.0)
       mail
-    capybara-screenshot (0.3.8)
+    capybara-screenshot (0.3.6)
       capybara (>= 1.0, < 3)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
@@ -186,7 +196,7 @@ GEM
       multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     hub (1.10.6)
-    i18n (0.6.1)
+    i18n (0.6.4)
     jbuilder (1.4.2)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -201,7 +211,7 @@ GEM
       addressable
       faraday
       multi_json
-    konacha (2.7.0)
+    konacha (3.0.0)
       actionpack (>= 3.1, < 5)
       capybara
       colorize
@@ -223,8 +233,7 @@ GEM
       actionpack
       activesupport
     lumberjack (1.0.4)
-    mail (2.5.3)
-      i18n (>= 0.4.0)
+    mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mailcatcher (0.5.12)
@@ -325,14 +334,14 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.13)
-      actionmailer (= 3.2.13)
-      actionpack (= 3.2.13)
-      activerecord (= 3.2.13)
-      activeresource (= 3.2.13)
-      activesupport (= 3.2.13)
+    rails (3.2.14)
+      actionmailer (= 3.2.14)
+      actionpack (= 3.2.14)
+      activerecord (= 3.2.14)
+      activeresource (= 3.2.14)
+      activesupport (= 3.2.14)
       bundler (~> 1.0)
-      railties (= 3.2.13)
+      railties (= 3.2.14)
     rails-backbone (0.7.2)
       coffee-script (~> 2.2.0)
       ejs (~> 1.0.0)
@@ -340,17 +349,18 @@ GEM
     rails-dev-tweaks (0.6.1)
       actionpack (~> 3.1)
       railties (~> 3.1)
-    rails_best_practices (1.13.8)
+    rails_best_practices (1.14.0)
       activesupport
       awesome_print
       code_analyzer
       colored
       erubis
       i18n
+      require_all
       ruby-progressbar
-    railties (3.2.13)
-      actionpack (= 3.2.13)
-      activesupport (= 3.2.13)
+    railties (3.2.14)
+      actionpack (= 3.2.14)
+      activesupport (= 3.2.14)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -373,6 +383,7 @@ GEM
     redis-objects (0.5.3)
       redis (>= 2.1.1)
     ref (1.0.5)
+    require_all (1.2.1)
     resque (1.23.0)
       multi_json (~> 1.0)
       redis-namespace (~> 1.0)
@@ -403,12 +414,16 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    rspec_junit_formatter (0.1.6)
+      builder
+      rspec (~> 2.0)
+      rspec-core (!= 2.12.0)
     rubocop (0.8.3)
       parser (= 2.0.0.beta5)
       rainbow (>= 1.1.4)
     ruby-prof (0.13.0)
     ruby-progressbar (1.1.1)
-    ruby2ruby (2.0.3)
+    ruby2ruby (2.0.6)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
     ruby_parser (3.1.3)
@@ -483,17 +498,20 @@ GEM
     websocket (1.0.7)
     xpath (0.1.4)
       nokogiri (~> 1.3)
+    yarjuf (1.0.5)
+      builder
+      rspec (>= 2.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (= 3.2.13)
+  activerecord (= 3.2.14)
   addressable (~> 2.3.4)
   andand (~> 1.3.3)
   approvals (~> 0)
   bcrypt-ruby (~> 3.0.1)
-  brakeman (~> 1)
+  brakeman (~> 2)
   browser (~> 0.2.0)
   cancan (~> 1.6.10)
   cane (~> 2)
@@ -501,7 +519,7 @@ DEPENDENCIES
   capistrano-ext (~> 1.2.1)
   capybara (~> 1.1)
   capybara-email (~> 1.0)
-  capybara-screenshot (~> 0.3)
+  capybara-screenshot (= 0.3.6)
   database_cleaner (~> 0.9)
   devise (~> 2.2.3)
   devise_invitable (= 1.1.6)
@@ -515,11 +533,12 @@ DEPENDENCIES
   jquery-rails (= 2.1.2)
   json (~> 1.8.0)
   koala (~> 1.7.0rc1)
-  konacha (~> 2.7)
+  konacha (~> 3.0)
+  korsakov!
   less-rails (~> 2.2.6)
   less-rails-bootstrap (= 2.1.1)
   lograge (~> 0)
-  mail (= 2.5.3)
+  mail (~> 2.5.4)
   mailcatcher (~> 0)
   marionette-rails (= 1.0.0.rc.2)
   mixpanel!
@@ -543,7 +562,7 @@ DEPENDENCIES
   rack (~> 1)
   rack-rewrite (~> 1.3.3)
   rack-xframe-options!
-  rails (= 3.2.13)
+  rails (= 3.2.14)
   rails-backbone (= 0.7.2)
   rails-dev-tweaks (~> 0)
   rails_best_practices (~> 1)
@@ -557,6 +576,7 @@ DEPENDENCIES
   resque_mailer (~> 2.2.3)
   roadie (~> 2.3.4)
   rspec-rails (~> 2.13)
+  rspec_junit_formatter
   rubocop
   ruby-prof (~> 0)
   sentry-raven (= 0.4.6)
@@ -571,3 +591,4 @@ DEPENDENCIES
   timecop (~> 0.6)
   twitter (~> 4.7.0)
   uglifier (~> 1.3.0)
+  yarjuf (~> 1.0)

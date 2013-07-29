@@ -28,9 +28,15 @@ describe Queries::Facts::GetDeadWheel do
       opinion = mock :opinion
       OpinionPresenter.stub(:new).with(opinion)
                       .and_return(presenter)
-      live_fact = mock :fact, id: '1', get_opinion: opinion
+      live_fact = mock :fact, id: '1'
       user = mock :user, graph_user: mock
-      interactor = Queries::Facts::GetDeadWheel.new live_fact.id, current_user: user
+      pavlov_options = {current_user: user}
+
+      Pavlov.stub(:query)
+            .with(:'opinions/opinion_for_fact', live_fact, pavlov_options)
+            .and_return(opinion)
+
+      interactor = described_class.new live_fact.id, pavlov_options
 
 
       user.graph_user.should_receive(:opinion_on)
@@ -64,9 +70,15 @@ describe Queries::Facts::GetDeadWheel do
       OpinionPresenter.stub(:new).with(opinion)
                       .and_return(presenter)
 
-      live_fact = mock :fact, id: '1', get_opinion: opinion
+      live_fact = mock :fact, id: '1'
       user = nil
-      interactor = Queries::Facts::GetDeadWheel.new live_fact.id, current_user: user
+      pavlov_options = {current_user: user}
+
+      Pavlov.stub(:query)
+            .with(:'opinions/opinion_for_fact', live_fact, pavlov_options)
+            .and_return(opinion)
+
+      interactor = described_class.new live_fact.id, pavlov_options
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 

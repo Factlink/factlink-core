@@ -16,20 +16,20 @@ require 'database_cleaner'
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f| require f}
 
 RSpec.configure do |config|
+  config.filter_run_excluding slow: true unless ENV['RUN_SLOW_TESTS']
+
   # webkit always has js enabled, so always use this:
   Capybara.javascript_driver = :poltergeist
   Capybara.default_driver = :poltergeist
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
-  config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
 
   config.fail_fast = true
 
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
-  config.include ScreenshotTest
 
   config.before(:suite) do
     ElasticSearch.create

@@ -17,7 +17,7 @@ class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
   wheelView: ->
     @_wheelView ?= new InteractiveWheelView
       fact: @model.get("from_fact")
-      model: new Wheel @model.get("fact_wheel")
+      model: @model.getFactWheel()
       respondsToMouse: false
       showsTooltips: false
 

@@ -18,38 +18,96 @@ class window.Wheel extends Backbone.Model
       percentage: 33
 
   initialize: ->
-    @set 'opinion_types', @mergedOpinionTypes()
+    @_setDefaults()
 
-  setRecursive: (attributes) ->
-    @_updateAttributes @attributes, attributes
-
-  _updateAttributes: (oldAttributes, newAttributes) ->
+  setRecursive: (newAttributes, oldAttributes=@attributes) ->
     for key, value of newAttributes
       if typeof value is 'object'
         oldAttributes[key] ?= {}
-        @_updateAttributes oldAttributes[key], value
+        @setRecursive value, oldAttributes[key]
       else
         oldAttributes[key] = value
 
-  mergedOpinionTypes: ->
-    opinion_types = {}
+  _setDefaults: ->
     for type, opinion_type of @default_opinion_types
-      opinion_types[type] = _.defaults(@get('opinion_types')[type] ? {}, opinion_type)
-    opinion_types
+      @get('opinion_types')[type] ?= {}
+      _.defaults @get('opinion_types')[type] , opinion_type
 
-  opinionTypesArray: -> _.values @get('opinion_types')
+  clear: (options={})->
+    super _.extend {}, options, silent: true
+    @set new Wheel().attributes, _.pick(options, 'silent')
 
-  reset: ->
-    # DO NOT RUN CLEAR HERE, since then the objects 'believe', 'doubt', and 'disbelieve' are lost,
-    # which are required by the BaseFactWheelView!
-    @setRecursive(new Wheel().attributes)
+  isUserOpinion: (type) -> @get('opinion_types')[type].is_user_opinion
+
+  userOpinionWithS: ->
+    opinion = @userOpinion()
+    opinion and (opinion + 's')
 
   userOpinion: ->
     @_userOpinions()[0]
 
   _userOpinions: ->
-    "#{type}s" for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
+    type for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
 
-  toJSON: ->
-    _.extend {}, super(),
-      opinion_types_array: @opinionTypesArray()
+  parse: (response) ->
+    new_opinion_types = {}
+    for type, oldOpinionType of @get('opinion_types')
+      new_opinion_types[type] = _.extend _.clone(oldOpinionType), response.opinion_types[type]
+
+    authority: response.authority
+    opinion_types: new_opinion_types
+
+  turned_off_opinion_types: ->
+    believe:    is_user_opinion: false
+    disbelieve: is_user_opinion: false
+    doubt:      is_user_opinion: false
+
+  turnOffActiveOpinionType: ->
+    @set @parse authority: @get("authority"), opinion_types: @turned_off_opinion_types()
+
+  turnOnActiveOpinionType: (toggle_type) ->
+    new_opinion_types = @turned_off_opinion_types()
+    new_opinion_types[toggle_type].is_user_opinion = true
+
+    @set @parse authority: @get("authority"), opinion_types: new_opinion_types
+
+  # TODO: Use @save here!!
+  setActiveOpinionType: (opinion_type, options={}) ->
+    old_opinion_type = @userOpinion()
+    fact_id = @get('fact_id')
+    @turnOnActiveOpinionType opinion_type
+    Backbone.sync 'create', this,
+      attrs: {}
+      url: "/facts/#{fact_id}/opinion/#{opinion_type}s.json"
+      success: (data, status, response) =>
+        @set @parse data
+        mp_track "Factlink: Opinionate",
+          factlink: fact_id
+          opinion: opinion_type
+        options.success?()
+        @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
+      error: =>
+        # TODO: This is not a proper undo. Should be restored to the current
+        #       state when the request fails.
+        if old_opinion_type
+          @turnOnActiveOpinionType old_opinion_type
+        else
+          @turnOffActiveOpinionType()
+        options.error?()
+
+  # TODO: Use @save here!!
+  unsetActiveOpinionType: (opinion_type, options={}) ->
+    fact_id = @get('fact_id')
+    @turnOffActiveOpinionType()
+    Backbone.sync 'delete', this,
+      attrs: {}
+      url: "/facts/#{fact_id}/opinion.json"
+      success: (data, status, response) =>
+        @set @parse data
+        mp_track "Factlink: De-opinionate",
+          factlink: fact_id
+        options.success?()
+        @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
+      error: =>
+        @turnOnActiveOpinionType opinion_type
+        options.error?()

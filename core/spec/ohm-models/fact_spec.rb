@@ -87,8 +87,6 @@ describe Fact do
           @fr = fact.add_evidence(relation,factlink,gu1)
         end
 
-        its(:get_opinion) {should be_a(Opinion)}
-
         describe "should have one evidence" do
           it "for the relation #{relation}" do
             expect(fact.evidence(relation).count).to eq 1

@@ -100,10 +100,6 @@ class Channel < OurOhm
     true
   end
 
-  def to_hash
-    {id: id, title: title, created_by: created_by}
-  end
-
   def add_channel(channel)
     return false if contained_channels.include?(channel)
     return false unless channel.is_real_channel?

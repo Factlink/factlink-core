@@ -1,6 +1,6 @@
-require 'pavlov'
+require 'korsakov'
 
-class FactlinkUser < Pavlov::Entity
+class FactlinkUser < Korsakov::Entity
   attributes :id, :name, :username, :location, :biography,
     :gravatar_hash, :email, :receives_mailed_notifications,
     :hidden, :receives_digest

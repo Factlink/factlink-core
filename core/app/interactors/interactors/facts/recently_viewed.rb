@@ -7,6 +7,8 @@ module Interactors
       include Util::CanCan
 
       def execute
+        return [] unless @options[:current_user]
+
         recently_viewed_facts.top(5)
       end
 

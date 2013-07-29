@@ -51,7 +51,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     fact = new Fact
       displaystring: text
-      opinion: @wheel.userOpinion()
+      opinion: @wheel.userOpinionWithS()
       fact_wheel: @wheel.toJSON()
 
     @createFactRelation new FactRelation
@@ -86,7 +86,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   reset: ->
     @setQuery ''
-    @wheel.reset()
+    @wheel.clear()
     @wheel_region.currentView.render()
 
   queryChanges: ->

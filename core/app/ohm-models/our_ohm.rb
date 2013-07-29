@@ -1,7 +1,6 @@
 require 'ohm/contrib'
 
 require_relative 'our_ohm/generic_reference'
-require_relative 'our_ohm/value_reference'
 require_relative 'our_ohm/monkey'
 require_relative 'our_ohm/timestamped_set'
 
@@ -11,7 +10,6 @@ class OurOhm < Ohm::Model
   include Ohm::Boundaries
   extend ActiveModel::Naming
   extend OurOhm::GenericReference
-  extend OurOhm::ValueReference
 
   # needed for Ohm polymorphism:
   self.base = self
@@ -19,12 +17,6 @@ class OurOhm < Ohm::Model
   class << self
     alias :ohm_set :set
     alias :ohm_sorted_set :sorted_set
-
-    def create! *args
-      new_instance = new(*args)
-      raise "Error creating instance of {@this.name}" unless new_instance.save
-      new_instance
-    end
 
     def set(name,model)
       ohm_set(name, model)
@@ -54,39 +46,10 @@ class OurOhm < Ohm::Model
       end
       collections(self) << name unless collections.include?(name)
     end
-
-    def opinion_reference(name, &block)
-      value_reference name, Opinion
-      define_method(:"get_#{name}") do |*args|
-        depth = args[0] || 0
-        self.send(:"calculate_#{name}",depth) if depth > 0
-        send(name) || Opinion.zero
-      end
-      define_method(:"calculate_#{name}") do |*args|
-        depth = args[0] || 0
-        send(:"#{name}=", (instance_exec depth, &block))
-        save
-      end
-    end
-
-
   end
 
   def to_param
     id
-  end
-
-  def update_attributes!(attrs)
-    self.update_attributes(attrs)
-    valid = valid?
-
-    save if valid
-
-    valid
-  end
-
-  def encode_json(encoder)
-    return self.to_json
   end
 
   def created_at_as_datetime
