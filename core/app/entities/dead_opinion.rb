@@ -36,10 +36,6 @@ class DeadOpinion
     }
   end
 
-  def value_by_type(type)
-    send(type)
-  end
-
   def ==(other)
     return false if self.authority != other.authority
     return true if self.authority == 0
@@ -49,39 +45,31 @@ class DeadOpinion
       self.doubts == other.doubts
   end
 
-  # inefficient, but allows for quickly changing the + def
   def self.combine(list)
-    list.reduce(DeadOpinion.zero, :+)
+    believes, disbelieves, doubts, authority = 0, 0, 0, 0
+
+    list.each do |opinion|
+      believes    += opinion.authority * opinion.believes
+      disbelieves += opinion.authority * opinion.disbelieves
+      doubts      += opinion.authority * opinion.doubts
+      authority   += opinion.authority
+    end
+
+    if authority > 0
+      DeadOpinion.new believes   /authority,
+                      disbelieves/authority,
+                      doubts     /authority,
+                      authority
+    else
+      DeadOpinion.zero
+    end
   end
 
   def +(other)
-    believes    = weighted_sum_of_type(other, :believes)
-    disbelieves = weighted_sum_of_type(other, :disbelieves)
-    doubts      = weighted_sum_of_type(other, :doubts)
-    authority   = self.authority + other.authority
-
-    DeadOpinion.new(believes, disbelieves, doubts, authority).normalized
+    self.class.combine([self, other])
   end
 
   def net_authority
     authority * (believes-disbelieves)
-  end
-
-  def normalized
-    if authority == 0
-      return DeadOpinion.zero
-    else
-      self
-    end
-  end
-
-  private
-
-  def weighted_sum_of_type(other, type)
-    self_value      = self.value_by_type(type)
-    other_value     = other.value_by_type(type)
-    total_authority = self.authority + other.authority
-
-    (self_value*self.authority + other_value*other.authority)/total_authority
   end
 end
