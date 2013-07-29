@@ -80,20 +80,22 @@ module BeliefExpressions
     (Authority.on(@random_fact, for: GraphUser[user.graph_user.id]).to_f+1).should
   end
 
-  def opinion?(base_fact)
+  def opinion?(fact)
     possible_reset
-    case base_fact
-    when Fact
-      opinion = Pavlov.query 'opinions/opinion_for_fact', base_fact
-    when FactRelation
-      opinion = FactGraph.new.user_opinion_for_fact_relation base_fact
-    when OpenStruct # Comment
-      comment = base_fact
-      fact = Comment.find(base_fact.id).fact_data.fact
-      opinion = Pavlov.query 'opinions/user_opinion_for_comment', comment.id.to_s, fact
-    else
-      raise "Unknown base_fact class #{base_fact.class.name}"
-    end
+    opinion = Pavlov.query 'opinions/opinion_for_fact', fact
+    opinion.should
+  end
+
+  def fact_relation_user_opinion?(fact_relation)
+    possible_reset
+    opinion = FactGraph.new.user_opinion_for_fact_relation fact_relation
+    opinion.should
+  end
+
+  def comment_user_opinion?(comment)
+    possible_reset
+    fact = Comment.find(comment.id).fact_data.fact
+    opinion = Pavlov.query 'opinions/user_opinion_for_comment', comment.id.to_s, fact
     opinion.should
   end
 end

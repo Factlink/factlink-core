@@ -65,7 +65,7 @@ describe "computed opinion" do
     believes(u1, f1)
     believes(u2, f1)
     believes(u2, f1sup2)
-    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    fact_relation_user_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
     opinion?(f2) == _(1.0, 0.0, 0.0, 1.0)
   end
 
@@ -74,7 +74,7 @@ describe "computed opinion" do
     believes(u1, f1)
     believes(u1, f1sup2)
     believes(u2, f1sup2)
-    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 2.0)
+    fact_relation_user_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 2.0)
     opinion?(f2) == _(1.0, 0.0, 0.0, 1.0)
   end
 
@@ -83,7 +83,7 @@ describe "computed opinion" do
     believes(u1, f1)
     believes(u2, f1)
     believes(u2, f1weak2)
-    opinion?(f1weak2) == _(1.0, 0.0, 0.0, 1.0)
+    fact_relation_user_opinion?(f1weak2) == _(1.0, 0.0, 0.0, 1.0)
     opinion?(f2) == _(0.0, 1.0, 0.0, 1.0)
   end
 
@@ -92,7 +92,7 @@ describe "computed opinion" do
     believes(u1, f1)
     believes(u1, f1weak2)
     believes(u2, f1weak2)
-    opinion?(f1weak2) == _(1.0, 0.0, 0.0, 2.0)
+    fact_relation_user_opinion?(f1weak2) == _(1.0, 0.0, 0.0, 2.0)
     opinion?(f2) == _(0.0, 1.0, 0.0, 1.0)
   end
 
@@ -102,7 +102,7 @@ describe "computed opinion" do
     believes(u2, f1)
     believes(u1, f1sup2)
     disbelieves(u2, f1sup2)
-    opinion?(f1sup2) == _(0.5, 0.5, 0.0, 2.0)
+    fact_relation_user_opinion?(f1sup2) == _(0.5, 0.5, 0.0, 2.0)
     opinion?(f2) == DeadOpinion.zero
   end
 
@@ -112,7 +112,7 @@ describe "computed opinion" do
     disbelieves(u2, f1)
     believes(u1, f1sup2)
     opinion?(f1) == _(0.5, 0.5, 0.0, 2.0)
-    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    fact_relation_user_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
     opinion?(f2) == DeadOpinion.zero
   end
 
@@ -123,7 +123,7 @@ describe "computed opinion" do
     believes(u1, f1sup2)
     disbelieves(u3, f2)
     opinion?(f1) == _(1.0, 0.0, 0.0, 2.0)
-    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    fact_relation_user_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
     opinion?(f2) == _(0.5, 0.5, 0.0, 2.0)
   end
 
@@ -134,7 +134,7 @@ describe "computed opinion" do
     believes(u1, f1sup2)
     disbelieves(u3, f2)
     opinion?(f1) == _(1.0, 0.0, 0.0, 1.0)
-    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    fact_relation_user_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
     opinion?(f2) == _(0.5, 0.5, 0.0, 2.0)
   end
 
@@ -143,7 +143,7 @@ describe "computed opinion" do
     believes(u1, f1)
     believes(u1, f2)
     believes(u1, f1sup2)
-    opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
+    fact_relation_user_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 1.0)
     opinion?(f1) == _(1.0, 0.0, 0.0, 1.0)
     opinion?(f2) == _(1.0, 0.0, 0.0, 2.0)
   end
@@ -169,7 +169,7 @@ describe "computed opinion" do
       comment = add_supporting_comment(u1, f1)
       believes_comment(u1, comment)
 
-      opinion?(comment) == _(1.0, 0.0, 0.0, 1.0)
+      comment_user_opinion?(comment) == _(1.0, 0.0, 0.0, 1.0)
       opinion?(f1) == _(1.0, 0.0, 0.0, 1.0)
     end
 
@@ -181,7 +181,7 @@ describe "computed opinion" do
         believes_comment(user, comment)
       end
 
-      opinion?(comment) == _(1.0, 0.0, 0.0, 12.0)
+      comment_user_opinion?(comment) == _(1.0, 0.0, 0.0, 12.0)
       opinion?(f1) == _(1.0, 0.0, 0.0, 10.0)
     end
   end
@@ -191,7 +191,7 @@ describe "computed opinion" do
       comment = add_weakening_comment(u1, f1)
       believes_comment(u1, comment)
 
-      opinion?(comment) == _(1.0, 0.0, 0.0, 1.0)
+      comment_user_opinion?(comment) == _(1.0, 0.0, 0.0, 1.0)
       opinion?(f1) == _(0.0, 1.0, 0.0, 1.0)
     end
   end
