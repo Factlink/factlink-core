@@ -71,7 +71,7 @@ class FactGraph
       influencing_opinion_for_fact_relation(fact_relation)
     end
 
-    influencing_opinions += Comment.where({fact_data_id: fact.data_id}).map do |comment|
+    influencing_opinions += Comment.where(fact_data_id: fact.data_id).map do |comment|
       influencing_opinion_for_comment(comment, fact)
     end
 
