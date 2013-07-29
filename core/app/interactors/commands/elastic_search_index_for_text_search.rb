@@ -2,7 +2,7 @@ require 'logger'
 require_relative '../../classes/elastic_search'
 
 module Commands
-  class ElasticSearchIndexForTextSearchCommand
+  class ElasticSearchIndexForTextSearch
     include Pavlov::Command
 
     arguments :object

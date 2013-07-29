@@ -1,7 +1,7 @@
-require_relative 'elastic_search_index_for_text_search_command'
+require_relative 'elastic_search_index_for_text_search'
 
 module Commands
-  class ElasticSearchIndexUserForTextSearch < ElasticSearchIndexForTextSearchCommand
+  class ElasticSearchIndexUserForTextSearch < ElasticSearchIndexForTextSearch
     def define_index
       type 'user'
       field :username
