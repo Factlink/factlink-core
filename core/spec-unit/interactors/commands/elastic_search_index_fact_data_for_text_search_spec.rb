@@ -28,7 +28,7 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/factdata/#{fact_data.id}"
-      command = described_class.new(object: fact_data)
+      command = described_class.new fact_data
       json_document = mock
 
       command.should_receive(:json_document).and_return(json_document)
