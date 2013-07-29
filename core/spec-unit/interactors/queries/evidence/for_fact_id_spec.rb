@@ -8,12 +8,6 @@ describe Queries::Evidence::ForFactId do
     stub_classes 'Comment', 'KillObject', 'Fact', 'OpinionPresenter'
   end
 
-  def fake_opinion relevance
-    mock authority: relevance,
-         beliefs: 1,
-         disbeliefs: 0
-  end
-
   describe '#validate' do
     it 'requires fact_id to be an integer' do
       expect_validating('a', :weakening)
