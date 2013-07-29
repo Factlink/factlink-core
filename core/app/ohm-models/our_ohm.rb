@@ -53,10 +53,6 @@ class OurOhm < Ohm::Model
    parse_ohm_datetime self.created_at
   end
 
-  def updated_at_as_datetime
-   parse_ohm_datetime self.updated_at
-  end
-
   alias save! save
 
   #needed for some rails compatibility
