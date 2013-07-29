@@ -23,6 +23,12 @@ class FactGraph
     store :FactRelation, fact_relation.id, :user_opinion, user_opinion
   end
 
+  def calculate_comment_when_user_opinion_changed(comment)
+    fact = Comment.find(comment.id).fact_data.fact
+    user_opinion = calculated_user_opinion(comment, fact)
+    store :Comment, comment.id, :user_opinion, user_opinion
+  end
+
   def user_opinion_for_fact(fact)
     retrieve :Fact, fact.id, :user_opinion
   end

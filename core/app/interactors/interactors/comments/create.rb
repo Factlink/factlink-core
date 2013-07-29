@@ -12,7 +12,7 @@ module Interactors
           @content, @options[:current_user].id.to_s
 
         command :'comments/set_opinion', comment.id.to_s, 'believes', @options[:current_user].graph_user
-
+        command :'opinions/recalculate_comment_user_opinion', comment
         create_activity comment
 
         query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact

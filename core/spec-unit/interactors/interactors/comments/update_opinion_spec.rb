@@ -36,30 +36,35 @@ describe Interactors::Comments::UpdateOpinion do
       user = mock( graph_user: mock() )
       comment = mock(id: '123abc456def')
       authority_string = '1.0'
+      pavlov_options = {current_user: user}
+      interactor = Interactors::Comments::UpdateOpinion.new comment.id, opinion, pavlov_options
 
-      mock_comment = mock
+      Pavlov.stub(:query)
+        .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
 
-      interactor = Interactors::Comments::UpdateOpinion.new comment.id, opinion, current_user: user
+      Pavlov.should_receive(:command)
+        .with(:'comments/set_opinion', comment.id, opinion, user.graph_user, pavlov_options)
+      Pavlov.should_receive(:command)
+        .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
 
-      interactor.should_receive(:command).with('comments/set_opinion', comment.id, opinion, user.graph_user)
-      interactor.should_receive(:query).with(:'comments/get', comment.id).and_return(mock_comment)
-
-      expect(interactor.call).to eq mock_comment
+      expect(interactor.call).to eq comment
     end
 
     it 'calls the remove_opinion command when no opinion is passed' do
       user = mock( graph_user: mock() )
       comment = mock(id: '123abc456def')
       authority_string = '1.0'
+      pavlov_options = {current_user: user}
+      interactor = Interactors::Comments::UpdateOpinion.new comment.id, nil, pavlov_options
 
-      mock_comment = mock
+      Pavlov.stub(:query).with(:'comments/get', comment.id, pavlov_options).and_return(comment)
 
-      interactor = Interactors::Comments::UpdateOpinion.new comment.id, nil, current_user: user
+      Pavlov.should_receive(:command)
+        .with(:'comments/remove_opinion', comment.id, user.graph_user, pavlov_options)
+      Pavlov.should_receive(:command)
+        .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
 
-      interactor.should_receive(:command).with('comments/remove_opinion', comment.id, user.graph_user)
-      interactor.should_receive(:query).with(:'comments/get', comment.id).and_return(mock_comment)
-
-      expect(interactor.call).to eq mock_comment
+      expect(interactor.call).to eq comment
     end
   end
 end
