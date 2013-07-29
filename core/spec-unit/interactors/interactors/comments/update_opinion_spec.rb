@@ -7,22 +7,22 @@ describe Interactors::Comments::UpdateOpinion do
 
   it 'initializes correctly' do
     user = mock()
-    interactor = Interactors::Comments::UpdateOpinion.new '1', 'believes', current_user: user
+    interactor = described_class.new '1', 'believes', current_user: user
     interactor.should_not be_nil
   end
 
   it 'without current user gives an unauthorized exception' do
-    expect { Interactors::Comments::UpdateOpinion.new '1', 'believes'}.
+    expect { described_class.new '1', 'believes'}.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'with a invalid comment_id doesn''t validate' do
-    expect { Interactors::Comments::UpdateOpinion.new 'g', 'believes'}.
+    expect { described_class.new 'g', 'believes'}.
       to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
   end
 
   it 'with a invalid opinion doesn''t validate' do
-    expect { Interactors::Comments::UpdateOpinion.new '1', 'dunno'}.
+    expect { described_class.new '1', 'dunno'}.
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].')
   end
 
@@ -37,7 +37,7 @@ describe Interactors::Comments::UpdateOpinion do
       comment = mock(id: '123abc456def')
       authority_string = '1.0'
       pavlov_options = {current_user: user}
-      interactor = Interactors::Comments::UpdateOpinion.new comment.id, opinion, pavlov_options
+      interactor = described_class.new comment.id, opinion, pavlov_options
 
       Pavlov.stub(:query)
         .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
@@ -55,7 +55,7 @@ describe Interactors::Comments::UpdateOpinion do
       comment = mock(id: '123abc456def')
       authority_string = '1.0'
       pavlov_options = {current_user: user}
-      interactor = Interactors::Comments::UpdateOpinion.new comment.id, nil, pavlov_options
+      interactor = described_class.new comment.id, nil, pavlov_options
 
       Pavlov.stub(:query).with(:'comments/get', comment.id, pavlov_options).and_return(comment)
 
