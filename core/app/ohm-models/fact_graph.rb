@@ -47,7 +47,7 @@ class FactGraph
   end
 
   def calculate_user_opinions_for(fact)
-    store :Fact, id, :user_opinion, calculated_user_opinion(fact, fact)
+    store :Fact, fact.id, :user_opinion, calculated_user_opinion(fact, fact)
 
     fact.fact_relations.ids.each do |id|
       store :FactRelation, id, :user_opinion, calculated_user_opinion(FactRelation[id], fact)
