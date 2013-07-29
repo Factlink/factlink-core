@@ -16,6 +16,7 @@ module HashStore
     end
 
     def set value
+      raise "You cannot set an empty hash" if value == {}
       backend.set value
     end
   end

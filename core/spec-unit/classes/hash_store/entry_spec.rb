@@ -43,5 +43,12 @@ describe HashStore::Entry do
 
       entry.set value
     end
+
+    it 'raises when trying to set an empty hash' do
+      entry = described_class.new(double)
+      expect do
+        entry.set({})
+      end.to raise_error
+    end
   end
 end

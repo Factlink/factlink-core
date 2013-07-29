@@ -3,6 +3,12 @@ shared_examples_for 'a hash store' do
     subject['someplace'].set({a: 'hash'})
   end
 
+  it "cannot store an empty hash" do
+    expect do
+      subject['someplace'].set({})
+    end.to raise_error
+  end
+
   it "can retrieve a stored hash" do
     subject['someplace'].set({ some: 'hash' })
     expect(subject['someplace'].get).to eq({ some: 'hash' })
