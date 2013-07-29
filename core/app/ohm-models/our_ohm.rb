@@ -15,11 +15,8 @@ class OurOhm < Ohm::Model
   self.base = self
 
   class << self
-    alias :ohm_set :set
-    alias :ohm_sorted_set :sorted_set
-
     def set(name,model)
-      ohm_set(name, model)
+      super
       define_method(:"#{name}=") do |value|
         @_memo.delete(name)
         send(name).assign(value)
@@ -27,7 +24,7 @@ class OurOhm < Ohm::Model
     end
 
     def sorted_set(name,model, &block)
-      ohm_sorted_set(name, model, &block)
+      super
       define_method(:"#{name}=") do |value|
         @_memo.delete(name)
         send(name).assign(value)
