@@ -100,6 +100,10 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+
+    get  'feature-toggles' => 'admin/global_features#index',  as: 'admin_features'
+    post 'feature-toggles' => 'admin/global_features#update', as: 'admin_features'
+
     scope "/a" do
       get "info" => "admin#info", as: "admin_info"
     end

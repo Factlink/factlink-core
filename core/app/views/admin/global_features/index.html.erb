@@ -1,0 +1,19 @@
+<h1>Global feature tokkels</h1>
+
+<%= form_tag admin_features_path, method: 'POST' do %>
+
+  <%# check_box_tag 'name', value, checked, options %>
+
+  <label class='checkbox'>
+    <%= check_box_tag "features[can_see_factlink]", true, false, class: 'checkbox' %>
+    Can see Factlink
+  </label>
+
+  <label class='checkbox'>
+    <%= check_box_tag "features[can_see_hackerone]", true, false, class: 'checkbox' %>
+    Can see HackerOne
+  </label>
+
+  <%= submit_tag 'Save', class: 'btn' %>
+
+<% end %>
