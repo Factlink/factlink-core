@@ -66,6 +66,16 @@ describe HashStore::Redis do
       refetched_entry = subject['someplace','foo','bar']
 
       expect(refetched_entry.get).to eq({some: 'other_hash'})
+    end
+    it "does not happen within entry" do
+      subject['someplace','foo','bar'].set({some: 'hash'})
+
+      entry = subject['someplace','foo','bar']
+      entry.get # force initial fetch
+
+      entry.set({some: 'other_hash'})
+
+      expect(entry.get).to eq({some: 'other_hash'})
 
     end
   end

@@ -21,6 +21,7 @@ module HashStore
 
     def set value
       redis.mapped_hmset key, value
+      @redis_hash = value
     end
 
     def redis_hash
