@@ -138,11 +138,9 @@ class ApplicationController < ActionController::Base
     user = opts.fetch(:current_user) { current_user }
     opts.delete :current_user
 
-    new_opts = if current_user
-                    opts.update({
-                     :mp_name_tag => current_user.username,
-                     :distinct_id => current_user.id,
-                    })
+    new_opts = if user
+                  opts.update mp_name_tag: user.username,
+                              distinct_id: user.id
                 else
                   opts
                 end

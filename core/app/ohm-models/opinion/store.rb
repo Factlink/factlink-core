@@ -5,7 +5,7 @@ module Opinion
     end
 
     def store object_type, object_id, opinion_type, opinion
-      @store[object_type,object_id,opinion_type].set opinion.to_hash
+      @store[object_type,object_id,opinion_type].set opinion.to_h
     end
 
     def retrieve object_type, object_id, opinion_type

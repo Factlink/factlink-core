@@ -27,7 +27,7 @@ class DeadOpinion
     new hash[:believes], hash[:disbelieves], hash[:doubts], hash[:authority]
   end
 
-  def to_hash
+  def to_h
     {
       believes: believes,
       disbelieves: disbelieves,

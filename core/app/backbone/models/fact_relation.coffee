@@ -8,7 +8,7 @@ class window.FactRelation extends Evidence
       url: @url() + "/opinion/" + type
       success: (data) =>
         mp_track "Evidence: Opinionate",
-          type: type
+          opinion: type
           evidence_id: @id
 
         @set data
