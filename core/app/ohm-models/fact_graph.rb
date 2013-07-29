@@ -31,6 +31,10 @@ class FactGraph
     retrieve :FactRelation, fact_relation.id, :user_opinion
   end
 
+  def user_opinion_for_comment(comment)
+    retrieve :Comment, comment.id, :user_opinion
+  end
+
   def opinion_for_fact(fact)
     user_opinion = retrieve :Fact, fact.id, :user_opinion
     evidence_opinion = retrieve :Fact, fact.id, :evidence_opinion
@@ -84,7 +88,7 @@ class FactGraph
   end
 
   def impact_opinion_for_comment(comment)
-    user_opinion = retrieve :Comment, comment.id, :user_opinion
+    user_opinion = user_opinion_for_comment(comment)
     evidence_type = OpinionType.real_for(comment.type)
 
     calculated_impact_opinion(intrinsic_opinion_for_comment(comment), user_opinion, evidence_type)

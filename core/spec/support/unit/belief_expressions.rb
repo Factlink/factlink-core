@@ -94,8 +94,7 @@ module BeliefExpressions
 
   def comment_user_opinion?(comment)
     possible_reset
-    fact = Comment.find(comment.id).fact_data.fact
-    opinion = Pavlov.query 'opinions/user_opinion_for_comment', comment.id.to_s, fact
+    opinion = FactGraph.new.user_opinion_for_comment comment
     opinion.should
   end
 end
