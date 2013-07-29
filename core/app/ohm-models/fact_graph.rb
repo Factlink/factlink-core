@@ -85,8 +85,9 @@ class FactGraph
 
   def influencing_opinion_for_comment(comment)
     user_opinion = retrieve :Comment, comment.id, :user_opinion
+    evidence_type = OpinionType.real_for(comment.type)
 
-    calculated_influencing_opinion(intrinsic_opinion_for_comment(comment), user_opinion, comment.type.to_sym)
+    calculated_influencing_opinion(intrinsic_opinion_for_comment(comment), user_opinion, evidence_type)
   end
 
   def intrinsic_opinion_for_comment(comment)
