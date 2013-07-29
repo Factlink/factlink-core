@@ -1,5 +1,5 @@
 shared_examples_for 'a hash store' do
-  it 'can store a hash' do
+  it "can store a hash" do
     subject['someplace'].set({a: 'hash'})
   end
 
@@ -37,7 +37,7 @@ shared_examples_for 'a hash store' do
     expect(subject['foo','bar'].get).to eq({ some: 'hash' })
   end
 
-  describe 'namespace' do
+  describe "namespace" do
     it "doesn't write values when in another namespace" do
       store1 = described_class.new 'namespace1'
       store2 = described_class.new 'namespace2'
