@@ -83,10 +83,10 @@ class FactGraph
   def influencing_opinion_for_comment(comment)
     user_opinion = retrieve :Comment, comment.id.to_s, :user_opinion
 
-    calculated_influencing_opinion(comment_opinion(comment), user_opinion, comment.type.to_sym)
+    calculated_influencing_opinion(intrinsic_opinion_for_comment(comment), user_opinion, comment.type.to_sym)
   end
 
-  def comment_opinion(comment)
+  def intrinsic_opinion_for_comment(comment)
     fact = comment.fact_data.fact
     creator_authority = Authority.on(fact, for: comment.created_by).to_f + 1.0
 
