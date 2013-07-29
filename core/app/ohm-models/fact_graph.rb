@@ -42,16 +42,19 @@ class FactGraph
 
   def calculate_user_opinions
     Fact.all.ids.each do |id|
-      fact = Fact[id]
-      store :Fact, id, :user_opinion, calculated_user_opinion(fact, fact)
+      calculate_user_opinions_for Fact[id]
+    end
+  end
 
-      fact.fact_relations.ids.each do |fr_id|
-        store :FactRelation, fr_id, :user_opinion, calculated_user_opinion(FactRelation[fr_id], fact)
-      end
+  def calculate_user_opinions_for(fact)
+    store :Fact, id, :user_opinion, calculated_user_opinion(fact, fact)
 
-      Comment.where({fact_data_id: fact.data_id}).each do |comment|
-        store :Comment, comment.id, :user_opinion, calculated_user_opinion(comment, fact)
-      end
+    fact.fact_relations.ids.each do |id|
+      store :FactRelation, id, :user_opinion, calculated_user_opinion(FactRelation[id], fact)
+    end
+
+    Comment.where({fact_data_id: fact.data_id}).each do |comment|
+      store :Comment, comment.id, :user_opinion, calculated_user_opinion(comment, fact)
     end
   end
 
