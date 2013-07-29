@@ -6,17 +6,17 @@ describe Commands::Opinions::RecalculateFactRelationUserOpinion do
 
   describe '#call' do
     before do
-      stub_classes 'Opinion::BaseFactCalculation'
+      stub_classes 'FactGraph'
     end
 
-    it 'calls Opinion::BaseFactCalculation::calculate_user_opinion' do
+    it 'calls calculate_fact_relation_when_user_opinion_changed' do
       fact_relation = mock
-      base_fact_calculation = mock
+      fact_graph = mock
 
-      Opinion::BaseFactCalculation.stub(:new).with(fact_relation)
-        .and_return(base_fact_calculation)
+      FactGraph.stub new: fact_graph
 
-      base_fact_calculation.should_receive(:calculate_user_opinion)
+      fact_graph.should_receive(:calculate_fact_relation_when_user_opinion_changed)
+        .with(fact_relation)
 
       command = described_class.new fact_relation
       result = command.call

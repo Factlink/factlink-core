@@ -35,6 +35,10 @@ describe DeadOpinion do
     expect(DeadOpinion.new(1,2,3,4)).to eq DeadOpinion.new(1,2,3,4)
   end
 
+  it "is equal to other opinions with zero authority" do
+    expect(DeadOpinion.new(0.1, 0.1, 0.8, 0)).to eq DeadOpinion.new(0.8, 0.1, 0.8, 0)
+  end
+
   it "should be unequal to an opinion with different numbers" do
     opinion = DeadOpinion.new(1,1,1,1)
 
@@ -87,5 +91,27 @@ describe DeadOpinion do
   it "should have authorities which add up" do
     expect((opinion1+opinion2).authority).to          eq opinion1.authority + opinion2.authority
     expect((opinion1+opinion2+opinion3).authority).to eq opinion1.authority + opinion2.authority + opinion3.authority
+  end
+
+  describe "#to_h" do
+    it "creates a hash with believes, disbelieves, doubts, and authority" do
+      opinion = DeadOpinion.new(0.1,0.2,0.7,4)
+
+      expect(opinion.to_h).to eq({
+        believes: 0.1,
+        disbelieves: 0.2,
+        doubts: 0.7,
+        authority: 4.0
+      })
+    end
+  end
+
+  describe ".from_hash" do
+    it "creates a DeadOpinion based on its hash serialization" do
+      opinion = DeadOpinion.new(0.1,0.2,0.7,4)
+      hash = opinion.to_h
+
+      expect(DeadOpinion.from_hash(hash)).to eq(opinion)
+    end
   end
 end
