@@ -187,24 +187,12 @@ describe "computed opinion" do
   end
 
   describe "weakening comment" do
-    it "contributes only to the believed of the fact" do
+    it "contributes only to the disbelieved of the fact" do
       comment = add_weakening_comment(u1, f1)
       believes_comment(u1, comment)
 
       opinion?(comment) == _(1.0, 0.0, 0.0, 1.0)
       opinion?(f1) == _(0.0, 1.0, 0.0, 1.0)
-    end
-
-    it "behaves as a fact that is fully believed and has authority 10 times that of the creator" do
-      comment = add_weakening_comment(u1, f1)
-
-      12.times do
-        user = create(:graph_user)
-        believes_comment(user, comment)
-      end
-
-      opinion?(comment) == _(1.0, 0.0, 0.0, 12.0)
-      opinion?(f1) == _(0.0, 1.0, 0.0, 10.0)
     end
   end
 
