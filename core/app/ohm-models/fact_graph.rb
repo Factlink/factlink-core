@@ -95,7 +95,7 @@ class FactGraph
     end
 
     impact_opinions += Comment.where(fact_data_id: fact.data_id).map do |comment|
-      impact_opinion_for_comment(comment, fact)
+      impact_opinion_for_comment_and_fact(comment, fact)
     end
 
     DeadOpinion.combine(impact_opinions)
