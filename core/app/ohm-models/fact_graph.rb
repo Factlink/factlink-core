@@ -4,9 +4,9 @@ class FactGraph
   end
 
   def recalculate
-    calculate_authority
     calculate_user_opinions
     calculate_graph
+    calculate_authority
   end
 
   def calculate_authority
