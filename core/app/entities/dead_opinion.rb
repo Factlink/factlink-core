@@ -2,24 +2,24 @@ class DeadOpinion
   attr_reader :believes, :disbelieves, :doubts, :authority
 
   def initialize(believes, disbelieves, doubts, authority=0.0)
-    @believes = believes.to_f
+    @believes    = believes.to_f
     @disbelieves = disbelieves.to_f
-    @doubts = doubts.to_f
-    @authority = authority.to_f
+    @doubts      = doubts.to_f
+    @authority   = authority.to_f
   end
 
   def self.zero
-    DeadOpinion.new 0.0, 0.0, 1.0, 0.0
+    for_type(:doubts, 0)
   end
 
   def self.for_type(type, authority=0)
     case type
     when :believes
-      DeadOpinion.new(1.0, 0.0, 0.0, authority)
+      new(1.0, 0.0, 0.0, authority)
     when :disbelieves
-      DeadOpinion.new(0.0, 1.0, 0.0, authority)
+      new(0.0, 1.0, 0.0, authority)
     when :doubts
-      DeadOpinion.new(0.0, 0.0, 1.0, authority)
+      new(0.0, 0.0, 1.0, authority)
     end
   end
 
@@ -29,10 +29,10 @@ class DeadOpinion
 
   def to_h
     {
-      believes: believes,
+      believes:    believes,
       disbelieves: disbelieves,
-      doubts: doubts,
-      authority: authority,
+      doubts:      doubts,
+      authority:   authority
     }
   end
 
