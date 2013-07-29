@@ -61,29 +61,29 @@ class FactGraph
   end
 
   def calculated_evidence_opinion(fact)
-    influencing_opinions = fact.fact_relations.all.map do |fact_relation|
-      influencing_opinion_for_fact_relation(fact_relation)
+    impact_opinions = fact.fact_relations.all.map do |fact_relation|
+      impact_opinion_for_fact_relation(fact_relation)
     end
 
-    influencing_opinions += Comment.where({fact_data_id: fact.data_id}).map do |comment|
-      influencing_opinion_for_comment(comment)
+    impact_opinions += Comment.where({fact_data_id: fact.data_id}).map do |comment|
+      impact_opinion_for_comment(comment)
     end
 
-    DeadOpinion.combine(influencing_opinions)
+    DeadOpinion.combine(impact_opinions)
   end
 
-  def influencing_opinion_for_fact_relation(fact_relation)
+  def impact_opinion_for_fact_relation(fact_relation)
     from_fact_opinion = opinion_for_fact(fact_relation.from_fact)
     user_opinion      = retrieve :FactRelation, fact_relation.id, :user_opinion
     evidence_type     = OpinionType.for_relation_type(fact_relation.type)
 
-    calculated_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
+    calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type)
   end
 
-  def influencing_opinion_for_comment(comment)
+  def impact_opinion_for_comment(comment)
     user_opinion = retrieve :Comment, comment.id.to_s, :user_opinion
 
-    calculated_influencing_opinion(intrinsic_opinion_for_comment(comment), user_opinion, comment.type.to_sym)
+    calculated_impact_opinion(intrinsic_opinion_for_comment(comment), user_opinion, comment.type.to_sym)
   end
 
   def intrinsic_opinion_for_comment(comment)
@@ -97,7 +97,7 @@ class FactGraph
     10 * creator_authority
   end
 
-  def calculated_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
+  def calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type)
     net_fact_authority      = from_fact_opinion.net_authority
     net_relevance_authority = user_opinion.net_authority
 
