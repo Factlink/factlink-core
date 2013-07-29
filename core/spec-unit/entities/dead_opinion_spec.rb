@@ -35,6 +35,10 @@ describe DeadOpinion do
     expect(DeadOpinion.new(1,2,3,4)).to eq DeadOpinion.new(1,2,3,4)
   end
 
+  it "is equal to other opinions with zero authority" do
+    expect(DeadOpinion.new(0.1, 0.1, 0.8, 0)).to eq DeadOpinion.new(0.8, 0.1, 0.8, 0)
+  end
+
   it "should be unequal to an opinion with different numbers" do
     opinion = DeadOpinion.new(1,1,1,1)
 

@@ -40,10 +40,11 @@ class DeadOpinion
     send(type)
   end
 
-  # TODO: fix this for authority=0
   def ==(other)
-    self.authority == other.authority and
-      self.believes == other.believes and
+    return false if self.authority != other.authority
+    return true if self.authority == 0
+
+    self.believes == other.believes and
       self.disbelieves == other.disbelieves and
       self.doubts == other.doubts
   end
