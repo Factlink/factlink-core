@@ -91,6 +91,10 @@ FactlinkUI::Application.routes.draw do
   authenticated :user do
     namespace :admin, path: 'a' do
       get 'info'
+      resource :global_feature_toggles,
+            controller: :global_feature_toggles,
+            only: [:show, :update ]
+
       resources :users, only: [:show, :new, :create, :edit, :update, :index] do
         collection do
           get :reserved
@@ -102,8 +106,6 @@ FactlinkUI::Application.routes.draw do
       end
     end
 
-    get  'feature-toggles' => 'admin/global_features#index',  as: 'admin_features'
-    post 'feature-toggles' => 'admin/global_features#update', as: 'admin_features'
 
 
     # Seems to me we want to lose the scope "/:username" later and place all

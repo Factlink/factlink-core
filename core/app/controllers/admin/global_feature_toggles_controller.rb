@@ -1,13 +1,13 @@
-class Admin::GlobalFeaturesController < AdminController
+class Admin::GlobalFeatureTogglesController < AdminController
 
   layout "admin"
 
-  def index
+  def show
     @global_features = interactor :'global_features/all'
   end
 
   def update
-    render 'index'
+    render :show
   end
 
 end
