@@ -96,7 +96,7 @@ class FactGraph
   def intrinsic_opinion_for_comment(comment, fact)
     creator_authority = Authority.on(fact, for: comment.created_by).to_f + 1.0
 
-    DeadOpinion.new(1,0,0, authority_of_comment_based_on_creator_authority(creator_authority))
+    DeadOpinion.for_type(:believes, authority_of_comment_based_on_creator_authority(creator_authority))
   end
 
   COMMENT_AUTHORITY_MULTIPLIER = 10
