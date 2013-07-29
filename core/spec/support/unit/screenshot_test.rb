@@ -78,7 +78,7 @@ module ScreenshotTest
         puts "Pixels changed #{percentage}%  (#{pixels_changed}/#{total_pixels}."
       end
 
-      pixels_changed > 0
+      pixels_changed > 0 || size_changed?
     end
 
     def take
