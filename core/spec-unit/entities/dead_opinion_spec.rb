@@ -93,7 +93,7 @@ describe DeadOpinion do
     it "creates a hash with believes, disbelieves, doubts, and authority" do
       opinion = DeadOpinion.new(0.1,0.2,0.7,4)
 
-      expect(opinion.to_hash).to eq({
+      expect(opinion.to_h).to eq({
         believes: 0.1,
         disbelieves: 0.2,
         doubts: 0.7,
@@ -105,7 +105,7 @@ describe DeadOpinion do
   describe ".from_hash" do
     it "creates a DeadOpinion based on its hash serialization" do
       opinion = DeadOpinion.new(0.1,0.2,0.7,4)
-      hash = opinion.to_hash
+      hash = opinion.to_h
 
       expect(DeadOpinion.from_hash(hash)).to eq(opinion)
     end
