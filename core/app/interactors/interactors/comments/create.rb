@@ -18,14 +18,6 @@ module Interactors
         query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
       end
 
-      def authority_of comment
-        query :authority_on_fact_for, fact, comment.created_by.graph_user
-      end
-
-      def opinion_of comment
-        query :'opinions/user_opinion_for_comment', comment.id.to_s, fact
-      end
-
       def fact
         Fact[@fact_id]
       end

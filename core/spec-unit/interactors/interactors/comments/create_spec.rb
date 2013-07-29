@@ -65,45 +65,6 @@ describe Interactors::Comments::Create do
     end
   end
 
-  describe '.authority_of' do
-    it 'retrieves the authority' do
-      fact = mock(id: 3)
-      type = 'believes'
-      content = 'content'
-      comment = mock(:comment, created_by: mock(:user, graph_user: mock()))
-      user = mock()
-      authority = '2.0'
-
-      interactor = Interactors::Comments::Create.new fact.id, type, content, current_user: user
-
-      interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query).with(:authority_on_fact_for, fact, comment.created_by.graph_user).and_return(authority)
-
-      interactor.authority_of(comment).should eq authority
-    end
-  end
-
-  describe '.opinion_of' do
-    it 'returns the opinion object of a comment' do
-      fact_id = 1
-      fact = mock( fact_id: fact_id )
-      type = 'believes'
-      content = 'content'
-      opinion = mock()
-      comment = mock(:comment, id: '10a')
-      user = mock
-
-      interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
-
-      interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query)
-        .with(:'opinions/user_opinion_for_comment', comment.id, fact)
-        .and_return(opinion)
-
-      interactor.opinion_of comment
-    end
-  end
-
   describe '.fact' do
     before do
       stub_classes 'Fact'
