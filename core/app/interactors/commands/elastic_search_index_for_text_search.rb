@@ -1,4 +1,3 @@
-require 'logger'
 require_relative '../../classes/elastic_search'
 
 module Commands
@@ -10,9 +9,6 @@ module Commands
     def execute
       @missing_fields = []
       @document = {}
-
-      @logger = pavlov_options[:logger] || Logger.new(STDERR)
-
       define_index
 
       @missing_fields << :id unless field_exists :id
