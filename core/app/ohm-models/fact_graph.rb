@@ -50,7 +50,7 @@ class FactGraph
       end
 
       Comment.where({fact_data_id: fact.data_id}).each do |comment|
-        store :Comment, comment.id.to_s, :user_opinion, calculated_user_opinion(comment, fact)
+        store :Comment, comment.id, :user_opinion, calculated_user_opinion(comment, fact)
       end
     end
   end
@@ -84,7 +84,7 @@ class FactGraph
   end
 
   def influencing_opinion_for_comment(comment)
-    user_opinion = retrieve :Comment, comment.id.to_s, :user_opinion
+    user_opinion = retrieve :Comment, comment.id, :user_opinion
 
     calculated_influencing_opinion(intrinsic_opinion_for_comment(comment), user_opinion, comment.type.to_sym)
   end
@@ -96,8 +96,10 @@ class FactGraph
     DeadOpinion.new(1,0,0, authority_of_comment_based_on_creator_authority(creator_authority))
   end
 
+  COMMENT_AUTHORITY_MULTIPLIER = 10
+
   def authority_of_comment_based_on_creator_authority(creator_authority)
-    10 * creator_authority
+    creator_authority * COMMENT_AUTHORITY_MULTIPLIER
   end
 
   def calculated_influencing_opinion(from_fact_opinion, user_opinion, evidence_type)
