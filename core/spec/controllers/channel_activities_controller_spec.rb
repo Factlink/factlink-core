@@ -5,7 +5,7 @@ describe ChannelActivitiesController do
 
   before { Resque.stub!(:enqueue,nil) }
 
-  let (:user) {FactoryGirl.create(:user)}
+  let (:user) {create(:user)}
 
   let (:f1) {create(:fact)}
   let (:f2) {create(:fact)}
