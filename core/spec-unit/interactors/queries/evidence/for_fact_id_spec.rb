@@ -29,19 +29,19 @@ describe Queries::Evidence::ForFactId do
     it 'interleaves and sorts the comments and factrelation it retrieves' do
       fact = mock id: '1'
 
-      fact_relation1 = mock :fact_relation1, opinion: mock
-      fact_relation2 = mock :fact_relation2, opinion: mock
-      OpinionPresenter.stub(:new).with(fact_relation1.opinion)
-                      .and_return mock(relevance: 1)
-      OpinionPresenter.stub(:new).with(fact_relation2.opinion)
-                      .and_return mock(relevance: 3)
+      fact_relation1 = mock :fact_relation1, impact_opinion: mock
+      fact_relation2 = mock :fact_relation2, impact_opinion: mock
+      OpinionPresenter.stub(:new).with(fact_relation1.impact_opinion)
+                      .and_return mock(impact: 1)
+      OpinionPresenter.stub(:new).with(fact_relation2.impact_opinion)
+                      .and_return mock(impact: 3)
 
       comment1 = mock :comment1, opinion: mock
       comment2 = mock :comment2, opinion: mock
       OpinionPresenter.stub(:new).with(comment1.opinion)
-                      .and_return mock(relevance: 2)
+                      .and_return mock(impact: 2)
       OpinionPresenter.stub(:new).with(comment2.opinion)
-                      .and_return mock(relevance: 4)
+                      .and_return mock(impact: 4)
 
       type = :weakening
       pavlov_options = { current_user: mock }

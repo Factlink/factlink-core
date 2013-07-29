@@ -9,7 +9,7 @@ module Queries
 
       def execute
         KillObject.comment comment,
-          opinion: opinion,
+          impact_opinion: impact_opinion,
           current_user_opinion: current_user_opinion,
           authority: authority,
           can_destroy?: can_destroy,
@@ -20,8 +20,8 @@ module Queries
         query :authority_on_fact_for, fact, comment.created_by.graph_user
       end
 
-      def opinion
         query :'opinions/user_opinion_for_comment', comment.id.to_s, fact
+      def impact_opinion
       end
 
       def current_user_opinion
