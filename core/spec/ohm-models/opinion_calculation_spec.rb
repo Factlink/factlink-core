@@ -169,6 +169,7 @@ describe "computed opinion" do
       comment = add_supporting_comment(u1, f1)
       believes_comment(u1, comment)
 
+      opinion?(comment) == _(1.0, 0.0, 0.0, 1.0)
       opinion?(f1) == _(1.0, 0.0, 0.0, 1.0)
     end
 
@@ -180,6 +181,7 @@ describe "computed opinion" do
         believes_comment(user, comment)
       end
 
+      opinion?(comment) == _(1.0, 0.0, 0.0, 12.0)
       opinion?(f1) == _(1.0, 0.0, 0.0, 10.0)
     end
   end
@@ -189,6 +191,7 @@ describe "computed opinion" do
       comment = add_weakening_comment(u1, f1)
       believes_comment(u1, comment)
 
+      opinion?(comment) == _(1.0, 0.0, 0.0, 1.0)
       opinion?(f1) == _(1.0, 0.0, 0.0, 1.0)
     end
 
@@ -200,7 +203,8 @@ describe "computed opinion" do
         believes_comment(user, comment)
       end
 
-      opinion?(f1) == _(1.0, 0.0, 0.0, 10.0)
+      opinion?(comment) == _(1.0, 0.0, 0.0, 12.0)
+      opinion?(f1) == _(0.0, 1.0, 0.0, 10.0)
     end
   end
 
