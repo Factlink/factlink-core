@@ -1,0 +1,1 @@
+remove-factory-girl-prefix
