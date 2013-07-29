@@ -1,7 +1,6 @@
 class Admin::UsersController < AdminController
   helper_method :sort_column, :sort_direction
 
-  before_filter :authenticate_user!
   before_filter :get_activated_users,         only: [:index]
   before_filter :get_reserved_users,          only: [:reserved]
   before_filter :set_available_user_features, only: [:new, :create, :edit, :update]
@@ -9,7 +8,6 @@ class Admin::UsersController < AdminController
   load_and_authorize_resource :except => [:create]
 
   layout "admin"
-
 
   def create
     @user = User.new
