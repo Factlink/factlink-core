@@ -36,11 +36,11 @@ describe Queries::Evidence::ForFactId do
       OpinionPresenter.stub(:new).with(fact_relation2.impact_opinion)
                       .and_return mock(impact: 3)
 
-      comment1 = mock :comment1, opinion: mock
-      comment2 = mock :comment2, opinion: mock
-      OpinionPresenter.stub(:new).with(comment1.opinion)
+      comment1 = mock :comment1, impact_opinion: mock
+      comment2 = mock :comment2, impact_opinion: mock
+      OpinionPresenter.stub(:new).with(comment1.impact_opinion)
                       .and_return mock(impact: 2)
-      OpinionPresenter.stub(:new).with(comment2.opinion)
+      OpinionPresenter.stub(:new).with(comment2.impact_opinion)
                       .and_return mock(impact: 4)
 
       type = :weakening
