@@ -124,7 +124,7 @@ class FactGraph
     net_fact_authority      = from_fact_opinion.net_authority
     net_relevance_authority = user_opinion.net_authority
 
-    authority = [[net_fact_authority, net_relevance_authority].min, 0].max
+    authority = [net_fact_authority, net_relevance_authority].min
 
     DeadOpinion.for_type(evidence_type, authority).normalized
   end
