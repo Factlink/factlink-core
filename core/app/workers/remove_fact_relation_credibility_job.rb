@@ -1,4 +1,7 @@
-class RemoveFactRelationCredibility
+class RemoveFactRelationCredibilityJob
+
+  @queue = :fact_relation_operations
+
   def self.perform
     FactRelation.all.ids.each do |id|
       fact_relation = FactRelation[id]
