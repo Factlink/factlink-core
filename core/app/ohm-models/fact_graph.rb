@@ -88,7 +88,7 @@ class FactGraph
   end
 
   def opinion_store
-    Opinion::Store.new HashStore::Redis.new('Opinion')
+    Opinion::Store.new HashStore::Redis.new('FactGraphOpinion')
   end
 
   delegate :store, :retrieve, to: :opinion_store
