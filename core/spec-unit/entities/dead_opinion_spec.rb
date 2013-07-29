@@ -89,7 +89,7 @@ describe DeadOpinion do
     expect((opinion1+opinion2+opinion3).authority).to eq opinion1.authority + opinion2.authority + opinion3.authority
   end
 
-  describe "#to_hash" do
+  describe "#to_h" do
     it "creates a hash with believes, disbelieves, doubts, and authority" do
       opinion = DeadOpinion.new(0.1,0.2,0.7,4)
 
