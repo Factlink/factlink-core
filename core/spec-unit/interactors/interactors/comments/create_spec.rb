@@ -6,27 +6,27 @@ describe Interactors::Comments::Create do
 
   it 'initializes correctly' do
     user = mock()
-    interactor = Interactors::Comments::Create.new 1, 'believes', 'Hoi!', current_user: user
+    interactor = described_class.new 1, 'believes', 'Hoi!', current_user: user
     interactor.should_not be_nil
   end
 
   it 'without current user gives an unauthorized exception' do
-    expect { Interactors::Comments::Create.new 1, 'believes', 'Hoi!' }.
+    expect { described_class.new 1, 'believes', 'Hoi!' }.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'without content doesn''t validate' do
-    expect { Interactors::Comments::Create.new 1, 'believes', '' }.
+    expect { described_class.new 1, 'believes', '' }.
       to raise_error(Pavlov::ValidationError, 'content should not be empty.')
   end
 
   it 'with a invalid fact_id doesn''t validate' do
-    expect { Interactors::Comments::Create.new 'a', 'believes', 'Hoi!' }.
+    expect { described_class.new 'a', 'believes', 'Hoi!' }.
       to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
   it 'with a invalid type doesn''t validate' do
-    expect { Interactors::Comments::Create.new 1, 'dunno', 'Hoi!' }.
+    expect { described_class.new 1, 'dunno', 'Hoi!' }.
       to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
@@ -34,82 +34,37 @@ describe Interactors::Comments::Create do
     before do
       stub_const('Commands::CreateCommentCommand', Class.new)
       stub_const 'Fact', Class.new
-    end
-
-    it 'works' do
-      fact_id = 1
-      fact = mock( fact_id: fact_id )
-      type = 'believes'
-      content = 'content'
-      user = mock(id: '1a', graph_user: mock)
-      authority_string = '1.0'
-      opinion = mock()
-
-      interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
-      comment = mock(:comment, id: mock(to_s: '10a'))
-
-      interactor.should_receive(:command)
-        .with(:create_comment,fact_id, type, content, user.id)
-        .and_return(comment)
-      interactor.should_receive(:command)
-        .with(:'comments/set_opinion',comment.id.to_s, 'believes', user.graph_user)
-
-      interactor.should_receive(:query).with(:"comments/add_authority_and_opinion_and_can_destroy", comment, fact).
-        and_return(comment)
-
-      interactor.should_receive(:command)
-        .with(:'opinions/recalculate_comment_user_opinion', comment)
-
-      interactor.should_receive(:create_activity).with(comment)
-
-      Fact.should_receive(:[]).with(fact_id).and_return(fact)
-
-      interactor.call.should eq comment
-    end
-  end
-
-  describe '.fact' do
-    before do
-      stub_classes 'Fact'
-    end
-
-    it 'returns the fact' do
-      fact = mock(id: 3)
-      type = 'believes'
-      content = 'content'
-      comment = mock()
-      user = mock()
-
-      interactor = Interactors::Comments::Create.new fact.id, type, content, current_user: user
-
-      Fact.should_receive(:[]).with(fact.id).and_return(fact)
-
-      interactor.fact.should eq fact
-    end
-  end
-
-  describe '.create_activity' do
-    before do
       stub_const('Comment', Class.new)
     end
 
-    it 'creates an activity' do
-      fact_id = 1
+    it 'works' do
+      fact = mock( fact_id: 1 )
       type = 'believes'
       content = 'content'
-      graph_user = mock()
-      user = mock(id: '1a', graph_user: graph_user)
-      interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
-      returned_comment = mock(id: 1)
-      mongoid_comment = mock()
-      fact = stub()
-      fact_data = stub(fact: fact)
-      returned_comment.stub(fact_data: fact_data)
+      user = mock(id: '1a', graph_user: mock)
+      opinion = mock
+      comment = mock(:comment, id: mock(to_s: '10a'), fact_data: mock(fact: fact))
+      mongoid_comment = mock
+      pavlov_options = {current_user: user}
+      interactor = described_class.new fact.fact_id, type, content, pavlov_options
 
-      Comment.should_receive(:find).with(returned_comment.id).and_return(mongoid_comment)
-      interactor.should_receive(:command).with(:create_activity,graph_user, :created_comment, mongoid_comment, fact)
+      Pavlov.stub(:query)
+        .with(:"comments/add_authority_and_opinion_and_can_destroy", comment, fact, pavlov_options)
+        .and_return(comment)
+      Fact.stub(:[]).with(fact.fact_id).and_return(fact)
+      Comment.stub(:find).with(comment.id).and_return(mongoid_comment)
 
-      interactor.create_activity returned_comment
+      Pavlov.should_receive(:command)
+        .with(:create_comment, fact.fact_id, type, content, user.id, pavlov_options)
+        .and_return(comment)
+      Pavlov.should_receive(:command)
+        .with(:'comments/set_opinion',comment.id.to_s, 'believes', user.graph_user, pavlov_options)
+      Pavlov.should_receive(:command)
+        .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
+      Pavlov.should_receive(:command)
+        .with(:create_activity, user.graph_user, :created_comment, mongoid_comment, fact, pavlov_options)
+
+      expect(interactor.call).to eq comment
     end
   end
 end
