@@ -1,6 +1,12 @@
 shared_examples_for 'a hash store' do
-  it 'can store a hash' do
+  it "can store a hash" do
     subject['someplace'].set({a: 'hash'})
+  end
+
+  it "cannot store an empty hash" do
+    expect do
+      subject['someplace'].set({})
+    end.to raise_error
   end
 
   it "can retrieve a stored hash" do
@@ -17,10 +23,10 @@ shared_examples_for 'a hash store' do
   end
 
   describe "#value?" do
-    it "is for values which have not been set" do
+    it "is false for a value which has not been set" do
       expect(subject['not set'].value?).to be_false
     end
-    it "is true for values which are set" do
+    it "is true for a value which is set" do
       subject['set'].set({some: 'hash'})
       expect(subject['set'].value?).to be_true
     end
@@ -31,7 +37,7 @@ shared_examples_for 'a hash store' do
     expect(subject['foo','bar'].get).to eq({ some: 'hash' })
   end
 
-  describe 'namespace' do
+  describe "namespace" do
     it "doesn't write values when in another namespace" do
       store1 = described_class.new 'namespace1'
       store2 = described_class.new 'namespace2'

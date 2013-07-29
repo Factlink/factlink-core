@@ -31,6 +31,13 @@ describe HashStore::Entry do
 
       expect(entry.get).to eq({some: 'hash'})
     end
+
+    it 'returns a hash with only strings as values' do
+      backend = double get: {some: 3}
+      entry = described_class.new(backend)
+
+      expect(entry.get).to eq({some: '3'})
+    end
   end
 
   describe '#set' do
@@ -42,6 +49,13 @@ describe HashStore::Entry do
       backend.should_receive(:set).with(value)
 
       entry.set value
+    end
+
+    it 'raises when trying to set an empty hash' do
+      entry = described_class.new(double)
+      expect do
+        entry.set({})
+      end.to raise_error
     end
   end
 end

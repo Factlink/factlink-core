@@ -1,25 +1,18 @@
+require_relative './generic.rb'
 require_relative './entry.rb'
 
 module HashStore
-  class Redis
-    def initialize(namespace = 'RedisHashStoreNamespace')
-      @namespace = namespace
-    end
-
-    def [](*args)
-      namespace = args.join ':'
-
-      Entry.new(RedisBackend.new(@namespace + ":" + namespace))
+  class Redis < Generic
+    def backend key
+      RedisBackend.new(key, ::Redis.current)
     end
   end
 
-  class RedisBackend
-    def initialize(key)
-      @key = key
-    end
+  private
 
+  RedisBackend = Struct.new(:key, :redis) do
     def get
-      if redis_hash.keys.length > 0
+      if redis_hash != {}
         redis_hash
       else
         nil
@@ -27,17 +20,12 @@ module HashStore
     end
 
     def set value
-      redis.mapped_hmset @key, value
+      redis.mapped_hmset key, value
+      @redis_hash = value
     end
-
-    private
 
     def redis_hash
-      @redis_hash ||= redis.hgetall(@key)
-    end
-
-    def redis
-      ::Redis.current
+      @redis_hash ||= redis.hgetall(key)
     end
   end
 end
