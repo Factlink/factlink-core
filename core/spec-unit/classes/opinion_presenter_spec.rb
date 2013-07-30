@@ -53,7 +53,7 @@ describe OpinionPresenter do
 
       NumberFormatter.stub(:new).with(authority).and_return(number_formatter)
 
-      opinion = mock believes: 0, disbelieves: 0, doubts: 0, authority: authority
+      opinion = mock believes: 1, disbelieves: 0, doubts: 0, authority: authority
       calculated_friendly_authority = OpinionPresenter.new(opinion).as_percentages_hash[:authority]
       expect(calculated_friendly_authority).to eq friendly_authority
     end
@@ -66,23 +66,26 @@ describe OpinionPresenter do
        end
        {
         [0   ,0   ,100 ,0] => [0  ,0  ,100,0],
-        [0   ,100 ,0   ,0] => [0  ,100,0  ,0],
-        [100 ,0   ,0   ,0] => [100,0  ,0  ,0],
+        [0   ,100 ,0   ,0] => [0  ,0  ,100,0],
+        [100 ,0   ,0   ,0] => [0  ,0  ,100,0],
 
-        [99.5,0.5 ,0   ,1] => [100,1  ,-1 ,1],
+        [99.5,0.5 ,0   ,1] => [99 ,0  ,1  ,1],
+        [99.7,0.3 ,0   ,1] => [99 ,0  ,1  ,1],
+        [0.5 ,99.5,0   ,1] => [0  ,99 ,1  ,1],
         [99.4,0.4 ,0.2 ,1] => [99 ,0  ,1  ,1],
+        [98.6,0.7 ,0.7 ,1] => [98 ,0  ,2  ,1],
         [33.3,33.3,33.3,1] => [33 ,33 ,34 ,1],
-        [33.4,33.3,33.2,1] => [33 ,33 ,34 ,1],  #expected: [34,33,32,1]
-        [99  ,0.5 , 0.5,1] => [0  ,50 ,50 ,1],  #expected: [99,0 ,1 ,1]
-        [67  ,32  ,1   ,1] => [0  ,0  ,100,1],  #expected: [67,32,1 ,1]
-        [67  ,33  ,0   ,1] => [0  ,0  ,100,1],  #expected: [67,33,0 ,1]
-        [67  ,32.5,0.5 ,1] => [0  ,98 ,2  ,1]     #expected: [67,32,1 ,1]
+        [33.4,33.3,33.2,1] => [33 ,33 ,34 ,1],
+        [99  ,0.5 , 0.5,1] => [99 ,0  ,1  ,1],
+        [67  ,32  ,1   ,1] => [67 ,32 ,1  ,1],
+        [67  ,33  ,0   ,1] => [67 ,33 ,0  ,1],
+        [67  ,32.5,0.5 ,1] => [67 ,32 ,1  ,1]
 
        }.each do |percentages_in, percentages_out|
          it "should format (#{percentages_in}) as #{percentages_out}" do
-             opinion_in = mock believes: percentages_in[0]/100,
-                            disbelieves: percentages_in[1]/100,
-                                 doubts: percentages_in[2]/100,
+             opinion_in = mock believes: percentages_in[0]/100.0,
+                            disbelieves: percentages_in[1]/100.0,
+                                 doubts: percentages_in[2]/100.0,
                               authority: percentages_in[3]
              result_percentages = OpinionPresenter.new(opinion_in).as_percentages_hash
 

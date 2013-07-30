@@ -13,10 +13,16 @@ class OpinionPresenter
 
   def as_percentages_hash
     total = @opinion.believes + @opinion.disbelieves + @opinion.doubts
+    return zero_percentages_hash if @opinion.authority == 0 or total == 0
 
-    l_believes_percentage    = calc_percentage(total, @opinion.believes)
-    l_disbelieves_percentage = calc_percentage(total, @opinion.disbelieves)
-    l_doubts_percentage      = 100 - l_believes_percentage - l_disbelieves_percentage
+
+    l_believes_percentage    = ((100 * @opinion.believes) / total).floor.to_i
+    l_disbelieves_percentage = ((100 * @opinion.disbelieves) / total).floor.to_i
+    l_doubts_percentage      = ((100 * @opinion.doubts) / total).floor.to_i
+
+    rest = 100 - l_believes_percentage - l_disbelieves_percentage - l_doubts_percentage
+
+    l_doubts_percentage += rest
 
     {
       believe:    { percentage: l_believes_percentage },
@@ -30,16 +36,21 @@ class OpinionPresenter
 
   private
 
+  def zero_percentages_hash
+    {
+      believe:    { percentage: 0 },
+      disbelieve: { percentage: 0 },
+      doubt:      { percentage: 100  },
+      authority: format(0)
+    }
+  end
+
   def format number
     NumberFormatter.new(number).as_authority
   end
 
   def calc_percentage(total, part)
-    if total > 0
-      ((100 * part) / total).round.to_i
-    else
-      0
-    end
+
   end
 
   def believes_authority
