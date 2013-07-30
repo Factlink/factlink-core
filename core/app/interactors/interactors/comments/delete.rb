@@ -8,7 +8,7 @@ module Interactors
       arguments :comment_id
 
       def execute
-        command :delete_comment, @comment_id, @options[:current_user].id.to_s
+        command :delete_comment, @comment_id, pavlov_options[:current_user].id.to_s
       end
 
       def validate
@@ -16,7 +16,7 @@ module Interactors
       end
 
       def authorized?
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
     end
   end

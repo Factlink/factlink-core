@@ -22,6 +22,26 @@ module BeliefExpressions
   alias :disbelieves :d
   alias :doubts :u
 
+  def add_supporting_comment(user, fact)
+    comment = Pavlov.command :create_comment, fact.id.to_i, 'believes', 'comment', user.id.to_s
+    something_happened
+    comment
+  end
+
+  def add_weakening_comment(user, fact)
+    comment = Pavlov.command :create_comment, fact.id.to_i, 'disbelieves', 'comment', user.id.to_s
+    something_happened
+    comment
+  end
+
+  def believes_comment(user, comment)
+    Pavlov.command :'comments/set_opinion', comment.id.to_s, 'believes', user.graph_user
+  end
+
+  def disbelieves_comment(user, comment)
+    Pavlov.command :'comments/set_opinion', comment.id.to_s, 'disbelieves', user.graph_user
+  end
+
   def god_user
     @god_user ||= GraphUser.create
   end
@@ -60,16 +80,22 @@ module BeliefExpressions
     (Authority.on(@random_fact, for: GraphUser[user.graph_user.id]).to_f+1).should
   end
 
-  def opinion?(base_fact)
+  def opinion?(fact)
     possible_reset
-    case base_fact
-    when Fact
-      opinion = Pavlov.query 'opinions/opinion_for_fact', base_fact
-    when FactRelation
-      opinion = FactGraph.new.user_opinion_for_fact_relation base_fact
-    else
-      raise 'Unknown base_fact class'
-    end
+    opinion = Pavlov.query 'opinions/opinion_for_fact', fact
+    opinion.should
+  end
+
+  def fact_relation_user_opinion?(fact_relation)
+    possible_reset
+    opinion = FactGraph.new.user_opinion_for_fact_relation fact_relation
+    opinion.should
+  end
+
+  def comment_user_opinion?(comment)
+    possible_reset
+    fact = Comment.find(comment.id).fact_data.fact
+    opinion = Pavlov.query 'opinions/user_opinion_for_comment', comment.id.to_s, fact
     opinion.should
   end
 end

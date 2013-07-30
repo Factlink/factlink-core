@@ -32,13 +32,13 @@ module Queries
       end
 
       def current_graph_user
-        @options[:current_user].andand.graph_user
+        pavlov_options[:current_user].andand.graph_user
       end
 
       def can_destroy
-        return false unless @options[:current_user]
+        return false unless pavlov_options[:current_user]
 
-        query :'comments/can_destroy', comment.id.to_s, @options[:current_user].id.to_s
+        query :'comments/can_destroy', comment.id.to_s, pavlov_options[:current_user].id.to_s
       end
     end
   end
