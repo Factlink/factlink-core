@@ -14,9 +14,7 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
 
   describe 'validations' do
     it 'raises when topic is not a Topic' do
-      command = described_class.new(object: 'Topic')
-
-      expect { command.call }
+      expect_validating('Topic')
         .to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
     end
   end
