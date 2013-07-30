@@ -29,9 +29,12 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/factdata/#{fact_data.id}"
       command = described_class.new fact_data
-      json_document = mock
 
-      command.should_receive(:json_document).and_return(json_document)
+      hashie = {}
+      json_document = mock
+      command.stub(:document).and_return(hashie)
+      hashie.stub(:to_json).and_return(json_document)
+
       HTTParty.should_receive(:put).with(url, { body: json_document })
 
       command.call
