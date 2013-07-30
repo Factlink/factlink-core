@@ -36,7 +36,7 @@ describe "Feedback modal", type: :request do
   context "as a logged in user" do
 
     before do
-      @user = sign_in_user FactoryGirl.create :active_user
+      @user = sign_in_user create :active_user
 
       visit "/"
 

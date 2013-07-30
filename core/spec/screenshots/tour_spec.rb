@@ -4,7 +4,7 @@ describe "Check the tour", type: :request do
   include PavlovSupport
 
   before do
-    user = FactoryGirl.create(:active_user)
+    user = create(:active_user)
     sign_in_user(user)
   end
 

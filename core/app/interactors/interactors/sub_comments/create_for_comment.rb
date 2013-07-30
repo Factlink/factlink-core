@@ -9,8 +9,8 @@ module Interactors
       arguments :comment_id, :content
 
       def validate
-        validate_hexadecimal_string :comment_id, @comment_id
-        validate_regex   :content, @content, /\S/,
+        validate_hexadecimal_string :comment_id, comment_id
+        validate_regex   :content, content, /\S/,
           "should not be empty."
       end
 
@@ -19,7 +19,7 @@ module Interactors
       end
 
       def create_sub_comment
-        command :'sub_comments/create_xxx', @comment_id, 'Comment', @content, pavlov_options[:current_user]
+        old_command :'sub_comments/create_xxx', comment_id, 'Comment', content, pavlov_options[:current_user]
       end
 
       def top_fact
@@ -27,7 +27,7 @@ module Interactors
       end
 
       def comment
-        @comment ||= Comment.find(@comment_id)
+        @comment ||= Comment.find(comment_id)
       end
     end
   end

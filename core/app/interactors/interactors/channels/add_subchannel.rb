@@ -12,19 +12,19 @@ module Interactors
       end
 
       def execute
-        success = command :'channels/add_subchannel', channel, subchannel
+        success = old_command :'channels/add_subchannel', channel, subchannel
 
         if success
-          command :'channels/added_subchannel_create_activities', channel, subchannel
+          old_command :'channels/added_subchannel_create_activities', channel, subchannel
         end
       end
 
       def channel
-        @channel ||= query :'channels/get', channel_id
+        @channel ||= old_query :'channels/get', channel_id
       end
 
       def subchannel
-        @subchannel ||= query :'channels/get', subchannel_id
+        @subchannel ||= old_query :'channels/get', subchannel_id
       end
 
       def authorized?

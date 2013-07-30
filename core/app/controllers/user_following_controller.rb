@@ -8,7 +8,7 @@ class UserFollowingController < ApplicationController
     params[:take] ||= 99999 # 'infinite'
     @take = params[:take].to_i
 
-    @users, @total = interactor :'users/following', @user_name,
+    @users, @total = old_interactor :'users/following', @user_name,
       @skip, @take
 
     render 'users/following/index', format: 'json'
@@ -16,7 +16,7 @@ class UserFollowingController < ApplicationController
 
   def update
     following_username = params[:id]
-    interactor :'users/follow_user', @user_name, following_username
+    old_interactor :'users/follow_user', @user_name, following_username
     mp_track 'User: Followed',
       followed: following_username
     render json: {}
@@ -24,7 +24,7 @@ class UserFollowingController < ApplicationController
 
   def destroy
     following_username = params[:id]
-    interactor :'users/unfollow_user', @user_name, following_username
+    old_interactor :'users/unfollow_user', @user_name, following_username
     mp_track 'User: Unfollowed',
       unfollowed: following_username
     render json: {}

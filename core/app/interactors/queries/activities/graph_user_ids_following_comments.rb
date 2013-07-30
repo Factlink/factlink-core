@@ -39,7 +39,7 @@ module Queries
       end
 
       def sub_comments
-        query :'sub_comments/index', comment_ids, 'Comment'
+        old_query :'sub_comments/index', comment_ids, 'Comment'
       end
     end
   end

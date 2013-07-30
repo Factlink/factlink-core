@@ -3,7 +3,7 @@ module Acceptance
     include ::FactHelper
 
     def create_factlink(user)
-      FactoryGirl.create(:fact, created_by: user.graph_user)
+      create(:fact, created_by: user.graph_user)
     end
 
     def go_to_discussion_page_of factlink

@@ -13,15 +13,15 @@ module Interactors
       private
 
       def execute
-        fact = command :'facts/create', displaystring, title, user, site
+        fact = old_command :'facts/create', displaystring, title, user, site
 
         raise "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
         raise "Errors when saving fact.data" unless fact.data.persisted?
 
-        command :"facts/add_to_recently_viewed", fact.id.to_i, user.id.to_s
+        old_command :"facts/add_to_recently_viewed", fact.id.to_i, user.id.to_s
 
         if can? :share, Fact
-          command :"facts/share_new", fact.id.to_s, sharing_options
+          old_command :"facts/share_new", fact.id.to_s, sharing_options
         end
 
         fact
@@ -31,10 +31,10 @@ module Interactors
         return nil if url.blank?
         return nil if Blacklist.default.matches? url
 
-        site = query :'sites/for_url', url
+        site = old_query :'sites/for_url', url
 
         if site.nil?
-          command :'sites/create', url
+          old_command :'sites/create', url
         else
           site
         end
