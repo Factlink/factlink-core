@@ -57,5 +57,36 @@ describe OpinionPresenter do
       calculated_friendly_authority = OpinionPresenter.new(opinion).as_percentages_hash[:authority]
       expect(calculated_friendly_authority).to eq friendly_authority
     end
+
+    describe "rounds in a logical way" do
+       before do
+        NumberFormatter.stub(:new) do |a|
+          mock as_authority: a
+        end
+       end
+       {
+        [0   ,0  ,1   ,0] => [0  ,0  ,100,0],
+        [0   ,1  ,0   ,0] => [0  ,0  ,100,0],
+        [1   ,0  ,0   ,0] => [0  ,0  ,100,0],
+        [99.5,0.5,0   ,0] => [100,1  ,-1 ,0],
+        [99.4,0.4,0.2 ,0] => [99 ,0  ,1  ,0]
+       }.each do |percentages_in, percentages_out|
+         it "should format (#{percentages_in}) as #{percentages_out}" do
+             opinion_in = mock believes: percentages_in[0]/100,
+                            disbelieves: percentages_in[1]/100,
+                                 doubts: percentages_in[2]/100,
+                              authority: percentages_in[3]
+             result_percentages = OpinionPresenter.new(opinion_in).as_percentages_hash
+
+             result = [
+               result_percentages[:believe][:percentage],
+               result_percentages[:disbelieve][:percentage],
+               result_percentages[:doubt][:percentage],
+               result_percentages[:authority]
+             ]
+             expect(result).to eq(percentages_out)
+         end
+       end
+    end
   end
 end
