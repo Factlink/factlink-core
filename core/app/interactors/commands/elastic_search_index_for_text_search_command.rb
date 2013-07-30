@@ -6,7 +6,6 @@ module Commands
     include Pavlov::Command
 
     arguments :object
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       @missing_fields = []

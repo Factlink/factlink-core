@@ -4,7 +4,6 @@ module Interactors
       include Pavlov::Interactor
 
       arguments :url, :nr
-      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_string :url, @url

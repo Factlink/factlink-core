@@ -6,7 +6,6 @@ module Commands
       include Pavlov::Query
 
       arguments :title
-      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_string :title, @title

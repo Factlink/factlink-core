@@ -5,7 +5,6 @@ module Commands
     include Pavlov::Command
 
     arguments :sender_id, :content, :conversation
-    attribute :pavlov_options, Hash, default: {}
 
     def validate
       raise Pavlov::ValidationError, 'message_empty' unless @content.strip.length > 0

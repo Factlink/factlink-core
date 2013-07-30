@@ -4,7 +4,6 @@ module Queries
       include Pavlov::Query
 
       arguments :url
-      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_string :url, @url

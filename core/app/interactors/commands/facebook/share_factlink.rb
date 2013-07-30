@@ -4,7 +4,6 @@ module Commands
       include Pavlov::Command
 
       arguments :fact_id
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

@@ -5,7 +5,6 @@ module Interactors
     include Pavlov::Interactor
 
     arguments :site_id, :normalizer_class_name
-    attribute :pavlov_options, Hash, default: {}
 
     def authorized?
       true # TODO maybe we should implement some logic here?

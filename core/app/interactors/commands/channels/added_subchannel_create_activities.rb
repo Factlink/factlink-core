@@ -4,7 +4,6 @@ module Commands
       include Pavlov::Command
 
       arguments :channel, :subchannel
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         Channel::Activities.new(channel).add_created

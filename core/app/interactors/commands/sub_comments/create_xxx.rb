@@ -6,7 +6,6 @@ module Commands
       include Pavlov::Command
 
       arguments :parent_id, :parent_class, :content, :user
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         sub_comment = SubComment.new

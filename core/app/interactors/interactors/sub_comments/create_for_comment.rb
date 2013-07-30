@@ -7,7 +7,6 @@ module Interactors
       include Pavlov::Interactor
 
       arguments :comment_id, :content
-      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_hexadecimal_string :comment_id, @comment_id

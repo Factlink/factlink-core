@@ -6,7 +6,6 @@ module Interactors
       include Pavlov::Interactor
 
       arguments :id, :from, :count
-      attribute :pavlov_options, Hash, default: {}
 
       def setup_defaults
         @count = 7 if @count.blank?

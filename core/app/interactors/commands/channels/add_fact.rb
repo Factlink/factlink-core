@@ -4,7 +4,6 @@ module Commands
       include Pavlov::Command
 
       arguments :fact, :channel
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         ChannelFacts.new(@channel).add_fact @fact

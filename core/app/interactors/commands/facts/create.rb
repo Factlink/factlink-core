@@ -4,7 +4,6 @@ module Commands
       include Pavlov::Command
 
       arguments :displaystring, :title, :creator, :site
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         fact_params = {created_by: creator.graph_user}

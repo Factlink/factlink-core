@@ -7,7 +7,6 @@ module Interactors
       include Util::CanCan
 
       arguments :user_name
-      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         pavlov_options[:current_user] and can? :show_favourites, user

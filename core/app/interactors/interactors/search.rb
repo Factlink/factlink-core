@@ -7,7 +7,6 @@ module Interactors
     include Util::Search
 
     arguments :keywords, :page, :row_count
-    attribute :pavlov_options, Hash, default: {}
 
     def validate
       raise 'Keywords should be an string.' unless @keywords.kind_of? String

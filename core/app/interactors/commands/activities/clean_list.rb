@@ -3,7 +3,6 @@ module Commands
     class CleanList
       include Pavlov::Command
       arguments :list_key
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

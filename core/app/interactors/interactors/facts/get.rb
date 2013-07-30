@@ -5,7 +5,6 @@ module Interactors
       include Util::CanCan
 
       arguments :id
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         add_to_recently_viewed

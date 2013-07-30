@@ -3,7 +3,6 @@ module Queries
     class Get
       include Pavlov::Query
       arguments :id
-      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_hexadecimal_string :id, id

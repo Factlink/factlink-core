@@ -6,7 +6,6 @@ module Commands
       include Pavlov::Command
 
       arguments :user_id
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         HandpickedTourUsers.new.remove user_id

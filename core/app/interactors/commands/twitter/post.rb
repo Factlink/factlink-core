@@ -6,7 +6,6 @@ module Commands
       include Pavlov::Command
 
       arguments :message
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

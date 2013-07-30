@@ -5,7 +5,6 @@ module Commands
     include Pavlov::Command
 
     arguments :fact_id, :type, :content, :user_id
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       comment = Comment.new

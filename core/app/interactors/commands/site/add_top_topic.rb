@@ -4,7 +4,6 @@ module Commands
       include Pavlov::Command
 
       arguments :site_id, :topic_slug
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         increase_topic_by @topic_slug, 1

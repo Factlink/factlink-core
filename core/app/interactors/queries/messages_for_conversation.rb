@@ -6,7 +6,6 @@ module Queries
     include Pavlov::Query
 
     arguments :conversation
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       messages = Message.where(conversation_id: conversation.id)

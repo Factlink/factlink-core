@@ -5,7 +5,6 @@ module Queries
     include Pavlov::Query
 
     arguments :user_ids
-    attribute :pavlov_options, Hash, default: {}
 
     def validate
       @user_ids.each { |id| validate_hexadecimal_string :id, id.to_s }

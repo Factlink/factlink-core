@@ -9,7 +9,6 @@ module Interactors
       include Util::Mixpanel
 
       arguments :user_name, :slug_title
-      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         pavlov_options[:current_user] and can? :edit_favourites, user

@@ -7,7 +7,6 @@ module Interactors
       include Util::CanCan
 
       arguments :fact_id, :skip, :take, :type
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         interacting_users = old_query :'facts/interacting_users', fact_id, skip, take, type

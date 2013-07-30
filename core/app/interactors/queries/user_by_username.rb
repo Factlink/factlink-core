@@ -4,7 +4,6 @@ module Queries
   class UserByUsername
     include Pavlov::Query
     arguments :username
-    attribute :pavlov_options, Hash, default: {}
 
     def validate
       validate_regex :username, username, /\A[A-Za-z0-9_]*\Z/i,

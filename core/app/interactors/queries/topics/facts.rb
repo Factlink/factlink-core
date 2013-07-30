@@ -6,7 +6,6 @@ module Queries
       include Pavlov::Query
 
       arguments :slug_title, :count, :max_timestamp
-      attribute :pavlov_options, Hash, default: {}
 
       def setup_defaults
         @max_timestamp = 'inf' if @max_timestamp.blank?

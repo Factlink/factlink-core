@@ -7,7 +7,6 @@ module Queries
       include HashUtils
 
       arguments :graph_user_id, :limit_topics
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

@@ -5,7 +5,6 @@ module Commands
     include Pavlov::Command
 
     arguments :comment_id, :user_id
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       authorized_in_execute

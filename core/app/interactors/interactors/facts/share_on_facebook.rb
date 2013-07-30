@@ -13,7 +13,6 @@ module Interactors
       #                     facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
 
       arguments :fact_id
-      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         can? :share, Fact

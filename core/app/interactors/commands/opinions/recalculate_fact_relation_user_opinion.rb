@@ -6,7 +6,6 @@ module Commands
       include Pavlov::Command
 
       arguments :fact_relation
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         FactGraph.new.calculate_fact_relation_when_user_opinion_changed fact_relation

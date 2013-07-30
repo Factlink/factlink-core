@@ -6,7 +6,6 @@ module Interactors
       include Pavlov::Interactor
 
       arguments :fact_id, :url
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         mails.each do |mail|

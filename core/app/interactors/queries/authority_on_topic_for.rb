@@ -3,7 +3,6 @@ module Queries
     include Pavlov::Query
 
     arguments :topic, :graph_user
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       authority + 1

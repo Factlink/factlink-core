@@ -3,7 +3,6 @@ module Commands
     class AddFactWithoutPropagation
       include Pavlov::Command
       arguments :fact, :channel, :score
-      attribute :pavlov_options, Hash, default: {}
       def execute
         return false unless should_execute?
         channel.sorted_cached_facts.add(fact,score)

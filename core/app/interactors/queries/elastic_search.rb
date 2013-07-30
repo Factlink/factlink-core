@@ -6,7 +6,6 @@ module Queries
     include Pavlov::Query
 
     arguments :keywords, :page, :row_count
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       @types = []

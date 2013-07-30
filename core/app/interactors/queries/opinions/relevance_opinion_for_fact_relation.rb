@@ -4,7 +4,6 @@ module Queries
       include Pavlov::Query
 
       arguments :fact_relation
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

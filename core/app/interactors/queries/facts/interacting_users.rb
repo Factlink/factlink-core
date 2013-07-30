@@ -7,7 +7,6 @@ module Queries
       include Pavlov::Query
 
       arguments :fact_id, :skip, :take, :opinion
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

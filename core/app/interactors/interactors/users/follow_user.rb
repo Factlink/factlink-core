@@ -6,7 +6,6 @@ module Interactors
       include Pavlov::Interactor
 
       arguments :user_name, :user_to_follow_user_name
-      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         (!! pavlov_options[:current_user]) and (pavlov_options[:current_user].username == user_name)

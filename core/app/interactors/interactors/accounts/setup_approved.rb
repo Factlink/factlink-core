@@ -6,7 +6,6 @@ module Interactors
       include Pavlov::Interactor
 
       arguments :reset_password_token, :attribut
-      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         true

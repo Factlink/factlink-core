@@ -6,7 +6,6 @@ module Queries
     include Pavlov::Query
 
     arguments :id
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       conversation = old_query :conversation_get, @id

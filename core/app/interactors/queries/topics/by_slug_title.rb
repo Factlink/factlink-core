@@ -4,7 +4,6 @@ module Queries
       include Pavlov::Query
 
       arguments :slug_title
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         Topic.by_slug slug_title

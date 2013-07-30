@@ -3,7 +3,6 @@ module Commands
     class AddActivities
       include Pavlov::Command
       arguments :activities
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         activities.each do |activity|

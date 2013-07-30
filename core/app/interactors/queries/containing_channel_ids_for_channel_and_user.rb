@@ -10,7 +10,6 @@ module Queries
     include Pavlov::Query
 
     arguments :channel_id, :graph_user_id
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       return [] if channel.created_by_id == @graph_user_id

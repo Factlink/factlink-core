@@ -5,8 +5,6 @@ module Queries
     class Handpicked
       include Pavlov::Query
 
-      attribute :pavlov_options, Hash, default: {}
-
       def execute
         users
       end

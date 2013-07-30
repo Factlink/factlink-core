@@ -7,7 +7,6 @@ module Interactors
     include Util::Mixpanel
 
     arguments :conversation_id, :sender_id, :content
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       conversation = Conversation.find(@conversation_id)

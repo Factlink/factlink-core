@@ -7,7 +7,6 @@ module Queries
     include Pavlov::Query
 
     arguments :graph_user_ids
-    attribute :pavlov_options, Hash, default: {}
 
     private
 

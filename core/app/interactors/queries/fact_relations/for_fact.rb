@@ -6,7 +6,6 @@ module Queries
       include Pavlov::Query
 
       arguments :fact, :type
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         dead_fact_relations_with_opinion

@@ -5,7 +5,6 @@ module Commands
     include Pavlov::Command
 
     arguments :fact_id, :recipient_usernames
-    attribute :pavlov_options, Hash, default: {}
 
     def validate
       raise 'recipient_usernames should be a list'    unless @recipient_usernames.respond_to? :each

@@ -6,7 +6,6 @@ module Queries
       include Pavlov::Query
 
       arguments :comment, :fact
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         KillObject.comment comment,

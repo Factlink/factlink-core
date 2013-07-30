@@ -4,7 +4,6 @@ module Commands
       include Pavlov::Command
 
       arguments :channel
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         success = old_command :'channels/add_subchannel', follower, channel

@@ -7,7 +7,6 @@ module Interactors
     include Util::Mixpanel
 
     arguments :fact_id, :recipient_usernames, :sender_id, :content
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       conversation = old_command :create_conversation, @fact_id, @recipient_usernames

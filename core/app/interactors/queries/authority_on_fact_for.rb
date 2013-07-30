@@ -5,7 +5,6 @@ module Queries
     include Pavlov::Query
 
     arguments :fact, :graph_user
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       authority = Authority.on(@fact, for: @graph_user)

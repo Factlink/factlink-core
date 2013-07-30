@@ -4,7 +4,6 @@ module Queries
       include Pavlov::Query
 
       arguments :alive_topic
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

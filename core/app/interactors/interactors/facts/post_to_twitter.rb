@@ -6,7 +6,6 @@ module Interactors
       include Util::Validations
 
       arguments :fact_id, :message
-      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         can? :share, Fact

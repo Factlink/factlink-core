@@ -6,7 +6,6 @@ module Commands
       include Pavlov::Command
 
       arguments :title
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         topic = Topic.create title: title

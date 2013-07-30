@@ -3,7 +3,6 @@ module Queries
     include Pavlov::Query
 
     arguments :user
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       channels = real_channels_for(@user.graph_user)

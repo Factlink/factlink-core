@@ -4,7 +4,6 @@ module Commands
       include Pavlov::Command
 
       arguments :url
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         ::Site.create(url: @url)

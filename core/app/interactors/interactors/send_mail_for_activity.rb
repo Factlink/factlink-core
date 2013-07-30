@@ -5,7 +5,6 @@ module Interactors
     include Pavlov::Interactor
 
     arguments :activity
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       recipients.each do |user|

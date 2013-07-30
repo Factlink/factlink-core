@@ -4,7 +4,6 @@ module Interactors
       include Pavlov::Interactor
 
       arguments :channel_id
-      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_integer_string :channel_id, channel_id

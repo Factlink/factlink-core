@@ -6,7 +6,6 @@ module Queries
       include Pavlov::Query
 
       arguments :fact, :max_slug_length_in
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

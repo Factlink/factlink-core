@@ -6,7 +6,6 @@ module Queries
       include Pavlov::Query
 
       arguments :id, :from, :count
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         channel = old_query :'channels/get', id

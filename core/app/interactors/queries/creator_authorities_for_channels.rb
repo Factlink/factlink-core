@@ -25,7 +25,6 @@ module Queries
     include Pavlov::Query
 
     arguments :channels
-    attribute :pavlov_options, Hash, default: {}
 
     def execute
       channels.map &method(:authority_for)

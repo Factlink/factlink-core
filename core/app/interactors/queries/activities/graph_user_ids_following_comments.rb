@@ -5,7 +5,6 @@ module Queries
       include Pavlov::Query
 
       arguments :comments
-      attribute :pavlov_options, Hash, default: {}
 
       private
 

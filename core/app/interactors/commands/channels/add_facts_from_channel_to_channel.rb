@@ -5,7 +5,6 @@ module Commands
       NUMBER_OF_INITIAL_FACTS = 10
 
       arguments :subchannel, :channel
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         latest_facts.each do |fact|

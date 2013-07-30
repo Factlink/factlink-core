@@ -6,7 +6,6 @@ module Queries
       include Pavlov::Query
 
       arguments :slug_title
-      attribute :pavlov_options, Hash, default: {}
 
       def validate
         validate_string :slug_title, slug_title

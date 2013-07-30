@@ -7,7 +7,6 @@ module Interactors
       include Util::CanCan
 
       arguments :fact_id, :type
-      attribute :pavlov_options, Hash, default: {}
 
       def authorized?
         can? :show, Fact

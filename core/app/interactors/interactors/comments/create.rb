@@ -6,7 +6,6 @@ module Interactors
       include Pavlov::Interactor
 
       arguments :fact_id, :type, :content
-      attribute :pavlov_options, Hash, default: {}
 
       def execute
         comment = old_command :create_comment, @fact_id, @type,
