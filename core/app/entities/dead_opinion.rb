@@ -65,7 +65,7 @@ class DeadOpinion
     end
   end
 
-  def normalized
+  def positive
     if authority > 0
       self
     else

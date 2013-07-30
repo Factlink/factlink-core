@@ -131,7 +131,7 @@ class FactGraph
     if options[:allow_negative_authority]
       DeadOpinion.for_type(evidence_type, authority)
     else
-      DeadOpinion.for_type(evidence_type, authority).normalized
+      DeadOpinion.for_type(evidence_type, authority).positive
     end
   end
 
