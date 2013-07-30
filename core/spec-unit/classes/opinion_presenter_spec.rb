@@ -65,11 +65,11 @@ describe OpinionPresenter do
         end
        end
        {
-        [0   ,0  ,1   ,0] => [0  ,0  ,100,0],
-        [0   ,1  ,0   ,0] => [0  ,0  ,100,0],
-        [1   ,0  ,0   ,0] => [0  ,0  ,100,0],
-        [99.5,0.5,0   ,0] => [100,1  ,-1 ,0],
-        [99.4,0.4,0.2 ,0] => [99 ,0  ,1  ,0]
+        [0   ,0  ,1   ,1] => [0  ,0  ,100,1],
+        [0   ,1  ,0   ,1] => [0  ,0  ,100,1],
+        [1   ,0  ,0   ,1] => [0  ,0  ,100,1],
+        [99.5,0.5,0   ,1] => [100,1  ,-1 ,1],
+        [99.4,0.4,0.2 ,1] => [99 ,0  ,1  ,1]
        }.each do |percentages_in, percentages_out|
          it "should format (#{percentages_in}) as #{percentages_out}" do
              opinion_in = mock believes: percentages_in[0]/100,
