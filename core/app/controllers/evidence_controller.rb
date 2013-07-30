@@ -5,7 +5,7 @@ class EvidenceController < ApplicationController
   respond_to :json
 
   def combined_index
-    @evidence = interactor :"evidence/for_fact_id", params[:fact_id], relation
+    @evidence = old_interactor :"evidence/for_fact_id", params[:fact_id], relation
 
     render 'evidence/index', formats: [:json]
   end

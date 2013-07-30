@@ -63,7 +63,7 @@ class FactsController < ApplicationController
     authenticate_user!
     authorize! :create, Fact
 
-    @fact = interactor :'facts/create', fact_text, url, title, sharing_options
+    @fact = old_interactor :'facts/create', fact_text, url, title, sharing_options
     @site = @fact.site
 
     respond_to do |format|
@@ -128,7 +128,7 @@ class FactsController < ApplicationController
     authorize! :index, Fact
     search_for = params[:s]
 
-    @facts = (interactor :search_evidence, search_for, @fact.id).map do |fd|
+    @facts = (old_interactor :search_evidence, search_for, @fact.id).map do |fd|
         fd.fact
       end
 
@@ -136,7 +136,7 @@ class FactsController < ApplicationController
   end
 
   def recently_viewed
-    @facts = interactor :"facts/recently_viewed"
+    @facts = old_interactor :"facts/recently_viewed"
 
     render 'facts/index', formats: [:json]
   end
@@ -144,7 +144,7 @@ class FactsController < ApplicationController
   private
 
   def load_fact
-    @fact = interactor :'facts/get', fact_id || raise_404
+    @fact = old_interactor :'facts/get', fact_id || raise_404
   end
 
   def fact_id
@@ -169,7 +169,7 @@ class FactsController < ApplicationController
 
     channels = channel_ids.map{|id| Channel[id]}.compact
     channels.each do |channel|
-      interactor :"channels/add_fact", fact, channel
+      old_interactor :"channels/add_fact", fact, channel
     end
   end
 end
