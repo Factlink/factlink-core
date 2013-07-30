@@ -27,13 +27,9 @@ describe Queries::Opinions::ImpactOpinionForComment do
   end
 
   describe '#validate' do
-    it 'calls the correct validation methods' do
-      comment = mock
-
-      described_class.any_instance.should_receive(:validate_not_nil)
-                                  .with(:comment, comment)
-
-      command = described_class.new comment
+    it 'without comment doesn\'t validate' do
+      expect_validating(nil)
+        .to fail_validation('comment should not be nil.')
     end
   end
 end
