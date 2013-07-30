@@ -7,8 +7,8 @@ describe GraphUser do
     others
   end
 
-  subject {create :graph_user }
-  let(:fact) {create(:fact,:created_by => subject)}
+  subject { create :graph_user }
+  let(:fact) { create(:fact, created_by: subject) }
 
   context "Initially" do
     context "the subjects channels" do
