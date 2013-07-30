@@ -12,7 +12,7 @@ module Interactors
       def execute
         setup_defaults
 
-        facts = query :'channels/facts', @id, @from, @count
+        facts = old_query :'channels/facts', @id, @from, @count
         remove_invalid facts
       end
 

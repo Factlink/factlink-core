@@ -32,7 +32,7 @@ module Commands
       end
 
       def topic
-        @topic ||= query :'topics/by_slug_title', topic_slug
+        @topic ||= old_query :'topics/by_slug_title', topic_slug
       end
 
       def graph_user

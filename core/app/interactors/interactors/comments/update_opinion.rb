@@ -9,11 +9,11 @@ module Interactors
 
       def execute
         if @opinion
-          command 'comments/set_opinion', @comment_id, @opinion, pavlov_options[:current_user].graph_user
+          old_command 'comments/set_opinion', @comment_id, @opinion, pavlov_options[:current_user].graph_user
         else
-          command 'comments/remove_opinion', @comment_id, pavlov_options[:current_user].graph_user
+          old_command 'comments/remove_opinion', @comment_id, pavlov_options[:current_user].graph_user
         end
-        query :'comments/get', @comment_id
+        old_query :'comments/get', @comment_id
       end
 
       def validate

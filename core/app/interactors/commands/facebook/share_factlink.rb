@@ -16,7 +16,7 @@ module Commands
       end
 
       def fact
-        @fact ||= query :'facts/get_dead', @fact_id
+        @fact ||= old_query :'facts/get_dead', @fact_id
       end
 
       def namespace

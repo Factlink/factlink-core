@@ -32,7 +32,7 @@ module Queries
       if channel.type == 'channel'
         topic = topic_for(channel)
         graph_user = graph_user_for(channel)
-        query :authority_on_topic_for, topic, graph_user
+        old_query :authority_on_topic_for, topic, graph_user
       else
         # channel is a userstream or a created facts channel,
         # so there is no topic, therefor we define authority as 0
@@ -52,7 +52,7 @@ module Queries
     end
 
     def topics
-      @topics ||= query :topics_for_channels, @channels
+      @topics ||= old_query :topics_for_channels, @channels
     end
 
     def topics_by_slug
