@@ -1,5 +1,7 @@
 #!/bin/bash
 echo "Running Javascript tests"
+echo "NOT!"
+exit
 
 REPORTFILE=tmp/konacha.junit.xml
 OUTPUTFILE=konacha-output.log
