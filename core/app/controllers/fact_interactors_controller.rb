@@ -13,7 +13,7 @@ class FactInteractorsController < ApplicationController
   end
 
   def show
-    @data = interactor :'facts/opinion_users', fact_id, skip, take, type
+    @data = old_interactor :'facts/opinion_users', fact_id, skip, take, type
 
     render 'fact_interactors/show', formats: ['json']
   end
