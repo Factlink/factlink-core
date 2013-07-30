@@ -6,7 +6,7 @@ module Interactors
       arguments :channel_id, :timestamp
 
       def execute
-        query :"channels/activity_count", @channel_id, @timestamp
+        old_query :"channels/activity_count", channel_id, timestamp
       end
 
       def authorized?

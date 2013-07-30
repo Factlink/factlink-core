@@ -17,17 +17,17 @@ module Queries
       end
 
       def authority
-        query :authority_on_fact_for, fact, comment.created_by.graph_user
+        old_query :authority_on_fact_for, fact, comment.created_by.graph_user
       end
 
       def opinion
-        query :'opinions/user_opinion_for_comment', comment.id.to_s, fact
+        old_query :'opinions/user_opinion_for_comment', comment.id.to_s, fact
       end
 
       def current_user_opinion
         return unless current_graph_user
 
-        query :'comments/graph_user_opinion',
+        old_query :'comments/graph_user_opinion',
               comment.id.to_s, current_graph_user
       end
 
@@ -38,7 +38,7 @@ module Queries
       def can_destroy
         return false unless pavlov_options[:current_user]
 
-        query :'comments/can_destroy', comment.id.to_s, pavlov_options[:current_user].id.to_s
+        old_query :'comments/can_destroy', comment.id.to_s, pavlov_options[:current_user].id.to_s
       end
     end
   end
