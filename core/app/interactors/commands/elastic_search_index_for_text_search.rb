@@ -7,20 +7,20 @@ module Commands
     arguments :object
 
     def execute
-      define_index
-
-      missing_fields << :id unless field_exists :id
-
-      raise 'Type_name is not set.' unless type_name
-
-      raise "#{type_name} missing fields (#{missing_fields})." unless missing_fields.count == 0
-
       index.add object.id, document.to_json
     end
 
     private
 
     attr_reader :type_name
+
+    def validate
+      define_index
+      missing_fields << :id unless field_exists :id
+
+      raise 'Type_name is not set.' unless type_name
+      raise "#{type_name} missing fields (#{missing_fields})." unless missing_fields.count == 0
+    end
 
     def index
       ElasticSearch::Index.new type_name

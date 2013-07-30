@@ -14,9 +14,7 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
 
   describe 'validations' do
     it 'raises when fact_data is not a FactData' do
-      command = described_class.new(object: 'FactData')
-
-      expect { command.call }
+      expect_validating('FactData')
         .to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
     end
   end
