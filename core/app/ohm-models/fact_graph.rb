@@ -122,7 +122,7 @@ class FactGraph
     creator_authority * COMMENT_AUTHORITY_MULTIPLIER
   end
 
-  def calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type, options)
+  def calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type, options={})
     net_fact_authority      = from_fact_opinion.net_authority
     net_relevance_authority = user_opinion.net_authority
 
