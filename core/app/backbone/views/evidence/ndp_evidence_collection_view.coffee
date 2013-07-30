@@ -36,4 +36,4 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
     collection: @collection
 
   initialize: ->
-    @bindTo @collection, 'change:impact', @render
+    @bindTo @collection, 'change:impact sync', @render
