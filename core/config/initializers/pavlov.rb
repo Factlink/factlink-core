@@ -9,4 +9,26 @@ module Pavlov
       @options = options
     end
   end
+
+  def self.old_command *arguments
+    command *arguments
+  end
+  def self.old_query *arguments
+    query *arguments
+  end
+  def self.old_interactor *arguments
+    interactor *arguments
+  end
+
+  module Helpers
+    def old_interactor *args
+     interactor *args
+    end
+    def old_command *args
+     command *args
+    end
+    def old_query *args
+     query *args
+    end
+  end
 end

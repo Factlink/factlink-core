@@ -5,7 +5,7 @@ describe FactsController do
 
   render_views
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { create(:user) }
 
   describe :show do
     it "should render successful" do

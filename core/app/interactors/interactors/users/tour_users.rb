@@ -14,12 +14,12 @@ module Interactors
       end
 
       def user_topics user
-        query :'user_topics/top_with_authority_for_graph_user_id',
+        old_query :'user_topics/top_with_authority_for_graph_user_id',
               user.graph_user_id, 2
       end
 
       def users
-        query :"users/handpicked"
+        old_query :"users/handpicked"
       end
 
       def authorized?

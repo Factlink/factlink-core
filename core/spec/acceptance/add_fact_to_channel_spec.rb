@@ -8,7 +8,7 @@ feature "adding a fact to a channel" do
   include Acceptance::AddToChannelModalHelper
 
   background do
-    @user = sign_in_user FactoryGirl.create :active_user
+    @user = sign_in_user create :active_user
   end
 
   scenario "adding a fact to a new channel from the factbubble" do
@@ -39,8 +39,8 @@ feature "adding a fact to a channel" do
   end
 
   scenario "the user can add a channel suggestion" do
-    site = FactoryGirl.create :site
-    factlink = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
+    site = create :site
+    factlink = create :fact, created_by: @user.graph_user, site: site
 
     go_to_discussion_page_of factlink
     new_channel_name = 'Gerrit'
@@ -50,7 +50,7 @@ feature "adding a fact to a channel" do
       added_channels_should_contain new_channel_name
     end
 
-    factlink2 = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
+    factlink2 = create :fact, created_by: @user.graph_user, site: site
 
     go_to_discussion_page_of factlink2
 
