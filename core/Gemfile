@@ -15,7 +15,6 @@ gem 'mail', '~> 2.5.4'
 
 # Mongo
 gem 'mongoid', '~> 3.0.21'
-gem 'moped', github: 'Factlink/moped', branch: '1.4.0-stable'
 
 gem 'pavlov', github: 'Factlink/pavlov', ref: '94b9dba'
 gem 'korsakov', github: 'jjoos/korsakov', ref: '72db865'
