@@ -5,7 +5,7 @@ describe Queries::Evidence::ForFactId do
   include PavlovSupport
 
   before do
-    stub_classes 'Comment', 'KillObject', 'Fact', 'OpinionPresenter'
+    stub_classes 'Comment', 'KillObject', 'Fact'
   end
 
   describe '#validate' do
@@ -29,19 +29,11 @@ describe Queries::Evidence::ForFactId do
     it 'interleaves and sorts the comments and factrelation it retrieves' do
       fact = mock id: '1'
 
-      fact_relation1 = mock :fact_relation1, impact_opinion: mock
-      fact_relation2 = mock :fact_relation2, impact_opinion: mock
-      OpinionPresenter.stub(:new).with(fact_relation1.impact_opinion)
-                      .and_return mock(impact: 1)
-      OpinionPresenter.stub(:new).with(fact_relation2.impact_opinion)
-                      .and_return mock(impact: 3)
+      fact_relation1 = mock :fact_relation1, impact_opinion: mock(authority: 1)
+      fact_relation2 = mock :fact_relation2, impact_opinion: mock(authority: 3)
 
-      comment1 = mock :comment1, impact_opinion: mock
-      comment2 = mock :comment2, impact_opinion: mock
-      OpinionPresenter.stub(:new).with(comment1.impact_opinion)
-                      .and_return mock(impact: 2)
-      OpinionPresenter.stub(:new).with(comment2.impact_opinion)
-                      .and_return mock(impact: 4)
+      comment1 = mock :comment1, impact_opinion: mock(authority: 2)
+      comment2 = mock :comment2, impact_opinion: mock(authority: 4)
 
       type = :weakening
       pavlov_options = { current_user: mock }
