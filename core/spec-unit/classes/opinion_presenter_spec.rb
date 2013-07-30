@@ -71,7 +71,12 @@ describe OpinionPresenter do
         [99.5,0.5 ,0   ,1] => [100,1  ,-1 ,1],
         [99.4,0.4 ,0.2 ,1] => [99 ,0  ,1  ,1],
         [33.3,33.3,33.3,1] => [33 ,33 ,34 ,1],
-        [33.4,33.3,33.2,1] => [33 ,33 ,34 ,1]
+        [33.4,33.3,33.2,1] => [33 ,33 ,34 ,1],  #expected: [34,33,32,1]
+        [99  ,0.5 , 0.5,1] => [0  ,50 ,50 ,1],  #expected: [99,0 ,1 ,1]
+        [67  ,32  ,1   ,1] => [0  ,0  ,100,1],  #expected: [67,32,1 ,1]
+        [67  ,33  ,0   ,1] => [0  ,0  ,100,1],  #expected: [67,33,0 ,1]
+        [67  ,32  ,0.5 ,1] => [0  ,0  ,100,1]   #expected: [67,32,1 ,1]
+
        }.each do |percentages_in, percentages_out|
          it "should format (#{percentages_in}) as #{percentages_out}" do
              opinion_in = mock believes: percentages_in[0]/100,
