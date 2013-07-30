@@ -1,7 +1,12 @@
 
 <a class="supporting {{^interactive}}disabled{{/interactive}}"> &nbsp; </a>
 <div class="authorities-evidence">
-  {{ formatted_impact }}
+  {{#positive_impact}}
+    {{formatted_impact}}
+  {{/positive_impact}}
+  {{^positive_impact}}
+    0.0
+  {{/positive_impact}}
 </div>
 <a class="weakening {{^interactive}}disabled{{/interactive}}"> &nbsp; </a>
 
