@@ -50,10 +50,6 @@ class OpinionPresenter
     NumberFormatter.new(number).as_authority
   end
 
-  def calc_percentage(total, part)
-
-  end
-
   def believes_authority
     authority :believes
   end
