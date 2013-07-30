@@ -25,7 +25,7 @@ class FactsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        dead_fact = query :'facts/get_dead', @fact.id
+        dead_fact = old_query :'facts/get_dead', @fact.id
         open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
         open_graph_formatter.add open_graph_fact
 
@@ -77,7 +77,7 @@ class FactsController < ApplicationController
         @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
 
-        command :'opinions/recalculate_fact_opinion', @fact
+        old_command :'opinions/recalculate_fact_opinion', @fact
       end
 
       add_to_channels @fact, params[:channels]
@@ -100,7 +100,7 @@ class FactsController < ApplicationController
 
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
-    command :'opinions/recalculate_fact_opinion', @fact
+    old_command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
@@ -110,13 +110,13 @@ class FactsController < ApplicationController
 
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
-    command :'opinions/recalculate_fact_opinion', @fact
+    old_command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
 
   def render_factwheel(fact_id)
-    dead_fact_wheel = query 'facts/get_dead_wheel', fact_id.to_s
+    dead_fact_wheel = old_query 'facts/get_dead_wheel', fact_id.to_s
     render 'facts/_fact_wheel', format: :json, locals: {dead_fact_wheel: dead_fact_wheel}
   end
 
