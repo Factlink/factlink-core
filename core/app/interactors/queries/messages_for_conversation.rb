@@ -16,8 +16,8 @@ module Queries
     end
 
     def authorized?
-      @options[:current_user] and
-      @conversation.recipient_ids.include? @options[:current_user].id
+      pavlov_options[:current_user] and
+      @conversation.recipient_ids.include? pavlov_options[:current_user].id
     end
   end
 end

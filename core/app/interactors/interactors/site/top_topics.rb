@@ -19,7 +19,7 @@ module Interactors
       end
 
       def authorized?
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
     end
   end

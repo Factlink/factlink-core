@@ -6,7 +6,7 @@ module Queries
 
     def execute
       channels = real_channels_for(@user.graph_user)
-      if @user == @options[:current_user]
+      if @user == pavlov_options[:current_user]
         channels
       else
         non_empty channels

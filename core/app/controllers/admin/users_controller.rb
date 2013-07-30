@@ -17,7 +17,7 @@ class Admin::UsersController < AdminController
 
     authorize! :create, @user
     if @user.save
-      redirect_to admin_user_path(@user), notice: 'User was successfully created.'
+      redirect_to admin_users_path, notice: 'User was successfully created.'
     else
       render :new
     end
@@ -30,7 +30,7 @@ class Admin::UsersController < AdminController
     end
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
       @user.features = params[:user][:features].andand.keys
-      redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
+      redirect_to admin_users_path, notice: 'User was successfully updated.'
     else
       render :edit
     end

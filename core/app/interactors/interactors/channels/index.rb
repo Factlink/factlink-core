@@ -35,7 +35,7 @@ module Interactors
       end
 
       def containing_channel_ids(channel)
-        query :containing_channel_ids_for_channel_and_user, channel.id, @options[:current_user].graph_user_id
+        query :containing_channel_ids_for_channel_and_user, channel.id, pavlov_options[:current_user].graph_user_id
       end
 
       def kill_channel(ch, owner_authority, containing_channel_ids, user)

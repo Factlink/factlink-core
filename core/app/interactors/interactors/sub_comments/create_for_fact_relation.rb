@@ -19,7 +19,7 @@ module Interactors
       end
 
       def create_sub_comment
-        command :'sub_comments/create_xxx', @fact_relation_id, 'FactRelation', @content, @options[:current_user]
+        command :'sub_comments/create_xxx', @fact_relation_id, 'FactRelation', @content, pavlov_options[:current_user]
       end
 
       def top_fact
