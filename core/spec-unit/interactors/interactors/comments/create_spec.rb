@@ -32,9 +32,7 @@ describe Interactors::Comments::Create do
 
   describe '.call' do
     before do
-      stub_const('Commands::CreateCommentCommand', Class.new)
-      stub_const 'Fact', Class.new
-      stub_const('Comment', Class.new)
+      stub_classes 'Commands::CreateCommentCommand', 'Fact', 'Comment'
     end
 
     it 'works' do
