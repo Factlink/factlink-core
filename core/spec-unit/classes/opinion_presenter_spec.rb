@@ -75,7 +75,7 @@ describe OpinionPresenter do
         [99  ,0.5 , 0.5,1] => [0  ,50 ,50 ,1],  #expected: [99,0 ,1 ,1]
         [67  ,32  ,1   ,1] => [0  ,0  ,100,1],  #expected: [67,32,1 ,1]
         [67  ,33  ,0   ,1] => [0  ,0  ,100,1],  #expected: [67,33,0 ,1]
-        [67  ,32  ,0.5 ,1] => [0  ,0  ,100,1]   #expected: [67,32,1 ,1]
+        [67  ,32.5,0.5 ,1] => [0  ,98 ,2,1]     #expected: [67,32,1 ,1]
 
        }.each do |percentages_in, percentages_out|
          it "should format (#{percentages_in}) as #{percentages_out}" do
