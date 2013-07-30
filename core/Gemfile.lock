@@ -8,13 +8,6 @@ GIT
       rack
 
 GIT
-  remote: git://github.com/Factlink/moped.git
-  revision: 704b21c22c8c5ada5e6e27a6238451e2653699e4
-  branch: 1.4.0-stable
-  specs:
-    moped (1.4.5)
-
-GIT
   remote: git://github.com/Factlink/ohm-contrib.git
   revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
   specs:
@@ -261,6 +254,7 @@ GEM
       bundler (>= 1.0.0)
       rails (>= 3.2.0)
       railties (>= 3.2.0)
+    moped (1.5.0)
     multi_json (1.7.7)
     multi_xml (0.5.4)
     multipart-post (1.2.0)
@@ -545,7 +539,6 @@ DEPENDENCIES
   modernizr-rails (= 2.0.6)
   mongoid (~> 3.0.21)
   mongoid_rails_migrations (= 1.0.1)
-  moped!
   multi_json (~> 1.7.3)
   newrelic-redis (~> 1.4.0)
   newrelic_moped (~> 0.0.6)
