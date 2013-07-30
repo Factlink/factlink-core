@@ -35,7 +35,7 @@ module Interactors
 
     def authorized?
       #relay authorization to commands, only require a user to check
-      @options[:current_user].id.to_s == @sender_id.to_s
+      pavlov_options[:current_user].id.to_s == @sender_id.to_s
     end
   end
 end

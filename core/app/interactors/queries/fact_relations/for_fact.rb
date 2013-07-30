@@ -28,9 +28,9 @@ module Queries
       end
 
       def current_user_opinion_on fact_relation
-        return unless @options[:current_user]
+        return unless pavlov_options[:current_user]
 
-        @options[:current_user].graph_user.opinion_on(fact_relation)
+        pavlov_options[:current_user].graph_user.opinion_on(fact_relation)
       end
     end
   end

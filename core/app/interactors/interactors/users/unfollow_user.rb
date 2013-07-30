@@ -8,7 +8,7 @@ module Interactors
       arguments :user_name, :user_to_unfollow_user_name
 
       def authorized?
-        (!! @options[:current_user]) and (@options[:current_user].username == user_name)
+        (!! pavlov_options[:current_user]) and (pavlov_options[:current_user].username == user_name)
       end
 
       def execute

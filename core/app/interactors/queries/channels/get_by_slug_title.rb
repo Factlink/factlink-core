@@ -19,7 +19,7 @@ module Queries
       end
 
       def created_by_id
-        @options[:current_user].graph_user_id
+        pavlov_options[:current_user].graph_user_id
       end
 
     end
