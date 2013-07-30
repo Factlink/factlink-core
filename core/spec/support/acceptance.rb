@@ -29,6 +29,8 @@ module Acceptance
     fill_in "user_password", :with => user.password
     click_button "Sign in"
 
+    @current_user = user
+
     user
   end
 
@@ -38,7 +40,13 @@ module Acceptance
   end
 
   def sign_out_user
+    @current_user = nil
     visit "/users/sign_out"
+  end
+
+  def use_features *new_features
+    features = @current_user.features.to_a + new_features
+    @current_user.features = features
   end
 
   def random_username

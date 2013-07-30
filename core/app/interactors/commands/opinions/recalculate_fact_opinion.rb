@@ -9,7 +9,8 @@ module Commands
       attribute :pavlov_options, Hash, default: {}
 
       def execute
-        fact.calculate_opinion(1)
+        Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
+        Opinion::FactCalculation.new(fact).calculate_opinion
       end
 
       def validate

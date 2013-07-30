@@ -5,12 +5,22 @@ describe Queries::Opinions::OpinionForFact do
   include PavlovSupport
 
   describe '#call' do
-    it 'returns the opinion on the fact' do
-      opinion = mock
-      fact = mock get_opinion: opinion
-      query = described_class.new fact: fact
+    before do
+      stub_classes 'Opinion::FactCalculation'
+    end
 
-      expect(query.call).to eq opinion
+    it 'returns the dead opinion on the fact' do
+      dead_opinion = mock
+      fact = mock
+      fact_calculation = mock(get_opinion: dead_opinion)
+      Opinion::FactCalculation.stub(:new).with(fact)
+        .and_return(fact_calculation)
+
+
+      query = described_class.new fact: fact
+      result = query.call
+
+      expect(result).to eq dead_opinion
     end
   end
 end

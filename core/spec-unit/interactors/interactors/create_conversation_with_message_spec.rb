@@ -26,7 +26,7 @@ describe Interactors::CreateConversationWithMessage do
         recipient_usernames: usernames, sender_id: sender.id,
         content: content, pavlov_options: pavlov_options
 
-      interactor.should_receive(:mp_track).with(:conversation_created)
+      interactor.should_receive(:mp_track).with("Factlink: Created conversation", {:recipients=>["jan", "frank"], :fact_id=>10})
       interactor.should_receive(:mp_increment_person_property)
                 .with(:conversations_created)
 

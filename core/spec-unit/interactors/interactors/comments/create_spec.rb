@@ -93,7 +93,9 @@ describe Interactors::Comments::Create do
         content: content, pavlov_options: { current_user: user }
 
       interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:old_query).with(:opinion_for_comment, comment.id, fact).and_return(opinion)
+      interactor.should_receive(:old_query)
+        .with(:'opinions/user_opinion_for_comment', comment.id, fact)
+        .and_return(opinion)
 
       interactor.opinion_of comment
     end

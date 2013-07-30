@@ -17,14 +17,16 @@ class UserFollowersController < ApplicationController
   def update
     follower_username = params[:id]
     old_interactor :'users/follow_user', follower_username, @user_name
-    mp_track 'User: Followed'
+    mp_track 'User: Followed',
+      followed: following_username
     render json: {}
   end
 
   def destroy
     follower_username = params[:id]
     old_interactor :'users/unfollow_user', follower_username, @user_name
-    mp_track 'User: Unfollowed'
+    mp_track 'User: Unfollowed',
+      unfollowed: following_username
     render json: {}
   end
 

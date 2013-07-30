@@ -65,18 +65,21 @@
   top: -@topFactWheelOverhang;
   bottom: 0;
   background: @lineColor;
+  visibility: visible;
 }
 
 .evidence-terminator {
-  clear:both;
+  clear: both;
+  visibility: visible;
 }
 
 .evidence-impact, .evidence-box {
-  position:relative;
-  box-sizing:border-box;
-  -moz-box-sizing:border-box;
+  position: relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
   .new-design-white-block-with-shadow();
   background: white;
+  visibility: visible;
 }
 
 .evidence-impact {
@@ -100,8 +103,8 @@
 
 .evidence-supporting, .evidence-loading {
   > .evidence-impact, > .evidence-box {
-    float:right;
-    clear:right;
+    float: right;
+    clear: right;
   }
 
   > .evidence-impact {
@@ -153,8 +156,8 @@
 }
 
 .evidence-loading > .evidence-impact img {
-  position:absolute;
-  top:50%;left:50%;
+  position: absolute;
+  top: 50%; left: 50%;
   margin:-8px;
 }
 

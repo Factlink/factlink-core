@@ -3,7 +3,6 @@ class Site < OurOhm; end # needed because of removed const_missing from ohm
 class FactRelation < Basefact;end # needed because of removed const_missing from ohm
 
 class Fact < Basefact
-  include Opinion::Subject::Fact
   include Pavlov::Helpers
 
   after :create, :set_activity!
@@ -13,6 +12,9 @@ class Fact < Basefact
   set :channels, Channel
 
   timestamped_set :interactions, Activity
+
+  reference :evidence_opinion, Opinion
+  reference :opinion, Opinion
 
   def increment_mixpanel_count
     return unless self.has_site? and self.created_by.user

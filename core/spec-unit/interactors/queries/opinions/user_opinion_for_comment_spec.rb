@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/queries/opinion_for_comment.rb'
+require_relative '../../../../app/interactors/queries/opinions/user_opinion_for_comment.rb'
 
-describe Queries::OpinionForComment do
+describe Queries::Opinions::UserOpinionForComment do
   include PavlovSupport
 
   before do
@@ -17,14 +17,13 @@ describe Queries::OpinionForComment do
   end
 
   describe '#call' do
-    it "returns the opinion the calculator calculates" do
-      opinion = mock
-      calculator = mock(:calculator, opinion: opinion)
+    it "returns the dead opinion the calculator calculates" do
+      dead_opinion = mock
+      calculator = mock(:calculator, opinion: dead_opinion)
       query = described_class.new comment_id: 'a1', fact: mock
-
       query.stub calculator: calculator
 
-      expect(query.call).to eq opinion
+      expect(query.call).to eq dead_opinion
     end
   end
 
@@ -50,7 +49,9 @@ describe Queries::OpinionForComment do
       fact = mock
       graph_user = mock
       authority = 1515
-      query = Queries::OpinionForComment.new comment_id: '1', fact: fact
+
+      query = described_class.new comment_id: '1', fact: fact
+      auth = query.authority_for
 
       Authority.should_receive(:on)
                .with(fact, for: graph_user)
@@ -64,7 +65,7 @@ describe Queries::OpinionForComment do
     it "returns the Believable::Commentje for this comment" do
       id = 'a1'
       believable = mock
-      query = Queries::OpinionForComment.new comment_id: id, fact: mock
+      query = described_class.new comment_id: id, fact: mock
 
       Believable::Commentje.should_receive(:new)
                        .with(id)

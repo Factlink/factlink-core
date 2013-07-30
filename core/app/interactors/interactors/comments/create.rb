@@ -24,7 +24,7 @@ module Interactors
       end
 
       def opinion_of comment
-        old_query :opinion_for_comment, comment.id.to_s, fact
+        old_query :'opinions/user_opinion_for_comment', comment.id.to_s, fact
       end
 
       def fact

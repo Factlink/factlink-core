@@ -9,7 +9,7 @@ module Queries
       private
 
       def execute
-        fact_relation.get_user_opinion
+        Opinion::BaseFactCalculation.new(fact_relation).get_user_opinion
       end
 
       def validate

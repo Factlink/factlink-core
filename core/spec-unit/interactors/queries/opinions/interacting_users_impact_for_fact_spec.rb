@@ -5,20 +5,27 @@ describe Queries::Opinions::InteractingUsersImpactForFact do
   include PavlovSupport
 
   before do
-    stub_classes 'OpinionPresenter','Fact'
+    stub_classes 'OpinionPresenter', 'Fact', 'Opinion::BaseFactCalculation'
   end
 
   it 'should retrieve impact for a fact and opinion type' do
     fact = mock :fact, id: '3'
     type = mock
-    query = described_class.new fact_id: fact.id, type: type
+
+    user_opinion = mock
+    base_fact_calculation = mock get_user_opinion: user_opinion
+    pavlov_options = { current_user: mock }
+
+    query = described_class.new fact_id: fact.id, type: type,
+              pavlov_options: pavlov_options
 
     Fact.stub(:[])
       .with(fact.id)
       .and_return(fact)
-    user_opinion = mock
-    fact.stub(:get_user_opinion)
-      .and_return(user_opinion)
+
+    Opinion::BaseFactCalculation.stub(:new).with(fact)
+      .and_return(base_fact_calculation)
+
     opinion_presenter = mock
     OpinionPresenter
       .stub(:new)

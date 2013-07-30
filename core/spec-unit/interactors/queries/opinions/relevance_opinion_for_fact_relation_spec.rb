@@ -5,12 +5,22 @@ describe Queries::Opinions::RelevanceOpinionForFactRelation do
   include PavlovSupport
 
   describe '#call' do
-    it 'returns the opinion on the fact_relation' do
-      opinion = mock
-      fact_relation = mock get_user_opinion: opinion
+    before do
+      stub_classes 'Opinion::BaseFactCalculation'
+    end
+
+    it 'returns the dead opinion on the fact_relation' do
+      dead_opinion = mock
+      fact_relation = mock
+      base_fact_calculation = mock get_user_opinion: dead_opinion
       query = described_class.new fact_relation: fact_relation
 
-      expect(query.call).to eq opinion
+      Opinion::BaseFactCalculation.stub(:new).with(fact_relation)
+        .and_return(base_fact_calculation)
+
+      result = query.call
+
+      expect(result).to eq dead_opinion
     end
   end
 end

@@ -34,7 +34,7 @@ describe Interactors::ReplyToConversation do
       #       we don't need to check expectations on the object under test
       interactor.should_receive(:mp_increment_person_property)
                 .with(:replies_created)
-      interactor.should_receive(:mp_track).with(:reply_created)
+      interactor.should_receive(:mp_track).with("Conversation: Replied to conversation", {:conversation_id=>"20"})
 
       interactor.call
     end

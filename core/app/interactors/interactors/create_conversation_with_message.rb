@@ -28,7 +28,9 @@ module Interactors
     end
 
     def track_mixpanel
-      mp_track :conversation_created
+      mp_track "Factlink: Created conversation",
+        recipients: @recipient_usernames,
+        fact_id: @fact_id
       mp_increment_person_property :conversations_created
     end
 

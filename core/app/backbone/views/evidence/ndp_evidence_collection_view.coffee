@@ -4,9 +4,6 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   regions:
     contentRegion: '.js-content-region'
 
-  templateHelpers:
-    formatted_impact: -> format_as_authority @impact
-
   typeCss: ->
     switch @model.get('type')
       when 'believes' then 'evidence-supporting'
