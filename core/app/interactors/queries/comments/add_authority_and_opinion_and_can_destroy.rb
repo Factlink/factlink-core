@@ -20,13 +20,8 @@ module Queries
         old_query :authority_on_fact_for, fact, comment.created_by.graph_user
       end
 
-<<<<<<< HEAD
       def impact_opinion
-        query :'opinions/impact_opinion_for_comment', comment
-=======
-      def opinion
-        old_query :'opinions/user_opinion_for_comment', comment.id.to_s, fact
->>>>>>> develop
+        old_query :'opinions/impact_opinion_for_comment', comment
       end
 
       def current_user_opinion
