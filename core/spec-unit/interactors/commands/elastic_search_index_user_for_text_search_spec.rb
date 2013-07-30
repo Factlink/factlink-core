@@ -14,7 +14,9 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
 
   describe 'validations' do
     it 'raises when user is not a User' do
-      expect_validating('User')
+      command = described_class.new 'User'
+
+      expect { command.call }
         .to raise_error(RuntimeError, 'user missing fields ([:username, :first_name, :last_name, :id]).')
     end
   end
