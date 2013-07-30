@@ -6,7 +6,7 @@ describe Interactors::Comments::UpdateOpinion do
   include PavlovSupport
 
   it 'initializes correctly' do
-    user = mock()
+    user = mock
     interactor = described_class.new '1', 'believes', current_user: user
     interactor.should_not be_nil
   end
@@ -33,9 +33,8 @@ describe Interactors::Comments::UpdateOpinion do
 
     it 'call the set_opinion command when an opinion is being set' do
       opinion = 'believes'
-      user = mock( graph_user: mock() )
-      comment = mock(id: '123abc456def')
-      authority_string = '1.0'
+      user = mock(graph_user: mock)
+      comment = mock(id: '123')
       pavlov_options = {current_user: user}
       interactor = described_class.new comment.id, opinion, pavlov_options
 
@@ -51,9 +50,8 @@ describe Interactors::Comments::UpdateOpinion do
     end
 
     it 'calls the remove_opinion command when no opinion is passed' do
-      user = mock( graph_user: mock() )
-      comment = mock(id: '123abc456def')
-      authority_string = '1.0'
+      user = mock(graph_user: mock)
+      comment = mock(id: '123')
       pavlov_options = {current_user: user}
       interactor = described_class.new comment.id, nil, pavlov_options
 
@@ -69,7 +67,7 @@ describe Interactors::Comments::UpdateOpinion do
 
     it 'refreshes the comment after calling recalculate_comment_user_opinion' do
       opinion = 'believes'
-      user = mock( graph_user: mock )
+      user = mock(graph_user: mock)
       pavlov_options = {current_user: user}
 
       comment = mock(id: 'abc')
