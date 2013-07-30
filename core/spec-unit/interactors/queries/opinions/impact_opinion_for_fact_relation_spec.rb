@@ -27,13 +27,9 @@ describe Queries::Opinions::ImpactOpinionForFactRelation do
   end
 
   describe '#validate' do
-    it 'calls the correct validation methods' do
-      fact_relation = mock
-
-      described_class.any_instance.should_receive(:validate_not_nil)
-                                  .with(:fact_relation, fact_relation)
-
-      command = described_class.new fact_relation
+    it 'without fact_relation doesn\'t validate' do
+      expect_validating(nil)
+        .to fail_validation('fact_relation should not be nil.')
     end
   end
 end
