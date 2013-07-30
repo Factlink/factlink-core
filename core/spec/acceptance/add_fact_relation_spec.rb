@@ -94,7 +94,7 @@ feature "adding factlinks to a fact", type: :request do
         page.should have_content supporting_factlink.to_s
 
         within '.authorities-evidence' do
-          page.should have_content '1.0'
+          page.should have_content '0.0'
         end
 
         find('.supporting').click
