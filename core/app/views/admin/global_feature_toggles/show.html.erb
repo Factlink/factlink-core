@@ -2,12 +2,14 @@
 
 <%= form_tag admin_global_feature_toggles_path, method: 'PUT' do %>
 
-  <% Ability::FEATURES.each do |feature| %>
+  <% Ability::FEATURES.each do |feature|
+    enabled = @global_features.include? feature
+    %>
 
     <%# check_box_tag 'name', value, checked, options %>
 
     <label class='checkbox'>
-      <%= check_box_tag "features[#{feature}]", true, false, class: 'checkbox' %>
+      <%= check_box_tag "features[#{feature}]", true, enabled, class: 'checkbox' %>
       <%= h feature %>
     </label>
 <!--

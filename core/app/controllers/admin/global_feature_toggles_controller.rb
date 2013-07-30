@@ -7,6 +7,8 @@ class Admin::GlobalFeatureTogglesController < AdminController
   end
 
   def update
+    @global_features = params[:features].andand.keys
+    interactor :'global_features/set', @global_features
     render :show
   end
 
