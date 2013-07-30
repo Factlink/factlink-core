@@ -9,7 +9,7 @@ module Queries
       private
 
       def execute
-        Opinion::FactCalculation.new(fact).get_opinion
+        FactGraph.new.opinion_for_fact(fact)
       end
     end
   end

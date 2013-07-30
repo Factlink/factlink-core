@@ -61,17 +61,15 @@ module BeliefExpressions
     (Authority.on(@random_fact, for: GraphUser[user.graph_user.id]).to_f+1).should
   end
 
-  def opinion?(fact)
+  def opinion?(base_fact)
     possible_reset
-    case fact
+    case base_fact
     when Fact
-      # values are recalculated in Redis, so get the object fresh from Redis
-      opinion = Pavlov.old_query 'opinions/opinion_for_fact', Fact[fact.id]
+      opinion = Pavlov.old_query 'opinions/opinion_for_fact', base_fact
     when FactRelation
-      # values are recalculated in Redis, so get the object fresh from Redis
-      opinion = Pavlov.old_query 'opinions/user_opinion_for_fact_relation', FactRelation[fact.id]
+      opinion = FactGraph.new.user_opinion_for_fact_relation base_fact
     else
-      raise 'Unknown fact class'
+      raise 'Unknown base_fact class'
     end
     opinion.should
   end

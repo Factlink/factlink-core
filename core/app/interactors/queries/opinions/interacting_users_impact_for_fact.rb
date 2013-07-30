@@ -7,7 +7,11 @@ module Queries
       attribute :pavlov_options, Hash, default: {}
 
       def execute
-        OpinionPresenter.new(Opinion::BaseFactCalculation.new(fact).get_user_opinion).authority(type)
+        OpinionPresenter.new(user_opinion).authority(type)
+      end
+
+      def user_opinion
+        FactGraph.new.user_opinion_for_fact(fact)
       end
 
       def fact

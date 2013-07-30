@@ -1,5 +1,4 @@
-
-class Opinion
+module Opinion
   class Store
     def initialize(store=HashStore::InMemory.new)
       @store = store

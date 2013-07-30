@@ -9,7 +9,7 @@ module Commands
       attribute :pavlov_options, Hash, default: {}
 
       def execute
-        Opinion::BaseFactCalculation.new(fact_relation).calculate_user_opinion
+        FactGraph.new.calculate_fact_relation_when_user_opinion_changed fact_relation
       end
 
       def validate
