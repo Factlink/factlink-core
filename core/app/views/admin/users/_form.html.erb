@@ -1,123 +1,150 @@
 <%= form_for(user, :url => [:admin, user], class: "form-horizontal") do |f| %>
-  <div class="span8">
-
+<div class="top-aligned-inline-block">
+  <table class="admin-form">
     <% if user.errors.any? %>
+    <tr><td>
       <div class="alert-message block-message error">
         <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
         <ul>
-        <% user.errors.full_messages.each do |msg| %>
+          <% user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
-        <% end %>
+          <% end %>
         </ul>
       </div>
+    </td></tr>
     <% end %>
 
-    <div class="row">
-      <%= f.label :username %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :username %>
+      </th>
+      <td>
         <%= f.text_field :username %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :email %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :email %>
+      </th>
+      <td>
         <%= f.text_field :email %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :first_name %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :first_name %>
+      </th>
+      <td>
         <%= f.text_field :first_name %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :last_name %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :last_name %>
+      </th>
+      <td>
         <%= f.text_field :last_name %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :tos_name %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :tos_name %>
+      </th>
+      <td>
         <p><%= user.agrees_tos_name %></p>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :location %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :location %>
+      </th>
+      <td>
         <%= f.text_field :location %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :biography, "Bio" %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :biography, "Bio" %>
+      </th>
+      <td>
         <%= f.text_area :biography %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :password %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :password %>
+      </th>
+      <td>
         <%= f.text_field :password %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :password_confirmation %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :password_confirmation %>
+      </th>
+      <td>
         <%= f.text_field :password_confirmation %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-   <div class="row">
-      <%= f.label :approved %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :approved %>
+      </th>
+      <td>
         <%= f.check_box :approved %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row">
-      <%= f.label :registration_code %>
-      <div class="field">
+    <tr>
+      <th class="form-label-column">
+        <%= f.label :registration_code %>
+      </th>
+      <td>
         <%= f.text_field :registration_code %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
-    <div class="row alert-error">
-      <%= f.label :admin %>
-      <div class="field">
+    <tr class="alert-error">
+      <th class="form-label-column">
+        <%= f.label :admin %>
+      </th>
+      <td>
         <%= f.check_box :admin %>
-      </div>
-    </div>
+      </td>
+    </tr>
 
+    <tr>
+      <td colspan="2" style="text-align:right;">
+        <div class="form-actions">
+          <%= link_to 'cancel', admin_users_path, class: 'btn' %>
+          <%= f.submit class: 'btn btn-primary' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<!-- Feature toggle -->
+<div class="well top-aligned-inline-block" style="margin-left:2em">
+  <h1>Features</h1>
 
-    <div class="form-actions">
-      <%= link_to 'cancel', admin_users_path, class: 'btn' %>
-      <%= f.submit class: 'btn btn-primary' %>
-    </div>
-
-  </div>
-
-
-  <!-- Feature toggle -->
-  <div class="span3 well" style="width: 200px;">
-    <h1>Features</h1>
-
-    <ul>
+  <ul>
     <% @user_features.each do |feat| %>
-      <li>
-        <label class="checkbox">
-          <%= check_box_tag("user[features][#{feat}]", true, @user.features.member?(feat), class: 'checkbox') %> <%= feat %>
-        </label>
-      </li>
+    <li>
+      <label class="checkbox">
+        <%= check_box_tag("user[features][#{feat}]", true, @user.features.member?(feat), class: 'checkbox') %> <%= feat %>
+      </label>
+    </li>
     <% end %>
-    </ul>
-  </div>
+  </ul>
+</div>
 
 <% end %>
