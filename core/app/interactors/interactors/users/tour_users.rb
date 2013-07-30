@@ -4,7 +4,7 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :pavlov_options
+      arguments
 
       def execute
         users.map(&method(:with_user_topics))
