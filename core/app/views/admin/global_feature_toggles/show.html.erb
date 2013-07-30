@@ -8,16 +8,11 @@
 
     <%# check_box_tag 'name', value, checked, options %>
 
-    <label class='checkbox'>
-      <%= check_box_tag "features[#{feature}]", true, enabled, class: 'checkbox' %>
+    <label>
+      <%= check_box_tag "features[#{feature}]", "1", enabled %>
       <%= h feature %>
     </label>
-<!--
-    <label class='checkbox'>
-      <%= check_box_tag "features[can_see_hackerone]", true, false, class: 'checkbox' %>
-      Can see HackerOne
-    </label>
- -->
+
   <% end %>
   <%= submit_tag 'Save', class: 'btn' %>
 <% end %>
