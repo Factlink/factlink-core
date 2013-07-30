@@ -8,5 +8,7 @@ class RemoveFactRelationCredibilityJob
       keys = Authority.all_on(fact_relation).map(&:key)
       Redis.current.del "", *keys
     end
+
+    Redis.current.del "", *Redis.current.keys("Authority+NEW+LIST+on+FactRelation+*")
   end
 end

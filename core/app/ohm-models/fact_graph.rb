@@ -72,8 +72,8 @@ class FactGraph
   def calculate_user_opinions_for(fact)
     store :Fact, fact.id, :user_opinion, calculated_user_opinion(fact, fact)
 
-    fact.fact_relations.ids.each do |id|
-      store :FactRelation, id, :user_opinion, calculated_user_opinion(FactRelation[id], fact)
+    fact.fact_relations.each do |fact_relation|
+      store :FactRelation, fact_relation.id, :user_opinion, calculated_user_opinion(fact_relation, fact)
     end
 
     Comment.where(fact_data_id: fact.data_id).each do |comment|
