@@ -2,18 +2,20 @@
 
 <%= form_tag admin_global_feature_toggles_path, method: 'PUT' do %>
 
-  <%# check_box_tag 'name', value, checked, options %>
+  <% Ability::FEATURES.each do |feature| %>
 
-  <label class='checkbox'>
-    <%= check_box_tag "features[can_see_factlink]", true, false, class: 'checkbox' %>
-    Can see Factlink
-  </label>
+    <%# check_box_tag 'name', value, checked, options %>
 
-  <label class='checkbox'>
-    <%= check_box_tag "features[can_see_hackerone]", true, false, class: 'checkbox' %>
-    Can see HackerOne
-  </label>
-
+    <label class='checkbox'>
+      <%= check_box_tag "features[#{feature}]", true, false, class: 'checkbox' %>
+      <%= h feature %>
+    </label>
+<!--
+    <label class='checkbox'>
+      <%= check_box_tag "features[can_see_hackerone]", true, false, class: 'checkbox' %>
+      Can see HackerOne
+    </label>
+ -->
+  <% end %>
   <%= submit_tag 'Save', class: 'btn' %>
-
 <% end %>
