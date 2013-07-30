@@ -28,10 +28,6 @@ class OpinionPresenter
     }
   end
 
-  def impact
-    @opinion.authority
-  end
-
   private
 
   def format number

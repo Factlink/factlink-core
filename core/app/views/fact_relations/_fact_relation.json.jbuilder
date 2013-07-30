@@ -40,7 +40,7 @@ json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }
 
 json.current_user_opinion current_user_opinion
 
-json.impact OpinionPresenter.new(impact_opinion).impact
+json.impact impact_opinion.authority
 
 json.time_ago TimeFormatter.as_time_ago(fact_relation.created_at.to_time)
 
