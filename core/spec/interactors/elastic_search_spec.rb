@@ -22,7 +22,7 @@ describe 'elastic search' do
   end
 
   let (:test_index_command) do
-    Class.new Commands::ElasticSearchIndexForTextSearchCommand do
+    Class.new Commands::ElasticSearchIndexForTextSearch do
       def define_index
         type 'test_class'
         field :test_field

@@ -13,16 +13,11 @@ describe Queries::Opinions::InteractingUsersImpactForFact do
     type = mock
 
     user_opinion = mock
-<<<<<<< HEAD
-    base_fact_calculation = mock get_user_opinion: user_opinion
+    fact_graph = mock
     pavlov_options = { current_user: mock }
 
     query = described_class.new fact_id: fact.id, type: type,
               pavlov_options: pavlov_options
-=======
-    fact_graph = mock
-    query = described_class.new fact.id, type, current_user: mock
->>>>>>> d4e4e6581f91c4a3e114cb71934a36d5f9302f7a
 
     Fact.stub(:[])
       .with(fact.id)

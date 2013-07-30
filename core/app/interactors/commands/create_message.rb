@@ -1,4 +1,4 @@
-require 'pavlov'
+require 'pavlov_helper'
 
 module Commands
   class CreateMessage

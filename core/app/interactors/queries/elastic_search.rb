@@ -10,7 +10,6 @@ module Queries
 
     def execute
       @types = []
-
       define_query
 
       from = (page - 1) * row_count

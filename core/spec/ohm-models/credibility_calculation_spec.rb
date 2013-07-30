@@ -30,7 +30,6 @@ describe "credibility calculation of facts*users" do
 
   def recalculate_credibility
     MapReduce::FactCredibility.new.process_all
-    MapReduce::FactRelationCredibility.new.process_all
   end
 
   it "should average authority on topics" do
@@ -94,24 +93,5 @@ describe "credibility calculation of facts*users" do
 
     recalculate_credibility
     expect(Authority.on(f1, for: u1).to_f).to eq(20.0)
-  end
-
-  it "should work with fact relations and the topics of the to_fact" do
-    ch1 = create(:channel, created_by: u1)
-    ch2 = create(:channel, created_by: u1)
-    Authority.from(ch1.topic, for: u1) << 10.0
-    Authority.from(ch2.topic, for: u1) << 20.0
-
-    fr = f1.add_evidence(:supporting, f2, u1)
-    add_fact_to_channel f1, ch1
-    add_fact_to_channel f1, ch2
-
-    # some data that shouldn't influence the outcome
-    ch3 = create(:channel, created_by: u1)
-    add_fact_to_channel f2, ch3
-    Authority.from(ch3.topic, for: u1) << 100.0
-
-    recalculate_credibility
-    expect(Authority.on(fr, for: u1).to_f).to eq(15.0)
   end
 end

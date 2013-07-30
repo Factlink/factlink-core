@@ -20,7 +20,7 @@ describe Interactors::SendMailForActivity do
       interactor.should_receive(:recipients).and_return([user])
 
       Resque.should_receive(:enqueue).with(Commands::SendActivityMailToUser,
-        user_id: user.id, activity_id: activity.id, pavlov_options: nil)
+        user_id: user.id, activity_id: activity.id, pavlov_options: {})
 
       interactor.call
     end
