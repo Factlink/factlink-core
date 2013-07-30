@@ -57,7 +57,8 @@ class FactGraph
     calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type)
   end
 
-  def impact_opinion_for_comment(comment)
+  def impact_opinion_for_comment(dead_comment)
+    comment = Comment.find(dead_comment.id)
     fact = comment.fact_data.fact
     impact_opinion_for_comment_and_fact(comment, fact)
   end
@@ -110,7 +111,7 @@ class FactGraph
   end
 
   def intrinsic_opinion_for_comment(comment, fact)
-    creator_authority = Authority.on(fact, for: comment.created_by).to_f + 1.0
+    creator_authority = Authority.on(fact, for: comment.created_by.graph_user).to_f + 1.0
 
     DeadOpinion.for_type(:believes, authority_of_comment_based_on_creator_authority(creator_authority))
   end
