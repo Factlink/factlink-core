@@ -30,6 +30,19 @@ class DeadOpinion
     end
   end
 
+  def self.from_hash hash
+    new hash[:believes], hash[:disbelieves], hash[:doubts], hash[:authority]
+  end
+
+  def to_h
+    {
+      believes: believes,
+      disbelieves: disbelieves,
+      doubts: doubts,
+      authority: authority,
+    }
+  end
+
   def value_by_type(type)
     send(type)
   end
