@@ -38,10 +38,10 @@ module Interactors
 
       def authorized?
         # TODO use cancan
-        return true if @options[:no_current_user]
-        return false unless @options[:current_user]
+        return true if pavlov_options[:no_current_user]
+        return false unless pavlov_options[:current_user]
 
-        @options[:current_user].graph_user_id == @channel.created_by_id
+        pavlov_options[:current_user].graph_user_id == @channel.created_by_id
       end
     end
   end

@@ -10,7 +10,7 @@ module Interactors
       end
 
       def authorized?
-        @options[:no_current_user] == true or @options[:current_user]
+        pavlov_options[:no_current_user] == true or pavlov_options[:current_user]
       end
     end
   end

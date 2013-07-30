@@ -23,7 +23,7 @@ module Interactors
         validate_integer_string  :fact_id, fact_id
         validate_nonempty_string :message, message
         validate_string_length   :message, message, maximum_message_length
-        validate_not_nil         :current_user, @options[:current_user]
+        validate_not_nil         :current_user, pavlov_options[:current_user]
       end
 
       def url

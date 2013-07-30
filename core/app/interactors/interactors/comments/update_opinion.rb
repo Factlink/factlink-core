@@ -9,9 +9,9 @@ module Interactors
 
       def execute
         if @opinion
-          command :'comments/set_opinion', @comment_id, @opinion, @options[:current_user].graph_user
+          command :'comments/set_opinion', @comment_id, @opinion, pavlov_options[:current_user].graph_user
         else
-          command :'comments/remove_opinion', @comment_id, @options[:current_user].graph_user
+          command :'comments/remove_opinion', @comment_id, pavlov_options[:current_user].graph_user
         end
         command :'opinions/recalculate_comment_user_opinion', comment
 
@@ -28,7 +28,7 @@ module Interactors
       end
 
       def authorized?
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
     end
   end

@@ -10,7 +10,7 @@ module Queries
     def initialize *arguments
       super
       @types = []
-      @logger = @options[:logger] || Logger.new(STDERR)
+      @logger = pavlov_options[:logger] || Logger.new(STDERR)
       define_query
     end
 
