@@ -83,9 +83,11 @@ feature "adding factlinks to a fact", type: :request do
     use_features :vote_up_down_popup
     switch_to_user(@user)
 
-    go_to_discussion_page_of factlink
-
     supporting_factlink = backend_create_fact
+    go_to_discussion_page_of supporting_factlink
+    click_wheel_agree
+
+    go_to_discussion_page_of factlink
 
     within ".relation-tabs-view" do
       add_existing_factlink supporting_factlink
@@ -94,7 +96,7 @@ feature "adding factlinks to a fact", type: :request do
         page.should have_content supporting_factlink.to_s
 
         within '.authorities-evidence' do
-          page.should have_content '0.0'
+          page.should have_content '1.0'
         end
 
         find('.supporting').click
