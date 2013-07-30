@@ -1,1 +1,1 @@
-es-indexing-in-pavlov
+Updated ElasticSearch commands to work as Pavlov commands
