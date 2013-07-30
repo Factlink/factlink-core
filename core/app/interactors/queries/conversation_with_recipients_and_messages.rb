@@ -7,7 +7,7 @@ module Queries
 
     arguments :id
     def execute
-      conversation = old_query :conversation_get, @id
+      conversation = old_query :conversation_get, id
       return nil unless conversation
 
       messages = old_query :messages_for_conversation, conversation
