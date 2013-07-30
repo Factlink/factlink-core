@@ -12,22 +12,16 @@ class OpinionPresenter
   end
 
   def as_percentages_hash
-    total = @opinion.believes + @opinion.disbelieves + @opinion.doubts
-    return zero_percentages_hash if @opinion.authority == 0 or total == 0
+    return zero_percentages_hash if @opinion.authority == 0
 
+    believes, disbelieves = floored_percentages [@opinion.believes, @opinion.disbelieves, @opinion.doubts]
 
-    l_believes_percentage    = ((100 * @opinion.believes) / total).floor.to_i
-    l_disbelieves_percentage = ((100 * @opinion.disbelieves) / total).floor.to_i
-    l_doubts_percentage      = ((100 * @opinion.doubts) / total).floor.to_i
-
-    rest = 100 - l_believes_percentage - l_disbelieves_percentage - l_doubts_percentage
-
-    l_doubts_percentage += rest
+    doubts = 100 - believes - disbelieves
 
     {
-      believe:    { percentage: l_believes_percentage },
-      disbelieve: { percentage: l_disbelieves_percentage },
-      doubt:      { percentage: l_doubts_percentage  },
+      believe:    { percentage: believes },
+      disbelieve: { percentage: disbelieves },
+      doubt:      { percentage: doubts  },
       # TODO this logic should go elsewhere, but only after letting the update_opinion and
       #     remove opinion build proper json (instead of fact.to_json)
       authority: format(@opinion.authority)
@@ -35,6 +29,13 @@ class OpinionPresenter
   end
 
   private
+
+  def floored_percentages elements
+    total = elements.inject(:+)
+    elements.map do |element|
+      ((100.0 * element)/total).floor.to_i
+    end
+  end
 
   def zero_percentages_hash
     {
