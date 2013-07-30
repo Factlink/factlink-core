@@ -8,8 +8,8 @@ module Interactors
       arguments :fact_id, :type, :content
 
       def execute
-        comment = old_command :create_comment, @fact_id, @type,
-          @content, pavlov_options[:current_user].id.to_s
+        comment = old_command :create_comment, fact_id, type,
+          content, pavlov_options[:current_user].id.to_s
 
         old_command :'comments/set_opinion', comment.id.to_s, 'believes', pavlov_options[:current_user].graph_user
 
@@ -27,7 +27,7 @@ module Interactors
       end
 
       def fact
-        Fact[@fact_id]
+        Fact[fact_id]
       end
 
       def create_activity comment
@@ -42,10 +42,10 @@ module Interactors
       end
 
       def validate
-        validate_regex   :content, @content, /\S/,
+        validate_regex   :content, content, /\S/,
           "should not be empty."
-        validate_integer :fact_id, @fact_id
-        validate_in_set  :type, @type, ['believes', 'disbelieves', 'doubts']
+        validate_integer :fact_id, fact_id
+        validate_in_set  :type, type, ['believes', 'disbelieves', 'doubts']
       end
     end
   end

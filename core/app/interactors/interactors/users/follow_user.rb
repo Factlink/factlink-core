@@ -22,7 +22,7 @@ module Interactors
         old_command :'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id
         old_command :'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil
 
-        # This command still depends on user == current_user
+        # This old_command still depends on user == current_user
         old_command :'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id
 
         nil

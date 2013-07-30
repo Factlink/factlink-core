@@ -54,7 +54,7 @@ module Queries
     end
 
     def topics
-      @topics ||= old_query :topics_for_channels, @channels
+      @topics ||= old_query :topics_for_channels, channels
     end
 
     def topics_by_slug

@@ -13,12 +13,12 @@ module Interactors
       end
 
       def validate
-        validate_integer_string :fact_id, @fact_id
-        validate_in_set         :type,    @type, [:weakening, :supporting]
+        validate_integer_string :fact_id, fact_id
+        validate_in_set         :type,    type, [:weakening, :supporting]
       end
 
       def execute
-        old_query :'evidence/for_fact_id', @fact_id, @type
+        old_query :'evidence/for_fact_id', fact_id, type
       end
     end
   end

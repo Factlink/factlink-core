@@ -6,16 +6,16 @@ module Interactors
       arguments :url, :nr
 
       def validate
-        validate_string :url, @url
-        validate_integer :nr, @nr
+        validate_string :url, url
+        validate_integer :nr, nr
       end
 
       def execute
-        old_query :"site/top_topics", site.id.to_i, @nr if site
+        old_query :"site/top_topics", site.id.to_i, nr if site
       end
 
       def site
-        @site ||= ::Site.find(url: @url).first
+        @site ||= ::Site.find(url: url).first
       end
 
       def authorized?
