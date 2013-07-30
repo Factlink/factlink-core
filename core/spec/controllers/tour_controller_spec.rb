@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TourController do
 
-  let(:user) { FactoryGirl.create :user }
+  let(:user) { create :user }
 
   describe :install_extension do
     it "should render install_extension template" do

@@ -43,7 +43,7 @@ describe "authority should work as described in the google doc" do
   # a(U1) = 1
   # Should have no impact
   it "should be 1.0 when a user has create one fact" do
-    @f1 = FactoryGirl.create :fact, created_by: u1
+    @f1 = create :fact, created_by: u1
     a(u1) == 1.0
   end
 
@@ -52,7 +52,7 @@ describe "authority should work as described in the google doc" do
   # b(U2, F1)
   # a(U1) = 1
   it "should be 1.0 when another user believes a fact created by the user" do
-    @f1 = FactoryGirl.create :fact, created_by: u1
+    @f1 = create :fact, created_by: u1
     b(u2, @f1)
     a(u1) == 1.0
   end
@@ -62,7 +62,7 @@ describe "authority should work as described in the google doc" do
   # F22 = (F1 -> F2)
   # a(U1) = 1
   it "should have an authority of 1.0 when user created one fact which is supported by another fact" do
-    @f1 = FactoryGirl.create :fact, created_by: u1
+    @f1 = create :fact, created_by: u1
     f2.add_evidence(:supporting, @f1, u1)
     a(u1) == 1.0
   end
@@ -75,7 +75,7 @@ describe "authority should work as described in the google doc" do
   # c(U2, F23)
   # a(U1) = 2
   it "should have a higher authority when a fact is used multiple times" do
-    @f1 = FactoryGirl.create :fact, created_by: u1
+    @f1 = create :fact, created_by: u1
     f2.add_evidence(:supporting, @f1, u2)
     f3.add_evidence(:supporting, @f1, u2)
 
@@ -97,8 +97,8 @@ describe "authority should work as described in the google doc" do
   #
   # a(U1) = 1 + log(2) + log(2) = 3
   it "should have an auhority of3 when 2 facts are used twice" do
-    @f1 = FactoryGirl.create :fact, created_by: u1
-    @f4 = FactoryGirl.create :fact, created_by: u1
+    @f1 = create :fact, created_by: u1
+    @f4 = create :fact, created_by: u1
 
     f2.add_evidence(:supporting, @f1, u2)
     f3.add_evidence(:supporting, @f1, u2)
@@ -124,8 +124,8 @@ describe "authority should work as described in the google doc" do
   #
   # a(U1) = 1 + log(1) + log(1) = 1
   it "should count self generated links" do
-    @f1 = FactoryGirl.create :fact, created_by: u1
-    @f4 = FactoryGirl.create :fact, created_by: u1
+    @f1 = create :fact, created_by: u1
+    @f4 = create :fact, created_by: u1
 
     # By the user himself
     f2.add_evidence(:supporting, @f1, u1)
@@ -157,8 +157,8 @@ describe "authority should work as described in the google doc" do
   #
   # a(U1) = 1 + log(2) + log(2) = 3
   it "should have an auhority of 3 when 2 facts are used for support and two for weakening" do
-    @f1 = FactoryGirl.create :fact, created_by: u1
-    @f4 = FactoryGirl.create :fact, created_by: u1
+    @f1 = create :fact, created_by: u1
+    @f4 = create :fact, created_by: u1
 
     f2.add_evidence(:supporting, @f1, u2)
     f3.add_evidence(:supporting, @f1, u2)
