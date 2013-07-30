@@ -13,9 +13,9 @@ module Interactors
       end
 
       def add_to_recently_viewed
-        return unless @options[:current_user]
+        return unless pavlov_options[:current_user]
 
-        command :"facts/add_to_recently_viewed", id.to_i, @options[:current_user].id.to_s
+        command :"facts/add_to_recently_viewed", id.to_i, pavlov_options[:current_user].id.to_s
       end
 
       def authorized?

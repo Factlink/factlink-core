@@ -22,7 +22,7 @@ module Commands
       end
 
       def user
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
 
       def client

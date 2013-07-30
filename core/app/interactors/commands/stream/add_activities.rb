@@ -15,7 +15,7 @@ module Commands
       end
 
       def current_graph_user
-        @options[:current_user].graph_user
+        pavlov_options[:current_user].graph_user
       end
     end
   end

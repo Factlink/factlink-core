@@ -70,6 +70,7 @@ class FactsController < ApplicationController
       mp_track "Factlink: Created",
         opinion: params[:opinion],
         channels: params[:channels]
+      mp_track_people_event last_factlink_created: DateTime.now
 
       #TODO switch the following two if blocks if possible
       if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))

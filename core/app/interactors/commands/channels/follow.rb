@@ -18,7 +18,7 @@ module Commands
 
       def authorized?
          # this is no stub, every user can follow another channel
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
     end
   end
