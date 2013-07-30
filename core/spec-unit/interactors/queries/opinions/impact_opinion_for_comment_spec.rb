@@ -17,7 +17,7 @@ describe Queries::Opinions::ImpactOpinionForComment do
 
       FactGraph.stub new: fact_graph
 
-      fact_graph.stub(:impact_opinion_for_comment).with(comment)
+      fact_graph.stub(:impact_opinion_for_comment).with(comment, allow_negative_authority: true)
         .and_return(dead_opinion)
 
       result = query.call

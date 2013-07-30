@@ -124,12 +124,13 @@ describe "computed opinion" do
     opinion?(f2) == DeadOpinion.zero
   end
 
-  it "should have an impact with negative authority when more people disbelieve" do
+  it "should have an impact with negative authority when more people disbelieve (when specified)" do
     believes(gu1, f1)
     disbelieves(gu1, f1sup2)
     disbelieves(gu2, f1sup2)
     fact_relation_user_opinion?(f1sup2) == _(0.0, 1.0, 0.0, 2.0)
-    fact_relation_impact_opinion?(f1sup2) == _(1.0, 0.0, 0.0, -2.0)
+    fact_relation_impact_opinion?(f1sup2) == _(1.0, 0.0, 0.0, 0.0)
+    fact_relation_impact_opinion?(f1sup2, allow_negative_authority: true) == _(1.0, 0.0, 0.0, -2.0)
     opinion?(f2) == DeadOpinion.zero
   end
 
@@ -217,6 +218,19 @@ describe "computed opinion" do
       comment_impact_opinion?(comment) == _(1.0, 0.0, 0.0, 21.0)
       opinion?(f1) == _(1.0, 0.0, 0.0, 21.0)
     end
+
+    it "should have an impact with negative authority when more people disbelieve (when specified)" do
+      comment = add_supporting_comment(gu1, f1)
+
+      disbelieves_comment(gu1, comment)
+      disbelieves_comment(gu2, comment)
+
+      comment_user_opinion?(comment) == _(0.0, 1.0, 0.0, 2.0)
+      comment_impact_opinion?(comment) == _(1.0, 0.0, 0.0, 0.0)
+      comment_impact_opinion?(comment, allow_negative_authority: true) == _(1.0, 0.0, 0.0, -2.0)
+      opinion?(f1) == DeadOpinion.zero
+    end
+
   end
 
   describe "weakening comment" do

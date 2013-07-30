@@ -98,15 +98,15 @@ module BeliefExpressions
     opinion.should
   end
 
-  def fact_relation_impact_opinion?(fact_relation)
+  def fact_relation_impact_opinion?(fact_relation, options={})
     possible_reset
-    opinion = FactGraph.new.impact_opinion_for_fact_relation fact_relation
+    opinion = FactGraph.new.impact_opinion_for_fact_relation fact_relation, options
     opinion.should
   end
 
-  def comment_impact_opinion?(comment)
+  def comment_impact_opinion?(comment, options={})
     possible_reset
-    opinion = FactGraph.new.impact_opinion_for_comment comment
+    opinion = FactGraph.new.impact_opinion_for_comment comment, options
     opinion.should
   end
 end

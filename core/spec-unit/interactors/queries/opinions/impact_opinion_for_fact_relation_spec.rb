@@ -17,7 +17,7 @@ describe Queries::Opinions::ImpactOpinionForFactRelation do
 
       FactGraph.stub new: fact_graph
 
-      fact_graph.stub(:impact_opinion_for_fact_relation).with(fact_relation)
+      fact_graph.stub(:impact_opinion_for_fact_relation).with(fact_relation, allow_negative_authority: true)
         .and_return(dead_opinion)
 
       result = query.call

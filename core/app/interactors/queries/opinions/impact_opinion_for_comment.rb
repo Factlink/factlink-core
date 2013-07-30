@@ -8,7 +8,7 @@ module Queries
       private
 
       def execute
-        FactGraph.new.impact_opinion_for_comment(comment)
+        FactGraph.new.impact_opinion_for_comment(comment, allow_negative_authority: true)
       end
 
       def validate

@@ -49,18 +49,18 @@ class FactGraph
     user_opinion + evidence_opinion
   end
 
-  def impact_opinion_for_fact_relation(fact_relation)
+  def impact_opinion_for_fact_relation(fact_relation, options={})
     from_fact_opinion = opinion_for_fact(fact_relation.from_fact)
     user_opinion      = retrieve :FactRelation, fact_relation.id, :user_opinion
     evidence_type     = OpinionType.for_relation_type(fact_relation.type)
 
-    calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type)
+    calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type, options)
   end
 
-  def impact_opinion_for_comment(dead_comment)
+  def impact_opinion_for_comment(dead_comment, options={})
     comment = Comment.find(dead_comment.id)
     fact = comment.fact_data.fact
-    impact_opinion_for_comment_and_fact(comment, fact)
+    impact_opinion_for_comment_and_fact(comment, fact, options)
   end
 
   private
@@ -93,21 +93,21 @@ class FactGraph
 
   def calculated_evidence_opinion(fact)
     impact_opinions = fact.fact_relations.all.map do |fact_relation|
-      impact_opinion_for_fact_relation(fact_relation).normalized
+      impact_opinion_for_fact_relation(fact_relation)
     end
 
     impact_opinions += Comment.where(fact_data_id: fact.data_id).map do |comment|
-      impact_opinion_for_comment_and_fact(comment, fact).normalized
+      impact_opinion_for_comment_and_fact(comment, fact)
     end
 
     DeadOpinion.combine(impact_opinions)
   end
 
-  def impact_opinion_for_comment_and_fact(comment, fact)
+  def impact_opinion_for_comment_and_fact(comment, fact, options={})
     user_opinion = retrieve :Comment, comment.id, :user_opinion
     evidence_type = OpinionType.real_for(comment.type)
 
-    calculated_impact_opinion(intrinsic_opinion_for_comment(comment, fact), user_opinion, evidence_type)
+    calculated_impact_opinion(intrinsic_opinion_for_comment(comment, fact), user_opinion, evidence_type, options)
   end
 
   def intrinsic_opinion_for_comment(comment, fact)
@@ -122,13 +122,17 @@ class FactGraph
     creator_authority * COMMENT_AUTHORITY_MULTIPLIER
   end
 
-  def calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type)
+  def calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type, options)
     net_fact_authority      = from_fact_opinion.net_authority
     net_relevance_authority = user_opinion.net_authority
 
     authority = [net_fact_authority, net_relevance_authority].min
 
-    DeadOpinion.for_type(evidence_type, authority)
+    if options[:allow_negative_authority]
+      DeadOpinion.for_type(evidence_type, authority)
+    else
+      DeadOpinion.for_type(evidence_type, authority).normalized
+    end
   end
 
   def calculated_user_opinion(thing_with_believable, fact)
