@@ -40,7 +40,7 @@ module Queries
       end
 
       def current_user
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
 
       def paginate(data)

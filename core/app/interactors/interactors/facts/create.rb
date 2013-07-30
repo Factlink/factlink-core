@@ -41,7 +41,7 @@ module Interactors
       end
 
       def user
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
 
       def validate
