@@ -66,5 +66,29 @@ describe Interactors::Comments::UpdateOpinion do
 
       expect(interactor.call).to eq comment
     end
+
+    it 'refreshes the comment after calling recalculate_comment_user_opinion' do
+      opinion = 'believes'
+      user = mock( graph_user: mock )
+      pavlov_options = {current_user: user}
+
+      comment = mock(id: 'abc')
+      updated_comment = mock
+
+      interactor = described_class.new comment.id, opinion, pavlov_options
+
+      Pavlov.stub(:query)
+        .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
+
+      Pavlov.stub(:command)
+        .with(:'comments/set_opinion', comment.id, opinion, user.graph_user, pavlov_options)
+      Pavlov.stub(:command)
+        .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options) do
+          Pavlov.stub(:query)
+            .with(:'comments/get', comment.id, pavlov_options).and_return(updated_comment)
+      end
+
+      expect(interactor.call).to eq updated_comment
+    end
   end
 end

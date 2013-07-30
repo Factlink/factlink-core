@@ -13,13 +13,10 @@ module Interactors
         else
           command :'comments/remove_opinion', @comment_id, pavlov_options[:current_user].graph_user
         end
-        command :'opinions/recalculate_comment_user_opinion', comment
 
-        comment
-      end
+        command :'opinions/recalculate_comment_user_opinion', query(:'comments/get', @comment_id)
 
-      def comment
-        @comment ||= query :'comments/get', @comment_id
+        query :'comments/get', @comment_id
       end
 
       def validate
