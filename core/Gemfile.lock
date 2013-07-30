@@ -108,7 +108,7 @@ GEM
     cancan (1.6.10)
     cane (2.6.0)
       parallel
-    capistrano (2.15.5)
+    capistrano (2.15.4)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -515,11 +515,11 @@ DEPENDENCIES
   andand (~> 1.3.3)
   approvals (~> 0)
   bcrypt-ruby (~> 3.0.1)
-  brakeman (~> 2)
+  brakeman (~> 2.0)
   browser (~> 0.2.0)
   cancan (~> 1.6.10)
   cane (~> 2)
-  capistrano (~> 2.15.4)
+  capistrano (= 2.15.4)
   capistrano-ext (~> 1.2.1)
   capybara (~> 1.1)
   capybara-email (~> 1.0)
