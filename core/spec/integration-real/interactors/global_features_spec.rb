@@ -4,10 +4,12 @@ describe 'global_features' do
   include PavlovSupport
 
   let(:current_user) do
-    OpenStruct.new(
+    double(
       agrees_tos: true,
       admin?: true,
       features: [],
+      has_invitations_left?: false,
+      identities: nil,
     )
   end
 
