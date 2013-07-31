@@ -8,6 +8,7 @@ module Commands
       arguments :features
 
       def execute
+        set.del
         features.each do |feature|
           set.sadd feature
         end
