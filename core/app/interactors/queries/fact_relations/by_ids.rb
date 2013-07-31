@@ -17,7 +17,12 @@ module Queries
 
       def execute
         fact_relation_ids.map do |fact_relation_id|
-          fact_relation = FactRelation[fact_relation_id] or raise 'FactRelation could not be found'
+          fact_relation = FactRelation[fact_relation_id]
+
+          unless fact_relation
+            raise ActionController::RoutingError.new('FactRelation could not be found')
+          end
+
           dead_fact_relation_for fact_relation
         end
       end

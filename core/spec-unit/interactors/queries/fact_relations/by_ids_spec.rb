@@ -6,6 +6,7 @@ describe Queries::FactRelations::ByIds do
 
   before do
     stub_classes 'FactRelation', 'KillObject'
+    stub_const 'ActionController::RoutingError', Class.new(StandardError)
   end
 
   describe '.validate' do
@@ -90,7 +91,8 @@ describe Queries::FactRelations::ByIds do
                   .with(fact_relation_id)
                   .and_return(nil)
 
-      expect{query.call}.to raise_exception('FactRelation could not be found')
+      expect{query.call}.to raise_error(ActionController::RoutingError,
+        'FactRelation could not be found')
     end
   end
 end
