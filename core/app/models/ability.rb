@@ -191,9 +191,9 @@ class Ability
 
   def define_feature_toggles
     @features ||= []
-    if agrees_tos?
+    enable_features enabled_global_features
+    if signed_in?
       enable_features user.features
-      enable_features enabled_global_features
     end
   end
 
