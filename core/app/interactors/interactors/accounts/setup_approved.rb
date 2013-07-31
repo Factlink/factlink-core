@@ -5,7 +5,7 @@ module Interactors
     class SetupApproved
       include Pavlov::Interactor
 
-      arguments :reset_password_token, :attribut
+      arguments :reset_password_token, :attribuutjes
 
       def authorized?
         true
@@ -14,8 +14,8 @@ module Interactors
       def execute
         user = User.find_or_initialize_with_error_by(:reset_password_token, reset_password_token)
         if user.persisted?
-          user.attributes = attribut.slice(:first_name, :last_name)
-          user.reset_password!(attribut[:password], attribut[:password_confirmation])
+          user.attributes = attribuutjes.slice(:first_name, :last_name)
+          user.reset_password!(attribuutjes[:password], attribuutjes[:password_confirmation])
         end
         user
       end
