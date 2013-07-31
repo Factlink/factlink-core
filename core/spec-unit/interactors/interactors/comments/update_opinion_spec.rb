@@ -38,12 +38,12 @@ describe Interactors::Comments::UpdateOpinion do
       pavlov_options = {current_user: user}
       interactor = described_class.new comment.id, opinion, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:'comments/set_opinion', comment.id, opinion, user.graph_user, pavlov_options)
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
 
       expect(interactor.call).to eq comment
@@ -55,11 +55,11 @@ describe Interactors::Comments::UpdateOpinion do
       pavlov_options = {current_user: user}
       interactor = described_class.new comment.id, nil, pavlov_options
 
-      Pavlov.stub(:query).with(:'comments/get', comment.id, pavlov_options).and_return(comment)
+      Pavlov.stub(:old_query).with(:'comments/get', comment.id, pavlov_options).and_return(comment)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:'comments/remove_opinion', comment.id, user.graph_user, pavlov_options)
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
 
       expect(interactor.call).to eq comment
@@ -75,14 +75,14 @@ describe Interactors::Comments::UpdateOpinion do
 
       interactor = described_class.new comment.id, opinion, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
 
-      Pavlov.stub(:command)
+      Pavlov.stub(:old_command)
         .with(:'comments/set_opinion', comment.id, opinion, user.graph_user, pavlov_options)
-      Pavlov.stub(:command)
+      Pavlov.stub(:old_command)
         .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options) do
-          Pavlov.stub(:query)
+          Pavlov.stub(:old_query)
             .with(:'comments/get', comment.id, pavlov_options).and_return(updated_comment)
       end
 

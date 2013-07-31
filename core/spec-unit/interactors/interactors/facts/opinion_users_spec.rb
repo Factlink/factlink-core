@@ -52,10 +52,10 @@ describe Interactors::Facts::OpinionUsers do
 
       pavlov_options = { ability: mock(can?: true)}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'facts/interacting_users', fact_id, skip, take, type, pavlov_options)
         .and_return(users: [u1], total: 1)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'opinions/interacting_users_impact_for_fact', fact_id, type, pavlov_options)
         .and_return(impact)
 

@@ -55,13 +55,13 @@ describe Interactors::Users::UnfollowUser do
       user = mock(graph_user_id: mock)
       user_to_unfollow = mock(graph_user_id: mock)
 
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:'user_by_username', user_name).
         and_return(user)
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:'user_by_username', user_to_unfollow_user_name).
         and_return(user_to_unfollow)
-      interactor.should_receive(:command).
+      interactor.should_receive(:old_command).
         with(:'users/unfollow_user', user.graph_user_id, user_to_unfollow.graph_user_id)
 
       result = interactor.execute

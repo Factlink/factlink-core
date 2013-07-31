@@ -46,20 +46,20 @@ describe Interactors::Comments::Create do
       pavlov_options = {current_user: user}
       interactor = described_class.new fact.fact_id, type, content, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:"comments/add_authority_and_opinion_and_can_destroy", comment, fact, pavlov_options)
         .and_return(comment)
       Fact.stub(:[]).with(fact.fact_id).and_return(fact)
       Comment.stub(:find).with(comment.id).and_return(mongoid_comment)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:create_comment, fact.fact_id, type, content, user.id, pavlov_options)
         .and_return(comment)
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:'comments/set_opinion',comment.id.to_s, 'believes', user.graph_user, pavlov_options)
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:create_activity, user.graph_user, :created_comment, mongoid_comment, fact, pavlov_options)
 
       expect(interactor.call).to eq comment

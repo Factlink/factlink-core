@@ -26,7 +26,7 @@ describe Interactors::Comments::Delete do
       comment_id = 'a12f'
       user = mock(id: 1)
       interactor = Interactors::Comments::Delete.new comment_id, current_user: user
-      interactor.should_receive(:command).with(:delete_comment, comment_id, user.id.to_s)
+      interactor.should_receive(:old_command).with(:delete_comment, comment_id, user.id.to_s)
 
       interactor.call
     end
@@ -35,7 +35,7 @@ describe Interactors::Comments::Delete do
       comment_id = 'a12f'
       user = mock(id: 1)
       interactor = Interactors::Comments::Delete.new comment_id, current_user: user
-      interactor.should_receive(:command).with(:delete_comment, comment_id, user.id.to_s)
+      interactor.should_receive(:old_command).with(:delete_comment, comment_id, user.id.to_s)
 
       interactor.call
     end

@@ -40,7 +40,7 @@ describe Queries::Channels::Facts do
       channel = mock
       sorted_facts_page = mock
 
-      query.should_receive(:query).with(:'channels/get',channel_id).and_return(channel)
+      query.should_receive(:old_query).with(:'channels/get',channel_id).and_return(channel)
       channel.should_receive(:sorted_cached_facts).and_return(sorted_facts)
       sorted_facts.should_receive(:below).with(from, {count: count, reversed: true, withscores: true}).and_return(sorted_facts_page)
 

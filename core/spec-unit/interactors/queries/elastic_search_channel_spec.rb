@@ -35,7 +35,7 @@ describe Queries::ElasticSearchChannel do
 
       return_object = mock()
 
-      query.stub(:query).
+      query.stub(:old_query).
         with(:'topics/by_id_with_authority_and_facts_count', 1).
         and_return(return_object)
 

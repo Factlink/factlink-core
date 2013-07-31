@@ -18,7 +18,7 @@ describe Commands::Channels::AddSubchannel do
       channel.should_receive(:add_channel).with(subchannel)
              .and_return(true)
 
-      command.should_receive(:command)
+      command.should_receive(:old_command)
              .with(:'channels/add_facts_from_channel_to_channel',
                      subchannel, channel)
              .and_return mock call: nil
@@ -33,7 +33,7 @@ describe Commands::Channels::AddSubchannel do
 
       channel.stub(:add_channel).with(subchannel).and_return(false)
 
-      command.should_not_receive(:command)
+      command.should_not_receive(:old_command)
              .with(:'channels/add_facts_from_channel_to_channel',
                      subchannel, channel)
 

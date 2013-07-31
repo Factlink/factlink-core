@@ -18,7 +18,7 @@ describe Queries::FactRelations::ForFact do
       interactor = described_class.new fact, :supporting
 
       fact.stub(:evidence).with(type).and_return([fact_relation])
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'fact_relations/add_sub_comments_count_and_opinions_and_evidence_class', fact_relation)
             .and_return(dead_fact_relation)
 
