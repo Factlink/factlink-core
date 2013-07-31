@@ -32,22 +32,6 @@ describe Interactors::Topics::Favourite do
       expect { described_class.new 'username', 'slug_title', pavlov_options }.
         to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
-
-    it 'does not throw if current_user is set and favourites can be edited' do
-      user = stub
-      current_user = stub
-
-      ability = stub
-      ability.stub(:can?).with(:edit_favourites, user).and_return(true)
-
-      pavlov_options = { current_user: current_user, ability: ability }
-
-      described_class.any_instance.stub(:old_query).
-        with(:user_by_username, 'username').
-        and_return(user)
-
-      described_class.new 'username', 'slug_title', pavlov_options
-    end
   end
 
   describe '#execute' do
