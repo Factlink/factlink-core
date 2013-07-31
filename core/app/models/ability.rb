@@ -178,7 +178,7 @@ class Ability
   )
 
   def enabled_global_features
-    Pavlov.interactor :'global_features/all'
+    Pavlov.old_interactor :'global_features/all'
   end
 
   def enable_features list

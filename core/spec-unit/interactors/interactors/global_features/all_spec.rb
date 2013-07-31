@@ -9,7 +9,7 @@ describe Interactors::GlobalFeatures::All do
       interactor = described_class.new
       features = ['I', 'see', 'pretty', 'things']
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'global_features/index')
         .and_return(features)
 

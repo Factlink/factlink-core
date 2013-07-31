@@ -6,7 +6,7 @@ module Interactors
       include Pavlov::Interactor
 
       def execute
-        query :'global_features/index'
+        old_query :'global_features/index'
       end
 
       def authorized?

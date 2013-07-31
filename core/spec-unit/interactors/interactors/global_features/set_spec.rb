@@ -16,7 +16,7 @@ describe Interactors::GlobalFeatures::Set do
       features = ['I', 'see', 'pretty', 'things']
       interactor = described_class.new features, ability: ability
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:'global_features/set', features, ability: ability )
 
       interactor.call
