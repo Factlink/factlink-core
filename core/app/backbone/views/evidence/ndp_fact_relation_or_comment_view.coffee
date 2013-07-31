@@ -19,5 +19,4 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     if @model instanceof Comment
       @contentRegion.show new NDPCommentView model: @model
     else
-      @contentRegion.show new TextView model: new Backbone.Model text: 'blaat'
-
+      @contentRegion.show new FactBaseView model: @model.getFact()
