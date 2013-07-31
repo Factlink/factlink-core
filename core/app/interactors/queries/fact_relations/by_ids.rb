@@ -18,8 +18,24 @@ module Queries
       def execute
         fact_relation_ids.map do |fact_relation_id|
           fact_relation = FactRelation[fact_relation_id] or raise 'FactRelation could not be found'
-          old_query :'fact_relations/add_sub_comments_count_and_opinions_and_evidence_class', fact_relation
+          dead_fact_relation_for fact_relation
         end
+      end
+
+      def dead_fact_relation_for fact_relation
+        fact_relation.sub_comments_count = old_query :'sub_comments/count', fact_relation.id.to_s, fact_relation.class.to_s
+        impact_opinion = old_query :'opinions/impact_opinion_for_fact_relation', fact_relation
+
+        KillObject.fact_relation fact_relation,
+          current_user_opinion: current_user_opinion_on(fact_relation),
+          impact_opinion: impact_opinion,
+          evidence_class: 'FactRelation'
+      end
+
+      def current_user_opinion_on fact_relation
+        return unless pavlov_options[:current_user]
+
+        pavlov_options[:current_user].graph_user.opinion_on(fact_relation)
       end
     end
   end
