@@ -29,10 +29,10 @@ describe Interactors::CreateConversationWithMessage do
                 .with(:conversations_created)
 
       User.should_receive(:find).with(sender.id).and_return(sender)
-      interactor.should_receive(:command).with(:create_conversation, fact_id, usernames).
+      interactor.should_receive(:old_command).with(:create_conversation, fact_id, usernames).
         and_return(conversation)
-      interactor.should_receive(:command).with(:create_message, sender.id, content, conversation)
-      interactor.should_receive(:command).with(:create_activity, graph_user, :created_conversation, conversation, nil)
+      interactor.should_receive(:old_command).with(:create_message, sender.id, content, conversation)
+      interactor.should_receive(:old_command).with(:create_activity, graph_user, :created_conversation, conversation, nil)
 
       interactor.call
     end
@@ -48,8 +48,8 @@ describe Interactors::CreateConversationWithMessage do
 
       interactor = Interactors::CreateConversationWithMessage.new fact_id, usernames, sender_id, content
 
-      interactor.should_receive(:command).with(:create_conversation, fact_id, usernames).and_return(conversation)
-      interactor.should_receive(:command).with(:create_message, sender_id, content, conversation).and_raise('some_error')
+      interactor.should_receive(:old_command).with(:create_conversation, fact_id, usernames).and_return(conversation)
+      interactor.should_receive(:old_command).with(:create_message, sender_id, content, conversation).and_raise('some_error')
       conversation.should_receive(:delete)
 
       expect{interactor.call}.to raise_error('some_error')

@@ -34,10 +34,10 @@ describe Interactors::Facts::Get do
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
 
-      Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
+      Pavlov.stub(:old_query).with(:'facts/get', fact.id, pavlov_options)
         .and_return(fact)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
       interactor = described_class.new fact.id, pavlov_options
@@ -50,7 +50,7 @@ describe Interactors::Facts::Get do
 
       pavlov_options = { ability: mock(can?: true)}
 
-      Pavlov.stub(:query).with(:'facts/get', fact.id, pavlov_options)
+      Pavlov.stub(:old_query).with(:'facts/get', fact.id, pavlov_options)
         .and_return(fact)
 
       interactor = described_class.new fact.id, pavlov_options

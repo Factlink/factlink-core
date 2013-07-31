@@ -21,11 +21,11 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
       dead_topic = mock
       pavlov_options = {current_user: mock}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'topics/by_slug_title', topic.slug_title, pavlov_options)
         .and_return(topic)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'topics/dead_topic_with_authority_and_facts_count_by_topic', topic, pavlov_options)
         .and_return(dead_topic)
 

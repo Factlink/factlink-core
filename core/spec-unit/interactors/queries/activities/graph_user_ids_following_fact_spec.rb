@@ -22,10 +22,10 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
       Comment.stub(:where)
              .with(fact_data_id: fact.data_id)
              .and_return(comments)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
               .with(:"activities/graph_user_ids_following_comments", comments)
               .and_return([4,5])
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
               .with(:"activities/graph_user_ids_following_fact_relations", fact.fact_relations)
               .and_return [3, 4]
 

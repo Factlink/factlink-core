@@ -20,11 +20,11 @@ describe Commands::Channels::Follow do
 
         command = Commands::Channels::Follow.new(channel, options)
 
-        command.should_receive(:query)
+        command.should_receive(:old_query)
                   .with(:'channels/get_by_slug_title', channel.slug_title)
                   .and_return(channel_2)
 
-        command.should_receive(:command)
+        command.should_receive(:old_command)
                   .with(:'channels/add_subchannel',
                         channel_2, channel)
                   .and_return(true)
@@ -40,15 +40,15 @@ describe Commands::Channels::Follow do
 
         command = Commands::Channels::Follow.new(channel, options)
 
-        command.should_receive(:query)
+        command.should_receive(:old_query)
                   .with(:'channels/get_by_slug_title', channel.slug_title)
                   .and_return(nil)
 
-        command.should_receive(:command)
+        command.should_receive(:old_command)
                   .with(:'channels/create', channel.title)
                   .and_return(new_channel)
 
-        command.should_receive(:command)
+        command.should_receive(:old_command)
                   .with(:'channels/add_subchannel',
                         new_channel, channel)
                   .and_return(true)
@@ -64,11 +64,11 @@ describe Commands::Channels::Follow do
 
         command = Commands::Channels::Follow.new(channel, options)
 
-        command.should_receive(:query)
+        command.should_receive(:old_query)
                   .with(:'channels/get_by_slug_title', channel.slug_title)
                   .and_return(channel_2)
 
-        command.should_receive(:command)
+        command.should_receive(:old_command)
                   .with(:'channels/add_subchannel',
                         channel_2, channel)
                   .and_return(false)

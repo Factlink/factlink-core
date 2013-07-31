@@ -18,13 +18,13 @@ module Interactors
       end
 
       def execute_actual_addition
-        command :'channels/add_fact_without_propagation', fact, channel, score
+        old_command :'channels/add_fact_without_propagation', fact, channel, score
       end
 
       def add_fact_to_topic
         return unless channel.type == 'channel'
 
-        command :"topics/add_fact", fact.id, channel.slug_title, score.to_s
+        old_command :"topics/add_fact", fact.id, channel.slug_title, score.to_s
       end
 
       def update_unread_facts

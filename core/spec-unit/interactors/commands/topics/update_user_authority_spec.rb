@@ -17,7 +17,7 @@ describe Commands::Topics::UpdateUserAuthority do
       GraphUser.stub(:[]).once.with(graph_user.id)
                .and_return(graph_user)
 
-      Pavlov.stub(:query).once
+      Pavlov.stub(:old_query).once
             .with(:'topics/by_slug_title', topic.slug_title)
             .and_return(topic)
     end

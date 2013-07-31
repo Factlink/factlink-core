@@ -3,7 +3,7 @@ module Acceptance
     include ::FactHelper
 
     def create_factlink(user)
-      FactoryGirl.create(:fact, created_by: user.graph_user)
+      create(:fact, created_by: user.graph_user)
     end
 
     def go_to_discussion_page_of factlink
@@ -40,6 +40,10 @@ module Acceptance
 
       #wait for animation
       sleep 0.3
+    end
+
+    def click_wheel_agree
+      click_wheel_part 0
     end
   end
 end

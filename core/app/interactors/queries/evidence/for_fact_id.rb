@@ -19,16 +19,16 @@ module Queries
       end
 
       def fact_relations
-        query :'fact_relations/for_fact', fact, type
+        old_query :'fact_relations/for_fact', fact, type
       end
 
       def comments
-        query :'comments/for_fact', fact, type
+        old_query :'comments/for_fact', fact, type
       end
 
       def sort result
         result.sort do |a,b|
-          OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
+          b.impact_opinion.authority <=> a.impact_opinion.authority
         end
       end
 

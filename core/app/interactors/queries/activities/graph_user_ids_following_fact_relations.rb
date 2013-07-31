@@ -36,7 +36,7 @@ module Queries
       end
 
       def sub_comments
-        query :'sub_comments/index', fact_relation_ids, 'FactRelation'
+        old_query :'sub_comments/index', fact_relation_ids, 'FactRelation'
       end
     end
   end

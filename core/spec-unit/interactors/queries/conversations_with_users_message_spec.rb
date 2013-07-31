@@ -23,16 +23,16 @@ describe Queries::ConversationsWithUsersMessage do
 
       query = described_class.new(user1.id.to_s, current_user: user1)
 
-      query.stub(:query)
+      query.stub(:old_query)
            .with(:conversations_list, user1.id.to_s)
            .and_return(conversations)
-      query.stub(:query)
+      query.stub(:old_query)
            .with(:last_message_for_conversation, conversations[0])
           .and_return(message15)
-      query.stub(:query)
+      query.stub(:old_query)
            .with(:users_by_ids, [user1.id, user2.id])
            .and_return([user1, user2])
-      query.stub(:query)
+      query.stub(:old_query)
            .with(:last_message_for_conversation, conversations[1])
            .and_return(message25)
 

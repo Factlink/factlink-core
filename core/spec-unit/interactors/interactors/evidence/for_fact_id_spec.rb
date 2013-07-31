@@ -48,7 +48,7 @@ describe Interactors::Evidence::ForFactId do
       options = {current_user: mock, ability: mock(can?: true)}
       interactor = Interactors::Evidence::ForFactId.new fact_id, type, options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
                 .with(:'evidence/for_fact_id', fact_id, type, options)
                 .and_return(fact)
 

@@ -25,7 +25,7 @@ class FactsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        dead_fact = query :'facts/get_dead', @fact.id
+        dead_fact = old_query :'facts/get_dead', @fact.id
         open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
         open_graph_formatter.add open_graph_fact
 
@@ -63,7 +63,7 @@ class FactsController < ApplicationController
     authenticate_user!
     authorize! :create, Fact
 
-    @fact = interactor :'facts/create', fact_text, url, title, sharing_options
+    @fact = old_interactor :'facts/create', fact_text, url, title, sharing_options
     @site = @fact.site
 
     respond_to do |format|
@@ -77,7 +77,7 @@ class FactsController < ApplicationController
         @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
 
-        command :'opinions/recalculate_fact_opinion', @fact
+        old_command :'opinions/recalculate_fact_opinion', @fact
       end
 
       add_to_channels @fact, params[:channels]
@@ -100,7 +100,7 @@ class FactsController < ApplicationController
 
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
-    command :'opinions/recalculate_fact_opinion', @fact
+    old_command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
@@ -110,13 +110,13 @@ class FactsController < ApplicationController
 
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
-    command :'opinions/recalculate_fact_opinion', @fact
+    old_command :'opinions/recalculate_fact_opinion', @fact
 
     render_factwheel(@fact.id)
   end
 
   def render_factwheel(fact_id)
-    dead_fact_wheel = query 'facts/get_dead_wheel', fact_id.to_s
+    dead_fact_wheel = old_query 'facts/get_dead_wheel', fact_id.to_s
     render 'facts/_fact_wheel', format: :json, locals: {dead_fact_wheel: dead_fact_wheel}
   end
 
@@ -128,7 +128,7 @@ class FactsController < ApplicationController
     authorize! :index, Fact
     search_for = params[:s]
 
-    @facts = (interactor :search_evidence, search_for, @fact.id).map do |fd|
+    @facts = (old_interactor :search_evidence, search_for, @fact.id).map do |fd|
         fd.fact
       end
 
@@ -136,7 +136,7 @@ class FactsController < ApplicationController
   end
 
   def recently_viewed
-    @facts = interactor :"facts/recently_viewed"
+    @facts = old_interactor :"facts/recently_viewed"
 
     render 'facts/index', formats: [:json]
   end
@@ -144,7 +144,7 @@ class FactsController < ApplicationController
   private
 
   def load_fact
-    @fact = interactor :'facts/get', fact_id || raise_404
+    @fact = old_interactor :'facts/get', fact_id || raise_404
   end
 
   def fact_id
@@ -169,7 +169,7 @@ class FactsController < ApplicationController
 
     channels = channel_ids.map{|id| Channel[id]}.compact
     channels.each do |channel|
-      interactor :"channels/add_fact", fact, channel
+      old_interactor :"channels/add_fact", fact, channel
     end
   end
 end

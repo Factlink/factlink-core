@@ -65,7 +65,7 @@ describe Interactors::SubComments::CreateForComment do
 
       interactor = Interactors::SubComments::CreateForComment.new comment.id, content, current_user: user, ability: ability
 
-      interactor.should_receive(:command).with(:"sub_comments/create_xxx", comment.id, 'Comment', content, user).
+      interactor.should_receive(:old_command).with(:"sub_comments/create_xxx", comment.id, 'Comment', content, user).
         and_return(sub_comment)
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
         and_return(authority)
@@ -142,7 +142,7 @@ describe Interactors::SubComments::CreateForComment do
       interactor = Interactors::SubComments::CreateForComment.new comment_id, 'hoi', current_user: user, ability: ability
 
       interactor.should_receive(:top_fact).and_return(fact)
-      interactor.should_receive(:query).with(:authority_on_fact_for, fact, graph_user).
+      interactor.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user).
         and_return(authority)
 
       result = interactor.authority_of_user_who_created sub_comment

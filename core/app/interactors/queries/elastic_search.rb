@@ -89,7 +89,7 @@ module Queries
       if type == 'factdata'
         return FactData.find(id)
       elsif type == 'topic'
-        return query :'topics/by_id_with_authority_and_facts_count', id
+        return old_query :'topics/by_id_with_authority_and_facts_count', id
       elsif type == 'user'
         mongoid_user = User.find(id)
 

@@ -13,7 +13,7 @@ describe Interactors::Topics::Facts do
 
       pavlov_options = {current_user: mock}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'topics/facts', slug_title, count, max_timestamp, pavlov_options)
         .and_return(results)
 
