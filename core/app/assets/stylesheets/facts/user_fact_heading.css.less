@@ -11,9 +11,10 @@
 .user-fact-heading-avatar-wrapper {
   position: relative;
   display: inline-block;
-  margin-right: 6px; //avatar is inline with text, wants space after it.
   vertical-align: top;
   padding:3px;
+  margin: -3px; //compensate for padding.
+  margin-right: 6px; //avatar is inline with text, wants space after it.
   background-color: white;
   border-radius: 4px;
 
@@ -33,7 +34,7 @@
   &:after {
     display: block;
     top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: 4px;
+    border-radius: inherit;
     content: '';
     position: absolute;
     z-index: -1;
