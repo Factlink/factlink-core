@@ -9,7 +9,7 @@ class Backbone.Factlink.Collection extends Backbone.Collection
   loading: -> @_loading
 
   waitForFetch: (callback) ->
-    if @_loading
+    if @loading()
       resetCallback = ->
         @off 'reset', resetCallback
 
@@ -21,7 +21,7 @@ class Backbone.Factlink.Collection extends Backbone.Collection
       callback.call(this, this)
 
   fetchOnce: (options={}) ->
-    if @_loading
+    if @loading()
       @waitForFetch options.success if options.success?
     else
       @fetch options
