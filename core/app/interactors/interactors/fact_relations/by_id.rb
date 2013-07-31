@@ -19,7 +19,11 @@ module Interactors
       end
 
       def execute
-        old_query :'fact_relations/by_id', fact_relation_id
+        fact_relations.first
+      end
+
+      def fact_relations
+        old_query :'fact_relations/by_ids', [fact_relation_id]
       end
     end
   end
