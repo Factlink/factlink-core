@@ -4,13 +4,6 @@ require_relative '../../../../app/interactors/commands/facts/add_to_recently_vie
 describe Commands::Facts::AddToRecentlyViewed do
   include PavlovSupport
 
-  describe '.new' do
-    it 'should initialize correctly' do
-      command = Commands::Facts::AddToRecentlyViewed.new 1, "2e"
-      expect(command).not_to be_nil
-    end
-  end
-
   describe 'validations' do
     it 'requires arguments' do
       expect_validating('a', '2e').

@@ -4,18 +4,6 @@ require_relative '../../../../app/interactors/interactors/users/followers'
 describe Interactors::Users::Followers do
   include PavlovSupport
 
-  describe '.new' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
-    it 'returns an object' do
-      interactor = described_class.new mock, mock, mock
-
-      expect(interactor).to_not be_nil
-    end
-  end
-
   describe '#authorized?' do
     before do
       described_class.any_instance.stub(validate: true)
