@@ -97,9 +97,10 @@ describe Commands::CreateMessage do
       conversation = stub(id: 1, recipient_ids: [15])
       sender = stub(id: 14)
 
-      pavlov_opptions = { current_user: sender }
+      pavlov_options = { current_user: sender }
       command = described_class.new(sender_id: sender.id.to_s,
-        content: content, conversation: conversation)
+        content: content, conversation: conversation, pavlov_options: pavlov_options)
+
       expect { command.call }.
         to raise_error(Pavlov::AccessDenied)
     end
