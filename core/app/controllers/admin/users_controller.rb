@@ -68,5 +68,6 @@ class Admin::UsersController < AdminController
 
   def set_available_user_features
     @user_features = Ability::FEATURES
+    @globally_enabled_features = (interactor :'global_features/all').to_set
   end
 end
