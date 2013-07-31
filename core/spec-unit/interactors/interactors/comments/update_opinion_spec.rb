@@ -6,18 +6,18 @@ describe Interactors::Comments::UpdateOpinion do
   include PavlovSupport
 
   it 'without current user gives an unauthorized exception' do
-    expect { described_class.new '1', 'believes'}.
-      to raise_error(Pavlov::AccessDenied, 'Unauthorized')
+    expect_validating( '1', 'believes' )
+      .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
-  it 'with a invalid comment_id doesn''t validate' do
-    expect { described_class.new 'g', 'believes'}.
-      to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
+  it 'with a invalid comment_id doesn\'t validate' do
+    expect_validating( 'g', 'believes' )
+      .to fail_validation 'comment_id should be an hexadecimal string.'
   end
 
-  it 'with a invalid opinion doesn''t validate' do
-    expect { described_class.new '1', 'dunno'}.
-      to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].')
+  it 'with a invalid opinion doesn\'t validate' do
+    expect_validating( '1', 'dunno')
+      .to fail_validation 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].'
   end
 
   describe '.call' do
@@ -30,11 +30,11 @@ describe Interactors::Comments::UpdateOpinion do
       user = mock(graph_user: mock)
       comment = mock(id: '123')
       pavlov_options = {current_user: user}
-      interactor = described_class.new comment.id, opinion, pavlov_options
+
+      interactor = described_class.new comment.id, opinion, current_user: user
 
       Pavlov.stub(:old_query)
         .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
-
       Pavlov.should_receive(:old_command)
         .with(:'comments/set_opinion', comment.id, opinion, user.graph_user, pavlov_options)
       Pavlov.should_receive(:old_command)
@@ -71,7 +71,6 @@ describe Interactors::Comments::UpdateOpinion do
 
       Pavlov.stub(:old_query)
         .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
-
       Pavlov.stub(:old_command)
         .with(:'comments/set_opinion', comment.id, opinion, user.graph_user, pavlov_options)
       Pavlov.stub(:old_command)
