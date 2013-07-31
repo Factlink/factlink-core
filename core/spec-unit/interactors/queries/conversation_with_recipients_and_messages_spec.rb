@@ -25,7 +25,7 @@ describe Queries::ConversationWithRecipientsAndMessages do
     query.should_receive(:old_query).with(:users_by_ids, recipient_ids).and_return(recipient_list)
 
 
-    new_conversation = mock()
+    new_conversation = double
     KillObject.should_receive(:conversation).with(conversation, messages: message_list, recipients: recipient_list).
                and_return(new_conversation)
     result = query.call
@@ -35,7 +35,7 @@ describe Queries::ConversationWithRecipientsAndMessages do
 
   it "returns nil if the conversation is not found" do
     options = {current_user: mock()}
-    nonexistingid = mock()
+    nonexistingid = double
     query = Queries::ConversationWithRecipientsAndMessages.new(nonexistingid, options)
 
     query.should_receive(:old_query).with(:conversation_get, nonexistingid).and_return(nil)

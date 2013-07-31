@@ -20,7 +20,7 @@ describe Queries::MessagesForConversation do
 
   describe '.call' do
     it 'retrieves dead representations of the messages belonging to the conversation' do
-      user = mock()
+      user = double
       user.stub(id:11)
 
       conversation = stub id: 10, recipient_ids: [11]

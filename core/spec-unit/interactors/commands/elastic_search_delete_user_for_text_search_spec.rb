@@ -5,7 +5,7 @@ describe Commands::ElasticSearchDeleteUserForTextSearch do
   include PavlovSupport
 
   let(:user) do
-    user = stub()
+    user = double
     user.stub id: 1
     user
   end
@@ -29,7 +29,7 @@ describe Commands::ElasticSearchDeleteUserForTextSearch do
   describe '.call' do
     it 'correctly' do
       url = 'localhost:9200'
-      config = mock()
+      config = double
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
 

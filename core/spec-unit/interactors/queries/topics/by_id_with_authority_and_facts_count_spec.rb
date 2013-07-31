@@ -6,7 +6,7 @@ describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      id = mock
+      id = double
 
       described_class.any_instance.should_receive(:validate_hexadecimal_string)
         .with(:id, id)
@@ -21,7 +21,7 @@ describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
 
       id = '1a'
       topic = mock(slug_title: mock, title: mock)
-      dead_topic = mock
+      dead_topic = double
       pavlov_options = {current_user: mock}
 
 

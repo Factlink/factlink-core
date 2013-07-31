@@ -10,8 +10,8 @@ describe Commands::Opinions::RecalculateCommentUserOpinion do
     end
 
     it 'calls calculate_comment_when_user_opinion_changed' do
-      comment = mock
-      fact_graph = mock
+      comment = double
+      fact_graph = double
 
       FactGraph.stub new: fact_graph
 
@@ -25,7 +25,7 @@ describe Commands::Opinions::RecalculateCommentUserOpinion do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      comment = mock
+      comment = double
 
       described_class.any_instance.should_receive(:validate_not_nil)
                                   .with(:comment, comment)

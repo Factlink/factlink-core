@@ -28,13 +28,13 @@ describe Commands::Site::AddTopTopic do
     it '.key returns the correct redis key' do
       site_id = 6
       topic_slug = '12ab34cd'
-      redis_helper = mock
+      redis_helper = double
 
       command = Commands::Site::AddTopTopic.new site_id, topic_slug
       command.should_receive(:redis).and_return( redis_helper )
 
-      key = mock
-      sub_key = mock
+      key = double
+      sub_key = double
 
       redis_helper.should_receive(:[]).with(site_id).and_return(sub_key)
       sub_key.should_receive(:[]).with(:top_topics).and_return(key)
@@ -48,7 +48,7 @@ describe Commands::Site::AddTopTopic do
 
       command = Commands::Site::AddTopTopic.new site_id, topic_slug
 
-      key_mock = mock()
+      key_mock = double
       key_mock.should_receive(:zincrby).with(1, topic_slug)
       command.stub key: key_mock
 

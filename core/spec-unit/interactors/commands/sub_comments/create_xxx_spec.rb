@@ -44,7 +44,7 @@ describe Commands::SubComments::CreateXxx do
     it 'correctly' do
       parent_id = 1
       content = 'message'
-      user = mock
+      user = double
       parent_class = 'FactRelation'
 
       command = Commands::SubComments::CreateXxx.new parent_id, parent_class, content, user, current_user: user

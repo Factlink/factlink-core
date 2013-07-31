@@ -5,7 +5,7 @@ describe Interactors::Comments::Create do
   include PavlovSupport
 
   it 'initializes correctly' do
-    user = mock()
+    user = double
     interactor = described_class.new 1, 'believes', 'Hoi!', current_user: user
     interactor.should_not be_nil
   end
@@ -40,9 +40,9 @@ describe Interactors::Comments::Create do
       type = 'believes'
       content = 'content'
       user = mock(id: '1a', graph_user: mock)
-      opinion = mock
+      opinion = double
       comment = mock(:comment, id: mock(to_s: '10a'), fact_data: mock(fact: fact))
-      mongoid_comment = mock
+      mongoid_comment = double
       pavlov_options = {current_user: user}
       interactor = described_class.new fact.fact_id, type, content, pavlov_options
 

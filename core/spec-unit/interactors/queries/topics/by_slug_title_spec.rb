@@ -16,7 +16,7 @@ describe Queries::Topics::BySlugTitle do
       stub_classes 'Topic'
 
       slug_title = 'foo'
-      topic = stub
+      topic = double
 
       Topic.should_receive(:by_slug).with(slug_title).and_return(topic)
 

@@ -29,8 +29,8 @@ describe Queries::Sites::ForUrl do
       url = 'http://jsdares.com'
       query = Queries::Sites::ForUrl.new url
 
-      site = mock
-      dead_site = mock
+      site = double
+      dead_site = double
 
       Site.should_receive(:find).with(url: url).and_return([site])
 

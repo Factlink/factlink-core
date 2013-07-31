@@ -23,7 +23,7 @@ describe Queries::Evidence::CountForFact do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      fact = mock
+      fact = double
 
       described_class.any_instance.should_receive(:validate_not_nil)
         .with(:fact, fact)

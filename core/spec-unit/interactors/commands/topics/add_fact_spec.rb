@@ -12,8 +12,8 @@ describe Commands::Topics::AddFact do
     it 'correctly' do
       fact_id = "1"
       command = described_class.new fact_id, '1e', ''
-      key = mock
-      score = mock
+      key = double
+      score = double
 
       command.should_receive(:redis_key).and_return(key)
       command.should_receive(:score).and_return(score)
@@ -31,9 +31,9 @@ describe Commands::Topics::AddFact do
     it 'calls nest correcly' do
       topic_slug_title = '2a'
       score = Time.now
-      nest_instance = mock
-      key = mock
-      final_key = mock
+      nest_instance = double
+      key = double
+      final_key = double
       command = described_class.new "1", topic_slug_title, score.to_s
 
       Topic.should_receive(:redis).and_return(nest_instance)
@@ -51,7 +51,7 @@ describe Commands::Topics::AddFact do
 
     it 'calls timestamped_set.current_time with score' do
       score = '123'
-      current_time = mock
+      current_time = double
 
       command = described_class.new "1", "slug", score
 
@@ -62,7 +62,7 @@ describe Commands::Topics::AddFact do
 
     it 'calls timestamped_set.current_time with nil if score is an empty string' do
       score = ''
-      current_time = mock
+      current_time = double
 
       command = described_class.new "1", "slug", score
 

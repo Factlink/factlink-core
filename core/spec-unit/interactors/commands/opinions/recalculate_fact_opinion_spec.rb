@@ -10,9 +10,9 @@ describe Commands::Opinions::RecalculateFactOpinion do
     end
 
     it 'calls fact.calculate_opinion(1)' do
-      opinion = mock
-      fact = mock
-      fact_graph = mock
+      opinion = double
+      fact = double
+      fact_graph = double
       command = described_class.new fact
 
       FactGraph.stub new: fact_graph
@@ -26,7 +26,7 @@ describe Commands::Opinions::RecalculateFactOpinion do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      fact = mock
+      fact = double
 
       described_class.any_instance.should_receive(:validate_not_nil)
                                   .with(:fact, fact)

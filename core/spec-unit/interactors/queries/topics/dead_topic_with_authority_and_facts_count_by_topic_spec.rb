@@ -6,7 +6,7 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      topic = mock
+      topic = double
 
       described_class.any_instance.should_receive(:validate_not_nil)
         .with(:alive_topic, topic)
@@ -20,10 +20,10 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
       stub_classes 'DeadTopic'
 
       topic = mock(slug_title: mock, title: mock)
-      facts_count = mock
-      current_user_authority = mock
+      facts_count = double
+      current_user_authority = double
       current_user = mock(graph_user: mock)
-      dead_topic = mock
+      dead_topic = double
       pavlov_options = {current_user: current_user}
 
       Pavlov.stub(:old_query)

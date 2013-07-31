@@ -30,10 +30,10 @@ describe Queries::ConversationGet do
       fact_data = FactData.new
       recipient_ids = [10,13]
       fact_data.stub(id: 124, fact_id: 3445)
-      mock_conversation = mock()
+      mock_conversation = double
       mock_conversation.stub id: id, fact_data_id: fact_data.id, fact_data: fact_data, recipient_ids: recipient_ids
 
-      user = mock()
+      user = double
       user.stub(id: 13)
 
       Conversation.should_receive(:find).with(id).and_return(mock_conversation)

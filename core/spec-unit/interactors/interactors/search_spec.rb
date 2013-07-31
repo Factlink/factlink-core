@@ -40,7 +40,7 @@ describe Interactors::Search do
       interactor = Interactors::Search.new keywords, 1, 20, ability: relaxed_ability
       results = ['a','b','c']
 
-      query = mock()
+      query = double
       Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
@@ -55,7 +55,7 @@ describe Interactors::Search do
       interactor = Interactors::Search.new keywords, 1, 20, ability: relaxed_ability
       fact_data = FactData.new
       results =  [fact_data]
-      query = mock()
+      query = double
       Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
@@ -73,7 +73,7 @@ describe Interactors::Search do
       user.stub hidden: true
       results = [user]
 
-      query = mock()
+      query = double
       Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)

@@ -27,10 +27,10 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'throws when cannot show favourites' do
-      user = stub
-      current_user = stub
+      user = double
+      current_user = double
 
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:show_favourites, user).and_return(false)
 
       pavlov_options = { current_user: current_user, ability: ability }
@@ -44,10 +44,10 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'does not throw if current_user is set and favourites can be shown' do
-      user = stub
-      current_user = stub
+      user = double
+      current_user = double
 
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:show_favourites, user).and_return(true)
 
       pavlov_options = { current_user: current_user, ability: ability }
@@ -66,7 +66,7 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'calls the correct validation methods' do
-      user_name = mock
+      user_name = double
 
       described_class.any_instance.should_receive(:validate_nonempty_string).
         with(:user_name, user_name)
@@ -81,8 +81,8 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'it calls the query to get an alphabetically list of followed users' do
-      user_name = mock
-      current_user = mock
+      user_name = double
+      current_user = double
       interactor = described_class.new user_name, current_user: current_user
 
       user = mock(graph_user_id: mock)

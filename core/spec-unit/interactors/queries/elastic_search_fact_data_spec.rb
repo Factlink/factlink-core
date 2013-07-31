@@ -21,7 +21,7 @@ describe Queries::ElasticSearchFactData do
 
   describe '.call' do
     it 'executes correctly with return value of FactData class' do
-      config = mock()
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
@@ -29,11 +29,11 @@ describe Queries::ElasticSearchFactData do
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(evidence*+OR+evidence)'
       interactor = Queries::ElasticSearchFactData.new keywords, 1, 20
 
-      hit = mock()
+      hit = double
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('factdata')
 
-      results = mock()
+      results = double
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       results.stub code: 200
 
@@ -41,7 +41,7 @@ describe Queries::ElasticSearchFactData do
         with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
-      return_object = mock()
+      return_object = double
 
       FactData.should_receive(:find).with(1).and_return(return_object)
 
@@ -49,18 +49,18 @@ describe Queries::ElasticSearchFactData do
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
-      config = mock()
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for this channel'
-      results = mock()
+      results = double
       error_response = 'error has happened server side'
       results.stub response: error_response
       results.stub code: 501
       HTTParty.should_receive(:get).
         and_return(results)
-      logger = mock()
+      logger = double
       error_message = "Server error, status code: 501, response: '#{error_response}'."
       logger.should_receive(:error).with(error_message)
       query = Queries::ElasticSearchFactData.new keywords, 1, 20, logger: logger
@@ -69,7 +69,7 @@ describe Queries::ElasticSearchFactData do
     end
 
     it 'url encodes keywords' do
-      config = mock()
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
@@ -77,11 +77,11 @@ describe Queries::ElasticSearchFactData do
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       interactor = Queries::ElasticSearchFactData.new keywords, 1, 20
 
-      hit = mock()
+      hit = double
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('factdata')
 
-      results = mock()
+      results = double
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       results.stub code: 200
 
@@ -89,7 +89,7 @@ describe Queries::ElasticSearchFactData do
         with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
-      return_object = mock()
+      return_object = double
 
       FactData.should_receive(:find).with(1).and_return(return_object)
 

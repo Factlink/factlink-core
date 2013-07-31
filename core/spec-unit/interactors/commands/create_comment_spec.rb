@@ -47,9 +47,9 @@ describe Commands::CreateComment do
       user_id = '1a'
       command = Commands::CreateComment.new fact_id, type, content, user_id
       comment = mock(:comment, id: 10)
-      fact = mock
+      fact = double
       fact_data = mock fact: fact
-      user = mock
+      user = double
       command.stub fact_data: fact_data
 
       comment.should_receive(:fact_data=).with(fact_data)
@@ -77,7 +77,7 @@ describe Commands::CreateComment do
       content = 'message'
       user_id = '1a'
       command = Commands::CreateComment.new fact_id, type, content, user_id
-      fact_data = mock
+      fact_data = double
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
       FactData.should_receive(:find).with(fact_data_id).and_return(fact_data)

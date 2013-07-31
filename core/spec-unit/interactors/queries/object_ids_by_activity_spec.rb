@@ -10,10 +10,10 @@ describe Queries::ObjectIdsByActivity do
 
   describe '.call' do
     it 'retrieves the specified ids' do
-      activity = mock
-      class_name = mock
-      list = mock
-      listener = mock
+      activity = double
+      class_name = double
+      list = double
+      listener = double
       ids = [mock(:id)]
 
       interactor = Queries::ObjectIdsByActivity.new activity, class_name, list
@@ -29,10 +29,10 @@ describe Queries::ObjectIdsByActivity do
 
   describe '.listeners' do
     it 'gets the listeners' do
-      class_name = mock
-      list = mock
-      listener = mock
-      listener_hash = mock
+      class_name = double
+      list = double
+      listener = double
+      listener_hash = double
 
       interactor = Queries::ObjectIdsByActivity.new mock(), class_name, list
 
