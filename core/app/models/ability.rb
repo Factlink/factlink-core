@@ -119,7 +119,7 @@ class Ability
 
       if user.admin?
         can :access, AdminArea
-        can :manage, FactlinkSystem
+        can :configure, FactlinkSystem
         can :manage, User
         can :approve, User
         cannot :sign_tos, User
