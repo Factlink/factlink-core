@@ -14,5 +14,15 @@
     </label>
 
   <% end %>
+  <% controller.dead_features.each do |feature| %>
+
+    <%# check_box_tag 'name', value, checked, options %>
+
+    <label>
+      <%= check_box_tag "features[#{feature}]", "1", true %>
+      <del><%= h feature %></del>
+    </label>
+
+  <% end %>
   <%= submit_tag 'Save', class: 'btn' %>
 <% end %>

@@ -12,4 +12,7 @@ class Admin::GlobalFeatureTogglesController < AdminController
     render :show
   end
 
+  def dead_features
+    @enabled_features.select {|f| !Ability::FEATURES.include? f }
+  end
 end
