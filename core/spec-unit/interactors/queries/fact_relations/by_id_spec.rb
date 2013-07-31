@@ -10,8 +10,8 @@ describe Queries::FactRelations::ById do
 
   describe '.validate' do
     it 'requires fact_relation_id to be an integer' do
-      expect_validating(nil).
-        to fail_validation('fact_relation_id should be an integer string.')
+      expect_validating(nil)
+        .to fail_validation('fact_relation_id should be an integer string.')
     end
   end
 

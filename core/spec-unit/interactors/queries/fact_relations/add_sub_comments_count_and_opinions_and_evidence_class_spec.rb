@@ -10,8 +10,8 @@ describe Queries::FactRelations::AddSubCommentsCountAndOpinionsAndEvidenceClass 
 
   describe '.validate' do
     it 'requires fact_relation not to be nil' do
-      expect_validating(nil).
-        to fail_validation('fact_relation should not be nil.')
+      expect_validating(nil)
+        .to fail_validation('fact_relation should not be nil.')
     end
   end
 
@@ -28,10 +28,10 @@ describe Queries::FactRelations::AddSubCommentsCountAndOpinionsAndEvidenceClass 
 
       query = described_class.new fact_relation, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'sub_comments/count', fact_relation.id, fact_relation.class, pavlov_options)
             .and_return(sub_comments_count)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'opinions/impact_opinion_for_fact_relation', fact_relation, pavlov_options)
             .and_return(impact_opinion)
 
@@ -58,10 +58,10 @@ describe Queries::FactRelations::AddSubCommentsCountAndOpinionsAndEvidenceClass 
 
       query = described_class.new fact_relation
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'sub_comments/count', fact_relation.id, fact_relation.class)
             .and_return(sub_comments_count)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'opinions/impact_opinion_for_fact_relation', fact_relation)
             .and_return(impact_opinion)
 

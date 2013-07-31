@@ -18,14 +18,14 @@ describe Interactors::FactRelations::ById do
   describe '#authorized?' do
     it 'should check if the fact relation can be shown' do
       ability = double
-      options = { ability: ability }
+      pavlov_options = { ability: ability }
 
       ability.stub(:can?)
              .with(:show, FactRelation)
              .and_return(false)
 
       expect do
-        interactor = described_class.new '1', options
+        interactor = described_class.new '1', pavlov_options
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
@@ -34,11 +34,11 @@ describe Interactors::FactRelations::ById do
     it 'correctly' do
       fact_relation_id = '1'
       fact_relation = double
-      options = {current_user: double, ability: double(can?: true)}
-      interactor = described_class.new fact_relation_id, options
+      pavlov_options = {current_user: double, ability: double(can?: true)}
+      interactor = described_class.new fact_relation_id, pavlov_options
 
-      Pavlov.stub(:query)
-            .with(:'fact_relations/by_id', fact_relation_id, options)
+      Pavlov.stub(:old_query)
+            .with(:'fact_relations/by_id', fact_relation_id, pavlov_options)
             .and_return(fact_relation)
 
       expect(interactor.call).to eq fact_relation
