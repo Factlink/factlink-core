@@ -1,7 +1,6 @@
 class Ability
   class AdminArea;end
   class FactlinkWebapp;end
-  class FactlinkSystem;end
 
 
   include CanCan::Ability
@@ -119,7 +118,7 @@ class Ability
 
       if user.admin?
         can :access, AdminArea
-        can :configure, FactlinkSystem
+        can :configure, FactlinkWebapp
         can :manage, User
         can :approve, User
         cannot :sign_tos, User
