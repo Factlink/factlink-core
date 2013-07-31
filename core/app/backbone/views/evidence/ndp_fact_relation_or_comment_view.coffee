@@ -1,4 +1,4 @@
-class NDPCommentView extends Backbone.Marionette.Layout
+class NDPCommentView extends Backbone.Marionette.ItemView
   template:
     text: """
       {{content}}
