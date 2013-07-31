@@ -11,7 +11,7 @@ describe 'setting up an account' do
   end
 
   def create_approved_user username, email
-    # method, since there is no interactor yet to do this
+    # method, since there is no old_interactor yet to do this
     user = User.new
     user.username = username
     user.email = email
@@ -33,7 +33,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        pavlov.interactor :'accounts/setup_approved',
+        pavlov.old_interactor :'accounts/setup_approved',
             user.reset_password_token, attributes
       end
 
@@ -58,7 +58,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.old_interactor :'accounts/setup_approved',
             attributes[:reset_password_token], attributes
       end
 
@@ -79,7 +79,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.old_interactor :'accounts/setup_approved',
             user.reset_password_token, attributes
       end
 
@@ -100,7 +100,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.old_interactor :'accounts/setup_approved',
             user.reset_password_token, attributes
       end
 
