@@ -11,8 +11,8 @@ describe Commands::Users::AddHandpickedUser do
     end
 
     it 'calls a HandpickedTourUsers.add to add user' do
-      user_id = mock
-      handpicked_tour_users = mock
+      user_id = double
+      handpicked_tour_users = double
 
       HandpickedTourUsers.stub(:new)
                         .and_return(handpicked_tour_users)
@@ -28,7 +28,7 @@ describe Commands::Users::AddHandpickedUser do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      user_id = mock
+      user_id = double
 
       described_class.any_instance.should_receive(:validate_hexadecimal_string)
                                   .with(:user_id, user_id)

@@ -32,7 +32,7 @@ describe UserFavouritedTopics do
 
   describe '.favourited?' do
     it 'calls relation.remove' do
-      boolean = mock
+      boolean = double
 
       relation.should_receive(:has?).with(graph_user_id, topic_id).and_return(boolean)
       result = user_favourited_topics.favourited? topic_id

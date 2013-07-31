@@ -36,12 +36,12 @@ describe Interactors::SearchChannel do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       keywords = 'searching for this channel'
       interactor = Interactors::SearchChannel.new keywords, ability: relaxed_ability
-      topic = mock()
-      query = mock()
+      topic = double
+      query = double
       query.should_receive(:call).
         and_return([topic])
       Queries::ElasticSearchChannel.should_receive(:new).

@@ -11,10 +11,10 @@ describe Interactors::Topics::Get do
     end
 
     it 'throws when cannot show' do
-      topic = stub
-      current_user = stub
+      topic = double
+      current_user = double
 
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:show, topic).and_return(false)
 
       pavlov_options = { current_user: current_user, ability: ability }
@@ -37,7 +37,7 @@ describe Interactors::Topics::Get do
 
   describe 'topic' do
     it 'returns the topic from the query' do
-      topic = stub
+      topic = double
 
       described_class.any_instance.stub(:authorized?).and_return(true)
 
@@ -55,10 +55,10 @@ describe Interactors::Topics::Get do
 
   describe 'authority' do
     it 'returns the authority from the query' do
-      topic = stub
-      graph_user = stub
+      topic = double
+      graph_user = double
       user = stub(graph_user: graph_user)
-      authority = stub
+      authority = double
 
       described_class.any_instance.stub(:authorized?).and_return(true)
 
@@ -80,9 +80,9 @@ describe Interactors::Topics::Get do
 
   describe 'execute' do
     it 'should return a dead object' do
-      topic = stub
-      authority = stub
-      dead_topic = stub
+      topic = double
+      authority = double
+      dead_topic = double
 
       described_class.any_instance.stub(:authorized?).and_return(true)
 

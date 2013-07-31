@@ -13,7 +13,7 @@ describe Queries::UsersByGraphUserIds do
       to raise_error(RuntimeError, 'id should be a positive integer.')
   end
 
-  describe ".call" do
+  describe '#call' do
     it "should work with an empty list of ids" do
       query = Queries::UsersByGraphUserIds.new([])
 
@@ -33,7 +33,7 @@ describe Queries::UsersByGraphUserIds do
       gu_ids = graph_users.map(&:id)
       user_ids = graph_users.map(&:user_id)
 
-      users = mock()
+      users = double
 
       graph_users.each do |graph_user|
         GraphUser.should_receive(:[])

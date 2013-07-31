@@ -4,7 +4,7 @@ require 'pavlov_helper'
 describe Queries::Channels::GetBySlugTitle do
   include PavlovSupport
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes('Channel')
     end

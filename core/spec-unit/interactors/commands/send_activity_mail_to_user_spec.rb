@@ -8,11 +8,11 @@ describe Commands::SendActivityMailToUser do
     stub_classes 'ActivityMailer'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'creates a mailer' do
-      user_id = mock
-      activity_id = mock
-      mailer = mock
+      user_id = double
+      activity_id = double
+      mailer = double
 
       command = described_class.new user_id, activity_id
 

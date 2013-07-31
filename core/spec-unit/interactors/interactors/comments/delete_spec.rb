@@ -5,13 +5,13 @@ describe Interactors::Comments::Delete do
   include PavlovSupport
 
   it 'initializes correctly' do
-    user = mock()
+    user = double
     interactor = Interactors::Comments::Delete.new '1', current_user: user
     interactor.should_not be_nil
   end
 
   it 'when supplied invalid comment_id doesn''t validate' do
-    user = mock()
+    user = double
     expect { Interactors::Comments::Delete.new 'g6', current_user: user }.
       to raise_error( Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
   end
@@ -21,7 +21,7 @@ describe Interactors::Comments::Delete do
       to raise_error( Pavlov::AccessDenied, 'Unauthorized')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       comment_id = 'a12f'
       user = mock(id: 1)

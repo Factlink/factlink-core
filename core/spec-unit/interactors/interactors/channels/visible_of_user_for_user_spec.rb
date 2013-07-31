@@ -6,13 +6,13 @@ describe Interactors::Channels::VisibleOfUserForUser do
   before do
     stub_classes 'Channel'
   end
-  describe '.call' do
+  describe '#call' do
     it do
-      user = mock
-      ch1 = mock
-      ch2 = mock
-      topic_authority = mock
-      containing_channels = mock
+      user = double
+      ch1 = double
+      ch2 = double
+      topic_authority = double
+      containing_channels = double
 
       Interactors::Channels::VisibleOfUserForUser.any_instance.stub(authorized?: true)
       query = Interactors::Channels::VisibleOfUserForUser.new user
@@ -52,7 +52,7 @@ describe Interactors::Channels::VisibleOfUserForUser do
 
   describe ".authorized?" do
     it "initiating raises when the currently ability doesn't enable indexing channels" do
-      ability = mock
+      ability = double
       ability.should_receive(:can?).with(:index, Channel).and_return(false)
       expect do
         interactor = Interactors::Channels::VisibleOfUserForUser.new mock, ability: ability
@@ -60,7 +60,7 @@ describe Interactors::Channels::VisibleOfUserForUser do
     end
 
     it "does not raise when initiating when the ability is enabled" do
-      ability = mock
+      ability = double
       ability.should_receive(:can?).with(:index, Channel).and_return(true)
       expect do
         interactor = Interactors::Channels::VisibleOfUserForUser.new mock, ability: ability

@@ -40,7 +40,7 @@ describe UserFollowingUsers do
 
   describe '.follows?' do
     it 'calls relation.remove' do
-      boolean = mock
+      boolean = double
 
       relation.should_receive(:has?).with(graph_user_id, other_id).and_return(boolean)
       result = user_following_users.follows? other_id

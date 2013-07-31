@@ -14,12 +14,12 @@ describe Queries::Topics::Facts do
       count = 10
       max_timestamp = 100
       query = described_class.new slug_title, count, max_timestamp
-      fact_id = mock
+      fact_id = double
       results = [{item: fact_id, score:1}]
-      key = mock
+      key = double
       redis_opts = {withscores:true, limit:[0,count]}
-      interleaved_results = mock
-      fact = mock
+      interleaved_results = double
+      fact = double
 
       query.should_receive(:setup_defaults)
       query.should_receive(:redis_key).and_return(key)
@@ -50,9 +50,9 @@ describe Queries::Topics::Facts do
     it 'calls nest correcly' do
       slug_title = 'slug-title'
       command = described_class.new slug_title, 100, 123
-      nest = mock
-      key = mock
-      final_key = mock
+      nest = double
+      key = double
+      final_key = double
 
       Topic.should_receive(:redis).and_return(nest)
       nest.should_receive(:[]).with(slug_title).and_return(key)

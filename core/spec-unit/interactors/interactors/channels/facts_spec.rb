@@ -41,7 +41,7 @@ describe Interactors::Channels::Facts do
       to raise_error Pavlov::AccessDenied, "Unauthorized"
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'Fact', 'Resque', 'CleanChannel'
     end
@@ -51,7 +51,7 @@ describe Interactors::Channels::Facts do
       user = mock id: '1e'
       from = 2
       count = 3
-      fact = mock
+      fact = double
       result = [{item: fact}]
       evidence_count = 10
 
@@ -71,7 +71,7 @@ describe Interactors::Channels::Facts do
       user = mock id: '1e'
       from = 2
       count = 3
-      fact = mock
+      fact = double
       result = [{item: fact}]
 
       pavlov_options = {current_user: user}

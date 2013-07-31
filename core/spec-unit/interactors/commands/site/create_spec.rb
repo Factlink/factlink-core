@@ -11,7 +11,7 @@ describe Commands::Sites::Create do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'Site'
     end
@@ -19,7 +19,7 @@ describe Commands::Sites::Create do
     it 'creates a site and returns it' do
       url = 'http://jsdares.com'
       command = Commands::Sites::Create.new url
-      site = mock
+      site = double
 
       Site.should_receive(:create).with(url: url).and_return(site)
 

@@ -2,19 +2,19 @@ class UserObserver < Mongoid::Observer
   include Pavlov::Helpers
 
   def after_create user
-    command :elastic_search_index_user_for_text_search, user
+    old_command :elastic_search_index_user_for_text_search, user
   end
 
   def after_update user
     UserObserverTask.handle_changes user
 
     if user.changed? and not (user.changed & ['username']).empty?
-      command :elastic_search_index_user_for_text_search, user
+      old_command :elastic_search_index_user_for_text_search, user
     end
   end
 
   def after_destroy user
-    command :elastic_search_delete_user_for_text_search, user
+    old_command :elastic_search_delete_user_for_text_search, user
   end
 
 end

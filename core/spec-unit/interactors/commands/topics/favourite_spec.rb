@@ -11,9 +11,9 @@ describe Commands::Topics::Favourite do
     end
 
     it 'calls UserFavouritedTopics.favourite to favourite the topic' do
-      graph_user_id = mock
-      topic_id = mock
-      users_favourited_topics = mock
+      graph_user_id = double
+      topic_id = double
+      users_favourited_topics = double
 
       UserFavouritedTopics.stub(:new)
                         .with(graph_user_id)
@@ -30,8 +30,8 @@ describe Commands::Topics::Favourite do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      graph_user_id = mock
-      topic_id = mock
+      graph_user_id = double
+      topic_id = double
 
       described_class.any_instance.should_receive(:validate_integer_string)
                                   .with(:graph_user_id, graph_user_id)

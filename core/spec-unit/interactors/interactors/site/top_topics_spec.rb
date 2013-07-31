@@ -16,7 +16,7 @@ describe Interactors::Site::TopTopics do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     before do
       stub_classes 'Site'
     end
@@ -25,7 +25,7 @@ describe Interactors::Site::TopTopics do
       url = 'http://factlink.com'
       nr = 3
       site = mock id: '10'
-      results = mock
+      results = double
 
       Site.should_receive(:find).with(url: url).and_return([site])
 

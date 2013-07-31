@@ -10,8 +10,8 @@ describe Commands::Opinions::RecalculateFactRelationUserOpinion do
     end
 
     it 'calls calculate_fact_relation_when_user_opinion_changed' do
-      fact_relation = mock
-      fact_graph = mock
+      fact_relation = double
+      fact_graph = double
 
       FactGraph.stub new: fact_graph
 
@@ -25,7 +25,7 @@ describe Commands::Opinions::RecalculateFactRelationUserOpinion do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      fact_relation = mock
+      fact_relation = double
 
       described_class.any_instance.should_receive(:validate_not_nil)
                                   .with(:fact_relation, fact_relation)

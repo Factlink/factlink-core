@@ -10,7 +10,7 @@ describe Interactors::Users::TourUsers do
 
   describe '#authorized?' do
     it 'check if User can be indexed' do
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:index, User).and_return(false)
 
       expect do

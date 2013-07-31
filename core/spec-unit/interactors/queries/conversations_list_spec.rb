@@ -15,7 +15,7 @@ describe Queries::ConversationsList do
     query.should_not be_nil
   end
 
-  describe '.call' do
+  describe '#call' do
     it "returns a list when the user has conversations" do
       fact_data1 = mock('fact_data', id: 100, fact_id: 124)
       fact_data2 = mock('fact_data', id: 101, fact_id: 125)
