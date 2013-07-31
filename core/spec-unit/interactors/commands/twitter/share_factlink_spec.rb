@@ -16,7 +16,7 @@ describe Commands::Twitter::ShareFactlink do
 
       Twitter.stub configuration: mock(short_url_length_https: 20)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:"facts/get_dead", fact.id)
         .and_return(fact)
 
@@ -24,7 +24,7 @@ describe Commands::Twitter::ShareFactlink do
              .with(fact)
              .and_return(fact_url)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:"twitter/post", "\u201c" + "displaystring" + "\u201d" + " sharing_url")
 
       interactor = described_class.new fact.id
@@ -38,7 +38,7 @@ describe Commands::Twitter::ShareFactlink do
 
       Twitter.stub configuration: mock(short_url_length_https: 140-10)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:"facts/get_dead", fact.id)
         .and_return(fact)
 
@@ -46,7 +46,7 @@ describe Commands::Twitter::ShareFactlink do
              .with(fact)
              .and_return(fact_url)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:"twitter/post", "\u201c" + "12345" + "\u2026" + "\u201d" + " sharing_url")
 
       interactor = described_class.new fact.id

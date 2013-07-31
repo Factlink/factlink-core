@@ -17,7 +17,7 @@ describe Queries::UsersByGraphUserIds do
     it "should work with an empty list of ids" do
       query = Queries::UsersByGraphUserIds.new([])
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:users_by_ids, [],)
             .and_return([])
 
@@ -43,7 +43,7 @@ describe Queries::UsersByGraphUserIds do
 
       query = Queries::UsersByGraphUserIds.new(gu_ids)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:users_by_ids, user_ids)
             .and_return(users)
 

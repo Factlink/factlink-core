@@ -19,7 +19,7 @@ describe Interactors::Topics::Get do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      described_class.any_instance.stub(:query).
+      described_class.any_instance.stub(:old_query).
         with(:'topics/by_slug_title', 'foo').
         and_return(topic)
 
@@ -43,7 +43,7 @@ describe Interactors::Topics::Get do
 
       interactor = described_class.new 'foo', {}
 
-      interactor.stub(:query).
+      interactor.stub(:old_query).
         with(:'topics/by_slug_title', 'foo').
         and_return(topic)
 
@@ -64,11 +64,11 @@ describe Interactors::Topics::Get do
 
       interactor = described_class.new 'foo', {current_user: user}
 
-      interactor.stub(:query).
+      interactor.stub(:old_query).
         with(:'topics/by_slug_title', 'foo').
         and_return(topic)
 
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:authority_on_topic_for, topic, graph_user).
         and_return(authority)
 

@@ -37,7 +37,7 @@ describe Interactors::SubComments::Destroy do
       SubComment.stub :find
 
       interactor = Interactors::SubComments::Destroy.new id, current_user: mock, ability: ability
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
                 .with(:'sub_comments/destroy', id)
       interactor.stub i_own_sub_comment: true
       interactor.call

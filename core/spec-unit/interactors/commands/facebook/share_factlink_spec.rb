@@ -30,7 +30,7 @@ describe Commands::Facebook::ShareFactlink do
                           .with(token)
                           .and_return(client)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'facts/get_dead', fact.id, pavlov_options)
             .and_return(fact)
 

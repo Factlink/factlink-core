@@ -48,7 +48,7 @@ describe Interactors::SubComments::IndexForFactRelation do
 
       interactor = described_class.new fact_relation_id, options
 
-      interactor.should_receive(:query).with(:"sub_comments/index", fact_relation_id, 'FactRelation').
+      interactor.should_receive(:old_query).with(:"sub_comments/index", fact_relation_id, 'FactRelation').
         and_return(sub_comments)
 
       interactor.should_receive(:authority_of_user_who_created).
@@ -134,7 +134,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       interactor = Interactors::SubComments::IndexForFactRelation.new fact_relation_id
 
       interactor.should_receive(:top_fact).and_return(fact)
-      interactor.should_receive(:query).with(:authority_on_fact_for, fact, graph_user).
+      interactor.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user).
         and_return authority
 
       result = interactor.authority_of_user_who_created sub_comment

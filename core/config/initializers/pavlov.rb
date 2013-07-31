@@ -21,14 +21,19 @@ module Pavlov
   end
 
   module Helpers
-    def old_interactor *args
-     interactor *args
+    def old_interactor name, *args
+      args = add_pavlov_options args
+      Pavlov.old_interactor name, *args
     end
-    def old_command *args
-     command *args
+
+    def old_query name, *args
+      args = add_pavlov_options args
+      Pavlov.old_query name, *args
     end
-    def old_query *args
-     query *args
+
+    def old_command name, *args
+      args = add_pavlov_options args
+      Pavlov.old_command name, *args
     end
   end
 end
