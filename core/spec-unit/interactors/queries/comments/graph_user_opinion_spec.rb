@@ -10,7 +10,7 @@ describe Queries::Comments::GraphUserOpinion do
   describe '#call' do
     it "retrieves the current opinion for the graphuser" do
       id = 'a1'
-      graph_user = mock
+      graph_user = double
       op1, op2 = mock, mock
 
       query = Queries::Comments::GraphUserOpinion.new id, graph_user
@@ -23,8 +23,8 @@ describe Queries::Comments::GraphUserOpinion do
   describe '.possible_opinions' do
     it "should use Opinion.types" do
       id = 'a1'
-      graph_user = mock
-      types = mock
+      graph_user = double
+      types = double
 
       query = Queries::Comments::GraphUserOpinion.new id, graph_user
 
@@ -37,13 +37,13 @@ describe Queries::Comments::GraphUserOpinion do
   describe '.has_opinion?' do
     it "should ask the people with this opinion if they include the graph_user" do
       id = 'a1'
-      graph_user = mock
+      graph_user = double
 
       query = Queries::Comments::GraphUserOpinion.new id, graph_user
 
-      opinion = mock
-      opiniated = mock
-      answer = mock
+      opinion = double
+      opiniated = double
+      answer = double
 
       query.should_receive(:people_who_believe).with(opinion)
            .and_return(opiniated)
@@ -57,10 +57,10 @@ describe Queries::Comments::GraphUserOpinion do
   describe '.people_who_believe' do
     it "should retrieve the people who believe something from believable" do
       id = 'a1'
-      graph_user = mock
-      believable = mock
-      opinion = mock
-      answer = mock
+      graph_user = double
+      believable = double
+      opinion = double
+      answer = double
 
       query = Queries::Comments::GraphUserOpinion.new id, graph_user
       query.stub believable: believable
@@ -75,9 +75,9 @@ describe Queries::Comments::GraphUserOpinion do
 
     it "retrieves a cached Believable object for the comment" do
       id = 'a1'
-      graph_user = mock
+      graph_user = double
       query = Queries::Comments::GraphUserOpinion.new id, graph_user
-      believable = mock
+      believable = double
 
       Believable::Commentje.should_receive(:new).once
          .with(id).and_return(believable)

@@ -34,7 +34,7 @@ describe Queries::Facts::Slug do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      fact = mock
+      fact = double
 
       described_class.any_instance.should_receive(:validate_not_nil)
         .with(:fact, fact)
@@ -43,7 +43,7 @@ describe Queries::Facts::Slug do
     end
 
     it 'checks max_slug_length if it is set' do
-      fact = mock
+      fact = double
       max_slug_length = 10
 
       described_class.any_instance.should_receive(:validate_integer)

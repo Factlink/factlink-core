@@ -10,11 +10,11 @@ describe Queries::Channels::ActivityCount do
     end
 
     it 'correctly' do
-      channel = mock
-      activities = mock
-      timestamp = mock
-      channel_id = mock
-      count = mock
+      channel = double
+      activities = double
+      timestamp = double
+      channel_id = double
+      count = double
       query = Queries::Channels::ActivityCount.new channel_id, timestamp
 
       Channel.should_receive(:[]).with(channel_id).and_return(channel)

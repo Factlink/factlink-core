@@ -29,9 +29,9 @@ describe Queries::UsersByIds do
     it "should work with multiple ids" do
       User.should_receive(:any_in).with(_id: [1, 2, 3]).and_return([mock_user1, mock_user2, mock_user3])
 
-      mash_user1 = mock
-      mash_user2 = mock
-      mash_user3 = mock
+      mash_user1 = double
+      mash_user2 = double
+      mash_user3 = double
       KillObject.stub(:user).with(mock_user1).and_return(mash_user1)
       KillObject.stub(:user).with(mock_user2).and_return(mash_user2)
       KillObject.stub(:user).with(mock_user3).and_return(mash_user3)

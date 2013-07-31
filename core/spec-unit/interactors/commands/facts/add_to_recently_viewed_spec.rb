@@ -24,7 +24,7 @@ describe Commands::Facts::AddToRecentlyViewed do
     it 'calls RecentlyViewedFacts.add_fact_id' do
       fact_id = 14
       user_id = '20e'
-      recently_viewed_facts = mock
+      recently_viewed_facts = double
 
       RecentlyViewedFacts.should_receive(:by_user_id).with(user_id).and_return(recently_viewed_facts)
 

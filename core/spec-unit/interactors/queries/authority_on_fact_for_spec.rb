@@ -18,7 +18,7 @@ describe Queries::AuthorityOnFactFor do
       fact = mock(:fact, id: 10)
       graph_user = mock(:graph_user, id: 20)
 
-      authority = mock
+      authority = double
       authority_string = '1.0'
 
       query = Queries::AuthorityOnFactFor.new fact, graph_user

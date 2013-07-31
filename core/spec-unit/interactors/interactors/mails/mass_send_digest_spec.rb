@@ -11,8 +11,8 @@ describe Interactors::Mails::MassSendDigest do
     end
 
     it 'calls the correct validation methods' do
-      fact_id = mock
-      url = mock
+      fact_id = double
+      url = double
 
       described_class.any_instance.should_receive(:validate_integer_string)
         .with(:fact_id, fact_id)
@@ -34,9 +34,9 @@ describe Interactors::Mails::MassSendDigest do
       fact  = mock(id: mock)
       user1 = mock(id: mock)
       user2 = mock(id: mock)
-      mail1 = mock
-      mail2 = mock
-      url   = mock
+      mail1 = double
+      mail2 = double
+      url   = double
 
       interactor = described_class.new fact.id, url
 

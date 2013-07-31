@@ -16,7 +16,7 @@ describe Commands::Twitter::Post do
       identities = {'twitter' => {'credentials' => {'token' => token, 'secret' => secret}}}
       user = mock(identities: identities)
 
-      client = mock
+      client = double
       Twitter::Client.stub(:new)
         .with(oauth_token: token, oauth_token_secret: secret)
         .and_return(client)

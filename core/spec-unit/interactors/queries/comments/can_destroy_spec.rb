@@ -29,12 +29,12 @@ describe Queries::Comments::CanDestroy do
       user = stub(id: '10a', graph_user_id: '20')
       comment_id = '1a'
       comment = stub(created_by: user, created_by_id: user.id)
-      believable = stub
+      believable = double
 
       query = Queries::Comments::CanDestroy.new comment_id, user.id, {}
       query.stub comment: comment, believable: believable
 
-      deletable = mock
+      deletable = double
       deletable.should_receive(:deletable?).and_return(true)
 
       EvidenceDeletable.should_receive(:new).with(comment, 'Comment', believable, user.graph_user_id)

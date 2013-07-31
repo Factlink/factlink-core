@@ -13,7 +13,7 @@ describe Queries::Comments::ForFact do
       comment = mock id: '2a', class: 'Comment'
 
       fact = mock data_id: '10'
-      dead_comment = mock
+      dead_comment = double
       sub_comments_count = 2
       pavlov_options = { current_user: mock }
       type = :supporting

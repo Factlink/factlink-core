@@ -10,7 +10,7 @@ describe Queries::Topics::ById do
     end
 
     it 'calls the correct validation methods' do
-      id = mock
+      id = double
 
       described_class.any_instance.should_receive(:validate_hexadecimal_string).
         with(:id, id)
@@ -27,9 +27,9 @@ describe Queries::Topics::ById do
     it 'returns the topic Topic.find' do
       stub_classes 'Topic', 'KillObject'
 
-      id = mock
-      topic = mock
-      dead_topic = mock
+      id = double
+      topic = double
+      dead_topic = double
 
       Topic.should_receive(:find).with(id).and_return(topic)
       KillObject.should_receive(:topic).with(topic).and_return(dead_topic)
