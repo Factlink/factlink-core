@@ -4,6 +4,7 @@ module Interactors
   module GlobalFeatures
     class Set
       include Pavlov::Interactor
+      include Util::CanCan
 
       arguments :features
 
@@ -12,7 +13,7 @@ module Interactors
       end
 
       def authorized?
-        true
+        can? :access, Ability::AdminArea
       end
 
       def validate
