@@ -21,10 +21,10 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
 class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
 
-  shouldShowOpinionaters: -> @model.has('impact') && @model.get('impact') > 0.0
+  shouldShow: -> @model.has('impact') && @model.get('impact') > 0.0
 
   onRender: ->
-    @$el.toggle @shouldShowOpinionaters()
+    @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
 
 
