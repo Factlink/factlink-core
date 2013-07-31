@@ -20,7 +20,7 @@ class AddHandpickedTourUsers < Mongoid::Migration
     ].each do |username|
       user = User.find username
       if user
-        Pavlov.command :"users/add_handpicked_user", user.id.to_s
+        Pavlov.old_command :"users/add_handpicked_user", user.id.to_s
       end
     end
   end
