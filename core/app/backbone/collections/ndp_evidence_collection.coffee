@@ -22,12 +22,15 @@ class OpinionatorsCollection extends Backbone.Factlink.Collection
 class window.NDPEvidenceCollection extends Backbone.Collection
 
   initialize: (models, options) ->
-    @on 'change', @sort, @
+    @on 'change sync', @sort, @
     @fact = options.fact
 
-    @_opinionatorsCollection = new OpinionatorsCollection(null, fact: @fact)
+    @_opinionatorsCollection = new OpinionatorsCollection null, fact: @fact
+    @_supportingCollection = new OneSidedEvidenceCollection null, fact: @fact, type: 'supporting'
+    @_weakeningCollection = new OneSidedEvidenceCollection null, fact: @fact, type: 'weakening'
+
     collectionUtils = new CollectionUtils
-    collectionUtils.union this, @_opinionatorsCollection
+    collectionUtils.union this, @_opinionatorsCollection, @_supportingCollection, @_weakeningCollection
 
     @loading = false
 
@@ -43,3 +46,5 @@ class window.NDPEvidenceCollection extends Backbone.Collection
       @trigger 'sync'
 
     @_opinionatorsCollection.fetch options
+    @_supportingCollection.fetch options
+    @_weakeningCollection.fetch options

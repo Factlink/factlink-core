@@ -14,8 +14,12 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
   onRender: ->
     @$el.toggle @shouldShow()
-    @contentRegion.show new InteractingUsersView model: @model
     @$el.addClass @typeCss()
+
+    if @model instanceof OpinionatersEvidence
+      @contentRegion.show new InteractingUsersView model: @model
+    else
+      @contentRegion.show new TextView model: new Backbone.Model text: @model.id
 
 class NDPEvidenceLoadingView extends Backbone.Marionette.ItemView
   className: "evidence-loading"
