@@ -5,14 +5,16 @@ class window.OpinionatersCollection extends Backbone.Factlink.Collection
     take: 7
 
   initialize: (models, options) ->
-    @fact = options.fact
+    @_fact_id = options.fact.id
 
-    @_wheel = @fact.getFactWheel()
-    @_wheel.on 'sync', =>
+    wheel = options.fact.getFactWheel()
+    wheel.on 'sync', =>
       @fetch()
 
+  fact_id: -> @_fact_id
+
   url: ->
-    "/facts/#{@fact.id}/interactors"
+    "/facts/#{@_fact_id}/interactors"
 
   fetch: (options={}) ->
     options = _.clone options
