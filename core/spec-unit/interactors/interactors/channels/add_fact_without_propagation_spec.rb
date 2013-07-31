@@ -39,6 +39,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
 
       interactor = described_class.new fact: fact, channel: channel, score: score,
         should_add_to_unread: false
+
       interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
 
@@ -63,8 +64,6 @@ describe Interactors::Channels::AddFactWithoutPropagation do
           fact, channel, score).and_return true
       Pavlov.should_receive(:old_command).with(:"topics/add_fact",
           fact.id, channel.slug_title, score.to_s)
-
-      interactor.stub!(:command)
 
       channel.unread_facts.should_receive(:add).with(fact)
 

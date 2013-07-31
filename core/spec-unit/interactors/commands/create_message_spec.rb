@@ -1,3 +1,4 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/create_message.rb'
 
 describe Commands::CreateMessage do

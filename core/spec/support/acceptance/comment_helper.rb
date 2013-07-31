@@ -16,11 +16,17 @@ module Acceptance
       end
 
       def posting_factlink?
-        find('button').has_content? 'Post Factlink'
+        within add_evidence_form_css_selector do
+          page.find('input').click
+          find('button').has_content? 'Post Factlink'
+        end
       end
 
       def posting_comment?
-        find('button').has_content? 'Post Comment'
+        within add_evidence_form_css_selector do
+          page.find('input').click
+          find('button').has_content? 'Post Comment'
+        end
       end
 
       def add_comment comment

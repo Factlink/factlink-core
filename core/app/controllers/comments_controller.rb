@@ -55,12 +55,6 @@ class CommentsController < ApplicationController
     id_string
   end
 
-  def sort_by_relevance comments
-    comments.sort do |a,b|
-      OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
-    end
-  end
-
   def type
     case params[:type]
     when 'supporting' then 'believes'

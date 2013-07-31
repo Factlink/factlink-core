@@ -27,8 +27,8 @@ describe Queries::Activities::GraphUserIdsFollowingFactRelations do
       query = described_class.new fact_relations: fact_relations
 
       Pavlov.stub(:old_query)
-        .with(:'sub_comments/index', fact_relations.map(&:id), 'FactRelation')
-        .and_return(sub_comments)
+            .with(:'sub_comments/index', fact_relations.map(&:id), 'FactRelation')
+            .and_return(sub_comments)
 
       expect(query.call).to eq [1, 2, 3, 4]
     end

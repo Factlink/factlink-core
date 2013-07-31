@@ -23,6 +23,7 @@ describe Interactors::Channels::AddSubchannel do
     it 'adds a subchannel to the channel' do
       interactor = described_class.new channel_id: channel.id,
         subchannel_id: subchannel.id, pavlov_options: pavlov_options
+
       interactor.should_receive(:old_command)
                 .with(:'channels/add_subchannel', channel, subchannel)
                 .and_return(true)
@@ -39,7 +40,7 @@ describe Interactors::Channels::AddSubchannel do
                 .with(:'channels/add_subchannel', channel, subchannel)
                 .and_return(false)
 
-      interactor.should_not_receive(:command)
+      interactor.should_not_receive(:old_command)
            .with(:'channels/added_subchannel_create_activities', channel, subchannel)
 
       interactor.execute

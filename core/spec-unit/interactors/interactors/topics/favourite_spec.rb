@@ -7,7 +7,7 @@ describe Interactors::Topics::Favourite do
   describe '#authorized?' do
     before do
       described_class.any_instance
-        .should_receive(:validate)
+        .stub(:validate)
         .and_return(true)
     end
 
@@ -21,30 +21,36 @@ describe Interactors::Topics::Favourite do
       current_user = stub
       ability = stub
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
+
       pavlov_options = { current_user: current_user, ability: ability }
-      interactor = described_class.new(user_name: 'username',
-        slug_title: 'slug_title', pavlov_options: pavlov_options)
 
-      described_class.any_instance.stub(:old_query)
-        .with(:user_by_username, 'username')
-        .and_return(user)
+      described_class.any_instance.stub(:old_query).
+        with(:user_by_username, 'username').
+        and_return(user)
 
-      expect { interactor.call }
-        .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
+      interactor = described_class.new user_name: 'username',
+                    slug_title: 'slug_title',
+                    pavlov_options: pavlov_options
+
+      expect { interactor.call }.
+        to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
 
   describe '#call' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
     it 'calls a command to favourite topic' do
-      user_name = mock
-      slug_title = mock
-      interactor = described_class.new user_name: user_name,
-        slug_title: slug_title
+      user_name = 'henk'
+      slug_title = 'slug'
+      current_user = stub
       user = mock(graph_user_id: mock)
+
+      ability = stub
+      ability.stub(:can?).with(:edit_favourites, user).and_return(true)
+
+      pavlov_options = { current_user: current_user, ability: ability }
+
+      interactor = described_class.new user_name: user_name,
+        slug_title: slug_title, pavlov_options: pavlov_options
       topic = mock(id: mock)
 
       interactor.stub(:old_query)

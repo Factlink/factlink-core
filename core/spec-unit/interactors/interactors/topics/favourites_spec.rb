@@ -22,6 +22,7 @@ describe Interactors::Topics::Favourites do
       pavlov_options = { current_user: current_user, ability: ability }
       interactor = described_class.new(user_name: 'username',
         pavlov_options: pavlov_options)
+
       described_class.any_instance.stub(:old_query).
         with(:user_by_username, 'username').
         and_return(user)

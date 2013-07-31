@@ -83,9 +83,11 @@ feature "adding factlinks to a fact", type: :request do
     use_features :vote_up_down_popup
     switch_to_user(@user)
 
-    go_to_discussion_page_of factlink
-
     supporting_factlink = backend_create_fact
+    go_to_discussion_page_of supporting_factlink
+    click_wheel_agree
+
+    go_to_discussion_page_of factlink
 
     within ".relation-tabs-view" do
       add_existing_factlink supporting_factlink

@@ -19,14 +19,14 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
       query = described_class.new fact: fact
 
       Comment.stub(:where)
-        .with(fact_data_id: fact.data_id)
-        .and_return(comments)
+             .with(fact_data_id: fact.data_id)
+             .and_return(comments)
       Pavlov.stub(:old_query)
-        .with(:"activities/graph_user_ids_following_comments", comments)
-        .and_return([4,5])
+              .with(:"activities/graph_user_ids_following_comments", comments)
+              .and_return([4,5])
       Pavlov.stub(:old_query)
-        .with(:"activities/graph_user_ids_following_fact_relations", fact.fact_relations)
-        .and_return [3, 4]
+              .with(:"activities/graph_user_ids_following_fact_relations", fact.fact_relations)
+              .and_return [3, 4]
 
       expect(query.call).to eq [1, 2, 3, 4, 5]
     end

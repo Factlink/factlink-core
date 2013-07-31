@@ -22,8 +22,7 @@ describe Interactors::Channels::Unfollow do
       interactor = described_class.new channel_id: channel.id,
         pavlov_options: pavlov_options
 
-      interactor.stub(:old_query).with(:'channels/get', channel.id)
-        .and_return(channel)
+      interactor.stub(:old_query).with(:'channels/get', channel.id).and_return(channel)
 
       interactor.stub(:old_query)
            .with(:containing_channel_ids_for_channel_and_user,

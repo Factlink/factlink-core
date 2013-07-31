@@ -101,7 +101,7 @@ describe 'setting up an account' do
 
       as(anonymous) do |pavlov|
         returned_user = pavlov.old_interactor :'accounts/setup_approved',
-          user.reset_password_token, attributes
+            user.reset_password_token, attributes
       end
 
       expect(returned_user.errors.size).to eq 1

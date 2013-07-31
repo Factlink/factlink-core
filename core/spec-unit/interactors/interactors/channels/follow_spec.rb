@@ -33,12 +33,10 @@ describe Interactors::Channels::Follow do
                   .and_return(channel_2)
 
         interactor.should_receive(:old_command)
-             .with(:'channels/added_subchannel_create_activities', channel_2,
-              channel)
+          .with(:'channels/added_subchannel_create_activities', channel_2, channel)
 
         interactor.should_receive(:old_command)
-                  .with(:'topics/favourite', current_user.graph_user_id,
-                    channel.topic.id.to_s)
+                  .with(:'topics/favourite', current_user.graph_user_id, channel.topic.id.to_s)
 
         interactor.execute
       end
@@ -54,20 +52,17 @@ describe Interactors::Channels::Follow do
         interactor = described_class.new channel_id: channel.id,
           pavlov_options: pavlov_options
 
-        interactor.stub(:old_query).with(:'channels/get',channel.id)
-          .and_return(channel)
+        interactor.stub(:old_query).with(:'channels/get',channel.id).and_return(channel)
 
         interactor.should_receive(:old_command).once
                   .with(:'channels/follow', channel)
                   .and_return(nil)
 
-        interactor.should_not_receive(:command)
-                  .with(:'channels/added_subchannel_create_activities',
-                    channel_2, channel)
+        interactor.should_not_receive(:old_command)
+                  .with(:'channels/added_subchannel_create_activities', channel_2, channel)
 
-        interactor.should_not_receive(:command)
-                  .with(:'topics/favourite', current_user.graph_user_id,
-                    channel.topic.id)
+        interactor.should_not_receive(:old_command)
+                  .with(:'topics/favourite', current_user.graph_user_id, channel.topic.id)
 
         interactor.execute
       end

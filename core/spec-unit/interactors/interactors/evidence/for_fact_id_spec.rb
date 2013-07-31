@@ -50,8 +50,8 @@ describe Interactors::Evidence::ForFactId do
         pavlov_options: pavlov_options
 
       Pavlov.stub(:old_query)
-                .with(:'evidence/for_fact_id', fact_id, type, pavlov_options)
-                .and_return(fact)
+              .with(:'evidence/for_fact_id', fact_id, type, pavlov_options)
+              .and_return(fact)
 
       expect(interactor.call).to eq fact
     end

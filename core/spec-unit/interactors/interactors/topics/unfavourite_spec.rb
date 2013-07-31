@@ -23,7 +23,7 @@ describe Interactors::Topics::Unfavourite do
       interactor = described_class.new(user_name: 'username',
         slug_title: 'slug_title', pavlov_options: pavlov_options)
 
-      interactor.stub(:old_query).
+      described_class.any_instance.stub(:old_query).
         with(:user_by_username, 'username').
         and_return(user)
 
@@ -33,16 +33,20 @@ describe Interactors::Topics::Unfavourite do
   end
 
   describe '#call' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
     it 'calls a command to unfavourite topic' do
-      user_name = mock
-      slug_title = mock
-      interactor = described_class.new(user_name: user_name,
-        slug_title: slug_title)
       user = mock(graph_user_id: mock)
+      user_name = 'username'
+      slug_title = 'slug-title'
+
+      current_user = stub
+
+      ability = stub
+      ability.stub(:can?).with(:edit_favourites, user).and_return(true)
+
+      pavlov_options = { current_user: current_user, ability: ability }
+
+      interactor = described_class.new(user_name: user_name,
+        slug_title: slug_title, pavlov_options: pavlov_options)
       topic = mock(id: mock)
 
       interactor.stub(:old_query)

@@ -42,8 +42,7 @@ describe Interactors::Facts::Get do
         .and_return(fact)
 
       Pavlov.should_receive(:old_command)
-        .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s,
-          pavlov_options)
+        .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
       interactor = described_class.new id: fact.id,
         pavlov_options: pavlov_options
