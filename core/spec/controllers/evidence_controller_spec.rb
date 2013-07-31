@@ -118,4 +118,16 @@ describe EvidenceController do
       #todo: maybe check if the opinion is also persisted?
     end
   end
+
+  describe :show do
+    it "should return the opinion" do
+      fr = f1.add_evidence :supporting, f2, user
+
+
+      authenticate_user!(user)
+
+      get :show, id: fr.id, format: :json
+      response.should be_success
+    end
+  end
 end

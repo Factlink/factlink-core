@@ -68,7 +68,7 @@ FactlinkUI::Application.routes.draw do
         get     "combined"      => "weakening_evidence#combined_index"
       end
     end
-    resources :supporting_evidence, :weakening_evidence, only: [:create, :destroy] do
+    resources :supporting_evidence, :weakening_evidence, only: [:show, :create, :destroy] do
       member do
         post    "opinion/:type" => "evidence#set_opinion",      as: "set_opinion"
         delete  "opinion/"      => "evidence#remove_opinions",  as: "delete_opinion"
