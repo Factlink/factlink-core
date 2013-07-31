@@ -15,8 +15,11 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
     @$el.addClass @typeCss()
     this
 
+
+class NDPVotableEvidenceLayoutView extends NDPEvidenceLayoutView
+
   onRender: ->
-    @contentRegion.show new TextView model: new Backbone.Model text: @model.id
+    @contentRegion.show new NDPFactRelationOrCommentView model: @model
 
 
 class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
@@ -61,4 +64,4 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
     if item instanceof OpinionatersEvidence
       NDPOpinionatorsEvidenceLayoutView
     else
-      NDPEvidenceLayoutView
+      NDPVotableEvidenceLayoutView
