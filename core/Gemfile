@@ -157,7 +157,7 @@ group :test, :development do # TODO why is there a :development here?
 end
 
 group :development do
-  gem 'brakeman', '~> 2.0', require: false # locked down, upgrading reveals a new issue, so should be upgraded seperately, not automatically
+  gem 'brakeman', '~> 2.0.0', require: false # upgrade awaiting https://github.com/presidentbeef/brakeman/issues/372
   gem 'cane', '~> 2', require: false
   gem 'rails_best_practices', '~> 1', require: false
   gem 'rubocop', require: false
