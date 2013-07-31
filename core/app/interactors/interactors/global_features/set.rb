@@ -13,7 +13,7 @@ module Interactors
       end
 
       def authorized?
-        can? :access, Ability::AdminArea
+        can? :manage, Ability::FactlinkSystem
       end
 
       def validate

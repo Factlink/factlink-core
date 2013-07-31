@@ -17,7 +17,9 @@ describe Interactors::GlobalFeatures::Set do
   end
 
   describe '#authorized?' do
-    pending 'requires user to be admin' do
+    it 'requires system management access' do
+      expect { described_class.new [] }
+        .to raise_error Pavlov::AccessDenied
     end
   end
 
