@@ -29,6 +29,12 @@ class EvidenceController < ApplicationController
     Fact[evidence_id] or raise EvidenceNotFoundException
   end
 
+  def show
+    @fact_relation = old_interactor :'fact_relations/by_id', params[:id].to_s
+
+    render 'fact_relations/show', formats: [:json]
+  end
+
   # TODO move to a fact_relation resource
   def create
     fact = Fact[params[:fact_id]]
