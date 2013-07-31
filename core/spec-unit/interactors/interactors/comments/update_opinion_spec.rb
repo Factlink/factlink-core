@@ -5,12 +5,6 @@ require_relative '../../../../app/interactors/interactors/comments/update_opinio
 describe Interactors::Comments::UpdateOpinion do
   include PavlovSupport
 
-  it 'initializes correctly' do
-    user = mock
-    interactor = described_class.new '1', 'believes', current_user: user
-    interactor.should_not be_nil
-  end
-
   it 'without current user gives an unauthorized exception' do
     expect { described_class.new '1', 'believes'}.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
