@@ -8,13 +8,11 @@ module Queries
       arguments :fact, :type
 
       def execute
-        fact_relations.map do |fact_relation|
-          old_query :'fact_relations/add_sub_comments_count_and_opinions_and_evidence_class', fact_relation
-        end
+        old_query :'fact_relations/by_ids', fact_relation_ids
       end
 
-      def fact_relations
-        fact.evidence(@type)
+      def fact_relation_ids
+        fact.evidence(@type).ids
       end
     end
   end
