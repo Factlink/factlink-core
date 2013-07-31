@@ -1,0 +1,58 @@
+{
+  "url": "/fact-2/f/2",
+  "can_destroy?": true,
+  "id": "<STRIPPED>",
+  "fact_relation_type": "supporting",
+  "from_fact": {
+    "displaystring": "Fact 2",
+    "id": "<STRIPPED>",
+    "containing_channel_ids": [
+
+    ],
+    "url": "/fact-2/f/2",
+    "created_by": {
+      "id": "<STRIPPED>",
+      "name": "John1 Doe1",
+      "username": "johndoe1",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "authority_for_subject": {
+        "authority": "1.0",
+        "id": "<STRIPPED>"
+      }
+    },
+    "created_by_ago": "Originally posted 1 minute ago",
+    "fact_title": "Fact title 2",
+    "fact_wheel": {
+      "authority": "0.0",
+      "opinion_types": {
+        "believe": {
+          "percentage": 0,
+          "is_user_opinion": false
+        },
+        "doubt": {
+          "percentage": 100,
+          "is_user_opinion": false
+        },
+        "disbelieve": {
+          "percentage": 0,
+          "is_user_opinion": false
+        }
+      }
+    },
+    "fact_url": "http://example.org/2.html",
+    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2",
+    "timestamp": 0,
+    "evidence_count": 0
+  },
+  "current_user_opinion": null,
+  "impact": 0.0,
+  "time_ago": "1 minute",
+  "created_by": {
+    "id": "<STRIPPED>",
+    "name": "John1 Doe1",
+    "username": "johndoe1",
+    "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+    "authority": "1.0"
+  },
+  "sub_comments_count": 0
+}

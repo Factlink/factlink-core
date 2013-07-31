@@ -94,10 +94,12 @@ end
 describe EvidenceController do
   include PavlovSupport
 
-  let(:user) {create(:user)}
+  render_views
 
-  let(:f1) {create(:fact)}
-  let(:f2) {create(:fact)}
+  let(:user) {create :user}
+
+  let(:f1) {create :fact, created_by: user.graph_user}
+  let(:f2) {create :fact, created_by: user.graph_user}
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -120,14 +122,24 @@ describe EvidenceController do
   end
 
   describe :show do
-    it "should return the opinion" do
-      fr = f1.add_evidence :supporting, f2, user
+    it "should render json succesfully" do
 
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check # joining the cargo cult...
+
+      fr = f1.add_evidence :supporting, f2, user
 
       authenticate_user!(user)
 
       get :show, id: fr.id, format: :json
       response.should be_success
+
+      puts response.body.inspect
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'evidence#show should keep the same content')
     end
   end
 end
