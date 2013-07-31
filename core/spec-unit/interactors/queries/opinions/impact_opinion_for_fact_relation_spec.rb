@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/opinions/relevance_opinion_for_fact_relation.rb'
+require_relative '../../../../app/interactors/queries/opinions/impact_opinion_for_fact_relation.rb'
 
-describe Queries::Opinions::RelevanceOpinionForFactRelation do
+describe Queries::Opinions::ImpactOpinionForFactRelation do
   include PavlovSupport
 
   describe '#call' do
@@ -17,12 +17,19 @@ describe Queries::Opinions::RelevanceOpinionForFactRelation do
 
       FactGraph.stub new: fact_graph
 
-      fact_graph.stub(:user_opinion_for_fact_relation).with(fact_relation)
+      fact_graph.stub(:impact_opinion_for_fact_relation).with(fact_relation, allow_negative_authority: true)
         .and_return(dead_opinion)
 
       result = query.call
 
       expect(result).to eq dead_opinion
+    end
+  end
+
+  describe '#validate' do
+    it 'without fact_relation doesn\'t validate' do
+      expect_validating(nil)
+        .to fail_validation('fact_relation should not be nil.')
     end
   end
 end

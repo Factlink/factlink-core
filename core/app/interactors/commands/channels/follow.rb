@@ -12,8 +12,8 @@ module Commands
       end
 
       def follower
-        @follower ||= query(:'channels/get_by_slug_title', channel.slug_title) ||
-          command(:'channels/create', channel.title)
+        @follower ||= old_query(:'channels/get_by_slug_title', channel.slug_title) ||
+          old_command(:'channels/create', channel.title)
       end
 
       def authorized?

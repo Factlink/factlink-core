@@ -41,5 +41,9 @@ module Acceptance
       #wait for animation
       sleep 0.3
     end
+
+    def click_wheel_agree
+      click_wheel_part 0
+    end
   end
 end

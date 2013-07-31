@@ -28,7 +28,7 @@ module Queries
 
       def sort result
         result.sort do |a,b|
-          OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
+          b.impact_opinion.authority <=> a.impact_opinion.authority
         end
       end
 

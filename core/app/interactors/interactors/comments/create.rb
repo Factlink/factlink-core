@@ -12,18 +12,11 @@ module Interactors
           @content, pavlov_options[:current_user].id.to_s
 
         old_command :'comments/set_opinion', comment.id.to_s, 'believes', pavlov_options[:current_user].graph_user
+        old_command :'opinions/recalculate_comment_user_opinion', comment
 
         create_activity comment
 
         old_query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
-      end
-
-      def authority_of comment
-        old_query :authority_on_fact_for, fact, comment.created_by.graph_user
-      end
-
-      def opinion_of comment
-        old_query :'opinions/user_opinion_for_comment', comment.id.to_s, fact
       end
 
       def fact

@@ -349,13 +349,13 @@ describe 'activity queries' do
           fact = create :fact, created_by: current_user.graph_user
 
           as(current_user) do |pavlov|
-            comment = pavlov.interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+            comment = pavlov.old_interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
           end
 
           fact.add_opinion :believes, gu1
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -369,13 +369,13 @@ describe 'activity queries' do
           fact = create :fact, created_by: current_user.graph_user
 
           as(current_user) do |pavlov|
-            comment = pavlov.interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+            comment = pavlov.old_interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
           end
 
           fact.add_opinion :believes, gu1
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -390,15 +390,15 @@ describe 'activity queries' do
           fact = create :fact, created_by: current_user.graph_user
 
           as(current_user) do |pavlov|
-            comment = pavlov.interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+            comment = pavlov.old_interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
           end
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor :'comments/update_opinion', comment.id.to_s, 'believes'
+            pavlov.old_interactor :'comments/update_opinion', comment.id.to_s, 'believes'
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -412,15 +412,15 @@ describe 'activity queries' do
           fact = create :fact, created_by: current_user.graph_user
 
           as(current_user) do |pavlov|
-            comment = pavlov.interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+            comment = pavlov.old_interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
           end
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor :'comments/update_opinion', comment.id.to_s, 'believes'
+            pavlov.old_interactor :'comments/update_opinion', comment.id.to_s, 'believes'
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -436,15 +436,15 @@ describe 'activity queries' do
           fact = create :fact, created_by: current_user.graph_user
 
           as(current_user) do |pavlov|
-            comment = pavlov.interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+            comment = pavlov.old_interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
           end
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+            pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -458,15 +458,15 @@ describe 'activity queries' do
           fact = create :fact, created_by: current_user.graph_user
 
           as(current_user) do |pavlov|
-            comment = pavlov.interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+            comment = pavlov.old_interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
           end
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+            pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -488,7 +488,7 @@ describe 'activity queries' do
           fact.add_opinion :believes, gu1
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -506,7 +506,7 @@ describe 'activity queries' do
           fact.add_opinion :believes, gu1
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -525,7 +525,7 @@ describe 'activity queries' do
           fact_relation.add_opinion :believes, gu1
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -543,7 +543,7 @@ describe 'activity queries' do
           fact_relation.add_opinion :believes, gu1
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -561,11 +561,11 @@ describe 'activity queries' do
           fact_relation = fact.add_evidence :supporting, create(:fact), current_user
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor :'sub_comments/create_for_fact_relation',fact_relation.id.to_i, 'content'
+            pavlov.old_interactor :'sub_comments/create_for_fact_relation',fact_relation.id.to_i, 'content'
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
           end
 
           gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -580,11 +580,11 @@ describe 'activity queries' do
           fact_relation = fact.add_evidence :supporting, create(:fact), current_user
 
           as(gu1.user) do |pavlov|
-            pavlov.interactor :'sub_comments/create_for_fact_relation',fact_relation.id.to_i, 'content'
+            pavlov.old_interactor :'sub_comments/create_for_fact_relation',fact_relation.id.to_i, 'content'
           end
 
           as(current_user) do |pavlov|
-            sub_comment = pavlov.interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+            sub_comment = pavlov.old_interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
           end
 
           gu1.notifications.map(&:to_hash_without_time).should == [
@@ -601,7 +601,7 @@ describe 'activity queries' do
     let(:followee) { create(:active_user) }
     it 'creates a notification for the followed person' do
       as(user) do |pavlov|
-        pavlov.interactor :'users/follow_user', user.username, followee.username
+        pavlov.old_interactor :'users/follow_user', user.username, followee.username
       end
       followee_notifications = followee.graph_user.notifications.map(&:to_hash_without_time)
       expect(followee_notifications).to eq [
@@ -612,10 +612,10 @@ describe 'activity queries' do
       follower = create(:active_user)
 
       as(follower) do |pavlov|
-        pavlov.interactor :'users/follow_user', follower.username, user.username
+        pavlov.old_interactor :'users/follow_user', follower.username, user.username
       end
       as(user) do |pavlov|
-        pavlov.interactor :'users/follow_user', user.username, followee.username
+        pavlov.old_interactor :'users/follow_user', user.username, followee.username
       end
       follower_stream_activities = follower.graph_user.stream_activities.map(&:to_hash_without_time)
       expect(follower_stream_activities).to eq [

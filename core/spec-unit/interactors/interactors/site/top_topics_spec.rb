@@ -30,7 +30,7 @@ describe Interactors::Site::TopTopics do
       Site.should_receive(:find).with(url: url).and_return([site])
 
       interactor = Interactors::Site::TopTopics.new url, nr, current_user: mock
-      interactor.should_receive(:query).with(:"site/top_topics", site.id.to_i, nr).and_return results
+      interactor.should_receive(:old_query).with(:"site/top_topics", site.id.to_i, nr).and_return results
 
       expect(interactor.call).to eq results
     end

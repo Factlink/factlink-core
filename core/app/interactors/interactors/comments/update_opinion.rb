@@ -9,10 +9,13 @@ module Interactors
 
       def execute
         if opinion
-          old_command 'comments/set_opinion', comment_id, opinion, pavlov_options[:current_user].graph_user
+          old_command :'comments/set_opinion', comment_id, opinion, pavlov_options[:current_user].graph_user
         else
-          old_command 'comments/remove_opinion', comment_id, pavlov_options[:current_user].graph_user
+          old_command :'comments/remove_opinion', comment_id, pavlov_options[:current_user].graph_user
         end
+
+        old_command :'opinions/recalculate_comment_user_opinion', old_query(:'comments/get', comment_id)
+
         old_query :'comments/get', comment_id
       end
 

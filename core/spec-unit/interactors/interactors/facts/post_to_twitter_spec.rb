@@ -32,7 +32,7 @@ describe Interactors::Facts::PostToTwitter do
 
       pavlov_options = {current_user: user, ability: mock(can?: true)}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:"facts/get_dead", fact.id, pavlov_options)
         .and_return(fact)
 
@@ -40,7 +40,7 @@ describe Interactors::Facts::PostToTwitter do
              .with(fact)
              .and_return(fact_url)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:"twitter/post", "message sharing_url", pavlov_options)
 
       interactor = described_class.new fact.id, message, pavlov_options

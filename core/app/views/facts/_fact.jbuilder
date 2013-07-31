@@ -4,10 +4,10 @@ timestamp ||= 0
 # TODO: set timestamp to nil, but this always defaulted to 0
 # so check that nothing depends on it.
 
-dead_fact = query :'facts/get_dead', fact.id.to_s
-dead_fact_creator = query(:'users_by_graph_user_ids', [fact.created_by_id]).first
+dead_fact = old_query :'facts/get_dead', fact.id.to_s
+dead_fact_creator = old_query(:'users_by_graph_user_ids', [fact.created_by_id]).first
 dead_fact_creator_graph_user = Struct.new(:id).new(fact.created_by_id)
-containing_channel_ids = query :'facts/containing_channel_ids_for_user', fact
+containing_channel_ids = old_query :'facts/containing_channel_ids_for_user', fact
 
 
 json.displaystring dead_fact.displaystring

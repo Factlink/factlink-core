@@ -49,22 +49,22 @@ describe Interactors::Facts::Create do
       pavlov_options = {current_user: user, ability: mock(can?: true)}
       interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'sites/for_url', url, pavlov_options)
             .and_return(nil)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'sites/create', url, pavlov_options)
             .and_return(site)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/create', displaystring, title, user, site, pavlov_options)
             .and_return(fact)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
       expect(interactor.call).to eq fact
@@ -85,18 +85,18 @@ describe Interactors::Facts::Create do
       pavlov_options = {current_user: user, ability: mock(can?: true)}
       interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'sites/for_url',url, pavlov_options)
             .and_return(site)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/create', displaystring, title, user, site, pavlov_options)
             .and_return(fact)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
 
@@ -116,14 +116,14 @@ describe Interactors::Facts::Create do
       pavlov_options = {current_user: user, ability: mock(can?: true)}
       interactor = described_class.new displaystring, url, title, sharing_options, pavlov_options
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/create', displaystring, title, user, nil, pavlov_options)
             .and_return(fact)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
             .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
 
       expect(interactor.call).to eq fact

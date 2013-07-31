@@ -38,13 +38,13 @@ describe Interactors::Users::TourUsers do
       options = { ability: mock(can?: true) }
 
       interactor = described_class.new options
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'users/handpicked', options)
             .and_return(dead_users)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'user_topics/top_with_authority_for_graph_user_id', dead_users[0].graph_user_id, 2, options)
             .and_return(user_topics[0])
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'user_topics/top_with_authority_for_graph_user_id', dead_users[1].graph_user_id, 2, options)
             .and_return(user_topics[1])
 
