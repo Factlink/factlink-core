@@ -8,14 +8,11 @@ module Commands
       arguments :features
 
       def execute
-        set.del
+        redis_set = Nest.new(:admin_global_features)
+        redis_set.del
         features.each do |feature|
-          set.sadd feature
+          redis_set.sadd feature
         end
-      end
-
-      def set
-        Nest.new(:admin_global_features)
       end
     end
   end

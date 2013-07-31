@@ -6,11 +6,8 @@ module Queries
       include Pavlov::Query
 
       def execute
-        set.smembers
-      end
-
-      def set
-        Nest.new :admin_global_features
+        redis_set = Nest.new(:admin_global_features)
+        redis_set.smembers
       end
     end
   end
