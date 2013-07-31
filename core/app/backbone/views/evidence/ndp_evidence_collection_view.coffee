@@ -10,13 +10,13 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
       when 'disbelieves' then 'evidence-weakening'
       when 'doubts' then 'evidence-unsure'
 
-  shouldShow: -> @model.has('impact') && @model.get('impact') > 0.0
+  shouldShowOpinionaters: -> @model.has('impact') && @model.get('impact') > 0.0
 
   onRender: ->
-    @$el.toggle @shouldShow()
     @$el.addClass @typeCss()
 
     if @model instanceof OpinionatersEvidence
+      @$el.toggle @shouldShowOpinionaters()
       @contentRegion.show new InteractingUsersView model: @model
     else
       @contentRegion.show new TextView model: new Backbone.Model text: @model.id
