@@ -178,8 +178,6 @@ class Ability
     share_to_twitter share_to_facebook vote_up_down_popup
   )
 
-  AVAILABLE_GLOBAL_FEATURES = []
-
   def enabled_global_features
     Pavlov.interactor :'global_features/all'
   end
