@@ -35,7 +35,7 @@ json.url friendly_fact_path(fact_relation.from_fact)
 
 json.can_destroy? can_destroy
 json.id fact_relation.id
-json.fact_relation_type fact_relation.type
+json.type OpinionType.for_relation_type(fact_relation.type)
 json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }
 
 json.current_user_opinion current_user_opinion
