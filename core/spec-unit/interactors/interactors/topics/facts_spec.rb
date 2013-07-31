@@ -9,7 +9,8 @@ describe Interactors::Topics::Facts do
       slug_title = 'slug-title'
       count = 10
       max_timestamp = 100
-      results = mock
+      results = double
+
       pavlov_options = {current_user: mock}
       interactor = described_class.new(slug_title: slug_title, count: count, max_timestamp: max_timestamp, pavlov_options: pavlov_options)
 

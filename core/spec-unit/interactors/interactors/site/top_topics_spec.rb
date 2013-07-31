@@ -25,7 +25,7 @@ describe Interactors::Site::TopTopics do
       url = 'http://factlink.com'
       nr = 3
       site = mock id: '10'
-      results = mock
+      results = double
 
       Site.should_receive(:find).with(url: url).and_return([site])
 

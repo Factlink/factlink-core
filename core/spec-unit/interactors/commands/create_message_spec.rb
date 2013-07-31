@@ -68,8 +68,8 @@ describe Commands::CreateMessage do
         content: content, conversation: conversation, pavlov_options: pavlov_options
       conversation.should_receive(:save)
 
-      message = mock()
-      message.should_receive('sender_id=').with(sender.id.to_s)
+      message = double
+      message.should_receive("sender_id=").with(sender.id.to_s)
       message.should_receive('content=').with(content)
       message.should_receive('conversation_id=').with(conversation.id)
 

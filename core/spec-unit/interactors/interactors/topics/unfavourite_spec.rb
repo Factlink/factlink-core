@@ -15,9 +15,10 @@ describe Interactors::Topics::Unfavourite do
     end
 
     it 'throws when cannot edit favourites' do
-      user = stub
-      current_user = stub
-      ability = stub
+      user = double
+      current_user = double
+
+      ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
       interactor = described_class.new(user_name: 'username',
@@ -40,13 +41,14 @@ describe Interactors::Topics::Unfavourite do
 
       current_user = stub
 
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(true)
 
       pavlov_options = { current_user: current_user, ability: ability }
 
       interactor = described_class.new(user_name: user_name,
         slug_title: slug_title, pavlov_options: pavlov_options)
+
       topic = mock(id: mock)
 
       interactor.stub(:old_query)

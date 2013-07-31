@@ -10,10 +10,8 @@ describe Interactors::Facts::OpinionUsers do
 
   describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      ability = mock
-      ability.stub(:can?)
-             .with(:show, Fact)
-             .and_return(false)
+      ability = double
+      ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
       interactor = described_class.new(fact_id: 0, skip: 0, take: 0,
         type: 'believes', pavlov_options: { ability: ability } )
@@ -50,8 +48,8 @@ describe Interactors::Facts::OpinionUsers do
       fact_id = 1
       skip = 0
       take = 0
-      u1 = mock
-      impact = mock
+      u1 = double
+      impact = double
       type = 'believes'
 
       pavlov_options = { ability: mock(can?: true)}

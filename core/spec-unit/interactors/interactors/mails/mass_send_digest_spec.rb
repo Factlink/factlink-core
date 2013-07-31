@@ -28,9 +28,9 @@ describe Interactors::Mails::MassSendDigest do
       fact  = mock(id: mock)
       user1 = mock(id: mock)
       user2 = mock(id: mock)
-      mail1 = mock
-      mail2 = mock
-      url   = mock
+      mail1 = double
+      mail2 = double
+      url   = double
 
       interactor = described_class.new fact_id: fact.id, url: url
 

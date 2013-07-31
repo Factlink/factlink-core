@@ -11,8 +11,8 @@ describe Commands::Opinions::RecalculateCommentUserOpinion do
   describe '#call' do
 
     it 'calls calculate_comment_when_user_opinion_changed' do
-      comment = mock
-      fact_graph = mock
+      comment = double
+      fact_graph = double
 
       FactGraph.stub new: fact_graph
 

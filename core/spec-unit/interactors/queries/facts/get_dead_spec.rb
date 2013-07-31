@@ -34,7 +34,7 @@ describe Queries::Facts::GetDead do
           id: '1',
           has_site?: false,
           data: fact_data
-      wheel = mock
+      wheel = double
       evidence_count = 10
 
       interactor = Queries::Facts::GetDead.new id: live_fact.id

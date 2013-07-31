@@ -43,10 +43,10 @@ describe Interactors::SendMailForActivity do
 
   describe '#users_by_graph_user_ids' do
     it 'calls the relevant queries to retrieve users' do
-      user2 = mock()
-      user1 = mock()
-      graph_user_ids = mock()
-      activity = mock()
+      user2 = double
+      user1 = double
+      graph_user_ids = double
+      activity = double
 
       described_class.any_instance.stub(authorized?: true)
       interactor = described_class.new activity: activity

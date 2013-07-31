@@ -50,7 +50,7 @@ describe Commands::SubComments::CreateXxx do
     it 'correctly' do
       parent_id = 1
       content = 'message'
-      user = mock
+      user = double
       parent_class = 'FactRelation'
 
       pavlov_options = { current_user: user }

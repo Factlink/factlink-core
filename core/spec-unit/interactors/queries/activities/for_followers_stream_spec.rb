@@ -12,7 +12,7 @@ describe Queries::Activities::ForFollowersStream do
       graph_user_id = 3
       activities = [mock, mock, mock]
       filtered_activities = [activities[0], activities[2]]
-      listener = mock
+      listener = double
       query = described_class.new(graph_user_id: graph_user_id)
 
       query.stub recent_activities: activities
@@ -37,8 +37,8 @@ describe Queries::Activities::ForFollowersStream do
   describe '#recent_activities' do
     it 'returns recent activities this user created' do
       graph_user_id = 3
-      activity_ids = mock
-      activity_set = mock
+      activity_ids = double
+      activity_set = double
       query = described_class.new(graph_user_id: graph_user_id)
 
       Activity.stub(:find)

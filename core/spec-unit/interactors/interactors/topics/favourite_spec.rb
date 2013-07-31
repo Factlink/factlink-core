@@ -17,9 +17,10 @@ describe Interactors::Topics::Favourite do
     end
 
     it 'throws when cannot edit favourites' do
-      user = stub
-      current_user = stub
-      ability = stub
+      user = double
+      current_user = double
+
+      ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
 
       pavlov_options = { current_user: current_user, ability: ability }
@@ -44,7 +45,7 @@ describe Interactors::Topics::Favourite do
       current_user = stub
       user = mock(graph_user_id: mock)
 
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(true)
 
       pavlov_options = { current_user: current_user, ability: ability }

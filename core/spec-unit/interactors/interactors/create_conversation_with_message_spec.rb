@@ -16,10 +16,10 @@ describe Interactors::CreateConversationWithMessage do
       receiver     = mock(:user, username: 'frank')
       content      = 'verhaal'
       usernames    = [sender.username, receiver.username]
-      conversation = mock
+      conversation = double
       fact_id = 10
 
-      mixpanel = mock
+      mixpanel = double
       pavlov_options = { current_user: sender, mixpanel: mixpanel }
 
       interactor = described_class.new fact_id: fact_id,
@@ -40,11 +40,11 @@ describe Interactors::CreateConversationWithMessage do
     end
 
     it 'should delete the conversation when the message raises an exception' do
-      fact_id = mock
-      usernames = mock
-      sender_id = mock
-      content = mock
-      conversation = mock
+      fact_id = double
+      usernames = double
+      sender_id = double
+      content = double
+      conversation = double
 
       described_class.any_instance.should_receive(:authorized?).and_return true
 

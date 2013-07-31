@@ -11,8 +11,8 @@ describe Interactors::SubComments::IndexForComment do
   describe '#authorized?' do
     it 'checks if the comment can be shown' do
       comment_id = '1a'
-      comment = mock
-      ability = mock
+      comment = double
+      ability = double
       ability.should_receive(:can?).with(:show, comment).and_return(false)
       interactor = described_class.new(comment_id: comment_id, pavlov_options: { ability: ability })
 
@@ -84,7 +84,7 @@ describe Interactors::SubComments::IndexForComment do
 
     it 'returns the top fact for the comment_id' do
       comment_id = '2a'
-      fact = mock
+      fact = double
       comment = mock(fact_data: mock(fact:fact))
       interactor = described_class.new(comment_id: comment_id)
 
@@ -97,7 +97,7 @@ describe Interactors::SubComments::IndexForComment do
 
     it 'caches the fact' do
       comment_id = '2a'
-      fact = mock
+      fact = double
       comment = mock(fact_data: mock(fact:fact))
       interactor = described_class.new(comment_id: comment_id)
 
@@ -118,9 +118,9 @@ describe Interactors::SubComments::IndexForComment do
 
     it 'retrieves the authority and kills the subcomment' do
       comment_id = '2a'
-      fact = mock
-      graph_user = mock
-      authority = mock
+      fact = double
+      graph_user = double
+      authority = double
       sub_comment = mock(created_by: mock(graph_user: graph_user))
       interactor = described_class.new(comment_id: comment_id)
 

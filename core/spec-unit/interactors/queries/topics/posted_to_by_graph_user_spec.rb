@@ -9,8 +9,8 @@ describe Queries::Topics::PostedToByGraphUser do
   end
 
   describe '#call' do
-    it 'returns the topics this graph_user posted to' do
-      graph_user = mock
+    it "returns the topics this graph_user posted to" do
+      graph_user = double
       channels = [
         mock(:channel, slug_title: 'food'),
         mock(:channel, slug_title: 'programming')

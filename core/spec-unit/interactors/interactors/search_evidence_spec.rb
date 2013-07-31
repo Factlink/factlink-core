@@ -103,9 +103,9 @@ describe Interactors::SearchEvidence do
 
   private
   def get_fact_data id
-    fact = mock()
+    fact = double
     fact.stub :id => id
-    fact_data = mock()
+    fact_data = double
     fact_data.stub :fact => fact
 
     fact_data

@@ -1,4 +1,5 @@
 require_relative '../../../../app/interactors/queries/channels/facts'
+require 'active_support/core_ext/object/blank'
 require 'pavlov_helper'
 
 describe Queries::Channels::Facts do
@@ -36,9 +37,9 @@ describe Queries::Channels::Facts do
       count = 77
       from = 990
       query = described_class.new id: channel_id, from: from, count: count
-      sorted_facts = mock
-      channel = mock
-      sorted_facts_page = mock
+      sorted_facts = double
+      channel = double
+      sorted_facts_page = double
 
       query.should_receive(:old_query).with(:'channels/get',channel_id).and_return(channel)
       channel.should_receive(:sorted_cached_facts).and_return(sorted_facts)

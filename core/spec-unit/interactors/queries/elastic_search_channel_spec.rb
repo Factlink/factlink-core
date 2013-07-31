@@ -29,6 +29,7 @@ describe Queries::ElasticSearchChannel do
       HTTParty.should_receive(:get).
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
+
       query.stub(:old_query).
         with(:'topics/by_id_with_authority_and_facts_count', 1).
         and_return(return_object)
@@ -46,6 +47,7 @@ describe Queries::ElasticSearchChannel do
 
       HTTParty.should_receive(:get).and_return(results)
       error_message = "Server error, status code: 501, response: '#{results.response}'."
+
       logger.should_receive(:error).with(error_message)
 
       expect { query.call }.to raise_error(RuntimeError, error_message)

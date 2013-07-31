@@ -19,7 +19,7 @@ describe Commands::Sites::Create do
     it 'creates a site and returns it' do
       url = 'http://jsdares.com'
       command = described_class.new url: url
-      site = mock
+      site = double
 
       Site.should_receive(:create).with(url: url).and_return(site)
 

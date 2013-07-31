@@ -11,9 +11,9 @@ describe Commands::Topics::Unfavourite do
     end
 
     it 'calls UserFavouritedTopics.unfavourite to unfavourite the topic' do
-      graph_user_id = mock
-      topic_id = mock
-      users_favourited_topics = mock
+      graph_user_id = double
+      topic_id = double
+      users_favourited_topics = double
 
       UserFavouritedTopics.stub(:new)
                         .with(graph_user_id)

@@ -37,8 +37,7 @@ describe Interactors::SearchChannel do
       keywords = 'searching for this channel'
       interactor = described_class.new keywords: keywords,
         pavlov_options: { ability: relaxed_ability }
-      topic = mock()
-
+      topic = double
       Pavlov.should_receive(:old_query)
         .with(:elastic_search_channel, keywords, 1, 20,
           { ability: relaxed_ability })

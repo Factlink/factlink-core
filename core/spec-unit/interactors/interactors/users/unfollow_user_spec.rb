@@ -17,8 +17,8 @@ describe Interactors::Users::UnfollowUser do
     end
 
     it 'throws when updating someone else\'s follow' do
-      username = mock
-      other_username = mock
+      username = double
+      other_username = double
       current_user = mock(username: username)
 
       expect do
@@ -33,8 +33,8 @@ describe Interactors::Users::UnfollowUser do
     end
 
     it 'calls a command to unfollow' do
-      user_name = mock
-      user_to_unfollow_user_name = mock
+      user_name = double
+      user_to_unfollow_user_name = double
       user = mock(graph_user_id: mock)
       user_to_unfollow = mock(graph_user_id: mock)
       interactor = described_class.new user_name: user_name,

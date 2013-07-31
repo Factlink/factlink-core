@@ -39,15 +39,15 @@ describe Interactors::Users::Followers do
     end
 
     it 'it calls the query to get a list of followed users' do
-      user_name = mock
-      skip = mock
-      take = mock
+      user_name = double
+      skip = double
+      take = double
       current_user = mock(graph_user_id: mock)
       interactor = described_class.new(user_name: user_name, skip: skip,
         take: take, pavlov_options: { current_user: current_user })
       users = mock(length: mock)
-      graph_user_ids = mock
-      count = mock
+      graph_user_ids = double
+      count = double
       user = mock(graph_user_id: mock)
       followed_by_me = true
 

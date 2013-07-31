@@ -10,7 +10,7 @@ describe Commands::Twitter::ShareFactlink do
     end
 
     it 'posts a fact with quote and sharing url' do
-      user = mock
+      user = double
       fact = mock(id: "1", displaystring: '   displaystring    ')
       fact_url = mock sharing_url: 'sharing_url'
 
@@ -32,7 +32,7 @@ describe Commands::Twitter::ShareFactlink do
     end
 
     it 'trims strings that are too long and strips whitespace also for the shorter version' do
-      user = mock
+      user = double
       fact = mock(id: "1", displaystring: '   12345   asdf  ')
       fact_url = mock sharing_url: 'sharing_url'
 

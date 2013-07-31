@@ -13,7 +13,7 @@ describe Interactors::SubComments::Destroy do
       current_user = mock :user, id: 'a1'
       sub_comment = mock :sub_comment, id: 'a3', created_by_id: 'b3'
 
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:destroy, sub_comment).and_return(false)
       interactor = described_class.new(id: sub_comment.id,
         pavlov_options: { current_user: current_user, ability: ability })

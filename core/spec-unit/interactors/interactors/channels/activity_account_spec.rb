@@ -7,8 +7,8 @@ describe Interactors::Channels::ActivityCount do
 
   describe '#call' do
     it 'correctly' do
-      channel_id = mock
-      timestamp = mock
+      channel_id = double
+      timestamp = double
 
       described_class.any_instance.should_receive(:authorized?).and_return true
       interactor = described_class.new channel_id: channel_id,
@@ -22,7 +22,7 @@ describe Interactors::Channels::ActivityCount do
 
   describe '.authorized?' do
     it 'returns the passed current_user' do
-      current_user = mock
+      current_user = double
       interactor = described_class.new channeld_id: mock, timestamp: mock,
         pavlov_options: { current_user: current_user }
 

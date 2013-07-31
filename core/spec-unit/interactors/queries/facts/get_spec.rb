@@ -18,7 +18,7 @@ describe Queries::Facts::Get do
 
     it 'correctly' do
       fact_id = '1'
-      fact = mock
+      fact = double
       interactor = Queries::Facts::Get.new id: '1'
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)

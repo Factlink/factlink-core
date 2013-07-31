@@ -17,10 +17,8 @@ describe Interactors::Facts::Get do
 
   describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      ability = mock
-      ability.stub(:can?)
-        .with(:show, Fact)
-        .and_return(false)
+      ability = double
+      ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
       interactor = described_class.new id: '1',
         pavlov_options: { ability: ability }

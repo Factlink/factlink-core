@@ -36,12 +36,12 @@ describe Commands::Facts::Create do
     it 'creates a fact data with displaystring, title and returns it' do
       displaystring = 'displaystring'
       title = 'title'
-      graph_user = mock
-      creator = mock
-      site = mock
+      graph_user = double
+      creator = double
+      site = double
       command = described_class.new displaystring: displaystring, title: title,
         creator: creator, site: site
-      fact_data = mock
+      fact_data = double
 
       FactData.should_receive(:new).and_return(fact_data)
       fact_data.should_receive(:displaystring=).with(displaystring)
@@ -60,12 +60,12 @@ describe Commands::Facts::Create do
     it 'creates a fact with site and returns it' do
       displaystring = 'displaystring'
       title = 'title'
-      graph_user = mock
+      graph_user = double
       creator = mock(graph_user: graph_user)
-      site = mock
+      site = double
       command = described_class.new displaystring: displaystring, title: title,
         creator: creator, site: site
-      fact_data = mock
+      fact_data = double
       fact = mock(id: mock)
 
       Fact.should_receive(:new).with({created_by: graph_user, site: site}).and_return(fact)
@@ -82,10 +82,10 @@ describe Commands::Facts::Create do
     it 'creates a fact with site and returns it' do
       displaystring = 'displaystring'
       title = 'title'
-      graph_user = mock
+      graph_user = double
       creator = mock(graph_user: graph_user)
       site = nil
-      fact_data = mock
+      fact_data = double
       fact = mock(id: mock)
       command = described_class.new displaystring: displaystring, title: title,
         creator: creator, site: site

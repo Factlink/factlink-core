@@ -35,7 +35,7 @@ describe Commands::CreateConversation do
       recipients = mock('recipients')
       conversation = mock('conversation', :recipients => recipients)
       Conversation.should_receive(:new).and_return(conversation)
-      user = mock()
+      user = double
 
       command.should_receive(:old_query).with(:user_by_username, username).
         and_return(user)

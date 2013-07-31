@@ -33,7 +33,7 @@ describe Queries::UsersByGraphUserIds do
       gu_ids = graph_users.map(&:id)
       user_ids = graph_users.map(&:user_id)
 
-      users = mock()
+      users = double
 
       graph_users.each do |graph_user|
         GraphUser.should_receive(:[])

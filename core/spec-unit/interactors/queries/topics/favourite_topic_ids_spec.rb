@@ -14,9 +14,9 @@ describe Queries::Topics::FavouriteTopicIds do
     end
 
     it 'returns the ids of follower' do
-      graph_user_id = mock
-      ids = mock
-      users_favourited_topics = mock
+      graph_user_id = double
+      ids = double
+      users_favourited_topics = double
       query = described_class.new graph_user_id: graph_user_id
 
       UserFavouritedTopics.should_receive(:new).with(graph_user_id).and_return(users_favourited_topics)
@@ -30,7 +30,7 @@ describe Queries::Topics::FavouriteTopicIds do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      graph_user_id = mock
+      graph_user_id = double
       query = described_class.new graph_user_id: graph_user_id
       UserFavouritedTopics.stub(new: double(topic_ids: double))
 

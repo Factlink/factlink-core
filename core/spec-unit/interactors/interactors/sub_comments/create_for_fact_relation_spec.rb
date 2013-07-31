@@ -9,8 +9,8 @@ describe Interactors::SubComments::CreateForFactRelation do
   end
 
   it '#authorized? denied when the user isn not allowed to see the fact_relation' do
-    fact_relation = mock
-    ability = mock
+    fact_relation = double
+    ability = double
     ability.stub(:can?).with(:show, fact_relation).and_return(false)
     interactor = described_class.new(fact_relation_id: 1, content: 'hoi',
       pavlov_options: { current_user: nil, ability: ability})
@@ -45,13 +45,13 @@ describe Interactors::SubComments::CreateForFactRelation do
 
     it 'calls the corresponding command' do
       fact_relation_id = 1
-      user = mock
-      sub_comment = mock
-      authority = mock
-      dead_sub_comment = mock
+      user = double
+      sub_comment = double
+      authority = double
+      dead_sub_comment = double
       content = 'hoi'
-      fact_relation = mock
-      ability = mock
+      fact_relation = double
+      ability = double
       ability.stub(:can?).with(:show, fact_relation).and_return(true)
       ability.stub(:can?).with(:create, SubComment).and_return(true)
       options = { current_user: user, ability: ability }
@@ -124,10 +124,10 @@ describe Interactors::SubComments::CreateForFactRelation do
 
     it 'retrieves the authority and kills the subcomment' do
       fact_relation_id = 1
-      fact = mock
-      graph_user = mock
-      authority = mock
-      user = mock
+      fact = double
+      graph_user = double
+      authority = double
+      user = double
       sub_comment = mock(created_by: mock(graph_user: graph_user))
       FactRelation.stub :[] => nil
       ability = mock can?: true

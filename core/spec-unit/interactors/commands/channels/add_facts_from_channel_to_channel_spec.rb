@@ -11,10 +11,10 @@ describe Commands::Channels::AddFactsFromChannelToChannel do
     end
 
     it "should add the fact to the cached facts of the super channel using Resque" do
-      channel = mock
+      channel = double
       sub_channel = mock :sub_channel,
                         sorted_internal_facts: mock
-      fact = mock
+      fact = double
 
       sub_channel.sorted_internal_facts.stub(:below)
                    .with('inf', count: nr_of_initial_facts)
@@ -27,7 +27,7 @@ describe Commands::Channels::AddFactsFromChannelToChannel do
     end
 
     it "should only add NUMBER_OF_INITIAL_FACTS facts to the super channel" do
-      channel = mock
+      channel = double
       sub_channel = mock :sub_channel,
                         sorted_internal_facts: mock
 

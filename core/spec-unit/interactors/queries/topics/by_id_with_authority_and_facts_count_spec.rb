@@ -16,7 +16,7 @@ describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
       stub_classes 'Topic'
       id = '1a'
       topic = mock(slug_title: mock, title: mock)
-      dead_topic = mock
+      dead_topic = double
       pavlov_options = {current_user: mock}
       query = described_class.new id: id, pavlov_options: pavlov_options
 

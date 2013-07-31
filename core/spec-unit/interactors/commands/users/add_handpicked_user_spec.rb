@@ -11,8 +11,8 @@ describe Commands::Users::AddHandpickedUser do
     end
 
     it 'calls a HandpickedTourUsers.add to add user' do
-      user_id = mock
-      handpicked_tour_users = mock
+      user_id = double
+      handpicked_tour_users = double
 
       HandpickedTourUsers.stub(:new)
                         .and_return(handpicked_tour_users)

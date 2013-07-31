@@ -11,9 +11,9 @@ describe Commands::Users::FollowUser do
     end
 
     it 'calls a UserFollowingUsers.follow to follow user' do
-      graph_user_id = mock
-      user_to_follow_graph_user_id = mock
-      users_following_users = mock
+      graph_user_id = double
+      user_to_follow_graph_user_id = double
+      users_following_users = double
 
       UserFollowingUsers.stub(:new)
                         .with(graph_user_id)

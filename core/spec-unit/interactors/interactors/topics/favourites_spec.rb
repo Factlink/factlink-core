@@ -15,9 +15,10 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'throws when cannot show favourites' do
-      user = stub
-      current_user = stub
-      ability = stub
+      user = double
+      current_user = double
+
+      ability = double
       ability.stub(:can?).with(:show_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
       interactor = described_class.new(user_name: 'username',
@@ -36,6 +37,7 @@ describe Interactors::Topics::Favourites do
     it 'without valid user_name doesn\'t validate' do
       expect_validating(user_name: 1)
         .to fail_validation('user_name should be a nonempty string.')
+
     end
   end
 
@@ -45,8 +47,8 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'it calls the query to get an alphabetically list of followed users' do
-      user_name = mock
-      current_user = mock
+      user_name = double
+      current_user = double
       interactor = described_class.new(user_name: user_name,
         pavlov_options: { current_user: current_user })
 

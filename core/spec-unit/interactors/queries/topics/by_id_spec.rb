@@ -25,9 +25,9 @@ describe Queries::Topics::ById do
 
     it 'returns the topic Topic.find' do
       stub_classes 'Topic', 'KillObject'
-      id = mock
-      topic = mock
-      dead_topic = mock
+      id = double
+      topic = double
+      dead_topic = double
       query = described_class.new id: id
 
       Topic.should_receive(:find).with(id).and_return(topic)

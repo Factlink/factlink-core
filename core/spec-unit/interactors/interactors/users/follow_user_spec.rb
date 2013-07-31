@@ -18,8 +18,8 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'throws when updating someone else\'s follow' do
-      username = mock
-      other_username = mock
+      username = double
+      other_username = double
       current_user = mock(username: username)
       options = {current_user: current_user}
       interactor = described_class.new(user_name: other_username,

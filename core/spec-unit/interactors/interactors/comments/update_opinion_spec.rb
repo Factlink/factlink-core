@@ -6,7 +6,7 @@ describe Interactors::Comments::UpdateOpinion do
   include PavlovSupport
 
   # it 'initializes correctly' do
-  #   user = mock()
+  #   user = double
   #   interactor = described_class.new comment_id: '1', opinion: 'believes',
   #     pavlov_options: { current_user: user }
   #   interactor.should_not be_nil
@@ -74,7 +74,7 @@ describe Interactors::Comments::UpdateOpinion do
       pavlov_options = {current_user: user}
 
       comment = mock(id: 'abc')
-      updated_comment = mock
+      updated_comment = double
 
       interactor = described_class.new comment_id: comment.id, opinion: opinion,
         pavlov_options: { current_user: user }

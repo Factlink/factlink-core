@@ -46,7 +46,7 @@ describe Interactors::Facts::Create do
       url = 'www.fmf.nl'
       displaystring = 'this is the annotated text'
       title = 'this is the title'
-      site = mock
+      site = double
       fact_data = mock(persisted?: true)
       fact = mock(id: '1', errors: [], data: fact_data)
       user = mock(id: '123abc')
@@ -84,11 +84,11 @@ describe Interactors::Facts::Create do
       url = 'www.fmf.nl'
       displaystring = 'this is the annotated text'
       title = 'this is the title'
-      site = mock
+      site = double
       fact_data = mock(persisted?: true)
       fact = mock(id: '1', errors: [], data: fact_data)
       user = mock(id: '123abc')
-      sharing_options = mock
+      sharing_options = double
       Blacklist.stub default: mock
       Blacklist.default.stub(:matches?).with(url).and_return false
 
@@ -121,7 +121,7 @@ describe Interactors::Facts::Create do
       fact_data = mock(persisted?: true)
       fact = mock(id: '1', errors: [], data: fact_data)
       user = mock(id: '123abc')
-      sharing_options = mock
+      sharing_options = double
       Blacklist.stub default: mock
       Blacklist.default.stub(:matches?).with(url).and_return true
 

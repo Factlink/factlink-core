@@ -6,7 +6,7 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
 
   describe '#call' do
     it 'calls the correct validation methods' do
-      slug_title = mock
+      slug_title = double
 
       query = described_class.new slug_title: 1
 
@@ -15,7 +15,7 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
 
     it 'returns the topic' do
       topic = mock(slug_title: 'slug_title', title: mock)
-      dead_topic = mock
+      dead_topic = double
       pavlov_options = {current_user: mock}
       query = described_class.new slug_title: topic.slug_title, pavlov_options: pavlov_options
 

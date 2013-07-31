@@ -19,10 +19,10 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
     end
 
     it 'returns the topic' do
-      facts_count = mock
-      current_user_authority = mock
+      facts_count = double
+      current_user_authority = double
       current_user = mock(graph_user: mock)
-      dead_topic = mock
+      dead_topic = double
       pavlov_options = {current_user: current_user}
 
       Pavlov.stub(:old_query)

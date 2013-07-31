@@ -29,7 +29,7 @@ describe Queries::SubComments::Count do
     it 'calls the index query and counts the results' do
       parent_id = 1
       parent_class = 'FactRelation'
-      count = mock
+      count = double
       query = described_class.new parent_id: parent_id.to_s,
         parent_class: parent_class
 

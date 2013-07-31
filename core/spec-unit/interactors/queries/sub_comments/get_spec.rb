@@ -17,7 +17,7 @@ describe Queries::SubComments::Get do
   describe '#call' do
     it "should return the dead version of the subcomment" do
       sub_comment = mock :sub_comment, id: '1a'
-      dead_sub_comment = mock
+      dead_sub_comment = double
       query = Queries::SubComments::Get.new id: sub_comment.id
 
       SubComment.should_receive(:find).with(sub_comment.id)

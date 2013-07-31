@@ -8,11 +8,11 @@ describe Interactors::Channels::VisibleOfUserForUser do
   end
   describe '#call' do
     it do
-      user = mock
-      ch1 = mock
-      ch2 = mock
-      topic_authority = mock
-      containing_channels = mock
+      user = double
+      ch1 = double
+      ch2 = double
+      topic_authority = double
+      containing_channels = double
 
       described_class.any_instance.stub authorized?: true
       query = described_class.new user: user

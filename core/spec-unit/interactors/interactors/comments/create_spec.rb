@@ -35,9 +35,9 @@ describe Interactors::Comments::Create do
       content = 'content'
       user = mock(id: '1a', graph_user: mock)
 
-      opinion = mock
+      opinion = double
       comment = mock(:comment, id: mock(to_s: '10a'), fact_data: mock(fact: fact))
-      mongoid_comment = mock
+      mongoid_comment = double
       pavlov_options = {current_user: user}
       interactor = described_class.new fact_id: fact.fact_id, type: type,
                                        content: content,

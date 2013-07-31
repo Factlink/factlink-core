@@ -26,7 +26,7 @@ describe Interactors::SearchUser do
   describe '#authorized?' do
     it 'raises when executed without any permission' do
       keywords = "searching for this user"
-      ability = mock()
+      ability = double
       ability.stub can?: false
 
       interactor = described_class.new keywords: keywords,

@@ -9,8 +9,8 @@ describe Interactors::SubComments::CreateForComment do
   end
 
   it '.authorized denied the user cannot show the comment' do
-    comment = mock
-    ability = mock
+    comment = double
+    ability = double
     ability.stub(:can?).with(:show, comment).and_return(false)
     Comment.should_receive(:find).and_return(comment)
 
@@ -45,13 +45,13 @@ describe Interactors::SubComments::CreateForComment do
 
     it 'calls the corresponding command' do
       comment = mock id: '2a'
-      user = mock
-      sub_comment = mock
-      authority = mock
-      dead_sub_comment = mock
+      user = double
+      sub_comment = double
+      authority = double
+      dead_sub_comment = double
       content = 'hoi'
 
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:show, comment).and_return(true)
       ability.stub(:can?).with(:create, SubComment).and_return(true)
 
@@ -91,7 +91,7 @@ describe Interactors::SubComments::CreateForComment do
   describe '.top_fact' do
     it 'returns the top fact for the comment_id' do
       comment_id = '2a'
-      fact = mock
+      fact = double
       comment = mock(fact_data: mock(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
       ability = stub can?: true
@@ -106,7 +106,7 @@ describe Interactors::SubComments::CreateForComment do
 
     it 'caches the fact' do
       comment_id = '2a'
-      fact = mock
+      fact = double
       comment = mock(fact_data: mock(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
       ability = stub can?: true
@@ -129,10 +129,10 @@ describe Interactors::SubComments::CreateForComment do
 
     it 'retrieves the authority and kills the subcomment' do
       comment_id = '2a'
-      fact = mock
-      graph_user = mock
-      authority = mock
-      user = mock
+      fact = double
+      graph_user = double
+      authority = double
+      user = double
       sub_comment = mock(created_by: mock(graph_user: graph_user))
 
       Comment.stub find: nil

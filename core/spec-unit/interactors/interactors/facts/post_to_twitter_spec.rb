@@ -12,7 +12,7 @@ describe Interactors::Facts::PostToTwitter do
 
   describe '#authorized?' do
     it 'throws when cannot share facts' do
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:share, Fact).and_return(false)
 
       pavlov_options = { current_user: mock, ability: ability }
@@ -27,7 +27,7 @@ describe Interactors::Facts::PostToTwitter do
 
   describe '#call' do
     it 'posts a fact with a sharing_url if available' do
-      user = mock
+      user = double
       message = "message"
       fact = mock(id: "1")
       sharing_url = 'sharing_url'

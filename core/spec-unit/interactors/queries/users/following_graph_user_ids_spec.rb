@@ -14,9 +14,9 @@ describe Queries::Users::FollowingGraphUserIds do
     end
 
     it 'returns the ids of users that the specified user is following' do
-      graph_user_id = mock
-      ids = mock
-      users_following_users = mock
+      graph_user_id = double
+      ids = double
+      users_following_users = double
 
       UserFollowingUsers.should_receive(:new).with(graph_user_id).and_return(users_following_users)
       users_following_users.should_receive(:following_ids).and_return(ids)
@@ -30,7 +30,7 @@ describe Queries::Users::FollowingGraphUserIds do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      graph_user_id = mock
+      graph_user_id = double
       UserFollowingUsers.stub(:new).and_return(double(following_ids: nil))
       query = described_class.new graph_user_id: graph_user_id
 

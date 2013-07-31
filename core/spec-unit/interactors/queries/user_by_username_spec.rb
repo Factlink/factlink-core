@@ -11,7 +11,8 @@ describe Queries::UserByUsername do
   describe '#call' do
     it 'retrieves a user' do
       search_username = "GERARD"
-      user = mock()
+
+      user = double
       user.stub(id:11)
       query = described_class.new(username: search_username)
 

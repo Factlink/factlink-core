@@ -12,8 +12,9 @@ describe Interactors::SubComments::IndexForFactRelation do
   describe 'authorization' do
     it 'checks if the fact relation can be shown' do
       fact_relation_id = 1
-      fact_relation = mock
-      ability = mock
+      fact_relation = double
+
+      ability = double
       ability.should_receive(:can?).with(:show, fact_relation).and_return(false)
       interactor = described_class.new(fact_relation_id: fact_relation_id,
         pavlov_options: { ability: ability })
@@ -35,9 +36,9 @@ describe Interactors::SubComments::IndexForFactRelation do
 
   describe '#call' do
     it do
-      fact_relation = mock
+      fact_relation = double
       fact_relation_id = 1
-      user = mock
+      user = double
       sub_comments = [mock, mock]
       dead_sub_comments = [mock, mock]
       authorities = [10, 20]
@@ -91,7 +92,7 @@ describe Interactors::SubComments::IndexForFactRelation do
 
     it 'returns the top fact for the fact_relation_id' do
       fact_relation_id = 1
-      fact = mock
+      fact = double
       fact_relation = mock(fact: fact)
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 
@@ -102,7 +103,7 @@ describe Interactors::SubComments::IndexForFactRelation do
 
     it 'caches the fact' do
       fact_relation_id = 1
-      fact = mock
+      fact = double
       fact_relation = mock(fact: fact)
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 
@@ -124,10 +125,10 @@ describe Interactors::SubComments::IndexForFactRelation do
 
     it 'retrieves the authority and kills the subcomment' do
       fact_relation_id = 1
-      fact = mock
-      graph_user = mock
-      authority = mock
-      user = mock
+      fact = double
+      graph_user = double
+      authority = double
+      user = double
       sub_comment = mock(created_by: mock(graph_user: graph_user))
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 

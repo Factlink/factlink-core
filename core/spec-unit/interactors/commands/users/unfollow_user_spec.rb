@@ -12,9 +12,9 @@ describe Commands::Users::UnfollowUser do
     end
 
     it 'calls a UserFollowingUsers.unfollow to unfollow user' do
-      graph_user_id = mock
-      user_to_unfollow_graph_user_id = mock
-      users_following_users = mock
+      graph_user_id = double
+      user_to_unfollow_graph_user_id = double
+      users_following_users = double
 
       UserFollowingUsers.should_receive(:new).with(graph_user_id).and_return(users_following_users)
       users_following_users.should_receive(:unfollow).with(user_to_unfollow_graph_user_id)

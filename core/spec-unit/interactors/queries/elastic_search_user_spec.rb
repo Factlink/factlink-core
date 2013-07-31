@@ -10,19 +10,19 @@ describe Queries::ElasticSearchUser do
 
   describe '#call' do
     it 'executes correctly with return value of User class' do
-      config = mock
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for users'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(users*+OR+users)'
       query = described_class.new keywords: keywords, page: 1, row_count: 20
-      hit = mock
-      mongoid_user = mock()
-      results = mock
+      hit = double
+      mongoid_user = double
+      results = double
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       results.stub code: 200
-      user = mock
+      user = double
 
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('user')
@@ -37,16 +37,16 @@ describe Queries::ElasticSearchUser do
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
-      config = mock()
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for this channel'
-      results = mock()
+      results = double
       error_response = 'error has happened server side'
       results.stub response: error_response
       results.stub code: 501
-      logger = mock()
+      logger = double
       error_message = "Server error, status code: 501, response: '#{error_response}'."
 
       query = described_class.new keywords: keywords, page: 1, row_count: 20, pavlov_options: { logger: logger }
@@ -59,19 +59,19 @@ describe Queries::ElasticSearchUser do
     end
 
     it 'url encodes keywords' do
-      config = mock()
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       query = described_class.new keywords: keywords, page: 1, row_count: 20
-      hit = mock()
-      results = mock()
+      hit = double
+      results = double
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       results.stub code: 200
-      mongoid_user = mock
-      user = mock
+      mongoid_user = double
+      user = double
 
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('user')

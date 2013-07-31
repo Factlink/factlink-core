@@ -10,7 +10,7 @@ describe Interactors::Facts::ShareOnFacebook do
 
   describe '.authorized?' do
     it 'throws when cannot share facts' do
-      ability = stub
+      ability = double
       ability.stub(:can?)
              .with(:share, Fact)
              .and_return(false)
@@ -30,7 +30,7 @@ describe Interactors::Facts::ShareOnFacebook do
   describe '#call' do
     it 'calls the command to share on Facebook' do
       fact_id = '1'
-      user    = mock
+      user    = double
       ability = stub can?: true
 
       pavlov_options = { current_user: user,

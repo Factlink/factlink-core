@@ -23,7 +23,7 @@ describe Commands::Topics::UpdateUserAuthority do
     end
 
     it 'updates the authority' do
-      authority_object = mock
+      authority_object = double
 
       query = described_class.new graph_user_id: graph_user.id,
         topic_slug: topic.slug_title, authority: authority
@@ -41,7 +41,7 @@ describe Commands::Topics::UpdateUserAuthority do
     end
 
     it "updates the top_users of the topic" do
-      authority_object = mock
+      authority_object = double
 
       query = described_class.new graph_user_id: graph_user.id,
         topic_slug: topic.slug_title, authority: authority
@@ -56,7 +56,7 @@ describe Commands::Topics::UpdateUserAuthority do
     end
 
     it "updates the top topics of the user" do
-      user_topics_list = mock
+      user_topics_list = double
 
       query = described_class.new graph_user_id: graph_user.id,
         topic_slug: topic.slug_title, authority: authority

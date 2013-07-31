@@ -27,7 +27,7 @@ describe Interactors::Evidence::ForFactId do
 
   describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      ability = mock
+      ability = double
       ability.stub(:can?)
              .with(:show, Fact)
              .and_return(false)
@@ -44,7 +44,7 @@ describe Interactors::Evidence::ForFactId do
     it 'correctly' do
       fact_id = '1'
       type = :supporting
-      fact = mock
+      fact = double
       pavlov_options = { current_user: mock, ability: mock(can?: true) }
       interactor = described_class.new fact_id: fact_id, type: type,
         pavlov_options: pavlov_options

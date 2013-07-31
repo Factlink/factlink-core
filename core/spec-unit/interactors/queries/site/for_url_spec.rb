@@ -28,8 +28,8 @@ describe Queries::Sites::ForUrl do
     it 'returns a site' do
       url = 'http://jsdares.com'
       query = described_class.new url: url
-      site = mock
-      dead_site = mock
+      site = double
+      dead_site = double
 
       Site.should_receive(:find).with(url: url).and_return([site])
 

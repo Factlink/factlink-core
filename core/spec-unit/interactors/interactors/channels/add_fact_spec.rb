@@ -30,7 +30,7 @@ describe Interactors::Channels::AddFact do
     it 'returns false if the current user did not create the channel' do
     end
     it 'returns true if the current user created the channel' do
-      fact = mock
+      fact = double
       user = mock :user, graph_user_id: 26
       channel = mock :channel, created_by_id: user.graph_user_id
 
