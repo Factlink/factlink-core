@@ -5,7 +5,7 @@ require_relative '../../../../app/interactors/interactors/channels/add_fact'
 describe Interactors::Channels::AddFact do
   include PavlovSupport
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       fact = mock(id: 1, site: mock(id: 10))
       topic = mock(id: '1e', slug_title: mock)

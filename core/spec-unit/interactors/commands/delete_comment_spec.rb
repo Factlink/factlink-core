@@ -21,7 +21,7 @@ describe Commands::DeleteComment do
       to raise_error(Pavlov::ValidationError, 'user_id should be an hexadecimal string.')
   end
 
-  describe '.call' do
+  describe '#call' do
     before do
       stub_const 'Comment', Class.new
       stub_const 'User', Class.new

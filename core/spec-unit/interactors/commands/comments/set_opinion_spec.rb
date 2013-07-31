@@ -8,7 +8,7 @@ describe Commands::Comments::SetOpinion do
     stub_classes 'Believable::Commentje'
   end
 
-  describe '.call' do
+  describe '#call' do
     it "sets the opinion on the believable belonging to this comment" do
       opinion = 'believes'
 

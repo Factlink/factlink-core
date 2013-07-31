@@ -18,7 +18,7 @@ describe Commands::CreateActivity do
     command.should_not be_nil
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       action = :test
       activity_subject = mock()

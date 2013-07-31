@@ -8,7 +8,7 @@ describe Commands::Activities::CleanList do
     stub_classes 'Activity', 'Nest'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'should delete nil activities' do
       key, keyname = mock, mock
       nil_activity = nil

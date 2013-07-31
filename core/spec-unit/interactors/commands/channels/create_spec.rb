@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/commands/channels/create'
 
 describe Commands::Channels::Create do
   include PavlovSupport
-  describe '.execute' do
+  describe '#call' do
     it 'creates a channel with the requested title' do
       channel = mock :channel
       title = 'foobar'

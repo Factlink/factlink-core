@@ -7,12 +7,14 @@ describe Queries::SubComments::Get do
     stub_classes 'SubComment', 'KillObject'
   end
 
-  describe '#call' do
+  describe 'validation' do
     it 'without id doesn''t validate' do
       expect_validating(id: nil).
         to fail_validation('id should be an hexadecimal string.')
     end
+  end
 
+  describe '#call' do
     it "should return the dead version of the subcomment" do
       sub_comment = mock :sub_comment, id: '1a'
       dead_sub_comment = mock

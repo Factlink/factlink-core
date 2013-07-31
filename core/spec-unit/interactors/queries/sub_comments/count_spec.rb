@@ -21,7 +21,7 @@ describe Queries::SubComments::Count do
     end
   end
 
-  describe '#class' do
+  describe '#call' do
     before do
       stub_classes('SubComment')
     end

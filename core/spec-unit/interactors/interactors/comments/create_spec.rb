@@ -28,7 +28,7 @@ describe Interactors::Comments::Create do
       .to fail_validation 'type should be on of these values: ["believes", "disbelieves", "doubts"].'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'works' do
       fact = mock( fact_id: 1 )
       type = 'believes'

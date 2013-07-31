@@ -23,7 +23,7 @@ describe Interactors::Search do
       .to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'raises when called without any permission' do
       ability = stub(:ability, can?: false)
       interactor = described_class.new keywords: 'keywords', page: 1,
@@ -33,7 +33,7 @@ describe Interactors::Search do
         .to raise_error(Pavlov::AccessDenied)
     end
   end
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       keywords = "searching for this channel"
       interactor = described_class.new keywords: keywords, page: 1, row_count: 20,

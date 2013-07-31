@@ -16,7 +16,7 @@ describe Commands::SubComments::Destroy do
   end
 
 
-  describe '.execute' do
+  describe '#call' do
     it "should remove the comment" do
       sub_comment = mock id: '1a'
 

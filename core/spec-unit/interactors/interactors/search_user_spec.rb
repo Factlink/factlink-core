@@ -37,7 +37,7 @@ describe Interactors::SearchUser do
     end
   end
   describe '#call' do
-    it do
+    it 'correctly' do
       keywords = 'searching for this user'
       interactor = described_class.new keywords: keywords,
         pavlov_options: { ability: relaxed_ability }

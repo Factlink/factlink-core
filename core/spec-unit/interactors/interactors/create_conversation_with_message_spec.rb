@@ -9,7 +9,7 @@ describe Interactors::CreateConversationWithMessage do
                 'Commands::CreateActivity', 'User'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'should call the right commands' do
       graph_user   = mock;
       sender       = mock(:user, id: 13, username: 'jan',  graph_user: graph_user)

@@ -5,7 +5,7 @@ require_relative '../../../../app/interactors/interactors/channels/activity_coun
 describe Interactors::Channels::ActivityCount do
   include PavlovSupport
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       channel_id = mock
       timestamp = mock

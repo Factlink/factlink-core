@@ -8,7 +8,7 @@ describe Queries::Comments::GraphUserOpinion do
   end
 
   describe '#call' do
-    it 'retrieves the current opinion for the graphuser' do
+    it "retrieves the current opinion for the graphuser" do
       id = 'a1'
       graph_user = double
       op1, op2 = double, double

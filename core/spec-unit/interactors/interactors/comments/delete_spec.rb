@@ -16,7 +16,7 @@ describe Interactors::Comments::Delete do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       comment_id = 'a12f'
       user = mock(id: 1)

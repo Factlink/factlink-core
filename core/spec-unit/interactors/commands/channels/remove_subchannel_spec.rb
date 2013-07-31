@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/commands/channels/remove_subchanne
 
 describe Commands::Channels::RemoveSubchannel do
   include PavlovSupport
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'Resque', 'RemoveChannelFromChannel'
     end

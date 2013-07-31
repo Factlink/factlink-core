@@ -5,7 +5,7 @@ require_relative '../../../../app/interactors/interactors/channels/remove_subcha
 describe Interactors::Channels::RemoveSubchannel do
   include PavlovSupport
 
-  describe '.execute' do
+  describe '#call' do
     let(:channel){ mock :channel, id:'12', created_by: mock }
     let(:subchannel){ mock :subchannel, id:'45' }
 
