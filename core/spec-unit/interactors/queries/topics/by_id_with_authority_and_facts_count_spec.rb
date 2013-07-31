@@ -29,7 +29,7 @@ describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
         .with(id)
         .and_return(topic)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'topics/dead_topic_with_authority_and_facts_count_by_topic', topic, pavlov_options)
         .and_return(dead_topic)
 

@@ -14,7 +14,7 @@ module Interactors
           old_command :'comments/remove_opinion', comment_id, pavlov_options[:current_user].graph_user
         end
 
-        old_command :'opinions/recalculate_comment_user_opinion', query(:'comments/get', comment_id)
+        old_command :'opinions/recalculate_comment_user_opinion', old_query(:'comments/get', comment_id)
 
         old_query :'comments/get', comment_id
       end

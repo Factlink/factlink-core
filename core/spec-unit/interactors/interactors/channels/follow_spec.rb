@@ -23,18 +23,18 @@ describe Interactors::Channels::Follow do
         interactor = Interactors::Channels::Follow.new(channel.id, options)
 
 
-        interactor.should_receive(:query)
+        interactor.should_receive(:old_query)
                   .with(:'channels/get',channel.id)
                   .and_return(channel)
 
-        interactor.should_receive(:command)
+        interactor.should_receive(:old_command)
                   .with(:'channels/follow', channel)
                   .and_return(channel_2)
 
-        interactor.should_receive(:command)
+        interactor.should_receive(:old_command)
              .with(:'channels/added_subchannel_create_activities', channel_2, channel)
 
-        interactor.should_receive(:command)
+        interactor.should_receive(:old_command)
                   .with(:'topics/favourite', current_user.graph_user_id, channel.topic.id.to_s)
 
         interactor.execute
@@ -50,16 +50,16 @@ describe Interactors::Channels::Follow do
 
         interactor = Interactors::Channels::Follow.new(channel.id, options)
 
-        interactor.stub(:query).with(:'channels/get',channel.id).and_return(channel)
+        interactor.stub(:old_query).with(:'channels/get',channel.id).and_return(channel)
 
-        interactor.should_receive(:command).once
+        interactor.should_receive(:old_command).once
                   .with(:'channels/follow', channel)
                   .and_return(nil)
 
-        interactor.should_not_receive(:command)
+        interactor.should_not_receive(:old_command)
                   .with(:'channels/added_subchannel_create_activities', channel_2, channel)
 
-        interactor.should_not_receive(:command)
+        interactor.should_not_receive(:old_command)
                   .with(:'topics/favourite', current_user.graph_user_id, channel.topic.id)
 
         interactor.execute

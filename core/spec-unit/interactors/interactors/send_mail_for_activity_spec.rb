@@ -50,10 +50,10 @@ describe Interactors::SendMailForActivity do
       Interactors::SendMailForActivity.any_instance.stub(authorized?: true)
       interactor = Interactors::SendMailForActivity.new activity
 
-      interactor.should_receive(:query).with(:object_ids_by_activity, activity, "GraphUser", :notifications).
+      interactor.should_receive(:old_query).with(:object_ids_by_activity, activity, "GraphUser", :notifications).
         and_return(graph_user_ids)
 
-      interactor.should_receive(:query).with(:users_by_graph_user_ids, graph_user_ids).
+      interactor.should_receive(:old_query).with(:users_by_graph_user_ids, graph_user_ids).
         and_return([user2, user1])
 
       expect(interactor.users_by_graph_user_ids).to eq([user2, user1])

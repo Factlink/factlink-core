@@ -26,7 +26,7 @@ describe Queries::Activities::GraphUserIdsFollowingFactRelations do
         mock( created_by: mock( graph_user_id: 4 ))
       ]
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'sub_comments/index', fact_relations.map(&:id), 'FactRelation')
             .and_return(sub_comments)
 

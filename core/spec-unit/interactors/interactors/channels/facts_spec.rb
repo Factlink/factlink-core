@@ -58,7 +58,7 @@ describe Interactors::Channels::Facts do
       pavlov_options = {current_user: user}
       interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'channels/facts', channel_id, from, count, pavlov_options)
         .and_return(result)
       Fact.stub(:invalid).with(fact).and_return(false)
@@ -77,7 +77,7 @@ describe Interactors::Channels::Facts do
       pavlov_options = {current_user: user}
       interactor = Interactors::Channels::Facts.new '1', from, count, pavlov_options
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'channels/facts', channel_id, from, count, pavlov_options)
         .and_return(result)
       Fact.stub(:invalid).with(fact).and_return(true)

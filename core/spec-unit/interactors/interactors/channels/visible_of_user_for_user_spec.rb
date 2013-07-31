@@ -37,7 +37,7 @@ describe Interactors::Channels::VisibleOfUserForUser do
       interactor = Interactors::Channels::VisibleOfUserForUser.new mock
       interactor.stub(visible_channels: visible_channels)
 
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
                  with(:creator_authorities_for_channels, visible_channels).
                  and_return(authorities)
 

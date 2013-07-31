@@ -48,7 +48,7 @@ describe Commands::DeleteComment do
 
       command = Commands::DeleteComment.new comment_id, user_id
 
-      command.should_receive(:query).with(:"comments/can_destroy", comment_id, user_id).
+      command.should_receive(:old_query).with(:"comments/can_destroy", comment_id, user_id).
         and_return(true)
 
       command.authorized_in_execute

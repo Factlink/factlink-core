@@ -41,10 +41,10 @@ describe Queries::Evidence::ForFactId do
       Fact.stub(:[])
           .with(fact.id)
           .and_return(fact)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'fact_relations/for_fact', fact, type, pavlov_options)
             .and_return [fact_relation1, fact_relation2]
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'comments/for_fact', fact, type, pavlov_options)
             .and_return [comment1, comment2]
 
