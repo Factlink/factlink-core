@@ -94,8 +94,6 @@ end
 describe EvidenceController do
   include PavlovSupport
 
-  render_views
-
   let(:user) {create :user}
 
   let(:f1) {create :fact, created_by: user.graph_user}
@@ -122,10 +120,11 @@ describe EvidenceController do
   end
 
   describe :show do
-    it "should render json succesfully" do
+    render_views
 
+    it "should render json succesfully" do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check # joining the cargo cult...
+      FactoryGirl.reload # hack because of fixture in check
 
       fr = f1.add_evidence :supporting, f2, user
 
