@@ -16,7 +16,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
                     created_by_id: 14
       score = mock(:score, to_s: mock)
 
-      command = Commands::Channels::AddFactWithoutPropagation.new fact: fact,
+      command = described_class.new fact: fact,
         channel: channel, score: score
       command.stub(should_execute?: true)
 
@@ -37,7 +37,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
                     created_by_id: 14
       score = mock(:score, to_s: mock)
 
-      command = Commands::Channels::AddFactWithoutPropagation.new fact: fact,
+      command = described_class.new fact: fact,
         channel: channel, score: score
       command.stub(should_execute?: true)
 
@@ -47,7 +47,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
       expect(command.call).to be_true
     end
     it "returns false if the fact did not need to be added, or wasn't added " do
-      command = Commands::Channels::AddFactWithoutPropagation.new fact: mock,
+      command = described_class.new fact: mock,
         channel: mock, score: mock
       command.stub(should_execute?: false)
 
@@ -64,7 +64,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
       channel.sorted_cached_facts.stub(:include?).with(fact).and_return(true)
       channel.sorted_delete_facts.stub(:include?).with(fact).and_return(false)
 
-      command = Commands::Channels::AddFactWithoutPropagation.new fact: fact,
+      command = described_class.new fact: fact,
         channel: channel, score: score
 
       expect(command.should_execute?).to be_false
@@ -78,7 +78,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
       channel.sorted_cached_facts.stub(:include?).with(fact).and_return(false)
       channel.sorted_delete_facts.stub(:include?).with(fact).and_return(true)
 
-      command = Commands::Channels::AddFactWithoutPropagation.new fact: fact,
+      command = described_class.new fact: fact,
         channel: channel, score: score
 
       expect(command.should_execute?).to be_false
@@ -92,7 +92,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
       channel.sorted_cached_facts.stub(:include?).with(fact).and_return(false)
       channel.sorted_delete_facts.stub(:include?).with(fact).and_return(false)
 
-      command = Commands::Channels::AddFactWithoutPropagation.new fact: fact,
+      command = described_class.new fact: fact,
         channel: channel, score: score
 
       expect(command.should_execute?).to be_true
