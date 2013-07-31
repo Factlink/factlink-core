@@ -23,14 +23,14 @@
     "created_by_ago": "Originally posted 1 minute ago",
     "fact_title": "Fact title 2",
     "fact_wheel": {
-      "authority": "0.0",
+      "authority": "1.0",
       "opinion_types": {
         "believe": {
-          "percentage": 0,
-          "is_user_opinion": false
+          "percentage": 100,
+          "is_user_opinion": true
         },
         "doubt": {
-          "percentage": 100,
+          "percentage": 0,
           "is_user_opinion": false
         },
         "disbelieve": {
@@ -44,8 +44,8 @@
     "timestamp": 0,
     "evidence_count": 0
   },
-  "current_user_opinion": null,
-  "impact": 0.0,
+  "current_user_opinion": "believes",
+  "impact": 1.0,
   "time_ago": "1 minute",
   "created_by": {
     "id": "<STRIPPED>",

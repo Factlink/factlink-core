@@ -26,6 +26,7 @@ describe Interactors::FactRelations::ById do
 
       expect do
         interactor = described_class.new '1', pavlov_options
+        interactor.call
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
