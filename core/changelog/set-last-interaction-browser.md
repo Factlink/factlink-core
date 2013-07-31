@@ -1,1 +1,0 @@
-set-last-interaction-browser
