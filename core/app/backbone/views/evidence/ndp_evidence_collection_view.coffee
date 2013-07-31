@@ -40,4 +40,10 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
     collection: @collection
 
   initialize: ->
-    @bindTo @collection, 'change:impact sync', @render
+    @bindTo @collection, 'change:impact', @render
+
+  showCollection: ->
+    if @collection.loading()
+      @showEmptyView()
+    else
+      super

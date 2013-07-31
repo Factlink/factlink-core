@@ -1,4 +1,4 @@
-class window.NDPEvidenceCollection extends Backbone.Collection
+class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
 
   initialize: (models, options) ->
     @on 'change sync', @sort, @
@@ -11,19 +11,15 @@ class window.NDPEvidenceCollection extends Backbone.Collection
     collectionUtils = new CollectionUtils
     collectionUtils.union this, @_opinionatersCollection, @_supportingCollection, @_weakeningCollection
 
-    @loading = false
-
   comparator: (item) -> - item.get('impact')
 
+  loading: ->
+    @_opinionatersCollection.loading() ||
+      @_supportingCollection.loading() ||
+      @_weakeningCollection.loading()
+
   fetch: (options={}) ->
-    @loading = true
-    success = options.success
-
-    options.success = =>
-      @loading = false
-      success? arguments...
-      @trigger 'sync'
-
+    @trigger 'before:fetch'
     @_opinionatersCollection.fetch options
     @_supportingCollection.fetch options
     @_weakeningCollection.fetch options
