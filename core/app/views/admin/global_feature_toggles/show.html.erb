@@ -3,7 +3,7 @@
 <%= form_tag admin_global_feature_toggles_path, method: 'PUT' do %>
 
   <% Ability::FEATURES.each do |feature|
-    enabled = @global_features.include? feature
+    enabled = @enabled_features.include? feature
     %>
 
     <%# check_box_tag 'name', value, checked, options %>
