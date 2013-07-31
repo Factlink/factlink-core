@@ -12,7 +12,7 @@ describe Interactors::Channels::Follow do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     context 'a channel with the same slug_title exists' do
       it 'returns the channel with the same slug_title' do
         channel = mock :channel, id:'12', slug_title:'bla', topic: mock(id: mock)

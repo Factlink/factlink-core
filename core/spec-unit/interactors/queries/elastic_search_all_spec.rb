@@ -15,7 +15,7 @@ describe Queries::ElasticSearchAll do
     query.should_not be_nil
   end
 
-  describe '.call' do
+  describe '#call' do
     ['user', 'factdata'].each do |type|
       it "correctly with return value of #{type} class" do
         config = mock()

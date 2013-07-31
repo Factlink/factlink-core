@@ -26,7 +26,7 @@ describe Commands::CreateConversation do
       to raise_error(RuntimeError, 'recipient_usernames should not be empty')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'should execute correctly' do
       username = 'username'
       command = Commands::CreateConversation.new fact_id, [username]

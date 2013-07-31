@@ -15,7 +15,7 @@ describe Queries::SubComments::Get do
   end
 
 
-  describe '.execute' do
+  describe '#call' do
     it "should return the dead version of the subcomment" do
       sub_comment = mock :sub_comment, id: '1a'
       dead_sub_comment = mock

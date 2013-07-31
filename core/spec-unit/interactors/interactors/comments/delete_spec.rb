@@ -21,7 +21,7 @@ describe Interactors::Comments::Delete do
       to raise_error( Pavlov::AccessDenied, 'Unauthorized')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       comment_id = 'a12f'
       user = mock(id: 1)

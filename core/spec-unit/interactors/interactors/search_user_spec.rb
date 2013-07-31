@@ -37,7 +37,7 @@ describe Interactors::SearchUser do
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       keywords = 'searching for this user'
       interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability

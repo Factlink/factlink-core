@@ -44,7 +44,7 @@ describe Interactors::SubComments::CreateForComment do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'KillObject', 'Commands::SubComments::CreateXxx'
     end

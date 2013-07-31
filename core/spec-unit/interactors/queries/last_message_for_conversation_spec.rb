@@ -33,7 +33,7 @@ describe Queries::LastMessageForConversation do
     end
   end
 
-  describe ".call" do
+  describe '#call' do
     it "works with a conversation that does not contain messages" do
       Message.should_receive(:where).with(conversation_id: conversation.id.to_s).and_return(empty_mongo_criteria)
 

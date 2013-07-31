@@ -19,7 +19,7 @@ describe Queries::ElasticSearchFactData do
       to raise_error(RuntimeError, 'Keywords must not be empty')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'executes correctly with return value of FactData class' do
       config = mock()
       base_url = '1.0.0.0:4000/index'

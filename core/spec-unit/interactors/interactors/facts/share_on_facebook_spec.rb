@@ -25,7 +25,7 @@ describe Interactors::Facts::ShareOnFacebook do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'calls the command to share on Facebook' do
       fact_id = '1'
       user    = mock

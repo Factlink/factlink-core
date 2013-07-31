@@ -7,7 +7,7 @@ describe Queries::Comments::GraphUserOpinion do
     stub_classes 'OpinionType', 'Believable::Commentje'
   end
 
-  describe '.call' do
+  describe '#call' do
     it "retrieves the current opinion for the graphuser" do
       id = 'a1'
       graph_user = mock

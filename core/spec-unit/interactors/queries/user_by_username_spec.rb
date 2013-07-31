@@ -8,7 +8,7 @@ describe Queries::UserByUsername do
     stub_classes 'User'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'retrieves a user' do
       search_username = "GERARD"
 

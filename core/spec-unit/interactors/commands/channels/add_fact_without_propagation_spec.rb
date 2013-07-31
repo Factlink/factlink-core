@@ -3,7 +3,7 @@ require_relative '../../../../app/interactors/commands/channels/add_fact_without
 
 describe Commands::Channels::AddFactWithoutPropagation do
   include PavlovSupport
-  describe '.call' do
+  describe '#call' do
     it 'adds the fact to the channel, and the channel to the fact' do
       fact = mock :fact,
                  channels: mock,

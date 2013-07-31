@@ -36,7 +36,7 @@ describe Interactors::SearchChannel do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       keywords = 'searching for this channel'
       interactor = Interactors::SearchChannel.new keywords, ability: relaxed_ability

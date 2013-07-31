@@ -26,7 +26,7 @@ describe Interactors::Comments::UpdateOpinion do
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].')
   end
 
-  describe '.call' do
+  describe '#call' do
     before do
       stub_classes 'Commands::Comments::SetOpinion'
     end

@@ -16,7 +16,7 @@ describe Commands::Site::AddTopTopic do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
 
     it '.key returns the correct redis key' do
       site_id = 6

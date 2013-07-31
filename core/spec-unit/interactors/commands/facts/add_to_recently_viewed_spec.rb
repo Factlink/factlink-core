@@ -16,7 +16,7 @@ describe Commands::Facts::AddToRecentlyViewed do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     before do
       stub_classes 'RecentlyViewedFacts'
     end

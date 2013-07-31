@@ -9,7 +9,7 @@ describe Interactors::ReplyToConversation do
                  'User', 'Conversation'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       graph_user   = mock
       sender       = mock(:user, id: 13, graph_user: graph_user)

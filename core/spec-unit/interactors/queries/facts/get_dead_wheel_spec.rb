@@ -16,7 +16,7 @@ describe Queries::Facts::GetDeadWheel do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     it 'returns a fact_wheel representation' do
       percentage_hash = {
         authority: 14,

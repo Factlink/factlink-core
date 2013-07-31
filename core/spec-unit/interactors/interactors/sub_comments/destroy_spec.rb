@@ -30,7 +30,7 @@ describe Interactors::SubComments::Destroy do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     it 'should call the command destroy' do
       id = '1'
       ability = stub can?: true

@@ -49,7 +49,7 @@ describe Commands::CreateMessage do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'creates and saves a message' do
       conversation = stub(id: 1, recipient_ids: [14])
 

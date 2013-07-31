@@ -8,7 +8,7 @@ describe Queries::Facts::InteractingUsers do
     stub_classes 'Fact'
   end
 
-  describe '.call' do
+  describe '#call' do
     it "returns a user who believes the fact" do
       user = mock(id: 2, username: 'my_username', name: 'Joop Bouwhuis' )
       graph_user = mock(user: user, id: 13)

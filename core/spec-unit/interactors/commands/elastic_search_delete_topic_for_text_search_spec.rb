@@ -26,7 +26,7 @@ describe Commands::ElasticSearchDeleteTopicForTextSearch do
       to raise_error(RuntimeError, 'topic missing fields ([:id]).')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()

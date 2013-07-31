@@ -31,7 +31,7 @@ describe Interactors::SubComments::IndexForComment do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     it do
       comment_id = '2b'
       sub_comments = [mock, mock]

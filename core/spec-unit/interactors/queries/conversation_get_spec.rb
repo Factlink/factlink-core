@@ -24,7 +24,7 @@ describe Queries::ConversationGet do
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
-  describe '.call' do
+  describe '#call' do
     it "returns the dead representation of the conversation if found" do
       id = 10
       fact_data = FactData.new

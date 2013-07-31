@@ -19,7 +19,7 @@ describe Queries::UsersByIds do
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
-  describe ".call" do
+  describe '#call' do
     it "should work with an empty list of ids" do
       User.should_receive(:any_in).with(_id: []).and_return([])
       result = Queries::UsersByIds.new([], current_user: mock_user1).call

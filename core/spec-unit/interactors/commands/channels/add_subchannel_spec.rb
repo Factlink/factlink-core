@@ -8,7 +8,7 @@ describe Commands::Channels::AddSubchannel do
     stub_classes 'Channel::Activities',
                  'Commands::Channels::AddFactsFromChannelToChannel'
   end
-  describe '.call' do
+  describe '#call' do
     it 'adds a subchannel to the channel' do
       channel = mock :channel, created_by: mock
       subchannel = mock :subchannel

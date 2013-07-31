@@ -7,7 +7,7 @@ describe Commands::Activities::CleanUpFaultyAddFactToChannels do
   before do
     stub_classes 'Activity'
   end
-  describe '.call' do
+  describe '#call' do
     it 'should remove all non-channel add_fact activities' do
       activities_by_id = {
         1 => mock(:activity, object: mock(:channel, type: 'channel')),

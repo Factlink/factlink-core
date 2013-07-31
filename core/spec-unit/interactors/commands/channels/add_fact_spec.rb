@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/commands/channels/add_fact'
 
 describe Commands::Channels::AddFact do
   include PavlovSupport
-  describe '.call' do
+  describe '#call' do
     before do
       stub_classes 'AddFactToChannelJob', 'Channel::Activities'
     end

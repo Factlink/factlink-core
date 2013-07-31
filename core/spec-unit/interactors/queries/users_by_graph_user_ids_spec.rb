@@ -13,7 +13,7 @@ describe Queries::UsersByGraphUserIds do
       to raise_error(RuntimeError, 'id should be a positive integer.')
   end
 
-  describe ".call" do
+  describe '#call' do
     it "should work with an empty list of ids" do
       query = Queries::UsersByGraphUserIds.new([])
 

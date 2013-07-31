@@ -14,7 +14,7 @@ describe Queries::ElasticSearchUser do
     query.should_not be_nil
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'executes correctly with return value of User class' do
       config = mock
       base_url = '1.0.0.0:4000/index'

@@ -8,7 +8,7 @@ describe Interactors::SendMailForActivity do
     stub_classes 'Queries::UsersByGraphUserIds', 'Commands::SendActivityMailToUser', 'Queries::ObjectIdsByActivity', 'Resque'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       user = mock(id: 1)
 

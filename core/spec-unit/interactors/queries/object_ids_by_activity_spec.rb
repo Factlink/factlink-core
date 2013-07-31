@@ -8,7 +8,7 @@ describe Queries::ObjectIdsByActivity do
     stub_classes 'Activity::Listener'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'retrieves the specified ids' do
       activity = mock
       class_name = mock

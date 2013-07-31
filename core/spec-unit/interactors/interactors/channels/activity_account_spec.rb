@@ -3,7 +3,7 @@ require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/channels/activity_count'
 
 describe Interactors::Channels::ActivityCount do
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       channel_id = mock
       timestamp = mock

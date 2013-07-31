@@ -35,7 +35,7 @@ describe Interactors::SearchEvidence do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'returns a empty array when the keyword string is empty' do
       keywords = 'zoeken interessante dingen'
       interactor = Interactors::SearchEvidence.new '', '1', ability: relaxed_ability

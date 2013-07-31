@@ -6,7 +6,7 @@ describe Interactors::Channels::VisibleOfUserForUser do
   before do
     stub_classes 'Channel'
   end
-  describe '.call' do
+  describe '#call' do
     it do
       user = mock
       ch1 = mock
