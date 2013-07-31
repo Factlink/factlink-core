@@ -4,13 +4,6 @@ require_relative '../../../../app/interactors/commands/site/add_top_topic.rb'
 describe Commands::Site::AddTopTopic do
   include PavlovSupport
 
-  describe '.new' do
-    it 'should initialize correctly' do
-      command = Commands::Site::AddTopTopic.new 1, "2e"
-      expect(command).not_to be_nil
-    end
-  end
-
   describe 'validations' do
     it 'requires arguments' do
       expect_validating(1, 1).

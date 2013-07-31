@@ -50,18 +50,6 @@ describe Interactors::Topics::Favourite do
     end
   end
 
-  describe '.new' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
-    it 'returns an object' do
-      interactor = described_class.new mock, mock
-
-      expect(interactor).to_not be_nil
-    end
-  end
-
   describe '#execute' do
     before do
       described_class.any_instance.stub(authorized?: true, validate: true)
