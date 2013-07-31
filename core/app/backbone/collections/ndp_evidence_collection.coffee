@@ -15,6 +15,7 @@ class OpinionatersCollection extends Backbone.Factlink.Collection
     "/facts/#{@fact.id}/interactors"
 
   fetch: (options={}) ->
+    options = _.clone options
     options.data = _.extend {}, @default_fetch_data, options.data || {}
     super options
 
