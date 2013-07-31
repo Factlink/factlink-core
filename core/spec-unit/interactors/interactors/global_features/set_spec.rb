@@ -10,7 +10,7 @@ describe Interactors::GlobalFeatures::Set do
 
   describe '#call' do
     it 'passes valid, authorized requests on to the command' do
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:configure, Ability::FactlinkSystem).and_return(true)
 
       features = ['I', 'see', 'pretty', 'things']
@@ -25,7 +25,7 @@ describe Interactors::GlobalFeatures::Set do
 
   describe '#authorized?' do
     it 'requires system management access' do
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:configure, Ability::FactlinkSystem).and_return(false)
 
       expect { described_class.new [], ability: ability }
@@ -35,7 +35,7 @@ describe Interactors::GlobalFeatures::Set do
 
   describe 'validation' do
     it 'requires an array as' do
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:configure, Ability::FactlinkSystem).and_return(true)
 
       expect { described_class.new 'string', ability: ability }
