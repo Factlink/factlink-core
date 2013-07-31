@@ -18,7 +18,7 @@ describe Commands::GlobalFeatures::Set do
       Nest.stub(:new)
         .with(:admin_global_features)
         .and_return(set)
-
+      set.should_receive(:del)
       set.should_receive(:sadd)
         .with(features[0])
       set.should_receive(:sadd)
