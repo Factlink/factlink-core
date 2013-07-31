@@ -16,7 +16,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
     this
 
   onRender: ->
-    @contentRegion.show new TextView model: new Backbone.Model text: @model.id
+    @contentRegion.show new TextView model: new Backbone.Model text: "blaat"
 
 
 class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
