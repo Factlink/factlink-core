@@ -2,7 +2,7 @@
   "url": "/fact-2/f/2",
   "can_destroy?": true,
   "id": "<STRIPPED>",
-  "fact_relation_type": "supporting",
+  "type": "believes",
   "from_fact": {
     "displaystring": "Fact 2",
     "id": "<STRIPPED>",
