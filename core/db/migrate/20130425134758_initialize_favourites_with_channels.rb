@@ -4,7 +4,7 @@ class InitializeFavouritesWithChannels < Mongoid::Migration
       if ch.type == 'channel'
         graph_user_id = ch.created_by_id.to_s
         topic_id = ch.topic.id.to_s
-        Pavlov.command 'topics/favourite', graph_user_id, topic_id
+        Pavlov.old_command 'topics/favourite', graph_user_id, topic_id
       end
     end
   end
