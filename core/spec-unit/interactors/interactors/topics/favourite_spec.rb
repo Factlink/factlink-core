@@ -51,6 +51,7 @@ describe Interactors::Topics::Favourite do
 
       interactor = described_class.new user_name: user_name,
         slug_title: slug_title, pavlov_options: pavlov_options
+
       topic = mock(id: mock)
 
       interactor.stub(:old_query)
