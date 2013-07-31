@@ -11,7 +11,7 @@ describe 'setting up an account' do
   end
 
   def create_approved_user username, email
-    # method, since there is no old_interactor yet to do this
+    # method, since there is no interactor yet to do this
     user = User.new
     user.username = username
     user.email = email
