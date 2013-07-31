@@ -3,7 +3,13 @@ require 'spec_helper'
 describe 'global_features' do
   include PavlovSupport
 
-  let(:current_user) { create :user }
+  let(:current_user) do
+    OpenStruct.new(
+      agrees_tos: true,
+      admin?: true,
+      features: [],
+    )
+  end
 
   it 'initial state is empty' do
     as(current_user) do |pavlov|
