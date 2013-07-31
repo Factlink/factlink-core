@@ -20,6 +20,9 @@ class window.FactRelationView extends Backbone.Marionette.Layout
       model: fact
       clickable_body: Factlink.Global.signed_in
 
+    @bindTo fact.getFactWheel(), 'sync', =>
+      @model.fetch()
+
     if Factlink.Global.signed_in
       @bindTo fbv, 'click:body', (e) =>
         @defaultClickHandler e, @model.getFact().friendlyUrl()
