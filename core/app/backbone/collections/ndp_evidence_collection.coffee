@@ -1,4 +1,4 @@
-class OpinionatorsCollection extends Backbone.Factlink.Collection
+class OpinionatersCollection extends Backbone.Factlink.Collection
   model: OpinionatersEvidence
 
   default_fetch_data:
@@ -25,12 +25,12 @@ class window.NDPEvidenceCollection extends Backbone.Collection
     @on 'change sync', @sort, @
     @fact = options.fact
 
-    @_opinionatorsCollection = new OpinionatorsCollection null, fact: @fact
+    @_opinionatersCollection = new OpinionatersCollection null, fact: @fact
     @_supportingCollection = new OneSidedEvidenceCollection null, fact: @fact, type: 'supporting'
     @_weakeningCollection = new OneSidedEvidenceCollection null, fact: @fact, type: 'weakening'
 
     collectionUtils = new CollectionUtils
-    collectionUtils.union this, @_opinionatorsCollection, @_supportingCollection, @_weakeningCollection
+    collectionUtils.union this, @_opinionatersCollection, @_supportingCollection, @_weakeningCollection
 
     @loading = false
 
@@ -45,6 +45,6 @@ class window.NDPEvidenceCollection extends Backbone.Collection
       success? arguments...
       @trigger 'sync'
 
-    @_opinionatorsCollection.fetch options
+    @_opinionatersCollection.fetch options
     @_supportingCollection.fetch options
     @_weakeningCollection.fetch options
