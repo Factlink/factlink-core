@@ -213,11 +213,11 @@ GEM
       colorize
       railties (>= 3.1, < 5)
       sprockets
-    less (2.2.2)
+    less (2.3.2)
       commonjs (~> 0.2.6)
-    less-rails (2.2.6)
+    less-rails (2.3.3)
       actionpack (>= 3.1)
-      less (~> 2.2.0)
+      less (~> 2.3.1)
     libv8 (3.11.8.17)
     listen (1.2.2)
       rb-fsevent (>= 0.9.3)
@@ -536,7 +536,7 @@ DEPENDENCIES
   koala (~> 1.7.0rc1)
   konacha (~> 3.0)
   korsakov!
-  less-rails (~> 2.2.6)
+  less-rails (~> 2.3.3)
   lograge (~> 0)
   mail (~> 2.5.4)
   mailcatcher (~> 0)

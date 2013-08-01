@@ -1,3 +1,7 @@
+#31-07-2013
+
+- Comments are now also used in calculation the credibility of Factlinks.
+
 #24-07-2013
 
 - Increased the max length of a username to 20 characters
