@@ -14,4 +14,4 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     else if @model instanceof FactRelation
       @contentRegion.show new FactBaseView model: @model.getFact()
     else
-      "Invalid type of model: #{@model}"
+      throw "Invalid type of model: #{@model}"
