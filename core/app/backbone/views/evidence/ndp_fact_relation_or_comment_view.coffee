@@ -1,3 +1,14 @@
+class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
+  template:
+    text: """
+      {{#time_ago}}
+        <span class="pull-right">
+          <span class="factlink-icon-time"></span>
+          {{time_ago}} {{ global.t.ago }}
+        </span>
+      {{/time_ago}}
+    """
+
 class NDPCommentView extends Backbone.Marionette.ItemView
   template: 'evidence/ndp_comment'
 
@@ -7,6 +18,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
 
   regions:
     contentRegion: '.js-content-region'
+    bottomRegion: '.js-bottom-region'
 
   onRender: ->
     if @model instanceof Comment
@@ -15,3 +27,5 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
       @contentRegion.show new FactBaseView model: @model.getFact()
     else
       throw "Invalid type of model: #{@model}"
+
+    @bottomRegion.show new NDPFactRelationOrCommentBottomView model: @model
