@@ -61,4 +61,4 @@ class FactBodyView extends Backbone.Marionette.ItemView
     @trigger 'click:body', e
 
   onRender: ->
-    @ui.displaystring.toggleClass 'fact-body-displaystring-clickable', @options.clickable || false
+    @ui.displaystring.toggleClass 'fact-body-displaystring-clickable', !!@options.clickable
