@@ -54,15 +54,10 @@ describe Commands::Twitter::ShareFactlink do
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      fact_id = "1"
-
-      described_class.any_instance.should_receive(:validate_integer_string)
-        .with(:fact_id, fact_id)
-
-      interactor = described_class.new fact_id
+  describe 'validations' do
+    it 'requires integer fact_id' do
+      expect_validating('')
+        .to fail_validation('fact_id should be an integer string.')
     end
   end
-
 end
