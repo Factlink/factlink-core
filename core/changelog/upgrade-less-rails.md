@@ -1,1 +1,0 @@
-upgrade-less-rails
