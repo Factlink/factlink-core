@@ -87,6 +87,42 @@ describe UsersController do
     end
   end
 
+  describe :activities do
+    render_views
+    include PavlovSupport
+
+    def backend_create_viewable_channel_for user
+      channel = create :channel, {created_by: user.graph_user}
+      fact = create :fact, created_by: user.graph_user
+      Pavlov.interactor :'channels/add_fact', fact: fact, channel: channel,
+        pavlov_options: { no_current_user: true }
+      channel
+    end
+    it "should render succesful" do
+      current_user = create :seeing_channels_user
+      other_user = create :seeing_channels_user
+
+      other_users_channel =
+        backend_create_viewable_channel_for other_user
+      my_channel =
+        backend_create_viewable_channel_for current_user
+
+      as(other_user) do |p|
+        p.old_interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
+      end
+
+
+      authenticate_user!(current_user)
+
+      should_check_can :see_activities, current_user
+
+      get :activities, username: current_user.username, format: :json
+
+      response.should be_success
+    end
+  end
+
+
   describe :mark_as_read do
     render_views
     it "should update last read timestamp on the user" do
