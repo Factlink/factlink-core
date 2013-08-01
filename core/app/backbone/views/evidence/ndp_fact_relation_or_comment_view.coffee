@@ -1,12 +1,11 @@
-<<<<<<< HEAD
 class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
   template: 'evidence/ndp_fact_relation_or_comment_bottom'
-=======
+
+
 class NDPFactRelationOrCommentAvatarView extends Backbone.Marionette.ItemView
   className: 'ndp-evidence-heading'
   template: 'evidence/ndp_fact_relation_or_comment_avatar'
 
->>>>>>> develop
 
 class NDPCommentView extends Backbone.Marionette.ItemView
   template: 'evidence/ndp_comment'
@@ -18,11 +17,8 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
 
   regions:
     contentRegion: '.js-content-region'
-<<<<<<< HEAD
     bottomRegion: '.js-bottom-region'
-=======
     avatarRegion: '.js-avatar-region'
->>>>>>> develop
 
   onRender: ->
     @avatarRegion.show new NDPFactRelationOrCommentAvatarView model: @model.creator()
