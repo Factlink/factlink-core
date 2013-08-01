@@ -17,6 +17,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
 
 class NDPVotableEvidenceLayoutView extends NDPEvidenceLayoutView
+  className: 'evidence-votable'
 
   onRender: ->
     @contentRegion.show new NDPFactRelationOrCommentView model: @model
