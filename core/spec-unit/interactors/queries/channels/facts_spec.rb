@@ -12,18 +12,18 @@ describe Queries::Channels::Facts do
 
   describe '.validate' do
     it 'requires id to be an integer' do
-      expect_validating(id: 'a', from: 7, count: 10).
-        to fail_validation('id should be an integer string.')
+      expect_validating(id: 'a', from: 7, count: 10)
+        .to fail_validation('id should be an integer string.')
     end
 
     it 'requires from to be an integer' do
-      expect_validating(id: '1', from: 'a', count: 0).
-        to fail_validation('from should be an integer.')
+      expect_validating(id: '1', from: 'a', count: 0)
+        .to fail_validation('from should be an integer.')
     end
 
     it 'requires count to be an integer' do
-      expect_validating(id: '1', from: 1, count: 'a').
-        to fail_validation('count should be an integer.')
+      expect_validating(id: '1', from: 1, count: 'a')
+        .to fail_validation('count should be an integer.')
     end
   end
 
