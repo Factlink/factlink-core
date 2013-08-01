@@ -7,9 +7,9 @@ class Admin::UsersController < AdminController
   before_filter :set_available_user_features, only: [:new, :create, :edit, :update]
 
   load_and_authorize_resource :except => [:create]
+  before_filter :if_not_found_404, only: [:show, :edit, :update]
 
   layout "admin"
-
 
   def create
     @user = User.new
@@ -49,6 +49,10 @@ class Admin::UsersController < AdminController
   end
 
   private
+
+  def if_not_found_404
+    raise_404 unless @user
+  end
 
   def sort_column
     User.fields.collect {|field| field[0] }.include?(params[:sort]) ? params[:sort] : "username"
