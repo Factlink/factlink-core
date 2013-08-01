@@ -7,8 +7,7 @@ describe Interactors::Topics::Favourite do
   describe '#authorized?' do
     before do
       described_class.any_instance
-        .stub(:validate)
-        .and_return(true)
+        .stub(validate: true)
     end
 
     it 'throws when no current_user' do
