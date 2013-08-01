@@ -1,5 +1,6 @@
 require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/conversations_list.rb'
+require 'andand'
 
 describe Queries::ConversationsList do
   include PavlovSupport

@@ -1,4 +1,5 @@
 require 'pavlov_helper'
+require_relative '../../../app/interactors/util/search'
 require_relative '../../../app/interactors/interactors/search_evidence.rb'
 
 describe Interactors::SearchEvidence do

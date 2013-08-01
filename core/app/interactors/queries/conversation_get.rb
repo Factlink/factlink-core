@@ -1,6 +1,5 @@
 require 'pavlov'
 require 'andand'
-require_relative '../kill_object'
 
 module Queries
   class ConversationGet

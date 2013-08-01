@@ -1,4 +1,5 @@
 require_relative '../../../app/interactors/queries/conversation_get.rb'
+require_relative '../../../app/interactors/kill_object'
 
 describe Queries::ConversationGet do
 

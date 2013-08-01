@@ -1,4 +1,5 @@
 require 'pavlov_helper'
+require 'active_support/core_ext/object/blank'
 require_relative '../../../../app/interactors/interactors/channels/facts.rb'
 
 describe Interactors::Channels::Facts do

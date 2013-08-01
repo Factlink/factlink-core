@@ -1,4 +1,5 @@
 require 'pavlov_helper'
+require 'active_support/core_ext/object/blank'
 require_relative '../../../../app/interactors/interactors/facts/create.rb'
 
 describe Interactors::Facts::Create do
