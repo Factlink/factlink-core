@@ -16,8 +16,8 @@ describe Queries::Channels::GetBySlugTitle do
       query = described_class.new(slug_title: channel.slug_title,
         pavlov_options: { current_user: current_user })
 
-             .with(:slug_title => 'foo', :created_by_id => 10)
       Channel.stub(:find)
+             .with(slug_title: 'foo', created_by_id: 10)
              .and_return(channel_set)
 
       expect(query.call).to eq channel
