@@ -24,8 +24,8 @@ describe Queries::CreatorAuthoritiesForChannels do
     it "should retrieve the topic, and retrieve the authority for the topic" do
       channel_creator = mock(:some_graph_user)
       channel = mock('channel', created_by: channel_creator, type:'channel')
-      topic = mock
-      topic_authority = mock
+      topic = double
+      topic_authority = double
       query = Queries::CreatorAuthoritiesForChannels.new mock
 
       query.should_receive(:topic_for).with(channel).
@@ -126,8 +126,8 @@ describe Queries::CreatorAuthoritiesForChannels do
 
   describe ".topics" do
     it "should retrieve the topics for all the channels" do
-      channels = mock
-      topics = mock
+      channels = double
+      topics = double
       query = Queries::CreatorAuthoritiesForChannels.new channels
 
       query.should_receive(:old_query).
@@ -137,8 +137,8 @@ describe Queries::CreatorAuthoritiesForChannels do
       expect(query.topics).to eq topics
     end
     it "should retrieve the topics once when invoked multiple times" do
-      channels = mock
-      topics = mock
+      channels = double
+      topics = double
       query = Queries::CreatorAuthoritiesForChannels.new channels
 
       query.should_receive(:old_query).

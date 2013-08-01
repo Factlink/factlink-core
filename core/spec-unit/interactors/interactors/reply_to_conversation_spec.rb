@@ -9,13 +9,13 @@ describe Interactors::ReplyToConversation do
                  'User', 'Conversation'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
-      graph_user   = mock
+      graph_user   = double
       sender       = mock(:user, id: 13, graph_user: graph_user)
       content      = 'geert'
       conversation = mock(:conversation, id: 20)
-      message      = mock
+      message      = double
       options      = {current_user: sender}
 
       interactor = Interactors::ReplyToConversation.new conversation.id.to_s, sender.id.to_s, content, options

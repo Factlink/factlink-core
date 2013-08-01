@@ -26,7 +26,7 @@ describe Queries::Channels::Facts do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_const('Channel', Class.new)
     end
@@ -36,9 +36,9 @@ describe Queries::Channels::Facts do
       count = 77
       from = 990
       query = Queries::Channels::Facts.new channel_id, from, count
-      sorted_facts = mock
-      channel = mock
-      sorted_facts_page = mock
+      sorted_facts = double
+      channel = double
+      sorted_facts_page = double
 
       query.should_receive(:old_query).with(:'channels/get',channel_id).and_return(channel)
       channel.should_receive(:sorted_cached_facts).and_return(sorted_facts)

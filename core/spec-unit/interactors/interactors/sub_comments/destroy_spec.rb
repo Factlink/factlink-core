@@ -13,7 +13,7 @@ describe Interactors::SubComments::Destroy do
       current_user = mock :user, id: 'a1'
       sub_comment = mock :sub_comment, id: 'a3', created_by_id: 'b3'
 
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:destroy, sub_comment).and_return(false)
       SubComment.should_receive(:find).with(sub_comment.id)
                 .and_return(sub_comment)
@@ -30,7 +30,7 @@ describe Interactors::SubComments::Destroy do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     it 'should call the command destroy' do
       id = '1'
       ability = stub can?: true

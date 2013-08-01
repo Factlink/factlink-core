@@ -29,7 +29,7 @@ describe Interactors::SearchUser do
   describe '.initialize' do
     it 'raises when executed without any permission' do
       keywords = "searching for this user"
-      ability = mock()
+      ability = double
       ability.stub can?: false
 
       expect do
@@ -37,13 +37,13 @@ describe Interactors::SearchUser do
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       keywords = 'searching for this user'
       interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
-      user = mock()
+      user = double
       user.should_receive(:hidden).and_return(false)
-      query = mock()
+      query = double
       query.should_receive(:call).
         and_return([user])
       Queries::ElasticSearchUser.should_receive(:new).
@@ -56,8 +56,8 @@ describe Interactors::SearchUser do
     it 'should not return hidden users' do
       keywords = 'searching for this user'
       interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
-      user = mock()
-      query = mock()
+      user = double
+      query = double
       user.should_receive(:hidden).and_return(true)
       query.should_receive(:call).
         and_return([user])

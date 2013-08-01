@@ -3,10 +3,10 @@ require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/channels/activity_count'
 
 describe Interactors::Channels::ActivityCount do
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
-      channel_id = mock
-      timestamp = mock
+      channel_id = double
+      timestamp = double
 
       Interactors::Channels::ActivityCount.any_instance.should_receive(:authorized?).and_return true
       interactor = Interactors::Channels::ActivityCount.new channel_id, timestamp
@@ -19,7 +19,7 @@ describe Interactors::Channels::ActivityCount do
 
   describe '.authorized?' do
     it 'returns the passed current_user' do
-      current_user = mock
+      current_user = double
       interactor = Interactors::Channels::ActivityCount.new mock, mock, current_user: current_user
 
       expect(interactor.authorized?).to eq current_user

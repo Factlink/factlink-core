@@ -9,7 +9,7 @@ describe Queries::AuthorityOnFactFor do
     query.should_not be_nil
   end
 
-  describe '.call' do
+  describe '#call' do
     before do
       stub_classes 'Comment', 'Authority'
     end
@@ -18,7 +18,7 @@ describe Queries::AuthorityOnFactFor do
       fact = mock(:fact, id: 10)
       graph_user = mock(:graph_user, id: 20)
 
-      authority = mock
+      authority = double
       authority_string = '1.0'
 
       query = Queries::AuthorityOnFactFor.new fact, graph_user

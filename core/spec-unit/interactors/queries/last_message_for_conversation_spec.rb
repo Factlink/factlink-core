@@ -33,7 +33,7 @@ describe Queries::LastMessageForConversation do
     end
   end
 
-  describe ".call" do
+  describe '#call' do
     it "works with a conversation that does not contain messages" do
       Message.should_receive(:where).with(conversation_id: conversation.id.to_s).and_return(empty_mongo_criteria)
 
@@ -45,7 +45,7 @@ describe Queries::LastMessageForConversation do
       criteria = mock('criteria', last: mock('message', message))
       Message.should_receive(:where).with(conversation_id: conversation.id.to_s).and_return(criteria)
 
-      dead_message = mock
+      dead_message = double
       KillObject.stub(:message).with(criteria.last).and_return(dead_message)
 
       results = Queries::LastMessageForConversation.new(conversation, current_user: user).call

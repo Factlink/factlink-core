@@ -26,7 +26,7 @@ describe Interactors::Search do
       to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'raises when called without any permission' do
       ability = stub(:ability, can?: false)
       expect do
@@ -34,13 +34,13 @@ describe Interactors::Search do
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       keywords = "searching for this channel"
       interactor = Interactors::Search.new keywords, 1, 20, ability: relaxed_ability
       results = ['a','b','c']
 
-      query = mock()
+      query = double
       Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
@@ -55,7 +55,7 @@ describe Interactors::Search do
       interactor = Interactors::Search.new keywords, 1, 20, ability: relaxed_ability
       fact_data = FactData.new
       results =  [fact_data]
-      query = mock()
+      query = double
       Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)
@@ -73,7 +73,7 @@ describe Interactors::Search do
       user.stub hidden: true
       results = [user]
 
-      query = mock()
+      query = double
       Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20, ability: relaxed_ability).
         and_return(query)

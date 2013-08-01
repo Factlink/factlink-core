@@ -11,7 +11,7 @@ describe Queries::Channels::Get do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'Channel'
     end

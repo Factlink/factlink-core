@@ -4,17 +4,17 @@ require 'pavlov_helper'
 describe Queries::Channels::ActivityCount do
   include PavlovSupport
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_const('Channel', Class.new)
     end
 
     it 'correctly' do
-      channel = mock
-      activities = mock
-      timestamp = mock
-      channel_id = mock
-      count = mock
+      channel = double
+      activities = double
+      timestamp = double
+      channel_id = double
+      count = double
       query = Queries::Channels::ActivityCount.new channel_id, timestamp
 
       Channel.should_receive(:[]).with(channel_id).and_return(channel)

@@ -18,9 +18,9 @@ describe Queries::MessagesForConversation do
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'retrieves dead representations of the messages belonging to the conversation' do
-      user = mock()
+      user = double
       user.stub(id:11)
 
       conversation = stub id: 10, recipient_ids: [11]

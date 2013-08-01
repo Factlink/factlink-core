@@ -17,10 +17,10 @@ describe Interactors::Topics::Favourite do
     end
 
     it 'throws when cannot edit favourites' do
-      user = stub
-      current_user = stub
+      user = double
+      current_user = double
 
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
 
       pavlov_options = { current_user: current_user, ability: ability }
@@ -34,10 +34,10 @@ describe Interactors::Topics::Favourite do
     end
 
     it 'does not throw if current_user is set and favourites can be edited' do
-      user = stub
-      current_user = stub
+      user = double
+      current_user = double
 
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(true)
 
       pavlov_options = { current_user: current_user, ability: ability }
@@ -50,26 +50,14 @@ describe Interactors::Topics::Favourite do
     end
   end
 
-  describe '.new' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
-    it 'returns an object' do
-      interactor = described_class.new mock, mock
-
-      expect(interactor).to_not be_nil
-    end
-  end
-
   describe '#execute' do
     before do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
     it 'calls a command to favourite topic' do
-      user_name = mock
-      slug_title = mock
+      user_name = double
+      slug_title = double
       interactor = described_class.new user_name, slug_title
       user = mock(graph_user_id: mock)
       topic = mock(id: mock)
@@ -97,8 +85,8 @@ describe Interactors::Topics::Favourite do
     end
 
     it 'calls the correct validation methods' do
-      user_name = mock
-      slug_title = mock
+      user_name = double
+      slug_title = double
 
       described_class.any_instance.should_receive(:validate_nonempty_string)
         .with(:user_name, user_name)

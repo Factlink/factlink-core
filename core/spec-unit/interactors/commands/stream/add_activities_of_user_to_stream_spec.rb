@@ -7,7 +7,7 @@ describe Commands::Stream::AddActivitiesOfUserToStream do
   describe '#call' do
     it 'adds relevant activities to the users stream' do
       graph_user_id = 3
-      activities = mock
+      activities = double
 
       command = described_class.new graph_user_id
 

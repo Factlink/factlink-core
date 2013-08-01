@@ -24,7 +24,7 @@ class AddFactToChannelJob
   def perform
     return unless fact and channel
 
-    executed = interactor :"channels/add_fact_without_propagation", fact, channel, score, false
+    executed = old_interactor :"channels/add_fact_without_propagation", fact, channel, score, false
 
     propagate_to_channels if executed
   end
@@ -40,7 +40,7 @@ class AddFactToChannelJob
   def propagate_to_channels
     channel.containing_channels.ids.each do |ch_id|
       if ch = Channel[ch_id]
-        interactor :"channels/add_fact_without_propagation", fact, ch, score, true
+        old_interactor :"channels/add_fact_without_propagation", fact, ch, score, true
       end
     end
   end

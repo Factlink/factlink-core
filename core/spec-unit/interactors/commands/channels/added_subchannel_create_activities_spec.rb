@@ -6,10 +6,10 @@ describe Commands::Channels::AddedSubchannelCreateActivities do
 
   it "should create relevant actities" do
     channel = mock created_by: mock
-    subchannel = mock
+    subchannel = double
 
     stub_classes 'Channel::Activities'
-    channel_activities = mock
+    channel_activities = double
 
     Channel::Activities.stub(:new).with(channel)
                        .and_return(channel_activities)

@@ -11,11 +11,11 @@ describe Interactors::SubComments::IndexForComment do
   describe '.authorized' do
     it 'checks if the comment can be shown' do
       comment_id = '1a'
-      comment = mock
+      comment = double
 
       Comment.stub(:find).with(comment_id).and_return(comment)
 
-      ability = mock
+      ability = double
       ability.should_receive(:can?).with(:show, comment).and_return(false)
 
       expect do
@@ -31,7 +31,7 @@ describe Interactors::SubComments::IndexForComment do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     it do
       comment_id = '2b'
       sub_comments = [mock, mock]
@@ -88,7 +88,7 @@ describe Interactors::SubComments::IndexForComment do
 
     it 'returns the top fact for the comment_id' do
       comment_id = '2a'
-      fact = mock
+      fact = double
       comment = mock(fact_data: mock(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
 
@@ -101,7 +101,7 @@ describe Interactors::SubComments::IndexForComment do
 
     it 'caches the fact' do
       comment_id = '2a'
-      fact = mock
+      fact = double
       comment = mock(fact_data: mock(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
 
@@ -123,9 +123,9 @@ describe Interactors::SubComments::IndexForComment do
 
     it 'retrieves the authority and kills the subcomment' do
       comment_id = '2a'
-      fact = mock
-      graph_user = mock
-      authority = mock
+      fact = double
+      graph_user = double
+      authority = double
       sub_comment = mock(created_by: mock(graph_user: graph_user))
       interactor = Interactors::SubComments::IndexForComment.new comment_id
 

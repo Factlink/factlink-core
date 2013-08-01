@@ -19,13 +19,13 @@ describe Queries::Site::TopTopics do
   describe '.key' do
     it '.key returns the correct redis key' do
       site_id = 6
-      redis_helper = mock
+      redis_helper = double
 
       command = Queries::Site::TopTopics.new site_id, 3
       command.should_receive(:redis).and_return( redis_helper )
 
-      key = mock
-      sub_key = mock
+      key = double
+      sub_key = double
 
       redis_helper.should_receive(:[]).with(site_id).and_return(sub_key)
       sub_key.should_receive(:[]).with(:top_topics).and_return(key)
@@ -38,9 +38,9 @@ describe Queries::Site::TopTopics do
     it 'returns an array of topic_slugs' do
       query = Queries::Site::TopTopics.new 1, 3
 
-      result_list = mock
+      result_list = double
 
-      key_mock = mock
+      key_mock = double
       key_mock.should_receive(:zrevrange).with(0, 2).and_return(result_list)
 
       query.should_receive(:key).and_return(key_mock)
@@ -49,7 +49,7 @@ describe Queries::Site::TopTopics do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
 
     before do
       stub_classes 'Topic'
@@ -63,8 +63,8 @@ describe Queries::Site::TopTopics do
       topic1 = stub(id: '1e')
       topic2 = stub(id: '2f')
 
-      dead_topic1 = mock
-      dead_topic2 = mock
+      dead_topic1 = double
+      dead_topic2 = double
 
       query.stub topics: [topic1,topic2]
 
