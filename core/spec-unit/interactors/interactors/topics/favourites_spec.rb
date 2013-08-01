@@ -32,7 +32,7 @@ describe Interactors::Topics::Favourites do
 
   describe 'validations' do
     it 'without valid user_name doesn\'t validate' do
-      expect_validating(1)
+      expect_validating('')
         .to fail_validation('user_name should be a nonempty string.')
     end
   end
