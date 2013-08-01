@@ -31,13 +31,13 @@ describe Commands::Topics::Unfavourite do
 
   describe 'validation' do
     it 'requires a graph_user_id' do
-      expect_validating(graph_user_id: '', topic_id: '1a').
-        to fail_validation('graph_user_id should be an integer string.')
+      expect_validating(graph_user_id: '', topic_id: '1a')
+        .to fail_validation('graph_user_id should be an integer string.')
     end
 
     it 'requires a topic_id' do
-      expect_validating(graph_user_id: '6', topic_id: '').
-        to fail_validation('topic_id should be an hexadecimal string.')
+      expect_validating(graph_user_id: '6', topic_id: '')
+        .to fail_validation('topic_id should be an hexadecimal string.')
     end
   end
 end

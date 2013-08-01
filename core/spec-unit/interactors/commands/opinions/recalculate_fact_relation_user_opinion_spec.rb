@@ -25,8 +25,8 @@ describe Commands::Opinions::RecalculateFactRelationUserOpinion do
 
   describe 'validation' do
     it 'without fact_relation doesn\'t validate' do
-      expect_validating({fact_relation: nil}).
-        to fail_validation('fact_relation should not be nil.')
+      expect_validating({fact_relation: nil})
+        .to fail_validation('fact_relation should not be nil.')
     end
   end
 end

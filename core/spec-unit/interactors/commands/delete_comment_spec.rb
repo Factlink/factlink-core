@@ -11,14 +11,14 @@ describe Commands::DeleteComment do
 
   it 'when supplied with a invalid comment id should not validate' do
     command = described_class.new comment_id: 'g6', user_id: 3
-    expect { command.call }.
-      to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
+    expect { command.call }
+      .to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
   end
 
   it 'when supplied with a invalid user id should not validate' do
     command = described_class.new comment_id: '1a', user_id: 'g6'
-    expect { command.call }.
-      to raise_error(Pavlov::ValidationError, 'user_id should be an hexadecimal string.')
+    expect { command.call }
+      .to raise_error(Pavlov::ValidationError, 'user_id should be an hexadecimal string.')
   end
 
   describe '#call' do

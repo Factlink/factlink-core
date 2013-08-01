@@ -77,13 +77,13 @@ describe Commands::Topics::UpdateUserAuthority do
 
   describe 'validation' do
     it 'requires a graph_user_id' do
-      expect_validating(graph_user_id: '', topic_slug: '1a', authority: mock).
-        to fail_validation('graph_user_id should be an integer string.')
+      expect_validating(graph_user_id: '', topic_slug: '1a', authority: mock)
+        .to fail_validation('graph_user_id should be an integer string.')
     end
 
     it 'requires a topic_slug' do
-      expect_validating(graph_user_id: '6', topic_slug: 34, authority: mock).
-        to fail_validation('topic_slug should be a string.')
+      expect_validating(graph_user_id: '6', topic_slug: 34, authority: mock)
+        .to fail_validation('topic_slug should be a string.')
     end
   end
 
