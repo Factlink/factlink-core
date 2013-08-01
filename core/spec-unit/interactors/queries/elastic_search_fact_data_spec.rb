@@ -37,7 +37,7 @@ describe Queries::ElasticSearchFactData do
         and_return(results)
       FactData.should_receive(:find).with(1).and_return(return_object)
 
-      query.call.should eq [return_object]
+      expect(query.call).to eq [return_object]
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
@@ -84,7 +84,7 @@ describe Queries::ElasticSearchFactData do
         .and_return(results)
       FactData.stub(:find).with(1).and_return(return_object)
 
-      query.call.should eq [return_object]
+      expect(query.call).to eq [return_object]
     end
   end
 end

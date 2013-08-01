@@ -50,7 +50,7 @@ describe Queries::ElasticSearchAll do
             and_return(return_object)
         end
 
-        query.call.should eq [return_object]
+        expect(query.call).to eq [return_object]
       end
     end
 
@@ -81,7 +81,7 @@ describe Queries::ElasticSearchAll do
         with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
-      query.call.should eq []
+      expect(query.call).to eq []
     end
   end
 end
