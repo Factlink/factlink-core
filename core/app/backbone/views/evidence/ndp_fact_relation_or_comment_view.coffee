@@ -26,7 +26,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     if @model instanceof Comment
       @contentRegion.show new NDPCommentView model: @model
     else if @model instanceof FactRelation
-      @contentRegion.show new FactBaseView model: @model.getFact()
+      @contentRegion.show new FactBaseView model: @model.getFact(), clickable_body: true
     else
       throw "Invalid type of model: #{@model}"
 
