@@ -15,8 +15,9 @@ describe Queries::ObjectIdsByActivity do
       list = double
       listener = double
       ids = [mock(:id)]
+      interactor = described_class.new activity: activity,
+        class_name: class_name, list: list
 
-      interactor = Queries::ObjectIdsByActivity.new activity, class_name, list
       interactor.should_receive(:listeners)
                 .and_return([listener])
       listener.should_receive(:add_to)
@@ -27,17 +28,18 @@ describe Queries::ObjectIdsByActivity do
     end
   end
 
-  describe '.listeners' do
+  describe '#listeners' do
     it 'gets the listeners' do
       class_name = double
       list = double
       listener = double
       listener_hash = double
+      interactor = Queries::ObjectIdsByActivity.new activity: mock(),
+        class_name: class_name, list: list
 
-      interactor = Queries::ObjectIdsByActivity.new mock(), class_name, list
-
-      listener_hash.should_receive(:[]).with(class: class_name, list: list).
-        and_return([listener])
+      listener_hash.should_receive(:[])
+        .with(class: class_name, list: list)
+        .and_return([listener])
       Activity::Listener.stub(all: listener_hash)
 
       expect(interactor.listeners).to eq([listener])

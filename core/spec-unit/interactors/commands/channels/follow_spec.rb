@@ -7,7 +7,7 @@ describe Commands::Channels::Follow do
   describe '.authorized?' do
     it 'forbids execution without current_user' do
       expect do
-        Commands::Channels::Follow.new(mock)
+        described_class.new(channel: mock, pavlov_options: { current_user: nil }).call
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
@@ -18,7 +18,7 @@ describe Commands::Channels::Follow do
         channel_2 = mock :channel_2, id:'38', slug_title:'bla'
         options = {current_user: mock}
 
-        command = Commands::Channels::Follow.new(channel, options)
+        command = described_class.new(channel: channel, pavlov_options: options)
 
         command.should_receive(:old_query)
                   .with(:'channels/get_by_slug_title', channel.slug_title)
@@ -38,7 +38,7 @@ describe Commands::Channels::Follow do
         new_channel = mock :new_channel, id:'38', slug_title:'bla'
         options = {current_user: mock}
 
-        command = Commands::Channels::Follow.new(channel, options)
+        command = described_class.new(channel: channel, pavlov_options: options)
 
         command.should_receive(:old_query)
                   .with(:'channels/get_by_slug_title', channel.slug_title)
@@ -62,7 +62,7 @@ describe Commands::Channels::Follow do
         channel_2 = mock :channel_2, id:'38', slug_title:'bla'
         options = {current_user: mock}
 
-        command = Commands::Channels::Follow.new(channel, options)
+        command = described_class.new(channel: channel, pavlov_options: options)
 
         command.should_receive(:old_query)
                   .with(:'channels/get_by_slug_title', channel.slug_title)

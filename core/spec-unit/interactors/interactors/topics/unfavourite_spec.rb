@@ -10,7 +10,7 @@ describe Interactors::Topics::Unfavourite do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new(mock, mock) }
+      expect { described_class.new(user_name: mock, slug_title: mock).call }
         .to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
@@ -21,12 +21,14 @@ describe Interactors::Topics::Unfavourite do
 
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
+      interactor = described_class.new(user_name: 'username',
+        slug_title: 'slug_title', pavlov_options: pavlov_options)
 
       Pavlov.stub(:old_query)
         .with(:user_by_username, 'username', pavlov_options)
         .and_return(user)
 
-      expect { described_class.new 'username', 'slug_title', pavlov_options }.
+      expect { interactor.call }.
         to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
@@ -44,6 +46,9 @@ describe Interactors::Topics::Unfavourite do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
+      interactor = described_class.new(user_name: user_name,
+        slug_title: slug_title, pavlov_options: pavlov_options)
+
       topic = mock(id: mock)
 
       Pavlov.stub(:old_query)
@@ -55,8 +60,6 @@ describe Interactors::Topics::Unfavourite do
       Pavlov.should_receive(:old_command)
         .with(:'topics/unfavourite', user.graph_user_id, topic.id.to_s, pavlov_options)
 
-      interactor = described_class.new user_name, slug_title, pavlov_options
-
       interactor.should_receive(:mp_track)
         .with('Topic: Unfavourited', slug_title: slug_title)
 
@@ -66,12 +69,12 @@ describe Interactors::Topics::Unfavourite do
 
   describe 'validations' do
     it 'without user_id doesn\t validate' do
-      expect_validating('', 'headline')
+      expect_validating(user_name: '', slug_title: 'headline')
         .to fail_validation('user_name should be a nonempty string.')
     end
 
-    it 'without topic_id doesn\t validate' do
-      expect_validating('karel', '')
+    it 'without user_id doesn\t validate' do
+      expect_validating(user_name: 'karel', slug_title: '')
         .to fail_validation('slug_title should be a nonempty string.')
     end
   end

@@ -10,30 +10,32 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new(mock).call }
+      expect { described_class.new(user_name: mock).call }
         .to raise_error(Pavlov::AccessDenied,'Unauthorized')
     end
 
     it 'throws when cannot show favourites' do
       user = double
       current_user = double
-      ability = double
 
+      ability = double
       ability.stub(:can?).with(:show_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
+      interactor = described_class.new(user_name: 'username',
+        pavlov_options: pavlov_options)
 
       Pavlov.stub(:old_query)
         .with(:user_by_username, 'username', pavlov_options)
         .and_return(user)
 
-      expect { described_class.new('username', pavlov_options) }
+      expect { interactor.call }
         .to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
 
   describe 'validations' do
     it 'without valid user_name doesn\'t validate' do
-      expect_validating('')
+      expect_validating(user_name: '')
         .to fail_validation('user_name should be a nonempty string.')
     end
   end
@@ -46,7 +48,7 @@ describe Interactors::Topics::Favourites do
     it 'it calls the query to get an alphabetically list of followed users' do
       user_name = double
       current_user = double
-      interactor = described_class.new user_name
+      interactor = described_class.new user_name: user_name
 
       user = mock(graph_user_id: mock)
       topic1 = mock(id: mock, slug_title: 'b')

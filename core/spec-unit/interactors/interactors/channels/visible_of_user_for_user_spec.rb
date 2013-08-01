@@ -14,8 +14,8 @@ describe Interactors::Channels::VisibleOfUserForUser do
       topic_authority = double
       containing_channels = double
 
-      Interactors::Channels::VisibleOfUserForUser.any_instance.stub(authorized?: true)
-      query = Interactors::Channels::VisibleOfUserForUser.new user
+      described_class.any_instance.stub authorized?: true
+      query = described_class.new user: user
 
       query.stub(
         channels_with_authorities: [[ch1, topic_authority], [ch2, topic_authority]],
@@ -33,8 +33,8 @@ describe Interactors::Channels::VisibleOfUserForUser do
       visible_channels = [mock(:ch1), mock(:ch2)]
       authorities = [mock(:a1), mock(:a2)]
 
-      Interactors::Channels::VisibleOfUserForUser.any_instance.stub(authorized?: true)
-      interactor = Interactors::Channels::VisibleOfUserForUser.new mock
+      described_class.any_instance.stub(authorized?: true)
+      interactor = described_class.new user: mock
       interactor.stub(visible_channels: visible_channels)
 
       interactor.should_receive(:old_query).
@@ -51,20 +51,30 @@ describe Interactors::Channels::VisibleOfUserForUser do
   end
 
   describe ".authorized?" do
-    it "initiating raises when the currently ability doesn't enable indexing channels" do
-      ability = double
-      ability.should_receive(:can?).with(:index, Channel).and_return(false)
-      expect do
-        interactor = Interactors::Channels::VisibleOfUserForUser.new mock, ability: ability
-      end.to raise_error(Pavlov::AccessDenied)
+    it "raises AccessDenied when the currently ability doesn't enable indexing channels" do
+      ability = mock
+      ability.stub(:can?)
+             .with(:index, Channel)
+             .and_return(false)
+
+      interactor = described_class.new user: mock,
+        pavlov_options: { ability:ability }
+
+      expect { interactor.call }
+        .to raise_error(Pavlov::AccessDenied)
     end
 
-    it "does not raise when initiating when the ability is enabled" do
-      ability = double
-      ability.should_receive(:can?).with(:index, Channel).and_return(true)
-      expect do
-        interactor = Interactors::Channels::VisibleOfUserForUser.new mock, ability: ability
-      end.not_to raise_error
+    it "does not raise AccessDenied when the ability is enabled" do
+      ability = mock
+      ability.stub(:can?)
+             .with(:index, Channel)
+             .and_return(true)
+
+      interactor = described_class.new user: mock,
+        pavlov_options: { ability:ability }
+
+      expect { interactor.call }
+        .to_not raise_error(Pavlov::AccessDenied)
     end
   end
 end

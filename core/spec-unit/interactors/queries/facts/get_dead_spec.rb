@@ -9,9 +9,9 @@ describe Queries::Facts::GetDead do
     stub_classes 'Fact'
   end
 
-  describe '#validate' do
+  describe 'validations' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a').
+      expect_validating(id: 'a').
         to fail_validation('id should be an integer string.')
     end
   end
@@ -34,10 +34,10 @@ describe Queries::Facts::GetDead do
           id: '1',
           has_site?: false,
           data: fact_data
-
-      interactor = Queries::Facts::GetDead.new live_fact.id
       wheel = double
       evidence_count = 10
+
+      interactor = Queries::Facts::GetDead.new id: live_fact.id
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
@@ -69,12 +69,12 @@ describe Queries::Facts::GetDead do
           has_site?: false,
           data: fact_data
 
-      interactor = Queries::Facts::GetDead.new live_fact.id
+      query = Queries::Facts::GetDead.new id: live_fact.id
 
-      Pavlov.stub query: mock
+      Pavlov.stub(old_query: mock)
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      dead_fact = interactor.call
+      dead_fact = query.call
 
       expect(dead_fact.site_url).to be_nil
     end
@@ -91,15 +91,14 @@ describe Queries::Facts::GetDead do
           site: site,
           data: fact_data
 
-      interactor = Queries::Facts::GetDead.new live_fact.id
+      query = Queries::Facts::GetDead.new id: live_fact.id
 
-      Pavlov.stub query: mock
+      Pavlov.stub(old_query: mock)
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      dead_fact = interactor.call
+      dead_fact = query.call
 
       expect(dead_fact.site_url).to eq site.url
     end
-
   end
 end

@@ -20,9 +20,11 @@ describe Interactors::CreateConversationWithMessage do
       fact_id = 10
 
       mixpanel = double
-      options = {current_user: sender, mixpanel: mixpanel}
+      pavlov_options = { current_user: sender, mixpanel: mixpanel }
 
-      interactor = Interactors::CreateConversationWithMessage.new fact_id, usernames, sender.id, content, options
+      interactor = described_class.new fact_id: fact_id,
+        recipient_usernames: usernames, sender_id: sender.id,
+        content: content, pavlov_options: pavlov_options
 
       interactor.should_receive(:mp_track).with("Factlink: Created conversation", {:recipients=>["jan", "frank"], :fact_id=>10})
       interactor.should_receive(:mp_increment_person_property)
@@ -44,9 +46,11 @@ describe Interactors::CreateConversationWithMessage do
       content = double
       conversation = double
 
-      Interactors::CreateConversationWithMessage.any_instance.should_receive(:authorized?).and_return true
+      described_class.any_instance.should_receive(:authorized?).and_return true
 
-      interactor = Interactors::CreateConversationWithMessage.new fact_id, usernames, sender_id, content
+      interactor = described_class.new fact_id: fact_id,
+        recipient_usernames: usernames, sender_id: sender_id,
+        content: content
 
       interactor.should_receive(:old_command).with(:create_conversation, fact_id, usernames).and_return(conversation)
       interactor.should_receive(:old_command).with(:create_message, sender_id, content, conversation).and_raise('some_error')
@@ -59,9 +63,10 @@ describe Interactors::CreateConversationWithMessage do
   describe '.authorized?' do
     it "returns true when the sender has the same user_id as the current_user" do
       current_user = mock(id:mock(to_s: mock))
-      options = {current_user: current_user}
+      pavlov_options = {current_user: current_user}
 
-      interactor = Interactors::CreateConversationWithMessage.new mock, mock, current_user.id, mock, options
+      interactor = described_class.new fact_id: mock, recipient_usernames: mock,
+        sender_id: current_user.id, content: mock, pavlov_options:pavlov_options
 
       expect(interactor.authorized?).to eq true
     end
@@ -70,11 +75,12 @@ describe Interactors::CreateConversationWithMessage do
       user_a = mock(id: mock(to_s: mock))
       user_b = mock(id: mock(to_s: mock))
 
-      options = {current_user: user_a}
+      pavlov_options = {current_user: user_a}
+      hash = { fact_id: mock, recipient_usernames: mock, sender_id: user_b.id,
+        content: mock, pavlov_options: pavlov_options }
 
-      expect do
-        Interactors::CreateConversationWithMessage.new mock, mock, user_b.id, mock, options
-      end.to raise_error(Pavlov::AccessDenied)
+      expect_validating( hash )
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
 end

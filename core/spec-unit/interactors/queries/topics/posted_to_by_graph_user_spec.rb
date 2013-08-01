@@ -18,7 +18,7 @@ describe Queries::Topics::PostedToByGraphUser do
       channel_list = mock real_channels_as_array: channels
       topics = [mock, mock]
 
-      query = described_class.new graph_user
+      query = described_class.new graph_user: graph_user
 
       ChannelList.stub(:new).with(graph_user)
                  .and_return(channel_list)

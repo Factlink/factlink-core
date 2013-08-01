@@ -6,8 +6,9 @@ class CreateUserTopicLists < Mongoid::Migration
           graph_user_id = auth.user_id
           authority = auth.to_f
 
-          Resque.enqueue Commands::Topics::UpdateUserAuthority,
-             graph_user_id, topic.slug_title, authority
+          Resque.enqueue(Commands::Topics::UpdateUserAuthority, {
+            graph_user_id: graph_user_id, topic_slug: topic.slug_title,
+            authority: authority })
         end
       end
     end

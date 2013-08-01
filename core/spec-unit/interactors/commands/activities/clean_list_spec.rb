@@ -27,7 +27,7 @@ describe Commands::Activities::CleanList do
       key.should_receive(:zrem)
          .with activities_by_id.key(nil_activity)
 
-      command = described_class.new keyname
+      command = described_class.new list_key: keyname
       command.call
     end
     it 'should delete activities which are invalid' do
@@ -48,7 +48,7 @@ describe Commands::Activities::CleanList do
       key.should_receive(:zrem)
          .with activities_by_id.key(unshowable_activity)
 
-      command = described_class.new keyname
+      command = described_class.new list_key: keyname
       command.call
     end
   end

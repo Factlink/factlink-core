@@ -13,7 +13,8 @@ describe Commands::CreateActivity do
     action = :test
     activity_subject = double
     activity_object = double
-    command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object
+    command = described_class.new graph_user: graph_user, action: action,
+      subject: activity_subject, object: activity_object
     command.should_not be_nil
   end
 
@@ -22,7 +23,8 @@ describe Commands::CreateActivity do
       action = :test
       activity_subject = double
       activity_object = double
-      command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object
+      command = described_class.new graph_user: graph_user, action: action,
+        subject: activity_subject, object: activity_object
       Activity.should_receive(:create).with(user: graph_user, action: action, subject: activity_subject, object: activity_object )
 
       command.call

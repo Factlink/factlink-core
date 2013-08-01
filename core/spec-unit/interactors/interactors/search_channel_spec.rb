@@ -11,42 +11,37 @@ describe Interactors::SearchChannel do
                  'Fact','Ability::FactlinkWebapp'
   end
 
-  it 'initializes' do
-    interactor = Interactors::SearchChannel.new 'keywords', ability: relaxed_ability
-    interactor.should_not be_nil
+  describe 'validations' do
+    it 'requires keywords to be a nonempty string' do
+      interactor = described_class.new keywords: nil
+      expect { interactor.call }
+        .to fail_validation 'keywords should be a nonempty string.'
+    end
   end
 
-  it 'raises when initialized with keywords that is not a string' do
-    expect { interactor = Interactors::SearchChannel.new nil }.
-      to raise_error(RuntimeError, 'Keywords should be a string.')
-  end
-
-  it 'raises when initialized with an empty keywords string' do
-    expect { interactor = Interactors::SearchChannel.new '' }.
-      to raise_error(RuntimeError, 'Keywords must not be empty.')
-  end
-
-  describe '.initialize' do
+  describe '#authorized?' do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
       ability = stub(:ability, can?: false)
-      expect do
-        Interactors::SearchChannel.new keywords, ability: ability
-      end.to raise_error(Pavlov::AccessDenied)
+
+      interactor = described_class.new keywords: keywords,
+          pavlov_options: { ability: ability }
+
+      expect { interactor.call }
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
 
   describe '#call' do
     it 'correctly' do
       keywords = 'searching for this channel'
-      interactor = Interactors::SearchChannel.new keywords, ability: relaxed_ability
+      interactor = described_class.new keywords: keywords,
+        pavlov_options: { ability: relaxed_ability }
       topic = double
-      query = double
-      query.should_receive(:call).
-        and_return([topic])
-      Queries::ElasticSearchChannel.should_receive(:new).
-        with(keywords, 1, 20, ability: relaxed_ability).
-        and_return(query)
+      Pavlov.should_receive(:old_query)
+        .with(:elastic_search_channel, keywords, 1, 20,
+          { ability: relaxed_ability })
+        .and_return([topic])
 
       interactor.call.should eq [topic]
     end

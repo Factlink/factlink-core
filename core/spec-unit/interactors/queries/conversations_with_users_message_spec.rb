@@ -21,7 +21,8 @@ describe Queries::ConversationsWithUsersMessage do
       message15 = mock(:message, id: 15)
       message25 = mock(:message, id: 25)
 
-      query = described_class.new(user1.id.to_s, current_user: user1)
+      query = described_class.new(user_id: user1.id.to_s,
+        pavlov_options: { current_user: user1 })
 
       query.stub(:old_query)
            .with(:conversations_list, user1.id.to_s)
@@ -37,6 +38,7 @@ describe Queries::ConversationsWithUsersMessage do
            .and_return(message25)
 
       result = query.call
+
       expect(result.length.should).to eq(2)
 
       conversation1 = result[0]

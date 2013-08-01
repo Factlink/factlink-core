@@ -16,8 +16,8 @@ gem 'mail', '~> 2.5.4'
 # Mongo
 gem 'mongoid', '~> 3.0.21'
 
-gem 'pavlov', github: 'Factlink/pavlov', ref: '0b4bd6af62c4210b4c9b7187eb82b3780c755213'
-gem 'korsakov', github: 'jjoos/korsakov', ref: '72db865b99a3e8dee2840a191fe67ecd8f32ccef'
+gem 'pavlov', github: 'Factlink/pavlov', ref: '94b9dba'
+gem 'korsakov', github: 'jjoos/korsakov', ref: '72db865'
 
 # Redis
 gem 'redis', '~> 2.2.1'
