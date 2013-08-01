@@ -8,7 +8,8 @@ module Interactors
 
     def execute
       recipients.each do |user|
-        Resque.enqueue(Commands::SendActivityMailToUser, { user_id: user.id, activity_id: activity.id, pavlov_options: pavlov_options })
+        Resque.enqueue Commands::SendActivityMailToUser,
+          user_id: user.id, activity_id: activity.id, pavlov_options: pavlov_options
       end
     end
 

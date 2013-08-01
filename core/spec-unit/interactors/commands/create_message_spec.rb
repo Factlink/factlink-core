@@ -19,8 +19,8 @@ describe Commands::CreateMessage do
 
       conversation = stub(repicient_ids: [14])
 
-      command = described_class.new(sender_id: 14, content: '',
-        conversation: conversation)
+      command = described_class.new sender_id: 14, content: '',
+        conversation: conversation
       expect { command.call }.
         to raise_error(Pavlov::ValidationError, 'message_empty')
     end
@@ -31,8 +31,8 @@ describe Commands::CreateMessage do
 
       conversation = stub(repicient_ids: [14])
 
-      command = described_class.new(sender_id: 14, content: " \t\n",
-        conversation: conversation)
+      command = described_class.new sender_id: 14, content: " \t\n",
+                  conversation: conversation
       expect { command.call }.
         to raise_error(Pavlov::ValidationError, 'message_empty')
     end

@@ -16,9 +16,8 @@ module Queries
       return nil unless conversation
       raise_unauthorized unless authorized_to_get(conversation)
 
-      KillObject.conversation(conversation,
+      KillObject.conversation conversation,
         fact_id: conversation.fact_data.andand.fact_id
-      )
     end
 
     def authorized?
