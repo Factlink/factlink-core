@@ -24,9 +24,9 @@ describe Interactors::Topics::Favourite do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      Pavlov.stub(:old_query).
-        with(:user_by_username, 'username', pavlov_options).
-        and_return(user)
+      Pavlov.stub(:old_query)
+        .with(:user_by_username, 'username', pavlov_options)
+        .and_return(user)
 
       expect { described_class.new 'username', 'slug_title', pavlov_options }.
         to raise_error Pavlov::AccessDenied, 'Unauthorized'
