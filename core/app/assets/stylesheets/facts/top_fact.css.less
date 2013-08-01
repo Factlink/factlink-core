@@ -32,16 +32,16 @@
   color: @mutedFontColor;
 }
 
-@informationHeight: 40px;
-@informationBackgroundColor: rgba(144,147,151,0.2);
+@informationLabelHeight: 40px;
+@informationLabelBackgroundColor: rgba(144,147,151,0.2);
 .top-fact-weakening-information, .top-fact-supporting-information {
-  background-color: @informationBackgroundColor;
+  background-color: @informationLabelBackgroundColor;
   color: rgb(120,120,120);
   position: absolute;
   width: 355px;
-  bottom: -@informationHeight;
-  height: @informationHeight;
-  line-height: @informationHeight;
+  bottom: -@informationLabelHeight;
+  height: @informationLabelHeight;
+  line-height: @informationLabelHeight;
   text-align: center;
   z-index: -1;
   .new-design-border-radius();
@@ -56,7 +56,7 @@
     width: 0;
     position: absolute;
     border-color: none;
-    border-top-color: @informationBackgroundColor;
+    border-top-color: @informationLabelBackgroundColor;
     border-width: 12px;
     left: 50%;
     margin-left: -12px;
