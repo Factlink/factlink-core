@@ -24,7 +24,7 @@ describe Commands::Opinions::RecalculateCommentUserOpinion do
     end
   end
 
-  describe '#validate' do
+  describe 'validation' do
     it 'calls the correct validation methods' do
       expect_validating(comment: nil)
         .to raise_error 'comment should not be nil.'
