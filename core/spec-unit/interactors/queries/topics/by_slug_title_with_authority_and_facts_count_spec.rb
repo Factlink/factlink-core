@@ -4,15 +4,16 @@ require_relative '../../../../app/interactors/queries/topics/by_slug_title_with_
 describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
   include PavlovSupport
 
-  describe '#call' do
-    it 'calls the correct validation methods' do
+  describe 'validation' do
+    it 'checks the slug_title' do
       slug_title = double
 
       query = described_class.new slug_title: 1
 
       expect{ query.call }.to raise_error Pavlov::ValidationError, 'slug_title should be a string.'
     end
-
+  end
+  describe '#call' do
     it 'returns the topic' do
       topic = mock(slug_title: 'slug_title', title: mock)
       dead_topic = double
