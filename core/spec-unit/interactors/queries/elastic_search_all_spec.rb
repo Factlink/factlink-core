@@ -65,8 +65,7 @@ describe Queries::ElasticSearchAll do
       query = described_class.new(keywords: keywords, page: 1, row_count: 20, pavlov_options: { logger: logger })
 
       logger.should_receive(:error).with(error_message)
-      HTTParty.should_receive(:get).
-        and_return(results)
+      HTTParty.stub get: results
 
       expect { query.call }.to raise_error(RuntimeError, error_message)
     end

@@ -48,7 +48,7 @@ describe Queries::LastMessageForConversation do
       dead_message = mock
       criteria = mock('criteria', last: mock('message', message))
 
-      Message.should_receive(:where)
+      Message.stub(:where)
         .with(conversation_id: conversation.id.to_s)
         .and_return(criteria)
       KillObject.stub(:message)

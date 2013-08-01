@@ -17,16 +17,16 @@ describe Queries::ConversationWithRecipientsAndMessages do
     query = described_class.new(id: conversation.id, pavlov_options: options)
     new_conversation = mock()
 
-    query.should_receive(:old_query)
+    query.stub(:old_query)
       .with(:conversation_get, conversation.id)
       .and_return(conversation)
-    query.should_receive(:old_query)
+    query.stub(:old_query)
       .with(:messages_for_conversation, conversation)
       .and_return(message_list)
-    query.should_receive(:old_query)
+    query.stub(:old_query)
       .with(:users_by_ids, recipient_ids)
       .and_return(recipient_list)
-    KillObject.should_receive(:conversation)
+    KillObject.stub(:conversation)
       .with(conversation, messages: message_list, recipients: recipient_list)
       .and_return(new_conversation)
 
@@ -40,7 +40,7 @@ describe Queries::ConversationWithRecipientsAndMessages do
     nonexistingid = mock()
     query = described_class.new(id: nonexistingid, pavlov_options: options)
 
-    query.should_receive(:old_query)
+    query.stub(:old_query)
       .with(:conversation_get, nonexistingid)
       .and_return(nil)
 

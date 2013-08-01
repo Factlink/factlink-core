@@ -11,7 +11,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       query = described_class.new channels: channels
 
       0.upto(1) do |i|
-        query.should_receive(:authority_for).with(channels[i])
+        query.stub(:authority_for).with(channels[i])
             .and_return(channel_authorities[i])
       end
 
@@ -27,11 +27,11 @@ describe Queries::CreatorAuthoritiesForChannels do
       topic_authority = double
       query = described_class.new channels: double
 
-      query.should_receive(:topic_for).with(channel)
+      query.stub(:topic_for).with(channel)
            .and_return(topic)
-      query.should_receive(:graph_user_for).with(channel)
+      query.stub(:graph_user_for).with(channel)
            .and_return(channel_creator)
-      query.should_receive(:old_query)
+      query.stub(:old_query)
            .with(:authority_on_topic_for,topic, channel_creator)
            .and_return(topic_authority)
 
@@ -64,8 +64,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       query = described_class.new channels: [channel]
 
       channel.should_receive(:write_local).with(:created_by, channel_creator).any_number_of_times
-      GraphUser.should_receive(:[]).with(256)
-               .any_number_of_times.and_return(channel_creator)
+      GraphUser.stub(:[]).with(256).and_return(channel_creator)
 
       expect(query.graph_user_for(channel)).to eq(channel_creator)
     end
@@ -92,7 +91,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       topic = double(:topic, slug_title: 'mock')
       query = described_class.new channels: [channel]
 
-      query.should_receive(:topics).and_return([topic])
+      query.stub topics: [topic]
 
       result = query.topic_for(channel)
 
@@ -110,7 +109,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       ]
       query = described_class.new channels: [channel]
 
-      query.should_receive(:topics).and_return(topics)
+      query.stub topics: topics
 
       result = query.topic_for(channel)
 
@@ -124,7 +123,7 @@ describe Queries::CreatorAuthoritiesForChannels do
       topics = double
       query = described_class.new channels: channels
 
-      query.should_receive(:old_query).
+      query.stub(:old_query).
             with(:topics_for_channels,channels).
             and_return(topics)
 

@@ -82,7 +82,7 @@ describe Queries::ElasticSearchFactData do
       HTTParty.should_receive(:get)
         .with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true")
         .and_return(results)
-      FactData.should_receive(:find).with(1).and_return(return_object)
+      FactData.stub(:find).with(1).and_return(return_object)
 
       query.call.should eq [return_object]
     end

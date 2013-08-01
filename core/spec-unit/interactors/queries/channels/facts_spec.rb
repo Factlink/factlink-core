@@ -41,9 +41,9 @@ describe Queries::Channels::Facts do
       channel = double
       sorted_facts_page = double
 
-      query.should_receive(:old_query).with(:'channels/get',channel_id).and_return(channel)
-      channel.should_receive(:sorted_cached_facts).and_return(sorted_facts)
-      sorted_facts.should_receive(:below).with(from, {count: count, reversed: true, withscores: true}).and_return(sorted_facts_page)
+      query.stub(:old_query).with(:'channels/get',channel_id).and_return(channel)
+      channel.stub(:sorted_cached_facts).and_return(sorted_facts)
+      sorted_facts.stub(:below).with(from, {count: count, reversed: true, withscores: true}).and_return(sorted_facts_page)
 
       expect(query.call).to eq sorted_facts_page
     end

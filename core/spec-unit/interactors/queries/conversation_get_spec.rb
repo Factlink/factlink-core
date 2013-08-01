@@ -46,7 +46,7 @@ describe Queries::ConversationGet do
       query = described_class.new(id: 1245,
         pavlov_options: { current_user: double() })
 
-      Conversation.should_receive(:find).and_return(nil)
+      Conversation.stub find: nil
 
       expect(query.call).to be_nil
     end
