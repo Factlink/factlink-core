@@ -7,7 +7,8 @@ describe Queries::ElasticSearchChannel do
   let(:base_url) { base_url = '1.0.0.0:4000/index' }
 
   before do
-    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application'
+    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application', 'Logger'
+    Logger.stub(:new)
 
     FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
@@ -60,7 +61,7 @@ describe Queries::ElasticSearchChannel do
       hit = double
       results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
         code: 200)
-      query.stub get_object: stub
+      query.stub get_object: double
 
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('topic')
