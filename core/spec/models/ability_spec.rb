@@ -18,6 +18,7 @@ describe Ability do
   describe "to manage a user" do
     context "as a normal user" do
       it {subject.should_not be_able_to :manage, User }
+      it {subject.should_not be_able_to :configure, Ability::FactlinkWebapp }
 
       it {subject.should     be_able_to :show, user }
       it {subject.should     be_able_to :show, other_user }
@@ -39,6 +40,8 @@ describe Ability do
     end
     context "as an admin" do
       it {admin.should     be_able_to :manage, User }
+      it {admin.should     be_able_to :configure, Ability::FactlinkWebapp }
+
       it {admin.should_not be_able_to :sign_tos, user }
       it {admin.should_not be_able_to :sign_tos, admin_user }
     end
