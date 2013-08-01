@@ -1,7 +1,6 @@
 class Admin::UsersController < AdminController
   helper_method :sort_column, :sort_direction
 
-  before_filter :authenticate_user!
   before_filter :get_activated_users,         only: [:index]
   before_filter :get_reserved_users,          only: [:reserved]
   before_filter :set_available_user_features, only: [:new, :create, :edit, :update]
@@ -74,5 +73,6 @@ class Admin::UsersController < AdminController
 
   def set_available_user_features
     @user_features = Ability::FEATURES
+    @globally_enabled_features = (old_interactor :'global_features/all').to_set
   end
 end
