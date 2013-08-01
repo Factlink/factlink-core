@@ -1,8 +1,5 @@
 class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
-  template:
-    text: """
-      <span class="factlink-icon-time-small"></span>{{time_ago}} {{ global.t.ago }}
-    """
+  template: 'evidence/ndp_fact_relation_or_comment_bottom'
 
 class NDPCommentView extends Backbone.Marionette.ItemView
   template: 'evidence/ndp_comment'
