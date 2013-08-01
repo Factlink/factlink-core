@@ -8,8 +8,8 @@ Backbone.Factlink.Trunk8MoreLessMixin =
 
     @on 'render', @trunk8Render, @
 
-    @$el.delegate 'a.trunk8-more', 'click', => @trunk8Show()
-    @$el.delegate @_trunk8LessSelector, 'click', => @trunk8Hide()
+    @$el.delegate 'a.trunk8-more', 'click', (e) => @trunk8Show(e)
+    @$el.delegate @_trunk8LessSelector, 'click', (e) => @trunk8Hide(e)
 
   trunk8Render: ->
     sometimeWhen(
