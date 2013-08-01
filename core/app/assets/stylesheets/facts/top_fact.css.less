@@ -31,3 +31,27 @@
   right: 0;
   color: @mutedFontColor;
 }
+
+@informationHeight: 40px;
+.top-fact-weakening-information, .top-fact-supporting-information {
+  background-color: rgba(144,147,151,0.2);
+  color: rgb(120,120,120);
+  position: absolute;
+  width: 355px;
+  bottom: - @informationHeight;
+  height: @informationHeight;
+  line-height: @informationHeight;
+  text-align: center;
+  z-index: -1;
+  .new-design-border-radius();
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.top-fact-weakening-information {
+  left: 5px;
+}
+
+.top-fact-supporting-information {
+  right: 5px;
+}
