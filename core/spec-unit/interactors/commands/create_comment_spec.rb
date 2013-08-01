@@ -48,9 +48,9 @@ describe Commands::CreateComment do
       user_id = '1a'
       command = described_class.new fact_id: fact_id, type: type,
         content: content, user_id: user_id
-      comment = mock(:comment, id: 10)
+      comment = double(:comment, id: 10)
       fact = double
-      fact_data = mock fact: fact
+      fact_data = double fact: fact
       user = double
       command.stub fact_data: fact_data
 
@@ -74,7 +74,7 @@ describe Commands::CreateComment do
     it 'should return the fact_data defined by the fact_id' do
       fact_id = 10
       fact_data_id = 'a1'
-      fact = mock(:fact, data_id: fact_data_id)
+      fact = double(:fact, data_id: fact_data_id)
       type = 'believes'
       content = 'message'
       user_id = '1a'

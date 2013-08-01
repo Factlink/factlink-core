@@ -9,9 +9,9 @@ describe PavlovConsole do
   end
 
   it 'forwards interactor methods to Pavlov, with correct options' do
-    user = mock :user, username: 'mark'
+    user = double :user, username: 'mark'
     options = double
-    param1, param2 = mock, mock
+    param1, param2 = double, double
 
     User.stub(:find)
         .with(user.username)

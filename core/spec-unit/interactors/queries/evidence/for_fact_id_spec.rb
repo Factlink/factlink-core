@@ -27,16 +27,16 @@ describe Queries::Evidence::ForFactId do
 
   describe '#call' do
     it 'interleaves and sorts the comments and factrelation it retrieves' do
-      fact = mock id: '1'
+      fact = double id: '1'
 
-      fact_relation1 = mock :fact_relation1, impact_opinion: mock(authority: 1)
-      fact_relation2 = mock :fact_relation2, impact_opinion: mock(authority: 3)
+      fact_relation1 = double :fact_relation1, impact_opinion: double(authority: 1)
+      fact_relation2 = double :fact_relation2, impact_opinion: double(authority: 3)
 
-      comment1 = mock :comment1, impact_opinion: mock(authority: 2)
-      comment2 = mock :comment2, impact_opinion: mock(authority: 4)
+      comment1 = double :comment1, impact_opinion: double(authority: 2)
+      comment2 = double :comment2, impact_opinion: double(authority: 4)
 
       type = :weakening
-      pavlov_options = { current_user: mock }
+      pavlov_options = { current_user: double }
       interactor = described_class.new fact_id: '1', type: type,
         pavlov_options: pavlov_options
 

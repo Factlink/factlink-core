@@ -5,7 +5,7 @@ describe Commands::Channels::AddedSubchannelCreateActivities do
   include PavlovSupport
 
   it "should create relevant actities" do
-    channel = mock created_by: mock
+    channel = double created_by: double
     subchannel = double
 
     stub_classes 'Channel::Activities'

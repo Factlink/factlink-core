@@ -21,8 +21,8 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
           )
       ]
       sub_comments = [
-        mock( created_by: mock( graph_user_id: 3 )),
-        mock( created_by: mock( graph_user_id: 4 ))
+        double( created_by: double( graph_user_id: 3 )),
+        double( created_by: double( graph_user_id: 4 ))
       ]
       query = described_class.new comments: comments
 

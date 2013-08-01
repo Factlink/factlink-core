@@ -23,21 +23,21 @@ describe Interactors::Channels::ActivityCount do
   describe '.authorized?' do
     it 'returns the passed current_user' do
       current_user = double
-      interactor = described_class.new channeld_id: mock, timestamp: mock,
+      interactor = described_class.new channeld_id: double, timestamp: double,
         pavlov_options: { current_user: current_user }
 
       expect(interactor.authorized?).to eq current_user
     end
 
     it 'returns true when the :no_current_user option is true' do
-      interactor = described_class.new channel_id: mock, timestamp: mock,
+      interactor = described_class.new channel_id: double, timestamp: double,
         pavlov_options: { no_current_user: true }
 
       expect(interactor.authorized?).to eq true
     end
 
     it 'returns false when neither :current_user or :no_current_user are passed' do
-      expect_validating( channel_id: mock, timestamp: mock )
+      expect_validating( channel_id: double, timestamp: double )
         .to raise_error(Pavlov::AccessDenied)
     end
   end

@@ -9,13 +9,13 @@ describe Queries::ConversationWithRecipientsAndMessages do
   end
 
   it 'calls needed queries and returns it result' do
-    recipient_ids = mock('recipient_ids')
-    conversation = mock('conversation', id: 10, fact_id: 30, recipient_ids: recipient_ids)
-    options = {current_user: mock()}
-    message_list = mock('list of messages')
-    recipient_list = mock('list of recipients')
+    recipient_ids = double('recipient_ids')
+    conversation = double('conversation', id: 10, fact_id: 30, recipient_ids: recipient_ids)
+    options = {current_user: double()}
+    message_list = double('list of messages')
+    recipient_list = double('list of recipients')
     query = described_class.new(id: conversation.id, pavlov_options: options)
-    new_conversation = mock()
+    new_conversation = double()
 
     query.stub(:old_query)
       .with(:conversation_get, conversation.id)
@@ -36,8 +36,8 @@ describe Queries::ConversationWithRecipientsAndMessages do
   end
 
   it 'returns nil if the conversation is not found' do
-    options = {current_user: mock()}
-    nonexistingid = mock()
+    options = {current_user: double()}
+    nonexistingid = double()
     query = described_class.new(id: nonexistingid, pavlov_options: options)
 
     query.stub(:old_query)

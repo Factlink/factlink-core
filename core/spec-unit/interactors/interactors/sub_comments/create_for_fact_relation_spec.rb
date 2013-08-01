@@ -72,9 +72,9 @@ describe Interactors::SubComments::CreateForFactRelation do
 
     it 'throws an error when the fact relation does not exist' do
       stub_const 'Pavlov::ValidationError', RuntimeError
-      ability = mock can?: true
+      ability = double can?: true
       interactor = described_class.new(fact_relation_id: 1, content: 'content',
-        pavlov_options: { current_user: mock, ability: ability })
+        pavlov_options: { current_user: double, ability: ability })
 
       FactRelation.stub :[] => nil
 
@@ -104,7 +104,7 @@ describe Interactors::SubComments::CreateForFactRelation do
       fact = double
       fact_relation = double(id: 1, fact: fact)
       ability = double(can?: true)
-      options = { current_user: mock, ability: ability }
+      options = { current_user: double, ability: ability }
       interactor = described_class.new(fact_relation_id: fact_relation.id,
         content: 'hoi', pavlov_options: options)
 
@@ -128,9 +128,9 @@ describe Interactors::SubComments::CreateForFactRelation do
       graph_user = double
       authority = double
       user = double
-      sub_comment = mock(created_by: mock(graph_user: graph_user))
+      sub_comment = double(created_by: double(graph_user: graph_user))
       FactRelation.stub :[] => nil
-      ability = mock can?: true
+      ability = double can?: true
       options = { current_user: user, ability: ability }
       interactor = described_class.new(fact_relation_id: fact_relation_id,
         content: 'hoi', pavlov_options: options)

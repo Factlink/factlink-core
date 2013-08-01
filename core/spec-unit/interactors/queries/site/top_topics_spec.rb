@@ -36,10 +36,10 @@ describe Queries::Site::TopTopics do
     it 'returns an array of topic_slugs' do
       query = described_class.new site_id: 1, nr: 3
       result_list = double
-      key_mock = double
+      key_double = double
 
-      key_mock.should_receive(:zrevrange).with(0, 2).and_return(result_list)
-      query.should_receive(:key).and_return(key_mock)
+      key_double.should_receive(:zrevrange).with(0, 2).and_return(result_list)
+      query.should_receive(:key).and_return(key_double)
 
       expect(query.topic_slugs).to eq result_list
     end

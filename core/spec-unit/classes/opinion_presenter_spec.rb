@@ -7,7 +7,7 @@ describe OpinionPresenter do
 
   describe '#relevance' do
     it 'is 0 when the authority of the opinion is 0' do
-      opinion = mock authority: 0, disbelieves: 0, believes: 0
+      opinion = double authority: 0, disbelieves: 0, believes: 0
 
       op = OpinionPresenter.new opinion
       expect(op.relevance).to eq 0
@@ -37,7 +37,7 @@ describe OpinionPresenter do
 
   describe '#authority' do
     it 'Multiplies the value of opinion.type with the authority' do
-      opinion = mock believes: 2, authority: 3
+      opinion = double believes: 2, authority: 3
 
       op = OpinionPresenter.new opinion
 
@@ -49,11 +49,11 @@ describe OpinionPresenter do
     it "should use the NumberFormatter for the formatting of authority" do
       authority = 13
       friendly_authority = double
-      number_formatter = mock as_authority: friendly_authority
+      number_formatter = double as_authority: friendly_authority
 
       NumberFormatter.stub(:new).with(authority).and_return(number_formatter)
 
-      opinion = mock believes: 1, disbelieves: 0, doubts: 0, authority: authority
+      opinion = double believes: 1, disbelieves: 0, doubts: 0, authority: authority
       calculated_friendly_authority = OpinionPresenter.new(opinion).as_percentages_hash[:authority]
       expect(calculated_friendly_authority).to eq friendly_authority
     end
@@ -61,7 +61,7 @@ describe OpinionPresenter do
     describe "rounds in a logical way" do
        before do
         NumberFormatter.stub(:new) do |a|
-          mock as_authority: a
+          double as_authority: a
         end
        end
        {
@@ -83,7 +83,7 @@ describe OpinionPresenter do
 
        }.each do |percentages_in, percentages_out|
          it "should format (#{percentages_in}) as #{percentages_out}" do
-             opinion_in = mock believes: percentages_in[0]/100.0,
+             opinion_in = double believes: percentages_in[0]/100.0,
                             disbelieves: percentages_in[1]/100.0,
                                  doubts: percentages_in[2]/100.0,
                               authority: percentages_in[3]

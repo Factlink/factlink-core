@@ -12,8 +12,8 @@ describe Commands::Channels::AddFactsFromChannelToChannel do
 
     it "should add the fact to the cached facts of the super channel using Resque" do
       channel = double
-      sub_channel = mock :sub_channel,
-                        sorted_internal_facts: mock
+      sub_channel = double :sub_channel,
+                        sorted_internal_facts: double
       fact = double
 
       sub_channel.sorted_internal_facts.stub(:below)
@@ -28,10 +28,10 @@ describe Commands::Channels::AddFactsFromChannelToChannel do
 
     it "should only add NUMBER_OF_INITIAL_FACTS facts to the super channel" do
       channel = double
-      sub_channel = mock :sub_channel,
-                        sorted_internal_facts: mock
+      sub_channel = double :sub_channel,
+                        sorted_internal_facts: double
 
-      fact = mock
+      fact = double
       facts = Array.new(nr_of_initial_facts).map {|item| fact}
       sub_channel.sorted_internal_facts.stub(:below)
                    .with('inf', count: nr_of_initial_facts)
@@ -39,7 +39,7 @@ describe Commands::Channels::AddFactsFromChannelToChannel do
 
       Pavlov.stub(:old_command).with(:'channels/add_fact_without_propagation', fact, channel, nil)
         .exactly(nr_of_initial_facts).times
-        .and_return(mock call: nil)
+        .and_return(double call: nil)
 
       described_class.perform subchannel: sub_channel, channel: channel
     end

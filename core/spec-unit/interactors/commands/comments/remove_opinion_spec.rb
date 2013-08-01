@@ -13,7 +13,7 @@ describe Commands::Comments::RemoveOpinion do
       believable = double
       graph_user = double
 
-      command = described_class.new comment_id: 'a1', graph_user: mock
+      command = described_class.new comment_id: 'a1', graph_user: double
       command.stub believable: believable,
                    graph_user: graph_user
 
@@ -27,7 +27,7 @@ describe Commands::Comments::RemoveOpinion do
     it "returns the Believable::Commentje for this comment" do
       id = 'a1'
       believable = double
-      command = described_class.new comment_id: id, graph_user: mock
+      command = described_class.new comment_id: id, graph_user: double
 
       Believable::Commentje.should_receive(:new)
                        .with(id)

@@ -21,7 +21,7 @@ describe RecentlyViewedFacts do
 
   describe '.top' do
     it 'retrieves the last "count" facts' do
-      fact = mock id: 14
+      fact = double id: 14
       nest = double
       count = 10
 

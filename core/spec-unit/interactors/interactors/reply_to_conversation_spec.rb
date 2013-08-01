@@ -12,9 +12,9 @@ describe Interactors::ReplyToConversation do
   describe '#call' do
     it 'correctly' do
       graph_user   = double
-      sender       = mock(:user, id: 13, graph_user: graph_user)
+      sender       = double(:user, id: 13, graph_user: graph_user)
       content      = 'geert'
-      conversation = mock(:conversation, id: 20)
+      conversation = double(:conversation, id: 20)
       message      = double
       options      = {current_user: sender}
 

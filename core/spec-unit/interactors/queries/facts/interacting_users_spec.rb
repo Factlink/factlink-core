@@ -27,7 +27,7 @@ describe Queries::Facts::InteractingUsers do
     it 'returns a user who disbelieves the fact' do
       user = double(id: 2, username: 'my_username', name: 'Joop Bouwhuis' )
       graph_user = double(user: user, id: 13)
-      fact = mock id: 1, people_disbelieves: [graph_user]
+      fact = double id: 1, people_disbelieves: [graph_user]
       query = described_class.new(fact_id: fact.id, skip: 0, take: 3,
         opinion: 'disbelieves')
 
@@ -61,7 +61,7 @@ describe Queries::Facts::InteractingUsers do
       graph_user1 = double(user: user1, id: 13)
       graph_user2 = double(user: user2, id: 14)
       graph_user3 = double(user: user3, id: 15)
-      fact = mock id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
+      fact = double id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
       pavlov_options = { current_user: double(graph_user_id: 666) }
       query = described_class.new(fact_id: 1, skip: 1, take: 1,
         opinion: 'believes', pavlov_options: pavlov_options)
@@ -84,7 +84,7 @@ describe Queries::Facts::InteractingUsers do
       user2.stub graph_user: graph_user2,
                  graph_user_id: graph_user2.id
       graph_user3 = double(user: user3, id: 17)
-      fact = mock id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
+      fact = double id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
       current_user = user2
       pavlov_options = {
         current_user: current_user

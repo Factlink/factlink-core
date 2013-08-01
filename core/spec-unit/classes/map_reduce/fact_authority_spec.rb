@@ -10,7 +10,7 @@ describe MapReduce::FactAuthority do
   end
   describe "#wrapped_map" do
     it do
-      fact_relations = mock ids: [1,2,3]
+      fact_relations = double ids: [1,2,3]
 
       fact_relation_db = {
         1 => stub(:FactRelation,

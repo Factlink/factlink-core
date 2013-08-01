@@ -11,7 +11,7 @@ describe Interactors::Users::Followers do
 
     it 'throws when no current_user' do
       expect do
-        described_class.new(user_name: mock, skip: mock, take: mock).call
+        described_class.new(user_name: double, skip: double, take: double).call
       end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
@@ -42,13 +42,13 @@ describe Interactors::Users::Followers do
       user_name = double
       skip = double
       take = double
-      current_user = mock(graph_user_id: mock)
+      current_user = double(graph_user_id: double)
       interactor = described_class.new(user_name: user_name, skip: skip,
         take: take, pavlov_options: { current_user: current_user })
-      users = mock(length: mock)
+      users = double(length: double)
       graph_user_ids = double
       count = double
-      user = mock(graph_user_id: mock)
+      user = double(graph_user_id: double)
       followed_by_me = true
 
       interactor.should_receive(:old_query).

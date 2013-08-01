@@ -10,7 +10,7 @@ describe Commands::Facebook::ShareFactlink do
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      fact      = stub id: '1', url: mock(fact_url: 'fact_url')
+      fact      = stub id: '1', url: double(fact_url: 'fact_url')
       token     = double
       client    = double
       namespace = 'namespace'
@@ -18,7 +18,7 @@ describe Commands::Facebook::ShareFactlink do
       identities = {
         'facebook' =>  {
           'credentials' => {
-            'token' => token, 'secret' => mock
+            'token' => token, 'secret' => double
           }
         }
       }

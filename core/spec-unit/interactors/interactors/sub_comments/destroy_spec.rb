@@ -10,8 +10,8 @@ describe Interactors::SubComments::Destroy do
 
   describe '#authorized?' do
     it 'denied when user has not got destroy permission on the sub_comment' do
-      current_user = mock :user, id: 'a1'
-      sub_comment = mock :sub_comment, id: 'a3', created_by_id: 'b3'
+      current_user = double :user, id: 'a1'
+      sub_comment = double :sub_comment, id: 'a3', created_by_id: 'b3'
 
       ability = double
       ability.stub(:can?).with(:destroy, sub_comment).and_return(false)
@@ -39,7 +39,7 @@ describe Interactors::SubComments::Destroy do
       id = '1'
       ability = stub can?: true
       interactor = described_class.new(id: id,
-        pavlov_options: { current_user: mock, ability: ability })
+        pavlov_options: { current_user: double, ability: ability })
 
       SubComment.stub :find
       interactor.should_receive(:old_command)

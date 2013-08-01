@@ -6,8 +6,8 @@ describe Commands::Stream::AddActivities do
 
   describe '#call' do
     it 'should add the activities interleaved with existing activities' do
-      activities = [mock, mock, mock]
-      user = mock :user, graph_user: (mock stream_activities: mock)
+      activities = [double, double, double]
+      user = double :user, graph_user: (double stream_activities: double)
 
       pavlov_options = { current_user: user }
       command = described_class.new activities: activities,

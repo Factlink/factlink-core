@@ -18,7 +18,7 @@ describe AddTimestampsToFactrelation do
       FactRelation.should_receive(:[]).with(@fact_relation.id).and_return(@fact_relation)
 
       @fact_relation.stub(:created_at= => nil, :save => @fact_relation )
-      Time.stub( now: stub( utc: stub( to_s: mock )))
+      Time.stub( now: stub( utc: stub( to_s: double )))
 
       @fact_relation.should_receive(:created_at=).with( Time.now.utc.to_s )
 
@@ -155,7 +155,7 @@ describe AddTimestampsToFactrelation do
 
     describe '.timestamp' do
       it "returns the .max_timestamp + one second" do
-        ts = AddTimestampsToFactrelation::FactsTimestamp.new mock
+        ts = AddTimestampsToFactrelation::FactsTimestamp.new double
         ts.stub max_timestamp: "2013-01-28 10:35:13 UTC"
 
         expect(ts.timestamp).to be_a String

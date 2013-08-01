@@ -25,9 +25,9 @@ describe Interactors::Mails::MassSendDigest do
     end
 
     it 'sends an email to every user with receives_digest' do
-      fact  = mock(id: mock)
-      user1 = mock(id: mock)
-      user2 = mock(id: mock)
+      fact  = double(id: double)
+      user1 = double(id: double)
+      user2 = double(id: double)
       mail1 = double
       mail2 = double
       url   = double

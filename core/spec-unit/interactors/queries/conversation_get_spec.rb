@@ -26,13 +26,13 @@ describe Queries::ConversationGet do
       fact_data = FactData.new
       recipient_ids = [10,13]
       fact_data.stub(id: 124, fact_id: 3445)
-      mock_conversation = double(id: id, fact_data_id: fact_data.id,
+      double_conversation = double(id: id, fact_data_id: fact_data.id,
         fact_data: fact_data, recipient_ids: recipient_ids)
 
       user = double(id: 13)
       query = described_class.new(id: id, pavlov_options: { current_user: user })
 
-      Conversation.should_receive(:find).with(id).and_return(mock_conversation)
+      Conversation.should_receive(:find).with(id).and_return(double_conversation)
 
       result = query.call
 

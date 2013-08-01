@@ -30,11 +30,11 @@ describe Interactors::Facts::Get do
 
   describe '#call' do
     it 'stores the recently viewed if a user is present' do
-      fact = mock(id: '1', evidence_count: nil)
-      user = mock(id: '1e')
+      fact = double(id: '1', evidence_count: nil)
+      user = double(id: '1e')
       evidence_count = 10
 
-      pavlov_options = { current_user: user, ability: mock(can?: true) }
+      pavlov_options = { current_user: user, ability: double(can?: true) }
 
       Pavlov.stub(:old_query).with(:'facts/get', fact.id, pavlov_options)
         .and_return(fact)
@@ -48,10 +48,10 @@ describe Interactors::Facts::Get do
     end
 
     it 'returns the fact' do
-      fact = mock(id: '1', evidence_count: nil)
+      fact = double(id: '1', evidence_count: nil)
       evidence_count = 10
 
-      pavlov_options = { ability: mock(can?: true) }
+      pavlov_options = { ability: double(can?: true) }
 
       Pavlov.stub(:old_query).with(:'facts/get', fact.id, pavlov_options)
         .and_return(fact)

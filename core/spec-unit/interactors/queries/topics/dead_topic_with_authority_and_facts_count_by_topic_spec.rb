@@ -5,7 +5,7 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
   include PavlovSupport
 
   describe '#call' do
-    let(:topic) { double(slug_title: mock, title: mock)}
+    let(:topic) { double(slug_title: double, title: double)}
 
     before do
       stub_classes 'DeadTopic'
@@ -21,7 +21,7 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
     it 'returns the topic' do
       facts_count = double
       current_user_authority = double
-      current_user = mock(graph_user: mock)
+      current_user = double(graph_user: double)
       dead_topic = double
       pavlov_options = {current_user: current_user}
 

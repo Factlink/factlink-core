@@ -12,14 +12,14 @@ describe Queries::ConversationsWithUsersMessage do
 
   describe '#call' do
     it 'should call the three other queries' do
-      user1 = mock(:user, id: 1)
-      user2 = mock(:user, id: 2)
+      user1 = double(:user, id: 1)
+      user2 = double(:user, id: 2)
       conversations = [
-        mock(:conversation, id: 10, recipient_ids: [1]),
-        mock(:conversation, id: 20, recipient_ids: [1, 2])
+        double(:conversation, id: 10, recipient_ids: [1]),
+        double(:conversation, id: 20, recipient_ids: [1, 2])
       ]
-      message15 = mock(:message, id: 15)
-      message25 = mock(:message, id: 25)
+      message15 = double(:message, id: 15)
+      message25 = double(:message, id: 25)
 
       query = described_class.new(user_id: user1.id.to_s,
         pavlov_options: { current_user: user1 })

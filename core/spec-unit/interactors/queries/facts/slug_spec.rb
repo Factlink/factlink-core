@@ -9,7 +9,7 @@ describe Queries::Facts::Slug do
 
   describe '#call' do
     it "sluggifies" do
-      fact = mock(id: "1", to_s: 'Bla Bla')
+      fact = double(id: "1", to_s: 'Bla Bla')
 
       query = described_class.new fact: fact, max_slug_length_in: nil
 
@@ -17,7 +17,7 @@ describe Queries::Facts::Slug do
     end
 
     it "falls back to id on empty displaystring" do
-      fact = mock(id: "1", to_s: '')
+      fact = double(id: "1", to_s: '')
 
       query = described_class.new fact: fact, max_slug_length_in: nil
 
@@ -26,7 +26,7 @@ describe Queries::Facts::Slug do
 
     it "should have a maximum length" do
       max_slug_length = 5
-      fact = mock(id: "1", to_s: 'Bla Bla')
+      fact = double(id: "1", to_s: 'Bla Bla')
 
       query = described_class.new fact: fact, max_slug_length_in: max_slug_length
 

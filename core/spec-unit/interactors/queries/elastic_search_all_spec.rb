@@ -34,8 +34,8 @@ describe Queries::ElasticSearchAll do
 
         case type
         when 'user'
-          user_mock_id = double
-          mongoid_user = double(id: user_mock_id)
+          user_double_id = double
+          mongoid_user = double(id: user_double_id)
           User.should_receive(:find).
             with(1).
             and_return(mongoid_user)

@@ -19,18 +19,18 @@ describe Queries::Facts::GetDead do
   describe '#call' do
     before do
       stub_classes 'Fact', 'FactlinkUI::Application', 'CGI'
-      FactlinkUI::Application.stub config: mock(proxy_url: "proxy_url")
+      FactlinkUI::Application.stub config: double(proxy_url: "proxy_url")
       CGI.stub escape: ''
 
       described_class.any_instance.stub(:url).and_return("")
     end
 
     it 'returns a fact' do
-      fact_data = mock :fact_data,
+      fact_data = double :fact_data,
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      live_fact = mock :fact,
+      live_fact = double :fact,
           id: '1',
           has_site?: false,
           data: fact_data
@@ -60,18 +60,18 @@ describe Queries::Facts::GetDead do
     end
 
     it 'returns a fact which has no site or proxy_scroll_url without site_url' do
-      fact_data = mock :fact_data,
+      fact_data = double :fact_data,
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      live_fact = mock :fact,
+      live_fact = double :fact,
           id: '1',
           has_site?: false,
           data: fact_data
 
       query = Queries::Facts::GetDead.new id: live_fact.id
 
-      Pavlov.stub(old_query: mock)
+      Pavlov.stub(old_query: double)
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact = query.call
@@ -80,12 +80,12 @@ describe Queries::Facts::GetDead do
     end
 
     it 'returns a fact which has a site with site_url' do
-      fact_data = mock :fact_data,
+      fact_data = double :fact_data,
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      site = mock :site, url: 'http://example.org/'
-      live_fact = mock :fact,
+      site = double :site, url: 'http://example.org/'
+      live_fact = double :fact,
           id: '1',
           has_site?: true,
           site: site,
@@ -93,7 +93,7 @@ describe Queries::Facts::GetDead do
 
       query = Queries::Facts::GetDead.new id: live_fact.id
 
-      Pavlov.stub(old_query: mock)
+      Pavlov.stub(old_query: double)
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact = query.call

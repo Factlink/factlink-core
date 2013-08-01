@@ -44,7 +44,7 @@ describe Interactors::SubComments::CreateForComment do
     end
 
     it 'calls the corresponding command' do
-      comment = mock id: '2a'
+      comment = double id: '2a'
       user = double
       sub_comment = double
       authority = double
@@ -80,7 +80,7 @@ describe Interactors::SubComments::CreateForComment do
       ability = stub can?: true
 
       interactor = described_class.new comment_id: '2a', content: 'content',
-        pavlov_options: { current_user: mock, ability: ability }
+        pavlov_options: { current_user: double, ability: ability }
       interactor.stub comment: nil
 
       expect { interactor.call }
@@ -92,12 +92,12 @@ describe Interactors::SubComments::CreateForComment do
     it 'returns the top fact for the comment_id' do
       comment_id = '2a'
       fact = double
-      comment = mock(fact_data: mock(fact:fact))
+      comment = double(fact_data: double(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
       ability = stub can?: true
 
       interactor = described_class.new comment_id: comment_id, content: 'hoi',
-        pavlov_options: { current_user: mock, ability: ability }
+        pavlov_options: { current_user: double, ability: ability }
 
       result = interactor.top_fact
 
@@ -107,12 +107,12 @@ describe Interactors::SubComments::CreateForComment do
     it 'caches the fact' do
       comment_id = '2a'
       fact = double
-      comment = mock(fact_data: mock(fact:fact))
+      comment = double(fact_data: double(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
       ability = stub can?: true
 
       interactor = described_class.new comment_id: comment_id, content: 'hoi',
-        pavlov_options: { current_user: mock, ability: ability }
+        pavlov_options: { current_user: double, ability: ability }
 
       result = interactor.top_fact
 
@@ -133,7 +133,7 @@ describe Interactors::SubComments::CreateForComment do
       graph_user = double
       authority = double
       user = double
-      sub_comment = mock(created_by: mock(graph_user: graph_user))
+      sub_comment = double(created_by: double(graph_user: graph_user))
 
       Comment.stub find: nil
       ability = stub can?: true
