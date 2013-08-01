@@ -51,18 +51,18 @@ describe Interactors::Topics::Favourites do
       topic1 = mock(id: mock, slug_title: 'b')
       topic2 = mock(id: mock, slug_title: 'a')
 
-      interactor.should_receive(:old_query).
-        with(:'user_by_username', user_name).
-        and_return(user)
-      interactor.should_receive(:old_query).
-        with(:'topics/favourite_topic_ids', user.graph_user_id).
-        and_return([topic1.id, topic2.id])
-      interactor.should_receive(:old_query).
-        with(:'topics/by_id', topic1.id).
-        and_return(topic1)
-      interactor.should_receive(:old_query).
-        with(:'topics/by_id', topic2.id).
-        and_return(topic2)
+      Pavlov.should_receive(:old_query)
+        .with(:'user_by_username', user_name)
+        .and_return(user)
+      Pavlov.should_receive(:old_query)
+        .with(:'topics/favourite_topic_ids', user.graph_user_id)
+        .and_return([topic1.id, topic2.id])
+      Pavlov.should_receive(:old_query)
+        .with(:'topics/by_id', topic1.id)
+        .and_return(topic1)
+      Pavlov.should_receive(:old_query)
+        .with(:'topics/by_id', topic2.id)
+        .and_return(topic2)
 
       expect(interactor.call).to eq [topic2, topic1]
     end
