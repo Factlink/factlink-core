@@ -4,29 +4,28 @@ require_relative '../../../../app/interactors/interactors/topics/facts'
 describe Interactors::Topics::Facts do
   include PavlovSupport
 
-  describe '#execute' do
+  describe '#call' do
     it 'correctly' do
       slug_title = 'slug-title'
       count = 10
       max_timestamp = 100
-      results = mock
+      results = double
 
       pavlov_options = {current_user: mock}
+      interactor = described_class.new(slug_title: slug_title, count: count, max_timestamp: max_timestamp, pavlov_options: pavlov_options)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'topics/facts', slug_title, count, max_timestamp, pavlov_options)
         .and_return(results)
 
-      interactor = described_class.new slug_title, count, max_timestamp, pavlov_options
-
-      expect( interactor.execute ).to eq results
+      expect( interactor.call ).to eq results
     end
   end
 
   describe 'authorized?' do
     it 'throws when no current_user' do
-      expect { described_class.new '1a', 10, 100 }.
-        to raise_error Pavlov::AccessDenied,'Unauthorized'
+      expect { described_class.new(slug_title: '1a', count: 10, max_timestamp: 100).call }
+        .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 
@@ -35,7 +34,8 @@ describe Interactors::Topics::Facts do
       default_count = 7
       slug_title = 'slug-title'
       max_timestamp = 100
-      interactor = described_class.new slug_title, nil, max_timestamp, current_user: mock
+      interactor = described_class.new(slug_title: slug_title, count: nil,
+        max_timestamp: max_timestamp, pavlov_options: { current_user: mock })
 
       interactor.setup_defaults
 
@@ -43,20 +43,20 @@ describe Interactors::Topics::Facts do
     end
   end
 
-  describe '#validation' do
+  describe 'validations' do
     it :slug_title do
-      expect_validating(1, 100, 123).
-        to fail_validation('slug_title should be a string.')
+      expect_validating(slug_title: 1, count: 100, max_timestamp: 123)
+        .to fail_validation('slug_title should be a string.')
     end
 
     it :count do
-      expect_validating('1e', 'q', 123).
-        to fail_validation('count should be an integer.')
+      expect_validating(slug_title: '1e', count: 'q', max_timestamp: 123)
+        .to fail_validation('count should be an integer.')
     end
 
     it :max_timestamp do
-      expect_validating('1e', 100, 'q').
-        to fail_validation('max_timestamp should be an integer.')
+      expect_validating(slug_title: '1e', count: 100, max_timestamp: 'q')
+        .to fail_validation('max_timestamp should be an integer.')
     end
   end
 end

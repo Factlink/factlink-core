@@ -12,7 +12,7 @@ end
 
 json.time_ago TimeFormatter.as_time_ago(comment.created_at)
 
-json.opinions OpinionPresenter.new comment.opinion
+json.impact comment.impact_opinion.authority
 
 json.current_user_opinion comment.current_user_opinion
 

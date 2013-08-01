@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    interactor :reply_to_conversation, params[:conversation_id], current_user.id.to_s, params[:content]
+    old_interactor :reply_to_conversation, params[:conversation_id], current_user.id.to_s, params[:content]
     render json: {}
   rescue Pavlov::ValidationError => e
     render text: e.message, :status => 400

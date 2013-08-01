@@ -6,7 +6,11 @@ module Queries
       arguments :fact_id, :type
 
       def execute
-        OpinionPresenter.new(fact.get_user_opinion).authority(type)
+        OpinionPresenter.new(user_opinion).authority(type)
+      end
+
+      def user_opinion
+        FactGraph.new.user_opinion_for_fact(fact)
       end
 
       def fact

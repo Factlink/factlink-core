@@ -3,7 +3,6 @@ class Site < OurOhm; end # needed because of removed const_missing from ohm
 class FactRelation < Basefact;end # needed because of removed const_missing from ohm
 
 class Fact < Basefact
-  include Opinion::Subject::Fact
   include Pavlov::Helpers
 
   def create
@@ -43,7 +42,7 @@ class Fact < Basefact
   def add_to_created_facts
     channel = self.created_by.created_facts_channel
 
-    command :'channels/add_fact', self, channel
+    old_command :'channels/add_fact', self, channel
   end
 
   def has_site?

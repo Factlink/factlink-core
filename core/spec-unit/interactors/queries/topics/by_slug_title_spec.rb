@@ -6,7 +6,7 @@ describe Queries::Topics::BySlugTitle do
 
   describe 'validate' do
     it :slug_title do
-      expect_validating(1).
+      expect_validating(slug_title: 1).
         to fail_validation('slug_title should be a string.')
     end
   end
@@ -16,11 +16,11 @@ describe Queries::Topics::BySlugTitle do
       stub_classes 'Topic'
 
       slug_title = 'foo'
-      topic = stub
+      topic = double
 
       Topic.should_receive(:by_slug).with(slug_title).and_return(topic)
 
-      query = described_class.new slug_title, {}
+      query = described_class.new slug_title: slug_title
 
       result = query.execute
       expect(result).to eq topic

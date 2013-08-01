@@ -18,7 +18,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
     if params[:msg]
       if @user
-        mp_track "Tour: Started account setup"
+        mp_track "Tour: Started account setup", current_user: @user
         render :setup_account
       else
         redirect_to new_user_session_path,
@@ -38,7 +38,7 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   def update_setup_account
-    self.resource = interactor :'accounts/setup_approved',
+    self.resource = old_interactor :'accounts/setup_approved',
                       resource_params[:reset_password_token], resource_params
 
     if resource.errors.empty?

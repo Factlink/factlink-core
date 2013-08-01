@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   # expose query to views, so we can rewrite inline
   # retrieval to proper queries. The queries should
   # be pulled back to controllers, and then to interactors
-  helper_method :query # TODO remove me ASAP
+  helper_method :old_query # TODO remove me ASAP
 
   before_filter :check_preferred_browser
   def check_preferred_browser
@@ -138,11 +138,9 @@ class ApplicationController < ActionController::Base
     user = opts.fetch(:current_user) { current_user }
     opts.delete :current_user
 
-    new_opts = if current_user
-                    opts.update({
-                     :mp_name_tag => current_user.username,
-                     :distinct_id => current_user.id,
-                    })
+    new_opts = if user
+                  opts.update mp_name_tag: user.username,
+                              distinct_id: user.id
                 else
                   opts
                 end
@@ -190,6 +188,8 @@ class ApplicationController < ActionController::Base
   def set_last_interaction_for_user
     if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
       mp_track_people_event last_interaction_at: DateTime.now
+      mp_track_people_event last_browser_name: view_context.browser.name
+      mp_track_people_event last_browser_version: view_context.browser.version
       Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
     end
   end

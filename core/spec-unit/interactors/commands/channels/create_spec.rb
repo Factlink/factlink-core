@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/commands/channels/create'
 
 describe Commands::Channels::Create do
   include PavlovSupport
-  describe '.execute' do
+  describe '#call' do
     it 'creates a channel with the requested title' do
       channel = mock :channel
       title = 'foobar'
@@ -16,7 +16,7 @@ describe Commands::Channels::Create do
 
       channel.stub valid?:true
 
-      command = Commands::Channels::Create.new(title, :current_user=>current_user)
+      command = described_class.new title: title, pavlov_options: { current_user: current_user}
 
       channel.should_receive(:save)
 

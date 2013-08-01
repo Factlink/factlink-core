@@ -4,33 +4,32 @@ require_relative '../../../../app/interactors/queries/topics/dead_topic_with_aut
 describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
   include PavlovSupport
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      topic = mock
+  describe '#call' do
+    let(:topic) { double(slug_title: mock, title: mock)}
 
-      described_class.any_instance.should_receive(:validate_not_nil)
-        .with(:alive_topic, topic)
-
-      interactor = described_class.new topic
-    end
-  end
-
-  describe '#execute' do
-    it 'returns the topic' do
+    before do
       stub_classes 'DeadTopic'
+      DeadTopic.stub(:new)
+    end
 
-      topic = mock(slug_title: mock, title: mock)
-      facts_count = mock
-      current_user_authority = mock
+    it 'calls the correct validation methods' do
+      query = described_class.new alive_topic: nil
+
+      expect{ query.call }.to raise_error(Pavlov::ValidationError, 'alive_topic should not be nil.')
+    end
+
+    it 'returns the topic' do
+      facts_count = double
+      current_user_authority = double
       current_user = mock(graph_user: mock)
-      dead_topic = mock
+      dead_topic = double
       pavlov_options = {current_user: current_user}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'topics/facts_count', topic.slug_title, pavlov_options)
         .and_return(facts_count)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:authority_on_topic_for, topic, current_user.graph_user, pavlov_options)
         .and_return(current_user_authority)
 
@@ -38,7 +37,7 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
         .with(topic.slug_title, topic.title, current_user_authority, facts_count)
         .and_return(dead_topic)
 
-      query = described_class.new topic, pavlov_options
+      query = described_class.new alive_topic: topic, pavlov_options: pavlov_options
 
       expect(query.call).to eq dead_topic
     end

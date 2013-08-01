@@ -10,34 +10,36 @@ describe Interactors::Facts::OpinionUsers do
 
   describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      ability = mock
+      ability = double
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
-      expect do
-        interactor = described_class.new 0, 0, 0, 'believes', ability: ability
-      end.to raise_error(Pavlov::AccessDenied)
+      interactor = described_class.new(fact_id: 0, skip: 0, take: 0,
+        type: 'believes', pavlov_options: { ability: ability } )
+
+      expect { interactor.call }
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
 
   describe '#validate' do
-    it 'it throws when initialized without a correct fact_id' do
-      expect { described_class.new 'a', 0, 3, 'disbelieves'}.
-        to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
+    it 'requires fact_id to be a integer string' do
+      expect_validating( fact_id: 'a', skip: 0, take: 3, type: 'disbelieves' )
+        .to fail_validation('fact_id should be an integer.')
     end
 
-    it 'it throws when initialized with a skip argument that is not an integer.' do
-      expect { described_class.new 1, 'a', 3, 'doubts'}.
-        to raise_error(Pavlov::ValidationError, 'skip should be an integer.')
+    it 'requires skip to be a integer string' do
+      expect_validating( fact_id: 1, skip: 'a', take: 3, type: 'doubts' )
+        .to fail_validation('skip should be an integer.')
     end
 
-    it 'it throws when initialized with a take argument that is not an integer.' do
-      expect { described_class.new 1, 0, 'b', 'doubts'}.
-        to raise_error(Pavlov::ValidationError, 'take should be an integer.')
+    it 'requires take to be a integer string' do
+      expect_validating( fact_id: 1, skip: 0, take: 'b', type: 'doubts' )
+        .to fail_validation('take should be an integer.')
     end
 
     it 'it throws when initialized with a unknown opinion type' do
-      expect { described_class.new 1, 0, 3, 'W00T'}.
-        to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
+      expect_validating( fact_id: 1, skip: 0, take: 3, type: 'W00T')
+        .to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
     end
   end
 
@@ -46,20 +48,21 @@ describe Interactors::Facts::OpinionUsers do
       fact_id = 1
       skip = 0
       take = 0
-      u1 = mock
-      impact = mock
+      u1 = double
+      impact = double
       type = 'believes'
 
       pavlov_options = { ability: mock(can?: true)}
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'facts/interacting_users', fact_id, skip, take, type, pavlov_options)
         .and_return(users: [u1], total: 1)
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:'opinions/interacting_users_impact_for_fact', fact_id, type, pavlov_options)
         .and_return(impact)
 
-      interactor = described_class.new fact_id, skip, take, type, pavlov_options
+      interactor = described_class.new fact_id: fact_id, skip: skip, take: take,
+        type: type, pavlov_options: pavlov_options
       results = interactor.call
 
       expect(results[:total]).to eq 1

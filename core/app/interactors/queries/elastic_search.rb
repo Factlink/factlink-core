@@ -7,19 +7,15 @@ module Queries
 
     arguments :keywords, :page, :row_count
 
-    def initialize *arguments
-      super
-      @types = []
-      @logger = @options[:logger] || Logger.new(STDERR)
-      define_query
-    end
-
     def execute
-      from = (@page - 1) * @row_count
+      @types = []
+      define_query
+
+      from = (page - 1) * row_count
 
       url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/" +
             "#{@types.join(',')}/" +
-            "_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&analyze_wildcard=true"
+            "_search?q=#{processed_keywords}&from=#{from}&size=#{row_count}&analyze_wildcard=true"
 
       results = HTTParty.get url
       handle_httparty_error results
@@ -39,12 +35,12 @@ module Queries
     end
 
     private
-    def lucene_special_characters_escaped keywords
+    def lucene_special_characters_escaped_keywords
       # escaping && and || gives errors, use case is not so important, so removing.
       keywords.gsub('&&', ' ')
               .gsub('||', ' ')
               .gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
-       '\\' + x
+        '\\' + x
       end
     end
 
@@ -59,8 +55,7 @@ module Queries
     end
 
     def processed_keywords
-      keywords = lucene_special_characters_escaped(@keywords)
-      keywords.
+      lucene_special_characters_escaped_keywords.
         split(/\s+/).
         map{ |keyword| quoted_if_some_lucene_operators keyword}.
         map{ |keyword| URI.escape(keyword) }.
@@ -80,16 +75,20 @@ module Queries
       end
 
       if error
-        @logger.error(error)
+        logger.error(error)
         raise error
       end
+    end
+
+    def logger
+      @logger ||= (pavlov_options[:logger] || Logger.new(STDERR))
     end
 
     def get_object id, type
       if type == 'factdata'
         return FactData.find(id)
       elsif type == 'topic'
-        return query :'topics/by_id_with_authority_and_facts_count', id
+        return old_query :'topics/by_id_with_authority_and_facts_count', id
       elsif type == 'user'
         mongoid_user = User.find(id)
 

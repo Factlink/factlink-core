@@ -3,7 +3,7 @@ module Acceptance
     include ::FactHelper
 
     def create_factlink(user)
-      FactoryGirl.create(:fact, created_by: user.graph_user)
+      create(:fact, created_by: user.graph_user)
     end
 
     def go_to_discussion_page_of factlink
@@ -31,15 +31,19 @@ module Acceptance
       page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;")
     end
 
-    def click_wheel_part position
+    def click_wheel_part position, css_path=''
       #fire click event on svg element
-      page.execute_script("var path = $('.fact-wheel path')[#{position}];
+      page.execute_script("var path = $('" + css_path + " .fact-wheel path')[#{position}];
                            var event = document.createEvent('MouseEvents');
                            event.initMouseEvent('click');path.dispatchEvent(event);")
       wait_for_ajax
 
       #wait for animation
       sleep 0.3
+    end
+
+    def click_wheel_agree css_path=''
+      click_wheel_part 0, css_path
     end
   end
 end

@@ -7,12 +7,12 @@ module Interactors
       arguments :id
 
       def execute
-        channels = interactor :'channels/all_by_id', @id
+        channels = old_interactor :'channels/all_by_id', id
         channels[0]
       end
 
       def authorized?
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
     end
   end

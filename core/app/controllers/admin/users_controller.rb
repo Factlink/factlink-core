@@ -1,15 +1,14 @@
 class Admin::UsersController < AdminController
   helper_method :sort_column, :sort_direction
 
-  before_filter :authenticate_user!
   before_filter :get_activated_users,         only: [:index]
   before_filter :get_reserved_users,          only: [:reserved]
   before_filter :set_available_user_features, only: [:new, :create, :edit, :update]
 
-  load_and_authorize_resource :except => [:create]
+  load_and_authorize_resource except: [:create]
+  before_filter :if_not_found_404, only: [:show, :edit, :update]
 
   layout "admin"
-
 
   def create
     @user = User.new
@@ -19,7 +18,7 @@ class Admin::UsersController < AdminController
 
     authorize! :create, @user
     if @user.save
-      redirect_to admin_user_path(@user), notice: 'User was successfully created.'
+      redirect_to admin_users_path, notice: 'User was successfully created.'
     else
       render :new
     end
@@ -32,7 +31,7 @@ class Admin::UsersController < AdminController
     end
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
       @user.features = params[:user][:features].andand.keys
-      redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
+      redirect_to admin_users_path, notice: 'User was successfully updated.'
     else
       render :edit
     end
@@ -49,6 +48,10 @@ class Admin::UsersController < AdminController
   end
 
   private
+
+  def if_not_found_404
+    raise_404 unless @user
+  end
 
   def sort_column
     User.fields.collect {|field| field[0] }.include?(params[:sort]) ? params[:sort] : "username"
@@ -70,5 +73,6 @@ class Admin::UsersController < AdminController
 
   def set_available_user_features
     @user_features = Ability::FEATURES
+    @globally_enabled_features = (old_interactor :'global_features/all').to_set
   end
 end

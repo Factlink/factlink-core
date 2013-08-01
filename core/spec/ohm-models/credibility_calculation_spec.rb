@@ -5,21 +5,22 @@ describe "credibility calculation of facts*users" do
   include RedisSupport
 
   def add_fact_to_channel fact, channel
-    Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).call
+    Interactors::Channels::AddFact.new(fact: fact, channel: channel,
+      pavlov_options: { no_current_user: true }).call
   end
 
-  let(:u1) {FactoryGirl.create(:graph_user)}
-  let(:u2) {FactoryGirl.create(:graph_user)}
-  let(:u3) {FactoryGirl.create(:graph_user)}
-  let(:u4) {FactoryGirl.create(:graph_user)}
+  let(:u1) { create(:graph_user) }
+  let(:u2) { create(:graph_user) }
+  let(:u3) { create(:graph_user) }
+  let(:u4) { create(:graph_user) }
 
-  let(:f1) {FactoryGirl.create(:fact)}
-  let(:f2) {FactoryGirl.create(:fact)}
-  let(:f3) {FactoryGirl.create(:fact)}
-  let(:f4) {FactoryGirl.create(:fact)}
-  let(:f5) {FactoryGirl.create(:fact)}
-  let(:f6) {FactoryGirl.create(:fact)}
-  let(:f7) {FactoryGirl.create(:fact)}
+  let(:f1) { create(:fact) }
+  let(:f2) { create(:fact) }
+  let(:f3) { create(:fact) }
+  let(:f4) { create(:fact) }
+  let(:f5) { create(:fact) }
+  let(:f6) { create(:fact) }
+  let(:f7) { create(:fact) }
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -29,7 +30,6 @@ describe "credibility calculation of facts*users" do
 
   def recalculate_credibility
     MapReduce::FactCredibility.new.process_all
-    MapReduce::FactRelationCredibility.new.process_all
   end
 
   it "should average authority on topics" do
@@ -75,7 +75,7 @@ describe "credibility calculation of facts*users" do
     add_fact_to_channel f1, ch2
 
     # some data that shouldn't influence the outcome
-    Commands::Channels::AddSubchannel.new(ch1, ch2).call
+    Commands::Channels::AddSubchannel.new(channel: ch1, subchannel: ch2).call
 
     recalculate_credibility
     expect(Authority.on(f1, for: u1).to_f).to eq(15.0)
@@ -93,24 +93,5 @@ describe "credibility calculation of facts*users" do
 
     recalculate_credibility
     expect(Authority.on(f1, for: u1).to_f).to eq(20.0)
-  end
-
-  it "should work with fact relations and the topics of the to_fact" do
-    ch1 = create(:channel, created_by: u1)
-    ch2 = create(:channel, created_by: u1)
-    Authority.from(ch1.topic, for: u1) << 10.0
-    Authority.from(ch2.topic, for: u1) << 20.0
-
-    fr = f1.add_evidence(:supporting, f2, u1)
-    add_fact_to_channel f1, ch1
-    add_fact_to_channel f1, ch2
-
-    # some data that shouldn't influence the outcome
-    ch3 = create(:channel, created_by: u1)
-    add_fact_to_channel f2, ch3
-    Authority.from(ch3.topic, for: u1) << 100.0
-
-    recalculate_credibility
-    expect(Authority.on(fr, for: u1).to_f).to eq(15.0)
   end
 end

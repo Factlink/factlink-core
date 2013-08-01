@@ -28,8 +28,8 @@ class Activity < OurOhm
     result = super
 
     Resque.enqueue(ProcessActivity, id)
-    Pavlov.interactor :send_mail_for_activity,
-                        self, {current_user: true}
+    Pavlov.old_interactor :send_mail_for_activity, self,
+      { current_user: true }
 
     result
   end

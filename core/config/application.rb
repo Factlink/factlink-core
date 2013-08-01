@@ -42,7 +42,6 @@ module FactlinkUI
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
     require_dependency "#{config.root}/app/ohm-models/authority.rb"
     require_dependency "#{config.root}/app/ohm-models/fact_graph.rb"
-    require_dependency "#{config.root}/app/ohm-models/opinion.rb"
     require_dependency "#{config.root}/app/ohm-models/basefact.rb"
     require_dependency "#{config.root}/app/models/fact_data.rb"
     require_dependency "#{config.root}/app/ohm-models/fact.rb"
@@ -150,6 +149,20 @@ module FactlinkUI
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store
+  end
+end
+
+module Less
+  module Rails
+    module Bootstrap
+      class Engine < ::Rails::Engine
+
+        initializer 'less-rails-bootstrap.setup', :after => 'less-rails.after.load_config_initializers', :group => :all do |app|
+          app.config.less.paths << File.join(config.root, 'vendor', 'frameworks')
+        end
+
+      end
+    end
   end
 end
 

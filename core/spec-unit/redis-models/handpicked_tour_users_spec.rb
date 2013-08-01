@@ -11,7 +11,7 @@ describe HandpickedTourUsers do
   describe '.add' do
     it 'adds a user id to the list of handpicked users' do
       id = 1
-      handpicked_tour_users_interface = mock
+      handpicked_tour_users_interface = double
 
       handpicked_tour_users = described_class.new handpicked_tour_users_interface
 
@@ -24,7 +24,7 @@ describe HandpickedTourUsers do
   describe '.remove' do
     it 'adds a user id to the list of handpicked users' do
       id = 1
-      handpicked_tour_users_interface = mock
+      handpicked_tour_users_interface = double
 
       handpicked_tour_users = described_class.new handpicked_tour_users_interface
 
@@ -36,8 +36,8 @@ describe HandpickedTourUsers do
 
   describe '.handpicked_tour_users_interface' do
     it 'returns a redis interface to the handpicked users' do
-      nest = mock
-      interface = mock
+      nest = double
+      interface = double
       Nest.stub(:new).with(:user).and_return nest
       nest.stub(:[]).with(:handpicked_tour_users).and_return(interface)
 
@@ -53,7 +53,7 @@ describe HandpickedTourUsers do
     end
 
     it "returns the users" do
-      user = mock
+      user = double
       nest = stub smembers: ["1"]
 
       handpicked_tour_users = described_class.new nest

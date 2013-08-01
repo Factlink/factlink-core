@@ -17,15 +17,16 @@ describe Commands::Topics::UpdateUserAuthority do
       GraphUser.stub(:[]).once.with(graph_user.id)
                .and_return(graph_user)
 
-      Pavlov.stub(:query).once
+      Pavlov.stub(:old_query).once
             .with(:'topics/by_slug_title', topic.slug_title)
             .and_return(topic)
     end
 
     it 'updates the authority' do
-      authority_object = mock
+      authority_object = double
 
-      query = described_class.new graph_user.id, topic.slug_title, authority
+      query = described_class.new graph_user_id: graph_user.id,
+        topic_slug: topic.slug_title, authority: authority
 
 
       Authority.stub(:from).with(topic, for: graph_user)
@@ -40,9 +41,10 @@ describe Commands::Topics::UpdateUserAuthority do
     end
 
     it "updates the top_users of the topic" do
-      authority_object = mock
+      authority_object = double
 
-      query = described_class.new graph_user.id, topic.slug_title, authority
+      query = described_class.new graph_user_id: graph_user.id,
+        topic_slug: topic.slug_title, authority: authority
 
       Authority.stub from: mock(:<< => nil)
       TopicsSortedByAuthority.stub new: (mock set:nil)
@@ -54,9 +56,10 @@ describe Commands::Topics::UpdateUserAuthority do
     end
 
     it "updates the top topics of the user" do
-      user_topics_list = mock
+      user_topics_list = double
 
-      query = described_class.new graph_user.id, topic.slug_title, authority
+      query = described_class.new graph_user_id: graph_user.id,
+        topic_slug: topic.slug_title, authority: authority
 
       Authority.stub from: mock(:<< => nil)
       topic.stub(top_users_add: nil)
@@ -69,6 +72,18 @@ describe Commands::Topics::UpdateUserAuthority do
                       .with(topic.id, authority)
 
       query.call
+    end
+  end
+
+  describe 'validation' do
+    it 'requires a graph_user_id' do
+      expect_validating(graph_user_id: '', topic_slug: '1a', authority: mock)
+        .to fail_validation('graph_user_id should be an integer string.')
+    end
+
+    it 'requires a topic_slug' do
+      expect_validating(graph_user_id: '6', topic_slug: 34, authority: mock)
+        .to fail_validation('topic_slug should be a string.')
     end
   end
 

@@ -12,15 +12,15 @@ module Commands
       end
 
       def token
-        @options[:current_user].identities['facebook']['credentials']['token']
+        pavlov_options[:current_user].identities['facebook']['credentials']['token']
       end
 
       def fact
-        @fact ||= query :'facts/get_dead', @fact_id
+        @fact ||= old_query :'facts/get_dead', fact_id
       end
 
       def namespace
-        @options[:facebook_app_namespace]
+        pavlov_options[:facebook_app_namespace]
       end
 
       def client
@@ -29,13 +29,13 @@ module Commands
 
       def validate
         # HACK! Fix this through pavlov serialization (ask @markijbema or @janpaul123)
-        if @options['serialize_id']
-          @options = Util::PavlovContextSerialization.deserialize_pavlov_context(@options)
+        if pavlov_options.has_key? 'serialize_id'
+          self.pavlov_options = Util::PavlovContextSerialization.deserialize_pavlov_context(pavlov_options)
         end
 
         validate_integer_string  :fact_id, fact_id
         validate_nonempty_string :facebook_app_namespace,
-                                  @options[:facebook_app_namespace]
+                                  pavlov_options[:facebook_app_namespace]
       end
 
     end

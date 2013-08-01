@@ -14,7 +14,7 @@ module Commands
     def execute
       conversation = Conversation.new
       @recipient_usernames.each do |username|
-        user = query :user_by_username, username
+        user = old_query :user_by_username, username
         raise Pavlov::ValidationError, 'user_not_found' unless user
         conversation.recipients << user
       end

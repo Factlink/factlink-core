@@ -11,8 +11,8 @@ describe Commands::Facebook::ShareFactlink do
   describe '#call' do
     it 'should share a Factlink to Facebook' do
       fact      = stub id: '1', url: mock(fact_url: 'fact_url')
-      token     = mock
-      client    = mock
+      token     = double
+      client    = double
       namespace = 'namespace'
 
       identities = {
@@ -30,42 +30,30 @@ describe Commands::Facebook::ShareFactlink do
                           .with(token)
                           .and_return(client)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:'facts/get_dead', fact.id, pavlov_options)
             .and_return(fact)
 
       client.should_receive(:put_connections)
             .with("me", "#{namespace}:share", factlink: fact.url.fact_url)
 
-      command = described_class.new fact.id, pavlov_options
+      command = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
 
       command.call
     end
   end
 
 
-  describe '#validate' do
-    it 'if the @options[:facebook_app_namespace]
-        are a nonempty_string' do
-      namespace      = 'factlinkapp'
-      pavlov_options = { facebook_app_namespace: namespace }
-
-      described_class.any_instance
-        .should_receive(:validate_nonempty_string)
-        .with(:facebook_app_namespace, namespace)
-
-      command = described_class.new '1', pavlov_options
+  describe 'validations' do
+    it 'requires integer fact_id' do
+      expect_validating(fact_id: '')
+        .to fail_validation('fact_id should be an integer string.')
     end
 
-    it 'if the fact_id is an integer string' do
-      fact_id = '1'
-
-      described_class.any_instance
-        .should_receive(:validate_integer_string)
-        .with(:fact_id, fact_id)
-
-      command = described_class.new fact_id,
-                                    facebook_app_namespace: 'namespace'
+    it 'requires the pavlov_options[:facebook_app_namespace]
+        to be a nonempty_string' do
+      expect_validating(fact_id: '1')
+        .to fail_validation('facebook_app_namespace should be a nonempty string.')
     end
   end
 end

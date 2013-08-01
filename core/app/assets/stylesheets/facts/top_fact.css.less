@@ -6,6 +6,7 @@
   .new-design-font();
   position: relative;
   padding: 30px 35px 25px;
+  visibility:visible;
 }
 
 .top-fact-user-heading {
@@ -29,4 +30,43 @@
   top: 2px;
   right: 0;
   color: @mutedFontColor;
+}
+
+@informationLabelHeight: 40px;
+@informationLabelBackgroundColor: rgba(144,147,151,0.2);
+.top-fact-weakening-information, .top-fact-supporting-information {
+  background-color: @informationLabelBackgroundColor;
+  color: rgb(120,120,120);
+  position: absolute;
+  width: 355px;
+  bottom: -@informationLabelHeight;
+  height: @informationLabelHeight;
+  line-height: @informationLabelHeight;
+  text-align: center;
+  z-index: -1;
+  .new-design-border-radius();
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  &:after { // arrows
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    border-color: none;
+    border-top-color: @informationLabelBackgroundColor;
+    border-width: 12px;
+    left: 50%;
+    margin-left: -12px;
+  }
+}
+
+.top-fact-weakening-information {
+  left: 5px;
+}
+
+.top-fact-supporting-information {
+  right: 5px;
 }

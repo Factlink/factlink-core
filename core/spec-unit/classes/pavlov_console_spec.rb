@@ -10,7 +10,7 @@ describe PavlovConsole do
 
   it 'forwards interactor methods to Pavlov, with correct options' do
     user = mock :user, username: 'mark'
-    options = mock
+    options = double
     param1, param2 = mock, mock
 
     User.stub(:find)
@@ -20,10 +20,10 @@ describe PavlovConsole do
            .with(user)
            .and_return(options)
 
-    Pavlov.should_receive(:interactor)
+    Pavlov.should_receive(:old_interactor)
           .with(:foo, param1, param2, options)
 
     console = PavlovConsole.new(user.username)
-    console.interactor :foo, param1, param2
+    console.old_interactor :foo, param1, param2
   end
 end

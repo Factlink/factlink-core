@@ -37,22 +37,22 @@ describe UsersController do
 
       user1 = create :user
       user2 = create :user
-      Pavlov.command :"users/add_handpicked_user", user1.id.to_s
-      Pavlov.command :"users/add_handpicked_user", user2.id.to_s
+      Pavlov.old_command :"users/add_handpicked_user", user1.id.to_s
+      Pavlov.old_command :"users/add_handpicked_user", user2.id.to_s
 
       as(user1) do |pavlov|
-        ch1 = pavlov.command :'channels/create', 'toy'
-        pavlov.command :'topics/update_user_authority', user1.graph_user_id.to_s, ch1.slug_title, 0
+        ch1 = pavlov.old_command :'channels/create', 'toy'
+        pavlov.old_command :'topics/update_user_authority', user1.graph_user_id.to_s, ch1.slug_title, 0
 
-        ch2 = pavlov.command :'channels/create', 'story'
-        pavlov.command :'topics/update_user_authority', user1.graph_user_id.to_s, ch2.slug_title, 3
+        ch2 = pavlov.old_command :'channels/create', 'story'
+        pavlov.old_command :'topics/update_user_authority', user1.graph_user_id.to_s, ch2.slug_title, 3
       end
       as(user2) do |pavlov|
-        ch1 = pavlov.command :'channels/create', 'war'
-        pavlov.command :'topics/update_user_authority', user2.graph_user_id.to_s, ch1.slug_title, 0
+        ch1 = pavlov.old_command :'channels/create', 'war'
+        pavlov.old_command :'topics/update_user_authority', user2.graph_user_id.to_s, ch1.slug_title, 0
 
-        ch2 = pavlov.command :'channels/create', 'games'
-        pavlov.command :'topics/update_user_authority', user2.graph_user_id.to_s, ch2.slug_title, 4568
+        ch2 = pavlov.old_command :'channels/create', 'games'
+        pavlov.old_command :'topics/update_user_authority', user2.graph_user_id.to_s, ch2.slug_title, 4568
       end
 
       authenticate_user!(user)

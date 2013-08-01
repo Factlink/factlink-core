@@ -12,30 +12,32 @@ describe Commands::CreateConversation do
   end
 
   it 'initializes correctly' do
-    command = Commands::CreateConversation.new fact_id, ['username']
+    command = described_class.new fact_id: fact_id,
+      recipient_usernames: ['username']
     command.should_not be_nil
   end
 
   it 'throws an error when recipient_usernames is not a list' do
-    expect { Commands::CreateConversation.new fact_id, nil }.
+    expect { described_class.new(fact_id: fact_id, recipients_usernames: nil).call }.
       to raise_error(RuntimeError, 'recipient_usernames should be a list')
   end
 
   it 'throws an error when recipient_usernames is an empty list' do
-    expect { Commands::CreateConversation.new fact_id, [] }.
+    expect { described_class.new(fact_id: fact_id, recipient_usernames: []).call }.
       to raise_error(RuntimeError, 'recipient_usernames should not be empty')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'should execute correctly' do
       username = 'username'
-      command = Commands::CreateConversation.new fact_id, [username]
+      command = described_class.new fact_id: fact_id,
+        recipient_usernames: [username]
       recipients = mock('recipients')
       conversation = mock('conversation', :recipients => recipients)
       Conversation.should_receive(:new).and_return(conversation)
-      user = mock()
+      user = double
 
-      command.should_receive(:query).with(:user_by_username, username).
+      command.should_receive(:old_query).with(:user_by_username, username).
         and_return(user)
 
 
@@ -53,10 +55,11 @@ describe Commands::CreateConversation do
 
     it 'should throw when an invalid username is given' do
       username = 'username'
-      command = Commands::CreateConversation.new(fact_id, [username])
+      command = described_class.new fact_id: fact_id,
+        recipient_usernames: [username]
       Conversation.should_receive(:new).and_return(mock('conversation'))
-      
-      command.should_receive(:query).with(:user_by_username, username).
+
+      command.should_receive(:old_query).with(:user_by_username, username).
         and_return(nil)
 
       expect {command.call}.to raise_error(Pavlov::ValidationError, 'user_not_found')

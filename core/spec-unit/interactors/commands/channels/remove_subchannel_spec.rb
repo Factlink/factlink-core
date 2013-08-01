@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/commands/channels/remove_subchanne
 
 describe Commands::Channels::RemoveSubchannel do
   include PavlovSupport
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'Resque', 'RemoveChannelFromChannel'
     end
@@ -12,7 +12,7 @@ describe Commands::Channels::RemoveSubchannel do
       channel = mock :channel, id: mock, created_by: mock
       subchannel = mock :subchannel, id: mock
 
-      command = Commands::Channels::RemoveSubchannel.new(channel, subchannel)
+      command = described_class.new channel: channel, subchannel: subchannel
 
       channel.should_receive(:remove_channel).with(subchannel)
              .and_return(true)
@@ -26,7 +26,7 @@ describe Commands::Channels::RemoveSubchannel do
       channel = mock :channel
       subchannel = mock :subchannel
 
-      command = Commands::Channels::RemoveSubchannel.new(channel, subchannel)
+      command = described_class.new channel: channel, subchannel: subchannel
 
       channel.should_receive(:remove_channel).with(subchannel)
              .and_return(false)

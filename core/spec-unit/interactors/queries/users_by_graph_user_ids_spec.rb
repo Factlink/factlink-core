@@ -9,15 +9,15 @@ describe Queries::UsersByGraphUserIds do
   end
 
   it 'throws when initialized with a argument that is not an integer' do
-    expect { Queries::UsersByGraphUserIds.new ['g6'] }.
+    expect { described_class.new(graph_user_ids: ['g6']).call }.
       to raise_error(RuntimeError, 'id should be a positive integer.')
   end
 
-  describe ".call" do
+  describe '#call' do
     it "should work with an empty list of ids" do
-      query = Queries::UsersByGraphUserIds.new([])
+      query = described_class.new(graph_user_ids: [])
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:users_by_ids, [],)
             .and_return([])
 
@@ -33,7 +33,7 @@ describe Queries::UsersByGraphUserIds do
       gu_ids = graph_users.map(&:id)
       user_ids = graph_users.map(&:user_id)
 
-      users = mock()
+      users = double
 
       graph_users.each do |graph_user|
         GraphUser.should_receive(:[])
@@ -41,9 +41,9 @@ describe Queries::UsersByGraphUserIds do
                  .and_return(graph_user)
       end
 
-      query = Queries::UsersByGraphUserIds.new(gu_ids)
+      query = described_class.new(graph_user_ids: gu_ids)
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
             .with(:users_by_ids, user_ids)
             .and_return(users)
 

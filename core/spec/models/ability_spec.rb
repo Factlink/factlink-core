@@ -18,6 +18,7 @@ describe Ability do
   describe "to manage a user" do
     context "as a normal user" do
       it {subject.should_not be_able_to :manage, User }
+      it {subject.should_not be_able_to :configure, Ability::FactlinkWebapp }
 
       it {subject.should     be_able_to :show, user }
       it {subject.should     be_able_to :show, other_user }
@@ -39,6 +40,8 @@ describe Ability do
     end
     context "as an admin" do
       it {admin.should     be_able_to :manage, User }
+      it {admin.should     be_able_to :configure, Ability::FactlinkWebapp }
+
       it {admin.should_not be_able_to :sign_tos, user }
       it {admin.should_not be_able_to :sign_tos, admin_user }
     end
@@ -60,8 +63,8 @@ describe Ability do
 
   describe "to manage channels" do
 
-    let(:ch1) { FactoryGirl.create :channel, created_by: user.graph_user }
-    let(:ch2) { FactoryGirl.create :channel, created_by: other_user.graph_user }
+    let(:ch1) { create :channel, created_by: user.graph_user }
+    let(:ch2) { create :channel, created_by: other_user.graph_user }
 
     it {subject.should be_able_to :index, Channel }
     it {subject.should be_able_to :create, Channel }
@@ -88,8 +91,8 @@ describe Ability do
   end
 
   describe "to manage facts" do
-    let(:f1) { FactoryGirl.create :fact, created_by: user.graph_user }
-    let(:f2) { FactoryGirl.create :fact, created_by: other_user.graph_user }
+    let(:f1) { create :fact, created_by: user.graph_user }
+    let(:f2) { create :fact, created_by: other_user.graph_user }
 
     it {subject.should be_able_to :index, Fact }
     it {subject.should be_able_to :create, Fact }
@@ -125,8 +128,8 @@ describe Ability do
   end
 
   describe "to manage FactRelations" do
-    let(:fr1) { FactoryGirl.create :fact_relation, created_by: user.graph_user }
-    let(:fr2) { FactoryGirl.create :fact_relation, created_by: other_user.graph_user }
+    let(:fr1) { create :fact_relation, created_by: user.graph_user }
+    let(:fr2) { create :fact_relation, created_by: other_user.graph_user }
 
     describe "of my own" do
       it {subject.should be_able_to :read, fr1 }
@@ -148,8 +151,8 @@ describe Ability do
   end
 
   describe "to manage Comments" do
-    let(:c1) { FactoryGirl.create :comment, created_by: user }
-    let(:c2) { FactoryGirl.create :comment, created_by: other_user }
+    let(:c1) { create :comment, created_by: user }
+    let(:c2) { create :comment, created_by: other_user }
 
     describe "of my own" do
       it {subject.should be_able_to :read, c1 }

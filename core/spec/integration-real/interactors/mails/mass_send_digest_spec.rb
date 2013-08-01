@@ -4,14 +4,14 @@ describe Interactors::Mails::MassSendDigest do
   include PavlovSupport
 
   before do
-    @user = FactoryGirl.create :approved_confirmed_user, receives_digest: true
-    @user_not_receiving = FactoryGirl.create :approved_confirmed_user, receives_digest: false
+    @user = create :approved_confirmed_user, receives_digest: true
+    @user_not_receiving = create :approved_confirmed_user, receives_digest: false
 
     @url = 'url'
 
     as(@user) do |pavlov|
-      @fact = pavlov.interactor :'facts/create', 'displaystring', '', 'title', {}
-      @mails = pavlov.interactor :'mails/mass_send_digest', @fact.id, @url
+      @fact = pavlov.old_interactor :'facts/create', 'displaystring', '', 'title', {}
+      @mails = pavlov.old_interactor :'mails/mass_send_digest', @fact.id, @url
     end
   end
 

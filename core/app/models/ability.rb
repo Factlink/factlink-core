@@ -2,6 +2,7 @@ class Ability
   class AdminArea;end
   class FactlinkWebapp;end
 
+
   include CanCan::Ability
 
   attr_reader :user
@@ -117,6 +118,7 @@ class Ability
 
       if user.admin?
         can :access, AdminArea
+        can :configure, FactlinkWebapp
         can :manage, User
         can :approve, User
         cannot :sign_tos, User
@@ -174,7 +176,10 @@ class Ability
     sees_channels new_discussion_page share_new_factlink_buttons
     share_to_twitter share_to_facebook vote_up_down_popup
   )
-  GLOBAL_ENABLED_FEATURES = []
+
+  def enabled_global_features
+    Pavlov.old_interactor :'global_features/all'
+  end
 
   def enable_features list
     list.each do |feature|
@@ -185,9 +190,9 @@ class Ability
 
   def define_feature_toggles
     @features ||= []
-    if agrees_tos?
+    enable_features enabled_global_features
+    if signed_in?
       enable_features user.features
-      enable_features GLOBAL_ENABLED_FEATURES
     end
   end
 

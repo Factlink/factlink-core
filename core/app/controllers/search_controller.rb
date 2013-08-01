@@ -11,7 +11,8 @@ class SearchController < ApplicationController
       raise HackAttempt unless params[:s].is_a? String
     end
 
-    mp_track "Search: Top bar search"
+    mp_track "Search: Top bar search",
+      searched_for: params[:s]
 
     backbone_responder do
       row_count = 20
@@ -22,7 +23,7 @@ class SearchController < ApplicationController
       @results = []
 
       if search_for.size > 0
-        @results = interactor :search, search_for, page, row_count
+        @results = old_interactor :search, search_for, page, row_count
       end
 
       render 'search_results/index'

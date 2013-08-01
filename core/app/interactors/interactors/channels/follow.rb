@@ -10,25 +10,25 @@ module Interactors
       end
 
       def execute
-        follower = command :'channels/follow', channel
+        follower = old_command :'channels/follow', channel
         if follower
-          command :'channels/added_subchannel_create_activities', follower, channel
-          command :'topics/favourite', current_graph_user_id,
+          old_command :'channels/added_subchannel_create_activities', follower, channel
+          old_command :'topics/favourite', current_graph_user_id,
                                        channel.topic.id.to_s
         end
       end
 
       def current_graph_user_id
-        @options[:current_user].graph_user_id
+        pavlov_options[:current_user].graph_user_id
       end
 
       def channel
-        @channel ||= query :'channels/get', channel_id
+        @channel ||= old_query :'channels/get', channel_id
       end
 
       def authorized?
          # this is no stub, every user can follow another channel
-        @options[:current_user]
+        pavlov_options[:current_user]
       end
     end
   end

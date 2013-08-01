@@ -12,27 +12,30 @@ describe Interactors::Facts::PostToTwitter do
 
   describe '#authorized?' do
     it 'throws when cannot share facts' do
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:share, Fact).and_return(false)
 
-      pavlov_options = {current_user: mock, ability: ability}
+      pavlov_options = { current_user: mock, ability: ability }
 
-      expect { described_class.new '1', 'message', pavlov_options }.
-        to raise_error Pavlov::AccessDenied, 'Unauthorized'
+      interactor = described_class.new fact_id: '1', message: 'message',
+        pavlov_options: pavlov_options
+
+      expect { interactor.call }
+        .to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
 
   describe '#call' do
     it 'posts a fact with a sharing_url if available' do
-      user = mock
+      user = double
       message = "message"
       fact = mock(id: "1")
       sharing_url = 'sharing_url'
       fact_url = mock sharing_url: sharing_url
 
-      pavlov_options = {current_user: user, ability: mock(can?: true)}
+      pavlov_options = { current_user: user, ability: mock(can?: true) }
 
-      Pavlov.stub(:query)
+      Pavlov.stub(:old_query)
         .with(:"facts/get_dead", fact.id, pavlov_options)
         .and_return(fact)
 
@@ -40,36 +43,60 @@ describe Interactors::Facts::PostToTwitter do
              .with(fact)
              .and_return(fact_url)
 
-      Pavlov.should_receive(:command)
+      Pavlov.should_receive(:old_command)
         .with(:"twitter/post", "message sharing_url", pavlov_options)
 
-      interactor = described_class.new fact.id, message, pavlov_options
+      interactor = described_class.new fact_id: fact.id, message: message,
+        pavlov_options: pavlov_options
       interactor.call
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      fact_id = "1"
-      message = "message"
-      user    = mock
+  describe 'validation' do
+    it 'requires fact_id to be an integer string' do
+      fact_id = 1
+      message = 'message'
 
-      # 140 Twitter characters, minus url length, minus 1 for space
+      hash = { fact_id: fact_id, message: message,
+        pavlov_options: { current_user: mock }}
+
+      expect_validating(hash)
+        .to fail_validation('fact_id should be an integer string.')
+    end
+
+    it 'requires message to be a nonempty string' do
+      fact_id = '1'
+      message = ''
+
+      hash = { fact_id: fact_id, message: message,
+        pavlov_options: { current_user: mock }}
+
+      expect_validating(hash)
+        .to fail_validation('message should be a nonempty string.')
+    end
+
+    it 'requires message to not be too long' do
+      fact_id = '1'
+      message = 'aa'*150
+
       maximum_message_length = 140 - Twitter.configuration.short_url_length_https - 1
 
-      described_class.any_instance.should_receive(:validate_integer_string)
-        .with(:fact_id, fact_id)
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-        .with(:message, message)
-      described_class.any_instance.should_receive(:validate_string_length)
-        .with(:message, message, maximum_message_length)
-      described_class.any_instance.should_receive(:validate_not_nil)
-        .with(:current_user, user)
+      hash = { fact_id: fact_id, message: message,
+        pavlov_options: { current_user: mock }}
 
-      pavlov_options = {current_user: user, ability: mock(can?: true)}
+      expect_validating(hash)
+        .to fail_validation("message should not be longer than #{maximum_message_length} characters.")
+    end
 
-      interactor = described_class.new fact_id, message, pavlov_options
+    it 'requires a current_user' do
+      fact_id = '1'
+      message = 'message'
+
+      hash = { fact_id: fact_id, message: message,
+        pavlov_options: { current_user: nil }}
+
+      expect_validating(hash)
+        .to fail_validation('current_user should not be nil.')
     end
   end
-
 end

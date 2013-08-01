@@ -28,11 +28,11 @@ module Queries
       end
 
       def wheel
-        query :'facts/get_dead_wheel', id
+        old_query :'facts/get_dead_wheel', id
       end
 
       def evidence_count
-        query :'evidence/count_for_fact', fact
+        old_query :'evidence/count_for_fact', fact
       end
 
       def validate

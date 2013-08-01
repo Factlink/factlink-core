@@ -1,6 +1,6 @@
 module Acceptance
   def int_user
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     user.confirm!
     user
   end
@@ -13,12 +13,12 @@ module Acceptance
   end
 
   def create_admin_and_login
-    admin = FactoryGirl.create(:admin_user)
+    admin = create(:admin_user)
     sign_in_user admin
   end
 
   def make_non_tos_user_and_login
-    user = FactoryGirl.create(:approved_confirmed_user, agrees_tos: false)
+    user = create(:approved_confirmed_user, agrees_tos: false)
     sign_in_user(user)
   end
 
@@ -29,6 +29,8 @@ module Acceptance
     fill_in "user_password", :with => user.password
     click_button "Sign in"
 
+    @current_user = user
+
     user
   end
 
@@ -38,7 +40,13 @@ module Acceptance
   end
 
   def sign_out_user
+    @current_user = nil
     visit "/users/sign_out"
+  end
+
+  def use_features *new_features
+    features = @current_user.features.to_a + new_features
+    @current_user.features = features
   end
 
   def random_username

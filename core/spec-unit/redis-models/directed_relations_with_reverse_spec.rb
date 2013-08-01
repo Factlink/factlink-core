@@ -9,7 +9,7 @@ describe DirectedRelationsWithReverse do
   let(:directed_relations_with_reverse) { DirectedRelationsWithReverse.new nest_key }
 
   let(:nest_key) do
-    nest_key = mock
+    nest_key = double
     nest_key.stub(:[]).with(:relation).and_return(relation_key)
     nest_key.stub(:[]).with(:reverse_relation).and_return(reverse_relation_key)
     nest_key
@@ -17,8 +17,8 @@ describe DirectedRelationsWithReverse do
 
   describe '.add' do
     it 'adds to_id to relation_key[from_id] and from_id to reverse_relation_key[to_id]' do
-      from_id = mock
-      to_id = mock
+      from_id = double
+      to_id = double
 
       relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
       reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
@@ -32,8 +32,8 @@ describe DirectedRelationsWithReverse do
 
   describe '.remove' do
     it 'removes to_id from relation_key[from_id] and from_id from reverse_relation_key[to_id]' do
-      from_id = mock
-      to_id = mock
+      from_id = double
+      to_id = double
 
       relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
       reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
@@ -47,8 +47,8 @@ describe DirectedRelationsWithReverse do
 
   describe '.ids' do
     it 'returns the ids pointed to by from_id' do
-      from_id = mock
-      ids = mock
+      from_id = double
+      ids = double
 
       relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.should_receive(:smembers).and_return(ids)
@@ -59,8 +59,8 @@ describe DirectedRelationsWithReverse do
 
   describe '.reverse_ids' do
     it 'returns the ids pointed from toward to_id' do
-      to_id = mock
-      ids = mock
+      to_id = double
+      ids = double
 
       reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
       reverse_relation_key_list.should_receive(:smembers).and_return(ids)
@@ -71,9 +71,9 @@ describe DirectedRelationsWithReverse do
 
   describe '.has?' do
     it 'checks if there is a link from from_id to to_id' do
-      from_id = mock
-      to_id = mock
-      result = mock
+      from_id = double
+      to_id = double
+      result = double
 
       relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.stub(:sismember).with(to_id).and_return(result)

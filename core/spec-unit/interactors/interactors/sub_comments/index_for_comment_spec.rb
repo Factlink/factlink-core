@@ -8,53 +8,49 @@ describe Interactors::SubComments::IndexForComment do
                  'Queries::SubComments::Index'
   end
 
-  describe '.authorized' do
+  describe '#authorized?' do
     it 'checks if the comment can be shown' do
       comment_id = '1a'
-      comment = mock
+      comment = double
+      ability = double
+      ability.should_receive(:can?).with(:show, comment).and_return(false)
+      interactor = described_class.new(comment_id: comment_id, pavlov_options: { ability: ability })
 
       Comment.stub(:find).with(comment_id).and_return(comment)
 
-      ability = mock
-      ability.should_receive(:can?).with(:show, comment).and_return(false)
-
       expect do
-        interactor = described_class.new comment_id, ability: ability
+        interactor.call
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
 
-  describe '.validate' do
+  describe 'validations' do
     it 'without comment_id doesn''t validate' do
-      expect_validating(nil).
-        to fail_validation('comment_id should be an hexadecimal string.')
+      expect_validating(comment_id: nil)
+        .to fail_validation('comment_id should be an hexadecimal string.')
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     it do
       comment_id = '2b'
       sub_comments = [mock, mock]
       dead_sub_comments = [mock, mock]
       authorities = [10, 20]
-
       options = {ability: mock(can?: true)}
+      interactor = described_class.new(comment_id: comment_id,
+        pavlov_options: options)
 
       Comment.stub(:find).with(comment_id)
              .and_return(mock)
-
-      interactor = described_class.new comment_id, options
-
-      interactor.should_receive(:query).with(:"sub_comments/index", comment_id, 'Comment').
+      interactor.should_receive(:old_query).with(:"sub_comments/index", comment_id, 'Comment').
         and_return(sub_comments)
-
       interactor.should_receive(:authority_of_user_who_created).
         with(sub_comments[0]).
         and_return(authorities[0])
       interactor.should_receive(:authority_of_user_who_created).
         with(sub_comments[1]).
         and_return(authorities[1])
-
       KillObject.should_receive(:sub_comment).
         with(sub_comments[0], authority: authorities[0]).
         and_return(dead_sub_comments[0])
@@ -62,9 +58,7 @@ describe Interactors::SubComments::IndexForComment do
         with(sub_comments[1], authority: authorities[1]).
         and_return(dead_sub_comments[1])
 
-      results = interactor.execute
-
-      expect( results ).to eq dead_sub_comments
+      expect( interactor.call ).to eq dead_sub_comments
     end
 
     it 'throws an error when the comment does not exist' do
@@ -75,24 +69,26 @@ describe Interactors::SubComments::IndexForComment do
       Comment.stub(:find).with('2b')
              .and_return(nil)
 
-      interactor = described_class.new '2b', options
+      interactor = described_class.new(comment_id: '2b', pavlov_options: options)
 
-      expect{interactor.call}.to raise_error(Pavlov::ValidationError, "comment does not exist any more")
+      expect do
+        interactor.call
+      end.to raise_error(Pavlov::ValidationError, 'comment does not exist any more')
     end
   end
 
-  describe '.top_fact' do
+  describe '#top_fact' do
     before do
       described_class.any_instance.stub(:authorized?).and_return(true)
     end
 
     it 'returns the top fact for the comment_id' do
       comment_id = '2a'
-      fact = mock
+      fact = double
       comment = mock(fact_data: mock(fact:fact))
-      Comment.should_receive(:find).with(comment_id).and_return(comment)
+      interactor = described_class.new(comment_id: comment_id)
 
-      interactor = Interactors::SubComments::IndexForComment.new comment_id
+      Comment.should_receive(:find).with(comment_id).and_return(comment)
 
       result = interactor.top_fact
 
@@ -101,17 +97,16 @@ describe Interactors::SubComments::IndexForComment do
 
     it 'caches the fact' do
       comment_id = '2a'
-      fact = mock
+      fact = double
       comment = mock(fact_data: mock(fact:fact))
+      interactor = described_class.new(comment_id: comment_id)
+
       Comment.should_receive(:find).with(comment_id).and_return(comment)
 
-      interactor = Interactors::SubComments::IndexForComment.new comment_id
+      interactor.top_fact
+      next_result = interactor.top_fact
 
-      result = interactor.top_fact
-
-      result2 = interactor.top_fact
-
-      result2.should eq fact
+      expect( next_result ).to eq fact
     end
   end
 
@@ -123,14 +118,14 @@ describe Interactors::SubComments::IndexForComment do
 
     it 'retrieves the authority and kills the subcomment' do
       comment_id = '2a'
-      fact = mock
-      graph_user = mock
-      authority = mock
+      fact = double
+      graph_user = double
+      authority = double
       sub_comment = mock(created_by: mock(graph_user: graph_user))
-      interactor = Interactors::SubComments::IndexForComment.new comment_id
+      interactor = described_class.new(comment_id: comment_id)
 
       interactor.should_receive(:top_fact).and_return(fact)
-      interactor.should_receive(:query).with(:"authority_on_fact_for", fact, graph_user).
+      interactor.should_receive(:old_query).with(:"authority_on_fact_for", fact, graph_user).
         and_return authority
 
       result = interactor.authority_of_user_who_created sub_comment

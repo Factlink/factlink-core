@@ -6,15 +6,15 @@ describe Commands::Channels::AddedSubchannelCreateActivities do
 
   it "should create relevant actities" do
     channel = mock created_by: mock
-    subchannel = mock
+    subchannel = double
 
     stub_classes 'Channel::Activities'
-    channel_activities = mock
+    channel_activities = double
 
     Channel::Activities.stub(:new).with(channel)
                        .and_return(channel_activities)
 
-    command = Commands::Channels::AddedSubchannelCreateActivities.new(channel, subchannel)
+    command = described_class.new channel: channel, subchannel: subchannel
 
     channel_activities.should_receive(:add_created)
     channel.should_receive(:activity)

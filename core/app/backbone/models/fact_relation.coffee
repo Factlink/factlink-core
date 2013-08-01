@@ -1,4 +1,4 @@
-class window.FactRelation extends Backbone.Model
+class window.FactRelation extends Evidence
 
   defaults:
     evidence_type: 'FactRelation'
@@ -7,8 +7,8 @@ class window.FactRelation extends Backbone.Model
     $.ajax
       url: @url() + "/opinion/" + type
       success: (data) =>
-        mp_track "Evidence: opinionate",
-          type: type
+        mp_track "Evidence: Opinionate",
+          opinion: type
           evidence_id: @id
 
         @set data
@@ -26,7 +26,7 @@ class window.FactRelation extends Backbone.Model
     return @_fact if @_fact?
 
     @_fact = new Fact(@get('from_fact'))
-    @on 'change', =>
+    @on 'change:from_fact', =>
       @_fact.set @get('from_fact')
     @_fact
 

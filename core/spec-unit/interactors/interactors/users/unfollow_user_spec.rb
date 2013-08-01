@@ -10,81 +10,62 @@ describe Interactors::Users::UnfollowUser do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new mock, mock }.
-        to raise_error Pavlov::AccessDenied,'Unauthorized'
+      expect do
+        described_class.new(user_name: mock,
+          user_to_unfollow_user_name: mock).call
+      end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
 
     it 'throws when updating someone else\'s follow' do
-      username = mock
-      other_username = mock
+      username = double
+      other_username = double
       current_user = mock(username: username)
 
-      expect { described_class.new other_username, mock, {current_user: current_user} }.
-        to raise_error Pavlov::AccessDenied,'Unauthorized'
-    end
-
-    it 'doesn\'t throw when updating your own follow' do
-      username = mock
-      current_user = mock(username: username)
-
-      described_class.new username, mock, {current_user: current_user}
+      expect do
+        described_class.new(user_name: other_username, user_to_unfollow_user_name: mock, pavlov_options:  {current_user: current_user}).call
+      end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
 
-  describe '.new' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
-    it 'returns an object' do
-      interactor = described_class.new mock, mock
-
-      expect(interactor).to_not be_nil
-    end
-  end
-
-  describe '#execute' do
+  describe '#call' do
     before do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
     it 'calls a command to unfollow' do
-      user_name = mock
-      user_to_unfollow_user_name = mock
-      interactor = described_class.new user_name, user_to_unfollow_user_name
+      user_name = double
+      user_to_unfollow_user_name = double
       user = mock(graph_user_id: mock)
       user_to_unfollow = mock(graph_user_id: mock)
+      interactor = described_class.new user_name: user_name,
+        user_to_unfollow_user_name: user_to_unfollow_user_name
 
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:'user_by_username', user_name).
         and_return(user)
-      interactor.should_receive(:query).
+      interactor.should_receive(:old_query).
         with(:'user_by_username', user_to_unfollow_user_name).
         and_return(user_to_unfollow)
-      interactor.should_receive(:command).
+      interactor.should_receive(:old_command).
         with(:'users/unfollow_user', user.graph_user_id, user_to_unfollow.graph_user_id)
 
-      result = interactor.execute
-
-      expect(result).to eq nil
+      expect(interactor.call).to eq nil
     end
   end
 
-  describe '#validate' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
+  describe 'validations' do
+    it 'validates user_name' do
+      interactor = described_class.new user_name: 12, user_to_unfollow_user_name: 'name'
+
+      expect{ interactor.call }.to raise_error(Pavlov::ValidationError,
+        'user_name should be a nonempty string.')
     end
 
-    it 'calls the correct validation methods' do
-      user_name = mock
-      user_to_unfollow_user_name = mock
+    it 'validates user_name' do
+      interactor = described_class.new user_name: 'name', user_to_unfollow_user_name: 12
 
-      described_class.any_instance.should_receive(:validate_nonempty_string).
-        with(:user_name, user_name)
-      described_class.any_instance.should_receive(:validate_nonempty_string).
-        with(:user_to_unfollow_user_name, user_to_unfollow_user_name)
-
-      interactor = described_class.new user_name, user_to_unfollow_user_name
+      expect{ interactor.call }.to raise_error(Pavlov::ValidationError,
+        'user_to_unfollow_user_name should be a nonempty string.')
     end
   end
 end

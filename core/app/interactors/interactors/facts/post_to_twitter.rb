@@ -16,18 +16,18 @@ module Interactors
       def execute
         message_with_url = message + ' ' + url
 
-        command :"twitter/post", message_with_url
+        old_command :"twitter/post", message_with_url
       end
 
       def validate
         validate_integer_string  :fact_id, fact_id
         validate_nonempty_string :message, message
         validate_string_length   :message, message, maximum_message_length
-        validate_not_nil         :current_user, @options[:current_user]
+        validate_not_nil         :current_user, pavlov_options[:current_user]
       end
 
       def url
-        fact = query :"facts/get_dead", fact_id
+        fact = old_query :"facts/get_dead", fact_id
         ::FactUrl.new(fact).sharing_url
       end
 

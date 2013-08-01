@@ -5,21 +5,15 @@ describe Interactors::Mails::MassSendDigest do
   include PavlovSupport
 
 
-  describe '#validate' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
+  describe 'validations' do
+    it 'requires fact_id to be an integer string' do
+      expect_validating(fact_id: 1, url: 'url')
+        .to fail_validation('fact_id should be an integer string.')
     end
 
-    it 'calls the correct validation methods' do
-      fact_id = mock
-      url = mock
-
-      described_class.any_instance.should_receive(:validate_integer_string)
-        .with(:fact_id, fact_id)
-      described_class.any_instance.should_receive(:validate_string)
-        .with(:url, url)
-
-      interactor = described_class.new fact_id, url
+    it 'requires url to be an string' do
+      expect_validating(fact_id: '1', url: 1024)
+        .to fail_validation('url should be a string.')
     end
   end
 
@@ -34,11 +28,11 @@ describe Interactors::Mails::MassSendDigest do
       fact  = mock(id: mock)
       user1 = mock(id: mock)
       user2 = mock(id: mock)
-      mail1 = mock
-      mail2 = mock
-      url   = mock
+      mail1 = double
+      mail2 = double
+      url   = double
 
-      interactor = described_class.new fact.id, url
+      interactor = described_class.new fact_id: fact.id, url: url
 
       User.stub receives_digest: [user1, user2]
       Fact.stub(:[]).with(fact.id).and_return(fact)

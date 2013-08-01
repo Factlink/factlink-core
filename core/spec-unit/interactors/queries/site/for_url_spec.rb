@@ -6,19 +6,19 @@ describe Queries::Sites::ForUrl do
 
   describe 'validations' do
     it 'requires arguments' do
-      expect_validating(nil).
+      expect_validating(url: nil).
         to fail_validation('url should be a string.')
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     before do
       stub_classes 'Site'
     end
 
     it 'returns nil if site is nil' do
       url = 'http://jsdares.com'
-      query = Queries::Sites::ForUrl.new url
+      query = described_class.new url: url
 
       Site.should_receive(:find).with(url: url).and_return([])
 
@@ -27,16 +27,13 @@ describe Queries::Sites::ForUrl do
 
     it 'returns a site' do
       url = 'http://jsdares.com'
-      query = Queries::Sites::ForUrl.new url
-
-      site = mock
-      dead_site = mock
+      query = described_class.new url: url
+      site = double
+      dead_site = double
 
       Site.should_receive(:find).with(url: url).and_return([site])
 
       expect(query.call).to eq site
     end
   end
-
 end
-

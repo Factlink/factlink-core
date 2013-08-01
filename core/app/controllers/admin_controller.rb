@@ -2,6 +2,8 @@ class AdminController < ApplicationController
   layout "admin"
 
   before_filter :require_admin_access
+  before_filter :authenticate_user!
+
   def require_admin_access
     authorize! :access, Ability::AdminArea
   end
