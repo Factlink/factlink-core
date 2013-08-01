@@ -29,9 +29,9 @@ describe Interactors::Comments::UpdateOpinion do
       opinion = 'believes'
       user = mock(graph_user: mock)
       comment = mock(id: '123')
-      pavlov_options = {current_user: user}
+      pavlov_options = { current_user: user }
 
-      interactor = described_class.new comment.id, opinion, current_user: user
+      interactor = described_class.new comment.id, opinion, pavlov_options
 
       Pavlov.stub(:old_query)
         .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
