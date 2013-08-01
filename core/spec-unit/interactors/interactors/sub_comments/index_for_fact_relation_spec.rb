@@ -96,7 +96,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       fact_relation = mock(fact: fact)
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 
-      FactRelation.should_receive(:[]).with(fact_relation_id).and_return(fact_relation)
+      FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
 
       expect(interactor.top_fact).to eq fact
     end
@@ -107,7 +107,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       fact_relation = mock(fact: fact)
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 
-      FactRelation.should_receive(:[]).with(fact_relation_id).and_return(fact_relation)
+      FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
 
       interactor.top_fact
 
