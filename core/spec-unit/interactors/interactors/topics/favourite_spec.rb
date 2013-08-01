@@ -7,8 +7,7 @@ describe Interactors::Topics::Favourite do
   describe '#authorized?' do
     before do
       described_class.any_instance
-        .stub(:validate)
-        .and_return(true)
+        .stub(validate: true)
     end
 
     it 'throws when no current_user' do
@@ -19,15 +18,15 @@ describe Interactors::Topics::Favourite do
     it 'throws when cannot edit favourites' do
       user = double
       current_user = double
-
       ability = double
+
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      described_class.any_instance.stub(:old_query).
-        with(:user_by_username, 'username').
-        and_return(user)
+      Pavlov.stub(:old_query)
+        .with(:user_by_username, 'username', pavlov_options)
+        .and_return(user)
 
       interactor = described_class.new user_name: 'username',
                     slug_title: 'slug_title',
@@ -55,14 +54,15 @@ describe Interactors::Topics::Favourite do
 
       topic = mock(id: mock)
 
-      interactor.stub(:old_query)
-        .with(:'user_by_username', user_name)
+      Pavlov.stub(:old_query)
+        .with(:'user_by_username', user_name, pavlov_options)
         .and_return(user)
-      interactor.stub(:old_query)
-        .with(:'topics/by_slug_title', slug_title)
+      Pavlov.stub(:old_query)
+        .with(:'topics/by_slug_title', slug_title, pavlov_options)
         .and_return(topic)
-      interactor.should_receive(:old_command)
-        .with(:'topics/favourite', user.graph_user_id, topic.id.to_s)
+      Pavlov.should_receive(:old_command)
+        .with(:'topics/favourite', user.graph_user_id, topic.id.to_s, pavlov_options)
+
       interactor.should_receive(:mp_track)
         .with('Topic: Favourited', slug_title: slug_title)
 
@@ -72,12 +72,12 @@ describe Interactors::Topics::Favourite do
 
   describe 'validations' do
     it 'with invalid user_name doesn\'t validate' do
-      expect_validating(user_name: 12, slug_title: 'title')
+      expect_validating(user_name: '', slug_title: 'title')
         .to fail_validation('user_name should be a nonempty string.')
     end
 
     it 'without user_id doesn\'t validate' do
-      expect_validating(user_name: 'karel', slug_title: 12)
+      expect_validating(user_name: 'karel', slug_title: '')
         .to fail_validation('slug_title should be a nonempty string.')
     end
   end
