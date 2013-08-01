@@ -56,10 +56,9 @@ describe Queries::ElasticSearchAll do
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
       keywords = 'searching for this channel'
-      results = double
       error_response = 'error has happened server side'
-      results.stub response: error_response
-      results.stub code: 501
+      results = double response: error_response,
+                       code: 501
       logger = double
       error_message = "Server error, status code: 501, response: '#{error_response}'."
       query = described_class.new(keywords: keywords, page: 1, row_count: 20, pavlov_options: { logger: logger })
