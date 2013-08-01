@@ -15,9 +15,10 @@ describe Interactors::Topics::Unfavourite do
     end
 
     it 'throws when cannot edit favourites' do
-      user = stub
-      current_user = stub
-      ability = stub
+      user = double
+      current_user = double
+      ability = double
+
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
 
@@ -36,9 +37,9 @@ describe Interactors::Topics::Unfavourite do
       user_name = 'username'
       slug_title = 'slug-title'
 
-      current_user = stub
+      current_user = double
 
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(true)
 
       pavlov_options = { current_user: current_user, ability: ability }
@@ -65,12 +66,12 @@ describe Interactors::Topics::Unfavourite do
 
   describe 'validations' do
     it 'without user_id doesn\t validate' do
-      expect_validating(1, 'headline')
+      expect_validating('', 'headline')
         .to fail_validation('user_name should be a nonempty string.')
     end
 
-    it 'without user_id doesn\t validate' do
-      expect_validating('karel', 43)
+    it 'without topic_id doesn\t validate' do
+      expect_validating('karel', '')
         .to fail_validation('slug_title should be a nonempty string.')
     end
   end

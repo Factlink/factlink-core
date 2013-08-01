@@ -11,14 +11,14 @@ describe Queries::Topics::FactsCount do
   describe '#execute' do
     it 'correctly' do
       slug_title = 'slug-title'
-      facts_key = mock
-      count = mock
+      facts_key = double
+      count = double
 
       query = described_class.new slug_title
 
-      nest = mock
-      key = mock
-      facts_key = mock
+      nest = double
+      key = double
+      facts_key = double
 
       Topic.should_receive(:redis).and_return(nest)
       nest.should_receive(:[]).with(slug_title).and_return(key)

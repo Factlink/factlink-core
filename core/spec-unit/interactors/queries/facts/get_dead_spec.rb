@@ -36,7 +36,7 @@ describe Queries::Facts::GetDead do
           data: fact_data
 
       interactor = Queries::Facts::GetDead.new live_fact.id
-      wheel = mock
+      wheel = double
       evidence_count = 10
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)

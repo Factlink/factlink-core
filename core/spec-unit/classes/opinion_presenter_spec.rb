@@ -48,7 +48,7 @@ describe OpinionPresenter do
   describe "#as_percentages_hash" do
     it "should use the NumberFormatter for the formatting of authority" do
       authority = 13
-      friendly_authority = mock
+      friendly_authority = double
       number_formatter = mock as_authority: friendly_authority
 
       NumberFormatter.stub(:new).with(authority).and_return(number_formatter)

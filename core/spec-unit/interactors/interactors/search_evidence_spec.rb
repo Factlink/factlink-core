@@ -35,7 +35,7 @@ describe Interactors::SearchEvidence do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'returns a empty array when the keyword string is empty' do
       keywords = 'zoeken interessante dingen'
       interactor = Interactors::SearchEvidence.new '', '1', ability: relaxed_ability
@@ -48,7 +48,7 @@ describe Interactors::SearchEvidence do
       interactor = Interactors::SearchEvidence.new keywords, '2', ability: relaxed_ability
 
       result = [get_fact_data('2')]
-      query = mock()
+      query = double
 
       Queries::ElasticSearchFactData.should_receive(:new).
         with(keywords, 1, 20, ability: relaxed_ability).
@@ -67,7 +67,7 @@ describe Interactors::SearchEvidence do
       interactor = Interactors::SearchEvidence.new keywords, '1', ability: relaxed_ability
 
       result = [get_fact_data('2')]
-      query = mock()
+      query = double
 
       Queries::ElasticSearchFactData.should_receive(:new).
         with(keywords, 1, 20, ability: relaxed_ability).
@@ -88,7 +88,7 @@ describe Interactors::SearchEvidence do
       fact_data2 = get_fact_data '3'
 
       result = [fact_data, fact_data2]
-      query = mock()
+      query = double
 
       Queries::ElasticSearchFactData.should_receive(:new).
         with('zoeken interessante dingen', 1, 20, ability: relaxed_ability).
@@ -106,9 +106,9 @@ describe Interactors::SearchEvidence do
 
   private
   def get_fact_data id
-    fact = mock()
+    fact = double
     fact.stub :id => id
-    fact_data = mock()
+    fact_data = double
     fact_data.stub :fact => fact
 
     fact_data

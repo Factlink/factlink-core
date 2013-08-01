@@ -17,7 +17,7 @@ describe Interactors::Facts::Get do
 
   describe '#authorized?' do
     it 'should check if the fact can be shown' do
-      ability = mock
+      ability = double
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
       expect do

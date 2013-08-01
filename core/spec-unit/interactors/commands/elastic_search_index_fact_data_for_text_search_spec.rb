@@ -24,14 +24,14 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
   describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
-      config = mock()
+      config = double
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/factdata/#{fact_data.id}"
       command = described_class.new fact_data
 
       hashie = {}
-      json_document = mock
+      json_document = double
       command.stub(:document).and_return(hashie)
       hashie.stub(:to_json).and_return(json_document)
 

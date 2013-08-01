@@ -6,7 +6,7 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      slug_title = mock
+      slug_title = double
 
       described_class.any_instance.should_receive(:validate_string)
         .with(:slug_title, slug_title)
@@ -18,7 +18,7 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
   describe '#call' do
     it 'returns the topic' do
       topic = mock(slug_title: 'slug_title', title: mock)
-      dead_topic = mock
+      dead_topic = double
       pavlov_options = {current_user: mock}
 
       Pavlov.stub(:old_query)

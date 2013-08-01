@@ -21,9 +21,9 @@ describe Interactors::Users::Following do
     end
 
     it 'calls the correct validation methods' do
-      user_name = mock
-      skip = mock
-      take = mock
+      user_name = double
+      skip = double
+      take = double
 
       described_class.any_instance.should_receive(:validate_nonempty_string).
         with(:user_name, user_name)
@@ -42,13 +42,13 @@ describe Interactors::Users::Following do
     end
 
     it 'it calls the query to get a list of followed users' do
-      user_name = mock
-      skip = mock
-      take = mock
+      user_name = double
+      skip = double
+      take = double
       interactor = described_class.new user_name, skip, take
       users = mock(length: mock)
-      graph_user_ids = mock
-      count = mock
+      graph_user_ids = double
+      count = double
       user = mock(graph_user_id: mock)
 
       interactor.should_receive(:old_query).

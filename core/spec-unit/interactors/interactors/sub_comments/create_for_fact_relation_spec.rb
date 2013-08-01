@@ -9,8 +9,8 @@ describe Interactors::SubComments::CreateForFactRelation do
   end
 
   it '.authorized denied when the user isn not allowed to see the fact_relation' do
-    fact_relation = mock
-    ability = mock
+    fact_relation = double
+    ability = double
     ability.stub(:can?).with(:show, fact_relation).and_return(false)
     FactRelation.should_receive(:[]).and_return(fact_relation)
 
@@ -35,22 +35,22 @@ describe Interactors::SubComments::CreateForFactRelation do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'KillObject', 'Commands::SubComments::CreateXxx'
     end
 
     it 'calls the corresponding command' do
       fact_relation_id = 1
-      user = mock
-      sub_comment = mock
-      authority = mock
-      dead_sub_comment = mock
+      user = double
+      sub_comment = double
+      authority = double
+      dead_sub_comment = double
       content = 'hoi'
-      fact_relation = mock
+      fact_relation = double
       FactRelation.stub :[] => fact_relation
 
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:show, fact_relation).and_return(true)
       ability.stub(:can?).with(:create, SubComment).and_return(true)
 
@@ -82,7 +82,7 @@ describe Interactors::SubComments::CreateForFactRelation do
 
   describe '.top_fact' do
     it 'returns the top fact for the fact_relation_id' do
-      fact = mock
+      fact = double
       fact_relation = mock id: 1, fact: fact
       FactRelation.should_receive(:[]).with(fact_relation.id).and_return(fact_relation)
       ability = mock can?: true
@@ -95,7 +95,7 @@ describe Interactors::SubComments::CreateForFactRelation do
     end
 
     it 'caches the fact' do
-      fact = mock
+      fact = double
       fact_relation = mock id: 1, fact: fact
       FactRelation.should_receive(:[]).with(fact_relation.id).and_return(fact_relation)
 
@@ -118,10 +118,10 @@ describe Interactors::SubComments::CreateForFactRelation do
 
     it 'retrieves the authority and kills the subcomment' do
       fact_relation_id = 1
-      fact = mock
-      graph_user = mock
-      authority = mock
-      user = mock
+      fact = double
+      graph_user = double
+      authority = double
+      user = double
       sub_comment = mock(created_by: mock(graph_user: graph_user))
       FactRelation.stub :[] => nil
       ability = mock can?: true

@@ -10,9 +10,9 @@ describe Queries::Opinions::InteractingUsersImpactForFact do
 
   it 'should retrieve impact for a fact and opinion type' do
     fact = mock :fact, id: '3'
-    type = mock
-    user_opinion = mock
-    fact_graph = mock
+    type = double
+    user_opinion = double
+    fact_graph = double
     query = described_class.new fact.id, type, current_user: mock
 
     Fact.stub(:[])
@@ -24,12 +24,12 @@ describe Queries::Opinions::InteractingUsersImpactForFact do
     fact_graph.stub(:user_opinion_for_fact).with(fact)
       .and_return(user_opinion)
 
-    opinion_presenter = mock
+    opinion_presenter = double
     OpinionPresenter
       .stub(:new)
       .with(user_opinion)
       .and_return(opinion_presenter)
-    opinion = mock
+    opinion = double
     opinion_presenter.stub(:authority)
       .with(type)
       .and_return(opinion)

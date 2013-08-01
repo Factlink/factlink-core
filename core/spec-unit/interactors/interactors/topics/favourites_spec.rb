@@ -15,9 +15,10 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'throws when cannot show favourites' do
-      user = stub
-      current_user = stub
-      ability = stub
+      user = double
+      current_user = double
+      ability = double
+
       ability.stub(:can?).with(:show_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
 
@@ -43,8 +44,9 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'it calls the query to get an alphabetically list of followed users' do
-      user_name = mock
-      interactor = described_class.new(user_name)
+      user_name = double
+      current_user = double
+      interactor = described_class.new user_name
 
       user = mock(graph_user_id: mock)
       topic1 = mock(id: mock, slug_title: 'b')

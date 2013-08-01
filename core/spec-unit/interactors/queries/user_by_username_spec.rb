@@ -8,11 +8,11 @@ describe Queries::UserByUsername do
     stub_classes 'User'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'retrieves a user' do
       search_username = "GERARD"
 
-      user = mock()
+      user = double
       user.stub(id:11)
 
       User.should_receive(:find_by).with(username: /^#{search_username.downcase}$/i).

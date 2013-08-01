@@ -10,9 +10,9 @@ describe Queries::Opinions::ImpactOpinionForFactRelation do
     end
 
     it 'returns the dead opinion on the fact_relation' do
-      dead_opinion = mock
+      dead_opinion = double
       fact_relation = mock(id: mock)
-      fact_graph = mock
+      fact_graph = double
       query = described_class.new fact_relation
 
       FactGraph.stub new: fact_graph

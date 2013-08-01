@@ -9,7 +9,7 @@ describe Interactors::Topics::Facts do
       slug_title = 'slug-title'
       count = 10
       max_timestamp = 100
-      results = mock
+      results = double
 
       pavlov_options = {current_user: mock}
 

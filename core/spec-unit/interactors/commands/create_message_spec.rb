@@ -49,7 +49,7 @@ describe Commands::CreateMessage do
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'creates and saves a message' do
       conversation = stub(id: 1, recipient_ids: [14])
 
@@ -57,7 +57,7 @@ describe Commands::CreateMessage do
 
       command = Commands::CreateMessage.new sender.id.to_s, content, conversation, current_user: sender
       conversation.should_receive(:save)
-      message = mock()
+      message = double
       message.should_receive("sender_id=").with(sender.id.to_s)
       message.should_receive('content=').with(content)
       message.should_receive('conversation_id=').with(conversation.id)

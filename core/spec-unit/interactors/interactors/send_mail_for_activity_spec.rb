@@ -8,7 +8,7 @@ describe Interactors::SendMailForActivity do
     stub_classes 'Queries::UsersByGraphUserIds', 'Commands::SendActivityMailToUser', 'Queries::ObjectIdsByActivity', 'Resque'
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       user = mock(id: 1)
 
@@ -42,10 +42,10 @@ describe Interactors::SendMailForActivity do
 
   describe '.users_by_graph_user_ids' do
     it 'calls the relevant queries to retrieve users' do
-      user2 = mock()
-      user1 = mock()
-      graph_user_ids = mock()
-      activity = mock()
+      user2 = double
+      user1 = double
+      graph_user_ids = double
+      activity = double
 
       Interactors::SendMailForActivity.any_instance.stub(authorized?: true)
       interactor = Interactors::SendMailForActivity.new activity

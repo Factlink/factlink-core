@@ -12,7 +12,7 @@ describe Interactors::Facts::PostToTwitter do
 
   describe '#authorized?' do
     it 'throws when cannot share facts' do
-      ability = stub
+      ability = double
       ability.stub(:can?).with(:share, Fact).and_return(false)
 
       pavlov_options = {current_user: mock, ability: ability}
@@ -24,7 +24,7 @@ describe Interactors::Facts::PostToTwitter do
 
   describe '#call' do
     it 'posts a fact with a sharing_url if available' do
-      user = mock
+      user = double
       message = "message"
       fact = mock(id: "1")
       sharing_url = 'sharing_url'
@@ -52,7 +52,7 @@ describe Interactors::Facts::PostToTwitter do
     it 'calls the correct validation methods' do
       fact_id = "1"
       message = "message"
-      user    = mock
+      user    = double
 
       # 140 Twitter characters, minus url length, minus 1 for space
       maximum_message_length = 140 - Twitter.configuration.short_url_length_https - 1

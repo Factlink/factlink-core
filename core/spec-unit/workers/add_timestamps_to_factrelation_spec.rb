@@ -58,9 +58,9 @@ describe AddTimestampsToFactrelation do
   describe AddTimestampsToFactrelation::ActivityTimestamp do
 
     it 'queries the correct added_evidence Activity' do
-      fact = mock()
+      fact = double
 
-      activity = mock()
+      activity = double
       activity.stub(subject_id: 17,
                     subject_class: fact,
                     action: :added_supporting_evidence,

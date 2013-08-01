@@ -12,7 +12,7 @@ describe Interactors::Channels::Unfollow do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     it 'removes all following channels of the current user' do
       channel = mock :channel, id:'12', slug_title:'bla'
 

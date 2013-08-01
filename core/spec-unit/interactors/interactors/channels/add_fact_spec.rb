@@ -3,7 +3,7 @@ require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/channels/add_fact'
 
 describe Interactors::Channels::AddFact do
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       fact = mock(id: 1, site: mock(id: 10))
       topic = mock(id: '1e', slug_title: mock)
@@ -27,7 +27,7 @@ describe Interactors::Channels::AddFact do
     it 'returns false if the current user did not create the channel' do
     end
     it 'returns true if the current user created the channel' do
-      fact = mock
+      fact = double
       user = mock :user, graph_user_id: 26
       channel = mock :channel, created_by_id: user.graph_user_id
 

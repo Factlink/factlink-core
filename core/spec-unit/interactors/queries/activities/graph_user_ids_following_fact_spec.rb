@@ -15,7 +15,7 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
         opinionated_users_ids: [2, 3],
         fact_relations: mock,
         data_id: 133
-      comments = mock
+      comments = double
 
       query = described_class.new fact
 

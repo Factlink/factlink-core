@@ -10,9 +10,9 @@ describe Queries::Opinions::ImpactOpinionForComment do
     end
 
     it 'returns the dead opinion on the comment' do
-      dead_opinion = mock
+      dead_opinion = double
       comment = mock(id: mock)
-      fact_graph = mock
+      fact_graph = double
       query = described_class.new comment
 
       FactGraph.stub new: fact_graph

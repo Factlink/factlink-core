@@ -16,14 +16,14 @@ describe Queries::Facts::Get do
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_const('Fact',Class.new)
     end
 
     it 'correctly' do
       fact_id = '1'
-      fact = mock
+      fact = double
 
       interactor = Queries::Facts::Get.new '1'
 
