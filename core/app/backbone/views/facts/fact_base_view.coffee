@@ -54,7 +54,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
     displaystring: '.js-displaystring'
 
   initialize: ->
-    @trunk8Init 3, '.js-displaystring', '.less'
+    @trunk8Init 3, '.js-displaystring', '.less' unless @options.clickable
     @bindTo @model, 'change', @render, @
 
   triggerViewClick: (e) ->
