@@ -52,8 +52,7 @@ describe Commands::Facebook::ShareFactlink do
 
     it 'requires the pavlov_options[:facebook_app_namespace]
         to be a nonempty_string' do
-      pavlov_options = { facebook_app_namespace: '' }
-      expect_validating(fact_id: '1', pavlov_options: pavlov_options )
+      expect_validating(fact_id: '1')
         .to fail_validation('facebook_app_namespace should be a nonempty string.')
     end
   end

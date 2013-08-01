@@ -91,7 +91,7 @@ group :assets do
 
   gem 'therubyracer', '~> 0.11.4'
 
-  gem 'jquery-rails', '= 2.2.1' # we want a specific version of the js library
+  gem 'jquery-rails', '= 2.1.2' # we want a specific version of the js library
   gem 'less-rails-bootstrap', '= 2.1.1' # we want a specific version of the js library
   gem 'modernizr-rails', "= 2.0.6" # we want a specific version of the js library
 
