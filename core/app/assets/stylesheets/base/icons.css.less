@@ -1,46 +1,35 @@
-.factlink-icon-checkmark {
-  background: asset-data-url("icon-checkmark.png");
+.icon-mixin(@url, @width, @height) {
+  background: asset-data-url(@url);
   display: inline-block;
-  width: 8px;
-  height: 8px;
+  width: @width;
+  height: @height;
   vertical-align: middle;
   margin-top: -1px;
+}
+
+.icon-mixin(@url, @size) {
+  .icon-mixin(@url, @size, @size);
+}
+
+.factlink-icon-checkmark {
+  .icon-mixin("icon-checkmark.png", 8px);
 }
 
 .factlink-icon-cross-white {
-  background: asset-data-url("icon-cross-white.png");
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  vertical-align: middle;
-  margin-top: -1px;
+  .icon-mixin("icon-cross-white.png", 8px);
 }
 
 .factlink-icon-time {
-  background: asset-data-url("icon-time.png");
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-top: -1px;
+  .icon-mixin("icon-time.png", 16px);
   margin-right: 5px;
 }
 
 .factlink-icon-time-small {
-  background: asset-data-url("icon-time-small.png");
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  vertical-align: middle;
+  .icon-mixin("icon-time-small.png", 12px);
   margin-top: -2px;
   margin-right: 5px;
 }
 
 .factlink-icon-brain {
-  background: asset-data-url("brain.png");
-  display: inline-block;
-  width: 13px;
-  height: 12px;
-  vertical-align: middle;
-  margin-top: -1px;
+  .icon-mixin("brain.png", 13px, 12px);
 }
