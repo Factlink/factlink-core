@@ -26,8 +26,17 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     if @model instanceof Comment
       @contentRegion.show new NDPCommentView model: @model
     else if @model instanceof FactRelation
-      @contentRegion.show new FactBaseView model: @model.getFact(), clickable_body: true
+      @contentRegion.show @_factBaseView()
     else
       throw "Invalid type of model: #{@model}"
 
     @bottomRegion.show new NDPFactRelationOrCommentBottomView model: @model
+
+  _factBaseView: ->
+    view = new FactBaseView model: @model.getFact(), clickable_body: Factlink.Global.signed_in
+
+    if Factlink.Global.signed_in
+      @bindTo view, 'click:body', (e) =>
+        @defaultClickHandler e, @model.getFact().friendlyUrl()
+
+    view
