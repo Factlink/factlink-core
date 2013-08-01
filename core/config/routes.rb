@@ -90,6 +90,11 @@ FactlinkUI::Application.routes.draw do
 
   authenticated :user do
     namespace :admin, path: 'a' do
+      get 'info'
+      resource :global_feature_toggles,
+            controller: :global_feature_toggles,
+            only: [:show, :update ]
+
       resources :users, only: [:show, :new, :create, :edit, :update, :index] do
         collection do
           get :reserved
@@ -100,9 +105,8 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-    scope "/a" do
-      get "info" => "admin#info", as: "admin_info"
-    end
+
+
 
     # Seems to me we want to lose the scope "/:username" later and place all
     # stuff in this resource?
