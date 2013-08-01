@@ -10,8 +10,8 @@ describe Interactors::Topics::Unfavourite do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new(mock, mock).call }.
-        to raise_error Pavlov::AccessDenied,'Unauthorized'
+      expect { described_class.new(mock, mock) }
+        .to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
     it 'throws when cannot edit favourites' do
