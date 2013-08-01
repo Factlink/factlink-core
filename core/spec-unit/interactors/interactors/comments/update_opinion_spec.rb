@@ -5,27 +5,20 @@ require_relative '../../../../app/interactors/interactors/comments/update_opinio
 describe Interactors::Comments::UpdateOpinion do
   include PavlovSupport
 
-  # it 'initializes correctly' do
-  #   user = double
-  #   interactor = described_class.new comment_id: '1', opinion: 'believes',
-  #     pavlov_options: { current_user: user }
-  #   interactor.should_not be_nil
-  # end
+  it 'without current user gives an unauthorized exception' do
+    expect_validating(comment_id: '1', opinion: 'believes' )
+      .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
+  end
 
-  # it 'without current user gives an unauthorized exception' do
-  #   expect_validating( comment_id: '1', opinion: 'believes' )
-  #     .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
-  # end
+  it 'with a invalid comment_id doesn\'t validate' do
+    expect_validating(comment_id: 'g', opinion: 'believes' )
+      .to fail_validation 'comment_id should be an hexadecimal string.'
+  end
 
-  # it 'with a invalid comment_id doesn\'t validate' do
-  #   expect_validating( comment_id: 'g', opinion: 'believes' )
-  #     .to fail_validation 'comment_id should be an hexadecimal string.'
-  # end
-
-  # it 'with a invalid opinion doesn\'t validate' do
-  #   expect_validating( comment_id: '1', opinion: 'dunno')
-  #     .to fail_validation 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].'
-  # end
+  it 'with a invalid opinion doesn\'t validate' do
+    expect_validating(comment_id: '1', opinion: 'dunno')
+      .to fail_validation 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].'
+  end
 
   describe '#call' do
     before do
@@ -36,7 +29,7 @@ describe Interactors::Comments::UpdateOpinion do
       opinion = 'believes'
       user = mock(graph_user: mock)
       comment = mock(id: '123')
-      pavlov_options = {current_user: user}
+      pavlov_options = { current_user: user }
 
       interactor = described_class.new comment_id: comment.id, opinion: opinion,
         pavlov_options: { current_user: user }

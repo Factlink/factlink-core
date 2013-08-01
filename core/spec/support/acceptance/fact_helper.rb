@@ -31,9 +31,9 @@ module Acceptance
       page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;")
     end
 
-    def click_wheel_part position
+    def click_wheel_part position, css_path=''
       #fire click event on svg element
-      page.execute_script("var path = $('.fact-wheel path')[#{position}];
+      page.execute_script("var path = $('" + css_path + " .fact-wheel path')[#{position}];
                            var event = document.createEvent('MouseEvents');
                            event.initMouseEvent('click');path.dispatchEvent(event);")
       wait_for_ajax
@@ -42,8 +42,8 @@ module Acceptance
       sleep 0.3
     end
 
-    def click_wheel_agree
-      click_wheel_part 0
+    def click_wheel_agree css_path=''
+      click_wheel_part 0, css_path
     end
   end
 end
