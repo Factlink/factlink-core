@@ -9,8 +9,8 @@ describe Commands::Channels::RemoveSubchannel do
       stub_classes 'Resque', 'RemoveChannelFromChannel'
     end
     it 'adds a subchannel to the channel' do
-      channel = mock :channel, id: mock, created_by: mock
-      subchannel = mock :subchannel, id: mock
+      channel = double :channel, id: double, created_by: double
+      subchannel = double :subchannel, id: double
 
       command = described_class.new channel: channel, subchannel: subchannel
 
@@ -23,8 +23,8 @@ describe Commands::Channels::RemoveSubchannel do
       expect(command.execute).to eq true
     end
     it 'does not queue jobs or create activities when the removal fails' do
-      channel = mock :channel
-      subchannel = mock :subchannel
+      channel = double :channel
+      subchannel = double :subchannel
 
       command = described_class.new channel: channel, subchannel: subchannel
 

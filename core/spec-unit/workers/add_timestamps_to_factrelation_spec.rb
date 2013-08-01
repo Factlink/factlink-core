@@ -6,19 +6,19 @@ describe AddTimestampsToFactrelation do
     stub_const('Activity', Class.new)
     stub_const('FactRelation', Class.new)
 
-    @fact_relation = stub( id: 1, type: :supporting )
+    @fact_relation = double( id: 1, type: :supporting )
   end
 
   describe '.perform' do
 
     it 'sets the timestamp to Time.now if no other timestamp is available' do
       stub_const('AddTimestampsToFactrelation::ActivityTimestamp', Class.new)
-      AddTimestampsToFactrelation::ActivityTimestamp.stub( new: stub( timestamp: nil ) )
-      AddTimestampsToFactrelation::FactsTimestamp.stub( new: stub( timestamp: nil ))
+      AddTimestampsToFactrelation::ActivityTimestamp.stub( new: double( timestamp: nil ) )
+      AddTimestampsToFactrelation::FactsTimestamp.stub( new: double( timestamp: nil ))
       FactRelation.should_receive(:[]).with(@fact_relation.id).and_return(@fact_relation)
 
       @fact_relation.stub(:created_at= => nil, :save => @fact_relation )
-      Time.stub( now: stub( utc: stub( to_s: mock )))
+      Time.stub( now: double( utc: double( to_s: double )))
 
       @fact_relation.should_receive(:created_at=).with( Time.now.utc.to_s )
 
@@ -29,7 +29,7 @@ describe AddTimestampsToFactrelation do
       stub_const('AddTimestampsToFactrelation::ActivityTimestamp', Class.new)
 
       timestamp = Time.now.utc.to_s
-      AddTimestampsToFactrelation::ActivityTimestamp.stub( new: stub( timestamp: timestamp ) )
+      AddTimestampsToFactrelation::ActivityTimestamp.stub( new: double( timestamp: timestamp ) )
       FactRelation.should_receive(:[])
                   .with(@fact_relation.id).and_return(@fact_relation)
 
@@ -42,9 +42,9 @@ describe AddTimestampsToFactrelation do
     it 'sets the timestamp to the facts timestamp if there is no activity timestamp' do
       stub_const('AddTimestampsToFactrelation::ActivityTimestamp', Class.new)
 
-      AddTimestampsToFactrelation::ActivityTimestamp.stub( new: stub( timestamp: nil ))
+      AddTimestampsToFactrelation::ActivityTimestamp.stub( new: double( timestamp: nil ))
       timestamp = Time.now.utc.to_s
-      AddTimestampsToFactrelation::FactsTimestamp.stub( new: stub( timestamp: timestamp ))
+      AddTimestampsToFactrelation::FactsTimestamp.stub( new: double( timestamp: timestamp ))
       FactRelation.should_receive(:[])
                   .with(@fact_relation.id).and_return(@fact_relation)
 
@@ -80,14 +80,14 @@ describe AddTimestampsToFactrelation do
       describe 'returns :added_supporting_evidence when' do
 
         it 'fact_relation.type is :supporting' do
-          fact_relation = stub( type: :supporting )
+          fact_relation = double( type: :supporting )
 
           activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new fact_relation
           expect(activity_timestamp.activity_type).to eq(:added_supporting_evidence)
         end
 
         it 'fact_relation.type is "supporting"' do
-          fact_relation = stub( type: "supporting" )
+          fact_relation = double( type: "supporting" )
 
           activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new fact_relation
           expect(activity_timestamp.activity_type).to eq(:added_supporting_evidence)
@@ -96,14 +96,14 @@ describe AddTimestampsToFactrelation do
 
       describe 'returns :added_weakening_evidence when' do
         it 'fact_relation.type is :weakening' do
-          fact_relation = stub( type: :weakening )
+          fact_relation = double( type: :weakening )
 
           activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new fact_relation
           expect(activity_timestamp.activity_type).to eq(:added_weakening_evidence)
         end
 
         it 'fact_relation.type is "weakening" ' do
-          fact_relation = stub( type: "weakening" )
+          fact_relation = double( type: "weakening" )
 
           activity_timestamp = AddTimestampsToFactrelation::ActivityTimestamp.new fact_relation
           expect(activity_timestamp.activity_type).to eq(:added_weakening_evidence)
@@ -117,36 +117,36 @@ describe AddTimestampsToFactrelation do
 
     describe '.max_timestamp' do
       it 'returns the timestamp of the top_fact when that one is more recent' do
-        top_fact      = stub( created_at: "3013-02-29 11:36:16 UTC" )
-        from_fact     = stub( created_at: "2013-01-28 10:35:13 UTC" )
-        fact_relation = stub( fact: top_fact, from_fact: from_fact )
+        top_fact      = double( created_at: "3013-02-29 11:36:16 UTC" )
+        from_fact     = double( created_at: "2013-01-28 10:35:13 UTC" )
+        fact_relation = double( fact: top_fact, from_fact: from_fact )
 
         ts = AddTimestampsToFactrelation::FactsTimestamp.new fact_relation
         expect(ts.max_timestamp).to eq top_fact.created_at
       end
 
       it 'returns the timestamp of the from_fact when that one is more recent' do
-        top_fact      = stub( created_at: "2013-01-28 10:35:13 UTC" )
-        from_fact     = stub( created_at: "3013-02-29 11:36:16 UTC" )
-        fact_relation = stub( fact: top_fact, from_fact: from_fact )
+        top_fact      = double( created_at: "2013-01-28 10:35:13 UTC" )
+        from_fact     = double( created_at: "3013-02-29 11:36:16 UTC" )
+        fact_relation = double( fact: top_fact, from_fact: from_fact )
 
         ts = AddTimestampsToFactrelation::FactsTimestamp.new fact_relation
         expect(ts.max_timestamp).to eq from_fact.created_at
       end
 
       it 'handles top_fact.created_at: nil correctly' do
-        top_fact      = stub( created_at: nil )
-        from_fact     = stub( created_at: "3013-02-29 11:36:16 UTC" )
-        fact_relation = stub( fact: top_fact, from_fact: from_fact )
+        top_fact      = double( created_at: nil )
+        from_fact     = double( created_at: "3013-02-29 11:36:16 UTC" )
+        fact_relation = double( fact: top_fact, from_fact: from_fact )
 
         ts = AddTimestampsToFactrelation::FactsTimestamp.new fact_relation
         expect(ts.max_timestamp).to eq from_fact.created_at
       end
 
       it 'handles from_fact.created_at: nil correctly' do
-        top_fact      = stub( created_at: "2013-01-28 10:35:13 UTC" )
-        from_fact     = stub( created_at: nil )
-        fact_relation = stub( fact: top_fact, from_fact: from_fact )
+        top_fact      = double( created_at: "2013-01-28 10:35:13 UTC" )
+        from_fact     = double( created_at: nil )
+        fact_relation = double( fact: top_fact, from_fact: from_fact )
 
         ts = AddTimestampsToFactrelation::FactsTimestamp.new fact_relation
         expect(ts.max_timestamp).to eq top_fact.created_at
@@ -155,7 +155,7 @@ describe AddTimestampsToFactrelation do
 
     describe '.timestamp' do
       it "returns the .max_timestamp + one second" do
-        ts = AddTimestampsToFactrelation::FactsTimestamp.new mock
+        ts = AddTimestampsToFactrelation::FactsTimestamp.new double
         ts.stub max_timestamp: "2013-01-28 10:35:13 UTC"
 
         expect(ts.timestamp).to be_a String

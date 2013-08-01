@@ -11,18 +11,18 @@ describe Interactors::Users::UnfollowUser do
 
     it 'throws when no current_user' do
       expect do
-        described_class.new(user_name: mock,
-          user_to_unfollow_user_name: mock).call
+        described_class.new(user_name: double,
+          user_to_unfollow_user_name: double).call
       end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
 
     it 'throws when updating someone else\'s follow' do
       username = double
       other_username = double
-      current_user = mock(username: username)
+      current_user = double(username: username)
 
       expect do
-        described_class.new(user_name: other_username, user_to_unfollow_user_name: mock, pavlov_options:  {current_user: current_user}).call
+        described_class.new(user_name: other_username, user_to_unfollow_user_name: double, pavlov_options:  {current_user: current_user}).call
       end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
@@ -35,8 +35,8 @@ describe Interactors::Users::UnfollowUser do
     it 'calls a command to unfollow' do
       user_name = double
       user_to_unfollow_user_name = double
-      user = mock(graph_user_id: mock)
-      user_to_unfollow = mock(graph_user_id: mock)
+      user = double(graph_user_id: double)
+      user_to_unfollow = double(graph_user_id: double)
       interactor = described_class.new user_name: user_name,
         user_to_unfollow_user_name: user_to_unfollow_user_name
 

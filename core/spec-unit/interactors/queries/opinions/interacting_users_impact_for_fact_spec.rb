@@ -9,11 +9,11 @@ describe Queries::Opinions::InteractingUsersImpactForFact do
   end
 
   it 'should retrieve impact for a fact and opinion type' do
-    fact = mock :fact, id: '3'
+    fact = double :fact, id: '3'
     type = double
     user_opinion = double
     fact_graph = double
-    pavlov_options = { current_user: mock }
+    pavlov_options = { current_user: double }
 
     query = described_class.new fact_id: fact.id, type: type,
               pavlov_options: pavlov_options

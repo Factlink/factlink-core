@@ -11,7 +11,7 @@ describe Interactors::Topics::Facts do
       max_timestamp = 100
       results = double
 
-      pavlov_options = {current_user: mock}
+      pavlov_options = {current_user: double}
       interactor = described_class.new(slug_title: slug_title, count: count, max_timestamp: max_timestamp, pavlov_options: pavlov_options)
 
       Pavlov.stub(:old_query)
@@ -35,7 +35,7 @@ describe Interactors::Topics::Facts do
       slug_title = 'slug-title'
       max_timestamp = 100
       interactor = described_class.new(slug_title: slug_title, count: nil,
-        max_timestamp: max_timestamp, pavlov_options: { current_user: mock })
+        max_timestamp: max_timestamp, pavlov_options: { current_user: double })
 
       interactor.setup_defaults
 

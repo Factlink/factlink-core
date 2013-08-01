@@ -39,10 +39,10 @@ describe Interactors::SubComments::IndexForFactRelation do
       fact_relation = double
       fact_relation_id = 1
       user = double
-      sub_comments = [mock, mock]
-      dead_sub_comments = [mock, mock]
+      sub_comments = [double, double]
+      dead_sub_comments = [double, double]
       authorities = [10, 20]
-      options = {ability: mock(can?: true)}
+      options = {ability: double(can?: true)}
       interactor = described_class.new(fact_relation_id: fact_relation_id,
         pavlov_options: options)
 
@@ -72,7 +72,7 @@ describe Interactors::SubComments::IndexForFactRelation do
 
     it 'throws an error when the fact relation does not exist' do
       stub_const 'Pavlov::ValidationError', RuntimeError
-      options = {ability: mock(can?: true)}
+      options = {ability: double(can?: true)}
       interactor = described_class.new(fact_relation_id: 1,
         pavlov_options: options)
 
@@ -93,7 +93,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     it 'returns the top fact for the fact_relation_id' do
       fact_relation_id = 1
       fact = double
-      fact_relation = mock(fact: fact)
+      fact_relation = double(fact: fact)
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 
       FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
@@ -104,7 +104,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     it 'caches the fact' do
       fact_relation_id = 1
       fact = double
-      fact_relation = mock(fact: fact)
+      fact_relation = double(fact: fact)
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 
       FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
@@ -129,7 +129,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       graph_user = double
       authority = double
       user = double
-      sub_comment = mock(created_by: mock(graph_user: graph_user))
+      sub_comment = double(created_by: double(graph_user: graph_user))
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 
       interactor.should_receive(:top_fact).and_return(fact)

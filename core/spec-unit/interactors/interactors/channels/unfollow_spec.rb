@@ -13,11 +13,11 @@ describe Interactors::Channels::Unfollow do
 
   describe '#call' do
     it 'removes all following channels of the current user' do
-      channel = mock :channel, id:'12', slug_title:'bla'
+      channel = double :channel, id:'12', slug_title:'bla'
 
       following_channel_ids = ['14', '17']
-      following_channels = [mock, mock]
-      pavlov_options = { current_user: mock(graph_user_id: mock) }
+      following_channels = [double, double]
+      pavlov_options = { current_user: double(graph_user_id: double) }
 
       interactor = described_class.new channel_id: channel.id,
         pavlov_options: pavlov_options

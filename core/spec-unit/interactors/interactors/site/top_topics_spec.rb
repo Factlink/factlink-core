@@ -24,13 +24,13 @@ describe Interactors::Site::TopTopics do
     it 'calls the top_topics query with the site_id' do
       url = 'http://factlink.com'
       nr = 3
-      site = mock id: '10'
+      site = double id: '10'
       results = double
 
       Site.should_receive(:find).with(url: url).and_return([site])
 
       interactor = described_class.new url: url, nr: nr,
-        pavlov_options: { current_user: mock }
+        pavlov_options: { current_user: double }
       interactor.should_receive(:old_query).with(:"site/top_topics", site.id.to_i, nr).and_return results
 
       expect(interactor.call).to eq results

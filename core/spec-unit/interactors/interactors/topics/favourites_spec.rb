@@ -10,7 +10,7 @@ describe Interactors::Topics::Favourites do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new(user_name: mock).call }
+      expect { described_class.new(user_name: double).call }
         .to raise_error(Pavlov::AccessDenied,'Unauthorized')
     end
 
@@ -50,9 +50,9 @@ describe Interactors::Topics::Favourites do
       current_user = double
       interactor = described_class.new user_name: user_name
 
-      user = mock(graph_user_id: mock)
-      topic1 = mock(id: mock, slug_title: 'b')
-      topic2 = mock(id: mock, slug_title: 'a')
+      user = double(graph_user_id: double)
+      topic1 = double(id: double, slug_title: 'b')
+      topic2 = double(id: double, slug_title: 'a')
 
       Pavlov.should_receive(:old_query)
         .with(:'user_by_username', user_name)

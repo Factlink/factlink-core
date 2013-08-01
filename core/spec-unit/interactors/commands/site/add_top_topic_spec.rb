@@ -40,9 +40,9 @@ describe Commands::Site::AddTopTopic do
 
       command = described_class.new site_id: site_id, topic_slug: topic_slug
 
-      key_mock = double
-      key_mock.should_receive(:zincrby).with(1, topic_slug)
-      command.stub key: key_mock
+      key_double = double
+      key_double.should_receive(:zincrby).with(1, topic_slug)
+      command.stub key: key_double
 
       command.call
     end

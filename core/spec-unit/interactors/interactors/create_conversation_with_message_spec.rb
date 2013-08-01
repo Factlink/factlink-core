@@ -11,9 +11,9 @@ describe Interactors::CreateConversationWithMessage do
 
   describe '#call' do
     it 'should call the right commands' do
-      graph_user   = mock;
-      sender       = mock(:user, id: 13, username: 'jan',  graph_user: graph_user)
-      receiver     = mock(:user, username: 'frank')
+      graph_user   = double;
+      sender       = double(:user, id: 13, username: 'jan',  graph_user: graph_user)
+      receiver     = double(:user, username: 'frank')
       content      = 'verhaal'
       usernames    = [sender.username, receiver.username]
       conversation = double
@@ -62,22 +62,22 @@ describe Interactors::CreateConversationWithMessage do
 
   describe '.authorized?' do
     it "returns true when the sender has the same user_id as the current_user" do
-      current_user = mock(id:mock(to_s: mock))
+      current_user = double(id:double(to_s: double))
       pavlov_options = {current_user: current_user}
 
-      interactor = described_class.new fact_id: mock, recipient_usernames: mock,
-        sender_id: current_user.id, content: mock, pavlov_options:pavlov_options
+      interactor = described_class.new fact_id: double, recipient_usernames: double,
+        sender_id: current_user.id, content: double, pavlov_options:pavlov_options
 
       expect(interactor.authorized?).to eq true
     end
 
     it "returns false when the sender has a different user_id as the current_user" do
-      user_a = mock(id: mock(to_s: mock))
-      user_b = mock(id: mock(to_s: mock))
+      user_a = double(id: double(to_s: double))
+      user_b = double(id: double(to_s: double))
 
       pavlov_options = {current_user: user_a}
-      hash = { fact_id: mock, recipient_usernames: mock, sender_id: user_b.id,
-        content: mock, pavlov_options: pavlov_options }
+      hash = { fact_id: double, recipient_usernames: double, sender_id: user_b.id,
+        content: double, pavlov_options: pavlov_options }
 
       expect_validating( hash )
         .to raise_error(Pavlov::AccessDenied)

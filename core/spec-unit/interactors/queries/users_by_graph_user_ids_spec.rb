@@ -26,9 +26,9 @@ describe Queries::UsersByGraphUserIds do
 
     it "should work with multiple ids" do
       graph_users = [
-        mock(id: 1, user_id: 4),
-        mock(id: 2, user_id: 5),
-        mock(id: 3, user_id: 6)
+        double(id: 1, user_id: 4),
+        double(id: 2, user_id: 5),
+        double(id: 3, user_id: 6)
       ]
       gu_ids = graph_users.map(&:id)
       user_ids = graph_users.map(&:user_id)

@@ -12,12 +12,12 @@ describe Queries::UserTopics::TopWithAuthorityForGraphUserId do
   describe '#call' do
     it 'returns dead objects for the user topics based on the topics' do
       user_topics_by_authority = double
-      graph_user = mock id: "6", user_id: 'asdf'
+      graph_user = double id: "6", user_id: 'asdf'
       limit_topics = 2
 
       topics = [
-        mock(:topic, id: "1", title: 'Bye', slug_title: 'bye'),
-        mock(:topic, id: "2", title: 'Yo', slug_title: 'yo'),
+        double(:topic, id: "1", title: 'Bye', slug_title: 'bye'),
+        double(:topic, id: "2", title: 'Yo', slug_title: 'yo'),
       ]
 
       query = described_class.new graph_user_id: graph_user.id,

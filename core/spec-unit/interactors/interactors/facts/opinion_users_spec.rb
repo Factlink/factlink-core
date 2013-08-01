@@ -52,7 +52,7 @@ describe Interactors::Facts::OpinionUsers do
       impact = double
       type = 'believes'
 
-      pavlov_options = { ability: mock(can?: true)}
+      pavlov_options = { ability: double(can?: true)}
 
       Pavlov.stub(:old_query)
         .with(:'facts/interacting_users', fact_id, skip, take, type, pavlov_options)

@@ -33,8 +33,8 @@ describe Commands::Facts::ShareNew do
     it 'posts to twitter if specified' do
       fact_id = '1'
       sharing_options = {twitter: true, facebook: false}
-      ability = mock(can?: true)
-      current_user = mock(id: '123asdf')
+      ability = double(can?: true)
+      current_user = double(id: '123asdf')
 
       pavlov_options = {current_user: current_user, ability: ability}
       command = described_class.new fact_id: fact_id,
@@ -49,8 +49,8 @@ describe Commands::Facts::ShareNew do
     it 'posts to facebook if specified' do
       fact_id = '1'
       sharing_options = {twitter: false, facebook: true}
-      ability = mock(can?: true)
-      current_user = mock(id: '123asdf')
+      ability = double(can?: true)
+      current_user = double(id: '123asdf')
 
       pavlov_options = {current_user: current_user, ability: ability}
       command = described_class.new fact_id: fact_id,

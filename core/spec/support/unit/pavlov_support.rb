@@ -9,7 +9,7 @@ module PavlovSupport
 
   def expect_validating hash
     hash[:pavlov_options] ||= {}
-    hash[:pavlov_options][:ability] ||= mock(can?: true)
+    hash[:pavlov_options][:ability] ||= double(can?: true)
     expect { described_class.new(hash).call }
   end
 

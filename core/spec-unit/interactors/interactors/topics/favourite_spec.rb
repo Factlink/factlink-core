@@ -11,7 +11,7 @@ describe Interactors::Topics::Favourite do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new(user_name: mock, slug_title: mock).call }
+      expect { described_class.new(user_name: double, slug_title: double).call }
         .to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
@@ -41,8 +41,8 @@ describe Interactors::Topics::Favourite do
     it 'calls a command to favourite topic' do
       user_name = 'henk'
       slug_title = 'slug'
-      current_user = stub
-      user = mock(graph_user_id: mock)
+      current_user = double
+      user = double(graph_user_id: double)
 
       ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(true)
@@ -52,7 +52,7 @@ describe Interactors::Topics::Favourite do
       interactor = described_class.new user_name: user_name,
         slug_title: slug_title, pavlov_options: pavlov_options
 
-      topic = mock(id: mock)
+      topic = double(id: double)
 
       Pavlov.stub(:old_query)
         .with(:'user_by_username', user_name, pavlov_options)

@@ -45,7 +45,7 @@ describe Interactors::Evidence::ForFactId do
       fact_id = '1'
       type = :supporting
       fact = double
-      pavlov_options = { current_user: mock, ability: mock(can?: true) }
+      pavlov_options = { current_user: double, ability: double(can?: true) }
       interactor = described_class.new fact_id: fact_id, type: type,
         pavlov_options: pavlov_options
 
