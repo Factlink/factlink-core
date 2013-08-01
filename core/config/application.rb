@@ -152,6 +152,20 @@ module FactlinkUI
   end
 end
 
+module Less
+  module Rails
+    module Bootstrap
+      class Engine < ::Rails::Engine
+
+        initializer 'less-rails-bootstrap.setup', :after => 'less-rails.after.load_config_initializers', :group => :all do |app|
+          app.config.less.paths << File.join(config.root, 'vendor', 'frameworks')
+        end
+
+      end
+    end
+  end
+end
+
 version_file = File.new('version.txt','r')
 FactlinkUI::Application.config.version_number = version_file.gets.chomp
 version_file.close
