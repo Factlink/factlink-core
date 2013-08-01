@@ -7,93 +7,72 @@ describe Interactors::Topics::Favourite do
   describe '#authorized?' do
     before do
       described_class.any_instance
-        .should_receive(:validate)
-        .and_return(true)
+        .stub(validate: true)
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new mock, mock, {} }.
-        to raise_error Pavlov::AccessDenied,'Unauthorized'
+      expect { described_class.new(mock, mock).call }
+        .to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
     it 'throws when cannot edit favourites' do
       user = double
       current_user = double
-
       ability = double
+
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      described_class.any_instance.stub(:old_query).
-        with(:user_by_username, 'username').
-        and_return(user)
+      Pavlov.stub(:old_query)
+        .with(:user_by_username, 'username', pavlov_options)
+        .and_return(user)
 
       expect { described_class.new 'username', 'slug_title', pavlov_options }.
         to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
+  end
 
-    it 'does not throw if current_user is set and favourites can be edited' do
-      user = double
-      current_user = double
+  describe '#call' do
+    it 'calls a command to favourite topic' do
+      user_name = 'henk'
+      slug_title = 'slug'
+      current_user = stub
+      user = mock(graph_user_id: mock)
 
       ability = double
       ability.stub(:can?).with(:edit_favourites, user).and_return(true)
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      described_class.any_instance.stub(:old_query).
-        with(:user_by_username, 'username').
-        and_return(user)
-
-      described_class.new 'username', 'slug_title', pavlov_options
-    end
-  end
-
-  describe '#execute' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
-    it 'calls a command to favourite topic' do
-      user_name = double
-      slug_title = double
-      interactor = described_class.new user_name, slug_title
-      user = mock(graph_user_id: mock)
       topic = mock(id: mock)
 
-      interactor.stub(:old_query)
-        .with(:'user_by_username', user_name)
+      Pavlov.stub(:old_query)
+        .with(:'user_by_username', user_name, pavlov_options)
         .and_return(user)
-      interactor.stub(:old_query)
-        .with(:'topics/by_slug_title', slug_title)
+      Pavlov.stub(:old_query)
+        .with(:'topics/by_slug_title', slug_title, pavlov_options)
         .and_return(topic)
-      interactor.should_receive(:old_command)
-        .with(:'topics/favourite', user.graph_user_id, topic.id.to_s)
+      Pavlov.should_receive(:old_command)
+        .with(:'topics/favourite', user.graph_user_id, topic.id.to_s, pavlov_options)
+
+      interactor = described_class.new user_name, slug_title, pavlov_options
       interactor.should_receive(:mp_track)
         .with('Topic: Favourited', slug_title: slug_title)
 
-      result = interactor.execute
-
-      expect(result).to eq nil
+      expect(interactor.call).to eq nil
     end
   end
 
-  describe '#validate' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
+  describe 'validations' do
+    it 'with invalid user_name doesn\'t validate' do
+      expect_validating('', 'title')
+        .to fail_validation('user_name should be a nonempty string.')
     end
 
-    it 'calls the correct validation methods' do
-      user_name = double
-      slug_title = double
-
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-        .with(:user_name, user_name)
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-        .with(:slug_title, slug_title)
-
-      interactor = described_class.new user_name, slug_title
+    it 'without slug_title doesn\'t validate' do
+      expect_validating('karel', '')
+        .to fail_validation('slug_title should be a nonempty string.')
     end
   end
 end

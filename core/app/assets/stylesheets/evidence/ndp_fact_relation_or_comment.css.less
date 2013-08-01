@@ -1,7 +1,29 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-.ndp-fact-relation-or-comment-content {
+.ndp-evidence-heading {
+  position: absolute;
+  top: -23px;
+}
+
+.ndp-evidence-heading-avatar-wrapper {
+  .avatar-wrapper(32px);
+  top: -2px;
+}
+
+.ndp-fact-relation-or-comment {
   .new-design-font();
+}
+
+.ndp-fact-relation-or-comment-content {
   padding: 18px;
+}
+
+.ndp-fact-relation-or-comment-bottom {
+  box-shadow: 0px -1px @NDPMutedBorderBottomColor, 0px -2px @NDPMutedBorderTopColor;
+  margin: 0 18px 5px;
+  padding: 5px 0;
+  text-align: right;
+  color: @mutedFontColor;
+  font-size: @metaFontSize;
 }
