@@ -35,8 +35,7 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
       command.stub(:document).and_return(hashie)
       hashie.stub(:to_json).and_return(json_document)
 
-      HTTParty.should_receive(:put).with(url,
-        { body:json_document})
+      HTTParty.should_receive(:put).with(url, body:json_document )
 
       command.call
     end
