@@ -42,13 +42,12 @@ class Channel < OurOhm
     self.slug_title = new_title.to_url
   end
 
-  before :save, :before_save_actions
-  def before_save_actions
-    self.title = self.title
+  def save
+    self.title = self.title if type == 'channel'
+    super
   end
 
-  after :save, :after_save_actions
-  def after_save_actions
+  def after_save
     Topic.get_or_create_by_channel(self) if type == 'channel'
   end
 
