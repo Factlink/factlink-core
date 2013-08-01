@@ -1,5 +1,7 @@
 require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/messages_for_conversation.rb'
+require_relative '../../../app/interactors/kill_object'
+
 
 describe Queries::MessagesForConversation do
   include PavlovSupport

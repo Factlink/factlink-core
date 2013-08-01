@@ -1,4 +1,5 @@
 require 'pavlov_helper'
+require_relative '../../../app/interactors/queries/elastic_search.rb'
 require_relative '../../../app/interactors/queries/elastic_search_user.rb'
 
 describe Queries::ElasticSearchUser do

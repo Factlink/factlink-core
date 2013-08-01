@@ -1,6 +1,3 @@
-require 'pavlov'
-require_relative '../kill_object'
-
 module Queries
   class MessagesForConversation
     include Pavlov::Query
