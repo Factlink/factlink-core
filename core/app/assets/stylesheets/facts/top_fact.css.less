@@ -33,8 +33,9 @@
 }
 
 @informationHeight: 40px;
+@informationBackgroundColor: rgba(144,147,151,0.2);
 .top-fact-weakening-information, .top-fact-supporting-information {
-  background-color: rgba(144,147,151,0.2);
+  background-color: @informationBackgroundColor;
   color: rgb(120,120,120);
   position: absolute;
   width: 355px;
@@ -55,7 +56,7 @@
     width: 0;
     position: absolute;
     border-color: none;
-    border-top-color: rgba(144,147,151, 0.2);
+    border-top-color: @informationBackgroundColor;
     border-width: 12px;
     left: 50%;
     margin-left: -12px;
