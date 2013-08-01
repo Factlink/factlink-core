@@ -14,15 +14,15 @@ describe Queries::AuthorityOnFactFor do
       graph_user = double(:graph_user, id: 20)
 
       authority = double
-      authority_string = '1.0'
+      authority_string = '3.0'
 
       query = described_class.new fact: fact, graph_user: graph_user
 
-      Authority.should_receive(:on)
+      Authority.stub(:on)
         .with(fact, for: graph_user)
         .and_return(authority)
       authority
-        .should_receive(:to_s)
+        .stub(:to_s)
         .with(1.0).and_return(authority_string)
 
       expect( query.call ).to eq authority_string
