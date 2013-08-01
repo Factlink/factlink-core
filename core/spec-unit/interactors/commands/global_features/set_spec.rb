@@ -11,7 +11,7 @@ describe Commands::GlobalFeatures::Set do
   describe '#call' do
     it do
       features = ['see_pretty_things', 'can_rule_world']
-      command  = described_class.new features
+      command  = described_class.new features: features
 
       set = double
 

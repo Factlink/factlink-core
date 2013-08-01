@@ -13,8 +13,10 @@ describe Interactors::GlobalFeatures::Set do
       ability = double
       ability.stub(:can?).with(:configure, Ability::FactlinkWebapp).and_return(true)
 
+      pavlov_options = { ability: ability }
+
       features = ['I', 'see', 'pretty', 'things']
-      interactor = described_class.new features, ability: ability
+      interactor = described_class.new features: features, pavlov_options: pavlov_options
 
       Pavlov.should_receive(:old_command)
         .with(:'global_features/set', features, ability: ability )
@@ -28,18 +30,26 @@ describe Interactors::GlobalFeatures::Set do
       ability = double
       ability.stub(:can?).with(:configure, Ability::FactlinkWebapp).and_return(false)
 
-      expect { described_class.new [], ability: ability }
-        .to raise_error Pavlov::AccessDenied
+      pavlov_options = { ability: ability }
+
+      interactor = described_class.new features: [], pavlov_options: pavlov_options
+      expect do
+        interactor.call
+      end.to raise_error Pavlov::AccessDenied
     end
   end
 
   describe 'validation' do
     it 'requires an array as' do
-      ability = double
-      ability.stub(:can?).with(:configure, Ability::FactlinkWebapp).and_return(true)
+      ability = double can?: true
 
-      expect { described_class.new 'string', ability: ability }
-        .to raise_error(RuntimeError, 'features should be an array')
+      pavlov_options = { ability: ability }
+
+      interactor = described_class.new features: 'string', pavlov_options: pavlov_options
+
+      expect do
+        interactor.call
+      end.to raise_error(RuntimeError, 'features should be an array')
     end
   end
 
