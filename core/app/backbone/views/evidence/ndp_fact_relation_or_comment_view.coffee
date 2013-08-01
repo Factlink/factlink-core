@@ -2,8 +2,7 @@ class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layo
   template:
     text: """
       {{#time_ago}}
-        <span class="factlink-icon-time"></span>
-        {{time_ago}} {{ global.t.ago }}
+        <span class="factlink-icon-time-small"></span>{{time_ago}} {{ global.t.ago }}
       {{/time_ago}}
     """
 
