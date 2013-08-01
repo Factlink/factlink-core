@@ -56,8 +56,8 @@ describe Commands::Twitter::ShareFactlink do
 
   describe 'validations' do
     it 'requires integer fact_id' do
-      expect_validating('').
-        to fail_validation('fact_id should be an integer string.')
+      expect_validating('')
+        .to fail_validation('fact_id should be an integer string.')
     end
   end
 end
