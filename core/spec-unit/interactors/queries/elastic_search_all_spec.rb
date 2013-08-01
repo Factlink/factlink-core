@@ -76,9 +76,9 @@ describe Queries::ElasticSearchAll do
         parsed_response: { 'hits' => { 'hits' => [] } })
       query = described_class.new(keywords: keywords, page: 1, row_count: 20)
 
-      HTTParty.should_receive(:get).
-        with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
-        and_return(results)
+      HTTParty.should_receive(:get)
+        .with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true")
+        .and_return(results)
 
       expect(query.call).to eq []
     end
