@@ -26,8 +26,7 @@ RSpec.configure do |config|
 
   config.mock_with :rspec
 
-  # TODO Enable this again before merging back 'update-pavlov'
-  config.fail_fast = false
+  config.fail_fast = true
 
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
