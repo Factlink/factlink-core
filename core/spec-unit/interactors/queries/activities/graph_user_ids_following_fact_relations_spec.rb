@@ -10,12 +10,10 @@ describe Queries::Activities::GraphUserIdsFollowingFactRelations do
 
   describe '#call' do
     it 'uniques the follower ids' do
-      fact_relations = [
-        stub(id: 1,
+      fact_relations = [        double(id: 1,
              created_by_id: 1,
              opinionated_users_ids: 2
-          ),
-        stub(id: 2,
+          ),        double(id: 2,
              created_by_id: 2,
              opinionated_users_ids: 3
           )

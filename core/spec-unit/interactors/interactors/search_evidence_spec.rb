@@ -5,7 +5,7 @@ require_relative '../../../app/interactors/interactors/search_evidence.rb'
 describe Interactors::SearchEvidence do
   include PavlovSupport
 
-  let(:relaxed_ability) { stub(:ability, can?: true)}
+  let(:relaxed_ability) { double(:ability, can?: true)}
 
   before do
     stub_classes 'Fact', 'FactData', 'Ability::FactlinkWebapp',

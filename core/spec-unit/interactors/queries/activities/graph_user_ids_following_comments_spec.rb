@@ -10,12 +10,10 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
 
   describe '#call' do
     it 'returns unique follower ids' do
-      comments = [
-        stub(id: '1',
+      comments = [        double(id: '1',
              created_by: double(graph_user_id: 1),
              believable: double(opinionated_users_ids: 2)
-          ),
-        stub(id: '2',
+          ),        double(id: '2',
              created_by: double(graph_user_id: 2),
              believable: double(opinionated_users_ids: 3)
           )

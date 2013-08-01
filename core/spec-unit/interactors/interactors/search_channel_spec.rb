@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/interactors/search_channel.rb'
 describe Interactors::SearchChannel do
   include PavlovSupport
 
-  let(:relaxed_ability) { stub(:ability, can?: true)}
+  let(:relaxed_ability) { double(:ability, can?: true)}
 
   before do
     stub_classes 'Topic','Queries::ElasticSearchChannel',

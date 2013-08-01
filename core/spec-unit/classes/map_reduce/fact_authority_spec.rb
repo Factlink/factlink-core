@@ -13,15 +13,15 @@ describe MapReduce::FactAuthority do
       fact_relations = double ids: [1,2,3]
 
       fact_relation_db = {
-        1 => stub(:FactRelation,
+        1 => double(:FactRelation,
           from_fact_id: 10,
           created_by_id: 20,
         ),
-        2 => stub(:FactRelation,
+        2 => double(:FactRelation,
           from_fact_id: 10,
           created_by_id: 15,
         ),
-        3 => stub(:FactRelation,
+        3 => double(:FactRelation,
           from_fact_id: 12,
           created_by_id: 13,
         )

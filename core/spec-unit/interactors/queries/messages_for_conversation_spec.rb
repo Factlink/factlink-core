@@ -35,7 +35,7 @@ describe Queries::MessagesForConversation do
         pavlov_options: options)
 
       Message.should_receive(:where).with(conversation_id: conversation.id).
-              and_return(message_hashes.map{|hash| stub(hash)})
+              and_return(message_hashes.map{|hash| double(hash)})
 
       messages = query.call
 

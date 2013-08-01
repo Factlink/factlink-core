@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/interactors/search_user.rb'
 describe Interactors::SearchUser do
   include PavlovSupport
 
-  let(:relaxed_ability) { stub(:ability, can?: true)}
+  let(:relaxed_ability) { double(:ability, can?: true)}
 
   before do
     stub_classes 'Topic', 'Queries::ElasticSearchUser',

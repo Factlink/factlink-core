@@ -73,9 +73,7 @@ describe Queries::Site::TopTopics do
     it 'returns a list of Topics' do
       stub_classes 'Topic'
       query = described_class.new site_id: 1, nr: 3
-      topics = [
-        stub(slug_title: '1e'),
-        stub(slug_title: '2f')
+      topics = [        double(slug_title: '1e'),        double(slug_title: '2f')
       ]
       topic_slugs = topics.map(&:slug_title)
 

@@ -15,17 +15,17 @@ describe MapReduce::ChannelAuthority do
       facts = double ids: [10, 11, 12]
 
       fact_db = {
-        10 => stub(:Fact,
+        10 => double(:Fact,
           id: 10,
           created_by_id: 20,
           channel_ids: [10,11],
         ),
-        11 => stub(:Fact,
+        11 => double(:Fact,
           id: 11,
           created_by_id: 21,
           channel_ids: [10],
         ),
-        12 => stub(:Fact,
+        12 => double(:Fact,
           id: 12,
           created_by_id: 21,
           channel_ids: [10,11],
