@@ -46,6 +46,20 @@
   .new-design-border-radius();
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+
+  &:after { // arrows
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    border-color: none;
+    border-top-color: rgba(144,147,151, 0.2);
+    border-width: 12px;
+    left: 50%;
+    margin-left: -12px;
+  }
 }
 
 .top-fact-weakening-information {
