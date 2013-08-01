@@ -36,7 +36,7 @@ describe RecentlyViewedFacts do
 
     it 'doesnt return nil facts' do
       fact_id = 14
-      nest = stub zrevrange: [fact_id]
+      nest = double zrevrange: [fact_id]
 
       Fact.should_receive(:[]).any_number_of_times.with(fact_id).and_return nil
 

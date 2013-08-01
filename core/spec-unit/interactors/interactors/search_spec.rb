@@ -26,7 +26,7 @@ describe Interactors::Search do
 
   describe '#call' do
     it 'raises when called without any permission' do
-      ability = stub(:ability, can?: false)
+      ability = double(:ability, can?: false)
       interactor = described_class.new keywords: 'keywords', page: 1,
         row_count: 20, pavlov_options: { ability: ability }
 

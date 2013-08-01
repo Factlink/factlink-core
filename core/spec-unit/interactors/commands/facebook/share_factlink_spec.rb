@@ -10,7 +10,7 @@ describe Commands::Facebook::ShareFactlink do
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      fact      = stub id: '1', url: double(fact_url: 'fact_url')
+      fact      = double id: '1', url: double(fact_url: 'fact_url')
       token     = double
       client    = double
       namespace = 'namespace'
@@ -23,7 +23,7 @@ describe Commands::Facebook::ShareFactlink do
         }
       }
 
-      pavlov_options = { current_user: stub(identities: identities),
+      pavlov_options = { current_user: double(identities: identities),
                          facebook_app_namespace: namespace }
 
       Koala::Facebook::API.stub(:new)

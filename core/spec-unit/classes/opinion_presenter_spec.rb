@@ -14,21 +14,21 @@ describe OpinionPresenter do
     end
 
     it 'is 1 when every user beliefs and the sum of every users authority is 1' do
-      opinion = stub :opinion, authority: 1, believes: 1, disbelieves: 0
+      opinion = double :opinion, authority: 1, believes: 1, disbelieves: 0
 
       op = OpinionPresenter.new opinion
       expect(op.relevance).to eq 1
     end
 
     it 'is -1 when every user disbeliefs and the sum of every users authority is 1' do
-      opinion = stub :opinion, authority: 1, believes: 0, disbelieves: 1
+      opinion = double :opinion, authority: 1, believes: 0, disbelieves: 1
 
       op = OpinionPresenter.new opinion
       expect(op.relevance).to eq(-1)
     end
 
     it 'is 0 when one user beliefs and one disbeliefs and the sum of every users authority is 1' do
-      opinion = stub :opinion, authority: 1, believes: 1, disbelieves: 1
+      opinion = double :opinion, authority: 1, believes: 1, disbelieves: 1
 
       op = OpinionPresenter.new opinion
       expect(op.relevance).to eq 0

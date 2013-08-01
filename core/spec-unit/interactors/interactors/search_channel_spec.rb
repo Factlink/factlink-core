@@ -22,7 +22,7 @@ describe Interactors::SearchChannel do
   describe '#authorized?' do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
-      ability = stub(:ability, can?: false)
+      ability = double(:ability, can?: false)
 
       interactor = described_class.new keywords: keywords,
           pavlov_options: { ability: ability }

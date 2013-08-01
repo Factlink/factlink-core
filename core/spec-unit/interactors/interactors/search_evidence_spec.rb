@@ -32,7 +32,7 @@ describe Interactors::SearchEvidence do
 
   describe '.initialize' do
     it 'raises when executed without any permission' do
-      ability = stub(:ability, can?: false)
+      ability = double(:ability, can?: false)
 
       interactor = described_class.new keywords: 'zoeken interessante dingen',
           fact_id: '1', pavlov_options: { ability: ability }

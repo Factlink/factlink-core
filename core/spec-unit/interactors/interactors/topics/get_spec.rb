@@ -55,7 +55,7 @@ describe Interactors::Topics::Get do
     it 'returns the authority from the query' do
       topic = double
       graph_user = double
-      user = stub(graph_user: graph_user)
+      user = double(graph_user: graph_user)
       authority = double
       interactor = described_class.new(slug_title: 'foo',
         pavlov_options: {current_user: user})

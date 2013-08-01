@@ -28,8 +28,8 @@ describe Commands::DeleteComment do
     end
 
     it 'correctly' do
-      user = stub(:user, id: '9a')
-      comment = stub(id: '1a', created_by_id: user.id, deletable?: true)
+      user = double(:user, id: '9a')
+      comment = double(id: '1a', created_by_id: user.id, deletable?: true)
       interactor = described_class.new comment_id: comment.id, user_id: user.id
 
       interactor.should_receive(:authorized_in_execute)

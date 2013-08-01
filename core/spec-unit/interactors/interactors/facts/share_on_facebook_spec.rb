@@ -31,7 +31,7 @@ describe Interactors::Facts::ShareOnFacebook do
     it 'calls the command to share on Facebook' do
       fact_id = '1'
       user    = double
-      ability = stub can?: true
+      ability = double can?: true
 
       pavlov_options = { current_user: user,
                          ability: ability,

@@ -12,12 +12,12 @@ describe Queries::Activities::GraphUserIdsFollowingComments do
     it 'returns unique follower ids' do
       comments = [
         stub(id: '1',
-             created_by: stub(graph_user_id: 1),
-             believable: stub(opinionated_users_ids: 2)
+             created_by: double(graph_user_id: 1),
+             believable: double(opinionated_users_ids: 2)
           ),
         stub(id: '2',
-             created_by: stub(graph_user_id: 2),
-             believable: stub(opinionated_users_ids: 3)
+             created_by: double(graph_user_id: 2),
+             believable: double(opinionated_users_ids: 3)
           )
       ]
       sub_comments = [

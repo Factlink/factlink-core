@@ -37,7 +37,7 @@ describe Interactors::SubComments::Destroy do
   describe '#call' do
     it 'should call the command destroy' do
       id = '1'
-      ability = stub can?: true
+      ability = double can?: true
       interactor = described_class.new(id: id,
         pavlov_options: { current_user: double, ability: ability })
 

@@ -36,10 +36,10 @@ describe MapReduce::FactAuthority do
 
   describe "#reduce" do
     it do
-      fact = stub :Fact,
+      fact = double :Fact,
             created_by_id: 3,
             opinionated_users_count: 100,
-            channels: stub(:Set, count: 40)
+            channels: double(:Set, count: 40)
 
       Fact.stub(:[]).with(12)
           .and_return fact

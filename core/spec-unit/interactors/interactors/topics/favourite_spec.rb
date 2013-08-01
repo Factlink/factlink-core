@@ -41,7 +41,7 @@ describe Interactors::Topics::Favourite do
     it 'calls a command to favourite topic' do
       user_name = 'henk'
       slug_title = 'slug'
-      current_user = stub
+      current_user = double
       user = double(graph_user_id: double)
 
       ability = double

@@ -54,8 +54,8 @@ describe Queries::Site::TopTopics do
 
     it 'kills all the retrieved topics' do
       query = described_class.new site_id: 1, nr: 3
-      topic1 = stub(id: '1e')
-      topic2 = stub(id: '2f')
+      topic1 = double(id: '1e')
+      topic2 = double(id: '2f')
 
       dead_topic1 = double
       dead_topic2 = double

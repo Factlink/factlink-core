@@ -77,7 +77,7 @@ describe Interactors::SubComments::CreateForComment do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
       Comment.stub find: nil
-      ability = stub can?: true
+      ability = double can?: true
 
       interactor = described_class.new comment_id: '2a', content: 'content',
         pavlov_options: { current_user: double, ability: ability }
@@ -94,7 +94,7 @@ describe Interactors::SubComments::CreateForComment do
       fact = double
       comment = double(fact_data: double(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
-      ability = stub can?: true
+      ability = double can?: true
 
       interactor = described_class.new comment_id: comment_id, content: 'hoi',
         pavlov_options: { current_user: double, ability: ability }
@@ -109,7 +109,7 @@ describe Interactors::SubComments::CreateForComment do
       fact = double
       comment = double(fact_data: double(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
-      ability = stub can?: true
+      ability = double can?: true
 
       interactor = described_class.new comment_id: comment_id, content: 'hoi',
         pavlov_options: { current_user: double, ability: ability }
@@ -136,7 +136,7 @@ describe Interactors::SubComments::CreateForComment do
       sub_comment = double(created_by: double(graph_user: graph_user))
 
       Comment.stub find: nil
-      ability = stub can?: true
+      ability = double can?: true
 
       interactor = described_class.new comment_id: comment_id, content: 'hoi',
         pavlov_options: { current_user: user, ability: ability }

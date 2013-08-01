@@ -40,10 +40,10 @@ describe Queries::Comments::CanDestroy do
     end
 
     it 'returns false for a different user' do
-      user = stub(id: '10a', graph_user_id: '20')
+      user = double(id: '10a', graph_user_id: '20')
       comment_id = '1a'
-      comment = stub(created_by: user, created_by_id: user.id)
-      other_user = stub(id: '40a', graph_user_id: '50')
+      comment = double(created_by: user, created_by_id: user.id)
+      other_user = double(id: '40a', graph_user_id: '50')
       query = described_class.new comment_id: comment_id, user_id: other_user.id
 
       query.stub comment: comment, deletable: true
