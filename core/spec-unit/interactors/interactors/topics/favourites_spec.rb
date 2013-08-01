@@ -44,8 +44,7 @@ describe Interactors::Topics::Favourites do
 
     it 'it calls the query to get an alphabetically list of followed users' do
       user_name = mock
-      current_user = mock
-      interactor = described_class.new(user_name, current_user )
+      interactor = described_class.new(user_name)
 
       user = mock(graph_user_id: mock)
       topic1 = mock(id: mock, slug_title: 'b')
