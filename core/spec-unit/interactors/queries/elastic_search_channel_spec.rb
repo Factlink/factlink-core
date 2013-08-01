@@ -57,7 +57,7 @@ describe Queries::ElasticSearchChannel do
       hit = double
       results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
         code: 200)
-      query.stub get_object: stub
+      query.stub get_object: double
 
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('topic')
