@@ -6,9 +6,8 @@ describe Interactors::Channels::Unfollow do
   include PavlovSupport
   describe '.authorized?' do
     it 'forbids execution without current_user' do
-      expect do
-        Interactors::Channels::Unfollow.new('10')
-      end.to raise_error(Pavlov::AccessDenied)
+      expect_validating( channel_id: '10')
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
 
@@ -18,17 +17,17 @@ describe Interactors::Channels::Unfollow do
 
       following_channel_ids = ['14', '17']
       following_channels = [mock, mock]
-      options = {current_user: mock(graph_user_id: mock)}
+      pavlov_options = { current_user: mock(graph_user_id: mock) }
 
-      interactor = Interactors::Channels::Unfollow.new(channel.id, options)
+      interactor = described_class.new channel_id: channel.id,
+        pavlov_options: pavlov_options
 
       interactor.stub(:old_query).with(:'channels/get', channel.id).and_return(channel)
-
 
       interactor.stub(:old_query)
            .with(:containing_channel_ids_for_channel_and_user,
                  channel.id,
-                 options[:current_user].graph_user_id)
+                 pavlov_options[:current_user].graph_user_id)
            .and_return(following_channel_ids)
 
 

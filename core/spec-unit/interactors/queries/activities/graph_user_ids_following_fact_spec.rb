@@ -16,8 +16,7 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
         fact_relations: mock,
         data_id: 133
       comments = double
-
-      query = described_class.new fact
+      query = described_class.new fact: fact
 
       Comment.stub(:where)
              .with(fact_data_id: fact.data_id)

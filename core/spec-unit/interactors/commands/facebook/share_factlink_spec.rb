@@ -37,7 +37,7 @@ describe Commands::Facebook::ShareFactlink do
       client.should_receive(:put_connections)
             .with("me", "#{namespace}:share", factlink: fact.url.fact_url)
 
-      command = described_class.new fact.id, pavlov_options
+      command = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
 
       command.call
     end
@@ -46,13 +46,13 @@ describe Commands::Facebook::ShareFactlink do
 
   describe 'validations' do
     it 'requires integer fact_id' do
-      expect_validating('')
+      expect_validating(fact_id: '')
         .to fail_validation('fact_id should be an integer string.')
     end
 
     it 'requires the pavlov_options[:facebook_app_namespace]
         to be a nonempty_string' do
-      expect_validating('1')
+      expect_validating(fact_id: '1')
         .to fail_validation('facebook_app_namespace should be a nonempty string.')
     end
   end

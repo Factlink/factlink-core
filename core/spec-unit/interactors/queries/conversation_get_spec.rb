@@ -1,4 +1,5 @@
 require_relative '../../../app/interactors/queries/conversation_get.rb'
+require_relative '../../../app/interactors/kill_object'
 
 describe Queries::ConversationGet do
 
@@ -9,18 +10,13 @@ describe Queries::ConversationGet do
     stub_const 'Pavlov::ValidationError', Class.new(StandardError)
   end
 
-  it 'it initializes correctly' do
-    query = Queries::ConversationGet.new 1, current_user: mock()
-    query.should_not be_nil
-  end
-
   it 'it throws when initialized without a argument' do
-    expect { Queries::ConversationGet.new '', current_user: mock() }.
+    expect { described_class.new(id: '', pavlov_options: { current_user: double()}).call }.
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
   it 'it throws when initialized with a argument that is not a hexadecimal string' do
-    expect { Queries::ConversationGet.new 'g6', current_user:mock()}.
+    expect { described_class.new(id: 'g6', pavlov_options: { current_user:double()}).call }.
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
@@ -30,27 +26,29 @@ describe Queries::ConversationGet do
       fact_data = FactData.new
       recipient_ids = [10,13]
       fact_data.stub(id: 124, fact_id: 3445)
-      mock_conversation = double
-      mock_conversation.stub id: id, fact_data_id: fact_data.id, fact_data: fact_data, recipient_ids: recipient_ids
+      mock_conversation = double(id: id, fact_data_id: fact_data.id,
+        fact_data: fact_data, recipient_ids: recipient_ids)
 
-      user = double
-      user.stub(id: 13)
+      user = double(id: 13)
+      query = described_class.new(id: id, pavlov_options: { current_user: user })
 
       Conversation.should_receive(:find).with(id).and_return(mock_conversation)
-      res = Queries::ConversationGet.new(id, current_user: user).call
 
-      expect(res.id).to eq(id)
-      expect(res.fact_data_id).to eq(fact_data.id)
-      expect(res.fact_id).to eq(fact_data.fact_id)
-      expect(res.recipient_ids).to eq(recipient_ids)
+      result = query.call
+
+      expect(result.id).to eq(id)
+      expect(result.fact_data_id).to eq(fact_data.id)
+      expect(result.fact_id).to eq(fact_data.fact_id)
+      expect(result.recipient_ids).to eq(recipient_ids)
     end
 
     it "returns nil if no matching conversation is found" do
-      Conversation.should_receive(:find).and_return(nil)
+      query = described_class.new(id: 1245,
+        pavlov_options: { current_user: double() })
 
-      res = Queries::ConversationGet.new(1245, current_user: mock()).call
+      Conversation.stub find: nil
 
-      expect(res).to be_nil
+      expect(query.call).to be_nil
     end
   end
 end

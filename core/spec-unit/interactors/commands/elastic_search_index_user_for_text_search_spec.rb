@@ -14,7 +14,7 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
 
   describe 'validations' do
     it 'raises when user is not a User' do
-      command = described_class.new 'User'
+      command = described_class.new(object: 'User')
 
       expect { command.call }
         .to raise_error(RuntimeError, 'user missing fields ([:username, :first_name, :last_name, :id]).')
@@ -28,7 +28,7 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/user/#{user.id}"
-      command = described_class.new user
+      command = described_class.new(object: user)
 
       hashie = {}
       json_document = double

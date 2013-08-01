@@ -9,7 +9,7 @@ describe Commands::Stream::AddActivitiesOfUserToStream do
       graph_user_id = 3
       activities = double
 
-      command = described_class.new graph_user_id
+      command = described_class.new graph_user_id: graph_user_id
 
       Pavlov.should_receive(:old_query)
             .with(:'activities/for_followers_stream', graph_user_id)

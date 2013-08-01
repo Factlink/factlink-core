@@ -16,7 +16,7 @@ describe Commands::Channels::Create do
 
       channel.stub valid?:true
 
-      command = Commands::Channels::Create.new(title, :current_user=>current_user)
+      command = described_class.new title: title, pavlov_options: { current_user: current_user}
 
       channel.should_receive(:save)
 

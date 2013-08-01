@@ -22,12 +22,13 @@ GIT
 
 GIT
   remote: git://github.com/Factlink/pavlov.git
-  revision: 0b4bd6af62c4210b4c9b7187eb82b3780c755213
-  ref: 0b4bd6af62c4210b4c9b7187eb82b3780c755213
+  revision: 94b9dba3c348e8723fe4cb76517dc06f1f0d5dfa
+  ref: 94b9dba
   specs:
-    pavlov (0.0.1)
+    pavlov (0.1.0)
       activemodel (>= 3.2.7)
       activesupport (>= 3.2.7)
+      virtus (= 0.5.5)
 
 GIT
   remote: git://github.com/Factlink/rack-xframe-options.git
@@ -38,7 +39,7 @@ GIT
 GIT
   remote: git://github.com/jjoos/korsakov.git
   revision: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
-  ref: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
+  ref: 72db865
   specs:
     korsakov (0.0.1)
       activemodel (>= 3.2.7)
@@ -138,6 +139,7 @@ GEM
       addressable
     daemons (1.1.9)
     database_cleaner (0.9.1)
+    descendants_tracker (0.0.1)
     devise (2.2.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -489,6 +491,9 @@ GEM
     uuidtools (2.1.4)
     vegas (0.1.11)
       rack (>= 1.0.0)
+    virtus (0.5.5)
+      backports (~> 3.3)
+      descendants_tracker (~> 0.0.1)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)

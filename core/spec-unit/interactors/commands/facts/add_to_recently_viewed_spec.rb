@@ -6,13 +6,13 @@ describe Commands::Facts::AddToRecentlyViewed do
 
   describe 'validations' do
     it 'requires arguments' do
-      expect_validating('a', '2e').
-        to fail_validation('fact_id should be an integer.')
+      expect_validating(fact_id: 'a', user_id: '2e')
+        .to fail_validation('fact_id should be an integer.')
     end
 
     it 'requires arguments' do
-      expect_validating(1, 'qqqq').
-        to fail_validation('user_id should be an hexadecimal string.')
+      expect_validating(fact_id: 1, user_id: 'qqqq')
+        .to fail_validation('user_id should be an hexadecimal string.')
     end
   end
 
@@ -30,7 +30,8 @@ describe Commands::Facts::AddToRecentlyViewed do
 
       recently_viewed_facts.should_receive(:add_fact_id).with(fact_id)
 
-      Commands::Facts::AddToRecentlyViewed.new(fact_id, user_id).call
+      command = described_class.new fact_id: fact_id, user_id: user_id
+      command.call
     end
   end
 end

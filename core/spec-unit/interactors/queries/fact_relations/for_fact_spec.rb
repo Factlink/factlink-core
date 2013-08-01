@@ -15,14 +15,14 @@ describe Queries::FactRelations::ForFact do
       fact = double
       type = :supporting
 
-      interactor = described_class.new fact, :supporting
+      query = described_class.new fact: fact, type: :supporting
 
       fact.stub(:evidence).with(type).and_return(mock(ids: [fact_relation.id]))
       Pavlov.stub(:old_query)
             .with(:'fact_relations/by_ids', [fact_relation.id])
             .and_return([dead_fact_relation])
 
-      result = interactor.call
+      result = query.call
 
       expect(result).to eq [dead_fact_relation]
     end

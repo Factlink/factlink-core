@@ -10,33 +10,35 @@ describe Interactors::Users::Following do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new mock, mock, mock }.
-        to raise_error Pavlov::AccessDenied,'Unauthorized'
+      expect do
+        interactor = described_class.new(user_name: mock, skip: mock, take: mock)
+        interactor.call
+      end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
 
-  describe '#validate' do
+  describe 'validations' do
     before do
       described_class.any_instance.stub(authorized?: true)
     end
 
-    it 'calls the correct validation methods' do
-      user_name = double
-      skip = double
-      take = double
+    it 'invalid user_name doesn\t validate' do
+      expect_validating(user_name: 1, skip: 1, take: 2)
+        .to fail_validation('user_name should be a nonempty string.')
+    end
 
-      described_class.any_instance.should_receive(:validate_nonempty_string).
-        with(:user_name, user_name)
-      described_class.any_instance.should_receive(:validate_integer).
-        with(:skip, skip)
-      described_class.any_instance.should_receive(:validate_integer).
-        with(:take, take)
+    it 'invalid skip doesn\t validate' do
+      expect_validating(user_name: 'karel', skip: 'thirteen', take: 2)
+        .to fail_validation('skip should be an integer.')
+    end
 
-      interactor = described_class.new user_name, skip, take
+    it 'invalid take doesn\t validate' do
+      expect_validating(user_name: 'karel', skip: 1, take: 'about two')
+        .to fail_validation('take should be an integer.')
     end
   end
 
-  describe '#execute' do
+  describe '#call' do
     before do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
@@ -45,7 +47,7 @@ describe Interactors::Users::Following do
       user_name = double
       skip = double
       take = double
-      interactor = described_class.new user_name, skip, take
+      interactor = described_class.new user_name: user_name, skip: skip, take: take
       users = mock(length: mock)
       graph_user_ids = double
       count = double
@@ -60,12 +62,10 @@ describe Interactors::Users::Following do
       interactor.should_receive(:old_query).
         with(:users_by_graph_user_ids, graph_user_ids).
         and_return(users)
-
-
       users.should_receive(:drop).with(skip).and_return(users)
       users.should_receive(:take).with(take).and_return(users)
 
-      returned_users, returned_count = interactor.execute
+      returned_users, returned_count = interactor.call
 
       expect(returned_users).to eq users
       expect(returned_count).to eq users.length

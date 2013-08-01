@@ -10,12 +10,11 @@ describe Queries::Evidence::CountForFact do
     end
 
     it 'sums the counts of fact relations and comments' do
-      fact = mock(id: '1', data_id: '2a', evidence: [mock])
+      fact = double(id: '1', data_id: '2a', evidence: [double])
+      query = described_class.new fact: fact
 
       Comment.stub(:where).with(fact_data_id: fact.data_id)
-        .and_return(mock(count: 1)) # count instead of size: http://two.mongoid.org/docs/querying/finders.html#count
-
-      query = described_class.new fact
+        .and_return(double(count: 1)) # count instead of size: http://two.mongoid.org/docs/querying/finders.html#count
 
       expect(query.call).to eq 2
     end
@@ -23,12 +22,9 @@ describe Queries::Evidence::CountForFact do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      fact = double
-
-      described_class.any_instance.should_receive(:validate_not_nil)
-        .with(:fact, fact)
-
-      described_class.new fact
+      expect do
+        described_class.new(fact: nil).call
+      end.to raise_error(Pavlov::ValidationError, 'fact should not be nil.')
     end
   end
 end

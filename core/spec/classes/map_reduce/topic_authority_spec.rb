@@ -6,8 +6,9 @@ describe MapReduce::TopicAuthority do
   let(:gu2) {create(:user).graph_user}
 
   before do
-    stub_const('Interactors::SendMailForActivity', mock())
-    Interactors::SendMailForActivity.stub(new: nil.andand)
+    stub_const 'Interactors::SendMailForActivity', Class.new
+    Interactors::SendMailForActivity.stub(new: double(call: nil),
+      attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
   end
 
   describe "#wrapped_map" do
@@ -55,7 +56,8 @@ describe MapReduce::TopicAuthority do
 
        10.times do
          ch = create :channel
-         Commands::Channels::AddSubchannel.new(ch, ch1).call
+         Commands::Channels::AddSubchannel.new(channel: ch,
+          subchannel: ch1).call
        end
 
        result = subject.wrapped_map(channels_all)

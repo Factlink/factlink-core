@@ -13,7 +13,7 @@ describe Queries::Opinions::OpinionForFact do
       dead_opinion = double
       fact = mock(id: mock)
       fact_graph = double
-      query = described_class.new fact
+      query = described_class.new fact: fact
 
       FactGraph.stub new: fact_graph
 

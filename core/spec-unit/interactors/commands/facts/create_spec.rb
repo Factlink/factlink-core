@@ -6,24 +6,25 @@ describe Commands::Facts::Create do
   include PavlovSupport
 
   it '.new' do
-    command = Commands::Facts::Create.new 'displaystring', 'title', mock, mock
+    command = described_class.new displaystring: 'displaystring', title: 'title',
+      creator: mock, site: mock
     command.should_not be_nil
   end
 
   describe 'validations' do
     it 'requires displaystring to be a nonempty string' do
-      expect_validating('', 'title', mock, mock).
-        to fail_validation('displaystring should be a nonempty string.')
+      expect_validating(displaystring: '', title: 'title', creator: mock, site: mock)
+        .to fail_validation('displaystring should be a nonempty string.')
     end
 
     it 'requires title to be a string' do
-      expect_validating('displaystring', 1, mock, mock).
-        to fail_validation('title should be a string.')
+      expect_validating(displaystring: 'displaystring', title: 1, creator: mock, site: mock)
+        .to fail_validation('title should be a string.')
     end
 
     it 'requires user not to be nil' do
-      expect_validating('displaystring', 'title', nil, mock).
-        to fail_validation('creator should not be nil.')
+      expect_validating(displaystring: 'displaystring', title: 'title', creator: nil, site: mock)
+        .to fail_validation('creator should not be nil.')
     end
   end
 
@@ -38,7 +39,8 @@ describe Commands::Facts::Create do
       graph_user = double
       creator = double
       site = double
-      command = Commands::Facts::Create.new displaystring, title, creator, site
+      command = described_class.new displaystring: displaystring, title: title,
+        creator: creator, site: site
       fact_data = double
 
       FactData.should_receive(:new).and_return(fact_data)
@@ -61,7 +63,8 @@ describe Commands::Facts::Create do
       graph_user = double
       creator = mock(graph_user: graph_user)
       site = double
-      command = Commands::Facts::Create.new displaystring, title, creator, site
+      command = described_class.new displaystring: displaystring, title: title,
+        creator: creator, site: site
       fact_data = double
       fact = mock(id: mock)
 
@@ -84,7 +87,8 @@ describe Commands::Facts::Create do
       site = nil
       fact_data = double
       fact = mock(id: mock)
-      command = Commands::Facts::Create.new displaystring, title, creator, site
+      command = described_class.new displaystring: displaystring, title: title,
+        creator: creator, site: site
 
       Fact.should_receive(:new).with({created_by: graph_user}).and_return(fact)
       command.should_receive(:create_fact_data).and_return(fact_data)

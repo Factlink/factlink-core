@@ -13,7 +13,7 @@ describe Commands::Opinions::RecalculateFactOpinion do
       opinion = double
       fact = double
       fact_graph = double
-      command = described_class.new fact
+      command = described_class.new fact: fact
 
       FactGraph.stub new: fact_graph
 
@@ -24,14 +24,10 @@ describe Commands::Opinions::RecalculateFactOpinion do
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      fact = double
-
-      described_class.any_instance.should_receive(:validate_not_nil)
-                                  .with(:fact, fact)
-
-      command = described_class.new fact
+  describe 'validation' do
+    it 'without fact_id doesn\'t validate' do
+      expect_validating(fact: nil)
+        .to fail_validation('fact should not be nil.')
     end
   end
 end
