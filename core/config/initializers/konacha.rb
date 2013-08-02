@@ -12,9 +12,11 @@ if defined?(Konacha)
           File.new('tmp/konacha.junit.xml', 'a')
         )]
     end
-  end
-  Capybara.server do |app, port|
-    require 'rack/handler/thin'
-    Rack::Handler::Thin.run(app, :Port => port)
+    Capybara.server do |app, port|
+      require 'rack/handler/thin'
+      puts "@@@@@@@@@@@@@@@@@@@@@@@ MANUAL WORKAROUND FOR"
+      puts "@@@@ https://github.com/jfirebaugh/konacha/issues/146"
+      Rack::Handler::Thin.run(app, :Port => port)
+    end
   end
 end
