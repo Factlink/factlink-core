@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "/users/_account_block.html.erb" do
 
-  let (:user) {FactoryGirl.create :user}
+  let (:user) {create :user}
 
   context "when not signed in" do
     before do

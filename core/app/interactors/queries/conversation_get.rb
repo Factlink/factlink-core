@@ -8,17 +8,16 @@ module Queries
     arguments :id
 
     def validate
-      validate_hexadecimal_string :id, @id.to_s
+      validate_hexadecimal_string :id, id.to_s
     end
 
     def execute
-      conversation = Conversation.find(@id)
+      conversation = Conversation.find(id)
       return nil unless conversation
       raise_unauthorized unless authorized_to_get(conversation)
 
-      KillObject.conversation(conversation,
+      KillObject.conversation conversation,
         fact_id: conversation.fact_data.andand.fact_id
-      )
     end
 
     def authorized?

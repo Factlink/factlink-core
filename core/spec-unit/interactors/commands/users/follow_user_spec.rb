@@ -11,9 +11,9 @@ describe Commands::Users::FollowUser do
     end
 
     it 'calls a UserFollowingUsers.follow to follow user' do
-      graph_user_id = mock
-      user_to_follow_graph_user_id = mock
-      users_following_users = mock
+      graph_user_id = double
+      user_to_follow_graph_user_id = double
+      users_following_users = double
 
       UserFollowingUsers.stub(:new)
                         .with(graph_user_id)
@@ -22,23 +22,22 @@ describe Commands::Users::FollowUser do
       users_following_users.should_receive(:follow)
                            .with(user_to_follow_graph_user_id)
 
-      query = described_class.new graph_user_id, user_to_follow_graph_user_id
+      query = described_class.new graph_user_id: graph_user_id,
+        user_to_follow_graph_user_id: user_to_follow_graph_user_id
 
       query.execute
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      graph_user_id = mock
-      user_to_follow_graph_user_id = mock
+  describe 'validations' do
+    it 'requires valid graph_user_id' do
+      expect_validating(graph_user_id: '', user_to_follow_graph_user_id: '1').
+        to fail_validation('graph_user_id should be an integer string.')
+    end
 
-      described_class.any_instance.should_receive(:validate_integer_string)
-                                  .with(:graph_user_id, graph_user_id)
-      described_class.any_instance.should_receive(:validate_integer_string)
-                                  .with(:user_to_follow_graph_user_id, user_to_follow_graph_user_id)
-
-      query = described_class.new graph_user_id, user_to_follow_graph_user_id
+    it 'requires valid user_to_follow_graph_user_id' do
+      expect_validating(graph_user_id: '12', user_to_follow_graph_user_id: '').
+        to fail_validation('user_to_follow_graph_user_id should be an integer string.')
     end
   end
 end

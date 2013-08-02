@@ -8,64 +8,59 @@ describe Interactors::SubComments::CreateForComment do
     stub_classes 'Comment', 'SubComment'
   end
 
-  it 'initializes correctly' do
-    ability = stub can?: true
-    Comment.should_receive(:find).and_return(nil)
-
-    interactor = Interactors::SubComments::CreateForComment.new '2a', ' hoi ', current_user: mock, ability: ability
-
-    expect( interactor ).to_not be_nil
-  end
-
   it '.authorized denied the user cannot show the comment' do
-    comment = mock
-    ability = mock
+    comment = double
+    ability = double
     ability.stub(:can?).with(:show, comment).and_return(false)
     Comment.should_receive(:find).and_return(comment)
 
-    expect{ Interactors::SubComments::CreateForComment.new '2a', 'hoi', current_user: nil, ability: ability }.
-      to raise_error Pavlov::AccessDenied, 'Unauthorized'
+    interactor = described_class.new comment_id: '2a', content: 'hoi',
+        pavlov_options: { current_user: nil, ability: ability }
+
+    expect { interactor.call }
+     .to raise_error Pavlov::AccessDenied, 'Unauthorized'
   end
 
   describe '.validate' do
     it 'without comment_id doesn''t validate' do
-      expect_validating(nil, 'hoi').
+      expect_validating(comment_id: nil, content: 'hoi').
         to fail_validation('comment_id should be an hexadecimal string.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating('2a', '').
+      expect_validating(comment_id: '2a', content: '').
         to fail_validation('content should not be empty.')
     end
 
-    it 'without content doesn''t validate' do
-      expect_validating('2a', '  ').
+    it 'without content doesn\'t validate' do
+      expect_validating(comment_id: '2a', content: '  ').
         to fail_validation('content should not be empty.')
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes 'KillObject', 'Commands::SubComments::CreateXxx'
     end
 
     it 'calls the corresponding command' do
-      comment = mock id: '2a'
-      user = mock
-      sub_comment = mock
-      authority = mock
-      dead_sub_comment = mock
+      comment = double id: '2a'
+      user = double
+      sub_comment = double
+      authority = double
+      dead_sub_comment = double
       content = 'hoi'
 
-      ability = mock
+      ability = double
       ability.stub(:can?).with(:show, comment).and_return(true)
       ability.stub(:can?).with(:create, SubComment).and_return(true)
 
       Comment.should_receive(:find).with(comment.id).and_return(comment)
 
-      interactor = Interactors::SubComments::CreateForComment.new comment.id, content, current_user: user, ability: ability
+      interactor = described_class.new comment_id: comment.id, content: content,
+        pavlov_options: { current_user: user, ability: ability }
 
-      interactor.should_receive(:command).with(:"sub_comments/create_xxx", comment.id, 'Comment', content, user).
+      interactor.should_receive(:old_command).with(:"sub_comments/create_xxx", comment.id, 'Comment', content, user).
         and_return(sub_comment)
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
         and_return(authority)
@@ -82,24 +77,27 @@ describe Interactors::SubComments::CreateForComment do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
       Comment.stub find: nil
-      ability = stub can?: true
+      ability = double can?: true
 
-      interactor = Interactors::SubComments::CreateForComment.new '2a', 'content', current_user: mock, ability: ability
+      interactor = described_class.new comment_id: '2a', content: 'content',
+        pavlov_options: { current_user: double, ability: ability }
       interactor.stub comment: nil
 
-      expect{interactor.call}.to raise_error(Pavlov::ValidationError, "parent does not exist any more")
+      expect { interactor.call }
+       .to raise_error(Pavlov::ValidationError, "parent does not exist any more")
     end
   end
 
   describe '.top_fact' do
     it 'returns the top fact for the comment_id' do
       comment_id = '2a'
-      fact = mock
-      comment = mock(fact_data: mock(fact:fact))
+      fact = double
+      comment = double(fact_data: double(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
-      ability = stub can?: true
+      ability = double can?: true
 
-      interactor = Interactors::SubComments::CreateForComment.new comment_id, 'hoi', current_user: mock, ability: ability
+      interactor = described_class.new comment_id: comment_id, content: 'hoi',
+        pavlov_options: { current_user: double, ability: ability }
 
       result = interactor.top_fact
 
@@ -108,12 +106,13 @@ describe Interactors::SubComments::CreateForComment do
 
     it 'caches the fact' do
       comment_id = '2a'
-      fact = mock
-      comment = mock(fact_data: mock(fact:fact))
+      fact = double
+      comment = double(fact_data: double(fact:fact))
       Comment.should_receive(:find).with(comment_id).and_return(comment)
-      ability = stub can?: true
+      ability = double can?: true
 
-      interactor = Interactors::SubComments::CreateForComment.new comment_id, 'hoi', current_user: mock, ability: ability
+      interactor = described_class.new comment_id: comment_id, content: 'hoi',
+        pavlov_options: { current_user: double, ability: ability }
 
       result = interactor.top_fact
 
@@ -130,19 +129,20 @@ describe Interactors::SubComments::CreateForComment do
 
     it 'retrieves the authority and kills the subcomment' do
       comment_id = '2a'
-      fact = mock
-      graph_user = mock
-      authority = mock
-      user = mock
-      sub_comment = mock(created_by: mock(graph_user: graph_user))
+      fact = double
+      graph_user = double
+      authority = double
+      user = double
+      sub_comment = double(created_by: double(graph_user: graph_user))
 
       Comment.stub find: nil
-      ability = stub can?: true
+      ability = double can?: true
 
-      interactor = Interactors::SubComments::CreateForComment.new comment_id, 'hoi', current_user: user, ability: ability
+      interactor = described_class.new comment_id: comment_id, content: 'hoi',
+        pavlov_options: { current_user: user, ability: ability }
 
       interactor.should_receive(:top_fact).and_return(fact)
-      interactor.should_receive(:query).with(:authority_on_fact_for, fact, graph_user).
+      interactor.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user).
         and_return(authority)
 
       result = interactor.authority_of_user_who_created sub_comment

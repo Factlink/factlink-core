@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe HomeController do
-  let (:user)  {FactoryGirl.create :active_user}
+  let (:user)  {create :active_user}
 
   render_views
 

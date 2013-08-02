@@ -6,12 +6,13 @@ module Queries
     include Pavlov::Query
 
     arguments :id
+
     def execute
-      conversation = query :conversation_get, @id
+      conversation = old_query :conversation_get, id
       return nil unless conversation
 
-      messages = query :messages_for_conversation, conversation
-      recipients = query :users_by_ids, conversation.recipient_ids
+      messages = old_query :messages_for_conversation, conversation
+      recipients = old_query :users_by_ids, conversation.recipient_ids
 
       KillObject.conversation conversation, messages: messages, recipients: recipients
     end

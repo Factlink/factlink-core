@@ -2,7 +2,7 @@ require 'acceptance_helper'
 
 describe 'When a user signs in', type: :feature do
   it 'and has not yet confirmed his email address it should fail' do
-    user = FactoryGirl.create :user
+    user = create :user
 
     sign_in_user(user)
 
@@ -10,7 +10,7 @@ describe 'When a user signs in', type: :feature do
   end
 
   it 'he should be able to sign out' do
-    user = FactoryGirl.create :active_user
+    user = create :active_user
 
     sign_in_user(user)
 
@@ -26,7 +26,7 @@ describe 'When a user signs in', type: :feature do
   end
 
   it 'he should not be able to sign in with false credentials' do
-    user = FactoryGirl.create :active_user
+    user = create :active_user
 
     visit "/"
 

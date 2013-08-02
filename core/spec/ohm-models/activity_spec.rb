@@ -35,7 +35,7 @@ describe Activity do
 
   context "after creating one activity" do
     before do
-      Pavlov.stub(:interactor)
+      Pavlov.stub(:old_interactor)
             .with(:send_mail_for_activity, anything, anything)
             .and_return(nil)
     end

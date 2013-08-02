@@ -23,10 +23,10 @@ describe Activity::Listener do
 
 
   def send_mail_for_activity_should_be_invoked
-    interactor = mock()
-    Interactors::SendMailForActivity.should_receive(:new).and_return(interactor)
-    interactor.should_receive(:call)
+    Pavlov.should_receive(:old_interactor)
+      .with(:send_mail_for_activity, an_instance_of(Activity), { current_user: true })
   end
+
 
   describe :new do
     it "should call its dsl with the block if there is a block" do

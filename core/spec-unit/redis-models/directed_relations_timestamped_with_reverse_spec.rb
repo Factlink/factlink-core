@@ -6,18 +6,18 @@ describe DirectedRelationsTimestampedWithReverse do
   let(:directed_relations_timestamped_with_reverse) { DirectedRelationsTimestampedWithReverse.new nest_key }
 
   let(:nest_key) do
-    nest_key = mock
-    nest_key.stub(:[]).with(:relation).and_return(mock)
-    nest_key.stub(:[]).with(:reverse_relation).and_return(mock)
+    nest_key = double
+    nest_key.stub(:[]).with(:relation).and_return(double)
+    nest_key.stub(:[]).with(:reverse_relation).and_return(double)
     nest_key
   end
 
   describe '.add_at_time' do
     it 'adds with a call to time_to_score' do
-      from_id = mock
-      to_id = mock
-      time = mock
-      score = mock
+      from_id = double
+      to_id = double
+      time = double
+      score = double
 
       directed_relations_timestamped_with_reverse.should_receive(:time_to_score).with(time).and_return(score)
       directed_relations_timestamped_with_reverse.should_receive(:add).with(from_id, to_id, score)
@@ -28,10 +28,10 @@ describe DirectedRelationsTimestampedWithReverse do
 
   describe '.replace_at_time' do
     it 'adds with a call to time_to_score' do
-      from_id = mock
-      to_id = mock
-      time = mock
-      score = mock
+      from_id = double
+      to_id = double
+      time = double
+      score = double
 
       directed_relations_timestamped_with_reverse.should_receive(:time_to_score).with(time).and_return(score)
       directed_relations_timestamped_with_reverse.should_receive(:replace).with(from_id, to_id, score)
@@ -42,10 +42,10 @@ describe DirectedRelationsTimestampedWithReverse do
 
   describe '.add_now' do
     it 'adds with a call to time_to_score' do
-      from_id = mock
-      to_id = mock
-      time = mock
-      score = mock
+      from_id = double
+      to_id = double
+      time = double
+      score = double
 
       stub_const 'DateTime', Class.new
       DateTime.should_receive(:now).and_return(time)
@@ -59,10 +59,10 @@ describe DirectedRelationsTimestampedWithReverse do
 
   describe '.replace_now' do
     it 'adds with a call to time_to_score' do
-      from_id = mock
-      to_id = mock
-      time = mock
-      score = mock
+      from_id = double
+      to_id = double
+      time = double
+      score = double
 
       stub_const 'DateTime', Class.new
       DateTime.should_receive(:now).and_return(time)

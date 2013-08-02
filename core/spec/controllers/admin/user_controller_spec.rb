@@ -17,13 +17,13 @@ describe Admin::UsersController do
     }
   end
 
-  let (:user)  {FactoryGirl.create :admin_user}
+  let (:user)  {create :admin_user}
 
   before do
     should_check_admin_ability
 
-    @user1 = FactoryGirl.create :user
-    @user2 = FactoryGirl.create :user
+    @user1 = create :user
+    @user2 = create :user
   end
 
   describe "GET index" do

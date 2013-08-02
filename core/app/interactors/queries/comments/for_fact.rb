@@ -21,8 +21,8 @@ module Queries
 
       def dead_comments_with_opinion
         comments.map do |comment|
-          comment.sub_comments_count = query :'sub_comments/count', comment.id.to_s, comment.class.to_s
-          dead_comment = query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
+          comment.sub_comments_count = old_query :'sub_comments/count', comment.id.to_s, comment.class.to_s
+          dead_comment = old_query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
           # TODO: don't depend on the fact that comment is an openstruct
           dead_comment.evidence_class = 'Comment'
 

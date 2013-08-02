@@ -11,8 +11,7 @@ module Interactors
 
       def execute
         setup_defaults
-
-        facts = query :'channels/facts', @id, @from, @count
+        facts = old_query :'channels/facts', id, from, count
         remove_invalid facts
       end
 
@@ -24,7 +23,7 @@ module Interactors
         # to delete them.
         if valid_facts.length != facts.length
           #TODO: this should be a command
-          Resque.enqueue(CleanChannel, @id)
+          Resque.enqueue(CleanChannel, id)
         end
 
         valid_facts
@@ -39,9 +38,9 @@ module Interactors
       end
 
       def validate
-        validate_integer :from, @from, allow_blank: true
-        validate_integer :count, @count, allow_blank: true
-        validate_integer_string :id, @id
+        validate_integer :from, from, allow_blank: true
+        validate_integer :count, count, allow_blank: true
+        validate_integer_string :id, id
       end
     end
   end

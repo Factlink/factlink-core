@@ -19,7 +19,7 @@ feature "notifications", type: :feature do
       backend_create_viewable_channel_for current_user
 
     as(other_user) do |p|
-      p.interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
+      p.old_interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
     end
 
     sign_in_user current_user
@@ -43,7 +43,7 @@ feature "notifications", type: :feature do
       backend_create_viewable_channel_for current_user
 
     as(other_user) do |p|
-      p.interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
+      p.old_interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
     end
 
     sign_in_user current_user

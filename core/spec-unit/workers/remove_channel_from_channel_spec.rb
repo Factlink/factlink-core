@@ -11,9 +11,9 @@ describe RemoveChannelFromChannel do
 
   describe ".perform" do
     it "should remove facts from the cached facts of the super channel using Resque" do
-      ch = mock :channel, id: 10
-      sub_ch = mock :sub_channel, id: 15
-      fact = mock :fact, id: 78
+      ch = double :channel, id: 10
+      sub_ch = double :sub_channel, id: 15
+      fact = double :fact, id: 78
 
       sub_ch.stub sorted_cached_facts: [fact]
 

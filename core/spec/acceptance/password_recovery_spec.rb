@@ -3,7 +3,7 @@ require 'acceptance_helper'
 describe 'Password recovery', type: :feature do
 
   before do
-    @user = FactoryGirl.create :active_user
+    @user = create :active_user
   end
 
   it 'informs the user the email has been send' do

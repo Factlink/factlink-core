@@ -12,93 +12,68 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new mock, mock }
-        .to raise_error Pavlov::AccessDenied,'Unauthorized'
+      expect do
+        described_class.new(user_name: double, user_to_follow_user_name: double).call
+      end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
     it 'throws when updating someone else\'s follow' do
-      username = mock
-      other_username = mock
-      current_user = mock(username: username)
+      username = double
+      other_username = double
+      current_user = double(username: username)
+      options = {current_user: current_user}
+      interactor = described_class.new(user_name: other_username,
+        user_to_follow_user_name: double, pavlov_options: options)
 
-      expect { described_class.new other_username, mock, {current_user: current_user} }
-        .to raise_error Pavlov::AccessDenied,'Unauthorized'
-    end
-
-    it 'doesn\'t throw when updating your own follow' do
-      username = mock
-      current_user = mock(username: username)
-
-      described_class.new username, mock, {current_user: current_user}
+      expect do
+        interactor.call
+      end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
 
-  describe '.new' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
-    it 'returns an object' do
-      interactor = described_class.new mock, mock
-
-      expect(interactor).to_not be_nil
-    end
-  end
-
-  describe '#execute' do
+  describe '#call' do
     before do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
     it 'calls a command to follow user' do
-      user = mock(id: mock, graph_user_id: mock, graph_user: mock, username: mock)
-      user_to_follow = mock(graph_user_id: mock, graph_user: mock, username: mock)
+      user = double(id: double, graph_user_id: double, graph_user: double, username: double)
+      user_to_follow = double(graph_user_id: double, graph_user: double, username: double)
+      options = { current_user: user }
+      interactor = described_class.new(user_name: user.username,
+        user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
 
-      interactor = described_class.new user.username, user_to_follow.username, current_user: user
-
-      interactor.should_receive(:query)
+      interactor.should_receive(:old_query)
         .with(:'user_by_username', user.username)
         .and_return(user)
-      interactor.should_receive(:query)
+      interactor.should_receive(:old_query)
         .with(:'user_by_username', user_to_follow.username)
         .and_return(user_to_follow)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil)
-      interactor.should_receive(:command)
+      interactor.should_receive(:old_command)
         .with(:'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id)
 
-      result = interactor.execute
-
-      expect(result).to eq nil
+      expect(interactor.call).to eq nil
     end
   end
 
-  describe '#validate' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
+  describe 'validations' do
+    it 'with a invalid user_name doesn\t validate' do
+      expect_validating(user_name: 12, user_to_follow_user_name: 'karel')
+        .to fail_validation('user_name should be a nonempty string.')
     end
 
-    it 'calls the correct validation methods' do
-      user_name = mock
-      user_to_follow_user_name = mock
-
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-        .with(:user_name, user_name)
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-        .with(:user_to_follow_user_name, user_to_follow_user_name)
-
-      interactor = described_class.new user_name, user_to_follow_user_name
+    it 'with a invalid user_to_follow_user_name doesn\t validate' do
+      expect_validating(user_name: 'karel', user_to_follow_user_name: 12)
+        .to fail_validation('user_to_follow_user_name should be a nonempty string.')
     end
 
-    it 'calls the correct validation methods' do
-      user_name = mock
-
-      described_class.any_instance.stub(:validate_nonempty_string)
-
-      expect {described_class.new user_name, user_name}.
-        to raise_error(Pavlov::ValidationError, "You cannot follow yourself.")
+    it 'you don\'t try to follow yourself' do
+      expect_validating(user_name: 'karel', user_to_follow_user_name: 'karel')
+        .to fail_validation('You cannot follow yourself.')
     end
   end
 end

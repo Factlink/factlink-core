@@ -9,8 +9,13 @@ describe EvidenceDeletable do
     let(:fact)            {create :fact, created_by: fact_user.graph_user}
 
     let(:comment) do
-      interactor = Interactors::Comments::Create.new(fact.id.to_i, 'believes', 'content', current_user: created_by_user, ability: Ability.new(created_by_user))
-      dead_comment = interactor.execute
+      pavlov_options = {
+        current_user: created_by_user,
+        ability: Ability.new(created_by_user)
+      }
+      interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
+        type: 'believes', content: 'content', pavlov_options:pavlov_options )
+      dead_comment = interactor.call
       Comment.find(dead_comment.id)
     end
 
@@ -47,9 +52,13 @@ describe EvidenceDeletable do
       deletable(comment).should be_true
     end
     it "should be false after someone comments on it" do
-      interactor = Interactors::SubComments::CreateForComment.new comment.id.to_s,
-                     'hoi', current_user: comment.created_by,
-                     ability: Ability.new(comment.created_by)
+      pavlov_options = {
+        current_user: comment.created_by,
+        ability: Ability.new(comment.created_by)
+      }
+
+      interactor = Interactors::SubComments::CreateForComment.new(comment_id: comment.id.to_s,
+        content: 'hoi', pavlov_options: pavlov_options)
       interactor.execute
       deletable(comment).should be_false
     end

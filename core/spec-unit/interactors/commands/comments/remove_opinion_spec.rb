@@ -8,12 +8,12 @@ describe Commands::Comments::RemoveOpinion do
     stub_classes 'Believable::Commentje'
   end
 
-  describe '.call' do
+  describe '#call' do
     it "removes the opinion on the believable belonging to this commment" do
-      believable = mock
-      graph_user = mock
+      believable = double
+      graph_user = double
 
-      command = Commands::Comments::RemoveOpinion.new 'a1', mock
+      command = described_class.new comment_id: 'a1', graph_user: double
       command.stub believable: believable,
                    graph_user: graph_user
 
@@ -26,8 +26,8 @@ describe Commands::Comments::RemoveOpinion do
   describe '.believable' do
     it "returns the Believable::Commentje for this comment" do
       id = 'a1'
-      believable = mock
-      command = Commands::Comments::RemoveOpinion.new id, mock
+      believable = double
+      command = described_class.new comment_id: id, graph_user: double
 
       Believable::Commentje.should_receive(:new)
                        .with(id)
@@ -39,8 +39,8 @@ describe Commands::Comments::RemoveOpinion do
 
   describe '.graph_user' do
     it "returns the graph_user passed in" do
-      graph_user = mock
-      command = Commands::Comments::RemoveOpinion.new 'a1', graph_user
+      graph_user = double
+      command = described_class.new comment_id: 'a1', graph_user: graph_user
       expect(command.graph_user).to eq graph_user
     end
   end

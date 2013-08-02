@@ -10,24 +10,24 @@ feature "follow_users_in_tour", type: :feature do
 
     @user1 = create :user
     @user2 = create :user
-    Pavlov.command :"users/add_handpicked_user", @user1.id.to_s
-    Pavlov.command :"users/add_handpicked_user", @user2.id.to_s
+    Pavlov.old_command :"users/add_handpicked_user", @user1.id.to_s
+    Pavlov.old_command :"users/add_handpicked_user", @user2.id.to_s
 
     as(@user1) do |pavlov|
-      @user1_channel1 = pavlov.command :'channels/create', 'toy'
-      pavlov.command :'topics/update_user_authority',
+      @user1_channel1 = pavlov.old_command :'channels/create', 'toy'
+      pavlov.old_command :'topics/update_user_authority',
         @user1.graph_user_id.to_s, @user1_channel1.slug_title, 0
-      @user1_channel2 = pavlov.command :'channels/create', 'story'
-      pavlov.command :'topics/update_user_authority',
+      @user1_channel2 = pavlov.old_command :'channels/create', 'story'
+      pavlov.old_command :'topics/update_user_authority',
         @user1.graph_user_id.to_s, @user1_channel2.slug_title, 3
     end
     as(@user2) do |pavlov|
-      @user2_channel1 = pavlov.command :'channels/create', 'war'
-      pavlov.command :'topics/update_user_authority',
+      @user2_channel1 = pavlov.old_command :'channels/create', 'war'
+      pavlov.old_command :'topics/update_user_authority',
         @user2.graph_user_id.to_s, @user2_channel1.slug_title, 0
 
-      @user2_channel2 = pavlov.command :'channels/create', 'games'
-      pavlov.command :'topics/update_user_authority',
+      @user2_channel2 = pavlov.old_command :'channels/create', 'games'
+      pavlov.old_command :'topics/update_user_authority',
         @user2.graph_user_id.to_s, @user2_channel2.slug_title, 4568
     end
   end

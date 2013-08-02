@@ -14,13 +14,13 @@ module Interactors
       def execute
         setup_defaults
 
-        query :'topics/facts', @slug_title, @count, @max_timestamp
+        old_query :'topics/facts', slug_title, count, max_timestamp
       end
 
       def validate
-        validate_string   :slug_title, @slug_title
-        validate_integer  :count, @count, allow_blank: true
-        validate_integer  :max_timestamp, @max_timestamp, allow_blank: true
+        validate_string   :slug_title, slug_title
+        validate_integer  :count, count, allow_blank: true
+        validate_integer  :max_timestamp, max_timestamp, allow_blank: true
       end
 
       def authorized?

@@ -10,34 +10,30 @@ describe Queries::Topics::ById do
     end
 
     it 'calls the correct validation methods' do
-      id = mock
+      interactor = described_class.new id: 'this is not hexadecimal'
 
-      described_class.any_instance.should_receive(:validate_hexadecimal_string).
-        with(:id, id)
-
-      interactor = described_class.new id
+      expect{ interactor.call }
+        .to raise_error(Pavlov::ValidationError,
+          'id should be an hexadecimal string.')
     end
   end
 
-  describe '#execute' do
+  describe '#call' do
     before do
       described_class.any_instance.stub(validate: true)
     end
 
     it 'returns the topic Topic.find' do
       stub_classes 'Topic', 'KillObject'
-
-      id = mock
-      topic = mock
-      dead_topic = mock
+      id = double
+      topic = double
+      dead_topic = double
+      query = described_class.new id: id
 
       Topic.should_receive(:find).with(id).and_return(topic)
       KillObject.should_receive(:topic).with(topic).and_return(dead_topic)
 
-      query = described_class.new id, {}
-
-      result = query.execute
-      expect(result).to eq dead_topic
+      expect(query.call).to eq dead_topic
     end
   end
 end

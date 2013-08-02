@@ -10,10 +10,10 @@ describe Queries::Opinions::OpinionForFact do
     end
 
     it 'returns the dead opinion on the fact' do
-      dead_opinion = mock
-      fact = mock(id: mock)
-      fact_graph = mock
-      query = described_class.new fact
+      dead_opinion = double
+      fact = double(id: double)
+      fact_graph = double
+      query = described_class.new fact: fact
 
       FactGraph.stub new: fact_graph
 

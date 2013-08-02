@@ -6,65 +6,59 @@ describe Queries::Site::TopTopics do
 
   describe 'validations' do
     it 'requires site_id to be an integer' do
-      expect_validating('', 2).
+      expect_validating(site_id: '', nr: 2).
         to fail_validation('site_id should be an integer.')
     end
 
     it 'requires the number of items to return' do
-      expect_validating(1, 'a').
+      expect_validating(site_id: 1, nr: 'a').
         to fail_validation('nr should be an integer.')
     end
   end
 
-  describe '.key' do
+  describe '#key' do
     it '.key returns the correct redis key' do
       site_id = 6
-      redis_helper = mock
+      query = described_class.new site_id: site_id, nr: 3
+      redis_helper = double
+      key = double
+      sub_key = double
 
-      command = Queries::Site::TopTopics.new site_id, 3
-      command.should_receive(:redis).and_return( redis_helper )
-
-      key = mock
-      sub_key = mock
-
+      query.should_receive(:redis).and_return( redis_helper )
       redis_helper.should_receive(:[]).with(site_id).and_return(sub_key)
       sub_key.should_receive(:[]).with(:top_topics).and_return(key)
 
-      expect(command.key).to eq key
+      expect(query.key).to eq key
     end
   end
 
-  describe '.topic_slugs' do
+  describe '#topic_slugs' do
     it 'returns an array of topic_slugs' do
-      query = Queries::Site::TopTopics.new 1, 3
+      query = described_class.new site_id: 1, nr: 3
+      result_list = double
+      key_double = double
 
-      result_list = mock
-
-      key_mock = mock
-      key_mock.should_receive(:zrevrange).with(0, 2).and_return(result_list)
-
-      query.should_receive(:key).and_return(key_mock)
+      key_double.should_receive(:zrevrange).with(0, 2).and_return(result_list)
+      query.should_receive(:key).and_return(key_double)
 
       expect(query.topic_slugs).to eq result_list
     end
   end
 
-  describe '.call' do
+  describe '#call' do
 
     before do
       stub_classes 'Topic'
       stub_classes 'KillObject'
     end
 
-
     it 'kills all the retrieved topics' do
-      query = Queries::Site::TopTopics.new 1, 3
+      query = described_class.new site_id: 1, nr: 3
+      topic1 = double(id: '1e')
+      topic2 = double(id: '2f')
 
-      topic1 = stub(id: '1e')
-      topic2 = stub(id: '2f')
-
-      dead_topic1 = mock
-      dead_topic2 = mock
+      dead_topic1 = double
+      dead_topic2 = double
 
       query.stub topics: [topic1,topic2]
 
@@ -78,19 +72,14 @@ describe Queries::Site::TopTopics do
   describe '.topics' do
     it 'returns a list of Topics' do
       stub_classes 'Topic'
-      query = Queries::Site::TopTopics.new 1, 3
-
-      topics = [
-        stub(slug_title: '1e'),
-        stub(slug_title: '2f')
+      query = described_class.new site_id: 1, nr: 3
+      topics = [        double(slug_title: '1e'),        double(slug_title: '2f')
       ]
-
       topic_slugs = topics.map(&:slug_title)
 
       topics.each do |topic|
         Topic.should_receive(:where).with(slug_title: topic.slug_title).and_return([topic])
       end
-
       query.should_receive(:topic_slugs).and_return(topic_slugs)
 
       expect(query.topics).to match_array topics

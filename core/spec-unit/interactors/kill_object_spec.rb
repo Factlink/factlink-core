@@ -4,23 +4,23 @@ require_relative '../../app/interactors/kill_object.rb'
 describe KillObject do
   describe '#kill' do
     it "retains requested methods" do
-      test = mock('test', foo:'bar')
+      test = double('test', foo:'bar')
       dead = KillObject.kill :name, test, [:foo]
       expect(dead.foo).to eq('bar')
     end
     it "drops methods which are not requested" do
-      test = mock('test', foo:'bar')
+      test = double('test', foo:'bar')
       dead = KillObject.kill :name, test, [:harrie]
       expect(dead).to_not respond_to(:foo)
     end
     it "adds extra fields defined in extra_fields hash" do
-      test = mock('test', foo:'bar')
+      test = double('test', foo:'bar')
       dead = KillObject.kill :name, test, [:foo], pinda: 'kaas'
       expect(dead.foo).to eq('bar')
       expect(dead.pinda).to eq('kaas')
     end
     it "fixes the to_json method on an open_struct" do
-      test = mock('test', foo:'bar')
+      test = double('test', foo:'bar')
       dead = KillObject.kill :name, test, [:foo], pinda: 'kaas'
       test_json = 'test json'
 
@@ -29,7 +29,7 @@ describe KillObject do
       dead.to_json.should eq test_json
     end
     it "stores the dead object name" do
-      test = mock('test', foo:'bar')
+      test = double('test', foo:'bar')
       dead = KillObject.kill :name, test, [:foo]
       expect(dead.dead_object_name).to eq(:name)
     end

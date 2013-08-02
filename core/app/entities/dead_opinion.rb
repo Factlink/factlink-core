@@ -55,11 +55,19 @@ class DeadOpinion
       authority   += opinion.authority
     end
 
-    if authority > 0
-      DeadOpinion.new believes   /authority,
-                      disbelieves/authority,
-                      doubts     /authority,
+    if authority != 0
+      DeadOpinion.new believes    / authority,
+                      disbelieves / authority,
+                      doubts      / authority,
                       authority
+    else
+      DeadOpinion.zero
+    end
+  end
+
+  def positive
+    if authority > 0
+      self
     else
       DeadOpinion.zero
     end

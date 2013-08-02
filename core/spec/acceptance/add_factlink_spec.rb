@@ -10,7 +10,7 @@ describe "creating a Factlink", type: :feature do
   end
 
   before :each do
-    @user = sign_in_user FactoryGirl.create :active_user
+    @user = sign_in_user create :active_user
   end
 
   it "should add a factlink" do

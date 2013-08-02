@@ -16,7 +16,7 @@ module Commands
       end
 
       def fact
-        @fact ||= query :'facts/get_dead', @fact_id
+        @fact ||= old_query :'facts/get_dead', fact_id
       end
 
       def namespace
@@ -29,7 +29,7 @@ module Commands
 
       def validate
         # HACK! Fix this through pavlov serialization (ask @markijbema or @janpaul123)
-        if pavlov_options['serialize_id']
+        if pavlov_options.has_key? 'serialize_id'
           self.pavlov_options = Util::PavlovContextSerialization.deserialize_pavlov_context(pavlov_options)
         end
 

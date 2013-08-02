@@ -7,7 +7,7 @@ describe "factlink", type: :feature do
 
   context "for logged in users" do
     before :each do
-      @user = sign_in_user FactoryGirl.create :active_user
+      @user = sign_in_user create :active_user
     end
 
     it "evidence can be added" do

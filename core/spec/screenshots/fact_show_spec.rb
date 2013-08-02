@@ -4,14 +4,12 @@ describe "factlink", type: :feature do
   include Screenshots::DiscussionHelper
 
   it "the layout of the discussion page is correct" do
-    @user = sign_in_user FactoryGirl.create :active_user
+    @user = sign_in_user create :active_user
 
     @factlink = create_discussion
 
     go_to_fact_show_of @factlink
     find('a', text: 'Comments (1)').click
-
-    find('a', text: '(more)').click
 
     page.should have_content @factlink.data.displaystring
 
@@ -64,7 +62,7 @@ describe "factlink", type: :feature do
 
 
   it "the layout of the discussion page is correct for an anonymous user" do
-    @user = sign_in_user FactoryGirl.create :active_user
+    @user = sign_in_user create :active_user
 
     @factlink = create_discussion
 
@@ -72,7 +70,6 @@ describe "factlink", type: :feature do
 
     go_to_fact_show_of @factlink
     find('a', text: 'Comments (1)').click
-    find('a', text: '(more)').click
 
     page.should have_content @factlink.data.displaystring
 
