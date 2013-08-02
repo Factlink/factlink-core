@@ -162,4 +162,6 @@ group :development do
   gem 'rails_best_practices', '~> 1', require: false
   gem 'rubocop', require: false
   gem 'hub', '~> 1', require: false
+  gem 'selenium', require: false
+  gem 'selenium-webdriver', require: false
 end

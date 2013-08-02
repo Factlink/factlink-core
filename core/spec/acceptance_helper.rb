@@ -19,8 +19,11 @@ RSpec.configure do |config|
   config.filter_run_excluding slow: true unless ENV['RUN_SLOW_TESTS']
 
   # webkit always has js enabled, so always use this:
-  Capybara.javascript_driver = :poltergeist
-  Capybara.default_driver = :poltergeist
+  driver = if ENV["USE_SELENIUM"] then :selenium else :poltergeist end
+
+  Capybara.javascript_driver = driver
+  Capybara.default_driver = driver
+
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
