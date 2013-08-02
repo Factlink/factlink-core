@@ -16,17 +16,13 @@ module Acceptance
       end
 
       def posting_factlink?
-        within add_evidence_form_css_selector do
-          page.find('input').click
-          find('button').has_content? 'Post Factlink'
-        end
+        find('.fact-relation-search input[type=text]')[:placeholder]
+          .include? 'Factlink'
       end
 
       def posting_comment?
-        within add_evidence_form_css_selector do
-          page.find('input').click
-          find('button').has_content? 'Post Comment'
-        end
+        find('.fact-relation-search input[type=text]')[:placeholder]
+          .include? 'Comment'
       end
 
       def add_comment comment
