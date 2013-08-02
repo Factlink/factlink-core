@@ -3,7 +3,7 @@ module Acceptance
       def toggle_to_comment
         within add_evidence_form_css_selector do
           evidence_input = page.find_field 'text_input_view'
-          evidence_input.trigger 'focus'
+          evidence_input.click
 
           page.find('.js-switch').set true
         end
@@ -31,9 +31,8 @@ module Acceptance
         within add_evidence_form_css_selector do
           comment_input = page.find_field 'add_comment'
 
-          comment_input.trigger 'focus'
+          comment_input.click
           comment_input.set comment
-          comment_input.trigger 'blur'
 
           click_button 'Post comment'
         end
