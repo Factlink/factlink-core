@@ -47,7 +47,8 @@ module Acceptance
 
         within add_evidence_form_css_selector do
           text = evidence_factlink.to_s
-          page.find("input").set(text)
+          page.find("input[type=text]").click
+          page.find("input[type=text]").set(text)
           page.find("li", text: text).click
           page.find_button("Post Factlink").click
         end
