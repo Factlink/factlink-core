@@ -33,17 +33,16 @@ module Acceptance
 
     def click_wheel_part position, css_path=''
       #fire click event on svg element
-      page.execute_script("var path = $('" + css_path + " .fact-wheel path')[#{position}];
-                           var event = document.createEvent('MouseEvents');
-                           event.initMouseEvent('click');path.dispatchEvent(event);")
-      wait_for_ajax
+      svg_path_el = all("#{css_path} .fact-wheel path")[position]
+      svg_path_el.click
+      # page.execute_script("
+      #   var path = $('#{css_path} .fact-wheel path')[#{position}];
+      #   $(path).trigger('click');
+      #   ")
+      # wait_for_ajax
 
       #wait for animation
-      sleep 0.3
-    end
-
-    def click_wheel_agree css_path=''
-      click_wheel_part 0, css_path
+      # sleep 3.3
     end
   end
 end
