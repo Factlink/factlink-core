@@ -56,8 +56,9 @@ feature "follow_users_in_tour", type: :feature do
 
     page.should have_content('Skip this step')
 
-    click_on 'Follow user' # Click one of both users
-    wait_for_ajax
+    # Click on one user
+    first(:button, 'Follow user').click
+
     page.should have_content('Following')
     page.should have_content('Finish tour')
   end
@@ -67,8 +68,7 @@ feature "follow_users_in_tour", type: :feature do
     visit interests_path
     click_on 'Got it!'
 
-    click_on 'Follow user'
-    wait_for_ajax
+    first(:button, 'Follow user').click
 
     go_to_profile_page_of @user
     check_follower_following_count 1, 0
@@ -79,10 +79,8 @@ feature "follow_users_in_tour", type: :feature do
     visit interests_path
     click_on 'Got it!'
 
-    click_on 'Follow user'
-    wait_for_ajax
-    click_on 'Follow user'
-    wait_for_ajax
+    first(:button, 'Follow user').click
+    first(:button, 'Follow user').click
 
     click_on 'Finish tour'
     click_topic_in_sidebar 'toy'
@@ -93,11 +91,8 @@ feature "follow_users_in_tour", type: :feature do
     visit interests_path
     click_on 'Got it!'
 
-    click_on 'Follow user'
-    wait_for_ajax
-
-    click_on 'Following' # Unfollow
-    wait_for_ajax
+    first(:button, 'Follow user').click
+    first(:button, 'Following').click # Unfollow
 
     go_to_profile_page_of @user
     check_follower_following_count 0, 0

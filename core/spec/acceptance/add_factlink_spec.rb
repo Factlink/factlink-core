@@ -35,8 +35,6 @@ describe "creating a Factlink", type: :feature do
     add_as_new_channel new_topic_name
     click_button "Post to Factlink"
 
-    wait_for_ajax
-
     visit fact_path(Fact.last.id)
 
     open_modal 'Repost' do

@@ -49,10 +49,7 @@ module Acceptance
           text = evidence_factlink.to_s
           page.find("input").set(text)
           page.find("li", text: text).click
-          page.find("input", visible: false)
           page.find_button("Post Factlink").click
-
-          wait_for_ajax
         end
       end
 
