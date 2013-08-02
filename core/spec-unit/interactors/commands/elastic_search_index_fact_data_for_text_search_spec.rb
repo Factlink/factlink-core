@@ -14,7 +14,7 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
 
   describe 'validations' do
     it 'raises when fact_data is not a FactData' do
-      command = described_class.new 'FactData'
+      command = described_class.new(object: 'FactData')
 
       expect { command.call }
         .to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
@@ -28,14 +28,14 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/factdata/#{fact_data.id}"
-      command = described_class.new fact_data
+      command = described_class.new(object: fact_data)
 
       hashie = {}
       json_document = double
       command.stub(:document).and_return(hashie)
       hashie.stub(:to_json).and_return(json_document)
 
-      HTTParty.should_receive(:put).with(url, { body: json_document })
+      HTTParty.should_receive(:put).with(url, body:json_document )
 
       command.call
     end

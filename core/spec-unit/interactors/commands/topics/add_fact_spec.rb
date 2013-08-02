@@ -11,7 +11,8 @@ describe Commands::Topics::AddFact do
   describe '#execute' do
     it 'correctly' do
       fact_id = "1"
-      command = described_class.new fact_id, '1e', ''
+      command = described_class.new fact_id: fact_id, topic_slug_title: '1e',
+        score: ''
       key = double
       score = double
 
@@ -25,7 +26,7 @@ describe Commands::Topics::AddFact do
 
   describe '#redis_key' do
     before do
-      stub_classes("Topic")
+      stub_classes('Topic')
     end
 
     it 'calls nest correcly' do
@@ -34,7 +35,8 @@ describe Commands::Topics::AddFact do
       nest_instance = double
       key = double
       final_key = double
-      command = described_class.new "1", topic_slug_title, score.to_s
+      command = described_class.new fact_id: '1',
+        topic_slug_title: topic_slug_title, score: score.to_s
 
       Topic.should_receive(:redis).and_return(nest_instance)
       nest_instance.should_receive(:[]).with(topic_slug_title).and_return(key)
@@ -46,14 +48,15 @@ describe Commands::Topics::AddFact do
 
   describe '.score' do
     before do
-      stub_classes("Ohm::Model::TimestampedSet")
+      stub_classes('Ohm::Model::TimestampedSet')
     end
 
     it 'calls timestamped_set.current_time with score' do
       score = '123'
       current_time = double
 
-      command = described_class.new "1", "slug", score
+      command = described_class.new fact_id: '1', topic_slug_title: 'slug',
+        score: score
 
       Ohm::Model::TimestampedSet.should_receive(:current_time).with(score).and_return(current_time)
 
@@ -64,7 +67,8 @@ describe Commands::Topics::AddFact do
       score = ''
       current_time = double
 
-      command = described_class.new "1", "slug", score
+      command = described_class.new fact_id: '1', topic_slug_title: 'slug',
+        score: score
 
       Ohm::Model::TimestampedSet.should_receive(:current_time).with(nil).and_return(current_time)
 
@@ -72,19 +76,19 @@ describe Commands::Topics::AddFact do
     end
   end
 
-  describe '#validation' do
+  describe 'validation' do
     it :fact_id do
-      expect_validating('a', '2e', Time.now).
+      expect_validating(fact_id: 'a', topic_slug_title: '2e', score: Time.now).
         to fail_validation('fact_id should be an integer string.')
     end
 
     it :topic_slug_title do
-      expect_validating("1", 1, Time.now).
+      expect_validating(fact_id: '1', topic_slug_title: 1, score: Time.now).
         to fail_validation('topic_slug_title should be a string.')
     end
 
     it :score do
-      expect_validating("1", '2e', nil).
+      expect_validating(fact_id: '1', topic_slug_title: '2e', score: nil).
         to fail_validation('score should be a string.')
     end
   end

@@ -8,8 +8,8 @@ describe MapReduce::FactCredibility do
 
   describe "#authorities_from_topic" do
     it do
-      authorities = mock(:authorities)
-      topic = mock(:topic, id: 10)
+      authorities = double(:authorities)
+      topic = double(:topic, id: 10)
 
       Authority.stub(:all_from)
                .with(topic)
@@ -23,13 +23,13 @@ describe MapReduce::FactCredibility do
 
   describe "#wrapped_map" do
     it do
-      facts = mock :facts,
+      facts = double :facts,
         ids: [20]
-      ch1 = mock :channel,
+      ch1 = double :channel,
               sorted_cached_facts: facts,
-              topic: mock
+              topic: double
 
-      authority = mock :authority,
+      authority = double :authority,
                     user_id: 13,
                     to_f: 57.0
 

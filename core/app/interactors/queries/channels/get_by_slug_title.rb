@@ -21,7 +21,6 @@ module Queries
       def created_by_id
         pavlov_options[:current_user].graph_user_id
       end
-
     end
   end
 end

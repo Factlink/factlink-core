@@ -6,17 +6,17 @@ describe Interactors::Comments::UpdateOpinion do
   include PavlovSupport
 
   it 'without current user gives an unauthorized exception' do
-    expect_validating( '1', 'believes' )
+    expect_validating(comment_id: '1', opinion: 'believes' )
       .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'with a invalid comment_id doesn\'t validate' do
-    expect_validating( 'g', 'believes' )
+    expect_validating(comment_id: 'g', opinion: 'believes' )
       .to fail_validation 'comment_id should be an hexadecimal string.'
   end
 
   it 'with a invalid opinion doesn\'t validate' do
-    expect_validating( '1', 'dunno')
+    expect_validating(comment_id: '1', opinion: 'dunno')
       .to fail_validation 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].'
   end
 
@@ -27,11 +27,12 @@ describe Interactors::Comments::UpdateOpinion do
 
     it 'call the set_opinion command when an opinion is being set' do
       opinion = 'believes'
-      user = mock(graph_user: mock)
-      comment = mock(id: '123')
+      user = double(graph_user: double)
+      comment = double(id: '123')
       pavlov_options = { current_user: user }
 
-      interactor = described_class.new comment.id, opinion, pavlov_options
+      interactor = described_class.new comment_id: comment.id, opinion: opinion,
+        pavlov_options: { current_user: user }
 
       Pavlov.stub(:old_query)
         .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
@@ -44,10 +45,11 @@ describe Interactors::Comments::UpdateOpinion do
     end
 
     it 'calls the remove_opinion command when no opinion is passed' do
-      user = mock(graph_user: mock)
-      comment = mock(id: '123')
+      user = double(graph_user: double)
+      comment = double(id: '123')
       pavlov_options = {current_user: user}
-      interactor = described_class.new comment.id, nil, pavlov_options
+      interactor = described_class.new comment_id: comment.id, opinion: nil,
+                                       pavlov_options: pavlov_options
 
       Pavlov.stub(:old_query).with(:'comments/get', comment.id, pavlov_options).and_return(comment)
 
@@ -61,13 +63,14 @@ describe Interactors::Comments::UpdateOpinion do
 
     it 'refreshes the comment after calling recalculate_comment_user_opinion' do
       opinion = 'believes'
-      user = mock(graph_user: mock)
+      user = double(graph_user: double)
       pavlov_options = {current_user: user}
 
-      comment = mock(id: 'abc')
+      comment = double(id: 'abc')
       updated_comment = double
 
-      interactor = described_class.new comment.id, opinion, pavlov_options
+      interactor = described_class.new comment_id: comment.id, opinion: opinion,
+        pavlov_options: { current_user: user }
 
       Pavlov.stub(:old_query)
         .with(:'comments/get', comment.id, pavlov_options).and_return(comment)

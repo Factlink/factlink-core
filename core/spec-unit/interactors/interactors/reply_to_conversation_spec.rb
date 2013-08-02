@@ -12,13 +12,14 @@ describe Interactors::ReplyToConversation do
   describe '#call' do
     it 'correctly' do
       graph_user   = double
-      sender       = mock(:user, id: 13, graph_user: graph_user)
+      sender       = double(:user, id: 13, graph_user: graph_user)
       content      = 'geert'
-      conversation = mock(:conversation, id: 20)
+      conversation = double(:conversation, id: 20)
       message      = double
       options      = {current_user: sender}
 
-      interactor = Interactors::ReplyToConversation.new conversation.id.to_s, sender.id.to_s, content, options
+      interactor = described_class.new conversation_id: conversation.id.to_s,
+        sender_id: sender.id.to_s, content: content, pavlov_options: options
 
       Conversation.should_receive(:find).with(conversation.id.to_s).and_return(conversation)
       Pavlov.should_receive(:old_command)

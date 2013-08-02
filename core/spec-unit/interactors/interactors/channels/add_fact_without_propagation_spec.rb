@@ -3,18 +3,20 @@ require_relative '../../../../app/interactors/interactors/channels/add_fact_with
 
 describe Interactors::Channels::AddFactWithoutPropagation do
   include PavlovSupport
+
   describe '#call' do
     it 'adds the fact to the topic and the channel' do
-      fact = mock :fact,
-                 id: mock,
+      fact = double :fact,
+                 id: double,
                  created_by_id: 14
-      channel = mock :channel,
+      channel = double :channel,
                     type: 'channel',
-                    slug_title: mock,
+                    slug_title: double,
                     created_by_id: fact.created_by_id()
-      score = mock(:score, to_s: mock)
+      score = double(:score, to_s: double)
 
-      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
+      interactor = described_class.new fact: fact, channel: channel, score: score,
+        should_add_to_unread: false
 
       interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
@@ -26,16 +28,18 @@ describe Interactors::Channels::AddFactWithoutPropagation do
     end
 
     it 'does not add the fact to a topic if the channel is no real channel' do
-      fact = mock :fact,
-                 id: mock,
+      fact = double :fact,
+                 id: double,
                  created_by_id: 14
-      channel = mock :channel,
+      channel = double :channel,
                     type: 'notchannel',
-                    slug_title: mock,
+                    slug_title: double,
                     created_by_id: fact.created_by_id + 1
-      score = mock(:score, to_s: mock)
+      score = double(:score, to_s: double)
 
-      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
+      interactor = described_class.new fact: fact, channel: channel, score: score,
+        should_add_to_unread: false
+
       interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
 
@@ -43,22 +47,23 @@ describe Interactors::Channels::AddFactWithoutPropagation do
     end
 
     it 'adds the fact to the unread facts if it is indicated and it makes sense' do
-      fact = mock :fact,
-                 id: mock,
+      fact = double :fact,
+                 id: double,
                  created_by_id: 14
-      channel = mock :channel,
-                    unread_facts: mock,
+      channel = double :channel,
+                    unread_facts: double,
                     type: 'channel',
-                    slug_title: mock,
+                    slug_title: double,
                     created_by_id: fact.created_by_id + 1
-      score = mock(:score, to_s: mock)
+      score = double(:score, to_s: double)
 
-      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, true
+      interactor = described_class.new fact: fact, channel: channel, score: score,
+        should_add_to_unread: true
 
-      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
+      Pavlov.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
-
-      interactor.stub!(:old_command)
+      Pavlov.should_receive(:old_command).with(:"topics/add_fact",
+          fact.id, channel.slug_title, score.to_s)
 
       channel.unread_facts.should_receive(:add).with(fact)
 
@@ -66,17 +71,18 @@ describe Interactors::Channels::AddFactWithoutPropagation do
     end
 
     it "doesn't add the fact to the unread facts if the user has seen the fact because he made it" do
-      fact = mock :fact,
-                 id: mock,
+      fact = double :fact,
+                 id: double,
                  created_by_id: 14
-      channel = mock :channel,
-                    unread_facts: mock,
+      channel = double :channel,
+                    unread_facts: double,
                     type: 'channel',
-                    slug_title: mock,
+                    slug_title: double,
                     created_by_id: fact.created_by_id
-      score = mock(:score, to_s: mock)
+      score = double(:score, to_s: double)
 
-      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, true
+      interactor = described_class.new fact: fact, channel: channel, score: score,
+        should_add_to_unread: true
       interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return false
 
@@ -84,9 +90,10 @@ describe Interactors::Channels::AddFactWithoutPropagation do
     end
 
     it "returns false if the fact did not need to be added, or wasn't added " do
-      fact, channel, score = mock, mock, mock
+      fact, channel, score = double, double, double
 
-      interactor = Interactors::Channels::AddFactWithoutPropagation.new fact, channel, score, false
+      interactor = described_class.new fact: fact, channel: channel, score: score,
+        should_add_to_unread: false
       interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return false
 

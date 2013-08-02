@@ -5,6 +5,8 @@ module Queries
     class Handpicked
       include Pavlov::Query
 
+      arguments
+
       def execute
         users
       end

@@ -7,8 +7,8 @@ describe DirectedRelationsTimestampedWithReverse do
 
   let(:nest_key) do
     nest_key = double
-    nest_key.stub(:[]).with(:relation).and_return(mock)
-    nest_key.stub(:[]).with(:reverse_relation).and_return(mock)
+    nest_key.stub(:[]).with(:relation).and_return(double)
+    nest_key.stub(:[]).with(:reverse_relation).and_return(double)
     nest_key
   end
 

@@ -16,9 +16,7 @@ class UserObserver < Mongoid::Observer
   def after_destroy user
     old_command :elastic_search_delete_user_for_text_search, user
   end
-
 end
-
 
 class UserObserverTask
 

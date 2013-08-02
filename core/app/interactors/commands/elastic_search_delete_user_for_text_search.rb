@@ -6,6 +6,5 @@ module Commands
     def define_index
       type 'user'
     end
-
   end
 end

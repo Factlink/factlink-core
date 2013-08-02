@@ -17,7 +17,8 @@ describe Queries::ElasticSearchChannel do
     it 'correctly' do
       keywords = 'searching for this channel'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)'
-      query = described_class.new keywords, 1, 20
+      query = described_class.new keywords: keywords, page: 1,
+        row_count: 20
       hit = double
       results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
         code: 200)
@@ -29,6 +30,7 @@ describe Queries::ElasticSearchChannel do
       HTTParty.should_receive(:get).
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
+
       query.stub(:old_query).
         with(:'topics/by_id_with_authority_and_facts_count', 1).
         and_return(return_object)
@@ -41,10 +43,12 @@ describe Queries::ElasticSearchChannel do
       results = double(response: 'error has happened server side',
         code: 501)
       logger = double
-      query = described_class.new keywords, 1, 20, logger: logger
+      query = described_class.new keywords: keywords, page: 1, row_count: 20,
+        pavlov_options: { logger: logger }
 
       HTTParty.should_receive(:get).and_return(results)
       error_message = "Server error, status code: 501, response: '#{results.response}'."
+
       logger.should_receive(:error).with(error_message)
 
       expect { query.call }.to raise_error(RuntimeError, error_message)
@@ -53,7 +57,7 @@ describe Queries::ElasticSearchChannel do
     it 'url encodes correctly' do
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
-      query = described_class.new keywords, 1, 20
+      query = described_class.new keywords: keywords, page: 1, row_count: 20
       hit = double
       results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
         code: 200)

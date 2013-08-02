@@ -10,33 +10,30 @@ describe Interactors::Users::Followers do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new mock, mock, mock }.
-        to raise_error Pavlov::AccessDenied,'Unauthorized'
+      expect do
+        described_class.new(user_name: double, skip: double, take: double).call
+      end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 
   describe '#validate' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
+    it 'without user_id doesn\'t validate' do
+      expect_validating(user_name: 12, skip: 2, take: 12)
+        .to fail_validation('user_name should be a nonempty string.')
     end
 
-    it 'calls the correct validation methods' do
-      user_name = double
-      skip = double
-      take = double
+    it 'without user_id doesn\'t validate' do
+      expect_validating(user_name: 'karel', skip: 'a', take: 12)
+        .to fail_validation('skip should be an integer.')
+    end
 
-      described_class.any_instance.should_receive(:validate_nonempty_string).
-        with(:user_name, user_name)
-      described_class.any_instance.should_receive(:validate_integer).
-        with(:skip, skip)
-      described_class.any_instance.should_receive(:validate_integer).
-        with(:take, take)
-
-      interactor = described_class.new user_name, skip, take
+    it 'without user_id doesn\'t validate' do
+      expect_validating(user_name: 'karel', skip: 2, take: 'b')
+        .to fail_validation('take should be an integer.')
     end
   end
 
-  describe '#execute' do
+  describe '#call' do
     before do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
@@ -45,12 +42,13 @@ describe Interactors::Users::Followers do
       user_name = double
       skip = double
       take = double
-      current_user = mock(graph_user_id: mock)
-      interactor = described_class.new user_name, skip, take, current_user: current_user
-      users = mock(length: mock)
+      current_user = double(graph_user_id: double)
+      interactor = described_class.new(user_name: user_name, skip: skip,
+        take: take, pavlov_options: { current_user: current_user })
+      users = double(length: double)
       graph_user_ids = double
       count = double
-      user = mock(graph_user_id: mock)
+      user = double(graph_user_id: double)
       followed_by_me = true
 
       interactor.should_receive(:old_query).
@@ -63,11 +61,18 @@ describe Interactors::Users::Followers do
         with(:users_by_graph_user_ids, graph_user_ids).
         and_return(users)
 
-      graph_user_ids.should_receive(:include?).with(current_user.graph_user_id).and_return(followed_by_me)
-      users.should_receive(:drop).with(skip).and_return(users)
-      users.should_receive(:take).with(take).and_return(users)
+      graph_user_ids.should_receive(:include?)
+        .with(current_user.graph_user_id)
+        .and_return(followed_by_me)
 
-      returned_users, returned_count, returned_followed_by_me = interactor.execute
+      users.should_receive(:drop)
+        .with(skip)
+        .and_return(users)
+      users.should_receive(:take)
+        .with(take)
+        .and_return(users)
+
+      returned_users, returned_count, returned_followed_by_me = interactor.call
 
       expect(returned_users).to eq users
       expect(returned_count).to eq users.length

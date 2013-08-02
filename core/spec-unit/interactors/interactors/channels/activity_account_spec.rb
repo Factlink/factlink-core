@@ -3,13 +3,16 @@ require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/channels/activity_count'
 
 describe Interactors::Channels::ActivityCount do
+  include PavlovSupport
+
   describe '#call' do
     it 'correctly' do
       channel_id = double
       timestamp = double
 
-      Interactors::Channels::ActivityCount.any_instance.should_receive(:authorized?).and_return true
-      interactor = Interactors::Channels::ActivityCount.new channel_id, timestamp
+      described_class.any_instance.should_receive(:authorized?).and_return true
+      interactor = described_class.new channel_id: channel_id,
+        timestamp: timestamp
 
       interactor.should_receive(:old_query).with(:"channels/activity_count", channel_id, timestamp)
 
@@ -20,19 +23,22 @@ describe Interactors::Channels::ActivityCount do
   describe '.authorized?' do
     it 'returns the passed current_user' do
       current_user = double
-      interactor = Interactors::Channels::ActivityCount.new mock, mock, current_user: current_user
+      interactor = described_class.new channeld_id: double, timestamp: double,
+        pavlov_options: { current_user: current_user }
 
       expect(interactor.authorized?).to eq current_user
     end
 
     it 'returns true when the :no_current_user option is true' do
-      interactor = Interactors::Channels::ActivityCount.new mock, mock, no_current_user: true
+      interactor = described_class.new channel_id: double, timestamp: double,
+        pavlov_options: { no_current_user: true }
 
       expect(interactor.authorized?).to eq true
     end
 
     it 'returns false when neither :current_user or :no_current_user are passed' do
-      expect { Interactors::Channels::ActivityCount.new mock, mock }.to raise_error(Pavlov::AccessDenied)
+      expect_validating( channel_id: double, timestamp: double )
+        .to raise_error(Pavlov::AccessDenied)
     end
   end
 end

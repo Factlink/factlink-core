@@ -14,7 +14,7 @@ describe Commands::SendActivityMailToUser do
       activity_id = double
       mailer = double
 
-      command = described_class.new user_id, activity_id
+      command = described_class.new user_id: user_id, activity_id: activity_id
 
       ActivityMailer.stub(:new_activity)
                     .with(user_id, activity_id)

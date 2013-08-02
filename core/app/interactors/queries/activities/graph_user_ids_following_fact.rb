@@ -31,7 +31,8 @@ module Queries
       end
 
       def fact_relations_followers_ids
-        old_query :"activities/graph_user_ids_following_fact_relations", fact_relations
+        old_query :"activities/graph_user_ids_following_fact_relations",
+          fact_relations
       end
 
       def fact_relations

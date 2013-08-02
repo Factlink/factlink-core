@@ -1,4 +1,6 @@
 require 'pavlov_helper'
+require 'active_support/core_ext/object/blank'
+
 require_relative '../../../../app/helpers/fact_helper.rb'
 require_relative '../../../../app/interactors/queries/facts/slug.rb'
 
@@ -7,49 +9,46 @@ describe Queries::Facts::Slug do
 
   describe '#call' do
     it "sluggifies" do
-      fact = mock(id: "1", to_s: 'Bla Bla')
+      fact = double(id: "1", to_s: 'Bla Bla')
 
-      query = described_class.new fact, nil
+      query = described_class.new fact: fact, max_slug_length_in: nil
 
       expect(query.call).to eq "bla-bla"
     end
 
     it "falls back to id on empty displaystring" do
-      fact = mock(id: "1", to_s: '')
+      fact = double(id: "1", to_s: '')
 
-      query = described_class.new fact, nil
+      query = described_class.new fact: fact, max_slug_length_in: nil
 
       expect(query.call).to eq "1"
     end
 
     it "should have a maximum length" do
       max_slug_length = 5
-      fact = mock(id: "1", to_s: 'Bla Bla')
+      fact = double(id: "1", to_s: 'Bla Bla')
 
-      query = described_class.new fact, max_slug_length
+      query = described_class.new fact: fact, max_slug_length_in: max_slug_length
 
       expect(query.call).to eq "bla-b"
     end
   end
 
   describe '#validate' do
-    it 'calls the correct validation methods' do
-      fact = double
+    it 'validates that fact is not nil' do
+      query = described_class.new fact: nil, max_slug_length_in: nil
 
-      described_class.any_instance.should_receive(:validate_not_nil)
-        .with(:fact, fact)
-
-      interactor = described_class.new fact, nil
+      expect{ query.call }
+        .to raise_error(Pavlov::ValidationError, 'fact should not be nil.')
     end
 
-    it 'checks max_slug_length if it is set' do
-      fact = double
-      max_slug_length = 10
+    it 'check that max_slug_length is a number if it is set' do
+      max_slug_length = 'a'
+      query = described_class.new fact: double,
+        max_slug_length_in: max_slug_length
 
-      described_class.any_instance.should_receive(:validate_integer)
-        .with(:max_slug_length, max_slug_length)
-
-      interactor = described_class.new fact, max_slug_length
+      expect{ query.call }
+        .to raise_error(Pavlov::ValidationError, 'max_slug_length should be an integer.')
     end
   end
 end

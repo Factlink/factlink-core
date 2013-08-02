@@ -16,7 +16,8 @@ describe "credibility calculation of facts*users" do
     channels.each do |channel|
       Authority.from(channel.topic, for: u1) << 10.0
       facts.each do |fact|
-        interactor = Interactors::Channels::AddFact.new fact, channel, no_current_user: true
+        interactor = Interactors::Channels::AddFact.new fact: fact,
+          channel: channel, pavlov_options: { no_current_user: true }
         interactor.call
       end
     end

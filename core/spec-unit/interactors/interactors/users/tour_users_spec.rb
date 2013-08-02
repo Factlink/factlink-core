@@ -5,7 +5,7 @@ describe Interactors::Users::TourUsers do
   include PavlovSupport
 
   before do
-      stub_classes 'User', 'KillObject'
+    stub_classes 'User', 'KillObject'
   end
 
   describe '#authorized?' do
@@ -14,30 +14,32 @@ describe Interactors::Users::TourUsers do
       ability.stub(:can?).with(:index, User).and_return(false)
 
       expect do
-        interactor = described_class.new ability: ability
+        interactor = described_class.new(pavlov_options: { ability: ability })
+        interactor.call
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
 
   describe '#validate' do
     it 'always succeeds' do
-      described_class.new ability: mock(can?: true)
+      described_class.new(pavlov_options: { ability: double(can?: true) })
     end
   end
 
   describe '#call' do
     it 'calls the handpicked users query' do
       dead_users = [
-        mock(:user, graph_user_id: 3),
-        mock(:user, graph_user_id: 7)
+        double(:user, graph_user_id: 3),
+        double(:user, graph_user_id: 7)
       ]
-      user_topics = [mock, mock]
+      user_topics = [double, double]
 
-      dead_users_with_topics = [mock, mock]
+      dead_users_with_topics = [double, double]
 
-      options = { ability: mock(can?: true) }
+      options = { ability: double(can?: true) }
 
-      interactor = described_class.new options
+      interactor = described_class.new(pavlov_options: options)
+
       Pavlov.stub(:old_query)
             .with(:'users/handpicked', options)
             .and_return(dead_users)

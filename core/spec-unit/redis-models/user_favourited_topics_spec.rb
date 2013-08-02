@@ -2,10 +2,10 @@ require_relative '../../app/redis-models/user_favourited_topics'
 
 describe UserFavouritedTopics do
 
-  let(:relation) { mock }
-  let(:graph_user_id) { mock }
-  let(:topic_id) { mock }
-  let(:ids) { mock }
+  let(:relation) { double }
+  let(:graph_user_id) { double }
+  let(:topic_id) { double }
+  let(:ids) { double }
   let(:user_favourited_topics) { UserFavouritedTopics.new graph_user_id, relation }
 
   describe '.favourite' do

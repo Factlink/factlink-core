@@ -15,13 +15,15 @@ describe Interactors::Facts::ShareOnFacebook do
              .with(:share, Fact)
              .and_return(false)
 
-      pavlov_options = { current_user: mock,
+      pavlov_options = { current_user: double,
                          ability: ability,
                          facebook_app_namespace: 'namespace' }
 
-      expect do
-        described_class.new '1', pavlov_options
-      end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
+      interactor = described_class.new fact_id: '1',
+        pavlov_options: pavlov_options
+
+      expect { interactor.call }
+        .to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
 
@@ -29,7 +31,7 @@ describe Interactors::Facts::ShareOnFacebook do
     it 'calls the command to share on Facebook' do
       fact_id = '1'
       user    = double
-      ability = stub can?: true
+      ability = double can?: true
 
       pavlov_options = { current_user: user,
                          ability: ability,
@@ -38,39 +40,31 @@ describe Interactors::Facts::ShareOnFacebook do
       Pavlov.should_receive(:old_command)
         .with(:'facebook/share_factlink', fact_id, pavlov_options)
 
-      interactor = described_class.new fact_id, pavlov_options
+      interactor = described_class.new fact_id: fact_id,
+        pavlov_options: pavlov_options
       interactor.call
     end
   end
 
-  describe '.validate' do
-    it 'calls the correct validation methods' do
-      fact_id   = '1'
-      namespace = 'namespace'
-      user      = double
-      ability   = stub can?: true
+  describe 'validation' do
+    it 'requires fact_id to be an integer string' do
+      expect_validating(fact_id: 1)
+        .to fail_validation('fact_id should be an integer string.')
+    end
 
-      described_class
-        .any_instance
-        .should_receive(:validate_integer_string)
-        .with(:fact_id, fact_id)
+    it 'requires a current_user' do
+      hash = { fact_id: '1', pavlov_options: { current_user: nil }}
 
-      described_class
-        .any_instance
-        .should_receive(:validate_not_nil)
-        .with(:current_user, user)
+      expect_validating(hash)
+        .to fail_validation('current_user should not be nil.')
+    end
 
-      described_class.any_instance
-        .should_receive(:validate_nonempty_string)
-        .with(:facebook_app_namespace, namespace)
+    it 'requires a facebook_app_namespace' do
+      hash = { fact_id: '1', pavlov_options: { facebook_app_namespace: nil,
+        current_user: double }}
 
-      pavlov_options = { current_user: user,
-                         ability: ability,
-                         facebook_app_namespace: namespace
-                       }
-
-      interactor = described_class.new fact_id, pavlov_options
+      expect_validating(hash)
+        .to fail_validation('facebook_app_namespace should be a nonempty string.')
     end
   end
-
 end

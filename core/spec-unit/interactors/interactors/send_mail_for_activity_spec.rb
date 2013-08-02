@@ -9,29 +9,30 @@ describe Interactors::SendMailForActivity do
   end
 
   describe '#call' do
-    it 'correctly' do
-      user = mock(id: 1)
+    it do
+      user = double(id: 1)
 
-      activity = mock(id: 2)
+      activity = double(id: 2)
 
-      Interactors::SendMailForActivity.any_instance.stub(authorized?: true)
-      interactor = Interactors::SendMailForActivity.new activity
+      described_class.any_instance.stub(authorized?: true)
+      interactor = described_class.new activity: activity
 
       interactor.should_receive(:recipients).and_return([user])
 
-      Resque.should_receive(:enqueue).with(Commands::SendActivityMailToUser, user.id, activity.id, {})
+      Resque.should_receive(:enqueue).with(Commands::SendActivityMailToUser,
+        user_id: user.id, activity_id: activity.id, pavlov_options: {})
 
       interactor.call
     end
   end
 
-  describe '.recipients' do
+  describe '#recipients' do
     it 'returns only the users which want to receive notifications' do
-      user2 = mock('user2', receives_mailed_notifications: true)
-      user1 = mock('user1', receives_mailed_notifications: false)
+      user2 = double('user2', receives_mailed_notifications: true)
+      user1 = double('user1', receives_mailed_notifications: false)
 
-      Interactors::SendMailForActivity.any_instance.stub(authorized?: true)
-      interactor = Interactors::SendMailForActivity.new mock()
+      described_class.any_instance.stub(authorized?: true)
+      interactor = described_class.new activity: double
 
       interactor.should_receive(:users_by_graph_user_ids).
                  and_return([user1,user2])
@@ -40,15 +41,15 @@ describe Interactors::SendMailForActivity do
     end
   end
 
-  describe '.users_by_graph_user_ids' do
+  describe '#users_by_graph_user_ids' do
     it 'calls the relevant queries to retrieve users' do
       user2 = double
       user1 = double
       graph_user_ids = double
       activity = double
 
-      Interactors::SendMailForActivity.any_instance.stub(authorized?: true)
-      interactor = Interactors::SendMailForActivity.new activity
+      described_class.any_instance.stub(authorized?: true)
+      interactor = described_class.new activity: activity
 
       interactor.should_receive(:old_query).with(:object_ids_by_activity, activity, "GraphUser", :notifications).
         and_return(graph_user_ids)

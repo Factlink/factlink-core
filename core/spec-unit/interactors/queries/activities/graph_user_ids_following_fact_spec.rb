@@ -10,14 +10,13 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
 
   describe '#call' do
     it 'returns a unique list of ids' do
-      fact = mock :fact,
+      fact = double :fact,
         created_by_id: 1,
         opinionated_users_ids: [2, 3],
-        fact_relations: mock,
+        fact_relations: double,
         data_id: 133
       comments = double
-
-      query = described_class.new fact
+      query = described_class.new fact: fact
 
       Comment.stub(:where)
              .with(fact_data_id: fact.data_id)

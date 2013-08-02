@@ -33,8 +33,8 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        pavlov.old_interactor :'accounts/setup_approved',
-            user.reset_password_token, attributes
+        pavlov.old_interactor(:'accounts/setup_approved',
+          user.reset_password_token, attributes)
       end
 
       updated_user = User.find(user.id)

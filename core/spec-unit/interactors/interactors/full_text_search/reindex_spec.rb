@@ -47,8 +47,8 @@ describe Interactors::FullTextSearch::Reindex do
       stub_classes 'FactData'
       stub_classes 'CreateSearchIndexForFactData'
 
-      fact_data_1 = stub(id: '11aa')
-      fact_data_2 = stub(id: '22bb')
+      fact_data_1 = double(id: '11aa')
+      fact_data_2 = double(id: '22bb')
 
       fact_data_list = [fact_data_1, fact_data_2]
 
@@ -66,8 +66,8 @@ describe Interactors::FullTextSearch::Reindex do
       stub_classes 'Topic'
       stub_classes 'CreateSearchIndexForTopics'
 
-      topic1 = stub(id: '33cc')
-      topic2 = stub(id: '44dd')
+      topic1 = double(id: '33cc')
+      topic2 = double(id: '44dd')
       topics = [topic1, topic2]
 
       Topic.should_receive(:all).and_return(topics)
@@ -84,8 +84,8 @@ describe Interactors::FullTextSearch::Reindex do
       stub_classes 'User'
       stub_classes 'CreateSearchIndexForUser'
 
-      user1 = stub(id: '33cc')
-      user2 = stub(id: '44dd')
+      user1 = double(id: '33cc')
+      user2 = double(id: '44dd')
       users = [user1, user2]
 
       User.should_receive(:all).and_return(users)

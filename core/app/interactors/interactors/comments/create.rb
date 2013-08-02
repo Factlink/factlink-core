@@ -9,7 +9,7 @@ module Interactors
 
       def execute
         comment = old_command :create_comment, fact_id, type,
-          @content, pavlov_options[:current_user].id.to_s
+          content, pavlov_options[:current_user].id.to_s
 
         old_command :'comments/set_opinion', comment.id.to_s, 'believes', pavlov_options[:current_user].graph_user
         old_command :'opinions/recalculate_comment_user_opinion', comment

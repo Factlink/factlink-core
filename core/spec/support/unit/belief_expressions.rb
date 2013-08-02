@@ -52,7 +52,8 @@ module BeliefExpressions
   end
 
   def add_to_global_channel(factlink)
-    Interactors::Channels::AddFact.new(factlink, global_channel, no_current_user:true).call
+    Interactors::Channels::AddFact.new(fact: factlink, channel: global_channel,
+      pavlov_options: { no_current_user: true }).call
   end
 
   def possible_reset
@@ -82,7 +83,7 @@ module BeliefExpressions
 
   def opinion?(fact)
     possible_reset
-    opinion = Pavlov.query 'opinions/opinion_for_fact', fact
+    opinion = Pavlov.old_query 'opinions/opinion_for_fact', fact
     opinion.should
   end
 

@@ -9,8 +9,8 @@ describe Commands::Topics::UpdateUserAuthority do
   end
 
   describe '#call' do
-    let(:graph_user) { mock id: '12', user: mock(id: 'a87') }
-    let(:topic) { mock id: 'a5', slug_title: 'foo' }
+    let(:graph_user) { double id: '12', user: double(id: 'a87') }
+    let(:topic) { double id: 'a5', slug_title: 'foo' }
     let(:authority) { 15 }
 
     before do
@@ -25,13 +25,14 @@ describe Commands::Topics::UpdateUserAuthority do
     it 'updates the authority' do
       authority_object = double
 
-      query = described_class.new graph_user.id, topic.slug_title, authority
+      query = described_class.new graph_user_id: graph_user.id,
+        topic_slug: topic.slug_title, authority: authority
 
 
       Authority.stub(:from).with(topic, for: graph_user)
                .and_return authority_object
       topic.stub(top_users_add: nil)
-      TopicsSortedByAuthority.stub new: (mock set:nil)
+      TopicsSortedByAuthority.stub new: (double set:nil)
 
       authority_object.should_receive(:<<)
                       .with(authority)
@@ -42,10 +43,11 @@ describe Commands::Topics::UpdateUserAuthority do
     it "updates the top_users of the topic" do
       authority_object = double
 
-      query = described_class.new graph_user.id, topic.slug_title, authority
+      query = described_class.new graph_user_id: graph_user.id,
+        topic_slug: topic.slug_title, authority: authority
 
-      Authority.stub from: mock(:<< => nil)
-      TopicsSortedByAuthority.stub new: (mock set:nil)
+      Authority.stub from: double(:<< => nil)
+      TopicsSortedByAuthority.stub new: (double set:nil)
 
       topic.should_receive(:top_users_add)
            .with(graph_user.user, authority)
@@ -56,9 +58,10 @@ describe Commands::Topics::UpdateUserAuthority do
     it "updates the top topics of the user" do
       user_topics_list = double
 
-      query = described_class.new graph_user.id, topic.slug_title, authority
+      query = described_class.new graph_user_id: graph_user.id,
+        topic_slug: topic.slug_title, authority: authority
 
-      Authority.stub from: mock(:<< => nil)
+      Authority.stub from: double(:<< => nil)
       topic.stub(top_users_add: nil)
 
       TopicsSortedByAuthority.stub(:new)
@@ -69,6 +72,18 @@ describe Commands::Topics::UpdateUserAuthority do
                       .with(topic.id, authority)
 
       query.call
+    end
+  end
+
+  describe 'validation' do
+    it 'requires a graph_user_id' do
+      expect_validating(graph_user_id: '', topic_slug: '1a', authority: double)
+        .to fail_validation('graph_user_id should be an integer string.')
+    end
+
+    it 'requires a topic_slug' do
+      expect_validating(graph_user_id: '6', topic_slug: 34, authority: double)
+        .to fail_validation('topic_slug should be a string.')
     end
   end
 
