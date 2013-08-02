@@ -60,7 +60,7 @@ module Acceptance
         toggle_to_factlink unless posting_factlink?
 
         within add_evidence_form_css_selector do
-          page.find("input").set(text)
+          page.find("input[type=text]").set(text)
           page.find_button("Post Factlink").click
         end
       end
