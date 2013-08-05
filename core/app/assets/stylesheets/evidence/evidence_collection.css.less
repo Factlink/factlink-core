@@ -156,6 +156,15 @@
   > .evidence-spacer-right { float: right; }
 }
 
+.evidence-irrelevant > .evidence-box {
+  opacity: 0.6;
+  .transition(opacity 0.2s);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
 .evidence-loading > .evidence-impact img {
   position: absolute;
   top: 50%; left: 50%;
