@@ -10,8 +10,7 @@ feature 'the profile page', type: :feature do
     channel = create :channel, created_by: user.graph_user
 
     go_to_profile_page_of user
-
-    find('.top-channels *', text: channel.title)
+    find('.top-channels a', text: channel.title)
   end
 
   scenario 'follow a user and unfollow a user' do
