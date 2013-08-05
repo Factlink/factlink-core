@@ -1,11 +1,11 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-.avatar-wrapper {
+.heading-avatar {
   width: 32px; //override width/height and the rest scales.
   height: 32px;
-  top: -2px;
-  margin-right: 6px;
+  top: -2px; // consider customizing on resize
+  margin-right: 6px; //consider customizing on resize
 
   display: inline-block;
   vertical-align: top;
@@ -41,4 +41,12 @@
     z-index: -1;
     .new-design-box-shadow();
   }
+}
+
+.heading-avatar.heading-avatar-large {
+  //make avatar bigger than usual.
+  width:48px;
+  height:48px;
+  top: 0;
+  margin-right: 9px;
 }
