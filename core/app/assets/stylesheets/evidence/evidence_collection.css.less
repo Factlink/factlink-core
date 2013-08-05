@@ -57,16 +57,25 @@
   box-sizing: content-box;
 }
 
-.evidence-line {
+.evidence-line-background {
   position: absolute;
   left: 50%;
-  width: 3px;
+  width: 0px;
   margin-left: -1px;
   z-index: -2;
   top: -@topFactWheelOverhang;
   bottom: 0;
-  background: @lineColor;
+  box-shadow: 0 0 80px 100px rgba(233, 234, 238, 0.8);
   visibility: visible;
+
+  .evidence-line {
+    position: absolute;
+    left: 0;
+    width: 3px;
+    top: 0;
+    bottom: 0;
+    background: @lineColor;
+  }
 }
 
 .evidence-terminator {
