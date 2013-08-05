@@ -12,7 +12,7 @@ describe TopicsController do
       it 'calls the interactor with the correct parameters' do
         slug_title = 'foo'
         topic = double
-        format = mock(json: nil, html: nil)
+        format = double(json: nil, html: nil)
 
         controller.stub(params: {id: slug_title})
 
@@ -27,7 +27,7 @@ describe TopicsController do
 
     context 'html' do
       it 'should render a backbone page' do
-        format = mock(json: nil, html: nil)
+        format = double(json: nil, html: nil)
 
         controller.should_receive(:backbone_responder)
 

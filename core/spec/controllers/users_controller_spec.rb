@@ -96,7 +96,7 @@ describe UsersController do
 
       should_check_can :mark_activities_as_read, user
 
-      DateTime.stub!(:now).and_return datetime
+      DateTime.stub(:now).and_return datetime
 
       post :mark_activities_as_read, username: user.username, format: :json
 

@@ -38,7 +38,7 @@ describe IdentitiesController do
     it 'should sign a user in when one is found' do
       user = double
       provider_name = double
-      omniauth_obj = mock(uid: true)
+      omniauth_obj = double(uid: true)
 
       stub_const("User", Class.new)
       User.should_receive(:find_for_oauth).with(provider_name, omniauth_obj.uid).and_return(user)
@@ -52,17 +52,17 @@ describe IdentitiesController do
 
     it 'should redirect to the correct path when no user is found' do
       user = false
-      provider_name = mock(capitalize: true)
-      omniauth_obj = mock(uid: true)
+      provider_name = double(capitalize: true)
+      omniauth_obj = double(uid: true)
 
 
       stub_const("User", Class.new)
       User.should_receive(:find_for_oauth).with(provider_name, omniauth_obj.uid).and_return(user)
 
-      redirect_url = mock
+      redirect_url = double
       env_hash = {'omniauth.origin' => redirect_url}
       subject.stub flash: Hash.new,
-                   request: stub(:request,
+                   request: double(:request,
                      env: env_hash)
       subject.stub(:provider_name).and_return(provider_name)
 

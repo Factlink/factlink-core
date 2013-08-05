@@ -7,7 +7,7 @@ describe ConversationsController do
     it "calls the correct query" do
       authenticate_user! user
 
-      conversation = mock(:conversation, )
+      conversation = double(:conversation, )
 
       pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)

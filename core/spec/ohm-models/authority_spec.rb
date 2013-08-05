@@ -144,9 +144,9 @@ describe Authority do
       end
     end
     it "should use the mapreducers provided" do
-      calculator = mock(:calculator)
+      calculator = double(:calculator)
       calculator.should_receive(:process_all).once
-      some_class = mock(:SomeClass)
+      some_class = double(:SomeClass)
       some_class.should_receive(:new).and_return(calculator)
       Authority.run_calculation [some_class]
     end
