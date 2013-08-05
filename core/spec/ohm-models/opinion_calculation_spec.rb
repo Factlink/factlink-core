@@ -5,7 +5,7 @@ describe "computed opinion" do
   include BeliefExpressions
 
   before do
-    Commands::Topics::UpdateUserAuthority.stub new: (stub call: nil)
+    Commands::Topics::UpdateUserAuthority.stub new: (double call: nil)
   end
 
   let(:u1) { create(:user) }
