@@ -58,7 +58,7 @@ describe Channel do
     describe "after adding one fact" do
       before do
         add_fact_to_channel f1, channel
-        Fact.should_receive(:invalid).any_number_of_times.and_return(false)
+        Fact.stub invalid: false
       end
       it do
          channel.facts.to_a.should =~ [f1]

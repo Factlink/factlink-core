@@ -13,7 +13,7 @@ describe SupportingEvidenceController do
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
     stub_const 'Activity::Subject', Class.new
-    Activity::Subject.should_receive(:activity).any_number_of_times
+    Activity::Subject.stub(:activity)
   end
 
   describe :combined_index do
@@ -102,7 +102,7 @@ describe EvidenceController do
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
     stub_const 'Activity::Subject', Class.new
-    Activity::Subject.should_receive(:activity).any_number_of_times
+    Activity::Subject.stub(:activity)
   end
 
   describe :set_opinion do

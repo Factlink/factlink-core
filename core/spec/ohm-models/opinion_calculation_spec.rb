@@ -30,7 +30,7 @@ describe "computed opinion" do
     # TODO: remove this once activities are not created in the models any more,
     # but in interactors
     stub_const 'Activity::Subject', Class.new
-    Activity::Subject.should_receive(:activity).any_number_of_times
+    Activity::Subject.stub(:activity)
     Fact.any_instance.stub(:add_to_created_facts).and_return(true)
   end
 
