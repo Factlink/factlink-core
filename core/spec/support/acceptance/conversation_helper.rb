@@ -35,14 +35,12 @@ module Acceptance
     end
 
     def add_recipient name
-      page.find(:css, 'input').set(name)
+      page.find(:css, 'input[type=text]').set(name)
 
       within('.auto-complete-search-list') do
         el = page.find('li .text em', text: name)
-        el.trigger 'mouseover'
-        el.trigger 'click'
-
-        sleep 1
+        el.click
+        # sleep 1
       end
 
       page.find('.auto-complete-results-container', text: name)
@@ -59,9 +57,9 @@ module Acceptance
     end
 
     def open_message_with_content(message_str)
-      click_link "conversations-link"
+      find(".navbar-inner:not(.dimmed) .conversations-link").click
 
-      sleep 2
+      # sleep 2
 
       within '.conversations li' do
         page.should have_content(message_str)
