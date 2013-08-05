@@ -56,7 +56,10 @@ class NDPVotableEvidenceLayoutView extends NDPEvidenceLayoutView
 
   onRender: ->
     @contentRegion.show new NDPFactRelationOrCommentView model: @model
-    @voteRegion.show new NDPEvidenceVoteView model: @model
+
+    if Factlink.Global.signed_in
+      @voteRegion.show new NDPEvidenceVoteView model: @model
+      @$el.addClass 'evidence-has-arrows'
 
 
 class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView

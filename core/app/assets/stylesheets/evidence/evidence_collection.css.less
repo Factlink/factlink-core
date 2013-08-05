@@ -6,12 +6,18 @@
 @topFactWheelOverhang: 62px;
 @impactCircleDiameter: 53px;
 @argumentBoxTopOverhang: 12px;
-@impactCircleSpacing: 30px;
-@impactCircleVotableAdditionalSpacing: 15px;
+@impactCircleTopSpacing: 30px;
 @evidenceBoxSpacing: 10px;
 @impactColouredBorderWidth: 3px;
 @evidenceRegionHorizontalMargin: 16px;
 @evidenceRegionBottomPadding: 10px;
+
+// Arrows:
+@impactCircleVotableWithoutArrowsTopSpacing: 15px;
+@arrowInnerSpacing: 10px;
+@arrowOuterSpacing: 0px;
+@arrowWidth: 21px;
+@arrowHeight: 12px;
 
 // Triangles:
 // - An inner triangle with the box's background color
@@ -34,13 +40,13 @@
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 
-@unsureImpactToBoxDistance: @impactCircleSpacing/2 + @triangleSize;
+@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @triangleSize;
 
 // The unsure (middle) box needs to leave space for the impact circle since its
 // impact circle cannot be floated (both left/right would be problematic).
 @unsureImpactRelativeTop: -@impactCircleDiameter
                           - @unsureImpactToBoxDistance
-                          + @impactCircleSpacing
+                          + @impactCircleTopSpacing
                           - @argumentBoxTopOverhang;
 
 // Colours
@@ -110,7 +116,7 @@
   }
 
   > .evidence-impact {
-    margin-top: @impactCircleSpacing;
+    margin-top: @impactCircleTopSpacing;
     position: relative;
     margin-right: 50%;
     right: ceil(-@impactCircleDiameter/2);
@@ -124,7 +130,7 @@
   }
 
   > .evidence-impact {
-    margin-top: @impactCircleSpacing;
+    margin-top: @impactCircleTopSpacing;
     position: relative;
     margin-left: 50%;
     left: floor(-@impactCircleDiameter/2);
@@ -151,7 +157,7 @@
   > .evidence-spacer-right {
     width: 0;
     visibility: hidden;
-    height: @impactCircleSpacing - @unsureImpactRelativeTop;
+    height: @impactCircleTopSpacing - @unsureImpactRelativeTop;
   }
   > .evidence-spacer-left  { float: left; }
   > .evidence-spacer-right { float: right; }
@@ -161,10 +167,6 @@
   position: absolute;
   top: 50%; left: 50%;
   margin:-8px;
-}
-
-.evidence-votable > .evidence-impact {
-  margin-top: @impactCircleSpacing + @impactCircleVotableAdditionalSpacing;
 }
 
 // Coloured half-circles
@@ -272,9 +274,20 @@
 }
 
 // Voting arrows
-@arrowWidth: 21px;
-@arrowHeight: 12px;
-@arrowSpacing: 6px;
+.evidence-votable > .evidence-impact {
+  margin-top: @impactCircleTopSpacing + @impactCircleVotableWithoutArrowsTopSpacing;
+}
+
+@arrowAdditionalSpacing: @arrowHeight + @arrowInnerSpacing + @arrowOuterSpacing;
+.evidence-votable.evidence-has-arrows > .evidence-impact {
+  margin-top: @impactCircleTopSpacing + @arrowAdditionalSpacing;
+  margin-bottom: @arrowAdditionalSpacing;
+}
+
+.evidence-votable.evidence-has-arrows > .evidence-box {
+  margin-top: @evidenceBoxTopOffset - @arrowAdditionalSpacing;
+}
+
 .evidence-impact-vote-up, .evidence-impact-vote-down {
   width: @arrowWidth;
   height: @arrowHeight;
