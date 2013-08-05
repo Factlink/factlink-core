@@ -293,30 +293,33 @@
   height: @arrowHeight;
   position: absolute;
   left: @impactCircleDiameter/2 - @arrowWidth/2 + 1px;
-  opacity: 0.8;
-
-  &:hover {
-    opacity: 1.0;
-  }
 
   display: none;
 }
 
 .evidence-impact-vote-up {
-  background: asset-data-url('evidence-arrows/up-arrow-unclicked.png');
-  top: -@arrowHeight - @arrowSpacing;
+  background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
+  top: -@arrowHeight - @arrowInnerSpacing;
 
   &.active {
     background: asset-data-url('evidence-arrows/up-arrow-clicked.png');
+  }
+
+  &:hover {
+    background: asset-data-url('evidence-arrows/up-arrow-hover.png');
   }
 }
 
 .evidence-impact-vote-down {
   background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
-  bottom: -@arrowHeight - @arrowSpacing;
+  bottom: -@arrowHeight - @arrowInnerSpacing;
 
   &.active {
     background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
+  }
+
+  &:hover {
+    background: asset-data-url('evidence-arrows/down-arrow-hover.png');
   }
 }
 
