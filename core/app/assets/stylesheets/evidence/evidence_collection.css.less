@@ -15,7 +15,6 @@
 // Arrows:
 @impactCircleVotableWithoutArrowsTopSpacing: 15px;
 @arrowInnerSpacing: 8px;
-@arrowOuterSpacing: 0px;
 @arrowWidth: 21px;
 @arrowHeight: 12px;
 
@@ -286,7 +285,7 @@
   margin-top: @impactCircleTopSpacing + @impactCircleVotableWithoutArrowsTopSpacing;
 }
 
-@arrowAdditionalSpacing: @arrowHeight + @arrowInnerSpacing + @arrowOuterSpacing;
+@arrowAdditionalSpacing: @arrowHeight + @arrowInnerSpacing;
 .evidence-votable.evidence-has-arrows > .evidence-impact {
   margin-top: @impactCircleTopSpacing + @arrowAdditionalSpacing;
   margin-bottom: @arrowAdditionalSpacing;
