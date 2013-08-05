@@ -6,10 +6,10 @@ class Channel < OurOhm
       'created'
     end
 
-    def add_fields
+    def validate
       self.title = 'Created'
+      super
     end
-    before :validate, :add_fields
 
     def topic
       nil

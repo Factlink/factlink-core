@@ -11,6 +11,7 @@ class ActivityMailer < ActionMailer::Base
 
     blacklisted_activities = ['invites']
     return if blacklisted_activities.include? @activity.action
+    return unless @activity.still_valid?
 
     mail to: @user.email,
          subject: get_mail_subject_for_activity(@activity),
