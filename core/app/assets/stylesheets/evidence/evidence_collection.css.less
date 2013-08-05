@@ -269,3 +269,37 @@
     }
   }
 }
+
+// Voting arrows
+@arrowWidth: 21px;
+@arrowHeight: 12px;
+@arrowSpacing: 6px;
+.evidence-impact-vote-up, .evidence-impact-vote-down {
+  width: @arrowWidth;
+  height: @arrowHeight;
+  position: absolute;
+  left: @impactCircleDiameter/2 - @arrowWidth/2 + 1px;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1.0;
+  }
+
+  display: none;
+}
+
+.evidence-impact-vote-up {
+  background: asset-data-url('evidence-arrows/up-arrow-unclicked.png');
+  top: -@arrowHeight - @arrowSpacing;
+}
+
+.evidence-impact-vote-down {
+  background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
+  bottom: -@arrowHeight - @arrowSpacing;
+}
+
+.evidence-votable {
+  .evidence-impact-vote-up, .evidence-impact-vote-down {
+    display: block;
+  }
+}
