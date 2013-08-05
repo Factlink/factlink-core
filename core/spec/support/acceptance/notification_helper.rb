@@ -8,14 +8,8 @@ module Acceptance
       find('#notifications a.dropdown-toggle').click
     end
 
-    def click_on_nth_notification nr
-      within_nth_notification nr do
-        find("a").click
-      end
-    end
-
-    def within_nth_notification nr, &block
-      within("#notifications .dropdown-menu li[#{nr}]") do
+    def within_first_notification &block
+      within("#notifications .dropdown-menu li") do
         yield
       end
     end
