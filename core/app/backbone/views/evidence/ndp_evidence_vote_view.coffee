@@ -41,7 +41,7 @@ class window.NDPEvidenceVoteView extends Backbone.Marionette.ItemView
 
     @popoverResetAll()
     @popoverAdd selector,
-      side: if @model.get('type') == 'believes' then 'left' else 'right'
+      side: @side()
       align: 'top'
       fadeTime: 40
       contentView: @bound_popup_view view_klass
@@ -53,3 +53,9 @@ class window.NDPEvidenceVoteView extends Backbone.Marionette.ItemView
       @popoverResetAll()
 
     view
+
+  side: ->
+    if @model.get('type') == 'believes'
+      'left'
+    else
+      'right'
