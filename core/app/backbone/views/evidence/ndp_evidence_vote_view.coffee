@@ -6,8 +6,8 @@ class window.NDPEvidenceVoteView extends Backbone.Marionette.ItemView
   template: 'evidence/ndp_evidence_vote'
 
   events:
-    "click .js-up": "_on_up_vote"
-    "click .js-down":  "_on_down_vote"
+    "click .js-up":   "_on_up_vote"
+    "click .js-down": "_on_down_vote"
 
   initialize: ->
     @bindTo @model, "change", @render, @
