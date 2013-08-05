@@ -7,8 +7,8 @@
 @max-z-index  : 2147483647;
 @popup-width  : 105px;
 @popup-height : 24px;
-@border-color : #bcbec2;
-@buttonBackground: #e4e6eb;
+@border-color : #1c5c90;
+@buttonBackground: #3D75A3;
 
 span.factlink {
   cursor: pointer;
@@ -58,17 +58,6 @@ span.factlink {
   background: #3d75a3;
   padding:  2px 12px 8px 10px;
   text-shadow: 0px -1px 2px rgba(0, 0, 1px, 0.5);
-
-  a {
-    #fl > .resetStyles();
-    color: #fff;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background: darken(@buttonBackground, 5);
-    border-bottom-color: darken(@border-color, 5);
-  }
 }
 
 .logo-positioning {
@@ -101,9 +90,17 @@ span.factlink {
     position: absolute;
     z-index:  @max-z-index;
 
-    .the-new-button;
+    border: 1px solid #51677b;
+    .border-radius(5px,5px,5px,5px);
+    color: #fff;
+    .double-inner-shadow(0, 1px, 0, 0.16);
+    background: #3d75a3;
+    padding:  2px 12px 8px 10px;
+    text-shadow: 0px -1px 2px rgba(0, 0, 1px, 0.5);
+
     .logo-white;
 
+    /* pick only usefull css */
     font-weight: 300;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -119,9 +116,10 @@ span.factlink {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 
     &:hover {
-      background-color: #366890;
-      border-bottom-color: #184e7b;
+      background: darken(@buttonBackground, 5);
+      border-bottom-color: darken(@border-color, 5);
     }
+
     &:active {
       background-color: #366890;
       border-bottom-color: #366890;
@@ -131,7 +129,8 @@ span.factlink {
     }
 
     a {
-      color: white;
+      #fl > .resetStyles();
+      color: #fff;
       text-decoration: none;
     }
 
