@@ -9,7 +9,7 @@ module Interactors
       arguments :user_name
 
       def authorized?
-        @options[:current_user] and can? :show_favourites, user
+        pavlov_options[:current_user] and can? :show_favourites, user
       end
 
       def validate
@@ -17,16 +17,16 @@ module Interactors
       end
 
       def user
-        @user ||= query :user_by_username, user_name
+        @user ||= old_query :user_by_username, user_name
       end
 
       def favourite_topic_ids
-        query :'topics/favourite_topic_ids', user.graph_user_id
+        old_query :'topics/favourite_topic_ids', user.graph_user_id
       end
 
       def favourite_topics
         favourite_topic_ids.map do |topic_id|
-          query :'topics/by_id', topic_id
+          old_query :'topics/by_id', topic_id
         end
       end
 

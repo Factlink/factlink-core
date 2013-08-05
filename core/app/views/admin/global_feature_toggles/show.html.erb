@@ -1,0 +1,22 @@
+<h1>Global feature toggles</h1>
+
+<%= form_tag admin_global_feature_toggles_path, method: 'PUT' do %>
+
+  <% Ability::FEATURES.each do |feature|
+    enabled = @enabled_features.include? feature
+    %>
+    <label>
+      <%= check_box_tag "features[#{feature}]", "1", enabled %>
+      <%= h feature %>
+    </label>
+  <% end %>
+
+  <% dead_features.each do |feature| %>
+    <label>
+      <%= check_box_tag "features[#{feature}]", "1", true %>
+      <del><%= h feature %></del>
+    </label>
+  <% end %>
+
+  <%= submit_tag 'Save', class: 'btn', :'data-disable-with' => "Saving..." %>
+<% end %>

@@ -10,18 +10,18 @@ describe MapReduce::FactAuthority do
   end
   describe "#wrapped_map" do
     it do
-      fact_relations = mock ids: [1,2,3]
+      fact_relations = double ids: [1,2,3]
 
       fact_relation_db = {
-        1 => stub(:FactRelation,
+        1 => double(:FactRelation,
           from_fact_id: 10,
           created_by_id: 20,
         ),
-        2 => stub(:FactRelation,
+        2 => double(:FactRelation,
           from_fact_id: 10,
           created_by_id: 15,
         ),
-        3 => stub(:FactRelation,
+        3 => double(:FactRelation,
           from_fact_id: 12,
           created_by_id: 13,
         )
@@ -36,10 +36,10 @@ describe MapReduce::FactAuthority do
 
   describe "#reduce" do
     it do
-      fact = stub :Fact,
+      fact = double :Fact,
             created_by_id: 3,
             opinionated_users_count: 100,
-            channels: stub(:Set, count: 40)
+            channels: double(:Set, count: 40)
 
       Fact.stub(:[]).with(12)
           .and_return fact

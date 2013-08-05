@@ -1,34 +1,29 @@
 require 'pavlov_helper'
+require_relative '../../../app/interactors/queries/elastic_search.rb'
 require_relative '../../../app/interactors/queries/elastic_search_user.rb'
 
 describe Queries::ElasticSearchUser do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'FactlinkUser'
+    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'FactlinkUser', 'Logger'
   end
 
-  it 'initializes' do
-    query = Queries::ElasticSearchUser.new 'interesting search keywords', 1, 20
-
-    query.should_not be_nil
-  end
-
-  describe '.call' do
+  describe '#call' do
     it 'executes correctly with return value of User class' do
-      config = mock
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for users'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(users*+OR+users)'
-      interactor = Queries::ElasticSearchUser.new keywords, 1, 20
-      hit = mock
-      mongoid_user = mock()
-      results = mock
+      query = described_class.new keywords: keywords, page: 1, row_count: 20
+      hit = double
+      mongoid_user = double
+      results = double
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       results.stub code: 200
-      user = mock
+      user = double
 
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('user')
@@ -37,24 +32,25 @@ describe Queries::ElasticSearchUser do
         and_return(results)
       User.should_receive(:find).with(1).and_return(mongoid_user)
       FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
+      Logger.stub(:new).with(STDERR).and_return(double)
 
-      interactor.call.should eq [user]
+      expect(query.call).to eq [user]
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
-      config = mock()
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for this channel'
-      results = mock()
+      results = double
       error_response = 'error has happened server side'
       results.stub response: error_response
       results.stub code: 501
-      logger = mock()
+      logger = double
       error_message = "Server error, status code: 501, response: '#{error_response}'."
 
-      query = Queries::ElasticSearchUser.new keywords, 1, 20, logger: logger
+      query = described_class.new keywords: keywords, page: 1, row_count: 20, pavlov_options: { logger: logger }
 
       HTTParty.should_receive(:get).
         and_return(results)
@@ -64,19 +60,19 @@ describe Queries::ElasticSearchUser do
     end
 
     it 'url encodes keywords' do
-      config = mock()
+      config = double
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
-      interactor = Queries::ElasticSearchUser.new keywords, 1, 20
-      hit = mock()
-      results = mock()
+      query = described_class.new keywords: keywords, page: 1, row_count: 20
+      hit = double
+      results = double
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       results.stub code: 200
-      mongoid_user = mock
-      user = mock
+      mongoid_user = double
+      user = double
 
       hit.should_receive(:[]).with('_id').and_return(1)
       hit.should_receive(:[]).with('_type').and_return('user')
@@ -86,7 +82,7 @@ describe Queries::ElasticSearchUser do
       User.should_receive(:find).with(1).and_return(mongoid_user)
       FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
 
-      interactor.call.should eq [user]
+      expect(query.call).to eq [user]
     end
   end
 end

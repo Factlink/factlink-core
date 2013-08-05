@@ -3,7 +3,12 @@
 
 <div class="evidence-impact">
   <div class="new-design-background-shadow"></div>
-  {{formatted_impact}}
+  {{#positive_impact}}
+    {{formatted_impact}}
+  {{/positive_impact}}
+  {{^positive_impact}}
+    0.0
+  {{/positive_impact}}
 </div>
 <div class="evidence-box">
   <div class="evidence-box-triangle"></div>

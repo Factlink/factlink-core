@@ -7,9 +7,9 @@ describe RecentlyViewedFacts do
 
   describe '.add_fact_id' do
     it 'only adds the fact id' do
-      nest = mock
-      current_time = mock
-      fact_id = mock
+      nest = double
+      current_time = double
+      fact_id = double
 
       RecentlyViewedFacts.stub current_time: current_time
 
@@ -21,8 +21,8 @@ describe RecentlyViewedFacts do
 
   describe '.top' do
     it 'retrieves the last "count" facts' do
-      fact = mock id: 14
-      nest = mock
+      fact = double id: 14
+      nest = double
       count = 10
 
       nest.should_receive(:zrevrange).with(0, count-1).and_return([fact.id])
@@ -36,7 +36,7 @@ describe RecentlyViewedFacts do
 
     it 'doesnt return nil facts' do
       fact_id = 14
-      nest = stub zrevrange: [fact_id]
+      nest = double zrevrange: [fact_id]
 
       Fact.should_receive(:[]).any_number_of_times.with(fact_id).and_return nil
 
@@ -48,7 +48,7 @@ describe RecentlyViewedFacts do
 
   describe '.truncate' do
     it 'removes all elements except "keep_count' do
-      nest = mock
+      nest = double
       keep_count = 20
 
       nest.should_receive(:zremrangebyrank).with(0, -keep_count-1)
@@ -59,9 +59,9 @@ describe RecentlyViewedFacts do
 
   describe '#by_user_id' do
     it 'uses a key with :user:id' do
-      nest = mock
-      nest_user = mock
-      nest_user_id = mock
+      nest = double
+      nest_user = double
+      nest_user_id = double
       user_id = 20
 
       nest.should_receive(:[]).with(:user).and_return(nest_user)

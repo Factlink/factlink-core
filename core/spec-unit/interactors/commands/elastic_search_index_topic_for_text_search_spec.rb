@@ -5,45 +5,39 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
   include PavlovSupport
 
   let(:topic) do
-    topic = stub()
-    topic.stub id: 1,
-               title: 'title',
-               slug_title: 'slug title'
-    topic
+    double(id: 1, title: 'title', slug_title: 'slug title')
   end
 
   before do
     stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
-  describe '.new' do
-    it 'returns a new non nil instance' do
-      interactor = described_class.new topic
-
-      interactor.should_not be_nil
-    end
-
+  describe 'validations' do
     it 'raises when topic is not a Topic' do
-      expect { interactor = described_class.new 'Topic' }.
-        to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
+      command = described_class.new(object: 'Topic')
+
+      expect { command.call }
+        .to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
     end
   end
 
   describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
-      config = mock()
+      config = double
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/topic/#{topic.id}"
-      interactor = described_class.new topic
-      json_document = mock
+      command = described_class.new(object: topic)
 
-      interactor.should_receive(:json_document).and_return(json_document)
-      HTTParty.should_receive(:put).with(url,
-        { body: json_document})
+      hashie = {}
+      json_document = double
+      command.stub(:document).and_return(hashie)
+      hashie.stub(:to_json).and_return(json_document)
 
-      interactor.call
+      HTTParty.should_receive(:put).with(url, { body: json_document })
+
+      command.call
     end
   end
 end

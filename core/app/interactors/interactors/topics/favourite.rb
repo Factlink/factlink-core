@@ -11,19 +11,19 @@ module Interactors
       arguments :user_name, :slug_title
 
       def authorized?
-        @options[:current_user] and can? :edit_favourites, user
+        pavlov_options[:current_user] and can? :edit_favourites, user
       end
 
       def user
-        @user ||= query :user_by_username, user_name
+        @user ||= old_query :user_by_username, user_name
       end
 
       def topic
-        @topic ||= query :'topics/by_slug_title', slug_title
+        @topic ||= old_query :'topics/by_slug_title', slug_title
       end
 
       def execute
-        command :'topics/favourite', user.graph_user_id, topic.id.to_s
+        old_command :'topics/favourite', user.graph_user_id, topic.id.to_s
         track_mixpanel
         nil
       end

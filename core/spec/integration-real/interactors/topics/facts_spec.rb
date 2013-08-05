@@ -12,27 +12,27 @@ describe Interactors::Topics::Facts do
     title = "Channel Title"
 
     as(user1) do |pavlov|
-      channel1 = pavlov.command :'channels/create', title
-      fact1 = pavlov.interactor :'facts/create', 'a fact', '', '', {}
-      pavlov.interactor :"channels/add_fact", fact1, channel1
+      channel1 = pavlov.old_command :'channels/create', title
+      fact1 = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+      pavlov.old_interactor :"channels/add_fact", fact1, channel1
     end
 
     as(user2) do |pavlov|
-      channel2 = pavlov.command :'channels/create', title
-      fact2 = pavlov.interactor :'facts/create', 'a fact', '', '', {}
-      pavlov.interactor :"channels/add_fact", fact2, channel2
+      channel2 = pavlov.old_command :'channels/create', title
+      fact2 = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+      pavlov.old_interactor :"channels/add_fact", fact2, channel2
     end
 
     as(user3) do |pavlov|
-      channel3 = pavlov.command :'channels/create', title
-      fact3 = pavlov.interactor :'facts/create', 'a fact', '', '', {}
-      pavlov.interactor :"channels/add_fact", fact3, channel3
+      channel3 = pavlov.old_command :'channels/create', title
+      fact3 = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+      pavlov.old_interactor :"channels/add_fact", fact3, channel3
     end
 
     slug_title = channel1.slug_title
 
     as(user1) do |pavlov|
-      facts = pavlov.interactor :"topics/facts", slug_title, nil, nil
+      facts = pavlov.old_interactor :"topics/facts", slug_title, nil, nil
     end
 
     fact_ids = facts.map {|item| item[:item].id }

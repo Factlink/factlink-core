@@ -1,18 +1,18 @@
 class UserFavouriteTopicsController < ApplicationController
 
   def index
-    @topics = interactor :'topics/favourites', username
+    @topics = old_interactor :'topics/favourites', username
 
     render 'topics/index', format: 'json'
   end
 
   def update
-    interactor :'topics/favourite', username, slug_title
+    old_interactor :'topics/favourite', username, slug_title
     return_ok
   end
 
   def destroy
-    interactor :'topics/unfavourite', username, slug_title
+    old_interactor :'topics/unfavourite', username, slug_title
     return_ok
   end
 

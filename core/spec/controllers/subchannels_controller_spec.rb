@@ -12,7 +12,7 @@ describe SubchannelsController do
 
   describe "#index" do
     it "as json should be successful" do
-      Commands::Channels::AddSubchannel.new(ch1, followed_channel).call
+      Commands::Channels::AddSubchannel.new(channel: ch1, subchannel: followed_channel).call
 
       authenticate_user!(user)
       should_check_can :show, ch1

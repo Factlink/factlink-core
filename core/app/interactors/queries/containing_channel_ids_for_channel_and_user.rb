@@ -8,6 +8,7 @@ module Queries
   # this for a channel of the graph_user
   class ContainingChannelIdsForChannelAndUser
     include Pavlov::Query
+
     arguments :channel_id, :graph_user_id
 
     def execute
@@ -28,5 +29,4 @@ module Queries
       @channel ||= Channel[@channel_id]
     end
   end
-
 end

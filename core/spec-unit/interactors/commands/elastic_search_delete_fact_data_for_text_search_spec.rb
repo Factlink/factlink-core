@@ -5,7 +5,7 @@ describe Commands::ElasticSearchDeleteFactDataForTextSearch do
   include PavlovSupport
 
   let(:fact_data) do
-    fact_data = stub()
+    fact_data = double
     fact_data.stub id: 1
     fact_data
   end
@@ -26,10 +26,10 @@ describe Commands::ElasticSearchDeleteFactDataForTextSearch do
       to raise_error(RuntimeError, 'factdata missing fields ([:id]).')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
-      config = mock()
+      config = double
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
 

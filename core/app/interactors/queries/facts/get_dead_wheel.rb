@@ -20,7 +20,7 @@ module Queries
       end
 
       def opinion
-        query :'opinions/opinion_for_fact', fact
+        old_query :'opinions/opinion_for_fact', fact
       end
 
       def fact
@@ -36,7 +36,7 @@ module Queries
       end
 
       def current_user
-        @options[:current_user] || AnonymousUser.new
+        pavlov_options[:current_user] || AnonymousUser.new
       end
 
       def validate

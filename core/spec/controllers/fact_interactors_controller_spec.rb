@@ -5,7 +5,7 @@ describe FactInteractorsController do
 
   render_views
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { create(:user) }
 
   describe :index do
     it "should keep the same content" do

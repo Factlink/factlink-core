@@ -18,15 +18,17 @@ describe Channel do
   context "activity on a channel" do
     before do
       # TODO: remove this once creating an activity does not cause an email to be sent
-      send_mail_interactor = stub call: nil
+      send_mail_interactor = double call: nil
       stub_const 'Interactors::SendMailForActivity', Class.new
-      Interactors::SendMailForActivity.stub new: send_mail_interactor
+      Pavlov.stub(:old_interactor)
+        .with(:send_mail_for_activity, an_instance_of(Activity), { current_user: true })
     end
 
     describe "when adding a subchannel" do
       it "creates an added_subchannel activity" do
         pavlov_options = {ability: (mock can?: true)}
-        Interactors::Channels::AddSubchannel.new(channel.id, ch1.id, pavlov_options).call
+        Interactors::Channels::AddSubchannel.new(channel_id: channel.id,
+          subchannel_id: ch1.id, pavlov_options: pavlov_options).call
         last_activity = Activity.for(channel).to_a.last
         expect(last_activity.action).to eq "added_subchannel"
       end
@@ -56,7 +58,7 @@ describe Channel do
     describe "after adding one fact" do
       before do
         add_fact_to_channel f1, channel
-        Fact.should_receive(:invalid).any_number_of_times.and_return(false)
+        Fact.stub invalid: false
       end
       it do
          channel.facts.to_a.should =~ [f1]
@@ -72,7 +74,7 @@ describe Channel do
       describe "after forking" do
         before do
           @fork = Channel.create created_by: u2, title: "Fork"
-          Commands::Channels::AddSubchannel.new(@fork, channel).call
+          Commands::Channels::AddSubchannel.new(channel: @fork, subchannel: channel).call
           @fork.title = "Fork"
           @fork.save
         end
@@ -122,7 +124,8 @@ describe Channel do
 
           describe "after removing the original channel from the fork" do
             it "the fork contains no channels, and only its own facts" do
-              Commands::Channels::RemoveSubchannel.new(@fork, channel).call
+              Commands::Channels::RemoveSubchannel.new(channel: @fork,
+                subchannel: channel).call
 
               @fork.containing_channels.to_a.should =~ []
               @fork.facts.to_a.should eq [f2]
@@ -132,7 +135,8 @@ describe Channel do
         end
         describe "after removing the original channel from the fork" do
           it "the fork contains no channels, and no facts" do
-            Commands::Channels::RemoveSubchannel.new(@fork, channel).call
+            Commands::Channels::RemoveSubchannel.new(channel: @fork,
+              subchannel: channel).call
 
             @fork.containing_channels.to_a.should =~ []
             @fork.facts.to_a.should eq []
@@ -143,7 +147,8 @@ describe Channel do
 
     describe "after adding a subchannel" do
       before do
-        Commands::Channels::AddSubchannel.new(channel, ch1).call
+        Commands::Channels::AddSubchannel.new(channel: channel,
+          subchannel: ch1).call
       end
       it do
         channel.contained_channels.to_a.should =~ [ch1]
@@ -151,7 +156,8 @@ describe Channel do
       end
       describe "after adding another subchannel" do
         before do
-          Commands::Channels::AddSubchannel.new(channel, ch2).call
+          Commands::Channels::AddSubchannel.new(channel: channel,
+            subchannel: ch2).call
         end
         it do
           channel.contained_channels.to_a.should =~ [ch1,ch2]
@@ -160,7 +166,8 @@ describe Channel do
         end
         describe "after deleting the first subchannel" do
           it do
-            Commands::Channels::RemoveSubchannel.new(channel, ch1).call
+            Commands::Channels::RemoveSubchannel.new(channel: channel,
+              subchannel: ch1).call
 
             channel.contained_channels.to_a.should =~ [ch2]
             ch1.containing_channels.to_a.should =~ []
@@ -172,13 +179,16 @@ describe Channel do
 
     describe "after adding to two channels" do
       before do
-        Commands::Channels::AddSubchannel.new(ch1, channel).call
-        Commands::Channels::AddSubchannel.new(ch2, channel).call
+        Commands::Channels::AddSubchannel.new(channel: ch1,
+          subchannel: channel).call
+        Commands::Channels::AddSubchannel.new(channel: ch2,
+          subchannel: channel).call
       end
       it {channel.containing_channels.to_a.should =~ [ch1,ch2]}
       describe "after removing it from one channel" do
         it do
-          Commands::Channels::RemoveSubchannel.new(ch1, channel).call
+          Commands::Channels::RemoveSubchannel.new(channel: ch1,
+            subchannel: channel).call
           channel.containing_channels.to_a.should =~ [ch2]
         end
       end
@@ -269,21 +279,21 @@ describe Channel do
       end
       it "should remove itself from other channels' containing_channels" do
         id = ch1.id
-        Commands::Channels::AddSubchannel.new(ch1, u1_ch1).call
+        Commands::Channels::AddSubchannel.new(channel: ch1, subchannel: u1_ch1).call
         u1_ch1.containing_channels.ids.should =~ [id]
         ch1.delete
         u1_ch1.containing_channels.ids.should =~ []
       end
       it "should be removed from the contained_channels when deleted" do
         id = ch1.id
-        Commands::Channels::AddSubchannel.new(ch1, u1_ch1).call
+        Commands::Channels::AddSubchannel.new(channel: ch1, subchannel: u1_ch1).call
         ch1.contained_channels.ids.should =~ [u1_ch1.id]
 
         u1_ch1.delete
         ch1.contained_channels.ids.should =~ []
       end
       it "should remove activities" do
-        Commands::Channels::AddSubchannel.new(ch1, u1_ch1).call
+        Commands::Channels::AddSubchannel.new(channel: ch1, subchannel: u1_ch1).call
         fakech1 = Channel[ch1.id]
         add_fact_to_channel f1, ch1
         ch1.delete
@@ -373,7 +383,7 @@ describe Channel do
       before do
         add_fact_to_channel f1, u1_ch1
         add_fact_to_channel f2, u2_ch1
-        Commands::Channels::AddSubchannel.new(u1_ch1, u2_ch1).call
+        Commands::Channels::AddSubchannel.new(channel: u1_ch1, subchannel: u2_ch1).call
         u2_ch1.delete
       end
       it "should not remove the facts from the channels which follow this channel" do

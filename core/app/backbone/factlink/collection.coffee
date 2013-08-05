@@ -2,12 +2,14 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.Collection extends Backbone.Collection
   constructor: (args...) ->
     super args...
-    @loading = false
-    @on 'before:fetch', => @loading = true
-    @on 'reset',        => @loading = false
+    @_loading = false
+    @on 'before:fetch', => @_loading = true
+    @on 'reset',        => @_loading = false
+
+  loading: -> @_loading
 
   waitForFetch: (callback) ->
-    if @loading
+    if @loading()
       resetCallback = ->
         @off 'reset', resetCallback
 
@@ -19,7 +21,7 @@ class Backbone.Factlink.Collection extends Backbone.Collection
       callback.call(this, this)
 
   fetchOnce: (options={}) ->
-    if @loading
+    if @loading()
       @waitForFetch options.success if options.success?
     else
       @fetch options

@@ -5,7 +5,7 @@ describe Commands::ElasticSearchDeleteTopicForTextSearch do
   include PavlovSupport
 
   let(:topic) do
-    topic = stub()
+    topic = double
     topic.stub id: 1
     topic
   end
@@ -26,10 +26,10 @@ describe Commands::ElasticSearchDeleteTopicForTextSearch do
       to raise_error(RuntimeError, 'topic missing fields ([:id]).')
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
-      config = mock()
+      config = double
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
 

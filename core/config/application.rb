@@ -149,6 +149,10 @@ module FactlinkUI
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store
+
+
+    config.less.paths << File.join(config.root, 'vendor', 'frameworks')
+
   end
 end
 

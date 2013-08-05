@@ -23,13 +23,13 @@ module Interactors
       end
 
       def create_activity sub_comment
-        command :create_activity,
-          @options[:current_user].graph_user, :created_sub_comment,
+        old_command :create_activity,
+          pavlov_options[:current_user].graph_user, :created_sub_comment,
           sub_comment, top_fact
       end
 
       def authority_of_user_who_created sub_comment
-        query :authority_on_fact_for, top_fact, sub_comment.created_by.graph_user
+        old_query :authority_on_fact_for, top_fact, sub_comment.created_by.graph_user
       end
     end
   end

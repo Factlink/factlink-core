@@ -20,7 +20,15 @@ class Channel < OurOhm
   attribute :slug_title
   index :slug_title
 
-  after :create, :increment_mixpanel_count
+  def create
+    result = super
+
+    increment_mixpanel_count
+    Topic.get_or_create_by_channel(self) if type == 'channel'
+
+    result
+  end
+
   def increment_mixpanel_count
     return unless type == 'channel' and self.created_by.user
 
@@ -35,16 +43,9 @@ class Channel < OurOhm
     self.slug_title = new_title.to_url
   end
 
-  before :save, :before_save_actions
-  def before_save_actions
-    self.title = self.title
-  end
-
-  after :save, :after_save_actions
-  def after_save_actions
-    return unless type == 'channel'
-
-    Topic.get_or_create_by_channel(self)
+  def save
+    self.title = self.title if type == 'channel'
+    super
   end
 
   reference :created_by, GraphUser
@@ -60,8 +61,6 @@ class Channel < OurOhm
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
 
-
-  alias :original_ohm_delete :delete unless method_defined?(:original_ohm_delete)
   def delete
     contained_channels.each do |subch|
       subch.containing_channels.delete self
@@ -72,7 +71,7 @@ class Channel < OurOhm
     Activity.for(self).each do |a|
       a.delete
     end
-    original_ohm_delete
+    super
   end
 
   def channel_facts
@@ -83,13 +82,14 @@ class Channel < OurOhm
            :to => :channel_facts
 
   def validate
-    execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
-    super
+    result = super
+
     assert_present :title
     assert_present :slug_title
     assert_present :created_by
     assert_unique([:slug_title,:created_by_id])
-    execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
+
+    result
   end
 
   def to_s

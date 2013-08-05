@@ -17,14 +17,14 @@ class ChannelsController < ApplicationController
   respond_to :json, :html
 
   def index
-    @channels = interactor :'channels/visible_of_user_for_user', @user
+    @channels = old_interactor :'channels/visible_of_user_for_user', @user
   end
 
   def show
     authorize! :show, @channel
 
     backbone_responder do
-      @channel = interactor :'channels/get', @channel.id
+      @channel = old_interactor :'channels/get', @channel.id
     end
 
     mark_channel_as_read if request.format.html?
@@ -33,7 +33,7 @@ class ChannelsController < ApplicationController
   #TODO Move to topicscontroller, this searches for topics, not for channels
   def search
     # TODO add access control
-    @topics = interactor :search_channel, params[:s]
+    @topics = old_interactor :search_channel, params[:s]
     render 'topics/index', formats: [:json]
   end
 
@@ -66,7 +66,7 @@ class ChannelsController < ApplicationController
 
       respond_to do |format|
         format.json do
-          @channel = interactor :'channels/get', @channel.id
+          @channel = old_interactor :'channels/get', @channel.id
           render 'channels/show'
         end
       end
@@ -99,12 +99,12 @@ class ChannelsController < ApplicationController
   end
 
   def follow
-    interactor :'channels/follow', channel_id
+    old_interactor :'channels/follow', channel_id
     render json: {}, status: :ok
   end
 
   def unfollow
-    interactor :'channels/unfollow', channel_id
+    old_interactor :'channels/unfollow', channel_id
     render json: {}, status: :ok
   end
 
@@ -114,7 +114,7 @@ class ChannelsController < ApplicationController
     from = params[:timestamp].to_i if params[:timestamp]
     count = params[:number].to_i if params[:number]
 
-    @facts = interactor :'channels/facts', channel_id, from, count
+    @facts = old_interactor :'channels/facts', channel_id, from, count
 
     mark_channel_as_read
 
@@ -126,7 +126,7 @@ class ChannelsController < ApplicationController
   def add_fact
     fact = Fact[params[:fact_id]]
 
-    interactor :"channels/add_fact", fact, @channel
+    old_interactor :"channels/add_fact", fact, @channel
 
     render nothing: true, status: :no_content
   end
@@ -140,7 +140,7 @@ class ChannelsController < ApplicationController
     if @fact.data.save and @fact.save
       mp_track "Factlink: Created"
 
-      interactor :"channels/add_fact", @fact, @channel
+      old_interactor :"channels/add_fact", @fact, @channel
       @timestamp = Ohm::Model::TimestampedSet.current_time
       render 'channels/fact', formats: [:json]
     else
@@ -164,7 +164,7 @@ class ChannelsController < ApplicationController
     if @channel
       @user ||= @channel.created_by.user
     elsif params[:username]
-      @user ||= query(:user_by_username, params[:username]) or raise_404
+      @user ||= old_query(:user_by_username, params[:username]) or raise_404
     end
   end
 

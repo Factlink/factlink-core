@@ -10,7 +10,7 @@ describe "creating a Factlink", type: :request do
   end
 
   before :each do
-    @user = sign_in_user FactoryGirl.create :active_user
+    @user = sign_in_user create :active_user
   end
 
   it "should add a factlink" do
@@ -37,7 +37,7 @@ describe "creating a Factlink", type: :request do
 
     wait_for_ajax
 
-    visit fact_path(Fact.last.id)
+    visit fact_path(Fact.all.to_a.last.id)
 
     open_modal 'Repost' do
       added_channels_should_contain new_topic_name

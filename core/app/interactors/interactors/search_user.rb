@@ -8,6 +8,7 @@ module Interactors
     include Util::Search
 
     arguments :keywords
+
     def validate
       raise 'Keywords should be a string.' unless @keywords.kind_of? String
       raise 'Keywords must not be empty.'  unless @keywords.length > 0

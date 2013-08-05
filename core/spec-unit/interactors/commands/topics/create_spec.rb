@@ -11,9 +11,9 @@ describe Commands::Topics::Create do
     end
 
     it 'calls Topic.create and returns a dead topic' do
-      title = mock
-      topic = mock
-      dead_topic = mock
+      title = double
+      topic = double
+      dead_topic = double
 
       Topic.should_receive(:create)
                         .with(title: title)
@@ -23,21 +23,17 @@ describe Commands::Topics::Create do
                         .with(topic)
                         .and_return(dead_topic)
 
-      command = described_class.new title
+      command = described_class.new title: title
       result = command.execute
 
       expect(result).to eq dead_topic
     end
   end
 
-  describe '#validate' do
-    it 'calls the correct validation methods' do
-      title = mock
-
-      described_class.any_instance.should_receive(:validate_nonempty_string)
-                                  .with(:title, title)
-
-      command = described_class.new title
+  describe 'validation' do
+    it 'requires a title' do
+      expect_validating(title: '').
+        to fail_validation('title should be a nonempty string.')
     end
   end
 end

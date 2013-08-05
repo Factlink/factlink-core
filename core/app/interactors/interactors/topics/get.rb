@@ -11,15 +11,15 @@ module Interactors
       end
 
       def topic
-        @topic ||= query :'topics/by_slug_title', slug_title
+        @topic ||= old_query :'topics/by_slug_title', slug_title
       end
 
       def authority
-        query :authority_on_topic_for, topic, graph_user
+        old_query :authority_on_topic_for, topic, graph_user
       end
 
       def graph_user
-        @options[:current_user].graph_user
+        pavlov_options[:current_user].graph_user
       end
 
       def validate
@@ -27,7 +27,7 @@ module Interactors
       end
 
       def authorized?
-        return unless @options[:current_user]
+        return unless pavlov_options[:current_user]
         can? :show, topic
       end
     end

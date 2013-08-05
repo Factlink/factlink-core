@@ -9,9 +9,9 @@ describe Queries::VisibleChannelsOfUser do
       ch2 = create :channel, created_by: gu1, title: 'b'
       ch3 = create :channel, created_by: gu1, title: 'c'
 
-      q = Queries::VisibleChannelsOfUser.new mock()
+      query = Queries::VisibleChannelsOfUser.new {}
 
-      expect(q.real_channels_for(gu1).map(&:title)).
+      expect(query.real_channels_for(gu1).map(&:title)).
         to eq ['a', 'b', 'c']
     end
   end

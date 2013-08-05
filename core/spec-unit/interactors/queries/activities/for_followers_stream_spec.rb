@@ -10,11 +10,11 @@ describe Queries::Activities::ForFollowersStream do
   describe '#call' do
     it 'filters the recent_activities using the Stream listener' do
       graph_user_id = 3
-      activities = [mock, mock, mock]
+      activities = [double, double, double]
       filtered_activities = [activities[0], activities[2]]
-      listener = mock
+      listener = double
+      query = described_class.new(graph_user_id: graph_user_id)
 
-      query = described_class.new graph_user_id
       query.stub recent_activities: activities
 
       Activity::Listener::Stream.should_receive(:new)
@@ -37,9 +37,9 @@ describe Queries::Activities::ForFollowersStream do
   describe '#recent_activities' do
     it 'returns recent activities this user created' do
       graph_user_id = 3
-      activity_ids = mock
-      activity_set = mock
-      query = described_class.new graph_user_id
+      activity_ids = double
+      activity_set = double
+      query = described_class.new(graph_user_id: graph_user_id)
 
       Activity.stub(:find)
               .with({user_id: graph_user_id})
@@ -51,5 +51,4 @@ describe Queries::Activities::ForFollowersStream do
       expect(query.recent_activities).to eq activity_ids
     end
   end
-
 end

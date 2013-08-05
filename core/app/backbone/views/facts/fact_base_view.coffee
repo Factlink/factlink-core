@@ -50,13 +50,15 @@ class FactBodyView extends Backbone.Marionette.ItemView
   events:
     "click span.js-displaystring": "triggerViewClick"
 
+  ui:
+    displaystring: '.js-displaystring'
+
   initialize: ->
-    @trunk8Init 3, '.js-displaystring', '.less'
+    @trunk8Init 3, '.js-displaystring', '.less' unless @options.clickable
     @bindTo @model, 'change', @render, @
 
   triggerViewClick: (e) ->
     @trigger 'click:body', e
 
   onRender: ->
-    if @options.clickable
-      @$('.js-displaystring').css(cursor: 'pointer')
+    @ui.displaystring.toggleClass 'fact-body-displaystring-clickable', !!@options.clickable

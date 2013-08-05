@@ -1,23 +1,23 @@
 class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
-  model: OpinionatersEvidence
-
-  default_fetch_data:
-    take: 7
 
   initialize: (models, options) ->
-    @on 'change', @sort, @
+    @on 'change sync', @sort, @
     @fact = options.fact
 
-    @_wheel = @fact.getFactWheel()
-    @_wheel.on 'sync', =>
-      @reset []
-      @fetch()
+    @_containedCollections = [
+      new OpinionatersCollection null, fact: @fact
+      new OneSidedEvidenceCollection null, fact: @fact, type: 'supporting'
+      new OneSidedEvidenceCollection null, fact: @fact, type: 'weakening'
+    ]
+
+    collectionUtils = new CollectionUtils
+    collectionUtils.union this, @_containedCollections...
 
   comparator: (item) -> - item.get('impact')
 
-  url: ->
-    "/facts/#{@fact.id}/interactors"
+  loading: ->
+    _.some @_containedCollections, (collection) -> collection.loading()
 
   fetch: (options={}) ->
-    options.data = _.extend {}, @default_fetch_data, options.data || {}
-    super options
+    @trigger 'before:fetch'
+    _.invoke @_containedCollections, 'fetch', options
