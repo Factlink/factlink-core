@@ -1,7 +1,6 @@
 class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
 
   initialize: (models, options) ->
-    @on 'change sync', @sort, @
     @fact = options.fact
 
     @_containedCollections = [
