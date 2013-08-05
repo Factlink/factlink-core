@@ -1,3 +1,4 @@
+# Note: code is largely duplicated in VoteUpDownFactRelationView and VoteUpDownView
 class window.NDPEvidenceVoteView extends Backbone.Marionette.ItemView
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 

@@ -29,6 +29,7 @@ class window.FactRelationView extends Backbone.Marionette.Layout
 
     fbv
 
+# Note: code is largely duplicated in NDPEvidenceVoteView
 class VoteUpDownFactRelationView extends VoteUpDownView
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
