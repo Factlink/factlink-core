@@ -280,7 +280,7 @@
   height: @arrowHeight;
   position: absolute;
   left: @impactCircleDiameter/2 - @arrowWidth/2 + 1px;
-  opacity: 0.6;
+  opacity: 0.8;
 
   &:hover {
     opacity: 1.0;
@@ -292,11 +292,19 @@
 .evidence-impact-vote-up {
   background: asset-data-url('evidence-arrows/up-arrow-unclicked.png');
   top: -@arrowHeight - @arrowSpacing;
+
+  &.active {
+    background: asset-data-url('evidence-arrows/up-arrow-clicked.png');
+  }
 }
 
 .evidence-impact-vote-down {
   background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
   bottom: -@arrowHeight - @arrowSpacing;
+
+  &.active {
+    background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
+  }
 }
 
 .evidence-votable {
