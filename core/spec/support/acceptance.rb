@@ -74,4 +74,17 @@ module Acceptance
   def disable_html5_validations(page)
     page.execute_script "$('form').attr('novalidate','novalidate')"
   end
+
+  def eventually_succeeds(&block)
+     start_time = Time.now
+    begin
+      yield
+    rescue => e
+      if (Time.now - start_time) >= Capybara.default_wait_time ||
+          !page.driver.wait? then
+        raise e
+      end
+      sleep(0.05)
+    end
+  end
 end
