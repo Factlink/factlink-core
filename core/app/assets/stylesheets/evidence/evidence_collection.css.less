@@ -309,12 +309,16 @@
   background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
   top: -@arrowHeight - @arrowInnerSpacing;
 
-  &.active {
-    background: asset-data-url('evidence-arrows/up-arrow-clicked.png');
+  &:hover {
+    background: asset-data-url('evidence-arrows/up-arrow-unclicked-hover.png');
   }
 
-  &:hover {
-    background: asset-data-url('evidence-arrows/up-arrow-hover.png');
+  &.active {
+    background: asset-data-url('evidence-arrows/up-arrow-clicked.png');
+
+    &:hover {
+      background: asset-data-url('evidence-arrows/up-arrow-clicked-hover.png');
+    }
   }
 }
 
@@ -322,12 +326,16 @@
   background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
   bottom: -@arrowHeight - @arrowInnerSpacing;
 
-  &.active {
-    background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
+  &:hover {
+    background: asset-data-url('evidence-arrows/down-arrow-unclicked-hover.png');
   }
 
-  &:hover {
-    background: asset-data-url('evidence-arrows/down-arrow-hover.png');
+  &.active {
+    background: asset-data-url('evidence-arrows/down-arrow-clicked.png');
+
+    &:hover {
+      background: asset-data-url('evidence-arrows/down-arrow-clicked-hover.png');
+    }
   }
 }
 
