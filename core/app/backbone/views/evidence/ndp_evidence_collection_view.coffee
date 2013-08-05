@@ -65,6 +65,10 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
     contentRegion: '.js-content-region'
     voteRegion: '.js-vote-region'
 
+  constructor: ->
+    super
+    @bindTo @model, 'change', @render, @
+
   typeCss: ->
     switch @model.get('type')
       when 'believes' then 'evidence-supporting'
