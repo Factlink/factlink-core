@@ -115,7 +115,7 @@ describe EvidenceController do
 
       response.should be_success
 
-      #todo: maybe check if the opinion is also persisted?
+      # TODO maybe check if the opinion is also persisted?
     end
   end
 
