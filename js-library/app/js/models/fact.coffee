@@ -2,7 +2,7 @@ class Factlink.Fact
   # If you want to support more events add them to this variable:
   _events: ["focus", "blur", "click", "update"]
 
-  constructor: (id, elems, opinions) ->
+  constructor: (id, elems) ->
     # Internal object which will hold all bound event handlers
     @_bound_events = {}
 
@@ -10,7 +10,6 @@ class Factlink.Fact
 
     @obj =
       id: id
-      opinions: opinions
 
     @createEventHandlers(@_events)
 
@@ -23,8 +22,8 @@ class Factlink.Fact
       .on('mouseenter', @focus)
       .on('mouseleave', @blur)
       .on('click', @click)
-      .on 'inview', (event, isInView) =>
-        @highlight(1500) if ( isInView )
+      .on 'inview', (event, isInView, visiblePart) =>
+        @highlight(1500) if ( isInView && visiblePart == 'both' )
 
     @bindFocus()
 
