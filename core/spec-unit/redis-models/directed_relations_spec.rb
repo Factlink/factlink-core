@@ -2,8 +2,8 @@ require_relative '../../app/redis-models/directed_relations'
 
 describe DirectedRelations do
 
-  let(:relation_key) { mock }
-  let(:relation_key_list) { mock }
+  let(:relation_key) { double }
+  let(:relation_key_list) { double }
   let(:directed_relations) { DirectedRelations.new nest_key }
 
   let(:nest_key) do

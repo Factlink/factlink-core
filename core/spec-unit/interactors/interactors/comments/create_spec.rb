@@ -30,13 +30,13 @@ describe Interactors::Comments::Create do
 
   describe '#call' do
     it 'works' do
-      fact = mock( fact_id: 1 )
+      fact = double( fact_id: 1 )
       type = 'believes'
       content = 'content'
-      user = mock(id: '1a', graph_user: mock)
+      user = double(id: '1a', graph_user: double)
 
       opinion = double
-      comment = mock(:comment, id: mock(to_s: '10a'), fact_data: mock(fact: fact))
+      comment = double(:comment, id: double(to_s: '10a'), fact_data: double(fact: fact))
       mongoid_comment = double
       pavlov_options = {current_user: user}
       interactor = described_class.new fact_id: fact.fact_id, type: type,

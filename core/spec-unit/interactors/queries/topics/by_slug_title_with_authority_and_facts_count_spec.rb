@@ -15,9 +15,9 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
   end
   describe '#call' do
     it 'returns the topic' do
-      topic = mock(slug_title: 'slug_title', title: mock)
+      topic = double(slug_title: 'slug_title', title: double)
       dead_topic = double
-      pavlov_options = {current_user: mock}
+      pavlov_options = {current_user: double}
       query = described_class.new slug_title: topic.slug_title, pavlov_options: pavlov_options
 
       Pavlov.stub(:old_query)

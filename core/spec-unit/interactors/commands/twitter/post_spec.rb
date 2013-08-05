@@ -14,7 +14,7 @@ describe Commands::Twitter::Post do
       token  = 'qwerty'
       secret = 'asdf'
       identities = {'twitter' => {'credentials' => {'token' => token, 'secret' => secret}}}
-      user = mock(identities: identities)
+      user = double(identities: identities)
 
       client = double
       Twitter::Client.stub(:new)
@@ -45,7 +45,7 @@ describe Commands::Twitter::Post do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
       message  = 'message'
-      user = mock(identities: {'twitter' => nil})
+      user = double(identities: {'twitter' => nil})
 
       expect_validating( message: message, pavlov_options: { current_user: user } )
         .to fail_validation('no twitter account linked')

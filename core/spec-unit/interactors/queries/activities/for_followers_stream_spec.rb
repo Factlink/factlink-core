@@ -10,7 +10,7 @@ describe Queries::Activities::ForFollowersStream do
   describe '#call' do
     it 'filters the recent_activities using the Stream listener' do
       graph_user_id = 3
-      activities = [mock, mock, mock]
+      activities = [double, double, double]
       filtered_activities = [activities[0], activities[2]]
       listener = double
       query = described_class.new(graph_user_id: graph_user_id)

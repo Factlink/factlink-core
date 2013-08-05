@@ -10,8 +10,8 @@ describe Commands::Channels::AddSubchannel do
   end
   describe '#call' do
     it 'adds a subchannel to the channel' do
-      channel = mock :channel, created_by: mock
-      subchannel = mock :subchannel
+      channel = double :channel, created_by: double
+      subchannel = double :subchannel
 
       command = described_class.new(channel: channel, subchannel: subchannel)
 
@@ -21,13 +21,13 @@ describe Commands::Channels::AddSubchannel do
       command.should_receive(:old_command)
              .with(:'channels/add_facts_from_channel_to_channel',
                      subchannel, channel)
-             .and_return mock call: nil
+             .and_return double call: nil
 
       expect(command.call).to eq true
     end
     it 'stops execution when the addition is unsuccesful' do
-      channel = mock :channel, created_by: mock
-      subchannel = mock :subchannel
+      channel = double :channel, created_by: double
+      subchannel = double :subchannel
 
       command = described_class.new(channel: channel, subchannel: subchannel)
 

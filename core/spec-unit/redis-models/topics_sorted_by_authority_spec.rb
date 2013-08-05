@@ -5,7 +5,7 @@ require_relative '../../app/redis-models/topics_sorted_by_authority'
 describe TopicsSortedByAuthority do
   include PavlovSupport
 
-  let(:key)      {mock}
+  let(:key)      {double}
   let(:user_id)  {'1a'}
 
   subject(:user_topics_by_authority) { described_class.new user_id, key }

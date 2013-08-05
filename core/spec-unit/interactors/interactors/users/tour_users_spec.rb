@@ -22,21 +22,21 @@ describe Interactors::Users::TourUsers do
 
   describe '#validate' do
     it 'always succeeds' do
-      described_class.new(pavlov_options: { ability: mock(can?: true) })
+      described_class.new(pavlov_options: { ability: double(can?: true) })
     end
   end
 
   describe '#call' do
     it 'calls the handpicked users query' do
       dead_users = [
-        mock(:user, graph_user_id: 3),
-        mock(:user, graph_user_id: 7)
+        double(:user, graph_user_id: 3),
+        double(:user, graph_user_id: 7)
       ]
-      user_topics = [mock, mock]
+      user_topics = [double, double]
 
-      dead_users_with_topics = [mock, mock]
+      dead_users_with_topics = [double, double]
 
-      options = { ability: mock(can?: true) }
+      options = { ability: double(can?: true) }
 
       interactor = described_class.new(pavlov_options: options)
 

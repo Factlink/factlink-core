@@ -2,10 +2,10 @@ require_relative '../../app/redis-models/directed_relations_with_reverse'
 
 describe DirectedRelationsWithReverse do
 
-  let(:relation_key) { mock }
-  let(:reverse_relation_key) { mock }
-  let(:relation_key_list) { mock }
-  let(:reverse_relation_key_list) { mock }
+  let(:relation_key) { double }
+  let(:reverse_relation_key) { double }
+  let(:relation_key_list) { double }
+  let(:reverse_relation_key_list) { double }
   let(:directed_relations_with_reverse) { DirectedRelationsWithReverse.new nest_key }
 
   let(:nest_key) do

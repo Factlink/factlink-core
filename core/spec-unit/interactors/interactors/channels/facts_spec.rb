@@ -44,7 +44,7 @@ describe Interactors::Channels::Facts do
 
     it 'correctly' do
       channel_id = '1'
-      user = mock id: '1e'
+      user = double id: '1e'
       from = 2
       count = 3
       fact = double
@@ -65,7 +65,7 @@ describe Interactors::Channels::Facts do
 
     it 'has an invalid fact' do
       channel_id = '1'
-      user = mock id: '1e'
+      user = double id: '1e'
       from = 2
       count = 3
       fact = double

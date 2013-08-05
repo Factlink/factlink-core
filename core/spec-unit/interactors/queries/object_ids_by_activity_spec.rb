@@ -14,7 +14,7 @@ describe Queries::ObjectIdsByActivity do
       class_name = double
       list = double
       listener = double
-      ids = [mock(:id)]
+      ids = [double(:id)]
       interactor = described_class.new activity: activity,
         class_name: class_name, list: list
 
@@ -34,7 +34,7 @@ describe Queries::ObjectIdsByActivity do
       list = double
       listener = double
       listener_hash = double
-      interactor = Queries::ObjectIdsByActivity.new activity: mock(),
+      interactor = Queries::ObjectIdsByActivity.new activity: double(),
         class_name: class_name, list: list
 
       listener_hash.should_receive(:[])

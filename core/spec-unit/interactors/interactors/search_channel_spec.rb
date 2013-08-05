@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/interactors/search_channel.rb'
 describe Interactors::SearchChannel do
   include PavlovSupport
 
-  let(:relaxed_ability) { stub(:ability, can?: true)}
+  let(:relaxed_ability) { double(:ability, can?: true)}
 
   before do
     stub_classes 'Topic','Queries::ElasticSearchChannel',
@@ -22,7 +22,7 @@ describe Interactors::SearchChannel do
   describe '#authorized?' do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
-      ability = stub(:ability, can?: false)
+      ability = double(:ability, can?: false)
 
       interactor = described_class.new keywords: keywords,
           pavlov_options: { ability: ability }

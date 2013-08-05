@@ -30,13 +30,13 @@ describe Interactors::Facts::Create do
   end
 
   it '.authorized raises when not able to create facts' do
-    ability = mock
+    ability = double
     ability.stub(:can?)
              .with(:create, Fact)
              .and_return(false)
 
     interactor = described_class.new displaystring: 'displaystring', url: 'url',
-      title: 'title', sharing_options: mock, pavlov_options: { ability:ability }
+      title: 'title', sharing_options: double, pavlov_options: { ability:ability }
 
     expect { interactor.call }
       .to raise_error Pavlov::AccessDenied, "Unauthorized"
@@ -48,14 +48,14 @@ describe Interactors::Facts::Create do
       displaystring = 'this is the annotated text'
       title = 'this is the title'
       site = double
-      fact_data = mock(persisted?: true)
-      fact = mock(id: '1', errors: [], data: fact_data)
-      user = mock(id: '123abc')
+      fact_data = double(persisted?: true)
+      fact = double(id: '1', errors: [], data: fact_data)
+      user = double(id: '123abc')
       sharing_options = {}
-      Blacklist.stub default: mock
+      Blacklist.stub default: double
       Blacklist.default.stub(:matches?).with(url).and_return false
 
-      pavlov_options = { current_user: user, ability: mock(can?: true) }
+      pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
         title: title, sharing_options: sharing_options,
         pavlov_options: pavlov_options
@@ -86,14 +86,14 @@ describe Interactors::Facts::Create do
       displaystring = 'this is the annotated text'
       title = 'this is the title'
       site = double
-      fact_data = mock(persisted?: true)
-      fact = mock(id: '1', errors: [], data: fact_data)
-      user = mock(id: '123abc')
+      fact_data = double(persisted?: true)
+      fact = double(id: '1', errors: [], data: fact_data)
+      user = double(id: '123abc')
       sharing_options = double
-      Blacklist.stub default: mock
+      Blacklist.stub default: double
       Blacklist.default.stub(:matches?).with(url).and_return false
 
-      pavlov_options = { current_user: user, ability: mock(can?: true) }
+      pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
         title: title, sharing_options: sharing_options,
         pavlov_options: pavlov_options
@@ -119,14 +119,14 @@ describe Interactors::Facts::Create do
       url = 'www.fmf.nl'
       displaystring = 'this is the annotated text'
       title = 'this is the title'
-      fact_data = mock(persisted?: true)
-      fact = mock(id: '1', errors: [], data: fact_data)
-      user = mock(id: '123abc')
+      fact_data = double(persisted?: true)
+      fact = double(id: '1', errors: [], data: fact_data)
+      user = double(id: '123abc')
       sharing_options = double
-      Blacklist.stub default: mock
+      Blacklist.stub default: double
       Blacklist.default.stub(:matches?).with(url).and_return true
 
-      pavlov_options = { current_user: user, ability: mock(can?: true) }
+      pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
         title: title, sharing_options: sharing_options,
         pavlov_options: pavlov_options

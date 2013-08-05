@@ -15,7 +15,7 @@ describe Interactors::Facts::ShareOnFacebook do
              .with(:share, Fact)
              .and_return(false)
 
-      pavlov_options = { current_user: mock,
+      pavlov_options = { current_user: double,
                          ability: ability,
                          facebook_app_namespace: 'namespace' }
 
@@ -31,7 +31,7 @@ describe Interactors::Facts::ShareOnFacebook do
     it 'calls the command to share on Facebook' do
       fact_id = '1'
       user    = double
-      ability = stub can?: true
+      ability = double can?: true
 
       pavlov_options = { current_user: user,
                          ability: ability,
@@ -61,7 +61,7 @@ describe Interactors::Facts::ShareOnFacebook do
 
     it 'requires a facebook_app_namespace' do
       hash = { fact_id: '1', pavlov_options: { facebook_app_namespace: nil,
-        current_user: mock }}
+        current_user: double }}
 
       expect_validating(hash)
         .to fail_validation('facebook_app_namespace should be a nonempty string.')

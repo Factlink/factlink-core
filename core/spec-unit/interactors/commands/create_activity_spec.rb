@@ -1,9 +1,9 @@
 require_relative '../../../app/interactors/commands/create_activity.rb'
 
 describe Commands::CreateActivity do
-  let(:current_user) { mock('current_user', id: 2) }
-  let(:graph_user)   { mock('user',id: 1, user_id: current_user.id) }
-  let(:other_graph_user)   { mock('user',id: 1, user_id: current_user.id + 1)  }
+  let(:current_user) { double('current_user', id: 2) }
+  let(:graph_user)   { double('user',id: 1, user_id: current_user.id) }
+  let(:other_graph_user)   { double('user',id: 1, user_id: current_user.id + 1)  }
 
   before do
     stub_const('Activity', Class.new)

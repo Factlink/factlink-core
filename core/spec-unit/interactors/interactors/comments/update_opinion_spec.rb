@@ -27,8 +27,8 @@ describe Interactors::Comments::UpdateOpinion do
 
     it 'call the set_opinion command when an opinion is being set' do
       opinion = 'believes'
-      user = mock(graph_user: mock)
-      comment = mock(id: '123')
+      user = double(graph_user: double)
+      comment = double(id: '123')
       pavlov_options = { current_user: user }
 
       interactor = described_class.new comment_id: comment.id, opinion: opinion,
@@ -45,8 +45,8 @@ describe Interactors::Comments::UpdateOpinion do
     end
 
     it 'calls the remove_opinion command when no opinion is passed' do
-      user = mock(graph_user: mock)
-      comment = mock(id: '123')
+      user = double(graph_user: double)
+      comment = double(id: '123')
       pavlov_options = {current_user: user}
       interactor = described_class.new comment_id: comment.id, opinion: nil,
                                        pavlov_options: pavlov_options
@@ -63,10 +63,10 @@ describe Interactors::Comments::UpdateOpinion do
 
     it 'refreshes the comment after calling recalculate_comment_user_opinion' do
       opinion = 'believes'
-      user = mock(graph_user: mock)
+      user = double(graph_user: double)
       pavlov_options = {current_user: user}
 
-      comment = mock(id: 'abc')
+      comment = double(id: 'abc')
       updated_comment = double
 
       interactor = described_class.new comment_id: comment.id, opinion: opinion,

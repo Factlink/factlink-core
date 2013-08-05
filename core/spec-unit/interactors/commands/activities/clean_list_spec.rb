@@ -10,11 +10,11 @@ describe Commands::Activities::CleanList do
 
   describe '#call' do
     it 'should delete nil activities' do
-      key, keyname = mock, mock
+      key, keyname = double, double
       nil_activity = nil
       activities_by_id = {
         1 => nil_activity,
-        2 => mock(:activity, still_valid?: true)
+        2 => double(:activity, still_valid?: true)
       }
 
       Activity.stub(:[]) do |id|
@@ -31,10 +31,10 @@ describe Commands::Activities::CleanList do
       command.call
     end
     it 'should delete activities which are invalid' do
-      key, keyname = mock, mock
-      unshowable_activity = mock :activity, still_valid?: false
+      key, keyname = double, double
+      unshowable_activity = double :activity, still_valid?: false
       activities_by_id = {
-        0 => mock(:activity, still_valid?: true),
+        0 => double(:activity, still_valid?: true),
         2 => unshowable_activity,
       }
 

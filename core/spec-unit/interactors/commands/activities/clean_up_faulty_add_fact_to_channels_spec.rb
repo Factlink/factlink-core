@@ -10,16 +10,16 @@ describe Commands::Activities::CleanUpFaultyAddFactToChannels do
   describe '#call' do
     it 'should remove all non-channel add_fact activities' do
       activities_by_id = {
-        1 => mock(:activity, object: mock(:channel, type: 'channel')),
-        2 => mock(:activity, object: mock(:channel, type: 'created')),
-        3 => mock(:activity, object: mock(:channel, type: 'channel')),
-        4 => mock(:activity, object: mock(:channel, type: 'stream')),
-        5 => mock(:activity, object: mock(:channel, type: 'channel'))
+        1 => double(:activity, object: double(:channel, type: 'channel')),
+        2 => double(:activity, object: double(:channel, type: 'created')),
+        3 => double(:activity, object: double(:channel, type: 'channel')),
+        4 => double(:activity, object: double(:channel, type: 'stream')),
+        5 => double(:activity, object: double(:channel, type: 'channel'))
       }
 
       Activity.stub(:find)
               .with(action: 'added_fact_to_channel')
-              .and_return mock(ids: activities_by_id.keys)
+              .and_return double(ids: activities_by_id.keys)
       Activity.stub(:[]) do |id|
         activities_by_id[id]
       end

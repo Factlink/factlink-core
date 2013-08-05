@@ -23,10 +23,10 @@ describe Interactors::Facts::RecentlyViewed do
 
   describe '#call' do
     it 'calls RecentlyViewedFacts.top' do
-      user = mock id: '20e'
+      user = double id: '20e'
       recently_viewed_facts = double
       fact = double
-      ability = mock can?: true
+      ability = double can?: true
 
       RecentlyViewedFacts.stub(:by_user_id).with(user.id)
                          .and_return(recently_viewed_facts)
@@ -44,7 +44,7 @@ describe Interactors::Facts::RecentlyViewed do
     end
 
     it 'returns an empty list when not logged in' do
-      ability = mock can?: true
+      ability = double can?: true
       interactor = described_class.new pavlov_options: { current_user: nil,
         ability: ability }
       recent_facts = interactor.call

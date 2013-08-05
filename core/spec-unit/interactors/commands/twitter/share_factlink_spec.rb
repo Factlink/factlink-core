@@ -11,10 +11,10 @@ describe Commands::Twitter::ShareFactlink do
 
     it 'posts a fact with quote and sharing url' do
       user = double
-      fact = mock(id: "1", displaystring: '   displaystring    ')
-      fact_url = mock sharing_url: 'sharing_url'
+      fact = double(id: "1", displaystring: '   displaystring    ')
+      fact_url = double sharing_url: 'sharing_url'
 
-      Twitter.stub configuration: mock(short_url_length_https: 20)
+      Twitter.stub configuration: double(short_url_length_https: 20)
 
       Pavlov.stub(:old_query)
         .with(:"facts/get_dead", fact.id)
@@ -33,10 +33,10 @@ describe Commands::Twitter::ShareFactlink do
 
     it 'trims strings that are too long and strips whitespace also for the shorter version' do
       user = double
-      fact = mock(id: "1", displaystring: '   12345   asdf  ')
-      fact_url = mock sharing_url: 'sharing_url'
+      fact = double(id: "1", displaystring: '   12345   asdf  ')
+      fact_url = double sharing_url: 'sharing_url'
 
-      Twitter.stub configuration: mock(short_url_length_https: 140-10)
+      Twitter.stub configuration: double(short_url_length_https: 140-10)
 
       Pavlov.stub(:old_query)
         .with(:"facts/get_dead", fact.id)

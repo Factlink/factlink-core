@@ -24,10 +24,10 @@ describe Queries::Facts::GetDeadWheel do
         disbelieve: {percentage: 80},
         doubt: {percentage: 20},
       }
-      presenter = mock as_percentages_hash: percentage_hash
-      opinion = mock :opinion
-      live_fact = mock :fact, id: '1'
-      user = mock :user, graph_user: mock
+      presenter = double as_percentages_hash: percentage_hash
+      opinion = double :opinion
+      live_fact = double :fact, id: '1'
+      user = double :user, graph_user: double
       pavlov_options = {current_user: user}
       interactor = described_class.new id: live_fact.id,
         pavlov_options: pavlov_options
@@ -63,12 +63,12 @@ describe Queries::Facts::GetDeadWheel do
         disbelieve: {percentage: 80},
         doubt: {percentage: 20},
       }
-      presenter = mock as_percentages_hash: percentage_hash
-      opinion = mock :opinion
+      presenter = double as_percentages_hash: percentage_hash
+      opinion = double :opinion
       OpinionPresenter.stub(:new).with(opinion)
                       .and_return(presenter)
 
-      live_fact = mock :fact, id: '1'
+      live_fact = double :fact, id: '1'
       user = nil
       pavlov_options = {current_user: user}
 

@@ -10,7 +10,7 @@ describe Interactors::Topics::Unfavourite do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new(user_name: mock, slug_title: mock).call }
+      expect { described_class.new(user_name: double, slug_title: double).call }
         .to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
@@ -35,7 +35,7 @@ describe Interactors::Topics::Unfavourite do
 
   describe '#call' do
     it 'calls a command to unfavourite topic' do
-      user = mock(graph_user_id: mock)
+      user = double(graph_user_id: double)
       user_name = 'username'
       slug_title = 'slug-title'
 
@@ -49,7 +49,7 @@ describe Interactors::Topics::Unfavourite do
       interactor = described_class.new(user_name: user_name,
         slug_title: slug_title, pavlov_options: pavlov_options)
 
-      topic = mock(id: mock)
+      topic = double(id: double)
 
       Pavlov.stub(:old_query)
         .with(:'user_by_username', user_name, pavlov_options)

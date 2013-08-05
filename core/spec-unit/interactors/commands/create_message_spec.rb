@@ -14,10 +14,10 @@ describe Commands::CreateMessage do
 
   describe '.validate' do
     it 'throws error on empty message' do
-      user = stub(id: 14)
+      user = double(id: 14)
       User.stub(find: user)
 
-      conversation = stub(repicient_ids: [14])
+      conversation = double(repicient_ids: [14])
 
       command = described_class.new sender_id: 14, content: '',
         conversation: conversation
@@ -26,10 +26,10 @@ describe Commands::CreateMessage do
     end
 
     it 'throws error on message with just whitespace' do
-      user = stub(id: 14)
+      user = double(id: 14)
       User.stub(find: user)
 
-      conversation = stub(repicient_ids: [14])
+      conversation = double(repicient_ids: [14])
 
       command = described_class.new sender_id: 14, content: " \t\n",
                   conversation: conversation
@@ -45,10 +45,10 @@ describe Commands::CreateMessage do
     end
 
     it 'it throws when initialized with a argument that is not a hexadecimal string' do
-      user = stub(id: 14)
+      user = double(id: 14)
       User.stub(find: user)
 
-      conversation = stub(id: 'g6', repicient_ids: [14])
+      conversation = double(id: 'g6', repicient_ids: [14])
 
       command = described_class.new(sender_id: 14, content: 'bla',
         conversation: conversation)
@@ -59,9 +59,9 @@ describe Commands::CreateMessage do
 
   describe '#call' do
     it 'creates and saves a message' do
-      conversation = stub(id: 1, recipient_ids: [14])
+      conversation = double(id: 1, recipient_ids: [14])
 
-      sender = stub(id: 14)
+      sender = double(id: 14)
 
       pavlov_options = { current_user: sender }
       command = described_class.new sender_id: sender.id.to_s,
@@ -82,9 +82,9 @@ describe Commands::CreateMessage do
 
   describe '.authorized?' do
     it 'checks current_user' do
-      conversation = stub(id: 1, recipient_ids: [14])
-      sender = stub(id: 14)
-      other_user = stub(id: 15)
+      conversation = double(id: 1, recipient_ids: [14])
+      sender = double(id: 14)
+      other_user = double(id: 15)
 
       pavlov_options = { current_user: other_user }
       command = described_class.new(sender_id: sender.id.to_s,
@@ -94,8 +94,8 @@ describe Commands::CreateMessage do
     end
 
     it 'checks recipients' do
-      conversation = stub(id: 1, recipient_ids: [15])
-      sender = stub(id: 14)
+      conversation = double(id: 1, recipient_ids: [15])
+      sender = double(id: 14)
 
       pavlov_options = { current_user: sender }
       command = described_class.new(sender_id: sender.id.to_s,
@@ -106,8 +106,8 @@ describe Commands::CreateMessage do
     end
 
     it 'authorizes if there are no problems' do
-      conversation = stub(id: 1, recipient_ids: [14])
-      sender = stub(id: 14)
+      conversation = double(id: 1, recipient_ids: [14])
+      sender = double(id: 14)
 
       pavlov_options = { current_user: sender }
       command = described_class.new(sender_id: sender.id.to_s,

@@ -12,8 +12,8 @@ describe Queries::Users::Handpicked do
 
     it 'should return the dead handpicked_users' do
       dead_users = [
-        mock(:dead_user, id: mock),
-        mock(:dead_user, id: mock),
+        double(:dead_user, id: double),
+        double(:dead_user, id: double),
       ]
 
       user_ids = dead_users.map(&:id)

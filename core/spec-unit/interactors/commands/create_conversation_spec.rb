@@ -32,8 +32,8 @@ describe Commands::CreateConversation do
       username = 'username'
       command = described_class.new fact_id: fact_id,
         recipient_usernames: [username]
-      recipients = mock('recipients')
-      conversation = mock('conversation', :recipients => recipients)
+      recipients = double('recipients')
+      conversation = double('conversation', :recipients => recipients)
       Conversation.should_receive(:new).and_return(conversation)
       user = double
 
@@ -42,7 +42,7 @@ describe Commands::CreateConversation do
 
 
       fact_data_id = 'abc'
-      fact = mock('fact', data_id: fact_data_id)
+      fact = double('fact', data_id: fact_data_id)
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
 
       recipients.should_receive(:<<).with(user)
@@ -57,7 +57,7 @@ describe Commands::CreateConversation do
       username = 'username'
       command = described_class.new fact_id: fact_id,
         recipient_usernames: [username]
-      Conversation.should_receive(:new).and_return(mock('conversation'))
+      Conversation.should_receive(:new).and_return(double('conversation'))
 
       command.should_receive(:old_query).with(:user_by_username, username).
         and_return(nil)

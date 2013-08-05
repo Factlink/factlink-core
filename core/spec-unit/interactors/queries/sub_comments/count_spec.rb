@@ -33,7 +33,7 @@ describe Queries::SubComments::Count do
       query = described_class.new parent_id: parent_id.to_s,
         parent_class: parent_class
 
-      SubComment.should_receive(:where).with(parent_id: parent_id.to_s, parent_class: parent_class).and_return(mock(count:count))
+      SubComment.should_receive(:where).with(parent_id: parent_id.to_s, parent_class: parent_class).and_return(double(count:count))
 
       expect(query.call).to eq count
     end

@@ -11,7 +11,7 @@ describe Queries::Opinions::OpinionForFact do
 
     it 'returns the dead opinion on the fact' do
       dead_opinion = double
-      fact = mock(id: mock)
+      fact = double(id: double)
       fact_graph = double
       query = described_class.new fact: fact
 

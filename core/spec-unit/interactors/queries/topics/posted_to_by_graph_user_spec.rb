@@ -12,11 +12,11 @@ describe Queries::Topics::PostedToByGraphUser do
     it "returns the topics this graph_user posted to" do
       graph_user = double
       channels = [
-        mock(:channel, slug_title: 'food'),
-        mock(:channel, slug_title: 'programming')
+        double(:channel, slug_title: 'food'),
+        double(:channel, slug_title: 'programming')
       ]
-      channel_list = mock real_channels_as_array: channels
-      topics = [mock, mock]
+      channel_list = double real_channels_as_array: channels
+      topics = [double, double]
 
       query = described_class.new graph_user: graph_user
 

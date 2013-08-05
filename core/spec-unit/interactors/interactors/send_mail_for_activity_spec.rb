@@ -10,9 +10,9 @@ describe Interactors::SendMailForActivity do
 
   describe '#call' do
     it do
-      user = mock(id: 1)
+      user = double(id: 1)
 
-      activity = mock(id: 2)
+      activity = double(id: 2)
 
       described_class.any_instance.stub(authorized?: true)
       interactor = described_class.new activity: activity
@@ -28,11 +28,11 @@ describe Interactors::SendMailForActivity do
 
   describe '#recipients' do
     it 'returns only the users which want to receive notifications' do
-      user2 = mock('user2', receives_mailed_notifications: true)
-      user1 = mock('user1', receives_mailed_notifications: false)
+      user2 = double('user2', receives_mailed_notifications: true)
+      user1 = double('user1', receives_mailed_notifications: false)
 
       described_class.any_instance.stub(authorized?: true)
-      interactor = described_class.new activity: mock
+      interactor = described_class.new activity: double
 
       interactor.should_receive(:users_by_graph_user_ids).
                  and_return([user1,user2])

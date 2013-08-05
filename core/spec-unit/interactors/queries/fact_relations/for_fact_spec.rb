@@ -17,7 +17,7 @@ describe Queries::FactRelations::ForFact do
 
       query = described_class.new fact: fact, type: :supporting
 
-      fact.stub(:evidence).with(type).and_return(mock(ids: [fact_relation.id]))
+      fact.stub(:evidence).with(type).and_return(double(ids: [fact_relation.id]))
       Pavlov.stub(:old_query)
             .with(:'fact_relations/by_ids', [fact_relation.id])
             .and_return([dead_fact_relation])

@@ -13,17 +13,17 @@ describe Interactors::Users::FollowUser do
 
     it 'throws when no current_user' do
       expect do
-        described_class.new(user_name: mock, user_to_follow_user_name: mock).call
+        described_class.new(user_name: double, user_to_follow_user_name: double).call
       end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
     it 'throws when updating someone else\'s follow' do
       username = double
       other_username = double
-      current_user = mock(username: username)
+      current_user = double(username: username)
       options = {current_user: current_user}
       interactor = described_class.new(user_name: other_username,
-        user_to_follow_user_name: mock, pavlov_options: options)
+        user_to_follow_user_name: double, pavlov_options: options)
 
       expect do
         interactor.call
@@ -37,8 +37,8 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'calls a command to follow user' do
-      user = mock(id: mock, graph_user_id: mock, graph_user: mock, username: mock)
-      user_to_follow = mock(graph_user_id: mock, graph_user: mock, username: mock)
+      user = double(id: double, graph_user_id: double, graph_user: double, username: double)
+      user_to_follow = double(graph_user_id: double, graph_user: double, username: double)
       options = { current_user: user }
       interactor = described_class.new(user_name: user.username,
         user_to_follow_user_name: user_to_follow.username, pavlov_options: options)

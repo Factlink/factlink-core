@@ -19,7 +19,7 @@ describe Interactors::Comments::Delete do
   describe '#call' do
     it 'correctly' do
       comment_id = 'a12f'
-      user = mock(id: 1)
+      user = double(id: 1)
       interactor = described_class.new comment_id: comment_id,
         pavlov_options: { current_user: user }
 

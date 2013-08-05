@@ -12,7 +12,6 @@ describe "factlink", type: :request do
 
     go_to_discussion_page_of @factlink
     find('a', text: 'Comments (1)').click
-    find('a', text: '(more)').click
 
     page.should have_content @factlink.data.displaystring
 

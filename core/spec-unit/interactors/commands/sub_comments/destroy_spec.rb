@@ -18,7 +18,7 @@ describe Commands::SubComments::Destroy do
 
   describe '#call' do
     it "should remove the comment" do
-      sub_comment = mock id: '1a'
+      sub_comment = double id: '1a'
 
       command = described_class.new id: sub_comment.id
       SubComment.should_receive(:find).with(sub_comment.id)

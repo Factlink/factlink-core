@@ -54,7 +54,7 @@ describe HandpickedTourUsers do
 
     it "returns the users" do
       user = double
-      nest = stub smembers: ["1"]
+      nest = double smembers: ["1"]
 
       handpicked_tour_users = described_class.new nest
 

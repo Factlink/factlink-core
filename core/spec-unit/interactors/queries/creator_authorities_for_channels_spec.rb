@@ -87,8 +87,8 @@ describe Queries::CreatorAuthoritiesForChannels do
 
   describe '#topic_for' do
     it 'should retrieve the topic for the channel, and return it' do
-      channel = double(:channel, slug_title: 'mock')
-      topic = double(:topic, slug_title: 'mock')
+      channel = double(:channel, slug_title: 'double')
+      topic = double(:topic, slug_title: 'double')
       query = described_class.new channels: [channel]
 
       query.stub topics: [topic]

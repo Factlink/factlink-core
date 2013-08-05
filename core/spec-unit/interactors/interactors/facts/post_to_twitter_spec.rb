@@ -7,7 +7,7 @@ describe Interactors::Facts::PostToTwitter do
   before do
     stub_classes 'Fact', 'Twitter', 'FactUrl'
 
-    Twitter.stub configuration: mock(short_url_length_https: 20)
+    Twitter.stub configuration: double(short_url_length_https: 20)
   end
 
   describe '#authorized?' do
@@ -15,7 +15,7 @@ describe Interactors::Facts::PostToTwitter do
       ability = double
       ability.stub(:can?).with(:share, Fact).and_return(false)
 
-      pavlov_options = { current_user: mock, ability: ability }
+      pavlov_options = { current_user: double, ability: ability }
 
       interactor = described_class.new fact_id: '1', message: 'message',
         pavlov_options: pavlov_options
@@ -29,11 +29,11 @@ describe Interactors::Facts::PostToTwitter do
     it 'posts a fact with a sharing_url if available' do
       user = double
       message = "message"
-      fact = mock(id: "1")
+      fact = double(id: "1")
       sharing_url = 'sharing_url'
-      fact_url = mock sharing_url: sharing_url
+      fact_url = double sharing_url: sharing_url
 
-      pavlov_options = { current_user: user, ability: mock(can?: true) }
+      pavlov_options = { current_user: user, ability: double(can?: true) }
 
       Pavlov.stub(:old_query)
         .with(:"facts/get_dead", fact.id, pavlov_options)
@@ -58,7 +58,7 @@ describe Interactors::Facts::PostToTwitter do
       message = 'message'
 
       hash = { fact_id: fact_id, message: message,
-        pavlov_options: { current_user: mock }}
+        pavlov_options: { current_user: double }}
 
       expect_validating(hash)
         .to fail_validation('fact_id should be an integer string.')
@@ -69,7 +69,7 @@ describe Interactors::Facts::PostToTwitter do
       message = ''
 
       hash = { fact_id: fact_id, message: message,
-        pavlov_options: { current_user: mock }}
+        pavlov_options: { current_user: double }}
 
       expect_validating(hash)
         .to fail_validation('message should be a nonempty string.')
@@ -82,7 +82,7 @@ describe Interactors::Facts::PostToTwitter do
       maximum_message_length = 140 - Twitter.configuration.short_url_length_https - 1
 
       hash = { fact_id: fact_id, message: message,
-        pavlov_options: { current_user: mock }}
+        pavlov_options: { current_user: double }}
 
       expect_validating(hash)
         .to fail_validation("message should not be longer than #{maximum_message_length} characters.")

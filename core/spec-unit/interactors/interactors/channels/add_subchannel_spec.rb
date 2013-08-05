@@ -5,9 +5,9 @@ require_relative '../../../../app/interactors/interactors/channels/add_subchanne
 describe Interactors::Channels::AddSubchannel do
   include PavlovSupport
   describe '#call' do
-    let(:channel) { mock :channel, id:'12' }
-    let(:subchannel) { mock :subchannel, id:'45' }
-    let(:pavlov_options) { {ability: mock(can?: true)} }
+    let(:channel) { double :channel, id:'12' }
+    let(:subchannel) { double :subchannel, id:'45' }
+    let(:pavlov_options) { {ability: double(can?: true)} }
     before do
       Pavlov.stub(:old_query) do |query_name, id|
         raise 'error' unless query_name == :'channels/get'

@@ -34,15 +34,15 @@ describe Interactors::SubComments::IndexForComment do
   describe '#call' do
     it do
       comment_id = '2b'
-      sub_comments = [mock, mock]
-      dead_sub_comments = [mock, mock]
+      sub_comments = [double, double]
+      dead_sub_comments = [double, double]
       authorities = [10, 20]
-      options = {ability: mock(can?: true)}
+      options = {ability: double(can?: true)}
       interactor = described_class.new(comment_id: comment_id,
         pavlov_options: options)
 
       Comment.stub(:find).with(comment_id)
-             .and_return(mock)
+             .and_return(double)
       interactor.should_receive(:old_query).with(:"sub_comments/index", comment_id, 'Comment').
         and_return(sub_comments)
       interactor.should_receive(:authority_of_user_who_created).
@@ -64,7 +64,7 @@ describe Interactors::SubComments::IndexForComment do
     it 'throws an error when the comment does not exist' do
       stub_const 'Pavlov::ValidationError', RuntimeError
 
-      options = {ability: mock(can?: true)}
+      options = {ability: double(can?: true)}
 
       Comment.stub(:find).with('2b')
              .and_return(nil)
@@ -85,7 +85,7 @@ describe Interactors::SubComments::IndexForComment do
     it 'returns the top fact for the comment_id' do
       comment_id = '2a'
       fact = double
-      comment = mock(fact_data: mock(fact:fact))
+      comment = double(fact_data: double(fact:fact))
       interactor = described_class.new(comment_id: comment_id)
 
       Comment.should_receive(:find).with(comment_id).and_return(comment)
@@ -98,7 +98,7 @@ describe Interactors::SubComments::IndexForComment do
     it 'caches the fact' do
       comment_id = '2a'
       fact = double
-      comment = mock(fact_data: mock(fact:fact))
+      comment = double(fact_data: double(fact:fact))
       interactor = described_class.new(comment_id: comment_id)
 
       Comment.should_receive(:find).with(comment_id).and_return(comment)
@@ -121,7 +121,7 @@ describe Interactors::SubComments::IndexForComment do
       fact = double
       graph_user = double
       authority = double
-      sub_comment = mock(created_by: mock(graph_user: graph_user))
+      sub_comment = double(created_by: double(graph_user: graph_user))
       interactor = described_class.new(comment_id: comment_id)
 
       interactor.should_receive(:top_fact).and_return(fact)
