@@ -213,7 +213,7 @@ describe Channel do
 
     describe "#facts" do
       before do
-        Fact.should_receive(:invalid).any_number_of_times.and_return(false)
+        Fact.stub invalid: false
       end
       context "initially" do
         it "should be empty" do
