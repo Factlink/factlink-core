@@ -1,5 +1,3 @@
-require 'ohm/contrib'
-
 require_relative 'our_ohm/generic_reference'
 require_relative 'our_ohm/monkey'
 require_relative 'our_ohm/timestamped_set'
