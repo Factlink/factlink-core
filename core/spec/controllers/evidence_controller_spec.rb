@@ -136,8 +136,6 @@ describe EvidenceController do
       get :show, id: fr.id, format: :json
       response.should be_success
 
-      puts response.body.inspect
-
       response_body = response.body.to_s
       # strip mongo id, since otherwise comparison will always fail
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
