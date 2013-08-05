@@ -24,6 +24,7 @@ class Channel < OurOhm
     result = super
 
     increment_mixpanel_count
+    Topic.get_or_create_by_channel(self) if type == 'channel'
 
     result
   end
@@ -45,10 +46,6 @@ class Channel < OurOhm
   def save
     self.title = self.title if type == 'channel'
     super
-  end
-
-  def after_save
-    Topic.get_or_create_by_channel(self) if type == 'channel'
   end
 
   reference :created_by, GraphUser
