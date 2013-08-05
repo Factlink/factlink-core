@@ -8,12 +8,6 @@ GIT
       rack
 
 GIT
-  remote: git://github.com/Factlink/ohm-contrib.git
-  revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
-  specs:
-    ohm-contrib (0.0.31)
-
-GIT
   remote: git://github.com/Factlink/ohm.git
   revision: bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac
   specs:
@@ -550,7 +544,6 @@ DEPENDENCIES
   newrelic_moped (~> 0.0.6)
   newrelic_rpm (~> 3.6.2)
   ohm!
-  ohm-contrib!
   oily_png (~> 1.1)
   omniauth-facebook (~> 1.4.1)
   omniauth-twitter (= 0.0.14)
