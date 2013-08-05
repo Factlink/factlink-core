@@ -49,8 +49,10 @@ describe "factlink", type: :feature do
 
       click_wheel_part agreed_path_position
 
-      old_agreed_path_opacity.should_not eq wheel_path_opacity agreed_path_position
-      old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
+      eventually_succeeds do
+        old_agreed_path_opacity.should_not eq wheel_path_opacity agreed_path_position
+        old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
+      end
     end
 
     it "can be neutraled" do
@@ -87,8 +89,10 @@ describe "factlink", type: :feature do
 
       click_wheel_part disagreed_path_position
 
-      old_disagreed_path_opacity.should_not eq wheel_path_opacity disagreed_path_position
-      old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
+      eventually_succeeds do
+        old_disagreed_path_opacity.should_not eq wheel_path_opacity disagreed_path_position
+        old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
+      end
     end
 
     it "should find a factlink when searching on a exact phrase containing small words" do
