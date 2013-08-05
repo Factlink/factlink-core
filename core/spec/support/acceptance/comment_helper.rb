@@ -32,12 +32,12 @@ module Acceptance
           comment_input = page.find_field 'add_comment'
 
           comment_input.click
-          comment_input.set comment
-          if Capybara.current_driver == :poltergeist then
-            #work around poltergeist bug - one set isn't always enough?
+          eventually_succeeds do
             comment_input.set comment
+            comment_input.click
+            #weird poltergeist workaround
+            comment_input.value.should eq comment
           end
-
           click_button 'Post comment'
         end
       end

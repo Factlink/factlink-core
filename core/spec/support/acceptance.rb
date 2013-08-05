@@ -76,7 +76,7 @@ module Acceptance
   end
 
   def eventually_succeeds(&block)
-     start_time = Time.now
+    start_time = Time.now
     begin
       yield
     rescue => e
@@ -85,6 +85,7 @@ module Acceptance
         raise e
       end
       sleep(0.05)
+      retry
     end
   end
 end
