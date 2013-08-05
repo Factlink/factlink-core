@@ -31,11 +31,13 @@ module Acceptance
         within add_evidence_form_css_selector do
           comment_input = page.find_field 'add_comment'
 
-          comment_input.click
           eventually_succeeds do
-            comment_input.set comment
+            comment_input.trigger 'focus' if page.driver == :poltergeist
             comment_input.click
-            #weird poltergeist workaround
+            sleep 0.05 if page.driver == :poltergeist
+            #weird poltergeist workarounds...
+            comment_input.set comment
+            comment_input.trigger 'blur' if page.driver == :poltergeist
             comment_input.value.should eq comment
           end
           click_button 'Post comment'
