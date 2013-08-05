@@ -35,6 +35,9 @@ describe "creating a Factlink", type: :feature do
     add_as_new_channel new_topic_name
     click_button "Post to Factlink"
 
+    eventually_succeeds do
+      raise StandardError, "Fact not created" unless Fact.last
+    end
     visit fact_path(Fact.last.id)
 
     open_modal 'Repost' do
