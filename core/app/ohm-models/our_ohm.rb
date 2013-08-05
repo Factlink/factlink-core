@@ -5,8 +5,6 @@ require_relative 'our_ohm/monkey'
 require_relative 'our_ohm/timestamped_set'
 
 class OurOhm < Ohm::Model
-  include Ohm::Contrib
-  include Ohm::Boundaries
   extend ActiveModel::Naming
   extend OurOhm::GenericReference
 
