@@ -10,6 +10,7 @@ require 'capybara/poltergeist'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
+require "timeout"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -60,6 +61,13 @@ RSpec.configure do |config|
     FactoryGirl.reload
 
     ElasticSearch.stub synchronous: true
+  end
+
+  config.after(:each) do
+    Timeout.timeout(Capybara.default_wait_time) do
+      sleep(0.1) until page.evaluate_script('jQuery.active') == 0
+    end
+    Capybara.reset!
   end
 end
 
