@@ -1,7 +1,6 @@
 require 'ohm/contrib'
 
 class FactRelation < Basefact
-  include Ohm::ExtraValidations
   include Ohm::Timestamping
 
   attr_accessor :sub_comments_count
@@ -63,6 +62,12 @@ class FactRelation < Basefact
     fact.evidence(self.type).delete(self)
 
     super
+  end
+
+  private
+
+  def assert_member(att, set, error = [att, :not_member])
+    assert set.include?(send(att)), error
   end
 
 end
