@@ -117,9 +117,6 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
   itemViewOptions: ->
     collection: @collection
 
-  initialize: ->
-    @bindTo @collection, 'change:impact', @render
-
   showCollection: ->
     if @collection.loading()
       @showEmptyView()
