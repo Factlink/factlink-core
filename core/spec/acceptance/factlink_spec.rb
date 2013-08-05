@@ -18,7 +18,7 @@ describe "factlink", type: :feature do
 
       page.should have_content(@factlink.data.title)
 
-      wait_until_scope_exists '.auto-complete-fact-relations' do
+      within '.auto-complete-fact-relations' do
         input = page.find(:css, 'input')
         input.set(search_string)
         input.trigger('focus')

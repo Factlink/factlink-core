@@ -82,13 +82,6 @@ module Acceptance
     flunk 'The Ajax request was not ready in time'
   end
 
-  def wait_until_scope_exists(scope, &block)
-    wait_until { page.has_css?(scope) }
-    within(scope, &block) if block_given?
-  rescue Capybara::TimeoutError
-    flunk "Expected '#{scope}' to be present."
-  end
-
   def disable_html5_validations(page)
     page.execute_script "$('form').attr('novalidate','novalidate')"
   end
