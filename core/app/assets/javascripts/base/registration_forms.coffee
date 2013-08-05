@@ -2,6 +2,7 @@ setErrorsOnFields = (formId, fieldErrors) ->
   _.forEach fieldErrors, (errorMessage, field) ->
     el = $("#" + formId + "_user_" + field)
 
+    # el.css border: "1px solid rgb(206, 0, 0)"
     el.addClass "error"
     showErrorPopover el, "#{field} #{errorMessage}", formId
 
@@ -60,6 +61,7 @@ bindRegistrationForm = (formId) ->
 
   clearPreviousErrorsForForm = (form) ->
     _.each (form.find "input"), (el) ->
+      # $(el).removeClass "error"
       $(el).css border: "1px solid #ccc"
       $(el).popover "destroy"
 
