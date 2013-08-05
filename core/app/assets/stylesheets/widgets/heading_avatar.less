@@ -20,6 +20,11 @@
     position: relative;
   }
 
+  //The following css generates a surrounding rounded box around the image.
+  //this is equivalent to a fake border, with the advantage
+  //that the "padding" overlays the wrapping boxes border, whereas the
+  //"border" is underneath it.  This causes the visual border to appear
+  //continuously to wrap the jutting out avatar image.
   &:before, &:after {
     display: block;
     top: 0px; left: 0px; right: 0px; bottom: 0px;
@@ -28,15 +33,9 @@
     border-radius: calc(~"6.25% + 1px");
     content: '';
     position: absolute;
-    background:white;
+    background: white;
   }
 
-
-  //The following css generates a surrounding rounded box around the image.
-  //this is equivalent to a fake border, with the advantage
-  //that the "padding" overlays the wrapping boxes border, whereas the
-  //"border" is underneath it.  This causes the visual border to appear
-  //continuously to wrap the jutting out avatar image.
   &:after {
     z-index: -1;
     .new-design-box-shadow();
