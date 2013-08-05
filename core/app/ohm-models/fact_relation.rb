@@ -1,9 +1,8 @@
-require 'ohm/contrib'
-
 class FactRelation < Basefact
-  include Ohm::Timestamping
-
   attr_accessor :sub_comments_count
+
+  attribute :created_at
+  attribute :updated_at
 
   reference :from_fact, Fact
   reference :fact, Fact
@@ -49,6 +48,12 @@ class FactRelation < Basefact
   end
   private_class_method :create_new, :get_id
 
+  def create
+    self.created_at ||= Time.now.utc.to_s
+
+    super
+  end
+
   def get_type_opinion
     Opinion.for_type(OpinionType.for_relation_type(type))
   end
@@ -70,4 +75,11 @@ class FactRelation < Basefact
     assert set.include?(send(att)), error
   end
 
+  protected
+
+  def write
+    self.updated_at = Time.now.utc.to_s
+
+    super
+  end
 end
