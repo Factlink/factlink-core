@@ -1,10 +1,8 @@
-require 'ohm/contrib'
-
 class FactRelation < Basefact
-  include Ohm::ExtraValidations
-  include Ohm::Timestamping
-
   attr_accessor :sub_comments_count
+
+  attribute :created_at
+  attribute :updated_at
 
   reference :from_fact, Fact
   reference :fact, Fact
@@ -50,6 +48,12 @@ class FactRelation < Basefact
   end
   private_class_method :create_new, :get_id
 
+  def create
+    self.created_at ||= Time.now.utc.to_s
+
+    super
+  end
+
   def get_type_opinion
     Opinion.for_type(OpinionType.for_relation_type(type))
   end
@@ -58,14 +62,24 @@ class FactRelation < Basefact
     EvidenceDeletable.new(self, self.class.to_s, believable, created_by_id).deletable?
   end
 
-  def delete_key
+  def delete
     self.class.key['gcby'][from_fact.id][self.type][fact.id].del
-  end
-
-  def delete_from_evidence
     fact.evidence(self.type).delete(self)
+
+    super
   end
 
-  before :delete, :delete_key
-  before :delete, :delete_from_evidence
+  private
+
+  def assert_member(att, set, error = [att, :not_member])
+    assert set.include?(send(att)), error
+  end
+
+  protected
+
+  def write
+    self.updated_at = Time.now.utc.to_s
+
+    super
+  end
 end
