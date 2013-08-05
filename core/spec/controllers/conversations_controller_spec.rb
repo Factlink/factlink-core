@@ -9,7 +9,7 @@ describe ConversationsController do
 
       conversation = mock(:conversation, )
 
-      pavlov_options = mock()
+      pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)
 
       Pavlov.should_receive(:old_query)
@@ -72,7 +72,7 @@ describe ConversationsController do
       other_guy = create :user
       fact_id = 10
 
-      pavlov_options = mock()
+      pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)
 
       Pavlov.should_receive(:old_interactor)

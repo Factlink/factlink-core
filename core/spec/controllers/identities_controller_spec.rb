@@ -6,8 +6,8 @@ require_relative '../../app/controllers/identities_controller.rb'
 describe IdentitiesController do
   describe 'service_callback' do
     it 'calls connect_provider when a user is signed in' do
-      provider_name = mock()
-      omniauth_obj = mock()
+      provider_name = double
+      omniauth_obj = double
 
       subject.should_receive(:user_signed_in?).and_return(true)
       subject.stub(:parse_omniauth_env).and_return(omniauth_obj)
@@ -20,8 +20,8 @@ describe IdentitiesController do
     end
 
     it 'calls sign_in_through_provider when a user is not logged in' do
-      provider_name = mock()
-      omniauth_obj = mock()
+      provider_name = double
+      omniauth_obj = double
 
       subject.should_receive(:user_signed_in?).and_return(false)
       subject.stub(:parse_omniauth_env).and_return(omniauth_obj)
@@ -36,8 +36,8 @@ describe IdentitiesController do
 
   describe 'sign_in_through_provider' do
     it 'should sign a user in when one is found' do
-      user = mock()
-      provider_name = mock()
+      user = double
+      provider_name = double
       omniauth_obj = mock(uid: true)
 
       stub_const("User", Class.new)

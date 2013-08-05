@@ -11,7 +11,7 @@ describe TopicsController do
     context 'json' do
       it 'calls the interactor with the correct parameters' do
         slug_title = 'foo'
-        topic = stub
+        topic = double
         format = mock(json: nil, html: nil)
 
         controller.stub(params: {id: slug_title})
