@@ -40,7 +40,6 @@ module Acceptance
       within('.auto-complete-search-list') do
         el = page.find('li .text em', text: name)
         el.click
-        # sleep 1
       end
 
       page.find('.auto-complete-results-container', text: name)
@@ -58,8 +57,6 @@ module Acceptance
 
     def open_message_with_content(message_str)
       find(".navbar-inner:not(.dimmed) .conversations-link").click
-
-      # sleep 2
 
       within '.conversations li' do
         page.should have_content(message_str)

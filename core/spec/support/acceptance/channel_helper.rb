@@ -30,7 +30,7 @@ module Acceptance
     end
 
     def go_to_first_fact
-      first('a.discussion_link', text:'Arguments').click
+      first('a.discussion_link', text: 'Arguments').click
     end
 
     def assert_on_channel_page channel_title

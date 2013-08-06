@@ -8,6 +8,8 @@ require 'rubygems'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara/email/rspec'
+require 'capybara-screenshot'
+
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 
