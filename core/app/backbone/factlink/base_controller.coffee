@@ -25,7 +25,7 @@ class Backbone.Factlink.BaseController
     @onShow() if @onShow?
 
   closeController: ->
-    @unbindAll()
+    @stopListening()
     @started = false
     @onClose() if @onClose?
 
