@@ -19,7 +19,7 @@ describe Queries::Users::Handpicked do
       user_ids = dead_users.map(&:id)
 
       HandpickedTourUsers.stub(:new)
-        .and_return stub(ids: user_ids)
+        .and_return double(ids: user_ids)
 
       query = described_class.new
 

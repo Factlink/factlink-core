@@ -115,7 +115,7 @@ describe EvidenceController do
 
       response.should be_success
 
-      #todo: maybe check if the opinion is also persisted?
+      # TODO maybe check if the opinion is also persisted?
     end
   end
 
@@ -135,8 +135,6 @@ describe EvidenceController do
 
       get :show, id: fr.id, format: :json
       response.should be_success
-
-      puts response.body.inspect
 
       response_body = response.body.to_s
       # strip mongo id, since otherwise comparison will always fail

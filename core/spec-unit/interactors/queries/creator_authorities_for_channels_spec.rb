@@ -63,7 +63,7 @@ describe Queries::CreatorAuthoritiesForChannels do
                   created_by_id: channel_creator.id)
       query = described_class.new channels: [channel]
 
-      channel.should_receive(:write_local).with(:created_by, channel_creator).any_number_of_times
+      channel.stub(:write_local).with(:created_by, channel_creator)
       GraphUser.stub(:[]).with(256).and_return(channel_creator)
 
       expect(query.graph_user_for(channel)).to eq(channel_creator)
@@ -75,8 +75,8 @@ describe Queries::CreatorAuthoritiesForChannels do
       channel2 = double('channel', created_by_id: channel_creator.id)
       query = described_class.new channels: [channel]
 
-      channel.should_receive(:write_local).with(:created_by, channel_creator).any_number_of_times
-      channel2.should_receive(:write_local).with(:created_by, channel_creator).any_number_of_times
+      channel.stub(:write_local).with(:created_by, channel_creator)
+      channel2.stub(:write_local).with(:created_by, channel_creator)
       GraphUser.should_receive(:[]).with(256)
                .once.and_return(channel_creator)
 

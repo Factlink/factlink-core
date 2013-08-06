@@ -4,14 +4,14 @@ describe FactUrl do
 
   before do
     stub_const 'FactlinkUI::Application', Class.new
-    config = stub core_url:  'https://site.com',
+    config = double core_url:  'https://site.com',
                   proxy_url: 'http://proxy.com'
     FactlinkUI::Application.stub(config: config)
   end
 
   describe '.fact_url' do
     it 'returns the correct url' do
-      fact = stub id: '1'
+      fact = double id: '1'
 
       fact_url = FactUrl.new fact
 
@@ -22,7 +22,7 @@ describe FactUrl do
 
   describe '.friendly_fact_path' do
     it 'returns the correct path' do
-      fact = stub id: '2', to_s: 'THIS IS A FRIENDLY FACT'
+      fact = double id: '2', to_s: 'THIS IS A FRIENDLY FACT'
 
       fact_url = FactUrl.new fact
 
@@ -33,7 +33,7 @@ describe FactUrl do
 
   describe '.friendly_fact_url' do
     it 'returns the correct url' do
-      fact = stub id: '2', to_s: 'THIS IS A FRIENDLY FACT'
+      fact = double id: '2', to_s: 'THIS IS A FRIENDLY FACT'
 
       fact_url = FactUrl.new fact
 
@@ -44,7 +44,7 @@ describe FactUrl do
 
   describe '.proxy_scroll_url' do
     it 'returns the correct url when fact has a site_url' do
-      fact = stub id: '3', site_url: 'http://sciencedaily.com'
+      fact = double id: '3', site_url: 'http://sciencedaily.com'
 
       fact_url = FactUrl.new fact
 
@@ -53,7 +53,7 @@ describe FactUrl do
     end
 
     it 'returns nil when fact has no site_url' do
-      fact = stub id: '4', site_url: nil
+      fact = double id: '4', site_url: nil
 
       fact_url = FactUrl.new fact
       expect(fact_url.proxy_scroll_url)
@@ -63,7 +63,7 @@ describe FactUrl do
 
   describe '.sharing_url' do
     it 'returns the proxy_scroll_url when fact has a site_url' do
-      fact = stub id: '3', site_url: 'http://sciencedaily.com'
+      fact = double id: '3', site_url: 'http://sciencedaily.com'
 
       fact_url = FactUrl.new fact
 
@@ -72,7 +72,7 @@ describe FactUrl do
     end
 
     it 'returns friendly_fact_url when fact has no site_url' do
-      fact = stub id: '2', site_url: nil, to_s: 'THIS IS A FRIENDLY FACT'
+      fact = double id: '2', site_url: nil, to_s: 'THIS IS A FRIENDLY FACT'
 
       fact_url = FactUrl.new fact
 
@@ -84,7 +84,7 @@ describe FactUrl do
   describe 'xss protection' do
     describe '.friendly_fact_url' do
       it 'does not contain tags' do
-        fact = stub id: '22', to_s: 'this<script>funky stuff'
+        fact = double id: '22', to_s: 'this<script>funky stuff'
 
         fact_url = FactUrl.new fact
 
@@ -94,7 +94,7 @@ describe FactUrl do
           .not_to match '>'
       end
       it 'does not escape from quotes' do
-        fact = stub id: '22', to_s: 'double " single \' quote'
+        fact = double id: '22', to_s: 'double " single \' quote'
 
         fact_url = FactUrl.new fact
 

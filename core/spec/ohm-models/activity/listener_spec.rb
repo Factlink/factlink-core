@@ -14,7 +14,7 @@ describe Activity::Listener do
     class Foo
       timestamped_set :activities, Activity
     end
-    stub_const 'Interactors::SendMailForActivity', mock
+    stub_const 'Interactors::SendMailForActivity', double
   end
 
   after :all do
