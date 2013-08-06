@@ -2,11 +2,6 @@
 // Variables
 // --------------------------------------------------
 
-
-// Global values
-// --------------------------------------------------
-
-
 // Grays
 // -------------------------
 @black:                 #000;
@@ -16,7 +11,6 @@
 @grayLight:             #999;
 @grayLighter:           #eee;
 @white:                 #fff;
-
 
 // Colors
 // -------------------------
@@ -99,6 +93,13 @@
 @btnInverseBackground:              #444;
 @btnInverseBackgroundHighlight:     @grayDarker;
 
+@dangerButtonColor:         #c0544d;
+@disabledButtonStartColor:  #f0f0f0;
+@disabledButtonEndColor:    #f8f8f8;
+
+@buttonBlueDark:   #1c5c90;
+@buttonBlueDarker: #124977;
+@buttonTextShadow: rgba(0,0,0,0.35);
 
 // Forms
 // -------------------------
@@ -169,7 +170,8 @@
 // -------------------------
 @navbarCollapseWidth:             979px;
 
-@navbarHeight:                    40px;
+@navbarHeight:                    42px;
+@navbarMargin:                    18px;
 @navbarBackgroundHighlight:       @grayLighter;
 @navbarBackground:                white;
 @navbarBorder:                    darken(@navbarBackground, 12%);
@@ -251,8 +253,6 @@
 @popoverArrowOuterWidth:  @popoverArrowWidth + 1;
 @popoverArrowOuterColor:  rgba(0,0,0,.25);
 
-
-
 // GRID
 // --------------------------------------------------
 
@@ -287,15 +287,6 @@
 @fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
 @fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
 
-// Buttons
-@dangerButtonColor:         #c0544d;
-@disabledButtonStartColor:  #f0f0f0;
-@disabledButtonEndColor:    #f8f8f8;
-
-@buttonBlueDark:   #1c5c90;
-@buttonBlueDarker: #124977;
-@buttonTextShadow: rgba(0,0,0,0.35);
-
 // Styling
 @baseBorderColor:           darken(#d7d7d7, 5);
 @mutedBorderColor:          lighten(@baseBorderColor, 5);
@@ -323,6 +314,3 @@
 
 @bubbleLeftPadding:  15px;
 @bubbleRightPadding: 15px;
-
-@navbarHeight: 42px;
-@navbarMargin: 18px;
