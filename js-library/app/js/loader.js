@@ -79,9 +79,20 @@
     iframe.contentWindow.document.head.appendChild(flScript);
   };
 
+  // Wrappers for increased CSS specificity
+  var wrapper1 = document.createElement("div"),
+      wrapper2 = document.createElement("div"),
+      wrapper3 = document.createElement("div");
+  wrapper1.id = "fl-wrapper-1";
+  wrapper2.id = "fl-wrapper-2";
+  wrapper3.id = "fl-wrapper-3";
   div.id = "fl";
 
-  document.body.appendChild(div);
+  wrapper1.appendChild(wrapper2);
+  wrapper2.appendChild(wrapper3);
+  wrapper3.appendChild(div);
+  document.body.appendChild(wrapper1);
+
   div.insertBefore(iframe, div.firstChild);
 
   iframeDoc = iframe.contentWindow.document;
