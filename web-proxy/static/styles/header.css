@@ -226,4 +226,5 @@ div.top-right {
   background-color: darken(#e4e6eb, 5);
   border-top: 3px solid #1c5c90;
   border-bottom: 0px
+  border-bottom: 0px;
 }
