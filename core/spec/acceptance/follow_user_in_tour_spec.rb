@@ -94,7 +94,9 @@ feature "follow_users_in_tour", type: :feature do
     first(:button, 'Follow user').click
     first(:button, 'Following').click # Unfollow
 
-    go_to_profile_page_of @user
-    check_follower_following_count 0, 0
+    eventually_succeeds do
+      go_to_profile_page_of @user
+      check_follower_following_count 0, 0
+    end
   end
 end
