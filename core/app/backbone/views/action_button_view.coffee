@@ -11,6 +11,7 @@ class ActionButtonState extends Backbone.Model
       @trigger 'click:unchecked'
     @set 'hovering', false
 
+
 class window.ActionButtonView extends Backbone.Marionette.ItemView
   tagName: 'button'
   template: 'generic/action_button'
@@ -23,26 +24,31 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
     super
 
-    @bindInteractionEvents options.$listenToEl || @$el
+    @$listenToEl = options.$listenToEl || @$el
+    @bindInteractionEvents()
 
-
-  bindInteractionEvents: ($listenToEl)->
-    @listenTo $listenToEl, 'click', @onClick
-    @listenTo $listenToEl, 'mouseenter', @onMouseEnter
-    @listenTo $listenToEl, 'mouseleave', @onMouseLeave
+  bindInteractionEvents: ->
+    @$listenToEl.on 'click', @onClick
+    @$listenToEl.on 'mouseenter', @onMouseEnter
+    @$listenToEl.on 'mouseleave', @onMouseLeave
 
     @listenTo @model, 'change', @render
     @on 'render', @showCurrentState, @
 
-  onClick: (e) ->
+  onClose: ->
+    @listenToEl.off 'click', @onClick
+    @listenToEl.off 'mouseenter', @onClick
+    @listenToEl.off 'mouseleave', @onClick
+
+  onClick: (e) =>
     e.preventDefault()
     e.stopPropagation()
     return unless @model.get('loaded')
 
     @model.onClick()
 
-  onMouseEnter: -> @model.set 'hovering', true
-  onMouseLeave: -> @model.set 'hovering', false
+  onMouseEnter: => @model.set 'hovering', true
+  onMouseLeave: => @model.set 'hovering', false
 
   showCurrentState: ->
     hovering = @model.get('hovering')
