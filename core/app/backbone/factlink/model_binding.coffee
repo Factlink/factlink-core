@@ -8,7 +8,7 @@ Backbone.Factlink.ModelBinding =
           console.log "binding #{selector} to #{field}"
           # When the model changes update the form
           # elements
-          @model.bind "change:#{field}", (model, val)=>
+          @model.on "change:#{field}", (model, val)=>
             console.log "model[#{field}] => #{selector}"
             el = @$(selector)
             if (el.attr('type') == 'checkbox')
