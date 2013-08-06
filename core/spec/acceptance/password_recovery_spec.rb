@@ -12,7 +12,7 @@ describe 'Password recovery', type: :feature do
     @user.username = "Barones"
 
     visit "/"
-    click_link "Sign in"
+    first(:link, "Sign in", exact: true).click
     click_link "Forgot password?"
 
     fill_in 'user_email', with: @user.email
