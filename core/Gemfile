@@ -16,7 +16,7 @@ gem 'mail', '~> 2.5.4'
 # Mongo
 gem 'mongoid', '~> 3.0.21'
 
-gem 'pavlov', '= 0.1.4' # Pavlov is still highly unstable, so pinned
+gem 'pavlov', '= 0.1.3' # Pavlov is still highly unstable, so pinned
 gem 'korsakov', github: 'jjoos/korsakov', ref: '72db865'
 
 # Redis
