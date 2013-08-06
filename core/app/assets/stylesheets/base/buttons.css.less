@@ -103,13 +103,11 @@ body.client {
     line-height: @largeButtonHeight - 2*@baselinePixelsUp;
     padding: 0 @largeButtonPadding;
     border: none;
-    border-bottom-width: @largeButtonBorderWidth;
-    border-bottom-style: solid;
+    border-bottom: @largeButtonBorderWidth solid @buttonBorder;
     transition: all 0.1s;
     background-color: @buttonBackground;
     color: @linkColor;
     text-shadow: 0 1px 0 @buttonTextShadow;
-    border-bottom-color: @buttonBorder;
     &:hover {
       background-color: @buttonDarkBackground;
       border-bottom-color: @buttonDarkBorder;
