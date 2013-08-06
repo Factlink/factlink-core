@@ -64,13 +64,13 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
+    Capybara.reset!
     Timeout.timeout(Capybara.default_wait_time) do
       # wait for all ajax requests to complete
       # if we don't wait, the server may see it after the db is cleaned
       # and a request for a removed object will cause a crash (nil ref).
       sleep(0.1) until page.evaluate_script('(window.jQuery ? window.jQuery.active : 0)') == 0
     end
-    Capybara.reset!
   end
 end
 
