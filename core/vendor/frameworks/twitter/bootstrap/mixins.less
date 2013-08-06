@@ -104,9 +104,6 @@
     .sans-serif() {
       font-family: @sansFontFamily;
     }
-    .monospace() {
-      font-family: @monoFontFamily;
-    }
   }
   .shorthand(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
     font-size: @size;
@@ -119,10 +116,6 @@
   }
   .sans-serif(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
     #font > #family > .sans-serif;
-    #font > .shorthand(@size, @weight, @lineHeight);
-  }
-  .monospace(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
-    #font > #family > .monospace;
     #font > .shorthand(@size, @weight, @lineHeight);
   }
 }
