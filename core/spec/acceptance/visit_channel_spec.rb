@@ -53,9 +53,7 @@ feature "visiting a channel" do
     go_back_using_button
 
     eventually_succeeds do
-      #firefox doesn't restore scroll-position like this
-      #it's also fundamentally tricky due to ajax.
-      scroll_top_should_eq 100 if page.driver == :poltergeist
+      scroll_top_should_eq 100
     end
     page.should have_content(@factlink.to_s)
   end
