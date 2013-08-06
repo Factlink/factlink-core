@@ -14,13 +14,14 @@ class Backbone.Factlink.BaseController
 
   getRouteFunction: (name) ->
     (args...) ->
+      @stopListening()
+      @listenTo FactlinkApp.vent, 'controller:switch', @closeController
       @openController() unless @started
       @onAction?()
       @[name](args...)
 
   openController: ->
     FactlinkApp.vent.trigger 'controller:switch'
-    @listenTo FactlinkApp.vent, 'controller:switch', @closeController
     @started = true
     @onShow() if @onShow?
 

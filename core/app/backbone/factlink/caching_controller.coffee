@@ -7,8 +7,6 @@ class Backbone.Factlink.CachingController extends Backbone.Factlink.BaseControll
     @cached_views.cleanup()
     super
 
-  onAction: -> @unbindFrom @permalink_event if @permalink_event?
-
   makePermalinkEvent: (baseUrl=null)->
     FactlinkApp.factlinkBaseUrl = baseUrl
     @permalink_event = @listenTo FactlinkApp.vent, 'factlink_permalink_clicked', ->
