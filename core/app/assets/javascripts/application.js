@@ -10,7 +10,7 @@
 //= require jquery.placeholder
 //= require raven
 //= require state-machine
-
+//= require detector
 //= require globals/globals
 
 //= require_tree ./base
