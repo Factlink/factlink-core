@@ -1,13 +1,15 @@
 require_relative 'elastic_search_index_for_text_search'
 
 module Commands
-  class ElasticSearchIndexUserForTextSearch < ElasticSearchIndexForTextSearch
-    def fields
-      [:username, :first_name, :last_name]
-    end
+  class ElasticSearchIndexUserForTextSearch
+    include Pavlov::Command
 
-    def type_name
-      :user
+    arguments :user
+
+    def execute
+      old_command :elastic_search_index_for_text_search,
+                    user, :user,
+                    [:username, :first_name, :last_name]
     end
   end
 end

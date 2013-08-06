@@ -4,10 +4,9 @@ module Commands
   class ElasticSearchIndexForTextSearch
     include Pavlov::Command
 
-    arguments :object
+    arguments :object, :type_name, :fields
 
     def execute
-
       fields.each do |name|
         document[name] = object.send name
       end
