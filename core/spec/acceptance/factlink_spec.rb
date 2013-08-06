@@ -69,9 +69,10 @@ describe "factlink", type: :feature do
       old_neutral_path_shape = wheel_path_d neutral_path_position
 
       click_wheel_part neutral_path_position
-
-      old_neutral_path_opacity.should_not eq wheel_path_opacity neutral_path_position
-      old_neutral_path_shape.should eq wheel_path_d neutral_path_position
+      eventually_succeeds do
+        old_neutral_path_opacity.should_not eq wheel_path_opacity neutral_path_position
+        old_neutral_path_shape.should eq wheel_path_d neutral_path_position
+      end
     end
 
     it "can be disagreed" do
