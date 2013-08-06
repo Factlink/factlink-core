@@ -198,7 +198,7 @@ div.top-right {
 #error_in_proxy:hover, .error_in_proxy:active  {background-color: #d28876;}
 
 .button {
-  font-family: Roboto, "Helvetica Neue", Helvetica, Arial;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
   font-weight: 300;
   display: inline-block;
