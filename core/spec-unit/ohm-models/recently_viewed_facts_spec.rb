@@ -27,7 +27,7 @@ describe RecentlyViewedFacts do
 
       nest.should_receive(:zrevrange).with(0, count-1).and_return([fact.id])
 
-      Fact.should_receive(:[]).any_number_of_times.with(fact.id).and_return fact
+      Fact.stub(:[]).with(fact.id).and_return fact
 
       result = RecentlyViewedFacts.new(nest).top count
 
@@ -38,7 +38,7 @@ describe RecentlyViewedFacts do
       fact_id = 14
       nest = double zrevrange: [fact_id]
 
-      Fact.should_receive(:[]).any_number_of_times.with(fact_id).and_return nil
+      Fact.stub(:[]).with(fact_id).and_return nil
 
       result = RecentlyViewedFacts.new(nest).top 10
 

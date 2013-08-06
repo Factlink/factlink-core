@@ -17,7 +17,7 @@ describe MapReduce::TopicAuthority do
        ch2 = Channel.create(title: "Ruby", created_by: gu2)
        ch3 = Channel.create(title: "Java", created_by: gu1)
 
-       channels_all = mock ids: [ch1.id, ch2.id, ch3.id]
+       channels_all = double ids: [ch1.id, ch2.id, ch3.id]
 
        Authority.from(ch1, for: gu1) << 2
        Authority.from(ch2, for: gu1) << 3
@@ -35,7 +35,7 @@ describe MapReduce::TopicAuthority do
      it "gives you credit if you add facts" do
        ch1 = Channel.create(title: "Ruby", created_by: gu1)
 
-       channels_all = mock ids: [ch1.id]
+       channels_all = double ids: [ch1.id]
 
        add_fact_to_channel create(:fact), ch1
        add_fact_to_channel create(:fact), ch1
@@ -52,7 +52,7 @@ describe MapReduce::TopicAuthority do
      it "gives you credit if your channels are followed by other channels" do
        ch1 = Channel.create(title: "Ruby", created_by: gu1)
 
-       channels_all = mock ids: [ch1.id]
+       channels_all = double ids: [ch1.id]
 
        10.times do
          ch = create :channel

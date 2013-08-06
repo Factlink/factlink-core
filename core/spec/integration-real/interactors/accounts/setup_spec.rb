@@ -7,7 +7,7 @@ describe 'setting up an account' do
 
   before do
     stub_const 'UserMailer', Class.new
-    UserMailer.stub welcome_instructions: stub(deliver: nil)
+    UserMailer.stub welcome_instructions: double(deliver: nil)
   end
 
   def create_approved_user username, email

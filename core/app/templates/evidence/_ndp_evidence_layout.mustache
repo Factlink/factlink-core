@@ -2,16 +2,17 @@
 <div class="evidence-spacer-left"></div>
 
 <div class="evidence-impact">
-  <div class="new-design-background-shadow"></div>
-  {{#positive_impact}}
-    {{formatted_impact}}
-  {{/positive_impact}}
-  {{^positive_impact}}
-    0.0
-  {{/positive_impact}}
+  <div class="js-vote-region"></div>
+  <div class="evidence-impact-text">
+    {{#positive_impact}}
+      {{formatted_impact}}
+    {{/positive_impact}}
+    {{^positive_impact}}
+      0.0
+    {{/positive_impact}}
+  </div>
 </div>
 <div class="evidence-box">
   <div class="evidence-box-triangle"></div>
-  <div class="new-design-background-shadow"></div>
   <div class="js-content-region"></div>
 </div>

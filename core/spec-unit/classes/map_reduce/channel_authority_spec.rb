@@ -32,7 +32,7 @@ describe MapReduce::ChannelAuthority do
         )
       }
 
-      Authority.stub!(:from).and_return(double(:Authority, to_f: 18))
+      Authority.stub(:from).and_return(double(:Authority, to_f: 18))
       Fact.stub(:[]) { |id| fact_db[id] }
 
       subject.wrapped_map(facts).should == {

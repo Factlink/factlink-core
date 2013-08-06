@@ -92,7 +92,7 @@ describe User do
     describe "when agreeing with signing" do
       it "should be allowed" do
         t = DateTime.now
-        DateTime.stub!(:now).and_return(t)
+        DateTime.stub(:now).and_return(t)
         nonnda_subject.sign_tos(true).should == true
         nonnda_subject.agreed_tos_on.to_i.should == t.to_i
         nonnda_subject.errors.keys.length.should == 0

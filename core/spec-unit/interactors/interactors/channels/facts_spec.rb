@@ -16,19 +16,9 @@ describe Interactors::Channels::Facts do
         to fail_validation('from should be an integer.')
     end
 
-    it 'from can be blank' do
-      expect_validating(id: '1', from: nil, count: 0).
-        to_not fail_validation('from should be an integer.')
-    end
-
     it 'count must be an integer' do
       expect_validating(id: '1', from: 1, count: 'a').
         to fail_validation('count should be an integer.')
-    end
-
-    it 'count can be blank' do
-      expect_validating(id: '1', from: 1, count: nil).
-        to_not fail_validation('count should be an integer.')
     end
   end
 

@@ -26,7 +26,7 @@ describe Channel do
 
     describe "when adding a subchannel" do
       it "creates an added_subchannel activity" do
-        pavlov_options = {ability: (mock can?: true)}
+        pavlov_options = {ability: (double can?: true)}
         Interactors::Channels::AddSubchannel.new(channel_id: channel.id,
           subchannel_id: ch1.id, pavlov_options: pavlov_options).call
         last_activity = Activity.for(channel).to_a.last
@@ -196,10 +196,10 @@ describe Channel do
 
     describe ".containing_channels_for_ids" do
       it 'calls a method on channellist' do
-        channel_list = mock
-        return_value = mock
+        channel_list = double
+        return_value = double
         channel = create :channel
-        user = mock
+        user = double
         ChannelList.should_receive(:new).with(user)
                    .and_return(channel_list)
         channel_list.should_receive(:containing_channel_ids_for_channel)
@@ -213,7 +213,7 @@ describe Channel do
 
     describe "#facts" do
       before do
-        Fact.should_receive(:invalid).any_number_of_times.and_return(false)
+        Fact.stub invalid: false
       end
       context "initially" do
         it "should be empty" do

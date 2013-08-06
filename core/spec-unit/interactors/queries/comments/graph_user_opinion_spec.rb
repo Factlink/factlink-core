@@ -15,7 +15,7 @@ describe Queries::Comments::GraphUserOpinion do
       query = described_class.new comment_id: id, graph_user: graph_user
 
       query.stub possible_opinions: [op1, op2]
-      query.stub!(:has_opinion?) {|type| type == op2}
+      query.stub(:has_opinion?) {|type| type == op2}
 
       expect(query.call).to eq op2
     end

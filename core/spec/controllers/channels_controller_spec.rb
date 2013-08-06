@@ -115,7 +115,7 @@ describe ChannelsController do
       authenticate_user!(user)
 
       channel_id = '1a'
-      channel = mock
+      channel = double
 
       controller.should_receive(:old_interactor).
         with(:'channels/follow', channel_id).

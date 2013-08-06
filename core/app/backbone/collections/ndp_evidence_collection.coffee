@@ -1,7 +1,6 @@
 class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
 
   initialize: (models, options) ->
-    @on 'change sync', @sort, @
     @fact = options.fact
 
     @_containedCollections = [
@@ -10,8 +9,8 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
       new OneSidedEvidenceCollection null, fact: @fact, type: 'weakening'
     ]
 
-    collectionUtils = new CollectionUtils
-    collectionUtils.union this, @_containedCollections...
+    for collection in @_containedCollections
+      collection.on 'reset', @loadFromCollections, @
 
   comparator: (item) -> - item.get('impact')
 
@@ -21,3 +20,8 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
   fetch: (options={}) ->
     @trigger 'before:fetch'
     _.invoke @_containedCollections, 'fetch', options
+
+  loadFromCollections: ->
+    return if @loading()
+
+    @reset(_.union (col.models for col in @_containedCollections)...)
