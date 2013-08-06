@@ -86,11 +86,8 @@ feature "adding factlinks to a fact", type: :feature do
 
         click_wheel_part 0, '.relation-tabs-view li.evidence-item'
 
-        # sleep 2 # Wait for the evidence to be refreshed
 
         authority_el = find '.authorities-evidence'
-        # require 'pry'
-        # binding.pry
 
         authority_el.should have_content '1.0'
 
