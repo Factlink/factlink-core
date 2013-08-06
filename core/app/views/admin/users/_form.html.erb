@@ -119,33 +119,15 @@
       </th>
       <td>
         <%= f.check_box :admin %>
-<<<<<<< HEAD
-      </div>
-    </div>
 
-
-    <div class="form-actions">
-      <%= link_to 'cancel', admin_users_path, class: 'button' %>
-      <%= f.submit class: 'button button-confirm' %>
-    </div>
-
-  </div>
-
-
-  <!-- Feature toggle -->
-  <div class="span3 well" style="width: 200px;">
-    <h1>Features</h1>
-
-    <ul>
-=======
       </td>
     </tr>
 
     <tr>
       <td colspan="2" style="text-align:right;">
         <div class="form-actions">
-          <%= link_to 'cancel', admin_users_path, class: 'btn' %>
-          <%= f.submit class: 'btn btn-primary' %>
+          <%= link_to 'cancel', admin_users_path, class: 'button' %>
+          <%= f.submit class: 'button button-confirm' %>
         </div>
       </td>
     </tr>
@@ -156,7 +138,6 @@
   <h1>Features</h1>
 
   <ul>
->>>>>>> develop
     <% @user_features.each do |feat| %>
     <li>
       <label<%if @globally_enabled_features.include? feat %>
