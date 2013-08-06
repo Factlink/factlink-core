@@ -80,8 +80,7 @@ module Acceptance
     begin
       yield
     rescue => e
-      if (Time.now - start_time) >= Capybara.default_wait_time ||
-          !page.driver.wait? then
+      if (Time.now - start_time) >= Capybara.default_wait_time then
         raise e
       end
       sleep(0.05)
