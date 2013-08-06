@@ -13,9 +13,9 @@ class window.FactsView extends AutoloadingCompositeView
     @collection.on "stopLoading", @loadingIndicatorOff, this
 
   emptyViewOn: ->
-    @emptyView = new EmptyTopicView
-    @$("div.no_facts").html @emptyView.render().el
+    @someEmptyView = new EmptyTopicView
+    @$("div.no_facts").html @someEmptyView.render().el
 
   emptyViewOff: ->
-    @emptyView.close()
-    delete @emptyView
+    @someEmptyView.close()
+    delete @someEmptyView
