@@ -29,15 +29,11 @@ module Acceptance
         toggle_to_comment if posting_factlink? #unless posting_comment?
 
         within add_evidence_form_css_selector do
-          Timeout.timeout(Capybara.default_wait_time) do
-            # wait for all ajax requests to complete
-            # if we don't wait, the server may see it after the db is cleaned
-            # and a request for a removed object will cause a crash (nil ref).
-            sleep(0.1) until page.evaluate_script('jQuery.active') == 0
-          end
           comment_input = page.find_field 'add_comment'
 
           comment_input.click
+          #ensure button is enabled, i.e. doesn't say "posting":
+          find('button', 'Post Comment')
           comment_input.set comment
           comment_input.value.should eq comment
           click_post_comment
