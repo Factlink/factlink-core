@@ -102,22 +102,26 @@ body.client {
     height: @largeButtonHeight;
     line-height: @largeButtonHeight - 2*@baselinePixelsUp;
     padding: 0 @largeButtonPadding;
+    transition: all 0.1s;
+
     border: none;
     border-bottom: @largeButtonBorderWidth solid @buttonBorder;
-    transition: all 0.1s;
     background-color: @buttonBackground;
+
     color: @linkColor;
     text-shadow: 0 1px 0 @buttonTextShadow;
+
     &:hover {
-      background-color: @buttonDarkBackground;
-      border-bottom-color: @buttonDarkBorder;
+      background: @buttonDarkBackground;
+      border-color: @buttonDarkBorder;
     }
+
     &:active {
-      padding-top: 2px;
       background-color: @buttonDarkBackground;
-      border-bottom-color: @buttonDarkBackground;
-      box-shadow: inset 0 2px @buttonDarkBorder;
+      border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
+      border-bottom: 0px
     }
+
     &.button-loading {
       .background-size(40px 40px);
       .striped(45deg, rgba(0,0,0,0.07));
@@ -149,8 +153,8 @@ body.client {
     }
     &:active {
       background-color: @buttonConfirmDarkBackground;
-      border-bottom-color: @buttonConfirmDarkBackground;
-      box-shadow: inset 0 2px @buttonConfirmDarkBorder;
+      border-top: @largeButtonBorderWidth solid @buttonConfirmDarkBorder;
+      border-bottom: 0px;
     }
     &.button-loading {
       .striped(45deg);
@@ -170,8 +174,8 @@ body.client {
     }
     &:active {
       background-color: @buttonDangerDarkBackground;
-      border-bottom-color: @buttonDangerDarkBackground;
-      box-shadow: inset 0 2px @buttonDangerDarkBorder;
+      border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
+      border-bottom: 0px;
     }
     &.button-loading {
       .striped(45deg);
@@ -191,8 +195,8 @@ body.client {
     }
     &:active {
       background-color: @buttonSuccessDarkBackground;
-      border-bottom-color: @buttonSuccessDarkBackground;
-      box-shadow: inset 0 2px @buttonSuccessDarkBorder;
+      border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
+      border-bottom: 0px;
     }
     &.button-loading {
       .striped(45deg);
@@ -212,8 +216,8 @@ body.client {
     }
     &:active {
       background-color: @buttonHomeDarkBackground;
-      border-bottom-color: @buttonHomeDarkBackground;
-      box-shadow: inset 0 2px @buttonHomeDarkBorder;
+      border-top: @largeButtonBorderWidth solid @buttonHomeDarkBorder;
+      border-bottom: 0px;
     }
     &.button-loading {
       .striped(45deg);
