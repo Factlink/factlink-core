@@ -1,21 +1,23 @@
-.avatar-wrapper(@size: 32) {
-  @avatarWhiteBorderWidth: @size/16;
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.heading-avatar {
+  width: 32px; //override width/height and the rest scales.
+  height: 32px;
+  top: -2px; // consider customizing on resize
+  margin-right: 6px; //consider customizing on resize
 
   position: relative;
   display: inline-block;
   vertical-align: top;
-  padding: @avatarWhiteBorderWidth;
-  margin: -@avatarWhiteBorderWidth; //compensate for padding.
-  margin-right: @size / 8; //avatar is inline with text, wants space after it.
   background-color: white;
-  border-radius: @avatarWhiteBorderWidth + 1;
+
 
   > img {
-    border-radius: @avatarWhiteBorderWidth;
-    width: @size;
-    height: @size;
+    border-radius: 6.25%;
+    width: 100%;
+    height: 100%;
     position: relative;
-    z-index: 1; //stacking is necessary due to fake border construct explained below.
   }
 
   //The following css generates a surrounding rounded box around the image.
@@ -23,13 +25,25 @@
   //that the "padding" overlays the wrapping boxes border, whereas the
   //"border" is underneath it.  This causes the visual border to appear
   //continuously to wrap the jutting out avatar image.
-  &:after {
+  &:before, &:after {
     display: block;
     top: 0px; left: 0px; right: 0px; bottom: 0px;
-    border-radius: inherit;
+    margin: -6.25%;
+    border-radius: 9.375%;
     content: '';
     position: absolute;
+    background: white;
+  }
+
+  &:after {
     z-index: -1;
     .new-design-box-shadow();
   }
+}
+
+.heading-avatar.heading-avatar-large {
+  width: 48px;
+  height: 48px;
+  top: 0;
+  margin-right: 9px;
 }

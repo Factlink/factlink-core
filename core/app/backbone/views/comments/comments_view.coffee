@@ -11,24 +11,8 @@ class CommentView extends Backbone.Marionette.ItemView
     @trunk8Init 5, '.js-content', '.less'
 
 
-class VoteUpDownCommentView extends VoteUpDownView
-
-  current_opinion: -> @model.get('current_user_opinion')
-
-  on_up_vote: ->
-    if @model.isBelieving()
-      @model.removeOpinion()
-    else
-      @model.believe()
-
-  on_down_vote: ->
-    if @model.isDisBelieving()
-      @model.removeOpinion()
-    else
-      @model.disbelieve()
-
 class window.CommentEvidenceView extends EvidenceBaseView
   mainView: CommentView
-  voteView: VoteUpDownCommentView
+  voteView: VoteUpDownView
   delete_message: 'Remove this comment'
 

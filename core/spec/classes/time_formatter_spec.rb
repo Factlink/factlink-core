@@ -4,9 +4,9 @@ require_relative '../../app/classes/time_formatter'
 describe TimeFormatter do
   describe '#as_time_ago' do
     it 'returns the result of the rails time_ago_in_words helper' do
-      time = mock
-      formatable_time = mock
-      in_words = mock
+      time = double
+      formatable_time = double
+      in_words = double
 
       TimeFormatter.should_receive(:formatable_time).with(time).and_return(formatable_time)
       TimeFormatter.should_receive(:time_ago_in_words).with(formatable_time).and_return(in_words)

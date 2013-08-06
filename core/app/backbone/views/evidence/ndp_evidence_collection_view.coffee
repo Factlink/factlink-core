@@ -3,6 +3,11 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
   regions:
     contentRegion: '.js-content-region'
+    voteRegion: '.js-vote-region'
+
+  constructor: ->
+    super
+    @bindTo @model, 'change', @render, @
 
   typeCss: ->
     switch @model.get('type')
@@ -21,6 +26,10 @@ class NDPVotableEvidenceLayoutView extends NDPEvidenceLayoutView
 
   onRender: ->
     @contentRegion.show new NDPFactRelationOrCommentView model: @model
+
+    if Factlink.Global.signed_in
+      @voteRegion.show new NDPEvidenceVoteView model: @model
+      @$el.addClass 'evidence-has-arrows'
 
 
 class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
@@ -51,9 +60,6 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
 
   itemViewOptions: ->
     collection: @collection
-
-  initialize: ->
-    @bindTo @collection, 'change:impact', @render
 
   showCollection: ->
     if @collection.loading()
