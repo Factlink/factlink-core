@@ -2,11 +2,6 @@
 // Variables
 // --------------------------------------------------
 
-
-// Global values
-// --------------------------------------------------
-
-
 // Grays
 // -------------------------
 @black:                 #000;
@@ -17,45 +12,57 @@
 @grayLighter:           #eee;
 @white:                 #fff;
 
-
-// Accent colors
+// Colors
 // -------------------------
-@blue:                  #049cdb;
-@blueDark:              #0064cd;
 @green:                 #46a546;
-@red:                   #9d261d;
-@yellow:                #ffc40d;
 @orange:                #f89406;
-@pink:                  #c3325f;
-@purple:                #7a43b6;
 
+@whiteDarker:           #F5F5F5;
+@lightYellow:           #ffffe1;
+@itemHoverColor:        lighten(@linkColor, 51%);
+@backgroundGray:        #f9f9f9;
+@greenLabelColor:       #359e7f;
 
 // Scaffolding
 // -------------------------
 @bodyBackground:        @white;
 @textColor:             @grayDark;
 
-
 // Links
 // -------------------------
-@linkColor:             #08c;
-@linkColorHover:        darken(@linkColor, 15%);
-
+@linkColor:             #3D75A3;
+@linkColorHover:        darken(@linkColor, 20);
 
 // Typography
 // -------------------------
+
+@baseFontFamily:    "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+@headingFontFamily: "Helvetica Neue", Helvetica, Arial, sans-serif;
 @sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
 @serifFontFamily:       Georgia, "Times New Roman", Times, serif;
-@monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
 
-@baseFontSize:          14px;
-@baseFontFamily:        @sansFontFamily;
-@baseLineHeight:        20px;
-@altFontFamily:         @serifFontFamily;
+@baseFontSize:              12px;
+@baseLineHeight:            18px;
+@metaFontSize:              11px;
+@subHeadingFontSize:        16px;
 
-@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
+@frontendHeading1FontSize:  28px;
+
+@heading1FontSize:          16px;
+@heading2FontSize:          14px;
+@heading3FontSize:          13px;
+@heading4FontSize:          12px;
+
+@topFactFontSize:           20px;
+@baseFactFontSize:          14px;
+
 @headingsFontWeight:    bold;    // instead of browser default, bold
-@headingsColor:         inherit; // empty to use BS default, @textColor
+
+@headingFontColor:  #333;
+@baseFontColor:     #333;
+@metaFontColor:     #777;
+@mutedFontColor:    #999;
+
 
 // Tables
 // -------------------------
@@ -88,6 +95,13 @@
 @btnInverseBackground:              #444;
 @btnInverseBackgroundHighlight:     @grayDarker;
 
+@dangerButtonColor:         #c0544d;
+@disabledButtonStartColor:  #f0f0f0;
+@disabledButtonEndColor:    #f8f8f8;
+
+@buttonBlueDark:   #1c5c90;
+@buttonBlueDarker: #124977;
+@buttonTextShadow: rgba(0,0,0,0.35);
 
 // Forms
 // -------------------------
@@ -126,7 +140,7 @@
 @zindexFixedNavbar:       1030;
 @zindexModalBackdrop:     1040;
 @zindexModal:             1050;
-
+@max-z-index:             2147483647;
 
 // Sprite icons path
 // -------------------------
@@ -158,9 +172,10 @@
 // -------------------------
 @navbarCollapseWidth:             979px;
 
-@navbarHeight:                    40px;
-@navbarBackgroundHighlight:       #ffffff;
-@navbarBackground:                darken(@navbarBackgroundHighlight, 5%);
+@navbarHeight:                    42px;
+@navbarMargin:                    18px;
+@navbarBackgroundHighlight:       @grayLighter;
+@navbarBackground:                white;
 @navbarBorder:                    darken(@navbarBackground, 12%);
 
 @navbarText:                      #777;
@@ -191,20 +206,11 @@
 
 @navbarInverseBrandColor:                @navbarInverseLinkColor;
 
-
 // Pagination
 // -------------------------
 @paginationBackground:                #fff;
 @paginationBorder:                    #ddd;
 @paginationActiveBackground:          #f5f5f5;
-
-
-// Hero unit
-// -------------------------
-@heroUnitBackground:              @grayLighter;
-@heroUnitHeadingColor:            inherit;
-@heroUnitLeadColor:               inherit;
-
 
 // Form states and alerts
 // -------------------------
@@ -224,7 +230,6 @@
 @infoBackground:          #d9edf7;
 @infoBorder:              darken(spin(@infoBackground, -10), 7%);
 
-
 // Tooltips and popovers
 // -------------------------
 @tooltipColor:            #fff;
@@ -240,8 +245,6 @@
 // Special enhancement for popovers
 @popoverArrowOuterWidth:  @popoverArrowWidth + 1;
 @popoverArrowOuterColor:  rgba(0,0,0,.25);
-
-
 
 // GRID
 // --------------------------------------------------
@@ -264,7 +267,6 @@
 @gridGutterWidth768:      20px;
 @gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
 
-
 // Fluid grid
 // -------------------------
 @fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
@@ -277,3 +279,30 @@
 // 768px-979px
 @fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
 @fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
+
+// Styling
+@baseBorderColor:           darken(#d7d7d7, 5);
+@mutedBorderColor:          lighten(@baseBorderColor, 5);
+@modalBorderColor:          #a6a6a6;
+
+@NDPMutedBorderTopColor:    rgb(230,230,230);
+@NDPMutedBorderBottomColor: rgb(250,250,250);
+
+// TODO: fix these colours to match the new design, concurrently with updating the js-library
+@factlinkActiveColor:       #b4d5fe;
+@factlinkInactiveColor:     lighten(@factlinkActiveColor, 10%);
+
+// Layouting
+@siteWidth:                 960px;
+@discussionModalWidth:      585px;
+@newDiscussionModalWidth:   810px;
+
+@leftColumnWidth: 175px;
+@mainColumnWidth: @siteWidth - @leftColumnWidth;
+
+@mainLeftPadding:   20px;
+@mainRightPadding:  20px;
+@mainBottomPadding: 20px;
+
+@bubbleLeftPadding:  15px;
+@bubbleRightPadding: 15px;
