@@ -40,6 +40,11 @@ describe UrlNormalizer do
                              'http://www.amazon.de/s/?url=search-alias=aps'
     end
 
+    it do
+     normalized( 'http://www.newyorker.com/online/blogs/borowitzreport/2013/08/amazon-founder-says-he-clicked-on-washington-post-by-mistake.html?mobify=0&utm_source=buffer&utm_campaign=Buffer&utm_content=buffer1526d&utm_medium=twitter').should ==
+                             'http://www.newyorker.com/online/blogs/borowitzreport/2013/08/amazon-founder-says-he-clicked-on-washington-post-by-mistake.html'
+    end
+
     describe "improvements" do
 
       it { normalized( 'http://www.google.com/a[b]').should == 'http://www.google.com/a%5Bb%5D' } # [ and ] are not allowed according to RFC 2732 http://www.ietf.org/rfc/rfc2732.txt
