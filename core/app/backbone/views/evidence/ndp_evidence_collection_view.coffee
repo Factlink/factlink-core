@@ -18,6 +18,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   render: ->
     super
     @$el.addClass @typeCss()
+    @$el.addClass 'evidence-irrelevant' unless @model.positiveImpact()
     this
 
 
