@@ -7,7 +7,6 @@ module Commands
     arguments :object
 
     def execute
-      define_index
       missing_fields << :id unless field_exists :id
 
       raise 'Type_name is not set.' unless type_name
@@ -17,8 +16,6 @@ module Commands
     end
 
     private
-
-    attr_reader :type_name
 
     def validate
     end
@@ -37,11 +34,6 @@ module Commands
 
     def document
       @document ||= {}
-    end
-
-    # DSL
-    def type type_name
-      @type_name = type_name
     end
 
     # DSL

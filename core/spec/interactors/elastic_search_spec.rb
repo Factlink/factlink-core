@@ -12,20 +12,20 @@ describe 'elastic search' do
   let (:test_query) do
     Class.new Queries::ElasticSearch do
       def define_query
-        type :test_class
-      end
-
-      def validate
-        true
+        :test_class
       end
     end
   end
 
   let (:test_index_command) do
     Class.new Commands::ElasticSearchIndexForTextSearch do
-      def define_index
-        type 'test_class'
+      def execute
         field :test_field
+        super
+      end
+
+      def type_name
+        :test_class
       end
     end
   end
