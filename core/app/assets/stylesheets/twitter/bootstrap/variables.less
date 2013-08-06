@@ -18,33 +18,55 @@
 @white:                 #fff;
 
 
-// Accent colors
+// Colors
 // -------------------------
 @green:                 #46a546;
 @orange:                #f89406;
 
+@whiteDarker:           #F5F5F5;
+@lightYellow:           #ffffe1;
+@itemHoverColor:        lighten(@linkColor, 51%);
+@backgroundGray:        #f9f9f9;
+@greenLabelColor:       #359e7f;
 
 // Scaffolding
 // -------------------------
 @bodyBackground:        @white;
 @textColor:             @grayDark;
 
-
 // Links
 // -------------------------
-@linkColor:             #08c;
-@linkColorHover:        darken(@linkColor, 15%);
-
+@linkColor:             #3D75A3;
+@linkColorHover:        darken(@linkColor, 20);
 
 // Typography
 // -------------------------
-@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
 
-@altFontFamily:         @serifFontFamily;
+@baseFontFamily:    "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+@headingFontFamily: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
+@baseFontSize:              12px;
+@baseLineHeight:            18px;
+@metaFontSize:              11px;
+@subHeadingFontSize:        16px;
+
+@frontendHeading1FontSize:  28px;
+
+@heading1FontSize:          16px;
+@heading2FontSize:          14px;
+@heading3FontSize:          13px;
+@heading4FontSize:          12px;
+
+@topFactFontSize:           20px;
+@baseFactFontSize:          14px;
+
 @headingsFontWeight:    bold;    // instead of browser default, bold
-@headingsColor:         inherit; // empty to use BS default, @textColor
+
+@headingFontColor:  #333;
+@baseFontColor:     #333;
+@metaFontColor:     #777;
+@mutedFontColor:    #999;
+
 
 // Tables
 // -------------------------
@@ -253,7 +275,6 @@
 @gridGutterWidth768:      20px;
 @gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
 
-
 // Fluid grid
 // -------------------------
 @fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
@@ -266,22 +287,6 @@
 // 768px-979px
 @fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
 @fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
-
-// Links
-@linkColor:         #3D75A3;
-@linkColorHover:    darken(@linkColor, 20);
-
-// Colors
-@whiteDarker:       #F5F5F5;
-@lightYellow:       #ffffe1;
-@itemHoverColor:    lighten(@linkColor, 51%);
-@backgroundGray:    #f9f9f9;
-@greenLabelColor:   #359e7f;
-
-@headingFontColor:  #333;
-@baseFontColor:     #333;
-@metaFontColor:     #777;
-@mutedFontColor:    #999;
 
 // Buttons
 @dangerButtonColor:         #c0544d;
@@ -324,25 +329,3 @@
 
 @navbarHeight: 42px;
 @navbarMargin: 18px;
-
-// Font sizing
-@baseFontSize:              12px;
-@baseLineHeight:            18px;
-@metaFontSize:              11px;
-@subHeadingFontSize:        16px;
-
-@frontendHeading1FontSize:  28px;
-
-@heading1FontSize:          16px;
-@heading2FontSize:          14px;
-@heading3FontSize:          13px;
-@heading4FontSize:          12px;
-
-@topFactFontSize:           20px;
-@baseFactFontSize:          14px;
-
-// Font styling
-@headerColor: #777;
-
-@baseFontFamily:    "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-@headingFontFamily: "Helvetica Neue", Helvetica, Arial, sans-serif;
