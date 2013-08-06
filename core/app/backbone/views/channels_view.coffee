@@ -31,9 +31,6 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     list:   '.channel-listing-container'
     header: '.channel-listing-header'
 
-  initialize: ->
-    @bindTo @collection, 'reset', @setUserFromChannels, this
-
   onRender: ->
     @list.show new ChannelListView(collection: @collection)
     @header.show new ChannelHeaderView(@options)
