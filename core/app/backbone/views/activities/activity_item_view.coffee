@@ -82,4 +82,4 @@ class AddedFactToTopicGroupView extends ActivitiesGroupView
   actions: -> ["added_fact_to_channel"]
 
   initialEvents: ->
-    @bindTo @collection, "add remove reset", @render, @
+    @listenTo @collection, "add remove reset", @render

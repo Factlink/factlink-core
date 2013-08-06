@@ -6,7 +6,7 @@ class window.BackButtonView extends Backbone.Marionette.ItemView
     text: "<span>{{ text }}</span>"
 
   initialize: ->
-    @bindTo @model, 'change', @render
+    @listenTo @model, 'change', @render
 
   onRender: () ->
     @$el.attr 'href', @model.get('url')
@@ -20,7 +20,7 @@ class window.ExtendedFactTitleView extends Backbone.Marionette.Layout
     creatorProfileRegion: ".created_by_region"
 
   initialize: ->
-    @bindTo @model, 'change', @updateUserWithAuthorityBox
+    @listenTo @model, 'change', @updateUserWithAuthorityBox
 
   onRender: ->
     @backButtonRegion.show new BackButtonView( model: @options.back_button  )

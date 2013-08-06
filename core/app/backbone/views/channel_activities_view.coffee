@@ -8,7 +8,7 @@ class window.ChannelActivitiesView extends Backbone.Marionette.Layout
     "click .js-activities-refresh": "refresh"
 
   initialize: ->
-    @bindTo @collection, 'change_count', @update_count, @
+    @listenTo @collection, 'change_count', @update_count
     @start_updating_count()
     @on 'attached', @start_updating_count, @
     @on 'detached', @stop_updating_count, @

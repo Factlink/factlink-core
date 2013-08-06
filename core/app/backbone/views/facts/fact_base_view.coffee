@@ -26,7 +26,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
         model: wheel
         respondsToMouse: false
 
-    @bindTo @model, 'change', =>
+    @listenTo @model, 'change', ->
       wheel.setRecursive @model.get("fact_wheel")
       wheelView.render()
 
@@ -37,7 +37,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
       model: @model
       clickable: @options.clickable_body
 
-    @bindTo bodyView, 'click:body', (e) =>
+    @listenTo bodyView, 'click:body', (e) ->
       @trigger 'click:body', e
 
     bodyView
@@ -55,7 +55,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @trunk8Init 3, '.js-displaystring', '.less' unless @options.clickable
-    @bindTo @model, 'change', @render, @
+    @listenTo @model, 'change', @render
 
   triggerViewClick: (e) ->
     @trigger 'click:body', e

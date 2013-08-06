@@ -32,7 +32,7 @@ class Factlink.DetachableViewsRegion extends Backbone.Marionette.Region
     delete @cache_views
     delete @view_constructors
 
-  _createView: (name) -> 
+  _createView: (name) ->
     view = @view_constructors[name]()
-    @bindTo view, 'render', => @cache_view_rendered[name] = true
+    @listenTo view, 'render', -> @cache_view_rendered[name] = true
     view

@@ -27,12 +27,12 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
 
   bindInteractionEvents: ($listenToEl)->
-    @bindTo $listenToEl, 'click', @onClick, @
-    @bindTo $listenToEl, 'mouseenter', @onMouseEnter, @
-    @bindTo $listenToEl, 'mouseleave', @onMouseLeave, @
+    @listenTo $listenToEl, 'click', @onClick
+    @listenTo $listenToEl, 'mouseenter', @onMouseEnter
+    @listenTo $listenToEl, 'mouseleave', @onMouseLeave
 
+    @listenTo @model, 'change', @render
     @on 'render', @showCurrentState, @
-    @bindTo @model, 'change', @render, @
 
   onClick: (e) ->
     e.preventDefault()
