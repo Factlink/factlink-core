@@ -62,7 +62,7 @@ feature "sub_comments", type: :feature do
     go_to_discussion_page_of @factlink_user_a
 
     within evidence_listing_css_selector do
-      page.should have_selector('.delete', text: 'Remove this Factlink as evidence')
+      page.should have_selector('.delete', visible:false, text: 'Remove this Factlink as evidence')
     end
 
     find('a', text: 'Comments').click
