@@ -1,5 +1,6 @@
 require 'pavlov_helper'
 require 'active_support/core_ext/object/blank'
+require 'active_support/inflector'
 
 require_relative '../../../../app/helpers/fact_helper.rb'
 require_relative '../../../../app/interactors/queries/facts/slug.rb'
