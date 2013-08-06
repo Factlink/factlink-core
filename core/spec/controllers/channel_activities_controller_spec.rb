@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ChannelActivitiesController do
   render_views
 
-  before { Resque.stub!(:enqueue,nil) }
+  before { Resque.stub(:enqueue) }
 
   let (:user) {create(:user)}
 

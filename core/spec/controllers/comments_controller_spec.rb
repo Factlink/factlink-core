@@ -13,7 +13,7 @@ describe CommentsController do
       controller.stub(params: {type: type, content: content})
       fact_id = 1
       controller.stub(get_fact_id_param: fact_id)
-      comment = stub(type: type, content: content)
+      comment = double(type: type, content: content)
 
       controller.should_receive(:old_interactor).with(:"comments/create", fact_id, type, content).and_return(comment)
       controller.should_receive(:render).with('comments/show', {formats: [:json]})
@@ -56,7 +56,7 @@ describe CommentsController do
   describe '.sub_comments_index' do
     it 'calls the interactor with the correct parameters' do
       comment_id = '123abc'
-      sub_comments = mock
+      sub_comments = double
       controller.stub(get_comment_id_param: comment_id)
 
       controller.should_receive(:old_interactor).with(:'sub_comments/index_for_comment', comment_id).
@@ -73,7 +73,7 @@ describe CommentsController do
     it 'calls the interactor with the correct parameters' do
       comment_id = '123abc'
       content = 'hoi'
-      sub_comment = mock
+      sub_comment = double
       controller.stub(get_comment_id_param: comment_id)
       controller.stub(params: {content: content})
 

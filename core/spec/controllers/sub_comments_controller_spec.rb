@@ -7,7 +7,7 @@ describe SubCommentsController do
   describe '.index' do
     it 'calls the interactor with the correct parameters' do
       fact_relation_id = 123
-      sub_comments = mock
+      sub_comments = double
       controller.stub(params: {id: fact_relation_id.to_s})
 
       controller.should_receive(:old_interactor).with(:'sub_comments/index_for_fact_relation', fact_relation_id).
@@ -24,7 +24,7 @@ describe SubCommentsController do
     it 'calls the interactor with the correct parameters' do
       fact_relation_id = 123
       content = 'hoi'
-      sub_comment = mock
+      sub_comment = double
       controller.stub(params: {content: content, id: fact_relation_id.to_s})
 
       controller.should_receive(:old_interactor).with(:'sub_comments/create_for_fact_relation', fact_relation_id, content).

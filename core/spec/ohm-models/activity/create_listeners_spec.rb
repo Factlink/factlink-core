@@ -8,7 +8,7 @@ describe 'activity queries' do
 
   include PavlovSupport
 
-  let(:pavlov_options) { {ability: (mock can?: true)} }
+  let(:pavlov_options) { {ability: (double can?: true)} }
 
   before do
     # TODO: remove this once creating an activity does not cause an email to be sent

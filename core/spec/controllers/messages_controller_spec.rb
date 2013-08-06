@@ -11,7 +11,7 @@ describe MessagesController do
 
       conversation_id = 10
 
-      pavlov_options = mock()
+      pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)
 
       Pavlov.should_receive(:old_interactor)

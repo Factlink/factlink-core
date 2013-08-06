@@ -21,10 +21,10 @@ describe 'fact' do
 
   it 'can be posted to Twitter' do
     displaystring = 'displaystring'
-    twitter_client = mock
+    twitter_client = double
 
     stub_classes 'Twitter', 'Twitter::Client'
-    Twitter.stub configuration: mock(short_url_length_https: 10)
+    Twitter.stub configuration: double(short_url_length_https: 10)
     Twitter::Client.stub(:new)
       .with(oauth_token: 'token', oauth_token_secret: 'secret')
       .and_return(twitter_client)
@@ -39,7 +39,7 @@ describe 'fact' do
 
   it 'can be posted to Facebook' do
     displaystring = 'displaystring'
-    facebook_client = mock
+    facebook_client = double
 
     stub_classes 'Koala::Facebook::API'
     Koala::Facebook::API.stub(:new)
