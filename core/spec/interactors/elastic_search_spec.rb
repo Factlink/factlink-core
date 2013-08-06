@@ -22,7 +22,7 @@ describe 'elastic search' do
   end
 
   let (:test_index_command) do
-    Class.new Commands::ElasticSearchIndexForTextSearchCommand do
+    Class.new Commands::ElasticSearchIndexForTextSearch do
       def define_index
         type 'test_class'
         field :test_field
@@ -76,8 +76,8 @@ describe 'elastic search' do
     object = TestClass.new
     object.test_field = text
     object.id = '1'
-    (test_index_command.new object).call
+    test_index_command.new(object: object).call
 
-    (test_query.new query, 1, 10).call
+    (test_query.new keywords: query, page: 1, row_count: 10).call
   end
 end

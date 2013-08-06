@@ -8,22 +8,22 @@ module Interactors
       arguments :user_name, :user_to_follow_user_name
 
       def authorized?
-        (!! @options[:current_user]) and (@options[:current_user].username == user_name)
+        (!! pavlov_options[:current_user]) and (pavlov_options[:current_user].username == user_name)
       end
 
       def execute
-        user = query :user_by_username, user_name
+        user = old_query :user_by_username, user_name
 
-        unless user.id.to_s == @options[:current_user].id.to_s
+        unless user.id.to_s == pavlov_options[:current_user].id.to_s
           throw "Only supporting user == current_user when following user"
         end
 
-        user_to_follow = query :user_by_username, user_to_follow_user_name
-        command :'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id
-        command :'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil
+        user_to_follow = old_query :user_by_username, user_to_follow_user_name
+        old_command :'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id
+        old_command :'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil
 
-        # This command still depends on user == current_user
-        command :'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id
+        # This old_command still depends on user == current_user
+        old_command :'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id
 
         nil
       end

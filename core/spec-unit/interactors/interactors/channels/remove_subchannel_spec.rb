@@ -4,12 +4,13 @@ require_relative '../../../../app/interactors/interactors/channels/remove_subcha
 
 describe Interactors::Channels::RemoveSubchannel do
   include PavlovSupport
-  describe '.execute' do
-    let(:channel){ mock :channel, id:'12', created_by: mock }
-    let(:subchannel){ mock :subchannel, id:'45' }
+
+  describe '#call' do
+    let(:channel){ double :channel, id:'12', created_by: double }
+    let(:subchannel){ double :subchannel, id:'45' }
 
     before do
-      Pavlov.stub(:query) do |query_name, id|
+      Pavlov.stub(:old_query) do |query_name, id|
         raise 'error' unless query_name == :'channels/get'
         if id == channel.id
           channel
@@ -20,11 +21,13 @@ describe Interactors::Channels::RemoveSubchannel do
         end
       end
     end
-    it 'removes a subchannel from the channel' do
-      options = {ability: mock(can?: true)}
 
-      interactor = Interactors::Channels::RemoveSubchannel.new(channel.id, subchannel.id, options)
-      interactor.should_receive(:command)
+    it 'removes a subchannel from the channel' do
+      pavlov_options = { ability: double(can?: true) }
+
+      interactor = described_class.new channel_id: channel.id,
+        subchannel_id: subchannel.id, pavlov_options: pavlov_options
+      interactor.should_receive(:old_command)
                 .with(:'channels/remove_subchannel', channel, subchannel)
                 .and_return(true)
 
@@ -35,11 +38,13 @@ describe Interactors::Channels::RemoveSubchannel do
 
       interactor.execute
     end
-    it "does not create an activity when removing the subchannel fails" do
-      options = {ability: mock(can?: true)}
 
-      interactor = Interactors::Channels::RemoveSubchannel.new(channel.id, subchannel.id, options)
-      interactor.should_receive(:command)
+    it "does not create an activity when removing the subchannel fails" do
+      pavlov_options = { ability: double(can?: true) }
+
+      interactor = described_class.new channel_id: channel.id,
+        subchannel_id: subchannel.id, pavlov_options: pavlov_options
+      interactor.should_receive(:old_command)
                 .with(:'channels/remove_subchannel', channel, subchannel)
                 .and_return(false)
 

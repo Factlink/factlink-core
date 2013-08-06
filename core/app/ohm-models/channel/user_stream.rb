@@ -6,15 +6,14 @@ class Channel < OurOhm
       'stream'
     end
 
-    def add_fields
-      self.title = 'All'
-    end
-
     def activities
       created_by.stream_activities
     end
 
-    before :validate, :add_fields
+    def validate
+      self.title = 'All'
+      super
+    end
 
     def contained_channels
       channels = ChannelList.new(self).channels.to_a

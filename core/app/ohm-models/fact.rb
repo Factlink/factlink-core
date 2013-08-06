@@ -5,16 +5,23 @@ class FactRelation < Basefact;end # needed because of removed const_missing from
 class Fact < Basefact
   include Pavlov::Helpers
 
-  after :create, :set_activity!
-  after :create, :add_to_created_facts
-  after :create, :increment_mixpanel_count
+  def create
+    require_saved_data
+
+    result = super
+
+    set_activity!
+    add_to_created_facts
+    increment_mixpanel_count
+    set_own_id_on_saved_data
+
+    result
+  end
+
 
   set :channels, Channel
 
   timestamped_set :interactions, Activity
-
-  reference :evidence_opinion, Opinion
-  reference :opinion, Opinion
 
   def increment_mixpanel_count
     return unless self.has_site? and self.created_by.user
@@ -35,7 +42,7 @@ class Fact < Basefact
   def add_to_created_facts
     channel = self.created_by.created_facts_channel
 
-    command :'channels/add_fact', self, channel
+    old_command :'channels/add_fact', self, channel
   end
 
   def has_site?
@@ -81,8 +88,6 @@ class Fact < Basefact
     self.data.save
   end
 
-  before :create, :require_saved_data
-  after :create, :set_own_id_on_saved_data
 
 
   set :supporting_facts, FactRelation
@@ -141,10 +146,14 @@ class Fact < Basefact
   end
 
   #TODO also remove yourself from channels, possibly using resque
-  before :delete, :delete_data
-  before :delete, :delete_all_evidence
-  before :delete, :delete_all_evidenced
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
+
+  def delete
+    delete_data
+    delete_all_evidence
+    delete_all_evidenced
+    super
+  end
 
   def channel_ids
     channels.map(&:id)

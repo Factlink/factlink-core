@@ -2,10 +2,10 @@ require_relative '../../app/redis-models/user_favourited_topics'
 
 describe UserFavouritedTopics do
 
-  let(:relation) { mock }
-  let(:graph_user_id) { mock }
-  let(:topic_id) { mock }
-  let(:ids) { mock }
+  let(:relation) { double }
+  let(:graph_user_id) { double }
+  let(:topic_id) { double }
+  let(:ids) { double }
   let(:user_favourited_topics) { UserFavouritedTopics.new graph_user_id, relation }
 
   describe '.favourite' do
@@ -32,7 +32,7 @@ describe UserFavouritedTopics do
 
   describe '.favourited?' do
     it 'calls relation.remove' do
-      boolean = mock
+      boolean = double
 
       relation.should_receive(:has?).with(graph_user_id, topic_id).and_return(boolean)
       result = user_favourited_topics.favourited? topic_id

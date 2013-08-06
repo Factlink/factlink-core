@@ -3,7 +3,7 @@ module Acceptance
       def toggle_to_comment
         within add_evidence_form_css_selector do
           evidence_input = page.find_field 'text_input_view'
-          evidence_input.trigger 'focus'
+          evidence_input.click
 
           page.find('.js-switch').set true
         end
@@ -16,23 +16,30 @@ module Acceptance
       end
 
       def posting_factlink?
-        find('button').has_content? 'Post Factlink'
+        find('.fact-relation-search input[type=text]')[:placeholder]
+          .include? 'Factlink'
       end
 
       def posting_comment?
-        find('button').has_content? 'Post Comment'
+        find('.fact-relation-search input[type=text]')[:placeholder]
+          .include? 'Comment'
       end
 
       def add_comment comment
         toggle_to_comment if posting_factlink? #unless posting_comment?
 
         within add_evidence_form_css_selector do
+          Timeout.timeout(Capybara.default_wait_time) do
+            # wait for all ajax requests to complete
+            # if we don't wait, the server may see it after the db is cleaned
+            # and a request for a removed object will cause a crash (nil ref).
+            sleep(0.1) until page.evaluate_script('jQuery.active') == 0
+          end
           comment_input = page.find_field 'add_comment'
 
-          comment_input.trigger 'focus'
+          comment_input.click
           comment_input.set comment
-          comment_input.trigger 'blur'
-
+          comment_input.value.should eq comment
           click_button 'Post comment'
         end
       end
@@ -42,12 +49,10 @@ module Acceptance
 
         within add_evidence_form_css_selector do
           text = evidence_factlink.to_s
-          page.find("input").set(text)
+          page.find("input[type=text]").click
+          page.find("input[type=text]").set(text)
           page.find("li", text: text).click
-          page.find("input", visible: false)
           page.find_button("Post Factlink").click
-
-          wait_for_ajax
         end
       end
 
@@ -55,7 +60,7 @@ module Acceptance
         toggle_to_factlink unless posting_factlink?
 
         within add_evidence_form_css_selector do
-          page.find("input").set(text)
+          page.find("input[type=text]").set(text)
           page.find_button("Post Factlink").click
         end
       end

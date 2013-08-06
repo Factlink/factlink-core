@@ -8,7 +8,7 @@ feature "visiting the stream" do
   include PavlovSupport
 
   background do
-    @user = FactoryGirl.create :active_user
+    @user = create :active_user
   end
 
   scenario "adding first fact" do
@@ -27,7 +27,7 @@ feature "visiting the stream" do
     pending "this tests fails too much randomly to give any useful feedback"
     channel = backend_create_channel
 
-    other_user = FactoryGirl.create :active_user
+    other_user = create :active_user
     other_channel = backend_create_channel_of_user other_user
 
     as(@user) do |p|

@@ -1,0 +1,34 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+@evidencePadding: 18px;
+
+.ndp-evidence-heading {
+  position: absolute;
+  top: -23px;
+  left: @evidencePadding;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.ndp-fact-relation-or-comment {
+  .new-design-font();
+}
+
+.ndp-fact-relation-or-comment-content {
+  padding: @evidencePadding @evidencePadding 13px;
+
+  // HACK until we have "small Factwheels" (per NDP design, in-line with text)
+  // -- this looks better for now
+  > .fact-base {
+    margin-left: -3px;
+  }
+}
+
+.ndp-fact-relation-or-comment-bottom {
+  box-shadow: 0px -1px @NDPMutedBorderBottomColor, 0px -2px @NDPMutedBorderTopColor;
+  margin: 0 @evidencePadding 5px;
+  padding: 5px 0;
+  text-align: right;
+  color: @mutedFontColor;
+  font-size: @metaFontSize;
+}

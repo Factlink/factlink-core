@@ -7,7 +7,7 @@ describe 'setting up an account' do
 
   before do
     stub_const 'UserMailer', Class.new
-    UserMailer.stub welcome_instructions: stub(deliver: nil)
+    UserMailer.stub welcome_instructions: double(deliver: nil)
   end
 
   def create_approved_user username, email
@@ -33,8 +33,8 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        pavlov.interactor :'accounts/setup_approved',
-            user.reset_password_token, attributes
+        pavlov.old_interactor(:'accounts/setup_approved',
+          user.reset_password_token, attributes)
       end
 
       updated_user = User.find(user.id)
@@ -58,7 +58,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.old_interactor :'accounts/setup_approved',
             attributes[:reset_password_token], attributes
       end
 
@@ -79,7 +79,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.old_interactor :'accounts/setup_approved',
             user.reset_password_token, attributes
       end
 
@@ -100,7 +100,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.old_interactor :'accounts/setup_approved',
             user.reset_password_token, attributes
       end
 

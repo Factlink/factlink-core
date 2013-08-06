@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "Homepage rendering", type: :request do
+describe "Homepage rendering", type: :feature do
   it "with sign-in open as expected" do
     visit "/?show_sign_in=true"
     assume_unchanged_screenshot "homepage"

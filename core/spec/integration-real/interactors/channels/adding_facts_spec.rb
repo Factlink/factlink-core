@@ -7,12 +7,12 @@ describe 'when adding a fact to a channel' do
     let(:user) {create :user}
     it "adds the fact to the channel" do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
+        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
 
-        channel = pavlov.command :'channels/create', 'something'
-        pavlov.interactor :"channels/add_fact", fact, channel
+        channel = pavlov.old_command :'channels/create', 'something'
+        pavlov.old_interactor :"channels/add_fact", fact, channel
 
-        facts = pavlov.interactor :'channels/facts', channel.id, nil, nil
+        facts = pavlov.old_interactor :'channels/facts', channel.id, nil, nil
         latest_fact = facts.map{|i| i[:item]}[0]
         expect(latest_fact).to eq fact
       end
@@ -20,13 +20,13 @@ describe 'when adding a fact to a channel' do
 
     it "adds the fact to the channels topic" do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
+        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
 
-        channel = pavlov.command :'channels/create', 'something'
-        pavlov.interactor :"channels/add_fact", fact, channel
+        channel = pavlov.old_command :'channels/create', 'something'
+        pavlov.old_interactor :"channels/add_fact", fact, channel
 
         Topic.get_or_create_by_channel(channel)
-        facts = pavlov.interactor :'topics/facts', channel.slug_title, nil, nil
+        facts = pavlov.old_interactor :'topics/facts', channel.slug_title, nil, nil
         fact_displaystrings = facts.map {|f| f[:item].data.displaystring}
 
         expect(fact_displaystrings).to eq ['a fact']
@@ -42,21 +42,21 @@ describe 'when adding a fact to a channel' do
       fact, sub_channel, channel = ()
 
       as(creator) do |pavlov|
-        sub_channel = pavlov.command :'channels/create', 'something'
-        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
+        sub_channel = pavlov.old_command :'channels/create', 'something'
+        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
       end
 
       as(follower) do |pavlov|
-        channel = pavlov.command :'channels/create', 'something2'
-        pavlov.interactor :"channels/add_subchannel", channel.id, sub_channel.id
+        channel = pavlov.old_command :'channels/create', 'something2'
+        pavlov.old_interactor :"channels/add_subchannel", channel.id, sub_channel.id
       end
 
       as(creator) do |pavlov|
-        pavlov.interactor :"channels/add_fact", fact, sub_channel
+        pavlov.old_interactor :"channels/add_fact", fact, sub_channel
       end
 
       as(follower) do |pavlov|
-        facts = pavlov.interactor :'channels/facts', channel.id, nil, nil
+        facts = pavlov.old_interactor :'channels/facts', channel.id, nil, nil
         latest_fact = facts.map{|i| i[:item]}[0]
         expect(latest_fact).to eq fact
       end
@@ -72,26 +72,26 @@ describe 'when adding a fact to a channel' do
       fact, sub_sub_channel, sub_channel, channel = ()
 
       as(creator) do |pavlov|
-        sub_sub_channel = pavlov.command :'channels/create', 'something'
-        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
+        sub_sub_channel = pavlov.old_command :'channels/create', 'something'
+        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
       end
 
       as(follower) do |pavlov|
-        sub_channel = pavlov.command :'channels/create', 'something2'
-        pavlov.interactor :"channels/add_subchannel", sub_channel.id, sub_sub_channel.id
+        sub_channel = pavlov.old_command :'channels/create', 'something2'
+        pavlov.old_interactor :"channels/add_subchannel", sub_channel.id, sub_sub_channel.id
       end
 
       as(followers_follower) do |pavlov|
-        channel = pavlov.command :'channels/create', 'something2'
-        pavlov.interactor :"channels/add_subchannel", channel.id, sub_channel.id
+        channel = pavlov.old_command :'channels/create', 'something2'
+        pavlov.old_interactor :"channels/add_subchannel", channel.id, sub_channel.id
       end
 
       as(creator) do |pavlov|
-        pavlov.interactor :"channels/add_fact", fact, sub_sub_channel
+        pavlov.old_interactor :"channels/add_fact", fact, sub_sub_channel
       end
 
       as(followers_follower) do |pavlov|
-        facts = pavlov.interactor :'channels/facts', channel.id, nil, nil
+        facts = pavlov.old_interactor :'channels/facts', channel.id, nil, nil
         expect(facts).to eq []
       end
     end

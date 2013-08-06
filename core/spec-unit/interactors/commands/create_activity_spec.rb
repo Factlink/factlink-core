@@ -1,9 +1,9 @@
 require_relative '../../../app/interactors/commands/create_activity.rb'
 
 describe Commands::CreateActivity do
-  let(:current_user) { mock('current_user', id: 2) }
-  let(:graph_user)   { mock('user',id: 1, user_id: current_user.id) }
-  let(:other_graph_user)   { mock('user',id: 1, user_id: current_user.id + 1)  }
+  let(:current_user) { double('current_user', id: 2) }
+  let(:graph_user)   { double('user',id: 1, user_id: current_user.id) }
+  let(:other_graph_user)   { double('user',id: 1, user_id: current_user.id + 1)  }
 
   before do
     stub_const('Activity', Class.new)
@@ -11,18 +11,20 @@ describe Commands::CreateActivity do
 
   it 'initializes correctly' do
     action = :test
-    activity_subject = mock()
-    activity_object = mock()
-    command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object
+    activity_subject = double
+    activity_object = double
+    command = described_class.new graph_user: graph_user, action: action,
+      subject: activity_subject, object: activity_object
     command.should_not be_nil
   end
 
-  describe '.call' do
+  describe '#call' do
     it 'correctly' do
       action = :test
-      activity_subject = mock()
-      activity_object = mock()
-      command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object
+      activity_subject = double
+      activity_object = double
+      command = described_class.new graph_user: graph_user, action: action,
+        subject: activity_subject, object: activity_object
       Activity.should_receive(:create).with(user: graph_user, action: action, subject: activity_subject, object: activity_object )
 
       command.call

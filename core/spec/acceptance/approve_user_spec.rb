@@ -1,10 +1,10 @@
 require 'acceptance_helper'
 
-describe 'When a User gets approved', type: :request do
+describe 'When a User gets approved', type: :feature do
   it 'the User should get notified through email' do
     clear_emails
 
-    user = FactoryGirl.create :user, agrees_tos: false
+    user = create :user, agrees_tos: false
 
     # We approve the user manually because the button on the /a/users/reserved URL
     # works with a PUT request, which is not supported by Capybara::Webkit

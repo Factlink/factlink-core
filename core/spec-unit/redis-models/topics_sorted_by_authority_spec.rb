@@ -5,7 +5,7 @@ require_relative '../../app/redis-models/topics_sorted_by_authority'
 describe TopicsSortedByAuthority do
   include PavlovSupport
 
-  let(:key)      {mock}
+  let(:key)      {double}
   let(:user_id)  {'1a'}
 
   subject(:user_topics_by_authority) { described_class.new user_id, key }
@@ -18,7 +18,7 @@ describe TopicsSortedByAuthority do
     it 'uses zadd to add the topic_id to the set with authority as the score' do
       authority = 100
       topic_id  = '1a'
-      user_key  = mock
+      user_key  = double
 
       key.stub(:[]).with(user_id).and_return(user_key)
       user_key.should_receive(:zadd).with(authority, topic_id)
@@ -29,7 +29,7 @@ describe TopicsSortedByAuthority do
 
   describe '.ids_and_authorities_desc_limit' do
     it "returns an array of hashes sorted descending by authority" do
-      user_key = mock
+      user_key = double
       limit = 5
 
       key.stub(:[]).with(user_id).and_return(user_key)
@@ -42,7 +42,7 @@ describe TopicsSortedByAuthority do
     end
 
     it "returns no more than the limit" do
-      user_key = mock
+      user_key = double
       limit = 1
 
       key.stub(:[]).with(user_id).and_return(user_key)

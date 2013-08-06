@@ -9,14 +9,18 @@ module Screenshots
     end
 
     def create_discussion
-      go_to_discussion_page_of factlink
-      click_wheel_part 0
-
       comment1_text = '1. Comment'
       factlink2_text = '2. New Factlink. Which is long. Very' + ', very' * 50 + ' long...'
-      factlink3 = backend_create_fact
+
       sub_comment_text = "\n\nThis is a subcomment\n\nwith some  whitespace \n\n"
       sub_comment_text_normalized = "This is a subcomment with some whitespace"
+
+      factlink3 = backend_create_fact
+      go_to_discussion_page_of factlink3
+      click_wheel_part 0
+
+      go_to_discussion_page_of factlink
+      click_wheel_part 0
 
       add_comment comment1_text
       add_new_factlink factlink2_text
@@ -34,8 +38,6 @@ module Screenshots
       end
 
       within('.fact-relation-listing .evidence-item', text: factlink3.data.displaystring) do
-        find('.supporting').click
-
         # TODO: Enable when removing feature toggle 'vote_up_down_popup'
         # find('.js-fact-relation-believe').set false
         # page.find('a', text: 'Done').click

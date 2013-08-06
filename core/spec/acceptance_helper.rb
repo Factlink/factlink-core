@@ -16,15 +16,20 @@ require 'database_cleaner'
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f| require f}
 
 RSpec.configure do |config|
+  config.filter_run_excluding slow: true unless ENV['RUN_SLOW_TESTS']
+
   # webkit always has js enabled, so always use this:
-  Capybara.javascript_driver = :poltergeist
-  Capybara.default_driver = :poltergeist
+  driver = if ENV["USE_SELENIUM"] then :selenium else :poltergeist end
+
+  Capybara.javascript_driver = driver
+  Capybara.default_driver = driver
+
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
   config.mock_with :rspec
 
-  config.fail_fast = true
+  config.fail_fast = false
 
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
@@ -55,6 +60,18 @@ RSpec.configure do |config|
     FactoryGirl.reload
 
     ElasticSearch.stub synchronous: true
+  end
+
+  config.after(:each) do
+    eventually_succeeds do
+      # wait for all ajax requests to complete
+      # if we don't wait, the server may see it after the db is cleaned
+      # and a request for a removed object will cause a crash (nil ref).
+      unless page.evaluate_script('(!window.jQuery || window.jQuery.active == 0)')
+        raise 'jQuery.active is not zero; did an Ajax callback perhaps crash?'
+      end
+    end
+    Capybara.reset!
   end
 end
 

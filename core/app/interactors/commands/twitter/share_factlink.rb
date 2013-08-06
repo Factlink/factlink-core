@@ -12,7 +12,7 @@ module Commands
         right_quotation_mark = "\u201d"
         quote_with_url = left_quotation_mark + quote + right_quotation_mark + " " + url
 
-        command :"twitter/post", quote_with_url
+        old_command :"twitter/post", quote_with_url
       end
 
       def quote
@@ -31,7 +31,7 @@ module Commands
       end
 
       def fact
-        @fact ||= query :"facts/get_dead", fact_id
+        @fact ||= old_query :"facts/get_dead", fact_id
       end
 
       def maximum_quote_length
@@ -45,8 +45,8 @@ module Commands
 
       def validate
         # HACK! Fix this through pavlov serialization (ask @markijbema or @janpaul123)
-        if @options['serialize_id']
-          @options = Util::PavlovContextSerialization.deserialize_pavlov_context(@options)
+        if pavlov_options.has_key? 'serialize_id'
+          self.pavlov_options = Util::PavlovContextSerialization.deserialize_pavlov_context(pavlov_options)
         end
 
         validate_integer_string  :fact_id, fact_id

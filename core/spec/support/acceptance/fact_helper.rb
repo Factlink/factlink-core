@@ -3,7 +3,7 @@ module Acceptance
     include ::FactHelper
 
     def create_factlink(user)
-      FactoryGirl.create(:fact, created_by: user.graph_user)
+      create(:fact, created_by: user.graph_user)
     end
 
     def go_to_discussion_page_of factlink
@@ -31,15 +31,20 @@ module Acceptance
       page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;")
     end
 
-    def click_wheel_part position
+    def click_wheel_part position, css_path=''
       #fire click event on svg element
-      page.execute_script("var path = $('.fact-wheel path')[#{position}];
-                           var event = document.createEvent('MouseEvents');
-                           event.initMouseEvent('click');path.dispatchEvent(event);")
-      wait_for_ajax
-
-      #wait for animation
-      sleep 0.3
+      if Capybara.current_driver == :poltergeist then
+        #workaround for https://github.com/jonleighton/poltergeist/issues/331
+        page.execute_script("
+          var svgEl = document.querySelectorAll('#{css_path} .fact-wheel path')[#{position}];
+          var clickEvent = document.createEvent('MouseEvents');
+          clickEvent.initMouseEvent('click',true,true);
+          svgEl.dispatchEvent(clickEvent);
+        ")
+      else
+        svg_path_el = all("#{css_path} .fact-wheel path")[position]
+        svg_path_el.click
+      end
     end
   end
 end

@@ -1,19 +1,12 @@
 require 'acceptance_helper'
 
-describe "When visiting the Factlink website", type: :request do
-
+describe "Logged-out visitors", type: :feature do
   before do
     visit "/"
   end
 
   context "when not logged in" do
-    it "the Home page" do
-      within(:css, "h1") do
-        page.should have_content("A layer over the web to add and view credibility")
-      end
-    end
-
-    it "should be able to view the About page" do
+    it "should be able to view the About page", slow: true do
       click_link "About"
 
       within(:css, "h1") do
@@ -21,42 +14,35 @@ describe "When visiting the Factlink website", type: :request do
       end
     end
 
-    it "should be able to view the Team page" do
+    it "should be able to view the Team page", slow: true do
       click_link "Team"
       within(:css, "h1") do
         page.should have_content("The people behind Factlink")
       end
     end
 
-    it "should be able to view the Jobs page" do
+    it "should be able to view the Jobs page", slow: true do
       click_link "Jobs"
       within(:css, "h1") do
         page.should have_content("Jobs")
       end
     end
 
-    it "should be able to view the Contact page" do
+    it "should be able to view the Contact page", slow: true do
       click_link "Contact"
       within(:css, "h1") do
         page.should have_content("Get in touch")
       end
     end
 
-    it "should be able to view the TOS page" do
+    it "should be able to view the TOS page", slow: true do
       click_link "Terms of Service"
       within(:css, "h1") do
         page.should have_content("Terms of Service")
       end
     end
 
-    it "should be able to view the Privacy Policy page" do
-      click_link "Privacy"
-      within(:css, "h1") do
-        page.should have_content("Privacy Policy")
-      end
-    end
-
-    it "should be able to view the Privacy Policy page" do
+    it "should be able to view the Privacy Policy page", slow: true do
       click_link "Privacy"
       within(:css, "h1") do
         page.should have_content("Privacy Policy")

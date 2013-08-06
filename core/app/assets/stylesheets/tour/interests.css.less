@@ -99,41 +99,7 @@
   position: absolute;
   top: -21px;
 }
-@avatarWhiteBorderWidth: 2px;
-.tour-follow-user-avatar {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  padding: @avatarWhiteBorderWidth;
-  margin: -@avatarWhiteBorderWidth; //compensate for padding.
-  margin-right: 4px; //avatar is inline with text, wants space after it.
-  background-color: white;
-  top: -2px; //raise avatar a little out of the text line.
-  border-radius: @avatarWhiteBorderWidth + 1;
 
-  > img {
-    border-radius: @avatarWhiteBorderWidth;
-    width: 32px;
-    height: 32px;
-    position: relative;
-    z-index: 1; //stacking is necessary due to fake border construct explained below.
-  }
-
-  //The following css generates a surrounding rounded box around the image.
-  //this is equivalent to a fake border, with the advantage
-  //that the "padding" overlays the wrapping boxes border, whereas the
-  //"border" is underneath it.  This causes the visual border to appear
-  //continuously to wrap the jutting out avatar image.
-  &:after {
-    display: block;
-    top: -1px; left: -1px; right: -1px; bottom: -1px;
-    background: @tableBorder;
-    border-radius: @avatarWhiteBorderWidth + 2;
-    content: '';
-    position: absolute;
-    z-index: -1;
-  }
-}
 
 .tour-follow-user-block {
   border: 1px solid @tableBorder;

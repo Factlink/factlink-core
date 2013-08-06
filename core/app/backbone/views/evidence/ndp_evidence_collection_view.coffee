@@ -3,6 +3,11 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
   regions:
     contentRegion: '.js-content-region'
+    voteRegion: '.js-vote-region'
+
+  constructor: ->
+    super
+    @bindTo @model, 'change', @render, @
 
   typeCss: ->
     switch @model.get('type')
@@ -10,19 +15,41 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
       when 'disbelieves' then 'evidence-weakening'
       when 'doubts' then 'evidence-unsure'
 
+  render: ->
+    super
+    @$el.addClass @typeCss()
+    @$el.addClass 'evidence-irrelevant' unless @model.positiveImpact()
+    this
+
+
+class NDPVotableEvidenceLayoutView extends NDPEvidenceLayoutView
+  className: 'evidence-votable'
+
+  onRender: ->
+    @contentRegion.show new NDPFactRelationOrCommentView model: @model
+
+    if Factlink.Global.signed_in
+      @voteRegion.show new NDPEvidenceVoteView model: @model
+      @$el.addClass 'evidence-has-arrows'
+
+
+class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
+
   shouldShow: -> @model.has('impact') && @model.get('impact') > 0.0
 
   onRender: ->
     @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
-    @$el.addClass @typeCss()
+
 
 class NDPEvidenceLoadingView extends Backbone.Marionette.ItemView
   className: "evidence-loading"
   template: 'evidence/ndp_evidence_loading_indicator'
 
+
 class NDPEvidenceEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
   loadingView: NDPEvidenceLoadingView
+
 
 class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
   className: 'evidence-collection'
@@ -35,5 +62,14 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
   itemViewOptions: ->
     collection: @collection
 
-  initialize: ->
-    @bindTo @collection, 'change:impact', @render
+  showCollection: ->
+    if @collection.loading()
+      @showEmptyView()
+    else
+      super
+
+  getItemView: (item) ->
+    if item instanceof OpinionatersEvidence
+      NDPOpinionatorsEvidenceLayoutView
+    else
+      NDPVotableEvidenceLayoutView

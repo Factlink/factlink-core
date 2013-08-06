@@ -17,7 +17,7 @@ module Queries
     end
 
     def execute
-      query :users_by_ids, user_ids
+      old_query :users_by_ids, user_ids
     end
 
     def user_ids

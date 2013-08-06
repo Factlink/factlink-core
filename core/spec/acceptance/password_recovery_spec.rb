@@ -1,9 +1,9 @@
 require 'acceptance_helper'
 
-describe 'Password recovery', type: :request do
+describe 'Password recovery', type: :feature do
 
   before do
-    @user = FactoryGirl.create :active_user
+    @user = create :active_user
   end
 
   it 'informs the user the email has been send' do
@@ -12,7 +12,7 @@ describe 'Password recovery', type: :request do
     @user.username = "Barones"
 
     visit "/"
-    click_link "Sign in"
+    first(:link, "Sign in", exact: true).click
     click_link "Forgot password?"
 
     fill_in 'user_email', with: @user.email

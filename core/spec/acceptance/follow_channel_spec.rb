@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "channels", type: :request do
+feature "channels", type: :feature do
   include Acceptance::NavigationHelper
   include Acceptance::ChannelHelper
   include Acceptance::AddToChannelModalHelper

@@ -4,28 +4,24 @@ require_relative '../../../../app/interactors/queries/sub_comments/count'
 describe Queries::SubComments::Count do
   include PavlovSupport
 
-  describe '.validate' do
-    it 'validates with correct values' do
-      expect_validating('1', 'FactRelation').to_not raise_error
-    end
-
+  describe 'validation' do
     it 'without valid parent_class doesn''t validate' do
-      expect_validating(1, 'bla').
+      expect_validating(parent_id: 1, parent_class: 'bla').
         to fail_validation('parent_class should be on of these values: ["Comment", "FactRelation"].')
     end
 
     it 'without valid parent_id for FactRelation doesn''t validate' do
-      expect_validating(2, 'FactRelation').
+      expect_validating(parent_id: 2, parent_class: 'FactRelation').
         to fail_validation('parent_id should be an integer string.')
     end
 
     it 'without valid parent_id for Comment doesn''t validate' do
-      expect_validating(1, 'Comment').
+      expect_validating(parent_id: 1, parent_class: 'Comment').
         to fail_validation('parent_id should be an hexadecimal string.')
     end
   end
 
-  describe '.execute' do
+  describe '#call' do
     before do
       stub_classes('SubComment')
     end
@@ -33,13 +29,13 @@ describe Queries::SubComments::Count do
     it 'calls the index query and counts the results' do
       parent_id = 1
       parent_class = 'FactRelation'
-      count = mock
+      count = double
+      query = described_class.new parent_id: parent_id.to_s,
+        parent_class: parent_class
 
-      query = Queries::SubComments::Count.new parent_id.to_s, parent_class
+      SubComment.should_receive(:where).with(parent_id: parent_id.to_s, parent_class: parent_class).and_return(double(count:count))
 
-      SubComment.should_receive(:where).with(parent_id: parent_id.to_s, parent_class: parent_class).and_return(mock(count:count))
-
-      expect(query.execute).to eq count
+      expect(query.call).to eq count
     end
   end
 
@@ -47,18 +43,19 @@ describe Queries::SubComments::Count do
     it 'converts to an integer if the class is FactRelation' do
       parent_id = '1'
       parent_class = 'FactRelation'
+      query = described_class.new parent_id: parent_id,
+        parent_class: parent_class
 
-      query = Queries::SubComments::Count.new parent_id, parent_class
       expect(query.normalized_parent_id).to eq parent_id.to_i
     end
 
     it 'returns a string if the class is Comment' do
       parent_id = '2a'
       parent_class = 'Comment'
+      query = described_class.new parent_id: parent_id,
+        parent_class: parent_class
 
-      query = Queries::SubComments::Count.new parent_id, parent_class
       expect(query.normalized_parent_id).to eq parent_id
     end
   end
-
 end

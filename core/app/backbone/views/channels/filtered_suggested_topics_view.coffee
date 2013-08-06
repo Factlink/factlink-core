@@ -61,5 +61,5 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
       @updateVisibilities()
 
   updateVisibilities: ->
-    @ui.loadingIndicator.toggle @collection.loading
+    @ui.loadingIndicator.toggle @collection.loading()
     @ui.content.toggle @filtered_collection.length > 0

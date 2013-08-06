@@ -1,4 +1,3 @@
-require 'ohm/contrib'
 require 'pavlov'
 
 class GraphUser < OurOhm;end # needed because of removed const_missing from ohm
@@ -10,8 +9,10 @@ require_relative 'activity/create_listeners'
 require_relative '../interactors/interactors/send_mail_for_activity'
 
 class Activity < OurOhm
-  include Ohm::Timestamping
   reference :user, GraphUser
+
+  attribute :created_at
+  attribute :updated_at
 
   generic_reference :subject
   generic_reference :object
@@ -24,18 +25,23 @@ class Activity < OurOhm
     old_set_user new_user.graph_user
   end
 
-  after :create, :process_activity
-  def process_activity
+  def create
+    self.created_at ||= Time.now.utc.to_s
+
+    result = super
+
     Resque.enqueue(ProcessActivity, id)
+    Pavlov.old_interactor :send_mail_for_activity, self,
+      { current_user: true }
+
+    result
   end
 
-  after :create, :send_mail_for_activity
-  def send_mail_for_activity
-    Pavlov.interactor :send_mail_for_activity,
-                        self, {current_user: true}
+  def delete
+    remove_from_containing_sorted_sets
+    super
   end
 
-  before :delete, :remove_from_containing_sorted_sets
   def remove_from_containing_sorted_sets
     containing_sorted_sets.smembers.each do |list|
       Nest.new(list).zrem id
@@ -80,6 +86,14 @@ class Activity < OurOhm
   def remove_from_list list
     list.delete self
     containing_sorted_sets.srem list.key.to_s
+  end
+
+  protected
+
+  def write
+    self.updated_at = Time.now.utc.to_s
+
+    super
   end
 
   private

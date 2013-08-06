@@ -1,6 +1,6 @@
 module Acceptance
   def int_user
-    user = FactoryGirl.create(:user)
+    user = create(:user)
     user.confirm!
     user
   end
@@ -13,18 +13,18 @@ module Acceptance
   end
 
   def create_admin_and_login
-    admin = FactoryGirl.create(:admin_user)
+    admin = create(:admin_user)
     sign_in_user admin
   end
 
   def make_non_tos_user_and_login
-    user = FactoryGirl.create(:approved_confirmed_user, agrees_tos: false)
+    user = create(:approved_confirmed_user, agrees_tos: false)
     sign_in_user(user)
   end
 
   def sign_in_user(user)
     visit "/"
-    click_link "Sign in"
+    first(:link, "Sign in", exact: true).click
     fill_in "user_login", :with => user.email
     fill_in "user_password", :with => user.password
     click_button "Sign in"
@@ -71,25 +71,21 @@ module Acceptance
     user.features = features
   end
 
-  def wait_for_ajax
-    begin
-      wait_until { page.evaluate_script('jQuery.active') > 0 }
-    rescue Capybara::TimeoutError
-      puts 'No Ajax request was made, what are you waiting for?'
-    end
-    wait_until { page.evaluate_script('jQuery.active') == 0 }
-  rescue Capybara::TimeoutError
-    flunk 'The Ajax request was not ready in time'
-  end
-
-  def wait_until_scope_exists(scope, &block)
-    wait_until { page.has_css?(scope) }
-    within(scope, &block) if block_given?
-  rescue Capybara::TimeoutError
-    flunk "Expected '#{scope}' to be present."
-  end
-
   def disable_html5_validations(page)
     page.execute_script "$('form').attr('novalidate','novalidate')"
+  end
+
+  def eventually_succeeds(&block)
+    start_time = Time.now
+    begin
+      yield
+    rescue => e
+      if (Time.now - start_time) >= Capybara.default_wait_time ||
+          !page.driver.wait? then
+        raise e
+      end
+      sleep(0.05)
+      retry
+    end
   end
 end

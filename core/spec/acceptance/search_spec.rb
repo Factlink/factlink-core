@@ -1,14 +1,14 @@
 require 'acceptance_helper'
 
-describe "searching", type: :request do
+describe "searching", type: :feature do
 
   def create_channel(user)
-    channel = FactoryGirl.create(:channel, created_by: user.graph_user)
+    channel = create(:channel, created_by: user.graph_user)
     channel
   end
 
   before :each do
-    @user = sign_in_user FactoryGirl.create :active_user
+    @user = sign_in_user create :active_user
   end
 
   it "cannot find a something that does not exist" do

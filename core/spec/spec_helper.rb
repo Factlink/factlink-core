@@ -14,7 +14,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f|require f }
 
 RSpec.configure do |config|
   # Exclude integration tests in normal suite
-  config.filter_run_excluding type: :request
+  config.filter_run_excluding type: :feature
   config.mock_with :rspec
 
   config.include FactoryGirl::Syntax::Methods

@@ -3,9 +3,9 @@ require 'spec_helper'
 describe ChannelActivitiesController do
   render_views
 
-  before { Resque.stub!(:enqueue,nil) }
+  before { Resque.stub(:enqueue) }
 
-  let (:user) {FactoryGirl.create(:user)}
+  let (:user) {create(:user)}
 
   let (:f1) {create(:fact)}
   let (:f2) {create(:fact)}
@@ -14,7 +14,8 @@ describe ChannelActivitiesController do
   let (:ch1) do
     ch1 = create :channel, created_by: user.graph_user
     [f1,f2,f3].each do |f|
-      Interactors::Channels::AddFact.new(f, ch1, no_current_user: true).call
+      Interactors::Channels::AddFact.new(fact: f, channel: ch1,
+        pavlov_options: { no_current_user: true }).call
     end
     ch1
   end

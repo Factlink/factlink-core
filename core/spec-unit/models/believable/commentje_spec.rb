@@ -11,14 +11,14 @@ describe Believable::Commentje do
 
   describe "its constructor" do
     it "should create a subclass of believable" do
-      comment_id = mock
-      Ohm::Key.stub new: mock
+      comment_id = double
+      Ohm::Key.stub new: double
       believable_comment = Believable::Commentje.new comment_id
       expect(believable_comment).to be_kind_of(Believable)
     end
     it "should set key 'Comment:<id>'" do
-      nest = mock
-      comment_id = 'mock_ohm_id'
+      nest = double
+      comment_id = 'double_ohm_id'
 
       Ohm::Key.should_receive(:new)
           .with("Comment:#{comment_id}:believable")

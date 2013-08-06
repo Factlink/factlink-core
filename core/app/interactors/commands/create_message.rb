@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Commands
   class CreateMessage
     include Pavlov::Command
@@ -24,7 +22,7 @@ module Commands
 
     def authorized?
       @conversation.recipient_ids.map(&:to_s).include? @sender_id and
-      @sender_id == @options[:current_user].id.to_s
+      @sender_id == pavlov_options[:current_user].id.to_s
     end
   end
 end

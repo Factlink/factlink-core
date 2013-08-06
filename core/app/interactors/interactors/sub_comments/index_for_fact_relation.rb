@@ -28,7 +28,7 @@ module Interactors
       end
 
       def sub_comments
-        query :'sub_comments/index', fact_relation_id, 'FactRelation'
+        old_query :'sub_comments/index', fact_relation_id, 'FactRelation'
       end
 
       def raise_error_if_non_existent
@@ -47,7 +47,7 @@ module Interactors
       end
 
       def authority_of_user_who_created sub_comment
-        query :authority_on_fact_for, top_fact, sub_comment.created_by.graph_user
+        old_query :authority_on_fact_for, top_fact, sub_comment.created_by.graph_user
       end
     end
   end

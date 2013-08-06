@@ -20,7 +20,7 @@ class ChannelActivitiesController < ApplicationController
 
     timestamp = (params['timestamp'] || 0).to_i
 
-    @number_of_activities = interactor :'channels/activity_count', channel_id, timestamp
+    @number_of_activities = old_interactor :'channels/activity_count', channel_id, timestamp
 
     render json: {count: @number_of_activities, timestamp: timestamp }
   end
@@ -53,7 +53,7 @@ class ChannelActivitiesController < ApplicationController
     end
 
     if resulting_activities.length != retrieved_activities.length
-      Resque.enqueue(Commands::Activities::CleanList,activities.key.to_s)
+      Resque.enqueue(Commands::Activities::CleanList, list_key: activities.key.to_s)
     end
 
     resulting_activities

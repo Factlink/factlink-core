@@ -7,7 +7,7 @@ module Interactors
       # TODO: rewrite this to use Console once we also have a facebook_app_namespace
       # in pavlov_options in ApplicationController
       # How to use this interactor:
-      # Pavlov.interactor :'facts/share_on_facebook', '10',
+      # Pavlov.old_interactor :'facts/share_on_facebook', '10',
       #                     current_user: user,
       #                     ability: Ability.new(user),
       #                     facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
@@ -19,14 +19,14 @@ module Interactors
       end
 
       def execute
-        command :'facebook/share_factlink', fact_id
+        old_command :'facebook/share_factlink', fact_id
       end
 
       def validate
         validate_integer_string  :fact_id, fact_id
-        validate_not_nil         :current_user, @options[:current_user]
+        validate_not_nil         :current_user, pavlov_options[:current_user]
         validate_nonempty_string :facebook_app_namespace,
-                                    @options[:facebook_app_namespace]
+                                    pavlov_options[:facebook_app_namespace]
       end
     end
   end

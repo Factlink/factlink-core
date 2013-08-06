@@ -8,8 +8,7 @@ module Commands
       arguments :fact
 
       def execute
-        Opinion::BaseFactCalculation.new(fact).calculate_user_opinion
-        Opinion::FactCalculation.new(fact).calculate_opinion
+        FactGraph.new.calculate_fact_when_user_opinion_changed(fact)
       end
 
       def validate

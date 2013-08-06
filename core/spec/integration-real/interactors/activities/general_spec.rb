@@ -7,19 +7,19 @@ describe Interactors::Topics::Facts do
 
   it 'after adding activities they exist' do
     as(user) do |pavlov|
-      fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
-      channel = pavlov.command :'channels/create', 'something'
+      fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+      channel = pavlov.old_command :'channels/create', 'something'
 
       created_facts = channel.created_by.created_facts_channel
       stream = channel.created_by.stream
 
-      a1 = pavlov.command :create_activity, channel.created_by,
+      a1 = pavlov.old_command :create_activity, channel.created_by,
                        :added_fact_to_channel, fact, channel
-      a2 = pavlov.command :create_activity, channel.created_by,
+      a2 = pavlov.old_command :create_activity, channel.created_by,
                        :added_fact_to_channel, fact, created_facts
-      a3 = pavlov.command :create_activity, channel.created_by,
+      a3 = pavlov.old_command :create_activity, channel.created_by,
                        :added_fact_to_channel, fact, stream
-      a4 = pavlov.command :create_activity, channel.created_by,
+      a4 = pavlov.old_command :create_activity, channel.created_by,
                        :foo, nil, nil
 
       all_activity_ids = Activity.all.ids
@@ -31,22 +31,22 @@ describe Interactors::Topics::Facts do
   context 'after cleaning up faulty added_fact_to_channel activities' do
     it 'faulty activities are removed' do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
-        channel = pavlov.command :'channels/create', 'something'
+        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+        channel = pavlov.old_command :'channels/create', 'something'
 
         created_facts = channel.created_by.created_facts_channel
         stream = channel.created_by.stream
 
-        a1 = pavlov.command :create_activity, channel.created_by,
+        a1 = pavlov.old_command :create_activity, channel.created_by,
                          :added_fact_to_channel, fact, channel
-        a2 = pavlov.command :create_activity, channel.created_by,
+        a2 = pavlov.old_command :create_activity, channel.created_by,
                          :added_fact_to_channel, fact, created_facts
-        a3 = pavlov.command :create_activity, channel.created_by,
+        a3 = pavlov.old_command :create_activity, channel.created_by,
                          :added_fact_to_channel, fact, stream
-        a4 = pavlov.command :create_activity, channel.created_by,
+        a4 = pavlov.old_command :create_activity, channel.created_by,
                          :foo, nil, nil
 
-        pavlov.command :'activities/clean_up_faulty_add_fact_to_channels'
+        pavlov.old_command :'activities/clean_up_faulty_add_fact_to_channels'
 
         all_activity_ids = Activity.all.ids
         correct_ids = [a1, a4].map(&:id)
@@ -60,19 +60,19 @@ describe Interactors::Topics::Facts do
   context 'after cleanup' do
     it 'invalid activities are removed from a list' do
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'a fact', '', '', {}
-        fact2 = pavlov.interactor :'facts/create', 'a fact', '', '', {}
-        fact3 = pavlov.interactor :'facts/create', 'a fact', '', '', {}
-        channel = pavlov.command :'channels/create', 'something'
-        channel2 = pavlov.command :'channels/create', 'something else'
+        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+        fact2 = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+        fact3 = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+        channel = pavlov.old_command :'channels/create', 'something'
+        channel2 = pavlov.old_command :'channels/create', 'something else'
 
-        valid = pavlov.command :create_activity, channel.created_by,
+        valid = pavlov.old_command :create_activity, channel.created_by,
                          :foo, fact3, channel2
-        with_invalid_subject = pavlov.command :create_activity, channel.created_by,
+        with_invalid_subject = pavlov.old_command :create_activity, channel.created_by,
                          :foo, fact, nil
-        with_invalid_object = pavlov.command :create_activity, channel.created_by,
+        with_invalid_object = pavlov.old_command :create_activity, channel.created_by,
                          :foo, fact2, channel
-        valid_with_nils = pavlov.command :create_activity, channel.created_by,
+        valid_with_nils = pavlov.old_command :create_activity, channel.created_by,
                          :foo, nil, nil
 
         fact.delete
@@ -86,7 +86,7 @@ describe Interactors::Topics::Facts do
         list.zadd 26, '678678678678678677868'
 
 
-        pavlov.command :'activities/clean_list', list.to_s
+        pavlov.old_command :'activities/clean_list', list.to_s
 
         list_ids = list.zrange(0, -1)
 

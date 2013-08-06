@@ -2,10 +2,10 @@ require_relative '../../app/redis-models/user_following_users'
 
 describe UserFollowingUsers do
 
-  let(:relation) { mock }
-  let(:graph_user_id) { mock }
-  let(:other_id) { mock }
-  let(:ids) { mock }
+  let(:relation) { double }
+  let(:graph_user_id) { double }
+  let(:other_id) { double }
+  let(:ids) { double }
   let(:user_following_users) { UserFollowingUsers.new graph_user_id, relation }
 
   describe '.follow' do
@@ -40,7 +40,7 @@ describe UserFollowingUsers do
 
   describe '.follows?' do
     it 'calls relation.remove' do
-      boolean = mock
+      boolean = double
 
       relation.should_receive(:has?).with(graph_user_id, other_id).and_return(boolean)
       result = user_following_users.follows? other_id

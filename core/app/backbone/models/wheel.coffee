@@ -1,3 +1,10 @@
+#TODO: refactoring of this and related files.
+# - don't use multiple is_user_opinion(s), but one attribute user_opinion
+# - make unset state explicit.
+# - simplify rest api (no need for delete!)
+# - try to get rid of userOpinionWithS (facts_new_view)
+# - pursue these changes into related code.
+
 class window.Wheel extends Backbone.Model
   defaults:
     opinion_types: {}
