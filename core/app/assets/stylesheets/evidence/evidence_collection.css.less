@@ -54,6 +54,7 @@
 @weakeningImpactColor: rgba(220,120,120, 0.9);
 @unsureImpactColor: rgba(90,140,170, 0.9);
 @lineColor: rgba(174,180,189,0.8);
+@shadowColor: rgba(233, 234, 238, 0.7); // Same colour as semi-transparent overlay in js-library
 
 
 .evidence-collection {
@@ -63,16 +64,25 @@
   box-sizing: content-box;
 }
 
-.evidence-line {
+.evidence-line-background {
   position: absolute;
   left: 50%;
-  width: 3px;
+  width: 0px;
   margin-left: -1px;
   z-index: -2;
   top: -@topFactWheelOverhang;
   bottom: 0;
-  background: @lineColor;
+  box-shadow: 0 0 80px 100px @shadowColor;
   visibility: visible;
+
+  .evidence-line {
+    position: absolute;
+    left: 0;
+    width: 3px;
+    top: 0;
+    bottom: 0;
+    background: @lineColor;
+  }
 }
 
 .evidence-terminator {
