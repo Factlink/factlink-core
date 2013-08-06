@@ -10,7 +10,6 @@ require 'capybara/poltergeist'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
-require "timeout"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -64,13 +63,15 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    Capybara.reset!
-    Timeout.timeout(Capybara.default_wait_time) do
+    eventually_succeeds do
       # wait for all ajax requests to complete
       # if we don't wait, the server may see it after the db is cleaned
       # and a request for a removed object will cause a crash (nil ref).
-      sleep(0.1) until page.evaluate_script('(window.jQuery ? window.jQuery.active : 0)') == 0
+      unless page.evaluate_script('(window.jQuery ? window.jQuery.active : 0)') == 0
+        raise 'jQuery.active is not zero; did an Ajax callback perhaps crash?'
+      end
     end
+    Capybara.reset!
   end
 end
 
