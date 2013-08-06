@@ -209,6 +209,7 @@ div.top-right {
   height: 28px;
   line-height: 28px;
   padding: 0 16px;
+  position: relative;
 
   border:none;
   border-bottom: 3px solid #1c5c90;
@@ -225,6 +226,6 @@ div.top-right {
 .button:active {
   background-color: darken(#e4e6eb, 5);
   border-top: 3px solid #1c5c90;
-  border-bottom: 0px
   border-bottom: 0px;
+  top: 3px;
 }
