@@ -12,15 +12,6 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
     stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
-  describe 'validations' do
-    it 'raises when topic is not a Topic' do
-      command = described_class.new(object: 'Topic')
-
-      expect { command.call }
-        .to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
-    end
-  end
-
   describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'

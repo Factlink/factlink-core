@@ -12,15 +12,6 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
     stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
-  describe 'validations' do
-    it 'raises when fact_data is not a FactData' do
-      command = described_class.new(object: 'FactData')
-
-      expect { command.call }
-        .to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
-    end
-  end
-
   describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'

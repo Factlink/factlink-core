@@ -19,9 +19,8 @@ describe 'elastic search' do
 
   let (:test_index_command) do
     Class.new Commands::ElasticSearchIndexForTextSearch do
-      def execute
-        field :test_field
-        super
+      def fields
+        [:test_field]
       end
 
       def type_name

@@ -7,42 +7,22 @@ module Commands
     arguments :object
 
     def execute
-      missing_fields << :id unless field_exists :id
 
-      raise 'Type_name is not set.' unless type_name
-      raise "#{type_name} missing fields (#{missing_fields})." unless missing_fields.count == 0
+      fields.each do |name|
+        document[name] = object.send name
+      end
 
       index.add object.id, document.to_json
     end
 
     private
 
-    def validate
-    end
-
-    def index
-      ElasticSearch::Index.new type_name
-    end
-
-    def field_exists name
-      object.respond_to? name
-    end
-
-    def missing_fields
-      @missing_fields ||= []
-    end
-
     def document
       @document ||= {}
     end
 
-    # DSL
-    def field name
-      if field_exists name
-        document[name] = object.send name
-      else
-        missing_fields << name
-      end
+    def index
+      ElasticSearch::Index.new type_name
     end
   end
 end

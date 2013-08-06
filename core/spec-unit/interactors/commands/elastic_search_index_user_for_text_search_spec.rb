@@ -12,15 +12,6 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
     stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
-  describe 'validations' do
-    it 'raises when user is not a User' do
-      command = described_class.new(object: 'User')
-
-      expect { command.call }
-        .to raise_error(RuntimeError, 'user missing fields ([:username, :first_name, :last_name, :id]).')
-    end
-  end
-
   describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
