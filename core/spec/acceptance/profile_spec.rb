@@ -81,8 +81,8 @@ feature 'the profile page', type: :request do
 
     fact = nil
     as(followed_user) do |backend|
-      fact = backend.interactor :'facts/create', displaystring,'','title', {}
-      backend.interactor :'channels/add_fact', fact, channel
+      fact = backend.old_interactor :'facts/create', displaystring,'','title', {}
+      backend.old_interactor :'channels/add_fact', fact, channel
     end
 
     visit channel_activities_path(following_user.username,following_user.graph_user.stream_id)

@@ -13,7 +13,7 @@ describe ChannelsController do
   let (:ch_heavy) do
     ch_heavy = create :channel, created_by: user.graph_user
     [f1,f2,f3].each do |f|
-      Interactors::Channels::AddFact.new(f, ch_heavy, no_current_user: true).call
+      Interactors::Channels::AddFact.new(fact: f, channel: ch_heavy, pavlov_options: { no_current_user: true }).call
     end
     ch_heavy
   end
@@ -115,9 +115,9 @@ describe ChannelsController do
       authenticate_user!(user)
 
       channel_id = '1a'
-      channel = mock
+      channel = double
 
-      controller.should_receive(:interactor).
+      controller.should_receive(:old_interactor).
         with(:'channels/follow', channel_id).
         and_return(channel)
 

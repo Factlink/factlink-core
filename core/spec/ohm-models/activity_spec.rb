@@ -23,7 +23,7 @@ describe Activity do
   describe "mailing activities" do
     context "creating an activity" do
       it "should invoke send_mail_for_activity" do
-        interactor = mock()
+        interactor = double
         Interactors::SendMailForActivity.stub(:new)
             .and_return(interactor)
         interactor.should_receive(:call)
@@ -35,7 +35,7 @@ describe Activity do
 
   context "after creating one activity" do
     before do
-      Pavlov.stub(:interactor)
+      Pavlov.stub(:old_interactor)
             .with(:send_mail_for_activity, anything, anything)
             .and_return(nil)
     end

@@ -8,12 +8,13 @@ module Interactors
       arguments :user_name, :user_to_unfollow_user_name
 
       def authorized?
-        (!! pavlov_options[:current_user]) and (pavlov_options[:current_user].username == user_name)
+        pavlov_options[:current_user] and (pavlov_options[:current_user].username == user_name)
       end
 
       def execute
         user = old_query :user_by_username, user_name
         user_to_unfollow = old_query :user_by_username, user_to_unfollow_user_name
+
         old_command :'users/unfollow_user', user.graph_user_id, user_to_unfollow.graph_user_id
         nil
       end

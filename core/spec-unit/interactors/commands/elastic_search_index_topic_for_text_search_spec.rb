@@ -14,7 +14,7 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
 
   describe 'validations' do
     it 'raises when topic is not a Topic' do
-      command = described_class.new 'Topic'
+      command = described_class.new(object: 'Topic')
 
       expect { command.call }
         .to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
@@ -24,14 +24,14 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
   describe '#call' do
     it 'correctly' do
       url = 'localhost:9200'
-      config = mock()
+      config = double
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/topic/#{topic.id}"
-      command = described_class.new topic
+      command = described_class.new(object: topic)
 
       hashie = {}
-      json_document = mock
+      json_document = double
       command.stub(:document).and_return(hashie)
       hashie.stub(:to_json).and_return(json_document)
 

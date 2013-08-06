@@ -4,33 +4,30 @@ require_relative '../../../../app/interactors/commands/opinions/recalculate_comm
 describe Commands::Opinions::RecalculateCommentUserOpinion do
   include PavlovSupport
 
+  before do
+    stub_classes 'FactGraph'
+  end
+
   describe '#call' do
-    before do
-      stub_classes 'FactGraph'
-    end
 
     it 'calls calculate_comment_when_user_opinion_changed' do
-      comment = mock
-      fact_graph = mock
+      comment = double
+      fact_graph = double
 
       FactGraph.stub new: fact_graph
 
       fact_graph.should_receive(:calculate_comment_when_user_opinion_changed)
         .with(comment)
 
-      command = described_class.new comment
-      result = command.call
+      command = described_class.new comment: comment
+      command.call
     end
   end
 
-  describe '#validate' do
+  describe 'validation' do
     it 'calls the correct validation methods' do
-      comment = mock
-
-      described_class.any_instance.should_receive(:validate_not_nil)
-                                  .with(:comment, comment)
-
-      command = described_class.new comment
+      expect_validating(comment: nil)
+        .to raise_error 'comment should not be nil.'
     end
   end
 end

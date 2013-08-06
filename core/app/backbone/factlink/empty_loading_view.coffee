@@ -26,5 +26,5 @@ class Backbone.Factlink.EmptyLoadingView extends Backbone.Marionette.Layout
     @updateLoading()
 
   updateLoading: ->
-    @$('.js-region-loading').toggle @collection.loading
-    @$('.js-region-empty').toggle !@collection.loading
+    @$('.js-region-loading').toggle @collection.loading()
+    @$('.js-region-empty').toggle !@collection.loading()

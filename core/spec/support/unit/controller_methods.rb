@@ -1,6 +1,6 @@
 module ControllerMethods
   def authenticate_user!(user)
-    request.env['warden'] = mock(Warden, :authenticate => user, :authenticate! => user)
+    request.env['warden'] = double(Warden, :authenticate => user, :authenticate! => user)
     request.env['test_logged_in'] = true
   end
 

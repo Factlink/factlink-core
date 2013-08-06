@@ -1,7 +1,7 @@
 # Usage:
 #
 # > console = PavlovConsole.new('mark')
-# > console.interactor :'facts/post_to_twitter', '10', 'hi'
+# > console.old_interactor :'facts/post_to_twitter', '10', 'hi'
 
 class PavlovConsole
   include Pavlov::Helpers

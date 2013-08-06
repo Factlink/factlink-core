@@ -3,6 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
+require "pavlov/alpha_compatibility"
 
 Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
 Mime::Type.register "image/gif", :gif unless Mime::Type.lookup_by_extension(:gif)
@@ -149,6 +150,10 @@ module FactlinkUI
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store
+
+
+    config.less.paths << File.join(config.root, 'vendor', 'frameworks')
+
   end
 end
 

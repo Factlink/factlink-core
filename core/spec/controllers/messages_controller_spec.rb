@@ -11,15 +11,11 @@ describe MessagesController do
 
       conversation_id = 10
 
-      interactor = mock()
-      interactor.should_receive(:call)
-
-      pavlov_options = mock()
+      pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)
 
-      Interactors::ReplyToConversation.should_receive(:new).
-         with(conversation_id.to_s, user.id.to_s, 'verhaal', pavlov_options).
-         and_return(interactor)
+      Pavlov.should_receive(:old_interactor)
+        .with(:reply_to_conversation, conversation_id.to_s, user.id.to_s, 'verhaal', pavlov_options)
 
       get :create, conversation_id: conversation_id, content: 'verhaal'
     end

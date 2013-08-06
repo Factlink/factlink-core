@@ -4,37 +4,29 @@ require_relative '../../../../app/interactors/commands/site/add_top_topic.rb'
 describe Commands::Site::AddTopTopic do
   include PavlovSupport
 
-  describe '.new' do
-    it 'should initialize correctly' do
-      command = Commands::Site::AddTopTopic.new 1, "2e"
-      expect(command).not_to be_nil
-    end
-  end
-
   describe 'validations' do
-    it 'requires arguments' do
-      expect_validating(1, 1).
-        to fail_validation('topic_slug should be a string.')
+    it 'requires topic_slug' do
+      expect_validating(topic_slug: 15, site_id: 1)
+        .to fail_validation('topic_slug should be a string.')
     end
 
-    it 'requires arguments' do
-      expect_validating('', '11ee').
-        to fail_validation('site_id should be an integer.')
+    it 'requires site_id' do
+      expect_validating(topic_slug: '', site_id: '11ee')
+        .to fail_validation('site_id should be an integer.')
     end
   end
 
-  describe '.call' do
-
+  describe '#call' do
     it '.key returns the correct redis key' do
       site_id = 6
       topic_slug = '12ab34cd'
-      redis_helper = mock
+      redis_helper = double
 
-      command = Commands::Site::AddTopTopic.new site_id, topic_slug
+      command = described_class.new site_id: site_id, topic_slug: topic_slug
       command.should_receive(:redis).and_return( redis_helper )
 
-      key = mock
-      sub_key = mock
+      key = double
+      sub_key = double
 
       redis_helper.should_receive(:[]).with(site_id).and_return(sub_key)
       sub_key.should_receive(:[]).with(:top_topics).and_return(key)
@@ -46,14 +38,13 @@ describe Commands::Site::AddTopTopic do
       site_id = 6
       topic_slug = '12ab34cd'
 
-      command = Commands::Site::AddTopTopic.new site_id, topic_slug
+      command = described_class.new site_id: site_id, topic_slug: topic_slug
 
-      key_mock = mock()
-      key_mock.should_receive(:zincrby).with(1, topic_slug)
-      command.stub key: key_mock
+      key_double = double
+      key_double.should_receive(:zincrby).with(1, topic_slug)
+      command.stub key: key_double
 
       command.call
     end
   end
-
 end

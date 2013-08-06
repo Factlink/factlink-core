@@ -10,10 +10,10 @@ describe Queries::Opinions::ImpactOpinionForComment do
     end
 
     it 'returns the dead opinion on the comment' do
-      dead_opinion = mock
-      comment = mock(id: mock)
-      fact_graph = mock
-      query = described_class.new comment
+      dead_opinion = double
+      comment = double(id: double)
+      fact_graph = double
+      query = described_class.new comment: comment
 
       FactGraph.stub new: fact_graph
 
@@ -28,7 +28,7 @@ describe Queries::Opinions::ImpactOpinionForComment do
 
   describe '#validate' do
     it 'without comment doesn\'t validate' do
-      expect_validating(nil)
+      expect_validating(comment: nil)
         .to fail_validation('comment should not be nil.')
     end
   end

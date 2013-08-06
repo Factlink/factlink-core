@@ -7,11 +7,11 @@ describe 'setting up an account' do
 
   before do
     stub_const 'UserMailer', Class.new
-    UserMailer.stub welcome_instructions: stub(deliver: nil)
+    UserMailer.stub welcome_instructions: double(deliver: nil)
   end
 
   def create_approved_user username, email
-    # method, since there is no old_interactor yet to do this
+    # method, since there is no interactor yet to do this
     user = User.new
     user.username = username
     user.email = email
@@ -33,8 +33,8 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        pavlov.old_interactor :'accounts/setup_approved',
-            user.reset_password_token, attributes
+        pavlov.old_interactor(:'accounts/setup_approved',
+          user.reset_password_token, attributes)
       end
 
       updated_user = User.find(user.id)

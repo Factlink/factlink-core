@@ -26,7 +26,7 @@ class window.FactRelation extends Evidence
     return @_fact if @_fact?
 
     @_fact = new Fact(@get('from_fact'))
-    @on 'change', =>
+    @on 'change:from_fact', =>
       @_fact.set @get('from_fact')
     @_fact
 

@@ -13,7 +13,8 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.old_interactor :'facts/create', 'displaystring',
+          'url', 'title', {}
       end
 
       ability.stub(:can?).with(:show, Fact).and_return(true)
@@ -34,7 +35,8 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.old_interactor :'facts/create', 'displaystring',
+          'url', 'title', {}
         fact.add_opinion :believes, user.graph_user
       end
       FactGraph.recalculate
@@ -58,7 +60,8 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.old_interactor :'facts/create', 'displaystring',
+          'url', 'title', {}
         fact.add_opinion :believes, user.graph_user
       end
       FactGraph.recalculate
@@ -82,7 +85,7 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.old_interactor :'facts/create', 'displaystring', 'url', 'title', {}
       end
 
       fact.data.displaystring = "baas<xss> of niet"
@@ -104,7 +107,7 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.old_interactor :'facts/create', 'displaystring', 'url', 'title', {}
       end
       fact_id = fact.id
 
@@ -152,12 +155,11 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.old_interactor :'facts/create', 'displaystring', 'url', 'title', {}
       end
 
       get :evidence_search, id: fact.id, s: "Baron"
       response.should be_success
     end
   end
-
 end

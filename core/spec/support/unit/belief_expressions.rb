@@ -23,23 +23,23 @@ module BeliefExpressions
   alias :doubts :u
 
   def add_supporting_comment(graph_user, fact)
-    comment = Pavlov.command :create_comment, fact.id.to_i, 'believes', 'comment', graph_user.user.id.to_s
+    comment = Pavlov.old_command :create_comment, fact.id.to_i, 'believes', 'comment', graph_user.user.id.to_s
     something_happened
     comment
   end
 
   def add_weakening_comment(graph_user, fact)
-    comment = Pavlov.command :create_comment, fact.id.to_i, 'disbelieves', 'comment', graph_user.user.id.to_s
+    comment = Pavlov.old_command :create_comment, fact.id.to_i, 'disbelieves', 'comment', graph_user.user.id.to_s
     something_happened
     comment
   end
 
   def believes_comment(graph_user, comment)
-    Pavlov.command :'comments/set_opinion', comment.id.to_s, 'believes', graph_user
+    Pavlov.old_command :'comments/set_opinion', comment.id.to_s, 'believes', graph_user
   end
 
   def disbelieves_comment(graph_user, comment)
-    Pavlov.command :'comments/set_opinion', comment.id.to_s, 'disbelieves', graph_user
+    Pavlov.old_command :'comments/set_opinion', comment.id.to_s, 'disbelieves', graph_user
   end
 
   def god_user
@@ -52,7 +52,8 @@ module BeliefExpressions
   end
 
   def add_to_global_channel(factlink)
-    Interactors::Channels::AddFact.new(factlink, global_channel, no_current_user:true).call
+    Interactors::Channels::AddFact.new(fact: factlink, channel: global_channel,
+      pavlov_options: { no_current_user: true }).call
   end
 
   def possible_reset
@@ -82,7 +83,7 @@ module BeliefExpressions
 
   def opinion?(fact)
     possible_reset
-    opinion = Pavlov.query 'opinions/opinion_for_fact', fact
+    opinion = Pavlov.old_query 'opinions/opinion_for_fact', fact
     opinion.should
   end
 

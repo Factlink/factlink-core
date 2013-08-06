@@ -1,4 +1,4 @@
-@import "bootstrap/variables";
+@import "twitter/bootstrap/variables";
 @import "bootstrap/mixins";
 
 .user-fact-heading {
@@ -6,39 +6,7 @@
   //the overall user-info block.
   position: absolute;
   top: -38px;
-}
 
-.user-fact-heading-avatar-wrapper {
-  position: relative;
-  display: inline-block;
-  margin-right: 6px; //avatar is inline with text, wants space after it.
-  vertical-align: top;
-  padding:3px;
-  background-color: white;
-  border-radius: 4px;
-
-  > img {
-    border-radius: 3px;
-    width: 48px;
-    height: 48px;
-    position: relative;
-    z-index: 1; //stacking is necessary due to fake border construct explained below.
-  }
-
-  //The following css generates a surrounding rounded box around the image.
-  //this is equivalent to a fake border, with the advantage
-  //that the "padding" overlays the wrapping boxes border, whereas the
-  //"border" is underneath it.  This causes the visual border to appear
-  //continuously to wrap the jutting out avatar image.
-  &:after {
-    display: block;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: 4px;
-    content: '';
-    position: absolute;
-    z-index: -1;
-    .new-design-box-shadow();
-  }
 }
 
 .user-fact-heading-text {

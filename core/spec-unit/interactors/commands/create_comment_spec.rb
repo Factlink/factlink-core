@@ -8,34 +8,35 @@ describe Commands::CreateComment do
   end
 
   it 'should initialize correctly' do
-    command = Commands::CreateComment.new 1, 'believes', 'hoi', '2a'
+    command = described_class.new fact_id: 1, type: 'believes', content: 'hoi',
+      user_id: '2a'
 
     command.should_not be_nil
   end
 
-  describe "validation" do
-    it 'without user_id doesn''t validate' do
-      expect_validating(1, 'believes', 'Hoi!', '').
-        to fail_validation('user_id should be an hexadecimal string.')
+  describe 'validations' do
+    it 'without user_id doesn\'t validate' do
+      expect_validating(fact_id: 1, type: 'believes', content: 'Hoi!', user_id: 'not hex')
+        .to fail_validation('user_id should be an hexadecimal string.')
     end
 
-    it 'without content doesn''t validate' do
-      expect_validating(1, 'believes', '', '2a').
-        to fail_validation('content should not be empty.')
+    it 'without content doesn\'t validate' do
+      expect_validating(fact_id: 1, type: 'believes', content: '', user_id: '2a')
+        .to fail_validation('content should not be empty.')
     end
 
-    it 'with a invalid fact_data_id doesn''t validate' do
-      expect_validating('x', 'believes', 'Hoi!', '2a').
-        to fail_validation('fact_id should be an integer.')
+    it 'with a invalid fact_data_id doesn\'t validate' do
+      expect_validating(fact_id: 'x', type: 'believes', content: 'Hoi!', user_id: '2a')
+        .to fail_validation('fact_id should be an integer.')
     end
 
-    it 'with a invalid type doesn''t validate' do
-      expect_validating(1, 'dunno', 'Hoi!', '2a').
-        to fail_validation('type should be on of these values: ["believes", "disbelieves", "doubts"].')
+    it 'with a invalid type doesn\'t validate' do
+      expect_validating(fact_id: 1, type: 'dunno', content: 'Hoi!', user_id: '2a')
+        .to fail_validation('type should be on of these values: ["believes", "disbelieves", "doubts"].')
     end
   end
 
-  describe '.call' do
+  describe '#call' do
     before do
       stub_classes('KillObject')
     end
@@ -45,11 +46,12 @@ describe Commands::CreateComment do
       type = 'believes'
       content = 'message'
       user_id = '1a'
-      command = Commands::CreateComment.new fact_id, type, content, user_id
-      comment = mock(:comment, id: 10)
-      fact = mock
-      fact_data = mock fact: fact
-      user = mock
+      command = described_class.new fact_id: fact_id, type: type,
+        content: content, user_id: user_id
+      comment = double(:comment, id: 10)
+      fact = double
+      fact_data = double fact: fact
+      user = double
       command.stub fact_data: fact_data
 
       comment.should_receive(:fact_data=).with(fact_data)
@@ -72,12 +74,13 @@ describe Commands::CreateComment do
     it 'should return the fact_data defined by the fact_id' do
       fact_id = 10
       fact_data_id = 'a1'
-      fact = mock(:fact, data_id: fact_data_id)
+      fact = double(:fact, data_id: fact_data_id)
       type = 'believes'
       content = 'message'
       user_id = '1a'
-      command = Commands::CreateComment.new fact_id, type, content, user_id
-      fact_data = mock
+      command = described_class.new fact_id: fact_id, type: type,
+        content: content, user_id: user_id
+      fact_data = double
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
       FactData.should_receive(:find).with(fact_data_id).and_return(fact_data)

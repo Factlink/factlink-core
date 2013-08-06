@@ -10,10 +10,10 @@ describe Queries::Opinions::ImpactOpinionForFactRelation do
     end
 
     it 'returns the dead opinion on the fact_relation' do
-      dead_opinion = mock
-      fact_relation = mock(id: mock)
-      fact_graph = mock
-      query = described_class.new fact_relation
+      dead_opinion = double
+      fact_relation = double(id: double)
+      fact_graph = double
+      query = described_class.new fact_relation: fact_relation
 
       FactGraph.stub new: fact_graph
 
@@ -28,7 +28,7 @@ describe Queries::Opinions::ImpactOpinionForFactRelation do
 
   describe '#validate' do
     it 'without fact_relation doesn\'t validate' do
-      expect_validating(nil)
+      expect_validating(fact_relation: nil)
         .to fail_validation('fact_relation should not be nil.')
     end
   end
