@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/commands/elastic_search_index_user_for_text_search'
+require_relative '../../../../app/interactors/commands/text_search/index_user'
 
-describe Commands::ElasticSearchIndexUserForTextSearch do
+describe Commands::TextSearch::IndexUser do
   include PavlovSupport
 
   describe '#call' do
