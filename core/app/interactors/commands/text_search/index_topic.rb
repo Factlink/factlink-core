@@ -11,6 +11,10 @@ module Commands
                       [:title, :slug_title],
                       changed
       end
+
+      def validate
+        validate_not_nil :topic, topic
+      end
     end
   end
 end

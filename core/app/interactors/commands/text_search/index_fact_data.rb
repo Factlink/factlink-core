@@ -11,6 +11,10 @@ module Commands
                       [:displaystring, :title],
                       changed
       end
+
+      def validate
+        validate_not_nil :fact_data, fact_data
+      end
     end
   end
 end

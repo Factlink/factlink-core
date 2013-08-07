@@ -11,6 +11,10 @@ module Commands
                       [:username, :first_name, :last_name],
                       changed
       end
+
+      def validate
+        validate_not_nil :user, user
+      end
     end
   end
 end
