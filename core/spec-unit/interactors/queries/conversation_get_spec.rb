@@ -1,3 +1,4 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/conversation_get.rb'
 require_relative '../../../app/interactors/kill_object'
 

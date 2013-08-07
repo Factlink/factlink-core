@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Queries
   module GlobalFeatures
     class Index

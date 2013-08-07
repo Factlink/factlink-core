@@ -1,5 +1,5 @@
-require_relative '../../../../app/interactors/queries/channels/get'
 require 'pavlov_helper'
+require_relative '../../../../app/interactors/queries/channels/get'
 
 describe Queries::Channels::Get do
   include PavlovSupport

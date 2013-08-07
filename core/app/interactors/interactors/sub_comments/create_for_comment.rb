@@ -1,4 +1,3 @@
-require 'pavlov'
 require_relative 'create_for_generic'
 
 module Interactors

@@ -1,4 +1,3 @@
-require 'pavlov'
 require 'uri'
 
 module Queries
