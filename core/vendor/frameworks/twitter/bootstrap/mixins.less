@@ -34,13 +34,6 @@
   outline-offset: -2px;
 }
 
-// Center-align a block level element
-// ----------------------------------
-.center-block() {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 // IE7 inline-block
 // ----------------
@@ -100,18 +93,6 @@
   white-space: nowrap;
 }
 
-// CSS image replacement
-// -------------------------
-// Source: https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
-.hide-text {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-
-
 // FONTS
 // --------------------------------------------------
 
@@ -122,9 +103,6 @@
     }
     .sans-serif() {
       font-family: @sansFontFamily;
-    }
-    .monospace() {
-      font-family: @monoFontFamily;
     }
   }
   .shorthand(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
@@ -138,10 +116,6 @@
   }
   .sans-serif(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
     #font > #family > .sans-serif;
-    #font > .shorthand(@size, @weight, @lineHeight);
-  }
-  .monospace(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
-    #font > #family > .monospace;
     #font > .shorthand(@size, @weight, @lineHeight);
   }
 }

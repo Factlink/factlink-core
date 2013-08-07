@@ -75,17 +75,28 @@ module Acceptance
     page.execute_script "$('form').attr('novalidate','novalidate')"
   end
 
-  def eventually_succeeds(&block)
+  def eventually_succeeds(wait_time=nil, &block)
+    wait_time ||= Capybara.default_wait_time
     start_time = Time.now
     begin
       yield
     rescue => e
-      if (Time.now - start_time) >= Capybara.default_wait_time ||
-          !page.driver.wait? then
+      if (Time.now - start_time) >= wait_time then
         raise e
       end
       sleep(0.05)
       retry
+    end
+  end
+
+  def wait_for_ajax_idle
+    eventually_succeeds do
+      # wait for all ajax requests to complete
+      # if we don't wait, the server may see it after the db is cleaned
+      # and a request for a removed object will cause a crash (nil ref).
+      unless page.evaluate_script('(!window.jQuery || window.jQuery.active == 0)')
+        raise 'jQuery.active is not zero; did an Ajax callback perhaps crash?'
+      end
     end
   end
 end

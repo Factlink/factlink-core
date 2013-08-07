@@ -18,10 +18,10 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       interactor = described_class.new fact: fact, channel: channel, score: score,
         should_add_to_unread: false
 
-      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
+      Pavlov.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
 
-      interactor.should_receive(:old_command).with(:"topics/add_fact",
+      Pavlov.should_receive(:old_command).with(:"topics/add_fact",
           fact.id, channel.slug_title, score.to_s)
 
       expect(interactor.call).to be_true
@@ -40,7 +40,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       interactor = described_class.new fact: fact, channel: channel, score: score,
         should_add_to_unread: false
 
-      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
+      Pavlov.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return true
 
       expect(interactor.call).to be_true
@@ -83,7 +83,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
 
       interactor = described_class.new fact: fact, channel: channel, score: score,
         should_add_to_unread: true
-      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
+      Pavlov.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return false
 
       interactor.call
@@ -94,7 +94,7 @@ describe Interactors::Channels::AddFactWithoutPropagation do
 
       interactor = described_class.new fact: fact, channel: channel, score: score,
         should_add_to_unread: false
-      interactor.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
+      Pavlov.should_receive(:old_command).with(:"channels/add_fact_without_propagation",
           fact, channel, score).and_return false
 
       expect(interactor.call).to be_false

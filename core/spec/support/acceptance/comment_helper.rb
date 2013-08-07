@@ -29,18 +29,14 @@ module Acceptance
         toggle_to_comment if posting_factlink? #unless posting_comment?
 
         within add_evidence_form_css_selector do
-          Timeout.timeout(Capybara.default_wait_time) do
-            # wait for all ajax requests to complete
-            # if we don't wait, the server may see it after the db is cleaned
-            # and a request for a removed object will cause a crash (nil ref).
-            sleep(0.1) until page.evaluate_script('jQuery.active') == 0
-          end
           comment_input = page.find_field 'add_comment'
 
           comment_input.click
+          #ensure button is enabled, i.e. doesn't say "posting":
+          find('button', 'Post Comment')
           comment_input.set comment
           comment_input.value.should eq comment
-          click_button 'Post comment'
+          click_post_comment
         end
       end
 
@@ -52,7 +48,14 @@ module Acceptance
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
-          page.find_button("Post Factlink").click
+          # We assume a request immediately fires, and button reads "Posting..."
+
+          # This *should* hold:
+          page.find("button", text: "Posting...")
+          # ...but the posting delay vs. capybara check is a race-condition
+          # if this randomly fails, disable the above check.
+
+          page.find("button", text: "Post Factlink")
         end
       end
 
@@ -61,7 +64,15 @@ module Acceptance
 
         within add_evidence_form_css_selector do
           page.find("input[type=text]").set(text)
-          page.find_button("Post Factlink").click
+          page.find("button", text: "Post Factlink").click
+          # We assume a request immediately fires, and button reads "Posting..."
+
+          # This *should* hold:
+          page.find("button", text: "Posting...")
+          # ...but the posting delay vs. capybara check is a race-condition
+          # if this randomly fails, disable the above check.
+
+          page.find("button", text: "Post Factlink")
         end
       end
 
@@ -70,6 +81,12 @@ module Acceptance
         sleep 0.5 # To allow for the getting bigger CSS animation
         find('.evidence-sub-comments-button', text: 'Comment').click
         sleep 0.5 # To allow for the getting smaller CSS animation
+      end
+
+      def click_post_comment
+        page.find("button", text: "Post comment").click
+        # We assume a request immediately fires, and button reads "Posting..."
+        page.find("button", text: "Post comment")
       end
 
       def assert_sub_comment_exists(comment)

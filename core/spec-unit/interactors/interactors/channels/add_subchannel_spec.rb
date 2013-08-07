@@ -24,24 +24,24 @@ describe Interactors::Channels::AddSubchannel do
       interactor = described_class.new channel_id: channel.id,
         subchannel_id: subchannel.id, pavlov_options: pavlov_options
 
-      interactor.should_receive(:old_command)
-                .with(:'channels/add_subchannel', channel, subchannel)
+      Pavlov.should_receive(:old_command)
+                .with(:'channels/add_subchannel', channel, subchannel, pavlov_options)
                 .and_return(true)
 
-      interactor.should_receive(:old_command)
-             .with(:'channels/added_subchannel_create_activities', channel, subchannel)
+      Pavlov.should_receive(:old_command)
+             .with(:'channels/added_subchannel_create_activities', channel, subchannel, pavlov_options)
 
       interactor.execute
     end
     it 'adds a subchannel to the channel, but if the command fails it does not create activity' do
       interactor = described_class.new channel_id: channel.id,
         subchannel_id: subchannel.id, pavlov_options: pavlov_options
-      interactor.should_receive(:old_command)
-                .with(:'channels/add_subchannel', channel, subchannel)
+      Pavlov.should_receive(:old_command)
+                .with(:'channels/add_subchannel', channel, subchannel, pavlov_options)
                 .and_return(false)
 
-      interactor.should_not_receive(:old_command)
-           .with(:'channels/added_subchannel_create_activities', channel, subchannel)
+      Pavlov.should_not_receive(:old_command)
+           .with(:'channels/added_subchannel_create_activities', channel, subchannel, pavlov_options)
 
       interactor.execute
     end

@@ -8,6 +8,8 @@ require 'rubygems'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara/email/rspec'
+require 'capybara-screenshot'
+
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 
@@ -63,14 +65,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    eventually_succeeds do
-      # wait for all ajax requests to complete
-      # if we don't wait, the server may see it after the db is cleaned
-      # and a request for a removed object will cause a crash (nil ref).
-      unless page.evaluate_script('(!window.jQuery || window.jQuery.active == 0)')
-        raise 'jQuery.active is not zero; did an Ajax callback perhaps crash?'
-      end
-    end
+    wait_for_ajax_idle
     Capybara.reset!
   end
 end

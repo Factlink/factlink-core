@@ -63,12 +63,12 @@ class window.ActivitiesView extends AutoloadingView
 
   emptyViewOn: ->
     unless @options.disableEmptyView
-      @emptyView = new FeedEmptyView
-      @$('.js-empty-stream').html @emptyView.render().el
+      @someEmptyView = new FeedEmptyView
+      @$('.js-empty-stream').html @someEmptyView.render().el
 
   emptyViewOff: ->
-    if @emptyView?
-      @emptyView.close()
-      delete @emptyView
+    if @someEmptyView?
+      @someEmptyView.close()
+      delete @someEmptyView
 
   addAtBottom:(view) -> @bottomRegion.show view

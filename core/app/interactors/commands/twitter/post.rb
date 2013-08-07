@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Commands
   module Twitter
     class Post

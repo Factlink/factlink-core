@@ -7,7 +7,7 @@ describe "Homepage rendering", type: :feature do
   end
   it "with empty submit and open feedback as expected" do
     visit "/"
-    find('input[value="Reserve my username"]').click
+    first('input[value="Reserve my username"]').click
     find('a', text: 'Feedback').click
     assume_unchanged_screenshot "homepage_with_feedback"
   end

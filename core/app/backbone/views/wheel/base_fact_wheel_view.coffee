@@ -27,7 +27,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   initialize: (options) ->
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
-    @bindTo @model, 'change', @reRender, @
+    @listenTo @model, 'change', @reRender, @
 
   defaultStrokeWidth: -> 3/5 * @options.radius
   hoverStrokeWidth: -> @defaultStrokeWidth() + 2

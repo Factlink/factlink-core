@@ -20,10 +20,11 @@ describe Interactors::Comments::Delete do
     it 'correctly' do
       comment_id = 'a12f'
       user = double(id: 1)
+      pavlov_options = { current_user: user }
       interactor = described_class.new comment_id: comment_id,
-        pavlov_options: { current_user: user }
+        pavlov_options: pavlov_options
 
-      interactor.should_receive(:old_command).with(:delete_comment, comment_id, user.id.to_s)
+      Pavlov.should_receive(:old_command).with(:delete_comment, comment_id, user.id.to_s, pavlov_options)
 
       interactor.call
     end

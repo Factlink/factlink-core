@@ -6,8 +6,8 @@ class TopicItemView extends Backbone.Marionette.ItemView
   template: 'topics/sidebar/item'
 
   initialize: ->
-    @model.bind('activate', @activeOn, this)
-    @model.bind('deactivate', @activeOff, this)
+    @model.on 'activate', @activeOn, @
+    @model.on 'deactivate', @activeOff, @
 
   onRender: -> @activeOn() if @model.isActive()
 
@@ -35,6 +35,9 @@ class window.TopicHeaderView extends Backbone.Marionette.ItemView
 class window.TopicListView extends Backbone.Marionette.CollectionView
   itemView: TopicItemView
   tagName: 'ul'
+
+  collectionEvents:
+    'sort': 'render'
 
 class window.TopicSidebarView extends Backbone.Marionette.Layout
   template: 'topics/sidebar/layout'

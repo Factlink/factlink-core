@@ -14,7 +14,7 @@ describe Interactors::Channels::ActivityCount do
       interactor = described_class.new channel_id: channel_id,
         timestamp: timestamp
 
-      interactor.should_receive(:old_query).with(:"channels/activity_count", channel_id, timestamp)
+      Pavlov.should_receive(:old_query).with(:"channels/activity_count", channel_id, timestamp)
 
       interactor.call
     end

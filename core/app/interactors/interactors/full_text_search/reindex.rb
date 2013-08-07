@@ -1,4 +1,3 @@
-require 'pavlov'
 require_relative '../../../classes/elastic_search.rb'
 
 module Interactors

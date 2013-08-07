@@ -114,7 +114,11 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     within evidence_listing_css_selector do
-      find(evidence_item_css_selector, text:comment1)
+      #find text with comment - we need to do this before asserting on ordering
+      #since expect..to..match is not async, and at this point the comment ajax
+      #may not have been completed yet.
+      find(evidence_item_css_selector, text: comment1)
+
       items = all evidence_item_css_selector
       expect(items[0].text).to match (Regexp.new factlink2)
       expect(items[1].text).to match (Regexp.new comment3)

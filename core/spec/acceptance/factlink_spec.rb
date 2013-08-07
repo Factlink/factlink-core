@@ -21,7 +21,11 @@ describe "factlink", type: :feature do
       within '.auto-complete-fact-relations' do
         input = page.find(:css, 'input')
         input.set(search_string)
-        input.trigger('focus')
+        if page.driver == :poltergeist then
+          input.trigger('focus')
+        else
+          input.click
+        end
       end
 
       page.should have_selector(".auto-complete-search-list-container")

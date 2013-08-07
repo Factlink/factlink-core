@@ -16,7 +16,7 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
   template: 'generic/text_input'
 
   initialize: ->
-    @bindTo @model, 'change', @updateHtml, this
+    @listenTo @model, 'change', @updateHtml
 
   focusInput: -> @$inputField().focus()
 

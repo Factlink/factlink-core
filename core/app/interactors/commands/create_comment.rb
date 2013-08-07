@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Commands
   class CreateComment
     include Pavlov::Command
