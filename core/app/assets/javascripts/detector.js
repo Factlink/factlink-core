@@ -23,44 +23,53 @@
  *        d.detect('font name');
  */
 var Detector = function() {
-    // a font will be compared against all the three default fonts.
-    // and if it doesn't match all 3 then that font is not available.
-    var baseFonts = ['monospace', 'sans-serif', 'serif'];
 
     //we use m or w because these two characters take up the maximum width.
     // And we use a LLi so that the same matching fonts can get separated
-    var testString = "mmmmmmmmmmlli";
+    var testString = "The Quick Brown Fox Jumps Over The Lazy Dog ";
+    var testStrings = [];
+    for(var i=1;i<testString.length;i++) {
+        testStrings.push(testString.substr(0,i));
+        testStrings.push(testString.substr(-i,i));
+    }
+
+
 
     //we test using 72px font size, we may use any size. I guess larger the better.
-    var testSize = '72px';
+    var testSize = '144px';
 
     var h = document.getElementsByTagName("body")[0];
 
     // create a SPAN in the document to get the width of the text we use to test
-    var s = document.createElement("span");
-    s.style.fontSize = testSize;
-    s.innerHTML = testString;
-    var defaultWidth = {};
-    var defaultHeight = {};
-    for (var index in baseFonts) {
-        //get the default width for the three base fonts
-        s.style.fontFamily = baseFonts[index];
-        h.appendChild(s);
-        defaultWidth[baseFonts[index]] = s.offsetWidth; //width for the default font
-        defaultHeight[baseFonts[index]] = s.offsetHeight; //height for the defualt font
-        h.removeChild(s);
+    var s = document.createElement("div"),
+      a = document.createElement("span"),
+      b = document.createElement("span");
+    [a,b].forEach(function(el) {
+        el.style.fontSize = testSize;
+        el.style.lineHeight = '1';
+        el.fontFamily = 'inherit';
+        el.textContent = testString;
+        s.appendChild(el);
+    });
+    s.style.fontFamily = 'dfvb5w97vdkj';
+    a.style.fontFamily = 'dfvb5w97vdkj';
+
+    function getSizeDiff(font, base) {
     }
 
     function detect(font) {
-        var detected = false;
-        for (var index in baseFonts) {
-            s.style.fontFamily = font + ',' + baseFonts[index]; // name of the font along with the base font for fallback.
-            h.appendChild(s);
-            var matched = (s.offsetWidth != defaultWidth[baseFonts[index]] || s.offsetHeight != defaultHeight[baseFonts[index]]);
-            h.removeChild(s);
-            detected = detected || matched;
-        }
-        return detected;
+        widthErr =0;
+        heightErr=0;
+        b.style.fontFamily = font;
+        h.appendChild(s);
+        testStrings.forEach(function(str) {
+            a.textContent = str;
+            b.textContent = str;
+            widthErr += Math.abs(a.offsetWidth - b.offsetWidth);
+            heightErr += Math.abs(a.offsetHeight - b.offsetHeight);
+        });
+        h.removeChild(s);
+        return widthErr+"/"+heightErr;
     }
 
     this.detect = detect;
@@ -102,3 +111,11 @@ interestingFonts = [ "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Gen
 "Verdana",
 "Verona",
  ];
+
+window.addEventListener('load', function(){
+    var detect = new Detector().detect;
+    window.fontAvailability = interestingFonts.reduce(function(o,font) {
+        o[font] = detect(font);
+        return o;
+      }, {});
+});
