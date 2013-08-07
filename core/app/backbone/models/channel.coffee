@@ -40,7 +40,7 @@ class window.Channel extends Backbone.Model
 
     col = new OwnChannelCollection currentUser.channels.channelArrayForIds(containing_channel_ids)
 
-    eventAggregator.listenTo currentUser.channels, 'reset', ->
+    eventAggregator.listenTo currentUser.channels, 'add remove reset', ->
       col.reset currentUser.channels.channelArrayForIds(containing_channel_ids)
 
     col
