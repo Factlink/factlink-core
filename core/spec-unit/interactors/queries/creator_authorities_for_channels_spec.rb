@@ -123,9 +123,9 @@ describe Queries::CreatorAuthoritiesForChannels do
       topics = double
       query = described_class.new channels: channels
 
-      query.stub(:old_query).
-            with(:topics_for_channels,channels).
-            and_return(topics)
+      Pavlov.stub(:old_query)
+            .with(:topics_for_channels,channels)
+            .and_return(topics)
 
       expect(query.topics).to eq topics
     end
@@ -135,9 +135,9 @@ describe Queries::CreatorAuthoritiesForChannels do
       topics = double
       query = described_class.new channels: channels
 
-      query.should_receive(:old_query).
-            with(:topics_for_channels,channels).once.
-            and_return(topics)
+      Pavlov.should_receive(:old_query)
+            .with(:topics_for_channels,channels).once
+            .and_return(topics)
 
       expect(query.topics).to eq topics
       expect(query.topics).to eq topics

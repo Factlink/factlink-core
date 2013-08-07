@@ -32,7 +32,7 @@ describe Commands::DeleteComment do
       comment = double(id: '1a', created_by_id: user.id, deletable?: true)
       interactor = described_class.new comment_id: comment.id, user_id: user.id
 
-      interactor.should_receive(:authorized_in_execute)
+      interactor.should_receive(:authorized_in_execute) #TODO
 
       Comment.should_receive(:find).with(comment.id).and_return(comment)
       comment.should_receive(:delete)
@@ -50,7 +50,7 @@ describe Commands::DeleteComment do
 
       command = described_class.new comment_id: comment_id, user_id: user_id
 
-      command.should_receive(:old_query).with(:"comments/can_destroy", comment_id, user_id).
+      Pavlov.should_receive(:old_query).with(:"comments/can_destroy", comment_id, user_id).
         and_return(true)
 
       command.authorized_in_execute

@@ -57,16 +57,17 @@ describe Interactors::Topics::Get do
       graph_user = double
       user = double(graph_user: graph_user)
       authority = double
+      pavlov_options = {current_user: user}
       interactor = described_class.new(slug_title: 'foo',
-        pavlov_options: {current_user: user})
+        pavlov_options: pavlov_options)
 
       described_class.any_instance.stub(:authorized?).and_return(true)
-      interactor.stub(:old_query).
-        with(:'topics/by_slug_title', 'foo').
+      Pavlov.stub(:old_query).
+        with(:'topics/by_slug_title', 'foo', pavlov_options).
         and_return(topic)
 
-      interactor.should_receive(:old_query).
-        with(:authority_on_topic_for, topic, graph_user).
+      Pavlov.should_receive(:old_query).
+        with(:authority_on_topic_for, topic, graph_user, pavlov_options).
         and_return(authority)
 
       expect(interactor.authority).to eq authority

@@ -57,10 +57,11 @@ describe Interactors::SubComments::CreateForComment do
 
       Comment.should_receive(:find).with(comment.id).and_return(comment)
 
+      pavlov_options = { current_user: user, ability: ability }
       interactor = described_class.new comment_id: comment.id, content: content,
-        pavlov_options: { current_user: user, ability: ability }
+        pavlov_options: pavlov_options
 
-      interactor.should_receive(:old_command).with(:"sub_comments/create_xxx", comment.id, 'Comment', content, user).
+      Pavlov.should_receive(:old_command).with(:"sub_comments/create_xxx", comment.id, 'Comment', content, user, pavlov_options).
         and_return(sub_comment)
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
         and_return(authority)
@@ -138,11 +139,12 @@ describe Interactors::SubComments::CreateForComment do
       Comment.stub find: nil
       ability = double can?: true
 
+      pavlov_options = { current_user: user, ability: ability }
       interactor = described_class.new comment_id: comment_id, content: 'hoi',
-        pavlov_options: { current_user: user, ability: ability }
+        pavlov_options: pavlov_options
 
       interactor.should_receive(:top_fact).and_return(fact)
-      interactor.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user).
+      Pavlov.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user, pavlov_options).
         and_return(authority)
 
       result = interactor.authority_of_user_who_created sub_comment

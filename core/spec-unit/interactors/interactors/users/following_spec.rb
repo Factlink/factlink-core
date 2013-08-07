@@ -53,13 +53,13 @@ describe Interactors::Users::Following do
       count = double
       user = double(graph_user_id: double)
 
-      interactor.should_receive(:old_query).
+      Pavlov.should_receive(:old_query).
         with(:'user_by_username', user_name).
         and_return(user)
-      interactor.should_receive(:old_query).
+      Pavlov.should_receive(:old_query).
         with(:'users/following_graph_user_ids', user.graph_user_id.to_s).
         and_return(graph_user_ids)
-      interactor.should_receive(:old_query).
+      Pavlov.should_receive(:old_query).
         with(:users_by_graph_user_ids, graph_user_ids).
         and_return(users)
       users.should_receive(:drop).with(skip).and_return(users)

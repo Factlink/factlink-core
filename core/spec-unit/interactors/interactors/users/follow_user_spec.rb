@@ -43,18 +43,18 @@ describe Interactors::Users::FollowUser do
       interactor = described_class.new(user_name: user.username,
         user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
 
-      interactor.should_receive(:old_query)
-        .with(:'user_by_username', user.username)
+      Pavlov.should_receive(:old_query)
+        .with(:'user_by_username', user.username, options)
         .and_return(user)
-      interactor.should_receive(:old_query)
-        .with(:'user_by_username', user_to_follow.username)
+      Pavlov.should_receive(:old_query)
+        .with(:'user_by_username', user_to_follow.username, options)
         .and_return(user_to_follow)
-      interactor.should_receive(:old_command)
-        .with(:'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id)
-      interactor.should_receive(:old_command)
-        .with(:'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil)
-      interactor.should_receive(:old_command)
-        .with(:'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id)
+      Pavlov.should_receive(:old_command)
+        .with(:'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id, options)
+      Pavlov.should_receive(:old_command)
+        .with(:'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil, options)
+      Pavlov.should_receive(:old_command)
+        .with(:'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id, options)
 
       expect(interactor.call).to eq nil
     end

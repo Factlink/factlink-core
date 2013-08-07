@@ -52,8 +52,8 @@ describe Interactors::CreateConversationWithMessage do
         recipient_usernames: usernames, sender_id: sender_id,
         content: content
 
-      interactor.should_receive(:old_command).with(:create_conversation, fact_id, usernames).and_return(conversation)
-      interactor.should_receive(:old_command).with(:create_message, sender_id, content, conversation).and_raise('some_error')
+      Pavlov.should_receive(:old_command).with(:create_conversation, fact_id, usernames).and_return(conversation)
+      Pavlov.should_receive(:old_command).with(:create_message, sender_id, content, conversation).and_raise('some_error')
       conversation.should_receive(:delete)
 
       expect{interactor.call}.to raise_error('some_error')
