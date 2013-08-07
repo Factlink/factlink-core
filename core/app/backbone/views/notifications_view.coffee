@@ -39,10 +39,10 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
     TitleManager.set "notificationsCount", @_unreadTitleCount
 
   markAsRead: ->
-    self = this
-    @collection.markAsRead success: ->
-      self.markViewsForUnreadification()
-      self.setUnreadCount 0
+    @collection.markAsRead
+      success: =>
+        @markViewsForUnreadification()
+        @setUnreadCount 0
 
   markViewsForUnreadification: ->
     @_shouldMarkUnread = true
