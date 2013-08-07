@@ -9,6 +9,8 @@ describe "factlink", type: :request do
 
     user1.admin = true
     user1.save
+
+    Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
   end
 
   it "the layout of the admin page is correct" do
