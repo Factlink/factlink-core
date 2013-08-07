@@ -88,12 +88,21 @@ feature "follow_users_in_tour", type: :feature do
 
   scenario "The user should be able to unfollow users from the tour" do
     sign_in_user @user
+
     visit interests_path
     click_on 'Got it!'
 
     first(:button, 'Follow user').click
-    first(:button, 'Following').click # Unfollow
+    eventually_succeeds 10 do
+      sleep 0.05
+      go_to_profile_page_of @user
+      check_follower_following_count 1, 0
+    end
 
+    visit interests_path
+    click_on 'Got it!'
+
+    first(:button, 'Following').click # Unfollow
     eventually_succeeds 10 do
       sleep 0.05
       go_to_profile_page_of @user
