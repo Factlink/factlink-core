@@ -28,10 +28,10 @@ describe Interactors::Site::TopTopics do
       results = double
 
       Site.should_receive(:find).with(url: url).and_return([site])
-
+      pavlov_options = { current_user: double }
       interactor = described_class.new url: url, nr: nr,
-        pavlov_options: { current_user: double }
-      interactor.should_receive(:old_query).with(:"site/top_topics", site.id.to_i, nr).and_return results
+        pavlov_options: pavlov_options
+      Pavlov.should_receive(:old_query).with(:"site/top_topics", site.id.to_i, nr, pavlov_options).and_return results
 
       expect(interactor.call).to eq results
     end

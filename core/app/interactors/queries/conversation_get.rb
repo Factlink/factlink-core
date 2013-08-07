@@ -1,4 +1,3 @@
-require 'pavlov'
 require 'andand'
 
 module Queries

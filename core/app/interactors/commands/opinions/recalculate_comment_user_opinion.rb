@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Commands
   module Opinions
     class RecalculateCommentUserOpinion

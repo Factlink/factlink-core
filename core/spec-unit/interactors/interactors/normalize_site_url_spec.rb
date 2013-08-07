@@ -1,3 +1,4 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/interactors/normalize_site_url.rb'
 
 describe Interactors::NormalizeSiteUrl do
