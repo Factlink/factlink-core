@@ -11,11 +11,21 @@ class ElasticSearch
     false
   end
 
+  # http://www.elasticsearch.org/guide/reference/api/admin-indices-refresh.html
+  def self.refresh
+    refresh_url = ElasticSearch.url + "/_refresh"
+    response = HTTParty.post refresh_url
+    unless response["ok"]
+      raise "Something went wrong while refreshing #{refresh_url}: #{response}"
+    end
+  end
+
   def self.clean
     delete_index_response = HTTParty.delete url + "/_query?q=*"
     if delete_index_response.code != 404 and delete_index_response.code != 200
       raise 'failed clearing elasticsearch index'
     end
+    self.refresh
   end
 
   def self.create
