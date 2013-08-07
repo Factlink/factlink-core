@@ -36,9 +36,9 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
     @on 'render', @showCurrentState, @
 
   onClose: ->
-    @listenToEl.off 'click', @onClick
-    @listenToEl.off 'mouseenter', @onClick
-    @listenToEl.off 'mouseleave', @onClick
+    @$listenToEl.off 'click', @onClick
+    @$listenToEl.off 'mouseenter', @onClick
+    @$listenToEl.off 'mouseleave', @onClick
 
   onClick: (e) =>
     e.preventDefault()
