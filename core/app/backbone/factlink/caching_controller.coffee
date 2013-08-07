@@ -7,11 +7,9 @@ class Backbone.Factlink.CachingController extends Backbone.Factlink.BaseControll
     @cached_views.cleanup()
     super
 
-  onAction: -> @unbindFrom @permalink_event if @permalink_event?
-
   makePermalinkEvent: (baseUrl=null)->
     FactlinkApp.factlinkBaseUrl = baseUrl
-    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', =>
+    @permalink_event = @listenTo FactlinkApp.vent, 'factlink_permalink_clicked', ->
       @lastStatus =
         view: @cached_views.currentView()
         scrollTop: $('body').scrollTop() || $('html').scrollTop()

@@ -8,7 +8,7 @@ Backbone.Factlink.ModelBinding =
           console.log "binding #{selector} to #{field}"
           # When the model changes update the form
           # elements
-          @model.bind "change:#{field}", (model, val)=>
+          @model.on "change:#{field}", (model, val)=>
             console.log "model[#{field}] => #{selector}"
             el = @$(selector)
             if (el.attr('type') == 'checkbox')
@@ -19,7 +19,7 @@ Backbone.Factlink.ModelBinding =
           # When the form changes update the model
           [event, selector...] = selector.split(" ")
           selector = selector.join(" ")
-          @$(selector).bind event, (ev)=>
+          @$(selector).on event, (ev)=>
             console.log "form[#{selector}] => #{field}"
             data = {}
             el = @$(ev.target)

@@ -7,7 +7,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
 
   constructor: ->
     super
-    @bindTo @model, 'change', @render, @
+    @listenTo @model, 'change', @render
 
   typeCss: ->
     switch @model.get('type')

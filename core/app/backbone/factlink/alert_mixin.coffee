@@ -18,7 +18,7 @@ Backbone.Factlink.AlertMixin =
       @alertShow 'error'
 
   alertBindErrorEvent: (object) ->
-    @bindTo object, 'error', (errorType) => @alertError errorType
+    @listenTo object, 'error', (errorType) -> @alertError errorType
 
 # We could refactor this later to use language strings instead of <div> elements
 # that we show and hide.

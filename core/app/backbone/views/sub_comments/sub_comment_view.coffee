@@ -22,7 +22,8 @@ class window.SubCommentView extends Backbone.Marionette.Layout
 
   templateHelpers: => creator: @model.creator().toJSON()
 
-  initialize: -> @bindTo @model, 'change', @render, @
+  initialize: ->
+    @listenTo @model, 'change', @render
 
   onRender: ->
     @setPoparrow() if Factlink.Global.signed_in

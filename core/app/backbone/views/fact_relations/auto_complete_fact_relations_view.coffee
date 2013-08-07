@@ -25,8 +25,8 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
       placeholder: @placeholder(options.type)
 
-    @bindTo @_text_input_view, 'focus', @focus, @
-    @bindTo @model, 'change', @queryChanges, @
+    @listenTo @_text_input_view, 'focus', @focus
+    @listenTo @model, 'change', @queryChanges
 
   placeholder: (type) ->
     if type == "supporting"
