@@ -97,6 +97,8 @@ feature "follow_users_in_tour", type: :feature do
       follower_count = Pavlov.old_interactor(:'users/following', @user.username,0,0,
           current_user:@user)[1]
       follower_count.should eq 1
+      #TODO: this is really a hack to ensure that the subsequent unfollow
+      # really does happen after the original follow even on the server.
     end
 
     first(:button, 'Following').click # Unfollow
