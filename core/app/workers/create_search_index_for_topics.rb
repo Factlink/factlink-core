@@ -8,7 +8,7 @@ class CreateSearchIndexForTopics
     topic = Topic.find(topic_id)
 
     if topic
-      Pavlov.old_command :elastic_search_index_topic_for_text_search, topic
+      Pavlov.command :'text_search/index_topic', topic: topic
     else
       raise "Failed adding index for topic with topic_id: #{topic_id}"
     end
