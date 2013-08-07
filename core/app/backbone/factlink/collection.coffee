@@ -3,8 +3,8 @@ class Backbone.Factlink.Collection extends Backbone.Collection
   constructor: (args...) ->
     super args...
     @_loading = false
-    @on 'before:fetch', => @_loading = true
-    @on 'reset',        => @_loading = false
+    @on 'request', => @_loading = true
+    @on 'reset',   => @_loading = false
 
   loading: -> @_loading
 
