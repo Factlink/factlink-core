@@ -2,6 +2,8 @@ require 'screenshot_helper'
 
 describe "factlink", type: :request do
   before :each do
+    Timecop.freeze Time.local(1989, 11, 6, 11, 22, 33)
+
     user1 = sign_in_user create :active_user
     user2 = create :active_user
     user3 = create :active_user
@@ -9,8 +11,6 @@ describe "factlink", type: :request do
 
     user1.admin = true
     user1.save
-
-    Timecop.freeze Time.local(1989, 11, 6, 11, 22, 33)
   end
 
   after do
