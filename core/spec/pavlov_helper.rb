@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'pavlov'
 require 'pavlov/alpha_compatibility'
 require_relative '../app/interactors/util/can_can.rb'
