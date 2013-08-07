@@ -15,14 +15,6 @@ GIT
       nest (~> 1.0)
 
 GIT
-  remote: git://github.com/Factlink/pavlov.git
-  revision: dd390fe2d71bed51a883438f362b63bcd9b82da5
-  ref: dd390fe2d71bed51a883438f362b63bcd9b82da5
-  specs:
-    pavlov (0.1.4)
-      virtus (= 0.5.5)
-
-GIT
   remote: git://github.com/Factlink/rack-xframe-options.git
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
@@ -298,6 +290,8 @@ GEM
     parser (2.0.0.pre2)
       ast (~> 1.1)
       slop (~> 3.4, >= 3.4.5)
+    pavlov (0.1.5)
+      virtus (= 0.5.5)
     poltergeist (1.0.3)
       capybara (~> 1.1)
       childprocess (~> 0.3)
@@ -545,7 +539,7 @@ DEPENDENCIES
   oily_png (~> 1.1)
   omniauth-facebook (~> 1.4.1)
   omniauth-twitter (= 0.0.14)
-  pavlov!
+  pavlov (= 0.1.5)
   poltergeist (~> 1.0)
   pry (~> 0)
   quiet_assets (~> 1)
