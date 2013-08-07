@@ -89,8 +89,7 @@ module Acceptance
     end
   end
 
-  def abort_and_wait_for_ajax
-    #page.execute_script("(window.abortAllAjaxRequests||function(){})();");
+  def wait_for_ajax_idle
     eventually_succeeds do
       # wait for all ajax requests to complete
       # if we don't wait, the server may see it after the db is cleaned
@@ -100,5 +99,4 @@ module Acceptance
       end
     end
   end
-
 end

@@ -65,7 +65,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    abort_and_wait_for_ajax
+    wait_for_ajax_idle
     Capybara.reset!
   end
 end
