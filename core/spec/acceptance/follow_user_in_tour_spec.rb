@@ -91,16 +91,13 @@ feature "follow_users_in_tour", type: :feature do
 
     visit interests_path
     click_on 'Got it!'
-
     first(:button, 'Follow user').click
-    eventually_succeeds 10 do
-      sleep 0.05
-      go_to_profile_page_of @user
-      check_follower_following_count 1, 0
-    end
 
-    visit interests_path
-    click_on 'Got it!'
+    eventually_succeeds 10 do
+      follower_count = Pavlov.old_interactor(:'users/following', @user.username,0,0,
+          current_user:@user)[1]
+      follower_count.should eq 1
+    end
 
     first(:button, 'Following').click # Unfollow
     eventually_succeeds 10 do
