@@ -1,13 +1,12 @@
+require 'pavlov_helper'
 require_relative '../../../../app/interactors/queries/channels/facts'
 require 'active_support/core_ext/object/blank'
-require 'pavlov_helper'
 
 describe Queries::Channels::Facts do
   include PavlovSupport
 
-  it '.new' do
-    interactor = described_class.new id:'1', from: 7, count: 11
-    interactor.should_not be_nil
+  before do
+    stub_classes 'Channel'
   end
 
   describe '.validate' do
@@ -28,10 +27,6 @@ describe Queries::Channels::Facts do
   end
 
   describe '#call' do
-    before do
-      stub_const('Channel', Class.new)
-    end
-
     it 'correctly' do
       channel_id = '1'
       count = 77
