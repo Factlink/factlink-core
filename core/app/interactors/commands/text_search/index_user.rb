@@ -6,7 +6,7 @@ module Commands
       arguments :user, :fields_changes
 
       def execute
-        old_command :elastic_search_index_for_text_search,
+        old_command :'text_search/index',
                       user, :user,
                       [:username, :first_name, :last_name]
       end

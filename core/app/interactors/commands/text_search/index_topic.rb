@@ -6,7 +6,7 @@ module Commands
       arguments :topic
 
       def execute
-        old_command :elastic_search_index_for_text_search,
+        old_command :'text_search/index',
                       topic, :topic,
                       [:title, :slug_title]
       end

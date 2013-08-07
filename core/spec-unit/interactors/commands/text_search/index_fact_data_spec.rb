@@ -10,7 +10,7 @@ describe Commands::TextSearch::IndexFactData do
       command = described_class.new(factdata: fact_data)
 
       Pavlov.should_receive(:old_command)
-            .with :elastic_search_index_for_text_search,
+            .with :'text_search/index',
                     fact_data,
                     :factdata,
                     [:displaystring, :title]
