@@ -8,6 +8,6 @@ class window.Notifications extends Backbone.Collection
     unreads.length
 
   markAsRead: (options = {}) ->
-    $.ajax _.extend {}, options,
+    Backbone.ajax _.extend {}, options,
       url: @url() + "/mark_as_read"
       type: "POST"

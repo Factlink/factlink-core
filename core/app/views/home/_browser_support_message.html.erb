@@ -20,7 +20,7 @@
               backdrop: "static"
             })
             $('#ieWarningModal').on('hide', function(){
-             $.ajax({
+             Backbone.ajax({
               type: 'PUT',
               url: '<%= see_message_path %>',
               data: {

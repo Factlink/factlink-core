@@ -33,10 +33,10 @@
       try {
         bool = $this.is('div.evidence-list');
       } catch (e) {}
-      
+
       if ( bool ) {
         var $current = $('div.tab_content:visible', this);
-        
+
         page = parseInt( $current.data('page'), 10 );
 
         if ( !isNaN(page) ) {
@@ -50,7 +50,7 @@
         page += 1;
       }
 
-      $.ajax({
+      Backbone.ajax({
         url: settings.url.call($this, page),
         dataType: 'script',
         success: function() {
