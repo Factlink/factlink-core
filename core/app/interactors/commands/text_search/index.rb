@@ -6,20 +6,25 @@ module Commands
     class Index
       include Pavlov::Command
 
-      arguments :object, :type_name, :fields
+      arguments :object, :type_name, :fields, :fields_changed
 
       def execute
-        fields.each do |name|
-          document[name] = object.send name
-        end
+        return if no_interesting_fields_changed
 
         index.add object.id, document
       end
 
       private
 
+      def no_interesting_fields_changed
+        return false if fields_changed.nil?
+        (fields & fields_changed).empty?
+      end
+
       def document
-        @document ||= {}
+        fields.each_with_object({}) do |name, doc|
+          doc[name] = object.send name
+        end
       end
 
       def index
