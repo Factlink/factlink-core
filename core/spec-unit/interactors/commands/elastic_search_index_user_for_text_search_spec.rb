@@ -4,29 +4,16 @@ require_relative '../../../app/interactors/commands/elastic_search_index_user_fo
 describe Commands::ElasticSearchIndexUserForTextSearch do
   include PavlovSupport
 
-  let(:user) do
-    double(id: 1, username: 'codinghorror', first_name: 'Sjaak', last_name: 'afhaak')
-  end
-
-  before do
-    stub_classes 'HTTParty', 'FactlinkUI::Application'
-  end
-
   describe '#call' do
     it 'correctly' do
-      url = 'localhost:9200'
-      config = double
-      config.stub elasticsearch_url: url
-      FactlinkUI::Application.stub config: config
-      url = "http://#{url}/user/#{user.id}"
-      command = described_class.new(object: user)
+      user = double
+      command = described_class.new(user: user)
 
-      hashie = {}
-      json_document = double
-      Commands::ElasticSearchIndexForTextSearch.any_instance.stub(:document).and_return(hashie)
-      hashie.stub(:to_json).and_return(json_document)
-
-      HTTParty.should_receive(:put).with(url, { body: json_document })
+      Pavlov.should_receive(:old_command)
+            .with :elastic_search_index_for_text_search,
+                    user,
+                    :user,
+                    [:username, :first_name, :last_name]
 
       command.call
     end

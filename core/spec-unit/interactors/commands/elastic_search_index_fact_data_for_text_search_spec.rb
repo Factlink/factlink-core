@@ -4,29 +4,16 @@ require_relative '../../../app/interactors/commands/elastic_search_index_fact_da
 describe Commands::ElasticSearchIndexFactDataForTextSearch do
   include PavlovSupport
 
-  let(:fact_data) do
-    double(id: 1, displaystring: 'displaystring', title: 'title')
-  end
-
-  before do
-    stub_classes 'HTTParty', 'FactlinkUI::Application'
-  end
-
   describe '#call' do
     it 'correctly' do
-      url = 'localhost:9200'
-      config = double
-      config.stub elasticsearch_url: url
-      FactlinkUI::Application.stub config: config
-      url = "http://#{url}/factdata/#{fact_data.id}"
-      command = described_class.new(object: fact_data)
+      fact_data = double
+      command = described_class.new(factdata: fact_data)
 
-      hashie = {}
-      json_document = double
-      Commands::ElasticSearchIndexForTextSearch.any_instance.stub(:document).and_return(hashie)
-      hashie.stub(:to_json).and_return(json_document)
-
-      HTTParty.should_receive(:put).with(url, body:json_document )
+      Pavlov.should_receive(:old_command)
+            .with :elastic_search_index_for_text_search,
+                    fact_data,
+                    :factdata,
+                    [:displaystring, :title]
 
       command.call
     end
