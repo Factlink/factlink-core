@@ -31,7 +31,7 @@ describe Queries::CreatorAuthoritiesForChannels do
            .and_return(topic)
       query.stub(:graph_user_for).with(channel)
            .and_return(channel_creator)
-      query.stub(:old_query)
+      Pavlov.stub(:old_query)
            .with(:authority_on_topic_for,topic, channel_creator)
            .and_return(topic_authority)
 

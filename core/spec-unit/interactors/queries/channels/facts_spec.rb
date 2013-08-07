@@ -41,7 +41,7 @@ describe Queries::Channels::Facts do
       channel = double
       sorted_facts_page = double
 
-      query.stub(:old_query).with(:'channels/get',channel_id).and_return(channel)
+      Pavlov.stub(:old_query).with(:'channels/get',channel_id).and_return(channel)
       channel.stub(:sorted_cached_facts).and_return(sorted_facts)
       sorted_facts.stub(:below).with(from, {count: count, reversed: true, withscores: true}).and_return(sorted_facts_page)
 

@@ -20,8 +20,8 @@ describe Interactors::Topics::Get do
       interactor = described_class.new slug_title: 'foo',
         pavlov_options: pavlov_options
 
-      described_class.any_instance.stub(:old_query).
-        with(:'topics/by_slug_title', 'foo').
+      Pavlov.stub(:old_query).
+        with(:'topics/by_slug_title', 'foo', pavlov_options).
         and_return(topic)
 
       expect do
@@ -43,7 +43,7 @@ describe Interactors::Topics::Get do
       interactor = described_class.new(slug_title: 'foo')
 
       described_class.any_instance.stub(:authorized?).and_return(true)
-      interactor.stub(:old_query).
+      Pavlov.stub(:old_query).
         with(:'topics/by_slug_title', 'foo').
         and_return(topic)
 

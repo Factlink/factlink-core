@@ -52,7 +52,7 @@ describe Interactors::Channels::Follow do
         interactor = described_class.new channel_id: channel.id,
           pavlov_options: pavlov_options
 
-        interactor.stub(:old_query).with(:'channels/get',channel.id).and_return(channel)
+        Pavlov.stub(:old_query).with(:'channels/get',channel.id, pavlov_options).and_return(channel)
 
         Pavlov.should_receive(:old_command).once
                   .with(:'channels/follow', channel, pavlov_options)
