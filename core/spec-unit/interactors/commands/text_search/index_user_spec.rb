@@ -7,13 +7,15 @@ describe Commands::TextSearch::IndexUser do
   describe '#call' do
     it 'correctly' do
       user = double
-      command = described_class.new(user: user)
+      changed = double
+      command = described_class.new(user: user, changed: changed)
 
       Pavlov.should_receive(:old_command)
             .with :'text_search/index',
                     user,
                     :user,
-                    [:username, :first_name, :last_name]
+                    [:username, :first_name, :last_name],
+                    changed
 
       command.call
     end

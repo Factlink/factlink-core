@@ -3,12 +3,13 @@ module Commands
     class IndexTopic
       include Pavlov::Command
 
-      arguments :topic
+      arguments :topic, :changed
 
       def execute
         old_command :'text_search/index',
                       topic, :topic,
-                      [:title, :slug_title]
+                      [:title, :slug_title],
+                      changed
       end
     end
   end

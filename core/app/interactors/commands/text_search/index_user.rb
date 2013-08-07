@@ -3,12 +3,13 @@ module Commands
     class IndexUser
       include Pavlov::Command
 
-      arguments :user, :fields_changes
+      arguments :user, :changed
 
       def execute
         old_command :'text_search/index',
                       user, :user,
-                      [:username, :first_name, :last_name]
+                      [:username, :first_name, :last_name],
+                      changed
       end
     end
   end

@@ -7,13 +7,15 @@ describe Commands::TextSearch::IndexTopic do
   describe '#call' do
     it 'correctly' do
       topic = double
-      command = described_class.new(topic: topic)
+      changed = double
+      command = described_class.new(topic: topic, changed: changed)
 
       Pavlov.should_receive(:old_command)
             .with :'text_search/index',
                     topic,
                     :topic,
-                    [:title, :slug_title]
+                    [:title, :slug_title],
+                    changed
 
       command.call
     end
