@@ -75,12 +75,13 @@ module Acceptance
     page.execute_script "$('form').attr('novalidate','novalidate')"
   end
 
-  def eventually_succeeds(&block)
+  def eventually_succeeds(wait_time=nil, &block)
+    wait_time ||= Capybara.default_wait_time
     start_time = Time.now
     begin
       yield
     rescue => e
-      if (Time.now - start_time) >= Capybara.default_wait_time then
+      if (Time.now - start_time) >= wait_time then
         raise e
       end
       sleep(0.05)
