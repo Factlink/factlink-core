@@ -35,12 +35,4 @@ describe "Check the tour", type: :request do
 
     assume_unchanged_screenshot 'interests'
   end
-
-  it 'Feed should be the same' do
-    @user1 = create :user
-
-    visit activities_path(@user1)
-
-    assume_unchanged_screenshot 'feed'
-  end
 end
