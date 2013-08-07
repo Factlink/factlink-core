@@ -13,7 +13,7 @@ module Commands
           document[name] = object.send name
         end
 
-        index.add object.id, document.to_json
+        index.add object.id, document
       end
 
       private
