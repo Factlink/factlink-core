@@ -17,10 +17,24 @@ describe Commands::TextSearch::Index do
       command = described_class.new object: object, type_name: :foo, fields: [:bar, :baz]
 
       index.should_receive(:add)
-           .with object.id, {
+           .with object.id,
              bar: object.bar,
              baz: object.baz
-           }
+
+      command.call
+    end
+
+    it 'calls index when specific fields have changed' do
+      object = double id: 13, bar: 'BAR', baz: 'BAZ'
+      index = double
+      ElasticSearch::Index.stub(:new).with(:foo)
+                          .and_return(index)
+      command = described_class.new object: object, type_name: :foo, fields: [:bar, :baz], fields_changed: ['bar']
+
+      index.should_receive(:add)
+           .with object.id,
+             bar: object.bar,
+             baz: object.baz
 
       command.call
     end

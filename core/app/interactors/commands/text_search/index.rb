@@ -18,7 +18,12 @@ module Commands
 
       def no_interesting_fields_changed
         return false if fields_changed.nil?
-        (fields & fields_changed).empty?
+
+        changed_interesting_fields.empty?
+      end
+
+      def changed_interesting_fields
+        fields.map(&:to_s) & fields_changed.map(&:to_s)
       end
 
       def document
