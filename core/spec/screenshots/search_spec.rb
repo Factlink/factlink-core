@@ -7,7 +7,7 @@ describe "factlink", type: :request do
 
   it "the layout of the search page is correct" do
 
-    visit search_path("oil")
+    visit "/search?s=oil"
 
     assume_unchanged_screenshot "search"
   end
