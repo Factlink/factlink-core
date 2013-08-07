@@ -4,9 +4,8 @@ require_relative '../../../app/interactors/commands/delete_comment.rb'
 describe Commands::DeleteComment do
   include PavlovSupport
 
-  it 'should initialize correctly' do
-    command = described_class.new comment_id: '1a', user_id: '2a'
-    command.should_not be_nil
+  before do
+    stub_classes 'Comment', 'User', 'Queries::Comments::CanDestroy'
   end
 
   it 'when supplied with a invalid comment id should not validate' do
@@ -22,38 +21,34 @@ describe Commands::DeleteComment do
   end
 
   describe '#call' do
-    before do
-      stub_const 'Comment', Class.new
-      stub_const 'User', Class.new
-    end
-
-    it 'correctly' do
+    it 'runs correctly when the comment can be removed' do
       user = double(:user, id: '9a')
       comment = double(id: '1a', created_by_id: user.id, deletable?: true)
       interactor = described_class.new comment_id: comment.id, user_id: user.id
 
-      interactor.should_receive(:authorized_in_execute) #TODO
+      Pavlov.stub(:old_query)
+            .with(:"comments/can_destroy", comment.id, user.id)
+            .and_return(true)
 
       Comment.should_receive(:find).with(comment.id).and_return(comment)
       comment.should_receive(:delete)
 
       interactor.call
     end
-  end
 
-  describe 'authorized?' do
-    it "calls the can_destroy query" do
-      stub_classes 'Queries::Comments::CanDestroy'
-
+    it "raises an exception when the comment cannot be removed" do
       comment_id = '10a'
       user_id = '20a'
 
       command = described_class.new comment_id: comment_id, user_id: user_id
 
-      Pavlov.should_receive(:old_query).with(:"comments/can_destroy", comment_id, user_id).
-        and_return(true)
+      Pavlov.should_receive(:old_query)
+            .with(:"comments/can_destroy", comment_id, user_id)
+            .and_return(false)
 
-      command.authorized_in_execute
+      expect do
+        command.call
+      end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 end
