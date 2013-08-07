@@ -8,7 +8,7 @@ describe Commands::TextSearch::IndexFactData do
     it 'correctly' do
       fact_data = double
       changed = double
-      command = described_class.new(factdata: fact_data, changed: changed)
+      command = described_class.new(fact_data: fact_data, changed: changed)
 
       Pavlov.should_receive(:old_command)
             .with :'text_search/index',
