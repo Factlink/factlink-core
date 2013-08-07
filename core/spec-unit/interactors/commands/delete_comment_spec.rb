@@ -5,7 +5,7 @@ describe Commands::DeleteComment do
   include PavlovSupport
 
   before do
-    stub_classes 'Comment', 'User', 'Queries::Comments::CanDestroy'
+    stub_classes 'Comment', 'User'
   end
 
   it 'when supplied with a invalid comment id should not validate' do
