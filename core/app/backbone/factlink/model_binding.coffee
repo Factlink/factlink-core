@@ -19,7 +19,7 @@ Backbone.Factlink.ModelBinding =
           # When the form changes update the model
           [event, selector...] = selector.split(" ")
           selector = selector.join(" ")
-          @$(selector).bind event, (ev)=>
+          @$(selector).on event, (ev)=>
             console.log "form[#{selector}] => #{field}"
             data = {}
             el = @$(ev.target)
