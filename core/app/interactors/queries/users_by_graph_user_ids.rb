@@ -1,4 +1,3 @@
-require 'pavlov'
 require_relative '../kill_object'
 require_relative 'users_by_ids'
 

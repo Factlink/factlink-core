@@ -37,7 +37,7 @@ describe Commands::CreateConversation do
       Conversation.should_receive(:new).and_return(conversation)
       user = double
 
-      command.should_receive(:old_query).with(:user_by_username, username).
+      Pavlov.should_receive(:old_query).with(:user_by_username, username).
         and_return(user)
 
 
@@ -59,7 +59,7 @@ describe Commands::CreateConversation do
         recipient_usernames: [username]
       Conversation.should_receive(:new).and_return(double('conversation'))
 
-      command.should_receive(:old_query).with(:user_by_username, username).
+      Pavlov.should_receive(:old_query).with(:user_by_username, username).
         and_return(nil)
 
       expect {command.call}.to raise_error(Pavlov::ValidationError, 'user_not_found')

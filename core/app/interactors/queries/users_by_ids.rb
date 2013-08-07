@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Queries
   class UsersByIds
     include Pavlov::Query
