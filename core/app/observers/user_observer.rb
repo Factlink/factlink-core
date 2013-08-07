@@ -8,8 +8,10 @@ class UserObserver < Mongoid::Observer
   def after_update user
     UserObserverTask.handle_changes user
 
-    if user.changed? and not (user.changed & ['username']).empty?
-      command :'text_search/index_user', user: user
+    if user.changed?
+      command :'text_search/index_user',
+                  user: user,
+                  changed: user.changed
     end
   end
 

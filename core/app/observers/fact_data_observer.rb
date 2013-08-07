@@ -6,9 +6,11 @@ class FactDataObserver < Mongoid::Observer
   end
 
   def after_update fact_data
-    if fact_data.changed? and not (fact_data.changed & ['title', 'displaystring']).empty?
-      command :'text_search/index_fact_data', fact_data: fact_data
-    end
+    return unless fact_data.changed?
+
+    command :'text_search/index_fact_data',
+                fact_data: fact_data,
+                changed: fact_data.changed
   end
 
   def after_destroy fact_data

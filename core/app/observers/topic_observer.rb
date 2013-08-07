@@ -2,13 +2,16 @@ class TopicObserver < Mongoid::Observer
   include Pavlov::Helpers
 
   def after_create topic
-    command :'text_search/index_topic', topic: topic
+    command :'text_search/index_topic',
+                topic: topic
   end
 
   def after_update topic
-    if topic.changed? and not (topic.changed & ['title', 'slug_title']).empty?
-      command :'text_search/index_topic', topic: topic
-    end
+    return unless topic.changed?
+
+    command :'text_search/index_topic',
+                topic: topic,
+                changed: topic.changed
   end
 
   def after_destroy topic
