@@ -40,15 +40,15 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     @scrollToCurrent()
 
   onItemAddedDoSteppableInitialization: (view)->
-    @bindTo view, 'close', =>
+    @listenTo view, 'close', ->
       i = @list.indexOf(view)
       @list.splice(i,1)
 
-    @bindTo view, 'requestActivate', => @requestActivate view
+    @listenTo view, 'requestActivate', -> @requestActivate view
 
-    @bindTo view, 'requestDeActivate', => @deActivateCurrent()
+    @listenTo view, 'requestDeActivate', -> @deActivateCurrent()
 
-    @bindTo view, 'requestClick', =>
+    @listenTo view, 'requestClick', ->
       @requestActivate view
       @trigger 'click'
 

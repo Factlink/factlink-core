@@ -35,12 +35,12 @@ class window.Channel extends Backbone.Model
 
   topicUrl: -> "/t/#{@get('slug_title')}"
 
-  getOwnContainingChannels: (eventbinder) ->
+  getOwnContainingChannels: (eventAggregator) ->
     containing_channel_ids = @get("containing_channel_ids") ? []
 
     col = new OwnChannelCollection currentUser.channels.channelArrayForIds(containing_channel_ids)
 
-    eventbinder.bindTo currentUser.channels, 'reset', ->
+    eventAggregator.listenTo currentUser.channels, 'reset', ->
       col.reset currentUser.channels.channelArrayForIds(containing_channel_ids)
 
     col

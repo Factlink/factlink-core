@@ -1,10 +1,10 @@
 class window.Fact extends Backbone.Model
-  getOwnContainingChannels: (eventbinder) ->
+  getOwnContainingChannels: (eventAggregator) ->
     containing_channel_ids = @get("containing_channel_ids") ? []
 
     col = new OwnChannelCollection currentUser.channels.channelArrayForIds(containing_channel_ids)
 
-    eventbinder.bindTo currentUser.channels, 'reset', ->
+    eventAggregator.listenTo currentUser.channels, 'reset', ->
       col.reset currentUser.channels.channelArrayForIds(containing_channel_ids)
 
     col

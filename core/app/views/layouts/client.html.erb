@@ -49,7 +49,7 @@
   <%= yield :javascript %>
 
   <script type="text/javascript">
-    $( document ).bind('click', function(e) {
+    $( document ).on('click', function(e) {
       if( $(e.target).is('body') ) {
         if (parent.remote) {
           parent.remote.hide();

@@ -17,8 +17,8 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
 
   initSearchCollection: (collection) ->
     @search_collection = collection
-    @bindTo @search_collection, 'before:fetch', => @setLoading()
-    @bindTo @search_collection, 'reset', => @unsetLoading()
+    @listenTo @search_collection, 'request', @setLoading
+    @listenTo @search_collection, 'reset', @unsetLoading
 
   initTextInputView: (placeholder) ->
     @_text_input_view = new Backbone.Factlink.TextInputView
@@ -44,10 +44,10 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
     @$el.removeClass 'auto-complete-loading'
 
   bindTextViewToSteppableViewAndSelf: (text_view, steppable_view)->
-    @bindTo text_view, 'down', -> steppable_view.moveSelectionDown()
-    @bindTo text_view, 'up',   -> steppable_view.moveSelectionUp()
-    @bindTo text_view, 'return', @addCurrent, this
-    @bindTo steppable_view, 'click', @addCurrent, this
+    @listenTo text_view, 'down', -> steppable_view.moveSelectionDown()
+    @listenTo text_view, 'up',   -> steppable_view.moveSelectionUp()
+    @listenTo text_view, 'return', @addCurrent
+    @listenTo steppable_view, 'click', @addCurrent
 
   renderChildViews: ->
     @results.show @_results_view if @_results_view

@@ -48,7 +48,7 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
                                                   @collection,
                                                   @options.addToCollection)
 
-    @bindTo @filtered_collection, 'add remove reset change', @updateVisibilities, @
+    @listenTo @filtered_collection, 'add remove reset change', @updateVisibilities
 
   onRender: ->
     @suggestedTopicsRegion.show new SuggestedTopicsView
