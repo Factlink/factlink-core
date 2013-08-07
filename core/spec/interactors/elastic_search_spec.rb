@@ -1,12 +1,14 @@
 require 'spec_helper'
 
-class TestClass
-  attr_accessor :test_field, :id
-end
 
 describe 'elastic search' do
   before do
     ElasticSearch.stub synchronous: true
+    stub_const 'TestClass', Class.new
+    class TestClass
+      attr_accessor :test_field, :id
+    end
+
   end
 
   let (:test_query) do
@@ -17,17 +19,16 @@ describe 'elastic search' do
     end
   end
 
-  let (:test_index_command) do
-    Class.new Commands::ElasticSearchIndexForTextSearch do
-      def fields
-        [:test_field]
-      end
+  def insert_and_query text, query
+    object = TestClass.new
+    object.test_field = text
+    object.id = '1'
+    Pavlov.command :'text_search/index', object: object, type_name: :test_class, fields: [:test_field]
 
-      def type_name
-        :test_class
-      end
-    end
+    query = test_query.new keywords: query, page: 1, row_count: 10
+    query.call
   end
+
 
   it 'searches for operators' do
     results = insert_and_query 'this is not making sense', 'not'
@@ -69,14 +70,5 @@ describe 'elastic search' do
     results = insert_and_query 'merry christmas', 'm'
 
     results.length.should eq 1
-  end
-
-  def insert_and_query text, query
-    object = TestClass.new
-    object.test_field = text
-    object.id = '1'
-    test_index_command.new(object: object).call
-
-    (test_query.new keywords: query, page: 1, row_count: 10).call
   end
 end

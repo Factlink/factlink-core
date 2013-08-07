@@ -1,5 +1,5 @@
 # TODO add unit test for this class
-require_relative '../../classes/elastic_search'
+require_relative '../../../classes/elastic_search'
 
 module Commands
   module TextSearch
