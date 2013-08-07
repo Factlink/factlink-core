@@ -2,14 +2,16 @@ class UserObserver < Mongoid::Observer
   include Pavlov::Helpers
 
   def after_create user
-    old_command :elastic_search_index_user_for_text_search, user
+    command :'text_search/index_user', user: user
   end
 
   def after_update user
     UserObserverTask.handle_changes user
 
-    if user.changed? and not (user.changed & ['username']).empty?
-      old_command :elastic_search_index_user_for_text_search, user
+    if user.changed?
+      command :'text_search/index_user',
+                  user: user,
+                  changed: user.changed
     end
   end
 

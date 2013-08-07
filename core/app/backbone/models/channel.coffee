@@ -66,7 +66,7 @@ class window.Channel extends Backbone.Model
   _changeFollowingChannel: (action, sub_channel, options) ->
     changeUrl = "#{@normal_url()}/subchannels/#{action}/#{sub_channel.id}"
 
-    $.ajax
+    Backbone.ajax
       url: changeUrl
       type: 'post'
       error: -> options.error?()
@@ -86,7 +86,7 @@ class window.Channel extends Backbone.Model
   follow: ->
     followUrl = "#{@normal_url()}/follow"
     @set('followed?', true)
-    $.ajax
+    Backbone.ajax
       url: followUrl
       type: 'post'
       error: => @set('followed?', false)
@@ -94,7 +94,7 @@ class window.Channel extends Backbone.Model
   unfollow: ->
     unfollowUrl = "#{@normal_url()}/unfollow"
     @set('followed?', false)
-    $.ajax
+    Backbone.ajax
       url: unfollowUrl
       type: 'post'
       error: => @set('followed?', true)

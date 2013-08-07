@@ -4,6 +4,8 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     super(args...)
     @on 'after:item:added', @onItemAddedDoSteppableInitialization, this
     @on 'composite:collection:rendered', => @setActiveView 0
+    @on 'item:removed', @removeViewFromList
+
     @list = []
 
   closeList: -> @list = []
@@ -39,11 +41,11 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     @setActiveView nextKey
     @scrollToCurrent()
 
-  onItemAddedDoSteppableInitialization: (view)->
-    @listenTo view, 'close', ->
-      i = @list.indexOf(view)
-      @list.splice(i,1)
+  removeViewFromList: (view) ->
+    i = @list.indexOf(view)
+    @list.splice(i,1)
 
+  onItemAddedDoSteppableInitialization: (view) ->
     @listenTo view, 'requestActivate', -> @requestActivate view
 
     @listenTo view, 'requestDeActivate', -> @deActivateCurrent()

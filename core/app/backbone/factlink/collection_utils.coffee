@@ -8,7 +8,7 @@ window.collectionMap = (args...) ->
 
 class window.CollectionUtils
   constructor: (eventAggregator)->
-    @eventAggregator = eventAggregator || new Backbone.Marionette.EventAggregator
+    @eventAggregator = eventAggregator || new Backbone.Wreqr.EventAggregator
 
   listenTo: (args...)=>
     @eventAggregator.listenTo args...

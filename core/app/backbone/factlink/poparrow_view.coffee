@@ -1,7 +1,10 @@
 class Backbone.Factlink.PoparrowView extends Backbone.Marionette.ItemView
+
+  arrowSelector: '.js-poparrow-arrow-selector'
+
   constructor: (options) ->
     @ui = _.extend {}, @ui,
-      arrow:  '.js-poparrow-arrow-selector'
+      arrow: @arrowSelector
       container: '.js-poparrow-container'
 
     @events = _.extend {}, @events,
@@ -37,7 +40,7 @@ class Backbone.Factlink.PoparrowView extends Backbone.Marionette.ItemView
 
   bindWindowClick: ->
     $(window).on "click.poparrow." + @cid, (e) =>
-      if $(e.target).closest(@uiBindings.arrow)[0] isnt @ui.arrow[0]
+      if $(e.target).closest(@arrowSelector)[0] isnt @ui.arrow[0]
         @hidePoparrowContainer()
 
   unbindWindowClick: -> $(window).off "click.poparrow." + @cid
