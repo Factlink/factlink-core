@@ -31,7 +31,40 @@
     }
   }
 
-  > ul {
+  > div {
+    height: 40px;
+  }
+
+  > div > ul {
+    // HACK: inlined from Bootstrap:
+    // ".navbar .nav > li > .dropdown-menu"
+    // ".navbar .pull-right > li > .dropdown-menu"
+    left: auto;
+    right: 0;
+    &:before {
+      content: '';
+      display: inline-block;
+      border-left:   7px solid transparent;
+      border-right:  7px solid transparent;
+      border-bottom: 7px solid #ccc;
+      border-bottom-color: @dropdownBorder;
+      position: absolute;
+      top: -7px;
+      left: auto;
+      right: 12px;
+    }
+    &:after {
+      content: '';
+      display: inline-block;
+      border-left:   6px solid transparent;
+      border-right:  6px solid transparent;
+      border-bottom: 6px solid @dropdownBackground;
+      position: absolute;
+      top: -6px;
+      left: auto;
+      right: 13px;
+    }
+
     max-width: 300px;
     width: 300px;
     .box-shadow(0px 1px 3px rgba(0, 0, 0, 0.2));

@@ -1,16 +1,18 @@
 class NotificationsEmptyView extends Backbone.Marionette.ItemView
-   template: "notifications/notifications"
+   template: "notifications/notifications_empty"
 
 
 class window.NotificationsView extends Backbone.Factlink.CompositeView
-  tagName: "li"
-  id: "notifications"
   itemViewContainer: "ul.dropdown-menu"
   emptyView: NotificationsEmptyView
+  template: "notifications/notifications"
+
   events:
     "click .unread": "clickHandler"
 
-  template: "notifications/notifications"
+  ui:
+    unread: '.unread'
+
   initialize: ->
     @itemView = NotificationView
     @setupNotificationsFetch()
@@ -20,22 +22,20 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
       @hideDropdown()
 
   onRender: ->
-    @$el.css visibility: "visible"
     @setUnreadCount @collection.unreadCount()
-    @$el.find("ul").preventScrollPropagation()
+    @$("ul").preventScrollPropagation()
 
   setUnreadCount: (count) ->
-    $unread = @$("span.unread")
     @_unreadCount = count
     @_unreadTitleCount = count
     if count > 0
-      $unread.addClass "active"
+      @ui.unread.addClass "active"
     else
-      $unread.removeClass "active"
+      @ui.unread.removeClass "active"
     if count > 9
       @_unreadCount = "9<sup>+</sup>"
       @_unreadTitleCount = 9
-    $unread.html @_unreadCount
+    @ui.unread.html @_unreadCount
     TitleManager.set "notificationsCount", @_unreadTitleCount
 
   markAsRead: ->
@@ -81,13 +81,15 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
 
   showDropdown: ->
     @_visible = true
-    @$el.addClass("open").find("ul").show()
+    $('#notifications').addClass "open"
+    @$("ul").show()
     @markAsRead()
     @_bindWindowClick()
 
   hideDropdown: ->
     @_visible = false
-    @$el.removeClass("open").find("ul").hide()
+    $('#notifications').removeClass "open"
+    @$("ul").hide()
     if @_shouldMarkUnread is true
       @_shouldMarkUnread = false
       _.forEach @views, (view) ->
