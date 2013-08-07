@@ -99,7 +99,7 @@ group :assets do
   # This gem is https://github.com/aflatter/backbone-rails
   # Not the one you might typically find with Google
   # Very clear, no?
-  gem "backbone-rails", '= 0.9.9' # we want a specific version of the js library
+  gem "backbone-rails", '= 0.9.10' # we want a specific version of the js library
 
   gem "marionette-rails", '= 1.0.0.rc.3' # we want a specific version of the js library
 end
