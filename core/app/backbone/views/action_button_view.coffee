@@ -28,27 +28,27 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
     @bindInteractionEvents()
 
   bindInteractionEvents: ->
-    @$listenToEl.on 'click', @onClick
-    @$listenToEl.on 'mouseenter', @onMouseEnter
-    @$listenToEl.on 'mouseleave', @onMouseLeave
+    @$listenToEl.on 'click', (e) => @onClick(e)
+    @$listenToEl.on 'mouseenter', => @onMouseEnter()
+    @$listenToEl.on 'mouseleave', => @onMouseLeave()
 
     @listenTo @model, 'change', @render
     @on 'render', @showCurrentState, @
 
   onClose: ->
-    @$listenToEl.off 'click', @onClick
-    @$listenToEl.off 'mouseenter', @onClick
-    @$listenToEl.off 'mouseleave', @onClick
+    @$listenToEl.off 'click'
+    @$listenToEl.off 'mouseenter'
+    @$listenToEl.off 'mouseleave'
 
-  onClick: (e) =>
+  onClick: (e) ->
     e.preventDefault()
     e.stopPropagation()
     return unless @model.get('loaded')
 
     @model.onClick()
 
-  onMouseEnter: => @model.set 'hovering', true
-  onMouseLeave: => @model.set 'hovering', false
+  onMouseEnter: -> @model.set 'hovering', true
+  onMouseLeave: -> @model.set 'hovering', false
 
   showCurrentState: ->
     hovering = @model.get('hovering')
