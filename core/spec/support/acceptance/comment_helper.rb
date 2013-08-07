@@ -48,7 +48,14 @@ module Acceptance
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
-          click_post_factlink
+          # We assume a request immediately fires, and button reads "Posting..."
+
+          # This *should* hold:
+          page.find("button", text: "Posting...")
+          # ...but the posting delay vs. capybara check is a race-condition
+          # if this randomly fails, disable the above check.
+
+          page.find("button", text: "Post Factlink")
         end
       end
 
@@ -57,7 +64,15 @@ module Acceptance
 
         within add_evidence_form_css_selector do
           page.find("input[type=text]").set(text)
-          click_post_factlink
+          page.find("button", text: "Post Factlink").click
+          # We assume a request immediately fires, and button reads "Posting..."
+
+          # This *should* hold:
+          page.find("button", text: "Posting...")
+          # ...but the posting delay vs. capybara check is a race-condition
+          # if this randomly fails, disable the above check.
+
+          page.find("button", text: "Post Factlink")
         end
       end
 
@@ -66,12 +81,6 @@ module Acceptance
         sleep 0.5 # To allow for the getting bigger CSS animation
         find('.evidence-sub-comments-button', text: 'Comment').click
         sleep 0.5 # To allow for the getting smaller CSS animation
-      end
-
-      def click_post_factlink
-        page.find("button", text: "Post Factlink").click
-        # We assume a request immediately fires, and button reads "Posting..."
-        page.find("button", text: "Post Factlink")
       end
 
       def click_post_comment
