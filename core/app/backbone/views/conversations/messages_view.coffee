@@ -5,7 +5,7 @@ class OneMessageView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @sender = @model.sender()
-    @sender.set(@options.user_collection.get(@sender.id))
+    @sender.set(@options.user_collection.get(@sender.id).attributes)
     @listenTo(@model, "scroll", @scroll); # Remove this line when upgrading Marionette, as the new version uses @modelEvents
 
   templateHelpers: =>
