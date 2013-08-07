@@ -42,13 +42,14 @@ var Detector = function() {
 
     // create a SPAN in the document to get the width of the text we use to test
     var s = document.createElement("div"),
-      a = document.createElement("span"),
-      b = document.createElement("span");
+      a = document.createElement("div"),
+      b = document.createElement("div");
     [a,b].forEach(function(el) {
         el.style.fontSize = testSize;
         el.style.lineHeight = '1';
-        el.fontFamily = 'inherit';
-        el.textContent = testString;
+        el.style.fontFamily = 'inherit';
+        el.style.whiteSpace = 'pre';
+        el.style.position = 'absolute';
         s.appendChild(el);
     });
     s.style.fontFamily = 'dfvb5w97vdkj';
@@ -69,7 +70,7 @@ var Detector = function() {
             heightErr += Math.abs(a.offsetHeight - b.offsetHeight);
         });
         h.removeChild(s);
-        return widthErr+"/"+heightErr;
+        return 0 == widthErr + heightErr;
     }
 
     this.detect = detect;
