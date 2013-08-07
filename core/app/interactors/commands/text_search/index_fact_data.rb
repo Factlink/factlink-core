@@ -3,11 +3,11 @@ module Commands
     class IndexFactData
       include Pavlov::Command
 
-      arguments :factdata
+      arguments :fact_data
 
       def execute
         old_command :elastic_search_index_for_text_search,
-                      factdata, :factdata,
+                      fact_data, :factdata,
                       [:displaystring, :title]
       end
     end
