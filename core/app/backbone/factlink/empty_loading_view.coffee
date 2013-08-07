@@ -16,8 +16,8 @@ class Backbone.Factlink.EmptyLoadingView extends Backbone.Marionette.Layout
     unless @collection.loading?
       throw "Cannot show loading view for plain backbone collection"
 
-    @emptyView = @options.emptyView   if @options.emptyView?
-    @loadingView   = @options.loadingView if @options.loadingView?
+    @emptyView   = @options.emptyView   if @options.emptyView?
+    @loadingView = @options.loadingView if @options.loadingView?
     @listenTo @collection, 'request reset', @updateLoading, @
 
   onRender: ->
