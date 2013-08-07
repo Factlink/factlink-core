@@ -1,11 +1,9 @@
 Backbone.Factlink ||= {}
-class Backbone.Factlink.BaseController
+class Backbone.Factlink.BaseController extends Backbone.Marionette.Controller
 
-  constructor: (args...)->
-    Backbone.Marionette.addEventBinder @
-
+  constructor: ->
     @initializeRoutes(@routes)
-    @initialize(args...) if @initialize?
+    super
 
   initializeRoutes: (routes) ->
     for route in routes
