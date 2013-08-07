@@ -36,6 +36,9 @@ class window.TopicListView extends Backbone.Marionette.CollectionView
   itemView: TopicItemView
   tagName: 'ul'
 
+  collectionEvents:
+    'sort': 'render'
+
 class window.TopicSidebarView extends Backbone.Marionette.Layout
   template: 'topics/sidebar/layout'
   className: 'left-sidebar'
