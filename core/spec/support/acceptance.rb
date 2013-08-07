@@ -90,7 +90,7 @@ module Acceptance
   end
 
   def abort_and_wait_for_ajax
-    page.execute_script("(window.abortAllAjaxRequests||function(){})();");
+    #page.execute_script("(window.abortAllAjaxRequests||function(){})();");
     eventually_succeeds do
       # wait for all ajax requests to complete
       # if we don't wait, the server may see it after the db is cleaned
