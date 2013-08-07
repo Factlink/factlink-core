@@ -31,10 +31,10 @@ describe Interactors::CreateConversationWithMessage do
                 .with(:conversations_created)
 
       User.should_receive(:find).with(sender.id).and_return(sender)
-      interactor.should_receive(:old_command).with(:create_conversation, fact_id, usernames).
+      Pavlov.should_receive(:old_command).with(:create_conversation, fact_id, usernames, pavlov_options).
         and_return(conversation)
-      interactor.should_receive(:old_command).with(:create_message, sender.id, content, conversation)
-      interactor.should_receive(:old_command).with(:create_activity, graph_user, :created_conversation, conversation, nil)
+      Pavlov.should_receive(:old_command).with(:create_message, sender.id, content, conversation, pavlov_options)
+      Pavlov.should_receive(:old_command).with(:create_activity, graph_user, :created_conversation, conversation, nil, pavlov_options)
 
       interactor.call
     end
