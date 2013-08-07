@@ -88,4 +88,17 @@ module Acceptance
       retry
     end
   end
+
+  def abort_and_wait_for_ajax
+    page.execute_script("(window.abortAllAjaxRequests||function(){})();");
+    eventually_succeeds do
+      # wait for all ajax requests to complete
+      # if we don't wait, the server may see it after the db is cleaned
+      # and a request for a removed object will cause a crash (nil ref).
+      unless page.evaluate_script('(!window.jQuery || window.jQuery.active == 0)')
+        raise 'jQuery.active is not zero; did an Ajax callback perhaps crash?'
+      end
+    end
+  end
+
 end
