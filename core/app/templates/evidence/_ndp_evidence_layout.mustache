@@ -7,4 +7,6 @@
 </div>
 <div class="evidence-box">
   <div class="js-content-region"></div>
+  <div class="evidence-box-triangle"></div>
+  {{!triangle must be after content to ensure painting on top without needing a z-index; z-index isn't permitted because triangle's "border" is actually a negative-z-index grey triangle.}}
 </div>
