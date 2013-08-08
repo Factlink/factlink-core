@@ -1,8 +1,8 @@
 @import "twitter/bootstrap/variables";
 
-@subCommentPaddingTop: 40px;
+@subCommentPaddingTop: 38px;
 @subCommentLineAttachmentTopOffset: 25px;
-@subCommentLineIndent: 20px;
+@subCommentLineIndent: 49px;
 
 @subCommentCircleExtraRadius: 1px;
 @subCommentLineWidth: 3px;
@@ -14,10 +14,14 @@
     + @subCommentCircleDiameter
     + 1px;
 @subCommentVerticalLineTop: @subCommentLineTop + @subCommentCircleDiameter + 1px;
-@subCommentVerticalLineBottom: -@subCommentVerticalLineTop + 4px;
+@subCommentVerticalLineBottom: -@subCommentVerticalLineTop + 9px;
 
 
 @lineColor: @ndpLineColor;
+
+.ndp-sub-comments {
+  margin-top: 10px;
+}
 
 .ndp-sub-comment {
   position: relative;
