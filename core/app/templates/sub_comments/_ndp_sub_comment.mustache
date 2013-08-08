@@ -1,0 +1,17 @@
+<div class="ndp-fact-relation-or-comment-or-sub-comment-box">
+  <div class="js-region-evidence-sub-comment-poparrow"></div>
+  <div class="ndp-evidence-heading">
+    <span class="heading-avatar">
+      <img src="{{ creator.avatar_url_32 }}" height="32" width="32">
+    </span>
+    <a class="ndp-evidence-heading-link" href="/{{ creator.username }}" rel="backbone">
+      {{ creator.name }}
+    </a>
+  </div>
+  <div class="ndp-fact-relation-or-comment-or-sub-comment-content">
+    {{content}}
+  </div>
+  <div class="ndp-fact-relation-or-comment-or-sub-comment-bottom">
+    <span class="factlink-icon-time-small"></span>{{time_ago}} {{ global.t.ago }}
+  </div>
+</div>

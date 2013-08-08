@@ -20,7 +20,9 @@ class window.SubCommentsListView extends Backbone.Marionette.CompositeView
     @_subCommentsAddView ?= new SubCommentsAddView(addToCollection: @collection)
 
 class window.NDPSubCommentsListView extends SubCommentsListView
+  className: ''
   itemView: NDPSubCommentView
+  template: 'sub_comments/ndp_sub_comments_list'
 
   subCommentsAddView: ->
     @_subCommentsAddView ?= new NDPSubCommentsAddView(addToCollection: @collection)
