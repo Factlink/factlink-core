@@ -4,30 +4,18 @@ require_relative '../../../app/interactors/commands/elastic_search_delete_fact_d
 describe Commands::ElasticSearchDeleteFactDataForTextSearch do
   include PavlovSupport
 
-  let(:fact_data) do
-    fact_data = double
-    fact_data.stub id: 1
-    fact_data
-  end
-
   before do
-    stub_const('HTTParty', Class.new)
-    stub_const('FactlinkUI::Application', Class.new)
-  end
-
-  it 'intitializes' do
-    command = Commands::ElasticSearchDeleteFactDataForTextSearch.new fact_data
-
-    command.should_not be_nil
+    stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
   it 'raises when fact_data is not a FactData' do
-    expect { command = Commands::ElasticSearchDeleteFactDataForTextSearch.new 'FactData' }.
-      to raise_error(RuntimeError, 'factdata missing fields ([:id]).')
+    expect { Commands::ElasticSearchDeleteFactDataForTextSearch.new('FactData').call }
+      .to raise_error
   end
 
   describe '#call' do
     it 'correctly' do
+      fact_data = double id: 1
       url = 'localhost:9200'
       config = double
       config.stub elasticsearch_url: url
