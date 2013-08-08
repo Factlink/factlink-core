@@ -22,3 +22,11 @@ class window.SubCommentsListView extends Backbone.Marionette.CompositeView
 class window.NDPSubCommentsListView extends SubCommentsListView
   itemView: NDPSubCommentView
   addView: NDPSubCommentsAddView
+
+  className: ''
+
+  template:
+    text: """
+      <div class="js-region-sub-comments-collection"></div>
+      <div class="js-region-sub-comments-form"></div>
+    """
