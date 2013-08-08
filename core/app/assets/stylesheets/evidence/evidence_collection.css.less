@@ -234,7 +234,7 @@
   border-width: @triangleSize;
 }
 
-.evidence-box > .evidence-box-triangle {
+.evidence-box .evidence-box-triangle {
   .evidence-triangle-base();
   top: @triangleTop;
   margin-top: -@triangleSize;
@@ -247,7 +247,7 @@
   }
 }
 
-.evidence-supporting > .evidence-box > .evidence-box-triangle {
+.evidence-supporting > .evidence-box .evidence-box-triangle {
   right: 100%;
   border-right-color: white;
 
@@ -258,7 +258,7 @@
   }
 }
 
-.evidence-weakening > .evidence-box > .evidence-box-triangle {
+.evidence-weakening > .evidence-box .evidence-box-triangle {
   left: 100%;
   border-left-color: white;
 
@@ -270,8 +270,8 @@
 }
 
 .evidence-unsure {
-  > .evidence-box > .evidence-box-triangle,
-  > .evidence-box > .evidence-box-triangle:before {
+  > .evidence-box .evidence-box-triangle,
+  > .evidence-box .evidence-box-triangle:before {
     height: 0;
     width: 1px;
     margin-top: 0;
@@ -280,7 +280,7 @@
     top: 0;
   }
 
-  > .evidence-box > .evidence-box-triangle {
+  > .evidence-box .evidence-box-triangle {
     left: 50%;
     top: -@innerTriangleOffset;
     border-bottom-color: white;
