@@ -1,6 +1,19 @@
 @import "bootstrap/mixins";
 
+@subCommentPaddingTop: 40px;
+
 .ndp-sub-comment {
-  padding-top: 40px;
+  position: relative;
+  padding-top: @subCommentPaddingTop;
   padding-left: 90px;
+}
+
+.ndp-sub-comment-circle {
+  position: absolute;
+  left: 20px;
+  top: @subCommentPaddingTop + 25px;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: black;
 }
