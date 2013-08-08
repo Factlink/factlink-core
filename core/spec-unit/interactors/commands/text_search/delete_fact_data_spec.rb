@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/commands/elastic_search_delete_fact_data_for_text_search.rb'
+require_relative '../../../../app/interactors/commands/text_search/delete_fact_data.rb'
 
-describe Commands::ElasticSearchDeleteFactDataForTextSearch do
+describe Commands::TextSearch::DeleteFactData do
   include PavlovSupport
 
   before do
@@ -9,7 +9,7 @@ describe Commands::ElasticSearchDeleteFactDataForTextSearch do
   end
 
   it 'raises when fact_data has no id' do
-    expect { Commands::ElasticSearchDeleteFactDataForTextSearch.new(object: 'FactData').call }
+    expect { described_class.new(object: 'FactData').call }
       .to raise_error
   end
 
@@ -19,7 +19,7 @@ describe Commands::ElasticSearchDeleteFactDataForTextSearch do
       url = 'localhost:9200'
       index = double
       ElasticSearch::Index.stub(:new).with('factdata').and_return(index)
-      command = Commands::ElasticSearchDeleteFactDataForTextSearch.new object: fact_data
+      command = described_class.new object: fact_data
 
       index.should_receive(:delete).with(fact_data.id)
 
