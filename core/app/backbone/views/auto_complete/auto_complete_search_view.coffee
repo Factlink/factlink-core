@@ -18,7 +18,7 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
   initSearchCollection: (collection) ->
     @search_collection = collection
     @listenTo @search_collection, 'request', @setLoading
-    @listenTo @search_collection, 'reset', @unsetLoading
+    @listenTo @search_collection, 'sync', @unsetLoading
 
   initTextInputView: (placeholder) ->
     @_text_input_view = new Backbone.Factlink.TextInputView
