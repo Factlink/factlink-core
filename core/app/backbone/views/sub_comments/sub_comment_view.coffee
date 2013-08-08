@@ -36,15 +36,5 @@ class window.SubCommentView extends Backbone.Marionette.Layout
       @poparrowRegion.show poparrowView
 
 class window.NDPSubCommentView extends SubCommentView
-
   className: 'ndp-sub-comment'
-
-  template:
-    text: """
-      <div class="js-region-evidence-sub-comment-poparrow"></div>
-      <img src="{{ creator.avatar_url_32 }}" height="32" width="32">
-      <a href="/{{ creator.username }}" rel="backbone">
-        {{ creator.name }}
-      </a>
-      {{content}}
-    """
+  template: 'sub_comments/ndp_sub_comment'
