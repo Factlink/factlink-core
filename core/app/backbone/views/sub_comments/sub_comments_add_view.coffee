@@ -1,4 +1,4 @@
-class window.SubCommentsAddView extends Backbone.Marionette.Layout
+class BaseSubCommentsAddView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
                        Backbone.Factlink.AlertMixin
 
@@ -65,4 +65,6 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
 
-class window.NDPSubCommentsAddView extends SubCommentsAddView
+class window.SubCommentsAddView extends BaseSubCommentsAddView
+
+class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
