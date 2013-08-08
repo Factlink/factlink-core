@@ -2,10 +2,6 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
                        Backbone.Factlink.AlertMixin
 
-  className: 'evidence-sub-comments-form'
-
-  template: 'sub_comments/add_view'
-
   events:
     'click .js-submit': 'submit'
 
@@ -66,5 +62,24 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
     @ui.submit.prop('disabled',true ).text('Posting...')
 
 class window.SubCommentsAddView extends BaseSubCommentsAddView
+  className: 'evidence-sub-comments-form'
+  template: 'sub_comments/add_view'
 
 class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
+
+  template:
+    text: """
+      <div class="js-alert js-alert-error alert alert-error hide">
+        Your comment could not be posted, please try again.
+        <a class="close" href="#" data-dismiss="alert">x</a>
+      </div>
+
+      <img class="evidence-sub-comments-avatar" src="{{ current_user.avatar_url_32 }}" height="32" width="32">
+      <div class="js-region-textarea evidence-sub-comments-textarea-container"></div>
+
+      <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
+      didn't work on the comment when setting the form to active using Javascript.. -->
+      <div class="evidence-sub-comments-button-container">
+        <button class="evidence-sub-comments-button btn btn-primary pull-right js-submit">Comment</button>
+      </div>
+    """
