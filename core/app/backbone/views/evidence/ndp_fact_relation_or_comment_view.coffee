@@ -13,11 +13,11 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
   regions:
     contentRegion: '.js-content-region'
     bottomRegion: '.js-bottom-region'
-    avatarRegion: '.js-avatar-region'
+    headingRegion: '.js-heading-region'
     subCommentsRegion: '.js-sub-comments-region'
 
   onRender: ->
-    @avatarRegion.show new NDPEvidenceishHeadingView model: @model.creator()
+    @headingRegion.show new NDPEvidenceishHeadingView model: @model.creator()
 
     if @model instanceof Comment
       @contentRegion.show new NDPCommentView model: @model
