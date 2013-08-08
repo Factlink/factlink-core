@@ -31,6 +31,8 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
   showSubCommentsLink: -> @ui.subCommentsLinkContainer.removeClass 'hide'
   hideSubCommentsLink: -> @ui.subCommentsLinkContainer.addClass 'hide'
 
+
+# NOTE : when removing this class, don't forget to cleanup the template.
 class window.EvidenceBottomView extends GenericEvidenceBottomView
   className: 'evidence-bottom bottom-base old-design-bottom-base'
 
