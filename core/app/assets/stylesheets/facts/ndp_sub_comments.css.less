@@ -1,6 +1,23 @@
 @import "bootstrap/mixins";
 
 @subCommentPaddingTop: 40px;
+@subCommentLineAttachmentTopOffset: 25px;
+@subCommentLineIndent: 20px;
+
+@subCommentCircleExtraRadius: 1px;
+@subCommentLineWidth: 3px;
+
+
+@subCommentLineTop: @subCommentPaddingTop + @subCommentLineAttachmentTopOffset;
+@subCommentCircleDiameter: @subCommentLineWidth + 2*@subCommentCircleExtraRadius;
+@subCommentHorizontalLineStart: @subCommentLineIndent
+    + @subCommentCircleDiameter
+    + 1px;
+@subCommentVerticalLineTop: @subCommentLineTop + @subCommentCircleDiameter + 1px;
+@subCommentVerticalLineBottom: -@subCommentVerticalLineTop + 4px;
+
+
+@lineColor: rgba(0,0,0,0.25);
 
 .ndp-sub-comment {
   position: relative;
@@ -10,10 +27,46 @@
 
 .ndp-sub-comment-circle {
   position: absolute;
-  left: 20px;
-  top: @subCommentPaddingTop + 25px;
-  width: 5px;
-  height: 5px;
-  border-radius: 5px;
-  background-color: black;
+  left: @subCommentLineIndent - @subCommentCircleExtraRadius;
+  top: @subCommentLineTop - @subCommentCircleExtraRadius;
+  width: @subCommentCircleDiameter;
+  height: @subCommentCircleDiameter;
+  border-radius: @subCommentCircleDiameter; //half would be enough
+  background-color: @lineColor;
+}
+
+.ndp-sub-comment-line-horizontal {
+  position: absolute;
+  left: @subCommentHorizontalLineStart;
+  right: 10px;//whatever, below comment box anyhow.
+  top: @subCommentLineTop;
+  height: @subCommentLineWidth;
+  background-color: @lineColor;
+}
+
+.ndp-sub-comment-line-bottom {
+  position: absolute;
+  left: @subCommentLineIndent;
+  top: @subCommentVerticalLineTop;
+  width: @subCommentLineWidth;
+  bottom: @subCommentVerticalLineBottom;
+  background-color: @lineColor;
+}
+
+.ndp-sub-comment:last-child .ndp-sub-comment-line-bottom {
+  display: none;
+}
+.ndp-sub-comment-line-top {
+  display:none;
+}
+.ndp-sub-comment:first-child .ndp-sub-comment-line-top {
+  display: block;
+  position: absolute;
+  left: @subCommentLineIndent;
+  width: @subCommentLineWidth;
+  height: @subCommentLineTop + 10px;
+  bottom: 100%;
+  background-color: @lineColor;
+  z-index:-2;
+  margin-bottom: -@subCommentLineTop + 3px;
 }
