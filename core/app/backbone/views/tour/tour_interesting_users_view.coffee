@@ -32,7 +32,7 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
     @ui.finish.hide()
     @tourUsersRegion.show @listView()
 
-    @listenTo @collection, 'add remove reset', @updateShuffledCollection
+    @listenTo @collection, 'sync', @updateShuffledCollection
     @updateShuffledCollection()
 
     @listenTo currentUser.following, 'sync', @updateFinishButton

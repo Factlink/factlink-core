@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "Check the ToS", type: :request do
+describe "Check the ToS", type: :feature do
 
   before do
     @user = make_non_tos_user_and_login

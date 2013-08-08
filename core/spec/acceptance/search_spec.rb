@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "searching", type: :request do
+describe "searching", type: :feature do
 
   def create_channel(user)
     channel = create(:channel, created_by: user.graph_user)

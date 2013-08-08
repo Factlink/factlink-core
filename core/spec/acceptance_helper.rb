@@ -8,6 +8,8 @@ require 'rubygems'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara/email/rspec'
+require 'capybara-screenshot'
+
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 
@@ -19,14 +21,17 @@ RSpec.configure do |config|
   config.filter_run_excluding slow: true unless ENV['RUN_SLOW_TESTS']
 
   # webkit always has js enabled, so always use this:
-  Capybara.javascript_driver = :poltergeist
-  Capybara.default_driver = :poltergeist
+  driver = if ENV["USE_SELENIUM"] then :selenium else :poltergeist end
+
+  Capybara.javascript_driver = driver
+  Capybara.default_driver = driver
+
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
   config.mock_with :rspec
 
-  config.fail_fast = true
+  config.fail_fast = false
 
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
@@ -57,6 +62,11 @@ RSpec.configure do |config|
     FactoryGirl.reload
 
     ElasticSearch.stub synchronous: true
+  end
+
+  config.after(:each) do
+    wait_for_ajax_idle
+    Capybara.reset!
   end
 end
 

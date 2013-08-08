@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :request do
+describe "factlink", type: :feature do
   before :each do
     @user = sign_in_user create :active_user
   end

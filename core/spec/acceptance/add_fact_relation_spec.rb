@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "adding factlinks to a fact", type: :request do
+feature "adding factlinks to a fact", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
@@ -73,28 +73,26 @@ feature "adding factlinks to a fact", type: :request do
     within ".relation-tabs-view" do
       add_existing_factlink supporting_factlink
 
-      within "li.evidence-item" do
+      within ".evidence-item" do
         page.should have_content supporting_factlink.to_s
 
         within '.authorities-evidence' do
           page.should have_content '0.0'
         end
 
-        within ".opinion_indicators .discussion_link:first" do # agreeing percentage
-          page.should have_content "0%"
-        end
 
-        click_wheel_agree '.relation-tabs-view li.evidence-item'
+        agreeing_link = all('.opinion_indicators .discussion_link')[0]
+        agreeing_link.should have_content "0%"
 
-        sleep 2 # Wait for the evidence to be refreshed
+        click_wheel_part 0, '.relation-tabs-view li.evidence-item'
 
-        within '.authorities-evidence' do
-          page.should have_content '1.0'
-        end
 
-        within ".opinion_indicators .discussion_link:first" do # agreeing percentage
-          page.should have_content "100%"
-        end
+        authority_el = find '.authorities-evidence'
+
+        authority_el.should have_content '1.0'
+
+        agreeing_link = all('.opinion_indicators .discussion_link')[0]
+        agreeing_link.should have_content "100%"
       end
     end
   end
@@ -119,7 +117,7 @@ feature "adding factlinks to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
     go_to_discussion_page_of supporting_factlink
-    click_wheel_agree
+    click_wheel_part 0
 
     go_to_discussion_page_of factlink
 

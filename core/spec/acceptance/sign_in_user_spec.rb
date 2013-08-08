@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe 'When a user signs in', type: :request do
+describe 'When a user signs in', type: :feature do
   it 'and has not yet confirmed his email address it should fail' do
     user = create :user
 
@@ -20,7 +20,7 @@ describe 'When a user signs in', type: :request do
 
     visit '/'
 
-    click_link 'Sign in'
+    first(:link, "Sign in", exact: true).click
 
     find "div.sign_in_bar"
   end
@@ -30,7 +30,7 @@ describe 'When a user signs in', type: :request do
 
     visit "/"
 
-    click_link 'Sign in'
+    first(:link, "Sign in", exact: true).click
 
     fill_in "user_login", :with => user.email
     fill_in "user_password", :with => user.password + "1"

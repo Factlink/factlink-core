@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "factlink", type: :request do
+describe "factlink", type: :feature do
   include FactHelper
   include Acceptance::FactHelper
   include Acceptance::AuthenticationHelper
@@ -18,10 +18,14 @@ describe "factlink", type: :request do
 
       page.should have_content(@factlink.data.title)
 
-      wait_until_scope_exists '.auto-complete-fact-relations' do
+      within '.auto-complete-fact-relations' do
         input = page.find(:css, 'input')
         input.set(search_string)
-        input.trigger('focus')
+        if page.driver == :poltergeist then
+          input.trigger('focus')
+        else
+          input.click
+        end
       end
 
       page.should have_selector(".auto-complete-search-list-container")
@@ -49,8 +53,10 @@ describe "factlink", type: :request do
 
       click_wheel_part agreed_path_position
 
-      old_agreed_path_opacity.should_not eq wheel_path_opacity agreed_path_position
-      old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
+      eventually_succeeds do
+        old_agreed_path_opacity.should_not eq wheel_path_opacity agreed_path_position
+        old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
+      end
     end
 
     it "can be neutraled" do
@@ -67,9 +73,10 @@ describe "factlink", type: :request do
       old_neutral_path_shape = wheel_path_d neutral_path_position
 
       click_wheel_part neutral_path_position
-
-      old_neutral_path_opacity.should_not eq wheel_path_opacity neutral_path_position
-      old_neutral_path_shape.should eq wheel_path_d neutral_path_position
+      eventually_succeeds do
+        old_neutral_path_opacity.should_not eq wheel_path_opacity neutral_path_position
+        old_neutral_path_shape.should eq wheel_path_d neutral_path_position
+      end
     end
 
     it "can be disagreed" do
@@ -87,8 +94,10 @@ describe "factlink", type: :request do
 
       click_wheel_part disagreed_path_position
 
-      old_disagreed_path_opacity.should_not eq wheel_path_opacity disagreed_path_position
-      old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
+      eventually_succeeds do
+        old_disagreed_path_opacity.should_not eq wheel_path_opacity disagreed_path_position
+        old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
+      end
     end
 
     it "should find a factlink when searching on a exact phrase containing small words" do
