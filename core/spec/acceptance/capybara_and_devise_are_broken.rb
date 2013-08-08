@@ -13,7 +13,7 @@
 # require 'headless'
 # require 'acceptance_helper'
 
-# describe 'capybara and devise are broken', type: :request do
+# describe 'capybara and devise are broken', type: :feature do
 #   it 'action_mailer default url should change when visiting a page' do
 #     # Something changes the config option, so that the e-mails don't contain correct links.
 #     # Depending on which capybara driver is used, it changes in an example.org or :56781.

@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "notifications", type: :request do
+feature "notifications", type: :feature do
   include Acceptance::ChannelHelper
   include Acceptance::NotificationHelper
   include Acceptance::NavigationHelper
@@ -26,7 +26,9 @@ feature "notifications", type: :request do
 
     assert_number_of_unread_notifications 1
     open_notifications
-    click_on_nth_notification 1
+    within_first_notification do
+      find("a").click
+    end
     assert_on_channel_page other_users_channel.title
   end
 
@@ -51,11 +53,11 @@ feature "notifications", type: :request do
     assert_number_of_unread_notifications 1
     open_notifications
 
-    within_nth_notification 1 do
+    within_first_notification do
       click_button 'Follow'
     end
 
-    within_nth_notification 1 do
+    within_first_notification do
       find('button', text: 'Following')
     end
 
@@ -64,7 +66,7 @@ feature "notifications", type: :request do
     visit page.current_url
 
     open_notifications
-    within_nth_notification 1 do
+    within_first_notification do
       find('button', text: 'Following')
     end
   end

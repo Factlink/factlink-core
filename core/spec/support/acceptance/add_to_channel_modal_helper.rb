@@ -17,7 +17,9 @@ module Acceptance
     end
 
     def type_into_search_box value
-      page.find(:css,'input').set(value)
+      input = page.find(:css,'input[type=text]')
+      input.click
+      input.set(value)
     end
 
     def added_channels_should_contain name
