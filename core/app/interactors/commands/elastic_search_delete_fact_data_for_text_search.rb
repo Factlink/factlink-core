@@ -1,12 +1,10 @@
-require_relative 'elastic_search_delete_for_text_search.rb'
-
 module Commands
-  class ElasticSearchDeleteFactDataForTextSearch < ElasticSearchDeleteForTextSearch
+  class ElasticSearchDeleteFactDataForTextSearch
+    include Pavlov::Command
+    arguments :object
 
     def execute
-      @type_name = 'factdata'
-      super
+      ElasticSearch::Index.new('factdata').delete object.id
     end
-
   end
 end
