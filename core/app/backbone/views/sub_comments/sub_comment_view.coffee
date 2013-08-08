@@ -13,12 +13,16 @@ class SubCommentPoparrowView extends Backbone.Factlink.PoparrowView
   destroy: -> @model.destroy wait: true
 
 class BaseSubCommentView extends Backbone.Marionette.Layout
-  className: 'evidence-sub-comment'
-
   template: 'sub_comments/sub_comment'
+
+  regions:
+    poparrowRegion: '.js-region-evidence-sub-comment-poparrow'
 
   initialize: ->
     @listenTo @model, 'change', @render
+
+  onRender: ->
+    @setPoparrow() if Factlink.Global.signed_in
 
   setPoparrow: ->
     if @model.can_destroy()
@@ -29,23 +33,10 @@ class BaseSubCommentView extends Backbone.Marionette.Layout
 
 
 class window.SubCommentView extends BaseSubCommentView
-  regions:
-    poparrowRegion: '.js-region-evidence-sub-comment-poparrow'
+  className: 'evidence-sub-comment'
 
   templateHelpers: => creator: @model.creator().toJSON()
 
-  onRender: ->
-    @setPoparrow() if Factlink.Global.signed_in
-
 
 class window.NDPSubCommentView extends BaseSubCommentView
-  className: 'ndp-sub-comment'
   template: 'sub_comments/ndp_sub_comment'
-
-  regions:
-    headingRegion: '.js-heading-region'
-    poparrowRegion: '.js-region-evidence-sub-comment-poparrow'
-
-  onRender: ->
-    @headingRegion.show new NDPEvidenceishHeadingView model: @model.creator()
-    @setPoparrow() if Factlink.Global.signed_in
