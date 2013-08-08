@@ -9,7 +9,7 @@ describe Commands::ElasticSearchDeleteUserForTextSearch do
   end
 
   it 'raises when user is not a User' do
-    expect { Commands::ElasticSearchDeleteUserForTextSearch.new('User').call }
+    expect { Commands::ElasticSearchDeleteUserForTextSearch.new(object: 'User').call }
       .to raise_error
   end
 
@@ -22,7 +22,7 @@ describe Commands::ElasticSearchDeleteUserForTextSearch do
       FactlinkUI::Application.stub config: config
 
       HTTParty.should_receive(:delete).with("http://#{url}/user/#{user.id}")
-      command = Commands::ElasticSearchDeleteUserForTextSearch.new user
+      command = Commands::ElasticSearchDeleteUserForTextSearch.new object: user
 
       command.call
     end

@@ -1,20 +1,7 @@
-require 'logger'
-
 module Commands
   class ElasticSearchDeleteForTextSearch
-    # TODO: Rewrite this command to be fully compatible with Pavlov
-
-    def initialize object, options={}
-      @object = object
-    end
-
-    def type type_name
-      @type_name = type_name
-    end
-
-    def call
-      execute
-    end
+    include Pavlov::Command
+    arguments :object
 
     def execute
       raise 'Type_name is not set.' unless @type_name

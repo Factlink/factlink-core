@@ -4,7 +4,7 @@ module Commands
   class ElasticSearchDeleteUserForTextSearch < ElasticSearchDeleteForTextSearch
 
     def execute
-      type 'user'
+      @type_name = 'user'
       super
     end
   end

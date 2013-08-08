@@ -4,7 +4,7 @@ module Commands
   class ElasticSearchDeleteFactDataForTextSearch < ElasticSearchDeleteForTextSearch
 
     def execute
-      type 'factdata'
+      @type_name = 'factdata'
       super
     end
 

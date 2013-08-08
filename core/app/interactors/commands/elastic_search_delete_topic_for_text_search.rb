@@ -4,7 +4,7 @@ module Commands
   class ElasticSearchDeleteTopicForTextSearch < ElasticSearchDeleteForTextSearch
 
     def execute
-      type 'topic'
+      @type_name = 'topic'
       super
     end
   end

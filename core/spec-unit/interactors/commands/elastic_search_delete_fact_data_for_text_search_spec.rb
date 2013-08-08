@@ -9,7 +9,7 @@ describe Commands::ElasticSearchDeleteFactDataForTextSearch do
   end
 
   it 'raises when fact_data is not a FactData' do
-    expect { Commands::ElasticSearchDeleteFactDataForTextSearch.new('FactData').call }
+    expect { Commands::ElasticSearchDeleteFactDataForTextSearch.new(object: 'FactData').call }
       .to raise_error
   end
 
@@ -22,7 +22,7 @@ describe Commands::ElasticSearchDeleteFactDataForTextSearch do
       FactlinkUI::Application.stub config: config
 
       HTTParty.should_receive(:delete).with("http://#{url}/factdata/#{fact_data.id}")
-      command = Commands::ElasticSearchDeleteFactDataForTextSearch.new fact_data
+      command = Commands::ElasticSearchDeleteFactDataForTextSearch.new object: fact_data
 
       command.call
     end
