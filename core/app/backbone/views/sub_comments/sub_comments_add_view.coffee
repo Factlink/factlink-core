@@ -5,17 +5,8 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
   events:
     'click .js-submit': 'submit'
 
-  regions:
-    textareaRegion: '.js-region-textarea'
-
   ui:
     submit: '.js-submit'
-
-  templateHelpers: => current_user: currentUser.toJSON()
-
-  onRender: ->
-    @textareaRegion.show @textAreaView()
-    @toggleForm false
 
   inputFocus: -> @toggleForm true
 
@@ -65,6 +56,15 @@ class window.SubCommentsAddView extends BaseSubCommentsAddView
   className: 'evidence-sub-comments-form'
   template: 'sub_comments/add_view'
 
+  regions:
+    textareaRegion: '.js-region-textarea'
+
+  templateHelpers: => current_user: currentUser.toJSON()
+
+  onRender: ->
+    @textareaRegion.show @textAreaView()
+    @toggleForm false
+
 class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
 
   template:
@@ -74,7 +74,7 @@ class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
         <a class="close" href="#" data-dismiss="alert">x</a>
       </div>
 
-      <img class="evidence-sub-comments-avatar" src="{{ current_user.avatar_url_32 }}" height="32" width="32">
+      <div class="js-heading-region"></div>
       <div class="js-region-textarea evidence-sub-comments-textarea-container"></div>
 
       <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
@@ -83,3 +83,12 @@ class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
         <button class="evidence-sub-comments-button btn btn-primary pull-right js-submit">Comment</button>
       </div>
     """
+
+  regions:
+    headingRegion: '.js-heading-region'
+    textareaRegion: '.js-region-textarea'
+
+  onRender: ->
+    @headingRegion.show new NDPEvidenceishHeadingView model: currentUser
+    @textareaRegion.show @textAreaView()
+    @toggleForm false
