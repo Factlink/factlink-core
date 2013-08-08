@@ -27,7 +27,8 @@ class window.NDPSubCommentsListView extends BaseSubCommentsListView
   itemView: NDPSubCommentContainerView
 
   subCommentsAddView: ->
-    @_subCommentsAddView ?= new NDPSubCommentsAddView(addToCollection: @collection)
+    addView = new NDPSubCommentsAddView(addToCollection: @collection)
+    @_subCommentsAddView ?= new NDPSubCommentContainerView creator: currentUser, innerView: addView
 
   itemViewOptions: (model) ->
     creator: model.creator()
