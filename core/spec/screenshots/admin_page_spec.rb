@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :request do
+describe "factlink", type: :feature do
   before :each do
     Timecop.travel Time.local(1989, 11, 6, 11, 22, 33)
 
