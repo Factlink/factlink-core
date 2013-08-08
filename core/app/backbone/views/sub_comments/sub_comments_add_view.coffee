@@ -69,18 +69,20 @@ class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
 
   template:
     text: """
-      <div class="js-alert js-alert-error alert alert-error hide">
-        Your comment could not be posted, please try again.
-        <a class="close" href="#" data-dismiss="alert">x</a>
-      </div>
+      <div class="ndp-evidenceish-box">
+        <div class="js-alert js-alert-error alert alert-error hide">
+          Your comment could not be posted, please try again.
+          <a class="close" href="#" data-dismiss="alert">x</a>
+        </div>
 
-      <div class="js-heading-region"></div>
-      <div class="js-region-textarea evidence-sub-comments-textarea-container"></div>
+        <div class="js-heading-region"></div>
+        <div class="js-region-textarea evidence-sub-comments-textarea-container"></div>
 
-      <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
-      didn't work on the comment when setting the form to active using Javascript.. -->
-      <div class="evidence-sub-comments-button-container">
-        <button class="evidence-sub-comments-button btn btn-primary pull-right js-submit">Comment</button>
+        <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
+        didn't work on the comment when setting the form to active using Javascript.. -->
+        <div class="evidence-sub-comments-button-container">
+          <button class="evidence-sub-comments-button btn btn-primary pull-right js-submit">Comment</button>
+        </div>
       </div>
     """
 
