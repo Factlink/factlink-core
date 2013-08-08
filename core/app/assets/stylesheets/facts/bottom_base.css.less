@@ -8,7 +8,7 @@
   overflow: hidden;
   margin-top: 8px;
 
-  ul.actions {
+  .bottom-actions {
     margin: 0;
     padding: 0;
 
@@ -44,7 +44,7 @@
     top: 0;
   }
 
-  ul.actions {
+  .bottom-actions {
     &.without_discussion {
       padding-left: 55px;
     }
@@ -96,19 +96,19 @@
 }
 
 .ndp-evidence-bottom {
-  ul.actions .posted-time-ago {
+  .bottom-actions .posted-time-ago {
     float: right;
   }
 }
 
 div.facts-view, #activity_for_channel .activity-group {
   div.fact-view {
-    .bottom-base > ul.actions {
+    .bottom-base > .bottom-actions {
       .opacity(.25);
       .transition(opacity .15s ease-in-out);
     }
     &:hover {
-      .bottom-base > ul.actions {
+      .bottom-base > .bottom-actions {
         .opacity(1);
       }
     }
