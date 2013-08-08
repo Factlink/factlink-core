@@ -66,6 +66,7 @@ class window.SubCommentsAddView extends BaseSubCommentsAddView
   templateHelpers: => current_user: currentUser.toJSON()
 
 class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
+  className: 'ndp-evidenceish-content'
 
   template:
     text: """
@@ -74,13 +75,11 @@ class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
         <a class="close" href="#" data-dismiss="alert">x</a>
       </div>
 
-      <div class="ndp-evidenceish-content">
-        <div class="js-region-textarea"></div>
+      <div class="js-region-textarea"></div>
 
-        <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
-        didn't work on the comment when setting the form to active using Javascript.. -->
-        <div class="evidence-sub-comments-button-container">
-          <button class="button-blue js-submit">Comment</button>
-        </div>
+      <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
+      didn't work on the comment when setting the form to active using Javascript.. -->
+      <div class="evidence-sub-comments-button-container">
+        <button class="button-blue js-submit">Post comment</button>
       </div>
     """
