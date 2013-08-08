@@ -1,3 +1,7 @@
+class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
+  template: 'evidence/ndp_fact_relation_or_comment_bottom'
+
+
 class NDPCommentView extends Backbone.Marionette.ItemView
   template: 'evidence/ndp_comment'
 
@@ -22,7 +26,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     else
       throw "Invalid type of model: #{@model}"
 
-    @bottomRegion.show new NDPEvidenceishBottomView model: @model
+    @bottomRegion.show new NDPFactRelationOrCommentBottomView model: @model
 
     @subCommentsRegion.show new NDPSubCommentsListView
       collection: new SubComments([], parentModel: @model)
