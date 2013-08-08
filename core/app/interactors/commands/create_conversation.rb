@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Commands
   class CreateConversation
     include Pavlov::Command

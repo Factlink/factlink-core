@@ -36,7 +36,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     view = new FactBaseView model: @model.getFact(), clickable_body: Factlink.Global.signed_in
 
     if Factlink.Global.signed_in
-      @bindTo view, 'click:body', (e) =>
+      @listenTo view, 'click:body', (e) ->
         @defaultClickHandler e, @model.getFact().friendlyUrl()
 
     view

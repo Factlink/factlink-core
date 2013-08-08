@@ -43,22 +43,23 @@ describe Interactors::Users::Followers do
       skip = double
       take = double
       current_user = double(graph_user_id: double)
+      pavlov_options = { current_user: current_user }
       interactor = described_class.new(user_name: user_name, skip: skip,
-        take: take, pavlov_options: { current_user: current_user })
+        take: take, pavlov_options: pavlov_options)
       users = double(length: double)
       graph_user_ids = double
       count = double
       user = double(graph_user_id: double)
       followed_by_me = true
 
-      interactor.should_receive(:old_query).
-        with(:'user_by_username', user_name).
+      Pavlov.should_receive(:old_query).
+        with(:'user_by_username', user_name, pavlov_options).
         and_return(user)
-      interactor.should_receive(:old_query).
-        with(:'users/follower_graph_user_ids', user.graph_user_id.to_s).
+      Pavlov.should_receive(:old_query).
+        with(:'users/follower_graph_user_ids', user.graph_user_id.to_s, pavlov_options).
         and_return(graph_user_ids)
-      interactor.should_receive(:old_query).
-        with(:users_by_graph_user_ids, graph_user_ids).
+      Pavlov.should_receive(:old_query).
+        with(:users_by_graph_user_ids, graph_user_ids,pavlov_options).
         and_return(users)
 
       graph_user_ids.should_receive(:include?)

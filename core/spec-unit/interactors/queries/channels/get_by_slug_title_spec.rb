@@ -1,5 +1,5 @@
-require_relative '../../../../app/interactors/queries/channels/get_by_slug_title'
 require 'pavlov_helper'
+require_relative '../../../../app/interactors/queries/channels/get_by_slug_title'
 
 describe Queries::Channels::GetBySlugTitle do
   include PavlovSupport

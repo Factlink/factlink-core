@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Queries
   module Users
     class FollowerGraphUserIds

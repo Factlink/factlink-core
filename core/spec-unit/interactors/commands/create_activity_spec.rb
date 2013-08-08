@@ -1,3 +1,4 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/create_activity.rb'
 
 describe Commands::CreateActivity do

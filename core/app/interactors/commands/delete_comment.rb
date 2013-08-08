@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Commands
   class DeleteComment
     include Pavlov::Command

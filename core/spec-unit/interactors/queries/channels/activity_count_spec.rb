@@ -1,5 +1,5 @@
-require_relative '../../../../app/interactors/queries/channels/activity_count'
 require 'pavlov_helper'
+require_relative '../../../../app/interactors/queries/channels/activity_count'
 
 describe Queries::Channels::ActivityCount do
   include PavlovSupport

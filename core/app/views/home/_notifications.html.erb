@@ -16,7 +16,7 @@
       FactlinkApp.NotificationCenter.error("Your browser is not fully supported. To get the full Factlink experience we recommend using Google Chrome. <a href='<%= pages_path("help/supported-browsers") %>'>Learn more...</a>", disablePreferredBrowserMessage);
 
       function disablePreferredBrowserMessage() {
-        $.ajax({
+        Backbone.ajax({
           type: 'PUT',
           url: '<%= see_message_path %>',
           data: {

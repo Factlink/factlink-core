@@ -16,7 +16,7 @@ gem 'mail', '~> 2.5.4'
 # Mongo
 gem 'mongoid', '~> 3.0.21'
 
-gem 'pavlov', '= 0.1.4' # Pavlov is still highly unstable, so pinned
+gem 'pavlov', '= 0.1.5' # Pavlov is still highly unstable, so pinned
 gem 'korsakov', github: 'jjoos/korsakov', ref: '72db865'
 
 # Redis
@@ -90,13 +90,18 @@ group :assets do
 
   gem 'therubyracer', '~> 0.11.4'
 
+  gem "coffee-script", '~> 2.2.0'
+
   gem 'jquery-rails', '= 2.2.1' # we want a specific version of the js library
 
   gem 'modernizr-rails', "= 2.0.6" # we want a specific version of the js library
 
-  gem "rails-backbone", '= 0.7.2' # we want a specific version of the js library
+  # This gem is https://github.com/aflatter/backbone-rails
+  # Not the one you might typically find with Google
+  # Very clear, no?
+  gem "backbone-rails", '= 1.0.0.1' # we want a specific version of the js library
 
-  gem "marionette-rails", '= 1.0.0.rc.2' # we want a specific version of the js library
+  gem "marionette-rails", '= 1.0.4' # we want a specific version of the js library
 end
 
 group :development do
