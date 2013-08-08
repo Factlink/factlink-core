@@ -1,6 +1,4 @@
-class window.SubCommentsListView extends Backbone.Marionette.CompositeView
-  className: 'evidence-sub-comments-list'
-
+class BaseSubCommentsListView extends Backbone.Marionette.CompositeView
   itemView: SubCommentView
   itemViewContainer: '.js-region-sub-comments-collection'
 
@@ -16,11 +14,15 @@ class window.SubCommentsListView extends Backbone.Marionette.CompositeView
   onClose: ->
     @subCommentsAddView().close()
 
+
+class window.SubCommentsListView extends BaseSubCommentsListView
+  className: 'evidence-sub-comments-list'
+
   subCommentsAddView: ->
     @_subCommentsAddView ?= new SubCommentsAddView(addToCollection: @collection)
 
-class window.NDPSubCommentsListView extends SubCommentsListView
-  className: ''
+
+class window.NDPSubCommentsListView extends BaseSubCommentsListView
   itemView: NDPSubCommentView
   template: 'sub_comments/ndp_sub_comments_list'
 
