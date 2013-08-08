@@ -37,6 +37,8 @@ class window.SubCommentView extends Backbone.Marionette.Layout
 
 class window.NDPSubCommentView extends SubCommentView
 
+  className: 'ndp-sub-comment'
+
   template:
     text: """
       <div class="js-region-evidence-sub-comment-poparrow"></div>
