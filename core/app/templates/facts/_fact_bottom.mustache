@@ -2,7 +2,7 @@
   {{^show_discussion_link}}without_discussion{{/show_discussion_link}}">
 
   {{#show_discussion_link}}
-  <li>
+  <li class="bottom-action">
       <a href="{{discussion_url}}" class="discussion_link js-discussion-link"
         {{#modal?}}
           target="new"
@@ -25,8 +25,8 @@
   {{/show_discussion_link}}
 
   {{#global.signed_in}}
-    <li><a href="#" class="js-add-to-channel">Repost</a></li>
-    <li><a href="#" class="js-start-conversation">Share</a></li>
+    <li class="bottom-action"><a href="#" class="js-add-to-channel">Repost</a></li>
+    <li class="bottom-action"><a href="#" class="js-start-conversation">Share</a></li>
   {{/global.signed_in}}
 
   {{#show_timestamp_or_fact_url_host}}

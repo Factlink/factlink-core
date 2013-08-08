@@ -1,8 +1,8 @@
 <ul class="bottom-actions">
-  <li class="js-sub-comments-link-container"><a class="js-sub-comments-link"></a></li>
+  <li class="js-sub-comments-link-container bottom-action"><a class="js-sub-comments-link"></a></li>
 
   {{#showDiscussion}}
-    <li>
+    <li class="bottom-action">
       {{#global.signed_in}}
         <a href="{{from_fact_sanitized.url}}" class="discussion_link"
           {{#modal?}}
@@ -35,7 +35,7 @@
   {{/showDiscussion}}
 
   {{#showTimeAgo}}
-    <li class="posted-time-ago">
+    <li class="posted-time-ago bottom-action">
       <span class="factlink-icon-time-small"></span>
       {{time_ago}} {{ global.t.ago }}
     </li>
