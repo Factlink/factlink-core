@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "favouriting a topic", type: :request do
+feature "favouriting a topic", type: :feature do
   include Acceptance::TopicHelper
   include Acceptance::ChannelHelper
   include Acceptance::ProfileHelper

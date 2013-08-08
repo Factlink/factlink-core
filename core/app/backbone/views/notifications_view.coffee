@@ -17,13 +17,15 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
     @itemView = NotificationView
     @setupNotificationsFetch()
     @_unreadCount = 0
-    @views = {}
     @on "itemview:activityActivated", ->
       @hideDropdown()
 
   onRender: ->
-    @setUnreadCount @collection.unreadCount()
     @$("ul").preventScrollPropagation()
+    @listenTo @collection, 'sync', @updateUnreadCount
+
+  updateUnreadCount: ->
+    @setUnreadCount @collection.unreadCount()
 
   setUnreadCount: (count) ->
     @_unreadCount = count
@@ -92,7 +94,7 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
     @$("ul").hide()
     if @_shouldMarkUnread is true
       @_shouldMarkUnread = false
-      _.forEach @views, (view) ->
+      @children.each (view) ->
         view.markAsRead()
     @_unbindWindowClick()
 

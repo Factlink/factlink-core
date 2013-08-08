@@ -17,10 +17,10 @@ module Screenshots
 
       factlink3 = backend_create_fact
       go_to_discussion_page_of factlink3
-      click_wheel_agree
+      click_wheel_part 0
 
       go_to_discussion_page_of factlink
-      click_wheel_agree
+      click_wheel_part 0
 
       add_comment comment1_text
       add_new_factlink factlink2_text
