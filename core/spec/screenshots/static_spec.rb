@@ -8,7 +8,7 @@ describe "Static pages:", type: :feature do
     end
     it "with empty submit and open feedback as expected" do
       visit "/"
-      find('input[value="Reserve my username"]').click
+      find('.header input[value="Reserve my username"]').click
       find('a', text: 'Feedback').click
       assume_unchanged_screenshot "static_homepage_with_feedback"
     end
