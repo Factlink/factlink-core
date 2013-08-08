@@ -33,17 +33,18 @@ module Acceptance
 
     def click_wheel_part position, css_path=''
       #fire click event on svg element
-      page.execute_script("var path = $('" + css_path + " .fact-wheel path')[#{position}];
-                           var event = document.createEvent('MouseEvents');
-                           event.initMouseEvent('click');path.dispatchEvent(event);")
-      wait_for_ajax
-
-      #wait for animation
-      sleep 0.3
-    end
-
-    def click_wheel_agree css_path=''
-      click_wheel_part 0, css_path
+      if Capybara.current_driver == :poltergeist then
+        #workaround for https://github.com/jonleighton/poltergeist/issues/331
+        page.execute_script("
+          var svgEl = document.querySelectorAll('#{css_path} .fact-wheel path')[#{position}];
+          var clickEvent = document.createEvent('MouseEvents');
+          clickEvent.initMouseEvent('click',true,true);
+          svgEl.dispatchEvent(clickEvent);
+        ")
+      else
+        svg_path_el = all("#{css_path} .fact-wheel path")[position]
+        svg_path_el.click
+      end
     end
   end
 end
