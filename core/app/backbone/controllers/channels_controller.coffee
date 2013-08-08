@@ -85,8 +85,8 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
         activities = new ChannelActivities([],{ channel: channel })
         new ChannelActivitiesView(model: channel, collection: activities)
 
-  getChannelFactForActivity: (username, channel_id, fact_id) ->
-    @getChannelFact(username, channel_id, fact_id, for_stream: true)
+  getChannelFactForActivity: (username, channel_id, fact_id, params={}) ->
+    @getChannelFact(username, channel_id, fact_id, _.extend(for_stream: true, params))
 
   getChannelFact: (username, channel_id, fact_id, params={}) ->
     channel = @loadChannel username, channel_id, (channel) => @showSidebarForChannel channel
