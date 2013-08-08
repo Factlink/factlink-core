@@ -46,7 +46,7 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
   textAreaView: ->
     textAreaView = new Backbone.Factlink.TextAreaView
       model: @textModel()
-      placeholder: 'Comment..'
+      placeholder: 'Your comment'
 
     @listenTo textAreaView, 'focus', @inputFocus, @
     textAreaView
