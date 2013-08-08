@@ -1,13 +1,18 @@
+class NDPEvidenceImpactView extends Backbone.Marionette.ItemView
+  className: 'evidence-impact-text'
+  template: 'evidence/ndp_evidence_impact'
+
+  initialize: ->
+    @listenTo @model, 'change:impact', @render
+
+
 class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   template: 'evidence/ndp_evidence_layout'
 
   regions:
     contentRegion: '.js-content-region'
     voteRegion: '.js-vote-region'
-
-  constructor: ->
-    super
-    @listenTo @model, 'change', @render
+    impactRegion: '.js-impact-region'
 
   typeCss: ->
     switch @model.get('type')
@@ -19,6 +24,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
     super
     @$el.addClass @typeCss()
     @$el.addClass 'evidence-irrelevant' unless @model.positiveImpact()
+    @impactRegion.show new NDPEvidenceImpactView model: @model
     this
 
 
