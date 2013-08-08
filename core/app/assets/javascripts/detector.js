@@ -70,7 +70,7 @@ var Detector = function() {
             heightErr += Math.abs(a.offsetHeight - b.offsetHeight);
         });
         h.removeChild(s);
-        return 0 == widthErr + heightErr;
+        return widthErr+ "/" +heightErr;
     }
 
     this.detect = detect;
