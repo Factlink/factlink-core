@@ -4,7 +4,7 @@ class BaseSubCommentsListView extends Backbone.Marionette.CompositeView
   template: 'sub_comments/sub_comments_list'
 
   initialize: ->
-    @collection.fetch update: true # only fires 'add' and 'remove' events
+    @collection.fetch()
 
   onShow: ->
     if Factlink.Global.signed_in
