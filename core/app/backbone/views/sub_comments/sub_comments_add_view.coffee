@@ -74,7 +74,7 @@ class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
         <a class="close" href="#" data-dismiss="alert">x</a>
       </div>
 
-      <div class="js-region-textarea evidence-sub-comments-textarea-container"></div>
+      <div class="js-region-textarea ndp-evidenceish-content"></div>
 
       <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
       didn't work on the comment when setting the form to active using Javascript.. -->
