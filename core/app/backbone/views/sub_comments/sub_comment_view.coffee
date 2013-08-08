@@ -34,3 +34,5 @@ class window.SubCommentView extends Backbone.Marionette.Layout
                           model: @model,
                           delete_message: 'Remove this comment'
       @poparrowRegion.show poparrowView
+
+class window.NDPSubCommentView extends SubCommentView
