@@ -1,7 +1,3 @@
-class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
-  template: 'evidence/ndp_fact_relation_or_comment_bottom'
-
-
 class NDPFactRelationOrCommentAvatarView extends Backbone.Marionette.ItemView
   className: 'ndp-evidence-heading'
   template: 'evidence/ndp_fact_relation_or_comment_avatar'

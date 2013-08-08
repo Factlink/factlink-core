@@ -34,17 +34,10 @@
 
   {{/showDiscussion}}
 
-  {{#from_fact_sanitized.proxy_scroll_url}}
-    <li class="fact-info">
-        {{#from_fact_sanitized.fact_url_host}}
-          <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain=
-        {{from_fact_sanitized.fact_url_host}}" />
-        {{/from_fact_sanitized.fact_url_host}}
-        <a href="{{from_fact_sanitized.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
-          {{from_fact_sanitized.fact_url_title}}
-        </a>
+  {{#showTimeAgo}}
+    <li class="posted-time-ago">
+      <span class="factlink-icon-time-small"></span>
+      {{time_ago}} {{ global.t.ago }}
     </li>
-  {{/from_fact_sanitized.proxy_scroll_url}}
+  {{/showTimeAgo}}
 </ul>
-
-<i class="title-overflow"></i>
