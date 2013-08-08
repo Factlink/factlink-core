@@ -1,12 +1,11 @@
 require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/elastic_search_delete_topic_for_text_search.rb'
-require_relative '../../../app/classes/elastic_search.rb'
 
 describe Commands::ElasticSearchDeleteTopicForTextSearch do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'FactlinkUI::Application'
+    stub_classes 'ElasticSearch::Index'
   end
 
   it 'raises when topic is not a Topic' do
@@ -17,13 +16,11 @@ describe Commands::ElasticSearchDeleteTopicForTextSearch do
   describe '#call' do
     it 'correctly' do
       topic = double id: 1
-      url = 'localhost:9200'
-      config = double
-      config.stub elasticsearch_url: url
-      FactlinkUI::Application.stub config: config
-
-      HTTParty.should_receive(:delete).with("http://#{url}/topic/#{topic.id}")
+      index = double
+      ElasticSearch::Index.stub(:new).with('topic').and_return(index)
       command = Commands::ElasticSearchDeleteTopicForTextSearch.new object: topic
+
+      index.should_receive(:delete).with(topic.id)
 
       command.call
     end
