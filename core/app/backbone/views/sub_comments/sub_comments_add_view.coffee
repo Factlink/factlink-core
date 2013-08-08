@@ -70,14 +70,4 @@ class window.SubCommentsAddView extends BaseSubCommentsAddView
 class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
   className: 'ndp-evidenceish-content ndp-sub-comments-add'
 
-  template:
-    text: """
-      <div class="js-alert js-alert-error alert alert-error hide">
-        Your comment could not be posted, please try again.
-        <a class="close" href="#" data-dismiss="alert">x</a>
-      </div>
-
-      <div class="js-region-textarea"></div>
-
-      <button class="js-submit button-blue ndp-sub-comments-add-submit">Post comment</button>
-    """
+  template: 'sub_comments/ndp_sub_comments_add'
