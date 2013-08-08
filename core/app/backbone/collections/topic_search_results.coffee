@@ -3,7 +3,7 @@ class window.TopicSearchResults extends SearchCollection
 
   initialize: (models, options) ->
     @user = options.user
-    @on 'reset', => @addNewItem('title')
+    @on 'sync', => @addNewItem('title')
 
   comparator: (model) ->
     newItem = model.get('new')
