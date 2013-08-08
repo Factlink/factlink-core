@@ -19,6 +19,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     contentRegion: '.js-content-region'
     bottomRegion: '.js-bottom-region'
     avatarRegion: '.js-avatar-region'
+    subCommentsRegion: '.js-sub-comments-region'
 
   onRender: ->
     @avatarRegion.show new NDPFactRelationOrCommentAvatarView model: @model.creator()
@@ -31,6 +32,9 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
       throw "Invalid type of model: #{@model}"
 
     @bottomRegion.show new NDPFactRelationOrCommentBottomView model: @model
+
+    @subCommentsRegion.show new SubCommentsListView
+      collection: new SubComments([], parentModel: @model)
 
   _factBaseView: ->
     view = new FactBaseView model: @model.getFact(), clickable_body: Factlink.Global.signed_in
