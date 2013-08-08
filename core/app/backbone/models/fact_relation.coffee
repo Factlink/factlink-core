@@ -4,7 +4,7 @@ class window.FactRelation extends Evidence
     evidence_type: 'FactRelation'
 
   setOpinion: (type) ->
-    $.ajax
+    Backbone.ajax
       url: @url() + "/opinion/" + type
       success: (data) =>
         mp_track "Evidence: Opinionate",
@@ -16,7 +16,7 @@ class window.FactRelation extends Evidence
       type: "post"
 
   removeOpinion: ->
-    $.ajax
+    Backbone.ajax
       url: "#{@url()}/opinion"
       type: "delete"
       success: (data) =>

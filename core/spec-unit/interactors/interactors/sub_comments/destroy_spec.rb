@@ -38,12 +38,13 @@ describe Interactors::SubComments::Destroy do
     it 'should call the command destroy' do
       id = '1'
       ability = double can?: true
+      pavlov_options = { current_user: double, ability: ability }
       interactor = described_class.new(id: id,
-        pavlov_options: { current_user: double, ability: ability })
+        pavlov_options: pavlov_options)
 
       SubComment.stub :find
-      interactor.should_receive(:old_command)
-                .with(:'sub_comments/destroy', id)
+      Pavlov.should_receive(:old_command)
+                .with(:'sub_comments/destroy', id, pavlov_options)
       interactor.stub i_own_sub_comment: true
 
       interactor.call

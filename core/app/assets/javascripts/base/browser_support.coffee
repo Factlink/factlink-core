@@ -6,7 +6,7 @@ $('#ieWarningModal').modal
   backdrop: "static"
 
 $('#ieWarningModal').on 'hide', ->
-  $.ajax
+  Backbone.ajax
     type: 'PUT',
     url: '/u/seen_messages',
     data:

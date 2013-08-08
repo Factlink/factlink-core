@@ -37,7 +37,7 @@ Backbone.Factlink.PopoverMixin =
     container = @popover_options.container || @$el
 
     @_popovers[selector] = { positionedRegion, container, view }
-    @bindTo? view, 'close', => @popoverRemove(selector)
+    @listenTo? view, 'close', -> @popoverRemove(selector)
 
     @_popoverBindAll() unless @isClosed
     @on 'render', @_popoverBindAll

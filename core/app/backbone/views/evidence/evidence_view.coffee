@@ -26,7 +26,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
         @poparrowRegion.close()
 
     updatePoparrow()
-    @bindTo @model, 'change', updatePoparrow
+    @listenTo @model, 'change', updatePoparrow
 
   evidenceBaseOnRender: ->
     @userAvatarRegion.show new AvatarView model: @model.creator()
@@ -45,7 +45,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
   evidenceBottomView: ->
     unless @_evidenceBottomView
       @_evidenceBottomView = new EvidenceBottomView model: @model
-      @bindTo @_evidenceBottomView, 'toggleSubCommentsList', @toggleSubCommentsList, @
+      @listenTo @_evidenceBottomView, 'toggleSubCommentsList', @toggleSubCommentsList
     @_evidenceBottomView
 
   toggleSubCommentsList: ->
@@ -71,7 +71,7 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
   className: 'evidence-activity'
   template:  'evidence/activity'
 
-  initialize: -> @bindTo @model, 'change', @render, @
+  initialize: -> @listenTo @model, 'change', @render, @
 
   templateHelpers: =>
     creator: @model.creator().toJSON()

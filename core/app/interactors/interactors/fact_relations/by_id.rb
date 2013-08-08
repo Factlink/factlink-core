@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Interactors
   module FactRelations
     class ById

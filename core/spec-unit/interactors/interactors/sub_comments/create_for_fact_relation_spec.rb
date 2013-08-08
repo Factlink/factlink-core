@@ -59,7 +59,7 @@ describe Interactors::SubComments::CreateForFactRelation do
         content: content, pavlov_options: options)
 
       FactRelation.stub :[] => fact_relation
-      interactor.should_receive(:old_command).with(:"sub_comments/create_xxx", fact_relation_id, 'FactRelation', content, user).
+      Pavlov.should_receive(:old_command).with(:"sub_comments/create_xxx", fact_relation_id, 'FactRelation', content, user, options).
         and_return(sub_comment)
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
         and_return(authority)
@@ -136,7 +136,7 @@ describe Interactors::SubComments::CreateForFactRelation do
         content: 'hoi', pavlov_options: options)
 
       interactor.should_receive(:top_fact).and_return(fact)
-      interactor.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user).
+      Pavlov.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user, options).
         and_return authority
 
       result = interactor.authority_of_user_who_created sub_comment

@@ -20,13 +20,13 @@ describe Commands::Channels::Follow do
 
         command = described_class.new(channel: channel, pavlov_options: options)
 
-        command.should_receive(:old_query)
-                  .with(:'channels/get_by_slug_title', channel.slug_title)
+        Pavlov.should_receive(:old_query)
+                  .with(:'channels/get_by_slug_title', channel.slug_title, options)
                   .and_return(channel_2)
 
-        command.should_receive(:old_command)
+        Pavlov.should_receive(:old_command)
                   .with(:'channels/add_subchannel',
-                        channel_2, channel)
+                        channel_2, channel, options)
                   .and_return(true)
 
         expect(command.execute).to eq channel_2
@@ -40,17 +40,17 @@ describe Commands::Channels::Follow do
 
         command = described_class.new(channel: channel, pavlov_options: options)
 
-        command.should_receive(:old_query)
-                  .with(:'channels/get_by_slug_title', channel.slug_title)
+        Pavlov.should_receive(:old_query)
+                  .with(:'channels/get_by_slug_title', channel.slug_title, options)
                   .and_return(nil)
 
-        command.should_receive(:old_command)
-                  .with(:'channels/create', channel.title)
+        Pavlov.should_receive(:old_command)
+                  .with(:'channels/create', channel.title, options)
                   .and_return(new_channel)
 
-        command.should_receive(:old_command)
+        Pavlov.should_receive(:old_command)
                   .with(:'channels/add_subchannel',
-                        new_channel, channel)
+                        new_channel, channel, options)
                   .and_return(true)
 
         expect(command.execute).to eq new_channel
@@ -64,13 +64,13 @@ describe Commands::Channels::Follow do
 
         command = described_class.new(channel: channel, pavlov_options: options)
 
-        command.should_receive(:old_query)
-                  .with(:'channels/get_by_slug_title', channel.slug_title)
+        Pavlov.should_receive(:old_query)
+                  .with(:'channels/get_by_slug_title', channel.slug_title, options)
                   .and_return(channel_2)
 
-        command.should_receive(:old_command)
+        Pavlov.should_receive(:old_command)
                   .with(:'channels/add_subchannel',
-                        channel_2, channel)
+                        channel_2, channel, options)
                   .and_return(false)
 
         expect(command.execute).to eq nil

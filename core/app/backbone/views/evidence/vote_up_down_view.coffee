@@ -7,7 +7,7 @@ class window.VoteUpDownBaseView extends Backbone.Marionette.ItemView
 
   constructor: ->
     super
-    @bindTo @model, "change", @render, @
+    @listenTo @model, "change", @render
 
   templateHelpers: =>
     interactive: @interactive()
@@ -54,7 +54,7 @@ class window.VoteUpDownBaseView extends Backbone.Marionette.ItemView
   _bound_popup_view: (view_klass) ->
     view = new view_klass model: @model
 
-    @bindTo view, 'saved', =>
+    @listenTo view, 'saved', ->
       @popoverResetAll()
 
     view

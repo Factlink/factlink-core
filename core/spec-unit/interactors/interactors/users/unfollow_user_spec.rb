@@ -40,13 +40,13 @@ describe Interactors::Users::UnfollowUser do
       interactor = described_class.new user_name: user_name,
         user_to_unfollow_user_name: user_to_unfollow_user_name
 
-      interactor.should_receive(:old_query).
+      Pavlov.should_receive(:old_query).
         with(:'user_by_username', user_name).
         and_return(user)
-      interactor.should_receive(:old_query).
+      Pavlov.should_receive(:old_query).
         with(:'user_by_username', user_to_unfollow_user_name).
         and_return(user_to_unfollow)
-      interactor.should_receive(:old_command).
+      Pavlov.should_receive(:old_command).
         with(:'users/unfollow_user', user.graph_user_id, user_to_unfollow.graph_user_id)
 
       expect(interactor.call).to eq nil

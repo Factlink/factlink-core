@@ -1,4 +1,3 @@
-require 'pavlov'
 require_relative '../util/mixpanel'
 
 module Interactors

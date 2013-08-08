@@ -3,4 +3,4 @@ class window.TextView extends Backbone.Marionette.ItemView
   tag: 'span'
 
   initialize: ->
-    this.bindTo(this.model, 'change:text', this.render)
+    @listenTo @model, 'change:text', @render

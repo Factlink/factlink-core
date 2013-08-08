@@ -10,7 +10,7 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
     ]
 
     for collection in @_containedCollections
-      collection.on 'reset', @loadFromCollections, @
+      collection.on 'sync', @loadFromCollections, @
 
   comparator: (item) -> - item.get('impact')
 
@@ -18,7 +18,7 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
     _.some @_containedCollections, (collection) -> collection.loading()
 
   fetch: (options={}) ->
-    @trigger 'before:fetch'
+    @trigger 'request'
     _.invoke @_containedCollections, 'fetch', options
 
   loadFromCollections: ->

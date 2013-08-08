@@ -31,7 +31,7 @@ describe Queries::ElasticSearchChannel do
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
-      query.stub(:old_query).
+      Pavlov.stub(:old_query).
         with(:'topics/by_id_with_authority_and_facts_count', 1).
         and_return(return_object)
 

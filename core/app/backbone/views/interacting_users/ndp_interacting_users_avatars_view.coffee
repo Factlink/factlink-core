@@ -16,7 +16,9 @@ class window.NDPInteractingUsersAvatarsView extends Backbone.Marionette.Composit
   number_of_items: 7
 
   initialize: (options) ->
-    @bindTo @collection, 'add remove reset', @render
+    @listenTo @collection, 'add remove reset', @render
+
+  _initialEvents: -> # don't use default bindings to collection
 
   appendHtml: (collectionView, itemView, index) ->
     super if index < @truncatedListSizes().numberToShow

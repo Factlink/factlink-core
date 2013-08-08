@@ -1,6 +1,6 @@
 class window.DiscussionPageView extends TabbedMainRegionLayout
   initialize: ->
-    @bindTo @model, "destroy", @on_destroy, @
+    @listenTo @model, "destroy", @on_destroy
 
   onRender: ->
     @model.fetch
