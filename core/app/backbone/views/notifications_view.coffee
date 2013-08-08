@@ -22,8 +22,11 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
       @hideDropdown()
 
   onRender: ->
-    @setUnreadCount @collection.unreadCount()
     @$("ul").preventScrollPropagation()
+    @listenTo @collection, 'sync', @updateUnreadCount
+
+  updateUnreadCount: ->
+    @setUnreadCount @collection.unreadCount()
 
   setUnreadCount: (count) ->
     @_unreadCount = count
