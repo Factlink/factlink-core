@@ -111,7 +111,7 @@
 
 
       <% if FactlinkUI::Application.config.use_chrome_webstore %>
-        $('#chrome-extension-webstore-button').bind('click', function() {
+        $('#chrome-extension-webstore-button').on('click', function() {
           mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
           chrome.webstore.install(undefined, successFn, errorFn);
         });

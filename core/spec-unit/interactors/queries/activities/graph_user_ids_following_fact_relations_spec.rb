@@ -1,5 +1,5 @@
-require_relative '../../../../app/interactors/queries/activities/graph_user_ids_following_fact_relations'
 require 'pavlov_helper'
+require_relative '../../../../app/interactors/queries/activities/graph_user_ids_following_fact_relations'
 
 describe Queries::Activities::GraphUserIdsFollowingFactRelations do
   include PavlovSupport

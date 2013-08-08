@@ -9,7 +9,7 @@ class TourUserView extends Backbone.Marionette.Layout
     buttonRegion: '.js-region-button'
 
   initialize: ->
-    @bindTo @cloned_user(), 'followed', =>
+    @listenTo @cloned_user(), 'followed', ->
       @model.user_topics().invoke 'favourite'
 
   onRender: ->
@@ -21,7 +21,7 @@ class TourUserView extends Backbone.Marionette.Layout
         user: @cloned_user()
         $listenToEl: @$el
 
-      @bindTo @_followUserButton, 'render_state', (loaded, hovering, checked)=>
+      @listenTo @_followUserButton, 'render_state', (loaded, hovering, checked) ->
         @$el.toggleClass 'hover', hovering and loaded
         @$el.toggleClass 'secondary', checked and loaded
         @$el.toggleClass 'loaded', loaded
@@ -34,7 +34,7 @@ class TourUserView extends Backbone.Marionette.Layout
   authorityPopover: ->
     unless @_authorityPopover?
       @_authorityPopover = new TourAuthorityPopoverView
-      @bindTo @_authorityPopover, 'next', @popoverResetAll
+      @listenTo @_authorityPopover, 'next', @popoverResetAll
     @_authorityPopover
 
   showAuthorityPopover: ->

@@ -26,14 +26,14 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       collection: @fact_relations_masquerading_as_facts()
       fact_id: @collection.fact.id
       type: @collection.type
-    @bindTo searchView, 'createFactRelation', (fact_relation, onFinish) =>
+    @listenTo searchView, 'createFactRelation', (fact_relation, onFinish) ->
       @createFactRelation(fact_relation, onFinish)
-    @bindTo searchView, 'switch_to_comment_view', @switchToCommentView, @
+    @listenTo searchView, 'switch_to_comment_view', @switchToCommentView
     searchView
 
   addCommentView: ->
     addCommentView = new AddCommentView( addToCollection: @model.evidence(), type: @model.type() )
-    @bindTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView, @
+    @listenTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView
 
     addCommentView
 
@@ -52,11 +52,13 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
         collection: filtered_recent_facts
         evidence_type: @collection.type
 
-      @bindTo @_recentFactsView, 'itemview:click', @addRecentFact, @
+      @listenTo @_recentFactsView, 'itemview:click', @addRecentFact
 
     @_recentFactsView
 
   createFactRelation: (fact_relation, onFinish=->)->
+    return @showError() unless fact_relation.isValid()
+
     @hideError()
     @collection.add fact_relation, highlight: true
     @inputRegion.switchTo('search_view')

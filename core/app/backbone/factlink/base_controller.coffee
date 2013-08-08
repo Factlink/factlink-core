@@ -1,15 +1,9 @@
 Backbone.Factlink ||= {}
-class Backbone.Factlink.BaseController
+class Backbone.Factlink.BaseController extends Backbone.Marionette.Controller
 
-  constructor: (args...)->
-    eventBinder = new Backbone.Marionette.EventBinder()
-    _.extend(@, eventBinder)
-    # When updating Marionette:
-    # Use this instead of the above as soon as @janpaul123's pull request is merged into a new version
-    # Backbone.Marionette.addEventBinder @
-
+  constructor: ->
     @initializeRoutes(@routes)
-    @initialize(args...) if @initialize?
+    super
 
   initializeRoutes: (routes) ->
     for route in routes
@@ -18,18 +12,19 @@ class Backbone.Factlink.BaseController
 
   getRouteFunction: (name) ->
     (args...) ->
+      @stopListening()
+      @listenTo FactlinkApp.vent, 'controller:switch', @closeController
       @openController() unless @started
       @onAction?()
       @[name](args...)
 
   openController: ->
     FactlinkApp.vent.trigger 'controller:switch'
-    @bindTo FactlinkApp.vent, 'controller:switch', @closeController, this
     @started = true
     @onShow() if @onShow?
 
   closeController: ->
-    @unbindAll()
+    @stopListening()
     @started = false
     @onClose() if @onClose?
 

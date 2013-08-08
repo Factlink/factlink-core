@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "creating a Factlink", type: :request do
+describe "creating a Factlink", type: :feature do
   include Acceptance::ProfileHelper
   include Acceptance::AddToChannelModalHelper
   include Acceptance::NavigationHelper
@@ -35,8 +35,9 @@ describe "creating a Factlink", type: :request do
     add_as_new_channel new_topic_name
     click_button "Post to Factlink"
 
-    wait_for_ajax
-
+    eventually_succeeds do
+      raise StandardError, "Fact not created" unless Fact.all.to_a.last
+    end
     visit fact_path(Fact.all.to_a.last.id)
 
     open_modal 'Repost' do

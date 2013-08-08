@@ -17,14 +17,14 @@ describe Queries::ConversationWithRecipientsAndMessages do
     query = described_class.new(id: conversation.id, pavlov_options: options)
     new_conversation = double()
 
-    query.stub(:old_query)
-      .with(:conversation_get, conversation.id)
+    Pavlov.stub(:old_query)
+      .with(:conversation_get, conversation.id, options)
       .and_return(conversation)
-    query.stub(:old_query)
-      .with(:messages_for_conversation, conversation)
+    Pavlov.stub(:old_query)
+      .with(:messages_for_conversation, conversation, options)
       .and_return(message_list)
-    query.stub(:old_query)
-      .with(:users_by_ids, recipient_ids)
+    Pavlov.stub(:old_query)
+      .with(:users_by_ids, recipient_ids, options)
       .and_return(recipient_list)
     KillObject.stub(:conversation)
       .with(conversation, messages: message_list, recipients: recipient_list)
@@ -40,8 +40,8 @@ describe Queries::ConversationWithRecipientsAndMessages do
     nonexistingid = double()
     query = described_class.new(id: nonexistingid, pavlov_options: options)
 
-    query.stub(:old_query)
-      .with(:conversation_get, nonexistingid)
+    Pavlov.stub(:old_query)
+      .with(:conversation_get, nonexistingid, options)
       .and_return(nil)
 
     expect(query.call).to be_nil

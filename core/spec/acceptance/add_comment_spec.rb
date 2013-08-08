@@ -1,7 +1,7 @@
 require 'acceptance_helper'
 
 # TODO rename to add_evidence_spec
-feature "adding comments to a fact", type: :request do
+feature "adding comments to a fact", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
@@ -114,6 +114,11 @@ feature "adding comments to a fact", type: :request do
     go_to_discussion_page_of factlink
 
     within evidence_listing_css_selector do
+      #find text with comment - we need to do this before asserting on ordering
+      #since expect..to..match is not async, and at this point the comment ajax
+      #may not have been completed yet.
+      find(evidence_item_css_selector, text: comment1)
+
       items = all evidence_item_css_selector
       expect(items[0].text).to match (Regexp.new factlink2)
       expect(items[1].text).to match (Regexp.new comment3)
@@ -129,8 +134,8 @@ feature "adding comments to a fact", type: :request do
     add_comment comment
 
     within evidence_listing_css_selector do
-      find('.evidence-poparrow-arrow').click
-      find('.delete').click
+      find('.evidence-poparrow-arrow', visible:false).click
+      find('.delete', visible:false).click
     end
 
     page.should_not have_content comment

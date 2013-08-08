@@ -27,8 +27,8 @@ describe Interactors::Channels::RemoveSubchannel do
 
       interactor = described_class.new channel_id: channel.id,
         subchannel_id: subchannel.id, pavlov_options: pavlov_options
-      interactor.should_receive(:old_command)
-                .with(:'channels/remove_subchannel', channel, subchannel)
+      Pavlov.should_receive(:old_command)
+                .with(:'channels/remove_subchannel', channel, subchannel, pavlov_options)
                 .and_return(true)
 
       channel.should_receive(:activity)
@@ -44,8 +44,8 @@ describe Interactors::Channels::RemoveSubchannel do
 
       interactor = described_class.new channel_id: channel.id,
         subchannel_id: subchannel.id, pavlov_options: pavlov_options
-      interactor.should_receive(:old_command)
-                .with(:'channels/remove_subchannel', channel, subchannel)
+      Pavlov.should_receive(:old_command)
+                .with(:'channels/remove_subchannel', channel, subchannel, pavlov_options)
                 .and_return(false)
 
       channel.should_not_receive(:activity)

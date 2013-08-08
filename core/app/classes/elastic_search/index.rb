@@ -8,19 +8,10 @@ class ElasticSearch
       ElasticSearch.url + "/#{@name}"
     end
 
-    def add id, json
+    def add id, json_able
       HTTParty.put base_url + "/#{id}",
-                   { body: json }
-      refresh if ElasticSearch.synchronous
-    end
-
-    # http://www.elasticsearch.org/guide/reference/api/admin-indices-refresh.html
-    def refresh
-      refresh_url = ElasticSearch.url + "/_refresh"
-      response = HTTParty.post refresh_url
-      unless response["ok"]
-        raise "Something went wrong while refreshing #{refresh_url}: #{response}"
-      end
+                   { body: json_able.to_json }
+      ElasticSearch.refresh if ElasticSearch.synchronous
     end
   end
 end

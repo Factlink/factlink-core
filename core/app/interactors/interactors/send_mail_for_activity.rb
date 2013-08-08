@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Interactors
   class SendMailForActivity
     include Pavlov::Interactor

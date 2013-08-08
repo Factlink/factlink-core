@@ -9,10 +9,10 @@ class window.FavouriteTopicButtonView extends ActionButtonView
     # need a loading state
     @model.set loaded: true
 
-    @bindTo @model, 'click:unchecked', => @options.topic.favourite()
-    @bindTo @model, 'click:checked', => @options.topic.unfavourite()
+    @listenTo @model, 'click:unchecked', -> @options.topic.favourite()
+    @listenTo @model, 'click:checked', -> @options.topic.unfavourite()
 
-    @bindTo @user.favourite_topics, 'add remove change reset', @updateStateModel
+    @listenTo @user.favourite_topics, 'add remove change reset', @updateStateModel
     @updateStateModel()
 
   templateHelpers: =>

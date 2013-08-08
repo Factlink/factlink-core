@@ -14,7 +14,7 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     subCommentsLinkContainer: '.js-sub-comments-link-container'
 
   initialize: ->
-    @bindTo @model, 'change', @render, @
+    @listenTo @model, 'change', @render
 
   templateHelpers: ->
     fact = @model.getFact?()
@@ -25,7 +25,7 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
     from_fact_sanitized: fact?.toJSON()
 
   onRender: ->
-    @bindTo @model, 'change:sub_comments_count', @updateSubCommentsLink, @
+    @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
     @updateSubCommentsLink()
 
   updateSubCommentsLink: ->

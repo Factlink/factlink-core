@@ -1,4 +1,3 @@
-require 'pavlov'
 module Queries
   module Activities
     class GraphUserIdsFollowingComments

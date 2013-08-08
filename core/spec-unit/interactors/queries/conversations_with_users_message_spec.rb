@@ -21,20 +21,21 @@ describe Queries::ConversationsWithUsersMessage do
       message15 = double(:message, id: 15)
       message25 = double(:message, id: 25)
 
+      pavlov_options = { current_user: user1 }
       query = described_class.new(user_id: user1.id.to_s,
-        pavlov_options: { current_user: user1 })
+        pavlov_options: pavlov_options)
 
-      query.stub(:old_query)
-           .with(:conversations_list, user1.id.to_s)
+      Pavlov.stub(:old_query)
+           .with(:conversations_list, user1.id.to_s, pavlov_options)
            .and_return(conversations)
-      query.stub(:old_query)
-           .with(:last_message_for_conversation, conversations[0])
+      Pavlov.stub(:old_query)
+           .with(:last_message_for_conversation, conversations[0], pavlov_options)
           .and_return(message15)
-      query.stub(:old_query)
-           .with(:users_by_ids, [user1.id, user2.id])
+      Pavlov.stub(:old_query)
+           .with(:users_by_ids, [user1.id, user2.id], pavlov_options)
            .and_return([user1, user2])
-      query.stub(:old_query)
-           .with(:last_message_for_conversation, conversations[1])
+      Pavlov.stub(:old_query)
+           .with(:last_message_for_conversation, conversations[1], pavlov_options)
            .and_return(message25)
 
       result = query.call
