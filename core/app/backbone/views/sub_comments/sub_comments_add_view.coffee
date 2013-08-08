@@ -59,11 +59,13 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
 
+
 class window.SubCommentsAddView extends BaseSubCommentsAddView
   className: 'evidence-sub-comments-form'
   template: 'sub_comments/add_view'
 
   templateHelpers: => current_user: currentUser.toJSON()
+
 
 class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
   className: 'ndp-evidenceish-content'
