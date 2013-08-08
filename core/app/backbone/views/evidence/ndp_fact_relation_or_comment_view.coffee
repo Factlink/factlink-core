@@ -3,7 +3,7 @@ class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layo
 
 
 class NDPFactRelationOrCommentAvatarView extends Backbone.Marionette.ItemView
-  className: 'ndp-evidence-heading'
+  className: 'ndp-evidenceish-heading'
   template: 'evidence/ndp_fact_relation_or_comment_avatar'
 
 
@@ -12,7 +12,7 @@ class NDPCommentView extends Backbone.Marionette.ItemView
 
 
 class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
-  className: 'ndp-fact-relation-or-comment'
+  className: 'ndp-evidenceish'
   template: 'evidence/ndp_fact_relation_or_comment'
 
   regions:
