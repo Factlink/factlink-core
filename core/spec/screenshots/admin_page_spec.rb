@@ -2,18 +2,17 @@ require 'screenshot_helper'
 
 describe "factlink", type: :feature do
   before :each do
-    Timecop.travel Time.local(1989, 11, 6, 11, 22, 33)
-
     user1 = sign_in_user create :active_user
     user2 = create :active_user
     user3 = create :active_user
     user4 = create :active_user
 
-    user1.admin = true
-    user1.save
-  end
+    Timecop.freeze Time.local(1989, 11, 6, 11, 22, 33)
 
-  after do
+    user1.admin = true
+    user1.current_sign_in_at = Time.now.utc
+    user1.save
+
     Timecop.return
   end
 
