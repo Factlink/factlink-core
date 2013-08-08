@@ -33,7 +33,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
 
     @bottomRegion.show new NDPFactRelationOrCommentBottomView model: @model
 
-    @subCommentsRegion.show new SubCommentsListView
+    @subCommentsRegion.show new NDPSubCommentsListView
       collection: new SubComments([], parentModel: @model)
 
   _factBaseView: ->
