@@ -76,7 +76,8 @@ var Detector = function() {
     this.detect = detect;
 };
 
-interestingFonts = [ "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Geneva", "Verdana",
+window.fontAvailability = function() {
+var interestingFonts = [ "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Geneva", "Verdana",
  "Helvetica Neue", "Helvetica", "Arial",
 "cursive",
 "monospace",
@@ -112,11 +113,10 @@ interestingFonts = [ "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Gen
 "Verdana",
 "Verona",
  ];
-
-window.addEventListener('load', function(){
-    var detect = new Detector().detect;
-    window.fontAvailability = interestingFonts.reduce(function(o,font) {
+ var detect = new Detector().detect;
+    return interestingFonts.reduce(function(o,font) {
         o[font] = detect(font);
         return o;
       }, {});
-});
+};
+

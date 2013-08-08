@@ -6,7 +6,7 @@ feature "available fonts", type: :feature do
     sleep 2
     page.should have_selector "#feedback_button"
 
-    fonts = page.evaluate_script('''JSON.stringify(fontAvailability)''')
+    fonts = page.evaluate_script('''JSON.stringify(fontAvailability())''')
     puts fonts
   end
 end
