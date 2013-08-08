@@ -25,7 +25,7 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
 
     @model = new SubComment
       content: $.trim(@text())
-      created_by: currentUser
+      created_by: currentUser.toJSON()
 
     return @addModelError() unless @model.isValid()
 
