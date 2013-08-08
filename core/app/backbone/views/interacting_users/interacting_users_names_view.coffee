@@ -33,6 +33,8 @@ class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
   initialize: (options) ->
     @listenTo @collection, 'add remove reset', @render
 
+  _initialEvents: -> # don't use default bindings to collection
+
   appendHtml: (collectionView, itemView, index) ->
     return super if @collection.length == 0 # emptyview
     super if index < @truncatedListSizes().numberToShow

@@ -32,6 +32,8 @@ class window.AddCommentView extends Backbone.Marionette.Layout
       content: @formContent()
       created_by: currentUser
 
+    return @addModelError() unless @model.isValid()
+
     @alertHide()
     @disableSubmit()
     @addDefaultModel highlight: true
