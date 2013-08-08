@@ -1,6 +1,4 @@
 class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
-  className: 'evidence-bottom bottom-base'
-
   template: 'facts/evidence_bottom'
 
   triggers:
@@ -34,6 +32,8 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
   hideSubCommentsLink: -> @ui.subCommentsLinkContainer.addClass 'hide'
 
 class window.EvidenceBottomView extends GenericEvidenceBottomView
+  className: 'evidence-bottom bottom-base'
+
   templateHelpers: =>
     fact = @model.getFact?()
 
@@ -43,5 +43,7 @@ class window.EvidenceBottomView extends GenericEvidenceBottomView
     from_fact_sanitized:   fact?.toJSON()
 
 class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
+  className: 'ndp-evidence-bottom bottom-base'
+
   templateHelpers: =>
     showTimeAgo: true
