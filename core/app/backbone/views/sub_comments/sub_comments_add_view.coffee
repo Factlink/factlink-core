@@ -33,6 +33,8 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
       content: $.trim(@text())
       created_by: currentUser
 
+    return @addModelError() unless @model.isValid()
+
     @alertHide()
     @disableSubmit()
     @addDefaultModel()
@@ -62,3 +64,5 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
   disableSubmit: ->
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
+
+class window.NDPSubCommentsAddView extends SubCommentsAddView
