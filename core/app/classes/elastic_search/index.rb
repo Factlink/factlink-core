@@ -14,6 +14,10 @@ class ElasticSearch
       refresh if ElasticSearch.synchronous
     end
 
+    def delete id
+      HTTParty.delete "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@name}/#{id}"
+    end
+
     # http://www.elasticsearch.org/guide/reference/api/admin-indices-refresh.html
     def refresh
       refresh_url = ElasticSearch.url + "/_refresh"

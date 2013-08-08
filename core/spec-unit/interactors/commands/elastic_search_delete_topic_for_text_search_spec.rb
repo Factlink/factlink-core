@@ -1,5 +1,6 @@
 require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/elastic_search_delete_topic_for_text_search.rb'
+require_relative '../../../app/classes/elastic_search.rb'
 
 describe Commands::ElasticSearchDeleteTopicForTextSearch do
   include PavlovSupport
