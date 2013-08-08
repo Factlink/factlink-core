@@ -68,7 +68,7 @@ class window.SubCommentsAddView extends BaseSubCommentsAddView
 
 
 class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
-  className: 'ndp-evidenceish-content'
+  className: 'ndp-evidenceish-content ndp-sub-comments-add'
 
   template:
     text: """
@@ -79,9 +79,5 @@ class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
 
       <div class="js-region-textarea"></div>
 
-      <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
-      didn't work on the comment when setting the form to active using Javascript.. -->
-      <div class="evidence-sub-comments-button-container">
-        <button class="button-blue js-submit">Post comment</button>
-      </div>
+      <button class="js-submit button-blue ndp-sub-comments-add-submit">Post comment</button>
     """
