@@ -1,8 +1,6 @@
 class BaseSubCommentsListView extends Backbone.Marionette.CompositeView
   itemViewContainer: '.js-region-sub-comments-collection'
 
-  template: 'sub_comments/sub_comments_list'
-
   initialize: ->
     @collection.fetch()
 
@@ -17,6 +15,8 @@ class BaseSubCommentsListView extends Backbone.Marionette.CompositeView
 class window.SubCommentsListView extends BaseSubCommentsListView
   className: 'evidence-sub-comments-list'
   itemView: SubCommentView
+
+  template: 'sub_comments/sub_comments_list'
 
   subCommentsAddView: ->
     @_subCommentsAddView ?= new SubCommentsAddView(addToCollection: @collection)
