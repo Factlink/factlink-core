@@ -32,7 +32,7 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
   hideSubCommentsLink: -> @ui.subCommentsLinkContainer.addClass 'hide'
 
 class window.EvidenceBottomView extends GenericEvidenceBottomView
-  className: 'evidence-bottom bottom-base'
+  className: 'evidence-bottom bottom-base old-design-bottom-base'
 
   templateHelpers: =>
     fact = @model.getFact?()

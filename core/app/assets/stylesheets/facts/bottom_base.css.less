@@ -8,6 +8,31 @@
   overflow: hidden;
   margin-top: 8px;
 
+  ul.actions {
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline-block;
+
+      &.hide {
+        display: none;
+      }
+    }
+  }
+
+  a {
+    cursor: pointer;
+    font-weight: bold;
+    .transition(color .15s ease-in-out);
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+
+.old-design-bottom-base {
   > .title-overflow {
     z-index: 100;
     background: image-url('discussions/title_fade.png') right repeat-y;
@@ -20,20 +45,11 @@
   }
 
   ul.actions {
-    margin: 0;
-    padding: 0;
-
     &.without_discussion {
       padding-left: 55px;
     }
 
     > li {
-      display: inline-block;
-
-      &.hide {
-        display: none;
-      }
-
       &:after {
         content: "·";
         margin: 0 7px;
@@ -76,6 +92,12 @@
     width: 16px;
     height: 16px;
     vertical-align: text-top;
+  }
+}
+
+.ndp-evidence-bottom {
+  ul.actions .posted-time-ago {
+    float: right;
   }
 }
 
