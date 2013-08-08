@@ -9,11 +9,11 @@ describe "factlink", type: :request do
     @user2 = create :active_user
   end
 
-  it 'Feed should be the same' do
+  it 'it renders 2 Factlinks' do
     # user create a factlink
     factlink = backend_create_fact
 
-    # user2 interact with user' factlink
+    # user2 interact with user's factlink
     factlink.add_opiniated :believes, @user2.graph_user
 
     # user2 follow user
