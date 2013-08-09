@@ -129,7 +129,6 @@ class FactsController < ApplicationController
     search_for = params[:s]
 
     raise_404 if Fact.invalid(@fact)
-
     @facts = (old_interactor :search_evidence, search_for, @fact.id).map do |fd|
         fd.fact
       end
