@@ -41,7 +41,6 @@ feature "favouriting a topic", type: :feature do
     within_topic_header do
       find('button', text: 'Follow topic').click
     end
-    wait_for_ajax_idle
 
     go_to_topic_page_of topic
     within_topic_header do
