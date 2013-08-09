@@ -128,7 +128,11 @@ class FactsController < ApplicationController
     authorize! :index, Fact
     search_for = params[:s]
 
-    raise_404 if Fact.invalid(@fact)
+    if Fact.invalid(@fact)
+      redirect_to status:  404
+      return
+    end
+
     @facts = (old_interactor :search_evidence, search_for, @fact.id).map do |fd|
         fd.fact
       end
