@@ -19,8 +19,8 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
   constructor: (options={}) ->
     @model = new ActionButtonState
 
-    @className += ' btn-action btn'
-    @className += ' btn-mini' if options.mini
+    @className += ' button-small button'
+    @className += ' button-small' if options.mini
 
     super
 
@@ -57,8 +57,8 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
     @$el.toggleClass 'disabled', not loaded
 
-    @$el.toggleClass 'btn-danger', hovering and checked and loaded
-    @$el.toggleClass 'btn-primary', hovering and not checked and loaded
+    @$el.toggleClass 'button-danger', hovering and checked and loaded
+    @$el.toggleClass 'button-confirm', hovering and not checked and loaded
     @$el.toggleClass 'btn-action-checked', checked and loaded
 
     @trigger 'render_state', loaded, hovering, checked
