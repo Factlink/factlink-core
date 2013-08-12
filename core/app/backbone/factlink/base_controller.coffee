@@ -18,11 +18,13 @@ class Backbone.Factlink.BaseController extends Backbone.Marionette.Controller
       @onAction?()
       @[name](args...)
 
+  # CONSIDER THIS DEPRECATED, as it is only used by CachingController, which is deprecated
   openController: ->
     FactlinkApp.vent.trigger 'controller:switch'
     @started = true
     @onShow() if @onShow?
 
+  # CONSIDER THIS DEPRECATED, as it is only used by CachingController, which is deprecated
   closeController: ->
     @stopListening()
     @started = false
