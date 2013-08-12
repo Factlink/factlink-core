@@ -13,7 +13,6 @@ class window.SearchCollection extends Backbone.Collection
   searchFor: throttle (query) ->
     query = $.trim(query)
     return if query == @query
-    console.info "searching for #{query}"
     @jqxhr?.abort()
 
     if query == ''
