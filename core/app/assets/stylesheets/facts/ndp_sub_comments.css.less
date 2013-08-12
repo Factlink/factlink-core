@@ -6,15 +6,15 @@
 
 @subCommentCircleExtraRadius: 1px;
 @subCommentLineWidth: 3px;
+@subCommentCirclePadding: 2px;
 
 
 @subCommentLineTop: @subCommentPaddingTop + @subCommentLineAttachmentTopOffset;
 @subCommentCircleDiameter: @subCommentLineWidth + 2*@subCommentCircleExtraRadius;
-@subCommentHorizontalLineStart: @subCommentLineIndent
-    + @subCommentCircleDiameter
-    + 1px;
-@subCommentVerticalLineTop: @subCommentLineTop + @subCommentCircleDiameter + 1px;
-@subCommentVerticalLineBottom: -@subCommentVerticalLineTop + 9px;
+@subCommentHorizontalLineStart: @subCommentLineIndent + @subCommentLineWidth + @subCommentCircleExtraRadius + @subCommentCirclePadding;
+@subCommentVerticalLineTop: @subCommentLineTop + @subCommentLineWidth + @subCommentCircleExtraRadius + @subCommentCirclePadding;
+@subCommentVerticalLineBottom: -@subCommentLineTop + @subCommentCircleExtraRadius + @subCommentCirclePadding;
+@subCommentLastVerticalLineBottom: -@subCommentLineTop;
 
 
 @lineColor: @ndpLineColor;
@@ -58,9 +58,7 @@
 }
 
 .ndp-sub-comment-container:last-child {
-  .ndp-sub-comment-line-bottom//, .ndp-sub-comment-line-horizontal
-  , .ndp-sub-comment-circle
-   {
+  .ndp-sub-comment-line-bottom, .ndp-sub-comment-circle {
     display: none;
   }
   .ndp-sub-comment-line-horizontal {
@@ -68,7 +66,7 @@
   }
 }
 .ndp-sub-comment-container:nth-last-child(2) > .ndp-sub-comment-line-bottom {
-  bottom: @subCommentVerticalLineBottom - 3px;
+  bottom: @subCommentLastVerticalLineBottom;
 }
 
 .ndp-sub-comment-line-top {
@@ -80,11 +78,11 @@
   position: absolute;
   left: @subCommentLineIndent;
   width: @subCommentLineWidth;
-  height: @subCommentLineTop + 10px;
-  bottom: 100%;
+  height: 100px;
+  top: -@subCommentVerticalLineBottom - 100px;
+
   background-color: @lineColor;
   z-index:-2;
-  margin-bottom: -@subCommentLineTop + 3px;
 }
 
 .ndp-sub-comments-add {
@@ -94,8 +92,4 @@
 .ndp-sub-comments-add textarea {
   width: 100%;
   min-height: 50px;
-}
-
-.ndp-sub-comments-add-submit {
-  float: right;
 }
