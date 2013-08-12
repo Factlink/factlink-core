@@ -19,14 +19,6 @@ body.client {
     padding: 2px 5px;
     font-size: @metaFontSize;
   }
-  .btn-action-checked {
-    color: @greenLabelColor;
-    border: 1px solid @mutedBorderColor;
-    background-color: @backgroundGray;
-    .box-shadow(inset 0 1px 3px rgba(0,0,0,.06));
-    .button-background(@disabledButtonStartColor, @disabledButtonEndColor);
-    font-weight: bold;
-  }
   .btn-danger {
     color: white;
     background: @dangerButtonColor;
@@ -238,6 +230,15 @@ body.client {
 
   .button-loading {
     text-shadow: none;
+  }
+
+  .button-action-checked {
+    color: @greenLabelColor;
+    font-weight: 500;
+    &.button-danger {
+      font-weight: 300;
+      color: white;
+    }
   }
 
 }
