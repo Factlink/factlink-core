@@ -2,8 +2,8 @@
 #moving to current_user_opinion
 if fact_relation.respond_to? :current_user_opinion
   current_user_opinion = fact_relation.current_user_opinion
-elsif current_user
-  current_user_opinion = current_user.andand.graph_user.andand.opinion_on(fact_relation)
+elsif current_graph_user
+  current_user_opinion = current_graph_user.opinion_on(fact_relation)
 else
   current_user_opinion = nil
 end

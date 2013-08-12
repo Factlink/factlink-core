@@ -110,6 +110,7 @@ class ApplicationController < ActionController::Base
     return unless current_user
     @current_graph_user ||= current_user.graph_user
   end
+  helper_method :current_graph_user
 
   def raise_404(message="Not Found")
     raise ActionController::RoutingError.new(message)
