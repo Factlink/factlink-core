@@ -1,6 +1,3 @@
-throttle = (method) ->
-  _.throttle method, 300, leading: false
-
 class window.SearchCollection extends Backbone.Collection
   constructor: (args...)->
     super(args...)
@@ -10,6 +7,7 @@ class window.SearchCollection extends Backbone.Collection
     @query = ''
     @reset []
 
+  throttle = (method) -> _.throttle method, 300, leading: false
   searchFor: throttle (query) ->
     query = $.trim(query)
     return if query == @query
