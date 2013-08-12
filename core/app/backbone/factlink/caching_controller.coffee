@@ -1,3 +1,5 @@
+# CONSIDER THIS DEPRECATED, as we move to modal discussion pages
+
 class Backbone.Factlink.CachingController extends Backbone.Factlink.BaseController
   openController: ->
     @cached_views = new Backbone.Factlink.DetachedViewCache
