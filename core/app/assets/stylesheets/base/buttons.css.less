@@ -1,79 +1,10 @@
 @import "bootstrap/mixins";
 
-body.factlink-site.controller_home,
-body.factlink-site.controller_privacy,
-body.factlink-site,
-body.feedback_form,
-body.client {
-  .btn {
-    display: inline-block;
-    padding: 5px 12px;
-    font-family: @baseFontFamily;
-    font-size: @baseFontSize;
-    line-height: @baseLineHeight;
-    color: @baseFontColor
-  }
 
-
-  .btn-mini {
-    padding: 2px 5px;
-    font-size: @metaFontSize;
-  }
-  .btn-danger {
-    color: white;
-    background: @dangerButtonColor;
-    font-weight:normal;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    .box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05));
-  }
-}
-
-body.factlink-site.controller_home,
-body.factlink-site.controller_privacy {
-  .btn-primary,
-  .btn-primary:hover {
-      text-shadow: 0 1px 0 #feed7b;
-      color: #7e582f;
-      padding-left: 20px;
-      padding-right: 20px;
-  }
-  .btn-primary {
-    #gradient > .vertical(#F8D36D, #FDBA39);
-    background-color: #FDBA39;
-    border-color: #FDBA39 #FDBA39 #DC941F;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  }
-  .btn-primary:hover,
-  .btn-primary:active,
-  .btn-primary.active,
-  .btn-primary.disabled,
-  .btn-primary[disabled] {
-    background-color: #FDBA39;
-  }
-}
 
 body.factlink-site,
 body.feedback_form,
 body.client {
-  .btn-primary,
-  .btn-primary:hover {
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    color: #ffffff;
-  }
-
-  .btn-primary {
-    #gradient > .vertical(#669BBB, @linkColor);
-  }
-
-  .btn-primary:hover,
-  .btn-primary:active,
-  .btn-primary.active,
-  .btn-primary.disabled,
-  .btn-primary[disabled] {
-    background-color: @linkColor;
-  }
-
   .button {
     .new-design-font();
     display: inline-block;
