@@ -98,9 +98,6 @@
 
 #font {
   #family {
-    .serif() {
-      font-family: @serifFontFamily;
-    }
     .sans-serif() {
       font-family: @sansFontFamily;
     }
@@ -109,10 +106,6 @@
     font-size: @size;
     font-weight: @weight;
     line-height: @lineHeight;
-  }
-  .serif(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
-    #font > #family > .serif;
-    #font > .shorthand(@size, @weight, @lineHeight);
   }
   .sans-serif(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
     #font > #family > .sans-serif;
