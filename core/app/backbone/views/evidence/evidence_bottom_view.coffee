@@ -18,10 +18,13 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
   updateSubCommentsLink: ->
     count = @model.get('sub_comments_count')
 
-    if count > 0
-      @ui.subCommentsLink.text "Comments (#{count})"
-    else
-      @ui.subCommentsLink.text "Comments"
+    switch count
+      when 0
+        @ui.subCommentsLink.text "Comment"
+      when 1
+        @ui.subCommentsLink.text "1 comment"
+      else
+        @ui.subCommentsLink.text "#{count} comments"
 
     if Factlink.Global.signed_in or count > 0
       @showSubCommentsLink()
