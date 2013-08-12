@@ -17,26 +17,29 @@ class window.SubCommentsListView extends Backbone.Marionette.CompositeView
     @_subCommentsAddView?.close()
 
 
-class window.NDPSubCommentsCollectionView extends Backbone.Marionette.CollectionView
+class window.NDPSubCommentsView extends Backbone.Marionette.CollectionView
+  className: 'ndp-sub-comments'
+
   itemView: NDPSubCommentContainerView
 
   itemViewOptions: (model) ->
     creator: model.creator()
     innerView: new NDPSubCommentView model: model
 
-
-class window.NDPSubCommentsView extends Backbone.Marionette.Layout
-  template: 'sub_comments/ndp_sub_comments_list'
-
-  regions:
-    collectionRegion: '.js-collection-region'
-    formRegion: '.js-form-region'
+  _initialEvents: ->
+    @listenTo @collection, "add remove reset", @render
 
   initialize: ->
     @collection.fetch()
 
-  onRender: ->
-    @collectionRegion.show new NDPSubCommentsCollectionView collection: @collection
+    if Factlink.Global.signed_in
+      @_addViewContainer = new NDPSubCommentContainerView
+        creator: currentUser
+        innerView: new NDPSubCommentsAddView addToCollection: @collection
+      @_addViewContainer.render()
 
-    addView = new NDPSubCommentsAddView addToCollection: @collection
-    @formRegion.show new NDPSubCommentContainerView creator: currentUser, innerView: addView
+  onRender: ->
+    # The add view needs to be sibling in the DOM tree of the otherSubCommentContainerViews
+    @$el.append @_addViewContainer.el if @_addViewContainer?
+
+  onClose: -> @_addViewContainer?.close()
