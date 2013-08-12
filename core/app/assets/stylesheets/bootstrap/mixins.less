@@ -44,3 +44,51 @@
     background: -webkit-linear-gradient(@angle, @stop 0%, @start 100%);
     background: linear-gradient(@angle, @stop 0%, @start 100%);
 }
+
+.striped(@angle: 45deg, @stripeColor: rgba(255,255,255,.15)) {
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, @stripeColor), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, @stripeColor), color-stop(.75, @stripeColor), color-stop(.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
+  background-image: linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
+}
+
+.background-size(@size) {
+  -webkit-background-size:  @size;
+  -moz-background-size:     @size;
+  -o-background-size:       @size;
+  background-size:          @size;
+}
+
+.loading-stripes-keyframes() {
+    from  { background-position: 40px 0; }
+    to    { background-position: 0 0; }
+}
+
+.animate-stripes(@seconds: 2s) {
+  @-webkit-keyframes loading-stripes { .loading-stripes-keyframes(); }
+
+  // Firefox
+  @-moz-keyframes loading-stripes { .loading-stripes-keyframes(); }
+
+  // IE9
+  @-ms-keyframes loading-stripes { .loading-stripes-keyframes(); }
+
+  // Opera, opera needs a special treatment
+  @-o-keyframes loading-stripes {
+    from  { background-position: 0 0; }
+    to    { background-position: 40px 0; }
+  }
+
+  // Spec
+  @keyframes loading-stripes {
+    from  { background-position: 40px 0; }
+    to    { background-position: 0 0; }
+  }
+
+  -webkit-animation:  loading-stripes @seconds linear infinite;
+  -moz-animation:     loading-stripes @seconds linear infinite;
+  -ms-animation:      loading-stripes @seconds linear infinite;
+  -o-animation:       loading-stripes @seconds linear infinite;
+  animation:          loading-stripes @seconds linear infinite;
+}
