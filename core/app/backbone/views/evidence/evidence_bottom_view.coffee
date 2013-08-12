@@ -48,7 +48,7 @@ class window.EvidenceBottomView extends GenericEvidenceBottomView
     from_fact_sanitized:   fact?.toJSON()
 
 class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
-  className: 'ndp-evidence-bottom bottom-base'
+  className: 'ndp-evidenceish-bottom bottom-base'
 
   templateHelpers: =>
     showTimeAgo: true
