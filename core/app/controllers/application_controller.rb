@@ -107,7 +107,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_graph_user
-    @current_graph_user ||= current_user.andand.graph_user
+    return unless current_user
+    @current_graph_user ||= current_user.graph_user
   end
 
   def raise_404(message="Not Found")
