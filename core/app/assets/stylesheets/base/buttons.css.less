@@ -41,17 +41,6 @@ body.client {
     }
   }
 
-  .button-small {
-    font-size: 12px;
-    height: @baseButtonHeight;
-    line-height: @baseButtonHeight - 2*@baselinePixelsUp;
-    padding: 0 @baseButtonPadding;
-    border-bottom-width: @baseButtonBorderWidth;
-    &:active {
-      padding-top: 1px;
-    }
-  }
-
   .button-confirm {
     background-color: @buttonConfirmBackground;
     color: white;
@@ -156,6 +145,19 @@ body.client {
     &.button-loading, &[disabled] {
       .striped(45deg, rgba(0,0,0,0.04));
       color: @mutedFontColor;
+    }
+  }
+
+  .button-small {
+    font-size: 12px;
+    height: @baseButtonHeight;
+    line-height: @baseButtonHeight - 2*@baselinePixelsUp;
+    padding: 0 @baseButtonPadding;
+    border-bottom-width: @baseButtonBorderWidth;
+
+    &:active {
+      padding-top: 1px;
+      border-top-width: @baseButtonBorderWidth;
     }
   }
 
