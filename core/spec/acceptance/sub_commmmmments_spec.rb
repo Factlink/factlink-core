@@ -61,7 +61,7 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    within evidence_listing_css_selector do
+    within '.fact-relation-listing' do
       page.should have_selector('.delete', visible:false, text: 'Remove this Factlink as evidence')
     end
 
@@ -70,13 +70,13 @@ feature "sub_comments", type: :feature do
     add_sub_comment(sub_comment_text)
     find('.evidence-sub-comment-content').should have_content sub_comment_text
 
-    within evidence_listing_css_selector do
+    within '.fact-relation-listing' do
       page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
     end
 
     go_to_discussion_page_of @factlink_user_a
 
-    within evidence_listing_css_selector do
+    within '.fact-relation-listing' do
       page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
     end
   end

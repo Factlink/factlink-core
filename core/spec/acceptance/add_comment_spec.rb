@@ -23,11 +23,11 @@ feature "adding comments to a fact", type: :feature do
     # Input should be empty
     find('.add-comment-content', text: '')
 
-    find(evidence_listing_css_selector).should have_content comment
+    find('.fact-relation-listing').should have_content comment
 
     go_to_discussion_page_of factlink # Reload the page
 
-    find(evidence_listing_css_selector).should have_content comment
+    find('.fact-relation-listing').should have_content comment
   end
 
   scenario 'after adding a comment it should have brain cycles' do
@@ -41,7 +41,7 @@ feature "adding comments to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    within evidence_listing_css_selector do
+    within '.fact-relation-listing' do
       find('.authorities-evidence').should have_content user_authority_on_fact + 1
     end
   end
@@ -55,7 +55,7 @@ feature "adding comments to a fact", type: :feature do
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment comment
 
-    within evidence_listing_css_selector do
+    within '.fact-relation-listing' do
       # there is just one factlink in the list
       find('.authorities-evidence', text: (user_authority_on_fact+1).to_s)
       find('.supporting').click
@@ -64,7 +64,7 @@ feature "adding comments to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    within evidence_listing_css_selector do
+    within '.fact-relation-listing' do
       find('.authorities-evidence', text: "0.0")
     end
   end
@@ -78,13 +78,13 @@ feature "adding comments to a fact", type: :feature do
     add_comment comment1
     add_comment comment2
 
-    find(evidence_listing_css_selector).should have_content comment1
-    find(evidence_listing_css_selector).should have_content comment2
+    find('.fact-relation-listing').should have_content comment1
+    find('.fact-relation-listing').should have_content comment2
 
     go_to_discussion_page_of factlink # Reload the page
 
-    find(evidence_listing_css_selector).should have_content comment1
-    find(evidence_listing_css_selector).should have_content comment2
+    find('.fact-relation-listing').should have_content comment1
+    find('.fact-relation-listing').should have_content comment2
   end
 
   scenario 'comments and facts should be sorted on relevance' do
@@ -113,13 +113,13 @@ feature "adding comments to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    within evidence_listing_css_selector do
+    within '.fact-relation-listing' do
       #find text with comment - we need to do this before asserting on ordering
       #since expect..to..match is not async, and at this point the comment ajax
       #may not have been completed yet.
-      find(evidence_item_css_selector, text: comment1)
+      find('.evidence-item', text: comment1)
 
-      items = all evidence_item_css_selector
+      items = all '.evidence-item'
       expect(items[0].text).to match (Regexp.new factlink2)
       expect(items[1].text).to match (Regexp.new comment3)
       expect(items[2].text).to match (Regexp.new comment1)
@@ -133,7 +133,7 @@ feature "adding comments to a fact", type: :feature do
 
     add_comment comment
 
-    within evidence_listing_css_selector do
+    within '.fact-relation-listing' do
       find('.evidence-poparrow-arrow', visible:false).click
       find('.delete', visible:false).click
     end
