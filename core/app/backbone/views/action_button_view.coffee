@@ -19,7 +19,7 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
   constructor: (options={}) ->
     @model = new ActionButtonState
 
-    @className += ' button-small button'
+    @className += ' button'
     @className += ' button-small' if options.mini
 
     super
