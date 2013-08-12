@@ -1,5 +1,3 @@
-require 'andand'
-
 module Queries
   class ConversationGet
     include Pavlov::Query
