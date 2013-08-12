@@ -7,10 +7,14 @@ class Backbone.Factlink.Collection extends Backbone.Collection
     @on 'sync', @_onSync, @
 
   _onRequest: (collection) ->
-    @_loading = true if collection == this
+    return unless collection == this
+
+    @_loading = true
 
   _onSync: (collection) ->
-    @_loading = false if collection == this
+    return unless collection == this
+
+    @_loading = false
 
   loading: -> @_loading
 
