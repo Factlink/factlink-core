@@ -82,22 +82,19 @@ p { margin-bottom: 1em; }
 }
 
 .btn-email {
-  background-color: #FDBA39;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAgCAIAAABVbCU3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpi/Pt2OQMSYPn99CgKn+H/P1Q+w3/88hjq/5Gm/v9fFP5/EtWjyzOi2f+fgHpSzWf4jz88/pOonhFD/j/+8Efj/8fQz4BPPUCAAQDuID5laZoI7wAAAABJRU5ErkJggg==);
-  background-repeat: repeat-x;
+  .new-design-font();
+  display: inline-block;
+  font-size: 13px;
+  .border-radius(3px);
+  height: @largeButtonHeight;
+  line-height: @largeButtonHeight - 2*@baselinePixelsUp;
+  padding: 0 @largeButtonPadding;
 
-  border: 1px solid #e79300;
-  .border-radius(4px);
+  background-color: @buttonHomeBackground;
+  color: @buttonHomeLink;
+  text-shadow: 0 1px 0 @buttonHomeTextShadow;
 
-  padding: 8px 20px;
-  width: 150px;
-  text-align: center;
-  color: #313131;
-
-  color: #845729;
-  text-shadow: 0px 1px 1px rgba(255,255,255,0.5);
-  font-weight: bolder;
-  font-size: 14px;
+  border-bottom: @largeButtonBorderWidth solid @buttonHomeBorder;
 }
 
 .content table { width: 100%; }

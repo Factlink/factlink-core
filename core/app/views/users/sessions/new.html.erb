@@ -29,15 +29,15 @@
                 <%= f.label :remember_me %>
               <% end -%>
 
-              <%= f.submit "Sign in", 'data-disable-with' => "Signing in...", :class => "btn pull-right" %>
+              <%= f.submit "Sign in", 'data-disable-with' => "Signing in...", :class => "button pull-right" %>
             </div>
           </div>
 
           <div class="with-social social-services-buttons">
-            <a href="/auth/twitter?return_to=<%= params[:return_to] %>" class="btn twitter popup" data-disable-with="<i></i>Signing in...">
+            <a href="/auth/twitter?return_to=<%= params[:return_to] %>" class="button twitter popup" data-disable-with="<i></i>Signing in...">
               <i></i>Sign in with Twitter
             </a>
-            <a href="/auth/facebook?return_to=<%= params[:return_to] %>" class="btn facebook popup" data-disable-with="<i></i>Signing in...">
+            <a href="/auth/facebook?return_to=<%= params[:return_to] %>" class="button facebook popup" data-disable-with="<i></i>Signing in...">
               <i></i>Sign in with Facebook
             </a>
           </div>
