@@ -17,7 +17,7 @@ class Authority < OurOhm
     def related(label, subject, opts={})
       AuthorityObject.by_reference self.key+"NEW", label,
         class_for(subject), subject.id.to_s,
-        opts[:for].andand.id
+        opts[:for] && opts[:for].id
     end
 
     def from(subject, opts={})

@@ -46,7 +46,7 @@ class ChannelsController < ApplicationController
     # to create a new channel, while we already have a channel. Since this isn't properly
     # handled in the frontend, the fastest way around it was to act like we created a new
     # channel, but actually return an existing channel.
-    title_hash = params[:channel].andand.slice(:title) || params.slice(:title)
+    title_hash = (params[:channel] || params).slice(:title)
     title = title_hash[:title]
 
     @channels = Channel.find(created_by_id: current_user.graph_user_id)

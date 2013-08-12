@@ -6,9 +6,10 @@ class ChannelActivitiesController < ApplicationController
     authorize! :show, @channel
 
     backbone_responder do
+      count = params.fetch(:number) {11}
       @activities = sanitized_activities @channel.activities do |list|
         list.below( params[:timestamp] || 'inf',
-          count: params[:number].andand.to_i || 11,
+          count: count.to_i,
           reversed: true, withscores: true)
       end
       render 'channels/activities'
