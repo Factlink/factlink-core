@@ -11,7 +11,7 @@ class window.SubCommentsListView extends Backbone.Marionette.CompositeView
   onShow: ->
     if Factlink.Global.signed_in
       @_subCommentsAddView ?= new SubCommentsAddView(addToCollection: @collection)
-      @$('.js-region-sub-comments-form').html @_subCommentsAddView().render().el
+      @$('.js-region-sub-comments-form').html @_subCommentsAddView.render().el
 
   onClose: ->
     @_subCommentsAddView?.close()
