@@ -1,1 +1,1 @@
-invert-evidence-checkbox
+Add a comment by default, instead of a Factlink
