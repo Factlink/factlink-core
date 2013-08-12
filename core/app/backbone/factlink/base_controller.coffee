@@ -13,16 +13,18 @@ class Backbone.Factlink.BaseController extends Backbone.Marionette.Controller
   getRouteFunction: (name) ->
     (args...) ->
       @stopListening()
-      @listenTo FactlinkApp.vent, 'controller:switch', @closeController
       @openController() unless @started
+      @listenTo FactlinkApp.vent, 'controller:switch', @closeController
       @onAction?()
       @[name](args...)
 
+  # CONSIDER THIS DEPRECATED, as it is only used by CachingController, which is deprecated
   openController: ->
     FactlinkApp.vent.trigger 'controller:switch'
     @started = true
     @onShow() if @onShow?
 
+  # CONSIDER THIS DEPRECATED, as it is only used by CachingController, which is deprecated
   closeController: ->
     @stopListening()
     @started = false
