@@ -21,7 +21,7 @@ feature "adding comments to a fact", type: :feature do
     add_comment comment
 
     # Input should be empty
-    find('.add-comment-content', text: '')
+    find('.add-comment-content').value.should eq ''
 
     find('.fact-relation-listing').should have_content comment
 
