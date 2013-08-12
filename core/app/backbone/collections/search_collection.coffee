@@ -25,9 +25,10 @@ class window.SearchCollection extends Backbone.Collection
   encodedQuery: -> encodeURIComponent @query
 
   addNewItem: (compare_field) ->
-    if @shouldShowNewItem(compare_field)
-      @add @getNewItem()
-      @trigger 'sync'
+    return unless @shouldShowNewItem(compare_field)
+
+    @add @getNewItem()
+    @trigger 'sync'
 
   shouldShowNewItem: (compare_field) ->
     @query != '' and not (@query.toLowerCase() in @newItemFields(compare_field))
