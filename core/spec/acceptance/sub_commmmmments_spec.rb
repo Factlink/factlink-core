@@ -29,7 +29,7 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('.js-sub-comments-link', text: 'Comment').click
+    find('a', text: '1 comment').click
     assert_sub_comment_exists sub_comment_text
   end
 
@@ -49,7 +49,7 @@ feature "sub_comments", type: :feature do
     switch_to_user(@user_b)
     go_to_discussion_page_of @factlink_user_a
 
-    find('.js-sub-comments-link', text: 'Comment').click
+    find('a', text: '1 comment').click
     find('.evidence-sub-comment-content').should have_content sub_comment_text
   end
 
