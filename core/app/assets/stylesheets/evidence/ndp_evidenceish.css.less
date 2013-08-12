@@ -2,18 +2,23 @@
 
 @evidencePadding: 18px;
 
-.ndp-evidence-heading {
+.ndp-evidenceish {
+  .new-design-font();
+}
+
+.ndp-evidenceish-heading {
   position: absolute;
   top: -23px;
   left: @evidencePadding;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.ndp-fact-relation-or-comment {
-  .new-design-font();
+.ndp-evidenceish-box {
+  position: relative;
+  .new-design-white-block-with-shadow();
 }
 
-.ndp-fact-relation-or-comment-content {
+.ndp-evidenceish-content {
   padding: @evidencePadding @evidencePadding 13px;
 
   // HACK until we have "small Factwheels" (per NDP design, in-line with text)
@@ -23,11 +28,10 @@
   }
 }
 
-.ndp-fact-relation-or-comment-bottom {
+.ndp-evidenceish-bottom {
   box-shadow: 0px -1px @NDPMutedBorderBottomColor, 0px -2px @NDPMutedBorderTopColor;
-  margin: 0 @evidencePadding 5px;
+  margin: 0 @evidencePadding;
   padding: 5px 0;
-  text-align: right;
   color: @mutedFontColor;
   font-size: @metaFontSize;
 }

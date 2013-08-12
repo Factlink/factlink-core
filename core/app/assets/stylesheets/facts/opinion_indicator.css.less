@@ -1,23 +1,6 @@
 @import "bootstrap/mixins";
 
-span.opinion_indicator_small {
-  display: inline-block;
-  height: 7px;
-  width: 7px;
-  background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
-  position: relative;
-  top: -1px;
-
-  &.agreeing {
-    background-position: 0 0;
-  }
-
-  &.disagreeing {
-    background-position: -8px -0;
-  }
-}
-
-span.opinion_indicator {
+.opinion_indicator {
   display: inline-block;
   background: image-url('discussions/opinion_type_indicators.png') -18px -7px no-repeat;
   height: 10px;
@@ -36,5 +19,38 @@ span.opinion_indicator {
 
   &.unsuring {
     background-position: -18px -7px;
+  }
+}
+
+.opinion_indicator_small {
+  display: inline-block;
+  height: 7px;
+  width: 7px;
+  background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
+  position: relative;
+  top: -1px;
+
+  &.agreeing {
+    background-position: 0 0;
+  }
+
+  &.disagreeing {
+    background-position: -8px -0;
+  }
+}
+
+
+.old-design-bottom-base .bottom-actions .bottom-action {
+  .opinion_indicators {
+    font-size: @metaFontSize;
+
+    a {
+      color: @baseFontColor;
+      font-weight: normal;
+    }
+  }
+
+  .opinion_indicator_small {
+    margin: 0 5px 0 5px;
   }
 }

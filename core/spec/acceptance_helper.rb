@@ -9,6 +9,7 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara/email/rspec'
 require 'capybara-screenshot'
+require 'test_request_syncer'
 
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
@@ -65,6 +66,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
+    TestRequestSyncer.increment_counter
     wait_for_ajax_idle
     Capybara.reset!
   end

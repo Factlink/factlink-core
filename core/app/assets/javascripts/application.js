@@ -3,7 +3,7 @@
 //= require jquery_ujs
 //= require underscore
 //= require hogan
-//= require andlog
+//= require console_polyfill
 //= require trunk8
 //= require twitter/bootstrap
 //= require jquery.color
