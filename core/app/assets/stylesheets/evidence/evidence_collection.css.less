@@ -52,7 +52,7 @@
 @supportingImpactColor: rgba(100,190,160, 0.9);
 @weakeningImpactColor: rgba(220,120,120, 0.9);
 @unsureImpactColor: rgba(90,140,170, 0.9);
-@lineColor: rgba(174,180,189,0.8);
+@lineColor: @ndpLineColor;
 @shadowColor: rgba(233, 234, 238, 0.7); // Same colour as semi-transparent overlay in js-library
 
 
@@ -234,7 +234,7 @@
   border-width: @triangleSize;
 }
 
-.evidence-box > .evidence-box-triangle {
+.evidence-box .evidence-box-triangle {
   .evidence-triangle-base();
   top: @triangleTop;
   margin-top: -@triangleSize;
@@ -247,7 +247,7 @@
   }
 }
 
-.evidence-supporting > .evidence-box > .evidence-box-triangle {
+.evidence-supporting .evidence-box-triangle {
   right: 100%;
   border-right-color: white;
 
@@ -258,7 +258,7 @@
   }
 }
 
-.evidence-weakening > .evidence-box > .evidence-box-triangle {
+.evidence-weakening .evidence-box-triangle {
   left: 100%;
   border-left-color: white;
 
@@ -270,8 +270,8 @@
 }
 
 .evidence-unsure {
-  > .evidence-box > .evidence-box-triangle,
-  > .evidence-box > .evidence-box-triangle:before {
+  .evidence-box-triangle,
+  .evidence-box-triangle:before {
     height: 0;
     width: 1px;
     margin-top: 0;
@@ -280,7 +280,7 @@
     top: 0;
   }
 
-  > .evidence-box > .evidence-box-triangle {
+  .evidence-box-triangle {
     left: 50%;
     top: -@innerTriangleOffset;
     border-bottom-color: white;

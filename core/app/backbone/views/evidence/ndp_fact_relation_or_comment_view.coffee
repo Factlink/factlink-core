@@ -1,5 +1,6 @@
-class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
-  template: 'evidence/ndp_fact_relation_or_comment_bottom'
+class NDPFactRelationOrCommentAvatarView extends Backbone.Marionette.ItemView
+  className: 'ndp-evidence-heading'
+  template: 'evidence/ndp_fact_relation_or_comment_avatar'
 
 
 class NDPCommentView extends Backbone.Marionette.ItemView
@@ -26,10 +27,18 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     else
       throw "Invalid type of model: #{@model}"
 
-    @bottomRegion.show new NDPFactRelationOrCommentBottomView model: @model
+    bottomView = new NDPFactRelationOrCommentBottomView model: @model
+    @listenTo bottomView, 'toggleSubCommentsList', @toggleSubCommentsView
+    @bottomRegion.show bottomView
 
-    @subCommentsRegion.show new NDPSubCommentsListView
-      collection: new SubComments([], parentModel: @model)
+  toggleSubCommentsView: ->
+    if @subCommentsOpen
+      @subCommentsOpen = false
+      @subCommentsRegion.close()
+    else
+      @subCommentsOpen = true
+      @subCommentsRegion.show new NDPSubCommentsView
+        collection: new SubComments([], parentModel: @model)
 
   _factBaseView: ->
     view = new FactBaseView model: @model.getFact(), clickable_body: Factlink.Global.signed_in

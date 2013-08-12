@@ -1,12 +1,28 @@
 @import "bootstrap/mixins";
 
 .bottom-base {
-  font-size: @baseFontSize;
-  clear: both;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+
+  .bottom-actions {
+    margin: 0;
+    padding: 0;
+
+    .bottom-action {
+      display: inline-block;
+
+      &.hide {
+        display: none;
+      }
+    }
+  }
+}
+
+.old-design-bottom-base {
+  font-size: @baseFontSize;
   margin-top: 8px;
+  clear: both;
 
   > .title-overflow {
     z-index: 100;
@@ -19,49 +35,26 @@
     top: 0;
   }
 
-  ul.actions {
-    margin: 0;
-    padding: 0;
+  .bottom-actions-without-discussion {
+    padding-left: 55px;
+  }
 
-    &.without_discussion {
-      padding-left: 55px;
+  .bottom-action {
+    &:after {
+      content: "·";
+      margin: 0 7px;
     }
 
-    > li {
-      display: inline-block;
+    &:last-child:after {
+      content: "";
+      margin: 0;
+    }
 
-      &.hide {
-        display: none;
-      }
-
-      &:after {
-        content: "·";
-        margin: 0 7px;
-      }
-
-      &:last-child:after {
-        content: "";
-        margin: 0;
-      }
-
-      .opinion_indicators {
-        font-size: @metaFontSize;
-
-        a {
-          color: @baseFontColor;
-          font-weight: normal;
-        }
-
-      }
-      .opinion_indicator_small {
-        margin: 0 5px 0 5px;
-      }
-
-      &.fact-info {
-        color: @mutedFontColor;
-      }
+    &.fact-info {
+      color: @mutedFontColor;
     }
   }
+
 
   a {
     cursor: pointer;
@@ -72,21 +65,32 @@
     }
   }
 
-  img.fact-favicon {
+  .fact-favicon {
     width: 16px;
     height: 16px;
     vertical-align: text-top;
   }
 }
 
+// old discussion page
+.evidence-bottom {
+  margin-left: 92px;
+}
+
+.ndp-evidenceish-bottom {
+  .bottom-actions .posted-time-ago {
+    float: right;
+  }
+}
+
 div.facts-view, #activity_for_channel .activity-group {
   div.fact-view {
-    .bottom-base > ul.actions {
+    .bottom-base > .bottom-actions {
       .opacity(.25);
       .transition(opacity .15s ease-in-out);
     }
     &:hover {
-      .bottom-base > ul.actions {
+      .bottom-base > .bottom-actions {
         .opacity(1);
       }
     }

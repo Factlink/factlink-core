@@ -1,6 +1,104 @@
-@import "bootstrap/mixins";
+@import "twitter/bootstrap/variables";
 
-.ndp-sub-comment {
-  padding-top: 40px;
-  padding-left: 90px;
+@subCommentPaddingTop: 38px;
+@subCommentLineAttachmentTopOffset: 25px;
+@subCommentLineIndent: 40px;
+
+@subCommentCircleExtraRadius: 1px;
+@subCommentLineWidth: 3px;
+@subCommentCirclePadding: 2px;
+
+
+@subCommentLineTop: @subCommentPaddingTop + @subCommentLineAttachmentTopOffset;
+@subCommentCircleDiameter: @subCommentLineWidth + 2*@subCommentCircleExtraRadius;
+@subCommentHorizontalLineStart: @subCommentLineIndent + @subCommentLineWidth + @subCommentCircleExtraRadius + @subCommentCirclePadding;
+@subCommentVerticalLineTop: @subCommentLineTop + @subCommentLineWidth + @subCommentCircleExtraRadius + @subCommentCirclePadding;
+@subCommentVerticalLineBottom: -@subCommentLineTop + @subCommentCircleExtraRadius + @subCommentCirclePadding;
+@subCommentLastVerticalLineBottom: -@subCommentLineTop;
+
+
+@lineColor: @ndpLineColor;
+
+.ndp-sub-comments .ajax-loader {
+  margin-left: @subCommentLineIndent - 16px/2 + @subCommentLineWidth/2;
+  margin-top: 10px;
+}
+
+.ndp-sub-comment-container {
+  position: relative;
+  padding-top: @subCommentPaddingTop;
+  padding-left: 80px;
+}
+
+.ndp-sub-comment-circle {
+  position: absolute;
+  left: @subCommentLineIndent - @subCommentCircleExtraRadius;
+  top: @subCommentLineTop - @subCommentCircleExtraRadius;
+  width: @subCommentCircleDiameter;
+  height: @subCommentCircleDiameter;
+  border-radius: @subCommentCircleDiameter; //half would be enough
+  background-color: @lineColor;
+}
+
+.ndp-sub-comment-line-horizontal {
+  position: absolute;
+  left: @subCommentHorizontalLineStart;
+  right: 10px;//whatever, below comment box anyhow.
+  top: @subCommentLineTop;
+  height: @subCommentLineWidth;
+  background-color: @lineColor;
+}
+
+.ndp-sub-comment-line-bottom {
+  position: absolute;
+  left: @subCommentLineIndent;
+  top: @subCommentVerticalLineTop;
+  width: @subCommentLineWidth;
+  bottom: @subCommentVerticalLineBottom;
+  background-color: @lineColor;
+}
+
+.ndp-sub-comment-container:last-child {
+  .ndp-sub-comment-line-bottom, .ndp-sub-comment-circle {
+    display: none;
+  }
+  .ndp-sub-comment-line-horizontal {
+    left: @subCommentLineIndent;
+  }
+}
+.ndp-sub-comment-container:nth-last-child(2) > .ndp-sub-comment-line-bottom {
+  bottom: @subCommentLastVerticalLineBottom;
+}
+
+.ndp-sub-comment-line-top {
+  display:none;
+}
+
+.ndp-sub-comment-container:first-child .ndp-sub-comment-line-top {
+  display: block;
+  position: absolute;
+  left: @subCommentLineIndent;
+  width: @subCommentLineWidth;
+  height: 100px;
+  top: -@subCommentVerticalLineBottom - 100px;
+
+  background-color: @lineColor;
+  z-index:-2;
+}
+
+.ndp-sub-comment-container:first-child:last-child .ndp-sub-comment-line-top {
+  top: -@subCommentLastVerticalLineBottom - 100px;
+}
+
+.ndp-sub-comments-add {
+  overflow: hidden;
+}
+
+.ndp-sub-comments-add textarea {
+  width: 100%;
+  min-height: 4em;
+}
+
+.ndp-sub-comments-add-submit {
+  float: right;
 }

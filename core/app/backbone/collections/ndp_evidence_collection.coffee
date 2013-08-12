@@ -18,10 +18,11 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
     _.some @_containedCollections, (collection) -> collection.loading()
 
   fetch: (options={}) ->
-    @trigger 'request'
+    @trigger 'request', this
     _.invoke @_containedCollections, 'fetch', options
 
-  loadFromCollections: ->
+  loadFromCollections: (collectionOrModel) ->
     return if @loading()
+    return unless collectionOrModel in @_containedCollections # collection proxies model's sync
 
     @reset(_.union (col.models for col in @_containedCollections)...)
