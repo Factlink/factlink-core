@@ -60,25 +60,21 @@
   background-size:          @size;
 }
 
-.animate-stripes(@seconds: 2s) {
-  @-webkit-keyframes loading-stripes {
+.loading-stripes-keyframes() {
     from  { background-position: 40px 0; }
     to    { background-position: 0 0; }
-  }
+}
+
+.animate-stripes(@seconds: 2s) {
+  @-webkit-keyframes loading-stripes { .loading-stripes-keyframes(); }
 
   // Firefox
-  @-moz-keyframes loading-stripes {
-    from  { background-position: 40px 0; }
-    to    { background-position: 0 0; }
-  }
+  @-moz-keyframes loading-stripes { .loading-stripes-keyframes(); }
 
   // IE9
-  @-ms-keyframes loading-stripes {
-    from  { background-position: 40px 0; }
-    to    { background-position: 0 0; }
-  }
+  @-ms-keyframes loading-stripes { .loading-stripes-keyframes(); }
 
-  // Opera
+  // Opera, opera needs a special treatment
   @-o-keyframes loading-stripes {
     from  { background-position: 0 0; }
     to    { background-position: 40px 0; }
