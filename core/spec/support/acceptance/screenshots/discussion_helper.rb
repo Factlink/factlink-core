@@ -32,7 +32,7 @@ module Screenshots
       within('.fact-relation-listing .evidence-item', text: comment1_text) do
         find('.weakening').click
 
-        find('a', text: 'Comments').click
+        find('a', text: 'Comment').click
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized
       end
@@ -42,7 +42,7 @@ module Screenshots
         # find('.js-fact-relation-believe').set false
         # page.find('a', text: 'Done').click
 
-        find('a', text: 'Comments').click
+        find('a', text: 'Comment').click
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized
       end
