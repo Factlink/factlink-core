@@ -52,9 +52,9 @@ feature "visiting a channel" do
     go_to_first_fact
     go_back_using_button
 
-    sleep 1
-
-    scroll_top_should_eq 100
+    eventually_succeeds do
+      scroll_top_should_eq 100
+    end
     page.should have_content(@factlink.to_s)
   end
 end

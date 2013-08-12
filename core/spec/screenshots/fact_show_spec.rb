@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :request do
+describe "factlink", type: :feature do
   include Screenshots::DiscussionHelper
 
   it "the layout of the discussion page is correct" do
@@ -9,7 +9,7 @@ describe "factlink", type: :request do
     @factlink = create_discussion
 
     go_to_fact_show_of @factlink
-    find('a', text: 'Comments (1)').click
+    first('a', text: 'Comments (1)').click
 
     page.should have_content @factlink.data.displaystring
 
@@ -69,7 +69,7 @@ describe "factlink", type: :request do
     sign_out_user
 
     go_to_fact_show_of @factlink
-    find('a', text: 'Comments (1)').click
+    first('a', text: 'Comments (1)').click
 
     page.should have_content @factlink.data.displaystring
 

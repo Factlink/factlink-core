@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "Logged-out visitors", type: :request do
+describe "Logged-out visitors", type: :feature do
   before do
     visit "/"
   end

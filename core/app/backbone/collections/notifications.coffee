@@ -3,8 +3,7 @@ class window.Notifications extends Backbone.Collection
   url: -> "/" + currentUser.get("username") + "/activities"
 
   unreadCount: ->
-    unreads = _.reject this.pluck('unread'),
-      (item)-> !item
+    unreads = _.reject @pluck('unread'), (item) -> !item
     unreads.length
 
   markAsRead: (options = {}) ->

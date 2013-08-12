@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "follow_users_in_tour", type: :request do
+feature "follow_users_in_tour", type: :feature do
   include PavlovSupport
   include Acceptance::ProfileHelper
   include Acceptance::TopicHelper
@@ -56,8 +56,9 @@ feature "follow_users_in_tour", type: :request do
 
     page.should have_content('Skip this step')
 
-    click_on 'Follow user' # Click one of both users
-    wait_for_ajax
+    # Click on one user
+    first(:button, 'Follow user').click
+
     page.should have_content('Following')
     page.should have_content('Finish tour')
   end
@@ -67,8 +68,7 @@ feature "follow_users_in_tour", type: :request do
     visit interests_path
     click_on 'Got it!'
 
-    click_on 'Follow user'
-    wait_for_ajax
+    first(:button, 'Follow user').click
 
     go_to_profile_page_of @user
     check_follower_following_count 1, 0
@@ -79,10 +79,8 @@ feature "follow_users_in_tour", type: :request do
     visit interests_path
     click_on 'Got it!'
 
-    click_on 'Follow user'
-    wait_for_ajax
-    click_on 'Follow user'
-    wait_for_ajax
+    first(:button, 'Follow user').click
+    first(:button, 'Follow user').click
 
     click_on 'Finish tour'
     click_topic_in_sidebar 'toy'
@@ -90,16 +88,24 @@ feature "follow_users_in_tour", type: :request do
 
   scenario "The user should be able to unfollow users from the tour" do
     sign_in_user @user
+
     visit interests_path
     click_on 'Got it!'
+    first(:button, 'Follow user').click
 
-    click_on 'Follow user'
-    wait_for_ajax
+    eventually_succeeds 10 do
+      follower_count = Pavlov.old_interactor(:'users/following', @user.username,0,0,
+          current_user:@user)[1]
+      follower_count.should eq 1
+      #TODO: this is really a hack to ensure that the subsequent unfollow
+      # really does happen after the original follow even on the server.
+    end
 
-    click_on 'Following' # Unfollow
-    wait_for_ajax
-
-    go_to_profile_page_of @user
-    check_follower_following_count 0, 0
+    first(:button, 'Following').click # Unfollow
+    eventually_succeeds 10 do
+      sleep 0.05
+      go_to_profile_page_of @user
+      check_follower_following_count 0, 0
+    end
   end
 end

@@ -11,20 +11,11 @@ class ElasticSearch
     def add id, json_able
       HTTParty.put base_url + "/#{id}",
                    { body: json_able.to_json }
-      refresh if ElasticSearch.synchronous
+      ElasticSearch.refresh if ElasticSearch.synchronous
     end
 
     def delete id
       HTTParty.delete "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@name}/#{id}"
-    end
-
-    # http://www.elasticsearch.org/guide/reference/api/admin-indices-refresh.html
-    def refresh
-      refresh_url = ElasticSearch.url + "/_refresh"
-      response = HTTParty.post refresh_url
-      unless response["ok"]
-        raise "Something went wrong while refreshing #{refresh_url}: #{response}"
-      end
     end
   end
 end

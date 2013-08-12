@@ -1,13 +1,8 @@
-class window.EvidenceBottomView extends Backbone.Marionette.ItemView
-  className: 'evidence-bottom bottom-base'
-
+class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
   template: 'facts/evidence_bottom'
 
   triggers:
     'click .js-sub-comments-link': 'toggleSubCommentsList'
-
-  events:
-    'click .js-open-proxy-link': 'openEvidenceProxyLink'
 
   ui:
     subCommentsLink:          '.js-sub-comments-link'
@@ -15,14 +10,6 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @listenTo @model, 'change', @render
-
-  templateHelpers: ->
-    fact = @model.getFact?()
-
-    showDiscussion: -> @from_fact?
-    believe_percentage: fact?.opinionPercentage('believe')
-    disbelieve_percentage: fact?.opinionPercentage('disbelieve')
-    from_fact_sanitized: fact?.toJSON()
 
   onRender: ->
     @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
@@ -44,7 +31,21 @@ class window.EvidenceBottomView extends Backbone.Marionette.ItemView
   showSubCommentsLink: -> @ui.subCommentsLinkContainer.removeClass 'hide'
   hideSubCommentsLink: -> @ui.subCommentsLinkContainer.addClass 'hide'
 
-  openEvidenceProxyLink: (e) ->
-    mp_track "Evidence: Open proxy link",
-      site_url: @model.get("from_fact").fact_url
 
+# NOTE : when removing this class, don't forget to cleanup the template.
+class window.EvidenceBottomView extends GenericEvidenceBottomView
+  className: 'evidence-bottom bottom-base old-design-bottom-base'
+
+  templateHelpers: =>
+    fact = @model.getFact?()
+
+    showDiscussion: fact?
+    believe_percentage:    fact?.opinionPercentage('believe')
+    disbelieve_percentage: fact?.opinionPercentage('disbelieve')
+    from_fact_sanitized:   fact?.toJSON()
+
+class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
+  className: 'ndp-evidence-bottom bottom-base'
+
+  templateHelpers: =>
+    showTimeAgo: true
