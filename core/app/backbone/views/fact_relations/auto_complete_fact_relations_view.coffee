@@ -25,7 +25,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
       placeholder: @placeholder(options.type)
 
-    @listenTo @_text_input_view, 'focus', @focus
     @listenTo @model, 'change', @queryChanges
 
   placeholder: (type) ->
@@ -78,11 +77,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @trigger 'createFactRelation', fact_relation, => @enableSubmit()
 
   setQuery: (text) -> @model.set text: text
-
-  focus: ->
-    @$el.addClass 'active'
-
-    mp_track "Evidence: Search focus"
 
   reset: ->
     @setQuery ''
