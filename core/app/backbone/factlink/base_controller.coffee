@@ -13,8 +13,8 @@ class Backbone.Factlink.BaseController extends Backbone.Marionette.Controller
   getRouteFunction: (name) ->
     (args...) ->
       @stopListening()
-      @listenTo FactlinkApp.vent, 'controller:switch', @closeController
       @openController() unless @started
+      @listenTo FactlinkApp.vent, 'controller:switch', @closeController
       @onAction?()
       @[name](args...)
 
