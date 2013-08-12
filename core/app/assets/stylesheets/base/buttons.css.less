@@ -33,7 +33,7 @@ body.client {
       border-bottom: 0px
     }
 
-    &.button-loading {
+    &.button-loading, &[disabled] {
       .background-size(40px 40px);
       .striped(45deg, rgba(0,0,0,0.07));
       .animate-stripes(1.5s);
@@ -67,7 +67,7 @@ body.client {
       border-top: @largeButtonBorderWidth solid @buttonConfirmDarkBorder;
       border-bottom: 0px;
     }
-    &.button-loading {
+    &.button-loading, &[disabled] {
       .striped(45deg);
       color: rgba(255,255,255,0.6);
     }
@@ -88,7 +88,7 @@ body.client {
       border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
       border-bottom: 0px;
     }
-    &.button-loading {
+    &.button-loading, &[disabled] {
       .striped(45deg);
       color: rgba(255,255,255,0.6);
     }
@@ -109,7 +109,7 @@ body.client {
       border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
       border-bottom: 0px;
     }
-    &.button-loading {
+    &.button-loading, &[disabled] {
       .striped(45deg);
       color: rgba(255,255,255,0.6);
     }
@@ -130,7 +130,7 @@ body.client {
       border-top: @largeButtonBorderWidth solid @buttonHomeDarkBorder;
       border-bottom: 0px;
     }
-    &.button-loading {
+    &.button-loading, &[disabled] {
       .striped(45deg);
       color: @buttonHomeLink;
     }
@@ -153,7 +153,7 @@ body.client {
     &:active {
       padding-top: 0;
     }
-    &.button-loading {
+    &.button-loading, &[disabled] {
       .striped(45deg, rgba(0,0,0,0.04));
       color: @mutedFontColor;
     }
