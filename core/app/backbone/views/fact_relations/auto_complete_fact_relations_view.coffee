@@ -87,8 +87,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   setQuery: (text) -> @model.set text: text
 
   focus: ->
-    @$el.addClass 'active'
-
     mp_track "Evidence: Search focus"
 
   reset: ->
