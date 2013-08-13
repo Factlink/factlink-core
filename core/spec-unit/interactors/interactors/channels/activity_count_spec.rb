@@ -9,14 +9,17 @@ describe Interactors::Channels::ActivityCount do
     it 'correctly' do
       channel_id = double
       timestamp = double
+      count = mock
 
       described_class.any_instance.should_receive(:authorized?).and_return true
       interactor = described_class.new channel_id: channel_id,
         timestamp: timestamp
 
-      Pavlov.should_receive(:old_query).with(:"channels/activity_count", channel_id, timestamp)
+      Pavlov.should_receive(:query)
+            .with(:"channels/activity_count", channel_id: channel_id, timestamp: timestamp)
+            .and_return count
 
-      interactor.call
+      expect(interactor.call).to eq count
     end
   end
 
@@ -37,7 +40,7 @@ describe Interactors::Channels::ActivityCount do
     end
 
     it 'returns false when neither :current_user or :no_current_user are passed' do
-      expect_validating( channel_id: double, timestamp: double )
+      expect_validating(channel_id: double, timestamp: double)
         .to raise_error(Pavlov::AccessDenied)
     end
   end
