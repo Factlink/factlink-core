@@ -14,5 +14,5 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
     opinionaters_collection = new NDPEvidenceCollection null, fact: @model
     opinionaters_collection.fetch()
 
-    @evidenceRegion.show new NDPEvidenceCollectionView
+    @evidenceRegion.show new NDPEvidenceContainerView
       collection: opinionaters_collection

@@ -47,14 +47,9 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
     @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
 
-class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
-  className: 'evidence-collection'
-  template: 'evidence/ndp_evidence_collection'
-  itemView: NDPEvidenceLayoutView
-  itemViewContainer: '.js-evidence-item-view-container'
 
-  collectionEvents:
-    'request sync': '_updateLoading'
+class NDPEvidenceCollectionView extends Backbone.Marionette.CollectionView
+  itemView: NDPEvidenceLayoutView
 
   getItemView: (item) ->
     if item instanceof OpinionatersEvidence
@@ -62,9 +57,21 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
     else
       NDPVotableEvidenceLayoutView
 
+
+class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
+  className: 'evidence-container'
+  template: 'evidence/ndp_evidence_container'
+
+  regions:
+    collectionRegion: '.js-collection-region'
+
+  collectionEvents:
+    'request sync': '_updateLoading'
+
   onRender: ->
+    @collectionRegion.show new NDPEvidenceCollectionView collection: @collection
     @_updateLoading()
-    @$el.addClass 'evidence-collection-has-add' if Factlink.Global.signed_in
+    @$el.addClass 'evidence-container-has-add' if Factlink.Global.signed_in
 
   _updateLoading: ->
-    @$el.toggleClass 'evidence-collection-is-loading', @collection.loading()
+    @$el.toggleClass 'evidence-container-is-loading', @collection.loading()
