@@ -16,7 +16,7 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
     @updateSubCommentsLink()
 
   updateSubCommentsLink: ->
-    count = @model.get('sub_comments_count') || 0
+    count = @model.get('sub_comments_count')
     countText = switch count
       when 0 then "Comment"
       when 1 then "1 comment"
