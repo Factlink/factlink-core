@@ -64,6 +64,7 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
 
   onRender: ->
     @_updateLoading()
+    @$el.addClass 'evidence-collection-has-add' if Factlink.Global.signed_in
 
   _updateLoading: ->
     @$el.toggleClass 'evidence-collection-is-loading', @collection.loading()
