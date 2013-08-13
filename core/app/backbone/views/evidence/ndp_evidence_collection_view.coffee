@@ -62,7 +62,9 @@ class NDPAddEvidenceView extends Backbone.Marionette.ItemView
       </div>
 
       <div class="js-box">
-        <div class="evidence-impact">Hoi</div>
+        <div class="evidence-impact">
+          <div class="evidence-add-cross js-cancel"></div>
+        </div>
         <div class="evidence-box ndp-evidenceish ndp-evidenceish-box">
           <div class="evidence-box-triangle"></div>
           Mai

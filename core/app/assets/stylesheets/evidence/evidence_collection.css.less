@@ -468,3 +468,20 @@
 .evidence-add .evidence-impact {
   margin-top: -@impactCircleDiameter/2;
 }
+
+.evidence-add-cross {
+  width:  @impactCircleDiameter;
+  height: @impactCircleDiameter;
+  border-radius: 1000px;
+
+  background: asset-data-url('icon-cross.png') no-repeat 17px 17px;
+  opacity: 0.4;
+}
+
+.evidence-add .evidence-impact {
+  cursor: pointer;
+}
+
+.evidence-impact:hover .evidence-add-cross {
+  opacity: 0.6;
+}
