@@ -11,12 +11,6 @@ describe Commands::CreateConversation do
     stub_const 'Pavlov::ValidationError', RuntimeError
   end
 
-  it 'initializes correctly' do
-    command = described_class.new fact_id: fact_id,
-      recipient_usernames: ['username']
-    command.should_not be_nil
-  end
-
   it 'throws an error when recipient_usernames is not a list' do
     expect { described_class.new(fact_id: fact_id, recipients_usernames: nil).call }.
       to raise_error(RuntimeError, 'recipient_usernames should be a list')
