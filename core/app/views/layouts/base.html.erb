@@ -27,13 +27,6 @@
       </style>
     <% end %>
 
-    <% if Rails.env.development? %>
-      <script type="text/javascript">
-        //always show console.info in development
-        if (localStorage) localStorage.debug = true;
-      </script>
-    <% end %>
-
     <link rel="chrome-webstore-item"
       href="https://chrome.google.com/webstore/detail/<%=FactlinkUI::Application.config.chrome_extension_id%>">
 
