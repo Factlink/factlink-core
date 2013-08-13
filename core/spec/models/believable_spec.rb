@@ -53,7 +53,6 @@ describe Believable do
       it do
         believable.add_opiniated(opinion, user)
         believable.remove_opinionateds user
-        "Wrong".should eq "Right"
 
         believable.opiniated(opinion).count.should == 0
       end

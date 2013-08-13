@@ -18,7 +18,7 @@ describe "Feedback modal", type: :feature do
     end
 
     it "the form contains the correct input fields" do
-      "Wrong".should eq "Right"
+
       visit feedback_index_path
 
       page.should have_selector '#ticket_name',    visible: false
