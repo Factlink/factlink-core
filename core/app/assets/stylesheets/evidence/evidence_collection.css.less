@@ -438,37 +438,63 @@
   top: -@impactCircleDiameter/2 + 5px;
   background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
   cursor: pointer;
+  transition: all 0.1s;
 }
 
 .evidence-add-weakening {
   right: 50%;
   margin-right: 45px + 4px;
+
   background-color: @buttonDangerBackground;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonDangerBorder;
+  box-shadow: 0 @largeButtonBorderWidth @buttonDangerBorder;
 
   &:hover {
     background-color: @buttonDangerDarkBackground;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonDangerDarkBorder;
+    box-shadow: 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
+  }
+
+  &:active {
+    background-color: @buttonDangerDarkBackground;
+    border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
+    box-shadow: 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
   }
 }
 
 .evidence-add-supporting {
   left: 50%;
   margin-left: 45px + 5px;
-  background-color: rgb(24, 171, 117);
+
   background-color: @buttonSuccessBackground;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonSuccessBorder;
+  box-shadow: 0 @largeButtonBorderWidth @buttonSuccessBorder;
 
   &:hover {
     background-color: @buttonSuccessDarkBackground;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonSuccessDarkBorder;
+    box-shadow: 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
+  }
+
+  &:active {
+    background-color: @buttonSuccessDarkBackground;
+    border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
+    box-shadow: 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
   }
 }
 
 .evidence-add .evidence-impact {
   margin-top: -@impactCircleDiameter/2;
   cursor: pointer;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px 0 @buttonBorder;
+
+  background-color: white;
+  box-shadow: 0 @largeButtonBorderWidth @buttonBorder;
+  transition: box-shadow 0.1s, border-top 0.1s;
+
+  &:hover {
+    box-shadow: 0 @largeButtonBorderWidth @buttonDarkBorder;
+  }
+
+  &:active {
+    border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
+    box-shadow: 0 @largeButtonBorderWidth white;
+  }
 }
 
 .evidence-add-cross {
