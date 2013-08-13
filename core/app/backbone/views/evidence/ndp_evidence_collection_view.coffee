@@ -48,6 +48,19 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
     @contentRegion.show new InteractingUsersView model: @model
 
 
+class NDPAddEvidenceView extends Backbone.Marionette.ItemView
+  className: 'evidence-add'
+
+  template:
+    text: """
+      <div class="evidence-add-circle"></div>
+      <div class="evidence-add-weakening-line"></div>
+      <div class="evidence-add-supporting-line"></div>
+      <div class="evidence-add-weakening"></div>
+      <div class="evidence-add-supporting"></div>
+    """
+
+
 class NDPEvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: NDPEvidenceLayoutView
 
@@ -64,6 +77,7 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
 
   regions:
     collectionRegion: '.js-collection-region'
+    addRegion: '.js-add-region'
 
   collectionEvents:
     'request sync': '_updateLoading'
@@ -71,7 +85,10 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
   onRender: ->
     @collectionRegion.show new NDPEvidenceCollectionView collection: @collection
     @_updateLoading()
-    @$el.addClass 'evidence-container-has-add' if Factlink.Global.signed_in
+
+    if Factlink.Global.signed_in
+      @$el.addClass 'evidence-container-has-add'
+      @addRegion.show new NDPAddEvidenceView collection: @collection
 
   _updateLoading: ->
     @$el.toggleClass 'evidence-container-is-loading', @collection.loading()
