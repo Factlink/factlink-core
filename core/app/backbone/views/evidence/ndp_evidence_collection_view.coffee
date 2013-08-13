@@ -53,11 +53,21 @@ class NDPAddEvidenceView extends Backbone.Marionette.ItemView
 
   template:
     text: """
-      <div class="evidence-add-circle"></div>
-      <div class="evidence-add-weakening-line"></div>
-      <div class="evidence-add-supporting-line"></div>
-      <div class="evidence-add-weakening"></div>
-      <div class="evidence-add-supporting"></div>
+      <div class="js-buttons">
+        <div class="evidence-add-circle"></div>
+        <div class="evidence-add-weakening-line"></div>
+        <div class="evidence-add-supporting-line"></div>
+        <div class="evidence-add-weakening"></div>
+        <div class="evidence-add-supporting"></div>
+      </div>
+
+      <div class="js-supporting evidence-supporting">
+        <div class="evidence-impact">Hoi</div>
+        <div class="evidence-box ndp-evidenceish ndp-evidenceish-box">
+          <div class="evidence-box-triangle"></div>
+          Mai
+        </div>
+      </div>
     """
 
 
