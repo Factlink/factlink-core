@@ -1,30 +1,24 @@
 require 'spec_helper'
 
-
 describe 'elastic search' do
   before do
     ElasticSearch.stub synchronous: true
     stub_const 'TestClass', Struct.new(:id, :test_field)
   end
 
-  let (:test_query) do
-    Class.new Queries::ElasticSearch do
-      def define_query
-        :test_class
-      end
-    end
-  end
-
   def insert_and_query text, query
-    object = TestClass.new
-    object.test_field = text
-    object.id = '1'
-    Pavlov.command :'text_search/index', object: object, type_name: :test_class, fields: [:test_field]
+    object = TestClass.new '1', text
+    Pavlov.command :'text_search/index',
+                       object: object,
+                       type_name: :test_class,
+                       fields: [:test_field]
 
-    query = test_query.new keywords: query, page: 1, row_count: 10
-    query.call
+    Pavlov.query :elastic_search,
+                   keywords: query,
+                   page: 1,
+                   row_count: 10,
+                   types: [:test_class]
   end
-
 
   it 'searches for operators' do
     results = insert_and_query 'this is not making sense', 'not'

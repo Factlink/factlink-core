@@ -53,15 +53,15 @@ describe Queries::ElasticSearchChannel do
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       query = described_class.new keywords: keywords, page: 1, row_count: 20
-      hit = double
-      results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
-        code: 200)
-      query.stub get_object: double
+      hit = {'_id' => 1, '_type' => 'topic' }
+      response = { 'hits' => { 'hits' => [ hit ] } }
+      results = double(parsed_response: response, code: 200)
 
-      hit.stub(:[]).with('_id').and_return(1)
-      hit.stub(:[]).with('_type').and_return('topic')
+      Pavlov.stub(:old_query)
+            .with(:'topics/by_id_with_authority_and_facts_count', 1)
+            .and_return nil
 
-      HTTParty.stub(:get).
+      HTTParty.should_receive(:get).
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 

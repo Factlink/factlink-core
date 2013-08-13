@@ -1,19 +1,19 @@
+# TODO the tests should be refactored so they test this class directly
+# It is now inderectly integration tested via the other specs
+
 require 'uri'
 
 module Queries
   class ElasticSearch
     include Pavlov::Query
 
-    arguments :keywords, :page, :row_count
+    arguments :keywords, :page, :row_count, :types
 
     def execute
-      @types = []
-      define_query
-
       from = (page - 1) * row_count
 
       url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/" +
-            "#{@types.join(',')}/" +
+            "#{types.join(',')}/" +
             "_search?q=#{processed_keywords}&from=#{from}&size=#{row_count}&analyze_wildcard=true"
 
       results = HTTParty.get url
@@ -26,11 +26,8 @@ module Queries
       end
     end
 
-    def type type_name
-      @types << type_name
-    end
-
     private
+
     def lucene_special_characters_escaped_keywords
       # escaping && and || gives errors, use case is not so important, so removing.
       keywords.gsub('&&', ' ')
