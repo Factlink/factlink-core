@@ -2,16 +2,13 @@ module Acceptance
   module CommentHelper
       def toggle_to_comment
         within '.fact-relation-search' do
-          evidence_input = page.find_field 'text_input_view'
-          evidence_input.click
-
-          page.find('.js-switch').set true
+          page.find('.js-switch-to-factlink').set false
         end
       end
 
       def toggle_to_factlink
         within '.fact-relation-search' do
-          page.find('.js-switch').set false
+          page.find('.js-switch-to-factlink').set true
         end
       end
 
