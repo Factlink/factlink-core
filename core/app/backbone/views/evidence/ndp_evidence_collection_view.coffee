@@ -66,5 +66,4 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
     @_updateLoading()
 
   _updateLoading: ->
-    # @$el.toggleClass 'evidence-collection-is-loading', @collection.loading()
-    @$el.addClass 'evidence-collection-is-loading'
+    @$el.toggleClass 'evidence-collection-is-loading', @collection.loading()
