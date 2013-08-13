@@ -32,8 +32,6 @@ RSpec.configure do |config|
 
   config.mock_with :rspec
 
-  config.fail_fast = false
-
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
 
