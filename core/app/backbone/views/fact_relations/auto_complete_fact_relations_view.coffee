@@ -3,7 +3,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   events:
     "click .js-post": "addNew"
-    'click .js-switch': 'switchCheckboxClicked'
+    'click .js-switch-to-factlink': 'switchCheckboxClicked'
 
   regions:
     'wheel_region': '.fact-wheel'
