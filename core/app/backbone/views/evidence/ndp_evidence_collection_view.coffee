@@ -61,7 +61,7 @@ class NDPAddEvidenceView extends Backbone.Marionette.ItemView
         <div class="evidence-add-supporting js-supporting-button"></div>
       </div>
 
-      <div class="js-supporting-box evidence-supporting">
+      <div class="js-box">
         <div class="evidence-impact">Hoi</div>
         <div class="evidence-box ndp-evidenceish ndp-evidenceish-box">
           <div class="evidence-box-triangle"></div>
@@ -72,18 +72,23 @@ class NDPAddEvidenceView extends Backbone.Marionette.ItemView
 
   ui:
     buttons: '.js-buttons'
-    supportingBox: '.js-supporting-box'
-    weakeningBox: '.js-weakening-box'
+    box: '.js-box'
 
   events:
-    'click .js-supporting-button': 'addSupporting'
+    'click .js-supporting-button': 'showAddSupporting'
+    'click .js-weakening-button': 'showAddWeakening'
 
   onRender: ->
-    @ui.supportingBox.hide()
+    @ui.box.hide()
 
-  addSupporting: ->
+  showAddSupporting: -> @_showAdd true
+  showAddWeakening:  -> @_showAdd false
+
+  _showAdd: (supporting) ->
     @ui.buttons.hide()
-    @ui.supportingBox.show()
+    @ui.box.show()
+    @ui.box.toggleClass 'evidence-weakening', !supporting
+    @ui.box.toggleClass 'evidence-supporting', !!supporting
 
 class NDPEvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: NDPEvidenceLayoutView
