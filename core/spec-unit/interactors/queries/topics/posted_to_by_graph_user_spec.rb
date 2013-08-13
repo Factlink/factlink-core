@@ -23,11 +23,11 @@ describe Queries::Topics::PostedToByGraphUser do
       ChannelList.stub(:new).with(graph_user)
                  .and_return(channel_list)
 
-      Pavlov.stub(:old_query)
-            .with(:'topics/by_slug_title', channels[0].slug_title)
+      Pavlov.stub(:query)
+            .with(:'topics/by_slug_title', slug_title: channels[0].slug_title)
             .and_return(topics[0])
-      Pavlov.stub(:old_query)
-            .with(:'topics/by_slug_title', channels[1].slug_title)
+      Pavlov.stub(:query)
+            .with(:'topics/by_slug_title', slug_title: channels[1].slug_title)
             .and_return(topics[1])
 
       expect(query.call).to match_array topics

@@ -11,11 +11,11 @@ module Interactors
       end
 
       def topic
-        @topic ||= old_query :'topics/by_slug_title', slug_title
+        @topic ||= query :'topics/by_slug_title', slug_title: slug_title
       end
 
       def authority
-        old_query :authority_on_topic_for, topic, graph_user
+        query :authority_on_topic_for, topic: topic, graph_user: graph_user
       end
 
       def graph_user
