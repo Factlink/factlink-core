@@ -11,11 +11,11 @@ module ScreenshotTest
     end
 
     def new_file
-      Rails.root.join "#{Capybara.save_and_open_page_path}" "screenshot-#{@title}-new.png"
+      Rails.root.join "#{Capybara.save_and_open_page_path}" "/#{@title}.png"
     end
 
     def diff_file
-      Rails.root.join "#{Capybara.save_and_open_page_path}" "screenshot-#{@title}-diff.png"
+      Rails.root.join "#{Capybara.save_and_open_page_path}" "/#{@title}-diff.png"
     end
 
     def get_pixel(image, x, y)
@@ -84,7 +84,8 @@ module ScreenshotTest
     def take
       # binding.pry
       # Need this to let the animations settle.
-      sleep 0.5
+      sleep 0.75
+      # require'pry';binding.pry
       @page.driver.save_screenshot new_file, full: true
     end
   end
