@@ -70,6 +70,8 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     e.preventDefault()
     e.stopPropagation()
 
+    mp_track "Evidence: Switching to FactRelation"
+
   enableSubmit: ->
     @submitting = false
     @ui.submit.prop('disabled',false).text('Post comment')
