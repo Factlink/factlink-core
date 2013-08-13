@@ -9,7 +9,7 @@
 @evidenceBoxSpacing: 15px;
 @impactColouredBorderWidth: 3px;
 @evidenceRegionHorizontalMargin: 16px;
-@evidenceRegionBottomPadding: 10px;
+@evidenceRegionBottomPadding: 30px;
 
 // Arrows:
 @impactCircleVotableWithoutArrowsTopSpacing: 15px;
@@ -362,4 +362,40 @@
   .evidence-impact-vote-up, .evidence-impact-vote-down {
     display: block;
   }
+}
+
+// Add evidence buttons
+.evidence-add {
+  position: relative;
+  height: 30px;
+  visibility: visible;
+}
+
+.evidence-add-circle {
+  position: absolute;
+  left: 50%;
+  top: 2px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2px;
+  border-radius: 5px; //half would be enough
+  background-color: @lineColor;
+}
+
+.evidence-add-line-left, .evidence-add-line-right {
+  position: absolute;
+  top: 3px;
+  height: 3px;
+  width: 60px;
+  background-color: @lineColor;
+}
+
+.evidence-add-line-left {
+  right: 50%;
+  margin-right: 4px;
+}
+
+.evidence-add-line-right {
+  left: 50%;
+  margin-left: 5px;
 }
