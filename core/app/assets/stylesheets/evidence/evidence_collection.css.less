@@ -467,6 +467,8 @@
 
 .evidence-add .evidence-impact {
   margin-top: -@impactCircleDiameter/2;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px 0 @buttonBorder;
 }
 
 .evidence-add-cross {
@@ -476,10 +478,6 @@
 
   background: asset-data-url('icon-cross.png') no-repeat 17px 17px;
   opacity: 0.4;
-}
-
-.evidence-add .evidence-impact {
-  cursor: pointer;
 }
 
 .evidence-impact:hover .evidence-add-cross {
