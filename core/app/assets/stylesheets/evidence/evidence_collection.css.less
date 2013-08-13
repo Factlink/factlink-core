@@ -9,7 +9,8 @@
 @evidenceBoxSpacing: 15px;
 @impactColouredBorderWidth: 3px;
 @evidenceRegionHorizontalMargin: 16px;
-@evidenceRegionBottomPadding: 30px;
+@addEvidenceTopPadding: 50px;
+@evidenceRegionBottomPadding: 10px;
 
 // Arrows:
 @impactCircleVotableWithoutArrowsTopSpacing: 15px;
@@ -58,7 +59,7 @@
 
 .evidence-collection {
   position: relative;
-  padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
+  padding: 0 @negativeColumnMargin @addEvidenceTopPadding;
   margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
   box-sizing: content-box;
 }
@@ -367,7 +368,7 @@
 // Add evidence buttons
 .evidence-add {
   position: relative;
-  height: 30px;
+  height: @impactCircleDiameter/2 + @evidenceRegionBottomPadding;
   visibility: visible;
 }
 
@@ -382,20 +383,42 @@
   background-color: @lineColor;
 }
 
-.evidence-add-line-left, .evidence-add-line-right {
+.evidence-add-weakening-line, .evidence-add-supporting-line {
   position: absolute;
   top: 3px;
   height: 3px;
-  width: 70px;
+  width: 50px;
   background-color: @lineColor;
 }
 
-.evidence-add-line-weakening {
+.evidence-add-weakening-line {
   right: 50%;
   margin-right: 4px;
 }
 
-.evidence-add-line-supporting {
+.evidence-add-supporting-line {
   left: 50%;
   margin-left: 5px;
+}
+
+.evidence-add-weakening, .evidence-add-supporting {
+  .new-design-white-block-with-shadow();
+  width:  @impactCircleDiameter;
+  height: @impactCircleDiameter;
+  border-radius: 1000px;
+
+  position: absolute;
+  top: -@impactCircleDiameter/2 + 5px;
+}
+
+.evidence-add-weakening {
+  right: 50%;
+  margin-right: 50px;
+  background-color: rgb(203, 89, 89);
+}
+
+.evidence-add-supporting {
+  left: 50%;
+  margin-left: 50px;
+  background-color: rgb(24, 171, 117);
 }
