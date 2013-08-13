@@ -6,14 +6,8 @@ class window.FactRelationSearchResults extends SearchCollection
   initialize: (model, options) ->
     @fact_id = options.fact_id;
     @recent_collection = options.recent_collection
-    @listenTo @recent_collection, 'sync', @loadFromRecentCollection
+    @listenTo @recent_collection, 'sync', @_search
 
   url: -> "/facts/#{@fact_id}/evidence_search.json?s=#{@encodedQuery()}"
 
-  makeEmpty: ->
-    @query = ''
-    @loadFromRecentCollection()
-
-  loadFromRecentCollection: ->
-    @reset @recent_collection.models if @query == ''
-    @trigger 'sync'
+  emptyState: -> @recent_collection.models
