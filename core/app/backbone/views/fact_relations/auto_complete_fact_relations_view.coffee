@@ -66,6 +66,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
 
   switchCheckboxClicked: (e) ->
+    @$el.removeClass 'active'
     @trigger 'switch_to_comment_view', @model.get('text')
     e.preventDefault()
     e.stopPropagation()
