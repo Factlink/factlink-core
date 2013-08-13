@@ -16,17 +16,21 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     submit: '.js-post'
 
   initialize: (options) ->
-    recent_collection = options.recent_collection
-
     @initializeChildViews
       filter_on: 'id'
       search_list_view: (options) => new AutoCompleteSearchFactRelationsView _.extend {}, options,
-        recent_collection: recent_collection
+        recent_collection: @recentCollection()
       search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
       placeholder: @placeholder(options.type)
 
     @listenTo @_text_input_view, 'focus', @focus
     @listenTo @model, 'change', @queryChanges
+
+  recentCollection: ->
+    unless @_recent_collection?
+      @_recent_collection = new RecentlyViewedFacts
+      @_recent_collection.fetch()
+    @_recent_collection
 
   placeholder: (type) ->
     if type == "supporting"
