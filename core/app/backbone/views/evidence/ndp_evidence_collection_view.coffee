@@ -62,8 +62,8 @@ class NDPAddEvidenceView extends Backbone.Marionette.ItemView
       </div>
 
       <div class="js-box">
-        <div class="evidence-impact">
-          <div class="evidence-add-cross js-cancel"></div>
+        <div class="evidence-impact js-cancel">
+          <div class="evidence-add-cross"></div>
         </div>
         <div class="evidence-box ndp-evidenceish ndp-evidenceish-box">
           <div class="evidence-box-triangle"></div>
@@ -79,12 +79,17 @@ class NDPAddEvidenceView extends Backbone.Marionette.ItemView
   events:
     'click .js-supporting-button': 'showAddSupporting'
     'click .js-weakening-button': 'showAddWeakening'
+    'click .js-cancel': 'cancel'
 
   onRender: ->
-    @ui.box.hide()
+    @cancel()
 
   showAddSupporting: -> @_showAdd true
   showAddWeakening:  -> @_showAdd false
+
+  cancel: ->
+    @ui.box.hide()
+    @ui.buttons.show()
 
   _showAdd: (supporting) ->
     @ui.buttons.hide()
