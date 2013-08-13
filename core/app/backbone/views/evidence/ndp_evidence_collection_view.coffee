@@ -47,35 +47,24 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
     @$el.toggle @shouldShow()
     @contentRegion.show new InteractingUsersView model: @model
 
-
-class NDPEvidenceLoadingView extends Backbone.Marionette.ItemView
-  className: "evidence-loading"
-  template: 'evidence/ndp_evidence_loading_indicator'
-
-
-class NDPEvidenceEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
-  loadingView: NDPEvidenceLoadingView
-
-
 class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
   className: 'evidence-collection'
   template: 'evidence/ndp_evidence_collection'
   itemView: NDPEvidenceLayoutView
   itemViewContainer: '.js-evidence-item-view-container'
-  emptyView: NDPEvidenceEmptyLoadingView
 
-
-  itemViewOptions: ->
-    collection: @collection
-
-  showCollection: ->
-    if @collection.loading()
-      @showEmptyView()
-    else
-      super
+  collectionEvents:
+    'request sync': '_updateLoading'
 
   getItemView: (item) ->
     if item instanceof OpinionatersEvidence
       NDPOpinionatorsEvidenceLayoutView
     else
       NDPVotableEvidenceLayoutView
+
+  onRender: ->
+    @_updateLoading()
+
+  _updateLoading: ->
+    # @$el.toggleClass 'evidence-collection-is-loading', @collection.loading()
+    @$el.addClass 'evidence-collection-is-loading'
