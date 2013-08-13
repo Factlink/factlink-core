@@ -1,1 +1,0 @@
-cleanup-navbar-styling
