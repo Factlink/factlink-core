@@ -6,6 +6,7 @@ class window.SearchCollection extends Backbone.Collection
   makeEmpty: ->
     @query = ''
     @reset []
+    @trigger 'sync'
 
   throttle = (method) -> _.throttle method, 300, leading: false
   searchFor: throttle (query) ->
