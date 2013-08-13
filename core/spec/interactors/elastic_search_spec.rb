@@ -4,11 +4,7 @@ require 'spec_helper'
 describe 'elastic search' do
   before do
     ElasticSearch.stub synchronous: true
-    stub_const 'TestClass', Class.new
-    class TestClass
-      attr_accessor :test_field, :id
-    end
-
+    stub_const 'TestClass', Struct.new(:id, :test_field)
   end
 
   let (:test_query) do
@@ -33,13 +29,13 @@ describe 'elastic search' do
   it 'searches for operators' do
     results = insert_and_query 'this is not making sense', 'not'
 
-    results.length.should eq 1
+    expect(results.length).to eq 1
   end
 
   it 'searches for stop words' do
     results = insert_and_query 'this is the document body', 'the'
 
-    results.length.should eq 1
+    expect(results.length).to eq 1
   end
 
   it 'searches for sequences that need to be escaped doesn''t throw an error' do
@@ -57,18 +53,18 @@ describe 'elastic search' do
   it 'searches for wildcards correctly' do
     results = insert_and_query 'merry christmas', 'mer*'
 
-    results.length.should eq 1
+    expect(results.length).to eq 1
   end
 
   it 'searches for operator for a wildcard match' do
     results = insert_and_query 'noting', 'not'
 
-    results.length.should eq 1
+    expect(results.length).to eq 1
   end
 
   it 'searches for one letter' do
     results = insert_and_query 'merry christmas', 'm'
 
-    results.length.should eq 1
+    expect(results.length).to eq 1
   end
 end

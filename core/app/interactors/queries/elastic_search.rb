@@ -21,12 +21,9 @@ module Queries
 
       hits = results.parsed_response['hits']['hits']
 
-      result_objects = []
-
-      hits.each do |record|
-        result_objects << get_object(record['_id'], record['_type'])
+      hits.map do |record|
+        get_object(record['_id'], record['_type'])
       end
-      result_objects
     end
 
     def type type_name
@@ -39,8 +36,8 @@ module Queries
       keywords.gsub('&&', ' ')
               .gsub('||', ' ')
               .gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
-        '\\' + x
-      end
+                '\\' + x
+              end
     end
 
     def quoted_if_some_lucene_operators keyword
@@ -54,50 +51,41 @@ module Queries
     end
 
     def processed_keywords
-      lucene_special_characters_escaped_keywords.
-        split(/\s+/).
-        map{ |keyword| quoted_if_some_lucene_operators keyword}.
-        map{ |keyword| URI.escape(keyword) }.
-        map{ |keyword| "(#{keyword}*+OR+#{keyword})"}.
-        join("+AND+")
+      lucene_special_characters_escaped_keywords
+        .split(/\s+/)
+        .map{ |keyword| quoted_if_some_lucene_operators keyword}
+        .map{ |keyword| URI.escape(keyword) }
+        .map{ |keyword| "(#{keyword}*+OR+#{keyword})"}
+        .join("+AND+")
     end
 
     def handle_httparty_error results
       case results.code
         when 200..299
         when 400..499
-          error = "Client error, status code: #{results.code}, response: '#{results.response}'."
+          raise "Client error, status code: #{results.code}, response: '#{results.response}'."
         when 500..599
-          error = "Server error, status code: #{results.code}, response: '#{results.response}'."
+          raise "Server error, status code: #{results.code}, response: '#{results.response}'."
         else
-          error = "Unexpected status code: #{results.code}, response: '#{results.response}'."
+          raise "Unexpected status code: #{results.code}, response: '#{results.response}'."
       end
-
-      if error
-        logger.error(error)
-        raise error
-      end
-    end
-
-    def logger
-      @logger ||= (pavlov_options[:logger] || Logger.new(STDERR))
     end
 
     def get_object id, type
-      if type == 'factdata'
-        return FactData.find(id)
-      elsif type == 'topic'
-        return old_query :'topics/by_id_with_authority_and_facts_count', id
-      elsif type == 'user'
+      case type
+      when'factdata'
+        FactData.find(id)
+      when 'topic'
+        old_query :'topics/by_id_with_authority_and_facts_count', id
+      when 'user'
         mongoid_user = User.find(id)
 
-        return FactlinkUser.map_from_mongoid(mongoid_user)
-      elsif type == 'test_class'
-        obj = TestClass.new
-        obj.id=id
-        return obj
+        FactlinkUser.map_from_mongoid(mongoid_user)
+      when 'test_class'
+        TestClass.new(id)
+      else
+        raise 'Object type unknown.'
       end
-      raise 'Object type unknown.'
     end
   end
 end
