@@ -12,12 +12,6 @@ describe Interactors::SearchEvidence do
                  'Queries::ElasticSearchFactData'
   end
 
-  it 'initializes' do
-    interactor = described_class.new keywords: 'zoeken interessante dingen',
-      fact_id: '1', pavlov_options: { ability: relaxed_ability }
-    interactor.should_not be_nil
-  end
-
   it 'raises when initialized with keywords that is not a string' do
     interactor = described_class.new keywords: nil, fact_id: '1'
     expect { interactor.call }.
