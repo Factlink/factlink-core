@@ -1,30 +1,51 @@
-class BaseSubCommentsListView extends Backbone.Marionette.CompositeView
+class window.SubCommentsListView extends Backbone.Marionette.CompositeView
+  className: 'evidence-sub-comments-list'
   itemView: SubCommentView
   itemViewContainer: '.js-region-sub-comments-collection'
 
   template: 'sub_comments/sub_comments_list'
 
   initialize: ->
-    @collection.fetch update: true # only fires 'add' and 'remove' events
+    @collection.fetch()
 
   onShow: ->
     if Factlink.Global.signed_in
-      @$('.js-region-sub-comments-form').html @subCommentsAddView().render().el
+      @_subCommentsAddView ?= new SubCommentsAddView(addToCollection: @collection)
+      @$('.js-region-sub-comments-form').html @_subCommentsAddView.render().el
 
   onClose: ->
-    @subCommentsAddView().close()
+    @_subCommentsAddView?.close()
 
+class window.NDPSubCommentsView extends Backbone.Marionette.CollectionView
+  className: 'ndp-sub-comments'
+  emptyView: Backbone.Factlink.EmptyLoadingView
+  itemView: NDPSubCommentContainerView
 
-class window.SubCommentsListView extends BaseSubCommentsListView
-  className: 'evidence-sub-comments-list'
+  itemViewOptions: (model) ->
+    if model instanceof SubComment
+      creator: model.creator()
+      innerView: new NDPSubCommentView model: model
+    else # emptyView
+      collection: @collection
 
-  subCommentsAddView: ->
-    @_subCommentsAddView ?= new SubCommentsAddView(addToCollection: @collection)
+  _initialEvents: ->
+    @listenTo @collection, "add remove sync", @render
 
+  initialize: ->
+    @collection.fetch()
 
-class window.NDPSubCommentsListView extends BaseSubCommentsListView
-  itemView: NDPSubCommentView
-  template: 'sub_comments/ndp_sub_comments_list'
+    if Factlink.Global.signed_in
+      @_addViewContainer = new NDPSubCommentContainerView
+        creator: currentUser
+        innerView: new NDPSubCommentsAddView addToCollection: @collection
+      @_addViewContainer.render()
 
-  subCommentsAddView: ->
-    @_subCommentsAddView ?= new NDPSubCommentsAddView(addToCollection: @collection)
+  onRender: ->
+    return if @collection.loading()
+
+    @closeEmptyView() if @collection.length <= 0
+
+    # The add view needs to be sibling in the DOM tree of the otherSubCommentContainerViews
+    @$el.append @_addViewContainer.el if @_addViewContainer?
+
+  onClose: -> @_addViewContainer?.close()

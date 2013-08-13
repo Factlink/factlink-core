@@ -1,12 +1,9 @@
 @import "bootstrap/mixins";
 
 .bottom-base {
-  font-size: @baseFontSize;
-  clear: both;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
-  margin-top: 8px;
 
   .bottom-actions {
     margin: 0;
@@ -20,18 +17,13 @@
       }
     }
   }
-
-  a {
-    cursor: pointer;
-    font-weight: bold;
-    .transition(color .15s ease-in-out);
-    &:hover {
-      text-decoration: none;
-    }
-  }
 }
 
 .old-design-bottom-base {
+  font-size: @baseFontSize;
+  margin-top: 8px;
+  clear: both;
+
   > .title-overflow {
     z-index: 100;
     background: image-url('discussions/title_fade.png') right repeat-y;
@@ -85,7 +77,7 @@
   margin-left: 92px;
 }
 
-.ndp-evidence-bottom {
+.ndp-evidenceish-bottom {
   .bottom-actions .posted-time-ago {
     float: right;
   }

@@ -2,6 +2,7 @@ class window.FactRelation extends Evidence
 
   defaults:
     evidence_type: 'FactRelation'
+    sub_comments_count: 0
 
   setOpinion: (type) ->
     Backbone.ajax

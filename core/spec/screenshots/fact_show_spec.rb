@@ -9,7 +9,7 @@ describe "factlink", type: :feature do
     @factlink = create_discussion
 
     go_to_fact_show_of @factlink
-    first('a', text: 'Comments (1)').click
+    first('a', text: '1 comment').click
 
     page.should have_content @factlink.data.displaystring
 
@@ -69,7 +69,7 @@ describe "factlink", type: :feature do
     sign_out_user
 
     go_to_fact_show_of @factlink
-    first('a', text: 'Comments (1)').click
+    first('a', text: '1 comment').click
 
     page.should have_content @factlink.data.displaystring
 
