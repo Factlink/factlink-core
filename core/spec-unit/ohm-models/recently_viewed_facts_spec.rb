@@ -24,6 +24,7 @@ describe RecentlyViewedFacts do
       fact = double id: 14
       nest = double
       count = 10
+      "Wrong".should eq "Right"
 
       nest.should_receive(:zrevrange).with(0, count-1).and_return([fact.id])
 
