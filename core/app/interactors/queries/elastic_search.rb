@@ -44,7 +44,7 @@ module Queries
       # http://lucene.apache.org/core/old_versioned_docs/versions/3_5_0/queryparsersyntax.html#Escaping%20Special%20Characters
       # NOT and AND and OR could be interpreted as operators, maybe wildcard search for them doesn't work
       if ['NOT', 'AND', 'OR'].include? keyword
-        return "'#{keyword}'"
+        "'#{keyword}'"
       else
         keyword
       end
@@ -61,13 +61,13 @@ module Queries
 
     def handle_httparty_error results
       case results.code
-        when 200..299
-        when 400..499
-          raise "Client error, status code: #{results.code}, response: '#{results.response}'."
-        when 500..599
-          raise "Server error, status code: #{results.code}, response: '#{results.response}'."
-        else
-          raise "Unexpected status code: #{results.code}, response: '#{results.response}'."
+      when 200..299
+      when 400..499
+        raise "Client error, status code: #{results.code}, response: '#{results.response}'."
+      when 500..599
+        raise "Server error, status code: #{results.code}, response: '#{results.response}'."
+      else
+        raise "Unexpected status code: #{results.code}, response: '#{results.response}'."
       end
     end
 
