@@ -24,12 +24,13 @@ describe Interactors::Topics::Unfavourite do
       interactor = described_class.new(user_name: 'username',
         slug_title: 'slug_title', pavlov_options: pavlov_options)
 
-      Pavlov.stub(:old_query)
-        .with(:user_by_username, 'username', pavlov_options)
+      Pavlov.stub(:query)
+        .with(:user_by_username, username: 'username', pavlov_options: pavlov_options)
         .and_return(user)
 
-      expect { interactor.call }.
-        to raise_error Pavlov::AccessDenied, 'Unauthorized'
+      expect do
+        interactor.call
+      end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
 
@@ -51,14 +52,14 @@ describe Interactors::Topics::Unfavourite do
 
       topic = double(id: double)
 
-      Pavlov.stub(:old_query)
-        .with(:'user_by_username', user_name, pavlov_options)
+      Pavlov.stub(:query)
+        .with(:'user_by_username', username: user_name, pavlov_options: pavlov_options)
         .and_return(user)
-      Pavlov.stub(:old_query)
-        .with(:'topics/by_slug_title', slug_title, pavlov_options)
+      Pavlov.stub(:query)
+        .with(:'topics/by_slug_title', slug_title: slug_title, pavlov_options: pavlov_options)
         .and_return(topic)
-      Pavlov.should_receive(:old_command)
-        .with(:'topics/unfavourite', user.graph_user_id, topic.id.to_s, pavlov_options)
+      Pavlov.should_receive(:command)
+        .with(:'topics/unfavourite', graph_user_id: user.graph_user_id, topic_id: topic.id.to_s, pavlov_options: pavlov_options)
 
       interactor.should_receive(:mp_track)
         .with('Topic: Unfavourited', slug_title: slug_title)

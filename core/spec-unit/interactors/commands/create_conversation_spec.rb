@@ -33,20 +33,19 @@ describe Commands::CreateConversation do
       command = described_class.new fact_id: fact_id,
         recipient_usernames: [username]
       recipients = double('recipients')
-      conversation = double('conversation', :recipients => recipients)
-      Conversation.should_receive(:new).and_return(conversation)
+      conversation = double('conversation', recipients: recipients)
+      Conversation.stub(:new).and_return(conversation)
       user = double
 
-      Pavlov.should_receive(:old_query).with(:user_by_username, username).
-        and_return(user)
-
+      Pavlov.stub(:query)
+            .with(:user_by_username, username: username)
+            .and_return(user)
 
       fact_data_id = 'abc'
       fact = double('fact', data_id: fact_data_id)
-      Fact.should_receive(:[]).with(fact_id).and_return(fact)
+      Fact.stub(:[]).with(fact_id).and_return(fact)
 
       recipients.should_receive(:<<).with(user)
-
       conversation.should_receive(:fact_data_id=).with(fact_data_id)
       conversation.should_receive(:save)
 
@@ -57,10 +56,11 @@ describe Commands::CreateConversation do
       username = 'username'
       command = described_class.new fact_id: fact_id,
         recipient_usernames: [username]
-      Conversation.should_receive(:new).and_return(double('conversation'))
+      Conversation.stub(:new).and_return(double('conversation'))
 
-      Pavlov.should_receive(:old_query).with(:user_by_username, username).
-        and_return(nil)
+      Pavlov.stub(:query)
+            .with(:user_by_username, username: username)
+            .and_return(nil)
 
       expect {command.call}.to raise_error(Pavlov::ValidationError, 'user_not_found')
     end

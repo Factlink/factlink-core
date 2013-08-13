@@ -14,15 +14,15 @@ module Interactors
       end
 
       def user
-        @user ||= old_query :user_by_username, user_name
+        @user ||= query :user_by_username, username: user_name
       end
 
       def topic
-        @topic ||= old_query :'topics/by_slug_title', slug_title
+        @topic ||= query :'topics/by_slug_title', slug_title: slug_title
       end
 
       def execute
-        old_command :'topics/favourite', user.graph_user_id, topic.id.to_s
+        command :'topics/favourite', graph_user_id: user.graph_user_id, topic_id: topic.id.to_s
         track_mixpanel
         nil
       end
