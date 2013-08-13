@@ -59,9 +59,8 @@ bindRegistrationForm = (formId) ->
     setErrorsOnFields formId, fieldErrors
 
   clearPreviousErrorsForForm = (form) ->
-    _.each (form.find "input"), (el) ->
-      # $(el).removeClass "error"
-      $(el).css border: "1px solid #ccc"
+    _.each (form.find "input.text"), (el) ->
+      $(el).removeClass 'error'
       $(el).popover "destroy"
 
 bindRegistrationForm "top_registration_form"
