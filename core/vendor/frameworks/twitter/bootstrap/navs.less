@@ -30,16 +30,13 @@
 // -------------
 
 // Common styles
-.nav-tabs,
-.nav-pills {
+.nav-tabs {
   .clearfix();
 }
-.nav-tabs > li,
-.nav-pills > li {
+.nav-tabs > li {
   float: left;
 }
-.nav-tabs > li > a,
-.nav-pills > li > a {
+.nav-tabs > li > a {
   padding-right: 12px;
   padding-left: 12px;
   margin-right: 2px;
@@ -78,28 +75,6 @@
   cursor: default;
 }
 
-
-// PILLS
-// -----
-
-// Links rendered as pills
-.nav-pills > li > a {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  .border-radius(5px);
-}
-
-// Active state
-.nav-pills > .active > a,
-.nav-pills > .active > a:hover {
-  color: @white;
-  background-color: @linkColor;
-}
-
-
-
 // STACKED NAV
 // -----------
 
@@ -130,24 +105,11 @@
   z-index: 2;
 }
 
-// Pills
-.nav-pills.nav-stacked > li > a {
-  margin-bottom: 3px;
-}
-.nav-pills.nav-stacked > li:last-child > a {
-  margin-bottom: 1px; // decrease margin to match sizing of stacked tabs
-}
-
-
-
 // DROPDOWNS
 // ---------
 
 .nav-tabs .dropdown-menu {
   .border-radius(0 0 6px 6px); // remove the top rounded corners here since there is a hard edge above the menu
-}
-.nav-pills .dropdown-menu {
-  .border-radius(6px); // make rounded corners match the pills
 }
 
 // Default dropdown links
@@ -187,7 +149,6 @@
 // Open dropdowns
 // -------------------------
 .nav-tabs .open .dropdown-toggle,
-.nav-pills .open .dropdown-toggle,
 .nav > li.dropdown.open.active > a:hover {
   color: @white;
   background-color: @grayLight;
