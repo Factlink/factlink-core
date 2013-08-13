@@ -381,7 +381,7 @@
 // Add evidence buttons
 .evidence-add {
   position: relative;
-  height: @impactCircleDiameter/2;
+  height: 100px;
   visibility: visible;
   display: none;
 }
@@ -463,4 +463,8 @@
     background-color: @buttonSuccessDarkBackground;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonSuccessDarkBorder;
   }
+}
+
+.evidence-add .evidence-impact {
+  margin-top: -@impactCircleDiameter/2;
 }
