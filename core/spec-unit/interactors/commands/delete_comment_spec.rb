@@ -9,14 +9,12 @@ describe Commands::DeleteComment do
   end
 
   it 'when supplied with a invalid comment id should not validate' do
-    command = described_class.new comment_id: 'g6', user_id: 3
-    expect { command.call }
+    expect_validating(comment_id: 'g6', user_id: 3)
       .to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
   end
 
   it 'when supplied with a invalid user id should not validate' do
-    command = described_class.new comment_id: '1a', user_id: 'g6'
-    expect { command.call }
+    expect_validating(comment_id: '1a', user_id: 'g6')
       .to raise_error(Pavlov::ValidationError, 'user_id should be an hexadecimal string.')
   end
 
@@ -26,11 +24,12 @@ describe Commands::DeleteComment do
       comment = double(id: '1a', created_by_id: user.id, deletable?: true)
       interactor = described_class.new comment_id: comment.id, user_id: user.id
 
-      Pavlov.stub(:old_query)
-            .with(:"comments/can_destroy", comment.id, user.id)
+      Pavlov.stub(:query)
+            .with(:"comments/can_destroy", comment_id: comment.id, user_id: user.id)
             .and_return(true)
 
-      Comment.should_receive(:find).with(comment.id).and_return(comment)
+      Comment.stub(:find).with(comment.id).and_return(comment)
+
       comment.should_receive(:delete)
 
       interactor.call
@@ -42,8 +41,8 @@ describe Commands::DeleteComment do
 
       command = described_class.new comment_id: comment_id, user_id: user_id
 
-      Pavlov.should_receive(:old_query)
-            .with(:"comments/can_destroy", comment_id, user_id)
+      Pavlov.should_receive(:query)
+            .with(:"comments/can_destroy", comment_id: comment_id, user_id: user_id)
             .and_return(false)
 
       expect do

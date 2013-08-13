@@ -35,22 +35,22 @@ describe Interactors::Evidence::ForFactId do
       interactor = described_class.new fact_id: '1', type: :supporting,
         pavlov_options: { ability: ability }
 
-      expect { interactor.call }
-        .to raise_error(Pavlov::AccessDenied)
+      expect do
+        interactor.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
   end
 
   describe '#call' do
     it 'correctly' do
-      fact_id = '1'
       type = :supporting
-      fact = double
+      fact = double id: '1'
       pavlov_options = { current_user: double, ability: double(can?: true) }
-      interactor = described_class.new fact_id: fact_id, type: type,
+      interactor = described_class.new fact_id: fact.id, type: type,
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-              .with(:'evidence/for_fact_id', fact_id, type, pavlov_options)
+      Pavlov.stub(:query)
+              .with(:'evidence/for_fact_id', fact_id: fact.id, type: type, pavlov_options: pavlov_options)
               .and_return(fact)
 
       expect(interactor.call).to eq fact
