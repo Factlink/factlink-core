@@ -2,7 +2,6 @@ setErrorsOnFields = (formId, fieldErrors) ->
   _.forEach fieldErrors, (errorMessage, field) ->
     el = $("#" + formId + "_user_" + field)
 
-    # el.css border: "1px solid rgb(206, 0, 0)"
     el.addClass "error"
     showErrorPopover el, "#{field} #{errorMessage}", formId
 
