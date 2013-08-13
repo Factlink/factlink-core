@@ -14,7 +14,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   onRender: ->
     @recentsRegion.show @recentlyViewedFactsView()
-    @switchToFactRelationView()
+    @switchToCommentView()
 
   fact_relations_masquerading_as_facts: ->
     @_fact_relations_masquerading_as_facts ?= collectionMap new Backbone.Collection, @collection, (model) ->

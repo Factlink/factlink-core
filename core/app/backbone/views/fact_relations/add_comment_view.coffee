@@ -5,7 +5,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   className: 'add-comment'
   events:
     'click .js-post': 'addWithHighlight'
-    'click .js-switch': 'switchCheckboxClicked'
+    'click .js-switch-to-factlink': 'switchCheckboxClicked'
     'keydown .js-content': 'parseKeyDown'
 
   template: 'comments/add_comment'
@@ -30,7 +30,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
     @model = new Comment
       content: @formContent()
-      created_by: currentUser
+      created_by: currentUser.toJSON()
 
     return @addModelError() unless @model.isValid()
 
@@ -69,6 +69,8 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @trigger 'switch_to_fact_relation_view', @$('.js-content').val()
     e.preventDefault()
     e.stopPropagation()
+
+    mp_track "Evidence: Switching to FactRelation"
 
   enableSubmit: ->
     @submitting = false

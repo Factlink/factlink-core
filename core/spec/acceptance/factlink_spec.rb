@@ -4,6 +4,7 @@ describe "factlink", type: :feature do
   include FactHelper
   include Acceptance::FactHelper
   include Acceptance::AuthenticationHelper
+  include Acceptance::CommentHelper
 
   context "for logged in users" do
     before :each do
@@ -12,29 +13,17 @@ describe "factlink", type: :feature do
 
     it "evidence can be added" do
       @factlink = create_factlink @user
-      search_string = 'Test search'
+      factlink_text = 'Test text'
 
       visit friendly_fact_path(@factlink)
 
       page.should have_content(@factlink.data.title)
 
-      within '.auto-complete-fact-relations' do
-        input = page.find(:css, 'input')
-        input.set(search_string)
-        if page.driver == :poltergeist then
-          input.trigger('focus')
-        else
-          input.click
-        end
-      end
-
-      page.should have_selector(".auto-complete-search-list-container")
-
-      page.find('.fact-relation-post').click
+      add_new_factlink factlink_text
 
       page.should have_selector('li.evidence-item')
       within(:css, 'li.evidence-item') do
-        page.should have_content search_string
+        page.should have_content factlink_text
       end
     end
 
@@ -112,13 +101,7 @@ describe "factlink", type: :feature do
       visit friendly_fact_path(@factlink)
       page.should have_content(@factlink.data.title)
 
-      within '.fact-relation-search' do
-        fill_in 'text_input_view', with: displaystring
-      end
-
-      within '.auto-complete-search-list' do
-        page.should have_content @factlink_evidence.data.displaystring
-      end
+      add_existing_factlink displaystring
     end
   end
 
