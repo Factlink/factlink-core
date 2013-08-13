@@ -5,7 +5,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   className: 'add-comment'
   events:
     'click .js-post': 'addWithHighlight'
-    'click .js-switch': 'switchCheckboxClicked'
+    'click .js-switch-to-factlink': 'switchCheckboxClicked'
     'keydown .js-content': 'parseKeyDown'
 
   template: 'comments/add_comment'
