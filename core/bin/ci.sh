@@ -26,7 +26,9 @@ for action in bin/ci/*.sh; do
   fi
   if [ -f TEST_FAILURE ] ; then
     ./script/set-status.sh "$GIT_COMMIT" failure "$BUILD_URL" "$BUILD_TAG" > github_failure_response.json
-    exit
   fi
 done
+if [ -f TEST_FAILURE ] ; then
+  exit
+fi
 ./script/set-status.sh "$GIT_COMMIT" success "$BUILD_URL" "$BUILD_TAG"  > github_success_response.json
