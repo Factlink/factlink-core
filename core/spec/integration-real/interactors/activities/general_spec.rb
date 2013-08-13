@@ -13,14 +13,10 @@ describe Interactors::Topics::Facts do
       created_facts = channel.created_by.created_facts_channel
       stream = channel.created_by.stream
 
-      a1 = pavlov.old_command :create_activity, channel.created_by,
-                       :added_fact_to_channel, fact, channel
-      a2 = pavlov.old_command :create_activity, channel.created_by,
-                       :added_fact_to_channel, fact, created_facts
-      a3 = pavlov.old_command :create_activity, channel.created_by,
-                       :added_fact_to_channel, fact, stream
-      a4 = pavlov.old_command :create_activity, channel.created_by,
-                       :foo, nil, nil
+      a1 = pavlov.old_command :create_activity, channel.created_by,                       :added_fact_to_channel, fact, channel
+      a2 = pavlov.old_command :create_activity, channel.created_by,                       :added_fact_to_channel, fact, created_facts
+      a3 = pavlov.old_command :create_activity, channel.created_by,                       :added_fact_to_channel, fact, stream
+      a4 = pavlov.old_command :create_activity, channel.created_by,                       :foo, nil, nil
 
       all_activity_ids = Activity.all.ids
       just_created_ids = [a1, a2, a3, a4].map(&:id)
@@ -37,16 +33,12 @@ describe Interactors::Topics::Facts do
         created_facts = channel.created_by.created_facts_channel
         stream = channel.created_by.stream
 
-        a1 = pavlov.old_command :create_activity, channel.created_by,
-                         :added_fact_to_channel, fact, channel
-        a2 = pavlov.old_command :create_activity, channel.created_by,
-                         :added_fact_to_channel, fact, created_facts
-        a3 = pavlov.old_command :create_activity, channel.created_by,
-                         :added_fact_to_channel, fact, stream
-        a4 = pavlov.old_command :create_activity, channel.created_by,
-                         :foo, nil, nil
+        a1 = pavlov.old_command :create_activity, channel.created_by,                         :added_fact_to_channel, fact, channel
+        a2 = pavlov.old_command :create_activity, channel.created_by,                         :added_fact_to_channel, fact, created_facts
+        a3 = pavlov.old_command :create_activity, channel.created_by,                         :added_fact_to_channel, fact, stream
+        a4 = pavlov.old_command :create_activity, channel.created_by,                         :foo, nil, nil
 
-        pavlov.old_command :'activities/clean_up_faulty_add_fact_to_channels'
+        pavlov.command :'activities/clean_up_faulty_add_fact_to_channels'
 
         all_activity_ids = Activity.all.ids
         correct_ids = [a1, a4].map(&:id)
@@ -66,14 +58,10 @@ describe Interactors::Topics::Facts do
         channel = pavlov.old_command :'channels/create', 'something'
         channel2 = pavlov.old_command :'channels/create', 'something else'
 
-        valid = pavlov.old_command :create_activity, channel.created_by,
-                         :foo, fact3, channel2
-        with_invalid_subject = pavlov.old_command :create_activity, channel.created_by,
-                         :foo, fact, nil
-        with_invalid_object = pavlov.old_command :create_activity, channel.created_by,
-                         :foo, fact2, channel
-        valid_with_nils = pavlov.old_command :create_activity, channel.created_by,
-                         :foo, nil, nil
+        valid = pavlov.old_command :create_activity, channel.created_by,                         :foo, fact3, channel2
+        with_invalid_subject = pavlov.old_command :create_activity, channel.created_by,                         :foo, fact, nil
+        with_invalid_object = pavlov.old_command :create_activity, channel.created_by,                         :foo, fact2, channel
+        valid_with_nils = pavlov.old_command :create_activity, channel.created_by,                         :foo, nil, nil
 
         fact.delete
         channel.delete
