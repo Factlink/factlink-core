@@ -1,1 +1,1 @@
-move-recent-factlinks
+Moved "Recent Factlinks" to auto-complete form.
