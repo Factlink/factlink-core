@@ -368,6 +368,7 @@
 @supportingLineOffset: 4px + floor(@middleLineWidth/2);
 @evidenceAddLinesTop: 3px;
 @evidenceAddCircleExtraRadius: 1px;
+@evidenceAddLineLength: 45px;
 
 .evidence-add {
   position: relative;
@@ -402,7 +403,7 @@
   position: absolute;
   top: @evidenceAddLinesTop;
   height: @middleLineWidth;
-  width: 50px;
+  width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
   background-color: @lineColor;
 }
 
@@ -429,7 +430,7 @@
 
 .evidence-add-weakening {
   right: 50%;
-  margin-right: 45px + @weakeningLineOffset;
+  margin-right: @evidenceAddLineLength + @weakeningLineOffset;
   background-color: @buttonDangerBackground;
   box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonDangerBorder;
 
@@ -441,8 +442,7 @@
 
 .evidence-add-supporting {
   left: 50%;
-  margin-left: 45px + @supportingLineOffset;
-  background-color: rgb(24, 171, 117);
+  margin-left: @evidenceAddLineLength + @supportingLineOffset;
   background-color: @buttonSuccessBackground;
   box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonSuccessBorder;
 
