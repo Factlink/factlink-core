@@ -90,7 +90,6 @@ describe "factlink", type: :feature do
     end
 
     it "should find a factlink when searching on a exact phrase containing small words" do
-      pending
       displaystring = 'feathers is not a four letter groom betters'
 
       @factlink = create_factlink @user
