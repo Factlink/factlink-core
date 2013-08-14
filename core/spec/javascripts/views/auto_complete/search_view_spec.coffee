@@ -14,7 +14,7 @@ describe 'AutoCompleteSearchView', ->
       Backbone.Factlink.TextInputView = sinon.stub().returns(text_input_view)
 
       view.initializeChildViews(
-        search_collection: -> new SearchCollection
+        search_collection: new SearchCollection
         search_list_view: (options) -> new AutoCompleteSearchListView(options)
         placeholder: 'placeholder'
       )
@@ -34,7 +34,8 @@ describe 'AutoCompleteSearchView', ->
         collection: collection
 
       view.initializeChildViews(
-        search_collection: -> new SearchCollection
+        search_collection: new SearchCollection
+        filtered_search_collection: new SearchCollection
         search_list_view: (options) -> new AutoCompleteSearchListView(options)
         placeholder: 'placeholder'
         filter_on: 'bla'

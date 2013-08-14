@@ -11,3 +11,6 @@ class window.TopicSearchResults extends SearchCollection
     'title': @query
     'slug_title': @query.toLowerCase() # not the same as what happens on the server, but good enough for now
     'new': true
+
+class window.FilteredTopicSearchResults extends Backbone.Collection
+  model: Topic

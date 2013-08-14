@@ -1,10 +1,10 @@
 class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
   initializeChildViews: (opts)->
-    @initSearchCollection(opts.search_collection())
+    @initSearchCollection(opts.search_collection)
 
     @initSearchModel()
     @initTextInputView opts.placeholder
-    @initFilteredSearchCollection opts.search_collection, opts.filter_on
+    @initFilteredSearchCollection opts.filtered_search_collection, opts.filter_on
     @initSearchListView opts.search_list_view
 
     @bindTextViewToSteppableViewAndSelf(@_text_input_view, @_search_list_view)
@@ -25,9 +25,9 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
       model: @model
       placeholder: placeholder ? ''
 
-  initFilteredSearchCollection: (search_collection, filter_on) ->
-    if search_collection? and filter_on?
-      @filtered_search_collection = collectionDifference(search_collection(),
+  initFilteredSearchCollection: (filtered_search_collection, filter_on) ->
+    if filtered_search_collection? and filter_on?
+      @filtered_search_collection = collectionDifference(filtered_search_collection,
         filter_on, @search_collection, @collection)
     else
       @filtered_search_collection = @search_collection

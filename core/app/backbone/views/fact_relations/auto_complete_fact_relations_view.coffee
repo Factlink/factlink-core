@@ -20,9 +20,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       filter_on: 'id'
       search_list_view: (options) => new AutoCompleteSearchFactRelationsView _.extend {}, options,
         recent_collection: @recentCollection()
-      search_collection: => new FactRelationSearchResults [],
+      search_collection: new FactRelationSearchResults [],
         fact_id: options.fact_id
         recent_collection: @recentCollection()
+      filtered_search_collection: new FilteredFactRelationSearchResults
       placeholder: @placeholder(options.type)
 
     @listenTo @_text_input_view, 'focus', @focus
