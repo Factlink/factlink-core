@@ -5,6 +5,16 @@ class window.TopicSearchResults extends SearchCollection
     @user = options.user
     @on 'sync', => @addNewItem('title')
 
+  comparator: (model) ->
+    newItem = model.get('new')
+    title = model.get('title')
+    if not newItem and @user? and model.existingChannelFor @user
+      "A #{title}"
+    else if not newItem
+      "B #{title}"
+    else
+      "C"
+
   url: -> "/" + currentUser.get('username') + "/channels/find.json?s=#{@encodedQuery()}"
 
   getNewItem: -> new Topic
