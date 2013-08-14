@@ -20,7 +20,6 @@ feature "adding factlinks to a fact", type: :feature do
   end
 
   scenario "after adding a piece of evidence, evidence list should contain that item" do
-    pending
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
@@ -35,7 +34,6 @@ feature "adding factlinks to a fact", type: :feature do
   end
 
   scenario "we can click on evidence to go to the page of that factlink" do
-    pending
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
@@ -52,7 +50,6 @@ feature "adding factlinks to a fact", type: :feature do
   end
 
   scenario "we can click on the discussion link to go to the page of that factlink" do
-    pending
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
@@ -69,7 +66,6 @@ feature "adding factlinks to a fact", type: :feature do
   end
 
   scenario "after clicking the factwheel, the impact and percentages should update" do
-    pending
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
@@ -102,7 +98,6 @@ feature "adding factlinks to a fact", type: :feature do
   end
 
   scenario "factlink should show Arguments (1) on profile page" do
-    pending
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
@@ -117,7 +112,6 @@ feature "adding factlinks to a fact", type: :feature do
   end
 
   scenario "unsetting relevance" do
-    pending
     use_features :vote_up_down_popup
     switch_to_user(@user)
 
