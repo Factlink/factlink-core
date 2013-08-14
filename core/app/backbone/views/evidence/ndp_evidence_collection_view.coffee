@@ -51,26 +51,7 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
 class NDPAddEvidenceView extends Backbone.Marionette.ItemView
   className: 'evidence-add'
 
-  template:
-    text: """
-      <div class="js-buttons">
-        <div class="evidence-add-circle"></div>
-        <div class="evidence-add-weakening-line"></div>
-        <div class="evidence-add-supporting-line"></div>
-        <div class="evidence-add-weakening js-weakening-button"></div>
-        <div class="evidence-add-supporting js-supporting-button"></div>
-      </div>
-
-      <div class="js-box">
-        <div class="evidence-impact js-cancel">
-          <div class="evidence-add-cross"></div>
-        </div>
-        <div class="evidence-box ndp-evidenceish ndp-evidenceish-box">
-          <div class="evidence-box-triangle"></div>
-          Mai
-        </div>
-      </div>
-    """
+  template: 'ndp_add_evidence'
 
   ui:
     buttons: '.js-buttons'
