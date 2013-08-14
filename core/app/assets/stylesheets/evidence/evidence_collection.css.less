@@ -190,8 +190,6 @@
 
 // Loading
 .evidence-loading {
-  display: none;
-
   img {
     position: absolute;
     top: 50%; left: 50%;
@@ -199,8 +197,8 @@
   }
 }
 
-.evidence-collection-is-loading .evidence-loading {
-  display: block;
+.evidence-collection-loaded .evidence-loading {
+  display: none;
 }
 
 // Coloured half-circles
@@ -392,7 +390,7 @@
   display: none;
 }
 
-.evidence-collection-has-add {
+.evidence-collection-has-add.evidence-collection-loaded {
   .evidence-add {
     display: block;
   }
@@ -400,10 +398,6 @@
   .evidence-list {
     padding-bottom: @addEvidenceTopPadding;
   }
-}
-
-.evidence-collection-is-loading .evidence-add {
-  display: none;
 }
 
 .evidence-add-circle {
