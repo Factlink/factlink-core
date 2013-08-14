@@ -379,6 +379,9 @@
 }
 
 // Add evidence buttons
+@weakeningLineOffset: 4px; // different values because of odd line width
+@supportingLineOffset: 5px;
+
 .evidence-add {
   position: relative;
   height: @impactCircleDiameter/2;
@@ -421,7 +424,7 @@
 
 .evidence-add-weakening-line {
   right: 50%;
-  margin-right: 4px;
+  margin-right: @weakeningLineOffset;
 }
 
 .evidence-add-supporting-line {
@@ -442,7 +445,7 @@
 
 .evidence-add-weakening {
   right: 50%;
-  margin-right: 45px + 4px;
+  margin-right: 45px + @weakeningLineOffset;
   background-color: @buttonDangerBackground;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonDangerBorder;
 
@@ -454,7 +457,7 @@
 
 .evidence-add-supporting {
   left: 50%;
-  margin-left: 45px + 5px;
+  margin-left: 45px + @supportingLineOffset;
   background-color: rgb(24, 171, 117);
   background-color: @buttonSuccessBackground;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonSuccessBorder;
