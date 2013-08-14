@@ -12,6 +12,7 @@ module Acceptance
         end
       end
 
+
       def posting_factlink?
         find('.fact-relation-search input[type=text]')[:placeholder]
           .include? 'Factlink'

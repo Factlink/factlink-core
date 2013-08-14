@@ -16,7 +16,7 @@ module Interactors
       end
 
       def execute
-        old_query :'evidence/for_fact_id', fact_id, type
+        query :'evidence/for_fact_id', fact_id: fact_id, type: type
       end
     end
   end

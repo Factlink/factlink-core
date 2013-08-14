@@ -23,7 +23,7 @@ describe 'subcomments' do
   describe 'after adding a few subcomments to a comment' do
     it 'should have the subcomments we added and cannot be deleted' do
       as(current_user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+        fact = pavlov.old_interactor :'facts/create', "a fact", "", "", {}
         comment = pavlov.old_interactor :'comments/create', fact.id.to_i, 'believes', "Gekke \n Gerrit"
 
         sub_comment1 = pavlov.old_interactor :'sub_comments/create_for_comment', comment.id.to_s, "Gekke \n Gerrit"

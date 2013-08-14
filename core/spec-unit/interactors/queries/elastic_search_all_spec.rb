@@ -59,11 +59,9 @@ describe Queries::ElasticSearchAll do
       error_response = 'error has happened server side'
       results = double response: error_response,
                        code: 501
-      logger = double
       error_message = "Server error, status code: 501, response: '#{error_response}'."
-      query = described_class.new(keywords: keywords, page: 1, row_count: 20, pavlov_options: { logger: logger })
+      query = described_class.new(keywords: keywords, page: 1, row_count: 20)
 
-      logger.should_receive(:error).with(error_message)
       HTTParty.stub get: results
 
       expect { query.call }.to raise_error(RuntimeError, error_message)

@@ -5,12 +5,6 @@ require_relative '../../../../app/interactors/commands/facts/create'
 describe Commands::Facts::Create do
   include PavlovSupport
 
-  it '.new' do
-    command = described_class.new displaystring: 'displaystring', title: 'title',
-      creator: double, site: double
-    command.should_not be_nil
-  end
-
   describe 'validations' do
     it 'requires displaystring to be a nonempty string' do
       expect_validating(displaystring: '', title: 'title', creator: double, site: double)

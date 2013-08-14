@@ -7,13 +7,6 @@ describe Commands::SubComments::CreateXxx do
     stub_classes 'SubComment', 'User'
   end
 
-  it 'should initialize correctly' do
-    command = described_class.new parent_id: 1, parent_class: 'FactRelation',
-      content: 'content',iuser: double
-
-    command.should_not be_nil
-  end
-
   describe 'validation' do
     it 'without user doesn''t validate' do
       expect_validating(parent_id: '1', parent_class: 'Comment',
