@@ -51,7 +51,7 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
 class NDPAddEvidenceView extends Backbone.Marionette.ItemView
   className: 'evidence-add'
 
-  template: 'ndp_add_evidence'
+  template: 'evidence/ndp_add_evidence'
 
   ui:
     buttons: '.js-buttons'
@@ -99,12 +99,15 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
   collectionEvents:
     'request sync': '_updateLoading'
 
+  ui:
+    terminator: '.js-terminator'
+
   onRender: ->
     @collectionRegion.show new NDPEvidenceCollectionView collection: @collection
     @_updateLoading()
 
     if Factlink.Global.signed_in
-      @$el.addClass 'evidence-container-has-add'
+      @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
       @addRegion.show new NDPAddEvidenceView collection: @collection
 
   _updateLoading: ->

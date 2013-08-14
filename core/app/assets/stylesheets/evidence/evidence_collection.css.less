@@ -10,7 +10,6 @@
 @evidenceBoxSpacing: 15px;
 @impactColouredBorderWidth: 3px;
 @evidenceRegionHorizontalMargin: 16px;
-@addEvidenceTopPadding: 50px;
 @evidenceRegionBottomPadding: 60px;
 
 // Arrows:
@@ -72,7 +71,7 @@
   position: absolute;
   left: 50%;
   width: 0px;
-  margin-left: ceil(-@middleLineWidth/2);
+  margin-left: -(floor(@middleLineWidth/2));
   z-index: -2;
   top: -@topFactWheelOverhang;
   bottom: 0;
@@ -365,10 +364,11 @@
 }
 
 // Add evidence buttons
-@weakeningLineOffset: 5px + ceil(-@middleLineWidth/2);
-@supportingLineOffset: 5px + floor(@middleLineWidth/2) - 1px; // minus one looks better
+@weakeningLineOffset: 4px + -ceil(@middleLineWidth/2);
+@supportingLineOffset: 4px + floor(@middleLineWidth/2);
 @evidenceAddLinesTop: 3px;
 @evidenceAddCircleExtraRadius: 1px;
+@evidenceAddLineLength: 45px;
 
 .evidence-add {
   position: relative;
@@ -377,13 +377,13 @@
   display: none;
 }
 
-.evidence-container-has-add.evidence-container-loaded {
+.evidence-container-loaded {
   .evidence-add {
     display: block;
   }
 
-  .evidence-list {
-    padding-bottom: @addEvidenceTopPadding;
+  .evidence-terminator-before-add-evidence {
+    height: 50px;
   }
 }
 
@@ -403,7 +403,7 @@
   position: absolute;
   top: @evidenceAddLinesTop;
   height: @middleLineWidth;
-  width: 50px;
+  width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
   background-color: @lineColor;
 }
 
@@ -431,8 +431,7 @@
 
 .evidence-add-weakening {
   right: 50%;
-  margin-right: 45px + @weakeningLineOffset;
-
+  margin-right: @evidenceAddLineLength + @weakeningLineOffset;
   background-color: @buttonDangerBackground;
   box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
 
@@ -450,8 +449,7 @@
 
 .evidence-add-supporting {
   left: 50%;
-  margin-left: 45px + @supportingLineOffset;
-
+  margin-left: @evidenceAddLineLength + @supportingLineOffset;
   background-color: @buttonSuccessBackground;
   box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
 
