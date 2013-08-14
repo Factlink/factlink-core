@@ -56,6 +56,9 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
   collectionEvents:
     'request sync': '_updateLoading'
 
+  ui:
+    terminator: '.js-terminator'
+
   getItemView: (item) ->
     if item instanceof OpinionatersEvidence
       NDPOpinionatorsEvidenceLayoutView
@@ -64,7 +67,9 @@ class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
 
   onRender: ->
     @_updateLoading()
-    @$el.addClass 'evidence-collection-has-add' if Factlink.Global.signed_in
+
+    if Factlink.Global.signed_in
+      @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
 
   _updateLoading: ->
     @$el.toggleClass 'evidence-collection-loaded', !@collection.loading()

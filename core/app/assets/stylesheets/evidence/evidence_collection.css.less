@@ -10,7 +10,6 @@
 @evidenceBoxSpacing: 15px;
 @impactColouredBorderWidth: 3px;
 @evidenceRegionHorizontalMargin: 16px;
-@addEvidenceTopPadding: 50px;
 @evidenceRegionBottomPadding: 60px;
 
 // Arrows:
@@ -377,13 +376,13 @@
   display: none;
 }
 
-.evidence-collection-has-add.evidence-collection-loaded {
+.evidence-collection-loaded {
   .evidence-add {
     display: block;
   }
 
-  .evidence-list {
-    padding-bottom: @addEvidenceTopPadding;
+  .evidence-terminator-before-add-evidence {
+    height: 50px;
   }
 }
 
