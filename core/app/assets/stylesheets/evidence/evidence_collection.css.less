@@ -57,7 +57,7 @@
 @shadowColor: rgba(233, 234, 238, 0.7); // Same colour as semi-transparent overlay in js-library
 
 
-.evidence-collection {
+.evidence-container {
   padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
   margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
   box-sizing: content-box;
@@ -372,12 +372,12 @@
 
 .evidence-add {
   position: relative;
-  height: @impactCircleDiameter/2;
+  height: 100px;
   visibility: visible;
   display: none;
 }
 
-.evidence-collection-loaded {
+.evidence-container-loaded {
   .evidence-add {
     display: block;
   }
@@ -426,17 +426,24 @@
   top: -@impactCircleDiameter/2 + @evidenceAddLinesTop + ceil(@middleLineWidth/2);
   background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
   cursor: pointer;
+  transition: all 0.1s;
 }
 
 .evidence-add-weakening {
   right: 50%;
   margin-right: @evidenceAddLineLength + @weakeningLineOffset;
   background-color: @buttonDangerBackground;
-  box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonDangerBorder;
+  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
 
   &:hover {
     background-color: @buttonDangerDarkBackground;
-    box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonDangerDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
+  }
+
+  &:active {
+    background-color: @buttonDangerDarkBackground;
+    border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
   }
 }
 
@@ -444,10 +451,47 @@
   left: 50%;
   margin-left: @evidenceAddLineLength + @supportingLineOffset;
   background-color: @buttonSuccessBackground;
-  box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonSuccessBorder;
+  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
 
   &:hover {
     background-color: @buttonSuccessDarkBackground;
-    box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonSuccessDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
   }
+
+  &:active {
+    background-color: @buttonSuccessDarkBackground;
+    border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
+  }
+}
+
+.evidence-add .evidence-impact {
+  margin-top: -@impactCircleDiameter/2;
+  cursor: pointer;
+
+  background-color: white;
+  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonBorder;
+  transition: box-shadow 0.1s, border-top 0.1s;
+
+  &:hover {
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
+  }
+
+  &:active {
+    border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth white;
+  }
+}
+
+.evidence-add-cross {
+  width:  @impactCircleDiameter;
+  height: @impactCircleDiameter;
+  border-radius: 1000px;
+
+  background: asset-data-url('icon-cross.png') no-repeat 17px 17px;
+  opacity: 0.4;
+}
+
+.evidence-impact:hover .evidence-add-cross {
+  opacity: 0.6;
 }
