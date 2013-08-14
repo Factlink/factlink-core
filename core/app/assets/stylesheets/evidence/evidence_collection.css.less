@@ -3,13 +3,14 @@
 // Layout variables
 @middleColumnWidth: 100px;
 @topFactWheelOverhang: 62px;
+@middleLineWidth: 3px;
 @impactCircleDiameter: 53px;
 @argumentBoxTopOverhang: 12px;
 @impactCircleTopSpacing: 30px;
 @evidenceBoxSpacing: 15px;
 @impactColouredBorderWidth: 3px;
 @evidenceRegionHorizontalMargin: 16px;
-@evidenceRegionBottomPadding: 10px;
+@evidenceRegionBottomPadding: 60px;
 
 // Arrows:
 @impactCircleVotableWithoutArrowsTopSpacing: 15px;
@@ -57,17 +58,20 @@
 
 
 .evidence-collection {
-  position: relative;
   padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
   margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
   box-sizing: content-box;
+}
+
+.evidence-list {
+  position: relative;
 }
 
 .evidence-line-background {
   position: absolute;
   left: 50%;
   width: 0px;
-  margin-left: -1px;
+  margin-left: -(floor(@middleLineWidth/2));
   z-index: -2;
   top: -@topFactWheelOverhang;
   bottom: 0;
@@ -77,7 +81,7 @@
   .evidence-line {
     position: absolute;
     left: 0;
-    width: 3px;
+    width: @middleLineWidth;
     top: 0;
     bottom: 0;
     background: @lineColor;
@@ -173,6 +177,7 @@
   > .evidence-spacer-right { float: right; }
 }
 
+// Irrelevant (faded out)
 .evidence-irrelevant > .evidence-box {
   opacity: 0.6;
   .transition(opacity 0.2s);
@@ -180,12 +185,6 @@
   &:hover {
     opacity: 0.9;
   }
-}
-
-.evidence-loading > .evidence-impact img {
-  position: absolute;
-  top: 50%; left: 50%;
-  margin:-8px;
 }
 
 // Coloured half-circles
@@ -361,5 +360,94 @@
 .evidence-votable {
   .evidence-impact-vote-up, .evidence-impact-vote-down {
     display: block;
+  }
+}
+
+// Add evidence buttons
+@weakeningLineOffset: 4px + -ceil(@middleLineWidth/2);
+@supportingLineOffset: 4px + floor(@middleLineWidth/2);
+@evidenceAddLinesTop: 3px;
+@evidenceAddCircleExtraRadius: 1px;
+@evidenceAddLineLength: 45px;
+
+.evidence-add {
+  position: relative;
+  height: @impactCircleDiameter/2;
+  visibility: visible;
+  display: none;
+}
+
+.evidence-collection-loaded {
+  .evidence-add {
+    display: block;
+  }
+
+  .evidence-terminator-before-add-evidence {
+    height: 50px;
+  }
+}
+
+.evidence-add-circle {
+  position: absolute;
+  left: 50%;
+  top: @evidenceAddLinesTop;
+  width: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+  height: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+  margin-left: -2px;
+  margin-top: -@evidenceAddCircleExtraRadius;
+  border-radius: 5px; //half would be enough
+  background-color: @lineColor;
+}
+
+.evidence-add-weakening-line, .evidence-add-supporting-line {
+  position: absolute;
+  top: @evidenceAddLinesTop;
+  height: @middleLineWidth;
+  width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
+  background-color: @lineColor;
+}
+
+.evidence-add-weakening-line {
+  right: 50%;
+  margin-right: @weakeningLineOffset;
+}
+
+.evidence-add-supporting-line {
+  left: 50%;
+  margin-left: @supportingLineOffset;
+}
+
+.evidence-add-weakening, .evidence-add-supporting {
+  width:  @impactCircleDiameter;
+  height: @impactCircleDiameter;
+  border-radius: 1000px;
+
+  position: absolute;
+  top: -@impactCircleDiameter/2 + @evidenceAddLinesTop + ceil(@middleLineWidth/2);
+  background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
+  cursor: pointer;
+}
+
+.evidence-add-weakening {
+  right: 50%;
+  margin-right: @evidenceAddLineLength + @weakeningLineOffset;
+  background-color: @buttonDangerBackground;
+  box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonDangerBorder;
+
+  &:hover {
+    background-color: @buttonDangerDarkBackground;
+    box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonDangerDarkBorder;
+  }
+}
+
+.evidence-add-supporting {
+  left: 50%;
+  margin-left: @evidenceAddLineLength + @supportingLineOffset;
+  background-color: @buttonSuccessBackground;
+  box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonSuccessBorder;
+
+  &:hover {
+    background-color: @buttonSuccessDarkBackground;
+    box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonSuccessDarkBorder;
   }
 }

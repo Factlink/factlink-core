@@ -412,7 +412,7 @@ GEM
     sass (3.2.10)
     selenium (0.2.10)
       jar_wrapper
-    selenium-webdriver (2.33.0)
+    selenium-webdriver (2.34.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
       rubyzip

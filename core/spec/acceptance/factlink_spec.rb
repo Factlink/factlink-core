@@ -12,7 +12,7 @@ describe "factlink", type: :feature do
     end
 
     it "evidence can be added" do
-      @factlink = create_factlink @user
+      @factlink = backend_create_fact_of_user @user
       factlink_text = 'Test text'
 
       visit friendly_fact_path(@factlink)
@@ -28,7 +28,7 @@ describe "factlink", type: :feature do
     end
 
     it "can be agreed" do
-      @factlink = create_factlink @user
+      @factlink = backend_create_fact_of_user @user
       search_string = 'Test search'
 
       visit friendly_fact_path(@factlink)
@@ -49,7 +49,7 @@ describe "factlink", type: :feature do
     end
 
     it "can be neutraled" do
-      @factlink = create_factlink @user
+      @factlink = backend_create_fact_of_user @user
       search_string = 'Test search'
 
       visit friendly_fact_path(@factlink)
@@ -69,7 +69,7 @@ describe "factlink", type: :feature do
     end
 
     it "can be disagreed" do
-      @factlink = create_factlink @user
+      @factlink = backend_create_fact_of_user @user
       search_string = 'Test search'
 
       visit friendly_fact_path(@factlink)
@@ -90,12 +90,11 @@ describe "factlink", type: :feature do
     end
 
     it "should find a factlink when searching on a exact phrase containing small words" do
-      pending
       displaystring = 'feathers is not a four letter groom betters'
 
-      @factlink = create_factlink @user
+      @factlink = backend_create_fact_of_user @user
 
-      @factlink_evidence = create_factlink @user
+      @factlink_evidence = backend_create_fact_of_user @user
       @factlink_evidence.data.displaystring = "Fact: " + displaystring
       @factlink_evidence.data.save
 
@@ -108,7 +107,7 @@ describe "factlink", type: :feature do
 
   it "a non logged in user gets redirected to the login page when accessing the discussionpage" do
     user = create :active_user
-    factlink = create_factlink user
+    factlink = backend_create_fact_of_user user
 
     visit friendly_fact_path(factlink)
 
