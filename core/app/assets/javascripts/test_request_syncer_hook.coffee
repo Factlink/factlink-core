@@ -9,6 +9,3 @@ if window.Backbone && /^(::1|127\.0\.0\.1|localhost)$/.test(window.location.host
       options.url = options.url.replace(/\?|$/,'?test_counter='+window.test_counter+'&')
 
     old_ajax options
-
-
-  console.log 'Loaded test_request_syncer_hook'
