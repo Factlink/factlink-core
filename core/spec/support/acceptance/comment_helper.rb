@@ -43,6 +43,7 @@ module Acceptance
 
         within '.fact-relation-search' do
           text = evidence_factlink.to_s
+          page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
           potentially_wait_for_posting_button
