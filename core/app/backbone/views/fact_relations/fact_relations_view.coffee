@@ -54,9 +54,9 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
   template: "fact_relations/fact_relations"
 
   regions:
-    interactingUserRegion: '.interacting-users'
-    factRelationsRegion: '.fact-relation-listing-container'
-    factRelationSearchRegion: '.fact-relation-search'
+    interactingUserRegion: '.js-interacting-users-region'
+    factRelationsRegion: '.js-fact-relations-region'
+    factRelationSearchRegion: '.js-fact-relation-search-region'
 
   onRender: ->
     @$el.addClass @model.type()
