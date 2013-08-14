@@ -2,10 +2,10 @@ require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/create_message.rb'
 
 describe Commands::CreateMessage do
+  include PavlovSupport
 
   before do
-    stub_const('Message', Class.new)
-    stub_const('User', Class.new)
+    stub_classes 'Message', 'User'
     stub_const 'Pavlov::ValidationError', Class.new(StandardError)
   end
 

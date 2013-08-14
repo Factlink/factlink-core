@@ -3,20 +3,21 @@ class window.SearchCollection extends Backbone.Collection
     super(args...)
     @searchFor ''
 
-  makeEmpty: ->
-    @query = ''
-    @reset []
+  emptyState: -> []
 
-  throttle = (method) -> _.throttle method, 300, leading: false
-  searchFor: throttle (query) ->
+  searchFor: (query) ->
     query = $.trim(query)
     return if query == @query
-    @jqxhr?.abort()
+    @query = query
+    @_search()
 
-    if query == ''
-      @makeEmpty()
+  throttle = (method) -> _.throttle method, 300, leading: false
+  _search: throttle ->
+    @jqxhr?.abort()
+    if @query == ''
+      @reset @emptyState()
+      @trigger 'sync'
     else
-      @query = query
       @reset []
       @jqxhr = @fetch()
 

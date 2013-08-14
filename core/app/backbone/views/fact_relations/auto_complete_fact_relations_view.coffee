@@ -3,7 +3,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   events:
     "click .js-post": "addNew"
-    'click .js-switch': 'switchCheckboxClicked'
+    'click .js-switch-to-factlink': 'switchCheckboxClicked'
 
   regions:
     'wheel_region': '.fact-wheel'
@@ -16,17 +16,23 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     submit: '.js-post'
 
   initialize: (options) ->
-    recent_collection = options.recent_collection
-
     @initializeChildViews
       filter_on: 'id'
       search_list_view: (options) => new AutoCompleteSearchFactRelationsView _.extend {}, options,
-        recent_collection: recent_collection
-      search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
+        recent_collection: @recentCollection()
+      search_collection: => new FactRelationSearchResults [],
+        fact_id: options.fact_id
+        recent_collection: @recentCollection()
       placeholder: @placeholder(options.type)
 
     @listenTo @_text_input_view, 'focus', @focus
     @listenTo @model, 'change', @queryChanges
+
+  recentCollection: ->
+    unless @_recent_collection?
+      @_recent_collection = new RecentlyViewedFacts
+      @_recent_collection.fetch()
+    @_recent_collection
 
   placeholder: (type) ->
     if type == "supporting"
@@ -60,6 +66,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
 
   switchCheckboxClicked: (e) ->
+    @$el.removeClass 'active'
     @trigger 'switch_to_comment_view', @model.get('text')
     e.preventDefault()
     e.stopPropagation()
@@ -80,8 +87,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   setQuery: (text) -> @model.set text: text
 
   focus: ->
-    @$el.addClass 'active'
-
     mp_track "Evidence: Search focus"
 
   reset: ->

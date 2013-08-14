@@ -8,7 +8,6 @@ describe Queries::ElasticSearchChannel do
 
   before do
     stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application', 'Logger'
-    Logger.stub(:new)
 
     FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
@@ -42,14 +41,10 @@ describe Queries::ElasticSearchChannel do
       keywords = 'searching for this channel'
       results = double(response: 'error has happened server side',
         code: 501)
-      logger = double
-      query = described_class.new keywords: keywords, page: 1, row_count: 20,
-        pavlov_options: { logger: logger }
+      query = described_class.new keywords: keywords, page: 1, row_count: 20
 
       HTTParty.should_receive(:get).and_return(results)
       error_message = "Server error, status code: 501, response: '#{results.response}'."
-
-      logger.should_receive(:error).with(error_message)
 
       expect { query.call }.to raise_error(RuntimeError, error_message)
     end
@@ -58,13 +53,13 @@ describe Queries::ElasticSearchChannel do
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       query = described_class.new keywords: keywords, page: 1, row_count: 20
-      hit = double
-      results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
-        code: 200)
-      query.stub get_object: double
+      hit = {'_id' => 1, '_type' => 'topic' }
+      response = { 'hits' => { 'hits' => [ hit ] } }
+      results = double(parsed_response: response, code: 200)
 
-      hit.should_receive(:[]).with('_id').and_return(1)
-      hit.should_receive(:[]).with('_type').and_return('topic')
+      Pavlov.stub(:old_query)
+            .with(:'topics/by_id_with_authority_and_facts_count', 1)
+            .and_return nil
 
       HTTParty.should_receive(:get).
         with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").

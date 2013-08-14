@@ -26,7 +26,6 @@
 // Scaffolding
 // -------------------------
 @bodyBackground:        @white;
-@textColor:             @grayDark;
 
 // Links
 // -------------------------
@@ -37,9 +36,7 @@
 // -------------------------
 
 @baseFontFamily:            "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-@headingFontFamily:         "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 @sansFontFamily:            "Helvetica Neue", Helvetica, Arial, sans-serif;
-@serifFontFamily:           Georgia, "Times New Roman", Times, serif;
 
 @baseFontSize:              12px;
 @baseLineHeight:            18px;
@@ -71,7 +68,7 @@
 @tableBackgroundHover:        #f5f5f5; // for hover
 @tableBorder:                 #ddd; // table and cell border
 
-// new buttons
+// Buttons
 
 @buttonBackground:            #e4e6eb;
 @buttonBorder:                #bcbec2;
@@ -192,7 +189,6 @@
 
 // Navbar
 // -------------------------
-@navbarCollapseWidth:             979px;
 
 @navbarHeight:                    42px;
 @navbarMargin:                    18px;
@@ -243,10 +239,6 @@
 @popoverArrowOuterWidth:  @popoverArrowWidth + 1;
 @popoverArrowOuterColor:  rgba(0,0,0,.25);
 
-// GRID
-// --------------------------------------------------
-
-
 // Default 940px grid
 // -------------------------
 @gridColumns:             12;
@@ -254,28 +246,10 @@
 @gridGutterWidth:         20px;
 @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
 
-// 1200px min
-@gridColumnWidth1200:     70px;
-@gridGutterWidth1200:     30px;
-@gridRowWidth1200:        (@gridColumns * @gridColumnWidth1200) + (@gridGutterWidth1200 * (@gridColumns - 1));
-
-// 768px-979px
-@gridColumnWidth768:      42px;
-@gridGutterWidth768:      20px;
-@gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
-
 // Fluid grid
 // -------------------------
 @fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
 @fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
-
-// 1200px min
-@fluidGridColumnWidth1200:     percentage(@gridColumnWidth1200/@gridRowWidth1200);
-@fluidGridGutterWidth1200:     percentage(@gridGutterWidth1200/@gridRowWidth1200);
-
-// 768px-979px
-@fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
-@fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
 
 // Styling
 @baseBorderColor:           darken(#d7d7d7, 5);
