@@ -32,6 +32,7 @@
 
     <%= javascript_include_tag "modernizr-loader" %>
     <%= csrf_meta_tag %>
+    <%= inject_special_test_code %>
   </head>
   <body class="factlink-site controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= params[:show_sign_in] ? " show_sign_in" : "" %><%= " show_sign_up" if defined? show_sign_up and show_sign_up %><%= " show_footer" if defined? show_footer and show_footer %>">
     <%= render 'feedback/button' unless defined? dont_render_feedback %>

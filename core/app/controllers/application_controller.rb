@@ -221,4 +221,11 @@ class ApplicationController < ActionController::Base
     allowed_layouts = ['popup', 'client']
     allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
   end
+
+  def inject_special_test_code
+    # this method is used by the test to inject things like the
+    # test_counter (aka cross-test-request-forgery prevention), and
+    # possibly eventually custom styling for poltergeist screenshots.
+  end
+  helper_method :inject_special_test_code
 end

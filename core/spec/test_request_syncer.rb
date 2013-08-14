@@ -13,7 +13,6 @@ module TestRequestSyncer
         url = url.sub(/\?|$/,"?test_counter=#{TestRequestSyncer.test_counter}&")
       end
       super(url, *args,&block)
-      execute_script('window.test_counter ='+TestRequestSyncer.test_counter.to_s + '; sessionStorage.setItem("test_counter",window.test_counter);');
     end
   end
 
@@ -21,7 +20,16 @@ module TestRequestSyncer
     prepend VisitTracker
   end
 
+  module TestCounterInjector
+    def inject_special_test_code
+      "<script>
+        window.test_counter = #{TestRequestSyncer.test_counter};
+      </script>".html_safe + super
+    end
+  end
+
   class ::ApplicationController
+    prepend TestCounterInjector
     around_filter do |controller, action_block|
       puts "#{controller.request.referer} -> #{controller.request.original_url}"
       test_counter = params[:test_counter]
@@ -36,9 +44,7 @@ module TestRequestSyncer
       if test_counter == TestRequestSyncer.test_counter.to_s then
         action_block.call
       else
-        puts "fail!"
-        # require 'pry'
-        # binding.pry
+        puts "INVALID TEST COUNTER: ABORTED REQUEST!"
       end
     end
   end

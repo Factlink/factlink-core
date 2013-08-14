@@ -1,6 +1,4 @@
-if window.Backbone && window.sessionStorage && /^(::1|127\.0\.0\.1|localhost)$/.test(window.location.hostname)
-  window.test_counter = sessionStorage.getItem('test_counter')
-
+if window.Backbone && /^(::1|127\.0\.0\.1|localhost)$/.test(window.location.hostname)
   old_ajax = Backbone.ajax
   Backbone.ajax = (options) ->
     if(arguments.length != 1)
