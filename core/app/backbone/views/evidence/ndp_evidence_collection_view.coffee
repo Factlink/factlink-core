@@ -127,4 +127,4 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
       @addRegion.show new NDPAddEvidenceView collection: @collection
 
   _updateLoading: ->
-    @$el.toggleClass 'evidence-collection-loaded', !@collection.loading()
+    @$el.toggleClass 'evidence-container-loaded', !@collection.loading()
