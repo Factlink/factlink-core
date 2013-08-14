@@ -432,11 +432,11 @@
   right: 50%;
   margin-right: 45px + @weakeningLineOffset;
   background-color: @buttonDangerBackground;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonDangerBorder;
+  box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonDangerBorder;
 
   &:hover {
     background-color: @buttonDangerDarkBackground;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonDangerDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonDangerDarkBorder;
   }
 }
 
@@ -445,10 +445,10 @@
   margin-left: 45px + @supportingLineOffset;
   background-color: rgb(24, 171, 117);
   background-color: @buttonSuccessBackground;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonSuccessBorder;
+  box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonSuccessBorder;
 
   &:hover {
     background-color: @buttonSuccessDarkBackground;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 1px @buttonSuccessDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 2px 1px @buttonSuccessDarkBorder;
   }
 }
