@@ -1,4 +1,4 @@
-class window.NDPAddEvidenceView extends Backbone.Marionette.ItemView
+class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
   className: 'evidence-add'
 
   template: 'evidence/ndp_add_evidence'
@@ -12,18 +12,27 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.ItemView
     'click .js-weakening-button': 'showAddWeakening'
     'click .js-cancel': 'cancel'
 
+  regions:
+    contentRegion: '.js-content-region'
+
   onRender: ->
     @cancel()
 
-  showAddSupporting: -> @_showAdd true
-  showAddWeakening:  -> @_showAdd false
+  showAddSupporting: -> @_showAdd 'supporting'
+  showAddWeakening:  -> @_showAdd 'weakening'
 
   cancel: ->
     @ui.box.hide()
     @ui.buttons.show()
 
-  _showAdd: (supporting) ->
+  _showAdd: (type) ->
     @ui.buttons.hide()
     @ui.box.show()
-    @ui.box.toggleClass 'evidence-weakening', !supporting
-    @ui.box.toggleClass 'evidence-supporting', !!supporting
+    @ui.box.removeClass 'evidence-weakening evidence-supporting'
+    @ui.box.addClass 'evidence-' + type
+
+    @contentRegion.close()
+    @contentRegion.show new AddEvidenceView
+      collection: @collection.oneSidedEvidenceCollection(type)
+      fact_id: @options.fact_id
+      type: type
