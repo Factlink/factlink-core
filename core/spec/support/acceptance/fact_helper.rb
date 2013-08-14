@@ -2,8 +2,9 @@ module Acceptance
   module FactHelper
     include ::FactHelper
 
+    # TODO: remove this method and use backend_create_fact_of_user instead
     def create_factlink(user)
-      create(:fact, created_by: user.graph_user)
+      backend_create_fact_of_user user
     end
 
     def go_to_discussion_page_of factlink
