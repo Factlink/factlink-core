@@ -47,10 +47,13 @@ module Acceptance
           page.find("li", text: text).click
           # We assume a request immediately fires, and button reads "Posting..."
 
-          # This *should* hold:
-          page.find("button", text: "Posting...")
-          # ...but the posting delay vs. capybara check is a race-condition
-          # if this randomly fails, disable the above check.
+          begin
+            # This *should* hold:
+              page.find("button", text: "Posting...")
+            # ...but the posting delay vs. capybara check is a race-condition
+            # so don't worry if this fails, at least then we're not continuing prematurely
+          rescue
+          end
 
           page.find("button", text: "Post Factlink")
         end
@@ -64,10 +67,13 @@ module Acceptance
           page.find("button", text: "Post Factlink").click
           # We assume a request immediately fires, and button reads "Posting..."
 
-          # This *should* hold:
-          page.find("button", text: "Posting...")
-          # ...but the posting delay vs. capybara check is a race-condition
-          # if this randomly fails, disable the above check.
+          begin
+            # This *should* hold:
+              page.find("button", text: "Posting...")
+            # ...but the posting delay vs. capybara check is a race-condition
+            # so don't worry if this fails, at least then we're not continuing prematurely
+          rescue
+          end
 
           page.find("button", text: "Post Factlink")
         end
