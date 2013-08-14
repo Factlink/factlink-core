@@ -1,4 +1,4 @@
-if window.Backbone && /^(::1|127\.0\.0\.1|localhost)$/.test(window.location.hostname)
+if window.test_counter && /^(::1|127\.0\.0\.1|localhost)$/.test(window.location.hostname)
   old_ajax = Backbone.ajax
   Backbone.ajax = (options) ->
     if(arguments.length != 1)
