@@ -71,7 +71,7 @@
   position: absolute;
   left: 50%;
   width: 0px;
-  margin-left: ceil(-@middleLineWidth/2);
+  margin-left: -(floor(@middleLineWidth/2));
   z-index: -2;
   top: -@topFactWheelOverhang;
   bottom: 0;
@@ -364,8 +364,8 @@
 }
 
 // Add evidence buttons
-@weakeningLineOffset: 5px + ceil(-@middleLineWidth/2);
-@supportingLineOffset: 5px + floor(@middleLineWidth/2) - 1px; // minus one looks better
+@weakeningLineOffset: 4px + -ceil(@middleLineWidth/2);
+@supportingLineOffset: 4px + floor(@middleLineWidth/2);
 @evidenceAddLinesTop: 3px;
 @evidenceAddCircleExtraRadius: 1px;
 
