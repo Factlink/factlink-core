@@ -3,6 +3,7 @@
 // Layout variables
 @middleColumnWidth: 100px;
 @topFactWheelOverhang: 62px;
+@middleLineWidth: 3px;
 @impactCircleDiameter: 53px;
 @argumentBoxTopOverhang: 12px;
 @impactCircleTopSpacing: 30px;
@@ -71,7 +72,7 @@
   position: absolute;
   left: 50%;
   width: 0px;
-  margin-left: -1px;
+  margin-left: ceil(-@middleLineWidth/2);
   z-index: -2;
   top: -@topFactWheelOverhang;
   bottom: 0;
@@ -81,7 +82,7 @@
   .evidence-line {
     position: absolute;
     left: 0;
-    width: 3px;
+    width: @middleLineWidth;
     top: 0;
     bottom: 0;
     background: @lineColor;
@@ -379,8 +380,10 @@
 }
 
 // Add evidence buttons
-@weakeningLineOffset: 4px; // different values because of odd line width
-@supportingLineOffset: 5px;
+@weakeningLineOffset: 5px + ceil(-@middleLineWidth/2);
+@supportingLineOffset: 5px + floor(@middleLineWidth/2) - 1px; // minus one looks better
+@evidenceAddLinesTop: 3px;
+@evidenceAddCircleExtraRadius: 1px;
 
 .evidence-add {
   position: relative;
@@ -406,18 +409,19 @@
 .evidence-add-circle {
   position: absolute;
   left: 50%;
-  top: 2px;
-  width: 5px;
-  height: 5px;
+  top: @evidenceAddLinesTop;
+  width: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+  height: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
   margin-left: -2px;
+  margin-top: -@evidenceAddCircleExtraRadius;
   border-radius: 5px; //half would be enough
   background-color: @lineColor;
 }
 
 .evidence-add-weakening-line, .evidence-add-supporting-line {
   position: absolute;
-  top: 3px;
-  height: 3px;
+  top: @evidenceAddLinesTop;
+  height: @middleLineWidth;
   width: 50px;
   background-color: @lineColor;
 }
@@ -429,7 +433,7 @@
 
 .evidence-add-supporting-line {
   left: 50%;
-  margin-left: 5px;
+  margin-left: @supportingLineOffset;
 }
 
 .evidence-add-weakening, .evidence-add-supporting {
@@ -438,7 +442,7 @@
   border-radius: 1000px;
 
   position: absolute;
-  top: -@impactCircleDiameter/2 + 5px;
+  top: -@impactCircleDiameter/2 + @evidenceAddLinesTop + ceil(@middleLineWidth/2);
   background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
   cursor: pointer;
 }
