@@ -1,4 +1,5 @@
 class window.AddEvidenceView extends Backbone.Marionette.Layout
+  className: 'old-add-evidence'
   template: 'fact_relations/add_evidence'
 
   regions:
