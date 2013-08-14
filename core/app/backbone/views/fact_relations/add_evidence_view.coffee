@@ -29,13 +29,10 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     searchView
 
   addCommentView: ->
-    addCommentView = new AddCommentView( addToCollection: @model.evidence(), type: @model.type() )
+    addCommentView = new AddCommentView( addToCollection: @collection, type: @options.type )
     @listenTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView
 
     addCommentView
-
-  fact: ->
-    @model.fact()
 
   createFactRelation: (fact_relation, onFinish=->)->
     return @showError() unless fact_relation.isValid()
@@ -55,8 +52,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
         @inputRegion.getView('search_view').reset()
 
         mp_track "Evidence: Added",
-          factlink_id: @model.fact().id
-          type: @model.type()
+          factlink_id: @model.id
+          type: @options.type
 
   switchToCommentView: (content) ->
     @inputRegion.switchTo 'add_comment_view'
