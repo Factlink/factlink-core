@@ -15,7 +15,7 @@ describe 'global_features' do
 
   it 'initial state is empty' do
     as(current_user) do |pavlov|
-      features = pavlov.old_interactor :'global_features/all'
+      features = pavlov.interactor :'global_features/all'
       expect(features).to eq []
     end
   end
@@ -23,8 +23,8 @@ describe 'global_features' do
   it 'retains set features' do
     as(current_user) do |pavlov|
       features = [ "foo", "bar" ]
-      pavlov.old_interactor :'global_features/set', features
-      read_features = pavlov.old_interactor :'global_features/all'
+      pavlov.interactor :'global_features/set', features: features
+      read_features = pavlov.interactor :'global_features/all'
       expect(read_features.to_set).to eq features.to_set
     end
   end
@@ -33,9 +33,9 @@ describe 'global_features' do
     as(current_user) do |pavlov|
       features = [ "foo", "bar" ]
       new_features = [ "foobar" ]
-      pavlov.old_interactor :'global_features/set', features
-      pavlov.old_interactor :'global_features/set', new_features
-      read_features = pavlov.old_interactor :'global_features/all'
+      pavlov.interactor :'global_features/set', features: features
+      pavlov.interactor :'global_features/set', features: new_features
+      read_features = pavlov.interactor :'global_features/all'
       expect(read_features.to_set).to eq new_features.to_set
     end
   end
