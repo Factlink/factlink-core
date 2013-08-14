@@ -5,12 +5,8 @@ describe Interactors::Topics::Favourites do
   include PavlovSupport
 
   describe '#authorized?' do
-    before do
-      described_class.any_instance.stub(validate: true)
-    end
-
     it 'throws when no current_user' do
-      expect { described_class.new(user_name: double).call }
+      expect { described_class.new(user_name: 'foo').call }
         .to raise_error(Pavlov::AccessDenied,'Unauthorized')
     end
 
@@ -24,12 +20,13 @@ describe Interactors::Topics::Favourites do
       interactor = described_class.new(user_name: 'username',
         pavlov_options: pavlov_options)
 
-      Pavlov.stub(:old_query)
-        .with(:user_by_username, 'username', pavlov_options)
+      Pavlov.stub(:query)
+        .with(:user_by_username, username: 'username', pavlov_options: pavlov_options)
         .and_return(user)
 
-      expect { interactor.call }
-        .to raise_error Pavlov::AccessDenied, 'Unauthorized'
+      expect do
+        interactor.call
+      end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
 
@@ -41,30 +38,27 @@ describe Interactors::Topics::Favourites do
   end
 
   describe '#call' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
     it 'it calls the query to get an alphabetically list of followed users' do
-      user_name = double
+      user_name = 'henkie'
       current_user = double
-      interactor = described_class.new user_name: user_name
+      pavlov_options = {current_user: current_user, ability: double(can?: true)}
+      interactor = described_class.new user_name: user_name, pavlov_options: pavlov_options
 
       user = double(graph_user_id: double)
       topic1 = double(id: double, slug_title: 'b')
       topic2 = double(id: double, slug_title: 'a')
 
-      Pavlov.should_receive(:old_query)
-        .with(:'user_by_username', user_name)
+      Pavlov.stub(:query)
+        .with(:'user_by_username', username: user_name, pavlov_options: pavlov_options)
         .and_return(user)
-      Pavlov.should_receive(:old_query)
-        .with(:'topics/favourite_topic_ids', user.graph_user_id)
+      Pavlov.stub(:query)
+        .with(:'topics/favourite_topic_ids', graph_user_id: user.graph_user_id, pavlov_options: pavlov_options)
         .and_return([topic1.id, topic2.id])
-      Pavlov.should_receive(:old_query)
-        .with(:'topics/by_id', topic1.id)
+      Pavlov.stub(:query)
+        .with(:'topics/by_id', id: topic1.id, pavlov_options: pavlov_options)
         .and_return(topic1)
-      Pavlov.should_receive(:old_query)
-        .with(:'topics/by_id', topic2.id)
+      Pavlov.stub(:query)
+        .with(:'topics/by_id', id: topic2.id, pavlov_options: pavlov_options)
         .and_return(topic2)
 
       expect(interactor.call).to eq [topic2, topic1]

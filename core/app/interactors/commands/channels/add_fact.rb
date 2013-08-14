@@ -6,7 +6,7 @@ module Commands
       arguments :fact, :channel
 
       def execute
-        ChannelFacts.new(@channel).add_fact @fact
+        ChannelFacts.new(channel).add_fact fact
       end
     end
   end

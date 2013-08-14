@@ -24,8 +24,8 @@ describe Interactors::Topics::Favourite do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      Pavlov.stub(:old_query)
-        .with(:user_by_username, 'username', pavlov_options)
+      Pavlov.stub(:query)
+        .with(:user_by_username, username: 'username', pavlov_options: pavlov_options)
         .and_return(user)
 
       interactor = described_class.new user_name: 'username',
@@ -54,15 +54,15 @@ describe Interactors::Topics::Favourite do
 
       topic = double(id: double)
 
-      Pavlov.stub(:old_query)
-        .with(:'user_by_username', user_name, pavlov_options)
+      Pavlov.stub(:query)
+        .with(:'user_by_username', username: user_name, pavlov_options: pavlov_options)
         .and_return(user)
-      Pavlov.stub(:old_query)
-        .with(:'topics/by_slug_title', slug_title, pavlov_options)
+      Pavlov.stub(:query)
+        .with(:'topics/by_slug_title', slug_title: slug_title, pavlov_options: pavlov_options)
         .and_return(topic)
-      Pavlov.should_receive(:old_command)
-        .with(:'topics/favourite', user.graph_user_id, topic.id.to_s, pavlov_options)
 
+      Pavlov.should_receive(:command)
+        .with(:'topics/favourite', graph_user_id: user.graph_user_id, topic_id: topic.id.to_s, pavlov_options: pavlov_options)
       interactor.should_receive(:mp_track)
         .with('Topic: Favourited', slug_title: slug_title)
 

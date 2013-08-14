@@ -3,6 +3,7 @@
 // Layout variables
 @middleColumnWidth: 100px;
 @topFactWheelOverhang: 62px;
+@middleLineWidth: 3px;
 @impactCircleDiameter: 53px;
 @argumentBoxTopOverhang: 12px;
 @impactCircleTopSpacing: 30px;
@@ -71,7 +72,7 @@
   position: absolute;
   left: 50%;
   width: 0px;
-  margin-left: -1px;
+  margin-left: ceil(-@middleLineWidth/2);
   z-index: -2;
   top: -@topFactWheelOverhang;
   bottom: 0;
@@ -81,7 +82,7 @@
   .evidence-line {
     position: absolute;
     left: 0;
-    width: 3px;
+    width: @middleLineWidth;
     top: 0;
     bottom: 0;
     background: @lineColor;
@@ -185,21 +186,6 @@
   &:hover {
     opacity: 0.9;
   }
-}
-
-// Loading
-.evidence-loading {
-  display: none;
-
-  img {
-    position: absolute;
-    top: 50%; left: 50%;
-    margin:-8px;
-  }
-}
-
-.evidence-container-is-loading .evidence-loading {
-  display: block;
 }
 
 // Coloured half-circles
@@ -379,6 +365,11 @@
 }
 
 // Add evidence buttons
+@weakeningLineOffset: 5px + ceil(-@middleLineWidth/2);
+@supportingLineOffset: 5px + floor(@middleLineWidth/2) - 1px; // minus one looks better
+@evidenceAddLinesTop: 3px;
+@evidenceAddCircleExtraRadius: 1px;
+
 .evidence-add {
   position: relative;
   height: 100px;
@@ -386,7 +377,7 @@
   display: none;
 }
 
-.evidence-container-has-add {
+.evidence-collection-has-add.evidence-collection-loaded {
   .evidence-add {
     display: block;
   }
@@ -396,37 +387,34 @@
   }
 }
 
-.evidence-container-is-loading .evidence-add {
-  display: none;
-}
-
 .evidence-add-circle {
   position: absolute;
   left: 50%;
-  top: 2px;
-  width: 5px;
-  height: 5px;
+  top: @evidenceAddLinesTop;
+  width: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+  height: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
   margin-left: -2px;
+  margin-top: -@evidenceAddCircleExtraRadius;
   border-radius: 5px; //half would be enough
   background-color: @lineColor;
 }
 
 .evidence-add-weakening-line, .evidence-add-supporting-line {
   position: absolute;
-  top: 3px;
-  height: 3px;
+  top: @evidenceAddLinesTop;
+  height: @middleLineWidth;
   width: 50px;
   background-color: @lineColor;
 }
 
 .evidence-add-weakening-line {
   right: 50%;
-  margin-right: 4px;
+  margin-right: @weakeningLineOffset;
 }
 
 .evidence-add-supporting-line {
   left: 50%;
-  margin-left: 5px;
+  margin-left: @supportingLineOffset;
 }
 
 .evidence-add-weakening, .evidence-add-supporting {
@@ -435,7 +423,7 @@
   border-radius: 1000px;
 
   position: absolute;
-  top: -@impactCircleDiameter/2 + 5px;
+  top: -@impactCircleDiameter/2 + @evidenceAddLinesTop + ceil(@middleLineWidth/2);
   background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
   cursor: pointer;
   transition: all 0.1s;
@@ -443,39 +431,39 @@
 
 .evidence-add-weakening {
   right: 50%;
-  margin-right: 45px + 4px;
+  margin-right: 45px + @weakeningLineOffset;
 
   background-color: @buttonDangerBackground;
-  box-shadow: 0 @largeButtonBorderWidth @buttonDangerBorder;
+  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
 
   &:hover {
     background-color: @buttonDangerDarkBackground;
-    box-shadow: 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
   }
 
   &:active {
     background-color: @buttonDangerDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
-    box-shadow: 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
   }
 }
 
 .evidence-add-supporting {
   left: 50%;
-  margin-left: 45px + 5px;
+  margin-left: 45px + @supportingLineOffset;
 
   background-color: @buttonSuccessBackground;
-  box-shadow: 0 @largeButtonBorderWidth @buttonSuccessBorder;
+  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
 
   &:hover {
     background-color: @buttonSuccessDarkBackground;
-    box-shadow: 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
   }
 
   &:active {
     background-color: @buttonSuccessDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
-    box-shadow: 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
   }
 }
 
@@ -484,16 +472,16 @@
   cursor: pointer;
 
   background-color: white;
-  box-shadow: 0 @largeButtonBorderWidth @buttonBorder;
+  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonBorder;
   transition: box-shadow 0.1s, border-top 0.1s;
 
   &:hover {
-    box-shadow: 0 @largeButtonBorderWidth @buttonDarkBorder;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
   }
 
   &:active {
     border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
-    box-shadow: 0 @largeButtonBorderWidth white;
+    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth white;
   }
 }
 

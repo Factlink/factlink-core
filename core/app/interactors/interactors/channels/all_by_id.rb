@@ -5,7 +5,7 @@ module Interactors
       arguments :id
 
       def get_alive_channels
-        [Channel[@id]]
+        [Channel[id]]
       end
     end
   end

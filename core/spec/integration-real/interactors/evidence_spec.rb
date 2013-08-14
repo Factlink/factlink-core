@@ -12,9 +12,9 @@ describe 'evidence' do
   describe 'initially' do
     it 'a fact has no evidence' do
       as(current_user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
 
-        evidence = pavlov.old_interactor :'evidence/for_fact_id', fact.id.to_s, :supporting
+        evidence = pavlov.interactor :'evidence/for_fact_id', fact_id: fact.id.to_s, type: :supporting
 
         expect(evidence).to eq []
       end
@@ -24,12 +24,12 @@ describe 'evidence' do
   describe 'adding a few comments' do
     it 'the fact should get the comments we add' do
       as(current_user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'a fact', '', '', {}
+        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
 
-        pavlov.old_interactor :'comments/create', fact.id.to_i, 'believes', 'Gekke Gerrit'
-        pavlov.old_interactor :'comments/create', fact.id.to_i, 'believes', 'Handige Harrie'
+        pavlov.interactor :'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'Gekke Gerrit'
+        pavlov.interactor :'comments/create', fact_id: fact.id.to_i, type: 'believes', content: 'Handige Harrie'
 
-        evidence = pavlov.old_interactor :'evidence/for_fact_id', fact.id.to_s, :supporting
+        evidence = pavlov.interactor :'evidence/for_fact_id', fact_id: fact.id.to_s, type: :supporting
 
         expect(evidence.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
       end
