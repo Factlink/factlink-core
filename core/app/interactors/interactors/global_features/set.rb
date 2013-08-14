@@ -7,7 +7,7 @@ module Interactors
       arguments :features
 
       def execute
-        old_command :'global_features/set', features
+        command :'global_features/set', features: features
       end
 
       def authorized?
@@ -15,7 +15,7 @@ module Interactors
       end
 
       def validate
-        raise 'features should be an array' unless @features.is_a? Array
+        raise 'features should be an array' unless features.is_a? Array
       end
     end
   end
