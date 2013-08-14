@@ -65,7 +65,7 @@ RSpec.configure do |config|
 
   config.after(:each) do
     TestRequestSyncer.increment_counter
-    wait_for_ajax_idle
+    # wait_for_ajax_idle
     # Capybara.reset!
     # Commented out, bug in capybara-screenshot:
     # https://github.com/mattheworiordan/capybara-screenshot/issues/53
