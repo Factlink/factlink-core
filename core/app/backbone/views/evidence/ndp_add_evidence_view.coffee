@@ -13,9 +13,11 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
     'click .js-cancel': 'cancel'
 
   regions:
+    headingRegion: '.js-heading-region'
     contentRegion: '.js-content-region'
 
   onRender: ->
+    @headingRegion.show new NDPEvidenceishHeadingView model: currentUser
     @cancel()
 
   showAddSupporting: -> @_showAdd 'supporting'
