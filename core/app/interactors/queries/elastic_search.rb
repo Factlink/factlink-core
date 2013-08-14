@@ -73,7 +73,7 @@ module Queries
       when'factdata'
         FactData.find(id)
       when 'topic'
-        old_query :'topics/by_id_with_authority_and_facts_count', id
+        query :'topics/by_id_with_authority_and_facts_count', id: id
       when 'user'
         mongoid_user = User.find(id)
 
