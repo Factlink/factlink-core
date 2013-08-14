@@ -52,7 +52,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
         @inputRegion.getView('search_view').reset()
 
         mp_track "Evidence: Added",
-          factlink_id: @model.id
+          factlink_id: @options.fact_id
           type: @options.type
 
   switchToCommentView: (content) ->
