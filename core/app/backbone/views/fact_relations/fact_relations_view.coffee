@@ -72,7 +72,7 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
       @model.evidence()?.fetch()
 
       if Factlink.Global.signed_in
-        @factRelationSearchRegion.show new AddEvidenceView
+        @factRelationSearchRegion.show new AddEvidenceFormView
           collection: @model.evidence()
           fact_id: @model.fact().id
           type: @model.type()

@@ -32,7 +32,7 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
     @ui.box.addClass 'evidence-' + type
 
     @contentRegion.close()
-    @contentRegion.show new AddEvidenceView
+    @contentRegion.show new AddEvidenceFormView
       collection: @collection.oneSidedEvidenceCollection(type)
       fact_id: @options.fact_id
       type: type
