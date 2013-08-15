@@ -33,19 +33,13 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @model = new Comment
       content: @formContent()
       created_by: currentUser.toJSON()
-      type: @_type()
+      type: @options.addToCollection.believesType()
 
     return @addModelError() unless @model.isValid()
 
     @alertHide()
     @disableSubmit()
     @addDefaultModel highlight: true
-
-  _type: ->
-    switch @options.addToCollection.type
-      when 'supporting' then 'believes'
-      when 'weakening' then 'disbelieves'
-      else throw 'Unknown OneSidedEvidenceCollection type'
 
   templateHelpers: =>
     type_of_action_text: @type_of_action_text()
