@@ -10,8 +10,10 @@ describe SubCommentsController do
       sub_comments = double
       controller.stub(params: {id: fact_relation_id.to_s})
 
-      controller.should_receive(:old_interactor).with(:'sub_comments/index_for_fact_relation', fact_relation_id).
-        and_return(sub_comments)
+      controller
+        .should_receive(:interactor)
+        .with(:'sub_comments/index_for_fact_relation', fact_relation_id: fact_relation_id)
+        .and_return(sub_comments)
       controller.should_receive(:render).with('sub_comments/index', { formats: [:json] })
 
       controller.index
@@ -27,8 +29,10 @@ describe SubCommentsController do
       sub_comment = double
       controller.stub(params: {content: content, id: fact_relation_id.to_s})
 
-      controller.should_receive(:old_interactor).with(:'sub_comments/create_for_fact_relation', fact_relation_id, content).
-        and_return(sub_comment)
+      controller
+        .should_receive(:interactor)
+        .with(:'sub_comments/create_for_fact_relation', fact_relation_id: fact_relation_id, content: content)
+        .and_return(sub_comment)
       controller.should_receive(:render).with('sub_comments/show', { formats: [:json] })
 
       controller.create

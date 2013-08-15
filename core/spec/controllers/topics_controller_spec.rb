@@ -16,7 +16,9 @@ describe TopicsController do
 
         controller.stub(params: {id: slug_title})
 
-        controller.should_receive(:old_interactor).with(:"topics/get", slug_title).and_return(topic)
+        controller.should_receive(:interactor)
+                  .with(:'topics/get', slug_title: slug_title)
+                  .and_return(topic)
         controller.should_receive(:respond_to).and_yield format
         format.should_receive(:json).and_yield
 

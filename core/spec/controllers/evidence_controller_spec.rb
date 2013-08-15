@@ -22,9 +22,9 @@ describe SupportingEvidenceController do
     it 'response with success' do
       fact_id = 1
       authenticate_user!(current_user)
-      controller.should_receive(:old_interactor).
-        with(:"evidence/for_fact_id", fact_id.to_s, :supporting).
-        and_return []
+      controller.should_receive(:interactor)
+                .with(:'evidence/for_fact_id', fact_id: fact_id.to_s, type: :supporting)
+                .and_return []
 
       get :combined_index, fact_id: fact_id, format: :json
 
@@ -74,7 +74,7 @@ describe SupportingEvidenceController do
 
       it "should not set the user's opinion on the evidence to believe" do
         f2.add_opinion(:disbelieves, user.graph_user)
-        Pavlov.old_command :'opinions/recalculate_fact_opinion', f2
+        Pavlov.command(:'opinions/recalculate_fact_opinion', fact: f2)
 
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
         response.should be_success

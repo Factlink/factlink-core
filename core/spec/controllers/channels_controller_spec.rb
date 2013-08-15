@@ -117,9 +117,9 @@ describe ChannelsController do
       channel_id = '1a'
       channel = double
 
-      controller.should_receive(:old_interactor).
-        with(:'channels/follow', channel_id).
-        and_return(channel)
+      controller.should_receive(:interactor)
+                .with(:'channels/follow', channel_id: channel_id)
+                .and_return(channel)
 
       post :follow, id: channel_id
 

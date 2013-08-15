@@ -15,7 +15,7 @@ describe CommentsController do
       controller.stub(get_fact_id_param: fact_id)
       comment = double(type: type, content: content)
 
-      controller.should_receive(:old_interactor).with(:"comments/create", fact_id, type, content).and_return(comment)
+      controller.should_receive(:interactor).with(:'comments/create', fact_id: fact_id, type: type, content: content).and_return(comment)
       controller.should_receive(:render).with('comments/show', {formats: [:json]})
 
       controller.create
@@ -32,7 +32,7 @@ describe CommentsController do
       comment_id = 1
       controller.stub(get_comment_id_param: comment_id)
 
-      controller.should_receive(:old_interactor).with(:"comments/delete", comment_id)
+      controller.should_receive(:interactor).with(:'comments/delete', comment_id: comment_id)
       controller.should_receive(:render).with(json: {}, status: :ok)
 
       controller.destroy
@@ -46,7 +46,8 @@ describe CommentsController do
       controller.stub(get_comment_id_param: comment_id)
       controller.stub(params: {opinion: opinion})
 
-      controller.should_receive(:old_interactor).with('comments/update_opinion', comment_id, opinion)
+      controller.should_receive(:interactor)
+                .with(:'comments/update_opinion', comment_id: comment_id, opinion: opinion)
       controller.should_receive(:render).with('comments/show', {formats: [:json]})
 
       controller.update
@@ -59,8 +60,9 @@ describe CommentsController do
       sub_comments = double
       controller.stub(get_comment_id_param: comment_id)
 
-      controller.should_receive(:old_interactor).with(:'sub_comments/index_for_comment', comment_id).
-        and_return(sub_comments)
+      controller.should_receive(:interactor)
+                .with(:'sub_comments/index_for_comment', comment_id: comment_id)
+                .and_return(sub_comments)
       controller.should_receive(:render).with('sub_comments/index', {formats: [:json]})
 
       controller.sub_comments_index
@@ -77,8 +79,9 @@ describe CommentsController do
       controller.stub(get_comment_id_param: comment_id)
       controller.stub(params: {content: content})
 
-      controller.should_receive(:old_interactor).with(:'sub_comments/create_for_comment', comment_id, content).
-        and_return(sub_comment)
+      controller.should_receive(:interactor)
+                .with(:'sub_comments/create_for_comment', comment_id: comment_id, content: content)
+                .and_return(sub_comment)
       controller.should_receive(:render).with('sub_comments/show', {formats: [:json]})
 
       controller.sub_comments_create

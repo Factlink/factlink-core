@@ -3,7 +3,8 @@ require_relative 'application_controller'
 class CommentsController < ApplicationController
   def create
     fact_id = get_fact_id_param
-    @comment = old_interactor :"comments/create", fact_id, type, params[:content]
+    @comment = interactor(:'comments/create', fact_id: fact_id, type: type,
+                              content: params[:content])
 
     render 'comments/show', formats: [:json]
   rescue Pavlov::ValidationError => e
@@ -13,25 +14,30 @@ class CommentsController < ApplicationController
 
   def destroy
     comment_id = get_comment_id_param
-    old_interactor :"comments/delete", comment_id
+    interactor :'comments/delete', comment_id: comment_id
 
     render :json => {}, :status => :ok
   end
 
   def update
-    @comment = old_interactor 'comments/update_opinion', get_comment_id_param, params[:opinion]
+    @comment = interactor(:'comments/update_opinion',
+                              comment_id: get_comment_id_param,
+                              opinion: params[:opinion])
 
     render 'comments/show', formats: [:json]
   end
 
   def sub_comments_index
-    @sub_comments = old_interactor :'sub_comments/index_for_comment', get_comment_id_param
+    @sub_comments = interactor(:'sub_comments/index_for_comment',
+                                   comment_id: get_comment_id_param)
 
     render 'sub_comments/index', formats: [:json]
   end
 
   def sub_comments_create
-    @sub_comment = old_interactor :'sub_comments/create_for_comment', get_comment_id_param, params[:content]
+    @sub_comment = interactor(:'sub_comments/create_for_comment',
+                                  comment_id: get_comment_id_param,
+                                  content: params[:content])
 
     render 'sub_comments/show', formats: [:json]
   end
