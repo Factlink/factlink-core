@@ -33,10 +33,10 @@ class window.Fact extends Backbone.Model
         opts.success?()
 
   getFactWheel: ->
-    return @_fact_wheel if @_fact_wheel?
-
-    @_fact_wheel = new Wheel _.extend {}, @get("fact_wheel"),
-                        fact_id: @id
+    unless @_fact_wheel?
+      @_fact_wheel = new Wheel _.extend {}, @get("fact_wheel"), fact_id: @id
+      @on 'change:id', -> @_fact_wheel.set 'fact_id', @id
+    @_fact_wheel
 
   friendlyUrl: -> @get("url")
 
