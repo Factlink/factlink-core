@@ -16,7 +16,7 @@ class UserObserver < Mongoid::Observer
   end
 
   def after_destroy user
-    old_command :'text_search/delete_user', user
+    command(:'text_search/delete_user', object: user)
   end
 end
 

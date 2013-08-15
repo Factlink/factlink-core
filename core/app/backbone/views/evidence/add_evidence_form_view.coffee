@@ -8,6 +8,9 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       regionType: Factlink.DetachableViewsRegion
 
   initialize: ->
+    @_recent_collection = new RecentlyViewedFacts
+    @_recent_collection.fetch()
+
     @inputRegion.defineViews
       search_view: => @searchView()
       add_comment_view: => @addCommentView()
@@ -25,7 +28,8 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     searchView = new AutoCompleteFactRelationsView
       collection: @fact_relations_masquerading_as_facts()
       fact_id: @collection.fact.id
-      type: @collection.type
+      type: @collection.believesType()
+      recent_collection: @_recent_collection
     @listenTo searchView, 'createFactRelation', (fact_relation, onFinish) ->
       @createFactRelation(fact_relation, onFinish)
     @listenTo searchView, 'switch_to_comment_view', @switchToCommentView
@@ -56,6 +60,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       success: =>
         onFinish()
         @inputRegion.getView('search_view').reset()
+        @collection.trigger 'saved_added_model'
 
         mp_track "Evidence: Added",
           factlink_id: @options.fact_id
@@ -71,9 +76,3 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   showError: -> @$('.js-error').show()
   hideError: -> @$('.js-error').hide()
-
-  addFromFact: (from_fact)->
-    @createFactRelation new FactRelation
-      evidence_id: from_fact.id
-      from_fact: from_fact
-      created_by: currentUser.toJSON()

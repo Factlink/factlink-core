@@ -21,7 +21,7 @@ module Interactors
       end
 
       def users
-        old_query :"users/handpicked"
+        query :"users/handpicked"
       end
 
       def authorized?

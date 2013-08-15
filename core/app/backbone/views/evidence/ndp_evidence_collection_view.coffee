@@ -23,10 +23,13 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   render: ->
     super
     @$el.addClass @typeCss()
-    @$el.addClass 'evidence-irrelevant' unless @model.positiveImpact()
+    @listenTo @model, 'change:impact', @_updateIrrelevant
+    @_updateIrrelevant()
     @impactRegion.show new NDPEvidenceImpactView model: @model
     this
 
+  _updateIrrelevant: ->
+    @$el.toggleClass 'evidence-irrelevant', !@model.positiveImpact()
 
 class NDPVotableEvidenceLayoutView extends NDPEvidenceLayoutView
   className: 'evidence-votable'

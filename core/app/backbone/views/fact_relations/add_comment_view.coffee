@@ -6,33 +6,29 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   events:
     'click .js-post': 'addWithHighlight'
     'click .js-switch-to-factlink': 'switchCheckboxClicked'
-    'keydown .js-content': 'parseKeyDown'
 
   template: 'comments/add_comment'
 
   ui:
-    content: '.js-content'
     submit:  '.js-post'
 
   regions:
+    inputRegion: '.js-input-region'
     avatarRegion: '.js-avatar-region'
 
   onRender: ->
+    @inputRegion.show @_textAreaView()
     unless @options.ndp
       @avatarRegion.show new AvatarView(model: currentUser)
       @$el.addClass 'pre-ndp-add-comment'
-
-
-  parseKeyDown: (e) =>
-    code = e.keyCode || e.which
-    @addWithHighlight() if code is 13
 
   addWithHighlight: ->
     return if @submitting
 
     @model = new Comment
-      content: @formContent()
+      content: @_textModel().get('text')
       created_by: currentUser.toJSON()
+      type: @options.addToCollection.believesType()
 
     return @addModelError() unless @model.isValid()
 
@@ -49,15 +45,14 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     else
       'Disagreeing'
 
-  formContent: -> @ui.content.val()
-
-  setFormContent: (content) -> @ui.content.val(content)
+  setFormContent: (content) -> @_textModel().set 'text', content
 
   addModelSuccess: (model) ->
     @enableSubmit()
     @setFormContent ''
 
     model.trigger 'change'
+    @options.addToCollection.trigger 'saved_added_model'
 
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
@@ -81,3 +76,10 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   disableSubmit: ->
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
+
+  _textModel: -> @__textModel ?= new Backbone.Model text: ''
+
+  _textAreaView: ->
+    @__textAreaView ?= new Backbone.Factlink.TextAreaView
+      model: @_textModel()
+      placeholder: 'Comment...'

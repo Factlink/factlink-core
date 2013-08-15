@@ -17,8 +17,6 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   ui:
     inputField: 'textarea'
 
-  className: 'TextAreaView'
-
   templateHelpers: =>
     placeholder: @options.placeholder
 
