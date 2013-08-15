@@ -8,7 +8,7 @@ class TopicsController < ApplicationController
   def facts
     from = params[:timestamp].to_i if params[:timestamp]
     count = params[:number].to_i if params[:number]
-    @facts = old_interactor :'topics/facts', params[:id], count, from
+    @facts = interactor(:'topics/facts', slug_title: params[:id], count: count, max_timestamp: from)
 
     respond_to do |format|
       format.json { render }
@@ -22,7 +22,7 @@ class TopicsController < ApplicationController
   private
 
   def topic
-    topic = old_interactor :"topics/get", params[:id]
+    topic = interactor(:'topics/get', slug_title: params[:id])
     topic || raise_404("Topic not found")
   end
 end

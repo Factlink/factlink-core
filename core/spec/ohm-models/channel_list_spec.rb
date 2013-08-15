@@ -90,8 +90,8 @@ describe ChannelList do
       f = create :fact, created_by: gu1
 
       as(current_user) do |pavlov|
-        pavlov.old_interactor :"channels/add_fact", f, ch1
-        pavlov.old_interactor :"channels/add_fact", f, ch3
+        pavlov.interactor(:'channels/add_fact', fact: f, channel: ch1)
+        pavlov.interactor(:'channels/add_fact', fact: f, channel: ch3)
       end
 
       list = ChannelList.new(gu1)
@@ -121,7 +121,7 @@ describe ChannelList do
     describe "after adding to a own channel" do
       it "contains the channel" do
         as(current_user) do |pavlov|
-          pavlov.old_command :"channels/add_subchannel", u1_ch1, ch
+          pavlov.command(:'channels/add_subchannel', channel: u1_ch1, subchannel: ch)
         end
         subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
       end
@@ -129,8 +129,8 @@ describe ChannelList do
     describe "after adding to someone else's channel" do
       it "contains only my channels" do
         as(current_user) do |pavlov|
-          pavlov.old_command :"channels/add_subchannel", u1_ch1, ch
-          pavlov.old_command :"channels/add_subchannel", u2_ch1, ch
+          pavlov.command(:'channels/add_subchannel', channel: u1_ch1, subchannel: ch)
+          pavlov.command(:'channels/add_subchannel', channel: u2_ch1, subchannel: ch)
         end
         subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
       end

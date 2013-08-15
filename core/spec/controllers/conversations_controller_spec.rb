@@ -12,8 +12,9 @@ describe ConversationsController do
       pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)
 
-      Pavlov.should_receive(:old_query)
-        .with(:conversations_with_users_message, user.id.to_s, pavlov_options)
+      Pavlov
+        .should_receive(:query)
+        .with(:'conversations_with_users_message', user_id: user.id.to_s, pavlov_options: pavlov_options)
         .and_return([conversation])
 
       get :index, format: 'json'
@@ -75,11 +76,13 @@ describe ConversationsController do
       pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)
 
-      Pavlov.should_receive(:old_interactor)
-        .with(:create_conversation_with_message, fact_id.to_s, ['henk','frits'],
-          user.id.to_s, 'verhaal', pavlov_options)
+      users = ['henk','frits']
+      Pavlov.should_receive(:interactor)
+            .with :'create_conversation_with_message', fact_id: fact_id.to_s,
+                      recipient_usernames: users, sender_id: user.id.to_s,
+                      content: 'verhaal', pavlov_options: pavlov_options
 
-      get :create, fact_id: fact_id, recipients: ['henk','frits'], content: 'verhaal'
+      get :create, fact_id: fact_id, recipients: users, content: 'verhaal'
     end
   end
 end
