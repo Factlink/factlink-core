@@ -58,6 +58,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @setFormContent ''
 
     model.trigger 'change'
+    @options.addToCollection.trigger 'saved_added_model'
 
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id

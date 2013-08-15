@@ -16,6 +16,9 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
     headingRegion: '.js-heading-region'
     contentRegion: '.js-content-region'
 
+  collectionEvents:
+    'saved_added_model': 'cancel'
+
   onRender: ->
     @headingRegion.show new NDPEvidenceishHeadingView model: currentUser
     @cancel()

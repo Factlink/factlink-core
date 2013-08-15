@@ -60,6 +60,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       success: =>
         onFinish()
         @inputRegion.getView('search_view').reset()
+        @collection.trigger 'saved_added_model'
 
         mp_track "Evidence: Added",
           factlink_id: @options.fact_id
