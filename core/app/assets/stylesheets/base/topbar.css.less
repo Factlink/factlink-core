@@ -12,6 +12,20 @@ body.show_sign_in {
   }
 }
 
+.navbar .navbar-inner .topbar-profile-link { //Hack to overwrite bootstrap navs
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  padding: 6px 15px;
+  outline: none;
+
+  img {
+    border-radius:2px;
+  }
+}
+
 .navbar {
   position: relative;
   height: @navbarHeight;
@@ -80,16 +94,6 @@ body.show_sign_in {
           font-weight: bold;
           font-size: @baseFontSize;
           line-height: 20px;
-
-          &.profile {
-            padding-top: 6px;
-            padding-bottom: 6px;
-            outline: none;
-
-            img {
-              .border-radius(2px);
-            }
-          }
 
           &:hover {
             color: @baseFontColor;
