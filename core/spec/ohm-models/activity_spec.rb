@@ -35,7 +35,7 @@ describe Activity do
 
   context "after creating one activity" do
     before do
-      Pavlov.stub(:old_interactor).with(:send_mail_for_activity, anything)
+      Pavlov.stub(:interactor).with(:'send_mail_for_activity', activity: anything, pavlov_options: anything)
     end
 
     before :each do
