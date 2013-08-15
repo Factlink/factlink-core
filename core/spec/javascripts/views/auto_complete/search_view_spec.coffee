@@ -7,6 +7,8 @@ describe 'AutoCompleteSearchView', ->
   describe 'initializeChildViews', ->
     it 'should initialize a text input view and search list view', ->
       view = new AutoCompleteSearchView
+        collection: new Backbone.Collection
+
       text_input_view = new Backbone.Marionette.ItemView
       auto_complete_search_list_view = new Backbone.Marionette.CollectionView
 
@@ -14,9 +16,11 @@ describe 'AutoCompleteSearchView', ->
       Backbone.Factlink.TextInputView = sinon.stub().returns(text_input_view)
 
       view.initializeChildViews(
-        search_collection: -> new SearchCollection
+        search_collection: new SearchCollection
+        filtered_search_collection: new SearchCollection
         search_list_view: (options) -> new AutoCompleteSearchListView(options)
         placeholder: 'placeholder'
+        filter_on: 'bla'
       )
 
       expect(Backbone.Factlink.TextInputView).to.have.been.calledWith(
@@ -25,16 +29,17 @@ describe 'AutoCompleteSearchView', ->
       )
       expect(window.AutoCompleteSearchListView).to.have.been.calledWith(
         model: view.model
-        collection: view.search_collection
+        collection: view.filtered_search_collection
       )
 
-    it 'should create a collectionDifference if filter_on and @collection are given', ->
-      collection = new Backbone.Collection []
+    it 'should create a collectionDifference', ->
+      collection = new Backbone.Collection
       view = new AutoCompleteSearchView
         collection: collection
 
       view.initializeChildViews(
-        search_collection: -> new SearchCollection
+        search_collection: new SearchCollection
+        filtered_search_collection: new SearchCollection
         search_list_view: (options) -> new AutoCompleteSearchListView(options)
         placeholder: 'placeholder'
         filter_on: 'bla'
