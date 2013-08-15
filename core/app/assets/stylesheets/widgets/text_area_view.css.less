@@ -1,6 +1,7 @@
 @import "bootstrap/mixins";
 
-.text_area_view {
+// Hack for bootstrap, remove the "div >" part when removing bootstrap
+html > body .text_area_view {
   .box-sizing(border-box);
   width: 100%;
   padding-top: 6px;
