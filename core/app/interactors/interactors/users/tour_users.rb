@@ -16,8 +16,8 @@ module Interactors
       end
 
       def user_topics user
-        old_query :'user_topics/top_with_authority_for_graph_user_id',
-          user.graph_user_id, 2
+        query(:'user_topics/top_with_authority_for_graph_user_id',
+                  graph_user_id: user.graph_user_id, limit_topics: 2)
       end
 
       def users

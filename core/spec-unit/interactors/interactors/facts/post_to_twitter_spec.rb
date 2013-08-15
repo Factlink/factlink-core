@@ -35,16 +35,18 @@ describe Interactors::Facts::PostToTwitter do
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
 
-      Pavlov.stub(:old_query)
-        .with(:"facts/get_dead", fact.id, pavlov_options)
-        .and_return(fact)
+      Pavlov.stub(:query)
+            .with(:'facts/get_dead',
+                      id: fact.id, pavlov_options: pavlov_options)
+            .and_return(fact)
 
       FactUrl.stub(:new)
              .with(fact)
              .and_return(fact_url)
 
-      Pavlov.should_receive(:old_command)
-        .with(:"twitter/post", "message sharing_url", pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'twitter/post',
+                      message: "message sharing_url", pavlov_options: pavlov_options)
 
       interactor = described_class.new fact_id: fact.id, message: message,
         pavlov_options: pavlov_options

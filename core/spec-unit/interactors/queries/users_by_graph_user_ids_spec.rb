@@ -17,8 +17,9 @@ describe Queries::UsersByGraphUserIds do
     it "should work with an empty list of ids" do
       query = described_class.new(graph_user_ids: [])
 
-      Pavlov.stub(:old_query)
-            .with(:users_by_ids, [],)
+      Pavlov.stub(:query)
+            .with(:'users_by_ids',
+                      user_ids: [])
             .and_return([])
 
       expect(query.call).to eq([])
@@ -43,8 +44,9 @@ describe Queries::UsersByGraphUserIds do
 
       query = described_class.new(graph_user_ids: gu_ids)
 
-      Pavlov.stub(:old_query)
-            .with(:users_by_ids, user_ids)
+      Pavlov.stub(:query)
+            .with(:'users_by_ids',
+                      user_ids: user_ids)
             .and_return(users)
 
       expect(query.call).to eq(users)

@@ -10,7 +10,7 @@ module Queries
       end
 
       def users
-        old_query :"users_by_ids", user_ids
+        query(:'users_by_ids', user_ids: user_ids)
       end
 
       def user_ids

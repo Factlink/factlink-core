@@ -14,7 +14,8 @@ module Interactors
       def execute
         setup_defaults
 
-        old_query :'topics/facts', slug_title, count, max_timestamp
+        query(:'topics/facts',
+                  slug_title: slug_title, count: count, max_timestamp: max_timestamp)
       end
 
       def validate

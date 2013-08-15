@@ -34,12 +34,17 @@ describe Interactors::Comments::UpdateOpinion do
       interactor = described_class.new comment_id: comment.id, opinion: opinion,
         pavlov_options: { current_user: user }
 
-      Pavlov.stub(:old_query)
-        .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
-      Pavlov.should_receive(:old_command)
-        .with(:'comments/set_opinion', comment.id, opinion, user.graph_user, pavlov_options)
-      Pavlov.should_receive(:old_command)
-        .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'comments/get',
+                      comment_id: comment.id, pavlov_options: pavlov_options)
+            .and_return(comment)
+      Pavlov.should_receive(:command)
+            .with(:'comments/set_opinion',
+                      comment_id: comment.id, opinion: opinion,
+                      graph_user: user.graph_user, pavlov_options: pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'opinions/recalculate_comment_user_opinion',
+                      comment: comment, pavlov_options: pavlov_options)
 
       expect(interactor.call).to eq comment
     end
@@ -51,12 +56,18 @@ describe Interactors::Comments::UpdateOpinion do
       interactor = described_class.new comment_id: comment.id, opinion: nil,
                                        pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query).with(:'comments/get', comment.id, pavlov_options).and_return(comment)
+      Pavlov.stub(:query)
+            .with(:'comments/get',
+                      comment_id: comment.id, pavlov_options: pavlov_options)
+            .and_return(comment)
 
-      Pavlov.should_receive(:old_command)
-        .with(:'comments/remove_opinion', comment.id, user.graph_user, pavlov_options)
-      Pavlov.should_receive(:old_command)
-        .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'comments/remove_opinion',
+                      comment_id: comment.id, graph_user: user.graph_user,
+                      pavlov_options: pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'opinions/recalculate_comment_user_opinion',
+                      comment: comment, pavlov_options: pavlov_options)
 
       expect(interactor.call).to eq comment
     end
@@ -72,14 +83,21 @@ describe Interactors::Comments::UpdateOpinion do
       interactor = described_class.new comment_id: comment.id, opinion: opinion,
         pavlov_options: { current_user: user }
 
-      Pavlov.stub(:old_query)
-        .with(:'comments/get', comment.id, pavlov_options).and_return(comment)
-      Pavlov.stub(:old_command)
-        .with(:'comments/set_opinion', comment.id, opinion, user.graph_user, pavlov_options)
-      Pavlov.stub(:old_command)
-        .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options) do
-          Pavlov.stub(:old_query)
-            .with(:'comments/get', comment.id, pavlov_options).and_return(updated_comment)
+      Pavlov.stub(:query)
+            .with(:'comments/get',
+                      comment_id: comment.id, pavlov_options: pavlov_options)
+            .and_return(comment)
+      Pavlov.stub(:command)
+            .with(:'comments/set_opinion',
+                      comment_id: comment.id, opinion: opinion,
+                      graph_user: user.graph_user, pavlov_options: pavlov_options)
+      Pavlov.stub(:command)
+            .with(:'opinions/recalculate_comment_user_opinion',
+                      comment: comment, pavlov_options: pavlov_options) do
+          Pavlov.stub(:query)
+                .with(:'comments/get',
+                          comment_id: comment.id, pavlov_options: pavlov_options)
+                .and_return(updated_comment)
       end
 
       expect(interactor.call).to eq updated_comment

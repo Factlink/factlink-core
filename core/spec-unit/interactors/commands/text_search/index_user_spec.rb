@@ -10,12 +10,11 @@ describe Commands::TextSearch::IndexUser do
       changed = double
       command = described_class.new(user: user, changed: changed)
 
-      Pavlov.should_receive(:old_command)
-            .with :'text_search/index',
-                    user,
-                    :user,
-                    [:username, :first_name, :last_name],
-                    changed
+      Pavlov.should_receive(:command)
+            .with(:'text_search/index',
+                      object: user, type_name: :user,
+                      fields: [:username, :first_name, :last_name],
+                      fields_changed: changed)
 
       command.call
     end

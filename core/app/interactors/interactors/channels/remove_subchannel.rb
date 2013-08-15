@@ -12,18 +12,19 @@ module Interactors
       end
 
       def execute
-        success = old_command :'channels/remove_subchannel', channel, subchannel
+        success = command(:'channels/remove_subchannel',
+                              channel: channel, subchannel: subchannel)
         if success
           channel.activity(channel.created_by, :removed, subchannel, :to, channel)
         end
       end
 
       def channel
-        @channel ||= old_query :'channels/get', channel_id
+        @channel ||= query(:'channels/get', id: channel_id)
       end
 
       def subchannel
-        @subchannel ||= old_query :'channels/get', subchannel_id
+        @subchannel ||= query(:'channels/get', id: subchannel_id)
       end
 
       def authorized?

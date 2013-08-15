@@ -61,8 +61,11 @@ describe Interactors::SubComments::CreateForComment do
       interactor = described_class.new comment_id: comment.id, content: content,
         pavlov_options: pavlov_options
 
-      Pavlov.should_receive(:old_command).with(:"sub_comments/create_xxx", comment.id, 'Comment', content, user, pavlov_options).
-        and_return(sub_comment)
+      Pavlov.should_receive(:command)
+            .with(:'sub_comments/create_xxx',
+                      parent_id: comment.id, parent_class: 'Comment',
+                      content: content, user: user, pavlov_options: pavlov_options)
+            .and_return(sub_comment)
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
         and_return(authority)
       interactor.should_receive(:create_activity).with(sub_comment)
@@ -144,8 +147,11 @@ describe Interactors::SubComments::CreateForComment do
         pavlov_options: pavlov_options
 
       interactor.should_receive(:top_fact).and_return(fact)
-      Pavlov.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user, pavlov_options).
-        and_return(authority)
+      Pavlov.should_receive(:query)
+            .with(:'authority_on_fact_for',
+                      fact: fact, graph_user: graph_user,
+                      pavlov_options: pavlov_options)
+            .and_return(authority)
 
       result = interactor.authority_of_user_who_created sub_comment
 

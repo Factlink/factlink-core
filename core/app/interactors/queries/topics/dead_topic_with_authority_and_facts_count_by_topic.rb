@@ -15,11 +15,13 @@ module Queries
       end
 
       def facts_count
-        old_query :'topics/facts_count', alive_topic.slug_title
+        query(:'topics/facts_count', slug_title: alive_topic.slug_title)
       end
 
       def current_user_authority
-        old_query :authority_on_topic_for, alive_topic, pavlov_options[:current_user].graph_user
+        query(:'authority_on_topic_for',
+                  topic: alive_topic,
+                  graph_user: pavlov_options[:current_user].graph_user)
       end
 
       def validate

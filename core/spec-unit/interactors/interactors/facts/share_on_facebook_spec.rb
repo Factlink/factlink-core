@@ -37,8 +37,9 @@ describe Interactors::Facts::ShareOnFacebook do
                          ability: ability,
                          facebook_app_namespace: 'namespace' }
 
-      Pavlov.should_receive(:old_command)
-        .with(:'facebook/share_factlink', fact_id, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facebook/share_factlink',
+                      fact_id: fact_id, pavlov_options: pavlov_options)
 
       interactor = described_class.new fact_id: fact_id,
         pavlov_options: pavlov_options

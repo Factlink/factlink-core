@@ -38,10 +38,11 @@ describe Interactors::SearchChannel do
       interactor = described_class.new keywords: keywords,
         pavlov_options: { ability: relaxed_ability }
       topic = double
-      Pavlov.should_receive(:old_query)
-        .with(:elastic_search_channel, keywords, 1, 20,
-          { ability: relaxed_ability })
-        .and_return([topic])
+      Pavlov.should_receive(:query)
+            .with(:'elastic_search_channel',
+                      keywords: keywords, page: 1, row_count: 20,
+                      pavlov_options: { ability: relaxed_ability })
+            .and_return([topic])
 
       interactor.call.should eq [topic]
     end

@@ -16,7 +16,7 @@ module Interactors
       def execute
         message_with_url = message + ' ' + url
 
-        old_command :"twitter/post", message_with_url
+        command(:'twitter/post', message: message_with_url)
       end
 
       def validate
@@ -27,7 +27,7 @@ module Interactors
       end
 
       def url
-        fact = old_query :"facts/get_dead", fact_id
+        fact = query(:'facts/get_dead', id: fact_id)
         ::FactUrl.new(fact).sharing_url
       end
 

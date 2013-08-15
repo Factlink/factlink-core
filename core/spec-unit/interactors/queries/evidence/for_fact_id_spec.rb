@@ -43,11 +43,13 @@ describe Queries::Evidence::ForFactId do
       Fact.stub(:[])
           .with(fact.id)
           .and_return(fact)
-      Pavlov.stub(:old_query)
-            .with(:'fact_relations/for_fact', fact, type, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'fact_relations/for_fact',
+                      fact: fact, type: type, pavlov_options: pavlov_options)
             .and_return [fact_relation1, fact_relation2]
-      Pavlov.stub(:old_query)
-            .with(:'comments/for_fact', fact, type, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'comments/for_fact',
+                      fact: fact, type: type, pavlov_options: pavlov_options)
             .and_return [comment1, comment2]
 
       result = interactor.call

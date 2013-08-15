@@ -10,18 +10,24 @@ module Interactors
       end
 
       def execute
-        user = old_query :user_by_username, user_name
+        user = query(:'user_by_username', username: user_name)
 
         unless user.id.to_s == pavlov_options[:current_user].id.to_s
           throw "Only supporting user == current_user when following user"
         end
 
-        user_to_follow = old_query :user_by_username, user_to_follow_user_name
-        old_command :'users/follow_user', user.graph_user_id, user_to_follow.graph_user_id
-        old_command :'create_activity', user.graph_user, :followed_user, user_to_follow.graph_user, nil
+        user_to_follow = query(:'user_by_username',
+                                  username: user_to_follow_user_name)
+        command(:'users/follow_user',
+                    graph_user_id: user.graph_user_id,
+                    user_to_follow_graph_user_id: user_to_follow.graph_user_id)
+        command(:'create_activity',
+                    graph_user: user.graph_user, action: :followed_user,
+                    subject: user_to_follow.graph_user, object: nil)
 
         # This old_command still depends on user == current_user
-        old_command :'stream/add_activities_of_user_to_stream', user_to_follow.graph_user_id
+        command(:'stream/add_activities_of_user_to_stream',
+                    graph_user_id: user_to_follow.graph_user_id)
 
         nil
       end

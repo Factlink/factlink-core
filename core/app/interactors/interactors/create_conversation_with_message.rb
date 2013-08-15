@@ -8,17 +8,21 @@ module Interactors
     arguments :fact_id, :recipient_usernames, :sender_id, :content
 
     def execute
-      conversation = old_command :create_conversation, fact_id, recipient_usernames
+      conversation = command(:'create_conversation',
+                                fact_id: fact_id, recipient_usernames: recipient_usernames)
 
       begin
-        old_command :create_message, sender_id, content, conversation
+        command(:'create_message',
+                    sender_id: sender_id, content: content, conversation: conversation)
       rescue
         conversation.delete # TODO replace this with a rollback of the create command
         raise
       end
 
       sender = User.find(sender_id)
-      old_command :create_activity, sender.graph_user, :created_conversation, conversation, nil
+      command(:'create_activity',
+                  graph_user: sender.graph_user, action: :created_conversation,
+                  subject: conversation, object: nil)
 
       track_mixpanel
 

@@ -43,8 +43,11 @@ describe Interactors::SubComments::IndexForComment do
 
       Comment.stub(:find).with(comment_id)
              .and_return(double)
-      Pavlov.should_receive(:old_query).with(:"sub_comments/index", comment_id, 'Comment', options).
-        and_return(sub_comments)
+      Pavlov.should_receive(:query)
+            .with(:'sub_comments/index',
+                      parent_ids_in: comment_id, parent_class: 'Comment',
+                      pavlov_options: options)
+            .and_return(sub_comments)
       interactor.should_receive(:authority_of_user_who_created).
         with(sub_comments[0]).
         and_return(authorities[0])
@@ -125,8 +128,10 @@ describe Interactors::SubComments::IndexForComment do
       interactor = described_class.new(comment_id: comment_id)
 
       interactor.should_receive(:top_fact).and_return(fact)
-      Pavlov.should_receive(:old_query).with(:"authority_on_fact_for", fact, graph_user).
-        and_return authority
+      Pavlov.should_receive(:query)
+            .with(:'authority_on_fact_for',
+                      fact: fact, graph_user: graph_user)
+            .and_return authority
 
       result = interactor.authority_of_user_who_created sub_comment
 

@@ -6,10 +6,9 @@ module Commands
       arguments :fact_data, :changed
 
       def execute
-        old_command :'text_search/index',
-                      fact_data, :factdata,
-                      [:displaystring, :title],
-                      changed
+        command(:'text_search/index',
+                    object: fact_data, type_name: :factdata,
+                    fields: [:displaystring, :title], fields_changed: changed)
       end
 
       def validate

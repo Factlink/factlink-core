@@ -18,7 +18,7 @@ describe Queries::ElasticSearchChannel do
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)'
       query = described_class.new keywords: keywords, page: 1,
         row_count: 20
-      result = mock
+      result = double
 
       Pavlov.stub(:query)
             .with(:elastic_search, keywords: keywords, page: 1,

@@ -12,7 +12,7 @@ module Commands
         right_quotation_mark = "\u201d"
         quote_with_url = left_quotation_mark + quote + right_quotation_mark + " " + url
 
-        old_command :"twitter/post", quote_with_url
+        command(:'twitter/post', message: quote_with_url)
       end
 
       def quote
@@ -31,7 +31,7 @@ module Commands
       end
 
       def fact
-        @fact ||= old_query :"facts/get_dead", fact_id
+        @fact ||= query(:'facts/get_dead', id: fact_id)
       end
 
       def maximum_quote_length
