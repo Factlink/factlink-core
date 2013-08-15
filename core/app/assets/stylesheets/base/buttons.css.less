@@ -11,7 +11,7 @@ body.client {
     font-size: 13px;
     .border-radius(3px);
     height: @largeButtonHeight;
-    line-height: @largeButtonHeight - 2*@baselinePixelsUp;
+    line-height: @largeButtonHeight;
     padding: 0 @largeButtonPadding;
     transition: all 0.1s;
 
@@ -126,7 +126,7 @@ body.client {
   }
 
   .button-disabled {
-    line-height: @baseButtonHeight - 4*@baselinePixelsUp;
+    line-height: @baseButtonHeight;
     background-color: @buttonDisabledBackground;
     color: @mutedFontColor;
     text-shadow: 0 1px 0 @buttonDisabledTextShadow;
@@ -134,7 +134,7 @@ body.client {
     border-width: @baseButtonBorderWidth;
     border-color: @buttonDisabledBorder;
     &.button-large {
-      line-height: @largeButtonHeight - 4*@baselinePixelsUp;
+      line-height: @largeButtonHeight;
     }
     &:hover {
       cursor: not-allowed;
@@ -151,7 +151,7 @@ body.client {
   .button-small {
     font-size: 12px;
     height: @baseButtonHeight;
-    line-height: @baseButtonHeight - 2*@baselinePixelsUp;
+    line-height: @baseButtonHeight;
     padding: 0 @baseButtonPadding;
     border-bottom-width: @baseButtonBorderWidth;
 

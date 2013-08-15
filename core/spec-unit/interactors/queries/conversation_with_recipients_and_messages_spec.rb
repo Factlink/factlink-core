@@ -17,15 +17,18 @@ describe Queries::ConversationWithRecipientsAndMessages do
     query = described_class.new(id: conversation.id, pavlov_options: options)
     new_conversation = double()
 
-    Pavlov.stub(:old_query)
-      .with(:conversation_get, conversation.id, options)
-      .and_return(conversation)
-    Pavlov.stub(:old_query)
-      .with(:messages_for_conversation, conversation, options)
-      .and_return(message_list)
-    Pavlov.stub(:old_query)
-      .with(:users_by_ids, recipient_ids, options)
-      .and_return(recipient_list)
+    Pavlov.stub(:query)
+          .with(:'conversation_get',
+                    id: conversation.id, pavlov_options: options)
+          .and_return(conversation)
+    Pavlov.stub(:query)
+          .with(:'messages_for_conversation',
+                    conversation: conversation, pavlov_options: options)
+          .and_return(message_list)
+    Pavlov.stub(:query)
+          .with(:'users_by_ids',
+                    user_ids: recipient_ids, pavlov_options: options)
+          .and_return(recipient_list)
     KillObject.stub(:conversation)
       .with(conversation, messages: message_list, recipients: recipient_list)
       .and_return(new_conversation)
@@ -40,9 +43,10 @@ describe Queries::ConversationWithRecipientsAndMessages do
     nonexistingid = double()
     query = described_class.new(id: nonexistingid, pavlov_options: options)
 
-    Pavlov.stub(:old_query)
-      .with(:conversation_get, nonexistingid, options)
-      .and_return(nil)
+    Pavlov.stub(:query)
+          .with(:'conversation_get',
+                    id: nonexistingid, pavlov_options: options)
+          .and_return(nil)
 
     expect(query.call).to be_nil
   end

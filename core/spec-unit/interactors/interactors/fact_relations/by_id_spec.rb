@@ -40,8 +40,10 @@ describe Interactors::FactRelations::ById do
       interactor = described_class.new fact_relation_id: fact_relation_id,
                                        pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-            .with(:'fact_relations/by_ids', [fact_relation_id], pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'fact_relations/by_ids',
+                      fact_relation_ids: [fact_relation_id],
+                      pavlov_options: pavlov_options)
             .and_return([fact_relation])
 
       expect(interactor.call).to eq fact_relation

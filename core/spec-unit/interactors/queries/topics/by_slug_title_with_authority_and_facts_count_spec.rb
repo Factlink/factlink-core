@@ -6,11 +6,8 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
 
   describe 'validation' do
     it 'checks the slug_title' do
-      slug_title = double
-
-      query = described_class.new slug_title: 1
-
-      expect{ query.call }.to raise_error Pavlov::ValidationError, 'slug_title should be a string.'
+      expect_validating(slug_title: 1)
+        .to raise_error Pavlov::ValidationError, 'slug_title should be a string.'
     end
   end
   describe '#call' do
@@ -20,11 +17,11 @@ describe Queries::Topics::BySlugTitleWithAuthorityAndFactsCount do
       pavlov_options = {current_user: double}
       query = described_class.new slug_title: topic.slug_title, pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-        .with(:'topics/by_slug_title', topic.slug_title, pavlov_options)
+      Pavlov.stub(:query)
+        .with(:'topics/by_slug_title', slug_title: topic.slug_title, pavlov_options: pavlov_options)
         .and_return(topic)
-      Pavlov.stub(:old_query)
-        .with(:'topics/dead_topic_with_authority_and_facts_count_by_topic', topic, pavlov_options)
+      Pavlov.stub(:query)
+        .with(:'topics/dead_topic_with_authority_and_facts_count_by_topic', alive_topic: topic, pavlov_options: pavlov_options)
         .and_return(dead_topic)
 
       expect(query.call).to eq dead_topic

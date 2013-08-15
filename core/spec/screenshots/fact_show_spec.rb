@@ -16,7 +16,8 @@ describe "factlink", type: :feature do
     assume_unchanged_screenshot "fact_show"
   end
 
-  it "the layout of the new discussion page is correct with doubters on top" do
+  it "the layout of the new discussion page is correct with doubters on top, and
+      adding weakening comment" do
     @user = sign_in_user create :active_user
     enable_features(@user, :new_discussion_page)
 
@@ -34,10 +35,13 @@ describe "factlink", type: :feature do
 
     page.should have_content factlink.data.displaystring
 
+    find('.js-weakening-button').click
+
     assume_unchanged_screenshot "new_fact_show_A"
   end
 
-  it "the layout of the new discussion page is correct with believers on top" do
+  it "the layout of the new discussion page is correct with believers on top,
+      and adding supporting factlink" do
     @user = sign_in_user create :active_user
     enable_features(@user, :new_discussion_page)
 
@@ -56,6 +60,9 @@ describe "factlink", type: :feature do
     go_to_fact_show_of factlink
 
     page.should have_content factlink.data.displaystring
+
+    find('.js-supporting-button').click
+    find('.js-switch-to-factlink').click
 
     assume_unchanged_screenshot "new_fact_show_B"
   end

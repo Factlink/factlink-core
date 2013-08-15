@@ -6,15 +6,20 @@ module Interactors
       arguments :fact_id, :type, :content
 
       def execute
-        comment = old_command :create_comment, fact_id, type,
-          content, pavlov_options[:current_user].id.to_s
+        comment = command(:'create_comment',
+                              fact_id: fact_id, type: type, content: content,
+                              user_id: pavlov_options[:current_user].id.to_s)
 
-        old_command :'comments/set_opinion', comment.id.to_s, 'believes', pavlov_options[:current_user].graph_user
-        old_command :'opinions/recalculate_comment_user_opinion', comment
+        command(:'comments/set_opinion',
+                    comment_id: comment.id.to_s, opinion: 'believes',
+                    graph_user: pavlov_options[:current_user].graph_user)
+        command(:'opinions/recalculate_comment_user_opinion',
+                    comment: comment)
 
         create_activity comment
 
-        old_query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
+        query(:'comments/add_authority_and_opinion_and_can_destroy',
+                  comment: comment, fact: fact)
       end
 
       def fact
@@ -23,9 +28,11 @@ module Interactors
 
       def create_activity comment
         # TODO fix this ugly data access shit, need to think about where to kill objects, etc
-        old_command :create_activity,
-          pavlov_options[:current_user].graph_user, :created_comment,
-          Comment.find(comment.id), comment.fact_data.fact
+        refetched_comment = Comment.find(comment.id)
+        command(:'create_activity',
+                    graph_user: pavlov_options[:current_user].graph_user,
+                    action: :created_comment, subject: refetched_comment,
+                    object: comment.fact_data.fact)
       end
 
       def authorized?

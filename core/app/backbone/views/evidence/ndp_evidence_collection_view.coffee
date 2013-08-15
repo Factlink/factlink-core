@@ -48,34 +48,39 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
     @contentRegion.show new InteractingUsersView model: @model
 
 
-class NDPEvidenceLoadingView extends Backbone.Marionette.ItemView
-  className: "evidence-loading"
-  template: 'evidence/ndp_evidence_loading_indicator'
-
-
-class NDPEvidenceEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
-  loadingView: NDPEvidenceLoadingView
-
-
-class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
-  className: 'evidence-collection'
-  template: 'evidence/ndp_evidence_collection'
+class NDPEvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: NDPEvidenceLayoutView
-  itemViewContainer: '.js-evidence-item-view-container'
-  emptyView: NDPEvidenceEmptyLoadingView
-
-
-  itemViewOptions: ->
-    collection: @collection
-
-  showCollection: ->
-    if @collection.loading()
-      @showEmptyView()
-    else
-      super
 
   getItemView: (item) ->
     if item instanceof OpinionatersEvidence
       NDPOpinionatorsEvidenceLayoutView
     else
       NDPVotableEvidenceLayoutView
+
+
+class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
+  className: 'evidence-container'
+  template: 'evidence/ndp_evidence_container'
+
+  regions:
+    collectionRegion: '.js-collection-region'
+    addRegion: '.js-add-region'
+
+  collectionEvents:
+    'request sync': '_updateLoading'
+
+  ui:
+    terminator: '.js-terminator'
+
+  onRender: ->
+    @collectionRegion.show new NDPEvidenceCollectionView collection: @collection
+    @_updateLoading()
+
+    if Factlink.Global.signed_in
+      @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
+      @addRegion.show new NDPAddEvidenceView
+        collection: @collection
+        fact_id: @collection.fact.id
+
+  _updateLoading: ->
+    @$el.toggleClass 'evidence-container-loaded', !@collection.loading()

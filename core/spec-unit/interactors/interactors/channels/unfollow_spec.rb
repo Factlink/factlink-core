@@ -22,22 +22,28 @@ describe Interactors::Channels::Unfollow do
       interactor = described_class.new channel_id: channel.id,
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query).with(:'channels/get', channel.id, pavlov_options).and_return(channel)
+      Pavlov.stub(:query)
+            .with(:'channels/get',
+                      id: channel.id, pavlov_options: pavlov_options)
+            .and_return(channel)
 
-      Pavlov.stub(:old_query)
-           .with(:containing_channel_ids_for_channel_and_user,
-                 channel.id,
-                 pavlov_options[:current_user].graph_user_id, pavlov_options)
-           .and_return(following_channel_ids)
+      Pavlov.stub(:query)
+            .with(:'containing_channel_ids_for_channel_and_user',
+                      channel_id: channel.id,
+                      graph_user_id: pavlov_options[:current_user].graph_user_id,
+                      pavlov_options: pavlov_options)
+            .and_return(following_channel_ids)
 
 
       following_channels.length.times do |i|
-        Pavlov.stub(:old_query)
-                  .with(:'channels/get', following_channel_ids[i], pavlov_options)
-                  .and_return(following_channels[i])
-        Pavlov.should_receive(:old_command)
-                  .with(:'channels/remove_subchannel',
-                        following_channels[i], channel, pavlov_options)
+        Pavlov.stub(:query)
+              .with(:'channels/get',
+                        id: following_channel_ids[i], pavlov_options: pavlov_options)
+              .and_return(following_channels[i])
+        Pavlov.should_receive(:command)
+              .with(:'channels/remove_subchannel',
+                        channel: following_channels[i], subchannel: channel,
+                        pavlov_options: pavlov_options)
       end
       interactor.execute
     end

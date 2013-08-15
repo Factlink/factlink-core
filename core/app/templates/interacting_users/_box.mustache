@@ -1,3 +1,7 @@
-<div class="evidence-box-triangle"></div>
 <div class="js-region-interacting-users-names"></div>
 <div class="js-region-interacting-users-avatars"></div>
+
+<div class="evidence-box-triangle"></div>
+{{!triangle must be after content to ensure painting on top without
+   needing a z-index; z-index isn't permitted because triangle's "border"
+   is actually a negative-z-index grey triangle.}}

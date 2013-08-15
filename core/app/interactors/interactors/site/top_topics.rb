@@ -11,7 +11,8 @@ module Interactors
       end
 
       def execute
-        old_query :"site/top_topics", site.id.to_i, nr if site
+        return unless site
+        query(:'site/top_topics', site_id: site.id.to_i, nr: nr)
       end
 
       def site

@@ -54,12 +54,15 @@ describe Interactors::Facts::OpinionUsers do
 
       pavlov_options = { ability: double(can?: true)}
 
-      Pavlov.stub(:old_query)
-        .with(:'facts/interacting_users', fact_id, skip, take, type, pavlov_options)
-        .and_return(users: [u1], total: 1)
-      Pavlov.stub(:old_query)
-        .with(:'opinions/interacting_users_impact_for_fact', fact_id, type, pavlov_options)
-        .and_return(impact)
+      Pavlov.stub(:query)
+            .with(:'facts/interacting_users',
+                      fact_id: fact_id, skip: skip, take: take, opinion: type,
+                      pavlov_options: pavlov_options)
+            .and_return(users: [u1], total: 1)
+      Pavlov.stub(:query)
+            .with(:'opinions/interacting_users_impact_for_fact',
+                      fact_id: fact_id, type: type, pavlov_options: pavlov_options)
+            .and_return(impact)
 
       interactor = described_class.new fact_id: fact_id, skip: skip, take: take,
         type: type, pavlov_options: pavlov_options

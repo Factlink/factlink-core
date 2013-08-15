@@ -51,9 +51,11 @@ describe Interactors::SearchEvidence do
 
       result = [get_fact_data('2')]
 
-      Pavlov.should_receive(:old_query)
-        .with(:elastic_search_fact_data, keywords, 1, 20, ability: relaxed_ability)
-        .and_return(result)
+      Pavlov.should_receive(:query)
+            .with(:'elastic_search_fact_data',
+                      keywords: keywords, page: 1, row_count: 20,
+                      pavlov_options: { ability: relaxed_ability })
+            .and_return(result)
 
       FactData.stub :valid => true
 
@@ -67,9 +69,11 @@ describe Interactors::SearchEvidence do
 
       result = [get_fact_data('2')]
 
-      Pavlov.should_receive(:old_query)
-        .with(:elastic_search_fact_data, keywords, 1, 20, ability: relaxed_ability)
-        .and_return(result)
+      Pavlov.should_receive(:query)
+            .with(:'elastic_search_fact_data',
+                      keywords: keywords, page: 1, row_count: 20,
+                      pavlov_options: { ability: relaxed_ability })
+            .and_return(result)
 
       FactData.stub :valid => true
 
@@ -85,9 +89,11 @@ describe Interactors::SearchEvidence do
 
       result = [fact_data, fact_data2]
 
-      Pavlov.should_receive(:old_query)
-        .with(:elastic_search_fact_data, 'zoeken interessante dingen', 1, 20, ability: relaxed_ability)
-        .and_return(result)
+      Pavlov.should_receive(:query)
+            .with(:'elastic_search_fact_data',
+                      keywords: 'zoeken interessante dingen', page: 1,
+                      row_count: 20, pavlov_options: { ability: relaxed_ability })
+            .and_return(result)
 
       FactData.should_receive(:valid).with(fact_data).and_return(false)
       FactData.should_receive(:valid).with(fact_data2).and_return(true)

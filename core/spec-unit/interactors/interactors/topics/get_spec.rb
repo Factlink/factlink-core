@@ -20,9 +20,9 @@ describe Interactors::Topics::Get do
       interactor = described_class.new slug_title: 'foo',
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query).
-        with(:'topics/by_slug_title', 'foo', pavlov_options).
-        and_return(topic)
+      Pavlov.stub(:query)
+        .with(:'topics/by_slug_title', slug_title: 'foo', pavlov_options: pavlov_options)
+        .and_return(topic)
 
       expect do
         interactor.call
@@ -43,9 +43,9 @@ describe Interactors::Topics::Get do
       interactor = described_class.new(slug_title: 'foo')
 
       described_class.any_instance.stub(:authorized?).and_return(true)
-      Pavlov.stub(:old_query).
-        with(:'topics/by_slug_title', 'foo').
-        and_return(topic)
+      Pavlov.stub(:query)
+        .with(:'topics/by_slug_title', slug_title: 'foo')
+        .and_return(topic)
 
       expect(interactor.topic).to eq topic
     end
@@ -57,18 +57,17 @@ describe Interactors::Topics::Get do
       graph_user = double
       user = double(graph_user: graph_user)
       authority = double
-      pavlov_options = {current_user: user}
+      pavlov_options = {current_user: user, ability: double(can?: true)}
       interactor = described_class.new(slug_title: 'foo',
         pavlov_options: pavlov_options)
 
-      described_class.any_instance.stub(:authorized?).and_return(true)
-      Pavlov.stub(:old_query).
-        with(:'topics/by_slug_title', 'foo', pavlov_options).
-        and_return(topic)
+      Pavlov.stub(:query)
+        .with(:'topics/by_slug_title', slug_title: 'foo', pavlov_options: pavlov_options)
+        .and_return(topic)
 
-      Pavlov.should_receive(:old_query).
-        with(:authority_on_topic_for, topic, graph_user, pavlov_options).
-        and_return(authority)
+      Pavlov.should_receive(:query)
+        .with(:authority_on_topic_for, topic: topic, graph_user: graph_user, pavlov_options: pavlov_options)
+        .and_return(authority)
 
       expect(interactor.authority).to eq authority
     end

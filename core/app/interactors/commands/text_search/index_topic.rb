@@ -6,10 +6,9 @@ module Commands
       arguments :topic, :changed
 
       def execute
-        old_command :'text_search/index',
-                      topic, :topic,
-                      [:title, :slug_title],
-                      changed
+        command(:'text_search/index',
+                    object: topic, type_name: :topic, fields: [:title, :slug_title],
+                    fields_changed: changed)
       end
 
       def validate
