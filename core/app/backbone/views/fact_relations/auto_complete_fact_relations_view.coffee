@@ -6,7 +6,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     'click .js-switch-to-factlink': 'switchCheckboxClicked'
 
   regions:
-    'wheel_region': '.fact-wheel'
     'search_list': 'div.auto-complete-search-list-container'
     'text_input': 'div.js-auto-complete-input-view-container'
 
@@ -41,10 +40,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     else
       "The Factlink above is false because:"
 
-  onRender: ->
-    @wheel = new Wheel()
-    @wheel_region.show new PersistentWheelView(model: @wheel)
-
   addCurrent: ->
     selected_fact_attributes = @_search_list_view.currentActiveModel().attributes
 
@@ -58,8 +53,8 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     fact = new Fact
       displaystring: text
-      opinion: @wheel.userOpinionWithS()
-      fact_wheel: @wheel.toJSON()
+      opinion: 'believes'
+      fact_wheel: (new Wheel).toJSON()
 
     @createFactRelation new FactRelation
       displaystring: text
@@ -92,8 +87,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   reset: ->
     @setQuery ''
-    @wheel.clear()
-    @wheel_region.currentView.render()
 
   queryChanges: ->
     unless @query_has_changed
