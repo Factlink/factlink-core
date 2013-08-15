@@ -28,7 +28,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     searchView = new AutoCompleteFactRelationsView
       collection: @fact_relations_masquerading_as_facts()
       fact_id: @collection.fact.id
-      type: @collection.type
+      type: @collection.believesType()
       recent_collection: @_recent_collection
     @listenTo searchView, 'createFactRelation', (fact_relation, onFinish) ->
       @createFactRelation(fact_relation, onFinish)
