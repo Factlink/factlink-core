@@ -20,6 +20,7 @@ class EvidenceController < ApplicationController
     if opinion
       evidence.add_opinion(opinion, current_graph_user)
       Activity::Subject.activity(current_graph_user, OpinionType.real_for(opinion),evidence)
+      old_command :'opinions/recalculate_fact_opinion', evidence
     end
 
     evidence
