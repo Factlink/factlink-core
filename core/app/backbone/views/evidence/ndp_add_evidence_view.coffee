@@ -1,20 +1,48 @@
+class NDPAddEvidenceButtonsView extends Backbone.Marionette.Layout
+  className: 'evidence-add-buttons'
+  template: 'evidence/ndp_add_evidence_buttons'
+
+  events:
+    'click .js-supporting-button': -> @options.parentView.showAdd 'supporting'
+    'click .js-weakening-button': -> @options.parentView.showAdd 'weakening'
+
+  onRender: ->
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        side: 'right'
+        popover_className: 'translucent-dark-popover'
+      selector: '.js-supporting-button'
+      tooltipViewFactory: => new TextView
+        model: new Backbone.Model
+          text: 'Add supporting argument'
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        side: 'left'
+        popover_className: 'translucent-dark-popover'
+      selector: '.js-weakening-button'
+      tooltipViewFactory: => new TextView
+        model: new Backbone.Model
+          text: 'Add weakening argument'
+
+
 class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
   className: 'evidence-add'
 
   template: 'evidence/ndp_add_evidence'
 
   ui:
-    buttons: '.js-buttons'
     box: '.js-box'
 
   events:
-    'click .js-supporting-button': 'showAddSupporting'
-    'click .js-weakening-button': 'showAddWeakening'
     'click .js-cancel': 'cancel'
 
   regions:
+    buttonsRegion: '.js-buttons-region'
     headingRegion: '.js-heading-region'
     contentRegion: '.js-content-region'
+
+  collectionEvents:
+    'saved_added_model': 'cancel'
 
   onRender: ->
     @headingRegion.show new NDPEvidenceishHeadingView model: currentUser
@@ -25,10 +53,11 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
 
   cancel: ->
     @ui.box.hide()
-    @ui.buttons.show()
+    @buttonsRegion.show new NDPAddEvidenceButtonsView
+      parentView: this
 
-  _showAdd: (type) ->
-    @ui.buttons.hide()
+  showAdd: (type) ->
+    @buttonsRegion.close()
     @ui.box.show()
     @ui.box.removeClass 'evidence-weakening evidence-supporting'
     @ui.box.addClass 'evidence-' + type

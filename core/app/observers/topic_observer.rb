@@ -15,7 +15,7 @@ class TopicObserver < Mongoid::Observer
   end
 
   def after_destroy topic
-    old_command :'text_search/delete_user', topic
+    command(:'text_search/delete_user', object: topic)
   end
 
 end

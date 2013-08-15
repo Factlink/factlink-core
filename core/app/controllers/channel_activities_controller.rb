@@ -21,7 +21,9 @@ class ChannelActivitiesController < ApplicationController
 
     timestamp = (params['timestamp'] || 0).to_i
 
-    @number_of_activities = old_interactor :'channels/activity_count', channel_id, timestamp
+    @number_of_activities = interactor(:'channels/activity_count',
+                                          channel_id: channel_id,
+                                          timestamp: timestamp)
 
     render json: {count: @number_of_activities, timestamp: timestamp }
   end

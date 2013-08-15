@@ -14,7 +14,7 @@ class FactDataObserver < Mongoid::Observer
   end
 
   def after_destroy fact_data
-    old_command :'text_search/delete_fact_data', fact_data
+    command(:'text_search/delete_fact_data', object: fact_data)
   end
 
 end

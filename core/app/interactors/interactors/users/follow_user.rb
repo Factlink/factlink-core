@@ -25,7 +25,7 @@ module Interactors
                     graph_user: user.graph_user, action: :followed_user,
                     subject: user_to_follow.graph_user, object: nil)
 
-        # This old_command still depends on user == current_user
+        # This command still depends on user == current_user
         command(:'stream/add_activities_of_user_to_stream',
                     graph_user_id: user_to_follow.graph_user_id)
 

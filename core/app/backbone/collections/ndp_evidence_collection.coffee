@@ -13,7 +13,9 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
     ]
 
     for collection in @_containedCollections
-      collection.on 'sync', @loadFromCollections, @
+      @listenTo collection, 'sync', @loadFromCollections
+      @listenTo collection, 'add', (model) -> @add model
+      @listenTo collection, 'saved_added_model', -> @trigger 'saved_added_model'
 
   comparator: (item) -> - item.get('impact')
 
@@ -22,7 +24,7 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
 
   fetch: (options={}) ->
     @trigger 'request', this
-    _.invoke @_containedCollections, 'fetch', options
+    _.invoke @_containedCollections, 'fetch', _.extend {}, options, reset: true
 
   loadFromCollections: (collectionOrModel) ->
     return if @loading()

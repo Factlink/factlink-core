@@ -5,19 +5,27 @@
     overflow: hidden;
     position: relative;
     margin: 0;
-    min-height: 225px;
 
     .fact-relation-post {
-      width: 120px;
-    }
-
-    .fact-wheel {
-      height: 43px;
+      width: 105px;
+      float: right;
     }
 
     .fact-relations-input-container {
-      margin-left: 60px;
       margin-bottom: 10px;
+    }
+
+    .fact-wheel {
+      margin-left: -5px;
+      margin-right: 5px;
+
+      .authority {
+        display: none;
+      }
+    }
+
+    .auto-complete-fact-relations-result-text {
+      overflow: hidden;
     }
   }
 
@@ -26,12 +34,12 @@
   .view-toggle {
     font-size: @baseFontSize;
     color: @metaFontColor;
-    padding: 7px 12px 0;
     cursor: pointer;
+    padding-top: 4px;
 
     input[type="checkbox"] {
-      margin: -3px 6px 0;
-      padding: 0;
+      margin-top: -2px;
+      margin-right: 3px;
     }
   }
 }
@@ -44,4 +52,13 @@
 
   border-top: 1px solid @baseBorderColor;
   border-bottom: 1px solid @baseBorderColor;
+
+  .auto-complete-fact-relations {
+    min-height: 220px;
+  }
+
+  .view-toggle {
+    float: right;
+    padding: 4px 12px 0;
+  }
 }

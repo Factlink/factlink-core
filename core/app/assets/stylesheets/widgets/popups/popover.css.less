@@ -12,6 +12,7 @@
   .border-radius(3px);
   .background-clip(padding-box);
   .box-shadow(0 0 0 3px rgba(0, 0, 0, .15));
+  visibility: visible;
 
   .arrow {
     position: absolute;
@@ -61,4 +62,58 @@
       width: @arrow-pointy-side;
     }
   }
+}
+
+.translucent-dark-popover{
+  z-index: 119;
+  position: relative;
+  background: @darkTranslucentGrey;
+  font-size: @baseFontSize;
+  color: white;
+  border-radius: 2px;
+  padding: 9px 18px;
+  visibility: visible;
+
+  .arrow {
+    border: floor(@arrow-long-side/2) solid transparent;
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    margin: -8px;
+    .box-sizing(content-box);
+  }
+
+  &.top {
+    margin-top: @arrow-long-side;
+    .arrow {
+      top: 100%;
+      margin-top: 0;
+      border-top-color:@darkTranslucentGrey
+    }
+  }
+  &.right {
+    margin-left: @arrow-long-side;
+    .arrow {
+      right: 100%;
+      margin-right: 0;
+      border-right-color:@darkTranslucentGrey
+    }
+  }
+  &.bottom {
+    margin-top: @arrow-long-side;
+    .arrow {
+      bottom: 100%;
+      margin-bottom: 0;
+      border-bottom-color:@darkTranslucentGrey
+    }
+  }
+  &.left {
+    margin-right: @arrow-long-side;
+    .arrow {
+      left: 100%;
+      margin-left: 0;
+      border-left-color:@darkTranslucentGrey
+    }
+  }
+
 }
