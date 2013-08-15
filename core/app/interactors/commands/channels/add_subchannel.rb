@@ -9,7 +9,8 @@ module Commands
         success = channel.add_channel(subchannel)
 
         if success
-          old_command :'channels/add_facts_from_channel_to_channel', subchannel, channel
+          command(:'channels/add_facts_from_channel_to_channel',
+                      subchannel: subchannel, channel: channel)
         end
 
         success

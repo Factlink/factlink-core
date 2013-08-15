@@ -5,11 +5,11 @@ module Commands
       arguments :graph_user_id
 
       def execute
-        old_command :'stream/add_activities', activities
+        command(:'stream/add_activities', activities: activities)
       end
 
       def activities
-        old_query :'activities/for_followers_stream', graph_user_id
+        query(:'activities/for_followers_stream', graph_user_id: graph_user_id)
       end
 
     end

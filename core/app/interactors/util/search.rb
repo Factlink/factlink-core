@@ -11,7 +11,7 @@ module Util
       page = @page || 1
       row_count = @row_count || 20
 
-      results = old_query query_name, filtered_keywords, page, row_count
+      results = query query_name, keywords: filtered_keywords, page: page, row_count: row_count
       results.select { |result| valid_result? result}
     end
 

@@ -14,9 +14,11 @@ describe Interactors::Topics::Facts do
       pavlov_options = {current_user: double}
       interactor = described_class.new(slug_title: slug_title, count: count, max_timestamp: max_timestamp, pavlov_options: pavlov_options)
 
-      Pavlov.stub(:old_query)
-        .with(:'topics/facts', slug_title, count, max_timestamp, pavlov_options)
-        .and_return(results)
+      Pavlov.stub(:query)
+            .with(:'topics/facts',
+                      slug_title: slug_title, count: count,
+                      max_timestamp: max_timestamp, pavlov_options: pavlov_options)
+            .and_return(results)
 
       expect( interactor.call ).to eq results
     end

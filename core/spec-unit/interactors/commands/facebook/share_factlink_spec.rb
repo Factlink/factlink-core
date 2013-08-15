@@ -30,8 +30,9 @@ describe Commands::Facebook::ShareFactlink do
                           .with(token)
                           .and_return(client)
 
-      Pavlov.stub(:old_query)
-            .with(:'facts/get_dead', fact.id, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'facts/get_dead',
+                      id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
       client.should_receive(:put_connections)

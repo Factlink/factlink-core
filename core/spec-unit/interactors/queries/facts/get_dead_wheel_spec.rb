@@ -34,8 +34,9 @@ describe Queries::Facts::GetDeadWheel do
 
       OpinionPresenter.stub(:new).with(opinion)
                       .and_return(presenter)
-      Pavlov.stub(:old_query)
-            .with(:'opinions/opinion_for_fact', live_fact, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'opinions/opinion_for_fact',
+                      fact: live_fact, pavlov_options: pavlov_options)
             .and_return(opinion)
       user.graph_user.stub(:opinion_on)
                      .with(live_fact)
@@ -75,8 +76,9 @@ describe Queries::Facts::GetDeadWheel do
       query = described_class.new id: live_fact.id,
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-            .with(:'opinions/opinion_for_fact', live_fact, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'opinions/opinion_for_fact',
+                      fact: live_fact, pavlov_options: pavlov_options)
             .and_return(opinion)
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 

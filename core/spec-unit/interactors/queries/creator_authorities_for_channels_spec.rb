@@ -31,9 +31,10 @@ describe Queries::CreatorAuthoritiesForChannels do
            .and_return(topic)
       query.stub(:graph_user_for).with(channel)
            .and_return(channel_creator)
-      Pavlov.stub(:old_query)
-           .with(:authority_on_topic_for,topic, channel_creator)
-           .and_return(topic_authority)
+      Pavlov.stub(:query)
+            .with(:'authority_on_topic_for',
+                      topic: topic, graph_user: channel_creator)
+            .and_return(topic_authority)
 
       result = query.authority_for(channel)
 
@@ -123,8 +124,9 @@ describe Queries::CreatorAuthoritiesForChannels do
       topics = double
       query = described_class.new channels: channels
 
-      Pavlov.stub(:old_query)
-            .with(:topics_for_channels,channels)
+      Pavlov.stub(:query)
+            .with(:'topics_for_channels',
+                      channels: channels)
             .and_return(topics)
 
       expect(query.topics).to eq topics
@@ -135,9 +137,10 @@ describe Queries::CreatorAuthoritiesForChannels do
       topics = double
       query = described_class.new channels: channels
 
-      Pavlov.should_receive(:old_query)
-            .with(:topics_for_channels,channels).once
-            .and_return(topics)
+      Pavlov.should_receive(:query)
+            .with(:'topics_for_channels',
+                      channels: channels)
+            .once.and_return(topics)
 
       expect(query.topics).to eq topics
       expect(query.topics).to eq topics

@@ -43,10 +43,11 @@ describe Interactors::SearchUser do
         pavlov_options: { ability: relaxed_ability }
       user = double(hidden: false)
 
-      Pavlov.should_receive(:old_query)
-        .with(:elastic_search_user, keywords, 1, 20,
-          ability: relaxed_ability)
-        .and_return([user])
+      Pavlov.should_receive(:query)
+            .with(:'elastic_search_user',
+                      keywords: keywords, page: 1, row_count: 20,
+                      pavlov_options: { ability: relaxed_ability })
+            .and_return([user])
 
       expect( interactor.call ).to eq [user]
     end
@@ -57,10 +58,11 @@ describe Interactors::SearchUser do
         pavlov_options: { ability: relaxed_ability }
       user = double(hidden: true)
 
-      Pavlov.should_receive(:old_query)
-        .with(:elastic_search_user, keywords, 1, 20,
-          ability: relaxed_ability)
-        .and_return([user])
+      Pavlov.should_receive(:query)
+            .with(:'elastic_search_user',
+                      keywords: keywords, page: 1, row_count: 20,
+                      pavlov_options: { ability: relaxed_ability })
+            .and_return([user])
 
       expect( interactor.call ).to eq []
     end

@@ -10,12 +10,10 @@ describe Commands::TextSearch::IndexFactData do
       changed = double
       command = described_class.new(fact_data: fact_data, changed: changed)
 
-      Pavlov.should_receive(:old_command)
-            .with :'text_search/index',
-                    fact_data,
-                    :factdata,
-                    [:displaystring, :title],
-                    changed
+      Pavlov.should_receive(:command)
+            .with(:'text_search/index',
+                      object: fact_data, type_name: :factdata,
+                      fields: [:displaystring, :title], fields_changed: changed)
 
       command.call
     end

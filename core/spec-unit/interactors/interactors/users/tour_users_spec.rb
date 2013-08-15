@@ -40,14 +40,19 @@ describe Interactors::Users::TourUsers do
 
       interactor = described_class.new(pavlov_options: options)
 
-      Pavlov.stub(:old_query)
-            .with(:'users/handpicked', options)
+      Pavlov.stub(:query)
+            .with(:'users/handpicked',
+                      pavlov_options: options)
             .and_return(dead_users)
-      Pavlov.stub(:old_query)
-            .with(:'user_topics/top_with_authority_for_graph_user_id', dead_users[0].graph_user_id, 2, options)
+      Pavlov.stub(:query)
+            .with(:'user_topics/top_with_authority_for_graph_user_id',
+                      graph_user_id: dead_users[0].graph_user_id, limit_topics: 2,
+                      pavlov_options: options)
             .and_return(user_topics[0])
-      Pavlov.stub(:old_query)
-            .with(:'user_topics/top_with_authority_for_graph_user_id', dead_users[1].graph_user_id, 2, options)
+      Pavlov.stub(:query)
+            .with(:'user_topics/top_with_authority_for_graph_user_id',
+                      graph_user_id: dead_users[1].graph_user_id, limit_topics: 2,
+                      pavlov_options: options)
             .and_return(user_topics[1])
 
       KillObject.stub(:user)

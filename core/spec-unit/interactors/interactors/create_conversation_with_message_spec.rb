@@ -31,10 +31,20 @@ describe Interactors::CreateConversationWithMessage do
                 .with(:conversations_created)
 
       User.should_receive(:find).with(sender.id).and_return(sender)
-      Pavlov.should_receive(:old_command).with(:create_conversation, fact_id, usernames, pavlov_options).
-        and_return(conversation)
-      Pavlov.should_receive(:old_command).with(:create_message, sender.id, content, conversation, pavlov_options)
-      Pavlov.should_receive(:old_command).with(:create_activity, graph_user, :created_conversation, conversation, nil, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'create_conversation',
+                      fact_id: fact_id, recipient_usernames: usernames,
+                      pavlov_options: pavlov_options)
+            .and_return(conversation)
+      Pavlov.should_receive(:command)
+            .with(:'create_message',
+                      sender_id: sender.id, content: content,
+                      conversation: conversation, pavlov_options: pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'create_activity',
+                      graph_user: graph_user, action: :created_conversation,
+                      subject: conversation, object: nil,
+                      pavlov_options: pavlov_options)
 
       interactor.call
     end
@@ -52,8 +62,14 @@ describe Interactors::CreateConversationWithMessage do
         recipient_usernames: usernames, sender_id: sender_id,
         content: content
 
-      Pavlov.should_receive(:old_command).with(:create_conversation, fact_id, usernames).and_return(conversation)
-      Pavlov.should_receive(:old_command).with(:create_message, sender_id, content, conversation).and_raise('some_error')
+      Pavlov.should_receive(:command)
+            .with(:'create_conversation',
+                      fact_id: fact_id, recipient_usernames: usernames)
+            .and_return(conversation)
+      Pavlov.should_receive(:command)
+            .with(:'create_message',
+                      sender_id: sender_id, content: content, conversation: conversation)
+            .and_raise('some_error')
       conversation.should_receive(:delete)
 
       expect{interactor.call}.to raise_error('some_error')

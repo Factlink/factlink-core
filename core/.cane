@@ -10,3 +10,4 @@
 --abc-exclude Activity::ListenerCreator#forGraphUser_someone_followed_your_channel
 --abc-exclude Activity::Listener#matches
 --abc-exclude MapReduce::TopicAuthority#map
+--abc-exclude Interactors::Facts::Create#execute

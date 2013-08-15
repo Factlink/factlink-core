@@ -6,10 +6,10 @@ module Commands
       arguments :user, :changed
 
       def execute
-        old_command :'text_search/index',
-                      user, :user,
-                      [:username, :first_name, :last_name],
-                      changed
+        command(:'text_search/index',
+                    object: user, type_name: :user,
+                    fields: [:username, :first_name, :last_name],
+                    fields_changed: changed)
       end
 
       def validate
