@@ -43,8 +43,6 @@ new_sync = (method, model, options) ->
   unless url.match /\.json($|\?)/
     url = url + '.json'
 
-  if window.test_counter
-    url = url.replace(/\?|$/,'?test_counter='+window.test_counter+'&')
 
   wrap_success_and_error(options)
 
@@ -52,6 +50,4 @@ new_sync = (method, model, options) ->
 
 Backbone.sync = new_sync
 
-if window.sessionStorage
-  window.test_counter = sessionStorage.getItem('test_counter')
 

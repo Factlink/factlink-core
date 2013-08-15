@@ -6,14 +6,24 @@
   .learn-more {
     padding: 15px;
     background: #f5f5f5;
+    overflow: hidden;
+
+    span {
+      float: left;
+      margin-top: 6px;
+    }
 
     .learn-more-btn-sign-in {
       margin-right: 5px;
+      color: @linkColor;
+      float: left;
     }
 
     .learn-more-btn-learn-more {
       margin-left: 5px;
       margin-right: 5px;
+      color: white;
+      float: left;
     }
   }
 
@@ -34,7 +44,7 @@
       width: @image-width;
       position: absolute;
       left: 50%;
-      margin: 15px 0 0 -(@image-width / 2);
+      margin: 45px 0 0 -(@image-width / 2);
       background-repeat: no-repeat;
     }
   }

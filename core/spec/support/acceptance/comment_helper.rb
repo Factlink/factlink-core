@@ -2,18 +2,16 @@ module Acceptance
   module CommentHelper
       def toggle_to_comment
         within '.fact-relation-search' do
-          evidence_input = page.find_field 'text_input_view'
-          evidence_input.click
-
-          page.find('.js-switch').set true
+          page.find('.js-switch-to-factlink').set false
         end
       end
 
       def toggle_to_factlink
         within '.fact-relation-search' do
-          page.find('.js-switch').set false
+          page.find('.js-switch-to-factlink').set true
         end
       end
+
 
       def posting_factlink?
         find('.fact-relation-search input[type=text]')[:placeholder]
@@ -48,13 +46,7 @@ module Acceptance
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
-          # We assume a request immediately fires, and button reads "Posting..."
-
-          # This *should* hold:
-          page.find("button", text: "Posting...")
-          # ...but the posting delay vs. capybara check is a race-condition
-          # if this randomly fails, disable the above check.
-
+          potentially_wait_for_posting_button
           page.find("button", text: "Post Factlink")
         end
       end
@@ -65,14 +57,19 @@ module Acceptance
         within '.fact-relation-search' do
           page.find("input[type=text]").set(text)
           page.find("button", text: "Post Factlink").click
-          # We assume a request immediately fires, and button reads "Posting..."
-
-          # This *should* hold:
-          page.find("button", text: "Posting...")
-          # ...but the posting delay vs. capybara check is a race-condition
-          # if this randomly fails, disable the above check.
-
+          potentially_wait_for_posting_button
           page.find("button", text: "Post Factlink")
+        end
+      end
+
+      def potentially_wait_for_posting_button
+        begin
+          # We assume a request immediately fires, and button reads "Posting..."
+          # This *should* hold:
+            page.find("button", text: "Posting...")
+          # ...but the posting delay vs. capybara check is a race-condition
+          # so don't worry if this fails, at least then we're not continuing prematurely
+        rescue
         end
       end
 

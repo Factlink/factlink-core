@@ -3,8 +3,18 @@ class Backbone.Factlink.Collection extends Backbone.Collection
   constructor: (args...) ->
     super args...
     @_loading = false
-    @on 'request', => @_loading = true
-    @on 'sync',   => @_loading = false
+    @on 'request', @_onRequest, @
+    @on 'sync', @_onSync, @
+
+  _onRequest: (collection) ->
+    return unless collection == this
+
+    @_loading = true
+
+  _onSync: (collection) ->
+    return unless collection == this
+
+    @_loading = false
 
   loading: -> @_loading
 

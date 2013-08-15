@@ -6,7 +6,7 @@ module Interactors
       arguments
 
       def execute
-        old_query :'global_features/index'
+        query :'global_features/index'
       end
 
       def authorized?

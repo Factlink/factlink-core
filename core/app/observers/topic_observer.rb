@@ -15,7 +15,7 @@ class TopicObserver < Mongoid::Observer
   end
 
   def after_destroy topic
-    old_command :elastic_search_delete_topic_for_text_search, topic
+    old_command :'text_search/delete_user', topic
   end
 
 end

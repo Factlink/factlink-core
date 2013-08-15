@@ -2,11 +2,15 @@ module Commands
   module Channels
     class AddFactWithoutPropagation
       include Pavlov::Command
+
       arguments :fact, :channel, :score
+
       def execute
         return false unless should_execute?
+
         channel.sorted_cached_facts.add(fact,score)
         fact.channels.add channel if channel.type == 'channel'
+
         true
       end
 

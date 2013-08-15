@@ -13,6 +13,10 @@ class ElasticSearch
                    { body: json_able.to_json }
       ElasticSearch.refresh if ElasticSearch.synchronous
     end
+
+    def delete id
+      HTTParty.delete "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@name}/#{id}"
+    end
   end
 end
 

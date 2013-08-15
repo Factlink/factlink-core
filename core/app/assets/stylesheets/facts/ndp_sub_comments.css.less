@@ -2,7 +2,7 @@
 
 @subCommentPaddingTop: 38px;
 @subCommentLineAttachmentTopOffset: 25px;
-@subCommentLineIndent: 49px;
+@subCommentLineIndent: 40px;
 
 @subCommentCircleExtraRadius: 1px;
 @subCommentLineWidth: 3px;
@@ -19,14 +19,15 @@
 
 @lineColor: @ndpLineColor;
 
-.ndp-sub-comments {
+.ndp-sub-comments .ajax-loader {
+  margin-left: @subCommentLineIndent - 16px/2 + @subCommentLineWidth/2;
   margin-top: 10px;
 }
 
-.ndp-sub-comment {
+.ndp-sub-comment-container {
   position: relative;
   padding-top: @subCommentPaddingTop;
-  padding-left: 90px;
+  padding-left: 80px;
 }
 
 .ndp-sub-comment-circle {
@@ -57,7 +58,7 @@
   background-color: @lineColor;
 }
 
-.ndp-sub-comment:last-child {
+.ndp-sub-comment-container:last-child {
   .ndp-sub-comment-line-bottom, .ndp-sub-comment-circle {
     display: none;
   }
@@ -65,14 +66,15 @@
     left: @subCommentLineIndent;
   }
 }
-.ndp-sub-comment:nth-last-child(2) > .ndp-sub-comment-line-bottom {
+.ndp-sub-comment-container:nth-last-child(2) > .ndp-sub-comment-line-bottom {
   bottom: @subCommentLastVerticalLineBottom;
 }
 
 .ndp-sub-comment-line-top {
   display:none;
 }
-.ndp-sub-comment:first-child .ndp-sub-comment-line-top {
+
+.ndp-sub-comment-container:first-child .ndp-sub-comment-line-top {
   display: block;
   position: absolute;
   left: @subCommentLineIndent;
@@ -82,4 +84,21 @@
 
   background-color: @lineColor;
   z-index:-2;
+}
+
+.ndp-sub-comment-container:first-child:last-child .ndp-sub-comment-line-top {
+  top: -@subCommentLastVerticalLineBottom - 100px;
+}
+
+.ndp-sub-comments-add {
+  overflow: hidden;
+}
+
+.ndp-sub-comments-add textarea {
+  width: 100%;
+  min-height: 4em;
+}
+
+.ndp-sub-comments-add-submit {
+  float: right;
 }

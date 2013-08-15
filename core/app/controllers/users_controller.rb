@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     authorize! :see_activities, @user
     @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )
 
-    @activities.select! { |a| a[:item].andand.still_valid? }
+    @activities.select! { |a| a[:item] && a[:item].still_valid? }
     @showing_notifications = true
     respond_to do |format|
       format.json { render 'channels/activities' }

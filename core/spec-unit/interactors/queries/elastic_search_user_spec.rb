@@ -6,7 +6,7 @@ describe Queries::ElasticSearchUser do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'FactlinkUser', 'Logger'
+    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'FactlinkUser'
   end
 
   describe '#call' do
@@ -32,7 +32,6 @@ describe Queries::ElasticSearchUser do
         and_return(results)
       User.should_receive(:find).with(1).and_return(mongoid_user)
       FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
-      Logger.stub(:new).with(STDERR).and_return(double)
 
       expect(query.call).to eq [user]
     end
@@ -47,14 +46,11 @@ describe Queries::ElasticSearchUser do
       error_response = 'error has happened server side'
       results.stub response: error_response
       results.stub code: 501
-      logger = double
       error_message = "Server error, status code: 501, response: '#{error_response}'."
 
-      query = described_class.new keywords: keywords, page: 1, row_count: 20, pavlov_options: { logger: logger }
+      query = described_class.new keywords: keywords, page: 1, row_count: 20
 
-      HTTParty.should_receive(:get).
-        and_return(results)
-      logger.should_receive(:error).with(error_message)
+      HTTParty.should_receive(:get).and_return(results)
 
       expect { query.call }.to raise_error(RuntimeError, error_message)
     end

@@ -55,7 +55,6 @@ describe Commands::CreateComment do
       command.stub fact_data: fact_data
 
       comment.should_receive(:fact_data=).with(fact_data)
-      comment.should_receive(:sub_comments_count=).with(0)
       Comment.should_receive(:new).and_return(comment)
       User.should_receive(:find).with(user_id).and_return(user)
 
@@ -64,7 +63,7 @@ describe Commands::CreateComment do
       comment.should_receive(:content=).with(content)
       comment.should_receive(:save)
 
-      KillObject.should_receive(:comment).with(comment)
+      KillObject.should_receive(:comment).with(comment, sub_comments_count: 0)
 
       command.call
     end

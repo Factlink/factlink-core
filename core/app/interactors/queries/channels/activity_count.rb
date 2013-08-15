@@ -6,7 +6,7 @@ module Queries
       arguments :channel_id, :timestamp
 
       def execute
-        Channel[@channel_id].activities.count_above(@timestamp)
+        Channel[channel_id].activities.count_above(timestamp)
       end
     end
   end

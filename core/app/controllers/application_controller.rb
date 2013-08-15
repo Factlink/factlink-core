@@ -107,8 +107,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_graph_user
-    @current_graph_user ||= current_user.andand.graph_user
+    return unless current_user
+    @current_graph_user ||= current_user.graph_user
   end
+  helper_method :current_graph_user
 
   def raise_404(message="Not Found")
     raise ActionController::RoutingError.new(message)
@@ -219,4 +221,11 @@ class ApplicationController < ActionController::Base
     allowed_layouts = ['popup', 'client']
     allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
   end
+
+  def inject_special_test_code
+    # this method is used by the test to inject things like the
+    # test_counter (aka cross-test-request-forgery prevention), and
+    # possibly eventually custom styling for poltergeist screenshots.
+  end
+  helper_method :inject_special_test_code
 end

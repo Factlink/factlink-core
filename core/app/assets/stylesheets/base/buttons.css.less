@@ -1,116 +1,177 @@
 @import "bootstrap/mixins";
 
-body.factlink-site.controller_home,
-body.factlink-site.controller_privacy,
+
+
 body.factlink-site,
 body.feedback_form,
 body.client {
-  .btn {
+  .button {
+    .new-design-font();
     display: inline-block;
-    padding: 5px 12px;
-    font-family: @baseFontFamily;
-    font-size: @baseFontSize;
-    line-height: @baseLineHeight;
-    color: @baseFontColor
+    font-size: 13px;
+    .border-radius(3px);
+    height: @largeButtonHeight;
+    line-height: @largeButtonHeight;
+    padding: 0 @largeButtonPadding;
+    transition: all 0.1s;
+
+    border: none;
+    border-bottom: @largeButtonBorderWidth solid @buttonBorder;
+    background-color: @buttonBackground;
+
+    color: @linkColor;
+    text-shadow: 0 1px 0 @buttonTextShadow;
+
+    &:hover {
+      background: @buttonDarkBackground;
+      border-color: @buttonDarkBorder;
+    }
+
+    &:active {
+      background-color: @buttonDarkBackground;
+      border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
+      border-bottom: 0px
+    }
+
+    &.button-loading, &[disabled] {
+      .background-size(40px 40px);
+      .striped(45deg, rgba(0,0,0,0.07));
+      .animate-stripes(1.5s);
+      color: @mutedFontColor;
+    }
   }
 
-
-  .btn-mini {
-    padding: 2px 5px;
-    font-size: @metaFontSize;
-  }
-  .btn-action-checked {
-    color: @greenLabelColor;
-    border: 1px solid @mutedBorderColor;
-    background-color: @backgroundGray;
-    .box-shadow(inset 0 1px 3px rgba(0,0,0,.06));
-    .button-background(@disabledButtonStartColor, @disabledButtonEndColor);
-    font-weight: bold;
-  }
-  .btn-danger {
+  .button-confirm {
+    background-color: @buttonConfirmBackground;
     color: white;
-    background: @dangerButtonColor;
-    font-weight:normal;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    .box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05));
-  }
-}
-
-body.factlink-site.controller_home,
-body.factlink-site.controller_privacy {
-  .btn-primary,
-  .btn-primary:hover {
-      text-shadow: 0 1px 0 #feed7b;
-      color: #7e582f;
-      padding-left: 20px;
-      padding-right: 20px;
-  }
-  .btn-primary {
-    #gradient > .vertical(#F8D36D, #FDBA39);
-    background-color: #FDBA39;
-    border-color: #FDBA39 #FDBA39 #DC941F;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  }
-  .btn-primary:hover,
-  .btn-primary:active,
-  .btn-primary.active,
-  .btn-primary.disabled,
-  .btn-primary[disabled] {
-    background-color: #FDBA39;
-  }
-}
-
-body.factlink-site,
-body.feedback_form,
-body.client {
-  .btn-primary,
-  .btn-primary:hover {
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    color: #ffffff;
+    text-shadow: 0 1px 0 @buttonConfirmTextShadow;
+    border-bottom-color: @buttonConfirmBorder;
+    &:hover {
+      color: white;
+      background-color: @buttonConfirmDarkBackground;
+      border-bottom-color: @buttonConfirmDarkBorder;
+    }
+    &:active {
+      background-color: @buttonConfirmDarkBackground;
+      border-top: @largeButtonBorderWidth solid @buttonConfirmDarkBorder;
+      border-bottom: 0px;
+    }
+    &.button-loading, &[disabled] {
+      .striped(45deg);
+      color: rgba(255,255,255,0.6);
+    }
   }
 
-  .btn-primary {
-    #gradient > .vertical(#669BBB, @linkColor);
+  .button-danger {
+    background-color: @buttonDangerBackground;
+    color: white;
+    text-shadow: 0 1px 0 @buttonDangerTextShadow;
+    border-bottom-color: @buttonDangerBorder;
+    &:hover {
+      color: white;
+      background-color: @buttonDangerDarkBackground;
+      border-bottom-color: @buttonDangerDarkBorder;
+    }
+    &:active {
+      background-color: @buttonDangerDarkBackground;
+      border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
+      border-bottom: 0px;
+    }
+    &.button-loading, &[disabled] {
+      .striped(45deg);
+      color: rgba(255,255,255,0.6);
+    }
   }
 
-  .btn-primary:hover,
-  .btn-primary:active,
-  .btn-primary.active,
-  .btn-primary.disabled,
-  .btn-primary[disabled] {
-    background-color: @linkColor;
-  }
-}
-
-.button-blue {
-  .new-design-font();
-
-  @height: 24px;
-  @baselinePixelsUp: 1px;
-
-  height: @height;
-  line-height: @height - 2*@baselinePixelsUp;
-  padding: 0 12px;
-  .border-radius(3px);
-
-  background: @linkColor;
-  color: white;
-  text-shadow: 0 1px 0 @buttonTextShadow;
-  border: none;
-  border-bottom: 2px solid @buttonBlueDark;
-
-  transition: all 0.1s;
-
-  &:hover {
-    background: @buttonBlueDark;
-    border-bottom-color: @buttonBlueDarker;
+  .button-success {
+    background-color: @buttonSuccessBackground;
+    color: white;
+    text-shadow: 0 1px 0 @buttonSuccessTextShadow;
+    border-bottom-color: @buttonSuccessBorder;
+    &:hover {
+      color: white;
+      background-color: @buttonSuccessDarkBackground;
+      border-bottom-color: @buttonSuccessDarkBorder;
+    }
+    &:active {
+      background-color: @buttonSuccessDarkBackground;
+      border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
+      border-bottom: 0px;
+    }
+    &.button-loading, &[disabled] {
+      .striped(45deg);
+      color: rgba(255,255,255,0.6);
+    }
   }
 
-  &:active {
-    background: @buttonBlueDark;
-    border-bottom-color: @buttonBlueDark;
-    padding-top: 1px;
-    box-shadow: inset 0 2px @buttonBlueDarker;
+  .button-home {
+    background-color: @buttonHomeBackground;
+    color: @buttonHomeLink;
+    text-shadow: 0 1px 0 @buttonHomeTextShadow;
+    border-bottom-color: @buttonHomeBorder;
+    &:hover {
+      color: @buttonHomeLink;
+      background-color: @buttonHomeDarkBackground;
+      border-bottom-color: @buttonHomeDarkBorder;
+    }
+    &:active {
+      background-color: @buttonHomeDarkBackground;
+      border-top: @largeButtonBorderWidth solid @buttonHomeDarkBorder;
+      border-bottom: 0px;
+    }
+    &.button-loading, &[disabled] {
+      .striped(45deg);
+      color: @buttonHomeLink;
+    }
   }
+
+  .button-disabled {
+    line-height: @baseButtonHeight;
+    background-color: @buttonDisabledBackground;
+    color: @mutedFontColor;
+    text-shadow: 0 1px 0 @buttonDisabledTextShadow;
+    border-style: solid;
+    border-width: @baseButtonBorderWidth;
+    border-color: @buttonDisabledBorder;
+    &.button-large {
+      line-height: @largeButtonHeight;
+    }
+    &:hover {
+      cursor: not-allowed;
+    }
+    &:active {
+      padding-top: 0;
+    }
+    &.button-loading, &[disabled] {
+      .striped(45deg, rgba(0,0,0,0.04));
+      color: @mutedFontColor;
+    }
+  }
+
+  .button-small {
+    font-size: 12px;
+    height: @baseButtonHeight;
+    line-height: @baseButtonHeight;
+    padding: 0 @baseButtonPadding;
+    border-bottom-width: @baseButtonBorderWidth;
+
+    &:active {
+      padding-top: 1px;
+      border-top-width: @baseButtonBorderWidth;
+    }
+  }
+
+  .button-loading {
+    text-shadow: none;
+  }
+
+  .button-action-checked {
+    color: @greenLabelColor;
+    font-weight: 500;
+    &.button-danger {
+      font-weight: 300;
+      color: white;
+    }
+  }
+
 }

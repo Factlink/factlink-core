@@ -1,4 +1,5 @@
 // All the default libraries/files needed for all pages on Factlink
+//= require test_request_cookie_syncer
 //= require jquery
 //= require jquery_ujs
 //= require underscore
@@ -10,7 +11,6 @@
 //= require jquery.placeholder
 //= require raven
 //= require state-machine
-//= require detector
 
 //= require globals/globals
 

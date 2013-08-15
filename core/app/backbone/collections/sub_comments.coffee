@@ -1,4 +1,4 @@
-class window.SubComments extends Backbone.Collection
+class window.SubComments extends Backbone.Factlink.Collection
   model: SubComment
 
   initialize: (models, options) ->

@@ -17,15 +17,15 @@ describe Commands::Topics::UpdateUserAuthority do
       GraphUser.stub(:[]).once.with(graph_user.id)
                .and_return(graph_user)
 
-      Pavlov.stub(:old_query).once
-            .with(:'topics/by_slug_title', topic.slug_title)
+      Pavlov.stub(:query).once
+            .with(:'topics/by_slug_title', slug_title: topic.slug_title)
             .and_return(topic)
     end
 
     it 'updates the authority' do
       authority_object = double
 
-      query = described_class.new graph_user_id: graph_user.id,
+      command = described_class.new graph_user_id: graph_user.id,
         topic_slug: topic.slug_title, authority: authority
 
 
@@ -37,13 +37,13 @@ describe Commands::Topics::UpdateUserAuthority do
       authority_object.should_receive(:<<)
                       .with(authority)
 
-      query.call
+      command.call
     end
 
     it "updates the top_users of the topic" do
       authority_object = double
 
-      query = described_class.new graph_user_id: graph_user.id,
+      command = described_class.new graph_user_id: graph_user.id,
         topic_slug: topic.slug_title, authority: authority
 
       Authority.stub from: double(:<< => nil)
@@ -52,13 +52,13 @@ describe Commands::Topics::UpdateUserAuthority do
       topic.should_receive(:top_users_add)
            .with(graph_user.user, authority)
 
-      query.call
+      command.call
     end
 
     it "updates the top topics of the user" do
       user_topics_list = double
 
-      query = described_class.new graph_user_id: graph_user.id,
+      command = described_class.new graph_user_id: graph_user.id,
         topic_slug: topic.slug_title, authority: authority
 
       Authority.stub from: double(:<< => nil)
@@ -71,7 +71,7 @@ describe Commands::Topics::UpdateUserAuthority do
       user_topics_list.should_receive(:set)
                       .with(topic.id, authority)
 
-      query.call
+      command.call
     end
   end
 

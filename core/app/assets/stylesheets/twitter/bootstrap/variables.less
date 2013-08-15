@@ -26,7 +26,6 @@
 // Scaffolding
 // -------------------------
 @bodyBackground:        @white;
-@textColor:             @grayDark;
 
 // Links
 // -------------------------
@@ -37,9 +36,7 @@
 // -------------------------
 
 @baseFontFamily:            "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-@headingFontFamily:         "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 @sansFontFamily:            "Helvetica Neue", Helvetica, Arial, sans-serif;
-@serifFontFamily:           Georgia, "Times New Roman", Times, serif;
 
 @baseFontSize:              12px;
 @baseLineHeight:            18px;
@@ -66,42 +63,59 @@
 
 // Tables
 // -------------------------
-@tableBackground:                   transparent; // overall background-color
-@tableBackgroundAccent:             #f9f9f9; // for striping
-@tableBackgroundHover:              #f5f5f5; // for hover
-@tableBorder:                       #ddd; // table and cell border
+@tableBackground:             transparent; // overall background-color
+@tableBackgroundAccent:       #f9f9f9; // for striping
+@tableBackgroundHover:        #f5f5f5; // for hover
+@tableBorder:                 #ddd; // table and cell border
 
 // Buttons
-// -------------------------
-@btnBackground:                     @white;
-@btnBackgroundHighlight:            darken(@white, 10%);
-@btnBorder:                         #bbb;
 
-@btnPrimaryBackground:              @linkColor;
-@btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 20%);
+@buttonBackground:            #e4e6eb;
+@buttonBorder:                #bcbec2;
+@buttonDarkBackground:        darken(@buttonBackground, 5);
+@buttonDarkBorder:            darken(@buttonBorder, 5);
+@buttonTextShadow:            rgba(255,255,255,0.35);
 
-@btnInfoBackground:                 #5bc0de;
-@btnInfoBackgroundHighlight:        #2f96b4;
+@buttonConfirmBackground:     @linkColor;
+@buttonConfirmBorder:         #1c5c90;
+@buttonConfirmDarkBackground: darken(@buttonConfirmBackground, 5);
+@buttonConfirmDarkBorder:     darken(@buttonConfirmBorder, 5);
+@buttonConfirmTextShadow:     rgba(0,0,0,0.35);
 
-@btnSuccessBackground:              #62c462;
-@btnSuccessBackgroundHighlight:     #51a351;
+@buttonDangerBackground:      #cb5858;
+@buttonDangerBorder:          #9a4242;
+@buttonDangerDarkBackground:  darken(@buttonDangerBackground, 5);
+@buttonDangerDarkBorder:      darken(@buttonDangerBorder, 5);
+@buttonDangerTextShadow:      rgba(0,0,0,0.35);
+@dangerButtonColor:           #c0544d;
 
-@btnWarningBackground:              lighten(@orange, 15%);
-@btnWarningBackgroundHighlight:     @orange;
+@buttonSuccessBackground:     #17ab75;
+@buttonSuccessBorder:         #1c845e;
+@buttonSuccessDarkBackground: darken(@buttonSuccessBackground, 5);
+@buttonSuccessDarkBorder:     darken(@buttonSuccessBorder, 5);
+@buttonSuccessTextShadow:     rgba(0,0,0,0.35);
 
-@btnDangerBackground:               #ee5f5b;
-@btnDangerBackgroundHighlight:      #bd362f;
+@buttonHomeBackground:        #fac553;
+@buttonHomeBorder:            #d9a946;
+@buttonHomeLink:              #906238;
+@buttonHomeDarkBackground:    darken(@buttonHomeBackground, 5);
+@buttonHomeDarkBorder:        darken(@buttonHomeBorder, 5);
+@buttonHomeTextShadow:        rgba(255,255,255,0.35);
 
-@btnInverseBackground:              #444;
-@btnInverseBackgroundHighlight:     @grayDarker;
+@buttonDisabledBackground:    #efefef;
+@buttonDisabledBorder:        #d8d8d8;
+@buttonDisabledTextShadow:    rgba(255,255,255,0.35);
 
-@dangerButtonColor:         #c0544d;
-@disabledButtonStartColor:  #f0f0f0;
-@disabledButtonEndColor:    #f8f8f8;
+@baseButtonHeight:            24px;
+@largeButtonHeight:           30px;
 
-@buttonBlueDark:   #1c5c90;
-@buttonBlueDarker: #124977;
-@buttonTextShadow: rgba(0,0,0,0.35);
+@baseButtonPadding:           12px;
+@largeButtonPadding:          16px;
+
+@baseButtonBorderWidth:       2px;
+@largeButtonBorderWidth:      3px;
+
+@baselinePixelsUp:            1px;
 
 // Forms
 // -------------------------
@@ -126,6 +140,11 @@
 @dropdownLinkBackgroundHover:   @dropdownLinkBackgroundActive;
 
 
+// NDP
+@ndpBoxShadowBorder:        0 0 0 1px rgba(0,0,0,0.06);
+@NDPMutedBorderTopColor:    rgb(230,230,230);
+@NDPMutedBorderBottomColor: rgb(250,250,250);
+@ndpLineColor:              rgba(174,180,189,0.8);
 
 // COMPONENT VARIABLES
 // --------------------------------------------------
@@ -170,7 +189,6 @@
 
 // Navbar
 // -------------------------
-@navbarCollapseWidth:             979px;
 
 @navbarHeight:                    42px;
 @navbarMargin:                    18px;
@@ -221,10 +239,6 @@
 @popoverArrowOuterWidth:  @popoverArrowWidth + 1;
 @popoverArrowOuterColor:  rgba(0,0,0,.25);
 
-// GRID
-// --------------------------------------------------
-
-
 // Default 940px grid
 // -------------------------
 @gridColumns:             12;
@@ -232,36 +246,15 @@
 @gridGutterWidth:         20px;
 @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
 
-// 1200px min
-@gridColumnWidth1200:     70px;
-@gridGutterWidth1200:     30px;
-@gridRowWidth1200:        (@gridColumns * @gridColumnWidth1200) + (@gridGutterWidth1200 * (@gridColumns - 1));
-
-// 768px-979px
-@gridColumnWidth768:      42px;
-@gridGutterWidth768:      20px;
-@gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
-
 // Fluid grid
 // -------------------------
 @fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
 @fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
 
-// 1200px min
-@fluidGridColumnWidth1200:     percentage(@gridColumnWidth1200/@gridRowWidth1200);
-@fluidGridGutterWidth1200:     percentage(@gridGutterWidth1200/@gridRowWidth1200);
-
-// 768px-979px
-@fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
-@fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
-
 // Styling
 @baseBorderColor:           darken(#d7d7d7, 5);
 @mutedBorderColor:          lighten(@baseBorderColor, 5);
 @modalBorderColor:          #a6a6a6;
-
-@NDPMutedBorderTopColor:    rgb(230,230,230);
-@NDPMutedBorderBottomColor: rgb(250,250,250);
 
 // TODO: fix these colours to match the new design, concurrently with updating the js-library
 @factlinkActiveColor:       #b4d5fe;
@@ -283,4 +276,3 @@
 @bubbleRightPadding: 15px;
 
 
-@ndpLineColor: rgba(174,180,189,0.8);

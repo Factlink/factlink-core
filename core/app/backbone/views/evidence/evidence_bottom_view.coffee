@@ -17,11 +17,11 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
 
   updateSubCommentsLink: ->
     count = @model.get('sub_comments_count')
-
-    if count > 0
-      @ui.subCommentsLink.text "Comments (#{count})"
-    else
-      @ui.subCommentsLink.text "Comments"
+    countText = switch count
+      when 0 then "Comment"
+      when 1 then "1 comment"
+      else "#{count} comments"
+    @ui.subCommentsLink.text countText
 
     if Factlink.Global.signed_in or count > 0
       @showSubCommentsLink()
@@ -45,7 +45,7 @@ class window.EvidenceBottomView extends GenericEvidenceBottomView
     from_fact_sanitized:   fact?.toJSON()
 
 class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
-  className: 'ndp-evidence-bottom bottom-base'
+  className: 'ndp-evidenceish-bottom bottom-base'
 
   templateHelpers: =>
     showTimeAgo: true

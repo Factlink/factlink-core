@@ -1,13 +1,18 @@
+class NDPEvidenceImpactView extends Backbone.Marionette.ItemView
+  className: 'evidence-impact-text'
+  template: 'evidence/ndp_evidence_impact'
+
+  initialize: ->
+    @listenTo @model, 'change:impact', @render
+
+
 class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
   template: 'evidence/ndp_evidence_layout'
 
   regions:
     contentRegion: '.js-content-region'
     voteRegion: '.js-vote-region'
-
-  constructor: ->
-    super
-    @listenTo @model, 'change', @render
+    impactRegion: '.js-impact-region'
 
   typeCss: ->
     switch @model.get('type')
@@ -19,6 +24,7 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
     super
     @$el.addClass @typeCss()
     @$el.addClass 'evidence-irrelevant' unless @model.positiveImpact()
+    @impactRegion.show new NDPEvidenceImpactView model: @model
     this
 
 
@@ -42,34 +48,37 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
     @contentRegion.show new InteractingUsersView model: @model
 
 
-class NDPEvidenceLoadingView extends Backbone.Marionette.ItemView
-  className: "evidence-loading"
-  template: 'evidence/ndp_evidence_loading_indicator'
-
-
-class NDPEvidenceEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
-  loadingView: NDPEvidenceLoadingView
-
-
-class window.NDPEvidenceCollectionView extends Backbone.Marionette.CompositeView
-  className: 'evidence-collection'
-  template: 'evidence/ndp_evidence_collection'
+class NDPEvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: NDPEvidenceLayoutView
-  itemViewContainer: '.js-evidence-item-view-container'
-  emptyView: NDPEvidenceEmptyLoadingView
-
-
-  itemViewOptions: ->
-    collection: @collection
-
-  showCollection: ->
-    if @collection.loading()
-      @showEmptyView()
-    else
-      super
 
   getItemView: (item) ->
     if item instanceof OpinionatersEvidence
       NDPOpinionatorsEvidenceLayoutView
     else
       NDPVotableEvidenceLayoutView
+
+
+class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
+  className: 'evidence-container'
+  template: 'evidence/ndp_evidence_container'
+
+  regions:
+    collectionRegion: '.js-collection-region'
+    addRegion: '.js-add-region'
+
+  collectionEvents:
+    'request sync': '_updateLoading'
+
+  ui:
+    terminator: '.js-terminator'
+
+  onRender: ->
+    @collectionRegion.show new NDPEvidenceCollectionView collection: @collection
+    @_updateLoading()
+
+    if Factlink.Global.signed_in
+      @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
+      @addRegion.show new NDPAddEvidenceView collection: @collection
+
+  _updateLoading: ->
+    @$el.toggleClass 'evidence-container-loaded', !@collection.loading()
