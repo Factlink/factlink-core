@@ -1,6 +1,6 @@
 class window.PopoverView extends Backbone.Marionette.Layout
   template: 'popovers/popover'
-  className: 'popover-container'
+  className: => @options.popover_className || 'popover-container'
 
   ui:
     arrow: '.js-arrow'
@@ -51,7 +51,7 @@ class window.PopoverView extends Backbone.Marionette.Layout
 
   onPosition: (offset)->
     if @options.side in ['left', 'right']
-      @ui.arrow.css 'top', offset.top - (@ui.arrow.height() / 2)
+      @ui.arrow.css 'top', offset.top - (@ui.arrow.outerHeight() / 2)
 
     if @options.side in ['top', 'bottom']
-      @ui.arrow.css 'left', offset.left - (@ui.arrow.width() / 2)
+      @ui.arrow.css 'left', offset.left - (@ui.arrow.outerWidth() / 2)
