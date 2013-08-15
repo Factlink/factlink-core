@@ -48,5 +48,3 @@ new_sync = (method, model, options) ->
   old_sync(method, model, _.extend({},options, {url: url}))
 
 Backbone.sync = new_sync
-
-
