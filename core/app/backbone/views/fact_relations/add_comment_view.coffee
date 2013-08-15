@@ -18,7 +18,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     avatarRegion: '.js-avatar-region'
 
   onRender: ->
-    @avatarRegion.show new AvatarView(model: currentUser)
+    unless @options.ndp
+      @avatarRegion.show new AvatarView(model: currentUser)
+      @$el.addClass 'old-add-comment'
 
 
   parseKeyDown: (e) =>

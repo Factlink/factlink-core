@@ -38,3 +38,4 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
       collection: @collection.oneSidedEvidenceCollection(type)
       fact_id: @options.fact_id
       type: type
+      ndp: true
