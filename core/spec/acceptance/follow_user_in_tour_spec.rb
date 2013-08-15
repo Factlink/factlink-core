@@ -10,21 +10,21 @@ feature "follow_users_in_tour", type: :feature do
 
     @user1 = create :user
     @user2 = create :user
-    Pavlov.old_command :"users/add_handpicked_user", @user1.id.to_s
-    Pavlov.old_command :"users/add_handpicked_user", @user2.id.to_s
+    Pavlov.command(:'users/add_handpicked_user', user_id: @user1.id.to_s)
+    Pavlov.command(:'users/add_handpicked_user', user_id: @user2.id.to_s)
 
     as(@user1) do |pavlov|
-      @user1_channel1 = pavlov.old_command :'channels/create', 'toy'
-      pavlov.old_command :'topics/update_user_authority',        @user1.graph_user_id.to_s, @user1_channel1.slug_title, 0
-      @user1_channel2 = pavlov.old_command :'channels/create', 'story'
-      pavlov.old_command :'topics/update_user_authority',        @user1.graph_user_id.to_s, @user1_channel2.slug_title, 3
+      @user1_channel1 = pavlov.command(:'channels/create', title: 'toy')
+      pavlov.command(:'topics/update_user_authority', graph_user_id: @user1.graph_user_id.to_s, topic_slug: @user1_channel1.slug_title, authority: 0)
+      @user1_channel2 = pavlov.command(:'channels/create', title: 'story')
+      pavlov.command(:'topics/update_user_authority', graph_user_id: @user1.graph_user_id.to_s, topic_slug: @user1_channel2.slug_title, authority: 3)
     end
     as(@user2) do |pavlov|
-      @user2_channel1 = pavlov.old_command :'channels/create', 'war'
-      pavlov.old_command :'topics/update_user_authority',        @user2.graph_user_id.to_s, @user2_channel1.slug_title, 0
+      @user2_channel1 = pavlov.command(:'channels/create', title: 'war')
+      pavlov.command(:'topics/update_user_authority', graph_user_id: @user2.graph_user_id.to_s, topic_slug: @user2_channel1.slug_title, authority: 0)
 
-      @user2_channel2 = pavlov.old_command :'channels/create', 'games'
-      pavlov.old_command :'topics/update_user_authority',        @user2.graph_user_id.to_s, @user2_channel2.slug_title, 4568
+      @user2_channel2 = pavlov.command(:'channels/create', title: 'games')
+      pavlov.command(:'topics/update_user_authority', graph_user_id: @user2.graph_user_id.to_s, topic_slug: @user2_channel2.slug_title, authority: 4568)
     end
   end
 
@@ -90,7 +90,7 @@ feature "follow_users_in_tour", type: :feature do
     first(:button, 'Follow user').click
 
     eventually_succeeds 10 do
-      follower_counts = Pavlov.old_interactor(:'users/following', @user.username,0,0,          current_user:@user)
+      follower_counts = Pavlov.interactor(:'users/following', user_name: @user.username, skip: 0, take: 0, pavlov_options: { current_user: @user})
       follower_counts[1].should eq 1
       #TODO: this is really a hack to ensure that the subsequent unfollow
       # really does happen after the original follow even on the server.
