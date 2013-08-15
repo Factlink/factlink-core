@@ -34,7 +34,7 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
 
 # NOTE : when removing this class, don't forget to cleanup the template.
 class window.EvidenceBottomView extends GenericEvidenceBottomView
-  className: 'evidence-bottom bottom-base old-design-bottom-base'
+  className: 'evidence-bottom bottom-base pre-ndp-bottom-base'
 
   templateHelpers: =>
     fact = @model.getFact?()
