@@ -3,12 +3,12 @@ class Admin::GlobalFeatureTogglesController < AdminController
   layout "admin"
 
   def show
-    @enabled_features = old_interactor :'global_features/all'
+    @enabled_features = interactor :'global_features/all'
   end
 
   def update
     @enabled_features = (params[:features] || {}).keys
-    old_interactor :'global_features/set', @enabled_features
+    interactor(:'global_features/set', features: @enabled_features)
     render :show
   end
 

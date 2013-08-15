@@ -3,7 +3,7 @@ class ConversationsController < ApplicationController
 
   def index
     backbone_responder do
-      @conversations = old_query :conversations_with_users_message, current_user.id.to_s
+      @conversations = query(:'conversations_with_users_message', user_id: current_user.id.to_s)
       raise_404 unless @conversations
 
       render 'conversations/index'
@@ -12,7 +12,7 @@ class ConversationsController < ApplicationController
 
   def show
     backbone_responder do
-      @conversation = old_query :conversation_with_recipients_and_messages, params[:id]
+      @conversation = query(:'conversation_with_recipients_and_messages', id: params[:id])
       raise_404 unless @conversation
 
       render 'conversations/show'
@@ -20,7 +20,10 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    old_interactor :create_conversation_with_message, params[:fact_id], params[:recipients], current_user.id.to_s, params[:content]
+    interactor :'create_conversation_with_message', fact_id: params[:fact_id],
+                   recipient_usernames: params[:recipients],
+                   sender_id: current_user.id.to_s,
+                   content: params[:content]
     render json: {}
   rescue Pavlov::ValidationError => e
     render text: e.message, :status => 400

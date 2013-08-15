@@ -10,7 +10,7 @@ class SubchannelsController < ApplicationController
 
   def create
     authorize! :update, channel
-    old_interactor :'channels/follow', subchannel_id
+    interactor(:'channels/follow', channel_id: subchannel_id)
     render_subchannels
   end
 
@@ -18,7 +18,7 @@ class SubchannelsController < ApplicationController
 
   def destroy
     authorize! :update, channel
-    old_interactor :'channels/unfollow', subchannel_id
+    interactor(:'channels/unfollow', channel_id: subchannel_id)
     render_subchannels
   end
 
@@ -41,7 +41,7 @@ class SubchannelsController < ApplicationController
   end
 
   def render_subchannels
-    @channels = old_interactor :'channels/sub_channels', channel
+    @channels = interactor(:'channels/sub_channels', channel: channel)
     render 'channels/index', format: 'json', location: channel_path(channel.created_by.user.username, channel.id)
   end
 end
