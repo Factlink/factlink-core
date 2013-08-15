@@ -41,12 +41,14 @@ describe Queries::Facts::GetDead do
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      Pavlov.stub(:old_query)
-            .with(:'facts/get_dead_wheel', live_fact.id)
+      Pavlov.stub(:query)
+            .with(:'facts/get_dead_wheel',
+                      id: live_fact.id)
             .and_return(wheel)
 
-      Pavlov.stub(:old_query)
-            .with(:'evidence/count_for_fact', live_fact)
+      Pavlov.stub(:query)
+            .with(:'evidence/count_for_fact',
+                      fact: live_fact)
             .and_return(evidence_count)
 
       dead_fact = interactor.call
@@ -71,7 +73,7 @@ describe Queries::Facts::GetDead do
 
       query = Queries::Facts::GetDead.new id: live_fact.id
 
-      Pavlov.stub(old_query: double)
+      Pavlov.stub query: double
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact = query.call
@@ -93,7 +95,7 @@ describe Queries::Facts::GetDead do
 
       query = Queries::Facts::GetDead.new id: live_fact.id
 
-      Pavlov.stub(old_query: double)
+      Pavlov.stub query: double
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact = query.call

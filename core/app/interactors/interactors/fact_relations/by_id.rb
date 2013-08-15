@@ -21,7 +21,7 @@ module Interactors
       end
 
       def fact_relations
-        old_query :'fact_relations/by_ids', [fact_relation_id]
+        query(:'fact_relations/by_ids', fact_relation_ids: [fact_relation_id])
       end
     end
   end

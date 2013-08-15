@@ -37,9 +37,10 @@ describe Interactors::Channels::VisibleOfUserForUser do
       interactor = described_class.new user: double
       interactor.stub(visible_channels: visible_channels)
 
-      Pavlov.should_receive(:old_query).
-                 with(:creator_authorities_for_channels, visible_channels).
-                 and_return(authorities)
+      Pavlov.should_receive(:query)
+            .with(:'creator_authorities_for_channels',
+                      channels: visible_channels)
+            .and_return(authorities)
 
       result = interactor.channels_with_authorities
 

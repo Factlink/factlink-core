@@ -24,11 +24,14 @@ describe Queries::Comments::ForFact do
       Comment.should_receive(:where)
              .with(fact_data_id: fact.data_id, type: 'believes')
              .and_return [comment]
-      Pavlov.should_receive(:old_query)
-            .with(:'sub_comments/count',comment.id, comment.class, pavlov_options)
+      Pavlov.should_receive(:query)
+            .with(:'sub_comments/count',
+                      parent_id: comment.id, parent_class: comment.class,
+                      pavlov_options: pavlov_options)
             .and_return(sub_comments_count)
-      Pavlov.should_receive(:old_query)
-            .with(:'comments/add_authority_and_opinion_and_can_destroy', comment, fact, pavlov_options)
+      Pavlov.should_receive(:query)
+            .with(:'comments/add_authority_and_opinion_and_can_destroy',
+                      comment: comment, fact: fact, pavlov_options: pavlov_options)
             .and_return(dead_comment)
 
       dead_comment.should_receive(:evidence_class=).with('Comment')

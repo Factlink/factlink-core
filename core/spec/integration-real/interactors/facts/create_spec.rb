@@ -11,9 +11,9 @@ describe 'fact' do
     displaystring = 'displaystring'
 
     as(current_user) do |pavlov|
-      fact = pavlov.old_interactor :'facts/create', displaystring, '', '', {}
+      fact = pavlov.interactor(:'facts/create', displaystring: displaystring, url: '', title: '', sharing_options: {})
 
-      result = pavlov.old_interactor :'facts/get', fact.id
+      result = pavlov.interactor(:'facts/get', id: fact.id)
 
       expect(result.data.displaystring).to eq displaystring
     end
@@ -33,7 +33,7 @@ describe 'fact' do
                   .with("\u201c" + "displaystring" + "\u201d" + " http://localhost:3000/displaystring/f/1")
 
     as(twitter_user) do |pavlov|
-      pavlov.old_interactor :'facts/create', displaystring, '', '', twitter: true
+      pavlov.interactor(:'facts/create', displaystring: displaystring, url: '', title: '', sharing_options: { twitter: true })
     end
   end
 
@@ -50,7 +50,7 @@ describe 'fact' do
                    .with("me", "factlinktest:share", factlink: "http://localhost:3000/facts/1")
 
     as(facebook_user) do |pavlov|
-      pavlov.old_interactor :'facts/create', displaystring, '', '', facebook: true
+      pavlov.interactor(:'facts/create', displaystring: displaystring, url: '', title: '', sharing_options: { facebook: true })
     end
   end
 

@@ -20,8 +20,9 @@ describe Commands::Channels::AddFactsFromChannelToChannel do
                    .with('inf', count: nr_of_initial_facts)
                    .and_return([fact])
 
-      Pavlov.stub(:old_command).with(:'channels/add_fact_without_propagation',
-        fact, channel, nil)
+      Pavlov.stub(:command)
+            .with(:'channels/add_fact_without_propagation',
+                      fact: fact, channel: channel, score: nil)
 
       described_class.perform subchannel: sub_channel, channel: channel
     end
@@ -37,9 +38,11 @@ describe Commands::Channels::AddFactsFromChannelToChannel do
                    .with('inf', count: nr_of_initial_facts)
                    .and_return(facts)
 
-      Pavlov.stub(:old_command).with(:'channels/add_fact_without_propagation', fact, channel, nil)
-        .exactly(nr_of_initial_facts).times
-        .and_return(double call: nil)
+      Pavlov.stub(:command)
+            .with(:'channels/add_fact_without_propagation',
+                      fact: fact, channel: channel, score: nil)
+            .exactly(nr_of_initial_facts).times
+            .and_return(double call: nil)
 
       described_class.perform subchannel: sub_channel, channel: channel
     end

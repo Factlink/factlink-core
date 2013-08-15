@@ -25,13 +25,16 @@ describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
       dead_topic = double
       pavlov_options = {current_user: current_user}
 
-      Pavlov.stub(:old_query)
-        .with(:'topics/facts_count', topic.slug_title, pavlov_options)
-        .and_return(facts_count)
+      Pavlov.stub(:query)
+            .with(:'topics/facts_count',
+                      slug_title: topic.slug_title, pavlov_options: pavlov_options)
+            .and_return(facts_count)
 
-      Pavlov.stub(:old_query)
-        .with(:authority_on_topic_for, topic, current_user.graph_user, pavlov_options)
-        .and_return(current_user_authority)
+      Pavlov.stub(:query)
+            .with(:'authority_on_topic_for',
+                      topic: topic, graph_user: current_user.graph_user,
+                      pavlov_options: pavlov_options)
+            .and_return(current_user_authority)
 
       DeadTopic.stub(:new)
         .with(topic.slug_title, topic.title, current_user_authority, facts_count)

@@ -5,7 +5,7 @@ module Interactors
       arguments :user
 
       def get_alive_channels
-        old_query :visible_channels_of_user, user
+        query(:'visible_channels_of_user', user: user)
       end
 
       def channel_user ch

@@ -49,8 +49,11 @@ describe Interactors::SubComments::IndexForFactRelation do
 
       FactRelation.stub(:[]).with(fact_relation_id)
                   .and_return fact_relation
-      Pavlov.should_receive(:old_query).with(:"sub_comments/index", fact_relation_id, 'FactRelation', options).
-        and_return(sub_comments)
+      Pavlov.should_receive(:query)
+            .with(:'sub_comments/index',
+                      parent_ids_in: fact_relation_id, parent_class: 'FactRelation',
+                      pavlov_options: options)
+            .and_return(sub_comments)
 
       interactor.should_receive(:authority_of_user_who_created).
         with(sub_comments[0]).
@@ -133,8 +136,10 @@ describe Interactors::SubComments::IndexForFactRelation do
       interactor = described_class.new(fact_relation_id: fact_relation_id)
 
       interactor.should_receive(:top_fact).and_return(fact)
-      Pavlov.should_receive(:old_query).with(:authority_on_fact_for, fact, graph_user).
-        and_return authority
+      Pavlov.should_receive(:query)
+            .with(:'authority_on_fact_for',
+                      fact: fact, graph_user: graph_user)
+            .and_return authority
 
       result = interactor.authority_of_user_who_created sub_comment
 

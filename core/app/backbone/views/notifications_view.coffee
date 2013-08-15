@@ -67,7 +67,6 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
             responsecode = JSON.parse(response.responseText).code
             # should be: responsecode is 'login'
             # but devise doesn't add a code
-            console.info responsecode
             if responsecode isnt 'tos'
               FactlinkApp.vent.trigger('require_login')
           refreshAgain()

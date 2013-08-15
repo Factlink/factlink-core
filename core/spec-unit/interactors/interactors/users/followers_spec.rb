@@ -52,15 +52,19 @@ describe Interactors::Users::Followers do
       user = double(graph_user_id: double)
       followed_by_me = true
 
-      Pavlov.should_receive(:old_query).
-        with(:'user_by_username', user_name, pavlov_options).
-        and_return(user)
-      Pavlov.should_receive(:old_query).
-        with(:'users/follower_graph_user_ids', user.graph_user_id.to_s, pavlov_options).
-        and_return(graph_user_ids)
-      Pavlov.should_receive(:old_query).
-        with(:users_by_graph_user_ids, graph_user_ids,pavlov_options).
-        and_return(users)
+      Pavlov.should_receive(:query)
+            .with(:'user_by_username',
+                      username: user_name, pavlov_options: pavlov_options)
+            .and_return(user)
+      Pavlov.should_receive(:query)
+            .with(:'users/follower_graph_user_ids',
+                      graph_user_id: user.graph_user_id.to_s,
+                      pavlov_options: pavlov_options)
+            .and_return(graph_user_ids)
+      Pavlov.should_receive(:query)
+            .with(:'users_by_graph_user_ids',
+                      graph_user_ids: graph_user_ids, pavlov_options: pavlov_options)
+            .and_return(users)
 
       graph_user_ids.should_receive(:include?)
         .with(current_user.graph_user_id)

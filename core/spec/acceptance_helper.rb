@@ -9,6 +9,7 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara/email/rspec'
 require 'capybara-screenshot'
+require 'test_request_syncer'
 
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
@@ -47,6 +48,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    Capybara.reset!
     stub_const("Logger", Class.new)
     stub_const("Logger::ERROR", 1)
     stub_const("Logger::INFO", 2)
@@ -63,11 +65,12 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
+    TestRequestSyncer.increment_counter
+    # after incrementing the counter, no new ajax requests will *start* to run.
+    # However, ruby *is* multithreaded, so existing ajax requests must be
+    # allowed to terminate.  The most efficient way of doing this would be to
+    # use a lock, but this is much simpler and 99% ok...
     wait_for_ajax_idle
-    # Capybara.reset!
-    # Commented out, bug in capybara-screenshot:
-    # https://github.com/mattheworiordan/capybara-screenshot/issues/53
-    # Please reenable when updating capybara-screenshot to a version that solves this
   end
 end
 
