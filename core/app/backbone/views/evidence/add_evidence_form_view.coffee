@@ -75,9 +75,3 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   showError: -> @$('.js-error').show()
   hideError: -> @$('.js-error').hide()
-
-  addFromFact: (from_fact)->
-    @createFactRelation new FactRelation
-      evidence_id: from_fact.id
-      from_fact: from_fact
-      created_by: currentUser.toJSON()
