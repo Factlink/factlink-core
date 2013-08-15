@@ -90,7 +90,6 @@
 
 .evidence-terminator {
   clear: both;
-  visibility: visible;
 }
 
 .evidence-impact, .evidence-box {
@@ -373,7 +372,6 @@
 .evidence-add {
   position: relative;
   min-height: 220px; // to accommodate for the fact relation search
-  visibility: visible;
   display: none;
 }
 
@@ -397,6 +395,7 @@
   margin-top: -@evidenceAddCircleExtraRadius;
   border-radius: 5px; //half would be enough
   background-color: @lineColor;
+  visibility: visible;
 }
 
 .evidence-add-weakening-line, .evidence-add-supporting-line {
@@ -405,6 +404,7 @@
   height: @middleLineWidth;
   width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
   background-color: @lineColor;
+  visibility: visible;
 }
 
 .evidence-add-weakening-line {
@@ -427,6 +427,7 @@
   background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
   cursor: pointer;
   transition: all 0.1s;
+  visibility: visible;
 }
 
 .evidence-add-weakening {
