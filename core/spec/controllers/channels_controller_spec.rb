@@ -109,21 +109,4 @@ describe ChannelsController do
       response.body.should_not match(/<xss>/)
     end
   end
-
-  describe "#follow" do
-    it "should call the channels/follow interactor" do
-      authenticate_user!(user)
-
-      channel_id = '1a'
-      channel = double
-
-      controller.should_receive(:interactor)
-                .with(:'channels/follow', channel_id: channel_id)
-                .and_return(channel)
-
-      post :follow, id: channel_id
-
-      response.should be_success
-    end
-  end
 end
