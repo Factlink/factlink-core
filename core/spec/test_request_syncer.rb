@@ -36,7 +36,6 @@ module TestRequestSyncer
   class ::ApplicationController
     prepend TestCounterInjector
     around_filter do |controller, action_block|
-      # puts "#{controller.request.referer} -> #{controller.request.original_url}"
       test_counter = params[:test_counter]
       if !test_counter && controller.request.referer
         referer_query = URI.parse(controller.request.referer).query
