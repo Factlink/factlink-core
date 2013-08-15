@@ -1,5 +1,6 @@
-class window.AddEvidenceView extends Backbone.Marionette.Layout
-  template: 'fact_relations/add_evidence'
+class window.AddEvidenceFormView extends Backbone.Marionette.Layout
+  className: 'add-evidence-form'
+  template: 'evidence/add_evidence'
 
   regions:
     inputRegion:
@@ -12,6 +13,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       add_comment_view: => @addCommentView()
 
   onRender: ->
+    @$el.addClass 'pre-ndp-add-evidence-form' unless @options.ndp
+
     @switchToCommentView()
 
   fact_relations_masquerading_as_facts: ->
@@ -29,13 +32,13 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     searchView
 
   addCommentView: ->
-    addCommentView = new AddCommentView( addToCollection: @model.evidence(), type: @model.type() )
+    addCommentView = new AddCommentView
+      addToCollection: @collection
+      type: @options.type
+      ndp: @options.ndp
     @listenTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView
 
     addCommentView
-
-  fact: ->
-    @model.fact()
 
   createFactRelation: (fact_relation, onFinish=->)->
     return @showError() unless fact_relation.isValid()
@@ -55,8 +58,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
         @inputRegion.getView('search_view').reset()
 
         mp_track "Evidence: Added",
-          factlink_id: @model.fact().id
-          type: @model.type()
+          factlink_id: @options.fact_id
+          type: @options.type
 
   switchToCommentView: (content) ->
     @inputRegion.switchTo 'add_comment_view'

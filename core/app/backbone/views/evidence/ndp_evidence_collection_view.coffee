@@ -78,7 +78,9 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
 
     if Factlink.Global.signed_in
       @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
-      @addRegion.show new NDPAddEvidenceView collection: @collection
+      @addRegion.show new NDPAddEvidenceView
+        collection: @collection
+        fact_id: @collection.fact.id
 
   _updateLoading: ->
     @$el.toggleClass 'evidence-container-loaded', !@collection.loading()
