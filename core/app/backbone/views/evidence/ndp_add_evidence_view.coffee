@@ -22,6 +22,23 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
   onRender: ->
     @headingRegion.show new NDPEvidenceishHeadingView model: currentUser
     @cancel()
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        side: 'right'
+        popover_className: 'translucent-dark-popover'
+      selector: '.js-supporting-button'
+      tooltipViewFactory: => new TextView
+        model: new Backbone.Model
+          text: 'Add supporting argument'
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        side: 'left'
+        popover_className: 'translucent-dark-popover'
+      selector: '.js-weakening-button'
+      tooltipViewFactory: => new TextView
+        model: new Backbone.Model
+          text: 'Add weakening argument'
+
 
   showAddSupporting: -> @_showAdd 'supporting'
   showAddWeakening:  -> @_showAdd 'weakening'

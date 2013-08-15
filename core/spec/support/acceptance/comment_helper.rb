@@ -14,27 +14,29 @@ module Acceptance
 
 
       def posting_factlink?
-        find('.add-evidence-form input[type=text]')[:placeholder]
-          .include? 'Factlink'
+        find('.add-evidence-form input[type=text],
+              .add-evidence-form .text_area_view')[:placeholder].include? 'Factlink'
       end
 
       def posting_comment?
-        find('.add-evidence-form input[type=text]')[:placeholder]
-          .include? 'Comment'
+        find('.add-evidence-form input[type=text],
+              .add-evidence-form .text_area_view')[:placeholder].include? 'Comment'
       end
 
       def add_comment comment
         toggle_to_comment if posting_factlink? #unless posting_comment?
 
         within '.add-evidence-form' do
-          comment_input = page.find_field 'add_comment'
+          comment_input = find('.text_area_view')
 
           comment_input.click
           #ensure button is enabled, i.e. doesn't say "posting":
           find('button', 'Post Comment')
           comment_input.set comment
           comment_input.value.should eq comment
+          sleep 0.5 # To allow for the getting bigger CSS animation
           click_post_comment
+          sleep 0.5 # To allow for the getting smaller CSS animation
         end
       end
 
@@ -74,7 +76,7 @@ module Acceptance
       end
 
       def add_sub_comment(comment)
-        find('.text_area_view').set comment
+        find('.evidence-sub-comments-form .text_area_view').set comment
         sleep 0.5 # To allow for the getting bigger CSS animation
         find('.evidence-sub-comments-button', text: 'Comment').click
         sleep 0.5 # To allow for the getting smaller CSS animation
@@ -82,7 +84,7 @@ module Acceptance
 
       def click_post_comment
         page.find("button", text: "Post comment").click
-        # We assume a request immediately fires, and button reads "Posting..."
+        potentially_wait_for_posting_button
         page.find("button", text: "Post comment")
       end
 
