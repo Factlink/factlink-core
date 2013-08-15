@@ -22,7 +22,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
       @avatarRegion.show new AvatarView(model: currentUser)
       @$el.addClass 'pre-ndp-add-comment'
 
-
   parseKeyDown: (e) =>
     code = e.keyCode || e.which
     @addWithHighlight() if code is 13
