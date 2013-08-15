@@ -145,7 +145,7 @@ class FactsController < ApplicationController
   private
 
   def load_fact
-    @fact = old_interactor :'facts/get', fact_id || raise_404
+    @fact = interactor(:'facts/get', id: fact_id) or raise_404
   end
 
   def fact_id
