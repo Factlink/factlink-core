@@ -16,16 +16,17 @@ describe Commands::Twitter::ShareFactlink do
 
       Twitter.stub configuration: double(short_url_length_https: 20)
 
-      Pavlov.stub(:old_query)
-        .with(:"facts/get_dead", fact.id)
-        .and_return(fact)
+      Pavlov.stub(:query)
+            .with(:'facts/get_dead', id: fact.id)
+            .and_return(fact)
 
       FactUrl.stub(:new)
              .with(fact)
              .and_return(fact_url)
 
-      Pavlov.should_receive(:old_command)
-        .with(:"twitter/post", "\u201c" + "displaystring" + "\u201d" + " sharing_url")
+      Pavlov.should_receive(:command)
+            .with(:'twitter/post',
+                      message: "\u201c" + "displaystring" + "\u201d" + " sharing_url")
 
       interactor = described_class.new fact_id: fact.id
       interactor.call
@@ -38,16 +39,18 @@ describe Commands::Twitter::ShareFactlink do
 
       Twitter.stub configuration: double(short_url_length_https: 140-10)
 
-      Pavlov.stub(:old_query)
-        .with(:"facts/get_dead", fact.id)
-        .and_return(fact)
+      Pavlov.stub(:query)
+            .with(:'facts/get_dead',
+                      id: fact.id)
+            .and_return(fact)
 
       FactUrl.stub(:new)
              .with(fact)
              .and_return(fact_url)
 
-      Pavlov.should_receive(:old_command)
-        .with(:"twitter/post", "\u201c" + "12345" + "\u2026" + "\u201d" + " sharing_url")
+      Pavlov.should_receive(:command)
+            .with(:'twitter/post',
+                      message: "\u201c" + "12345" + "\u2026" + "\u201d" + " sharing_url")
 
       interactor = described_class.new fact_id: fact.id
       interactor.call

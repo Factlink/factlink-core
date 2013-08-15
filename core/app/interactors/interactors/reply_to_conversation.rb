@@ -9,10 +9,14 @@ module Interactors
 
     def execute
       conversation = Conversation.find(conversation_id)
-      message = old_command :create_message, sender_id, content, conversation
+      message = command(:'create_message',
+                            sender_id: sender_id, content: content,
+                            conversation: conversation)
 
       sender = User.find(sender_id)
-      old_command :create_activity, sender.graph_user, :replied_message, message, nil
+      command(:'create_activity',
+                  graph_user: sender.graph_user, action: :replied_message,
+                  subject: message, object: nil)
 
       track_mixpanel
 

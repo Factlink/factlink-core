@@ -9,7 +9,7 @@ describe Interactors::Channels::ActivityCount do
     it 'correctly' do
       channel_id = double
       timestamp = double
-      count = mock
+      count = double
 
       described_class.any_instance.should_receive(:authorized?).and_return true
       interactor = described_class.new channel_id: channel_id,

@@ -45,9 +45,11 @@ describe Interactors::Channels::Facts do
       interactor = described_class.new id: '1', from: from, count: count,
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-        .with(:'channels/facts', channel_id, from, count, pavlov_options)
-        .and_return(result)
+      Pavlov.stub(:query)
+            .with(:'channels/facts',
+                      id: channel_id, from: from, count: count,
+                      pavlov_options: pavlov_options)
+            .and_return(result)
       Fact.stub(:invalid).with(fact).and_return(false)
 
       expect(interactor.execute).to eq result
@@ -65,9 +67,11 @@ describe Interactors::Channels::Facts do
       interactor = described_class.new id: '1', from: from, count: count,
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-        .with(:'channels/facts', channel_id, from, count, pavlov_options)
-        .and_return(result)
+      Pavlov.stub(:query)
+            .with(:'channels/facts',
+                      id: channel_id, from: from, count: count,
+                      pavlov_options: pavlov_options)
+            .and_return(result)
       Fact.stub(:invalid).with(fact).and_return(true)
 
       Resque.should_receive(:enqueue).with(CleanChannel, channel_id)

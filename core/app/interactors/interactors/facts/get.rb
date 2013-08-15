@@ -9,13 +9,14 @@ module Interactors
       def execute
         add_to_recently_viewed
 
-        old_query :'facts/get', id
+        query(:'facts/get', id: id)
       end
 
       def add_to_recently_viewed
         return unless pavlov_options[:current_user]
 
-        old_command :"facts/add_to_recently_viewed", id.to_i, pavlov_options[:current_user].id.to_s
+        command(:'facts/add_to_recently_viewed',
+                    fact_id: id.to_i, user_id: pavlov_options[:current_user].id.to_s)
       end
 
       def authorized?

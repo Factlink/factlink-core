@@ -43,8 +43,9 @@ describe Interactors::SubComments::Destroy do
         pavlov_options: pavlov_options)
 
       SubComment.stub :find
-      Pavlov.should_receive(:old_command)
-                .with(:'sub_comments/destroy', id, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'sub_comments/destroy',
+                      id: id, pavlov_options: pavlov_options)
       interactor.stub i_own_sub_comment: true
 
       interactor.call

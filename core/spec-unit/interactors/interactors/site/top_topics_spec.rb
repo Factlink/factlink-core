@@ -31,7 +31,10 @@ describe Interactors::Site::TopTopics do
       pavlov_options = { current_user: double }
       interactor = described_class.new url: url, nr: nr,
         pavlov_options: pavlov_options
-      Pavlov.should_receive(:old_query).with(:"site/top_topics", site.id.to_i, nr, pavlov_options).and_return results
+      Pavlov.should_receive(:query)
+            .with(:'site/top_topics',
+                      site_id: site.id.to_i, nr: nr, pavlov_options: pavlov_options)
+            .and_return results
 
       expect(interactor.call).to eq results
     end

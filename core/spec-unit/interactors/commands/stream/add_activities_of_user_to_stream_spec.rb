@@ -11,11 +11,13 @@ describe Commands::Stream::AddActivitiesOfUserToStream do
 
       command = described_class.new graph_user_id: graph_user_id
 
-      Pavlov.should_receive(:old_query)
-            .with(:'activities/for_followers_stream', graph_user_id)
+      Pavlov.should_receive(:query)
+            .with(:'activities/for_followers_stream',
+                      graph_user_id: graph_user_id)
             .and_return(activities)
-      Pavlov.should_receive(:old_command)
-            .with(:'stream/add_activities', activities)
+      Pavlov.should_receive(:command)
+            .with(:'stream/add_activities',
+                      activities: activities)
 
       command.call
     end

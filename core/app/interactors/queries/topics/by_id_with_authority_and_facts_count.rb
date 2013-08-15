@@ -9,7 +9,8 @@ module Queries
 
       def execute
         topic = Topic.find id
-        old_query :'topics/dead_topic_with_authority_and_facts_count_by_topic', topic
+        query(:'topics/dead_topic_with_authority_and_facts_count_by_topic',
+                  alive_topic: topic)
       end
 
       def validate

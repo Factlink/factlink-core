@@ -43,21 +43,30 @@ describe Interactors::Comments::Create do
                                        content: content,
                                        pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-        .with(:"comments/add_authority_and_opinion_and_can_destroy", comment, fact, pavlov_options)
-        .and_return(comment)
+      Pavlov.stub(:query)
+            .with(:'comments/add_authority_and_opinion_and_can_destroy',
+                      comment: comment, fact: fact, pavlov_options: pavlov_options)
+            .and_return(comment)
       Fact.stub(:[]).with(fact.fact_id).and_return(fact)
       Comment.stub(:find).with(comment.id).and_return(mongoid_comment)
 
-      Pavlov.should_receive(:old_command)
-        .with(:create_comment, fact.fact_id, type, content, user.id, pavlov_options)
-        .and_return(comment)
-      Pavlov.should_receive(:old_command)
-        .with(:'comments/set_opinion',comment.id.to_s, 'believes', user.graph_user, pavlov_options)
-      Pavlov.should_receive(:old_command)
-        .with(:'opinions/recalculate_comment_user_opinion', comment, pavlov_options)
-      Pavlov.should_receive(:old_command)
-        .with(:create_activity, user.graph_user, :created_comment, mongoid_comment, fact, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'create_comment',
+                      fact_id: fact.fact_id, type: type, content: content,
+                      user_id: user.id, pavlov_options: pavlov_options)
+            .and_return(comment)
+      Pavlov.should_receive(:command)
+            .with(:'comments/set_opinion',
+                      comment_id: comment.id.to_s, opinion: 'believes',
+                      graph_user: user.graph_user, pavlov_options: pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'opinions/recalculate_comment_user_opinion',
+                      comment: comment, pavlov_options: pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'create_activity',
+                      graph_user: user.graph_user, action: :created_comment,
+                      subject: mongoid_comment, object: fact,
+                      pavlov_options: pavlov_options)
 
       expect(interactor.call).to eq comment
     end

@@ -10,12 +10,10 @@ describe Commands::TextSearch::IndexTopic do
       changed = double
       command = described_class.new(topic: topic, changed: changed)
 
-      Pavlov.should_receive(:old_command)
-            .with :'text_search/index',
-                    topic,
-                    :topic,
-                    [:title, :slug_title],
-                    changed
+      Pavlov.should_receive(:command)
+            .with(:'text_search/index',
+                      object: topic, type_name: :topic,
+                      fields: [:title, :slug_title], fields_changed: changed)
 
       command.call
     end

@@ -17,11 +17,11 @@ module Queries
       end
 
       def fact_relations
-        old_query :'fact_relations/for_fact', fact, type
+        query(:'fact_relations/for_fact', fact: fact, type: type)
       end
 
       def comments
-        old_query :'comments/for_fact', fact, type
+        query(:'comments/for_fact', fact: fact, type: type)
       end
 
       def sort result

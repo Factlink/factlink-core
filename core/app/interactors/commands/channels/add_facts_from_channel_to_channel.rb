@@ -8,7 +8,8 @@ module Commands
 
       def execute
         latest_facts.each do |fact|
-          old_command :"channels/add_fact_without_propagation", fact, channel, nil
+          command(:'channels/add_fact_without_propagation',
+                      fact: fact, channel: channel, score: nil)
         end
       end
 

@@ -60,23 +60,31 @@ describe Interactors::Facts::Create do
         title: title, sharing_options: sharing_options,
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-            .with(:'sites/for_url', url, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'sites/for_url',
+                      url: url, pavlov_options: pavlov_options)
             .and_return(nil)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'sites/create', url, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'sites/create',
+                      url: url, pavlov_options: pavlov_options)
             .and_return(site)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/create', displaystring, title, user, site, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/create',
+                      displaystring: displaystring, title: title, creator: user,
+                      site: site, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/share_new',
+                      fact_id: fact.id.to_s, sharing_options: sharing_options,
+                      pavlov_options: pavlov_options)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/add_to_recently_viewed',
+                      fact_id: fact.id.to_i, user_id: user.id.to_s,
+                      pavlov_options: pavlov_options)
 
       expect(interactor.call).to eq fact
     end
@@ -98,19 +106,26 @@ describe Interactors::Facts::Create do
         title: title, sharing_options: sharing_options,
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:old_query)
-            .with(:'sites/for_url',url, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'sites/for_url',
+                      url: url, pavlov_options: pavlov_options)
             .and_return(site)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/create', displaystring, title, user, site, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/create',
+                      displaystring: displaystring, title: title, creator: user,
+                      site: site, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/share_new',
+                      fact_id: fact.id.to_s, sharing_options: sharing_options,
+                      pavlov_options: pavlov_options)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/add_to_recently_viewed',
+                      fact_id: fact.id.to_i, user_id: user.id.to_s,
+                      pavlov_options: pavlov_options)
 
 
       expect(interactor.call).to eq fact
@@ -131,15 +146,21 @@ describe Interactors::Facts::Create do
         title: title, sharing_options: sharing_options,
         pavlov_options: pavlov_options
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/create', displaystring, title, user, nil, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/create',
+                      displaystring: displaystring, title: title, creator: user,
+                      site: nil, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/share_new', fact.id.to_s, sharing_options, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/share_new',
+                      fact_id: fact.id.to_s, sharing_options: sharing_options,
+                      pavlov_options: pavlov_options)
 
-      Pavlov.should_receive(:old_command)
-            .with(:'facts/add_to_recently_viewed', fact.id.to_i, user.id.to_s, pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:'facts/add_to_recently_viewed',
+                      fact_id: fact.id.to_i, user_id: user.id.to_s,
+                      pavlov_options: pavlov_options)
 
       expect(interactor.call).to eq fact
     end
