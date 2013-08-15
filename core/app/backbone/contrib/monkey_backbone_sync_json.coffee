@@ -43,7 +43,6 @@ new_sync = (method, model, options) ->
   unless url.match /\.json($|\?)/
     url = url + '.json'
 
-
   wrap_success_and_error(options)
 
   old_sync(method, model, _.extend({},options, {url: url}))
