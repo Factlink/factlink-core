@@ -16,22 +16,6 @@ describe SupportingEvidenceController do
     Activity::Subject.stub(:activity)
   end
 
-  describe :combined_index do
-    let(:current_user){create :user}
-
-    it 'response with success' do
-      fact_id = 1
-      authenticate_user!(current_user)
-      controller.should_receive(:old_interactor).
-        with(:"evidence/for_fact_id", fact_id.to_s, :supporting).
-        and_return []
-
-      get :combined_index, fact_id: fact_id, format: :json
-
-      response.should be_success
-    end
-  end
-
   describe :create do
     before do
       authenticate_user!(user)
