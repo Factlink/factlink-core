@@ -3,7 +3,7 @@ class Activity < OurOhm
     include Pavlov::Helpers
 
     def followers_for_fact fact
-      old_query :'activities/graph_user_ids_following_fact', fact
+      query(:'activities/graph_user_ids_following_fact', fact: fact)
     end
 
     def followers_for_sub_comment sub_comment
@@ -15,11 +15,11 @@ class Activity < OurOhm
     end
 
     def followers_for_comment comment
-      old_query :'activities/graph_user_ids_following_comments', [comment]
+      query(:'activities/graph_user_ids_following_comments', comments: [comment])
     end
 
     def followers_for_fact_relation fact_relation
-      old_query :'activities/graph_user_ids_following_fact_relations', [fact_relation]
+      query(:'activities/graph_user_ids_following_fact_relations', fact_relations: [fact_relation])
     end
 
     def followers_for_conversation conversation
@@ -27,7 +27,7 @@ class Activity < OurOhm
     end
 
     def followers_for_graph_user graph_user_id
-      old_query :'users/follower_graph_user_ids', graph_user_id
+      query(:'users/follower_graph_user_ids', graph_user_id: graph_user_id)
     end
 
     def channel_followers_of_graph_user graph_user

@@ -23,7 +23,7 @@ describe Activity::Listener do
 
 
   def send_mail_for_activity_should_be_invoked
-    Pavlov.should_receive(:old_interactor).with(:send_mail_for_activity, an_instance_of(Activity), { current_user: true })
+    Pavlov.should_receive(:interactor).with(:send_mail_for_activity, activity: an_instance_of(Activity), pavlov_options: { current_user: true })
   end
 
 

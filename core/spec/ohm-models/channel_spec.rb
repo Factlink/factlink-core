@@ -20,7 +20,7 @@ describe Channel do
       # TODO: remove this once creating an activity does not cause an email to be sent
       send_mail_interactor = double call: nil
       stub_const 'Interactors::SendMailForActivity', Class.new
-      Pavlov.stub(:old_interactor).with(:send_mail_for_activity, an_instance_of(Activity), { current_user: true })
+      Pavlov.stub(:interactor).with(:send_mail_for_activity, activity: an_instance_of(Activity), pavlov_options: { current_user: true })
     end
 
     describe "when adding a subchannel" do

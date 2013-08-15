@@ -42,7 +42,7 @@ class Fact < Basefact
   def add_to_created_facts
     channel = self.created_by.created_facts_channel
 
-    old_command :'channels/add_fact', self, channel
+    command(:'channels/add_fact', fact: self, channel: channel)
   end
 
   def has_site?
