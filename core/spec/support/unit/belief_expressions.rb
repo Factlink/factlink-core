@@ -83,7 +83,7 @@ module BeliefExpressions
 
   def opinion?(fact)
     possible_reset
-    opinion = Pavlov.old_query 'opinions/opinion_for_fact', fact
+    opinion = Pavlov.query :'opinions/opinion_for_fact', fact: fact
     opinion.should
   end
 
