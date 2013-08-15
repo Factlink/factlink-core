@@ -11,7 +11,8 @@ end
 # moving to impact_opinion
 if fact_relation.class.to_s == 'FactRelation'
   # this is a live fact_relation
-  impact_opinion = old_query :'opinions/impact_opinion_for_fact_relation', fact_relation
+  impact_opinion = query(:'opinions/impact_opinion_for_fact_relation',
+                             fact_relation: fact_relation)
 else
   impact_opinion = fact_relation.impact_opinion
 end
