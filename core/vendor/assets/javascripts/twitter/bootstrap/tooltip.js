@@ -194,10 +194,17 @@
     }
 
   , getPosition: function (inside) {
-      return $.extend({}, (inside ? {top: 0, left: 0} : this.$element.offset()), {
-        width: this.$element[0].offsetWidth
-      , height: this.$element[0].offsetHeight
+      var location = $.extend({}, (inside ? {top: 0, left: 0} : this.$element.offset()), {
+        width: this.$element[0].offsetWidth || 0
+      , height: this.$element[0].offsetHeight || 0
       })
+      if (this.$element[0].getBBox) {
+        location.width  += this.$element[0].getBBox().width;
+        location.height += this.$element[0].getBBox().height;
+        location.top    += this.$element[0].getBBox().y;
+        location.left   += this.$element[0].getBBox().x;
+      }
+      return location
     }
 
   , getTitle: function () {
