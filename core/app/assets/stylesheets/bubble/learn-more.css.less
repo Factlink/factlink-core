@@ -32,16 +32,30 @@
   .learn-more-popup {
     .new-design-white-block-with-shadow();
     margin-bottom: 20px;
+    position: relative;
 
-    .bottom-arrow {
-      @image-width: 22px;
-      background: image-url('arrow-down-with-drop-shadow.png');
-      height: 17px;
-      width: @image-width;
+    @triangleSize: 8px;
+    @evidenceBoxBorderColor: rgba(0,0,0,0.2);
+    // background: image-url('arrow-down-with-drop-shadow.png');
+
+    .bottom-arrow, .bottom-arrow:before {
       position: absolute;
+      .box-sizing(content-box);
+      height: 0;
+      width: 1px;
+      margin-left: -@triangleSize;
+      bottom: -@triangleSize + 1px;
       left: 50%;
-      margin: 45px 0 0 -(@image-width / 2);
-      background-repeat: no-repeat;
+      border: @triangleSize solid transparent;
+      border-bottom: none;
+      border-top-color: white;
+    }
+
+    .bottom-arrow:before {
+      content: '';
+      bottom: -2px;
+      border-top-color: @evidenceBoxBorderColor;
+      z-index: -1;
     }
   }
 }
