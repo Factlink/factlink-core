@@ -55,6 +55,8 @@ en:
   fact_disbelieve_collection_name: "weakening"
   fact_doubt_collection_name: "unsure"
 
+  post_comment: "Post comment"
+
   channel: "channel"
   channels: "channels"
 
