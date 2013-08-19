@@ -15,28 +15,28 @@ describe "Static pages:", type: :feature do
   end
 
   describe "About page" do
-    pending "it renders correctly" do
+    it "it renders correctly" do
       visit "/p/about"
       assume_unchanged_screenshot "static_about"
     end
   end
 
   describe "Team page" do
-    pending "it renders correctly" do
+    it "it renders correctly" do
       visit "/p/team"
       assume_unchanged_screenshot "static_team"
     end
   end
 
   describe "Jobs page" do
-    pending "it renders correctly" do
+    it "it renders correctly" do
       visit "/p/jobs"
       assume_unchanged_screenshot "static_jobs"
     end
   end
 
   describe "Contact page" do
-    pending "it renders correctly" do
+    it "it renders correctly" do
       visit "/p/contact"
       assume_unchanged_screenshot "static_contact"
     end
