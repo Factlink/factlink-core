@@ -8,45 +8,27 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
-// CSS Reset
-@import "twitter/bootstrap/reset.less";
-
-// Core variables and mixins
-@import "twitter/bootstrap/variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "twitter/bootstrap/variables.less";
 @import "twitter/bootstrap/mixins.less";
 
-// Grid system and page structure
-@import "twitter/bootstrap/scaffolding.less";
-@import "twitter/bootstrap/grid.less";
-@import "twitter/bootstrap/layouts.less";
-
-// Base CSS
-@import "twitter/bootstrap/type.less";
-@import "twitter/bootstrap/forms.less";
-@import "twitter/bootstrap/tables.less";
-
-// Components: common
-@import "twitter/bootstrap/sprites.less";
-@import "twitter/bootstrap/dropdowns.less";
-@import "twitter/bootstrap/wells.less";
-@import "twitter/bootstrap/component-animations.less";
-@import "twitter/bootstrap/close.less";
-
-// Components: Buttons & Alerts
-@import "twitter/bootstrap/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
-
-// Components: Nav
-@import "twitter/bootstrap/navs.less";
-@import "twitter/bootstrap/navbar.less";
-
-// Components: Popovers
-@import "twitter/bootstrap/modals.less";
-@import "twitter/bootstrap/tooltip.less";
-@import "twitter/bootstrap/popovers.less";
-
-// Components: Misc
-@import "twitter/bootstrap/thumbnails.less";
-@import "twitter/bootstrap/labels-badges.less";
-
-// Utility classes
-@import "twitter/bootstrap/utilities.less"; // Has to be last to override when necessary
+//= require "bootstrap/reset"
+//= require "bootstrap/scaffolding"
+//= require "bootstrap/grid"
+//= require "bootstrap/layouts"
+//= require "bootstrap/type"
+//= require "bootstrap/forms"
+//= require "bootstrap/tables"
+//= require "bootstrap/sprites"
+//= require "bootstrap/dropdowns"
+//= require "bootstrap/wells"
+//= require "bootstrap/component-animations"
+//= require "bootstrap/close"
+//= require "bootstrap/alerts"
+//= require "bootstrap/navs"
+//= require "bootstrap/navbar"
+//= require "bootstrap/modals"
+//= require "bootstrap/tooltip"
+//= require "bootstrap/popovers"
+//= require "bootstrap/thumbnails"
+//= require "bootstrap/labels-badges"
+//= require "bootstrap/utilities"
