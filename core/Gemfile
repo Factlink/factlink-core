@@ -86,7 +86,7 @@ end
 group :assets do
   gem 'less-rails', '~> 2.3.3'
   gem 'uglifier', '~> 1.3.0'
-  gem 'hogan_assets', '~> 1.0.3'
+  gem 'hogan_assets', '~> 1.6.0'
 
   gem 'therubyracer', '~> 0.11.4'
 
