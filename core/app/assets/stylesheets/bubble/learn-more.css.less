@@ -34,8 +34,8 @@
     margin-bottom: 20px;
     position: relative;
 
+    // TODO: when we add one more arrow like this, refactor to generic NDP arrows
     @triangleSize: 8px;
-
     .bottom-arrow, .bottom-arrow:before {
       position: absolute;
       .box-sizing(content-box);
@@ -52,6 +52,7 @@
     .bottom-arrow:before {
       content: '';
       bottom: -2px;
+
       // shadow arrow is slightly lighter than normal, as this appears
       // to look better!
       border-top-color: rgba(0,0,0,0.15);
