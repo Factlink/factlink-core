@@ -28,7 +28,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       new Backbone.Collection [@collection.fact.clone()]
 
   _collectionUtils: ->
-    @__collectionUtils ?= new CollectionUtils this
+    @_____collectionUtils ?= new CollectionUtils this
 
   searchView: ->
     searchView = new AutoCompleteFactRelationsView
