@@ -27,12 +27,14 @@ Factlink.modal =
   hide: ->
     unbindClick()
     iFrame.fadeOut 'fast'
+    $('body').removeClass ('fl-modal-open')
 
     Factlink.trigger 'modalClosed'
 
   show: ->
     bindClick()
     iFrame.fadeIn('fast')
+    $('body').addClass ('fl-modal-open')
 
   highlightNewFactlink: (fact, id) ->
     fct = Factlink.selectRanges(Factlink.search(fact), id)
