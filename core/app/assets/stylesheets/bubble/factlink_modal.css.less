@@ -1,16 +1,17 @@
 @import "bootstrap/mixins";
 @import "bubble/variables";
 
-div.factlink-modal-container {
+.factlink-modal-container {
   width: @discussionModalWidth;
   margin: 0 auto;
   padding: 5% 0;
 }
 
-div.factlink-modal {
+.factlink-modal {
+  .new-design-white-block-with-shadow();
   position: relative;
   overflow: visible;
-  padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
+  padding: 15px;
 
   min-height: 80px;
 
