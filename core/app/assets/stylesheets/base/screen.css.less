@@ -5,17 +5,25 @@
   .box-sizing(border-box);
 }
 
-html, body {
-  min-height: 100%;
+html {
+  height: 100%;
 }
 
 body {
+  position: relative;
   background: white;
   overflow-y: scroll;
+  min-height: 100%;
+  min-width: @siteWidth;
+  .background();
 }
 
 #container {
-  height: 100%;
+  position: absolute;
+  left: 50%;
+  margin-left: -@siteWidth/2;
+  top: 0;
+  bottom: 0;
 }
 
 #left-column {
