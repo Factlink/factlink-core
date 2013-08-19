@@ -19,8 +19,9 @@ class window.ProfileView extends Backbone.Marionette.Layout
     ordered_channels = new ChannelList()
     ordered_channels.orderByAuthority()
 
-    utils = new CollectionUtils(this)
-    utils.updatedClone(ordered_channels, @collection)
+    @listenTo @collection, 'sync', =>
+      ordered_channels.reset @collection.models
+    ordered_channels.reset @collection.models
 
     ordered_channels
 
