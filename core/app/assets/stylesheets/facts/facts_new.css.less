@@ -1,3 +1,5 @@
+@import "twitter/bootstrap/variables";
+
 .fact-new {
   position: relative;
   z-index: 1; // should be lower than Twitter tooltip z-index
@@ -8,6 +10,6 @@
 }
 
 .fact-new-fact-container {
-  font-size: 14px;
+  font-size: @baseFactFontSize;
   overflow: hidden;
 }
