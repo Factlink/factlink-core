@@ -1,1 +1,1 @@
-fix-xss-in-name-navbar
+Fixed XSS injection in your own name in the topbar
