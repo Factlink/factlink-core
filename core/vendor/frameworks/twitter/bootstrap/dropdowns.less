@@ -138,26 +138,6 @@
   left: auto;
 }
 
-// Allow for dropdowns to go bottom up (aka, dropup-menu)
-// ------------------------------------------------------
-// Just add .dropup after the standard .dropdown class and you're set, bro.
-// TODO: abstract this so that the navbar fixed styles are not placed here?
-.dropup,
-.navbar-fixed-bottom .dropdown {
-  // Reverse the caret
-  .caret {
-    border-top: 0;
-    border-bottom: 4px solid @black;
-    content: "";
-  }
-  // Different positioning for bottom up menu
-  .dropdown-menu {
-    top: auto;
-    bottom: 100%;
-    margin-bottom: 1px;
-  }
-}
-
 // Sub menus
 // ---------------------------
 .dropdown-submenu {
@@ -191,15 +171,6 @@
 }
 .dropdown-submenu:hover > a:after {
   border-left-color: @dropdownLinkColorHover;
-}
-
-
-// Tweak nav headers
-// -----------------
-// Increase padding from 15px to 20px on sides
-.dropdown .dropdown-menu .nav-header {
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 // Typeahead
