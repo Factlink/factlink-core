@@ -59,7 +59,7 @@ gem 'twitter', '~> 4.7.0'
 # social sharing
 gem 'koala', '~> 1.7.0rc1'
 
-gem 'httparty', '~> 0.10.2'
+gem 'httparty', '~> 0.11.0'
 
 # Andand is a library to handle nil more easily
 gem 'andand', '~> 1.3.3'
