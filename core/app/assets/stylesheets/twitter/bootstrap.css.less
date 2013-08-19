@@ -1,2 +1,54 @@
 @import "twitter/bootstrap/variables";
-@import "twitter/bootstrap/bootstrap";
+
+/*!
+ * Bootstrap v2.1.1
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+// CSS Reset
+@import "twitter/bootstrap/reset.less";
+
+// Core variables and mixins
+@import "twitter/bootstrap/variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "twitter/bootstrap/mixins.less";
+
+// Grid system and page structure
+@import "twitter/bootstrap/scaffolding.less";
+@import "twitter/bootstrap/grid.less";
+@import "twitter/bootstrap/layouts.less";
+
+// Base CSS
+@import "twitter/bootstrap/type.less";
+@import "twitter/bootstrap/forms.less";
+@import "twitter/bootstrap/tables.less";
+
+// Components: common
+@import "twitter/bootstrap/sprites.less";
+@import "twitter/bootstrap/dropdowns.less";
+@import "twitter/bootstrap/wells.less";
+@import "twitter/bootstrap/component-animations.less";
+@import "twitter/bootstrap/close.less";
+
+// Components: Buttons & Alerts
+@import "twitter/bootstrap/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: Nav
+@import "twitter/bootstrap/navs.less";
+@import "twitter/bootstrap/navbar.less";
+
+// Components: Popovers
+@import "twitter/bootstrap/modals.less";
+@import "twitter/bootstrap/tooltip.less";
+@import "twitter/bootstrap/popovers.less";
+
+// Components: Misc
+@import "twitter/bootstrap/thumbnails.less";
+@import "twitter/bootstrap/labels-badges.less";
+
+// Utility classes
+@import "twitter/bootstrap/utilities.less"; // Has to be last to override when necessary
