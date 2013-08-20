@@ -10,7 +10,7 @@ branchname=`current_branch_name`
 fetch_screenshots(){
   job=$1
   extra_dirs=$2
-  screenshots=`ls $MY_DIR/../spec/screenshots/screenshots/*.png`
+  screenshots=`ls $MY_DIR/../spec/screenshots/screenshots | egrep '.*\.png'`
   for screenshot in $screenshots; do
     write_file="spec/screenshots/screenshots/$screenshot"
     fetch_url="https://$CREDENTIALS@$JENKINS_HOSTNAME/$extra_dirs""job/$job/ws/tmp/capybara/$screenshot"
