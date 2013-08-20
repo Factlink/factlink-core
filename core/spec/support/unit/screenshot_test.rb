@@ -84,7 +84,7 @@ module ScreenshotTest
     def take
       # binding.pry
       # Need this to let the animations settle.
-      sleep 0.75
+      sleep 1.75
       # require'pry';binding.pry
       @page.driver.save_screenshot new_file, full: true
     end
