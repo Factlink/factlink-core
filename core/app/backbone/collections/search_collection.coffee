@@ -11,7 +11,7 @@ class window.SearchCollection extends Backbone.Collection
     @query = query
     @_search()
 
-  throttle = (method) -> _.throttle method, 300, leading: false
+  throttle = (method) -> _.throttle method, 300
   _search: throttle ->
     @jqxhr?.abort()
     if @query == ''

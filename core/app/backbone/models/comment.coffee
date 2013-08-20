@@ -8,7 +8,7 @@ class window.Comment extends Evidence
     sub_comments_count: 0
 
   validate: (attributes) ->
-    'Content should not be empty' unless /^.*\S.*$/.test(attributes.content)
+    'Content should not be empty' unless /^.*\S.*$/m.test(attributes.content)
 
   templateHelpers: =>
     creator: @creator

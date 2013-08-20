@@ -4,6 +4,7 @@ class NDPFactRelationOrCommentAvatarView extends Backbone.Marionette.ItemView
 
 
 class NDPCommentView extends Backbone.Marionette.ItemView
+  className: 'ndp-evidenceish-text'
   template: 'evidence/ndp_comment'
 
 

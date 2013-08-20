@@ -13,8 +13,11 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'displaystring',
-          'url', 'title', {}
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
       end
 
       ability.stub(:can?).with(:show, Fact).and_return(true)
@@ -35,8 +38,11 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'displaystring',
-          'url', 'title', {}
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
         fact.add_opinion :believes, user.graph_user
       end
       FactGraph.recalculate
@@ -60,8 +66,11 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'displaystring',
-          'url', 'title', {}
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
         fact.add_opinion :believes, user.graph_user
       end
       FactGraph.recalculate
@@ -85,7 +94,11 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
       end
 
       fact.data.displaystring = "baas<xss> of niet"
@@ -107,7 +120,11 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
       end
       fact_id = fact.id
 
@@ -155,7 +172,11 @@ describe FactsController do
       fact = nil
 
       as(user) do |pavlov|
-        fact = pavlov.old_interactor :'facts/create', 'displaystring', 'url', 'title', {}
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
       end
 
       get :evidence_search, id: fact.id, s: "Baron"

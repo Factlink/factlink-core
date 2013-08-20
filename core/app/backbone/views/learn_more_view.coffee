@@ -1,5 +1,5 @@
 class window.LearnMorePopupView extends Backbone.Marionette.ItemView
-  className: 'learn-more modal-box learn-more-popup'
+  className: 'learn-more learn-more-popup'
   template: 'learn_more/content'
 
   templateHelpers:

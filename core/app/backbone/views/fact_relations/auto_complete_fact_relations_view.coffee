@@ -6,7 +6,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     'click .js-switch-to-factlink': 'switchCheckboxClicked'
 
   regions:
-    'wheel_region': '.fact-wheel'
     'search_list': 'div.auto-complete-search-list-container'
     'text_input': 'div.js-auto-complete-input-view-container'
 
@@ -15,35 +14,25 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   ui:
     submit: '.js-post'
 
-  initialize: (options) ->
+  initialize: ->
     @initializeChildViews
       filter_on: 'id'
       search_list_view: (options) => new AutoCompleteSearchFactRelationsView _.extend {}, options,
-        recent_collection: @recentCollection()
+        recent_collection: @options.recent_collection
       search_collection: new FactRelationSearchResults [],
-        fact_id: options.fact_id
-        recent_collection: @recentCollection()
+        fact_id: @options.fact_id
+        recent_collection: @options.recent_collection
       filtered_search_collection: new FilteredFactRelationSearchResults
-      placeholder: @placeholder(options.type)
+      placeholder: @placeholder(@options.type)
 
     @listenTo @_text_input_view, 'focus', @focus
     @listenTo @model, 'change', @queryChanges
 
-  recentCollection: ->
-    unless @_recent_collection?
-      @_recent_collection = new RecentlyViewedFacts
-      @_recent_collection.fetch()
-    @_recent_collection
-
   placeholder: (type) ->
-    if type == "supporting"
+    if type == "believes"
       "The Factlink above is true because:"
     else
       "The Factlink above is false because:"
-
-  onRender: ->
-    @wheel = new Wheel()
-    @wheel_region.show new PersistentWheelView(model: @wheel)
 
   addCurrent: ->
     selected_fact_attributes = @_search_list_view.currentActiveModel().attributes
@@ -58,13 +47,14 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     fact = new Fact
       displaystring: text
-      opinion: @wheel.userOpinionWithS()
-      fact_wheel: @wheel.toJSON()
+      opinion: 'believes'
+      fact_wheel: (new Wheel).toJSON()
 
     @createFactRelation new FactRelation
       displaystring: text
       from_fact: fact.toJSON()
       created_by: currentUser.toJSON()
+      type: @options.type
 
   switchCheckboxClicked: (e) ->
     @$el.removeClass 'active'
@@ -79,6 +69,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       evidence_id: selected_fact_attributes.id
       from_fact: selected_fact_attributes
       created_by: currentUser.toJSON()
+      type: @options.type
 
   createFactRelation: (fact_relation) ->
     return if @submitting
@@ -92,8 +83,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   reset: ->
     @setQuery ''
-    @wheel.clear()
-    @wheel_region.currentView.render()
 
   queryChanges: ->
     unless @query_has_changed

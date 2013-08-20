@@ -2,28 +2,23 @@
 @import "bubble/variables";
 
 .factlink-modal-container {
-
   .learn-more {
     padding: 15px;
     background: #f5f5f5;
-    overflow: hidden;
 
-    span {
-      float: left;
-      margin-top: 6px;
+    .button {
+      vertical-align: middle;
     }
 
     .learn-more-btn-sign-in {
       margin-right: 5px;
       color: @linkColor;
-      float: left;
     }
 
     .learn-more-btn-learn-more {
       margin-left: 5px;
       margin-right: 5px;
       color: white;
-      float: left;
     }
   }
 
@@ -35,17 +30,35 @@
   }
 
   .learn-more-popup {
+    .new-design-white-block-with-shadow();
     margin-bottom: 20px;
+    position: relative;
 
-    .bottom-arrow {
-      @image-width: 22px;
-      background: image-url('arrow-down-with-drop-shadow.png');
-      height: 17px;
-      width: @image-width;
+    // TODO: when we add one more arrow like this, refactor to generic NDP arrows
+    @triangleSize: 8px;
+    @borderSize: 1px;
+    @shadowSize: 1px;
+    .bottom-arrow, .bottom-arrow:before {
       position: absolute;
+      .box-sizing(content-box);
+      height: 0;
+      width: 1px;
+      margin-left: -@triangleSize;
+      bottom: -@triangleSize + @borderSize;
       left: 50%;
-      margin: 45px 0 0 -(@image-width / 2);
-      background-repeat: no-repeat;
+      border: @triangleSize solid transparent;
+      border-bottom: none;
+      border-top-color: white;
+    }
+
+    .bottom-arrow:before {
+      content: '';
+      bottom: -@borderSize - @shadowSize;
+
+      // shadow arrow is slightly lighter than normal, as this appears
+      // to look better!
+      border-top-color: fadeout(@evidenceBoxBorderColor, 5%);
+      z-index: -1;
     }
   }
 }

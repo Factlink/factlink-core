@@ -3,14 +3,19 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
   initialize: (models, options) ->
     @fact = options.fact
 
+    @_supportingCollection = new OneSidedEvidenceCollection null, fact: @fact, type: 'supporting'
+    @_weakeningCollection = new OneSidedEvidenceCollection null, fact: @fact, type: 'weakening'
+
     @_containedCollections = [
       new OpinionatersCollection null, fact: @fact
-      new OneSidedEvidenceCollection null, fact: @fact, type: 'supporting'
-      new OneSidedEvidenceCollection null, fact: @fact, type: 'weakening'
+      @_supportingCollection
+      @_weakeningCollection
     ]
 
     for collection in @_containedCollections
-      collection.on 'sync', @loadFromCollections, @
+      @listenTo collection, 'sync', @loadFromCollections
+      @listenTo collection, 'add', (model) -> @add model
+      @listenTo collection, 'saved_added_model', -> @trigger 'saved_added_model'
 
   comparator: (item) -> - item.get('impact')
 
@@ -19,7 +24,7 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
 
   fetch: (options={}) ->
     @trigger 'request', this
-    _.invoke @_containedCollections, 'fetch', options
+    _.invoke @_containedCollections, 'fetch', _.extend {}, options, reset: true
 
   loadFromCollections: (collectionOrModel) ->
     return if @loading()
@@ -27,3 +32,9 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
 
     @reset(_.union (col.models for col in @_containedCollections)...)
     @trigger 'sync'
+
+  oneSidedEvidenceCollection: (type) ->
+    switch type
+      when 'supporting' then @_supportingCollection
+      when 'weakening' then @_weakeningCollection
+      else throw 'Unknown OneSidedEvidenceCollection type'

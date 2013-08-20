@@ -8,7 +8,7 @@ class CreateSearchIndexForUser
     user = User.find(user_id)
 
     if user
-      Pavlov.old_command :'text_search/index_user', user, {}
+      Pavlov.command(:'text_search/index_user', user: user)
     else
       raise "Failed adding index for user with user_id: #{user_id}"
     end
