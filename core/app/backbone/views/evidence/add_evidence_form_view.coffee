@@ -20,13 +20,19 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
     @switchToCommentView()
 
-  fact_relations_masquerading_as_facts: ->
-    @_fact_relations_masquerading_as_facts ?= collectionMap new Backbone.Collection, @collection, (model) ->
-      new Fact model.get('from_fact')
+  _filtered_facts: ->
+    fact_relations_masquerading_as_facts = @_collectionUtils().map new Backbone.Collection,
+      @collection, (model) -> new Fact model.get('from_fact')
+
+    @_collectionUtils().union new Backbone.Collection, fact_relations_masquerading_as_facts,
+      new Backbone.Collection [@collection.fact.clone()]
+
+  _collectionUtils: ->
+    @_____collectionUtils ?= new CollectionUtils this
 
   searchView: ->
     searchView = new AutoCompleteFactRelationsView
-      collection: @fact_relations_masquerading_as_facts()
+      collection: @_filtered_facts()
       fact_id: @collection.fact.id
       type: @collection.believesType()
       recent_collection: @_recent_collection
