@@ -194,23 +194,25 @@
     }
 
   , getPosition: function (inside) {
-      var location = $.extend({}, (inside ? {top: 0, left: 0} : this.$element.offset()), {
-        width: this.$element[0].offsetWidth || 0
-      , height: this.$element[0].offsetHeight || 0
-      })
-      if (
-        // this is an svg element
-        this.$element[0].getBBox &&
-         // this isn't a browser which emulates html elements for svg
-         // (that is, this isn't chrome)
-        this.$element[0].offsetWidth == null
-      ) {
-        location.width  += this.$element[0].getBBox().width;
-        location.height += this.$element[0].getBBox().height;
-        location.top    += this.$element[0].getBBox().y;
-        location.left   += this.$element[0].getBBox().x;
+
+      if(this.$element[0].getBBox) {
+        var container = this.$element.parents().filter(function() {
+          return !this.getBBox;
+        }).first();
+        var bbox = this.$element[0].getBBox();
+        var offset = container.offset();
+        return {
+          width: bbox.width,
+          height: bbox.height,
+          top: bbox.y+offset.top,
+          left: bbox.x+offset.left,
+        };
       }
-      return location
+
+      return $.extend({
+        width: this.$element[0].offsetWidth,
+        height: this.$element[0].offsetHeight,
+      }, inside ? {top: 0, left: 0} : this.$element.offset());
     }
 
   , getTitle: function () {
