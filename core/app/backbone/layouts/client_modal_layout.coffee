@@ -5,10 +5,3 @@ class window.ClientModalLayout extends Backbone.Marionette.Layout
     mainRegion:          '.factlink-modal-content'
     topRegion:           '.js-region-factlink-modal-top'
     bottomRegion:        '.js-region-factlink-modal-bottom'
-
-  events:
-    'click .js-close': 'closeModal'
-
-  closeModal: ->
-    mp_track("Modal: Close button")
-    parent.remote?.hide()

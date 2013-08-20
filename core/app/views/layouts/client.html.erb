@@ -50,10 +50,12 @@
 
   <script type="text/javascript">
     $( document ).on('click', function(e) {
-      if( $(e.target).is('html,body') ) {
+      if( $(e.target).is('html, body, .js-client-html-close') ) {
         if (parent.remote) {
           parent.remote.hide();
         }
+
+        if ($(e.target).is('.js-client-html-close')) mp_track("Modal: Close button");
       }
     });
   </script>
