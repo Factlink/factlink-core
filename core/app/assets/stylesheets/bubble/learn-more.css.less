@@ -30,8 +30,6 @@
 }
 
 // TODO: Refactor to generic NDP arrows
-@shadowSize: 1px;
-
 .learn-more-popup {
   .new-design-white-block-with-shadow();
   margin-bottom: 20px;
@@ -52,7 +50,7 @@
 
   .learn-more-arrow:before {
     content: '';
-    bottom: -@ndpBoxBorderSize - @shadowSize;
+    bottom: -@ndpBoxBorderSize - @ndpBoxShadowBottomSize;
 
     // shadow arrow is slightly lighter than normal, as this appears
     // to look better!
