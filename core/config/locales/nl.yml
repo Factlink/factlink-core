@@ -56,6 +56,8 @@ nl:
   fact_disbelieve_collection_name: "verzwakkend"
   fact_doubt_collection_name: "onzeker"
 
+  post_comment: "Post bericht"
+
   channel: "kanaal"
   channels: "kanalen"
 

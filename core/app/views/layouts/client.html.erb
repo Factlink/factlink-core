@@ -50,7 +50,7 @@
 
   <script type="text/javascript">
     $( document ).on('click', function(e) {
-      if( $(e.target).is('body') ) {
+      if( $(e.target).is('html,body') ) {
         if (parent.remote) {
           parent.remote.hide();
         }
