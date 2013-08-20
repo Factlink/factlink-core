@@ -6,11 +6,13 @@
 </div>
 
 <div class="top-fact-controls">
-  <button class="button button-small button-confirm js-repost">Repost</button>
-
   <div class="top-fact-time-ago">
     <span class="factlink-icon-time"></span>{{created_by_ago}}
   </div>
+
+  {{#global.signed_in}}
+    <button class="button button-small button-confirm js-repost">Repost</button>
+  {{/global.signed_in}}
 </div>
 
 <div class="top-fact-wheel">
