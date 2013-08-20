@@ -81,11 +81,13 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
     @_updateLoading()
 
     if Factlink.Global.signed_in
+      @ui.terminator.addClass 'evidence-terminator-circle'
       @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
       @addRegion.show new NDPAddEvidenceView
         collection: @collection
         fact_id: @collection.fact.id
     else
+      @ui.terminator.addClass 'evidence-terminator-circle'
       @learnMoreRegion.show new NDPLearnMoreBottomView
 
   _updateLoading: ->

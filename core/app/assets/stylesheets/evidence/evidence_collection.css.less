@@ -373,23 +373,29 @@
   .evidence-terminator-before-add-evidence {
     height: 80px;
   }
+
+  .evidence-terminator-circle {
+    position: relative;
+
+    @circleRadius: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -@circleRadius - (@evidenceAddLinesTop - @evidenceAddCircleExtraRadius);
+      left: 50%;
+      margin-left: -2px;
+      width: @circleRadius;
+      height: @circleRadius;
+      border-radius: 5px; //half would be enough
+      background-color: @ndpLineColor;
+      visibility: visible;
+    }
+  }
 }
 
 .evidence-add-buttons {
   position: relative;
-}
-
-.evidence-add-circle {
-  position: absolute;
-  left: 50%;
-  top: @evidenceAddLinesTop;
-  width: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
-  height: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
-  margin-left: -2px;
-  margin-top: -@evidenceAddCircleExtraRadius;
-  border-radius: 5px; //half would be enough
-  background-color: @ndpLineColor;
-  visibility: visible;
 }
 
 .evidence-add-weakening-line, .evidence-add-supporting-line {
