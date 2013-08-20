@@ -68,6 +68,7 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
   regions:
     collectionRegion: '.js-collection-region'
     addRegion: '.js-add-region'
+    learnMoreRegion: '.js-learn-more-region'
 
   collectionEvents:
     'request sync': '_updateLoading'
@@ -84,6 +85,8 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
       @addRegion.show new NDPAddEvidenceView
         collection: @collection
         fact_id: @collection.fact.id
+    else
+      @learnMoreRegion.show new NDPLearnMoreBottomView
 
   _updateLoading: ->
     @$el.toggleClass 'evidence-container-loaded', !@collection.loading()

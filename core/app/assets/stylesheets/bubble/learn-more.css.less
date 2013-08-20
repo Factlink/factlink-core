@@ -29,15 +29,16 @@
   .border-bottom-radius(5px);
 }
 
+// TODO: when we add one more arrow like this, refactor to generic NDP arrows
+@triangleSize: 8px;
+@borderSize: 1px;
+@shadowSize: 1px;
+
 .learn-more-popup {
   .new-design-white-block-with-shadow();
   margin-bottom: 20px;
   position: relative;
 
-  // TODO: when we add one more arrow like this, refactor to generic NDP arrows
-  @triangleSize: 8px;
-  @borderSize: 1px;
-  @shadowSize: 1px;
   .learn-more-arrow, .learn-more-arrow:before {
     position: absolute;
     .box-sizing(content-box);
@@ -70,6 +71,34 @@
   // TODO: inline when moving to NDP
   .learn-more {
     display: inline-block;
-    margin: 0;
+    margin: 0 0 0 -1px;
+  }
+}
+
+.ndp-learn-more-bottom {
+  margin: 15px 0 0 -1px;
+
+  .new-design-white-block-with-shadow();
+  position: relative;
+
+  .learn-more-arrow, .learn-more-arrow:before {
+    position: absolute;
+    .box-sizing(content-box);
+    height: 0;
+    width: 1px;
+    margin-left: -@triangleSize;
+    top: -@triangleSize + @borderSize;
+    left: 50%;
+    border: @triangleSize solid transparent;
+    border-top: none;
+    border-bottom-color: white;
+  }
+
+  .learn-more-arrow:before {
+    content: '';
+    top: -@borderSize;
+
+    border-bottom-color: @evidenceBoxBorderColor;
+    z-index: -1;
   }
 }
