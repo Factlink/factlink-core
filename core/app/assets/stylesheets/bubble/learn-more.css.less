@@ -1,63 +1,112 @@
 @import "bootstrap/mixins";
 @import "bubble/variables";
 
-.factlink-modal-container {
+.learn-more {
+  padding: 15px;
+  background: @whiteDarker;
+  visibility: visible;
+
+  .learn-more-btn-sign-in {
+    margin-right: 5px;
+    color: @linkColor;
+  }
+
+  .learn-more-btn-learn-more {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+  }
+}
+
+.learn-more-bottom {
+  // 14px at the top to fall just over the border when "unsure" is selected
+  margin: 14px -15px -15px -15px;
+  border-top: 1px solid @baseBorderColor;
+  .border-bottom-radius(5px);
+}
+
+// TODO: Refactor to generic NDP arrows
+@triangleSize: 8px;
+@borderSize: 1px;
+@shadowSize: 1px;
+
+.learn-more-popup {
+  .new-design-white-block-with-shadow();
+  margin-bottom: 20px;
+  position: relative;
+
+  .learn-more-arrow, .learn-more-arrow:before {
+    position: absolute;
+    .box-sizing(content-box);
+    height: 0;
+    width: 1px;
+    margin-left: -@triangleSize;
+    bottom: -@triangleSize + @borderSize;
+    left: 50%;
+    border: @triangleSize solid transparent;
+    border-bottom: none;
+    border-top-color: white;
+  }
+
+  .learn-more-arrow:before {
+    content: '';
+    bottom: -@borderSize - @shadowSize;
+
+    // shadow arrow is slightly lighter than normal, as this appears
+    // to look better!
+    border-top-color: fadeout(@evidenceBoxBorderColor, 5%);
+    z-index: -1;
+  }
+}
+
+// TODO: inline when moving to NDP
+.ndp_discussion {
+  @buttonOffset: 3px;
   .learn-more {
-    padding: 15px;
-    background: #f5f5f5;
+    display: inline-block;
+    margin: 0 0 0 -1px;
+    padding-top: 15px + @buttonOffset;
+  }
 
-    .button {
-      vertical-align: middle;
-    }
+  .learn-more-btn-sign-in, .learn-more-btn-learn-more {
+    margin-top: -@buttonOffset;
+  }
 
-    .learn-more-btn-sign-in {
-      margin-right: 5px;
-      color: @linkColor;
-    }
+  .ndp-learn-more-top-container {
+    text-align: center;
 
-    .learn-more-btn-learn-more {
-      margin-left: 5px;
-      margin-right: 5px;
-      color: white;
+    .learn-more {
+      margin-bottom: 20px;
     }
   }
 
-  .learn-more-bottom {
-    // 14px at the top to fall just over the border when "unsure" is selected
-    margin: 14px -15px -15px -15px;
-    border-top: 1px solid @baseBorderColor;
-    .border-bottom-radius(5px);
+  .ndp-learn-more-bottom-container {
+    margin-top: @triangleSize+10px;
+    text-align: center;
   }
 
-  .learn-more-popup {
+  .ndp-learn-more-bottom {
     .new-design-white-block-with-shadow();
-    margin-bottom: 20px;
     position: relative;
 
-    // TODO: when we add one more arrow like this, refactor to generic NDP arrows
-    @triangleSize: 8px;
-    @borderSize: 1px;
-    @shadowSize: 1px;
-    .bottom-arrow, .bottom-arrow:before {
+    .learn-more-arrow, .learn-more-arrow:before {
       position: absolute;
       .box-sizing(content-box);
       height: 0;
       width: 1px;
       margin-left: -@triangleSize;
-      bottom: -@triangleSize + @borderSize;
+      top: -@triangleSize + @borderSize;
       left: 50%;
       border: @triangleSize solid transparent;
-      border-bottom: none;
-      border-top-color: white;
+      border-top: none;
+      border-bottom-color: white;
     }
 
-    .bottom-arrow:before {
+    .learn-more-arrow:before {
       content: '';
-      bottom: -@borderSize - @shadowSize;
+      top: -@borderSize;
 
-      // shadow arrow is slightly lighter than normal, as this appears
-      // to look better!
-      border-top-color: fadeout(@evidenceBoxBorderColor, 5%);
+      border-bottom-color: @evidenceBoxBorderColor;
       z-index: -1;
     }
   }

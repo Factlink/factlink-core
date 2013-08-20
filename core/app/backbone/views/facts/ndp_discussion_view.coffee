@@ -5,6 +5,7 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
   template: 'facts/ndp_discussion'
 
   regions:
+    learnMoreRegion: '.js-region-learn-more'
     factRegion: '.js-region-ndp-fact'
     evidenceRegion: '.js-region-evidence'
 
@@ -16,3 +17,6 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
 
     @evidenceRegion.show new NDPEvidenceContainerView
       collection: opinionaters_collection
+
+    unless Factlink.Global.signed_in
+      @learnMoreRegion.show new LearnMorePopupView
