@@ -4,8 +4,14 @@
   font-family: Roboto, "Helvetica Neue", Helvetica, Arial;
   font-weight: 300;
   font-size: 12px;
-  a, .ndp-non-signed-in-link {
+  a {
     font-weight: 500;
+  }
+  a:not([href]) {
+    &, &:hover, &:active {
+      color: black;
+      cursor: auto;
+    }
   }
 }
 

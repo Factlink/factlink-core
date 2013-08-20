@@ -3,12 +3,8 @@
 
 .learn-more {
   padding: 15px;
-  background: #f5f5f5;
+  background: @whiteDarker;
   visibility: visible;
-
-  .button {
-    vertical-align: middle;
-  }
 
   .learn-more-btn-sign-in {
     margin-right: 5px;
@@ -46,16 +42,6 @@
 
 // TODO: inline when moving to NDP
 .ndp_discussion {
-  .ndp-learn-more-top-container {
-    margin: -60px 0 70px;
-    text-align: center;
-  }
-
-  .ndp-learn-more-bottom-container {
-    margin-top: @ndpTriangleSize+10px;
-    text-align: center;
-  }
-
   @buttonOffset: 3px;
   .learn-more {
     display: inline-block;
@@ -65,6 +51,19 @@
 
   .learn-more-btn-sign-in, .learn-more-btn-learn-more {
     margin-top: -@buttonOffset;
+  }
+
+  .ndp-learn-more-top-container {
+    text-align: center;
+
+    .learn-more {
+      margin-bottom: 20px;
+    }
+  }
+
+  .ndp-learn-more-bottom-container {
+    margin-top: @ndpTriangleSize+10px;
+    text-align: center;
   }
 
   .ndp-learn-more-bottom {
