@@ -198,7 +198,13 @@
         width: this.$element[0].offsetWidth || 0
       , height: this.$element[0].offsetHeight || 0
       })
-      if (this.$element[0].getBBox) {
+      if (
+        // this is an svg element
+        this.$element[0].getBBox &&
+         // this isn't a browser which emulates html elements for svg
+         // (that is, this isn't chrome)
+        this.$element[0].offsetWidth == null
+      ) {
         location.width  += this.$element[0].getBBox().width;
         location.height += this.$element[0].getBBox().height;
         location.top    += this.$element[0].getBBox().y;
