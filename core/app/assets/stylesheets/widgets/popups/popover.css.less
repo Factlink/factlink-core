@@ -6,60 +6,42 @@
 .popover-container {
   z-index: 119;
   position: relative;
-  background: #fff;
   font-size: @baseFontSize;
-  border: 1px solid @modalBorderColor;
   .border-radius(3px);
   .background-clip(padding-box);
   .new-design-white-block-with-shadow();
   visibility: visible;
-
-  .arrow {
-    position: absolute;
-    width: @arrow-long-side;
-    background-repeat: no-repeat;
-    background: asset-data-url('popover-help-arrow.png');
-  }
+  outline: 1px solid transparent; // force block formatting context
 
   &.bottom {
     margin-top: @arrow-pointy-side;
     .arrow {
-      top: -@arrow-pointy-side;
-      background-position: -22px 0;
-
-      height: @arrow-pointy-side;
-      width: @arrow-long-side;
+      .ndp-triangle-arrow-up();
+      top: 0;
     }
   }
 
   &.top {
     margin-bottom: @arrow-pointy-side;
     .arrow {
-      bottom: -@arrow-pointy-side;
-      background-position: -39px 0;
-      height: @arrow-pointy-side;
-      width: @arrow-long-side;
+      .ndp-triangle-arrow-down();
+      bottom: 0;
     }
   }
 
   &.left {
     margin-right: @arrow-pointy-side;
     .arrow {
-      right: -@arrow-pointy-side;
-      background-position: -11px 0;
-
-      height: @arrow-long-side;
-      width: @arrow-pointy-side;
+      .ndp-triangle-arrow-right();
+      right: 0;
     }
   }
 
   &.right {
     margin-left: @arrow-pointy-side;
     .arrow {
-      left: -@arrow-pointy-side;
-
-      height: @arrow-long-side;
-      width: @arrow-pointy-side;
+      .ndp-triangle-arrow-left();
+      left: 0;
     }
   }
 }
