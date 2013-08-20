@@ -1,7 +1,2 @@
 <span class="heading-avatar"><img src="{{avatar_url_32}}" /></span>
-{{#global.signed_in}}
-  <a href="{{link}}" rel="backbone">{{name}}</a>
-{{/global.signed_in}}
-{{^global.signed_in}}
-  <span class="ndp-non-signed-in-link">{{name}}</span>
-{{/global.signed_in}}
+<a {{#global.signed_in}}href="{{link}}" rel="backbone"{{/global.signed_in}}>{{name}}</a>
