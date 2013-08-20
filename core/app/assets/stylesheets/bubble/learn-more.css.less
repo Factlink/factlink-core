@@ -71,25 +71,11 @@
     .new-design-white-block-with-shadow();
     position: relative;
 
-    .learn-more-arrow, .learn-more-arrow:before {
-      position: absolute;
-      .box-sizing(content-box);
-      height: 0;
-      width: 1px;
-      margin-left: -@ndpTriangleSize;
-      top: -@ndpTriangleSize + @ndpBoxBorderSize;
+    .learn-more-arrow {
+      .ndp-triangle-arrow-up();
+      top: 0;
       left: 50%;
-      border: @ndpTriangleSize solid transparent;
-      border-top: none;
-      border-bottom-color: white;
-    }
-
-    .learn-more-arrow:before {
-      content: '';
-      top: -@ndpBoxBorderSize;
-
-      border-bottom-color: @ndpArrowBorderColor;
-      z-index: -1;
+      margin-left: -@ndpTriangleSize;
     }
   }
 }
