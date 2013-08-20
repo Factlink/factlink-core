@@ -434,17 +434,17 @@
   right: 50%;
   margin-right: @evidenceAddLineLength + @weakeningLineOffset;
   background-color: @buttonDangerBackground;
-  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
+  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
 
   &:hover {
     background-color: @buttonDangerDarkBackground;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
   }
 
   &:active {
     background-color: @buttonDangerDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
   }
 }
 
@@ -452,17 +452,17 @@
   left: 50%;
   margin-left: @evidenceAddLineLength + @supportingLineOffset;
   background-color: @buttonSuccessBackground;
-  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
+  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
 
   &:hover {
     background-color: @buttonSuccessDarkBackground;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
   }
 
   &:active {
     background-color: @buttonSuccessDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
   }
 }
 
@@ -471,16 +471,16 @@
   cursor: pointer;
 
   background-color: white;
-  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonBorder;
+  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonBorder;
   transition: box-shadow 0.1s, border-top 0.1s;
 
   &:hover {
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
   }
 
   &:active {
     border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth white;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth white;
   }
 }
 
