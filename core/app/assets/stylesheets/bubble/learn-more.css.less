@@ -30,7 +30,6 @@
 }
 
 // TODO: Refactor to generic NDP arrows
-@borderSize: 1px;
 @shadowSize: 1px;
 
 .learn-more-popup {
@@ -44,7 +43,7 @@
     height: 0;
     width: 1px;
     margin-left: -@ndpTriangleSize;
-    bottom: -@ndpTriangleSize + @borderSize;
+    bottom: -@ndpTriangleSize + @ndpBoxBorderSize;
     left: 50%;
     border: @ndpTriangleSize solid transparent;
     border-bottom: none;
@@ -53,7 +52,7 @@
 
   .learn-more-arrow:before {
     content: '';
-    bottom: -@borderSize - @shadowSize;
+    bottom: -@ndpBoxBorderSize - @shadowSize;
 
     // shadow arrow is slightly lighter than normal, as this appears
     // to look better!
@@ -95,7 +94,7 @@
       height: 0;
       width: 1px;
       margin-left: -@ndpTriangleSize;
-      top: -@ndpTriangleSize + @borderSize;
+      top: -@ndpTriangleSize + @ndpBoxBorderSize;
       left: 50%;
       border: @ndpTriangleSize solid transparent;
       border-top: none;
@@ -104,7 +103,7 @@
 
     .learn-more-arrow:before {
       content: '';
-      top: -@borderSize;
+      top: -@ndpBoxBorderSize;
 
       border-bottom-color: @ndpArrowBorderColor;
       z-index: -1;
