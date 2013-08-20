@@ -23,7 +23,7 @@ gem 'korsakov', github: 'jjoos/korsakov', ref: '72db865'
 gem 'redis', '~> 2.2.1'
 gem 'ohm', github: 'Factlink/ohm' # we need the tribalvibes fork (0.1.4), for polymorphism
 gem 'redis-aid', '~> 0.1.0'
-gem 'redis-objects', '~> 0.5.3'
+gem 'redis-objects', '~> 0.5.3' # cannot be upgraded to 0.6 until we update redis to 3.0 or bigger
 gem 'multi_json', '~> 1.7.3'
 
 # We should upgrade this to at least the latest 1.* version,
@@ -86,7 +86,7 @@ end
 group :assets do
   gem 'less-rails', '~> 2.3.3'
   gem 'uglifier', '~> 1.3.0'
-  gem 'hogan_assets', '~> 1.6.0'
+  gem 'hogan_assets', '~> 1.0.3'
 
   gem 'therubyracer', '~> 0.11.4'
 

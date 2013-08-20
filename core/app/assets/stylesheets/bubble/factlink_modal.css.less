@@ -1,17 +1,18 @@
 @import "bootstrap/mixins";
 @import "bubble/variables";
 
-div.factlink-modal-container {
+.factlink-modal-container {
   width: @discussionModalWidth;
   margin: 0 auto;
   padding: 5% 0;
   visibility: visible;
 }
 
-div.factlink-modal {
+.factlink-modal {
+  .new-design-white-block-with-shadow();
   position: relative;
   overflow: visible;
-  padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
+  padding: 15px;
 
   min-height: 80px;
 
@@ -23,5 +24,22 @@ div.factlink-modal {
     ul {
       border: 1px solid @modalBorderColor;
     }
+  }
+}
+
+.factlink-modal-close {
+  background: asset-data-url('icon-close-modal.png');
+  width: 36px;
+  height: 36px;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  opacity: 0.8;
+  cursor: pointer;
+  visibility: visible;
+
+  &:hover {
+    background: asset-data-url('icon-close-modal-hover.png');
+    opacity: 1;
   }
 }

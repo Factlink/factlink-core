@@ -48,15 +48,6 @@
                           + @impactCircleTopSpacing
                           - @argumentBoxTopOverhang;
 
-// Colours
-@evidenceBoxBorderColor: rgba(0,0,0,0.2);
-@supportingImpactColor: rgba(100,190,160, 0.9);
-@weakeningImpactColor: rgba(220,120,120, 0.9);
-@unsureImpactColor: rgba(90,140,170, 0.9);
-@lineColor: @ndpLineColor;
-@shadowColor: rgba(233, 234, 238, 0.7); // Same colour as semi-transparent overlay in js-library
-
-
 .evidence-container {
   padding: 0 @negativeColumnMargin @evidenceRegionBottomPadding;
   margin: @topFactWheelOverhang @evidenceRegionHorizontalMargin 0;
@@ -84,7 +75,7 @@
     width: @middleLineWidth;
     top: 0;
     bottom: 0;
-    background: @lineColor;
+    background: @ndpLineColor;
   }
 }
 
@@ -397,7 +388,7 @@
   margin-left: -2px;
   margin-top: -@evidenceAddCircleExtraRadius;
   border-radius: 5px; //half would be enough
-  background-color: @lineColor;
+  background-color: @ndpLineColor;
   visibility: visible;
 }
 
@@ -406,7 +397,7 @@
   top: @evidenceAddLinesTop;
   height: @middleLineWidth;
   width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
-  background-color: @lineColor;
+  background-color: @ndpLineColor;
   visibility: visible;
 }
 
