@@ -40,7 +40,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   ui:
     'post_factlink': '.js-submit-post-factlink'
-    'cancel': '.js-cancel-post-factlink'
 
   events:
     'click .js-submit-post-factlink': 'post_factlink',
@@ -69,7 +68,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @renderAddToChannel()
     @renderSuggestedChannels()
     @renderPersistentWheelView()
-    @createCancelEvent()
     @renderShareNewFact()
     sometimeWhen(
       => @$el.is ":visible"
@@ -111,13 +109,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
     shareNewFactView = new ShareNewFactView model: @factSharingOptions
     @shareNewFactRegion.show shareNewFactView
-
-  createCancelEvent: ->
-    @ui.cancel.on 'click', (e)->
-      mp_track("Modal: Cancel")
-      e.preventDefault()
-      # TODO when refactoring this view, move parent.remote code to clientcontroller
-      parent.remote.hide()
 
   post_factlink: (e)->
     e.preventDefault()
