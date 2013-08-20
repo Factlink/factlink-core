@@ -30,7 +30,6 @@
 }
 
 // TODO: Refactor to generic NDP arrows
-@triangleSize: 8px;
 @borderSize: 1px;
 @shadowSize: 1px;
 
@@ -44,10 +43,10 @@
     .box-sizing(content-box);
     height: 0;
     width: 1px;
-    margin-left: -@triangleSize;
-    bottom: -@triangleSize + @borderSize;
+    margin-left: -@ndpTriangleSize;
+    bottom: -@ndpTriangleSize + @borderSize;
     left: 50%;
-    border: @triangleSize solid transparent;
+    border: @ndpTriangleSize solid transparent;
     border-bottom: none;
     border-top-color: white;
   }
@@ -71,7 +70,7 @@
   }
 
   .ndp-learn-more-bottom-container {
-    margin-top: @triangleSize+10px;
+    margin-top: @ndpTriangleSize+10px;
     text-align: center;
   }
 
@@ -95,10 +94,10 @@
       .box-sizing(content-box);
       height: 0;
       width: 1px;
-      margin-left: -@triangleSize;
-      top: -@triangleSize + @borderSize;
+      margin-left: -@ndpTriangleSize;
+      top: -@ndpTriangleSize + @borderSize;
       left: 50%;
-      border: @triangleSize solid transparent;
+      border: @ndpTriangleSize solid transparent;
       border-top: none;
       border-bottom-color: white;
     }

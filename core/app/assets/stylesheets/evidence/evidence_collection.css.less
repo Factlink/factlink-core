@@ -21,8 +21,7 @@
 // Triangles:
 // - An inner triangle with the box's background color
 // - An outer triangle "fake border" that's 1px offset
-@triangleSize: 8px;
-@innerTriangleOffset: @triangleSize - 1px;
+@innerTriangleOffset: @ndpTriangleSize - 1px;
 @triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
 
 // The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
@@ -39,7 +38,7 @@
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 
-@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @triangleSize;
+@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @ndpTriangleSize;
 
 // The unsure (middle) box needs to leave space for the impact circle since its
 // impact circle cannot be floated (both left/right would be problematic).
@@ -220,19 +219,19 @@
   height: 1px;
   width: 0;
   .box-sizing(content-box);
-  border-width: @triangleSize;
+  border-width: @ndpTriangleSize;
 }
 
 .evidence-box .evidence-box-triangle {
   .evidence-triangle-base();
   top: @triangleTop;
-  margin-top: -@triangleSize;
+  margin-top: -@ndpTriangleSize;
 
   &:before {
     .evidence-triangle-base();
     content: '';
     z-index: -1;
-    margin-top: -@triangleSize;
+    margin-top: -@ndpTriangleSize;
   }
 }
 
@@ -264,7 +263,7 @@
     height: 0;
     width: 1px;
     margin-top: 0;
-    margin-left: -@triangleSize;
+    margin-left: -@ndpTriangleSize;
     border-top: none;
     top: 0;
   }
