@@ -212,50 +212,20 @@
 }
 
 // Evidence triangles (arrows)
-.evidence-triangle-base() {
-  position: absolute;
-  border-style: solid;
-  border-color: transparent;
-  height: 1px;
-  width: 0;
-  .box-sizing(content-box);
-  border-width: @ndpTriangleSize;
-}
-
 .evidence-supporting .evidence-box-triangle,
 .evidence-weakening .evidence-box-triangle {
-  .evidence-triangle-base();
   top: @triangleTop;
   margin-top: -@ndpTriangleSize;
-
-  &:before {
-    .evidence-triangle-base();
-    content: '';
-    z-index: -1;
-    margin-top: -@ndpTriangleSize;
-  }
 }
 
 .evidence-supporting .evidence-box-triangle {
-  right: 100%;
-  border-right-color: white;
-
-  &:before {
-    border-left: none;
-    border-right-color: @ndpArrowBorderColor;
-    margin-left: -1px;
-  }
+  .ndp-triangle-arrow-left();
+  left: 0;
 }
 
 .evidence-weakening .evidence-box-triangle {
-  left: 100%;
-  border-left-color: white;
-
-  &:before {
-    border-right: none;
-    border-left-color: @ndpArrowBorderColor;
-    right: -1px;
-  }
+  .ndp-triangle-arrow-right();
+  right: 0;
 }
 
 .evidence-unsure .evidence-box-triangle {
