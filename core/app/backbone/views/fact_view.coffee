@@ -54,14 +54,6 @@ class window.FactView extends Backbone.Marionette.Layout
 
     @$(".authority").tooltip()
 
-    if FactlinkApp.guided
-      sometimeWhen(
-        => @$el.is ":visible"
-      , =>
-        @$('#close').tooltip(trigger: 'manual')
-                    .tooltip('show')
-      )
-
   newFactBottomView: ->
     new FactBottomView
       model: @model
