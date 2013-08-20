@@ -441,39 +441,17 @@ select:focus:required:invalid {
     background-color: @grayLighter;
     border: 1px solid #ccc;
   }
-  .add-on,
-  .btn {
-    vertical-align: top;
-    border-radius: 0;
-  }
   .active {
     background-color: lighten(@green, 30);
     border-color: @green;
   }
 }
-.input-prepend {
-  .add-on,
-  .btn {
-    margin-right: -1px;
-  }
-  .add-on:first-child,
-  .btn:first-child {
-    border-radius: @inputBorderRadius 0 0 @inputBorderRadius;
-  }
-}
+
 .input-append {
   input,
   select,
   .uneditable-input {
     border-radius: @inputBorderRadius 0 0 @inputBorderRadius;
-  }
-  .add-on,
-  .btn {
-    margin-left: -1px;
-  }
-  .add-on:last-child,
-  .btn:last-child {
-    border-radius: 0 @inputBorderRadius @inputBorderRadius 0;
   }
 }
 // Remove all border-radius for inputs with both prepend and append
@@ -483,19 +461,7 @@ select:focus:required:invalid {
   .uneditable-input {
     border-radius: 0;
   }
-  .add-on:first-child,
-  .btn:first-child {
-    margin-right: -1px;
-    border-radius: @inputBorderRadius 0 0 @inputBorderRadius;
-  }
-  .add-on:last-child,
-  .btn:last-child {
-    margin-left: -1px;
-    border-radius: 0 @inputBorderRadius @inputBorderRadius 0;
-  }
 }
-
-
 
 // SEARCH FORM
 // -----------
@@ -517,18 +483,9 @@ input.search-query {
 .form-search .input-append .search-query {
   border-radius: 14px 0 0 14px;
 }
-.form-search .input-append .btn {
-  border-radius: 0 14px 14px 0;
-}
 .form-search .input-prepend .search-query {
   border-radius: 0 14px 14px 0;
 }
-.form-search .input-prepend .btn {
-  border-radius: 14px 0 0 14px;
-}
-
-
-
 
 // HORIZONTAL & VERTICAL FORMS
 // ---------------------------
