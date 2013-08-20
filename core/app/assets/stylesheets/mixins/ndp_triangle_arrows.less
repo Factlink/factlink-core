@@ -1,7 +1,7 @@
 .ndp-triangle-arrow-down() {
   margin-bottom: -@ndpTriangleSize + @ndpBoxBorderSize;
 
-  &, &:after {
+  &, &:before {
     .box-sizing(content-box);
     position: absolute;
     height: 0;
@@ -11,7 +11,7 @@
     border-top-color: white;
   }
 
-  &:after {
+  &:before {
     content: '';
     bottom: -@ndpBoxBorderSize - @ndpBoxShadowBottomSize;
     left: -@ndpTriangleSize;
@@ -23,7 +23,7 @@
 .ndp-triangle-arrow-up() {
   margin-top: -@ndpTriangleSize + @ndpBoxBorderSize;
 
-  &, &:after {
+  &, &:before {
     .box-sizing(content-box);
     position: absolute;
     height: 0;
@@ -33,7 +33,7 @@
     border-bottom-color: white;
   }
 
-  &:after {
+  &:before {
     content: '';
     top: -@ndpBoxBorderSize;
     left: -@ndpTriangleSize;

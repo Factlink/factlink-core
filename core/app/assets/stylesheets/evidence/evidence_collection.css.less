@@ -222,7 +222,8 @@
   border-width: @ndpTriangleSize;
 }
 
-.evidence-box .evidence-box-triangle {
+.evidence-supporting .evidence-box-triangle,
+.evidence-weakening .evidence-box-triangle {
   .evidence-triangle-base();
   top: @triangleTop;
   margin-top: -@ndpTriangleSize;
@@ -257,27 +258,11 @@
   }
 }
 
-.evidence-unsure {
-  .evidence-box-triangle,
-  .evidence-box-triangle:before {
-    height: 0;
-    width: 1px;
-    margin-top: 0;
-    margin-left: -@ndpTriangleSize;
-    border-top: none;
-    top: 0;
-  }
-
-  .evidence-box-triangle {
-    left: 50%;
-    top: -@innerTriangleOffset;
-    border-bottom-color: white;
-
-    &:before {
-      top: -1px;
-      border-bottom-color: @ndpArrowBorderColor;
-    }
-  }
+.evidence-unsure .evidence-box-triangle {
+  .ndp-triangle-arrow-up();
+  top: 0;
+  left: 50%;
+  margin-left: -@ndpTriangleSize;
 }
 
 // Voting arrows
