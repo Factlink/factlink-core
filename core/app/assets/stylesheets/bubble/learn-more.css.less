@@ -75,9 +75,15 @@
     text-align: center;
   }
 
+  @buttonOffset: 3px;
   .learn-more {
     display: inline-block;
     margin: 0 0 0 -1px;
+    padding-top: 15px + @buttonOffset;
+  }
+
+  .learn-more-btn-sign-in, .learn-more-btn-learn-more {
+    margin-top: -@buttonOffset;
   }
 
   .ndp-learn-more-bottom {
