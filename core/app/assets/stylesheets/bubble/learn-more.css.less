@@ -35,27 +35,12 @@
   margin-bottom: 20px;
   position: relative;
 
-  .learn-more-arrow, .learn-more-arrow:before {
-    position: absolute;
-    .box-sizing(content-box);
-    height: 0;
-    width: 1px;
-    margin-left: -@ndpTriangleSize;
-    bottom: -@ndpTriangleSize + @ndpBoxBorderSize;
+  .learn-more-arrow {
+    .ndp-triangle-arrow-down();
+
+    bottom: 0;
     left: 50%;
-    border: @ndpTriangleSize solid transparent;
-    border-bottom: none;
-    border-top-color: white;
-  }
-
-  .learn-more-arrow:before {
-    content: '';
-    bottom: -@ndpBoxBorderSize - @ndpBoxShadowBottomSize;
-
-    // shadow arrow is slightly lighter than normal, as this appears
-    // to look better!
-    border-top-color: @ndpBoxShadowBottomColor;
-    z-index: -1;
+    margin-left: -@ndpTriangleSize;
   }
 }
 
