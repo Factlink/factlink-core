@@ -10,13 +10,17 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
     regions:
       modalRegion: '.modal-body'
 
+    ui:
+      modal: '.js-modal'
+      layer: '.js-layer'
+
     templateHelpers: =>
       title: @options.title
 
     onRender: ->
       @modalRegion.show @options.content_view
-      @$('.js-modal').show()
-      @$('.js-layer').show()
+      @ui.modal.show()
+      @ui.layer.show()
 
     stopPropagation: (e) ->
       e.stopPropagation()
