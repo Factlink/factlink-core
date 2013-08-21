@@ -11,7 +11,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
-  getTopicFacts: (slug_title) ->
+  showTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.close()
 
     @loadTopic slug_title, (topic) =>
@@ -19,7 +19,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.mainRegion.show new TopicView model: topic
       FactlinkApp.factlinkBaseUrl = topic.url()
 
-  getTopicFact: (slug_title, fact_id, params={}) ->
+  showTopicFact: (slug_title, fact_id, params={}) ->
     topic = @loadTopic slug_title,
       => @showSidebarForTopic topic
     back_button = new TopicBackButton [], model: topic
@@ -54,7 +54,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
 
-  getChannelFacts: (username, channel_id) ->
+  showChannelFacts: (username, channel_id) ->
     FactlinkApp.mainRegion.close()
 
     @loadChannel username, channel_id, (channel) =>
@@ -64,7 +64,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
   # TODO: this is only ever used for the stream,
   #       don't act like this is a general function
-  getChannelActivities: (username, channel_id) ->
+  showChannelActivities: (username, channel_id) ->
     # getStream
     FactlinkApp.leftTopRegion.close()
     FactlinkApp.mainRegion.close()
@@ -77,10 +77,10 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       activities = new ChannelActivities([],{ channel: channel })
       FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
 
-  getChannelFactForActivity: (username, channel_id, fact_id, params={}) ->
-    @getChannelFact(username, channel_id, fact_id, _.extend(for_stream: true, params))
+  showChannelFactForActivity: (username, channel_id, fact_id, params={}) ->
+    @showChannelFact(username, channel_id, fact_id, _.extend(for_stream: true, params))
 
-  getChannelFact: (username, channel_id, fact_id, params={}) ->
+  showChannelFact: (username, channel_id, fact_id, params={}) ->
     channel = @loadChannel username, channel_id, (channel) => @showSidebarForChannel channel
     back_button = new ChannelBackButton [], model: channel, for_stream: params.for_stream
 

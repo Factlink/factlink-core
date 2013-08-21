@@ -1,6 +1,6 @@
 class window.SearchController extends Backbone.Marionette.Controller
 
-  search: (params={}) ->
+  showSearch: (params={}) ->
     @listenTo FactlinkApp.vent, 'navigate', @close
 
     query = params['s']

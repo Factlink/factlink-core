@@ -1,6 +1,6 @@
 class window.TourController extends Backbone.Marionette.Controller
 
-  interests: ->
+  showInterests: ->
     users = new TourUsers
     users.fetch()
     containerRegion = new Backbone.Marionette.Region el: $("#container")

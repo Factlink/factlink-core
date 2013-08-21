@@ -1,3 +1,3 @@
 class window.TourRouter extends Backbone.Marionette.AppRouter
   appRoutes:
-    'p/tour/interests': 'interests'
+    'p/tour/interests': 'showInterests'
