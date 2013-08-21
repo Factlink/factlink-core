@@ -1,1 +1,1 @@
-Factlink.templates.preload()
+Factlink.prepare = new Factlink.Prepare(-> Factlink.templates['create'])

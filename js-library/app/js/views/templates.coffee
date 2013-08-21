@@ -15,11 +15,3 @@ Factlink.templates =
         <span class="fl-loading-message">Loading...</span>
       </div>
   """
-
-Factlink.templates.getTemplate = (name, callback = ->) ->
-  callback -> Factlink.templates[name]
-
-Factlink.templates.preload = ->
-  Factlink.templates.getTemplate 'indicator'
-  Factlink.templates.getTemplate 'create', (template) ->
-    Factlink.prepare = new Factlink.Prepare(template)
