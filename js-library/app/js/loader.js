@@ -3,39 +3,6 @@
     return;
   }
 
-  /*
-   * Temporary workaround for old bookmarklet users
-
-                     .-"""-.
-                   _/-=-.   \
-                  (_|a a/   |_
-                   / "  \   ,_)
-              _    \`=' /__/
-             / \_  .;--'  `-.
-             \___)//      ,  \
-              \ \/;        \  \
-               \_.|         | |
-                .-\ '     _/_/
-              .'  _;.    (_  \
-             /  .'   `\   \\_/
-            |_ /       |  |\\
-           /  _)       /  / ||
-      jgs /  /       _/  /  //
-          \_/       ( `-/  ||
-                    /  /   \\ .-.
-                    \_/     \'-'/
-                             `"`
-
-   */
-  if (FactlinkConfig.lib.substr(-4, FactlinkConfig.lib.length) === "/lib") {
-    FactlinkConfig.lib += "/dist";
-  }
-  if (FactlinkConfig.srcPath.substr(0, 5) === "/dist") {
-    FactlinkConfig.srcPath = FactlinkConfig.srcPath.substr(5, FactlinkConfig.srcPath.length);
-  }
-  // end of old bookmarklet users patches.
-
-
   var iframe = document.createElement("iframe"),
       div = document.createElement("div"),
       hasReadyState = "readyState" in iframe,
