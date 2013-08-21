@@ -19,7 +19,7 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
     @loadTopic slug_title, (topic) =>
       @showSidebarForTopic(topic)
       FactlinkApp.mainRegion.show new TopicView model: topic
-      @makePermalinkEvent(topic.url())
+      FactlinkApp.factlinkBaseUrl = topic.url()
 
   getTopicFact: (slug_title, fact_id, params={}) ->
     topic = @loadTopic slug_title,
@@ -61,7 +61,7 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
-      @makePermalinkEvent(channel.url())
+      FactlinkApp.factlinkBaseUrl = channel.url()
       FactlinkApp.mainRegion.show new ChannelView(model: channel)
 
   # TODO: this is only ever used for the stream,
@@ -74,7 +74,7 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       FactlinkApp.Sidebar.activate('stream')
-      @makePermalinkEvent(channel.url() + '/activities')
+      FactlinkApp.factlinkBaseUrl = channel.url() + '/activities'
 
       activities = new ChannelActivities([],{ channel: channel })
       FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)

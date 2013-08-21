@@ -29,8 +29,6 @@ class window.ProfileController extends Backbone.Factlink.CachingController
     title: 'Profile'
     active_tab: 'show'
     render: (main_region, user) =>
-      @makePermalinkEvent()
-
       main_region.show new ProfileView
         model: user
         collection: window.Channels
