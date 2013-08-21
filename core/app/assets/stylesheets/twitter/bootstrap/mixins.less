@@ -1,11 +1,3 @@
-//
-// Mixins
-// --------------------------------------------------
-
-
-// UTILITY MIXINS
-// --------------------------------------------------
-
 // Clearfix
 // --------
 // For clearing floats like a boss h5bp.com/q
@@ -84,13 +76,11 @@
   }
 }
 
-// Text overflow
-// -------------------------
-// Requires inline-block or block for proper styling
-.text-overflow() {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;        // Make inputs at least the height of their button counterpart
+  .box-sizing(border-box); // Makes inputs behave like true block-level elements
 }
 
 // FONTS
@@ -111,18 +101,6 @@
     #font > #family > .sans-serif;
     #font > .shorthand(@size, @weight, @lineHeight);
   }
-}
-
-
-// FORMS
-// --------------------------------------------------
-
-// Block level inputs
-.input-block-level {
-  display: block;
-  width: 100%;
-  min-height: 30px;        // Make inputs at least the height of their button counterpart
-  .box-sizing(border-box); // Makes inputs behave like true block-level elements
 }
 
 

@@ -22,8 +22,8 @@
 
 <% content_for :modal do %>
 <div class="modal hide fade" id="factlink_video" tabindex="-1" role="dialog" aria-labelledby="modal_label" aria-hidden="true">
+  <div class="static-close-button" data-dismiss="modal"></div>
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 class="modal_label">An introduction to Factlink</h3>
   </div>
   <div class="modal-body">
@@ -62,7 +62,7 @@
 <% content_for :specific_javascript do %>
   <script type="text/javascript">
     $(function(){
-      mp_track('Pageview: Landing page', { 
+      mp_track('Pageview: Landing page', {
         code: '<%= @code %>'
       });
     });
