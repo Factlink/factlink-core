@@ -4,7 +4,7 @@ Factlink.templates = {}
 
 Factlink.templates.getTemplate = (str, callback = ->) ->
   if str == "create"
-    callback _.template """
+    callback -> """
       <div class="fl-add-new fl-popup">
         <span class="fl-default-message">
           <span class="fl-new"><a href="#">Add Factlink</a></span>
@@ -15,7 +15,7 @@ Factlink.templates.getTemplate = (str, callback = ->) ->
       </div>
     """
   else if str == "indicator"
-    callback _.template """
+    callback -> """
       <div class="fl-popup" style="display:none">
         <span class="fl-default-message">Show Factlink</span>
         <span class="fl-loading-message">Loading...</span>

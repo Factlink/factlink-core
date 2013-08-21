@@ -16,11 +16,6 @@ if ( Factlink.global.easyXDM ) {
   Factlink.easyXDM = Factlink.global.FACTLINK.easyXDM = Factlink.global.easyXDM.noConflict("FACTLINK");
 }
 
-Factlink._.templateSettings = {
-  interpolate : /\{%\=(.+?)%\}/g,
-  evaluate : /\{%(.+?)%\}/g
-};
-
 // Create the Factlink container
 Factlink.el = $('#fl');
 // Create template wrapper
