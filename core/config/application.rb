@@ -135,7 +135,6 @@ module FactlinkUI
       'social_popup.css',
       'base.css',
       'application.js',
-      'feedback.js',
       'frontend.js',
       'popup.js',
       'intermediate.js',

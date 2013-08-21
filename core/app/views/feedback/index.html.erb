@@ -2,9 +2,31 @@
 <html>
   <head>
     <%= stylesheet_link_tag "base" %>
-    <%= stylesheet_link_tag "frontend" %>
-    <%= javascript_include_tag "feedback" %>
+    <%= javascript_include_tag "application" %>
   </head>
+  <script type="text/javascript">
+    $(function () {
+      updateHeight();
+      $(window).on('resize', updateHeight);
+    });
+
+    function updateHeight() {
+      var $feedback_frame = window.parent.$('#feedback_frame');
+      var $iframe = $feedback_frame.find('iframe');
+
+      $iframe.css({
+        height: $('body').outerHeight()
+      });
+
+      $feedback_frame.css({
+        marginTop: - $feedback_frame.outerHeight()/2 + "px"
+      });
+    }
+
+    function onCloseFrame() {
+      $('.alert').remove();
+    }
+  </script>
   <body class="feedback_form">
     <p>
       Got stuck somewhere or is something not working properly? Just send us a quick note and we'll be on it.
@@ -38,7 +60,6 @@
       <input type="text" id="ticket_subject" name="ticket[subject]" placeholder="Message subject">
       <textarea  id="ticket_message" name="ticket[message]" placeholder="How can we be of service to you?"></textarea>
 
-      <input type="button" class="button cancel" value="Cancel">
       <%= submit_tag "Send feedback", "data-disable-with" => "Sending feedback...", :class => "submit button button-confirm", :name => "send" %>
     </form>
   </body>

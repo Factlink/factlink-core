@@ -43,7 +43,6 @@ class TourUserView extends Backbone.Marionette.Layout
     @popoverAdd '.js-topic',
       side: 'right'
       align: 'top'
-      orthogonalOffset: -2
       contentView: @authorityPopover()
       show_overlay: true
       focus_on: @$('.js-topic')[0]

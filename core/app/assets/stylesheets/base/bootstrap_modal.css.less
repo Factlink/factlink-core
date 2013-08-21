@@ -1,9 +1,8 @@
 @import "bootstrap/mixins";
 
-.modal {
-  border: 1px solid @modalBorderColor;
-  outline: none;
-  .box-shadow(0 0 0 5px rgba(0, 0, 0, .15));
+html body .modal { // override bootstrap
+  .new-design-white-block-with-shadow();
+  border: none; // remove when removing Bootstrap
 
   .modal-header{
     background: #f8f8f8;
@@ -11,7 +10,6 @@
     text-shadow: 0 1px 0 #fff;
     h3 {
     	font-size: 16px;
-    	font-family: @baseFontFamily;
     }
   }
 }
