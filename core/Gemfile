@@ -94,8 +94,6 @@ group :assets do
 
   gem 'jquery-rails', '= 2.2.1' # we want a specific version of the js library
 
-  gem 'modernizr-rails', "= 2.0.6" # we want a specific version of the js library
-
   # This gem is https://github.com/aflatter/backbone-rails
   # Not the one you might typically find with Google
   # Very clear, no?
