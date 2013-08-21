@@ -61,22 +61,25 @@
       }
     }
   }
-  h3, h4 {
+  .team-member-name {
     position: relative;
     margin: 0;
     text-align: center;
-  }
-  h3 {
-    font-size: 15px;
-    width: 150px;
-    line-height: 18px;
-    left: -10px;
-  }
-  h4 {
-    font-size: @heading4FontSize;
-    width: 95px;
-    padding-top: 0 !important;
-    line-height: 16px;
-    left: -7px;
+    font-weight: bold;
+
+    &.team-member {
+      font-size: 15px;
+      width: 150px;
+      line-height: 18px;
+      left: -10px;
+    }
+
+    &.advisor {
+      font-size: @heading4FontSize;
+      width: 95px;
+      padding-top: 0 !important;
+      line-height: 16px;
+      left: -7px;
+    }
   }
 }

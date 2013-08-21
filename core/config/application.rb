@@ -133,7 +133,6 @@ module FactlinkUI
       'tos.css',
       'tour.css',
       'social_popup.css',
-      'pages.css',
       'base.css',
       'application.js',
       'feedback.js',
