@@ -1,3 +1,11 @@
+//
+// Mixins
+// --------------------------------------------------
+
+
+// UTILITY MIXINS
+// --------------------------------------------------
+
 // Clearfix
 // --------
 // For clearing floats like a boss h5bp.com/q
@@ -74,6 +82,15 @@
   &::-webkit-input-placeholder {
     color: @color;
   }
+}
+
+// Text overflow
+// -------------------------
+// Requires inline-block or block for proper styling
+.text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 // FONTS
