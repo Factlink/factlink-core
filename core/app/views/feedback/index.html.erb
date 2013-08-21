@@ -5,19 +5,8 @@
   </head>
   <script type="text/javascript">
     $(function () {
-    updateHeight();
-
-    $(window).on('resize', updateHeight);
-
-    $('a.close').on('click', function () {
-      // Wait till it's closed, ugly?
-      setTimeout(updateHeight, 10);
-    });
-
-    $('.cancel').on('click', function () {
-      window.parent.$('#feedback_frame').modal('hide');
-    });
-
+      updateHeight();
+      $(window).on('resize', updateHeight);
     });
 
     function updateHeight() {
