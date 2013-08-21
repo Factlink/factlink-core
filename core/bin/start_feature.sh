@@ -19,9 +19,7 @@ set -e
 echo "starting feature $1"
 git flow feature start $1
 git flow feature publish $1
-echo "$1" > "changelog/$1.md"
-git add "changelog/$1.md"
-git commit -m 'added changelog placeholder'
+git commit -m 'empty commit' --allow-empty
 git push origin "feature/$1"
 echo "giving github some time"
 hub pull-request "$1" -b Factlink:develop -h Factlink:feature/$1
