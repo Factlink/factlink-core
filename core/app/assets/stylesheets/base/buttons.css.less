@@ -9,7 +9,7 @@ body.client {
     .new-design-font();
     display: inline-block;
     font-size: 13px;
-    .border-radius(3px);
+    border-radius: 3px;
     height: @largeButtonHeight;
     line-height: @largeButtonHeight;
     padding: 0 @largeButtonPadding;
@@ -168,7 +168,7 @@ body.client {
 
   .button-action-checked {
     color: @greenLabelColor;
-    font-weight: 500;
+    font-weight: @baseFontBoldWeight;
     &.button-danger {
       font-weight: 300;
       color: white;

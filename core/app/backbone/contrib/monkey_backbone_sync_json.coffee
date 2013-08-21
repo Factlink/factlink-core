@@ -18,8 +18,13 @@ wrap_success_and_error = (options) ->
   old_success = options.success
   old_error = options.error
 
-  options.success = (args...) -> _.delay old_success, sync_delay, args...
-  options.error = (args...) -> _.delay old_error, sync_delay, args...
+  options.success = (data, textStatus, jqXHR) ->
+    timeout = _.delay old_success, sync_delay, arguments...
+    jqXHR.abort = -> clearTimeout timeout
+
+  options.error = (data, textStatus, jqXHR) ->
+    timeout = _.delay old_error, sync_delay, arguments...
+    jqXHR.abort = -> clearTimeout timeout
 
 get_sync_delay = ->
   sync_delay = getSetting("sync_delay")

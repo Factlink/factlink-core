@@ -21,8 +21,7 @@
 // Triangles:
 // - An inner triangle with the box's background color
 // - An outer triangle "fake border" that's 1px offset
-@triangleSize: 8px;
-@innerTriangleOffset: @triangleSize - 1px;
+@innerTriangleOffset: @ndpTriangleSize - 1px;
 @triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
 
 // The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
@@ -39,7 +38,7 @@
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 
-@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @triangleSize;
+@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @ndpTriangleSize;
 
 // The unsure (middle) box needs to leave space for the impact circle since its
 // impact circle cannot be floated (both left/right would be problematic).
@@ -66,7 +65,7 @@
   z-index: -2;
   top: -@topFactWheelOverhang;
   bottom: 0;
-  box-shadow: 0 0 80px 100px @shadowColor;
+  box-shadow: 0 0 80px 100px @semiTransparentLayerColor;
   visibility: visible;
 
   .evidence-line {
@@ -213,72 +212,27 @@
 }
 
 // Evidence triangles (arrows)
-.evidence-triangle-base() {
-  position: absolute;
-  border-style: solid;
-  border-color: transparent;
-  height: 1px;
-  width: 0;
-  .box-sizing(content-box);
-  border-width: @triangleSize;
-}
-
-.evidence-box .evidence-box-triangle {
-  .evidence-triangle-base();
+.evidence-supporting .evidence-box-triangle,
+.evidence-weakening .evidence-box-triangle {
   top: @triangleTop;
-  margin-top: -@triangleSize;
-
-  &:before {
-    .evidence-triangle-base();
-    content: '';
-    z-index: -1;
-    margin-top: -@triangleSize;
-  }
+  margin-top: -@ndpTriangleSize;
 }
 
 .evidence-supporting .evidence-box-triangle {
-  right: 100%;
-  border-right-color: white;
-
-  &:before {
-    border-left: none;
-    border-right-color: @evidenceBoxBorderColor;
-    margin-left: -1px;
-  }
+  .ndp-triangle-arrow-left();
+  left: 0;
 }
 
 .evidence-weakening .evidence-box-triangle {
-  left: 100%;
-  border-left-color: white;
-
-  &:before {
-    border-right: none;
-    border-left-color: @evidenceBoxBorderColor;
-    right: -1px;
-  }
+  .ndp-triangle-arrow-right();
+  right: 0;
 }
 
-.evidence-unsure {
-  .evidence-box-triangle,
-  .evidence-box-triangle:before {
-    height: 0;
-    width: 1px;
-    margin-top: 0;
-    margin-left: -@triangleSize;
-    border-top: none;
-    top: 0;
-  }
-
-  .evidence-box-triangle {
-    left: 50%;
-    top: -@innerTriangleOffset;
-    border-bottom-color: white;
-
-    &:before {
-      top: -1px;
-      border-bottom-color: @evidenceBoxBorderColor;
-    }
-  }
+.evidence-unsure .evidence-box-triangle {
+  .ndp-triangle-arrow-up();
+  top: 0;
+  left: 50%;
+  margin-left: -@ndpTriangleSize;
 }
 
 // Voting arrows
@@ -373,23 +327,30 @@
   .evidence-terminator-before-add-evidence {
     height: 80px;
   }
+
+  .evidence-terminator-circle {
+    position: relative;
+    min-height: 30px;
+
+    @circleRadius: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -@circleRadius - (@evidenceAddLinesTop - @evidenceAddCircleExtraRadius);
+      left: 50%;
+      margin-left: -2px;
+      width: @circleRadius;
+      height: @circleRadius;
+      border-radius: 5px; //half would be enough
+      background-color: @ndpLineColor;
+      visibility: visible;
+    }
+  }
 }
 
 .evidence-add-buttons {
   position: relative;
-}
-
-.evidence-add-circle {
-  position: absolute;
-  left: 50%;
-  top: @evidenceAddLinesTop;
-  width: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
-  height: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
-  margin-left: -2px;
-  margin-top: -@evidenceAddCircleExtraRadius;
-  border-radius: 5px; //half would be enough
-  background-color: @ndpLineColor;
-  visibility: visible;
 }
 
 .evidence-add-weakening-line, .evidence-add-supporting-line {
@@ -428,17 +389,17 @@
   right: 50%;
   margin-right: @evidenceAddLineLength + @weakeningLineOffset;
   background-color: @buttonDangerBackground;
-  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
+  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
 
   &:hover {
     background-color: @buttonDangerDarkBackground;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
   }
 
   &:active {
     background-color: @buttonDangerDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
   }
 }
 
@@ -446,17 +407,17 @@
   left: 50%;
   margin-left: @evidenceAddLineLength + @supportingLineOffset;
   background-color: @buttonSuccessBackground;
-  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
+  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
 
   &:hover {
     background-color: @buttonSuccessDarkBackground;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
   }
 
   &:active {
     background-color: @buttonSuccessDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
   }
 }
 
@@ -465,16 +426,16 @@
   cursor: pointer;
 
   background-color: white;
-  box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonBorder;
+  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonBorder;
   transition: box-shadow 0.1s, border-top 0.1s;
 
   &:hover {
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
   }
 
   &:active {
     border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
-    box-shadow: @ndpBoxShadowBorder, 0 @largeButtonBorderWidth white;
+    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth white;
   }
 }
 

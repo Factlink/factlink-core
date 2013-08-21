@@ -16,6 +16,21 @@ describe "factlink", type: :feature do
     assume_unchanged_screenshot "fact_show"
   end
 
+  it "the layout of the discussion page is correct for an anonymous user" do
+    @user = sign_in_user create :active_user
+
+    @factlink = create_discussion
+
+    sign_out_user
+
+    go_to_fact_show_of @factlink
+    first('a', text: '1 comment').click
+
+    page.should have_content @factlink.data.displaystring
+
+    assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
+  end
+
   it "the layout of the new discussion page is correct with doubters on top, and
       adding weakening comment" do
     @user = sign_in_user create :active_user
@@ -67,19 +82,18 @@ describe "factlink", type: :feature do
     assume_unchanged_screenshot "new_fact_show_B"
   end
 
+  it "the layout of the new discussion page is correct for an anonymous user" do
+    enable_global_features :new_discussion_page
 
-  it "the layout of the discussion page is correct for an anonymous user" do
     @user = sign_in_user create :active_user
-
-    @factlink = create_discussion
-
+    factlink = create_discussion
     sign_out_user
 
-    go_to_fact_show_of @factlink
+    go_to_fact_show_of factlink
     first('a', text: '1 comment').click
 
     page.should have_content @factlink.data.displaystring
 
-    assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
+    assume_unchanged_screenshot "new_fact_show_for_non_signed_in_user"
   end
 end

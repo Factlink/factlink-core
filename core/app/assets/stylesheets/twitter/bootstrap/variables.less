@@ -37,6 +37,7 @@
 
 @baseFontFamily:            "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 @sansFontFamily:            "Helvetica Neue", Helvetica, Arial, sans-serif;
+@baseFontBoldWeight:        500;
 
 @baseFontSize:              12px;
 @baseLineHeight:            18px;
@@ -140,12 +141,6 @@
 @dropdownLinkBackgroundHover:   @dropdownLinkBackgroundActive;
 
 
-// NDP
-@ndpBoxShadowBorder:        0 0 0 1px rgba(0,0,0,0.06);
-@NDPMutedBorderTopColor:    rgb(230,230,230);
-@NDPMutedBorderBottomColor: rgb(250,250,250);
-@ndpLineColor:              rgba(174,180,189,0.8);
-
 // COMPONENT VARIABLES
 // --------------------------------------------------
 
@@ -223,6 +218,11 @@
 @infoBackground:          #d9edf7;
 @infoBorder:              darken(spin(@infoBackground, -10), 7%);
 
+// Bubble
+
+@popup-padding: 10px;
+
+
 // Tooltips and popovers
 // -------------------------
 @tooltipColor:            #fff;
@@ -262,12 +262,27 @@
 @factlinkActiveColor:       #b4d5fe;
 @factlinkInactiveColor:     lighten(@factlinkActiveColor, 10%);
 
-// NDP colours
-@evidenceBoxBorderColor: rgba(0,0,0,0.2);
-@supportingImpactColor: rgba(100,190,160, 0.9);
-@weakeningImpactColor: rgba(220,120,120, 0.9);
-@unsureImpactColor: rgba(90,140,170, 0.9);
-@shadowColor: rgba(233, 234, 238, 0.7); // Same colour as semi-transparent overlay in js-library
+// NDP stuff
+@supportingImpactColor:     rgba(100,190,160, 0.9);
+@weakeningImpactColor:      rgba(220,120,120, 0.9);
+@unsureImpactColor:         rgba(90,140,170, 0.9);
+@semiTransparentLayerColor: rgba(233, 234, 238, 0.7); // Same colour as semi-transparent overlay in js-library
+
+@ndpTriangleSize:           8px;
+@ndpArrowBorderColor:       rgba(0,0,0,0.15);
+@ndpBoxBorderSize:          1px;
+@ndpBoxBorder:              0 0 0 @ndpBoxBorderSize rgba(0,0,0,0.06);
+@ndpBoxShadowBottomColor:   rgba(0,0,0,0.15);
+@ndpBoxShadowBottomSize:    1px;
+@NDPMutedBorderTopColor:    rgb(230,230,230);
+@NDPMutedBorderBottomColor: rgb(250,250,250);
+@ndpLineColor:              rgba(174,180,189,0.8);
+
+@ndpPopoverShadowBottomColor:   rgba(0,0,0,0.4);
+@ndpPopoverShadowBottomSize:    1px;
+@ndpPopoverArrowBorderColor:    rgba(0,0,0,0.17);
+@ndpPopoverArrowTopBorderColor: rgba(0,0,0,0.25);
+@ndpPopoverArrowBorderOffset:   1px;
 
 // Layouting
 @siteWidth:                 960px;
@@ -283,5 +298,3 @@
 
 @bubbleLeftPadding:  15px;
 @bubbleRightPadding: 15px;
-
-
