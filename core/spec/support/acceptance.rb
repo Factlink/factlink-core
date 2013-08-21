@@ -1,4 +1,6 @@
 module Acceptance
+  include PavlovSupport
+
   def int_user
     user = create(:user)
     user.confirm!
@@ -69,6 +71,14 @@ module Acceptance
     raise "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
 
     user.features = features
+  end
+
+  def enable_global_features(*features)
+    raise "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
+
+    as(create :admin_user) do |pavlov|
+      pavlov.interactor(:'global_features/set', features: features)
+    end
   end
 
   def disable_html5_validations(page)
