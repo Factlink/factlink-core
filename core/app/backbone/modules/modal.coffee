@@ -4,7 +4,7 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
     template: 'widgets/modal_wrapper'
 
     events:
-      "click .js-layer": "close"
+      "click .js-layer": "fadeOut"
       "click": "stopPropagation"
 
     regions:
@@ -19,11 +19,19 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
 
     onRender: ->
       @modalRegion.show @options.content_view
-      @ui.modal.show()
-      @ui.layer.show()
+      @ui.modal.fadeIn 'fast'
+      @ui.layer.fadeIn 'fast'
 
     stopPropagation: (e) ->
       e.stopPropagation()
+
+    # We cannot fade the wrapping region, e.g. using a CrossFadeRegion, because
+    # that would create a stacking context, but currently @ui.modal and @ui.layer
+    # both have set z-indexes.
+    fadeOut: ->
+      @ui.layer.fadeOut 'fast'
+      @ui.modal.fadeOut 'fast', =>
+        @modalRegion.close()
 
   FactlinkApp.addRegions
     modalRegion: "#modal_region"
@@ -32,11 +40,11 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
     Modal.close()
 
   Modal.show = (title, content_view)->
-    wrapped_view = new FactlinkApp.Modal.WrapperView
+    @wrapped_view = new FactlinkApp.Modal.WrapperView
       title: title
       content_view: content_view
 
-    FactlinkApp.modalRegion.show wrapped_view
+    FactlinkApp.modalRegion.show @wrapped_view
 
   Modal.close = ->
-    FactlinkApp.modalRegion.close()
+    @wrapped_view?.fadeOut()
