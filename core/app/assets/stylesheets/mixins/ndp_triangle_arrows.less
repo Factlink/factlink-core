@@ -1,92 +1,85 @@
-.ndp-triangle-arrow-down(@color: @ndpBoxShadowBottomColor, @borderOffset: @ndpBoxShadowBottomSize) {
-  margin-bottom: -@ndpTriangleSize;
-
+.ndp-triangle-arrow(@color, @borderOffset) {
   &, &:before {
     .box-sizing(content-box);
     position: absolute;
+    border: @ndpTriangleSize solid transparent;
+  }
+
+  &:before {
+    content: '';
+    z-index: -1;
+    border-width: @ndpTriangleSize + @borderOffset;
+  }
+}
+
+.ndp-triangle-arrow-down(@color: @ndpBoxShadowBottomColor, @borderOffset: @ndpBoxShadowBottomSize) {
+  .ndp-triangle-arrow(@color, @borderOffset);
+  margin-bottom: -@ndpTriangleSize;
+
+  &, &:before {
     height: 0;
     width: 1px;
-    border: @ndpTriangleSize solid transparent;
     border-bottom: none;
     border-top-color: white;
   }
 
   &:before {
-    content: '';
     bottom: -@ndpBoxBorderSize - @borderOffset;
     left: -@ndpTriangleSize - @borderOffset;
     border-top-color: @color;
-    z-index: -1;
-    border-width: @ndpTriangleSize + @borderOffset;
   }
 }
 
 .ndp-triangle-arrow-up(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
+  .ndp-triangle-arrow(@color, @borderOffset);
   margin-top: -@ndpTriangleSize;
 
   &, &:before {
-    .box-sizing(content-box);
-    position: absolute;
     height: 0;
     width: 1px;
-    border: @ndpTriangleSize solid transparent;
     border-top: none;
     border-bottom-color: white;
   }
 
   &:before {
-    content: '';
     top: -@ndpBoxBorderSize - @borderOffset;
     left: -@ndpTriangleSize - @borderOffset;
     border-bottom-color: @color;
-    border-width: @ndpTriangleSize + @borderOffset;
-    z-index: -1;
   }
 }
 
 .ndp-triangle-arrow-left(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
+  .ndp-triangle-arrow(@color, @borderOffset);
   margin-left: -@ndpTriangleSize;
 
   &, &:before {
-    .box-sizing(content-box);
-    position: absolute;
     width: 0;
     height: 1px;
-    border: @ndpTriangleSize solid transparent;
     border-left: none;
     border-right-color: white;
   }
 
   &:before {
-    content: '';
     left: -@ndpBoxBorderSize - @borderOffset;
     top: -@ndpTriangleSize - @borderOffset;
     border-right-color: @color;
-    border-width: @ndpTriangleSize + @borderOffset;
-    z-index: -1;
   }
 }
 
 .ndp-triangle-arrow-right(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
+  .ndp-triangle-arrow(@color, @borderOffset);
   margin-right: -@ndpTriangleSize;
 
   &, &:before {
-    .box-sizing(content-box);
-    position: absolute;
     width: 0;
     height: 1px;
-    border: @ndpTriangleSize solid transparent;
     border-right: none;
     border-left-color: white;
   }
 
   &:before {
-    content: '';
     right: -@ndpBoxBorderSize - @borderOffset;
     top: -@ndpTriangleSize - @borderOffset;
     border-left-color: @color;
-    border-width: @ndpTriangleSize + @borderOffset;
-    z-index: -1;
   }
 }
-
