@@ -3,6 +3,8 @@ class window.SearchController extends Backbone.Factlink.BaseController
   routes: ['search']
 
   search: (params={}) ->
+    @listenTo FactlinkApp.vent, 'navigate', @close
+
     query = params['s']
     $('.js-navbar-search-box').val(query)
     results = new SearchResults [], search: query

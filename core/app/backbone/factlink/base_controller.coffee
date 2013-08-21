@@ -10,9 +10,6 @@ class Backbone.Factlink.BaseController extends Backbone.Marionette.Controller
       functionName = "on#{route.capitalize()}"
       @[functionName] = @getRouteFunction(route)
 
-  getRouteFunction: (name) ->
-    (args...) ->
-      @listenTo FactlinkApp.vent, 'navigate', @close
-      @[name](args...)
+  getRouteFunction: (name) -> @[name]
 
 Backbone.Factlink.BaseController.extend = Backbone.View.extend
