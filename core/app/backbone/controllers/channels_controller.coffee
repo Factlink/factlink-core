@@ -1,4 +1,4 @@
-class window.ChannelsController extends Backbone.Factlink.CachingController
+class window.ChannelsController extends Backbone.Factlink.BaseController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
 

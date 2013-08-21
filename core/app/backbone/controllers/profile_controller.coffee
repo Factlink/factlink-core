@@ -1,4 +1,4 @@
-class window.ProfileController extends Backbone.Factlink.CachingController
+class window.ProfileController extends Backbone.Factlink.BaseController
 
   routes: ['showProfile', 'showNotificationSettings', 'showFact']
 
