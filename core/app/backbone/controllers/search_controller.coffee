@@ -13,5 +13,5 @@ class window.SearchController extends Backbone.Factlink.BaseController
 
     results.fetch()
 
-  closeController: ->
+  onClose: ->
     $('.js-navbar-search-box').val('')
