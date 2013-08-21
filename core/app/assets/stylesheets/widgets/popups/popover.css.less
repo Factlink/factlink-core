@@ -8,14 +8,16 @@
   position: relative;
   font-size: @baseFontSize;
   .background-clip(padding-box);
-  .new-design-white-block-with-shadow();
+  background: white;
+  .new-design-border-radius();
+  box-shadow: @ndpBoxBorder, 0 @ndpPopoverShadowBottomSize 5px @ndpPopoverShadowBottomColor;
   visibility: visible;
-  outline: 1px solid transparent; // force block formatting context
+  display: inline-block; // force block formatting context
 
   &.bottom {
     margin-top: @arrow-pointy-side;
     .arrow {
-      .ndp-triangle-arrow-up();
+      .ndp-triangle-arrow-up(@ndpPopoverArrowTopBorderColor);
       top: 0;
     }
   }
@@ -23,7 +25,7 @@
   &.top {
     margin-bottom: @arrow-pointy-side;
     .arrow {
-      .ndp-triangle-arrow-down();
+      .ndp-triangle-arrow-down(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
       bottom: 0;
     }
   }
@@ -31,7 +33,7 @@
   &.left {
     margin-right: @arrow-pointy-side;
     .arrow {
-      .ndp-triangle-arrow-right();
+      .ndp-triangle-arrow-right(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
       right: 0;
     }
   }
@@ -39,7 +41,7 @@
   &.right {
     margin-left: @arrow-pointy-side;
     .arrow {
-      .ndp-triangle-arrow-left();
+      .ndp-triangle-arrow-left(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
       left: 0;
     }
   }

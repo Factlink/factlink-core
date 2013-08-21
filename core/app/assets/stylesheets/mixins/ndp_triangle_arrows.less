@@ -1,4 +1,4 @@
-.ndp-triangle-arrow-down() {
+.ndp-triangle-arrow-down(@color: @ndpBoxShadowBottomColor, @borderOffset: @ndpBoxShadowBottomSize) {
   margin-bottom: -@ndpTriangleSize;
 
   &, &:before {
@@ -13,15 +13,15 @@
 
   &:before {
     content: '';
-    bottom: -@ndpBoxBorderSize - @ndpBoxShadowBottomSize;
-    left: -@ndpTriangleSize - @ndpBoxShadowBottomSize;
-    border-top-color: @ndpBoxShadowBottomColor;
+    bottom: -@ndpBoxBorderSize - @borderOffset;
+    left: -@ndpTriangleSize - @borderOffset;
+    border-top-color: @color;
     z-index: -1;
-    border-width: @ndpTriangleSize + @ndpBoxShadowBottomSize;
+    border-width: @ndpTriangleSize + @borderOffset;
   }
 }
 
-.ndp-triangle-arrow-up() {
+.ndp-triangle-arrow-up(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
   margin-top: -@ndpTriangleSize;
 
   &, &:before {
@@ -36,14 +36,15 @@
 
   &:before {
     content: '';
-    top: -@ndpBoxBorderSize;
-    left: -@ndpTriangleSize;
-    border-bottom-color: @ndpArrowBorderColor;
+    top: -@ndpBoxBorderSize - @borderOffset;
+    left: -@ndpTriangleSize - @borderOffset;
+    border-bottom-color: @color;
+    border-width: @ndpTriangleSize + @borderOffset;
     z-index: -1;
   }
 }
 
-.ndp-triangle-arrow-left() {
+.ndp-triangle-arrow-left(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
   margin-left: -@ndpTriangleSize;
 
   &, &:before {
@@ -58,14 +59,15 @@
 
   &:before {
     content: '';
-    left: -@ndpBoxBorderSize;
-    top: -@ndpTriangleSize;
-    border-right-color: @ndpArrowBorderColor;
+    left: -@ndpBoxBorderSize - @borderOffset;
+    top: -@ndpTriangleSize - @borderOffset;
+    border-right-color: @color;
+    border-width: @ndpTriangleSize + @borderOffset;
     z-index: -1;
   }
 }
 
-.ndp-triangle-arrow-right() {
+.ndp-triangle-arrow-right(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
   margin-right: -@ndpTriangleSize;
 
   &, &:before {
@@ -80,9 +82,10 @@
 
   &:before {
     content: '';
-    right: -@ndpBoxBorderSize;
-    top: -@ndpTriangleSize;
-    border-left-color: @ndpArrowBorderColor;
+    right: -@ndpBoxBorderSize - @borderOffset;
+    top: -@ndpTriangleSize - @borderOffset;
+    border-left-color: @color;
+    border-width: @ndpTriangleSize + @borderOffset;
     z-index: -1;
   }
 }
