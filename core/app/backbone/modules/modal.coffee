@@ -11,7 +11,9 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
           <div class="modal-body">
           </div>
         </div>
-        <div class="semi-transparent-layer js-layer"></div>
+        <div class="semi-transparent-layer js-layer">
+          <div class="static-close-button"></div>
+        </div>
       """
 
     events:
