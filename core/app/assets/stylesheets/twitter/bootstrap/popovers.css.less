@@ -11,8 +11,7 @@
   top: 0;
   left: 0;
   z-index: @zindexPopover;
-  display: none;
-  width: 256px;
+  display: inline-table;
   padding: 1px;
   background-color: @popoverBackground;
   -webkit-background-clip: padding-box;
@@ -43,7 +42,8 @@
 }
 
 .popover-content {
-  padding: 9px;
+  padding: 9px 14px;
+  max-width: 260px;
   p, ul, ol {
     margin-bottom: 0;
   }
