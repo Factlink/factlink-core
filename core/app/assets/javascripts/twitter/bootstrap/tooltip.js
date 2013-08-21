@@ -194,7 +194,20 @@
     }
 
   , getPosition: function (inside) {
+      //WARNING: This function is a bit of a dirty hack:
+      //Normally, we can just use plain DOM methods, but for SVG...
+      //For SVG, we need to compute the bounding box; but this isn't trivial.
+      //there's a method getBoundingClientRect, but there are cross-browser issues
+      //so instead we use getBBox, which works, but results in the untransformed
+      //svg-space coordinates.  We then simply assume there's no transformation
+      //(this assumption is false for scaled factwheels) and add the BBox info
+      //to the offsetWidth etc dom info of the nearest non-svg ancestor.  This
+      // assumes that ancestor's block exactly wraps the SVG, which may not be
+      // the case in general, but is for our raphael-based svgs.
 
+      //The various not entirely valid assumptions mean that our layout
+      //is a little fuzzy, which isn't really an issue for tooltips, fortunately.
+      //to avoid bad cases of overlap, we add a little extra margin.
       if(this.$element[0].getBBox) {
         var container = this.$element.parents().filter(function() {
           return !this.getBBox;
@@ -202,10 +215,10 @@
         var bbox = this.$element[0].getBBox();
         var offset = container.offset();
         return {
-          width: bbox.width,
-          height: bbox.height,
-          top: bbox.y+offset.top,
-          left: bbox.x+offset.left,
+          width: bbox.width + 6,
+          height: bbox.height + 6,
+          top: bbox.y + offset.top - 3,
+          left: bbox.x + offset.left - 3,
         };
       }
 
