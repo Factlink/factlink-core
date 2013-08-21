@@ -2,9 +2,31 @@
 <html>
   <head>
     <%= stylesheet_link_tag "base" %>
-    <%= stylesheet_link_tag "frontend" %>
-    <%= javascript_include_tag "feedback" %>
+    <%= javascript_include_tag "application" %>
   </head>
+  <script type="text/javascript">
+    $(function () {
+      updateHeight();
+      $(window).on('resize', updateHeight);
+    });
+
+    function updateHeight() {
+      var $feedback_frame = window.parent.$('#feedback_frame');
+      var $iframe = $feedback_frame.find('iframe');
+
+      $iframe.css({
+        height: $('body').outerHeight()
+      });
+
+      $feedback_frame.css({
+        marginTop: - $feedback_frame.outerHeight()/2 + "px"
+      });
+    }
+
+    function onCloseFrame() {
+      $('.alert').remove();
+    }
+  </script>
   <body class="feedback_form">
     <p>
       Got stuck somewhere or is something not working properly? Just send us a quick note and we'll be on it.
