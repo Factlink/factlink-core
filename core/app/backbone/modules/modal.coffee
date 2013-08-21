@@ -5,7 +5,6 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
       text: """
         <div class="modal js-modal">
           <div class="modal-header">
-            <button type="button" class="close close-popup">&times;</button>
             <h3>{{title}}</h3>
           </div>
           <div class="modal-body">
@@ -17,7 +16,6 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
       """
 
     events:
-      "click .close-popup": "close"
       "click .js-layer": "close"
       "click": "stopPropagation"
 
