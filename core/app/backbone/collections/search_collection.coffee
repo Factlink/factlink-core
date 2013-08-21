@@ -19,7 +19,7 @@ class window.SearchCollection extends Backbone.Collection
       @trigger 'sync'
     else
       @reset []
-      @jqxhr = @fetch()
+      @jqxhr = @fetch(reset: true) # because the CollectionUtils do a full reset on add/remove
 
   encodedQuery: -> encodeURIComponent @query
 
