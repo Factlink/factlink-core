@@ -14,6 +14,8 @@ require 'test_request_syncer'
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 
+require 'pavlov_helper'
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f| require f}

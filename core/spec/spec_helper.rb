@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rubygems'
 require 'database_cleaner'
+require 'pavlov_helper'
 
 I_AM_SPEC_HELPER = true
 

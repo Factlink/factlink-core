@@ -112,6 +112,7 @@ class Ability
 
     if agrees_tos?
       can :update, user
+      can :edit_settings, user
       can :read, User do
         |u| not u.hidden
       end
@@ -122,6 +123,7 @@ class Ability
         can :manage, User
         can :approve, User
         cannot :sign_tos, User
+        cannot :edit_settings, User
       end
       if user.has_invitations_left?
         can :invite, User

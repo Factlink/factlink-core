@@ -1,5 +1,5 @@
 @import "bootstrap/mixins";
-@import "bubble/variables";
+@import "twitter/bootstrap/variables";
 
 .factlink-modal-container {
   width: @discussionModalWidth;
@@ -24,5 +24,22 @@
     ul {
       border: 1px solid @modalBorderColor;
     }
+  }
+}
+
+.factlink-modal-close {
+  background: asset-data-url('icon-close-modal.png');
+  width: 36px;
+  height: 36px;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  opacity: 0.8;
+  cursor: pointer;
+  visibility: visible;
+
+  &:hover {
+    background: asset-data-url('icon-close-modal-hover.png');
+    opacity: 1;
   }
 }

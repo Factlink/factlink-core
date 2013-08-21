@@ -68,6 +68,7 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
   regions:
     collectionRegion: '.js-collection-region'
     addRegion: '.js-add-region'
+    learnMoreRegion: '.js-learn-more-region'
 
   collectionEvents:
     'request sync': '_updateLoading'
@@ -80,6 +81,7 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
     @_updateLoading()
 
     if Factlink.Global.signed_in
+      @ui.terminator.addClass 'evidence-terminator-circle'
       @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
       @addRegion.show new NDPAddEvidenceView
         collection: @collection
@@ -87,3 +89,7 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
 
   _updateLoading: ->
     @$el.toggleClass 'evidence-container-loaded', !@collection.loading()
+
+    unless Factlink.Global.signed_in || @collection.loading()
+      @ui.terminator.addClass 'evidence-terminator-circle'
+      @learnMoreRegion.show new NDPLearnMoreBottomView

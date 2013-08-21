@@ -27,6 +27,8 @@ describe Ability do
       it {subject.should     be_able_to :read_tos, user }
       it {subject.should_not be_able_to :sign_tos, user }
 
+      it {subject.should     be_able_to :edit_settings, user }
+
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
     end
@@ -44,6 +46,8 @@ describe Ability do
 
       it {admin.should_not be_able_to :sign_tos, user }
       it {admin.should_not be_able_to :sign_tos, admin_user }
+
+      it {admin.should_not be_able_to :edit_settings, user }
     end
     context "as an anonymous" do
       it {anonymous.should_not be_able_to :manage, User }
@@ -51,6 +55,7 @@ describe Ability do
       it {anonymous.should_not be_able_to :sign_tos, nil }
       it {anonymous.should     be_able_to :read_tos, nil }
       it {anonymous.should_not be_able_to :show, User }
+      it {anonymous.should_not be_able_to :edit_settings, user }
     end
   end
 
