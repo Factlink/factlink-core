@@ -1,6 +1,4 @@
-class window.SearchController extends Backbone.Factlink.BaseController
-
-  routes: ['search']
+class window.SearchController extends Backbone.Marionette.Controller
 
   search: (params={}) ->
     @listenTo FactlinkApp.vent, 'navigate', @close

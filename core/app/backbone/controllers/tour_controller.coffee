@@ -1,6 +1,4 @@
-class window.TourController extends Backbone.Factlink.BaseController
-
-  routes: ['interests']
+class window.TourController extends Backbone.Marionette.Controller
 
   interests: ->
     users = new TourUsers

@@ -1,6 +1,4 @@
-class window.ProfileController extends Backbone.Factlink.BaseController
-
-  routes: ['showProfile', 'showNotificationSettings', 'showFact']
+class window.ProfileController extends Backbone.Marionette.Controller
 
   # ACTIONS
   showProfile: (username) ->

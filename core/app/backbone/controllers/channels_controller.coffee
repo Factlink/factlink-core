@@ -1,6 +1,4 @@
-class window.ChannelsController extends Backbone.Factlink.BaseController
-
-  routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
+class window.ChannelsController extends Backbone.Marionette.Controller
 
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}

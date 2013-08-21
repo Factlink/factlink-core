@@ -1,11 +1,11 @@
 class window.ChannelsRouter extends Backbone.Marionette.AppRouter
   appRoutes:
-    ':username/channels/:channel_id':                 'onGetChannelFacts'
-    ':username/channels/:channel_id/facts/:fact_id':  'onGetChannelFact'
+    ':username/channels/:channel_id':                 'getChannelFacts'
+    ':username/channels/:channel_id/facts/:fact_id':  'getChannelFact'
 
-    ':username/channels/:channel_id/activities':      'onGetChannelActivities'
-    ':username/channels/:channel_id/activities/facts/:fact_id': 'onGetChannelFactForActivity'
+    ':username/channels/:channel_id/activities':      'getChannelActivities'
+    ':username/channels/:channel_id/activities/facts/:fact_id': 'getChannelFactForActivity'
 
-    't/:slug_title':                                  'onGetTopicFacts'
-    't/:slug_title/facts/:fact_id':                   'onGetTopicFact'
+    't/:slug_title':                                  'getTopicFacts'
+    't/:slug_title/facts/:fact_id':                   'getTopicFact'
 

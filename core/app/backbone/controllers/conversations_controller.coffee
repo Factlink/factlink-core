@@ -1,6 +1,4 @@
-class window.ConversationsController extends Backbone.Factlink.BaseController
-
-  routes: ['showConversations', 'showMessages']
+class window.ConversationsController extends Backbone.Marionette.Controller
 
   showConversations: ->
     FactlinkApp.closeAllContentRegions()
