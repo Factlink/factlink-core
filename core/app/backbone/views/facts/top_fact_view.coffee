@@ -5,6 +5,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   events:
     'click .js-repost': 'showRepost'
+    'click .js-share': 'showStartConversation'
 
   regions:
     wheelRegion: '.js-fact-wheel-region'
@@ -38,3 +39,9 @@ class window.TopFactView extends Backbone.Marionette.Layout
       wheel_view.render()
 
     wheel_view
+
+  showStartConversation: ->
+    FactlinkApp.Modal.show 'Send a message',
+      new StartConversationView(model: @model)
+
+    mp_track "Factlink: Open share modal"
