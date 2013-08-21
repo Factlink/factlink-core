@@ -1,4 +1,4 @@
-.ndp-triangle-arrow(@color, @borderOffset) {
+.ndp-triangle-arrow(@borderOffset) {
   &, &:before {
     .box-sizing(content-box);
     position: absolute;
@@ -13,7 +13,7 @@
 }
 
 .ndp-triangle-arrow-down(@color: @ndpBoxShadowBottomColor, @borderOffset: @ndpBoxShadowBottomSize) {
-  .ndp-triangle-arrow(@color, @borderOffset);
+  .ndp-triangle-arrow(@borderOffset);
   margin-bottom: -@ndpTriangleSize;
 
   &, &:before {
@@ -31,7 +31,7 @@
 }
 
 .ndp-triangle-arrow-up(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
-  .ndp-triangle-arrow(@color, @borderOffset);
+  .ndp-triangle-arrow(@borderOffset);
   margin-top: -@ndpTriangleSize;
 
   &, &:before {
@@ -49,7 +49,7 @@
 }
 
 .ndp-triangle-arrow-left(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
-  .ndp-triangle-arrow(@color, @borderOffset);
+  .ndp-triangle-arrow(@borderOffset);
   margin-left: -@ndpTriangleSize;
 
   &, &:before {
@@ -67,7 +67,7 @@
 }
 
 .ndp-triangle-arrow-right(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
-  .ndp-triangle-arrow(@color, @borderOffset);
+  .ndp-triangle-arrow(@borderOffset);
   margin-right: -@ndpTriangleSize;
 
   &, &:before {
