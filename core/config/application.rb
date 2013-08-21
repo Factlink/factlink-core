@@ -142,6 +142,7 @@ module FactlinkUI
       'intermediate.js',
       'modernizr-loader.js',
       'admin.js',
+      'jquery.js',
     ]
 
     # Precompile additional assets
