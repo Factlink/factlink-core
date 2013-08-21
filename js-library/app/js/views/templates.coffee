@@ -3,28 +3,27 @@ requesting = {}
 Factlink.templates = {}
 
 Factlink.templates.getTemplate = (str, callback = ->) ->
-  if Factlink.tmpl[str]?
-    callback Factlink.tmpl[str]
-  else
-    Factlink.el.bind "factlink.tmpl.#{str}", ->
-      callback Factlink.tmpl[str]
+  if str == "create"
+    callback _.template """
+      <div class="fl-add-new fl-popup">
+        <span class="fl-default-message">
+          <span class="fl-new"><a href="#">Add Factlink</a></span>
+          <span class="fl-created">Added</span>
+        </span>
 
-    fetchTemplate str unless requesting[str]
+        <span class="fl-loading-message">Loading...</span>
+      </div>
+    """
+  else if str == "indicator"
+    callback _.template """
+      <div class="fl-popup" style="display:none">
+        <span class="fl-default-message">Show Factlink</span>
+        <span class="fl-loading-message">Loading...</span>
+      </div>
+    """
+  else alert "meh"
 
 Factlink.templates.preload = ->
   Factlink.templates.getTemplate 'indicator'
   Factlink.templates.getTemplate 'create', (template) ->
     Factlink.prepare = new Factlink.Prepare(template)
-
-fetchTemplate = (str) ->
-  requesting[str] = true
-
-  $.ajax
-    url: "#{FactlinkConfig.api}/templates/#{str}"
-    dataType: 'jsonp'
-    crossDomain: true
-    type: 'GET'
-    jsonp: 'callback'
-    success: (data) ->
-      Factlink.tmpl[str] = _.template(data)
-      Factlink.el.trigger "factlink.tmpl.#{str}"
