@@ -3,7 +3,7 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
   class Modal.WrapperView extends Backbone.Marionette.Layout
     template:
       text: """
-        <div class="modal">
+        <div class="modal js-modal">
           <div class="modal-header">
             <button type="button" class="close close-popup">&times;</button>
             <h3>{{title}}</h3>
@@ -11,7 +11,7 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
           <div class="modal-body">
           </div>
         </div>
-        <div class="transparent-layer"></div>
+        <div class="semi-transparent-layer js-layer"></div>
       """
 
     events:
@@ -26,8 +26,8 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
 
     onRender: ->
       @modalRegion.show @options.content_view
-      @$('.modal').show()
-      @$('.transparent-layer').show()
+      @$('.js-modal').show()
+      @$('.js-layer').show()
 
     stopPropagation: (e) ->
       e.stopPropagation()
