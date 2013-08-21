@@ -130,20 +130,6 @@ dt {
 dd {
   margin-left: @baseLineHeight / 2;
 }
-// Horizontal layout (like forms)
-.dl-horizontal {
-  .clearfix(); // Ensure dl clears floats if empty dd elements present
-  dt {
-    float: left;
-    width: @horizontalComponentOffset - 20;
-    clear: left;
-    text-align: right;
-    .text-overflow();
-  }
-  dd {
-    margin-left: @horizontalComponentOffset;
-  }
-}
 
 // MISC
 // ----
@@ -164,54 +150,6 @@ abbr[title] {
 abbr.initialism {
   font-size: 90%;
   text-transform: uppercase;
-}
-
-// Blockquotes
-blockquote {
-  padding: 0 0 0 15px;
-  margin: 0 0 @baseLineHeight;
-  border-left: 5px solid @grayLighter;
-  p {
-    margin-bottom: 0;
-    #font > .shorthand(16px,300,@baseLineHeight * 1.25);
-  }
-  small {
-    display: block;
-    line-height: @baseLineHeight;
-    color: @grayLight;
-    &:before {
-      content: '\2014 \00A0';
-    }
-  }
-
-  // Float right with text-align: right
-  &.pull-right {
-    float: right;
-    padding-right: 15px;
-    padding-left: 0;
-    border-right: 5px solid @grayLighter;
-    border-left: 0;
-    p,
-    small {
-      text-align: right;
-    }
-    small {
-      &:before {
-        content: '';
-      }
-      &:after {
-        content: '\00A0 \2014';
-      }
-    }
-  }
-}
-
-// Quotes
-q:before,
-q:after,
-blockquote:before,
-blockquote:after {
-  content: "";
 }
 
 // Addresses
