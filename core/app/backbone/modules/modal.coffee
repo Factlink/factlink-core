@@ -1,33 +1,26 @@
 FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
 
   class Modal.WrapperView extends Backbone.Marionette.Layout
-    template:
-      text: """
-        <div class="modal">
-          <div class="modal-header">
-            <button type="button" class="close close-popup">&times;</button>
-            <h3>{{title}}</h3>
-          </div>
-          <div class="modal-body">
-          </div>
-        </div>
-        <div class="transparent-layer"></div>
-      """
+    template: 'widgets/modal_wrapper'
 
     events:
-      "click .close-popup": "close"
+      "click .js-layer": "close"
       "click": "stopPropagation"
 
     regions:
       modalRegion: '.modal-body'
+
+    ui:
+      modal: '.js-modal'
+      layer: '.js-layer'
 
     templateHelpers: =>
       title: @options.title
 
     onRender: ->
       @modalRegion.show @options.content_view
-      @$('.modal').show()
-      @$('.transparent-layer').show()
+      @ui.modal.show()
+      @ui.layer.show()
 
     stopPropagation: (e) ->
       e.stopPropagation()
