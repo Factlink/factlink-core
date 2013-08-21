@@ -9,10 +9,10 @@ Factlink.Prepare = function() {
   var loadingTimeoutID;
   var loading = false;
 
-  function initialize(tmpl) {
+  function initialize() {
     var createFact = Factlink.createFactFromSelection;
 
-    el = $(tmpl());
+    el = $(Factlink.templates.create);
     el.appendTo(Factlink.el);
     el.hide();
 

@@ -11,7 +11,7 @@ Factlink.Balloon = function() {
     id = factId;
     factObj = fact;
 
-    initializeTemplate(function(){return Factlink.templates.indicator;});
+    initializeTemplate();
   }
 
   this.show = function(top, left, fast) {
@@ -76,8 +76,8 @@ Factlink.Balloon = function() {
     return loading;
   };
 
-  function initializeTemplate(tmpl) {
-    el = $(tmpl(factObj._obj)).appendTo(Factlink.el);
+  function initializeTemplate() {
+    el = $(Factlink.templates.indicator).appendTo(Factlink.el);
 
     el.bind('mouseenter', function() {
       factObj.focus();
