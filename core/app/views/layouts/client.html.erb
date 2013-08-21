@@ -28,8 +28,8 @@
   <% end %>
 
   <div id='modal_region'></div>
-  <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "frontend" %>
+  <%= javascript_include_base %>
+  <%= javascript_include_extended %>
   <%= render 'snippets/raven_js' %>
 
   <script type="text/javascript">
