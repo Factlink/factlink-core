@@ -1,4 +1,4 @@
-.ndp-triangle-arrow(@borderOffset) {
+.ndp-triangle-arrow(@borderExtraWidth) {
   &, &:before {
     .box-sizing(content-box);
     position: absolute;
@@ -8,12 +8,12 @@
   &:before {
     content: '';
     z-index: -1;
-    border-width: @ndpTriangleSize + @borderOffset;
+    border-width: @ndpTriangleSize + @borderExtraWidth;
   }
 }
 
-.ndp-triangle-arrow-down(@color: @ndpBoxShadowBottomColor, @borderOffset: @ndpBoxShadowBottomSize) {
-  .ndp-triangle-arrow(@borderOffset);
+.ndp-triangle-arrow-down(@color: @ndpBoxShadowBottomColor, @borderExtraWidth: @ndpBoxShadowBottomSize) {
+  .ndp-triangle-arrow(@borderExtraWidth);
   margin-bottom: -@ndpTriangleSize;
 
   &, &:before {
@@ -24,14 +24,14 @@
   }
 
   &:before {
-    bottom: -@ndpBoxBorderSize - @borderOffset;
-    left: -@ndpTriangleSize - @borderOffset;
+    bottom: -@ndpBoxBorderSize - @borderExtraWidth;
+    left: -@ndpTriangleSize - @borderExtraWidth;
     border-top-color: @color;
   }
 }
 
-.ndp-triangle-arrow-up(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
-  .ndp-triangle-arrow(@borderOffset);
+.ndp-triangle-arrow-up(@color: @ndpArrowBorderColor, @borderExtraWidth: 0px) {
+  .ndp-triangle-arrow(@borderExtraWidth);
   margin-top: -@ndpTriangleSize;
 
   &, &:before {
@@ -42,14 +42,14 @@
   }
 
   &:before {
-    top: -@ndpBoxBorderSize - @borderOffset;
-    left: -@ndpTriangleSize - @borderOffset;
+    top: -@ndpBoxBorderSize - @borderExtraWidth;
+    left: -@ndpTriangleSize - @borderExtraWidth;
     border-bottom-color: @color;
   }
 }
 
-.ndp-triangle-arrow-left(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
-  .ndp-triangle-arrow(@borderOffset);
+.ndp-triangle-arrow-left(@color: @ndpArrowBorderColor, @borderExtraWidth: 0px) {
+  .ndp-triangle-arrow(@borderExtraWidth);
   margin-left: -@ndpTriangleSize;
 
   &, &:before {
@@ -60,14 +60,14 @@
   }
 
   &:before {
-    left: -@ndpBoxBorderSize - @borderOffset;
-    top: -@ndpTriangleSize - @borderOffset;
+    left: -@ndpBoxBorderSize - @borderExtraWidth;
+    top: -@ndpTriangleSize - @borderExtraWidth;
     border-right-color: @color;
   }
 }
 
-.ndp-triangle-arrow-right(@color: @ndpArrowBorderColor, @borderOffset: 0px) {
-  .ndp-triangle-arrow(@borderOffset);
+.ndp-triangle-arrow-right(@color: @ndpArrowBorderColor, @borderExtraWidth: 0px) {
+  .ndp-triangle-arrow(@borderExtraWidth);
   margin-right: -@ndpTriangleSize;
 
   &, &:before {
@@ -78,8 +78,8 @@
   }
 
   &:before {
-    right: -@ndpBoxBorderSize - @borderOffset;
-    top: -@ndpTriangleSize - @borderOffset;
+    right: -@ndpBoxBorderSize - @borderExtraWidth;
+    top: -@ndpTriangleSize - @borderExtraWidth;
     border-left-color: @color;
   }
 }
