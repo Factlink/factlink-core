@@ -9,9 +9,8 @@ body.client {
   h1, h2, h3, h4, h5, h6 {
     font-family: @baseFontFamily;
     margin: (@baseLineHeight / 2) 0;
-    font-family: @baseFontFamily;
     font-weight: @headingsFontWeight;
-    text-rendering: optimizelegibility; // Fix the character spacing for headings
+    text-rendering: optimizeLegibility; // Fix the character spacing for headings
   }
 
   h1 {
@@ -34,6 +33,11 @@ body.client {
 
   strong {
     color: @baseFontColor;
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
   }
 
   a {
