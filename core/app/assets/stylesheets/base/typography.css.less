@@ -6,6 +6,32 @@ body.client {
   font-size: @baseFontSize;
   line-height: @baseLineHeight;
 
+  h1, h2, h3, h4, h5, h6 {
+    font-family: @baseFontFamily;
+    margin: (@baseLineHeight / 2) 0;
+    font-family: @baseFontFamily;
+    font-weight: @headingsFontWeight;
+    text-rendering: optimizelegibility; // Fix the character spacing for headings
+  }
+
+  h1 {
+    font-size: @heading1FontSize;
+    margin-bottom: 6px;
+    line-height: 21px;
+    text-shadow: #fff 0 1px 0;
+    font-weight: 400;
+  }
+
+  h2 { font-size: 30px; line-height: 40px; }
+  h3 { font-size: 24px; line-height: 40px; }
+  h4 { font-size: 18px; line-height: 20px; }
+  h5 { font-size: 14px; line-height: 20px; }
+  h6 { font-size: 12px; line-height: 20px; }
+
+  .footer {
+    font-size: @baseFontSize;
+  }
+
   strong {
     color: @baseFontColor;
   }
@@ -20,13 +46,5 @@ body.client {
       color: @linkColorHover;
       text-decoration: none;
     }
-  }
-
-  h1 {
-    font-size: @heading1FontSize;
-    margin-bottom: 6px;
-    line-height: 21px;
-    text-shadow: #fff 0 1px 0;
-    font-weight: 400;
   }
 }
