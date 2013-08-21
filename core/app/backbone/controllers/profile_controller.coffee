@@ -4,7 +4,7 @@ class window.ProfileController extends Backbone.Factlink.CachingController
 
   # ACTIONS
   showProfile: (username) ->
-    @showPage username, @profile_options(username)
+    @showPage username, @profile_options()
   showNotificationSettings: (username) ->
     @showPage username, @notification_options(username)
 
@@ -25,19 +25,16 @@ class window.ProfileController extends Backbone.Factlink.CachingController
       tab: params.tab
 
   # HELPERS
-  profile_options: (username) ->
+  profile_options: ->
     title: 'Profile'
     active_tab: 'show'
     render: (main_region, user) =>
       @makePermalinkEvent()
 
-      main_region.show @cached_views
-
-      @restoreCachedView username, =>
-        new ProfileView
-          model: user
-          collection: window.Channels
-          created_facts_view: @getFactsView user.created_facts()
+      main_region.show new ProfileView
+        model: user
+        collection: window.Channels
+        created_facts_view: @getFactsView user.created_facts()
 
   notification_options: (username)->
     title: 'Notification Settings'
@@ -69,7 +66,7 @@ class window.ProfileController extends Backbone.Factlink.CachingController
     usertabs = new UserTabsView(model: user, active_tab: active_tab)
     username = user.get('username')
     userjson = user.toJSON()
-    usertabs.on 'showProfile',       => @switchToPage(username, user, userjson.link , @profile_options(username))
+    usertabs.on 'showProfile',       => @switchToPage(username, user, userjson.link , @profile_options())
     usertabs.on 'showNotifications', => @switchToPage(username, user,userjson.notifications_settings_path, @notification_options(username))
 
   getUser: (username, options) ->

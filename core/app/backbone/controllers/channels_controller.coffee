@@ -7,9 +7,6 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
     topic.fetch success: (model) -> callback(model)
     topic
 
-  restoreTopicView: (slug_title, new_callback) ->
-    @restoreCachedView "topic-#{slug_title}", new_callback
-
   showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
     @showUserProfile currentUser
@@ -17,11 +14,11 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
   getTopicFacts: (slug_title) ->
-    FactlinkApp.mainRegion.show(@cached_views)
+    FactlinkApp.mainRegion.close()
 
     @loadTopic slug_title, (topic) =>
       @showSidebarForTopic(topic)
-      @restoreTopicView slug_title, => new TopicView model: topic
+      FactlinkApp.mainRegion.show new TopicView model: topic
       @makePermalinkEvent(topic.url())
 
   getTopicFact: (slug_title, fact_id, params={}) ->
@@ -60,30 +57,27 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
       FactlinkApp.leftTopRegion.show(userView)
 
   getChannelFacts: (username, channel_id) ->
-    FactlinkApp.mainRegion.show(@cached_views)
+    FactlinkApp.mainRegion.close()
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       @makePermalinkEvent(channel.url())
-
-      @restoreCachedView channel_id, => new ChannelView(model: channel)
+      FactlinkApp.mainRegion.show new ChannelView(model: channel)
 
   # TODO: this is only ever used for the stream,
   #       don't act like this is a general function
   getChannelActivities: (username, channel_id) ->
     # getStream
     FactlinkApp.leftTopRegion.close()
-
-    FactlinkApp.mainRegion.show(@cached_views)
+    FactlinkApp.mainRegion.close()
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       FactlinkApp.Sidebar.activate('stream')
       @makePermalinkEvent(channel.url() + '/activities')
 
-      @restoreCachedView channel_id, =>
-        activities = new ChannelActivities([],{ channel: channel })
-        new ChannelActivitiesView(model: channel, collection: activities)
+      activities = new ChannelActivities([],{ channel: channel })
+      FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
 
   getChannelFactForActivity: (username, channel_id, fact_id, params={}) ->
     @getChannelFact(username, channel_id, fact_id, _.extend(for_stream: true, params))
