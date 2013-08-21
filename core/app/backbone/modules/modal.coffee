@@ -16,6 +16,7 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
 
     events:
       "click .close-popup": "close"
+      "click .js-layer": "close"
       "click": "stopPropagation"
 
     regions:
