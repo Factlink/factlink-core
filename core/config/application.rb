@@ -130,7 +130,6 @@ module FactlinkUI
       'popup.css',
       'privacy.css',
       'search.css',
-      'tos.css',
       'tour.css',
       'social_popup.css',
       'base.css',
