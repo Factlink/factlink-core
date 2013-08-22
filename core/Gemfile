@@ -93,6 +93,7 @@ group :assets do
   gem "coffee-script", '~> 2.2.0'
 
   gem 'jquery-rails', '= 2.2.1' # we want a specific version of the js library
+  gem 'jquery-rails-cdn', '~> 1.0.1'
 
   gem 'modernizr-rails', "= 2.0.6" # we want a specific version of the js library
 
@@ -104,6 +105,8 @@ group :assets do
   gem "marionette-rails", '= 1.0.4' # we want a specific version of the js library
 
   gem "font-awesome-rails", '~> 3.2.1'
+
+  gem 'turbo-sprockets-rails3', '~> 0.3.9'
 end
 
 group :development do

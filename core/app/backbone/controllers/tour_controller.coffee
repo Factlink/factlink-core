@@ -1,8 +1,6 @@
-class window.TourController extends Backbone.Factlink.BaseController
+class window.TourController extends Backbone.Marionette.Controller
 
-  routes: ['interests']
-
-  interests: ->
+  showInterests: ->
     users = new TourUsers
     users.fetch()
     containerRegion = new Backbone.Marionette.Region el: $("#container")
