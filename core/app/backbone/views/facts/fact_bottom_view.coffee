@@ -7,7 +7,6 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     "click .js-add-to-channel": "showAddToChannel"
     "click .js-start-conversation": "showStartConversation"
     "click .js-open-proxy-link" : "openProxyLink"
-    "click .js-discussion-link" : "triggerDiscussionClick"
 
   templateHelpers: ->
     formatted_time: ->
@@ -51,7 +50,3 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
   openProxyLink: (e) ->
     mp_track "Factlink: Open proxy link",
       site_url: @model.get("fact_url")
-
-  triggerDiscussionClick: (e) ->
-    FactlinkApp.vent.trigger 'factlink_permalink_clicked'
-    @defaultClickHandler e

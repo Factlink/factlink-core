@@ -30,7 +30,6 @@
     <link rel="chrome-webstore-item"
       href="https://chrome.google.com/webstore/detail/<%=FactlinkUI::Application.config.chrome_extension_id%>">
 
-    <%= javascript_include_tag "modernizr-loader" %>
     <%= csrf_meta_tag %>
     <%= inject_special_test_code %>
   </head>
@@ -52,7 +51,7 @@
 
     <%= render "feedback/frame" %>
 
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_base %>
     <%= render 'snippets/raven_js' %>
 
     <%= yield :specific_javascript %>

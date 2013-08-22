@@ -135,13 +135,11 @@ module FactlinkUI
       'social_popup.css',
       'base.css',
       'application.js',
-      'feedback.js',
       'frontend.js',
-      'modal.js',
       'popup.js',
       'intermediate.js',
-      'modernizr-loader.js',
       'admin.js',
+      'jquery.js',
     ]
 
     # Precompile additional assets

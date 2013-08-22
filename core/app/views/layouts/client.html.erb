@@ -15,7 +15,6 @@
     }
   </style>
 
-  <%= javascript_include_tag "modernizr-loader" %>
   <%= csrf_meta_tag %>
 </head>
 <body class="client">
@@ -28,7 +27,8 @@
   <% end %>
 
   <div id='modal_region'></div>
-  <%= javascript_include_tag "modal" %>
+  <%= javascript_include_base %>
+  <%= javascript_include_extended %>
   <%= render 'snippets/raven_js' %>
 
   <script type="text/javascript">

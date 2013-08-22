@@ -1,3 +1,8 @@
+# WARNING: This code is only used for the registration forms
+#
+# Though it was originally generic, it isn't anymore. It should be phased out
+# along with Bootstrap
+
 setErrorsOnFields = (formId, fieldErrors) ->
   _.forEach fieldErrors, (errorMessage, field) ->
     el = $("#" + formId + "_user_" + field)
@@ -27,15 +32,18 @@ reposition_elements_popover = (element, placement)->
   popover = element.data('popover').$tip
   popover.css(color: 'black')
   if placement == 'right'
-    popover.css(
-      'top':0 + position.top - 5,
-      'left':element.width() + position.left + 10,
-      )
+    popover.css
+      top: 0 + position.top - 5
+      left: element.width() + position.left + 10
   else if placement == 'top'
-    popover.css(
-      'top': position.top-popover.height()-12,
-      'left': position.left,
-    )
+    if element.selector == "#bottom_registration_form_user_username"
+      popover.css
+        top: position.top-popover.height() + 4
+        left: position.left - 30
+    else
+      popover.css
+        top: position.top-popover.height() + 4
+        left: position.left + 0
   else
     console.error 'placement not supported'
   element.after(popover)
