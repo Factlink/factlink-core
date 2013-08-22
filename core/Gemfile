@@ -103,6 +103,8 @@ group :assets do
   gem "backbone-rails", '= 1.0.0.1' # we want a specific version of the js library
 
   gem "marionette-rails", '= 1.0.4' # we want a specific version of the js library
+
+  gem 'turbo-sprockets-rails3', '~> 0.3.9'
 end
 
 group :development do
