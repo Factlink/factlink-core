@@ -136,7 +136,6 @@ module FactlinkUI
       'base.css',
       'application.js',
       'frontend.js',
-      'modal.js',
       'popup.js',
       'intermediate.js',
       'modernizr-loader.js',

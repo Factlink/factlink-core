@@ -1,7 +1,7 @@
 <% content_for :specific_javascript do %>
     <%= yield :template %>
 
-    <%= javascript_include_tag "frontend" %>
+    <%= javascript_include_extended %>
 
     <%= yield :javascript %>
 <% end %>
