@@ -29,6 +29,7 @@ window.remote = new xdm.Rpc {},
       onFactlinkCreated = (e, id) ->
         remote.highlightNewFactlink text, id
 
+      $(document).off "factlinkCreated"
       $(document).on "factlinkCreated", (e, id, created_text) ->
         onFactlinkCreated(e, id) if created_text == text
 
