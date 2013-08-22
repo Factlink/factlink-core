@@ -68,7 +68,8 @@ class window.InteractiveTour extends Backbone.View
         { name: 'deselect_text',   from:  'factlink_created_and_text_selected',  to: 'factlink_created' }
         { name: 'deselect_text',   from:  'factlink_created_and_modal_opened',   to: 'factlink_created_and_modal_opened' }
 
-        { name: 'open_modal',      from:  'text_selected',                       to: 'modal_opened' }
+        { name: 'open_modal',      from:  ['started',
+                                           'text_selected'],                     to: 'modal_opened' }
         { name: 'open_modal',      from:  ['factlink_created',
                                            'factlink_created_and_text_selected'],to: 'factlink_created_and_modal_opened' }
 
