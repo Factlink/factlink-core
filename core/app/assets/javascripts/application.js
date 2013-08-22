@@ -1,6 +1,5 @@
 // All the default libraries/files needed for all pages on Factlink
 //= require test_request_cookie_syncer
-//= require jquery
 //= require jquery_ujs
 //= require underscore
 //= require hogan
