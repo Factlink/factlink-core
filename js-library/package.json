@@ -4,7 +4,7 @@
   "title": "Factlink JavaScript library",
   "description": "javascript library",
   "version": "0.0.19",
-  "homepage": "http://factlink.com",
+  "homepage": "https://factlink.com",
   "repository": {
     "type": "git",
     "url": "git@github.com:Factlink/js-library.git"
