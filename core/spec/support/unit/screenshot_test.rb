@@ -82,6 +82,7 @@ module ScreenshotTest
     end
 
     def take
+      sleep 0.1 #wait for page re-render
       @page.driver.save_screenshot new_file, full: true
     end
   end
