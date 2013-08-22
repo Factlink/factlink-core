@@ -7,7 +7,12 @@
     <meta name="description" content="Factlink social callback page.">
     <meta name="viewport" content="width=device-width">
     <%= stylesheet_link_tag "base" %>
-    <%= stylesheet_link_tag "social_popup" %>
+    <style type="text/css">
+      body {
+        margin-top: 0px;
+        min-width: 640px;
+      }
+    </style>
     <%= yield :specific_stylesheet_tag %>
   </head>
   <body class="factlink-site">
