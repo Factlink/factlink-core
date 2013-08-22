@@ -117,9 +117,6 @@ class window.InteractiveTour extends Backbone.View
         onclose_modal: =>
           FactlinkApp.Overlay.hide()
 
-        oncreate_factlink: =>
-          FactlinkApp.Overlay.hide()
-
   factlinkFirstExists: ->
     @$('.factlink.fl-first').length > 0
 
