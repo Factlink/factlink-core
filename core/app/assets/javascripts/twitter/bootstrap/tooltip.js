@@ -120,7 +120,7 @@
 
         $tip
           .remove()
-          .css({ top: 0, left: 0, display: 'block' })
+          .css({ top: 0, left: 0, display: 'inline-table' })
           .appendTo(inside ? this.$element : document.body)
 
         pos = this.getPosition(inside)

@@ -26,36 +26,17 @@
 }
 
 // TODO: Refactor to generic NDP arrows
-@triangleSize: 8px;
-@borderSize: 1px;
-@shadowSize: 1px;
-
 .learn-more-popup {
   .new-design-white-block-with-shadow();
   margin-bottom: 20px;
   position: relative;
 
-  .learn-more-arrow, .learn-more-arrow:before {
-    position: absolute;
-    .box-sizing(content-box);
-    height: 0;
-    width: 1px;
-    margin-left: -@triangleSize;
-    bottom: -@triangleSize + @borderSize;
+  .learn-more-arrow {
+    .ndp-triangle-arrow-down();
+
+    bottom: 0;
     left: 50%;
-    border: @triangleSize solid transparent;
-    border-bottom: none;
-    border-top-color: white;
-  }
-
-  .learn-more-arrow:before {
-    content: '';
-    bottom: -@borderSize - @shadowSize;
-
-    // shadow arrow is slightly lighter than normal, as this appears
-    // to look better!
-    border-top-color: fadeout(@evidenceBoxBorderColor, 5%);
-    z-index: -1;
+    margin-left: -@ndpTriangleSize;
   }
 }
 
@@ -81,7 +62,7 @@
   }
 
   .ndp-learn-more-bottom-container {
-    margin-top: @triangleSize+10px;
+    margin-top: @ndpTriangleSize+10px;
     text-align: center;
   }
 
@@ -89,25 +70,11 @@
     .new-design-white-block-with-shadow();
     position: relative;
 
-    .learn-more-arrow, .learn-more-arrow:before {
-      position: absolute;
-      .box-sizing(content-box);
-      height: 0;
-      width: 1px;
-      margin-left: -@triangleSize;
-      top: -@triangleSize + @borderSize;
+    .learn-more-arrow {
+      .ndp-triangle-arrow-up();
+      top: 0;
       left: 50%;
-      border: @triangleSize solid transparent;
-      border-top: none;
-      border-bottom-color: white;
-    }
-
-    .learn-more-arrow:before {
-      content: '';
-      top: -@borderSize;
-
-      border-bottom-color: @evidenceBoxBorderColor;
-      z-index: -1;
+      margin-left: -@ndpTriangleSize;
     }
   }
 }
