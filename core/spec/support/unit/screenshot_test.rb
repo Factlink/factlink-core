@@ -82,8 +82,6 @@ module ScreenshotTest
     end
 
     def take
-      # Need this to let the animations settle.
-      sleep 0.1
       @page.driver.save_screenshot new_file, full: true
     end
   end
