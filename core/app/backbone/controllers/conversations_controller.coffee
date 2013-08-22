@@ -1,13 +1,10 @@
-class window.ConversationsController extends Backbone.Factlink.CachingController
-
-  routes: ['showConversations', 'showMessages']
-
-  onShow: ->
-    FactlinkApp.closeAllContentRegions()
-    @main ?= new TabbedMainRegionLayout()
-    FactlinkApp.mainRegion.show(@main)
+class window.ConversationsController extends Backbone.Marionette.Controller
 
   showConversations: ->
+    FactlinkApp.closeAllContentRegions()
+    @main = new TabbedMainRegionLayout()
+    FactlinkApp.mainRegion.show(@main)
+
     @conversations ?= new Conversations()
     @main.showTitle 'Messages'
     @main.contentRegion.show(
@@ -18,6 +15,7 @@ class window.ConversationsController extends Backbone.Factlink.CachingController
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
+    FactlinkApp.closeAllContentRegions()
     @main = new TabbedMainRegionLayout()
     FactlinkApp.mainRegion.show(@main)
 
