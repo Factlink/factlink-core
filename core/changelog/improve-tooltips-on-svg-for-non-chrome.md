@@ -1,1 +1,1 @@
-improve-tooltips-on-svg-for-non-chrome
+Fix firefox (and IE) tooltips on svg's such as our factwheel.

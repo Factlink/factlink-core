@@ -17,7 +17,6 @@
 <% end %>
 
 <%= content_for :tour_javascript do %>
-  <%= javascript_include_tag "frontend" %>
   <% lib_url = "#{jslib_url}" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>
   <script>
