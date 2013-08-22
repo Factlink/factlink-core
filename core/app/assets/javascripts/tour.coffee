@@ -75,8 +75,12 @@ class window.InteractiveTour extends Backbone.View
 
         { name: 'close_modal',     from:  'modal_opened',                        to: 'started' }
         { name: 'close_modal',     from:  'factlink_created_and_modal_opened',   to: 'factlink_created' }
-        { name: 'create_factlink', from: ['modal_opened',
-                                          'factlink_created_and_modal_opened'],  to: 'factlink_created' }
+
+        { name: 'close_modal',     from: ['modal_opened_and_just_created',
+                                          'factlink_created_and_modal_opened_and_just_created'],  to: 'factlink_created' }
+
+        { name: 'create_factlink', from:  'modal_opened',                        to: 'modal_opened_and_just_created' }
+        { name: 'create_factlink', from:  'factlink_created_and_modal_opened',   to: 'factlink_created_and_modal_opened_and_just_created' }
       ]
       callbacks:
         onstarted: =>
