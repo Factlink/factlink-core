@@ -6,12 +6,19 @@
   position: relative;
   padding: 30px 35px 25px;
   visibility:visible;
+  margin-top: 40px;
 }
 
 .top-fact-user-heading {
   position: absolute;
   top: -10px;
   left: 35px;
+}
+
+.top-fact-share {
+  position: absolute;
+  top: -@baseButtonHeight - 10px;
+  right: 0;
 }
 
 .top-fact-text {
@@ -22,12 +29,12 @@
 
 .top-fact-controls {
   position: relative;
+  overflow: hidden;
 }
 
 .top-fact-time-ago {
-  position: absolute;
-  top: 2px;
-  right: 0;
+  float: right;
+  margin-top: 2px;
   color: @mutedFontColor;
 }
 

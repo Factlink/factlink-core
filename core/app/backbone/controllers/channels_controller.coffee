@@ -1,14 +1,9 @@
-class window.ChannelsController extends Backbone.Factlink.CachingController
-
-  routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity', 'getTopicFacts', 'getTopicFact']
+class window.ChannelsController extends Backbone.Marionette.Controller
 
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}
     topic.fetch success: (model) -> callback(model)
     topic
-
-  restoreTopicView: (slug_title, new_callback) ->
-    @restoreCachedView "topic-#{slug_title}", new_callback
 
   showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
@@ -16,15 +11,15 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
     window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
-  getTopicFacts: (slug_title) ->
-    FactlinkApp.mainRegion.show(@cached_views)
+  showTopicFacts: (slug_title) ->
+    FactlinkApp.mainRegion.close()
 
     @loadTopic slug_title, (topic) =>
       @showSidebarForTopic(topic)
-      @restoreTopicView slug_title, => new TopicView model: topic
-      @makePermalinkEvent(topic.url())
+      FactlinkApp.mainRegion.show new TopicView model: topic
+      FactlinkApp.factlinkBaseUrl = topic.url()
 
-  getTopicFact: (slug_title, fact_id, params={}) ->
+  showTopicFact: (slug_title, fact_id, params={}) ->
     topic = @loadTopic slug_title,
       => @showSidebarForTopic topic
     back_button = new TopicBackButton [], model: topic
@@ -59,36 +54,33 @@ class window.ChannelsController extends Backbone.Factlink.CachingController
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
 
-  getChannelFacts: (username, channel_id) ->
-    FactlinkApp.mainRegion.show(@cached_views)
+  showChannelFacts: (username, channel_id) ->
+    FactlinkApp.mainRegion.close()
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
-      @makePermalinkEvent(channel.url())
-
-      @restoreCachedView channel_id, => new ChannelView(model: channel)
+      FactlinkApp.factlinkBaseUrl = channel.url()
+      FactlinkApp.mainRegion.show new ChannelView(model: channel)
 
   # TODO: this is only ever used for the stream,
   #       don't act like this is a general function
-  getChannelActivities: (username, channel_id) ->
+  showChannelActivities: (username, channel_id) ->
     # getStream
     FactlinkApp.leftTopRegion.close()
-
-    FactlinkApp.mainRegion.show(@cached_views)
+    FactlinkApp.mainRegion.close()
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       FactlinkApp.Sidebar.activate('stream')
-      @makePermalinkEvent(channel.url() + '/activities')
+      FactlinkApp.factlinkBaseUrl = channel.url() + '/activities'
 
-      @restoreCachedView channel_id, =>
-        activities = new ChannelActivities([],{ channel: channel })
-        new ChannelActivitiesView(model: channel, collection: activities)
+      activities = new ChannelActivities([],{ channel: channel })
+      FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
 
-  getChannelFactForActivity: (username, channel_id, fact_id, params={}) ->
-    @getChannelFact(username, channel_id, fact_id, _.extend(for_stream: true, params))
+  showChannelFactForActivity: (username, channel_id, fact_id, params={}) ->
+    @showChannelFact(username, channel_id, fact_id, _.extend(for_stream: true, params))
 
-  getChannelFact: (username, channel_id, fact_id, params={}) ->
+  showChannelFact: (username, channel_id, fact_id, params={}) ->
     channel = @loadChannel username, channel_id, (channel) => @showSidebarForChannel channel
     back_button = new ChannelBackButton [], model: channel, for_stream: params.for_stream
 

@@ -17,7 +17,6 @@ Backbone.Factlink.PopoverMixin =
     show_overlay: false
     focus_on: null
     margin: 0
-    orthogonalOffset: 0
 
   popoverAdd: (selector, options) ->
     @popover_options = _.extend {}, @default_options, options

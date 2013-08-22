@@ -93,6 +93,7 @@ group :assets do
   gem "coffee-script", '~> 2.2.0'
 
   gem 'jquery-rails', '= 2.2.1' # we want a specific version of the js library
+  gem 'jquery-rails-cdn', '~> 1.0.1'
 
   # This gem is https://github.com/aflatter/backbone-rails
   # Not the one you might typically find with Google
@@ -100,6 +101,8 @@ group :assets do
   gem "backbone-rails", '= 1.0.0.1' # we want a specific version of the js library
 
   gem "marionette-rails", '= 1.0.4' # we want a specific version of the js library
+
+  gem 'turbo-sprockets-rails3', '~> 0.3.9'
 end
 
 group :development do

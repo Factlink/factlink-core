@@ -1,5 +1,6 @@
 #= require sinon-chai
 #= require sinon
+#= require jquery
 #= require application
 #= require frontend
 

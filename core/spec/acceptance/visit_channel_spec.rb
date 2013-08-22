@@ -39,6 +39,8 @@ feature "visiting a channel" do
   end
 
   scenario "revisiting channel after visiting a factlink page" do
+    pending "re-enable when enabling NDP modal in-site"
+
     channel = backend_create_channel
     10.times.each do
       factlink = backend_create_fact

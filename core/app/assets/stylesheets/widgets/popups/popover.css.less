@@ -6,60 +6,43 @@
 .popover-container {
   z-index: 119;
   position: relative;
-  background: #fff;
   font-size: @baseFontSize;
-  border: 1px solid @modalBorderColor;
-  .border-radius(3px);
   .background-clip(padding-box);
-  .box-shadow(0 0 0 3px rgba(0, 0, 0, .15));
+  background: white;
+  .new-design-border-radius();
+  box-shadow: @ndpBoxBorder, 0 @ndpPopoverShadowBottomSize 5px @ndpPopoverShadowBottomColor;
   visibility: visible;
-
-  .arrow {
-    position: absolute;
-    width: @arrow-long-side;
-    background-repeat: no-repeat;
-    background: asset-data-url('popover-help-arrow.png');
-  }
+  display: inline-block; // force block formatting context
 
   &.bottom {
     margin-top: @arrow-pointy-side;
     .arrow {
-      top: -@arrow-pointy-side;
-      background-position: -22px 0;
-
-      height: @arrow-pointy-side;
-      width: @arrow-long-side;
+      .ndp-triangle-arrow-up(@ndpPopoverArrowTopBorderColor);
+      top: 0;
     }
   }
 
   &.top {
     margin-bottom: @arrow-pointy-side;
     .arrow {
-      bottom: -@arrow-pointy-side;
-      background-position: -39px 0;
-      height: @arrow-pointy-side;
-      width: @arrow-long-side;
+      .ndp-triangle-arrow-down(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      bottom: 0;
     }
   }
 
   &.left {
     margin-right: @arrow-pointy-side;
     .arrow {
-      right: -@arrow-pointy-side;
-      background-position: -11px 0;
-
-      height: @arrow-long-side;
-      width: @arrow-pointy-side;
+      .ndp-triangle-arrow-right(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      right: 0;
     }
   }
 
   &.right {
     margin-left: @arrow-pointy-side;
     .arrow {
-      left: -@arrow-pointy-side;
-
-      height: @arrow-long-side;
-      width: @arrow-pointy-side;
+      .ndp-triangle-arrow-left(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      left: 0;
     }
   }
 }

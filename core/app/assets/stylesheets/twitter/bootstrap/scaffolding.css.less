@@ -1,17 +1,10 @@
 @import "twitter/bootstrap/variables.less";
-@import "twitter/bootstrap/mixins.less";
-
-//
-// Scaffolding
-// --------------------------------------------------
-
 
 // Body reset
 // -------------------------
 
 body {
   margin: 0;
-  font-family: @baseFontFamily;
   font-size: @baseFontSize;
   line-height: @baseLineHeight;
   background-color: @bodyBackground;
@@ -32,5 +25,5 @@ a:hover {
 
 // Perfect circle
 .img-circle {
-  .border-radius(500px); // crank the border-radius so it works with most reasonably sized images
+  border-radius: 500px; // crank the border-radius so it works with most reasonably sized images
 }

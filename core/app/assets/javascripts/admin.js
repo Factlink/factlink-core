@@ -1,4 +1,3 @@
-//=require frontend
 (function() {
   /*
    * A very simple script to filter a table according to search criteria

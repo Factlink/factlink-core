@@ -3,4 +3,4 @@
 //= require_tree ./frontend
 //= require factlink.backbone
 //= require tour
-//= require test_request_syncer_hook
+//= require test_counter_backbone_sync_hook
