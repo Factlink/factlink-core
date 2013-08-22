@@ -26,10 +26,6 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get "/factlink/intermediate" => "facts#intermediate"
 
-  # Static js micro templates
-  get "/templates/create" => "js_lib#create"
-  get "/templates/indicator" => "js_lib#indicator"
-
   # Show Facts#new as unauthenticated user to show the correct login link
   resources :facts, only: [:new, :create, :show, :destroy] do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
