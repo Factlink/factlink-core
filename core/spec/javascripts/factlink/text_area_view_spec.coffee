@@ -1,3 +1,4 @@
+#= require jquery
 #= require application
 #= require frontend
 

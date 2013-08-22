@@ -1,14 +1,14 @@
 class window.ClientController
 
-  show: (fact_id) =>
+  showFact: (fact_id) =>
     fact = new Fact id: fact_id
     fact.fetch success: =>
       if Factlink.Global.can_haz['new_discussion_page']
-        @showNewFact fact
+        @showFactWithNewDiscussionPage fact
       else
-        @showFact fact
+        @showFactWithOldDiscussionPage fact
 
-  newFact: (params={}) =>
+  showNewFact: (params={}) =>
     unless window.currentUser?
       window.location = Factlink.Global.path.sign_in_client()
       return
@@ -41,7 +41,7 @@ class window.ClientController
     parent.remote.hide()
     parent.remote.stopHighlightingFactlink id
 
-  showFact: (fact)->
+  showFactWithOldDiscussionPage: (fact)->
     clientModal = new ClientModalLayout
     FactlinkApp.mainRegion.show clientModal
 
@@ -57,7 +57,7 @@ class window.ClientController
       clientModal.topRegion.show new LearnMorePopupView()
       clientModal.bottomRegion.show new LearnMoreBottomView()
 
-  showNewFact: (fact) ->
+  showFactWithNewDiscussionPage: (fact) ->
     newClientModal = new NDPClientModalLayout
     FactlinkApp.mainRegion.show newClientModal
 

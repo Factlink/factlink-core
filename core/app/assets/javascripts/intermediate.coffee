@@ -1,4 +1,3 @@
-#= require jquery
 #= require jquery.prevent_scroll_propagation
 
 showFrame = document.getElementById("frame")

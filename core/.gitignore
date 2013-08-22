@@ -27,5 +27,3 @@ spec/javascripts/templates/mustache-templates.html
 temp-8546.rdb
 tmp
 webrat.log
-
-.ruby-version
