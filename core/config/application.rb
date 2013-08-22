@@ -124,7 +124,6 @@ module FactlinkUI
       /\w+\.(?!js|css|less).+/,
       'activity.css',
       'admin.css',
-      'fake_facts.css',
       'frontend.css',
       'client.css',
       'popup.css',
