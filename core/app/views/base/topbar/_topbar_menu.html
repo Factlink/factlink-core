@@ -23,7 +23,7 @@
       <a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome and Firefox." class="bookmarklet"
            <%# here we need singlequotes kthxbye: %>
            href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'>
-         <i class='icon-bookmark glyphicon-sizing'></i>
+         <i class='icon-bookmark'></i>
          <span class="bookmarklettext" style="display: none">Factlink</span>
       </a>
     </li>
@@ -31,17 +31,17 @@
     <li class="divider"></li>
 
     <li>
-      <%= link_to("<i class='icon-cog glyphicon-sizing'></i> Settings".html_safe, edit_user_path(current_user)) %>
+      <%= link_to("<i class='icon-cog'></i> Settings".html_safe, edit_user_path(current_user)) %>
     </li>
 
     <% if can? :invite, User %>
       <li>
-        <%= link_to("<i class='icon-user glyphicon-sizing'></i>&nbsp;Invites (#{current_user.invitation_limit})".html_safe, new_user_invitation_path) %>
+        <%= link_to("<i class='icon-user'></i>&nbsp;Invites (#{current_user.invitation_limit})".html_safe, new_user_invitation_path) %>
       </li>
     <% end %>
 
     <li>
-      <%= link_to "<i class='icon-question-sign glyphicon-sizing'></i> Help".html_safe, pages_path("help") %>
+      <%= link_to "<i class='icon-question-sign'></i> Help".html_safe, pages_path("help") %>
     </li>
 
     <%= render "base/topbar/pages_menu" %>
@@ -49,7 +49,7 @@
     <li class="divider"></li>
 
     <li>
-      <%= link_to("<i class='icon-off glyphicon-sizing'></i> Sign out".html_safe, destroy_user_session_path) %>
+      <%= link_to("<i class='icon-off'></i> Sign out".html_safe, destroy_user_session_path) %>
     </li>
 
     <% if can? :access, Ability::AdminArea %>
