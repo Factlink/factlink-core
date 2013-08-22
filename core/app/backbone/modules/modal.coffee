@@ -40,11 +40,11 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
     Modal.close()
 
   Modal.show = (title, content_view)->
-    @wrapped_view = new FactlinkApp.Modal.WrapperView
+    @_wrapped_view = new FactlinkApp.Modal.WrapperView
       title: title
       content_view: content_view
 
-    FactlinkApp.modalRegion.show @wrapped_view
+    FactlinkApp.modalRegion.show @_wrapped_view
 
   Modal.close = ->
-    @wrapped_view?.fadeOut()
+    @_wrapped_view?.fadeOut()
