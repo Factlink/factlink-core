@@ -122,18 +122,14 @@ module FactlinkUI
 
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,
-      'activity.css',
+
       'admin.css',
       'frontend.css',
       'client.css',
-      'popup.css',
-      'privacy.css',
-      'search.css',
-      'tour.css',
       'base.css',
+
       'application.js',
       'frontend.js',
-      'popup.js',
       'intermediate.js',
       'admin.js',
       'jquery.js',
