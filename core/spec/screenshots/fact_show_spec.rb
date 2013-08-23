@@ -93,7 +93,7 @@ describe "factlink", type: :feature do
     sign_out_user
 
     go_to_fact_show_of factlink
-    find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
+    find('.evidence-box', text: 'Fact 1').find('a', text:'1 comment')
 
     page.should have_content @factlink.data.displaystring
 
