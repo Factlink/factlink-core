@@ -3,13 +3,9 @@ module PoltergeistStyleOverrides
     def inject_special_test_code
       '
       <style>
-        html.phantom_js * {
-          transition: none !important;
-          font-family:"Comic Sans MS";
-        }
-        html.phantom_js {
-          min-height: 2000px;
-        }
+        * { transition: none !important; }
+        html.phantom_js * { font-family:"Comic Sans MS"; }
+        html.phantom_js { min-height: 2000px; }
       </style>
       '.html_safe + super
     end
