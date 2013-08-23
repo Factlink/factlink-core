@@ -72,6 +72,7 @@ module Acceptance
           # ...but the posting delay vs. capybara check is a race-condition
           # so don't worry if this fails, at least then we're not continuing prematurely
         rescue
+          puts "posting failed????"
         end
       end
 
