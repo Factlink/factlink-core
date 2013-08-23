@@ -1,7 +1,3 @@
-<% content_for :stylesheets do %>
-  <%= stylesheet_link_tag "tos" %>
-<% end %>
-
 <% content_for :notifications do %>
   <% if can? :sign_tos, current_user %>
     <% if current_user.errors.any? %>
