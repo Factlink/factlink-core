@@ -83,8 +83,10 @@ module Acceptance
         # at least jquery-added handler first
         find('.evidence-sub-comments-form .text_area_view').value.should eq comment
         eventually_succeeds do
-          find('.evidence-sub-comments-button', text: 'Post comment').click
-          find('.evidence-sub-comments-form .text_area_view').value.should eq ''
+          if find('.evidence-sub-comments-form .text_area_view').value != ''
+            find('.evidence-sub-comments-button', text: 'Post comment').click
+            find('.evidence-sub-comments-form .text_area_view').value.should eq ''
+          end
         end
       end
 
