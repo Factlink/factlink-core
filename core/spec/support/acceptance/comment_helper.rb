@@ -81,8 +81,11 @@ module Acceptance
         page.execute_script('$(".evidence-sub-comments-form textarea").filter(function(){return this.value;}).trigger("focus")')
         # workaround for selenium focus: trigger focus; workaround for jquery: make sure there's
         # at least jquery-added handler first
-
-        find('.evidence-sub-comments-button', text: 'Post comment').click
+        find('.evidence-sub-comments-form .text_area_view').value.should eq comment
+        eventually_succeeds do
+          find('.evidence-sub-comments-button', text: 'Post comment').click
+          find('.evidence-sub-comments-form .text_area_view').value.should eq ''
+        end
       end
 
       def click_post_comment
