@@ -77,9 +77,12 @@ module Acceptance
 
       def add_sub_comment(comment)
         find('.evidence-sub-comments-form .text_area_view').set comment
-        sleep 0.5 # To allow for the getting bigger CSS animation
+        page.execute_script('$(".evidence-sub-comments-form textarea").filter(function(){return this.value;}).on("focus",function(){})')
+        page.execute_script('$(".evidence-sub-comments-form textarea").filter(function(){return this.value;}).trigger("focus")')
+        # workaround for selenium focus: trigger focus; workaround for jquery: make sure there's
+        # at least jquery-added handler first
+
         find('.evidence-sub-comments-button', text: 'Post comment').click
-        sleep 0.5 # To allow for the getting smaller CSS animation
       end
 
       def click_post_comment
