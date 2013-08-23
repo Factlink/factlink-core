@@ -76,9 +76,9 @@ module Acceptance
       end
 
       def add_sub_comment(comment)
+        page.execute_script('$(".evidence-sub-comments-form .text_area_view").filter(function(){return this.value;}).on("focus",function(){})')
+        page.execute_script('$(".evidence-sub-comments-form .text_area_view").filter(function(){return this.value;}).trigger("focus")')
         find('.evidence-sub-comments-form .text_area_view').set comment
-        page.execute_script('$(".evidence-sub-comments-form textarea").filter(function(){return this.value;}).on("focus",function(){})')
-        page.execute_script('$(".evidence-sub-comments-form textarea").filter(function(){return this.value;}).trigger("focus")')
         # workaround for selenium focus: trigger focus; workaround for jquery: make sure there's
         # at least jquery-added handler first
         find('.evidence-sub-comments-form .text_area_view').value.should eq comment
