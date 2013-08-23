@@ -9,7 +9,8 @@ describe "factlink", type: :feature do
     @factlink = create_discussion
 
     go_to_fact_show_of @factlink
-    first('a', text: '1 comment').click
+    find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
+
 
     page.should have_content @factlink.data.displaystring
 
@@ -24,10 +25,12 @@ describe "factlink", type: :feature do
     sign_out_user
 
     go_to_fact_show_of @factlink
-    first('a', text: '1 comment').click
+    find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
 
     page.should have_content @factlink.data.displaystring
 
+    sleep 0.5
+    # wait for hover states to sync.
     assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
   end
 
@@ -90,7 +93,7 @@ describe "factlink", type: :feature do
     sign_out_user
 
     go_to_fact_show_of factlink
-    first('a', text: '1 comment').click
+    find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
 
     page.should have_content @factlink.data.displaystring
 
