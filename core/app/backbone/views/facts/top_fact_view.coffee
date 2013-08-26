@@ -10,6 +10,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
   regions:
     wheelRegion: '.js-fact-wheel-region'
     userHeadingRegion: '.js-user-heading-region'
+    deleteRegion: '.js-delete-region'
 
   showRepost: ->
     FactlinkApp.Modal.show 'Repost Factlink',
@@ -20,6 +21,8 @@ class window.TopFactView extends Backbone.Marionette.Layout
         model: @model.user()
 
     @wheelRegion.show @wheelView()
+
+    @deleteRegion.show new DeleteButtonView model: @model
 
   wheelView: ->
     wheel = @model.getFactWheel()
