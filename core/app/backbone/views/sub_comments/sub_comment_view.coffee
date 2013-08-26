@@ -12,20 +12,18 @@ class SubCommentPoparrowView extends Backbone.Factlink.PoparrowView
 
   destroy: -> @model.destroy wait: true
 
-class BaseSubCommentView extends Backbone.Marionette.Layout
+
+class window.SubCommentView extends Backbone.Marionette.Layout
   template: 'sub_comments/sub_comment'
+  className: 'evidence-sub-comment'
 
   regions:
     poparrowRegion: '.js-region-evidence-sub-comment-poparrow'
 
+  templateHelpers: => creator: @model.creator().toJSON()
+
   initialize: ->
     @listenTo @model, 'change', @render
-
-
-class window.SubCommentView extends BaseSubCommentView
-  className: 'evidence-sub-comment'
-
-  templateHelpers: => creator: @model.creator().toJSON()
 
   onRender: ->
     @setPoparrow() if Factlink.Global.signed_in
@@ -38,5 +36,8 @@ class window.SubCommentView extends BaseSubCommentView
       @poparrowRegion.show poparrowView
 
 
-class window.NDPSubCommentView extends BaseSubCommentView
+class window.NDPSubCommentView extends Backbone.Marionette.Layout
   template: 'sub_comments/ndp_sub_comment'
+
+  initialize: ->
+    @listenTo @model, 'change', @render
