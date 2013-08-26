@@ -30,12 +30,19 @@
 .top-fact-controls {
   position: relative;
   overflow: hidden;
+  color: @mutedFontColor;
 }
 
-.top-fact-time-ago {
+.top-fact-control {
   float: right;
   margin-top: 2px;
-  color: @mutedFontColor;
+}
+
+.top-fact-delete {
+  &:after {
+    content: "·";
+    margin: 0 10px;
+  }
 }
 
 @informationLabelHeight: 40px;
