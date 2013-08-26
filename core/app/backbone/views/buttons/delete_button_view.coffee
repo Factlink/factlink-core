@@ -4,5 +4,14 @@ class window.DeleteButtonView extends Backbone.Marionette.ItemView
 
   template:
     text: """
-      D
+      <span class="delete-button-second-container">
+        <span class="delete-button-second button button-small button-danger js-second">Delete</span>
+      </span>
+      <span class="delete-button-first js-first">D</span>
     """
+
+  events:
+    'click .js-first': 'toggleOpen'
+
+  toggleOpen: ->
+    @$el.toggleClass 'delete-button-open'

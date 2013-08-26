@@ -1,29 +1,64 @@
 @import "bootstrap/mixins";
 
 .delete-button {
+  position: relative;
   display: inline-block;
-  border-radius: 3px;
+  width: 2em;
   height: @baseButtonHeight;
   line-height: @baseButtonHeight;
-  padding: 0 (@baseButtonPadding - 5px);
-  margin-top: -3px;
-  transition: all 0.1s;
   vertical-align: middle;
+  margin-top: -3px;
   cursor: pointer;
+}
+
+.delete-button-first {
+  display: inline-block;
+  border-radius: 3px;
+  width: 2em;
+  height: @baseButtonHeight;
+  transition: all 0.1s;
+  text-align: center;
 
   border: none;
   border-bottom: @baseButtonBorderWidth solid transparent;
-
-  &:hover {
-    background: @buttonDarkBackground;
-    border-color: @buttonDarkBorder;
-    text-shadow: 0 1px 0 @buttonTextShadow;
-    color: @linkColor;
-  }
 
   &:active {
     background-color: @buttonDarkBackground;
     border-top: @baseButtonBorderWidth solid @buttonDarkBorder;
     border-bottom: 0px;
   }
+}
+
+.delete-button-open .delete-button-first,
+.delete-button-first:hover {
+  background: @buttonDarkBackground;
+  border-color: @buttonDarkBorder;
+  text-shadow: 0 1px 0 @buttonTextShadow;
+  color: @linkColor;
+}
+
+.delete-button-open .delete-button-first {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.delete-button-second-container {
+  position: absolute;
+  display: inline-block;
+  left: 2em;
+  top: -1px;
+  height: @baseButtonHeight + 3px;
+  line-height: @baseButtonHeight;
+  overflow: hidden;
+}
+
+.delete-button-second {
+  // hack because .button is too specific.. :-(
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  .transform(translateX(-100%));
+}
+
+.delete-button-open .delete-button-second {
+  .transform(translateX(0));
 }
