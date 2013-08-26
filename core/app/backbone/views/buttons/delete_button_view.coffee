@@ -8,7 +8,7 @@ class window.DeleteButtonView extends Backbone.Marionette.ItemView
         <span class="delete-button-second button button-small button-danger js-second">Delete</span>
         <span class="delete-button-arrow"></span>
       </span>
-      <span class="delete-button-first js-first">D</span>
+      <span class="delete-button-first js-first"><i class="icon-trash"></i></span>
     """
 
   events:

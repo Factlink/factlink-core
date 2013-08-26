@@ -3,7 +3,7 @@
 .delete-button {
   position: relative;
   display: inline-block;
-  width: 2em;
+  width: 2.5em;
   height: @baseButtonHeight;
   line-height: @baseButtonHeight;
   vertical-align: middle;
@@ -14,7 +14,7 @@
 .delete-button-first {
   display: inline-block;
   border-radius: 3px;
-  width: 2em;
+  width: 2.5em;
   height: @baseButtonHeight;
   transition: all 0.1s;
   text-align: center;
@@ -23,16 +23,16 @@
   border-bottom: @baseButtonBorderWidth solid transparent;
 
   &:active {
-    background-color: @buttonDarkBackground;
-    border-top: @baseButtonBorderWidth solid @buttonDarkBorder;
+    background-color: @buttonBackground;
+    border-top: @baseButtonBorderWidth solid @buttonBorder;
     border-bottom: 0px;
   }
 }
 
 .delete-button-open .delete-button-first,
 .delete-button-first:hover {
-  background: @buttonDarkBackground;
-  border-color: @buttonDarkBorder;
+  background: @buttonBackground;
+  border-color: @buttonBorder;
   text-shadow: 0 1px 0 @buttonTextShadow;
   color: @linkColor;
 }
@@ -45,7 +45,7 @@
 .delete-button-second-container {
   position: absolute;
   display: inline-block;
-  left: 2em;
+  left: 2.5em;
   top: 0px;
   height: @baseButtonHeight + 3px;
   line-height: @baseButtonHeight;
@@ -69,7 +69,7 @@
   position: absolute;
   border: 5px solid transparent;
   border-right: none;
-  border-left-color: @buttonDarkBackground;
+  border-left-color: @buttonBackground;
   margin-top: -5px - 1px;
   top: 50%;
   left: 0;
