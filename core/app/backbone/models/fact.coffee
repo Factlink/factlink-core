@@ -38,8 +38,6 @@ class window.Fact extends Backbone.Model
       @on 'change:id', -> @_fact_wheel.set 'fact_id', @id
     @_fact_wheel
 
-  friendlyUrl: -> @get("url")
-
   user: -> new User(@get("created_by"))
 
   # TODO: rename to is_mine
