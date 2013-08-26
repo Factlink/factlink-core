@@ -45,6 +45,8 @@ class window.Fact extends Backbone.Model
   # TODO: rename to is_mine
   i_am_owner: -> @user().is_current_user()
 
+  can_destroy: -> @i_am_owner() # WHAT?! See issue https://github.com/Factlink/core/issues/1024
+
   factUrlHost: ->
     fact_url = @get('fact_url')
     return '' unless fact_url

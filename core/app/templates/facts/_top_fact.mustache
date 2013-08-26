@@ -13,7 +13,9 @@
     <span class="factlink-icon-time"></span>{{created_by_ago}}
   </div>
 
-  <div class="top-fact-delete top-fact-control js-delete-region"></div>
+  {{#showDelete}}
+    <div class="top-fact-delete top-fact-control js-delete-region"></div>
+  {{/showDelete}}
 
   {{#global.signed_in}}
     <button class="button button-small button-confirm js-repost">Repost</button>
