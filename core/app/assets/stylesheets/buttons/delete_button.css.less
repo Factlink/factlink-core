@@ -62,7 +62,8 @@
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   vertical-align: top !important;
-  .transform(translateX(-100%));
+  position: relative;
+  left: -100%;
 }
 
 .delete-button-arrow {
@@ -72,11 +73,10 @@
   border-left-color: @buttonBackground;
   margin-top: -5px - 1px;
   top: 50%;
-  left: 0;
-  .transform(translateX(-100%));
+  left: -5px;
 }
 
 .delete-button-open .delete-button-second,
 .delete-button-open .delete-button-arrow {
-  .transform(translateX(0));
+  left: 0;
 }
