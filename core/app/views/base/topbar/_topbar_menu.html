@@ -5,7 +5,7 @@
   <ul class="dropdown-menu">
     <li class="visible-when-chrome should-install-chrome-extension">
       <%= chrome_extension_link do %>
-        <%= image_tag("browser-icons/chrome-dark-16x16.png", style: "padding-right: 4px") %>
+        <i class='icon-chrome'></i>
         Chrome extension
         <span class="label label-warning should-install-chrome-extension">Install</span>
       <% end %>
@@ -13,7 +13,7 @@
 
     <li class="visible-when-firefox should-install-firefox-extension">
       <a href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>">
-        <%= image_tag("browser-icons/firefox-dark-16x16.png", style: "padding-right: 4px") %>
+        <i class='icon-firefox'></i>
         Firefox extension
         <span class="label label-warning should-install-chrome-extension">Install</span>
       </a>
@@ -23,9 +23,9 @@
       <a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome and Firefox." class="bookmarklet"
            <%# here we need singlequotes kthxbye: %>
            href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'>
-         <i class='icon-bookmark'></i>
-         <span class="bookmarklettext" style="display: none">Factlink</span>
-      </a>
+         <i class='icon-bookmark'></i><!--
+         --><span class="bookmarklettext" style="display: none">Factlink</span><!--
+      --></a>
     </li>
 
     <li class="divider"></li>
