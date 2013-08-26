@@ -1,4 +1,4 @@
-class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
+class window.GenericEvidenceBottomView extends Backbone.Marionette.Layout
   template: 'facts/evidence_bottom'
 
   triggers:
@@ -10,10 +10,6 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @listenTo @model, 'change', @render
-
-  onRender: ->
-    @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
-    @updateSubCommentsLink()
 
   updateSubCommentsLink: ->
     count = @model.get('sub_comments_count')
@@ -44,10 +40,22 @@ class window.EvidenceBottomView extends GenericEvidenceBottomView
     disbelieve_percentage: fact?.opinionPercentage('disbelieve')
     from_fact_sanitized:   fact?.toJSON()
 
+  onRender: ->
+    @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
+    @updateSubCommentsLink()
+
 
 class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
   className: 'ndp-evidenceish-bottom bottom-base'
 
+  regions:
+    deleteRegion: '.js-delete-region'
+
   templateHelpers: =>
     showTimeAgo: true
     showDelete: @model.can_destroy()
+
+  onRender: ->
+    @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
+    @updateSubCommentsLink()
+    @deleteRegion.show new DeleteButtonView model: @model if @model.can_destroy()
