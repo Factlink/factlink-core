@@ -49,7 +49,7 @@ feature "visiting the stream" do
     sleep 1
     set_scroll_top_to 100
     go_to_first_fact
-    go_back_using_button
+    go_back_using_button #This is deprecated, closing the modal with the new close button
     sleep 6
     scroll_top_should_eq 100
   end
