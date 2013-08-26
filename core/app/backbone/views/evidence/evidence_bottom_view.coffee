@@ -44,8 +44,10 @@ class window.EvidenceBottomView extends GenericEvidenceBottomView
     disbelieve_percentage: fact?.opinionPercentage('disbelieve')
     from_fact_sanitized:   fact?.toJSON()
 
+
 class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
   className: 'ndp-evidenceish-bottom bottom-base'
 
   templateHelpers: =>
     showTimeAgo: true
+    showDelete: true
