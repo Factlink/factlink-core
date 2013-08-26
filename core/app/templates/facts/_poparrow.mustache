@@ -6,7 +6,7 @@
         <a rel="nofollow">Hide Factlink from {{global.t.topic}}</a>
       </li>
     {{/deletable_from_channel?}}
-    {{#i_am_owner}}
+    {{#is_mine}}
       <li class="delete">
         <a>
           <img src="{{global.trash_image}}" alt="Trash" class="normal">
@@ -14,6 +14,6 @@
           Delete Factlink...
         </a>
       </li>
-    {{/i_am_owner}}
+    {{/is_mine}}
   </ul>
 </div>

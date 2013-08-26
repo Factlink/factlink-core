@@ -29,7 +29,12 @@
 
 .top-fact-controls {
   position: relative;
-  overflow: hidden;
+  color: @mutedFontColor;
+
+  // These two rules are for creating a block formatting context,
+  // as we cannot use overflow: hidden because of delete button
+  display: inline-block;
+  width: 100%;
 }
 
 .top-fact-poster-controls {
@@ -41,6 +46,17 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 300px;
+}
+
+.top-fact-delete {
+  display: inline-block;
+  margin-top: 2px;
+
+  &:after {
+    content: "·";
+    margin-right: 10px;
+    margin-left: 4px;
+  }
 }
 
 @informationLabelHeight: 40px;
