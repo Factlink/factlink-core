@@ -2,14 +2,7 @@ class window.DeleteButtonView extends Backbone.Marionette.ItemView
   tagName: 'span'
   className: 'delete-button'
 
-  template:
-    text: """
-      <span class="delete-button-second-container">
-        <span class="delete-button-second button button-small button-danger js-second">Delete</span>
-        <span class="delete-button-arrow"></span>
-      </span>
-      <span class="delete-button-first js-first"><i class="icon-trash"></i></span>
-    """
+  template: 'buttons/delete_button'
 
   events:
     'click .js-first': '_toggleButton'
