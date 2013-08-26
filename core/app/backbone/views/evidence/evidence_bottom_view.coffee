@@ -58,4 +58,8 @@ class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
   onRender: ->
     @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
     @updateSubCommentsLink()
-    @deleteRegion.show new DeleteButtonView model: @model if @model.can_destroy()
+
+    if @model.can_destroy()
+      @_deleteButtonView = new DeleteButtonView model: @model
+      @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
+      @deleteRegion.show @_deleteButtonView

@@ -23,11 +23,18 @@ class window.TopFactView extends Backbone.Marionette.Layout
     @userHeadingRegion.show new UserInFactHeadingView
         model: @model.user()
 
-    @wheelRegion.show @wheelView()
+    @wheelRegion.show @_wheelView()
+    @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
 
-    @deleteRegion.show new DeleteButtonView model: @model if @model.can_destroy()
+  _deleteButtonView: ->
+    deleteButtonView = new DeleteButtonView model: @model
+    @listenTo deleteButtonView, 'delete', ->
+      @model.destroy
+        wait: true
+        success: -> mp_track "Factlink: Destroy"
+    deleteButtonView
 
-  wheelView: ->
+  _wheelView: ->
     wheel = @model.getFactWheel()
 
     wheel_view_options =

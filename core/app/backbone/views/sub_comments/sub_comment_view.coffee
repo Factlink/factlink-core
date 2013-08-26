@@ -49,4 +49,7 @@ class window.NDPSubCommentView extends Backbone.Marionette.Layout
     showDelete: @model.can_destroy()
 
   onRender: ->
-    @deleteRegion.show new DeleteButtonView model: @model if @model.can_destroy()
+    if @model.can_destroy()
+      @_deleteButtonView = new DeleteButtonView model: @model
+      @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
+      @deleteRegion.show @_deleteButtonView
