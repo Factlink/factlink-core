@@ -66,14 +66,15 @@
   left: -100%;
 }
 
+@arrowSize: 5px;
 .delete-button-arrow {
   position: absolute;
-  border: 5px solid transparent;
+  border: @arrowSize solid transparent;
   border-right: none;
   border-left-color: @buttonBackground;
-  margin-top: -5px - 1px;
+  margin-top: -@arrowSize - 2px;
   top: 50%;
-  left: -5px;
+  left: -@arrowSize;
 }
 
 .delete-button-open .delete-button-second,
