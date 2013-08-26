@@ -50,11 +50,12 @@
   height: @baseButtonHeight + 3px;
   line-height: @baseButtonHeight;
   overflow: hidden;
-  visibility: hidden;
+  opacity: 0;
+  transition: all 0.1s;
 }
 
 .delete-button-open .delete-button-second-container {
-  visibility: visible;
+  opacity: 1;
 }
 
 .delete-button-second {
