@@ -38,7 +38,7 @@ module Acceptance
           svgEl.dispatchEvent(clickEvent);
         ")
       else
-        svg_path_el = all("#{css_path} .fact-wheel path")[position]
+        svg_path_el = find("#{css_path} .fact-wheel path:nth-of-type(#{position+1})")
         svg_path_el.click
       end
     end

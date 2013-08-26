@@ -1,4 +1,3 @@
-#= require jquery
 #= require jquery.prevent_scroll_propagation
 
 showFrame = document.getElementById("frame")
@@ -30,6 +29,7 @@ window.remote = new xdm.Rpc {},
       onFactlinkCreated = (e, id) ->
         remote.highlightNewFactlink text, id
 
+      $(document).off "factlinkCreated"
       $(document).on "factlinkCreated", (e, id, created_text) ->
         onFactlinkCreated(e, id) if created_text == text
 

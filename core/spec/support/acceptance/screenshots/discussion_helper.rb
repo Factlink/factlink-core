@@ -41,8 +41,10 @@ module Screenshots
         # TODO: Enable when removing feature toggle 'vote_up_down_popup'
         # find('.js-fact-relation-believe').set false
         # page.find('a', text: 'Done').click
-
-        find('a', text: 'Comment').click
+        eventually_succeeds do
+          find('a', text: 'Comment').click
+          first('.evidence-sub-comments-form').should_not eq nil
+        end
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized
       end

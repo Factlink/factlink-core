@@ -72,14 +72,25 @@ module Acceptance
           # ...but the posting delay vs. capybara check is a race-condition
           # so don't worry if this fails, at least then we're not continuing prematurely
         rescue
+          puts "After clicking a button labelled 'Post', the button failed to change to 'Posting'."
+          puts "This may be an error, indicating the button didn't react, or the test is wrong;"
+          puts "however, it may just have finished and changed back to 'Post' too quickly to detect."
         end
       end
 
       def add_sub_comment(comment)
+        # workaround for selenium focus: trigger focus; workaround for jquery: make sure there's
+        # at least jquery-added handler first
+        page.execute_script('$(".evidence-sub-comments-form .text_area_view").filter(function(){return this.value;}).on("focus",function(){})')
+        page.execute_script('$(".evidence-sub-comments-form .text_area_view").filter(function(){return this.value;}).trigger("focus")')
         find('.evidence-sub-comments-form .text_area_view').set comment
-        sleep 0.5 # To allow for the getting bigger CSS animation
-        find('.evidence-sub-comments-button', text: 'Post comment').click
-        sleep 0.5 # To allow for the getting smaller CSS animation
+        find('.evidence-sub-comments-form .text_area_view').value.should eq comment
+        eventually_succeeds do
+          if find('.evidence-sub-comments-form .text_area_view').value != ''
+            find('.evidence-sub-comments-button', text: 'Post comment').click
+            find('.evidence-sub-comments-form .text_area_view').value.should eq ''
+          end
+        end
       end
 
       def click_post_comment
