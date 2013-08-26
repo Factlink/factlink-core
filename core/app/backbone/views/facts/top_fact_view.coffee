@@ -10,6 +10,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
   regions:
     wheelRegion: '.js-fact-wheel-region'
     userHeadingRegion: '.js-user-heading-region'
+    userRegion: '.js-user-name-region'
 
   showRepost: ->
     FactlinkApp.Modal.show 'Repost Factlink',
@@ -17,6 +18,9 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   onRender: ->
     @userHeadingRegion.show new UserInFactHeadingView
+        model: @model.user()
+
+    @userRegion.show new UserInTopFactView
         model: @model.user()
 
     @wheelRegion.show @wheelView()
