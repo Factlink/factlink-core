@@ -39,5 +39,14 @@ class window.SubCommentView extends Backbone.Marionette.Layout
 class window.NDPSubCommentView extends Backbone.Marionette.Layout
   template: 'sub_comments/ndp_sub_comment'
 
+  regions:
+    deleteRegion: '.js-delete-region'
+
   initialize: ->
     @listenTo @model, 'change', @render
+
+  templateHelpers: =>
+    showDelete: @model.can_destroy()
+
+  onRender: ->
+    @deleteRegion.show new DeleteButtonView model: @model if @model.can_destroy()

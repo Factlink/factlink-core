@@ -6,5 +6,9 @@
     <li class="bottom-action-time bottom-action">
       <span class="factlink-icon-time-small"></span> {{time_ago}} {{ global.t.ago }}
     </li>
+
+    {{#showDelete}}
+      <li class="bottom-action bottom-action-delete js-delete-region"></li>
+    {{/showDelete}}
   </ul>
 </div>
