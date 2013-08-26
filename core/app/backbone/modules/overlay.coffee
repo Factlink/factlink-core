@@ -1,5 +1,5 @@
 FactlinkApp.module "Overlay", (Overlay, FactlinkApp, Backbone, Marionette, $, _) ->
-  $overlay_elements = $('<div class="modal-overlay"></div><div class="modal-overlay-transparent"></div>')
+  $overlay_elements = $('<div class="overlay"></div><div class="overlay-transparent"></div>')
     .appendTo('body')
 
   Overlay.show = ->
