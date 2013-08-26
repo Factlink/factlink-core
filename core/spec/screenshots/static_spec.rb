@@ -10,6 +10,10 @@ describe "Static pages:", type: :feature do
       visit "/"
       find('.header input[value="Reserve my username"]').click
       find('a', text: 'Feedback').click
+      within_frame 0 do
+        # wait for frame to load:
+        find(:button, 'Send feedback')
+      end
       assume_unchanged_screenshot "static_homepage_with_feedback"
     end
   end
