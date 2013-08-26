@@ -8,9 +8,6 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.Layout
     subCommentsLink:          '.js-sub-comments-link'
     subCommentsLinkContainer: '.js-sub-comments-link-container'
 
-  initialize: ->
-    @listenTo @model, 'change', @render
-
   updateSubCommentsLink: ->
     count = @model.get('sub_comments_count')
     countText = switch count
@@ -39,6 +36,9 @@ class window.EvidenceBottomView extends GenericEvidenceBottomView
     believe_percentage:    fact?.opinionPercentage('believe')
     disbelieve_percentage: fact?.opinionPercentage('disbelieve')
     from_fact_sanitized:   fact?.toJSON()
+
+  initialize: ->
+    @listenTo @model, 'change', @render
 
   onRender: ->
     @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
