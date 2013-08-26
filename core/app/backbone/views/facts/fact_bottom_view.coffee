@@ -17,12 +17,6 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
       else
         @created_by_ago
 
-    discussion_url: ->
-      if FactlinkApp.factlinkBaseUrl?
-        "#{FactlinkApp.factlinkBaseUrl}/facts/#{@id}"
-      else
-        @url
-
     show_discussion_link: !@options.hide_discussion_link
     hide_timestamp: !@options.show_timestamp
     show_timestamp_or_fact_url_host: @options.show_timestamp or @model.get('proxy_scroll_url')

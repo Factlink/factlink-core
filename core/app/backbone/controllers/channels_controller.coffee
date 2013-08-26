@@ -17,7 +17,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     @loadTopic slug_title, (topic) =>
       @showSidebarForTopic(topic)
       FactlinkApp.mainRegion.show new TopicView model: topic
-      FactlinkApp.factlinkBaseUrl = topic.url()
 
   showTopicFact: (slug_title, fact_id, params={}) ->
     topic = @loadTopic slug_title,
@@ -59,7 +58,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
-      FactlinkApp.factlinkBaseUrl = channel.url()
       FactlinkApp.mainRegion.show new ChannelView(model: channel)
 
   # TODO: this is only ever used for the stream,
@@ -72,7 +70,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     @loadChannel username, channel_id, (channel) =>
       @showSidebarForChannel(channel)
       FactlinkApp.Sidebar.activate('stream')
-      FactlinkApp.factlinkBaseUrl = channel.url() + '/activities'
 
       activities = new ChannelActivities([],{ channel: channel })
       FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
