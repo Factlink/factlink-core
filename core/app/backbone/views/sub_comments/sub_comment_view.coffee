@@ -21,6 +21,12 @@ class BaseSubCommentView extends Backbone.Marionette.Layout
   initialize: ->
     @listenTo @model, 'change', @render
 
+
+class window.SubCommentView extends BaseSubCommentView
+  className: 'evidence-sub-comment'
+
+  templateHelpers: => creator: @model.creator().toJSON()
+
   onRender: ->
     @setPoparrow() if Factlink.Global.signed_in
 
@@ -30,12 +36,6 @@ class BaseSubCommentView extends Backbone.Marionette.Layout
                           model: @model,
                           delete_message: 'Remove this comment'
       @poparrowRegion.show poparrowView
-
-
-class window.SubCommentView extends BaseSubCommentView
-  className: 'evidence-sub-comment'
-
-  templateHelpers: => creator: @model.creator().toJSON()
 
 
 class window.NDPSubCommentView extends BaseSubCommentView
