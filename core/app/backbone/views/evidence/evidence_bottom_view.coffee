@@ -50,4 +50,4 @@ class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
 
   templateHelpers: =>
     showTimeAgo: true
-    showDelete: true
+    showDelete: @model.can_destroy()
