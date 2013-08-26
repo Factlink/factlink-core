@@ -1,0 +1,28 @@
+@import "bootstrap/mixins";
+
+.delete-button {
+  display: inline-block;
+  border-radius: 3px;
+  height: @baseButtonHeight;
+  line-height: @baseButtonHeight;
+  padding: 0 @baseButtonPadding;
+  transition: all 0.1s;
+  vertical-align: middle;
+  cursor: pointer;
+
+  border: none;
+  border-bottom: @baseButtonBorderWidth solid transparent;
+
+  &:hover {
+    background: @buttonDarkBackground;
+    border-color: @buttonDarkBorder;
+    text-shadow: 0 1px 0 @buttonTextShadow;
+    color: @linkColor;
+  }
+
+  &:active {
+    background-color: @buttonDarkBackground;
+    border-top: @baseButtonBorderWidth solid @buttonDarkBorder;
+    border-bottom: 0px;
+  }
+}
