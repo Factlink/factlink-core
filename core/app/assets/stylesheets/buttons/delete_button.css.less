@@ -46,19 +46,37 @@
   position: absolute;
   display: inline-block;
   left: 2em;
-  top: -1px;
+  top: 0px;
   height: @baseButtonHeight + 3px;
   line-height: @baseButtonHeight;
   overflow: hidden;
+  visibility: hidden;
+}
+
+.delete-button-open .delete-button-second-container {
+  visibility: visible;
 }
 
 .delete-button-second {
   // hack because .button is too specific.. :-(
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
+  vertical-align: top !important;
   .transform(translateX(-100%));
 }
 
-.delete-button-open .delete-button-second {
+.delete-button-arrow {
+  position: absolute;
+  border: 5px solid transparent;
+  border-right: none;
+  border-left-color: @buttonDarkBackground;
+  margin-top: -5px - 1px;
+  top: 50%;
+  left: 0;
+  .transform(translateX(-100%));
+}
+
+.delete-button-open .delete-button-second,
+.delete-button-open .delete-button-arrow {
   .transform(translateX(0));
 }
