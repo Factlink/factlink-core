@@ -42,10 +42,9 @@ class window.Fact extends Backbone.Model
 
   user: -> new User(@get("created_by"))
 
-  # TODO: rename to is_mine
-  i_am_owner: -> @user().is_current_user()
+  is_mine: -> @user().is_current_user()
 
-  can_destroy: -> @i_am_owner() # WHAT?! See issue https://github.com/Factlink/core/issues/1024
+  can_destroy: -> @is_mine() # WHAT?! See issue https://github.com/Factlink/core/issues/1024
 
   factUrlHost: ->
     fact_url = @get('fact_url')
@@ -55,6 +54,6 @@ class window.Fact extends Backbone.Model
 
   toJSON: ->
     _.extend super(),
-      i_am_owner: @i_am_owner()
+      is_mine: @is_mine()
       fact_url_host: @factUrlHost()
       fact_url_title: @get('fact_title') || @factUrlHost()
