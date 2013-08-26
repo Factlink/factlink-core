@@ -45,7 +45,7 @@ class TourUserView extends Backbone.Marionette.Layout
       align: 'top'
       contentView: @authorityPopover()
       show_overlay: true
-      focus_on: @$('.js-topic')[0]
+      $focus_el: @$('.js-topic').first()
       container: @$el.parent()
 
 class window.TourUsersListView extends Backbone.Marionette.CollectionView
