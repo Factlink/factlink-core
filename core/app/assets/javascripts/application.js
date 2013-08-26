@@ -9,9 +9,11 @@
 //= require jquery.placeholder
 //= require raven
 //= require state-machine
+
 //= require globals/globals
 
 //= require_tree ./base
 //= require_tree ./lib
 
 //= require test_counter_cookie_storage
+//= require test_disable_transitions

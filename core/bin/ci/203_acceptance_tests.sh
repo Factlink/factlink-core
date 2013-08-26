@@ -1,6 +1,8 @@
 #!/bin/bash
 echo "Running acceptance tests"
 
+rm -rf tmp/capybara/
+
 REPORTFILE=tmp/spec-acceptance.junit.xml
 OUTPUTFILE=rspec-acceptance-output.log
 
