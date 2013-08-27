@@ -1,7 +1,18 @@
 @import "bootstrap/mixins";
 
 #modal_region {
-  .modal {
+  .modal-window {
+    // Inlined bootstrap styles
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1050;
+    overflow: auto;
+    margin-top: -250px;
+
+    width: 340px;
+    margin-left: -165px;
+
     .new-design-white-block-with-shadow();
     .modal-header {
       .background-clip(padding-box);
@@ -9,6 +20,20 @@
       color: @baseFontColor;
       background: #f8f8f8;
       padding: 5px 15px;
+
+      // Inlined from Bootstrap overrides
+      background: #f8f8f8;
+      .border-top-radius(4px);
+      text-shadow: 0 1px 0 #fff;
+      h3 {
+        font-size: 16px;
+      }
+
+      // Inlined from Bootstrap
+      border-bottom: 1px solid hsl(0, 0%, 93%);
+      h3 {
+        margin: 0;
+      }
 
       h3 {
         font-size: @heading3FontSize;
@@ -27,8 +52,5 @@
         margin-bottom: 5px;
       }
     }
-
-    width: 340px;
-    margin-left: -165px;
   }
 }
