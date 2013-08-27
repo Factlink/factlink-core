@@ -10,7 +10,7 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
     suggestedChannelsRegion: ".add-to-channel-suggested-topics-region"
 
   events:
-    'click .js-close': -> FactlinkApp.Modal.close()
+    'click .js-close': -> FactlinkApp.ModalWindow.close()
 
   initialize: ->
     @alertErrorInit ['create_channel']

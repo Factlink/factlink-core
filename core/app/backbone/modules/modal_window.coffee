@@ -1,7 +1,7 @@
-FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
+FactlinkApp.module "ModalWindow", (ModalWindow, MyApp, Backbone, Marionette, $, _) ->
 
-  class Modal.WrapperView extends Backbone.Marionette.Layout
-    template: 'widgets/modal_wrapper'
+  class ModalWindow.WrapperView extends Backbone.Marionette.Layout
+    template: 'widgets/modal_window_wrapper'
 
     events:
       "click .js-layer": "fadeOut"
@@ -37,14 +37,14 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
     modalRegion: "#modal_region"
 
   FactlinkApp.vent.on 'navigate load_url', ->
-    Modal.close()
+    ModalWindow.close()
 
-  Modal.show = (title, content_view)->
-    @_wrapped_view = new FactlinkApp.Modal.WrapperView
+  ModalWindow.show = (title, content_view)->
+    @_wrapped_view = new FactlinkApp.ModalWindow.WrapperView
       title: title
       content_view: content_view
 
     FactlinkApp.modalRegion.show @_wrapped_view
 
-  Modal.close = ->
+  ModalWindow.close = ->
     @_wrapped_view?.fadeOut()

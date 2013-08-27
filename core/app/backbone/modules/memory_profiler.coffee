@@ -84,4 +84,4 @@ FactlinkApp.module "MemoryProfiler", (MemoryProfiler, MyApp, Backbone, Marionett
   MemoryProfiler.showModal = ->
     MemoryProfiler.view_count_collection.sort()
     memoryView = new MemoriesView collection: MemoryProfiler.view_count_collection
-    FactlinkApp.Modal.show 'Views not closed', memoryView
+    FactlinkApp.ModalWindow.show 'Views not closed', memoryView
