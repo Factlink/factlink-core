@@ -10,15 +10,19 @@
     border: 1px solid @baseBorderColor;
     background: @semiTransparentLayerColor;
     display: inline-block;
-  }
-
-  img {
-    width: 32px;
-    height: 32px;
-    margin: auto;
-    display: block;
-    position: relative;
-    top: 7px;
+    text-align: center;
+    &:before {
+      height:100%;
+      content:'';
+      vertical-align: middle;
+      display: inline-block;
+    }
+    img {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+      display: inline-block;
+    }
   }
 }
 
