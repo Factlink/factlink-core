@@ -1,1 +1,3 @@
-<a {{#global.signed_in}} href="{{link}}" rel="backbone"{{/global.signed_in}}>{{name}}</a>
+{{#show_links}}<a href="{{link}}" rel="backbone">{{name}}</a>{{/show_links}}
+{{^show_links}}{{name}}{{/show_links}}
+
