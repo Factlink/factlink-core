@@ -115,12 +115,6 @@ class window.InteractiveTour extends Backbone.View
           @popoverRemove '.factlink.fl-first'
           @state.transition()
 
-        onopen_modal: =>
-          FactlinkApp.Overlay.show()
-
-        onclose_modal: =>
-          FactlinkApp.Overlay.hide()
-
   factlinkFirstExists: ->
     @$('.factlink.fl-first').length > 0
 

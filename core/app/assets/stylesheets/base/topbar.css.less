@@ -30,8 +30,7 @@ body.show_sign_in {
   position: relative;
   height: @navbarHeight;
   margin-bottom: @navbarMargin;
-  font-size: @baseFontSize;
-  z-index: 120; // on top of the overlay in widgets/modal_overlay
+  z-index: 120; // on top of the overlay in widgets/overlay
 
   &.navbar-fixed-top {
     position: fixed;
@@ -92,7 +91,6 @@ body.show_sign_in {
         > a {
           color: @linkColor;
           font-weight: bold;
-          font-size: @baseFontSize;
           line-height: 20px;
 
           &:hover {

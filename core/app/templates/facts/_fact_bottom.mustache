@@ -3,7 +3,7 @@
 
   {{#show_discussion_link}}
   <li class="bottom-action">
-      <a href="{{discussion_url}}" rel="backbone" class="discussion_link"
+      <a href="{{url}}" rel="backbone" class="discussion_link"
         {{#modal?}}
           target="new"
         {{/modal?}}{{^modal?}}
@@ -14,10 +14,10 @@
       </a>
 
       <span class="opinion_indicators">
-        <a href="{{discussion_url}}?tab=supporting" rel="backbone" class="discussion_link">
+        <a href="{{url}}?tab=supporting" rel="backbone" class="discussion_link">
           <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
         </a>
-        <a href="{{discussion_url}}?tab=weakening" rel="backbone" class="discussion_link">
+        <a href="{{url}}?tab=weakening" rel="backbone" class="discussion_link">
           <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
         </a>
       </span>

@@ -92,14 +92,13 @@
       font-family: @sansFontFamily;
     }
   }
-  .shorthand(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
-    font-size: @size;
+  .shorthand(@weight: normal, @lineHeight: @baseLineHeight) {
     font-weight: @weight;
     line-height: @lineHeight;
   }
-  .sans-serif(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
+  .sans-serif(@weight: normal, @lineHeight: @baseLineHeight) {
     #font > #family > .sans-serif;
-    #font > .shorthand(@size, @weight, @lineHeight);
+    #font > .shorthand(@weight, @lineHeight);
   }
 }
 

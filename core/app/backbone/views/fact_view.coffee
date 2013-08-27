@@ -46,7 +46,7 @@ class window.FactView extends Backbone.Marionette.Layout
     @listenTo @model, "change", @render
 
   onRender: ->
-    @factBaseView.show new FactBaseView(model: @model)
+    @factBaseView.show new FactBaseView(model: @model, truncate_body: true)
     @factBottomView.show @newFactBottomView()
 
     if Factlink.Global.signed_in
