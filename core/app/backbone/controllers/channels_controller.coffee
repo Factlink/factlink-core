@@ -18,15 +18,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       @showSidebarForTopic(topic)
       FactlinkApp.mainRegion.show new TopicView model: topic
 
-  showTopicFact: (slug_title, fact_id, params={}) ->
-    topic = @loadTopic slug_title,
-      => @showSidebarForTopic topic
-    back_button = new TopicBackButton [], model: topic
-
-    FactlinkApp.mainRegion.show new DiscussionPageView
-      model: new Fact(id: fact_id)
-      back_button: back_button
-      tab: params.tab
 
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id)
@@ -73,15 +64,3 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
       activities = new ChannelActivities([],{ channel: channel })
       FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
-
-  showChannelFactForActivity: (username, channel_id, fact_id, params={}) ->
-    @showChannelFact(username, channel_id, fact_id, _.extend(for_stream: true, params))
-
-  showChannelFact: (username, channel_id, fact_id, params={}) ->
-    channel = @loadChannel username, channel_id, (channel) => @showSidebarForChannel channel
-    back_button = new ChannelBackButton [], model: channel, for_stream: params.for_stream
-
-    FactlinkApp.mainRegion.show new DiscussionPageView
-      model: new Fact(id: fact_id)
-      back_button: back_button
-      tab: params.tab
