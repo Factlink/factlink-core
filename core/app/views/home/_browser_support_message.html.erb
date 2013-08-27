@@ -1,5 +1,5 @@
 <% if current_user %>
-  <% if not browser_supported? or true %>
+  <% if not browser_supported? %>
     <% content_for :specific_javascript do %>
       <script type="text/javascript">
         FactlinkApp.vent.once('load_url', function() {
