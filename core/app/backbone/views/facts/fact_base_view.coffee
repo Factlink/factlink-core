@@ -36,6 +36,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     bodyView = new FactBodyView
       model: @model
       clickable: @options.clickable_body
+      truncate: @options.truncate_body
 
     @listenTo bodyView, 'click:body', (e) ->
       @trigger 'click:body', e
@@ -54,7 +55,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
     displaystring: '.js-displaystring'
 
   initialize: ->
-    @trunk8Init 3, '.js-displaystring', '.less' unless @options.clickable
+    @trunk8Init 3, '.js-displaystring', '.less' if @options.truncate
     @listenTo @model, 'change', @render
 
   triggerViewClick: (e) ->
