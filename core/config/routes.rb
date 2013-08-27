@@ -146,7 +146,7 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", as: "find"
       end
 
-      get "/facts/:fact_id" => "facts#discussion_page", as: "fact"
+      get "/facts/:fact_id" => "facts#discussion_page_redirect"
 
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
@@ -159,7 +159,7 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "facts/:fact_id" => "facts#discussion_page", as: "fact"
+          get "facts/:fact_id" => "facts#discussion_page_redirect"
         end
       end
 
@@ -206,7 +206,7 @@ FactlinkUI::Application.routes.draw do
     member do
       scope "/facts" do
         get "/" => "topics#facts", as: "topic_facts"
-        get "/:fact_id" => "topics#fact", as: "topic_fact"
+        get "/:fact_id" => "facts#discussion_page_redirect"
       end
     end
   end

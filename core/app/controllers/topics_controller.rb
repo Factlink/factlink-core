@@ -15,10 +15,6 @@ class TopicsController < ApplicationController
     end
   end
 
-  def fact
-    backbone_responder
-  end
-
   private
 
   def topic
