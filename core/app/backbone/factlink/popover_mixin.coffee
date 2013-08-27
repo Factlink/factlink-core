@@ -5,8 +5,6 @@ Backbone.Factlink.PopoverMixin =
   default_options:
     side: 'left'
     align: 'center'
-    show_overlay: false
-    $focus_el: null
     margin: 0
 
   popoverAdd: (selector, options) ->
@@ -17,8 +15,6 @@ Backbone.Factlink.PopoverMixin =
       throw "Cannot call popoverAdd multiple times with the same selector: #{selector}"
 
     view = new PopoverView @popover_options
-
-    FactlinkApp.Overlay.show(@popover_options.$focus_el) if @popover_options.show_overlay
 
     positionedRegion = new Backbone.Factlink.PositionedRegion @popover_options
     positionedRegion.crossFade view
@@ -35,8 +31,6 @@ Backbone.Factlink.PopoverMixin =
   popoverRemove: (selector, fade=true) ->
     popover = @_popovers?[selector]
     if popover?
-      FactlinkApp.Overlay.hide() if @popover_options.show_overlay
-
       if fade
         popover.positionedRegion.resetFade()
       else
