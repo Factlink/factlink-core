@@ -32,6 +32,7 @@
     <%= render 'feedback/button' unless defined? dont_render_feedback %>
 
     <%= render 'home/browser_support_message' %>
+    <%= yield :modal %>
 
     <%= yield :sign_in_bar %>
 
@@ -44,8 +45,6 @@
     <% end %>
 
     <%= render "feedback/frame" %>
-
-    <div id="modal_region"></div>
 
     <%= javascript_include_base %>
     <%= render 'snippets/raven_js' %>
