@@ -17,14 +17,34 @@
       vertical-align: middle;
       display: inline-block;
     }
-    .heading-avatar-favicon {
-      width: 32px;
-      height: 32px;
-      vertical-align: middle;
-      display: inline-block;
-    }
+
   }
 }
+
+.heading-avatar-favicon {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.heading-avatar-favicon.favicon-missing {
+  visibility: hidden;
+  position: absolute;
+}
+
+
+.favicon-alternative {
+  vertical-align: middle;
+  font-size: 200%;
+  color: rgba(0,0,0,0.4);
+  text-shadow: 1px 1px white;
+  display:none;
+}
+
+.favicon-missing + .favicon-alternative {
+  display:inline-block;
+}
+
 
 .top-fact-heading-link {
   display: inline-block;
