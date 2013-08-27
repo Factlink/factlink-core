@@ -1,2 +1,2 @@
-(function(Factlink, $, _, easyXDM, window, document, undefined) {
+(function(Factlink, $, easyXDM, window, document, undefined) {
   var jQuery = $;

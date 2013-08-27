@@ -39,7 +39,7 @@ Factlink.modal =
   highlightNewFactlink: (fact, id) ->
     fct = Factlink.selectRanges(Factlink.search(fact), id)
 
-    _.extend Factlink.Facts, fct
+    $.extend Factlink.Facts, fct
 
     Factlink.trigger 'factlinkAdded'
 
