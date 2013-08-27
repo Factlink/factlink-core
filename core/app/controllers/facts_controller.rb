@@ -42,7 +42,7 @@ class FactsController < ApplicationController
     backbone_responder
   end
 
-  def discussion_page_redirect
+  def discussion_page_redirect # remove before 2014
     authorize! :show, @fact
 
     redirect_path = FactUrl.new(@fact).friendly_fact_path

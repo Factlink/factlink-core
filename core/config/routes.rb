@@ -125,7 +125,7 @@ FactlinkUI::Application.routes.draw do
     resources :messages, only: [:create, :show]
   end
 
-  # old conversation urls
+  # old conversation urls, remove before 2014
   get "/c" => redirect("/m")
   get "/c/:id" => redirect("/m/%{id}")
   get "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
@@ -146,7 +146,7 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", as: "find"
       end
 
-      get "/facts/:fact_id" => "facts#discussion_page_redirect"
+      get "/facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
 
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
@@ -159,7 +159,7 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "facts/:fact_id" => "facts#discussion_page_redirect"
+          get "facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
         end
       end
 
@@ -206,7 +206,7 @@ FactlinkUI::Application.routes.draw do
     member do
       scope "/facts" do
         get "/" => "topics#facts", as: "topic_facts"
-        get "/:fact_id" => "facts#discussion_page_redirect"
+        get "/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
       end
     end
   end
