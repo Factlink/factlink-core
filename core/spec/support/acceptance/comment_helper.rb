@@ -23,7 +23,7 @@ module Acceptance
               .add-evidence-form .text_area_view')[:placeholder].include? 'Comment'
       end
 
-      def add_comment comment
+      def add_comment type, comment
         toggle_to_comment if posting_factlink? #unless posting_comment?
 
         within '.add-evidence-form' do

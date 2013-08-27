@@ -18,7 +18,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Geert is een buffel'
-    add_comment comment
+    add_comment :supporting, comment
 
     # Input should be empty
     find('.text_area_view').value.should eq ''
@@ -37,7 +37,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment comment
+    add_comment :supporting, comment
 
     go_to_discussion_page_of factlink
 
@@ -53,7 +53,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment comment
+    add_comment :supporting, comment
 
     within '.fact-relation-listing' do
       # there is just one factlink in the list
@@ -75,8 +75,8 @@ feature "adding comments to a fact", type: :feature do
     comment1 = 'Vroeger was Gerard een hengst'
     comment2 = 'Henk is nog steeds een buffel'
 
-    add_comment comment1
-    add_comment comment2
+    add_comment :supporting, comment1
+    add_comment :supporting, comment2
 
     find('.fact-relation-listing').should have_content comment1
     find('.fact-relation-listing').should have_content comment2
@@ -97,9 +97,9 @@ feature "adding comments to a fact", type: :feature do
     factlink2 = 'Henk ook niet'
     comment3 = 'Geert is een baas'
 
-    add_comment comment1
+    add_comment :supporting, comment1
     add_new_factlink factlink2
-    add_comment comment3
+    add_comment :supporting, comment3
 
     # make sure sorting is done:
     sleep 1
@@ -131,7 +131,7 @@ feature "adding comments to a fact", type: :feature do
 
     comment = 'Vroeger had Gerard een hele stoere fiets'
 
-    add_comment comment
+    add_comment :supporting, comment
 
     within '.fact-relation-listing' do
       find('.evidence-poparrow-arrow', visible:false).click
@@ -149,7 +149,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment comment
+    add_comment :supporting, comment
 
     visit user_path(@user)
 
