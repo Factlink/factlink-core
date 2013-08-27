@@ -117,6 +117,12 @@
       "css": "time",
       "code": 59410,
       "src": "iconic"
+    },
+    {
+      "uid": "d4824d88566b0ac66d2cdcff3408690b",
+      "css": "export",
+      "code": 59411,
+      "src": "mfglabs"
     }
   ]
 }
