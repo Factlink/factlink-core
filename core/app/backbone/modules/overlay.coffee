@@ -7,10 +7,13 @@ FactlinkApp.module "Overlay", (Overlay, FactlinkApp, Backbone, Marionette, $, _)
   Overlay.show = ($el) ->
     $overlay_elements.fadeIn 'fast'
 
+    Overlay.removeFocus()
     $focus_el = $el
-    $focus_el?.addClass 'overlay-focus'
-
+    $focus_el.addClass 'overlay-focus'
 
   Overlay.hide = ->
+    Overlay.removeFocus()
     $overlay_elements.fadeOut 'fast'
+
+  Overlay.removeFocus = ->
     $focus_el?.removeClass 'overlay-focus'
