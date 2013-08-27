@@ -20,14 +20,11 @@ feature "adding comments to a fact", type: :feature do
     comment = 'Geert is een buffel'
     add_comment :supporting, comment
 
-    # Input should be empty
-    find('.text_area_view').value.should eq ''
-
-    find('.fact-relation-listing').should have_content comment
+    assert_comment_exists comment
 
     go_to_discussion_page_of factlink # Reload the page
 
-    find('.fact-relation-listing').should have_content comment
+    assert_comment_exists comment
   end
 
   scenario 'after adding a comment it should have brain cycles' do
@@ -41,7 +38,7 @@ feature "adding comments to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    within '.fact-relation-listing' do
+    within_evidence_list do
       find('.authorities-evidence').should have_content user_authority_on_fact + 1
     end
   end
@@ -55,7 +52,7 @@ feature "adding comments to a fact", type: :feature do
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment :supporting, comment
 
-    within '.fact-relation-listing' do
+    within_evidence_list do
       # there is just one factlink in the list
       find('.authorities-evidence', text: (user_authority_on_fact+1).to_s)
       find('.supporting').click
@@ -64,7 +61,7 @@ feature "adding comments to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    within '.fact-relation-listing' do
+    within_evidence_list do
       find('.authorities-evidence', text: "0.0")
     end
   end
@@ -78,13 +75,13 @@ feature "adding comments to a fact", type: :feature do
     add_comment :supporting, comment1
     add_comment :supporting, comment2
 
-    find('.fact-relation-listing').should have_content comment1
-    find('.fact-relation-listing').should have_content comment2
+    assert_comment_exists comment1
+    assert_comment_exists comment2
 
     go_to_discussion_page_of factlink # Reload the page
 
-    find('.fact-relation-listing').should have_content comment1
-    find('.fact-relation-listing').should have_content comment2
+    assert_comment_exists comment1
+    assert_comment_exists comment2
   end
 
   scenario 'comments and facts should be sorted on relevance' do
@@ -104,21 +101,17 @@ feature "adding comments to a fact", type: :feature do
     # make sure sorting is done:
     sleep 1
 
-    within('.fact-relation-listing .evidence-item', text: comment1) do
-      find('.weakening').click
-    end
-    within('.fact-relation-listing .evidence-item', text: comment3) do
-      find('.supporting').click
-    end
+    vote_comment :down, comment1
+    vote_comment :up  , comment3
 
     go_to_discussion_page_of factlink
 
-    within '.fact-relation-listing' do
-      #find text with comment - we need to do this before asserting on ordering
-      #since expect..to..match is not async, and at this point the comment ajax
-      #may not have been completed yet.
-      find('.evidence-item', text: comment1)
+    #find text with comment - we need to do this before asserting on ordering
+    #since expect..to..match is not async, and at this point the comment ajax
+    #may not have been completed yet.
+    assert_comment_exists comment1
 
+    within_evidence_list do
       items = all '.evidence-item'
       expect(items[0].text).to match (Regexp.new factlink2)
       expect(items[1].text).to match (Regexp.new comment3)
@@ -133,7 +126,7 @@ feature "adding comments to a fact", type: :feature do
 
     add_comment :supporting, comment
 
-    within '.fact-relation-listing' do
+    within_evidence_list do
       find('.evidence-poparrow-arrow', visible:false).click
       find('.delete', visible:false).click
     end

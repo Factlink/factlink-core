@@ -37,6 +37,9 @@ module Acceptance
           sleep 0.5 # To allow for the getting bigger CSS animation
           click_post_comment
           sleep 0.5 # To allow for the getting smaller CSS animation
+
+          #Input should be empty
+          comment_input.value.should eq ''
         end
       end
 
@@ -93,6 +96,7 @@ module Acceptance
         end
       end
 
+
       def click_post_comment
         page.find("button", text: "Post comment").click
         potentially_wait_for_posting_button
@@ -101,6 +105,23 @@ module Acceptance
 
       def assert_sub_comment_exists(comment)
         find('.evidence-sub-comment-content', text: comment)
+      end
+
+      def assert_comment_exists comment
+        within_evidence_list do
+          find('.evidence-item', text: comment)
+        end
+      end
+
+      def within_evidence_list &block
+        within '.fact-relation-listing', &block
+      end
+
+      def vote_comment direction, comment
+        direction_class = direction.to_s == 'up' ? '.supporting' : '.weakening '
+        within('.fact-relation-listing .evidence-item', text: comment) do
+          find(direction_class).click
+        end
       end
   end
 end
