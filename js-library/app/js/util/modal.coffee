@@ -26,15 +26,12 @@ unbindClick = -> $(document).unbind 'click', clickHandler
 Factlink.modal =
   hide: ->
     unbindClick()
-    iFrame.fadeOut 'fast', ->
-      $('html').removeClass ('fl-modal-open')
-
+    iFrame.fadeOut 'fast'
     Factlink.trigger 'modalClosed'
 
   show: ->
     bindClick()
     iFrame.fadeIn('fast')
-    $('html').addClass ('fl-modal-open')
 
   highlightNewFactlink: (fact, id) ->
     fct = Factlink.selectRanges(Factlink.search(fact), id)
