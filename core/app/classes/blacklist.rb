@@ -18,7 +18,7 @@ class Blacklist
       domain('inverselink.com'),
       domain('fct.li'),
       /^http:\/\/localhost[:\/]/,
-    ] + privacy + flash + frames + weird_bugs + browserpages
+    ] + privacy + flash + frames + browserpages
   end
 
   def self.privacy
@@ -46,13 +46,6 @@ class Blacklist
   def self.frames
     [
       domain('insiteproject.com'),
-    ]
-  end
-
-  def self.weird_bugs
-    [
-      # show factlink button not full width
-      domain('smashingmagazine.com'),
     ]
   end
 
