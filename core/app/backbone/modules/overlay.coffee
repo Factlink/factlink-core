@@ -4,7 +4,7 @@ FactlinkApp.module "Overlay", (Overlay, FactlinkApp, Backbone, Marionette, $, _)
 
   $focus_el = null
 
-  Overlay.show = ($el=null) ->
+  Overlay.show = ($el) ->
     $overlay_elements.fadeIn 'fast'
 
     $focus_el = $el
