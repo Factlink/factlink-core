@@ -1,11 +1,11 @@
 <div id="feedback_button">
-  <a class="feedback js-feedback-modal-window-link" href="javascript:void(0)" role="button" title="feedback and support">Feedback</a>
+  <a class="feedback js-feedback-modal-link" href="javascript:void(0)" role="button" title="feedback and support">Feedback</a>
 </div>
 
 <% content_for :specific_javascript do %>
   <script type="text/javascript">
     $(function(){
-      simpleModalWindow('.js-feedback-modal-window','<iframe src="<%= feedback_index_path %>"<%= ' class="no-user"'.html_safe unless current_user %> scrolling="no"></iframe>');
+      simpleModalWindow('.js-feedback-modal','<iframe src="<%= feedback_index_path %>"<%= ' class="no-user"'.html_safe unless current_user %> scrolling="no"></iframe>');
     });
   </script>
 <% end %>
