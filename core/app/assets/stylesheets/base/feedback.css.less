@@ -3,8 +3,8 @@
 @import "bootstrap/mixins";
 
 @feedback_frame_width: 430px;
-@feedback_frame_height: 290px;
-@feedback_frame_height_no_user: 368px;
+@feedback_frame_height: 360px;
+@feedback_frame_height_no_user: 440px;
 
 .modal-window.feedback-frame-modal-window {
 	width: 435px;
@@ -17,6 +17,7 @@
 
 	.modal-window-body {
 		padding: 0;
+    max-height: @feedback_frame_height_no_user;
 
 		iframe {
 			width: @feedback_frame_width;
