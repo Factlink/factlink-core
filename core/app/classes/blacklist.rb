@@ -18,7 +18,7 @@ class Blacklist
       domain('inverselink.com'),
       domain('fct.li'),
       /^http:\/\/localhost[:\/]/,
-    ] + privacy + flash + frames + weird_bugs + browserpages
+    ] + privacy + flash + frames + browserpages
   end
 
   def self.privacy
