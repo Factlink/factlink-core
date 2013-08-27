@@ -26,7 +26,7 @@
   }
 }
 
-.top-fact-heading-text {
+.top-fact-heading-link {
   display: inline-block;
   position: relative;
   top: 8px;
@@ -34,8 +34,12 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.top-fact-heading-link {
-  font-size: @baseFactFontSize;
+.top-fact-heading-text {
+  display: inline-block;
+  max-width: 600px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .top-fact-heading-authority {
