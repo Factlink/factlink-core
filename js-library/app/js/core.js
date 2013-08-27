@@ -9,7 +9,6 @@ window.$ = function (selector,context) { return new jQuery.fn.init(selector,cont
 $.fn = $.prototype = jQuery.fn;
 jQuery.extend($, jQuery);
 Factlink.$ = window.$;
-Factlink._ = window._.noConflict();
 
 if ( Factlink.global.easyXDM ) {
   Factlink.global.FACTLINK = {};

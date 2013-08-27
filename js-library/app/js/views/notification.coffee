@@ -15,7 +15,7 @@ class Factlink.Views.Notification
     type_classes: ''
 
   constructor: (options) ->
-    @options = _.extend {}, @default_options, options
+    @options = $.extend {}, @default_options, options
 
     @$el = $(@template)
           .addClass(@options.type_classes)

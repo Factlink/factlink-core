@@ -39,7 +39,6 @@ module.exports = (grunt) ->
           banner: banner_template
         src: [
           'dist/js/libs/jquery-1.7.2.js',
-          'dist/js/libs/underscore.js',
           'dist/js/core.js',
           'dist/wrapped.js'
         ]
