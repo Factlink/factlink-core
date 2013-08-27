@@ -25,7 +25,7 @@ class window.FactRelationView extends Backbone.Marionette.Layout
 
     if Factlink.Global.signed_in
       @listenTo fbv, 'click:body', (e) ->
-        @defaultClickHandler e, @model.getFact().friendlyUrl()
+        @defaultClickHandler e, @model.getFact().get("url")
 
     fbv
 
