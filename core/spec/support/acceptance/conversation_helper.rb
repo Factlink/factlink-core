@@ -23,7 +23,7 @@ module Acceptance
 
       click_on "Share"
 
-      within '.start-conversation-form' do
+      within '.start-conversation-modal-window' do
         recipients.each {|r| add_recipient r.name}
         find(:css, 'textarea').click
         sleep 0.1

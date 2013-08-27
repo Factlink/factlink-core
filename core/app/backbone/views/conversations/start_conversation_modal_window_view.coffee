@@ -1,7 +1,8 @@
-class window.StartConversationView extends Backbone.Marionette.Layout
+class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AlertMixin
 
-  className: "start-conversation-form"
+  className: "modal-window start-conversation-modal-window"
+
   events:
     "click .js-submit": 'submit'
     "focus .js-message-textarea": 'handleTextAreaFocus'
@@ -14,7 +15,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     messageTextarea: '.js-message-textarea'
     submit:          '.js-submit'
 
-  template: 'conversations/start_conversation'
+  template: 'conversations/start_conversation_modal_window'
 
   initialize: ->
     @alertErrorInit ['user_not_found', 'message_empty']

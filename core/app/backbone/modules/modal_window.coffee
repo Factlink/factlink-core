@@ -1,6 +1,6 @@
-FactlinkApp.module "ModalWindow", (ModalWindow, MyApp, Backbone, Marionette, $, _) ->
+FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbone, Marionette, $, _) ->
 
-  class ModalWindow.WrapperView extends Backbone.Marionette.Layout
+  class ModalWindowContainer.WrapperView extends Backbone.Marionette.Layout
     template: 'widgets/modal_window_wrapper'
 
     events:
@@ -11,40 +11,36 @@ FactlinkApp.module "ModalWindow", (ModalWindow, MyApp, Backbone, Marionette, $, 
       modalRegion: '.js-modal-region'
 
     ui:
-      modal: '.js-modal'
+      modalRegion: '.js-modal-region'
       layer: '.js-layer'
-
-    templateHelpers: =>
-      title: @options.title
 
     onRender: ->
       @modalRegion.show @options.content_view
-      @ui.modal.fadeIn 'fast'
+      @ui.modalRegion.fadeIn 'fast'
       @ui.layer.fadeIn 'fast'
 
     stopPropagation: (e) ->
       e.stopPropagation()
 
     # We cannot fade the wrapping region, e.g. using a CrossFadeRegion, because
-    # that would create a stacking context, but currently @ui.modal and @ui.layer
+    # that would create a stacking context, but currently @ui.modalRegion and @ui.layer
     # both have set z-indexes.
     fadeOut: ->
       @ui.layer.fadeOut 'fast'
-      @ui.modal.fadeOut 'fast', =>
+      @ui.modalRegion.fadeOut 'fast', =>
         @modalRegion.close()
 
   FactlinkApp.addRegions
     modalRegion: "#modal_region"
 
   FactlinkApp.vent.on 'navigate load_url', ->
-    ModalWindow.close()
+    ModalWindowContainer.close()
 
-  ModalWindow.show = (title, content_view)->
-    @_wrapped_view = new FactlinkApp.ModalWindow.WrapperView
-      title: title
+  ModalWindowContainer.show = (content_view)->
+    @_wrapped_view = new FactlinkApp.ModalWindowContainer.WrapperView
       content_view: content_view
 
     FactlinkApp.modalRegion.show @_wrapped_view
 
-  ModalWindow.close = ->
+  ModalWindowContainer.close = ->
     @_wrapped_view?.fadeOut()
