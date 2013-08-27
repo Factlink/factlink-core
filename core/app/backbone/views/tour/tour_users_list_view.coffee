@@ -36,7 +36,7 @@ class TourUserView extends Backbone.Marionette.Layout
       @_authorityPopover = new TourAuthorityPopoverView
       @listenTo @_authorityPopover, 'next', ->
         @popoverResetAll()
-        FactlinkApp.Overlay.hide()
+        FactlinkApp.FocusOverlay.hide()
     @_authorityPopover
 
   showAuthorityPopover: ->
@@ -48,7 +48,7 @@ class TourUserView extends Backbone.Marionette.Layout
       contentView: @authorityPopover()
       container: @$el.parent()
 
-    FactlinkApp.Overlay.show @$('.js-topic').first()
+    FactlinkApp.FocusOverlay.show @$('.js-topic').first()
 
 class window.TourUsersListView extends Backbone.Marionette.CollectionView
   itemView: TourUserView
