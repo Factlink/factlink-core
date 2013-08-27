@@ -1,9 +1,7 @@
-<div id="feedback_frame" class="modal hide fade" role="dialog" aria-labelledby="feedback_modal_title" aria-hidden="true">
-  <div class="static-close-button" data-dismiss="modal"></div>
-  <div class="modal-header">
-    <h3 id="feedback_modal_title">Provide us with feedback</h3>
-  </div>
-  <div class="modal-body">
-    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'".html_safe unless current_user %> scrolling="no"></iframe>
-  </div>
+<div class="modal-window feedback-frame-modal-window js-feedback-modal-window">
+  <div class="modal-window-header">Provide us with feedback</div>
+  <div class="modal-window-body js-feedback-modal-window-body"></div>
+</div>
+<div class="semi-transparent-layer js-feedback-modal-window-layer">
+  <div class="static-close-button"></div>
 </div>
