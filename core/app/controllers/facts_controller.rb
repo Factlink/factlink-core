@@ -46,7 +46,7 @@ class FactsController < ApplicationController
     authorize! :show, @fact
 
     redirect_path = FactUrl.new(@fact).friendly_fact_path
-    redirect_to redirect_path, :status => :moved_permanently
+    redirect_to redirect_path, status: :moved_permanently
   end
 
   def intermediate
