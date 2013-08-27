@@ -12,11 +12,15 @@ class SubCommentPoparrowView extends Backbone.Factlink.PoparrowView
 
   destroy: -> @model.destroy wait: true
 
-class BaseSubCommentView extends Backbone.Marionette.Layout
+
+class window.SubCommentView extends Backbone.Marionette.Layout
   template: 'sub_comments/sub_comment'
+  className: 'evidence-sub-comment'
 
   regions:
     poparrowRegion: '.js-region-evidence-sub-comment-poparrow'
+
+  templateHelpers: => creator: @model.creator().toJSON()
 
   initialize: ->
     @listenTo @model, 'change', @render
@@ -32,11 +36,20 @@ class BaseSubCommentView extends Backbone.Marionette.Layout
       @poparrowRegion.show poparrowView
 
 
-class window.SubCommentView extends BaseSubCommentView
-  className: 'evidence-sub-comment'
-
-  templateHelpers: => creator: @model.creator().toJSON()
-
-
-class window.NDPSubCommentView extends BaseSubCommentView
+class window.NDPSubCommentView extends Backbone.Marionette.Layout
   template: 'sub_comments/ndp_sub_comment'
+
+  regions:
+    deleteRegion: '.js-delete-region'
+
+  initialize: ->
+    @listenTo @model, 'change', @render
+
+  templateHelpers: =>
+    showDelete: @model.can_destroy()
+
+  onRender: ->
+    if @model.can_destroy()
+      @_deleteButtonView = new DeleteButtonView model: @model
+      @listenTo @_deleteButtonView, 'delete', -> @model.destroy wait: true
+      @deleteRegion.show @_deleteButtonView

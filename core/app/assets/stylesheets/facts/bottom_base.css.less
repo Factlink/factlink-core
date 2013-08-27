@@ -19,8 +19,17 @@
   }
 }
 
+.bottom-action-delete {
+  float: right;
+
+  &:after {
+    content: "·";
+    margin-right: 10px;
+    margin-left: 4px;
+  }
+}
+
 .pre-ndp-bottom-base {
-  font-size: @baseFontSize;
   margin-top: 8px;
   clear: both;
 
@@ -78,7 +87,7 @@
 }
 
 .ndp-evidenceish-bottom {
-  .bottom-actions .posted-time-ago {
+  .bottom-actions .bottom-action-time {
     float: right;
   }
 }

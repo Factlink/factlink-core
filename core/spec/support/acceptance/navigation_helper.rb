@@ -14,9 +14,5 @@ module Acceptance
     def close_modal
       find("#modal_region .modal-header .close").click
     end
-
-    def go_back_using_button
-      find('.js-title-region a.btn-back').click
-    end
   end
 end
