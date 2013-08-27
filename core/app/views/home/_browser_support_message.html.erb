@@ -12,25 +12,6 @@
           <a id="chrome-download-button" class="button download-chrome" href="https://google.com/chrome" target="_blank"><%= image_tag("browser-icons/chrome-16x16.png", style: "margin: -4px 8px 0 0") %>Install Google Chrome</a>
         </div>
       </div>
-      <% content_for :modal_javascript  do %>
-        <script>
-          $(function(){
-            $('#ieWarningModal').modal({
-              keyboard: false,
-              backdrop: "static"
-            })
-            $('#ieWarningModal').on('hide', function(){
-             Backbone.ajax({
-              type: 'PUT',
-              url: '<%= see_message_path %>',
-              data: {
-                message: "unsupported_browser_warning"
-              }
-             });
-            });
-          });
-        </script>
-      <% end %>
     <% end %>
   <% end %>
 <% end %>
