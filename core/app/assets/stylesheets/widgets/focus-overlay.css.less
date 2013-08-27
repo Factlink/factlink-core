@@ -1,3 +1,5 @@
+@focusOverlayBaseZindex: 100;
+
 .focus-overlay, .focus-overlay-transparent {
   position: fixed;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -6,14 +8,14 @@
 
 .focus-overlay {
   background: rgba(240, 240, 240, 0.7);
-  z-index: 100;
+  z-index: @focusOverlayBaseZindex;
 }
 
 .focus-overlay-element {
-  z-index: 110 !important;
+  z-index: @focusOverlayBaseZindex+1 !important;
 }
 
 .focus-overlay-transparent {
   background: rgba(0,0,0,0.0);
-  z-index: 111;
+  z-index: @focusOverlayBaseZindex+2;
 }
