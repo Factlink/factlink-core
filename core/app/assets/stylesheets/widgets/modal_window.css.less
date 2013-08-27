@@ -1,0 +1,35 @@
+@import "bootstrap/mixins";
+
+.modal-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 340px;
+  margin-left: -340px/2;
+  margin-top: -250px;
+
+  .new-design-white-block-with-shadow();
+
+  .modal-header {
+    .background-clip(padding-box);
+    .border-top-radius(5px);
+    color: @baseFontColor;
+    background: #f8f8f8;
+    padding: 10px 15px 7px;
+    text-shadow: 0 1px 0 #fff;
+    border-bottom: 1px solid hsl(0, 0%, 93%);
+    font-size: @heading3FontSize;
+    line-height: 25px;
+  }
+
+  .modal-body {
+    max-height: 420px;
+
+    .modal-body-section-heading {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+  }
+}
