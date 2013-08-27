@@ -10,6 +10,10 @@ class window.TopFactView extends Backbone.Marionette.Layout
   regions:
     wheelRegion: '.js-fact-wheel-region'
     userHeadingRegion: '.js-user-heading-region'
+    deleteRegion: '.js-delete-region'
+
+  templateHelpers: =>
+    showDelete: @model.can_destroy()
 
   showRepost: ->
     FactlinkApp.Modal.show 'Repost Factlink',
@@ -19,9 +23,18 @@ class window.TopFactView extends Backbone.Marionette.Layout
     @userHeadingRegion.show new UserInFactHeadingView
         model: @model.user()
 
-    @wheelRegion.show @wheelView()
+    @wheelRegion.show @_wheelView()
+    @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
 
-  wheelView: ->
+  _deleteButtonView: ->
+    deleteButtonView = new DeleteButtonView model: @model
+    @listenTo deleteButtonView, 'delete', ->
+      @model.destroy
+        wait: true
+        success: -> mp_track "Factlink: Destroy"
+    deleteButtonView
+
+  _wheelView: ->
     wheel = @model.getFactWheel()
 
     wheel_view_options =

@@ -1,4 +1,14 @@
 <ul class="bottom-actions">
+  {{#showTimeAgo}}
+    <li class="bottom-action-time bottom-action">
+      <i class="icon-time"></i> {{time_ago}} {{ global.t.ago }}
+    </li>
+  {{/showTimeAgo}}
+
+  {{#showDelete}}
+    <li class="bottom-action bottom-action-delete js-delete-region"></li>
+  {{/showDelete}}
+
   <li class="js-sub-comments-link-container bottom-action"><a class="js-sub-comments-link" href="javascript:void()"></a></li>
 
   {{#showDiscussion}}
@@ -31,13 +41,5 @@
         </span>
       {{/global.signed_in}}
     </li>
-
   {{/showDiscussion}}
-
-  {{#showTimeAgo}}
-    <li class="posted-time-ago bottom-action">
-      <span class="factlink-icon-time-small"></span>
-      {{time_ago}} {{ global.t.ago }}
-    </li>
-  {{/showTimeAgo}}
 </ul>
