@@ -5,16 +5,27 @@
   //the overall fact-info block.
   position: absolute;
   top: -38px;
-  img {
+
+  .heading-avatar-image {
+    border: 1px solid @baseBorderColor;
     background: @semiTransparentLayerColor;
+    display: inline-block;
   }
 
+  img {
+    width: 32px;
+    height: 32px;
+    margin: auto;
+    display: block;
+    position: relative;
+    top: 7px;
+  }
 }
 
 .top-fact-heading-text {
   display: inline-block;
   position: relative;
-  top: -4px;
+  top: 8px;
   font-size: @heading2FontSize;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
@@ -31,4 +42,8 @@
   color: @grayLight;
   font-size: 0.9em;
   margin-left: 5px;
+
+  &:hover {
+    color: @gray;
+  }
 }

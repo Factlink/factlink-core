@@ -22,7 +22,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   onRender: ->
     @userHeadingRegion.show new TopFactHeadingView
-        model: @model.user()
+        model: @model
 
     @userRegion.show new UserInTopFactView
         model: @model.user()
