@@ -8,7 +8,7 @@ FactlinkApp.module "ModalWindow", (ModalWindow, MyApp, Backbone, Marionette, $, 
       "click": "stopPropagation"
 
     regions:
-      modalRegion: '.modal-body'
+      modalRegion: '.js-modal-region'
 
     ui:
       modal: '.js-modal'
