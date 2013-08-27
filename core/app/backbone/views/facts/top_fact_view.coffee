@@ -21,7 +21,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
       new AddToChannelModalView(model: @model)
 
   onRender: ->
-    @userHeadingRegion.show new UserInFactHeadingView
+    @userHeadingRegion.show new TopFactHeadingView
         model: @model.user()
 
     @userRegion.show new UserInTopFactView
