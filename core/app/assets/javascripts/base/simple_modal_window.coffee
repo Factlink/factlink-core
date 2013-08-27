@@ -4,5 +4,5 @@ window.simpleModalWindow = (baseClass, content) ->
     $(baseClass).fadeIn 'fast'
 
   $("#{baseClass}-layer").on 'click', ->
-    $("#{baseClass}-body").html ''
-    $(baseClass).fadeOut 'fast'
+    $(baseClass).fadeOut 'fast', ->
+      $("#{baseClass}-body").html ''
