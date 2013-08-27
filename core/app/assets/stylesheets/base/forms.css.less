@@ -6,16 +6,8 @@ body {
     height: 30px;
   }
 
-  .control-group.warning {
-    .formFieldState(@warningText, @warningText, @warningBackground);
-  }
-
-  .control-group.error, .control-group .field_with_errors {
+  .control-group .field_with_errors {
     .formFieldState(@errorText, @errorText, @errorBackground);
-  }
-
-  .control-group.success {
-    .formFieldState(@successText, @successText, @successBackground);
   }
 
   .form-actions {
