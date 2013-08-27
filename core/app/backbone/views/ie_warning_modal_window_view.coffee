@@ -19,10 +19,3 @@ class window.IEWarningModalWindowView extends Backbone.Marionette.ItemView
 
   events:
     'click .js-close': -> FactlinkApp.ModalWindowContainer.close()
-
-  onClose: ->
-    Backbone.ajax
-    type: 'PUT',
-    url: '/u/seen_messages',
-    data:
-      message: "unsupported_browser_warning"
