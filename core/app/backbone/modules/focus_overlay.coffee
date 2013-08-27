@@ -5,7 +5,7 @@ FactlinkApp.module "FocusOverlay", (FocusOverlay, FactlinkApp, Backbone, Marione
   $focus_el = null
 
   FocusOverlay.show = ($el) ->
-    $overlay_elements.fadeIn 'fast'
+    $overlay_elements.fadeTo 'fast', 1
 
     FocusOverlay.removeFocus()
     $focus_el = $el
