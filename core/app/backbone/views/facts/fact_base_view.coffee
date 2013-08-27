@@ -55,6 +55,8 @@ class FactBodyView extends Backbone.Marionette.ItemView
     displaystring: '.js-displaystring'
 
   initialize: ->
+    @options.truncate = false if @options.clickable
+
     @trunk8Init 3, '.js-displaystring', '.less' if @options.truncate
     @listenTo @model, 'change', @render
 
