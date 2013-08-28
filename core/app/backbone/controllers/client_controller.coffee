@@ -5,7 +5,7 @@ class window.ClientController
     fact.on 'destroy', => @onFactRemoved fact.id
 
     fact.fetch success: =>
-      newClientModal = new NDPClientModalLayout
+      newClientModal = new ClientModalLayout
       FactlinkApp.mainRegion.show newClientModal
 
       view = new NDPDiscussionView model: fact
