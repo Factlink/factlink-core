@@ -22,7 +22,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
     sleep 2
     within "li.evidence-item" do
       page.should have_content supporting_factlink.to_s
@@ -34,7 +34,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
     within "li.evidence-item" do
       page.find('span', text: supporting_factlink.to_s).click
@@ -48,7 +48,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
     within "li.evidence-item" do
       click_link 'Arguments'
@@ -62,7 +62,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
     within ".evidence-item" do
       page.should have_content supporting_factlink.to_s
@@ -92,7 +92,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
     visit user_path(@user)
 
@@ -109,7 +109,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
     within "li.evidence-item" do
       page.should have_content supporting_factlink.to_s
