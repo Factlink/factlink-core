@@ -1,5 +1,5 @@
-class window.ClientModalLayout extends Backbone.Marionette.Layout
-  template: 'layouts/client_modal'
+class window.DiscussionModalLayout extends Backbone.Marionette.Layout
+  template: 'layouts/discussion_modal'
 
   regions:
     mainRegion: '.js-modal-content'
