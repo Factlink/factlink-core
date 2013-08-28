@@ -212,22 +212,6 @@ textarea:focus:required:invalid {
   .clearfix(); // Adding clearfix to allow for .pull-right button containers
 }
 
-
-
-// HELP TEXT
-// ---------
-
-.help-inline {
-  color: lighten(@baseFontColor, 15%); // lighten the text some for contrast
-}
-
-.help-inline {
-  display: inline-block;
-  .ie7-inline-block();
-  vertical-align: middle;
-  padding-left: 5px;
-}
-
 // SEARCH FORM
 // -----------
 
@@ -247,16 +231,10 @@ input.search-query {
 // -----------------
 
 .form-search,
-.form-inline,
 .form-horizontal {
   input,
   textarea,
-  .help-inline {
-    display: inline-block;
-    .ie7-inline-block();
-    margin-bottom: 0;
-    vertical-align: middle;
-  }
+
   // Re-hide hidden elements due to specifity
   .hide {
     display: none;
@@ -306,17 +284,7 @@ legend + .control-group {
       *padding-left: @horizontalComponentOffset;
     }
   }
-  // Remove bottom margin on block level help text since that's accounted for on .control-group
-  .help-block {
-    margin-bottom: 0;
-  }
-  // And apply it only to .help-block instances that follow a form control
-  input,
-  textarea {
-    + .help-block {
-      margin-top: @baseLineHeight / 2;
-    }
-  }
+
   // Move over buttons in .form-actions to align with .controls
   .form-actions {
     padding-left: @horizontalComponentOffset;
