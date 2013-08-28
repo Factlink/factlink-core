@@ -21,7 +21,6 @@ describe FactsController do
       end
 
       ability.stub(:can?).with(:show, Fact).and_return(true)
-      ability.stub(:can?).with(:see_feature_new_discussion_page, Ability::FactlinkWebapp).and_return(false)
       ability.stub(:can?).with(:share_to, :twitter).and_return(false)
       ability.stub(:can?).with(:share_to, :facebook).and_return(false)
       should_check_can :show, fact
