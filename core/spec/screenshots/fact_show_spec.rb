@@ -6,7 +6,6 @@ describe "factlink", type: :feature do
   it "the layout of the new discussion page is correct with doubters on top, and
       adding weakening comment" do
     @user = sign_in_user create :active_user
-    enable_features(@user, :new_discussion_page)
 
     factlink = create_discussion
 
@@ -30,7 +29,6 @@ describe "factlink", type: :feature do
   it "the layout of the new discussion page is correct with believers on top,
       and adding supporting factlink" do
     @user = sign_in_user create :active_user
-    enable_features(@user, :new_discussion_page)
 
     factlink = create_discussion
 
@@ -55,7 +53,6 @@ describe "factlink", type: :feature do
   end
 
   it "the layout of the new discussion page is correct for an anonymous user" do
-    enable_global_features :new_discussion_page
 
     @user = sign_in_user create :active_user
     factlink = create_discussion
