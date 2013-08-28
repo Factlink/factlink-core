@@ -3,7 +3,7 @@ module Acceptance
     include ::FactHelper
 
     def go_to_discussion_page_of factlink
-      path = friendly_fact_path factlink
+      path = fact_path factlink
       visit path
     end
 
