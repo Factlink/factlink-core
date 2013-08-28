@@ -22,11 +22,7 @@
 <body class="client">
   <div id='alerts'></div>
 
-  <% if can_haz :new_discussion_page %>
-    <div class="js-client-modal-region client-modal-region new-discussion-page"><%= yield %></div>
-  <% else %>
-    <div class="js-client-modal-region client-modal-region"><%= yield %></div>
-  <% end %>
+  <div class="js-client-modal-region client-modal-region"><%= yield %></div>
 
   <div id='modal_region'></div>
   <%= javascript_include_base %>
