@@ -7,15 +7,24 @@ class window.ProfileController extends Backbone.Marionette.Controller
     @showPage username, @notification_options(username)
 
   showFact: (slug, fact_id, params={})->
+    @listenTo FactlinkApp.vent, 'load_url', @close
+
     fact = new Fact id: fact_id
-    # fact.on 'destroy', => @onFactRemoved fact.id
+    @listenTo fact, 'destroy', @close
+
 
     fact.fetch success: =>
-      @showProfile fact.get('created_by').username
+      @showProfile fact.user().get('username')
+
+      @listenTo FactlinkApp.vent, 'close_discussion_modal', ->
+        Backbone.history.navigate fact.user().profilePath(), true
 
       newClientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show newClientModal
       newClientModal.mainRegion.show new NDPDiscussionView model: fact
+
+  onClose: ->
+    FactlinkApp.discussionModalRegion.close()
 
   # HELPERS
   profile_options: ->
