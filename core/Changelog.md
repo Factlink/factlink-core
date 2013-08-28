@@ -6,7 +6,7 @@
 - Re-designed the discussion page
 
 ##Technical
- - Support global feature toggles:  we can now enable/disable new functionality
+- Support global feature toggles:  we can now enable/disable new functionality
    on the live site using an application-wide feature toggle.
 - Bootstrap has been moved to the Rails asset pipeline for better integration with our own CSS
 - Updated Backbone to 0.9.9 and Marionette to 1.0.0-rc3.
