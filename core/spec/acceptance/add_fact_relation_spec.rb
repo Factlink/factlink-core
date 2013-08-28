@@ -60,13 +60,11 @@ feature "adding factlinks to a fact", type: :feature do
         page.should have_content '0.0'
       end
 
-
       click_wheel_part 0, '.relation-tabs-view .evidence-votable'
 
-
-      authority_el = find '.evidence-impact'
-
-      authority_el.should have_content '1.0'
+      within '.evidence-impact' do
+        page.should have_content '1.0'
+      end
     end
   end
 
