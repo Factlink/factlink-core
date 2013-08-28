@@ -22,7 +22,7 @@
 <body class="client">
   <div id='alerts'></div>
 
-  <div class="js-client-modal-region client-modal-region"><%= yield %></div>
+  <div class="js-discussion-modal-region discussion-modal-region"><%= yield %></div>
 
   <div id='modal_region'></div>
   <%= javascript_include_base %>
@@ -48,7 +48,7 @@
 
   <script type="text/javascript">
     $( document ).on('click', function(e) {
-      if( $(e.target).is('html, body, .js-client-html-close, .js-client-modal-layer') ) {
+      if( $(e.target).is('html, body, .js-client-html-close, .js-discussion-modal-layer') ) {
         if (parent.remote) {
           parent.remote.hide();
         }
