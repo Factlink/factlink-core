@@ -68,6 +68,6 @@ class window.SubCommentsAddView extends BaseSubCommentsAddView
 
 
 class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
-  className: 'ndp-evidenceish-content ndp-sub-comments-add'
+  className: 'ndp-evidenceish-content ndp-sub-comments-add evidence-sub-comments-form'
 
   template: 'sub_comments/ndp_sub_comments_add'
