@@ -60,7 +60,15 @@
         code: '<%= @code %>'
       });
 
-      simpleModalWindow('.js-frontpage-video','<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
+      $(".js-frontpage-video-link").on('click', function() {
+        $('.js-frontpage-video').fadeIn('fast');
+        $('.js-frontpage-video-body').html('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
+      });
+      $(".js-frontpage-video-layer").on('click', function() {
+        $('.js-frontpage-video').fadeOut('fast', function() {
+          $('.js-frontpage-video-body').html('');
+        });
+      });
     });
   </script>
 <% end %>
