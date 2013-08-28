@@ -16,21 +16,14 @@ FactlinkApp.module "MemoryProfiler", (MemoryProfiler, MyApp, Backbone, Marionett
 
   class MemoryView extends Marionette.ItemView
     tagName: 'tr'
-    template:
-      text: """
-        <td>{{class_name}}</td><td>{{count}}</td>
-      """
+    template: 'memory_profiler/memory'
 
   class MemoriesModalWindowView extends Marionette.CompositeView
     itemView: MemoryView
     itemViewContainer: '.js-item-view-container'
     className: 'modal-window'
 
-    template:
-      text: """
-        <div class="modal-window-header">Views not closed</div>
-        <div class="modal-window-body js-item-view-container"></div>
-      """
+    template: 'memory_profiler/memories_modal_window'
 
   class ViewCountCollection extends Backbone.Collection
     increaseCount: (view_name) ->
