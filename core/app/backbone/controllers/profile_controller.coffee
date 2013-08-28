@@ -43,6 +43,8 @@ class window.ProfileController extends Backbone.Marionette.Controller
       main_region.show(new NotificationSettingsView model: user)
 
   showPage: (username, options) ->
+    $(window).scrollTop(0)
+
     FactlinkApp.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
