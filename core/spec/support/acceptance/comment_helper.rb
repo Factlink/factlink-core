@@ -58,7 +58,6 @@ module Acceptance
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
           potentially_wait_for_posting_button
-          page.find("button", text: "Post Factlink")
         end
       end
 
