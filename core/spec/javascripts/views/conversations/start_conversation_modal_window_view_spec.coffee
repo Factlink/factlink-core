@@ -2,16 +2,16 @@
 #= require application
 #= require frontend
 
-describe 'StartConversationView', ->
+describe 'StartConversationModalWindowView', ->
   describe 'initial state', ->
     it 'contains the defaultMessage in the textarea', ->
-      view = new StartConversationView defaultMessage: 'henk'
+      view = new StartConversationModalWindowView defaultMessage: 'henk'
       view.render()
       content = view.$('.js-message-textarea').val()
       expect(content).to.equal "henk"
 
     it 'contains the text "Check out this Factlink!"" in the textarea when no default message is given', ->
-      view = new StartConversationView
+      view = new StartConversationModalWindowView
       view.render()
       content = view.$('.js-message-textarea').val()
       expect(content).to.equal "Check out this Factlink!"
@@ -19,7 +19,7 @@ describe 'StartConversationView', ->
 
   describe "clicking on the textarea", ->
     it 'should select the text when unchanged', ->
-      view = new StartConversationView defaultMessage: 'henk'
+      view = new StartConversationModalWindowView defaultMessage: 'henk'
       view.render()
       $('body').html(view.el)
 
@@ -33,7 +33,7 @@ describe 'StartConversationView', ->
       expect(selection).to.equal "henk"
 
     it 'should not select the text when changed', ->
-      view = new StartConversationView
+      view = new StartConversationModalWindowView
       view.render()
       $('body').html(view.el)
 
