@@ -5,7 +5,7 @@ class window.ClientController
     fact.on 'destroy', => @onFactRemoved fact.id
 
     fact.fetch success: =>
-      newClientModal = new DiscussionModalLayout
+      newClientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show newClientModal
 
       view = new NDPDiscussionView model: fact
@@ -20,7 +20,7 @@ class window.ClientController
       window.location = Factlink.Global.path.sign_in_client()
       return
 
-    clientModal = new DiscussionModalLayout
+    clientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show clientModal
 
     csrf_token = $('meta[name=csrf-token]').attr('content')

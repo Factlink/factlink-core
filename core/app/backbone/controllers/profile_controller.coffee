@@ -13,7 +13,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
     fact.fetch success: =>
       @showProfile fact.get('created_by').username
 
-      newClientModal = new DiscussionModalLayout
+      newClientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show newClientModal
       newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
