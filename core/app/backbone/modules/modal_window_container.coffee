@@ -14,6 +14,7 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbon
     onRender: ->
       @modalRegion.show @options.content_view
       @$el.fadeIn 'fast'
+      @$el.preventScrollPropagation()
 
     stopPropagation: (e) ->
       e.stopPropagation()
