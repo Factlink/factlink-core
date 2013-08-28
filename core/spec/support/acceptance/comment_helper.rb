@@ -90,15 +90,17 @@ module Acceptance
         find('.evidence-sub-comments-form .text_area_view').value.should eq comment
         eventually_succeeds do
           if find('.evidence-sub-comments-form .text_area_view').value != ''
-            find('.evidence-sub-comments-button', text: 'Post comment').click
-            find('.evidence-sub-comments-form .text_area_view').value.should eq ''
+            within '.evidence-sub-comments-form' do
+              click_button 'Post comment'
+              find('.evidence-sub-comments-form .text_area_view').value.should eq ''
+            end
           end
         end
       end
 
 
       def click_post_comment
-        page.find("button", text: "Post comment").click
+        click_button "Post comment"
         potentially_wait_for_posting_button
         page.find("button", text: "Post comment")
       end
