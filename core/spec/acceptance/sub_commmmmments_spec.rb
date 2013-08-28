@@ -62,7 +62,7 @@ feature "sub_comments", type: :feature do
     go_to_discussion_page_of @factlink_user_a
 
     within '.fact-relation-listing' do
-      page.should have_selector('.delete', visible:false, text: 'Remove this Factlink as evidence')
+      page.should have_selector('.spec-ndp-evidence-box .delete-button-first')
     end
 
     find('a', text: 'Comment').click
@@ -71,13 +71,13 @@ feature "sub_comments", type: :feature do
     find('.evidence-sub-comment-content').should have_content sub_comment_text
 
     within '.fact-relation-listing' do
-      page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
+      page.should have_no_selector('.spec-ndp-evidence-box .delete-button-first')
     end
 
     go_to_discussion_page_of @factlink_user_a
 
     within '.fact-relation-listing' do
-      page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
+      page.should have_no_selector('.spec-ndp-evidence-box .delete-button-first')
     end
   end
 end
