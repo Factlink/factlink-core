@@ -15,11 +15,11 @@ describe "factlink", type: :feature do
       @factlink = backend_create_fact_of_user @user
       factlink_text = 'Test text'
 
-      visit friendly_fact_path(@factlink)
+      go_to_discussion_page_of @factlink
 
       page.should have_content(@factlink.data.title)
 
-      add_new_factlink factlink_text
+      add_new_factlink :supporting, factlink_text
 
       page.should have_selector('li.evidence-item')
       within(:css, 'li.evidence-item') do
@@ -31,7 +31,7 @@ describe "factlink", type: :feature do
       @factlink = backend_create_fact_of_user @user
       search_string = 'Test search'
 
-      visit friendly_fact_path(@factlink)
+      go_to_discussion_page_of @factlink
 
       page.should have_content(@factlink.data.title)
 
@@ -52,7 +52,7 @@ describe "factlink", type: :feature do
       @factlink = backend_create_fact_of_user @user
       search_string = 'Test search'
 
-      visit friendly_fact_path(@factlink)
+      go_to_discussion_page_of @factlink
 
       page.should have_content(@factlink.data.title)
 
@@ -72,7 +72,7 @@ describe "factlink", type: :feature do
       @factlink = backend_create_fact_of_user @user
       search_string = 'Test search'
 
-      visit friendly_fact_path(@factlink)
+      go_to_discussion_page_of @factlink
 
       page.should have_content(@factlink.data.title)
 
@@ -98,7 +98,7 @@ describe "factlink", type: :feature do
       @factlink_evidence.data.displaystring = "Fact: " + displaystring
       @factlink_evidence.data.save
 
-      visit friendly_fact_path(@factlink)
+      go_to_discussion_page_of @factlink
       page.should have_content(@factlink.data.title)
 
       add_existing_factlink displaystring

@@ -10,6 +10,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
   regions:
     wheelRegion: '.js-fact-wheel-region'
     userHeadingRegion: '.js-user-heading-region'
+    userRegion: '.js-user-name-region'
     deleteRegion: '.js-delete-region'
 
   templateHelpers: =>
@@ -20,7 +21,13 @@ class window.TopFactView extends Backbone.Marionette.Layout
       new AddToChannelModalView(model: @model)
 
   onRender: ->
-    @userHeadingRegion.show new UserInFactHeadingView
+    heading_view = if @model.get("proxy_scroll_url")
+        new TopFactHeadingLinkView model: @model
+      else
+        new TopFactHeadingUserView model: @model.user()
+    @userHeadingRegion.show heading_view
+
+    @userRegion.show new UserInTopFactView
         model: @model.user()
 
     @wheelRegion.show @_wheelView()

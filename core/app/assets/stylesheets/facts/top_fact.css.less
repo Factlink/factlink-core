@@ -17,7 +17,7 @@
 
 .top-fact-share {
   position: absolute;
-  top: -@baseButtonHeight - 10px;
+  top: -@baseButtonHeight - 8px;
   right: 0;
 }
 
@@ -37,12 +37,21 @@
   width: 100%;
 }
 
-.top-fact-control {
+.top-fact-poster-controls {
   float: right;
   margin-top: 2px;
+  color: @mutedFontColor;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 300px;
 }
 
 .top-fact-delete {
+  display: inline-block;
+  margin-top: 2px;
+
   &:after {
     content: "·";
     margin-right: 10px;
