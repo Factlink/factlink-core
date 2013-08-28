@@ -7,20 +7,18 @@ class window.ProfileController extends Backbone.Marionette.Controller
     @showPage username, @notification_options(username)
 
   showFact: (slug, fact_id, params={})->
-    fact = new Fact(id: fact_id)
-    user = new User fact.get('created_by')
-    back_button = new UserBackButton [], model: user
+    fact = new Fact id: fact_id
+    # fact.on 'destroy', => @onFactRemoved fact.id
 
-    fact.on 'change', (fact)=>
-      user.set fact.get('created_by')
+    fact.fetch success: =>
+      user = new User fact.get('created_by')
       window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
       FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
       @showSidebarProfile(user)
 
-    FactlinkApp.mainRegion.show new DiscussionPageView
-      model: fact
-      back_button: back_button
-      tab: params.tab
+      newClientModal = new ClientModalLayout
+      FactlinkApp.clientModalRegion.show newClientModal
+      newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
   # HELPERS
   profile_options: ->
