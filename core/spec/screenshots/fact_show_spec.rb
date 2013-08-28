@@ -23,7 +23,7 @@ describe "factlink", type: :feature do
 
     find('.js-weakening-button').click
 
-    assume_unchanged_screenshot "new_fact_show_A"
+    assume_unchanged_screenshot "fact_show_A"
   end
 
   it "the layout of the new discussion page is correct with believers on top,
@@ -49,7 +49,7 @@ describe "factlink", type: :feature do
     find('.js-supporting-button').click
     find('.js-switch-to-factlink').click
 
-    assume_unchanged_screenshot "new_fact_show_B"
+    assume_unchanged_screenshot "fact_show_B"
   end
 
   it "the layout of the new discussion page is correct for an anonymous user" do
@@ -63,6 +63,6 @@ describe "factlink", type: :feature do
 
     page.should have_content @factlink.data.displaystring
 
-    assume_unchanged_screenshot "new_fact_show_for_non_signed_in_user"
+    assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
   end
 end
