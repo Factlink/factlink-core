@@ -17,7 +17,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
       @showSidebarProfile(user)
 
       newClientModal = new ClientModalLayout
-      FactlinkApp.clientModalRegion.show newClientModal
+      FactlinkApp.discussionModalRegion.show newClientModal
       newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
   # HELPERS

@@ -6,7 +6,7 @@ class window.ClientController
 
     fact.fetch success: =>
       newClientModal = new ClientModalLayout
-      FactlinkApp.clientModalRegion.show newClientModal
+      FactlinkApp.discussionModalRegion.show newClientModal
 
       view = new NDPDiscussionView model: fact
       view.on 'render', =>
@@ -21,7 +21,7 @@ class window.ClientController
       return
 
     clientModal = new ClientModalLayout
-    FactlinkApp.clientModalRegion.show clientModal
+    FactlinkApp.discussionModalRegion.show clientModal
 
     csrf_token = $('meta[name=csrf-token]').attr('content')
 
