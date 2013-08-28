@@ -4,14 +4,12 @@ class window.TopFactHeadingLinkView extends Backbone.Marionette.ItemView
 
   ui: favicon: '.js-favicon'
 
-  verifyLoaded:  =>
+  verifyLoaded:  ->
     @ui.favicon.removeClass('favicon-missing') if @ui.favicon[0].naturalWidth
-    return
 
   onRender: ->
-    @ui.favicon.on 'load', @verifyLoaded
+    @ui.favicon.on 'load', (=> @verifyLoaded(); return)
     @verifyLoaded()
-    return
 
 class window.TopFactHeadingUserView extends Backbone.Marionette.ItemView
   className: 'top-fact-heading'
