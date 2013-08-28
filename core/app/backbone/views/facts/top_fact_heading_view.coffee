@@ -4,7 +4,7 @@ class window.TopFactHeadingLinkView extends Backbone.Marionette.ItemView
 
   ui: favicon: '.js-favicon'
 
-  verifyLoaded:  ->
+  verifyLoaded: ->
     @ui.favicon.removeClass('favicon-missing') if @ui.favicon[0].naturalWidth
 
   onRender: ->
