@@ -19,7 +19,7 @@ describe "factlink", type: :feature do
 
       page.should have_content(@factlink.data.title)
 
-      add_new_factlink factlink_text
+      add_new_factlink :supporting, factlink_text
 
       page.should have_selector('li.evidence-item')
       within(:css, 'li.evidence-item') do
