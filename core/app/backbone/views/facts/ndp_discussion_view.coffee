@@ -1,5 +1,5 @@
 class window.NDPDiscussionView extends Backbone.Marionette.Layout
-  tagName: 'section'
+  className: 'ndp-discussion'
 
   template: 'facts/ndp_discussion'
 
