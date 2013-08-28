@@ -175,7 +175,7 @@ class Ability
 
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
-    sees_channels new_discussion_page share_new_factlink_buttons
+    sees_channels share_new_factlink_buttons
     share_to_twitter share_to_facebook vote_up_down_popup
   )
 
