@@ -1,7 +1,7 @@
 class window.SearchController extends Backbone.Marionette.Controller
 
   showSearch: (params={}) ->
-    @listenTo FactlinkApp.vent, 'navigate', @close
+    @listenTo FactlinkApp.vent, 'load_url', @close
 
     query = params['s']
     $('.js-navbar-search-box').val(query)
