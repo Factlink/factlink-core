@@ -22,7 +22,7 @@ feature "visiting a channel" do
   scenario "shows facts" do
     channel = backend_create_channel
 
-    2.times.each do
+    2.times do
       factlink = backend_create_fact
 
       go_to_discussion_page_of factlink
@@ -42,7 +42,7 @@ feature "visiting a channel" do
     pending "re-enable when enabling NDP modal in-site"
 
     channel = backend_create_channel
-    10.times.each do
+    10.times do
       factlink = backend_create_fact
       backend_add_fact_to_channel factlink, channel
     end
