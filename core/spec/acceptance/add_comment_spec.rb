@@ -39,7 +39,7 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     within_evidence_list do
-      find('.authorities-evidence').should have_content user_authority_on_fact + 1
+      find('.evidence-impact-text').should have_content user_authority_on_fact + 1
     end
   end
 
@@ -54,15 +54,15 @@ feature "adding comments to a fact", type: :feature do
 
     within_evidence_list do
       # there is just one factlink in the list
-      find('.authorities-evidence', text: (user_authority_on_fact+1).to_s)
-      find('.supporting').click
-      find('.authorities-evidence', text: "0.0")
+      find('.evidence-impact-text', text: (user_authority_on_fact+1).to_s)
+      find('.evidence-impact-vote-up').click
+      find('.evidence-impact-text', text: "0.0")
     end
 
     go_to_discussion_page_of factlink
 
     within_evidence_list do
-      find('.authorities-evidence', text: "0.0")
+      find('.evidence-impact-text', text: "0.0")
     end
   end
 
@@ -112,7 +112,7 @@ feature "adding comments to a fact", type: :feature do
     assert_comment_exists comment1
 
     within_evidence_list do
-      items = all '.evidence-item'
+      items = all '.evidence-votable'
       expect(items[0].text).to match (Regexp.new factlink2)
       expect(items[1].text).to match (Regexp.new comment3)
       expect(items[2].text).to match (Regexp.new comment1)
@@ -127,8 +127,8 @@ feature "adding comments to a fact", type: :feature do
     add_comment :supporting, comment
 
     within_evidence_list do
-      find('.evidence-poparrow-arrow', visible:false).click
-      find('.delete', visible:false).click
+      find('.delete-button-first').click
+      find('.delete-button-second').click
     end
 
     page.should_not have_content comment

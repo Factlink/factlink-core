@@ -23,7 +23,12 @@ module Acceptance
               .add-evidence-form .text_area_view')[:placeholder].include? 'Comment'
       end
 
+      def open_add_type type
+        find(".evidence-add-buttons .js-#{type}-button").click
+      end
+
       def add_comment type, comment
+        open_add_type type
         toggle_to_comment if posting_factlink? #unless posting_comment?
 
         within '.add-evidence-form' do
@@ -57,13 +62,13 @@ module Acceptance
       end
 
       def add_new_factlink type, text
+        open_add_type type
         toggle_to_factlink unless posting_factlink?
 
         within '.add-evidence-form' do
           page.find("input[type=text]").set(text)
           page.find("button", text: "Post Factlink").click
           potentially_wait_for_posting_button
-          page.find("button", text: "Post Factlink")
         end
       end
 
@@ -100,7 +105,6 @@ module Acceptance
       def click_post_comment
         page.find("button", text: "Post comment").click
         potentially_wait_for_posting_button
-        page.find("button", text: "Post comment")
       end
 
       def assert_sub_comment_exists(comment)
@@ -109,18 +113,17 @@ module Acceptance
 
       def assert_comment_exists comment
         within_evidence_list do
-          find('.evidence-item', text: comment)
+          find('.evidence-votable', text: comment)
         end
       end
 
       def within_evidence_list &block
-        within '.fact-relation-listing', &block
+        within '.evidence-listing', &block
       end
 
       def vote_comment direction, comment
-        direction_class = direction.to_s == 'up' ? '.supporting' : '.weakening '
-        within('.fact-relation-listing .evidence-item', text: comment) do
-          find(direction_class).click
+        within('.evidence-listing .evidence-votable', text: comment) do
+          find(".evidence-impact-vote-#{direction}").click
         end
       end
   end
