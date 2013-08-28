@@ -53,6 +53,7 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
 
 class NDPEvidenceCollectionView extends Backbone.Marionette.CollectionView
   itemView: NDPEvidenceLayoutView
+  className: 'evidence-listing'
 
   getItemView: (item) ->
     if item instanceof OpinionatersEvidence
