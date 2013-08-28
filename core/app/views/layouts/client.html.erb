@@ -47,14 +47,8 @@
   <%= yield :javascript %>
 
   <script type="text/javascript">
-    $( document ).on('click', function(e) {
-      if( $(e.target).is('html, body, .js-client-html-close, .js-discussion-modal-layer') ) {
-        if (parent.remote) {
-          parent.remote.hide();
-        }
-
-        if ($(e.target).is('.js-client-html-close')) mp_track("Modal: Close button");
-      }
+    FactlinkApp.on('close_discussion_modal', function() {
+      if (parent.remote) parent.remote.hide();
     });
   </script>
 

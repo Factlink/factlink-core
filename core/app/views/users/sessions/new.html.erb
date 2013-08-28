@@ -1,8 +1,8 @@
 <%# FYI: This is fucking ugly, and should be fixed.
   # This can be fixed once we support loging in
   # through Backbone %>
-<div class="discussion-modal-layer">
-  <div class="static-close-button js-client-html-close"></div>
+<div class="discussion-modal-layer js-sign-in-discussion-modal-layer">
+  <div class="static-close-button"></div>
 </div>
 <div class="discussion-modal">
   <div class="new-session">
@@ -55,3 +55,11 @@
     <% end %>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <script>
+    $('.js-sign-in-discussion-modal-layer').on('click', function() {
+      FactlinkApp.trigger('close_discussion_modal');
+    });
+  </script>
+<% end %>
