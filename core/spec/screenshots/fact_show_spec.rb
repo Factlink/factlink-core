@@ -3,41 +3,9 @@ require 'screenshot_helper'
 describe "factlink", type: :feature do
   include Screenshots::DiscussionHelper
 
-  it "the layout of the discussion page is correct" do
-    @user = sign_in_user create :active_user
-
-    @factlink = create_discussion
-
-    go_to_fact_show_of @factlink
-    find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
-
-
-    page.should have_content @factlink.data.displaystring
-
-    assume_unchanged_screenshot "fact_show"
-  end
-
-  it "the layout of the discussion page is correct for an anonymous user" do
-    @user = sign_in_user create :active_user
-
-    @factlink = create_discussion
-
-    sign_out_user
-
-    go_to_fact_show_of @factlink
-    find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
-
-    page.should have_content @factlink.data.displaystring
-
-    sleep 0.5
-    # wait for hover states to sync.
-    assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
-  end
-
   it "the layout of the new discussion page is correct with doubters on top, and
       adding weakening comment" do
     @user = sign_in_user create :active_user
-    enable_features(@user, :new_discussion_page)
 
     factlink = create_discussion
 
@@ -61,7 +29,6 @@ describe "factlink", type: :feature do
   it "the layout of the new discussion page is correct with believers on top,
       and adding supporting factlink" do
     @user = sign_in_user create :active_user
-    enable_features(@user, :new_discussion_page)
 
     factlink = create_discussion
 
@@ -86,8 +53,6 @@ describe "factlink", type: :feature do
   end
 
   it "the layout of the new discussion page is correct for an anonymous user" do
-    enable_global_features :new_discussion_page
-
     @user = sign_in_user create :active_user
     factlink = create_discussion
     sign_out_user
