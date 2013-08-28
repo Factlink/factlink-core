@@ -56,7 +56,7 @@ module Acceptance
         end
       end
 
-      def add_new_factlink text
+      def add_new_factlink type, text
         toggle_to_factlink unless posting_factlink?
 
         within '.add-evidence-form' do

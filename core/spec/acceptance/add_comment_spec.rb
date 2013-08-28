@@ -95,7 +95,7 @@ feature "adding comments to a fact", type: :feature do
     comment3 = 'Geert is een baas'
 
     add_comment :supporting, comment1
-    add_new_factlink factlink2
+    add_new_factlink :supporting, factlink2
     add_comment :supporting, comment3
 
     # make sure sorting is done:
