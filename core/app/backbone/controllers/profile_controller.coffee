@@ -11,10 +11,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
     # fact.on 'destroy', => @onFactRemoved fact.id
 
     fact.fetch success: =>
-      user = new User fact.get('created_by')
-      window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
-      FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
-      @showSidebarProfile(user)
+      @showProfile fact.get('created_by').username
 
       newClientModal = new ClientModalLayout
       FactlinkApp.discussionModalRegion.show newClientModal
