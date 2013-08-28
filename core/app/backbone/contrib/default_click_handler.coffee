@@ -30,4 +30,4 @@ Backbone.View::navigateTo = (routeTo) ->
       window.focus()
 
 # HACK: this is needed because internal events did not seem to work
-$(document).on "click", ":not(div.client-modal) a[rel=backbone]", Backbone.View::defaultClickHandler
+$(document).on "click", ":not(div.discussion-modal) a[rel=backbone]", Backbone.View::defaultClickHandler
