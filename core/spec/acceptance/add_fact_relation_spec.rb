@@ -43,20 +43,6 @@ feature "adding factlinks to a fact", type: :feature do
     page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
   end
 
-  scenario "we can click on the discussion link to go to the page of that factlink" do
-    go_to_discussion_page_of factlink
-
-    supporting_factlink = backend_create_fact
-
-    add_existing_factlink :supporting, supporting_factlink
-
-    within "li.evidence-item" do
-      click_link 'Arguments'
-    end
-
-    page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
-  end
-
   scenario "after clicking the factwheel, the impact and percentages should update" do
     go_to_discussion_page_of factlink
 
