@@ -12,8 +12,8 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
   onClick: (event) ->
     return unless event.target == @$el[0]
 
-    FactlinkApp.trigger 'close_discussion_modal'
+    FactlinkApp.vent.trigger 'close_discussion_modal'
 
   onClickButton: ->
     mp_track "Modal: Close button"
-    FactlinkApp.trigger 'close_discussion_modal'
+    FactlinkApp.vent.trigger 'close_discussion_modal'
