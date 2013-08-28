@@ -48,7 +48,7 @@
 
   <script type="text/javascript">
     $( document ).on('click', function(e) {
-      if( $(e.target).is('html, body, .js-client-html-close') ) {
+      if( $(e.target).is('html, body, .js-client-html-close, .js-client-modal-layer') ) {
         if (parent.remote) {
           parent.remote.hide();
         }
