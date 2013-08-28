@@ -1,7 +1,3 @@
-<% content_for :title do %>
-  Factlink &mdash; Because the web needs what you know
-<% end %>
-
 <% content_for :header do %>
   <h1>A layer over the web to add and view credibility</h1>
   <div class="row">
@@ -12,7 +8,7 @@
 
     </div>
     <div class="span4 video">
-      <a href="#factlink_video" role="button" data-toggle="modal" id="watch_factlink_video">Play video</a>
+      <a href="javascript:void(0)" role="button" id="watch_factlink_video" class="js-frontpage-video-link">Play video</a>
     </div>
     <div class="span4 statement">
       <h3><span>&#x2713;</span> With Factlink you can select any statement on the web, review its credibility, and add what you know.</h3>
@@ -20,18 +16,16 @@
   </div>
 <% end %>
 
-<% content_for :modal do %>
-<div class="modal hide fade" id="factlink_video" tabindex="-1" role="dialog" aria-labelledby="modal_label" aria-hidden="true">
-  <div class="static-close-button" data-dismiss="modal"></div>
-  <div class="modal-header">
-    <h3 class="modal_label">An introduction to Factlink</h3>
-  </div>
-  <div class="modal-body">
-  </div>
-</div>
-<% end %>
-
 <% content_for :content do %>
+  <div class="modal-window-container js-frontpage-video">
+    <div class="modal-window frontpage-video-modal-window">
+      <div class="modal-window-body js-frontpage-video-body"></div>
+    </div>
+    <div class="modal-window-layer js-frontpage-video-layer">
+      <div class="static-close-button"></div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="span6 authority">
       <i></i>
@@ -64,6 +58,16 @@
     $(function(){
       mp_track('Pageview: Landing page', {
         code: '<%= @code %>'
+      });
+
+      $(".js-frontpage-video-link").on('click', function() {
+        $('.js-frontpage-video').fadeIn('fast');
+        $('.js-frontpage-video-body').html('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" style="width:740px; height:416px; border: 0px;"></iframe>');
+      });
+      $(".js-frontpage-video-layer").on('click', function() {
+        $('.js-frontpage-video').fadeOut('fast', function() {
+          $('.js-frontpage-video-body').html('');
+        });
       });
     });
   </script>

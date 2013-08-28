@@ -28,15 +28,13 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
     e.preventDefault()
     e.stopPropagation()
 
-    FactlinkApp.Modal.show 'Repost Factlink',
-      new AddToChannelModalView(model: @model)
+    FactlinkApp.ModalWindowContainer.show new AddToChannelModalWindowView(model: @model)
 
   showStartConversation: (e) ->
     e.preventDefault()
     e.stopPropagation()
 
-    FactlinkApp.Modal.show 'Send a message',
-      new StartConversationView(model: @model)
+    FactlinkApp.ModalWindowContainer.show new StartConversationModalWindowView(model: @model)
 
     mp_track "Factlink: Open share modal"
 
