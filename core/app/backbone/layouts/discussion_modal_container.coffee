@@ -17,3 +17,5 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
   onClickButton: ->
     mp_track "Modal: Close button"
     FactlinkApp.vent.trigger 'close_discussion_modal'
+
+  onRender: -> @$el.preventScrollPropagation()
