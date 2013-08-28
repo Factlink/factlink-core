@@ -113,10 +113,22 @@
       "src": "entypo"
     },
     {
+      "uid": "6a12c2b74456ea21cc984e11dec227a1",
+      "css": "globe",
+      "code": 59412,
+      "src": "entypo"
+    },
+    {
       "uid": "b99d736cef489a3150ba8aac7c4e8403",
       "css": "time",
       "code": 59410,
       "src": "iconic"
+    },
+    {
+      "uid": "d4824d88566b0ac66d2cdcff3408690b",
+      "css": "export",
+      "code": 59411,
+      "src": "mfglabs"
     }
   ]
 }

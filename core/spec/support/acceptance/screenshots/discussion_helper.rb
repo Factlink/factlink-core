@@ -22,7 +22,7 @@ module Screenshots
       go_to_discussion_page_of factlink
       click_wheel_part 0
 
-      add_comment comment1_text
+      add_comment :supporting, comment1_text
       add_new_factlink factlink2_text
       add_existing_factlink factlink3
 

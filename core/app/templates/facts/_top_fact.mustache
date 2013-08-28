@@ -9,13 +9,16 @@
 </div>
 
 <div class="top-fact-controls">
-  <div class="top-fact-control">
-    <i class="icon-time"></i> {{created_by_ago}}
+
+  <div class="top-fact-poster-controls">
+    {{#showDelete}}
+      <div class="top-fact-delete js-delete-region"></div>
+    {{/showDelete}}
+    <i class="icon-time"></i> {{created_by_ago}} by
+    <span class="js-user-name-region"></span>
   </div>
 
-  {{#showDelete}}
-    <div class="top-fact-delete top-fact-control js-delete-region"></div>
-  {{/showDelete}}
+
 
   {{#global.signed_in}}
     <button class="button button-small button-confirm js-repost">Repost</button>

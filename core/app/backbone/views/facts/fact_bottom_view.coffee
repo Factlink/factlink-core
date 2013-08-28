@@ -13,7 +13,7 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
       if @friendly_time
         # this is relevant in a channel, a fact is then 'posted'
         # or reposted <time> ago
-        "Originally posted #{@friendly_time} ago"
+        "Posted #{@friendly_time} ago"
       else
         @created_by_ago
 
