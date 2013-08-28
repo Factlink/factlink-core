@@ -1,3 +1,22 @@
+#28-08-2013
+
+##Functional
+- Add a comment by default, instead of a Factlink
+- Moved "Recent Factlinks" to auto-complete form.
+- Re-designed the discussion page
+
+##Technical
+ - Support global feature toggles:  we can now enable/disable new functionality
+   on the live site using an application-wide feature toggle.
+- Bootstrap has been moved to the Rails asset pipeline for better integration with our own CSS
+- Updated Backbone to 0.9.9 and Marionette to 1.0.0-rc3.
+- Update Pavlov to 0.1.7.1
+- Upgraded Capybara to 2.1
+- Added url normalization for newyorker.com
+- Fixed crash on profile page of user with authority on a lot of topics
+- Fixed XSS injection in your own name in the topbar
+- Fix firefox (and IE) tooltips on svg's such as our factwheel.
+
 #31-07-2013
 
 - Comments are now also used in calculation the credibility of Factlinks.
