@@ -13,4 +13,4 @@ FactlinkApp.startSiteRegions = ->
 
 FactlinkApp.startClientRegions = ->
   FactlinkApp.addRegions
-    mainRegion:          '.js-client-modal-region'
+    clientModalRegion: '.js-client-modal-region'
