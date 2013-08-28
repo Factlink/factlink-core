@@ -133,7 +133,7 @@ feature "adding factlinks to a fact", type: :feature do
 
         find('.supporting').click
         find('.js-fact-relation-believe').set false
-        page.find('a', text: 'Done').click
+        page.find('button', text: 'Done').click
 
         within '.authorities-evidence' do
           page.should have_content '0.0'

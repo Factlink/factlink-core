@@ -23,7 +23,7 @@ module Screenshots
       click_wheel_part 0
 
       add_comment :supporting, comment1_text
-      add_new_factlink factlink2_text
+      add_new_factlink :supporting, factlink2_text
       add_existing_factlink factlink3
 
       # make sure sorting is done:
