@@ -2,6 +2,12 @@
 
 module Acceptance
   module AddToChannelModalHelper
+    def within_repost_modal &block
+       # cannot use open_modal because that assumes we click a link, not a button
+      click_button 'Repost'
+      within_modal &block
+    end
+
     def add_to_channel name
       type_into_search_box name
       page.should have_no_content "Add “#{name}” as a new topic"

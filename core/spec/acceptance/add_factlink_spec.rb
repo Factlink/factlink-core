@@ -40,14 +40,12 @@ describe "creating a Factlink", type: :feature do
     end
     visit fact_path(Fact.all.to_a.last.id)
 
-    click_button 'Repost' # cannot use open_modal because that assumes we click a link, not a button
-    within_modal do
+    within_repost_modal do
       added_channels_should_contain new_topic_name
     end
 
     visit current_path
-    click_button 'Repost' # cannot use open_modal because that assumes we click a link, not a button
-    within_modal do
+    within_repost_modal do
       added_channels_should_contain new_topic_name
     end
   end
