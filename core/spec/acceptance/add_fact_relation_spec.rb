@@ -92,7 +92,6 @@ feature "adding factlinks to a fact", type: :feature do
     within ".evidence-votable", visible: false do
       page.should have_content supporting_factlink.to_s
 
-      find('.evidence-impact-text', text: "—")
       find('.evidence-impact-text', text: "1.0")
 
       find(".evidence-impact-vote-up").click

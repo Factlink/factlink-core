@@ -20,6 +20,7 @@ feature "favouriting a topic", type: :feature do
 
     within_topic_header do
       find('button', text: 'Follow topic').click
+      find('button', text: 'Following')
     end
 
     go_to_profile_page_of @user
@@ -40,6 +41,7 @@ feature "favouriting a topic", type: :feature do
     go_to_topic_page_of topic
     within_topic_header do
       find('button', text: 'Follow topic').click
+      find('button', text: 'Following')
     end
 
     go_to_topic_page_of topic
