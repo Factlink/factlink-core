@@ -10,7 +10,10 @@ describe "factlink", type: :feature do
   it "the layout of the discussion page is correct" do
     @factlink = create_discussion
 
-    go_to_discussion_page_of @factlink
+    # Uncomment again when moving to NDP on the site
+    # go_to_discussion_page_of @factlink
+    visit friendly_fact_path @factlink
+
     find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
 
     page.should have_content @factlink.data.displaystring
