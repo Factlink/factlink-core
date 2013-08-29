@@ -73,16 +73,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     @listenTo fact, 'destroy', @close
 
     @listenToOnce fact, 'sync', ->
-      @showStream()
-
-      @listenTo FactlinkApp.vent, 'close_discussion_modal', ->
-        Backbone.history.navigate fact.user().link(), true
-
-      newClientModal = new DiscussionModalContainer
-      FactlinkApp.discussionModalRegion.show newClientModal
-      newClientModal.mainRegion.show new NDPDiscussionView model: fact
+      @showStream() unless FactlinkApp.mainRegion.currentView?
+      FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact
 
     fact.fetch()
-
-  onClose: -> # currently only for showFact
-    FactlinkApp.discussionModalRegion.close()
