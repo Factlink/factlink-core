@@ -24,7 +24,7 @@ module Screenshots
 
       add_comment :supporting, comment1_text
       add_new_factlink :supporting, factlink2_text
-      add_existing_factlink factlink3
+      add_existing_factlink :supporting, factlink3
 
       # make sure sorting is done:
       sleep 1
