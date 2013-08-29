@@ -60,7 +60,7 @@
   <script>
     // cannot use selector like below, as we look for an exact match here
     $('body').on('click', function(event) {
-      if (event.target == $('.js-sign-in-discussion-modal')[0]) {
+      if ($('.js-sign-in-discussion-modal').is(event.target)) {
         if (parent.remote) parent.remote.hide();
       }
     });

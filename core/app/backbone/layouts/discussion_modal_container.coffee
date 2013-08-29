@@ -10,7 +10,7 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
     'click .js-client-html-close': 'onClickButton'
 
   onClick: (event) ->
-    return unless event.target == @$el[0]
+    return unless @$el.is(event.target)
 
     FactlinkApp.vent.trigger 'close_discussion_modal'
 
