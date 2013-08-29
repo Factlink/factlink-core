@@ -56,15 +56,12 @@ feature "adding factlinks to a fact", type: :feature do
     within ".evidence-votable" do
       page.should have_content supporting_factlink.to_s
 
-      within '.evidence-impact' do
-        page.should have_content '0.0'
-      end
+      find('.evidence-impact-text', text: "0.0")
 
       click_wheel_part 0, '.relation-tabs-view .evidence-votable'
+      sleep 2
 
-      within '.evidence-impact' do
-        page.should have_content '1.0'
-      end
+      find('.evidence-impact-text', text: "1.0")
     end
   end
 
