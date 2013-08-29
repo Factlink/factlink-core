@@ -1,5 +1,3 @@
-#= require jquery.prevent_scroll_propagation
-
 showFrame = document.getElementById("frame")
 xdm = window.easyXDM.noConflict("FACTLINK")
 window.remote = new xdm.Rpc {},
