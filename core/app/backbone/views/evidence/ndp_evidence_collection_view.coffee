@@ -93,4 +93,4 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
 
     unless Factlink.Global.signed_in || @collection.loading()
       @ui.terminator.addClass 'evidence-terminator-circle'
-      @learnMoreRegion.show new NDPLearnMoreBottomView
+      @learnMoreRegion.show new LearnMoreBottomView
