@@ -29,21 +29,21 @@ module Screenshots
       # make sure sorting is done:
       sleep 1
 
-      within('.fact-relation-listing .evidence-item', text: comment1_text) do
-        find('.weakening').click
+      vote_comment :down, comment1_text
 
+      within('.evidence-votable', text: comment1_text, visible: false) do
         find('a', text: 'Comment').click
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized
       end
 
-      within('.fact-relation-listing .evidence-item', text: factlink3.data.displaystring) do
+      within('.evidence-votable', text: factlink3.data.displaystring, visible: false) do
         # TODO: Enable when removing feature toggle 'vote_up_down_popup'
         # find('.js-fact-relation-believe').set false
         # page.find('a', text: 'Done').click
         eventually_succeeds do
           find('a', text: 'Comment').click
-          first('.evidence-sub-comments-form').should_not eq nil
+          find('.evidence-sub-comments-form').should_not eq nil
         end
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized

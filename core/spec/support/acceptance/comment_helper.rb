@@ -126,7 +126,7 @@ module Acceptance
       end
 
       def vote_comment direction, comment
-        within('.evidence-listing .evidence-votable', text: comment) do
+        within('.evidence-votable', text: comment, visible: false) do
           find(".evidence-impact-vote-#{direction}").click
         end
       end
