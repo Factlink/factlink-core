@@ -3,26 +3,8 @@
 
 @buttonOffset: 3px;
 
-.learn-more-top {
-  .new-design-white-block-with-shadow();
-  margin-bottom: 20px;
-  position: relative;
-
-  .learn-more-arrow {
-    .ndp-triangle-arrow-down();
-
-    bottom: 0;
-    left: 50%;
-    margin-left: -@ndpTriangleSize;
-  }
-}
-
 .learn-more-top-container {
   text-align: center;
-
-  .learn-more {
-    margin-bottom: 20px;
-  }
 }
 
 .learn-more-bottom-container {
@@ -30,19 +12,9 @@
   text-align: center;
 }
 
-.learn-more-bottom {
+.learn-more {
   .new-design-white-block-with-shadow();
   position: relative;
-
-  .learn-more-arrow {
-    .ndp-triangle-arrow-up();
-    top: 0;
-    left: 50%;
-    margin-left: -@ndpTriangleSize;
-  }
-}
-
-.learn-more {
   padding: 15px;
   visibility: visible;
 
@@ -59,4 +31,25 @@
   margin-top: -@buttonOffset;
   margin-right: 5px;
   font-weight: 100!important; //Fix this ASAP
+}
+
+.learn-more-arrow {
+  left: 50%;
+  margin-left: -@ndpTriangleSize;
+}
+
+.learn-more-top {
+  margin-bottom: 20px;
+
+  .learn-more-arrow {
+    .ndp-triangle-arrow-down();
+    bottom: 0;
+  }
+}
+
+.learn-more-bottom {
+  .learn-more-arrow {
+    .ndp-triangle-arrow-up();
+    top: 0;
+  }
 }
