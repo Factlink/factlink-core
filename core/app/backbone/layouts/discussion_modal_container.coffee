@@ -6,16 +6,14 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
     mainRegion: '.js-modal-content'
 
   events:
-    'click': 'onClick'
-    'click .js-client-html-close': 'onClickButton'
+    'click': 'closeModal'
 
-  onClick: (event) ->
-    return unless @$el.is(event.target)
+  ui:
+    close: '.js-client-html-close'
 
-    FactlinkApp.vent.trigger 'close_discussion_modal'
+  closeModal: (event) ->
+    return unless @$el.is(event.target) || @ui.close.is(event.target)
 
-  onClickButton: ->
-    mp_track "Modal: Close button"
     FactlinkApp.vent.trigger 'close_discussion_modal'
 
   onRender: -> @$el.preventScrollPropagation()

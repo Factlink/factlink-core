@@ -60,14 +60,11 @@
   <script>
     // cannot use selector like below, as we look for an exact match here
     $('body').on('click', function(event) {
-      if ($('.js-sign-in-discussion-modal').is(event.target)) {
+      if ($('.js-sign-in-discussion-modal').is(event.target)
+          || $('.js-sign-in-close').is(event.target))
+      {
         if (parent.remote) parent.remote.hide();
       }
-    });
-
-    $('body').on('click', '.js-sign-in-close', function(event) {
-      mp_track("Modal: Close button");
-      if (parent.remote) parent.remote.hide();
     });
   </script>
 <% end %>
