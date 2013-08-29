@@ -23,7 +23,12 @@ module Acceptance
               .add-evidence-form .text_area_view')[:placeholder].include? 'Comment'
       end
 
+      def open_add_type type
+        find(".evidence-add-buttons .js-#{type}-button").click
+      end
+
       def add_comment type, comment
+        open_add_type type
         toggle_to_comment if posting_factlink? #unless posting_comment?
 
         within '.add-evidence-form' do
@@ -44,6 +49,7 @@ module Acceptance
       end
 
       def add_existing_factlink type, evidence_factlink
+        open_add_type type
         toggle_to_factlink unless posting_factlink?
 
         within '.add-evidence-form' do
@@ -52,18 +58,17 @@ module Acceptance
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
           potentially_wait_for_posting_button
-          page.find("button", text: "Post Factlink")
         end
       end
 
       def add_new_factlink type, text
+        open_add_type type
         toggle_to_factlink unless posting_factlink?
 
         within '.add-evidence-form' do
           page.find("input[type=text]").set(text)
           page.find("button", text: "Post Factlink").click
           potentially_wait_for_posting_button
-          page.find("button", text: "Post Factlink")
         end
       end
 
@@ -82,10 +87,6 @@ module Acceptance
       end
 
       def add_sub_comment(comment)
-        # workaround for selenium focus: trigger focus; workaround for jquery: make sure there's
-        # at least jquery-added handler first
-        page.execute_script('$(".evidence-sub-comments-form .text_area_view").filter(function(){return this.value;}).on("focus",function(){})')
-        page.execute_script('$(".evidence-sub-comments-form .text_area_view").filter(function(){return this.value;}).trigger("focus")')
         find('.evidence-sub-comments-form .text_area_view').set comment
         find('.evidence-sub-comments-form .text_area_view').value.should eq comment
         eventually_succeeds do
@@ -102,27 +103,31 @@ module Acceptance
       def click_post_comment
         click_button "Post comment"
         potentially_wait_for_posting_button
-        page.find("button", text: "Post comment")
       end
 
       def assert_sub_comment_exists(comment)
-        find('.evidence-sub-comment-content', text: comment)
+        find('.ndp-sub-comment-container .ndp-evidenceish-text', text: comment)
       end
 
       def assert_comment_exists comment
         within_evidence_list do
-          find('.evidence-item', text: comment)
+          find('.ndp-evidenceish-text', text: comment)
         end
       end
 
       def within_evidence_list &block
-        within '.fact-relation-listing', &block
+        wait_until_evidence_list_loaded
+        within '.evidence-listing', visible: false, &block
+      end
+
+      def wait_until_evidence_list_loaded
+        # the add region only shows after the discussion list has fully loaded
+        find('.js-add-region .evidence-add-supporting')
       end
 
       def vote_comment direction, comment
-        direction_class = direction.to_s == 'up' ? '.supporting' : '.weakening '
-        within('.fact-relation-listing .evidence-item', text: comment) do
-          find(direction_class).click
+        within('.evidence-votable', text: comment, visible: false) do
+          find(".evidence-impact-vote-#{direction}").click
         end
       end
   end
