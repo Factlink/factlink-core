@@ -35,6 +35,7 @@ feature "adding comments to a fact", type: :feature do
 
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment :supporting, comment
+    assert_comment_exists comment
 
     go_to_discussion_page_of factlink
 
@@ -51,6 +52,7 @@ feature "adding comments to a fact", type: :feature do
 
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment :supporting, comment
+    assert_comment_exists comment
 
     within_evidence_list do
       # there is just one factlink in the list
@@ -125,6 +127,7 @@ feature "adding comments to a fact", type: :feature do
     comment = 'Vroeger had Gerard een hele stoere fiets'
 
     add_comment :supporting, comment
+    assert_comment_exists comment
 
     within_evidence_list do
       find('.delete-button-first').click
@@ -143,6 +146,7 @@ feature "adding comments to a fact", type: :feature do
 
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment :supporting, comment
+    assert_comment_exists comment
 
     visit user_path(@user)
 
