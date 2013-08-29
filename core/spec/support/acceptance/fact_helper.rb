@@ -3,11 +3,7 @@ module Acceptance
     include ::FactHelper
 
     def go_to_discussion_page_of factlink
-      if RSpec.configuration.running_screenshot_tests
-        path = friendly_fact_path factlink
-      else
-        path = fact_path factlink
-      end
+      path = fact_path factlink
       visit path
     end
 
