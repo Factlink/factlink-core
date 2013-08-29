@@ -16,7 +16,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
       @showProfile fact.user().get('username')
 
       @listenTo FactlinkApp.vent, 'close_discussion_modal', ->
-        Backbone.history.navigate fact.user().profilePath(), true
+        Backbone.history.navigate fact.user().link(), true
 
       newClientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show newClientModal
