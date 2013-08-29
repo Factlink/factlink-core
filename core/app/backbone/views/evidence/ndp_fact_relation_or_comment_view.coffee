@@ -44,6 +44,9 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
   _factBaseView: ->
     view = new FactBaseView model: @model.getFact(), clickable_body: Factlink.Global.signed_in
 
+    @listenTo @model.getFact().getFactWheel(), 'sync', ->
+      @model.fetch()
+
     if Factlink.Global.signed_in
       @listenTo view, 'click:body', (e) ->
         @defaultClickHandler e, @model.getFact().get("url")
