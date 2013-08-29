@@ -16,7 +16,7 @@ feature "adding factlinks to a fact", type: :feature do
 
 
     within_evidence_list do
-      expect(all '.evidence-votable').to be_empty
+      expect(all '.evidence-votable', visible: false).to be_empty
     end
   end
 
@@ -27,7 +27,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :supporting, supporting_factlink
     sleep 2
-    within ".evidence-votable" do
+    within ".evidence-votable", visible: false do
       page.should have_content supporting_factlink.to_s
     end
   end
@@ -39,7 +39,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :supporting, supporting_factlink
 
-    within ".evidence-votable" do
+    within ".evidence-votable", visible: false do
       page.find('span', text: supporting_factlink.to_s).click
     end
 
@@ -89,7 +89,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :supporting, supporting_factlink
 
-    within ".evidence-votable" do
+    within ".evidence-votable", visible: false do
       page.should have_content supporting_factlink.to_s
 
       find('.evidence-impact-text', text: "—")
