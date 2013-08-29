@@ -68,6 +68,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
   showFact: (slug, fact_id, params={})->
     @listenTo FactlinkApp.vent, 'load_url', @close
 
+    # TODO: move all this stuff to the NDPDiscussionView
     fact = new Fact id: fact_id
     @listenTo fact, 'destroy', @close
 
