@@ -39,11 +39,11 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :supporting, supporting_factlink
 
-    within ".evidence-votable", visible: false do
-      page.find('span', text: supporting_factlink.to_s).click
-    end
+    find('.evidence-impact-text', text: "0.0") # wait until request has finished
 
-    page.find('.evidence-votable .fact-body .js-displaystring', text: supporting_factlink.to_s)
+    find('.evidence-votable span', text: supporting_factlink.to_s).click
+
+    find('.top-fact-text', text: supporting_factlink.to_s)
   end
 
   scenario "after clicking the factwheel, the impact and percentages should update" do
