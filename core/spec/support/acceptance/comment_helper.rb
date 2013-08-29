@@ -111,13 +111,13 @@ module Acceptance
 
       def assert_comment_exists comment
         within_evidence_list do
-          find('.evidence-votable', text: comment)
+          find('.ndp-evidenceish-text', text: comment)
         end
       end
 
       def within_evidence_list &block
         wait_until_evidence_list_loaded
-        within '.evidence-listing', &block
+        within '.evidence-listing', visible: false, &block
       end
 
       def wait_until_evidence_list_loaded
