@@ -27,7 +27,7 @@ feature "visiting a channel" do
 
       go_to_discussion_page_of factlink
 
-      within_repost_modal do
+      open_repost_modal do
         add_to_channel channel.title
         added_channels_should_contain channel.title
       end
