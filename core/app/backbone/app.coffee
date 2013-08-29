@@ -19,7 +19,7 @@ class FactlinkAppClass extends Backbone.Marionette.Application
     @startClientRegions()
     @addInitializer (options)->
       new ClientRouter controller: new ClientController
-    @addInitializer @clientCloseModalWindowInitializer
+    @addInitializer @clientCloseDiscussionModalInitializer
     @modal = true
     @linkTarget = '_blank'
 
