@@ -46,11 +46,5 @@
 
   <%= yield :javascript %>
 
-  <script type="text/javascript">
-    FactlinkApp.vent.on('close_discussion_modal', function() {
-      if (parent.remote) parent.remote.hide();
-    });
-  </script>
-
 </body>
 </html>

@@ -61,13 +61,13 @@
     // cannot use selector like below, as we look for an exact match here
     $('body').on('click', function(event) {
       if (event.target == $('.js-sign-in-discussion-modal')[0]) {
-        FactlinkApp.vent.trigger('close_discussion_modal');
+        if (parent.remote) parent.remote.hide();
       }
     });
 
     $('body').on('click', '.js-sign-in-close', function(event) {
       mp_track("Modal: Close button");
-      FactlinkApp.vent.trigger('close_discussion_modal');
+      if (parent.remote) parent.remote.hide();
     });
   </script>
 <% end %>
