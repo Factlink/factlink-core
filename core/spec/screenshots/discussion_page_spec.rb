@@ -12,7 +12,9 @@ describe "factlink", type: :feature do
 
     go_to_discussion_page_of @factlink
 
-    find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
+    # TODO fix hardcoded values in next line, we're now
+    #      implicitly depending on factorygirl behaviour
+    find('.evidence-votable', text: 'Fact 1', visible: false).find('a', text:'1 comment')
 
     page.should have_content @factlink.data.displaystring
 
