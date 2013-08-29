@@ -21,7 +21,9 @@ module Acceptance
     def send_message(message, factlink, recipients)
       visit friendly_fact_path(factlink)
 
-      click_on "Share"
+      within '.top-fact' do
+        click_on "Share"
+      end
 
       within '.start-conversation-modal-window' do
         recipients.each {|r| add_recipient r.name}
