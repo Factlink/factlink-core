@@ -25,6 +25,8 @@ Factlink.Prepare = function() {
       self.startLoading();
 
       createFact();
+    }).bind('mousedown', function(e) {
+            e.preventDefault();
     });
 
     bindAddEvidenceClick();
