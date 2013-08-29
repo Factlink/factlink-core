@@ -116,7 +116,13 @@ module Acceptance
       end
 
       def within_evidence_list &block
+        wait_until_evidence_list_loaded
         within '.evidence-listing', &block
+      end
+
+      def wait_until_evidence_list_loaded
+        # the add region only shows after the discussion list has fully loaded
+        find('.js-add-region .evidence-add-supporting')
       end
 
       def vote_comment direction, comment
