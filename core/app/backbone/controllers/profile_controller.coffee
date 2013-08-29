@@ -12,8 +12,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
     fact = new Fact id: fact_id
     @listenTo fact, 'destroy', @close
 
-
-    fact.fetch success: =>
+    @listenToOnce fact, 'sync', ->
       @showProfile fact.user().get('username')
 
       @listenTo FactlinkApp.vent, 'close_discussion_modal', ->
@@ -22,6 +21,8 @@ class window.ProfileController extends Backbone.Marionette.Controller
       newClientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show newClientModal
       newClientModal.mainRegion.show new NDPDiscussionView model: fact
+
+    fact.fetch()
 
   onClose: ->
     FactlinkApp.discussionModalRegion.close()
