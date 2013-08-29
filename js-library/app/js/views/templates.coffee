@@ -2,7 +2,7 @@ Factlink.templates =
   create: """
     <div class="fl-add-new fl-popup">
       <span class="fl-default-message">
-        <span class="fl-new"><a href="#">Add Factlink</a></span>
+        <span class="fl-new"><a href="javascript:void(0)">Add Factlink</a></span>
         <span class="fl-created">Added</span>
       </span>
 
