@@ -85,6 +85,16 @@ span.factlink {
 
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 
+    &:before { // This resolved a weird bug in Chrome where an area between the text and the border bottom was not clickable. (issue 1029)
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: inherit;
+    }
+
     &:hover {
       background: darken(@buttonBackground, 5);
       border-color: darken(@border-color, 5);
