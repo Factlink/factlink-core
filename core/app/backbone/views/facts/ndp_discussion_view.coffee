@@ -18,4 +18,4 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
       collection: opinionaters_collection
 
     unless Factlink.Global.signed_in
-      @learnMoreRegion.show new LearnMorePopupView
+      @learnMoreRegion.show new LearnMoreTopView
