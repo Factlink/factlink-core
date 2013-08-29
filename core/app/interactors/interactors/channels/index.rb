@@ -2,7 +2,6 @@
 # subclass and implement get_alive_channels to return a list
 # of ohm channel models
 
-require 'pavlov'
 require_relative '../../util/can_can'
 
 module Interactors
@@ -22,7 +21,8 @@ module Interactors
       end
 
       def channels_with_authorities
-        authorities = old_query :creator_authorities_for_channels, visible_channels
+        authorities = query(:'creator_authorities_for_channels',
+                                channels: visible_channels)
         visible_channels.zip authorities
       end
 
@@ -35,7 +35,9 @@ module Interactors
       end
 
       def containing_channel_ids(channel)
-        old_query :containing_channel_ids_for_channel_and_user, channel.id, pavlov_options[:current_user].graph_user_id
+        query(:'containing_channel_ids_for_channel_and_user',
+                  channel_id: channel.id,
+                  graph_user_id: pavlov_options[:current_user].graph_user_id)
       end
 
       def kill_channel(ch, owner_authority, containing_channel_ids, user)

@@ -19,3 +19,10 @@ class window.OneSidedEvidenceCollection extends Backbone.Factlink.Collection
 
   commentsUrl: -> "#{@fact.url()}/comments/#{@type}"
   factRelationsUrl: -> @baseUrl()
+
+  # TODO: Kill those different names for things... :-(
+  believesType: ->
+    switch @type
+      when 'supporting' then 'believes'
+      when 'weakening' then 'disbelieves'
+      else throw 'Unknown OneSidedEvidenceCollection type'

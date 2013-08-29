@@ -4,54 +4,50 @@ require_relative '../../../app/interactors/commands/delete_comment.rb'
 describe Commands::DeleteComment do
   include PavlovSupport
 
-  it 'should initialize correctly' do
-    command = Commands::DeleteComment.new '1a', '2a'
-    command.should_not be_nil
+  before do
+    stub_classes 'Comment', 'User'
   end
 
   it 'when supplied with a invalid comment id should not validate' do
-    expect { Commands::DeleteComment.new 'g6', 3}.
-      to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
+    expect_validating(comment_id: 'g6', user_id: 3)
+      .to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
   end
 
   it 'when supplied with a invalid user id should not validate' do
-    expect { Commands::DeleteComment.new '1a', 'g6'}.
-      to raise_error(Pavlov::ValidationError, 'user_id should be an hexadecimal string.')
+    expect_validating(comment_id: '1a', user_id: 'g6')
+      .to raise_error(Pavlov::ValidationError, 'user_id should be an hexadecimal string.')
   end
 
   describe '#call' do
-    before do
-      stub_const 'Comment', Class.new
-      stub_const 'User', Class.new
-    end
+    it 'runs correctly when the comment can be removed' do
+      user = double(:user, id: '9a')
+      comment = double(id: '1a', created_by_id: user.id, deletable?: true)
+      interactor = described_class.new comment_id: comment.id, user_id: user.id
 
-    it 'correctly' do
-      user = stub(:user, id: '9a')
-      comment = stub(id: '1a', created_by_id: user.id, deletable?: true)
-      interactor = Commands::DeleteComment.new comment.id, user.id
+      Pavlov.stub(:query)
+            .with(:"comments/can_destroy", comment_id: comment.id, user_id: user.id)
+            .and_return(true)
 
-      interactor.should_receive(:authorized_in_execute)
+      Comment.stub(:find).with(comment.id).and_return(comment)
 
-      Comment.should_receive(:find).with(comment.id).and_return(comment)
       comment.should_receive(:delete)
 
       interactor.call
     end
-  end
 
-  describe 'authorized?' do
-    it "calls the can_destroy query" do
-      stub_classes 'Queries::Comments::CanDestroy'
-
+    it "raises an exception when the comment cannot be removed" do
       comment_id = '10a'
       user_id = '20a'
 
-      command = Commands::DeleteComment.new comment_id, user_id
+      command = described_class.new comment_id: comment_id, user_id: user_id
 
-      command.should_receive(:old_query).with(:"comments/can_destroy", comment_id, user_id).
-        and_return(true)
+      Pavlov.should_receive(:query)
+            .with(:"comments/can_destroy", comment_id: comment_id, user_id: user_id)
+            .and_return(false)
 
-      command.authorized_in_execute
+      expect do
+        command.call
+      end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 end

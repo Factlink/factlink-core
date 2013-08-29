@@ -1,9 +1,11 @@
-<div id="feedback_frame" class="modal hide fade" role="dialog" aria-labelledby="feedback_modal_title" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3 id="feedback_modal_title">Provide us with feedback</h3>
+<div class="modal-window-container js-feedback-modal">
+  <div class="modal-window feedback-frame-modal-window js-feedback-resize">
+    <div class="modal-window-header">Provide us with feedback</div>
+    <div class="modal-window-body">
+      <iframe src="<%= feedback_index_path %>"<%= ' class="no-user"'.html_safe unless current_user %> scrolling="no"></iframe>
+    </div>
   </div>
-  <div class="modal-body">
-    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'".html_safe unless current_user %> scrolling="no"></iframe>
+  <div class="modal-window-layer js-feedback-modal-layer">
+    <div class="static-close-button"></div>
   </div>
 </div>

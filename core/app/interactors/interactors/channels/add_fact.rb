@@ -6,7 +6,7 @@ module Interactors
       arguments :fact, :channel
 
       def execute
-        old_command :"channels/add_fact", fact, channel
+        command :"channels/add_fact", fact: fact, channel: channel
 
         add_top_topic
         create_activity
@@ -15,8 +15,9 @@ module Interactors
       def add_top_topic
         return unless site
 
-        old_command :'site/add_top_topic',
-          site.id.to_i, topic.slug_title
+        command :'site/add_top_topic',
+                    site_id: site.id.to_i,
+                    topic_slug: topic.slug_title
       end
 
       def create_activity
@@ -24,8 +25,10 @@ module Interactors
         # but a created_facts, or a stream
         return unless topic
 
-        old_command :create_activity, channel.created_by,
-          :added_fact_to_channel, fact, channel
+        command :create_activity, graph_user: channel.created_by,
+                   action: :added_fact_to_channel,
+                   subject: fact,
+                   object: channel
       end
 
       def site
@@ -41,7 +44,7 @@ module Interactors
         return true if pavlov_options[:no_current_user]
         return false unless pavlov_options[:current_user]
 
-        pavlov_options[:current_user].graph_user_id == @channel.created_by_id
+        pavlov_options[:current_user].graph_user_id == channel.created_by_id
       end
     end
   end

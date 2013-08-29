@@ -1,4 +1,3 @@
-@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 .tour-interesting-users {
@@ -28,6 +27,11 @@
 
   .tour-interesting-users-finish {
     margin-top: -6px;
+    display: inline-block;
+    color: white;
+    &:hover {
+      color: white;
+    }
   }
 
   .tour-interesting-users-arrow-left,
@@ -100,10 +104,6 @@
   top: -21px;
 }
 
-.tour-follow-user-avatar {
-  .avatar-wrapper(32px);
-  top: -2px; //raise avatar a little out of the text line.
-}
 
 .tour-follow-user-block {
   border: 1px solid @tableBorder;
@@ -162,9 +162,11 @@
   bottom: 0;
   left: 0;
   right: 0;
-  //the button is an integral part of the user-info box design; don't round top corners.
-  border-radius: 0 0 4px 4px;
   width: 100%;
+}
+
+.tour-user-button-region > .button {
+  border-radius: 0 0 4px 4px !important;
 }
 
 .hover > .tour-follow-user-block {

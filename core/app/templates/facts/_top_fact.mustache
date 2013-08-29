@@ -1,19 +1,33 @@
-
-<div class="new-design-background-shadow"></div>
 <div class="js-user-heading-region"></div>
+
+{{#global.signed_in}}
+  <button class="button button-white button-small top-fact-share js-share">Share</button>
+{{/global.signed_in}}
 
 <div class="top-fact-text">
   {{displaystring}}
 </div>
 
 <div class="top-fact-controls">
-  <button class="button-blue js-repost">Repost</button>
 
-  <div class="top-fact-time-ago">
-    <span class="factlink-icon-time"></span>{{created_by_ago}}
+  <div class="top-fact-poster-controls">
+    {{#showDelete}}
+      <div class="top-fact-delete js-delete-region"></div>
+    {{/showDelete}}
+    <i class="icon-time"></i> {{created_by_ago}} by
+    <span class="js-user-name-region"></span>
   </div>
+
+
+
+  {{#global.signed_in}}
+    <button class="button button-small button-confirm js-repost">Repost</button>
+  {{/global.signed_in}}
 </div>
 
 <div class="top-fact-wheel">
   <div class="js-fact-wheel-region fact-wheel"></div>
 </div>
+
+<div class="top-fact-weakening-information">Weakening information</div>
+<div class="top-fact-supporting-information">Supporting information</div>

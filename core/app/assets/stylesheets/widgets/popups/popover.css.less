@@ -1,5 +1,4 @@
 @import "bootstrap/mixins";
-@import "bootstrap/variables";
 
 @arrow-long-side: 17px;
 @arrow-pointy-side: 11px;
@@ -7,59 +6,95 @@
 .popover-container {
   z-index: 119;
   position: relative;
-  background: #fff;
-  font-size: @baseFontSize;
-  border: 1px solid @modalBorderColor;
-  .border-radius(3px);
   .background-clip(padding-box);
-  .box-shadow(0 0 0 3px rgba(0, 0, 0, .15));
-
-  .arrow {
-    position: absolute;
-    width: @arrow-long-side;
-    background-repeat: no-repeat;
-    background: asset-data-url('popover-help-arrow.png');
-  }
+  background: white;
+  .new-design-border-radius();
+  box-shadow: @ndpBoxBorder, 0 @ndpPopoverShadowBottomSize 5px @ndpPopoverShadowBottomColor;
+  visibility: visible;
+  display: inline-block; // force block formatting context
 
   &.bottom {
     margin-top: @arrow-pointy-side;
     .arrow {
-      top: -@arrow-pointy-side;
-      background-position: -22px 0;
-
-      height: @arrow-pointy-side;
-      width: @arrow-long-side;
+      .ndp-triangle-arrow-up(@ndpPopoverArrowTopBorderColor);
+      top: 0;
     }
   }
 
   &.top {
     margin-bottom: @arrow-pointy-side;
     .arrow {
-      bottom: -@arrow-pointy-side;
-      background-position: -39px 0;
-      height: @arrow-pointy-side;
-      width: @arrow-long-side;
+      .ndp-triangle-arrow-down(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      bottom: 0;
     }
   }
 
   &.left {
     margin-right: @arrow-pointy-side;
     .arrow {
-      right: -@arrow-pointy-side;
-      background-position: -11px 0;
-
-      height: @arrow-long-side;
-      width: @arrow-pointy-side;
+      .ndp-triangle-arrow-right(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      right: 0;
     }
   }
 
   &.right {
     margin-left: @arrow-pointy-side;
     .arrow {
-      left: -@arrow-pointy-side;
-
-      height: @arrow-long-side;
-      width: @arrow-pointy-side;
+      .ndp-triangle-arrow-left(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      left: 0;
     }
   }
+}
+
+.translucent-dark-popover{
+  z-index: 119;
+  position: relative;
+  background: @darkTranslucentGrey;
+  color: white;
+  border-radius: 2px;
+  padding: 9px 18px;
+  visibility: visible;
+
+  .arrow {
+    border: floor(@arrow-long-side/2) solid transparent;
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    margin: -8px;
+    .box-sizing(content-box);
+  }
+
+  &.top {
+    margin-top: @arrow-long-side;
+    .arrow {
+      top: 100%;
+      margin-top: 0;
+      border-top-color:@darkTranslucentGrey
+    }
+  }
+  &.right {
+    margin-left: @arrow-long-side;
+    .arrow {
+      right: 100%;
+      margin-right: 0;
+      border-right-color:@darkTranslucentGrey
+    }
+  }
+  &.bottom {
+    margin-top: @arrow-long-side;
+    .arrow {
+      bottom: 100%;
+      margin-bottom: 0;
+      border-bottom-color:@darkTranslucentGrey
+    }
+  }
+  &.left {
+    margin-right: @arrow-long-side;
+    .arrow {
+      left: 100%;
+      margin-left: 0;
+      border-left-color:@darkTranslucentGrey
+    }
+  }
+
 }

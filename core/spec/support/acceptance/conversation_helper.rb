@@ -23,7 +23,7 @@ module Acceptance
 
       click_on "Share"
 
-      wait_until_scope_exists '.start-conversation-form' do
+      within '.start-conversation-modal-window' do
         recipients.each {|r| add_recipient r.name}
         find(:css, 'textarea').click
         sleep 0.1
@@ -35,14 +35,11 @@ module Acceptance
     end
 
     def add_recipient name
-      page.find(:css, 'input').set(name)
+      page.find(:css, 'input[type=text]').set(name)
 
       within('.auto-complete-search-list') do
         el = page.find('li .text em', text: name)
-        el.trigger 'mouseover'
-        el.trigger 'click'
-
-        sleep 1
+        el.click
       end
 
       page.find('.auto-complete-results-container', text: name)
@@ -51,7 +48,7 @@ module Acceptance
     def page_should_have_factlink_and_message(message, factlink, recipient)
       page.should have_content factlink.data.displaystring
 
-      wait_until_scope_exists '.conversation .messages' do
+      within '.conversation .messages' do
         page.should have_content message
         page.should have_content @user.name
         page.should_not have_content recipient.name if recipient
@@ -59,17 +56,15 @@ module Acceptance
     end
 
     def open_message_with_content(message_str)
-      click_link "conversations-link"
+      find(".navbar-inner:not(.dimmed) .conversations-link").click
 
-      sleep 2
-
-      wait_until_scope_exists '.conversations li' do
+      within '.conversations li' do
         page.should have_content(message_str)
       end
 
       find(:css, "div.text", text: message_str).click
 
-      wait_until_scope_exists '.conversation .fact-view'
+      page.should have_selector '.conversation .fact-view'
     end
   end
 end

@@ -11,6 +11,7 @@ class ActionButtonState extends Backbone.Model
       @trigger 'click:unchecked'
     @set 'hovering', false
 
+
 class window.ActionButtonView extends Backbone.Marionette.ItemView
   tagName: 'button'
   template: 'generic/action_button'
@@ -18,21 +19,26 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
   constructor: (options={}) ->
     @model = new ActionButtonState
 
-    @className += ' btn-action btn'
-    @className += ' btn-mini' if options.mini
+    @className += ' button'
+    @className += ' button button-small' if options.mini
 
     super
 
-    @bindInteractionEvents options.$listenToEl || @$el
+    @$listenToEl = options.$listenToEl || @$el
+    @bindInteractionEvents()
 
+  bindInteractionEvents: ->
+    @$listenToEl.on 'click', (e) => @onClick(e)
+    @$listenToEl.on 'mouseenter', => @onMouseEnter()
+    @$listenToEl.on 'mouseleave', => @onMouseLeave()
 
-  bindInteractionEvents: ($listenToEl)->
-    @bindTo $listenToEl, 'click', @onClick, @
-    @bindTo $listenToEl, 'mouseenter', @onMouseEnter, @
-    @bindTo $listenToEl, 'mouseleave', @onMouseLeave, @
-
+    @listenTo @model, 'change', @render
     @on 'render', @showCurrentState, @
-    @bindTo @model, 'change', @render, @
+
+  onClose: ->
+    @$listenToEl.off 'click'
+    @$listenToEl.off 'mouseenter'
+    @$listenToEl.off 'mouseleave'
 
   onClick: (e) ->
     e.preventDefault()
@@ -51,8 +57,8 @@ class window.ActionButtonView extends Backbone.Marionette.ItemView
 
     @$el.toggleClass 'disabled', not loaded
 
-    @$el.toggleClass 'btn-danger', hovering and checked and loaded
-    @$el.toggleClass 'btn-primary', hovering and not checked and loaded
-    @$el.toggleClass 'btn-action-checked', checked and loaded
+    @$el.toggleClass 'button-danger', hovering and checked and loaded
+    @$el.toggleClass 'button-confirm', hovering and not checked and loaded
+    @$el.toggleClass 'button-action-checked', checked and loaded
 
     @trigger 'render_state', loaded, hovering, checked

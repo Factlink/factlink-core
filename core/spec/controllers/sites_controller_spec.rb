@@ -54,7 +54,9 @@ describe SitesController do
         fact = nil
 
         as(user) do |pavlov|
-          fact = pavlov.interactor :'facts/create', 'displaystring', url, 'title', {}
+          fact = pavlov.interactor(:'facts/create',
+                                       displaystring: 'displaystring', url: url,
+                                       title: 'title', sharing_options: {})
         end
 
         get :facts_for_url, url: url, format: :json

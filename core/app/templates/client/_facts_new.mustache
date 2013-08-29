@@ -2,7 +2,7 @@
   <input name="utf8" type="hidden" value="&#x2713;" />
   <input name="authenticity_token" type="hidden" value="{{csrf_token}}" />
 
-  <div class="fact-view">
+  <div class="fact-new-fact-container">
     {{#guided}}
       <div class="js-opinion-animation" style="position:absolute"><img src="{{global.opinion_animation}}" alt="" /></div>
     {{/guided}}
@@ -25,9 +25,8 @@
   </div>
 
   <div class="buttons">
-    <button class="btn js-cancel-post-factlink cancel-post-factlink" name="cancel">Cancel</button>
+    <input class="button button-confirm js-submit-post-factlink submit-post-factlink" data-disable-with="Posting..." name="commit" type="submit" value="Post to Factlink">
 
-    <input class="btn btn-primary js-submit-post-factlink submit-post-factlink" data-disable-with="Posting..." name="commit" type="submit" value="Post to Factlink">
     <div class="js-region-share-new-fact post-factlink-share"></div>
 
     <div class="js-finish-popover finish-popover"></div>

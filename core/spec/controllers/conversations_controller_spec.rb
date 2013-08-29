@@ -7,16 +7,15 @@ describe ConversationsController do
     it "calls the correct query" do
       authenticate_user! user
 
-      query = mock()
-      conversation = mock(:conversation, )
-      query.should_receive(:call).and_return([conversation])
+      conversation = double(:conversation, )
 
-      pavlov_options = mock()
+      pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)
 
-      Queries::ConversationsWithUsersMessage.should_receive(:new).
-         with(user.id.to_s, pavlov_options).
-         and_return(query)
+      Pavlov
+        .should_receive(:query)
+        .with(:'conversations_with_users_message', user_id: user.id.to_s, pavlov_options: pavlov_options)
+        .and_return([conversation])
 
       get :index, format: 'json'
       response.should render_template('conversations/index')
@@ -74,17 +73,16 @@ describe ConversationsController do
       other_guy = create :user
       fact_id = 10
 
-      interactor = mock()
-      interactor.should_receive(:call)
-
-      pavlov_options = mock()
+      pavlov_options = double
       controller.stub(pavlov_options: pavlov_options)
 
-      Interactors::CreateConversationWithMessage.should_receive(:new).
-         with(fact_id.to_s, ['henk','frits'], user.id.to_s, 'verhaal', pavlov_options).
-         and_return(interactor)
+      users = ['henk','frits']
+      Pavlov.should_receive(:interactor)
+            .with :'create_conversation_with_message', fact_id: fact_id.to_s,
+                      recipient_usernames: users, sender_id: user.id.to_s,
+                      content: 'verhaal', pavlov_options: pavlov_options
 
-      get :create, fact_id: fact_id, recipients: ['henk','frits'], content: 'verhaal'
+      get :create, fact_id: fact_id, recipients: users, content: 'verhaal'
     end
   end
 end

@@ -1,14 +1,21 @@
 class window.ClientController
 
-  show: (fact_id) =>
+  showFact: (fact_id) =>
     fact = new Fact id: fact_id
-    fact.fetch success: =>
-      if Factlink.Global.can_haz['new_discussion_page']
-        @showNewFact fact
-      else
-        @showFact fact
+    fact.on 'destroy', => @onFactRemoved fact.id
 
-  newFact: (params={}) =>
+    fact.fetch success: =>
+      newClientModal = new ClientModalLayout
+      FactlinkApp.mainRegion.show newClientModal
+
+      view = new NDPDiscussionView model: fact
+      view.on 'render', =>
+        parent.$(parent.document).trigger 'modalready'
+
+      newClientModal.mainRegion.show view
+
+
+  showNewFact: (params={}) =>
     unless window.currentUser?
       window.location = Factlink.Global.path.sign_in_client()
       return
@@ -41,30 +48,3 @@ class window.ClientController
     parent.remote.hide()
     parent.remote.stopHighlightingFactlink id
 
-  showFact: (fact)->
-    clientModal = new ClientModalLayout
-    FactlinkApp.mainRegion.show clientModal
-
-    view = new DiscussionView model: fact
-    view.on 'render', =>
-      parent.$(parent.document).trigger "modalready"
-
-    clientModal.mainRegion.show view
-
-    fact.on "destroy", => @onFactRemoved(fact.id)
-
-    unless Factlink.Global.signed_in
-      clientModal.topRegion.show new LearnMorePopupView()
-      clientModal.bottomRegion.show new LearnMoreBottomView()
-
-  showNewFact: (fact) ->
-    newClientModal = new ClientModalLayout2
-    FactlinkApp.mainRegion.show newClientModal
-
-    view = new NDPDiscussionView model: fact
-    view.on 'render', =>
-      parent.$(parent.document).trigger 'modalready'
-
-    newClientModal.mainRegion.show view
-
-    fact.on 'destroy', => @onFactRemoved fact.id

@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Interactors
   module Topics
     class Favourites
@@ -13,25 +11,25 @@ module Interactors
       end
 
       def validate
-        validate_nonempty_string :user_name, @user_name
+        validate_nonempty_string :user_name, user_name
       end
 
       def user
-        @user ||= old_query :user_by_username, user_name
+        @user ||= query :user_by_username, username: user_name
       end
 
       def favourite_topic_ids
-        old_query :'topics/favourite_topic_ids', user.graph_user_id
+        query :'topics/favourite_topic_ids', graph_user_id: user.graph_user_id
       end
 
       def favourite_topics
         favourite_topic_ids.map do |topic_id|
-          old_query :'topics/by_id', topic_id
+          query :'topics/by_id', id: topic_id
         end
       end
 
       def execute
-        favourite_topics.sort {|a,b| a.slug_title <=> b.slug_title}
+        favourite_topics.sort_by(&:slug_title)
       end
     end
   end

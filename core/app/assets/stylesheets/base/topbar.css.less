@@ -1,7 +1,6 @@
 //= require_tree ./topbar
 
 @import "bootstrap/mixins";
-@import "bootstrap/variables";
 
 body.show_sign_in {
   .navbar .navbar-inner {
@@ -13,26 +12,39 @@ body.show_sign_in {
   }
 }
 
+.navbar .navbar-inner .topbar-profile-link { //Hack to overwrite bootstrap navs
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  padding: 6px 15px;
+  outline: none;
+
+  img {
+    border-radius:2px;
+  }
+}
+
 .navbar {
   position: relative;
   height: @navbarHeight;
   margin-bottom: @navbarMargin;
-  font-size: @baseFontSize;
-  z-index: 120; // on top of the overlay in widgets/modal_overlay
+  z-index: 120; // on top of the overlay in widgets/overlay
 
   &.navbar-fixed-top {
     position: fixed;
   }
 
   .navbar-inner {
-    .border-radius(0px);
+    border-radius: 0;
     border: none;
     background: transparent;
     min-height: 42px;
     position: relative;
     z-index: 2;
     border-bottom: 1px solid @baseBorderColor;
-    .box-shadow(0 1px 2px rgba(0, 0, 0, .05));
+    .box-shadow(0 1px 2px rgba(0, 0, 0, .1));
 
     .background {
       background: white;
@@ -79,18 +91,7 @@ body.show_sign_in {
         > a {
           color: @linkColor;
           font-weight: bold;
-          font-size: @baseFontSize;
           line-height: 20px;
-
-          &.profile {
-            padding-top: 6px;
-            padding-bottom: 6px;
-            outline: none;
-
-            img {
-              .border-radius(2px);
-            }
-          }
 
           &:hover {
             color: @baseFontColor;
@@ -136,8 +137,7 @@ body.show_sign_in {
         display: inline-block;
         height: 100%;
         line-height: 42px;
-        font-family: @baseFontFamily;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+
         a {
           color: @linkColor;
           font-weight: bold;
@@ -163,7 +163,6 @@ body.show_sign_in {
         span.pull-right {
           color: #cecece;
           margin-right: -18px;
-          text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
 
           a {
             color: #fff;

@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature 'the profile page', type: :request do
+feature 'the profile page', type: :feature do
   include Acceptance::ProfileHelper
   include Acceptance::FactHelper
   include PavlovSupport
@@ -10,8 +10,7 @@ feature 'the profile page', type: :request do
     channel = create :channel, created_by: user.graph_user
 
     go_to_profile_page_of user
-
-    find('.top-channels *', text: channel.title)
+    find('.top-channels a', text: channel.title)
   end
 
   scenario 'follow a user and unfollow a user' do
@@ -81,8 +80,8 @@ feature 'the profile page', type: :request do
 
     fact = nil
     as(followed_user) do |backend|
-      fact = backend.interactor :'facts/create', displaystring,'','title', {}
-      backend.interactor :'channels/add_fact', fact, channel
+      fact = backend.interactor(:'facts/create', displaystring: displaystring, url: '', title: 'title', sharing_options: {})
+      backend.interactor(:'channels/add_fact', fact: fact, channel: channel)
     end
 
     visit channel_activities_path(following_user.username,following_user.graph_user.stream_id)

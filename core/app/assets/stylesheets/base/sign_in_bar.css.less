@@ -1,5 +1,4 @@
 @import "bootstrap/mixins";
-@import "bootstrap/variables";
 
 .show_sign_in .sign_in_bar {
   margin-top:0;
@@ -8,21 +7,11 @@
 div.sign_in_bar {
   margin-top:-160px;
   color: #fff;
-  font-family: @baseFontFamily;
   position: relative;
   height: 160px;
 
   > .container {
     padding: 0 10px;
-  }
-
-  .btn {
-    padding: 6px 15px;
-    font-size: @baseFontSize;
-    font-family: @headingFontFamily;
-    font-weight: bold;
-    text-shadow: 0 1px 0 #fff;
-    color: @baseFontColor;
   }
 
   form {
@@ -45,6 +34,10 @@ div.sign_in_bar {
     input.text {
       margin: 0 5px 0 0;
       width: 165px;
+    }
+
+    input.button {
+      min-width: 100px;
     }
 
     .toolbar {
@@ -89,13 +82,18 @@ div.sign_in_bar {
 
   div.social {
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-    float: right;
     line-height: 160px;
     width: 390px;
     height: 160px;
+    display: inline-block;
+    position: relative;
+    left: 21px;
+    top: -1px;
 
     a {
       -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+      display: inline-block;
+      vertical-align: middle;
 
       > i {
         background: image-url('base/sign_in_bar/social.png') no-repeat;

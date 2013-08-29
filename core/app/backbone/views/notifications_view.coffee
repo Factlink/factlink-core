@@ -1,48 +1,50 @@
 class NotificationsEmptyView extends Backbone.Marionette.ItemView
-   template: "notifications/notifications"
+   template: "notifications/notifications_empty"
 
 
 class window.NotificationsView extends Backbone.Factlink.CompositeView
-  tagName: "li"
-  id: "notifications"
   itemViewContainer: "ul.dropdown-menu"
   emptyView: NotificationsEmptyView
+  template: "notifications/notifications"
+
   events:
     "click .unread": "clickHandler"
 
-  template: "notifications/notifications"
+  ui:
+    unread: '.unread'
+
   initialize: ->
     @itemView = NotificationView
     @setupNotificationsFetch()
     @_unreadCount = 0
-    @views = {}
     @on "itemview:activityActivated", ->
       @hideDropdown()
 
   onRender: ->
-    @$el.css visibility: "visible"
+    @$("ul").preventScrollPropagation()
+    @listenTo @collection, 'sync', @updateUnreadCount
+
+  updateUnreadCount: ->
     @setUnreadCount @collection.unreadCount()
-    @$el.find("ul").preventScrollPropagation()
 
   setUnreadCount: (count) ->
-    $unread = @$("span.unread")
     @_unreadCount = count
     @_unreadTitleCount = count
     if count > 0
-      $unread.addClass "active"
+      @ui.unread.addClass "active"
     else
-      $unread.removeClass "active"
+      @ui.unread.removeClass "active"
     if count > 9
       @_unreadCount = "9<sup>+</sup>"
       @_unreadTitleCount = 9
-    $unread.html @_unreadCount
+    @ui.unread.html @_unreadCount
     TitleManager.set "notificationsCount", @_unreadTitleCount
 
   markAsRead: ->
-    self = this
-    @collection.markAsRead success: ->
-      self.markViewsForUnreadification()
-      self.setUnreadCount 0
+    @collection.markAsRead
+      success: =>
+        @markViewsForUnreadification()
+        @setUnreadCount 0
 
   markViewsForUnreadification: ->
     @_shouldMarkUnread = true
@@ -65,7 +67,6 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
             responsecode = JSON.parse(response.responseText).code
             # should be: responsecode is 'login'
             # but devise doesn't add a code
-            console.info responsecode
             if responsecode isnt 'tos'
               FactlinkApp.vent.trigger('require_login')
           refreshAgain()
@@ -81,16 +82,18 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
 
   showDropdown: ->
     @_visible = true
-    @$el.addClass("open").find("ul").show()
+    $('#notifications').addClass "open"
+    @$("ul").show()
     @markAsRead()
     @_bindWindowClick()
 
   hideDropdown: ->
     @_visible = false
-    @$el.removeClass("open").find("ul").hide()
+    $('#notifications').removeClass "open"
+    @$("ul").hide()
     if @_shouldMarkUnread is true
       @_shouldMarkUnread = false
-      _.forEach @views, (view) ->
+      @children.each (view) ->
         view.markAsRead()
     @_unbindWindowClick()
 

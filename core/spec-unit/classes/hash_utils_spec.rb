@@ -5,8 +5,8 @@ describe HashUtils do
     it "wraps its input in a hash, with as index the id of the objects in the array" do
 
       stublist = [
-        mock(id: 1),
-        mock(id: 2)
+        double(id: 1),
+        double(id: 2)
       ]
 
       wrapped_stub_list = {

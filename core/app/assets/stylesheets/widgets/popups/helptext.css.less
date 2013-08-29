@@ -1,11 +1,9 @@
 @import "bootstrap/mixins";
-@import "bootstrap/variables";
 
 .popover-help-text {
   width: 200px;
 
   .popover-help-text-header {
-    font-family: @headingFontFamily;
     font-size: @heading2FontSize;
     font-weight: bold;
 
@@ -19,6 +17,11 @@
 
     p:last-child {
       margin-bottom: 0;
+    }
+
+    .button {
+      display: inline-block;
+      color: white;
     }
   }
 }

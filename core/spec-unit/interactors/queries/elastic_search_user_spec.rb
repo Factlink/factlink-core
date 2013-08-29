@@ -1,4 +1,5 @@
 require 'pavlov_helper'
+require_relative '../../../app/interactors/queries/elastic_search.rb'
 require_relative '../../../app/interactors/queries/elastic_search_user.rb'
 
 describe Queries::ElasticSearchUser do
@@ -6,12 +7,6 @@ describe Queries::ElasticSearchUser do
 
   before do
     stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'FactlinkUser'
-  end
-
-  it 'initializes' do
-    query = Queries::ElasticSearchUser.new 'interesting search keywords', 1, 20
-
-    query.should_not be_nil
   end
 
   describe '#call' do
@@ -22,7 +17,7 @@ describe Queries::ElasticSearchUser do
       FactlinkUI::Application.stub config: config
       keywords = 'searching for users'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(users*+OR+users)'
-      interactor = Queries::ElasticSearchUser.new keywords, 1, 20
+      query = described_class.new keywords: keywords, page: 1, row_count: 20
       hit = double
       mongoid_user = double
       results = double
@@ -38,7 +33,7 @@ describe Queries::ElasticSearchUser do
       User.should_receive(:find).with(1).and_return(mongoid_user)
       FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
 
-      interactor.call.should eq [user]
+      expect(query.call).to eq [user]
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
@@ -51,14 +46,11 @@ describe Queries::ElasticSearchUser do
       error_response = 'error has happened server side'
       results.stub response: error_response
       results.stub code: 501
-      logger = double
       error_message = "Server error, status code: 501, response: '#{error_response}'."
 
-      query = Queries::ElasticSearchUser.new keywords, 1, 20, logger: logger
+      query = described_class.new keywords: keywords, page: 1, row_count: 20
 
-      HTTParty.should_receive(:get).
-        and_return(results)
-      logger.should_receive(:error).with(error_message)
+      HTTParty.should_receive(:get).and_return(results)
 
       expect { query.call }.to raise_error(RuntimeError, error_message)
     end
@@ -70,7 +62,7 @@ describe Queries::ElasticSearchUser do
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
-      interactor = Queries::ElasticSearchUser.new keywords, 1, 20
+      query = described_class.new keywords: keywords, page: 1, row_count: 20
       hit = double
       results = double
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
@@ -86,7 +78,7 @@ describe Queries::ElasticSearchUser do
       User.should_receive(:find).with(1).and_return(mongoid_user)
       FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
 
-      interactor.call.should eq [user]
+      expect(query.call).to eq [user]
     end
   end
 end

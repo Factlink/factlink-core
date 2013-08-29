@@ -5,7 +5,13 @@
   font-weight: 300;
   font-size: 12px;
   a {
-    font-weight: 500;
+    font-weight: @baseFontBoldWeight;
+  }
+  a:not([href]) {
+    &, &:hover, &:active {
+      color: black;
+      cursor: auto;
+    }
   }
 }
 
@@ -14,24 +20,12 @@
 }
 
 .new-design-box-shadow() {
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.06),
-              0 1px 1px 0 rgba(0,0,0,0.15);
+  box-shadow: @ndpBoxBorder,
+              0 @ndpBoxShadowBottomSize 1px 0 @ndpBoxShadowBottomColor;
 }
-
-
-.new-design-background-shadow {
-  z-index: -10;
-  position: absolute;
-  top:0; bottom:0; right:0; left:0;
-  box-shadow: 0 0 150px 55px rgba(233, 234, 238, .8);
-  border-radius: inherit;
-}
-
 
 .new-design-white-block-with-shadow() {
   background: white;
   .new-design-border-radius();
-  .new-design-box-shadow()
+  .new-design-box-shadow();
 }
-
-

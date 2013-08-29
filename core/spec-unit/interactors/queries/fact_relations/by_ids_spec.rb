@@ -11,7 +11,7 @@ describe Queries::FactRelations::ByIds do
 
   describe '.validate' do
     it 'requires each fact_relation_id to be an integer string' do
-      expect_validating(['1', nil])
+      expect_validating(fact_relation_ids: ['1', nil])
         .to fail_validation('fact_relation_id should be an integer string.')
     end
   end
@@ -26,17 +26,21 @@ describe Queries::FactRelations::ByIds do
       impact_opinion = double
       sub_comments_count = 2
       pavlov_options = { current_user: user }
-      query = described_class.new [fact_relation.id], pavlov_options
+      query = described_class.new fact_relation_ids: [fact_relation.id],
+                                  pavlov_options: pavlov_options
 
       FactRelation.stub(:[])
                   .with(fact_relation.id)
                   .and_return(fact_relation)
 
-      Pavlov.stub(:old_query)
-            .with(:'sub_comments/count', fact_relation.id, fact_relation.class, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'sub_comments/count',
+                      parent_id: fact_relation.id, parent_class: fact_relation.class,
+                      pavlov_options: pavlov_options)
             .and_return(sub_comments_count)
-      Pavlov.stub(:old_query)
-            .with(:'opinions/impact_opinion_for_fact_relation', fact_relation, pavlov_options)
+      Pavlov.stub(:query)
+            .with(:'opinions/impact_opinion_for_fact_relation',
+                      fact_relation: fact_relation, pavlov_options: pavlov_options)
             .and_return(impact_opinion)
 
       graph_user.stub(:opinion_on).with(fact_relation).and_return(opinion_on)
@@ -58,17 +62,19 @@ describe Queries::FactRelations::ByIds do
       opinion_on = double
       impact_opinion = double
       sub_comments_count = 2
-      query = described_class.new [fact_relation.id]
+      query = described_class.new fact_relation_ids: [fact_relation.id]
 
       FactRelation.stub(:[])
                   .with(fact_relation.id)
                   .and_return(fact_relation)
 
-      Pavlov.stub(:old_query)
-            .with(:'sub_comments/count', fact_relation.id, fact_relation.class)
+      Pavlov.stub(:query)
+            .with(:'sub_comments/count',
+                      parent_id: fact_relation.id, parent_class: fact_relation.class)
             .and_return(sub_comments_count)
-      Pavlov.stub(:old_query)
-            .with(:'opinions/impact_opinion_for_fact_relation', fact_relation)
+      Pavlov.stub(:query)
+            .with(:'opinions/impact_opinion_for_fact_relation',
+                      fact_relation: fact_relation)
             .and_return(impact_opinion)
 
       KillObject.stub(:fact_relation)
@@ -85,7 +91,7 @@ describe Queries::FactRelations::ByIds do
 
     it 'raises when not found' do
       fact_relation_id = '1'
-      query = described_class.new [fact_relation_id]
+      query = described_class.new fact_relation_ids: [fact_relation_id]
 
       FactRelation.stub(:[])
                   .with(fact_relation_id)

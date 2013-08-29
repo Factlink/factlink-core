@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "Feedback modal", type: :request do
+describe "Feedback modal", type: :feature do
 
   context "as a logged out user" do
 
@@ -10,14 +10,11 @@ describe "Feedback modal", type: :request do
     end
 
     it "the form shows after clicking Feedback" do
-      find('#feedback_frame').visible?.should be_false
+      find('.js-feedback-modal', visible:false).visible?.should be_false
 
       click_link 'Feedback'
 
-      # Wait for feedback slide in modal animation
-      sleep(1)
-
-      find('#feedback_frame').visible?.should be_true
+      find('.js-feedback-modal').visible?.should be_true
     end
 
     it "the form contains the correct input fields" do
@@ -44,13 +41,11 @@ describe "Feedback modal", type: :request do
     end
 
     it "the form shows after clicking Feedback" do
-      find('#feedback_frame').visible?.should be_false
+      find('.js-feedback-modal', visible:false).visible?.should be_false
 
       click_link 'Feedback'
 
-      sleep(1)
-
-      find('#feedback_frame').visible?.should be_true
+      find('.js-feedback-modal').visible?.should be_true
     end
 
     it "the form contains the correct input fields" do

@@ -1,5 +1,5 @@
 # ensure we update this file when we update the locales
-# SHASUM of locales: 5c7aba52347ec5814d588e70e9425e36f2538070
+# SHASUM of locales: 34ba002716d620fb15a714313835f2dbebafbcae
 
 window.Factlink ||= {}
 
@@ -23,6 +23,7 @@ Factlink.Global =
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
   browser_icons_firefox_16x16: '<%= image_path("browser-icons/firefox-16x16.png") %>'
   opinion_animation: '<%= image_path("tour/opinion-animation.gif") %>'
+  warning_sign_image: '<%= image_path("warning-sign.png") %>'
 
   firefox_extension_url: "<%= FactlinkUI::Application.config.static_url + '/extension/firefox/factlink-latest.xpi' %>"
   chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"
@@ -79,6 +80,9 @@ Factlink.Global =
     :fact_believe_collection_name,
     :fact_disbelieve_collection_name,
     :fact_doubt_collection_name,
+
+    :post_comment,
+
     :ago,
     :you,
     :nobody

@@ -8,9 +8,6 @@ class GenericNotificationView extends Backbone.Marionette.Layout
   events:
     'click a': 'click'
 
-  initialEvents: -> false # stop layout from refreshing after model/collection update
-                  # no longer needed in marionette 1.0
-
   click: (e) ->
     @trigger 'activityActivated'
     return Backbone.View.prototype.defaultClickHandler(e)

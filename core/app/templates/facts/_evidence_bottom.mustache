@@ -1,8 +1,18 @@
-<ul class="actions">
-  <li class="js-sub-comments-link-container"><a class="js-sub-comments-link"></a></li>
+<ul class="bottom-actions">
+  {{#showTimeAgo}}
+    <li class="bottom-action-time bottom-action">
+      <i class="icon-time"></i> {{time_ago}} {{ global.t.ago }}
+    </li>
+  {{/showTimeAgo}}
+
+  {{#showDelete}}
+    <li class="bottom-action bottom-action-delete js-delete-region"></li>
+  {{/showDelete}}
+
+  <li class="js-sub-comments-link-container bottom-action"><a class="js-sub-comments-link" href="javascript:void()"></a></li>
 
   {{#showDiscussion}}
-    <li>
+    <li class="bottom-action">
       {{#global.signed_in}}
         <a href="{{from_fact_sanitized.url}}" class="discussion_link"
           {{#modal?}}
@@ -31,20 +41,5 @@
         </span>
       {{/global.signed_in}}
     </li>
-
   {{/showDiscussion}}
-
-  {{#from_fact_sanitized.proxy_scroll_url}}
-    <li class="fact-info">
-        {{#from_fact_sanitized.fact_url_host}}
-          <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain=
-        {{from_fact_sanitized.fact_url_host}}" />
-        {{/from_fact_sanitized.fact_url_host}}
-        <a href="{{from_fact_sanitized.proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
-          {{from_fact_sanitized.fact_url_title}}
-        </a>
-    </li>
-  {{/from_fact_sanitized.proxy_scroll_url}}
 </ul>
-
-<i class="title-overflow"></i>

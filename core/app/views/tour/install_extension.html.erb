@@ -14,11 +14,11 @@
 
         <div class="transparent-border">
           <% if FactlinkUI::Application.config.use_chrome_webstore %>
-            <a id="chrome-extension-webstore-button" class="btn btn-primary">Install Chrome Extension</a>
+            <a id="chrome-extension-webstore-button" class="button button-confirm">Install Chrome Extension</a>
           <% else %>
             <!-- for testserver and staging downloads of the Chrome Extension -->
             <iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
-            <a id="chrome-extension-button" target="ce-download" class="btn btn-primary" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Install Chrome Extension (<%= Rails.env %>)</a>
+            <a id="chrome-extension-button" target="ce-download" class="button button-confirm" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Install Chrome Extension (<%= Rails.env %>)</a>
           <% end %>
         </div>
       </div>
@@ -28,24 +28,24 @@
 
         <div class="transparent-border">
           <div class="should-install-firefox-extension">
-            <a id="firefox-extension-button" class="btn btn-primary" href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>">Add Factlink to Firefox</a>
+            <a id="firefox-extension-button" class="button button-confirm" href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>">Add Factlink to Firefox</a>
           </div>
 
           <div class="firefox-extension-installed">
-            <button type="button" class="btn btn-large btn-primary disabled">Factlink added to Firefox</button>
+            <button class="button button-confirm button-disabled">Factlink added to Firefox</button>
           </div>
         </div>
       </div>
 
       <div class="visible-when-unsupported-browser install-extension-text-unsupported">
         Unfortunately you don't have the appropriate browser to add a Factlink button.
-        Fortunately we have a bookmarklet which you can add to your bookmarks.
+        Fortunately we have a bookmarklet which you can add to your bookmarks.<br />
 
-        <span class="dashed-border">
-          <a id="bookmarklet-button" class="bookmarklet btn btn-primary" onclick="return false"
+        <div class="dashed-border">
+          <a id="bookmarklet-button" class="bookmarklet button button-confirm" onclick="return false"
                <%# here we need singlequotes kthxbye: %>
                href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'><span style="display: none">Factlink</span></a>
-        </span>
+        </div>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
       </div>
 
       <div class="chrome-extension-installed">
-        <a class="btn btn-primary" href="<%= next_tourstep_path(ref: 'chrome_extension_next') %>" data-disable-with="Loading...">Next step</a>
+        <a class="button button-confirm" href="<%= next_tourstep_path(ref: 'chrome_extension_next') %>" data-disable-with="Loading...">Next step</a>
       </div>
     </div>
 
@@ -67,7 +67,7 @@
       </div>
 
       <div class="firefox-extension-installed">
-        <a class="btn btn-primary" href="<%= next_tourstep_path(ref: 'firefox_extension_next') %>" data-disable-with="Loading...">Next step</a>
+        <a class="button button-confirm" href="<%= next_tourstep_path(ref: 'firefox_extension_next') %>" data-disable-with="Loading...">Next step</a>
       </div>
     </div>
 
@@ -77,7 +77,7 @@
       </div>
 
       <div class="unsupported-browser-extension-installed">
-        <a class="btn btn-primary" href="<%= next_tourstep_path(ref: 'bookmarklet_next') %>" data-disable-with="Loading...">Next step</a>
+        <a class="button button-confirm" href="<%= next_tourstep_path(ref: 'bookmarklet_next') %>" data-disable-with="Loading...">Next step</a>
       </div>
     </div>
   </div>
@@ -111,7 +111,7 @@
 
 
       <% if FactlinkUI::Application.config.use_chrome_webstore %>
-        $('#chrome-extension-webstore-button').bind('click', function() {
+        $('#chrome-extension-webstore-button').on('click', function() {
           mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
           chrome.webstore.install(undefined, successFn, errorFn);
         });

@@ -1,6 +1,3 @@
-require 'pavlov'
-require 'andand'
-
 module Queries
   class ConversationGet
     include Pavlov::Query
@@ -8,17 +5,18 @@ module Queries
     arguments :id
 
     def validate
-      validate_hexadecimal_string :id, @id.to_s
+      validate_hexadecimal_string :id, id.to_s
     end
 
     def execute
-      conversation = Conversation.find(@id)
+      conversation = Conversation.find(id)
       return nil unless conversation
       raise_unauthorized unless authorized_to_get(conversation)
 
-      KillObject.conversation(conversation,
-        fact_id: conversation.fact_data.andand.fact_id
-      )
+      fact_data = conversation.fact_data
+
+      KillObject.conversation conversation,
+        fact_id: fact_data && fact_data.fact_id
     end
 
     def authorized?

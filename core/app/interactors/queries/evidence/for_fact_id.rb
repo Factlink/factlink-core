@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Queries
   module Evidence
     class ForFactId
@@ -10,8 +8,8 @@ module Queries
       private
 
       def validate
-        validate_integer_string :fact_id, @fact_id
-        validate_in_set         :type,    @type, [:weakening, :supporting]
+        validate_integer_string :fact_id, fact_id
+        validate_in_set         :type,    type, [:weakening, :supporting]
       end
 
       def execute
@@ -19,11 +17,11 @@ module Queries
       end
 
       def fact_relations
-        old_query :'fact_relations/for_fact', fact, type
+        query(:'fact_relations/for_fact', fact: fact, type: type)
       end
 
       def comments
-        old_query :'comments/for_fact', fact, type
+        query(:'comments/for_fact', fact: fact, type: type)
       end
 
       def sort result
@@ -33,7 +31,7 @@ module Queries
       end
 
       def fact
-        @fact ||= Fact[@fact_id]
+        @fact ||= Fact[fact_id]
       end
     end
   end

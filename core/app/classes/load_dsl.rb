@@ -132,13 +132,13 @@ class LoadDsl
 
   def sub_channel(username,title, opts={})
     ch = self.load_channel(load_user(username).graph_user, title, opts)
-    Commands::Channels::AddSubchannel.new(self.state_channel, ch)
+    command :'channels/add_subchannel', channel: state_channel, subchannel: ch
   end
 
   def add_fact(fact_string)
     fact = self.load_fact(fact_string)
 
-    interactor :'channels/add_fact', fact, self.state_channel
+    interactor :'channels/add_fact', fact: fact, channel: state_channel
   end
 
   def run(&block)

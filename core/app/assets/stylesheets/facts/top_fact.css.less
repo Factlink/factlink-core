@@ -1,4 +1,3 @@
-@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 .top-fact {
@@ -7,12 +6,19 @@
   position: relative;
   padding: 30px 35px 25px;
   visibility:visible;
+  margin-top: 40px;
 }
 
 .top-fact-user-heading {
   position: absolute;
   top: -10px;
   left: 35px;
+}
+
+.top-fact-share {
+  position: absolute;
+  top: -@baseButtonHeight - 8px;
+  right: 0;
 }
 
 .top-fact-text {
@@ -23,11 +29,71 @@
 
 .top-fact-controls {
   position: relative;
+  color: @mutedFontColor;
+
+  // These two rules are for creating a block formatting context,
+  // as we cannot use overflow: hidden because of delete button
+  display: inline-block;
+  width: 100%;
 }
 
-.top-fact-time-ago {
-  position: absolute;
-  top: 2px;
-  right: 0;
+.top-fact-poster-controls {
+  float: right;
+  margin-top: 2px;
   color: @mutedFontColor;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.top-fact-delete {
+  display: inline-block;
+  margin-top: 2px;
+
+  &:after {
+    content: "·";
+    margin-right: 10px;
+    margin-left: 4px;
+  }
+}
+
+@informationLabelHeight: 40px;
+@informationLabelBackgroundColor: hsla(220, 3%, 79%, 0.5);
+.top-fact-weakening-information, .top-fact-supporting-information {
+  background-color: @informationLabelBackgroundColor;
+  color: rgb(120,120,120);
+  position: absolute;
+  width: 355px;
+  bottom: -@informationLabelHeight;
+  height: @informationLabelHeight;
+  line-height: @informationLabelHeight;
+  text-align: center;
+  z-index: -1;
+  .new-design-border-radius();
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  &:after { // arrows
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    border-color: none;
+    border-top-color: @informationLabelBackgroundColor;
+    border-width: 12px;
+    left: 50%;
+    margin-left: -12px;
+  }
+}
+
+.top-fact-weakening-information {
+  left: 5px;
+}
+
+.top-fact-supporting-information {
+  right: 5px;
 }

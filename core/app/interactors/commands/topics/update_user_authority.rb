@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Commands
   module Topics
     class UpdateUserAuthority
@@ -32,7 +30,7 @@ module Commands
       end
 
       def topic
-        @topic ||= old_query :'topics/by_slug_title', topic_slug
+        @topic ||= query :'topics/by_slug_title', slug_title: topic_slug
       end
 
       def graph_user

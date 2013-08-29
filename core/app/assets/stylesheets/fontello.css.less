@@ -1,0 +1,89 @@
+// ATTENTION:
+// Generate the font using fontello.com, upload fontello-config.json.
+// Then replace the font (woff) and manually update this file with the added icons.
+
+@font-face {
+  font-family: 'fontello';
+  src: asset-data-url('fontello.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-plus,
+.icon-home,
+.icon-check,
+.icon-list,
+.icon-cog,
+.icon-edit,
+.icon-ok,
+.icon-remove,
+.icon-share-alt,
+.icon-question-sign,
+.icon-info-sign,
+.icon-trash,
+.icon-off,
+.icon-firefox,
+.icon-chrome,
+.icon-export,
+.icon-globe,
+.icon-user,
+.icon-bookmark,
+.icon-time,
+.icon-right-open
+{
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+
+  margin-right: .2em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  text-align: center;
+
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+
+
+  /* you can be more comfortable with increased icons size */
+  font-size: 120%;
+
+  vertical-align: -5%;
+}
+
+.icon-plus:before { content: '\e80f'; } /* '' */
+.icon-home:before { content: '\e807'; } /* '' */
+.icon-check:before { content: '\e80b'; } /* '' */
+.icon-list:before { content: '\e800'; } /* '' */
+.icon-cog:before { content: '\e806'; } /* '' */
+.icon-edit:before { content: '\e80a'; } /* '' */
+.icon-ok:before { content: '\e801'; } /* '' */
+.icon-remove:before { content: '\e802'; } /* '' */
+.icon-share-alt:before { content: '\e80e'; } /* '' */
+.icon-question-sign:before { content: '\e80c'; } /* '' */
+.icon-info-sign:before { content: '\e80d'; } /* '' */
+.icon-trash:before { content: '\e810'; } /* '' */
+.icon-right-open:before { content: '\e808'; } /* '' */
+.icon-off:before { content: '\e803'; } /* '' */
+.icon-firefox:before { content: '\e811'; } /* '' */
+.icon-chrome:before { content: '\e804'; } /* '' */
+.icon-export:before { content: '\e813'; } /* '' */
+.icon-globe:before { content: '\e814'; } /* '' */
+.icon-user:before { content: '\e805'; } /* '' */
+.icon-bookmark:before { content: '\e809'; } /* '' */
+.icon-time:before { content: '\e812'; } /* '' */
+
+.glyphicon-color {
+  // !important is still necessary because of more specific "body.factlink-site a"
+  color: black !important;
+}

@@ -77,7 +77,10 @@ json.activity do |json|
     json.to_channel_slug_title     object.slug_title
     json.to_channel_url            channel_path(object.created_by.user, object.id)
 
-    json.to_channel_containing_channel_ids Queries::ContainingChannelIdsForChannelAndUser.new(object.id, current_user.graph_user.id).call
+    containing_channel_ids = query(:containing_channel_ids_for_channel_and_user,
+                                      channel_id: object.id,
+                                      graph_user_id: current_user.graph_user.id)
+    json.to_channel_containing_channel_ids containing_channel_ids
 
     json.target_url                channel_path(object.created_by.user, object.id)
   when "created_channel"

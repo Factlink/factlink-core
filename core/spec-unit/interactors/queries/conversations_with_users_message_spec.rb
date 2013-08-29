@@ -12,31 +12,38 @@ describe Queries::ConversationsWithUsersMessage do
 
   describe '#call' do
     it 'should call the three other queries' do
-      user1 = mock(:user, id: 1)
-      user2 = mock(:user, id: 2)
+      user1 = double(:user, id: 1)
+      user2 = double(:user, id: 2)
       conversations = [
-        mock(:conversation, id: 10, recipient_ids: [1]),
-        mock(:conversation, id: 20, recipient_ids: [1, 2])
+        double(:conversation, id: 10, recipient_ids: [1]),
+        double(:conversation, id: 20, recipient_ids: [1, 2])
       ]
-      message15 = mock(:message, id: 15)
-      message25 = mock(:message, id: 25)
+      message15 = double(:message, id: 15)
+      message25 = double(:message, id: 25)
 
-      query = described_class.new(user1.id.to_s, current_user: user1)
+      pavlov_options = { current_user: user1 }
+      query = described_class.new(user_id: user1.id.to_s,
+        pavlov_options: pavlov_options)
 
-      query.stub(:old_query)
-           .with(:conversations_list, user1.id.to_s)
-           .and_return(conversations)
-      query.stub(:old_query)
-           .with(:last_message_for_conversation, conversations[0])
-          .and_return(message15)
-      query.stub(:old_query)
-           .with(:users_by_ids, [user1.id, user2.id])
-           .and_return([user1, user2])
-      query.stub(:old_query)
-           .with(:last_message_for_conversation, conversations[1])
-           .and_return(message25)
+      Pavlov.stub(:query)
+            .with(:'conversations_list',
+                      user_id: user1.id.to_s, pavlov_options: pavlov_options)
+            .and_return(conversations)
+      Pavlov.stub(:query)
+            .with(:'last_message_for_conversation',
+                      conversation: conversations[0], pavlov_options: pavlov_options)
+            .and_return(message15)
+      Pavlov.stub(:query)
+            .with(:'users_by_ids',
+                      user_ids: [user1.id, user2.id], pavlov_options: pavlov_options)
+            .and_return([user1, user2])
+      Pavlov.stub(:query)
+            .with(:'last_message_for_conversation',
+                      conversation: conversations[1], pavlov_options: pavlov_options)
+            .and_return(message25)
 
       result = query.call
+
       expect(result.length.should).to eq(2)
 
       conversation1 = result[0]

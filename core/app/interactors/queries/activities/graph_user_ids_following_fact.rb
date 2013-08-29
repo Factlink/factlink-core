@@ -1,4 +1,3 @@
-require 'pavlov'
 module Queries
   module Activities
     class GraphUserIdsFollowingFact
@@ -31,7 +30,8 @@ module Queries
       end
 
       def fact_relations_followers_ids
-        old_query :"activities/graph_user_ids_following_fact_relations", fact_relations
+        query(:'activities/graph_user_ids_following_fact_relations',
+                  fact_relations: fact_relations)
       end
 
       def fact_relations
@@ -39,7 +39,8 @@ module Queries
       end
 
       def comments_followers_ids
-        old_query :"activities/graph_user_ids_following_comments", comments
+        query(:'activities/graph_user_ids_following_comments',
+                  comments: comments)
       end
 
       def comments

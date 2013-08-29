@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Commands
   class DeleteComment
     include Pavlov::Command
@@ -8,7 +6,7 @@ module Commands
 
     def execute
       authorized_in_execute
-      Comment.find(@comment_id).delete
+      Comment.find(comment_id).delete
     end
 
     def validate
@@ -17,7 +15,7 @@ module Commands
     end
 
     def authorized_in_execute
-      can_destroy = old_query :'comments/can_destroy', comment_id, user_id
+      can_destroy = query :'comments/can_destroy', comment_id: comment_id, user_id: user_id
       raise Pavlov::AccessDenied, 'Unauthorized' unless can_destroy
     end
   end

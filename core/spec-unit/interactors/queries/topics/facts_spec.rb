@@ -8,12 +8,13 @@ describe Queries::Topics::Facts do
     stub_classes 'Topic', 'Ohm::Model::SortedSet', 'Fact'
   end
 
-  describe '#execute' do
+  describe '#call' do
     it 'correctly' do
       slug_title = 'slug-title'
       count = 10
       max_timestamp = 100
-      query = described_class.new slug_title, count, max_timestamp
+      query = described_class.new slug_title: slug_title, count: count,
+        max_timestamp: max_timestamp
       fact_id = double
       results = [{item: fact_id, score:1}]
       key = double
@@ -31,14 +32,15 @@ describe Queries::Topics::Facts do
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
       Fact.should_receive(:invalid).with(fact).and_return(false)
 
-      expect( query.execute ).to eq [{score: 1, item: fact}]
+      expect( query.call ).to eq [{score: 1, item: fact}]
     end
   end
 
   describe '#setup_defaults' do
     it :max_timestamp do
       default_max_timestamp = 'inf'
-      query = described_class.new '10a', 100, nil
+      query = described_class.new slug_title: '10a', count: 100,
+        max_timestamp: nil
 
       query.setup_defaults
 
@@ -49,7 +51,8 @@ describe Queries::Topics::Facts do
   describe '#redis_key' do
     it 'calls nest correcly' do
       slug_title = 'slug-title'
-      command = described_class.new slug_title, 100, 123
+      command = described_class.new slug_title: slug_title, count: 100,
+        max_timestamp: 123
       nest = double
       key = double
       final_key = double
@@ -64,17 +67,17 @@ describe Queries::Topics::Facts do
 
   describe '#validation' do
     it :slug_title do
-      expect_validating(1, 100, 123).
+      expect_validating(slug_title: 1, count: 100, max_timestamp: 123).
         to fail_validation('slug_title should be a string.')
     end
 
     it :count do
-      expect_validating('1e', 'q', 123).
+      expect_validating(slug_title: '1e', count: 'q', max_timestamp: 123).
         to fail_validation('count should be an integer.')
     end
 
     it :max_timestamp do
-      expect_validating('1e', 100, 'q').
+      expect_validating(slug_title: '1e', count: 100, max_timestamp: 'q').
         to fail_validation('max_timestamp should be an integer.')
     end
   end

@@ -28,7 +28,6 @@ module Queries
       def listener
         @listener ||= Activity::Listener::Stream.new
       end
-
     end
   end
 end

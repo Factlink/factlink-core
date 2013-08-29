@@ -30,7 +30,12 @@ window.AutoloadCollectionOnTimestamp = {
 
     this.startLoading();
     this.fetch({
+      // Check these options carefully when updating Backbone, as they change heavily
+      // between Backbone versions
+      update: true,
       add: true,
+      merge: false,
+      remove: false,
       data: {
         timestamp: this._timestamp
       },

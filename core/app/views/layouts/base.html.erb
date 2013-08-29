@@ -1,10 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7 unsupported-browser"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8 unsupported-browser"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9 unsupported-browser"> <![endif]-->
-<!--[if gt IE 8]><!-->
- <html class="no-js <%= preferred_browser_name  %>">
-<!--<![endif]-->
+ <html class="<%= browser_class_name  %>">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -27,24 +22,16 @@
       </style>
     <% end %>
 
-    <% if Rails.env.development? %>
-      <script type="text/javascript">
-        //always show console.info in development
-        if (localStorage) localStorage.debug = true;
-      </script>
-    <% end %>
-
     <link rel="chrome-webstore-item"
       href="https://chrome.google.com/webstore/detail/<%=FactlinkUI::Application.config.chrome_extension_id%>">
 
-    <%= javascript_include_tag "modernizr-loader" %>
     <%= csrf_meta_tag %>
+    <%= inject_special_test_code %>
   </head>
   <body class="factlink-site controller_<%= controller.controller_name -%> action_<%= controller.action_name -%><%= params[:show_sign_in] ? " show_sign_in" : "" %><%= " show_sign_up" if defined? show_sign_up and show_sign_up %><%= " show_footer" if defined? show_footer and show_footer %>">
     <%= render 'feedback/button' unless defined? dont_render_feedback %>
 
     <%= render 'home/browser_support_message' %>
-    <%= yield :modal %>
 
     <%= yield :sign_in_bar %>
 
@@ -58,7 +45,7 @@
 
     <%= render "feedback/frame" %>
 
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_base %>
     <%= render 'snippets/raven_js' %>
 
     <%= yield :specific_javascript %>

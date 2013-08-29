@@ -1,4 +1,3 @@
-#= require jquery
 #= require jquery.prevent_scroll_propagation
 
 showFrame = document.getElementById("frame")
@@ -30,7 +29,8 @@ window.remote = new xdm.Rpc {},
       onFactlinkCreated = (e, id) ->
         remote.highlightNewFactlink text, id
 
-      $(document).bind "factlinkCreated", (e, id, created_text) ->
+      $(document).off "factlinkCreated"
+      $(document).on "factlinkCreated", (e, id, created_text) ->
         onFactlinkCreated(e, id) if created_text == text
 
       return # don't return anything unless you have a callback on the other site of easyXdm
@@ -52,7 +52,7 @@ showUrl = (url, successFn) ->
 
   showFrame.onload = onLoadSuccess
   # Somehow only lower case letters seem to work for those events --mark
-  $(document).bind "modalready", onLoadSuccess
+  $(document).on "modalready", onLoadSuccess
   loadUrl url
   showFrame.className = "overlay"
 

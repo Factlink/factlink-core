@@ -17,14 +17,14 @@ class ChannelsController < ApplicationController
   respond_to :json, :html
 
   def index
-    @channels = old_interactor :'channels/visible_of_user_for_user', @user
+    @channels = interactor(:'channels/visible_of_user_for_user', user: @user)
   end
 
   def show
     authorize! :show, @channel
 
     backbone_responder do
-      @channel = old_interactor :'channels/get', @channel.id
+      @channel = interactor(:'channels/get', id: @channel.id)
     end
 
     mark_channel_as_read if request.format.html?
@@ -33,7 +33,7 @@ class ChannelsController < ApplicationController
   #TODO Move to topicscontroller, this searches for topics, not for channels
   def search
     # TODO add access control
-    @topics = old_interactor :search_channel, params[:s]
+    @topics = interactor(:'search_channel', keywords: params[:s])
     render 'topics/index', formats: [:json]
   end
 
@@ -46,7 +46,7 @@ class ChannelsController < ApplicationController
     # to create a new channel, while we already have a channel. Since this isn't properly
     # handled in the frontend, the fastest way around it was to act like we created a new
     # channel, but actually return an existing channel.
-    title_hash = params[:channel].andand.slice(:title) || params.slice(:title)
+    title_hash = (params[:channel] || params).slice(:title)
     title = title_hash[:title]
 
     @channels = Channel.find(created_by_id: current_user.graph_user_id)
@@ -66,7 +66,7 @@ class ChannelsController < ApplicationController
 
       respond_to do |format|
         format.json do
-          @channel = old_interactor :'channels/get', @channel.id
+          @channel = interactor(:'channels/get', id: @channel.id)
           render 'channels/show'
         end
       end
@@ -99,12 +99,12 @@ class ChannelsController < ApplicationController
   end
 
   def follow
-    old_interactor :'channels/follow', channel_id
+    interactor :'channels/follow', channel_id: channel_id
     render json: {}, status: :ok
   end
 
   def unfollow
-    old_interactor :'channels/unfollow', channel_id
+    interactor :'channels/unfollow', channel_id: channel_id
     render json: {}, status: :ok
   end
 
@@ -114,7 +114,7 @@ class ChannelsController < ApplicationController
     from = params[:timestamp].to_i if params[:timestamp]
     count = params[:number].to_i if params[:number]
 
-    @facts = old_interactor :'channels/facts', channel_id, from, count
+    @facts = interactor(:'channels/facts', id: channel_id, from: from, count: count)
 
     mark_channel_as_read
 
@@ -126,7 +126,7 @@ class ChannelsController < ApplicationController
   def add_fact
     fact = Fact[params[:fact_id]]
 
-    old_interactor :"channels/add_fact", fact, @channel
+    interactor(:'channels/add_fact', fact: fact, channel: @channel)
 
     render nothing: true, status: :no_content
   end
@@ -140,7 +140,7 @@ class ChannelsController < ApplicationController
     if @fact.data.save and @fact.save
       mp_track "Factlink: Created"
 
-      old_interactor :"channels/add_fact", @fact, @channel
+      interactor(:'channels/add_fact', fact: @fact, channel: @channel)
       @timestamp = Ohm::Model::TimestampedSet.current_time
       render 'channels/fact', formats: [:json]
     else
@@ -164,7 +164,7 @@ class ChannelsController < ApplicationController
     if @channel
       @user ||= @channel.created_by.user
     elsif params[:username]
-      @user ||= query(:user_by_username, params[:username]) or raise_404
+      @user ||= query(:'user_by_username', username: params[:username])
     end
   end
 

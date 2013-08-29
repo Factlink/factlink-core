@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe 'When a User gets approved', type: :request do
+describe 'When a User gets approved', type: :feature do
   it 'the User should get notified through email' do
     clear_emails
 

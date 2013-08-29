@@ -1,8 +1,12 @@
+# WARNING: This code is only used for the registration forms
+#
+# Though it was originally generic, it isn't anymore. It should be phased out
+# along with Bootstrap
+
 setErrorsOnFields = (formId, fieldErrors) ->
   _.forEach fieldErrors, (errorMessage, field) ->
     el = $("#" + formId + "_user_" + field)
 
-    # el.css border: "1px solid rgb(206, 0, 0)"
     el.addClass "error"
     showErrorPopover el, "#{field} #{errorMessage}", formId
 
@@ -28,15 +32,18 @@ reposition_elements_popover = (element, placement)->
   popover = element.data('popover').$tip
   popover.css(color: 'black')
   if placement == 'right'
-    popover.css(
-      'top':0 + position.top - 5,
-      'left':element.width() + position.left + 10,
-      )
+    popover.css
+      top: 0 + position.top - 5
+      left: element.width() + position.left + 10
   else if placement == 'top'
-    popover.css(
-      'top': position.top-popover.height()-12,
-      'left': position.left,
-    )
+    if element.selector == "#bottom_registration_form_user_username"
+      popover.css
+        top: position.top-popover.height() + 4
+        left: position.left - 30
+    else
+      popover.css
+        top: position.top-popover.height() + 4
+        left: position.left + 0
   else
     console.error 'placement not supported'
   element.after(popover)
@@ -60,9 +67,8 @@ bindRegistrationForm = (formId) ->
     setErrorsOnFields formId, fieldErrors
 
   clearPreviousErrorsForForm = (form) ->
-    _.each (form.find "input"), (el) ->
-      # $(el).removeClass "error"
-      $(el).css border: "1px solid #ccc"
+    _.each (form.find "input.text"), (el) ->
+      $(el).removeClass 'error'
       $(el).popover "destroy"
 
 bindRegistrationForm "top_registration_form"

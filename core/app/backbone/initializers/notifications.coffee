@@ -1,8 +1,5 @@
-FactlinkApp.notificationsInitializer = (options)->
-  if $('#notifications').length == 1
-    notificationsView = new NotificationsView(
-      el : $('#notifications')
-      collection: new Notifications()
-    )
+FactlinkApp.notificationsInitializer = (options) ->
+  return unless FactlinkApp.notificationsRegion?
 
-    FactlinkApp.notificationsRegion.attachView(notificationsView)
+  notificationsView = new NotificationsView collection: new Notifications()
+  FactlinkApp.notificationsRegion.show(notificationsView)

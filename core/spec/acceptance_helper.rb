@@ -8,8 +8,14 @@ require 'rubygems'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara/email/rspec'
+require 'capybara-screenshot'
+require 'test_request_syncer'
+require 'poltergeist_style_overrides'
+
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
+
+require 'pavlov_helper'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -19,14 +25,15 @@ RSpec.configure do |config|
   config.filter_run_excluding slow: true unless ENV['RUN_SLOW_TESTS']
 
   # webkit always has js enabled, so always use this:
-  Capybara.javascript_driver = :poltergeist
-  Capybara.default_driver = :poltergeist
+  driver = if ENV["USE_SELENIUM"] then :selenium else :poltergeist end
+
+  Capybara.javascript_driver = driver
+  Capybara.default_driver = driver
+
   Capybara.default_wait_time = 5
   Capybara.server_port = 3005
 
   config.mock_with :rspec
-
-  config.fail_fast = true
 
   config.include Acceptance
   config.include FactoryGirl::Syntax::Methods
@@ -44,6 +51,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    Capybara.reset!
     stub_const("Logger", Class.new)
     stub_const("Logger::ERROR", 1)
     stub_const("Logger::INFO", 2)
@@ -57,6 +65,15 @@ RSpec.configure do |config|
     FactoryGirl.reload
 
     ElasticSearch.stub synchronous: true
+  end
+
+  config.after(:each) do
+    TestRequestSyncer.increment_counter
+    # after incrementing the counter, no new ajax requests will *start* to run.
+    # However, ruby *is* multithreaded, so existing ajax requests must be
+    # allowed to terminate.  The most efficient way of doing this would be to
+    # use a lock, but this is much simpler and 99% ok...
+    wait_for_ajax_idle
   end
 end
 

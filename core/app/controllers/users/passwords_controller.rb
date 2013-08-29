@@ -38,8 +38,7 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   def update_setup_account
-    self.resource = old_interactor :'accounts/setup_approved',
-                      resource_params[:reset_password_token], resource_params
+    self.resource = interactor(:'accounts/setup_approved', reset_password_token: resource_params[:reset_password_token], attribuutjes: resource_params)
 
     if resource.errors.empty?
       sign_in(resource_name, resource)

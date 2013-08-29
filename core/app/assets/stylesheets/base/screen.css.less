@@ -1,4 +1,3 @@
-@import "bootstrap/variables";
 @import "bootstrap/mixins";
 @import "mixins/scrollbars";
 
@@ -11,8 +10,11 @@ html, body {
 }
 
 body {
+  position: relative;
   background: white;
   overflow-y: scroll;
+  min-width: @siteWidth;
+  .background();
 }
 
 #container {

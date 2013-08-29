@@ -1,6 +1,6 @@
 require 'screenshot_helper'
 
-describe "factlink", type: :request do
+describe "factlink", type: :feature do
   include Screenshots::DiscussionHelper
 
   before :each do
@@ -11,8 +11,7 @@ describe "factlink", type: :request do
     @factlink = create_discussion
 
     go_to_discussion_page_of @factlink
-    find('a', text: 'Comments (1)').click
-    find('a', text: '(more)').click
+    find('.evidence-item', text: 'Fact 1').find('a', text:'1 comment')
 
     page.should have_content @factlink.data.displaystring
 

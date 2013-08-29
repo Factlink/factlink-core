@@ -9,7 +9,7 @@ class TourUserView extends Backbone.Marionette.Layout
     buttonRegion: '.js-region-button'
 
   initialize: ->
-    @bindTo @cloned_user(), 'followed', =>
+    @listenTo @cloned_user(), 'followed', ->
       @model.user_topics().invoke 'favourite'
 
   onRender: ->
@@ -21,7 +21,7 @@ class TourUserView extends Backbone.Marionette.Layout
         user: @cloned_user()
         $listenToEl: @$el
 
-      @bindTo @_followUserButton, 'render_state', (loaded, hovering, checked)=>
+      @listenTo @_followUserButton, 'render_state', (loaded, hovering, checked) ->
         @$el.toggleClass 'hover', hovering and loaded
         @$el.toggleClass 'secondary', checked and loaded
         @$el.toggleClass 'loaded', loaded
@@ -34,7 +34,9 @@ class TourUserView extends Backbone.Marionette.Layout
   authorityPopover: ->
     unless @_authorityPopover?
       @_authorityPopover = new TourAuthorityPopoverView
-      @bindTo @_authorityPopover, 'next', @popoverResetAll
+      @listenTo @_authorityPopover, 'next', ->
+        @popoverResetAll()
+        FactlinkApp.FocusOverlay.hide()
     @_authorityPopover
 
   showAuthorityPopover: ->
@@ -43,11 +45,10 @@ class TourUserView extends Backbone.Marionette.Layout
     @popoverAdd '.js-topic',
       side: 'right'
       align: 'top'
-      orthogonalOffset: -2
       contentView: @authorityPopover()
-      show_overlay: true
-      focus_on: @$('.js-topic')[0]
       container: @$el.parent()
+
+    FactlinkApp.FocusOverlay.show @$('.js-topic').first()
 
 class window.TourUsersListView extends Backbone.Marionette.CollectionView
   itemView: TourUserView

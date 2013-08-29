@@ -6,14 +6,15 @@ module Commands
       arguments :channel
 
       def execute
-        success = old_command :'channels/add_subchannel', follower, channel
+        success = command(:'channels/add_subchannel',
+                              channel: follower, subchannel: channel)
 
         success ? follower : nil
       end
 
       def follower
-        @follower ||= old_query(:'channels/get_by_slug_title', channel.slug_title) ||
-          old_command(:'channels/create', channel.title)
+        @follower ||= query(:'channels/get_by_slug_title', slug_title: channel.slug_title) ||
+          command(:'channels/create', title: channel.title)
       end
 
       def authorized?

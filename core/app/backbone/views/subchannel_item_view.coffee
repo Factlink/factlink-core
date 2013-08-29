@@ -9,7 +9,7 @@ class window.SubchannelItemView extends Backbone.Marionette.ItemView
     created_by: @model.user().toJSON()
 
   initialize: ->
-    @model.bind "destroy", @close, this
+    @model.on "destroy", @close, @
 
   destroySubchannel: (e) ->
     @model.destroy()  if confirm("Are you sure you want to unfollow this channel?")

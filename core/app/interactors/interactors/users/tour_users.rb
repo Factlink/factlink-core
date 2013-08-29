@@ -4,6 +4,8 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
+      arguments
+
       def execute
         users.map(&method(:with_user_topics))
       end
@@ -14,12 +16,12 @@ module Interactors
       end
 
       def user_topics user
-        old_query :'user_topics/top_with_authority_for_graph_user_id',
-              user.graph_user_id, 2
+        query(:'user_topics/top_with_authority_for_graph_user_id',
+                  graph_user_id: user.graph_user_id, limit_topics: 2)
       end
 
       def users
-        old_query :"users/handpicked"
+        query :"users/handpicked"
       end
 
       def authorized?

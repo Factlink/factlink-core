@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     authorize! :see_activities, @user
     @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )
 
-    @activities.select! { |a| a[:item].andand.still_valid? }
+    @activities.select! { |a| a[:item] && a[:item].still_valid? }
     @showing_notifications = true
     respond_to do |format|
       format.json { render 'channels/activities' }
@@ -52,12 +52,13 @@ class UsersController < ApplicationController
   end
 
   def notification_settings
+    authorize! :edit_settings, @user
     backbone_responder
   end
 
   def search
     authorize! :index, User
-    @users = old_interactor :search_user, params[:s]
+    @users = interactor(:'search_user', keywords: params[:s])
     render :index, formats: [:json]
   end
 
@@ -85,7 +86,7 @@ class UsersController < ApplicationController
   def tour_users
     authorize! :access, Ability::FactlinkWebapp
     # TODO add proper authorization check
-    @tour_users = old_interactor :"users/tour_users"
+    @tour_users = interactor :"users/tour_users"
 
     render :tour_users, formats: [:json]
   end
@@ -94,7 +95,7 @@ class UsersController < ApplicationController
 
   def load_user
     username = params[:username] || params[:id]
-    @user = old_query :user_by_username, username
+    @user = query(:'user_by_username', username: username)
     @user or raise_404
   rescue Pavlov::ValidationError
     raise_404

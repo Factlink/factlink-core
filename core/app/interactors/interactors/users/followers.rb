@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Interactors
   module Users
     class Followers
@@ -18,10 +16,11 @@ module Interactors
       end
 
       def execute
-        user = old_query :user_by_username, user_name
+        user = query(:'user_by_username', username: user_name)
 
-        graph_user_ids = old_query :'users/follower_graph_user_ids', user.graph_user_id.to_s
-        users = old_query :users_by_graph_user_ids, graph_user_ids
+        graph_user_ids = query(:'users/follower_graph_user_ids',
+                                  graph_user_id: user.graph_user_id.to_s)
+        users = query(:'users_by_graph_user_ids', graph_user_ids: graph_user_ids)
 
         followed_by_me = graph_user_ids.include? pavlov_options[:current_user].graph_user_id
 

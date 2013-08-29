@@ -5,7 +5,7 @@ class window.ChannelActivities extends Backbone.Collection
   initialize: (models, opts) ->
     @channel = opts.channel;
     @_count = new ChannelActivityCount {}, channel_activity_collection: @
-    @_count.bind 'change', @update_count, @
+    @_count.on 'change', @update_count, @
     @on 'reset add remove', @setLatestTimestamp, @
     @setLatestTimestamp()
 

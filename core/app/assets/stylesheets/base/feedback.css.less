@@ -1,13 +1,12 @@
 //= require_tree ./feedback
 
 @import "bootstrap/mixins";
-@import "bootstrap/variables";
 
 @feedback_frame_width: 430px;
 @feedback_frame_height: 290px;
 @feedback_frame_height_no_user: 368px;
 
-#feedback_frame {
+.modal-window.feedback-frame-modal-window {
 	width: 435px;
 	margin-left: -217.5px;
 	padding: 0;
@@ -15,8 +14,10 @@
 	top: 50%;
 	left: 50%;
 
-	.modal-body {
+	.modal-window-body {
 		padding: 0;
+    max-height: @feedback_frame_height_no_user;
+    overflow: hidden;
 
 		iframe {
 			width: @feedback_frame_width;
@@ -42,6 +43,8 @@ body.feedback_form {
 
 	form {
 		margin: 0;
+    overflow: hidden;
+
 		input[type=text], textarea {
 			display: block;
 			width: 100%;
@@ -49,15 +52,11 @@ body.feedback_form {
 
 		textarea {
 			height: 145px;
+      margin-bottom: 10px;
 		}
 
 		.submit {
 			float: right;
 		}
 	}
-}
-
-.modal-backdrop {
-  background: white;
-  .opacity(.65);
 }

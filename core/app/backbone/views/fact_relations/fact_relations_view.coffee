@@ -54,9 +54,9 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
   template: "fact_relations/fact_relations"
 
   regions:
-    interactingUserRegion: '.interacting-users'
-    factRelationsRegion: '.fact-relation-listing-container'
-    factRelationSearchRegion: '.fact-relation-search'
+    interactingUserRegion: '.js-interacting-users-region'
+    factRelationsRegion: '.js-fact-relations-region'
+    factRelationSearchRegion: '.js-fact-relation-search-region'
 
   onRender: ->
     @$el.addClass @model.type()
@@ -72,9 +72,10 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
       @model.evidence()?.fetch()
 
       if Factlink.Global.signed_in
-        @factRelationSearchRegion.show new AddEvidenceView
+        @factRelationSearchRegion.show new AddEvidenceFormView
           collection: @model.evidence()
-          model: @model
+          fact_id: @model.fact().id
+          type: @model.type()
     else
       @hideRegion @factRelationSearchRegion
       @hideRegion @factRelationsRegion

@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Queries
   class ObjectIdsByActivity
     include Pavlov::Query

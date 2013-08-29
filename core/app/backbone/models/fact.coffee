@@ -1,10 +1,10 @@
 class window.Fact extends Backbone.Model
-  getOwnContainingChannels: (eventbinder) ->
+  getOwnContainingChannels: (eventAggregator) ->
     containing_channel_ids = @get("containing_channel_ids") ? []
 
     col = new OwnChannelCollection currentUser.channels.channelArrayForIds(containing_channel_ids)
 
-    eventbinder.bindTo currentUser.channels, 'reset', ->
+    eventAggregator.listenTo currentUser.channels, 'reset', ->
       col.reset currentUser.channels.channelArrayForIds(containing_channel_ids)
 
     col
@@ -15,7 +15,7 @@ class window.Fact extends Backbone.Model
     @get('fact_wheel').opinion_types[type].percentage
 
   removeFromChannel: (channel, opts={}) ->
-    $.ajax _.extend {}, opts,
+    Backbone.ajax _.extend {}, opts,
       type: "post"
       url: channel.url() + "/remove/" + @get("id") + ".json"
       success: =>
@@ -25,7 +25,7 @@ class window.Fact extends Backbone.Model
 
 
   addToChannel: (channel, opts={}) ->
-    $.ajax _.extend {}, opts,
+    Backbone.ajax _.extend {}, opts,
       type: "post"
       url: channel.url() + "/add/" + @get("id") + ".json"
       success: =>
@@ -33,17 +33,16 @@ class window.Fact extends Backbone.Model
         opts.success?()
 
   getFactWheel: ->
-    return @_fact_wheel if @_fact_wheel?
-
-    @_fact_wheel = new Wheel _.extend {}, @get("fact_wheel"),
-                        fact_id: @id
-
-  friendlyUrl: -> @get("url")
+    unless @_fact_wheel?
+      @_fact_wheel = new Wheel _.extend {}, @get("fact_wheel"), fact_id: @id
+      @on 'change:id', -> @_fact_wheel.set 'fact_id', @id
+    @_fact_wheel
 
   user: -> new User(@get("created_by"))
 
-  # TODO: rename to is_mine
-  i_am_owner: -> @user().is_current_user()
+  is_mine: -> @user().is_current_user()
+
+  can_destroy: -> @is_mine() # WHAT?! See issue https://github.com/Factlink/core/issues/1024
 
   factUrlHost: ->
     fact_url = @get('fact_url')
@@ -53,6 +52,6 @@ class window.Fact extends Backbone.Model
 
   toJSON: ->
     _.extend super(),
-      i_am_owner: @i_am_owner()
+      is_mine: @is_mine()
       fact_url_host: @factUrlHost()
       fact_url_title: @get('fact_title') || @factUrlHost()

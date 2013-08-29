@@ -1,10 +1,9 @@
-@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 /* SITE SPECIFIC STYLES */
 .factlink-site .new-session {
   border: 1px solid @baseBorderColor;
-  .border-radius(5px);
+  border-radius: 5px;
   padding: 20px;
   background: white;
   margin: 0 auto 150px;
@@ -52,13 +51,18 @@
 /* / CLIENT SPECIFIC STYLES */
 
 .new-session {
+  .new-design-white-block-with-shadow();
+  visibility: visible;
+  width: @discussionModalWidth;
+  margin: 0 auto;
+  padding: 15px;
+
   > h1 {
     font-size: @heading1FontSize;
     margin-bottom: 0;
   }
 
   > form > a {
-    font-size: @baseFontSize;
     font-weight: bold;
   }
 
@@ -77,8 +81,7 @@
       label {
         display: inline-block;
         color: #555;
-        font-size: @baseFontSize;
-        margin: 3px 0 0 0;
+        margin: 8px 0 0 0;
       }
     }
   }
@@ -90,9 +93,6 @@
     .box-sizing(border-box);
 
     a {
-      font-size: @baseFontSize;
-      color: #333;
-      font-weight: bold;
       .box-sizing(border-box);
       margin-bottom: 9px;
 
@@ -134,9 +134,5 @@
       font-size: @heading1FontSize;
       color: #555;
     }
-  }
-
-  .alert {
-    font-size: @baseFontSize;
   }
 }

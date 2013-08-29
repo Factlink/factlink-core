@@ -1,9 +1,9 @@
-<ul class="actions
-  {{^show_discussion_link}}without_discussion{{/show_discussion_link}}">
+<ul class="bottom-actions
+  {{^show_discussion_link}}bottom-actions-without-discussion{{/show_discussion_link}}">
 
   {{#show_discussion_link}}
-  <li>
-      <a href="{{discussion_url}}" class="discussion_link js-discussion-link"
+  <li class="bottom-action">
+      <a href="{{url}}" rel="backbone" class="discussion_link"
         {{#modal?}}
           target="new"
         {{/modal?}}{{^modal?}}
@@ -14,10 +14,10 @@
       </a>
 
       <span class="opinion_indicators">
-        <a href="{{discussion_url}}?tab=supporting" class="discussion_link js-discussion-link">  
+        <a href="{{url}}?tab=supporting" rel="backbone" class="discussion_link">
           <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
         </a>
-        <a href="{{discussion_url}}?tab=weakening" class="discussion_link js-discussion-link">
+        <a href="{{url}}?tab=weakening" rel="backbone" class="discussion_link">
           <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
         </a>
       </span>
@@ -25,12 +25,12 @@
   {{/show_discussion_link}}
 
   {{#global.signed_in}}
-    <li><a href="#" class="js-add-to-channel">Repost</a></li>
-    <li><a href="#" class="js-start-conversation">Share</a></li>
+    <li class="bottom-action"><a href="#" class="js-add-to-channel">Repost</a></li>
+    <li class="bottom-action"><a href="#" class="js-start-conversation">Share</a></li>
   {{/global.signed_in}}
 
   {{#show_timestamp_or_fact_url_host}}
-    <li class="fact-info">
+    <li class="bottom-action fact-info">
       {{^hide_timestamp}}
         {{formatted_time}}
         {{#proxy_scroll_url}}

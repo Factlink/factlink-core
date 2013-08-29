@@ -1,4 +1,3 @@
-require 'pavlov'
 module Queries
   module Activities
     class GraphUserIdsFollowingFactRelations
@@ -36,7 +35,8 @@ module Queries
       end
 
       def sub_comments
-        old_query :'sub_comments/index', fact_relation_ids, 'FactRelation'
+        query(:'sub_comments/index',
+                  parent_ids_in: fact_relation_ids, parent_class: 'FactRelation')
       end
     end
   end

@@ -7,10 +7,10 @@ module Interactors
       # TODO: rewrite this to use Console once we also have a facebook_app_namespace
       # in pavlov_options in ApplicationController
       # How to use this interactor:
-      # Pavlov.old_interactor :'facts/share_on_facebook', '10',
+      # Pavlov.interactor(:'facts/share_on_facebook', fact_id: '10', pavlov_options: {
       #                     current_user: user,
       #                     ability: Ability.new(user),
-      #                     facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace
+      #                     facebook_app_namespace: FactlinkUI::Application.config.facebook_app_namespace})
 
       arguments :fact_id
 
@@ -19,7 +19,7 @@ module Interactors
       end
 
       def execute
-        old_command :'facebook/share_factlink', fact_id
+        command(:'facebook/share_factlink', fact_id: fact_id)
       end
 
       def validate

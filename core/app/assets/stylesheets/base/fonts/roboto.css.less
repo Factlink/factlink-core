@@ -1,19 +1,21 @@
+@import "bootstrap/mixins";
+
 // Doesn't work with IE8 since we don't serve them .eot files
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 300;
-  src: local('Roboto Light'), local('Roboto-Light'), font-url('roboto-light.woff') format('woff');
+  src: local('Roboto Light'), local('Roboto-Light'), asset-data-url('roboto-light.woff') format('woff');
 }
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: local('Roboto Regular'), local('Roboto-Regular'), font-url('roboto-regular.woff') format('woff');
+  src: local('Roboto Regular'), local('Roboto-Regular'), asset-data-url('roboto-regular.woff') format('woff');
 }
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
-  font-weight: 500;
-  src: local('Roboto Medium'), local('Roboto-Medium'), font-url('roboto-medium.woff') format('woff');
+  font-weight: @baseFontBoldWeight;
+  src: local('Roboto Medium'), local('Roboto-Medium'), asset-data-url('roboto-medium.woff') format('woff');
 }

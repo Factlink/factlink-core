@@ -11,7 +11,7 @@ module Queries
 
       def topics
         topic_slugs.map do |slug|
-          old_query :'topics/by_slug_title', slug
+          query :'topics/by_slug_title', slug_title: slug
         end.compact
       end
 

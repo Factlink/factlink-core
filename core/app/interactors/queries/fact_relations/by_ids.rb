@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Queries
   module FactRelations
     class ByIds
@@ -28,8 +26,11 @@ module Queries
       end
 
       def dead_fact_relation_for fact_relation
-        fact_relation.sub_comments_count = old_query :'sub_comments/count', fact_relation.id.to_s, fact_relation.class.to_s
-        impact_opinion = old_query :'opinions/impact_opinion_for_fact_relation', fact_relation
+        fact_relation.sub_comments_count = query(:'sub_comments/count',
+                                                    parent_id: fact_relation.id.to_s,
+                                                    parent_class: fact_relation.class.to_s)
+        impact_opinion = query(:'opinions/impact_opinion_for_fact_relation',
+                                  fact_relation: fact_relation)
 
         KillObject.fact_relation fact_relation,
           current_user_opinion: current_user_opinion_on(fact_relation),

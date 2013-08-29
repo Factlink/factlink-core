@@ -1,5 +1,4 @@
 @import "bootstrap/mixins";
-@import "bootstrap/variables";
 
 #container #main-wrapper .content {
   .conversation {
@@ -62,7 +61,7 @@
         img {
           width: 48px;
           height: 48px;
-          .border-radius(3px);
+          border-radius: 3px;
         }
       }
       .message {
@@ -76,7 +75,6 @@
         .user-profile-link-dummy {
           font-weight: bold;
           color: @headingFontColor;
-          font-size: @baseFontSize;
         }
 
         .meta {
@@ -86,7 +84,6 @@
 
         .text {
           width: 475px;
-          font-size: @baseFontSize;
           word-wrap: break-word;
           i {
             opacity: 0.65;

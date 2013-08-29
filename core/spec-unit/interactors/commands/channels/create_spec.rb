@@ -6,9 +6,9 @@ describe Commands::Channels::Create do
   include PavlovSupport
   describe '#call' do
     it 'creates a channel with the requested title' do
-      channel = mock :channel
+      channel = double :channel
       title = 'foobar'
-      current_user = mock :user, graph_user_id:15
+      current_user = double :user, graph_user_id:15
 
       stub_classes('Channel')
       Channel.stub(:new).with(title:title, created_by_id:current_user.graph_user_id)
@@ -16,7 +16,7 @@ describe Commands::Channels::Create do
 
       channel.stub valid?:true
 
-      command = Commands::Channels::Create.new(title, :current_user=>current_user)
+      command = described_class.new title: title, pavlov_options: { current_user: current_user}
 
       channel.should_receive(:save)
 

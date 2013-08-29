@@ -10,7 +10,7 @@ describe Interactors::Topics::Unfavourite do
     end
 
     it 'throws when no current_user' do
-      expect { described_class.new(mock, mock) }
+      expect { described_class.new(user_name: double, slug_title: double).call }
         .to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
 
@@ -21,19 +21,22 @@ describe Interactors::Topics::Unfavourite do
 
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
+      interactor = described_class.new(user_name: 'username',
+        slug_title: 'slug_title', pavlov_options: pavlov_options)
 
-      Pavlov.stub(:old_query)
-        .with(:user_by_username, 'username', pavlov_options)
+      Pavlov.stub(:query)
+        .with(:user_by_username, username: 'username', pavlov_options: pavlov_options)
         .and_return(user)
 
-      expect { described_class.new 'username', 'slug_title', pavlov_options }.
-        to raise_error Pavlov::AccessDenied, 'Unauthorized'
+      expect do
+        interactor.call
+      end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
   end
 
   describe '#call' do
     it 'calls a command to unfavourite topic' do
-      user = mock(graph_user_id: mock)
+      user = double(graph_user_id: double)
       user_name = 'username'
       slug_title = 'slug-title'
 
@@ -44,18 +47,19 @@ describe Interactors::Topics::Unfavourite do
 
       pavlov_options = { current_user: current_user, ability: ability }
 
-      topic = mock(id: mock)
+      interactor = described_class.new(user_name: user_name,
+        slug_title: slug_title, pavlov_options: pavlov_options)
 
-      Pavlov.stub(:old_query)
-        .with(:'user_by_username', user_name, pavlov_options)
+      topic = double(id: double)
+
+      Pavlov.stub(:query)
+        .with(:'user_by_username', username: user_name, pavlov_options: pavlov_options)
         .and_return(user)
-      Pavlov.stub(:old_query)
-        .with(:'topics/by_slug_title', slug_title, pavlov_options)
+      Pavlov.stub(:query)
+        .with(:'topics/by_slug_title', slug_title: slug_title, pavlov_options: pavlov_options)
         .and_return(topic)
-      Pavlov.should_receive(:old_command)
-        .with(:'topics/unfavourite', user.graph_user_id, topic.id.to_s, pavlov_options)
-
-      interactor = described_class.new user_name, slug_title, pavlov_options
+      Pavlov.should_receive(:command)
+        .with(:'topics/unfavourite', graph_user_id: user.graph_user_id, topic_id: topic.id.to_s, pavlov_options: pavlov_options)
 
       interactor.should_receive(:mp_track)
         .with('Topic: Unfavourited', slug_title: slug_title)
@@ -66,12 +70,12 @@ describe Interactors::Topics::Unfavourite do
 
   describe 'validations' do
     it 'without user_id doesn\t validate' do
-      expect_validating('', 'headline')
+      expect_validating(user_name: '', slug_title: 'headline')
         .to fail_validation('user_name should be a nonempty string.')
     end
 
-    it 'without topic_id doesn\t validate' do
-      expect_validating('karel', '')
+    it 'without user_id doesn\t validate' do
+      expect_validating(user_name: 'karel', slug_title: '')
         .to fail_validation('slug_title should be a nonempty string.')
     end
   end

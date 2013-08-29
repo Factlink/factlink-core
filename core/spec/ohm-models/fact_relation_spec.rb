@@ -99,7 +99,7 @@ describe FactRelation do
     end
     it "should be false after someone comments on it" do
       as(fr.created_by.user) do |pavlov|
-        pavlov.interactor :'sub_comments/create_for_fact_relation', fr.id.to_i, 'hoi'
+        pavlov.interactor(:'sub_comments/create_for_fact_relation', fact_relation_id: fr.id.to_i, content: 'hoi')
       end
 
       fr.deletable?.should be_false

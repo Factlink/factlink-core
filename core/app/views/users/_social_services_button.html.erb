@@ -21,14 +21,14 @@
     <span class="social-services-buttons">
       <span class="disconnect-buttons <%= service_name %>" <% if not connected %> style="display: none;"<% end %>>
         <span class="connected">
-          <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, class: ["btn", "disabled"]) do %>
+          <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, class: ["button", "disabled"]) do %>
             <%= image_tag("#{service_name}.png") %>
             Connected to <%= service_name.capitalize %>
           <% end %>
         </span>
 
         <span class="disconnect">
-          <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, class: ["btn", "btn-danger"]) do %>
+          <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, class: ["button", "button-danger"]) do %>
             <%= image_tag("#{service_name}.png") %>
               Disconnect from <%= service_name.capitalize %>
           <% end %>
@@ -37,7 +37,7 @@
       <span class="connect-buttons <%= service_name %>" <% if connected %> style="display: none;"<% end %>>
         <span class="connect">
             <% # the "use_authorize=true&x_auth_access_type=write" part is only relevant for Twitter, Facebook ignores this %>
-            <%= link_to("/auth/#{service_name}?use_authorize=true&x_auth_access_type=write", class: ["btn", "popup"], :"data-width" => 640, :"data-height" => 400) do %>
+            <%= link_to("/auth/#{service_name}?use_authorize=true&x_auth_access_type=write", class: ["button", "popup"], :"data-width" => 640, :"data-height" => 400) do %>
             <%= image_tag("#{service_name}.png") %>
               Connect <%= service_name.capitalize %>
           <% end %>

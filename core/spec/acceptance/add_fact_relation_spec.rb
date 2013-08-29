@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "adding factlinks to a fact", type: :request do
+feature "adding factlinks to a fact", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
@@ -14,9 +14,7 @@ feature "adding factlinks to a fact", type: :request do
   scenario "initially the evidence list should be empty" do
     go_to_discussion_page_of factlink
 
-    within :css, ".relation-tabs-view" do
-      page.should have_content "This Factlink is not supported by other Factlinks."
-    end
+    page.should have_content "This Factlink is not supported by other Factlinks."
   end
 
   scenario "after adding a piece of evidence, evidence list should contain that item" do
@@ -24,12 +22,10 @@ feature "adding factlinks to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
-      sleep 2
-      within "li.evidence-item" do
-        page.should have_content supporting_factlink.to_s
-      end
+    add_existing_factlink :supporting, supporting_factlink
+    sleep 2
+    within "li.evidence-item" do
+      page.should have_content supporting_factlink.to_s
     end
   end
 
@@ -38,12 +34,10 @@ feature "adding factlinks to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
-      within "li.evidence-item" do
-        page.find('span', text: supporting_factlink.to_s).click
-      end
+    within "li.evidence-item" do
+      page.find('span', text: supporting_factlink.to_s).click
     end
 
     page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
@@ -54,12 +48,10 @@ feature "adding factlinks to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
-      within "li.evidence-item" do
-        click_link 'Arguments'
-      end
+    within "li.evidence-item" do
+      click_link 'Arguments'
     end
 
     page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
@@ -70,32 +62,28 @@ feature "adding factlinks to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
-      within "li.evidence-item" do
-        page.should have_content supporting_factlink.to_s
+    within ".evidence-item" do
+      page.should have_content supporting_factlink.to_s
 
-        within '.authorities-evidence' do
-          page.should have_content '0.0'
-        end
-
-        within ".opinion_indicators .discussion_link:first" do # agreeing percentage
-          page.should have_content "0%"
-        end
-
-        click_wheel_agree '.relation-tabs-view li.evidence-item'
-
-        sleep 2 # Wait for the evidence to be refreshed
-
-        within '.authorities-evidence' do
-          page.should have_content '1.0'
-        end
-
-        within ".opinion_indicators .discussion_link:first" do # agreeing percentage
-          page.should have_content "100%"
-        end
+      within '.authorities-evidence' do
+        page.should have_content '0.0'
       end
+
+
+      agreeing_link = all('.opinion_indicators .discussion_link')[0]
+      agreeing_link.should have_content "0%"
+
+      click_wheel_part 0, '.relation-tabs-view li.evidence-item'
+
+
+      authority_el = find '.authorities-evidence'
+
+      authority_el.should have_content '1.0'
+
+      agreeing_link = all('.opinion_indicators .discussion_link')[0]
+      agreeing_link.should have_content "100%"
     end
   end
 
@@ -104,9 +92,7 @@ feature "adding factlinks to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
-    end
+    add_existing_factlink :supporting, supporting_factlink
 
     visit user_path(@user)
 
@@ -119,29 +105,27 @@ feature "adding factlinks to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
     go_to_discussion_page_of supporting_factlink
-    click_wheel_agree
+    click_wheel_part 0
 
     go_to_discussion_page_of factlink
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
-      within "li.evidence-item" do
-        page.should have_content supporting_factlink.to_s
+    within "li.evidence-item" do
+      page.should have_content supporting_factlink.to_s
 
-        within '.authorities-evidence' do
-          page.should have_content '1.0'
-        end
-
-        find('.supporting').click
-        find('.js-fact-relation-believe').set false
-        page.find('a', text: 'Done').click
-
-        within '.authorities-evidence' do
-          page.should have_content '0.0'
-        end
-
+      within '.authorities-evidence' do
+        page.should have_content '1.0'
       end
+
+      find('.supporting').click
+      find('.js-fact-relation-believe').set false
+      page.find('button', text: 'Done').click
+
+      within '.authorities-evidence' do
+        page.should have_content '0.0'
+      end
+
     end
   end
 end

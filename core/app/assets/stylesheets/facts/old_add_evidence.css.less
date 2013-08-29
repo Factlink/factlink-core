@@ -1,0 +1,61 @@
+@import "bootstrap/mixins";
+
+.add-evidence-form {
+  .auto-complete-fact-relations {
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+
+    .fact-relation-post {
+      width: 105px;
+      float: right;
+    }
+
+    .fact-relations-input-container {
+      margin-bottom: 10px;
+    }
+
+    .fact-wheel {
+      margin-left: -5px;
+      margin-right: 5px;
+
+      .authority {
+        display: none;
+      }
+    }
+
+    .auto-complete-fact-relations-result-text {
+      overflow: hidden;
+    }
+  }
+
+  .view-toggle {
+    color: @metaFontColor;
+    cursor: pointer;
+    padding-top: 4px;
+
+    input[type="checkbox"] {
+      margin-top: -2px;
+      margin-right: 3px;
+    }
+  }
+}
+
+.pre-ndp-add-evidence-form {
+  .clearfix();
+
+  background: @whiteDarker;
+  padding: 15px @mainRightPadding 15px @mainLeftPadding;
+
+  border-top: 1px solid @baseBorderColor;
+  border-bottom: 1px solid @baseBorderColor;
+
+  .auto-complete-fact-relations {
+    min-height: 220px;
+  }
+
+  .view-toggle {
+    float: right;
+    padding: 4px 12px 0;
+  }
+}

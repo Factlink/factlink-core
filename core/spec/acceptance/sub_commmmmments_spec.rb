@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-feature "sub_comments", type: :request do
+feature "sub_comments", type: :feature do
   include Acceptance
   include Acceptance::FactHelper
   include Pavlov::Helpers
@@ -14,13 +14,13 @@ feature "sub_comments", type: :request do
   end
 
   scenario "A user can comment on a comment" do
-    @comment_user_b = command :create_comment, @factlink_user_a.id.to_i, "believes", "test", @user_b.id.to_s
+    @comment_user_b = command(:'create_comment', fact_id: @factlink_user_a.id.to_i, type: "believes", content: "test", user_id: @user_b.id.to_s)
 
     sub_comment_text = "Sub Comment 1"
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('a', text: 'Comments').click
+    click_link 'Comment'
 
     add_sub_comment(sub_comment_text)
     assert_sub_comment_exists sub_comment_text
@@ -29,7 +29,7 @@ feature "sub_comments", type: :request do
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('.js-sub-comments-link', text: 'Comments').click
+    click_link '1 comment'
     assert_sub_comment_exists sub_comment_text
   end
 
@@ -41,7 +41,7 @@ feature "sub_comments", type: :request do
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('a', text: 'Comments').click
+    click_link 'Comment'
 
     add_sub_comment(sub_comment_text)
     assert_sub_comment_exists sub_comment_text
@@ -49,8 +49,8 @@ feature "sub_comments", type: :request do
     switch_to_user(@user_b)
     go_to_discussion_page_of @factlink_user_a
 
-    find('.js-sub-comments-link', text: 'Comments').click
-    find('.evidence-sub-comment-content').should have_content sub_comment_text
+    click_link '1 comment'
+    assert_sub_comment_exists sub_comment_text
   end
 
   scenario "After adding a subcomment the evidence can not be removed any more" do
@@ -61,22 +61,23 @@ feature "sub_comments", type: :request do
 
     go_to_discussion_page_of @factlink_user_a
 
-    within evidence_listing_css_selector do
-      page.should have_selector('.delete', text: 'Remove this Factlink as evidence')
+    within_evidence_list do
+      page.should have_selector('.delete', visible:false, text: 'Remove this Factlink as evidence')
     end
 
-    find('a', text: 'Comments').click
+    click_link 'Comment'
 
     add_sub_comment(sub_comment_text)
-    find('.evidence-sub-comment-content').should have_content sub_comment_text
+    assert_sub_comment_exists sub_comment_text
 
-    within evidence_listing_css_selector do
+
+    within_evidence_list do
       page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
     end
 
     go_to_discussion_page_of @factlink_user_a
 
-    within evidence_listing_css_selector do
+    within_evidence_list do
       page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
     end
   end

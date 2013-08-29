@@ -7,36 +7,35 @@ describe Commands::SubComments::CreateXxx do
     stub_classes 'SubComment', 'User'
   end
 
-  it 'should initialize correctly' do
-    command = Commands::SubComments::CreateXxx.new 1, 'FactRelation','content', mock
-
-    command.should_not be_nil
-  end
-
-  describe "validation" do
+  describe 'validation' do
     it 'without user doesn''t validate' do
-      expect_validating('1', 'Comment' ,'Hoi!', nil).
-        to fail_validation('user should not be nil.')
+      expect_validating(parent_id: '1', parent_class: 'Comment',
+          content: 'Hoi!', user: nil)
+        .to fail_validation('user should not be nil.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating('1', 'FactRelation' ,'', mock).
-        to fail_validation('content should not be empty.')
+      expect_validating(parent_id: '1', parent_class: 'FactRelation',
+          content: '', user: double)
+        .to fail_validation('content should not be empty.')
     end
 
     it 'with a invalid parent_id for Comment parent class doesn''t validate' do
-      expect_validating(1, 'Comment', 'Hoi!', mock).
-        to fail_validation('parent_id should be an hexadecimal string.')
+      expect_validating(parent_id: 1, parent_class: 'Comment', content: 'Hoi!',
+          user: double)
+        .to fail_validation('parent_id should be an hexadecimal string.')
     end
 
     it 'with a invalid parent_id for FactRelation parent class doesn''t validate' do
-      expect_validating('2a', 'FactRelation', 'Hoi!', mock).
-        to fail_validation('parent_id should be an integer.')
+      expect_validating(parent_id: '2a', parent_class: 'FactRelation',
+          content: 'Hoi!', user: double)
+        .to fail_validation('parent_id should be an integer.')
     end
 
     it 'with a invalid parent_class doesn''t validate' do
-      expect_validating('1', 'bla', 'Hoi!', mock).
-        to fail_validation('parent_class should be on of these values: ["Comment", "FactRelation"].')
+      expect_validating(parent_id: '1', parent_class: 'bla', content: 'Hoi!',
+          user: double)
+        .to fail_validation('parent_class should be on of these values: ["Comment", "FactRelation"].')
     end
   end
 
@@ -47,8 +46,11 @@ describe Commands::SubComments::CreateXxx do
       user = double
       parent_class = 'FactRelation'
 
-      command = Commands::SubComments::CreateXxx.new parent_id, parent_class, content, user, current_user: user
-      comment = mock(:comment, id: 10)
+      pavlov_options = { current_user: user }
+      command = described_class.new(parent_id: parent_id,
+        parent_class: parent_class, content: content, user: user,
+        pavlov_options: pavlov_options)
+      comment = double(:comment, id: 10)
 
       comment.should_receive(:parent_id=).with(parent_id.to_s)
       SubComment.should_receive(:new).and_return(comment)
@@ -57,9 +59,7 @@ describe Commands::SubComments::CreateXxx do
       comment.should_receive(:parent_class=).with(parent_class)
       comment.should_receive(:save)
 
-      result = command.execute
-
-      expect( result ).to eq comment
+      expect( command.call ).to eq comment
     end
   end
 end

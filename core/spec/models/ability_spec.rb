@@ -18,6 +18,7 @@ describe Ability do
   describe "to manage a user" do
     context "as a normal user" do
       it {subject.should_not be_able_to :manage, User }
+      it {subject.should_not be_able_to :configure, Ability::FactlinkWebapp }
 
       it {subject.should     be_able_to :show, user }
       it {subject.should     be_able_to :show, other_user }
@@ -25,6 +26,8 @@ describe Ability do
 
       it {subject.should     be_able_to :read_tos, user }
       it {subject.should_not be_able_to :sign_tos, user }
+
+      it {subject.should     be_able_to :edit_settings, user }
 
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
@@ -39,8 +42,12 @@ describe Ability do
     end
     context "as an admin" do
       it {admin.should     be_able_to :manage, User }
+      it {admin.should     be_able_to :configure, Ability::FactlinkWebapp }
+
       it {admin.should_not be_able_to :sign_tos, user }
       it {admin.should_not be_able_to :sign_tos, admin_user }
+
+      it {admin.should_not be_able_to :edit_settings, user }
     end
     context "as an anonymous" do
       it {anonymous.should_not be_able_to :manage, User }
@@ -48,6 +55,7 @@ describe Ability do
       it {anonymous.should_not be_able_to :sign_tos, nil }
       it {anonymous.should     be_able_to :read_tos, nil }
       it {anonymous.should_not be_able_to :show, User }
+      it {anonymous.should_not be_able_to :edit_settings, user }
     end
   end
 

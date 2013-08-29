@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Queries
   module Comments
     class AddAuthorityAndOpinionAndCanDestroy
@@ -17,18 +15,19 @@ module Queries
       end
 
       def authority
-        old_query :authority_on_fact_for, fact, comment.created_by.graph_user
+        query(:'authority_on_fact_for',
+                  fact: fact, graph_user: comment.created_by.graph_user)
       end
 
       def impact_opinion
-        old_query :'opinions/impact_opinion_for_comment', comment
+        query(:'opinions/impact_opinion_for_comment', comment: comment)
       end
 
       def current_user_opinion
         return unless current_graph_user
 
-        old_query :'comments/graph_user_opinion',
-              comment.id.to_s, current_graph_user
+        query(:'comments/graph_user_opinion',
+                  comment_id: comment.id.to_s, graph_user: current_graph_user)
       end
 
       def current_graph_user
@@ -38,7 +37,9 @@ module Queries
       def can_destroy
         return false unless pavlov_options[:current_user]
 
-        old_query :'comments/can_destroy', comment.id.to_s, pavlov_options[:current_user].id.to_s
+        query(:'comments/can_destroy',
+                  comment_id: comment.id.to_s,
+                  user_id: pavlov_options[:current_user].id.to_s)
       end
     end
   end

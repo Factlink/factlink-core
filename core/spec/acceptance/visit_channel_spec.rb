@@ -39,6 +39,8 @@ feature "visiting a channel" do
   end
 
   scenario "revisiting channel after visiting a factlink page" do
+    pending "re-enable when enabling NDP modal in-site"
+
     channel = backend_create_channel
     10.times.each do
       factlink = backend_create_fact
@@ -50,11 +52,11 @@ feature "visiting a channel" do
     set_scroll_top_to 100
 
     go_to_first_fact
-    go_back_using_button
+    go_back_using_button #This is deprecated, closing the modal with the new close button
 
-    sleep 1
-
-    scroll_top_should_eq 100
+    eventually_succeeds do
+      scroll_top_should_eq 100
+    end
     page.should have_content(@factlink.to_s)
   end
 end

@@ -1,5 +1,3 @@
-require 'pavlov'
-
 module Interactors
   module Comments
     class UpdateOpinion
@@ -9,14 +7,19 @@ module Interactors
 
       def execute
         if opinion
-          old_command :'comments/set_opinion', comment_id, opinion, pavlov_options[:current_user].graph_user
+          command(:'comments/set_opinion',
+                      comment_id: comment_id, opinion: opinion,
+                      graph_user: pavlov_options[:current_user].graph_user)
         else
-          old_command :'comments/remove_opinion', comment_id, pavlov_options[:current_user].graph_user
+          command(:'comments/remove_opinion',
+                      comment_id: comment_id,
+                      graph_user: pavlov_options[:current_user].graph_user)
         end
 
-        old_command :'opinions/recalculate_comment_user_opinion', old_query(:'comments/get', comment_id)
+        command :'opinions/recalculate_comment_user_opinion',
+                    comment: query(:'comments/get', comment_id: comment_id)
 
-        old_query :'comments/get', comment_id
+        query(:'comments/get', comment_id: comment_id)
       end
 
       def validate

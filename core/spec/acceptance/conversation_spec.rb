@@ -1,6 +1,6 @@
 require 'acceptance_helper'
 
-describe "conversation", type: :request do
+describe "conversation", type: :feature do
   include Acceptance::ConversationHelper
   include Acceptance::FactHelper
 

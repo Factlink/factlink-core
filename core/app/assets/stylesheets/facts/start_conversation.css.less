@@ -1,7 +1,6 @@
-@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-.start-conversation-form {
+.start-conversation-modal-window {
   .conversation-recipients {
     margin-bottom: 4px;
   }
@@ -13,9 +12,13 @@
     resize:vertical;
     .box-sizing(border-box);
     padding: 5px 6px 5px 8px;
-    font-size: @baseFontSize;
+    margin-bottom: 10px;
   }
 
+  .start-conversation-button {
+      margin-top: 10px;
+      min-width: 100px;
+    }
 
   .alert  { margin-bottom: 10px; }
 }

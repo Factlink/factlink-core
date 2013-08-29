@@ -1,8 +1,6 @@
 @import "bootstrap/mixins";
-@import "bootstrap/variables";
 
 div.sign_up {
-  font-family: @baseFontFamily;
 
   div.container {
     margin-top: 45px;
@@ -12,7 +10,6 @@ div.sign_up {
     h2 {
       font-weight: bold;
       margin: 0 0 15px;
-      font-family: @headingFontFamily;
       line-height: 36px;
       height: 36px;
       font-size: 24px;
@@ -23,7 +20,7 @@ div.sign_up {
       margin: 0 auto;
       background: #fff;
       border: 1px solid #cbcbcb;
-      .border-radius(4px);
+      border-radius: 4px;
       padding: 24px 0;
       .box-shadow(~"0 1px 3px rgba(0,0,0,.11)");
 
@@ -34,6 +31,10 @@ div.sign_up {
         &:focus {
           border: 1px solid #6ba2bf;
         }
+      }
+
+      .button-home {
+        width: 161px;
       }
     }
   }
@@ -69,7 +70,6 @@ div.sign_up {
       z-index: 2;
       height: 100%;
       width: 100%;
-      font-family: @baseFontFamily;
       font-weight: 100;
       text-align: center;
       font-size: 15px;
@@ -91,7 +91,7 @@ div.sign_up {
 
       > input {
         display: none;
-        &.btn { display: none; }
+        &.button { display: none; }
       }
 
       div.success {

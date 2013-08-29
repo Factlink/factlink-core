@@ -3,6 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
+require "pavlov/alpha_compatibility"
 
 Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
 Mime::Type.register "image/gif", :gif unless Mime::Type.lookup_by_extension(:gif)
@@ -121,27 +122,16 @@ module FactlinkUI
 
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,
-      'activity.css',
+
       'admin.css',
-      'fake_facts.css',
       'frontend.css',
-      'client.css',
-      'popup.css',
-      'privacy.css',
-      'search.css',
-      'tos.css',
-      'tour.css',
-      'social_popup.css',
-      'pages.css',
       'base.css',
+
       'application.js',
-      'feedback.js',
       'frontend.js',
-      'modal.js',
-      'popup.js',
       'intermediate.js',
-      'modernizr-loader.js',
       'admin.js',
+      'jquery.js',
     ]
 
     # Precompile additional assets
@@ -149,20 +139,7 @@ module FactlinkUI
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store
-  end
-end
 
-module Less
-  module Rails
-    module Bootstrap
-      class Engine < ::Rails::Engine
-
-        initializer 'less-rails-bootstrap.setup', :after => 'less-rails.after.load_config_initializers', :group => :all do |app|
-          app.config.less.paths << File.join(config.root, 'vendor', 'frameworks')
-        end
-
-      end
-    end
   end
 end
 

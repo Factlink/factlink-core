@@ -13,23 +13,7 @@ describe SupportingEvidenceController do
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
     stub_const 'Activity::Subject', Class.new
-    Activity::Subject.should_receive(:activity).any_number_of_times
-  end
-
-  describe :combined_index do
-    let(:current_user){create :user}
-
-    it 'response with success' do
-      fact_id = 1
-      authenticate_user!(current_user)
-      controller.should_receive(:old_interactor).
-        with(:"evidence/for_fact_id", fact_id.to_s, :supporting).
-        and_return []
-
-      get :combined_index, fact_id: fact_id, format: :json
-
-      response.should be_success
-    end
+    Activity::Subject.stub(:activity)
   end
 
   describe :create do
@@ -74,7 +58,7 @@ describe SupportingEvidenceController do
 
       it "should not set the user's opinion on the evidence to believe" do
         f2.add_opinion(:disbelieves, user.graph_user)
-        Pavlov.command :'opinions/recalculate_fact_opinion', f2
+        Pavlov.command(:'opinions/recalculate_fact_opinion', fact: f2)
 
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
         response.should be_success
@@ -102,7 +86,7 @@ describe EvidenceController do
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
     stub_const 'Activity::Subject', Class.new
-    Activity::Subject.should_receive(:activity).any_number_of_times
+    Activity::Subject.stub(:activity)
   end
 
   describe :set_opinion do
@@ -115,7 +99,7 @@ describe EvidenceController do
 
       response.should be_success
 
-      #todo: maybe check if the opinion is also persisted?
+      # TODO maybe check if the opinion is also persisted?
     end
   end
 
@@ -135,8 +119,6 @@ describe EvidenceController do
 
       get :show, id: fr.id, format: :json
       response.should be_success
-
-      puts response.body.inspect
 
       response_body = response.body.to_s
       # strip mongo id, since otherwise comparison will always fail

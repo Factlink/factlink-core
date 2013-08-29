@@ -1,49 +1,42 @@
-/*
- *= require bootstrap
- *= require frontend
-*/
-
-@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 #main-wrapper>div {
   margin-top: 15px;
 }
 
-tr {
-  background: white;
+
+.form-label-column {
+  text-align: right;
+  padding-right:1em;
+
 }
 
-form {
-  .row {
-    position: relative;
+.admin-form {
+  line-height: 1.44;
+  * { line-height: 1.44; }
 
-    label {
-      position: absolute;
-      width: 140px;
-      float: left;
-      text-align: right;
-    }
+  input[type=text], textarea {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 2px 5px;
+    width: 380px;
+    height: 20px;
+  }
 
-    .field {
-      display: block;
-      padding-left: 150px;
-    }
-
-    input, textarea {
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      padding: 2px 5px;
-      width: 380px;
-      height: 20px;
-    }
-
-    textarea {
-      height: 60px;
-    }
+  textarea {
+    height: 60px !important;
+  }
+  label {
+    display: inline; // WTFBBQ bootstrap;revert to default.
+  }
+  input[type=checkbox] {
+    margin:0;
+    vertical-align: baseline;
   }
 }
-
+.admin-form-irrelevant-feature {
+  color: @mutedFontColor;
+}
 
 .actions {
   margin-left: 410px;

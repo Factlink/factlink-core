@@ -1,0 +1,15 @@
+@import "bootstrap/mixins";
+
+.discussion-modal {
+  position: relative;
+  z-index: 1;
+  padding-top: @ndpTopMargin;
+}
+
+.discussion-modal-layer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: fade(@semiTransparentLayerColor, 90%);
+  visibility: visible;
+  z-index: -1;
+}

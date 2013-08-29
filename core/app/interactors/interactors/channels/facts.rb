@@ -11,8 +11,7 @@ module Interactors
 
       def execute
         setup_defaults
-
-        facts = old_query :'channels/facts', id, from, count
+        facts = query(:'channels/facts', id: id, from: from, count: count)
         remove_invalid facts
       end
 

@@ -83,13 +83,18 @@ FactlinkUI::Application.routes.draw do
 
   resources :feedback # TODO RESTRICT
 
-  get "/:fact_slug/f/:id" => "facts#discussion_page", as: "frurl_fact"
+  get "/:fact_slug/f/:id" => "facts#discussion_page"
 
   # Search
   get "/search" => "search#search", as: "search"
 
   authenticated :user do
     namespace :admin, path: 'a' do
+      get 'info'
+      resource :global_feature_toggles,
+            controller: :global_feature_toggles,
+            only: [:show, :update ]
+
       resources :users, only: [:show, :new, :create, :edit, :update, :index] do
         collection do
           get :reserved
@@ -100,9 +105,8 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-    scope "/a" do
-      get "info" => "admin#info", as: "admin_info"
-    end
+
+
 
     # Seems to me we want to lose the scope "/:username" later and place all
     # stuff in this resource?
@@ -121,7 +125,7 @@ FactlinkUI::Application.routes.draw do
     resources :messages, only: [:create, :show]
   end
 
-  # old conversation urls
+  # old conversation urls, remove before 2014
   get "/c" => redirect("/m")
   get "/c/:id" => redirect("/m/%{id}")
   get "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
@@ -142,7 +146,7 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", as: "find"
       end
 
-      get "/facts/:fact_id" => "facts#discussion_page", as: "fact"
+      get "/facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
 
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
@@ -155,7 +159,7 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "facts/:fact_id" => "facts#discussion_page", as: "fact"
+          get "facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
         end
       end
 
@@ -202,7 +206,7 @@ FactlinkUI::Application.routes.draw do
     member do
       scope "/facts" do
         get "/" => "topics#facts", as: "topic_facts"
-        get "/:fact_id" => "topics#fact", as: "topic_fact"
+        get "/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
       end
     end
   end

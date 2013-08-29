@@ -21,13 +21,13 @@ describe RecentlyViewedFacts do
 
   describe '.top' do
     it 'retrieves the last "count" facts' do
-      fact = mock id: 14
+      fact = double id: 14
       nest = double
       count = 10
 
       nest.should_receive(:zrevrange).with(0, count-1).and_return([fact.id])
 
-      Fact.should_receive(:[]).any_number_of_times.with(fact.id).and_return fact
+      Fact.stub(:[]).with(fact.id).and_return fact
 
       result = RecentlyViewedFacts.new(nest).top count
 
@@ -36,9 +36,9 @@ describe RecentlyViewedFacts do
 
     it 'doesnt return nil facts' do
       fact_id = 14
-      nest = stub zrevrange: [fact_id]
+      nest = double zrevrange: [fact_id]
 
-      Fact.should_receive(:[]).any_number_of_times.with(fact_id).and_return nil
+      Fact.stub(:[]).with(fact_id).and_return nil
 
       result = RecentlyViewedFacts.new(nest).top 10
 

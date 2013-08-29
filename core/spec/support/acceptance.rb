@@ -1,4 +1,6 @@
 module Acceptance
+  include PavlovSupport
+
   def int_user
     user = create(:user)
     user.confirm!
@@ -24,7 +26,7 @@ module Acceptance
 
   def sign_in_user(user)
     visit "/"
-    click_link "Sign in"
+    first(:link, "Sign in", exact: true).click
     fill_in "user_login", :with => user.email
     fill_in "user_password", :with => user.password
     click_button "Sign in"
@@ -71,25 +73,40 @@ module Acceptance
     user.features = features
   end
 
-  def wait_for_ajax
-    begin
-      wait_until { page.evaluate_script('jQuery.active') > 0 }
-    rescue Capybara::TimeoutError
-      puts 'No Ajax request was made, what are you waiting for?'
-    end
-    wait_until { page.evaluate_script('jQuery.active') == 0 }
-  rescue Capybara::TimeoutError
-    flunk 'The Ajax request was not ready in time'
-  end
+  def enable_global_features(*features)
+    raise "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
 
-  def wait_until_scope_exists(scope, &block)
-    wait_until { page.has_css?(scope) }
-    within(scope, &block) if block_given?
-  rescue Capybara::TimeoutError
-    flunk "Expected '#{scope}' to be present."
+    as(create :admin_user) do |pavlov|
+      pavlov.interactor(:'global_features/set', features: features)
+    end
   end
 
   def disable_html5_validations(page)
     page.execute_script "$('form').attr('novalidate','novalidate')"
+  end
+
+  def eventually_succeeds(wait_time=nil, &block)
+    wait_time ||= Capybara.default_wait_time
+    start_time = Time.now
+    begin
+      yield
+    rescue => e
+      if (Time.now - start_time) >= wait_time then
+        raise e
+      end
+      sleep(0.05)
+      retry
+    end
+  end
+
+  def wait_for_ajax_idle
+    eventually_succeeds do
+      # wait for all ajax requests to complete
+      # if we don't wait, the server may see it after the db is cleaned
+      # and a request for a removed object will cause a crash (nil ref).
+      unless page.evaluate_script('(!window.jQuery || window.jQuery.active == 0)')
+        raise 'jQuery.active is not zero; did an Ajax callback perhaps crash?'
+      end
+    end
   end
 end

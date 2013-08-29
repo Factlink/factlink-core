@@ -1,8 +1,20 @@
-div.fact-new {
+@import "bootstrap/mixins";
+
+.fact-new {
+  .new-design-white-block-with-shadow();
+  visibility: visible;
+  width: @discussionModalWidth;
+  margin: 0 auto;
+  padding: 15px;
   position: relative;
   z-index: 1; // should be lower than Twitter tooltip z-index
 
   .finish-popover {
     position: relative;
   }
+}
+
+.fact-new-fact-container {
+  font-size: @baseFactFontSize;
+  overflow: hidden;
 }

@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rubygems'
 require 'database_cleaner'
+require 'pavlov_helper'
 
 I_AM_SPEC_HELPER = true
 
@@ -14,7 +15,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f|require f }
 
 RSpec.configure do |config|
   # Exclude integration tests in normal suite
-  config.filter_run_excluding type: :request
+  config.filter_run_excluding type: :feature
   config.mock_with :rspec
 
   config.include FactoryGirl::Syntax::Methods

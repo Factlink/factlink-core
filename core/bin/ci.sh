@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# unfortunately, under some circumstances rspec may never terminate
+# when that happens, it retains open ports and DB activity, and this
+# will break all kinds of stuff.  Since each slave never runs more than
+# one build at a time, we just kill this slave's CI ruby processes.
+echo Killing zombies...
+killall -w -9 -u `whoami` ruby
+
+
 # go to the root of the git repo
 cd `dirname $0`
 cd ..
@@ -26,7 +34,9 @@ for action in bin/ci/*.sh; do
   fi
   if [ -f TEST_FAILURE ] ; then
     ./script/set-status.sh "$GIT_COMMIT" failure "$BUILD_URL" "$BUILD_TAG" > github_failure_response.json
-    exit
   fi
 done
+if [ -f TEST_FAILURE ] ; then
+  exit
+fi
 ./script/set-status.sh "$GIT_COMMIT" success "$BUILD_URL" "$BUILD_TAG"  > github_success_response.json

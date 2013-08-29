@@ -77,14 +77,14 @@
         <div class="control-group">
           <%= f.label :email, class: "control-label" %>
           <div class="controls">
-            <%= f.text_field :email, autocomplete: "off", readonly: true %>
+            <%= f.text_field :email, autocomplete: "off", disabled: true %>
 
             <span class="help-inline">To change your email address, please <a href="mailto:support@factlink.com">contact us</a>.</span>
           </div>
         </div>
 
         <div class="controls">
-          <%= f.submit "Save settings", class: "btn btn-primary" %>
+          <%= f.submit "Save settings", class: "button button-confirm" %>
         </div>
       </fieldset>
     <% end %>

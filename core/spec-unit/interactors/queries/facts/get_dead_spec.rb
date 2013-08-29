@@ -9,9 +9,9 @@ describe Queries::Facts::GetDead do
     stub_classes 'Fact'
   end
 
-  describe '#validate' do
+  describe 'validations' do
     it 'requires fact_id to be an integer' do
-      expect_validating('a').
+      expect_validating(id: 'a').
         to fail_validation('id should be an integer string.')
     end
   end
@@ -19,34 +19,36 @@ describe Queries::Facts::GetDead do
   describe '#call' do
     before do
       stub_classes 'Fact', 'FactlinkUI::Application', 'CGI'
-      FactlinkUI::Application.stub config: mock(proxy_url: "proxy_url")
+      FactlinkUI::Application.stub config: double(proxy_url: "proxy_url")
       CGI.stub escape: ''
 
       described_class.any_instance.stub(:url).and_return("")
     end
 
     it 'returns a fact' do
-      fact_data = mock :fact_data,
+      fact_data = double :fact_data,
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      live_fact = mock :fact,
+      live_fact = double :fact,
           id: '1',
           has_site?: false,
           data: fact_data
-
-      interactor = Queries::Facts::GetDead.new live_fact.id
       wheel = double
       evidence_count = 10
 
+      interactor = Queries::Facts::GetDead.new id: live_fact.id
+
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      Pavlov.stub(:old_query)
-            .with(:'facts/get_dead_wheel', live_fact.id)
+      Pavlov.stub(:query)
+            .with(:'facts/get_dead_wheel',
+                      id: live_fact.id)
             .and_return(wheel)
 
-      Pavlov.stub(:old_query)
-            .with(:'evidence/count_for_fact', live_fact)
+      Pavlov.stub(:query)
+            .with(:'evidence/count_for_fact',
+                      fact: live_fact)
             .and_return(evidence_count)
 
       dead_fact = interactor.call
@@ -60,46 +62,45 @@ describe Queries::Facts::GetDead do
     end
 
     it 'returns a fact which has no site or proxy_scroll_url without site_url' do
-      fact_data = mock :fact_data,
+      fact_data = double :fact_data,
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      live_fact = mock :fact,
+      live_fact = double :fact,
           id: '1',
           has_site?: false,
           data: fact_data
 
-      interactor = Queries::Facts::GetDead.new live_fact.id
+      query = Queries::Facts::GetDead.new id: live_fact.id
 
-      Pavlov.stub query: mock
+      Pavlov.stub query: double
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      dead_fact = interactor.call
+      dead_fact = query.call
 
       expect(dead_fact.site_url).to be_nil
     end
 
     it 'returns a fact which has a site with site_url' do
-      fact_data = mock :fact_data,
+      fact_data = double :fact_data,
           displaystring: 'example fact text',
           created_at: 15,
           title: 'title'
-      site = mock :site, url: 'http://example.org/'
-      live_fact = mock :fact,
+      site = double :site, url: 'http://example.org/'
+      live_fact = double :fact,
           id: '1',
           has_site?: true,
           site: site,
           data: fact_data
 
-      interactor = Queries::Facts::GetDead.new live_fact.id
+      query = Queries::Facts::GetDead.new id: live_fact.id
 
-      Pavlov.stub query: mock
+      Pavlov.stub query: double
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
-      dead_fact = interactor.call
+      dead_fact = query.call
 
       expect(dead_fact.site_url).to eq site.url
     end
-
   end
 end

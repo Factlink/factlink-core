@@ -1,15 +1,9 @@
 @import "bootstrap/mixins";
-@import "bootstrap/variables";
 
 #container .install-extension-wrapper {
   position: relative;
   text-align: center;
   padding-top: 30px;
-
-  a.btn {
-    padding: 11px 19px;
-    font-size: 14px;
-  }
 
   .install-extension-middle {
     overflow: hidden;
@@ -28,7 +22,6 @@
       width: 420px;
       margin-left: 20px;
       margin-top: 30px;
-      font-size: @baseFontSize;
       line-height: 21px;
       color: @metaFontColor;
 
@@ -45,6 +38,13 @@
   .transparent-border {
     margin-top: 20px;
     border: 2px solid transparent;
+
+    .button {
+      height: 40px;
+      line-height: 40px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
 
   .dashed-border {
@@ -54,7 +54,7 @@
     padding: 10px 12px 11px 11px;
     margin: 10px 0 0;
 
-    .border-radius(8px);
+    border-radius: 8px;
     a.bookmarklet { cursor: move; }
     a.bookmarklet::after { content: ' Drag me to your bookmarks bar'; }
   }
@@ -62,8 +62,4 @@
   .unsupported-browser-extension-installed {
     display: none;
   }
-}
-
-.modal-backdrop{
-  background: white;
 }

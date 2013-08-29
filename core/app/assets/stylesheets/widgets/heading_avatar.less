@@ -1,0 +1,47 @@
+@import "bootstrap/mixins";
+
+.heading-avatar {
+  width: 32px; //override width/height and the rest scales.
+  height: 32px;
+  top: -2px; // consider customizing on resize
+  margin-right: 6px; //consider customizing on resize
+
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  background-color: white;
+
+  //The following css generates a surrounding rounded box around the image.
+  //this is equivalent to a fake border, with the advantage
+  //that the "padding" overlays the wrapping boxes border, whereas the
+  //"border" is underneath it.  This causes the visual border to appear
+  //continuously to wrap the jutting out avatar image.
+  &:before, &:after {
+    display: block;
+    top: 0px; left: 0px; right: 0px; bottom: 0px;
+    margin: -6.25%;
+    border-radius: 9.375%;
+    content: '';
+    position: absolute;
+    background: white;
+  }
+
+  &:after {
+    z-index: -1;
+    .new-design-box-shadow();
+  }
+}
+
+.heading-avatar-image {
+  border-radius: 6.25%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.heading-avatar.heading-avatar-large {
+  width: 48px;
+  height: 48px;
+  top: 0;
+  margin-right: 9px;
+}

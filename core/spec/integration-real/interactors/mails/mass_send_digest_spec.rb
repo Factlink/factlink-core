@@ -10,8 +10,8 @@ describe Interactors::Mails::MassSendDigest do
     @url = 'url'
 
     as(@user) do |pavlov|
-      @fact = pavlov.old_interactor :'facts/create', 'displaystring', '', 'title', {}
-      @mails = pavlov.old_interactor :'mails/mass_send_digest', @fact.id, @url
+      @fact = pavlov.interactor(:'facts/create', displaystring: 'displaystring', url: '', title: 'title', sharing_options: {})
+      @mails = pavlov.interactor(:'mails/mass_send_digest', fact_id: @fact.id, url: @url)
     end
   end
 

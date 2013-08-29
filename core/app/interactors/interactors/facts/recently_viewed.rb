@@ -1,10 +1,10 @@
-require 'pavlov'
-
 module Interactors
   module Facts
     class RecentlyViewed
       include Pavlov::Interactor
       include Util::CanCan
+
+      arguments
 
       def execute
         return [] unless pavlov_options[:current_user]

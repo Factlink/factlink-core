@@ -26,7 +26,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
         model: wheel
         respondsToMouse: false
 
-    @bindTo @model, 'change', =>
+    @listenTo @model, 'change', ->
       wheel.setRecursive @model.get("fact_wheel")
       wheelView.render()
 
@@ -36,8 +36,9 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     bodyView = new FactBodyView
       model: @model
       clickable: @options.clickable_body
+      truncate: @options.truncate_body
 
-    @bindTo bodyView, 'click:body', (e) =>
+    @listenTo bodyView, 'click:body', (e) ->
       @trigger 'click:body', e
 
     bodyView
@@ -50,13 +51,17 @@ class FactBodyView extends Backbone.Marionette.ItemView
   events:
     "click span.js-displaystring": "triggerViewClick"
 
+  ui:
+    displaystring: '.js-displaystring'
+
   initialize: ->
-    @trunk8Init 3, '.js-displaystring', '.less'
-    @bindTo @model, 'change', @render, @
+    @options.truncate = false if @options.clickable
+
+    @trunk8Init 3, '.js-displaystring', '.less' if @options.truncate
+    @listenTo @model, 'change', @render
 
   triggerViewClick: (e) ->
     @trigger 'click:body', e
 
   onRender: ->
-    if @options.clickable
-      @$('.js-displaystring').css(cursor: 'pointer')
+    @ui.displaystring.toggleClass 'fact-body-displaystring-clickable', !!@options.clickable

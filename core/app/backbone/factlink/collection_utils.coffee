@@ -7,11 +7,11 @@ window.collectionMap = (args...) ->
   utils.map(args...)
 
 class window.CollectionUtils
-  constructor: (eventbinder)->
-    @eventbinder = eventbinder || new Backbone.Marionette.EventBinder
+  constructor: (eventAggregator)->
+    @eventAggregator = eventAggregator || new Backbone.Wreqr.EventAggregator
 
-  bindTo: (args...)=>
-    @eventbinder.bindTo args...
+  listenTo: (args...)=>
+    @eventAggregator.listenTo args...
 
   difference: (resultCollection, onField, collection1, collections...) =>
     reset = ->
@@ -24,10 +24,10 @@ class window.CollectionUtils
      diffmodels = collection1.reject (model) => model.get(onField) in forbidden_fields
      resultCollection.reset diffmodels
 
-    @bindTo collection1, 'add reset remove change', reset
+    @listenTo collection1, 'add reset remove change', reset
     for collection in collections
       if collection.on?
-        @bindTo collection, 'add reset remove change', reset
+        @listenTo collection, 'add reset remove change', reset
 
     reset()
     resultCollection
@@ -38,13 +38,10 @@ class window.CollectionUtils
 
     for collection in collections
       if collection.on
-        @bindTo collection, 'add reset remove change', reset
+        @listenTo collection, 'add reset remove change', reset
 
     reset()
     resultCollection
-
-  updatedClone: (resultCollection, collection)->
-    @difference(resultCollection, null, collection)
 
   map: (resultCollection, collection, mapFunction) =>
     reset = ->
@@ -52,6 +49,6 @@ class window.CollectionUtils
       for model in collection.models
         resultCollection.add mapFunction(model)
 
-    @bindTo collection, 'add remove reset change', reset
+    @listenTo collection, 'add remove reset change', reset
     reset()
     resultCollection

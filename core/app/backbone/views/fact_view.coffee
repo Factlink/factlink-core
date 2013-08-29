@@ -42,25 +42,17 @@ class window.FactView extends Backbone.Marionette.Layout
     poparrowRegion: '.js-region-poparrow'
 
   initialize: (opts) ->
-    @bindTo @model, "destroy", @close, @
-    @bindTo @model, "change", @render, @
+    @listenTo @model, "destroy", @close
+    @listenTo @model, "change", @render
 
   onRender: ->
-    @factBaseView.show new FactBaseView(model: @model)
+    @factBaseView.show new FactBaseView(model: @model, truncate_body: true)
     @factBottomView.show @newFactBottomView()
 
     if Factlink.Global.signed_in
       @setPoparrow()
 
     @$(".authority").tooltip()
-
-    if FactlinkApp.guided
-      sometimeWhen(
-        => @$el.is ":visible"
-      , =>
-        @$('#close').tooltip(trigger: 'manual')
-                    .tooltip('show')
-      )
 
   newFactBottomView: ->
     new FactBottomView

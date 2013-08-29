@@ -1,14 +1,36 @@
-@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-body.factlink-site,
-body.client {
+body {
   font-family: @baseFontFamily;
   font-size: @baseFontSize;
   line-height: @baseLineHeight;
 
+  h1, h2, h3, h4, h5 {
+    margin: (@baseLineHeight / 2) 0;
+    font-weight: @headingsFontWeight;
+    text-rendering: optimizeLegibility; // Fix the character spacing for headings
+  }
+
+  h1 {
+    font-size: @heading1FontSize;
+    margin-bottom: 6px;
+    line-height: 21px;
+    text-shadow: #fff 0 1px 0;
+    font-weight: 400;
+  }
+
+  h2 { font-size: 30px; line-height: 40px; }
+  h3 { font-size: 24px; line-height: 40px; }
+  h4 { font-size: 18px; line-height: 20px; }
+  h5 { font-size: 14px; line-height: 20px; }
+
   strong {
     color: @baseFontColor;
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
   }
 
   a {
@@ -23,11 +45,17 @@ body.client {
     }
   }
 
-  h1 {
-    font-size: @heading1FontSize;
-    margin-bottom: 6px;
-    line-height: 21px;
-    text-shadow: #fff 0 1px 0;
-    font-weight: 400;
+  hr {
+    margin: @baseLineHeight 0;
+    border: 0;
+    border-top: 1px solid @hrBorder;
+    border-bottom: 1px solid @white;
+  }
+
+  address {
+    display: block;
+    margin-bottom: @baseLineHeight;
+    font-style: normal;
+    line-height: @baseLineHeight;
   }
 }

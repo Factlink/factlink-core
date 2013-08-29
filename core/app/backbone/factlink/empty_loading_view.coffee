@@ -18,10 +18,10 @@ class Backbone.Factlink.EmptyLoadingView extends Backbone.Marionette.Layout
 
     @emptyView   = @options.emptyView   if @options.emptyView?
     @loadingView = @options.loadingView if @options.loadingView?
-    @bindTo @collection, 'before:fetch reset', @updateLoading, @
+    @listenTo @collection, 'request sync', @updateLoading, @
 
   onRender: ->
-    @emptyRegion.show   new @emptyView(@options)   if @emptyView?
+    @emptyRegion.show   new @emptyView(@options) if @emptyView?
     @loadingRegion.show new @loadingView(@options) if @loadingView?
     @updateLoading()
 
