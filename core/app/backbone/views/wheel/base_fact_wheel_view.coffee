@@ -1,3 +1,9 @@
+arc_animation_speed = ->
+  if $.fx.off
+    0
+  else
+    200
+
 class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   className: "wheel"
   defaults:
@@ -100,7 +106,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       # Our custom arc attribute
       arc: arc
       opacity: opacity
-    , 200, "<>")
+    , arc_animation_speed(), "<>")
 
   # This method also commits the calculated percentages to the model, maybe return instead?
   calculateDisplayablePercentages: ->
@@ -149,7 +155,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     path.animate(
       "stroke-width": @hoverStrokeWidth()
       opacity: destinationOpacity
-    , 200, "<>")
+    , arc_animation_speed(), "<>")
 
   mouseoutOpinionType: (path, opinion_type) ->
     destinationOpacity = if @model.isUserOpinion(opinion_type)
@@ -159,7 +165,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     path.animate(
       "stroke-width": @defaultStrokeWidth()
       opacity: destinationOpacity
-    , 200, "<>")
+    , arc_animation_speed(), "<>")
 
   clickOpinionType: ->
 
