@@ -1,16 +1,18 @@
 #= require ./filtered_suggested_topics_view
 
-class window.AddToChannelModalView extends Backbone.Marionette.Layout
+class window.AddToChannelModalWindowView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AlertMixin
 
-  template: 'channels/add_to_channel_modal'
+  className: 'modal-window'
+
+  template: 'channels/add_to_channel_modal_window'
 
   regions:
     addToChannelRegion: ".add-to-channel-form"
     suggestedChannelsRegion: ".add-to-channel-suggested-topics-region"
 
   events:
-    'click .js-close': -> FactlinkApp.Modal.close()
+    'click .js-close': -> FactlinkApp.ModalWindowContainer.close()
 
   initialize: ->
     @alertErrorInit ['create_channel']

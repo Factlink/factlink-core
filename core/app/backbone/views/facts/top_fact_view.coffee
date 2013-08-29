@@ -17,8 +17,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
     showDelete: @model.can_destroy()
 
   showRepost: ->
-    FactlinkApp.Modal.show 'Repost Factlink',
-      new AddToChannelModalView(model: @model)
+    FactlinkApp.ModalWindowContainer.show new AddToChannelModalWindowView(model: @model)
 
   onRender: ->
     heading_view = if @model.get("proxy_scroll_url")
@@ -61,7 +60,5 @@ class window.TopFactView extends Backbone.Marionette.Layout
     wheel_view
 
   showStartConversation: ->
-    FactlinkApp.Modal.show 'Send a message',
-      new StartConversationView(model: @model)
-
+    FactlinkApp.ModalWindowContainer.show new StartConversationModalWindowView(model: @model)
     mp_track "Factlink: Open share modal"

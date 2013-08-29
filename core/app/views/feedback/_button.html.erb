@@ -1,3 +1,16 @@
 <div id="feedback_button">
-  <a class="feedback" href="#feedback_frame" role="button" title="feedback and support" data-toggle="modal">Feedback</a>
+  <a class="feedback js-feedback-modal-link" href="javascript:void(0)" role="button" title="feedback and support">Feedback</a>
 </div>
+
+<% content_for :specific_javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $(".js-feedback-modal-link").on('click', function() {
+        $('.js-feedback-modal').fadeIn('fast');
+      });
+      $(".js-feedback-modal-layer").on('click', function() {
+        $('.js-feedback-modal').fadeOut('fast');
+      });
+    });
+  </script>
+<% end %>

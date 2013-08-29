@@ -1,62 +1,57 @@
 <%# FYI: This is fucking ugly, and should be fixed.
   # This can be fixed once we support loging in
   # through Backbone %>
-<div class="static-close-button js-client-html-close"></div>
-<div class="factlink-modal-container">
-  <div class="js-region-factlink-modal-top"></div>
+<div class="discussion-modal-layer">
+  <div class="static-close-button js-client-html-close"></div>
+</div>
+<div class="discussion-modal">
+  <div class="new-session">
+    <h1>Sign in to Factlink</h1>
 
-  <div class="factlink-modal">
-    <div class="factlink-modal-content">
-      <div class="new-session">
-        <h1>Sign in to Factlink</h1>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <% if @layout == "client" %>
+        <%= render 'home/notifications', notice: notice, alert: alert %>
+      <% end %>
 
-        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-          <% if @layout == "client" %>
-            <%= render 'home/notifications', notice: notice, alert: alert %>
-          <% end %>
+      <% if @layout %>
+        <%= hidden_field_tag :layout, @layout %>
+      <% end %>
 
-          <% if @layout %>
-            <%= hidden_field_tag :layout, @layout %>
-          <% end %>
+      <%= return_to_fields_for_sign_in %>
 
-          <%= return_to_fields_for_sign_in %>
-
-          <div class="with-credentials">
-            <div class="form-box">
-              <%= f.text_field :login, placeholder: "Username or email" %>
-              <%= f.password_field :password, placeholder: "Password" %>
-              <% if devise_mapping.rememberable? -%>
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
-              <% end -%>
-
-              <%= f.submit "Sign in", 'data-disable-with' => "Signing in...", :class => "button pull-right" %>
-            </div>
-          </div>
-
-          <div class="with-social social-services-buttons">
-            <a href="/auth/twitter?return_to=<%= params[:return_to] %>" class="button twitter popup" data-disable-with="<i></i>Signing in...">
-              <i></i>Sign in with Twitter
-            </a>
-            <a href="/auth/facebook?return_to=<%= params[:return_to] %>" class="button facebook popup" data-disable-with="<i></i>Signing in...">
-              <i></i>Sign in with Facebook
-            </a>
-          </div>
-
-          <div class="separator">
-            <span>or</span>
-          </div>
-
-          <div class="clearfix"></div>
-
-          <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-            <%= link_to "Forgot your password?",
-                  new_password_path(resource_name),
-                  ( { target: "new" } if @layout == "client" ) %>
+      <div class="with-credentials">
+        <div class="form-box">
+          <%= f.text_field :login, placeholder: "Username or email" %>
+          <%= f.password_field :password, placeholder: "Password" %>
+          <% if devise_mapping.rememberable? -%>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
           <% end -%>
-        <% end %>
+
+          <%= f.submit "Sign in", 'data-disable-with' => "Signing in...", :class => "button pull-right" %>
+        </div>
       </div>
-    </div>
-    <div class="js-region-factlink-modal-bottom"></div>
+
+      <div class="with-social social-services-buttons">
+        <a href="/auth/twitter?return_to=<%= params[:return_to] %>" class="button twitter popup" data-disable-with="<i></i>Signing in...">
+          <i></i>Sign in with Twitter
+        </a>
+        <a href="/auth/facebook?return_to=<%= params[:return_to] %>" class="button facebook popup" data-disable-with="<i></i>Signing in...">
+          <i></i>Sign in with Facebook
+        </a>
+      </div>
+
+      <div class="separator">
+        <span>or</span>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+        <%= link_to "Forgot your password?",
+              new_password_path(resource_name),
+              ( { target: "new" } if @layout == "client" ) %>
+      <% end -%>
+    <% end %>
   </div>
 </div>
