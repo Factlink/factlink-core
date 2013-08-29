@@ -64,3 +64,24 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
       activities = new ChannelActivities([],{ channel: channel })
       FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
+
+  showFact: (slug, fact_id, params={})->
+    @listenTo FactlinkApp.vent, 'load_url', @close
+
+    fact = new Fact id: fact_id
+    @listenTo fact, 'destroy', @close
+
+    @listenToOnce fact, 'sync', ->
+      @showStream()
+
+      @listenTo FactlinkApp.vent, 'close_discussion_modal', ->
+        Backbone.history.navigate fact.user().link(), true
+
+      newClientModal = new DiscussionModalContainer
+      FactlinkApp.discussionModalRegion.show newClientModal
+      newClientModal.mainRegion.show new NDPDiscussionView model: fact
+
+    fact.fetch()
+
+  onClose: -> # currently only for showFact
+    FactlinkApp.discussionModalRegion.close()
