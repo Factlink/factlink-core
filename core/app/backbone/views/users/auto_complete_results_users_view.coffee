@@ -1,5 +1,6 @@
 class AutoCompleteResultsUserView extends Backbone.Marionette.ItemView
   tagName: "li"
+  className: 'auto-complete-result-item'
 
   triggers:
     "click a.icon-remove": "remove"

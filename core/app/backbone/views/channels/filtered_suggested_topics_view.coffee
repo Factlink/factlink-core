@@ -3,6 +3,7 @@ class SuggestedTopicView extends Backbone.Marionette.ItemView
 
   tagName: 'li'
   template: 'channels/suggested_topic'
+  className: 'auto-complete-result-item'
 
   events:
     'click' : 'clickAdd'
