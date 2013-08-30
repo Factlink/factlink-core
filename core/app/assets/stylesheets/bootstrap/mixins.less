@@ -8,8 +8,6 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  -ms-text-overflow: ellipsis;
 }
 
 .opacity(@opacity: 0.5) {
@@ -54,12 +52,6 @@
   background-image: linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
 }
 
-.background-size(@size) {
-  -webkit-background-size:  @size;
-  -moz-background-size:     @size;
-  -o-background-size:       @size;
-  background-size:          @size;
-}
 
 .loading-stripes-keyframes() {
     from  { background-position: 40px 0; }
