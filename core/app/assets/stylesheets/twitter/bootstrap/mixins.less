@@ -124,10 +124,10 @@
   select,
   textarea {
     border-color: @borderColor;
-    .box-shadow(inset 0 1px 1px rgba(0,0,0,.075)); // Redeclare so transitions work
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075); // Redeclare so transitions work
     &:focus {
       border-color: darken(@borderColor, 10%);
-      .box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten(@borderColor, 20%));
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten(@borderColor, 20%);
     }
   }
   // Give a small background color for input-prepend/-append
@@ -140,58 +140,16 @@
 }
 
 
-
-// CSS3 PROPERTIES
-// --------------------------------------------------
-
-// Single Corner Border Radius
-.border-top-left-radius(@radius) {
-  -webkit-border-top-left-radius: @radius;
-      -moz-border-radius-topleft: @radius;
-          border-top-left-radius: @radius;
-}
-.border-top-right-radius(@radius) {
-  -webkit-border-top-right-radius: @radius;
-      -moz-border-radius-topright: @radius;
-          border-top-right-radius: @radius;
-}
-.border-bottom-right-radius(@radius) {
-  -webkit-border-bottom-right-radius: @radius;
-      -moz-border-radius-bottomright: @radius;
-          border-bottom-right-radius: @radius;
-}
-.border-bottom-left-radius(@radius) {
-  -webkit-border-bottom-left-radius: @radius;
-      -moz-border-radius-bottomleft: @radius;
-          border-bottom-left-radius: @radius;
-}
-
-// Single Side Border Radius
+// Top/Bottom Border Radius
 .border-top-radius(@radius) {
-  .border-top-right-radius(@radius);
-  .border-top-left-radius(@radius);
-}
-.border-right-radius(@radius) {
-  .border-top-right-radius(@radius);
-  .border-bottom-right-radius(@radius);
+  border-top-right-radius: @radius;
+  border-top-left-radius: @radius;
 }
 .border-bottom-radius(@radius) {
-  .border-bottom-right-radius(@radius);
-  .border-bottom-left-radius(@radius);
-}
-.border-left-radius(@radius) {
-  .border-top-left-radius(@radius);
-  .border-bottom-left-radius(@radius);
+  border-bottom-right-radius: @radius;
+  border-bottom-left-radius: @radius;
 }
 
-// Drop shadows
-.box-shadow(@shadowA, @shadowB:X, ...){
-  // Multiple shadow solution from http://toekneestuck.com/blog/2012/05/15/less-css-arguments-variable/
-  @props: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
-  -webkit-box-shadow: @props;
-     -moz-box-shadow: @props;
-          box-shadow: @props;
-}
 
 // Transitions
 .transition(@transition) {
@@ -261,15 +219,6 @@
           background-clip: @clip;
 }
 
-// Background sizing
-.background-size(@size){
-  -webkit-background-size: @size;
-     -moz-background-size: @size;
-       -o-background-size: @size;
-          background-size: @size;
-}
-
-
 // Box sizing
 .box-sizing(@boxmodel) {
      -moz-box-sizing: @boxmodel;
@@ -311,14 +260,6 @@
        -o-hyphens: @mode;
           hyphens: @mode;
 }
-
-// Opacity
-.opacity(@opacity) {
-  opacity: @opacity / 100;
-  filter: ~"alpha(opacity=@{opacity})";
-}
-
-
 
 // BACKGROUNDS
 // --------------------------------------------------

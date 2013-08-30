@@ -24,7 +24,7 @@
   #gradient > .vertical(@navbarBackgroundHighlight, @navbarBackground);
   border: 1px solid @navbarBorder;
   border-radius: 4px;
-  .box-shadow(0 1px 4px rgba(0,0,0,.065));
+  box-shadow: 0 1px 4px rgba(0,0,0,.065);
 
   // Prevent floats from breaking the navbar
   .clearfix();
@@ -111,7 +111,7 @@
 }
 .navbar-fixed-top {
   .navbar-inner {
-    .box-shadow(inset 0 -1px 0 rgba(0,0,0,.1), 0 1px 10px rgba(0,0,0,.1));
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.1), 0 1px 10px rgba(0,0,0,.1);
   }
 }
 
@@ -160,7 +160,7 @@
   color: @navbarLinkColorActive;
   text-decoration: none;
   background-color: @navbarLinkBackgroundActive;
-  .box-shadow(inset 0 3px 8px rgba(0,0,0,.125));
+  box-shadow: inset 0 3px 8px rgba(0,0,0,.125);
 }
 
 // Dropdown menus
