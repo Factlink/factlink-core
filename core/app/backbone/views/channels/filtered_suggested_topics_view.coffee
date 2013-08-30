@@ -25,7 +25,7 @@ class SuggestedTopicView extends Backbone.Marionette.ItemView
 class SuggestedTopicsView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   itemView: SuggestedTopicView
-  className: 'add-to-channel-suggested-topics'
+  className: 'add-to-channel-suggested-topics auto-complete-results'
 
   itemViewOptions: =>
     addToCollection: @options.addToCollection

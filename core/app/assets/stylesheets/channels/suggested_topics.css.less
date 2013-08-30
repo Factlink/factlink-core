@@ -1,14 +1,13 @@
 @import "bootstrap/mixins";
 
-.add-to-channel-suggested-topics {
-  .action-list(#edf3f7, @linkColor, #c5d7e3);
+.add-to-channel-suggested-topics.auto-complete-results {
   margin-bottom: 15px;
 
-  > li:hover {
+  > li {
     cursor: pointer;
-
-    > a.add-to-channel-action-icon {
-      .opacity(0.85);
-    }
+    background: #edf3f7;
+    color:  @linkColor;
+    border-color: #c5d7e3;
   }
+  > li:hover > a.add-to-channel-action-icon { opacity: .85; }
 }

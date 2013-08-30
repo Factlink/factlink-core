@@ -9,6 +9,7 @@ class AutoCompleteResultsUserView extends Backbone.Marionette.ItemView
 class window.AutoCompleteResultsUsersView extends Backbone.Marionette.CollectionView
   itemView: AutoCompleteResultsUserView
   tagName: 'ul'
+  className: 'auto-complete-results'
 
   initialize: ->
     @on "itemview:remove", (childView, msg) => @collection.remove childView.model
