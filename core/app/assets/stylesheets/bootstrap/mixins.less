@@ -30,9 +30,6 @@
 
 .button-background(@start, @stop, @angle: top) {
     background: @start;
-    background: -moz-linear-gradient(@angle, @stop 0%, @start 100%);
-    background: -o-linear-gradient(@angle, @stop 0%, @start 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @stop), color-stop(100%, @start));
     background: -webkit-linear-gradient(@angle, @stop 0%, @start 100%);
     background: linear-gradient(@angle, @stop 0%, @start 100%);
 }
