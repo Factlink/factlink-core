@@ -70,14 +70,9 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
 
   showFact: (slug, fact_id, params={})->
-    @listenTo FactlinkApp.vent, 'navigate load_url', @close
+    @showStream()
 
-    # TODO: move all this stuff to the NDPDiscussionView
     fact = new Fact id: fact_id
-    @listenTo fact, 'destroy', @close
-
-    @listenToOnce fact, 'sync', ->
-      @showStream() unless FactlinkApp.mainRegion.currentView?
-      FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact, currentUser.streamLink()
-
-    fact.fetch()
+    fact.fetch
+      success: ->
+        FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact, currentUser.streamLink()
