@@ -16,8 +16,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       add_comment_view: => @addCommentView()
 
   onRender: ->
-    @$el.addClass 'pre-ndp-add-evidence-form' unless @options.ndp
-
     @switchToCommentView()
 
   _filtered_facts: ->
