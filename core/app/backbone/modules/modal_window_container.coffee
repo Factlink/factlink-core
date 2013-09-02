@@ -28,7 +28,7 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbon
 
   # This assumes that we use "navigate url, true" for all url changes that
   # originate from the discussion modal
-  FactlinkApp.vent.on 'load_url', ->
+  Backbone.history.on 'route', ->
     ModalWindowContainer.close()
 
   ModalWindowContainer.show = (content_view)->
