@@ -12,8 +12,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
   showTopicFacts: (slug_title) ->
-    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl window.location.pathname
-
     FactlinkApp.mainRegion.close()
 
     @loadTopic slug_title, (topic) =>
@@ -47,8 +45,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.leftTopRegion.show(userView)
 
   showChannelFacts: (username, channel_id) ->
-    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl window.location.pathname
-
     FactlinkApp.mainRegion.close()
 
     @loadChannel username, channel_id, (channel) =>
@@ -56,8 +52,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.mainRegion.show new ChannelView(model: channel)
 
   showStream: ->
-    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl currentUser.streamLink()
-
     FactlinkApp.leftTopRegion.close()
     FactlinkApp.mainRegion.close()
 
@@ -80,6 +74,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
     @listenToOnce fact, 'sync', ->
       @showStream() unless FactlinkApp.mainRegion.currentView?
-      FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact
+      FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact, currentUser.streamLink()
 
     fact.fetch()

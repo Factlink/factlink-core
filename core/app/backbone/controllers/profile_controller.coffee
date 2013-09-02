@@ -2,7 +2,6 @@ class window.ProfileController extends Backbone.Marionette.Controller
 
   # ACTIONS
   showProfile: (username) ->
-    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl window.location.pathname
     @showPage username, @profile_options()
 
   showNotificationSettings: (username) ->

@@ -7,16 +7,15 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
       DiscussionModalOnFrontend.closeDiscussion()
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
-      DiscussionModalOnFrontend.closeDiscussion()
       Backbone.history.navigate last_visited_url, false
+      DiscussionModalOnFrontend.closeDiscussion()
 
-  DiscussionModalOnFrontend.openDiscussion = (fact) ->
+  DiscussionModalOnFrontend.openDiscussion = (fact, url) ->
+    Backbone.history.navigate fact.get('url'), false
+    last_visited_url = url if url?
     newClientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show newClientModal
     newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
   DiscussionModalOnFrontend.closeDiscussion = ->
     FactlinkApp.discussionModalRegion.close()
-
-  DiscussionModalOnFrontend.setLastVisitedUrl = (url) ->
-    last_visited_url = url

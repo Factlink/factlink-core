@@ -1,8 +1,6 @@
 class window.SearchController extends Backbone.Marionette.Controller
 
   showSearch: (params={}) ->
-    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl window.location.pathname
-
     @listenTo FactlinkApp.vent, 'load_url', @close
 
     query = params['s']
