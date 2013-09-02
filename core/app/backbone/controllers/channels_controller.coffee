@@ -71,4 +71,4 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     fact = new Fact id: fact_id
     fact.fetch
       success: ->
-        FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact, currentUser.streamLink()
+        FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact
