@@ -3,19 +3,27 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
   background_page_url = null
 
   DiscussionModalOnFrontend.addInitializer ->
-    FactlinkApp.vent.on 'load_url', ->
-      DiscussionModalOnFrontend.closeDiscussion()
+    background_page_url = currentUser.streamLink()
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
       Backbone.history.navigate background_page_url, false
-      DiscussionModalOnFrontend.closeDiscussion()
+      FactlinkApp.discussionModalRegion.close()
 
   DiscussionModalOnFrontend.openDiscussion = (fact, url) ->
     Backbone.history.navigate fact.get('url'), false
-    background_page_url = url if url?
+    background_page_url = Backbone.history.getFragment(url) if url?
     newClientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show newClientModal
     newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
-  DiscussionModalOnFrontend.closeDiscussion = ->
+  # HACK: This assumes that we use "navigate url, true" for all url changes that
+  # leave the main regions alone (sidebar, mainRegion, etc)
+  DiscussionModalOnFrontend.loadUrlStopRouting = (fragment) ->
     FactlinkApp.discussionModalRegion.close()
+
+    if fragment == background_page_url
+      background_page_url = null
+      true
+    else
+      background_page_url = null
+      false
