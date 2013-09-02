@@ -12,7 +12,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
   showTopicFacts: (slug_title) ->
-    $(window).scrollTop 0
     FactlinkApp.mainRegion.close()
 
     @loadTopic slug_title, (topic) =>
@@ -39,7 +38,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem window.Channels, channel, user
 
   showUserProfile: (user)->
-    $(window).scrollTop 0
     if user.is_current_user()
       FactlinkApp.leftTopRegion.close()
     else
@@ -47,7 +45,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.leftTopRegion.show(userView)
 
   showChannelFacts: (username, channel_id) ->
-    $(window).scrollTop 0
     FactlinkApp.mainRegion.close()
 
     @loadChannel username, channel_id, (channel) =>
@@ -55,7 +52,6 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.mainRegion.show new ChannelView(model: channel)
 
   showStream: ->
-    $(window).scrollTop 0
     FactlinkApp.leftTopRegion.close()
     FactlinkApp.mainRegion.close()
 
