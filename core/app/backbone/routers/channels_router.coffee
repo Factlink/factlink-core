@@ -5,3 +5,6 @@ class window.ChannelsRouter extends Backbone.Marionette.AppRouter
     't/:slug_title':                                           'showTopicFacts'
 
     ':slug/f/:fact_id': 'showFact'
+
+  initialize: ->
+    FactlinkApp.showFactRegex = @_routeToRegExp ':slug/f/:fact_id'

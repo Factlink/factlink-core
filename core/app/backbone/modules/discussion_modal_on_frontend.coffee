@@ -16,14 +16,25 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     FactlinkApp.discussionModalRegion.show newClientModal
     newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
-  # This assumes that we use "navigate url, true" for all url changes that
-  # originate from the discussion modal
+  DiscussionModalOnFrontend.setBackgroundPageUrl = (fragment) ->
+    sanitized_fragment = Backbone.history.getFragment(fragment)
+    unless FactlinkApp.showFactRegex.test sanitized_fragment
+      background_page_url = sanitized_fragment
+
+  old_navigate = Backbone.History.prototype.navigate
+  Backbone.History.prototype.navigate = (fragment) ->
+    DiscussionModalOnFrontend.setBackgroundPageUrl fragment
+    old_navigate.apply @, arguments
+
   old_loadUrl = Backbone.History.prototype.loadUrl
   Backbone.History.prototype.loadUrl = (fragment) ->
-    FactlinkApp.discussionModalRegion.close()
+    sanitized_fragment = Backbone.history.getFragment(fragment)
+    already_on_the_background_page = (sanitized_fragment == background_page_url)
 
-    sanitizedFragment = Backbone.history.getFragment(fragment)
-    already_on_the_background_page = (sanitizedFragment == background_page_url)
-    background_page_url = null
+    DiscussionModalOnFrontend.setBackgroundPageUrl fragment
 
-    already_on_the_background_page or old_loadUrl.apply @, arguments
+    if FactlinkApp.discussionModalRegion.currentView?
+      FactlinkApp.discussionModalRegion.close()
+      return if already_on_the_background_page
+
+    old_loadUrl.apply @, arguments
