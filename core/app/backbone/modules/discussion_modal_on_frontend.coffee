@@ -6,8 +6,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     background_page_url = currentUser.streamLink()
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
-      Backbone.history.navigate background_page_url, false
-      FactlinkApp.discussionModalRegion.close()
+      Backbone.history.navigate background_page_url, true
 
   DiscussionModalOnFrontend.openDiscussion = (fact, url=background_page_url) ->
     Backbone.history.navigate fact.get('url'), false
