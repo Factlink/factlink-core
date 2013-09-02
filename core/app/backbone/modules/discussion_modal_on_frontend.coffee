@@ -18,11 +18,11 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
   # HACK: This assumes that we use "navigate url, true" for all url changes that
   # originate from the discussion modal
+  DiscussionModalOnFrontend.onLoadUrl = (fragment) ->
     FactlinkApp.discussionModalRegion.close()
 
-    if fragment == background_page_url
-      background_page_url = null
-      true
-    else
-      background_page_url = null
-      false
+    sanitizedFragment = Backbone.history.getFragment(fragment)
+    already_on_the_background_page = (sanitizedFragment == background_page_url)
+    background_page_url = null
+
+    already_on_the_background_page
