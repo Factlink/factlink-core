@@ -17,8 +17,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
   # HACK: This assumes that we use "navigate url, true" for all url changes that
-  # leave the main regions alone (sidebar, mainRegion, etc)
-  DiscussionModalOnFrontend.loadUrlStopRouting = (fragment) ->
+  # originate from the discussion modal
     FactlinkApp.discussionModalRegion.close()
 
     if fragment == background_page_url
