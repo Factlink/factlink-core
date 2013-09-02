@@ -3,14 +3,8 @@
 
   {{#show_discussion_link}}
   <li class="bottom-action">
-      <a href="{{url}}" rel="backbone" class="discussion_link"
-        {{#modal?}}
-          target="new"
-        {{/modal?}}{{^modal?}}
-          rel="backbone" target="_top"
-        {{/modal?}}
-        >
-          Arguments ({{evidence_count}})
+      <a href="{{url}}" rel="backbone" class="discussion_link" rel="backbone" target="_top">
+        Arguments ({{evidence_count}})
       </a>
 
       <span class="opinion_indicators">
