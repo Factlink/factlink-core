@@ -9,9 +9,10 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
       Backbone.history.navigate background_page_url, false
       FactlinkApp.discussionModalRegion.close()
 
-  DiscussionModalOnFrontend.openDiscussion = (fact, url) ->
+  DiscussionModalOnFrontend.openDiscussion = (fact, url=background_page_url) ->
     Backbone.history.navigate fact.get('url'), false
-    background_page_url = Backbone.history.getFragment(url) if url?
+    background_page_url = Backbone.history.getFragment(url)
+
     newClientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show newClientModal
     newClientModal.mainRegion.show new NDPDiscussionView model: fact
