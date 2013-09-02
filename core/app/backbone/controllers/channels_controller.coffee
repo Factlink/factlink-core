@@ -12,6 +12,8 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
   showTopicFacts: (slug_title) ->
+    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl window.location.pathname
+
     FactlinkApp.mainRegion.close()
 
     @loadTopic slug_title, (topic) =>
@@ -45,6 +47,8 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.leftTopRegion.show(userView)
 
   showChannelFacts: (username, channel_id) ->
+    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl window.location.pathname
+
     FactlinkApp.mainRegion.close()
 
     @loadChannel username, channel_id, (channel) =>
@@ -52,6 +56,8 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.mainRegion.show new ChannelView(model: channel)
 
   showStream: ->
+    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl currentUser.streamLink()
+
     FactlinkApp.leftTopRegion.close()
     FactlinkApp.mainRegion.close()
 
@@ -66,7 +72,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
 
   showFact: (slug, fact_id, params={})->
-    @listenTo FactlinkApp.vent, 'load_url', @close
+    @listenTo FactlinkApp.vent, 'navigate load_url', @close
 
     # TODO: move all this stuff to the NDPDiscussionView
     fact = new Fact id: fact_id

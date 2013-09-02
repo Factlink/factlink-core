@@ -15,6 +15,8 @@ class window.ConversationsController extends Backbone.Marionette.Controller
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
+    FactlinkApp.DiscussionModalOnFrontend.setLastVisitedUrl window.location.pathname
+
     FactlinkApp.closeAllContentRegions()
     @main = new TabbedMainRegionLayout()
     FactlinkApp.mainRegion.show(@main)
