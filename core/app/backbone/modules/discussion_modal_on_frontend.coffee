@@ -16,7 +16,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     FactlinkApp.discussionModalRegion.show newClientModal
     newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
-  # HACK: This assumes that we use "navigate url, true" for all url changes that
+  # This assumes that we use "navigate url, true" for all url changes that
   # originate from the discussion modal
   DiscussionModalOnFrontend.onLoadUrl = (fragment) ->
     FactlinkApp.discussionModalRegion.close()
