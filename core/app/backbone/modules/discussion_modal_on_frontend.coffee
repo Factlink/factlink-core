@@ -10,7 +10,8 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     FactlinkApp.vent.on 'close_discussion_modal', ->
       url = urls.pop() || currentUser.streamLink()
       urls = []
-      Backbone.history.navigate url, true
+      DiscussionModalOnFrontend.closeDiscussion()
+      Backbone.history.navigate url, false
 
   DiscussionModalOnFrontend.openDiscussion = (fact) ->
     urls.pop()
