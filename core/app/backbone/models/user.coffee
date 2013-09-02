@@ -32,6 +32,8 @@ class window.User extends Backbone.Model
       created_by:
         username: @get('username')
 
+  streamLink: -> "/#{@get('username')}/channels/#{@get('all_channel_id')}/activities"
+
   link: -> '/' + @get('username')
 
   toJSON: ->
@@ -49,7 +51,7 @@ class window.User extends Backbone.Model
       avatar_url_48: @avatar_url(48)
       avatar_url_80: @avatar_url(80)
       avatar_url_160: @avatar_url(160)
-      stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
+      stream_path: @streamLink()
       profile_path: @link()
       user_topics: @user_topics().toJSON()
 

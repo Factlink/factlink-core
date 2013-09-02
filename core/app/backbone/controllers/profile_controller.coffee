@@ -6,27 +6,6 @@ class window.ProfileController extends Backbone.Marionette.Controller
   showNotificationSettings: (username) ->
     @showPage username, @notification_options(username)
 
-  showFact: (slug, fact_id, params={})->
-    @listenTo FactlinkApp.vent, 'load_url', @close
-
-    fact = new Fact id: fact_id
-    @listenTo fact, 'destroy', @close
-
-    @listenToOnce fact, 'sync', ->
-      @showProfile fact.user().get('username')
-
-      @listenTo FactlinkApp.vent, 'close_discussion_modal', ->
-        Backbone.history.navigate fact.user().link(), true
-
-      newClientModal = new DiscussionModalContainer
-      FactlinkApp.discussionModalRegion.show newClientModal
-      newClientModal.mainRegion.show new NDPDiscussionView model: fact
-
-    fact.fetch()
-
-  onClose: ->
-    FactlinkApp.discussionModalRegion.close()
-
   # HELPERS
   profile_options: ->
     title: 'Profile'
