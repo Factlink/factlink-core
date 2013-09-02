@@ -2,9 +2,11 @@ class window.ProfileController extends Backbone.Marionette.Controller
 
   # ACTIONS
   showProfile: (username) ->
+    $(window).scrollTop 0
     @showPage username, @profile_options()
 
   showNotificationSettings: (username) ->
+    $(window).scrollTop 0
     @showPage username, @notification_options(username)
 
   # HELPERS

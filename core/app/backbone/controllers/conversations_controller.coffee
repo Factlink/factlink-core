@@ -1,6 +1,7 @@
 class window.ConversationsController extends Backbone.Marionette.Controller
 
   showConversations: ->
+    $(window).scrollTop 0
     FactlinkApp.closeAllContentRegions()
     @main = new TabbedMainRegionLayout()
     FactlinkApp.mainRegion.show(@main)
@@ -15,6 +16,7 @@ class window.ConversationsController extends Backbone.Marionette.Controller
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
+    $(window).scrollTop 0
     FactlinkApp.closeAllContentRegions()
     @main = new TabbedMainRegionLayout()
     FactlinkApp.mainRegion.show(@main)
