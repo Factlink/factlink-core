@@ -38,19 +38,6 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     $tabHandle = @$(".tab-control>.#{tab}")
     $tabHandle.addClass "active"
 
-    @tabRegion.show @factRelationView(tab)
-
-  onClose: -> delete @discussion
-
-  factRelationView: (type) ->
-    new FactRelationsView model: @cachedDiscussion(type)
-
-  cachedDiscussion: (type) ->
-    @discussion ?= {}
-    @discussion[type] ?= new Discussion
-      fact: @model
-      type: type
-
   tabClick: (e) ->
     e.preventDefault()
     e.stopPropagation()
