@@ -26,7 +26,9 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbon
   FactlinkApp.addRegions
     modalRegion: "#modal_region"
 
-  FactlinkApp.vent.on 'navigate load_url', ->
+  # This assumes that we use "navigate url, true" for all url changes that
+  # originate from the discussion modal
+  FactlinkApp.vent.on 'load_url', ->
     ModalWindowContainer.close()
 
   ModalWindowContainer.show = (content_view)->
