@@ -15,8 +15,10 @@ class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layo
   templateHelpers: =>
     showDelete: @model.can_destroy()
 
+  initialize: ->
+    @listenTo @model, 'change', @render
+
   onRender: ->
-    @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
     @updateSubCommentsLink()
 
     if @model.can_destroy()
