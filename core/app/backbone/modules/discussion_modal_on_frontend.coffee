@@ -8,9 +8,8 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     FactlinkApp.vent.on 'close_discussion_modal', ->
       Backbone.history.navigate background_page_url, true
 
-  DiscussionModalOnFrontend.openDiscussion = (fact, url=background_page_url) ->
+  DiscussionModalOnFrontend.openDiscussion = (fact) ->
     Backbone.history.navigate fact.get('url'), false
-    background_page_url = Backbone.history.getFragment(url)
 
     newClientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show newClientModal
