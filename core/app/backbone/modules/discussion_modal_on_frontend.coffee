@@ -12,16 +12,19 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
   background_page_url = null
 
-  shouldCloseDiscussionModal = (fragment) ->
-    !FactlinkApp.showFactRegex.test(fragment) && FactlinkApp.discussionModalRegion.currentView?
+  openingModalPage = (fragment) ->
+    FactlinkApp.showFactRegex.test(fragment)
+
+  modalCurrentlyOpened = ->
+    FactlinkApp.discussionModalRegion.currentView?
 
   setBackgroundPageUrlHook = (fragment) ->
-    unless FactlinkApp.showFactRegex.test(fragment) || background_page_url == fragment
+    unless openingModalPage(fragment)
       background_page_url = fragment
     true
 
   abortIfAlreadyOnBackgroundPageHook = (fragment) ->
-    if shouldCloseDiscussionModal(fragment)
+    if !openingModalPage(fragment) && modalCurrentlyOpened()
       DiscussionModalOnFrontend.closeDiscussion()
 
       already_on_the_background_page = (fragment == background_page_url)
