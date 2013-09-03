@@ -59,12 +59,6 @@ class window.VoteUpDownBaseView extends Backbone.Marionette.ItemView
 
     view
 
-class window.VoteUpDownView extends VoteUpDownBaseView
-  className: "evidence-actions"
-  template: "evidence/vote_up_down"
-
-  interactive: -> @options.interactive
-  side: -> 'right'
 
 class window.NDPEvidenceVoteView extends VoteUpDownBaseView
   className: 'evidence-impact-vote'
