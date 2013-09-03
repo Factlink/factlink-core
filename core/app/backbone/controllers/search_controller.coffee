@@ -4,7 +4,7 @@ class window.SearchController extends Backbone.Marionette.Controller
     @listenTo Backbone.history, 'route', (router, executed_route_name) ->
       return if executed_route_name == 'showSearch'
 
-      $('.js-navbar-search-box').val('')
+      @close()
 
     query = params['s']
     $('.js-navbar-search-box').val(query)
@@ -15,3 +15,5 @@ class window.SearchController extends Backbone.Marionette.Controller
       collection: results
 
     results.fetch()
+
+  onClose: -> $('.js-navbar-search-box').val('')
