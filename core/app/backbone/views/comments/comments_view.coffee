@@ -9,10 +9,3 @@ class CommentView extends Backbone.Marionette.ItemView
 
   onRender: ->
     @trunk8Init 5, '.js-content', '.less'
-
-
-class window.CommentEvidenceView extends EvidenceBaseView
-  mainView: CommentView
-  voteView: VoteUpDownView
-  delete_message: 'Remove this comment'
-
