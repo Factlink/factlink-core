@@ -1,14 +1,14 @@
 <ul class="fact-bottom-actions">
 
   <li class="fact-bottom-action">
-      <a href="{{url}}" class="js-arguments-link">
-        Arguments ({{evidence_count}})
-      </a>
+    <a href="{{url}}" class="js-arguments-link">
+      Arguments ({{evidence_count}})
+    </a>
 
-      <span class="opinion_indicators">
-        <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
-        <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
-      </span>
+    <span class="fact-bottom-opinion-indicators opinion_indicators">
+      <span class="fact-bottom-opinion-indicator opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
+      <span class="fact-bottom-opinion-indicator opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
+    </span>
   </li>
 
   {{#global.signed_in}}
