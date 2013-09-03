@@ -13,8 +13,6 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
   background_page_url = null
 
   DiscussionModalOnFrontend.initializer = ->
-    return if FactlinkApp.modal
-
     background_page_url = currentUser.streamLink()
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
@@ -48,8 +46,6 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     newClientModal.mainRegion.show new NDPDiscussionView model: fact
 
   DiscussionModalOnFrontend.setBackgroundPageUrl = (fragment) ->
-    return if FactlinkApp.modal
-
     sanitized_fragment = Backbone.history.getFragment(fragment)
     unless FactlinkApp.showFactRegex.test sanitized_fragment
       background_page_url = sanitized_fragment
