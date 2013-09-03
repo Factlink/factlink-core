@@ -29,13 +29,6 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.Layout
 class window.EvidenceBottomView extends GenericEvidenceBottomView
   className: 'evidence-bottom bottom-base pre-ndp-bottom-base'
 
-  templateHelpers: =>
-    fact = @model.getFact?()
-
-    believe_percentage:    fact?.opinionPercentage('believe')
-    disbelieve_percentage: fact?.opinionPercentage('disbelieve')
-    from_fact_sanitized:   fact?.toJSON()
-
   initialize: ->
     @listenTo @model, 'change', @render
 
