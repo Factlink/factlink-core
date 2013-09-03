@@ -1,5 +1,5 @@
 class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
-  className: 'ndp-evidenceish-bottom bottom-base'
+  className: 'ndp-evidenceish-bottom'
   template: 'facts/evidence_bottom'
 
   triggers:

@@ -1,13 +1,13 @@
 <div class="ndp-evidenceish-content ndp-evidenceish-text">{{content}}</div>
 
-<div class="ndp-evidenceish-bottom bottom-base">
-  <ul class="bottom-actions">
-    <li class="bottom-action-time bottom-action">
+<div class="ndp-evidenceish-bottom">
+  <ul class="ndp-evidenceish-bottom-actions">
+    <li class="ndp-evidenceish-bottom-action ndp-evidenceish-bottom-action-time">
       <i class="icon-time"></i> {{time_ago}} {{ global.t.ago }}
     </li>
 
     {{#showDelete}}
-      <li class="bottom-action ndp-evidenceish-bottom-action-delete js-delete-region"></li>
+      <li class="ndp-evidenceish-bottom-action ndp-evidenceish-bottom-action-delete js-delete-region"></li>
     {{/showDelete}}
   </ul>
 </div>
