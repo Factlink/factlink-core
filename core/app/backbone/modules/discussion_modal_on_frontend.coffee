@@ -31,7 +31,9 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     else
       true
 
-  DiscussionModalOnFrontend.initializer = ->
+  DiscussionModalOnFrontend.addInitializer ->
+    return if FactlinkApp.modal
+
     background_page_url = Backbone.history.getFragment currentUser.streamLink()
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
