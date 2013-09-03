@@ -4,6 +4,7 @@ class FactlinkAppClass extends Backbone.Marionette.Application
     @addInitializer @automaticLogoutInitializer
     @addInitializer @notificationsInitializer
     @addInitializer @scrollToTopInitializer
+    @addInitializer @DiscussionModalOnFrontend.initializer
 
     @linkTarget = '_self'
 
