@@ -46,9 +46,9 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
   DiscussionModalOnFrontend.openDiscussion = (fact) ->
     Backbone.history.navigate fact.get('url'), false
 
-    newClientModal = new DiscussionModalContainer
-    FactlinkApp.discussionModalRegion.show newClientModal
-    newClientModal.mainRegion.show new NDPDiscussionView model: fact
+    discussionModalContainer = new DiscussionModalContainer
+    FactlinkApp.discussionModalRegion.show discussionModalContainer
+    discussionModalContainer.mainRegion.show new NDPDiscussionView model: fact
 
   DiscussionModalOnFrontend.closeDiscussion = ->
     FactlinkApp.discussionModalRegion.close()
