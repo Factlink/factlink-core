@@ -52,7 +52,9 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     discussionModalContainer.mainRegion.show new NDPDiscussionView model: fact
 
   DiscussionModalOnFrontend.closeDiscussion = ->
-    FactlinkApp.discussionModalRegion.close()
-    FactlinkApp.ModalWindowContainer.close()
+    discussionModalContainer.fadeOut ->
+      FactlinkApp.discussionModalRegion.close()
     discussionModalContainer = null
+
+    FactlinkApp.ModalWindowContainer.close()
 

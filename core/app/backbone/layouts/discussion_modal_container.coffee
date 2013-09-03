@@ -16,4 +16,10 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
 
     FactlinkApp.vent.trigger 'close_discussion_modal'
 
-  onRender: -> @$el.preventScrollPropagation()
+  onRender: ->
+    @$el.preventScrollPropagation()
+    _.defer => @$el.addClass 'discussion-modal-container-visible'
+
+  fadeOut: (callback) ->
+    @$el.removeClass 'discussion-modal-container-visible'
+    _.delay callback, 100 # keep in sync with CSS
