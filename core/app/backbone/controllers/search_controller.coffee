@@ -1,8 +1,8 @@
 class window.SearchController extends Backbone.Marionette.Controller
 
   showSearch: (params={}) ->
-    @listenTo Backbone.history, 'route', (router, name) ->
-      return if name == 'showSearch'
+    @listenTo Backbone.history, 'route', (router, executed_route_name) ->
+      return if executed_route_name == 'showSearch'
 
       $('.js-navbar-search-box').val('')
 
