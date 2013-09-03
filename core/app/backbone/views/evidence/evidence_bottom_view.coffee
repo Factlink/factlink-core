@@ -25,19 +25,7 @@ class window.GenericEvidenceBottomView extends Backbone.Marionette.Layout
   hideSubCommentsLink: -> @ui.subCommentsLinkContainer.addClass 'hide'
 
 
-# NOTE : when removing this class, don't forget to cleanup the template.
-class window.EvidenceBottomView extends GenericEvidenceBottomView
-  className: 'evidence-bottom bottom-base pre-ndp-bottom-base'
-
-  initialize: ->
-    @listenTo @model, 'change', @render
-
-  onRender: ->
-    @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
-    @updateSubCommentsLink()
-
-
-class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
+class window.NDPFactRelationOrCommentBottomView extends GenericEvidenceBottomView
   className: 'ndp-evidenceish-bottom bottom-base'
 
   regions:
@@ -46,6 +34,9 @@ class window.NDPFactRelationOrCommentBottomView extends EvidenceBottomView
   templateHelpers: =>
     showTimeAgo: true
     showDelete: @model.can_destroy()
+
+  initialize: ->
+    @listenTo @model, 'change', @render
 
   onRender: ->
     @listenTo @model, 'change:sub_comments_count', @updateSubCommentsLink
