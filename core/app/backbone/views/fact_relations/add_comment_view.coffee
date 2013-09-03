@@ -14,13 +14,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   regions:
     inputRegion: '.js-input-region'
-    avatarRegion: '.js-avatar-region'
 
   onRender: ->
     @inputRegion.show @_textAreaView()
-    unless @options.ndp
-      @avatarRegion.show new AvatarView(model: currentUser)
-      @$el.addClass 'pre-ndp-add-comment'
 
   addWithHighlight: ->
     return if @submitting
