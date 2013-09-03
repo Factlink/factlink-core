@@ -12,8 +12,11 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
   background_page_url = null
 
+  # keep url in sync with ChannelsRouter
+  showFactRegex = Backbone.Router::_routeToRegExp ':slug/f/:fact_id'
+
   openingModalPage = (fragment) ->
-    FactlinkApp.showFactRegex.test(fragment)
+    showFactRegex.test(fragment)
 
   modalCurrentlyOpened = ->
     FactlinkApp.discussionModalRegion.currentView?
