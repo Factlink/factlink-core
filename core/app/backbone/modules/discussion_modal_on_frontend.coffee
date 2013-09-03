@@ -32,8 +32,9 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     addBackboneHistoryCallbacksForDiscussionModal()
 
   DiscussionModalOnFrontend.setBackgroundPageUrl = (fragment) ->
-    unless openingModalPage(fragment)
-      background_page_url = fragment
+    return if openingModalPage(fragment)
+
+    background_page_url = fragment
 
   DiscussionModalOnFrontend.closeDiscussionAndAlreadyOnBackgroundPage = (fragment) ->
     return false unless modalCurrentlyOpened()
