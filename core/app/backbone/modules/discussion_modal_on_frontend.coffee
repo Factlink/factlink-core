@@ -11,6 +11,7 @@
 FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyApp, Backbone, Marionette, $, _) ->
 
   background_page_url = null
+  discussionModalContainer = null
 
   # keep url in sync with ChannelsRouter
   showFactRegex = Backbone.Router::_routeToRegExp ':slug/f/:fact_id'
@@ -19,7 +20,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     showFactRegex.test(fragment)
 
   modalCurrentlyOpened = ->
-    FactlinkApp.discussionModalRegion.currentView?
+    discussionModalContainer?
 
   DiscussionModalOnFrontend.addInitializer ->
     return if FactlinkApp.modal
@@ -53,4 +54,5 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
   DiscussionModalOnFrontend.closeDiscussion = ->
     FactlinkApp.discussionModalRegion.close()
     FactlinkApp.ModalWindowContainer.close()
+    discussionModalContainer = null
 
