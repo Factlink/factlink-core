@@ -12,30 +12,34 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
   background_page_url = null
 
+  shouldCloseDiscussionModal = (fragment) ->
+    !FactlinkApp.showFactRegex.test(fragment) && FactlinkApp.discussionModalRegion.currentView?
+
+  setBackgroundPageUrlHook = (fragment) ->
+    unless FactlinkApp.showFactRegex.test(fragment) || background_page_url == fragment
+      console.info "changing background_page_url from #{background_page_url} to #{fragment}"
+      background_page_url = fragment
+    true
+
+  abortIfAlreadyOnBackgroundPageHook = (fragment) ->
+    if shouldCloseDiscussionModal(fragment)
+      DiscussionModalOnFrontend.closeDiscussion()
+
+      already_on_the_background_page = (fragment == background_page_url)
+      setBackgroundPageUrlHook fragment
+
+      !already_on_the_background_page
+    else
+      setBackgroundPageUrlHook fragment
+
   DiscussionModalOnFrontend.initializer = ->
-    background_page_url = currentUser.streamLink()
+    background_page_url = Backbone.history.getFragment currentUser.streamLink()
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
       Backbone.history.navigate background_page_url, true
 
-    old_navigate = Backbone.History.prototype.navigate
-    Backbone.History.prototype.navigate = (fragment) ->
-      DiscussionModalOnFrontend.setBackgroundPageUrl fragment
-      old_navigate.apply @, arguments
-
-    old_loadUrl = Backbone.History.prototype.loadUrl
-    Backbone.History.prototype.loadUrl = (fragment) ->
-      sanitized_fragment = Backbone.history.getFragment(fragment)
-      already_on_the_background_page = (sanitized_fragment == background_page_url)
-
-      DiscussionModalOnFrontend.setBackgroundPageUrl fragment
-
-      if FactlinkApp.discussionModalRegion.currentView?
-        DiscussionModalOnFrontend.closeDiscussion()
-        return if already_on_the_background_page
-
-      old_loadUrl.apply @, arguments
-
+    addBackboneHistoryLoadUrlHook abortIfAlreadyOnBackgroundPageHook
+    addBackboneHistoryNavigateHook setBackgroundPageUrlHook
 
   DiscussionModalOnFrontend.openDiscussion = (fact) ->
     Backbone.history.navigate fact.get('url'), false
@@ -48,7 +52,3 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     FactlinkApp.discussionModalRegion.close()
     FactlinkApp.ModalWindowContainer.close()
 
-  DiscussionModalOnFrontend.setBackgroundPageUrl = (fragment) ->
-    sanitized_fragment = Backbone.history.getFragment(fragment)
-    unless FactlinkApp.showFactRegex.test sanitized_fragment
-      background_page_url = sanitized_fragment
