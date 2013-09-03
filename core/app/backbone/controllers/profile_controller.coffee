@@ -61,6 +61,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
   getFactsView: (channel) ->
     new FactsView
       collection: new ChannelFacts([], channel: channel)
+      empty_view: new EmptyProfileFactsView()
 
   showSidebarProfile: (user) ->
     sidebarProfileView = new SidebarProfileView(model: user)
