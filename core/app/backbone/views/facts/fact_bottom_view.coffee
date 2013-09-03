@@ -1,5 +1,5 @@
 class window.FactBottomView extends Backbone.Marionette.ItemView
-  className: 'fact-bottom bottom-base pre-ndp-bottom-base'
+  className: 'fact-bottom'
 
   template: 'facts/fact_bottom'
 

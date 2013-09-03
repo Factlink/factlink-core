@@ -1,6 +1,6 @@
-<ul class="bottom-actions">
+<ul class="fact-bottom-actions">
 
-  <li class="bottom-action">
+  <li class="fact-bottom-action">
       <a href="{{url}}" class="js-arguments-link">
         Arguments ({{evidence_count}})
       </a>
@@ -12,12 +12,12 @@
   </li>
 
   {{#global.signed_in}}
-    <li class="bottom-action"><a href="#" class="js-add-to-channel">Repost</a></li>
-    <li class="bottom-action"><a href="#" class="js-start-conversation">Share</a></li>
+    <li class="fact-bottom-action"><a href="#" class="js-add-to-channel">Repost</a></li>
+    <li class="fact-bottom-action"><a href="#" class="js-start-conversation">Share</a></li>
   {{/global.signed_in}}
 
   {{#proxy_scroll_url}}
-    <li class="bottom-action fact-info">
+    <li class="fact-bottom-action fact-info">
       {{#fact_url_host}}
       <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
       {{/fact_url_host}}

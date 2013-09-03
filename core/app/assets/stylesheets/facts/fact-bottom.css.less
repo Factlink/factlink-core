@@ -1,15 +1,17 @@
 @import "bootstrap/mixins";
 
-.bottom-base {
+.fact-bottom {
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+  margin-top: 8px;
+  clear: both;
 
-  .bottom-actions {
+  .fact-bottom-actions {
     margin: 0;
     padding: 0;
 
-    .bottom-action {
+    .fact-bottom-action {
       display: inline-block;
 
       &.hide {
@@ -17,11 +19,6 @@
       }
     }
   }
-}
-
-.pre-ndp-bottom-base {
-  margin-top: 8px;
-  clear: both;
 
   > .title-overflow {
     z-index: 100;
@@ -34,7 +31,7 @@
     top: 0;
   }
 
-  .bottom-action {
+  .fact-bottom-action {
     &:after {
       content: "·";
       margin: 0 7px;
@@ -49,7 +46,6 @@
       color: @mutedFontColor;
     }
   }
-
 
   a {
     cursor: pointer;
@@ -74,12 +70,12 @@
 
 div.facts-view, #activity_for_channel .activity-group {
   div.fact-view {
-    .bottom-base > .bottom-actions {
+    .fact-bottom > .fact-bottom-actions {
       opacity: .25;
       .transition(opacity .15s ease-in-out);
     }
     &:hover {
-      .bottom-base > .bottom-actions {
+      .fact-bottom > .fact-bottom-actions {
         opacity: 1;
       }
     }
