@@ -1,6 +1,5 @@
 class window.EvidenceBaseView extends Backbone.Marionette.Layout
   tagName:   'li'
-  template:  'evidence/base'
 
   regions:
     voteRegion:        '.evidence-vote-region'
