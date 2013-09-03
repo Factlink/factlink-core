@@ -28,8 +28,3 @@ class window.FactRelationView extends Backbone.Marionette.Layout
         @defaultClickHandler e, @model.getFact().get("url")
 
     fbv
-
-class window.FactRelationEvidenceView extends EvidenceBaseView
-  mainView: FactRelationView
-  voteView: VoteUpDownView
-  delete_message: 'Remove this Factlink as evidence'
