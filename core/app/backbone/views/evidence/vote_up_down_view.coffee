@@ -8,8 +8,7 @@ class window.NDPEvidenceVoteView extends Backbone.Marionette.ItemView
     "click .js-up":   "_on_up_vote"
     "click .js-down": "_on_down_vote"
 
-  constructor: ->
-    super
+  initialize: ->
     @listenTo @model, "change", @render
 
   onRender: ->
