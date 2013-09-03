@@ -1,7 +1,10 @@
 class window.SearchController extends Backbone.Marionette.Controller
 
   showSearch: (params={}) ->
-    @listenTo FactlinkApp.vent, 'load_url', @close
+    @listenTo Backbone.history, 'route', (router, name) ->
+      return if name == 'showSearch'
+
+      $('.js-navbar-search-box').val('')
 
     query = params['s']
     $('.js-navbar-search-box').val(query)
@@ -12,6 +15,3 @@ class window.SearchController extends Backbone.Marionette.Controller
       collection: results
 
     results.fetch()
-
-  onClose: ->
-    $('.js-navbar-search-box').val('')

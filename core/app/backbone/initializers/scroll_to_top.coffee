@@ -1,3 +1,3 @@
 FactlinkApp.scrollToTopInitializer = (options) ->
-  FactlinkApp.vent.on 'load_url', ->
+  Backbone.history.on 'route', ->
     $(window).scrollTop 0

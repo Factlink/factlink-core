@@ -26,7 +26,7 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbon
   FactlinkApp.addRegions
     modalRegion: "#modal_region"
 
-  FactlinkApp.vent.on 'load_url', ->
+  Backbone.history.on 'route', ->
     ModalWindowContainer.close()
 
   ModalWindowContainer.show = (content_view)->

@@ -3,7 +3,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
   background_page_url = null
 
   DiscussionModalOnFrontend.addInitializer ->
-    FactlinkApp.vent.on 'load_url', ->
+    FactlinkApp.vent.on 'route', ->
       DiscussionModalOnFrontend.closeDiscussion()
 
     FactlinkApp.vent.on 'close_discussion_modal', ->
