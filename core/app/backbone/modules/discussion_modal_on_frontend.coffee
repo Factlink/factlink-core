@@ -18,19 +18,6 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
   modalCurrentlyOpened = ->
     FactlinkApp.discussionModalRegion.currentView?
 
-  setBackgroundPageUrlHook = (fragment) ->
-    unless openingModalPage(fragment)
-      background_page_url = fragment
-    true
-
-  abortIfAlreadyOnBackgroundPageHook = (fragment) ->
-    if !openingModalPage(fragment) && modalCurrentlyOpened()
-      DiscussionModalOnFrontend.closeDiscussion()
-
-      fragment != background_page_url
-    else
-      true
-
   DiscussionModalOnFrontend.addInitializer ->
     return if FactlinkApp.modal
 
@@ -39,9 +26,20 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     FactlinkApp.vent.on 'close_discussion_modal', ->
       Backbone.history.navigate background_page_url, true
 
-    addBackboneHistoryNavigateHook setBackgroundPageUrlHook
-    addBackboneHistoryLoadUrlHook setBackgroundPageUrlHook
-    addBackboneHistoryLoadUrlHook abortIfAlreadyOnBackgroundPageHook
+    addBackboneHistoryCallbacksForDiscussionModal()
+
+  DiscussionModalOnFrontend.setBackgroundPageUrlCallback = (fragment) ->
+    unless openingModalPage(fragment)
+      background_page_url = fragment
+    true
+
+  DiscussionModalOnFrontend.onLoadAbortIfAlreadyOnBackgroundPageCallback = (fragment) ->
+    if !openingModalPage(fragment) && modalCurrentlyOpened()
+      DiscussionModalOnFrontend.closeDiscussion()
+
+      fragment != background_page_url
+    else
+      true
 
   DiscussionModalOnFrontend.openDiscussion = (fact) ->
     Backbone.history.navigate fact.get('url'), false
