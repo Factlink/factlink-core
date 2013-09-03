@@ -43,7 +43,7 @@ module Screenshots
         # page.find('a', text: 'Done').click
         eventually_succeeds do
           find('a', text: 'Comment').click
-          find('.evidence-sub-comments-form').should_not eq nil
+          find('.spec-sub-comments-form').should_not eq nil
         end
         add_sub_comment(sub_comment_text)
         assert_sub_comment_exists sub_comment_text_normalized
