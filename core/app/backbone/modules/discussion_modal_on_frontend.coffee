@@ -1,4 +1,4 @@
-# HACK: We store the background page url by intercepting "navigate" (called
+# HACK: We store the background page url by overwriting "navigate" (called
 # when navigating from one page in our app to another page in our app using Backbone)
 # and "loadUrl" (called when coming to a page from another site, directly, or
 # when using the browser navigation features). We then check if the page is not the
