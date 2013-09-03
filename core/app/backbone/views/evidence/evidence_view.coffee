@@ -1,6 +1,5 @@
 class window.EvidenceBaseView extends Backbone.Marionette.Layout
   tagName:   'li'
-  className: 'evidence-item'
   template:  'evidence/base'
 
   regions:
