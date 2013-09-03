@@ -34,7 +34,6 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
   DiscussionModalOnFrontend.setBackgroundPageUrlCallback = (fragment) ->
     unless openingModalPage(fragment)
       background_page_url = fragment
-    true
 
   DiscussionModalOnFrontend.onLoadAbortIfAlreadyOnBackgroundPageCallback = (fragment) ->
     if !openingModalPage(fragment) && modalCurrentlyOpened()
