@@ -1,5 +1,8 @@
-class window.VoteUpDownBaseView extends Backbone.Marionette.ItemView
+class window.NDPEvidenceVoteView extends Backbone.Marionette.ItemView
   _.extend @prototype, Backbone.Factlink.PopoverMixin
+
+  className: 'evidence-impact-vote'
+  template: 'evidence/ndp_evidence_vote'
 
   events:
     "click .js-up":   "_on_up_vote"
@@ -9,18 +12,11 @@ class window.VoteUpDownBaseView extends Backbone.Marionette.ItemView
     super
     @listenTo @model, "change", @render
 
-  templateHelpers: =>
-    interactive: @interactive()
-
   onRender: ->
-    @renderActive() if @interactive()
-
-  renderActive: ->
     @$('a.js-up').addClass('active') if @model.get('current_user_opinion') == 'believes'
     @$('a.js-down').addClass('active')  if @model.get('current_user_opinion') == 'disbelieves'
 
   _on_up_vote: ->
-    return unless @interactive()
     mp_track "Factlink: Upvote evidence click"
     if @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
       @_open_vote_popup '.js-up', FactRelationVoteUpView
@@ -31,7 +27,6 @@ class window.VoteUpDownBaseView extends Backbone.Marionette.ItemView
         @model.believe()
 
   _on_down_vote: ->
-    return unless @interactive()
     mp_track "Factlink: Downvote evidence click"
     if @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
       @_open_vote_popup '.js-down',  FactRelationVoteDownView
@@ -46,7 +41,7 @@ class window.VoteUpDownBaseView extends Backbone.Marionette.ItemView
 
     @popoverResetAll()
     @popoverAdd selector,
-      side: @side()
+      side: @_side()
       align: 'top'
       fadeTime: 40
       contentView: @_bound_popup_view view_klass
@@ -59,14 +54,7 @@ class window.VoteUpDownBaseView extends Backbone.Marionette.ItemView
 
     view
 
-
-class window.NDPEvidenceVoteView extends VoteUpDownBaseView
-  className: 'evidence-impact-vote'
-  template: 'evidence/ndp_evidence_vote'
-
-  interactive: -> true
-
-  side: ->
+  _side: ->
     if @model.get('type') == 'believes'
       'left'
     else
