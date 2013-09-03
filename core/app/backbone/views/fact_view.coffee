@@ -57,8 +57,6 @@ class window.FactView extends Backbone.Marionette.Layout
   newFactBottomView: ->
     new FactBottomView
       model: @model
-      hide_discussion_link: @options.standalone
-      show_timestamp: @options.standalone
 
   setPoparrow: ->
     poparrowView = new FactPoparrowView model: @model
