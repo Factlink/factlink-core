@@ -49,6 +49,9 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
 
     if Factlink.Global.signed_in
       @listenTo view, 'click:body', (e) ->
-        FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.getFact().clone()
+        if FactlinkApp.modal
+          Backbone.history.navigate @model.getFact().clientLink(), true
+        else
+          FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.getFact().clone()
 
     view
