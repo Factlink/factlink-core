@@ -20,6 +20,16 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     unless FactlinkApp.showFactRegex.test sanitized_fragment
       background_page_url = sanitized_fragment
 
+  # HACK: We store the background page url by intercepting "navigate" (called
+  # when navigating from one page in our app to another page in our app using Backbone)
+  # and "loadUrl" (called when coming to a page from another site, directly, or
+  # when using the browser navigation features). We then check if the page is not the
+  # page of a discussion modal, using FactlinkApp.showFactRegex, and then save it as
+  # the current background url.
+  # When loading a new page (with loadUrl), we close the discussion modal, and check if
+  # the background page url is the same url as we're navigating to. In that case we simply
+  # stop calling the respective controller.
+
   old_navigate = Backbone.History.prototype.navigate
   Backbone.History.prototype.navigate = (fragment) ->
     DiscussionModalOnFrontend.setBackgroundPageUrl fragment
