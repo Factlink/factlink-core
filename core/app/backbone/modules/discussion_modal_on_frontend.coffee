@@ -27,12 +27,9 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     if !openingModalPage(fragment) && modalCurrentlyOpened()
       DiscussionModalOnFrontend.closeDiscussion()
 
-      already_on_the_background_page = (fragment == background_page_url)
-      setBackgroundPageUrlHook fragment
-
-      !already_on_the_background_page
+      fragment != background_page_url
     else
-      setBackgroundPageUrlHook fragment
+      true
 
   DiscussionModalOnFrontend.initializer = ->
     background_page_url = Backbone.history.getFragment currentUser.streamLink()
@@ -40,8 +37,9 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     FactlinkApp.vent.on 'close_discussion_modal', ->
       Backbone.history.navigate background_page_url, true
 
-    addBackboneHistoryLoadUrlHook abortIfAlreadyOnBackgroundPageHook
     addBackboneHistoryNavigateHook setBackgroundPageUrlHook
+    addBackboneHistoryLoadUrlHook setBackgroundPageUrlHook
+    addBackboneHistoryLoadUrlHook abortIfAlreadyOnBackgroundPageHook
 
   DiscussionModalOnFrontend.openDiscussion = (fact) ->
     Backbone.history.navigate fact.get('url'), false
