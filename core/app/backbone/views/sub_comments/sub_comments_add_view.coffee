@@ -1,6 +1,10 @@
-class BaseSubCommentsAddView extends Backbone.Marionette.Layout
+class window.NDPSubCommentsAddView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
                        Backbone.Factlink.AlertMixin
+
+  className: 'ndp-evidenceish-content ndp-sub-comments-add spec-sub-comments-form'
+
+  template: 'sub_comments/ndp_sub_comments_add'
 
   events:
     'click .js-submit': 'submit'
@@ -12,13 +16,9 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
     textareaRegion: '.js-region-textarea'
 
   onRender: ->
-    @textareaRegion.show @textAreaView()
-    @toggleForm false
-
-  inputFocus: -> @toggleForm true
-
-  toggleForm: (active) ->
-    @$el.toggleClass 'evidence-sub-comments-form-active', active
+    @textareaRegion.show new Backbone.Factlink.TextAreaView
+      model: @textModel()
+      placeholder: 'Your comment'
 
   submit: ->
     return if @submitting
@@ -43,13 +43,6 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
 
   text: -> @textModel().get('text')
   textModel: -> @_textModel ?= new Backbone.Model text: ''
-  textAreaView: ->
-    textAreaView = new Backbone.Factlink.TextAreaView
-      model: @textModel()
-      placeholder: 'Your comment'
-
-    @listenTo textAreaView, 'focus', @inputFocus, @
-    textAreaView
 
   enableSubmit: ->
     @submitting = false
@@ -59,15 +52,3 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
 
-
-class window.SubCommentsAddView extends BaseSubCommentsAddView
-  className: 'evidence-sub-comments-form'
-  template: 'sub_comments/add_view'
-
-  templateHelpers: => current_user: currentUser.toJSON()
-
-
-class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
-  className: 'ndp-evidenceish-content ndp-sub-comments-add evidence-sub-comments-form'
-
-  template: 'sub_comments/ndp_sub_comments_add'
