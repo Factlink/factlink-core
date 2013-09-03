@@ -7,7 +7,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     factBodyRegion: '.fact-body'
 
   templateHelpers: ->
-    'modal?' : FactlinkApp.modal is true
+    'modal?' : FactlinkApp.onClientApp is true
 
   onRender: ->
     @factWheelRegion.show @wheelView()
@@ -56,7 +56,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
     @listenTo @model, 'change', @render
 
   click: ->
-    if FactlinkApp.modal
+    if FactlinkApp.onClientApp
       Backbone.history.navigate @model.clientLink(), true
     else
       FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone()

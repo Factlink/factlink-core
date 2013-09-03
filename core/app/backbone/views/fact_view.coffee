@@ -34,7 +34,7 @@ class window.FactView extends Backbone.Marionette.Layout
   template: "facts/fact"
 
   templateHelpers: ->
-    'modal?' : FactlinkApp.modal is true
+    'modal?' : FactlinkApp.onClientApp is true
 
   regions:
     factBaseView: '.fact-base-region'
