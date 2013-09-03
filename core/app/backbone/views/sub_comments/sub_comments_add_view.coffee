@@ -1,6 +1,10 @@
-class BaseSubCommentsAddView extends Backbone.Marionette.Layout
+class window.NDPSubCommentsAddView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
                        Backbone.Factlink.AlertMixin
+
+  className: 'ndp-evidenceish-content ndp-sub-comments-add evidence-sub-comments-form'
+
+  template: 'sub_comments/ndp_sub_comments_add'
 
   events:
     'click .js-submit': 'submit'
@@ -48,8 +52,3 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
 
-
-class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
-  className: 'ndp-evidenceish-content ndp-sub-comments-add evidence-sub-comments-form'
-
-  template: 'sub_comments/ndp_sub_comments_add'
