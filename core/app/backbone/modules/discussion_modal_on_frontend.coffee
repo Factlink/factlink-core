@@ -36,6 +36,12 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
     background_page_url = fragment
 
+  DiscussionModalOnFrontend.setBackgroundPageUrlFromNavigate = (fragment) ->
+    # Prevent prematurely setting the url when navigating from the discussion modal
+    return if modalCurrentlyOpened()
+
+    DiscussionModalOnFrontend.setBackgroundPageUrl fragment
+
   DiscussionModalOnFrontend.closeDiscussionAndAlreadyOnBackgroundPage = (fragment) ->
     return false unless modalCurrentlyOpened()
     return false if openingModalPage(fragment)

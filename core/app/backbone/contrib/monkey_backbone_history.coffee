@@ -4,7 +4,7 @@ window.addBackboneHistoryCallbacksForDiscussionModal = ->
   Backbone.History.prototype.navigate = (fragment) ->
     fragment = @getFragment(fragment || '') # copied from Backbone
 
-    FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrl(fragment)
+    FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlFromNavigate(fragment)
     old_navigate.apply this, arguments
 
 
