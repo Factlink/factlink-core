@@ -32,7 +32,6 @@ class window.NDPFactRelationOrCommentBottomView extends GenericEvidenceBottomVie
     deleteRegion: '.js-delete-region'
 
   templateHelpers: =>
-    showTimeAgo: true
     showDelete: @model.can_destroy()
 
   initialize: ->
