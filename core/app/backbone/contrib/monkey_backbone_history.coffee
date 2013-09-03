@@ -4,7 +4,7 @@ window.addBackboneHistoryCallbacksForDiscussionModal = ->
   Backbone.History.prototype.navigate = (fragment) ->
     fragment = @getFragment(fragment || '') # copied from Backbone
 
-    FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlCallback(fragment)
+    FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrl(fragment)
     old_navigate.apply this, arguments
 
 
@@ -12,6 +12,6 @@ window.addBackboneHistoryCallbacksForDiscussionModal = ->
   Backbone.History.prototype.loadUrl = (fragmentOverride) ->
     fragment = @getFragment(fragmentOverride) # copied from Backbone
 
-    if FactlinkApp.DiscussionModalOnFrontend.onLoadAbortIfAlreadyOnBackgroundPageCallback(fragment)
-      FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlCallback(fragment)
+    if FactlinkApp.DiscussionModalOnFrontend.onLoadAbortIfAlreadyOnBackgroundPage(fragment)
+      FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrl(fragment)
       old_loadUrl.apply this, arguments
