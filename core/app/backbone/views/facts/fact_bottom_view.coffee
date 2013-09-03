@@ -47,4 +47,4 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
   openDiscussionModal: (e) ->
     e.preventDefault()
 
-    FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone(), window.location.pathname
+    FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone()
