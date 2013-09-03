@@ -17,7 +17,6 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
   setBackgroundPageUrlHook = (fragment) ->
     unless FactlinkApp.showFactRegex.test(fragment) || background_page_url == fragment
-      console.info "changing background_page_url from #{background_page_url} to #{fragment}"
       background_page_url = fragment
     true
 
