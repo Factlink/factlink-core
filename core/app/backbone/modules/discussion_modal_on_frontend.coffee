@@ -35,13 +35,13 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     unless openingModalPage(fragment)
       background_page_url = fragment
 
-  DiscussionModalOnFrontend.onLoadAbortIfAlreadyOnBackgroundPage = (fragment) ->
-    if !openingModalPage(fragment) && modalCurrentlyOpened()
-      DiscussionModalOnFrontend.closeDiscussion()
+  DiscussionModalOnFrontend.closeDiscussionAndAlreadyOnBackgroundPage = (fragment) ->
+    return false unless modalCurrentlyOpened()
+    return false if openingModalPage(fragment)
 
-      fragment != background_page_url
-    else
-      true
+    DiscussionModalOnFrontend.closeDiscussion()
+
+    fragment == background_page_url
 
   DiscussionModalOnFrontend.openDiscussion = (fact) ->
     Backbone.history.navigate fact.get('url'), false
