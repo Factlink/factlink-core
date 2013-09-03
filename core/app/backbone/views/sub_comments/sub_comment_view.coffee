@@ -1,18 +1,3 @@
-class SubCommentPoparrowView extends Backbone.Factlink.PoparrowView
-  template: 'sub_comments/poparrow'
-
-  initialize: (options)->
-    @delete_message = options.delete_message
-
-  templateHelpers: =>
-    delete_message: @delete_message
-
-  events:
-    'click li.delete': 'destroy'
-
-  destroy: -> @model.destroy wait: true
-
-
 class window.SubCommentView extends Backbone.Marionette.Layout
   template: 'sub_comments/sub_comment'
   className: 'evidence-sub-comment'
