@@ -12,13 +12,9 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
     textareaRegion: '.js-region-textarea'
 
   onRender: ->
-    @textareaRegion.show @textAreaView()
-    @toggleForm false
-
-  inputFocus: -> @toggleForm true
-
-  toggleForm: (active) ->
-    @$el.toggleClass 'evidence-sub-comments-form-active', active
+    @textareaRegion.show new Backbone.Factlink.TextAreaView
+      model: @textModel()
+      placeholder: 'Your comment'
 
   submit: ->
     return if @submitting
@@ -43,13 +39,6 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
 
   text: -> @textModel().get('text')
   textModel: -> @_textModel ?= new Backbone.Model text: ''
-  textAreaView: ->
-    textAreaView = new Backbone.Factlink.TextAreaView
-      model: @textModel()
-      placeholder: 'Your comment'
-
-    @listenTo textAreaView, 'focus', @inputFocus, @
-    textAreaView
 
   enableSubmit: ->
     @submitting = false
