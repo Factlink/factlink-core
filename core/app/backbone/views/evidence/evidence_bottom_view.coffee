@@ -39,5 +39,5 @@ class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layo
     else
       @hideSubCommentsLink()
 
-  showSubCommentsLink: -> @ui.subCommentsLinkContainer.removeClass 'hide'
-  hideSubCommentsLink: -> @ui.subCommentsLinkContainer.addClass 'hide'
+  showSubCommentsLink: -> @ui.subCommentsLinkContainer.show()
+  hideSubCommentsLink: -> @ui.subCommentsLinkContainer.hide()
