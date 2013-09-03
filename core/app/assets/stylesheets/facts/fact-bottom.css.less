@@ -7,60 +7,58 @@
   margin-top: 8px;
   clear: both;
 
-  .fact-bottom-actions {
-    margin: 0;
-    padding: 0;
-
-    .fact-bottom-action {
-      display: inline-block;
-    }
-  }
-
-  > .fact-bottom-title-overflow {
-    z-index: 100;
-    background: image-url('discussions/title_fade.png') right repeat-y;
-    display: block;
-    height: 100%;
-    width: 20px;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-
-  .fact-bottom-opinion-indicators {
-    font-size: @metaFontSize;
-  }
-
-  .fact-bottom-opinion-indicator {
-    margin: 0 5px 0 5px;
-  }
-
-  .fact-bottom-action {
-    &:after {
-      content: "·";
-      margin: 0 7px;
-    }
-
-    &:last-child:after {
-      content: "";
-      margin: 0;
-    }
-
-    &.fact-info {
-      color: @mutedFontColor;
-    }
-  }
-
   a {
     font-weight: bold;
     .transition(color .15s ease-in-out);
   }
+}
 
-  .fact-bottom-favicon {
-    width: 16px;
-    height: 16px;
-    vertical-align: text-top;
+.fact-bottom-actions {
+  margin: 0;
+  padding: 0;
+}
+
+.fact-bottom-action {
+  display: inline-block;
+
+  &:after {
+    content: "·";
+    margin: 0 7px;
   }
+
+  &:last-child:after {
+    content: "";
+    margin: 0;
+  }
+
+  &.fact-info {
+    color: @mutedFontColor;
+  }
+}
+
+.fact-bottom-title-overflow {
+  z-index: 100;
+  background: image-url('discussions/title_fade.png') right repeat-y;
+  display: block;
+  height: 100%;
+  width: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.fact-bottom-opinion-indicators {
+  font-size: @metaFontSize;
+}
+
+.fact-bottom-opinion-indicator {
+  margin: 0 5px 0 5px;
+}
+
+.fact-bottom-favicon {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top;
 }
 
 div.facts-view, #activity_for_channel .activity-group {
