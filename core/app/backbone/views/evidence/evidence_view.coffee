@@ -73,18 +73,3 @@ class EvidenceActivityView extends Backbone.Marionette.ItemView
 
   templateHelpers: =>
     creator: @model.creator().toJSON()
-
-
-class EvidencePoparrowView extends Backbone.Factlink.PoparrowView
-  template: 'evidence/poparrow'
-
-  initialize: (options)->
-    @delete_message = options.delete_message
-
-  templateHelpers: =>
-    delete_message: @delete_message
-
-  events:
-    'click li.delete': 'destroy'
-
-  destroy: -> @model.destroy wait: true
