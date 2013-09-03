@@ -10,36 +10,4 @@
   {{/showDelete}}
 
   <li class="js-sub-comments-link-container bottom-action"><a class="js-sub-comments-link" href="javascript:void()"></a></li>
-
-  {{#showDiscussion}}
-    <li class="bottom-action">
-      {{#global.signed_in}}
-        <a href="{{from_fact_sanitized.url}}" class="discussion_link"
-          {{#modal?}}
-            target="new"
-          {{/modal?}}{{^modal?}}
-            rel="backbone" target="_top"
-          {{/modal?}}
-          >
-            Arguments
-        </a>
-
-        <span class="opinion_indicators">
-          <a href="{{from_fact_sanitized.url}}?tab=supporting" class="discussion_link">
-            <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
-          </a>
-          <a href="{{from_fact_sanitized.url}}?tab=weakening" class="discussion_link">
-            <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
-          </a>
-        </span>
-      {{/global.signed_in}}
-
-      {{^global.signed_in}}
-        <span class="opinion_indicators">
-          <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
-          <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
-        </span>
-      {{/global.signed_in}}
-    </li>
-  {{/showDiscussion}}
 </ul>

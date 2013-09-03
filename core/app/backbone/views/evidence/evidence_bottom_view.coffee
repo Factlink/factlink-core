@@ -32,7 +32,6 @@ class window.EvidenceBottomView extends GenericEvidenceBottomView
   templateHelpers: =>
     fact = @model.getFact?()
 
-    showDiscussion: fact?
     believe_percentage:    fact?.opinionPercentage('believe')
     disbelieve_percentage: fact?.opinionPercentage('disbelieve')
     from_fact_sanitized:   fact?.toJSON()
