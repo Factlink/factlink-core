@@ -31,8 +31,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
       DiscussionModalOnFrontend.setBackgroundPageUrl fragment
 
       if FactlinkApp.discussionModalRegion.currentView?
-        FactlinkApp.discussionModalRegion.close()
-        FactlinkApp.ModalWindowContainer.close()
+        DiscussionModalOnFrontend.closeDiscussion()
         return if already_on_the_background_page
 
       old_loadUrl.apply @, arguments
@@ -44,6 +43,10 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
     newClientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show newClientModal
     newClientModal.mainRegion.show new NDPDiscussionView model: fact
+
+  DiscussionModalOnFrontend.closeDiscussion = ->
+    FactlinkApp.discussionModalRegion.close()
+    FactlinkApp.ModalWindowContainer.close()
 
   DiscussionModalOnFrontend.setBackgroundPageUrl = (fragment) ->
     sanitized_fragment = Backbone.history.getFragment(fragment)
