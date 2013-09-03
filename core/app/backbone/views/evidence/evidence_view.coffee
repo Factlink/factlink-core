@@ -64,12 +64,3 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
         $(this).animate
           'background-color': '#ffffff'
         , 2500
-
-class EvidenceActivityView extends Backbone.Marionette.ItemView
-  className: 'evidence-activity'
-  template:  'evidence/activity'
-
-  initialize: -> @listenTo @model, 'change', @render, @
-
-  templateHelpers: =>
-    creator: @model.creator().toJSON()
