@@ -26,8 +26,6 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbon
   FactlinkApp.addRegions
     modalRegion: "#modal_region"
 
-  # This assumes that we use "navigate url, true" for all url changes that
-  # originate from the discussion modal
   Backbone.history.on 'route', ->
     ModalWindowContainer.close()
 

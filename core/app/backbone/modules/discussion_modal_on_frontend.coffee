@@ -34,6 +34,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
       if FactlinkApp.discussionModalRegion.currentView?
         FactlinkApp.discussionModalRegion.close()
+        FactlinkApp.ModalWindowContainer.close()
         return if already_on_the_background_page
 
       old_loadUrl.apply @, arguments
