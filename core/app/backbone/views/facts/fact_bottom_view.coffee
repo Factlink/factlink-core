@@ -1,5 +1,5 @@
 class window.FactBottomView extends Backbone.Marionette.ItemView
-  className: 'fact-bottom bottom-base pre-ndp-bottom-base'
+  className: 'fact-bottom'
 
   template: 'facts/fact_bottom'
 
@@ -17,10 +17,6 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
         "Posted #{@friendly_time} ago"
       else
         @created_by_ago
-
-    show_discussion_link: !@options.hide_discussion_link
-    hide_timestamp: !@options.show_timestamp
-    show_timestamp_or_fact_url_host: @options.show_timestamp or @model.get('proxy_scroll_url')
 
     believe_percentage: @model.opinionPercentage('believe')
     disbelieve_percentage: @model.opinionPercentage('disbelieve')

@@ -1,43 +1,31 @@
-<ul class="bottom-actions
-  {{^show_discussion_link}}bottom-actions-without-discussion{{/show_discussion_link}}">
+<ul class="fact-bottom-actions">
 
-  {{#show_discussion_link}}
-  <li class="bottom-action">
-      <a href="{{url}}" class="js-arguments-link">
-        Arguments ({{evidence_count}})
-      </a>
+  <li class="fact-bottom-action">
+    <a href="{{url}}" class="js-arguments-link">
+      Arguments ({{evidence_count}})
+    </a>
 
-      <span class="opinion_indicators">
-        <span class="opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
-        <span class="opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
-      </span>
+    <span class="fact-bottom-opinion-indicators opinion_indicators">
+      <span class="fact-bottom-opinion-indicator opinion_indicator_small agreeing"></span>{{ believe_percentage }}%
+      <span class="fact-bottom-opinion-indicator opinion_indicator_small disagreeing"></span>{{ disbelieve_percentage }}%
+    </span>
   </li>
-  {{/show_discussion_link}}
 
   {{#global.signed_in}}
-    <li class="bottom-action"><a href="#" class="js-add-to-channel">Repost</a></li>
-    <li class="bottom-action"><a href="#" class="js-start-conversation">Share</a></li>
+    <li class="fact-bottom-action"><a href="#" class="js-add-to-channel">Repost</a></li>
+    <li class="fact-bottom-action"><a href="#" class="js-start-conversation">Share</a></li>
   {{/global.signed_in}}
 
-  {{#show_timestamp_or_fact_url_host}}
-    <li class="bottom-action fact-info">
-      {{^hide_timestamp}}
-        {{formatted_time}}
-        {{#proxy_scroll_url}}
-          from
-        {{/proxy_scroll_url}}
-      {{/hide_timestamp}}
-
-      {{#proxy_scroll_url}}
-        {{#fact_url_host}}
-        <img class="fact-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
-        {{/fact_url_host}}
-        <a href="{{proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
-          {{fact_url_title}}
-        </a>
-      {{/proxy_scroll_url}}
+  {{#proxy_scroll_url}}
+    <li class="fact-bottom-action">
+      {{#fact_url_host}}
+      <img class="fact-bottom-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
+      {{/fact_url_host}}
+      <a href="{{proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
+        {{fact_url_title}}
+      </a>
     </li>
-  {{/show_timestamp_or_fact_url_host}}
+  {{/proxy_scroll_url}}
 </ul>
 
-<i class="title-overflow"></i>
+<i class="fact-bottom-title-overflow"></i>
