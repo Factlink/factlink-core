@@ -1,13 +1,13 @@
 class EvidenceImpactView extends Backbone.Marionette.ItemView
   className: 'evidence-impact-text'
-  template: 'evidence/ndp_evidence_impact'
+  template: 'evidence/evidence_impact'
 
   initialize: ->
     @listenTo @model, 'change:impact', @render
 
 
 class EvidenceLayoutView extends Backbone.Marionette.Layout
-  template: 'evidence/ndp_evidence_layout'
+  template: 'evidence/evidence_layout'
 
   regions:
     contentRegion: '.js-content-region'
@@ -64,7 +64,7 @@ class EvidenceCollectionView extends Backbone.Marionette.CollectionView
 
 class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'
-  template: 'evidence/ndp_evidence_container'
+  template: 'evidence/evidence_container'
 
   regions:
     collectionRegion: '.js-collection-region'

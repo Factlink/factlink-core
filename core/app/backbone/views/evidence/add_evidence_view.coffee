@@ -1,6 +1,6 @@
 class AddEvidenceButtonsView extends Backbone.Marionette.Layout
   className: 'evidence-add-buttons'
-  template: 'evidence/ndp_add_evidence_buttons'
+  template: 'evidence/add_evidence_buttons'
 
   events:
     'click .js-supporting-button': -> @options.parentView.showAdd 'supporting'

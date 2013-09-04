@@ -4,7 +4,7 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
 
   className: 'discussion-evidenceish-content sub-comments-add spec-sub-comments-form'
 
-  template: 'sub_comments/ndp_sub_comments_add'
+  template: 'sub_comments/sub_comments_add'
 
   events:
     'click .js-submit': 'submit'

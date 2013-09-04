@@ -1,5 +1,5 @@
 class window.SubCommentView extends Backbone.Marionette.Layout
-  template: 'sub_comments/ndp_sub_comment'
+  template: 'sub_comments/sub_comment'
 
   regions:
     deleteRegion: '.js-delete-region'
