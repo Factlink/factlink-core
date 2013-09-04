@@ -67,4 +67,3 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       collection: @collection.oneSidedEvidenceCollection(type)
       fact_id: @options.fact_id
       type: type
-      ndp: true
