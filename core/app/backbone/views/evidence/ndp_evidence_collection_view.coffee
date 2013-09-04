@@ -84,7 +84,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     if Factlink.Global.signed_in
       @ui.terminator.addClass 'evidence-terminator-circle'
       @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
-      @addRegion.show new NDPAddEvidenceView
+      @addRegion.show new AddEvidenceView
         collection: @collection
         fact_id: @collection.fact.id
 
