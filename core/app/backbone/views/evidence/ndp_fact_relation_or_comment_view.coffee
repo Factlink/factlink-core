@@ -3,7 +3,7 @@ class CommentView extends Backbone.Marionette.ItemView
   template: 'evidence/ndp_comment'
 
 
-class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
+class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
   className: 'discussion-evidenceish'
   template: 'evidence/ndp_fact_relation_or_comment'
 

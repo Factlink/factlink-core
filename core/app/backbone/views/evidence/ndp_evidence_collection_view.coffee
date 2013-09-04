@@ -35,7 +35,7 @@ class VotableEvidenceLayoutView extends EvidenceLayoutView
   className: 'evidence-votable'
 
   onRender: ->
-    @contentRegion.show new NDPFactRelationOrCommentView model: @model
+    @contentRegion.show new FactRelationOrCommentView model: @model
 
     if Factlink.Global.signed_in
       @voteRegion.show new NDPEvidenceVoteView model: @model
