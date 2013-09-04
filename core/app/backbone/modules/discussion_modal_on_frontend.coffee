@@ -31,16 +31,16 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
     addBackboneHistoryCallbacksForDiscussionModal()
 
-  DiscussionModalOnFrontend.setBackgroundPageUrl = (fragment) ->
+  DiscussionModalOnFrontend.setBackgroundPageUrlFromLoadUrl = (fragment) ->
     return if openingModalPage(fragment)
 
     background_page_url = fragment
 
   DiscussionModalOnFrontend.setBackgroundPageUrlFromNavigate = (fragment) ->
-    # Prevent prematurely setting the url when navigating from the discussion modal
-    return if modalCurrentlyOpened()
+    return if openingModalPage(fragment)
+    return if modalCurrentlyOpened() # Prevent prematurely setting the url when navigating from the discussion modal
 
-    DiscussionModalOnFrontend.setBackgroundPageUrl fragment
+    background_page_url = fragment
 
   DiscussionModalOnFrontend.closeDiscussionAndAlreadyOnBackgroundPage = (fragment) ->
     return false unless modalCurrentlyOpened()
