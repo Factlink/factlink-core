@@ -44,7 +44,9 @@ class window.Fact extends Backbone.Model
 
   is_mine: -> @user().is_current_user()
 
-  can_destroy: -> @is_mine() # WHAT?! See issue https://github.com/Factlink/core/issues/1024
+  has_evidence: -> @get('evidence_count') > 0
+
+  can_destroy: -> @is_mine() && !@has_evidence? # WHAT?! See issue https://github.com/Factlink/core/issues/1024
 
   factUrlHost: ->
     fact_url = @get('fact_url')
