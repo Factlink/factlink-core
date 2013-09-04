@@ -5,7 +5,7 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
 
   regions:
     learnMoreRegion: '.js-region-learn-more'
-    factRegion: '.js-region-ndp-fact'
+    factRegion: '.js-region-fact'
     evidenceRegion: '.js-region-evidence'
 
   onRender: ->
