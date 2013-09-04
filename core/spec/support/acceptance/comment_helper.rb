@@ -106,7 +106,7 @@ module Acceptance
       end
 
       def assert_sub_comment_exists(comment)
-        find('.ndp-sub-comment-container .discussion-evidenceish-text', text: comment)
+        find('.sub-comment-container .discussion-evidenceish-text', text: comment)
       end
 
       def assert_comment_exists comment
