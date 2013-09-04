@@ -2,19 +2,19 @@
   &, &:before {
     .box-sizing(content-box);
     position: absolute;
-    border: @ndpTriangleSize solid transparent;
+    border: @triangleSize solid transparent;
   }
 
   &:before {
     content: '';
     z-index: -1;
-    border-width: @ndpTriangleSize + @borderExtraWidth;
+    border-width: @triangleSize + @borderExtraWidth;
   }
 }
 
 .triangle-arrow-down(@color: @ndpBoxShadowBottomColor, @borderExtraWidth: @ndpBoxShadowBottomSize) {
   .triangle-arrow(@borderExtraWidth);
-  margin-bottom: -@ndpTriangleSize;
+  margin-bottom: -@triangleSize;
 
   &, &:before {
     height: 0;
@@ -25,14 +25,14 @@
 
   &:before {
     bottom: -@ndpBoxBorderSize - @borderExtraWidth;
-    left: -@ndpTriangleSize - @borderExtraWidth;
+    left: -@triangleSize - @borderExtraWidth;
     border-top-color: @color;
   }
 }
 
 .triangle-arrow-up(@color: @ndpArrowBorderColor, @borderExtraWidth: 0px) {
   .triangle-arrow(@borderExtraWidth);
-  margin-top: -@ndpTriangleSize;
+  margin-top: -@triangleSize;
 
   &, &:before {
     height: 0;
@@ -43,14 +43,14 @@
 
   &:before {
     top: -@ndpBoxBorderSize - @borderExtraWidth;
-    left: -@ndpTriangleSize - @borderExtraWidth;
+    left: -@triangleSize - @borderExtraWidth;
     border-bottom-color: @color;
   }
 }
 
 .triangle-arrow-left(@color: @ndpArrowBorderColor, @borderExtraWidth: 0px) {
   .triangle-arrow(@borderExtraWidth);
-  margin-left: -@ndpTriangleSize;
+  margin-left: -@triangleSize;
 
   &, &:before {
     width: 0;
@@ -61,14 +61,14 @@
 
   &:before {
     left: -@ndpBoxBorderSize - @borderExtraWidth;
-    top: -@ndpTriangleSize - @borderExtraWidth;
+    top: -@triangleSize - @borderExtraWidth;
     border-right-color: @color;
   }
 }
 
 .triangle-arrow-right(@color: @ndpArrowBorderColor, @borderExtraWidth: 0px) {
   .triangle-arrow(@borderExtraWidth);
-  margin-right: -@ndpTriangleSize;
+  margin-right: -@triangleSize;
 
   &, &:before {
     width: 0;
@@ -79,7 +79,7 @@
 
   &:before {
     right: -@ndpBoxBorderSize - @borderExtraWidth;
-    top: -@ndpTriangleSize - @borderExtraWidth;
+    top: -@triangleSize - @borderExtraWidth;
     border-left-color: @color;
   }
 }
