@@ -19,7 +19,7 @@ class window.SubCommentsView extends Backbone.Marionette.CollectionView
     if Factlink.Global.signed_in
       @_addViewContainer = new SubCommentContainerView
         creator: currentUser
-        innerView: new NDPSubCommentsAddView addToCollection: @collection
+        innerView: new SubCommentsAddView addToCollection: @collection
       @_addViewContainer.render()
 
   onRender: ->

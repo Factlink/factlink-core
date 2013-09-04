@@ -1,4 +1,4 @@
-class window.NDPSubCommentsAddView extends Backbone.Marionette.Layout
+class window.SubCommentsAddView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
                        Backbone.Factlink.AlertMixin
 
