@@ -8,15 +8,15 @@
   position: relative;
   .background-clip(padding-box);
   background: white;
-  .new-design-border-radius();
-  box-shadow: @ndpBoxBorder, 0 @ndpPopoverShadowBottomSize 5px @ndpPopoverShadowBottomColor;
+  border-radius: @blockBorderRadius;
+  box-shadow: @blockBorder, 0 @factlinkPopoverShadowBottomSize 5px @factlinkPopoverShadowBottomColor;
   visibility: visible;
   display: inline-block; // force block formatting context
 
   &.bottom {
     margin-top: @arrow-pointy-side;
     .arrow {
-      .ndp-triangle-arrow-up(@ndpPopoverArrowTopBorderColor);
+      .triangle-arrow-up(@factlinkPopoverArrowTopBorderColor);
       top: 0;
     }
   }
@@ -24,7 +24,7 @@
   &.top {
     margin-bottom: @arrow-pointy-side;
     .arrow {
-      .ndp-triangle-arrow-down(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      .triangle-arrow-down(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
       bottom: 0;
     }
   }
@@ -32,7 +32,7 @@
   &.left {
     margin-right: @arrow-pointy-side;
     .arrow {
-      .ndp-triangle-arrow-right(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      .triangle-arrow-right(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
       right: 0;
     }
   }
@@ -40,7 +40,7 @@
   &.right {
     margin-left: @arrow-pointy-side;
     .arrow {
-      .ndp-triangle-arrow-left(@ndpPopoverArrowBorderColor, @ndpPopoverArrowBorderOffset);
+      .triangle-arrow-left(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
       left: 0;
     }
   }

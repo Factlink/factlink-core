@@ -1,5 +1,5 @@
 class window.NDPSubCommentContainerView extends Backbone.Marionette.Layout
-  className: 'ndp-sub-comment-container'
+  className: 'sub-comment-container'
   template: 'sub_comments/ndp_sub_comment_container'
 
   regions:

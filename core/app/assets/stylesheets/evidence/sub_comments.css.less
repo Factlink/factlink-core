@@ -17,64 +17,62 @@
 @subCommentLastVerticalLineBottom: -@subCommentLineTop;
 
 
-@lineColor: @ndpLineColor;
-
-.ndp-sub-comments .ajax-loader {
+.sub-comments .ajax-loader {
   margin-left: @subCommentLineIndent - 16px/2 + @subCommentLineWidth/2;
   margin-top: 10px;
 }
 
-.ndp-sub-comment-container {
+.sub-comment-container {
   position: relative;
   padding-top: @subCommentPaddingTop;
   padding-left: 80px;
 }
 
-.ndp-sub-comment-circle {
+.sub-comment-circle {
   position: absolute;
   left: @subCommentLineIndent - @subCommentCircleExtraRadius;
   top: @subCommentLineTop - @subCommentCircleExtraRadius;
   width: @subCommentCircleDiameter;
   height: @subCommentCircleDiameter;
   border-radius: @subCommentCircleDiameter; //half would be enough
-  background-color: @lineColor;
+  background-color: @discussionLineColor;
 }
 
-.ndp-sub-comment-line-horizontal {
+.sub-comment-line-horizontal {
   position: absolute;
   left: @subCommentHorizontalLineStart;
   right: 10px;//whatever, below comment box anyhow.
   top: @subCommentLineTop;
   height: @subCommentLineWidth;
-  background-color: @lineColor;
+  background-color: @discussionLineColor;
 }
 
-.ndp-sub-comment-line-bottom {
+.sub-comment-line-bottom {
   position: absolute;
   left: @subCommentLineIndent;
   top: @subCommentVerticalLineTop;
   width: @subCommentLineWidth;
   bottom: @subCommentVerticalLineBottom;
-  background-color: @lineColor;
+  background-color: @discussionLineColor;
 }
 
-.ndp-sub-comment-container:last-child {
-  .ndp-sub-comment-line-bottom, .ndp-sub-comment-circle {
+.sub-comment-container:last-child {
+  .sub-comment-line-bottom, .sub-comment-circle {
     display: none;
   }
-  .ndp-sub-comment-line-horizontal {
+  .sub-comment-line-horizontal {
     left: @subCommentLineIndent;
   }
 }
-.ndp-sub-comment-container:nth-last-child(2) > .ndp-sub-comment-line-bottom {
+.sub-comment-container:nth-last-child(2) > .sub-comment-line-bottom {
   bottom: @subCommentLastVerticalLineBottom;
 }
 
-.ndp-sub-comment-line-top {
+.sub-comment-line-top {
   display:none;
 }
 
-.ndp-sub-comment-container:first-child .ndp-sub-comment-line-top {
+.sub-comment-container:first-child .sub-comment-line-top {
   display: block;
   position: absolute;
   left: @subCommentLineIndent;
@@ -82,24 +80,24 @@
   height: 100px;
   top: -@subCommentVerticalLineBottom - 100px;
 
-  background-color: @lineColor;
+  background-color: @discussionLineColor;
   z-index:-2;
 }
 
-.ndp-sub-comment-container:first-child:last-child .ndp-sub-comment-line-top {
+.sub-comment-container:first-child:last-child .sub-comment-line-top {
   top: -@subCommentLastVerticalLineBottom - 100px;
 }
 
-.ndp-sub-comments-add {
+.sub-comments-add {
   overflow: hidden;
 }
 
-.ndp-sub-comments-add .text_area_view {
+.sub-comments-add .text_area_view {
   width: 100%;
   min-height: 4em;
   margin-bottom: 10px;
 }
 
-.ndp-sub-comments-add-submit {
+.sub-comments-add-submit {
   float: right;
 }
