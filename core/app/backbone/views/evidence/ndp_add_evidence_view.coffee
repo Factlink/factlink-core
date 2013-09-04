@@ -45,7 +45,7 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
     'saved_added_model': 'cancel'
 
   onRender: ->
-    @headingRegion.show new NDPEvidenceishHeadingView model: currentUser
+    @headingRegion.show new EvidenceishHeadingView model: currentUser
     @cancel()
 
   showAddSupporting: -> @_showAdd 'supporting'

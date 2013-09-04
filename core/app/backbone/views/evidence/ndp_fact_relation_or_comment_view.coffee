@@ -14,7 +14,7 @@ class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
     subCommentsRegion: '.js-sub-comments-region'
 
   onRender: ->
-    @headingRegion.show new NDPEvidenceishHeadingView model: @model.creator()
+    @headingRegion.show new EvidenceishHeadingView model: @model.creator()
 
     if @model instanceof Comment
       @contentRegion.show new CommentView model: @model

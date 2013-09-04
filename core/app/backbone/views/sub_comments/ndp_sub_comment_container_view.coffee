@@ -7,5 +7,5 @@ class window.NDPSubCommentContainerView extends Backbone.Marionette.Layout
     innerRegion: '.js-inner-region'
 
   onRender: ->
-    @headingRegion.show new NDPEvidenceishHeadingView model: @options.creator
+    @headingRegion.show new EvidenceishHeadingView model: @options.creator
     @innerRegion.show @options.innerView
