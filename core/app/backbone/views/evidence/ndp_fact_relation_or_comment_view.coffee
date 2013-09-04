@@ -42,7 +42,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
         collection: new SubComments([], parentModel: @model)
 
   _factBaseView: ->
-    view = new FactBaseView model: @model.getFact(), clickable_body: Factlink.Global.signed_in
+    view = new FactBaseView model: @model.getFact(), clickable_body: true
 
     @listenTo @model.getFact().getFactWheel(), 'sync', ->
       @model.fetch()
