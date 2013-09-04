@@ -28,7 +28,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     else
       throw "Invalid type of model: #{@model}"
 
-    bottomView = new NDPFactRelationOrCommentBottomView model: @model
+    bottomView = new FactRelationOrCommentBottomView model: @model
     @listenTo bottomView, 'toggleSubCommentsList', @toggleSubCommentsView
     @bottomRegion.show bottomView
 

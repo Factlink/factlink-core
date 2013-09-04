@@ -1,4 +1,4 @@
-class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
+class window.FactRelationOrCommentBottomView extends Backbone.Marionette.Layout
   className: 'discussion-evidenceish-bottom'
   template: 'facts/fact_relation_or_comment_bottom'
 
