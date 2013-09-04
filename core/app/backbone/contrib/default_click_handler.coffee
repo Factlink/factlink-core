@@ -6,10 +6,9 @@ Backbone.View::defaultClickHandler = (e, routeTo=null) ->
 
   # Return if a modifier key is pressed or when Backbone has not properly been initialized
   # Make sure we return "true" so other functions can determine what happened
-  # Note that the capitalization in Backbone.[H]istory is intentional
   if e.metaKey or e.ctrlKey or e.altKey
     window.open routeTo, "_blank"
-  else if not Backbone.History.started
+  else if not Backbone.History.started # Capitalization in Backbone.[H]istory is intentional
     window.open routeTo, FactlinkApp.linkTarget
   else
     Backbone.View::navigateTo routeTo
