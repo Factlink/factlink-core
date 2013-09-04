@@ -12,7 +12,7 @@
   }
 }
 
-.triangle-arrow-down(@color: @ndpBoxShadowBottomColor, @borderExtraWidth: @ndpBoxShadowBottomSize) {
+.triangle-arrow-down(@color: @boxShadowBottomColor, @borderExtraWidth: @boxShadowBottomSize) {
   .triangle-arrow(@borderExtraWidth);
   margin-bottom: -@triangleSize;
 
@@ -24,7 +24,7 @@
   }
 
   &:before {
-    bottom: -@ndpBoxBorderSize - @borderExtraWidth;
+    bottom: -@boxBorderSize - @borderExtraWidth;
     left: -@triangleSize - @borderExtraWidth;
     border-top-color: @color;
   }
@@ -42,7 +42,7 @@
   }
 
   &:before {
-    top: -@ndpBoxBorderSize - @borderExtraWidth;
+    top: -@boxBorderSize - @borderExtraWidth;
     left: -@triangleSize - @borderExtraWidth;
     border-bottom-color: @color;
   }
@@ -60,7 +60,7 @@
   }
 
   &:before {
-    left: -@ndpBoxBorderSize - @borderExtraWidth;
+    left: -@boxBorderSize - @borderExtraWidth;
     top: -@triangleSize - @borderExtraWidth;
     border-right-color: @color;
   }
@@ -78,7 +78,7 @@
   }
 
   &:before {
-    right: -@ndpBoxBorderSize - @borderExtraWidth;
+    right: -@boxBorderSize - @borderExtraWidth;
     top: -@triangleSize - @borderExtraWidth;
     border-left-color: @color;
   }
