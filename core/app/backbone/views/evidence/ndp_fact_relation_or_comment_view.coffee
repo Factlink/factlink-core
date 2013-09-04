@@ -1,4 +1,4 @@
-class NDPCommentView extends Backbone.Marionette.ItemView
+class CommentView extends Backbone.Marionette.ItemView
   className: 'discussion-evidenceish-text'
   template: 'evidence/ndp_comment'
 
@@ -17,7 +17,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     @headingRegion.show new NDPEvidenceishHeadingView model: @model.creator()
 
     if @model instanceof Comment
-      @contentRegion.show new NDPCommentView model: @model
+      @contentRegion.show new CommentView model: @model
     else if @model instanceof FactRelation
       @contentRegion.show @_factBaseView()
     else
