@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-  let(:user) { create(:user) }
+  let(:user) { create(:active_user) }
 
   describe :show do
     render_views
@@ -119,7 +119,6 @@ describe UsersController do
         p.old_interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
       end
 
-
       authenticate_user!(current_user)
 
       should_check_can :see_activities, current_user
@@ -128,8 +127,127 @@ describe UsersController do
 
       response.should be_success
     end
-  end
 
+    describe :activity_approval do
+      before do
+        # Don't send a mail for these activity tests
+        stub_const 'Interactors::SendMailForActivity', Class.new
+        Interactors::SendMailForActivity.stub(new: double(call: nil),
+          attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
+
+        Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      end
+
+      [:supporting, :weakening].each do |type|
+        it "adding #{type} evidence" do
+          current_user = create(:active_user)
+          channel = create :channel
+          f1 = create :fact, created_by: current_user.graph_user
+          f2 = create :fact
+          Interactors::Channels::AddFact.new(fact: f1, channel: channel,
+            pavlov_options: { no_current_user: true }).call
+          f1.add_evidence type, f2, user.graph_user
+
+          authenticate_user!(current_user)
+
+          should_check_can :see_activities, current_user
+
+          get :activities, username: current_user.username, format: :json
+
+          response.should be_success
+
+          response_body = response.body.to_s
+          # strip mongo id, since otherwise comparison will always fail
+          response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+          #response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
+
+          Approvals.verify(response_body, format: :json, name: "users#activities should keep the same added #{type} evidence activity")
+        end
+      end
+
+      it 'created comment' do
+        current_user = create(:active_user)
+        fact = create(:fact)
+        fact.add_opinion(:believes, current_user.graph_user)
+
+        interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
+          type: 'believes', content: 'tex message',
+          pavlov_options: { current_user: user })
+        comment = interactor.call
+
+        authenticate_user!(current_user)
+
+        should_check_can :see_activities, current_user
+
+        get :activities, username: current_user.username, format: :json
+
+        response.should be_success
+
+        response_body = response.body.to_s
+        # strip mongo id, since otherwise comparison will always fail
+        response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+        response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
+
+        Approvals.verify(response_body, format: :json, name: "users#activities should keep the same created comment activity")
+      end
+
+      it 'created sub comment' do
+        current_user = create(:active_user)
+        fact = create :fact, created_by: current_user.graph_user
+
+        comment = {}
+        as(current_user) do |pavlov|
+          comment = pavlov.interactor(:'comments/create', fact_id: fact.id.to_i, type: 'disbelieves', content: 'content')
+        end
+
+        as(user) do |pavlov|
+          sub_comment = pavlov.interactor(:'sub_comments/create_for_comment', comment_id: comment.id.to_s, content: 'content')
+        end
+
+        authenticate_user!(current_user)
+
+        should_check_can :see_activities, current_user
+
+        get :activities, username: current_user.username, format: :json
+
+        response.should be_success
+
+        response_body = response.body.to_s
+        # strip mongo id, since otherwise comparison will always fail
+        response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+        response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
+
+        Approvals.verify(response_body, format: :json, name: "users#activities should keep the same created sub comment activity")
+      end
+
+      it 'added subchannel' do
+        current_user = create(:active_user)
+
+        ch1 = create :channel, created_by: current_user.graph_user
+        ch2 = create :channel, created_by: user.graph_user
+
+        as(current_user) do |pavlov|
+          pavlov.interactor(:'channels/add_subchannel', channel_id: ch1.id,
+            subchannel_id: ch2.id)
+        end
+
+        authenticate_user!(user)
+
+        should_check_can :see_activities, user
+
+        get :activities, username: user.username, format: :json
+
+        response.should be_success
+
+        response_body = response.body.to_s
+        # strip mongo id, since otherwise comparison will always fail
+        response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+        response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
+
+        Approvals.verify(response_body, format: :json, name: "users#activities should keep the same added sub channel activity")
+      end
+    end
+  end
 
   describe :mark_as_read do
     render_views

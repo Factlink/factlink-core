@@ -1,0 +1,28 @@
+[
+  {
+    "timestamp": 799248945000.0,
+    "subject_class": "Fact",
+    "user": {
+      "id": "<STRIPPED>",
+      "name": "John2 Doe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734"
+    },
+    "action": "added_supporting_evidence",
+    "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_added_supporting_evidence_action\">Fact Added Supporting Evidence Action</span>",
+    "subject": "Fact 2",
+    "time_ago": "1 minute",
+    "id": "<STRIPPED>",
+    "activity": {
+      "action": "added",
+      "evidence": "Fact 2",
+      "evidence_url": "/fact-2/f/2",
+      "fact_url": "/fact-1/f/1",
+      "target_url": "/fact-1/f/1?tab=supporting",
+      "type": "supporting",
+      "fact_displaystring": "Fact 1",
+      "fact": "Fact 1"
+    },
+    "unread": true
+  }
+]

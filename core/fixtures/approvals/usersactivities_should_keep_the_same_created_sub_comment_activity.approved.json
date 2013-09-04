@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": 799248945000.0,
+    "subject_class": "SubComment",
+    "user": {
+      "id": "<STRIPPED>",
+      "name": "John8 Doe8",
+      "username": "johndoe8",
+      "gravatar_hash": "4e12c22f2309c24f90570bbc139dd0c2"
+    },
+    "action": "created_sub_comment",
+    "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_created_sub_comment_action\">Fact Created Sub Comment Action</span>",
+    "subject": "<STRIPPED>",
+    "time_ago": "1 minute",
+    "id": "<STRIPPED>",
+    "activity": {
+      "action": "created_sub_comment",
+      "target_url": "/fact-6/f/1?tab=supporting",
+      "fact_displaystring": "Fact 6",
+      "fact": "Fact 6"
+    },
+    "unread": true
+  }
+]
