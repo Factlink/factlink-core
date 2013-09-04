@@ -1,7 +1,7 @@
 class window.SubCommentsView extends Backbone.Marionette.CollectionView
   className: 'sub-comments'
   emptyView: Backbone.Factlink.EmptyLoadingView
-  itemView: NDPSubCommentContainerView
+  itemView: SubCommentContainerView
 
   itemViewOptions: (model) ->
     if model instanceof SubComment
@@ -17,7 +17,7 @@ class window.SubCommentsView extends Backbone.Marionette.CollectionView
     @collection.fetch()
 
     if Factlink.Global.signed_in
-      @_addViewContainer = new NDPSubCommentContainerView
+      @_addViewContainer = new SubCommentContainerView
         creator: currentUser
         innerView: new NDPSubCommentsAddView addToCollection: @collection
       @_addViewContainer.render()
