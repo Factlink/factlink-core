@@ -43,7 +43,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     addCommentView = new AddCommentView
       addToCollection: @collection
       type: @options.type
-      ndp: @options.ndp
     @listenTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView
 
     addCommentView
