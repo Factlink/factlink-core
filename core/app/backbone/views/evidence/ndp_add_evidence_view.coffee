@@ -1,4 +1,4 @@
-class NDPAddEvidenceButtonsView extends Backbone.Marionette.Layout
+class AddEvidenceButtonsView extends Backbone.Marionette.Layout
   className: 'evidence-add-buttons'
   template: 'evidence/ndp_add_evidence_buttons'
 
@@ -53,7 +53,7 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
 
   cancel: ->
     @ui.box.hide()
-    @buttonsRegion.show new NDPAddEvidenceButtonsView
+    @buttonsRegion.show new AddEvidenceButtonsView
       parentView: this
 
   showAdd: (type) ->
