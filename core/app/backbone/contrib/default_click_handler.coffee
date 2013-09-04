@@ -22,10 +22,10 @@ Backbone.View::navigateTo = (routeTo) ->
       trigger: true
       replace: true
   else
-    oldFragment = Backbone.history.fragment
-    Backbone.history.navigate routeTo, false
-    unless Backbone.history.loadUrl(routeTo)
-      Backbone.history.navigate oldFragment, false
+    if Backbone.history.loadUrl(routeTo) # Try if there is a Backbone route available
+      Backbone.history.fragment = null # Force creating a state in the history
+      Backbone.history.navigate routeTo, false
+    else
       window.open routeTo, FactlinkApp.linkTarget
       window.focus()
 

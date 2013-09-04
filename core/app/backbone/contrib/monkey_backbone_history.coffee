@@ -10,8 +10,8 @@ window.addBackboneHistoryCallbacksForDiscussionModal = ->
 
   old_loadUrl = Backbone.History.prototype.loadUrl
   Backbone.History.prototype.loadUrl = (fragmentOverride) ->
-    fragment = @getFragment(fragmentOverride) # copied from Backbone
-    return if FactlinkApp.DiscussionModalOnFrontend.closeDiscussionAndAlreadyOnBackgroundPage(fragment)
+    fragment = @fragment = @getFragment(fragmentOverride) # copied from Backbone
+    return true if FactlinkApp.DiscussionModalOnFrontend.closeDiscussionAndAlreadyOnBackgroundPage(fragment)
 
     FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlFromLoadUrl(fragment)
     old_loadUrl.apply this, arguments
