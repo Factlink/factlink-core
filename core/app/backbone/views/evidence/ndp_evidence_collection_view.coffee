@@ -62,7 +62,7 @@ class EvidenceCollectionView extends Backbone.Marionette.CollectionView
       VotableEvidenceLayoutView
 
 
-class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
+class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'
   template: 'evidence/ndp_evidence_container'
 
