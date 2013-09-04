@@ -3,7 +3,7 @@ class InteractingUsersAvatarView extends Backbone.Marionette.Layout
   className: 'discussion-interacting-users-avatar'
   template: 'interacting_users/avatar'
 
-class window.NDPInteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
+class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
   className: 'discussion-interacting-users-avatars'
   template: "interacting_users/avatars"
   itemView: InteractingUsersAvatarView
