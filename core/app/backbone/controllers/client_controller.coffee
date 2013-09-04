@@ -8,7 +8,7 @@ class window.ClientController
       newClientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show newClientModal
 
-      view = new NDPDiscussionView model: fact
+      view = new DiscussionView model: fact
       view.on 'render', =>
         parent.$(parent.document).trigger 'modalready'
 
