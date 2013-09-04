@@ -1,3 +1,5 @@
+# WARNING: be very careful when changing this stuff, there are many edge cases!
+
 # Add a default clickhandler so we can use hrefs
 Backbone.View::defaultClickHandler = (e, routeTo=null) ->
   routeTo ||= $(e.target).closest("a").attr("href")

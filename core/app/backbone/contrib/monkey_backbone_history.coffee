@@ -1,3 +1,6 @@
+# See DiscussionModalOnFrontend for how this hack works.
+# WARNING: be very careful when changing this stuff, there are many edge cases!
+
 window.addBackboneHistoryCallbacksForDiscussionModal = ->
 
   old_navigate = Backbone.History.prototype.navigate
