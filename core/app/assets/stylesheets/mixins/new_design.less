@@ -15,10 +15,6 @@
   }
 }
 
-.new-design-border-radius() {
-  border-radius: @boxBorderRadius;
-}
-
 .new-design-box-shadow() {
   box-shadow: @boxBorder,
               0 @boxShadowBottomSize 1px 0 @boxShadowBottomColor;
@@ -26,6 +22,6 @@
 
 .new-design-white-block-with-shadow() {
   background: white;
-  .new-design-border-radius();
+  border-radius: @boxBorderRadius;
   .new-design-box-shadow();
 }
