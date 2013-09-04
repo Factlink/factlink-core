@@ -1,6 +1,6 @@
 class window.SubCommentContainerView extends Backbone.Marionette.Layout
   className: 'sub-comment-container'
-  template: 'sub_comments/ndp_sub_comment_container'
+  template: 'sub_comments/sub_comment_container'
 
   regions:
     headingRegion: '.js-heading-region'
