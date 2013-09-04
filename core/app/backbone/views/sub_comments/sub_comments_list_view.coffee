@@ -1,4 +1,4 @@
-class window.NDPSubCommentsView extends Backbone.Marionette.CollectionView
+class window.SubCommentsView extends Backbone.Marionette.CollectionView
   className: 'sub-comments'
   emptyView: Backbone.Factlink.EmptyLoadingView
   itemView: NDPSubCommentContainerView

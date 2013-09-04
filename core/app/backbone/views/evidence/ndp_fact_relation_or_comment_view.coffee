@@ -33,7 +33,7 @@ class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
       @subCommentsRegion.close()
     else
       @subCommentsOpen = true
-      @subCommentsRegion.show new NDPSubCommentsView
+      @subCommentsRegion.show new SubCommentsView
         collection: new SubComments([], parentModel: @model)
 
   _factBaseView: ->
