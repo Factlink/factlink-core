@@ -38,7 +38,7 @@ class VotableEvidenceLayoutView extends EvidenceLayoutView
     @contentRegion.show new FactRelationOrCommentView model: @model
 
     if Factlink.Global.signed_in
-      @voteRegion.show new NDPEvidenceVoteView model: @model
+      @voteRegion.show new EvidenceVoteView model: @model
       @$el.addClass 'evidence-has-arrows'
 
 
