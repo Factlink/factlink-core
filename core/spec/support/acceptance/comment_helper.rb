@@ -106,12 +106,12 @@ module Acceptance
       end
 
       def assert_sub_comment_exists(comment)
-        find('.ndp-sub-comment-container .ndp-evidenceish-text', text: comment)
+        find('.ndp-sub-comment-container .discussion-evidenceish-text', text: comment)
       end
 
       def assert_comment_exists comment
         within_evidence_list do
-          find('.ndp-evidenceish-text', text: comment)
+          find('.discussion-evidenceish-text', text: comment)
         end
       end
 

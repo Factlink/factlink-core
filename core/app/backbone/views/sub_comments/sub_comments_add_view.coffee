@@ -2,7 +2,7 @@ class window.NDPSubCommentsAddView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
                        Backbone.Factlink.AlertMixin
 
-  className: 'ndp-evidenceish-content ndp-sub-comments-add spec-sub-comments-form'
+  className: 'discussion-evidenceish-content ndp-sub-comments-add spec-sub-comments-form'
 
   template: 'sub_comments/ndp_sub_comments_add'
 
