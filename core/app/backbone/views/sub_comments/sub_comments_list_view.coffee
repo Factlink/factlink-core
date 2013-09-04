@@ -6,7 +6,7 @@ class window.SubCommentsView extends Backbone.Marionette.CollectionView
   itemViewOptions: (model) ->
     if model instanceof SubComment
       creator: model.creator()
-      innerView: new NDPSubCommentView model: model
+      innerView: new SubCommentView model: model
     else # emptyView
       collection: @collection
 

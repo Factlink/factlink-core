@@ -1,4 +1,4 @@
-class window.NDPSubCommentView extends Backbone.Marionette.Layout
+class window.SubCommentView extends Backbone.Marionette.Layout
   template: 'sub_comments/ndp_sub_comment'
 
   regions:
