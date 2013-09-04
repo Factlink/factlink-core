@@ -46,7 +46,7 @@ class window.Fact extends Backbone.Model
 
   has_evidence: -> @get('evidence_count') > 0
 
-  can_destroy: -> @is_mine() && !@has_evidence? # WHAT?! See issue https://github.com/Factlink/core/issues/1024
+  can_destroy: -> @is_mine() && !@has_evidence()
 
   factUrlHost: ->
     fact_url = @get('fact_url')
@@ -56,6 +56,6 @@ class window.Fact extends Backbone.Model
 
   toJSON: ->
     _.extend super(),
-      is_mine: @is_mine()
+      can_destroy: @can_destroy()
       fact_url_host: @factUrlHost()
       fact_url_title: @get('fact_title') || @factUrlHost()
