@@ -1,6 +1,6 @@
 class window.InteractingUsersView extends Backbone.Marionette.Layout
 
-  className: 'ndp-interacting-users'
+  className: 'discussion-interacting-users'
   template: 'interacting_users/box'
 
   regions:
