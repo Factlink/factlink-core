@@ -17,8 +17,6 @@
 @subCommentLastVerticalLineBottom: -@subCommentLineTop;
 
 
-@lineColor: @discussionLineColor;
-
 .sub-comments .ajax-loader {
   margin-left: @subCommentLineIndent - 16px/2 + @subCommentLineWidth/2;
   margin-top: 10px;
@@ -37,7 +35,7 @@
   width: @subCommentCircleDiameter;
   height: @subCommentCircleDiameter;
   border-radius: @subCommentCircleDiameter; //half would be enough
-  background-color: @lineColor;
+  background-color: @discussionLineColor;
 }
 
 .sub-comment-line-horizontal {
@@ -46,7 +44,7 @@
   right: 10px;//whatever, below comment box anyhow.
   top: @subCommentLineTop;
   height: @subCommentLineWidth;
-  background-color: @lineColor;
+  background-color: @discussionLineColor;
 }
 
 .sub-comment-line-bottom {
@@ -55,7 +53,7 @@
   top: @subCommentVerticalLineTop;
   width: @subCommentLineWidth;
   bottom: @subCommentVerticalLineBottom;
-  background-color: @lineColor;
+  background-color: @discussionLineColor;
 }
 
 .sub-comment-container:last-child {
@@ -82,7 +80,7 @@
   height: 100px;
   top: -@subCommentVerticalLineBottom - 100px;
 
-  background-color: @lineColor;
+  background-color: @discussionLineColor;
   z-index:-2;
 }
 
