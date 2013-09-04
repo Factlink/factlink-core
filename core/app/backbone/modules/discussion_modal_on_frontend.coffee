@@ -8,6 +8,8 @@
 # the background page url is the same url as we're navigating to. In that case we simply
 # stop calling the respective controller.
 
+# WARNING: be very careful when changing this stuff, there are many edge cases!
+
 FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyApp, Backbone, Marionette, $, _) ->
 
   background_page_url = null
