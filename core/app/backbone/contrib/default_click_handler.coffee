@@ -4,8 +4,6 @@
 Backbone.View::defaultClickHandler = (e, routeTo=null) ->
   routeTo ||= $(e.target).closest("a").attr("href")
 
-  # Return if a modifier key is pressed or when Backbone has not properly been initialized
-  # Make sure we return "true" so other functions can determine what happened
   if e.metaKey or e.ctrlKey or e.altKey
     window.open routeTo, "_blank"
   else if not Backbone.History.started # Capitalization in Backbone.[H]istory is intentional
