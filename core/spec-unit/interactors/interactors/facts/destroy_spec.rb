@@ -34,7 +34,7 @@ describe Interactors::Facts::Destroy do
 
       pavlov_options = { current_user: double, ability: double(can?: true) }
 
-      Pavlov.stub(:query).with(:'facts/get_dead', fact_id: fact.id, pavlov_options: pavlov_options)
+      Pavlov.stub(:query).with(:'facts/get_dead', id: fact.id, pavlov_options: pavlov_options)
                     .and_return(fact)
 
       interactor = described_class.new fact_id: fact.id,
@@ -51,7 +51,7 @@ describe Interactors::Facts::Destroy do
 
       pavlov_options = { current_user: double, ability: double(can?: true) }
 
-      Pavlov.stub(:query).with(:'facts/get_dead', fact_id: fact.id, pavlov_options: pavlov_options)
+      Pavlov.stub(:query).with(:'facts/get_dead', id: fact.id, pavlov_options: pavlov_options)
                     .and_return(fact)
 
       interactor = described_class.new fact_id: fact.id,
