@@ -3,8 +3,9 @@ class Admin::UsersController < AdminController
 
   before_filter :get_activated_users,         only: [:index]
   before_filter :get_reserved_users,          only: [:reserved]
-  before_filter :set_available_user_features, only: [:new, :edit, :update]
+  before_filter :set_available_user_features, only: [:edit, :update]
 
+  load_and_authorize_resource except: [:create]
   before_filter :if_not_found_404, only: [:show, :edit, :update]
 
   layout "admin"
