@@ -1,11 +1,11 @@
 class CommentView extends Backbone.Marionette.ItemView
   className: 'discussion-evidenceish-text'
-  template: 'evidence/comment'
+  template: 'evidence/ndp_comment'
 
 
 class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
   className: 'discussion-evidenceish'
-  template: 'evidence/fact_relation_or_comment'
+  template: 'evidence/ndp_fact_relation_or_comment'
 
   regions:
     contentRegion: '.js-content-region'

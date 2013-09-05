@@ -1,7 +1,7 @@
 class window.DiscussionView extends Backbone.Marionette.Layout
   className: 'discussion'
 
-  template: 'facts/discussion'
+  template: 'facts/ndp_discussion'
 
   regions:
     learnMoreRegion: '.js-region-learn-more'
