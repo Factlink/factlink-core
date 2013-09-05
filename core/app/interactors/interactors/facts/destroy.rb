@@ -19,7 +19,7 @@ module Interactors
       end
 
       def fact
-        @fact ||= query :'facts/get_dead', fact_id: fact_id
+        @fact ||= query :'facts/get_dead', id: fact_id
       end
 
       def validate
