@@ -3,26 +3,11 @@ class Admin::UsersController < AdminController
 
   before_filter :get_activated_users,         only: [:index]
   before_filter :get_reserved_users,          only: [:reserved]
-  before_filter :set_available_user_features, only: [:new, :create, :edit, :update]
+  before_filter :set_available_user_features, only: [:new, :edit, :update]
 
-  load_and_authorize_resource except: [:create]
   before_filter :if_not_found_404, only: [:show, :edit, :update]
 
   layout "admin"
-
-  def create
-    @user = User.new
-    @user.assign_attributes(params[:user], as: :admin)
-
-    @user.confirmed_at = DateTime.now
-
-    authorize! :create, @user
-    if @user.save
-      redirect_to admin_users_path, notice: 'User was successfully created.'
-    else
-      render :new
-    end
-  end
 
   def update
     if params[:user][:password] == ''
