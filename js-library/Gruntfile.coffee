@@ -10,7 +10,7 @@ banner_template = """
 
 crypto = require 'crypto'
 path = require 'path'
-fs = require('fs')
+fs = require 'fs'
 
 module.exports = (grunt) ->
   grunt.initConfig
@@ -148,7 +148,6 @@ module.exports = (grunt) ->
 
   md5 = (filepath) ->
     hash = crypto.createHash 'md5'
-    grunt.log.verbose.write 'Hashing ' + filepath + '...'
     hash.update grunt.file.read filepath, 'utf8'
     hash.digest 'hex'
 
