@@ -58,7 +58,7 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyAp
 
     discussionModalContainer = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show discussionModalContainer
-    discussionModalContainer.mainRegion.show new NDPDiscussionView model: fact
+    discussionModalContainer.mainRegion.show new DiscussionView model: fact
 
   DiscussionModalOnFrontend.closeDiscussion = ->
     discussionModalContainer.fadeOut ->

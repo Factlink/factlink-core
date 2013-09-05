@@ -13,5 +13,5 @@ class window.InteractingUsersView extends Backbone.Marionette.Layout
     @interactingUsersRegion.show new InteractingUsersNamesView
       collection: opinionaters
 
-    @interactingUsersAvatarRegion.show new NDPInteractingUsersAvatarsView
+    @interactingUsersAvatarRegion.show new InteractingUsersAvatarsView
       collection: opinionaters

@@ -1,8 +1,8 @@
-class window.NDPEvidenceVoteView extends Backbone.Marionette.ItemView
+class window.EvidenceVoteView extends Backbone.Marionette.ItemView
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
   className: 'evidence-impact-vote'
-  template: 'evidence/ndp_evidence_vote'
+  template: 'evidence/evidence_vote'
 
   events:
     "click .js-up":   "_on_up_vote"

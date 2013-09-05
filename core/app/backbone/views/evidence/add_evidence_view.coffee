@@ -1,6 +1,6 @@
-class NDPAddEvidenceButtonsView extends Backbone.Marionette.Layout
+class AddEvidenceButtonsView extends Backbone.Marionette.Layout
   className: 'evidence-add-buttons'
-  template: 'evidence/ndp_add_evidence_buttons'
+  template: 'evidence/add_evidence_buttons'
 
   events:
     'click .js-supporting-button': -> @options.parentView.showAdd 'supporting'
@@ -25,10 +25,10 @@ class NDPAddEvidenceButtonsView extends Backbone.Marionette.Layout
           text: 'Add weakening argument'
 
 
-class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
+class window.AddEvidenceView extends Backbone.Marionette.Layout
   className: 'evidence-add'
 
-  template: 'evidence/ndp_add_evidence'
+  template: 'evidence/add_evidence'
 
   ui:
     box: '.js-box'
@@ -45,7 +45,7 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
     'saved_added_model': 'cancel'
 
   onRender: ->
-    @headingRegion.show new NDPEvidenceishHeadingView model: currentUser
+    @headingRegion.show new EvidenceishHeadingView model: currentUser
     @cancel()
 
   showAddSupporting: -> @_showAdd 'supporting'
@@ -53,7 +53,7 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
 
   cancel: ->
     @ui.box.hide()
-    @buttonsRegion.show new NDPAddEvidenceButtonsView
+    @buttonsRegion.show new AddEvidenceButtonsView
       parentView: this
 
   showAdd: (type) ->
@@ -67,4 +67,3 @@ class window.NDPAddEvidenceView extends Backbone.Marionette.Layout
       collection: @collection.oneSidedEvidenceCollection(type)
       fact_id: @options.fact_id
       type: type
-      ndp: true
