@@ -2,6 +2,7 @@
   if ( window.FACTLINK !== undefined ) {
     return;
   }
+  var hashOfFactlinkCoreFile = "&*HASH_PLACE_HOLDER*&"
 
   var iframe = document.createElement("iframe"),
       div = document.createElement("div"),
@@ -14,7 +15,19 @@
   iframe.style.border = "0px solid transparent";
   iframe.id = "factlink-iframe";
 
-  flScript.src = FactlinkConfig.lib + (FactlinkConfig.srcPath || "/factlink.core.min.js");
+  if(FactlinkConfig.srcPath.match(/\.min\.js$/)) {
+    if(hashOfFactlinkCoreFile === "&*HASH_PLACE_HOLDER*&") {
+      hashOfFactlinkCoreFile = '';
+    } else {
+      hashOfFactlinkCoreFile = '.' + hashOfFactlinkCoreFile;
+    }
+    flScript.src = FactlinkConfig.lib + "/factlink.core.min"+hashOfFactlinkCoreFile+".js";
+  }
+  else
+  {
+    flScript.src = FactlinkConfig.lib + FactlinkConfig.srcPath;
+  }
+
   flScript.onload = flScript.onreadystatechange = function () {
     if ((flScript.readyState && flScript.readyState !== "complete" && flScript.readyState !== "loaded") || scriptLoaded) {
       return false;

@@ -8,6 +8,10 @@ banner_template = """
 */
 """
 
+crypto = require 'crypto'
+path = require 'path'
+fs = require('fs')
+
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
@@ -22,6 +26,9 @@ module.exports = (grunt) ->
             expand: true
           }
         ]
+    corehasher:
+      src: 'dist/server/factlink.core.min.js'
+      dest: 'dist/server/factlink.min.js'
     concat:
       wrap:
         src: [
@@ -139,11 +146,32 @@ module.exports = (grunt) ->
           "_": true
           "easyXDM": true
 
+  md5 = (filepath) ->
+    hash = crypto.createHash 'md5'
+    grunt.log.verbose.write 'Hashing ' + filepath + '...'
+    hash.update grunt.file.read filepath, 'utf8'
+    hash.digest 'hex'
+
+  grunt.task.registerTask 'corehasher', 'Load FactlinkCore with a hash.', ()->
+    source_file_path = grunt.config 'corehasher.src'
+    destination_file_path = grunt.config 'corehasher.dest'
+    grunt.log.writeln "Calculating hash from file \"#{source_file_path}\""
+    source_file_hash = md5 source_file_path
+
+    new_source_file_path = source_file_path.replace /.js$/, '.'+source_file_hash+'.js'
+    grunt.log.writeln "Renaming file \"#{source_file_path}\" to \"#{new_source_file_path}\""
+    fs.renameSync(source_file_path, new_source_file_path );
+
+    grunt.log.writeln "Replacing placeholder with hash value in file \"#{destination_file_path}."
+    content = grunt.file.read destination_file_path
+    content_with_hash = content.replace /&\*HASH_PLACE_HOLDER\*&/, source_file_hash
+    grunt.file.write destination_file_path, content_with_hash
+
   grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'concat']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
-  grunt.registerTask 'default', ['compile', 'test', 'uglify']
-  grunt.registerTask 'server',  ['compile', 'uglify', 'cssmin']
+  grunt.registerTask 'default', ['compile', 'test', 'uglify', 'corehasher']
+  grunt.registerTask 'server',  ['compile', 'uglify', 'cssmin','corehasher']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
