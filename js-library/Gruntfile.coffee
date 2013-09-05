@@ -161,7 +161,7 @@ module.exports = (grunt) ->
     grunt.log.writeln "Renaming file \"#{source_file_path}\" to \"#{new_source_file_path}\""
     fs.renameSync(source_file_path, new_source_file_path );
 
-    grunt.log.writeln "Replacing placeholder with hash value in file \"#{destination_file_path}."
+    grunt.log.writeln "Replacing placeholder with hash value in file \"#{destination_file_path}\"."
     content = grunt.file.read destination_file_path
     content_with_hash = content.replace /&\*HASH_PLACE_HOLDER\*&/, source_file_hash
     grunt.file.write destination_file_path, content_with_hash
