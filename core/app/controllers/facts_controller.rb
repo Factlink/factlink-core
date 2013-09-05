@@ -98,7 +98,7 @@ class FactsController < ApplicationController
   def destroy
     authorize! :destroy, @fact
 
-    @fact.delete
+    interactor :'facts/destroy', fact_id: @fact.id
 
     render json: {}
   end
