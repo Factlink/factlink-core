@@ -28,7 +28,7 @@ class AddEvidenceButtonsView extends Backbone.Marionette.Layout
 class window.AddEvidenceView extends Backbone.Marionette.Layout
   className: 'evidence-add'
 
-  template: 'evidence/ndp_add_evidence'
+  template: 'evidence/add_evidence'
 
   ui:
     box: '.js-box'
