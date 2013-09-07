@@ -9,7 +9,3 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
     'click .js-fact-relation-unbelieve': -> @unset_fact_relation_opinion 'believes'
 
   template: 'fact_relations/vote_up_popover'
-
-  templateHelpers: =>
-    believes_fact_relation: @model.isBelieving()
-    believes_fact: @model.getFact().getFactWheel().isUserOpinion 'believe'

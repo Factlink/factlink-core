@@ -2,6 +2,12 @@ class window.FactRelationVoteView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down'
 
+  templateHelpers: =>
+    believes_fact_relation: @model.isBelieving()
+    believes_fact: @model.getFact().getFactWheel().isUserOpinion 'believe'
+    disbelieves_fact_relation: @model.isDisBelieving()
+    disbelieves_fact: @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
+
   initialize: ->
     @listenTo @model, "change", @render
     @listenTo @model.getFact().getFactWheel(), "change", @render
