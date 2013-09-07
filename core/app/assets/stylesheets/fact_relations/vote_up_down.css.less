@@ -1,6 +1,20 @@
 @import "bootstrap/mixins";
 
 .vote-up-down {
-  width: 300px;
-  padding: 20px;
+  width: 280px;
+}
+
+.vote-up-down-line {
+  margin: 14px 18px 0;
+  padding-bottom: 8px;
+  box-shadow: 0px 1px @mutedBorderBottomColor, 0px 2px @mutedBorderTopColor;
+
+  &:last-child {
+    box-shadow: none;
+  }
+}
+
+.vote-up-down-button {
+  margin-top: -3px;
+  margin-left: 10px;
 }
