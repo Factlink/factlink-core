@@ -17,7 +17,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
 
   onRender: ->
     @_updateButtons()
-    @_setHoverIntent()
+    @_setPopoverHoverIntent()
 
   _updateButtons: ->
     @ui.upButton.toggleClass 'active', @model.get('current_user_opinion') == 'believes'
@@ -25,23 +25,21 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
 
   _on_up_vote: ->
     mp_track "Factlink: Upvote evidence click"
-    if @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
-      @_open_vote_popup '.js-up', FactRelationVoteUpView
+    if @model.isBelieving()
+      @model.removeOpinion()
+      @_closePopups()
     else
-      if @model.isBelieving()
-        @model.removeOpinion()
-      else
-        @model.believe()
+      @_openVoteUpPopup()
+      @model.believe()
 
   _on_down_vote: ->
     mp_track "Factlink: Downvote evidence click"
-    if @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
-      @_open_vote_popup '.js-down',  FactRelationVoteDownView
+    if @model.isDisBelieving()
+      @model.removeOpinion()
+      @_closePopups()
     else
-      if @model.isDisBelieving()
-        @model.removeOpinion()
-      else
-        @model.disbelieve()
+      @_openVoteDownPopup()
+      @model.disbelieve()
 
   _open_vote_popup: (selector, view_klass) ->
     return if @popoverOpened selector
@@ -59,10 +57,35 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     else
       'right'
 
-  _setHoverIntent: ->
+  _openVoteUpPopup: ->
+    return unless @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
+
+    @_open_vote_popup '.js-up', FactRelationVoteUpView
+
+  _openVoteDownPopup: ->
+    return unless @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
+
+    @_open_vote_popup '.js-down', FactRelationVoteDownView
+
+  _closePopups: ->
+    @popoverRemove '.js-up'
+    @popoverRemove '.js-down'
+
+  _setPopoverHoverIntent: ->
+    return unless @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
+
+    @ui.upButton.hoverIntent
+      timeout: 100
+      over: => @_openVoteUpPopup() if @model.isBelieving()
+      out: ->
+
+    @ui.downButton.hoverIntent
+      timeout: 100
+      over: => @_openVoteDownPopup() if @model.isDisBelieving()
+      out: ->
+
     @$el.hoverIntent
       timeout: 500
       over: ->
-      out: =>
-        @popoverRemove '.js-up'
-        @popoverRemove '.js-down'
+      out: => @_closePopups()
+

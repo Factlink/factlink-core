@@ -64,11 +64,5 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
 class window.FactRelationVoteUpView extends FactRelationVoteView
   template: 'fact_relations/vote_up_popover'
 
-  initialize: ->
-    @set_fact_relation_opinion 'believes'
-
 class window.FactRelationVoteDownView extends FactRelationVoteView
   template: 'fact_relations/vote_down_popover'
-
-  initialize: ->
-    @set_fact_relation_opinion 'disbelieves'
