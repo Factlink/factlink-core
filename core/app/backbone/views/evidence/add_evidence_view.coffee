@@ -48,9 +48,6 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @headingRegion.show new EvidenceishHeadingView model: currentUser
     @cancel()
 
-  showAddSupporting: -> @_showAdd 'supporting'
-  showAddWeakening:  -> @_showAdd 'weakening'
-
   cancel: ->
     @ui.box.hide()
     @buttonsRegion.show new AddEvidenceButtonsView
