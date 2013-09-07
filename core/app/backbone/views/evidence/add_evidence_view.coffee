@@ -43,6 +43,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   collectionEvents:
     'saved_added_model': 'cancel'
+    'error_adding_model': 'showBox'
     'add': 'hideBox'
 
   onRender: ->
@@ -54,6 +55,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @buttonsRegion.show new AddEvidenceButtonsView
       parentView: this
 
+  showBox: -> @ui.box.show()
   hideBox: -> @ui.box.hide()
 
   showAdd: (type) ->
