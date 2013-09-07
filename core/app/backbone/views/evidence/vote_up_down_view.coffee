@@ -17,7 +17,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
 
   onRender: ->
     @_updateButtons()
-    @_setPopoverHoverIntent()
+    @_setPopupHoverIntent()
 
   _updateButtons: ->
     @ui.upButton.toggleClass 'active', @model.get('current_user_opinion') == 'believes'
@@ -58,24 +58,24 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       'right'
 
   _openVoteUpPopup: ->
-    return unless @_canShowPopover()
+    return unless @_canShowPopup()
 
     @_open_vote_popup '.js-up', new FactRelationVoteUpView model: @model
 
   _openVoteDownPopup: ->
-    return unless @_canShowPopover()
+    return unless @_canShowPopup()
 
     @_open_vote_popup '.js-down', new FactRelationVoteDownView model: @model
 
-  _canShowPopover: ->
+  _canShowPopup: ->
     @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
 
   _closePopups: ->
     @popoverRemove '.js-up'
     @popoverRemove '.js-down'
 
-  _setPopoverHoverIntent: ->
-    return unless @_canShowPopover()
+  _setPopupHoverIntent: ->
+    return unless @_canShowPopup()
 
     @ui.upButton.hoverIntent
       timeout: 100
