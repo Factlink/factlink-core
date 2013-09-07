@@ -58,21 +58,24 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       'right'
 
   _openVoteUpPopup: ->
-    return unless @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
+    return unless @_canShowPopover()
 
     @_open_vote_popup '.js-up', FactRelationVoteUpView
 
   _openVoteDownPopup: ->
-    return unless @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
+    return unless @_canShowPopover()
 
     @_open_vote_popup '.js-down', FactRelationVoteDownView
+
+  _canShowPopover: ->
+    @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
 
   _closePopups: ->
     @popoverRemove '.js-up'
     @popoverRemove '.js-down'
 
   _setPopoverHoverIntent: ->
-    return unless @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
+    return unless @_canShowPopover()
 
     @ui.upButton.hoverIntent
       timeout: 100
