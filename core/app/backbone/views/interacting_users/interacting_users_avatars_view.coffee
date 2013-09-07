@@ -16,7 +16,7 @@ class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeVi
   number_of_items: 7
 
   initialize: (options) ->
-    @listenTo @collection, 'add remove reset', @render
+    @listenTo @collection, 'add remove reset sync', @render
 
   _initialEvents: -> # don't use default bindings to collection
 

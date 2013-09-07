@@ -31,7 +31,7 @@ class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
   number_of_items: 3
 
   initialize: (options) ->
-    @listenTo @collection, 'add remove reset', @render
+    @listenTo @collection, 'add remove reset sync', @render
 
   _initialEvents: -> # don't use default bindings to collection
 
