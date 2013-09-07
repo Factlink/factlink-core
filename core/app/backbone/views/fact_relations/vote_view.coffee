@@ -2,6 +2,17 @@ class window.FactRelationVoteView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down'
 
+  events:
+    'click .js-fact-relation-believe':      -> @set_fact_relation_opinion 'believes'
+    'click .js-fact-relation-unbelieve':    -> @unset_fact_relation_opinion 'believes'
+    'click .js-fact-believe':               -> @set_fact_opinion 'believe'
+    'click .js-fact-unbelieve':             -> @unset_fact_opinion 'believe'
+    'click .js-fact-relation-disbelieve':   -> @set_fact_relation_opinion 'disbelieves'
+    'click .js-fact-relation-undisbelieve': -> @unset_fact_relation_opinion 'disbelieves'
+    'click .js-fact-disbelieve':            -> @set_fact_opinion 'disbelieve'
+    'click .js-fact-undisbelieve':          -> @unset_fact_opinion 'disbelieve'
+
+
   templateHelpers: =>
     believes_fact_relation: @model.isBelieving()
     believes_fact: @model.getFact().getFactWheel().isUserOpinion 'believe'
