@@ -5,6 +5,9 @@ class window.FactRelation extends Evidence
     sub_comments_count: 0
 
   setOpinion: (type) ->
+    previous_user_opinion = @get('current_user_opinion')
+    @set 'current_user_opinion', type
+
     Backbone.ajax
       url: @url() + "/opinion/" + type
       success: (data) =>
@@ -13,6 +16,8 @@ class window.FactRelation extends Evidence
           evidence_id: @id
 
         @set data
+      error: =>
+        @set 'current_user_opinion', previous_user_opinion
 
       type: "post"
 
