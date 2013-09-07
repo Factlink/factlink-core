@@ -48,17 +48,12 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
   set_fact_opinion: (opinion) ->
     return if @model.getFact().getFactWheel().isUserOpinion opinion
 
-    @_originalFactOpinion = @model.getFact().getFactWheel().userOpinion()
     @model.getFact().getFactWheel().setActiveOpinionType opinion
 
   unset_fact_opinion: (opinion) ->
     return unless @model.getFact().getFactWheel().isUserOpinion opinion
 
-    if @_originalFactOpinion?
-      @model.getFact().getFactWheel().setActiveOpinionType @_originalFactOpinion
-      @_originalFactOpinion = null
-    else
-      @model.getFact().getFactWheel().unsetActiveOpinionType opinion
+    @model.getFact().getFactWheel().undoOpinion()
 
 class window.FactRelationVoteUpView extends FactRelationVoteView
   template: 'fact_relations/vote_up_popover'

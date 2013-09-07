@@ -80,7 +80,7 @@ class window.Wheel extends Backbone.Model
 
   # TODO: Use @save here!!
   setActiveOpinionType: (opinion_type, options={}) ->
-    old_opinion_type = @userOpinion()
+    @previous_opinion_type = @userOpinion()
     fact_id = @get('fact_id')
     @turnOnActiveOpinionType opinion_type
     Backbone.sync 'create', this,
@@ -96,14 +96,15 @@ class window.Wheel extends Backbone.Model
       error: =>
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.
-        if old_opinion_type
-          @turnOnActiveOpinionType old_opinion_type
+        if @previous_opinion_type
+          @turnOnActiveOpinionType @previous_opinion_type
         else
           @turnOffActiveOpinionType()
         options.error?()
 
   # TODO: Use @save here!!
   unsetActiveOpinionType: (opinion_type, options={}) ->
+    @previous_opinion_type = @userOpinion()
     fact_id = @get('fact_id')
     @turnOffActiveOpinionType()
     Backbone.sync 'delete', this,
@@ -116,5 +117,13 @@ class window.Wheel extends Backbone.Model
         options.success?()
         @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
       error: =>
-        @turnOnActiveOpinionType opinion_type
+        @turnOnActiveOpinionType @previous_opinion_type
         options.error?()
+
+  undoOpinion: ->
+    return if @previous_opinion_type == @userOpinion()
+
+    if @previous_opinion_type?
+      @setActiveOpinionType @previous_opinion_type
+    else
+      @unsetActiveOpinionType()
