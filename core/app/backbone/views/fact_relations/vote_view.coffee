@@ -1,4 +1,4 @@
-class window.FactRelationVoteView extends Backbone.Marionette.ItemView
+class FactRelationVoteView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down'
 
@@ -52,3 +52,9 @@ class window.FactRelationVoteView extends Backbone.Marionette.ItemView
       @_originalFactOpinion = null
     else
       @model.getFact().getFactWheel().unsetActiveOpinionType opinion
+
+class window.FactRelationVoteUpView extends FactRelationVoteView
+  template: 'fact_relations/vote_up_popover'
+
+class window.FactRelationVoteDownView extends FactRelationVoteView
+  template: 'fact_relations/vote_down_popover'
