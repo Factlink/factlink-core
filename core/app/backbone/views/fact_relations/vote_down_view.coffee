@@ -3,18 +3,13 @@
 class window.FactRelationVoteDownView extends FactRelationVoteView
 
   events:
-    'click .js-fact-disbelieve': 'factDisbelieve'
-    'click .js-fact-undisbelieve': 'factUndisbelieve'
-    'click .js-fact-relation-disbelieve': 'factRelationDisbelieve'
-    'click .js-fact-relation-undisbelieve': 'factRelationUndisbelieve'
+    'click .js-fact-disbelieve': -> @set_fact_opinion 'disbelieve'
+    'click .js-fact-undisbelieve': -> @unset_fact_opinion 'disbelieve'
+    'click .js-fact-relation-disbelieve': -> @set_fact_relation_opinion 'disbelieves'
+    'click .js-fact-relation-undisbelieve': -> @unset_fact_relation_opinion 'disbelieves'
 
   template: 'fact_relations/vote_down_popover'
 
   templateHelpers: =>
     disbelieves_fact_relation: @model.isDisBelieving()
     disbelieves_fact: @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
-
-  factDisbelieve: -> @set_fact_opinion 'disbelieve'
-  factUndisbelieve: -> @unset_fact_opinion 'disbelieve'
-  factRelationDisbelieve: -> @set_fact_relation_opinion 'disbelieves'
-  factRelationUndisbelieve: -> @unset_fact_relation_opinion 'disbelieves'
