@@ -41,7 +41,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       @_openVoteDownPopup()
       @model.disbelieve()
 
-  _open_vote_popup: (selector, view_klass) ->
+  _open_vote_popup: (selector, contentView) ->
     return if @popoverOpened selector
 
     @popoverResetAll()
@@ -49,7 +49,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       side: @_side()
       align: 'top'
       fadeTime: 200
-      contentView: new view_klass model: @model
+      contentView: contentView
 
   _side: ->
     if @model.get('type') == 'believes'
@@ -60,12 +60,12 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
   _openVoteUpPopup: ->
     return unless @_canShowPopover()
 
-    @_open_vote_popup '.js-up', FactRelationVoteUpView
+    @_open_vote_popup '.js-up', new FactRelationVoteUpView model: @model
 
   _openVoteDownPopup: ->
     return unless @_canShowPopover()
 
-    @_open_vote_popup '.js-down', FactRelationVoteDownView
+    @_open_vote_popup '.js-down', new FactRelationVoteDownView model: @model
 
   _canShowPopover: ->
     @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
