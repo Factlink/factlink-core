@@ -5,7 +5,7 @@ class window.FactRelation extends Evidence
     sub_comments_count: 0
 
   setOpinion: (type) ->
-    previous_user_opinion = @get('current_user_opinion')
+    @previous_user_opinion = @get('current_user_opinion')
     @set 'current_user_opinion', type
 
     Backbone.ajax
@@ -17,7 +17,7 @@ class window.FactRelation extends Evidence
 
         @set data
       error: =>
-        @set 'current_user_opinion', previous_user_opinion
+        @set 'current_user_opinion', @previous_user_opinion
 
       type: "post"
 
@@ -27,6 +27,14 @@ class window.FactRelation extends Evidence
       type: "delete"
       success: (data) =>
         @set data
+
+  undoOpinion: ->
+    return if @previous_user_opinion == @get('current_user_opinion')
+
+    if @previous_user_opinion?
+      @setOpinion @previous_user_opinion
+    else
+      @removeOpinion()
 
   getFact: ->
     return @_fact if @_fact?
