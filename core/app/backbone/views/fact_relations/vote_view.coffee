@@ -26,19 +26,13 @@ class window.FactRelationVoteView extends Backbone.Marionette.ItemView
 
     unless is_current_opinion
       @_originalFactOpinion = @model.getFact().getFactWheel().userOpinion()
-      @_set_fact_opinion opinion
+      @model.getFact().getFactWheel().setActiveOpinionType opinion
 
   unset_fact_opinion: (opinion) ->
     is_current_opinion = @model.getFact().getFactWheel().isUserOpinion opinion
     if is_current_opinion
       if @_originalFactOpinion?
-        @_set_fact_opinion @_originalFactOpinion
+        @model.getFact().getFactWheel().setActiveOpinionType @_originalFactOpinion
         @_originalFactOpinion = null
       else
-        @_unset_fact_opinion opinion
-
-  _set_fact_opinion: (opinion) ->
-    @model.getFact().getFactWheel().setActiveOpinionType opinion
-
-  _unset_fact_opinion: (opinion) ->
-    @model.getFact().getFactWheel().unsetActiveOpinionType opinion
+        @model.getFact().getFactWheel().unsetActiveOpinionType opinion
