@@ -1,4 +1,16 @@
-<h5>Why do you believe this argument is supporting?</h5>
+{{#believes_fact_relation}}
+  <div>You think this is relevant. <button class="button button-small js-fact-relation-unbelieve">Undo</button></div>
+{{/believes_fact_relation}}
+{{^believes_fact_relation}}
+  <div>Is this Factlink relevant? <button class="button button-small js-fact-relation-believe">Yes</button></div>
+{{/believes_fact_relation}}
+
+{{#believes_fact}}
+  <div>You think this is correct or true. <button class="button button-small js-fact-unbelieve">Undo</button></div>
+{{/believes_fact}}
+{{^believes_fact}}
+  <div>Is this Factlink correct or true? <button class="button button-small js-fact-believe">Yes</button></div>
+{{/believes_fact}}
 
 <div class="tabular">
   <label class="tabular-row">
