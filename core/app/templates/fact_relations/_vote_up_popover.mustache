@@ -11,22 +11,3 @@
 {{^believes_fact}}
   <div>Is this Factlink correct or true? <button class="button button-small js-fact-believe">Yes</button></div>
 {{/believes_fact}}
-
-<div class="tabular">
-  <label class="tabular-row">
-    <span class="tabular-cell">
-      <input type="checkbox" class="js-fact-relation-believe unbootstrapped-checkbox" {{#believes_fact_relation}}checked="checked"{{/believes_fact_relation}}>
-    </span>
-    <span class="tabular-cell">This argument is relevant to the upper Factlink</span>
-  </label>
-
-  <label class="tabular-row">
-    <span class="tabular-cell">
-      <input type="checkbox" class="js-fact-believe unbootstrapped-checkbox" {{#believes_fact}}checked="checked"{{/believes_fact}}>
-    </span>
-    <span class="tabular-cell">The Factlink in this argument is correct or true.</span>
-  </label>
-</div>
-
-<button class="js-cancel button">Cancel</button>
-<button class="js-done button button-confirm">Done</button>

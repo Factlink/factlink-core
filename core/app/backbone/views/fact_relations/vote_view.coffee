@@ -2,10 +2,6 @@ class window.FactRelationVoteView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down'
 
-  events:
-    'click .js-done': 'save'
-    'click .js-cancel': 'close'
-
   initialize: ->
     @_originalFactOpinion = @model.getFact().getFactWheel().userOpinion()
     @_originalFactRelationOpinion = @model.current_opinion()
