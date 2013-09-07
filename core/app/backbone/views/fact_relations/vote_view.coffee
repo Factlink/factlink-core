@@ -23,7 +23,8 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
     disbelieves_fact_relation: @model.isDisBelieving()
     disbelieves_fact: @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
 
-  initialize: ->
+  constructor: ->
+    super
     @listenTo @model, "change:current_user_opinion", ->
       @render()
       @highlight @ui.factRelationLine
@@ -68,5 +69,11 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
 class window.FactRelationVoteUpView extends FactRelationVoteView
   template: 'fact_relations/vote_up_popover'
 
+  initialize: ->
+    @set_fact_relation_opinion 'believes'
+
 class window.FactRelationVoteDownView extends FactRelationVoteView
   template: 'fact_relations/vote_down_popover'
+
+  initialize: ->
+    @set_fact_relation_opinion 'disbelieves'
