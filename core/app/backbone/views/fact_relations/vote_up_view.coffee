@@ -8,10 +8,6 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
     'click .js-fact-relation-believe': 'factRelationBelieve'
     'click .js-fact-relation-unbelieve': 'factRelationUnbelieve'
 
-  ui:
-    fact_relation: '.js-fact-relation-believe'
-    fact: '.js-fact-believe'
-
   template: 'fact_relations/vote_up_popover'
 
   templateHelpers: =>
