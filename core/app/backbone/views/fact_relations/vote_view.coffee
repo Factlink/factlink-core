@@ -12,6 +12,10 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
     'click .js-fact-disbelieve':            -> @set_fact_opinion 'disbelieve'
     'click .js-fact-undisbelieve':          -> @unset_fact_opinion 'disbelieve'
 
+  ui:
+    factRelationLine: '.js-fact-relation-line'
+    factLine: '.js-fact-line'
+
 
   templateHelpers: =>
     believes_fact_relation: @model.isBelieving()
@@ -20,8 +24,16 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
     disbelieves_fact: @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
 
   initialize: ->
-    @listenTo @model, "change", @render
-    @listenTo @model.getFact().getFactWheel(), "change", @render
+    @listenTo @model, "change:current_user_opinion", ->
+      @render()
+      @highlight @ui.factRelationLine
+    @listenTo @model.getFact().getFactWheel(), "sync", ->
+      @render()
+      @highlight @ui.factLine
+
+  highlight: ($el) ->
+    _.defer (-> $el.addClass 'vote-up-down-highlight')
+    _.delay (-> $el.removeClass 'vote-up-down-highlight'), 700
 
   set_fact_relation_opinion: (opinion) ->
     return if @model.current_opinion() == opinion
