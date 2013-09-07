@@ -17,6 +17,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
 
   onRender: ->
     @_updateButtons()
+    @_setHoverIntent()
 
   _updateButtons: ->
     @ui.upButton.toggleClass 'active', @model.get('current_user_opinion') == 'believes'
@@ -49,7 +50,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     @popoverAdd selector,
       side: @_side()
       align: 'top'
-      fadeTime: 40
+      fadeTime: 200
       contentView: new view_klass model: @model
 
   _side: ->
@@ -57,3 +58,11 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       'left'
     else
       'right'
+
+  _setHoverIntent: ->
+    @$el.hoverIntent
+      timeout: 500
+      over: ->
+      out: =>
+        @popoverRemove '.js-up'
+        @popoverRemove '.js-down'
