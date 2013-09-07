@@ -21,7 +21,14 @@ class window.FactRelationVoteUpView extends FactRelationVoteView
       believes_fact: true
 
   save: ->
-    @set_fact_relation_opinion 'believes', @ui.fact_relation.is(':checked')
-    @set_fact_opinion 'believe', @ui.fact.is(':checked')
+    if @ui.fact_relation.is(':checked')
+      @set_fact_relation_opinion 'believes'
+    else
+      @unset_fact_relation_opinion 'believes'
+
+    if @ui.fact.is(':checked')
+      @set_fact_opinion 'believe'
+    else
+      @unset_fact_opinion 'believe'
 
     @trigger 'saved'
