@@ -50,6 +50,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       align: 'top'
       fadeTime: 200
       contentView: contentView
+    @$el.addClass 'evidence-impact-vote-popover'
 
   _side: ->
     if @model.get('type') == 'believes'
@@ -73,6 +74,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
   _closePopups: ->
     @popoverRemove '.js-up'
     @popoverRemove '.js-down'
+    @$el.removeClass 'evidence-impact-vote-popover'
 
   _setPopupHoverIntent: ->
     return unless @_canShowPopup()
