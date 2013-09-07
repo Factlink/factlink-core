@@ -18,7 +18,7 @@ class window.FactRelationVoteDownView extends FactRelationVoteView
     disbelieves_fact_relation: @model.isDisBelieving()
     disbelieves_fact: @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
 
-  factDisbelieve: -> @set_fact_opinion 'disbelieve'; @trigger 'saved'
-  factUndisbelieve: -> @unset_fact_opinion 'disbelieve'; @trigger 'saved'
-  factRelationDisbelieve: -> @set_fact_relation_opinion 'disbelieves'; @trigger 'saved'
-  factRelationUndisbelieve: -> @unset_fact_relation_opinion 'disbelieves'; @trigger 'saved'
+  factDisbelieve: -> @set_fact_opinion 'disbelieve'
+  factUndisbelieve: -> @unset_fact_opinion 'disbelieve'
+  factRelationDisbelieve: -> @set_fact_relation_opinion 'disbelieves'
+  factRelationUndisbelieve: -> @unset_fact_relation_opinion 'disbelieves'

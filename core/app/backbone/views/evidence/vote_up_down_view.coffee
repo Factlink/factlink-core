@@ -43,15 +43,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       side: @_side()
       align: 'top'
       fadeTime: 40
-      contentView: @_bound_popup_view view_klass
-
-  _bound_popup_view: (view_klass) ->
-    view = new view_klass model: @model
-
-    @listenTo view, 'saved', ->
-      @popoverResetAll()
-
-    view
+      contentView: new view_klass model: @model
 
   _side: ->
     if @model.get('type') == 'believes'
