@@ -5,6 +5,8 @@ class window.FactRelationVoteView extends Backbone.Marionette.ItemView
   initialize: ->
     @_originalFactOpinion = @model.getFact().getFactWheel().userOpinion()
     @_originalFactRelationOpinion = @model.current_opinion()
+    @listenTo @model, "change", @render
+    @listenTo @model.getFact().getFactWheel(), "change", @render
 
   set_fact_relation_opinion: (opinion) ->
     is_current_opinion = @model.current_opinion() == opinion
