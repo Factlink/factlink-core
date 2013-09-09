@@ -102,4 +102,4 @@ var Events = {
   }
 };
 
-$.extend(Factlink, Events);
+$.extend(FACTLINK, Events);

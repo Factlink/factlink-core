@@ -1,11 +1,11 @@
-Factlink.Facts = []
+FACTLINK.Facts = []
 
 # Function which will collect all the facts for the current page
 # and select them.
 # Returns deferred object
 fetchFacts = ->
   # The URL to the Factlink backend
-  src = FactlinkConfig.api + "/site?url=" + encodeURIComponent(Factlink.siteUrl())
+  src = FactlinkConfig.api + "/site?url=" + encodeURIComponent(FACTLINK.siteUrl())
 
   $.ajax
     url: src
@@ -14,18 +14,18 @@ fetchFacts = ->
     type: "GET"
     jsonp: "callback"
 
-Factlink.startHighlighting = ->
-  console.info "Factlink:", "startHighlighting"
+FACTLINK.startHighlighting = ->
+  console.info "FACTLINK:", "startHighlighting"
   fetchFacts().done (facts_data) ->
     # If there are multiple matches on the page, loop through them all
     for fact_data in facts_data
       # Select the ranges (results)
-      ranges = Factlink.search(fact_data.displaystring)
-      $.merge Factlink.Facts, Factlink.selectRanges(ranges, fact_data.id)
+      ranges = FACTLINK.search(fact_data.displaystring)
+      $.merge FACTLINK.Facts, FACTLINK.selectRanges(ranges, fact_data.id)
 
-    $(window).trigger "factlink.factsLoaded"
+    $(window).trigger "FACTLINK.factsLoaded"
 
-Factlink.stopHighlighting = ->
-  console.info "Factlink:", "stopHighlighting"
-  fact.destroy() for fact in Factlink.Facts
-  Factlink.Facts = []
+FACTLINK.stopHighlighting = ->
+  console.info "FACTLINK:", "stopHighlighting"
+  fact.destroy() for fact in FACTLINK.Facts
+  FACTLINK.Facts = []

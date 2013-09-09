@@ -1,8 +1,8 @@
-class Factlink.Prepare
+class FACTLINK.Prepare
 
   constructor: ->
-    @$el = $(Factlink.templates.create)
-    @$el.appendTo Factlink.el
+    @$el = $(FACTLINK.templates.create)
+    @$el.appendTo FACTLINK.el
     @$el.hide()
 
     @$el.bind "mouseup", (e) -> e.stopPropagation()
@@ -11,10 +11,10 @@ class Factlink.Prepare
       e.preventDefault()
       e.stopPropagation()
       @startLoading()
-      Factlink.createFactFromSelection()
+      FACTLINK.createFactFromSelection()
 
   show: (top, left) =>
-    Factlink.set_position_of_element top, left, window, @$el
+    FACTLINK.set_position_of_element top, left, window, @$el
     @$el.fadeIn "fast"
 
   hide: (callback=->) =>

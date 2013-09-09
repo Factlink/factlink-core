@@ -1,4 +1,4 @@
-Factlink.set_position_of_element = function(top,left,window,el){
+FACTLINK.set_position_of_element = function(top,left,window,el){
   function setLeft(element) {
     element.addClass('left');
     element.removeClass('right');

@@ -3,18 +3,18 @@ iFrame = $('<div />').attr
   id: 'factlink-modal-frame'
 
 iFrame.hide()
-iFrame.appendTo(Factlink.el)
+iFrame.appendTo(FACTLINK.el)
 
-Factlink.hideDimmer = -> iFrame.css 'background', 'none'
+FACTLINK.hideDimmer = -> iFrame.css 'background', 'none'
 
-Factlink.showInfo = (factId, successCallback = ->) ->
-  Factlink.remote.showFactlink factId, ->
-    Factlink.modal.show.method()
-    Factlink.trigger('modalOpened')
+FACTLINK.showInfo = (factId, successCallback = ->) ->
+  FACTLINK.remote.showFactlink factId, ->
+    FACTLINK.modal.show.method()
+    FACTLINK.trigger('modalOpened')
 
     successCallback()
 
-clickHandler = -> Factlink.modal.hide.method()
+clickHandler = -> FACTLINK.modal.hide.method()
 
 bindClick = -> $(document).bind 'click', clickHandler
 
@@ -22,27 +22,27 @@ unbindClick = -> $(document).unbind 'click', clickHandler
 
 # Object which holds the methods that can be called from the intermediate iframe
 # These methods are also used by the internal scripts and can be called through
-# Factlink.modal.FUNCTION.method() because easyXDM changes the object structure
-Factlink.modal =
+# FACTLINK.modal.FUNCTION.method() because easyXDM changes the object structure
+FACTLINK.modal =
   hide: ->
     unbindClick()
     iFrame.fadeOut 'fast'
-    Factlink.trigger 'modalClosed'
+    FACTLINK.trigger 'modalClosed'
 
   show: ->
     bindClick()
     iFrame.fadeIn('fast')
 
   highlightNewFactlink: (fact, id) ->
-    fct = Factlink.selectRanges(Factlink.search(fact), id)
+    fct = FACTLINK.selectRanges(FACTLINK.search(fact), id)
 
-    $.extend Factlink.Facts, fct
+    $.extend FACTLINK.Facts, fct
 
-    Factlink.trigger 'factlinkAdded'
+    FACTLINK.trigger 'factlinkAdded'
 
-    Factlink.modal.hide.method()
+    FACTLINK.modal.hide.method()
 
-    Factlink.Views.Notifications.showFactlinkCreated()
+    FACTLINK.Views.Notifications.showFactlinkCreated()
 
     fct
 
@@ -50,4 +50,4 @@ Factlink.modal =
     $("span.factlink[data-factid=#{id}]").each (i, val) ->
       $(val).contents().unwrap()
 
-  trigger: (e) -> Factlink.trigger(e)
+  trigger: (e) -> FACTLINK.trigger(e)

@@ -1,1 +1,1 @@
-Factlink.prepare = new Factlink.Prepare
+FACTLINK.prepare = new FACTLINK.Prepare

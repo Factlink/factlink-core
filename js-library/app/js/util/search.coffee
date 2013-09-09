@@ -22,7 +22,7 @@ searchWithWindowFind = (searchString) ->
   results
 
 # Function to search the page
-Factlink.search = (searchString) ->
+FACTLINK.search = (searchString) ->
   return false unless window.find?
 
   # Store scroll settings to reset to afterwards

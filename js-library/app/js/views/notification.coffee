@@ -1,7 +1,7 @@
-Factlink.Views ||= {}
-Factlink.Views.Notifications ||= {}
+FACTLINK.Views ||= {}
+FACTLINK.Views.Notifications ||= {}
 
-class Factlink.Views.Notification
+class FACTLINK.Views.Notification
   appendTo: '#fl'
   template: """
     <div class="fl-message">
@@ -43,21 +43,21 @@ class Factlink.Views.Notification
   remove: =>
     @$el.fadeOut(@options.fade_time, => @$el.remove())
 
-Factlink.Views.Notifications.showFactlinkCreated = ->
-  Factlink.Views.Notifications.show
+FACTLINK.Views.Notifications.showFactlinkCreated = ->
+  FACTLINK.Views.Notifications.show
     message: 'Factlink posted!'
     type_classes: 'fl-message-success fl-message-icon-logo'
 
-Factlink.Views.Notifications.showShouldSelectText = ->
-  Factlink.Views.Notifications.show
+FACTLINK.Views.Notifications.showShouldSelectText = ->
+  FACTLINK.Views.Notifications.show
     message: 'To create a Factlink, select a statement and click the Factlink button.'
     type_classes: 'fl-message-icon-add'
 
-Factlink.Views.Notifications.showLoaded = ->
-  Factlink.Views.Notifications.show
+FACTLINK.Views.Notifications.showLoaded = ->
+  FACTLINK.Views.Notifications.show
     message: 'Factlink is loaded!'
     type_classes: 'fl-message-success fl-message-icon-time'
 
-Factlink.Views.Notifications.show = (options) ->
-  message = new Factlink.Views.Notification options
+FACTLINK.Views.Notifications.show = (options) ->
+  message = new FACTLINK.Views.Notification options
   message.render()

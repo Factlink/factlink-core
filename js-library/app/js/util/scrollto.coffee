@@ -1,4 +1,4 @@
-Factlink.scrollTo = (fact_id) ->
+FACTLINK.scrollTo = (fact_id) ->
   $('body')
     ._scrollable()
     .scrollTo "span[data-factid=#{fact_id}]", 800,
@@ -8,4 +8,4 @@ Factlink.scrollTo = (fact_id) ->
 
 $(window).bind 'factlink.factsLoaded', ->
   if FactlinkConfig?.scrollto
-    Factlink?.scrollTo FactlinkConfig.scrollto
+    FACTLINK?.scrollTo FactlinkConfig.scrollto

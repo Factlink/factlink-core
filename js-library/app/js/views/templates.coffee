@@ -1,4 +1,4 @@
-Factlink.templates =
+FACTLINK.templates =
   create: """
     <div class="fl-popup">
       <span class="fl-default-message">Add Factlink</span>

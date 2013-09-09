@@ -140,7 +140,7 @@ module.exports = (grunt) ->
         # Custom predefined globals.
         # For value examples, see https://github.com/jshint/jshint/blob/c047ea1b01097fcc220fcd1a55c41f67ae2e6e81/jshint.js#L556
         globals:
-          "Factlink": true
+          "FACTLINK": true
           "FactlinkConfig": true
           "escape": true
           "_": true

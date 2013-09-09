@@ -1,4 +1,4 @@
-class Factlink.Fact
+class FACTLINK.Fact
   # If you want to support more events add them to this variable:
   _events: ["focus", "blur", "click", "update"]
 
@@ -15,7 +15,7 @@ class Factlink.Fact
 
     @highlight(1500)
 
-    @balloon = new Factlink.Balloon this
+    @balloon = new FACTLINK.Balloon this
 
     # Bind the own events
     $(@elements)
@@ -78,7 +78,7 @@ class Factlink.Fact
       unless @balloon.isVisible()
         # Need to call a direct .hide() here to make sure not two popups are
         # open at a time
-        Factlink.el.find('div.fl-popup').hide()
+        FACTLINK.el.find('div.fl-popup').hide()
 
         @balloon.show($(e.target).offset().top, e.pageX, e.show_fast)
 
@@ -97,7 +97,7 @@ class Factlink.Fact
     @click =>
       @balloon.startLoading()
 
-      Factlink.showInfo id, =>
+      FACTLINK.showInfo id, =>
         @balloon.stopLoading()
 
   destroy: ->
