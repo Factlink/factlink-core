@@ -41,10 +41,6 @@ class Factlink.Fact
     @highlight()
 
     unless @balloon.isVisible() # this enables the balloon to call this without e
-      # Need to call a direct .hide() here to make sure not two popups are
-      # open at a time
-      Factlink.el.find('div.fl-popup').hide()
-
       @balloon.show($(e.target).offset().top, e.pageX, e.show_fast)
 
   blur: =>
