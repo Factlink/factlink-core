@@ -17,9 +17,6 @@ if Factlink.global.easyXDM
 # Create the Factlink container
 Factlink.el = $("#fl")
 
-# Create template wrapper
-Factlink.tmpl = {}
-
 # Add the stylesheet
 $style = $("<link>").attr
   type: "text/css"
