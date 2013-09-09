@@ -8,7 +8,7 @@ class Factlink.Fact
 
     @highlight highlight_time_on_load
 
-    @balloon = new Factlink.Balloon @id, @
+    @balloon = new Factlink.Balloon this
 
     $(@elements)
       .on('mouseenter', (e)=> @focus(e))
