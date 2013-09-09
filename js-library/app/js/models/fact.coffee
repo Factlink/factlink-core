@@ -57,8 +57,9 @@ class Factlink.Fact
         @balloon.hide()
 
       @balloon_timeout = setTimeout hideBalloon, 300
+  click: => @openFactlinkModal()
 
-  click: =>
+  openFactlinkModal: =>
     @balloon.startLoading()
 
     Factlink.showInfo @id, =>
