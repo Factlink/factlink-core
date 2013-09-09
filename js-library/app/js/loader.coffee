@@ -1,4 +1,5 @@
-return if window.FACTLINK?
+return if window.FACTLINK_LOADED?
+window.FACTLINK_LOADED = true
 
 #### Create iframe
 
@@ -47,23 +48,12 @@ coreScriptTag.onload = coreScriptTag.onreadystatechange = ->
   coreScriptTag.onload = coreScriptTag.onreadystatechange = null
   scriptLoaded = true
 
-  proxy = (func) ->
-    window.FACTLINK[func] = ->
-      iframe.contentWindow.Factlink[func].apply iframe.contentWindow.Factlink, arguments
-
-  proxy 'on'
-  proxy 'off'
-  proxy 'hideDimmer'
-  proxy 'triggerClick'
-  proxy 'stopAnnotating'
-  proxy 'getSelectionInfo'
-
+  window.FACTLINK = iframe.contentWindow.Factlink
   jQuery?(window).trigger 'factlink.libraryLoaded'
 
 #### Load iframe with script tag
 
-window.FACTLINK = {}
-window.FACTLINK.iframeLoaded = ->
+window.FACTLINK_ON_IFRAME_LOAD = ->
   iframe.contentWindow.document.head.appendChild coreScriptTag
 
 iframeDoc = iframe.contentWindow.document
@@ -72,7 +62,7 @@ iframeDoc.write """
   <!DOCTYPE html><html><head>
     <script>
       window.FactlinkConfig = #{JSON.stringify(FactlinkConfig)};
-      window.parent.FACTLINK.iframeLoaded();
+      window.parent.FACTLINK_ON_IFRAME_LOAD();
     </script>
   </head><body></body></html>
 """
