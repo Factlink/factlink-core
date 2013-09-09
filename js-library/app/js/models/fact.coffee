@@ -2,52 +2,20 @@ highlight_time_on_load    = 1500
 highlight_time_on_in_view = 1500
 
 class Factlink.Fact
-  # If you want to support more events add them to this variable:
-  _events: ["focus", "blur"]
-
   constructor: (id, elems) ->
     @id = id
-    # Internal object which will hold all bound event handlers
-    @_bound_events = {}
-
     @elements = elems
-
-    @createEventHandlers(@_events)
 
     @highlight highlight_time_on_load
 
     @balloon = new Factlink.Balloon @id, @
 
-    # Bind the own events
     $(@elements)
-      .on 'mouseenter', @focus
-      .on 'mouseleave', @blur
-      .on 'click', => @click()
+      .on('mouseenter', (e)=> @focus(e))
+      .on('mouseleave', => @blur())
+      .on('click', => @click())
       .on 'inview', (event, isInView, visiblePart) =>
         @highlight(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
-
-    @bindFocus()
-
-  # This may look like some magic, but here we expose the Fact.blur/focus/click
-  # methods
-  createEventHandlers: (events) ->
-    @createEventHandler event_handle for event_handle in events
-
-  createEventHandler: (event_handle) ->
-    @_bound_events[event_handle] = []
-
-    @[event_handle] = (event, args...) =>
-      if $.isFunction event
-        @bind event_handle, event
-      else
-        @trigger event_handle, event, args...
-
-  bind: (type, fn) ->
-    @_bound_events[type].push fn
-
-  trigger: (type, args...) ->
-    for bound_event in @_bound_events[type]
-      bound_event.apply this, args
 
   highlight: (duration) ->
     clearTimeout @highlight_timeout
@@ -67,31 +35,30 @@ class Factlink.Fact
     else
       deActivateElements()
 
-  bindFocus: ->
-    @focus (e) =>
-      clearTimeout(@balloon_timeout)
+  focus: (e) =>
+    clearTimeout(@balloon_timeout)
 
-      @highlight()
+    @highlight()
 
-      unless @balloon.isVisible()
-        # Need to call a direct .hide() here to make sure not two popups are
-        # open at a time
-        Factlink.el.find('div.fl-popup').hide()
+    unless @balloon.isVisible() # this enables the balloon to call this without e
+      # Need to call a direct .hide() here to make sure not two popups are
+      # open at a time
+      Factlink.el.find('div.fl-popup').hide()
 
-        @balloon.show($(e.target).offset().top, e.pageX, e.show_fast)
+      @balloon.show($(e.target).offset().top, e.pageX, e.show_fast)
 
-    @blur (e) =>
-      clearTimeout(@balloon_timeout)
+  blur: =>
+    clearTimeout(@balloon_timeout)
 
-      unless @balloon.loading()
-        @stopHighlighting()
+    unless @balloon.loading()
+      @stopHighlighting()
 
-        hideBalloon = =>
-          @balloon.hide()
+      hideBalloon = =>
+        @balloon.hide()
 
-        @balloon_timeout = setTimeout hideBalloon, 300
+      @balloon_timeout = setTimeout hideBalloon, 300
 
-  click: ->
+  click: =>
     @balloon.startLoading()
 
     Factlink.showInfo @id, =>
