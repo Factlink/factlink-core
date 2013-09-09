@@ -1,1 +1,1 @@
-(function(Factlink, easyXDM, window, document, undefined) {
+(function(window, document) {
