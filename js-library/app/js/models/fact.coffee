@@ -57,13 +57,13 @@ class Factlink.Fact
 
     @stopHighlighting(duration) if duration
 
-  stopHighlighting: (delay) ->
+  stopHighlighting: (delay=0) ->
     clearTimeout(@highlight_timeout)
 
     deActivateElements = =>
       $(@elements).removeClass('fl-active')
 
-    if delay
+    if delay > 0
       @highlight_timeout = setTimeout deActivateElements, delay
     else
       deActivateElements()
