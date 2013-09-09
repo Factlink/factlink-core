@@ -46,13 +46,13 @@ module.exports = (grunt) ->
           banner: banner_template
         src: [
           'dist/js/libs/jquery-1.7.2.js',
-          'dist/js/libs/easyXDM.js',
           'dist/js/core.js',
           'dist/wrapped.js'
         ]
         dest: 'dist/factlink.core.js'
       loader:
         src: [
+          'dist/js/libs/easyXDM.js',
           'dist/js/loader.js'
         ]
         dest: 'dist/factlink.js'
