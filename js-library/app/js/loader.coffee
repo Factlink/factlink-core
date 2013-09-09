@@ -9,7 +9,6 @@ flScript = document.createElement('script')
 
 iframeLoaded = false
 
-iframeDoc = undefined
 iframe.style.display = 'block'
 iframe.style.border = '0px solid transparent'
 iframe.id = 'factlink-iframe'
