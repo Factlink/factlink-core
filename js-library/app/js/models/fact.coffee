@@ -15,7 +15,7 @@ class Factlink.Fact
 
     @highlight(1500)
 
-    @balloon = new Factlink.Balloon id, @
+    @balloon = new Factlink.Balloon this
 
     # Bind the own events
     $(@elements)
