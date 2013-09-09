@@ -1,38 +1,34 @@
-Factlink.Prepare = ->
+class Factlink.Prepare
 
-  el = null
-  loading = false
+  constructor: ->
+    @$el = $(Factlink.templates.create)
+    @$el.appendTo Factlink.el
+    @$el.hide()
 
-  el = $(Factlink.templates.create)
-  el.appendTo Factlink.el
-  el.hide()
-  el.bind "mouseup", (e) -> e.stopPropagation()
-  el.bind "mousedown", (e) -> e.preventDefault()
-  el.bind "click", (e) =>
-    e.preventDefault()
-    e.stopPropagation()
-    @startLoading()
-    Factlink.createFactFromSelection()
+    @$el.bind "mouseup", (e) -> e.stopPropagation()
+    @$el.bind "mousedown", (e) -> e.preventDefault()
+    @$el.bind "click", (e) =>
+      e.preventDefault()
+      e.stopPropagation()
+      @startLoading()
+      Factlink.createFactFromSelection()
 
-  @show = (top, left) =>
-    Factlink.set_position_of_element top, left, window, el
-    el.fadeIn "fast"
+  show: (top, left) =>
+    Factlink.set_position_of_element top, left, window, @$el
+    @$el.fadeIn "fast"
 
-  @hide = (callback) =>
-    el.fadeOut "fast", =>
-      @stopLoading() if loading
+  hide: (callback) =>
+    @$el.fadeOut "fast", =>
+      @stopLoading() if @_loading
       callback?()
 
-  @startLoading = ->
-    loading = true
-    el.addClass "fl-loading"
+  startLoading: ->
+    @_loading = true
+    @$el.addClass "fl-loading"
 
-  @stopLoading = ->
-    loading = false
-    @hide ->
-      el.removeClass "fl-loading"
+  stopLoading: ->
+    @_loading = false
+    @hide => @$el.removeClass "fl-loading"
 
-  @isVisible = ->
-    el.is ":visible"
-
-  return this
+  isVisible: ->
+    @$el.is ":visible"
