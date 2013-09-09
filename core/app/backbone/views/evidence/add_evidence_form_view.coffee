@@ -58,6 +58,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       error: =>
         onFinish()
         @collection.remove fact_relation
+        @collection.trigger 'error_adding_model'
         @showError()
 
       success: =>

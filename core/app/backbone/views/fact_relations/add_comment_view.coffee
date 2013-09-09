@@ -57,6 +57,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   addModelError: ->
     @enableSubmit()
     @alertError()
+    @options.addToCollection.trigger 'error_adding_model'
 
   switchCheckboxClicked: (e)->
     @trigger 'switch_to_fact_relation_view', @_textModel().get('text')
