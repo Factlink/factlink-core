@@ -1,3 +1,3 @@
+  if (window.jQuery) window.jQuery(window).trigger('factlink.libraryLoaded');
 })(window.parent, window.parent.document);
 
-if (window.parent.jQuery) window.parent.jQuery(window.parent).trigger('factlink.libraryLoaded');
