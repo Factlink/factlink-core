@@ -55,6 +55,7 @@ class Factlink.Fact
     @balloon?.startLoading()
 
     Factlink.showInfo @id, =>
+      @stopHighlighting()
       @balloon.hide =>
         @balloon.destroy()
         @balloon = null

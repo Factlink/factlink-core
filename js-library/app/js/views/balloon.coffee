@@ -13,9 +13,7 @@ class Factlink.Balloon
     @$el.show()
     Factlink.set_position_of_element top, left, window, @$el
 
-  hide: (callback) ->
-    @$el.fadeOut "fast", callback
-    @_fact.stopHighlighting()
+  hide: (callback) -> @$el.fadeOut "fast", callback
 
   destroy: -> @$el.remove()
 
