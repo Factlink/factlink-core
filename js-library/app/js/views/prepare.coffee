@@ -1,7 +1,6 @@
 Factlink.Prepare = ->
 
   el = null
-  facts = null
   loading = false
 
   el = $(Factlink.templates.create)
@@ -15,13 +14,7 @@ Factlink.Prepare = ->
     @startLoading()
     Factlink.createFactFromSelection()
 
-  el.delegate ".fl-created", "click", (e) =>
-    if facts.length > 0
-      facts[0].click()
-      @hide 100
-
   @show = (top, left) =>
-    @resetType()
     Factlink.set_position_of_element top, left, window, el
     el.fadeIn "fast"
 
@@ -41,15 +34,5 @@ Factlink.Prepare = ->
 
   @isVisible = ->
     el.is ":visible"
-
-  types = ["fl-create", "fl-created"]
-
-  @setType = (str) ->
-    el.removeClass(types.join(" ")).addClass str
-
-  @resetType = =>
-    el.removeClass(types.join(" ")).addClass types[0]
-    el.removeClass "right left"
-    facts = []
 
   return this
