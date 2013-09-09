@@ -5,12 +5,6 @@ Factlink.Prepare = ->
   facts = null
   loading = false
 
-  bindAddEvidenceClick = =>
-    el.delegate ".fl-created", "click", (e) =>
-      if facts.length > 0
-        facts[0].click()
-        @hide 100
-
   el = $(Factlink.templates.create)
   el.appendTo Factlink.el
   el.hide()
@@ -22,7 +16,10 @@ Factlink.Prepare = ->
     @startLoading()
     Factlink.createFactFromSelection()
 
-  bindAddEvidenceClick()
+  el.delegate ".fl-created", "click", (e) =>
+    if facts.length > 0
+      facts[0].click()
+      @hide 100
 
   @show = (top, left) =>
     @resetType()
