@@ -1,8 +1,5 @@
 class Factlink.Balloon
   constructor: (fact) ->
-    @_mouseOutTimeoutID = null
-    @_loadingTimeoutID = null
-    @_loading = false
     @_fact = fact
 
     @$el = $(Factlink.templates.indicator)
@@ -45,4 +42,4 @@ class Factlink.Balloon
     @_loading = false
     @hide => @$el.removeClass "fl-loading"
 
-  loading: -> @_loading
+  loading: -> !!@_loading
