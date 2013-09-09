@@ -2,6 +2,7 @@ window.Factlink = {}
 
 Factlink.global = window.parent
 
+# See http://stackoverflow.com/questions/3690447/override-default-jquery-selector-context
 jQuery.noConflict()
 window.$ = (selector, context) ->
   new jQuery.fn.init(selector, context or Factlink.global.document)
