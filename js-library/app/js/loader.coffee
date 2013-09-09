@@ -40,14 +40,6 @@ if FactlinkConfig.srcPath.match(/\.min\.js$/)
 else
   coreScriptTag.src = FactlinkConfig.lib + FactlinkConfig.srcPath
 
-coreScriptTag.onload = coreScriptTag.onreadystatechange = ->
-  return false if coreScriptTag.readyState && coreScriptTag.readyState not in ['complete', 'loaded']
-
-  coreScriptTag.onload = coreScriptTag.onreadystatechange = null
-
-  window.FACTLINK = iframe.contentWindow.Factlink
-  jQuery?(window).trigger 'factlink.libraryLoaded'
-
 #### Load iframe with script tag
 
 window.FACTLINK_ON_IFRAME_LOAD = ->
