@@ -7,7 +7,6 @@ div = document.createElement('div')
 hasReadyState = 'readyState' of iframe
 flScript = document.createElement('script')
 
-scriptLoaded = false
 iframeLoaded = false
 
 iframeDoc = undefined
@@ -24,6 +23,7 @@ if FactlinkConfig.srcPath.match(/\.min\.js$/)
 else
   flScript.src = FactlinkConfig.lib + FactlinkConfig.srcPath
 
+scriptLoaded = false
 flScript.onload = flScript.onreadystatechange = ->
   return false if scriptLoaded
   return false if flScript.readyState? not in ['complete', 'loaded']
