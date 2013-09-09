@@ -36,7 +36,7 @@ class Factlink.Fact
       deActivateElements()
 
   focus: (e) =>
-    clearTimeout(@balloon_timeout)
+    clearTimeout(@balloon_hide_timeout)
 
     @highlight()
 
@@ -48,15 +48,13 @@ class Factlink.Fact
       @balloon.show($(e.target).offset().top, e.pageX, e.show_fast)
 
   blur: =>
-    clearTimeout(@balloon_timeout)
+    clearTimeout(@balloon_hide_timeout)
 
     unless @balloon.loading()
       @stopHighlighting()
 
-      hideBalloon = =>
-        @balloon.hide()
+      @balloon_hide_timeout = setTimeout (=> @balloon.hide()), 300
 
-      @balloon_timeout = setTimeout hideBalloon, 300
   click: => @openFactlinkModal()
 
   openFactlinkModal: =>
