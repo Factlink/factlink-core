@@ -20,9 +20,9 @@ class Factlink.Fact
 
     # Bind the own events
     $(@elements)
-      .on('mouseenter', @focus)
-      .on('mouseleave', @blur)
-      .on('click', (=> @click()))
+      .on 'mouseenter', @focus
+      .on 'mouseleave', @blur
+      .on 'click', => @click()
       .on 'inview', (event, isInView, visiblePart) =>
         @highlight(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
 
