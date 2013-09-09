@@ -107,7 +107,7 @@
 
 .tour-follow-user-block {
   border: 1px solid @tableBorder;
-  border-radius: 4px;
+  border-radius: @baseBorderRadius;
   background: white;
   position: absolute;
   //the user's info box should leave some extra space on the top of
@@ -166,7 +166,7 @@
 }
 
 .tour-user-button-region > .button {
-  border-radius: 0 0 4px 4px !important;
+  border-radius: 0 0 @baseBorderRadius @baseBorderRadius !important;
 }
 
 .hover > .tour-follow-user-block {
