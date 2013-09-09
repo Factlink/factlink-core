@@ -1,7 +1,6 @@
 Factlink.Prepare = ->
 
   el = null
-  factId = null
   facts = null
   loading = false
 
@@ -43,15 +42,6 @@ Factlink.Prepare = ->
   @isVisible = ->
     el.is ":visible"
 
-  @setFactId = (id) ->
-    factId = id
-
-  @resetFactId = ->
-    factId = null
-
-  @getFactId = ->
-    factId
-
   types = ["fl-create", "fl-created"]
 
   @setType = (str) ->
@@ -61,6 +51,5 @@ Factlink.Prepare = ->
     el.removeClass(types.join(" ")).addClass types[0]
     el.removeClass "right left"
     facts = []
-    @resetFactId()
 
   return this

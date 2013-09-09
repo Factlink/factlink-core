@@ -18,7 +18,6 @@ Factlink.startAnnotating = ->
     window.clearTimeout timeout
     if Factlink.prepare.isVisible()
       Factlink.prepare.hide()
-      Factlink.prepare.resetFactId()
 
     # We execute the showing of the prepare menu inside of a setTimeout
     # because of selection change only activating after mouseup event call.
