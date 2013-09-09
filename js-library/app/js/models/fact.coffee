@@ -8,8 +8,6 @@ class Factlink.Fact
 
     @highlight highlight_time_on_load
 
-    @balloon = new Factlink.Balloon this
-
     $(@elements)
       .on('mouseenter', (e)=> @focus(e))
       .on('mouseleave', => @blur())
@@ -27,37 +25,39 @@ class Factlink.Fact
   stopHighlighting: (delay=0) ->
     clearTimeout(@highlight_timeout)
 
-    deActivateElements = =>
-      $(@elements).removeClass('fl-active')
+    actuallyStopHighlighting = => $(@elements).removeClass('fl-active')
 
     if delay > 0
-      @highlight_timeout = setTimeout deActivateElements, delay
+      @highlight_timeout = setTimeout actuallyStopHighlighting, delay
     else
-      deActivateElements()
+      actuallyStopHighlighting()
 
   focus: (e) =>
     clearTimeout(@balloon_hide_timeout)
 
     @highlight()
 
-    unless @balloon.isVisible() # this enables the balloon to call this without e
+    unless @balloon # this enables the balloon to call this without e
+      @balloon = new Factlink.Balloon this
       @balloon.show($(e.target).offset().top, e.pageX)
 
   blur: =>
     clearTimeout(@balloon_hide_timeout)
 
-    unless @balloon.loading()
+    unless @balloon?.loading()
       @stopHighlighting()
 
-      @balloon_hide_timeout = setTimeout (=> @balloon.hide()), 300
+      @balloon_hide_timeout = setTimeout (=> @balloon?.hide()), 300
 
   click: => @openFactlinkModal()
 
   openFactlinkModal: =>
-    @balloon.startLoading()
+    @balloon?.startLoading()
 
     Factlink.showInfo @id, =>
-      @balloon.stopLoading()
+      @balloon.hide =>
+        @balloon.destroy()
+        @balloon = null
 
   destroy: ->
     for el in @elements
