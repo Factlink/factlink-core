@@ -1,5 +1,5 @@
 class Factlink.Balloon
-  constructor: (factId, fact) ->
+  constructor: (fact) ->
     @_mouseOutTimeoutID = null
     @_loadingTimeoutID = null
     @_loading = false
