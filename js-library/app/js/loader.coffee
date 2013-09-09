@@ -6,8 +6,6 @@ iframe = document.createElement('iframe')
 div = document.createElement('div')
 flScript = document.createElement('script')
 
-iframeLoaded = false
-
 iframe.style.display = 'block'
 iframe.style.border = '0px solid transparent'
 iframe.id = 'factlink-iframe'
