@@ -153,6 +153,7 @@
   > .evidence-box {
     margin-top: @unsureImpactToBoxDistance;
     margin-bottom: @evidenceBoxSpacing;
+    position: relative;
   }
 
   > .evidence-spacer-left,
@@ -163,6 +164,18 @@
   }
   > .evidence-spacer-left  { float: left; }
   > .evidence-spacer-right { float: right; }
+
+  .discussion-interacting-users:after {
+    content: "";
+    display: block;
+    width: 3px;
+    height: 100% + 7px;
+    background-color: #f5f5f6;
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    margin-left: -1px;   
+  }
 }
 
 // Irrelevant (faded out)
