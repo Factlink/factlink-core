@@ -96,7 +96,6 @@ feature "adding factlinks to a fact", type: :feature do
 
       find(".evidence-impact-vote-up").click
       find('.js-fact-relation-believe').set false
-      page.find('button', text: 'Done').click
 
       find('.evidence-impact-text', text: "0.0")
     end
