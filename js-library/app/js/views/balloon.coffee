@@ -30,7 +30,7 @@ class Factlink.Balloon
   hide: (callback) ->
     window.clearTimeout @_mouseOutTimeoutID
     @$el.fadeOut "fast", callback
-    @_fact?.stopHighlighting()
+    @_fact.stopHighlighting()
 
   isVisible: ->
     @$el.is ":visible"
