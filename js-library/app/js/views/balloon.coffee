@@ -3,14 +3,16 @@ class Factlink.Balloon
     @_mouseOutTimeoutID = null
     @_loadingTimeoutID = null
     @_loading = false
+    @_fact = fact
+
     @_initializeTemplate()
 
   _initializeTemplate: ->
     @$el = $(Factlink.templates.indicator)
     @$el.appendTo(Factlink.el)
-    @$el.bind "mouseenter", -> fact.focus()
-    @$el.bind "mouseleave", -> fact.blur()
-    @$el.bind "click", -> fact.click()
+    @$el.bind "mouseenter", => @_fact.focus()
+    @$el.bind "mouseleave", => @_fact.blur()
+    @$el.bind "click", => @_fact.click()
 
   _hideAll: ->
     @$el.closest("#fl").find(".fl-popup").hide()
@@ -28,7 +30,7 @@ class Factlink.Balloon
   hide: (callback) ->
     window.clearTimeout @_mouseOutTimeoutID
     @$el.fadeOut "fast", callback
-    fact?.stopHighlighting()
+    @_fact?.stopHighlighting()
 
   isVisible: ->
     @$el.is ":visible"
