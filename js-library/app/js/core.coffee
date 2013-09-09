@@ -1,6 +1,5 @@
 window.Factlink = {}
 
-Factlink.oldWindow = window
 Factlink.global = window.parent
 
 jQuery.noConflict()
