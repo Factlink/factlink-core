@@ -5,9 +5,6 @@ class Factlink.Balloon
     @_loading = false
     @_fact = fact
 
-    @_initializeTemplate()
-
-  _initializeTemplate: ->
     @$el = $(Factlink.templates.indicator)
     @$el.appendTo(Factlink.el)
     @$el.bind "mouseenter", => @_fact.focus()
