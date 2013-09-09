@@ -11,9 +11,6 @@ class Factlink.Fact
 
     @elements = elems
 
-    @obj =
-      id: id
-
     @createEventHandlers(@_events)
 
     @highlight highlight_time_on_load
