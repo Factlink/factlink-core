@@ -9,7 +9,6 @@ window.$ = (selector, context) ->
 
 $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
-Factlink.$ = window.$
 
 if Factlink.global.easyXDM
   Factlink.global.FACTLINK = {}
