@@ -41,7 +41,7 @@ else
   coreScriptTag.src = FactlinkConfig.lib + FactlinkConfig.srcPath
 
 coreScriptTag.onload = coreScriptTag.onreadystatechange = ->
-  return false if coreScriptTag.readyState? not in ['complete', 'loaded']
+  return false if coreScriptTag.readyState && coreScriptTag.readyState not in ['complete', 'loaded']
 
   coreScriptTag.onload = coreScriptTag.onreadystatechange = null
 
