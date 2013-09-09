@@ -20,7 +20,7 @@ class Factlink.Fact
   highlight: (duration) ->
     clearTimeout @highlight_timeout
 
-    $( @elements ).addClass('fl-active')
+    $(@elements).addClass('fl-active')
 
     @stopHighlighting(duration) if duration
 
