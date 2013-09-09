@@ -306,6 +306,10 @@
   }
 }
 
+.evidence-impact-vote-popover {
+  z-index: 1; // force it just above the other evidence, inside this stacking context
+}
+
 // Add evidence buttons
 @weakeningLineOffset: 4px + -ceil(@middleLineWidth/2);
 @supportingLineOffset: 4px + floor(@middleLineWidth/2);

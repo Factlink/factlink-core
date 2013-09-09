@@ -1,15 +1,29 @@
 @import "bootstrap/mixins";
 
 .vote-up-down {
-  .clearfix();
-  width: 300px;
-  padding: 20px;
+  width: 280px;
+}
 
-  h5 {
-    margin: 0;
+.vote-up-down-line {
+  margin: 16px 18px 0;
+  padding-bottom: 10px;
+  box-shadow: 0px 1px @mutedBorderBottomColor, 0px 2px @mutedBorderTopColor;
+
+  &:last-child {
+    box-shadow: none;
   }
+}
 
-  .button-confirm { float: right; }
+.vote-up-down-button {
+  margin-top: -3px;
+  margin-left: 10px;
+}
 
-  .tabular { border-spacing: 0.5em 0.1em; margin: 1em -0.5em; }
+.vote-up-down-text {
+  transition: background-color 0.5s;
+  background-color: transparent;
+}
+
+.vote-up-down-highlight .vote-up-down-text {
+  background-color: @lightYellow;
 }
