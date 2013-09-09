@@ -69,13 +69,13 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
           factlink_id: @options.fact_id
           type: @options.type
 
-  switchToCommentView: (content) ->
+  switchToCommentView: (content=null) ->
     @inputRegion.switchTo 'add_comment_view'
-    @inputRegion.getView('add_comment_view').setFormContent(content) if content
+    @inputRegion.getView('add_comment_view').setFormContent(content) if content?
 
-  switchToFactRelationView: (content) ->
+  switchToFactRelationView: (content=null) ->
     @inputRegion.switchTo 'search_view'
-    @inputRegion.getView('search_view').setQuery(content) if content
+    @inputRegion.getView('search_view').setQuery(content) if content?
 
   showError: -> @$('.js-error').show()
   hideError: -> @$('.js-error').hide()
