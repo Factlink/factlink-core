@@ -1,5 +1,3 @@
-stop_loading_timeout = 17000
-
 class Factlink.Balloon
   constructor: (fact) ->
     @_fact = fact
@@ -34,11 +32,9 @@ class Factlink.Balloon
 
   startLoading: ->
     @_loading = true
-    @_loadingTimeoutID = setTimeout (=> @stopLoading()), stop_loading_timeout
     @$el.addClass "fl-loading"
 
   stopLoading: ->
-    window.clearTimeout @_loadingTimeoutID
     @_loading = false
     @hide => @$el.removeClass "fl-loading"
 
