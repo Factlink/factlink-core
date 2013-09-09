@@ -17,10 +17,10 @@ class Factlink.Prepare
     Factlink.set_position_of_element top, left, window, @$el
     @$el.fadeIn "fast"
 
-  hide: (callback) =>
+  hide: (callback=->) =>
     @$el.fadeOut "fast", =>
       @stopLoading() if @_loading
-      callback?()
+      callback()
 
   startLoading: ->
     @_loading = true
