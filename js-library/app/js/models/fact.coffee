@@ -1,3 +1,6 @@
+highlight_time_on_load    = 1500
+highlight_time_on_in_view = 1500
+
 class Factlink.Fact
   # If you want to support more events add them to this variable:
   _events: ["focus", "blur", "click", "update"]
@@ -13,7 +16,7 @@ class Factlink.Fact
 
     @createEventHandlers(@_events)
 
-    @highlight(1500)
+    @highlight highlight_time_on_load
 
     @balloon = new Factlink.Balloon id, @
 
@@ -23,7 +26,7 @@ class Factlink.Fact
       .on('mouseleave', @blur)
       .on('click', @click)
       .on 'inview', (event, isInView, visiblePart) =>
-        @highlight(1500) if ( isInView && visiblePart == 'both' )
+        @highlight(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
 
     @bindFocus()
 
@@ -50,24 +53,23 @@ class Factlink.Fact
     for bound_event in @_bound_events[type]
       bound_event.apply this, args
 
-  highlight: (timer) ->
+  highlight: (duration) ->
     clearTimeout @highlight_timeout
 
     $( @elements ).addClass('fl-active')
 
-    if timer
-      @stopHighlighting(timer)
+    @stopHighlighting(duration) if duration
 
-  stopHighlighting: (timer) ->
+  stopHighlighting: (delay) ->
     clearTimeout(@highlight_timeout)
 
-    if timer
-      deActivateElements = =>
-        $(@elements).removeClass('fl-active')
+    deActivateElements = =>
+      $(@elements).removeClass('fl-active')
 
-      @highlight_timeout = setTimeout deActivateElements, timer
+    if delay
+      @highlight_timeout = setTimeout deActivateElements, delay
     else
-      $( @elements ).removeClass('fl-active')
+      deActivateElements()
 
   bindFocus: ->
     @focus (e) =>
