@@ -4,7 +4,6 @@ hashOfFactlinkCoreFile = '&*HASH_PLACE_HOLDER*&'
 
 iframe = document.createElement('iframe')
 div = document.createElement('div')
-hasReadyState = 'readyState' of iframe
 flScript = document.createElement('script')
 
 iframeLoaded = false
