@@ -24,11 +24,9 @@ class Factlink.Balloon
     @$el.fadeOut "fast", callback
     @_fact.stopHighlighting()
 
-  isVisible: ->
-    @$el.is ":visible"
+  isVisible: -> @$el.is ":visible"
 
-  destroy: ->
-    @$el.remove()
+  destroy: -> @$el.remove()
 
   startLoading: ->
     @_loading = true
