@@ -1,52 +1,49 @@
-Factlink.Balloon = (factId, fact) ->
-  el = null
-  mouseOutTimeoutID = null
-  loadingTimeoutID = null
-  loading = false
+class Factlink.Balloon
+  constructor: (factId, fact) ->
+    @_mouseOutTimeoutID = null
+    @_loadingTimeoutID = null
+    @_loading = false
+    @_initializeTemplate()
 
-  initializeTemplate = ->
-    el = $(Factlink.templates.indicator)
-    el.appendTo(Factlink.el)
-    el.bind "mouseenter", -> fact.focus()
-    el.bind "mouseleave", -> fact.blur()
-    el.bind "click", -> fact.click()
+  _initializeTemplate: ->
+    @$el = $(Factlink.templates.indicator)
+    @$el.appendTo(Factlink.el)
+    @$el.bind "mouseenter", -> fact.focus()
+    @$el.bind "mouseleave", -> fact.blur()
+    @$el.bind "click", -> fact.click()
 
-  hideAll = ->
-    el.closest("#fl").find(".fl-popup").hide()
+  _hideAll: ->
+    @$el.closest("#fl").find(".fl-popup").hide()
 
-  initializeTemplate()
-
-  @show = (top, left, fast) ->
-    window.clearTimeout mouseOutTimeoutID
+  show: (top, left, fast) ->
+    window.clearTimeout @_mouseOutTimeoutID
     if fast
-      hideAll()
-      el.show()
+      @_hideAll()
+      @$el.show()
     else
-      mouseOutTimeoutID = window.setTimeout (-> hideAll(); el.fadeIn "fast"), 200
+      @_mouseOutTimeoutID = window.setTimeout (=> @_hideAll(); @$el.fadeIn "fast"), 200
 
-    Factlink.set_position_of_element top, left, window, el
+    Factlink.set_position_of_element top, left, window, @$el
 
-  @hide = (callback) ->
-    window.clearTimeout mouseOutTimeoutID
-    el.fadeOut "fast", callback
+  hide: (callback) ->
+    window.clearTimeout @_mouseOutTimeoutID
+    @$el.fadeOut "fast", callback
     fact?.stopHighlighting()
 
-  @isVisible = ->
-    el.is ":visible"
+  isVisible: ->
+    @$el.is ":visible"
 
-  @destroy = ->
-    el.remove()
+  destroy: ->
+    @$el.remove()
 
-  @startLoading = ->
-    loading = true
-    loadingTimeoutID = setTimeout (=> @stopLoading()), 17000
-    el.addClass "fl-loading"
+  startLoading: ->
+    @_loading = true
+    @_loadingTimeoutID = setTimeout (=> @stopLoading()), 17000
+    @$el.addClass "fl-loading"
 
-  @stopLoading = ->
-    window.clearTimeout loadingTimeoutID
-    loading = false
-    @hide -> el.removeClass "fl-loading"
+  stopLoading: ->
+    window.clearTimeout @_loadingTimeoutID
+    @_loading = false
+    @hide => @$el.removeClass "fl-loading"
 
-  @loading = -> loading
-
-  return this
+  loading: -> @_loading
