@@ -3,9 +3,10 @@ highlight_time_on_in_view = 1500
 
 class Factlink.Fact
   # If you want to support more events add them to this variable:
-  _events: ["focus", "blur", "click", "update"]
+  _events: ["focus", "blur"]
 
   constructor: (id, elems) ->
+    @id = id
     # Internal object which will hold all bound event handlers
     @_bound_events = {}
 
@@ -15,19 +16,17 @@ class Factlink.Fact
 
     @highlight highlight_time_on_load
 
-    @balloon = new Factlink.Balloon id, @
+    @balloon = new Factlink.Balloon @id, @
 
     # Bind the own events
     $(@elements)
       .on('mouseenter', @focus)
       .on('mouseleave', @blur)
-      .on('click', @click)
+      .on('click', (=> @click()))
       .on 'inview', (event, isInView, visiblePart) =>
         @highlight(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
 
     @bindFocus()
-
-    @bindClick id
 
   # This may look like some magic, but here we expose the Fact.blur/focus/click
   # methods
@@ -70,7 +69,7 @@ class Factlink.Fact
 
   bindFocus: ->
     @focus (e) =>
-      clearTimeout(@timeout)
+      clearTimeout(@balloon_timeout)
 
       @highlight()
 
@@ -82,7 +81,7 @@ class Factlink.Fact
         @balloon.show($(e.target).offset().top, e.pageX, e.show_fast)
 
     @blur (e) =>
-      clearTimeout(@timeout)
+      clearTimeout(@balloon_timeout)
 
       unless @balloon.loading()
         @stopHighlighting()
@@ -90,14 +89,13 @@ class Factlink.Fact
         hideBalloon = =>
           @balloon.hide()
 
-        @timeout = setTimeout hideBalloon, 300
+        @balloon_timeout = setTimeout hideBalloon, 300
 
-  bindClick: (id) ->
-    @click =>
-      @balloon.startLoading()
+  click: ->
+    @balloon.startLoading()
 
-      Factlink.showInfo id, =>
-        @balloon.stopLoading()
+    Factlink.showInfo @id, =>
+      @balloon.stopLoading()
 
   destroy: ->
     for el in @elements
