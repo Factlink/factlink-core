@@ -41,7 +41,7 @@ class Factlink.Fact
     @highlight()
 
     unless @balloon.isVisible() # this enables the balloon to call this without e
-      @balloon.show($(e.target).offset().top, e.pageX, e.show_fast)
+      @balloon.show($(e.target).offset().top, e.pageX)
 
   blur: =>
     clearTimeout(@balloon_hide_timeout)
