@@ -8,18 +8,21 @@ class Factlink.Balloon
     @$el.bind "mouseleave", => @_fact.blur()
     @$el.bind "click", => @_fact.click()
 
-  _hideAll: ->
-    @$el.closest("#fl").find(".fl-popup").hide()
+  hideAll: ->
+    Factlink.el.find('div.fl-popup').hide()
 
   show: (top, left, fast) ->
     window.clearTimeout @_mouseOutTimeoutID
     if fast
-      @_hideAll()
-      @$el.show()
+      @actualShow()
     else
-      @_mouseOutTimeoutID = window.setTimeout (=> @_hideAll(); @$el.fadeIn "fast"), 200
+      @_mouseOutTimeoutID = window.setTimeout (=> @actualShow()), 200
 
     Factlink.set_position_of_element top, left, window, @$el
+
+  actualShow: ->
+    @hideAll()
+    @$el.show()
 
   hide: (callback) ->
     window.clearTimeout @_mouseOutTimeoutID
