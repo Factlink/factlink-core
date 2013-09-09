@@ -10,8 +10,7 @@ class Factlink.Views.Notification
   """
 
   default_options:
-    in_screen_time: 2000
-    fade_time: 'slow'
+    in_screen_time: 1000
     type_classes: ''
 
   constructor: (options) ->
