@@ -8,6 +8,7 @@ class window.InteractiveTour extends Backbone.View
 
   helpTextDelay: 560
 
+  # TODO: create events in the js-library for this
   detectSelecting: ->
     if @_getTextRange().length > 0
       @state.select_text()
