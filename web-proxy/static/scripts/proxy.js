@@ -81,16 +81,4 @@ domReady(function(){
 
 });
 
-function scriptTag(url){
-  var script = document.createElement("script");
-  script.type = "text/javascript";
-  script.async = false;
-  script.src = url;
-  return script;
-}
-
-// DUPLICATED IN CHROME EXTENSION, PLEASE CHANGE BOTH!
-var script = scriptTag(window.FactlinkConfig.lib + (FactlinkProxyConfig.ENV === "development" ? "/factlink.js" : "/factlink.min.js"));
-document.head.insertBefore(script, null);
-
 })(window, document);

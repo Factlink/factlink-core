@@ -51,9 +51,7 @@ function getServer(config) {
       api: config.API_URL,
       lib: config.LIB_URL,
       srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
-      url: site,
-      autoStartHighlighting: true,
-      autoStartAnnotating: true
+      url: site
     };
 
     blacklist.if_allowed(site,function() {
@@ -67,12 +65,17 @@ function getServer(config) {
         FactlinkConfig.scrollto = parseInt(scrollto, 10);
       }
 
-      // Inject Factlink library before </head>
-      var set_urls      = '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>';
-      var set_config    = '<script>window.FactlinkProxyConfig = ' + JSON.stringify(config) + '</script>';
-      var load_proxy_js = '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
-      html = html.replace(/<\/head>/i, set_urls + set_config + load_proxy_js + '$&');
-      successFn(html);
+      // Inject Factlink library at the end of the file
+      var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
+
+      var inject_string = '<!-- this comment is to accommodate for pages that end in an open comment! -->' +
+                          '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>' +
+                          '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
+                          '<script>FACTLINK.startHighlighting(); FACTLINK.startAnnotating();</script>' +
+                          '<script>window.FactlinkProxyConfig = ' + JSON.stringify(config) + '</script>' +
+                          '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+
+      successFn(html + inject_string);
     },function(){
       successFn(html_in);
     });
