@@ -91,11 +91,6 @@ function scriptTag(url){
 
 // DUPLICATED IN CHROME EXTENSION, PLEASE CHANGE BOTH!
 var script = scriptTag(window.FactlinkConfig.lib + (FactlinkProxyConfig.ENV === "development" ? "/factlink.js" : "/factlink.min.js"));
-
-script.onload = function() {
-  document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkProxyConfig.ENV === "development" ? "/factlink.start_highlighting.js" : "/factlink.start_highlighting.min.js" ) ) , null);
-  document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkProxyConfig.ENV === "development" ? "/factlink.start_annotating.js" : "/factlink.start_annotating.min.js" ) ) , null );
-};
-
 document.head.insertBefore(script, null);
+
 })(window, document);

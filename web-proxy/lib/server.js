@@ -52,9 +52,8 @@ function getServer(config) {
       lib: config.LIB_URL,
       srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
       url: site,
-      // TODO: do use autoStartHighlighting and autoStartAnnotating as intended
-      autoStartHighlighting: false,
-      autoStartAnnotating: false
+      autoStartHighlighting: true,
+      autoStartAnnotating: true
     };
 
     blacklist.if_allowed(site,function() {
