@@ -5,4 +5,4 @@ window.FactlinkConfig.srcPath ?= '/factlink.core.min.js'
 window.FactlinkConfig.autoStartHighlighting ?= false
 window.FactlinkConfig.autoStartAnnotating ?= false
 
-window.START_FACTLINK_LOADER()
+window.FACTLINK_START_LOADER()

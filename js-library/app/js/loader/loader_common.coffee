@@ -1,4 +1,4 @@
-window.START_FACTLINK_LOADER = ->
+window.FACTLINK_START_LOADER = ->
   return if window.FACTLINK_LOADED?
   window.FACTLINK_LOADED = true
 
