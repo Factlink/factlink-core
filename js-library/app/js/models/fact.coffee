@@ -1,33 +1,33 @@
 highlight_time_on_load    = 1500
 highlight_time_on_in_view = 1500
-delay_between_highlight_and_balloon_open = 400
+delay_between_highlight_and_show_button_open = 400
 
 
-class BalloonManager
+class ShowButtonManager
   constructor: (fact, dom_events) ->
     @dom_events = dom_events
     @fact = fact
 
   set_coordinates: (@top, @left) =>
 
-  openBalloon:  =>
+  openShowButton:  =>
     return if @opening_timeout
     @opening_timeout = setTimeout =>
       @_stopOpening()
-      @_realOpenBalloon(@top, @left)
-    , delay_between_highlight_and_balloon_open
+      @_realOpenShowButton(@top, @left)
+    , delay_between_highlight_and_show_button_open
 
-  _realOpenBalloon: (top, left) =>
-    return if @balloon
-    @balloon = new Factlink.Balloon @dom_events
-    @balloon.show(top, left)
+  _realOpenShowButton: (top, left) =>
+    return if @show_button
+    @show_button = new Factlink.ShowButton @dom_events
+    @show_button.show(top, left)
 
-  closeBalloon: ->
+  closeShowButton: ->
     @_stopOpening()
-    @balloon?.hide (balloon)-> balloon.destroy()
-    @balloon = null
+    @show_button?.hide (show_button)-> show_button.destroy()
+    @show_button = null
 
-  startLoading: -> @balloon?.startLoading()
+  startLoading: -> @show_button?.startLoading()
 
   _stopOpening: ->
     clearTimeout @opening_timeout
@@ -73,7 +73,7 @@ class Factlink.Fact
     @highlighter = new Highlighter $(@elements)
 
 
-    @balloon_manager = new BalloonManager this,
+    @show_button_manager = new ShowButtonManager this,
       mouseenter: => @onFocus()
       mouseleave: => @onBlur()
       click:      => @openFactlinkModal()
@@ -94,18 +94,18 @@ class Factlink.Fact
   onBlur: -> @attention_span.neglect()
   onFocus: (e) =>
     if e?
-      @balloon_manager.set_coordinates($(e.target).offset().top, e.pageX)
+      @show_button_manager.set_coordinates($(e.target).offset().top, e.pageX)
     @attention_span.attend()
 
   startEmphasis: ->
     @highlighter.highlight()
-    @balloon_manager.openBalloon()
+    @show_button_manager.openShowButton()
 
   stopEmphasis: =>
     return if @shouldHaveEmphasis()
 
     @highlighter.dehighlight()
-    @balloon_manager.closeBalloon()
+    @show_button_manager.closeShowButton()
 
   shouldHaveEmphasis: =>
     @attention_span.has_attention() || @_loading
@@ -116,7 +116,7 @@ class Factlink.Fact
 
   startLoading: ->
     @_loading = true
-    @balloon_manager.startLoading()
+    @show_button_manager.startLoading()
 
   stopLoading: ->
     @_loading = false
@@ -130,4 +130,4 @@ class Factlink.Fact
 
       $el.remove()
 
-    @balloon_manager.closeBalloon()
+    @show_button_manager.closeShowButton()

@@ -29,7 +29,7 @@ class Button
   destroy: -> @$el.remove()
 
 
-class Factlink.Balloon extends Button
+class Factlink.ShowButton extends Button
   template: """
     <div class="fl-popup">
       <span class="fl-default-message">Show Factlink</span>
