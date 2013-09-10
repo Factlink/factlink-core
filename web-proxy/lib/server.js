@@ -53,8 +53,7 @@ function getServer(config) {
       proxy: config.PROXY_URL,
       srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
       env: config.ENV,
-      url: site,
-      getFacts: true
+      url: site
     };
 
     blacklist.if_allowed(site,function() {
