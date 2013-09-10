@@ -1,37 +1,33 @@
 //IMPORTANT: please use only double quotes to delimit strings
 (function(){
-  var lib_url = "<%= jslib_url %>",
-      min = "<%= '.min' unless ['development'].include?(Rails.env) %>",
-      <% if ['development'].include?(Rails.env) %>
-        clear_cache = "?" + (new Date()).getTime(),
-      <% else %>
-        clear_cache = "",
-      <% end %>
-      head = document.getElementsByTagName("head")[0];
+  var lib_url = "<%= jslib_url %>";
 
-  function createScript(location, onLoad) {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.async = false;
-    script.src = location;
+  <% if ['development'].include?(Rails.env) %>
+    var loader_filename = "/factlink_loader_bookmarklet.js?" + (new Date()).getTime();
 
-    onLoad && (script.onload = onLoad);
+    window.FactlinkConfig = {
+      api: "<%= FactlinkUI::Application.config.api_url %>",
+      lib: lib_url,
+      srcPath: "/factlink.core.js"
+    };
+  <% elsif ['testserver', 'staging'].include?(Rails.env) %>
+    var loader_filename = "/factlink_loader_bookmarklet.min.js";
 
-    head.insertBefore(script,head.firstChild);
-  }
+    window.FactlinkConfig = {
+      api: "<%= FactlinkUI::Application.config.api_url %>",
+      lib: lib_url,
+      srcPath: "/factlink.core.min.js"
+    };
+  <% else %>
+    var loader_filename = "/factlink_loader_bookmarklet.min.js";
+  <% end %>
 
-  window.FactlinkConfig = {
-    modus: "default",
-    api: "<%= FactlinkUI::Application.config.api_url %>",
-    lib: lib_url,
-    client: "bookmarklet",
-    srcPath: "/factlink.core" + min + ".js"
-  };
 
-  //load the library
-  createScript(lib_url + "/factlink" + min + ".js" + clear_cache, function() {
-    createScript(lib_url + "/factlink.start_annotating" + min + ".js" + clear_cache);
-    createScript(lib_url + "/factlink.start_highlighting" + min + ".js" + clear_cache);
-  });
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = false;
+  script.src = lib_url + loader_filename;
+
+  var head = document.getElementsByTagName("head")[0];
+  head.insertBefore(script, head.firstChild);
 })();
-
