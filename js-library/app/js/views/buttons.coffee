@@ -37,7 +37,7 @@ class Factlink.ShowButton extends Button
     </div>
   """
 
-class Factlink.Prepare extends Button
+class Factlink.CreateButton extends Button
   template: """
     <div class="fl-popup">
       <span class="fl-default-message">Add Factlink</span>

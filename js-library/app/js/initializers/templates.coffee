@@ -1,1 +1,1 @@
-Factlink.prepare = new Factlink.Prepare
+Factlink.createButton = new Factlink.CreateButton

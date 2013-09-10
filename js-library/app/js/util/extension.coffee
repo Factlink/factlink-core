@@ -3,8 +3,8 @@ Factlink.triggerClick = ->
   left = (window.innerWidth/2)-39.5 + window.pageXOffset
 
   if Factlink.textSelected()
-    Factlink.prepare.show(top, left)
-    Factlink.prepare.startLoading()
+    Factlink.createButton.show(top, left)
+    Factlink.createButton.startLoading()
 
     Factlink.createFactFromSelection()
   else

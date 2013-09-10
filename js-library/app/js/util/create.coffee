@@ -11,7 +11,7 @@ Factlink.createFactFromSelection = (errorCallback) ->
   success = ->
     Factlink.modal.show.method()
     Factlink.trigger "modalOpened"
-    Factlink.prepare.stopLoading()
+    Factlink.createButton.hide()
 
   error = (e) ->
     console.error "Error openening modal: ", e
