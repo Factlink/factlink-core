@@ -56,6 +56,10 @@ window.FACTLINK_START_LOADER = ->
 
   proxy_method 'on'
   proxy_method 'triggerClick'
+  proxy_method 'startHighlighting'
+  proxy_method 'stopHighlighting'
+  proxy_method 'startAnnotating'
+  proxy_method 'stopAnnotating'
 
   window.FACTLINK_ON_CORE_LOAD = ->
     # This seems to be necessary, don't understand entirely why
