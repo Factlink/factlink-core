@@ -6,18 +6,18 @@ rightClick = (event=window.event) ->
   else
     false
 
-FACTLINK.textSelected = (e) ->
-  FACTLINK.getSelectionInfo().text?.length > 1
+Factlink.textSelected = (e) ->
+  Factlink.getSelectionInfo().text?.length > 1
 
 timeout = null
 
-FACTLINK.startAnnotating = ->
-  console.info "FACTLINK:", "startAnnotating"
+Factlink.startAnnotating = ->
+  console.info "Factlink:", "startAnnotating"
 
   $("body").bind "mouseup.factlink", (event) ->
     window.clearTimeout timeout
-    if FACTLINK.prepare.isVisible()
-      FACTLINK.prepare.hide()
+    if Factlink.prepare.isVisible()
+      Factlink.prepare.hide()
 
     # We execute the showing of the prepare menu inside of a setTimeout
     # because of selection change only activating after mouseup event call.
@@ -27,12 +27,12 @@ FACTLINK.startAnnotating = ->
       return if rightClick(event)
 
       # Check if the selected text is long enough to be added
-      if FACTLINK.textSelected() && !$(event.target).is(":input")
-        FACTLINK.prepare.show event.pageY, event.pageX
-        FACTLINK.trigger "textSelected"
+      if Factlink.textSelected() && !$(event.target).is(":input")
+        Factlink.prepare.show event.pageY, event.pageX
+        Factlink.trigger "textSelected"
     , 200)
 
-FACTLINK.stopAnnotating = ->
-  console.info "FACTLINK:", "stopAnnotating"
-  FACTLINK.prepare.hide()
+Factlink.stopAnnotating = ->
+  console.info "Factlink:", "stopAnnotating"
+  Factlink.prepare.hide()
   $("body").unbind "mouseup.factlink"

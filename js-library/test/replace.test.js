@@ -1,23 +1,23 @@
 /*global test:true, equal:true, notEqual:true, _:true */
-FACTLINK.templates = {};
-FACTLINK.templates.getTemplate = function (str, callback) {
-  callback(FACTLINK._.template(""));
+Factlink.templates = {};
+Factlink.templates.getTemplate = function (str, callback) {
+  callback(Factlink._.template(""));
 };
-FACTLINK.set_position_of_element = function() {};
+Factlink.set_position_of_element = function() {};
 
 test("Search/replace should work with newlines", function () {
   equal($('p.newline')[0].childNodes.length, 1);
 
-  FACTLINK.selectRanges(
-    FACTLINK.search("This text has multiple newlines"),
+  Factlink.selectRanges(
+    Factlink.search("This text has multiple newlines"),
     1,
     {});
   equal($('span.factlink')[0].childNodes.length, 1);
 });
 
 test("fact-span should have the data-factid attribute", function(){
-  FACTLINK.selectRanges(
-    FACTLINK.search("This text has multiple newlines"),
+  Factlink.selectRanges(
+    Factlink.search("This text has multiple newlines"),
     1,
     {});
 
@@ -27,8 +27,8 @@ test("fact-span should have the data-factid attribute", function(){
 });
 
 test("factlinks with different ranges count should work", function(){
-  FACTLINK.selectRanges(
-    FACTLINK.search("This is a link to an interesting page."),
+  Factlink.selectRanges(
+    Factlink.search("This is a link to an interesting page."),
     1,
     {});
 
@@ -39,8 +39,8 @@ test("factlinks with different ranges count should work", function(){
 test("the first element in a factlink that is matched " +
      "multiple times with a different number of ranges " +
      "should have the fl-first class", function(){
-  FACTLINK.selectRanges(
-    FACTLINK.search("This is a link to an interesting page."),
+  Factlink.selectRanges(
+    Factlink.search("This is a link to an interesting page."),
     1,
     {});
 
@@ -52,7 +52,7 @@ test("multiple Factlinks within the same element should be highlighted", functio
   var factIdA = 2;
   var factIdB = 3;
 
-  FACTLINK.selectRanges(FACTLINK.search("xxx"), factIdA, {});
+  Factlink.selectRanges(Factlink.search("xxx"), factIdA, {});
 
   var els = $('.multi-match>.factlink');
 
@@ -66,7 +66,7 @@ test("Hovering highlights all the elements of the match, and no others", functio
     str: "zzz"
   };
 
-  var facts = FACTLINK.selectRanges(FACTLINK.search(factA.str), factA.id, {});
+  var facts = Factlink.selectRanges(Factlink.search(factA.str), factA.id, {});
 
   facts[0].stopHighlighting(0);
   facts[1].stopHighlighting(0);

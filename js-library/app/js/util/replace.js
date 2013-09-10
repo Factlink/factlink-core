@@ -80,7 +80,7 @@ var createFactSpan = function(text, id, first) {
   };
 
 // Function to select the found ranges
-FACTLINK.selectRanges = function(ranges, id) {
+Factlink.selectRanges = function(ranges, id) {
   // Loop through ranges (backwards)
   var matches = [];
   var results = [];
@@ -129,7 +129,7 @@ FACTLINK.selectRanges = function(ranges, id) {
 
   for ( var matchId in elements ) {
     if ( elements.hasOwnProperty(matchId) ) {
-      ret.push( new FACTLINK.Fact(id, elements[matchId]) );
+      ret.push( new Factlink.Fact(id, elements[matchId]) );
     }
   }
 
@@ -138,7 +138,7 @@ FACTLINK.selectRanges = function(ranges, id) {
 
 
 // Function that tracks the DOM for nodes containing the fact
-FACTLINK.parseFactNodes = function(range, results, matchId) {
+Factlink.parseFactNodes = function(range, results, matchId) {
   // Only parse the nodes if the startNode is already found,
   // this boolean is used for tracking
   var foundStart = false;

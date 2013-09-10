@@ -1,4 +1,4 @@
-FACTLINK.set_position_of_element = (top, left, window, el) ->
+Factlink.set_position_of_element = (top, left, window, el) ->
   setLeft = (element) ->
     element.addClass "left"
     element.removeClass "right"

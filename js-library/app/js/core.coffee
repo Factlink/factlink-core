@@ -1,4 +1,4 @@
-window.FACTLINK = {}
+window.Factlink = {}
 
 # See http://stackoverflow.com/questions/3690447/override-default-jquery-selector-context
 jQuery.noConflict()
@@ -9,10 +9,10 @@ $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
 
 if window.parent.easyXDM
-  FACTLINK.easyXDM = window.parent.easyXDM.noConflict("FACTLINK")
+  Factlink.easyXDM = window.parent.easyXDM.noConflict("FACTLINK")
 
 # Create the Factlink container
-FACTLINK.el = $("#fl")
+Factlink.el = $("#fl")
 
 # Add the stylesheet
 $style = $("<link>").attr

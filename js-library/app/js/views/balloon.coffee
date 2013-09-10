@@ -1,9 +1,9 @@
-class FACTLINK.Balloon
+class Factlink.Balloon
   constructor: (fact) ->
     @_fact = fact
 
-    @$el = $(FACTLINK.templates.indicator)
-    @$el.appendTo(FACTLINK.el)
+    @$el = $(Factlink.templates.indicator)
+    @$el.appendTo(Factlink.el)
     @$el.bind "mouseenter", => @_fact.focus()
     @$el.bind "mouseleave", => @_fact.blur()
     @$el.bind "click", => @_fact.click()
@@ -19,7 +19,7 @@ class FACTLINK.Balloon
     else
       @_mouseOutTimeoutID = window.setTimeout (=> @_hideAll(); @$el.fadeIn "fast"), 200
 
-    FACTLINK.set_position_of_element top, left, window, @$el
+    Factlink.set_position_of_element top, left, window, @$el
 
   hide: (callback) ->
     window.clearTimeout @_mouseOutTimeoutID
