@@ -42,12 +42,15 @@ class Highlighter
 class AttentionSpan
   constructor: (@options={})->
     @_has_attention = false
+
   attend: ->
     clearTimeout @losing_attention_timeout
-    console.info 'attending'
-    @gained_attention()
+    @gaining_attention_timeout = setTimeout =>
+      @gained_attention()
+    , 300
+
   neglect: ->
-    console.info 'neglecting'
+    clearTimeout @gaining_attention_timeout
     @losing_attention_timeout = setTimeout =>
       @lost_attention()
     , 300
@@ -55,12 +58,10 @@ class AttentionSpan
   has_attention: -> @_has_attention
 
   lost_attention: ->
-    console.info 'lost attention'
     @_has_attention = false
     @options.lost_attention?()
 
   gained_attention: ->
-    console.info 'gained attention'
     @_has_attention = true
     @options.gained_attention?()
 
