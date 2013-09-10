@@ -1,16 +1,11 @@
-class NDPFactRelationOrCommentAvatarView extends Backbone.Marionette.ItemView
-  className: 'ndp-evidence-heading'
-  template: 'evidence/ndp_fact_relation_or_comment_avatar'
-
-
-class NDPCommentView extends Backbone.Marionette.ItemView
+class CommentView extends Backbone.Marionette.ItemView
   className: 'discussion-evidenceish-text'
-  template: 'evidence/ndp_comment'
+  template: 'evidence/comment'
 
 
-class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
+class window.FactRelationOrCommentView extends Backbone.Marionette.Layout
   className: 'discussion-evidenceish'
-  template: 'evidence/ndp_fact_relation_or_comment'
+  template: 'evidence/fact_relation_or_comment'
 
   regions:
     contentRegion: '.js-content-region'
@@ -19,16 +14,16 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
     subCommentsRegion: '.js-sub-comments-region'
 
   onRender: ->
-    @headingRegion.show new NDPEvidenceishHeadingView model: @model.creator()
+    @headingRegion.show new EvidenceishHeadingView model: @model.creator()
 
     if @model instanceof Comment
-      @contentRegion.show new NDPCommentView model: @model
+      @contentRegion.show new CommentView model: @model
     else if @model instanceof FactRelation
       @contentRegion.show @_factBaseView()
     else
       throw "Invalid type of model: #{@model}"
 
-    bottomView = new NDPFactRelationOrCommentBottomView model: @model
+    bottomView = new FactRelationOrCommentBottomView model: @model
     @listenTo bottomView, 'toggleSubCommentsList', @toggleSubCommentsView
     @bottomRegion.show bottomView
 
@@ -38,7 +33,7 @@ class window.NDPFactRelationOrCommentView extends Backbone.Marionette.Layout
       @subCommentsRegion.close()
     else
       @subCommentsOpen = true
-      @subCommentsRegion.show new NDPSubCommentsView
+      @subCommentsRegion.show new SubCommentsView
         collection: new SubComments([], parentModel: @model)
 
   _factBaseView: ->

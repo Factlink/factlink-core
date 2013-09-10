@@ -1,6 +1,6 @@
-class window.NDPFactRelationOrCommentBottomView extends Backbone.Marionette.Layout
+class window.FactRelationOrCommentBottomView extends Backbone.Marionette.Layout
   className: 'discussion-evidenceish-bottom'
-  template: 'facts/evidence_bottom'
+  template: 'facts/fact_relation_or_comment_bottom'
 
   triggers:
     'click .js-sub-comments-link': 'toggleSubCommentsList'

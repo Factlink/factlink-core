@@ -1,13 +1,13 @@
-class NDPEvidenceImpactView extends Backbone.Marionette.ItemView
+class EvidenceImpactView extends Backbone.Marionette.ItemView
   className: 'evidence-impact-text'
-  template: 'evidence/ndp_evidence_impact'
+  template: 'evidence/evidence_impact'
 
   initialize: ->
     @listenTo @model, 'change:impact', @render
 
 
-class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
-  template: 'evidence/ndp_evidence_layout'
+class EvidenceLayoutView extends Backbone.Marionette.Layout
+  template: 'evidence/evidence_layout'
 
   regions:
     contentRegion: '.js-content-region'
@@ -25,24 +25,24 @@ class NDPEvidenceLayoutView extends Backbone.Marionette.Layout
     @$el.addClass @typeCss()
     @listenTo @model, 'change:impact', @_updateIrrelevant
     @_updateIrrelevant()
-    @impactRegion.show new NDPEvidenceImpactView model: @model
+    @impactRegion.show new EvidenceImpactView model: @model
     this
 
   _updateIrrelevant: ->
     @$el.toggleClass 'evidence-irrelevant', !@model.positiveImpact()
 
-class NDPVotableEvidenceLayoutView extends NDPEvidenceLayoutView
+class VotableEvidenceLayoutView extends EvidenceLayoutView
   className: 'evidence-votable'
 
   onRender: ->
-    @contentRegion.show new NDPFactRelationOrCommentView model: @model
+    @contentRegion.show new FactRelationOrCommentView model: @model
 
     if Factlink.Global.signed_in
-      @voteRegion.show new NDPEvidenceVoteView model: @model
+      @voteRegion.show new EvidenceVoteView model: @model
       @$el.addClass 'evidence-has-arrows'
 
 
-class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
+class OpinionatorsEvidenceLayoutView extends EvidenceLayoutView
 
   shouldShow: -> @model.has('impact') && @model.get('impact') > 0.0
 
@@ -51,20 +51,20 @@ class NDPOpinionatorsEvidenceLayoutView extends NDPEvidenceLayoutView
     @contentRegion.show new InteractingUsersView model: @model
 
 
-class NDPEvidenceCollectionView extends Backbone.Marionette.CollectionView
-  itemView: NDPEvidenceLayoutView
+class EvidenceCollectionView extends Backbone.Marionette.CollectionView
+  itemView: EvidenceLayoutView
   className: 'evidence-listing'
 
   getItemView: (item) ->
     if item instanceof OpinionatersEvidence
-      NDPOpinionatorsEvidenceLayoutView
+      OpinionatorsEvidenceLayoutView
     else
-      NDPVotableEvidenceLayoutView
+      VotableEvidenceLayoutView
 
 
-class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
+class window.EvidenceContainerView extends Backbone.Marionette.Layout
   className: 'evidence-container'
-  template: 'evidence/ndp_evidence_container'
+  template: 'evidence/evidence_container'
 
   regions:
     collectionRegion: '.js-collection-region'
@@ -78,13 +78,13 @@ class window.NDPEvidenceContainerView extends Backbone.Marionette.Layout
     terminator: '.js-terminator'
 
   onRender: ->
-    @collectionRegion.show new NDPEvidenceCollectionView collection: @collection
+    @collectionRegion.show new EvidenceCollectionView collection: @collection
     @_updateLoading()
 
     if Factlink.Global.signed_in
       @ui.terminator.addClass 'evidence-terminator-circle'
       @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
-      @addRegion.show new NDPAddEvidenceView
+      @addRegion.show new AddEvidenceView
         collection: @collection
         fact_id: @collection.fact.id
 

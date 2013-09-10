@@ -79,8 +79,8 @@ class window.Wheel extends Backbone.Model
     @set @parse authority: @get("authority"), opinion_types: new_opinion_types
 
   # TODO: Use @save here!!
-  setActiveOpinionType: (opinion_type, options={}) ->
-    old_opinion_type = @userOpinion()
+  setActiveOpinionType: (opinion_type) ->
+    @previous_opinion_type = @userOpinion()
     fact_id = @get('fact_id')
     @turnOnActiveOpinionType opinion_type
     Backbone.sync 'create', this,
@@ -91,19 +91,19 @@ class window.Wheel extends Backbone.Model
         mp_track "Factlink: Opinionate",
           factlink: fact_id
           opinion: opinion_type
-        options.success?()
-        @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
+        @trigger 'sync', this, response # TODO: Remove when using Backbone sync
       error: =>
         # TODO: This is not a proper undo. Should be restored to the current
         #       state when the request fails.
-        if old_opinion_type
-          @turnOnActiveOpinionType old_opinion_type
+        if @previous_opinion_type
+          @turnOnActiveOpinionType @previous_opinion_type
         else
           @turnOffActiveOpinionType()
-        options.error?()
+        alert "Something went wrong while setting your opinion on the Factlink, please try again."
 
   # TODO: Use @save here!!
-  unsetActiveOpinionType: (opinion_type, options={}) ->
+  unsetActiveOpinionType: ->
+    @previous_opinion_type = @userOpinion()
     fact_id = @get('fact_id')
     @turnOffActiveOpinionType()
     Backbone.sync 'delete', this,
@@ -113,8 +113,15 @@ class window.Wheel extends Backbone.Model
         @set @parse data
         mp_track "Factlink: De-opinionate",
           factlink: fact_id
-        options.success?()
-        @trigger 'sync', this, response, options # TODO: Remove when using Backbone sync
+        @trigger 'sync', this, response # TODO: Remove when using Backbone sync
       error: =>
-        @turnOnActiveOpinionType opinion_type
-        options.error?()
+        @turnOnActiveOpinionType @previous_opinion_type
+        alert "Something went wrong while removing your opinion on the Factlink, please try again."
+
+  undoOpinion: ->
+    return if @previous_opinion_type == @userOpinion()
+
+    if @previous_opinion_type?
+      @setActiveOpinionType @previous_opinion_type
+    else
+      @unsetActiveOpinionType()

@@ -1,4 +1,4 @@
-class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
+class window.EvidenceCollection extends Backbone.Factlink.Collection
 
   initialize: (models, options) ->
     @fact = options.fact
@@ -16,6 +16,7 @@ class window.NDPEvidenceCollection extends Backbone.Factlink.Collection
       @listenTo collection, 'sync', @loadFromCollections
       @listenTo collection, 'add', (model) -> @add model
       @listenTo collection, 'saved_added_model', -> @trigger 'saved_added_model'
+      @listenTo collection, 'error_adding_model', -> @trigger 'error_adding_model'
 
   comparator: (item) -> - item.get('impact')
 

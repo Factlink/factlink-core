@@ -1,7 +1,7 @@
-class window.NDPDiscussionView extends Backbone.Marionette.Layout
+class window.DiscussionView extends Backbone.Marionette.Layout
   className: 'discussion'
 
-  template: 'facts/ndp_discussion'
+  template: 'facts/discussion'
 
   regions:
     learnMoreRegion: '.js-region-learn-more'
@@ -13,10 +13,10 @@ class window.NDPDiscussionView extends Backbone.Marionette.Layout
 
     @factRegion.show new TopFactView model: @model
 
-    opinionaters_collection = new NDPEvidenceCollection null, fact: @model
+    opinionaters_collection = new EvidenceCollection null, fact: @model
     opinionaters_collection.fetch()
 
-    @evidenceRegion.show new NDPEvidenceContainerView
+    @evidenceRegion.show new EvidenceContainerView
       collection: opinionaters_collection
 
     unless Factlink.Global.signed_in

@@ -4,7 +4,7 @@
 #= require application
 #= require frontend
 
-describe "NDPSubCommentsAddView", ->
+describe "SubCommentsAddView", ->
   collection = view = null
 
   beforeEach ->
@@ -12,7 +12,7 @@ describe "NDPSubCommentsAddView", ->
 
     collection = new Backbone.Collection
 
-    view = new NDPSubCommentsAddView
+    view = new SubCommentsAddView
       addToCollection: collection
     view.render()
 

@@ -128,6 +128,7 @@ describe FactsController do
       fact_id = fact.id
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
+      ability.should_receive(:can?).with(:manage, Fact).and_return(true)
       should_check_can :destroy, fact
       get :destroy, id: fact.id, format: :json
       response.should be_success
