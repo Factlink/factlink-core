@@ -7,6 +7,7 @@ class ShowButtonManager
   constructor: (fact, dom_events) ->
     @dom_events = dom_events
     @fact = fact
+    @show_button = new Factlink.ShowButton @dom_events
 
   set_coordinates: (@top, @left) =>
 
@@ -18,20 +19,19 @@ class ShowButtonManager
     , delay_between_highlight_and_show_button_open
 
   _realOpenShowButton: (top, left) =>
-    return if @show_button
-    @show_button = new Factlink.ShowButton @dom_events
     @show_button.show(top, left)
 
   closeShowButton: ->
     @_stopOpening()
-    @show_button?.hide (show_button)-> show_button.destroy()
-    @show_button = null
+    @show_button?.hide()
 
   startLoading: -> @show_button?.startLoading()
 
   _stopOpening: ->
     clearTimeout @opening_timeout
     @opening_timeout = null
+
+  destroy: -> @show_button.destroy()
 
 class Highlighter
   constructor: (@$elements) ->
