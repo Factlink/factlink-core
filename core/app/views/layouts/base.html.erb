@@ -6,7 +6,6 @@
     <title><%= yield :title %></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <%= render 'base/open_graph' %>
 
     <!--styles; esp. fonts: before scripts to avoid IE blocking!-->
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
@@ -23,6 +22,8 @@
         #notifications span.unread.active {background: #e6007e; text-shadow: rgba(0,0,0,0.25);}
       </style>
     <% end %>
+    ﻿
+    <%= render 'base/open_graph' %>
 
     <link rel="chrome-webstore-item"
       href="https://chrome.google.com/webstore/detail/<%=FactlinkUI::Application.config.chrome_extension_id%>">
