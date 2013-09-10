@@ -45,7 +45,7 @@ class Factlink.Fact
       click:      => @openFactlinkModal()
 
     $(@elements)
-      .on('mouseenter', (e)=> @highlight_and_open_balloon(e))
+      .on('mouseenter', (e)=> @highlightAndOpenBalloon(e))
       .on('mouseleave', => @considerStoppingWithHighlighting())
       .on('click', => @openFactlinkModal())
       .on 'inview', (event, isInView, visiblePart) =>
