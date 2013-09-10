@@ -10,20 +10,22 @@
 
 <%= yield :notifications %>
 
-<% if @show_supported_browser_warning %>
-  <% content_for :javascript do %>
-    <script type="text/javascript">
-      FactlinkApp.NotificationCenter.error("Your browser is not fully supported. To get the full Factlink experience we recommend using Google Chrome. <a href='<%= pages_path("help/supported-browsers") %>'>Learn more...</a>", disablePreferredBrowserMessage);
+<% if show_supported_browser_warning %>
+  <%= show_message :supported_browser_warning do %>
+    <% content_for :javascript do %>
+      <script type="text/javascript">
+        FactlinkApp.NotificationCenter.error("Your browser is not fully supported. To get the full Factlink experience we recommend using Google Chrome. <a href='<%= pages_path("help/supported-browsers") %>'>Learn more...</a>", disablePreferredBrowserMessage);
 
-      function disablePreferredBrowserMessage() {
-        Backbone.ajax({
-          type: 'PUT',
-          url: '<%= see_message_path %>',
-          data: {
-            message: "supported_browser_warning"
-          }
-        });
-      }
-    </script>
+        function disablePreferredBrowserMessage() {
+          Backbone.ajax({
+            type: 'PUT',
+            url: '<%= see_messages_path %>',
+            data: {
+              message: "supported_browser_warning"
+            }
+          });
+        }
+      </script>
+    <% end %>
   <% end %>
 <% end %>
