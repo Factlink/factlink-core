@@ -39,20 +39,46 @@ class Highlighter
   highlight:   -> @$elements.addClass('fl-active')
   dehighlight: -> @$elements.removeClass('fl-active')
 
+class AttentionSpan
+  constructor: (@options={})->
+    @_has_attention = false
+  attend: ->
+    clearTimeout @losing_attention_timeout
+    console.info 'attending'
+    @gained_attention()
+  neglect: ->
+    console.info 'neglecting'
+    @losing_attention_timeout = setTimeout =>
+      @lost_attention()
+    , 300
+
+  has_attention: -> @_has_attention
+
+  lost_attention: ->
+    console.info 'lost attention'
+    @_has_attention = false
+    @options.lost_attention?()
+
+  gained_attention: ->
+    console.info 'gained attention'
+    @_has_attention = true
+    @options.gained_attention?()
 
 class Factlink.Fact
-  constructor: (id, elems) ->
-    @id = id
-    @elements = elems
+  constructor: (@id, @elements) ->
+    @attention_span = new AttentionSpan
+      lost_attention: => @stopEmphasis()
+      gained_attention: => @startEmphasis()
 
     @highlighter = new Highlighter $(@elements)
 
-    @highlight_temporary highlight_time_on_load
 
     @balloon_manager = new BalloonManager this,
       mouseenter: => @onFocus()
       mouseleave: => @onBlur()
       click:      => @openFactlinkModal()
+
+    @highlight_temporary highlight_time_on_load
 
     $(@elements)
       .on('mouseenter', (e)=> @onFocus(e))
@@ -63,32 +89,30 @@ class Factlink.Fact
 
   highlight_temporary: (duration) ->
     @highlighter.highlight()
-    @stopHighlighting(duration)
+    setTimeout (=> @stopEmphasis()), duration
 
-  onBlur: ->
-    @stopHighlighting(300)
-
+  onBlur: -> @attention_span.neglect()
   onFocus: (e) =>
-    clearTimeout @stop_highlighting_timeout
-    @highlighter.highlight()
     if e?
       @balloon_manager.set_coordinates($(e.target).offset().top, e.pageX)
+    @attention_span.attend()
+
+  startEmphasis: ->
+    @highlighter.highlight()
     @balloon_manager.openBalloon()
 
-  stopHighlighting: (delay=0) ->
-    return if @_loading # don't hide while loading
-    clearTimeout(@stop_highlighting_timeout)
+  stopEmphasis: =>
+    return if @shouldHaveEmphasis()
 
-    @stop_highlighting_timeout = setTimeout (=>@actuallyStopHighlighting()), delay
-
-  actuallyStopHighlighting: =>
     @highlighter.dehighlight()
     @balloon_manager.closeBalloon()
 
+  shouldHaveEmphasis: =>
+    @attention_span.has_attention() || @_loading
+
   openFactlinkModal: =>
     @startLoading()
-    Factlink.showInfo @id, =>
-      @stopLoading()
+    Factlink.showInfo @id, => @stopLoading()
 
   startLoading: ->
     @_loading = true
@@ -96,7 +120,7 @@ class Factlink.Fact
 
   stopLoading: ->
     @_loading = false
-    @actuallyStopHighlighting()
+    @stopEmphasis()
 
   destroy: ->
     for el in @elements
