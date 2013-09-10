@@ -1,2 +1,3 @@
-  $(window).trigger('factlink.libraryLoaded');
-})(window.Factlink, Factlink.$, Factlink.easyXDM, Factlink.global, Factlink.global.document);
+})(window.parent, window.parent.document);
+
+window.parent.FACTLINK_ON_CORE_LOAD();
