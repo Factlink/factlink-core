@@ -31,13 +31,12 @@ class BalloonManager
     clearTimeout @opening_timeout
     @opening_timeout = null
 
-
 class Factlink.Fact
   constructor: (id, elems) ->
     @id = id
     @elements = elems
 
-    @highlight highlight_time_on_load
+    @highlight_temporary highlight_time_on_load
 
     @balloon_manager = new BalloonManager this,
       mouseenter: => @highlight()
@@ -49,14 +48,15 @@ class Factlink.Fact
       .on('mouseleave', => @considerStoppingWithHighlighting())
       .on('click', => @openFactlinkModal())
       .on 'inview', (event, isInView, visiblePart) =>
-        @highlight(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
+        @highlight_temporary(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
 
-  highlight: (duration) ->
+  highlight_temporary: (duration) ->
+    @highlight()
+    @stopHighlighting(duration)
+
+  highlight: ->
     clearTimeout @stop_highlighting_timeout
-
     $(@elements).addClass('fl-active')
-
-    @stopHighlighting(duration) if duration
 
   considerStoppingWithHighlighting: -> @stopHighlighting(300)
 
