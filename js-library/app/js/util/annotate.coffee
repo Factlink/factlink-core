@@ -16,8 +16,7 @@ Factlink.startAnnotating = ->
 
   $("body").bind "mouseup.factlink", (event) ->
     window.clearTimeout timeout
-    if Factlink.prepare.isVisible()
-      Factlink.prepare.hide()
+    Factlink.prepare.hide()
 
     # We execute the showing of the prepare menu inside of a setTimeout
     # because of selection change only activating after mouseup event call.

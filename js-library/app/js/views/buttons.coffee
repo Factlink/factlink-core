@@ -1,4 +1,35 @@
-class Factlink.Balloon
+class Button
+  constructor: (dom_events={}) ->
+    @$el = $(@template)
+    @$el.appendTo(Factlink.el)
+    for event, callback of dom_events
+      @$el.bind event, callback
+
+  startLoading: ->
+    @_loading = true
+    @$el.addClass "fl-loading"
+
+  stopLoading: ->
+    @_loading = false
+    @$el.removeClass "fl-loading"
+
+  isLoading: -> @$el.hasClass "fl-loading"
+
+  show: (top, left) =>
+    @stopLoading() if @isLoading()
+    Factlink.el.find('div.fl-popup').removeClass('active')
+    @$el.addClass 'active'
+    Factlink.set_position_of_element top, left, window, @$el
+
+  hide: (callback) ->
+    @$el.removeClass 'active'
+    if callback
+      setTimeout (=> callback(@)), 400 # keep in sync with css
+
+  destroy: -> @$el.remove()
+
+
+class Factlink.Balloon extends Button
   template: """
     <div class="fl-popup">
       <span class="fl-default-message">Show Factlink</span>
@@ -6,27 +37,7 @@ class Factlink.Balloon
     </div>
   """
 
-  constructor: (dom_events={}) ->
-    @$el = $(@template)
-    @$el.appendTo(Factlink.el)
-    for event, callback of dom_events
-      @$el.bind event, callback
-
-  show: (top, left) ->
-    Factlink.el.find('div.fl-popup').removeClass('active')
-    @$el.addClass 'active'
-    Factlink.set_position_of_element top, left, window, @$el
-
-  hide: (callback) ->
-    @$el.removeClass 'active'
-    setTimeout (=> callback(@)), 400
-
-  destroy: -> @$el.remove()
-
-  startLoading: -> @$el.addClass "fl-loading"
-
-
-class Factlink.Prepare
+class Factlink.Prepare extends Button
   template: """
     <div class="fl-popup">
       <span class="fl-default-message">Add Factlink</span>
@@ -35,33 +46,11 @@ class Factlink.Prepare
   """
 
   constructor: ->
-    @$el = $(@template)
-    @$el.appendTo Factlink.el
-    @$el.hide()
-
-    @$el.bind "mouseup", (e) -> e.stopPropagation()
-    @$el.bind "mousedown", (e) -> e.preventDefault()
-    @$el.bind "click", (e) =>
-      e.preventDefault()
-      e.stopPropagation()
-      @startLoading()
-      Factlink.createFactFromSelection()
-
-  show: (top, left) =>
-    @stopLoading() if @_loading
-    Factlink.set_position_of_element top, left, window, @$el
-    @$el.addClass 'active'
-
-  hide: (callback=->) =>
-    @$el.removeClass 'active'
-
-  startLoading: ->
-    @_loading = true
-    @$el.addClass "fl-loading"
-
-  stopLoading: ->
-    @_loading = false
-    @hide => @$el.removeClass "fl-loading"
-
-  isVisible: ->
-    @$el.is ":visible"
+    super
+      mouseup: (e) -> e.stopPropagation()
+      mousedown: (e) -> e.preventDefault()
+      click: (e) =>
+        e.preventDefault()
+        e.stopPropagation()
+        @startLoading()
+        Factlink.createFactFromSelection()
