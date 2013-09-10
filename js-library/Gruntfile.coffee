@@ -53,7 +53,8 @@ module.exports = (grunt) ->
       loader:
         src: [
           'dist/js/libs/easyXDM.js',
-          'dist/js/loader.js'
+          'dist/js/loader/loader_common.js',
+          'dist/js/loader/loader_basic.js'
         ]
         dest: 'dist/factlink.js'
     copy:
