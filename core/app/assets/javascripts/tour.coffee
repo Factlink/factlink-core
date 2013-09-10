@@ -8,20 +8,19 @@ class window.InteractiveTour extends Backbone.View
 
   helpTextDelay: 560
 
+  # TODO: create events in the js-library for this
   detectSelecting: ->
-    if FACTLINK.getSelectionInfo().text.length > 0
+    if @_getTextRange().length > 0
       @state.select_text()
 
   detectDeselecting: ->
-    if FACTLINK.getSelectionInfo().text.length <= 0
+    if @_getTextRange().length <= 0
       @state.deselect_text()
 
   bindLibraryLoad: ->
     $(window).on 'factlink.libraryLoaded', => @onLibraryLoaded()
 
   onLibraryLoaded: ->
-    FACTLINK.hideDimmer()
-
     @detectDeselectingInterval = window.setInterval (=> @detectDeselecting()), 200 unless @detectDeselectingInterval?
 
     $('.create-your-first-factlink-content').on 'mouseup', =>
@@ -125,3 +124,12 @@ class window.InteractiveTour extends Backbone.View
       align: 'top'
       margin: 10
       contentView: new FirstFactlinkFactView
+
+  _getTextRange: ->
+    doc = window.document
+    if doc.getSelection
+      doc.getSelection().toString()
+    else if doc.selection
+      doc.selection.createRange().text.toString()
+    else
+      ''
