@@ -20,8 +20,6 @@ class window.InteractiveTour extends Backbone.View
     $(window).on 'factlink.libraryLoaded', => @onLibraryLoaded()
 
   onLibraryLoaded: ->
-    FACTLINK.hideDimmer()
-
     @detectDeselectingInterval = window.setInterval (=> @detectDeselecting()), 200 unless @detectDeselectingInterval?
 
     $('.create-your-first-factlink-content').on 'mouseup', =>
