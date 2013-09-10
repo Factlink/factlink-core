@@ -8,11 +8,13 @@ class BalloonManager
     @dom_events = dom_events
     @fact = fact
 
-  openBalloon: (top, left) =>
+  set_coordinates: (@top, @left) =>
+
+  openBalloon:  =>
     return if @opening_timeout
     @opening_timeout = setTimeout =>
       @_stopOpening()
-      @_realOpenBalloon(top, left)
+      @_realOpenBalloon(@top, @left)
     , delay_between_highlight_and_balloon_open
 
   _realOpenBalloon: (top, left) =>
@@ -31,48 +33,57 @@ class BalloonManager
     clearTimeout @opening_timeout
     @opening_timeout = null
 
+class Highlighter
+  constructor: (@$elements) ->
+
+  highlight:   -> @$elements.addClass('fl-active')
+  dehighlight: -> @$elements.removeClass('fl-active')
+
+
 class Factlink.Fact
   constructor: (id, elems) ->
     @id = id
     @elements = elems
 
+    @highlighter = new Highlighter $(@elements)
+
     @highlight_temporary highlight_time_on_load
 
     @balloon_manager = new BalloonManager this,
-      mouseenter: => @highlight()
-      mouseleave: => @considerStoppingWithHighlighting()
+      mouseenter: => @onFocus()
+      mouseleave: => @onBlur()
       click:      => @openFactlinkModal()
 
     $(@elements)
-      .on('mouseenter', (e)=> @highlightAndOpenBalloon(e))
-      .on('mouseleave', => @considerStoppingWithHighlighting())
+      .on('mouseenter', (e)=> @onFocus(e))
+      .on('mouseleave', => @onBlur())
       .on('click', => @openFactlinkModal())
       .on 'inview', (event, isInView, visiblePart) =>
         @highlight_temporary(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
 
   highlight_temporary: (duration) ->
-    @highlight()
+    @highlighter.highlight()
     @stopHighlighting(duration)
 
-  highlight: ->
-    clearTimeout @stop_highlighting_timeout
-    $(@elements).addClass('fl-active')
+  onBlur: ->
+    @stopHighlighting(300)
 
-  considerStoppingWithHighlighting: -> @stopHighlighting(300)
+  onFocus: (e) =>
+    clearTimeout @stop_highlighting_timeout
+    @highlighter.highlight()
+    if e?
+      @balloon_manager.set_coordinates($(e.target).offset().top, e.pageX)
+    @balloon_manager.openBalloon()
 
   stopHighlighting: (delay=0) ->
     return if @_loading # don't hide while loading
     clearTimeout(@stop_highlighting_timeout)
 
-    actuallyStopHighlighting = =>
-      $(@elements).removeClass('fl-active')
-      @balloon_manager.closeBalloon()
+    @stop_highlighting_timeout = setTimeout (=>@actuallyStopHighlighting()), delay
 
-    @stop_highlighting_timeout = setTimeout actuallyStopHighlighting, delay
-
-  highlightAndOpenBalloon: (e) =>
-    @highlight()
-    @balloon_manager.openBalloon($(e.target).offset().top, e.pageX)
+  actuallyStopHighlighting: =>
+    @highlighter.dehighlight()
+    @balloon_manager.closeBalloon()
 
   openFactlinkModal: =>
     @startLoading()
@@ -84,8 +95,8 @@ class Factlink.Fact
     @balloon_manager.startLoading()
 
   stopLoading: ->
-      @_loading = false
-      @stopHighlighting()
+    @_loading = false
+    @actuallyStopHighlighting()
 
   destroy: ->
     for el in @elements
