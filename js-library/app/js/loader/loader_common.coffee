@@ -45,6 +45,9 @@ window.FACTLINK_START_LOADER = ->
   window.FACTLINK_ON_IFRAME_LOAD = ->
     iframe.contentWindow.document.head.appendChild coreScriptTag
 
+  window.FACTLINK_ON_CORE_LOAD = ->
+    window.jQuery?(window).trigger('factlink.libraryLoaded')
+
   iframeDoc = iframe.contentWindow.document
   iframeDoc.open()
   iframeDoc.write """
