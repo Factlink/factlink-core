@@ -7,12 +7,13 @@ class ShowButtonManager
   constructor: (@dom_events) ->
     @show_button = new Factlink.ShowButton @dom_events
 
-  set_coordinates: (@top, @left) =>
+  set_coordinates: (top, left) =>
+    @show_button.setCoordinates(top, left)
 
-  openShowButton:  ->  @show_button.show(@top, @left)
+  openShowButton:  ->  @show_button.show()
   closeShowButton: ->  @show_button.hide()
 
-  startLoading: -> @show_button?.startLoading()
+  startLoading: -> @show_button.startLoading()
 
   destroy: -> @show_button.destroy()
 
