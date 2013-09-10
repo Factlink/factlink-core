@@ -13,7 +13,7 @@
     FACTLINK.startAnnotating();
   } else {
     setTimeout(function() {
-      arg.callee(FACTLINK, ++waitingCount);
+      arg.callee(this, ++waitingCount);
     }, 100);
   }
 })(0);
