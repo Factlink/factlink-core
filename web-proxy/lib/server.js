@@ -72,7 +72,7 @@ function getServer(config) {
                           '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>' +
                           '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
                           '<script>FACTLINK.startHighlighting(); FACTLINK.startAnnotating();</script>' +
-                          '<script>window.FactlinkProxyConfig = ' + JSON.stringify(config) + '</script>' +
+                          '<script>window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + '</script>' +
                           '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
 
       successFn(html + inject_string);

@@ -23,7 +23,7 @@ domReady(function(){
     var href = a[i].href;
 
     if ( href.search(/https?:\/\//) === 0 ) {
-      a[i].href = window.FactlinkProxyConfig.PROXY_URL + '/?url=' + escape(href);
+      a[i].href = window.FactlinkProxyUrl + '/?url=' + escape(href);
       a[i].target = "_top";
 
       //prevent quietly changing the url afterwards
@@ -71,7 +71,7 @@ domReady(function(){
       form.appendChild(input);
 
       // Set the proxied URL
-      form.action = action.replace(/^http(s|):\/\/.*/, window.FactlinkProxyConfig.PROXY_URL + '/submit/');
+      form.action = action.replace(/^http(s|):\/\/.*/, window.FactlinkProxyUrl + '/submit/');
     } else {
       form.onsubmit = function(){return confirm("After submitting this form, Factlink will be disabled. Are you sure?");}
     }
