@@ -48,7 +48,6 @@ function getServer(config) {
    */
   function injectFactlinkJs(html_in, site, scrollto, successFn) {
     var FactlinkConfig = {
-      modus: 'default',
       api: config.API_URL,
       lib: config.LIB_URL,
       proxy: config.PROXY_URL,
