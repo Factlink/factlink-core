@@ -8,8 +8,6 @@ window.$ = (selector, context) ->
 $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
 
-window.parent.FACTLINK = window.FACTLINK
-
 if window.parent.easyXDM
   FACTLINK.easyXDM = window.parent.easyXDM.noConflict("FACTLINK")
 
