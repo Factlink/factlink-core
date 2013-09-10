@@ -40,15 +40,36 @@ window.FACTLINK_START_LOADER = ->
   else
     coreScriptTag.src = window.FactlinkConfig.lib + window.FactlinkConfig.srcPath
 
+  #### Create proxy object that stores all calls
+
+  window.FACTLINK = {}
+
+  storedMethodCalls = []
+  proxy_method = (name) ->
+    window.FACTLINK[name] = ->
+      if iframe.contentWindow.Factlink?
+        iframe.contentWindow.Factlink[name](arguments...)
+        return # don't return the value, as we also don't do that when storing calls
+      else
+        storedMethodCalls.push {name: name, arguments: arguments}
+        return
+
+  proxy_method 'on'
+  proxy_method 'triggerClick'
+
+  window.FACTLINK_ON_CORE_LOAD = ->
+    # This seems to be necessary, don't understand entirely why
+    window.FACTLINK.easyXDM = iframe.contentWindow.Factlink.easyXDM
+
+    for methodCall in storedMethodCalls
+      iframe.contentWindow.Factlink[methodCall.name](methodCall.arguments...)
+
+    window.jQuery?(window).trigger('factlink.libraryLoaded')
+
   #### Load iframe with script tag
 
   window.FACTLINK_ON_IFRAME_LOAD = ->
     iframe.contentWindow.document.head.appendChild coreScriptTag
-
-  window.FACTLINK_ON_CORE_LOAD = ->
-    window.FACTLINK = iframe.contentWindow.Factlink
-
-    window.jQuery?(window).trigger('factlink.libraryLoaded')
 
   iframeDoc = iframe.contentWindow.document
   iframeDoc.open()
