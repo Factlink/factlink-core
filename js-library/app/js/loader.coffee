@@ -1,6 +1,13 @@
 return if window.FACTLINK_LOADED?
 window.FACTLINK_LOADED = true
 
+#### Default config
+
+window.FactlinkConfig ?= {}
+window.FactlinkConfig.api ?= 'https://factlink.com:443'
+window.FactlinkConfig.lib ?= 'https://static.factlink.com:443/lib/dist'
+window.FactlinkConfig.srcPath ?= '/factlink.core.min.js'
+
 #### Create iframe
 
 iframe = document.createElement('iframe')
@@ -31,14 +38,14 @@ div.insertBefore iframe, div.firstChild
 coreScriptTag = document.createElement('script')
 
 hashOfFactlinkCoreFile = '&*HASH_PLACE_HOLDER*&' # Overwritten by grunt task
-if FactlinkConfig.srcPath.match(/\.min\.js$/)
+if window.FactlinkConfig.srcPath.match(/\.min\.js$/)
   if hashOfFactlinkCoreFile is '&*HASH_PLACE_HOLDER*&'
     hashOfFactlinkCoreFile = ''
   else
     hashOfFactlinkCoreFile = '.' + hashOfFactlinkCoreFile
-  coreScriptTag.src = FactlinkConfig.lib + '/factlink.core.min' + hashOfFactlinkCoreFile + '.js'
+  coreScriptTag.src = window.FactlinkConfig.lib + '/factlink.core.min' + hashOfFactlinkCoreFile + '.js'
 else
-  coreScriptTag.src = FactlinkConfig.lib + FactlinkConfig.srcPath
+  coreScriptTag.src = window.FactlinkConfig.lib + window.FactlinkConfig.srcPath
 
 #### Load iframe with script tag
 
@@ -50,7 +57,7 @@ iframeDoc.open()
 iframeDoc.write """
   <!DOCTYPE html><html><head>
     <script>
-      window.FactlinkConfig = #{JSON.stringify(FactlinkConfig)};
+      window.FactlinkConfig = #{JSON.stringify(window.FactlinkConfig)};
       window.parent.FACTLINK_ON_IFRAME_LOAD();
     </script>
   </head><body></body></html>
