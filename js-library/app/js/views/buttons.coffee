@@ -11,7 +11,7 @@ class Button
 
   show: (top, left) =>
     @stopLoading() if @isLoading()
-    Factlink.el.find('div.fl-popup').removeClass('active')
+    Factlink.el.find('div.fl-button').removeClass('active')
     Factlink.set_position_of_element top, left, window, @$el
     @$el.addClass 'active'
 
@@ -22,7 +22,7 @@ class Button
 
 class Factlink.ShowButton extends Button
   template: """
-    <div class="fl-popup">
+    <div class="fl-button fl-show-button">
       <span class="fl-default-message">Show Factlink</span>
       <span class="fl-loading-message">Loading...</span>
     </div>
@@ -30,7 +30,7 @@ class Factlink.ShowButton extends Button
 
 class Factlink.CreateButton extends Button
   template: """
-    <div class="fl-popup">
+    <div class="fl-button fl-create-button">
       <span class="fl-default-message">Add Factlink</span>
       <span class="fl-loading-message">Loading...</span>
     </div>
