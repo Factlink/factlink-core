@@ -50,13 +50,34 @@ module.exports = (grunt) ->
           'dist/wrapped.js'
         ]
         dest: 'dist/factlink.core.js'
-      loader:
+      loader_DEPRECATED:
         src: [
-          'dist/js/libs/easyXDM.js',
-          'dist/js/loader/loader_common.js',
+          'dist/js/libs/easyXDM.js'
+          'dist/js/loader/loader_common.js'
           'dist/js/loader/loader_basic.js'
         ]
         dest: 'dist/factlink.js'
+      loader_basic:
+        src: [
+          'dist/js/libs/easyXDM.js'
+          'dist/js/loader/loader_common.js'
+          'dist/js/loader/loader_basic.js'
+        ]
+        dest: 'dist/factlink_loader_basic.js'
+      loader_publishers:
+        src: [
+          'dist/js/libs/easyXDM.js'
+          'dist/js/loader/loader_common.js'
+          'dist/js/loader/loader_publishers.js'
+        ]
+        dest: 'dist/factlink_loader_publishers.js'
+      loader_bookmarklet:
+        src: [
+          'dist/js/libs/easyXDM.js'
+          'dist/js/loader/loader_common.js'
+          'dist/js/loader/loader_bookmarklet.js'
+        ]
+        dest: 'dist/factlink_loader_bookmarklet.js'
     copy:
       main:
         files: [
@@ -106,6 +127,9 @@ module.exports = (grunt) ->
           'dist/server/factlink.start_highlighting.min.js': ['dist/factlink.start_highlighting.js']
           'dist/server/factlink.stop_highlighting.min.js':  ['dist/factlink.stop_highlighting.js']
           'dist/server/factlink.min.js':                    ['dist/factlink.js']
+          'dist/server/factlink_loader_basic.min.js':       ['dist/factlink_loader_basic.js']
+          'dist/server/factlink_loader_publishers.min.js':   ['dist/factlink_loader_publishers.js']
+          'dist/server/factlink_loader_bookmarklet.min.js': ['dist/factlink_loader_bookmarklet.js']
           'dist/server/easyXDM/easyXDM.min.js':             ['dist/js/libs/easyXDM.js']
     jshint:
       all: ['app/js/initializers/*.js', 'app/js/models/*.js', 'app/js/util/*.js', 'app/js/views/*.js', 'app/js/.js', 'test/**/*.js']
