@@ -1,5 +1,7 @@
 window.FACTLINK_START_LOADER = ->
-  return if window.FACTLINK_LOADED?
+  if window.FACTLINK_LOADED
+    console.error 'FACTLINK already loaded!'
+    return
   window.FACTLINK_LOADED = true
 
   #### Create iframe
