@@ -72,8 +72,6 @@ window.FACTLINK_START_LOADER = ->
       iframe.contentWindow.Factlink[methodCall.name](methodCall.arguments...)
     storedMethodCalls = []
 
-    window.jQuery?(window).trigger('factlink.libraryLoaded')
-
   #### Load iframe with script tag
 
   window.FACTLINK_ON_IFRAME_LOAD = ->
