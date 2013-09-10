@@ -3,7 +3,7 @@ require_relative '../interactors/interactors/channels'
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:search, :tour_users, :seen_message]
+  before_filter :load_user, except: [:search, :tour_users, :seen_messages]
 
   def show
     authorize! :show, @user
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def seen_message
+  def seen_messages
     authorize! :update, current_user
     raise HackAttempt unless params[:message] =~ /\A\w+\Z/
     current_user.seen_messages << params[:message]

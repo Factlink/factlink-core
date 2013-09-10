@@ -19,7 +19,7 @@
         function disablePreferredBrowserMessage() {
           Backbone.ajax({
             type: 'PUT',
-            url: '<%= see_message_path %>',
+            url: '<%= see_messages_path %>',
             data: {
               message: "supported_browser_warning"
             }
