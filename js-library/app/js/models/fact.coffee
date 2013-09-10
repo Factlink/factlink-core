@@ -4,32 +4,15 @@ delay_between_highlight_and_show_button_open = 400
 
 
 class ShowButtonManager
-  constructor: (fact, dom_events) ->
-    @dom_events = dom_events
-    @fact = fact
+  constructor: (@dom_events) ->
     @show_button = new Factlink.ShowButton @dom_events
 
   set_coordinates: (@top, @left) =>
 
-  openShowButton:  =>
-    return if @opening_timeout
-    @opening_timeout = setTimeout =>
-      @_stopOpening()
-      @_realOpenShowButton(@top, @left)
-    , delay_between_highlight_and_show_button_open
-
-  _realOpenShowButton: (top, left) =>
-    @show_button.show(top, left)
-
-  closeShowButton: ->
-    @_stopOpening()
-    @show_button?.hide()
+  openShowButton:  ->  @show_button.show(@top, @left)
+  closeShowButton: ->  @show_button.hide()
 
   startLoading: -> @show_button?.startLoading()
-
-  _stopOpening: ->
-    clearTimeout @opening_timeout
-    @opening_timeout = null
 
   destroy: -> @show_button.destroy()
 
@@ -73,8 +56,7 @@ class Factlink.Fact
 
     @highlighter = new Highlighter $(@elements)
 
-
-    @show_button_manager = new ShowButtonManager this,
+    @show_button_manager = new ShowButtonManager
       mouseenter: => @onFocus()
       mouseleave: => @onBlur()
       click:      => @openFactlinkModal()
