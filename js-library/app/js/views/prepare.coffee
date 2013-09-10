@@ -14,13 +14,12 @@ class Factlink.Prepare
       Factlink.createFactFromSelection()
 
   show: (top, left) =>
+    @stopLoading() if @_loading
     Factlink.set_position_of_element top, left, window, @$el
-    @$el.fadeIn "fast"
+    @$el.addClass 'active'
 
   hide: (callback=->) =>
-    @$el.fadeOut "fast", =>
-      @stopLoading() if @_loading
-      callback()
+    @$el.removeClass 'active'
 
   startLoading: ->
     @_loading = true

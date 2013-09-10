@@ -9,6 +9,9 @@
 @border-color : #1c5c90;
 @buttonBackground: #3d75a3;
 
+@button_visibility_transition_time : 0.4s;
+@highlight_visibility_transition_time: 0.4s;
+
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 {
   > #fl, > #fl * {
     #fl > .resetStyles;
@@ -23,7 +26,7 @@ span.factlink {
     background: #B4D5FE !important;
     color: #333;
   }
-  transition: all 0.4s;
+  transition: all @highlight_visibility_transition_time;
 
   &.fl-first::before {
     padding: 0 3px 0 0;
@@ -60,7 +63,6 @@ span.factlink {
       width: 100%;
     }
   }
-
   .fl-popup {
     cursor:   pointer;
     display:  none;
@@ -68,6 +70,12 @@ span.factlink {
     width:    @popup-width;
     position: absolute;
     z-index:  @max-z-index;
+
+    transition: display @button_visibility_transition_time;
+
+    &.active {
+      display: block!important;
+    }
 
     &:before {
       position: relative;

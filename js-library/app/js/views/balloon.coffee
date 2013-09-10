@@ -1,6 +1,3 @@
-balloon_fade_in_time = 2000
-balloon_fade_out_time = 2000
-
 class Factlink.Balloon
   constructor: (dom_events={}) ->
     @$el = $(Factlink.templates.indicator)
@@ -9,11 +6,13 @@ class Factlink.Balloon
       @$el.bind event, callback
 
   show: (top, left) ->
-    Factlink.el.find('div.fl-popup').hide()
-    @$el.fadeIn balloon_fade_in_time
+    Factlink.el.find('div.fl-popup').removeClass('active')
+    @$el.addClass 'active'
     Factlink.set_position_of_element top, left, window, @$el
 
-  hide: (callback) -> @$el.fadeOut balloon_fade_out_time, => callback(@)
+  hide: (callback) ->
+    @$el.removeClass 'active'
+    setTimeout (=> callback(@)), 400
 
   destroy: -> @$el.remove()
 

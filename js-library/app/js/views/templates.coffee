@@ -6,7 +6,7 @@ Factlink.templates =
     </div>
   """
   indicator: """
-      <div class="fl-popup" style="display:none">
+      <div class="fl-popup">
         <span class="fl-default-message">Show Factlink</span>
         <span class="fl-loading-message">Loading...</span>
       </div>
