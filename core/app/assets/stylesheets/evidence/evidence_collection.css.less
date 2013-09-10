@@ -11,6 +11,7 @@
 @impactColouredBorderWidth: 3px;
 @evidenceRegionHorizontalMargin: 16px;
 @evidenceRegionBottomPadding: 60px;
+@unsureBoxBackgroundColor: #f5f5f6;
 
 // Arrows:
 @impactCircleVotableWithoutArrowsTopSpacing: 15px;
@@ -168,9 +169,9 @@
   .discussion-interacting-users:after {
     content: "";
     display: block;
-    width: 3px;
+    width: @middleLineWidth;
     height: 100% + 7px;
-    background-color: #f5f5f6;
+    background-color: @unsureBoxBackgroundColor;
     position: absolute;
     top: -7px;
     left: 50%;
