@@ -50,9 +50,7 @@ function getServer(config) {
     var FactlinkConfig = {
       api: config.API_URL,
       lib: config.LIB_URL,
-      proxy: config.PROXY_URL,
       srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
-      env: config.ENV,
       url: site
     };
 
@@ -69,8 +67,9 @@ function getServer(config) {
 
       // Inject Factlink library before </head>
       var set_urls      = '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>';
+      var set_config    = '<script>window.FactlinkProxyConfig = ' + JSON.stringify(config) + '</script>';
       var load_proxy_js = '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
-      html = html.replace(/<\/head>/i, set_urls + load_proxy_js + '$&');
+      html = html.replace(/<\/head>/i, set_urls + set_config + load_proxy_js + '$&');
       successFn(html);
     },function(){
       successFn(html_in);
