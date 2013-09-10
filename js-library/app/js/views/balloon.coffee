@@ -13,7 +13,7 @@ class Factlink.Balloon
     @$el.fadeIn balloon_fade_in_time
     Factlink.set_position_of_element top, left, window, @$el
 
-  hide: (callback) -> @$el.fadeOut balloon_fade_out_time, => callback()
+  hide: (callback) -> @$el.fadeOut balloon_fade_out_time, => callback(@)
 
   destroy: -> @$el.remove()
 

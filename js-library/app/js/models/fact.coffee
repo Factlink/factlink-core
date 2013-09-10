@@ -22,7 +22,7 @@ class BalloonManager
 
   closeBalloon: ->
     @_stopOpening()
-    @balloon?.hide -> @destroy()
+    @balloon?.hide (balloon)-> balloon.destroy()
     @balloon = null
 
   startLoading: -> @balloon?.startLoading()
