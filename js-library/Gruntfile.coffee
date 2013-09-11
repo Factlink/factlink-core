@@ -28,7 +28,7 @@ module.exports = (grunt) ->
         ]
     corehasher:
       src: 'dist/server/factlink.core.min.js'
-      dest: 'dist/server/factlink.min.js'
+      dest: 'dist/js/loader/loader_common.js'
     concat:
       wrap:
         src: [
@@ -119,16 +119,18 @@ module.exports = (grunt) ->
       options: {
         banner: banner_template
       },
-      all:
+      core:
         files:
           'dist/server/factlink.core.min.js':               ['dist/factlink.core.js']
+      all:
+        files:
           'dist/server/factlink.start_annotating.min.js':   ['dist/factlink.start_annotating.js']
           'dist/server/factlink.stop_annotating.min.js':    ['dist/factlink.stop_annotating.js']
           'dist/server/factlink.start_highlighting.min.js': ['dist/factlink.start_highlighting.js']
           'dist/server/factlink.stop_highlighting.min.js':  ['dist/factlink.stop_highlighting.js']
           'dist/server/factlink.min.js':                    ['dist/factlink.js']
           'dist/server/factlink_loader_basic.min.js':       ['dist/factlink_loader_basic.js']
-          'dist/server/factlink_loader_publishers.min.js':   ['dist/factlink_loader_publishers.js']
+          'dist/server/factlink_loader_publishers.min.js':  ['dist/factlink_loader_publishers.js']
           'dist/server/factlink_loader_bookmarklet.min.js': ['dist/factlink_loader_bookmarklet.js']
           'dist/server/easyXDM/easyXDM.min.js':             ['dist/js/libs/easyXDM.js']
     jshint:
@@ -191,11 +193,11 @@ module.exports = (grunt) ->
     content_with_hash = content.replace /&\*HASH_PLACE_HOLDER\*&/, source_file_hash
     grunt.file.write destination_file_path, content_with_hash
 
-  grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'concat']
+  grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'concat:core', 'uglify:core', 'corehasher', 'concat']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
-  grunt.registerTask 'default', ['compile', 'test', 'uglify', 'corehasher']
-  grunt.registerTask 'server',  ['compile', 'uglify', 'cssmin','corehasher']
+  grunt.registerTask 'default', ['compile', 'test', 'uglify:all']
+  grunt.registerTask 'server',  ['compile', 'uglify:all', 'cssmin']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
