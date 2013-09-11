@@ -122,7 +122,7 @@ module.exports = (grunt) ->
       core:
         files:
           'dist/server/factlink.core.min.js':               ['dist/factlink.core.js']
-      all:
+      all_except_core:
         files:
           'dist/server/factlink.start_annotating.min.js':   ['dist/factlink.start_annotating.js']
           'dist/server/factlink.stop_annotating.min.js':    ['dist/factlink.stop_annotating.js']
@@ -193,11 +193,12 @@ module.exports = (grunt) ->
     content_with_hash = content.replace /&\*HASH_PLACE_HOLDER\*&/, source_file_hash
     grunt.file.write destination_file_path, content_with_hash
 
-  grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'concat:core', 'uglify:core', 'corehasher', 'concat']
+  grunt.registerTask 'core', ['concat:core', 'uglify:core', 'corehasher']
+  grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'core', 'concat']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
-  grunt.registerTask 'default', ['compile', 'test', 'uglify:all']
-  grunt.registerTask 'server',  ['compile', 'uglify:all', 'cssmin']
+  grunt.registerTask 'default', ['compile', 'test', 'uglify:all_except_core']
+  grunt.registerTask 'server',  ['compile', 'uglify:all_except_core', 'cssmin']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
