@@ -6,6 +6,7 @@ class Factlink.AttentionSpan
     @_has_attention = false
     @options.wait_for_attention ?= 0
     @options.wait_for_neglection ?= 0
+
   attend: ->
     clearTimeout @losing_attention_timeout
     @gaining_attention_timeout = setTimeout =>
@@ -31,9 +32,3 @@ class Factlink.AttentionSpan
     clearTimeout @losing_attention_timeout
     @_has_attention = true
     @options.gained_attention?()
-
-  check_attention: ->
-    if @has_attention()
-      @options.lost_attention?()
-    else
-      @options.gained_attention?()
