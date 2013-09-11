@@ -17,15 +17,15 @@ class window.InteractiveTour extends Backbone.View
     if @_getTextRange().length <= 0
       @state.deselect_text()
 
-  bindLibraryLoad: ->
-    $(window).on 'factlink.libraryLoaded', => @onLibraryLoaded()
-
-  onLibraryLoaded: ->
+  bindSelectionEvents: ->
     @detectDeselectingInterval = window.setInterval (=> @detectDeselecting()), 200 unless @detectDeselectingInterval?
 
     $('.create-your-first-factlink-content').on 'mouseup', =>
       @detectSelecting()
       @detectDeselecting()
+
+  bindJsLibraryEvents: ->
+    return unless FACTLINK? # On the CI there is no js-library, so we just skip this
 
     FACTLINK.on 'modalOpened', =>
       @state.open_modal()
@@ -45,7 +45,8 @@ class window.InteractiveTour extends Backbone.View
 
     @renderExtensionButton()
 
-    @bindLibraryLoad()
+    @bindSelectionEvents()
+    @bindJsLibraryEvents()
 
     @createStateMachine()
 
