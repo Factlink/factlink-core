@@ -8,27 +8,31 @@ class Factlink.AttentionSpan
     @options.wait_for_neglection ?= 0
 
   attend: ->
-    clearTimeout @losing_attention_timeout
-    @gaining_attention_timeout = setTimeout =>
+    @clearTimeout 'losing_attention_timeout'
+    @gaining_attention_timeout ?= setTimeout =>
       @gain_attention()
     , @options.wait_for_attention
 
   neglect: ->
-    clearTimeout @gaining_attention_timeout
-    @losing_attention_timeout = setTimeout =>
-      @loose_attention()
+    @clearTimeout 'gaining_attention_timeout'
+    @losing_attention_timeout ?= setTimeout =>
+      @lose_attention()
     , @options.wait_for_neglection
 
   has_attention: -> @_has_attention
 
-    clearTimeout @gaining_attention_timeout
-    clearTimeout @losing_attention_timeout
   lose_attention: ->
+    @clearTimeout 'gaining_attention_timeout'
+    @clearTimeout 'losing_attention_timeout'
     @_has_attention = false
     @options.lost_attention?()
 
   gain_attention: ->
-    clearTimeout @gaining_attention_timeout
-    clearTimeout @losing_attention_timeout
+    @clearTimeout 'gaining_attention_timeout'
+    @clearTimeout 'losing_attention_timeout'
     @_has_attention = true
     @options.gained_attention?()
+
+  clearTimeout: (name) ->
+    clearTimeout this[name]
+    delete this[name]
