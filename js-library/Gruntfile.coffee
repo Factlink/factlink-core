@@ -30,24 +30,20 @@ module.exports = (grunt) ->
       src: 'dist/server/factlink.core.min.js'
       dest: 'dist/js/loader/loader_common.js'
     concat:
-      wrap:
-        src: [
-          'dist/js/wrap/first.js',
-          'dist/js/plugins/*.js',
-          'dist/js/models/*.js',
-          'dist/js/views/*.js',
-          'dist/js/util/*.js',
-          'dist/js/initializers/*.js',
-          'dist/js/wrap/last.js'
-        ]
-        dest: 'dist/wrapped.js'
       core:
         options:
           banner: banner_template
         src: [
-          'dist/js/libs/jquery-1.7.2.js',
-          'dist/js/core.js',
-          'dist/wrapped.js'
+          'dist/js/libs/jquery-1.7.2.js'
+          'dist/js/core.js'
+
+          'dist/js/wrap/first.js'
+          'dist/js/plugins/*.js'
+          'dist/js/models/*.js'
+          'dist/js/views/*.js'
+          'dist/js/util/*.js'
+          'dist/js/initializers/*.js'
+          'dist/js/wrap/last.js'
         ]
         dest: 'dist/factlink.core.js'
       loader_DEPRECATED:
