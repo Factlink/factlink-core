@@ -12,7 +12,7 @@ class Highlighter
   dehighlight: -> @$elements.removeClass(@class)
 
 class FactInteraction
-  constructor: (@fact) ->
+  constructor: (elements, @id, @options) ->
     @button_attention = new Factlink.AttentionSpan
       lost_attention:   => @show_button.hide()
       gained_attention: => @show_button.show()
@@ -25,31 +25,30 @@ class FactInteraction
       wait_for_attention:  delay_before_mouseover_detected
       wait_for_neglection: delay_before_mouseout_detected
 
-    @highlighter = new Highlighter $(@fact.elements), 'fl-active'
+    @highlighter = new Highlighter $(elements), 'fl-active'
 
     @show_button = new Factlink.ShowButton
       mouseenter: => @onFocus()
       mouseleave: => @onBlur()
-      click:      => @openFactlinkModal()
+      click:      => @onClick()
 
-    $(@fact.elements)
-      .on 'mouseenter', (e) =>
+    $(elements).on
+      mouseenter: (e) =>
         @onFocus()
         @show_button.setCoordinates($(e.target).offset().top, e.pageX)
-      .on 'mouseleave', =>
-        @onBlur()
-      .on 'click', =>
-        @openFactlinkModal()
+      mouseleave: => @onBlur()
+      click: => @onClick()
 
   attentions_do: (action) ->
     for attention in [@button_attention, @highlight_attention]
       attention[action]()
 
-  openFactlinkModal: ->
+  onClick: (options={}) =>
     @show_button.startLoading()
 
     @attentions_do 'gain_attention'
-    Factlink.showInfo @fact.id, => @attentions_do 'loose_attention'
+    @options.on_click success: =>
+      @attentions_do 'loose_attention'
 
   onFocus: -> @attentions_do 'attend'
   onBlur:  -> @attentions_do 'neglect'
@@ -58,21 +57,28 @@ class FactInteraction
     @attentions_do 'loose_attention'
     @show_button.destroy()
 
-class Factlink.Fact
-  constructor: (@id, @elements) ->
-    @fact_interaction = new FactInteraction(this)
-
-    @highlighter = new Highlighter $(elements), 'fl-highlight'
+class FactPromotion
+  constructor: (fact) ->
+    @highlighter = new Highlighter $(fact.elements), 'fl-highlight'
 
     @highlight_temporary highlight_time_on_load
 
-    $(@elements).on 'inview', (event, isInView, visiblePart) =>
+    $(fact.elements).on 'inview', (event, isInView, visiblePart) =>
       @highlight_temporary(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
-
 
   highlight_temporary: (duration) ->
     @highlighter.highlight()
     setTimeout (=> @highlighter.dehighlight()), duration
+
+class Factlink.Fact
+  constructor: (@id, @elements) ->
+    @fact_interaction = new FactInteraction @elements, @id,
+      on_click: @openFactlinkModal
+    @fact_promotion = new FactPromotion(this)
+
+
+  openFactlinkModal: (options={})=>
+    Factlink.showInfo @id, => options.success?()
 
   destroy: ->
     for el in @elements
