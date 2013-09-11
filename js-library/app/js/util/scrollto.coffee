@@ -7,4 +7,6 @@ scrollTo = (fact_id) ->
         axis: 'y'
 
 Factlink.on 'factlink.factsLoaded', ->
-  scrollTo FactlinkConfig.scrollto if FactlinkConfig?.scrollto?
+  return unless FactlinkConfig.scrollto?
+
+  scrollTo FactlinkConfig.scrollto
