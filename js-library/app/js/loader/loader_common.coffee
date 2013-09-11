@@ -1,5 +1,7 @@
 window.FACTLINK_START_LOADER = ->
-  return if window.FACTLINK_LOADED?
+  if window.FACTLINK_LOADED
+    console.error 'FACTLINK already loaded!'
+    return
   window.FACTLINK_LOADED = true
 
   #### Create iframe
@@ -60,6 +62,7 @@ window.FACTLINK_START_LOADER = ->
   proxy_method 'stopHighlighting'
   proxy_method 'startAnnotating'
   proxy_method 'stopAnnotating'
+  proxy_method 'showLoadedNotification'
 
   window.FACTLINK_ON_CORE_LOAD = ->
     # This seems to be necessary, don't understand entirely why
@@ -68,8 +71,6 @@ window.FACTLINK_START_LOADER = ->
     for methodCall in storedMethodCalls
       iframe.contentWindow.Factlink[methodCall.name](methodCall.arguments...)
     storedMethodCalls = []
-
-    window.jQuery?(window).trigger('factlink.libraryLoaded')
 
   #### Load iframe with script tag
 
