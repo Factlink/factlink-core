@@ -7,14 +7,13 @@ class Button
 
   startLoading: => @$el.addClass    "fl-loading"
   stopLoading:  => @$el.removeClass "fl-loading"
-  isLoading:    => @$el.hasClass    "fl-loading"
 
   setCoordinates: (top, left) =>
     return if @$el.hasClass 'active'
     Factlink.set_position_of_element top, left, window, @$el
 
   show: =>
-    @stopLoading() if @isLoading()
+    @stopLoading()
     Factlink.el.find('div.fl-button').removeClass('active')
     @$el.addClass 'active'
 
