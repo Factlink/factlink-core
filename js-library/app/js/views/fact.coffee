@@ -44,9 +44,8 @@ class FactInteraction
       attention[action]()
 
   onClick: (options={}) =>
-    @show_button.startLoading()
-
     @attentions_do 'gain_attention'
+    @show_button.startLoading() # must be called after show
     @options.on_click success: =>
       @attentions_do 'loose_attention'
 
