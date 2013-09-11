@@ -28,26 +28,22 @@ module.exports = (grunt) ->
         ]
     corehasher:
       src: 'dist/server/factlink.core.min.js'
-      dest: 'dist/server/factlink.min.js'
+      dest: 'dist/js/loader/loader_common.js'
     concat:
-      wrap:
-        src: [
-          'dist/js/wrap/first.js',
-          'dist/js/plugins/*.js',
-          'dist/js/models/*.js',
-          'dist/js/views/*.js',
-          'dist/js/util/*.js',
-          'dist/js/initializers/*.js',
-          'dist/js/wrap/last.js'
-        ]
-        dest: 'dist/wrapped.js'
       core:
         options:
           banner: banner_template
         src: [
-          'dist/js/libs/jquery-1.7.2.js',
-          'dist/js/core.js',
-          'dist/wrapped.js'
+          'dist/js/libs/jquery-1.7.2.js'
+          'dist/js/core.js'
+
+          'dist/js/wrap/first.js'
+          'dist/js/plugins/*.js'
+          'dist/js/models/*.js'
+          'dist/js/views/*.js'
+          'dist/js/util/*.js'
+          'dist/js/initializers/*.js'
+          'dist/js/wrap/last.js'
         ]
         dest: 'dist/factlink.core.js'
       loader_DEPRECATED:
@@ -119,16 +115,18 @@ module.exports = (grunt) ->
       options: {
         banner: banner_template
       },
-      all:
+      core:
         files:
           'dist/server/factlink.core.min.js':               ['dist/factlink.core.js']
+      all_except_core:
+        files:
           'dist/server/factlink.start_annotating.min.js':   ['dist/factlink.start_annotating.js']
           'dist/server/factlink.stop_annotating.min.js':    ['dist/factlink.stop_annotating.js']
           'dist/server/factlink.start_highlighting.min.js': ['dist/factlink.start_highlighting.js']
           'dist/server/factlink.stop_highlighting.min.js':  ['dist/factlink.stop_highlighting.js']
           'dist/server/factlink.min.js':                    ['dist/factlink.js']
           'dist/server/factlink_loader_basic.min.js':       ['dist/factlink_loader_basic.js']
-          'dist/server/factlink_loader_publishers.min.js':   ['dist/factlink_loader_publishers.js']
+          'dist/server/factlink_loader_publishers.min.js':  ['dist/factlink_loader_publishers.js']
           'dist/server/factlink_loader_bookmarklet.min.js': ['dist/factlink_loader_bookmarklet.js']
           'dist/server/easyXDM/easyXDM.min.js':             ['dist/js/libs/easyXDM.js']
     jshint:
@@ -191,11 +189,12 @@ module.exports = (grunt) ->
     content_with_hash = content.replace /&\*HASH_PLACE_HOLDER\*&/, source_file_hash
     grunt.file.write destination_file_path, content_with_hash
 
-  grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'concat']
+  grunt.registerTask 'core', ['concat:core', 'uglify:core', 'corehasher']
+  grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'core', 'concat']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
-  grunt.registerTask 'default', ['compile', 'test', 'uglify', 'corehasher']
-  grunt.registerTask 'server',  ['compile', 'uglify', 'cssmin','corehasher']
+  grunt.registerTask 'default', ['compile', 'test', 'uglify:all_except_core']
+  grunt.registerTask 'server',  ['compile', 'uglify:all_except_core', 'cssmin']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'

@@ -42,7 +42,7 @@ Factlink.modal =
 
     Factlink.modal.hide.method()
 
-    Factlink.Views.Notifications.showFactlinkCreated()
+    Factlink.showFactlinkCreatedNotification()
 
     fct
 
