@@ -57,12 +57,12 @@ class FactInteraction
     @show_button.destroy()
 
 class FactPromotion
-  constructor: (fact) ->
-    @highlighter = new Highlighter $(fact.elements), 'fl-highlight'
+  constructor: (elements) ->
+    @highlighter = new Highlighter $(elements), 'fl-highlight'
 
     @highlight_temporary highlight_time_on_load
 
-    $(fact.elements).on 'inview', (event, isInView, visiblePart) =>
+    $(elements).on 'inview', (event, isInView, visiblePart) =>
       @highlight_temporary(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
 
   highlight_temporary: (duration) ->
@@ -73,7 +73,7 @@ class Factlink.Fact
   constructor: (@id, @elements) ->
     @fact_interaction = new FactInteraction @elements, @id,
       on_click: @openFactlinkModal
-    @fact_promotion = new FactPromotion(this)
+    @fact_promotion = new FactPromotion(@elements)
 
 
   openFactlinkModal: (options={})=>
