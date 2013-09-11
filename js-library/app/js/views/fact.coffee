@@ -10,9 +10,13 @@ class Highlighter
 
 class Factlink.Fact
   constructor: (@id, @elements) ->
-    @attention_span = new Factlink.AttentionSpan
-      lost_attention: => @stopEmphasis()
-      gained_attention: => @startEmphasis()
+    @button_attention = new Factlink.AttentionSpan
+      lost_attention:   => @show_button.hide()
+      gained_attention: => @show_button.show()
+
+    @highlight_attention = new Factlink.AttentionSpan
+      lost_attention:   => @highlighter.dehighlight()
+      gained_attention: => @highlighter.highlight()
 
     @highlighter = new Highlighter $(@elements)
 
@@ -32,26 +36,20 @@ class Factlink.Fact
 
   highlight_temporary: (duration) ->
     @highlighter.highlight()
-    setTimeout (=> @stopEmphasis()), duration
+    setTimeout =>
+      @highlighter.dehighlight() unless @shouldHaveEmphasis()
+    , duration
 
-  onBlur: -> @attention_span.neglect()
+  onBlur: ->
+    @highlight_attention.neglect()
+    @button_attention.neglect()
   onFocus: (e) =>
     if e?
       @show_button.setCoordinates($(e.target).offset().top, e.pageX)
-    @attention_span.attend()
+    @highlight_attention.attend()
+    @button_attention.attend()
 
-  startEmphasis: ->
-    @highlighter.highlight()
-    @show_button.show()
-
-  stopEmphasis: =>
-    return if @shouldHaveEmphasis()
-
-    @highlighter.dehighlight()
-    @show_button.hide()
-
-  shouldHaveEmphasis: =>
-    @attention_span.has_attention() || @_loading
+  shouldHaveEmphasis: => @highlight_attention.has_attention() || @_loading
 
   openFactlinkModal: =>
     @startLoading()
@@ -63,7 +61,8 @@ class Factlink.Fact
 
   stopLoading: ->
     @_loading = false
-    @stopEmphasis()
+    @highlighter.dehighlight()
+    @button.hide()
 
   destroy: ->
     for el in @elements
