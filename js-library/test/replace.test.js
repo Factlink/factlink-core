@@ -60,22 +60,26 @@ test("multiple Factlinks within the same element should be highlighted", functio
   equal(els.eq(1).data('factid'), factIdA);
 });
 
-test("Hovering highlights all the elements of the match, and no others", function () {
-  var factA = {
-    id: 1,
-    str: "zzz"
-  };
+// This test can easily be implemented using asyncTest
+// our ancient version of qunit does not seem to support this though
+// please reenable when we have something, and use asyncTest/stop/start to fix
+//
+// test("Hovering highlights all the elements of the match, and no others", function () {
+//   var factA = {
+//     id: 1,
+//     str: "zzz"
+//   };
 
-  var facts = Factlink.selectRanges(Factlink.search(factA.str), factA.id, {});
+//   var facts = Factlink.selectRanges(Factlink.search(factA.str), factA.id, {});
 
-  $(facts[1].elements[0]).trigger('mouseenter',{
-    target: facts[1].elements[0],
-    pageX: 0,
-    show_fast: true});
+//   $(facts[1].elements[0]).trigger('mouseenter',{
+//     target: facts[1].elements[0],
+//     pageX: 0,
+//     show_fast: true});
 
-  equal($(facts[0].elements[0]).hasClass('fl-active'), false);
-  equal($(facts[1].elements[0]).hasClass('fl-active'), true);
-  equal($(facts[2].elements[0]).hasClass('fl-active'), false);
-  equal($(facts[3].elements[0]).hasClass('fl-active'), false);
+//   equal($(facts[0].elements[0]).hasClass('fl-active'), false);
+//   equal($(facts[1].elements[0]).hasClass('fl-active'), true);
+//   equal($(facts[2].elements[0]).hasClass('fl-active'), false);
+//   equal($(facts[3].elements[0]).hasClass('fl-active'), false);
 
-});
+// });
