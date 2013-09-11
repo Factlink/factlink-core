@@ -6,5 +6,5 @@ scrollTo = (fact_id) ->
         top:-100
         axis: 'y'
 
-$(window).bind 'factlink.factsLoaded', ->
+Factlink.on 'factlink.factsLoaded', ->
   scrollTo FactlinkConfig.scrollto if FactlinkConfig?.scrollto?
