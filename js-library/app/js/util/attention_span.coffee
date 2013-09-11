@@ -1,4 +1,4 @@
-# Assumptions: the callbacks lost_attention and gained_attention are
+# Assumptions: the callbacks onAttentionLost and onAttentionGained are
 #              idempotent
 
 class Factlink.AttentionSpan
@@ -7,31 +7,31 @@ class Factlink.AttentionSpan
     @options.wait_for_attention ?= 0
     @options.wait_for_neglection ?= 0
 
-  attend: ->
-    @clearTimeout 'losing_attention_timeout'
-    @gaining_attention_timeout ?= setTimeout =>
-      @gain_attention()
+  gainAttention: ->
+    @clearTimeout 'losing_attention_timeout_handler'
+    @gaining_attention_timeout_handler ?= setTimeout =>
+      @gainAttentionNow()
     , @options.wait_for_attention
 
-  neglect: ->
-    @clearTimeout 'gaining_attention_timeout'
-    @losing_attention_timeout ?= setTimeout =>
-      @lose_attention()
+  loseAttention: ->
+    @clearTimeout 'gaining_attention_timeout_handler'
+    @losing_attention_timeout_handler ?= setTimeout =>
+      @loseAttentionNow()
     , @options.wait_for_neglection
 
   has_attention: -> @_has_attention
 
-  lose_attention: ->
-    @clearTimeout 'gaining_attention_timeout'
-    @clearTimeout 'losing_attention_timeout'
+  loseAttentionNow: ->
+    @clearTimeout 'gaining_attention_timeout_handler'
+    @clearTimeout 'losing_attention_timeout_handler'
     @_has_attention = false
-    @options.lost_attention?()
+    @options.onAttentionLost?()
 
-  gain_attention: ->
-    @clearTimeout 'gaining_attention_timeout'
-    @clearTimeout 'losing_attention_timeout'
+  gainAttentionNow: ->
+    @clearTimeout 'gaining_attention_timeout_handler'
+    @clearTimeout 'losing_attention_timeout_handler'
     @_has_attention = true
-    @options.gained_attention?()
+    @options.onAttentionGained?()
 
   clearTimeout: (name) ->
     clearTimeout this[name]

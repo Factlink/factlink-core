@@ -17,14 +17,14 @@ class Highlighter
 class FactInteraction
   constructor: (elements, @id, @options) ->
     @button_attention = new Factlink.AttentionSpan
-      lost_attention:   => @show_button.hide()
-      gained_attention: => @show_button.show()
+      onAttentionLost:   => @show_button.hide()
+      onAttentionGained: => @show_button.show()
       wait_for_attention:  delay_before_mouseover_detected + delay_between_highlight_and_show_button_open
       wait_for_neglection: delay_before_mouseout_detected
 
     @highlight_attention = new Factlink.AttentionSpan
-      lost_attention:   => @highlighter.dehighlight()
-      gained_attention: => @highlighter.highlight()
+      onAttentionLost:   => @highlighter.dehighlight()
+      onAttentionGained: => @highlighter.highlight()
       wait_for_attention:  delay_before_mouseover_detected
       wait_for_neglection: delay_before_mouseout_detected
 
@@ -43,23 +43,23 @@ class FactInteraction
       click: => @onClick()
 
   onClick: (options={}) =>
-    @button_attention.gain_attention()
-    @highlight_attention.gain_attention()
+    @button_attention.gainAttentionNow()
+    @highlight_attention.gainAttentionNow()
     @show_button.startLoading() # must be called after show
     @options.on_click success: =>
-      @button_attention.lose_attention()
-      @highlight_attention.lose_attention()
+      @button_attention.loseAttentionNow()
+      @highlight_attention.loseAttentionNow()
 
   onFocus: ->
-    @button_attention.attend()
-    @highlight_attention.attend()
+    @button_attention.gainAttention()
+    @highlight_attention.gainAttention()
   onBlur:  ->
-    @button_attention.neglect()
-    @highlight_attention.neglect()
+    @button_attention.loseAttention()
+    @highlight_attention.loseAttention()
 
   destroy: ->
-    @button_attention.lose_attention()
-    @highlight_attention.lose_attention()
+    @button_attention.loseAttentionNow()
+    @highlight_attention.loseAttentionNow()
     @show_button.destroy()
 
 class FactPromotion
