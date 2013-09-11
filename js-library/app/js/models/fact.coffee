@@ -2,21 +2,6 @@ highlight_time_on_load    = 1500
 highlight_time_on_in_view = 1500
 delay_between_highlight_and_show_button_open = 400
 
-
-class ShowButtonManager
-  constructor: (@dom_events) ->
-    @show_button = new Factlink.ShowButton @dom_events
-
-  set_coordinates: (top, left) =>
-    @show_button.setCoordinates(top, left)
-
-  openShowButton:  ->  @show_button.show()
-  closeShowButton: ->  @show_button.hide()
-
-  startLoading: -> @show_button.startLoading()
-
-  destroy: -> @show_button.destroy()
-
 class Highlighter
   constructor: (@$elements) ->
 
@@ -57,7 +42,7 @@ class Factlink.Fact
 
     @highlighter = new Highlighter $(@elements)
 
-    @show_button_manager = new ShowButtonManager
+    @show_button = new Factlink.ShowButton
       mouseenter: => @onFocus()
       mouseleave: => @onBlur()
       click:      => @openFactlinkModal()
@@ -78,18 +63,18 @@ class Factlink.Fact
   onBlur: -> @attention_span.neglect()
   onFocus: (e) =>
     if e?
-      @show_button_manager.set_coordinates($(e.target).offset().top, e.pageX)
+      @show_button.setCoordinates($(e.target).offset().top, e.pageX)
     @attention_span.attend()
 
   startEmphasis: ->
     @highlighter.highlight()
-    @show_button_manager.openShowButton()
+    @show_button.show()
 
   stopEmphasis: =>
     return if @shouldHaveEmphasis()
 
     @highlighter.dehighlight()
-    @show_button_manager.closeShowButton()
+    @show_button.hide()
 
   shouldHaveEmphasis: =>
     @attention_span.has_attention() || @_loading
@@ -100,7 +85,7 @@ class Factlink.Fact
 
   startLoading: ->
     @_loading = true
-    @show_button_manager.startLoading()
+    @show_button.startLoading()
 
   stopLoading: ->
     @_loading = false
@@ -114,4 +99,4 @@ class Factlink.Fact
 
       $el.remove()
 
-    @show_button_manager.closeShowButton()
+    @show_button.destroy()
