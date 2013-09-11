@@ -21,9 +21,9 @@ class Factlink.AttentionSpan
 
   has_attention: -> @_has_attention
 
-  loose_attention: ->
     clearTimeout @gaining_attention_timeout
     clearTimeout @losing_attention_timeout
+  lose_attention: ->
     @_has_attention = false
     @options.lost_attention?()
 

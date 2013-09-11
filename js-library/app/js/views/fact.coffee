@@ -47,8 +47,8 @@ class FactInteraction
     @highlight_attention.gain_attention()
     @show_button.startLoading() # must be called after show
     @options.on_click success: =>
-      @button_attention.loose_attention()
-      @highlight_attention.loose_attention()
+      @button_attention.lose_attention()
+      @highlight_attention.lose_attention()
 
   onFocus: ->
     @button_attention.attend()
@@ -58,8 +58,8 @@ class FactInteraction
     @highlight_attention.neglect()
 
   destroy: ->
-    @button_attention.loose_attention()
-    @highlight_attention.loose_attention()
+    @button_attention.lose_attention()
+    @highlight_attention.lose_attention()
     @show_button.destroy()
 
 class FactPromotion
