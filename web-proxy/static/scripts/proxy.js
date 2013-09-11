@@ -23,7 +23,7 @@ domReady(function(){
     var href = a[i].href;
 
     if ( href.search(/https?:\/\//) === 0 ) {
-      a[i].href = window.FactlinkConfig.proxy + '/?url=' + escape(href);
+      a[i].href = window.FactlinkProxyUrl + '/?url=' + escape(href);
       a[i].target = "_top";
 
       //prevent quietly changing the url afterwards
@@ -71,7 +71,7 @@ domReady(function(){
       form.appendChild(input);
 
       // Set the proxied URL
-      form.action = action.replace(/^http(s|):\/\/.*/, window.FactlinkConfig.proxy + '/submit/');
+      form.action = action.replace(/^http(s|):\/\/.*/, window.FactlinkProxyUrl + '/submit/');
     } else {
       form.onsubmit = function(){return confirm("After submitting this form, Factlink will be disabled. Are you sure?");}
     }
@@ -81,21 +81,4 @@ domReady(function(){
 
 });
 
-function scriptTag(url){
-  var script = document.createElement("script");
-  script.type = "text/javascript";
-  script.async = false;
-  script.src = url;
-  return script;
-}
-
-// DUPLICATED IN CHROME EXTENSION, PLEASE CHANGE BOTH!
-var script = scriptTag(window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/factlink.js" : "/factlink.min.js"));
-
-script.onload = function() {
-  document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/factlink.start_highlighting.js" : "/factlink.start_highlighting.min.js" ) ) , null);
-  document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/factlink.start_annotating.js" : "/factlink.start_annotating.min.js" ) ) , null );
-};
-
-document.head.insertBefore(script, null);
 })(window, document);
