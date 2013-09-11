@@ -1,3 +1,6 @@
+# Assumptions: the callbacks lost_attention and gained_attention are
+#              idempotent
+
 class Factlink.AttentionSpan
   constructor: (@options={})->
     @_has_attention = false
@@ -28,3 +31,9 @@ class Factlink.AttentionSpan
     clearTimeout @losing_attention_timeout
     @_has_attention = true
     @options.gained_attention?()
+
+  check_attention: ->
+    if @has_attention()
+      @options.lost_attention?()
+    else
+      @options.gained_attention?()

@@ -40,9 +40,7 @@ class Factlink.Fact
 
   highlight_temporary: (duration) ->
     @highlighter.highlight()
-    setTimeout =>
-      @highlighter.dehighlight() unless @highlight_attention.has_attention()
-    , duration
+    setTimeout (=> highlight_attention.check_attention()), duration
 
   onBlur: ->
     @highlight_attention.neglect()
