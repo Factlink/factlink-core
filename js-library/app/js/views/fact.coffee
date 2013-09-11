@@ -1,8 +1,11 @@
-highlight_time_on_load    = 1500
+highlight_time_on_load_and_creation    = 1000
 highlight_time_on_in_view = 1500
-delay_between_highlight_and_show_button_open = 350
-delay_before_mouseover_detected = 50
+
+delay_before_mouseover_detected = 75
+delay_between_highlight_and_show_button_open = 325
+
 delay_before_mouseout_detected = 300
+
 
 class Highlighter
   constructor: (@$elements, @class) ->
@@ -63,7 +66,7 @@ class FactPromotion
   constructor: (elements) ->
     @highlighter = new Highlighter $(elements), 'fl-highlight'
 
-    @highlight_temporary highlight_time_on_load
+    @highlight_temporary highlight_time_on_load_and_creation
 
     $(elements).on 'inview', (event, isInView, visiblePart) =>
       @highlight_temporary(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
