@@ -27,7 +27,8 @@ Factlink.startAnnotating = ->
 
       # Check if the selected text is long enough to be added
       if Factlink.textSelected() && !$(event.target).is(":input")
-        Factlink.createButton.show event.pageY, event.pageX
+        Factlink.createButton.setCoordinates event.pageY, event.pageX
+        Factlink.createButton.show()
         Factlink.trigger "textSelected"
     , 200)
 

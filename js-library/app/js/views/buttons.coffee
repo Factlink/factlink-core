@@ -13,7 +13,7 @@ class Button
     return if @$el.hasClass 'active'
     Factlink.set_position_of_element top, left, window, @$el
 
-  show: (top, left) =>
+  show: =>
     @stopLoading() if @isLoading()
     Factlink.el.find('div.fl-button').removeClass('active')
     @$el.addClass 'active'
