@@ -8,4 +8,4 @@ Factlink.triggerClick = ->
 
     Factlink.createFactFromSelection()
   else
-    Factlink.Views.Notifications.showShouldSelectText()
+    Factlink.showShouldSelectTextNotification()
