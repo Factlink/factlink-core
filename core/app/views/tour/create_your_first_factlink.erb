@@ -18,7 +18,7 @@
 
 <%= content_for :tour_javascript do %>
   <% lib_url = "#{jslib_url}" %>
-  <% min = '.min' unless ['development'].include?(Rails.env) %>
+  <% min = '.min' unless ['development', 'test'].include?(Rails.env) %>
   <script>
     $(function() {
       window.tour = new InteractiveTour({el: $('.create-your-first-factlink')});
