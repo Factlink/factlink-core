@@ -1,6 +1,8 @@
 highlight_time_on_load    = 1500
 highlight_time_on_in_view = 1500
-delay_between_highlight_and_show_button_open = 400
+delay_between_highlight_and_show_button_open = 350
+delay_before_mouseover_detected = 50
+delay_before_mouseout_detected = 300
 
 class Highlighter
   constructor: (@$elements) ->
@@ -13,14 +15,14 @@ class Factlink.Fact
     @button_attention = new Factlink.AttentionSpan
       lost_attention:   => @show_button.hide()
       gained_attention: => @show_button.show()
-      wait_for_attention: 700
-      wait_for_neglection: 300
+      wait_for_attention:  delay_before_mouseover_detected + delay_between_highlight_and_show_button_open
+      wait_for_neglection: delay_before_mouseout_detected
 
     @highlight_attention = new Factlink.AttentionSpan
       lost_attention:   => @highlighter.dehighlight()
       gained_attention: => @highlighter.highlight()
-      wait_for_attention: 300
-      wait_for_neglection: 300
+      wait_for_attention:  delay_before_mouseover_detected
+      wait_for_neglection: delay_before_mouseout_detected
 
     @highlighter = new Highlighter $(@elements)
 
@@ -32,39 +34,30 @@ class Factlink.Fact
     @highlight_temporary highlight_time_on_load
 
     $(@elements)
-      .on('mouseenter', (e)=> @onFocus(e))
+      .on('mouseenter', (e) =>
+        @onFocus()
+        @show_button.setCoordinates($(e.target).offset().top, e.pageX)
       .on('mouseleave', => @onBlur())
       .on('click', => @openFactlinkModal())
       .on 'inview', (event, isInView, visiblePart) =>
         @highlight_temporary(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
 
+  attentions_do: (action) ->
+    for attention in [@button_attention, @highlight_attention]
+      attention[action]()
+
   highlight_temporary: (duration) ->
     @highlighter.highlight()
     setTimeout (=> highlight_attention.check_attention()), duration
 
-  onBlur: ->
-    @highlight_attention.neglect()
-    @button_attention.neglect()
-  onFocus: (e) =>
-    if e?
-      @show_button.setCoordinates($(e.target).offset().top, e.pageX)
-    @highlight_attention.attend()
-    @button_attention.attend()
+  onFocus: -> @attentions_do 'attend'
+  onBlur:  -> @attentions_do 'neglect'
 
-  shouldHaveEmphasis: => || @_loading
-
-  openFactlinkModal: =>
-    @startLoading()
-    Factlink.showInfo @id, => @stopLoading()
-
-  startLoading: ->
+  openFactlinkModal: ->
     @show_button.startLoading()
-    @highlight_attention.gain_attention()
-    @button_attention.gain_attention()
 
-  stopLoading: ->
-    @highlight_attention.loose_attention()
-    @button_attention.loose_attention()
+    @attentions_do 'gain_attention'
+    Factlink.showInfo @id, => @attentions_do 'loose_attention'
 
   destroy: ->
     for el in @elements
