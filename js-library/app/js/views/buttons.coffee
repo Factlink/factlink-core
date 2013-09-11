@@ -5,9 +5,9 @@ class Button
     for event, callback of dom_events
       @$el.bind event, callback
 
-  startLoading: -> @$el.addClass    "fl-loading"
-  stopLoading:  -> @$el.removeClass "fl-loading"
-  isLoading:    -> @$el.hasClass    "fl-loading"
+  startLoading: => @$el.addClass    "fl-loading"
+  stopLoading:  => @$el.removeClass "fl-loading"
+  isLoading:    => @$el.hasClass    "fl-loading"
 
   setCoordinates: (top, left) =>
     return if @$el.hasClass 'active'
@@ -18,9 +18,9 @@ class Button
     Factlink.el.find('div.fl-button').removeClass('active')
     @$el.addClass 'active'
 
-  hide: -> @$el.removeClass 'active'
+  hide: => @$el.removeClass 'active'
 
-  destroy: -> @$el.remove()
+  destroy: => @$el.remove()
 
 
 class Factlink.ShowButton extends Button
