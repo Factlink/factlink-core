@@ -10,7 +10,6 @@
 @buttonBackground: #3d75a3;
 
 @button_visibility_transition_time : 400ms;
-@button_visibility_delay : 0ms;
 @highlight_visibility_transition_time: 400ms;
 
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 {
@@ -80,8 +79,8 @@ span.factlink {
     &.active {
       visibility: visible;
       opacity: 1;
-      transition: opacity @button_visibility_transition_time @button_visibility_delay,
-                  visibility 0 @button_visibility_delay;
+      transition: opacity @button_visibility_transition_time,
+                  visibility 0 0;
     }
 
     &:before {

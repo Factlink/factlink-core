@@ -13,10 +13,14 @@ class Factlink.Fact
     @button_attention = new Factlink.AttentionSpan
       lost_attention:   => @show_button.hide()
       gained_attention: => @show_button.show()
+      wait_for_attention: 700
+      wait_for_neglection: 300
 
     @highlight_attention = new Factlink.AttentionSpan
       lost_attention:   => @highlighter.dehighlight()
       gained_attention: => @highlighter.highlight()
+      wait_for_attention: 300
+      wait_for_neglection: 300
 
     @highlighter = new Highlighter $(@elements)
 
