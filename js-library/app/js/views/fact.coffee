@@ -41,7 +41,7 @@ class Factlink.Fact
   highlight_temporary: (duration) ->
     @highlighter.highlight()
     setTimeout =>
-      @highlighter.dehighlight() unless @shouldHaveEmphasis()
+      @highlighter.dehighlight() unless @highlight_attention.has_attention()
     , duration
 
   onBlur: ->
@@ -53,20 +53,20 @@ class Factlink.Fact
     @highlight_attention.attend()
     @button_attention.attend()
 
-  shouldHaveEmphasis: => @highlight_attention.has_attention() || @_loading
+  shouldHaveEmphasis: => || @_loading
 
   openFactlinkModal: =>
     @startLoading()
     Factlink.showInfo @id, => @stopLoading()
 
   startLoading: ->
-    @_loading = true
     @show_button.startLoading()
+    @highlight_attention.gain_attention()
+    @button_attention.gain_attention()
 
   stopLoading: ->
-    @_loading = false
-    @highlighter.dehighlight()
-    @button.hide()
+    @highlight_attention.loose_attention()
+    @button_attention.loose_attention()
 
   destroy: ->
     for el in @elements
