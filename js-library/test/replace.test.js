@@ -68,12 +68,7 @@ test("Hovering highlights all the elements of the match, and no others", functio
 
   var facts = Factlink.selectRanges(Factlink.search(factA.str), factA.id, {});
 
-  facts[0].stopHighlighting(0);
-  facts[1].stopHighlighting(0);
-  facts[2].stopHighlighting(0);
-  facts[3].stopHighlighting(0);
-
-  facts[1].focus({
+  $(facts[1].elements[0]).trigger('mouseenter',{
     target: facts[1].elements[0],
     pageX: 0,
     show_fast: true});
@@ -82,4 +77,5 @@ test("Hovering highlights all the elements of the match, and no others", functio
   equal($(facts[1].elements[0]).hasClass('fl-active'), true);
   equal($(facts[2].elements[0]).hasClass('fl-active'), false);
   equal($(facts[3].elements[0]).hasClass('fl-active'), false);
+
 });
