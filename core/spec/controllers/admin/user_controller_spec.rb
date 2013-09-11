@@ -56,20 +56,6 @@ describe Admin::UsersController do
     end
   end
 
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new User" do
-        authenticate_user!(user)
-        @new_user = User.new valid_attributes
-        User.stub(:new) { @new_user }
-        should_check_can :create, @new_user
-        expect do
-          post :create, :user => valid_attributes
-        end.to change(User, :count).by(1)
-      end
-    end
-  end
-
   describe "PUT /approved" do
     it "should set approved" do
       put :approve, id: @user1.id, format: 'json'
