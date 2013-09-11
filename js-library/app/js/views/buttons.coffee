@@ -31,6 +31,11 @@ class Factlink.ShowButton extends Button
     </div>
   """
 
+  setCoordinates: (top, left) =>
+    return if @position_already_determined
+    @position_already_determined = true
+    super
+
 class Factlink.CreateButton extends Button
   template: """
     <div class="fl-button fl-create-button">
