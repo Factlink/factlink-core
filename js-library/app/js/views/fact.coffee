@@ -39,21 +39,24 @@ class FactInteraction
       mouseleave: => @onBlur()
       click: => @onClick()
 
-  attentions_do: (action) ->
-    for attention in [@button_attention, @highlight_attention]
-      attention[action]()
-
   onClick: (options={}) =>
-    @attentions_do 'gain_attention'
+    @button_attention.gain_attention()
+    @highlight_attention.gain_attention()
     @show_button.startLoading() # must be called after show
     @options.on_click success: =>
-      @attentions_do 'loose_attention'
+      @button_attention.loose_attention()
+      @highlight_attention.loose_attention()
 
-  onFocus: -> @attentions_do 'attend'
-  onBlur:  -> @attentions_do 'neglect'
+  onFocus: ->
+    @button_attention.attend()
+    @highlight_attention.attend()
+  onBlur:  ->
+    @button_attention.neglect()
+    @highlight_attention.neglect()
 
   destroy: ->
-    @attentions_do 'loose_attention'
+    @button_attention.loose_attention()
+    @highlight_attention.loose_attention()
     @show_button.destroy()
 
 class FactPromotion
