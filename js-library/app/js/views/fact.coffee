@@ -75,7 +75,6 @@ class Factlink.Fact
     setTimeout (=> @highlighter.dehighlight()), duration
 
   destroy: ->
-    console.info "DESTROY!!! MUHAHAHAHAHA"
     for el in @elements
       $el = $(el)
       unless $el.is('.fl-first')
