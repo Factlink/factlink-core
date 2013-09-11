@@ -31,15 +31,15 @@ class FactInteraction
     @highlighter = new Highlighter $(elements), 'fl-active'
 
     @show_button = new Factlink.ShowButton
-      mouseenter: => @onFocus()
-      mouseleave: => @onBlur()
+      mouseenter: => @onHover()
+      mouseleave: => @onUnhover()
       click:      => @onClick()
 
     $(elements).on
       mouseenter: (e) =>
-        @onFocus()
+        @onHover()
         @show_button.setCoordinates($(e.target).offset().top, e.pageX)
-      mouseleave: => @onBlur()
+      mouseleave: => @onUnhover()
       click: => @onClick()
 
   onClick: (options={}) =>
@@ -50,10 +50,10 @@ class FactInteraction
       @button_attention.loseAttentionNow()
       @highlight_attention.loseAttentionNow()
 
-  onFocus: ->
+  onHover: ->
     @button_attention.gainAttention()
     @highlight_attention.gainAttention()
-  onBlur:  ->
+  onUnhover:  ->
     @button_attention.loseAttention()
     @highlight_attention.loseAttention()
 
