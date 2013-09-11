@@ -25,6 +25,8 @@ class window.InteractiveTour extends Backbone.View
       @detectDeselecting()
 
   bindJsLibraryEvents: ->
+    return unless FACTLINK? # On the CI there is no js-library, so we just skip this
+
     FACTLINK.on 'modalOpened', =>
       @state.open_modal()
 
