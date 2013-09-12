@@ -5,7 +5,7 @@ delay_before_mouseover_detected = 75
 delay_between_highlight_and_show_button_open = 325
 
 delay_before_mouseout_detected = 300
-
+delay_before_scroll_into_screen_detected = 200
 
 class Highlighter
   constructor: (@$elements, @class) ->
@@ -87,7 +87,7 @@ class FactScrollPromotion
           @timeout_handler = setTimeout =>
             @switchToState 'visible'
           , highlight_time_on_in_view
-        , 200
+        , delay_before_scroll_into_screen_detected
       # else: we are in a visible state, and
       # the fact is visible, no need to change state
     else
@@ -96,7 +96,6 @@ class FactScrollPromotion
 
   switchToState: (to_state) =>
     return if to_state == @state
-    console.info 'Switching', @fact.id, @state, to_state if @fact.id == '148'
 
     switch to_state
       when 'small_time_visible'
@@ -114,10 +113,9 @@ class Factlink.Fact
     @fact_load_promotion = new FactLoadPromotion(@elements)
 
   isInView: ->
-    all = true
-    $(@elements).each ->
-      all = all & ($(this).data('inview') == 'both')
-    all
+    for element in $(@elements)
+      return false unless $(element).data('inview') == 'both'
+    true
 
   openFactlinkModal: (options={})=>
     Factlink.showInfo @id, => options.success?()
