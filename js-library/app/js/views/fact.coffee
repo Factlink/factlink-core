@@ -71,18 +71,36 @@ class FactLoadPromotion
     , highlight_time_on_load_and_creation
 
 class FactScrollPromotion
+  # states: invisible, small_time_visible, visible
+
   constructor: (@fact) ->
     @highlighter = new Highlighter $(fact.elements), 'fl-scroll-highlight'
     $(fact.elements).on 'inview', @onVisibilityChanged
+    @state = 'visible'
 
   onVisibilityChanged: =>
     if @fact.isInView()
-      @highlighter.highlight()
-      setTimeout =>
-        @highlighter.dehighlight()
-      , highlight_time_on_in_view
+      if @state == 'invisible'
+        @switchToState 'small_time_visible'
+        @timout_handler = setTimeout =>
+          @switchToState 'visible'
+        , highlight_time_on_in_view
+      # else: we are in a visible state, and
+      # the fact is visible, no need to change state
     else
-      @highlighter.dehighlight()
+      clearTimeout @timeout_handler
+      @switchToState 'invisible'
+
+  switchToState: (to_state) =>
+    return if to_state == @state
+
+    console.info 'Switching', @fact.id, @state, to_state if @fact.id == '148'
+    switch to_state
+      when 'small_time_visible'
+        @highlighter.highlight()
+      else
+        @highlighter.dehighlight()
+    @state = to_state
 
 
 class Factlink.Fact
