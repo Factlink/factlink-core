@@ -81,6 +81,6 @@ asyncTest("Hovering highlights all the elements of the match, and no others", fu
     equal($(facts[3].elements[0]).hasClass('fl-active'), false);
 
     start();
-  }, 100);
+  }, 1000);
 
 });
