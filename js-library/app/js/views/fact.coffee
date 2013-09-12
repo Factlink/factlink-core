@@ -62,27 +62,35 @@ class FactInteraction
     @highlight_attention.loseAttentionNow()
     @show_button.destroy()
 
-class FactPromotion
+class FactLoadPromotion
+  constructor: (elements) ->
+    @highlighter = new Highlighter $(elements), 'fl-load-highlight'
+    @highlighter.highlight()
+    setTimeout =>
+      @highlighter.dehighlight()
+    , highlight_time_on_load_and_creation
+
+class FactScrollPromotion
   constructor: (@fact) ->
-    @highlighter = new Highlighter $(fact.elements), 'fl-highlight'
-
-    @highlight_temporary highlight_time_on_load_and_creation
-
+    @highlighter = new Highlighter $(fact.elements), 'fl-scroll-highlight'
     $(fact.elements).on 'inview', @onVisibilityChanged
 
   onVisibilityChanged: =>
     if @fact.isInView()
-      @highlight_temporary(highlight_time_on_in_view)
+      @highlighter.highlight()
+      setTimeout =>
+        @highlighter.dehighlight()
+      , highlight_time_on_in_view
+    else
+      @highlighter.dehighlight()
 
-  highlight_temporary: (duration) ->
-    @highlighter.highlight()
-    setTimeout (=> @highlighter.dehighlight()), duration
 
 class Factlink.Fact
   constructor: (@id, @elements) ->
     @fact_interaction = new FactInteraction @elements, @id,
       on_click: @openFactlinkModal
-    @fact_promotion = new FactPromotion(this)
+    @fact_promotion = new FactScrollPromotion(this)
+    @fact_load_promotion = new FactLoadPromotion(@elements)
 
   isInView: ->
     all = true
