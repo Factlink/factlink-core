@@ -5,7 +5,7 @@ delay_before_mouseover_detected = 75
 delay_between_highlight_and_show_button_open = 325
 
 delay_before_mouseout_detected = 300
-
+delay_before_scroll_into_screen_detected = 200
 
 class Highlighter
   constructor: (@$elements, @class) ->
@@ -62,25 +62,60 @@ class FactInteraction
     @highlight_attention.loseAttentionNow()
     @show_button.destroy()
 
-class FactPromotion
+class FactLoadPromotion
   constructor: (elements) ->
-    @highlighter = new Highlighter $(elements), 'fl-highlight'
-
-    @highlight_temporary highlight_time_on_load_and_creation
-
-    $(elements).on 'inview', (event, isInView, visiblePart) =>
-      @highlight_temporary(highlight_time_on_in_view) if ( isInView && visiblePart == 'both' )
-
-  highlight_temporary: (duration) ->
+    @highlighter = new Highlighter $(elements), 'fl-load-highlight'
     @highlighter.highlight()
-    setTimeout (=> @highlighter.dehighlight()), duration
+    setTimeout =>
+      @highlighter.dehighlight()
+    , highlight_time_on_load_and_creation
+
+class FactScrollPromotion
+  # states: invisible, just_visible, small_time_visible, visible
+
+  constructor: (@fact) ->
+    @highlighter = new Highlighter $(fact.elements), 'fl-scroll-highlight'
+    $(fact.elements).on 'inview', @onVisibilityChanged
+    @state = 'visible'
+
+  onVisibilityChanged: =>
+    if @fact.isInView()
+      if @state == 'invisible'
+        @switchToState 'just_visible'
+        @timeout_handler = setTimeout =>
+          @switchToState 'small_time_visible'
+          @timeout_handler = setTimeout =>
+            @switchToState 'visible'
+          , highlight_time_on_in_view
+        , delay_before_scroll_into_screen_detected
+      # else: we are in a visible state, and
+      # the fact is visible, no need to change state
+    else
+      clearTimeout @timeout_handler
+      @switchToState 'invisible'
+
+  switchToState: (to_state) =>
+    return if to_state == @state
+
+    switch to_state
+      when 'small_time_visible'
+        @highlighter.highlight()
+      else
+        @highlighter.dehighlight()
+    @state = to_state
+
 
 class Factlink.Fact
   constructor: (@id, @elements) ->
     @fact_interaction = new FactInteraction @elements, @id,
       on_click: @openFactlinkModal
-    @fact_promotion = new FactPromotion(@elements)
+    @fact_promotion = new FactScrollPromotion(this)
+    @fact_load_promotion = new FactLoadPromotion(@elements)
 
+  isInView: ->
+    for element in $(@elements)
+      return false unless $(element).data('inview') == 'both'
+    true
 
   openFactlinkModal: (options={})=>
     Factlink.showInfo @id, => options.success?()
