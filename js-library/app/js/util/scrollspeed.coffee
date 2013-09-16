@@ -37,7 +37,7 @@ check_scrolling_speed = =>
 
 $(window).on 'scroll', check_scrolling_speed
 
-# flag to ensure we only fire on state chaneg
+# flag to ensure we only fire on state change
 currently_fast_scrolling = false
 Factlink.el.on
   fast_scrolling: =>
