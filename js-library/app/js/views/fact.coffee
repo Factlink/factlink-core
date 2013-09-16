@@ -5,7 +5,6 @@ delay_before_mouseover_detected = 75
 delay_between_highlight_and_show_button_open = 325
 
 delay_before_mouseout_detected = 300
-delay_before_scroll_into_screen_detected = 200
 
 class Highlighter
   constructor: (@$elements, @class) ->
@@ -71,34 +70,36 @@ class FactLoadPromotion
     , highlight_time_on_load_and_creation
 
 class FactScrollPromotion
-  # states: invisible, just_visible, small_time_visible, visible
+  # states: invisible, just_visible, visible
+  #         invisible_while_scrolling, just_visible_while_scrolling
 
   constructor: (@fact) ->
     @highlighter = new Highlighter $(fact.elements), 'fl-scroll-highlight'
-    $(fact.elements).on 'inview', @onVisibilityChanged
+    $(fact.elements).on 'inview', @onSomethingChanged
+    Factlink.el.on 'stopped_fast_scrolling', @onSomethingChanged
+    Factlink.el.on 'started_fast_scrolling', @onSomethingChanged
     @state = 'visible'
 
-  onVisibilityChanged: =>
-    if @fact.isInView()
-      if @state == 'invisible'
-        @switchToState 'just_visible'
-        @timeout_handler = setTimeout =>
-          @switchToState 'small_time_visible'
+  onSomethingChanged: =>
+    switch @state
+      when 'invisible'
+        if @fact.isInView() && ! @scrolling()
+          @switchToState 'just_visible'
           @timeout_handler = setTimeout =>
             @switchToState 'visible'
           , highlight_time_on_in_view
-        , delay_before_scroll_into_screen_detected
-      # else: we are in a visible state, and
-      # the fact is visible, no need to change state
-    else
-      clearTimeout @timeout_handler
-      @switchToState 'invisible'
+      when 'visible', 'just_visible'
+        if !@fact.isInView()
+          clearTimeout @timeout_handler
+          @switchToState 'invisible'
+
+  scrolling: => Factlink.el.hasClass 'fl-fast-scrolling'
 
   switchToState: (to_state) =>
     return if to_state == @state
-
+    console.info "switching state from '#{@state}' to '#{to_state}'"
     switch to_state
-      when 'small_time_visible'
+      when 'just_visible'
         @highlighter.highlight()
       else
         @highlighter.dehighlight()
