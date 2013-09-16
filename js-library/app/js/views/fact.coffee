@@ -97,12 +97,11 @@ class FactScrollPromotion
 
   switchToState: (to_state) =>
     return if to_state == @state
-    console.info "switching state from '#{@state}' to '#{to_state}'"
-    switch to_state
-      when 'just_visible'
-        @highlighter.highlight()
-      else
-        @highlighter.dehighlight()
+
+    if to_state == 'just_visible'
+      @highlighter.highlight()
+    else
+      @highlighter.dehighlight()
     @state = to_state
 
 
