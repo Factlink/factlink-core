@@ -2,13 +2,6 @@ require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/users_by_ids.rb'
 
 describe Queries::UsersByIds do
-  let(:user1)          {{id: 1, name: ''   , username: 'one', location: 'somewhere', biography: nil, gravatar_hash: 'asdfasdf1'}}
-  let(:user2)          {{id: 2, name: 'TW0', username: 'two', location: 'overthere', biography: nil, gravatar_hash: 'asdfasdf2'}}
-  let(:user3)          {{id: 3, name: ''   , username: 'tri', location: nil, biography: 'bladiebla', gravatar_hash: 'asdfasdf3'}}
-  let(:double_user1)     {double('user', user1)}
-  let(:double_user2)     {double('user', user2)}
-  let(:double_user3)     {double('user', user3)}
-
   before do
     stub_const "User", Class.new
     stub_const "Pavlov::ValidationError", Class.new(StandardError)
@@ -23,23 +16,23 @@ describe Queries::UsersByIds do
   describe '#call' do
     it "should work with an empty list of ids" do
       User.stub(:any_in).with(_id: []).and_return([])
-      result = described_class.new(user_ids: [], pavlov_options: { current_user: double_user1 }).call
+      result = described_class.new(user_ids: [], pavlov_options: { current_user: double }).call
       expect(result).to eq([])
     end
 
     it "should work with multiple ids" do
-      User.stub(:any_in).with(_id: [1, 2, 3]).and_return([double_user1, double_user2, double_user3])
+      user_ids = [0, 1, 2]
+      users = [double, double, double]
+      dead_users = [double, double, double]
+      User.stub(:any_in).with(_id: user_ids).and_return(users)
 
-      mash_user1 = double
-      mash_user2 = double
-      mash_user3 = double
-      KillObject.stub(:user).with(double_user1).and_return(mash_user1)
-      KillObject.stub(:user).with(double_user2).and_return(mash_user2)
-      KillObject.stub(:user).with(double_user3).and_return(mash_user3)
+      KillObject.stub(:user).with(users[0]).and_return(dead_users[0])
+      KillObject.stub(:user).with(users[1]).and_return(dead_users[1])
+      KillObject.stub(:user).with(users[2]).and_return(dead_users[2])
 
-      result = described_class.new(user_ids: [1, 2, 3], pavlov_options: { current_user: double_user1 }).call
+      result = described_class.new(user_ids: user_ids, pavlov_options: { current_user: double }).call
 
-      expect(result).to eq([mash_user1, mash_user2, mash_user3])
+      expect(result).to eq(dead_users)
     end
   end
 end
