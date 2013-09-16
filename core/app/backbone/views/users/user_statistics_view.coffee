@@ -3,19 +3,7 @@ count_object_or_null = (count) ->
 
 class window.UserStatisticsView extends Backbone.Marionette.ItemView
   className: 'statistics'
-  template:
-    text: """
-      <div class="statistic">
-        <span class="statistic-title">Following</span><br>
-        {{#following}}{{ count }}{{/following}}
-        {{^following}}<img src="{{global.ajax_loader_image}}">{{/following}}
-      </div>
-      <div class="statistic">
-        <span class="statistic-title">Followers</span><br>
-        {{#followers}}{{ count }}{{/followers}}
-        {{^followers}}<img src="{{global.ajax_loader_image}}">{{/followers}}
-      </div>
-    """
+  template: 'users/statistics'
 
   templateHelpers: =>
     following: count_object_or_null @model.following.length
