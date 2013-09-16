@@ -1,7 +1,7 @@
 class window.UserPopoverContentView extends StatisticsPopoverContentView
 
   templateHelpers: ->
-    heading: @model.get('username')
+    heading: @model.get('name')
 
   onRender: ->
     @statisticsRegion.show new UserStatisticsView model: @model
