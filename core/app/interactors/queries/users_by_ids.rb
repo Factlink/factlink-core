@@ -16,7 +16,12 @@ module Queries
     end
 
     def kill user
-      KillObject.user user
+      KillObject.user user,
+        statistics: statistics(user)
+    end
+
+    def statistics user
+      {}
     end
   end
 end

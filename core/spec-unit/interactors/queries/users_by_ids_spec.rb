@@ -29,8 +29,8 @@ describe Queries::UsersByIds do
       query = described_class.new(user_ids: user_ids, pavlov_options: { current_user: double })
 
       User.stub(:any_in).with(_id: user_ids).and_return(users)
-      KillObject.stub(:user).with(users[0]).and_return(dead_users[0])
-      KillObject.stub(:user).with(users[1]).and_return(dead_users[1])
+      KillObject.stub(:user).with(users[0], statistics: {}).and_return(dead_users[0])
+      KillObject.stub(:user).with(users[1], statistics: {}).and_return(dead_users[1])
 
       expect(query.call).to eq dead_users
     end
