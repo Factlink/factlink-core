@@ -1,11 +1,3 @@
-scroll_speed = new Factlink.Speedmeter(1.0)
-
-speeding_attention = new Factlink.AttentionSpan
-  wait_for_attention: 50
-  wait_for_neglection: 50
-  onAttentionGained: => Factlink.el.trigger 'fast_scrolling'
-  onAttentionLost:   => Factlink.el.trigger 'slow_scrolling'
-
 getScrollTop = ->
   # copied this logic from inView
   # I assumed this supports some legacy browsers,
@@ -17,6 +9,15 @@ getScrollTop = ->
     document.documentElement.scrollTop
   else
     document.body.scrollTop
+
+scroll_speed = new Factlink.Speedmeter(1.0, getScrollTop())
+
+speeding_attention = new Factlink.AttentionSpan
+  wait_for_attention: 50
+  wait_for_neglection: 50
+  onAttentionGained: => Factlink.el.trigger 'fast_scrolling'
+  onAttentionLost:   => Factlink.el.trigger 'slow_scrolling'
+
 
 recheckWhetherWereStillScrolling = null;
 
