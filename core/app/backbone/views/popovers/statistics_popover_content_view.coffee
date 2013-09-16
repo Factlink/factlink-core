@@ -8,5 +8,5 @@ class window.StatisticsPopoverContentView extends Backbone.Marionette.Layout
     buttonRegion: '.js-button-region'
 
   onRender: ->
-    @buttonRegion.show new FavouriteTopicButtonView(topic: @model, mini: true)
-    @statisticsRegion.show new TopicStatisticsView(model: @model)
+    @buttonRegion.show @options.buttonView
+    @statisticsRegion.show @options.statisticsView
