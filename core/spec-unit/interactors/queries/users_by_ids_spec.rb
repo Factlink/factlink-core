@@ -1,3 +1,4 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/users_by_ids.rb'
 
 describe Queries::UsersByIds do
