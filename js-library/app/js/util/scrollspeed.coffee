@@ -8,17 +8,23 @@ speeding_attention = new Factlink.AttentionSpan
   onAttentionLost: =>
     Factlink.el.trigger('stop_fast_scrolling') if Factlink.el.hasClass 'fl-fast-scrolling'
 
+getScrollTop = ->
+  # copied this logic from inView
+  # I assumed this supports some legacy browsers,
+  # since this functionality is used in combination with
+  # inView I want to support exactly the same browsers
+  if window.pageYOffset?
+    window.pageYOffset
+  else if  document.documentElement.scrollTop?
+    document.documentElement.scrollTop
+  else
+    document.body.scrollTop
 
 recheckWhetherWereStillScrolling = null;
 
 check_scrolling_speed = =>
     clearTimeout recheckWhetherWereStillScrolling
-    scrolltop = if window.pageYOffset?
-                  window.pageYOffset
-                else if  document.documentElement.scrollTop?
-                  document.documentElement.scrollTop
-                else
-                  document.body.scrollTop
+    scrolltop = getScrollTop()
 
     scroll_speed.measure scrolltop
     if scroll_speed.is_fast()
