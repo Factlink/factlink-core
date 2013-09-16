@@ -64,15 +64,9 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   makeUserTooltip: ->
     user = @model.user()
     Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        align: 'left'
-        side: 'bottom'
+      positioning: {align: 'left', side: 'bottom'}
       selector: '.js-activity-group-user'
-      tooltipViewFactory: ->
-        new StatisticsPopoverContentView
-          model: user
-          buttonView: new FollowUserButtonView user: user, mini: true
-          statisticsView: new UserStatisticsView model: user
+      tooltipViewFactory: => new UserPopoverContentView model: @model.user()
 
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'
