@@ -18,7 +18,7 @@ class OneMessageView extends Backbone.Marionette.ItemView
     $.scrollTo $(@el).offset().top - 72 , 800
 
   onRender: ->
-    UserPopoverContentView.makeTooltip @, @model.user()
+    UserPopoverContentView.makeTooltip @, @sender
 
 class MessageListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
