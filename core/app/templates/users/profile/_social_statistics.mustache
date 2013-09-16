@@ -1,17 +1,17 @@
 <div class="social-statistic-block">
   <h1>
-    {{#following}}{{ count }}{{/following}}
-    {{^following}}<img src="{{global.ajax_loader_image}}">{{/following}}
+    {{#followingLoading}}<img src="{{global.ajax_loader_image}}">{{/followingLoading}}
+    {{^followingLoading}}{{ following }}{{/followingLoading}}
   </h1>
-  
+
   following
 </div>
 
 <div class="social-statistic-block">
   <h1>
-    {{#followers}}{{ count }}{{/followers}}
-    {{^followers}}<img src="{{global.ajax_loader_image}}">{{/followers}}
+    {{#followersLoading}}<img src="{{global.ajax_loader_image}}">{{/followersLoading}}
+    {{^followersLoading}}{{ followers }}{{/followersLoading}}
   </h1>
-  
+
   follower{{#plural_followers}}s{{/plural_followers}}
 </div>
