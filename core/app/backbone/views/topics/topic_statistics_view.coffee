@@ -1,3 +1,3 @@
 class window.TopicStatisticsView extends Backbone.Marionette.ItemView
-  className: 'topic-statistics'
+  className: 'statistics'
   template: 'topics/statistics'
