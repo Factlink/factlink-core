@@ -2,10 +2,10 @@ require 'pavlov_helper'
 require_relative '../../../app/interactors/queries/users_by_ids.rb'
 
 describe Queries::UsersByIds do
+  include PavlovSupport
+
   before do
-    stub_const "User", Class.new
-    stub_const "Pavlov::ValidationError", Class.new(StandardError)
-    stub_const "KillObject", Class.new
+    stub_classes 'User', 'KillObject'
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
