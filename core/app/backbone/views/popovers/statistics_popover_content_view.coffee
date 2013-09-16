@@ -7,6 +7,9 @@ class window.StatisticsPopoverContentView extends Backbone.Marionette.Layout
     statisticsRegion: '.js-statistics-region'
     buttonRegion: '.js-button-region'
 
+  templateHelpers: ->
+    title: @model.get('title') || @model.get('username')
+
   onRender: ->
     @buttonRegion.show @options.buttonView
-    @statisticsRegion.show @options.statisticsView
+    @statisticsRegion.show @options.statisticsView if @options.statisticsView?

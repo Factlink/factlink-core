@@ -46,6 +46,10 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   @actions: ["created_channel", "added_subchannel"]
   actions: -> UserActivitiesGroupView.actions
 
+  constructor: ->
+    super
+    @on 'render', @makeUserTooltip
+
   itemViewOptions: ->
     $offsetParent: @$el
 
@@ -56,6 +60,19 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   buildItemView: (item, ItemView, options) ->
     NewItemView = ActivityItemView.classForModel(item)
     @lastView = super(item, NewItemView, options)
+
+  makeUserTooltip: ->
+    user = @model.user()
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        align: 'left'
+        side: 'bottom'
+      selector: '.js-activity-group-user'
+      tooltipViewFactory: ->
+        new StatisticsPopoverContentView
+          model: user
+          buttonView: new FollowUserButtonView user: user, mini: true
+          statisticsView: new UserStatisticsView user: user
 
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'
