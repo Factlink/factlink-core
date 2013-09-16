@@ -3,10 +3,8 @@ scroll_speed = new Factlink.Speedmeter(1.0)
 speeding_attention = new Factlink.AttentionSpan
   wait_for_attention: 50
   wait_for_neglection: 50
-  onAttentionGained: =>
-    Factlink.el.trigger('start_fast_scrolling') unless Factlink.el.hasClass 'fl-fast-scrolling'
-  onAttentionLost: =>
-    Factlink.el.trigger('stop_fast_scrolling') if Factlink.el.hasClass 'fl-fast-scrolling'
+  onAttentionGained: => Factlink.el.trigger 'fast_scrolling'
+  onAttentionLost:   => Factlink.el.trigger 'slow_scrolling'
 
 getScrollTop = ->
   # copied this logic from inView
@@ -38,10 +36,16 @@ check_scrolling_speed = =>
 
 $(window).scroll check_scrolling_speed
 
+# flag to ensure we only fire on state chaneg
+currently_fast_scrolling = false
 Factlink.el.on
-  start_fast_scrolling: =>
+  fast_scrolling: =>
+    return if currently_fast_scrolling
+    currently_fast_scrolling = true
     Factlink.el.addClass 'fl-fast-scrolling'
     Factlink.el.trigger 'started_fast_scrolling'
-  stop_fast_scrolling: =>
+  slow_scrolling: =>
+    return unless currently_fast_scrolling
+    currently_fast_scrolling = false
     Factlink.el.removeClass 'fl-fast-scrolling'
     Factlink.el.trigger 'stopped_fast_scrolling'
