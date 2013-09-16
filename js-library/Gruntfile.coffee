@@ -39,6 +39,7 @@ module.exports = (grunt) ->
 
           'dist/js/wrap/first.js'
           'dist/js/plugins/*.js'
+          'dist/js/classes/*.js'
           'dist/js/views/*.js'
           'dist/js/util/*.js'
           'dist/js/initializers/*.js'
@@ -129,7 +130,7 @@ module.exports = (grunt) ->
           'dist/server/factlink_loader_bookmarklet.min.js': ['dist/factlink_loader_bookmarklet.js']
           'dist/server/easyXDM/easyXDM.min.js':             ['dist/js/libs/easyXDM.js']
     jshint:
-      all: ['app/js/initializers/*.js', 'app/js/util/*.js', 'app/js/views/*.js', 'app/js/.js', 'test/**/*.js']
+      all: ['app/js/initializers/*.js', 'app/js/classes/*.js', 'app/js/util/*.js', 'app/js/views/*.js', 'app/js/.js', 'test/**/*.js']
       options:
         # Whether jQuery globals should be predefined.
         jquery: true
