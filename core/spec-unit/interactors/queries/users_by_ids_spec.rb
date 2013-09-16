@@ -15,24 +15,25 @@ describe Queries::UsersByIds do
 
   describe '#call' do
     it 'should work with an empty list of ids' do
+      query = described_class.new(user_ids: [], pavlov_options: { current_user: double })
+
       User.stub(:any_in).with(_id: []).and_return([])
-      result = described_class.new(user_ids: [], pavlov_options: { current_user: double }).call
-      expect(result).to eq([])
+
+      expect(query.call).to eq []
     end
 
     it 'should work with multiple ids' do
       user_ids = [0, 1, 2]
       users = [double, double, double]
       dead_users = [double, double, double]
-      User.stub(:any_in).with(_id: user_ids).and_return(users)
+      query = described_class.new(user_ids: user_ids, pavlov_options: { current_user: double })
 
+      User.stub(:any_in).with(_id: user_ids).and_return(users)
       KillObject.stub(:user).with(users[0]).and_return(dead_users[0])
       KillObject.stub(:user).with(users[1]).and_return(dead_users[1])
       KillObject.stub(:user).with(users[2]).and_return(dead_users[2])
 
-      result = described_class.new(user_ids: user_ids, pavlov_options: { current_user: double }).call
-
-      expect(result).to eq(dead_users)
+      expect(query.call).to eq dead_users
     end
   end
 end
