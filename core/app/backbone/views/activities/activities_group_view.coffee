@@ -72,7 +72,7 @@ class UserActivitiesGroupView extends ActivitiesGroupView
         new StatisticsPopoverContentView
           model: user
           buttonView: new FollowUserButtonView user: user, mini: true
-          statisticsView: new UserStatisticsView user: user
+          statisticsView: new UserStatisticsView model: user
 
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'
