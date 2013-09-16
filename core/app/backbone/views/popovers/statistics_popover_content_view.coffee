@@ -6,3 +6,6 @@ class window.StatisticsPopoverContentView extends Backbone.Marionette.Layout
   regions:
     statisticsRegion: '.js-statistics-region'
     buttonRegion: '.js-button-region'
+
+  ui:
+    buttonRegion: '.js-button-region'
