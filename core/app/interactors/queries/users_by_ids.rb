@@ -4,6 +4,8 @@ module Queries
 
     arguments :user_ids
 
+    private
+
     def validate
       @user_ids.each { |id| validate_hexadecimal_string :id, id.to_s }
     end
