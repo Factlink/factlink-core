@@ -3,6 +3,13 @@ class InteractingUsersAvatarView extends Backbone.Marionette.Layout
   className: 'discussion-interacting-users-avatar'
   template: 'interacting_users/avatar'
 
+  onRender: ->
+    Backbone.Factlink.makeTooltipForView @,
+      positioning: {align: 'left', side: 'bottom'}
+      selector: '.js-user-avatar'
+      tooltipViewFactory: => new UserPopoverContentView model: @model
+
+
 class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
   className: 'discussion-interacting-users-avatars'
   template: "interacting_users/avatars"
