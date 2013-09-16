@@ -35,7 +35,7 @@ check_scrolling_speed = =>
     else
       speeding_attention.loseAttention()
 
-$(window).scroll check_scrolling_speed
+$(window).on 'scroll', check_scrolling_speed
 
 # flag to ensure we only fire on state chaneg
 currently_fast_scrolling = false
