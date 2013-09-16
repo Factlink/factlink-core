@@ -12,4 +12,4 @@ class window.StatisticsPopoverContentView extends Backbone.Marionette.Layout
 
   onRender: ->
     @buttonRegion.show @options.buttonView
-    @statisticsRegion.show @options.statisticsView if @options.statisticsView?
+    @statisticsRegion.show @options.statisticsView
