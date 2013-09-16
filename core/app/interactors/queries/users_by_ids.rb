@@ -12,7 +12,11 @@ module Queries
 
     def execute
       users = User.any_in(_id: @user_ids)
-      users.map{|u| KillObject.user u}
+      users.map(&method(:kill))
+    end
+
+    def kill user
+      KillObject.user user
     end
   end
 end
