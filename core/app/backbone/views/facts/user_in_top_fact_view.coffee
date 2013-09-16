@@ -12,8 +12,5 @@ class window.UserInTopFactView extends Backbone.Marionette.ItemView
           Factlink.Global.signed_in and not @model.is_current_user()
 
   onRender: ->
-    Backbone.Factlink.makeTooltipForView @,
-      positioning: {align: 'left', side: 'bottom'}
-      selector: '.js-user-link'
+    UserPopoverContentView.makeTooltip @, @model,
       $offsetParent: @options.$offsetParent
-      tooltipViewFactory: => new UserPopoverContentView model: @model

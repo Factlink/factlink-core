@@ -16,8 +16,4 @@ class window.TopFactHeadingUserView extends Backbone.Marionette.ItemView
   template: 'facts/top_fact_heading_user'
 
   onRender: ->
-    Backbone.Factlink.makeTooltipForView @,
-      positioning: {align: 'left', side: 'bottom'}
-      selector: '.js-user-link'
-      tooltipViewFactory: => new UserPopoverContentView model: @model
-
+    UserPopoverContentView.makeTooltip @, @model

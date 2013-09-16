@@ -14,3 +14,10 @@ class window.UserPopoverContentView extends StatisticsPopoverContentView
 
     @buttonRegion.show new FollowUserButtonView user: @model, mini: true
     @ui.buttonRegion.removeClass 'statistics-popover-content-button-hidden'
+
+UserPopoverContentView.makeTooltip = (view, user, options={}) ->
+  Backbone.Factlink.makeTooltipForView view,
+      positioning: {align: 'left', side: 'bottom'}
+      selector: options.selector || '.js-user-link'
+      $offsetParent: options.$offsetParent
+      tooltipViewFactory: -> new UserPopoverContentView model: user

@@ -46,11 +46,9 @@ class FollowedUserView extends ActivityItemView
     followed_user: @user().toJSON()
 
   onRender: ->
-    Backbone.Factlink.makeTooltipForView @,
-      positioning: {align: 'left', side: 'bottom'}
+    UserPopoverContentView.makeTooltip @, @user(),
       selector: '.js-activity-user'
       $offsetParent: @options.$offsetParent
-      tooltipViewFactory: => new UserPopoverContentView model: @user()
 
   user: -> @_user ?= new User(@model.get('activity').followed_user)
 

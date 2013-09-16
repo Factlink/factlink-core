@@ -62,10 +62,8 @@ class UserActivitiesGroupView extends ActivitiesGroupView
     @lastView = super(item, NewItemView, options)
 
   makeUserTooltip: ->
-    Backbone.Factlink.makeTooltipForView @,
-      positioning: {align: 'left', side: 'bottom'}
+    UserPopoverContentView.makeTooltip @, @model.user(),
       selector: '.js-activity-group-user'
-      tooltipViewFactory: => new UserPopoverContentView model: @model.user()
 
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'

@@ -19,10 +19,7 @@ class InteractorNameView extends Backbone.Marionette.ItemView
       Factlink.Global.signed_in and not @model.is_current_user()
 
   onRender: ->
-    Backbone.Factlink.makeTooltipForView @,
-      positioning: {align: 'left', side: 'bottom'}
-      selector: '.js-user-link'
-      tooltipViewFactory: => new UserPopoverContentView model: @model
+    UserPopoverContentView.makeTooltip @, @model
 
 class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
   template: 'interacting_users/names'
