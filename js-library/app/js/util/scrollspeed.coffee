@@ -10,14 +10,15 @@ getScrollTop = ->
   else
     document.body.scrollTop
 
-scroll_speed = new Factlink.Speedmeter(1.0, getScrollTop())
+scroll_speed = new Factlink.Speedmeter 1.0,
+  initial_vaule: getScrollTop()
+  smooth_over: 5
 
 speeding_attention = new Factlink.AttentionSpan
   wait_for_attention: 50
   wait_for_neglection: 50
   onAttentionGained: => Factlink.el.trigger 'fast_scrolling'
   onAttentionLost:   => Factlink.el.trigger 'slow_scrolling'
-
 
 recheckWhetherWereStillScrolling = null;
 

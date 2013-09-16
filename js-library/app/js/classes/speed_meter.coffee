@@ -6,8 +6,10 @@
 # value for speed (to allow for slow-changing discrete values, which
 # would otherwise spike a lot)
 class Factlink.Speedmeter
-  constructor: (@speeding, initial_value=0)->
-    @last_measurements = [new Date().getTime(), initial_value] for i in [0..5]
+  constructor: (@speeding, options={})->
+    smooth_over = options.smooth_over || 1
+    initial_value = options.smooth_over || 0
+    @last_measurements = [new Date().getTime(), initial_value] for i in [0..smooth_over]
 
   measure: (value) ->
     current_time = new Date().getTime()
