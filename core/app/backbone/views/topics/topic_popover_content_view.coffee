@@ -1,10 +1,10 @@
-class window.TopicPopoverContentView extends Backbone.Marionette.Layout
-  className: 'topic-popover-content'
+class window.StatisticsPopoverContentView extends Backbone.Marionette.Layout
+  className: 'statistics-popover-content'
 
   template: 'topics/popover_content'
 
   regions:
-    topicStatisticsRegion: '.js-topic-statistics-region'
+    topicStatisticsRegion: '.js-statistics-region'
     favouriteButtonRegion: '.js-favourite-button-region'
 
   onRender: ->
