@@ -12,11 +12,13 @@
 @button_visibility_transition_time : 300ms;
 @highlight_visibility_transition_time: 300ms;
 
-#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 {
-  > #fl, > #fl * {
-    #fl > .resetStyles;
-    color: #fff;
-  }
+#fl-wrapper-1,
+#fl-wrapper-1 > #fl-wrapper-2,
+#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3,
+#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl,
+#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl * {
+  .resetStyles();
+  color: #fff;
 }
 
 span.factlink {
