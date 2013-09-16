@@ -4,5 +4,10 @@ class window.UserPopoverContentView extends StatisticsPopoverContentView
     title: @model.get('username')
 
   onRender: ->
-    @buttonRegion.show new FollowUserButtonView user: @model, mini: true
+    @_showFollowButton()
     @statisticsRegion.show new UserStatisticsView model: @model
+
+  _showFollowButton: ->
+    return if @model.is_current_user()
+
+    @buttonRegion.show new FollowUserButtonView user: @model, mini: true

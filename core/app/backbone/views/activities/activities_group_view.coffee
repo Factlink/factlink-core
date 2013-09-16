@@ -62,8 +62,6 @@ class UserActivitiesGroupView extends ActivitiesGroupView
     @lastView = super(item, NewItemView, options)
 
   makeUserTooltip: ->
-    return if @model.user().is_current_user()
-
     Backbone.Factlink.makeTooltipForView @,
       positioning: {align: 'left', side: 'bottom'}
       selector: '.js-activity-group-user'
