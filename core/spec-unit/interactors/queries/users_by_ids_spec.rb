@@ -22,13 +22,13 @@ describe Queries::UsersByIds do
 
   describe '#call' do
     it "should work with an empty list of ids" do
-      User.should_receive(:any_in).with(_id: []).and_return([])
+      User.stub(:any_in).with(_id: []).and_return([])
       result = described_class.new(user_ids: [], pavlov_options: { current_user: double_user1 }).call
       expect(result).to eq([])
     end
 
     it "should work with multiple ids" do
-      User.should_receive(:any_in).with(_id: [1, 2, 3]).and_return([double_user1, double_user2, double_user3])
+      User.stub(:any_in).with(_id: [1, 2, 3]).and_return([double_user1, double_user2, double_user3])
 
       mash_user1 = double
       mash_user2 = double
