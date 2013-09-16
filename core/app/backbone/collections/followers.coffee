@@ -1,4 +1,4 @@
-class window.Followers extends Backbone.Collection
+class window.Followers extends Backbone.Factlink.Collection
   model: User
 
   initialize: (models, opts) ->

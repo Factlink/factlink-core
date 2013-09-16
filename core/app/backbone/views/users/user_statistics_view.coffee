@@ -1,13 +1,12 @@
-count_object_or_null = (count) ->
-  if count? then {count: count} else null
-
 class window.UserStatisticsView extends Backbone.Marionette.ItemView
   className: 'statistics'
   template: 'users/statistics'
 
   templateHelpers: =>
-    following: count_object_or_null @model.following.length
-    followers: count_object_or_null @model.followers.length
+    following: @model.following.length
+    followers: @model.followers.length
+    followingLoading: @model.following.loading()
+    followersLoading: @model.followers.loading()
 
   initialize: ->
     @listenTo @model.followers, 'all', @render
