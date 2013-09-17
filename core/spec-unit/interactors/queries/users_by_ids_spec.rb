@@ -10,13 +10,13 @@ describe Queries::UsersByIds do
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
-    expect { described_class.new({ user_ids: ['g6'], pavlov_options: { current_user: double() }}).call}.
+    expect { described_class.new(user_ids: ['g6']).call}.
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
   describe '#call' do
     it 'should work with an empty list of ids' do
-      query = described_class.new(user_ids: [], pavlov_options: { current_user: double })
+      query = described_class.new(user_ids: [])
 
       User.stub(:any_in).with(_id: []).and_return([])
 
