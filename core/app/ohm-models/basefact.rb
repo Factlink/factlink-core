@@ -1,8 +1,4 @@
-class Basefact < OurOhm
-  include Activity::Subject
-
-  reference :created_by, GraphUser
-
+module Basefact
   def believable
     @believable ||= Believable.new(self.key)
   end
@@ -15,10 +11,6 @@ class Basefact < OurOhm
   delegate :opinionated_users_ids, :opinionated_users_count, :opiniated, :add_opiniated, :remove_opinionateds,
            :people_believes, :people_doubts, :people_disbelieves,
          :to => :believable
-
-  def validate
-    assert_present :created_by
-  end
 
   def add_opinion(type, user)
     add_opiniated(type,user)

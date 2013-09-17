@@ -1,9 +1,15 @@
 class Channel < OurOhm;end # needed because of removed const_missing from ohm
 class Site < OurOhm; end # needed because of removed const_missing from ohm
-class FactRelation < Basefact;end # needed because of removed const_missing from ohm
+class FactRelation < OurOhm;end # needed because of removed const_missing from ohm
 
-class Fact < Basefact
+class Fact < OurOhm
+  include Activity::Subject
+  include Basefact
   include Pavlov::Helpers
+
+  def validate
+    assert_present :created_by
+  end
 
   def create
     require_saved_data
@@ -18,9 +24,8 @@ class Fact < Basefact
     result
   end
 
-
+  reference :created_by, GraphUser
   set :channels, Channel
-
   timestamped_set :interactions, Activity
 
   def increment_mixpanel_count

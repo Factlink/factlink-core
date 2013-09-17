@@ -1,4 +1,7 @@
-class FactRelation < Basefact
+class FactRelation < OurOhm
+  include Activity::Subject
+  include Basefact
+
   attr_accessor :sub_comments_count
 
   attribute :created_at
@@ -6,6 +9,7 @@ class FactRelation < Basefact
 
   reference :from_fact, Fact
   reference :fact, Fact
+  reference :created_by, GraphUser
 
   attribute :type # => :supporting || :weakening
   index :type
@@ -16,6 +20,7 @@ class FactRelation < Basefact
     assert_present :type
     assert_member :type, [:supporting, :weakening, 'supporting', 'weakening']
     assert_unique [:from_fact_id, :fact_id, :type]
+    assert_present :created_by
   end
 
   def self.get_or_create(from, type, to, user)
