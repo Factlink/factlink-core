@@ -1,3 +1,5 @@
+// WARNING: this is backbone events, but we added the last line in this file.
+
 // Regular expression used to split event strings
 var eventSplitter = /\s+/;
 
