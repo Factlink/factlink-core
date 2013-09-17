@@ -49,4 +49,24 @@ describe UserFollowingUsers do
     end
   end
 
+  describe '.following_count' do
+    it 'returns relation.count' do
+      count = double
+
+      relation.stub(:count).with(graph_user_id).and_return(count)
+
+      expect(user_following_users.following_count).to eq count
+    end
+  end
+
+  describe '.followers_count' do
+    it 'returns relation.reverse_count' do
+      count = double
+
+      relation.stub(:reverse_count).with(graph_user_id).and_return(count)
+
+      expect(user_following_users.followers_count).to eq count
+    end
+  end
+
 end
