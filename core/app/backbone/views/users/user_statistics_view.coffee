@@ -7,6 +7,7 @@ class window.UserStatisticsView extends Backbone.Marionette.ItemView
     followers: @model.followers.length
     followingLoading: @model.following.loading()
     followersLoading: @model.followers.loading()
+    topic: @model.user_topics().first()?.toJSON()
 
   initialize: ->
     @listenTo @model.followers, 'all', @render
