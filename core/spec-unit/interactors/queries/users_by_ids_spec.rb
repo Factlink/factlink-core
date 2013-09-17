@@ -25,6 +25,7 @@ describe Queries::UsersByIds do
 
     it 'adds statistics' do
       follower_count = 123
+      following_count = 456
       created_fact_count = 10
       created_facts_channel = double(sorted_cached_facts: double(size: created_fact_count))
       user = double(graph_user: double(id: '10', created_facts_channel: created_facts_channel))
@@ -36,8 +37,13 @@ describe Queries::UsersByIds do
         .with(:'users/follower_count', graph_user_id: user.graph_user.id)
         .and_return(follower_count)
 
+      Pavlov.stub(:query)
+        .with(:'users/following_count', graph_user_id: user.graph_user.id)
+        .and_return(following_count)
+
       expect(query.call[0].statistics[:created_fact_count]).to eq created_fact_count
       expect(query.call[0].statistics[:follower_count]).to eq follower_count
+      expect(query.call[0].statistics[:following_count]).to eq following_count
     end
 
     it 'should work with multiple ids' do
