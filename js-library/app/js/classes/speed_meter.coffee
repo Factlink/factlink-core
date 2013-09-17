@@ -1,25 +1,24 @@
 # This class determines whether a certain value is moving too fast
-#
-# Too fast is defined as larger than speeding.
-#
-# We assume that averaging over the last few values gives the best
-# value for speed (to allow for slow-changing discrete values, which
-# would otherwise spike a lot)
 class Factlink.Speedmeter
   constructor: (@options)->
+    unless @options.on_change
+      throw "Method for handling speed changes missing"
+    unless @options.is_fast_treshold
+      throw "Treshold for when to consider speed fast is missing"
+    unless @options.get_measure
+      throw "Function to measure with mising"
 
   measure:  =>
     @value = @options.get_measure()
     @time = new Date().getTime()
 
-  evaluate_current_state: =>
+  determine_speed: =>
     last_time = @time
     last_value = @value
     @measure()
     current_speed = Math.abs((@value - last_value)/(@time-last_time))
     @speed = @smooth_with_last_speed(current_speed)
-    @is_fast = @speed > @options.speeding
-    @options.on_change(@is_fast)
+    @is_fast = @speed > @options.is_fast_treshold
 
   # This smoothes the new measurement with the previous measurement
   # this way we prevent that a small period of slow scrolling breaks
