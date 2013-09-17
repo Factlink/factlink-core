@@ -24,13 +24,21 @@ describe Queries::UsersByIds do
 
     it 'should work with multiple ids' do
       user_ids = [0, 1]
-      users = [double, double]
+      created_fact_count0 = 10
+      created_fact_count1 = 20
+      user0 = double(graph_user: double(created_facts: double(size: created_fact_count0)))
+      user1 = double(graph_user: double(created_facts: double(size: created_fact_count1)))
+      users = [user0, user1]
       dead_users = [double, double]
       query = described_class.new(user_ids: user_ids, pavlov_options: { current_user: double })
 
       User.stub(:any_in).with(_id: user_ids).and_return(users)
-      KillObject.stub(:user).with(users[0], statistics: {}).and_return(dead_users[0])
-      KillObject.stub(:user).with(users[1], statistics: {}).and_return(dead_users[1])
+      KillObject.stub(:user)
+        .with(users[0], statistics: {created_fact_count: created_fact_count0})
+        .and_return(dead_users[0])
+      KillObject.stub(:user)
+        .with(users[1], statistics: {created_fact_count: created_fact_count1})
+        .and_return(dead_users[1])
 
       expect(query.call).to eq dead_users
     end

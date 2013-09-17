@@ -21,7 +21,9 @@ module Queries
     end
 
     def statistics user
-      {}
+      {
+        created_fact_count: user.graph_user.created_facts.size
+      }
     end
   end
 end
