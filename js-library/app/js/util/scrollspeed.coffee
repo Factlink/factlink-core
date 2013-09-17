@@ -10,33 +10,16 @@ getScrollTop = ->
   else
     document.body.scrollTop
 
-scroll_speed = new Factlink.Speedmeter 1.0,
-  initial_vaule: getScrollTop()
-  smooth_over: 5
-
-speeding_attention = new Factlink.AttentionSpan
-  wait_for_attention: 50
-  wait_for_neglection: 50
-  onAttentionGained: => Factlink.el.trigger 'fast_scrolling'
-  onAttentionLost:   => Factlink.el.trigger 'slow_scrolling'
-
-recheckWhetherWereStillScrolling = null;
+scroll_speed = new Factlink.Speedmeter
+  speeding: 1
+  get_measure: -> getScrollTop()
+  on_change: -> check_scrolling_speed()
 
 check_scrolling_speed = =>
-    clearTimeout recheckWhetherWereStillScrolling
-    scrolltop = getScrollTop()
-
-    scroll_speed.measure scrolltop
-    if scroll_speed.is_fast()
-      speeding_attention.gainAttention()
-      # when scrolling sometimes we this suddenly stops without events
-      # or we considered it fast still, while it actually wasn't anymore
-      # so we need to recheck
-      recheckWhetherWereStillScrolling = setTimeout check_scrolling_speed, 50
-    else
-      speeding_attention.loseAttention()
-
-$(window).on 'scroll', check_scrolling_speed
+  if scroll_speed.is_fast()
+    Factlink.el.trigger 'fast_scrolling'
+  else
+    Factlink.el.trigger 'slow_scrolling'
 
 # flag to ensure we only fire on state change
 currently_fast_scrolling = false
@@ -51,3 +34,6 @@ Factlink.el.on
     currently_fast_scrolling = false
     Factlink.el.removeClass 'fl-fast-scrolling'
     Factlink.el.trigger 'stopped_fast_scrolling'
+
+Factlink.startFastScrollDetection = =>
+  $(window).on 'scroll', scroll_speed.start_measuring

@@ -6,18 +6,35 @@
 # value for speed (to allow for slow-changing discrete values, which
 # would otherwise spike a lot)
 class Factlink.Speedmeter
-  constructor: (@speeding, options={})->
-    smooth_over = options.smooth_over || 1
-    initial_value = options.smooth_over || 0
-    @last_measurements = [new Date().getTime(), initial_value] for i in [0..smooth_over]
+  constructor: (@options)->
 
-  measure: (value) ->
-    current_time = new Date().getTime()
+  measure:  =>
+    @value = @options.get_measure()
+    @time = new Date().getTime()
 
-    [last_time, last_value] = @last_measurements.shift()
+  is_fast: => @speed > @options.speeding
 
-    @speed = Math.abs((value - last_value)/(current_time-last_time))
+  evaluate_current_state: =>
+    last_time = @time
+    last_value = @value
+    @measure()
+    current_speed = Math.abs((@value - last_value)/(@time-last_time))
+    @speed = 0.4 * current_speed +
+             0.6 * @speed
+    @options.on_change()
 
-    @last_measurements.push([current_time, value])
 
-  is_fast: => @speed > @speeding
+  remeasure: =>
+    @remeasure_timeout ?= setTimeout =>
+      @remeasure_timeout = null
+      @evaluate_current_state()
+      if @speed > @options.speeding
+        @remeasure()
+    , 100
+
+  start_measuring: =>
+    return if @remeasure_timeout
+    @speed = @options.speeding
+    @measure()
+    @remeasure()
+
