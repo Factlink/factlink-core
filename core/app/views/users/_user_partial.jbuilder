@@ -1,4 +1,4 @@
-unless user.class == OpenStruct && user.respond_to?(:statistics) then
+unless user.respond_to?(:statistics) then
   user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
 end
 
