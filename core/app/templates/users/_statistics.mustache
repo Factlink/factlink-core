@@ -1,4 +1,8 @@
 <div class="statistic">
+  <span class="statistic-title">Factlinks</span><br>
+  {{ statistics_created_fact_count }}
+</div>
+<div class="statistic">
   <span class="statistic-title">Following</span><br>
   {{#followingLoading}}<img src="{{global.ajax_loader_image}}">{{/followingLoading}}
   {{^followingLoading}}{{ following }}{{/followingLoading}}
