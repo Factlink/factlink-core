@@ -76,14 +76,13 @@ class FactScrollPromotion
   constructor: (@fact) ->
     @highlighter = new Highlighter $(fact.elements), 'fl-scroll-highlight'
     $(fact.elements).on 'inview', @onSomethingChanged
-    Factlink.el.on 'stopped_fast_scrolling', @onSomethingChanged
-    Factlink.el.on 'started_fast_scrolling', @onSomethingChanged
+    Factlink.on 'fast_scrolling_changed', @onSomethingChanged
     @state = 'visible'
 
   onSomethingChanged: =>
     switch @state
       when 'invisible'
-        if @fact.isInView() && ! @scrolling()
+        if @fact.isInView() && ! Factlink.isFastScrolling
           @switchToState 'just_visible'
           @timeout_handler = setTimeout =>
             @switchToState 'visible'
@@ -92,8 +91,6 @@ class FactScrollPromotion
         if !@fact.isInView()
           clearTimeout @timeout_handler
           @switchToState 'invisible'
-
-  scrolling: => Factlink.el.hasClass 'fl-fast-scrolling'
 
   switchToState: (to_state) =>
     return if to_state == @state
