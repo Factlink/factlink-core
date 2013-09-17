@@ -22,7 +22,7 @@ module Queries
 
     def statistics user
       {
-        created_fact_count: user.graph_user.created_facts.size
+        created_fact_count: user.graph_user.created_facts_channel.sorted_cached_facts.size
       }
     end
   end
