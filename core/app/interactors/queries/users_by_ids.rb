@@ -16,17 +16,22 @@ module Queries
     end
 
     def kill user
+      graph_user = user.graph_user
       KillObject.user user,
-        statistics: statistics(user.graph_user)
+        statistics: statistics(graph_user),
+        top_user_topics: top_user_topics(graph_user)
     end
 
     def statistics graph_user
       {
         # TODO: more efficient fact count
         created_fact_count: graph_user.created_facts_channel.sorted_cached_facts.size,
-        top_user_topics: query(:'user_topics/top_with_authority_for_graph_user_id',
-                  graph_user_id: graph_user.id, limit_topics: 1)
       }
+    end
+
+    def top_user_topics graph_user
+      query(:'user_topics/top_with_authority_for_graph_user_id',
+                graph_user_id: graph_user.id, limit_topics: 1)
     end
   end
 end
