@@ -7,3 +7,4 @@ json.name                          user.name
 json.username                      user.username
 json.gravatar_hash                 user.gravatar_hash
 json.statistics_created_fact_count user.statistics[:created_fact_count]
+json.statistics_follower_count     user.statistics[:follower_count]
