@@ -1,11 +1,12 @@
 require 'pavlov_helper'
+require_relative '../../../app/interactors/kill_object.rb'
 require_relative '../../../app/interactors/queries/users_by_ids.rb'
 
 describe Queries::UsersByIds do
   include PavlovSupport
 
   before do
-    stub_classes 'User', 'KillObject'
+    stub_classes 'User'
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
@@ -22,27 +23,28 @@ describe Queries::UsersByIds do
       expect(query.call).to eq []
     end
 
+    it 'adds statistics' do
+      created_fact_count = 10
+      created_facts_channel = double(sorted_cached_facts: double(size: created_fact_count))
+      user = double(graph_user: double(created_facts_channel: created_facts_channel))
+      query = described_class.new(user_ids: [0], pavlov_options: { current_user: double })
+
+      User.stub(:any_in).with(_id: [0]).and_return([user])
+
+      expect(query.call[0].statistics[:created_fact_count]).to eq created_fact_count
+    end
+
     it 'should work with multiple ids' do
       user_ids = [0, 1]
       created_facts_channel0 = double(sorted_cached_facts: double(size: 10))
       created_facts_channel1 = double(sorted_cached_facts: double(size: 20))
       user0 = double(graph_user: double(created_facts_channel: created_facts_channel0))
       user1 = double(graph_user: double(created_facts_channel: created_facts_channel1))
-      users = [user0, user1]
-      dead_users = [double, double]
       query = described_class.new(user_ids: user_ids, pavlov_options: { current_user: double })
 
-      User.stub(:any_in).with(_id: user_ids).and_return(users)
-      KillObject.stub(:user)
-        .with(users[0], statistics:
-          {created_fact_count: created_facts_channel0.sorted_cached_facts.size})
-        .and_return(dead_users[0])
-      KillObject.stub(:user)
-        .with(users[1], statistics:
-          {created_fact_count: created_facts_channel1.sorted_cached_facts.size})
-        .and_return(dead_users[1])
+      User.stub(:any_in).with(_id: user_ids).and_return([user0, user1])
 
-      expect(query.call).to eq dead_users
+      expect(query.call.length).to eq 2
     end
   end
 end
