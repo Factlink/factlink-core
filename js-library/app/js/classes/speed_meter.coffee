@@ -29,15 +29,16 @@ class Factlink.Speedmeter
   remeasure: =>
     @remeasure_timeout ?= setTimeout =>
       @remeasure_timeout = null
-      @evaluate_current_state()
+      @determine_speed()
+      @options.on_change(@is_fast)
       if @is_fast
         @remeasure()
     , 100
 
-  start_measuring: =>
+  on_possible_speed_change: =>
     return if @remeasure_timeout
     # needed for smoothing, ensures low-latency first measurement
-    @speed = @options.speeding
+    @speed = @options.is_fast_treshold
     @measure()
     @remeasure()
 
