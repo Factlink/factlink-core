@@ -24,7 +24,7 @@ describe Queries::UsersByIds do
     end
 
     it 'adds statistics' do
-      top_topic = double
+      top_user_topics = double
       created_fact_count = 10
       created_facts_channel = double(sorted_cached_facts: double(size: created_fact_count))
       user = double(graph_user: double(id: '10', created_facts_channel: created_facts_channel))
@@ -35,10 +35,10 @@ describe Queries::UsersByIds do
       Pavlov.stub(:query)
         .with(:'user_topics/top_with_authority_for_graph_user_id',
                   graph_user_id: user.graph_user.id, limit_topics: 1)
-        .and_return([top_topic])
+        .and_return(top_user_topics)
 
       expect(query.call[0].statistics[:created_fact_count]).to eq created_fact_count
-      expect(query.call[0].statistics[:top_topic]).to eq top_topic
+      expect(query.call[0].statistics[:top_user_topics]).to eq top_user_topics
     end
 
     it 'should work with multiple ids' do
@@ -51,7 +51,7 @@ describe Queries::UsersByIds do
 
       User.stub(:any_in).with(_id: user_ids).and_return([user0, user1])
 
-      Pavlov.stub(:query).and_return([])
+      Pavlov.stub(:query).and_return(nil)
 
       expect(query.call.length).to eq 2
     end
