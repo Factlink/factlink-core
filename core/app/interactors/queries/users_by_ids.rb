@@ -2,7 +2,8 @@ module Queries
   class UsersByIds
     include Pavlov::Query
 
-    arguments :user_ids
+    attribute :user_ids, Array
+    attribute :top_topics_limit, Integer, default: 1
 
     private
 
@@ -31,7 +32,7 @@ module Queries
 
     def top_user_topics graph_user
       query(:'user_topics/top_with_authority_for_graph_user_id',
-                graph_user_id: graph_user.id, limit_topics: 1)
+                graph_user_id: graph_user.id, limit_topics: top_topics_limit)
     end
   end
 end
