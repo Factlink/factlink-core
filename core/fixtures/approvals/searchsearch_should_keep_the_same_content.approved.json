@@ -15,7 +15,10 @@
       "name": "John1 Doe1",
       "username": "Baron",
       "gravatar_hash": "<STRIPPED>",
-      "statistics_created_fact_count": 1
+      "statistics_created_fact_count": 1,
+      "user_topics": [
+
+      ]
     }
   },
   {
@@ -33,6 +36,9 @@
         "username": "Baron",
         "gravatar_hash": "<STRIPPED>",
         "statistics_created_fact_count": 1,
+        "user_topics": [
+
+        ],
         "authority_for_subject": {
           "authority": "1.0",
           "id": "<STRIPPED>"

@@ -16,6 +16,9 @@
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 3,
+      "user_topics": [
+
+      ],
       "all_channel_id": "1"
     },
     "discover_stream?": false,
