@@ -61,9 +61,9 @@ class window.User extends Backbone.Model
     currentUser.following.create @,
       error: =>
         currentUser.following.remove @
-        @followers.remove currentUser
+        @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
-    @followers.add currentUser.clone()
+    @set 'statistics_follower_count', @get('statistics_follower_count')+1
     @trigger 'followed'
 
   unfollow: ->
@@ -73,9 +73,9 @@ class window.User extends Backbone.Model
     self.destroy
       error: =>
         currentUser.following.add @
-        @followers.add currentUser.clone()
+        @set 'statistics_follower_count', @get('statistics_follower_count')+1
 
-    @followers.remove currentUser
+    @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
   followed_by_me: ->
     currentUser.following.some (model) =>
