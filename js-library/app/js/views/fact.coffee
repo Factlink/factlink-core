@@ -71,7 +71,6 @@ class FactLoadPromotion
 
 class FactScrollPromotion
   # states: invisible, just_visible, visible
-  #         invisible_while_scrolling, just_visible_while_scrolling
 
   constructor: (@fact) ->
     @highlighter = new Highlighter $(fact.elements), 'fl-scroll-highlight'
