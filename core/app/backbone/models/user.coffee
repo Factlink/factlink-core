@@ -1,7 +1,6 @@
 class window.User extends Backbone.Model
   initialize: ->
     @channels = []
-    @followers = new Followers([], user: @)
     @following = new Following([], user: @)
     @favourite_topics = new FavouriteTopics([], user: @)
 
