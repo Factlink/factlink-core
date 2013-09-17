@@ -22,5 +22,5 @@ scroll_speed = new Factlink.Speedmeter
   get_measure: getScrollTop
   on_change: check_scrolling_speed
 
-Factlink.startFastScrollDetection = =>
+Factlink.startFastScrollDetection = ->
   $(window).on 'scroll', scroll_speed.start_measuring
