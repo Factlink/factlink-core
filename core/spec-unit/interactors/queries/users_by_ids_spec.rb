@@ -1,17 +1,12 @@
+require 'pavlov_helper'
+require_relative '../../../app/interactors/kill_object.rb'
 require_relative '../../../app/interactors/queries/users_by_ids.rb'
 
 describe Queries::UsersByIds do
-  let(:user1)          {{id: 1, name: ''   , username: 'one', location: 'somewhere', biography: nil, gravatar_hash: 'asdfasdf1'}}
-  let(:user2)          {{id: 2, name: 'TW0', username: 'two', location: 'overthere', biography: nil, gravatar_hash: 'asdfasdf2'}}
-  let(:user3)          {{id: 3, name: ''   , username: 'tri', location: nil, biography: 'bladiebla', gravatar_hash: 'asdfasdf3'}}
-  let(:double_user1)     {double('user', user1)}
-  let(:double_user2)     {double('user', user2)}
-  let(:double_user3)     {double('user', user3)}
+  include PavlovSupport
 
   before do
-    stub_const "User", Class.new
-    stub_const "Pavlov::ValidationError", Class.new(StandardError)
-    stub_const "KillObject", Class.new
+    stub_classes 'User'
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
@@ -20,25 +15,36 @@ describe Queries::UsersByIds do
   end
 
   describe '#call' do
-    it "should work with an empty list of ids" do
-      User.should_receive(:any_in).with(_id: []).and_return([])
-      result = described_class.new(user_ids: [], pavlov_options: { current_user: double_user1 }).call
-      expect(result).to eq([])
+    it 'should work with an empty list of ids' do
+      query = described_class.new(user_ids: [], pavlov_options: { current_user: double })
+
+      User.stub(:any_in).with(_id: []).and_return([])
+
+      expect(query.call).to eq []
     end
 
-    it "should work with multiple ids" do
-      User.should_receive(:any_in).with(_id: [1, 2, 3]).and_return([double_user1, double_user2, double_user3])
+    it 'adds statistics' do
+      created_fact_count = 10
+      created_facts_channel = double(sorted_cached_facts: double(size: created_fact_count))
+      user = double(graph_user: double(created_facts_channel: created_facts_channel))
+      query = described_class.new(user_ids: [0], pavlov_options: { current_user: double })
 
-      mash_user1 = double
-      mash_user2 = double
-      mash_user3 = double
-      KillObject.stub(:user).with(double_user1).and_return(mash_user1)
-      KillObject.stub(:user).with(double_user2).and_return(mash_user2)
-      KillObject.stub(:user).with(double_user3).and_return(mash_user3)
+      User.stub(:any_in).with(_id: [0]).and_return([user])
 
-      result = described_class.new(user_ids: [1, 2, 3], pavlov_options: { current_user: double_user1 }).call
+      expect(query.call[0].statistics[:created_fact_count]).to eq created_fact_count
+    end
 
-      expect(result).to eq([mash_user1, mash_user2, mash_user3])
+    it 'should work with multiple ids' do
+      user_ids = [0, 1]
+      created_facts_channel0 = double(sorted_cached_facts: double(size: 10))
+      created_facts_channel1 = double(sorted_cached_facts: double(size: 20))
+      user0 = double(graph_user: double(created_facts_channel: created_facts_channel0))
+      user1 = double(graph_user: double(created_facts_channel: created_facts_channel1))
+      query = described_class.new(user_ids: user_ids, pavlov_options: { current_user: double })
+
+      User.stub(:any_in).with(_id: user_ids).and_return([user0, user1])
+
+      expect(query.call.length).to eq 2
     end
   end
 end
