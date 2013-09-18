@@ -23,7 +23,10 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
       setTimeout (=> @_destroy()), 1000
 
     _destroy: ->
-      @model.destroy()
+      @$el.addClass 'notification-center-alert-container-hidden'
+
+      transitionTime = 500 # Keep in sync with CSS
+      setTimeout (=> @model.destroy()), transitionTime+100
 
   class NotificationCenter.AlertsView extends Marionette.CollectionView
     itemView: NotificationCenter.AlertView
