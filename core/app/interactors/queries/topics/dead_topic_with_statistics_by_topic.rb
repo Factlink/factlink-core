@@ -11,7 +11,8 @@ module Queries
         DeadTopic.new alive_topic.slug_title,
                       alive_topic.title,
                       current_user_authority,
-                      facts_count
+                      facts_count,
+                      favouritours_count
       end
 
       def facts_count
@@ -22,6 +23,10 @@ module Queries
         query(:'authority_on_topic_for',
                   topic: alive_topic,
                   graph_user: pavlov_options[:current_user].graph_user)
+      end
+
+      def favouritours_count
+        query(:'topics/favouritours_count', topic_id: alive_topic.id)
       end
 
       def validate

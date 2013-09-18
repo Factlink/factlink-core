@@ -5,7 +5,7 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
   include PavlovSupport
 
   describe '#call' do
-    let(:topic) { double(slug_title: double, title: double)}
+    let(:topic) { double(slug_title: double, title: double, id: '1a')}
 
     before do
       stub_classes 'DeadTopic'
@@ -19,8 +19,9 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
     end
 
     it 'returns the topic' do
-      facts_count = double
-      current_user_authority = double
+      facts_count = 100
+      current_user_authority = 200
+      favouritours_count = 300
       current_user = double(graph_user: double)
       dead_topic = double
       pavlov_options = {current_user: current_user}
@@ -36,8 +37,13 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
                       pavlov_options: pavlov_options)
             .and_return(current_user_authority)
 
+      Pavlov.stub(:query)
+            .with(:'topics/favouritours_count',
+                      topic_id: topic.id, pavlov_options: pavlov_options)
+            .and_return(favouritours_count)
+
       DeadTopic.stub(:new)
-        .with(topic.slug_title, topic.title, current_user_authority, facts_count)
+        .with(topic.slug_title, topic.title, current_user_authority, facts_count, favouritours_count)
         .and_return(dead_topic)
 
       query = described_class.new alive_topic: topic, pavlov_options: pavlov_options
