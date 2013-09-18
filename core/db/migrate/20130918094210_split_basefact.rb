@@ -16,6 +16,7 @@ class SplitBasefact < Mongoid::Migration
       klass.all.ids.each do |obj_id|
         old_hash_name = "Basefact:#{obj_id}"
         new_hash_name = "#{klass.name}:#{obj_id}"
+        puts "migrating #{old_hash_name} -> #{new_hash_name}"
         raise "cannot find old hash (#{old_hash_name})" if !db.exists(old_hash_name)
         raise "new hash already exists (#{new_hash_name})" if db.exists(new_hash_name)
         obj = klass[obj_id]
@@ -40,7 +41,7 @@ class SplitBasefact < Mongoid::Migration
           obj.send(set_name).size #make sure we touch the set in ohm.
         end
 
-        obj.save
+        obj.save or raise "bah: #{old_hash_name} -> #{new_hash_name}\n    (#{old_hash.inspect})"
         raise "new hash not created: bug!" if !db.exists(new_hash_name)
         db.del old_hash_name
       end
