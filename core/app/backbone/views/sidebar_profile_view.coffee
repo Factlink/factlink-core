@@ -3,15 +3,10 @@ class SocialStatisticsView extends Backbone.Marionette.ItemView
   className: "user-social-statistics"
 
   initialize: ->
-    @listenTo @model.followers, 'all', @render
-    @listenTo @model.following, 'all', @render
+    @listenTo @model, 'change', @render
 
   templateHelpers: =>
-    plural_followers: @model.followers.length != 1
-    following: @model.following.length
-    followers: @model.followers.length
-    followingLoading: @model.following.loading()
-    followersLoading: @model.followers.loading()
+    plural_followers: @model.get('statistics_follower_count') != 1
 
 class window.SidebarProfileView extends Backbone.Marionette.Layout
   template: 'users/profile/sidebar_profile'
@@ -22,9 +17,6 @@ class window.SidebarProfileView extends Backbone.Marionette.Layout
     followUserButtonRegion: '.js-region-user-follow-user'
 
   onRender: ->
-    @model.followers.fetch()
-    @model.following.fetch()
-
     @profilePictureRegion.show   new UserLargeView(model: @model)
     @socialStatisticsRegion.show new SocialStatisticsView(model: @model)
 
