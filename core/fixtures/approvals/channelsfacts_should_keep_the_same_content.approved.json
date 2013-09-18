@@ -14,6 +14,8 @@
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 3,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
@@ -58,6 +60,8 @@
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 3,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
@@ -102,6 +106,8 @@
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 3,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"

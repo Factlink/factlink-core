@@ -15,7 +15,9 @@
       "name": "John1 Doe1",
       "username": "Baron",
       "gravatar_hash": "<STRIPPED>",
-      "statistics_created_fact_count": 1
+      "statistics_created_fact_count": 1,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0
     }
   },
   {
@@ -33,6 +35,8 @@
         "username": "Baron",
         "gravatar_hash": "<STRIPPED>",
         "statistics_created_fact_count": 1,
+        "statistics_follower_count": 0,
+        "statistics_following_count": 0,
         "authority_for_subject": {
           "authority": "1.0",
           "id": "<STRIPPED>"

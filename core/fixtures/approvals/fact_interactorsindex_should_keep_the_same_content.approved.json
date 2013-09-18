@@ -9,7 +9,9 @@
         "name": "John1 Doe1",
         "username": "johndoe1",
         "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
-        "statistics_created_fact_count": 0
+        "statistics_created_fact_count": 0,
+        "statistics_follower_count": 0,
+        "statistics_following_count": 0
       }
     ]
   },
@@ -23,21 +25,27 @@
         "name": "John2 Doe2",
         "username": "johndoe2",
         "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
-        "statistics_created_fact_count": 0
+        "statistics_created_fact_count": 0,
+        "statistics_follower_count": 0,
+        "statistics_following_count": 0
       },
       {
         "id": "<STRIPPED>",
         "name": "John3 Doe3",
         "username": "johndoe3",
         "gravatar_hash": "0c0b78bf3bb3107091bdb93c94ba73a3",
-        "statistics_created_fact_count": 0
+        "statistics_created_fact_count": 0,
+        "statistics_follower_count": 0,
+        "statistics_following_count": 0
       },
       {
         "id": "<STRIPPED>",
         "name": "John4 Doe4",
         "username": "johndoe4",
         "gravatar_hash": "4a44954117cfc0852a0cbd709a634789",
-        "statistics_created_fact_count": 0
+        "statistics_created_fact_count": 0,
+        "statistics_follower_count": 0,
+        "statistics_following_count": 0
       }
     ]
   },
