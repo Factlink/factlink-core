@@ -19,7 +19,7 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
   window.alerts = new NotificationCenter.Alerts []
 
   FactlinkApp.addRegions
-    alertsRegion: "#alerts"
+    alertsRegion: ".js-notification-center-alerts"
   FactlinkApp.alertsRegion.show new NotificationCenter.AlertsView collection: alerts
 
   NotificationCenter.info    = (message) -> alerts.add new NotificationCenter.Alert message: message, type: 'info'
