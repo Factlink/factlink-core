@@ -9,6 +9,9 @@ class SplitBasefact < Mongoid::Migration
     combos = [[Fact,fact_props,fact_sets],[FactRelation,fr_props, fr_sets]]
 
     db = Redis.current
+    current_counter = db.get('Basefact:id')
+    db.set('Fact:id', current_counter)
+    db.set('FactRelation:id', current_counter)
     combos.each do |klass, props, sets|
       klass.all.ids.each do |obj_id|
         old_hash_name = "Basefact:#{obj_id}"
