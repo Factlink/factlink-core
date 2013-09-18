@@ -9,21 +9,12 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
       text: "{{{message}}} <a class='close'>x</a>"
 
     events:
-      "click .close": "removeSelf"
-
-    removeSelf: ->
-      @model.callback()
-      @model.destroy()
-
+      "click .close": -> @model.destroy()
 
   class NotificationCenter.AlertsView extends Marionette.CollectionView
     itemView: NotificationCenter.AlertView
 
   class NotificationCenter.Alert extends Backbone.Model
-    callback: ->
-      cb = @get('callback')
-      cb() if cb
-
   class NotificationCenter.Alerts extends Backbone.Collection
 
   FactlinkApp.addRegions
@@ -34,8 +25,8 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
 
   FactlinkApp.alertsRegion.show alertsView
 
-  alert = (type,message,callback) ->
-    alerts.add new NotificationCenter.Alert message: message, type: type, callback: callback
+  alert = (type, message) ->
+    alerts.add new NotificationCenter.Alert message: message, type: type
 
   NotificationCenter.info    = -> alert('info',   arguments...)
   NotificationCenter.success = -> alert('success',arguments...)
