@@ -1,4 +1,5 @@
 require 'spec_helper'
+require_relative 'believable_shared'
 
 describe FactRelation do
   it_behaves_like 'a believable object'

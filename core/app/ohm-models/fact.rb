@@ -4,8 +4,11 @@ class FactRelation < OurOhm;end # needed because of removed const_missing from o
 
 class Fact < OurOhm
   include Activity::Subject
-  include Basefact
   include Pavlov::Helpers
+
+  delegate :opinionated_users_ids, :opinionated_users_count, :opiniated, :add_opiniated, :remove_opinionateds,
+           :people_believes, :people_doubts, :people_disbelieves,
+           :to => :believable
 
   def validate
     assert_present :created_by
@@ -127,6 +130,18 @@ class Fact < OurOhm
     fr
   end
 
+  def believable
+    @believable ||= Believable.new(self.key)
+  end
+
+  def add_opinion(type, user)
+    add_opiniated(type,user)
+  end
+
+  def remove_opinions(user)
+    remove_opinionateds(user)
+  end
+
   #returns whether a given fact should be considered
   #unsuitable for usage/viewing
   def self.invalid(f)
@@ -157,6 +172,7 @@ class Fact < OurOhm
     delete_data
     delete_all_evidence
     delete_all_evidenced
+    believable.delete
     super
   end
 
