@@ -19,7 +19,8 @@ describe Queries::Users::FollowingCount do
       users_following_users = double(following_count: count)
       query = described_class.new graph_user_id: graph_user_id
 
-      UserFollowingUsers.stub(:new).with(graph_user_id).and_return(users_following_users)
+      UserFollowingUsers.stub(:new).with(graph_user_id)
+        .and_return(users_following_users)
 
       expect(query.execute).to eq count
     end
