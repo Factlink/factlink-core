@@ -16,6 +16,10 @@ window.FACTLINK_START_LOADER = ->
   wrapper2 = document.createElement('div')
   wrapper3 = document.createElement('div')
 
+  # Prevent showing stuff when css is not loaded yet
+  # Keep in sync with visibility: hidden; in basic.less
+  wrapper1.style.visibility = 'hidden';
+
   wrapper1.id = 'fl-wrapper-1'
   wrapper2.id = 'fl-wrapper-2'
   wrapper3.id = 'fl-wrapper-3'

@@ -21,6 +21,10 @@
   color: #fff;
 }
 
+#fl-wrapper-1 {
+  visibility: hidden; // Keep in sync with visibility = 'hidden' in loader_common.coffee
+}
+
 span.factlink {
   cursor: pointer;
 
@@ -37,6 +41,7 @@ span.factlink {
 }
 
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl {
+  visibility: visible;
   height: 0;
   width: 0;
 
