@@ -84,11 +84,10 @@ module.exports = (grunt) ->
           { src: ['**/*.js'], dest: 'dist/js/', expand: true, cwd: 'app/js/'}
           { src: ['app/js/libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
           {
-            src: ['start_annotating.js', 'stop_annotating.js', 'start_highlighting.js', 'stop_highlighting.js']
+            src: ['factlink.start_annotating.js', 'factlink.stop_annotating.js', 'factlink.start_highlighting.js', 'factlink.stop_highlighting.js']
             cwd: 'app/js/'
             expand: true
             dest: 'dist/'
-            rename: (dest, src) -> "#{dest}factlink.#{src}"
           }
         ]
     less:
