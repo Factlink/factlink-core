@@ -22,6 +22,6 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
     alertsRegion: "#alerts"
   FactlinkApp.alertsRegion.show new NotificationCenter.AlertsView collection: alerts
 
-  NotificationCenter.info    = -> alerts.add new NotificationCenter.Alert message: message, type: 'info'
-  NotificationCenter.success = -> alerts.add new NotificationCenter.Alert message: message, type: 'success'
-  NotificationCenter.error   = -> alerts.add new NotificationCenter.Alert message: message, type: 'error'
+  NotificationCenter.info    = (message) -> alerts.add new NotificationCenter.Alert message: message, type: 'info'
+  NotificationCenter.success = (message) -> alerts.add new NotificationCenter.Alert message: message, type: 'success'
+  NotificationCenter.error   = (message) -> alerts.add new NotificationCenter.Alert message: message, type: 'error'
