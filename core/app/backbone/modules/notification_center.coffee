@@ -4,12 +4,7 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
 
     className: 'notification-center-alert-container'
 
-    template:
-      text: """
-        <div class="notification-center-alert notification-center-alert-{{type}}">{{{message}}}
-          <span class="notification-center-alert-close js-close">&times;</span>
-        </div>
-      """
+    template: 'widgets/notification_center_alert'
 
     events:
       "click .js-close": '_destroy'
