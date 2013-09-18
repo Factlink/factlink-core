@@ -32,8 +32,9 @@ module Acceptance
         find(:css, 'textarea').set(message)
 
         click_button 'Send'
-        page.should have_selector(".js-alert-success", visible: true)
       end
+
+      page.should have_content 'Your message has been sent!'
     end
 
     def add_recipient name

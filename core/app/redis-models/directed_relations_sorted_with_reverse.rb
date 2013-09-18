@@ -34,4 +34,12 @@ class DirectedRelationsSortedWithReverse
   def has? from_id, to_id
     not relation_key[from_id].zrank(to_id).nil?
   end
+
+  def count from_id
+    relation_key[from_id].zcard
+  end
+
+  def reverse_count to_id
+    reverse_relation_key[to_id].zcard
+  end
 end

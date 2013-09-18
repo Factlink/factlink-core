@@ -1,6 +1,4 @@
 class window.ConversationReplyView extends Backbone.Marionette.ItemView
-  _.extend @prototype, Backbone.Factlink.AlertMixin
-
   tagName: 'div'
   template: 'conversations/reply'
   events:
@@ -9,13 +7,9 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
   ui:
     submit: '.submit'
 
-  initialize: ->
-    @alertErrorInit ['message_empty']
-
   submit: ->
     return if @submitting
 
-    @alertHide()
     @disableSubmit()
 
     @model.messages().createNew @$('.text').val(), currentUser,
@@ -24,8 +18,15 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
         @enableSubmit()
 
       error: (model, response) =>
-        @alertError response.responseText
+        @_showError response.responseText
         @enableSubmit()
+
+  _showError: (type) ->
+    switch type
+      when 'message_empty'
+        FactlinkApp.NotificationCenter.error 'Please enter a message.'
+      else
+        FactlinkApp.NotificationCenter.error 'Your message could not be sent, please try again.'
 
   enableSubmit:  ->
     @submitting = false

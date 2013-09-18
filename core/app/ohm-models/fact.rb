@@ -29,7 +29,6 @@ class Fact < OurOhm
 
   reference :created_by, GraphUser
   set :channels, Channel
-  timestamped_set :interactions, Activity
 
   def increment_mixpanel_count
     return unless self.has_site? and self.created_by.user

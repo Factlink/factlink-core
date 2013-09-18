@@ -50,7 +50,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   createFactRelation: (fact_relation, onFinish=->)->
     return @showError() unless fact_relation.isValid()
 
-    @hideError()
     @collection.add fact_relation, highlight: true
     @inputRegion.switchTo('search_view')
 
@@ -78,5 +77,4 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @inputRegion.switchTo 'search_view'
     @inputRegion.getView('search_view').setQuery(content) if content?
 
-  showError: -> @$('.js-error').show()
-  hideError: -> @$('.js-error').hide()
+  showError: -> FactlinkApp.NotificationCenter.error 'Your Factlink could not be posted, please try again.'

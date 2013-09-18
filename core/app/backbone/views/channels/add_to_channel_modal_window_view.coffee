@@ -1,7 +1,6 @@
 #= require ./filtered_suggested_topics_view
 
 class window.AddToChannelModalWindowView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AlertMixin
 
   className: 'modal-window'
 
@@ -15,8 +14,6 @@ class window.AddToChannelModalWindowView extends Backbone.Marionette.Layout
     'click .js-close': -> FactlinkApp.ModalWindowContainer.close()
 
   initialize: ->
-    @alertErrorInit ['create_channel']
-
     @collection = @model.getOwnContainingChannels(this)
     @collection.on "add", (channel) =>
       @model.addToChannel channel
@@ -30,7 +27,8 @@ class window.AddToChannelModalWindowView extends Backbone.Marionette.Layout
     unless @addToChannelView?
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
       @addToChannelRegion.show @addToChannelView
-      @alertBindErrorEvent @addToChannelView
+      @listenTo @addToChannelView, 'error', ->
+        FactlinkApp.NotificationCenter.error "The new #{Factlink.Global.t.topic} could not be created, please try again."
 
       @renderSuggestedChannels()
 

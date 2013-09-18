@@ -3,12 +3,13 @@
   {{ statistics_created_fact_count }}
 </div>
 <div class="statistic">
-  <span class="statistic-title">Following</span><br>
-  {{#followingLoading}}<img src="{{global.ajax_loader_image}}">{{/followingLoading}}
-  {{^followingLoading}}{{ following }}{{/followingLoading}}
-</div>
-<div class="statistic">
   <span class="statistic-title">Followers</span><br>
-  {{#followersLoading}}<img src="{{global.ajax_loader_image}}">{{/followersLoading}}
-  {{^followersLoading}}{{ followers }}{{/followersLoading}}
+  {{ statistics_follower_count }}
 </div>
+
+{{#topic}}
+<div class="statistic">
+  <span class="statistic-title">Most authority</span><br>
+  <a href="{{link}}" rel="backbone">{{title}}</a> <span class="statistic-authority-faded">(<i class="icon-brain"></i>{{authority}})</span>
+</div>
+{{/topic}}

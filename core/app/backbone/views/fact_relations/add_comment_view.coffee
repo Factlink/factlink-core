@@ -1,6 +1,5 @@
 class window.AddCommentView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
-                       Backbone.Factlink.AlertMixin
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
 
   className: 'add-comment'
   events:
@@ -28,7 +27,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
     return @addModelError() unless @model.isValid()
 
-    @alertHide()
     @disableSubmit()
     @addDefaultModel highlight: true
 
@@ -56,7 +54,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   addModelError: ->
     @enableSubmit()
-    @alertError()
+    FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
     @options.addToCollection.trigger 'error_adding_model'
 
   switchCheckboxClicked: (e)->

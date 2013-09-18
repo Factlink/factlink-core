@@ -82,7 +82,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection
     addToChannelView.render()
     addToChannelView.on 'error', ->
-      alert("Something went wrong when creating a new #{Factlink.Global.t.topic}")
+      FactlinkApp.NotificationCenter.error "Something went wrong when creating a new #{Factlink.Global.t.topic}"
     @$('.js-add-to-channels').html addToChannelView.el
 
   renderSuggestedChannels: ->
