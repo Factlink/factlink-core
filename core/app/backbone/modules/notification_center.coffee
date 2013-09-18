@@ -2,6 +2,8 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
 
   class NotificationCenter.AlertView extends Marionette.ItemView
 
+    className: 'notification-center-alert-container'
+
     template:
       text: """
         <div class="notification-center-alert notification-center-alert-{{type}}">{{{message}}}
