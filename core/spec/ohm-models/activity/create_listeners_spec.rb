@@ -17,24 +17,6 @@ describe 'activity queries' do
       attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
   end
 
-  describe ".fact" do
-    it "should return creation activity" do
-      f1 = create :fact, created_by: gu1
-      f1.interactions.map(&:to_hash_without_time).should == [
-        {user: gu1, action: :created, subject: f1}
-      ]
-    end
-
-    it "should return only creation activity on the fact queried" do
-      f1 = create :fact, created_by: gu1
-      f2 = create :fact, created_by: gu1
-      f3 = create :fact, created_by: gu1
-      f1.interactions.map(&:to_hash_without_time).should == [
-        {user: gu1, action: :created, subject: f1}
-      ]
-    end
-  end
-
   describe ".channel" do
     it "should return activity for when a channel followed this channel" do
       ch1 = create :channel
