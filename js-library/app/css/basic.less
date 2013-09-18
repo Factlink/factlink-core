@@ -80,8 +80,10 @@ span.factlink {
     position: absolute;
     z-index:  @max-z-index;
 
-    transition: opacity @button_visibility_transition_time,
-                visibility 0 @button_visibility_transition_time;
+    &.been-active {
+      transition: opacity @button_visibility_transition_time,
+                  visibility 0 @button_visibility_transition_time;
+    }
 
     &.active {
       visibility: visible;

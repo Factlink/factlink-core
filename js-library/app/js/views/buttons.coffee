@@ -15,7 +15,7 @@ class Button
   show: =>
     @stopLoading()
     Factlink.el.find('div.fl-button').removeClass('active')
-    @$el.addClass 'active'
+    @$el.addClass 'active been-active'
 
   hide: => @$el.removeClass 'active'
 
