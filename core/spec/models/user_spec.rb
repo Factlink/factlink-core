@@ -270,4 +270,54 @@ describe User do
     end
   end
 
+  describe "#notification_settings_edit_token" do
+
+    let (:valid_attributes) do
+      {
+        username: "TestUser",
+        first_name: "Test",
+        last_name: "User",
+        email: "test@example.org",
+        password: "test123"
+      }
+    end
+
+    it "should be set on user creation" do
+      user = User.create! valid_attributes, as: :admin
+
+      token = user.notification_settings_edit_token
+
+      expect(token).to match /\A\w{4,}\Z/
+    end
+
+    it "should try to generate a random" do
+      user1 = User.create!(valid_attributes, as: :admin)
+      user2 = User.create!(valid_attributes.merge({username: 'Hello', email: 'hello@example.org'}), as: :admin)
+
+      token1 = user1.notification_settings_edit_token
+      token2 = user2.notification_settings_edit_token
+
+      expect(token1).to_not eq token2
+    end
+
+    it "should not reset on account update without password change" do
+      user1 = User.create! valid_attributes, as: :admin
+
+      old_token = user1.notification_settings_edit_token
+      user1.update_attribute :email, 'pietje@example.org'
+      new_token = user1.notification_settings_edit_token
+
+      expect(new_token).to eq old_token
+    end
+
+    it "should reset on password change" do
+      user1 = User.create! valid_attributes, as: :admin
+
+      old_token = user1.notification_settings_edit_token
+      user1.reset_password! 'hellohello', 'hellohello'
+      new_token = user1.notification_settings_edit_token
+
+      expect(new_token).to_not eq old_token
+    end
+  end
 end

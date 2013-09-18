@@ -48,6 +48,7 @@ class User
 
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
+  field :notification_settings_edit_token, type: String
 
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
@@ -171,6 +172,12 @@ class User
         "location"        => "location",
         "biography"       => "biography"
       }
+    end
+  end
+
+  before_save do |user|
+    if user.changes.include? 'encrypted_password'
+      user.reset_notification_settings_edit_token
     end
   end
 
@@ -317,6 +324,14 @@ class User
   end
 
   set :seen_messages
+
+  def reset_notification_settings_edit_token
+    self.notification_settings_edit_token = self.class.notification_settings_edit_token
+  end
+
+  def self.notification_settings_edit_token
+    generate_token(:notification_settings_edit_token)
+  end
 
   # don't send reset password instructions when the account is not approved yet
   def self.send_reset_password_instructions(attributes={})
