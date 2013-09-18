@@ -3,7 +3,7 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
   class NotificationCenter.AlertView extends Marionette.ItemView
 
     initialize: ->
-      @$el.addClass "alert alert-#{@model.get('type')}"
+      @$el.addClass "alert alert-#{@model.get('type')} notification-center-alert"
 
     template:
       text: "{{{message}}} <a class='close'>&times;</a>"
