@@ -21,8 +21,6 @@ class Fact < Basefact
 
   set :channels, Channel
 
-  timestamped_set :interactions, Activity
-
   def increment_mixpanel_count
     return unless self.has_site? and self.created_by.user
 
