@@ -28,4 +28,12 @@ class DirectedRelationsWithReverse
   def has? from_id, to_id
     relation_key[from_id].sismember to_id
   end
+
+  def count from_id
+    relation_key[from_id].scard
+  end
+
+  def reverse_count to_id
+    reverse_relation_key[to_id].scard
+  end
 end
