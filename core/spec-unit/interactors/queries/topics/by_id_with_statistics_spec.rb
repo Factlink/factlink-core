@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/topics/by_id_with_authority_and_facts_count'
+require_relative '../../../../app/interactors/queries/topics/by_id_with_statistics'
 
-describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
+describe Queries::Topics::ByIdWithStatistics do
   include PavlovSupport
 
   describe '#call' do
@@ -25,7 +25,7 @@ describe Queries::Topics::ByIdWithAuthorityAndFactsCount do
         .and_return(topic)
 
       Pavlov.stub(:query)
-            .with(:'topics/dead_topic_with_authority_and_facts_count_by_topic',
+            .with(:'topics/dead_topic_with_statistics_by_topic',
                       alive_topic: topic, pavlov_options: pavlov_options)
             .and_return(dead_topic)
 

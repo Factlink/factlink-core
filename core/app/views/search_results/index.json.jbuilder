@@ -8,7 +8,7 @@ json.array!(@results) do |result|
     json.the_object {|j| j.partial! 'users/user_partial', user: result }
   elsif result.class == DeadTopic
     json.the_class "Topic"
-    json.the_object {|j| j.partial! 'topics/topic_with_authority_and_facts_count', topic: result }
+    json.the_object {|j| j.partial! 'topics/topic_with_statistics', topic: result }
   else
     raise "Error: SearchResults::SearchResultItem#the_object: No match on class."
   end
