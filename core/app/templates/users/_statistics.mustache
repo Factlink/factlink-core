@@ -6,3 +6,10 @@
   <span class="statistic-title">Followers</span><br>
   {{ statistics_follower_count }}
 </div>
+
+{{#topic}}
+<div class="statistic">
+  <span class="statistic-title">Most authority</span><br>
+  <a href="{{link}}" rel="backbone">{{title}}</a> <span class="statistic-authority-faded">(<i class="icon-brain"></i>{{authority}})</span>
+</div>
+{{/topic}}

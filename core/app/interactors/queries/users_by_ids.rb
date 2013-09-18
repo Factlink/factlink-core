@@ -2,7 +2,8 @@ module Queries
   class UsersByIds
     include Pavlov::Query
 
-    arguments :user_ids
+    attribute :user_ids, Array
+    attribute :top_topics_limit, Integer, default: 1
 
     private
 
@@ -16,8 +17,10 @@ module Queries
     end
 
     def kill user
+      graph_user = user.graph_user
       KillObject.user user,
-        statistics: statistics(user.graph_user)
+        statistics: statistics(graph_user),
+        top_user_topics: top_user_topics(graph_user)
     end
 
     def statistics graph_user
@@ -27,6 +30,11 @@ module Queries
         follower_count: query(:'users/follower_count', graph_user_id: graph_user.id),
         following_count: query(:'users/following_count', graph_user_id: graph_user.id)
       }
+    end
+
+    def top_user_topics graph_user
+      query(:'user_topics/top_with_authority_for_graph_user_id',
+                graph_user_id: graph_user.id, limit_topics: top_topics_limit)
     end
   end
 end

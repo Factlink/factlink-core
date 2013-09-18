@@ -23,6 +23,25 @@ describe Queries::UsersByIds do
       expect(query.call).to eq []
     end
 
+    it 'adds user topics' do
+      top_user_topics = double
+      top_topics_limit = 10
+
+      created_facts_channel = double(sorted_cached_facts: double(size: 10))
+      user = double(graph_user: double(id: '10', created_facts_channel: created_facts_channel))
+      query = described_class.new(user_ids: [0], top_topics_limit: top_topics_limit)
+
+      User.stub(:any_in).with(_id: [0]).and_return([user])
+
+      Pavlov.stub(:query).and_return(nil)
+      Pavlov.stub(:query)
+        .with(:'user_topics/top_with_authority_for_graph_user_id',
+                  graph_user_id: user.graph_user.id, limit_topics: top_topics_limit)
+        .and_return(top_user_topics)
+
+      expect(query.call[0].top_user_topics).to eq top_user_topics
+    end
+
     it 'adds statistics' do
       follower_count = 123
       following_count = 456
@@ -33,10 +52,10 @@ describe Queries::UsersByIds do
 
       User.stub(:any_in).with(_id: [0]).and_return([user])
 
+      Pavlov.stub(:query).and_return(nil)
       Pavlov.stub(:query)
         .with(:'users/follower_count', graph_user_id: user.graph_user.id)
         .and_return(follower_count)
-
       Pavlov.stub(:query)
         .with(:'users/following_count', graph_user_id: user.graph_user.id)
         .and_return(following_count)
@@ -56,6 +75,8 @@ describe Queries::UsersByIds do
 
       User.stub(:any_in).with(_id: user_ids).and_return([user0, user1])
       Pavlov.stub(:query).and_return(0)
+
+      Pavlov.stub(:query).and_return(nil)
 
       expect(query.call.length).to eq 2
     end
