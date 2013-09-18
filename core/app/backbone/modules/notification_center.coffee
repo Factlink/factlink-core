@@ -12,7 +12,7 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
       """
 
     events:
-      "click .js-close": -> @model.destroy()
+      "click .js-close": '_destroy'
 
     onRender: ->
       @_autoHide()
@@ -20,7 +20,10 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
     _autoHide: ->
       return unless @model.get('type') == 'success'
 
-      setTimeout (=> @model.destroy()), 1000
+      setTimeout (=> @_destroy()), 1000
+
+    _destroy: ->
+      @model.destroy()
 
   class NotificationCenter.AlertsView extends Marionette.CollectionView
     itemView: NotificationCenter.AlertView
