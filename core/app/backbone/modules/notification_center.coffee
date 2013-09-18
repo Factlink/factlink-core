@@ -6,7 +6,7 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
       @$el.addClass "alert alert-#{@model.get('type')}"
 
     template:
-      text: "{{{message}}} <a class='close'>x</a>"
+      text: "{{{message}}} <a class='close'>&times;</a>"
 
     events:
       "click .close": -> @model.destroy()
