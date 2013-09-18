@@ -20,7 +20,9 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
     _autoHide: ->
       return unless @model.get('type') == 'success'
 
-      setTimeout (=> @_destroy()), 1000
+      setTimeout (=> @_destroy()), @_autoHideTime()
+
+    _autoHideTime: -> 1000 + 50*@model.get('message').length
 
     _destroy: ->
       @$el.addClass 'notification-center-alert-container-hidden'
