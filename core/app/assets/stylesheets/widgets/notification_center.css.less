@@ -11,6 +11,27 @@
 
 .notification-center-alert {
   display: inline-block;
+
+
+  padding: 8px 35px 8px 14px;
+  margin-bottom: @baseLineHeight;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  background-color: @warningBackground;
+  border: 1px solid @warningBorder;
+  border-radius: 4px;
+  color: @warningText;
+}
+
+.notification-center-alert-error {
+  background-color: @errorBackground;
+  border-color: @errorBorder;
+  color: @errorText;
+}
+
+.notification-center-alert-success {
+  background-color: @successBackground;
+  border-color: @successBorder;
+  color: @successText;
 }
 
 .notification-center-alert-close {
