@@ -4,12 +4,7 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
 
     className: 'notification-center-alert-container'
 
-    template:
-      text: """
-        <div class="notification-center-alert notification-center-alert-{{type}}">{{{message}}}
-          <span class="notification-center-alert-close js-close">&times;</span>
-        </div>
-      """
+    template: 'widgets/notification_center_alert'
 
     events:
       "click .js-close": '_destroy'
@@ -27,8 +22,8 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
     _destroy: ->
       @$el.addClass 'notification-center-alert-container-hidden'
 
-      transitionTime = 500 # Keep in sync with CSS
-      setTimeout (=> @model.destroy()), transitionTime+100
+      transitionTime = 500 # Keep in sync with transition in notification_center.css.less
+      setTimeout (=> @model.destroy()), transitionTime+100 # Destroy strictly after animation
 
   class NotificationCenter.AlertsView extends Marionette.CollectionView
     itemView: NotificationCenter.AlertView

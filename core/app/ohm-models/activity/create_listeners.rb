@@ -202,9 +202,6 @@ class Activity < OurOhm
       # This was used for the activities tab of the channel
       # however, we removed access to this view a long time ago
       create_channel_activities
-      # I don't know why this was ever added, is not used as far
-      # as I can see
-      create_fact_interactions
     end
 
     def create_channel_activities
@@ -219,18 +216,6 @@ class Activity < OurOhm
         activity object_class: "Fact",
                  action: [:added_supporting_evidence, :added_weakening_evidence],
                  write_ids: ->(a) { a.object.channels.ids }
-      end
-    end
-
-    def create_fact_interactions
-      Activity::Listener.register do
-        activity_for "Fact"
-        named :interactions
-
-        activity subject_class: "Fact",
-                 action: [:created, :believes, :disbelieves, :doubts, :removed_opinions],
-                 write_ids: ->(a) { [a.subject.id]}
-
       end
     end
   end
