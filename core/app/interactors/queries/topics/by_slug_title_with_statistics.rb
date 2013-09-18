@@ -1,6 +1,6 @@
 module Queries
   module Topics
-    class BySlugTitleWithAuthorityAndFactsCount
+    class BySlugTitleWithStatistics
       include Pavlov::Query
 
       arguments :slug_title
@@ -9,7 +9,7 @@ module Queries
 
       def execute
         topic = query :'topics/by_slug_title', slug_title: slug_title
-        query :'topics/dead_topic_with_authority_and_facts_count_by_topic', alive_topic: topic
+        query :'topics/dead_topic_with_statistics_by_topic', alive_topic: topic
       end
 
       def validate

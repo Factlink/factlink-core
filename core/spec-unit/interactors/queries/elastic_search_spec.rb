@@ -31,7 +31,7 @@ describe Queries::ElasticSearch do
         and_return(results)
 
       Pavlov.stub(:query)
-            .with(:'topics/by_id_with_authority_and_facts_count', id: 1)
+            .with(:'topics/by_id_with_statistics', id: 1)
             .and_return(return_object)
 
       query.call.should eq [return_object]
@@ -58,7 +58,7 @@ describe Queries::ElasticSearch do
       results = double(parsed_response: response, code: 200)
 
       Pavlov.stub(:query)
-            .with(:'topics/by_id_with_authority_and_facts_count', id: 1)
+            .with(:'topics/by_id_with_statistics', id: 1)
             .and_return nil
 
       HTTParty.should_receive(:get).

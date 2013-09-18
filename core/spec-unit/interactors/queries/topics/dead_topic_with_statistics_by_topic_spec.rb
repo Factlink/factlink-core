@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/topics/dead_topic_with_authority_and_facts_count_by_topic'
+require_relative '../../../../app/interactors/queries/topics/dead_topic_with_statistics_by_topic'
 
-describe Queries::Topics::DeadTopicWithAuthorityAndFactsCountByTopic do
+describe Queries::Topics::DeadTopicWithStatisticsByTopic do
   include PavlovSupport
 
   describe '#call' do

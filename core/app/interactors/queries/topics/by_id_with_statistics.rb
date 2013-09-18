@@ -1,6 +1,6 @@
 module Queries
   module Topics
-    class ByIdWithAuthorityAndFactsCount
+    class ByIdWithStatistics
       include Pavlov::Query
 
       arguments :id
@@ -9,7 +9,7 @@ module Queries
 
       def execute
         topic = Topic.find id
-        query(:'topics/dead_topic_with_authority_and_facts_count_by_topic',
+        query(:'topics/dead_topic_with_statistics_by_topic',
                   alive_topic: topic)
       end
 
