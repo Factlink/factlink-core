@@ -77,7 +77,6 @@ module.exports = (grunt) ->
     copy:
       main:
         files: [
-          { src: ['dist/css/basic.css'], dest: 'dist/server/css/basic.css' }
           { src: ['app/robots.txt'],     dest: 'dist/server/robots.txt' }
           { src: ['**'],                 dest: 'dist/server/images/',   expand: true, cwd: 'app/images/', filter: 'isFile' }
           { src: ['**'],                 dest: 'dist/images/',          expand: true, cwd: 'app/images/', filter: 'isFile' }
