@@ -1,3 +1,5 @@
+@import "bootstrap/mixins";
+
 .notification-center-alerts {
   position: fixed;
   left: 0;
@@ -9,4 +11,16 @@
 
 .notification-center-alert {
   display: inline-block;
+}
+
+.notification-center-alert-close {
+  color: @grayLight;
+  margin: 0 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    color: @gray;
+  }
 }
