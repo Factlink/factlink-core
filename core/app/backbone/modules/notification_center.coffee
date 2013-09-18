@@ -16,14 +16,11 @@ FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, M
 
   class NotificationCenter.Alert extends Backbone.Model
   class NotificationCenter.Alerts extends Backbone.Collection
+  window.alerts = new NotificationCenter.Alerts []
 
   FactlinkApp.addRegions
     alertsRegion: "#alerts"
-
-  window.alerts = new NotificationCenter.Alerts []
-  alertsView = new NotificationCenter.AlertsView collection: alerts
-
-  FactlinkApp.alertsRegion.show alertsView
+  FactlinkApp.alertsRegion.show new NotificationCenter.AlertsView collection: alerts
 
   NotificationCenter.info    = -> alerts.add new NotificationCenter.Alert message: message, type: 'info'
   NotificationCenter.success = -> alerts.add new NotificationCenter.Alert message: message, type: 'success'
