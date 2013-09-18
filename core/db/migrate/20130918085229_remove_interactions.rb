@@ -1,7 +1,7 @@
 class RemoveInteractions < Mongoid::Migration
   def self.up
     Fact.all.ids.each do |id|
-      Fact[id].key['interactions'].del
+      Nest.new('Basefact')[id]['interactions'].del
     end
   end
 
