@@ -78,8 +78,8 @@ module.exports = (grunt) ->
       main:
         files: [
           { src: ['app/robots.txt'],     dest: 'dist/server/robots.txt' }
-          { src: ['**'],                 dest: 'dist/server/images/',   expand: true, cwd: 'app/images/', filter: 'isFile' }
-          { src: ['**'],                 dest: 'dist/images/',          expand: true, cwd: 'app/images/', filter: 'isFile' }
+          { src: ['**'],                 dest: 'dist/server/images/',   expand: true, cwd: 'app/images/' }
+          { src: ['**'],                 dest: 'dist/images/',          expand: true, cwd: 'app/images/' }
           { src: ['**/*.js'], dest: 'dist/js/', expand: true, cwd: 'app/js/'}
           { src: ['app/js/libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
           {
