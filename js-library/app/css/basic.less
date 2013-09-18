@@ -12,11 +12,21 @@
 @button_visibility_transition_time : 300ms;
 @highlight_visibility_transition_time: 300ms;
 
-#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 {
-  > #fl, > #fl * {
-    #fl > .resetStyles;
-    color: #fff;
-  }
+#fl-wrapper-1,
+#fl-wrapper-1 > #fl-wrapper-2,
+#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3,
+#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl,
+#fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl * {
+  .resetStyles();
+  color: #fff;
+}
+
+#fl-wrapper-1 {
+  // Keep in sync with loader_common.coffee
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 span.factlink {
@@ -35,6 +45,7 @@ span.factlink {
 }
 
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl {
+  visibility: visible;
   height: 0;
   width: 0;
 
@@ -73,8 +84,10 @@ span.factlink {
     position: absolute;
     z-index:  @max-z-index;
 
-    transition: opacity @button_visibility_transition_time,
-                visibility 0 @button_visibility_transition_time;
+    &.been-active {
+      transition: opacity @button_visibility_transition_time,
+                  visibility 0 @button_visibility_transition_time;
+    }
 
     &.active {
       visibility: visible;
