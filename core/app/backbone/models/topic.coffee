@@ -32,18 +32,18 @@ class window.Topic extends Backbone.Model
     '/t' unless @collection?
 
   favourite: ->
-    currentUser.favourite_topics.create @,
-      error: =>
-        currentUser.favourite_topics.remove @
+    currentUser.favourite_topics.create @attributes,
+      error: (model) =>
+        currentUser.favourite_topics.remove model
         @set 'favouritours_count', @get('favouritours_count')-1
 
     @set 'favouritours_count', @get('favouritours_count')+1
     currentUser.favourite_topics.sort()
 
   unfavourite: ->
-    currentUser.favourite_topics.get(@).destroy
-      error: =>
-        currentUser.favourite_topics.add @
+    currentUser.favourite_topics.get(@id).destroy
+      error: (model) =>
+        currentUser.favourite_topics.add model
         @set 'favouritours_count', @get('favouritours_count')+1
 
     @set 'favouritours_count', @get('favouritours_count')-1
