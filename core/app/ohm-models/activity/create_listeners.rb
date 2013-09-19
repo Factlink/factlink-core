@@ -86,17 +86,6 @@ class Activity < OurOhm
       }
     end
 
-    def forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel
-      {
-        subject_class: "Channel",
-        action: :created_channel,
-        write_ids: ->(a) do
-          followers = channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by)
-          select_users_that_see_channels(reject_self(followers,a))
-        end
-      }
-    end
-
     def forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow
       {
         subject_class: "SubComment",
@@ -183,7 +172,6 @@ class Activity < OurOhm
         forGraphUser_someone_followed_your_channel,
         forGraphUser_someone_added_evidence_to_a_fact_you_follow,
         forGraphUser_comment_was_added,
-        forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel,
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
         forGraphUser_someone_opinionated_a_fact_you_created,
         forGraphUser_someone_added_a_fact_you_created_to_his_channel,
