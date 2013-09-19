@@ -1,8 +1,8 @@
-highlight_time_on_load_and_creation    = 1000
+highlight_time_on_load_and_creation = 2000
 highlight_time_on_in_view = 1500
 
 delay_before_mouseover_detected = 75
-delay_between_highlight_and_show_button_open = 325
+delay_between_highlight_and_show_button_open = 1000
 
 delay_before_mouseout_detected = 300
 
