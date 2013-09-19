@@ -36,14 +36,13 @@ class SplitBasefact < Mongoid::Migration
           new_set_name = "#{klass.name}:#{obj.id}:#{set_name}"
           if db.exists(old_set_name)
             raise "Key already migrated?" if db.exists(new_set_name)
-            db.rename(old_set_name, new_set_name)
+            db.sunionstore(new_set_name, old_set_name)
           end
           obj.send(set_name).size #make sure we touch the set in ohm.
         end
 
         obj.save or raise "bah: #{old_hash_name} -> #{new_hash_name}\n    (#{old_hash.inspect})"
         raise "new hash not created: bug!" if !db.exists(new_hash_name)
-        db.del old_hash_name
       end
     end
   end
