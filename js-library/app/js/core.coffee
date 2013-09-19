@@ -14,6 +14,9 @@ if window.parent.easyXDM
 # Create the Factlink container
 Factlink.el = $("#fl")
 
+# Prevent event bubbling outside our container
+Factlink.el.on 'mouseup click', (event) -> event.stopPropagation()
+
 # Add the stylesheet
 $style = $("<link>").attr
   type: "text/css"
