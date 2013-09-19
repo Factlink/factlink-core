@@ -80,9 +80,6 @@ class AddedFactToTopicGroupView extends ActivitiesGroupView
   itemView: AddedFactToTopicView
   itemViewContainer: '.js-region-channels'
 
-  collectionEvents:
-    'add remove reset': 'render'
-
   itemViewOptions: ->
     $offsetParent: @options.$offsetParent
 
