@@ -119,43 +119,37 @@ describe User do
   end
 
   describe '#first_name' do
-    before do
-      @u = build :user
-    end
+    let(:new_user){ build :user }
 
     it "cannot be empty" do
-      @u.first_name = ""
-      expect(@u.valid?).to be_false
+      new_user.first_name = ""
+      expect(new_user.valid?).to be_false
     end
 
     it "can be just one letter" do
-      @u.first_name = "a"
-      expect(@u.valid?).to be_true
+      new_user.first_name = "a"
+      expect(new_user.valid?).to be_true
     end
   end
 
   describe '#last_name' do
-    before do
-      @u = build :user
-    end
+    let(:new_user){ build :user }
 
     it "cannot be empty" do
-      @u.last_name = ""
-      expect(@u.valid?).to be_false
+      new_user.last_name = ""
+      expect(new_user.valid?).to be_false
     end
 
     it "can be just one letter" do
-      @u.last_name = "a"
-      expect(@u.valid?).to be_true
+      new_user.last_name = "a"
+      expect(new_user.valid?).to be_true
     end
   end
 
   describe :to_json do
-    before do
-      @json = subject.to_json
-    end
+    let(:json){ subject.to_json }
     it "should not contain a password" do
-      expect(@json).to_not include(subject.encrypted_password)
+      expect(json).to_not include(subject.encrypted_password)
     end
     [
       :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
@@ -164,27 +158,25 @@ describe User do
       :sign_in_count, :agreed_tos_on, :agrees_tos_name
     ].map{|x| x.to_s}.each do |field|
       it "should not contain other sensitive information: #{field}" do
-        expect(@json).to_not include(field)
+        expect(json).to_not include(field)
       end
     end
   end
 
   describe 'forbidden names' do
-    before do
-      @u = build :user
-    end
+    let(:new_user){ build :user }
     it "should be possible to choose GerardEkdom as name" do
-      @u.username = "GerardEkdom"
-      expect(@u.valid?).to be_true
+      new_user.username = "GerardEkdom"
+      expect(new_user.valid?).to be_true
     end
     it "should not be possible to choose 1 letter as name" do
-      @u.username = "a"
-      expect(@u.valid?).to be_false
+      new_user.username = "a"
+      expect(new_user.valid?).to be_false
     end
     [:users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink].each do |name|
       it "should not be possible to choose #{name} as name" do
-        @u.username = name.to_s
-        expect(@u.valid?).to be_false
+        new_user.username = name.to_s
+        expect(new_user.valid?).to be_false
       end
     end
   end
