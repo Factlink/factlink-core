@@ -15,6 +15,7 @@ fs = require 'fs'
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
+    clean: ['build']
     coffee:
       build:
         files: [
@@ -178,7 +179,8 @@ module.exports = (grunt) ->
     grunt.file.write destination_file_path, content_with_hash
 
   grunt.registerTask 'core', ['concat:core', 'uglify:core', 'corehasher']
-  grunt.registerTask 'compile', ['copy:build', 'coffee', 'less', 'core', 'concat', 'copy:start_stop_files', 'uglify:all_except_core', 'cssmin', 'copy:dist']
+  grunt.registerTask 'compile', ['clean', 'copy:build', 'coffee', 'less', 'core', 'concat', 'copy:start_stop_files',
+                                 'uglify:all_except_core', 'cssmin', 'copy:dist']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
   grunt.registerTask 'default', ['compile', 'test']
@@ -193,3 +195,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-qunit'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
+  grunt.loadNpmTasks 'grunt-contrib-clean'
