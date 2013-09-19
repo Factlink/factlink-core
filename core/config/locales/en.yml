@@ -3,7 +3,6 @@
 
 en:
   add_fact: "add Factlink" # when updating, update jslib template
-  added_fact: "added" # when updating, update jslib template
 
   fact_believe_action: "agree"
   fact_doubt_action: "neutral"
