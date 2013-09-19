@@ -61,7 +61,7 @@ describe User do
   describe :username do
     it "should respect the username's case" do
       user = build :user, username: "TestUser"
-      user.save.should == true
+      user.save!
 
       retrieved_username = User.find(user.id).username
       expect(retrieved_username).to eq "TestUser"
@@ -75,15 +75,15 @@ describe User do
   end
 
   describe :to_param do
-    it {subject.to_param.should == subject.username }
+    it {expect(subject.to_param).to eq subject.username }
   end
 
   context "when agreeing the tos" do
     describe "when trying to agree without signing" do
       it "should not be allowed" do
-        nonnda_subject.sign_tos(false).should == false
-        nonnda_subject.errors.keys.length.should == 1
-        nonnda_subject.agrees_tos.should == false
+        expect(nonnda_subject.sign_tos(false)).to eq false
+        expect(nonnda_subject.errors.keys.length).to eq 1
+        expect(nonnda_subject.agrees_tos).to eq false
       end
     end
 
@@ -91,9 +91,9 @@ describe User do
       it "should be allowed" do
         t = DateTime.now
         DateTime.stub(:now).and_return(t)
-        nonnda_subject.sign_tos(true).should == true
-        nonnda_subject.agreed_tos_on.to_i.should == t.to_i
-        nonnda_subject.errors.keys.length.should == 0
+        expect(nonnda_subject.sign_tos(true)).to eq true
+        expect(nonnda_subject.agreed_tos_on.to_i).to eq t.to_i
+        expect(nonnda_subject.errors.keys.length).to eq 0
       end
     end
 
@@ -104,17 +104,17 @@ describe User do
         nonnda_subject.sign_tos(agrees_tos)
 
         user = User.find(nonnda_subject.id)
-        user.agrees_tos.should      == agrees_tos
+        expect(user.agrees_tos).to eq agrees_tos
       end
     end
   end
 
   describe ".find" do
     it "should work with numerical ids" do
-      User.find(subject.id).should == subject
+      expect(User.find(subject.id)).to eq subject
     end
     it "should work with usernames" do
-      User.find(subject.username).should == subject
+      expect(User.find(subject.username)).to eq subject
     end
   end
 
@@ -125,12 +125,12 @@ describe User do
 
     it "cannot be empty" do
       @u.first_name = ""
-      @u.valid?.should be_false
+      expect(@u.valid?).to be_false
     end
 
     it "can be just one letter" do
       @u.first_name = "a"
-      @u.valid?.should be_true
+      expect(@u.valid?).to be_true
     end
   end
 
@@ -141,12 +141,12 @@ describe User do
 
     it "cannot be empty" do
       @u.last_name = ""
-      @u.valid?.should be_false
+      expect(@u.valid?).to be_false
     end
 
     it "can be just one letter" do
       @u.last_name = "a"
-      @u.valid?.should be_true
+      expect(@u.valid?).to be_true
     end
   end
 
@@ -155,7 +155,7 @@ describe User do
       @json = subject.to_json
     end
     it "should not contain a password" do
-      @json.should_not include(subject.encrypted_password)
+      expect(@json).to_not include(subject.encrypted_password)
     end
     [
       :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
@@ -164,7 +164,7 @@ describe User do
       :sign_in_count, :agreed_tos_on, :agrees_tos_name
     ].map{|x| x.to_s}.each do |field|
       it "should not contain other sensitive information: #{field}" do
-        @json.should_not include(field)
+        expect(@json).to_not include(field)
       end
     end
   end
@@ -175,16 +175,16 @@ describe User do
     end
     it "should be possible to choose GerardEkdom as name" do
       @u.username = "GerardEkdom"
-      @u.valid?.should be_true
+      expect(@u.valid?).to be_true
     end
     it "should not be possible to choose 1 letter as name" do
       @u.username = "a"
-      @u.valid?.should be_false
+      expect(@u.valid?).to be_false
     end
     [:users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink].each do |name|
       it "should not be possible to choose #{name} as name" do
         @u.username = name.to_s
-        @u.valid?.should be_false
+        expect(@u.valid?).to be_false
       end
     end
   end
@@ -193,11 +193,12 @@ describe User do
 
     it "sends a welcome email" do
       subject.send_welcome_instructions
-      ActionMailer::Base.deliveries.last.to.should == [subject.email]
+      last_recipients = ActionMailer::Base.deliveries.last.to
+      expect(last_recipients).to eq [subject.email]
     end
 
     it "#send_welcome_instructions should be called once" do
-      subject.should_receive(:send_welcome_instructions).once
+      expect(subject).to receive(:send_welcome_instructions).once
       subject.approved = true
       subject.save
     end
