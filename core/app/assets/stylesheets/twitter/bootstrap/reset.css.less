@@ -41,14 +41,6 @@ audio:not([controls]) {
     display: none;
 }
 
-// Base settings
-// -------------------------
-
-html {
-  font-size: 100%;
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-}
 // Focus states
 a:focus {
   .tab-focus();
@@ -119,13 +111,11 @@ input::-moz-focus-inner { // Inner padding and border oddities in FF3/4
 }
 button,
 input[type="button"],
-input[type="reset"],
 input[type="submit"] {
   cursor: pointer; // Cursors on all buttons applied consistently
   -webkit-appearance: button; // Style clickable inputs in iOS
 }
 input[type="search"] { // Appearance in Safari/Chrome
-  -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;
   -webkit-appearance: textfield;

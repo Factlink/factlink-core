@@ -10,18 +10,38 @@ class window.TopFactView extends Backbone.Marionette.Layout
   regions:
     wheelRegion: '.js-fact-wheel-region'
     userHeadingRegion: '.js-user-heading-region'
+    userRegion: '.js-user-name-region'
+    deleteRegion: '.js-delete-region'
+
+  templateHelpers: =>
+    showDelete: @model.can_destroy()
 
   showRepost: ->
-    FactlinkApp.Modal.show 'Repost Factlink',
-      new AddToChannelModalView(model: @model)
+    FactlinkApp.ModalWindowContainer.show new AddToChannelModalWindowView(model: @model)
 
   onRender: ->
-    @userHeadingRegion.show new UserInFactHeadingView
+    heading_view = if @model.get("proxy_scroll_url")
+        new TopFactHeadingLinkView model: @model
+      else
+        new TopFactHeadingUserView model: @model.user()
+    @userHeadingRegion.show heading_view
+
+    @userRegion.show new UserInTopFactView
         model: @model.user()
+        $offsetParent: @$el
 
-    @wheelRegion.show @wheelView()
+    @wheelRegion.show @_wheelView()
+    @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
 
-  wheelView: ->
+  _deleteButtonView: ->
+    deleteButtonView = new DeleteButtonView model: @model
+    @listenTo deleteButtonView, 'delete', ->
+      @model.destroy
+        wait: true
+        success: -> mp_track "Factlink: Destroy"
+    deleteButtonView
+
+  _wheelView: ->
     wheel = @model.getFactWheel()
 
     wheel_view_options =
@@ -41,7 +61,5 @@ class window.TopFactView extends Backbone.Marionette.Layout
     wheel_view
 
   showStartConversation: ->
-    FactlinkApp.Modal.show 'Send a message',
-      new StartConversationView(model: @model)
-
+    FactlinkApp.ModalWindowContainer.show new StartConversationModalWindowView(model: @model)
     mp_track "Factlink: Open share modal"

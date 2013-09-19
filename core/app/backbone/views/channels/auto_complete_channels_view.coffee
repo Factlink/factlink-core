@@ -2,9 +2,9 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-channels"
 
   regions:
-    'results': 'div.auto-complete-results-container'
-    'search_list': 'div.auto-complete-search-list-container'
-    'text_input': 'div.js-auto-complete-input-view-container'
+    'results': '.auto-complete-results-container'
+    'search_list': '.auto-complete-search-list-container'
+    'text_input': '.js-auto-complete-input-view-container'
 
   template: "auto_complete/box_with_results"
 

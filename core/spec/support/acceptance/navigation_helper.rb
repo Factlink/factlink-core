@@ -6,17 +6,13 @@ module Acceptance
     end
 
     def within_modal &block
-      within(:css, "#modal_region .modal-body") do
+      within(:css, "#modal_region .modal-window-body") do
         yield
       end
     end
 
     def close_modal
-      find("#modal_region .modal-header .close").click
-    end
-
-    def go_back_using_button
-      find('.js-title-region a.btn-back').click
+      find("#modal_region .js-layer").click
     end
   end
 end

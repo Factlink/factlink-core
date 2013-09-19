@@ -2,19 +2,26 @@ class window.ClientController
 
   showFact: (fact_id) =>
     fact = new Fact id: fact_id
+    fact.on 'destroy', => @onFactRemoved fact.id
+
     fact.fetch success: =>
-      if Factlink.Global.can_haz['new_discussion_page']
-        @showFactWithNewDiscussionPage fact
-      else
-        @showFactWithOldDiscussionPage fact
+      newClientModal = new DiscussionModalContainer
+      FactlinkApp.discussionModalRegion.show newClientModal
+
+      view = new DiscussionView model: fact
+      view.on 'render', =>
+        parent.$(parent.document).trigger 'modalready'
+
+      newClientModal.mainRegion.show view
+
 
   showNewFact: (params={}) =>
     unless window.currentUser?
       window.location = Factlink.Global.path.sign_in_client()
       return
 
-    clientModal = new ClientModalLayout
-    FactlinkApp.mainRegion.show clientModal
+    clientModal = new DiscussionModalContainer
+    FactlinkApp.discussionModalRegion.show clientModal
 
     csrf_token = $('meta[name=csrf-token]').attr('content')
 
@@ -41,30 +48,3 @@ class window.ClientController
     parent.remote.hide()
     parent.remote.stopHighlightingFactlink id
 
-  showFactWithOldDiscussionPage: (fact)->
-    clientModal = new ClientModalLayout
-    FactlinkApp.mainRegion.show clientModal
-
-    view = new DiscussionView model: fact
-    view.on 'render', =>
-      parent.$(parent.document).trigger "modalready"
-
-    clientModal.mainRegion.show view
-
-    fact.on "destroy", => @onFactRemoved(fact.id)
-
-    unless Factlink.Global.signed_in
-      clientModal.topRegion.show new LearnMorePopupView()
-      clientModal.bottomRegion.show new LearnMoreBottomView()
-
-  showFactWithNewDiscussionPage: (fact) ->
-    newClientModal = new NDPClientModalLayout
-    FactlinkApp.mainRegion.show newClientModal
-
-    view = new NDPDiscussionView model: fact
-    view.on 'render', =>
-      parent.$(parent.document).trigger 'modalready'
-
-    newClientModal.mainRegion.show view
-
-    fact.on 'destroy', => @onFactRemoved fact.id

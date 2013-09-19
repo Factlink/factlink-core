@@ -1,7 +1,7 @@
 @import "bootstrap/mixins";
 
 .top-fact {
-  .new-design-white-block-with-shadow();
+  .white-block-with-shadow();
   .new-design-font();
   position: relative;
   padding: 30px 35px 25px;
@@ -17,7 +17,7 @@
 
 .top-fact-share {
   position: absolute;
-  top: -@baseButtonHeight - 10px;
+  top: -@baseButtonHeight - 8px;
   right: 0;
 }
 
@@ -29,13 +29,34 @@
 
 .top-fact-controls {
   position: relative;
-  overflow: hidden;
+  color: @mutedFontColor;
+
+  // These two rules are for creating a block formatting context,
+  // as we cannot use overflow: hidden because of delete button
+  display: inline-block;
+  width: 100%;
 }
 
-.top-fact-time-ago {
+.top-fact-poster-controls {
   float: right;
   margin-top: 2px;
   color: @mutedFontColor;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.top-fact-delete {
+  display: inline-block;
+  margin-top: 2px;
+
+  &:after {
+    content: "·";
+    margin-right: 10px;
+    margin-left: 4px;
+  }
 }
 
 @informationLabelHeight: 40px;
@@ -50,7 +71,7 @@
   line-height: @informationLabelHeight;
   text-align: center;
   z-index: -1;
-  .new-design-border-radius();
+  border-radius: @blockBorderRadius;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 

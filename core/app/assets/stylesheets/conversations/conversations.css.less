@@ -5,7 +5,7 @@
     .fact-wrapper {
       .reset-main-padding();
       border-bottom: 1px solid @baseBorderColor;
-      .box-shadow(0 2px 1px rgba(0, 0, 0, .1));
+      box-shadow: 0 2px 1px rgba(0, 0, 0, .1);
 
       .fact-view {
         border-bottom: none;
@@ -75,7 +75,6 @@
         .user-profile-link-dummy {
           font-weight: bold;
           color: @headingFontColor;
-          font-size: @baseFontSize;
         }
 
         .meta {
@@ -84,8 +83,6 @@
         }
 
         .text {
-          width: 475px;
-          font-size: @baseFontSize;
           word-wrap: break-word;
           i {
             opacity: 0.65;

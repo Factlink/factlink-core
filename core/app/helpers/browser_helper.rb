@@ -12,14 +12,22 @@ module BrowserHelper
     browser.chrome? or browser.firefox?
   end
 
-  def preferred_browser_name
+  def browser_class_name
     if browser.chrome?
       'chrome'
     elsif browser.firefox?
       'firefox'
+    elsif browser.phantom_js?
+      'phantom_js unsupported-browser'
     else
       'unsupported-browser'
     end
   end
 
+  def show_supported_browser_warning
+    controller_without_warnings = ["tour", "tos"].include? controller_name
+    return false if controller_without_warnings
+
+    current_user && browser_supported? && !browser_preferred?
+  end
 end

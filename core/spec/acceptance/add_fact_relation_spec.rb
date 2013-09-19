@@ -14,8 +14,9 @@ feature "adding factlinks to a fact", type: :feature do
   scenario "initially the evidence list should be empty" do
     go_to_discussion_page_of factlink
 
-    within :css, ".relation-tabs-view" do
-      page.should have_content "This Factlink is not supported by other Factlinks."
+
+    within_evidence_list do
+      expect(all '.evidence-votable', visible: false).to be_empty
     end
   end
 
@@ -24,12 +25,10 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
-      sleep 2
-      within "li.evidence-item" do
-        page.should have_content supporting_factlink.to_s
-      end
+    add_existing_factlink :supporting, supporting_factlink
+    sleep 2
+    within ".evidence-votable", visible: false do
+      page.should have_content supporting_factlink.to_s
     end
   end
 
@@ -38,31 +37,13 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
-      within "li.evidence-item" do
-        page.find('span', text: supporting_factlink.to_s).click
-      end
-    end
+    find('.evidence-impact-text', text: "0.0") # wait until request has finished
 
-    page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
-  end
+    find('.evidence-votable span', text: supporting_factlink.to_s).click
 
-  scenario "we can click on the discussion link to go to the page of that factlink" do
-    go_to_discussion_page_of factlink
-
-    supporting_factlink = backend_create_fact
-
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
-
-      within "li.evidence-item" do
-        click_link 'Arguments'
-      end
-    end
-
-    page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
+    find('.top-fact-text', text: supporting_factlink.to_s)
   end
 
   scenario "after clicking the factwheel, the impact and percentages should update" do
@@ -70,30 +51,17 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
-      within ".evidence-item" do
-        page.should have_content supporting_factlink.to_s
+    within ".evidence-votable", visible: false do
+      page.should have_content supporting_factlink.to_s
 
-        within '.authorities-evidence' do
-          page.should have_content '0.0'
-        end
+      find('.evidence-impact-text', text: "0.0")
 
+      click_wheel_part 0, '.evidence-votable'
+      sleep 2
 
-        agreeing_link = all('.opinion_indicators .discussion_link')[0]
-        agreeing_link.should have_content "0%"
-
-        click_wheel_part 0, '.relation-tabs-view li.evidence-item'
-
-
-        authority_el = find '.authorities-evidence'
-
-        authority_el.should have_content '1.0'
-
-        agreeing_link = all('.opinion_indicators .discussion_link')[0]
-        agreeing_link.should have_content "100%"
-      end
+      find('.evidence-impact-text', text: "1.0")
     end
   end
 
@@ -102,9 +70,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
-    end
+    add_existing_factlink :supporting, supporting_factlink
 
     visit user_path(@user)
 
@@ -121,25 +87,17 @@ feature "adding factlinks to a fact", type: :feature do
 
     go_to_discussion_page_of factlink
 
-    within ".relation-tabs-view" do
-      add_existing_factlink supporting_factlink
+    add_existing_factlink :supporting, supporting_factlink
 
-      within "li.evidence-item" do
-        page.should have_content supporting_factlink.to_s
+    within ".evidence-votable", visible: false do
+      page.should have_content supporting_factlink.to_s
 
-        within '.authorities-evidence' do
-          page.should have_content '1.0'
-        end
+      find('.evidence-impact-text', text: "1.0")
 
-        find('.supporting').click
-        find('.js-fact-relation-believe').set false
-        page.find('a', text: 'Done').click
+      find(".evidence-impact-vote-up").click
+      find('.js-fact-relation-believe').set false
 
-        within '.authorities-evidence' do
-          page.should have_content '0.0'
-        end
-
-      end
+      find('.evidence-impact-text', text: "0.0")
     end
   end
 end

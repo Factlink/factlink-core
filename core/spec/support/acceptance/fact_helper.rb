@@ -3,8 +3,7 @@ module Acceptance
     include ::FactHelper
 
     def go_to_discussion_page_of factlink
-      path = friendly_fact_path factlink
-      visit path
+      visit friendly_fact_path factlink
     end
 
     def go_to_fact_show_of factlink
@@ -38,7 +37,7 @@ module Acceptance
           svgEl.dispatchEvent(clickEvent);
         ")
       else
-        svg_path_el = all("#{css_path} .fact-wheel path")[position]
+        svg_path_el = find("#{css_path} .fact-wheel path:nth-of-type(#{position+1})")
         svg_path_el.click
       end
     end

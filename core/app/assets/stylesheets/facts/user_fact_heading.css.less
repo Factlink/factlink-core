@@ -1,23 +1,81 @@
 @import "bootstrap/mixins";
 
-.user-fact-heading {
-  //the user's avatar+name should be raised slightly above + overlapping
-  //the overall user-info block.
+.top-fact-heading {
+  //the fact's avatar +link should be raised slightly above + overlapping
+  //the overall fact-info block.
   position: absolute;
   top: -38px;
 
+  .heading-avatar-image {
+    border: 1px solid @baseBorderColor;
+    background: @semiTransparentLayerColor;
+    display: inline-block;
+    text-align: center;
+    &:before {
+      height:100%;
+      content:'';
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
 }
 
-.user-fact-heading-text {
+.heading-avatar-favicon {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
   display: inline-block;
-  vertical-align: top;
+  border-radius: 2px;
+}
+.heading-avatar-favicon.favicon-missing {
+  visibility: hidden;
+  position: absolute;
+}
+
+
+.favicon-alternative {
+  vertical-align: middle;
+  font-size: 200%;
+  color: rgba(0,0,0,0.4);
+  text-shadow: 1px 1px white;
+  display:none;
+}
+
+.favicon-missing + .favicon-alternative {
+  display:inline-block;
+}
+
+
+.top-fact-heading-link {
+  display: inline-block;
+  position: relative;
+  top: 8px;
+  font-size: @heading2FontSize;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.user-fact-heading-link {
-  font-size: @baseFactFontSize;
+.top-fact-heading-text {
+  display: inline-block;
+  max-width: 600px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
-.user-fact-heading-authority {
+.top-fact-heading-authority {
   margin-top: -2px;
+}
+
+.fact-url-icon {
+  color: @grayLight;
+  font-size: 0.9em;
+  margin-left: 5px;
+  position: relative;
+  top: 1px;
+  vertical-align: middle;
+
+  &:hover {
+    color: @gray;
+  }
 }

@@ -1,6 +1,6 @@
 class OneMessageView extends Backbone.Marionette.ItemView
   tagName: 'li'
-  className: 'clearfix'
+  className: 'clearfix conversation-message'
   template: 'conversations/message'
 
   initialize: ->
@@ -16,6 +16,9 @@ class OneMessageView extends Backbone.Marionette.ItemView
 
   scroll: ->
     $.scrollTo $(@el).offset().top - 72 , 800
+
+  onRender: ->
+    UserPopoverContentView.makeTooltip @, @sender
 
 class MessageListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'

@@ -1,0 +1,32 @@
+@import "bootstrap/mixins";
+
+.statistics {
+  white-space: nowrap;
+
+  .statistic {
+    display: inline-block;
+    padding: 5px @statisticsSpacing 3px;
+
+    border-left:  1px solid @baseBorderColor;
+    border-right: 0px;
+
+    .fading-border(@baseBorderColor);
+
+    &:first-child {
+      border-left: 0 solid transparent;
+    }
+
+    > .statistic-authority {
+      font-size: @metaFontSize;
+    }
+
+    > span.statistic-title {
+      color: @mutedFontColor;
+    }
+  }
+}
+
+.statistic-authority-faded {
+  font-size: @metaFontSize;
+  color: @mutedFontColor;
+}

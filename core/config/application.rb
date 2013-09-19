@@ -43,7 +43,6 @@ module FactlinkUI
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
     require_dependency "#{config.root}/app/ohm-models/authority.rb"
     require_dependency "#{config.root}/app/ohm-models/fact_graph.rb"
-    require_dependency "#{config.root}/app/ohm-models/basefact.rb"
     require_dependency "#{config.root}/app/models/fact_data.rb"
     require_dependency "#{config.root}/app/ohm-models/fact.rb"
     require_dependency "#{config.root}/app/ohm-models/fact_relation.rb"
@@ -122,21 +121,13 @@ module FactlinkUI
 
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,
-      'activity.css',
+
       'admin.css',
-      'fake_facts.css',
       'frontend.css',
-      'client.css',
-      'popup.css',
-      'privacy.css',
-      'search.css',
-      'tos.css',
-      'tour.css',
-      'social_popup.css',
       'base.css',
+
       'application.js',
       'frontend.js',
-      'popup.js',
       'intermediate.js',
       'admin.js',
       'jquery.js',

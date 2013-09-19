@@ -8,25 +8,24 @@ class window.InteractiveTour extends Backbone.View
 
   helpTextDelay: 560
 
+  # TODO: create events in the js-library for this
   detectSelecting: ->
-    if FACTLINK.getSelectionInfo().text.length > 0
+    if @_getTextRange().length > 0
       @state.select_text()
 
   detectDeselecting: ->
-    if FACTLINK.getSelectionInfo().text.length <= 0
+    if @_getTextRange().length <= 0
       @state.deselect_text()
 
-  bindLibraryLoad: ->
-    $(window).on 'factlink.libraryLoaded', => @onLibraryLoaded()
-
-  onLibraryLoaded: ->
-    FACTLINK.hideDimmer()
-
+  bindSelectionEvents: ->
     @detectDeselectingInterval = window.setInterval (=> @detectDeselecting()), 200 unless @detectDeselectingInterval?
 
     $('.create-your-first-factlink-content').on 'mouseup', =>
       @detectSelecting()
       @detectDeselecting()
+
+  bindJsLibraryEvents: ->
+    return unless FACTLINK? # On the CI there is no js-library, so we just skip this
 
     FACTLINK.on 'modalOpened', =>
       @state.open_modal()
@@ -46,7 +45,8 @@ class window.InteractiveTour extends Backbone.View
 
     @renderExtensionButton()
 
-    @bindLibraryLoad()
+    @bindSelectionEvents()
+    @bindJsLibraryEvents()
 
     @createStateMachine()
 
@@ -75,8 +75,12 @@ class window.InteractiveTour extends Backbone.View
 
         { name: 'close_modal',     from:  'modal_opened',                        to: 'started' }
         { name: 'close_modal',     from:  'factlink_created_and_modal_opened',   to: 'factlink_created' }
-        { name: 'create_factlink', from: ['modal_opened',
-                                          'factlink_created_and_modal_opened'],  to: 'factlink_created' }
+
+        { name: 'close_modal',     from: ['modal_opened_and_just_created',
+                                          'factlink_created_and_modal_opened_and_just_created'],  to: 'factlink_created' }
+
+        { name: 'create_factlink', from:  'modal_opened',                        to: 'modal_opened_and_just_created' }
+        { name: 'create_factlink', from:  'factlink_created_and_modal_opened',   to: 'factlink_created_and_modal_opened_and_just_created' }
       ]
       callbacks:
         onstarted: =>
@@ -111,12 +115,6 @@ class window.InteractiveTour extends Backbone.View
           @popoverRemove '.factlink.fl-first'
           @state.transition()
 
-        onopen_modal: =>
-          FactlinkApp.Overlay.show()
-
-        onclose_modal: =>
-          FactlinkApp.Overlay.hide()
-
   factlinkFirstExists: ->
     @$('.factlink.fl-first').length > 0
 
@@ -127,3 +125,12 @@ class window.InteractiveTour extends Backbone.View
       align: 'top'
       margin: 10
       contentView: new FirstFactlinkFactView
+
+  _getTextRange: ->
+    doc = window.document
+    if doc.getSelection
+      doc.getSelection().toString()
+    else if doc.selection
+      doc.selection.createRange().text.toString()
+    else
+      ''

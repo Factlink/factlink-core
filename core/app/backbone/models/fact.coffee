@@ -38,12 +38,15 @@ class window.Fact extends Backbone.Model
       @on 'change:id', -> @_fact_wheel.set 'fact_id', @id
     @_fact_wheel
 
-  friendlyUrl: -> @get("url")
+  clientLink: -> @clone().url()
 
   user: -> new User(@get("created_by"))
 
-  # TODO: rename to is_mine
-  i_am_owner: -> @user().is_current_user()
+  is_mine: -> @user().is_current_user()
+
+  has_evidence: -> @get('evidence_count') > 0
+
+  can_destroy: -> @is_mine() && !@has_evidence()
 
   factUrlHost: ->
     fact_url = @get('fact_url')
@@ -53,6 +56,6 @@ class window.Fact extends Backbone.Model
 
   toJSON: ->
     _.extend super(),
-      i_am_owner: @i_am_owner()
+      can_destroy: @can_destroy()
       fact_url_host: @factUrlHost()
       fact_url_title: @get('fact_title') || @factUrlHost()

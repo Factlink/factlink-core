@@ -16,9 +16,7 @@ feature "adding a fact to a channel" do
     new_channel_name = 'Gerrit'
     go_to_discussion_page_of factlink
 
-    click_link('Repost')
-
-    within(:css, ".modal-body") do
+    open_repost_modal do
       page.should have_content('Repost this to one or more topics:')
 
       add_as_new_channel new_channel_name
@@ -32,7 +30,7 @@ feature "adding a fact to a channel" do
 
     go_to_discussion_page_of @factlink
 
-    open_modal 'Repost' do
+    open_repost_modal do
       add_to_channel @channel.title
       added_channels_should_contain @channel.title
     end
@@ -45,7 +43,7 @@ feature "adding a fact to a channel" do
     go_to_discussion_page_of factlink
     new_channel_name = 'Gerrit'
 
-    open_modal 'Repost' do
+    open_repost_modal do
       add_as_new_channel new_channel_name
       added_channels_should_contain new_channel_name
     end
@@ -54,7 +52,7 @@ feature "adding a fact to a channel" do
 
     go_to_discussion_page_of factlink2
 
-    open_modal 'Repost' do
+    open_repost_modal do
       suggested_channels_should_contain new_channel_name
     end
   end

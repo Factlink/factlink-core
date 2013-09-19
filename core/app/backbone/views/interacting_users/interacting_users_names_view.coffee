@@ -7,7 +7,7 @@ class InteractorEmptyView extends Backbone.Marionette.ItemView
 
 class InteractorNameView extends Backbone.Marionette.ItemView
   tagName: 'span'
-  className: 'separator-list-item'
+  className: 'separator-list-item discussion-interacting-users-name'
   template: 'interacting_users/name'
 
   templateHelpers: =>
@@ -18,6 +18,8 @@ class InteractorNameView extends Backbone.Marionette.ItemView
     show_links:
       Factlink.Global.signed_in and not @model.is_current_user()
 
+  onRender: ->
+    UserPopoverContentView.makeTooltip @, @model
 
 class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
   template: 'interacting_users/names'
@@ -31,7 +33,7 @@ class window.InteractingUsersNamesView extends Backbone.Marionette.CompositeView
   number_of_items: 3
 
   initialize: (options) ->
-    @listenTo @collection, 'add remove reset', @render
+    @listenTo @collection, 'add remove reset sync', @render
 
   _initialEvents: -> # don't use default bindings to collection
 

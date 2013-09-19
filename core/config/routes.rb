@@ -79,7 +79,7 @@ FactlinkUI::Application.routes.draw do
 
   resources :feedback # TODO RESTRICT
 
-  get "/:fact_slug/f/:id" => "facts#discussion_page", as: "frurl_fact"
+  get "/:fact_slug/f/:id" => "facts#discussion_page"
 
   # Search
   get "/search" => "search#search", as: "search"
@@ -91,7 +91,7 @@ FactlinkUI::Application.routes.draw do
             controller: :global_feature_toggles,
             only: [:show, :update ]
 
-      resources :users, only: [:show, :new, :create, :edit, :update, :index] do
+      resources :users, only: [:show, :edit, :update, :index] do
         collection do
           get :reserved
         end
@@ -101,16 +101,14 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+  end
 
-
-
-    # Seems to me we want to lose the scope "/:username" later and place all
-    # stuff in this resource?
-    devise_scope :user do
-      resources :users, path: "", only: [:edit, :update] do
-        get "/password/edit" => "users/registrations#edit_password"
-        put "/password" => "users/registrations#update_password", as: "update_password"
-      end
+  # Seems to me we want to lose the scope "/:username" later and place all
+  # stuff in this resource?
+  devise_scope :user do
+    resources :users, path: "", only: [:edit, :update] do
+      get "/password/edit" => "users/registrations#edit_password"
+      put "/password" => "users/registrations#update_password", as: "update_password"
     end
   end
 
@@ -121,7 +119,7 @@ FactlinkUI::Application.routes.draw do
     resources :messages, only: [:create, :show]
   end
 
-  # old conversation urls
+  # old conversation urls, remove before 2014
   get "/c" => redirect("/m")
   get "/c/:id" => redirect("/m/%{id}")
   get "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
@@ -142,7 +140,7 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", as: "find"
       end
 
-      get "/facts/:fact_id" => "facts#discussion_page", as: "fact"
+      get "/facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
 
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
@@ -155,7 +153,7 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "facts/:fact_id" => "facts#discussion_page", as: "fact"
+          get "facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
         end
       end
 
@@ -202,7 +200,7 @@ FactlinkUI::Application.routes.draw do
     member do
       scope "/facts" do
         get "/" => "topics#facts", as: "topic_facts"
-        get "/:fact_id" => "topics#fact", as: "topic_fact"
+        get "/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
       end
     end
   end
@@ -229,7 +227,7 @@ FactlinkUI::Application.routes.draw do
   # I'm abusing it for the search now as well, as this place looks like the best
   # since we cannot nest it in another user
   scope "/u" do
-    put "/seen_messages" => "users#seen_message", as: 'see_message'
+    put "/seen_messages" => "users#seen_messages", as: 'see_messages'
     get "/search" => "users#search", as: 'search_users'
     get "/tour_users" => "users#tour_users", as: 'tour_users'
   end

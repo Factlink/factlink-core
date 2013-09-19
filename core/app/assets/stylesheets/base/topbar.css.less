@@ -29,9 +29,7 @@ body.show_sign_in {
 .navbar {
   position: relative;
   height: @navbarHeight;
-  margin-bottom: @navbarMargin;
-  font-size: @baseFontSize;
-  z-index: 120; // on top of the overlay in widgets/modal_overlay
+  z-index: 120; // on top of the overlay in widgets/overlay
 
   &.navbar-fixed-top {
     position: fixed;
@@ -45,7 +43,7 @@ body.show_sign_in {
     position: relative;
     z-index: 2;
     border-bottom: 1px solid @baseBorderColor;
-    .box-shadow(0 1px 2px rgba(0, 0, 0, .1));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
 
     .background {
       background: white;
@@ -92,7 +90,6 @@ body.show_sign_in {
         > a {
           color: @linkColor;
           font-weight: bold;
-          font-size: @baseFontSize;
           line-height: 20px;
 
           &:hover {
@@ -154,7 +151,7 @@ body.show_sign_in {
       border-bottom: none;
 
       .background {
-        .opacity(.40);
+        opacity: .4;
       }
 
       .container {

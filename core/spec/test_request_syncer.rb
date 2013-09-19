@@ -24,7 +24,30 @@ module TestRequestSyncer
     def inject_special_test_code
       "<script>
         window.test_counter = #{TestRequestSyncer.test_counter};
-      </script>".html_safe + super
+      </script>".html_safe +
+          (<<-'SNIPPET'
+      <script>
+        if(/^(::1|127\.0\.0\.1|localhost)$/.test(window.location.hostname)) {
+          window.addEventListener('unload', function(){ //phantomjs doesn't support beforeunload
+            document.cookie = 'test_counter='+window.test_counter+';path=/';
+          });
+          function testCounterBackbonePatcher() {
+            document.removeEventListener('DOMContentLoaded', testCounterBackbonePatcher);
+            if(!window.Backbone) return;
+            var old_ajax = Backbone.ajax;
+            Backbone.ajax = function(options) {
+              if (arguments.length !== 1) {
+                throw new Error("Factlink's overridden ajax method only supports the 1-argument (an options object) style ajax");
+              }
+              options.url = options.url.replace(/\?|$/, '?test_counter=' + window.test_counter + '&');
+              return old_ajax(options);
+            };
+          }
+          document.addEventListener('DOMContentLoaded', testCounterBackbonePatcher);
+        }
+      </script>
+          SNIPPET
+          ).html_safe + super
     end
     def redirect_to(*args, &block)
       res = super(*args, &block)

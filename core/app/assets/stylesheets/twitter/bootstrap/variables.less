@@ -18,7 +18,7 @@
 @orange:                #f89406;
 
 @whiteDarker:           #F5F5F5;
-@lightYellow:           #ffffe1;
+@lightYellow:           #fdfad9;
 @itemHoverColor:        lighten(@linkColor, 51%);
 @backgroundGray:        #f9f9f9;
 @greenLabelColor:       #359e7f;
@@ -35,7 +35,7 @@
 // Typography
 // -------------------------
 
-@baseFontFamily:            "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+@baseFontFamily:            "Lucida Grande", "Tahoma", "Corbel", Geneva, Verdana, sans-serif;
 @sansFontFamily:            "Helvetica Neue", Helvetica, Arial, sans-serif;
 @baseFontBoldWeight:        bold;
 
@@ -156,12 +156,6 @@
 @zindexModal:             1050;
 @max-z-index:             2147483647;
 
-// Sprite icons path
-// -------------------------
-@iconSpritePath:          "twitter/bootstrap/glyphicons-halflings.png";
-@iconWhiteSpritePath:     "twitter/bootstrap/glyphicons-halflings-white.png";
-
-
 // Input placeholder text color
 // -------------------------
 @placeholderText:         @grayLight;
@@ -206,13 +200,13 @@
 @warningBackground:       #fcf8e3;
 @warningBorder:           darken(spin(@warningBackground, -10), 3%);
 
-@errorText:               #b94a48;
-@errorBackground:         #f2dede;
-@errorBorder:             darken(spin(@errorBackground, -10), 3%);
+@errorText:               #ab554f;
+@errorBackground:         #eddfdf;
+@errorBorder:             #dbb0b6;
 
-@successText:             #468847;
-@successBackground:       #dff0d8;
-@successBorder:           darken(spin(@successBackground, -10), 5%);
+@successText:             #598246;
+@successBackground:       #e3edd9;
+@successBorder:           #c2d3a5;
 
 @infoText:                #3a87ad;
 @infoBackground:          #d9edf7;
@@ -239,6 +233,13 @@
 @popoverArrowOuterWidth:  @popoverArrowWidth + 1;
 @popoverArrowOuterColor:  rgba(0,0,0,.25);
 
+// Our own poovers
+// Rename to @popover... once we get rid over Twitter popovers
+@factlinkPopoverShadowBottomColor:   rgba(0,0,0,0.4);
+@factlinkPopoverShadowBottomSize:    1px;
+@factlinkPopoverArrowBorderColor:    rgba(0,0,0,0.17);
+@factlinkPopoverArrowTopBorderColor: rgba(0,0,0,0.25);
+@factlinkPopoverArrowBorderOffset:   1px;
 @darkTranslucentGrey:     rgba(32,32,32,0.6);
 
 // Default 940px grid
@@ -257,37 +258,33 @@
 @baseBorderColor:           darken(#d7d7d7, 5);
 @mutedBorderColor:          lighten(@baseBorderColor, 5);
 @modalBorderColor:          #a6a6a6;
+@mutedBorderTopColor:       rgb(230,230,230);
+@mutedBorderBottomColor:    rgb(250,250,250);
+
+@blockBorderRadius:         4px;
+@blockBorderSize:           1px;
+@blockBorder:               0 0 0 @blockBorderSize rgba(0,0,0,0.06);
+@blockShadowBottomColor:    rgba(0,0,0,0.15);
+@blockShadowBottomSize:     1px;
+@triangleSize:              8px;
+@triangleArrowBorderColor:  rgba(0,0,0,0.15);
+
+@discussionLineColor:       rgba(174,180,189,0.8);
+@semiTransparentLayerColor: rgba(233, 234, 238, 0.7);
 
 // TODO: fix these colours to match the new design, concurrently with updating the js-library
 @factlinkActiveColor:       #b4d5fe;
 @factlinkInactiveColor:     lighten(@factlinkActiveColor, 10%);
 
-// NDP stuff
+// Discussion page half-circles
 @supportingImpactColor:     rgba(100,190,160, 0.9);
 @weakeningImpactColor:      rgba(220,120,120, 0.9);
 @unsureImpactColor:         rgba(90,140,170, 0.9);
-@semiTransparentLayerColor: rgba(233, 234, 238, 0.7); // Same colour as semi-transparent overlay in js-library
-
-@ndpTriangleSize:           8px;
-@ndpArrowBorderColor:       rgba(0,0,0,0.15);
-@ndpBoxBorderSize:          1px;
-@ndpBoxBorder:              0 0 0 @ndpBoxBorderSize rgba(0,0,0,0.06);
-@ndpBoxShadowBottomColor:   rgba(0,0,0,0.15);
-@ndpBoxShadowBottomSize:    1px;
-@NDPMutedBorderTopColor:    rgb(230,230,230);
-@NDPMutedBorderBottomColor: rgb(250,250,250);
-@ndpLineColor:              rgba(174,180,189,0.8);
-
-@ndpPopoverShadowBottomColor:   rgba(0,0,0,0.4);
-@ndpPopoverShadowBottomSize:    1px;
-@ndpPopoverArrowBorderColor:    rgba(0,0,0,0.17);
-@ndpPopoverArrowTopBorderColor: rgba(0,0,0,0.25);
-@ndpPopoverArrowBorderOffset:   1px;
 
 // Layouting
 @siteWidth:                 960px;
-@discussionModalWidth:      585px;
-@newDiscussionModalWidth:   810px;
+@factNewAndSignInWidth:     585px;
+@discussionModalWidth:   810px;
 
 @leftColumnWidth: 175px;
 @mainColumnWidth: @siteWidth - @leftColumnWidth;
@@ -298,3 +295,5 @@
 
 @bubbleLeftPadding:  15px;
 @bubbleRightPadding: 15px;
+
+@statisticsSpacing: 10px;

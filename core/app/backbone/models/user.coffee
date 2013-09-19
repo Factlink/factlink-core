@@ -1,7 +1,6 @@
 class window.User extends Backbone.Model
   initialize: ->
     @channels = []
-    @followers = new Followers([], user: @)
     @following = new Following([], user: @)
     @favourite_topics = new FavouriteTopics([], user: @)
 
@@ -32,6 +31,10 @@ class window.User extends Backbone.Model
       created_by:
         username: @get('username')
 
+  streamLink: -> "/#{@get('username')}/channels/#{@get('all_channel_id')}/activities"
+
+  link: -> '/' + @get('username')
+
   toJSON: ->
     username = @get('username')
     _.extend super(),
@@ -43,12 +46,11 @@ class window.User extends Backbone.Model
       avatar_url_20: @avatar_url(20)
       avatar_url_24: @avatar_url(24)
       avatar_url_32: @avatar_url(32)
-      avatar_url_42: @avatar_url(42)
       avatar_url_48: @avatar_url(48)
       avatar_url_80: @avatar_url(80)
       avatar_url_160: @avatar_url(160)
-      stream_path: "/#{username}/channels/#{@get('all_channel_id')}/activities"
-      profile_path: "/#{username}"
+      stream_path: @streamLink()
+      profile_path: @link()
       user_topics: @user_topics().toJSON()
 
   is_following_users: ->
@@ -58,9 +60,9 @@ class window.User extends Backbone.Model
     currentUser.following.create @,
       error: =>
         currentUser.following.remove @
-        @followers.remove currentUser
+        @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
-    @followers.add currentUser.clone()
+    @set 'statistics_follower_count', @get('statistics_follower_count')+1
     @trigger 'followed'
 
   unfollow: ->
@@ -70,9 +72,9 @@ class window.User extends Backbone.Model
     self.destroy
       error: =>
         currentUser.following.add @
-        @followers.add currentUser.clone()
+        @set 'statistics_follower_count', @get('statistics_follower_count')+1
 
-    @followers.remove currentUser
+    @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
   followed_by_me: ->
     currentUser.following.some (model) =>

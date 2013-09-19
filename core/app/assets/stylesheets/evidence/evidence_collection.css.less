@@ -11,6 +11,7 @@
 @impactColouredBorderWidth: 3px;
 @evidenceRegionHorizontalMargin: 16px;
 @evidenceRegionBottomPadding: 60px;
+@unsureBoxBackgroundColor: #f5f5f6;
 
 // Arrows:
 @impactCircleVotableWithoutArrowsTopSpacing: 15px;
@@ -21,7 +22,7 @@
 // Triangles:
 // - An inner triangle with the box's background color
 // - An outer triangle "fake border" that's 1px offset
-@innerTriangleOffset: @ndpTriangleSize - 1px;
+@innerTriangleOffset: @triangleSize - 1px;
 @triangleTop: floor(@impactCircleDiameter/2) + @argumentBoxTopOverhang;
 
 // The dicussion page has 3 columns, 2x 50% and one fixed - so more than 100% total.
@@ -38,7 +39,7 @@
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 
-@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @ndpTriangleSize;
+@unsureImpactToBoxDistance: @impactCircleTopSpacing/2 + @triangleSize;
 
 // The unsure (middle) box needs to leave space for the impact circle since its
 // impact circle cannot be floated (both left/right would be problematic).
@@ -74,7 +75,7 @@
     width: @middleLineWidth;
     top: 0;
     bottom: 0;
-    background: @ndpLineColor;
+    background: @discussionLineColor;
   }
 }
 
@@ -84,13 +85,12 @@
 
 .evidence-impact, .evidence-box {
   position: relative;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  .box-sizing(border-box);
   visibility: visible;
 }
 
 .evidence-impact {
-  .new-design-white-block-with-shadow();
+  .white-block-with-shadow();
   width:  @impactCircleDiameter;
   height: @impactCircleDiameter;
   border-radius: 1000px;
@@ -154,6 +154,7 @@
   > .evidence-box {
     margin-top: @unsureImpactToBoxDistance;
     margin-bottom: @evidenceBoxSpacing;
+    position: relative;
   }
 
   > .evidence-spacer-left,
@@ -164,6 +165,25 @@
   }
   > .evidence-spacer-left  { float: left; }
   > .evidence-spacer-right { float: right; }
+
+  .discussion-interacting-users {
+    > .interacting-users-names, > .interacting-users-avatars {
+      z-index: 2;
+      position: relative;
+    }
+    &:after {
+      content: "";
+      z-index: 1;
+      display: block;
+      width: @middleLineWidth;
+      height: 100% + 7px;
+      background-color: @unsureBoxBackgroundColor;
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      margin-left: -1px;  
+    }
+  }
 }
 
 // Irrelevant (faded out)
@@ -215,24 +235,24 @@
 .evidence-supporting .evidence-box-triangle,
 .evidence-weakening .evidence-box-triangle {
   top: @triangleTop;
-  margin-top: -@ndpTriangleSize;
+  margin-top: -@triangleSize;
 }
 
 .evidence-supporting .evidence-box-triangle {
-  .ndp-triangle-arrow-left();
+  .triangle-arrow-left();
   left: 0;
 }
 
 .evidence-weakening .evidence-box-triangle {
-  .ndp-triangle-arrow-right();
+  .triangle-arrow-right();
   right: 0;
 }
 
 .evidence-unsure .evidence-box-triangle {
-  .ndp-triangle-arrow-up();
+  .triangle-arrow-up();
   top: 0;
   left: 50%;
-  margin-left: -@ndpTriangleSize;
+  margin-left: -@triangleSize;
 }
 
 // Voting arrows
@@ -307,6 +327,10 @@
   }
 }
 
+.evidence-impact-vote-popover {
+  z-index: 1; // force it just above the other evidence, inside this stacking context
+}
+
 // Add evidence buttons
 @weakeningLineOffset: 4px + -ceil(@middleLineWidth/2);
 @supportingLineOffset: 4px + floor(@middleLineWidth/2);
@@ -343,7 +367,7 @@
       width: @circleRadius;
       height: @circleRadius;
       border-radius: 5px; //half would be enough
-      background-color: @ndpLineColor;
+      background-color: @discussionLineColor;
       visibility: visible;
     }
   }
@@ -358,7 +382,7 @@
   top: @evidenceAddLinesTop;
   height: @middleLineWidth;
   width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
-  background-color: @ndpLineColor;
+  background-color: @discussionLineColor;
   visibility: visible;
 }
 
@@ -389,17 +413,17 @@
   right: 50%;
   margin-right: @evidenceAddLineLength + @weakeningLineOffset;
   background-color: @buttonDangerBackground;
-  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
+  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
 
   &:hover {
     background-color: @buttonDangerDarkBackground;
-    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
+    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
   }
 
   &:active {
     background-color: @buttonDangerDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
-    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
+    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
   }
 }
 
@@ -407,17 +431,17 @@
   left: 50%;
   margin-left: @evidenceAddLineLength + @supportingLineOffset;
   background-color: @buttonSuccessBackground;
-  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
+  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
 
   &:hover {
     background-color: @buttonSuccessDarkBackground;
-    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
+    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
   }
 
   &:active {
     background-color: @buttonSuccessDarkBackground;
     border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
-    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
+    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
   }
 }
 
@@ -426,16 +450,16 @@
   cursor: pointer;
 
   background-color: white;
-  box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonBorder;
+  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonBorder;
   transition: box-shadow 0.1s, border-top 0.1s;
 
   &:hover {
-    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
+    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
   }
 
   &:active {
     border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
-    box-shadow: @ndpBoxBorder, 0 @largeButtonBorderWidth white;
+    box-shadow: @blockBorder, 0 @largeButtonBorderWidth white;
   }
 }
 

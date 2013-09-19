@@ -7,7 +7,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     factBodyRegion: '.fact-body'
 
   templateHelpers: ->
-    'modal?' : FactlinkApp.modal is true
+    'modal?' : FactlinkApp.onClientApp is true
 
   onRender: ->
     @factWheelRegion.show @wheelView()
@@ -33,14 +33,10 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     wheelView
 
   bodyView: ->
-    bodyView = new FactBodyView
+    @_bodyView ?= new FactBodyView
       model: @model
       clickable: @options.clickable_body
-
-    @listenTo bodyView, 'click:body', (e) ->
-      @trigger 'click:body', e
-
-    bodyView
+      truncate: @options.truncate_body
 
 class FactBodyView extends Backbone.Marionette.ItemView
   _.extend @prototype, Backbone.Factlink.Trunk8MoreLessMixin
@@ -48,17 +44,22 @@ class FactBodyView extends Backbone.Marionette.ItemView
   template: "facts/fact_body"
 
   events:
-    "click span.js-displaystring": "triggerViewClick"
+    "click span.js-displaystring": "click"
 
   ui:
     displaystring: '.js-displaystring'
 
   initialize: ->
-    @trunk8Init 3, '.js-displaystring', '.less' unless @options.clickable
+    @options.truncate = false if @options.clickable
+
+    @trunk8Init 3, '.js-displaystring', '.less' if @options.truncate
     @listenTo @model, 'change', @render
 
-  triggerViewClick: (e) ->
-    @trigger 'click:body', e
+  click: ->
+    if FactlinkApp.onClientApp
+      Backbone.history.navigate @model.clientLink(), true
+    else
+      FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone()
 
   onRender: ->
     @ui.displaystring.toggleClass 'fact-body-displaystring-clickable', !!@options.clickable

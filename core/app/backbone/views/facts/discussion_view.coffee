@@ -1,13 +1,23 @@
 class window.DiscussionView extends Backbone.Marionette.Layout
-  tagName: "section"
+  className: 'discussion'
 
-  template: "facts/discussion"
+  template: 'facts/discussion'
 
   regions:
-    factView: ".fact-region"
-    factRelationTabsView: ".fact-relations-region"
+    learnMoreRegion: '.js-region-learn-more'
+    factRegion: '.js-region-fact'
+    evidenceRegion: '.js-region-evidence'
 
   onRender: ->
-    @factView.show new FactView(model: @model, standalone: true)
+    @listenTo @model, 'destroy', -> FactlinkApp.vent.trigger 'close_discussion_modal'
 
-    @factRelationTabsView.show new FactRelationTabsView(model: @model, tab: @options.tab)
+    @factRegion.show new TopFactView model: @model
+
+    opinionaters_collection = new EvidenceCollection null, fact: @model
+    opinionaters_collection.fetch()
+
+    @evidenceRegion.show new EvidenceContainerView
+      collection: opinionaters_collection
+
+    unless Factlink.Global.signed_in
+      @learnMoreRegion.show new LearnMoreTopView

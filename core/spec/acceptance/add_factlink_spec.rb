@@ -40,12 +40,12 @@ describe "creating a Factlink", type: :feature do
     end
     visit fact_path(Fact.all.to_a.last.id)
 
-    open_modal 'Repost' do
+    open_repost_modal do
       added_channels_should_contain new_topic_name
     end
 
     visit current_path
-    open_modal 'Repost' do
+    open_repost_modal do
       added_channels_should_contain new_topic_name
     end
   end
@@ -65,9 +65,9 @@ describe "creating a Factlink", type: :feature do
     # and delete it:
     page.evaluate_script('window.confirm = function() { return true; }')
 
-    page.find(:css, ".top-right-arrow").click
+    page.find(".top-right-arrow", visible: false).click
 
-    page.find(:css, "li.delete").click
+    page.find("li.delete").click
 
     page.should_not have_content fact_name
   end

@@ -48,6 +48,7 @@ describe Ability do
       it {admin.should_not be_able_to :sign_tos, admin_user }
 
       it {admin.should_not be_able_to :edit_settings, user }
+      it {admin.should be_able_to     :edit_settings, admin_user }
     end
     context "as an anonymous" do
       it {anonymous.should_not be_able_to :manage, User }

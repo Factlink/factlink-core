@@ -20,7 +20,7 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('a', text: 'Comment').click
+    click_link 'Comment'
 
     add_sub_comment(sub_comment_text)
     assert_sub_comment_exists sub_comment_text
@@ -29,7 +29,7 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('a', text: '1 comment').click
+    click_link '1 comment'
     assert_sub_comment_exists sub_comment_text
   end
 
@@ -41,7 +41,7 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('a', text: 'Comment').click
+    click_link 'Comment'
 
     add_sub_comment(sub_comment_text)
     assert_sub_comment_exists sub_comment_text
@@ -49,8 +49,8 @@ feature "sub_comments", type: :feature do
     switch_to_user(@user_b)
     go_to_discussion_page_of @factlink_user_a
 
-    find('a', text: '1 comment').click
-    find('.evidence-sub-comment-content').should have_content sub_comment_text
+    click_link '1 comment'
+    assert_sub_comment_exists sub_comment_text
   end
 
   scenario "After adding a subcomment the evidence can not be removed any more" do
@@ -61,23 +61,24 @@ feature "sub_comments", type: :feature do
 
     go_to_discussion_page_of @factlink_user_a
 
-    within '.fact-relation-listing' do
-      page.should have_selector('.delete', visible:false, text: 'Remove this Factlink as evidence')
+    within_evidence_list do
+      page.should have_selector('.spec-evidence-box .delete-button-first')
     end
 
-    find('a', text: 'Comment').click
+    click_link 'Comment'
 
     add_sub_comment(sub_comment_text)
-    find('.evidence-sub-comment-content').should have_content sub_comment_text
+    assert_sub_comment_exists sub_comment_text
 
-    within '.fact-relation-listing' do
-      page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
+
+    within_evidence_list do
+      page.should have_no_selector('.spec-evidence-box .delete-button-first')
     end
 
     go_to_discussion_page_of @factlink_user_a
 
-    within '.fact-relation-listing' do
-      page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
+    within_evidence_list do
+      page.should have_no_selector('.spec-evidence-box .delete-button-first')
     end
   end
 end

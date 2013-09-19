@@ -3,7 +3,7 @@ class UserFavouritedTopics
   attr_reader :graph_user_id, :relation
   private :relation
 
-  def initialize graph_user_id, relation=DirectedRelations.new(Nest.new(:user)[:favourited_topics])
+  def initialize graph_user_id, relation=DirectedRelationsWithReverse.new(Nest.new(:user)[:favourited_topics])
     @graph_user_id = graph_user_id
     @relation = relation
   end

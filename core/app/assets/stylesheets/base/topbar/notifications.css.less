@@ -19,14 +19,14 @@
     text-align: center;
     text-shadow: 0px -1px 1px #c3c3c3;
 
-    .box-shadow(inset 0 1px 2px #bbb);
+    box-shadow: inset 0 1px 2px #bbb;
     border-radius: 2px;
 
     .transition(all .4s ease-out);
 
     &.active {
       background: #e8a991;
-      .box-shadow(inset 0 1px 2px #cb7d5f);
+      box-shadow: inset 0 1px 2px #cb7d5f;
       text-shadow: 0px -1px 1px #cb7d5f;
     }
   }
@@ -44,9 +44,9 @@
 
     max-width: 300px;
     width: 300px;
-    .box-shadow(0px 1px 3px rgba(0, 0, 0, 0.2));
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     max-height: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 
     li {
@@ -91,7 +91,7 @@
             float: left;
             margin-top: 3px;
 
-            img {
+            .time_ago_icon {
               vertical-align: middle;
             }
 
@@ -105,6 +105,10 @@
           .add-back {
             float: right;
             margin: 1px 0 5px;
+
+            .user-follow-user-button {
+              min-width: 88px; // Width is set for English translation only
+            }
           }
         }
 

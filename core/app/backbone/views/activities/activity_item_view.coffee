@@ -43,7 +43,14 @@ class FollowedUserView extends ActivityItemView
   className: 'separator-list-item'
   template: "activities/followed_user"
   templateHelpers: =>
-    followed_user: new User(@model.get('activity').followed_user).toJSON()
+    followed_user: @user().toJSON()
+
+  onRender: ->
+    UserPopoverContentView.makeTooltip @, @user(),
+      selector: '.js-activity-user'
+      $offsetParent: @options.$offsetParent
+
+  user: -> @_user ?= new User(@model.get('activity').followed_user)
 
 class AddedFirstFactlinkView extends ActivityItemView
   template: "activities/added_first_factlink"
@@ -60,13 +67,10 @@ class AddedFactToTopicView extends ActivityItemView
 
   onRender: ->
     Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        align: 'left'
-        side: 'bottom'
+      positioning: {align: 'left', side: 'bottom'}
       selector: '.js-link'
       $offsetParent: @options.$offsetParent
-      tooltipViewFactory: =>
-        new TopicPopoverContentView model: @topic()
+      tooltipViewFactory: => new TopicPopoverContentView model: @topic()
 
   topic: -> @_topic ?= new Topic(@model.get('activity').topic)
 

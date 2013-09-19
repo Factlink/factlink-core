@@ -1,6 +1,11 @@
-@import "twitter/bootstrap/variables";
+@import "bootstrap/mixins";
 
 .fact-new {
+  .white-block-with-shadow();
+  visibility: visible;
+  width: @factNewAndSignInWidth;
+  margin: 0 auto;
+  padding: 15px;
   position: relative;
   z-index: 1; // should be lower than Twitter tooltip z-index
 

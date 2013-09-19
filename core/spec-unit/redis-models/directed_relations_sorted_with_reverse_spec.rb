@@ -90,8 +90,8 @@ describe DirectedRelationsSortedWithReverse do
       from_id = double
       to_id = double
 
-      relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
-      reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
+      relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
+      reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
 
       relation_key_list.should_receive(:zrem).with(to_id)
       reverse_relation_key_list.should_receive(:zrem).with(from_id)
@@ -105,7 +105,7 @@ describe DirectedRelationsSortedWithReverse do
       from_id = double
       ids = double
 
-      relation_key.should_receive(:[]).with(from_id).and_return(relation_key_list)
+      relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
       relation_key_list.should_receive(:zrange).with(0, -1).and_return(ids)
 
       expect(directed_relations_sorted_with_reverse.ids(from_id)).to eq ids
@@ -117,7 +117,7 @@ describe DirectedRelationsSortedWithReverse do
       to_id = double
       ids = double
 
-      reverse_relation_key.should_receive(:[]).with(to_id).and_return(reverse_relation_key_list)
+      reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
       reverse_relation_key_list.should_receive(:zrange).with(0, -1).and_return(ids)
 
       expect(directed_relations_sorted_with_reverse.reverse_ids(to_id)).to eq ids
@@ -137,6 +137,30 @@ describe DirectedRelationsSortedWithReverse do
       reverse_relation_key_list.stub(:sismember).with(from_id).and_return(result)
 
       expect(directed_relations_sorted_with_reverse.has?(from_id, to_id)).to eq true
+    end
+  end
+
+  describe '.count' do
+    it 'returns the number of ids pointed to by from_id' do
+      from_id = double
+      count = 10
+
+      relation_key.stub(:[]).with(from_id).and_return(relation_key_list)
+      relation_key_list.should_receive(:zcard).and_return(count)
+
+      expect(directed_relations_sorted_with_reverse.count(from_id)).to eq count
+    end
+  end
+
+  describe '.reverse_count' do
+    it 'returns the number of ids pointed to by from_id' do
+      to_id = double
+      count = 10
+
+      reverse_relation_key.stub(:[]).with(to_id).and_return(reverse_relation_key_list)
+      reverse_relation_key_list.should_receive(:zcard).and_return(count)
+
+      expect(directed_relations_sorted_with_reverse.reverse_count(to_id)).to eq count
     end
   end
 end
