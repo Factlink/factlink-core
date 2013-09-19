@@ -99,6 +99,7 @@ module.exports = (grunt) ->
           'build/server/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/server/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
           'build/server/easyXDM/easyXDM.min.js':             ['build/js/libs/easyXDM.js']
+          'build/easyXDM/easyXDM.min.js':                    ['build/js/libs/easyXDM.js']
     copy:
       build:
         files: [
