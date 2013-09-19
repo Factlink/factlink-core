@@ -333,6 +333,18 @@ class User
     generate_token(:notification_settings_edit_token)
   end
 
+  def possible_subscriptions
+    [:digest, :mailed_notifications]
+  end
+
+  def unsubscribe(type)
+    raise "Not allowed" unless possible_subscriptions.include? type
+    return false unless self[:"receives_#{type}"]
+
+    update_attribute(:"receives_#{type}", false)
+  end
+
+
   # don't send reset password instructions when the account is not approved yet
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)

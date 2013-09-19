@@ -320,4 +320,38 @@ describe User do
       expect(new_token).to_not eq old_token
     end
   end
+
+  describe '#unsubscribe' do
+    it "unsubscribes you from a digest mailing" do
+      expect(user.receives_digest).to be_true
+
+      user.unsubscribe(:digest)
+
+      expect(user.receives_digest).to be_false
+    end
+    it "unsubscribes you from a mailed_notifications mailing" do
+      expect(user.receives_mailed_notifications).to be_true
+
+      user.unsubscribe(:mailed_notifications)
+
+      expect(user.receives_mailed_notifications).to be_false
+    end
+    it "raises an exception when trying to unsubscribe from a non-existing mailing" do
+      expect do
+        user.unsubscribe(:pokemon_newsletter)
+      end.to raise_error
+    end
+
+    it "returns true when unsubscribe was possible" do
+      expect(user.receives_digest).to be_true
+      return_value = user.unsubscribe(:digest)
+      expect(return_value).to be_true
+    end
+
+    it "returns false when already unsubscribed" do
+      user.unsubscribe(:digest)
+      return_value = user.unsubscribe(:digest)
+      expect(return_value).to be_false
+    end
+  end
 end
