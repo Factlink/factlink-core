@@ -9,12 +9,11 @@ describe User do
   let(:child1) {create :fact}
 
   context "Initially" do
-    it {subject.graph_user.should == subject.graph_user }
     it "should not be an Admin" do
-      subject.admin.should == false
+      expect(subject.admin).to be_false
     end
     it "should not be approved" do
-      subject.approved.should == false
+      expect(subject.approved).to be_false
     end
 
     it "should not have a tour step" do
@@ -22,10 +21,9 @@ describe User do
       # rather set the first step in start_the_tour_path
       expect(subject.seen_tour_step).to eq nil
     end
-  end
-
-  it "should have a GraphUser" do
-    subject.graph_user.should be_a(GraphUser)
+    it "should have a GraphUser" do
+      expect(subject.graph_user).to be_a(GraphUser)
+    end
   end
 
   describe "last_read_activities_on" do
@@ -33,10 +31,9 @@ describe User do
       datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
 
       subject.last_read_activities_on = datetime
-
       subject.save
 
-      subject.last_read_activities_on.should == datetime
+      expect(subject.last_read_activities_on).to eq datetime
     end
   end
 
@@ -57,7 +54,7 @@ describe User do
 
       user.confirmed_at = DateTime.now
 
-      user.save.should == true
+      expect(user.save).to be_true
     end
   end
 
@@ -66,13 +63,14 @@ describe User do
       user = build :user, username: "TestUser"
       user.save.should == true
 
-      User.find(user.id).username.should == "TestUser"
+      retrieved_username = User.find(user.id).username
+      expect(retrieved_username).to eq "TestUser"
     end
 
     it "should check uniqueness case insensitive" do
       user1 = create :user, username: "TestUser"
       user2 = build  :user, username: "testuser"
-      user2.save.should be_false
+      expect(user2.save).to be_false
     end
   end
 
@@ -116,7 +114,7 @@ describe User do
       User.find(subject.id).should == subject
     end
     it "should work with usernames" do
-      User.find_by(username: subject.username).should == subject
+      User.find(subject.username).should == subject
     end
   end
 
