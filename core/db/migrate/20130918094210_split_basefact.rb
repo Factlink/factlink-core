@@ -41,7 +41,7 @@ class SplitBasefact < Mongoid::Migration
           obj.send(set_name).size #make sure we touch the set in ohm.
         end
 
-        obj.save or raise "bah: #{old_hash_name} -> #{new_hash_name}\n    (#{old_hash.inspect})"
+        obj.save or raise "Save failed: #{old_hash_name} -> #{new_hash_name}\n    (#{old_hash.inspect})"
         raise "new hash not created: bug!" if !db.exists(new_hash_name)
       end
     end
