@@ -9,25 +9,25 @@ describe User do
   let(:child1) {create :fact}
 
   context "Initially" do
-    it "should not be an Admin" do
+    it "isn't admin" do
       expect(subject.admin).to be_false
     end
-    it "should not be approved" do
+    it "isn't approved" do
       expect(subject.approved).to be_false
     end
 
-    it "should not have a tour step" do
+    it "has no tour step" do
       # Note: no default should be set for the tour step
       # rather set the first step in start_the_tour_path
       expect(subject.seen_tour_step).to eq nil
     end
-    it "should have a GraphUser" do
+    it "has a GraphUser" do
       expect(subject.graph_user).to be_a(GraphUser)
     end
   end
 
   describe "last_read_activities_on" do
-    it "should set the correct DateTime in the database" do
+    it "sets the correct DateTime in the database" do
       datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
 
       subject.last_read_activities_on = datetime
@@ -48,7 +48,7 @@ describe User do
       }
     end
 
-    it "should not fail when trying assign a username" do
+    it "doesn't fail when trying assign a username" do
       user = User.new
       user.assign_attributes(valid_attributes, as: :admin)
 
@@ -59,7 +59,7 @@ describe User do
   end
 
   describe :username do
-    it "should respect the username's case" do
+    it "respects the username's case" do
       user = build :user, username: "TestUser"
       user.save!
 
@@ -67,7 +67,7 @@ describe User do
       expect(retrieved_username).to eq "TestUser"
     end
 
-    it "should check uniqueness case insensitive" do
+    it "checks uniqueness case insensitive" do
       user1 = create :user, username: "TestUser"
       user2 = build  :user, username: "testuser"
       expect(user2.save).to be_false
@@ -80,7 +80,7 @@ describe User do
 
   context "when agreeing the tos" do
     describe "when trying to agree without signing" do
-      it "should not be allowed" do
+      it "isn't allowed" do
         expect(nonnda_subject.sign_tos(false)).to eq false
         expect(nonnda_subject.errors.keys.length).to eq 1
         expect(nonnda_subject.agrees_tos).to eq false
@@ -88,7 +88,7 @@ describe User do
     end
 
     describe "when agreeing with signing" do
-      it "should be allowed" do
+      it "is allowed" do
         t = DateTime.now
         DateTime.stub(:now).and_return(t)
         expect(nonnda_subject.sign_tos(true)).to eq true
@@ -98,7 +98,7 @@ describe User do
     end
 
     describe "user signing the ToS" do
-      it "correctly should persist to the database" do
+      it "correctly persists to the database" do
         agrees_tos      = true
 
         nonnda_subject.sign_tos(agrees_tos)
@@ -110,10 +110,10 @@ describe User do
   end
 
   describe ".find" do
-    it "should work with numerical ids" do
+    it "works with numerical ids" do
       expect(User.find(subject.id)).to eq subject
     end
-    it "should work with usernames" do
+    it "works with usernames" do
       expect(User.find(subject.username)).to eq subject
     end
   end
@@ -148,7 +148,7 @@ describe User do
 
   describe :to_json do
     let(:json){ subject.to_json }
-    it "should not contain a password" do
+    it "contains no password" do
       expect(json).to_not include(subject.encrypted_password)
     end
     [
@@ -157,7 +157,7 @@ describe User do
       :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
       :sign_in_count, :agreed_tos_on, :agrees_tos_name
     ].map{|x| x.to_s}.each do |field|
-      it "should not contain other sensitive information: #{field}" do
+      it "does not contain other sensitive information: #{field}" do
         expect(json).to_not include(field)
       end
     end
@@ -165,16 +165,16 @@ describe User do
 
   describe 'forbidden names' do
     let(:new_user){ build :user }
-    it "should be possible to choose GerardEkdom as name" do
+    it "can have GerardEkdom as name" do
       new_user.username = "GerardEkdom"
       expect(new_user.valid?).to be_true
     end
-    it "should not be possible to choose 1 letter as name" do
+    it "cannot have 1 letter as name" do
       new_user.username = "a"
       expect(new_user.valid?).to be_false
     end
     [:users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink].each do |name|
-      it "should not be possible to choose #{name} as name" do
+      it "cannot choose #{name} as name" do
         new_user.username = name.to_s
         expect(new_user.valid?).to be_false
       end
@@ -189,7 +189,7 @@ describe User do
       expect(last_recipients).to eq [subject.email]
     end
 
-    it "#send_welcome_instructions should be called once" do
+    it "#send_welcome_instructions are called once" do
       expect(subject).to receive(:send_welcome_instructions).once
       subject.approved = true
       subject.save
@@ -222,7 +222,7 @@ describe User do
   end
 
   describe "#valid_username_and_email?" do
-    it "should validate normal username and email address fine" do
+    it "validates normal username and email address fine" do
       user = User.new
       user.username = "some_username"
       user.email = "some@email.com"
@@ -234,7 +234,7 @@ describe User do
       expect(errors.size).to eq 0
     end
 
-    it "should keep an error if the username is invalid" do
+    it "keeps an error if the username is invalid" do
       user = User.new
       user.username = "a"
       user.email = "some@email.com"
@@ -247,7 +247,7 @@ describe User do
       expect(errors[:username].any?).to be_true
     end
 
-    it "should keep an error if the email is invalid" do
+    it "keeps an error if the email is invalid" do
       user = User.new
       user.username = "some_username"
       user.email = "a"
