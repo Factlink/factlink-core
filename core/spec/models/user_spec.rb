@@ -81,9 +81,9 @@ describe User do
   context "when agreeing the tos" do
     describe "when trying to agree without signing" do
       it "isn't allowed" do
-        expect(nonnda_subject.sign_tos(false)).to eq false
+        expect(nonnda_subject.sign_tos(false)).to be_false
         expect(nonnda_subject.errors.keys.length).to eq 1
-        expect(nonnda_subject.agrees_tos).to eq false
+        expect(nonnda_subject.agrees_tos).to be_false
       end
     end
 
