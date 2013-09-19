@@ -111,7 +111,7 @@ module.exports = (grunt) ->
         ]
       dist:
         files: [
-          { src: ['**/*.js', '**/*.css', '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
+          { src: ['*.js', 'server/**/*.js', 'easyXDM/*.js', '**/*.css', '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
           { src: ['**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist/server', expand: true }
         ]
     watch:
