@@ -15,7 +15,13 @@ if window.parent.easyXDM
 Factlink.el = $("#fl")
 
 # Prevent event bubbling outside our container
-Factlink.el.on 'mouseup click', (event) -> event.stopPropagation()
+mouse_touch_drag_events = """
+  mouseup mousedown click mouseenter mouseleave mousemove mouseout mouseover dblclick
+  show contextmenu
+  drag dragstart dragenter dragover dragleave dragend drop
+  touchstart touchmove touchleave touchenter touchend touchcancel
+"""
+Factlink.el.on mouse_touch_drag_events, (event) -> event.stopPropagation()
 
 # Add the stylesheet
 $style = $("<link>").attr
