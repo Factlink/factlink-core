@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  subject {create :user}
+  subject(:user) {create :user}
   let(:nonnda_subject) {create :user, agrees_tos: false}
 
   let(:fact) {create :fact}
