@@ -15,120 +15,110 @@ fs = require 'fs'
 module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON 'package.json'
+    clean: ['build']
     coffee:
-      compile:
+      build:
         files: [
-          {
-            src: ['**/*.coffee']
-            cwd: 'app/js'
-            ext: '.js'
-            dest: 'dist/js/'
-            expand: true
-          }
+          { src: ['**/*.coffee'], cwd: 'app', dest: 'build', ext: '.js', expand: true }
         ]
     corehasher:
-      src: 'dist/server/factlink.core.min.js'
-      dest: 'dist/js/loader/loader_common.js'
+      src: 'build/server/factlink.core.min.js'
+      dest: 'build/js/loader/loader_common.js'
     concat:
       core:
         options:
           banner: banner_template
         src: [
-          'dist/js/libs/jquery-1.7.2.js'
-          'dist/js/core.js'
+          'build/js/libs/jquery-1.7.2.js'
+          'build/js/core.js'
 
-          'dist/js/wrap/first.js'
-          'dist/js/plugins/*.js'
-          'dist/js/classes/*.js'
-          'dist/js/views/*.js'
-          'dist/js/util/*.js'
-          'dist/js/initializers/*.js'
-          'dist/js/wrap/last.js'
+          'build/js/wrap/first.js'
+          'build/js/plugins/*.js'
+          'build/js/classes/*.js'
+          'build/js/views/*.js'
+          'build/js/util/*.js'
+          'build/js/initializers/*.js'
+          'build/js/wrap/last.js'
         ]
-        dest: 'dist/factlink.core.js'
+        dest: 'build/factlink.core.js'
       loader_DEPRECATED:
         src: [
-          'dist/js/libs/easyXDM.js'
-          'dist/js/loader/loader_common.js'
-          'dist/js/loader/loader_basic.js'
+          'build/js/libs/easyXDM.js'
+          'build/js/loader/loader_common.js'
+          'build/js/loader/loader_basic.js'
         ]
-        dest: 'dist/factlink.js'
+        dest: 'build/factlink.js'
       loader_basic:
         src: [
-          'dist/js/libs/easyXDM.js'
-          'dist/js/loader/loader_common.js'
-          'dist/js/loader/loader_basic.js'
+          'build/js/libs/easyXDM.js'
+          'build/js/loader/loader_common.js'
+          'build/js/loader/loader_basic.js'
         ]
-        dest: 'dist/factlink_loader_basic.js'
+        dest: 'build/factlink_loader_basic.js'
       loader_publishers:
         src: [
-          'dist/js/libs/easyXDM.js'
-          'dist/js/loader/loader_common.js'
-          'dist/js/loader/loader_publishers.js'
+          'build/js/libs/easyXDM.js'
+          'build/js/loader/loader_common.js'
+          'build/js/loader/loader_publishers.js'
         ]
-        dest: 'dist/factlink_loader_publishers.js'
+        dest: 'build/factlink_loader_publishers.js'
       loader_bookmarklet:
         src: [
-          'dist/js/libs/easyXDM.js'
-          'dist/js/loader/loader_common.js'
-          'dist/js/loader/loader_bookmarklet.js'
+          'build/js/libs/easyXDM.js'
+          'build/js/loader/loader_common.js'
+          'build/js/loader/loader_bookmarklet.js'
         ]
-        dest: 'dist/factlink_loader_bookmarklet.js'
-    copy:
-      main:
-        files: [
-          { src: ['dist/css/basic.css'], dest: 'dist/server/css/basic.css' }
-          { src: ['app/robots.txt'],     dest: 'dist/server/robots.txt' }
-          { src: ['**'],                 dest: 'dist/server/images/',   expand: true, cwd: 'app/images/', filter: 'isFile' }
-          { src: ['**'],                 dest: 'dist/images/',          expand: true, cwd: 'app/images/', filter: 'isFile' }
-        ]
-      js_files:
-        files: [
-          { src: ['**/*.js'], dest: 'dist/js/',         expand: true, cwd: 'app/js/'}
-          { src: ['app/js/libs/easyXDM.js'], dest: 'dist/easyXDM/easyXDM.min.js'}
-          {
-            src: ['start_annotating.js', 'stop_annotating.js', 'start_highlighting.js', 'stop_highlighting.js']
-            cwd: 'app/js/'
-            expand: true
-            dest: 'dist/'
-            rename: (dest, src) -> "#{dest}factlink.#{src}"
-          }
-        ]
+        dest: 'build/factlink_loader_bookmarklet.js'
     less:
-      development:
+      build:
         files:
-          'dist/css/basic.css': 'app/css/basic.less'
+          'build/css/basic.css': 'app/css/basic.less'
     cssmin:
-      minify:
+      build:
         options:
           banner: banner_template
-        expand: true,
-        cwd: 'dist/css/',
-        src: ['*.css'],
-        dest: 'dist/server/css/'
-    qunit:
-      all: ['test/*.html']
-    watch:
-      files: ['app/js/**/*', 'app/css/**/*', 'test/**/*', 'Gruntfile.coffee']
-      tasks: ['compile', 'test']
+        expand: true
+        cwd: 'build/css/'
+        src: ['*.css']
+        dest: 'build/server/css/'
     uglify:
       options: {
         banner: banner_template
       },
       core:
         files:
-          'dist/server/factlink.core.min.js':               ['dist/factlink.core.js']
+          'build/server/factlink.core.min.js':               ['build/factlink.core.js']
       all_except_core:
         files:
-          'dist/server/factlink.start_annotating.min.js':   ['dist/factlink.start_annotating.js']
-          'dist/server/factlink.stop_annotating.min.js':    ['dist/factlink.stop_annotating.js']
-          'dist/server/factlink.start_highlighting.min.js': ['dist/factlink.start_highlighting.js']
-          'dist/server/factlink.stop_highlighting.min.js':  ['dist/factlink.stop_highlighting.js']
-          'dist/server/factlink.min.js':                    ['dist/factlink.js']
-          'dist/server/factlink_loader_basic.min.js':       ['dist/factlink_loader_basic.js']
-          'dist/server/factlink_loader_publishers.min.js':  ['dist/factlink_loader_publishers.js']
-          'dist/server/factlink_loader_bookmarklet.min.js': ['dist/factlink_loader_bookmarklet.js']
-          'dist/server/easyXDM/easyXDM.min.js':             ['dist/js/libs/easyXDM.js']
+          'build/server/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js']
+          'build/server/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
+          'build/server/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js']
+          'build/server/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js']
+          'build/server/factlink.min.js':                    ['build/factlink.js']
+          'build/server/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
+          'build/server/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
+          'build/server/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
+          'build/server/easyXDM/easyXDM.min.js':             ['build/js/libs/easyXDM.js']
+          'build/easyXDM/easyXDM.min.js':                    ['build/js/libs/easyXDM.js']
+    copy:
+      build:
+        files: [
+          { src: ['**/*.js', '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'app', dest: 'build', expand: true }
+        ]
+      start_stop_files:
+        files: [
+          { src: ['factlink.*.js'], cwd: 'build/js', dest: 'build', expand: true }
+        ]
+      dist:
+        files: [
+          { src: ['*.js', 'server/**/*.js', 'easyXDM/*.js', '**/*.css', '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
+          { src: ['**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist/server', expand: true }
+        ]
+    watch:
+      files: ['app/js/**/*', 'app/css/**/*', 'test/**/*', 'Gruntfile.coffee']
+      tasks: ['compile', 'test']
+    qunit:
+      all: ['test/*.html']
     jshint:
       all: ['app/js/initializers/*.js', 'app/js/classes/*.js', 'app/js/util/*.js', 'app/js/views/*.js', 'app/js/.js', 'test/**/*.js']
       options:
@@ -190,11 +180,12 @@ module.exports = (grunt) ->
     grunt.file.write destination_file_path, content_with_hash
 
   grunt.registerTask 'core', ['concat:core', 'uglify:core', 'corehasher']
-  grunt.registerTask 'compile', ['copy', 'coffee', 'less', 'core', 'concat']
+  grunt.registerTask 'compile', ['clean', 'copy:build', 'coffee', 'less', 'core', 'concat', 'copy:start_stop_files',
+                                 'uglify:all_except_core', 'cssmin', 'copy:dist']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
-  grunt.registerTask 'default', ['compile', 'test', 'uglify:all_except_core']
-  grunt.registerTask 'server',  ['compile', 'uglify:all_except_core', 'cssmin']
+  grunt.registerTask 'default', ['compile', 'test']
+  grunt.registerTask 'server',  ['compile']
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
@@ -205,3 +196,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-qunit'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
+  grunt.loadNpmTasks 'grunt-contrib-clean'
