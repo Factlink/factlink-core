@@ -48,7 +48,7 @@ describe User do
       }
     end
 
-    it "doesn't fail when trying assign a username" do
+    it "can assign a username" do
       user = User.new
       user.assign_attributes(valid_attributes, as: :admin)
 
@@ -67,7 +67,7 @@ describe User do
       expect(retrieved_username).to eq "TestUser"
     end
 
-    it "checks uniqueness case insensitive" do
+    it "checks uniqueness case insensitively" do
       user1 = create :user, username: "TestUser"
       user2 = build  :user, username: "testuser"
       expect(user2.save).to be_false
