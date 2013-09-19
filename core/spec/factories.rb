@@ -77,10 +77,6 @@ FactoryGirl.define do
     sequence(:title) {|n| "Fact title #{n}"}
   end
 
-  factory :basefact do
-    association :created_by, :factory => :graph_user
-  end
-
   factory :fact do
     association :data, :factory => :fact_data
     association :created_by, :factory => :graph_user

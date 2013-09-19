@@ -71,7 +71,7 @@ class EvidenceController < ApplicationController
   end
 
   def remove_opinions
-    @fact_relation = Basefact[params[:id]]
+    @fact_relation = FactRelation[params[:id]]
 
     authorize! :opinionate, @fact_relation
 
