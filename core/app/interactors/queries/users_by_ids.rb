@@ -25,8 +25,7 @@ module Queries
 
     def statistics graph_user
       {
-        # TODO: more efficient fact count
-        created_fact_count: graph_user.created_facts_channel.sorted_cached_facts.size,
+        created_fact_count: graph_user.created_facts.size,
         follower_count: query(:'users/follower_count', graph_user_id: graph_user.id),
         following_count: query(:'users/following_count', graph_user_id: graph_user.id)
       }
