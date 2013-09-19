@@ -1,4 +1,6 @@
-class FactRelation < Basefact
+class FactRelation < OurOhm
+  include Activity::Subject
+
   attr_accessor :sub_comments_count
 
   attribute :created_at
@@ -6,9 +8,14 @@ class FactRelation < Basefact
 
   reference :from_fact, Fact
   reference :fact, Fact
+  reference :created_by, GraphUser
 
   attribute :type # => :supporting || :weakening
   index :type
+
+  delegate :opinionated_users_ids, :opinionated_users_count, :opiniated, :add_opiniated, :remove_opinionateds,
+           :people_believes, :people_doubts, :people_disbelieves,
+           :to => :believable
 
   def validate
     assert_present :from_fact_id
@@ -16,6 +23,7 @@ class FactRelation < Basefact
     assert_present :type
     assert_member :type, [:supporting, :weakening, 'supporting', 'weakening']
     assert_unique [:from_fact_id, :fact_id, :type]
+    assert_present :created_by
   end
 
   def self.get_or_create(from, type, to, user)
@@ -65,8 +73,20 @@ class FactRelation < Basefact
   def delete
     self.class.key['gcby'][from_fact.id][self.type][fact.id].del
     fact.evidence(self.type).delete(self)
-
+    believable.delete
     super
+  end
+
+  def believable
+    @believable ||= Believable.new(self.key)
+  end
+
+  def add_opinion(type, user)
+    add_opiniated(type,user)
+  end
+
+  def remove_opinions(user)
+    remove_opinionateds(user)
   end
 
   private
