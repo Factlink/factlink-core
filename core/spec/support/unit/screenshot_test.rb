@@ -1,7 +1,7 @@
 module ScreenshotTest
   class Screenshot
     include ChunkyPNG::Color
-    def initialize page, title
+    def initialize(page, title)
       @title = title
       @page = page
     end
