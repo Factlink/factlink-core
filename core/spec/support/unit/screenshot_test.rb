@@ -78,7 +78,7 @@ module ScreenshotTest
     end
   end
 
-  def assume_unchanged_screenshot title
+  def assume_unchanged_screenshot(title)
     shot = Screenshot.new page, title
     shot.take
     if shot.changed?
