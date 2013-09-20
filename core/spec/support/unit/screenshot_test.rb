@@ -30,7 +30,7 @@ module ScreenshotTest
     end
 
     def size_changed?
-      (images.first.height != images.last.height) || (images.first.width != images.last.width)
+      (@old_image.height - @new_image.height).abs > 3 || (@old_image.width - @new_image.width).abs > 3
     end
 
     def changed?
