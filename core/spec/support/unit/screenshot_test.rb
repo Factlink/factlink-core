@@ -63,7 +63,7 @@ module ScreenshotTest
         diff_image.save(diff_file)
         total_pixels = width * height
         percentage = 100.0 * pixels_changed / total_pixels
-
+        puts ""
         puts "Pixels changed #{percentage}%  (#{pixels_changed}/#{total_pixels})."
       end
 
@@ -132,7 +132,7 @@ module ScreenshotTest
         y += 1
       end
       color_diff_img.save(diff_file)
-
+      puts ""
       if pixels_changed_count > 0
         total_pixels = width * height
         percentage = 100.0 * pixels_changed_count / total_pixels
