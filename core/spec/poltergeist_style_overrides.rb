@@ -8,6 +8,7 @@ module PoltergeistStyleOverrides
         #real_tos { overflow:hidden !important; }
         html.phantom_js body { -webkit-transform: rotate(0.00001deg); }
         html.phantom_js body.client { overflow: auto; }
+        html.phantom_js .discussion-modal-container { position: absolute; min-height:100%; overflow-y: auto; bottom: auto; }
       </style>
       <script>
         document.addEventListener("DOMContentLoaded", function(){
