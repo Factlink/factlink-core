@@ -5,6 +5,7 @@ module PoltergeistStyleOverrides
       <style>
         * { transition: none !important; }
         * { font-family:"DejaVu Sans Mono" !important; letter-spacing:-1px; }
+        #real_tos { overflow:hidden !important; }
         html.phantom_js body { -webkit-transform: rotate(0.00001deg); }
         html.phantom_js body.client { overflow: auto; }
       </style>
