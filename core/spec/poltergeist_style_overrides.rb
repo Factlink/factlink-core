@@ -4,9 +4,9 @@ module PoltergeistStyleOverrides
       (<<-'SNIPPET'
       <style>
         * { transition: none !important; }
-        html.phantom_js { min-height: 2000px; }
         * { font-family:"DejaVu Sans Mono" !important; letter-spacing:-1px; }
         html.phantom_js body { -webkit-transform: rotate(0.00001deg); }
+        html.phantom_js body.client { overflow: auto; }
       </style>
       <script>
         document.addEventListener("DOMContentLoaded", function(){
