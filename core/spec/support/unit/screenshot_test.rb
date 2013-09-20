@@ -140,8 +140,8 @@ module ScreenshotTest
         puts "Pixels changed #{percentage}%  (#{pixels_changed_count}/#{total_pixels})."
       end
 
-      puts "Per-pixel badness (#{@title} #{max_local_contrast}): #{total_badness/((width-2)*(height-2))*100}"
-      puts "Per-pixel contrast: #{total_lc/((width-4)*(height-4))}"
+      puts "Per-pixel badness (#{@title}): #{total_badness/((width-2)*(height-2))*100}"
+      puts "Per-pixel contrast: #{total_lc/((width-4)*(height-4))} (max: #{max_local_contrast})"
       pixels_changed_count > 0 || size_changed?
     end
 
