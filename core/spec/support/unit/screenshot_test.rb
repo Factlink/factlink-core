@@ -18,33 +18,22 @@ module ScreenshotTest
       Rails.root.join "#{Capybara.save_and_open_page_path}" "/#{@title}-diff.png"
     end
 
-    def get_pixel(image, x, y)
-      image.get_pixel(x,y) || rgb(0,0,0)
-    end
-
-    def images
-      @images ||= [
-        ChunkyPNG::Image.from_file(old_file),
-        ChunkyPNG::Image.from_file(new_file)
-      ]
-    end
-
     def size_changed?
       (@old_image.height - @new_image.height).abs > 3 || (@old_image.width - @new_image.width).abs > 3
     end
 
     def changed?
       pixels_changed = 0
+      width = [@old_image.width, @new_image.width].min
+      height = [@old_image.height, @new_image.height].min
 
-      height = images.map(&:height).min
-      width = images.map(&:width).min
       diff_image = ChunkyPNG::Image.new(width, height)
       y=0
       while y < height
         x=0
         while x < width
-          pixel_old = images.first.get_pixel(x,y)
-          pixel_new = images.last.get_pixel(x,y)
+          pixel_old = @old_image.get_pixel(x,y)
+          pixel_new = @new_image.get_pixel(x,y)
 
           if pixel_old != pixel_new
             pixels_changed += 1
@@ -84,6 +73,8 @@ module ScreenshotTest
     def take
       sleep 0.5 #wait for page re-render
       @page.driver.save_screenshot new_file, full: true
+      @old_image = ChunkyPNG::Image.from_file(old_file)
+      @new_image = ChunkyPNG::Image.from_file(new_file)
     end
   end
 
