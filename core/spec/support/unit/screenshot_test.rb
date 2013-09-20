@@ -156,7 +156,10 @@ module ScreenshotTest
   def assume_unchanged_screenshot(title)
     shot = Screenshot.new page, title
     shot.take
-    if shot.changed?
+
+    is_changed = if ENV["FUZZY_IMAGE_DIFF"] then shot.fuzzy_changed? else shot.changed? end
+
+    if is_changed
       if shot.size_changed?
         raise "Screenshot #{title} changed (also size)"
       else
