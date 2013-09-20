@@ -70,6 +70,81 @@ module ScreenshotTest
       pixels_changed > 0 || size_changed?
     end
 
+    def fuzzy_changed?
+      pixels_changed_count = 0
+      total_badness = 0.0
+      total_lc = 0.0
+      max_local_contrast = 0
+
+      diff_gray = GrayscaleImage.rgb_delta28_image(@old_image, @new_image)
+      width, height = diff_gray.width, diff_gray.height
+
+      cx1 = GrayscaleImage.rgb_delta28_contrast_image_x(@old_image)
+      cx1acc = cx1.accumulated_image
+      cy1 = GrayscaleImage.rgb_delta28_contrast_image_y(@old_image)
+      cy1acc = cy1.accumulated_image
+
+      cx2 = GrayscaleImage.rgb_delta28_contrast_image_x(@new_image)
+      cx2acc = cx2.accumulated_image
+      cy2 = GrayscaleImage.rgb_delta28_contrast_image_y(@new_image)
+      cy2acc = cy2.accumulated_image
+
+      cx_acc = cx1acc + cx2acc #upto 56*255 per pixel
+      cy_acc = cy1acc + cy2acc
+      color_diff_img = ChunkyPNG::Image.new(width, height)
+
+      y = 2
+      while y < height - 2
+        x = 2
+        while x < width - 2
+          changed_amount = diff_gray[x, y] #upto 28*255
+
+          scaled_changed_amount = (changed_amount + 27)/28
+          local_cx1 = cx1acc[x-1, y-2] + cx1acc[x+3, y+3] - (cx1acc[x-1, y+3] + cx1acc[x+3, y-2]) #upto 560*255
+          local_cy1 = cy1acc[x-2, y-1] + cy1acc[x+3, y+3] - (cy1acc[x+3, y-1] + cy1acc[x-2, y+3]) #upto 560*255
+
+          local_cx2 = cx2acc[x-1, y-2] + cx2acc[x+3, y+3] - (cx2acc[x-1, y+3] + cx2acc[x+3, y-2]) #upto 560*255
+          local_cy2 = cy2acc[x-2, y-1] + cy2acc[x+3, y+3] - (cy2acc[x+3, y-1] + cy2acc[x-2, y+3]) #upto 560*255
+
+          contrast_badness = (local_cx1 - local_cx2).abs + (local_cy1 - local_cy2).abs #upto 1120*255
+
+          local_cx = cx_acc[x+0, y-1] + cx_acc[x+2, y+2] - (cx_acc[x+0, y+2] + cx_acc[x+2, y-1]) #upto 336*255
+          local_cy = cy_acc[x-1, y+0] + cy_acc[x+2, y+2] - (cy_acc[x+2, y+0] + cy_acc[x-1, y+2]) #upto 336*255
+          local_contrast = local_cx + local_cy   #upto 672*255
+
+          max_local_contrast = [local_contrast, max_local_contrast].max
+          local_contrast_scaled =  (Math.sqrt(Math.sqrt(Math.sqrt(local_contrast / (672.0*255.0+0.01)))) * 256.0).round  #upto 255
+          total_badness += changed_amount * 24.0 / (local_contrast + 2550.0) +
+                           contrast_badness / 13600
+
+          err = 0
+          total_lc += local_contrast
+          if 40*changed_amount + contrast_badness > 20*local_contrast + 47600
+            #puts "#{x}x#{y}: #{changed_amount}/#{local_contrast} : #{contrast_badness}"
+
+            #binding.pry
+            pixels_changed_count += 1
+            err = 255
+          end
+          color_diff_img[x,y] = rgb(scaled_changed_amount, err, local_contrast_scaled)
+          x += 1
+        end
+        y += 1
+      end
+      color_diff_img.save(diff_file)
+
+      if pixels_changed_count > 0
+        total_pixels = width * height
+        percentage = 100.0 * pixels_changed_count / total_pixels
+
+        puts "Pixels changed #{percentage}%  (#{pixels_changed_count}/#{total_pixels})."
+      end
+
+      puts "Per-pixel badness (#{@title} #{max_local_contrast}): #{total_badness/((width-2)*(height-2))*100}"
+      puts "Per-pixel contrast: #{total_lc/((width-4)*(height-4))}"
+      pixels_changed_count > 0 || size_changed?
+    end
+
     def take
       sleep 0.5 #wait for page re-render
       @page.driver.save_screenshot new_file, full: true
