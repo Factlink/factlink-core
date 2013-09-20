@@ -4,8 +4,8 @@ module PoltergeistStyleOverrides
       (<<-'SNIPPET'
       <style>
         * { transition: none !important; }
-        html.phantom_js * { font-family:"Comic Sans MS"; }
         html.phantom_js { min-height: 2000px; }
+        * { font-family:"DejaVu Sans Mono" !important; letter-spacing:-1px; }
       </style>
       <script>
         document.addEventListener("DOMContentLoaded", function(){
