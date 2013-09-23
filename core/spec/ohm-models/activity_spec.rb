@@ -6,7 +6,7 @@ class Foo < OurOhm ;end
 describe Activity do
   let(:b1) { Blob.create }
   let(:b2) { Blob.create }
-  let(:gu) { GraphUser.create }
+  let(:gu) { create(:user).graph_user }
 
   let(:gu2) { GraphUser.create }
   let(:gu3) { GraphUser.create }
@@ -94,13 +94,26 @@ describe Activity do
       @a=Activity[@a.id]
     end
 
+    let(:activity) do
+      Activity.create user: gu,
+                      action: :foo,
+                      subject: gu2,
+                      object: gu3
+    end
+
     it "should be valid for valid activity" do
       @a.should be_still_valid
     end
 
-    it "should not be valid if the user is deleted" do
+    it "should not be valid if the graph_user object is deleted" do
       gu.delete
       @a.should_not be_still_valid
+    end
+
+    it "should not be valid if the user is deleted" do
+      gu.user.deleted = true
+      gu.user.save!
+      expect(activity).to_not be_still_valid
     end
 
     it "should not be valid if the subject is deleted" do
