@@ -69,6 +69,8 @@ class Activity < OurOhm
     h
   end
 
+  # WARNING: if this method returns false, we assume it will never become
+  #          valid again either, and remove/destroy freely.
   def still_valid?
     user_still_valid? and subject_still_valid? and object_still_valid?
   end
