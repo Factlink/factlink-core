@@ -91,8 +91,16 @@
   </div>
 
   <div class="span8 edit-user-delete-container">
+
     <%= form_for(@user, :url => { action: :delete, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }) do |f| %>
-      <fieldset>
+
+      <div class="control-group">
+        <div class="controls">
+          <a class="edit-user-delete-link" href="javascript:$('.js-delete-form').toggle();">Delete account</a>
+        </div>
+      </div>
+
+      <fieldset class="js-delete-form hide">
         <div class="controls">
           Fill in your password to confirm deleting your account.
         </div>
