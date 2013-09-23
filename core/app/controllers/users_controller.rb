@@ -40,6 +40,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete
+    authorize! :delete, @user #TODO: move to interactor?
+
+    password_ok = @user.valid_password? #TODO: move to interactor?
+
+    used_is_deleted = password_ok && interactor(:'users/deleted', password: params[:user_current_password])
+
+    if used_is_deleted
+      respond_to do |format|
+        #TODO: UI, clear session?
+        format.html { redirect_to edit_user_url(@user.username), notice: 'Your account was successfully deleted.' }
+        format.json { render json: {} }
+      end
+    else
+      respond_to do |format|
+        format.html do
+          authorize! :access, Ability::FactlinkWebapp
+          render :edit #TODO: this is probably wrong; but UI is out of scope here.
+        end
+        format.json { render json: { status: :unprocessable_entity } }
+      end
+    end
+  end
+
   def activities
     authorize! :see_activities, @user
     @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )
