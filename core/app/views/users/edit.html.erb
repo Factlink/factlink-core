@@ -90,17 +90,24 @@
     <% end %>
   </div>
 
-  <div class="span8">
+  <div class="span8 edit-user-delete-container">
     <%= form_for(@user, :url => { action: :delete, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }) do |f| %>
       <fieldset>
-        <legend></legend>
-        <div class="control-group">
-          <label class="control-label">Delete account</label>
-          <div class="controls">
-            <button class="button button-danger">Delete your entire account</button>
+        <div class="controls">
+          Fill in your password to confirm deleting your account.
+        </div>
 
-            <span class="help-inline">Warning: all your data will be deleted</span>
+        <div class="control-group">
+          <%= f.label :password, class: "control-label" %>
+          <div class="controls">
+            <%= f.password_field :password, :autocomplete => "off", required: true %>
           </div>
+        </div>
+
+        <div class="controls">
+          <%= f.submit "Delete your entire account", class: "button button-danger" %>
+
+          <span class="help-inline">Warning: all your data will be deleted</span>
         </div>
       </fieldset>
     <% end %>
