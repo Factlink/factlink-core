@@ -38,7 +38,8 @@ module Screenshots
       end
 
       within('.evidence-votable', text: factlink3.data.displaystring, visible: false) do
-        find('.js-fact-relation-unbelieve').click
+        find('.js-down').click
+        find('.js-fact-disbelieve').click
         eventually_succeeds do
           find('a', text: 'Comment').click
           find('.spec-sub-comments-form').should_not eq nil
