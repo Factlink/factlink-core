@@ -12,10 +12,14 @@ class window.ProfileController extends Backbone.Marionette.Controller
     title: 'Profile'
     active_tab: 'show'
     render: (main_region, user) =>
-      main_region.show new ProfileView
-        model: user
-        collection: window.Channels
-        created_facts_view: @getFactsView user.created_facts()
+      if user.get('deleted')
+        main_region.show new TextView model:
+          new Backbone.Model text: 'This profile has been deleted.'
+      else
+        main_region.show new ProfileView
+          model: user
+          collection: window.Channels
+          created_facts_view: @getFactsView user.created_facts()
 
   notification_options: (username)->
     title: 'Notification Settings'
@@ -38,6 +42,11 @@ class window.ProfileController extends Backbone.Marionette.Controller
         @showSidebarProfile(user)
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         options.render(@main.contentRegion, user)
+
+        # Remove when permanently disabling sees_channels feature toggle,
+        # as this is only for the channels sidebar
+        if user.get('deleted')
+          FactlinkApp.leftMiddleRegion.close()
 
   switchToPage: (username, user, path, options)->
     @main.setTitle options.title
@@ -64,5 +73,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
       empty_view: new EmptyProfileFactsView()
 
   showSidebarProfile: (user) ->
+    return if user.get('deleted')
+
     sidebarProfileView = new SidebarProfileView(model: user)
     FactlinkApp.leftTopRegion.show(sidebarProfileView)

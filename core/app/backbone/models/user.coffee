@@ -85,5 +85,3 @@ class window.User extends Backbone.Model
 
   user_topics: ->
     new UserTopics @get('user_topics')
-
-  deleted: -> @get('deleted')
