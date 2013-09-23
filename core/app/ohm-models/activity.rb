@@ -70,7 +70,7 @@ class Activity < OurOhm
   end
 
   def still_valid?
-    user_valid? and subject_valid? and object_valid?
+    user_still_valid? and subject_still_valid? and object_still_valid?
   end
 
   def timestamp
@@ -101,17 +101,17 @@ class Activity < OurOhm
     key[:containing_sorted_sets]
   end
 
-  def user_valid?
+  def user_still_valid?
     return true if not user_id
 
     user and user.user and not user.user.deleted
   end
 
-  def subject_valid?
+  def subject_still_valid?
     subject or not subject_id
   end
 
-  def object_valid?
+  def object_still_valid?
     object or not object_id
   end
 end
