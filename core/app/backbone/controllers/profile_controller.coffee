@@ -12,10 +12,14 @@ class window.ProfileController extends Backbone.Marionette.Controller
     title: 'Profile'
     active_tab: 'show'
     render: (main_region, user) =>
-      main_region.show new ProfileView
-        model: user
-        collection: window.Channels
-        created_facts_view: @getFactsView user.created_facts()
+      if user.get('deleted')
+        main_region.show new TextView model:
+          new Backbone.Model text: 'This profile has been deleted.'
+      else
+        main_region.show new ProfileView
+          model: user
+          collection: window.Channels
+          created_facts_view: @getFactsView user.created_facts()
 
   notification_options: (username)->
     title: 'Notification Settings'
