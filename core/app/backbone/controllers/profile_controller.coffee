@@ -43,7 +43,9 @@ class window.ProfileController extends Backbone.Marionette.Controller
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         options.render(@main.contentRegion, user)
 
-        if Factlink.Global.can_haz['sees_channels'] && user.get('deleted')
+        # Remove when permanently disabling sees_channels feature toggle,
+        # as this is only for the channels sidebar
+        if user.get('deleted')
           FactlinkApp.leftMiddleRegion.close()
 
   switchToPage: (username, user, path, options)->
