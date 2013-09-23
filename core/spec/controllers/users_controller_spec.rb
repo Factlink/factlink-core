@@ -26,6 +26,23 @@ describe UsersController do
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
       Approvals.verify(response_body, format: :json, name: 'users#show should keep the same content')
     end
+
+    it "should render json successful for deleted users" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check
+
+      # TODO: use command to really delete user here
+      deleted_user = create(:user, deleted: true)
+
+      should_check_can :show, deleted_user
+      get :show, username: deleted_user.username, format: :json
+      response.should be_success
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'users#show should keep the same content for deleted users')
+    end
   end
 
   describe :tour_users do
