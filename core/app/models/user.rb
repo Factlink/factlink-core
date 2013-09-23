@@ -7,7 +7,7 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
-  USERNAME_MAX_LENGTH = 20
+  USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
