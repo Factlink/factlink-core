@@ -35,7 +35,7 @@ class UsersController < ApplicationController
           authorize! :access, Ability::FactlinkWebapp
           render :edit
         end
-        format.json { render json: { :status => :unprocessable_entity }}
+        format.json { render json: { status: :unprocessable_entity } }
       end
     end
   end
