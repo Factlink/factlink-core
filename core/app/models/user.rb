@@ -33,6 +33,7 @@ class User
   field :graph_user_id
 
   field :approved,    type: Boolean, default: false
+  field :deleted,     type: Boolean, default: false
 
   field :admin,       type: Boolean, default: false
 
