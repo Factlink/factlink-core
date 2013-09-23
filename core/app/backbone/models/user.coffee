@@ -18,9 +18,12 @@ class window.User extends Backbone.Model
   is_current_user: ->
     currentUser?.get('username') == @get('username')
 
-  avatar_url: (size)->
-    md5d_email = @get('gravatar_hash')
-    "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
+  avatar_url: (size) ->
+    if(window.test_counter)
+      'about:blank'
+    else
+      md5d_email = @get('gravatar_hash')
+      "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
   stream:        -> @channel_with_id 'all_channel_id'
   created_facts: -> @channel_with_id 'created_facts_channel_id'
