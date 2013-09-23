@@ -89,4 +89,20 @@
       </fieldset>
     <% end %>
   </div>
+
+  <div class="span8">
+    <%= form_for(@user, :url => { action: :delete, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }) do |f| %>
+      <fieldset>
+        <legend></legend>
+        <div class="control-group">
+          <label class="control-label">Delete account</label>
+          <div class="controls">
+            <button class="button button-danger">Delete your entire account</button>
+
+            <span class="help-inline">Warning: all your data will be deleted</span>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
 </div>
