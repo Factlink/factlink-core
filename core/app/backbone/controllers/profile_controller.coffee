@@ -43,6 +43,9 @@ class window.ProfileController extends Backbone.Marionette.Controller
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         options.render(@main.contentRegion, user)
 
+        if Factlink.Global.can_haz['sees_channels'] && user.get('deleted')
+          FactlinkApp.leftMiddleRegion.close()
+
   switchToPage: (username, user, path, options)->
     @main.setTitle options.title
     @main.tabsRegion.currentView.activate(options.active_tab)
@@ -68,5 +71,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
       empty_view: new EmptyProfileFactsView()
 
   showSidebarProfile: (user) ->
+    return if user.get('deleted')
+
     sidebarProfileView = new SidebarProfileView(model: user)
     FactlinkApp.leftTopRegion.show(sidebarProfileView)
