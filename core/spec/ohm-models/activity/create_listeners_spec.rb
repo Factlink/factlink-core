@@ -19,55 +19,14 @@ describe 'activity queries' do
 
   describe ".channel" do
     it "should return activity for when a channel followed this channel" do
-      ch1 = create :channel
-      ch2 = create :channel
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu1
 
       Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
         subchannel_id: ch2.id, pavlov_options: pavlov_options).call
       ch2.activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
-    end
-
-    context 'seeing channels' do
-      let(:gu1) { create(:seeing_channels_user).graph_user }
-      let(:gu2) { create(:seeing_channels_user).graph_user }
-
-      it "should return activity for all users following a channel of User1 when User1 creates a new channel" do
-        ch1 = create :channel, created_by: gu1
-        ch2 = create :channel, created_by: gu2
-
-        Interactors::Channels::AddSubchannel.new(channel_id: ch1.id.to_s,
-          subchannel_id: ch2.id.to_s, pavlov_options: pavlov_options).call
-        ch3 = create :channel, created_by: gu2
-
-        # Channel should not be empty
-        f1 = create :fact
-        add_fact_to_channel f1, ch3
-
-        gu1.stream_activities.map(&:to_hash_without_time).should == [
-          {user: gu2, action: :created_channel, subject: ch3}
-        ]
-      end
-
-      it "should return only one created activity when adding subchannels" do
-        ch1 = create :channel, created_by: gu1
-        ch2 = create :channel, created_by: gu2
-
-        Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-          subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-        ch3 = create :channel, created_by: gu2
-
-        4.times do
-          Interactors::Channels::AddSubchannel.new(channel_id: ch3.id,
-            subchannel_id: (create :channel).id, pavlov_options: pavlov_options).call
-        end
-
-        stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
-        expect(stream_activities).to eq [
-          {user: gu2, action: :created_channel, subject: ch3}
-        ]
-      end
     end
 
     it "should *not* return activity for all users following a channel of User1 when User1 creates a new channel" do
