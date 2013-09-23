@@ -102,7 +102,9 @@ class Activity < OurOhm
   end
 
   def user_valid?
-    user or not user_id
+    return true if not user_id
+
+    user and user.user and not user.user.deleted
   end
 
   def subject_valid?
