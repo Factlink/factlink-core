@@ -59,7 +59,7 @@ describe Interactors::Users::Delete do
     end
   end
 
-  describe '#execute' do
+  describe '#call' do
     it 'it calls the delete command' do
       stub_classes 'User'
 
