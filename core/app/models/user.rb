@@ -174,10 +174,9 @@ class User
       }
     end
 
-    # Non-string fields are handled separately in Commands::Users::AnonymizeUserModel
-    def personal_information_string_fields
+    def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
-      ['first_name', 'last_name', 'location', 'biography', 'twitter']
+      ['first_name', 'last_name', 'location', 'biography', 'twitter', 'identities']
     end
   end
 

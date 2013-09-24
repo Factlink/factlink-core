@@ -8,7 +8,7 @@ module Commands
       private
 
       def execute
-        User.personal_information_string_fields.each do |field|
+        User.personal_information_fields.each do |field|
           user[field] = User.fields[field].default_val
         end
 
@@ -16,7 +16,6 @@ module Commands
         user.last_name             = 'anonymous'
         user.password              = 'some_password_henk_gerard_gerrit'
         user.password_confirmation = 'some_password_henk_gerard_gerrit'
-        user.identities            = {}
 
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"
