@@ -212,21 +212,39 @@ describe User do
       it "only returns approved, confirmed, and TOS-signed users" do
         waiting_list_user = create :user
         approved_user = create :user, :approved
-        active_user = create :user, :approved, :confirmed, agrees_tos: true
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+
         active_users = User.active.all
+
         expect(active_users).to eq [active_user]
       end
     end
 
     describe ".seen_the_tour" do
       it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
-        expect(User.seen_the_tour.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "seen_tour_step"=>"tour_done"})
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+        seen_the_tour_user = create :user, :approved, :confirmed, :agrees_tos, :seen_the_tour
+
+        seen_tour_users = User.seen_the_tour.all
+
+        expect(seen_tour_users.all).to eq [seen_the_tour_user]
       end
     end
 
     describe ".receives_digest" do
       it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
-        expect(User.receives_digest.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "receives_digest"=>true})
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+        active_user_without_digest = create :user, :approved, :confirmed, :agrees_tos
+        active_user_without_digest.receives_digest = false
+        active_user_without_digest.save!
+
+        digest_users = User.receives_digest.all
+
+        expect(digest_users).to eq [active_user]
       end
     end
   end
