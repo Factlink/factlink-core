@@ -27,15 +27,11 @@ module Commands
       end
 
       def anonymous_username
-        @anonymous_username ||= 'anonymous_' + random_string[0..9]
+        @anonymous_username ||= 'anonymous_' + SecureRandom.hex[0..9]
       end
 
       def anonymous_password
-        @anonymous_password ||= random_string
-      end
-
-      def random_string
-        SecureRandom.hex
+        @anonymous_password ||= SecureRandom.hex
       end
 
       def user
