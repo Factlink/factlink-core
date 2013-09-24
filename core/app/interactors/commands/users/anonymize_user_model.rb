@@ -12,10 +12,11 @@ module Commands
           user[field] = User.fields[field].default_val
         end
 
-        user.first_name            = 'Deleted'
-        user.last_name             = 'user'
-        user.password              = 'some_password_henk_gerard_gerrit'
-        user.password_confirmation = 'some_password_henk_gerard_gerrit'
+        user.first_name = 'Deleted'
+        user.last_name  = 'user'
+
+        user.password              = anonymous_password
+        user.password_confirmation = anonymous_password
 
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"
@@ -26,13 +27,15 @@ module Commands
       end
 
       def anonymous_username
-        @anonymous_username ||= "anonymous_#{random_string}"
+        @anonymous_username ||= 'anonymous_' + random_string[0..9]
+      end
+
+      def anonymous_password
+        @anonymous_password ||= random_string
       end
 
       def random_string
-        some_string = user.username + DateTime.now.strftime("%Y%m%d%k%M%S%L")
-
-        Digest::SHA256.new.hexdigest(some_string)[0..9]
+        SecureRandom.hex
       end
 
       def user
