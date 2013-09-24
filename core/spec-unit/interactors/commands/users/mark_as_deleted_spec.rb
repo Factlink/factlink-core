@@ -5,6 +5,8 @@ describe Commands::Users::MarkAsDeleted do
   include PavlovSupport
 
   describe "#validate" do
+    before { stub_classes 'User' }
+
     it "requires a non-nil user" do
       command = described_class.new user: nil
       expect(command.validate).to eq(false)
@@ -21,7 +23,6 @@ describe Commands::Users::MarkAsDeleted do
     end
 
     it "accepts a user of type User" do
-      stub_classes 'User'
       user = User.new
       command = described_class.new user: user
       expect(command.validate).to eq(true)
