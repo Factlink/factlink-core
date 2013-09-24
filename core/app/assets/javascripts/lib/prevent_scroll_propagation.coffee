@@ -1,6 +1,8 @@
 #= require jquery.mousewheel
 
-canScroll = ($el, event, delta) ->
+canScroll = (event, delta) ->
+  $el = $(event.delegateTarget)
+
   # Scrolling upward but cannot scroll any further
   return false if delta > 0 && $el.scrollTop() <= 0
 
@@ -11,7 +13,7 @@ canScroll = ($el, event, delta) ->
 
 $.fn.preventScrollPropagation = ->
   @each ->
-    $(this).bind 'mousewheel', (event, delta) ->
+    $(this).on 'mousewheel', (event, delta) ->
       event.stopPropagation() # allow nesting of scrollable containers
 
-      event.preventDefault() unless canScroll($(this), event, delta)
+      event.preventDefault() unless canScroll(event, delta)
