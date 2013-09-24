@@ -8,7 +8,7 @@ describe Queries::ElasticSearchAll do
 
   before do
     stub_classes 'HTTParty', 'FactData', 'User',
-      'FactlinkUI::Application', 'FactlinkUser'
+      'FactlinkUI::Application', 'KillObject'
       FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
 
@@ -39,7 +39,7 @@ describe Queries::ElasticSearchAll do
           User.should_receive(:find).
             with(1).
             and_return(mongoid_user)
-          FactlinkUser.should_receive(:map_from_mongoid)
+          KillObject.should_receive(:user)
             .with(mongoid_user)
             .and_return(return_object)
         when 'topic'
