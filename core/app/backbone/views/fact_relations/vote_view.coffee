@@ -33,7 +33,7 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
 
   highlight: ($el) ->
     _.defer (-> $el.addClass 'vote-up-down-highlight')
-    _.delay (-> $el.removeClass 'vote-up-down-highlight'), 700
+    _.delay (-> $el.removeClass 'vote-up-down-highlight'), 1000
 
   set_fact_relation_opinion: (opinion) ->
     return if @model.current_opinion() == opinion
