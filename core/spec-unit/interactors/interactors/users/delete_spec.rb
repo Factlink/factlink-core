@@ -65,16 +65,18 @@ describe Interactors::Users::Delete do
     it 'it calls the delete command' do
       stub_classes 'User'
 
-      user_id = double
-      user = double
-      pavlov_options = double
-      User.stub(:find).with(user_id).and_return(user)
+      user = double(:user, id: 'a234')
+      ability = double(:ability)
+      ability.stub(:can?).with(:delete, user).and_return(true)
+      pavlov_options = { ability: ability }
 
-      interactor = described_class.new(user_id: user_id, pavlov_options: pavlov_options)
+      User.stub(:find).with(user.id).and_return(user)
+
+      interactor = described_class.new(user_id: user.id, pavlov_options: pavlov_options)
 
       Pavlov.should_receive(:command)
         .with(:'users/mark_as_deleted', user: user, pavlov_options: pavlov_options)
-      interactor.execute
+      interactor.call
     end
   end
 end
