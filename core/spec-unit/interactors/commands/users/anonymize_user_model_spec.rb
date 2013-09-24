@@ -22,6 +22,8 @@ describe Commands::Users::AnonymizeUserModel do
         expect(user.location).to eq ''
         expect(user.biography).to eq ''
         expect(user.twitter).to eq ''
+        expect(user.password).to eq 'some_password_henk_gerard_gerrit'
+        expect(user.password_confirmation).to eq 'some_password_henk_gerard_gerrit'
         expect(user.identities['twitter']).to eq nil
         expect(user.identities['facebook']).to eq nil
       end

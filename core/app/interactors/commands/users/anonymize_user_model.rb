@@ -8,12 +8,14 @@ module Commands
       private
 
       def execute
-        user.first_name = 'anonymous'
-        user.last_name = 'anonymous'
-        user.location = ''
-        user.biography = ''
-        user.twitter = ''
-        user.identities = {}
+        user.first_name            = 'anonymous'
+        user.last_name             = 'anonymous'
+        user.location              = ''
+        user.biography             = ''
+        user.twitter               = ''
+        user.password              = 'some_password_henk_gerard_gerrit'
+        user.password_confirmation = 'some_password_henk_gerard_gerrit'
+        user.identities            = {}
 
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"
