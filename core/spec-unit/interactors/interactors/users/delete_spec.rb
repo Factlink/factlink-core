@@ -84,7 +84,7 @@ describe Interactors::Users::Delete do
       interactor = described_class.new(user_id: user_id, pavlov_options: pavlov_options)
 
       Pavlov.should_receive(:command)
-        .with(:'users/delete', user: user, pavlov_options: pavlov_options)
+        .with(:'users/mark_as_deleted', user: user, pavlov_options: pavlov_options)
       interactor.execute
     end
   end

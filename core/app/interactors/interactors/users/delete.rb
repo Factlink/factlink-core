@@ -19,7 +19,7 @@ module Interactors
       end
 
       def execute
-        command(:'users/delete', user: user)
+        command(:'users/mark_as_deleted', user: user)
       end
     end
   end
