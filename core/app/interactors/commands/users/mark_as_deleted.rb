@@ -6,7 +6,7 @@ module Commands
       arguments :user
 
       def validate
-
+        user.is_a? User
       end
 
       def execute
