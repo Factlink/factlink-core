@@ -25,10 +25,10 @@ describe Commands::Users::MarkAsDeleted do
     it "accepts a user of type User" do
       user = User.new
       command = described_class.new user: user
+
       command.validate
     end
   end
-
 
   describe "#execute" do
     it "marks the user as deleted" do
