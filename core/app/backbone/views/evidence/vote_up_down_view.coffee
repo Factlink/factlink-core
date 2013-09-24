@@ -27,7 +27,6 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     mp_track "Factlink: Upvote evidence click"
     if @model.isBelieving()
       @model.removeOpinion()
-      @_closePopups()
     else
       @_openVoteUpPopup()
       @model.believe()
@@ -36,7 +35,6 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     mp_track "Factlink: Downvote evidence click"
     if @model.isDisBelieving()
       @model.removeOpinion()
-      @_closePopups()
     else
       @_openVoteDownPopup()
       @model.disbelieve()
