@@ -2,7 +2,7 @@ highlight = ($el) ->
   _.defer (-> $el.addClass 'vote-up-down-highlight')
   _.delay (-> $el.removeClass 'vote-up-down-highlight'), 1000
 
-class FactRelationVoteView extends Backbone.Marionette.ItemView
+class ArgumentVoteView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down'
 
@@ -58,8 +58,8 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
 
     @model.getFact().getFactWheel().undoOpinion()
 
-class window.FactRelationVoteUpView extends FactRelationVoteView
+class window.ArgumentVoteUpView extends ArgumentVoteView
   template: 'fact_relations/vote_up_popover'
 
-class window.FactRelationVoteDownView extends FactRelationVoteView
+class window.ArgumentVoteDownView extends ArgumentVoteView
   template: 'fact_relations/vote_down_popover'

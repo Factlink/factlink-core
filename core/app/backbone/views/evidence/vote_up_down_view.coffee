@@ -57,10 +57,10 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       'right'
 
   _openVoteUpPopup: ->
-    @_open_vote_popup '.js-up', new FactRelationVoteUpView model: @model
+    @_open_vote_popup '.js-up', new ArgumentVoteUpView model: @model
 
   _openVoteDownPopup: ->
-    @_open_vote_popup '.js-down', new FactRelationVoteDownView model: @model
+    @_open_vote_popup '.js-down', new ArgumentVoteDownView model: @model
 
   _closePopups: ->
     @popoverRemove '.js-up'
