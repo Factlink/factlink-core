@@ -40,6 +40,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete
+    authorize! :delete, @user
+  end
   def activities
     authorize! :see_activities, @user
     @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )
