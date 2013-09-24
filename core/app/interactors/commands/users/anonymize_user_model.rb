@@ -17,6 +17,9 @@ module Commands
         user.password_confirmation = 'some_password_henk_gerard_gerrit'
         user.identities            = {}
 
+        # Deliberately not removing agrees_tos_name
+        # But not testing this behaviour either.. :-D
+
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"
         # TODO: at some point we can use an official invalid address (check RFCs)
