@@ -41,13 +41,11 @@ class UsersController < ApplicationController
   end
 
   def delete
-    authorize! :delete, @user #TODO: move to interactor?
-
     password_ok = @user.valid_password? #TODO: move to interactor?
 
-    used_is_deleted = password_ok && interactor(:'users/deleted', password: params[:user_current_password])
+    if password_ok
+      interactor(:'users/delete', user_id:@user.id)
 
-    if used_is_deleted
       respond_to do |format|
         #TODO: UI, clear session?
         format.html { redirect_to edit_user_url(@user.username), notice: 'Your account was successfully deleted.' }
