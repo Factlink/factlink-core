@@ -22,6 +22,7 @@ describe Commands::Users::AnonymizeUserModel do
         expect(user.email).to eq 'deleted@factlink.com'
         expect(user.location).to eq ''
         expect(user.biography).to eq ''
+        expect(user.twitter).to eq ''
         expect(user.identities['twitter']).to eq nil
         expect(user.identities['facebook']).to eq nil
       end

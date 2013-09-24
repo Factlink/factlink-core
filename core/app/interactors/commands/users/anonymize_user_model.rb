@@ -13,6 +13,7 @@ module Commands
         user.email = 'deleted@factlink.com'
         user.location = ''
         user.biography = ''
+        user.twitter = ''
         user.identities = {}
         user.username = "anonymous_#{random_string}"
 
