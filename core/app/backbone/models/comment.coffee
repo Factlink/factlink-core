@@ -17,9 +17,23 @@ class window.Comment extends Evidence
 
   can_destroy: -> @get 'can_destroy?'
 
-  believe: -> @save opinion: 'believes'
-  disbelieve: -> @save opinion: 'disbelieves'
+  setOpinion: (type) ->
+    @previous_user_opinion = @get('current_user_opinion')
 
+    @save opinion: type
+
+  undoOpinion: ->
+    return if @previous_user_opinion == @get('current_user_opinion')
+
+    if @previous_user_opinion?
+      @setOpinion @previous_user_opinion
+    else
+      @removeOpinion()
+
+  believe: -> @setOpinion 'believes'
+  disbelieve: -> @setOpinion 'disbelieves'
+
+  current_opinion: -> @get('current_user_opinion')
   isBelieving: -> @get('current_user_opinion') == 'believes'
   isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
 
