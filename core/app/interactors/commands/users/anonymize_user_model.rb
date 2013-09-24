@@ -13,7 +13,7 @@ module Commands
         end
 
         user.first_name = 'Deleted'
-        user.last_name  = 'user'
+        user.last_name  = 'User'
 
         user.password              = anonymous_password
         user.password_confirmation = anonymous_password
