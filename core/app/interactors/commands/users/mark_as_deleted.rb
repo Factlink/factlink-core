@@ -10,7 +10,8 @@ module Commands
       end
 
       def execute
-
+        user.deleted = true
+        user.save
       end
     end
   end
