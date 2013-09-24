@@ -3,7 +3,7 @@ require 'korsakov'
 class FactlinkUser < Korsakov::Entity
   attributes :id, :name, :username, :location, :biography,
     :gravatar_hash, :email, :receives_mailed_notifications,
-    :hidden, :receives_digest
+    :hidden?, :receives_digest
 
   def self.attributes
     @attributes

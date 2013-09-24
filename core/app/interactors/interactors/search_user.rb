@@ -19,7 +19,7 @@ module Interactors
     end
 
     def valid_result? result
-      not( result.nil? or result.hidden )
+      not( result.nil? or result.hidden? )
     end
 
     def keyword_min_length
