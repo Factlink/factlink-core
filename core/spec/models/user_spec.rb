@@ -197,27 +197,37 @@ describe User do
 
   end
 
-  describe ".approved" do
-    it "only returns approved users" do
-      expect(User.approved.selector).to eq({"approved" => true})
+  describe 'scopes' do
+    describe ".approved" do
+      it "only returns approved users" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        approved_users = User.approved.all
+        expect(approved_users).to include approved_user
+        expect(approved_users).to_not include waiting_list_user
+      end
     end
-  end
 
-  describe ".active" do
-    it "only returns approved, confirmed, and TOS-signed users" do
-      expect(User.active.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true})
+    describe ".active" do
+      it "only returns approved, confirmed, and TOS-signed users" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, agrees_tos: true
+        active_users = User.active.all
+        expect(active_users).to eq [active_user]
+      end
     end
-  end
 
-  describe ".seen_the_tour" do
-    it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
-      expect(User.seen_the_tour.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "seen_tour_step"=>"tour_done"})
+    describe ".seen_the_tour" do
+      it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
+        expect(User.seen_the_tour.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "seen_tour_step"=>"tour_done"})
+      end
     end
-  end
 
-  describe ".receives_digest" do
-    it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
-      expect(User.receives_digest.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "receives_digest"=>true})
+    describe ".receives_digest" do
+      it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
+        expect(User.receives_digest.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "receives_digest"=>true})
+      end
     end
   end
 
