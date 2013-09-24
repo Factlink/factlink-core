@@ -38,7 +38,7 @@ describe Interactors::Users::Delete do
     end
 
     it 'is authorized when cancan says so' do
-      user = double :user, id: 'a123'
+      user = double(:user, id: 'a123')
       User.stub(:find).with(user.id).and_return(user)
       ability = double(:ability)
       ability.stub(:can?).with(:delete, user).and_return(true)
