@@ -18,7 +18,7 @@ module BrowserHelper
     elsif browser.firefox?
       'firefox'
     elsif browser.phantom_js?
-      'phantom_js'
+      'phantom_js unsupported-browser'
     else
       'unsupported-browser'
     end
