@@ -20,7 +20,9 @@ $.fn.preventScrollPropagation = ->
       $el = $(event.delegateTarget)
       return if shouldUseNativeBehaviour($el)
 
-      event.stopPropagation() # allow nesting of scrollable containers
+      # Allow nesting of scrollable containers
+      # This does mean that all children should also have preventScrollPropagation!
+      event.stopPropagation()
 
       if shouldPreventScroll($el, delta)
         event.preventDefault()
