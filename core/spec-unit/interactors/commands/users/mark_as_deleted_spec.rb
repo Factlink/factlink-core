@@ -28,4 +28,20 @@ describe Commands::Users::MarkAsDeleted do
       expect(command.validate).to eq(true)
     end
   end
+
+
+  describe "#execute" do
+    before { stub_classes 'User' }
+
+    it "marks the user as deleted" do
+
+      user = User.new
+      command = described_class.new user: user
+
+      expect(user).to receive(:deleted=).with(true).once
+      expect(user).to receive(:save).once.and_return(true)
+
+      command.execute
+    end
+  end
 end
