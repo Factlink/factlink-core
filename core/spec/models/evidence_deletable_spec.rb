@@ -3,9 +3,9 @@ require 'spec_helper'
 describe EvidenceDeletable do
 
   context 'Comment' do
-    let(:created_by_user) {create :active_user}
-    let(:other_user)      {create :active_user}
-    let(:fact_user)       {create :active_user}
+    let(:created_by_user) {create :full_user}
+    let(:other_user)      {create :full_user}
+    let(:fact_user)       {create :full_user}
     let(:fact)            {create :fact, created_by: fact_user.graph_user}
 
     let(:comment) do

@@ -58,7 +58,7 @@ FactoryGirl.define do
       identities('facebook' => {'credentials' => {'token' => 'token'}})
     end
 
-    factory :active_user, traits: [
+    factory :full_user, traits: [
       :approved,
       :confirmed,
       :agrees_tos,

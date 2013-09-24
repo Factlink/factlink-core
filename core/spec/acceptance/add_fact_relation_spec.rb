@@ -6,7 +6,7 @@ feature "adding factlinks to a fact", type: :feature do
   include Acceptance::CommentHelper
 
   background do
-    @user = sign_in_user create :active_user
+    @user = sign_in_user create :full_user
   end
 
   let(:factlink) { create :fact, created_by: @user.graph_user }

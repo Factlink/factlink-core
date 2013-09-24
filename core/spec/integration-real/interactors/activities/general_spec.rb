@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Interactors::Topics::Facts do
   include PavlovSupport
 
-  let(:user) {create :active_user}
+  let(:user) {create :full_user}
 
   it 'after adding activities they exist' do
     as(user) do |pavlov|

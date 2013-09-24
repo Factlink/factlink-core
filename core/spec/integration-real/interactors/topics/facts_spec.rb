@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Interactors::Topics::Facts do
   include PavlovSupport
 
-  let(:user1) { create :active_user }
-  let(:user2) { create :active_user }
-  let(:user3) { create :active_user }
+  let(:user1) { create :full_user }
+  let(:user2) { create :full_user }
+  let(:user3) { create :full_user }
 
   it 'returns a list of all facts in all channels in the topic and gets a valid timestamp for the facts' do
     channel1,facts, fact1, fact2, fact3 = ()

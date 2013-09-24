@@ -2,10 +2,10 @@ require 'screenshot_helper'
 
 describe "factlink", type: :feature do
   before :each do
-    user1 = sign_in_user create :active_user
-    user2 = create :active_user
-    user3 = create :active_user
-    user4 = create :active_user
+    user1 = sign_in_user create :full_user
+    user2 = create :full_user
+    user3 = create :full_user
+    user4 = create :full_user
 
     Timecop.freeze Time.local(1989, 11, 6, 11, 22, 33)
 

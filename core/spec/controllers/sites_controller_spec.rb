@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SitesController do
   include PavlovSupport
 
-  let(:user) { create(:active_user) }
+  let(:user) { create(:full_user) }
 
   describe :facts_count_for_url do
     it "should return 0 for site with no facts" do
@@ -69,7 +69,7 @@ describe SitesController do
 
   describe :top_topics do
     it "should respond successfully" do
-      user = create :active_user
+      user = create :full_user
       authenticate_user!(user)
 
       @site = create(:site, url: "http://batman.org")
