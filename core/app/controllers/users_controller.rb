@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if @user.update_attributes user_hash
       respond_to do |format|
         format.html { redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.' }
-        format.json { render json: {}}
+        format.json { render json: {} }
       end
     else
       respond_to do |format|
