@@ -3,6 +3,7 @@ class Admin::UsersController < AdminController
 
   before_filter :get_activated_users,         only: [:index]
   before_filter :get_reserved_users,          only: [:reserved]
+  before_filter :get_deleted_users,           only: [:deleted]
   before_filter :set_available_user_features, only: [:edit, :update]
 
   load_and_authorize_resource except: [:create]
@@ -55,6 +56,12 @@ class Admin::UsersController < AdminController
   def get_reserved_users
     # TODO eliminate to_sym on the next line. This is a DoS
     @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
+  end
+
+  def get_deleted_users
+    # TODO eliminate to_sym on the next line. This is a DoS
+    # TODO Use the User.deleted scope here
+    @users = User.where(deleted: true).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def set_available_user_features
