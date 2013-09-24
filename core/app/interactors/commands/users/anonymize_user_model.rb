@@ -6,7 +6,8 @@ module Commands
       attribute :user_id, String
 
       def execute
-
+        user = User.find(user_id)
+        user.save!
       end
     end
   end
