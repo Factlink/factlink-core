@@ -78,9 +78,6 @@ feature "adding factlinks to a fact", type: :feature do
   end
 
   scenario "setting opinion through popup" do
-    use_features :vote_up_down_popup
-    switch_to_user(@user)
-
     supporting_factlink = backend_create_fact
 
     go_to_discussion_page_of factlink
