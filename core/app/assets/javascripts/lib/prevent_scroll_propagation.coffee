@@ -21,4 +21,6 @@ $.fn.preventScrollPropagation = ->
       return if useNativeBehaviour($el)
 
       event.stopPropagation() # allow nesting of scrollable containers
-      event.preventDefault() if preventScroll($el, delta)
+
+      if preventScroll($el, delta)
+        event.preventDefault()
