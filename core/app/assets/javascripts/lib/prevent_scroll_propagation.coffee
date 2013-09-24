@@ -1,4 +1,4 @@
-#= require jquery.prevent_scroll_propagation
+#= require jquery.mousewheel
 
 $.fn.preventScrollPropagation = ->
   @each ->
