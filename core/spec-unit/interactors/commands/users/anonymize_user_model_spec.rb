@@ -19,7 +19,6 @@ describe Commands::Users::AnonymizeUserModel do
       expect(user).to receive(:save!) do
         expect(user.first_name).to eq 'anonymous'
         expect(user.last_name).to eq 'anonymous'
-        expect(user.email).to eq 'deleted@factlink.com'
         expect(user.location).to eq ''
         expect(user.biography).to eq ''
         expect(user.twitter).to eq ''
@@ -30,7 +29,7 @@ describe Commands::Users::AnonymizeUserModel do
       command.call
     end
 
-    it 'generates some anonymous username' do
+    it 'generates some anonymous username and email' do
       user = OpenStruct.new id: '1a', username: 'username'
       command = described_class.new user_id: user.id
 
@@ -39,6 +38,8 @@ describe Commands::Users::AnonymizeUserModel do
       expect(user).to receive(:save!) do
         expect(user.username).to include('anonymous')
         expect(user.username.length).to be <= 20
+
+        expect(user.email).to eq "deleted+#{user.username}@factlink.com"
       end
 
       command.call

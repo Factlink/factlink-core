@@ -10,14 +10,19 @@ module Commands
       def execute
         user.first_name = 'anonymous'
         user.last_name = 'anonymous'
-        user.email = 'deleted@factlink.com'
         user.location = ''
         user.biography = ''
         user.twitter = ''
         user.identities = {}
-        user.username = "anonymous_#{random_string}"
+
+        user.username = anonymous_username
+        user.email = "deleted+#{anonymous_username}@factlink.com"
 
         user.save!
+      end
+
+      def anonymous_username
+        @anonymous_username ||= "anonymous_#{random_string}"
       end
 
       def random_string
