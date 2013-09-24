@@ -8,8 +8,8 @@ describe Queries::ElasticSearchAll do
 
   before do
     stub_classes 'HTTParty', 'FactData', 'User',
-      FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
       'FactlinkUI::Application', 'KillObject'
+      FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
 
   describe '#call' do
