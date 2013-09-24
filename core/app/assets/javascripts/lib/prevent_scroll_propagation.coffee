@@ -1,6 +1,6 @@
 #= require jquery.mousewheel
 
-shouldHandleScrolling = ($el) ->
+weShouldHandleScrolling = ($el) ->
   # There isn't anything to scroll, and we only show a scrollbar when there is
   return false if $el[0].scrollHeight <= $el.innerHeight() && $el.css('overflow-y') == 'auto'
 
@@ -20,7 +20,7 @@ $.fn.preventScrollPropagation = ->
     $(this).on 'mousewheel', (event, delta) ->
       $el = $(event.delegateTarget)
 
-      return unless shouldHandleScrolling($el)
+      return unless weShouldHandleScrolling($el)
 
       event.stopPropagation() # allow nesting of scrollable containers
       event.preventDefault() if preventScroll($el, delta)
