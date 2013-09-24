@@ -1,6 +1,6 @@
 module Commands
   module User
-    class Delete
+    class MarkAsDeleted
       include Pavlov::Command
 
       arguments :user
@@ -8,6 +8,7 @@ module Commands
       def validate
 
       end
+
       def execute
 
       end
