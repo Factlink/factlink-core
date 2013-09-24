@@ -19,17 +19,20 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
 
   templateHelpers: =>
     believes_fact_relation: @model.isBelieving()
-    believes_fact: @model.getFact().getFactWheel().isUserOpinion 'believe'
+    believes_fact: @model.getFact?().getFactWheel().isUserOpinion 'believe'
     disbelieves_fact_relation: @model.isDisBelieving()
-    disbelieves_fact: @model.getFact().getFactWheel().isUserOpinion 'disbelieve'
+    disbelieves_fact: @model.getFact?().getFactWheel().isUserOpinion 'disbelieve'
+    has_fact: @model instanceof FactRelation
 
   initialize: ->
     @listenTo @model, "change:current_user_opinion", ->
       @render()
       @highlight @ui.factRelationLine
-    @listenTo @model.getFact().getFactWheel(), "sync", ->
-      @render()
-      @highlight @ui.factLine
+
+    if @model instanceof FactRelation
+      @listenTo @model.getFact().getFactWheel(), "sync", ->
+        @render()
+        @highlight @ui.factLine
 
   highlight: ($el) ->
     _.defer (-> $el.addClass 'vote-up-down-highlight')
