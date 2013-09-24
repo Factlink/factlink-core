@@ -11,7 +11,7 @@ module Commands
 
       def execute
         user.deleted = true
-        user.save
+        user.save!
       end
     end
   end
