@@ -22,7 +22,7 @@ module Commands
       def random_string
         some_string = user.username + DateTime.now.strftime("%Y%m%d%k%M%S%L")
 
-        Digest::SHA256.new.hexdigest(some_string)[0..10]
+        Digest::SHA256.new.hexdigest(some_string)[0..9]
       end
 
       def user

@@ -37,6 +37,7 @@ describe Commands::Users::AnonymizeUserModel do
 
       expect(user).to receive(:save!) do
         expect(user.username).to include('anonymous')
+        expect(user.username.length).to be <= 20
       end
 
       command.call
