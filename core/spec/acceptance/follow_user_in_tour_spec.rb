@@ -6,7 +6,7 @@ feature "follow_users_in_tour", type: :feature do
   include Acceptance::TopicHelper
 
   before do
-    @user = create :approved_confirmed_user, :agrees_tos
+    @user = create :user, :approved, :confirmed, :agrees_tos
 
     @user1 = create :active_user
     @user2 = create :active_user

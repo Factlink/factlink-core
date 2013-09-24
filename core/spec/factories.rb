@@ -58,10 +58,12 @@ FactoryGirl.define do
       identities('facebook' => {'credentials' => {'token' => 'token'}})
     end
 
-    factory :approved_user, traits: [:approved]
-    factory :confirmed_user, traits: [:confirmed]
-    factory :approved_confirmed_user, traits: [:approved, :confirmed]
-    factory :active_user, traits: [:approved, :confirmed, :agrees_tos, :seen_the_tour]
+    factory :active_user, traits: [
+      :approved,
+      :confirmed,
+      :agrees_tos,
+      :seen_the_tour
+    ]
   end
 
   sequence :displaystring do |n|
