@@ -15,11 +15,11 @@ module Interactors
       end
 
       def validate
-        validate_hexadecimal_string(:user_id, user_id)
+        validate_hexadecimal_string :user_id, user_id
       end
 
       def execute
-        command(:'users/mark_as_deleted', user: user)
+        command :'users/mark_as_deleted', user: user
       end
     end
   end

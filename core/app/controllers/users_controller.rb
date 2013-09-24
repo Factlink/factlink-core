@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     password_ok = @user.valid_password? #TODO: move to interactor?
 
     if password_ok
-      interactor(:'users/delete', user_id:@user.id)
+      interactor(:'users/delete', user_id: @user.id)
 
       respond_to do |format|
         #TODO: UI, clear session?
