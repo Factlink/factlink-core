@@ -47,12 +47,12 @@ describe Interactors::Users::Delete do
   end
 
   describe '#validate' do
-    it 'with fixnum user_id doesn\'t validate' do
+    it 'raises when user_id is a Fixnum' do
       expect_validating(user_id: 12)
         .to fail_validation('user_id should be an hexadecimal string.')
     end
 
-    it 'without user_id doesn\'t validate' do
+    it 'raises when user_id is missing' do
       expect_validating({})
         .to fail_validation('user_id should be an hexadecimal string.')
     end
