@@ -1,7 +1,7 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/commands/users/mark_as_deleted'
 
-describe Commands::User::MarkAsDeleted do
+describe Commands::Users::MarkAsDeleted do
   include PavlovSupport
 
   describe "#validate" do

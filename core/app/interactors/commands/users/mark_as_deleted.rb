@@ -1,5 +1,5 @@
 module Commands
-  module User
+  module Users
     class MarkAsDeleted
       include Pavlov::Command
 
