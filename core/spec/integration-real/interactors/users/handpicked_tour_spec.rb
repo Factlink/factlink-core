@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'user following' do
   include PavlovSupport
 
-  let(:user) { create :user }
-  let(:handpicked_user) { create :user }
+  let(:user) { create :full_user }
+  let(:handpicked_user) { create :full_user }
 
   describe 'initially' do
     it 'shows no tour users' do
