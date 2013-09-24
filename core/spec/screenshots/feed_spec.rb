@@ -5,8 +5,8 @@ describe "factlink", type: :feature do
   include Acceptance::ChannelHelper
 
   before do
-    @user = sign_in_user create :active_user
-    @user2 = create :active_user
+    @user = sign_in_user create :full_user
+    @user2 = create :full_user
   end
 
   it 'it renders 2 Factlinks' do

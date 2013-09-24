@@ -5,8 +5,8 @@ describe FactRelation do
   it_behaves_like 'a believable object'
   subject {create(:fact_relation)}
 
-  let(:gu) {create(:user).graph_user}
-  let(:gu2) {create(:user).graph_user}
+  let(:gu) {create(:full_user).graph_user}
+  let(:gu2) {create(:full_user).graph_user}
 
   let(:evidence) {create :fact}
   let(:parent) {create :fact}
