@@ -57,17 +57,10 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       'right'
 
   _openVoteUpPopup: ->
-    return unless @_canShowPopup()
-
     @_open_vote_popup '.js-up', new FactRelationVoteUpView model: @model
 
   _openVoteDownPopup: ->
-    return unless @_canShowPopup()
-
     @_open_vote_popup '.js-down', new FactRelationVoteDownView model: @model
-
-  _canShowPopup: ->
-    @model instanceof FactRelation
 
   _closePopups: ->
     @popoverRemove '.js-up'
@@ -75,8 +68,6 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     @$el.removeClass 'evidence-impact-vote-popover'
 
   _setPopupHoverIntent: ->
-    return unless @_canShowPopup()
-
     @ui.upButton.hoverIntent
       timeout: 100
       over: => @_openVoteUpPopup() if @model.isBelieving()
