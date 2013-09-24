@@ -3,8 +3,8 @@ require "spec_helper"
 describe 'activity queries' do
   include AddFactToChannelSupport
   include RedisSupport
-  let(:gu1) { create(:active_user).graph_user }
-  let(:gu2) { create(:active_user).graph_user }
+  let(:gu1) { create(:full_user).graph_user }
+  let(:gu2) { create(:full_user).graph_user }
 
   include PavlovSupport
 
@@ -19,55 +19,14 @@ describe 'activity queries' do
 
   describe ".channel" do
     it "should return activity for when a channel followed this channel" do
-      ch1 = create :channel
-      ch2 = create :channel
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu1
 
       Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
         subchannel_id: ch2.id, pavlov_options: pavlov_options).call
       ch2.activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
-    end
-
-    context 'seeing channels' do
-      let(:gu1) { create(:seeing_channels_user).graph_user }
-      let(:gu2) { create(:seeing_channels_user).graph_user }
-
-      it "should return activity for all users following a channel of User1 when User1 creates a new channel" do
-        ch1 = create :channel, created_by: gu1
-        ch2 = create :channel, created_by: gu2
-
-        Interactors::Channels::AddSubchannel.new(channel_id: ch1.id.to_s,
-          subchannel_id: ch2.id.to_s, pavlov_options: pavlov_options).call
-        ch3 = create :channel, created_by: gu2
-
-        # Channel should not be empty
-        f1 = create :fact
-        add_fact_to_channel f1, ch3
-
-        gu1.stream_activities.map(&:to_hash_without_time).should == [
-          {user: gu2, action: :created_channel, subject: ch3}
-        ]
-      end
-
-      it "should return only one created activity when adding subchannels" do
-        ch1 = create :channel, created_by: gu1
-        ch2 = create :channel, created_by: gu2
-
-        Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-          subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-        ch3 = create :channel, created_by: gu2
-
-        4.times do
-          Interactors::Channels::AddSubchannel.new(channel_id: ch3.id,
-            subchannel_id: (create :channel).id, pavlov_options: pavlov_options).call
-        end
-
-        stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
-        expect(stream_activities).to eq [
-          {user: gu2, action: :created_channel, subject: ch3}
-        ]
-      end
     end
 
     it "should *not* return activity for all users following a channel of User1 when User1 creates a new channel" do
@@ -123,8 +82,8 @@ describe 'activity queries' do
 
   describe ".user" do
     context 'seeing channels' do
-      let(:gu1) { create(:seeing_channels_user).graph_user }
-      let(:gu2) { create(:seeing_channels_user).graph_user }
+      let(:gu1) { create(:full_user, :seeing_channels).graph_user }
+      let(:gu2) { create(:full_user, :seeing_channels).graph_user }
 
       it "should return notification when a user follows your channel" do
         ch1 = create :channel, created_by: gu1
@@ -249,7 +208,7 @@ describe 'activity queries' do
       end
     end
     it "should return an activity when a user accepts its invitation" do
-      inviter = create :user
+      inviter = create :full_user
 
       u = create :user
       u.invited_by = inviter
@@ -267,8 +226,8 @@ describe 'activity queries' do
     context "creating a conversation" do
       it "creates a notification for the receiver" do
         f  = create(:fact)
-        u1 = create(:user)
-        u2 = create(:user)
+        u1 = create(:full_user)
+        u2 = create(:full_user)
 
         interactor = Interactors::CreateConversationWithMessage.new(fact_id: f.id.to_s,
           recipient_usernames: [u1.username, u2.username], sender_id: u1.id.to_s,
@@ -309,7 +268,7 @@ describe 'activity queries' do
         fact = create(:fact)
         fact.add_opinion(:believes, gu1)
 
-        user = create(:user)
+        user = create(:full_user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
           type: 'believes', content: 'tex message',
@@ -323,7 +282,7 @@ describe 'activity queries' do
       it "creates a stream activity for the interacting users" do
         fact = create(:fact)
         fact.add_opinion(:believes, gu1)
-        user = create(:user)
+        user = create(:full_user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
           type: 'believes', content: 'tex message',
@@ -339,7 +298,7 @@ describe 'activity queries' do
   end
 
   describe :sub_comments do
-    let(:current_user) {create :user}
+    let(:current_user) {create :full_user}
 
     context "creating a sub comment on a comment" do
       context "gu1 believes the topfact" do
@@ -597,8 +556,8 @@ describe 'activity queries' do
   end
 
   describe 'following a person' do
-    let(:user)     { create(:active_user) }
-    let(:followee) { create(:active_user) }
+    let(:user)     { create(:full_user) }
+    let(:followee) { create(:full_user) }
     it 'creates a notification for the followed person' do
       as(user) do |pavlov|
         pavlov.interactor(:'users/follow_user', user_name: user.username, user_to_follow_user_name: followee.username)
@@ -609,7 +568,7 @@ describe 'activity queries' do
       ]
     end
     it 'creates a stream activity for your followers' do
-      follower = create(:active_user)
+      follower = create(:full_user)
 
       as(follower) do |pavlov|
         pavlov.interactor(:'users/follow_user', user_name: follower.username, user_to_follow_user_name: user.username)
@@ -626,7 +585,7 @@ describe 'activity queries' do
 
   describe "following a person" do
       it "creates a activity when a user you follow adds a factlink to a channel" do
-        gu3 =create(:active_user).graph_user
+        gu3 =create(:full_user).graph_user
         UserFollowingUsers.new(gu2.id).follow gu1.id
 
         f1 = create :fact, created_by: gu3

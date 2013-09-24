@@ -4,7 +4,7 @@ describe "factlink", type: :feature do
   include Screenshots::DiscussionHelper
 
   before :each do
-    @user = sign_in_user create :active_user
+    @user = sign_in_user create :full_user
   end
 
   it "the layout of the discussion page is correct" do

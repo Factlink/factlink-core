@@ -69,7 +69,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     @_open_vote_popup '.js-down', new FactRelationVoteDownView model: @model
 
   _canShowPopup: ->
-    @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
+    @model instanceof FactRelation
 
   _closePopups: ->
     @popoverRemove '.js-up'
