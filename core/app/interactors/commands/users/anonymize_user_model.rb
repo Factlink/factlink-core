@@ -9,7 +9,7 @@ module Commands
 
       def execute
         User.personal_information_string_fields.each do |field|
-          user[field] = ''
+          user[field] = User.fields[field].default_val
         end
 
         user.first_name            = 'anonymous'

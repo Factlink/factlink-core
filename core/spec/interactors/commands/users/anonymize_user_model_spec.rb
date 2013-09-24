@@ -19,10 +19,10 @@ describe Commands::Users::AnonymizeUserModel do
       saved_user = User.find(user.id)
       expect(saved_user.first_name).to_not include('data')
       expect(saved_user.last_name).to_not include('data')
-      expect(saved_user.location).to_not include('data')
-      expect(saved_user.biography).to_not include('data')
-      expect(saved_user.twitter).to_not include('data')
       expect(saved_user.username).to_not include('data')
+      expect(saved_user.location).to be_nil
+      expect(saved_user.biography).to be_nil
+      expect(saved_user.twitter).to be_nil
 
       expect(saved_user.identities['twitter']).to eq nil
       expect(saved_user.identities['facebook']).to eq nil
