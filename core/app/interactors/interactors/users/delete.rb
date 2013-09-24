@@ -19,7 +19,7 @@ module Interactors
       end
 
       def execute
-
+        command(:'users/delete', user: user)
       end
     end
   end
