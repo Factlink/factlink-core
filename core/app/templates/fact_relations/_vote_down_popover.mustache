@@ -2,7 +2,7 @@
   <div class="vote-up-down-line js-fact-relation-line"><span class="vote-up-down-text">You think this is irrelevant.</span><button class="button button-small vote-up-down-button js-fact-relation-undisbelieve">Undo</button></div>
 {{/disbelieves_fact_relation}}
 {{^disbelieves_fact_relation}}
-  <div class="vote-up-down-line js-fact-relation-line"><span class="vote-up-down-text">Is this Factlink irrelevant?</span><button class="button button-small vote-up-down-button js-fact-relation-disbelieve">Yes</button></div>
+  <div class="vote-up-down-line js-fact-relation-line"><span class="vote-up-down-text">Is this {{argument_type}} irrelevant?</span><button class="button button-small vote-up-down-button js-fact-relation-disbelieve">Yes</button></div>
 {{/disbelieves_fact_relation}}
 
 {{#has_fact}}
@@ -10,6 +10,6 @@
     <div class="vote-up-down-line js-fact-line"><span class="vote-up-down-text">You think this is incorrect or false.</span><button class="button button-small vote-up-down-button js-fact-undisbelieve">Undo</button></div>
   {{/disbelieves_fact}}
   {{^disbelieves_fact}}
-    <div class="vote-up-down-line js-fact-line"><span class="vote-up-down-text">Is this Factlink incorrect or false?</span><button class="button button-small vote-up-down-button js-fact-disbelieve">Yes</button></div>
+    <div class="vote-up-down-line js-fact-line"><span class="vote-up-down-text">Is this {{argument_type}} incorrect or false?</span><button class="button button-small vote-up-down-button js-fact-disbelieve">Yes</button></div>
   {{/disbelieves_fact}}
 {{/has_fact}}
