@@ -17,6 +17,8 @@ module Commands
 
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"
+        # TODO: at some point we can use an official invalid address (check RFCs)
+        # For now we want to easily see what mails deleted users still get
 
         user.save!
       end
