@@ -12,8 +12,8 @@ module Commands
           user[field] = User.fields[field].default_val
         end
 
-        user.first_name            = 'anonymous'
-        user.last_name             = 'anonymous'
+        user.first_name            = 'Deleted'
+        user.last_name             = 'user'
         user.password              = 'some_password_henk_gerard_gerrit'
         user.password_confirmation = 'some_password_henk_gerard_gerrit'
 
