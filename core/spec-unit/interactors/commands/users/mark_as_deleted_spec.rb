@@ -36,8 +36,8 @@ describe Commands::Users::MarkAsDeleted do
       user = User.new
       command = described_class.new user: user
 
-      expect(user).to receive(:deleted=).with(true).once
-      expect(user).to receive(:save).once.and_return(true)
+      expect(user).to receive(:deleted=).with(true).ordered
+      expect(user).to receive(:save!).ordered
 
       command.execute
     end
