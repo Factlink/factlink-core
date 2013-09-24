@@ -1,3 +1,7 @@
+highlight = ($el) ->
+  _.defer (-> $el.addClass 'vote-up-down-highlight')
+  _.delay (-> $el.removeClass 'vote-up-down-highlight'), 1000
+
 class FactRelationVoteView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down'
@@ -27,16 +31,12 @@ class FactRelationVoteView extends Backbone.Marionette.ItemView
   initialize: ->
     @listenTo @model, "change:current_user_opinion", ->
       @render()
-      @highlight @ui.factRelationLine
+      highlight @ui.factRelationLine
 
     if @model instanceof FactRelation
       @listenTo @model.getFact().getFactWheel(), "sync", ->
         @render()
-        @highlight @ui.factLine
-
-  highlight: ($el) ->
-    _.defer (-> $el.addClass 'vote-up-down-highlight')
-    _.delay (-> $el.removeClass 'vote-up-down-highlight'), 1000
+        highlight @ui.factLine
 
   set_fact_relation_opinion: (opinion) ->
     return if @model.current_opinion() == opinion
