@@ -3,12 +3,11 @@ require_relative '../../../../app/interactors/interactors/users/delete'
 
 describe Interactors::Users::Delete do
   include PavlovSupport
+  before do
+    stub_classes 'User'
+  end
 
   describe '#authorized?' do
-    before do
-      stub_classes 'User'
-    end
-
     it 'throws when non-existant user passed' do
       user_id = 'a1234'
       User.stub(:find).with(user_id).and_return(nil)
@@ -61,8 +60,6 @@ describe Interactors::Users::Delete do
 
   describe '#call' do
     it 'it calls the delete command' do
-      stub_classes 'User'
-
       user = double(:user, id: 'a234')
       ability = double(:ability)
       ability.stub(:can?).with(:delete, user).and_return(true)
