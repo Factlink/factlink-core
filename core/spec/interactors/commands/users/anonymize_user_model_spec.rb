@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Commands::Users::AnonymizeUserModel do
   describe '#call' do
     it 'anonymizes fields of the user that could contain personal data' do
-      user = create :active_user,
+      user = create :full_user,
         username: 'data',
         first_name: 'data',
         last_name: 'data',
