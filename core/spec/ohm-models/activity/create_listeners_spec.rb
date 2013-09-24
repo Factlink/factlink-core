@@ -19,8 +19,8 @@ describe 'activity queries' do
 
   describe ".channel" do
     it "should return activity for when a channel followed this channel" do
-      ch1 = create :channel
-      ch2 = create :channel
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu1
 
       Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
         subchannel_id: ch2.id, pavlov_options: pavlov_options).call
