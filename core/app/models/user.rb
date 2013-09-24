@@ -133,25 +133,17 @@ class User
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
+  scope :approved, where(:approved => true)
+  scope :active, approved
+                  .where(:confirmed_at.ne => nil)
+                  .where(:agrees_tos => true)
+  scope :seen_the_tour,   active
+                            .where(:seen_tour_step => 'tour_done')
+  scope :receives_digest, active
+                            .where(:receives_digest => true)
+
+
   class << self
-    def receives_digest
-      active.where(:receives_digest => true)
-    end
-
-    def seen_the_tour
-      active.where(:seen_tour_step => 'tour_done')
-    end
-
-    def active
-      approved.
-        where(:confirmed_at.ne => nil).
-        where(:agrees_tos => true)
-    end
-
-    def approved
-      where(:approved => true)
-    end
-
     def find_for_oauth(provider_name, uid)
       where(:"identities.#{provider_name}.uid" => uid).first
     end

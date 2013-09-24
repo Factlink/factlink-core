@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'favouriting topics' do
   include PavlovSupport
 
-  let(:user1)   { create :user }
-  let(:user2)   { create :user }
+  let(:user1) { create :full_user }
+  let(:user2) { create :full_user }
 
   before do
     Interactors::Topics::Favourite.any_instance.stub :mp_track

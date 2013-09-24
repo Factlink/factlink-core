@@ -7,7 +7,7 @@ feature "visiting the stream" do
   include PavlovSupport
 
   background do
-    @user = create :active_user
+    @user = create :full_user
   end
 
   scenario "adding first fact" do
