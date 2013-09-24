@@ -31,12 +31,6 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
 
     @model.getFactWheel().undoOpinion()
 
-class window.FactVoteUpLineView extends FactVoteLineView
-  template: 'facts/vote_up_line'
-
-class window.FactVoteDownLineView extends FactVoteLineView
-  template: 'facts/vote_down_line'
-
 class FactRelationVoteLineView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down-line'
@@ -66,12 +60,6 @@ class FactRelationVoteLineView extends Backbone.Marionette.ItemView
 
     @model.undoOpinion()
 
-class window.FactRelationVoteUpLineView extends FactRelationVoteLineView
-  template: 'fact_relations/vote_up_line'
-
-class window.FactRelationVoteDownLineView extends FactRelationVoteLineView
-  template: 'fact_relations/vote_down_line'
-
 class ArgumentVoteView extends Backbone.Marionette.Layout
   className: 'vote-up-down'
   template: 'arguments/vote_popover'
@@ -81,17 +69,23 @@ class ArgumentVoteView extends Backbone.Marionette.Layout
     factLineRegion: '.js-fact-line-region'
 
 class window.ArgumentVoteUpView extends ArgumentVoteView
-
   onRender: ->
-    @factRelationLineRegion.show new FactRelationVoteUpLineView(model: @model)
+    @factRelationLineRegion.show new FactRelationVoteLineView
+      template: 'fact_relations/vote_up_line'
+      model: @model
 
     if @model instanceof FactRelation
-      @factLineRegion.show new FactVoteUpLineView(model: @model.getFact())
+      @factLineRegion.show new FactVoteLineView
+        template: 'facts/vote_up_line'
+        model: @model.getFact()
 
 class window.ArgumentVoteDownView extends ArgumentVoteView
-
   onRender: ->
-    @factRelationLineRegion.show new FactRelationVoteDownLineView(model: @model)
+    @factRelationLineRegion.show new FactRelationVoteLineView
+      template: 'fact_relations/vote_down_line'
+      model: @model
 
     if @model instanceof FactRelation
-      @factLineRegion.show new FactVoteDownLineView(model: @model.getFact())
+      @factLineRegion.show new FactVoteLineView
+        template: 'facts/vote_down_line'
+        model: @model.getFact()
