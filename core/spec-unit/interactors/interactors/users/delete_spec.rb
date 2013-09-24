@@ -72,55 +72,20 @@ describe Interactors::Users::Delete do
     end
   end
 
-  describe '#call' do
-    #before do
-    #  described_class.any_instance.stub(authorized?: true, validate: true)
-    #end
-    #
-    #it 'it calls the query to get a list of followed users' do
-    #  user_name = double
-    #  skip = double
-    #  take = double
-    #  current_user = double(graph_user_id: double)
-    #  pavlov_options = { current_user: current_user }
-    #  interactor = described_class.new(user_name: user_name, skip: skip,
-    #                                   take: take, pavlov_options: pavlov_options)
-    #  users = double(length: double)
-    #  graph_user_ids = double
-    #  count = double
-    #  user = double(graph_user_id: double)
-    #  followed_by_me = true
-    #
-    #  Pavlov.should_receive(:query)
-    #  .with(:'user_by_username',
-    #        username: user_name, pavlov_options: pavlov_options)
-    #  .and_return(user)
-    #  Pavlov.should_receive(:query)
-    #  .with(:'users/follower_graph_user_ids',
-    #        graph_user_id: user.graph_user_id.to_s,
-    #        pavlov_options: pavlov_options)
-    #  .and_return(graph_user_ids)
-    #  Pavlov.should_receive(:query)
-    #  .with(:'users_by_graph_user_ids',
-    #        graph_user_ids: graph_user_ids, pavlov_options: pavlov_options)
-    #  .and_return(users)
-    #
-    #  graph_user_ids.should_receive(:include?)
-    #  .with(current_user.graph_user_id)
-    #  .and_return(followed_by_me)
-    #
-    #  users.should_receive(:drop)
-    #  .with(skip)
-    #  .and_return(users)
-    #  users.should_receive(:take)
-    #  .with(take)
-    #  .and_return(users)
-    #
-    #  returned_users, returned_count, returned_followed_by_me = interactor.call
-    #
-    #  expect(returned_users).to eq users
-    #  expect(returned_count).to eq users.length
-    #  expect(returned_followed_by_me).to eq followed_by_me
-    #end
+  describe '#execute' do
+    it 'it calls the delete command' do
+      stub_classes 'User'
+
+      user_id = double
+      user = double
+      pavlov_options = double
+      User.stub(:find).with(user_id).and_return(user)
+
+      interactor = described_class.new(user_id: user_id, pavlov_options: pavlov_options)
+
+      Pavlov.should_receive(:command)
+        .with(:'users/delete', user: user, pavlov_options: pavlov_options)
+      interactor.execute
+    end
   end
 end
