@@ -173,6 +173,12 @@ class User
         "biography"       => "biography"
       }
     end
+
+    # Non-string fields are handled separately in Commands::Users::AnonymizeUserModel
+    def personal_information_string_fields
+      # Deliberately not removing agrees_tos_name for now
+      [:first_name, :last_name, :location, :biography, :twitter]
+    end
   end
 
   after_invitation_accepted :approve_invited_user_and_create_activity

@@ -8,17 +8,15 @@ module Commands
       private
 
       def execute
+        User.personal_information_string_fields.each do |field|
+          user[field] = ''
+        end
+
         user.first_name            = 'anonymous'
         user.last_name             = 'anonymous'
-        user.location              = ''
-        user.biography             = ''
-        user.twitter               = ''
         user.password              = 'some_password_henk_gerard_gerrit'
         user.password_confirmation = 'some_password_henk_gerard_gerrit'
         user.identities            = {}
-
-        # Deliberately not removing agrees_tos_name
-        # But not testing this behaviour either.. :-D
 
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"
