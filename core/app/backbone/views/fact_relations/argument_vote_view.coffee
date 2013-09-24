@@ -37,21 +37,15 @@ class window.FactVoteUpLineView extends FactVoteLineView
 class window.FactVoteDownLineView extends FactVoteLineView
   template: 'facts/vote_down_line'
 
-class ArgumentVoteView extends Backbone.Marionette.Layout
+class FactRelationVoteLineView extends Backbone.Marionette.ItemView
 
-  className: 'vote-up-down'
+  className: 'vote-up-down-line'
 
   events:
     'click .js-fact-relation-believe':      -> @set_opinion 'believes'
     'click .js-fact-relation-unbelieve':    -> @unset_opinion 'believes'
     'click .js-fact-relation-disbelieve':   -> @set_opinion 'disbelieves'
     'click .js-fact-relation-undisbelieve': -> @unset_opinion 'disbelieves'
-
-  ui:
-    factRelationLine: '.js-fact-relation-line'
-
-  regions:
-    factLineRegion: '.js-fact-line-region'
 
   templateHelpers: =>
     believes: @model.isBelieving()
@@ -60,7 +54,7 @@ class ArgumentVoteView extends Backbone.Marionette.Layout
   initialize: ->
     @listenTo @model, "change:current_user_opinion", ->
       @render()
-      highlight @ui.factRelationLine
+      highlight @$el
 
   set_opinion: (opinion) ->
     return if @model.current_opinion() == opinion
@@ -72,16 +66,32 @@ class ArgumentVoteView extends Backbone.Marionette.Layout
 
     @model.undoOpinion()
 
+class window.FactRelationVoteUpLineView extends FactRelationVoteLineView
+  template: 'fact_relations/vote_up_line'
+
+class window.FactRelationVoteDownLineView extends FactRelationVoteLineView
+  template: 'fact_relations/vote_down_line'
+
+class ArgumentVoteView extends Backbone.Marionette.Layout
+  className: 'vote-up-down'
+  template: 'arguments/vote_popover'
+
+  regions:
+    factRelationLineRegion: '.js-fact-relation-line-region'
+    factLineRegion: '.js-fact-line-region'
+
 class window.ArgumentVoteUpView extends ArgumentVoteView
-  template: 'fact_relations/vote_up_popover'
 
   onRender: ->
+    @factRelationLineRegion.show new FactRelationVoteUpLineView(model: @model)
+
     if @model instanceof FactRelation
       @factLineRegion.show new FactVoteUpLineView(model: @model.getFact())
 
 class window.ArgumentVoteDownView extends ArgumentVoteView
-  template: 'fact_relations/vote_down_popover'
 
   onRender: ->
+    @factRelationLineRegion.show new FactRelationVoteDownLineView(model: @model)
+
     if @model instanceof FactRelation
       @factLineRegion.show new FactVoteDownLineView(model: @model.getFact())
