@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SearchController do
 
-  let (:user)  {create :user}
+  let (:user)  {create :active_user}
 
   render_views
 

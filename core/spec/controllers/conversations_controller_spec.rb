@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ConversationsController do
-  let(:user) { create :user}
+  let(:user) { create :active_user}
 
   describe :index do
     it "calls the correct query" do

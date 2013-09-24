@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'following a channel' do
   include PavlovSupport
 
-  let(:current_user) {create :user}
-  let(:other_user)   {create :user}
-  let(:third_user)   {create :user}
+  let(:current_user) { create :active_user }
+  let(:other_user)   { create :active_user }
+  let(:third_user)   { create :active_user }
 
   it "creating a channel" do
     as current_user do |pavlov|

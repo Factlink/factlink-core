@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SitesController do
   include PavlovSupport
 
-  let(:user) { create(:user) }
+  let(:user) { create(:active_user) }
 
   describe :facts_count_for_url do
     it "should return 0 for site with no facts" do

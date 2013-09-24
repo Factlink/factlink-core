@@ -4,7 +4,7 @@ describe 'when adding a fact to a channel' do
   include PavlovSupport
 
   context 'with no followers' do
-    let(:user) {create :user}
+    let(:user) { create :active_user }
     it "adds the fact to the channel" do
       as(user) do |pavlov|
         fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
@@ -35,8 +35,8 @@ describe 'when adding a fact to a channel' do
   end
 
   context 'with a follower' do
-    let(:follower) {create :user}
-    let(:creator) {create :user}
+    let(:follower) { create :active_user }
+    let(:creator) { create :active_user }
 
     it "should add the fact to the follower" do
       fact, sub_channel, channel = ()
@@ -64,9 +64,9 @@ describe 'when adding a fact to a channel' do
   end
 
   context 'with a followed follower' do
-    let(:follower) {create :user}
-    let(:followers_follower) {create :user}
-    let(:creator) {create :user}
+    let(:follower) { create :active_user }
+    let(:followers_follower) { create :active_user }
+    let(:creator) { create :active_user }
 
     it "should add the fact to the follower" do
       fact, sub_sub_channel, sub_channel, channel = ()

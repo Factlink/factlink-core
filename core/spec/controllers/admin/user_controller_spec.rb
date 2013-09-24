@@ -17,7 +17,7 @@ describe Admin::UsersController do
     }
   end
 
-  let (:user)  {create :admin_user}
+  let (:user)  {create :active_user, :admin}
 
   before do
     should_check_admin_ability

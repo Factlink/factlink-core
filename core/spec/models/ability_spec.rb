@@ -12,7 +12,7 @@ describe Ability do
   # users used as object
   let(:user)        {create :active_user}
   let(:other_user)  {create :active_user }
-  let(:admin_user)  {create :admin_user}
+  let(:admin_user)  {create :active_user, :admin}
   let(:nonnda_user) {create :user, agrees_tos: false}
 
   describe "to manage a user" do

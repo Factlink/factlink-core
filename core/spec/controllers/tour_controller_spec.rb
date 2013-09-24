@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TourController do
 
-  let(:user) { create :user }
+  let(:user) { create :active_user }
 
   describe :install_extension do
     it "should render install_extension template" do

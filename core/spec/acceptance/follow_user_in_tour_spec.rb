@@ -6,10 +6,10 @@ feature "follow_users_in_tour", type: :feature do
   include Acceptance::TopicHelper
 
   before do
-    @user = create :approved_confirmed_user
+    @user = create :approved_confirmed_user, :agrees_tos
 
-    @user1 = create :user
-    @user2 = create :user
+    @user1 = create :active_user
+    @user2 = create :active_user
     Pavlov.command(:'users/add_handpicked_user', user_id: @user1.id.to_s)
     Pavlov.command(:'users/add_handpicked_user', user_id: @user2.id.to_s)
 

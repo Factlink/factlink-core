@@ -82,8 +82,8 @@ describe 'activity queries' do
 
   describe ".user" do
     context 'seeing channels' do
-      let(:gu1) { create(:seeing_channels_user).graph_user }
-      let(:gu2) { create(:seeing_channels_user).graph_user }
+      let(:gu1) { create(:active_user, :seeing_channels).graph_user }
+      let(:gu2) { create(:active_user, :seeing_channels).graph_user }
 
       it "should return notification when a user follows your channel" do
         ch1 = create :channel, created_by: gu1
@@ -208,7 +208,7 @@ describe 'activity queries' do
       end
     end
     it "should return an activity when a user accepts its invitation" do
-      inviter = create :user
+      inviter = create :active_user
 
       u = create :user
       u.invited_by = inviter
@@ -226,8 +226,8 @@ describe 'activity queries' do
     context "creating a conversation" do
       it "creates a notification for the receiver" do
         f  = create(:fact)
-        u1 = create(:user)
-        u2 = create(:user)
+        u1 = create(:active_user)
+        u2 = create(:active_user)
 
         interactor = Interactors::CreateConversationWithMessage.new(fact_id: f.id.to_s,
           recipient_usernames: [u1.username, u2.username], sender_id: u1.id.to_s,
@@ -268,7 +268,7 @@ describe 'activity queries' do
         fact = create(:fact)
         fact.add_opinion(:believes, gu1)
 
-        user = create(:user)
+        user = create(:active_user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
           type: 'believes', content: 'tex message',
@@ -282,7 +282,7 @@ describe 'activity queries' do
       it "creates a stream activity for the interacting users" do
         fact = create(:fact)
         fact.add_opinion(:believes, gu1)
-        user = create(:user)
+        user = create(:active_user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
           type: 'believes', content: 'tex message',
@@ -298,7 +298,7 @@ describe 'activity queries' do
   end
 
   describe :sub_comments do
-    let(:current_user) {create :user}
+    let(:current_user) {create :active_user}
 
     context "creating a sub comment on a comment" do
       context "gu1 believes the topfact" do

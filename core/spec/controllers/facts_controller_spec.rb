@@ -5,7 +5,7 @@ describe FactsController do
 
   render_views
 
-  let(:user) { create(:user) }
+  let(:user) { create(:active_user) }
 
   describe :show do
     it "should render successful" do

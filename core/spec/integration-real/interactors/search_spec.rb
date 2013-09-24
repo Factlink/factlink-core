@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'full text search' do
   include PavlovSupport
-  let(:current_user) { create :user }
+  let(:current_user) { create :active_user }
 
   before do
     ElasticSearch.stub synchronous: true
@@ -18,7 +18,7 @@ describe 'full text search' do
 
     it 'when a user is added he is found' do
       as(current_user) do |pavlov|
-        create :approved_confirmed_user, username: 'mark'
+        create :active_user, username: 'mark'
 
         users = pavlov.interactor :search_user, keywords: 'mark'
         expect(users.map(&:username)).to eq ['mark']
@@ -27,7 +27,7 @@ describe 'full text search' do
 
     it 'after reindex a user is still found' do
       as(current_user) do |pavlov|
-        create :approved_confirmed_user, username: 'mark'
+        create :active_user, username: 'mark'
 
         pavlov.interactor :'full_text_search/reindex'
 

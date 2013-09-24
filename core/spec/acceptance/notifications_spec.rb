@@ -10,8 +10,8 @@ feature "notifications", type: :feature do
   scenario %q{When another user follows my channel,
             I get a notification, and can click on it,
             to go to the following channel} do
-    current_user = create :seeing_channels_user
-    other_user = create :seeing_channels_user
+    current_user = create :active_user, :seeing_channels
+    other_user = create :active_user, :seeing_channels
 
     other_users_channel =
       backend_create_viewable_channel_for other_user
@@ -36,8 +36,8 @@ feature "notifications", type: :feature do
   scenario %q{When another user follows my channel,
             I get a notification, and directly follow
             back their channel from the notification} do
-    current_user = create :seeing_channels_user
-    other_user = create :seeing_channels_user
+    current_user = create :active_user, :seeing_channels
+    other_user = create :active_user, :seeing_channels
 
     other_users_channel =
       backend_create_viewable_channel_for other_user
