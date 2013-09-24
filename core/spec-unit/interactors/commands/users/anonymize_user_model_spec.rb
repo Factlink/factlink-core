@@ -10,13 +10,21 @@ describe Commands::Users::AnonymizeUserModel do
       stub_classes 'User'
     end
 
-    it 'anonymizes fields of the user that contains personal data' do
+    it 'anonymizes fields of the user that could contain personal data' do
       user = OpenStruct.new id: '1a'
       command = described_class.new user_id: user.id
 
       User.stub(:find).with(user.id).and_return user
 
-      expect(user).to receive(:save!)
+      expect(user).to receive(:save!) do
+        expect(user.first_name).to eq 'anonymous'
+        expect(user.last_name).to eq 'anonymous'
+        expect(user.email).to eq 'deleted@factlink.com'
+        expect(user.location).to eq ''
+        expect(user.biography).to eq ''
+        expect(user.identities['twitter']).to eq nil
+        expect(user.identities['facebook']).to eq nil
+      end
 
       command.call
     end

@@ -7,6 +7,14 @@ module Commands
 
       def execute
         user = User.find(user_id)
+
+        user.first_name = 'anonymous'
+        user.last_name = 'anonymous'
+        user.email = 'deleted@factlink.com'
+        user.location = ''
+        user.biography = ''
+        user.identities = {}
+
         user.save!
       end
     end
