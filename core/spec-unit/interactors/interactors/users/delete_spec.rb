@@ -4,11 +4,9 @@ require_relative '../../../../app/interactors/interactors/users/delete'
 describe Interactors::Users::Delete do
   include PavlovSupport
 
-
   describe '#authorized?' do
     before do
       stub_classes 'User'
-      #described_class.any_instance.stub(validate: true)
     end
 
     it 'throws when non-existant user passed' do
