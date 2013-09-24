@@ -3,9 +3,9 @@ require_relative '../../../../app/interactors/commands/users/mark_as_deleted'
 
 describe Commands::Users::MarkAsDeleted do
   include PavlovSupport
+  before { stub_classes 'User' }
 
   describe "#validate" do
-    before { stub_classes 'User' }
 
     it "requires a non-nil user" do
       command = described_class.new user: nil
@@ -31,8 +31,6 @@ describe Commands::Users::MarkAsDeleted do
 
 
   describe "#execute" do
-    before { stub_classes 'User' }
-
     it "marks the user as deleted" do
 
       user = User.new
