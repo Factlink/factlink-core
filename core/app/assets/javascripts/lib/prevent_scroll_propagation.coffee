@@ -5,18 +5,18 @@ shouldUseNativeBehaviour = ($el) ->
   # but there isn't anything to scroll
   $el.css('overflow-y') == 'auto' && $el[0].scrollHeight <= $el.innerHeight()
 
-shouldPreventScroll = ($el, deltaY) ->
+shouldPreventScroll = ($el, delta) ->
   # Scrolling upward but cannot scroll any further
-  return true if deltaY > 0 && $el.scrollTop() <= 0
+  return true if delta > 0 && $el.scrollTop() <= 0
 
   # Scrolling downward but cannot scroll any further
-  return true if deltaY < 0 && $el.scrollTop() >= $el[0].scrollHeight - $el.innerHeight()
+  return true if delta < 0 && $el.scrollTop() >= $el[0].scrollHeight - $el.innerHeight()
 
   false
 
 $.fn.preventScrollPropagation = ->
   @each ->
-    $(this).on 'mousewheel', (event, delta, deltaX, deltaY) ->
+    $(this).on 'mousewheel', (event, delta) ->
       $el = $(event.delegateTarget)
       return if shouldUseNativeBehaviour($el)
 
@@ -24,5 +24,5 @@ $.fn.preventScrollPropagation = ->
       # This does mean that all children should also have preventScrollPropagation!
       event.stopPropagation()
 
-      if shouldPreventScroll($el, deltaY)
+      if shouldPreventScroll($el, delta)
         event.preventDefault()
