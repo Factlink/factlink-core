@@ -49,11 +49,10 @@ class window.ArgumentVoteUpView extends ArgumentVoteView
   onRender: ->
     @factRelationLineRegion.show new FactRelationVoteUpLineView model: @model
     if @model instanceof FactRelation
-      @factLineRegion.show new FactVoteUpLineView @model.getFact().getFactWheel()
+      @factLineRegion.show new FactVoteUpLineView model: @model.getFact().getFactWheel()
 
 class window.ArgumentVoteDownView extends ArgumentVoteView
   onRender: ->
     @factRelationLineRegion.show new FactRelationVoteDownLineView model: @model
-
     if @model instanceof FactRelation
       @factLineRegion.show new FactVoteDownLineView model: @model.getFact().getFactWheel()
