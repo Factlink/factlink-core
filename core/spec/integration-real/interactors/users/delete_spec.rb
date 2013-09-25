@@ -9,8 +9,7 @@ describe Interactors::Users::Delete do
     as(user) do |pavlov|
       described_class.new(user_id: user.id.to_s, pavlov_options: pavlov.pavlov_options).call
     end
-    reloaded_user = Pavlov.query(:'users_by_ids', user_ids:[user.id])
-
-    expect(reloaded_user.delete).to eq(true)
+    reloaded_user = Pavlov.query(:'users_by_ids', user_ids:[user.id])[0]
+    expect(reloaded_user.deleted).to eq(true)
   end
 end
