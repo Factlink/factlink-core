@@ -40,12 +40,19 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def interaction interactor_name, options
+    klass = Pavlov.class_for_interactor(interactor_name)
+    klass.new options.merge pavlov_options: pavlov_options
+  end
+
   def destroy
     authorize! :delete, @user
 
-    interactor = true # TODO Add actual interactor here
+    delete = interaction(:'users/delete', user_id: @user.id)
 
-    if interactor
+    if delete.valid?
+      #delete.call
       sign_out
       redirect_to root_path, notice: 'Your account has been deleted.'
     else
