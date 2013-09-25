@@ -40,6 +40,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete
+    authorize! :delete, @user
+
+    interactor = true # TODO Add actual interactor here
+
+    if interactor
+      sign_out
+      redirect_to root_path, notice: 'Your account has been deleted.'
+    else
+      redirect_to edit_user_path(current_user), alert: 'Your account could not be deleted. Did you enter the correct password?'
+    end
+  end
+
   def activities
     authorize! :see_activities, @user
     @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true, withscores: true )
