@@ -166,6 +166,11 @@ class User
         "biography"       => "biography"
       }
     end
+
+    def personal_information_fields
+      # Deliberately not removing agrees_tos_name for now
+      ['first_name', 'last_name', 'location', 'biography', 'twitter', 'identities']
+    end
   end
 
   after_invitation_accepted :approve_invited_user_and_create_activity
