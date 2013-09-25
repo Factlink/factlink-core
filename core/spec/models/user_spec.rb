@@ -194,8 +194,8 @@ describe User do
 
   end
 
-  # also describes .hidden
-  describe '.active' do
+  # also describes .hidden?
+  describe '.active?' do
     context "new user" do
       let(:waiting_list_user) { create :user }
       it { expect(waiting_list_user).to_not be_active }
