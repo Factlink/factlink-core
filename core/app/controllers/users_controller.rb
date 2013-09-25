@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    authorize! :delete, @user
+    authorize! :destroy, @user
 
     delete = interaction(:'users/delete', user_id: @user.id)
 

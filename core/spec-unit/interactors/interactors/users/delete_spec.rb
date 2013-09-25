@@ -32,7 +32,7 @@ describe Interactors::Users::Delete do
 
       User.stub(:find).with(other_user.id).and_return(other_user)
 
-      ability.stub(:can?).with(:delete, other_user).and_return(false)
+      ability.stub(:can?).with(:destroy, other_user).and_return(false)
 
       interactor = described_class.new(
           user_id: other_user.id,
@@ -47,7 +47,7 @@ describe Interactors::Users::Delete do
       user = double(:user, id: 'a123')
       User.stub(:find).with(user.id).and_return(user)
       ability = double(:ability)
-      ability.stub(:can?).with(:delete, user).and_return(true)
+      ability.stub(:can?).with(:destroy, user).and_return(true)
 
       interactor = described_class.new(
           user_id: user.id,
@@ -92,7 +92,7 @@ describe Interactors::Users::Delete do
     it 'it calls the delete+anonymize commands' do
       user = double(:user, id: 'a234')
       ability = double(:ability)
-      ability.stub(:can?).with(:delete, user).and_return(true)
+      ability.stub(:can?).with(:destroy, user).and_return(true)
       pavlov_options = { ability: ability }
 
       User.stub(:find).with(user.id).and_return(user)

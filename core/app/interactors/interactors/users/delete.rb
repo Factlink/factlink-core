@@ -9,7 +9,7 @@ module Interactors
       attribute :pavlov_options
 
       def authorized?
-        can? :delete, user
+        can? :destroy, user
       end
 
       private
