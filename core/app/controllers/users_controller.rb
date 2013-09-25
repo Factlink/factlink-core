@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     authorize! :delete, @user
 
     interactor = true # TODO Add actual interactor here
