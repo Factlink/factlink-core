@@ -23,6 +23,7 @@ describe Ability do
       it {subject.should     be_able_to :show, user }
       it {subject.should     be_able_to :show, other_user }
       it {subject.should     be_able_to :update, user }
+      it {subject.should     be_able_to :destroy, user }
 
       it {subject.should     be_able_to :read_tos, user }
       it {subject.should_not be_able_to :sign_tos, user }
@@ -31,6 +32,7 @@ describe Ability do
 
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
+      it {subject.should_not be_able_to :destroy, other_user }
     end
     context "as a nonnda user" do
       it {nonnda.should_not be_able_to :manage, User }
