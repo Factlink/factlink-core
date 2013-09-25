@@ -22,7 +22,7 @@ describe 'A user deletes his account', type: :feature do
     page.should have_content 'Your account has been deleted.'
   end
 
-  pending 'with an incorrect password' do
+  it 'with an incorrect password' do
     fill_in 'user_password', with: 'A WRONG PASSWORD'
 
     click_button 'Delete my entire account'
