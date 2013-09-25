@@ -6,11 +6,11 @@ module Interactors
 
       arguments :user_id
 
-      private
-
       def authorized?
         can? :delete, user
       end
+
+      private
 
       def user
         @user ||= User.find user_id
