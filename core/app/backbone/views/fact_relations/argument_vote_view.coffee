@@ -7,9 +7,9 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
   className: 'vote-up-down-line'
 
   events:
-    'click .js-believe':      -> @set_opinion 'believe'
+    'click .js-believe':      -> @model.believe()
     'click .js-unbelieve':    -> @unset_opinion 'believe'
-    'click .js-disbelieve':   -> @set_opinion 'disbelieve'
+    'click .js-disbelieve':   -> @model.disbelieve()
     'click .js-undisbelieve': -> @unset_opinion 'disbelieve'
 
   templateHelpers: =>
@@ -21,11 +21,6 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
       @render()
       highlight @$el
 
-  set_opinion: (opinion) ->
-    return if @model.isUserOpinion opinion
-
-    @model.setActiveOpinionType opinion
-
   unset_opinion: (opinion) ->
     return unless @model.isUserOpinion opinion
 
@@ -36,9 +31,9 @@ class FactRelationVoteLineView extends Backbone.Marionette.ItemView
   className: 'vote-up-down-line'
 
   events:
-    'click .js-believe':      -> @set_opinion 'believes'
+    'click .js-believe':      -> @model.believe()
     'click .js-unbelieve':    -> @unset_opinion 'believes'
-    'click .js-disbelieve':   -> @set_opinion 'disbelieves'
+    'click .js-disbelieve':   -> @model.disbelieve()
     'click .js-undisbelieve': -> @unset_opinion 'disbelieves'
 
   templateHelpers: =>
@@ -49,11 +44,6 @@ class FactRelationVoteLineView extends Backbone.Marionette.ItemView
     @listenTo @model, "change:current_user_opinion", ->
       @render()
       highlight @$el
-
-  set_opinion: (opinion) ->
-    return if @model.current_opinion() == opinion
-
-    @model.setOpinion opinion
 
   unset_opinion: (opinion) ->
     return unless @model.current_opinion() == opinion
