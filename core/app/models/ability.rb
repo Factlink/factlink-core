@@ -129,7 +129,7 @@ class Ability
       can :update, user
       can :edit_settings, user
       can :read, User do
-        |u| not u.hidden
+        |u| not u.hidden?
       end
     end
   end

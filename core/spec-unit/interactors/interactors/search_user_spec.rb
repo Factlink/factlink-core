@@ -41,7 +41,7 @@ describe Interactors::SearchUser do
       keywords = 'searching for this user'
       interactor = described_class.new keywords: keywords,
         pavlov_options: { ability: relaxed_ability }
-      user = double(hidden: false)
+      user = double(hidden?: false)
 
       Pavlov.should_receive(:query)
             .with(:'elastic_search_user',
@@ -56,7 +56,7 @@ describe Interactors::SearchUser do
       keywords = 'searching for this user'
       interactor = described_class.new keywords: keywords,
         pavlov_options: { ability: relaxed_ability }
-      user = double(hidden: true)
+      user = double(hidden?: true)
 
       Pavlov.should_receive(:query)
             .with(:'elastic_search_user',
