@@ -2,11 +2,8 @@ require 'spec_helper'
 
 describe User do
 
-  subject {create :user}
+  subject { create :user }
   let(:nonnda_subject) {create :user, agrees_tos: false}
-
-  let(:fact) {create :fact}
-  let(:child1) {create :fact}
 
   context "Initially" do
     it "isn't admin" do
@@ -197,6 +194,45 @@ describe User do
 
   end
 
+  # also describes .hidden?
+  describe '.active?' do
+    context "new user" do
+      let(:waiting_list_user) { create :user }
+      it { expect(waiting_list_user).to_not be_active }
+      it { expect(waiting_list_user).to     be_hidden }
+    end
+    context "just confirmed user" do
+      let(:confirmed_user) { create :user, :confirmed }
+      it { expect(confirmed_user).to_not be_active }
+      it { expect(confirmed_user).to     be_hidden }
+    end
+    context "just approved user" do
+      let(:approved_user) { create :user, :confirmed, :approved }
+      it { expect(approved_user).to_not be_active }
+      it { expect(approved_user).to     be_hidden }
+    end
+    context "unapproved (disapproved) user who signed the tos" do
+      let(:approved_user) { create :user, :agrees_tos }
+      it { expect(approved_user).to_not be_active }
+      it { expect(approved_user).to     be_hidden }
+    end
+    context "confirmed, approved user who signed the tos" do
+      subject(:active_user) { create :user, :approved, :confirmed, :agrees_tos }
+      it { expect(active_user).to     be_active }
+      it { expect(active_user).to_not be_hidden }
+    end
+    context "deleted user" do
+      let(:deleted_user) do
+        create(:user, :approved, :confirmed, :agrees_tos).tap do |user|
+          user.deleted = true
+          user.save!
+        end
+      end
+      it { expect(deleted_user).to_not be_active }
+      it { expect(deleted_user).to     be_hidden }
+    end
+  end
+
   describe 'scopes' do
     describe ".approved" do
       it "only returns approved users" do
@@ -215,8 +251,16 @@ describe User do
         active_user = create :user, :approved, :confirmed, :agrees_tos
 
         active_users = User.active.all
-
         expect(active_users).to eq [active_user]
+      end
+
+      it "doesn't return deleted users" do
+        user = create :user, :approved, :confirmed, :agrees_tos
+        user.deleted = true
+        user.save
+
+        active_users = User.active.all
+        expect(active_users).to be_empty
       end
     end
 

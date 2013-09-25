@@ -72,7 +72,7 @@ describe Interactors::Search do
       interactor = described_class.new keywords: keywords, page: 1, row_count: 20,
         pavlov_options: { ability: relaxed_ability }
       user = User.new
-      user.stub hidden: true
+      user.stub hidden?: true
       results = [user]
 
       Pavlov.should_receive(:query)

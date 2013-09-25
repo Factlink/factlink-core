@@ -8,6 +8,8 @@ module Commands
       private
 
       def execute
+        return unless user.deleted
+
         User.personal_information_fields.each do |field|
           user[field] = User.fields[field].default_val
         end
