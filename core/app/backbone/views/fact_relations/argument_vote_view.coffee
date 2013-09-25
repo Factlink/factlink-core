@@ -12,8 +12,8 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
     'click .js-undo':       -> @model.undoOpinion()
 
   templateHelpers: =>
-    believes: @model.isUserOpinion 'believe'
-    disbelieves: @model.isUserOpinion 'disbelieve'
+    believes: @model.isBelieving()
+    disbelieves: @model.isDisBelieving()
 
   modelEvents:
     'sync': 'onChange'

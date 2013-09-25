@@ -128,4 +128,5 @@ class window.Wheel extends Backbone.Model
 
   believe: -> @setActiveOpinionType 'believe'
   disbelieve: -> @setActiveOpinionType 'disbelieve'
-
+  isBelieving: -> @isUserOpinion 'believe'
+  isDisBelieving: -> @isUserOpinion 'disbelieve'
