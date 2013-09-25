@@ -6,7 +6,7 @@ describe Queries::ElasticSearchUser do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'FactlinkUser'
+    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'KillObject'
   end
 
   describe '#call' do
@@ -31,7 +31,7 @@ describe Queries::ElasticSearchUser do
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
       User.should_receive(:find).with(1).and_return(mongoid_user)
-      FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
+      KillObject.should_receive(:user).with(mongoid_user).and_return(user)
 
       expect(query.call).to eq [user]
     end
@@ -75,7 +75,7 @@ describe Queries::ElasticSearchUser do
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
       User.should_receive(:find).with(1).and_return(mongoid_user)
-      FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
+      KillObject.should_receive(:user).with(mongoid_user).and_return(user)
 
       expect(query.call).to eq [user]
     end
