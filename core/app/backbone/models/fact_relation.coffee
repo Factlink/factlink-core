@@ -29,8 +29,6 @@ class window.FactRelation extends Evidence
         @set data
 
   undoOpinion: ->
-    return if @previous_user_opinion == @get('current_user_opinion')
-
     if @previous_user_opinion?
       @setOpinion @previous_user_opinion
     else
