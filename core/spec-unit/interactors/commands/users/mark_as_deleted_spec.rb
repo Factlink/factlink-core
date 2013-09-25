@@ -24,7 +24,7 @@ describe Commands::Users::MarkAsDeleted do
     end
   end
 
-  describe "#execute" do
+  describe "#call" do
     it "marks the user as deleted" do
 
       user = User.new
@@ -33,7 +33,7 @@ describe Commands::Users::MarkAsDeleted do
       expect(user).to receive(:deleted=).with(true).ordered
       expect(user).to receive(:save!).ordered
 
-      command.execute
+      command.call
     end
   end
 end
