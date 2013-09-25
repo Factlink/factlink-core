@@ -7,12 +7,11 @@
 }
 
 .evidence-unsure .discussion-interacting-users-unsure-line {
-  display: block;
-  width: @middleLineWidth;
-  height: 100% + 7px;
-  background-color: @discussionUnsureLineColor;
   position: absolute;
-  top: -7px;
+  width: @middleLineWidth;
+  background-color: @discussionUnsureLineColor;
+  top: -(@triangleSize - 1px); // 1px offset for arrow border
+  bottom: 0px;
   left: 50%;
   margin-left: -1px;
 }
