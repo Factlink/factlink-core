@@ -1,5 +1,4 @@
 class VoteLineView extends Backbone.Marionette.ItemView
-
   className: 'vote-up-down-line'
 
   events:
