@@ -14,7 +14,11 @@ describe Interactors::Users::Delete do
       ability = double(:ability)
       ability.stub(:can?).with(:delete, nil).and_return(false)
 
-      interactor = described_class.new(user_id: user_id, pavlov_options: { ability: ability } )
+      interactor = described_class.new(
+          user_id: user_id,
+          current_user_password: '',
+          pavlov_options: { ability: ability }
+      )
       expect do
         interactor.call
       end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
@@ -29,7 +33,11 @@ describe Interactors::Users::Delete do
 
       ability.stub(:can?).with(:delete, other_user).and_return(false)
 
-      interactor = described_class.new(user_id: other_user.id, pavlov_options: {ability: ability})
+      interactor = described_class.new(
+          user_id: other_user.id,
+          current_user_password: '',
+          pavlov_options: {ability: ability}
+      )
       expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)
     end
@@ -40,7 +48,11 @@ describe Interactors::Users::Delete do
       ability = double(:ability)
       ability.stub(:can?).with(:delete, user).and_return(true)
 
-      interactor = described_class.new(user_id: user.id, pavlov_options: {ability: ability})
+      interactor = described_class.new(
+          user_id: user.id,
+          current_user_password: '',
+          pavlov_options: {ability: ability}
+      )
 
       expect(interactor.authorized?).to eq(true)
     end
@@ -48,13 +60,19 @@ describe Interactors::Users::Delete do
 
   describe '#validate' do
     it 'raises when user_id is a Fixnum' do
-      expect_validating(user_id: 12)
-        .to fail_validation('user_id should be an hexadecimal string.')
+      expect_validating(user_id: 12,
+                        current_user_password: '',
+        ).to fail_validation('user_id should be an hexadecimal string.')
     end
 
     it 'raises when user_id is missing' do
-      expect_validating({})
+      expect_validating(current_user_password: '')
         .to fail_validation('user_id should be an hexadecimal string.')
+    end
+
+    it 'raises when current_user_password is missing' do
+      expect_validating(user_id: 'a123')
+        .to fail_validation
     end
   end
 
@@ -67,7 +85,11 @@ describe Interactors::Users::Delete do
 
       User.stub(:find).with(user.id).and_return(user)
 
-      interactor = described_class.new(user_id: user.id, pavlov_options: pavlov_options)
+      interactor = described_class.new(
+          user_id: user.id,
+          current_user_password: '',
+          pavlov_options: pavlov_options
+        )
 
       Pavlov.should_receive(:command)
         .with(:'users/mark_as_deleted', user: user, pavlov_options: pavlov_options)

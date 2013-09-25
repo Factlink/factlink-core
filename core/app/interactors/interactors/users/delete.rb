@@ -5,6 +5,7 @@ module Interactors
       include Util::CanCan
 
       attribute :user_id, String
+      attribute :current_user_password, String
 
       def authorized?
         can? :delete, user
