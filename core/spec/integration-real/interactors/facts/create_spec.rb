@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'fact' do
   include PavlovSupport
 
-  let(:current_user)  { create :active_user }
-  let(:twitter_user)  { create :twitter_user }
-  let(:facebook_user) { create :facebook_user }
+  let(:current_user)  { create :full_user }
+  let(:twitter_user)  { create :full_user, :connected_twitter }
+  let(:facebook_user) { create :full_user, :connected_facebook }
 
   it 'can be created' do
     displaystring = 'displaystring'

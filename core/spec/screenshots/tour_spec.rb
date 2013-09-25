@@ -4,7 +4,7 @@ describe "Check the tour", type: :feature do
   include PavlovSupport
 
   before do
-    user = create(:active_user)
+    user = create(:full_user)
     sign_in_user(user)
   end
 

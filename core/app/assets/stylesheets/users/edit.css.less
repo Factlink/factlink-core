@@ -41,9 +41,21 @@
   }
 
   .disabled-email {
-  cursor: not-allowed;
-  background-color: @inputDisabledBackground;
-}
+    cursor: not-allowed;
+    background-color: @inputDisabledBackground;
+  }
 
-}
+  .edit-user-delete-container {
+    border-top: 1px solid @mutedBorderColor;
+    padding-top: 20px;
+  }
 
+  .edit-user-delete-link {
+    float: right;
+    color: @buttonDangerBackground;
+
+    &:hover {
+      color: @buttonDangerDarkBackground;
+    }
+  }
+}
