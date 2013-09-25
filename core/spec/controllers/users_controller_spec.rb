@@ -31,8 +31,8 @@ describe UsersController do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
 
-      # TODO: use command to really delete user here
-      deleted_user = create(:user, deleted: true)
+      deleted_user = create(:user)
+      Pavlov.command(:'users/mark_as_deleted', user: deleted_user)
 
       should_check_can :show, deleted_user
       get :show, username: deleted_user.username, format: :json
