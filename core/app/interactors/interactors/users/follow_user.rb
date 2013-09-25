@@ -20,16 +20,7 @@ module Interactors
         return if query(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
                                                     to_graph_user_id: user_to_follow.graph_user_id)
 
-        command(:'users/follow_user',
-                    graph_user_id: user.graph_user_id,
-                    user_to_follow_graph_user_id: user_to_follow.graph_user_id)
-        command(:'create_activity',
-                    graph_user: user.graph_user, action: :followed_user,
-                    subject: user_to_follow.graph_user, object: nil)
-
-        # This command still depends on user == current_user
-        command(:'stream/add_activities_of_user_to_stream',
-                    graph_user_id: user_to_follow.graph_user_id)
+        follow_user
 
         nil
       end
@@ -42,6 +33,21 @@ module Interactors
         @user_to_follow ||= query(:'user_by_username',
                                   username: user_to_follow_user_name)
       end
+
+      def follow_user
+        command(:'users/follow_user',
+                    graph_user_id: user.graph_user_id,
+                    user_to_follow_graph_user_id: user_to_follow.graph_user_id)
+
+        command(:'create_activity',
+                    graph_user: user.graph_user, action: :followed_user,
+                    subject: user_to_follow.graph_user, object: nil)
+
+        # This command still depends on user == current_user
+        command(:'stream/add_activities_of_user_to_stream',
+                    graph_user_id: user_to_follow.graph_user_id)
+      end
+
 
       def validate
         validate_nonempty_string :user_name, user_name
