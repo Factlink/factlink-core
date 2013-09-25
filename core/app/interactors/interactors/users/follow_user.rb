@@ -17,6 +17,9 @@ module Interactors
           throw "Only supporting user == current_user when following user"
         end
 
+        return if query(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
+                                                    to_graph_user_id: user_to_follow.graph_user_id)
+
         command(:'users/follow_user',
                     graph_user_id: user.graph_user_id,
                     user_to_follow_graph_user_id: user_to_follow.graph_user_id)

@@ -54,6 +54,11 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'calls a command to follow user' do
+      Pavlov.stub(:query)
+            .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
+              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
+            .and_return(false)
+
       Pavlov.should_receive(:command)
             .with(:'users/follow_user',
                       graph_user_id: user.graph_user_id,
@@ -68,6 +73,15 @@ describe Interactors::Users::FollowUser do
             .with(:'stream/add_activities_of_user_to_stream',
                       graph_user_id: user_to_follow.graph_user_id,
                       pavlov_options: options)
+
+      expect(interactor.call).to eq nil
+    end
+
+    it 'aborts when already following' do
+      Pavlov.stub(:query)
+            .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
+              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
+            .and_return(true)
 
       expect(interactor.call).to eq nil
     end
