@@ -13,23 +13,23 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
     'click .js-undisbelieve': -> @unset_opinion 'disbelieve'
 
   templateHelpers: =>
-    believes: @model.getFactWheel().isUserOpinion 'believe'
-    disbelieves: @model.getFactWheel().isUserOpinion 'disbelieve'
+    believes: @model.isUserOpinion 'believe'
+    disbelieves: @model.isUserOpinion 'disbelieve'
 
   initialize: ->
-    @listenTo @model.getFactWheel(), "sync", ->
+    @listenTo @model, "sync", ->
       @render()
       highlight @$el
 
   set_opinion: (opinion) ->
-    return if @model.getFactWheel().isUserOpinion opinion
+    return if @model.isUserOpinion opinion
 
-    @model.getFactWheel().setActiveOpinionType opinion
+    @model.setActiveOpinionType opinion
 
   unset_opinion: (opinion) ->
-    return unless @model.getFactWheel().isUserOpinion opinion
+    return unless @model.isUserOpinion opinion
 
-    @model.getFactWheel().undoOpinion()
+    @model.undoOpinion()
 
 class FactRelationVoteLineView extends Backbone.Marionette.ItemView
 
@@ -81,7 +81,7 @@ class window.ArgumentVoteUpView extends ArgumentVoteView
     if @model instanceof FactRelation
       @factLineRegion.show new FactVoteLineView
         template: 'facts/vote_up_line'
-        model: @model.getFact()
+        model: @model.getFact().getFactWheel()
 
 class window.ArgumentVoteDownView extends ArgumentVoteView
   onRender: ->
@@ -92,4 +92,4 @@ class window.ArgumentVoteDownView extends ArgumentVoteView
     if @model instanceof FactRelation
       @factLineRegion.show new FactVoteLineView
         template: 'facts/vote_down_line'
-        model: @model.getFact()
+        model: @model.getFact().getFactWheel()
