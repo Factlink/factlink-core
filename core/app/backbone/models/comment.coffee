@@ -23,8 +23,6 @@ class window.Comment extends Evidence
     @save opinion: type
 
   undoOpinion: ->
-    return if @previous_user_opinion == @get('current_user_opinion')
-
     if @previous_user_opinion?
       @setOpinion @previous_user_opinion
     else
