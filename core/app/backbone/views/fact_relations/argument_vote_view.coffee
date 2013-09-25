@@ -1,8 +1,4 @@
-highlight = ($el) ->
-  _.defer (-> $el.addClass 'vote-up-down-highlight')
-  _.delay (-> $el.removeClass 'vote-up-down-highlight'), 1000
-
-class FactVoteLineView extends Backbone.Marionette.ItemView
+class VoteLineView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down-line'
 
@@ -15,32 +11,18 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
     believes: @model.isBelieving()
     disbelieves: @model.isDisBelieving()
 
+  onChange: ->
+    @render()
+    _.defer (=> @$el.addClass 'vote-up-down-highlight')
+    _.delay (=> @$el.removeClass 'vote-up-down-highlight'), 1000
+
+class FactVoteLineView extends VoteLineView
   modelEvents:
     'sync': 'onChange'
 
-  onChange: ->
-    @render()
-    highlight @$el
-
-class FactRelationVoteLineView extends Backbone.Marionette.ItemView
-
-  className: 'vote-up-down-line'
-
-  events:
-    'click .js-believe':    -> @model.believe()
-    'click .js-disbelieve': -> @model.disbelieve()
-    'click .js-undo':       -> @model.undoOpinion()
-
-  templateHelpers: =>
-    believes: @model.isBelieving()
-    disbelieves: @model.isDisBelieving()
-
+class FactRelationVoteLineView extends VoteLineView
   modelEvents:
     'change:current_user_opinion': 'onChange'
-
-  onChange: ->
-    @render()
-    highlight @$el
 
 class ArgumentVoteView extends Backbone.Marionette.Layout
   className: 'vote-up-down'
