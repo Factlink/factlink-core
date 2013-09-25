@@ -6,27 +6,21 @@ describe Commands::Users::MarkAsDeleted do
   before { stub_classes 'User' }
 
   describe "#validate" do
-
     it "requires a non-nil user" do
-      command = described_class.new user: nil
-      expect{command.validate}.to raise_error(Pavlov::ValidationError)
+      expect_validating(user:nil).to fail_validation
     end
 
     it "does not accept a user of type String" do
-      command = described_class.new user: "123"
-      expect{command.validate}.to raise_error(Pavlov::ValidationError)
+      expect_validating(user: "123").to fail_validation
     end
 
     it "does not accept a user of type Fixnum" do
-      command = described_class.new user: 123
-      expect{command.validate}.to raise_error(Pavlov::ValidationError)
+      expect_validating(user: 123).to fail_validation
     end
 
     it "accepts a user of type User" do
       user = User.new
-      command = described_class.new user: user
-
-      command.validate
+      expect_validating(user: user)
     end
   end
 
