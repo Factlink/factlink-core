@@ -68,6 +68,10 @@ class ArgumentVoteView extends Backbone.Marionette.Layout
     factRelationLineRegion: '.js-fact-relation-line-region'
     factLineRegion: '.js-fact-line-region'
 
+  initialize: ->
+    if @model instanceof FactRelation
+      @$el.addClass 'vote-up-down-with-fact'
+
 class window.ArgumentVoteUpView extends ArgumentVoteView
   onRender: ->
     @factRelationLineRegion.show new FactRelationVoteLineView
