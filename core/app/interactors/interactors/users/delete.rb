@@ -6,6 +6,8 @@ module Interactors
 
       arguments :user_id
 
+      private
+
       def authorized?
         can? :delete, user
       end

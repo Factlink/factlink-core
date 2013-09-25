@@ -5,6 +5,8 @@ module Commands
 
       arguments :user
 
+      private
+
       def validate
         raise Pavlov::ValidationError if !user.is_a? User
       end
