@@ -6,6 +6,23 @@
   padding: 14px 18px 18px;
 }
 
+@middleLineWidth: 3px;
+@unsureBoxBackgroundColor: #f5f5f6;
+.evidence-unsure .discussion-interacting-users-unsure-line {
+  display: block;
+  width: @middleLineWidth;
+  height: 100% + 7px;
+  background-color: @unsureBoxBackgroundColor;
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  margin-left: -1px;
+}
+
+.discussion-interacting-users-container {
+  position: relative; // to position on top of discussion-interacting-users-unsure-line
+}
+
 .discussion-interacting-users-name, .discussion-interacting-users-avatar {
   position: relative; // for popover
 }
