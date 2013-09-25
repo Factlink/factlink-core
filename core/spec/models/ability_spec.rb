@@ -25,6 +25,10 @@ describe Ability do
       it {subject.should     be_able_to :update, user }
       it {subject.should     be_able_to :destroy, user }
 
+      # for now, there is no way to delete it without signing the
+      # tos first, so not allowing either yet.
+      it {nonnda.should_not  be_able_to :destroy, user }
+
       it {subject.should     be_able_to :read_tos, user }
       it {subject.should_not be_able_to :sign_tos, user }
 
