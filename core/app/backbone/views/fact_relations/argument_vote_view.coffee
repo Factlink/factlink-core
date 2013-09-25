@@ -7,10 +7,9 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
   className: 'vote-up-down-line'
 
   events:
-    'click .js-believe':      -> @model.believe()
-    'click .js-unbelieve':    -> @model.undoOpinion()
-    'click .js-disbelieve':   -> @model.disbelieve()
-    'click .js-undisbelieve': -> @model.undoOpinion()
+    'click .js-believe':    -> @model.believe()
+    'click .js-disbelieve': -> @model.disbelieve()
+    'click .js-undo':       -> @model.undoOpinion()
 
   templateHelpers: =>
     believes: @model.isUserOpinion 'believe'
@@ -26,10 +25,9 @@ class FactRelationVoteLineView extends Backbone.Marionette.ItemView
   className: 'vote-up-down-line'
 
   events:
-    'click .js-believe':      -> @model.believe()
-    'click .js-unbelieve':    -> @model.undoOpinion()
-    'click .js-disbelieve':   -> @model.disbelieve()
-    'click .js-undisbelieve': -> @model.undoOpinion()
+    'click .js-believe':    -> @model.believe()
+    'click .js-disbelieve': -> @model.disbelieve()
+    'click .js-undo':       -> @model.undoOpinion()
 
   templateHelpers: =>
     believes: @model.isBelieving()
