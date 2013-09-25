@@ -59,7 +59,7 @@ describe Interactors::Users::Delete do
   end
 
   describe '#call' do
-    it 'it calls the delete command' do
+    it 'it calls the delete+anonymize commands' do
       user = double(:user, id: 'a234')
       ability = double(:ability)
       ability.stub(:can?).with(:delete, user).and_return(true)
@@ -71,6 +71,12 @@ describe Interactors::Users::Delete do
 
       Pavlov.should_receive(:command)
         .with(:'users/mark_as_deleted', user: user, pavlov_options: pavlov_options)
+        .ordered
+
+      Pavlov.should_receive(:command)
+        .with(:'users/anonymize_user_model', user_id: user.id, pavlov_options: pavlov_options)
+        .ordered
+
       interactor.call
     end
   end
