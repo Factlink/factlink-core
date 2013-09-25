@@ -20,6 +20,7 @@ module Interactors
 
       def execute
         command :'users/mark_as_deleted', user: user
+        command :'users/anonymize_user_model', user_id: user_id
       end
     end
   end
