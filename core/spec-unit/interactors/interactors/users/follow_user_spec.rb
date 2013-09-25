@@ -43,14 +43,15 @@ describe Interactors::Users::FollowUser do
       interactor = described_class.new(user_name: user.username,
         user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
 
-      Pavlov.should_receive(:query)
+      Pavlov.stub(:query)
             .with(:'user_by_username',
                       username: user.username, pavlov_options: options)
             .and_return(user)
-      Pavlov.should_receive(:query)
+      Pavlov.stub(:query)
             .with(:'user_by_username',
                       username: user_to_follow.username, pavlov_options: options)
             .and_return(user_to_follow)
+
       Pavlov.should_receive(:command)
             .with(:'users/follow_user',
                       graph_user_id: user.graph_user_id,
