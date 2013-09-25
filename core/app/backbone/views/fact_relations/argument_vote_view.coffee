@@ -16,13 +16,22 @@ class VoteLineView extends Backbone.Marionette.ItemView
     _.defer (=> @$el.addClass 'vote-up-down-highlight')
     _.delay (=> @$el.removeClass 'vote-up-down-highlight'), 1000
 
-class FactVoteLineView extends VoteLineView
-  modelEvents:
-    'sync': 'onChange'
+class FactVoteUpLineView extends VoteLineView
+  template: 'facts/vote_up_line'
+  modelEvents: {'sync': 'onChange'}
 
-class FactRelationVoteLineView extends VoteLineView
-  modelEvents:
-    'change:current_user_opinion': 'onChange'
+class FactVoteDownLineView extends VoteLineView
+  template: 'facts/vote_down_line'
+  modelEvents: {'sync': 'onChange'}
+
+class FactRelationVoteUpLineView extends VoteLineView
+  template: 'fact_relations/vote_up_line'
+  modelEvents: {'change:current_user_opinion': 'onChange'}
+
+class FactRelationVoteDownLineView extends VoteLineView
+  template: 'fact_relations/vote_down_line'
+  modelEvents: {'change:current_user_opinion': 'onChange'}
+
 
 class ArgumentVoteView extends Backbone.Marionette.Layout
   className: 'vote-up-down'
@@ -38,22 +47,13 @@ class ArgumentVoteView extends Backbone.Marionette.Layout
 
 class window.ArgumentVoteUpView extends ArgumentVoteView
   onRender: ->
-    @factRelationLineRegion.show new FactRelationVoteLineView
-      template: 'fact_relations/vote_up_line'
-      model: @model
-
+    @factRelationLineRegion.show new FactRelationVoteUpLineView model: @model
     if @model instanceof FactRelation
-      @factLineRegion.show new FactVoteLineView
-        template: 'facts/vote_up_line'
-        model: @model.getFact().getFactWheel()
+      @factLineRegion.show new FactVoteUpLineView @model.getFact().getFactWheel()
 
 class window.ArgumentVoteDownView extends ArgumentVoteView
   onRender: ->
-    @factRelationLineRegion.show new FactRelationVoteLineView
-      template: 'fact_relations/vote_down_line'
-      model: @model
+    @factRelationLineRegion.show new FactRelationVoteDownLineView model: @model
 
     if @model instanceof FactRelation
-      @factLineRegion.show new FactVoteLineView
-        template: 'facts/vote_down_line'
-        model: @model.getFact().getFactWheel()
+      @factLineRegion.show new FactVoteDownLineView model: @model.getFact().getFactWheel()
