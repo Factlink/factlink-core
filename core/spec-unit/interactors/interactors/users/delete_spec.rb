@@ -17,7 +17,7 @@ describe Interactors::Users::Delete do
         current_user: double(:user, :valid_password? => true)
       }
 
-      expect(pavlov_options[:ability]).to receive(:can?).with(:delete, nil).and_return(false)
+      expect(pavlov_options[:ability]).to receive(:can?).with(:destroy, nil).and_return(false)
 
       interactor = described_class.new(
           user_id: user_id,
