@@ -5,7 +5,7 @@ describe Ability do
 
   # abilities
   subject                { Ability.new(user)}
-  let(:anonymous)        { Ability.new}
+  let(:anonymous)        { Ability.new }
   let(:admin)            { Ability.new admin_user}
   let(:nonnda)           { Ability.new nonnda_user}
 
