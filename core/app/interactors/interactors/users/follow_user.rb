@@ -13,14 +13,9 @@ module Interactors
       end
 
       def execute
-        user = query(:'user_by_username', username: user_name)
-
         unless user.id.to_s == pavlov_options[:current_user].id.to_s
           throw "Only supporting user == current_user when following user"
         end
-
-        user_to_follow = query(:'user_by_username',
-                                  username: user_to_follow_user_name)
 
         command(:'users/follow_user',
                     graph_user_id: user.graph_user_id,
@@ -34,6 +29,15 @@ module Interactors
                     graph_user_id: user_to_follow.graph_user_id)
 
         nil
+      end
+
+      def user
+        @user ||= query(:'user_by_username', username: user_name)
+      end
+
+      def user_to_follow
+        @user_to_follow ||= query(:'user_by_username',
+                                  username: user_to_follow_user_name)
       end
 
       def validate
