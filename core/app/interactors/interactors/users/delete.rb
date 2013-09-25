@@ -4,7 +4,7 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :user_id
+      attribute :user_id, String
 
       def authorized?
         can? :delete, user
