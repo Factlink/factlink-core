@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     delete = interaction(:'users/delete', user_id: @user.id)
 
     if delete.valid?
-      #delete.call
+      delete.call
       sign_out
       redirect_to root_path, notice: 'Your account has been deleted.'
     else
