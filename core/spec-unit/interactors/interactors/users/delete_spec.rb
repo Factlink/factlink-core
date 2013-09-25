@@ -11,13 +11,14 @@ describe Interactors::Users::Delete do
     it 'throws when non-existant user passed' do
       user_id = 'a1234'
       User.stub(:find).with(user_id).and_return(nil)
-      ability = double(:ability)
-      ability.stub(:can?).with(:delete, nil).and_return(false)
+      ability = double(:ability, :can? => false)
+
+      current_user = double(:user, :valid_password? => true)
 
       interactor = described_class.new(
           user_id: user_id,
           current_user_password: '',
-          pavlov_options: { ability: ability }
+          pavlov_options: { ability: ability, current_user: current_user }
       )
       expect do
         interactor.call
@@ -74,6 +75,17 @@ describe Interactors::Users::Delete do
       expect_validating(user_id: 'a123')
         .to fail_validation
     end
+
+    it 'checks current_user_password is missing' do
+      user = User.new
+      password = 'qwerty'
+      user.should_receive(:valid_password?).with(password).and_return(true)
+      expect_validating(
+          user_id: 'a123',
+          current_user_password: password
+        )
+    end
+
   end
 
   describe '#call' do

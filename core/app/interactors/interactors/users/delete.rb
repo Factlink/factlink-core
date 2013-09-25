@@ -6,6 +6,7 @@ module Interactors
 
       attribute :user_id, String
       attribute :current_user_password, String
+      attribute :pavlov_options
 
       def authorized?
         can? :delete, user
@@ -19,6 +20,7 @@ module Interactors
 
       def validate
         validate_hexadecimal_string :user_id, user_id
+        pavlov_options[:current_user].valid_password? current_user_password
       end
 
       def execute
