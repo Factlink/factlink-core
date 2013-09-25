@@ -36,13 +36,13 @@ describe Interactors::Users::FollowUser do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
-    it 'calls a command to follow user' do
-      user = double(id: double, graph_user_id: double, graph_user: double, username: double)
-      user_to_follow = double(graph_user_id: double, graph_user: double, username: double)
-      options = { current_user: user }
-      interactor = described_class.new(user_name: user.username,
-        user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
+    let(:user) {double(id: double, graph_user_id: double, graph_user: double, username: double)}
+    let(:user_to_follow) {double(graph_user_id: double, graph_user: double, username: double)}
+    let(:options) {{current_user: user}}
+    let(:interactor) {described_class.new(user_name: user.username,
+        user_to_follow_user_name: user_to_follow.username, pavlov_options: options)}
 
+    before do
       Pavlov.stub(:query)
             .with(:'user_by_username',
                       username: user.username, pavlov_options: options)
@@ -51,7 +51,9 @@ describe Interactors::Users::FollowUser do
             .with(:'user_by_username',
                       username: user_to_follow.username, pavlov_options: options)
             .and_return(user_to_follow)
+    end
 
+    it 'calls a command to follow user' do
       Pavlov.should_receive(:command)
             .with(:'users/follow_user',
                       graph_user_id: user.graph_user_id,
