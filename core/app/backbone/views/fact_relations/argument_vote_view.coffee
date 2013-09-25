@@ -15,10 +15,12 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
     believes: @model.isUserOpinion 'believe'
     disbelieves: @model.isUserOpinion 'disbelieve'
 
-  initialize: ->
-    @listenTo @model, "sync", ->
-      @render()
-      highlight @$el
+  modelEvents:
+    'sync': 'onChange'
+
+  onChange: ->
+    @render()
+    highlight @$el
 
 class FactRelationVoteLineView extends Backbone.Marionette.ItemView
 
@@ -33,10 +35,12 @@ class FactRelationVoteLineView extends Backbone.Marionette.ItemView
     believes: @model.isBelieving()
     disbelieves: @model.isDisBelieving()
 
-  initialize: ->
-    @listenTo @model, "change:current_user_opinion", ->
-      @render()
-      highlight @$el
+  modelEvents:
+    'change:current_user_opinion': 'onChange'
+
+  onChange: ->
+    @render()
+    highlight @$el
 
 class ArgumentVoteView extends Backbone.Marionette.Layout
   className: 'vote-up-down'
