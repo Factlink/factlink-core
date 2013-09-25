@@ -18,6 +18,11 @@ describe Ability do
   describe "to manage a user" do
     context "as a normal user" do
       it {subject.should_not be_able_to :manage, User }
+
+      it {subject.should     be_able_to :delete, user }
+      it {subject.should_not be_able_to :delete, User }
+      it {subject.should_not be_able_to :delete, other_user }
+
       it {subject.should_not be_able_to :configure, Ability::FactlinkWebapp }
 
       it {subject.should     be_able_to :show, user }
@@ -54,6 +59,9 @@ describe Ability do
       it {anonymous.should_not be_able_to :manage, User }
 
       it {anonymous.should_not be_able_to :sign_tos, nil }
+      it {anonymous.should_not be_able_to :delete, anonymous }
+
+
       it {anonymous.should     be_able_to :read_tos, nil }
       it {anonymous.should_not be_able_to :show, User }
       it {anonymous.should_not be_able_to :edit_settings, user }
