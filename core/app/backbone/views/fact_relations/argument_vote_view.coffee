@@ -8,9 +8,9 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
 
   events:
     'click .js-believe':      -> @model.believe()
-    'click .js-unbelieve':    -> @unset_opinion 'believe'
+    'click .js-unbelieve':    -> @model.undoOpinion()
     'click .js-disbelieve':   -> @model.disbelieve()
-    'click .js-undisbelieve': -> @unset_opinion 'disbelieve'
+    'click .js-undisbelieve': -> @model.undoOpinion()
 
   templateHelpers: =>
     believes: @model.isUserOpinion 'believe'
@@ -21,20 +21,15 @@ class FactVoteLineView extends Backbone.Marionette.ItemView
       @render()
       highlight @$el
 
-  unset_opinion: (opinion) ->
-    return unless @model.isUserOpinion opinion
-
-    @model.undoOpinion()
-
 class FactRelationVoteLineView extends Backbone.Marionette.ItemView
 
   className: 'vote-up-down-line'
 
   events:
     'click .js-believe':      -> @model.believe()
-    'click .js-unbelieve':    -> @unset_opinion 'believes'
+    'click .js-unbelieve':    -> @model.undoOpinion()
     'click .js-disbelieve':   -> @model.disbelieve()
-    'click .js-undisbelieve': -> @unset_opinion 'disbelieves'
+    'click .js-undisbelieve': -> @model.undoOpinion()
 
   templateHelpers: =>
     believes: @model.isBelieving()
@@ -44,11 +39,6 @@ class FactRelationVoteLineView extends Backbone.Marionette.ItemView
     @listenTo @model, "change:current_user_opinion", ->
       @render()
       highlight @$el
-
-  unset_opinion: (opinion) ->
-    return unless @model.current_opinion() == opinion
-
-    @model.undoOpinion()
 
 class ArgumentVoteView extends Backbone.Marionette.Layout
   className: 'vote-up-down'
