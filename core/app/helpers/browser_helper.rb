@@ -5,11 +5,11 @@ module BrowserHelper
   def browser_supported?
     return true if browser_preferred?
 
-    browser.safari? or browser.opera? or browser.phantom_js?
+    browser.safari? or browser.opera?
   end
 
   def browser_preferred?
-    browser.chrome? or browser.firefox?
+    browser.chrome? or browser.firefox? or browser.phantom_js?
   end
 
   def browser_class_name
@@ -24,4 +24,10 @@ module BrowserHelper
     end
   end
 
+  def show_supported_browser_warning
+    controller_without_warnings = ["tour", "tos"].include? controller_name
+    return false if controller_without_warnings
+
+    current_user && browser_supported? && !browser_preferred?
+  end
 end

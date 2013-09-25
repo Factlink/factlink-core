@@ -20,16 +20,6 @@ GIT
   specs:
     rack-xframe-options (0.1.2)
 
-GIT
-  remote: git://github.com/jjoos/korsakov.git
-  revision: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
-  ref: 72db865
-  specs:
-    korsakov (0.0.1)
-      activemodel (>= 3.2.7)
-      activesupport (>= 3.2.7)
-      pavlov
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -527,7 +517,6 @@ DEPENDENCIES
   json (~> 1.8.0)
   koala (~> 1.7.0rc1)
   konacha (~> 3.0)
-  korsakov!
   less-rails (~> 2.3.3)
   lograge (~> 0)
   mail (~> 2.5.4)

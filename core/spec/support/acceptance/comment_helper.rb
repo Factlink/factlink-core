@@ -40,12 +40,10 @@ module Acceptance
           comment_input.set comment
           comment_input.value.should eq comment
           sleep 0.5 # To allow for the getting bigger CSS animation
-          click_post_comment
-          sleep 0.5 # To allow for the getting smaller CSS animation
-
-          #Input should be empty
-          comment_input.value.should eq ''
+          click_button "Post comment"
         end
+
+        wait_until_add_buttons_appear
       end
 
       def add_existing_factlink type, evidence_factlink
@@ -57,8 +55,8 @@ module Acceptance
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
-          potentially_wait_for_posting_button
         end
+        wait_until_add_buttons_appear
       end
 
       def add_new_factlink type, text
@@ -68,22 +66,12 @@ module Acceptance
         within '.add-evidence-form' do
           page.find("input[type=text]").set(text)
           page.find("button", text: "Post Factlink").click
-          potentially_wait_for_posting_button
         end
+        wait_until_add_buttons_appear
       end
 
-      def potentially_wait_for_posting_button
-        begin
-          # We assume a request immediately fires, and button reads "Posting..."
-          # This *should* hold:
-            page.find("button", text: "Posting...")
-          # ...but the posting delay vs. capybara check is a race-condition
-          # so don't worry if this fails, at least then we're not continuing prematurely
-        rescue
-          puts "After clicking a button labelled 'Post', the button failed to change to 'Posting'."
-          puts "This may be an error, indicating the button didn't react, or the test is wrong;"
-          puts "however, it may just have finished and changed back to 'Post' too quickly to detect."
-        end
+      def wait_until_add_buttons_appear
+        page.find('.js-supporting-button')
       end
 
       def add_sub_comment(comment)
@@ -97,12 +85,6 @@ module Acceptance
             end
           end
         end
-      end
-
-
-      def click_post_comment
-        click_button "Post comment"
-        potentially_wait_for_posting_button
       end
 
       def assert_sub_comment_exists(comment)

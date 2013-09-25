@@ -24,8 +24,7 @@ describe Queries::Users::Handpicked do
       query = described_class.new
 
       Pavlov.stub(:query)
-            .with(:'users_by_ids',
-                      user_ids: user_ids)
+            .with(:'users_by_ids', user_ids: user_ids, top_topics_limit: 2)
             .and_return(dead_users)
 
       expect(query.call).to match_array dead_users

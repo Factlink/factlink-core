@@ -1,8 +1,12 @@
-<div class="topic-statistic">
-  <span class="topic-statistic-title">Factlinks</span><br>
+<div class="statistic">
+  <span class="statistic-title">Factlinks</span><br>
   {{ facts_count }}
 </div>
-<div class="topic-statistic">
-  <span class="topic-statistic-title">Your authority</span><br>
-  <img src="{{global.brain_image}}"> <span class="topic-statistic-authority">{{ current_user_authority }}</span>
+<div class="statistic">
+  <span class="statistic-title">Followers</span><br>
+  {{ favouritours_count }}
+</div>
+<div class="statistic">
+  <span class="statistic-title">Your authority</span><br>
+  <span class="statistic-authority"><i class="icon-brain"></i> {{ current_user_authority }}</span>
 </div>

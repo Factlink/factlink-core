@@ -7,7 +7,10 @@ class window.AutoCompleteSearchListView extends Backbone.Factlink.SteppableView
 
   itemViewOptions: => query: @model.get('text')
 
-  onRender: -> @$el.preventScrollPropagation()
+  constructor: ->
+    super
+
+    @on 'render', -> @$el.preventScrollPropagation()
 
   showEmptyView: -> @$el.hide()
   closeEmptyView: -> @$el.show()

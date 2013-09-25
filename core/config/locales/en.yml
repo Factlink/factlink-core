@@ -2,8 +2,7 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  add_fact: "add Factlink"
-  added_fact: "added"
+  add_fact: "add Factlink" # when updating, update jslib template
 
   fact_believe_action: "agree"
   fact_doubt_action: "neutral"
@@ -81,8 +80,8 @@ en:
   favourited: "followed"
 
   ago: "ago"
-  show: "show"
-  loading: "loading"
+  show: "show" # when updating, update jslib template
+  loading: "loading" # when updating, update jslib template
 
   you: "you"
   nobody: "nobody"

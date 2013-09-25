@@ -1,44 +1,83 @@
+require 'pavlov_helper'
+require_relative '../../../app/interactors/kill_object.rb'
 require_relative '../../../app/interactors/queries/users_by_ids.rb'
 
 describe Queries::UsersByIds do
-  let(:user1)          {{id: 1, name: ''   , username: 'one', location: 'somewhere', biography: nil, gravatar_hash: 'asdfasdf1'}}
-  let(:user2)          {{id: 2, name: 'TW0', username: 'two', location: 'overthere', biography: nil, gravatar_hash: 'asdfasdf2'}}
-  let(:user3)          {{id: 3, name: ''   , username: 'tri', location: nil, biography: 'bladiebla', gravatar_hash: 'asdfasdf3'}}
-  let(:double_user1)     {double('user', user1)}
-  let(:double_user2)     {double('user', user2)}
-  let(:double_user3)     {double('user', user3)}
+  include PavlovSupport
 
   before do
-    stub_const "User", Class.new
-    stub_const "Pavlov::ValidationError", Class.new(StandardError)
-    stub_const "KillObject", Class.new
+    stub_classes 'User'
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
-    expect { described_class.new({ user_ids: ['g6'], pavlov_options: { current_user: double() }}).call}.
+    expect { described_class.new(user_ids: ['g6']).call}.
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
   describe '#call' do
-    it "should work with an empty list of ids" do
-      User.should_receive(:any_in).with(_id: []).and_return([])
-      result = described_class.new(user_ids: [], pavlov_options: { current_user: double_user1 }).call
-      expect(result).to eq([])
+    it 'should work with an empty list of ids' do
+      query = described_class.new(user_ids: [])
+
+      User.stub(:any_in).with(_id: []).and_return([])
+
+      expect(query.call).to eq []
     end
 
-    it "should work with multiple ids" do
-      User.should_receive(:any_in).with(_id: [1, 2, 3]).and_return([double_user1, double_user2, double_user3])
+    it 'adds user topics' do
+      top_user_topics = double
+      top_topics_limit = 10
 
-      mash_user1 = double
-      mash_user2 = double
-      mash_user3 = double
-      KillObject.stub(:user).with(double_user1).and_return(mash_user1)
-      KillObject.stub(:user).with(double_user2).and_return(mash_user2)
-      KillObject.stub(:user).with(double_user3).and_return(mash_user3)
+      graph_user = double(id: '10', created_facts: double(size: 10))
+      user = double(graph_user: graph_user)
+      query = described_class.new(user_ids: [0], top_topics_limit: top_topics_limit)
 
-      result = described_class.new(user_ids: [1, 2, 3], pavlov_options: { current_user: double_user1 }).call
+      User.stub(:any_in).with(_id: [0]).and_return([user])
 
-      expect(result).to eq([mash_user1, mash_user2, mash_user3])
+      Pavlov.stub(:query)
+      Pavlov.stub(:query)
+        .with(:'user_topics/top_with_authority_for_graph_user_id',
+                  graph_user_id: user.graph_user.id, limit_topics: top_topics_limit)
+        .and_return(top_user_topics)
+
+      expect(query.call[0].top_user_topics).to eq top_user_topics
+    end
+
+    it 'adds statistics' do
+      follower_count = 123
+      following_count = 456
+      created_fact_count = 10
+      graph_user = double(id: '10', created_facts: double(size: created_fact_count))
+      user = double(graph_user: graph_user)
+      query = described_class.new(user_ids: [0])
+
+      User.stub(:any_in).with(_id: [0]).and_return([user])
+
+      Pavlov.stub(:query)
+      Pavlov.stub(:query)
+        .with(:'users/follower_count', graph_user_id: user.graph_user.id)
+        .and_return(follower_count)
+      Pavlov.stub(:query)
+        .with(:'users/following_count', graph_user_id: user.graph_user.id)
+        .and_return(following_count)
+
+      expect(query.call[0].statistics[:created_fact_count]).to eq created_fact_count
+      expect(query.call[0].statistics[:follower_count]).to eq follower_count
+      expect(query.call[0].statistics[:following_count]).to eq following_count
+    end
+
+    it 'should work with multiple ids' do
+      user_ids = [0, 1]
+      graph_user0 = double(id: '10', created_facts: double(size: 10))
+      graph_user1 = double(id: '20', created_facts: double(size: 10))
+      user0 = double(graph_user: graph_user0)
+      user1 = double(graph_user: graph_user1)
+      query = described_class.new(user_ids: user_ids)
+
+      User.stub(:any_in).with(_id: user_ids).and_return([user0, user1])
+
+      Pavlov.stub(:query)
+
+      expect(query.call.length).to eq 2
     end
   end
 end

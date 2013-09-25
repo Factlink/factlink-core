@@ -1,20 +1,13 @@
-<h5>Why do you believe this argument is supporting?</h5>
+{{#believes_fact_relation}}
+  <div class="vote-up-down-line js-fact-relation-line"><span class="vote-up-down-text">You think this is relevant.</span><button class="button button-small vote-up-down-button js-fact-relation-unbelieve">Undo</button></div>
+{{/believes_fact_relation}}
+{{^believes_fact_relation}}
+  <div class="vote-up-down-line js-fact-relation-line"><span class="vote-up-down-text">Is this Factlink relevant?</span><button class="button button-small vote-up-down-button js-fact-relation-believe">Yes</button></div>
+{{/believes_fact_relation}}
 
-<div class="tabular">
-  <label class="tabular-row">
-    <span class="tabular-cell">
-      <input type="checkbox" class="js-fact-relation-believe unbootstrapped-checkbox" {{#believes_fact_relation}}checked="checked"{{/believes_fact_relation}}>
-    </span>
-    <span class="tabular-cell">This argument is relevant to the upper Factlink</span>
-  </label>
-
-  <label class="tabular-row">
-    <span class="tabular-cell">
-      <input type="checkbox" class="js-fact-believe unbootstrapped-checkbox" {{#believes_fact}}checked="checked"{{/believes_fact}}>
-    </span>
-    <span class="tabular-cell">The Factlink in this argument is correct or true.</span>
-  </label>
-</div>
-
-<button class="js-cancel button">Cancel</button>
-<button class="js-done button button-confirm">Done</button>
+{{#believes_fact}}
+  <div class="vote-up-down-line js-fact-line"><span class="vote-up-down-text">You think this is correct or true.</span><button class="button button-small vote-up-down-button js-fact-unbelieve">Undo</button></div>
+{{/believes_fact}}
+{{^believes_fact}}
+  <div class="vote-up-down-line js-fact-line"><span class="vote-up-down-text">Is this Factlink correct or true?</span><button class="button button-small vote-up-down-button js-fact-believe">Yes</button></div>
+{{/believes_fact}}

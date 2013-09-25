@@ -33,6 +33,7 @@ class User
   field :graph_user_id
 
   field :approved,    type: Boolean, default: false
+  field :deleted,     type: Boolean, default: false
 
   field :admin,       type: Boolean, default: false
 
@@ -132,25 +133,18 @@ class User
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
+  scope :approved, where(:approved => true)
+  scope :active, approved
+                  .where(:confirmed_at.ne => nil)
+                  .where(:agrees_tos => true)
+                  .where(:deleted.ne => true)
+  scope :seen_the_tour,   active
+                            .where(:seen_tour_step => 'tour_done')
+  scope :receives_digest, active
+                            .where(:receives_digest => true)
+
+
   class << self
-    def receives_digest
-      active.where(:receives_digest => true)
-    end
-
-    def seen_the_tour
-      active.where(:seen_tour_step => 'tour_done')
-    end
-
-    def active
-      approved.
-        where(:confirmed_at.ne => nil).
-        where(:agrees_tos => true)
-    end
-
-    def approved
-      where(:approved => true)
-    end
-
     def find_for_oauth(provider_name, uid)
       where(:"identities.#{provider_name}.uid" => uid).first
     end
@@ -172,6 +166,11 @@ class User
         "biography"       => "biography"
       }
     end
+
+    def personal_information_fields
+      # Deliberately not removing agrees_tos_name for now
+      ['first_name', 'last_name', 'location', 'biography', 'twitter', 'identities']
+    end
   end
 
   after_invitation_accepted :approve_invited_user_and_create_activity
@@ -183,12 +182,12 @@ class User
     Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
   end
 
-  def hidden
-    !active
+  def hidden?
+    !active?
   end
 
-  def active
-    approved && confirmed_at && agrees_tos
+  def active?
+    approved && confirmed_at && agrees_tos && ! deleted
   end
 
   def graph_user

@@ -3,6 +3,9 @@ class InteractingUsersAvatarView extends Backbone.Marionette.Layout
   className: 'discussion-interacting-users-avatar'
   template: 'interacting_users/avatar'
 
+  onRender: ->
+    UserPopoverContentView.makeTooltip @, @model
+
 class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeView
   className: 'discussion-interacting-users-avatars'
   template: "interacting_users/avatars"
@@ -16,7 +19,7 @@ class window.InteractingUsersAvatarsView extends Backbone.Marionette.CompositeVi
   number_of_items: 7
 
   initialize: (options) ->
-    @listenTo @collection, 'add remove reset', @render
+    @listenTo @collection, 'add remove reset sync', @render
 
   _initialEvents: -> # don't use default bindings to collection
 

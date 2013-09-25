@@ -6,6 +6,10 @@
   padding: 14px 18px 18px;
 }
 
+.discussion-interacting-users-name, .discussion-interacting-users-avatar {
+  position: relative; // for popover
+}
+
 .discussion-interacting-users-avatars {
   margin-top: 5px;
   display: inline-block;
@@ -14,6 +18,11 @@
     display: inline-block;
     margin-right: 4px;
     margin-top: 5px;
+
+    .discussion-interacting-users-avatar-link {
+      display: inline-block;
+      height: 32px;
+    }
 
     .discussion-interacting-users-avatar-image {
       border-radius: 3px;

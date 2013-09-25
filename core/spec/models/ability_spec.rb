@@ -10,9 +10,9 @@ describe Ability do
   let(:nonnda)           { Ability.new nonnda_user}
 
   # users used as object
-  let(:user)        {create :active_user}
-  let(:other_user)  {create :active_user }
-  let(:admin_user)  {create :admin_user}
+  let(:user)        {create :full_user}
+  let(:other_user)  {create :full_user }
+  let(:admin_user)  {create :full_user, :admin}
   let(:nonnda_user) {create :user, agrees_tos: false}
 
   describe "to manage a user" do
@@ -48,6 +48,7 @@ describe Ability do
       it {admin.should_not be_able_to :sign_tos, admin_user }
 
       it {admin.should_not be_able_to :edit_settings, user }
+      it {admin.should be_able_to     :edit_settings, admin_user }
     end
     context "as an anonymous" do
       it {anonymous.should_not be_able_to :manage, User }

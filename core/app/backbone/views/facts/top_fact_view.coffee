@@ -28,6 +28,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
     @userRegion.show new UserInTopFactView
         model: @model.user()
+        $offsetParent: @$el
 
     @wheelRegion.show @_wheelView()
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
