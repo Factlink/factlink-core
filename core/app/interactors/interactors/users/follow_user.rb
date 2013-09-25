@@ -3,7 +3,10 @@ module Interactors
     class FollowUser
       include Pavlov::Interactor
 
+      private
+
       arguments :user_name, :user_to_follow_user_name
+
 
       def authorized?
         (!! pavlov_options[:current_user]) and (pavlov_options[:current_user].username == user_name)
@@ -18,6 +21,7 @@ module Interactors
 
         user_to_follow = query(:'user_by_username',
                                   username: user_to_follow_user_name)
+
         command(:'users/follow_user',
                     graph_user_id: user.graph_user_id,
                     user_to_follow_graph_user_id: user_to_follow.graph_user_id)
