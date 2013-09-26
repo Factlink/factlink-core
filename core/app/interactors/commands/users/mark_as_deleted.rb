@@ -19,7 +19,7 @@ module Commands
       end
 
       def track_user_delete
-        mp_track "Factlink: Created conversation",
+        mp_track "User: deleted",
           user_id: user.id,
       end
     end
