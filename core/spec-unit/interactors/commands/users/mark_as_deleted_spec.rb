@@ -3,7 +3,7 @@ require_relative '../../../../app/interactors/commands/users/mark_as_deleted'
 
 describe Commands::Users::MarkAsDeleted do
   include PavlovSupport
-  before { stub_classes 'User', 'Util::Mixpanel' }
+  before { stub_classes 'User' }
 
   describe "#validate" do
     it "requires a non-nil user" do
@@ -28,10 +28,8 @@ describe Commands::Users::MarkAsDeleted do
     it "marks the user as deleted" do
 
       user = User.new
-      user.stub id: 1
-      command = described_class.new user: user
 
-      expect(command).to receive(:mp_track)
+      command = described_class.new user: user
 
       expect(user).to receive(:deleted=).with(true).ordered
       expect(user).to receive(:save!).ordered
