@@ -33,6 +33,18 @@ class Admin::UsersController < AdminController
     end
   end
 
+  def destroy
+    username = params[:id]
+
+    interactor = true # TODO Add actual interactor here
+
+    if interactor
+      redirect_to admin_users_path, notice: "The account '#{username}' has been deleted."
+    else
+      redirect_to edit_admin_user_path(@user), alert: 'This account could not be deleted. Did you enter your correct password?'
+    end
+  end
+
   private
 
   def if_not_found_404
