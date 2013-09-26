@@ -1,3 +1,5 @@
+require_relative '../util/mixpanel'
+
 module Commands
   module Users
     class MarkAsDeleted
