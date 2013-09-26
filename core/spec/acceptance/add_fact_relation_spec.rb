@@ -90,7 +90,7 @@ feature "adding factlinks to a fact", type: :feature do
       find('.evidence-impact-vote-down').click
       find('.evidence-impact-text', text: '—')
       find('.evidence-impact-vote-up').click
-      find('.js-fact-believe').click
+      find('.spec-fact-believe').click
       find('.evidence-impact-text', text: '1.0')
     end
   end

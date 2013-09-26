@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if @user.update_attributes user_hash
       respond_to do |format|
         format.html { redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.' }
-        format.json { render json: {}}
+        format.json { render json: {} }
       end
     else
       respond_to do |format|
@@ -35,8 +35,28 @@ class UsersController < ApplicationController
           authorize! :access, Ability::FactlinkWebapp
           render :edit
         end
-        format.json { render json: { :status => :unprocessable_entity }}
+        format.json { render json: { status: :unprocessable_entity } }
       end
+    end
+  end
+
+
+  def interaction interactor_name, options
+    klass = Pavlov.class_for_interactor(interactor_name)
+    klass.new options.merge pavlov_options: pavlov_options
+  end
+
+  def destroy
+    authorize! :destroy, @user
+
+    delete = interaction(:'users/delete', user_id: @user.id)
+
+    if delete.valid?
+      delete.call
+      sign_out
+      redirect_to root_path, notice: 'Your account has been deleted.'
+    else
+      redirect_to edit_user_path(current_user), alert: 'Your account could not be deleted. Did you enter the correct password?'
     end
   end
 

@@ -128,6 +128,7 @@ FactlinkUI::Application.routes.draw do
   scope "/:username" do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
+    delete "/" => "users#destroy"
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 

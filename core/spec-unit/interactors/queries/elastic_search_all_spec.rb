@@ -9,7 +9,7 @@ describe Queries::ElasticSearchAll do
   before do
     stub_classes 'HTTParty', 'FactData', 'User',
       'FactlinkUI::Application', 'KillObject'
-      FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
+    FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end
 
   describe '#call' do
@@ -17,14 +17,13 @@ describe Queries::ElasticSearchAll do
       it "correctly with return value of #{type} class" do
         keywords = 'searching for this channel'
         wildcard_keywords = '(searching*%20OR%20searching)+(for*%20OR%20for)+(this*%20OR%20this)+(channel*%20OR%20channel)'
-        query = described_class.new keywords: keywords, page: 1,
-          row_count: 20
-        hit = double
-        results = double(code: 200,
-          parsed_response: { 'hits' => { 'hits' => [hit] } })
+        query = described_class.new keywords: keywords, page: 1, row_count: 20
+        hit = {
+          '_id' => 1,
+          '_type' => type
+        }
+        results = double code: 200, parsed_response: { 'hits' => { 'hits' => [hit] } }
 
-        hit.should_receive(:[]).with('_id').and_return(1)
-        hit.should_receive(:[]).with('_type').and_return(type)
 
         HTTParty.should_receive(:get).
           with("http://#{base_url}/factdata,topic,user/_search?q=(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)&from=0&size=20&analyze_wildcard=true").
@@ -57,8 +56,8 @@ describe Queries::ElasticSearchAll do
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
       keywords = 'searching for this channel'
       error_response = 'error has happened server side'
-      results = double response: error_response,
-                       code: 501
+      results = double code: 501, response: error_response
+
       error_message = "Server error, status code: 501, response: '#{error_response}'."
       query = described_class.new(keywords: keywords, page: 1, row_count: 20)
 
@@ -70,8 +69,7 @@ describe Queries::ElasticSearchAll do
     it 'url encodes correctly' do
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
-      results = double(code: 200,
-        parsed_response: { 'hits' => { 'hits' => [] } })
+      results = double code: 200, parsed_response: { 'hits' => { 'hits' => [] } }
       query = described_class.new(keywords: keywords, page: 1, row_count: 20)
 
       HTTParty.should_receive(:get)
