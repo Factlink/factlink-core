@@ -32,6 +32,9 @@ describe UsersController do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
 
+
+      SecureRandom.stub(:hex).and_return('b01dfacedeadbeefbabb1e0123456789')
+
       deleted_user = create(:full_user)
       as(deleted_user) do |pavlov|
         pavlov.interactor(:'users/delete', user_id: deleted_user.id, current_user_password: '123hoi')
