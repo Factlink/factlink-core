@@ -43,7 +43,8 @@ class UsersController < ApplicationController
   def destroy
     authorize! :destroy, @user
 
-    delete = interaction(:'users/delete', user_id: @user.id)
+    delete = interaction(:'users/delete', user_id: @user.id,
+      current_user_password: params[:user][:password])
 
     if delete.valid?
       delete.call
