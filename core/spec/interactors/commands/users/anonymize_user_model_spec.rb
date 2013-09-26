@@ -13,7 +13,10 @@ describe Commands::Users::AnonymizeUserModel do
         identities: {'twitter' => 'data', 'facebook' => 'data'},
         password: '123hoi',
         password_confirmation: '123hoi',
-        deleted: true
+        deleted: true,
+        reset_password_token: 'data',
+        confirmation_token: 'data',
+        invitation_token: 'data'
 
       described_class.new(user_id: user.id).call
 
@@ -28,7 +31,12 @@ describe Commands::Users::AnonymizeUserModel do
       expect(saved_user.identities['twitter']).to eq nil
       expect(saved_user.identities['facebook']).to eq nil
 
+      # TODO: we might want to extract "deauthorizing someone" to a
+      # separate command at some point
       expect(saved_user.valid_password?('123hoi')).to be_false
+      expect(saved_user.reset_password_token).to be_nil
+      expect(saved_user.confirmation_token).to be_nil
+      expect(saved_user.invitation_token).to be_nil
 
       expect(saved_user.email).to eq "deleted+#{saved_user.username}@factlink.com"
     end

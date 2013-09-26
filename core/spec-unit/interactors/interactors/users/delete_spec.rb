@@ -116,6 +116,26 @@ describe Interactors::Users::Delete do
 
       expect(interactor.valid?).to eq(true)
     end
+
+    it 'raises when current_user_password is invalid' do
+      wrong_password = 'qwerty'
+      user = User.new
+      pavlov_options = {
+        ability: double(:ability, can?: true ),
+        current_user: user
+      }
+
+      user.should_receive(:valid_password?).with(wrong_password)
+          .and_return(false)
+
+      User.stub(:find).with('a123').and_return(user)
+
+      interactor = described_class.new user_id: 'a123',
+                                       current_user_password: wrong_password,
+                                       pavlov_options: pavlov_options
+
+      expect(interactor.valid?).to eq(false)
+    end
   end
 
   describe '#call' do
