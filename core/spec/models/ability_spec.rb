@@ -15,6 +15,8 @@ describe Ability do
   let(:admin_user)  {create :full_user, :admin }
   let(:nonnda_user) {create :user, agrees_tos: false }
 
+  let(:deleted_user){create :full_user, deleted: true }
+
   describe "to manage a user" do
     context "as a normal user" do
       it {subject.should_not be_able_to :manage, User }
@@ -37,6 +39,8 @@ describe Ability do
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
       it {subject.should_not be_able_to :destroy, other_user }
+
+      it {subject.should be_able_to :show, deleted_user}
     end
     context "as a nonnda user" do
       it {nonnda.should_not be_able_to :manage, User }

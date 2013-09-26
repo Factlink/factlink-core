@@ -132,6 +132,10 @@ class Ability
       can :read, User do
         |u| not u.hidden?
       end
+
+      can :read, User do
+        |u| u.deleted
+      end
     end
   end
 
