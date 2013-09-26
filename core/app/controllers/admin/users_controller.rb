@@ -34,9 +34,11 @@ class Admin::UsersController < AdminController
   end
 
   def destroy
-    interactor = true # TODO Add actual interactor here
+    destroy = interaction(:'users/delete', user_id: @user.id,
+      current_user_password: params[:user][:password])
 
-    if interactor
+    if destroy.valid?
+      destroy.call
       redirect_to admin_users_path, notice: "The account '#{@user.username}' has been deleted."
     else
       redirect_to edit_admin_user_path(@user), alert: 'This account could not be deleted. Did you enter your correct password?'
