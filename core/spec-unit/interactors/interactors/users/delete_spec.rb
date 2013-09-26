@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/interactors/users/delete'
 describe Interactors::Users::Delete do
   include PavlovSupport
   before do
-    stub_classes 'User'
+    stub_classes 'User', 'Util::Mixpanel'
   end
 
   describe '#authorized?' do
@@ -151,6 +151,8 @@ describe Interactors::Users::Delete do
       interactor = described_class.new user_id: user.id,
                                        current_user_password: '',
                                        pavlov_options: pavlov_options
+
+      expect(interactor).to receive(:mp_track)
 
       Pavlov.should_receive(:command)
         .with(:'users/mark_as_deleted', user: user, pavlov_options: pavlov_options)
