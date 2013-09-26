@@ -224,8 +224,7 @@ describe User do
     context "deleted user" do
       let(:deleted_user) do
         create(:user, :approved, :confirmed, :agrees_tos).tap do |user|
-          user.deleted = true #TODO:PAVLOVify
-          user.save!
+          Pavlov.command('users/mark_as_deleted', user:user)
         end
       end
       it { expect(deleted_user).to_not be_active }
@@ -256,8 +255,8 @@ describe User do
 
       it "doesn't return deleted users" do
         user = create :user, :approved, :confirmed, :agrees_tos
-        user.deleted = true #TODO:PAVLOVify
-        user.save
+
+        Pavlov.command('users/mark_as_deleted', user:user)
 
         active_users = User.active.all
         expect(active_users).to be_empty
