@@ -36,8 +36,8 @@ describe Interactors::Users::FollowUser do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
-    let(:user) {double(id: double, graph_user_id: double, graph_user: double, username: double)}
-    let(:user_to_follow) {double(graph_user_id: double, graph_user: double, username: double)}
+    let(:user) {double(id: '1a', graph_user_id: '10', graph_user: double, username: 'user')}
+    let(:user_to_follow) {double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')}
     let(:options) {{current_user: user}}
     let(:interactor) {described_class.new(user_name: user.username,
         user_to_follow_user_name: user_to_follow.username, pavlov_options: options)}
