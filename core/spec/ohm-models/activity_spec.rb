@@ -112,7 +112,7 @@ describe Activity do
 
     it "should not be valid if the user is deleted" do
       activity = Activity.create(user: gu, action: :foo)
-      gu.user.deleted = true
+      gu.user.deleted = true   #TODO:PAVLOVify
       gu.user.save!
       activity = Activity[activity.id]
       expect(activity).to_not be_still_valid

@@ -224,7 +224,7 @@ describe User do
     context "deleted user" do
       let(:deleted_user) do
         create(:user, :approved, :confirmed, :agrees_tos).tap do |user|
-          user.deleted = true
+          user.deleted = true #TODO:PAVLOVify
           user.save!
         end
       end
@@ -256,7 +256,7 @@ describe User do
 
       it "doesn't return deleted users" do
         user = create :user, :approved, :confirmed, :agrees_tos
-        user.deleted = true
+        user.deleted = true #TODO:PAVLOVify
         user.save
 
         active_users = User.active.all
