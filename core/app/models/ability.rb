@@ -129,7 +129,9 @@ class Ability
       can :update, user
       can :edit_settings, user
       can :destroy, user
-      can :read, User do |u| u.active? || u.deleted end
+      can :read, User do |u|
+        u.active? || u.deleted
+      end
     end
   end
 
