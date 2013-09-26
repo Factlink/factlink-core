@@ -40,12 +40,6 @@ class UsersController < ApplicationController
     end
   end
 
-
-  def interaction interactor_name, options
-    klass = Pavlov.class_for_interactor(interactor_name)
-    klass.new options.merge pavlov_options: pavlov_options
-  end
-
   def destroy
     authorize! :destroy, @user
 
