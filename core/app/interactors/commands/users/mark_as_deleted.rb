@@ -20,7 +20,7 @@ module Commands
 
       def track_user_delete
         mp_track "User: deleted",
-          user_id: user.id,
+          user_id: user.id
       end
     end
   end
