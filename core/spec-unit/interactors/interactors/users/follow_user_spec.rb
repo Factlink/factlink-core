@@ -42,7 +42,7 @@ describe Interactors::Users::FollowUser do
     let(:interactor) {described_class.new(user_name: user.username,
         user_to_follow_user_name: user_to_follow.username, pavlov_options: options)}
 
-    before do
+    it 'calls a command to follow user' do
       Pavlov.stub(:query)
             .with(:'user_by_username',
                       username: user.username, pavlov_options: options)
@@ -51,9 +51,6 @@ describe Interactors::Users::FollowUser do
             .with(:'user_by_username',
                       username: user_to_follow.username, pavlov_options: options)
             .and_return(user_to_follow)
-    end
-
-    it 'calls a command to follow user' do
       Pavlov.stub(:query)
             .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
               to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
@@ -78,6 +75,14 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'aborts when already following' do
+      Pavlov.stub(:query)
+            .with(:'user_by_username',
+                      username: user.username, pavlov_options: options)
+            .and_return(user)
+      Pavlov.stub(:query)
+            .with(:'user_by_username',
+                      username: user_to_follow.username, pavlov_options: options)
+            .and_return(user_to_follow)
       Pavlov.stub(:query)
             .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
               to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
