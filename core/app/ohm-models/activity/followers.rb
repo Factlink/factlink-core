@@ -36,9 +36,5 @@ class Activity < OurOhm
         .flatten
         .map(&:created_by_id).uniq
     end
-
-    def channel_followers_of_graph_user_minus_regular_followers graph_user
-      channel_followers_of_graph_user(graph_user) - followers_for_graph_user(graph_user.id)
-    end
   end
 end

@@ -1,24 +1,5 @@
 @import "bootstrap/mixins";
 
-// Layout variables
-@middleColumnWidth: 100px;
-@topFactWheelOverhang: 62px;
-@middleLineWidth: 3px;
-@impactCircleDiameter: 53px;
-@argumentBoxTopOverhang: 12px;
-@impactCircleTopSpacing: 30px;
-@evidenceBoxSpacing: 15px;
-@impactColouredBorderWidth: 3px;
-@evidenceRegionHorizontalMargin: 16px;
-@evidenceRegionBottomPadding: 60px;
-@unsureBoxBackgroundColor: #f5f5f6;
-
-// Arrows:
-@impactCircleVotableWithoutArrowsTopSpacing: 15px;
-@arrowInnerSpacing: 8px;
-@arrowWidth: 21px;
-@arrowHeight: 12px;
-
 // Triangles:
 // - An inner triangle with the box's background color
 // - An outer triangle "fake border" that's 1px offset
@@ -165,25 +146,6 @@
   }
   > .evidence-spacer-left  { float: left; }
   > .evidence-spacer-right { float: right; }
-
-  .discussion-interacting-users {
-    > .interacting-users-names, > .interacting-users-avatars {
-      z-index: 2;
-      position: relative;
-    }
-    &:after {
-      content: "";
-      z-index: 1;
-      display: block;
-      width: @middleLineWidth;
-      height: 100% + 7px;
-      background-color: @unsureBoxBackgroundColor;
-      position: absolute;
-      top: -7px;
-      left: 50%;
-      margin-left: -1px;  
-    }
-  }
 }
 
 // Irrelevant (faded out)

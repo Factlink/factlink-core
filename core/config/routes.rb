@@ -91,9 +91,10 @@ FactlinkUI::Application.routes.draw do
             controller: :global_feature_toggles,
             only: [:show, :update ]
 
-      resources :users, only: [:show, :edit, :update, :index] do
+      resources :users, only: [:show, :edit, :update, :index, :destroy] do
         collection do
           get :reserved
+          get :deleted
         end
 
         member do
@@ -127,6 +128,7 @@ FactlinkUI::Application.routes.draw do
   scope "/:username" do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
+    delete "/" => "users#destroy"
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 

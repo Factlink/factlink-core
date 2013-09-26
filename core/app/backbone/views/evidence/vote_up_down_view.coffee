@@ -27,7 +27,6 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     mp_track "Factlink: Upvote evidence click"
     if @model.isBelieving()
       @model.removeOpinion()
-      @_closePopups()
     else
       @_openVoteUpPopup()
       @model.believe()
@@ -36,7 +35,6 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     mp_track "Factlink: Downvote evidence click"
     if @model.isDisBelieving()
       @model.removeOpinion()
-      @_closePopups()
     else
       @_openVoteDownPopup()
       @model.disbelieve()
@@ -59,17 +57,10 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
       'right'
 
   _openVoteUpPopup: ->
-    return unless @_canShowPopup()
-
-    @_open_vote_popup '.js-up', new FactRelationVoteUpView model: @model
+    @_open_vote_popup '.js-up', new ArgumentVoteUpView model: @model
 
   _openVoteDownPopup: ->
-    return unless @_canShowPopup()
-
-    @_open_vote_popup '.js-down', new FactRelationVoteDownView model: @model
-
-  _canShowPopup: ->
-    @model instanceof FactRelation && Factlink.Global.can_haz['vote_up_down_popup']
+    @_open_vote_popup '.js-down', new ArgumentVoteDownView model: @model
 
   _closePopups: ->
     @popoverRemove '.js-up'
@@ -77,8 +68,6 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     @$el.removeClass 'evidence-impact-vote-popover'
 
   _setPopupHoverIntent: ->
-    return unless @_canShowPopup()
-
     @ui.upButton.hoverIntent
       timeout: 100
       over: => @_openVoteUpPopup() if @model.isBelieving()

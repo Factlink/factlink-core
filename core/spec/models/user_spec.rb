@@ -2,11 +2,8 @@ require 'spec_helper'
 
 describe User do
 
-  subject {create :user}
+  subject { create :user }
   let(:nonnda_subject) {create :user, agrees_tos: false}
-
-  let(:fact) {create :fact}
-  let(:child1) {create :fact}
 
   context "Initially" do
     it "isn't admin" do
@@ -197,27 +194,101 @@ describe User do
 
   end
 
-  describe ".approved" do
-    it "only returns approved users" do
-      expect(User.approved.selector).to eq({"approved" => true})
+  # also describes .hidden?
+  describe '.active?' do
+    context "new user" do
+      let(:waiting_list_user) { create :user }
+      it { expect(waiting_list_user).to_not be_active }
+      it { expect(waiting_list_user).to     be_hidden }
+    end
+    context "just confirmed user" do
+      let(:confirmed_user) { create :user, :confirmed }
+      it { expect(confirmed_user).to_not be_active }
+      it { expect(confirmed_user).to     be_hidden }
+    end
+    context "just approved user" do
+      let(:approved_user) { create :user, :confirmed, :approved }
+      it { expect(approved_user).to_not be_active }
+      it { expect(approved_user).to     be_hidden }
+    end
+    context "unapproved (disapproved) user who signed the tos" do
+      let(:approved_user) { create :user, :agrees_tos }
+      it { expect(approved_user).to_not be_active }
+      it { expect(approved_user).to     be_hidden }
+    end
+    context "confirmed, approved user who signed the tos" do
+      subject(:active_user) { create :user, :approved, :confirmed, :agrees_tos }
+      it { expect(active_user).to     be_active }
+      it { expect(active_user).to_not be_hidden }
+    end
+    context "deleted user" do
+      let(:deleted_user) do
+        create(:user, :approved, :confirmed, :agrees_tos).tap do |user|
+          Pavlov.command('users/mark_as_deleted', user:user)
+        end
+      end
+      it { expect(deleted_user).to_not be_active }
+      it { expect(deleted_user).to     be_hidden }
     end
   end
 
-  describe ".active" do
-    it "only returns approved, confirmed, and TOS-signed users" do
-      expect(User.active.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true})
+  describe 'scopes' do
+    describe ".approved" do
+      it "only returns approved users" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        approved_users = User.approved.all
+        expect(approved_users).to include approved_user
+        expect(approved_users).to_not include waiting_list_user
+      end
     end
-  end
 
-  describe ".seen_the_tour" do
-    it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
-      expect(User.seen_the_tour.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "seen_tour_step"=>"tour_done"})
+    describe ".active" do
+      it "only returns approved, confirmed, and TOS-signed users" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+
+        active_users = User.active.all
+        expect(active_users).to eq [active_user]
+      end
+
+      it "doesn't return deleted users" do
+        user = create :user, :approved, :confirmed, :agrees_tos
+
+        Pavlov.command('users/mark_as_deleted', user:user)
+
+        active_users = User.active.all
+        expect(active_users).to be_empty
+      end
     end
-  end
 
-  describe ".receives_digest" do
-    it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
-      expect(User.receives_digest.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "receives_digest"=>true})
+    describe ".seen_the_tour" do
+      it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+        seen_the_tour_user = create :user, :approved, :confirmed, :agrees_tos, :seen_the_tour
+
+        seen_tour_users = User.seen_the_tour.all
+
+        expect(seen_tour_users.all).to eq [seen_the_tour_user]
+      end
+    end
+
+    describe ".receives_digest" do
+      it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+        active_user_without_digest = create :user, :approved, :confirmed, :agrees_tos
+        active_user_without_digest.receives_digest = false
+        active_user_without_digest.save!
+
+        digest_users = User.receives_digest.all
+
+        expect(digest_users).to eq [active_user]
+      end
     end
   end
 

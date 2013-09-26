@@ -1,4 +1,5 @@
 class Admin::GlobalFeatureTogglesController < AdminController
+  #TODO: this must not accept JSON since that bypasses csrf protection
 
   layout "admin"
 

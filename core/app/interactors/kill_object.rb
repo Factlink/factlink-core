@@ -15,7 +15,8 @@ module KillObject
   dead_object :user,
     [:id, :name, :username, :location, :biography,
      :gravatar_hash, :email, :receives_mailed_notifications,
-     :receives_digest, :graph_user_id, :statistics, :top_user_topics]
+     :receives_digest, :graph_user_id, :statistics, :top_user_topics,
+     :deleted, :hidden?]
   dead_object :channel,
     [:type, :title, :id, :is_real_channel?,
      :slug_title, :created_by_id]
