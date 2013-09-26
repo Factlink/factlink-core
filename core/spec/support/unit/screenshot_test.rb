@@ -120,9 +120,6 @@ module ScreenshotTest
           err = 0
           total_lc += local_contrast
           if 40*changed_amount + contrast_badness > 20*local_contrast + 47600
-            #puts "#{x}x#{y}: #{changed_amount}/#{local_contrast} : #{contrast_badness}"
-
-            #binding.pry
             pixels_changed_count += 1
             err = 255
           end
