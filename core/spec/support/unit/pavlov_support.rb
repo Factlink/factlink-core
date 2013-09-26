@@ -13,7 +13,7 @@ module PavlovSupport
     expect { described_class.new(hash).call }
   end
 
-  def fail_validation message
+  def fail_validation message=nil
     raise_error(Pavlov::ValidationError, message)
   end
 
