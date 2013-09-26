@@ -62,7 +62,7 @@ class Admin::UsersController < AdminController
 
   def get_activated_users
     # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
+    @users = User.active.order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def get_reserved_users
