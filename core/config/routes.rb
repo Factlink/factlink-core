@@ -94,6 +94,7 @@ FactlinkUI::Application.routes.draw do
       resources :users, only: [:show, :edit, :update, :index, :destroy] do
         collection do
           get :reserved
+          get :deleted
         end
 
         member do

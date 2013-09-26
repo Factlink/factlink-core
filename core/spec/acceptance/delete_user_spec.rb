@@ -5,8 +5,7 @@ describe 'A user deletes his account', type: :feature do
   before do
     user = create :full_user,
       password: 'my_password',
-      password_confirmation: 'my_password',
-      features: [:delete_account]
+      password_confirmation: 'my_password'
 
     sign_in_user user
     visit edit_user_path user

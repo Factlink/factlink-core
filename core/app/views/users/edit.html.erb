@@ -90,7 +90,6 @@
     <% end %>
   </div>
 
-  <% if can_haz :delete_account %>
   <div class="span8 edit-user-delete-container">
 
     <%= form_for(@user, method: :delete, html: { class: "form-horizontal" }) do |f| %>
@@ -121,5 +120,4 @@
       </fieldset>
     <% end %>
   </div>
-  <% end %>
 </div>

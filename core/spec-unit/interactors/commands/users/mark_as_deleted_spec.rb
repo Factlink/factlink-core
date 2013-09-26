@@ -28,6 +28,7 @@ describe Commands::Users::MarkAsDeleted do
     it "marks the user as deleted" do
 
       user = User.new
+
       command = described_class.new user: user
 
       expect(user).to receive(:deleted=).with(true).ordered
