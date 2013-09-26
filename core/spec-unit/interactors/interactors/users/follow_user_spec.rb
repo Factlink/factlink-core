@@ -36,13 +36,13 @@ describe Interactors::Users::FollowUser do
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
-    let(:user) {double(id: '1a', graph_user_id: '10', graph_user: double, username: 'user')}
-    let(:user_to_follow) {double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')}
-    let(:options) {{current_user: user}}
-    let(:interactor) {described_class.new(user_name: user.username,
-        user_to_follow_user_name: user_to_follow.username, pavlov_options: options)}
-
     it 'calls a command to follow user' do
+      user = double(id: '1a', graph_user_id: '10', graph_user: double, username: 'user')
+      user_to_follow = double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')
+      options = {current_user: user}
+      interactor = described_class.new(user_name: user.username,
+          user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
+
       Pavlov.stub(:query)
             .with(:'user_by_username',
                       username: user.username, pavlov_options: options)
@@ -75,6 +75,12 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'aborts when already following' do
+      user = double(id: '1a', graph_user_id: '10', graph_user: double, username: 'user')
+      user_to_follow = double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')
+      options = {current_user: user}
+      interactor = described_class.new(user_name: user.username,
+          user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
+
       Pavlov.stub(:query)
             .with(:'user_by_username',
                       username: user.username, pavlov_options: options)
