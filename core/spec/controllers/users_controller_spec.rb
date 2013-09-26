@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
+  include PavlovSupport
   let(:user) { create(:user) }
 
   describe :show do
@@ -31,8 +32,14 @@ describe UsersController do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
 
-      # TODO: use command to really delete user here
-      deleted_user = create(:user, deleted: true)
+
+      SecureRandom.stub(:hex).and_return('b01dfacedeadbeefbabb1e0123456789')
+
+      deleted_user = create(:full_user)
+      as(deleted_user) do |pavlov|
+        pavlov.interactor(:'users/delete', user_id: deleted_user.id, current_user_password: '123hoi')
+      end
+      deleted_user = User.find deleted_user.id
 
       should_check_can :show, deleted_user
       get :show, username: deleted_user.username, format: :json

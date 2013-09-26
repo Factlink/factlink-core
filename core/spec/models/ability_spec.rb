@@ -4,16 +4,16 @@ require "cancan/matchers"
 describe Ability do
 
   # abilities
-  subject                { Ability.new(user)}
-  let(:anonymous)        { Ability.new}
-  let(:admin)            { Ability.new admin_user}
-  let(:nonnda)           { Ability.new nonnda_user}
+  subject                { Ability.new(user) }
+  let(:anonymous)        { Ability.new }
+  let(:admin)            { Ability.new admin_user }
+  let(:nonnda)           { Ability.new nonnda_user }
 
   # users used as object
-  let(:user)        {create :full_user}
+  let(:user)        {create :full_user }
   let(:other_user)  {create :full_user }
-  let(:admin_user)  {create :full_user, :admin}
-  let(:nonnda_user) {create :user, agrees_tos: false}
+  let(:admin_user)  {create :full_user, :admin }
+  let(:nonnda_user) {create :user, agrees_tos: false }
 
   describe "to manage a user" do
     context "as a normal user" do
