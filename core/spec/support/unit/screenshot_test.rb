@@ -194,8 +194,16 @@ module ScreenshotTest
       @new_image = ChunkyPNG::Image.from_file(new_file)
     end
 
+    def self.use_fuzzy_matching?
+      if @use_fuzzy == nil
+        @use_fuzzy = ENV["FUZZY_IMAGE_DIFF"]
+        puts "Using #{@use_fuzzy ? 'fuzzy' : 'exact'} screenshot matching."
+      end
+      @use_fuzzy
+    end
+
     def changed?
-      ENV["FUZZY_IMAGE_DIFF"] ? fuzzy_changed? : exact_changed?
+      Screenshot.use_fuzzy_matching? ? fuzzy_changed? : exact_changed?
     end
   end
 
