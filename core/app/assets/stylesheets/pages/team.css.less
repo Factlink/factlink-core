@@ -1,19 +1,16 @@
 @import "bootstrap/mixins";
 
-.team-member {
-  position: relative;
-  .team-photo {
-    width: 135px;
-    height: 135px;
-    box-shadow: 0 0 0 5px rgba(255, 255, 255, 1), 0 0 0 6px #cbcbcb, 0 7px 3px 0 rgba(0, 0, 0, .15);
-    margin-bottom: 15px;
-    border-radius: 1000px;
+.faces-list {
+  margin-right:-20px;
+}
 
-    &.advisor {
-      width: 80px;
-      height: 80px;
-    }
-  }
+.team-member-block {
+  position: relative;
+  display:inline-block;
+  vertical-align: top;
+  width:164px;
+  margin-right:11px;
+  margin-bottom:20px;
   .ico {
     width: 26px;
     height: 26px;
@@ -63,13 +60,10 @@
     margin: 0;
     text-align: center;
     font-weight: bold;
-
-    &.team-member {
-      font-size: 15px;
-      width: 150px;
-      line-height: 18px;
-      left: -10px;
-    }
+    font-size: 15px;
+    width: 150px;
+    line-height: 18px;
+    left: -10px;
 
     &.advisor {
       font-size: @heading4FontSize;
@@ -78,5 +72,19 @@
       line-height: 16px;
       left: -7px;
     }
+  }
+}
+
+
+.team-photo {
+  width: 135px;
+  height: 135px;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 1), 0 0 0 6px #cbcbcb, 0 7px 3px 0 rgba(0, 0, 0, .15);
+  margin-bottom: 15px;
+  border-radius: 1000px;
+
+  &.advisor {
+    width: 80px;
+    height: 80px;
   }
 }
