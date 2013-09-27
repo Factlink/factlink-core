@@ -70,6 +70,41 @@ module ScreenshotTest
       pixels_changed > 0 || size_changed?
     end
 
+
+    # Compares old and new screenshot, returning true when the images differ
+    # significantly. The aim to to ignore changes solely due to font-rendering
+    # differences such as antialiasing and vertical glyph offsetting since
+    # these are different in different OS's.
+    #
+    # Output: a diff image on disk with the blue channel representing input
+    # edges, the red channel representing input differences, and the green
+    # channel being either black (insignificant change) or fully green
+    # (significant change).  Prints some statistics to stdout.
+    #
+    # Algorithm: ignore pixel-wise differences below a threshold determined by
+    # local contrast and local contrast difference.  In effect, small changes
+    # near high-contrast areas (such as anti-aliased pixels on a font-glyph
+    # boundary) are irrelevant.   The local-contrast-difference check ensures
+    # that large differences in edges themselves are detected (e.g. different
+    # glyphs in new and old screenshots).
+    #
+    # Pseudocode:
+    # - X-edge detect by comparing each pixel with its right neighbor
+    # - Also do this for Y-edges using the bottom neighbor
+    # - ...and do this for new and old screenshots
+    # - accumulate these edge-detect images so we can efficiently compute
+    #   the averge edge-density in any image rectangle
+    # - Compare both images pixel-by-pixel,
+    #    - Per pixel badness consists of weighted sum of:
+    #       - color-difference (simplistic perceptual metric)
+    #       - difference in X-edge-density in a surrounding rectangle
+    #       - difference in Y-edge-density in a surrounding rectangle
+    #    - Per pixel theshold consists of a weighted sum of:
+    #       - The local contrast (X+Y edge density) of the old image
+    #       - The local contrast of the new image
+    #       - a positive bias
+    #    - Render some per-pixel stats into an image-diff for later inspection.
+    # - The image is changed iff any pixel's badness exceeds its threshold
     def fuzzy_changed?
       pixels_changed_count = 0
       total_badness = 0.0
