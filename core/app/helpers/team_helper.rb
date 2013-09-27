@@ -1,12 +1,12 @@
 module TeamHelper
   def linkedin_icon_for_team_member handle, team_member
     url = handle.match(/^http/) ? handle : "http://www.linkedin.com/in/#{handle}"
-    link_to content_tag(:i, "Linkedin"), url, class: "ico linkedin", target: "_blank", title: "#{team_member}'s LinkedIn"
+    link_to "", url, class: "about-team-ico-linkedin", target: "_blank", title: "#{team_member}'s LinkedIn"
   end
 
   def twitter_icon_for_team_member handle, team_member
     twitter_url = handle.match(/^http/) ? handle : "http://www.twitter.com/#{handle}"
-    link_to content_tag(:i, "Twitter"), twitter_url, class: "ico twitter", target: "_blank", title: "#{team_member}'s Twitter"
+    link_to "", twitter_url, class: "about-team-ico-twitter", target: "_blank", title: "#{team_member}'s Twitter"
   end
 
   def team_photo_tag photo, name, linkedin=nil, twitter=nil
