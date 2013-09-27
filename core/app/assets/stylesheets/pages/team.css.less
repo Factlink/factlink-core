@@ -2,15 +2,27 @@
 
 .faces-list {
   margin-right:-20px;
+  clear:both;
+  &:after{
+    content:'';display:table;clear:both;
+  }
 }
 
 .team-member-block {
   position: relative;
-  display:inline-block;
+  float:left;
   vertical-align: top;
   width:164px;
-  margin-right:10.5px;
+  margin-right:14.9px;
   margin-bottom:22px;
+}
+
+.team-advisor-block {
+  float:left;
+  vertical-align: top;
+  margin-right:14.9px;
+  margin-bottom:22px;
+  width:104.25px;
 }
 
 .about-team-ico-linkedin, .about-team-ico-twitter {
@@ -56,8 +68,6 @@
   }
 }
 
-
-
 .team-name() {
   position: relative;
   margin: 0;
@@ -72,21 +82,13 @@
   line-height: 18px;
   left: -10px;
 }
+
 .team-advisor-name {
   .team-name();
   font-size: @heading4FontSize;
   width: 95px;
   line-height: 16px;
   left: -7px;
-}
-
-
-.team-advisor-block {
-  display:inline-block;
-  vertical-align: top;
-  margin-right:10.5px;
-  margin-bottom:22px;
-  width:104.25px;
 }
 
 
