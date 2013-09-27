@@ -131,18 +131,7 @@ body.show_sign_in {
           height: 42px;
         }
       }
-
-      span.pull-right {
-        display: inline-block;
-        height: 100%;
-        line-height: 42px;
-
-        a {
-          color: @linkColor;
-          font-weight: bold;
-        }
-      }
-    }
+   }
 
     &.dimmed {
       z-index: 1;
@@ -159,7 +148,7 @@ body.show_sign_in {
           background-position: 0 -40px;
         }
 
-        span.pull-right {
+        .topbar-signin-question {
           color: #cecece;
           margin-right: -18px;
 
@@ -177,5 +166,17 @@ body.show_sign_in {
         }
       }
     }
+  }
+}
+
+.topbar-signin-question {
+  float:right;
+  padding-right:45px;
+  height: 100%;
+  line-height: 42px;
+
+  a {
+    color: @linkColor;
+    font-weight: bold;
   }
 }
