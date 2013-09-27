@@ -22,7 +22,7 @@ module ScreenshotTest
       (@old_image.height - @new_image.height).abs > 3 || (@old_image.width - @new_image.width).abs > 3
     end
 
-    def changed?
+    def exact_changed?
       pixels_changed = 0
       width = [@old_image.width, @new_image.width].min
       height = [@old_image.height, @new_image.height].min
@@ -191,15 +191,17 @@ module ScreenshotTest
       @old_image = ChunkyPNG::Image.from_file(old_file)
       @new_image = ChunkyPNG::Image.from_file(new_file)
     end
+
+    def changed?
+      ENV["FUZZY_IMAGE_DIFF"] ? fuzzy_changed? : exact_changed?
+    end
   end
 
   def assume_unchanged_screenshot(title)
     shot = Screenshot.new page, title
     shot.take
 
-    is_changed = if ENV["FUZZY_IMAGE_DIFF"] then shot.fuzzy_changed? else shot.changed? end
-
-    if is_changed
+    if shot.changed?
       if shot.size_changed?
         raise "Screenshot #{title} changed (also size)"
       else
