@@ -31,6 +31,8 @@ class GrayscaleImage
     output_image
   end
 
+  # Note that the edge image is offset by half a pixel in the negative X direction
+  # since at (x,y) source pixels (x,y) and (x-1,y) are compared.
   def self.rgb_delta28_contrast_image_x(image)
     width, height = image.width, image.height
     output_image = GrayscaleImage.new(width, height)
@@ -46,6 +48,8 @@ class GrayscaleImage
     output_image
   end
 
+  # Note that the edge image is offset by half a pixel in the negative Y direction
+  # since at (x,y) source pixels (x,y) and (x,y-1) are compared.
   def self.rgb_delta28_contrast_image_y(image)
     width, height = image.width, image.height
     output_image = GrayscaleImage.new(width, height)
@@ -76,6 +80,8 @@ class GrayscaleImage
     output_image
   end
 
+  # Note that the edge image is offset by half a pixel in the negative X direction
+  # since at (x,y) source pixels (x,y) and (x-1,y) are compared.
   def contrast_image_x
     output_image = GrayscaleImage.new(@width, @height)
     y = 0
@@ -106,6 +112,8 @@ class GrayscaleImage
     output_image
   end
 
+  # Note that the edge image is offset by half a pixel in the negative Y direction
+  # since at (x,y) source pixels (x,y) and (x,y-1) are compared.
   def contrast_image_y
     output_image = GrayscaleImage.new(@width, @height)
     y = 1
@@ -130,7 +138,6 @@ class GrayscaleImage
       while x < width
         output_image[x, y] = self[x - 1, y - 1] +
             output_image[x - 1, y] + output_image[x, y - 1] - output_image[x - 1, y - 1]
-        raise "#{x}, #{y}" unless output_image[x, y]>=0
         x += 1
       end
       y += 1
@@ -148,11 +155,13 @@ class GrayscaleImage
     b2 = ChunkyPNG::Color::b(pixel2)
     lum1 = 3*r1 + 10*g1 + 1*b1
     lum2 = 3*r2 + 10*g2 + 1*b2
+    # The human eye is most sensitive to green, and least sensitive to blue
 
     red_delta = (r1 - r2).abs
     green_delta = (g1 - g2).abs
     blue_delta = (b1 - b2).abs
     lum_delta = (lum1 - lum2).abs
+    # the human eye is more sensitive to changes in luminance than in hue/saturation.
     lum_delta + 3 * red_delta + 10 * green_delta + 1 * blue_delta
   end
 end
