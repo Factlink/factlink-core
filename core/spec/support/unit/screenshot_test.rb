@@ -202,13 +202,18 @@ module ScreenshotTest
   def assume_unchanged_screenshot(title)
     shot = Screenshot.new page, title
     shot.take
-
-    if shot.changed?
-      if shot.size_changed?
-        raise "Screenshot #{title} changed (also size)"
-      else
-        raise "Screenshot #{title} changed"
+    t0 = Time.now
+    begin
+      if shot.changed?
+        if shot.size_changed?
+          raise "Screenshot #{title} changed (also size)"
+        else
+          raise "Screenshot #{title} changed"
+        end
       end
+    ensure
+      t1 = Time.now
+      puts "Screenshot processing took #{t1-t0}s"
     end
   end
 end
