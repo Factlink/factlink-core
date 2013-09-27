@@ -1,6 +1,7 @@
 module ScreenshotTest
   class Screenshot
     include ChunkyPNG::Color
+
     def initialize(page, title)
       @title = title
       @page = page
@@ -171,6 +172,7 @@ module ScreenshotTest
         end
         y += 1
       end
+
       color_diff_img.save(diff_file)
       puts ""
       if pixels_changed_count > 0
