@@ -76,6 +76,10 @@ module ScreenshotTest
     # differences such as antialiasing and vertical glyph offsetting since
     # these are different in different OS's.
     #
+    # Pixels within distance 2 of the image edge are ignored; size differences
+    # ignored if any dimension change is less than 3; when the size has changed,
+    # the images are aligned by their top-left corner.
+    #
     # Output: a diff image on disk with the blue channel representing input
     # edges, the red channel representing input differences, and the green
     # channel being either black (insignificant change) or fully green
@@ -135,6 +139,10 @@ module ScreenshotTest
           changed_amount = diff_gray[x, y] #upto 28*255
 
           scaled_changed_amount = (changed_amount + 27)/28
+
+          # compare contrasts in a 4x5 region.  Note that to be centered on the current pixel,
+          # you need to correct for the fact that the x-contrast is a half-pixel shifted
+          # and that the accumulation buffer is upto and EXCLUDING the current pixel.
           local_cx1 = cx1acc[x-1, y-2] + cx1acc[x+3, y+3] - (cx1acc[x-1, y+3] + cx1acc[x+3, y-2]) #upto 560*255
           local_cy1 = cy1acc[x-2, y-1] + cy1acc[x+3, y+3] - (cy1acc[x+3, y-1] + cy1acc[x-2, y+3]) #upto 560*255
 
