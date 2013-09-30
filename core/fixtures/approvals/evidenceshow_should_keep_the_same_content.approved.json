@@ -15,6 +15,12 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "statistics_created_fact_count": 2,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
+      "user_topics": [
+
+      ],
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
@@ -52,6 +58,12 @@
     "name": "John1 Doe1",
     "username": "johndoe1",
     "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+    "statistics_created_fact_count": 2,
+    "statistics_follower_count": 0,
+    "statistics_following_count": 0,
+    "user_topics": [
+
+    ],
     "authority": "1.0"
   },
   "sub_comments_count": 0

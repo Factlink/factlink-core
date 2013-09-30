@@ -33,14 +33,6 @@ legend {
   }
 }
 
-// Set font for forms
-label,
-input,
-button,
-textarea {
-  #font > .shorthand(normal,@baseLineHeight); // Set size, weight, line-height here
-}
-
 // Identify controls by their labels
 label {
   display: block;
@@ -129,16 +121,6 @@ textarea {
 
 // Grid sizes
 #grid > .input(@gridColumnWidth, @gridGutterWidth);
-
-// DISABLED STATE
-// --------------
-
-// Disabled and read-only inputs
-input[disabled],
-textarea[disabled] {
-  cursor: not-allowed;
-  background-color: @inputDisabledBackground;
-}
 
 // FORM FIELD FEEDBACK STATES
 // --------------------------

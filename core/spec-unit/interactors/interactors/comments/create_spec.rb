@@ -9,8 +9,10 @@ describe Interactors::Comments::Create do
   end
 
   it 'without current user gives an unauthorized exception' do
-    expect_validating( fact_id: 1, type: 'believes', content: 'Hoi!')
-      .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
+    expect do
+      interactor = described_class.new( fact_id: 1, type: 'believes', content: 'Hoi!')
+      interactor.call
+    end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'without content doesn''t validate' do

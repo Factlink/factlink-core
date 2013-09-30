@@ -7,8 +7,10 @@ describe Interactors::Channels::Follow do
 
   describe '.authorized?' do
     it 'forbids execution without current_user' do
-      expect_validating( channel_id: '10')
-        .to raise_error(Pavlov::AccessDenied)
+      expect do
+        interactor = described_class.new(channel_id: '10')
+        interactor.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
   end
 

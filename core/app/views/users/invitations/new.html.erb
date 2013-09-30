@@ -8,7 +8,7 @@
     <%= devise_error_messages! %>
 
     <% if current_user.has_invitations_left? %>
-      <div class="control-group well">
+      <div class="control-group sunken-embossed-well">
         <%= f.label :email, class: "control-label" %>
         <div class="controls">
           <%= f.email_field :email, class: "input-xlarge", required: "required" %>
@@ -16,7 +16,7 @@
       </div>
 
       <% content_for :personalized_message do %>
-      <div class="control-group well">
+      <div class="control-group sunken-embossed-well">
         <%= f.label :message, class: "control-label" %>
         <div class="controls">
           <%= text_area :invite, :message, class: "input-xlarge", rows: 4 %>

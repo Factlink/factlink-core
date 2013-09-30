@@ -2,41 +2,35 @@ require 'spec_helper'
 
 describe User do
 
-  subject {create :user}
+  subject { create :user }
   let(:nonnda_subject) {create :user, agrees_tos: false}
 
-  let(:fact) {create :fact}
-  let(:child1) {create :fact}
-
   context "Initially" do
-    it {subject.graph_user.should == subject.graph_user }
-    it "should not be an Admin" do
-      subject.admin.should == false
+    it "isn't admin" do
+      expect(subject.admin).to be_false
     end
-    it "should not be approved" do
-      subject.approved.should == false
+    it "isn't approved" do
+      expect(subject.approved).to be_false
     end
 
-    it "should not have a tour step" do
+    it "has no tour step" do
       # Note: no default should be set for the tour step
       # rather set the first step in start_the_tour_path
       expect(subject.seen_tour_step).to eq nil
     end
-  end
-
-  it "should have a GraphUser" do
-    subject.graph_user.should be_a(GraphUser)
+    it "has a GraphUser" do
+      expect(subject.graph_user).to be_a(GraphUser)
+    end
   end
 
   describe "last_read_activities_on" do
-    it "should set the correct DateTime in the database" do
+    it "sets the correct DateTime in the database" do
       datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
 
       subject.last_read_activities_on = datetime
-
       subject.save
 
-      subject.last_read_activities_on.should == datetime
+      expect(subject.last_read_activities_on).to eq datetime
     end
   end
 
@@ -51,113 +45,108 @@ describe User do
       }
     end
 
-    it "should not fail when trying assign a username" do
+    it "can assign a username" do
       user = User.new
       user.assign_attributes(valid_attributes, as: :admin)
 
       user.confirmed_at = DateTime.now
 
-      user.save.should == true
+      expect(user.save).to be_true
     end
   end
 
   describe :username do
-    it "should respect the username's case" do
+    it "respects the username's case" do
       user = build :user, username: "TestUser"
-      user.save.should == true
+      user.save!
 
-      User.find(user.id).username.should == "TestUser"
+      retrieved_username = User.find(user.id).username
+      expect(retrieved_username).to eq "TestUser"
     end
 
-    it "should check uniqueness case insensitive" do
+    it "checks uniqueness case insensitively" do
       user1 = create :user, username: "TestUser"
       user2 = build  :user, username: "testuser"
-      user2.save.should be_false
+      expect(user2.save).to be_false
     end
   end
 
   describe :to_param do
-    it {subject.to_param.should == subject.username }
+    it {expect(subject.to_param).to eq subject.username }
   end
 
   context "when agreeing the tos" do
     describe "when trying to agree without signing" do
-      it "should not be allowed" do
-        nonnda_subject.sign_tos(false).should == false
-        nonnda_subject.errors.keys.length.should == 1
-        nonnda_subject.agrees_tos.should == false
+      it "isn't allowed" do
+        expect(nonnda_subject.sign_tos(false)).to be_false
+        expect(nonnda_subject.errors.keys.length).to eq 1
+        expect(nonnda_subject.agrees_tos).to be_false
       end
     end
 
     describe "when agreeing with signing" do
-      it "should be allowed" do
+      it "is allowed" do
         t = DateTime.now
         DateTime.stub(:now).and_return(t)
-        nonnda_subject.sign_tos(true).should == true
-        nonnda_subject.agreed_tos_on.to_i.should == t.to_i
-        nonnda_subject.errors.keys.length.should == 0
+        expect(nonnda_subject.sign_tos(true)).to eq true
+        expect(nonnda_subject.agreed_tos_on.to_i).to eq t.to_i
+        expect(nonnda_subject.errors.keys.length).to eq 0
       end
     end
 
     describe "user signing the ToS" do
-      it "correctly should persist to the database" do
+      it "correctly persists to the database" do
         agrees_tos      = true
 
         nonnda_subject.sign_tos(agrees_tos)
 
         user = User.find(nonnda_subject.id)
-        user.agrees_tos.should      == agrees_tos
+        expect(user.agrees_tos).to eq agrees_tos
       end
     end
   end
 
   describe ".find" do
-    it "should work with numerical ids" do
-      User.find(subject.id).should == subject
+    it "works with numerical ids" do
+      expect(User.find(subject.id)).to eq subject
     end
-    it "should work with usernames" do
-      User.find_by(username: subject.username).should == subject
+    it "works with usernames" do
+      expect(User.find(subject.username)).to eq subject
     end
   end
 
   describe '#first_name' do
-    before do
-      @u = build :user
-    end
+    let(:new_user){ build :user }
 
     it "cannot be empty" do
-      @u.first_name = ""
-      @u.valid?.should be_false
+      new_user.first_name = ""
+      expect(new_user.valid?).to be_false
     end
 
     it "can be just one letter" do
-      @u.first_name = "a"
-      @u.valid?.should be_true
+      new_user.first_name = "a"
+      expect(new_user.valid?).to be_true
     end
   end
 
   describe '#last_name' do
-    before do
-      @u = build :user
-    end
+    let(:new_user){ build :user }
 
     it "cannot be empty" do
-      @u.last_name = ""
-      @u.valid?.should be_false
+      new_user.last_name = ""
+      expect(new_user.valid?).to be_false
     end
 
     it "can be just one letter" do
-      @u.last_name = "a"
-      @u.valid?.should be_true
+      new_user.last_name = "a"
+      expect(new_user.valid?).to be_true
     end
   end
 
   describe :to_json do
-    before do
-      @json = subject.to_json
-    end
-    it "should not contain a password" do
-      @json.should_not include(subject.encrypted_password)
+    let(:json){ subject.to_json }
+    it "contains no password" do
+      expect(json).to_not include(subject.encrypted_password)
     end
     [
       :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
@@ -165,28 +154,26 @@ describe User do
       :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
       :sign_in_count, :agreed_tos_on, :agrees_tos_name
     ].map{|x| x.to_s}.each do |field|
-      it "should not contain other sensitive information: #{field}" do
-        @json.should_not include(field)
+      it "does not contain other sensitive information: #{field}" do
+        expect(json).to_not include(field)
       end
     end
   end
 
   describe 'forbidden names' do
-    before do
-      @u = build :user
+    let(:new_user){ build :user }
+    it "can have GerardEkdom as name" do
+      new_user.username = "GerardEkdom"
+      expect(new_user.valid?).to be_true
     end
-    it "should be possible to choose GerardEkdom as name" do
-      @u.username = "GerardEkdom"
-      @u.valid?.should be_true
-    end
-    it "should not be possible to choose 1 letter as name" do
-      @u.username = "a"
-      @u.valid?.should be_false
+    it "cannot have 1 letter as name" do
+      new_user.username = "a"
+      expect(new_user.valid?).to be_false
     end
     [:users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink].each do |name|
-      it "should not be possible to choose #{name} as name" do
-        @u.username = name.to_s
-        @u.valid?.should be_false
+      it "cannot choose #{name} as name" do
+        new_user.username = name.to_s
+        expect(new_user.valid?).to be_false
       end
     end
   end
@@ -195,43 +182,118 @@ describe User do
 
     it "sends a welcome email" do
       subject.send_welcome_instructions
-      ActionMailer::Base.deliveries.last.to.should == [subject.email]
+      last_recipients = ActionMailer::Base.deliveries.last.to
+      expect(last_recipients).to eq [subject.email]
     end
 
-    it "#send_welcome_instructions should be called once" do
-      subject.should_receive(:send_welcome_instructions).once
+    it "#send_welcome_instructions are called once" do
+      expect(subject).to receive(:send_welcome_instructions).once
       subject.approved = true
       subject.save
     end
 
   end
 
-  describe ".approved" do
-    it "only returns approved users" do
-      expect(User.approved.selector).to eq({"approved" => true})
+  # also describes .hidden?
+  describe '.active?' do
+    context "new user" do
+      let(:waiting_list_user) { create :user }
+      it { expect(waiting_list_user).to_not be_active }
+      it { expect(waiting_list_user).to     be_hidden }
+    end
+    context "just confirmed user" do
+      let(:confirmed_user) { create :user, :confirmed }
+      it { expect(confirmed_user).to_not be_active }
+      it { expect(confirmed_user).to     be_hidden }
+    end
+    context "just approved user" do
+      let(:approved_user) { create :user, :confirmed, :approved }
+      it { expect(approved_user).to_not be_active }
+      it { expect(approved_user).to     be_hidden }
+    end
+    context "unapproved (disapproved) user who signed the tos" do
+      let(:approved_user) { create :user, :agrees_tos }
+      it { expect(approved_user).to_not be_active }
+      it { expect(approved_user).to     be_hidden }
+    end
+    context "confirmed, approved user who signed the tos" do
+      subject(:active_user) { create :user, :approved, :confirmed, :agrees_tos }
+      it { expect(active_user).to     be_active }
+      it { expect(active_user).to_not be_hidden }
+    end
+    context "deleted user" do
+      let(:deleted_user) do
+        create(:user, :approved, :confirmed, :agrees_tos).tap do |user|
+          Pavlov.command('users/mark_as_deleted', user:user)
+        end
+      end
+      it { expect(deleted_user).to_not be_active }
+      it { expect(deleted_user).to     be_hidden }
     end
   end
 
-  describe ".active" do
-    it "only returns approved, confirmed, and TOS-signed users" do
-      expect(User.active.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true})
+  describe 'scopes' do
+    describe ".approved" do
+      it "only returns approved users" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        approved_users = User.approved.all
+        expect(approved_users).to include approved_user
+        expect(approved_users).to_not include waiting_list_user
+      end
     end
-  end
 
-  describe ".seen_the_tour" do
-    it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
-      expect(User.seen_the_tour.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "seen_tour_step"=>"tour_done"})
+    describe ".active" do
+      it "only returns approved, confirmed, and TOS-signed users" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+
+        active_users = User.active.all
+        expect(active_users).to eq [active_user]
+      end
+
+      it "doesn't return deleted users" do
+        user = create :user, :approved, :confirmed, :agrees_tos
+
+        Pavlov.command('users/mark_as_deleted', user:user)
+
+        active_users = User.active.all
+        expect(active_users).to be_empty
+      end
     end
-  end
 
-  describe ".receives_digest" do
-    it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
-      expect(User.receives_digest.selector).to eq({"approved"=>true, "confirmed_at"=>{"$ne"=>nil}, "agrees_tos"=>true, "receives_digest"=>true})
+    describe ".seen_the_tour" do
+      it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+        seen_the_tour_user = create :user, :approved, :confirmed, :agrees_tos, :seen_the_tour
+
+        seen_tour_users = User.seen_the_tour.all
+
+        expect(seen_tour_users.all).to eq [seen_the_tour_user]
+      end
+    end
+
+    describe ".receives_digest" do
+      it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
+        waiting_list_user = create :user
+        approved_user = create :user, :approved
+        active_user = create :user, :approved, :confirmed, :agrees_tos
+        active_user_without_digest = create :user, :approved, :confirmed, :agrees_tos
+        active_user_without_digest.receives_digest = false
+        active_user_without_digest.save!
+
+        digest_users = User.receives_digest.all
+
+        expect(digest_users).to eq [active_user]
+      end
     end
   end
 
   describe "#valid_username_and_email?" do
-    it "should validate normal username and email address fine" do
+    it "validates normal username and email address fine" do
       user = User.new
       user.username = "some_username"
       user.email = "some@email.com"
@@ -243,7 +305,7 @@ describe User do
       expect(errors.size).to eq 0
     end
 
-    it "should keep an error if the username is invalid" do
+    it "keeps an error if the username is invalid" do
       user = User.new
       user.username = "a"
       user.email = "some@email.com"
@@ -256,7 +318,7 @@ describe User do
       expect(errors[:username].any?).to be_true
     end
 
-    it "should keep an error if the email is invalid" do
+    it "keeps an error if the email is invalid" do
       user = User.new
       user.username = "some_username"
       user.email = "a"

@@ -1,23 +1,5 @@
 @import "bootstrap/mixins";
 
-// Layout variables
-@middleColumnWidth: 100px;
-@topFactWheelOverhang: 62px;
-@middleLineWidth: 3px;
-@impactCircleDiameter: 53px;
-@argumentBoxTopOverhang: 12px;
-@impactCircleTopSpacing: 30px;
-@evidenceBoxSpacing: 15px;
-@impactColouredBorderWidth: 3px;
-@evidenceRegionHorizontalMargin: 16px;
-@evidenceRegionBottomPadding: 60px;
-
-// Arrows:
-@impactCircleVotableWithoutArrowsTopSpacing: 15px;
-@arrowInnerSpacing: 8px;
-@arrowWidth: 21px;
-@arrowHeight: 12px;
-
 // Triangles:
 // - An inner triangle with the box's background color
 // - An outer triangle "fake border" that's 1px offset
@@ -153,6 +135,7 @@
   > .evidence-box {
     margin-top: @unsureImpactToBoxDistance;
     margin-bottom: @evidenceBoxSpacing;
+    position: relative;
   }
 
   > .evidence-spacer-left,
@@ -304,6 +287,10 @@
   .evidence-impact-vote-up, .evidence-impact-vote-down {
     display: block;
   }
+}
+
+.evidence-impact-vote-popover {
+  z-index: 1; // force it just above the other evidence, inside this stacking context
 }
 
 // Add evidence buttons

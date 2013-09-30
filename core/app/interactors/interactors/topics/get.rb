@@ -7,7 +7,8 @@ module Interactors
       arguments :slug_title
 
       def execute
-        KillObject.topic topic, current_user_authority: authority
+        KillObject.topic topic,
+          current_user_authority: authority
       end
 
       def topic
