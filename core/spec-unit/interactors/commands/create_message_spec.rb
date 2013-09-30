@@ -9,40 +9,31 @@ describe Commands::CreateMessage do
     stub_const 'Pavlov::ValidationError', Class.new(StandardError)
   end
 
-  let(:long_message_string) { (0...5001).map{65.+(rand(26)).chr}.join }
+  let(:long_message_string) { 'a' * 5001 }
   let(:content) {'bla'}
 
   describe '.validate' do
     it 'throws error on empty message' do
-      user = double(id: 14)
-      User.stub(find: user)
-      conversation = double(repicient_ids: [14])
-
-      expect_validating( sender_id: 14, content: '', conversation: conversation)
-        .to fail_validation 'message_empty'
+      expect_validating( sender_id: 14, content: '', conversation: double(id: 'a1'))
+        .to fail_validation 'content cannot be empty'
     end
 
     it 'throws error on message with just whitespace' do
-      user = double(id: 14)
-      User.stub(find: user)
-
-      conversation = double(repicient_ids: [14])
-
-      expect_validating(sender_id: 14, content: " \t\n", conversation: conversation)
-        .to fail_validation 'message_empty'
+      expect_validating(sender_id: 14, content: " \t\n", conversation: double(id: 'a1'))
+        .to fail_validation 'content cannot be empty'
     end
 
     it 'throws error on too long message' do
       command = described_class.new(sender_id: 'bla', content: long_message_string,
-        conversation: '1')
+        conversation:  double(id: 'a1'))
       expect { command.call }.
-        to raise_error(Pavlov::ValidationError, 'Message cannot be longer than 5000 characters.')
+        to raise_error(Pavlov::ValidationError, 'content cannot be longer than 5000 characters.')
     end
 
     it 'it throws when initialized with a argument that is not a hexadecimal string' do
       user = double(id: 14)
       User.stub(find: user)
-      conversation = double(id: 'g6', repicient_ids: [14])
+      conversation = double(id: 'g6')
 
       expect_validating(sender_id: 14, content: 'bla', conversation: conversation)
         .to fail_validation 'conversation_id should be an hexadecimal string.'
