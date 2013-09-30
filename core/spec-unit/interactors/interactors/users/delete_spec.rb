@@ -84,8 +84,8 @@ describe Interactors::Users::Delete do
         ability: double(:ability, can?: true ),
         current_user: double(:user, :valid_password? => true)
       }
-      expect_validating(current_user_password: '', pavlov_options: pavlov_options)
-        .to fail_validation
+      expect_validating(current_user_password: '', user_id: '', pavlov_options: pavlov_options)
+        .to fail_validation('user_id should be an hexadecimal string.')
     end
 
     it 'raises when current_user_password is missing' do
