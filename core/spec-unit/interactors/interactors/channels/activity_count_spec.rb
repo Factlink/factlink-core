@@ -40,8 +40,10 @@ describe Interactors::Channels::ActivityCount do
     end
 
     it 'returns false when neither :current_user or :no_current_user are passed' do
-      expect_validating(channel_id: double, timestamp: double)
-        .to raise_error(Pavlov::AccessDenied)
+      expect do
+        interactor = described_class.new(channel_id: double, timestamp: double)
+        interactor.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
   end
 end

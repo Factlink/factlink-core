@@ -23,8 +23,10 @@ describe Interactors::Channels::Facts do
   end
 
   it '.authorized raises when not logged in' do
-    expect_validating( id: '1', from: 2, count: 3, pavlov_options: { current_user: nil } )
-      .to raise_error Pavlov::AccessDenied, "Unauthorized"
+    expect do
+      interactor = described_class.new(id: '1', from: 2, count: 3, pavlov_options: { current_user: nil })
+      interactor.call
+    end.to raise_error Pavlov::AccessDenied, "Unauthorized"
   end
 
   describe '#call' do

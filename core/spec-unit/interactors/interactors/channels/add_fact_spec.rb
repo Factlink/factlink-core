@@ -31,8 +31,7 @@ describe Interactors::Channels::AddFact do
   end
 
   describe '.authorized?' do
-    it 'returns false if the current user did not create the channel' do
-    end
+    it 'returns false if the current user did not create the channel'
     it 'returns true if the current user created the channel' do
       fact = double
       user = double :user, graph_user_id: 26
@@ -52,8 +51,10 @@ describe Interactors::Channels::AddFact do
     end
 
     it 'returns false when neither :current_user or :no_current_user are passed' do
-      expect_validating( fact: double, channels: double )
-        .to raise_error(Pavlov::AccessDenied)
+      expect do
+        interactor = described_class.new( fact: double, channels: double )
+        interactor.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
   end
 end

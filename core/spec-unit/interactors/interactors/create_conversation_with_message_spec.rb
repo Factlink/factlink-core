@@ -88,15 +88,16 @@ describe Interactors::CreateConversationWithMessage do
     end
 
     it "returns false when the sender has a different user_id as the current_user" do
-      user_a = double(id: double(to_s: double))
-      user_b = double(id: double(to_s: double))
+      current_user = double(id: '1')
+      sender = double(id: '2')
 
-      pavlov_options = {current_user: user_a}
-      hash = { fact_id: double, recipient_usernames: double, sender_id: user_b.id,
-        content: double, pavlov_options: pavlov_options }
+      pavlov_options = {current_user: current_user}
+      interactor = described_class.new fact_id: double, recipient_usernames: double, sender_id: sender.id,
+        content: double, pavlov_options: pavlov_options
 
-      expect_validating( hash )
-        .to raise_error(Pavlov::AccessDenied)
+      expect do
+        interactor.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
   end
 end
