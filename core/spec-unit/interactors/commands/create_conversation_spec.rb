@@ -12,13 +12,13 @@ describe Commands::CreateConversation do
   end
 
   it 'throws an error when recipient_usernames is not a list' do
-    expect { described_class.new(fact_id: fact_id, recipients_usernames: nil).call }.
-      to raise_error(RuntimeError, 'recipient_usernames should be a list')
+    expect_validating(fact_id: fact_id, recipients_usernames: nil)
+      .to fail_validation 'recipient_usernames should be a list'
   end
 
   it 'throws an error when recipient_usernames is an empty list' do
-    expect { described_class.new(fact_id: fact_id, recipient_usernames: []).call }.
-      to raise_error(RuntimeError, 'recipient_usernames should not be empty')
+    expect_validating(fact_id: fact_id, recipient_usernames: [])
+      .to fail_validation 'recipient_usernames should not be empty'
   end
 
   describe '#call' do

@@ -12,7 +12,7 @@ describe Queries::MessagesForConversation do
 
   it 'it throws when initialized with a argument that is not a hexadecimal string' do
     expect { described_class.new(conversation: double(id: 'g6')).call }.
-      to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
+      to fail_validation 'id should be an hexadecimal string.'
   end
 
   describe '#call' do

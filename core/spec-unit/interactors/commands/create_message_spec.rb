@@ -16,13 +16,10 @@ describe Commands::CreateMessage do
     it 'throws error on empty message' do
       user = double(id: 14)
       User.stub(find: user)
-
       conversation = double(repicient_ids: [14])
 
-      command = described_class.new sender_id: 14, content: '',
-        conversation: conversation
-      expect { command.call }.
-        to raise_error(Pavlov::ValidationError, 'message_empty')
+      expect_validating( sender_id: 14, content: '', conversation: conversation)
+        .to fail_validation 'message_empty'
     end
 
     it 'throws error on message with just whitespace' do
@@ -31,10 +28,8 @@ describe Commands::CreateMessage do
 
       conversation = double(repicient_ids: [14])
 
-      command = described_class.new sender_id: 14, content: " \t\n",
-                  conversation: conversation
-      expect { command.call }.
-        to raise_error(Pavlov::ValidationError, 'message_empty')
+      expect_validating(sender_id: 14, content: " \t\n", conversation: conversation)
+        .to fail_validation 'message_empty'
     end
 
     it 'throws error on too long message' do
@@ -47,13 +42,10 @@ describe Commands::CreateMessage do
     it 'it throws when initialized with a argument that is not a hexadecimal string' do
       user = double(id: 14)
       User.stub(find: user)
-
       conversation = double(id: 'g6', repicient_ids: [14])
 
-      command = described_class.new(sender_id: 14, content: 'bla',
-        conversation: conversation)
-      expect { command.call }.
-        to raise_error(Pavlov::ValidationError, 'conversation_id should be an hexadecimal string.')
+      expect_validating(sender_id: 14, content: 'bla', conversation: conversation)
+        .to fail_validation 'conversation_id should be an hexadecimal string.'
     end
   end
 
