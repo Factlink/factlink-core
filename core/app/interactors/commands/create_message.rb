@@ -5,24 +5,28 @@ module Commands
     arguments :sender_id, :content, :conversation
 
     def validate
-      raise Pavlov::ValidationError, 'message_empty' unless @content.strip.length > 0
-      raise 'Message cannot be longer than 5000 characters.' unless @content.length <= 5000
-      validate_hexadecimal_string :conversation_id, @conversation.id.to_s
+      unless content.strip.length > 0
+        raise Pavlov::ValidationError, 'message_empty'
+      end
+      unless content.length <= 5000
+        raise 'Message cannot be longer than 5000 characters.'
+      end
+      validate_hexadecimal_string :conversation_id, conversation.id.to_s
     end
 
     def execute
-      @conversation.save # update the updated_at attribute
+      conversation.save # update the updated_at attribute
       message = Message.new
-      message.sender_id = @sender_id
-      message.content = @content
-      message.conversation_id = @conversation.id
+      message.sender_id = sender_id
+      message.content = content
+      message.conversation_id = conversation.id
       message.save
       message
     end
 
     def authorized?
-      @conversation.recipient_ids.map(&:to_s).include? @sender_id and
-      @sender_id == pavlov_options[:current_user].id.to_s
+      conversation.recipient_ids.map(&:to_s).include? sender_id and
+        sender_id == pavlov_options[:current_user].id.to_s
     end
   end
 end
