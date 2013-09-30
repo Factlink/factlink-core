@@ -5,7 +5,9 @@ describe Interactors::SubComments::CreateForComment do
   include PavlovSupport
 
   before do
-    stub_classes 'Comment', 'SubComment'
+    stub_classes 'Comment', 'SubComment', 'KillObject',
+                 'Commands::SubComments::CreateXxx',
+                 'Queries::AuthorityOnFactFor'
   end
 
   it '.authorized denied the user cannot show the comment' do
@@ -23,26 +25,22 @@ describe Interactors::SubComments::CreateForComment do
 
   describe '.validate' do
     it 'without comment_id doesn''t validate' do
-      expect_validating(comment_id: nil, content: 'hoi').
-        to fail_validation('comment_id should be an hexadecimal string.')
+      expect_validating(comment_id: nil, content: 'hoi')
+        .to fail_validation('comment_id should be an hexadecimal string.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating(comment_id: '2a', content: '').
-        to fail_validation('content should not be empty.')
+      expect_validating(comment_id: '2a', content: '')
+        .to fail_validation('content should not be empty.')
     end
 
     it 'without content doesn\'t validate' do
-      expect_validating(comment_id: '2a', content: '  ').
-        to fail_validation('content should not be empty.')
+      expect_validating(comment_id: '2a', content: '  ')
+        .to fail_validation('content should not be empty.')
     end
   end
 
   describe '#call' do
-    before do
-      stub_classes 'KillObject', 'Commands::SubComments::CreateXxx'
-    end
-
     it 'calls the corresponding command' do
       comment = double id: '2a'
       user = double
@@ -127,10 +125,6 @@ describe Interactors::SubComments::CreateForComment do
   end
 
   describe '.authority_of_user_who_created' do
-    before do
-      stub_classes 'Queries::AuthorityOnFactFor'
-    end
-
     it 'retrieves the authority and kills the subcomment' do
       comment_id = '2a'
       fact = double
