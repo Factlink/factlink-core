@@ -7,7 +7,7 @@ describe Queries::Topics::BySlugTitleWithStatistics do
   describe 'validation' do
     it 'checks the slug_title' do
       expect_validating(slug_title: 1)
-        .to raise_error Pavlov::ValidationError, 'slug_title should be a string.'
+        .to fail_validation 'slug_title should be a string.'
     end
   end
   describe '#call' do

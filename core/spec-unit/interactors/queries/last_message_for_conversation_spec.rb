@@ -13,20 +13,20 @@ describe Queries::LastMessageForConversation do
 
   before do
     stub_classes "Message", "KillObject"
-    stub_const "Pavlov::ValidationError", Class.new(StandardError)
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
-    expect { described_class.new(conversation: double(id: 'g6'),
-        pavlov_options: { current_user: double }).call }
-      .to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
+    expect_validating(conversation: double(id: 'g6'), pavlov_options: { current_user: double })
+      .to fail_validation 'id should be an hexadecimal string.'
   end
 
   describe "#authorized?" do
     it 'throws when the conversation does not contain the current user' do
-      expect { described_class.new(conversation: double(id: 1,
-          recipient_ids: [14]), pavlov_options: { current_user: user }).call }
-        .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
+      expect do
+        pavlov_options = { current_user: user }
+        query = described_class.new conversation: double(id: 1, recipient_ids: [14]), pavlov_options: pavlov_options
+        query.call
+      end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 
