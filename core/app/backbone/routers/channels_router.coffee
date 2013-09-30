@@ -1,5 +1,7 @@
 class window.ChannelsRouter extends Backbone.Marionette.AppRouter
   appRoutes:
-    ':username/channels/:channel_id':                 'showChannelFacts'
-    ':username/channels/:channel_id/activities':      'showChannelActivities'
-    't/:slug_title':                                  'showTopicFacts'
+    ':username/channels/:channel_id':                          'showChannelFacts'
+    ':username_unused/channels/:channel_id_unused/activities': 'showStream'
+    't/:slug_title':                                           'showTopicFacts'
+
+    ':slug/f/:fact_id': 'showFact' # keep url in sync with DiscussionModalOnFrontend

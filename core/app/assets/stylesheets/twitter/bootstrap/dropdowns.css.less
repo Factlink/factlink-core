@@ -58,7 +58,7 @@
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   border-radius: 6px;
-  .box-shadow(0 5px 10px rgba(0,0,0,.2));
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
   -webkit-background-clip: padding-box;
      -moz-background-clip: padding;
           background-clip: padding-box;
@@ -106,20 +106,6 @@
   outline: 0;
   background-color: @dropdownLinkBackgroundActive;
   #gradient > .vertical(@dropdownLinkBackgroundActive, darken(@dropdownLinkBackgroundActive, 5%));
-}
-
-// Disabled state
-// --------------
-// Gray out text and ensure the hover state remains gray
-.dropdown-menu .disabled > a,
-.dropdown-menu .disabled > a:hover {
-  color: @grayLight;
-}
-// Nuke hover effects
-.dropdown-menu .disabled > a:hover {
-  text-decoration: none;
-  background-color: transparent;
-  cursor: default;
 }
 
 // Open state for the dropdown

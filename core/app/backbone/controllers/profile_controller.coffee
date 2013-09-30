@@ -3,34 +3,23 @@ class window.ProfileController extends Backbone.Marionette.Controller
   # ACTIONS
   showProfile: (username) ->
     @showPage username, @profile_options()
+
   showNotificationSettings: (username) ->
     @showPage username, @notification_options(username)
-
-  showFact: (slug, fact_id, params={})->
-    fact = new Fact(id: fact_id)
-    user = new User fact.get('created_by')
-    back_button = new UserBackButton [], model: user
-
-    fact.on 'change', (fact)=>
-      user.set fact.get('created_by')
-      window.Channels.setUsernameAndRefreshIfNeeded user.get('username') # TODO: check if this can be removed
-      FactlinkApp.Sidebar.showForChannelsOrTopicsAndActivateCorrectItem(window.Channels, null, user)
-      @showSidebarProfile(user)
-
-    FactlinkApp.mainRegion.show new DiscussionPageView
-      model: fact
-      back_button: back_button
-      tab: params.tab
 
   # HELPERS
   profile_options: ->
     title: 'Profile'
     active_tab: 'show'
     render: (main_region, user) =>
-      main_region.show new ProfileView
-        model: user
-        collection: window.Channels
-        created_facts_view: @getFactsView user.created_facts()
+      if user.get('deleted')
+        main_region.show new TextView model:
+          new Backbone.Model text: 'This profile has been deleted.'
+      else
+        main_region.show new ProfileView
+          model: user
+          collection: window.Channels
+          created_facts_view: @getFactsView user.created_facts()
 
   notification_options: (username)->
     title: 'Notification Settings'
@@ -39,6 +28,8 @@ class window.ProfileController extends Backbone.Marionette.Controller
       main_region.show(new NotificationSettingsView model: user)
 
   showPage: (username, options) ->
+    $(window).scrollTop(0)
+
     FactlinkApp.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
@@ -51,6 +42,11 @@ class window.ProfileController extends Backbone.Marionette.Controller
         @showSidebarProfile(user)
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         options.render(@main.contentRegion, user)
+
+        # Remove when permanently disabling sees_channels feature toggle,
+        # as this is only for the channels sidebar
+        if user.get('deleted')
+          FactlinkApp.leftMiddleRegion.close()
 
   switchToPage: (username, user, path, options)->
     @main.setTitle options.title
@@ -74,7 +70,10 @@ class window.ProfileController extends Backbone.Marionette.Controller
   getFactsView: (channel) ->
     new FactsView
       collection: new ChannelFacts([], channel: channel)
+      empty_view: new EmptyProfileFactsView()
 
   showSidebarProfile: (user) ->
+    return if user.get('deleted')
+
     sidebarProfileView = new SidebarProfileView(model: user)
     FactlinkApp.leftTopRegion.show(sidebarProfileView)

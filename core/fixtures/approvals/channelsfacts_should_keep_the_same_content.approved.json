@@ -13,12 +13,18 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "statistics_created_fact_count": 3,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
+      "user_topics": [
+
+      ],
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
       }
     },
-    "created_by_ago": "Originally posted 1 minute ago",
+    "created_by_ago": "Posted 1 minute ago",
     "fact_title": "Fact title 3",
     "fact_wheel": {
       "authority": "0.0",
@@ -56,12 +62,18 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "statistics_created_fact_count": 3,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
+      "user_topics": [
+
+      ],
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
       }
     },
-    "created_by_ago": "Originally posted 1 minute ago",
+    "created_by_ago": "Posted 1 minute ago",
     "fact_title": "Fact title 2",
     "fact_wheel": {
       "authority": "0.0",
@@ -99,12 +111,18 @@
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
+      "statistics_created_fact_count": 3,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
+      "user_topics": [
+
+      ],
       "authority_for_subject": {
         "authority": "1.0",
         "id": "<STRIPPED>"
       }
     },
-    "created_by_ago": "Originally posted 1 minute ago",
+    "created_by_ago": "Posted 1 minute ago",
     "fact_title": "Fact title 1",
     "fact_wheel": {
       "authority": "0.0",

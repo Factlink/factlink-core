@@ -3,6 +3,7 @@ class FactlinkAppClass extends Backbone.Marionette.Application
     @startSiteRegions()
     @addInitializer @automaticLogoutInitializer
     @addInitializer @notificationsInitializer
+    @addInitializer @scrollToTopInitializer
 
     @linkTarget = '_self'
 
@@ -19,8 +20,9 @@ class FactlinkAppClass extends Backbone.Marionette.Application
     @startClientRegions()
     @addInitializer (options)->
       new ClientRouter controller: new ClientController
+    @addInitializer @clientCloseDiscussionModalInitializer
     @modal = true
-    @linkTarget = '_blank'
+    @onClientApp = true
 
     @start()
 

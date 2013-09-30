@@ -1,6 +1,5 @@
 class window.AddCommentView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
-                       Backbone.Factlink.AlertMixin
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
 
   className: 'add-comment'
   events:
@@ -14,13 +13,9 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   regions:
     inputRegion: '.js-input-region'
-    avatarRegion: '.js-avatar-region'
 
   onRender: ->
     @inputRegion.show @_textAreaView()
-    unless @options.ndp
-      @avatarRegion.show new AvatarView(model: currentUser)
-      @$el.addClass 'pre-ndp-add-comment'
 
   addWithHighlight: ->
     return if @submitting
@@ -32,7 +27,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
     return @addModelError() unless @model.isValid()
 
-    @alertHide()
     @disableSubmit()
     @addDefaultModel highlight: true
 
@@ -60,10 +54,11 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   addModelError: ->
     @enableSubmit()
-    @alertError()
+    FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
+    @options.addToCollection.trigger 'error_adding_model'
 
   switchCheckboxClicked: (e)->
-    @trigger 'switch_to_fact_relation_view', @$('.js-content').val()
+    @trigger 'switch_to_fact_relation_view', @_textModel().get('text')
     e.preventDefault()
     e.stopPropagation()
 

@@ -6,7 +6,7 @@ describe Queries::ElasticSearchUser do
   include PavlovSupport
 
   before do
-    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'FactlinkUser'
+    stub_classes 'HTTParty', 'User', 'FactlinkUI::Application', 'KillObject'
   end
 
   describe '#call' do
@@ -18,20 +18,20 @@ describe Queries::ElasticSearchUser do
       keywords = 'searching for users'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(users*+OR+users)'
       query = described_class.new keywords: keywords, page: 1, row_count: 20
-      hit = double
+      hit = {
+        '_id' => 1,
+        '_type' => 'user'
+      }
       mongoid_user = double
-      results = double
-      results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
-      results.stub code: 200
+      results = double code: 200, parsed_response: { 'hits' => { 'hits' => [ hit ] } }
+
       user = double
 
-      hit.should_receive(:[]).with('_id').and_return(1)
-      hit.should_receive(:[]).with('_type').and_return('user')
       HTTParty.should_receive(:get).
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
       User.should_receive(:find).with(1).and_return(mongoid_user)
-      FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
+      KillObject.should_receive(:user).with(mongoid_user).and_return(user)
 
       expect(query.call).to eq [user]
     end
@@ -63,20 +63,19 @@ describe Queries::ElasticSearchUser do
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       query = described_class.new keywords: keywords, page: 1, row_count: 20
-      hit = double
-      results = double
-      results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
-      results.stub code: 200
+      hit = {
+        '_id' => 1,
+        '_type' => 'user'
+      }
+      results = double code: 200, parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       mongoid_user = double
       user = double
 
-      hit.should_receive(:[]).with('_id').and_return(1)
-      hit.should_receive(:[]).with('_type').and_return('user')
       HTTParty.should_receive(:get).
         with("http://#{base_url}/user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
       User.should_receive(:find).with(1).and_return(mongoid_user)
-      FactlinkUser.should_receive(:map_from_mongoid).with(mongoid_user).and_return(user)
+      KillObject.should_receive(:user).with(mongoid_user).and_return(user)
 
       expect(query.call).to eq [user]
     end

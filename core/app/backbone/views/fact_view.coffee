@@ -11,7 +11,7 @@ class FactPoparrowView extends Backbone.Factlink.PoparrowView
     channel = @model.collection.channel
     @model.removeFromChannel channel,
       error: ->
-        alert "Error while hiding Factlink from #{Factlink.Global.t.topic}"
+        FactlinkApp.NotificationCenter.error "Error while hiding Factlink from #{Factlink.Global.t.topic}"
 
       success: =>
         @model.collection.remove @model
@@ -23,7 +23,7 @@ class FactPoparrowView extends Backbone.Factlink.PoparrowView
     e.preventDefault()
     @model.destroy
       wait: true
-      error: -> alert "Error while removing the Factlink"
+      error: -> FactlinkApp.NotificationCenter.error "Error while removing the Factlink"
       success: -> mp_track "Factlink: Destroy"
 
 class window.FactView extends Backbone.Marionette.Layout
@@ -34,7 +34,7 @@ class window.FactView extends Backbone.Marionette.Layout
   template: "facts/fact"
 
   templateHelpers: ->
-    'modal?' : FactlinkApp.modal is true
+    'modal?' : FactlinkApp.onClientApp is true
 
   regions:
     factBaseView: '.fact-base-region'
@@ -57,8 +57,6 @@ class window.FactView extends Backbone.Marionette.Layout
   newFactBottomView: ->
     new FactBottomView
       model: @model
-      hide_discussion_link: @options.standalone
-      show_timestamp: @options.standalone
 
   setPoparrow: ->
     poparrowView = new FactPoparrowView model: @model

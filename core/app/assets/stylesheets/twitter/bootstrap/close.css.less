@@ -1,6 +1,8 @@
 @import "twitter/bootstrap/variables.less";
 @import "twitter/bootstrap/mixins.less";
 
+//TODO: unused?   Almost: we're still using it for our notification center. We need to remove this stuff (including related styling in bootstrap) when refactoring our notifications.
+
 //
 // Close icons
 // --------------------------------------------------
@@ -13,12 +15,12 @@
   line-height: @baseLineHeight;
   color: @black;
   text-shadow: 0 1px 0 rgba(255,255,255,1);
-  .opacity(20);
+  opacity: .2;
   &:hover {
     color: @black;
     text-decoration: none;
     cursor: pointer;
-    .opacity(40);
+    opacity: 0.4;
   }
 }
 

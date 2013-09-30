@@ -1,0 +1,69 @@
+@import "bootstrap/mixins";
+
+.modal-window-container {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 1040;
+  display: none;
+}
+
+.modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 340px;
+  margin-left: -340px/2;
+  margin-top: -150px;
+
+  .white-block-with-shadow();
+
+  .modal-window-header {
+    .background-clip(padding-box);
+    .border-top-radius(5px);
+    color: @baseFontColor;
+    background: #f8f8f8;
+    padding: 10px 15px 7px;
+    text-shadow: 0 1px 0 #fff;
+    border-bottom: 1px solid @mutedBorderColor;
+    font-size: @heading3FontSize;
+    line-height: 25px;
+    font-weight: @headingsFontWeight;
+  }
+
+  .modal-window-body {
+    overflow-y: auto;
+    padding: 15px;
+    max-height: 420px;
+
+    .modal-window-body-section-heading {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+  }
+
+  .modal-window-footer {
+    padding: 14px 15px 15px;
+    margin-bottom: 0;
+    text-align: right;
+    background-color: #f8f8f8;
+    border-top: 1px solid @mutedBorderColor;
+    border-radius: 0 0 6px 6px;
+    box-shadow: inset 0 1px 0 white;
+  }
+
+  .modal-window-cross {
+    float: right;
+    display: inline-block;
+    font-size: 14px;
+    color: @grayLight;
+    &:hover { color: @gray; }
+  }
+}
+
+.modal-window-layer {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: @semiTransparentLayerColor;
+}

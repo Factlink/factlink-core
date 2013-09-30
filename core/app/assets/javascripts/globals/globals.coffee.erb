@@ -1,5 +1,5 @@
 # ensure we update this file when we update the locales
-# SHASUM of locales: 34ba002716d620fb15a714313835f2dbebafbcae
+# SHASUM of locales: cd9fc1e301e353f669a58bde8b1cf89f17f89035
 
 window.Factlink ||= {}
 
@@ -11,9 +11,6 @@ Factlink.Global =
       return_to = encodeURIComponent('<%= FactlinkUI::Application.config.core_url %>/' + Backbone.history.fragment)
       '/users/sign_in?layout=client&return_to=' + return_to
   brain_image: '<%= image_path("brain.png") %>'
-  trash_image: '<%= image_path("trash.png") %>'
-  trash_hover_image: '<%= image_path("trash-hover.png") %>'
-  time_ago_image: '<%= image_path("time_ago.gif") %>'
   ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
   icon_empty_channel: '<%= image_path("icon-empty-channel.png") %>'
   icon_empty_channel_chrome: '<%= image_path("icon-client-chrome.png") %>'
@@ -23,6 +20,7 @@ Factlink.Global =
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
   browser_icons_firefox_16x16: '<%= image_path("browser-icons/firefox-16x16.png") %>'
   opinion_animation: '<%= image_path("tour/opinion-animation.gif") %>'
+  warning_sign_image: '<%= image_path("warning-sign.png") %>'
 
   firefox_extension_url: "<%= FactlinkUI::Application.config.static_url + '/extension/firefox/factlink-latest.xpi' %>"
   chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"

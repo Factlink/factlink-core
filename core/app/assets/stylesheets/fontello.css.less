@@ -24,12 +24,14 @@
 .icon-off,
 .icon-firefox,
 .icon-chrome,
+.icon-export,
+.icon-globe,
 .icon-user,
 .icon-bookmark,
 .icon-time,
 .icon-right-open
 {
-  font-family: "fontello";
+  font-family: "fontello" !important;
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -37,7 +39,12 @@
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
+
   margin-right: .2em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
   text-align: center;
 
   /* For safety - reset parent styles, that can break glyph codes*/
@@ -47,9 +54,6 @@
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
 
-  /* Animation center compensation - margins should be symmetric */
-  /* remove if not needed */
-  margin-left: .2em;
 
   /* you can be more comfortable with increased icons size */
   font-size: 120%;
@@ -73,11 +77,12 @@
 .icon-off:before { content: '\e803'; } /* '' */
 .icon-firefox:before { content: '\e811'; } /* '' */
 .icon-chrome:before { content: '\e804'; } /* '' */
+.icon-export:before { content: '\e813'; } /* '' */
+.icon-globe:before { content: '\e814'; } /* '' */
 .icon-user:before { content: '\e805'; } /* '' */
 .icon-bookmark:before { content: '\e809'; } /* '' */
 .icon-time:before { content: '\e812'; } /* '' */
 
 .glyphicon-color {
-  // !important is still necessary because of more specific "body.factlink-site a"
-  color: black !important;
+  color: black;
 }

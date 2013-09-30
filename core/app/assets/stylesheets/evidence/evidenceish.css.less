@@ -1,0 +1,76 @@
+@import "bootstrap/mixins";
+
+@evidencePadding: 18px;
+
+.discussion-evidenceish {
+  .new-design-font();
+}
+
+.discussion-evidenceish-heading {
+  position: absolute;
+  top: -23px;
+  left: @evidencePadding;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.discussion-evidenceish-box {
+  position: relative;
+  .white-block-with-shadow();
+}
+
+.discussion-evidenceish-content {
+  padding: @evidencePadding @evidencePadding 13px;
+  word-wrap: break-word;
+
+  // HACK until we have "small Factwheels" (per NDP design, in-line with text)
+  // -- this looks better for now
+  > .fact-base {
+    margin-left: -3px;
+  }
+}
+
+.discussion-evidenceish-text {
+  white-space: pre-wrap;
+}
+
+.discussion-evidenceish-name {
+  display: inline-block;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.discussion-evidenceish-bottom {
+  box-shadow: 0px -1px @mutedBorderBottomColor, 0px -2px @mutedBorderTopColor;
+  margin: 0 @evidencePadding;
+  padding: 5px 0;
+  color: @mutedFontColor;
+  font-size: @metaFontSize;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.discussion-evidenceish-bottom-actions {
+  margin: 0;
+  padding: 0;
+}
+
+.discussion-evidenceish-bottom-action {
+  display: inline-block;
+}
+
+.discussion-evidenceish-bottom-action-delete {
+  float: right;
+
+  &:after {
+    content: "·";
+    margin-right: 10px;
+    margin-left: 4px;
+  }
+}
+
+.discussion-evidenceish-bottom-action-time {
+  float: right;
+}

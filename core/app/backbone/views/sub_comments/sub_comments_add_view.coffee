@@ -1,6 +1,9 @@
-class BaseSubCommentsAddView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
-                       Backbone.Factlink.AlertMixin
+class window.SubCommentsAddView extends Backbone.Marionette.Layout
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
+
+  className: 'discussion-evidenceish-content sub-comments-add spec-sub-comments-form'
+
+  template: 'sub_comments/sub_comments_add'
 
   events:
     'click .js-submit': 'submit'
@@ -12,13 +15,9 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
     textareaRegion: '.js-region-textarea'
 
   onRender: ->
-    @textareaRegion.show @textAreaView()
-    @toggleForm false
-
-  inputFocus: -> @toggleForm true
-
-  toggleForm: (active) ->
-    @$el.toggleClass 'evidence-sub-comments-form-active', active
+    @textareaRegion.show new Backbone.Factlink.TextAreaView
+      model: @textModel()
+      placeholder: 'Your comment'
 
   submit: ->
     return if @submitting
@@ -29,7 +28,6 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
 
     return @addModelError() unless @model.isValid()
 
-    @alertHide()
     @disableSubmit()
     @addDefaultModel()
 
@@ -39,17 +37,10 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
 
   addModelError: ->
     @enableSubmit()
-    @alertError()
+    FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
 
   text: -> @textModel().get('text')
   textModel: -> @_textModel ?= new Backbone.Model text: ''
-  textAreaView: ->
-    textAreaView = new Backbone.Factlink.TextAreaView
-      model: @textModel()
-      placeholder: 'Your comment'
-
-    @listenTo textAreaView, 'focus', @inputFocus, @
-    textAreaView
 
   enableSubmit: ->
     @submitting = false
@@ -59,15 +50,3 @@ class BaseSubCommentsAddView extends Backbone.Marionette.Layout
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
 
-
-class window.SubCommentsAddView extends BaseSubCommentsAddView
-  className: 'evidence-sub-comments-form'
-  template: 'sub_comments/add_view'
-
-  templateHelpers: => current_user: currentUser.toJSON()
-
-
-class window.NDPSubCommentsAddView extends BaseSubCommentsAddView
-  className: 'ndp-evidenceish-content ndp-sub-comments-add'
-
-  template: 'sub_comments/ndp_sub_comments_add'

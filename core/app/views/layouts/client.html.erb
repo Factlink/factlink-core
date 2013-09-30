@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html class="<%= browser_class_name  %>">
 <head>
-  <%= render "base/open_graph" %>
-  <%= stylesheet_link_tag "base" %>
-  <%= stylesheet_link_tag "frontend" %>
-
   <title>Factlink modal window</title>
 
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag "base" %>
+  <%= stylesheet_link_tag "frontend" %>
   <%# TODO: move this style to the css %>
   <style type="text/css">
     html, body{
@@ -16,17 +15,15 @@
     }
   </style>
 
+  <%= render "base/open_graph" %>
+
   <%= csrf_meta_tag %>
   <%= inject_special_test_code %>
 </head>
 <body class="client">
-  <div id='alerts'></div>
+  <div class="notification-center-alerts js-notification-center-alerts"></div>
 
-  <% if can_haz :new_discussion_page %>
-    <div class="js-client-modal-region client-modal-region new-discussion-page"><%= yield %></div>
-  <% else %>
-    <div class="js-client-modal-region client-modal-region"><%= yield %></div>
-  <% end %>
+  <div class="js-discussion-modal-region"><%= yield %></div>
 
   <div id='modal_region'></div>
   <%= javascript_include_base %>
@@ -49,18 +46,6 @@
   </script>
 
   <%= yield :javascript %>
-
-  <script type="text/javascript">
-    $( document ).on('click', function(e) {
-      if( $(e.target).is('html, body, .js-client-html-close') ) {
-        if (parent.remote) {
-          parent.remote.hide();
-        }
-
-        if ($(e.target).is('.js-client-html-close')) mp_track("Modal: Close button");
-      }
-    });
-  </script>
 
 </body>
 </html>

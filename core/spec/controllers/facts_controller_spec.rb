@@ -5,7 +5,7 @@ describe FactsController do
 
   render_views
 
-  let(:user) { create(:user) }
+  let(:user) { create(:full_user) }
 
   describe :show do
     it "should render successful" do
@@ -21,7 +21,6 @@ describe FactsController do
       end
 
       ability.stub(:can?).with(:show, Fact).and_return(true)
-      ability.stub(:can?).with(:see_feature_new_discussion_page, Ability::FactlinkWebapp).and_return(false)
       ability.stub(:can?).with(:share_to, :twitter).and_return(false)
       ability.stub(:can?).with(:share_to, :facebook).and_return(false)
       should_check_can :show, fact
@@ -129,6 +128,7 @@ describe FactsController do
       fact_id = fact.id
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
+      ability.should_receive(:can?).with(:manage, Fact).and_return(true)
       should_check_can :destroy, fact
       get :destroy, id: fact.id, format: :json
       response.should be_success

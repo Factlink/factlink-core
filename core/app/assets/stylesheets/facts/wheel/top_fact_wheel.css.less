@@ -3,6 +3,7 @@
 .top-fact-wheel {
   bottom: 0; left: 50%;
   position: absolute;
+  visibility: hidden; //Avoid overlapping other UI elements
 
   > .fact-wheel {
     margin-left:-50%;
@@ -11,6 +12,7 @@
     padding: 3px;
     background-color: white;
     border-radius: 10000px;
+    visibility: visible;
 
     .authority {
       width: 60px;
@@ -33,7 +35,7 @@
       content: '';
       position: absolute;
       z-index: -1;
-      .new-design-box-shadow();
+      .block-box-shadow();
     }
   }
 }

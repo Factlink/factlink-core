@@ -10,11 +10,11 @@ describe "Feedback modal", type: :feature do
     end
 
     it "the form shows after clicking Feedback" do
-      find('#feedback_frame', visible:false).visible?.should be_false
+      find('.js-feedback-modal', visible:false).visible?.should be_false
 
       click_link 'Feedback'
 
-      find('#feedback_frame').visible?.should be_true
+      find('.js-feedback-modal').visible?.should be_true
     end
 
     it "the form contains the correct input fields" do
@@ -33,7 +33,7 @@ describe "Feedback modal", type: :feature do
   context "as a logged in user" do
 
     before do
-      @user = sign_in_user create :active_user
+      @user = sign_in_user create :full_user
 
       visit "/"
 
@@ -41,11 +41,11 @@ describe "Feedback modal", type: :feature do
     end
 
     it "the form shows after clicking Feedback" do
-      find('#feedback_frame', visible:false).visible?.should be_false
+      find('.js-feedback-modal', visible:false).visible?.should be_false
 
       click_link 'Feedback'
 
-      find('#feedback_frame').visible?.should be_true
+      find('.js-feedback-modal').visible?.should be_true
     end
 
     it "the form contains the correct input fields" do

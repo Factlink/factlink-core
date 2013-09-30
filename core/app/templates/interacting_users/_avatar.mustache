@@ -1,7 +1,7 @@
 {{#global.signed_in}}
-<a href='/{{username}}' rel='backbone'>
+<a href="/{{username}}" rel="backbone" class="discussion-interacting-users-avatar-link js-user-link">
 {{/global.signed_in}}
-  <img src="{{avatar_url_32}}" height="32" width="32" class="user-avatar-image" title="{{name}}">
+  <img src="{{avatar_url_32}}" class="image-32px discussion-interacting-users-avatar-image">
 {{#global.signed_in}}
 </a>
 {{/global.signed_in}}

@@ -111,12 +111,6 @@ class Ability
     can :read, user if signed_in?
 
     if agrees_tos?
-      can :update, user
-      can :edit_settings, user
-      can :read, User do
-        |u| not u.hidden
-      end
-
       if user.admin?
         can :access, AdminArea
         can :configure, FactlinkWebapp
@@ -125,10 +119,18 @@ class Ability
         cannot :sign_tos, User
         cannot :edit_settings, User
       end
+
       if user.has_invitations_left?
         can :invite, User
       else
         cannot :invite, User
+      end
+
+      can :update, user
+      can :edit_settings, user
+      can :destroy, user
+      can :read, User do |u|
+        u.active? || u.deleted
       end
     end
   end
@@ -175,8 +177,8 @@ class Ability
 
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
-    sees_channels new_discussion_page share_new_factlink_buttons
-    share_to_twitter share_to_facebook vote_up_down_popup
+    sees_channels share_new_factlink_buttons
+    share_to_twitter share_to_facebook
   )
 
   def enabled_global_features

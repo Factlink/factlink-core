@@ -1,11 +1,11 @@
 // TODO: let's rename these mixins when we're using the new design throughout
 
 .new-design-font() {
-  font-family: Roboto, "Helvetica Neue", Helvetica, Arial;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size: 12px;
   a {
-    font-weight: @baseFontBoldWeight;
+    font-weight: 500;
   }
   a:not([href]) {
     &, &:hover, &:active {
@@ -13,19 +13,4 @@
       cursor: auto;
     }
   }
-}
-
-.new-design-border-radius() {
-  border-radius: 4px;
-}
-
-.new-design-box-shadow() {
-  box-shadow: @ndpBoxBorder,
-              0 @ndpBoxShadowBottomSize 1px 0 @ndpBoxShadowBottomColor;
-}
-
-.new-design-white-block-with-shadow() {
-  background: white;
-  .new-design-border-radius();
-  .new-design-box-shadow();
 }

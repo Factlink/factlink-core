@@ -1,6 +1,6 @@
 class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   className: 'add-evidence-form'
-  template: 'evidence/add_evidence'
+  template: 'evidence/add_evidence_form'
 
   regions:
     inputRegion:
@@ -16,8 +16,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       add_comment_view: => @addCommentView()
 
   onRender: ->
-    @$el.addClass 'pre-ndp-add-evidence-form' unless @options.ndp
-
     @switchToCommentView()
 
   _filtered_facts: ->
@@ -45,7 +43,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     addCommentView = new AddCommentView
       addToCollection: @collection
       type: @options.type
-      ndp: @options.ndp
     @listenTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView
 
     addCommentView
@@ -53,7 +50,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   createFactRelation: (fact_relation, onFinish=->)->
     return @showError() unless fact_relation.isValid()
 
-    @hideError()
     @collection.add fact_relation, highlight: true
     @inputRegion.switchTo('search_view')
 
@@ -61,6 +57,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       error: =>
         onFinish()
         @collection.remove fact_relation
+        @collection.trigger 'error_adding_model'
         @showError()
 
       success: =>
@@ -72,13 +69,12 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
           factlink_id: @options.fact_id
           type: @options.type
 
-  switchToCommentView: (content) ->
+  switchToCommentView: (content=null) ->
     @inputRegion.switchTo 'add_comment_view'
-    @inputRegion.getView('add_comment_view').setFormContent(content) if content
+    @inputRegion.getView('add_comment_view').setFormContent(content) if content?
 
-  switchToFactRelationView: (content) ->
+  switchToFactRelationView: (content=null) ->
     @inputRegion.switchTo 'search_view'
-    @inputRegion.getView('search_view').setQuery(content) if content
+    @inputRegion.getView('search_view').setQuery(content) if content?
 
-  showError: -> @$('.js-error').show()
-  hideError: -> @$('.js-error').hide()
+  showError: -> FactlinkApp.NotificationCenter.error 'Your Factlink could not be posted, please try again.'

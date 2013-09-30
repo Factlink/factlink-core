@@ -1,17 +1,13 @@
-<div class="js-region-evidence-sub-comment-poparrow"></div>
-<img class="evidence-sub-comments-avatar" src="{{ creator.avatar_url_32 }}" height="32" width="32">
-<div class="evidence-sub-comment-author">
-  <strong>
-    {{#global.signed_in}}
-    <a href="/{{ creator.username }}" rel="backbone">
-    {{/global.signed_in}}
-      {{ creator.name }}
-    {{#global.signed_in}}
-    </a>
-    {{/global.signed_in}}
-  </strong>
-  ( <img src="{{global.brain_image}}"> <span class="evidence-sub-comment-authority">{{ creator.authority }}</span> )
+<div class="discussion-evidenceish-content discussion-evidenceish-text">{{content}}</div>
 
-  <span class="pull-right evidence-sub-comment-time-ago">{{time_ago}} {{ global.t.ago }}</span>
+<div class="discussion-evidenceish-bottom">
+  <ul class="discussion-evidenceish-bottom-actions">
+    <li class="discussion-evidenceish-bottom-action discussion-evidenceish-bottom-action-time">
+      <i class="icon-time"></i> {{time_ago}} {{ global.t.ago }}
+    </li>
+
+    {{#showDelete}}
+      <li class="discussion-evidenceish-bottom-action discussion-evidenceish-bottom-action-delete js-delete-region"></li>
+    {{/showDelete}}
+  </ul>
 </div>
-<div class="evidence-sub-comment-content">{{content}}</div>

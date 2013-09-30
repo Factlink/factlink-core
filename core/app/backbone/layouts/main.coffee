@@ -7,10 +7,12 @@ FactlinkApp.startSiteRegions = ->
     leftBottomRegion:    '#left-column .js-left-bottom-region'
     leftMiddleRegion:    '#left-column .js-left-middle-region'
 
+    discussionModalRegion: '.js-discussion-modal-region'
+
   FactlinkApp.closeAllContentRegions = ->
     for region in ['leftTopRegion', 'leftBottomRegion', 'leftMiddleRegion', 'mainRegion']
       FactlinkApp[region].close()
 
 FactlinkApp.startClientRegions = ->
   FactlinkApp.addRegions
-    mainRegion:          '.js-client-modal-region'
+    discussionModalRegion: '.js-discussion-modal-region'
