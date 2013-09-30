@@ -31,8 +31,7 @@ describe Interactors::Channels::AddFact do
   end
 
   describe '.authorized?' do
-    it 'returns false if the current user did not create the channel' do
-    end
+    it 'returns false if the current user did not create the channel'
     it 'returns true if the current user created the channel' do
       fact = double
       user = double :user, graph_user_id: 26
