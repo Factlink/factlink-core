@@ -1,8 +1,8 @@
 {{#is_current_user}}
-<p>You don't have any {{global.t.topics}} yet.</p>
-<p>{{topics}} are there to keep your facts categorized and can be interesting for other users to follow.</p>
+<p class="top-channels-text">You don't have any {{global.t.topics}} yet.</p>
+<p class="top-channels-text">{{topics}} are there to keep your facts categorized and can be interesting for other users to follow.</p>
 {{/is_current_user}}
 
 {{^is_current_user}}
-<p>{{name}} doesn't have any {{global.t.topics}} yet.</p>
+<p class="top-channels-text">{{name}} doesn't have any {{global.t.topics}} yet.</p>
 {{/is_current_user}}
