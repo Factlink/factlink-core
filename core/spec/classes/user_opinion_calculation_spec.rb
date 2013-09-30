@@ -4,12 +4,12 @@ require 'spec_helper'
 #       we take it to be 1 everywhere
 
 describe "calculating an opinion based on a set of believers, disbelievers and doubters" do
-  subject {create(:basefact)}
+  subject {create(:fact)}
 
   let(:user)  {create(:graph_user)}
   let(:user2) {create(:graph_user)}
 
-  describe 'a basefact with no creator' do
+  describe 'a fact with no creator' do
     it 'has no opinion' do
       calculation = UserOpinionCalculation.new(subject) { 1 }
       actual_opinion = calculation.opinion

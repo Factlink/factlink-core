@@ -5,6 +5,8 @@ module Commands
 
       arguments :graph_user_id, :user_to_unfollow_graph_user_id
 
+      private
+
       def execute
         user_following_users.unfollow user_to_unfollow_graph_user_id
       end

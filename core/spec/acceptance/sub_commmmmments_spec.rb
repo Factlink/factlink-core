@@ -7,8 +7,8 @@ feature "sub_comments", type: :feature do
   include Acceptance::CommentHelper
 
   background do
-    @user_a = sign_in_user create :active_user
-    @user_b = create :active_user
+    @user_a = sign_in_user create :full_user
+    @user_b = create :full_user
 
     @factlink_user_a = create :fact, created_by: @user_a.graph_user
   end
@@ -62,7 +62,7 @@ feature "sub_comments", type: :feature do
     go_to_discussion_page_of @factlink_user_a
 
     within_evidence_list do
-      page.should have_selector('.delete', visible:false, text: 'Remove this Factlink as evidence')
+      page.should have_selector('.spec-evidence-box .delete-button-first')
     end
 
     click_link 'Comment'
@@ -72,13 +72,13 @@ feature "sub_comments", type: :feature do
 
 
     within_evidence_list do
-      page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
+      page.should have_no_selector('.spec-evidence-box .delete-button-first')
     end
 
     go_to_discussion_page_of @factlink_user_a
 
     within_evidence_list do
-      page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
+      page.should have_no_selector('.spec-evidence-box .delete-button-first')
     end
   end
 end

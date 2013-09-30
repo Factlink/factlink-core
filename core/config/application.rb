@@ -43,7 +43,6 @@ module FactlinkUI
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
     require_dependency "#{config.root}/app/ohm-models/authority.rb"
     require_dependency "#{config.root}/app/ohm-models/fact_graph.rb"
-    require_dependency "#{config.root}/app/ohm-models/basefact.rb"
     require_dependency "#{config.root}/app/models/fact_data.rb"
     require_dependency "#{config.root}/app/ohm-models/fact.rb"
     require_dependency "#{config.root}/app/ohm-models/fact_relation.rb"

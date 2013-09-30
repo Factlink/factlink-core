@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'subcomments' do
   include PavlovSupport
 
-  let(:current_user) { create :user }
+  let(:current_user) { create :full_user }
 
   describe 'initially' do
     it 'a comment has no subcomments and can be deleted' do

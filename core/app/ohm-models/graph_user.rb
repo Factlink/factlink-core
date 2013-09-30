@@ -13,7 +13,7 @@ class GraphUser < OurOhm
   timestamped_set :notifications, Activity
   timestamped_set :stream_activities, Activity
 
-  collection :created_facts, Basefact, :created_by
+  collection :created_facts, Fact, :created_by
 
   reference :stream, Channel::UserStream
   reference :created_facts_channel, Channel::CreatedFacts

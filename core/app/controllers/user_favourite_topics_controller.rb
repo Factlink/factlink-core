@@ -8,21 +8,15 @@ class UserFavouriteTopicsController < ApplicationController
 
   def update
     interactor(:'topics/favourite', user_name: username, slug_title: slug_title)
-    return_ok
+    render json: {}
   end
 
   def destroy
     interactor(:'topics/unfavourite', user_name: username, slug_title: slug_title)
-    return_ok
+    render json: {}
   end
 
   private
-
-  def return_ok
-    respond_to do |format|
-      format.json { head :ok }
-    end
-  end
 
   def username
     params[:username]

@@ -1,9 +1,18 @@
 class Channel < OurOhm;end # needed because of removed const_missing from ohm
 class Site < OurOhm; end # needed because of removed const_missing from ohm
-class FactRelation < Basefact;end # needed because of removed const_missing from ohm
+class FactRelation < OurOhm;end # needed because of removed const_missing from ohm
 
-class Fact < Basefact
+class Fact < OurOhm
+  include Activity::Subject
   include Pavlov::Helpers
+
+  delegate :opinionated_users_ids, :opinionated_users_count, :opiniated, :add_opiniated, :remove_opinionateds,
+           :people_believes, :people_doubts, :people_disbelieves,
+           :to => :believable
+
+  def validate
+    assert_present :created_by
+  end
 
   def create
     require_saved_data
@@ -18,10 +27,8 @@ class Fact < Basefact
     result
   end
 
-
+  reference :created_by, GraphUser
   set :channels, Channel
-
-  timestamped_set :interactions, Activity
 
   def increment_mixpanel_count
     return unless self.has_site? and self.created_by.user
@@ -122,6 +129,18 @@ class Fact < Basefact
     fr
   end
 
+  def believable
+    @believable ||= Believable.new(self.key)
+  end
+
+  def add_opinion(type, user)
+    add_opiniated(type,user)
+  end
+
+  def remove_opinions(user)
+    remove_opinionateds(user)
+  end
+
   #returns whether a given fact should be considered
   #unsuitable for usage/viewing
   def self.invalid(f)
@@ -152,6 +171,7 @@ class Fact < Basefact
     delete_data
     delete_all_evidence
     delete_all_evidenced
+    believable.delete
     super
   end
 

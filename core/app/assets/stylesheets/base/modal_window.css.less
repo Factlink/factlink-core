@@ -15,9 +15,9 @@
   overflow: auto;
   width: 340px;
   margin-left: -340px/2;
-  margin-top: -250px;
+  margin-top: -150px;
 
-  .new-design-white-block-with-shadow();
+  .white-block-with-shadow();
 
   .modal-window-header {
     .background-clip(padding-box);
@@ -51,6 +51,14 @@
     border-top: 1px solid @mutedBorderColor;
     border-radius: 0 0 6px 6px;
     box-shadow: inset 0 1px 0 white;
+  }
+
+  .modal-window-cross {
+    float: right;
+    display: inline-block;
+    font-size: 14px;
+    color: @grayLight;
+    &:hover { color: @gray; }
   }
 }
 

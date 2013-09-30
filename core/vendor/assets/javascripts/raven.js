@@ -1,4 +1,5 @@
 /*! Raven.js 1.0.7 | github.com/getsentry/raven-js */
+/*! Plus https://github.com/getsentry/raven-js/commit/f8e69479803f9817d6b208419dad84df6548c46b */
 
 /*
  * Includes TraceKit
@@ -1237,10 +1238,6 @@ var Raven = {
         var uri = parseUri(dsn),
             lastSlash = uri.path.lastIndexOf('/'),
             path = uri.path.substr(1, lastSlash);
-
-        if (options && options.ignoreErrors && window.console && console.warn) {
-            console.warn('DeprecationWarning: `ignoreErrors` is going to be removed soon.');
-        }
 
         // merge in options
         if (options) {

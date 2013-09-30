@@ -9,10 +9,13 @@ describe Interactors::Comments::Delete do
       expect_validating( comment_id: 'g6')
         .to fail_validation 'comment_id should be an hexadecimal string.'
     end
-
+  end
+  describe 'authorization' do
     it 'requires an authorized user' do
-      expect_validating( comment_id: 'a', pavlov_options: { current_user: nil })
-        .to raise_error( Pavlov::AccessDenied, 'Unauthorized')
+      expect do
+        interactor = described_class.new(comment_id: 'a', pavlov_options: { current_user: nil })
+        interactor.call
+      end.to raise_error( Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 

@@ -1,7 +1,6 @@
 @import "bootstrap/mixins";
 
-
-.top-right-arrow, .evidence-poparrow-arrow, .sub-comments-poparrow-arrow {
+.top-right-arrow {
   position: absolute;
   border: 1px solid @baseBorderColor;
   height: 22px;
@@ -9,39 +8,40 @@
   top: -4px;
   right: 15px;
   border-radius: 3px;
-  .opacity(0);
+  opacity: 0;
   .transition(opacity .15s ease-in-out);
 
-  > i {
+  &.active {
+    display: block;
+    .border-bottom-radius(0);
+  }
+
+  &:hover {
+    border-color: @linkColor;
+  }
+
+  &.active:hover {
+    border-color: @baseBorderColor;
+  }
+
+  .caret-container {
     display: block;
     height: 20px;
     width: 20px;
     background: #fff;
     border-radius: 3px;
     cursor: pointer;
-    > .caret {
+
+    .caret {
       margin: 8px 0 0 6px;
     }
   }
 
-  &:hover {
-    border: 1px solid @linkColor;
-  }
-
-  &.active {
-    display: block;
+  &.active .caret-container {
+    z-index: 102;
+    position: absolute;
+    border-bottom: 1px solid #fff;
     .border-bottom-radius(0);
-
-    &:hover {
-      border: 1px solid @baseBorderColor;
-    }
-
-    i {
-      z-index: 102;
-      position: absolute;
-      border-bottom: 1px solid #fff;
-      .border-bottom-radius(0);
-    }
   }
 
   ul {
@@ -88,15 +88,6 @@
           background: @linkColor;
           color: #fff;
           text-decoration: none;
-
-          > img {
-            &.hover {
-              display: inline-block;
-            }
-            &.normal {
-              display: none;
-            }
-          }
         }
       }
     }
@@ -110,7 +101,7 @@
 .fact-view {
   &:hover {
     .top-right-arrow {
-      .opacity(1);
+      opacity: 1;
     }
   }
 }

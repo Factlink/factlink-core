@@ -22,9 +22,8 @@ describe Queries::Evidence::CountForFact do
 
   describe '#validate' do
     it 'calls the correct validation methods' do
-      expect do
-        described_class.new(fact: nil).call
-      end.to raise_error(Pavlov::ValidationError, 'fact should not be nil.')
+      expect_validating(fact: nil)
+        .to fail_validation 'fact should not be nil.'
     end
   end
 end

@@ -3,6 +3,7 @@
 .button {
   .new-design-font();
   display: inline-block;
+  position: relative;
   font-size: 13px;
   border-radius: 3px;
   height: @largeButtonHeight;
@@ -18,6 +19,16 @@
   color: @linkColor;
   text-shadow: 0 1px 0 @buttonTextShadow;
 
+  &:before { // This resolved a weird bug in Chrome where an area between the text and the border bottom was not clickable. (issue 1029)
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: inherit;
+  }
+
   &:hover {
     background: @buttonDarkBackground;
     border-color: @buttonDarkBorder;
@@ -30,11 +41,12 @@
   }
 
   &.button-loading, &[disabled] {
-    .background-size(40px 40px);
+    background-size: 40px 40px;
     .striped(45deg, rgba(0,0,0,0.07));
     .animate-stripes(1.5s);
     color: @mutedFontColor;
   }
+
 }
 
 .button-confirm {
@@ -167,9 +179,17 @@
 
 .button-action-checked {
   color: @greenLabelColor;
-  font-weight: @baseFontBoldWeight;
+
+  .icon-ok {
+    font-weight: lighter;
+  }
+
   &.button-danger {
     font-weight: 300;
     color: white;
+
+    .icon-remove {
+      font-weight: lighter;
+    }
   }
 }

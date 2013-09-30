@@ -73,11 +73,10 @@ module Queries
       when'factdata'
         FactData.find(id)
       when 'topic'
-        query :'topics/by_id_with_authority_and_facts_count', id: id
+        query :'topics/by_id_with_statistics', id: id
       when 'user'
         mongoid_user = User.find(id)
-
-        FactlinkUser.map_from_mongoid(mongoid_user)
+        KillObject.user mongoid_user
       when 'test_class'
         TestClass.new(id)
       else

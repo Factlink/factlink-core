@@ -18,22 +18,6 @@ class ApplicationController < ActionController::Base
   # be pulled back to controllers, and then to interactors
   helper_method :query # TODO remove me ASAP
 
-  before_filter :check_preferred_browser
-  def check_preferred_browser
-    supported_not_preferred_browser = (view_context.browser_supported? and
-                                 (not view_context.browser_preferred?))
-    controller_without_warnings = ["tour", "tos"].include? controller_name
-
-    return unless current_user
-    return unless supported_not_preferred_browser
-    return if controller_without_warnings
-
-    message = :supported_browser_warning
-    seen_message = current_user.seen_messages.include?(message.to_s)
-
-    @show_supported_browser_warning = !seen_message
-  end
-
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
       if not current_user
@@ -207,6 +191,11 @@ class ApplicationController < ActionController::Base
   helper_method :open_graph_formatter
 
   private
+
+  def interaction interactor_name, options
+    klass = Pavlov.class_for_interactor(interactor_name)
+    klass.new options.merge pavlov_options: pavlov_options
+  end
 
   def action_is_intermediate?
     action_name == "intermediate" and controller_name == "facts"

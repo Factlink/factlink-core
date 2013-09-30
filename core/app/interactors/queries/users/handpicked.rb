@@ -10,7 +10,7 @@ module Queries
       end
 
       def users
-        query(:'users_by_ids', user_ids: user_ids)
+        query(:'users_by_ids', user_ids: user_ids, top_topics_limit: 2)
       end
 
       def user_ids

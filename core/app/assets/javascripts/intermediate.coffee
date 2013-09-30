@@ -1,5 +1,3 @@
-#= require jquery.prevent_scroll_propagation
-
 showFrame = document.getElementById("frame")
 xdm = window.easyXDM.noConflict("FACTLINK")
 window.remote = new xdm.Rpc {},
@@ -66,6 +64,3 @@ loadUrl = (url)->
 
 # initialize the page, so we are ready to render new pages fast
 loadUrl '/facts/new?layout=client'
-
-$("iframe").preventScrollPropagation()
-$("iframe").on 'click', (e) -> e.stopPropagation()

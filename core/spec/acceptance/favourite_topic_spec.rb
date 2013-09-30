@@ -7,8 +7,8 @@ feature "favouriting a topic", type: :feature do
   include Acceptance::AddToChannelModalHelper
 
   scenario "When I favourite a topic I should be able to navigate to it in my sidebar" do
-    @user = create :active_user
-    other_user = create :active_user
+    @user = create :full_user
+    other_user = create :full_user
 
     other_users_channel =
       backend_create_viewable_channel_for other_user, title: 'Henk'
@@ -20,6 +20,7 @@ feature "favouriting a topic", type: :feature do
 
     within_topic_header do
       find('button', text: 'Follow topic').click
+      find('button', text: 'Following')
     end
 
     go_to_profile_page_of @user
@@ -28,8 +29,8 @@ feature "favouriting a topic", type: :feature do
   end
 
   scenario "When I unfavourite a topic I should *not* be able to navigate to it in my sidebar" do
-    @user = create :active_user
-    other_user = create :active_user
+    @user = create :full_user
+    other_user = create :full_user
 
     other_users_channel =
       backend_create_viewable_channel_for other_user, title: 'Henk'
@@ -40,6 +41,7 @@ feature "favouriting a topic", type: :feature do
     go_to_topic_page_of topic
     within_topic_header do
       find('button', text: 'Follow topic').click
+      find('button', text: 'Following')
     end
 
     go_to_topic_page_of topic

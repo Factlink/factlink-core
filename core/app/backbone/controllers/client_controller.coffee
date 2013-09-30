@@ -5,10 +5,10 @@ class window.ClientController
     fact.on 'destroy', => @onFactRemoved fact.id
 
     fact.fetch success: =>
-      newClientModal = new ClientModalLayout
-      FactlinkApp.mainRegion.show newClientModal
+      newClientModal = new DiscussionModalContainer
+      FactlinkApp.discussionModalRegion.show newClientModal
 
-      view = new NDPDiscussionView model: fact
+      view = new DiscussionView model: fact
       view.on 'render', =>
         parent.$(parent.document).trigger 'modalready'
 
@@ -20,8 +20,8 @@ class window.ClientController
       window.location = Factlink.Global.path.sign_in_client()
       return
 
-    clientModal = new ClientModalLayout
-    FactlinkApp.mainRegion.show clientModal
+    clientModal = new DiscussionModalContainer
+    FactlinkApp.discussionModalRegion.show clientModal
 
     csrf_token = $('meta[name=csrf-token]').attr('content')
 

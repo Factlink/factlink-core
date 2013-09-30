@@ -17,7 +17,7 @@ describe Admin::UsersController do
     }
   end
 
-  let (:user)  {create :admin_user}
+  let (:user)  {create :full_user, :admin}
 
   before do
     should_check_admin_ability
@@ -53,20 +53,6 @@ describe Admin::UsersController do
       get :show, {:id => @user1.id}
       response.should be_success
       assigns(:user).should eq(@user1)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new User" do
-        authenticate_user!(user)
-        @new_user = User.new valid_attributes
-        User.stub(:new) { @new_user }
-        should_check_can :create, @new_user
-        expect do
-          post :create, :user => valid_attributes
-        end.to change(User, :count).by(1)
-      end
     end
   end
 

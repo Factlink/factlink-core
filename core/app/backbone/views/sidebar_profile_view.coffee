@@ -1,22 +1,12 @@
-count_object_or_null = (count) ->
-  if count? then {count: count} else null
-
 class SocialStatisticsView extends Backbone.Marionette.ItemView
   template: "users/profile/social_statistics"
   className: "user-social-statistics"
 
   initialize: ->
-    @listenTo @model.followers, 'all', @render
-    @listenTo @model.following, 'all', @render
+    @listenTo @model, 'change', @render
 
   templateHelpers: =>
-    plural_followers: @plural_followers()
-    following: count_object_or_null(@following_count())
-    followers: count_object_or_null(@followers_count())
-
-  plural_followers: -> @followers_count() isnt 1
-  followers_count: -> @model.followers.length
-  following_count: -> @model.following.length
+    plural_followers: @model.get('statistics_follower_count') != 1
 
 class window.SidebarProfileView extends Backbone.Marionette.Layout
   template: 'users/profile/sidebar_profile'
@@ -27,9 +17,6 @@ class window.SidebarProfileView extends Backbone.Marionette.Layout
     followUserButtonRegion: '.js-region-user-follow-user'
 
   onRender: ->
-    @model.followers.fetch()
-    @model.following.fetch()
-
     @profilePictureRegion.show   new UserLargeView(model: @model)
     @socialStatisticsRegion.show new SocialStatisticsView(model: @model)
 

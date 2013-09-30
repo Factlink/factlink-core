@@ -1,15 +1,15 @@
 @import "bootstrap/mixins";
 
-.conversation-participants > h1 {
-  margin: 10px 0 0 15px;
-}
-
 #container #main-wrapper .content {
   .messages ul {
     margin: 0;
     .text {
       color: @baseFontColor;
     }
+  }
+
+  .conversation-message {
+    position: relative; // for popover
   }
 
   .conversation {
@@ -43,4 +43,8 @@
     margin: 16px 10px 0 10px;
     color: @grayDark;
   }
+}
+
+.conversation-title-view {
+  position: relative; // for popover
 }

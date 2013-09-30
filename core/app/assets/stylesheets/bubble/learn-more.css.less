@@ -1,81 +1,49 @@
 @import "bootstrap/mixins";
 @import "twitter/bootstrap/variables";
 
+@buttonOffset: 3px;
+
+.learn-more-container {
+  text-align: center;
+}
+
 .learn-more {
-  padding: 15px;
-  background: @whiteDarker;
+  .white-block-with-shadow();
+  position: relative;
+  display: inline-block;
   visibility: visible;
+  padding: (15px + @buttonOffset) 15px 15px;
+}
 
-  .learn-more-btn-sign-in {
-    margin-right: 5px;
-    color: @linkColor;
-  }
+.learn-more-btn-learn-more {
+  margin-left: 5px;
+}
 
-  .learn-more-btn-learn-more {
-    margin-left: 5px;
-    margin-right: 5px;
-    color: white;
+.learn-more-btn-sign-in, .learn-more-btn-learn-more {
+  margin-top: -@buttonOffset;
+  margin-right: 5px;
+  font-weight: 100 !important; //Fix this ASAP
+}
+
+.learn-more-arrow {
+  left: 50%;
+  margin-left: -@triangleSize;
+}
+
+.learn-more-top {
+  margin-bottom: 20px;
+
+  .learn-more-arrow {
+    .triangle-arrow-down();
+    bottom: 0;
   }
 }
 
 .learn-more-bottom {
-  // 14px at the top to fall just over the border when "unsure" is selected
-  margin: 14px -15px -15px -15px;
-  border-top: 1px solid @baseBorderColor;
-  .border-bottom-radius(5px);
-}
-
-// TODO: Refactor to generic NDP arrows
-.learn-more-popup {
-  .new-design-white-block-with-shadow();
-  margin-bottom: 20px;
-  position: relative;
+  margin-top: @triangleSize+10px;
 
   .learn-more-arrow {
-    .ndp-triangle-arrow-down();
-
-    bottom: 0;
-    left: 50%;
-    margin-left: -@ndpTriangleSize;
-  }
-}
-
-// TODO: inline when moving to NDP
-.ndp_discussion {
-  @buttonOffset: 3px;
-  .learn-more {
-    display: inline-block;
-    margin: 0 0 0 -1px;
-    padding-top: 15px + @buttonOffset;
-  }
-
-  .learn-more-btn-sign-in, .learn-more-btn-learn-more {
-    margin-top: -@buttonOffset;
-    font-weight: 300;
-  }
-
-  .ndp-learn-more-top-container {
-    text-align: center;
-
-    .learn-more {
-      margin-bottom: 20px;
-    }
-  }
-
-  .ndp-learn-more-bottom-container {
-    margin-top: @ndpTriangleSize+10px;
-    text-align: center;
-  }
-
-  .ndp-learn-more-bottom {
-    .new-design-white-block-with-shadow();
-    position: relative;
-
-    .learn-more-arrow {
-      .ndp-triangle-arrow-up();
-      top: 0;
-      left: 50%;
-      margin-left: -@ndpTriangleSize;
-    }
+    .triangle-arrow-up();
+    top: 0;
   }
 }

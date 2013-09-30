@@ -6,6 +6,7 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbon
 
     events:
       "click .js-layer": "fadeOut"
+      "click .js-modal-window-cross": "fadeOut"
       "click": "stopPropagation"
 
     regions:
@@ -14,6 +15,7 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbon
     onRender: ->
       @modalRegion.show @options.content_view
       @$el.fadeIn 'fast'
+      @$el.preventScrollPropagation()
 
     stopPropagation: (e) ->
       e.stopPropagation()
@@ -25,7 +27,7 @@ FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbon
   FactlinkApp.addRegions
     modalRegion: "#modal_region"
 
-  FactlinkApp.vent.on 'navigate load_url', ->
+  Backbone.history.on 'route', ->
     ModalWindowContainer.close()
 
   ModalWindowContainer.show = (content_view)->

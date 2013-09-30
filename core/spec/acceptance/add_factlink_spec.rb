@@ -10,7 +10,7 @@ describe "creating a Factlink", type: :feature do
   end
 
   before :each do
-    @user = sign_in_user create :active_user
+    @user = sign_in_user create :full_user
   end
 
   it "should add a factlink" do
@@ -40,14 +40,12 @@ describe "creating a Factlink", type: :feature do
     end
     visit fact_path(Fact.all.to_a.last.id)
 
-    click_button 'Repost' # cannot use open_modal because that assumes we click a link, not a button
-    within_modal do
+    open_repost_modal do
       added_channels_should_contain new_topic_name
     end
 
     visit current_path
-    click_button 'Repost' # cannot use open_modal because that assumes we click a link, not a button
-    within_modal do
+    open_repost_modal do
       added_channels_should_contain new_topic_name
     end
   end
@@ -67,9 +65,9 @@ describe "creating a Factlink", type: :feature do
     # and delete it:
     page.evaluate_script('window.confirm = function() { return true; }')
 
-    page.find(:css, ".top-right-arrow").click
+    page.find(".top-right-arrow", visible: false).click
 
-    page.find(:css, "li.delete").click
+    page.find("li.delete").click
 
     page.should_not have_content fact_name
   end

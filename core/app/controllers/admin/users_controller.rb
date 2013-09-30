@@ -3,26 +3,13 @@ class Admin::UsersController < AdminController
 
   before_filter :get_activated_users,         only: [:index]
   before_filter :get_reserved_users,          only: [:reserved]
-  before_filter :set_available_user_features, only: [:new, :create, :edit, :update]
+  before_filter :get_deleted_users,           only: [:deleted]
+  before_filter :set_available_user_features, only: [:edit, :update]
 
   load_and_authorize_resource except: [:create]
   before_filter :if_not_found_404, only: [:show, :edit, :update]
 
   layout "admin"
-
-  def create
-    @user = User.new
-    @user.assign_attributes(params[:user], as: :admin)
-
-    @user.confirmed_at = DateTime.now
-
-    authorize! :create, @user
-    if @user.save
-      redirect_to admin_users_path, notice: 'User was successfully created.'
-    else
-      render :new
-    end
-  end
 
   def update
     if params[:user][:password] == ''
@@ -47,6 +34,18 @@ class Admin::UsersController < AdminController
     end
   end
 
+  def destroy
+    destroy = interaction(:'users/delete', user_id: @user.id,
+      current_user_password: params[:user][:password])
+
+    if destroy.valid?
+      destroy.call
+      redirect_to admin_users_path, notice: "The account '#{@user.username}' has been deleted."
+    else
+      redirect_to edit_admin_user_path(@user), alert: 'This account could not be deleted. Did you enter your correct password?'
+    end
+  end
+
   private
 
   def if_not_found_404
@@ -63,12 +62,18 @@ class Admin::UsersController < AdminController
 
   def get_activated_users
     # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
+    @users = User.active.order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def get_reserved_users
     # TODO eliminate to_sym on the next line. This is a DoS
     @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
+  end
+
+  def get_deleted_users
+    # TODO eliminate to_sym on the next line. This is a DoS
+    # TODO Use the User.deleted scope here
+    @users = User.where(deleted: true).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def set_available_user_features
