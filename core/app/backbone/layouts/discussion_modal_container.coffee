@@ -15,12 +15,12 @@ class window.DiscussionModalContainer extends Backbone.Marionette.Layout
     return unless @$el.is(event.target) || @ui.close.is(event.target)
 
     FactlinkApp.vent.trigger 'close_discussion_modal'
-    mp_track "Site Discussion Modal: Close"
+    mp_track 'Discussion Modal: Close'
 
   onRender: ->
     @$el.preventScrollPropagation()
     _.defer => @$el.addClass 'discussion-modal-container-visible'
-    mp_track "Site Discussion Modal: Open"
+    mp_track 'Discussion Modal: Open'
 
   fadeOut: (callback) ->
     @$el.removeClass 'discussion-modal-container-visible'
