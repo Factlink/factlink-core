@@ -36,7 +36,7 @@ describe Commands::CreateMessage do
       command = described_class.new(sender_id: 'bla', content: long_message_string,
         conversation: '1')
       expect { command.call }.
-        to raise_error(RuntimeError, 'Message cannot be longer than 5000 characters.')
+        to raise_error(Pavlov::ValidationError, 'Message cannot be longer than 5000 characters.')
     end
 
     it 'it throws when initialized with a argument that is not a hexadecimal string' do

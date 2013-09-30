@@ -9,7 +9,7 @@ module Commands
         raise Pavlov::ValidationError, 'message_empty'
       end
       unless content.length <= 5000
-        raise 'Message cannot be longer than 5000 characters.'
+        raise Pavlov::ValidationError, 'Message cannot be longer than 5000 characters.'
       end
       validate_hexadecimal_string :conversation_id, conversation.id.to_s
     end
