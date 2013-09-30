@@ -5,3 +5,35 @@
 <div>
   <%= render 'form', user: @user %>
 </div>
+
+
+<div class="span8 edit-user-delete-container">
+
+  <%= form_for(@user, url: [:admin, @user], method: :delete, html: { class: "form-horizontal" }) do |f| %>
+
+    <div class="control-group">
+      <div class="controls">
+        <a class="edit-user-delete-link" href="javascript:$('.js-delete-form').toggle();">Delete this account</a>
+      </div>
+    </div>
+
+    <fieldset class="js-delete-form hide sunken-embossed-well">
+      <div class="controls">
+        Fill in your admin password to confirm deleting this account:
+      </div>
+
+      <div class="control-group">
+        <%= f.label :password, class: "control-label" %>
+        <div class="controls">
+          <%= f.password_field :password, :autocomplete => "off", required: true %>
+        </div>
+      </div>
+
+      <div class="controls">
+        <%= f.submit "Delete user #{@user.username}", class: "button button-danger" %>
+
+        <span class="help-inline">Warning: all data will be deleted</span>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

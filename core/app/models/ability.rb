@@ -129,8 +129,8 @@ class Ability
       can :update, user
       can :edit_settings, user
       can :destroy, user
-      can :read, User do
-        |u| not u.hidden?
+      can :read, User do |u|
+        u.active? || u.deleted
       end
     end
   end
@@ -178,7 +178,7 @@ class Ability
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
     sees_channels share_new_factlink_buttons
-    share_to_twitter share_to_facebook delete_account
+    share_to_twitter share_to_facebook
   )
 
   def enabled_global_features

@@ -10,8 +10,8 @@ describe Queries::UsersByIds do
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
-    expect { described_class.new(user_ids: ['g6']).call}.
-      to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
+    expect_validating(user_ids: ['g6'])
+      .to fail_validation 'id should be an hexadecimal string.'
   end
 
   describe '#call' do

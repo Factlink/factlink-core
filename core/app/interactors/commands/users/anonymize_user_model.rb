@@ -19,6 +19,9 @@ module Commands
 
         user.password              = anonymous_password
         user.password_confirmation = anonymous_password
+        user.reset_password_token  = nil
+        user.confirmation_token    = nil
+        user.invitation_token      = nil
 
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"

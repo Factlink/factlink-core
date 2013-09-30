@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if @user.update_attributes user_hash
       respond_to do |format|
         format.html { redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.' }
-        format.json { render json: {}}
+        format.json { render json: {} }
       end
     else
       respond_to do |format|
@@ -35,17 +35,19 @@ class UsersController < ApplicationController
           authorize! :access, Ability::FactlinkWebapp
           render :edit
         end
-        format.json { render json: { :status => :unprocessable_entity }}
+        format.json { render json: { status: :unprocessable_entity } }
       end
     end
   end
 
-  def delete
-    authorize! :delete, @user
+  def destroy
+    authorize! :destroy, @user
 
-    interactor = true # TODO Add actual interactor here
+    delete = interaction(:'users/delete', user_id: @user.id,
+      current_user_password: params[:user][:password])
 
-    if interactor
+    if delete.valid?
+      delete.call
       sign_out
       redirect_to root_path, notice: 'Your account has been deleted.'
     else
