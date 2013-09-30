@@ -7,10 +7,6 @@ module Commands
 
       private
 
-      def validate
-        raise Pavlov::ValidationError if !user.is_a? User
-      end
-
       def execute
         user.deleted = true
         user.save!
