@@ -74,7 +74,6 @@ describe Interactors::SubComments::CreateForFactRelation do
     end
 
     it 'throws an error when the fact relation does not exist' do
-      stub_const 'Pavlov::ValidationError', RuntimeError
       ability = double can?: true
       interactor = described_class.new(fact_relation_id: 1, content: 'content',
         pavlov_options: { current_user: double, ability: ability })

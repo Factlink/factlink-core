@@ -42,8 +42,6 @@ describe Commands::Twitter::Post do
 
   describe '#validate' do
     it 'throws an error if no twitter account is linked' do
-      stub_const 'Pavlov::ValidationError', RuntimeError
-
       message  = 'message'
       user = double(identities: {'twitter' => nil})
 
