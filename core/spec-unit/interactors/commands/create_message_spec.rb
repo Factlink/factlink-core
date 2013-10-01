@@ -8,34 +8,7 @@ describe Commands::CreateMessage do
     stub_classes 'Message', 'User'
   end
 
-  let(:long_message_string) { 'a' * 5001 }
-  let(:content) {'bla'}
-
-  describe '.validate' do
-    it 'throws error on empty message' do
-      expect_validating( sender_id: 14, content: '', conversation: double(id: 'a1'))
-        .to fail_validation 'content cannot be empty'
-    end
-
-    it 'throws error on message with just whitespace' do
-      expect_validating(sender_id: 14, content: " \t\n", conversation: double(id: 'a1'))
-        .to fail_validation 'content cannot be empty'
-    end
-
-    it 'throws error on too long message' do
-      expect_validating(sender_id: 'bla', content: long_message_string, conversation:  double(id: 'a1'))
-        .to fail_validation 'content cannot be longer than 5000 characters.'
-    end
-
-    it 'it throws when initialized with a argument that is not a hexadecimal string' do
-      user = double(id: 14)
-      User.stub(find: user)
-      conversation = double(id: 'g6')
-
-      expect_validating(sender_id: 14, content: 'bla', conversation: conversation)
-        .to fail_validation 'conversation_id should be an hexadecimal string.'
-    end
-  end
+  let(:content) { 'bla' }
 
   describe '#call' do
     it 'creates and saves a message' do
@@ -69,8 +42,9 @@ describe Commands::CreateMessage do
       pavlov_options = { current_user: other_user }
       command = described_class.new(sender_id: sender.id.to_s,
         content: content, conversation: conversation, pavlov_options: pavlov_options)
-      expect { command.call }.
-        to raise_error(Pavlov::AccessDenied)
+      expect do
+        command.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
 
     it 'checks recipients' do
@@ -81,8 +55,9 @@ describe Commands::CreateMessage do
       command = described_class.new(sender_id: sender.id.to_s,
         content: content, conversation: conversation, pavlov_options: pavlov_options)
 
-      expect { command.call }.
-        to raise_error(Pavlov::AccessDenied)
+      expect do
+        command.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
 
     it 'authorizes if there are no problems' do
