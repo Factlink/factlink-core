@@ -1,9 +1,9 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/util/validations.rb'
 
 describe Util::Validations do
   before do
     stub_const 'DummyClass', Class.new { include Util::Validations }
-    stub_const 'Pavlov::ValidationError', RuntimeError
   end
 
   subject {DummyClass.new}

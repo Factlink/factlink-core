@@ -6,7 +6,6 @@ describe Commands::CreateMessage do
 
   before do
     stub_classes 'Message', 'User'
-    stub_const 'Pavlov::ValidationError', Class.new(StandardError)
   end
 
   let(:long_message_string) { 'a' * 5001 }

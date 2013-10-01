@@ -76,8 +76,6 @@ describe Interactors::SubComments::CreateForComment do
     end
 
     it 'throws an error when the fact relation does not exist' do
-      stub_const 'Pavlov::ValidationError', RuntimeError
-
       Comment.stub find: nil
       ability = double can?: true
 
