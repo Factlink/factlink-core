@@ -42,7 +42,6 @@ class Factlink.Views.Notification
   remove: =>
     @$el.fadeOut(@options.fade_time, => @$el.remove())
 
-
 show = (options) ->
   message = new Factlink.Views.Notification options
   message.render()
