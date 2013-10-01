@@ -23,7 +23,7 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
 
   _showError: (type) ->
     switch type
-      when 'message_empty'
+      when 'Content cannot be empty'
         FactlinkApp.NotificationCenter.error 'Please enter a message.'
       else
         FactlinkApp.NotificationCenter.error 'Your message could not be sent, please try again.'
