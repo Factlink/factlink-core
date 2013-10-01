@@ -32,6 +32,9 @@ class Factlink.Views.Notification
 
     @$el.fadeIn @options.fade_time, =>
       setTimeout(@remove, @options.in_screen_time)
+    @$el.addClass 'active'
+    @$el.addClass 'been-active'
+    setTimeout(@remove, @options.in_screen_time)
 
   positionElement: ->
     @$el.css
@@ -40,7 +43,7 @@ class Factlink.Views.Notification
       marginLeft: "-#{@$el.width()/2}px"
 
   remove: =>
-    @$el.fadeOut(@options.fade_time, => @$el.remove())
+    @$el.removeClass 'active'
 
 show = (options) ->
   message = new Factlink.Views.Notification options

@@ -1,3 +1,5 @@
+@notification_transition_time: 300ms;
+
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl {
   .fl-message {  // Message after loading the Bookmarklet
     position: fixed;
@@ -10,6 +12,20 @@
     border-radius: 4px;
     max-width: 400px;
     overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+
+    &.been-active {
+      transition: opacity @notification_transition_time,
+                 visibility 0 @notification_transition_time;
+   }
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity @notification_transition_time,
+                 visibility 0 0;
+    }
 
     > .fl-message-icon {
       background-color: #ebecee;
