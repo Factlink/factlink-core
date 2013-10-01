@@ -4,16 +4,18 @@ require "cancan/matchers"
 describe Ability do
 
   # abilities
-  subject                { Ability.new(user)}
-  let(:anonymous)        { Ability.new}
-  let(:admin)            { Ability.new admin_user}
-  let(:nonnda)           { Ability.new nonnda_user}
+  subject                { Ability.new(user) }
+  let(:anonymous)        { Ability.new }
+  let(:admin)            { Ability.new admin_user }
+  let(:nonnda)           { Ability.new nonnda_user }
 
   # users used as object
-  let(:user)        {create :active_user}
-  let(:other_user)  {create :active_user }
-  let(:admin_user)  {create :admin_user}
-  let(:nonnda_user) {create :user, agrees_tos: false}
+  let(:user)        {create :full_user }
+  let(:other_user)  {create :full_user }
+  let(:admin_user)  {create :full_user, :admin }
+  let(:nonnda_user) {create :user, agrees_tos: false }
+
+  let(:deleted_user){create :full_user, deleted: true }
 
   describe "to manage a user" do
     context "as a normal user" do
@@ -23,6 +25,11 @@ describe Ability do
       it {subject.should     be_able_to :show, user }
       it {subject.should     be_able_to :show, other_user }
       it {subject.should     be_able_to :update, user }
+      it {subject.should     be_able_to :destroy, user }
+
+      # for now, there is no way to delete it without signing the
+      # tos first, so not allowing either yet.
+      it {nonnda.should_not  be_able_to :destroy, user }
 
       it {subject.should     be_able_to :read_tos, user }
       it {subject.should_not be_able_to :sign_tos, user }
@@ -31,6 +38,9 @@ describe Ability do
 
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
+      it {subject.should_not be_able_to :destroy, other_user }
+
+      it {subject.should be_able_to :show, deleted_user}
     end
     context "as a nonnda user" do
       it {nonnda.should_not be_able_to :manage, User }
@@ -48,6 +58,7 @@ describe Ability do
       it {admin.should_not be_able_to :sign_tos, admin_user }
 
       it {admin.should_not be_able_to :edit_settings, user }
+      it {admin.should be_able_to     :edit_settings, admin_user }
     end
     context "as an anonymous" do
       it {anonymous.should_not be_able_to :manage, User }

@@ -179,9 +179,17 @@
 
 .button-action-checked {
   color: @greenLabelColor;
-  font-weight: @baseFontBoldWeight;
+
+  .icon-ok {
+    font-weight: lighter;
+  }
+
   &.button-danger {
     font-weight: 300;
     color: white;
+
+    .icon-remove {
+      font-weight: lighter;
+    }
   }
 }

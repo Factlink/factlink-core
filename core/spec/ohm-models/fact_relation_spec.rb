@@ -1,9 +1,12 @@
 require 'spec_helper'
+require_relative 'believable_shared'
 
 describe FactRelation do
+  it_behaves_like 'a believable object'
+  subject {create(:fact_relation)}
 
-  let(:gu) {create(:user).graph_user}
-  let(:gu2) {create(:user).graph_user}
+  let(:gu) {create(:full_user).graph_user}
+  let(:gu2) {create(:full_user).graph_user}
 
   let(:evidence) {create :fact}
   let(:parent) {create :fact}
@@ -22,8 +25,9 @@ describe FactRelation do
     [:supporting, :weakening, 'supporting','weakening'].each do |type|
       it "should return a new factrelation when the relation does not exist" do
         fr = FactRelation.new type: type,
-                               fact: fact1,
-                               from_fact: fact2
+                              fact: fact1,
+                              from_fact: fact2,
+                              created_by: gu
         fr.save
         fr.should_not be_new
       end
@@ -31,8 +35,9 @@ describe FactRelation do
 
     it "should return a new factrelation when the relation does not exist" do
       fr = FactRelation.new type: :retroverting,
-                             fact: fact1,
-                             from_fact: fact2
+                            fact: fact1,
+                            from_fact: fact2,
+                            created_by: gu
       fr.save
       fr.should be_new
     end

@@ -27,4 +27,12 @@ class UserFollowingUsers
   def follows? other_id
     relation.has? graph_user_id, other_id
   end
+
+  def following_count
+    relation.count graph_user_id
+  end
+
+  def followers_count
+    relation.reverse_count graph_user_id
+  end
 end

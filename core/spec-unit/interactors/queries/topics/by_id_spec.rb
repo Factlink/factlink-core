@@ -10,11 +10,8 @@ describe Queries::Topics::ById do
     end
 
     it 'calls the correct validation methods' do
-      interactor = described_class.new id: 'this is not hexadecimal'
-
-      expect{ interactor.call }
-        .to raise_error(Pavlov::ValidationError,
-          'id should be an hexadecimal string.')
+      expect_validating(id: 'this is not hexadecimal')
+        .to fail_validation 'id should be an hexadecimal string.'
     end
   end
 

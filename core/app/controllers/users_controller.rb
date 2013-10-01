@@ -3,7 +3,7 @@ require_relative '../interactors/interactors/channels'
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user, except: [:search, :tour_users]
+  before_filter :load_user, except: [:search, :tour_users, :seen_messages]
 
   def show
     authorize! :show, @user
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     if @user.update_attributes user_hash
       respond_to do |format|
         format.html { redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.' }
-        format.json { render json: {}}
+        format.json { render json: {} }
       end
     else
       respond_to do |format|
@@ -35,8 +35,23 @@ class UsersController < ApplicationController
           authorize! :access, Ability::FactlinkWebapp
           render :edit
         end
-        format.json { render json: { :status => :unprocessable_entity }}
+        format.json { render json: { status: :unprocessable_entity } }
       end
+    end
+  end
+
+  def destroy
+    authorize! :destroy, @user
+
+    delete = interaction(:'users/delete', user_id: @user.id,
+      current_user_password: params[:user][:password])
+
+    if delete.valid?
+      delete.call
+      sign_out
+      redirect_to root_path, notice: 'Your account has been deleted.'
+    else
+      redirect_to edit_user_path(current_user), alert: 'Your account could not be deleted. Did you enter the correct password?'
     end
   end
 
@@ -76,10 +91,10 @@ class UsersController < ApplicationController
     end
   end
 
-  def seen_message
-    authorize! :update, @user
-    raise HackAttempt unless params[:message] =~ /\A[a-zA-Z_0-9]+\Z/
-    @user.seen_messages << params[:message]
+  def seen_messages
+    authorize! :update, current_user
+    raise HackAttempt unless params[:message] =~ /\A\w+\Z/
+    current_user.seen_messages << params[:message]
     render json: {}, status: :ok
   end
 

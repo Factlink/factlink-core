@@ -1,7 +1,9 @@
 require 'spec_helper'
-
+require_relative 'believable_shared'
 
 describe Fact do
+  it_behaves_like 'a believable object'
+
   def self.other_one(this)
     this == :supporting ? :weakening : :supporting
   end

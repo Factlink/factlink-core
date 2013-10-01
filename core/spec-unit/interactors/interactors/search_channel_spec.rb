@@ -13,8 +13,7 @@ describe Interactors::SearchChannel do
 
   describe 'validations' do
     it 'requires keywords to be a nonempty string' do
-      interactor = described_class.new keywords: nil
-      expect { interactor.call }
+      expect_validating(keywords: nil)
         .to fail_validation 'keywords should be a nonempty string.'
     end
   end
