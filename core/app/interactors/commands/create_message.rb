@@ -6,10 +6,10 @@ module Commands
 
     def validate
       unless content.strip.length > 0
-        raise Pavlov::ValidationError, 'content cannot be empty'
+        errors.add :content, 'cannot be empty'
       end
       unless content.length <= 5000
-        raise Pavlov::ValidationError, 'content cannot be longer than 5000 characters.'
+        errors.add :content, 'cannot be longer than 5000 characters.'
       end
       validate_hexadecimal_string :conversation_id, conversation.id.to_s
     end
