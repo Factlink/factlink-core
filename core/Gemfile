@@ -16,7 +16,7 @@ gem 'mail', '~> 2.5.4'
 # Mongo
 gem 'mongoid', '~> 3.0.21'
 
-gem 'pavlov', github: 'Factlink/pavlov', ref: '069dc46e154ded78abaf3098289525a79bb9dd64'
+gem 'pavlov', '~> 0.1.8.1'
 
 # Redis
 gem 'redis', '~> 2.2.1'

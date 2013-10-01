@@ -14,35 +14,28 @@ describe Util::Validations do
     stub_const 'Pavlov::ValidationError', RuntimeError
   end
 
-  subject {DummyClass.new}
+  subject {DummyClass.new(errors)}
+  let(:errors) { double }
 
   describe '#validate_string_length' do
     it 'should not raise an error when the string is not over the given length' do
-      obj = DummyClass.new(double)
-      obj.validate_string_length(:some_var, 'aa', 2)
+      subject.validate_string_length(:some_var, 'aa', 2)
     end
 
     it 'should raise an error when the string longer than the given length' do
-      errors = double
-      obj = DummyClass.new(errors)
+      error_message = 'should not be longer than 2 characters.'
+      expect(errors).to receive(:add).with(:some_var, error_message)
 
-      expect(errors)
-        .to receive(:add)
-              .with(:some_var, 'should not be longer than 2 characters.')
-
-      obj.validate_string_length(:some_var, 'aaa', 2)
+      subject.validate_string_length(:some_var, 'aaa', 2)
     end
   end
 
   describe '#validate_non_empty_list' do
-    subject {DummyClass.new(errors)}
-    let(:errors) { double }
     it 'does not raise for a nonempty list' do
       subject.validate_non_empty_list :list, [1]
     end
     it 'raises for nil' do
       expect(errors).to receive(:add).with(:list, 'should be a list')
-
       subject.validate_non_empty_list(:list, nil)
     end
     it 'raises for a string' do
