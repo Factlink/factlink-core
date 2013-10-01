@@ -53,13 +53,16 @@ Factlink.showFactlinkCreatedNotification = ->
   show
     message: 'Factlink posted!'
     type_classes: 'fl-message-success fl-message-icon-logo'
+    in_screen_time: 1000
 
 Factlink.showShouldSelectTextNotification = ->
   show
     message: 'To create a Factlink, select a statement and click the Factlink button.'
     type_classes: 'fl-message-icon-add'
+    in_screen_time: 3000
 
 Factlink.showLoadedNotification = ->
   show
     message: 'Factlink is loaded!'
     type_classes: 'fl-message-success fl-message-icon-time'
+    in_screen_time: 3000
