@@ -20,11 +20,11 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    get_interactor(:'create_conversation_with_message',
-                   fact_id: params[:fact_id],
-                   recipient_usernames: params[:recipients],
-                   sender_id: current_user.id.to_s,
-                   content: params[:content]) do |interaction|
+    interactor(:'create_conversation_with_message',
+               fact_id: params[:fact_id],
+               recipient_usernames: params[:recipients],
+               sender_id: current_user.id.to_s,
+               content: params[:content]) do |interaction|
       if interaction.valid?
         interaction.call
         render json: {}
