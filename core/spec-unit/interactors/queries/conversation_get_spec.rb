@@ -7,7 +7,6 @@ describe Queries::ConversationGet do
 
   before do
     stub_classes 'Conversation', 'Fact', 'FactData'
-    stub_const 'Pavlov::ValidationError', Class.new(StandardError)
   end
 
   it 'it throws when initialized without a argument' do
