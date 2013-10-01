@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe UsersController do
-  let(:user) { create(:active_user) }
+  include PavlovSupport
+  let(:user) { create(:full_user) }
 
   describe :show do
     render_views
@@ -130,8 +131,8 @@ describe UsersController do
       channel
     end
     it "should render succesful" do
-      current_user = create :seeing_channels_user
-      other_user = create :seeing_channels_user
+      current_user = create :full_user, :seeing_channels
+      other_user = create :full_user, :seeing_channels
 
       other_users_channel =
         backend_create_viewable_channel_for other_user
@@ -139,7 +140,7 @@ describe UsersController do
         backend_create_viewable_channel_for current_user
 
       as(other_user) do |p|
-        p.old_interactor :'channels/add_subchannel', other_users_channel.id, my_channel.id
+        p.interactor :'channels/add_subchannel', channel_id: other_users_channel.id, subchannel_id: my_channel.id
       end
 
       authenticate_user!(current_user)
@@ -163,7 +164,7 @@ describe UsersController do
 
       [:supporting, :weakening].each do |type|
         it "adding #{type} evidence" do
-          current_user = create(:active_user)
+          current_user = create(:full_user)
           channel = create :channel
           f1 = create :fact, created_by: current_user.graph_user
           f2 = create :fact
@@ -189,7 +190,7 @@ describe UsersController do
       end
 
       it 'created comment' do
-        current_user = create(:active_user)
+        current_user = create(:full_user)
         fact = create(:fact)
         fact.add_opinion(:believes, current_user.graph_user)
 
@@ -215,7 +216,7 @@ describe UsersController do
       end
 
       it 'created sub comment' do
-        current_user = create(:active_user)
+        current_user = create(:full_user)
         fact = create :fact, created_by: current_user.graph_user
 
         comment = {}
@@ -244,7 +245,7 @@ describe UsersController do
       end
 
       it 'added subchannel' do
-        current_user = create(:active_user)
+        current_user = create(:full_user)
 
         ch1 = create :channel, created_by: current_user.graph_user
         ch2 = create :channel, created_by: user.graph_user

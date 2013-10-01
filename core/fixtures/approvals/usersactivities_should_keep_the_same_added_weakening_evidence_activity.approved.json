@@ -4,24 +4,30 @@
     "subject_class": "Fact",
     "user": {
       "id": "<STRIPPED>",
-      "name": "John4 Doe4",
-      "username": "johndoe4",
-      "gravatar_hash": "4a44954117cfc0852a0cbd709a634789"
+      "name": "John10 Doe10",
+      "username": "johndoe10",
+      "gravatar_hash": "a6bf4b76777f21193ac5201cfa0eeeed",
+      "statistics_created_fact_count": 0,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
+      "user_topics": [
+
+      ]
     },
     "action": "added_weakening_evidence",
     "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_added_weakening_evidence_action\">Fact Added Weakening Evidence Action</span>",
-    "subject": "Fact 4",
+    "subject": "Fact 6",
     "time_ago": "1 minute",
     "id": "<STRIPPED>",
     "activity": {
       "action": "added",
-      "evidence": "Fact 4",
-      "evidence_url": "/fact-4/f/2",
-      "fact_url": "/fact-3/f/1",
-      "target_url": "/fact-3/f/1?tab=weakening",
+      "evidence": "Fact 6",
+      "evidence_url": "/fact-6/f/2",
+      "fact_url": "/fact-5/f/1",
+      "target_url": "/fact-5/f/1?tab=weakening",
       "type": "weakening",
-      "fact_displaystring": "Fact 3",
-      "fact": "Fact 3"
+      "fact_displaystring": "Fact 5",
+      "fact": "Fact 5"
     },
     "unread": true
   }
