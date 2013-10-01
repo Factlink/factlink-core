@@ -94,8 +94,10 @@ describe Interactors::Users::Delete do
         ability: double(:ability, can?: true ),
         current_user: double(:user, :valid_password? => true)
       }
-      expect_validating(user_id: 'a123', pavlov_options: pavlov_options)
-        .to raise_error Pavlov::ValidationError
+      expect do
+        interactor = described_class.new(user_id: 'a123', pavlov_options: pavlov_options)
+        interactor.call
+      end.to raise_error Pavlov::ValidationError
     end
 
     it 'checks current_user_password' do

@@ -35,18 +35,19 @@ describe Commands::Twitter::Post do
 
   describe 'validation' do
     it 'requires a message' do
-      expect_validating(message: '')
+      user = double(identities: {'twitter' => 'something'})
+      pavlov_options = { current_user: user }
+      expect_validating(message: '', pavlov_options: pavlov_options)
         .to fail_validation('message should be a nonempty string.')
     end
-  end
 
-  describe '#validate' do
     it 'throws an error if no twitter account is linked' do
       message  = 'message'
       user = double(identities: {'twitter' => nil})
+      pavlov_options = { current_user: user }
 
-      expect_validating( message: message, pavlov_options: { current_user: user } )
-        .to fail_validation('no twitter account linked')
+      expect_validating( message: message, pavlov_options: pavlov_options )
+        .to fail_validation('base no twitter account linked')
     end
   end
 end
