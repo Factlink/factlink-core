@@ -2,36 +2,24 @@ Factlink.Views ||= {}
 Factlink.Views.Notifications ||= {}
 
 class Factlink.Views.Notification
-  appendTo: '#fl'
   template: """
     <div class="fl-message">
       <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
     </div>
   """
 
-  default_options:
-    in_screen_time: 1000
-    type_classes: ''
-
-  constructor: (options) ->
-    @options = $.extend {}, @default_options, options
-
+  constructor: (@options={}) ->
     @$el = $(@template)
-          .addClass(@options.type_classes)
-          .hide()
-
+    @$el.addClass(@options.type_classes)
     @setMessage(@options.message)
 
   setMessage: (message) ->
     @$el.find('.fl-js-message').text(message)
 
   render: ->
-    $(@appendTo).append(@$el)
-
+    Factlink.el.append(@$el)
     @positionElement()
 
-    @$el.fadeIn @options.fade_time, =>
-      setTimeout(@remove, @options.in_screen_time)
     @$el.addClass 'active'
     @$el.addClass 'been-active'
     setTimeout(@remove, @options.in_screen_time)
@@ -44,6 +32,7 @@ class Factlink.Views.Notification
 
   remove: =>
     @$el.removeClass 'active'
+    setTimeout (=> @$el.remove()), 2000 # Should be larger than @notification_transition_time
 
 show = (options) ->
   message = new Factlink.Views.Notification options
