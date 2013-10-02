@@ -137,6 +137,7 @@ class User
   scope :approved, where(:approved => true)
   scope :active, approved
                   .where(:confirmed_at.ne => nil)
+                  .where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
   scope :seen_the_tour,   active
@@ -188,7 +189,7 @@ class User
   end
 
   def active?
-    approved && confirmed_at && agrees_tos && ! deleted
+    approved && confirmed_at && set_up && agrees_tos && ! deleted
   end
 
   def graph_user
