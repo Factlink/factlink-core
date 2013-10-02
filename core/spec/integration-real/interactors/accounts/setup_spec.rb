@@ -47,26 +47,6 @@ describe 'setting up an account' do
       expect(updated_user.reset_password_token).to be_nil
     end
 
-    it 'returns a user with errors if no user could be found for the reset_password_token' do
-      returned_user = nil
-
-      attributes = {
-        reset_password_token: 'some token',
-        password: 'example',
-        password_confirmation: 'example',
-        first_name: 'Henk',
-        last_name: 'Pietersen'
-      }
-
-      as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
-            reset_password_token: attributes[:reset_password_token], attribuutjes: attributes
-      end
-
-      expect(returned_user.errors.size).to eq 1
-      expect(returned_user.errors[:reset_password_token]).to match_array ["is invalid"]
-    end
-
     it 'returns a user with errors if no first name was given' do
       user = create_approved_user 'username', 'example@example.org'
       returned_user = nil
