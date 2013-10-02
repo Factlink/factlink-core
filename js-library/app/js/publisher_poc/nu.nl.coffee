@@ -78,9 +78,9 @@ class FactlinkPublisher
     """
     button_with_count = $(html)
 
-    button_with_count.find('.fl-overlay-annotate-button').mouseenter ->
+    button_with_count.find('.fl-overlay-annotate-button').on 'mouseenter', ->
       $('.fl-button-with-count-help-text').show()
-    button_with_count.find('.fl-overlay-annotate-button').mouseleave ->
+    button_with_count.find('.fl-overlay-annotate-button').on 'mouseleave', ->
       $('.fl-button-with-count-help-text').hide()
 
     button_with_count
@@ -90,9 +90,9 @@ class UI
     $('.fl-fact-count').text count
 
   bindActions: ->
-    $('.fl-overlay-scroll-button').click ->
+    $('.fl-overlay-scroll-button').on 'click', ->
       fact_id = $('.factlink.fl-first').first().data("factid")
       FACTLINK.scrollTo fact_id if fact_id
 
-    $('.fl-overlay-annotate-button').click ->
+    $('.fl-overlay-annotate-button').on 'click', ->
       FACTLINK.triggerClick()
