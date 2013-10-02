@@ -54,8 +54,8 @@ window.FACTLINK_START_LOADER = ->
   proxy_method = (name) ->
     window.FACTLINK[name] = ->
       if iframe.contentWindow.Factlink?
-         # don't return the value, as we also don't do that when storing calls
         iframe.contentWindow.Factlink[name](arguments...)
+        return # don't return the value, as we also don't do that when storing calls
       else
         storedMethodCalls.push {name: name, arguments: arguments}
         return
