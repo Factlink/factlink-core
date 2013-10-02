@@ -10,8 +10,6 @@ class Users::SetupController < ApplicationController
 
   def edit
     mp_track "Tour: Started account setup", current_user: current_user
-
-    render 'users/setup/setup_account'
   end
 
   def update
@@ -21,7 +19,7 @@ class Users::SetupController < ApplicationController
       sign_in user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
       redirect_to '/'
     else
-      render 'users/setup/setup_account'
+      render 'users/setup/edit'
     end
   end
 
