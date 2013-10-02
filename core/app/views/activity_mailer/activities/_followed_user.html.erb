@@ -1,9 +1,43 @@
-<h2 class="activity-title">
-  <%= link_to_possibly_dead_user(@activity.user.user) %>
-  is now following you on Factlink
-</h2>
-<p class="activity-action">
-  To view their profile, visit:<br>
-    <%= link_to user_profile_url(@activity.user.user.username), user_profile_url(@activity.user.user.username) %>
-</p>
+<table cellpadding="0" cellspacing="0" border="0" id="user" width="100%">
+  
+  <tr>
+    <td class="user-header">
+      <img class="user-image" src="images/tom.jpg" />
+      <a class="user-name" href=""><%= link_to_possibly_dead_user(@activity.user.user) %></a>
+      <span class="user-username muted">@tomdev</span>
+    </td>
+  </tr>
 
+  <tr>
+    <td >
+      <table cellpadding="20" cellspacing="0" border="0" id="user-info" width="100%">
+        <tr>
+          <td class="user-info-description" colspan="3">
+            <p>Engineer with Factlink Inc. and HackerOne Inc.</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="user-info-stat" width="50px">
+            <span class="muted">Followers</span><br />
+            <span class="user-info-value">2044</span>
+          </td>
+          <td class="user-info-stat" width="50px">
+            <span class="muted">Following</span><br />
+            <span class="user-info-value">742</span>
+          </td>
+          <td class="user-info-stat no-border">
+            <span class="muted">Most authority on</span><br />
+            <span class="user-info-value">
+              <a href="" class="user-info-topic">Engineering</a>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+</table>
+
+<p align="center">
+  <%= link_to user_profile_url(@activity.user.user.username), user_profile_url(@activity.user.user.username), :class => "button" %>
+</p>
