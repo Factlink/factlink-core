@@ -33,10 +33,10 @@ class FactlinkPublisher
   button: =>
     html = """
       <li onclick="FACTLINK.triggerClick();" class="fl-button-container">
-        <img src='https://factlink.com/favicon.ico' height=24 width=24>
+        <img src="https://factlink.com/favicon.ico" height="24" width="24">
       </li>
       <div class="fl-help-text fl-button-help-text">
-        <img src='https://factlink.com/favicon.ico' height=24 width=24>
+        <img src="https://factlink.com/favicon.ico" height="24" width="24">
         <p>Select any statement in this article and click this button to add your opinion.</p>
       </div>
     """
@@ -53,7 +53,7 @@ class FactlinkPublisher
     html = """
     <li class="fl-button-with-count-container">
       <div class="fl-overlay-scroll-button"></div>
-      <img src='https://factlink.com/favicon.ico' class="fl-overlay-annotate-button"> <!-- Use invisble image to precent losing selection when clicking -->
+      <img src="https://factlink.com/favicon.ico" class="fl-overlay-annotate-button"> <!-- Use invisble image to precent losing selection when clicking -->
 
       <div class="fl-fact-count-container">
 
@@ -66,13 +66,13 @@ class FactlinkPublisher
       </div>
 
       <div class="fl-factlink-identity">
-        <img src='https://factlink.com/favicon.ico' height=14 width=14>
+        <img src="https://factlink.com/favicon.ico" height="14" width="14">
         Factlink
       <div>
     </li>
 
     <div class="fl-help-text fl-button-with-count-help-text">
-      <img src='https://factlink.com/favicon.ico' height=24 width=24>
+      <img src="https://factlink.com/favicon.ico" height="24" width="24">
       <p>Select any statement in this article and click this button to add your opinion.</p>
     </div>
     """
