@@ -120,11 +120,6 @@ FactlinkUI::Application.routes.draw do
     resources :messages, only: [:create, :show]
   end
 
-  # old conversation urls, remove before 2014
-  get "/c" => redirect("/m")
-  get "/c/:id" => redirect("/m/%{id}")
-  get "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
-
   scope "/:username" do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
