@@ -107,13 +107,10 @@
 .tour-follow-user-heading-text {
   left: 42px;
   margin: -10px;
-  max-width: @user-width - 40;
-  overflow: hidden;
   padding: 10px;
   position: absolute;
-  text-overflow: ellipsis;
   top: 0;
-  white-space: nowrap;
+  .ellipsis(@user-width - 40)
 }
 
 .tour-follow-user-block {
