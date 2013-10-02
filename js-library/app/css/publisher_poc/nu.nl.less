@@ -1,0 +1,129 @@
+.fl-button-container {
+  background: none !important;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.fl-help-text {
+  border-radius: 3px;
+  padding: 15px 20px;
+  background: white;
+  width: 300px;
+  position: absolute;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: none;
+
+  img {
+    float: left;
+    margin-right: 12px;
+    margin-top: 8px;
+  }
+
+  p {
+     float: left;
+     width: 220px;
+     color: #666;
+  }
+}
+
+.fl-button-help-text {
+  top: 28px;
+  right: 0px;
+}
+
+.fl-overlay-scroll-button, .fl-overlay-annotate-button {
+  width: 70px;
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.fl-overlay-scroll-button {
+  background: rgb(0, 255, 255);
+  height: 40px;
+  z-index: 12;
+}
+.fl-overlay-annotate-button {
+  background: rgb(206, 0, 0);
+  height: 60px;
+  z-index: 11
+}
+
+.fl-button-with-count-help-text {
+  margin-top: 72px;
+  left: 76px;
+}
+
+.fl-button-with-count-container {
+  width: 70px;
+  margin-right: 0 !important;
+}
+
+.fl-fact-count-container {
+  background: white;
+  border: 1px solid #ccc;
+  height: 20px;
+  padding: 6px 0;
+  text-align: center;
+  line-height: 20px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.fl-factlink-identity {
+  border-radius: 2px;
+  border: 1px solid #ccc;
+
+  padding: 2px;
+  background: #FAFCFB;
+
+  img {
+    float: left;
+    margin-right: 4px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  background: #fafcfb; /* Old browsers */
+  background: -moz-linear-gradient(top,  #fafcfb 0%, #e0e0e0 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fafcfb), color-stop(100%,#e0e0e0)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #fafcfb 0%,#e0e0e0 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #fafcfb 0%,#e0e0e0 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #fafcfb 0%,#e0e0e0 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #fafcfb 0%,#e0e0e0 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafcfb', endColorstr='#e0e0e0',GradientType=0 ); /* IE6-9 */
+}
+
+#Factlink_bubble_nub {
+  position: absolute;
+  z-index: 2;
+  width: 7px;
+  height: 7px;
+  bottom: -7px;
+  left: 42%;
+
+  i, s {
+    border: solid transparent;
+    border-top-color: #CCC;
+    display: block;
+    position: relative;
+    border-width: 5px;
+  }
+
+  i {
+    left: 0;
+    top: -12px;
+    border-top-color: #FFF;
+  }
+}
