@@ -3,7 +3,7 @@
   <tr>
     <td class="user-header">
       <img class="user-image" src="images/tom.jpg" />
-      <a class="user-name" href=""><%= link_to_possibly_dead_user(@activity.user.user) %></a>
+      <%= link_to_possibly_dead_user(@activity.user.user), :class => "user-name" %>
       <span class="user-username muted">@tomdev</span>
     </td>
   </tr>
