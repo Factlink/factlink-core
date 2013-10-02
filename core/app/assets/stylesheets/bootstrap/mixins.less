@@ -30,11 +30,22 @@
   -ms-border-image:     -ms-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
 }
 
+.border-radius(@radius: 3px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.box-shadow(@string) {
+  -webkit-box-shadow: @string;
+  -moz-box-shadow:    @string;
+  box-shadow:         @string;
+}
+
 .striped(@angle: 45deg, @stripeColor: rgba(255,255,255,.15)) {
   background-image: -webkit-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
   background-image: linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
 }
-
 
 .loading-stripes-keyframes() {
     from  { background-position: 40px 0; }

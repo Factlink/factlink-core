@@ -2,146 +2,155 @@
 
 @import "bootstrap/mixins";
 
-* {
-  margin:0;
-  padding:0;
-}
+body {
+  width: 100% !important; 
+  -webkit-text-size-adjust: 100%; 
+  -ms-text-size-adjust: 100%; 
+  margin: 0; 
+  padding: 0;
+} 
 
-h1, h2 {
-  color: #333;
-  font-family: @sansFontFamily;
-  font-weight: bold;
-}
-
-h1 {
-  font-size: 24px;
-}
-
-h2 {
-  font-size: 18px;
-}
-
-a {
-  color: #3D75A3;
-  font-weight: bold;
-  text-decoration: none;
+#wrapper {
+  margin: 0; 
+  padding: 0; 
+  width: 100% !important; 
+  line-height: 100% !important;
 }
 
 img {
-  max-width: 100%;
+  outline: none; 
+  text-decoration: none; 
+  -ms-interpolation-mode: bicubic;
+} 
+
+a img {
+  border: none;
+}
+
+.image-fix {
+  display: block;
+}
+
+table td {
+  border-collapse: collapse;
+}
+
+table { 
+  border-collapse: collapse; 
+  mso-table-lspace: 0pt; 
+  mso-table-rspace: 0pt; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+#wrapper {
+  margin: 20px 0;
+}
+
+#inner-wrapper {
+  max-width: 800px;
+}
+
+a {
+  color: @emailBaseLinkColor;
+  text-decoration: none;
+  font-weight: bold;
+  &:hover {
+    color: darken(@emailBaseLinkColor, 10%);
+  }
+}
+
+p {
+  line-height: 1.5em;
+  margin: 0 0 1.75em;
 }
 
 body {
-  -webkit-font-smoothing:antialiased;
-  -webkit-text-size-adjust:none;
-  width: 100%!important;
-  height: 100%;
-  background-color:#EEEEEE;
+  font-size: @emailBaseFontSize;
+  font-family: @emailBaseFontFamily;
+  font-style: normal;
+  color: @emailBaseFontColor;
 }
 
-table.body-wrap {
-  margin-top: 30px;
+.header-title {
+  font-size: @emailTitleFontSize;
+  margin-bottom: 5px;
+}
+
+.header-subtitle {
+  font-size: @emailSubTitleFontSize;
+  font-weight: normal;
+  color: @emailSubTitleFontColor;
+}
+
+.header-column {
+  padding: 10px 0;
+  border-bottom: @emailBaseBorderStyling;
+  &.no-border {
+    padding-bottom: 0;
+  }
+}
+
+.muted {
+  color: @emailMutedFontColor;
+  font-size: @emailMutedFontSize;
+}
+
+#content {
+  padding: 30px 0;
+}
+
+.content-video {
   width: 100%;
-  background-color:#EEEEEE;
+  margin-top: 3em;
 }
 
-.container {
-  display:block!important;
-  max-width:600px!important;
-  margin:0 auto!important; /* makes it centered */
-  clear:both!important;
+.content-heading {
+  margin-bottom: 0.25em;
 }
 
-.content {
-  margin: 0 auto;
-  max-width:600px;
-  display:block;
-}
-
-.white-well {
-  margin-top: 30px;
-  padding:30px 30px 0;
-  background: #fff;
-  border: 1px solid #cbcbcb;
-  border-radius: @baseBorderRadius;
-  .background-clip(padding-box);
-  box-shadow: 0 1px 3px rgba(0,0,0,.1);
-}
-
-p { margin-bottom: 1em; }
-
-.body, p, td {
-  color: #555;
-  font-size: @baseFontSize;
-  font-family: @baseFontFamily;
-}
-
-.cta {
-  margin: 36px 0;
-  line-height: 36px;
-}
-
-.btn-email {
-  .new-design-font();
+.button {
+  background: @emailButtonBackgroundColor;
+  color: @emailButtonFontColor;
+  text-decoration: none;
+  font-weight: bold;
   display: inline-block;
-  font-size: 13px;
-  border-radius: 3px;
-  height: @largeButtonHeight;
-  line-height: @largeButtonHeight - 2*@baselinePixelsUp;
-  padding: 0 @largeButtonPadding;
-
-  background-color: @buttonHomeBackground;
-  color: @buttonHomeLink;
-  text-shadow: 0 1px 0 @buttonHomeTextShadow;
-
-  border-bottom: @largeButtonBorderWidth solid @buttonHomeBorder;
-}
-
-.content table { width: 100%; }
-
-.content table a { word-break: break-word; }
-
-.clear { display: block; clear: both; }
-
-.factlink-post-stamp {
-  float: right;
-  padding: 4px 4px 0 0;
-  width:104px;
-  height:208px;
-  .box-sizing(content-box);
-}
-
-.discussion-of-the-week {
-  h1 { margin-top: 40px; }
-  h2 { margin: 32px 0 6px; }
-}
-
-.quoted-factlink {
-  width: 494px !important;
-
-  .quoted-factlink-image {
-    vertical-align: top;
-    width: 40px;
-    img { margin-top: 2px; }
+  border-bottom: @emailButtonBorderSize solid @emailButtonBorderColor;
+  font-size: @emailButtonFontSize;
+  .border-radius();
+  padding: @emailButtonFirstPadding @emailButtonSecondPadding;
+  text-shadow: 0 1px @emailButtonTextShadowColor;
+  &:hover {
+    color: darken(@emailButtonFontColor, 5%);;
+    background: darken(@emailButtonBackgroundColor, 5%);
+    border-bottom: @emailButtonBorderSize solid darken(@emailButtonBorderColor, 5%);
   }
-
-  .quoted-factlink-quote {
-    color: #333;
-    font-size: 18px;
-    line-height: 31px;
-    margin-left: 10px;
+  &:active {
+    border-bottom: @emailButtonBorderSize solid darken(@emailButtonBackgroundColor, 5%);
+    .box-shadow(inset 0 @emailButtonBorderSize 0 darken(@emailButtonBorderColor, 5%));
+    padding-top: @emailButtonFirstPadding + @emailButtonBorderSize;
+    padding-bottom: @emailButtonFirstPadding - @emailButtonBorderSize;
   }
-
 }
 
-.footer {
-  text-align: right;
-  padding-top: 5px;
+.footer-column {
+  padding: 10px 0;
+  border-top: @emailBaseBorderStyling;
+}
 
-  a {
-    font-size: 12px;
-    font-weight: normal;
-    color: #aaa;
-    text-shadow: 0px 1px 1px rgba(255,255,255,0.7);
+.footer-link {
+  font-weight: normal;
+  text-decoration: underline;
+  margin-left: 2em;
+  white-space: nowrap;
+  &:hover {
+    text-decoration: none;
+    color: darken(@emailMutedFontColor, 10%);
   }
+}
+
+.no-border {
+  border: none;
 }

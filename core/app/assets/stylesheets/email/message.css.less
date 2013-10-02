@@ -1,0 +1,40 @@
+#message, #user-info {
+  .border-radius();
+  border: @emailBaseBorderStyling;
+  margin-bottom: 30px;
+  border-collapse: separate;
+}
+
+.message-header {
+  border-bottom: @emailBaseBorderStyling;
+  > h3 {
+    line-height: 1.25em;
+  }
+}
+
+.message-title > a {
+  font-weight: normal;
+  color: @emailMutedFontColor;
+}
+
+.message-user-image {
+  width: 32px;
+  padding-right: 0;
+}
+
+.message-user {
+  padding-bottom: 0;
+}
+
+.message-timestamp {
+  padding-bottom: 0;
+  text-align: right;
+}
+
+.message-content {
+  padding-top: 0;
+  padding-bottom: 0;
+  > p {
+    margin-top: 0.5em;
+  }
+}
