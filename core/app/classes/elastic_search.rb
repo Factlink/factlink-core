@@ -28,6 +28,11 @@ class ElasticSearch
     self.refresh
   end
 
+  def self.truncate
+    self.create
+    self.clean
+  end
+
   def self.create
     HTTParty.delete url
 
