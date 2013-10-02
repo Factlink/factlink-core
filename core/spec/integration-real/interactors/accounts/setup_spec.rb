@@ -33,7 +33,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        pavlov.interactor :'accounts/setup_approved',
+        pavlov.interactor :'accounts/setup',
           user: user,
           attribuutjes: attributes
       end
@@ -60,7 +60,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.interactor :'accounts/setup',
             user: user, attribuutjes: attributes
       end
 
@@ -81,7 +81,7 @@ describe 'setting up an account' do
       }
 
       as(anonymous) do |pavlov|
-        returned_user = pavlov.interactor :'accounts/setup_approved',
+        returned_user = pavlov.interactor :'accounts/setup',
             user: user, attribuutjes: attributes
       end
 

@@ -1,6 +1,6 @@
 module Interactors
   module Accounts
-    class SetupApproved
+    class Setup
       include Pavlov::Interactor
 
       arguments :user, :attribuutjes

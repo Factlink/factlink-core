@@ -15,7 +15,7 @@ class Users::SetupController < ApplicationController
   end
 
   def update
-    user = interactor(:'accounts/setup_approved', user: current_user, attribuutjes: params[:user])
+    user = interactor(:'accounts/setup', user: current_user, attribuutjes: params[:user])
 
     if user.errors.empty?
       sign_in user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
