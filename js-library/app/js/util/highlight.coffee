@@ -23,7 +23,7 @@ Factlink.startHighlighting = ->
       ranges = Factlink.search(fact_data.displaystring)
       $.merge Factlink.Facts, Factlink.selectRanges(ranges, fact_data.id)
 
-    Factlink.trigger "factlink.factsLoaded"
+    Factlink.trigger "factlink.factsLoaded", facts_data
 
 Factlink.stopHighlighting = ->
   console.info "Factlink:", "stopHighlighting"
