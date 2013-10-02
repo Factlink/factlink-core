@@ -16,7 +16,6 @@ fetchFacts = ->
 
 Factlink.startHighlighting = ->
   console.info "Factlink:", "startHighlighting"
-
   fetchFacts().done (facts_data) ->
     # If there are multiple matches on the page, loop through them all
     for fact_data in facts_data
