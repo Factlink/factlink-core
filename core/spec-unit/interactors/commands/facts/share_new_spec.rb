@@ -6,7 +6,7 @@ describe Commands::Facts::ShareNew do
 
   describe 'validation' do
     it 'without fact_id doesn\'t validate' do
-      expect_validating({fact_id: '' })
+      expect_validating(fact_id: '', sharing_options: {})
         .to fail_validation('fact_id should be an integer string.')
     end
 
@@ -14,14 +14,14 @@ describe Commands::Facts::ShareNew do
       hash = {fact_id: '1', sharing_options: { twitter: true }, pavlov_options: {ability: double(can?: false)} }
 
       expect_validating( hash )
-        .to fail_validation('no twitter account linked')
+        .to fail_validation('base no twitter account linked')
     end
 
     it 'without connected Facebook doesn\'t validate' do
       hash = {fact_id: '1', sharing_options: { facebook: true }, pavlov_options: {ability: double(can?: false)} }
 
       expect_validating( hash )
-        .to fail_validation('no facebook account linked')
+        .to fail_validation('base no facebook account linked')
     end
   end
 

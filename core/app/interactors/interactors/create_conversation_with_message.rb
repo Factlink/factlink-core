@@ -15,7 +15,7 @@ module Interactors
         command(:'create_message',
                     sender_id: sender_id, content: content, conversation: conversation)
       rescue
-        conversation.delete # TODO replace this with a rollback of the create command
+        conversation.delete # TODO: replace this with a rollback of the create command
         raise
       end
 
@@ -27,6 +27,15 @@ module Interactors
       track_mixpanel
 
       conversation
+    end
+
+    def validate
+      unless content.strip.length > 0
+        errors.add :content, 'cannot be empty'
+      end
+      unless content.length <= 5000
+        errors.add :content, 'cannot be longer than 5000 characters.'
+      end
     end
 
     def track_mixpanel

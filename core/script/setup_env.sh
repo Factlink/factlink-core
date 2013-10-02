@@ -180,6 +180,16 @@ cd core
     touch production.log
     touch testserver.log
   cd ..
+
+  echo "Create directories for databases."
+  mkdir -p tmp/db/redis-tests
+  mkdir -p tmp/db/redis-6380
+  mkdir -p tmp/db/redis
+  mkdir -p tmp/pids
+  mkdir -p tmp/db/mongodb
+  mkdir -p tmp/db/elasticsearch/
+  mkdir -p tmp/log/elasticsearch/
+
   foreman start -f ProcfileServers &
   FOREMAN_PID=$!
   bundle exec rake db:init

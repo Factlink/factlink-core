@@ -29,7 +29,7 @@
 # Cluster name identifies your cluster for auto-discovery. If you're running
 # multiple clusters on the same network, make sure you're using unique names.
 #
-cluster.name: elasticsearch_markijbema
+#cluster.name: "elasticsearch_${HOST}"
 
 
 #################################### Node #####################################
@@ -140,13 +140,13 @@ cluster.name: elasticsearch_markijbema
 
 # Path to directory where to store index data allocated for this node.
 #
-path.data: /usr/local/var/elasticsearch/
+path.data: tmp/db/elasticsearch/
 #
 # Can optionally include more than one location, causing data to be striped across
 # the locations (à la RAID 0) on a file level, favouring locations with most free
 # space on creation. For example:
 #
-path.data: /usr/local/var/elasticsearch/
+path.data: tmp/db/elasticsearch/
 
 # Path to temporary files:
 #
@@ -154,7 +154,7 @@ path.data: /usr/local/var/elasticsearch/
 
 # Path to log files:
 #
-path.logs: /usr/local/var/log/elasticsearch/
+path.logs: tmp/db/log/elasticsearch/
 
 # Path to where plugins are installed:
 #

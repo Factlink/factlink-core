@@ -4,16 +4,6 @@ module Commands
 
     arguments :sender_id, :content, :conversation
 
-    def validate
-      unless content.strip.length > 0
-        raise Pavlov::ValidationError, 'content cannot be empty'
-      end
-      unless content.length <= 5000
-        raise Pavlov::ValidationError, 'content cannot be longer than 5000 characters.'
-      end
-      validate_hexadecimal_string :conversation_id, conversation.id.to_s
-    end
-
     def execute
       conversation.save # update the updated_at attribute
       message = Message.new

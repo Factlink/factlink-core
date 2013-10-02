@@ -5,7 +5,8 @@
 @import "mixins/blocks";
 @import "mixins/discussion";
 
-.ellipsis() {
+.ellipsis(@max-width) {
+  max-width: @max-width;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -143,11 +143,8 @@
   display: inline-block;
   background: white;
 
-  max-width: @user-width - 2*@user-block-padding-horizontal - 2px;
-  white-space: nowrap;
-  overflow: hidden;
   display: inline-block;
-  text-overflow: ellipsis;
+  .ellipsis(@user-width - 2*@user-block-padding-horizontal - 2px);
   padding-right: 50px;
 }
 
