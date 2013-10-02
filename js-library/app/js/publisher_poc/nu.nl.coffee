@@ -16,6 +16,7 @@ $script.ready 'myBundle', ->
   factlink_publisher.addFactlinkButtons()
 
   FACTLINK.on 'factlink.factsLoaded', (facts) ->
+    console.info "FACTS: ", facts
     ui = new UI
     ui.updateFactsCount facts.length
     ui.bindActions()
