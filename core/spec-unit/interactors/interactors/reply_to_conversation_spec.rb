@@ -9,6 +9,23 @@ describe Interactors::ReplyToConversation do
                  'User', 'Conversation'
   end
 
+  describe '.validate' do
+    it 'throws error on empty message' do
+      expect_validating(content: '')
+        .to fail_validation 'content cannot be empty'
+    end
+
+    it 'throws error on message with just whitespace' do
+      expect_validating(content: " \t\n")
+        .to fail_validation 'content cannot be empty'
+    end
+
+    it 'throws error on too long message' do
+      expect_validating(content: 'a'*5001)
+        .to fail_validation 'content cannot be longer than 5000 characters.'
+    end
+  end
+
   describe '#call' do
     it 'correctly' do
       graph_user   = double

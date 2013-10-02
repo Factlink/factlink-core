@@ -61,12 +61,11 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
 
     recipients = _.union(@recipients.pluck('username'), [currentUser.get('username')])
 
-    conversation = new Conversation(
+    conversation = new Conversation
       recipients: recipients
       sender: currentUser.get('username')
       content: @ui.messageTextarea.val()
       fact_id: @model.id
-    )
 
     @disableSubmit()
     conversation.save [],
@@ -93,9 +92,7 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
 
   _showError: (type) ->
     switch type
-      when 'user_not_found'
-        FactlinkApp.NotificationCenter.error 'The user could not be found, please check if the name is correct.'
-      when 'message_empty'
+      when 'Content cannot be empty'
         FactlinkApp.NotificationCenter.error 'Please enter a message.'
       else
         FactlinkApp.NotificationCenter.error 'Your message could not be sent, please try again.'

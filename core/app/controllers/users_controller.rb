@@ -43,15 +43,16 @@ class UsersController < ApplicationController
   def destroy
     authorize! :destroy, @user
 
-    delete = interaction(:'users/delete', user_id: @user.id,
-      current_user_password: params[:user][:password])
+    interactor(:'users/delete', user_id: @user.id,
+      current_user_password: params[:user][:password]) do |delete|
 
-    if delete.valid?
-      delete.call
-      sign_out
-      redirect_to root_path, notice: 'Your account has been deleted.'
-    else
-      redirect_to edit_user_path(current_user), alert: 'Your account could not be deleted. Did you enter the correct password?'
+      if delete.valid?
+        delete.call
+        sign_out
+        redirect_to root_path, notice: 'Your account has been deleted.'
+      else
+        redirect_to edit_user_path(current_user), alert: 'Your account could not be deleted. Did you enter the correct password?'
+      end
     end
   end
 

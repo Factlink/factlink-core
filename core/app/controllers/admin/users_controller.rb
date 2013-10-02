@@ -67,7 +67,7 @@ class Admin::UsersController < AdminController
 
   def get_reserved_users
     # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
+    @users = User.where(:invitation_token => nil, :approved => false, :deleted.ne => true).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def get_deleted_users

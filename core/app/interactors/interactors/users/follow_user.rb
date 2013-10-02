@@ -37,7 +37,7 @@ module Interactors
         validate_nonempty_string :user_to_follow_user_name, user_to_follow_user_name
 
         if user_name == user_to_follow_user_name
-          raise Pavlov::ValidationError, "You cannot follow yourself."
+          errors.add :user_name, "You cannot follow yourself."
         end
       end
     end

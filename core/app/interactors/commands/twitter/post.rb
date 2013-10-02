@@ -15,7 +15,7 @@ module Commands
         validate_nonempty_string :message, message
 
         unless user.identities && user.identities['twitter']
-          raise Pavlov::ValidationError, 'no twitter account linked'
+          errors.add :base, 'no twitter account linked'
         end
       end
 

@@ -22,7 +22,7 @@ module Commands
 
       def validate_connected service
         unless can? :share_to, service
-          raise Pavlov::ValidationError, "no #{service} account linked"
+          errors.add :base, "no #{service} account linked"
         end
       end
 
