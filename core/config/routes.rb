@@ -206,6 +206,8 @@ FactlinkUI::Application.routes.draw do
   post "/p/tos"     => "tos#update",      as: "tos"
 
   scope "/p/tour" do
+    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
+    put 'setup-account' => 'users/setup#update'
     get "install-extension" => "tour#install_extension", as: "install_extension"
     get "create-your-first-factlink" => "tour#create_your_first_factlink", as: "create_your_first_factlink"
     get "interests" => "tour#interests", as: "interests"

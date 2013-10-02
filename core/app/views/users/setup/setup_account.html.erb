@@ -1,0 +1,44 @@
+<%= form_for(current_user, url: setup_account_path, html: { class: "form-horizontal setup-account" }) do |f| %>
+
+  <h1>Hi <%= current_user.name %>, set up your account here:</h1>
+
+  <div class="setup-account-form">
+    <div class="control-group">
+      <%= f.label :first_name, "First name", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :first_name, required: true %>
+        <%= possible_error_for_field(current_user, :first_name) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :last_name, "Last name", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :last_name, required: true %>
+        <%= possible_error_for_field(current_user, :last_name) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :password, "New password", class: "control-label" %>
+
+      <div class="controls">
+        <%= f.password_field :password, required: true %>
+        <%= possible_error_for_field(current_user, :password) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :password_confirmation, "Confirm new password", class: "control-label" %>
+
+      <div class="controls">
+        <%= f.password_field :password_confirmation, required: true %>
+        <%= possible_error_for_field(current_user, :password_confirmation) %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit("Next Step", class: 'button button-confirm') %>
+    </div>
+  </div>
+<% end %>
