@@ -192,11 +192,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def interaction interactor_name, options
-    klass = Pavlov.class_for_interactor(interactor_name)
-    klass.new options.merge pavlov_options: pavlov_options
-  end
-
   def action_is_intermediate?
     action_name == "intermediate" and controller_name == "facts"
   end

@@ -10,11 +10,16 @@ module PavlovSupport
   def expect_validating hash
     hash[:pavlov_options] ||= {}
     hash[:pavlov_options][:ability] ||= double(can?: true)
-    expect { described_class.new(hash).call }
+    instance = described_class.new(hash)
+    instance.valid?
+    error_messages = instance.errors.map do |attribute, message|
+      "#{attribute} #{message}"
+    end
+    expect(error_messages)
   end
 
-  def fail_validation message=nil
-    raise_error(Pavlov::ValidationError, message)
+  def fail_validation message
+    include message
   end
 
   class ExecuteAsUser < Struct.new(:user)

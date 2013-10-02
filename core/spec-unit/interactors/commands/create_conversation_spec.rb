@@ -8,7 +8,6 @@ describe Commands::CreateConversation do
 
   before do
     stub_classes 'Conversation', 'Queries::UserByUsername', 'Fact'
-    stub_const 'Pavlov::ValidationError', RuntimeError
   end
 
   it 'throws an error when recipient_usernames is not a list' do

@@ -1,23 +1,50 @@
+require 'pavlov_helper'
 require_relative '../../../app/interactors/util/validations.rb'
 
 describe Util::Validations do
   before do
-    stub_const 'DummyClass', Class.new { include Util::Validations }
+    stub_const 'DummyClass', Class.new
+    class DummyClass
+      include Util::Validations
+      def initialize(errors)
+        @errors = errors
+      end
+      attr_reader :errors
+    end
     stub_const 'Pavlov::ValidationError', RuntimeError
   end
 
+  subject {DummyClass.new(errors)}
+  let(:errors) { double }
+
   describe '#validate_string_length' do
     it 'should not raise an error when the string is not over the given length' do
-      obj = DummyClass.new
-      obj.validate_string_length(:some_var, 'aa', 2)
+      subject.validate_string_length(:some_var, 'aa', 2)
     end
 
-    it 'should not raise an error when the string longer than the given length' do
-      obj = DummyClass.new
+    it 'should raise an error when the string longer than the given length' do
+      error_message = 'should not be longer than 2 characters.'
+      expect(errors).to receive(:add).with(:some_var, error_message)
 
-      expect{obj.validate_string_length(:some_var, 'aaa', 2)}
-        .to raise_error(Pavlov::ValidationError,
-          "some_var should not be longer than 2 characters.")
+      subject.validate_string_length(:some_var, 'aaa', 2)
+    end
+  end
+
+  describe '#validate_non_empty_list' do
+    it 'does not raise for a nonempty list' do
+      subject.validate_non_empty_list :list, [1]
+    end
+    it 'raises for nil' do
+      expect(errors).to receive(:add).with(:list, 'should be a list')
+      subject.validate_non_empty_list(:list, nil)
+    end
+    it 'raises for a string' do
+      expect(errors).to receive(:add).with(:list, 'should be a list')
+      subject.validate_non_empty_list(:list, 'foo')
+    end
+    it 'raises for an empty list' do
+      expect(errors).to receive(:add).with(:list, 'should not be empty')
+      subject.validate_non_empty_list(:list, [])
     end
   end
 end

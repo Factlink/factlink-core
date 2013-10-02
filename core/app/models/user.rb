@@ -291,7 +291,7 @@ class User
   # Require activated accounts to work with
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?
-    super && approved?
+    super && approved? && !deleted
   end
 
   def inactive_message

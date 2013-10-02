@@ -16,7 +16,7 @@ gem 'mail', '~> 2.5.4'
 # Mongo
 gem 'mongoid', '~> 3.0.21'
 
-gem 'pavlov', '= 0.1.7.1' # Pavlov is still highly unstable, so pinned
+gem 'pavlov', github: 'Factlink/pavlov', ref: 'd4a4220'
 
 # Redis
 gem 'redis', '~> 2.2.1'

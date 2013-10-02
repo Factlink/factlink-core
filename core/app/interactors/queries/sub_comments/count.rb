@@ -13,14 +13,12 @@ module Queries
       end
 
       def validate
-        validate_in_set               :parent_class, @parent_class,
+        validate_in_set :parent_class, @parent_class,
           ['Comment','FactRelation']
         if @parent_class == 'FactRelation'
           validate_integer_string     :parent_id, @parent_id
         elsif @parent_class == 'Comment'
           validate_hexadecimal_string :parent_id, @parent_id
-        else
-          raise 'Trying to sub comment on a unrecognized parent class.'
         end
       end
     end

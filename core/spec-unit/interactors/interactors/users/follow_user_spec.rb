@@ -83,7 +83,7 @@ describe Interactors::Users::FollowUser do
 
     it 'you don\'t try to follow yourself' do
       expect_validating(user_name: 'karel', user_to_follow_user_name: 'karel')
-        .to fail_validation('You cannot follow yourself.')
+        .to fail_validation('user_name You cannot follow yourself.')
     end
   end
 end

@@ -29,6 +29,16 @@ module Interactors
         conversation_id: conversation_id
     end
 
+    def validate
+      unless content.strip.length > 0
+        errors.add :content, 'cannot be empty'
+      end
+      unless content.length <= 5000
+        errors.add :content, 'cannot be longer than 5000 characters.'
+      end
+      validate_hexadecimal_string :conversation_id, conversation_id
+    end
+
     def authorized?
       #relay authorization to commands, only require a user to check
       pavlov_options[:current_user].id.to_s == sender_id.to_s

@@ -8,8 +8,9 @@ describe "factlink", type: :feature do
   end
 
   it "the layout of the profile page is correct for deleted_users" do
-    user = sign_in_user create :full_user, deleted: true
-    visit user_path(user)
+    deleted_user = create :full_user, deleted: true
+    user = sign_in_user create :full_user
+    visit user_path(deleted_user)
     assume_unchanged_screenshot "profile_page_deleted"
   end
 end

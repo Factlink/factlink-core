@@ -65,8 +65,6 @@ describe Interactors::SubComments::IndexForComment do
     end
 
     it 'throws an error when the comment does not exist' do
-      stub_const 'Pavlov::ValidationError', RuntimeError
-
       options = {ability: double(can?: true)}
 
       Comment.stub(:find).with('2b')

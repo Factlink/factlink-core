@@ -7,9 +7,8 @@ class CommentsController < ApplicationController
                               content: params[:content])
 
     render 'comments/show', formats: [:json]
-  rescue Pavlov::ValidationError => e
-
-    render text: e.message, :status => 400
+  rescue Pavlov::ValidationError
+    render text: 'something went wrong', :status => 400
   end
 
   def destroy
