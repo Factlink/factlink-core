@@ -192,6 +192,12 @@ describe User do
       subject.save
     end
 
+    it "confirms the user's email" do
+      expect(subject).to_not be_confirmed
+      subject.send_welcome_instructions
+      expect(subject).to be_confirmed
+    end
+
   end
 
   # also describes .hidden?
