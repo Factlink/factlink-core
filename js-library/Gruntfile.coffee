@@ -31,7 +31,6 @@ module.exports = (grunt) ->
         src: [
           'build/js/libs/jquery-1.7.2.js'
           'build/js/core.js'
-
           'build/js/wrap/first.js'
           'build/js/plugins/*.js'
           'build/js/classes/*.js'
