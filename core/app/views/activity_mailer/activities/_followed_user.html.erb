@@ -3,7 +3,7 @@
   <tr>
     <td class="user-header">
       <img class="user-image" src="images/tom.jpg" />
-      <%= link_to_possibly_dead_user(@activity.user.user), :class => "user-name" %>
+      <%= link_to_possibly_dead_user(@activity.user.user), class: "user-name" %>
       <span class="user-username muted">@tomdev</span>
     </td>
   </tr>
@@ -39,5 +39,7 @@
 </table>
 
 <p align="center">
-  <%= link_to user_profile_url(@activity.user.user.username), user_profile_url(@activity.user.user.username), :class => "button" %>
+  <%= link_to(user_profile_url(@activity.user.user.username), class: "button") do %>
+    Follow <%= @activity.user.user.username %>
+  <% end %>
 </p>
