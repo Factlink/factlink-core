@@ -1,3 +1,6 @@
+# Please note: This is a Proof of Concept to be used for user testing.
+# This really needs clean up before we are actually going to use this.
+
 `/*!
   * $script.js Async loader & dependency manager
   * https://github.com/ded/script.js
