@@ -34,6 +34,7 @@ class User
 
   field :approved,    type: Boolean, default: false
   field :deleted,     type: Boolean, default: false
+  field :set_up,      type: Boolean, default: false
 
   field :admin,       type: Boolean, default: false
 

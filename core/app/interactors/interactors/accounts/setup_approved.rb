@@ -13,6 +13,7 @@ module Interactors
         user = User.find_or_initialize_with_error_by(:reset_password_token, reset_password_token)
         if user.persisted?
           user.attributes = attribuutjes.slice(:first_name, :last_name)
+          user.set_up = true
           user.reset_password!(attribuutjes[:password], attribuutjes[:password_confirmation])
         end
         user
