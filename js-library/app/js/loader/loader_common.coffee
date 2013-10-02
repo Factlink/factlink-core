@@ -67,7 +67,6 @@ window.FACTLINK_START_LOADER = ->
   proxy_method 'startAnnotating'
   proxy_method 'stopAnnotating'
   proxy_method 'showLoadedNotification'
-  proxy_method 'facts'
   proxy_method 'scrollTo'
 
   window.FACTLINK_ON_CORE_LOAD = ->
