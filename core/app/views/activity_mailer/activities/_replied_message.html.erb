@@ -1,15 +1,3 @@
-<h2 class="activity-title">
-  <%= link_to_possibly_dead_user @activity.user.user %>
-  has replied to a message:
-</h2>
-<p class="activity-body">
-  <%= @activity.subject.content %>
-</p>
-<p class="activity-action">
-  To view all messages, visit:<br>
-  <%= link_to conversation_message_url(@activity.subject.conversation, @activity.subject), conversation_message_url(@activity.subject.conversation, @activity.subject) %>
-</p>
-
 <table cellpadding="20" cellspacing="0" border="0" id="message">
 
 	<tr>
@@ -40,5 +28,5 @@
 	</table>
 
 	<p align="center">
-	<%= link_to "Reply to this message", conversation_message_url(@activity.subject.conversation, @activity.subject), :class => "button" %>
+	<%= link_to("Reply to this message", conversation_message_url(@activity.subject.conversation, @activity.subject), class: "button") %>
 	</p>
