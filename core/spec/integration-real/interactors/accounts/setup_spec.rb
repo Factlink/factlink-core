@@ -25,7 +25,7 @@ describe 'setting up an account' do
       user = create_approved_user 'username', 'example@example.org'
 
       attributes = {
-        reset_password_token: user.reset_password_token,
+        user: user,
         password: 'example',
         password_confirmation: 'example',
         first_name: 'Henk',
@@ -34,7 +34,7 @@ describe 'setting up an account' do
 
       as(anonymous) do |pavlov|
         pavlov.interactor :'accounts/setup_approved',
-          reset_password_token: user.reset_password_token,
+          user: user,
           attribuutjes: attributes
       end
 
@@ -52,7 +52,7 @@ describe 'setting up an account' do
       returned_user = nil
 
       attributes = {
-        reset_password_token: user.reset_password_token,
+        user: user,
         password: 'example',
         password_confirmation: 'example',
         first_name: '',
@@ -61,7 +61,7 @@ describe 'setting up an account' do
 
       as(anonymous) do |pavlov|
         returned_user = pavlov.interactor :'accounts/setup_approved',
-            reset_password_token: user.reset_password_token, attribuutjes: attributes
+            user: user, attribuutjes: attributes
       end
 
       expect(returned_user.errors.size).to eq 1
@@ -73,7 +73,7 @@ describe 'setting up an account' do
       returned_user = nil
 
       attributes = {
-        reset_password_token: user.reset_password_token,
+        user: user,
         password: 'example',
         password_confirmation: 'example2',
         first_name: 'Henk',
@@ -82,7 +82,7 @@ describe 'setting up an account' do
 
       as(anonymous) do |pavlov|
         returned_user = pavlov.interactor :'accounts/setup_approved',
-            reset_password_token: user.reset_password_token, attribuutjes: attributes
+            user: user, attribuutjes: attributes
       end
 
       expect(returned_user.errors.size).to eq 1
