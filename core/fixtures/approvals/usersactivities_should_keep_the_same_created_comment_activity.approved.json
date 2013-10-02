@@ -1,0 +1,30 @@
+[
+  {
+    "timestamp": 799248945000.0,
+    "subject_class": "Comment",
+    "user": {
+      "id": "<STRIPPED>",
+      "name": "John12 Doe12",
+      "username": "johndoe12",
+      "gravatar_hash": "3e5a9e3d7f1ae619f15a23d0ddf5fa1a",
+      "statistics_created_fact_count": 0,
+      "statistics_follower_count": 0,
+      "statistics_following_count": 0,
+      "user_topics": [
+
+      ]
+    },
+    "action": "created_comment",
+    "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_created_comment_action\">Fact Created Comment Action</span>",
+    "subject": "<STRIPPED>",
+    "time_ago": "1 minute",
+    "id": "<STRIPPED>",
+    "activity": {
+      "action": "created_comment",
+      "target_url": "/fact-7/f/1?tab=supporting",
+      "fact_displaystring": "Fact 7",
+      "fact": "Fact 7"
+    },
+    "unread": true
+  }
+]
