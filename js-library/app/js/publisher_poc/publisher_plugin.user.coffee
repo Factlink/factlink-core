@@ -15,7 +15,6 @@ localConfig =
   api: "http://localhost:3000"
   lib: "http://localhost:8000/lib/dist"
   srcPath: "/factlink.core.js"
-  url: window.location.href
   minified: ''
 
 # testserverConfig =
