@@ -16,6 +16,9 @@ fetchFacts = ->
 
 Factlink.startHighlighting = ->
   console.info "Factlink:", "startHighlighting"
+
+  facts = []
+
   fetchFacts().done (facts_data) ->
     # If there are multiple matches on the page, loop through them all
     for fact_data in facts_data
@@ -23,9 +26,13 @@ Factlink.startHighlighting = ->
       ranges = Factlink.search(fact_data.displaystring)
       $.merge Factlink.Facts, Factlink.selectRanges(ranges, fact_data.id)
 
+    window.facts = facts_data
     Factlink.trigger "factlink.factsLoaded"
 
 Factlink.stopHighlighting = ->
   console.info "Factlink:", "stopHighlighting"
   fact.destroy() for fact in Factlink.Facts
   Factlink.Facts = []
+
+Factlink.facts = ->
+  window.facts
