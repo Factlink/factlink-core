@@ -12,7 +12,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
     if params[:msg]
       sign_in @user
-      redirect_to after_sign_in_path_for(@user)
+      respond_with @user, location: after_sign_in_path_for(@user)
     else
       render :edit
     end
