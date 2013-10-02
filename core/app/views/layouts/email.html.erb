@@ -1,56 +1,66 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <%# If you delete this tag, the sky will fall on your head %>
-    <meta name="viewport" content="width=device-width" />
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Factlink</title>
-    <link rel="stylesheet" href="email.css" />
-  </head>
+<head>
+  <%# If you delete this tag, the sky will fall on your head %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Factlink</title>
+  <link href="email.css" rel="stylesheet" type="text/css" />
+</head>
 
-  <body bgcolor="#EEEEEE">
-    <%# BODY %>
-    <table class="body-wrap" bgcolor="#EEEEEE">
-      <tr>
-        <td></td>
-        <td class="container" bgcolor="#EEEEEE">
-          <div class="content white-well">
-            <table>
-              <tr>
-                <td>
-                  <% unless @hide_header_image %>
-                  <p><img src="http://cdn.factlink.com/1/emailLogo.png" /></p>
-                  <% end %>
-                  <div class="body">
-                    <%= yield :email_body %>
-                    <%= yield %>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </td>
-        <td></td>
-      </tr>
+<body>
+  <%# BODY %>
+  <table cellpadding="0" cellspacing="0" border="0" id="wrapper">
+    <tr>
+      <td > 
+        <table cellpadding="0" cellspacing="0" width="90%" border="0" align="center" id="inner-wrapper">
 
-      <tr>
-        <td></td>
-        <td class="container" bgcolor="#EEEEEE">
-          <div class="content">
-            <table>
-              <tr>
-                <td class="footer">
-                  <%= yield :email_footer %>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </td>
-        <td></td>
-      </tr>
+          <thead>
+            <tr>
 
-    </table>
-    <%# /BODY %>
-  </body>
+              <td class="header-column">
+                <h1 class="header-title">Hello Jens Kanis</h1>
+                <h2 class="header-subtitle">You have a new follower on Factlink</h2>
+              </td>
+
+              <td class="header-column">
+                <% unless @hide_header_image %>
+                  <a href=""><img src="http://cdn.factlink.com/1/email_logo_header.png" class="image-fix" alt="Factlink" title="Factlink" align="right" /></a>
+                <% end %>
+              </td>
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <%= yield :email_body %>
+              <%= yield %>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td colspan="2">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                  <tr>
+                    <td class="footer-column">
+                      <a href=""><img src="http://cdn.factlink.com/1/email_logo_footer.png" class="image-fix" alt="Factlink" title="Factlink" /></a>
+                    </td>
+
+                    <%= yield :email_footer %>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </tfoot>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+  <%# /BODY %>
+</body>
+
 </html>
