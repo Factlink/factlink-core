@@ -192,6 +192,7 @@ cd core
 
   foreman start -f ProcfileServers &
   FOREMAN_PID=$!
+  bundle exec rake db:truncate
   bundle exec rake db:init
   kill ${FOREMAN_PID}
   wait
