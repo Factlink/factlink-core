@@ -1,12 +1,6 @@
 class Users::PasswordsController < Devise::PasswordsController
 
-  before_filter :setup_step_in_process, only: [:edit, :update]
-
   layout "one_column_simple"
-
-  def setup_step_in_process
-    @step_in_signup_process = :account if params[:msg] == 'welcome'
-  end
 
   def edit
     # Copied from Devise::PasswordsController
@@ -17,36 +11,10 @@ class Users::PasswordsController < Devise::PasswordsController
     @user = User.where(reset_password_token: params[:reset_password_token]).first
 
     if params[:msg]
-      if @user
-        mp_track "Tour: Started account setup", current_user: @user
-        render :setup_account
-      else
-        redirect_to new_user_session_path,
-          notice: 'Your account is already set up. Please log in to continue.'
-      end
+      sign_in @user
+      redirect_to after_sign_in_path_for(@user)
     else
       render :edit
-    end
-  end
-
-  def update
-    if params[:msg]
-      update_setup_account
-    else
-      super
-    end
-  end
-
-  def update_setup_account
-    user = User.find_or_initialize_with_error_by(:reset_password_token, resource_params[:reset_password_token])
-
-    self.resource = interactor(:'accounts/setup', user: user, attribuutjes: resource_params)
-
-    if resource.errors.empty?
-      sign_in(resource_name, resource)
-      respond_with resource, location: after_sign_in_path_for(resource)
-    else
-      respond_with resource, template: 'users/passwords/setup_account'
     end
   end
 
