@@ -1,13 +1,13 @@
-<%= form_for(current_user, url: setup_account_path, html: { class: "form-horizontal setup-account" }) do |f| %>
+<%= form_for(@user, url: setup_account_path, html: { class: "form-horizontal setup-account" }) do |f| %>
 
-  <h1>Hi <%= current_user.name %>, set up your account here:</h1>
+  <h1>Hi <%= @user.name %>, set up your account here:</h1>
 
   <div class="setup-account-form">
     <div class="control-group">
       <%= f.label :first_name, "First name", class: "control-label" %>
       <div class="controls">
         <%= f.text_field :first_name, required: true %>
-        <%= possible_error_for_field(current_user, :first_name) %>
+        <%= possible_error_for_field(@user, :first_name) %>
       </div>
     </div>
 
@@ -15,7 +15,7 @@
       <%= f.label :last_name, "Last name", class: "control-label" %>
       <div class="controls">
         <%= f.text_field :last_name, required: true %>
-        <%= possible_error_for_field(current_user, :last_name) %>
+        <%= possible_error_for_field(@user, :last_name) %>
       </div>
     </div>
 
@@ -24,7 +24,7 @@
 
       <div class="controls">
         <%= f.password_field :password, required: true %>
-        <%= possible_error_for_field(current_user, :password) %>
+        <%= possible_error_for_field(@user, :password) %>
       </div>
     </div>
 
@@ -33,7 +33,7 @@
 
       <div class="controls">
         <%= f.password_field :password_confirmation, required: true %>
-        <%= possible_error_for_field(current_user, :password_confirmation) %>
+        <%= possible_error_for_field(@user, :password_confirmation) %>
       </div>
     </div>
 
