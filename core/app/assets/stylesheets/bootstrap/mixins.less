@@ -30,12 +30,6 @@
   -ms-border-image:     -ms-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
 }
 
-.button-background(@start, @stop, @angle: top) {
-    background: @start;
-    background: -webkit-linear-gradient(@angle, @stop 0%, @start 100%);
-    background: linear-gradient(@angle, @stop 0%, @start 100%);
-}
-
 .striped(@angle: 45deg, @stripeColor: rgba(255,255,255,.15)) {
   background-image: -webkit-linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
   background-image: linear-gradient(@angle, @stripeColor 25%, transparent 25%, transparent 50%, @stripeColor 50%, @stripeColor 75%, transparent 75%, transparent);
