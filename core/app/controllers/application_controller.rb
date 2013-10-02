@@ -60,8 +60,10 @@ class ApplicationController < ActionController::Base
       safe_return_to_path || channel_activities_path(user, user.graph_user.stream)
     elsif user.agrees_tos
       start_the_tour_path
-    else
+    elsif user.set_up
       tos_path
+    else
+      setup_account_path
     end
   end
 
