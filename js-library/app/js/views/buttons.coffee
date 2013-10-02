@@ -24,7 +24,7 @@ class Button
 
 class Factlink.ShowButton extends Button
   template: """
-    <div class="fl-button fl-show-button">
+    <div class="fl-button">
       <span class="fl-default-message">Show Factlink</span>
       <span class="fl-loading-message">Loading...</span>
     </div>
@@ -37,7 +37,7 @@ class Factlink.ShowButton extends Button
 
 class Factlink.CreateButton extends Button
   template: """
-    <div class="fl-button fl-create-button">
+    <div class="fl-button">
       <span class="fl-default-message">Add Factlink</span>
       <span class="fl-loading-message">Loading...</span>
     </div>
