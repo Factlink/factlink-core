@@ -216,8 +216,13 @@ describe User do
       it { expect(approved_user).to_not be_active }
       it { expect(approved_user).to     be_hidden }
     end
-    context "confirmed, approved user who signed the tos" do
+    context "confirmed, approved user who signed the tos, but somehow not set up" do
       subject(:active_user) { create :user, :approved, :confirmed, :agrees_tos }
+      it { expect(active_user).to_not be_active }
+      it { expect(active_user).to     be_hidden }
+    end
+    context "set up, confirmed, approved user who signed the tos" do
+      subject(:active_user) { create :user, :approved, :set_up, :confirmed, :agrees_tos }
       it { expect(active_user).to     be_active }
       it { expect(active_user).to_not be_hidden }
     end
@@ -244,10 +249,10 @@ describe User do
     end
 
     describe ".active" do
-      it "only returns approved, confirmed, and TOS-signed users" do
+      it "only returns approved, confirmed, set up, and TOS-signed users" do
         waiting_list_user = create :user
         approved_user = create :user, :approved
-        active_user = create :user, :approved, :confirmed, :agrees_tos
+        active_user = create :user, :approved, :confirmed, :set_up, :agrees_tos
 
         active_users = User.active.all
         expect(active_users).to eq [active_user]
@@ -264,11 +269,11 @@ describe User do
     end
 
     describe ".seen_the_tour" do
-      it "only returns approved, confirmed, TOS-signed users that have seen the tour" do
+      it "only returns approved, confirmed, set up, TOS-signed users that have seen the tour" do
         waiting_list_user = create :user
         approved_user = create :user, :approved
-        active_user = create :user, :approved, :confirmed, :agrees_tos
-        seen_the_tour_user = create :user, :approved, :confirmed, :agrees_tos, :seen_the_tour
+        active_user = create :user, :approved, :confirmed, :set_up, :agrees_tos
+        seen_the_tour_user = create :user, :approved, :confirmed, :set_up, :agrees_tos, :seen_the_tour
 
         seen_tour_users = User.seen_the_tour.all
 
@@ -277,11 +282,11 @@ describe User do
     end
 
     describe ".receives_digest" do
-      it "only returns approved, confirmed, TOS-signed users that have selected to receive digests" do
+      it "only returns approved, confirmed, set up, TOS-signed users that have selected to receive digests" do
         waiting_list_user = create :user
         approved_user = create :user, :approved
-        active_user = create :user, :approved, :confirmed, :agrees_tos
-        active_user_without_digest = create :user, :approved, :confirmed, :agrees_tos
+        active_user = create :user, :approved, :confirmed, :set_up, :agrees_tos
+        active_user_without_digest = create :user, :approved, :confirmed, :set_up, :agrees_tos
         active_user_without_digest.receives_digest = false
         active_user_without_digest.save!
 
