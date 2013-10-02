@@ -10,7 +10,8 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       set_flash_message(:notice, :confirmed) if is_navigational_format?
 
       if resource.approved?
-        redirect_to "/"
+        sign_in(resource_name, resource)
+        redirect_to after_sign_in_path_for(resource).to_s
       else
         respond_with_navigational(resource){ render "awaiting_approval" }
       end
