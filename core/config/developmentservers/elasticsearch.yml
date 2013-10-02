@@ -136,7 +136,7 @@
 
 # Path to directory containing configuration (this file and logging.yml):
 #
-# path.conf: /path/to/conf
+path.conf: config/developmentservers/
 
 # Path to directory where to store index data allocated for this node.
 #
@@ -335,3 +335,6 @@ path.logs: tmp/db/log/elasticsearch/
 #index.search.slowlog.threshold.fetch.info: 800ms
 #index.search.slowlog.threshold.fetch.debug: 500ms
 #index.search.slowlog.threshold.fetch.trace: 200ms
+
+
+

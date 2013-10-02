@@ -1,6 +1,6 @@
-elasticsearch: elasticsearch -f -Des.config=serverconfig/elasticsearch.yml -Des.cluster.name="elasticsearch_$(hostname)"
+elasticsearch: elasticsearch -f -Des.config=config/developmentservers/elasticsearch.yml -Des.cluster.name="elasticsearch_$(hostname)"
 redis: redis-server config/developmentservers/redis.conf
 redisfortests: redis-server config/developmentservers/redis-for-tests.conf
 resqueredis: redis-server config/developmentservers/redis-resque.conf
 mongo: mongod --config config/developmentservers/mongo.conf
-mailcatcher: bundle exec mailcatcher -fbv
+mailcatcher: bundle exec mailcatcher -fv
