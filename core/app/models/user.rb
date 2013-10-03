@@ -34,6 +34,7 @@ class User
 
   field :approved,    type: Boolean, default: false
   field :deleted,     type: Boolean, default: false
+  field :set_up,      type: Boolean, default: false
 
   field :admin,       type: Boolean, default: false
 
@@ -136,6 +137,7 @@ class User
   scope :approved, where(:approved => true)
   scope :active, approved
                   .where(:confirmed_at.ne => nil)
+                  .where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
   scope :seen_the_tour,   active
@@ -187,7 +189,7 @@ class User
   end
 
   def active?
-    approved && confirmed_at && agrees_tos && ! deleted
+    approved && confirmed? && set_up && agrees_tos && ! deleted
   end
 
   def graph_user
@@ -330,6 +332,8 @@ class User
 
   # Welcome the user with an email when the Admin approved the account
   def send_welcome_instructions
+    self.skip_confirmation!
+
     generate_reset_password_token! if should_generate_reset_token?
     UserMailer.welcome_instructions(self.id).deliver
   end
