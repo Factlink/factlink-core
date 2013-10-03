@@ -9,10 +9,12 @@ describe Queries::Users::UserFollowsUser do
       from_user = create :full_user
       to_user = create :full_user
 
-      query = described_class.new from_graph_user_id: from_user.graph_user_id,
-                                    to_graph_user_id: to_user.graph_user_id
+      as(from_user) do |pavlov|
+        result = pavlov.query 'users/user_follows_user', from_graph_user_id: from_user.graph_user_id,
+                                                         to_graph_user_id: to_user.graph_user_id
 
-      expect(query.call).to be_false
+        expect(result).to be_false
+      end
     end
 
     it "should return true if the from_user does follow the to_user" do
