@@ -33,5 +33,14 @@ describe Users::ConfirmationsController do
 
       response.body.should match /Email needs to be confirmed within 1 month/
     end
+
+    it "redirects to setup page when approved, when clicking for a second time" do
+      user = create :user, :approved
+
+      get :show, confirmation_token: user.confirmation_token
+      get :show, confirmation_token: user.confirmation_token
+
+      response.should redirect_to setup_account_path
+    end
   end
 end
