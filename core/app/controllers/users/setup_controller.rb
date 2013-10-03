@@ -20,11 +20,11 @@ class Users::SetupController < ApplicationController
 
     @user = interactor(:'accounts/setup', user: current_user, attribuutjes: params[:user])
 
-    if @user.errors.empty?
+    if @user.changed?
+      render 'users/setup/edit'
+    else
       sign_in @user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
       redirect_to '/'
-    else
-      render 'users/setup/edit'
     end
   end
 
