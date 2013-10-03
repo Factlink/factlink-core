@@ -35,6 +35,7 @@ describe Ability do
       it {subject.should_not be_able_to :sign_tos, user }
 
       it {subject.should     be_able_to :edit_settings, user }
+      it {subject.should     be_able_to :set_up, user }
 
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
@@ -46,6 +47,7 @@ describe Ability do
       it {nonnda.should_not be_able_to :manage, User }
 
       it {nonnda.should_not be_able_to :update, nonnda_user }
+      it {nonnda.should     be_able_to :set_up, nonnda_user }
       it {nonnda.should     be_able_to :sign_tos, nonnda_user }
       it {nonnda.should     be_able_to :show, nonnda_user }
       it {nonnda.should_not be_able_to :show, User }
@@ -59,10 +61,14 @@ describe Ability do
 
       it {admin.should_not be_able_to :edit_settings, user }
       it {admin.should be_able_to     :edit_settings, admin_user }
+
+      it {admin.should     be_able_to :set_up, user }
+      it {admin.should     be_able_to :set_up, admin_user }
     end
     context "as an anonymous" do
       it {anonymous.should_not be_able_to :manage, User }
 
+      it {anonymous.should_not be_able_to :set_up, user }
       it {anonymous.should_not be_able_to :sign_tos, nil }
       it {anonymous.should     be_able_to :read_tos, nil }
       it {anonymous.should_not be_able_to :show, User }

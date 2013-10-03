@@ -9,13 +9,15 @@ class Users::SetupController < ApplicationController
   end
 
   def edit
-    @user = current_user
-    authorize! :update, @user
+    authorize! :set_up, current_user
 
+    @user = current_user
     mp_track "Tour: Started account setup", current_user: current_user
   end
 
   def update
+    authorize! :set_up, current_user
+
     @user = interactor(:'accounts/setup', user: current_user, attribuutjes: params[:user])
 
     if @user.errors.empty?
