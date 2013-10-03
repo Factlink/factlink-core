@@ -29,8 +29,9 @@ describe Interactors::Accounts::Setup do
         last_name: 'Pietersen',
         reset_password_token: 'token'
       }
+      interactor = described_class.new(user: user, attribuutjes: attributes)
 
-      described_class.new(user: user, attribuutjes: attributes).call
+      interactor.call
 
       updated_user = User.find(user.id)
 
@@ -40,7 +41,7 @@ describe Interactors::Accounts::Setup do
       expect(updated_user.reset_password_token).to be_nil
     end
 
-    it 'sets errors on user if no first name was given' do
+    it 'returns a user with errors if no first name was given' do
       user = create :user, :approved
       attributes = {
         user: user,
@@ -49,14 +50,15 @@ describe Interactors::Accounts::Setup do
         first_name: '',
         last_name: 'Pietersen'
       }
+      interactor = described_class.new(user: user, attribuutjes: attributes)
 
-      described_class.new(user: user, attribuutjes: attributes).call
+      returned_user = interactor.call
 
-      expect(user.errors.size).to eq 1
-      expect(user.errors[:first_name]).to match_array ["is required"]
+      expect(returned_user.errors.size).to eq 1
+      expect(returned_user.errors[:first_name]).to match_array ["is required"]
     end
 
-    it "sets errors on user if the passwords don't match" do
+    it "returns a user with errors if the passwords don't match" do
       user = create :user, :approved
       attributes = {
         user: user,
@@ -65,11 +67,12 @@ describe Interactors::Accounts::Setup do
         first_name: 'Henk',
         last_name: 'Pietersen'
       }
+      interactor = described_class.new(user: user, attribuutjes: attributes)
 
-      described_class.new(user: user, attribuutjes: attributes).call
+      returned_user = interactor.call
 
-      expect(user.errors.size).to eq 1
-      expect(user.errors[:password]).to match_array ["doesn't match confirmation"]
+      expect(returned_user.errors.size).to eq 1
+      expect(returned_user.errors[:password]).to match_array ["doesn't match confirmation"]
     end
   end
 end
