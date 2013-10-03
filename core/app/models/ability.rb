@@ -109,6 +109,7 @@ class Ability
 
   def define_user_abilities
     can :read, user if signed_in?
+    can :set_up, user
 
     if agrees_tos?
       if user.admin?
