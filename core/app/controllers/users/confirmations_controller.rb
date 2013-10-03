@@ -7,8 +7,6 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     self.resource = resource_class.confirm_by_token(params[:confirmation_token])
 
     if resource.errors.empty?
-      set_flash_message(:notice, :confirmed) if is_navigational_format?
-
       if resource.approved?
         sign_in(resource_name, resource)
         redirect_to after_sign_in_path_for(resource).to_s
