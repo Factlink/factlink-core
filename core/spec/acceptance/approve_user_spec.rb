@@ -14,7 +14,7 @@ describe 'When a User gets approved', type: :feature do
 
     open_email(user.email)
 
-    link = current_email.find_link 'Start using Factlink now'
+    link = current_email.find_link 'Start using Factlink'
 
     visit link[:href]
 
