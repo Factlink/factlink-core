@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Users::SetupController do
-  include PavlovSupport
   let(:user) { create(:full_user) }
 
   describe :edit do
