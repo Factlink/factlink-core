@@ -21,8 +21,6 @@ module Interactors
                                                     to_graph_user_id: user_to_follow.graph_user_id)
 
         follow_user
-
-        nil
       end
 
       def user

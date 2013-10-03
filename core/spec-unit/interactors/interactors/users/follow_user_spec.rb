@@ -71,7 +71,7 @@ describe Interactors::Users::FollowUser do
                       graph_user_id: user_to_follow.graph_user_id,
                       pavlov_options: options)
 
-      expect(interactor.call).to eq nil
+      interactor.call
     end
 
     it 'aborts when already following' do
@@ -94,7 +94,7 @@ describe Interactors::Users::FollowUser do
               to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
             .and_return(true)
 
-      expect(interactor.call).to eq nil
+      interactor.call
     end
   end
 
