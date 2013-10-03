@@ -6,7 +6,9 @@ describe Users::ConfirmationsController do
   end
 
   describe :show do
-    it "shows the waiting list page " do
+    render_views
+
+    it "shows the waiting list page" do
       user = create :user
 
       get :show, confirmation_token: user.confirmation_token
@@ -20,6 +22,16 @@ describe Users::ConfirmationsController do
       get :show, confirmation_token: user.confirmation_token
 
       response.should redirect_to setup_account_path
+    end
+
+    it "doesn't allow tokens of more than a month old" do
+      user = create :user
+
+      Timecop.freeze(Date.today + 40) do
+        get :show, confirmation_token: user.confirmation_token
+      end
+
+      response.body.should match /Email needs to be confirmed within 1 month/
     end
   end
 end
