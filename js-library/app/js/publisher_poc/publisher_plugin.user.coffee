@@ -17,26 +17,23 @@ localConfig =
   srcPath: "/factlink.core.js"
   minified: ''
 
-# testserverConfig =
-#   api: "https://factlink-testserver.inverselink.com:443"
-#   lib: "https://factlink-static-testserver.inverselink.com:443/lib/dist"
-#   srcPath: "/factlink.core.min.js"
-#   url: window.location.href
-#   minified: 'min.'
+testserverConfig =
+  api: "https://factlink-testserver.inverselink.com:443"
+  lib: "https://factlink-static-testserver.inverselink.com:443/lib/dist"
+  srcPath: "/factlink.core.min.js"
+  minified: 'min.'
 
-# stagingConfig =
-#   api: "https://factlink-testserver.inverselink.com:443"
-#   lib: "https://factlink-static-testserver.inverselink.com:443/lib/dist"
-#   srcPath: "/factlink.core.min.js"
-#   url: window.location.href
-#   minified: 'min.'
+stagingConfig =
+  api: "https://factlink-staging.inverselink.com:443"
+  lib: "https://factlink-static-staging.inverselink.com:443/lib/dist"
+  srcPath: "/factlink.core.min.js"
+  minified: 'min.'
 
-# remoteConfig =
-#   api: "https://factlink.com:443"
-#   lib: "https://static.factlink.com:443/lib/dist"
-#   srcPath: "/factlink.core.min.js"
-#   url: window.location.href
-#   minified: 'min.'
+remoteConfig =
+  api: "https://factlink.com:443"
+  lib: "https://static.factlink.com:443/lib/dist"
+  srcPath: "/factlink.core.min.js"
+  minified: 'min.'
 
 # Define the config to use here:
 factlinkConfig = localConfig
@@ -61,7 +58,7 @@ style.type = "text/css"
 head.appendChild(style)
 
 # Inject custom publisher functionality
-url = "#{factlinkConfig.lib}/nu.js"
+url = "#{factlinkConfig.lib}/nu.#{factlinkConfig.minified}js"
 body = document.getElementsByTagName('body').item(0)
 script = document.createElement("script")
 script.setAttribute('src', url)

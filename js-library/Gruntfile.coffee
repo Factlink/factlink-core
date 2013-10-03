@@ -82,7 +82,7 @@ module.exports = (grunt) ->
           banner: banner_template
         expand: true
         cwd: 'build/css/'
-        src: ['*.css']
+        src: ['**/*.css']
         dest: 'build/server/css/'
     uglify:
       options: {
@@ -103,6 +103,7 @@ module.exports = (grunt) ->
           'build/server/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
           'build/server/easyXDM/easyXDM.min.js':             ['build/js/libs/easyXDM.js']
           'build/easyXDM/easyXDM.min.js':                    ['build/js/libs/easyXDM.js']
+          'build/server/nu.min.js':                          ['build/nu.js']
     copy:
       build:
         files: [
