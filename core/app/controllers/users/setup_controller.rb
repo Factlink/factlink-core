@@ -18,12 +18,13 @@ class Users::SetupController < ApplicationController
   def update
     authorize! :set_up, current_user
 
-    @user = interactor(:'accounts/setup', user: current_user, attribuutjes: params[:user])
+    saved = interactor(:'accounts/setup', user: current_user, attribuutjes: params[:user])
 
-    if @user.errors.empty?
-      sign_in @user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
+    if saved
+      sign_in current_user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
       redirect_to '/'
     else
+      @user = current_user
       render 'users/setup/edit'
     end
   end

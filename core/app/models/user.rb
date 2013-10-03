@@ -189,7 +189,7 @@ class User
   end
 
   def active?
-    approved && confirmed_at && set_up && agrees_tos && ! deleted
+    approved && confirmed? && set_up && agrees_tos && ! deleted
   end
 
   def graph_user
