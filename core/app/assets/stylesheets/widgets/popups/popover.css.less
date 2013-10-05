@@ -46,7 +46,7 @@
   }
 }
 
-.translucent-dark-popover{
+.translucent-dark-popover {
   z-index: 119;
   position: relative;
   background: @darkTranslucentGrey;
@@ -65,35 +65,39 @@
   }
 
   &.top {
-    margin-top: @arrow-long-side;
+    margin-top: @arrow-pointy-side;
     .arrow {
       top: 100%;
       margin-top: 0;
-      border-top-color:@darkTranslucentGrey
+      border-top-color: @darkTranslucentGrey;
+      border-bottom: none;
     }
   }
   &.right {
-    margin-left: @arrow-long-side;
+    margin-left: @arrow-pointy-side;
     .arrow {
       right: 100%;
       margin-right: 0;
-      border-right-color:@darkTranslucentGrey
+      border-right-color: @darkTranslucentGrey;
+      border-left: none;
     }
   }
   &.bottom {
-    margin-top: @arrow-long-side;
+    margin-top: @arrow-pointy-side;
     .arrow {
       bottom: 100%;
       margin-bottom: 0;
-      border-bottom-color:@darkTranslucentGrey
+      border-bottom-color: @darkTranslucentGrey;
+      border-top: none;
     }
   }
   &.left {
-    margin-right: @arrow-long-side;
+    margin-right: @arrow-pointy-side;
     .arrow {
       left: 100%;
       margin-left: 0;
-      border-left-color:@darkTranslucentGrey
+      border-left-color: @darkTranslucentGrey;
+      border-right: none;
     }
   }
 
