@@ -14,7 +14,7 @@ nl:
       invalid_token: 'Invalide authenticiteit token.'
       timeout: 'Je sessie is verlopen, log a.u.b. opnieuw in.'
       inactive: 'Je account is nog niet geactiveerd.'
-      not_approved: 'Je account is nog niet goedgekeurd.'
+      suspended: 'Je account is gedeactiveerd.'
       already_authenticated: 'Je was al ingelogd.'
     sessions:
       signed_in: ''
