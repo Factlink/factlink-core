@@ -176,7 +176,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       @_makeTooltip
         side: 'top'
         selector: '.authority'
-        text: 'This number represents the amount of thinking spent by people on this Factlink'
+        margin: 10
+        text: 'This number represents the amount of<br>thinking spent by people on this Factlink'
 
       @_makeTooltip
         selector: 'path:nth-of-type(1)'
@@ -194,8 +195,9 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: options.side ? 'left'
-        popover_className: 'translucent-dark-popover'
+        margin: options.margin ? 5
+        popover_className: 'translucent-dark-popover fact-wheel-tooltip'
       selector: options.selector
       tooltipViewFactory: => new TextView
-        model: new Backbone.Model
-          text: options.text
+        unescaped: true
+        model: new Backbone.Model text: options.text
