@@ -67,8 +67,8 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
         throw "Invalid options.side: #{@options.side}"
 
   _bindElPosition: ->
-    elOffset = @$bindEl.offset()
-    containerOffset = @$container.offset()
+    elOffset = @_offsetOf @$bindEl
+    containerOffset = @_offsetOf @$container
 
     left: elOffset.left - containerOffset.left
     top:  elOffset.top  - containerOffset.top
@@ -94,6 +94,15 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
     else
       width: $el.outerWidth()
       height: $el.outerHeight()
+
+  _offsetOf: ($el) ->
+    if bbox = $el[0].getBBox?()
+      containerOffset = $el.parents().filter(-> !@getBBox?).first().offset()
+
+      top: bbox.y + containerOffset.top,
+      left: bbox.x + containerOffset.left
+    else
+      $el.offset()
 
   _checkContainer: ->
     unless @$container.css('position') in ['relative', 'absolute', 'fixed']
