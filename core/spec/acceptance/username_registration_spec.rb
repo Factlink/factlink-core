@@ -85,7 +85,7 @@ describe 'Reserving a username', type: :feature do
 
     current_email.find(:xpath, '//a', text: 'confirm').click
 
-    page.should have_content "Email confirmed. Awaiting account approval."
+    page.should have_content "set up your account here"
   end
 
 end
