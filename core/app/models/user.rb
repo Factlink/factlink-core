@@ -58,7 +58,7 @@ class User
   field :invitation_message, type: String, default: ""
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
-                  :receives_digest, :email, :approved, :admin, :registration_code,
+                  :receives_digest, :email, :approved, :admin, :registration_code, :suspended,
         as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
         as: :from_tos
