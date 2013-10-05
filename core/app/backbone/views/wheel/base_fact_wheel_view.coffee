@@ -170,6 +170,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   clickOpinionType: ->
 
   bindTooltips: ->
+    @trigger 'removeTooltips'
+
     if @options.showsTooltips
       @_makeTooltip
         side: 'top'
