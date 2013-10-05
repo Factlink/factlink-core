@@ -40,30 +40,6 @@ describe 'Reserving a username', type: :feature do
     end
   end
 
-  it 'should make the username appear in the reserved user list' do
-    username = random_username
-
-    visit '/'
-    disable_html5_validations(page)
-
-    within '.footer' do
-      fill_in 'user[username]', with: username
-      fill_in 'user[email]',    with: random_email
-      click_button 'Reserve my username'
-    end
-
-    create_admin_and_login
-
-    find('.navbar .topbar-dropdown').click
-    find('.navbar').should have_content('Admin')
-
-    visit '/a/users/reserved'
-
-    within(find("#main-wrapper table tr>td:first-child", text: username).parent) do
-      page.should_not have_content('confirmed')
-    end
-  end
-
   it 'user should receive a confirmation email and should be able to confirm its e-mail address' do
     email_address = random_email
 
