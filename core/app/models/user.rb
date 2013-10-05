@@ -35,6 +35,7 @@ class User
   field :approved,    type: Boolean, default: false
   field :deleted,     type: Boolean, default: false
   field :set_up,      type: Boolean, default: false
+  field :suspended,   type: Boolean, default: false # For now this is just for users we don't want to invite yet.
 
   field :admin,       type: Boolean, default: false
 
@@ -140,6 +141,7 @@ class User
                   .where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
+                  .where(:suspended.ne => true)
   scope :seen_the_tour,   active
                             .where(:seen_tour_step => 'tour_done')
   scope :receives_digest, active
@@ -189,7 +191,7 @@ class User
   end
 
   def active?
-    approved && confirmed? && set_up && agrees_tos && ! deleted
+    approved && confirmed? && set_up && agrees_tos && !deleted && !suspended
   end
 
   def graph_user
