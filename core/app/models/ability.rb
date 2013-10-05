@@ -183,7 +183,7 @@ class Ability
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
     sees_channels share_new_factlink_buttons
-    share_to_twitter share_to_facebook
+    share_to_twitter share_to_facebook skip_approval
   )
 
   def enabled_global_features
