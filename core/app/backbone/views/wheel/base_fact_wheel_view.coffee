@@ -171,12 +171,38 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   bindTooltips: ->
     if @options.showsTooltips
-      @$("div.tooltip").remove()
-      @$(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
+      Backbone.Factlink.makeTooltipForView @,
+        positioning:
+          side: 'top'
+          popover_className: 'translucent-dark-popover'
+        selector: '.authority'
+        tooltipViewFactory: => new TextView
+          model: new Backbone.Model
+            text: 'This number represents the amount of thinking spent by people on this Factlink'
 
-      # Create tooltips for each opinionType (believe, disbelieve etc)
-      for key, opinionType of @model.get('opinion_types')
-        raphaelObject = @opinionTypeRaphaels[opinionType.type]
-        $(raphaelObject.node).tooltip
-          title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
-          placement: "left"
+      Backbone.Factlink.makeTooltipForView @,
+        positioning:
+          side: 'left'
+          popover_className: 'translucent-dark-popover'
+        selector: 'path:nth-of-type(1)'
+        tooltipViewFactory: => new TextView
+          model: new Backbone.Model
+            text: @options.opinionStyles.believe.groupname + ": " + @model.get('opinion_types').believe.percentage + "%"
+
+      Backbone.Factlink.makeTooltipForView @,
+        positioning:
+          side: 'left'
+          popover_className: 'translucent-dark-popover'
+        selector: 'path:nth-of-type(2)'
+        tooltipViewFactory: => new TextView
+          model: new Backbone.Model
+            text: @options.opinionStyles.doubt.groupname + ": " + @model.get('opinion_types').doubt.percentage + "%"
+
+      Backbone.Factlink.makeTooltipForView @,
+        positioning:
+          side: 'left'
+          popover_className: 'translucent-dark-popover'
+        selector: 'path:nth-of-type(3)'
+        tooltipViewFactory: => new TextView
+          model: new Backbone.Model
+            text: @options.opinionStyles.disbelieve.groupname + ": " + @model.get('opinion_types').disbelieve.percentage + "%"
