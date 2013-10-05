@@ -20,4 +20,5 @@ UserPopoverContentView.makeTooltip = (view, user, options={}) ->
       positioning: {align: 'left', side: 'bottom'}
       selector: options.selector || '.js-user-link'
       $offsetParent: options.$offsetParent
+      stayWhenHoveringTooltip: true
       tooltipViewFactory: -> new UserPopoverContentView model: user.clone()

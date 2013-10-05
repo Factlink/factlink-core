@@ -35,6 +35,7 @@ Backbone.Factlink.makeTooltipForView = (parentView, options) ->
   tooltipOpener = new Backbone.Factlink.TooltipOpener
     $tooltipElement: parentView.$(options.selector)
     tooltipCreator: tooltipCreator
+    stayWhenHoveringTooltip: options.stayWhenHoveringTooltip
 
   tooltipOpener.render()
 

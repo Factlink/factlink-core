@@ -27,7 +27,7 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
 
   _openTooltip: ->
     @_$tooltip = @options.tooltipCreator.createTooltip @options.$tooltipElement
-    @_hoverintent @_$tooltip, 'inTooltip'
+    @_hoverintent @_$tooltip, 'inTooltip' if @options.stayWhenHoveringTooltip
 
   _removeTooltip: ->
     @options.tooltipCreator.removeTooltip()
