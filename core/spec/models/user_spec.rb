@@ -178,22 +178,6 @@ describe User do
     end
   end
 
-  describe "welcome_instructions" do
-
-    it "sends a welcome email" do
-      subject.send_welcome_instructions
-      last_recipients = ActionMailer::Base.deliveries.last.to
-      expect(last_recipients).to eq [subject.email]
-    end
-
-    it "confirms the user's email" do
-      expect(subject).to_not be_confirmed
-      subject.send_welcome_instructions
-      expect(subject).to be_confirmed
-    end
-
-  end
-
   # also describes .hidden?
   describe '.active?' do
     context "new user" do
