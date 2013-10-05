@@ -4,6 +4,7 @@ class Admin::UsersController < AdminController
   before_filter :get_activated_users,         only: [:index]
   before_filter :get_reserved_users,          only: [:reserved]
   before_filter :get_deleted_users,           only: [:deleted]
+  before_filter :get_suspended_users,         only: [:suspended]
   before_filter :set_available_user_features, only: [:edit, :update]
 
   load_and_authorize_resource except: [:create]
@@ -63,6 +64,11 @@ class Admin::UsersController < AdminController
   def get_activated_users
     # TODO eliminate to_sym on the next line. This is a DoS
     @users = User.active.order_by([sort_column.to_sym, sort_direction.to_sym])
+  end
+
+  def get_suspended_users
+    # TODO eliminate to_sym on the next line. This is a DoS
+    @users = User.where(suspended: true).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def get_reserved_users

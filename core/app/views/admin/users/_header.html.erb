@@ -6,6 +6,7 @@
     <ul>
       <li<%= active == "activated" ? ' class=active'.html_safe : "" %>><%= link_to "Activated", admin_users_path %></li>
       <li<%= active == "reserved"  ? ' class=active'.html_safe : "" %>><%= link_to "Reserved", reserved_admin_users_path  %></li>
+      <li<%= active == "suspended"  ? ' class=active'.html_safe : "" %>><%= link_to "Suspended", suspended_admin_users_path  %></li>
       <li<%= active == "deleted"   ? ' class=active'.html_safe : "" %>><%= link_to "Deleted", deleted_admin_users_path  %></li>
     </ul>
   </div>
