@@ -181,23 +181,30 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
       @_makeTooltip
         selector: 'path:nth-of-type(1)'
+        side: @_tooltipSideForPath @opinionTypeRaphaels.believe
         text: @options.opinionStyles.believe.groupname + ": " + @model.get('opinion_types').believe.percentage + "%"
 
       @_makeTooltip
         selector: 'path:nth-of-type(2)'
+        side: @_tooltipSideForPath @opinionTypeRaphaels.doubt
         text: @options.opinionStyles.doubt.groupname + ": " + @model.get('opinion_types').doubt.percentage + "%"
 
       @_makeTooltip
         selector: 'path:nth-of-type(3)'
+        side: @_tooltipSideForPath @opinionTypeRaphaels.disbelieve
         text: @options.opinionStyles.disbelieve.groupname + ": " + @model.get('opinion_types').disbelieve.percentage + "%"
 
   _makeTooltip: (options) ->
     Backbone.Factlink.makeTooltipForView @,
       positioning:
-        side: options.side ? 'left'
+        side: options.side
         margin: options.margin ? 5
         popover_className: 'translucent-dark-popover fact-wheel-tooltip'
       selector: options.selector
       tooltipViewFactory: => new TextView
         unescaped: true
         model: new Backbone.Model text: options.text
+
+  _tooltipSideForPath: (path) ->
+    bbox = path.getBBox()
+    if bbox.x + bbox.width/2 > @boxSize()/2 then 'right' else 'left'
