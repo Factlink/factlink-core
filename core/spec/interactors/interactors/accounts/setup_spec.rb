@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Interactors::Accounts::Setup do
   include PavlovSupport
 
-  describe 'a user with an approved account' do
+  describe 'a user with a confirmed account' do
     it 'resets password, sets attributes, and removes reset_password_token' do
-      user = create :user, :approved
+      user = create :user, :confirmed
       attributes = {
         user: user,
         password: 'example',
@@ -27,7 +27,7 @@ describe Interactors::Accounts::Setup do
     end
 
     it 'returns a user with errors if no first name was given' do
-      user = create :user, :approved
+      user = create :user, :confirmed
       attributes = {
         user: user,
         password: 'example',
@@ -44,7 +44,7 @@ describe Interactors::Accounts::Setup do
     end
 
     it "returns a user with errors if the passwords don't match" do
-      user = create :user, :approved
+      user = create :user, :confirmed
       attributes = {
         user: user,
         password: 'example',

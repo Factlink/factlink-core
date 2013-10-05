@@ -22,13 +22,10 @@ FactoryGirl.define do
     last_name
     password '123hoi'
     password_confirmation '123hoi'
+    approved true
 
     trait :agrees_tos do
       agrees_tos true
-    end
-
-    trait :approved do
-      approved true
     end
 
     trait :confirmed do
@@ -63,7 +60,6 @@ FactoryGirl.define do
     end
 
     factory :full_user, traits: [
-      :approved,
       :confirmed,
       :set_up,
       :agrees_tos,
