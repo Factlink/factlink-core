@@ -23,7 +23,7 @@ end
 class UserObserverTask
 
   def self.handle_changes user
-    if user.approved_changed? and user.approved?
+    if user.set_up_changed? and user.set_up?
       initialize_mixpanel_for user
     else
       update_mixpanel_for user
@@ -45,8 +45,6 @@ class UserObserverTask
     new_attributes = user.attributes
                       .slice( *User.mixpaneled_fields.keys )
                       .inject({}){|memo,(k,v)| memo[User.mixpaneled_fields[k].to_sym] = v; memo}
-
-    new_attributes[:approved_at] = DateTime.now
 
     mixpanel.set_person_event user.id.to_s, new_attributes
   end
