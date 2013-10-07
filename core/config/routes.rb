@@ -97,10 +97,6 @@ FactlinkUI::Application.routes.draw do
           get :deleted
           get :suspended
         end
-
-        member do
-          put :approve
-        end
       end
     end
   end

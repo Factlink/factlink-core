@@ -22,16 +22,6 @@ class Admin::UsersController < AdminController
     end
   end
 
-  def approve
-    @user.approved = true
-
-    if @user.save validate: false
-      render :json => {}, :status => :ok
-    else
-      render :json => @user.errors, :status => :unprocessable_entity
-    end
-  end
-
   def destroy
     destroy = interaction(:'users/delete', user_id: @user.id,
       current_user_password: params[:user][:password])
