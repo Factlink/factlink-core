@@ -11,7 +11,7 @@ describe 'Reserving a username', type: :feature do
 
       find('.success', visible:false).visible?.should be_false
 
-      click_button 'Reserve my username'
+      click_button 'Create account'
 
       page.should have_content("Great, you're almost finished! Please click the confirmation link in the email we've sent you")
       find('form.success')
@@ -34,7 +34,7 @@ describe 'Reserving a username', type: :feature do
       fill_in 'user[username]', with: 't'
       fill_in 'user[email]',    with: random_email
 
-      click_button 'Reserve my username'
+      click_button 'Create account'
 
       page.should have_content('username at least 2 characters needed')
     end
@@ -51,7 +51,7 @@ describe 'Reserving a username', type: :feature do
       fill_in 'user[username]', with: random_username
       fill_in 'user[email]',    with: email_address
 
-      click_button 'Reserve my username'
+      click_button 'Create account'
     end
 
     eventually_succeeds do
