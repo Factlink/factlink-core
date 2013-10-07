@@ -1,5 +1,0 @@
-worker: bundle exec rake environment resque:work QUEUE=*
-webserver: bundle exec thin start
-static: bundle exec script/static.rb
-proxy: supervisor --quiet --watch ../web-proxy ../web-proxy/server.js
-resqueweb: bundle exec resque-web -F -L config/initializers/resque.rb
