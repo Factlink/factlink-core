@@ -28,7 +28,7 @@ describe Users::ConfirmationsController do
     it "doesn't allow tokens of more than a month old" do
       user = create :user
 
-      Timecop.travel(40.months) do
+      Timecop.travel(40.days) do
         get :show, confirmation_token: user.confirmation_token
       end
 
