@@ -7,42 +7,54 @@
 .factlink-popover {
   z-index: 119;
   position: relative;
-  .background-clip(padding-box);
-  background: white;
-  border-radius: @baseBorderRadius;
-  box-shadow: @blockBorder, 0 @factlinkPopoverShadowBottomSize 5px @factlinkPopoverShadowBottomColor;
   visibility: visible;
   display: inline-block;
 
+  .factlink-popover-content {
+    display: inline-block;
+    .background-clip(padding-box);
+    background: white;
+    border-radius: @baseBorderRadius;
+    box-shadow: @blockBorder, 0 @factlinkPopoverShadowBottomSize 5px @factlinkPopoverShadowBottomColor;
+  }
+
   &.bottom {
-    margin-top: @arrow-pointy-side;
+    .factlink-popover-content {
+      margin-top: @arrow-pointy-side;
+    }
     .factlink-popover-arrow {
       .triangle-arrow-up(@factlinkPopoverArrowTopBorderColor);
-      top: 0;
+      top: @arrow-pointy-side;
     }
   }
 
   &.top {
-    margin-bottom: @arrow-pointy-side;
+    .factlink-popover-content {
+      margin-bottom: @arrow-pointy-side;
+    }
     .factlink-popover-arrow {
       .triangle-arrow-down(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-      bottom: 0;
+      bottom: @arrow-pointy-side;
     }
   }
 
   &.left {
-    margin-right: @arrow-pointy-side;
+    .factlink-popover-content {
+      margin-right: @arrow-pointy-side;
+    }
     .factlink-popover-arrow {
       .triangle-arrow-right(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-      right: 0;
+      right: @arrow-pointy-side;
     }
   }
 
   &.right {
-    margin-left: @arrow-pointy-side;
+    .factlink-popover-content {
+      margin-left: @arrow-pointy-side;
+    }
     .factlink-popover-arrow {
       .triangle-arrow-left(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-      left: 0;
+      left: @arrow-pointy-side;
     }
   }
 }
