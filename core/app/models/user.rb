@@ -344,8 +344,8 @@ class User
     self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 
-  def pending_reconfirmation?
-    true # Always allow reconfirmation, so users can login again.
+  def pending_any_confirmation
+    yield # Always allow confirmation, so users can login again.
     # Used together with ConfirmationsController#restore_confirmation_token
   end
 end
