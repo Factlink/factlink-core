@@ -173,35 +173,26 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @trigger 'removeTooltips'
 
     if @options.showsTooltips
-      @_makeTooltip
+      Backbone.Factlink.makeTooltipForView @,
+      positioning:
         side: 'top'
-        selector: '.authority'
-        text: 'This number represents the amount of<br>thinking spent by people on this Factlink'
+        popover_className: 'translucent-dark-popover fact-wheel-tooltip'
+      selector: '.authority'
+      tooltipViewFactory: => new Marionette.ItemView
+        template: 'facts/fact_wheel_authority_tooltip'
 
-      @_makeTooltip
-        selector: 'path:nth-of-type(1)'
-        side: @_tooltipSideForPath @opinionTypeRaphaels.believe
-        text: @options.opinionStyles.believe.groupname + ": " + @model.get('opinion_types').believe.percentage + "%"
+      @_makeTooltipForPath 'believe', 'path:nth-of-type(1)'
+      @_makeTooltipForPath 'doubt', 'path:nth-of-type(2)'
+      @_makeTooltipForPath 'disbelieve', 'path:nth-of-type(3)'
 
-      @_makeTooltip
-        selector: 'path:nth-of-type(2)'
-        side: @_tooltipSideForPath @opinionTypeRaphaels.doubt
-        text: @options.opinionStyles.doubt.groupname + ": " + @model.get('opinion_types').doubt.percentage + "%"
-
-      @_makeTooltip
-        selector: 'path:nth-of-type(3)'
-        side: @_tooltipSideForPath @opinionTypeRaphaels.disbelieve
-        text: @options.opinionStyles.disbelieve.groupname + ": " + @model.get('opinion_types').disbelieve.percentage + "%"
-
-  _makeTooltip: (options) ->
+  _makeTooltipForPath: (name, selector) ->
     Backbone.Factlink.makeTooltipForView @,
       positioning:
-        side: options.side
+        side: @_tooltipSideForPath(@opinionTypeRaphaels[name])
         popover_className: 'translucent-dark-popover fact-wheel-tooltip'
-      selector: options.selector
+      selector: selector
       tooltipViewFactory: => new TextView
-        unescaped: true
-        model: new Backbone.Model text: options.text
+        model: new Backbone.Model text: @options.opinionStyles[name].groupname + ": " + @model.get('opinion_types')[name].percentage + "%"
 
   _tooltipSideForPath: (path) ->
     bbox = path.getBBox()
