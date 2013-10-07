@@ -39,7 +39,7 @@ describe Interactors::Facts::OpinionUsers do
 
     it 'it throws when initialized with a unknown opinion type' do
       expect_validating( fact_id: 1, skip: 0, take: 3, type: 'W00T')
-        .to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
+        .to fail_validation 'type should be on of these values: ["believes", "disbelieves", "doubts"].'
     end
   end
 

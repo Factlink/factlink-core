@@ -6,8 +6,10 @@ describe Interactors::Comments::UpdateOpinion do
   include PavlovSupport
 
   it 'without current user gives an unauthorized exception' do
-    expect_validating(comment_id: '1', opinion: 'believes' )
-      .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
+    expect do
+      interactor = described_class.new(comment_id: '1', opinion: 'believes' )
+      interactor.call
+    end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'with a invalid comment_id doesn\'t validate' do

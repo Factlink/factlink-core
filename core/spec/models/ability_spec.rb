@@ -8,12 +8,14 @@ describe Ability do
   let(:anonymous)        { Ability.new }
   let(:admin)            { Ability.new admin_user }
   let(:nonnda)           { Ability.new nonnda_user }
+  let(:non_set_up)       { Ability.new non_set_up_user }
 
   # users used as object
   let(:user)        {create :full_user }
   let(:other_user)  {create :full_user }
   let(:admin_user)  {create :full_user, :admin }
-  let(:nonnda_user) {create :user, agrees_tos: false }
+  let(:nonnda_user) {create :user, agrees_tos: false, set_up: true }
+  let(:non_set_up_user) {create :user, agrees_tos: false, set_up: false }
 
   let(:deleted_user){create :full_user, deleted: true }
 
@@ -35,6 +37,7 @@ describe Ability do
       it {subject.should_not be_able_to :sign_tos, user }
 
       it {subject.should     be_able_to :edit_settings, user }
+      it {subject.should     be_able_to :set_up, user }
 
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
@@ -42,13 +45,23 @@ describe Ability do
 
       it {subject.should be_able_to :show, deleted_user}
     end
-    context "as a nonnda user" do
+    context "as a nonnda, but set-up user" do
       it {nonnda.should_not be_able_to :manage, User }
 
       it {nonnda.should_not be_able_to :update, nonnda_user }
+      it {nonnda.should     be_able_to :set_up, nonnda_user }
       it {nonnda.should     be_able_to :sign_tos, nonnda_user }
       it {nonnda.should     be_able_to :show, nonnda_user }
       it {nonnda.should_not be_able_to :show, User }
+    end
+    context "as a non set up user" do
+      it {non_set_up.should_not be_able_to :manage, User }
+
+      it {non_set_up.should_not be_able_to :update, non_set_up_user }
+      it {non_set_up.should     be_able_to :set_up, non_set_up_user }
+      it {non_set_up.should_not be_able_to :sign_tos, non_set_up_user }
+      it {non_set_up.should     be_able_to :show, non_set_up_user }
+      it {non_set_up.should_not be_able_to :show, User }
     end
     context "as an admin" do
       it {admin.should     be_able_to :manage, User }
@@ -59,10 +72,14 @@ describe Ability do
 
       it {admin.should_not be_able_to :edit_settings, user }
       it {admin.should be_able_to     :edit_settings, admin_user }
+
+      it {admin.should     be_able_to :set_up, user }
+      it {admin.should     be_able_to :set_up, admin_user }
     end
     context "as an anonymous" do
       it {anonymous.should_not be_able_to :manage, User }
 
+      it {anonymous.should_not be_able_to :set_up, user }
       it {anonymous.should_not be_able_to :sign_tos, nil }
       it {anonymous.should     be_able_to :read_tos, nil }
       it {anonymous.should_not be_able_to :show, User }

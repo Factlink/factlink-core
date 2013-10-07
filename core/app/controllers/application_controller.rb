@@ -58,10 +58,12 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     if seen_the_tour(user)
       safe_return_to_path || channel_activities_path(user, user.graph_user.stream)
-    elsif user.agrees_tos
+    elsif user.active?
       start_the_tour_path
-    else
+    elsif can? :sign_tos, user
       tos_path
+    else
+      setup_account_path
     end
   end
 
@@ -191,11 +193,6 @@ class ApplicationController < ActionController::Base
   helper_method :open_graph_formatter
 
   private
-
-  def interaction interactor_name, options
-    klass = Pavlov.class_for_interactor(interactor_name)
-    klass.new options.merge pavlov_options: pavlov_options
-  end
 
   def action_is_intermediate?
     action_name == "intermediate" and controller_name == "facts"

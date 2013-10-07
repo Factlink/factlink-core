@@ -3,7 +3,7 @@
 /* SITE SPECIFIC STYLES */
 .factlink-site .new-session {
   border: 1px solid @baseBorderColor;
-  border-radius: 5px;
+  border-radius: @baseBorderRadius;
   padding: 20px;
   background: white;
   margin: 0 auto 150px;
@@ -54,8 +54,9 @@
   .white-block-with-shadow();
   visibility: visible;
   width: @factNewAndSignInWidth;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 15px;
+  cursor: auto;
 
   > h1 {
     font-size: @heading1FontSize;

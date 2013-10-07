@@ -1,12 +1,12 @@
 module Commands
   class CreateConversation
     include Pavlov::Command
+    include Util::Validations
 
     arguments :fact_id, :recipient_usernames
 
     def validate
-      raise 'recipient_usernames should be a list'    unless recipient_usernames.respond_to? :each
-      raise 'recipient_usernames should not be empty' unless recipient_usernames.length > 0
+      validate_non_empty_list :recipient_usernames, recipient_usernames
     end
 
     def execute

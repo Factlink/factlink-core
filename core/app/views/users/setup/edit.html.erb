@@ -1,16 +1,13 @@
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => "form-horizontal setup-account" }) do |f| %>
-  <%= f.hidden_field :reset_password_token %>
+<%= form_for(@user, url: setup_account_path, html: { class: "form-horizontal setup-account" }) do |f| %>
 
   <h1>Hi <%= @user.name %>, set up your account here:</h1>
 
   <div class="setup-account-form">
-    <%= possible_error_for_field(resource, :reset_password_token) %>
-
     <div class="control-group">
       <%= f.label :first_name, "First name", class: "control-label" %>
       <div class="controls">
         <%= f.text_field :first_name, required: true %>
-        <%= possible_error_for_field(resource, :first_name) %>
+        <%= possible_error_for_field(@user, :first_name) %>
       </div>
     </div>
 
@@ -18,7 +15,7 @@
       <%= f.label :last_name, "Last name", class: "control-label" %>
       <div class="controls">
         <%= f.text_field :last_name, required: true %>
-        <%= possible_error_for_field(resource, :last_name) %>
+        <%= possible_error_for_field(@user, :last_name) %>
       </div>
     </div>
 
@@ -27,7 +24,7 @@
 
       <div class="controls">
         <%= f.password_field :password, required: true %>
-        <%= possible_error_for_field(resource, :password) %>
+        <%= possible_error_for_field(@user, :password) %>
       </div>
     </div>
 
@@ -36,11 +33,9 @@
 
       <div class="controls">
         <%= f.password_field :password_confirmation, required: true %>
-        <%= possible_error_for_field(resource, :password_confirmation) %>
+        <%= possible_error_for_field(@user, :password_confirmation) %>
       </div>
     </div>
-
-    <%= hidden_field_tag :msg, 'welcome' %>
 
     <div class="form-actions">
       <%= f.submit("Next Step", class: 'button button-confirm') %>

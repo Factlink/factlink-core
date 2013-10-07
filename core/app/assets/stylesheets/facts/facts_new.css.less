@@ -4,10 +4,11 @@
   .white-block-with-shadow();
   visibility: visible;
   width: @factNewAndSignInWidth;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 15px;
   position: relative;
   z-index: 1; // should be lower than Twitter tooltip z-index
+  cursor: auto;
 
   .finish-popover {
     position: relative;
@@ -15,6 +16,15 @@
 }
 
 .fact-new-fact-container {
-  font-size: @baseFactFontSize;
-  overflow: hidden;
+  display: inline-block; // for new block formatting context
+  width: 100%;
+
+  position: relative;
+  z-index: 120; // above z-index of .popover-container
+}
+
+.fact-new-body {
+  margin-left: 55px;
+  word-wrap: break-word;
+  font-size: @factNewBodyFontSize;
 }

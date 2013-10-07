@@ -12,10 +12,9 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
       DeadTopic.stub(:new)
     end
 
-    it 'calls the correct validation methods' do
-      query = described_class.new alive_topic: nil
-
-      expect{ query.call }.to raise_error(Pavlov::ValidationError, 'alive_topic should not be nil.')
+    it 'validates that the topic is not nil' do
+      expect_validating(alive_topic: nil)
+        .to fail_validation 'alive_topic should not be nil.'
     end
 
     it 'returns the topic' do

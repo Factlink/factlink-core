@@ -73,6 +73,30 @@ describe SupportingEvidenceController do
       end
     end
   end
+
+  describe :show do
+    render_views
+
+    it "should render json succesfully" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check
+
+      fr = f1.add_evidence :supporting, f2, user
+      f2.add_opinion(:believes, user.graph_user)
+      fr.add_opinion(:believes, user.graph_user)
+      FactGraph.recalculate
+
+      authenticate_user!(user)
+
+      get 'show', fact_id: f1.id, id: fr.id, format: :json
+      response.should be_success
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'evidence#show should keep the same content')
+    end
+  end
 end
 
 describe EvidenceController do
@@ -95,35 +119,11 @@ describe EvidenceController do
 
       authenticate_user!(user)
       should_check_can :opinionate, fr
-      post :set_opinion, username: 'ohwellwhatever', id: 1, fact_id: f1.id, id: fr.id, type: :believes, format: :json
+      post 'set_opinion', username: 'ohwellwhatever', id: 1, fact_id: f1.id, id: fr.id, type: :believes, format: :json
 
       response.should be_success
 
       # TODO maybe check if the opinion is also persisted?
-    end
-  end
-
-  describe :show do
-    render_views
-
-    it "should render json succesfully" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
-
-      fr = f1.add_evidence :supporting, f2, user
-      f2.add_opinion(:believes, user.graph_user)
-      fr.add_opinion(:believes, user.graph_user)
-      FactGraph.recalculate
-
-      authenticate_user!(user)
-
-      get :show, id: fr.id, format: :json
-      response.should be_success
-
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'evidence#show should keep the same content')
     end
   end
 end

@@ -23,7 +23,7 @@ module Interactors
 
       def validate
         validate_hexadecimal_string :user_id, user_id
-        raise Pavlov::ValidationError unless password_valid
+        raise Pavlov::ValidationError, 'current_user_password is invalid.' unless password_valid
       end
 
       def password_valid

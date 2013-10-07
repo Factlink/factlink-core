@@ -34,6 +34,8 @@ class User
 
   field :approved,    type: Boolean, default: false
   field :deleted,     type: Boolean, default: false
+  field :set_up,      type: Boolean, default: false
+  field :suspended,   type: Boolean, default: false # For now this is just for users we don't want to invite yet.
 
   field :admin,       type: Boolean, default: false
 
@@ -56,7 +58,7 @@ class User
   field :invitation_message, type: String, default: ""
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
-                  :receives_digest, :email, :approved, :admin, :registration_code,
+                  :receives_digest, :email, :approved, :admin, :registration_code, :suspended,
         as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
         as: :from_tos
@@ -136,8 +138,10 @@ class User
   scope :approved, where(:approved => true)
   scope :active, approved
                   .where(:confirmed_at.ne => nil)
+                  .where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
+                  .where(:suspended.ne => true)
   scope :seen_the_tour,   active
                             .where(:seen_tour_step => 'tour_done')
   scope :receives_digest, active
@@ -187,7 +191,7 @@ class User
   end
 
   def active?
-    approved && confirmed_at && agrees_tos && ! deleted
+    approved && confirmed? && set_up && agrees_tos && !deleted && !suspended
   end
 
   def graph_user
@@ -291,7 +295,7 @@ class User
   # Require activated accounts to work with
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?
-    super && approved?
+    super && approved? && !deleted && !suspended
   end
 
   def inactive_message
@@ -330,6 +334,8 @@ class User
 
   # Welcome the user with an email when the Admin approved the account
   def send_welcome_instructions
+    self.skip_confirmation!
+
     generate_reset_password_token! if should_generate_reset_token?
     UserMailer.welcome_instructions(self.id).deliver
   end
@@ -338,5 +344,10 @@ class User
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
     self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
+  end
+
+  def pending_any_confirmation
+    yield # Always allow confirmation, so users can login again.
+    # Used together with ConfirmationsController#restore_confirmation_token
   end
 end

@@ -84,17 +84,20 @@ describe Interactors::Users::Delete do
         ability: double(:ability, can?: true ),
         current_user: double(:user, :valid_password? => true)
       }
-      expect_validating(current_user_password: '', pavlov_options: pavlov_options)
-        .to fail_validation
+      expect_validating(current_user_password: '', user_id: '', pavlov_options: pavlov_options)
+        .to fail_validation('user_id should be an hexadecimal string.')
     end
 
     it 'raises when current_user_password is missing' do
+      # TODO: improve check after improving pavlov
       pavlov_options = {
         ability: double(:ability, can?: true ),
         current_user: double(:user, :valid_password? => true)
       }
-      expect_validating(user_id: 'a123', pavlov_options: pavlov_options)
-        .to fail_validation
+      expect do
+        interactor = described_class.new(user_id: 'a123', pavlov_options: pavlov_options)
+        interactor.call
+      end.to raise_error Pavlov::ValidationError
     end
 
     it 'checks current_user_password' do

@@ -20,7 +20,7 @@ module Acceptance
   end
 
   def make_non_tos_user_and_login
-    user = create(:user, :approved, :confirmed)
+    user = create(:user, :approved, :confirmed, :set_up)
     sign_in_user(user)
   end
 

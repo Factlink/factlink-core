@@ -10,6 +10,7 @@ describe 'global_features' do
       features: [],
       has_invitations_left?: false,
       identities: nil,
+      set_up: true,
     )
   end
 

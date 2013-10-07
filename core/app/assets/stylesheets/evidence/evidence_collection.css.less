@@ -48,7 +48,6 @@
   top: -@topFactWheelOverhang;
   bottom: 0;
   box-shadow: 0 0 80px 100px @semiTransparentLayerColor;
-  visibility: visible;
 
   .evidence-line {
     position: absolute;
@@ -67,7 +66,6 @@
 .evidence-impact, .evidence-box {
   position: relative;
   .box-sizing(border-box);
-  visibility: visible;
 }
 
 .evidence-impact {
@@ -330,7 +328,6 @@
       height: @circleRadius;
       border-radius: 5px; //half would be enough
       background-color: @discussionLineColor;
-      visibility: visible;
     }
   }
 }
@@ -345,7 +342,6 @@
   height: @middleLineWidth;
   width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
   background-color: @discussionLineColor;
-  visibility: visible;
 }
 
 .evidence-add-weakening-line {
@@ -368,7 +364,6 @@
   background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
   cursor: pointer;
   transition: all 0.1s;
-  visibility: visible;
 }
 
 .evidence-add-weakening {

@@ -37,19 +37,13 @@ describe Queries::Facts::Slug do
 
   describe '#validate' do
     it 'validates that fact is not nil' do
-      query = described_class.new fact: nil, max_slug_length_in: nil
-
-      expect{ query.call }
-        .to raise_error(Pavlov::ValidationError, 'fact should not be nil.')
+      expect_validating(fact: nil, max_slug_length_in: nil)
+        .to fail_validation 'fact should not be nil.'
     end
 
     it 'check that max_slug_length is a number if it is set' do
-      max_slug_length = 'a'
-      query = described_class.new fact: double,
-        max_slug_length_in: max_slug_length
-
-      expect{ query.call }
-        .to raise_error(Pavlov::ValidationError, 'max_slug_length should be an integer.')
+      expect_validating(fact: double, max_slug_length_in: 'a')
+        .to fail_validation 'max_slug_length should be an integer.'
     end
   end
 end

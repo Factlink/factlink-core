@@ -6,56 +6,9 @@ describe Commands::CreateMessage do
 
   before do
     stub_classes 'Message', 'User'
-    stub_const 'Pavlov::ValidationError', Class.new(StandardError)
   end
 
-  let(:long_message_string) { (0...5001).map{65.+(rand(26)).chr}.join }
-  let(:content) {'bla'}
-
-  describe '.validate' do
-    it 'throws error on empty message' do
-      user = double(id: 14)
-      User.stub(find: user)
-
-      conversation = double(repicient_ids: [14])
-
-      command = described_class.new sender_id: 14, content: '',
-        conversation: conversation
-      expect { command.call }.
-        to raise_error(Pavlov::ValidationError, 'message_empty')
-    end
-
-    it 'throws error on message with just whitespace' do
-      user = double(id: 14)
-      User.stub(find: user)
-
-      conversation = double(repicient_ids: [14])
-
-      command = described_class.new sender_id: 14, content: " \t\n",
-                  conversation: conversation
-      expect { command.call }.
-        to raise_error(Pavlov::ValidationError, 'message_empty')
-    end
-
-    it 'throws error on too long message' do
-      command = described_class.new(sender_id: 'bla', content: long_message_string,
-        conversation: '1')
-      expect { command.call }.
-        to raise_error(RuntimeError, 'Message cannot be longer than 5000 characters.')
-    end
-
-    it 'it throws when initialized with a argument that is not a hexadecimal string' do
-      user = double(id: 14)
-      User.stub(find: user)
-
-      conversation = double(id: 'g6', repicient_ids: [14])
-
-      command = described_class.new(sender_id: 14, content: 'bla',
-        conversation: conversation)
-      expect { command.call }.
-        to raise_error(Pavlov::ValidationError, 'conversation_id should be an hexadecimal string.')
-    end
-  end
+  let(:content) { 'bla' }
 
   describe '#call' do
     it 'creates and saves a message' do
@@ -89,8 +42,9 @@ describe Commands::CreateMessage do
       pavlov_options = { current_user: other_user }
       command = described_class.new(sender_id: sender.id.to_s,
         content: content, conversation: conversation, pavlov_options: pavlov_options)
-      expect { command.call }.
-        to raise_error(Pavlov::AccessDenied)
+      expect do
+        command.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
 
     it 'checks recipients' do
@@ -101,8 +55,9 @@ describe Commands::CreateMessage do
       command = described_class.new(sender_id: sender.id.to_s,
         content: content, conversation: conversation, pavlov_options: pavlov_options)
 
-      expect { command.call }.
-        to raise_error(Pavlov::AccessDenied)
+      expect do
+        command.call
+      end.to raise_error(Pavlov::AccessDenied)
     end
 
     it 'authorizes if there are no problems' do

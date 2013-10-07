@@ -37,20 +37,25 @@ describe Interactors::Users::FollowUser do
     end
 
     it 'calls a command to follow user' do
-      user = double(id: double, graph_user_id: double, graph_user: double, username: double)
-      user_to_follow = double(graph_user_id: double, graph_user: double, username: double)
-      options = { current_user: user }
+      user = double(id: '1a', graph_user_id: '10', graph_user: double, username: 'user')
+      user_to_follow = double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')
+      options = {current_user: user}
       interactor = described_class.new(user_name: user.username,
-        user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
+          user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
 
-      Pavlov.should_receive(:query)
+      Pavlov.stub(:query)
             .with(:'user_by_username',
                       username: user.username, pavlov_options: options)
             .and_return(user)
-      Pavlov.should_receive(:query)
+      Pavlov.stub(:query)
             .with(:'user_by_username',
                       username: user_to_follow.username, pavlov_options: options)
             .and_return(user_to_follow)
+      Pavlov.stub(:query)
+            .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
+              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
+            .and_return(false)
+
       Pavlov.should_receive(:command)
             .with(:'users/follow_user',
                       graph_user_id: user.graph_user_id,
@@ -66,7 +71,30 @@ describe Interactors::Users::FollowUser do
                       graph_user_id: user_to_follow.graph_user_id,
                       pavlov_options: options)
 
-      expect(interactor.call).to eq nil
+      interactor.call
+    end
+
+    it 'aborts when already following' do
+      user = double(id: '1a', graph_user_id: '10', graph_user: double, username: 'user')
+      user_to_follow = double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')
+      options = {current_user: user}
+      interactor = described_class.new(user_name: user.username,
+          user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
+
+      Pavlov.stub(:query)
+            .with(:'user_by_username',
+                      username: user.username, pavlov_options: options)
+            .and_return(user)
+      Pavlov.stub(:query)
+            .with(:'user_by_username',
+                      username: user_to_follow.username, pavlov_options: options)
+            .and_return(user_to_follow)
+      Pavlov.stub(:query)
+            .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
+              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
+            .and_return(true)
+
+      interactor.call
     end
   end
 
@@ -83,7 +111,7 @@ describe Interactors::Users::FollowUser do
 
     it 'you don\'t try to follow yourself' do
       expect_validating(user_name: 'karel', user_to_follow_user_name: 'karel')
-        .to fail_validation('You cannot follow yourself.')
+        .to fail_validation('user_name You cannot follow yourself.')
     end
   end
 end

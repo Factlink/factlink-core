@@ -35,6 +35,10 @@ FactoryGirl.define do
       confirmed_at DateTime.now
     end
 
+    trait :set_up do
+      set_up true
+    end
+
     trait :seen_the_tour do
       seen_the_tour true
       seen_tour_step 'tour_done'
@@ -61,6 +65,7 @@ FactoryGirl.define do
     factory :full_user, traits: [
       :approved,
       :confirmed,
+      :set_up,
       :agrees_tos,
       :seen_the_tour
     ]

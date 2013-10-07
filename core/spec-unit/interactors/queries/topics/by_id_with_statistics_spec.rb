@@ -6,10 +6,8 @@ describe Queries::Topics::ByIdWithStatistics do
 
   describe '#call' do
     it 'calls the correct validation methods' do
-      query = described_class.new id: 'not a hex string'
-
-      expect{ query.call }.to raise_error(Pavlov::ValidationError,
-        'id should be an hexadecimal string.')
+      expect_validating(id: 'not a hex string')
+        .to fail_validation 'id should be an hexadecimal string.'
     end
 
     it 'returns the topic' do

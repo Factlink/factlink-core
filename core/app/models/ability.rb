@@ -15,6 +15,10 @@ class Ability
     signed_in? and user.agrees_tos
   end
 
+  def set_up?
+    signed_in? and user.set_up
+  end
+
   def initialize(user=nil)
     @user=user
 
@@ -109,6 +113,7 @@ class Ability
 
   def define_user_abilities
     can :read, user if signed_in?
+    can :set_up, user
 
     if agrees_tos?
       if user.admin?
@@ -157,7 +162,7 @@ class Ability
   def define_tos_abilities
     can :read_tos, user
 
-    if signed_in? and not agrees_tos?
+    if set_up? and not agrees_tos?
       can :sign_tos, user
     end
   end
@@ -178,7 +183,7 @@ class Ability
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
     sees_channels share_new_factlink_buttons
-    share_to_twitter share_to_facebook
+    share_to_twitter share_to_facebook skip_approval
   )
 
   def enabled_global_features
