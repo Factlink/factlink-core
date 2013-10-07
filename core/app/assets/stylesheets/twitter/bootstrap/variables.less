@@ -238,18 +238,6 @@
 @factlinkPopoverArrowBorderOffset:   1px;
 @darkTranslucentGrey:     rgba(32,32,32,0.6);
 
-// Default 940px grid
-// -------------------------
-@gridColumns:             12;
-@gridColumnWidth:         60px;
-@gridGutterWidth:         20px;
-@gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
-
-// Fluid grid
-// -------------------------
-@fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
-@fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
-
 // Styling
 @baseBorderColor:           darken(#d7d7d7, 5);
 @mutedBorderColor:          lighten(@baseBorderColor, 5);

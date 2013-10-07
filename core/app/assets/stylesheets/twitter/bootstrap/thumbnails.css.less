@@ -5,12 +5,9 @@
 // Thumbnails
 // --------------------------------------------------
 
-
-// Note: `.thumbnails` and `.thumbnails > li` are overriden in responsive files
-
 // Make wrapper ul behave like the grid
 .thumbnails {
-  margin-left: -@gridGutterWidth;
+  margin-left: -20px;
   list-style: none;
   .clearfix();
 }
@@ -19,7 +16,7 @@
 .thumbnails > li {
   float: left; // Explicity set the float since we don't require .span* classes
   margin-bottom: @baseLineHeight;
-  margin-left: @gridGutterWidth;
+  margin-left: -20px;
 }
 
 // The actual thumbnail (can be `a` or `div`)
