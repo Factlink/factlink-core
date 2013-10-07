@@ -1,5 +1,7 @@
 @import "bootstrap/mixins";
 
+.clear{clear:both;}
+
 div.content {
   background: white;
   min-height: 330px;
@@ -17,47 +19,56 @@ div.content {
     h4 {
       padding-top: 15px;
     }
-
-    div.span6 {
-      text-align: center;
-      height: 300px;
-
-      h2 {
-        font-family: @sansFontFamily;
-        font-size: 20px;
-        color: @headingFontColor;
-        margin: 0;
-        line-height: 36px;
-        height: 36px;
-      }
-
-      p {
-        padding: 0 20px;
-      }
-
-      i {
-        display: block;
-        background: image-url('landing/content/key_points.png') no-repeat;
-        margin: 0 auto;
-        width: 157px;
-        height: 145px;
-      }
-
-      &.social i {
-        background-position: 0 0;
-      }
-
-      &.curation i {
-        background-position: 0 -145px;
-      }
-
-      &.authority i {
-        background-position: -157px 0;
-      }
-
-      &.web i {
-        background-position: -157px -145px;
-      }
-    }
   }
+}
+
+.homepage-factlink-aspect-box {
+  text-align: center;
+  height: 300px;
+
+  h2 {
+    font-family: @sansFontFamily;
+    font-size: 20px;
+    color: @headingFontColor;
+    margin: 0;
+    line-height: 36px;
+    height: 36px;
+  }
+
+  p {
+    padding: 0 20px;
+  }
+
+  i {
+    display: block;
+    background: image-url('landing/content/key_points.png') no-repeat;
+    margin: 0 auto;
+    width: 157px;
+    height: 145px;
+  }
+
+  &.social i {
+    background-position: 0 0;
+  }
+
+  &.curation i {
+    background-position: 0 -145px;
+  }
+
+  &.authority i {
+    background-position: -157px 0;
+  }
+
+  &.web i {
+    background-position: -157px -145px;
+  }
+}
+
+.homepage-factlink-aspects {
+  width:940px; //HACK: bugfix to match previously implicit foreshortening of columns
+}
+
+.span8 {
+  width: 620px;
+  margin-left: 20px;
 }

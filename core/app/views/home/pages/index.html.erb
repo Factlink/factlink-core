@@ -1,16 +1,16 @@
 <% content_for :header do %>
   <h1>A layer over the web to add and view credibility</h1>
-  <div class="row">
-    <div class="span4 sign_up_form">
+  <div class="grid-row sign_up_infoblock">
+    <div class="grid-3-col sign_up_form">
       <h2>Sign up for the beta now:</h2>
 
      <%= render "users/registrations/form", form_id: "top_registration_form" %>
 
     </div>
-    <div class="span4 video">
+    <div class="grid-3-col video">
       <a href="javascript:void(0)" role="button" id="watch_factlink_video" class="js-frontpage-video-link">Play video</a>
     </div>
-    <div class="span4 statement">
+    <div class="grid-3-col statement">
       <h3><span>&#x2713;</span> With Factlink you can select any statement on the web, review its credibility, and add what you know.</h3>
     </div>
   </div>
@@ -26,30 +26,32 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="span6 authority">
-      <i></i>
-      <h2>Authority &amp; peer recognition</h2>
-      <p>Factlink helps uncover what people know by measuring their authority on any specific subject. It enables you to reach out to peers and get recognition.</p>
-    </div>
-    <div class="span6 social">
-      <i></i>
-      <h2>A social network for knowledge</h2>
-      <p>Discover relevant knowledge and connect to curated expertise. Get immediate updates as new information comes in and new facts come to light. Have impact on what people learn.</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span6 curation">
-      <i></i>
-      <h2>Collective curation</h2>
-      <p>The platform can combine the expertise of billions of people and provide a collectively curated perspective on the worlds information. Anybody can annotate any statement on the web and share and discuss it with others.</p>
+  <div class="homepage-factlink-aspects">
+    <div class="grid-row">
+      <div class="homepage-factlink-aspect-box grid-2-col authority">
+        <i></i>
+        <h2>Authority &amp; peer recognition</h2>
+        <p>Factlink helps uncover what people know by measuring their authority on any specific subject. It enables you to reach out to peers and get recognition.</p>
+      </div>
+      <div class="homepage-factlink-aspect-box grid-2-col social">
+        <i></i>
+        <h2>A social network for knowledge</h2>
+        <p>Discover relevant knowledge and connect to curated expertise. Get immediate updates as new information comes in and new facts come to light. Have impact on what people learn.</p>
+      </div>
     </div>
 
-    <div class="span6 web">
-      <i></i>
-      <h2>A layer over the web</h2>
-      <p>As an app for your browser, Factlink works as a layer over the web, and, for any web page or article, enables you to add what you know and see what others have added.</p>
+    <div class="grid-row">
+      <div class="homepage-factlink-aspect-box grid-2-col curation">
+        <i></i>
+        <h2>Collective curation</h2>
+        <p>The platform can combine the expertise of billions of people and provide a collectively curated perspective on the worlds information. Anybody can annotate any statement on the web and share and discuss it with others.</p>
+      </div>
+
+      <div class="homepage-factlink-aspect-box grid-2-col web">
+        <i></i>
+        <h2>A layer over the web</h2>
+        <p>As an app for your browser, Factlink works as a layer over the web, and, for any web page or article, enables you to add what you know and see what others have added.</p>
+      </div>
     </div>
   </div>
 <% end %>

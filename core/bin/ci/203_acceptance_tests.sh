@@ -13,14 +13,11 @@ function do_tests {
   test ${PIPESTATUS[0]} -eq 0 || touch TEST_FAILURE
 }
 
-
 do_tests
 if grep -qe 'PhantomJS has crashed.' < $OUTPUTFILE ; then
   echo "Detected random fail, retrying"
   do_tests
 fi
-
-
 
 if ! grep -qe '<testcase' < $REPORTFILE ; then
   echo "FAILING BUILD: No testcases found in $REPORTFILE"
