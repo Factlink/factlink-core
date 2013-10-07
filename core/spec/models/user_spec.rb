@@ -186,12 +186,6 @@ describe User do
       expect(last_recipients).to eq [subject.email]
     end
 
-    it "#send_welcome_instructions are called once" do
-      expect(subject).to receive(:send_welcome_instructions).once
-      subject.approved = true
-      subject.save
-    end
-
     it "confirms the user's email" do
       expect(subject).to_not be_confirmed
       subject.send_welcome_instructions
