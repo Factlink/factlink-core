@@ -11,7 +11,7 @@ describe 'Reserving a username', type: :feature do
 
       find('.success', visible:false).visible?.should be_false
 
-      click_button 'Reserve my username'
+      click_button 'Create account'
 
       page.should have_content("Great, you're almost finished! Please click the confirmation link in the email we've sent you")
       find('form.success')
@@ -34,33 +34,9 @@ describe 'Reserving a username', type: :feature do
       fill_in 'user[username]', with: 't'
       fill_in 'user[email]',    with: random_email
 
-      click_button 'Reserve my username'
+      click_button 'Create account'
 
       page.should have_content('username at least 2 characters needed')
-    end
-  end
-
-  it 'should make the username appear in the reserved user list' do
-    username = random_username
-
-    visit '/'
-    disable_html5_validations(page)
-
-    within '.footer' do
-      fill_in 'user[username]', with: username
-      fill_in 'user[email]',    with: random_email
-      click_button 'Reserve my username'
-    end
-
-    create_admin_and_login
-
-    find('.navbar .topbar-dropdown').click
-    find('.navbar').should have_content('Admin')
-
-    visit '/a/users/reserved'
-
-    within(find("#main-wrapper table tr>td:first-child", text: username).parent) do
-      page.should_not have_content('confirmed')
     end
   end
 
@@ -75,7 +51,7 @@ describe 'Reserving a username', type: :feature do
       fill_in 'user[username]', with: random_username
       fill_in 'user[email]',    with: email_address
 
-      click_button 'Reserve my username'
+      click_button 'Create account'
     end
 
     eventually_succeeds do
@@ -83,9 +59,9 @@ describe 'Reserving a username', type: :feature do
       current_email.subject
     end
 
-    current_email.find(:xpath, '//a', text: 'confirm').click
+    current_email.find(:xpath, '//a', text: 'Confirm email').click
 
-    page.should have_content "Email confirmed. Awaiting account approval."
+    page.should have_content "set up your account here"
   end
 
 end
