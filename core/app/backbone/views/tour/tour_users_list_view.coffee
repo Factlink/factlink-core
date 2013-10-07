@@ -47,6 +47,7 @@ class TourUserView extends Backbone.Marionette.Layout
       align: 'top'
       contentView: @authorityPopover()
       container: @$el.parent()
+      popover_className: 'focus-overlay-popover factlink-popover'
 
     FactlinkApp.FocusOverlay.show @$('.js-topic').first()
 
