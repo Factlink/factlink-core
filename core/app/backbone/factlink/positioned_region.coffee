@@ -2,7 +2,7 @@ Backbone.Factlink ||= {}
 
 class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegion
 
-  el: '<div style="position: absolute"></div>'
+  el: '<div class="positioned-region"></div>'
 
   bindToElement: ($bindEl, $container) ->
     @$bindEl = $bindEl
@@ -25,7 +25,7 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
     @$el.css @_tooltipCss()
 
   _offsets: ->
-    elDimensions = @_dimensionsOf(@$el)
+    elDimensions = @_dimensionsOf(@currentView.$el)
 
     switch @options.align || 'center'
       when 'left', 'top'
@@ -44,7 +44,7 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
         throw "Invalid options.align: #{@options.align}"
 
   _tooltipCss: ->
-    elDimensions = @_dimensionsOf(@$el)
+    elDimensions = @_dimensionsOf(@currentView.$el)
     bindElDimensions = @_dimensionsOf(@$bindEl)
     bindElPosition = @_bindElPosition()
     offset = @_offsets()
@@ -92,8 +92,8 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
       width: bbox.width + 6
       height: bbox.height+ 6
     else
-      width: $el.outerWidth()
-      height: $el.outerHeight()
+      width: $el.outerWidth(true)
+      height: $el.outerHeight(true)
 
   _offsetOf: ($el) ->
     if bbox = $el[0].getBBox?()
