@@ -35,6 +35,7 @@ class User
   field :approved,    type: Boolean, default: false
   field :deleted,     type: Boolean, default: false
   field :set_up,      type: Boolean, default: false
+  field :suspended,   type: Boolean, default: false # For now this is just for users we don't want to invite yet.
 
   field :admin,       type: Boolean, default: false
 
@@ -57,7 +58,7 @@ class User
   field :invitation_message, type: String, default: ""
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
-                  :receives_digest, :email, :approved, :admin, :registration_code,
+                  :receives_digest, :email, :approved, :admin, :registration_code, :suspended,
         as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
         as: :from_tos
@@ -140,6 +141,7 @@ class User
                   .where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
+                  .where(:suspended.ne => true)
   scope :seen_the_tour,   active
                             .where(:seen_tour_step => 'tour_done')
   scope :receives_digest, active
@@ -189,7 +191,7 @@ class User
   end
 
   def active?
-    approved && confirmed? && set_up && agrees_tos && ! deleted
+    approved && confirmed? && set_up && agrees_tos && !deleted && !suspended
   end
 
   def graph_user
@@ -293,7 +295,7 @@ class User
   # Require activated accounts to work with
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?
-    super && approved? && !deleted
+    super && approved? && !deleted && !suspended
   end
 
   def inactive_message
