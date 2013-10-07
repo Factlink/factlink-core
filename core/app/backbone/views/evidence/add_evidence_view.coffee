@@ -10,6 +10,7 @@ class AddEvidenceButtonsView extends Backbone.Marionette.Layout
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: 'right'
+        margin: 10
         popover_className: 'translucent-dark-popover'
       selector: '.js-supporting-button'
       tooltipViewFactory: => new TextView
@@ -18,6 +19,7 @@ class AddEvidenceButtonsView extends Backbone.Marionette.Layout
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: 'left'
+        margin: 10
         popover_className: 'translucent-dark-popover'
       selector: '.js-weakening-button'
       tooltipViewFactory: => new TextView
