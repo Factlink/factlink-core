@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Users::ConfirmationsController do
   before do
+    # Tests don't pass through the router; see https://github.com/plataformatec/devise
     request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
@@ -27,7 +28,7 @@ describe Users::ConfirmationsController do
     it "doesn't allow tokens of more than a month old" do
       user = create :user
 
-      Timecop.freeze(Date.today + 40) do
+      Timecop.travel(40.days) do
         get :show, confirmation_token: user.confirmation_token
       end
 
@@ -38,6 +39,7 @@ describe Users::ConfirmationsController do
       user = create :user, :approved
 
       get :show, confirmation_token: user.confirmation_token
+      sign_out(user)
       get :show, confirmation_token: user.confirmation_token
 
       response.should redirect_to setup_account_path
