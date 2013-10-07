@@ -2,10 +2,10 @@
 
 // drop `factlink-` prefix when getting rid of Bootstrap popovers
 .factlink-popover {
-  z-index: 119;
   position: relative;
   visibility: visible;
   display: inline-block;
+  z-index: 1; // force new stacking context for arrow shadow
 
   .factlink-popover-content {
     display: inline-block;
@@ -57,7 +57,6 @@
 }
 
 .translucent-dark-popover {
-  z-index: 120;
   position: relative;
   visibility: visible;
   display: inline-block;

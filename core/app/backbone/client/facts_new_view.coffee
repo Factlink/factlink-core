@@ -136,6 +136,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
         side: 'left'
         align: 'top'
         margin: 20
+        popover_className: 'fact-new-opinion-popover factlink-popover'
         contentView: new Backbone.Marionette.ItemView(template: 'tour/give_your_opinion')
 
   closeOpinionHelptext: ->

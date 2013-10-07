@@ -7,7 +7,6 @@
   margin: 50px auto;
   padding: 15px;
   position: relative;
-  z-index: 1; // should be lower than Twitter tooltip z-index
   cursor: auto;
 
   .finish-popover {
@@ -20,7 +19,12 @@
   width: 100%;
 
   position: relative;
-  z-index: 120; // above z-index of .popover-container
+  z-index: 2; // above z-index of .fact-new-opinion-popover
+}
+
+.fact-new-opinion-popover {
+  position: relative;
+  z-index: 1 !important; // below z-index of .fact-new-fact-container
 }
 
 .fact-new-body {
