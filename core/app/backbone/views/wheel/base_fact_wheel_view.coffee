@@ -179,8 +179,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         popover_className: 'translucent-dark-popover fact-wheel-tooltip'
         margin: @maxStrokeWidth()/2 - 7
       selector: '.authority'
-      tooltipViewFactory: => new Marionette.ItemView
-        template: 'facts/fact_wheel_authority_tooltip'
+      tooltipViewFactory: =>  new TextView
+        model: new Backbone.Model text: 'Total authority'
 
       @_makeTooltipForPath 'believe', 'path:nth-of-type(1)'
       @_makeTooltipForPath 'doubt', 'path:nth-of-type(2)'
