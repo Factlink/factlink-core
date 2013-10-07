@@ -48,7 +48,7 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
     bindElDimensions = @_dimensionsOf(@$bindEl)
     bindElPosition = @_bindElPosition()
     offset = @_offsets()
-    margin = @options.margin || 0
+    margin = @options.margin || 2
 
     switch @options.side
       when 'left'
