@@ -177,6 +177,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       positioning:
         side: 'top'
         popover_className: 'translucent-dark-popover fact-wheel-tooltip'
+        margin: @maxStrokeWidth()/2 - 7
       selector: '.authority'
       tooltipViewFactory: => new Marionette.ItemView
         template: 'facts/fact_wheel_authority_tooltip'
@@ -190,6 +191,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       positioning:
         side: @_tooltipSideForPath(@opinionTypeRaphaels[name])
         popover_className: 'translucent-dark-popover fact-wheel-tooltip'
+        margin: @maxStrokeWidth()/2 - 3
       selector: selector
       tooltipViewFactory: => new TextView
         model: new Backbone.Model text: @options.opinionStyles[name].groupname + ": " + @model.get('opinion_types')[name].percentage + "%"
