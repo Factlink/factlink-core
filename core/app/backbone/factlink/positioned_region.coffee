@@ -90,7 +90,7 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
   _dimensionsOf: ($el) ->
     if bbox = $el[0].getBBox?()
       width: bbox.width + 6
-      height: bbox.height+ 6
+      height: bbox.height + 6
     else
       width: $el.outerWidth()
       height: $el.outerHeight()
@@ -99,8 +99,8 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
     if bbox = $el[0].getBBox?()
       containerOffset = $el.parents().filter(-> !@getBBox?).first().offset()
 
-      top: bbox.y + containerOffset.top,
-      left: bbox.x + containerOffset.left
+      top: bbox.y + containerOffset.top - 3
+      left: bbox.x + containerOffset.left - 3
     else
       $el.offset()
 
