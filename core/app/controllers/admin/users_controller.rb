@@ -1,10 +1,7 @@
 class Admin::UsersController < AdminController
   helper_method :sort_column, :sort_direction
 
-  before_filter :get_activated_users,         only: [:index]
-  before_filter :get_reserved_users,          only: [:reserved]
-  before_filter :get_deleted_users,           only: [:deleted]
-  before_filter :get_suspended_users,         only: [:suspended]
+  before_filter :get_users,                   only: [:index]
   before_filter :set_available_user_features, only: [:edit, :update]
 
   load_and_authorize_resource except: [:create]
@@ -22,16 +19,6 @@ class Admin::UsersController < AdminController
       redirect_to admin_users_path, notice: 'User was successfully updated.'
     else
       render :edit
-    end
-  end
-
-  def approve
-    @user.approved = true
-
-    if @user.save validate: false
-      render :json => {}, :status => :ok
-    else
-      render :json => @user.errors, :status => :unprocessable_entity
     end
   end
 
@@ -61,25 +48,9 @@ class Admin::UsersController < AdminController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
-  def get_activated_users
+  def get_users
     # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.active.order_by([sort_column.to_sym, sort_direction.to_sym])
-  end
-
-  def get_suspended_users
-    # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.where(suspended: true).order_by([sort_column.to_sym, sort_direction.to_sym])
-  end
-
-  def get_reserved_users
-    # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.where(:invitation_token => nil, :approved => false, :deleted.ne => true).order_by([sort_column.to_sym, sort_direction.to_sym])
-  end
-
-  def get_deleted_users
-    # TODO eliminate to_sym on the next line. This is a DoS
-    # TODO Use the User.deleted scope here
-    @users = User.where(deleted: true).order_by([sort_column.to_sym, sort_direction.to_sym])
+    @users = User.order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def set_available_user_features
