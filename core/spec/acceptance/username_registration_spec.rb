@@ -40,7 +40,7 @@ describe 'Reserving a username', type: :feature do
     end
   end
 
-  it 'should make the username appear in the reserved user list' do
+  it 'should make the username appear in the user list' do
     username = random_username
 
     visit '/'
@@ -57,10 +57,10 @@ describe 'Reserving a username', type: :feature do
     find('.navbar .topbar-dropdown').click
     find('.navbar').should have_content('Admin')
 
-    visit '/a/users/reserved'
+    visit '/a/users'
 
     within(find("#main-wrapper table tr>td:first-child", text: username).parent) do
-      page.should_not have_content('confirmed')
+      page.should have_content('unconfirmed')
     end
   end
 
