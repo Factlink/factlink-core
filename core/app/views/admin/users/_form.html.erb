@@ -106,6 +106,15 @@
 
     <tr>
       <th class="form-label-column">
+        <%= f.label :suspended %>
+      </th>
+      <td>
+        <%= f.check_box :suspended %> (doesn't really do anything, just showing who we don't want to invite yet)
+      </td>
+    </tr>
+
+    <tr>
+      <th class="form-label-column">
         <%= f.label :registration_code %>
       </th>
       <td>

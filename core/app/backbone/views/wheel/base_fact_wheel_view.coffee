@@ -171,12 +171,29 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   bindTooltips: ->
     if @options.showsTooltips
-      @$("div.tooltip").remove()
-      @$(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
+      @trigger 'removeTooltips'
 
-      # Create tooltips for each opinionType (believe, disbelieve etc)
-      for key, opinionType of @model.get('opinion_types')
-        raphaelObject = @opinionTypeRaphaels[opinionType.type]
-        $(raphaelObject.node).tooltip
-          title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
-          placement: "left"
+      Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        side: 'top'
+        popover_className: 'translucent-dark-popover fact-wheel-tooltip'
+      selector: '.authority'
+      tooltipViewFactory: => new Marionette.ItemView
+        template: 'facts/fact_wheel_authority_tooltip'
+
+      @_makeTooltipForPath 'believe', 'path:nth-of-type(1)'
+      @_makeTooltipForPath 'doubt', 'path:nth-of-type(2)'
+      @_makeTooltipForPath 'disbelieve', 'path:nth-of-type(3)'
+
+  _makeTooltipForPath: (name, selector) ->
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        side: @_tooltipSideForPath(@opinionTypeRaphaels[name])
+        popover_className: 'translucent-dark-popover fact-wheel-tooltip'
+      selector: selector
+      tooltipViewFactory: => new TextView
+        model: new Backbone.Model text: @options.opinionStyles[name].groupname + ": " + @model.get('opinion_types')[name].percentage + "%"
+
+  _tooltipSideForPath: (path) ->
+    bbox = path.getBBox()
+    if bbox.x + bbox.width/2 > @boxSize()/2 then 'right' else 'left'

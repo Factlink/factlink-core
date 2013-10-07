@@ -95,6 +95,7 @@ FactlinkUI::Application.routes.draw do
         collection do
           get :reserved
           get :deleted
+          get :suspended
         end
 
         member do

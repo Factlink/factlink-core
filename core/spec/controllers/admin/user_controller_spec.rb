@@ -35,6 +35,16 @@ describe Admin::UsersController do
     end
   end
 
+  describe "GET suspended" do
+    it "should render the suspended users" do
+      authenticate_user!(user)
+      should_check_can :suspended, User
+      get :suspended
+      response.should be_success
+    end
+  end
+
+
   describe "GET reserved" do
     it "should render the reserved" do
       authenticate_user!(user)
