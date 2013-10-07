@@ -2,11 +2,13 @@
 
   <p>Hi <%= @resource.name %>,</p>
 
-  <p>Congratulations on reserving your username on Factlink. Please confirm your email address so we can activate your account once we're gearing up for more users.</p>
+  <p>Welcome to Factlink! Please confirm your email by clicking below.</p>
 
-  <p><%= link_to 'Please confirm your email address by clicking this link', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+  <p class="cta"><%= link_to 'Confirm email', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), class: 'btn-email' %></p>
 
-  <p>Thanks for now!</p>
+  <p>We’ve only built part of our vision of what Factlink could be. Please send us your <a href="mailto:feedback@factlink.com">feedback</a> so we can make it better!</p>
+
+  <p><em>&mdash; The Factlink team</em></p>
 
 <% end %>
 
