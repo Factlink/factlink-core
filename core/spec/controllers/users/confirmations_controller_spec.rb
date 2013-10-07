@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Users::ConfirmationsController do
   before do
+    # Tests don't pass through the router; see https://github.com/plataformatec/devise
     request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
