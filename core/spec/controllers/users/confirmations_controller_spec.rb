@@ -39,6 +39,7 @@ describe Users::ConfirmationsController do
       user = create :user, :approved
 
       get :show, confirmation_token: user.confirmation_token
+      sign_out(user)
       get :show, confirmation_token: user.confirmation_token
 
       response.should redirect_to setup_account_path
