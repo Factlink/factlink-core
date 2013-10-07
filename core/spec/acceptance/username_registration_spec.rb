@@ -49,7 +49,7 @@ describe 'Reserving a username', type: :feature do
     within '.footer' do
       fill_in 'user[username]', with: username
       fill_in 'user[email]',    with: random_email
-      click_button 'Reserve my username'
+      click_button 'Create account'
     end
 
     create_admin_and_login
