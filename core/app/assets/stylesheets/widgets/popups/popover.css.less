@@ -3,7 +3,8 @@
 @arrow-long-side: 17px;
 @arrow-pointy-side: 11px;
 
-.popover-container {
+// drop `factlink-` prefix when getting rid of Bootstrap popovers
+.factlink-popover {
   z-index: 119;
   position: relative;
   .background-clip(padding-box);
@@ -15,7 +16,7 @@
 
   &.bottom {
     margin-top: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-arrow {
       .triangle-arrow-up(@factlinkPopoverArrowTopBorderColor);
       top: 0;
     }
@@ -23,7 +24,7 @@
 
   &.top {
     margin-bottom: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-arrow {
       .triangle-arrow-down(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
       bottom: 0;
     }
@@ -31,7 +32,7 @@
 
   &.left {
     margin-right: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-arrow {
       .triangle-arrow-right(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
       right: 0;
     }
@@ -39,7 +40,7 @@
 
   &.right {
     margin-left: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-arrow {
       .triangle-arrow-left(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
       left: 0;
     }
@@ -57,7 +58,7 @@
   display: inline-block;
   text-align: center;
 
-  .arrow {
+  .factlink-popover-arrow {
     border: floor(@arrow-long-side/2) solid transparent;
     position: absolute;
     width: 2px;
@@ -68,7 +69,7 @@
 
   &.top {
     margin-bottom: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-arrow {
       top: 100%;
       margin-top: 0;
       border-top-color: @darkTranslucentGrey;
@@ -77,7 +78,7 @@
   }
   &.right {
     margin-left: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-arrow {
       right: 100%;
       margin-right: 0;
       border-right-color: @darkTranslucentGrey;
@@ -86,7 +87,7 @@
   }
   &.bottom {
     margin-top: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-arrow {
       bottom: 100%;
       margin-bottom: 0;
       border-bottom-color: @darkTranslucentGrey;
@@ -95,7 +96,7 @@
   }
   &.left {
     margin-right: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-arrow {
       left: 100%;
       margin-left: 0;
       border-left-color: @darkTranslucentGrey;
