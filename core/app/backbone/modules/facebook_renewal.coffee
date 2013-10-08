@@ -31,13 +31,11 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
     justRenewed = true
     FactlinkApp.NotificationCenter.error """
       Your Facebook connection could not be automatically verified. Please verify manually.
-      <span class="social-services-buttons">
-        <a href="/auth/facebook?return_to=/"
-           target="_blank"
-           class="button facebook popup js-close" data-disable-with="" data-width="640" data-height="400">
-             <i></i>Verify
-        </a>
-      </span>
+      <a href="/auth/facebook"
+         target="_blank"
+         class="button js-social-popup-link js-close" data-disable-with="" data-width="640" data-height="400">
+           Verify
+      </a>
     """
 
   checkRenewal = ->
