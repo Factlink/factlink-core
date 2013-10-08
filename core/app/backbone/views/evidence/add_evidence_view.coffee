@@ -8,6 +8,7 @@ class AddEvidenceButtonsView extends Backbone.Marionette.Layout
 
   onRender: ->
     Backbone.Factlink.makeTooltipForView @,
+      hoverIntent: true
       positioning:
         side: 'right'
         margin: 10
@@ -17,6 +18,7 @@ class AddEvidenceButtonsView extends Backbone.Marionette.Layout
         model: new Backbone.Model
           text: 'Add supporting argument'
     Backbone.Factlink.makeTooltipForView @,
+      hoverIntent: true
       positioning:
         side: 'left'
         margin: 10

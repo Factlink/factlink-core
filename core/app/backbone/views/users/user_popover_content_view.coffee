@@ -21,4 +21,5 @@ UserPopoverContentView.makeTooltip = (view, user, options={}) ->
       selector: options.selector || '.js-user-link'
       $offsetParent: options.$offsetParent
       stayWhenHoveringTooltip: true
+      hoverIntent: true
       tooltipViewFactory: -> new UserPopoverContentView model: user.clone()
