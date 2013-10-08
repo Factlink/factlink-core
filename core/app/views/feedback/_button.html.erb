@@ -9,17 +9,17 @@
       var $iframe = $('.js-feedback-modal iframe');
       var iframeLoaded = false;
       $(".js-feedback-modal-link").on('click', function() {
-        function onIFrameLoad () {
+        function showFeedbackFrame () {
           iframeLoaded = true;
           console.log('loaded iframe');
           $modal.fadeIn('fast');
           $iframe[0].contentWindow.updateHeight();
         }
         if(!$iframe.attr('src')) {
-          $iframe.load(onIFrameLoad);
+          $iframe.load(showFeedbackFrame);
           $iframe.attr('src', $iframe.attr('data-src'));
         } else if(iframeLoaded)
-          onIFrameLoad();
+          showFeedbackFrame();
         //if src is set but NOT loaded: still loading -> do nothing since handler's already registered.
       });
       $(".js-feedback-modal-layer").on('click', function() {
