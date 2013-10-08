@@ -196,7 +196,15 @@ module ScreenshotTest
 
     def self.use_fuzzy_matching?
       if @use_fuzzy == nil
-        @use_fuzzy = ENV["FUZZY_IMAGE_DIFF"]
+        if ENV["IMAGE_DIFF_MODE"] == nil
+          @use_fuzzy = ENV["JENKINS_SERVER_COOKIE"] == nil
+        elsif ENV["IMAGE_DIFF_MODE"] == "exact"
+          @use_fuzzy = false
+        elsif ENV["IMAGE_DIFF_MODE"] == "fuzzy"
+          @use_fuzzy = true
+        else
+          raise "Cannot determine image diff mode: IMAGE_DIFF_MODE must be 'exact', 'fuzzy' or unspecified."
+        end
         puts "Using #{@use_fuzzy ? 'fuzzy' : 'exact'} screenshot matching."
       end
       @use_fuzzy
