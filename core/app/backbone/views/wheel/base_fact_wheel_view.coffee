@@ -185,7 +185,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: 'top'
-        popover_className: 'translucent-dark-popover fact-wheel-tooltip'
+        popover_className: 'translucent-dark-popover'
         margin: @maxStrokeWidth()/2 - 7
       selector: '.authority'
       tooltipViewFactory: =>  new TextView
@@ -195,7 +195,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: @_tooltipSideForPath(@opinionTypeRaphaels[name])
-        popover_className: 'translucent-dark-popover fact-wheel-tooltip'
+        popover_className: 'translucent-dark-popover'
         margin: @maxStrokeWidth()/2 - 3
       selector: selector
       tooltipViewFactory: => new TextView
