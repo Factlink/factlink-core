@@ -332,14 +332,6 @@ class User
     recoverable
   end
 
-  # Welcome the user with an email when the Admin approved the account
-  def send_welcome_instructions
-    self.skip_confirmation!
-
-    generate_reset_password_token! if should_generate_reset_token?
-    UserMailer.welcome_instructions(self.id).deliver
-  end
-
   # Override login mechanism to allow username or email logins
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
