@@ -82,7 +82,6 @@ class LoadDsl
       :twitter => twitter,
       :first_name => first_name || username,
       :last_name => last_name || username )
-    u.approved = true
     u.agrees_tos = true
     u.agreed_tos_on = DateTime.now
     u.email = email

@@ -10,8 +10,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.email    = params[:user][:email]
     resource.password = Devise.friendly_token # Random password
 
-    resource.approved = true
-
     if /\A([-a-zA-Z0-9_]+)\Z/.match(params[:user][:registration_code])
       resource.registration_code = params[:user][:registration_code]
     end
