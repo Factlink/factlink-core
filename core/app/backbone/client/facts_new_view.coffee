@@ -33,6 +33,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   ui:
     'post_factlink': '.js-submit-post-factlink'
+    'opinion_animation': '.js-opinion-animation'
 
   events:
     'click .js-submit-post-factlink': 'post_factlink',
@@ -102,12 +103,12 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @the_tooltip.render()
 
     if FactlinkApp.guided
-      @$('.js-opinion-animation').show();
+      @ui.opinion_animation.show();
 
   closeHints: ->
     @the_tooltip.close()
 
-    @$('.js-opinion-animation').hide()
+    @ui.opinion_animation.hide()
 
   renderShareNewFact: ->
     @factSharingOptions = new FactSharingOptions
