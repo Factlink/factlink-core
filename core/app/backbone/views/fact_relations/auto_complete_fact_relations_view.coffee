@@ -3,7 +3,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   events:
     "click .js-post": "addNew"
-    'click .js-switch-to-factlink': 'switchCheckboxClicked'
+    'click .js-switch-to-factlink': 'switchToComment'
 
   regions:
     'search_list': 'div.auto-complete-search-list-container'
@@ -56,11 +56,9 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
       type: @options.type
 
-  switchCheckboxClicked: (e) ->
+  switchToComment: ->
     @$el.removeClass 'active'
     @trigger 'switch_to_comment_view', @model.get('text')
-    e.preventDefault()
-    e.stopPropagation()
 
     mp_track "Evidence: Switching to comment"
 
