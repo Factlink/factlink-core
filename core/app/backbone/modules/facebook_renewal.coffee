@@ -16,7 +16,7 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
 
   almostExpired = ->
     days         = 24*60*60*1000
-    expiresAt    = currentUser.get('services')['facebook_expiresAt']
+    expiresAt    = currentUser.get('services')['facebook_expires_at']
     expiryDate   = new Date(expiresAt*1000)
     timeToExpiry = expiryDate - new Date
 
