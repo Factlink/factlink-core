@@ -3,7 +3,7 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
   class IframeView extends Backbone.Marionette.ItemView
     template:
       text: """
-        <iframe class="facebook_renewal_iframe" src="/auth/facebook"></iframe>
+        <iframe class="facebook_renewal_iframe" src="/auth/facebook" style="height: 0; width: 0; border: 0;"></iframe>
       """
 
   FacebookRenewal.addInitializer ->
