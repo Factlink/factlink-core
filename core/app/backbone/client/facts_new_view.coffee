@@ -23,9 +23,6 @@ class Tooltip
     @$('.js-opinion-animation').hide()
 
   render: ->
-    @$('.fact-wheel').on 'click.whatsyouropinion', =>
-      @close()
-
     $(window).on 'resize.whatsyouropinion', => @showTooltip();
 
     @showTooltip()
@@ -75,7 +72,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     )
 
   onBeforeClose: ->
-    @the_tooltip.close()
+    @closeHints()
     @ui.post_factlink.tooltip('destroy')
 
   renderAddToChannel: ->
@@ -101,8 +98,12 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       model: @wheel
     persistentWheelView.render()
 
-    persistentWheelView.on 'opinionSet', ->
+    persistentWheelView.on 'opinionSet', =>
+      @closeHints()
       parent?.remote?.trigger('opinionSet')
+
+  closeHints: ->
+    @the_tooltip.close()
 
   renderShareNewFact: ->
     @factSharingOptions = new FactSharingOptions
