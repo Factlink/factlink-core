@@ -32,6 +32,8 @@
   <%= render 'snippets/raven_js' %>
 
   <script type="text/javascript">
+    <%= render 'backbone/currentUser' %>
+
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
     Factlink.setSignedIn(<%= (!!current_ability.signed_in?).to_s.html_safe %>);
 
@@ -42,7 +44,7 @@
     <% else %>
       FactlinkApp.guided = false;
     <% end %>
-    <%= render 'backbone/currentUser' %>
+
     Backbone.history.start({pushState: Modernizr.history});
   </script>
 
