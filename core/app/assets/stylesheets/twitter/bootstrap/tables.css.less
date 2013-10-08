@@ -46,3 +46,13 @@
     border-left: 1px solid @tableBorder;
   }
 }
+
+// TABLE CELL SIZING
+// -----------------
+
+// Reset default grid behavior
+table [class*=span] {
+  display: table-cell;
+  float: none; // undo default grid column styles
+  margin-left: 0; // undo default grid column styles
+}
