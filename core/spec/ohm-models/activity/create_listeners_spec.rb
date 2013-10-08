@@ -214,7 +214,7 @@ describe 'activity queries' do
       u.invited_by = inviter
       u.save
 
-      u.approve_invited_user_and_create_activity
+      u.skip_confirmation_and_create_invited_activity
 
       u.graph_user.notifications.map(&:to_hash_without_time).should == [
         {user: inviter.graph_user, action: :invites, subject: u.graph_user}

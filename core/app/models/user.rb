@@ -32,7 +32,6 @@ class User
 
   field :graph_user_id
 
-  field :approved,    type: Boolean, default: false
   field :deleted,     type: Boolean, default: false
   field :set_up,      type: Boolean, default: false
   field :suspended,   type: Boolean, default: false # For now this is just for users we don't want to invite yet.
@@ -58,7 +57,7 @@ class User
   field :invitation_message, type: String, default: ""
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
-                  :receives_digest, :email, :approved, :admin, :registration_code, :suspended,
+                  :receives_digest, :email, :admin, :registration_code, :suspended,
         as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
         as: :from_tos
@@ -135,9 +134,7 @@ class User
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
-  scope :approved, where(:approved => true)
-  scope :active, approved
-                  .where(:confirmed_at.ne => nil)
+  scope :active,   where(:confirmed_at.ne => nil)
                   .where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
@@ -177,10 +174,9 @@ class User
     end
   end
 
-  after_invitation_accepted :approve_invited_user_and_create_activity
-  def approve_invited_user_and_create_activity
+  after_invitation_accepted :skip_confirmation_and_create_invited_activity
+  def skip_confirmation_and_create_invited_activity
     self.skip_confirmation!
-    self.approved = true
     self.save
 
     Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
@@ -191,7 +187,7 @@ class User
   end
 
   def active?
-    approved && confirmed? && set_up && agrees_tos && !deleted && !suspended
+    confirmed? && set_up && agrees_tos && !deleted && !suspended
   end
 
   def graph_user
@@ -321,7 +317,7 @@ class User
 
   set :seen_messages
 
-  # don't send reset password instructions when the account is not approved yet
+  # don't send reset password instructions when the account is suspended
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
     if recoverable.suspended

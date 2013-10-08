@@ -177,10 +177,10 @@ describe User do
 
   # also describes .hidden?
   describe '.active?' do
-    context "new user" do
-      let(:waiting_list_user) { create :user }
-      it { expect(waiting_list_user).to_not be_active }
-      it { expect(waiting_list_user).to     be_hidden }
+    context "unconfirmed user" do
+      let(:unconfirmed_user) { create :user }
+      it { expect(unconfirmed_user).to_not be_active }
+      it { expect(unconfirmed_user).to     be_hidden }
     end
     context "just confirmed user" do
       let(:confirmed_user) { create :user, :confirmed }

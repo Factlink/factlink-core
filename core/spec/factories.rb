@@ -22,7 +22,6 @@ FactoryGirl.define do
     last_name
     password '123hoi'
     password_confirmation '123hoi'
-    approved true
 
     trait :agrees_tos do
       agrees_tos true
