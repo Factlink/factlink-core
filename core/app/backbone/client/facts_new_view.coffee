@@ -6,11 +6,10 @@ class Tooltip
   showTooltip: ->
     return if ( ! @_shouldShowTooltip )
 
-    else
-      @$('.fact-wheel').tooltip(
-        title: "What's your opinion?",
-        trigger: "manual"
-      ).tooltip('show');
+    @$('.fact-wheel').tooltip(
+      title: "What's your opinion?",
+      trigger: "manual"
+    ).tooltip('show');
 
   close: ->
     @_shouldShowTooltip = false
@@ -100,10 +99,10 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       parent?.remote?.trigger('opinionSet')
 
   renderHints: ->
-    @the_tooltip.render()
-
     if FactlinkApp.guided
       @ui.opinion_animation.show();
+    else
+      @the_tooltip.render()
 
   closeHints: ->
     @the_tooltip.close()
