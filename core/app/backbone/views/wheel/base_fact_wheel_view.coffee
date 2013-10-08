@@ -9,6 +9,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   defaults:
     respondsToMouse: true
     showsTooltips: true
+    showsAuthorityTooltip: true
     radius: 16
 
     minimalVisiblePercentage: 15
@@ -173,7 +174,15 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     if @options.showsTooltips
       @trigger 'removeTooltips'
 
-      Backbone.Factlink.makeTooltipForView @,
+      @_makeAuthorityTooltip()
+      @_makeTooltipForPath 'believe', 'path:nth-of-type(1)'
+      @_makeTooltipForPath 'doubt', 'path:nth-of-type(2)'
+      @_makeTooltipForPath 'disbelieve', 'path:nth-of-type(3)'
+
+  _makeAuthorityTooltip: ->
+    return unless @options.showsAuthorityTooltip
+
+    Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: 'top'
         popover_className: 'translucent-dark-popover fact-wheel-tooltip'
@@ -181,10 +190,6 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       selector: '.authority'
       tooltipViewFactory: =>  new TextView
         model: new Backbone.Model text: 'Total authority'
-
-      @_makeTooltipForPath 'believe', 'path:nth-of-type(1)'
-      @_makeTooltipForPath 'doubt', 'path:nth-of-type(2)'
-      @_makeTooltipForPath 'disbelieve', 'path:nth-of-type(3)'
 
   _makeTooltipForPath: (name, selector) ->
     Backbone.Factlink.makeTooltipForView @,

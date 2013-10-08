@@ -62,8 +62,9 @@ class window.FactsNewView extends Backbone.Marionette.Layout
   renderPersistentWheelView: ->
     @wheel = new Wheel
     persistentWheelView = new PersistentWheelView
-      el: @$('.fact-wheel'),
+      el: @$('.fact-wheel')
       model: @wheel
+      showsAuthorityTooltip: FactlinkApp.guided
     persistentWheelView.render()
 
     persistentWheelView.on 'opinionSet', =>
