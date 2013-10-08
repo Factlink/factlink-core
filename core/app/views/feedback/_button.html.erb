@@ -5,17 +5,28 @@
 <% content_for :specific_javascript do %>
   <script type="text/javascript">
     $(function(){
+      var $modal = $('.js-feedback-modal');
+      var $iframe = $('.js-feedback-modal iframe');
+      var iframeLoaded = false;
       $(".js-feedback-modal-link").on('click', function() {
-
-        var iframe = $('.js-feedback-modal iframe');
-
-        if (iframe.attr("src").length === 0) {
-          iframe.attr('src', "<%= feedback_index_path %>");
+        function onIFrameLoad () {
+          iframeLoaded = true;
+          console.log('loaded iframe');
+          $modal.fadeIn('fast');
+          $iframe[0].contentWindow.updateHeight();
         }
-        $('.js-feedback-modal').fadeIn('fast');
+        if(!$iframe.attr('src')) {
+          $iframe.load(onIFrameLoad);
+          $iframe.attr('src', $iframe.attr('data-src'));
+        } else if(iframeLoaded)
+          onIFrameLoad();
+        //if src is set but NOT loaded: still loading -> do nothing since handler's already registered.
       });
       $(".js-feedback-modal-layer").on('click', function() {
-        $('.js-feedback-modal').fadeOut('fast');
+        $modal.fadeOut('fast', function() {
+          if(iframeLoaded)
+            $iframe[0].contentWindow.onCloseFrame();
+        });
       });
     });
   </script>
