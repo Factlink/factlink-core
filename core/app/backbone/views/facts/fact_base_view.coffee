@@ -56,6 +56,8 @@ class FactBodyView extends Backbone.Marionette.ItemView
     @listenTo @model, 'change', @render
 
   click: ->
+    return unless @options.clickable
+
     if FactlinkApp.onClientApp
       Backbone.history.navigate @model.clientLink(), true
     else
