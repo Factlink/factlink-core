@@ -1,16 +1,6 @@
 @import "twitter/bootstrap/variables.less";
 @import "twitter/bootstrap/mixins.less";
 
-// BASE TABLES
-// -----------------
-
-table {
-  max-width: 100%;
-  background-color: @backgroundGray;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
 // BASELINE STYLES
 // ---------------
 
@@ -34,6 +24,13 @@ table {
     vertical-align: bottom;
   }
 }
+.table {
+  background-color: @backgroundGray;
+  border-collapse: collapse;
+  border-spacing: 0;
+  max-width: 100%;
+}
+
 
 // BORDERED VERSION
 // ----------------
@@ -48,14 +45,4 @@ table {
   td {
     border-left: 1px solid @tableBorder;
   }
-}
-
-// TABLE CELL SIZING
-// -----------------
-
-// Reset default grid behavior
-table [class*=span] {
-  display: table-cell;
-  float: none; // undo default grid column styles
-  margin-left: 0; // undo default grid column styles
 }

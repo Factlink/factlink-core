@@ -31,7 +31,6 @@
 }
 
 // Set width to auto for default container
-// We then reset it for fixed navbars in the #gridSystem mixin
 .navbar .container {
   width: auto;
 }
@@ -96,13 +95,6 @@
   padding-left:  0;
   padding-right: 0;
   border-radius: 0;
-}
-
-// Reset container width
-// Required here as we reset the width earlier on and the grid mixins don't override early enough
-.navbar-fixed-top .container,
-.container {
-  #grid > .core > .span(@gridColumns);
 }
 
 // Fixed to top

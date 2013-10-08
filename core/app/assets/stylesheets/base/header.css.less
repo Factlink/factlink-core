@@ -64,60 +64,58 @@ div.header {
       text-shadow: 0 1px 0 #000;
     }
 
-    .span4 {
-      h2 {
-        font-weight: 100;
-        margin: 0 0 10px;
-        color: #c9dcfb;
+    h2 {
+      font-weight: 100;
+      margin: 0 0 10px;
+      color: #c9dcfb;
+      font-size: 18px;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 1);
+    }
+
+    form {
+      margin: 0;
+
+      input {
+        width: 300px;
+      }
+
+      input.text {
+        width: 300px;
+      }
+    }
+
+    .video {
+      text-align: center;
+
+      a {
+        display: inline-block;
+        height: 90px;
+        width: 90px;
+        margin-top: 65px;
+        background: image-url('landing/header/watch_video.png') no-repeat;
+        background-position: 0 -90px;
+        text-indent: -9999999px;
+        cursor: pointer;
+        outline: none;
+
+        &:hover {
+          background-position: 0 -0;
+        }
+      }
+    }
+
+    .statement {
+      h3 {
+        color: #c9dcfc;
         font-size: 18px;
+        font-weight: 100;
+        background: rgba(121, 170, 255, 0.2);
+        display: inline;
+        line-height: 25px;
+        padding: 2px 0;
         text-shadow: 0 -1px 0 rgba(0, 0, 0, 1);
-      }
-
-      form {
-        margin: 0;
-
-        input {
-          width: 300px;
-        }
-
-        input.text {
-          width: 300px;
-        }
-      }
-
-      &.video {
-        text-align: center;
-
-        a {
-          display: inline-block;
-          height: 90px;
-          width: 90px;
-          margin-top: 65px;
-          background: image-url('landing/header/watch_video.png') no-repeat;
-          background-position: 0 -90px;
-          text-indent: -9999999px;
-          cursor: pointer;
-          outline: none;
-
-          &:hover {
-            background-position: 0 -0;
-          }
-        }
-      }
-
-      &.statement {
-        h3 {
-          color: #c9dcfc;
-          font-size: 18px;
-          font-weight: 100;
-          background: rgba(121, 170, 255, 0.2);
-          display: inline;
-          line-height: 25px;
-          padding: 2px 0;
-          text-shadow: 0 -1px 0 rgba(0, 0, 0, 1);
-          position: relative;
-          top: 50px;
-        }
+        position: relative;
+        top: 50px;
       }
     }
   }

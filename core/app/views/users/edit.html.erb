@@ -16,7 +16,7 @@
 </header>
 
 <div class="row" id="edit_user">
-  <div class="span8">
+  <div class="narrow-indented-block">
     <%= form_for(@user, :url => { action: :update, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }, validate: true) do |f| %>
       <fieldset>
         <legend></legend>
@@ -90,7 +90,7 @@
     <% end %>
   </div>
 
-  <div class="span8 edit-user-delete-container">
+  <div class="narrow-indented-block edit-user-delete-container">
 
     <%= form_for(@user, method: :delete, html: { class: "form-horizontal" }) do |f| %>
 

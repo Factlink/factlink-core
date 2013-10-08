@@ -22,10 +22,10 @@
     <div class="container">
       <% if content_for?(:left_column) %>
         <div class="row">
-          <div class="span3">
+          <div class="left-column-container">
             <%= yield :left_column %>
           </div>
-          <div class="span9">
+          <div class="right-content-container">
             <%= yield :content %>
             <%= yield %>
           </div>
