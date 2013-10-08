@@ -37,7 +37,7 @@
       <span class="connect-buttons <%= service_name %>" <% if connected %> style="display: none;"<% end %>>
         <span class="connect">
             <% # the "use_authorize=true&x_auth_access_type=write" part is only relevant for Twitter, Facebook ignores this %>
-            <%= link_to("/auth/#{service_name}?use_authorize=true&x_auth_access_type=write", class: ["button", "popup"], :"data-width" => 640, :"data-height" => 400) do %>
+            <%= link_to("/auth/#{service_name}?use_authorize=true&x_auth_access_type=write", class: ["button", "js-social-popup-link"], :"data-width" => 640, :"data-height" => 400) do %>
             <%= image_tag("#{service_name}.png") %>
               Connect <%= service_name.capitalize %>
           <% end %>
