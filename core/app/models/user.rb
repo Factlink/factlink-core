@@ -174,8 +174,8 @@ class User
     end
   end
 
-  after_invitation_accepted :approve_invited_user_and_create_activity
-  def approve_invited_user_and_create_activity
+  after_invitation_accepted :skip_confirmation_and_create_invited_activity
+  def skip_confirmation_and_create_invited_activity
     self.skip_confirmation!
     self.save
 
