@@ -3,8 +3,9 @@ popupCenter = (url, width, height, name) ->
   top = (screen.height/2)-(height/2)
   window.open(url, name, "menubar=no,toolbar=no,status=no,width=#{width},height=#{height},toolbar=no,left=#{left},top=#{top}")
 
-$(".social-services-buttons a.popup").click (e) ->
-  popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup")
+$('html').on 'click', ".social-services-buttons a.popup", (e) ->
+  element = e.toElement
+  popupCenter($(element).attr("href"), $(element).attr("data-width"), $(element).attr("data-height"), "authPopup")
   e.stopPropagation()
   e.preventDefault()
 
