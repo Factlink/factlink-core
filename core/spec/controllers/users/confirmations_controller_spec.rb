@@ -9,8 +9,8 @@ describe Users::ConfirmationsController do
   describe :show do
     render_views
 
-    it "redirects to setup page when approved" do
-      user = create :user, :approved
+    it "redirects to setup page" do
+      user = create :user
 
       get :show, confirmation_token: user.confirmation_token
 
@@ -18,7 +18,7 @@ describe Users::ConfirmationsController do
     end
 
     it "doesn't allow tokens of more than a month old" do
-      user = create :user, :approved
+      user = create :user
 
       Timecop.travel(40.days) do
         get :show, confirmation_token: user.confirmation_token
@@ -27,8 +27,8 @@ describe Users::ConfirmationsController do
       response.body.should match /Email needs to be confirmed within 1 month/
     end
 
-    it "redirects to setup page when approved, when clicking for a second time" do
-      user = create :user, :approved
+    it "redirects to setup page when clicking for a second time" do
+      user = create :user
 
       get :show, confirmation_token: user.confirmation_token
       sign_out(user)
