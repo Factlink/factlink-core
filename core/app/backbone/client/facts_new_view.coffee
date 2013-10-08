@@ -41,7 +41,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   onBeforeClose: ->
     @closeOpinionHelptext()
-    @ui.post_factlink.tooltip('destroy')
 
   renderAddToChannel: ->
     addToChannelView = new AutoCompleteChannelsView collection: @addToCollection

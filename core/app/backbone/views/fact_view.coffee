@@ -52,8 +52,6 @@ class window.FactView extends Backbone.Marionette.Layout
     if Factlink.Global.signed_in
       @setPoparrow()
 
-    @$(".authority").tooltip()
-
   newFactBottomView: ->
     new FactBottomView
       model: @model
