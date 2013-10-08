@@ -7,6 +7,9 @@ class Users::PasswordsController < Devise::PasswordsController
       @user = User.where(reset_password_token: params[:reset_password_token].to_s).first
 
       if @user
+        @user.skip_confirmation!
+        @user.save(validate: false)
+
         sign_in @user, bypass: true
         redirect_to after_sign_in_path_for(@user).to_s
       else
