@@ -14,8 +14,6 @@ class Hovermodel extends Backbone.Model
   hovered: -> @get('inTarget') || @get('inTooltip')
 
 class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
-  _closingtimeout: 500
-
   modelEvents:
     'change': '_toggleTooltip'
 
@@ -39,9 +37,9 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
     else
       @_openTooltip() if @model.hovered()
 
-  _hoverintent: ($element, property)->
+  _hoverintent: ($element, property) ->
     $element.hoverIntent
-      timeout: @_closingtimeout
+      timeout: if @options.hoverIntent then 500 else 0
       over: => @model.set property, true
       out:  => @model.set property, false
 
