@@ -3,7 +3,7 @@ class Users::PasswordsController < Devise::PasswordsController
   layout "one_column_simple"
 
   def edit
-    if params[:msg]
+    if params[:msg] # Warning! Also used for logging in unconfirmed users who request new password
       @user = User.where(reset_password_token: params[:reset_password_token].to_s).first
 
       if @user
