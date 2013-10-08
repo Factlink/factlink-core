@@ -48,11 +48,11 @@
             <span class="label label-warning">not agreed tos</span>
           <% end %>
 
-          <% if (user.suspended?) %>
+          <% if (user.suspended) %>
             <span class="label label-warning">suspended</span>
           <% end %>
 
-          <% if (user.deleted?) %>
+          <% if (user.deleted) %>
             <span class="label label-warning">deleted</span>
           <% end %>
 
