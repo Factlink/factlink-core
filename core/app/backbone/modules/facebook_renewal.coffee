@@ -3,13 +3,13 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
   class IframeView extends Backbone.Marionette.ItemView
     template:
       text: """
-        <iframe src="/auth/facebook"></iframe>
+        <iframe class="facebook_renewal_iframe" src="/auth/facebook"></iframe>
       """
 
   FacebookRenewal.addInitializer ->
     if currentUser?.get('services')['facebook']
-      checkRenewal()
-      currentUser.on 'change', checkRenewal
+      tryRenewal()
+      currentUser.on 'change', tryRenewal
 
   timeout     = null
   justRenewed = false
@@ -23,11 +23,13 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
     not justRenewed and timeToExpiry < 14*days
 
   tryRenewal = ->
-    return if timeout
-    FactlinkApp.facebookRenewalRegion.show new IframeView
+    return unless almostExpired()
+    return if timeout?
     timeout = setTimeout tryManualRenewal, 10000
+    FactlinkApp.facebookRenewalRegion.show new IframeView
 
   tryManualRenewal = ->
+    return unless almostExpired()
     justRenewed = true
     FactlinkApp.NotificationCenter.error """
       Your Facebook connection could not be automatically verified. Please verify manually.
@@ -35,9 +37,6 @@ FactlinkApp.module "FacebookRenewal", (FacebookRenewal, FactlinkApp, Backbone, M
         Verify
       </a>
     """
-
-  checkRenewal = ->
-    tryRenewal() if almostExpired()
 
   FacebookRenewal.success = ->
     clearTimeout timeout
