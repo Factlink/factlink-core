@@ -71,6 +71,7 @@ class AddedFactToTopicView extends ActivityItemView
       selector: '.js-link'
       $offsetParent: @options.$offsetParent
       stayWhenHoveringTooltip: true
+      hoverIntent: true
       tooltipViewFactory: => new TopicPopoverContentView model: @topic()
 
   topic: -> @_topic ?= new Topic(@model.get('activity').topic)
