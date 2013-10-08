@@ -120,7 +120,6 @@ class Ability
         can :access, AdminArea
         can :configure, FactlinkWebapp
         can :manage, User
-        can :approve, User
         cannot :sign_tos, User
         cannot :edit_settings, User
       end
