@@ -58,7 +58,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @options.addToCollection.trigger 'error_adding_model'
 
   switchToFactRelation: ->
-    @trigger 'switch_to_fact_relation_view', @_textModel().get('text')
+    @trigger 'switch_to_fact_relation_view'
 
     mp_track "Evidence: Switching to FactRelation"
 

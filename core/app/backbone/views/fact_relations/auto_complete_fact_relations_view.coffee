@@ -58,7 +58,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   switchToComment: ->
     @$el.removeClass 'active'
-    @trigger 'switch_to_comment_view', @model.get('text')
+    @trigger 'switch_to_comment_view'
 
     mp_track "Evidence: Switching to comment"
 
