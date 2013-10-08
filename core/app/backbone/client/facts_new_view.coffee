@@ -68,7 +68,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @renderShareNewFact()
     sometimeWhen(
       => @$el.is ":visible"
-    , => @the_tooltip.render()
+    , => @renderHints()
     )
 
   onBeforeClose: ->
@@ -101,6 +101,9 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     persistentWheelView.on 'opinionSet', =>
       @closeHints()
       parent?.remote?.trigger('opinionSet')
+
+  renderHints: ->
+    @the_tooltip.render()
 
   closeHints: ->
     @the_tooltip.close()
