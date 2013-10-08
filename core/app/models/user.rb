@@ -167,7 +167,10 @@ class User
         "receives_mailed_notifications" => "receives_mailed_notifications",
         "receives_digest" => "receives_digest",
         "location"        => "location",
-        "biography"       => "biography"
+        "biography"       => "biography",
+        "deleted"         => "deleted",
+        "suspended"       => "suspended",
+        "confirmed_at"    => "confirmed_at"
       }
     end
 
