@@ -1,36 +1,3 @@
-class Tooltip
-  constructor: ($) ->
-    @$ = $
-    @_shouldShowTooltip = true
-
-  showTooltip: ->
-    return if ( ! @_shouldShowTooltip )
-
-    if FactlinkApp.guided
-      @$('.js-opinion-animation').show();
-
-    else
-      @$('.fact-wheel').tooltip(
-        title: "What's your opinion?",
-        trigger: "manual"
-      ).tooltip('show');
-
-  close: ->
-    @_shouldShowTooltip = false
-    $(window).off 'resize.whatsyouropinion'
-    @$('.fact-wheel').off 'click.whatsyouropinion'
-    @$('.fact-wheel').tooltip('destroy')
-    @$('.js-opinion-animation').hide()
-
-  render: ->
-    @$('.fact-wheel').on 'click.whatsyouropinion', =>
-      @close()
-
-    $(window).on 'resize.whatsyouropinion', => @showTooltip();
-
-    @showTooltip()
-
-
 class window.FactsNewView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
@@ -40,10 +7,10 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   ui:
     'post_factlink': '.js-submit-post-factlink'
+    'opinion_animation': '.js-opinion-animation'
 
   events:
     'click .js-submit-post-factlink': 'post_factlink',
-    'click .fact-wheel': 'closeOpinionHelptext'
 
   regions:
     suggestedTopicsRegion: '.js-region-suggested-topics'
@@ -60,7 +27,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   initialize: ->
     @addToCollection = new OwnChannelCollection
-    @the_tooltip = new Tooltip($)
 
     @openOpinionHelptext()
 
@@ -69,13 +35,12 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @renderSuggestedChannels()
     @renderPersistentWheelView()
     @renderShareNewFact()
-    sometimeWhen(
-      => @$el.is ":visible"
-    , => @the_tooltip.render()
-    )
+
+    if FactlinkApp.guided
+      @ui.opinion_animation.show()
 
   onBeforeClose: ->
-    @the_tooltip.close()
+    @closeOpinionHelptext()
     @ui.post_factlink.tooltip('destroy')
 
   renderAddToChannel: ->
@@ -97,11 +62,14 @@ class window.FactsNewView extends Backbone.Marionette.Layout
   renderPersistentWheelView: ->
     @wheel = new Wheel
     persistentWheelView = new PersistentWheelView
-      el: @$('.fact-wheel'),
+      el: @$('.fact-wheel')
       model: @wheel
+      showsAuthorityTooltip: FactlinkApp.guided
     persistentWheelView.render()
 
-    persistentWheelView.on 'opinionSet', ->
+    persistentWheelView.on 'opinionSet', =>
+      @ui.opinion_animation.hide()
+      @closeOpinionHelptext()
       parent?.remote?.trigger('opinionSet')
 
   renderShareNewFact: ->
@@ -138,10 +106,17 @@ class window.FactsNewView extends Backbone.Marionette.Layout
         margin: 20
         popover_className: 'fact-new-opinion-popover factlink-popover'
         contentView: new Backbone.Marionette.ItemView(template: 'tour/give_your_opinion')
+    else
+      @popoverAdd '.fact-wheel',
+        side: 'top'
+        popover_className: 'translucent-dark-popover'
+        contentView: new TextView
+          model: new Backbone.Model text: "What's your opinion?"
 
   closeOpinionHelptext: ->
+    @popoverRemove('.fact-wheel')
+
     if FactlinkApp.guided
-      @popoverRemove('.fact-wheel')
       @openFinishHelptext()
 
   openFinishHelptext: ->
