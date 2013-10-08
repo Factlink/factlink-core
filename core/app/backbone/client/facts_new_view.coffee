@@ -35,13 +35,12 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @renderSuggestedChannels()
     @renderPersistentWheelView()
     @renderShareNewFact()
-    sometimeWhen(
-      => @$el.is ":visible"
-    , => @renderHints()
-    )
+
+    if FactlinkApp.guided
+      @ui.opinion_animation.show()
 
   onBeforeClose: ->
-    @closeHints()
+    @closeOpinionHelptext()
     @ui.post_factlink.tooltip('destroy')
 
   renderAddToChannel: ->
@@ -68,16 +67,9 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     persistentWheelView.render()
 
     persistentWheelView.on 'opinionSet', =>
-      @closeHints()
+      @ui.opinion_animation.hide()
+      @closeOpinionHelptext()
       parent?.remote?.trigger('opinionSet')
-
-  renderHints: ->
-    if FactlinkApp.guided
-      @ui.opinion_animation.show()
-
-  closeHints: ->
-    @closeOpinionHelptext()
-    @ui.opinion_animation.hide()
 
   renderShareNewFact: ->
     @factSharingOptions = new FactSharingOptions
