@@ -8,7 +8,7 @@ FactlinkApp.startSiteRegions = ->
     leftMiddleRegion:    '#left-column .js-left-middle-region'
 
     discussionModalRegion: '.js-discussion-modal-region'
-    facebookRenewalRegion: '#facebook_renewal_region'
+    facebookRenewalRegion: '#js-facebook-renewal-region'
 
   FactlinkApp.closeAllContentRegions = ->
     for region in ['leftTopRegion', 'leftBottomRegion', 'leftMiddleRegion', 'mainRegion']
@@ -17,4 +17,4 @@ FactlinkApp.startSiteRegions = ->
 FactlinkApp.startClientRegions = ->
   FactlinkApp.addRegions
     discussionModalRegion: '.js-discussion-modal-region'
-    facebookRenewalRegion: '#facebook_renewal_region'
+    facebookRenewalRegion: '#js-facebook-renewal-region'
