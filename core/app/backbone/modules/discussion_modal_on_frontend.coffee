@@ -10,7 +10,7 @@
 
 # WARNING: be very careful when changing this stuff, there are many edge cases!
 
-FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, MyApp, Backbone, Marionette, $, _) ->
+FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, FactlinkApp, Backbone, Marionette, $, _) ->
 
   background_page_url = null
   discussionModalContainer = null

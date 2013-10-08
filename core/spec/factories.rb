@@ -55,7 +55,11 @@ FactoryGirl.define do
 
     trait :connected_facebook do
       features [:share_to_facebook]
-      identities('facebook' => {'credentials' => {'token' => 'token'}})
+      identities('facebook' => {'credentials' => {
+        'token'      => 'token',
+        'expires_at' => (DateTime.now + 4.weeks).to_i,
+        'expires'    => true}
+      })
     end
 
     factory :full_user, traits: [

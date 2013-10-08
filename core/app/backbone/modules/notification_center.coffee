@@ -1,4 +1,4 @@
-FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, Marionette, $, _) ->
+FactlinkApp.module "NotificationCenter", (NotificationCenter, FactlinkApp, Backbone, Marionette, $, _) ->
 
   class NotificationCenter.AlertView extends Marionette.ItemView
 

@@ -6,6 +6,8 @@
 
       window.opener.document.dispatchEvent(evt);
       window.close();
+    } else if (window.parent && window.parent.FactlinkApp && window.parent.FactlinkApp.FacebookRenewal) {
+      window.parent.FactlinkApp.FacebookRenewal.success();
     } else {
       origin = '<%= request.env['omniauth.origin'] %>'
       if(origin !== ''){

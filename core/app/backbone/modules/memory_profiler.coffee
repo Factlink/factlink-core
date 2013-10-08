@@ -1,4 +1,4 @@
-FactlinkApp.module "MemoryProfiler", (MemoryProfiler, MyApp, Backbone, Marionette, $, _) ->
+FactlinkApp.module "MemoryProfiler", (MemoryProfiler, FactlinkApp, Backbone, Marionette, $, _) ->
   @on 'start', ->
     if Factlink.Global.can_haz.memory_profiling?
       MemoryProfiler.view_counts = {}
