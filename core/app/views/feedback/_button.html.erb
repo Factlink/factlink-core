@@ -6,6 +6,12 @@
   <script type="text/javascript">
     $(function(){
       $(".js-feedback-modal-link").on('click', function() {
+
+        var iframe = $('.js-feedback-modal iframe');
+
+        if (iframe.attr("src").length === 0) {
+          iframe.attr('src', "<%= feedback_index_path %>");
+        }
         $('.js-feedback-modal').fadeIn('fast');
       });
       $(".js-feedback-modal-layer").on('click', function() {
