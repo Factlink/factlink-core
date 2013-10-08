@@ -55,11 +55,15 @@ class FactBodyView extends Backbone.Marionette.ItemView
     @trunk8Init 3, '.js-displaystring', '.less' if @options.truncate
     @listenTo @model, 'change', @render
 
-  click: ->
-    if FactlinkApp.onClientApp
+  click: (e) ->
+    return unless @options.clickable
+
+    if e.metaKey or e.ctrlKey or e.altKey
+      window.open @model.get('url'), "_blank"
+    else if FactlinkApp.onClientApp
       Backbone.history.navigate @model.clientLink(), true
     else
-      FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone()
+      FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone(), e
 
   onRender: ->
     @ui.displaystring.toggleClass 'fact-body-displaystring-clickable', !!@options.clickable
