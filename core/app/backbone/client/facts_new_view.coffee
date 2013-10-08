@@ -6,9 +6,6 @@ class Tooltip
   showTooltip: ->
     return if ( ! @_shouldShowTooltip )
 
-    if FactlinkApp.guided
-      @$('.js-opinion-animation').show();
-
     else
       @$('.fact-wheel').tooltip(
         title: "What's your opinion?",
@@ -20,7 +17,6 @@ class Tooltip
     $(window).off 'resize.whatsyouropinion'
     @$('.fact-wheel').off 'click.whatsyouropinion'
     @$('.fact-wheel').tooltip('destroy')
-    @$('.js-opinion-animation').hide()
 
   render: ->
     $(window).on 'resize.whatsyouropinion', => @showTooltip();
@@ -105,8 +101,13 @@ class window.FactsNewView extends Backbone.Marionette.Layout
   renderHints: ->
     @the_tooltip.render()
 
+    if FactlinkApp.guided
+      @$('.js-opinion-animation').show();
+
   closeHints: ->
     @the_tooltip.close()
+
+    @$('.js-opinion-animation').hide()
 
   renderShareNewFact: ->
     @factSharingOptions = new FactSharingOptions
