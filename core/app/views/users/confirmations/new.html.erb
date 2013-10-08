@@ -1,7 +1,7 @@
 <h2>Resend confirmation instructions</h2>
 
 <% if @params_token %>
-<div class="alert alert-info">Your account might already be activated. Are you still on the waiting list to get approved?</div>
+<div class="alert alert-info">Your account might already be activated. Perhaps you can try to login or reset your password?</div>
 <% end %>
 
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>

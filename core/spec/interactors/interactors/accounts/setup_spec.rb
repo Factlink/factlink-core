@@ -3,21 +3,6 @@ require 'spec_helper'
 describe Interactors::Accounts::Setup do
   include PavlovSupport
 
-  before do
-    stub_const 'UserMailer', Class.new
-    UserMailer.stub welcome_instructions: double(deliver: nil)
-  end
-
-  def create_approved_user username, email
-    # method, since there is no interactor yet to do this
-    user = User.new
-    user.username = username
-    user.email = email
-    user.save validate: false
-    user.send_welcome_instructions
-    user
-  end
-
   describe 'a user with an approved account' do
     it 'resets password, sets attributes, and removes reset_password_token' do
       user = create :user, :approved

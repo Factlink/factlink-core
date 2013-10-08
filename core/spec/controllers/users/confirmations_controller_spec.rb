@@ -9,14 +9,6 @@ describe Users::ConfirmationsController do
   describe :show do
     render_views
 
-    it "shows the waiting list page" do
-      user = create :user
-
-      get :show, confirmation_token: user.confirmation_token
-
-      response.should render_template 'awaiting_approval'
-    end
-
     it "redirects to setup page when approved" do
       user = create :user, :approved
 
@@ -26,7 +18,7 @@ describe Users::ConfirmationsController do
     end
 
     it "doesn't allow tokens of more than a month old" do
-      user = create :user
+      user = create :user, :approved
 
       Timecop.travel(40.days) do
         get :show, confirmation_token: user.confirmation_token
