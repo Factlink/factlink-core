@@ -23,11 +23,18 @@ class FactUrl
     return unless @fact.site_url
 
     proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
-      "&factlink_id=" + URI.escape(@fact.id)
+      "&scrollto=" + URI.escape(@fact.id)
+  end
+
+  def proxy_open_url
+    return unless @fact.site_url
+
+    proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
+      "&open_id=" + URI.escape(@fact.id)
   end
 
   def sharing_url
-    proxy_scroll_url || friendly_fact_url
+    proxy_open_url || friendly_fact_url
   end
 
   private
