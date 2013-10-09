@@ -51,3 +51,8 @@ Factlink.modal =
       $(val).contents().unwrap()
 
   trigger: (e) -> Factlink.trigger(e)
+
+Factlink.on 'factlink.factsLoaded', ->
+  return unless FactlinkConfig.openFactlinkId?
+
+  Factlink.showInfo FactlinkConfig.openFactlinkId
