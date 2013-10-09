@@ -1,43 +1,40 @@
-FactlinkApp.module "NotificationCenter", (NotificationCenter, MyApp, Backbone, Marionette, $, _) ->
+FactlinkApp.module "NotificationCenter", (NotificationCenter, FactlinkApp, Backbone, Marionette, $, _) ->
 
   class NotificationCenter.AlertView extends Marionette.ItemView
 
-    initialize: ->
-      @$el.addClass "alert alert-#{@model.get('type')}"
+    className: 'notification-center-alert-container'
 
-    template:
-      text: "{{{message}}} <a class='close'>x</a>"
+    template: 'widgets/notification_center_alert'
 
     events:
-      "click .close": "removeSelf"
+      "click .js-close": '_destroy'
 
-    removeSelf: ->
-      @model.callback()
-      @model.destroy()
+    onRender: ->
+      @_autoHide()
 
+    _autoHide: ->
+      return unless @model.get('type') == 'success'
+
+      setTimeout (=> @_destroy()), @_autoHideTime()
+
+    _autoHideTime: -> 1000 + 50*@model.get('message').length
+
+    _destroy: ->
+      @$el.addClass 'notification-center-alert-container-hidden'
+
+      transitionTime = 500 # Keep in sync with transition in notification_center.css.less
+      setTimeout (=> @model.destroy()), transitionTime+100 # Destroy strictly after animation
 
   class NotificationCenter.AlertsView extends Marionette.CollectionView
     itemView: NotificationCenter.AlertView
 
   class NotificationCenter.Alert extends Backbone.Model
-    callback: ->
-      cb = @get('callback')
-      cb() if cb
-
   class NotificationCenter.Alerts extends Backbone.Collection
+  window.alerts = new NotificationCenter.Alerts []
 
   FactlinkApp.addRegions
-    alertsRegion: "#alerts"
+    alertsRegion: ".js-notification-center-alerts"
+  FactlinkApp.alertsRegion.show new NotificationCenter.AlertsView collection: alerts
 
-  window.alerts = new NotificationCenter.Alerts []
-  alertsView = new NotificationCenter.AlertsView collection: alerts
-
-  FactlinkApp.alertsRegion.show alertsView
-
-  alert = (type,message,callback) ->
-    alerts.add new NotificationCenter.Alert message: message, type: type, callback: callback
-
-  NotificationCenter.info    = -> alert('info',   arguments...)
-  NotificationCenter.success = -> alert('success',arguments...)
-  NotificationCenter.error   = -> alert('error',  arguments...)
-
+  NotificationCenter.success = (message) -> alerts.add new NotificationCenter.Alert message: message, type: 'success'
+  NotificationCenter.error   = (message) -> alerts.add new NotificationCenter.Alert message: message, type: 'error'

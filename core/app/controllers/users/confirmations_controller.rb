@@ -7,19 +7,25 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     self.resource = resource_class.confirm_by_token(params[:confirmation_token])
 
     if resource.errors.empty?
-      set_flash_message(:notice, :confirmed) if is_navigational_format?
+      restore_confirmation_token
 
-      if resource.approved?
-        redirect_to "/"
-      else
-        respond_with_navigational(resource){ render "awaiting_approval" }
-      end
+      sign_in(resource_name, resource)
+      redirect_to after_sign_in_path_for(resource).to_s
     else
       if params[:confirmation_token]
         @params_token = true
       end
       respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
     end
+  end
+
+  # Users can abort setting up their account, so they need to keep logging in using
+  # the confirmation token. To mitigate the associated security problems we set a token
+  # timeout using "config.confirm_within" in devise.rb
+  # Also depends on User#pending_reconfirmation?
+  def restore_confirmation_token
+    self.resource.confirmation_token = params[:confirmation_token]
+    self.resource.save!(validate: false)
   end
 
 end

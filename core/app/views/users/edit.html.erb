@@ -16,7 +16,7 @@
 </header>
 
 <div class="row" id="edit_user">
-  <div class="span8">
+  <div class="narrow-indented-block">
     <%= form_for(@user, :url => { action: :update, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }, validate: true) do |f| %>
       <fieldset>
         <legend></legend>
@@ -85,6 +85,37 @@
 
         <div class="controls">
           <%= f.submit "Save settings", class: "button button-confirm" %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+
+  <div class="narrow-indented-block edit-user-delete-container">
+
+    <%= form_for(@user, method: :delete, html: { class: "form-horizontal" }) do |f| %>
+
+      <div class="control-group">
+        <div class="controls">
+          <a class="edit-user-delete-link" href="javascript:$('.js-delete-form').toggle();">Delete account</a>
+        </div>
+      </div>
+
+      <fieldset class="js-delete-form hide">
+        <div class="controls">
+          Fill in your password to confirm deleting your account.
+        </div>
+
+        <div class="control-group">
+          <%= f.label :password, class: "control-label" %>
+          <div class="controls">
+            <%= f.password_field :password, :autocomplete => "off", required: true %>
+          </div>
+        </div>
+
+        <div class="controls">
+          <%= f.submit "Delete my entire account", class: "button button-danger" %>
+
+          <span class="help-inline">Warning: all your data will be deleted</span>
         </div>
       </fieldset>
     <% end %>

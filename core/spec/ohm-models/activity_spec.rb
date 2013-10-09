@@ -6,7 +6,7 @@ class Foo < OurOhm ;end
 describe Activity do
   let(:b1) { Blob.create }
   let(:b2) { Blob.create }
-  let(:gu) { GraphUser.create }
+  let(:gu) { create(:user).graph_user }
 
   let(:gu2) { GraphUser.create }
   let(:gu3) { GraphUser.create }
@@ -84,52 +84,49 @@ describe Activity do
   end
 
   describe "still_valid?" do
-    before :each do
-      @a = Activity.create(
-             :user => gu,
-             :action => :foo,
-             :subject => gu2,
-             :object => gu3
-           )
-      @a=Activity[@a.id]
-    end
-
-    it "should be valid for valid activity" do
-      @a.should be_still_valid
-    end
-
-    it "should not be valid if the user is deleted" do
-      gu.delete
-      @a.should_not be_still_valid
-    end
-
-    it "should not be valid if the subject is deleted" do
-      gu2.delete
-      @a.should_not be_still_valid
-    end
-
-    it "should not be valid if the object is deleted" do
-      gu3.delete
-      @a.should_not be_still_valid
+    it "should be valid for an activity with everything set" do
+      activity = Activity.create(user: gu, action: :foo, subject: gu2, object: gu3)
+      expect(activity).to be_still_valid
     end
 
     it "should be valid when the user is not set" do
-      @a = Activity.create(
-             :action => :foo,
-             :subject => gu2,
-             :object => gu3,
-           )
-      @a.should be_still_valid
+      activity = Activity.create(action: :foo, subject: gu2, object: gu3)
+      expect(activity).to be_still_valid
     end
 
     it "should be valid when the subject is unset/not set" do
-      @a.subject = nil
-      @a.should be_still_valid
+      activity = Activity.create(user: gu, action: :foo, object: gu3)
+      expect(activity).to be_still_valid
     end
 
     it "should be valid when the object is unset/not set" do
-      @a.object = nil
-      @a.should be_still_valid
+      activity = Activity.create(user: gu, action: :foo, subject: gu2)
+      expect(activity).to be_still_valid
+    end
+
+    it "should not be valid if the graph_user object is deleted" do
+      activity = Activity.create(user: gu, action: :foo)
+      gu.delete
+      expect(activity).to_not be_still_valid
+    end
+
+    it "should not be valid if the user is deleted" do
+      activity = Activity.create(user: gu, action: :foo)
+      Pavlov.command('users/mark_as_deleted', user:gu.user)
+      activity = Activity[activity.id]
+      expect(activity).to_not be_still_valid
+    end
+
+    it "should not be valid if the subject is deleted" do
+      activity = Activity.create(action: :foo, subject: gu2)
+      gu2.delete
+      expect(activity).to_not be_still_valid
+    end
+
+    it "should not be valid if the object is deleted" do
+      activity = Activity.create(action: :foo, object: gu3)
+      gu3.delete
+      expect(activity).to_not be_still_valid
     end
   end
 
@@ -196,12 +193,10 @@ describe Activity do
       end
 
       it "should leave other activities intact" do
-
         activity.add_to_list_with_score(gu.stream_activities)
         activity2.add_to_list_with_score(gu.stream_activities)
         activity.remove_from_containing_sorted_sets
         gu.stream_activities.all.should == [activity2]
-
       end
     end
     describe :delete do

@@ -6,11 +6,11 @@ describe 'When a user signs in', type: :feature do
 
     sign_in_user(user)
 
-    page.should have_content "Your account has not yet been approved"
+    page.should have_content "You have to confirm your account before continuing"
   end
 
   it 'he should be able to sign out' do
-    user = create :active_user
+    user = create :full_user
 
     sign_in_user(user)
 
@@ -26,7 +26,7 @@ describe 'When a user signs in', type: :feature do
   end
 
   it 'he should not be able to sign in with false credentials' do
-    user = create :active_user
+    user = create :full_user
 
     visit "/"
 

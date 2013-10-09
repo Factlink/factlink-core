@@ -8,7 +8,7 @@
     id: "#{form_id}_user_registration_code", value: @code %>
 
 
-  <%= f.submit "Reserve my username", class: "button button-home", 'data-disable-with' => "Reserving..." %>
+  <%= f.submit "Create account", class: "button button-home", 'data-disable-with' => "Creating..." %>
 
 <div class='success'>
   <div>
@@ -16,7 +16,4 @@
   </div>
 </div>
 
-<% end %>
-<% if @code and @code != '' %>
-  <span class="reserved">You will be placed on the priority waiting list, offered to you by <%= @code %>.</span>
 <% end %>

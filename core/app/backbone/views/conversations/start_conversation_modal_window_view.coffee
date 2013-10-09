@@ -1,6 +1,4 @@
 class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AlertMixin
-
   className: "modal-window start-conversation-modal-window"
 
   events:
@@ -18,8 +16,6 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
   template: 'conversations/start_conversation_modal_window'
 
   initialize: ->
-    @alertErrorInit ['user_not_found', 'message_empty']
-
     @options.defaultMessage ||= "Check out this Factlink!"
 
     @recipients = new Users
@@ -60,28 +56,26 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
 
     # Check for the length of `@recipients`, not `recipients`, to allow sending message to oneself
     if @recipients.length <= 0
-      @alertShow 'error'
+      @_showError()
       return
 
     recipients = _.union(@recipients.pluck('username'), [currentUser.get('username')])
 
-    conversation = new Conversation(
+    conversation = new Conversation
       recipients: recipients
       sender: currentUser.get('username')
       content: @ui.messageTextarea.val()
       fact_id: @model.id
-    )
 
-    @alertHide()
     @disableSubmit()
     conversation.save [],
       success: =>
-        @alertShow 'success'
+        FactlinkApp.NotificationCenter.success 'Your message has been sent!'
         @enableSubmit()
         @clearForm()
 
       error: (model, response) =>
-        @alertError response.responseText
+        @_showError response.responseText
         @enableSubmit()
 
   enableSubmit: ->
@@ -95,3 +89,10 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
   clearForm: ->
     @auto_complete_view.clearSearch()
     @recipients.reset []
+
+  _showError: (type) ->
+    switch type
+      when 'Content cannot be empty'
+        FactlinkApp.NotificationCenter.error 'Please enter a message.'
+      else
+        FactlinkApp.NotificationCenter.error 'Your message could not be sent, please try again.'

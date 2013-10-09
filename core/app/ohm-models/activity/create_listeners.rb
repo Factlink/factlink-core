@@ -86,17 +86,6 @@ class Activity < OurOhm
       }
     end
 
-    def forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel
-      {
-        subject_class: "Channel",
-        action: :created_channel,
-        write_ids: ->(a) do
-          followers = channel_followers_of_graph_user_minus_regular_followers(a.subject.created_by)
-          select_users_that_see_channels(reject_self(followers,a))
-        end
-      }
-    end
-
     def forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow
       {
         subject_class: "SubComment",
@@ -183,7 +172,6 @@ class Activity < OurOhm
         forGraphUser_someone_followed_your_channel,
         forGraphUser_someone_added_evidence_to_a_fact_you_follow,
         forGraphUser_comment_was_added,
-        forGraphUser_someone_of_whom_you_follow_a_channel_created_a_new_channel,
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
         forGraphUser_someone_opinionated_a_fact_you_created,
         forGraphUser_someone_added_a_fact_you_created_to_his_channel,
@@ -202,9 +190,6 @@ class Activity < OurOhm
       # This was used for the activities tab of the channel
       # however, we removed access to this view a long time ago
       create_channel_activities
-      # I don't know why this was ever added, is not used as far
-      # as I can see
-      create_fact_interactions
     end
 
     def create_channel_activities
@@ -219,18 +204,6 @@ class Activity < OurOhm
         activity object_class: "Fact",
                  action: [:added_supporting_evidence, :added_weakening_evidence],
                  write_ids: ->(a) { a.object.channels.ids }
-      end
-    end
-
-    def create_fact_interactions
-      Activity::Listener.register do
-        activity_for "Fact"
-        named :interactions
-
-        activity subject_class: "Fact",
-                 action: [:created, :believes, :disbelieves, :doubts, :removed_opinions],
-                 write_ids: ->(a) { [a.subject.id]}
-
       end
     end
   end

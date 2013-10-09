@@ -1,7 +1,6 @@
 class window.User extends Backbone.Model
   initialize: ->
     @channels = []
-    @followers = new Followers([], user: @)
     @following = new Following([], user: @)
     @favourite_topics = new FavouriteTopics([], user: @)
 
@@ -19,9 +18,12 @@ class window.User extends Backbone.Model
   is_current_user: ->
     currentUser?.get('username') == @get('username')
 
-  avatar_url: (size)->
-    md5d_email = @get('gravatar_hash')
-    "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
+  avatar_url: (size) ->
+    if(window.test_counter)
+      'about:blank'
+    else
+      md5d_email = @get('gravatar_hash')
+      "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
   stream:        -> @channel_with_id 'all_channel_id'
   created_facts: -> @channel_with_id 'created_facts_channel_id'
@@ -61,9 +63,9 @@ class window.User extends Backbone.Model
     currentUser.following.create @,
       error: =>
         currentUser.following.remove @
-        @followers.remove currentUser
+        @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
-    @followers.add currentUser.clone()
+    @set 'statistics_follower_count', @get('statistics_follower_count')+1
     @trigger 'followed'
 
   unfollow: ->
@@ -73,9 +75,9 @@ class window.User extends Backbone.Model
     self.destroy
       error: =>
         currentUser.following.add @
-        @followers.add currentUser.clone()
+        @set 'statistics_follower_count', @get('statistics_follower_count')+1
 
-    @followers.remove currentUser
+    @set 'statistics_follower_count', @get('statistics_follower_count')-1
 
   followed_by_me: ->
     currentUser.following.some (model) =>

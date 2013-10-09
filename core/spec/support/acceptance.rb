@@ -15,12 +15,12 @@ module Acceptance
   end
 
   def create_admin_and_login
-    admin = create(:admin_user)
+    admin = create(:full_user, :admin)
     sign_in_user admin
   end
 
   def make_non_tos_user_and_login
-    user = create(:approved_confirmed_user, agrees_tos: false)
+    user = create(:user, :confirmed, :set_up)
     sign_in_user(user)
   end
 
@@ -76,7 +76,7 @@ module Acceptance
   def enable_global_features(*features)
     raise "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
 
-    as(create :admin_user) do |pavlov|
+    as(create :full_user, :admin) do |pavlov|
       pavlov.interactor(:'global_features/set', features: features)
     end
   end

@@ -14,7 +14,7 @@
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   background-color: @warningBackground;
   border: 1px solid @warningBorder;
-  border-radius: 4px;
+  border-radius: @baseBorderRadius;
   color: @warningText;
 }
 .alert h4 {
@@ -38,7 +38,6 @@
   border-color: @successBorder;
   color: @successText;
 }
-.alert-danger,
 .alert-error {
   background-color: @errorBackground;
   border-color: @errorBorder;
@@ -48,20 +47,4 @@
   background-color: @infoBackground;
   border-color: @infoBorder;
   color: @infoText;
-}
-
-
-// Block alerts
-// -------------------------
-
-.alert-block {
-  padding-top: 14px;
-  padding-bottom: 14px;
-}
-.alert-block > p,
-.alert-block > ul {
-  margin-bottom: 0;
-}
-.alert-block p + p {
-  margin-top: 5px;
 }

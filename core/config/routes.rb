@@ -26,10 +26,6 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get "/factlink/intermediate" => "facts#intermediate"
 
-  # Static js micro templates
-  get "/templates/create" => "js_lib#create"
-  get "/templates/indicator" => "js_lib#indicator"
-
   # Show Facts#new as unauthenticated user to show the correct login link
   resources :facts, only: [:new, :create, :show, :destroy] do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
@@ -95,13 +91,11 @@ FactlinkUI::Application.routes.draw do
             controller: :global_feature_toggles,
             only: [:show, :update ]
 
-      resources :users, only: [:show, :edit, :update, :index] do
+      resources :users, only: [:show, :edit, :update, :index, :destroy] do
         collection do
           get :reserved
-        end
-
-        member do
-          put :approve
+          get :deleted
+          get :suspended
         end
       end
     end
@@ -123,14 +117,10 @@ FactlinkUI::Application.routes.draw do
     resources :messages, only: [:create, :show]
   end
 
-  # old conversation urls, remove before 2014
-  get "/c" => redirect("/m")
-  get "/c/:id" => redirect("/m/%{id}")
-  get "/c/:id/messages/:message_id" => redirect("/m/%{id}/messages/%{message_id}")
-
   scope "/:username" do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
+    delete "/" => "users#destroy"
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
@@ -213,6 +203,8 @@ FactlinkUI::Application.routes.draw do
   post "/p/tos"     => "tos#update",      as: "tos"
 
   scope "/p/tour" do
+    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
+    put 'setup-account' => 'users/setup#update'
     get "install-extension" => "tour#install_extension", as: "install_extension"
     get "create-your-first-factlink" => "tour#create_your_first_factlink", as: "create_your_first_factlink"
     get "interests" => "tour#interests", as: "interests"

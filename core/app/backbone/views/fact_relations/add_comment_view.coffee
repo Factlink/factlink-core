@@ -1,11 +1,10 @@
 class window.AddCommentView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
-                       Backbone.Factlink.AlertMixin
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
 
   className: 'add-comment'
   events:
     'click .js-post': 'addWithHighlight'
-    'click .js-switch-to-factlink': 'switchCheckboxClicked'
+    'click .js-switch-to-factlink': 'switchToFactRelation'
 
   template: 'comments/add_comment'
 
@@ -28,7 +27,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
     return @addModelError() unless @model.isValid()
 
-    @alertHide()
     @disableSubmit()
     @addDefaultModel highlight: true
 
@@ -56,13 +54,11 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   addModelError: ->
     @enableSubmit()
-    @alertError()
+    FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
     @options.addToCollection.trigger 'error_adding_model'
 
-  switchCheckboxClicked: (e)->
-    @trigger 'switch_to_fact_relation_view', @_textModel().get('text')
-    e.preventDefault()
-    e.stopPropagation()
+  switchToFactRelation: ->
+    @trigger 'switch_to_fact_relation_view'
 
     mp_track "Evidence: Switching to FactRelation"
 
@@ -74,7 +70,8 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
 
-  _textModel: -> @__textModel ?= new Backbone.Model text: ''
+  _textModel: -> @__textModel ?= new Backbone.Factlink.LocalStorageTextModel {},
+    key: "add_comment_to_fact_#{@options.addToCollection.fact.id}"
 
   _textAreaView: ->
     @__textAreaView ?= new Backbone.Factlink.TextAreaView

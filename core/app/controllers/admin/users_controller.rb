@@ -1,8 +1,7 @@
 class Admin::UsersController < AdminController
   helper_method :sort_column, :sort_direction
 
-  before_filter :get_activated_users,         only: [:index]
-  before_filter :get_reserved_users,          only: [:reserved]
+  before_filter :get_users,                   only: [:index]
   before_filter :set_available_user_features, only: [:edit, :update]
 
   load_and_authorize_resource except: [:create]
@@ -23,13 +22,16 @@ class Admin::UsersController < AdminController
     end
   end
 
-  def approve
-    @user.approved = true
+  def destroy
+    interactor(:'users/delete', user_id: @user.id,
+      current_user_password: params[:user][:password]) do |interaction|
 
-    if @user.save validate: false
-      render :json => {}, :status => :ok
-    else
-      render :json => @user.errors, :status => :unprocessable_entity
+      if interaction.valid?
+        interaction.call
+        redirect_to admin_users_path, notice: "The account '#{@user.username}' has been deleted."
+      else
+        redirect_to edit_admin_user_path(@user), alert: 'This account could not be deleted. Did you enter your correct password?'
+      end
     end
   end
 
@@ -47,14 +49,9 @@ class Admin::UsersController < AdminController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
-  def get_activated_users
+  def get_users
     # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
-  end
-
-  def get_reserved_users
-    # TODO eliminate to_sym on the next line. This is a DoS
-    @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
+    @users = User.order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def set_available_user_features

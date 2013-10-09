@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ConversationsController do
-  let(:user) { create :user}
+  let(:user) { create :full_user}
 
   describe :index do
     it "calls the correct query" do
@@ -67,22 +67,32 @@ describe ConversationsController do
   end
 
   describe :create do
-    it "calls the correct interactor" do
+    it "creates a conversation" do
       authenticate_user! user
 
-      other_guy = create :user
-      fact_id = 10
+      other_guy = create :full_user
+      fact = create :fact
 
-      pavlov_options = double
-      controller.stub(pavlov_options: pavlov_options)
+      get :create, fact_id: fact.id, recipients: [other_guy.username, user.username], content: 'verhaal'
+      expect(response).to be_success
 
-      users = ['henk','frits']
-      Pavlov.should_receive(:interactor)
-            .with :'create_conversation_with_message', fact_id: fact_id.to_s,
-                      recipient_usernames: users, sender_id: user.id.to_s,
-                      content: 'verhaal', pavlov_options: pavlov_options
+      user_conversations = User.find(user.id).conversations
+      other_guy_conversations = User.find(other_guy.id).conversations
+      expect(user_conversations.length).to eq 1
+      expect(other_guy_conversations.length).to eq 1
+    end
 
-      get :create, fact_id: fact_id, recipients: users, content: 'verhaal'
+    it "returns an error message when the message is incorrect" do
+      authenticate_user! user
+
+      fact = create :fact
+      content = ''
+
+      get :create, fact_id: fact.id, recipients: [user.username], content: content
+
+      expect(response).to_not be_success
+      expect(response.status).to eq 400
+      expect(response.body).to eq 'Content cannot be empty'
     end
   end
 end

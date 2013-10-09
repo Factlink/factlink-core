@@ -8,7 +8,7 @@ describe "Static pages:", type: :feature do
     end
     it "with empty submit and open feedback as expected" do
       visit "/"
-      find('.header input[value="Reserve my username"]').click
+      find('.header input[value="Create account"]').click
       find('a', text: 'Feedback').click
       within_frame 0 do
         # wait for frame to load:

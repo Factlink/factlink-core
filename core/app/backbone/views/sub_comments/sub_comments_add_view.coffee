@@ -1,6 +1,5 @@
 class window.SubCommentsAddView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin,
-                       Backbone.Factlink.AlertMixin
+  _.extend @prototype, Backbone.Factlink.AddModelToCollectionMixin
 
   className: 'discussion-evidenceish-content sub-comments-add spec-sub-comments-form'
 
@@ -29,7 +28,6 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
 
     return @addModelError() unless @model.isValid()
 
-    @alertHide()
     @disableSubmit()
     @addDefaultModel()
 
@@ -39,7 +37,7 @@ class window.SubCommentsAddView extends Backbone.Marionette.Layout
 
   addModelError: ->
     @enableSubmit()
-    @alertError()
+    FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
 
   text: -> @textModel().get('text')
   textModel: -> @_textModel ?= new Backbone.Model text: ''

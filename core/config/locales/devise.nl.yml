@@ -14,7 +14,7 @@ nl:
       invalid_token: 'Invalide authenticiteit token.'
       timeout: 'Je sessie is verlopen, log a.u.b. opnieuw in.'
       inactive: 'Je account is nog niet geactiveerd.'
-      not_approved: 'Je account is nog niet goedgekeurd.'
+      suspended: 'Je account is gedeactiveerd.'
       already_authenticated: 'Je was al ingelogd.'
     sessions:
       signed_in: ''
@@ -26,7 +26,6 @@ nl:
       send_instructions: 'Je ontvangt via e-mail instructies hoe je je account kan bevestigen.'
       confirmed: 'Je account is bevestigd.'
       signed_up_but_inactive: 'Je registratie is gelukt. Echter kunnen we je nog niet inloggen omdat je account inactief is.'
-      signed_up_but_not_approved: 'Je bent geregistreerd en staat op de wachtlijst.'
     registrations:
       signed_up: 'Je bent inschreven.'
       signed_up_but_unconfirmed: 'Je registratie is gelukt. Bevestig je e-mailadres zodat je krijgt bericht wanneer je account is geactiveerd.'
@@ -34,7 +33,6 @@ nl:
       signed_up_but_locked: 'Je registratie is gelukt. Echter kunnen we je niet inloggen omdat je account is gelocked.'
       updated: 'Je account gegevens zijn opgeslagen.'
       destroyed: 'Je account is verwijderd, wellicht tot ziens!'
-      signed_up_but_not_approved: 'Je bent geregistreerd, bevestig je emailadres om op de wachtlijst gezet te worden.'
       sign_up_failed: 'De registratie ging niet goed. Probeer het nog eens.'
     unlocks:
       send_instructions: 'Je ontvangt via e-mail instructies hoe je je account kan un-locken.'

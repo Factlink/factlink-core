@@ -99,7 +99,7 @@ class window.Wheel extends Backbone.Model
           @turnOnActiveOpinionType @previous_opinion_type
         else
           @turnOffActiveOpinionType()
-        alert "Something went wrong while setting your opinion on the Factlink, please try again."
+        FactlinkApp.NotificationCenter.error "Something went wrong while setting your opinion on the Factlink, please try again."
 
   # TODO: Use @save here!!
   unsetActiveOpinionType: ->
@@ -116,7 +116,7 @@ class window.Wheel extends Backbone.Model
         @trigger 'sync', this, response # TODO: Remove when using Backbone sync
       error: =>
         @turnOnActiveOpinionType @previous_opinion_type
-        alert "Something went wrong while removing your opinion on the Factlink, please try again."
+        FactlinkApp.NotificationCenter.error "Something went wrong while removing your opinion on the Factlink, please try again."
 
   undoOpinion: ->
     return if @previous_opinion_type == @userOpinion()
@@ -125,3 +125,8 @@ class window.Wheel extends Backbone.Model
       @setActiveOpinionType @previous_opinion_type
     else
       @unsetActiveOpinionType()
+
+  believe: -> @setActiveOpinionType 'believe'
+  disbelieve: -> @setActiveOpinionType 'disbelieve'
+  isBelieving: -> @isUserOpinion 'believe'
+  isDisBelieving: -> @isUserOpinion 'disbelieve'

@@ -25,7 +25,14 @@ if is_current_user
   json.receives_digest user.receives_digest
 
   json.services do |json|
-    json.twitter  can?(:share_to, :twitter)
-    json.facebook can?(:share_to, :facebook)
+
+    if can?(:share_to, :twitter)
+      json.twitter true
+    end
+
+    if can?(:share_to, :facebook)
+      json.facebook true
+      json.facebook_expires_at user.identities['facebook']['credentials']['expires_at']
+    end
   end
 end

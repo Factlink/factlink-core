@@ -22,14 +22,17 @@ FactoryGirl.define do
     last_name
     password '123hoi'
     password_confirmation '123hoi'
-    agrees_tos true
 
-    trait :approved do
-      approved true
+    trait :agrees_tos do
+      agrees_tos true
     end
 
     trait :confirmed do
       confirmed_at DateTime.now
+    end
+
+    trait :set_up do
+      set_up true
     end
 
     trait :seen_the_tour do
@@ -38,9 +41,6 @@ FactoryGirl.define do
     end
 
     trait :admin do
-      approved
-      confirmed
-      seen_the_tour
       admin true
     end
 
@@ -49,23 +49,23 @@ FactoryGirl.define do
     end
 
     trait :connected_twitter do
-      features [:share_to_twitter]
       identities('twitter' => {'credentials' => {'token' => 'token', 'secret' => 'secret'}})
     end
 
     trait :connected_facebook do
-      features [:share_to_facebook]
-      identities('facebook' => {'credentials' => {'token' => 'token'}})
+      identities('facebook' => {'credentials' => {
+        'token'      => 'token',
+        'expires_at' => (DateTime.now + 4.weeks).to_i,
+        'expires'    => true}
+      })
     end
 
-    factory :approved_user, traits: [:approved]
-    factory :confirmed_user, traits: [:confirmed]
-    factory :approved_confirmed_user, traits: [:approved, :confirmed]
-    factory :active_user, traits: [:approved, :confirmed, :seen_the_tour]
-    factory :admin_user, traits: [:admin]
-    factory :seeing_channels_user, traits: [:seeing_channels, :approved, :confirmed, :seen_the_tour]
-    factory :twitter_user, traits: [:approved, :confirmed, :connected_twitter]
-    factory :facebook_user, traits: [:approved, :confirmed, :connected_facebook]
+    factory :full_user, traits: [
+      :confirmed,
+      :set_up,
+      :agrees_tos,
+      :seen_the_tour
+    ]
   end
 
   sequence :displaystring do |n|
@@ -75,10 +75,6 @@ FactoryGirl.define do
   factory :fact_data do
     displaystring
     sequence(:title) {|n| "Fact title #{n}"}
-  end
-
-  factory :basefact do
-    association :created_by, :factory => :graph_user
   end
 
   factory :fact do

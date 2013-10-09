@@ -3,9 +3,9 @@ require 'spec_helper'
 describe 'user following' do
   include PavlovSupport
 
-  let(:user1) { create :user }
-  let(:user2) { create :user }
-  let(:user3) { create :user }
+  let(:user1) { create :full_user }
+  let(:user2) { create :full_user }
+  let(:user3) { create :full_user }
 
   describe 'following a user' do
     describe 'followers' do

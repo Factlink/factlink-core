@@ -61,6 +61,7 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
     self = this
     unless @_visible
       @collection.fetch
+        reset: true # Don't append models, this will break sorting and highlighting
         success: refreshAgain
         error: (collection, response)->
           if response.status is 403

@@ -4,16 +4,20 @@ require "cancan/matchers"
 describe Ability do
 
   # abilities
-  subject                { Ability.new(user)}
-  let(:anonymous)        { Ability.new}
-  let(:admin)            { Ability.new admin_user}
-  let(:nonnda)           { Ability.new nonnda_user}
+  subject                { Ability.new(user) }
+  let(:anonymous)        { Ability.new }
+  let(:admin)            { Ability.new admin_user }
+  let(:nonnda)           { Ability.new nonnda_user }
+  let(:non_set_up)       { Ability.new non_set_up_user }
 
   # users used as object
-  let(:user)        {create :active_user}
-  let(:other_user)  {create :active_user }
-  let(:admin_user)  {create :admin_user}
-  let(:nonnda_user) {create :user, agrees_tos: false}
+  let(:user)        {create :full_user }
+  let(:other_user)  {create :full_user }
+  let(:admin_user)  {create :full_user, :admin }
+  let(:nonnda_user) {create :user, agrees_tos: false, set_up: true }
+  let(:non_set_up_user) {create :user, agrees_tos: false, set_up: false }
+
+  let(:deleted_user){create :full_user, deleted: true }
 
   describe "to manage a user" do
     context "as a normal user" do
@@ -23,22 +27,41 @@ describe Ability do
       it {subject.should     be_able_to :show, user }
       it {subject.should     be_able_to :show, other_user }
       it {subject.should     be_able_to :update, user }
+      it {subject.should     be_able_to :destroy, user }
+
+      # for now, there is no way to delete it without signing the
+      # tos first, so not allowing either yet.
+      it {nonnda.should_not  be_able_to :destroy, user }
 
       it {subject.should     be_able_to :read_tos, user }
       it {subject.should_not be_able_to :sign_tos, user }
 
       it {subject.should     be_able_to :edit_settings, user }
+      it {subject.should     be_able_to :set_up, user }
 
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
+      it {subject.should_not be_able_to :destroy, other_user }
+
+      it {subject.should be_able_to :show, deleted_user}
     end
-    context "as a nonnda user" do
+    context "as a nonnda, but set-up user" do
       it {nonnda.should_not be_able_to :manage, User }
 
       it {nonnda.should_not be_able_to :update, nonnda_user }
+      it {nonnda.should     be_able_to :set_up, nonnda_user }
       it {nonnda.should     be_able_to :sign_tos, nonnda_user }
       it {nonnda.should     be_able_to :show, nonnda_user }
       it {nonnda.should_not be_able_to :show, User }
+    end
+    context "as a non set up user" do
+      it {non_set_up.should_not be_able_to :manage, User }
+
+      it {non_set_up.should_not be_able_to :update, non_set_up_user }
+      it {non_set_up.should     be_able_to :set_up, non_set_up_user }
+      it {non_set_up.should_not be_able_to :sign_tos, non_set_up_user }
+      it {non_set_up.should     be_able_to :show, non_set_up_user }
+      it {non_set_up.should_not be_able_to :show, User }
     end
     context "as an admin" do
       it {admin.should     be_able_to :manage, User }
@@ -49,10 +72,14 @@ describe Ability do
 
       it {admin.should_not be_able_to :edit_settings, user }
       it {admin.should be_able_to     :edit_settings, admin_user }
+
+      it {admin.should     be_able_to :set_up, user }
+      it {admin.should     be_able_to :set_up, admin_user }
     end
     context "as an anonymous" do
       it {anonymous.should_not be_able_to :manage, User }
 
+      it {anonymous.should_not be_able_to :set_up, user }
       it {anonymous.should_not be_able_to :sign_tos, nil }
       it {anonymous.should     be_able_to :read_tos, nil }
       it {anonymous.should_not be_able_to :show, User }
@@ -243,15 +270,7 @@ describe Ability do
       it "should be possible to share to Twitter" do
         user.identities['twitter'] = {}
 
-        subject.should_not be_able_to :share_to, :twitter
-      end
-      context "with the feature toggle enabled" do
-        it "should be possible to share to Twitter" do
-          user.identities['twitter'] = {}
-          user.features = [:share_to_twitter]
-
-          Ability.new(user).should be_able_to :share_to, :twitter
-        end
+        Ability.new(user).should be_able_to :share_to, :twitter
       end
     end
 
@@ -259,15 +278,7 @@ describe Ability do
       it "should be possible to share to Facebook" do
         user.identities['facebook'] = {}
 
-        subject.should_not be_able_to :share_to, :facebook
-      end
-      context "with the feature toggle enabled" do
-        it "should be possible to share to Facebook" do
-          user.identities['facebook'] = {}
-          user.features = [:share_to_facebook]
-
-          Ability.new(user).should be_able_to :share_to, :facebook
-        end
+        Ability.new(user).should be_able_to :share_to, :facebook
       end
     end
   end

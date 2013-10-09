@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'evidence' do
   include PavlovSupport
 
-  let(:current_user) { create :user }
+  let(:current_user) { create :full_user }
 
   before do
     ElasticSearch.stub synchronous: true

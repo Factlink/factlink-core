@@ -6,6 +6,8 @@
 
       window.opener.document.dispatchEvent(evt);
       window.close();
+    } else if (window.parent && window.parent.FactlinkApp && window.parent.FactlinkApp.FacebookRenewal) {
+      window.parent.FactlinkApp.FacebookRenewal.success();
     } else {
       origin = '<%= request.env['omniauth.origin'] %>'
       if(origin !== ''){
@@ -22,15 +24,10 @@
 <% content_for :main do %>
   <div class="content">
     <div class="container">
-      <div class="row">
-        <div class="span1"></div>
-        <div class="span7">
-          <h1>Redirecting you back to the application!</h1>
-          <p>
-            Please wait a minute.
-          </p>
-        </div>
-      </div>
+        <h1>Redirecting you back to the application!</h1>
+        <p>
+          Please wait a minute.
+        </p>
     </div>
   </div>
 <% end %>

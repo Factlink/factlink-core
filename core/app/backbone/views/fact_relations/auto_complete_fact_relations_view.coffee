@@ -2,8 +2,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-fact-relations"
 
   events:
-    "click .js-post": "addNew"
-    'click .js-switch-to-factlink': 'switchCheckboxClicked'
+    'click .js-switch-to-factlink': 'switchToComment'
 
   regions:
     'search_list': 'div.auto-complete-search-list-container'
@@ -36,53 +35,30 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   addCurrent: ->
     selected_fact_attributes = @_search_list_view.currentActiveModel().attributes
+    return unless selected_fact_attributes?
 
-    if selected_fact_attributes?
-      @addSelected(selected_fact_attributes)
-    else
-      @addNew()
-
-  addNew: ->
-    text = @model.get('text')
-
-    fact = new Fact
-      displaystring: text
-      opinion: 'believes'
-      fact_wheel: (new Wheel).toJSON()
-
-    @createFactRelation new FactRelation
-      displaystring: text
-      from_fact: fact.toJSON()
-      created_by: currentUser.toJSON()
-      type: @options.type
-
-  switchCheckboxClicked: (e) ->
-    @$el.removeClass 'active'
-    @trigger 'switch_to_comment_view', @model.get('text')
-    e.preventDefault()
-    e.stopPropagation()
-
-    mp_track "Evidence: Switching to comment"
-
-  addSelected: (selected_fact_attributes)->
     @createFactRelation new FactRelation
       evidence_id: selected_fact_attributes.id
       from_fact: selected_fact_attributes
       created_by: currentUser.toJSON()
       type: @options.type
 
+  switchToComment: ->
+    @$el.removeClass 'active'
+    @trigger 'switch_to_comment_view'
+
+    mp_track "Evidence: Switching to comment"
+
   createFactRelation: (fact_relation) ->
     return if @submitting
     @disableSubmit()
     @trigger 'createFactRelation', fact_relation, => @enableSubmit()
 
-  setQuery: (text) -> @model.set text: text
-
   focus: ->
     mp_track "Evidence: Search focus"
 
   reset: ->
-    @setQuery ''
+    @model.set text: ''
 
   queryChanges: ->
     unless @query_has_changed

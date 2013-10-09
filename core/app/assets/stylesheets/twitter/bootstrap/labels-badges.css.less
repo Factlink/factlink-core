@@ -13,9 +13,10 @@
   text-shadow: 0 -1px 0 rgba(0,0,0,.25);
   background-color: @grayLight;
   padding: 1px 4px 2px;
-  border-radius: 3px;
+  border-radius: @baseBorderRadius;
 
   &-important         { background-color: @errorText; }
   &-warning           { background-color: @orange; }
   &-success           { background-color: @successText; }
+  &-danger            { background-color: #d9534f; }
 }

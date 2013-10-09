@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="<%= browser_class_name  %>">
 <head>
   <title>Factlink modal window</title>
 
@@ -21,16 +21,19 @@
   <%= inject_special_test_code %>
 </head>
 <body class="client">
-  <div id='alerts'></div> <!-- currently doesn't work in client, but isn't used either -->
+  <div class="notification-center-alerts js-notification-center-alerts"></div>
 
   <div class="js-discussion-modal-region"><%= yield %></div>
 
   <div id='modal_region'></div>
+  <div id="js-facebook-renewal-region"></div>
   <%= javascript_include_base %>
   <%= javascript_include_extended %>
   <%= render 'snippets/raven_js' %>
 
   <script type="text/javascript">
+    <%= render 'backbone/currentUser' %>
+
     Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
     Factlink.setSignedIn(<%= (!!current_ability.signed_in?).to_s.html_safe %>);
 
@@ -41,7 +44,7 @@
     <% else %>
       FactlinkApp.guided = false;
     <% end %>
-    <%= render 'backbone/currentUser' %>
+
     Backbone.history.start({pushState: Modernizr.history});
   </script>
 

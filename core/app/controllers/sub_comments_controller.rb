@@ -6,8 +6,6 @@ class SubCommentsController < ApplicationController
       @sub_comments = interactor(:'sub_comments/index_for_fact_relation', fact_relation_id: parent_id.to_i)
     end
     render 'sub_comments/index', formats: [:json]
-  rescue Pavlov::ValidationError => e
-    render text: e.message, status: 400
   end
 
   def create
@@ -20,8 +18,8 @@ class SubCommentsController < ApplicationController
                                     content: params[:content])
     end
     render 'sub_comments/show', formats: [:json]
-  rescue Pavlov::ValidationError => e
-    render text: e.message, status: 400
+  rescue Pavlov::ValidationError
+    render text: 'something went wrong', status: 400
   end
 
   def destroy

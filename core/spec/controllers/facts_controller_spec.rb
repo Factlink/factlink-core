@@ -5,7 +5,7 @@ describe FactsController do
 
   render_views
 
-  let(:user) { create(:user) }
+  let(:user) { create(:full_user) }
 
   describe :show do
     it "should render successful" do
@@ -104,7 +104,9 @@ describe FactsController do
       fact.data.title = "baas<xss> of niet"
       fact.data.save
 
-      ability.stub can?: true
+      ability.stub can?: false
+      ability.stub(:can?).with(:show, Fact).and_return(true)
+
       should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, fact
 

@@ -3,22 +3,20 @@ require_relative '../../../app/interactors/queries/conversation_get.rb'
 require_relative '../../../app/interactors/kill_object'
 
 describe Queries::ConversationGet do
+  include PavlovSupport
 
   before do
-    stub_const 'Conversation', Class.new
-    stub_const 'Fact', Class.new
-    stub_const 'FactData', Class.new
-    stub_const 'Pavlov::ValidationError', Class.new(StandardError)
+    stub_classes 'Conversation', 'Fact', 'FactData'
   end
 
   it 'it throws when initialized without a argument' do
-    expect { described_class.new(id: '', pavlov_options: { current_user: double()}).call }.
-      to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
+    expect_validating(id: '', pavlov_options: { current_user: double()})
+      .to fail_validation 'id should be an hexadecimal string.'
   end
 
   it 'it throws when initialized with a argument that is not a hexadecimal string' do
-    expect { described_class.new(id: 'g6', pavlov_options: { current_user:double()}).call }.
-      to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
+    expect_validating(id: 'g6', pavlov_options: { current_user:double()})
+      .to fail_validation 'id should be an hexadecimal string.'
   end
 
   describe '#call' do

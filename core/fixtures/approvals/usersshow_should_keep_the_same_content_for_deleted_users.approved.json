@@ -1,0 +1,19 @@
+{
+  "id": "<STRIPPED>",
+  "name": "Deleted User",
+  "username": "anonymous_b01dfacede",
+  "gravatar_hash": "4be9a32b574a32932b4ca19c501bd4a7",
+  "statistics_created_fact_count": 0,
+  "statistics_follower_count": 0,
+  "statistics_following_count": 0,
+  "deleted": true,
+  "user_topics": [
+
+  ],
+  "graph_id": "1",
+  "location": null,
+  "biography": null,
+  "all_channel_id": "1",
+  "created_facts_channel_id": "2",
+  "is_current_user": false
+}

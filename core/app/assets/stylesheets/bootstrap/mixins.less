@@ -3,8 +3,10 @@
 @import "mixins/triangle_arrows";
 @import "mixins/new_design";
 @import "mixins/blocks";
+@import "mixins/discussion";
 
-.ellipsis() {
+.ellipsis(@max-width) {
+  max-width: @max-width;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -26,12 +28,6 @@
   -webkit-border-image: -webkit-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
   -moz-border-image:    -moz-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
   -ms-border-image:     -ms-linear-gradient(90deg, @color, fade(@color, 0)) 1 100%;
-}
-
-.button-background(@start, @stop, @angle: top) {
-    background: @start;
-    background: -webkit-linear-gradient(@angle, @stop 0%, @start 100%);
-    background: linear-gradient(@angle, @stop 0%, @start 100%);
 }
 
 .striped(@angle: 45deg, @stripeColor: rgba(255,255,255,.15)) {

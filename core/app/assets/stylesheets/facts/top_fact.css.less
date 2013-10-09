@@ -5,7 +5,6 @@
   .new-design-font();
   position: relative;
   padding: 30px 35px 25px;
-  visibility:visible;
   margin-top: 40px;
 }
 
@@ -41,11 +40,7 @@
   float: right;
   margin-top: 2px;
   color: @mutedFontColor;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 300px;
+  .ellipsis(300px);
 }
 
 .top-fact-delete {
@@ -71,7 +66,7 @@
   line-height: @informationLabelHeight;
   text-align: center;
   z-index: -1;
-  border-radius: @blockBorderRadius;
+  border-radius: @baseBorderRadius;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 

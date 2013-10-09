@@ -1,62 +1,77 @@
 @import "bootstrap/mixins";
 
-@arrow-long-side: 17px;
-@arrow-pointy-side: 11px;
-
-.popover-container {
-  z-index: 119;
+// drop `factlink-` prefix when getting rid of Bootstrap popovers
+.factlink-popover {
   position: relative;
-  .background-clip(padding-box);
-  background: white;
-  border-radius: @blockBorderRadius;
-  box-shadow: @blockBorder, 0 @factlinkPopoverShadowBottomSize 5px @factlinkPopoverShadowBottomColor;
   visibility: visible;
-  display: inline-block; // force block formatting context
+  display: inline-block;
+  z-index: 1; // force new stacking context for arrow shadow
+
+  .factlink-popover-content {
+    display: inline-block;
+    .background-clip(padding-box);
+    background: white;
+    border-radius: @baseBorderRadius;
+    box-shadow: @blockBorder, 0 @factlinkPopoverShadowBottomSize 5px @factlinkPopoverShadowBottomColor;
+  }
 
   &.bottom {
-    margin-top: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-content {
+      margin-top: @triangleSize;
+    }
+    .factlink-popover-arrow {
       .triangle-arrow-up(@factlinkPopoverArrowTopBorderColor);
-      top: 0;
+      top: @triangleSize;
     }
   }
 
   &.top {
-    margin-bottom: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-content {
+      margin-bottom: @triangleSize;
+    }
+    .factlink-popover-arrow {
       .triangle-arrow-down(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-      bottom: 0;
+      bottom: @triangleSize;
     }
   }
 
   &.left {
-    margin-right: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-content {
+      margin-right: @triangleSize;
+    }
+    .factlink-popover-arrow {
       .triangle-arrow-right(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-      right: 0;
+      right: @triangleSize;
     }
   }
 
   &.right {
-    margin-left: @arrow-pointy-side;
-    .arrow {
+    .factlink-popover-content {
+      margin-left: @triangleSize;
+    }
+    .factlink-popover-arrow {
       .triangle-arrow-left(@factlinkPopoverArrowBorderColor, @factlinkPopoverArrowBorderOffset);
-      left: 0;
+      left: @triangleSize;
     }
   }
 }
 
-.translucent-dark-popover{
-  z-index: 119;
+.translucent-dark-popover {
   position: relative;
-  background: @darkTranslucentGrey;
-  color: white;
-  border-radius: 2px;
-  padding: 9px 18px;
   visibility: visible;
+  display: inline-block;
 
-  .arrow {
-    border: floor(@arrow-long-side/2) solid transparent;
+  .factlink-popover-content {
+    display: inline-block;
+    background: @darkTranslucentGrey;
+    color: white;
+    border-radius: 2px;
+    padding: 9px 18px;
+    text-align: center;
+  }
+
+  .factlink-popover-arrow {
+    border: floor(@triangleSize) solid transparent;
     position: absolute;
     width: 2px;
     height: 2px;
@@ -65,35 +80,47 @@
   }
 
   &.top {
-    margin-top: @arrow-long-side;
-    .arrow {
+    .factlink-popover-content {
+      margin-bottom: @triangleSize;
+    }
+    .factlink-popover-arrow {
       top: 100%;
-      margin-top: 0;
-      border-top-color:@darkTranslucentGrey
+      margin-top: -@triangleSize;
+      border-top-color: @darkTranslucentGrey;
+      border-bottom: none;
     }
   }
   &.right {
-    margin-left: @arrow-long-side;
-    .arrow {
+    .factlink-popover-content {
+      margin-left: @triangleSize;
+    }
+    .factlink-popover-arrow {
       right: 100%;
-      margin-right: 0;
-      border-right-color:@darkTranslucentGrey
+      margin-right: -@triangleSize;
+      border-right-color: @darkTranslucentGrey;
+      border-left: none;
     }
   }
   &.bottom {
-    margin-top: @arrow-long-side;
-    .arrow {
+    .factlink-popover-content {
+      margin-top: @triangleSize;
+    }
+    .factlink-popover-arrow {
       bottom: 100%;
-      margin-bottom: 0;
-      border-bottom-color:@darkTranslucentGrey
+      margin-bottom: -@triangleSize;
+      border-bottom-color: @darkTranslucentGrey;
+      border-top: none;
     }
   }
   &.left {
-    margin-right: @arrow-long-side;
-    .arrow {
+    .factlink-popover-content {
+      margin-right: @triangleSize;
+    }
+    .factlink-popover-arrow {
       left: 100%;
-      margin-left: 0;
-      border-left-color:@darkTranslucentGrey
+      margin-left: -@triangleSize;
+      border-left-color: @darkTranslucentGrey;
+      border-right: none;
     }
   }
 

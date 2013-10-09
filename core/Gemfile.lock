@@ -20,16 +20,6 @@ GIT
   specs:
     rack-xframe-options (0.1.2)
 
-GIT
-  remote: git://github.com/jjoos/korsakov.git
-  revision: 72db865b99a3e8dee2840a191fe67ecd8f32ccef
-  ref: 72db865
-  specs:
-    korsakov (0.0.1)
-      activemodel (>= 3.2.7)
-      activesupport (>= 3.2.7)
-      pavlov
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -124,7 +114,7 @@ GEM
       addressable
     daemons (1.1.9)
     database_cleaner (0.9.1)
-    descendants_tracker (0.0.1)
+    descendants_tracker (0.0.3)
     devise (2.2.7)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -293,7 +283,9 @@ GEM
     parser (2.0.0.pre6)
       ast (~> 1.1)
       slop (~> 3.4, >= 3.4.5)
-    pavlov (0.1.7.1)
+    pavlov (0.1.9.0)
+      activemodel (>= 3.2.7)
+      backports (~> 3.3)
       virtus (= 0.5.5)
     poltergeist (1.3.0)
       capybara (~> 2.1.0)
@@ -476,6 +468,9 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    url_normalizer (0.0.1)
+      addressable
+      andand
     uuidtools (2.1.4)
     vegas (0.1.11)
       rack (>= 1.0.0)
@@ -527,7 +522,6 @@ DEPENDENCIES
   json (~> 1.8.0)
   koala (~> 1.7.0rc1)
   konacha (~> 3.0)
-  korsakov!
   less-rails (~> 2.3.3)
   lograge (~> 0)
   mail (~> 2.5.4)
@@ -544,7 +538,7 @@ DEPENDENCIES
   oily_png (~> 1.1)
   omniauth-facebook (~> 1.4.1)
   omniauth-twitter (= 0.0.14)
-  pavlov (= 0.1.7.1)
+  pavlov (= 0.1.9.0)
   poltergeist (~> 1.3)
   pry (~> 0)
   quiet_assets (~> 1)
@@ -582,4 +576,5 @@ DEPENDENCIES
   turbo-sprockets-rails3 (~> 0.3.9)
   twitter (~> 4.7.0)
   uglifier (~> 1.3.0)
+  url_normalizer
   yarjuf (~> 1.0)

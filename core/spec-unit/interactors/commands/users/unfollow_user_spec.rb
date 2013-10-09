@@ -3,17 +3,14 @@ require_relative '../../../../app/interactors/commands/users/unfollow_user'
 
 describe Commands::Users::UnfollowUser do
   include PavlovSupport
+  before do
+    stub_classes 'UserFollowingUsers'
+  end
 
-  describe '#execute' do
-    before do
-      described_class.any_instance.stub(validate: true)
-
-      stub_classes 'UserFollowingUsers'
-    end
-
+  describe '#call' do
     it 'calls a UserFollowingUsers.unfollow to unfollow user' do
-      graph_user_id = double
-      user_to_unfollow_graph_user_id = double
+      graph_user_id = '1'
+      user_to_unfollow_graph_user_id = '4'
       users_following_users = double
 
       UserFollowingUsers.should_receive(:new).with(graph_user_id).and_return(users_following_users)
@@ -21,7 +18,7 @@ describe Commands::Users::UnfollowUser do
 
       query = described_class.new graph_user_id: graph_user_id,
         user_to_unfollow_graph_user_id: user_to_unfollow_graph_user_id
-      query.execute
+      query.call
     end
   end
 

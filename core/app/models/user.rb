@@ -7,7 +7,7 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
-  USERNAME_MAX_LENGTH = 20
+  USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -32,7 +32,9 @@ class User
 
   field :graph_user_id
 
-  field :approved,    type: Boolean, default: false
+  field :deleted,     type: Boolean, default: false
+  field :set_up,      type: Boolean, default: false
+  field :suspended,   type: Boolean, default: false # For now this is just for users we don't want to invite yet.
 
   field :admin,       type: Boolean, default: false
 
@@ -56,7 +58,7 @@ class User
   field :invitation_message, type: String, default: ""
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
-                  :receives_digest, :email, :approved, :admin, :registration_code,
+                  :receives_digest, :email, :admin, :registration_code, :suspended,
         as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
         as: :from_tos
@@ -133,25 +135,18 @@ class User
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
+  scope :active,   where(:confirmed_at.ne => nil)
+                  .where(:set_up => true)
+                  .where(:agrees_tos => true)
+                  .where(:deleted.ne => true)
+                  .where(:suspended.ne => true)
+  scope :seen_the_tour,   active
+                            .where(:seen_tour_step => 'tour_done')
+  scope :receives_digest, active
+                            .where(:receives_digest => true)
+
+
   class << self
-    def receives_digest
-      active.where(:receives_digest => true)
-    end
-
-    def seen_the_tour
-      active.where(:seen_tour_step => 'tour_done')
-    end
-
-    def active
-      approved.
-        where(:confirmed_at.ne => nil).
-        where(:agrees_tos => true)
-    end
-
-    def approved
-      where(:approved => true)
-    end
-
     def find_for_oauth(provider_name, uid)
       where(:"identities.#{provider_name}.uid" => uid).first
     end
@@ -170,8 +165,16 @@ class User
         "receives_mailed_notifications" => "receives_mailed_notifications",
         "receives_digest" => "receives_digest",
         "location"        => "location",
-        "biography"       => "biography"
+        "biography"       => "biography",
+        "deleted"         => "deleted",
+        "suspended"       => "suspended",
+        "confirmed_at"    => "confirmed_at"
       }
+    end
+
+    def personal_information_fields
+      # Deliberately not removing agrees_tos_name for now
+      ['first_name', 'last_name', 'location', 'biography', 'twitter', 'identities']
     end
   end
 
@@ -181,21 +184,20 @@ class User
     end
   end
 
-  after_invitation_accepted :approve_invited_user_and_create_activity
-  def approve_invited_user_and_create_activity
+  after_invitation_accepted :skip_confirmation_and_create_invited_activity
+  def skip_confirmation_and_create_invited_activity
     self.skip_confirmation!
-    self.approved = true
     self.save
 
     Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
   end
 
-  def hidden
-    !active
+  def hidden?
+    !active?
   end
 
-  def active
-    approved && confirmed_at && agrees_tos
+  def active?
+    confirmed? && set_up && agrees_tos && !deleted && !suspended
   end
 
   def graph_user
@@ -299,12 +301,12 @@ class User
   # Require activated accounts to work with
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?
-    super && approved?
+    super && !deleted && !suspended
   end
 
   def inactive_message
-    if !approved?
-      :not_approved
+    if suspended
+      :suspended
     else
       super # Use whatever other message
     end
@@ -345,26 +347,25 @@ class User
   end
 
 
-  # don't send reset password instructions when the account is not approved yet
+  # don't send reset password instructions when the account is suspended
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
-    if !recoverable.approved?
-      recoverable.errors[:base] << I18n.t("devise.failure.not_approved")
+    if recoverable.suspended
+      recoverable.errors[:base] << I18n.t("devise.failure.suspended")
     elsif recoverable.persisted?
       recoverable.send_reset_password_instructions
     end
     recoverable
   end
 
-  # Welcome the user with an email when the Admin approved the account
-  def send_welcome_instructions
-    generate_reset_password_token! if should_generate_reset_token?
-    UserMailer.welcome_instructions(self.id).deliver
-  end
-
   # Override login mechanism to allow username or email logins
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
     self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
+  end
+
+  def pending_any_confirmation
+    yield # Always allow confirmation, so users can login again.
+    # Used together with ConfirmationsController#restore_confirmation_token
   end
 end

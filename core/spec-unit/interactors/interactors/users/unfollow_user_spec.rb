@@ -59,17 +59,13 @@ describe Interactors::Users::UnfollowUser do
 
   describe 'validations' do
     it 'validates user_name' do
-      interactor = described_class.new user_name: 12, user_to_unfollow_user_name: 'name'
-
-      expect{ interactor.call }.to raise_error(Pavlov::ValidationError,
-        'user_name should be a nonempty string.')
+      expect_validating(user_name: 12, user_to_unfollow_user_name: 'name')
+        .to fail_validation 'user_name should be a nonempty string.'
     end
 
     it 'validates user_name' do
-      interactor = described_class.new user_name: 'name', user_to_unfollow_user_name: 12
-
-      expect{ interactor.call }.to raise_error(Pavlov::ValidationError,
-        'user_to_unfollow_user_name should be a nonempty string.')
+      expect_validating(user_name: 'name', user_to_unfollow_user_name: 12)
+        .to fail_validation 'user_to_unfollow_user_name should be a nonempty string.'
     end
   end
 end

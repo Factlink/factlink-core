@@ -1,8 +1,8 @@
 <div class="modal-window-container js-feedback-modal">
-  <div class="modal-window feedback-frame-modal-window js-feedback-resize">
+  <div class="modal-window feedback-modal-window js-feedback-resize">
     <div class="modal-window-header">Provide us with feedback</div>
     <div class="modal-window-body">
-      <iframe src="<%= feedback_index_path %>"<%= ' class="no-user"'.html_safe unless current_user %> scrolling="no"></iframe>
+      <iframe class="feedback-iframe" data-src="<%= feedback_index_path %>"<%= ' class="no-user"'.html_safe unless current_user %> scrolling="no"></iframe>
     </div>
   </div>
   <div class="modal-window-layer js-feedback-modal-layer">

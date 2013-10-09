@@ -1,3 +1,7 @@
+<% content_for :title do %>
+  Factlink &mdash; Because the web needs what you know
+<% end %>
+
 <% content_for :sign_in_bar do %>
   <%= render "base/sign_in_bar" %>
 <% end %>
@@ -18,10 +22,10 @@
     <div class="container">
       <% if content_for?(:left_column) %>
         <div class="row">
-          <div class="span3">
+          <div class="left-column-container">
             <%= yield :left_column %>
           </div>
-          <div class="span9">
+          <div class="right-content-container">
             <%= yield :content %>
             <%= yield %>
           </div>
