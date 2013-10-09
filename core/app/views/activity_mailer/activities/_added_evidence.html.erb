@@ -1,13 +1,47 @@
-<% activity_action = (@activity.action == "added_supporting_evidence") ? :supporting : :weakening %>
+<table cellpadding="0" cellspacing="0" border="0" id="added-argument-message">
+  <tr>
+    <td colspan="2" class="added-argument-message-header">
+      <h3 class="message-title"><a href="#">If money doesn't make you happy, then you are probably not spending it right.</a></h3>
+    </td>
+  </tr>
+    <tr>
+      <td class="added-argument-timeline-container">
+        <table cellpadding="0" cellspacing="0" border="0" class="added-argument-timeline">
+          <tr>
+            <td class="timeline-left"></td>
+            <td class="timeline-right"></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="timeline-impact">
+              <div class="timeline-impact-indicator supporting">&nbsp;</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="timeline-left"></td>
+            <td class="timeline-right"></td>
+          </tr>
+        </table>
+      </td>
+      <td class="added-argument-message-container supporting">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td valign="top" class="message-user-image">
+              <img src="images/tom.jpg" width="32" height="32" />
+              <a class="user-name" href="#">Tom de Vries</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="added-argument-message-content">
+              <p>
+                Money allows people to live longer and healthier lives, to buffer themselves against worry and harm, to have leisure time to spend with family and friends, and to control the nature of their daily activities–all of which are sources of happiness.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+</table>
 
-<h2 class="activity-title">
-  <%= link_to_possibly_dead_user @activity.user.user %>
-  added a
-  <%= @activity.action == "added_supporting_evidence" ? "supporting" : "weakening" %>
-  argument to
-  <%= link_to @activity.object, friendly_fact_with_opened_tab_url(@activity.object, activity_action) %>
-</h2>
-<p class="activity-action">
-  To view the argument, visit:<br>
-  <%= link_to(friendly_fact_with_opened_tab_url(@activity.object, activity_action), friendly_fact_with_opened_tab_url(@activity.object, activity_action) ) %>
+<p align="center">
+  <a class="button" href="">Reply to this message</a>
 </p>
