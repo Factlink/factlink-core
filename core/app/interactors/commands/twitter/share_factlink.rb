@@ -14,7 +14,7 @@ module Commands
       end
 
       def quote
-        query :'facts/quote', fact: fact, max_length: maximum_quote_length
+        fact.quote.trimmed_quote(maximum_quote_length)
       end
 
       def url

@@ -19,6 +19,10 @@ DeadFact = Struct.new(
     @fact_url ||= FactUrl.new(self)
   end
 
+  def quote
+    @quote ||= FactQuote.new(self)
+  end
+
   def host # Move to site when we have a reference to DeadSite or so
     return nil if site_url.blank?
 

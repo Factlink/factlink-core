@@ -9,7 +9,7 @@ module Commands
 
       def execute
         client.put_wall_post '',
-          name: quote,
+          name: fact.quote.trimmed_quote(100),
           link: url,
           caption: caption,
           description: 'Read more',
@@ -25,10 +25,6 @@ module Commands
 
         em_dash = "\u2014"
         "#{fact.host} #{em_dash} #{fact.title}"
-      end
-
-      def quote
-        query :'facts/quote', fact: fact, max_length: 100
       end
 
       def url

@@ -1,5 +1,6 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/commands/twitter/share_factlink.rb'
+require_relative '../../../../app/classes/fact_quote.rb'
 
 describe Commands::Twitter::ShareFactlink do
   include PavlovSupport
@@ -11,7 +12,7 @@ describe Commands::Twitter::ShareFactlink do
 
     it 'posts a fact with quote and sharing url' do
       user = double
-      fact = double(id: "1")
+      fact = double(id: "1", quote: double)
       fact_url = double sharing_url: 'sharing_url'
       url_length = 20
 
@@ -21,13 +22,11 @@ describe Commands::Twitter::ShareFactlink do
             .with(:'facts/get_dead', id: fact.id)
             .and_return(fact)
 
-      Pavlov.stub(:query)
-            .with(:'facts/quote', fact: fact, max_length: 140-url_length-1)
-            .and_return('quote')
-
       FactUrl.stub(:new)
              .with(fact)
              .and_return(fact_url)
+
+      fact.quote.stub(:trimmed_quote).with(140-url_length-1).and_return('quote')
 
       Pavlov.should_receive(:command)
             .with(:'twitter/post', message: 'quote sharing_url')

@@ -1,5 +1,6 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/commands/facebook/share_factlink.rb'
+require_relative '../../../../app/classes/fact_quote.rb'
 
 describe Commands::Facebook::ShareFactlink do
   include PavlovSupport
@@ -10,8 +11,7 @@ describe Commands::Facebook::ShareFactlink do
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      fact      = double id: '1', displaystring: 'displaystring',
-                         title: 'title', host: 'example.org'
+      fact      = double id: '1', title: 'title', host: 'example.org', quote: double
       token     = double
       client    = double
       namespace = 'namespace'
@@ -41,9 +41,7 @@ describe Commands::Facebook::ShareFactlink do
                       id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      Pavlov.stub(:query)
-            .with(:'facts/quote', fact: fact, max_length: 100, pavlov_options: pavlov_options)
-            .and_return('quote')
+      fact.quote.stub(:trimmed_quote).with(100).and_return('quote')
 
       client.should_receive(:put_wall_post).with '',
         name: 'quote',
@@ -58,8 +56,7 @@ describe Commands::Facebook::ShareFactlink do
     end
 
     it 'works without a host' do
-      fact      = double id: '1', displaystring: 'displaystring',
-                         title: 'title', host: nil
+      fact      = double id: '1', title: 'title', host: nil, quote: double
       token     = double
       client    = double
       namespace = 'namespace'
@@ -89,9 +86,7 @@ describe Commands::Facebook::ShareFactlink do
                       id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      Pavlov.stub(:query)
-            .with(:'facts/quote', fact: fact, max_length: 100, pavlov_options: pavlov_options)
-            .and_return('quote')
+      fact.quote.stub(:trimmed_quote).with(100).and_return('quote')
 
       client.should_receive(:put_wall_post).with '',
         name: 'quote',
