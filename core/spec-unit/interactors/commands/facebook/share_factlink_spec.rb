@@ -11,8 +11,7 @@ describe Commands::Facebook::ShareFactlink do
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      fact      = double id: '1', title: 'title', host: 'example.org',
-                         has_site?: true, quotes: double
+      fact      = double id: '1', title: 'title', host: 'example.org', has_site?: true
       token     = double
       client    = double
       namespace = 'namespace'
@@ -42,7 +41,7 @@ describe Commands::Facebook::ShareFactlink do
                       id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      fact.quotes.stub(:trimmed_quote).with(100).and_return('quote')
+      fact.stub(:trimmed_quote).with(100).and_return('quote')
 
       client.should_receive(:put_wall_post).with '',
         name: 'quote',
@@ -57,7 +56,7 @@ describe Commands::Facebook::ShareFactlink do
     end
 
     it 'works without a host' do
-      fact      = double id: '1', title: 'title', has_site?: false, quotes: double
+      fact      = double id: '1', title: 'title', has_site?: false
       token     = double
       client    = double
       namespace = 'namespace'
@@ -87,7 +86,7 @@ describe Commands::Facebook::ShareFactlink do
                       id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      fact.quotes.stub(:trimmed_quote).with(100).and_return('quote')
+      fact.stub(:trimmed_quote).with(100).and_return('quote')
 
       client.should_receive(:put_wall_post).with '',
         name: 'quote',
