@@ -2,7 +2,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-fact-relations"
 
   events:
-    "click .js-post": "addNew"
     'click .js-switch-to-factlink': 'switchToComment'
 
   regions:
@@ -39,22 +38,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
     if selected_fact_attributes?
       @addSelected(selected_fact_attributes)
-    else
-      @addNew()
-
-  addNew: ->
-    text = @model.get('text')
-
-    fact = new Fact
-      displaystring: text
-      opinion: 'believes'
-      fact_wheel: (new Wheel).toJSON()
-
-    @createFactRelation new FactRelation
-      displaystring: text
-      from_fact: fact.toJSON()
-      created_by: currentUser.toJSON()
-      type: @options.type
 
   switchToComment: ->
     @$el.removeClass 'active'
