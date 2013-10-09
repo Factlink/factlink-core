@@ -167,7 +167,8 @@ cd js-library
 cd ..
 
 cd chef-repo
-  ./script/bootstrap
+# RSO broke the chef-repo bootstrap script, so this is currently disabled.
+#  ./script/bootstrap
 cd ..
 
 
