@@ -1,4 +1,4 @@
-class FactQuote
+class Quotes
 
   def initialize string
     @string = string

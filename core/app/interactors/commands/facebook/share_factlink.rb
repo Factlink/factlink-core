@@ -9,7 +9,7 @@ module Commands
 
       def execute
         client.put_wall_post '',
-          name: fact.quote.trimmed_quote(100),
+          name: fact.quotes.trimmed_quote(100),
           link: url,
           caption: caption,
           description: 'Read more',

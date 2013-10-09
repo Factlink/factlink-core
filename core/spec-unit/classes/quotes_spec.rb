@@ -1,11 +1,11 @@
 require 'pavlov_helper'
-require_relative '../../app/classes/fact_quote.rb'
+require_relative '../../app/classes/quotes.rb'
 
-describe FactQuote do
+describe Quotes do
   include PavlovSupport
 
   describe '#trimmed_quote' do
-    it 'returns the displaystring wrapped in quotes' do
+    it 'returns the string wrapped in quotes' do
       fact_quote = described_class.new '   displaystring    '
 
       expect(fact_quote.trimmed_quote(100)).to eq "\u201c" + "displaystring" + "\u201d"
