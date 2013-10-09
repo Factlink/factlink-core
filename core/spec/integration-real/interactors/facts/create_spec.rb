@@ -46,8 +46,12 @@ describe 'fact' do
       .with('token')
       .and_return(facebook_client)
 
-    facebook_client.should_receive(:put_connections)
-                   .with("me", "factlinktest:share", factlink: "http://localhost:3000/facts/1")
+    facebook_client.should_receive(:put_wall_post).with '',
+        name: "\u201c" + "displaystring" + "\u201d",
+        link: 'http://localhost:3000/displaystring/f/1',
+        caption: '',
+        description: 'Read more',
+        picture: 'http://cdn.factlink.com/1/fact-wheel-questionmark.png'
 
     as(facebook_user) do |pavlov|
       pavlov.interactor(:'facts/create', displaystring: displaystring, url: '', title: '', sharing_options: { facebook: true })
