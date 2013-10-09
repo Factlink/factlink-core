@@ -114,7 +114,7 @@ class Factlink.Fact
     true
 
   openFactlinkModal: (options={})=>
-    Factlink.showInfo @id, => options.success?()
+    Factlink.openFactlinkModal @id, => options.success?()
 
   destroy: ->
     for el in @elements
