@@ -8,22 +8,13 @@ module Commands
       private
 
       def execute
-        left_quotation_mark = "\u201c"
-        right_quotation_mark = "\u201d"
-        quote_with_url = left_quotation_mark + quote + right_quotation_mark + " " + url
+        quote_with_url = quote + ' ' + url
 
         command(:'twitter/post', message: quote_with_url)
       end
 
       def quote
-        long_quote = fact.displaystring.strip
-
-        if long_quote.length > maximum_quote_length
-          ellipsis = "\u2026"
-          long_quote[0...maximum_quote_length-1].strip + ellipsis
-        else
-          long_quote
-        end
+        query :'facts/quote', fact: fact, max_length: maximum_quote_length
       end
 
       def url
@@ -38,9 +29,8 @@ module Commands
         short_url_length_https = ::Twitter.configuration.short_url_length_https
         tweet_length = 140
         space_before_url = 1
-        quotation_marks = 2
 
-        tweet_length - short_url_length_https - space_before_url - quotation_marks
+        tweet_length - short_url_length_https - space_before_url
       end
 
       def validate

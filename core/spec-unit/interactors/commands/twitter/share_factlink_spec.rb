@@ -11,46 +11,26 @@ describe Commands::Twitter::ShareFactlink do
 
     it 'posts a fact with quote and sharing url' do
       user = double
-      fact = double(id: "1", displaystring: '   displaystring    ')
+      fact = double(id: "1")
       fact_url = double sharing_url: 'sharing_url'
+      url_length = 20
 
-      Twitter.stub configuration: double(short_url_length_https: 20)
+      Twitter.stub configuration: double(short_url_length_https: url_length)
 
       Pavlov.stub(:query)
             .with(:'facts/get_dead', id: fact.id)
             .and_return(fact)
 
-      FactUrl.stub(:new)
-             .with(fact)
-             .and_return(fact_url)
-
-      Pavlov.should_receive(:command)
-            .with(:'twitter/post',
-                      message: "\u201c" + "displaystring" + "\u201d" + " sharing_url")
-
-      interactor = described_class.new fact_id: fact.id
-      interactor.call
-    end
-
-    it 'trims strings that are too long and strips whitespace also for the shorter version' do
-      user = double
-      fact = double(id: "1", displaystring: '   12345   asdf  ')
-      fact_url = double sharing_url: 'sharing_url'
-
-      Twitter.stub configuration: double(short_url_length_https: 140-10)
-
       Pavlov.stub(:query)
-            .with(:'facts/get_dead',
-                      id: fact.id)
-            .and_return(fact)
+            .with(:'facts/quote', fact: fact, max_length: 140-url_length-1)
+            .and_return('quote')
 
       FactUrl.stub(:new)
              .with(fact)
              .and_return(fact_url)
 
       Pavlov.should_receive(:command)
-            .with(:'twitter/post',
-                      message: "\u201c" + "12345" + "\u2026" + "\u201d" + " sharing_url")
+            .with(:'twitter/post', message: 'quote sharing_url')
 
       interactor = described_class.new fact_id: fact.id
       interactor.call
