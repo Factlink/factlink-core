@@ -23,7 +23,7 @@ class FactUrl
     return unless @fact.site_url
 
     proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
-      "&scrollto=" + URI.escape(@fact.id)
+      "&factlink_id=" + URI.escape(@fact.id)
   end
 
   def sharing_url
