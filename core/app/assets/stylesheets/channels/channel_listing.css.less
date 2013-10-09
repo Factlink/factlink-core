@@ -11,34 +11,31 @@
     line-height: @baseLineHeight;
     .box-sizing(border-box);
     position: relative;
+    border-left: @color-width solid transparent;
 
     .sidebar-item-link {
       text-shadow: 0px 1px 0px @white;
       width: 100%;
       display: block;
-      padding: 3px 0 3px @margin-left;
+      padding: 3px 0 3px 9px;
       border: 1px solid transparent;
+      border-left: none;
+      .ellipsis(160px);
+
+      i {
+        vertical-align: -10%; // Works well both in Chrome and FF
+      }
     }
 
-    .sidebar-item-text {
-      margin-left: 22px;
-      display: inline-block;
-      .ellipsis(120px);
-    }
-
-    .sidebar-item-icon {
-      position: absolute;
-      top: 6px;
+    .sidebar-item-no-icon {
+      padding-left: 33px;
     }
 
     &.active {
-      background: @linkColor;
+      border-left: @color-width solid @linkColor;
 
       .sidebar-item-link {
         background: white;
-
-        margin-left: @color-width;
-        padding-left: @margin-left - @color-width + 1px; // 1px for border
 
         border: 1px solid @baseBorderColor;
         border-left: none;
