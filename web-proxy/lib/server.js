@@ -61,8 +61,11 @@ function getServer(config) {
       var fbb = '<script>window.self = window.top;</script>';
       html = html.replace(/<head?[^\>]+>/i, '$&' + fbb);
 
-      if (factlinkId !== undefined && !isNaN(parseInt(factlinkId, 10))) {
-        FactlinkConfig.openFactlinkId = parseInt(factlinkId, 10);
+      var actions = 'FACTLINK.startHighlighting(); FACTLINK.startAnnotating();';
+
+      factlinkId = parseInt(factlinkId, 10);
+      if (!isNaN(factlinkId)) {
+        actions = 'FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.scrollTo(' + factlinkId + ');FACTLINK.openFactlinkModal(' + factlinkId + '); });' + actions;
       }
 
       // Inject Factlink library at the end of the file
@@ -71,7 +74,7 @@ function getServer(config) {
       var inject_string = '<!-- this comment is to accommodate for pages that end in an open comment! -->' +
                           '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>' +
                           '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
-                          '<script>FACTLINK.startHighlighting(); FACTLINK.startAnnotating();</script>' +
+                          '<script>' + actions + '</script>' +
                           '<script>window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + '</script>' +
                           '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
 
