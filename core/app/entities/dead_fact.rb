@@ -19,7 +19,7 @@ DeadFact = Struct.new(
     @fact_url ||= FactUrl.new(self)
   end
 
-  def host
+  def host # Move to site when we have a reference to DeadSite or so
     URI.parse(site_url).host
   end
 
