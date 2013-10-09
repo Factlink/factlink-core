@@ -11,7 +11,6 @@
       $(".js-feedback-modal-link").on('click', function() {
         function showFeedbackFrame () {
           iframeLoaded = true;
-          console.log('loaded iframe');
           $modal.fadeIn('fast');
           $iframe[0].contentWindow.updateHeight();
         }
