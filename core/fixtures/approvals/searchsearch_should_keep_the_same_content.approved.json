@@ -69,7 +69,7 @@
         }
       },
       "fact_url": "http://example.org/1.html",
-      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
+      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&factlink_id=1",
       "timestamp": 0,
       "evidence_count": 0
     }
