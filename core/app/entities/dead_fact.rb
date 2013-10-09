@@ -24,9 +24,13 @@ DeadFact = Struct.new(
   end
 
   def host # Move to site when we have a reference to DeadSite or so
-    return nil if site_url.blank?
+    return '' unless has_site?
 
     URI.parse(site_url).host
+  end
+
+  def has_site?
+    !site_url.blank?
   end
 
 end

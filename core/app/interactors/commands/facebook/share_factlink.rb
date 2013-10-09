@@ -21,7 +21,7 @@ module Commands
       end
 
       def caption
-        return '' unless fact.host
+        return '' unless fact.has_site?
 
         em_dash = "\u2014"
         "#{fact.host} #{em_dash} #{fact.title}"

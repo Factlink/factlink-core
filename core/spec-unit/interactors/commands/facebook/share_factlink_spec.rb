@@ -11,7 +11,8 @@ describe Commands::Facebook::ShareFactlink do
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      fact      = double id: '1', title: 'title', host: 'example.org', quote: double
+      fact      = double id: '1', title: 'title', host: 'example.org',
+                         has_site?: true, quote: double
       token     = double
       client    = double
       namespace = 'namespace'
@@ -56,7 +57,7 @@ describe Commands::Facebook::ShareFactlink do
     end
 
     it 'works without a host' do
-      fact      = double id: '1', title: 'title', host: nil, quote: double
+      fact      = double id: '1', title: 'title', has_site?: false, quote: double
       token     = double
       client    = double
       namespace = 'namespace'
