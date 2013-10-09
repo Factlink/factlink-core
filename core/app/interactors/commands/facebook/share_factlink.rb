@@ -8,18 +8,23 @@ module Commands
       private
 
       def execute
-        em_dash = "\u2014"
-
         client.put_wall_post '',
           name: quote,
           link: url,
-          caption: "#{fact.host} #{em_dash} #{fact.title}",
+          caption: caption,
           description: 'Read more',
           picture: 'http://cdn.factlink.com/1/fact-wheel-questionmark.png'
       end
 
       def token
         pavlov_options[:current_user].identities['facebook']['credentials']['token']
+      end
+
+      def caption
+        return '' unless fact.host
+
+        em_dash = "\u2014"
+        "#{fact.host} #{em_dash} #{fact.title}"
       end
 
       def quote
