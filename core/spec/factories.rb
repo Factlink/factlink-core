@@ -49,12 +49,10 @@ FactoryGirl.define do
     end
 
     trait :connected_twitter do
-      features [:share_to_twitter]
       identities('twitter' => {'credentials' => {'token' => 'token', 'secret' => 'secret'}})
     end
 
     trait :connected_facebook do
-      features [:share_to_facebook]
       identities('facebook' => {'credentials' => {
         'token'      => 'token',
         'expires_at' => (DateTime.now + 4.weeks).to_i,
