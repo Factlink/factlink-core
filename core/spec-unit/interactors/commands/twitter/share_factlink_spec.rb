@@ -11,7 +11,6 @@ describe Commands::Twitter::ShareFactlink do
     end
 
     it 'posts a fact with quote and sharing url' do
-      user = double
       fact = double(id: "1", quote: double)
       fact_url = double sharing_url: 'sharing_url'
       url_length = 20
