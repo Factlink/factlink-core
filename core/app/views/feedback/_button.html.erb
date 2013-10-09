@@ -1,32 +1,3 @@
 <div id="feedback_button">
   <a class="feedback js-feedback-modal-link" href="javascript:void(0)" role="button" title="feedback and support">Feedback</a>
 </div>
-
-<% content_for :specific_javascript do %>
-  <script type="text/javascript">
-    $(function(){
-      var $modal = $('.js-feedback-modal');
-      var $iframe = $('.js-feedback-modal iframe');
-      var iframeIsLoaded = false;
-      $(".js-feedback-modal-link").on('click', function() {
-        function showLoadedFeedbackFrame () {
-          iframeIsLoaded = true;
-          $modal.fadeIn('fast');
-          $iframe[0].contentWindow.updateHeight();
-        }
-        if(!$iframe.attr('src')) {
-          $iframe.load(showLoadedFeedbackFrame);
-          $iframe.attr('src', $iframe.attr('data-src'));
-        } else if(iframeIsLoaded)
-          showLoadedFeedbackFrame();
-        //if src is set but NOT loaded: still loading -> do nothing since handler's already registered.
-      });
-      $(".js-feedback-modal-layer").on('click', function() {
-        $modal.fadeOut('fast', function() {
-          if(iframeIsLoaded)
-            $iframe[0].contentWindow.onCloseFrame();
-        });
-      });
-    });
-  </script>
-<% end %>
