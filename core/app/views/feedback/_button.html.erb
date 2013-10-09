@@ -7,23 +7,23 @@
     $(function(){
       var $modal = $('.js-feedback-modal');
       var $iframe = $('.js-feedback-modal iframe');
-      var iframeLoaded = false;
+      var iframeIsLoaded = false;
       $(".js-feedback-modal-link").on('click', function() {
-        function showFeedbackFrame () {
-          iframeLoaded = true;
+        function showLoadedFeedbackFrame () {
+          iframeIsLoaded = true;
           $modal.fadeIn('fast');
           $iframe[0].contentWindow.updateHeight();
         }
         if(!$iframe.attr('src')) {
-          $iframe.load(showFeedbackFrame);
+          $iframe.load(showLoadedFeedbackFrame);
           $iframe.attr('src', $iframe.attr('data-src'));
-        } else if(iframeLoaded)
-          showFeedbackFrame();
+        } else if(iframeIsLoaded)
+          showLoadedFeedbackFrame();
         //if src is set but NOT loaded: still loading -> do nothing since handler's already registered.
       });
       $(".js-feedback-modal-layer").on('click', function() {
         $modal.fadeOut('fast', function() {
-          if(iframeLoaded)
+          if(iframeIsLoaded)
             $iframe[0].contentWindow.onCloseFrame();
         });
       });
