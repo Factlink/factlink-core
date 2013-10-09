@@ -54,13 +54,11 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @disableSubmit()
     @trigger 'createFactRelation', fact_relation, => @enableSubmit()
 
-  setQuery: (text) -> @model.set text: text
-
   focus: ->
     mp_track "Evidence: Search focus"
 
   reset: ->
-    @setQuery ''
+    @model.set text: ''
 
   queryChanges: ->
     unless @query_has_changed
