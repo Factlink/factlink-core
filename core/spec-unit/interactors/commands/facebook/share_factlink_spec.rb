@@ -41,8 +41,12 @@ describe Commands::Facebook::ShareFactlink do
                       id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
+      Pavlov.stub(:query)
+            .with(:'facts/quote', fact: fact, max_length: 100, pavlov_options: pavlov_options)
+            .and_return('quote')
+
       client.should_receive(:put_wall_post).with '',
-        name: "\u201c" + 'displaystring' + "\u201d",
+        name: 'quote',
         link: 'sharing_url',
         caption: "example.org \u2014 title",
         description: 'Read more',

@@ -8,12 +8,10 @@ module Commands
       private
 
       def execute
-        left_quotation_mark = "\u201c"
-        right_quotation_mark = "\u201d"
         em_dash = "\u2014"
 
         client.put_wall_post '',
-          name: left_quotation_mark + fact.displaystring + right_quotation_mark,
+          name: quote,
           link: url,
           caption: "#{host} #{em_dash} #{fact.title}",
           description: 'Read more',
@@ -22,6 +20,10 @@ module Commands
 
       def token
         pavlov_options[:current_user].identities['facebook']['credentials']['token']
+      end
+
+      def quote
+        query :'facts/quote', fact: fact, max_length: 100
       end
 
       def host
