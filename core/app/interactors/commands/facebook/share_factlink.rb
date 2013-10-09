@@ -13,7 +13,7 @@ module Commands
         client.put_wall_post '',
           name: quote,
           link: url,
-          caption: "#{host} #{em_dash} #{fact.title}",
+          caption: "#{fact.host} #{em_dash} #{fact.title}",
           description: 'Read more',
           picture: 'http://cdn.factlink.com/1/fact-wheel-questionmark.png'
       end
@@ -24,10 +24,6 @@ module Commands
 
       def quote
         query :'facts/quote', fact: fact, max_length: 100
-      end
-
-      def host
-        @host ||= URI.parse(fact.site_url).host
       end
 
       def url

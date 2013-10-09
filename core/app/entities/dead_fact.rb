@@ -19,4 +19,8 @@ DeadFact = Struct.new(
     @fact_url ||= FactUrl.new(self)
   end
 
+  def host
+    URI.parse(site_url).host
+  end
+
 end

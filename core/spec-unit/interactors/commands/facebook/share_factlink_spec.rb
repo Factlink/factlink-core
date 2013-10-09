@@ -11,7 +11,7 @@ describe Commands::Facebook::ShareFactlink do
   describe '#call' do
     it 'should share a Factlink to Facebook' do
       fact      = double id: '1', displaystring: 'displaystring',
-                         title: 'title', site_url: 'http://example.org'
+                         title: 'title', host: 'example.org'
       token     = double
       client    = double
       namespace = 'namespace'
