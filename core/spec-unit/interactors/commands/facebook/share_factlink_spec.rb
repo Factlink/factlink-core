@@ -5,15 +5,17 @@ describe Commands::Facebook::ShareFactlink do
   include PavlovSupport
 
   before do
-    stub_classes 'Koala::Facebook::API'
+    stub_classes 'Koala::Facebook::API', 'FactUrl'
   end
 
   describe '#call' do
     it 'should share a Factlink to Facebook' do
-      fact      = double id: '1', url: double(fact_url: 'fact_url')
+      fact      = double id: '1', displaystring: 'displaystring',
+                         title: 'title', site_url: 'http://example.org'
       token     = double
       client    = double
       namespace = 'namespace'
+      fact_url = double sharing_url: 'sharing_url'
 
       identities = {
         'facebook' =>  {
@@ -30,13 +32,21 @@ describe Commands::Facebook::ShareFactlink do
                           .with(token)
                           .and_return(client)
 
+      FactUrl.stub(:new)
+             .with(fact)
+             .and_return(fact_url)
+
       Pavlov.stub(:query)
             .with(:'facts/get_dead',
                       id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      client.should_receive(:put_connections)
-            .with("me", "#{namespace}:share", factlink: fact.url.fact_url)
+      client.should_receive(:put_wall_post).with '',
+        name: "\u201c" + 'displaystring' + "\u201d",
+        link: 'sharing_url',
+        caption: "example.org \u2014 title",
+        description: 'Read more',
+        picture: 'http://cdn.factlink.com/1/fact-wheel-questionmark.png'
 
       command = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
 
