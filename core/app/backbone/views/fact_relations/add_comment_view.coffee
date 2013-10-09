@@ -70,7 +70,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @submitting = true
     @ui.submit.prop('disabled',true ).text('Posting...')
 
-  _textModel: -> @__textModel ?= new Backbone.Model text: ''
+  _textModel: -> @__textModel ?= new Backbone.Factlink.LocalStorageTextModel {}, key: 'add_comment'
 
   _textAreaView: ->
     @__textAreaView ?= new Backbone.Factlink.TextAreaView
