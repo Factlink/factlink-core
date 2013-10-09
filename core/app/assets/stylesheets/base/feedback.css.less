@@ -3,60 +3,44 @@
 @import "bootstrap/mixins";
 
 @feedback_frame_width: 430px;
-@feedback_frame_height: 290px;
-@feedback_frame_height_no_user: 368px;
 
-.modal-window.feedback-frame-modal-window {
-	width: 435px;
-	margin-left: -217.5px;
-	padding: 0;
-	position: fixed;
-	top: 50%;
-	left: 50%;
+.modal-window.feedback-modal-window {
+  width: @feedback_frame_width;
+  margin-left: (-@feedback_frame_width / 2);
+  position: fixed;
 
-	.modal-window-body {
-		padding: 0;
-    max-height: @feedback_frame_height_no_user;
+  .modal-window-body {
+    max-height: none;
     overflow: hidden;
-
-		iframe {
-			width: @feedback_frame_width;
-			height: @feedback_frame_height;
-			border: none;
-
-			&.no-user {
-				height: @feedback_frame_height_no_user;
-			}
-		}
-	}
+  }
 }
 
-body.feedback_form {
-	background: #fff;
-	padding: 7px 11px;
-	min-width: 0;
-	height:auto;
+.feedback-iframe {
+  width: 100%;
+  border: none;
+}
 
-	.hidden {
-		display: none;
-	}
+.feedback_form { //within an iframe!
+  background: #fff;
+  min-width: 0;
+  height:auto;
 
-	form {
-		margin: 0;
-    overflow: hidden;
+  form {
+    .clearfix();
+    margin: 0;
 
-		input[type=text], textarea {
-			display: block;
-			width: 100%;
-		}
+    input[type=text], textarea {
+      display: block;
+      width: 100%;
+    }
 
-		textarea {
-			height: 145px;
+    textarea {
+      height: 145px;
       margin-bottom: 10px;
-		}
+    }
 
-		.submit {
-			float: right;
-		}
-	}
+    .submit {
+      float: right;
+    }
+  }
 }
