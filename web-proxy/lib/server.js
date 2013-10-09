@@ -46,7 +46,7 @@ function getServer(config) {
   /**
    * Add base url and inject proxy.js, and return the proxied site
    */
-  function injectFactlinkJs(html_in, site, factlinkId, successFn) {
+  function injectFactlinkJs(html_in, site, scrollto, open_id, successFn) {
     var FactlinkConfig = {
       api: config.API_URL,
       lib: config.LIB_URL,
@@ -63,9 +63,15 @@ function getServer(config) {
 
       var actions = 'FACTLINK.startHighlighting(); FACTLINK.startAnnotating();';
 
-      factlinkId = parseInt(factlinkId, 10);
-      if (!isNaN(factlinkId)) {
-        actions = 'FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.scrollTo(' + factlinkId + ');FACTLINK.openFactlinkModal(' + factlinkId + '); });' + actions;
+      open_id = parseInt(open_id, 10);
+      if (!isNaN(open_id)) {
+        actions = 'FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.openFactlinkModal(' + open_id + '); });' + actions;
+        scrollto = open_id; // Also scroll to the factlink
+      }
+
+      scrollto = parseInt(scrollto, 10);
+      if (!isNaN(scrollto)) {
+        actions = 'FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.scrollTo(' + scrollto + '); });' + actions;
       }
 
       // Inject Factlink library at the end of the file
@@ -84,7 +90,7 @@ function getServer(config) {
     });
   }
 
-  function handleProxyRequest(res, url, factlinkId, form_hash) {
+  function handleProxyRequest(res, url, scrollto, open_id, form_hash) {
     if ( typeof url !== "string" || url.length === 0) {
       renderWelcomePage(res);
       return;
@@ -97,15 +103,15 @@ function getServer(config) {
           if(err) {
             renderErrorPage(res, url);
           } else {
-            renderProxiedPage(res, site, factlinkId, str);
+            renderProxiedPage(res, site, scrollto, open_id, str);
           }
         });
       }
     }
   }
 
-  function renderProxiedPage(res, site, factlinkId, html_in) {
-    injectFactlinkJs(html_in, site, factlinkId, function(html) {
+  function renderProxiedPage(res, site, scrollto, open_id, html_in) {
+    injectFactlinkJs(html_in, site, scrollto, open_id, function(html) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(html);
       res.end();
@@ -171,9 +177,10 @@ function getServer(config) {
    *  Inject Factlink in regular get requests
    */
   function get_parse(req, res) {
-    var site        = req.query.url;
-    var factlinkId  = req.query.factlink_id || req.query.scrollto; // TODO: scrollto is deprectaded, remove in due time
-    handleProxyRequest(res, site, factlinkId, {});
+    var site     = req.query.url;
+    var scrollto = req.query.scrollto;
+    var open_id  = req.query.open_id;
+    handleProxyRequest(res, site, scrollto, open_id, {});
   }
 
   /**
@@ -186,7 +193,7 @@ function getServer(config) {
     var site      = form_hash.factlinkFormUrl;
     delete form_hash.factlinkFormUrl;
 
-    handleProxyRequest(res, site, undefined, {
+    handleProxyRequest(res, site, undefined, undefined, {
       'query': form_hash
     });
   }
