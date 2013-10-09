@@ -8,18 +8,34 @@ module Commands
       private
 
       def execute
-        client.put_connections("me", "#{namespace}:share", factlink: fact.url.fact_url)
+        client.put_wall_post '',
+          name: fact.trimmed_quote(100),
+          link: url,
+          caption: caption,
+          description: 'Read more',
+          picture: 'http://cdn.factlink.com/1/facebook-factwheel-logo.png'
       end
 
       def token
         pavlov_options[:current_user].identities['facebook']['credentials']['token']
       end
 
+      def caption
+        return '' unless fact.has_site?
+
+        em_dash = "\u2014"
+        "#{fact.host} #{em_dash} #{fact.title}"
+      end
+
+      def url
+        @url ||= ::FactUrl.new(fact).sharing_url
+      end
+
       def fact
         @fact ||= query(:'facts/get_dead', id: fact_id)
       end
 
-      def namespace
+      def namespace # kept around for when we switch back to OpenGraph sharing
         pavlov_options[:facebook_app_namespace]
       end
 

@@ -171,18 +171,14 @@ class Ability
     identities = user.identities || {}
 
     can :share, Fact
-    if identities['twitter'] and can?(:see_feature_share_to_twitter, FactlinkWebapp)
-      can :share_to, :twitter
-    end
-    if identities['facebook'] and can?(:see_feature_share_to_facebook, FactlinkWebapp)
-      can :share_to, :facebook
-    end
+
+    can :share_to, :twitter  if identities['twitter']
+    can :share_to, :facebook if identities['facebook']
   end
 
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
-    sees_channels share_new_factlink_buttons
-    share_to_twitter share_to_facebook
+    sees_channels
   )
 
   def enabled_global_features
