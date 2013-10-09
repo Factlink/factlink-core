@@ -2,13 +2,13 @@ module Acceptance
   module CommentHelper
       def toggle_to_comment
         within '.add-evidence-form' do
-          page.find('.js-switch-to-factlink').set false
+          page.find('.js-switch-to-factlink').click
         end
       end
 
       def toggle_to_factlink
         within '.add-evidence-form' do
-          page.find('.js-switch-to-factlink').set true
+          page.find('.js-switch-to-factlink').click
         end
       end
 
