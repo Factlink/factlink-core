@@ -1,10 +1,10 @@
 $ ->
   $modal = $('.js-feedback-modal')
   $iframe = $('.js-feedback-modal iframe')
-  iframeIsLoaded = false
+  feedbackWasOpened = false
 
   openFeedbackFrame = ->
-    iframeIsLoaded = true
+    feedbackWasOpened = true
     $modal.fadeIn('fast')
     $iframe[0].contentWindow.updateHeight()
 
@@ -12,10 +12,10 @@ $ ->
     if !$iframe.attr('src')
       $iframe.attr('src', $iframe.attr('data-src'))
       $iframe.load(openFeedbackFrame)
-    else if iframeIsLoaded
+    else if feedbackWasOpened
       openFeedbackFrame()
 
   $(".js-feedback-modal-layer").on 'click', ->
     $modal.fadeOut 'fast', ->
-      if iframeIsLoaded
+      if feedbackWasOpened
         $iframe[0].contentWindow.onCloseFrame()
