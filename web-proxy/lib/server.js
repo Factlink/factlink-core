@@ -46,7 +46,7 @@ function getServer(config) {
   /**
    * Add base url and inject proxy.js, and return the proxied site
    */
-  function injectFactlinkJs(html_in, site, scrollto, successFn) {
+  function injectFactlinkJs(html_in, site, factlinkId, successFn) {
     var FactlinkConfig = {
       api: config.API_URL,
       lib: config.LIB_URL,
@@ -61,8 +61,8 @@ function getServer(config) {
       var fbb = '<script>window.self = window.top;</script>';
       html = html.replace(/<head?[^\>]+>/i, '$&' + fbb);
 
-      if (scrollto !== undefined && !isNaN(parseInt(scrollto, 10))) {
-        FactlinkConfig.scrollto = parseInt(scrollto, 10);
+      if (factlinkId !== undefined && !isNaN(parseInt(factlinkId, 10))) {
+        FactlinkConfig.openFactlinkId = parseInt(factlinkId, 10);
       }
 
       // Inject Factlink library at the end of the file
@@ -81,7 +81,7 @@ function getServer(config) {
     });
   }
 
-  function handleProxyRequest(res, url, scrollto, form_hash) {
+  function handleProxyRequest(res, url, factlinkId, form_hash) {
     if ( typeof url !== "string" || url.length === 0) {
       renderWelcomePage(res);
       return;
@@ -94,15 +94,15 @@ function getServer(config) {
           if(err) {
             renderErrorPage(res, url);
           } else {
-            renderProxiedPage(res, site, scrollto, str);
+            renderProxiedPage(res, site, factlinkId, str);
           }
         });
       }
     }
   }
 
-  function renderProxiedPage(res, site, scrollto, html_in) {
-    injectFactlinkJs(html_in, site, scrollto, function(html) {
+  function renderProxiedPage(res, site, factlinkId, html_in) {
+    injectFactlinkJs(html_in, site, factlinkId, function(html) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(html);
       res.end();
@@ -168,9 +168,9 @@ function getServer(config) {
    *  Inject Factlink in regular get requests
    */
   function get_parse(req, res) {
-    var site      = req.query.url;
-    var scrollto  = req.query.scrollto;
-    handleProxyRequest(res, site, scrollto, {});
+    var site        = req.query.url;
+    var factlinkId  = req.query.factlink_id || req.query.scrollto; // TODO: scrollto is deprectaded, remove in due time
+    handleProxyRequest(res, site, factlinkId, {});
   }
 
   /**
