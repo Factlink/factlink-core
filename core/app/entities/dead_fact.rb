@@ -20,7 +20,7 @@ DeadFact = Struct.new(
   end
 
   def quote
-    @quote ||= FactQuote.new(self)
+    @quote ||= FactQuote.new(displaystring)
   end
 
   def host # Move to site when we have a reference to DeadSite or so

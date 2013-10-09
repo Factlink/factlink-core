@@ -1,7 +1,7 @@
 class FactQuote
 
-  def initialize fact
-    @fact = fact
+  def initialize string
+    @string = string
   end
 
   def trimmed_quote max_length
@@ -14,7 +14,7 @@ class FactQuote
   private
 
   def inner_quote max_length
-    long_quote = @fact.displaystring.strip
+    long_quote = @string.strip
 
     if long_quote.length > max_length
       ellipsis = "\u2026"
