@@ -59,17 +59,6 @@ module Acceptance
         wait_until_add_buttons_appear
       end
 
-      def add_new_factlink type, text
-        open_add_type type
-        toggle_to_factlink unless posting_factlink?
-
-        within '.add-evidence-form' do
-          page.find("input[type=text]").set(text)
-          page.find("button", text: "Post Factlink").click
-        end
-        wait_until_add_buttons_appear
-      end
-
       def wait_until_add_buttons_appear
         page.find('.js-supporting-button')
       end

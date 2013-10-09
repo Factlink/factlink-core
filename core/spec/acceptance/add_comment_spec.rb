@@ -93,11 +93,11 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     comment1 = 'Buffels zijn niet klein te krijgen joh'
-    factlink2 = 'Henk ook niet'
+    factlink2 = backend_create_fact
     comment3 = 'Geert is een baas'
 
     add_comment :supporting, comment1
-    add_new_factlink :supporting, factlink2
+    add_existing_factlink :supporting, factlink2
     add_comment :supporting, comment3
 
     # make sure sorting is done:
@@ -115,7 +115,7 @@ feature "adding comments to a fact", type: :feature do
 
     within_evidence_list do
       items = all '.evidence-votable', visible: false
-      expect(items[0].text).to match (Regexp.new factlink2)
+      expect(items[0].text).to match (Regexp.new factlink2.to_s)
       expect(items[1].text).to match (Regexp.new comment3)
       expect(items[2].text).to match (Regexp.new comment1)
     end
