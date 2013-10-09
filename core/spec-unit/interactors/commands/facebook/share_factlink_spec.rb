@@ -49,7 +49,7 @@ describe Commands::Facebook::ShareFactlink do
         link: 'sharing_url',
         caption: "example.org \u2014 title",
         description: 'Read more',
-        picture: 'http://cdn.factlink.com/1/fact-wheel-questionmark.png'
+        picture: 'http://cdn.factlink.com/1/facebook-factwheel-logo.png'
 
       command = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
 
@@ -94,7 +94,7 @@ describe Commands::Facebook::ShareFactlink do
         link: 'sharing_url',
         caption: '',
         description: 'Read more',
-        picture: 'http://cdn.factlink.com/1/fact-wheel-questionmark.png'
+        picture: 'http://cdn.factlink.com/1/facebook-factwheel-logo.png'
 
       command = described_class.new fact_id: fact.id, pavlov_options: pavlov_options
 

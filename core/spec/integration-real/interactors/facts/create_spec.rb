@@ -51,7 +51,7 @@ describe 'fact' do
         link: 'http://localhost:3000/displaystring/f/1',
         caption: '',
         description: 'Read more',
-        picture: 'http://cdn.factlink.com/1/fact-wheel-questionmark.png'
+        picture: 'http://cdn.factlink.com/1/facebook-factwheel-logo.png'
 
     as(facebook_user) do |pavlov|
       pavlov.interactor(:'facts/create', displaystring: displaystring, url: '', title: '', sharing_options: { facebook: true })
