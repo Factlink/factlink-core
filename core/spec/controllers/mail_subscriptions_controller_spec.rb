@@ -6,7 +6,7 @@ describe MailSubscriptionsController do
   describe "#update" do
     it 'works' do
       post :update,
-           token: user.notification_settings_edit_token,
+           token: user.user_notification.notification_settings_edit_token,
            type: 'digest'
 
       expect(response).to be_success

@@ -7,6 +7,8 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
+  embeds_one :user_notification, autobuild: true
+
   USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
 
   # Virtual attribute for authenticating by either username or email
@@ -50,7 +52,6 @@ class User
 
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
-  field :notification_settings_edit_token, type: String
 
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
@@ -180,7 +181,7 @@ class User
 
   before_save do |user|
     if user.changes.include? 'encrypted_password'
-      user.reset_notification_settings_edit_token
+      user.user_notification.reset_notification_settings_edit_token
     end
   end
 
@@ -326,25 +327,6 @@ class User
   end
 
   set :seen_messages
-
-  def reset_notification_settings_edit_token
-    self.notification_settings_edit_token = self.class.notification_settings_edit_token
-  end
-
-  def self.notification_settings_edit_token
-    generate_token(:notification_settings_edit_token)
-  end
-
-  def possible_subscriptions
-    %w(digest mailed_notifications)
-  end
-
-  def unsubscribe(type)
-    raise "Not allowed" unless possible_subscriptions.include? type
-    return false unless self[:"receives_#{type}"]
-
-    update_attribute(:"receives_#{type}", false)
-  end
 
   # don't send reset password instructions when the account is suspended
   def self.send_reset_password_instructions(attributes={})
