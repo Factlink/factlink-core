@@ -27,9 +27,9 @@ testserver:
     default:
       database: factlink_testserver
       hosts:
-       - 172.18.100.6:27017
-       - 172.18.100.13:27017
-       - 172.18.100.25:27017
+       - 172.18.64.8:27017
+       - 172.18.64.9:27017
+       - 172.18.64.10:27017
       options:
         consistency: :strong
   options:
