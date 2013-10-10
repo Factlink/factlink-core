@@ -44,9 +44,7 @@ function getServer(config) {
   }
 
   function parse_int_or_null(variable) {
-    var integer = parseInt(variable, 10);
-
-    return isNaN(integer) ? null : integer;
+    return parseInt(variable, 10) || null;
   }
 
   /**
@@ -74,13 +72,13 @@ function getServer(config) {
 
       if (open_id !== null) {
         actions.push('FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.openFactlinkModal(' + open_id + '); });');
-        scrollto = open_id; // Also scroll to the factlink
       }
 
       if (scrollto !== null) {
         actions.push('FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.scrollTo(' + scrollto + '); });');
       }
 
+      // Call after binding to event, as this might trigger event
       actions.push('FACTLINK.startHighlighting();');
       actions.push('FACTLINK.startAnnotating();');
 
