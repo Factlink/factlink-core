@@ -76,9 +76,7 @@ class IdentitiesController < ApplicationController
   end
 
   def is_connected_to_different_user provider_name, omniauth_obj
-    return false unless current_user.identities[provider_name]
-
-    current_user.identities[provider_name]['uid'] != omniauth_obj['uid']
+    current_user.identities[provider_name] && current_user.identities[provider_name]['uid'] != omniauth_obj['uid']
   end
 
   def sign_in_through_provider provider_name, omniauth_obj
