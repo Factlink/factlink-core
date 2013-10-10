@@ -87,7 +87,7 @@ describe FactUrl do
       fact_url = FactUrl.new fact
 
       expect(fact_url.sharing_url)
-        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&open_id=3'
+        .to eq 'http://proxy.com/?url=http%3A%2F%2Fsciencedaily.com&scrollto=3'
     end
 
     it 'returns friendly_fact_url when fact has no site_url' do
