@@ -71,8 +71,7 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
     conversation.save [],
       success: =>
         FactlinkApp.NotificationCenter.success 'Your message has been sent!'
-        @enableSubmit()
-        @clearForm()
+        FactlinkApp.ModalWindowContainer.close()
 
       error: (model, response) =>
         @_showError response.responseText
