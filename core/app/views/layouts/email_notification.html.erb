@@ -1,0 +1,5 @@
+<% content_for :email_footer do %>
+  <%= link_to 'Unsubscribe', unsubscribe_url(@user.notification_settings_edit_token, :mailed_notifications) %>
+<% end %>
+
+<%= render template: 'layouts/email' %>
