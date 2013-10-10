@@ -9,8 +9,7 @@ describe Interactors::Channels::VisibleOfUserForUser do
   describe '#call' do
     it do
       user_id = '1'
-      stream_id = '10'
-      user = double(graph_user: double(user_id: user_id, stream_id: stream_id))
+      user = double(graph_user: double(user_id: user_id))
       dead_user = double
       ch1 = double
       ch2 = double
@@ -27,8 +26,8 @@ describe Interactors::Channels::VisibleOfUserForUser do
         containing_channel_ids: containing_channels
       )
 
-      query.should_receive(:kill_channel).with(ch1, topic_authority, containing_channels, dead_user, stream_id)
-      query.should_receive(:kill_channel).with(ch2, topic_authority, containing_channels, dead_user, stream_id)
+      query.should_receive(:kill_channel).with(ch1, topic_authority, containing_channels, dead_user)
+      query.should_receive(:kill_channel).with(ch2, topic_authority, containing_channels, dead_user)
       query.call
     end
   end
