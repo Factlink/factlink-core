@@ -10,7 +10,7 @@ test:
 
 testserver:
   redis:
-    host: 172.18.100.41
+    host: 172.18.64.5
     port: 6379
 
 vagrant:
