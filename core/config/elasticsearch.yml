@@ -10,7 +10,7 @@ test:
 
 testserver:
   elasticsearch:
-    hostname: 172.18.100.36
+    hostname: 172.18.64.2
     port: 9200
 
 vagrant:
