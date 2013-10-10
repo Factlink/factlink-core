@@ -7,7 +7,7 @@ showPopup = (url) ->
     "menubar=no,toolbar=no,status=no,width=#{width},height=#{height},left=#{left},top=#{top}"
 
 $('html').on 'click', '.js-social-popup-link', (e) ->
-  showPopup($(e.toElement).attr("href"))
+  showPopup($(e.target).attr("href"))
   e.stopPropagation()
   e.preventDefault()
 
