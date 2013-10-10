@@ -30,7 +30,7 @@ class FactUrl
     return unless @fact.site_url
 
     proxy_url + "/?url=" + CGI.escape(@fact.site_url) +
-      "&open_id=" + URI.escape(@fact.id)
+      "&scrollto=" + URI.escape(@fact.id)
   end
 
   def sharing_url
@@ -38,7 +38,7 @@ class FactUrl
     # url with port number and such
     return "http://example.org/#{slug}" if ENV['RAILS_ENV'] == 'development'
 
-    proxy_open_url || friendly_fact_url
+    proxy_scroll_url || friendly_fact_url
   end
 
   private
