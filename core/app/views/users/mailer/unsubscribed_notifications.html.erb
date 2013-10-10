@@ -1,0 +1,11 @@
+<% content_for :email_body do %>
+
+  <p>Hello <%= @resource.name %>,</p>
+
+  <p>You have been unsubscribed from notification emails.</p>
+
+  <p class="cta"><%= link_to 'Subscribe again', unsubscribe_url(@user.notification_settings_edit_token, :mailed_notifications), class: 'btn-email' %></p>
+
+<% end %>
+
+<%= render template: "layouts/email" %>

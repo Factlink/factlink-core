@@ -227,6 +227,7 @@ FactlinkUI::Application.routes.draw do
     get "/search" => "users#search", as: 'search_users'
     get "/tour_users" => "users#tour_users", as: 'tour_users'
     get "/unsubscribe/:token/:type" => 'mail_subscriptions#update', as: :unsubscribe
+    get "/subscribe/:token/:type" => 'mail_subscriptions#update', as: :subscribe
   end
 
 end
