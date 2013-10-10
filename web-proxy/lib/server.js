@@ -43,6 +43,12 @@ function getServer(config) {
     server.use("/static/", express.static(__dirname + "/../static/"));
   }
 
+  function parse_int_or_null(variable) {
+    var integer = parseInt(variable, 10);
+
+    return isNaN(integer) ? null : integer;
+  }
+
   /**
    * Add base url and inject proxy.js, and return the proxied site
    */
@@ -61,18 +67,22 @@ function getServer(config) {
       var fbb = '<script>window.self = window.top;</script>';
       html = html.replace(/<head?[^\>]+>/i, '$&' + fbb);
 
-      var actions = 'FACTLINK.startHighlighting(); FACTLINK.startAnnotating();';
+      var actions = [];
 
-      open_id = parseInt(open_id, 10);
-      if (!isNaN(open_id)) {
-        actions = 'FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.openFactlinkModal(' + open_id + '); });' + actions;
+      open_id = parse_int_or_null(open_id) ;
+      scrollto = parse_int_or_null(scrollto) || open_id;
+
+      if (open_id !== null) {
+        actions.push('FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.openFactlinkModal(' + open_id + '); });');
         scrollto = open_id; // Also scroll to the factlink
       }
 
-      scrollto = parseInt(scrollto, 10);
-      if (!isNaN(scrollto)) {
-        actions = 'FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.scrollTo(' + scrollto + '); });' + actions;
+      if (scrollto !== null) {
+        actions.push('FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.scrollTo(' + scrollto + '); });');
       }
+
+      actions.push('FACTLINK.startHighlighting();');
+      actions.push('FACTLINK.startAnnotating();');
 
       // Inject Factlink library at the end of the file
       var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
@@ -80,7 +90,7 @@ function getServer(config) {
       var inject_string = '<!-- this comment is to accommodate for pages that end in an open comment! -->' +
                           '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>' +
                           '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
-                          '<script>' + actions + '</script>' +
+                          '<script>' + actions.join('') + '</script>' +
                           '<script>window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + '</script>' +
                           '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
 
