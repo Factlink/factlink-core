@@ -22,7 +22,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
         fact_id: @options.fact_id
         recent_collection: @options.recent_collection
       filtered_search_collection: new FilteredFactRelationSearchResults
-      placeholder: 'Search..'
+      placeholder: 'Search...'
 
     @listenTo @model, 'change', @queryChanges
 
