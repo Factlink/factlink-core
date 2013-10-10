@@ -15,6 +15,15 @@ class IdentitiesController < ApplicationController
     respond_to do |format|
       format.html { render :callback, { layout: 'social_popup', locals: {event_details: @provider_name}}}
     end
+  rescue Exception => error
+    @event = "social_error"
+    @error = error.message
+
+    flash[:alert] = @error
+
+    respond_to do |format|
+      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @error}}}
+    end
   end
 
   def service_deauthorize
@@ -54,14 +63,22 @@ class IdentitiesController < ApplicationController
   def connect_provider provider_name, omniauth_obj
     authorize! :update, current_user
 
-    if omniauth_obj
+    if is_connected_to_different_user(provider_name, omniauth_obj)
+      raise "Already connected to a different account, please sign in to the connected account or reconnect your account."
+    elsif omniauth_obj
       current_user.identities[provider_name] = omniauth_obj
       current_user.save
       flash[:notice] = "Succesfully connected."
       @event = 'authorized'
     else
-      flash[:alert] = "Error connecting."
+      raise "Error connecting."
     end
+  end
+
+  def is_connected_to_different_user provider_name, omniauth_obj
+    return false unless current_user.identities[provider_name]
+
+    current_user.identities[provider_name]['uid'] != omniauth_obj['uid']
   end
 
   def sign_in_through_provider provider_name, omniauth_obj
