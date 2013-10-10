@@ -22,16 +22,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
         fact_id: @options.fact_id
         recent_collection: @options.recent_collection
       filtered_search_collection: new FilteredFactRelationSearchResults
-      placeholder: @placeholder(@options.type)
+      placeholder: 'Search..'
 
     @listenTo @_text_input_view, 'focus', @focus
     @listenTo @model, 'change', @queryChanges
-
-  placeholder: (type) ->
-    if type == "believes"
-      "The Factlink above is true because:"
-    else
-      "The Factlink above is false because:"
 
   addCurrent: ->
     selected_fact_attributes = @_search_list_view.currentActiveModel().attributes
