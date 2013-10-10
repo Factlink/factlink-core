@@ -24,8 +24,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       filtered_search_collection: new FilteredFactRelationSearchResults
       placeholder: 'Search..'
 
-    @listenTo @_text_input_view, 'focus', @focus
     @listenTo @model, 'change', @queryChanges
+
+  onRender: ->
+    _.defer => @_text_input_view.focusInput()
 
   addCurrent: ->
     selected_fact_attributes = @_search_list_view.currentActiveModel().attributes
@@ -47,9 +49,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     return if @submitting
     @disableSubmit()
     @trigger 'createFactRelation', fact_relation, => @enableSubmit()
-
-  focus: ->
-    mp_track "Evidence: Search focus"
 
   reset: ->
     @model.set text: ''
