@@ -10,6 +10,13 @@
     $(function () {
       updateHeight();
       $(window).on('resize', updateHeight);
+
+      <% if params[:state] == 'success' %>
+        if (window.parent && window.parent.FactlinkApp) {
+          window.parent.FactlinkApp.NotificationCenter.success('Your feedback has successfully been submitted.');
+          window.parent.closeFeedbackFrame();
+        }
+      <% end %>
     });
 
     function updateHeight() {
