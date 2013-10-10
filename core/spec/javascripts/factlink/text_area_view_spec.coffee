@@ -16,7 +16,7 @@ describe "Backbone.Factlink.TextAreaView", ->
     #since we need to check how layout works, we need to to include
     #the view in the document.
     $(document.body).append view.render().$el
-    textarea().trigger 'focus'
+    textarea().trigger 'keydown'
 
 
   it "shows the text", ->
