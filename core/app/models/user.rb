@@ -336,7 +336,7 @@ class User
   end
 
   def possible_subscriptions
-    [:digest, :mailed_notifications]
+    %w(digest mailed_notifications)
   end
 
   def unsubscribe(type)
