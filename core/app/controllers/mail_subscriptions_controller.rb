@@ -1,14 +1,15 @@
 class MailSubscriptionsController < ApplicationController
+  layout "responsive_notifications"
 
   def update
-    if user = User.where(notification_settings_edit_token: params[:token]).first
-      if user.unsubscribe(params[:type])
-        render text: 'Successfully unsubscribed.'
+    if @user = User.where(notification_settings_edit_token: params[:token]).first
+      if @user.unsubscribe(params[:type])
+        render 'success'
       else
-        render text: 'Something went wrong with unsubscribing, maybe you already were unsubscribed?'
+        render 'error'
       end
     else
-      render text: 'Unrecognized token, maybe your token expired?'
+      render 'expired'
     end
   end
 
