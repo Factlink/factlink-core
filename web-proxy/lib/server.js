@@ -43,10 +43,14 @@ function getServer(config) {
     server.use("/static/", express.static(__dirname + "/../static/"));
   }
 
+  function parse_int_or_null(variable) {
+    return parseInt(variable, 10) || null;
+  }
+
   /**
    * Add base url and inject proxy.js, and return the proxied site
    */
-  function injectFactlinkJs(html_in, site, scrollto, successFn) {
+  function injectFactlinkJs(html_in, site, scrollto, open_id, successFn) {
     var FactlinkConfig = {
       api: config.API_URL,
       lib: config.LIB_URL,
@@ -61,9 +65,22 @@ function getServer(config) {
       var fbb = '<script>window.self = window.top;</script>';
       html = html.replace(/<head?[^\>]+>/i, '$&' + fbb);
 
-      if (scrollto !== undefined && !isNaN(parseInt(scrollto, 10))) {
-        FactlinkConfig.scrollto = parseInt(scrollto, 10);
+      var actions = [];
+
+      open_id = parse_int_or_null(open_id) ;
+      scrollto = parse_int_or_null(scrollto) || open_id;
+
+      if (open_id !== null) {
+        actions.push('FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.openFactlinkModal(' + open_id + '); });');
       }
+
+      if (scrollto !== null) {
+        actions.push('FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.scrollTo(' + scrollto + '); });');
+      }
+
+      // Call after binding to event, as this might trigger event
+      actions.push('FACTLINK.startHighlighting();');
+      actions.push('FACTLINK.startAnnotating();');
 
       // Inject Factlink library at the end of the file
       var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
@@ -71,7 +88,7 @@ function getServer(config) {
       var inject_string = '<!-- this comment is to accommodate for pages that end in an open comment! -->' +
                           '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>' +
                           '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
-                          '<script>FACTLINK.startHighlighting(); FACTLINK.startAnnotating();</script>' +
+                          '<script>' + actions.join('') + '</script>' +
                           '<script>window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + '</script>' +
                           '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
 
@@ -81,7 +98,7 @@ function getServer(config) {
     });
   }
 
-  function handleProxyRequest(res, url, scrollto, form_hash) {
+  function handleProxyRequest(res, url, scrollto, open_id, form_hash) {
     if ( typeof url !== "string" || url.length === 0) {
       renderWelcomePage(res);
       return;
@@ -94,15 +111,15 @@ function getServer(config) {
           if(err) {
             renderErrorPage(res, url);
           } else {
-            renderProxiedPage(res, site, scrollto, str);
+            renderProxiedPage(res, site, scrollto, open_id, str);
           }
         });
       }
     }
   }
 
-  function renderProxiedPage(res, site, scrollto, html_in) {
-    injectFactlinkJs(html_in, site, scrollto, function(html) {
+  function renderProxiedPage(res, site, scrollto, open_id, html_in) {
+    injectFactlinkJs(html_in, site, scrollto, open_id, function(html) {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(html);
       res.end();
@@ -168,9 +185,10 @@ function getServer(config) {
    *  Inject Factlink in regular get requests
    */
   function get_parse(req, res) {
-    var site      = req.query.url;
-    var scrollto  = req.query.scrollto;
-    handleProxyRequest(res, site, scrollto, {});
+    var site     = req.query.url;
+    var scrollto = req.query.scrollto;
+    var open_id  = req.query.open_id;
+    handleProxyRequest(res, site, scrollto, open_id, {});
   }
 
   /**
@@ -183,7 +201,7 @@ function getServer(config) {
     var site      = form_hash.factlinkFormUrl;
     delete form_hash.factlinkFormUrl;
 
-    handleProxyRequest(res, site, undefined, {
+    handleProxyRequest(res, site, undefined, undefined, {
       'query': form_hash
     });
   }
