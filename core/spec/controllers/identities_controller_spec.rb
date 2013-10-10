@@ -32,6 +32,19 @@ describe IdentitiesController do
 
       subject.service_callback()
     end
+
+    it 'shows error when already connected to different user' do
+      current_user = double identities: {'facebook' => {'uid' => '1'}}
+      omniauth_obj = {'uid' => '2'}
+      flash = {}
+
+      subject.stub current_user: current_user, user_signed_in?: true, flash: flash, authorize!: true,
+        params: {:service => 'facebook'}, parse_omniauth_env: omniauth_obj, respond_to: nil
+
+      subject.service_callback
+
+      expect(flash[:alert]).to_not be_nil
+    end
   end
 
   describe 'sign_in_through_provider' do
