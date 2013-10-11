@@ -25,5 +25,5 @@ staging:
 
 production:
   elasticsearch:
-    hostname: 89.188.27.179
+    hostname: 172.18.64.27
     port: 9200
