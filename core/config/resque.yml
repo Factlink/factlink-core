@@ -2,5 +2,5 @@ development: localhost:6380
 test: localhost:6380
 vagrant: 10.253.0.1:6380
 testserver: 172.18.64.6:6379
-staging: 172.18.100.44:6379
+staging: 172.18.64.15:6379
 production: 172.18.100.46:6379
