@@ -1,7 +1,5 @@
 unless user.respond_to?(:statistics) && user.respond_to?(:top_user_topics) then
   user = Queries::UsersByIds.new(user_ids: [user.id]).call.first
-
-  Raven.captureMessage "Tried to render user_partial with incomplete dead user (username: #{user.username})"
 end
 
 json.id                            user.id.to_s
