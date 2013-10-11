@@ -25,5 +25,5 @@ staging:
 
 production:
   redis:
-    host: 172.18.100.45
+    host: 172.18.64.22
     port: 6379
