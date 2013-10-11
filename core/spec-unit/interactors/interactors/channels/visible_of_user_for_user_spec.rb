@@ -8,7 +8,9 @@ describe Interactors::Channels::VisibleOfUserForUser do
   end
   describe '#call' do
     it do
-      user = double
+      user_id = '1'
+      user = double(graph_user: double(user_id: user_id))
+      dead_user = double
       ch1 = double
       ch2 = double
       topic_authority = double
@@ -17,13 +19,15 @@ describe Interactors::Channels::VisibleOfUserForUser do
       described_class.any_instance.stub authorized?: true
       query = described_class.new user: user
 
+      Pavlov.stub(:query).with(:users_by_ids, user_ids: [user_id]).and_return([dead_user])
+
       query.stub(
         channels_with_authorities: [[ch1, topic_authority], [ch2, topic_authority]],
         containing_channel_ids: containing_channels
       )
 
-      query.should_receive(:kill_channel).with(ch1, topic_authority, containing_channels, user)
-      query.should_receive(:kill_channel).with(ch2, topic_authority, containing_channels, user)
+      query.should_receive(:kill_channel).with(ch1, topic_authority, containing_channels, dead_user)
+      query.should_receive(:kill_channel).with(ch2, topic_authority, containing_channels, dead_user)
       query.call
     end
   end

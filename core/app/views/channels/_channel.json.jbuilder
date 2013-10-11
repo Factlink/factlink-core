@@ -40,7 +40,6 @@ end
 
 json.created_by do |j|
   j.partial! 'users/user_partial', user: user
-  j.all_channel_id user.stream_id
 end
 
 json.discover_stream? is_discover_stream

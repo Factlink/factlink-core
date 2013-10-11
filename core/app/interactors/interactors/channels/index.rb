@@ -12,12 +12,20 @@ module Interactors
 
       def execute
         channels_with_authorities.map do |ch, authority|
-          kill_channel(ch, authority, containing_channel_ids(ch), channel_user(ch))
+          graph_user = channel_graph_user(ch)
+          dead_user = dead_user_for_graph_user(graph_user)
+
+          kill_channel(ch, authority, containing_channel_ids(ch), dead_user)
         end
       end
 
-      def channel_user(channel)
-        channel.created_by.user
+      def channel_graph_user(channel)
+        channel.created_by
+      end
+
+      def dead_user_for_graph_user(graph_user)
+        query(:users_by_ids, user_ids: [graph_user.user_id])
+          .fetch(0, :dead_user_for_graph_user_not_found)
       end
 
       def channels_with_authorities
@@ -40,16 +48,11 @@ module Interactors
                   graph_user_id: pavlov_options[:current_user].graph_user_id)
       end
 
-      def kill_channel(ch, owner_authority, containing_channel_ids, user)
+      def kill_channel(ch, owner_authority, containing_channel_ids, dead_user)
         KillObject.channel ch,
           owner_authority: owner_authority,
           containing_channel_ids: containing_channel_ids,
-          created_by_user: kill_user(user)
-      end
-
-      def kill_user(user)
-        KillObject.user user,
-          stream_id: user.graph_user.stream_id
+          created_by_user: dead_user
       end
 
       def authorized?
