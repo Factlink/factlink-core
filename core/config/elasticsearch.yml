@@ -20,7 +20,7 @@ vagrant:
 
 staging:
   elasticsearch:
-    hostname: 172.18.100.37
+    hostname: 172.18.64.11
     port: 9200
 
 production:
