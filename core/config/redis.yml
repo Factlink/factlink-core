@@ -20,7 +20,7 @@ vagrant:
 
 staging:
   redis:
-    host: 172.18.100.35
+    host: 172.18.64.14
     port: 6379
 
 production:
