@@ -49,8 +49,8 @@ staging:
     default:
       database: factlink_staging
       hosts:
-       - 172.18.100.49:27017
-       - 172.18.100.14:27017
+       - 172.18.64.16:27017
+       - 172.18.64.19:27017
       options:
         consistency: :strong
   options:
