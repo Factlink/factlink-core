@@ -82,7 +82,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  resources :feedback # TODO RESTRICT
+  resources :feedback # TODO: RESTRICT
 
   get "/:fact_slug/f/:id" => "facts#discussion_page"
 
@@ -127,6 +127,8 @@ FactlinkUI::Application.routes.draw do
     put "/" => "users#update"
     delete "/" => "users#destroy"
 
+    get '/feed' => "channel_activities#index", as: 'feed'
+
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
     scope "/activities" do
@@ -148,11 +150,11 @@ FactlinkUI::Application.routes.draw do
         end
       end
 
-      resources :activities, only: [:index, :create, :update, :destroy],
+      resources :activities, # TODO: deprecate this resource on channels
+                only: [:index],
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
         end
       end
 

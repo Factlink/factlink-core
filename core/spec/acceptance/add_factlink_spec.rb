@@ -4,6 +4,7 @@ describe "creating a Factlink", type: :feature do
   include Acceptance::ProfileHelper
   include Acceptance::AddToChannelModalHelper
   include Acceptance::NavigationHelper
+  include Acceptance::FactHelper
 
   def created_channel_path(user)
     channel_path(user.username, user.graph_user.created_facts_channel.id)
@@ -38,7 +39,8 @@ describe "creating a Factlink", type: :feature do
     eventually_succeeds do
       raise StandardError, "Fact not created" unless Fact.all.to_a.last
     end
-    visit fact_path(Fact.all.to_a.last.id)
+
+    go_to_discussion_page_of Fact.all.to_a.last
 
     open_repost_modal do
       added_channels_should_contain new_topic_name
