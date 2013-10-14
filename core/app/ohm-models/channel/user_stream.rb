@@ -7,7 +7,7 @@ class Channel < OurOhm
     end
 
     def activities
-      created_by.stream_activities
+      :userstream_no_longer_has_activities
     end
 
     def validate
