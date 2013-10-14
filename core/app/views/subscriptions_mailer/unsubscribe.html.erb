@@ -2,7 +2,7 @@
 
   <p>Hello <%= @user.name %>,</p>
 
-  <p>You have been unsubscribed from notification emails.</p>
+  <p>You have been unsubscribed from <%= t(@type, scope: 'mail_subscriptions') %> emails.</p>
 
   <p class="cta"><%= link_to 'Subscribe again', subscribe_url(@user.user_notification.notification_settings_edit_token, @type), class: 'btn-email' %></p>
 

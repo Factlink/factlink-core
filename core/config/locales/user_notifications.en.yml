@@ -1,4 +1,5 @@
 en:
-  mailed_notifications: "notifications"
-  digest: "digest"
-  all: "all"
+  mail_subscriptions:
+    mailed_notifications: "notification"
+    digest: "digest"
+    all: "all"
