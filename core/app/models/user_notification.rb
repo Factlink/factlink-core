@@ -13,7 +13,15 @@ class UserNotification
   end
 
   def unsubscribe(type)
+    return unsubscribe_all if type.to_s == 'all'
     set_subscription type, false
+  end
+
+  def unsubscribe_all
+    possible_subscriptions.each do |type|
+      set_subscription type, false
+    end
+    true
   end
 
   def reset_notification_settings_edit_token

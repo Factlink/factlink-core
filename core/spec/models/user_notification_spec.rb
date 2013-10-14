@@ -40,6 +40,18 @@ describe UserNotification do
       return_value = user.user_notification.unsubscribe('digest')
       expect(return_value).to be_false
     end
+
+    it "unsubscribes from all types if you pass in all" do
+      user.user_notification.unsubscribe('all')
+
+      subscribed_digest =
+        user.user_notification.unsubscribe('digest')
+      subscribed_mailed_notifications =
+        user.user_notification.unsubscribe('mailed_notifications')
+
+      expect(subscribed_digest).to be_false
+      expect(subscribed_mailed_notifications).to be_false
+    end
   end
 
   describe '#subscribe' do
