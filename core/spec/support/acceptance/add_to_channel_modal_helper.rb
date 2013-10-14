@@ -4,7 +4,7 @@ module Acceptance
   module AddToChannelModalHelper
     def open_repost_modal &block
        # cannot use open_modal because that assumes we click a link, not a button
-      click_button 'Repost'
+      click_button 'Repost to topic'
       within_modal &block
     end
 
