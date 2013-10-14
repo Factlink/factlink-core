@@ -1,6 +1,12 @@
 class Channel < OurOhm
   class UserStream < Channel
-    include Channel::GeneratedChannel
+    def is_real_channel?
+      false
+    end
+
+    def topic
+      nil
+    end
 
     def type
       'stream'
@@ -22,6 +28,5 @@ class Channel < OurOhm
     def inspect
       "UserStream of #{created_by}"
     end
-
   end
 end
