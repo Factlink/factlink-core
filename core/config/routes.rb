@@ -26,6 +26,8 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get "/factlink/intermediate" => "client#intermediate"
 
+  get '/client/blank' => 'client#blank'
+  get '/client/facts/:id' => 'client#fact_show', as: 'client_fact'
   get '/facts/new' => 'client#facts_new', as: 'new_fact' # nginx_site cookbook uses this path
 
 
@@ -230,8 +232,4 @@ FactlinkUI::Application.routes.draw do
     get "/search" => "users#search", as: 'search_users'
     get "/tour_users" => "users#tour_users", as: 'tour_users'
   end
-
-  get '/client/blank' => 'client#blank'
-  get '/client/facts/:id' => 'client#fact_show', as: 'client_fact'
-
 end
