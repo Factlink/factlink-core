@@ -144,7 +144,6 @@ class Activity < OurOhm
       # TODO clear activity listeners for develop
       create_notification_activities
       create_stream_activities
-      create_obsolete_activities
     end
 
     def create_notification_activities
@@ -186,26 +185,6 @@ class Activity < OurOhm
       end
     end
 
-    def create_obsolete_activities
-      # This was used for the activities tab of the channel
-      # however, we removed access to this view a long time ago
-      create_channel_activities
-    end
-
-    def create_channel_activities
-      Activity::Listener.register do
-        activity_for "Channel"
-        named :activities
-
-        activity subject_class: "Channel",
-                 action: 'added_subchannel',
-                 write_ids: ->(a) { [a.subject_id] }
-
-        activity object_class: "Fact",
-                 action: [:added_supporting_evidence, :added_weakening_evidence],
-                 write_ids: ->(a) { a.object.channels.ids }
-      end
-    end
   end
 end
 

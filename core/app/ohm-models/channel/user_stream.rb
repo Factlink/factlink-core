@@ -6,10 +6,6 @@ class Channel < OurOhm
       'stream'
     end
 
-    def activities
-      :userstream_no_longer_has_activities
-    end
-
     def validate
       self.title = 'All'
       super

@@ -13,8 +13,6 @@ class Channel < OurOhm
   attribute :title
   index :title
 
-  timestamped_set :activities, Activity
-
   attribute :lowercase_title
 
   attribute :slug_title
