@@ -325,7 +325,7 @@ describe User do
       expect(token).to match /\A\w{4,}\Z/
     end
 
-    it "should try to generate a random" do
+    it "generates a random token" do
       user1 = User.create!(valid_attributes, as: :admin)
       user2 = User.create!(valid_attributes.merge({username: 'Hello', email: 'hello@example.org'}), as: :admin)
 
