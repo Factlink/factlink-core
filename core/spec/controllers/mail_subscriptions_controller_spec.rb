@@ -7,7 +7,8 @@ describe MailSubscriptionsController do
     it 'works' do
       post :update,
            token: user.user_notification.notification_settings_edit_token,
-           type: 'digest'
+           type: 'digest',
+           subscribe_action: :unsubscribe
 
       expect(response).to be_success
       refetched_user = User.find(user.id)
