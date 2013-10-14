@@ -2,18 +2,20 @@ class UserNotification
   include Mongoid::Document
   embedded_in :user
 
+  field :notification_settings_edit_token, type: String
+
   def possible_subscriptions
     %w(digest mailed_notifications)
   end
 
-  def unsubscribe(type)
-    raise "Not allowed" unless possible_subscriptions.include? type
-    return false unless user[:"receives_#{type}"]
-
-    user.update_attribute(:"receives_#{type}", false)
+  def subscribe(type)
+    set_subscription type, true
   end
 
-  field :notification_settings_edit_token, type: String
+  def unsubscribe(type)
+    set_subscription type, false
+  end
+
   def reset_notification_settings_edit_token
     self.notification_settings_edit_token = self.class.notification_settings_edit_token
   end
@@ -29,5 +31,14 @@ class UserNotification
       token = Devise.friendly_token
       break token if self.find({ column => token }).empty?
     end
+  end
+
+  private
+
+  def set_subscription type, value
+    raise "Not allowed" unless possible_subscriptions.include? type
+    return false if user[:"receives_#{type}"] == value
+
+    user.update_attribute(:"receives_#{type}", value)
   end
 end
