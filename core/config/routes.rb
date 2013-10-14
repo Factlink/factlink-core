@@ -26,6 +26,9 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get "/factlink/intermediate" => "client#intermediate"
 
+  get '/facts/new' => 'client#facts_new', as: 'new_fact' # nginx_site cookbook uses this path
+
+
   resources :facts, only: [:create, :show, :destroy] do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
 
@@ -51,7 +54,6 @@ FactlinkUI::Application.routes.draw do
 
     collection do
       get 'recently_viewed' => "facts#recently_viewed"
-      get '/new' => 'client#facts_new', as: 'new_fact' # nginx_site cookbook uses this path
     end
 
     resources :supporting_evidence, only: [] do
