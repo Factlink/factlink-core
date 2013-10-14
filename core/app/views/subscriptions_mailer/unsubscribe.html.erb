@@ -4,7 +4,7 @@
 
   <p>You have been unsubscribed from notification emails.</p>
 
-  <p class="cta"><%= link_to 'Subscribe again', unsubscribe_url(@user.notification_settings_edit_token, :mailed_notifications), class: 'btn-email' %></p>
+  <p class="cta"><%= link_to 'Subscribe again', subscribe_url(@user.notification_settings_edit_token, :mailed_notifications), class: 'btn-email' %></p>
 
 <% end %>
 
