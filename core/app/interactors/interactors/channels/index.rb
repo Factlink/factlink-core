@@ -24,8 +24,10 @@ module Interactors
       end
 
       def dead_user_for_graph_user(graph_user)
-        query(:users_by_ids, user_ids: [graph_user.user_id])
-          .fetch(0, :dead_user_for_graph_user_not_found)
+        @dead_user_for_graph_user ||= {}
+        @dead_user_for_graph_user[graph_user.user_id] ||=
+          query(:users_by_ids, user_ids: [graph_user.user_id])
+            .fetch(0, :dead_user_for_graph_user_not_found)
       end
 
       def channels_with_authorities
