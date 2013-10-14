@@ -26,7 +26,6 @@ FactlinkUI::Application.routes.draw do
   # as well (frame busting)
   get "/factlink/intermediate" => "client#intermediate"
 
-  # Show Facts#new as unauthenticated user to show the correct login link
   resources :facts, only: [:create, :show, :destroy] do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
 
