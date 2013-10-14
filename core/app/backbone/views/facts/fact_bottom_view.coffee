@@ -4,8 +4,6 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
   template: 'facts/fact_bottom'
 
   events:
-    "click .js-add-to-channel": "showAddToChannel"
-    "click .js-start-conversation": "showStartConversation"
     "click .js-open-proxy-link" : "openProxyLink"
     "click .js-arguments-link": "openDiscussionModal"
 
@@ -17,24 +15,6 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
         "Posted #{@friendly_time} ago"
       else
         @created_by_ago
-
-    believe_percentage: @model.opinionPercentage('believe')
-    disbelieve_percentage: @model.opinionPercentage('disbelieve')
-
-  showAddToChannel: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-
-    FactlinkApp.ModalWindowContainer.show new AddToChannelModalWindowView(model: @model)
-
-  showStartConversation: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-
-    FactlinkApp.ModalWindowContainer.show new StartConversationModalWindowView(model: @model)
-
-    mp_track "Factlink: Open share modal"
-
 
   openProxyLink: (e) ->
     mp_track "Factlink: Open proxy link",
