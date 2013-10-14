@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   # expose query to views, so we can rewrite inline
   # retrieval to proper queries. The queries should
   # be pulled back to controllers, and then to interactors
-  helper_method :query # TODO remove me ASAP
+  helper_method :query # TODO: remove me ASAP
 
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
@@ -27,14 +27,14 @@ class ApplicationController < ActionController::Base
         end
 
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
-        format.any  { raise exception }
+        format.any  { fail exception }
       elsif !current_user.agrees_tos
         format.html { redirect_to tos_path }
         format.json { render json: {error: "You did not agree to the Terms of Service.", code: 'tos'}, status: :forbidden }
-        format.any  { raise exception }
+        format.any  { fail exception }
       else
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
-        format.any  { raise exception }
+        format.any  { fail exception }
       end
     end
   end
@@ -99,7 +99,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_graph_user
 
   def raise_404(message="Not Found")
-    raise ActionController::RoutingError.new(message)
+    fail ActionController::RoutingError.new(message)
   end
 
   class HackAttempt < StandardError
@@ -127,11 +127,11 @@ class ApplicationController < ActionController::Base
     opts.delete :current_user
 
     new_opts = if user
-                  opts.update mp_name_tag: user.username,
-                              distinct_id: user.id
-                else
-                  opts
-                end
+                 opts.update mp_name_tag: user.username,
+                             distinct_id: user.id
+               else
+                 opts
+               end
 
     new_opts[:time] = Time.now.utc.to_i
 

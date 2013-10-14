@@ -1,3 +1,5 @@
+# This helper contains application wide helpers
+# There shouldn't be anything specific in this file.
 module ApplicationHelper
   def image_url(source)
     abs_url(image_path(source))
@@ -10,10 +12,11 @@ module ApplicationHelper
   end
 
   def abs_url(path)
-    unless path =~ /^http/
-      path = "#{request.protocol}#{request.host_with_port}#{path}"
+    if path =~ /^http/
+      path
+    else
+      "#{request.protocol}#{request.host_with_port}#{path}"
     end
-    path
   end
 
   def minify_js(s)
@@ -24,7 +27,7 @@ module ApplicationHelper
   end
 
   def ensure_no_single_quotes(s)
-    raise "Please do not use single quotes here" if s.match(/'/)
+    fail "Please do not use single quotes here" if s.match(/'/)
     s
   end
 

@@ -77,7 +77,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  resources :feedback # TODO RESTRICT
+  resources :feedback # TODO: RESTRICT
 
   get "/:fact_slug/f/:id" => "facts#discussion_page"
 
@@ -145,7 +145,8 @@ FactlinkUI::Application.routes.draw do
         end
       end
 
-      resources :activities, only: [:index, :create, :update, :destroy],
+      resources :activities,
+                only: [:index, :create, :update, :destroy],
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
