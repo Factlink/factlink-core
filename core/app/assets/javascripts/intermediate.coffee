@@ -63,4 +63,4 @@ loadUrl = (url)->
     showFrame.src = url
 
 # initialize the page, so we are ready to render new pages fast
-loadUrl '/client/blank'
+showUrl '/client/blank', -> window.remote.trigger 'intermediateFrameReady'
