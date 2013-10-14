@@ -49,10 +49,6 @@ class FactsController < ApplicationController
     redirect_to redirect_path, status: :moved_permanently
   end
 
-  def intermediate
-    render layout: nil
-  end
-
   def create
     # support both old names, and names which correspond to json in show
     fact_text = (params[:fact] || params[:displaystring]).to_s

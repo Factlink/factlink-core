@@ -139,14 +139,6 @@ describe FactsController do
     end
   end
 
-  describe :intermediate do
-    it "should have the correct assignments" do
-      subject.stub(:current_user) {user}
-      post :intermediate, the_action: "prepare"
-      response.code.should eq("200")
-    end
-  end
-
   describe :create do
     it "should work with json" do
       authenticate_user!(user)

@@ -9,4 +9,8 @@ class ClientController < ApplicationController
 
     render inline: '', layout: 'client'
   end
+
+  def intermediate
+    render layout: nil
+  end
 end

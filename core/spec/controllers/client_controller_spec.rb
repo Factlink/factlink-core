@@ -19,4 +19,11 @@ describe ClientController do
       expect(response).to be_success
     end
   end
+
+  describe :intermediate do
+    it 'should render' do
+      get :intermediate
+      expect(response).to be_success
+    end
+  end
 end
