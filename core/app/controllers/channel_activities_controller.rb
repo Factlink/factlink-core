@@ -37,24 +37,6 @@ class ChannelActivitiesController < ApplicationController
     render json: {count: @number_of_activities, timestamp: timestamp }
   end
 
-  def create
-    authorize! :update, @channel
-    activity = Activity[params[:id]] || raise_404
-    activity.add_to_list_with_score(@channel.activities)
-    render json: {status: :ok}
-  end
-
-  def update
-    create
-  end
-
-  def destroy
-    authorize! :update, @channel
-    activity = Activity[params[:id]] || raise_404
-    activity.remove_from_list(@channel.activities)
-    render json: {status: :ok}
-  end
-
   private
 
   def sanitized_activities(retrieved_activities)
