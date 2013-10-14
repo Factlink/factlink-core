@@ -12,7 +12,9 @@ module Interactors
     end
 
     def recipients
-      users_by_graph_user_ids.select { |user| user.receives_mailed_notifications }
+      users_by_graph_user_ids.select do |user|
+        user.user_notification.can_receive?('mailed_notifications')
+      end
     end
 
     def users_by_graph_user_ids

@@ -28,8 +28,13 @@ describe Interactors::SendMailForActivity do
 
   describe '#recipients' do
     it 'returns only the users which want to receive notifications' do
-      user2 = double('user2', receives_mailed_notifications: true)
-      user1 = double('user1', receives_mailed_notifications: false)
+      user_notification1 = double
+      user_notification2 = double
+      user1 = double(user_notification: user_notification1)
+      user2 = double(user_notification: user_notification2)
+
+      user_notification1.stub(:can_receive?).with('mailed_notifications').and_return(false)
+      user_notification2.stub(:can_receive?).with('mailed_notifications').and_return(true)
 
       described_class.any_instance.stub(authorized?: true)
       interactor = described_class.new activity: double
