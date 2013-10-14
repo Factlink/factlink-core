@@ -142,9 +142,6 @@ class User
                   .where(:suspended.ne => true)
   scope :seen_the_tour,   active
                             .where(:seen_tour_step => 'tour_done')
-  scope :receives_digest, active
-                            .where(:receives_digest => true)
-
 
   class << self
     def find_for_oauth(provider_name, uid)
