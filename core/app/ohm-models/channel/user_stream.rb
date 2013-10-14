@@ -6,10 +6,6 @@ class Channel < OurOhm
       'stream'
     end
 
-    def activities
-      created_by.stream_activities
-    end
-
     def validate
       self.title = 'All'
       super
