@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
     if seen_the_tour(user)
-      safe_return_to_path || channel_activities_path(user, user.graph_user.stream)
+      safe_return_to_path || feed_path(current_user.username)
     elsif user.active?
       start_the_tour_path
     elsif can? :sign_tos, user

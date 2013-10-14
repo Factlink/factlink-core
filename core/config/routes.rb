@@ -122,6 +122,8 @@ FactlinkUI::Application.routes.draw do
     put "/" => "users#update"
     delete "/" => "users#destroy"
 
+    get '/feed' => "channel_activities#index", as: 'feed'
+
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
     scope "/activities" do

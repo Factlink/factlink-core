@@ -34,7 +34,7 @@ class window.User extends Backbone.Model
       created_by:
         username: @get('username')
 
-  streamLink: -> "/#{@get('username')}/channels/#{@get('all_channel_id')}/activities"
+  streamLink: -> "/#{@get('username')}/feed"
 
   link: -> '/' + @get('username')
 

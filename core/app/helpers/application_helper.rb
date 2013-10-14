@@ -30,7 +30,7 @@ module ApplicationHelper
 
   def home_path
     if user_signed_in?
-      channel_activities_path(current_user.username,current_graph_user.stream_id)
+      feed_path(current_user.username)
     else
       '/'
     end
