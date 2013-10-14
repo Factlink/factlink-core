@@ -1,6 +1,6 @@
 class ClientController < ApplicationController
   def blank
-    render inline: '', layout: 'client'
+    render_client
   end
 
   def intermediate
@@ -11,7 +11,7 @@ class ClientController < ApplicationController
     authorize! :new, Fact
     authenticate_user!
 
-    render inline: '', layout: 'client'
+    render_client
   end
 
   def fact_show
@@ -23,6 +23,12 @@ class ClientController < ApplicationController
     open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
     open_graph_formatter.add open_graph_fact
 
+    render_client
+  end
+
+  private
+
+  def render_client
     render inline: '', layout: 'client'
   end
 end
