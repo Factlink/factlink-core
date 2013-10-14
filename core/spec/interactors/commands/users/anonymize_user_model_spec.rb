@@ -9,7 +9,6 @@ describe Commands::Users::AnonymizeUserModel do
         last_name: 'data',
         location: 'data',
         biography: 'data',
-        twitter: 'data',
         identities: {'twitter' => 'data', 'facebook' => 'data'},
         password: '123hoi',
         password_confirmation: '123hoi',
@@ -26,7 +25,6 @@ describe Commands::Users::AnonymizeUserModel do
       expect(saved_user.username).to_not include('data')
       expect(saved_user.location).to be_nil
       expect(saved_user.biography).to be_nil
-      expect(saved_user.twitter).to be_nil
 
       expect(saved_user.identities['twitter']).to eq nil
       expect(saved_user.identities['facebook']).to eq nil

@@ -18,9 +18,9 @@ describe LoadDsl do
 
   it "creating one channel with another channel as subchannel, and redefining the second channel should only create two channels" do
     subject.run do
-      user "merijn", "merijn@example.com", "123hoi", "merijn481"
-      user "merijn", "merijn@example.com", "123hoi", "merijn481"
-      user "mark", "mark@example.com", "123hoi", "markijbema"
+      user "merijn", "merijn@example.com", "123hoi"
+      user "merijn", "merijn@example.com", "123hoi"
+      user "mark", "mark@example.com", "123hoi"
 
       user "merijn"
         channel "foo"
@@ -34,9 +34,9 @@ describe LoadDsl do
 
   it "should add beliefs" do
     subject.run do
-      user "merijn", "merijn@gmail.com", "123hoi", "merijn481", "Merijn", "Terheggen"
-      user "tomdev", "tom@factlink.com", "123hoi", "tomdev", "Tom", "de Vries"
-      user "mark", "mark@example.com", "123hoi", "markijbema"
+      user "merijn", "merijn@gmail.com", "123hoi", "Merijn", "Terheggen"
+      user "tomdev", "tom@factlink.com", "123hoi", "Tom", "de Vries"
+      user "mark", "mark@example.com", "123hoi"
 
       user "mark"
         fact "something is true", "http://example.org/"
@@ -48,8 +48,8 @@ describe LoadDsl do
   it "should throw an error if a user with a non-unique email is added" do
     expect do
       subject.run do
-        user "tom", "tom@codigy.nl", "123hoi", "tomdev"
-        user "tomdev", "tom@codigy.nl", "123hoi", "tomdev"
+        user "tom", "tom@codigy.nl", "123hoi"
+        user "tomdev", "tom@codigy.nl", "123hoi"
       end
     end.to raise_error
   end

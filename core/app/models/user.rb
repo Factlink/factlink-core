@@ -26,7 +26,6 @@ class User
 
   field :registration_code
 
-  field :twitter
   field :location
   field :biography
 
@@ -51,11 +50,11 @@ class User
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
+  attr_accessible :username, :first_name, :last_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography,
+  attr_accessible :username, :first_name, :last_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest, :email, :admin, :registration_code, :suspended,
         as: :admin
@@ -173,7 +172,7 @@ class User
 
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
-      ['first_name', 'last_name', 'location', 'biography', 'twitter', 'identities']
+      ['first_name', 'last_name', 'location', 'biography', 'identities']
     end
   end
 

@@ -70,7 +70,7 @@ class LoadDsl
     raise err_msg
   end
 
-  def load_user(username,email=nil, password=nil, twitter=nil, first_name=nil, last_name=nil)
+  def load_user(username,email=nil, password=nil, first_name=nil, last_name=nil)
     u = User.where(:username => username).first
     return u if u
     raise_undefined_user_error unless email and password
@@ -79,7 +79,6 @@ class LoadDsl
       :username => username,
       :password => password,
       :password_confirmation => password,
-      :twitter => twitter,
       :first_name => first_name || username,
       :last_name => last_name || username )
     u.agrees_tos = true
@@ -94,8 +93,8 @@ class LoadDsl
     u
   end
 
-  def user(username,email=nil, password=nil, twitter=nil, first_name=nil, last_name=nil)
-    self.state_user = self.load_user(username,email,password,twitter, first_name, last_name)
+  def user(username,email=nil, password=nil, first_name=nil, last_name=nil)
+    self.state_user = self.load_user(username,email,password, first_name, last_name)
   end
 
   def believers(*l)
