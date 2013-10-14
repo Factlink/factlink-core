@@ -23,6 +23,8 @@ class FactsController < ApplicationController
 
   def show
     authorize! :show, @fact
+
+    render 'facts/show', formats: [:json]
   end
 
   def discussion_page
