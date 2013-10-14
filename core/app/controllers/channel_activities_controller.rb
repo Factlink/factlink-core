@@ -47,7 +47,7 @@ class ChannelActivitiesController < ApplicationController
     resulting_activities
   end
 
-  def clean
+  def clean(activities)
     Resque.enqueue Commands::Activities::CleanList,
                    list_key: activities.key.to_s
   end
