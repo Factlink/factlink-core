@@ -7,18 +7,6 @@
     <%= inject_special_test_code %>
   </head>
   <script type="text/javascript">
-    $(function () {
-      updateHeight();
-      $(window).on('resize', updateHeight);
-
-      <% if params[:state] == 'success' %>
-        if (window.parent && window.parent.FactlinkApp) {
-          window.parent.FactlinkApp.NotificationCenter.success('Your feedback has successfully been submitted.');
-          window.parent.closeFeedbackFrame();
-        }
-      <% end %>
-    });
-
     function updateHeight() {
       var $feedback_frame = window.parent.$('.js-feedback-resize');
       var $iframe = $feedback_frame.find('iframe');
@@ -37,6 +25,21 @@
         $(el).alert().alert('close');
       });
     }
+
+    $(function () {
+      updateHeight();
+      $(window).on('resize', updateHeight);
+
+      <% if params[:state] == 'success' %>
+
+        if (window.parent.FactlinkApp) {
+          window.parent.closeFeedbackFrame();
+          onCloseFrame();
+
+          window.parent.FactlinkApp.NotificationCenter.success('Your feedback has successfully been submitted.');
+        }
+      <% end %>
+    });
   </script>
   <body class="feedback_form">
     <p>
