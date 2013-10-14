@@ -93,7 +93,10 @@ class ChannelsController < ApplicationController
     @channel.delete
 
     respond_to do |format|
-      format.html  { redirect_to(channel_activities_path(@user, @user.graph_user.stream), :notice => "#{t(:topic)} successfully deleted") }
+      format.html do
+        redirect_to feed_path(@user.username),
+                    notice: "#{t(:topic)} successfully deleted")
+      end
       format.json  { render :json => {}, :status => :ok }
     end
   end
