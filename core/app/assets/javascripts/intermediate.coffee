@@ -63,4 +63,4 @@ loadUrl = (url)->
     showFrame.src = url
 
 # initialize the page, so we are ready to render new pages fast
-loadUrl '/facts/new?layout=client'
+loadUrl '/client/blank'
