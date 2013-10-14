@@ -1,1 +1,1 @@
-<h1 class="unsubscribe-text">Something went wrong with unsubscribing, maybe you already were unsubscribed?</h1>
+<h1 class="unsubscribe-text">Something went wrong with <%= @subscribe_action == 'subscribe' ? "subscribing" : "unsubscribing" %>, maybe you already were <%= @subscribe_action == 'subscribe' ? "subscribed" : "unsubscribed" %>?</h1>
