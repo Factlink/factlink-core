@@ -7,7 +7,7 @@ describe UserNotification do
     it "unsubscribes you from a digest mailing" do
       user.user_notification.unsubscribe('digest')
 
-      expect(user.receives_digest).to be_false
+      expect(user.user_notification.can_receive?('digest')).to be_false
     end
 
     it "unsubscribes you persisted from a digest mailing" do
@@ -15,7 +15,7 @@ describe UserNotification do
 
       refetched_user = User.find(user.id)
 
-      expect(refetched_user.receives_digest).to be_false
+      expect(refetched_user.user_notification.can_receive?('digest')).to be_false
     end
 
     it "unsubscribes you from a mailed_notifications mailing" do
@@ -58,21 +58,21 @@ describe UserNotification do
     let(:user) { create :user, receives_digest: false, receives_mailed_notifications: false }
 
     it "subscribes you to a digest mailing" do
-      expect(user.receives_digest).to be_false
+      expect(user.user_notification.can_receive?('digest')).to be_false
 
       user.user_notification.subscribe('digest')
 
-      expect(user.receives_digest).to be_true
+      expect(user.user_notification.can_receive?('digest')).to be_true
     end
 
     it "subscribes you persisted to a digest mailing" do
-      expect(user.receives_digest).to be_false
+      expect(user.user_notification.can_receive?('digest')).to be_false
 
       user.user_notification.subscribe('digest')
 
       refetched_user = User.find(user.id)
 
-      expect(refetched_user.receives_digest).to be_true
+      expect(refetched_user.user_notification.can_receive?('digest')).to be_true
     end
 
     it "raises an exception when trying to subscribe to a non-existing mailing" do

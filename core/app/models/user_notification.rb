@@ -28,6 +28,12 @@ class UserNotification
     self.notification_settings_edit_token = self.class.notification_settings_edit_token
   end
 
+  def can_receive? type
+    raise "Not allowed" unless possible_subscriptions.include? type
+
+    user[:"receives_#{type}"]
+  end
+
   def self.notification_settings_edit_token
     generate_token(:notification_settings_edit_token)
   end
