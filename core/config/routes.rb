@@ -27,7 +27,7 @@ FactlinkUI::Application.routes.draw do
   get "/factlink/intermediate" => "facts#intermediate"
 
   # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new, :create, :show, :destroy] do
+  resources :facts, only: [:create, :show, :destroy] do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
 
     member do
@@ -49,8 +49,10 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+
     collection do
       get 'recently_viewed' => "facts#recently_viewed"
+      get '/new' => 'client#facts_new', as: 'facts_new'
     end
 
     resources :supporting_evidence, only: [] do

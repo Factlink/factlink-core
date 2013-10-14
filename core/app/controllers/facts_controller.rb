@@ -53,13 +53,6 @@ class FactsController < ApplicationController
     render layout: nil
   end
 
-  def new
-    authorize! :new, Fact
-    authenticate_user!
-
-    render inline: '', layout: 'client'
-  end
-
   def create
     # support both old names, and names which correspond to json in show
     fact_text = (params[:fact] || params[:displaystring]).to_s

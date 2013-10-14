@@ -160,14 +160,6 @@ describe FactsController do
     end
   end
 
-  describe :new do
-    it "should work" do
-      authenticate_user!(user)
-      post 'new', url: "http://example.org/", displaystring: "Facity Fact", title: "Title"
-      response.should be_success
-    end
-  end
-
   describe :evidence_search do
     it "should work" do
       authenticate_user!(user)
