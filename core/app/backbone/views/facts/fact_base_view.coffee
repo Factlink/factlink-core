@@ -35,7 +35,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
   bodyView: ->
     @_bodyView ?= new FactBodyView
       model: @model
-      clickable: @options.clickable_body
+      clickable: @options.clickable_body = true
       truncate: @options.truncate_body
 
 class FactBodyView extends Backbone.Marionette.ItemView
