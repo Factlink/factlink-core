@@ -11,7 +11,7 @@ window.remote = new xdm.Rpc {},
 
   local:
     showFactlink: (id, successFn) ->
-      url = "/facts/" + id + "?layout=client"
+      url = "/facts/" + id
       showUrl url, successFn
       return # don't return anything unless you have a callback on the other site of easyXdm
 
@@ -20,8 +20,7 @@ window.remote = new xdm.Rpc {},
               "?fact=" + encodeURIComponent(text) +
               "&url=" + encodeURIComponent(siteUrl) +
               "&title=" + encodeURIComponent(siteTitle) +
-              "&guided=" + encodeURIComponent(guided) +
-              "&layout=client"
+              "&guided=" + encodeURIComponent(guided)
       showUrl url, successFn
 
       onFactlinkCreated = (e, id) ->
