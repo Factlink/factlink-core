@@ -34,7 +34,7 @@ describe Channel::UserStream do
       f1 = create(:fact)
       add_fact_to_channel f1, ch1
 
-      refreshed_stream = GraphUser[stream.id].stream
+      refreshed_stream = GraphUser[gu.id].stream
 
       expect(stream.facts.to_a).to be_empty
       expect(refreshed_stream.facts.to_a).to be_empty
@@ -45,7 +45,6 @@ describe Channel::UserStream do
     it 'have proper initial values' do
       expect(stream.is_real_channel?).to be_false
       expect(stream.title).to eq "All"
-      expect(stream.contained_channels).to match_array [gu.created_facts_channel]
     end
   end
 

@@ -12,9 +12,7 @@ class Channel < OurOhm
     end
 
     def contained_channels
-      channels = ChannelList.new(self).channels.to_a
-      channels.delete(self)
-      return channels
+      []
     end
 
     def topic
