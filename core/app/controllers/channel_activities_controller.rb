@@ -27,11 +27,9 @@ class ChannelActivitiesController < ApplicationController
   def count
     authorize! :see_activities, @user
 
-    timestamp = (params['timestamp'] || 0).to_i
+    timestamp = params.fetch(:timestamp, 0).to_i
 
-    @number_of_activities = interactor(:'channels/activity_count',
-                                          channel_id: channel_id,
-                                          timestamp: timestamp)
+    @number_of_activities = interactor(:'feed/count', timestamp: timestamp)
 
     render json: {count: @number_of_activities, timestamp: timestamp }
   end
