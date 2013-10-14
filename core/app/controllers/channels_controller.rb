@@ -95,7 +95,7 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to feed_path(@user.username),
-                    notice: "#{t(:topic)} successfully deleted")
+                    notice: "#{t(:topic)} successfully deleted"
       end
       format.json  { render :json => {}, :status => :ok }
     end
