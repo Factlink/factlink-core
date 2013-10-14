@@ -31,7 +31,7 @@ class UserNotification
   def can_receive? type
     raise "Not allowed" unless possible_subscriptions.include? type
 
-    user[:"receives_#{type}"]
+    user.confirmed? && user[:"receives_#{type}"]
   end
 
   def self.notification_settings_edit_token
