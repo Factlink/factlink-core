@@ -228,4 +228,6 @@ FactlinkUI::Application.routes.draw do
     get "/tour_users" => "users#tour_users", as: 'tour_users'
   end
 
+  get '/client/blank' => 'client#blank'
+
 end
