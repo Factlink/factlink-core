@@ -6,28 +6,17 @@ describe HomeController do
   render_views
 
   describe "GET index" do
-
-    it "should be succesful" do
-      get :index
-      response.should be_success
-    end
-
     it "should work" do
       authenticate_user!(user)
       get :index
-      response.should redirect_to(channel_activities_path user, user.graph_user.stream)
-    end
-
-    it "assigns @users" do
-      get :index
-      assigns(:users).to_a.should =~ User.all.to_a
+      response.should redirect_to(feed_path user)
     end
 
     it "renders the index template" do
       get :index
+      response.should be_success
       response.should render_template("index")
     end
-
   end
 
   describe "Routed to general pages should work" do
