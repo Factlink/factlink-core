@@ -145,7 +145,7 @@ FactlinkUI::Application.routes.draw do
         end
       end
 
-      resources :activities,
+      resources :activities, # TODO: deprecate this resource on channels
                 only: [:index, :create, :update, :destroy],
                 controller: 'channel_activities' do |variable|
         collection do
