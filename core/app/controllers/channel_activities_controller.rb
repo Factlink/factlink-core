@@ -1,17 +1,26 @@
+# This class returns the feed activities
+#
+# previously each channel had activities, so this is a
+# legacy name, but channels don't have activities anymore
+# (at least not ones that are used)
+#
 class ChannelActivitiesController < ApplicationController
-  before_filter :load_channel, except: [:count]
+  before_filter :load_channel, except: [:count, :index]
   before_filter :get_user
 
   def index
-    authorize! :show, @channel
+    authorize! :show, @user
 
     backbone_responder do
-      count = params.fetch(:number) {11}
-      @activities = sanitized_activities @channel.activities do |list|
-        list.below( params[:timestamp] || 'inf',
-          count: count.to_i,
-          reversed: true, withscores: true)
-      end
+      count = params.fetch(:number, 11)
+      timestamp = params.fetch(:timestamp, 'inf')
+      activities = @user.graph_user.stream_activities
+      retrieved_activities = activities.below(timestamp,
+                                              count: count.to_i,
+                                              reversed: true,
+                                              withscores: true)
+
+      @activities = sanitized_activities retrieved_activities
       render 'channels/activities'
     end
   end
@@ -48,9 +57,7 @@ class ChannelActivitiesController < ApplicationController
 
   private
 
-  def sanitized_activities(activities, &block)
-    retrieved_activities = block.call(activities)
-
+  def sanitized_activities(retrieved_activities)
     resulting_activities = retrieved_activities.select do |a|
       a[:item] and a[:item].still_valid?
     end
