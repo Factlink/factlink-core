@@ -1,0 +1,34 @@
+@import "bootstrap/mixins";
+@import "twitter/bootstrap/variables";
+
+body {
+  font-family: Roboto, @baseFontFamily;
+  padding-top: 20px;
+  min-width: 1px; // to overwrite our base rule of 960px
+}
+
+.fluid-container {
+  width: 500px;
+  max-width: 90%;
+  margin: auto;
+}
+
+.container-box {
+  .white-block-with-shadow();
+  padding: 10px;
+  text-align: center;
+}
+
+.unsubscribe-text {
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 20px;
+  line-height: 30px;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}

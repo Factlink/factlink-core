@@ -3,7 +3,7 @@ class ActivityMailer < ActionMailer::Base
 
   helper :activity_mailer, :fact
 
-  layout "email"
+  layout "email_notification"
 
   def new_activity(user_id, activity_id)
     @user = User.find(user_id)

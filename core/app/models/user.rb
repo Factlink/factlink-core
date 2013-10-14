@@ -7,6 +7,8 @@ class User
   include Mongoid::Timestamps
   include Redis::Objects
 
+  embeds_one :user_notification, autobuild: true
+
   USERNAME_MAX_LENGTH = 20 # WARNING: must be shorter than mongo ids(24 chars) to avoid confusing ids with usernames!
 
   # Virtual attribute for authenticating by either username or email
@@ -173,6 +175,12 @@ class User
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
       ['first_name', 'last_name', 'location', 'biography', 'identities']
+    end
+  end
+
+  before_save do |user|
+    if user.changes.include? 'encrypted_password'
+      user.user_notification.reset_notification_settings_edit_token
     end
   end
 

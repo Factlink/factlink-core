@@ -1,0 +1,5 @@
+nl:
+  mail_subscriptions:
+    mailed_notifications: "notificatie"
+    digest: "wekelijkse"
+    all: "alle"

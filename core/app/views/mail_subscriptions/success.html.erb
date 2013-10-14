@@ -1,0 +1,6 @@
+<h1 class="unsubscribe-text">You have been succesfully <%= @subscribe_action == 'subscribe' ? "subscribed to" : "unsubscribed from" %> our <%= t(@type, scope: 'mail_subscriptions') %> emails.</h1>
+
+<%= if @subscribe_action == 'unsubscribe'
+  link_to 'Subscribe again', subscribe_url(@user.user_notification.notification_settings_edit_token, @type), class: 'button button-confirm'
+  end
+%>
