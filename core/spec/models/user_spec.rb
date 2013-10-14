@@ -177,34 +177,29 @@ describe User do
 
   # also describes .hidden?
   describe '.active?' do
-    context "unconfirmed user" do
-      let(:unconfirmed_user) { create :user }
-      it { expect(unconfirmed_user).to_not be_active }
-      it { expect(unconfirmed_user).to     be_hidden }
-    end
-    context "just confirmed user" do
-      let(:confirmed_user) { create :user, :confirmed }
-      it { expect(confirmed_user).to_not be_active }
-      it { expect(confirmed_user).to     be_hidden }
+    context "initial user" do
+      let(:initial_user) { create :user }
+      it { expect(initial_user).to_not be_active }
+      it { expect(initial_user).to     be_hidden }
     end
     context "user who is set up" do
-      let(:set_up_user) { create :user, :confirmed, :set_up }
+      let(:set_up_user) { create :user, :set_up }
       it { expect(set_up_user).to_not be_active }
       it { expect(set_up_user).to     be_hidden }
     end
-    context "confirmed user who signed the tos, but somehow not set up" do
-      subject(:active_user) { create :user, :confirmed, :agrees_tos }
+    context "user who signed the tos, but somehow not set up" do
+      subject(:active_user) { create :user, :agrees_tos }
       it { expect(active_user).to_not be_active }
       it { expect(active_user).to     be_hidden }
     end
-    context "set up, confirmed user who signed the tos" do
-      subject(:active_user) { create :user, :confirmed, :agrees_tos, :set_up }
+    context "set up user who signed the tos" do
+      subject(:active_user) { create :user, :agrees_tos, :set_up }
       it { expect(active_user).to     be_active }
       it { expect(active_user).to_not be_hidden }
     end
     context "deleted user" do
       let(:deleted_user) do
-        create(:user, :confirmed, :agrees_tos).tap do |user|
+        create(:user, :agrees_tos).tap do |user|
           Pavlov.command('users/mark_as_deleted', user:user)
         end
       end
@@ -220,16 +215,16 @@ describe User do
 
   describe 'scopes' do
     describe ".active" do
-      it "only returns confirmed, set up, and TOS-signed users" do
-        inactive_user = create :user, :confirmed
-        active_user = create :user, :confirmed, :set_up, :agrees_tos
+      it "only returns set up, and TOS-signed users" do
+        inactive_user = create :user
+        active_user = create :user, :set_up, :agrees_tos
 
         active_users = User.active.all
         expect(active_users).to eq [active_user]
       end
 
       it "doesn't return deleted users" do
-        user = create :user, :confirmed, :agrees_tos
+        user = create :user, :agrees_tos
 
         Pavlov.command('users/mark_as_deleted', user:user)
 
@@ -239,10 +234,10 @@ describe User do
     end
 
     describe ".seen_the_tour" do
-      it "only returns confirmed, set up, TOS-signed users that have seen the tour" do
-        inactive_user = create :user, :confirmed
-        active_user = create :user, :confirmed, :set_up, :agrees_tos
-        seen_the_tour_user = create :user, :confirmed, :set_up, :agrees_tos, :seen_the_tour
+      it "only returns set up, TOS-signed users that have seen the tour" do
+        inactive_user = create :user
+        active_user = create :user, :set_up, :agrees_tos
+        seen_the_tour_user = create :user, :set_up, :agrees_tos, :seen_the_tour
 
         seen_tour_users = User.seen_the_tour.all
 
@@ -251,10 +246,10 @@ describe User do
     end
 
     describe ".receives_digest" do
-      it "only returns confirmed, set up, TOS-signed users that have selected to receive digests" do
-        inactive_user = create :user, :confirmed
-        active_user = create :user, :confirmed, :set_up, :agrees_tos
-        active_user_without_digest = create :user, :confirmed, :set_up, :agrees_tos
+      it "only returns set up, TOS-signed users that have selected to receive digests" do
+        inactive_user = create :user
+        active_user = create :user, :set_up, :agrees_tos
+        active_user_without_digest = create :user, :set_up, :agrees_tos
         active_user_without_digest.receives_digest = false
         active_user_without_digest.save!
 
