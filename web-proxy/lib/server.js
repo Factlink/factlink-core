@@ -71,7 +71,7 @@ function getServer(config) {
       scrollto = parse_int_or_null(scrollto) || open_id;
 
       if (open_id !== null) {
-        actions.push('FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.openFactlinkModal(' + open_id + '); });');
+        actions.push('FACTLINK.on("intermediateFrameReady", function() { FACTLINK.openFactlinkModal(' + open_id + '); });');
       }
 
       if (scrollto !== null) {
