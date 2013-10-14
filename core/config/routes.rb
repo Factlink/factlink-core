@@ -146,11 +146,10 @@ FactlinkUI::Application.routes.draw do
       end
 
       resources :activities, # TODO: deprecate this resource on channels
-                only: [:index, :create, :update, :destroy],
+                only: [:index],
                 controller: 'channel_activities' do |variable|
         collection do
           get "count"
-          get "facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
         end
       end
 
