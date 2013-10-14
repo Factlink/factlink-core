@@ -8,27 +8,6 @@ describe FactsController do
   let(:user) { create(:full_user) }
 
   describe :show do
-    it "should render successful" do
-      authenticate_user!(user)
-      fact = nil
-
-      as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
-                                     displaystring: 'displaystring',
-                                     url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
-      end
-
-      ability.stub(:can?).with(:show, Fact).and_return(true)
-      ability.stub(:can?).with(:share_to, :twitter).and_return(false)
-      ability.stub(:can?).with(:share_to, :facebook).and_return(false)
-      should_check_can :show, fact
-
-      get :show, id: fact.id
-      response.should be_success
-    end
-
     it "should render json successful" do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check

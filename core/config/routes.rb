@@ -231,5 +231,6 @@ FactlinkUI::Application.routes.draw do
   end
 
   get '/client/blank' => 'client#blank'
+  get '/client/facts/:id' => 'client#fact_show', as: 'client_fact'
 
 end

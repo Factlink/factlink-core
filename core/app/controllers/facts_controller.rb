@@ -23,17 +23,6 @@ class FactsController < ApplicationController
 
   def show
     authorize! :show, @fact
-
-    respond_to do |format|
-      format.html do
-        dead_fact = query(:'facts/get_dead', id: @fact.id)
-        open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
-        open_graph_formatter.add open_graph_fact
-
-        render inline: '', layout: 'client'
-      end
-      format.json { render }
-    end
   end
 
   def discussion_page
