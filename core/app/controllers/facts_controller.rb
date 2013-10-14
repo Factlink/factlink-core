@@ -1,7 +1,7 @@
 class FactsController < ApplicationController
   layout "client"
 
-  before_filter :set_layout, only: [:new, :create]
+  before_filter :set_layout, only: [:create]
 
   respond_to :json, :html
 
@@ -24,16 +24,7 @@ class FactsController < ApplicationController
   def show
     authorize! :show, @fact
 
-    respond_to do |format|
-      format.html do
-        dead_fact = query(:'facts/get_dead', id: @fact.id)
-        open_graph_fact = OpenGraph::Objects::OgFact.new dead_fact
-        open_graph_formatter.add open_graph_fact
-
-        render inline: '', layout: 'client'
-      end
-      format.json { render }
-    end
+    render 'facts/show', formats: [:json]
   end
 
   def discussion_page
@@ -47,17 +38,6 @@ class FactsController < ApplicationController
 
     redirect_path = FactUrl.new(@fact).friendly_fact_path
     redirect_to redirect_path, status: :moved_permanently
-  end
-
-  def intermediate
-    render layout: nil
-  end
-
-  def new
-    authorize! :new, Fact
-    authenticate_user!
-
-    render inline: '', layout: 'client'
   end
 
   def create

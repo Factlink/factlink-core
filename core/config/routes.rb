@@ -24,10 +24,14 @@ FactlinkUI::Application.routes.draw do
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb
   # as well (frame busting)
-  get "/factlink/intermediate" => "facts#intermediate"
+  get "/factlink/intermediate" => "client#intermediate"
 
-  # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new, :create, :show, :destroy] do
+  get '/client/blank' => 'client#blank'
+  get '/client/facts/:id' => 'client#fact_show', as: 'client_fact'
+  get '/facts/new' => 'client#facts_new', as: 'new_fact' # nginx_site cookbook uses this path
+
+
+  resources :facts, only: [:create, :show, :destroy] do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
 
     member do
@@ -49,6 +53,7 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+
     collection do
       get 'recently_viewed' => "facts#recently_viewed"
     end
@@ -227,5 +232,4 @@ FactlinkUI::Application.routes.draw do
     get "/search" => "users#search", as: 'search_users'
     get "/tour_users" => "users#tour_users", as: 'tour_users'
   end
-
 end
