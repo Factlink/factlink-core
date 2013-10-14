@@ -12,8 +12,14 @@ module Interactors
       end
 
       def mails
-        User.receives_digest.map do |user|
+        recipients.map do |user|
           DigestMailer.discussion_of_the_week(user.id, fact.id, url)
+        end
+      end
+
+      def recipients
+        User.active.select do |user|
+          user.user_notification.can_receive?('digest')
         end
       end
 

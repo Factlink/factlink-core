@@ -25,21 +25,25 @@ describe Interactors::Mails::MassSendDigest do
     end
 
     it 'sends an email to every user with receives_digest' do
+      user_notification1 = double
+      user_notification2 = double
+
       fact  = double(id: double)
-      user1 = double(id: double)
-      user2 = double(id: double)
+      user1 = double(id: double, user_notification: user_notification1)
+      user2 = double(id: double, user_notification: user_notification2)
       mail1 = double
       mail2 = double
       url   = double
 
       interactor = described_class.new fact_id: fact.id, url: url
 
-      User.stub receives_digest: [user1, user2]
+      User.stub active: [user1, user2]
       Fact.stub(:[]).with(fact.id).and_return(fact)
       DigestMailer.stub(:discussion_of_the_week).with(user1.id, fact.id, url).and_return(mail1)
       DigestMailer.stub(:discussion_of_the_week).with(user2.id, fact.id, url).and_return(mail2)
+      user_notification1.stub(:can_receive?).with('digest').and_return(false)
+      user_notification2.stub(:can_receive?).with('digest').and_return(true)
 
-      mail1.should_receive :deliver
       mail2.should_receive :deliver
 
       interactor.execute
