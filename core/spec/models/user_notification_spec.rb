@@ -104,7 +104,7 @@ describe UserNotification do
   describe ".users_receiving" do
     it "only returns confirmed users that have selected to receive digests" do
       unconfirmed_user = create :user, receives_digest: true
-      active_unconfirmed_user = create :full_user, confirmed_at: nil, receives_digest: true
+      active_unconfirmed_user = create :full_user, receives_digest: true
       confirmed_user_without_digest = create :user, :confirmed, receives_digest: false
       confirmed_user = create :user, :confirmed, receives_digest: true
 
