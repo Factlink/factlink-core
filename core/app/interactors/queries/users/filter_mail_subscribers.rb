@@ -1,6 +1,6 @@
 module Queries
   module Users
-    class FilterRecipients
+    class FilterMailSubscribers
       include Pavlov::Query
 
       private
