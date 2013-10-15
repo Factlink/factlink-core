@@ -35,8 +35,6 @@ class window.User extends Backbone.Model
 
   streamLink: -> "/#{@get('username')}/feed"
 
-  link: -> '/' + @get('username')
-
   toJSON: ->
     username = @get('username')
     _.extend super(),

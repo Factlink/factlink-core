@@ -25,7 +25,6 @@ class window.FeedActivities extends Backbone.Collection
     @_count.setTimestamp timestamp if timestamp
 
   url: -> '/' + currentUser.get('username') + '/feed'
-  link: -> @url()
 
   latest_timestamp: -> @first()?.get('timestamp')
 
