@@ -5,7 +5,6 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
 
   events:
     "click .js-open-proxy-link" : "openProxyLink"
-    "click .js-arguments-link": "openDiscussionModal"
 
   templateHelpers: ->
     formatted_time: ->
@@ -19,11 +18,3 @@ class window.FactBottomView extends Backbone.Marionette.ItemView
   openProxyLink: (e) ->
     mp_track "Factlink: Open proxy link",
       site_url: @model.get("fact_url")
-
-  openDiscussionModal: (e) ->
-    e.preventDefault()
-
-    if e.metaKey or e.ctrlKey or e.altKey
-      window.open @model.get('url'), "_blank"
-    else
-      FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone()
