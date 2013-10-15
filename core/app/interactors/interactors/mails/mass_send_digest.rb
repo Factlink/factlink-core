@@ -18,7 +18,7 @@ module Interactors
       end
 
       def recipients
-        UserReceiving.users_receiving('digest')
+        UserNotification.users_receiving('digest')
       end
 
       def fact

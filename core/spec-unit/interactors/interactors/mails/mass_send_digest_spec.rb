@@ -20,7 +20,7 @@ describe Interactors::Mails::MassSendDigest do
   describe '#call' do
 
     before do
-      stub_classes 'UserReceiving', 'Fact', 'DigestMailer'
+      stub_classes 'UserNotification', 'Fact', 'DigestMailer'
       described_class.any_instance.stub(authorized?: true, validate: true)
     end
 
@@ -32,7 +32,7 @@ describe Interactors::Mails::MassSendDigest do
 
       interactor = described_class.new fact_id: fact.id, url: url
 
-      UserReceiving.stub(:users_receiving).with('digest').and_return([user])
+      UserNotification.stub(:users_receiving).with('digest').and_return([user])
       Fact.stub(:[]).with(fact.id).and_return(fact)
       DigestMailer.stub(:discussion_of_the_week).with(user.id, fact.id, url).and_return(mail)
 
