@@ -61,7 +61,6 @@ FactoryGirl.define do
     end
 
     factory :full_user, traits: [
-      :confirmed,
       :set_up,
       :agrees_tos,
       :seen_the_tour

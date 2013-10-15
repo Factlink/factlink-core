@@ -7,13 +7,5 @@
   <%= f.hidden_field :registration_code,
     id: "#{form_id}_user_registration_code", value: @code %>
 
-
   <%= f.submit "Create account", class: "button button-home", 'data-disable-with' => "Creating..." %>
-
-<div class='success'>
-  <div>
-    Great, you&#39;re almost finished! Please click the confirmation link in the email we&#39;ve sent you.
-  </div>
-</div>
-
 <% end %>

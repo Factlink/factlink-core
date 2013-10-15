@@ -138,16 +138,12 @@ class User
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
-  scope :active,   where(:confirmed_at.ne => nil)
-                  .where(:set_up => true)
+  scope :active,   where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
                   .where(:suspended.ne => true)
   scope :seen_the_tour,   active
                             .where(:seen_tour_step => 'tour_done')
-  scope :receives_digest, active
-                            .where(:receives_digest => true)
-
 
   class << self
     def find_for_oauth(provider_name, uid)
@@ -200,7 +196,7 @@ class User
   end
 
   def active?
-    confirmed? && set_up && agrees_tos && !deleted && !suspended
+    set_up && agrees_tos && !deleted && !suspended
   end
 
   def graph_user
@@ -301,10 +297,10 @@ class User
     Gravatar.hash(email)
   end
 
-  # Require activated accounts to work with
-  # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
+  # Don't require being confirmed for being active for authentication
+  # Do check for deleted and suspended accounts though!
   def active_for_authentication?
-    super && !deleted && !suspended
+    !deleted && !suspended
   end
 
   def inactive_message
