@@ -4,8 +4,9 @@ describe Interactors::Mails::MassSendDigest do
   include PavlovSupport
 
   before do
-    @user = create :full_user, receives_digest: true
-    @user_not_receiving = create :full_user, receives_digest: false
+    @user = create :full_user, :confirmed, receives_digest: true
+    @user_not_receiving = create :full_user, :confirmed, receives_digest: false
+    @another_user_not_receiving = create :full_user, receives_digest: true
 
     @url = 'url'
 
