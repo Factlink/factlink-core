@@ -37,7 +37,7 @@ class window.FactView extends Backbone.Marionette.Layout
     'modal?' : FactlinkApp.onClientApp is true
 
   regions:
-    factBaseView: '.js-fact-base-region'
+    factBaseRegion: '.js-fact-base-region'
     linkRegion: '.js-fact-link-region'
     poparrowRegion: '.js-region-poparrow'
 
@@ -46,7 +46,7 @@ class window.FactView extends Backbone.Marionette.Layout
     @listenTo @model, "change", @render
 
   onRender: ->
-    @factBaseView.show new FactBaseView(model: @model)
+    @factBaseRegion.show new FactBaseView(model: @model)
     @linkRegion.show @newLinkView()
 
     if Factlink.Global.signed_in
