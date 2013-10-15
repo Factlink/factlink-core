@@ -127,6 +127,8 @@ FactlinkUI::Application.routes.draw do
     put "/" => "users#update"
     delete "/" => "users#destroy"
 
+    get "/created_facts" => 'channels#created_facts', as: "created_facts_path"
+
     get '/feed' => "channel_activities#index", as: 'feed'
     get '/feed/count' => "channel_activities#count", as: 'feed_count'
 
