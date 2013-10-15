@@ -38,7 +38,7 @@ class window.FactView extends Backbone.Marionette.Layout
 
   regions:
     factBaseView: '.fact-base-region'
-    linkRegion: '.fact-bottom-region'
+    linkRegion: '.js-fact-link-region'
     poparrowRegion: '.js-region-poparrow'
 
   initialize: (opts) ->
