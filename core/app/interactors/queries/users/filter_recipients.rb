@@ -19,15 +19,7 @@ module Interactors
       end
 
       def recipients
-        users.select do |user|
-          user.user_notification.can_receive?(type)
-        end
-      end
-
-      def users
-        graph_user_ids.map do |graph_user_id|
-          GraphUser[graph_user_id].user
-        end
+        UserNotification.users_receiving(type).any_in(graph_user_id: graph_user_ids)
       end
     end
   end
