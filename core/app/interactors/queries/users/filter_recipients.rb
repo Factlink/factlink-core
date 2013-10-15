@@ -9,12 +9,8 @@ module Queries
       attribute :type, String
 
       def execute
-        query :users_by_ids, user_ids: recipients_ids
-      end
-
-      def recipients_ids
         recipients.map do |user|
-          user.id.to_s
+          KillObject.user user
         end
       end
 
