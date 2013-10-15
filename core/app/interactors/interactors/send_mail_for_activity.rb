@@ -12,15 +12,12 @@ module Interactors
     end
 
     def recipients
-      users_by_graph_user_ids.select { |user| user.receives_mailed_notifications }
-    end
-
-    def users_by_graph_user_ids
       graph_user_ids = query(:'object_ids_by_activity',
                                  activity: activity, class_name: "GraphUser",
                                  list: :notifications)
 
-      query(:'users_by_graph_user_ids', graph_user_ids: graph_user_ids)
+      query :'users/filter_recipients',
+        graph_user_ids: graph_user_ids, type: 'mailed_notifications'
     end
 
     def authorized?
