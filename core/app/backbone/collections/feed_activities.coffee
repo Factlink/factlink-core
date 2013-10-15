@@ -1,10 +1,9 @@
-class window.ChannelActivities extends Backbone.Collection
+class window.FeedActivities extends Backbone.Collection
   _.extend @prototype, AutoloadCollectionOnTimestamp
   model: Activity
 
   initialize: (models, opts) ->
-    @channel = opts.channel;
-    @_count = new ChannelActivityCount {}, channel_activity_collection: @
+    @_count = new ActivityCount {}, activity_collection: @
     @_count.on 'change', @update_count, @
     @on 'reset add remove', @setLatestTimestamp, @
     @setLatestTimestamp()
@@ -25,21 +24,17 @@ class window.ChannelActivities extends Backbone.Collection
     timestamp = @latest_timestamp()
     @_count.setTimestamp timestamp if timestamp
 
-  url: -> '/' + this.channel.get('created_by').username + '/channels/' + this.channel.get('id') + '/activities';
-  link: -> @url()
+  url: -> '/' + currentUser.get('username') + '/feed'
 
   latest_timestamp: -> @first()?.get('timestamp')
 
 
-class ChannelActivityCount extends Backbone.Model
+class ActivityCount extends Backbone.Model
   initialize: (attributes, options) ->
-    @collection_url = options.channel_activity_collection.url()
+    @collection_url = options.activity_collection.url()
     @set timestamp: (@get('timestamp') || 0)
 
   url: -> @collection_url + "/count.json?timestamp=#{@get('timestamp')}"
-
-  fetch: (args...) ->
-    super(args...)
 
   parse: (response)->
     response = super(response)
