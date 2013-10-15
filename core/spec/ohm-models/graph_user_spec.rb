@@ -13,7 +13,6 @@ describe GraphUser do
   context "Initially" do
     context "the subjects channels" do
       it { subject.created_facts_channel.title.should == "Created" }
-      it { subject.stream.title.should == "All" }
     end
   end
 end

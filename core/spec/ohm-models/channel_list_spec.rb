@@ -8,7 +8,6 @@ describe ChannelList do
       @graph_user = create :graph_user
       @expected_channels = []
 
-      @expected_channels << @graph_user.stream
       @expected_channels << @graph_user.created_facts_channel
     end
     describe "initially" do
@@ -71,7 +70,7 @@ describe ChannelList do
       list = ChannelList.new(gu1)
 
       expect(list.sorted_channels.map(&:title)).
-        to eq ['a', 'All', 'b', 'c', 'Created']
+        to eq ['a', 'b', 'c', 'Created']
     end
   end
 

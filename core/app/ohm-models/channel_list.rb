@@ -47,7 +47,6 @@ class ChannelList
   def forbidden_ids
     [
       graph_user.created_facts_channel_id,
-      graph_user.stream_id
     ]
   end
 end
