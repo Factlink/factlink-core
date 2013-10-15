@@ -84,7 +84,7 @@ feature 'the profile page', type: :feature do
       backend.interactor(:'channels/add_fact', fact: fact, channel: channel)
     end
 
-    visit channel_activities_path(following_user.username,following_user.graph_user.stream_id)
+    visit feed_path(following_user.username)
 
     page.should have_content displaystring
   end
