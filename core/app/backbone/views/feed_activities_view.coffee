@@ -1,5 +1,5 @@
-class window.ChannelActivitiesView extends Backbone.Marionette.Layout
-  template: 'channels/channel_activities'
+class window.FeedActivitiesView extends Backbone.Marionette.Layout
+  template: 'feed/feed'
 
   regions:
     activityList: '.js-region-activity-list'

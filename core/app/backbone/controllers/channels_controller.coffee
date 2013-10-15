@@ -57,8 +57,8 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
     @showSidebarForTopic(null)
     FactlinkApp.Sidebar.activate('stream')
-    activities = new ChannelActivities
-    FactlinkApp.mainRegion.show new ChannelActivitiesView(collection: activities)
+    activities = new FeedActivities
+    FactlinkApp.mainRegion.show new FeedActivitiesView(collection: activities)
 
 
   showFact: (slug, fact_id, params={})->
