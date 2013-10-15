@@ -6,14 +6,9 @@ topic_authority = channel.owner_authority
 is_mine = (user.id == current_user.id)
 
 is_created = (channel.type == 'created')
-is_all = (channel.type == 'stream')
-is_normal = !is_all && !is_created
-is_discover_stream = is_all && is_mine
+is_normal = !is_created
 
-
-title = if is_all
-          I18n.t(:stream).capitalize
-        elsif is_created
+title = if is_created
           is_mine ? 'My Factlinks' : 'Created by ' + user.name
         else
           channel.title
@@ -21,7 +16,6 @@ title = if is_all
 
 json.type channel.type
 json.is_created is_created
-json.is_all is_all
 
 json.id channel.id
 json.has_authority? channel.is_real_channel?
@@ -33,7 +27,6 @@ json.slug_title channel.slug_title
 
 json.is_normal is_normal
 
-
 if topic_authority
   json.created_by_authority NumberFormatter.new(topic_authority).as_authority
 end
@@ -42,13 +35,9 @@ json.created_by do |j|
   j.partial! 'users/user_partial', user: user
 end
 
-json.discover_stream? is_discover_stream
 
-link = if is_discover_stream
-        "/#{user.username}/channels/#{channel.id}/activities"
-       else
-        "/#{user.username}/channels/#{channel.id}"
-       end
+link = "/#{user.username}/channels/#{channel.id}"
+
 json.link link
 json.edit_link link + "/edit"
 

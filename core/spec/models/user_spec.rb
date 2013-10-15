@@ -244,20 +244,6 @@ describe User do
         expect(seen_tour_users.all).to eq [seen_the_tour_user]
       end
     end
-
-    describe ".receives_digest" do
-      it "only returns set up, TOS-signed users that have selected to receive digests" do
-        inactive_user = create :user
-        active_user = create :user, :set_up, :agrees_tos
-        active_user_without_digest = create :user, :set_up, :agrees_tos
-        active_user_without_digest.receives_digest = false
-        active_user_without_digest.save!
-
-        digest_users = User.receives_digest.all
-
-        expect(digest_users).to eq [active_user]
-      end
-    end
   end
 
   describe "#valid_username_and_email?" do

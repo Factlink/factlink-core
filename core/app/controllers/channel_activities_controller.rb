@@ -19,7 +19,7 @@ class ChannelActivitiesController < ApplicationController
                                               reversed: true,
                                               withscores: true)
 
-      @activities = sanitize retrieved_activities
+      @activities = sanitize retrieved_activities, activities.key
       render 'channels/activities'
     end
   end
@@ -36,20 +36,20 @@ class ChannelActivitiesController < ApplicationController
 
   private
 
-  def sanitize(retrieved_activities)
+  def sanitize(retrieved_activities, activities_key)
     resulting_activities = retrieved_activities.select do |a|
       a[:item] and a[:item].still_valid?
     end
 
     items_filtered = resulting_activities.length != retrieved_activities.length
-    clean retrieved_activities if items_filtered
+    clean activities_key if items_filtered
 
     resulting_activities
   end
 
-  def clean(activities)
+  def clean(activities_key)
     Resque.enqueue Commands::Activities::CleanList,
-                   list_key: activities.key.to_s
+                   list_key: activities_key.to_s
   end
 
   def get_user

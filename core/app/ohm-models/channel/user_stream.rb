@@ -1,6 +1,12 @@
 class Channel < OurOhm
   class UserStream < Channel
-    include Channel::GeneratedChannel
+    def is_real_channel?
+      false
+    end
+
+    def topic
+      nil
+    end
 
     def type
       'stream'
@@ -12,9 +18,7 @@ class Channel < OurOhm
     end
 
     def contained_channels
-      channels = ChannelList.new(self).channels.to_a
-      channels.delete(self)
-      return channels
+      []
     end
 
     def topic
@@ -24,6 +28,5 @@ class Channel < OurOhm
     def inspect
       "UserStream of #{created_by}"
     end
-
   end
 end

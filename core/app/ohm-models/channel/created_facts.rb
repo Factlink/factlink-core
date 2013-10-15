@@ -1,6 +1,12 @@
 class Channel < OurOhm
   class CreatedFacts < Channel
-    include Channel::GeneratedChannel
+    def is_real_channel?
+      false
+    end
+
+    def topic
+      nil
+    end
 
     def type
       'created'
@@ -18,6 +24,5 @@ class Channel < OurOhm
     def contained_channels
       []
     end
-
   end
 end
