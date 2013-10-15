@@ -53,7 +53,7 @@ class window.FactView extends Backbone.Marionette.Layout
       @setPoparrow()
 
   newFactBottomView: ->
-    new FactBottomView
+    new FactProxyLinkView
       model: @model
 
   setPoparrow: ->
