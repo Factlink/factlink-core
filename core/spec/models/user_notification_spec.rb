@@ -100,4 +100,16 @@ describe UserNotification do
       expect(unconfirmed_user.user_notification.can_receive?('digest')).to be_false
     end
   end
+
+  describe ".users_receiving" do
+    it "only returns confirmed users that have selected to receive digests" do
+      unconfirmed_user = create :user
+      confirmed_user = create :user, :confirmed, receives_digest: true
+      confirmed_user_without_digest = create :user, :confirmed, receives_digest: false
+
+      digest_users = UserNotification.users_receiving('digest')
+
+      expect(digest_users).to eq [confirmed_user]
+    end
+  end
 end

@@ -48,7 +48,7 @@ class UserNotification
   end
 
   def self.users_receiving(type)
-    raise "Not allowed" unless self.class.possible_subscriptions.include? type
+    raise "Not allowed" unless possible_subscriptions.include? type
 
     User.where(:confirmed_at.ne => nil).where(:"receives_#{type}" => true)
   end
