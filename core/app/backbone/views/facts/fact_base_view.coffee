@@ -55,6 +55,3 @@ class FactBodyView extends Backbone.Marionette.ItemView
       Backbone.history.navigate @model.clientLink(), true
     else
       FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone(), e
-
-  onRender: ->
-    @ui.displaystring.toggleClass 'fact-body-displaystring-clickable'
