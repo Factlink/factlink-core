@@ -298,10 +298,10 @@ class User
     Gravatar.hash(email)
   end
 
-  # Require activated accounts to work with
-  # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
+  # Don't require being confirmed for being active for authentication
+  # Do check for deleted and suspended accounts though!
   def active_for_authentication?
-    super && !deleted && !suspended
+    !deleted && !suspended
   end
 
   def inactive_message
