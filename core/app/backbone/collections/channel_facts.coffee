@@ -7,5 +7,3 @@ class window.ChannelFacts extends Backbone.Collection
 
   url: ->  @channel.normal_url() + '/facts'
 
-  canAddFact: -> @channel.get('editable?')
-
