@@ -3,7 +3,6 @@ class window.ChannelActivities extends Backbone.Collection
   model: Activity
 
   initialize: (models, opts) ->
-    @channel = opts.channel;
     @_count = new ChannelActivityCount {}, channel_activity_collection: @
     @_count.on 'change', @update_count, @
     @on 'reset add remove', @setLatestTimestamp, @
@@ -25,7 +24,7 @@ class window.ChannelActivities extends Backbone.Collection
     timestamp = @latest_timestamp()
     @_count.setTimestamp timestamp if timestamp
 
-  url: -> '/' + this.channel.get('created_by').username + '/channels/' + this.channel.get('id') + '/activities';
+  url: -> '/' + currentUser.get('username') + '/feed'
   link: -> @url()
 
   latest_timestamp: -> @first()?.get('timestamp')

@@ -128,6 +128,7 @@ FactlinkUI::Application.routes.draw do
     delete "/" => "users#destroy"
 
     get '/feed' => "channel_activities#index", as: 'feed'
+    get '/feed/count' => "channel_activities#count", as: 'feed_count'
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 

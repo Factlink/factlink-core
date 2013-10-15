@@ -55,15 +55,11 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     FactlinkApp.leftTopRegion.close()
     FactlinkApp.mainRegion.close()
 
-    username = currentUser.get('username')
-    channel_id = currentUser.stream().id
+    @showSidebarForTopic(null)
+    FactlinkApp.Sidebar.activate('stream')
+    activities = new ChannelActivities
+    FactlinkApp.mainRegion.show new ChannelActivitiesView(collection: activities)
 
-    @loadChannel username, channel_id, (channel) =>
-      @showSidebarForChannel(channel)
-      FactlinkApp.Sidebar.activate('stream')
-
-      activities = new ChannelActivities([],{ channel: channel })
-      FactlinkApp.mainRegion.show new ChannelActivitiesView(model: channel, collection: activities)
 
   showFact: (slug, fact_id, params={})->
     @showStream() unless FactlinkApp.mainRegion.currentView?

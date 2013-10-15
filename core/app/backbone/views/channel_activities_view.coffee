@@ -7,6 +7,9 @@ class window.ChannelActivitiesView extends Backbone.Marionette.Layout
   events:
     "click .js-activities-refresh": "refresh"
 
+  templateHelpers: ->
+    title: Factlink.Global.t.stream.capitalize()
+
   initialize: ->
     @listenTo @collection, 'change_count', @update_count
     @start_updating_count()
