@@ -4,6 +4,10 @@ require_relative '../../../app/interactors/queries/creator_authorities_for_chann
 describe Queries::CreatorAuthoritiesForChannels do
   include PavlovSupport
 
+  before do
+    stub_classes 'GraphUser'
+  end
+
   describe '#query' do
     it 'should retrieve the authority for each channel and return this in a list' do
       channels = [double, double]
@@ -41,22 +45,18 @@ describe Queries::CreatorAuthoritiesForChannels do
       expect(result).to eq topic_authority
     end
 
-    it 'should return 0 when the channel is not a real channel.' do
+    it 'should raise when the channel is not a real channel.' do
       channel_creator = double(:some_graph_user)
       channel = double('channel', created_by: channel_creator, type:'notchannel')
       query = described_class.new channels: double
 
-      result = query.authority_for(channel)
-
-      expect(result).to eq 0
+      expect do
+        query.authority_for(channel)
+      end.to raise_error
     end
   end
 
   describe '#graph_user_for' do
-    before do
-      stub_classes 'GraphUser'
-    end
-
     it 'should return the created_by user' do
       channel_creator = double(:some_graph_user, id: 256)
       channel = double('channel',
