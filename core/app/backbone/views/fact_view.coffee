@@ -38,7 +38,7 @@ class window.FactView extends Backbone.Marionette.Layout
 
   regions:
     factBaseView: '.fact-base-region'
-    factBottomView: '.fact-bottom-region'
+    linkRegion: '.fact-bottom-region'
     poparrowRegion: '.js-region-poparrow'
 
   initialize: (opts) ->
@@ -47,12 +47,12 @@ class window.FactView extends Backbone.Marionette.Layout
 
   onRender: ->
     @factBaseView.show new FactBaseView(model: @model)
-    @factBottomView.show @newFactBottomView()
+    @linkRegion.show @newLinkView()
 
     if Factlink.Global.signed_in
       @setPoparrow()
 
-  newFactBottomView: ->
+  newLinkView: ->
     new FactProxyLinkView
       model: @model
 
