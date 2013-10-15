@@ -36,11 +36,8 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     @_bodyView ?= new FactBodyView
       model: @model
       clickable: @options.clickable_body = true
-      truncate: @options.truncate_body
 
 class FactBodyView extends Backbone.Marionette.ItemView
-  _.extend @prototype, Backbone.Factlink.Trunk8MoreLessMixin
-
   template: "facts/fact_body"
 
   events:
@@ -52,7 +49,6 @@ class FactBodyView extends Backbone.Marionette.ItemView
   initialize: ->
     @options.truncate = false if @options.clickable
 
-    @trunk8Init 3, '.js-displaystring', '.less' if @options.truncate
     @listenTo @model, 'change', @render
 
   click: (e) ->
