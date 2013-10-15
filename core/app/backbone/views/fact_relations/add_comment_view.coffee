@@ -30,15 +30,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @disableSubmit()
     @addDefaultModel highlight: true
 
-  templateHelpers: =>
-    type_of_action_text: @type_of_action_text()
-
-  type_of_action_text: ->
-    if @options.addToCollection.type == 'supporting'
-      'Agreeing'
-    else
-      'Disagreeing'
-
   setFormContent: (content) -> @_textModel().set 'text', content
 
   addModelSuccess: (model) ->
