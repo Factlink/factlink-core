@@ -15,6 +15,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     if resource.valid_username_and_email? and resource.save validate: false
+      mp_track 'User: Reserved username', code: resource.registration_code
+
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
         sign_in(resource_name, resource)

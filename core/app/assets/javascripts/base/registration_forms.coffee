@@ -58,7 +58,6 @@ bindRegistrationForm = (formId) ->
       clearPreviousErrorsForForm($(el))
 
     registration_code = $("#" + formId + "_user_registration_code").val()
-    mp_track 'User: Reserved username', code: registration_code
 
   form.on "ajax:error", (event, response, error) ->
     clearPreviousErrorsForForm(form)
