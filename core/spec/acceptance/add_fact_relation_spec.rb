@@ -81,18 +81,6 @@ feature "adding factlinks to a fact", type: :feature do
     end
   end
 
-  scenario "factlink should show Arguments (1) on profile page" do
-    go_to_discussion_page_of factlink
-
-    supporting_factlink = backend_create_fact
-
-    add_existing_factlink :supporting, supporting_factlink
-
-    visit user_path(@user)
-
-    page.should have_content 'Arguments (1)'
-  end
-
   scenario "setting opinion through popup" do
     supporting_factlink = backend_create_fact
 

@@ -140,17 +140,4 @@ feature "adding comments to a fact", type: :feature do
 
     page.should_not have_content comment
   end
-
-  scenario "factlink should show Arguments (1) on profile page" do
-    go_to_discussion_page_of factlink
-
-    comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment :supporting, comment
-    assert_comment_exists comment
-
-    visit user_path(@user)
-
-    page.should have_content 'Arguments (1)'
-  end
-
 end
