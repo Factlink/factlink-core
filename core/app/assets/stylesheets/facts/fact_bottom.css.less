@@ -1,32 +1,25 @@
 @import "bootstrap/mixins";
 
-.fact-bottom {
+.proxy-link-container {
   white-space: nowrap;
   position: relative;
   overflow: hidden;
-  margin-top: 8px;
+  margin-left: 55px;
   clear: both;
+  padding: 0;
+  .new-design-font();
+  font-size: 13px;
+  .transition(opacity .15s ease-in-out);
 
   a {
-    font-weight: bold;
+    color: @gray;
+    font-weight: normal;
     .transition(color .15s ease-in-out);
+
+    &:hover {
+      color: @grayDark;
+    }
   }
-}
-
-.fact-bottom-actions {
-  margin: 0;
-  padding: 0;
-
-  opacity: .25;
-  .transition(opacity .15s ease-in-out);
-}
-
-.fact-view:hover .fact-bottom-actions {
-  opacity: 1;
-}
-
-.fact-bottom-action {
-  display: inline-block;
 
   &:after {
     content: "·";
@@ -39,7 +32,16 @@
   }
 }
 
-.fact-bottom-title-overflow {
+.proxy-link {
+  opacity: .7;
+  display: inline-block;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.proxy-link-overflow {
   z-index: 100;
   background: image-url('discussions/title_fade.png') right repeat-y;
   display: block;
@@ -50,15 +52,7 @@
   top: 0;
 }
 
-.fact-bottom-opinion-indicators {
-  font-size: @metaFontSize;
-}
-
-.fact-bottom-opinion-indicator {
-  margin: 0 5px 0 5px;
-}
-
-.fact-bottom-favicon {
+.proxy-link-favicon {
   width: 16px;
   height: 16px;
   vertical-align: text-top;
