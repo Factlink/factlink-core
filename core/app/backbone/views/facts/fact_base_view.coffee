@@ -35,7 +35,6 @@ class window.FactBaseView extends Backbone.Marionette.Layout
   bodyView: ->
     @_bodyView ?= new FactBodyView
       model: @model
-      clickable: @options.clickable_body = true
 
 class FactBodyView extends Backbone.Marionette.ItemView
   template: "facts/fact_body"
@@ -47,13 +46,9 @@ class FactBodyView extends Backbone.Marionette.ItemView
     displaystring: '.js-displaystring'
 
   initialize: ->
-    @options.truncate = false if @options.clickable
-
     @listenTo @model, 'change', @render
 
   click: (e) ->
-    return unless @options.clickable
-
     if e.metaKey or e.ctrlKey or e.altKey
       window.open @model.get('url'), "_blank"
     else if FactlinkApp.onClientApp
@@ -62,4 +57,4 @@ class FactBodyView extends Backbone.Marionette.ItemView
       FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone(), e
 
   onRender: ->
-    @ui.displaystring.toggleClass 'fact-body-displaystring-clickable', !!@options.clickable
+    @ui.displaystring.toggleClass 'fact-body-displaystring-clickable'
