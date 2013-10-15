@@ -1,7 +1,7 @@
 class window.FactProxyLinkView extends Backbone.Marionette.ItemView
   className: 'fact-bottom'
 
-  template: 'facts/fact_bottom'
+  template: 'facts/proxy_link'
 
   events:
     "click .js-open-proxy-link" : "openProxyLink"
