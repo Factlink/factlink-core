@@ -6,9 +6,6 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     factWheelRegion: '.fact-wheel'
     factBodyRegion: '.fact-body'
 
-  templateHelpers: ->
-    'modal?' : FactlinkApp.onClientApp is true
-
   onRender: ->
     @factWheelRegion.show @wheelView()
     @factBodyRegion.show @bodyView()

@@ -32,9 +32,6 @@ class window.FactView extends Backbone.Marionette.Layout
   className: "fact-view"
   template: "facts/fact"
 
-  templateHelpers: ->
-    'modal?' : FactlinkApp.onClientApp is true
-
   regions:
     factBaseRegion: '.js-fact-base-region'
     linkRegion: '.js-fact-link-region'
