@@ -36,9 +36,6 @@ class ActivityCount extends Backbone.Model
 
   url: -> @collection_url + "/count.json?timestamp=#{@get('timestamp')}"
 
-  fetch: (args...) ->
-    super(args...)
-
   parse: (response)->
     response = super(response)
     if response.timestamp == @get('timestamp')
