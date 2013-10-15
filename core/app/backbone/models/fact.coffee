@@ -38,7 +38,7 @@ class window.Fact extends Backbone.Model
       @on 'change:id', -> @_fact_wheel.set 'fact_id', @id
     @_fact_wheel
 
-  clientLink: -> @clone().url()
+  clientLink: -> "/client/facts/#{@id}"
 
   user: -> new User(@get("created_by"))
 

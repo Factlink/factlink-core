@@ -18,16 +18,18 @@
   margin: 0;
   padding: 0;
 
-  opacity: .25;
+  opacity: .7;
+  color: @black;
+  font-family: Roboto, @baseFontFamily;
+  font-size: @heading3FontSize;
   .transition(opacity .15s ease-in-out);
 }
 
-.fact-view:hover .fact-bottom-actions {
+.fact-bottom-actions:hover {
   opacity: 1;
 }
 
 .fact-bottom-action {
-  display: inline-block;
 
   &:after {
     content: "·";

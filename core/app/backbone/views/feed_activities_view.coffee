@@ -1,11 +1,14 @@
-class window.ChannelActivitiesView extends Backbone.Marionette.Layout
-  template: 'channels/channel_activities'
+class window.FeedActivitiesView extends Backbone.Marionette.Layout
+  template: 'feed/feed'
 
   regions:
     activityList: '.js-region-activity-list'
 
   events:
     "click .js-activities-refresh": "refresh"
+
+  templateHelpers: ->
+    title: Factlink.Global.t.stream.capitalize()
 
   initialize: ->
     @listenTo @collection, 'change_count', @update_count

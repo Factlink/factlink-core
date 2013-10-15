@@ -7,11 +7,9 @@ describe ChannelList do
     before do
       @graph_user = create :graph_user
       @expected_channels = []
-      begin
-        @expected_channels << @graph_user.stream
-        @expected_channels << @graph_user.created_facts_channel
-      rescue
-      end
+
+      @expected_channels << @graph_user.stream
+      @expected_channels << @graph_user.created_facts_channel
     end
     describe "initially" do
       it "contains only the expected channels" do

@@ -63,14 +63,17 @@ class User
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
         as: :from_tos
 
+  USERNAME_BLACKLIST = [
+    :users, :facts, :site, :templates, :search, :system, :tos, :pages, :privacy,
+    :admin, :factlink, :auth, :reserved, :feedback, :feed, :client, :assets,
+    :rails
+  ].freeze
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
-                          :with => Regexp.new('^' + ([
-                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink, :auth, :reserved
-                          ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
+                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
                           :with => /\A[A-Za-z0-9_]*\Z/i,
