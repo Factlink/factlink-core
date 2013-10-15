@@ -6,6 +6,3 @@ class window.TopicFacts extends Backbone.Collection
   initialize: (models, options) -> @topic = options.topic
 
   url: ->  @topic.url() + '/facts'
-
-  canAddFact: -> false
-
