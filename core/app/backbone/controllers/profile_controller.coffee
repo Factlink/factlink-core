@@ -19,7 +19,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
         main_region.show new ProfileView
           model: user
           collection: window.Channels
-          created_facts_view: @getFactsView user.created_facts()
+          created_facts_view: @getFactsView user
 
   notification_options: (username)->
     title: 'Notification Settings'
@@ -67,9 +67,9 @@ class window.ProfileController extends Backbone.Marionette.Controller
     user.fetch
       success: -> options.onFetch(user)
 
-  getFactsView: (channel) ->
+  getFactsView: (user) ->
     new FactsView
-      collection: new ChannelFacts([], channel: channel)
+      collection: new CreatedFacts([], user: user)
       empty_view: new EmptyProfileFactsView()
 
   showSidebarProfile: (user) ->

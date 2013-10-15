@@ -117,13 +117,18 @@ class ChannelsController < ApplicationController
     from = params[:timestamp].to_i if params[:timestamp]
     count = params[:number].to_i if params[:number]
 
-    @facts = interactor(:'channels/facts', id: channel_id, from: from, count: count)
+    @facts = interactor(:'channels/facts', id: @channel.id, from: from, count: count)
 
     mark_channel_as_read
 
     respond_to do |format|
-      format.json { render }
+      format.json { render 'channels/facts'}
     end
+  end
+
+  def created_facts
+    @channel = @user.graph_user.created_facts_channel
+    facts
   end
 
   def add_fact
