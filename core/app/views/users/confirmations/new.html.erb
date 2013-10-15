@@ -1,16 +1,20 @@
-<h2>Resend confirmation instructions</h2>
+<div class="devise-form">
+  <h2>Resend confirmation instructions</h2>
 
-<% if @params_token %>
-<div class="alert alert-info">Your account might already be activated. Perhaps you can try to login or reset your password?</div>
-<% end %>
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "form" }) do |f| %>
 
-<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+    <div class="control-group">
+      <div class="controls">
+        <%= f.email_field :email, placeholder: "Email address",
+          class: "text"  %>
+        <%= possible_error_for_field(resource, :email) %>
+      </div>
+    </div>
 
-  <div class="row"><%= f.label :email, style: 'width: 160px' %>
-  <%= f.email_field :email %></div>
+    <div class="form-actions">
+      <%= f.submit "Resend confirmation instructions", :class => "button button-confirm" %>
+    </div>
+  <% end %>
 
-  <div class="action-wrapper"><%= f.submit "Resend confirmation instructions", class: 'button' %></div>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+  <p>Other problems? <a href="mailto:support@factlink.com">Email us!</a></p>
+</div>
