@@ -49,24 +49,9 @@ class window.FactView extends Backbone.Marionette.Layout
     @factBaseRegion.show new FactBaseView(model: @model)
 
     if @model.get('proxy_scroll_url')
-      @linkRegion.show @newLinkView()
+      @linkRegion.show new FactProxyLinkView model: @model
 
     if Factlink.Global.signed_in
-      @setPoparrow()
-
-  newLinkView: ->
-    new FactProxyLinkView
-      model: @model
-
-  setPoparrow: ->
-    poparrowView = new FactPoparrowView model: @model
-    @poparrowRegion.show poparrowView
+      @poparrowRegion.show new FactPoparrowView model: @model
 
   remove: -> @$el.fadeOut "fast", -> $(this).remove()
-
-  highlight: ->
-    @$el.animate
-      "background-color": "#ffffe1"
-    ,
-      duration: 2000
-      complete: -> $(this).animate "background-color": "#ffffff", 2000
