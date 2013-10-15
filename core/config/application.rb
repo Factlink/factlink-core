@@ -125,7 +125,7 @@ module FactlinkUI
       'admin.css',
       'frontend.css',
       'base.css',
-      'unsubscribed',
+      'unsubscribed.css',
 
       'application.js',
       'frontend.js',
