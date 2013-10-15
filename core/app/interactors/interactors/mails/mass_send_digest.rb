@@ -18,9 +18,7 @@ module Interactors
       end
 
       def recipients
-        User.active.select do |user|
-          user.user_notification.can_receive?('digest')
-        end
+        UserReceiving.users_receiving('digest')
       end
 
       def fact
