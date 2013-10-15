@@ -29,7 +29,6 @@ class FactPoparrowView extends Backbone.Factlink.PoparrowView
 class window.FactView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
-  tagName: "div"
   className: "fact-view"
   template: "facts/fact"
 
