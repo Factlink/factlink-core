@@ -1,12 +1,12 @@
 require 'acceptance_helper'
 
 describe 'When a user signs in', type: :feature do
-  it 'and has not yet confirmed his email address it should fail' do
+  it 'redirects to set up page for new users' do
     user = create :user
 
     sign_in_user(user)
 
-    page.should have_content "You have to confirm your account before continuing"
+    page.should have_content "set up your account here"
   end
 
   it 'he should be able to sign out' do
