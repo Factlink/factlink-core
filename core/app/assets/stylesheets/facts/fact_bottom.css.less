@@ -6,36 +6,20 @@
   overflow: hidden;
   margin-left: 55px;
   clear: both;
-
-  a {
-    font-weight: bold;
-    .transition(color .15s ease-in-out);
-  }
-}
-
-.fact-bottom-actions {
-  margin: 0;
   padding: 0;
-
-  opacity: .7;
   .new-design-font();
   font-size: 13px;
   .transition(opacity .15s ease-in-out);
 
-  .proxy-link {
+  a {
     color: @gray;
     font-weight: normal;
-  }
-  .proxy-link:hover {
-   color: @grayDark;
-  }
-}
+    .transition(color .15s ease-in-out);
 
-.fact-bottom-actions:hover {
-  opacity: 1;
-}
-
-.fact-bottom-action {
+    &:hover {
+      color: @grayDark;
+    }
+  }
 
   &:after {
     content: "·";
@@ -45,6 +29,15 @@
   &:last-child:after {
     content: "";
     margin: 0;
+  }
+}
+
+.proxy-link {
+  opacity: .7;
+  display: inline-block;
+
+  &:hover {
+    opacity: 1;
   }
 }
 

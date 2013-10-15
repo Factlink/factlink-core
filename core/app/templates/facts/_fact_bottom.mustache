@@ -1,14 +1,11 @@
-<ul class="fact-bottom-actions">
   {{#proxy_scroll_url}}
-    <li class="fact-bottom-action">
+    <div class="proxy-link">
       {{#fact_url_host}}
       <img class="fact-bottom-favicon" src="https://www.google.com/s2/u/0/favicons?domain={{fact_url_host}}" />
       {{/fact_url_host}}
-      <a href="{{proxy_scroll_url}}" target="_blank" class="js-open-proxy-link proxy-link">
+      <a href="{{proxy_scroll_url}}" target="_blank" class="js-open-proxy-link">
         {{fact_url_title}}
       </a>
-    </li>
+    </div>
   {{/proxy_scroll_url}}
-</ul>
-
 <i class="fact-bottom-title-overflow"></i>
