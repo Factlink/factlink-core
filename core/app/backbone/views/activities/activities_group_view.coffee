@@ -91,3 +91,7 @@ class UsersFollowedGroupView extends UserActivitiesGroupView
   @actions: ["followed_user"]
   actions: -> UsersFollowedGroupView.actions
 
+  appendHtml: (collectionView, itemView, index) ->
+    return if @collection.models.length > 1 &&
+      itemView.model.get('activity').followed_user.username == @collection.models[@collection.length - 2].get('activity').followed_user.username
+    super
