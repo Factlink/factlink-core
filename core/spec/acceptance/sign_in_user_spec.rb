@@ -1,7 +1,7 @@
 require 'acceptance_helper'
 
 describe 'When a user signs in', type: :feature do
-  it 'should redirect to set up page for new users' do
+  it 'redirects to set up page for new users' do
     user = create :user
 
     sign_in_user(user)
