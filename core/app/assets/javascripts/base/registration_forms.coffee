@@ -52,8 +52,6 @@ bindRegistrationForm = (formId) ->
   form = $('#' + formId)
 
   form.on "ajax:success", (event, data, status, response) ->
-    registration_code = $("#" + formId + "_user_registration_code").val()
-
     window.location = data.location
 
   form.on "ajax:error", (event, response, error) ->
