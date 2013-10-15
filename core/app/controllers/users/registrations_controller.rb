@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
 
       if request.format.js?
-        render status: 200, json: { status: :ok, username: resource.username }
+        render status: 200, json: { status: :ok, location: location }
         return
       else
         respond_with resource, location: location
