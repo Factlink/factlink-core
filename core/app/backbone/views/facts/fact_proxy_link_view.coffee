@@ -1,5 +1,5 @@
 class window.FactProxyLinkView extends Backbone.Marionette.ItemView
-  className: 'fact-bottom'
+  className: 'proxy-link-container'
 
   template: 'facts/proxy_link'
 
