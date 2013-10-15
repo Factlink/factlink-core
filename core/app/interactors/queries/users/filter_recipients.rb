@@ -1,5 +1,5 @@
-module Interactors
-  module Queries
+module Queries
+  module Users
     class FilterRecipients
       include Pavlov::Query
 

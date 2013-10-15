@@ -1,7 +1,7 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/queries/users/filter_recipients.rb'
 
-describe Interactors::Queries::FilterRecipients do
+describe Queries::Users::FilterRecipients do
   include PavlovSupport
 
   before do
