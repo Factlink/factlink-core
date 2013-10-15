@@ -47,7 +47,9 @@ class window.FactView extends Backbone.Marionette.Layout
 
   onRender: ->
     @factBaseRegion.show new FactBaseView(model: @model)
-    @linkRegion.show @newLinkView()
+
+    if @model.get('proxy_scroll_url')
+      @linkRegion.show @newLinkView()
 
     if Factlink.Global.signed_in
       @setPoparrow()
