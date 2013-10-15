@@ -3,6 +3,6 @@ class window.CreatedFacts extends Backbone.Collection
 
   model: Fact
 
-  initialize: (models, opts) -> @user = opts.user
+  initialize: (models, options) -> @user = options.user
 
   url: ->  '/' + @user.get('username') + '/created_facts'
