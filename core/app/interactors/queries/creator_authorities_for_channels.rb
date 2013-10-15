@@ -38,7 +38,7 @@ module Queries
       else
         # channel is a userstream or a created facts channel,
         # so there is no topic, therefor we define authority as 0
-        0
+        fail "channel is a userstream or a created facts and should never be requested"
       end
     end
 
