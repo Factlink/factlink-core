@@ -26,10 +26,21 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
     @listenTo @model, 'change:impact', @_updateIrrelevant
     @_updateIrrelevant()
     @impactRegion.show new EvidenceImpactView model: @model
+    @_makeAuthorityTooltip()
     this
 
   _updateIrrelevant: ->
     @$el.toggleClass 'evidence-irrelevant', !@model.positiveImpact()
+
+  _makeAuthorityTooltip: ->
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        side: 'top'
+        popover_className: 'translucent-dark-popover'
+        margin: 3
+      selector: '.evidence-impact-text'
+      tooltipViewFactory: =>  new TextView
+        model: new Backbone.Model text: 'Factlink score'
 
 class VotableEvidenceLayoutView extends EvidenceLayoutView
   className: 'evidence-votable'

@@ -189,7 +189,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         margin: @maxStrokeWidth()/2 - 7
       selector: '.authority'
       tooltipViewFactory: =>  new TextView
-        model: new Backbone.Model text: 'Total authority'
+        model: new Backbone.Model text: 'Total Factlink score'
 
   _makeTooltipForPath: (name, selector) ->
     Backbone.Factlink.makeTooltipForView @,
