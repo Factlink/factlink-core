@@ -138,8 +138,7 @@ class User
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
-  scope :active,   where(:confirmed_at.ne => nil)
-                  .where(:set_up => true)
+  scope :active,   where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
                   .where(:suspended.ne => true)
@@ -197,7 +196,7 @@ class User
   end
 
   def active?
-    confirmed? && set_up && agrees_tos && !deleted && !suspended
+    set_up && agrees_tos && !deleted && !suspended
   end
 
   def graph_user

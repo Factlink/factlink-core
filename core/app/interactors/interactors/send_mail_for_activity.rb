@@ -16,7 +16,7 @@ module Interactors
                                  activity: activity, class_name: "GraphUser",
                                  list: :notifications)
 
-      query :'users/filter_recipients',
+      query :'users/filter_mail_subscribers',
         graph_user_ids: graph_user_ids, type: 'mailed_notifications'
     end
 

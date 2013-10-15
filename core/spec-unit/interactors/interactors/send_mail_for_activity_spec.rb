@@ -24,7 +24,7 @@ describe Interactors::SendMailForActivity do
             .and_return(graph_user_ids)
 
       Pavlov.stub(:query)
-        .with(:'users/filter_recipients', graph_user_ids: graph_user_ids, type: 'mailed_notifications')
+        .with(:'users/filter_mail_subscribers', graph_user_ids: graph_user_ids, type: 'mailed_notifications')
         .and_return([dead_user])
 
       Resque.should_receive(:enqueue).with(Commands::SendActivityMailToUser,
