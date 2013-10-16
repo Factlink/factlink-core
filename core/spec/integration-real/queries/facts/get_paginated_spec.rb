@@ -7,16 +7,16 @@ describe Queries::Facts::GetPaginated do
     user = create :full_user
 
     as(user) do |pavlov|
-      fact1 = pavlov.command 'facts/create',
+      fact1 = pavlov.command :'facts/create',
                 displaystring: 'foo', title: 'foo', creator: user
       sleep 0.1
-      fact2 = pavlov.command 'facts/create',
+      fact2 = pavlov.command :'facts/create',
                 displaystring: 'foo', title: 'foo', creator: user
       sleep 0.1
-      fact3 = pavlov.command 'facts/create',
+      fact3 = pavlov.command :'facts/create',
                 displaystring: 'foo', title: 'foo', creator: user
 
-      result = pavlov.query 'facts/get_paginated',
+      result = pavlov.query :'facts/get_paginated',
                  key: user.graph_user.sorted_created_facts.key.to_s,
                  from: 'inf', count: 2
 
