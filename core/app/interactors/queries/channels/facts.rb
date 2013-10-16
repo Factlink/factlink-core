@@ -14,12 +14,6 @@ module Queries
 
         channel.sorted_cached_facts.below(limit, options)
       end
-
-      def validate
-        validate_integer :from, from, allow_blank: true
-        validate_integer :count, count
-        validate_integer_string :id, id
-      end
     end
   end
 end
