@@ -24,7 +24,7 @@ describe Users::ConfirmationsController do
         get :show, confirmation_token: user.confirmation_token
       end
 
-      response.body.should match /Email needs to be confirmed within 1 month/
+      response.body.should match /needs to be confirmed within 1 month, please request a new one/
     end
 
     it "redirects to setup page when clicking for a second time" do
