@@ -3,7 +3,7 @@ require 'acceptance_helper'
 describe 'A user deletes his account', type: :feature do
 
   before do
-    user = create :full_user,
+    user = create :full_confirmed_user,
       password: 'my_password',
       password_confirmation: 'my_password'
 

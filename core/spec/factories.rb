@@ -65,6 +65,13 @@ FactoryGirl.define do
       :agrees_tos,
       :seen_the_tour
     ]
+
+    factory :full_confirmed_user, traits: [
+      :set_up,
+      :agrees_tos,
+      :seen_the_tour,
+      :confirmed
+    ]
   end
 
   sequence :displaystring do |n|
