@@ -1,19 +1,6 @@
 module Acceptance
   include PavlovSupport
 
-  def int_user
-    user = create(:user)
-    user.confirm!
-    user
-  end
-
-  def handle_js_confirm(accept=true)
-    page.evaluate_script "window.original_confirm_function = window.confirm"
-    page.evaluate_script "window.confirm = function(msg) { return #{!!accept}; }"
-    yield
-    page.evaluate_script "window.confirm = window.original_confirm_function"
-  end
-
   def create_admin_and_login
     admin = create(:full_confirmed_user, :admin)
     sign_in_user admin
