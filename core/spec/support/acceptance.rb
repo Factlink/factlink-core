@@ -1,11 +1,6 @@
 module Acceptance
   include PavlovSupport
 
-  def create_admin_and_login
-    admin = create(:full_confirmed_user, :admin)
-    sign_in_user admin
-  end
-
   def make_non_tos_user_and_login
     user = create(:user, :confirmed, :set_up)
     sign_in_user(user)

@@ -52,7 +52,8 @@ describe 'Reserving a username', type: :feature do
       click_button 'Create account'
     end
 
-    create_admin_and_login
+    admin = create(:full_confirmed_user, :admin)
+    sign_in_user admin
 
     find('.navbar .topbar-dropdown').click
     find('.navbar').should have_content('Admin')
