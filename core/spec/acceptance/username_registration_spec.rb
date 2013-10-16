@@ -9,21 +9,10 @@ describe 'Reserving a username', type: :feature do
       fill_in 'user[username]', with: random_username
       fill_in 'user[email]',    with: random_email
 
-      find('.success', visible:false).visible?.should be_false
-
       click_button 'Create account'
-
-      page.should have_content("Great, you're almost finished! Please click the confirmation link in the email we've sent you")
-      find('form.success')
-      find('div.success')
     end
 
-    within '.footer' do
-      page.should have_content("Great, you're almost finished! Please click the confirmation link in the email we've sent you")
-      find('form.success')
-      find('div.success')
-    end
-
+    page.should have_content("set up your account")
   end
 
   it 'should get failure note with invalid username' do

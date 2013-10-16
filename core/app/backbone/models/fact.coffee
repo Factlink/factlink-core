@@ -11,9 +11,6 @@ class window.Fact extends Backbone.Model
 
   urlRoot: "/facts"
 
-  opinionPercentage: (type)->
-    @get('fact_wheel').opinion_types[type].percentage
-
   removeFromChannel: (channel, opts={}) ->
     Backbone.ajax _.extend {}, opts,
       type: "post"

@@ -251,7 +251,7 @@ GEM
     newrelic_moped (0.0.6)
       moped
       newrelic_rpm (~> 3.6.0)
-    newrelic_rpm (3.6.6.147)
+    newrelic_rpm (3.6.8.164)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)

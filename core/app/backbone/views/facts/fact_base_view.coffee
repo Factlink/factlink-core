@@ -6,9 +6,6 @@ class window.FactBaseView extends Backbone.Marionette.Layout
     factWheelRegion: '.fact-wheel'
     factBodyRegion: '.fact-body'
 
-  templateHelpers: ->
-    'modal?' : FactlinkApp.onClientApp is true
-
   onRender: ->
     @factWheelRegion.show @wheelView()
     @factBodyRegion.show @bodyView()
@@ -35,12 +32,8 @@ class window.FactBaseView extends Backbone.Marionette.Layout
   bodyView: ->
     @_bodyView ?= new FactBodyView
       model: @model
-      clickable: @options.clickable_body
-      truncate: @options.truncate_body
 
 class FactBodyView extends Backbone.Marionette.ItemView
-  _.extend @prototype, Backbone.Factlink.Trunk8MoreLessMixin
-
   template: "facts/fact_body"
 
   events:
@@ -50,20 +43,12 @@ class FactBodyView extends Backbone.Marionette.ItemView
     displaystring: '.js-displaystring'
 
   initialize: ->
-    @options.truncate = false if @options.clickable
-
-    @trunk8Init 3, '.js-displaystring', '.less' if @options.truncate
     @listenTo @model, 'change', @render
 
   click: (e) ->
-    return unless @options.clickable
-
     if e.metaKey or e.ctrlKey or e.altKey
       window.open @model.get('url'), "_blank"
     else if FactlinkApp.onClientApp
       Backbone.history.navigate @model.clientLink(), true
     else
       FactlinkApp.DiscussionModalOnFrontend.openDiscussion @model.clone(), e
-
-  onRender: ->
-    @ui.displaystring.toggleClass 'fact-body-displaystring-clickable', !!@options.clickable

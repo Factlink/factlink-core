@@ -52,13 +52,7 @@ bindRegistrationForm = (formId) ->
   form = $('#' + formId)
 
   form.on "ajax:success", (event, data, status, response) ->
-    forms = $('.sign_up_form > form')
-    _.each forms, (el) ->
-      $(el).toggleClass 'success'
-      clearPreviousErrorsForForm($(el))
-
-    registration_code = $("#" + formId + "_user_registration_code").val()
-    mp_track 'User: Reserved username', code: registration_code
+    window.location = data.location
 
   form.on "ajax:error", (event, response, error) ->
     clearPreviousErrorsForForm(form)
