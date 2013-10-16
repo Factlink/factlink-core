@@ -8,11 +8,10 @@ module Queries
       def execute
         channel = query(:'channels/get', id: id)
 
-        options = {reversed: true, withscores: true, count: count}
-
-        limit = from || 'inf'
-
-        channel.sorted_cached_facts.below(limit, options)
+        query :'facts/get_paginated',
+              key: channel.sorted_cached_facts.key.to_s,
+              from: from,
+              count: count
       end
     end
   end

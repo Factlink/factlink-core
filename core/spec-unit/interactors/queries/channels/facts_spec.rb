@@ -7,9 +7,8 @@ describe Queries::Channels::Facts do
 
   describe '#call' do
     it 'correctly' do
-      sorted_facts = double
       sorted_facts_page = double
-      channel = double id: '1', sorted_cached_facts: sorted_facts
+      channel = double id: '1', sorted_cached_facts: double(key: "foo")
 
       count = 77
       from = 990
@@ -19,9 +18,11 @@ describe Queries::Channels::Facts do
       Pavlov.stub(:query)
             .with(:'channels/get', id: channel.id)
             .and_return(channel)
-      sorted_facts.stub(:below)
-                  .with(from, {count: count, reversed: true, withscores: true})
-                  .and_return(sorted_facts_page)
+      Pavlov.should_receive(:query)
+            .with(:'facts/get_paginated',
+                  key: channel.sorted_cached_facts.key.to_s,
+                  count: count, from: from)
+            .and_return(sorted_facts_page)
 
       expect(query.call).to eq sorted_facts_page
     end
