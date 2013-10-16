@@ -122,13 +122,21 @@ class ChannelsController < ApplicationController
     mark_channel_as_read
 
     respond_to do |format|
-      format.json { render 'channels/facts'}
+      format.json { render }
     end
   end
 
   def created_facts
-    @channel = @user.graph_user.created_facts_channel
-    facts
+    count = params.fetch(:number, 7).to_i
+    limit = params[:timestamp] ? params[:timestamp].to_i : 'inf'
+    options = { reversed: true, withscores: true, count: count }
+
+    @facts = @user.graph_user
+      .sorted_created_facts
+      .below(limit, options)
+      .reject { |fact_with_score| Fact.invalid(fact_with_score[:item]) }
+
+    render 'channels/facts'
   end
 
   def add_fact
