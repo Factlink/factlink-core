@@ -167,4 +167,10 @@ describe Fact do
       expect(fact.has_site?).to be_false
     end
   end
+
+  it 'creating a fact adds to graph_users sorted_created_facts' do
+    fact = Fact.create created_by: graph_user
+
+    expect(graph_user.sorted_created_facts.to_a).to match_array [fact]
+  end
 end
