@@ -1,11 +1,6 @@
 module Acceptance
   include PavlovSupport
 
-  def make_non_tos_user_and_login
-    user = create(:user, :confirmed, :set_up)
-    sign_in_user(user)
-  end
-
   def sign_in_user(user)
     visit "/"
     first(:link, "Sign in", exact: true).click
