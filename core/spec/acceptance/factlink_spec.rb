@@ -8,7 +8,7 @@ describe "factlink", type: :feature do
 
   context "for logged in users" do
     before :each do
-      @user = sign_in_user create :full_confirmed_user
+      @user = sign_in_user create :full_user, :confirmed
     end
 
     it "can be agreed" do
@@ -90,7 +90,7 @@ describe "factlink", type: :feature do
   end
 
   it "a non logged in user gets redirected to the login page when accessing the discussionpage" do
-    user = create :full_confirmed_user
+    user = create :full_user, :confirmed
     factlink = backend_create_fact_of_user user
 
     visit friendly_fact_path(factlink)

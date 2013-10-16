@@ -7,7 +7,7 @@ feature "visiting a channel" do
   include Acceptance::AddToChannelModalHelper
 
   background do
-    @user = sign_in_user create :full_confirmed_user
+    @user = sign_in_user create :full_user, :confirmed
   end
 
   scenario "going to the channel page" do

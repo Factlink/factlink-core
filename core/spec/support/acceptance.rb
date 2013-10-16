@@ -53,7 +53,7 @@ module Acceptance
   def enable_global_features(*features)
     raise "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
 
-    as(create :full_confirmed_user, :admin) do |pavlov|
+    as(create :full_user, :confirmed, :admin) do |pavlov|
       pavlov.interactor(:'global_features/set', features: features)
     end
   end

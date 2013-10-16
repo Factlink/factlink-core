@@ -7,8 +7,8 @@ feature "channels", type: :feature do
   include Acceptance::TopicHelper
 
   scenario "I navigate to somebody else's channel and follow it, and then go to my channel directly" do
-    @user = create :full_confirmed_user, :seeing_channels
-    other_user = create :full_confirmed_user, :seeing_channels
+    @user = create :full_user, :confirmed, :seeing_channels
+    other_user = create :full_user, :confirmed, :seeing_channels
 
     other_users_channel =
       backend_create_viewable_channel_for other_user, title: 'Henk'
@@ -30,8 +30,8 @@ feature "channels", type: :feature do
   end
 
   scenario "I navigate to somebody else's channel and follow it, and then go to my channel via a topic" do
-    @user = create :full_confirmed_user, :seeing_channels
-    other_user = create :full_confirmed_user, :seeing_channels
+    @user = create :full_user, :confirmed, :seeing_channels
+    other_user = create :full_user, :confirmed, :seeing_channels
 
     other_users_channel =
       backend_create_viewable_channel_for other_user, title: 'Henk'

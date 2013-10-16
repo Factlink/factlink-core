@@ -11,7 +11,7 @@ describe "creating a Factlink", type: :feature do
   end
 
   before :each do
-    @user = sign_in_user create :full_confirmed_user
+    @user = sign_in_user create :full_user, :confirmed
   end
 
   it "should add a factlink" do
