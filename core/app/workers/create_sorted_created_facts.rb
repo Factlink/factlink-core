@@ -1,4 +1,6 @@
 class CreateSortedCreatedFacts
+  @queue = :migration
+
   def initialize graph_user_id
     @graph_user_id = graph_user_id
   end
