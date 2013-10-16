@@ -11,16 +11,6 @@
   font-size: 13px;
   .transition(opacity .15s ease-in-out);
 
-  a {
-    color: @gray;
-    font-weight: normal;
-    .transition(color .15s ease-in-out);
-
-    &:hover {
-      color: @grayDark;
-    }
-  }
-
   &:after {
     content: "·";
     margin: 0 7px;
@@ -32,13 +22,29 @@
   }
 }
 
-.proxy-link {
+.proxy-link-box {
   opacity: .7;
   display: inline-block;
+  .transition(color .15s ease-in-out);
 
   &:hover {
     opacity: 1;
   }
+}
+
+.proxy-link {
+    color: @gray;
+    font-weight: normal;
+
+    &:hover {
+      color: @grayDark;
+    }
+  }
+
+.proxy-link-favicon {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top;
 }
 
 .proxy-link-overflow {
@@ -50,10 +56,4 @@
   position: absolute;
   right: 0;
   top: 0;
-}
-
-.proxy-link-favicon {
-  width: 16px;
-  height: 16px;
-  vertical-align: text-top;
 }
