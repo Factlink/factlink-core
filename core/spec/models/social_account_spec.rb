@@ -19,25 +19,25 @@ describe SocialAccount do
     end
   end
 
-  describe '#same_as?' do
+  describe '#different_from?' do
     it 'returns false when not having an omniauth_obj' do
       social_account = SocialAccount.new
       omniauth_obj = {'uid' => '10'}
 
-      expect(social_account.same_as?(omniauth_obj)).to be_false
+      expect(social_account.different_from?(omniauth_obj)).to be_false
     end
 
-    it 'returns false for different uid' do
+    it 'returns true for different uid' do
       social_account = SocialAccount.new omniauth_obj: {'uid' => '10'}
 
-      expect(social_account.same_as?({'uid' => '20'})).to be_false
+      expect(social_account.different_from?({'uid' => '20'})).to be_true
     end
 
-    it 'returns true for the same uid' do
+    it 'returns false for the same uid' do
       uid = '10'
       social_account = SocialAccount.new omniauth_obj: {'uid' => uid}
 
-      expect(social_account.same_as?({'uid' => uid})).to be_true
+      expect(social_account.different_from?({'uid' => uid})).to be_false
     end
   end
 end

@@ -17,7 +17,8 @@ class SocialAccount
     end
   end
 
-  def same_as?(omniauth_obj)
-    self.omniauth_obj && self.omniauth_obj['uid'] == omniauth_obj['uid']
+  def different_from?(omniauth_obj)
+    self.omniauth_obj && self.omniauth_obj['uid'] != omniauth_obj['uid']
+  end
   end
 end
