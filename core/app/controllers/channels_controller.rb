@@ -130,8 +130,7 @@ class ChannelsController < ApplicationController
     @facts = query(:'facts/get_paginated',
                    key: @user.graph_user.sorted_created_facts.key.to_s,
                    count: params.fetch(:number, 7).to_i,
-                   from: params[:timestamp]
-             ).reject { |fact_with_score| Fact.invalid(fact_with_score[:item]) }
+                   from: params[:timestamp])
 
     render 'channels/facts'
   end

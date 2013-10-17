@@ -53,6 +53,10 @@ class Fact < OurOhm
     command(:'channels/add_fact', fact: self, channel: channel)
   end
 
+  def remove_from_created_facts
+    created_by.sorted_created_facts.delete self
+  end
+
   def has_site?
     self.site and self.site.url and not self.site.url.blank?
   end
@@ -173,6 +177,7 @@ class Fact < OurOhm
     delete_all_evidence
     delete_all_evidenced
     believable.delete
+    remove_from_created_facts
     super
   end
 

@@ -28,9 +28,19 @@ describe Fact do
     it "works" do
       old_id = fact.id
       data_id = fact.data.id
+
       fact.delete
+
       expect(Fact[old_id]).to be_nil
       expect(FactData.find(data_id)).to be_nil
+    end
+
+    it "removes the fact from the creators facts list" do
+      gu = fact.created_by
+      expect(gu.sorted_created_facts.count).to eq 1
+
+      fact.delete
+      expect(gu.sorted_created_facts.count).to eq 0
     end
   end
 
