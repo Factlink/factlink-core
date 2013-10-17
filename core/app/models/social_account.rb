@@ -8,4 +8,12 @@ class SocialAccount
   validates_presence_of :omniauth_obj
 
   belongs_to :user, index: true
+
+  index({provider_name: 1, 'omniauth_obj.uid' => 1}, { unique: true })
+
+  class << self
+    def find_with_omniauth_obj(provider_name, omniauth_obj)
+      where(provider_name: provider_name, :'omniauth_obj.uid' => omniauth_obj['uid']).first
+    end
+  end
 end
