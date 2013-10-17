@@ -1,36 +1,36 @@
 require 'spec_helper'
 
 describe CleanChannel do
-  include AddFactToChannelSupport
-  describe ".perform" do
-    before do
-      @ch = create :channel
-      @f1 = create :fact
-      @f2 = create :fact
-      @f3 = create :fact
+  include PavlovSupport
 
-      add_fact_to_channel @f1, @ch
-      add_fact_to_channel @f2, @ch
-      add_fact_to_channel @f3, @ch
+  describe ".perform" do
+    let(:user) { create :user }
+    let(:channel) { create :channel, created_by: user.graph_user }
+    let(:f1) { create :fact }
+    let(:f2) { create :fact }
+    let(:f3) { create :fact }
+
+    before do
+      as(user) do |p|
+        [f1, f2, f3].each do |fact|
+          p.interactor :'channels/add_fact',
+                       fact: fact, channel: channel
+        end
+      end
     end
 
     it "should not do anything if no facts were deleted" do
-      CleanChannel.perform @ch.id
-      @ch.sorted_cached_facts.count.should == 3
-      @ch.sorted_internal_facts.count.should == 3
+      CleanChannel.perform channel.id
+      expect(channel.sorted_cached_facts.count).to eq 3
+      expect(channel.sorted_internal_facts.count).to eq 3
     end
 
     it "should remove deleted facts" do
-      @f1.delete
-      CleanChannel.perform @ch.id
-      @ch.sorted_cached_facts.count.should == 2
-      @ch.sorted_internal_facts.count.should == 2
-      @ch.facts.should =~ [@f2, @f3]
-      @f2.delete
-      CleanChannel.perform @ch.id
-      @ch.sorted_cached_facts.count.should == 1
-      @ch.sorted_internal_facts.count.should == 1
-      @ch.facts.should =~ [@f3]
+      f1.delete
+      CleanChannel.perform channel.id
+      expect(channel.sorted_cached_facts.count).to eq 2
+      expect(channel.sorted_internal_facts.count).to eq 2
+      expect(channel.facts).to match_array [f2, f3]
     end
   end
 end
