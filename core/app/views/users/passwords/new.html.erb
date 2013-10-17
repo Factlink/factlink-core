@@ -1,13 +1,14 @@
-<div class="forgot-password-wrapper">
+<div class="devise-form">
   <h1>Forgot your password?</h1>
 
   <p>Please enter your email address so we can send you a password reset:</p>
 
   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => "form" }) do |f| %>
+
     <div class="control-group">
       <div class="controls">
         <%= f.email_field :email, placeholder: "Email address",
-          class:"text" %>
+          class: "text" %>
         <%= possible_error_for_field(resource, :email) %>
       </div>
     </div>
@@ -17,5 +18,5 @@
     </div>
   <% end %>
 
-  <p>Other problems? <a href="mailto:support@factlink.com">Email us!</a></p>
+  <p>Other problems? <a href="javascript:void(0)" class="js-feedback-modal-link">Contact us!</a></p>
 </div>

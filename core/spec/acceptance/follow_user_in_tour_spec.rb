@@ -8,8 +8,8 @@ feature "follow_users_in_tour", type: :feature do
   before do
     @user = create :user, :confirmed, :agrees_tos
 
-    @user1 = create :full_user
-    @user2 = create :full_user
+    @user1 = create :full_user, :confirmed
+    @user2 = create :full_user, :confirmed
     Pavlov.command(:'users/add_handpicked_user', user_id: @user1.id.to_s)
     Pavlov.command(:'users/add_handpicked_user', user_id: @user2.id.to_s)
 

@@ -1,29 +1,6 @@
 module Acceptance
   include PavlovSupport
 
-  def int_user
-    user = create(:user)
-    user.confirm!
-    user
-  end
-
-  def handle_js_confirm(accept=true)
-    page.evaluate_script "window.original_confirm_function = window.confirm"
-    page.evaluate_script "window.confirm = function(msg) { return #{!!accept}; }"
-    yield
-    page.evaluate_script "window.confirm = window.original_confirm_function"
-  end
-
-  def create_admin_and_login
-    admin = create(:full_user, :admin)
-    sign_in_user admin
-  end
-
-  def make_non_tos_user_and_login
-    user = create(:user, :confirmed, :set_up)
-    sign_in_user(user)
-  end
-
   def sign_in_user(user)
     visit "/"
     first(:link, "Sign in", exact: true).click
@@ -76,7 +53,7 @@ module Acceptance
   def enable_global_features(*features)
     raise "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
 
-    as(create :full_user, :admin) do |pavlov|
+    as(create :full_user, :confirmed, :admin) do |pavlov|
       pavlov.interactor(:'global_features/set', features: features)
     end
   end
