@@ -18,4 +18,26 @@ describe SocialAccount do
       expect(result).to eq social_account
     end
   end
+
+  describe '#same_as?' do
+    it 'returns false when not having an omniauth_obj' do
+      social_account = SocialAccount.new
+      omniauth_obj = {'uid' => '10'}
+
+      expect(social_account.same_as?(omniauth_obj)).to be_false
+    end
+
+    it 'returns false for different uid' do
+      social_account = SocialAccount.new omniauth_obj: {'uid' => '10'}
+
+      expect(social_account.same_as?({'uid' => '20'})).to be_false
+    end
+
+    it 'returns true for the same uid' do
+      uid = '10'
+      social_account = SocialAccount.new omniauth_obj: {'uid' => uid}
+
+      expect(social_account.same_as?({'uid' => uid})).to be_true
+    end
+  end
 end

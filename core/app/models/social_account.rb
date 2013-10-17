@@ -16,4 +16,8 @@ class SocialAccount
       where(provider_name: provider_name, :'omniauth_obj.uid' => omniauth_obj['uid']).first
     end
   end
+
+  def same_as?(omniauth_obj)
+    self.omniauth_obj && self.omniauth_obj['uid'] == omniauth_obj['uid']
+  end
 end
