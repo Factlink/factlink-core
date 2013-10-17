@@ -137,6 +137,7 @@ class User
   has_and_belongs_to_many :conversations, inverse_of: :recipients
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
+  has_many :social_accounts
 
   scope :active,   where(:set_up => true)
                   .where(:agrees_tos => true)
