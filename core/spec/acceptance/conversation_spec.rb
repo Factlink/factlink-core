@@ -6,7 +6,7 @@ describe "conversation", type: :feature do
 
   before :each do
     @user = sign_in_user(create :full_user, :confirmed)
-    @recipients = create_list :full_user, :confirmed, 2
+    @recipients = create_list :full_user, 2
   end
 
   it "message can be sent and viewed" do
