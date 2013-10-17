@@ -8,7 +8,7 @@ describe "searching", type: :feature do
   end
 
   before :each do
-    @user = sign_in_user create :full_user
+    @user = sign_in_user create :full_user, :confirmed
   end
 
   it "cannot find a something that does not exist" do
