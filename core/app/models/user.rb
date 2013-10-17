@@ -325,6 +325,10 @@ class User
      @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
+  def social_account provider_name
+    self.social_accounts.where(provider_name: provider_name).first || self.social_accounts.new(provider_name: provider_name)
+  end
+
   set :seen_messages
 
   # don't send reset password instructions when the account is suspended
