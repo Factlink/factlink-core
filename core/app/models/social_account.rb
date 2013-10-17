@@ -20,5 +20,9 @@ class SocialAccount
   def different_from?(omniauth_obj)
     self.omniauth_obj && self.omniauth_obj['uid'] != omniauth_obj['uid']
   end
+
+  def save_omniauth_obj!(omniauth_obj)
+    self.omniauth_obj = omniauth_obj
+    self.save!
   end
 end

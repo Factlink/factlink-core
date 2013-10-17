@@ -263,13 +263,6 @@ class User
     not errors.any?
   end
 
-  def id_for_service service_name
-    service_name = service_name.to_s
-    if self.identities and self.identities[service_name]
-      self.identities[service_name]['uid'].andand.first
-    end
-  end
-
   def serializable_hash(options={})
     options ||= {}
     options[:except] ||= []

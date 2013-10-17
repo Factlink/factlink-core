@@ -40,7 +40,7 @@ class IdentitiesController < ApplicationController
         flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
       end
     else
-      raise "Wrong OAuth provider: #{omniauth[:provider]}"
+      raise "Wrong OAuth provider: #{omniauth['provider']}"
     end
 
     redirect_to edit_user_path(current_user)
@@ -66,8 +66,7 @@ class IdentitiesController < ApplicationController
     if is_connected_to_different_user(provider_name, omniauth_obj)
       raise "Already connected to a different account, please sign in to the connected account or reconnect your account."
     elsif omniauth_obj
-      current_user.identities[provider_name] = omniauth_obj
-      current_user.save
+      current_user.social_account(provider_name).save_omniauth_obj!(omniauth_obj)
       flash[:notice] = "Succesfully connected."
       @event = 'authorized'
     else
@@ -76,11 +75,11 @@ class IdentitiesController < ApplicationController
   end
 
   def is_connected_to_different_user provider_name, omniauth_obj
-    current_user.identities[provider_name] && current_user.identities[provider_name]['uid'] != omniauth_obj['uid']
+    current_user.social_account(provider_name).different_from?(omniauth_obj)
   end
 
   def sign_in_through_provider provider_name, omniauth_obj
-    @user = User.find_for_oauth(provider_name, omniauth_obj.uid)
+    @user = SocialAccount.find_with_omniauth_obj(provider_name, omniauth_obj).andand.user
 
     if @user
       @event = 'signed_in'
@@ -94,35 +93,35 @@ class IdentitiesController < ApplicationController
 
   def parse_omniauth_env provider_name
     omniauth = request.env['omniauth.auth']
-    if provider_name != omniauth[:provider]
-      raise "Wrong OAuth provider: #{omniauth[:provider]}"
+    if provider_name != omniauth['provider']
+      raise "Wrong OAuth provider: #{omniauth['provider']}"
     end
 
-    if omniauth[:uid] and omniauth[:credentials] and omniauth[:credentials][:token]
-      if provider_name == 'twitter'
-        omniauth['extra']['oath_version'] = omniauth['extra']['access_token'].consumer.options[:oauth_version];
-        omniauth['extra']['signature_method'] = omniauth['extra']['access_token'].consumer.options[:signature_method]
-        omniauth['extra'].delete 'access_token'
-      end
-
-      omniauth
-    else
-      false
+    unless omniauth['uid']
+      raise 'Invalid omniauth object'
     end
+
+    if provider_name == 'twitter'
+      omniauth['extra']['oath_version'] = omniauth['extra']['access_token'].consumer.options['oauth_version'];
+      omniauth['extra']['signature_method'] = omniauth['extra']['access_token'].consumer.options['signature_method']
+      omniauth['extra'].delete 'access_token'
+    end
+
+    omniauth
   end
 
   def provider_deauthorize provider_name, &block
     authorize! :update, current_user
 
-    if current_user.identities[provider_name]
+    social_account = current_user.social_account(provider_name)
 
-      uid = current_user.identities[provider_name]['uid']
-      token = current_user.identities[provider_name]['credentials']['token']
+    if social_account.persisted?
+      uid = social_account.omniauth_obj['uid']
+      token = social_account.omniauth_obj['credentials']['token']
 
       begin
         block.call uid, token
-        current_user.identities.delete(provider_name)
-        current_user.save
+        social_account.delete
         flash[:notice] ||= "Succesfully disconnected."
       rescue => e
         flash[:alert] = "Error disconnecting. #{e.message}"

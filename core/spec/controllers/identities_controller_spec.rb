@@ -1,93 +1,65 @@
-# this test isn't in unit-spec because the IdentitiesController actually
-# requires the ApplicationController, making this test kind-of slow
-
-require_relative '../../app/controllers/identities_controller.rb'
+require 'spec_helper'
 
 describe IdentitiesController do
+  render_views
+
   describe 'service_callback' do
-    it 'calls connect_provider when a user is signed in' do
-      pending
+    context 'not yet signed in' do
+      it 'signs in when a social account has been found' do
+        provider_name = 'facebook'
+        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+        user = create :full_user
 
-      provider_name = double
-      omniauth_obj = double
+        user.social_account(provider_name).save_omniauth_obj!(omniauth_obj)
 
-      subject.should_receive(:user_signed_in?).and_return(true)
-      subject.stub(:parse_omniauth_env).and_return(omniauth_obj)
-      subject.should_receive(:connect_provider).with(provider_name, omniauth_obj).and_return()
-      subject.stub(:params => {:service => provider_name})
-      subject.stub(:provider_name).and_return(provider_name)
-      subject.should_receive(:respond_to)
+        controller.request.env['omniauth.auth'] = omniauth_obj
+        get :service_callback, service: 'facebook'
 
-      subject.service_callback
+        expect(response.body).to match "eventName = 'signed_in'"
+      end
+
+      it 'gives an error when no user can be found' do
+        provider_name = 'facebook'
+        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+        user = create :full_user
+
+        controller.request.env['omniauth.auth'] = omniauth_obj
+        get :service_callback, service: 'facebook'
+
+        expect(response.body).to match "eventName = 'social_error'"
+      end
     end
 
-    it 'calls sign_in_through_provider when a user is not logged in' do
-      pending
+    context 'already signed in' do
+      it 'connects the social account' do
+        provider_name = 'facebook'
+        uid = '10'
+        omniauth_obj = {'provider' => provider_name, 'uid' => uid}
+        user = create :full_user
 
-      provider_name = double
-      omniauth_obj = double
+        sign_in user
 
-      subject.should_receive(:user_signed_in?).and_return(false)
-      subject.stub(:parse_omniauth_env).and_return(omniauth_obj)
-      subject.should_receive(:sign_in_through_provider).with(provider_name, omniauth_obj).and_return()
-      subject.stub(:params => {:service => provider_name})
-      subject.stub(:provider_name).and_return(provider_name)
-      subject.should_receive(:respond_to)
+        controller.request.env['omniauth.auth'] = omniauth_obj
+        get :service_callback, service: 'facebook'
 
-      subject.service_callback()
-    end
+        expect(response.body).to match "eventName = 'authorized'"
+        expect(SocialAccount.first.omniauth_obj['uid']).to eq uid
+      end
 
-    it 'shows error when already connected to different user' do
-      current_user = double identities: {'facebook' => {'uid' => '1'}}
-      omniauth_obj = {'uid' => '2'}
-      flash = {}
+      it 'shows error when already connected to different user' do
+        provider_name = 'facebook'
+        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+        other_omniauth_obj = {'provider' => provider_name, 'uid' => '20'}
 
-      subject.stub current_user: current_user, user_signed_in?: true, flash: flash, authorize!: true,
-        params: {:service => 'facebook'}, parse_omniauth_env: omniauth_obj, respond_to: nil
+        user = create :full_user
+        user.social_account(provider_name).save_omniauth_obj!(omniauth_obj)
+        sign_in user
 
-      subject.service_callback
+        controller.request.env['omniauth.auth'] = other_omniauth_obj
+        get :service_callback, service: 'facebook'
 
-      expect(flash[:alert]).to_not be_nil
-    end
-  end
-
-  describe 'sign_in_through_provider' do
-    it 'should sign a user in when one is found' do
-      pending
-
-      user = double
-      provider_name = double
-      omniauth_obj = double(uid: true)
-
-      stub_const("User", Class.new)
-      User.should_receive(:find_for_oauth).with(provider_name, omniauth_obj.uid).and_return(user)
-
-      subject.should_receive(:sign_in).with(user).and_return(true)
-      subject.stub(:provider_name).and_return(provider_name)
-
-      subject.send(:sign_in_through_provider, provider_name, omniauth_obj)
-      subject.instance_variable_get('@event').should eq 'signed_in'
-    end
-
-    it 'should redirect to the correct path when no user is found' do
-      pending
-
-      user = false
-      provider_name = double(capitalize: true)
-      omniauth_obj = double(uid: true)
-
-
-      stub_const("User", Class.new)
-      User.should_receive(:find_for_oauth).with(provider_name, omniauth_obj.uid).and_return(user)
-
-      redirect_url = double
-      env_hash = {'omniauth.origin' => redirect_url}
-      subject.stub flash: Hash.new,
-                   request: double(:request,
-                     env: env_hash)
-      subject.stub(:provider_name).and_return(provider_name)
-
-      subject.send(:sign_in_through_provider, provider_name, omniauth_obj)
+        expect(response.body).to match "eventName = 'social_error'"
+      end
     end
   end
 end
