@@ -1,4 +1,6 @@
 class AddEvidenceButtonsView extends Backbone.Marionette.Layout
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
+
   className: 'evidence-add-buttons'
   template: 'evidence/add_evidence_buttons'
 
@@ -7,26 +9,21 @@ class AddEvidenceButtonsView extends Backbone.Marionette.Layout
     'click .js-weakening-button': -> @options.parentView.showAdd 'weakening'
 
   onRender: ->
-    Backbone.Factlink.makeTooltipForView @,
-      hoverIntent: true
-      positioning:
-        side: 'right'
-        margin: 10
-        popover_className: 'translucent-dark-popover'
-      selector: '.js-supporting-button'
-      tooltipViewFactory: => new TextView
+    @popoverAdd '.js-supporting-button',
+      side: 'right'
+      margin: 10
+      contentView: new TextView
         model: new Backbone.Model
           text: 'Add supporting argument'
-    Backbone.Factlink.makeTooltipForView @,
-      hoverIntent: true
-      positioning:
-        side: 'left'
-        margin: 10
-        popover_className: 'translucent-dark-popover'
-      selector: '.js-weakening-button'
-      tooltipViewFactory: => new TextView
+      popover_className: 'translucent-dark-popover'
+
+    @popoverAdd '.js-weakening-button',
+      side: 'left'
+      margin: 10
+      contentView: new TextView
         model: new Backbone.Model
           text: 'Add weakening argument'
+      popover_className: 'translucent-dark-popover'
 
 
 class window.AddEvidenceView extends Backbone.Marionette.Layout
