@@ -15,17 +15,13 @@ describe Commands::Facebook::ShareFactlink do
       token     = double
       client    = double
       namespace = 'namespace'
-      fact_url = double sharing_url: 'sharing_url'
+      fact_url  = double sharing_url: 'sharing_url'
+      user      = double
+      facebook_account = double omniauth_obj: { 'credentials' => { 'token' => token, 'secret' => double } }
 
-      identities = {
-        'facebook' =>  {
-          'credentials' => {
-            'token' => token, 'secret' => double
-          }
-        }
-      }
+      user.stub(:social_account).with('facebook').and_return(facebook_account)
 
-      pavlov_options = { current_user: double(identities: identities),
+      pavlov_options = { current_user: user,
                          facebook_app_namespace: namespace }
 
       Koala::Facebook::API.stub(:new)
@@ -60,17 +56,13 @@ describe Commands::Facebook::ShareFactlink do
       token     = double
       client    = double
       namespace = 'namespace'
-      fact_url = double sharing_url: 'sharing_url'
+      fact_url  = double sharing_url: 'sharing_url'
+      user      = double
+      facebook_account = double omniauth_obj: { 'credentials' => { 'token' => token, 'secret' => double } }
 
-      identities = {
-        'facebook' =>  {
-          'credentials' => {
-            'token' => token, 'secret' => double
-          }
-        }
-      }
+      user.stub(:social_account).with('facebook').and_return(facebook_account)
 
-      pavlov_options = { current_user: double(identities: identities),
+      pavlov_options = { current_user: user,
                          facebook_app_namespace: namespace }
 
       Koala::Facebook::API.stub(:new)

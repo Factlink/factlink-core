@@ -17,7 +17,7 @@ module Commands
       end
 
       def token
-        pavlov_options[:current_user].identities['facebook']['credentials']['token']
+        pavlov_options[:current_user].social_account('facebook').omniauth_obj['credentials']['token']
       end
 
       def caption
