@@ -1,3 +1,6 @@
+# This command anonymizes a deleted user
+# The idea is that this command is idempotent, and can
+# be run again and again against deleted users
 module Commands
   module Users
     class AnonymizeUserModel
@@ -19,9 +22,6 @@ module Commands
 
         user.password              = anonymous_password
         user.password_confirmation = anonymous_password
-        user.reset_password_token  = nil
-        user.confirmation_token    = nil
-        user.invitation_token      = nil
 
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"

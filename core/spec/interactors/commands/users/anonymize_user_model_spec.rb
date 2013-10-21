@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Commands::Users::AnonymizeUserModel do
   describe '#call' do
     it 'anonymizes fields of the deleted user that could contain personal data' do
-      user = create :full_user,
+      user = create :full_user, :confirmed,
         username: 'data',
         first_name: 'data',
         last_name: 'data',
@@ -33,7 +33,11 @@ describe Commands::Users::AnonymizeUserModel do
       # separate command at some point
       expect(saved_user.valid_password?('123hoi')).to be_false
       expect(saved_user.reset_password_token).to be_nil
+
       expect(saved_user.confirmation_token).to be_nil
+      expect(saved_user.confirmed_at).to be_nil
+      expect(saved_user.confirmed?).to be_false
+
       expect(saved_user.invitation_token).to be_nil
 
       expect(saved_user.email).to eq "deleted+#{saved_user.username}@factlink.com"
