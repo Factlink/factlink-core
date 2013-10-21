@@ -1,44 +1,20 @@
-class AddEvidenceButtonsView extends Backbone.Marionette.Layout
+class window.AddEvidenceView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
-  className: 'evidence-add-buttons'
-  template: 'evidence/add_evidence_buttons'
-
-  events:
-    'click .js-supporting-button': -> @options.parentView.showAdd 'supporting'
-    'click .js-weakening-button': -> @options.parentView.showAdd 'weakening'
-
-  onRender: ->
-    @popoverAdd '.js-supporting-button',
-      side: 'right'
-      margin: 10
-      contentView: new TextView
-        model: new Backbone.Model
-          text: 'Add supporting argument'
-      popover_className: 'translucent-grey-popover'
-
-    @popoverAdd '.js-weakening-button',
-      side: 'left'
-      margin: 10
-      contentView: new TextView
-        model: new Backbone.Model
-          text: 'Add weakening argument'
-      popover_className: 'translucent-grey-popover'
-
-
-class window.AddEvidenceView extends Backbone.Marionette.Layout
   className: 'evidence-add'
 
   template: 'evidence/add_evidence'
 
   ui:
     box: '.js-box'
+    buttons: '.js-buttons'
 
   events:
     'click .js-cancel': 'cancel'
+    'click .js-supporting-button': -> @_showAdd 'supporting'
+    'click .js-weakening-button': -> @_showAdd 'weakening'
 
   regions:
-    buttonsRegion: '.js-buttons-region'
     headingRegion: '.js-heading-region'
     contentRegion: '.js-content-region'
 
@@ -55,14 +31,13 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   cancel: ->
     @hideBox()
-    @buttonsRegion.show new AddEvidenceButtonsView
-      parentView: this
+    @ui.buttons.show()
 
   showBox: -> @ui.box.show()
   hideBox: -> @ui.box.hide()
 
-  showAdd: (type) ->
-    @buttonsRegion.close()
+  _showAdd: (type) ->
+    @ui.buttons.hide()
     @ui.box.show()
     @ui.box.removeClass 'evidence-weakening evidence-supporting'
     @ui.box.addClass 'evidence-' + type
@@ -75,3 +50,26 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   _updateLoading: ->
     @$el.toggle !@collection.loading()
+    @_renderPopovers() unless @collection.loading()
+
+  _renderPopovers: ->
+    @popoverResetAll()
+
+    @popoverAdd '.js-supporting-button',
+      side: 'right'
+      margin: 10
+      container: @ui.buttons
+      contentView: new TextView
+        model: new Backbone.Model
+          text: 'Add supporting argument'
+      popover_className: 'translucent-grey-popover'
+
+    @popoverAdd '.js-weakening-button',
+      side: 'left'
+      margin: 10
+      container: @ui.buttons
+      contentView: new TextView
+        model: new Backbone.Model
+          text: 'Add weakening argument'
+      popover_className: 'translucent-grey-popover'
+
