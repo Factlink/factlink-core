@@ -1,4 +1,4 @@
-class CreatedFactsController
+class CreatedFactsController < ApplicationController
   def index
     user ||= query(:'user_by_username', username: params[:username])
     @facts = query(:'facts/get_paginated',
