@@ -91,7 +91,7 @@ puts """Found #{all_builds.size} builds
     if dead_builds.size == 0 then
       "none refer to dead branches."
     else
-      "#{dead_builds.size} refer to the following dead branches:\n" +
+      "#{dead_builds.size} refer to the following dead branches:\n\n" +
       dead_builds.map { |b| b.branch }.join("\n")
     end
 
@@ -101,9 +101,13 @@ missing_branches = remote_branches.select do |branch|
     end
   end
 
-dead_builds.each do |build|
-  puts "Delete build of #{build.branch} (#{build.uri})? (y/n)"
+if dead_builds.size > 0
+  puts "Delete the above #{dead_builds.size} jenkins jobs?"
   answer = gets
-  next unless %(yes y).include? answer.strip
-  post_jenkins_uri(build.uri + "doDelete")
+  if %(yes y).include? answer.strip
+    dead_builds.each do |build|
+      puts "Deleting build of #{build.branch} (#{build.uri})..."
+      post_jenkins_uri(build.uri + "doDelete")
+    end
+  end
 end
