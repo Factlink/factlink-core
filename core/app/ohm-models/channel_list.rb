@@ -26,19 +26,10 @@ class ChannelList
   end
 
   def containing_real_channel_ids_for_fact(fact)
-    # The filter shouldn't be necessary, but we're not sure that in the
-    # production database all (historical) fact.channels are stream and created_facts free
-    filter_unreal_ids((channels & fact.channels).ids)
+    (channels & fact.channels).ids
   end
 
   def containing_channel_ids_for_channel(channel)
     (channels & channel.containing_channels).ids
   end
-
-  private
-
-  def filter_unreal_ids ids
-    ids.to_a
-  end
-
 end
