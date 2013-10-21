@@ -59,17 +59,13 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       side: 'right'
       margin: 10
       container: @ui.buttons
-      contentView: new TextView
-        model: new Backbone.Model
-          text: 'Add supporting argument'
+      contentView: new TextView text: 'Add supporting argument'
       popover_className: 'translucent-popover translucent-grey-popover'
 
     @popoverAdd '.js-weakening-button',
       side: 'left'
       margin: 10
       container: @ui.buttons
-      contentView: new TextView
-        model: new Backbone.Model
-          text: 'Add weakening argument'
+      contentView: new TextView text: 'Add weakening argument'
       popover_className: 'translucent-popover translucent-grey-popover'
 

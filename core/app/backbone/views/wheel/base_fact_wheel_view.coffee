@@ -188,8 +188,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         popover_className: 'translucent-popover'
         margin: @maxStrokeWidth()/2 - 7
       selector: '.authority'
-      tooltipViewFactory: =>  new TextView
-        model: new Backbone.Model text: 'Total authority'
+      tooltipViewFactory: => new TextView text: 'Total authority'
 
   _makeTooltipForPath: (name, selector) ->
     Backbone.Factlink.makeTooltipForView @,
@@ -198,8 +197,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         popover_className: 'translucent-popover'
         margin: @maxStrokeWidth()/2 - 3
       selector: selector
-      tooltipViewFactory: => new TextView
-        model: new Backbone.Model text: @options.opinionStyles[name].groupname + ": " + @model.get('opinion_types')[name].percentage + "%"
+      tooltipViewFactory: =>
+        new TextView text: @options.opinionStyles[name].groupname + ": " + @model.get('opinion_types')[name].percentage + "%"
 
   _tooltipSideForPath: (path) ->
     bbox = path.getBBox()
