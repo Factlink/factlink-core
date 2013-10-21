@@ -10,7 +10,7 @@ class TopbarDropdownMenuView extends Backbone.View
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: 'left'
-        popover_className: 'translucent-dark-popover'
+        popover_className: 'translucent-popover'
       selector: '.js-topbar-dropdown-menu-bookmarklet'
       tooltipViewFactory: => new BookmarkletTooltipView
 

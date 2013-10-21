@@ -56,12 +56,14 @@
   }
 }
 
-.translucent-dark-popover, .translucent-grey-popover {
+.translucent-popover {
   position: relative;
   visibility: visible;
   display: inline-block;
 
   .factlink-popover-content {
+    background: @darkTranslucentGrey;
+    color: white;
     display: inline-block;
     border-radius: 2px;
     padding: 9px 18px;
@@ -85,6 +87,7 @@
       top: 100%;
       margin-top: -@triangleSize;
       border-bottom: none;
+      border-top-color: @darkTranslucentGrey;
     }
   }
   &.right {
@@ -95,6 +98,7 @@
       right: 100%;
       margin-right: -@triangleSize;
       border-left: none;
+      border-right-color: @darkTranslucentGrey;
     }
   }
   &.bottom {
@@ -105,6 +109,7 @@
       bottom: 100%;
       margin-bottom: -@triangleSize;
       border-top: none;
+      border-bottom-color: @darkTranslucentGrey;
     }
   }
   &.left {
@@ -115,27 +120,8 @@
       left: 100%;
       margin-left: -@triangleSize;
       border-right: none;
+      border-left-color: @darkTranslucentGrey;
     }
-  }
-}
-
-.translucent-dark-popover {
-  .factlink-popover-content {
-    background: @darkTranslucentGrey;
-    color: white;
-  }
-
-  &.top .factlink-popover-arrow {
-    border-top-color: @darkTranslucentGrey;
-  }
-  &.right .factlink-popover-arrow {
-    border-right-color: @darkTranslucentGrey;
-  }
-  &.bottom .factlink-popover-arrow {
-    border-bottom-color: @darkTranslucentGrey;
-  }
-  &.left .factlink-popover-arrow {
-    border-left-color: @darkTranslucentGrey;
   }
 }
 

@@ -108,7 +108,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     else
       @popoverAdd '.fact-wheel',
         side: 'top'
-        popover_className: 'translucent-dark-popover'
+        popover_className: 'translucent-popover'
         contentView: new TextView
           model: new Backbone.Model text: "What's your opinion?"
 
