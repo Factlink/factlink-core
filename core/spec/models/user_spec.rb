@@ -336,20 +336,4 @@ describe User do
       expect(new_token).to_not eq old_token
     end
   end
-
-  describe '#should_show_confirmation_alert?' do
-    it "should be false right after creating a user" do
-      user = create :user
-
-      expect(user.should_show_confirmation_alert?).to be_false
-    end
-
-    it "should be true after 10 minutes or so" do
-      user = create :user
-
-      Timecop.travel(11.minutes) do
-        expect(user.should_show_confirmation_alert?).to be_true
-      end
-    end
-  end
 end

@@ -324,10 +324,6 @@ class User
     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
-  def should_show_confirmation_alert?
-    not confirmed? and created_at < 10.minutes.ago
-  end
-
   set :seen_messages
 
   # don't send reset password instructions when the account is suspended
