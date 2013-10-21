@@ -76,7 +76,7 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
 
   ui:
     terminator: '.js-terminator'
-    loading: '.js-loading'
+    loading: '.js-evidence-loading'
 
   onRender: ->
     @collectionRegion.show new EvidenceCollectionView collection: @collection

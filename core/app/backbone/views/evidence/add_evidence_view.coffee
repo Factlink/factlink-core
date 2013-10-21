@@ -6,8 +6,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   template: 'evidence/add_evidence'
 
   ui:
-    box: '.js-box'
-    buttons: '.js-buttons'
+    box: '.js-add-box'
+    buttons: '.js-add-buttons'
 
   events:
     'click .js-cancel': -> @model.set 'boxType', 'buttons'
