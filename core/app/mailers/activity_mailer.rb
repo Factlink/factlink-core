@@ -6,12 +6,15 @@ class ActivityMailer < ActionMailer::Base
   layout "email_notification"
 
   def new_activity(user_id, activity_id)
-    @user = User.find(user_id)
+    @user = UserNotification.users_receiving('mailed_notifications')
+                            .find(user_id)
     @activity = Activity[activity_id]
 
     blacklisted_activities = ['invites']
+
     return if blacklisted_activities.include? @activity.action
     return unless @activity.still_valid?
+    return unless @user
 
     mail to: @user.email,
          subject: get_mail_subject_for_activity(@activity),
