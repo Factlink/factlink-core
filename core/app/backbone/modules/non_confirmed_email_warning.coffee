@@ -5,7 +5,7 @@ FactlinkApp.module "NonConfirmedEmailWarning", (NonConfirmedEmailWarning, Factli
     return if currentUser.get('confirmed')
 
     FactlinkApp.NotificationCenter.error """
-      Your email address has not yet been confirmed.
+      Your email address has not yet been confirmed, please check your inbox.
       <a href="/users/confirmation/new" target="_blank" class="js-close">
         Resend email.
       </a>
