@@ -28,9 +28,19 @@ describe Fact do
     it "works" do
       old_id = fact.id
       data_id = fact.data.id
+
       fact.delete
+
       expect(Fact[old_id]).to be_nil
       expect(FactData.find(data_id)).to be_nil
+    end
+
+    it "removes the fact from the creators facts list" do
+      gu = fact.created_by
+      expect(gu.sorted_created_facts.count).to eq 1
+
+      fact.delete
+      expect(gu.sorted_created_facts.count).to eq 0
     end
   end
 
@@ -172,5 +182,34 @@ describe Fact do
     fact = Fact.create created_by: graph_user
 
     expect(graph_user.sorted_created_facts.to_a).to match_array [fact]
+  end
+
+  describe '#channel_ids' do
+    include PavlovSupport
+    include RedisSupport
+
+    it "returns the channels it is contained in, using 1 redis command" do
+      user = create :user
+      fact = create :fact
+
+      ch1 = create :channel, created_by: user.graph_user
+      ch2 = create :channel, created_by: user.graph_user
+      ch3 = create :channel, created_by: user.graph_user
+
+      as(user) do |p|
+        [ch1, ch2, ch3].each do |channel|
+          p.command :'channels/add_fact',
+                    fact: fact, channel: channel
+        end
+      end
+      ids = :undefined
+
+      nr = number_of_commands_on Ohm.redis do
+        ids = fact.channel_ids
+      end
+
+      expect(ids).to eq [ch1.id, ch2.id, ch3.id]
+      expect(nr).to eq 1
+    end
   end
 end

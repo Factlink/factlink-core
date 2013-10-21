@@ -31,38 +31,42 @@ class Fact < OurOhm
   set :channels, Channel
 
   def increment_mixpanel_count
-    return unless self.has_site? and self.created_by.user
+    return unless has_site? and created_by.user
 
     mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-    mixpanel.increment_person_event self.created_by.user.id.to_s, factlinks_created_with_url: 1
+    mixpanel.increment_person_event created_by.user.id.to_s, factlinks_created_with_url: 1
   end
 
   def set_activity!
-    activity(self.created_by, :created, self)
+    activity(created_by, :created, self)
 
-    if self.created_by.created_facts.size == 1
-      activity(self.created_by, :added_first_factlink , self)
+    if created_by.created_facts.size == 1
+      activity(created_by, :added_first_factlink , self)
     end
   end
 
-  # TODO dirty, please decouple
+  # TODO: dirty, please decouple
   def add_to_created_facts
-    self.created_by.sorted_created_facts.add self
-    channel = self.created_by.created_facts_channel
+    created_by.sorted_created_facts.add self
+    channel = created_by.created_facts_channel
 
     command(:'channels/add_fact', fact: self, channel: channel)
   end
 
+  def remove_from_created_facts
+    created_by.sorted_created_facts.delete self
+  end
+
   def has_site?
-    self.site and self.site.url and not self.site.url.blank?
+    site and site.url and not site.url.blank?
   end
 
   def to_s
-    self.data.displaystring || ""
+    data.displaystring || ""
   end
 
   def created_at
-    self.data.created_at.utc.to_s if self.data
+    data.created_at.utc.to_s if data
   end
 
   reference :site, Site # The site on which the factlink should be shown
@@ -83,7 +87,7 @@ class Fact < OurOhm
   end
 
   def require_saved_data
-    if not self.data_id
+    if not data_id
       localdata = FactData.new
       localdata.save
       # FactData now has an ID
@@ -92,7 +96,7 @@ class Fact < OurOhm
   end
 
   def set_own_id_on_saved_data
-    self.data.fact_id = self.id
+    self.data.fact_id = id
     self.data.save
   end
 
@@ -102,7 +106,7 @@ class Fact < OurOhm
   set :weakening_facts, FactRelation
 
   def evidenced_factrelations
-    FactRelation.find(:from_fact_id => self.id).all
+    FactRelation.find(from_fact_id: id).all
   end
 
   def self.by_display_string(displaystring)
@@ -131,7 +135,7 @@ class Fact < OurOhm
   end
 
   def believable
-    @believable ||= Believable.new(self.key)
+    @believable ||= Believable.new(key)
   end
 
   def add_opinion(type, user)
@@ -160,12 +164,12 @@ class Fact < OurOhm
   end
 
   def delete_all_evidenced
-    FactRelation.find(:from_fact_id => self.id).each do |fr|
+    FactRelation.find(from_fact_id: id).each do |fr|
       fr.delete
     end
   end
 
-  #TODO also remove yourself from channels, possibly using resque
+  # TODO: also remove yourself from channels, possibly using resque
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
   def delete
@@ -173,10 +177,11 @@ class Fact < OurOhm
     delete_all_evidence
     delete_all_evidenced
     believable.delete
+    remove_from_created_facts
     super
   end
 
   def channel_ids
-    channels.map(&:id)
+    channels.ids
   end
 end

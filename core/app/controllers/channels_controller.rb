@@ -126,19 +126,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  def created_facts
-    count = params.fetch(:number, 7).to_i
-    limit = params[:timestamp] ? params[:timestamp].to_i : 'inf'
-    options = { reversed: true, withscores: true, count: count }
-
-    @facts = @user.graph_user
-      .sorted_created_facts
-      .below(limit, options)
-      .reject { |fact_with_score| Fact.invalid(fact_with_score[:item]) }
-
-    render 'channels/facts'
-  end
-
   def add_fact
     fact = Fact[params[:fact_id]]
 
