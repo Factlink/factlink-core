@@ -56,18 +56,18 @@ describe Users::ConfirmationsController do
       expect(response).to redirect_to setup_account_path
     end
 
-    it "leaves another signed in user signed in" do
+    it "leaves another user signed in and shows an error" do
       confirmation_user = create :user
-      signed_in_user = create :full_user
+      signed_in_user = create :user
 
       sign_in(signed_in_user)
 
       get :show, confirmation_token: confirmation_user.confirmation_token
 
       confirmation_user.reload
-      expect(confirmation_user).to be_confirmed
+      expect(confirmation_user).to_not be_confirmed
 
-      expect(response).to redirect_to feed_path(signed_in_user.username)
+      expect(flash[:alert]).to match /already logged in with another account/
     end
   end
 end
