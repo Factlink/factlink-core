@@ -20,11 +20,8 @@ class User
   field :username
   field :first_name
   field :last_name
-  field :identities, type: Hash, default: {}
 
   index(username: 1)
-  index({ "identities.facebook.uid" => 1 }, { sparse: true, unique: true })
-  index({ "identities.twitter.uid" => 1 }, { sparse: true, unique: true })
 
   field :registration_code
 
@@ -147,10 +144,6 @@ class User
                             .where(:seen_tour_step => 'tour_done')
 
   class << self
-    def find_for_oauth(provider_name, uid)
-      where(:"identities.#{provider_name}.uid" => uid).first
-    end
-
     # List of fields that are stored in Mixpanel.
     # The key   represents how the field is stored in our Model
     # The value represents how it is stored in Mixpanel
@@ -174,7 +167,7 @@ class User
 
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
-      ['first_name', 'last_name', 'location', 'biography', 'identities']
+      ['first_name', 'last_name', 'location', 'biography']
     end
   end
 
