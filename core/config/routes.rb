@@ -115,8 +115,8 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get "/auth/:service/callback" => "identities#service_callback", as: "social_auth"
-  delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
+  get "/auth/:service/callback" => "social_accounts#service_callback", as: "social_auth"
+  delete "/auth/:service/deauthorize" => "social_accounts#service_deauthorize"
 
   resources :conversations, only: [:index, :show, :create], path: 'm' do
     resources :messages, only: [:create, :show]

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe IdentitiesController do
+describe SocialAccountsController do
   render_views
 
   describe 'service_callback' do

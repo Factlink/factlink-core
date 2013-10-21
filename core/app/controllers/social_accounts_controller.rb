@@ -1,6 +1,6 @@
 require_relative 'application_controller'
 
-class IdentitiesController < ApplicationController
+class SocialAccountsController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
   def service_callback

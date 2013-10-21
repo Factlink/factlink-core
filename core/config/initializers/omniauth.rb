@@ -12,6 +12,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 
 end
 
-OmniAuth.config.on_failure = IdentitiesController.action(:oauth_failure)
+OmniAuth.config.on_failure = SocialAccountsController.action(:oauth_failure)
 
 FactlinkUI::Application.config.social_services = %w[facebook twitter]
