@@ -178,7 +178,7 @@ describe Fact do
     include PavlovSupport
     include RedisSupport
 
-    it "returns the channels it is contained in" do
+    it "returns the channels it is contained in, using 1 redis command" do
       user = create :user
       fact = create :fact
 
