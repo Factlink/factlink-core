@@ -73,7 +73,7 @@ class User
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
-                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
+                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)' }.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
                           :with => /\A[A-Za-z0-9_]*\Z/i,
@@ -327,7 +327,7 @@ class User
   end
 
   def features_count
-     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
+    @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
   set :seen_messages
