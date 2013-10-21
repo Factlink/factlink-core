@@ -16,17 +16,6 @@ class GraphUser < OurOhm
   collection :created_facts, Fact, :created_by
   timestamped_set :sorted_created_facts, Fact
 
-  reference :created_facts_channel, Channel::CreatedFacts
-
-  def create
-    result = super
-
-    self.created_facts_channel = Channel::CreatedFacts.create(created_by: self)
-    save
-
-    result
-  end
-
   def opinion_on(fact)
     UserOpinion.new(self).on(fact)
   end

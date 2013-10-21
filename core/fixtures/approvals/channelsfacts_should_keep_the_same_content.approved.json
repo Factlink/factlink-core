@@ -3,7 +3,7 @@
     "displaystring": "Fact 3",
     "id": "<STRIPPED>",
     "containing_channel_ids": [
-      "2"
+      "1"
     ],
     "url": "/fact-3/f/3",
     "deletable_from_channel?": true,
@@ -51,7 +51,7 @@
     "displaystring": "Fact 2",
     "id": "<STRIPPED>",
     "containing_channel_ids": [
-      "2"
+      "1"
     ],
     "url": "/fact-2/f/2",
     "deletable_from_channel?": true,
@@ -99,7 +99,7 @@
     "displaystring": "Fact 1",
     "id": "<STRIPPED>",
     "containing_channel_ids": [
-      "2"
+      "1"
     ],
     "url": "/fact-1/f/1",
     "deletable_from_channel?": true,

@@ -10,45 +10,15 @@ describe Interactors::Topics::Facts do
       fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
       channel = pavlov.command :'channels/create', title: 'something'
 
-      created_facts = channel.created_by.created_facts_channel
-
       a1 = pavlov.command :'create_activity', graph_user: channel.created_by,
              action: :added_fact_to_channel, subject: fact, object: channel
       a2 = pavlov.command :'create_activity', graph_user: channel.created_by,
-             action: :added_fact_to_channel, subject: fact, object: created_facts
-      a4 = pavlov.command :'create_activity', graph_user: channel.created_by,
              action: :foo, subject: nil, object: nil
 
       all_activity_ids = Activity.all.ids
-      just_created_ids = [a1, a2, a4].map(&:id)
+      just_created_ids = [a1, a2].map(&:id)
 
       expect(all_activity_ids).to include(*just_created_ids)
-    end
-  end
-  context 'after cleaning up faulty added_fact_to_channel activities' do
-    it 'faulty activities are removed' do
-      as(user) do |pavlov|
-        fact = pavlov.interactor :'facts/create', displaystring: 'a fact', url: '', title: '', sharing_options: {}
-        channel = pavlov.command :'channels/create', title: 'something'
-
-        created_facts = channel.created_by.created_facts_channel
-
-        a1 = pavlov.command :'create_activity', graph_user: channel.created_by,
-               action: :added_fact_to_channel, subject: fact, object: channel
-        a2 = pavlov.command :'create_activity', graph_user: channel.created_by,
-               action: :added_fact_to_channel, subject: fact, object: created_facts
-        a4 = pavlov.command :'create_activity', graph_user: channel.created_by,
-               action: :foo, subject: nil, object: nil
-
-        pavlov.command :'activities/clean_up_faulty_add_fact_to_channels'
-
-        all_activity_ids = Activity.all.ids
-        correct_ids = [a1, a4].map(&:id)
-        faulty_ids = [a2].map(&:id)
-
-        expect(all_activity_ids).to include(*correct_ids)
-        expect(all_activity_ids).not_to include(*faulty_ids)
-      end
     end
   end
   context 'after cleanup' do

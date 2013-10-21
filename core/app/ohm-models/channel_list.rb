@@ -6,11 +6,11 @@ class ChannelList
   end
 
   def channels
-    Channel.find(:created_by_id => graph_user.id)
+    Channel.find(created_by_id: graph_user.id)
   end
 
   def real_channels_as_array
-    filter_unreal channels.to_a
+    channels.to_a
   end
 
   def sorted_channels
@@ -18,7 +18,7 @@ class ChannelList
   end
 
   def sorted_real_channels_as_array
-    filter_unreal(sorted_channels.to_a)
+    sorted_channels.to_a
   end
 
   def get_by_slug_title slug_title
@@ -36,17 +36,9 @@ class ChannelList
   end
 
   private
-  def filter_unreal channels
-    channels.reject {|ch| forbidden_ids.include? ch.id }
-  end
 
   def filter_unreal_ids ids
-    ids.reject {|id| forbidden_ids.include? id }
+    ids.to_a
   end
 
-  def forbidden_ids
-    [
-      graph_user.created_facts_channel_id,
-    ]
-  end
 end
