@@ -10,50 +10,55 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     buttons: '.js-buttons'
 
   events:
-    'click .js-cancel': 'cancel'
-    'click .js-supporting-button': -> @_showAdd 'supporting'
-    'click .js-weakening-button': -> @_showAdd 'weakening'
+    'click .js-cancel': -> @model.set 'boxType', 'buttons'
+    'click .js-supporting-button': -> @model.set 'boxType', 'supporting'
+    'click .js-weakening-button': -> @model.set 'boxType', 'weakening'
 
   regions:
     headingRegion: '.js-heading-region'
     contentRegion: '.js-content-region'
 
   collectionEvents:
-    'saved_added_model': 'cancel'
-    'error_adding_model': 'showBox'
-    'add': 'hideBox'
-    'request sync': '_updateLoading'
+    'saved_added_model': -> @model.set 'boxType', 'buttons'
+    'error_adding_model': -> @model.set 'saving', false
+    'add': -> @model.set 'saving', true
+    'request sync': '_update'
 
-  onRender: ->
-    @headingRegion.show new EvidenceishHeadingView model: currentUser
-    @cancel()
-    @_updateLoading()
+  initialize: ->
+    @model = new Backbone.Model saving: false, boxType: 'buttons'
+    @listenTo @model, 'change', @_update
 
-  cancel: ->
-    @hideBox()
-    @ui.buttons.show()
+  onRender: -> @_update()
 
-  showBox: -> @ui.box.show()
-  hideBox: -> @ui.box.hide()
-
-  _showAdd: (type) ->
-    @ui.buttons.hide()
-    @ui.box.show()
-    @ui.box.removeClass 'evidence-weakening evidence-supporting'
-    @ui.box.addClass 'evidence-' + type
-
-    @contentRegion.close()
-    @contentRegion.show new AddEvidenceFormView
-      collection: @collection.oneSidedEvidenceCollection(type)
-      fact_id: @options.fact_id
-      type: type
-
-  _updateLoading: ->
+  _update: ->
     @$el.toggle !@collection.loading()
-    @_renderPopovers() unless @collection.loading()
 
-  _renderPopovers: ->
-    @popoverResetAll()
+    @ui.buttons.toggle @model.get('boxType') == 'buttons'
+    @ui.box.toggle @model.get('boxType') != 'buttons'
+    @_updateBox()
+    @_updatePopovers()
+
+  _updateBox: ->
+    return if @model.get('boxType') == 'buttons'
+    return if @boxType == @model.get('boxType')
+
+    @boxType = @model.get('boxType')
+
+    @ui.box.removeClass 'evidence-weakening evidence-supporting'
+    @ui.box.addClass 'evidence-' + @model.get('boxType')
+
+    @headingRegion.show new EvidenceishHeadingView model: currentUser
+    @contentRegion.show new AddEvidenceFormView
+      collection: @collection.oneSidedEvidenceCollection @model.get('boxType')
+      fact_id: @options.fact_id
+      type: @model.get('boxType')
+
+  _updatePopovers: ->
+    return if @collection.loading()
+    return unless @model.get('boxType') == 'buttons'
+    return if @_popoversRendered
+
+    @_popoversRendered = true
 
     @popoverAdd '.js-supporting-button',
       side: 'right'
@@ -68,4 +73,3 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       container: @ui.buttons
       contentView: new TextView text: 'Add weakening argument'
       popover_className: 'translucent-popover translucent-grey-popover'
-
