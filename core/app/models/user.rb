@@ -73,7 +73,7 @@ class User
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
-                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
+                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)' }.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
                           :with => /\A[A-Za-z0-9_]*\Z/i,
@@ -171,9 +171,15 @@ class User
       }
     end
 
+    # this methods defined which fields are to be removed
+    # when the user is deleted (anonymized)
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
-      ['first_name', 'last_name', 'location', 'biography', 'identities']
+      %w(
+        first_name last_name location biography identities
+        confirmed_at reset_password_token confirmation_token
+        invitation_token
+      )
     end
   end
 

@@ -173,4 +173,33 @@ describe Fact do
 
     expect(graph_user.sorted_created_facts.to_a).to match_array [fact]
   end
+
+  describe '#channel_ids' do
+    include PavlovSupport
+    include RedisSupport
+
+    it "returns the channels it is contained in, using 1 redis command" do
+      user = create :user
+      fact = create :fact
+
+      ch1 = create :channel, created_by: user.graph_user
+      ch2 = create :channel, created_by: user.graph_user
+      ch3 = create :channel, created_by: user.graph_user
+
+      as(user) do |p|
+        [ch1, ch2, ch3].each do |channel|
+          p.command :'channels/add_fact',
+                    fact: fact, channel: channel
+        end
+      end
+      ids = :undefined
+
+      nr = number_of_commands_on Ohm.redis do
+        ids = fact.channel_ids
+      end
+
+      expect(ids).to eq [ch1.id, ch2.id, ch3.id]
+      expect(nr).to eq 1
+    end
+  end
 end
