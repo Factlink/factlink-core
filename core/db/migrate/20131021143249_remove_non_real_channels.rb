@@ -8,7 +8,9 @@ class RemoveNonRealChannels < Mongoid::Migration
         ["Channel::UserStream", "Channel::CreatedFacts"].include? type
       end
 
-      non_real_channels.each { |ch| ch.delete }
+      non_real_channels.each do |ch|
+        Resque.enqueue DeleteChannel, ch.id
+      end
     end
   end
 
