@@ -23,7 +23,7 @@ json.is_current_user is_current_user
 if is_current_user
   json.receives_mailed_notifications user.receives_mailed_notifications
   json.receives_digest user.receives_digest
-  json.confirmed user.confirmed?
+  json.should_show_confirmation_alert user.should_show_confirmation_alert?
 
   json.services do |json|
 
