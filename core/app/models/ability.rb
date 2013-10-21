@@ -168,12 +168,11 @@ class Ability
 
   def define_sharing_abilities
     return unless agrees_tos?
-    identities = user.identities || {}
 
     can :share, Fact
 
-    can :share_to, :twitter  if identities['twitter']
-    can :share_to, :facebook if identities['facebook']
+    can :share_to, :twitter  if user.social_account('twitter').persisted?
+    can :share_to, :facebook if user.social_account('facebook').persisted?
   end
 
   FEATURES = %w(

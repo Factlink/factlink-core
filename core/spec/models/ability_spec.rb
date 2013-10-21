@@ -268,7 +268,7 @@ describe Ability do
 
     context "when connected to Twitter" do
       it "should be possible to share to Twitter" do
-        user.identities['twitter'] = {}
+        create :social_account, :twitter, user: user
 
         Ability.new(user).should be_able_to :share_to, :twitter
       end
@@ -276,7 +276,7 @@ describe Ability do
 
     context "when connected to Facebook" do
       it "should be possible to share to Facebook" do
-        user.identities['facebook'] = {}
+        create :social_account, :facebook, user: user
 
         Ability.new(user).should be_able_to :share_to, :facebook
       end
