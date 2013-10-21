@@ -17,7 +17,7 @@ describe Commands::Facebook::ShareFactlink do
       namespace = 'namespace'
       fact_url  = double sharing_url: 'sharing_url'
       user      = double
-      facebook_account = double omniauth_obj: { 'credentials' => { 'token' => token, 'secret' => double } }
+      facebook_account = double token: token
 
       user.stub(:social_account).with('facebook').and_return(facebook_account)
 
@@ -58,7 +58,7 @@ describe Commands::Facebook::ShareFactlink do
       namespace = 'namespace'
       fact_url  = double sharing_url: 'sharing_url'
       user      = double
-      facebook_account = double omniauth_obj: { 'credentials' => { 'token' => token, 'secret' => double } }
+      facebook_account = double token: token
 
       user.stub(:social_account).with('facebook').and_return(facebook_account)
 

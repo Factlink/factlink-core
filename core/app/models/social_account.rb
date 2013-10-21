@@ -23,6 +23,14 @@ class SocialAccount
 
   def save_omniauth_obj!(omniauth_obj)
     self.omniauth_obj = omniauth_obj
-    self.save!
+    save!
+  end
+
+  def token
+    omniauth_obj['credentials']['token']
+  end
+
+  def secret
+    omniauth_obj['credentials']['secret']
   end
 end
