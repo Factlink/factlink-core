@@ -10,19 +10,21 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     buttons: '.js-add-buttons'
 
   events:
-    'click .js-cancel': -> @model.set 'boxType', 'buttons'
-    'click .js-supporting-button': -> @model.set 'boxType', 'supporting'
-    'click .js-weakening-button': -> @model.set 'boxType', 'weakening'
+    'click .js-cancel': -> @model.set 'showBox', false
+    'click .js-supporting-button': -> @model.set showBox: true, evidenceType: 'supporting'
+    'click .js-weakening-button': -> @model.set showBox: true, evidenceType: 'weakening'
 
   regions:
     headingRegion: '.js-heading-region'
     contentRegion: '.js-content-region'
 
   collectionEvents:
-    'saved_added_model': -> @model.set 'boxType', 'buttons'
-    'error_adding_model': -> @model.set 'saving', false
-    'add': -> @model.set 'saving', true
+    'error_adding_model': -> @model.set saving: false
+    'add': -> @model.set saving: true
     'request sync': '_update'
+    'saved_added_model': ->
+      @model.set showBox: false, saving: false
+      @renderedEvidenceType = null
 
   initialize: ->
     @model = new Backbone.Model saving: false, boxType: 'buttons'
@@ -33,29 +35,29 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   _update: ->
     @$el.toggle !@collection.loading()
 
-    @ui.buttons.toggle @model.get('boxType') == 'buttons'
-    @ui.box.toggle @model.get('boxType') != 'buttons'
+    @ui.buttons.toggle !@model.get('showBox')
+    @ui.box.toggle !!@model.get('showBox')
     @_updateBox()
     @_updatePopovers()
 
   _updateBox: ->
-    return if @model.get('boxType') == 'buttons'
-    return if @boxType == @model.get('boxType')
+    return unless @model.get('showBox')
+    return if @renderedEvidenceType == @model.get('evidenceType')
 
-    @boxType = @model.get('boxType')
+    @renderedEvidenceType = @model.get('evidenceType')
 
     @ui.box.removeClass 'evidence-weakening evidence-supporting'
-    @ui.box.addClass 'evidence-' + @model.get('boxType')
+    @ui.box.addClass 'evidence-' + @model.get('evidenceType')
 
     @headingRegion.show new EvidenceishHeadingView model: currentUser
     @contentRegion.show new AddEvidenceFormView
-      collection: @collection.oneSidedEvidenceCollection @model.get('boxType')
+      collection: @collection.oneSidedEvidenceCollection @model.get('evidenceType')
       fact_id: @options.fact_id
-      type: @model.get('boxType')
+      type: @model.get('evidenceType')
 
   _updatePopovers: ->
     return if @collection.loading()
-    return unless @model.get('boxType') == 'buttons'
+    return if @model.get('showBox')
     return if @_popoversRendered
 
     @_popoversRendered = true
