@@ -76,21 +76,21 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
 
   ui:
     terminator: '.js-terminator'
+    loading: '.js-loading'
 
   onRender: ->
     @collectionRegion.show new EvidenceCollectionView collection: @collection
     @_updateLoading()
 
     if Factlink.Global.signed_in
-      @ui.terminator.addClass 'evidence-terminator-circle'
       @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
       @addRegion.show new AddEvidenceView
         collection: @collection
         fact_id: @collection.fact.id
 
   _updateLoading: ->
-    @$el.toggleClass 'evidence-container-loaded', !@collection.loading()
+    @ui.loading.toggle !!@collection.loading()
+    @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()
 
     unless Factlink.Global.signed_in || @collection.loading()
-      @ui.terminator.addClass 'evidence-terminator-circle'
       @learnMoreRegion.show new LearnMoreBottomView

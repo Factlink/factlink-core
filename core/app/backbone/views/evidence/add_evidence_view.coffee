@@ -46,10 +46,12 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     'saved_added_model': 'cancel'
     'error_adding_model': 'showBox'
     'add': 'hideBox'
+    'request sync': '_updateLoading'
 
   onRender: ->
     @headingRegion.show new EvidenceishHeadingView model: currentUser
     @cancel()
+    @_updateLoading()
 
   cancel: ->
     @hideBox()
@@ -70,3 +72,6 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       collection: @collection.oneSidedEvidenceCollection(type)
       fact_id: @options.fact_id
       type: type
+
+  _updateLoading: ->
+    @$el.toggle !@collection.loading()
