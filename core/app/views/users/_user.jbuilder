@@ -33,7 +33,7 @@ if is_current_user
 
     if can?(:share_to, :facebook)
       json.facebook true
-      json.facebook_expires_at user.identities['facebook']['credentials']['expires_at']
+      json.facebook_expires_at user.social_account('facebook').omniauth_obj['credentials']['expires_at']
     end
   end
 end
