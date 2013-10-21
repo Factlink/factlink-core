@@ -53,6 +53,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @collection.add fact_relation
     @inputRegion.switchTo('search_view')
 
+    @collection.trigger 'start_adding_model'
     fact_relation.save {},
       error: =>
         onFinish()

@@ -19,8 +19,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     contentRegion: '.js-content-region'
 
   collectionEvents:
+    'start_adding_model': -> @model.set saving: true
     'error_adding_model': -> @model.set saving: false
-    'add': -> @model.set saving: true
     'request sync': '_update'
     'saved_added_model': ->
       @model.set showBox: false, saving: false
