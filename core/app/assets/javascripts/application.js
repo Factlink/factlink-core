@@ -3,7 +3,6 @@
 //= require underscore
 //= require hogan
 //= require console_polyfill
-//= require trunk8
 //= require twitter/bootstrap
 //= require jquery.color
 //= require jquery.placeholder

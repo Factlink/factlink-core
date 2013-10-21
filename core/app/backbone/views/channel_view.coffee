@@ -13,12 +13,11 @@ class window.ChannelView extends Backbone.Marionette.Layout
   onRender: ->
     @showChosenFacts()
 
-    if @model.get('inspectable?')
-      @subChannelsRegion.show new SubchannelsView
-        collection: @model.subchannels()
-        model: @model
+    @subChannelsRegion.show new SubchannelsView
+      collection: @model.subchannels()
+      model: @model
 
-    if @model.get('followable?')
+    if not @model.is_mine()
       @addToChannelRegion.show new FollowChannelButtonView(channel: @model, mini: true)
 
     @creatorProfileRegion.show new UserWithAuthorityBox

@@ -73,7 +73,7 @@ class User
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
-                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
+                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)' }.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
                           :with => /\A[A-Za-z0-9_]*\Z/i,
@@ -138,16 +138,12 @@ class User
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
 
-  scope :active,   where(:confirmed_at.ne => nil)
-                  .where(:set_up => true)
+  scope :active,   where(:set_up => true)
                   .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
                   .where(:suspended.ne => true)
   scope :seen_the_tour,   active
                             .where(:seen_tour_step => 'tour_done')
-  scope :receives_digest, active
-                            .where(:receives_digest => true)
-
 
   class << self
     def find_for_oauth(provider_name, uid)
@@ -175,9 +171,15 @@ class User
       }
     end
 
+    # this methods defined which fields are to be removed
+    # when the user is deleted (anonymized)
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
-      ['first_name', 'last_name', 'location', 'biography', 'identities']
+      %w(
+        first_name last_name location biography identities
+        confirmed_at reset_password_token confirmation_token
+        invitation_token
+      )
     end
   end
 
@@ -200,7 +202,7 @@ class User
   end
 
   def active?
-    confirmed? && set_up && agrees_tos && !deleted && !suspended
+    set_up && agrees_tos && !deleted && !suspended
   end
 
   def graph_user
@@ -301,10 +303,10 @@ class User
     Gravatar.hash(email)
   end
 
-  # Require activated accounts to work with
-  # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
+  # Don't require being confirmed for being active for authentication
+  # Do check for deleted and suspended accounts though!
   def active_for_authentication?
-    super && !deleted && !suspended
+    !deleted && !suspended
   end
 
   def inactive_message
@@ -325,7 +327,7 @@ class User
   end
 
   def features_count
-     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
+    @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
   end
 
   set :seen_messages
@@ -350,5 +352,12 @@ class User
   def pending_any_confirmation
     yield # Always allow confirmation, so users can login again.
     # Used together with ConfirmationsController#restore_confirmation_token
+  end
+
+  # Fix for devise, for a case that should never happen at production
+  def confirmation_period_expired?
+    return false unless self.confirmation_sent_at
+
+    super
   end
 end

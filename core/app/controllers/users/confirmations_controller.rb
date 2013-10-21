@@ -22,10 +22,27 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # Users can abort setting up their account, so they need to keep logging in using
   # the confirmation token. To mitigate the associated security problems we set a token
   # timeout using "config.confirm_within" in devise.rb
-  # Also depends on User#pending_reconfirmation?
+  # Also depends on User#pending_any_confirmation
   def restore_confirmation_token
     self.resource.confirmation_token = params[:confirmation_token]
     self.resource.save!(validate: false)
+  end
+
+  def new
+    super
+
+    self.resource = current_user if current_user
+  end
+
+  def create
+    self.resource = resource_class.send_confirmation_instructions(resource_params)
+
+    if successfully_sent?(resource)
+      flash[:notice] = 'Resent confirmation instructions to your email address.'
+      render 'users/confirmations/new'
+    else
+      respond_with(resource)
+    end
   end
 
 end

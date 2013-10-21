@@ -6,7 +6,7 @@ module Interactors
       arguments :id, :from, :count
 
       def setup_defaults
-        @count = 7 if @count.blank?
+        self.count = 7 if count.blank?
       end
 
       def execute
@@ -17,7 +17,7 @@ module Interactors
 
       def remove_invalid facts
         # if there are facts without fact_data remove them.
-        valid_facts = facts.reject {|fact_with_score| invalid fact_with_score }
+        valid_facts = facts.reject { |fact_with_score| invalid fact_with_score }
 
         # if facts without fact_data were found start a resque job
         # to delete them.

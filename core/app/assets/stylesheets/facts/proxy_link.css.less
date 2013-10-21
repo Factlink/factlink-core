@@ -1,0 +1,59 @@
+@import "bootstrap/mixins";
+
+.proxy-link-container {
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  margin-left: 55px;
+  clear: both;
+  padding: 0;
+  .new-design-font();
+  font-size: 13px;
+  .transition(opacity .15s ease-in-out);
+
+  &:after {
+    content: "·";
+    margin: 0 7px;
+  }
+
+  &:last-child:after {
+    content: "";
+    margin: 0;
+  }
+}
+
+.proxy-link-box {
+  opacity: .7;
+  display: inline-block;
+  .transition(color .15s ease-in-out);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.proxy-link {
+    color: @gray;
+    font-weight: normal;
+
+    &:hover {
+      color: @grayDark;
+    }
+  }
+
+.proxy-link-favicon {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top;
+}
+
+.proxy-link-overflow {
+  z-index: 100;
+  background: image-url('discussions/title_fade.png') right repeat-y;
+  display: block;
+  height: 100%;
+  width: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

@@ -10,6 +10,7 @@ LoadDsl.load do
   user "jens", "jens@factlink.com", "123hoi", "Jens", "Kanis"
   user "martijn", "martijn@factlink.com", "123hoi", "Martijn", "Russchen"
   user "eamon", "eamon@factlink.com", "123hoi", "Eamon", "Nerbonne"
+  user "luuk", "luuk@factlink.com", "123hoi", "Luuk", "Hartsema"
 
   user "tomdev"
     fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"

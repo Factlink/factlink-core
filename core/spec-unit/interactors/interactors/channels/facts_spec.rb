@@ -5,6 +5,10 @@ require_relative '../../../../app/interactors/interactors/channels/facts.rb'
 describe Interactors::Channels::Facts do
   include PavlovSupport
 
+  before do
+    stub_classes 'Fact', 'Resque', 'CleanChannel'
+  end
+
   describe 'validations' do
     it 'fact_id must be an integer' do
       expect_validating(id: 'a', from: 2, count: 3).
@@ -30,10 +34,6 @@ describe Interactors::Channels::Facts do
   end
 
   describe '#call' do
-    before do
-      stub_classes 'Fact', 'Resque', 'CleanChannel'
-    end
-
     it 'correctly' do
       channel_id = '1'
       user = double id: '1e'

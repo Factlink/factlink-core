@@ -3,7 +3,8 @@ require 'acceptance_helper'
 describe "Check the ToS", type: :feature do
 
   before do
-    @user = make_non_tos_user_and_login
+    @user = create(:user, :confirmed, :set_up)
+    sign_in_user(@user)
   end
 
   it "should contain the ToS" do

@@ -30,9 +30,9 @@ class ChannelsController < ApplicationController
     mark_channel_as_read if request.format.html?
   end
 
-  #TODO Move to topicscontroller, this searches for topics, not for channels
+  # TODO: Move to topicscontroller, this searches for topics, not for channels
   def search
-    # TODO add access control
+    # TODO: add access control
     @topics = interactor(:'search_channel', keywords: params[:s])
     render 'topics/index', formats: [:json]
   end
@@ -40,7 +40,7 @@ class ChannelsController < ApplicationController
   def create
     authorize! :update, @user
 
-    # HACK to ensure the code also acts like it created a channel when the
+    # HACK: to ensure the code also acts like it created a channel when the
     # channel already existed. This is needed because sometimes the add_to_channel
     # code in the frontend did not have the list of current channels yet, and tries
     # to create a new channel, while we already have a channel. Since this isn't properly
@@ -51,7 +51,7 @@ class ChannelsController < ApplicationController
 
     @channels = Channel.find(created_by_id: current_user.graph_user_id)
 
-    # TODO even if we don't fix conceptualla, at least search on the index slug_title here
+    # TODO: even if we don't fix conceptualla, at least search on the index slug_title here
     @channels.each do |channel|
       @channel = channel if channel.lowercase_title == title.downcase
     end
@@ -117,7 +117,7 @@ class ChannelsController < ApplicationController
     from = params[:timestamp].to_i if params[:timestamp]
     count = params[:number].to_i if params[:number]
 
-    @facts = interactor(:'channels/facts', id: channel_id, from: from, count: count)
+    @facts = interactor(:'channels/facts', id: @channel.id, from: from, count: count)
 
     mark_channel_as_read
 

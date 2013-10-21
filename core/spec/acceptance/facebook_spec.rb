@@ -3,7 +3,7 @@ require 'acceptance_helper'
 describe "Facebook", type: :feature do
   context "as a logged in user with expired token" do
     before do
-      @user = sign_in_user create :full_user, :connected_facebook
+      @user = sign_in_user create :full_user, :confirmed, :connected_facebook
       @user.identities['facebook']['credentials']['expires_at'] = DateTime.now.to_i
       @user.save
     end
@@ -23,7 +23,7 @@ describe "Facebook", type: :feature do
 
   context "as a logged in user with valid token" do
     before do
-      @user = sign_in_user create :full_user, :connected_facebook
+      @user = sign_in_user create :full_user, :confirmed, :connected_facebook
     end
 
     it "doesn't contain the iframe" do

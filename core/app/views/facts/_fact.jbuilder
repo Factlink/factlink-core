@@ -25,10 +25,6 @@ if channel
                            channel.is_real_channel? and
                            channel.created_by == current_graph_user)
   json.deletable_from_channel? deletable_from_channel
-
-  timestamp_in_seconds = timestamp / 1000
-  friendly_time = TimeFormatter.as_time_ago(timestamp_in_seconds)
-  json.friendly_time friendly_time
 end
 
 

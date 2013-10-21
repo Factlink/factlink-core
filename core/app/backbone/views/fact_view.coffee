@@ -27,18 +27,12 @@ class FactPoparrowView extends Backbone.Factlink.PoparrowView
       success: -> mp_track "Factlink: Destroy"
 
 class window.FactView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.PopoverMixin
-
-  tagName: "div"
   className: "fact-view"
   template: "facts/fact"
 
-  templateHelpers: ->
-    'modal?' : FactlinkApp.onClientApp is true
-
   regions:
-    factBaseView: '.fact-base-region'
-    factBottomView: '.fact-bottom-region'
+    factBaseRegion: '.js-fact-base-region'
+    linkRegion: '.js-fact-link-region'
     poparrowRegion: '.js-region-poparrow'
 
   initialize: (opts) ->
@@ -46,25 +40,12 @@ class window.FactView extends Backbone.Marionette.Layout
     @listenTo @model, "change", @render
 
   onRender: ->
-    @factBaseView.show new FactBaseView(model: @model, truncate_body: true)
-    @factBottomView.show @newFactBottomView()
+    @factBaseRegion.show new FactBaseView(model: @model)
+
+    if @model.get('proxy_scroll_url')
+      @linkRegion.show new FactProxyLinkView model: @model
 
     if Factlink.Global.signed_in
-      @setPoparrow()
-
-  newFactBottomView: ->
-    new FactBottomView
-      model: @model
-
-  setPoparrow: ->
-    poparrowView = new FactPoparrowView model: @model
-    @poparrowRegion.show poparrowView
+      @poparrowRegion.show new FactPoparrowView model: @model
 
   remove: -> @$el.fadeOut "fast", -> $(this).remove()
-
-  highlight: ->
-    @$el.animate
-      "background-color": "#ffffe1"
-    ,
-      duration: 2000
-      complete: -> $(this).animate "background-color": "#ffffff", 2000
