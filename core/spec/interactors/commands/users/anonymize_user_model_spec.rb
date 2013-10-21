@@ -9,7 +9,6 @@ describe Commands::Users::AnonymizeUserModel do
         last_name: 'data',
         location: 'data',
         biography: 'data',
-        identities: {'twitter' => 'data', 'facebook' => 'data'},
         password: '123hoi',
         password_confirmation: '123hoi',
         deleted: true,
