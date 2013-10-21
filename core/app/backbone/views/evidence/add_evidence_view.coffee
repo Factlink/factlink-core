@@ -33,12 +33,12 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   onRender: -> @_update()
 
   _update: ->
-    @$el.toggle !@collection.loading()
+    return @$el.hide() if @collection.loading() || @model.get('saving')
 
-    @ui.buttons.toggle !@model.get('showBox')
+    @_showElement()
     @ui.box.toggle !!@model.get('showBox')
+    @ui.buttons.toggle !@model.get('showBox')
     @_updateBox()
-    @_updatePopovers()
 
   _updateBox: ->
     return unless @model.get('showBox')
@@ -55,23 +55,23 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       fact_id: @options.fact_id
       type: @model.get('evidenceType')
 
-  _updatePopovers: ->
+  _showElement: ->
+    @$el.show()
     return if @collection.loading()
-    return if @model.get('showBox')
-    return if @_popoversRendered
 
-    @_popoversRendered = true
+    unless @_popoversRendered || @model.get('showBox')
+      @_popoversRendered = true
 
-    @popoverAdd '.js-supporting-button',
-      side: 'right'
-      margin: 10
-      container: @ui.buttons
-      contentView: new TextView text: 'Add supporting argument'
-      popover_className: 'translucent-popover translucent-grey-popover'
+      @popoverAdd '.js-supporting-button',
+        side: 'right'
+        margin: 10
+        container: @ui.buttons
+        contentView: new TextView text: 'Add supporting argument'
+        popover_className: 'translucent-popover translucent-grey-popover'
 
-    @popoverAdd '.js-weakening-button',
-      side: 'left'
-      margin: 10
-      container: @ui.buttons
-      contentView: new TextView text: 'Add weakening argument'
-      popover_className: 'translucent-popover translucent-grey-popover'
+      @popoverAdd '.js-weakening-button',
+        side: 'left'
+        margin: 10
+        container: @ui.buttons
+        contentView: new TextView text: 'Add weakening argument'
+        popover_className: 'translucent-popover translucent-grey-popover'
