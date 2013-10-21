@@ -104,7 +104,7 @@ missing_branches = remote_branches.select do |branch|
 if dead_builds.size > 0
   puts "Delete the above #{dead_builds.size} jenkins jobs?"
   answer = gets
-  if %(yes y).include? answer.strip
+  if %w(yes y).include? answer.strip
     dead_builds.each do |build|
       puts "Deleting build of #{build.branch} (#{build.uri})..."
       post_jenkins_uri(build.uri + "doDelete")
