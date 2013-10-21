@@ -41,7 +41,7 @@ describe Interactors::Facts::CreatedByUser do
                                        from: 'inf', count: 3,
                                        pavlov_options: pavlov_options
 
-      expect(Pavlov).to receive(:query)
+      allow(Pavlov).to receive(:query)
         .with(:"facts/get_paginated",
               key: key.to_s, count: 3,
               from: 'inf', pavlov_options: pavlov_options)
