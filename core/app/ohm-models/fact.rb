@@ -177,6 +177,6 @@ class Fact < OurOhm
   end
 
   def channel_ids
-    channels.map(&:id)
+    channels.ids
   end
 end
