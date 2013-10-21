@@ -1,6 +1,7 @@
 FactlinkApp.module "NonConfirmedEmailWarning", (NonConfirmedEmailWarning, FactlinkApp, Backbone, Marionette, $, _) ->
 
   checkConfirmedEmail = ->
+    return if FactlinkApp.inTour
     return unless currentUser?
     return if currentUser.get('confirmed')
 
