@@ -2,15 +2,17 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   layout "one_column_simple"
 
-  before_filter :require_no_authentication, :only => :show
   def show
     self.resource = resource_class.confirm_by_token(params[:confirmation_token])
 
     if resource.errors.empty?
       restore_confirmation_token
 
-      sign_in(resource_name, resource)
-      redirect_to after_sign_in_path_for(resource).to_s
+      unless current_user
+        sign_in(resource_name, resource)
+      end
+
+      redirect_to after_sign_in_path_for(current_user).to_s
     else
       if params[:confirmation_token]
         @params_token = true
