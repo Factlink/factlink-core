@@ -112,8 +112,11 @@ describe Channel do
           end
         end
         describe "after adding another fact to the fork" do
-          it "only the fork contains the another fact" do
+          before do
             add_fact_to_channel f2, @fork
+          end
+
+          it "only the fork contains the another fact" do
             channel.facts.to_a.should eq [f1]
             @fork.facts.to_a.should eq [f2,f1]
           end
