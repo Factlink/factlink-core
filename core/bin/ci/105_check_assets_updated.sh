@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -z "$SUPPRESS_TESTING" ] || exit 0
+[ -z $SUPPRESS_TESTING ] || exit 0
 
 # Rails does not recompile the assets if the locales change, so we enforce a change
 # of globals.coffee.erb whenever the SHA sum of the locales change.

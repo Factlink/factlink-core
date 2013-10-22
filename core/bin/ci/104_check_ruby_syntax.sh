@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -z "$SUPPRESS_METRICS" ] || exit 0
+[ -z $SUPPRESS_METRICS ] || exit 0
 
 # Note: alternative to using ruby -wc we could also use rubocop
 
