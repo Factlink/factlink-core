@@ -33,4 +33,8 @@ class SocialAccount
   def secret
     omniauth_obj['credentials']['secret']
   end
+
+  def expires_at
+    omniauth_obj['credentials']['expires_at']
+  end
 end
