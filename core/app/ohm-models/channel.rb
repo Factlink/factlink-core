@@ -3,8 +3,22 @@ require_relative 'channel/activities'
 class Channel < OurOhm
   include Activity::Subject
 
+  # TODO: remove
+  # this method was patched to remain backwards compatible
+  # until all special channels are actually removed
   def type
-    'channel'
+    return 'channel' if new_record?
+
+    key_type = key.hget('_type')
+
+    case key_type
+    when "Channel::UserStream"
+      'stream'
+    when "Channel::CreatedFacts"
+      'created'
+    else
+      'channel'
+    end
   end
 
   attribute :title
