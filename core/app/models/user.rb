@@ -247,13 +247,15 @@ class User
   end
 
   def name
-    name = (full_name || "").strip
-
-    if name.blank?
+    if full_name == nil || full_name.blank?
       username
     else
-      name
+      full_name
     end
+  end
+
+  def full_name=(new_name)
+    super new_name.andand.strip
   end
 
   def valid_username_and_email?
@@ -265,7 +267,7 @@ class User
     not errors.any?
   end
 
-  def id_for_service service_name
+  def id_for_service(service_name)
     service_name = service_name.to_s
     if self.identities and self.identities[service_name]
       self.identities[service_name]['uid'].andand.first
