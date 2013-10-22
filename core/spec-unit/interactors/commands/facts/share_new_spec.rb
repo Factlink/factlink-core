@@ -11,14 +11,28 @@ describe Commands::Facts::ShareNew do
     end
 
     it 'without connected Twitter doesn\'t validate' do
-      hash = {fact_id: '1', sharing_options: { twitter: true }, pavlov_options: {ability: double(can?: false)} }
+      social_account = double
+      current_user = double
+      ability = double
+      pavlov_options = {ability: ability, current_user: current_user}
+      hash = {fact_id: '1', sharing_options: { twitter: true }, pavlov_options: pavlov_options }
+
+      current_user.stub(:social_account).with(:twitter).and_return(social_account)
+      ability.stub(:can?).with(:share_to, social_account).and_return(false)
 
       expect_validating( hash )
         .to fail_validation('base no twitter account linked')
     end
 
     it 'without connected Facebook doesn\'t validate' do
-      hash = {fact_id: '1', sharing_options: { facebook: true }, pavlov_options: {ability: double(can?: false)} }
+      social_account = double
+      current_user = double
+      ability = double
+      pavlov_options = {ability: ability, current_user: current_user}
+      hash = {fact_id: '1', sharing_options: { facebook: true }, pavlov_options: pavlov_options }
+
+      current_user.stub(:social_account).with(:facebook).and_return(social_account)
+      ability.stub(:can?).with(:share_to, social_account).and_return(false)
 
       expect_validating( hash )
         .to fail_validation('base no facebook account linked')
@@ -34,7 +48,7 @@ describe Commands::Facts::ShareNew do
       fact_id = '1'
       sharing_options = {twitter: true, facebook: false}
       ability = double(can?: true)
-      current_user = double(id: '123asdf')
+      current_user = double(id: '123asdf', social_account: double)
 
       pavlov_options = {current_user: current_user, ability: ability}
       command = described_class.new fact_id: fact_id,
@@ -50,7 +64,7 @@ describe Commands::Facts::ShareNew do
       fact_id = '1'
       sharing_options = {twitter: false, facebook: true}
       ability = double(can?: true)
-      current_user = double(id: '123asdf')
+      current_user = double(id: '123asdf', social_account: double)
 
       pavlov_options = {current_user: current_user, ability: ability}
       command = described_class.new fact_id: fact_id,

@@ -9,13 +9,17 @@ describe Commands::Users::AnonymizeUserModel do
         last_name: 'data',
         location: 'data',
         biography: 'data',
-        identities: {'twitter' => 'data', 'facebook' => 'data'},
         password: '123hoi',
         password_confirmation: '123hoi',
         deleted: true,
         reset_password_token: 'data',
         confirmation_token: 'data',
         invitation_token: 'data'
+
+      create :social_account, :twitter, user: user
+      create :social_account, :facebook, user: user
+
+      expect(user.social_accounts.size).to eq 2
 
       described_class.new(user_id: user.id).call
 
@@ -26,8 +30,8 @@ describe Commands::Users::AnonymizeUserModel do
       expect(saved_user.location).to be_nil
       expect(saved_user.biography).to be_nil
 
-      expect(saved_user.identities['twitter']).to eq nil
-      expect(saved_user.identities['facebook']).to eq nil
+      expect(saved_user.social_accounts.size).to eq 0
+      expect(SocialAccount.all.size).to eq 0
 
       # TODO: we might want to extract "deauthorizing someone" to a
       # separate command at some point

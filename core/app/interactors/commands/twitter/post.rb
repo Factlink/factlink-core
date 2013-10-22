@@ -14,7 +14,7 @@ module Commands
       def validate
         validate_nonempty_string :message, message
 
-        unless user.identities && user.identities['twitter']
+        unless social_account.persisted?
           errors.add :base, 'no twitter account linked'
         end
       end
@@ -24,13 +24,12 @@ module Commands
       end
 
       def client
-        @client ||= begin
-          credentials = user.identities['twitter']['credentials']
-          token  = credentials['token']
-          secret = credentials['secret']
+        ::Twitter::Client.new oauth_token: social_account.token,
+                              oauth_token_secret: social_account.secret
+      end
 
-          ::Twitter::Client.new oauth_token: token, oauth_token_secret: secret
-        end
+      def social_account
+        @social_account ||= user.social_account('twitter')
       end
     end
   end

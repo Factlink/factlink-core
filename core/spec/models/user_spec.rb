@@ -287,7 +287,6 @@ describe User do
   end
 
   describe "#notification_settings_edit_token" do
-
     let (:valid_attributes) do
       {
         username: "TestUser",
@@ -334,6 +333,16 @@ describe User do
       new_token = user1.user_notification.notification_settings_edit_token
 
       expect(new_token).to_not eq old_token
+    end
+  end
+
+  describe '#social_account' do
+    it 'returns a social account which can be saved' do
+      facebook_account = user.social_account('facebook')
+      facebook_account.omniauth_obj = {uid: '10'}
+      facebook_account.save!
+
+      expect(User.first.social_account('facebook').omniauth_obj['uid']).to eq '10'
     end
   end
 end

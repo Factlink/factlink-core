@@ -20,11 +20,8 @@ class User
   field :username
   field :first_name
   field :last_name
-  field :identities, type: Hash, default: {}
 
   index(username: 1)
-  index({ "identities.facebook.uid" => 1 }, { sparse: true, unique: true })
-  index({ "identities.twitter.uid" => 1 }, { sparse: true, unique: true })
 
   field :registration_code
 
@@ -137,6 +134,7 @@ class User
   has_and_belongs_to_many :conversations, inverse_of: :recipients
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
+  has_many :social_accounts
 
   scope :active,   where(:set_up => true)
                   .where(:agrees_tos => true)
@@ -146,10 +144,6 @@ class User
                             .where(:seen_tour_step => 'tour_done')
 
   class << self
-    def find_for_oauth(provider_name, uid)
-      where(:"identities.#{provider_name}.uid" => uid).first
-    end
-
     # List of fields that are stored in Mixpanel.
     # The key   represents how the field is stored in our Model
     # The value represents how it is stored in Mixpanel
@@ -176,9 +170,8 @@ class User
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
       %w(
-        first_name last_name location biography identities
-        confirmed_at reset_password_token confirmation_token
-        invitation_token
+        first_name last_name location biography confirmed_at reset_password_token
+        confirmation_token invitation_token
       )
     end
   end
@@ -268,13 +261,6 @@ class User
     not errors.any?
   end
 
-  def id_for_service service_name
-    service_name = service_name.to_s
-    if self.identities and self.identities[service_name]
-      self.identities[service_name]['uid'].andand.first
-    end
-  end
-
   def serializable_hash(options={})
     options ||= {}
     options[:except] ||= []
@@ -328,6 +314,10 @@ class User
 
   def features_count
     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
+  end
+
+  def social_account provider_name
+    social_accounts.find_or_initialize_by(provider_name: provider_name)
   end
 
   set :seen_messages
