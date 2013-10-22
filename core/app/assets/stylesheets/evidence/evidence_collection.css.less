@@ -291,6 +291,30 @@
   z-index: 1; // force it just above the other evidence, inside this stacking context
 }
 
+// Circle at the end of the evidence line
+.evidence-terminator-circle {
+  position: relative;
+  min-height: 30px;
+
+  @circleRadius: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -@circleRadius - (@evidenceAddLinesTop - @evidenceAddCircleExtraRadius);
+    left: 50%;
+    margin-left: -2px;
+    width: @circleRadius;
+    height: @circleRadius;
+    border-radius: 5px; //half would be enough
+    background-color: @discussionLineColor;
+  }
+
+  &.evidence-terminator-before-add-evidence {
+    height: 80px;
+  }
+}
+
 // Add evidence buttons
 @weakeningLineOffset: 4px + -ceil(@middleLineWidth/2);
 @supportingLineOffset: 4px + floor(@middleLineWidth/2);
@@ -300,36 +324,6 @@
 
 .evidence-add {
   min-height: 220px; // to accommodate for the fact relation search
-  display: none;
-}
-
-.evidence-container-loaded {
-  .evidence-add {
-    display: block;
-  }
-
-  .evidence-terminator-before-add-evidence {
-    height: 80px;
-  }
-
-  .evidence-terminator-circle {
-    position: relative;
-    min-height: 30px;
-
-    @circleRadius: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      bottom: -@circleRadius - (@evidenceAddLinesTop - @evidenceAddCircleExtraRadius);
-      left: 50%;
-      margin-left: -2px;
-      width: @circleRadius;
-      height: @circleRadius;
-      border-radius: 5px; //half would be enough
-      background-color: @discussionLineColor;
-    }
-  }
 }
 
 .evidence-add-buttons {

@@ -1,75 +1,77 @@
-class AddEvidenceButtonsView extends Backbone.Marionette.Layout
-  className: 'evidence-add-buttons'
-  template: 'evidence/add_evidence_buttons'
-
-  events:
-    'click .js-supporting-button': -> @options.parentView.showAdd 'supporting'
-    'click .js-weakening-button': -> @options.parentView.showAdd 'weakening'
-
-  onRender: ->
-    Backbone.Factlink.makeTooltipForView @,
-      hoverIntent: true
-      positioning:
-        side: 'right'
-        margin: 10
-        popover_className: 'translucent-dark-popover'
-      selector: '.js-supporting-button'
-      tooltipViewFactory: => new TextView
-        model: new Backbone.Model
-          text: 'Add supporting argument'
-    Backbone.Factlink.makeTooltipForView @,
-      hoverIntent: true
-      positioning:
-        side: 'left'
-        margin: 10
-        popover_className: 'translucent-dark-popover'
-      selector: '.js-weakening-button'
-      tooltipViewFactory: => new TextView
-        model: new Backbone.Model
-          text: 'Add weakening argument'
-
-
 class window.AddEvidenceView extends Backbone.Marionette.Layout
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
+
   className: 'evidence-add'
 
   template: 'evidence/add_evidence'
 
   ui:
-    box: '.js-box'
+    box: '.js-add-box'
+    buttons: '.js-add-buttons'
 
   events:
-    'click .js-cancel': 'cancel'
+    'click .js-cancel': -> @model.set showBox: false
+    'click .js-supporting-button': -> @model.set showBox: true, evidenceType: 'supporting'
+    'click .js-weakening-button': -> @model.set showBox: true, evidenceType: 'weakening'
 
   regions:
-    buttonsRegion: '.js-buttons-region'
     headingRegion: '.js-heading-region'
     contentRegion: '.js-content-region'
 
   collectionEvents:
-    'saved_added_model': 'cancel'
-    'error_adding_model': 'showBox'
-    'add': 'hideBox'
+    'request sync': '_updateElementVisiblity'
+    'start_adding_model': -> @model.set saving: true
+    'error_adding_model': -> @model.set saving: false
+    'saved_added_model': -> @model.set showBox: false, saving: false
+
+  initialize: ->
+    @model = new Backbone.Model saving: false, showBox: false
+    @listenTo @model, 'change:saving', @_updateElementVisiblity
+    @listenTo @model, 'change:showBox', @_updateInterface
 
   onRender: ->
-    @headingRegion.show new EvidenceishHeadingView model: currentUser
-    @cancel()
+    @_updateElementVisiblity()
+    @_updateInterface()
 
-  cancel: ->
-    @hideBox()
-    @buttonsRegion.show new AddEvidenceButtonsView
-      parentView: this
+  _updateElementVisiblity: ->
+    @$el.toggle !@collection.loading() && !@model.get('saving')
+    @_updatePopovers()
 
-  showBox: -> @ui.box.show()
-  hideBox: -> @ui.box.hide()
+  _updateInterface: ->
+    if @model.get('showBox')
+      @ui.buttons.hide()
 
-  showAdd: (type) ->
-    @buttonsRegion.close()
-    @ui.box.show()
-    @ui.box.removeClass 'evidence-weakening evidence-supporting'
-    @ui.box.addClass 'evidence-' + type
+      @ui.box.show()
+      @ui.box.removeClass 'evidence-weakening evidence-supporting'
+      @ui.box.addClass 'evidence-' + @model.get('evidenceType')
 
-    @contentRegion.close()
-    @contentRegion.show new AddEvidenceFormView
-      collection: @collection.oneSidedEvidenceCollection(type)
-      fact_id: @options.fact_id
-      type: type
+      @headingRegion.show new EvidenceishHeadingView model: currentUser
+      @contentRegion.show new AddEvidenceFormView
+        collection: @collection.oneSidedEvidenceCollection @model.get('evidenceType')
+        fact_id: @options.fact_id
+        type: @model.get('evidenceType')
+    else
+      @ui.box.hide()
+      @ui.buttons.show()
+      @_updatePopovers()
+
+  _updatePopovers: ->
+    return if @_popoversRendered
+    return unless @$el.is(':visible')
+    return if @model.get('showBox')
+
+    @popoverAdd '.js-supporting-button',
+      side: 'right'
+      margin: 10
+      container: @ui.buttons
+      contentView: new TextView text: 'Add supporting argument'
+      popover_className: 'translucent-popover translucent-grey-popover'
+
+    @popoverAdd '.js-weakening-button',
+      side: 'left'
+      margin: 10
+      container: @ui.buttons
+      contentView: new TextView text: 'Add weakening argument'
+      popover_className: 'translucent-popover translucent-grey-popover'
+
+    @_popoversRendered = true

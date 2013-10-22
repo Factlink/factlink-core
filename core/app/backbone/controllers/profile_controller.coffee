@@ -13,8 +13,7 @@ class window.ProfileController extends Backbone.Marionette.Controller
     active_tab: 'show'
     render: (main_region, user) =>
       if user.get('deleted')
-        main_region.show new TextView model:
-          new Backbone.Model text: 'This profile has been deleted.'
+        main_region.show new TextView text: 'This profile has been deleted.'
       else
         main_region.show new ProfileView
           model: user

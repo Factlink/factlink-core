@@ -3,4 +3,6 @@ class window.TextView extends Backbone.Marionette.ItemView
   tag: 'span'
 
   initialize: ->
+    @model ?= new Backbone.Model text: @options.text
+
     @listenTo @model, 'change:text', @render
