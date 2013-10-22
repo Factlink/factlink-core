@@ -8,7 +8,7 @@ FactoryGirl.define do
   end
 
   sequence :full_name do |n|
-    "John the #{n}"
+    "John#{n} Doe#{n}"
   end
 
   factory :user do
