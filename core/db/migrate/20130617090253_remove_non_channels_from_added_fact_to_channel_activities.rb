@@ -1,6 +1,6 @@
 class RemoveNonChannelsFromAddedFactToChannelActivities < Mongoid::Migration
   def self.up
-    Pavlov.command :"activities/clean_up_faulty_add_fact_to_channels"
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
