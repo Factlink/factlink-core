@@ -75,9 +75,9 @@ class SocialAccountsController < ApplicationController
   end
 
   def is_connected_to_different_user provider_name, omniauth_obj
-    uid = current_user.social_account(provider_name).uid
+    social_account = current_user.social_account(provider_name)
 
-    uid && uid != omniauth_obj['uid']
+    social_account.persisted? && social_account.uid != omniauth_obj['uid']
   end
 
   def sign_in_through_provider provider_name, omniauth_obj

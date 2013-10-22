@@ -18,19 +18,19 @@ class SocialAccount
   end
 
   def uid
-    omniauth_obj && omniauth_obj['uid']
+    omniauth_obj['uid']
   end
 
   def token
-    omniauth_obj && omniauth_obj['credentials']['token']
+    omniauth_obj['credentials']['token']
   end
 
   def secret
-    omniauth_obj && omniauth_obj['credentials']['secret']
+    omniauth_obj['credentials']['secret']
   end
 
   def expires_at
-    omniauth_obj && omniauth_obj['credentials']['expires_at']
+    omniauth_obj['credentials']['expires_at']
   end
 
   before_save :strip_twitter_access_token
