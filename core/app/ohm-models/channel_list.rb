@@ -9,16 +9,8 @@ class ChannelList
     Channel.find(created_by_id: graph_user.id)
   end
 
-  def real_channels_as_array
-    channels.to_a
-  end
-
   def sorted_channels
     channels.sort_by(:lowercase_title, order: 'ALPHA ASC')
-  end
-
-  def sorted_real_channels_as_array
-    sorted_channels.to_a
   end
 
   def get_by_slug_title slug_title

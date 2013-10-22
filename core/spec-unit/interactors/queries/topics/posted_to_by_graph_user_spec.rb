@@ -15,7 +15,7 @@ describe Queries::Topics::PostedToByGraphUser do
         double(:channel, slug_title: 'food'),
         double(:channel, slug_title: 'programming')
       ]
-      channel_list = double real_channels_as_array: channels
+      channel_list = double channels: (double to_a: channels)
       topics = [double, double]
 
       query = described_class.new graph_user: graph_user
