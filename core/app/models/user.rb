@@ -254,10 +254,10 @@ class User
     super new_name.strip
   end
 
-  def valid_username_and_email?
+  def valid_full_name_and_email?
     unless valid?
       errors.keys.each do |key|
-        errors.delete key unless key == :username or key == :email
+        errors.delete key unless key == :full_name or key == :email
       end
     end
     not errors.any?
