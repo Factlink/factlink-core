@@ -12,8 +12,8 @@ class SocialAccount
   index({provider_name: 1, 'omniauth_obj.uid' => 1}, { unique: true })
 
   class << self
-    def find_with_omniauth_obj(provider_name, omniauth_obj)
-      where(provider_name: provider_name, :'omniauth_obj.uid' => omniauth_obj['uid']).first
+    def find_by_provider_and_uid(provider_name, uid)
+      find_by(:provider_name => provider_name, :'omniauth_obj.uid' => uid)
     end
   end
 

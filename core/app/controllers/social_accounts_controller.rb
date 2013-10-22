@@ -79,7 +79,7 @@ class SocialAccountsController < ApplicationController
   end
 
   def sign_in_through_provider provider_name, omniauth_obj
-    social_account = SocialAccount.find_with_omniauth_obj(provider_name, omniauth_obj)
+    social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
     if social_account and social_account.user
       @user = social_account.user
