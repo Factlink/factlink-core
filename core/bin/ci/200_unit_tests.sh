@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -z $SUPPRESS_TESTING ] || exit 0
+[ -z "$SUPPRESS_TESTING" ] || exit 0
 echo "Running unit tests"
 
 REPORTFILE=tmp/spec-unit.junit.xml
