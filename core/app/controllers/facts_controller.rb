@@ -1,8 +1,6 @@
 class FactsController < ApplicationController
   layout "client"
 
-  before_filter :set_layout, only: [:create]
-
   respond_to :json, :html
 
   before_filter :load_fact,
