@@ -99,12 +99,6 @@ class SocialAccountsController < ApplicationController
     fail "Wrong OAuth provider: #{omniauth['provider']}" if provider_name != omniauth['provider']
     fail 'Invalid omniauth object' unless omniauth['uid']
 
-    if provider_name == 'twitter'
-      omniauth['extra']['oath_version'] = omniauth['extra']['access_token'].consumer.options['oauth_version'];
-      omniauth['extra']['signature_method'] = omniauth['extra']['access_token'].consumer.options['signature_method']
-      omniauth['extra'].delete 'access_token'
-    end
-
     omniauth
   end
 
