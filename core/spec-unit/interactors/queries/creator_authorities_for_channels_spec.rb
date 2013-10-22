@@ -26,7 +26,7 @@ describe Queries::CreatorAuthoritiesForChannels do
   describe '#authority_for' do
     it 'should retrieve the topic, and retrieve the authority for the topic' do
       channel_creator = double(:some_graph_user)
-      channel = double('channel', created_by: channel_creator, type:'channel')
+      channel = double('channel', created_by: channel_creator)
       topic = double
       topic_authority = double
       query = described_class.new channels: double
@@ -47,7 +47,7 @@ describe Queries::CreatorAuthoritiesForChannels do
 
     it 'should raise when the channel is not a real channel.' do
       channel_creator = double(:some_graph_user)
-      channel = double('channel', created_by: channel_creator, type:'notchannel')
+      channel = double('channel', created_by: channel_creator)
       query = described_class.new channels: double
 
       expect do

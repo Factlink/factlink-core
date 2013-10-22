@@ -10,7 +10,6 @@ describe Interactors::Channels::AddFactWithoutPropagation do
                  id: double,
                  created_by_id: 14
       channel = double :channel,
-                    type: 'channel',
                     slug_title: double,
                     created_by_id: fact.created_by_id
       score = double(:score, to_s: double)
@@ -28,36 +27,13 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       expect(interactor.call).to be_true
     end
 
-    it 'does not add the fact to a topic if the channel is no real channel' do
-      fact = double :fact,
-                 id: double,
-                 created_by_id: 14
-      channel = double :channel,
-                    type: 'notchannel',
-                    slug_title: double,
-                    created_by_id: fact.created_by_id + 1
-      score = double(:score, to_s: double)
-
-      interactor = described_class.new fact: fact, channel: channel, score: score,
-        should_add_to_unread: false
-
-      Pavlov.should_receive(:command)
-            .with(:"channels/add_fact_without_propagation", fact: fact, channel: channel, score: score)
-            .and_return true
-
-      expect(interactor.call).to be_true
-    end
-
     it 'adds the fact to the unread facts if it is indicated and it makes sense' do
-      fact = double :fact,
-                 id: double,
-                 created_by_id: 14
+      fact = double :fact, id: double, created_by_id: 14
       channel = double :channel,
-                    unread_facts: double,
-                    type: 'channel',
-                    slug_title: double,
-                    created_by_id: fact.created_by_id + 1
-      score = double(:score, to_s: double)
+                       unread_facts: double,
+                       slug_title: double,
+                       created_by_id: fact.created_by_id + 1
+      score = double :score, to_s: double
 
       interactor = described_class.new fact: fact, channel: channel, score: score,
         should_add_to_unread: true
@@ -74,14 +50,11 @@ describe Interactors::Channels::AddFactWithoutPropagation do
     end
 
     it "doesn't add the fact to the unread facts if the user has seen the fact because he made it" do
-      fact = double :fact,
-                 id: double,
-                 created_by_id: 14
+      fact = double :fact, id: double, created_by_id: 14
       channel = double :channel,
-                    unread_facts: double,
-                    type: 'channel',
-                    slug_title: double,
-                    created_by_id: fact.created_by_id
+                       unread_facts: double,
+                       slug_title: double,
+                       created_by_id: fact.created_by_id
       score = double(:score, to_s: double)
 
       interactor = described_class.new fact: fact, channel: channel, score: score,

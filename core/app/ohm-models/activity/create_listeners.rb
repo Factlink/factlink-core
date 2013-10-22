@@ -108,8 +108,7 @@ class Activity < OurOhm
         subject_class: "Fact",
         action: :added_fact_to_channel,
         extra_condition: ->(a) do
-          (a.subject.created_by_id != a.user_id) and
-            (a.object.type == 'channel')
+          (a.subject.created_by_id != a.user_id)
         end,
         write_ids: ->(a) { [a.subject.created_by_id] }
       }

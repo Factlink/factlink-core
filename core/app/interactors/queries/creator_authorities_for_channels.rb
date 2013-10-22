@@ -27,17 +27,13 @@ module Queries
     arguments :channels
 
     def execute
-      channels.map &method(:authority_for)
+      channels.map { |ch| authority_for ch}
     end
 
     def authority_for(channel)
-      if channel.type == 'channel'
-        topic = topic_for(channel)
-        graph_user = graph_user_for(channel)
-        query(:'authority_on_topic_for', topic: topic, graph_user: graph_user)
-      else
-        fail "channel is a userstream or a created facts and should never be requested"
-      end
+      topic = topic_for(channel)
+      graph_user = graph_user_for(channel)
+      query(:'authority_on_topic_for', topic: topic, graph_user: graph_user)
     end
 
     def graph_user_for channel
