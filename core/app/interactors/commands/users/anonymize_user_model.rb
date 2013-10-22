@@ -17,8 +17,7 @@ module Commands
           user[field] = User.fields[field].default_val
         end
 
-        user.first_name = 'Deleted'
-        user.last_name  = 'User'
+        user.full_name = 'Deleted User'
 
         user.password              = anonymous_password
         user.password_confirmation = anonymous_password
@@ -29,6 +28,11 @@ module Commands
         # For now we want to easily see what mails deleted users still get
 
         user.save!
+
+        user.social_accounts.each do |social_account|
+          # TODO: properly deauthorize facebook here
+          social_account.delete
+        end
       end
 
       def anonymous_username

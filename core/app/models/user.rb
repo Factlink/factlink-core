@@ -18,13 +18,9 @@ class User
   attr_accessor :tos_first_name, :tos_last_name
 
   field :username
-  field :first_name
-  field :last_name
-  field :identities, type: Hash, default: {}
+  field :full_name    # TODO:EMN minimum length?  require space?
 
   index(username: 1)
-  index({ "identities.facebook.uid" => 1 }, { sparse: true, unique: true })
-  index({ "identities.twitter.uid" => 1 }, { sparse: true, unique: true })
 
   field :registration_code
 
@@ -52,15 +48,15 @@ class User
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :location, :biography,
+  attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :location, :biography,
+  attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest, :email, :admin, :registration_code, :suspended,
         as: :admin
-  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
+  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :full_name,
         as: :from_tos
 
   USERNAME_BLACKLIST = [
@@ -84,8 +80,7 @@ class User
 
   validates_length_of     :username, :within => 0..USERNAME_MAX_LENGTH, :message => "no more than #{USERNAME_MAX_LENGTH} characters allowed"
   validates_presence_of   :username, :message => "is required", :allow_blank => true # since we already check for length above
-  validates_presence_of   :first_name, :message => "is required", :allow_blank => false
-  validates_presence_of   :last_name, :message => "is required", :allow_blank => false
+  validates_presence_of   :full_name, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
   validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
@@ -137,6 +132,7 @@ class User
   has_and_belongs_to_many :conversations, inverse_of: :recipients
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
+  has_many :social_accounts
 
   scope :active,   where(:set_up => true)
                   .where(:agrees_tos => true)
@@ -146,17 +142,12 @@ class User
                             .where(:seen_tour_step => 'tour_done')
 
   class << self
-    def find_for_oauth(provider_name, uid)
-      where(:"identities.#{provider_name}.uid" => uid).first
-    end
-
     # List of fields that are stored in Mixpanel.
     # The key   represents how the field is stored in our Model
     # The value represents how it is stored in Mixpanel
     def mixpaneled_fields
       {
-        "first_name"      => "first_name",
-        "last_name"       => "last_name",
+        "full_name"      => "full_name",
         "username"        => "username",
         "email"           => "email",
         "created_at"      => "created",
@@ -176,9 +167,8 @@ class User
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
       %w(
-        first_name last_name location biography identities
-        confirmed_at reset_password_token confirmation_token
-        invitation_token
+        full_name location biography confirmed_at reset_password_token
+        confirmation_token invitation_token
       )
     end
   end
@@ -250,13 +240,11 @@ class User
   end
 
   def name
-    name = "#{first_name} #{last_name}".strip
+    full_name.blank? ? username : full_name
+  end
 
-    if name.blank?
-      username
-    else
-      name
-    end
+  def full_name=(new_name)
+    super new_name.strip
   end
 
   def valid_username_and_email?
@@ -266,13 +254,6 @@ class User
       end
     end
     not errors.any?
-  end
-
-  def id_for_service service_name
-    service_name = service_name.to_s
-    if self.identities and self.identities[service_name]
-      self.identities[service_name]['uid'].andand.first
-    end
   end
 
   def serializable_hash(options={})
@@ -328,6 +309,10 @@ class User
 
   def features_count
     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
+  end
+
+  def social_account provider_name
+    social_accounts.find_or_initialize_by(provider_name: provider_name)
   end
 
   set :seen_messages

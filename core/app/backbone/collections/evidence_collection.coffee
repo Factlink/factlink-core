@@ -16,6 +16,7 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
       @listenTo collection, 'sync', @loadFromCollections
       @listenTo collection, 'add', (model) -> @add model
       @listenTo collection, 'remove', (model) -> @remove model
+      @listenTo collection, 'start_adding_model', -> @trigger 'start_adding_model'
       @listenTo collection, 'saved_added_model', -> @trigger 'saved_added_model'
       @listenTo collection, 'error_adding_model', -> @trigger 'error_adding_model'
 

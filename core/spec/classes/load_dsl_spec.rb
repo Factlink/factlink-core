@@ -34,8 +34,8 @@ describe LoadDsl do
 
   it "should add beliefs" do
     subject.run do
-      user "merijn", "merijn@gmail.com", "123hoi", "Merijn", "Terheggen"
-      user "tomdev", "tom@factlink.com", "123hoi", "Tom", "de Vries"
+      user "merijn", "merijn@gmail.com", "123hoi", "Merijn Terheggen"
+      user "tomdev", "tom@factlink.com", "123hoi", "Tom de Vries"
       user "mark", "mark@example.com", "123hoi"
 
       user "mark"

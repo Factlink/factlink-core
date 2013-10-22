@@ -35,8 +35,7 @@ describe User do
     let (:valid_attributes) do
       {
         username: "TestUser",
-        first_name: "Test",
-        last_name: "User",
+        full_name: "Test User",
         email: "test@emial.nl",
         password: "test123"
       }
@@ -112,30 +111,16 @@ describe User do
     end
   end
 
-  describe '#first_name' do
+  describe '#full_name' do
     let(:new_user){ build :user }
 
     it "cannot be empty" do
-      new_user.first_name = ""
+      new_user.full_name = ""
       expect(new_user.valid?).to be_false
     end
 
     it "can be just one letter" do
-      new_user.first_name = "a"
-      expect(new_user.valid?).to be_true
-    end
-  end
-
-  describe '#last_name' do
-    let(:new_user){ build :user }
-
-    it "cannot be empty" do
-      new_user.last_name = ""
-      expect(new_user.valid?).to be_false
-    end
-
-    it "can be just one letter" do
-      new_user.last_name = "a"
+      new_user.full_name = "a"
       expect(new_user.valid?).to be_true
     end
   end
@@ -287,12 +272,10 @@ describe User do
   end
 
   describe "#notification_settings_edit_token" do
-
     let (:valid_attributes) do
       {
         username: "TestUser",
-        first_name: "Test",
-        last_name: "User",
+        full_name: "Test User",
         email: "test@example.org",
         password: "test123"
       }
@@ -334,6 +317,16 @@ describe User do
       new_token = user1.user_notification.notification_settings_edit_token
 
       expect(new_token).to_not eq old_token
+    end
+  end
+
+  describe '#social_account' do
+    it 'returns a social account which can be saved' do
+      facebook_account = user.social_account('facebook')
+      facebook_account.omniauth_obj = {uid: '10'}
+      facebook_account.save!
+
+      expect(User.first.social_account('facebook').omniauth_obj['uid']).to eq '10'
     end
   end
 end

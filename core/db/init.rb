@@ -2,15 +2,15 @@
 
 LoadDsl.load do
 
-  user "merijn", "merijn@gmail.com", "123hoi", "Merijn", "Terheggen"
-  user "tomdev", "tom@factlink.com", "123hoi", "Tom", "de Vries"
-  user "remon", "remon@factlink.com", "123hoi", "Remon", "Oldenbeuving"
-  user "mark", "mark@factlink.com", "123hoi", "Mark", "IJbema"
-  user "jjoos", "deelstra@factlink.com", "123hoi", "Jan", "Deelstra"
-  user "jens", "jens@factlink.com", "123hoi", "Jens", "Kanis"
-  user "martijn", "martijn@factlink.com", "123hoi", "Martijn", "Russchen"
-  user "eamon", "eamon@factlink.com", "123hoi", "Eamon", "Nerbonne"
-  user "luuk", "luuk@factlink.com", "123hoi", "Luuk", "Hartsema"
+  user "merijn", "merijn@gmail.com", "123hoi", "Merijn Terheggen"
+  user "tomdev", "tom@factlink.com", "123hoi", "Tom de Vries"
+  user "remon", "remon@factlink.com", "123hoi", "Remon Oldenbeuving"
+  user "mark", "mark@factlink.com", "123hoi", "Mark IJbema"
+  user "jjoos", "deelstra@factlink.com", "123hoi", "Jan Deelstra"
+  user "jens", "jens@factlink.com", "123hoi", "Jens Kanis"
+  user "martijn", "martijn@factlink.com", "123hoi", "Martijn Russchen"
+  user "eamon", "eamon@factlink.com", "123hoi", "Eamon Nerbonne"
+  user "luuk", "luuk@factlink.com", "123hoi", "Luuk Hartsema"
 
   user "tomdev"
     fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
