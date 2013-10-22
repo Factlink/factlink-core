@@ -94,13 +94,8 @@ class SocialAccountsController < ApplicationController
 
   def parse_omniauth_env provider_name
     omniauth = request.env['omniauth.auth']
-    if provider_name != omniauth['provider']
-      raise "Wrong OAuth provider: #{omniauth['provider']}"
-    end
-
-    unless omniauth['uid']
-      raise 'Invalid omniauth object'
-    end
+    raise "Wrong OAuth provider: #{omniauth['provider']}" if provider_name != omniauth['provider']
+    raise 'Invalid omniauth object' unless omniauth['uid']
 
     if provider_name == 'twitter'
       omniauth['extra']['oath_version'] = omniauth['extra']['access_token'].consumer.options['oauth_version'];
