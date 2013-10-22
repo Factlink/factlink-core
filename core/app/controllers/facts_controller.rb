@@ -49,7 +49,8 @@ class FactsController < ApplicationController
     authenticate_user!
     authorize! :create, Fact
 
-    @fact = interactor(:'facts/create', displaystring: fact_text, url: url,
+    @fact = interactor(:'facts/create',
+                           displaystring: fact_text, url: url,
                            title: title, sharing_options: sharing_options)
     @site = @fact.site
 
@@ -59,7 +60,7 @@ class FactsController < ApplicationController
         channels: params[:channels]
       mp_track_people_event last_factlink_created: DateTime.now
 
-      #TODO switch the following two if blocks if possible
+      # TODO: switch the following two if blocks if possible
       if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
         @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
@@ -139,7 +140,7 @@ class FactsController < ApplicationController
   end
 
   def allowed_type
-    # TODO REFACTOR SUCH THAT set_opinion rescues exception from opiniontype
+    # TODO: REFACTOR SUCH THAT set_opinion rescues exception from opiniontype
     allowed_types = ['beliefs', 'doubts', 'disbeliefs', 'believes', 'disbelieves']
     type = params[:type]
     if allowed_types.include?(type)
@@ -154,7 +155,7 @@ class FactsController < ApplicationController
   def add_to_channels fact, channel_ids
     return unless channel_ids
 
-    channels = channel_ids.map{|id| Channel[id]}.compact
+    channels = channel_ids.map { |id| Channel[id] }.compact
     channels.each do |channel|
       interactor(:'channels/add_fact', fact: fact, channel: channel)
     end
