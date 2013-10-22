@@ -32,7 +32,7 @@ describe "Check the ToS", type: :feature do
     end
 
     it "should redirect to the Interactive Tour" do
-      page.should have_content "Select any statement on the right to start creating your Factlink."
+      page.should have_content "Select any statement on the right to start creating your first Factlink."
     end
   end
 end
