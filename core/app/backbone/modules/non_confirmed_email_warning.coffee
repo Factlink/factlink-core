@@ -1,7 +1,8 @@
 FactlinkApp.module "NonConfirmedEmailWarning", (NonConfirmedEmailWarning, FactlinkApp, Backbone, Marionette, $, _) ->
 
   inTour = ->
-    /^\/p\/tour/.test(window.location.pathname)
+    /^\/p\/(tour|tos)/.test(window.top.location.pathname)
+
 
   checkConfirmedEmail = ->
     return if inTour()
