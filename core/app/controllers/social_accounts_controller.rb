@@ -32,7 +32,7 @@ class SocialAccountsController < ApplicationController
       provider_deauthorize provider_name do |uid, token|
         response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
         if response.code != 200 and response.code != 400
-          raise "Facebook deauthorize failed: '#{response.body}'."
+          fail "Facebook deauthorize failed: '#{response.body}'."
         end
       end
     when 'twitter'
@@ -40,7 +40,7 @@ class SocialAccountsController < ApplicationController
         flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
       end
     else
-      raise "Wrong OAuth provider: #{omniauth['provider']}"
+      fail "Wrong OAuth provider: #{omniauth['provider']}"
     end
 
     redirect_to edit_user_path(current_user)
@@ -64,13 +64,13 @@ class SocialAccountsController < ApplicationController
     authorize! :update, current_user
 
     if is_connected_to_different_user(provider_name, omniauth_obj)
-      raise "Already connected to a different account, please sign in to the connected account or reconnect your account."
+      fail "Already connected to a different account, please sign in to the connected account or reconnect your account."
     elsif omniauth_obj
       current_user.social_account(provider_name).save_omniauth_obj!(omniauth_obj)
       flash[:notice] = "Succesfully connected."
       @event = 'authorized'
     else
-      raise "Error connecting."
+      fail "Error connecting."
     end
   end
 
@@ -94,8 +94,8 @@ class SocialAccountsController < ApplicationController
 
   def parse_omniauth_env provider_name
     omniauth = request.env['omniauth.auth']
-    raise "Wrong OAuth provider: #{omniauth['provider']}" if provider_name != omniauth['provider']
-    raise 'Invalid omniauth object' unless omniauth['uid']
+    fail "Wrong OAuth provider: #{omniauth['provider']}" if provider_name != omniauth['provider']
+    fail 'Invalid omniauth object' unless omniauth['uid']
 
     if provider_name == 'twitter'
       omniauth['extra']['oath_version'] = omniauth['extra']['access_token'].consumer.options['oauth_version'];
