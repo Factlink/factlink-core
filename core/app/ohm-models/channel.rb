@@ -19,13 +19,13 @@ class Channel < OurOhm
     result = super
 
     increment_mixpanel_count
-    Topic.get_or_create_by_channel(self) if type == 'channel'
+    Topic.get_or_create_by_channel(self)
 
     result
   end
 
   def increment_mixpanel_count
-    return unless type == 'channel' and self.created_by.user
+    return unless self.created_by.user
 
     mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
     mixpanel.increment_person_event self.created_by.user.id.to_s, channels_created: 1
@@ -39,7 +39,7 @@ class Channel < OurOhm
   end
 
   def save
-    self.title = self.title if type == 'channel'
+    self.title = self.title
     super
   end
 

@@ -9,22 +9,21 @@ class MapReduce
     def map iterator
       iterator.ids.each do |ch_id|
         channel = Channel[ch_id]
-        if channel.type == 'channel'
-          Topic.get_or_create_by_channel(channel)
-          Authority.all_from(channel).each do |authority|
-            yield({
-              topic: channel.slug_title,
-              user_id: authority.user_id
-            }, authority.to_f)
-          end
-          auth = (authority_from_added_facts(channel) +
-                  authority_from_followers(channel))
-          if auth > 0
-            yield({
-              topic: channel.slug_title,
-              user_id: channel.created_by_id
-            }, auth)
-          end
+
+        Topic.get_or_create_by_channel(channel)
+        Authority.all_from(channel).each do |authority|
+          yield({
+            topic: channel.slug_title,
+            user_id: authority.user_id
+          }, authority.to_f)
+        end
+        auth = (authority_from_added_facts(channel) +
+                authority_from_followers(channel))
+        if auth > 0
+          yield({
+            topic: channel.slug_title,
+            user_id: channel.created_by_id
+          }, auth)
         end
       end
     end
