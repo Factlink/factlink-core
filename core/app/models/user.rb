@@ -263,6 +263,14 @@ class User
     not errors.any?
   end
 
+  def generate_username!
+    self.username = UsernameGenerator.new.generate_from full_name, USERNAME_MAX_LENGTH do |username|
+      validators = User.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp}.map { |v| v.options[:with] }
+
+      validators.all? { |regex| regex.match(username) }
+    end
+  end
+
   def id_for_service(service_name)
     service_name = service_name.to_s
     if self.identities and self.identities[service_name]
