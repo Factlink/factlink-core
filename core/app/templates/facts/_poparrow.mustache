@@ -1,11 +1,11 @@
 <div class="top-right-arrow js-poparrow-arrow-selector">
   <i class="caret-container"><b class="caret"></b></i>
   <ul class="js-poparrow-container top-right">
-    {{#deletable_from_channel?}}
+    {{#is_deletable_from_channel}}
       <li class="hide-from-channel">
         <a rel="nofollow">Hide Factlink from {{global.t.topic}}</a>
       </li>
-    {{/deletable_from_channel?}}
+    {{/is_deletable_from_channel}}
     {{#can_destroy}}
       <li class="delete">
         <a>
