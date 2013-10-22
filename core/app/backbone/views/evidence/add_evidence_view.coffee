@@ -27,17 +27,17 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   initialize: ->
     @model = new Backbone.Model saving: false, showBox: false
     @listenTo @model, 'change:saving', @_updateElementVisiblity
-    @listenTo @model, 'change:showBox', @_updateBox
+    @listenTo @model, 'change:showBox', @_updateInterface
 
   onRender: ->
     @_updateElementVisiblity()
-    @_updateBox()
+    @_updateInterface()
 
   _updateElementVisiblity: ->
     @$el.toggle !@collection.loading() && !@model.get('saving')
     @_updatePopovers()
 
-  _updateBox: ->
+  _updateInterface: ->
     if @model.get('showBox')
       @ui.buttons.hide()
 
