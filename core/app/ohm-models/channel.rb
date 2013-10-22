@@ -21,10 +21,10 @@ class Channel < OurOhm
   end
 
   def increment_mixpanel_count
-    return unless self.created_by.user
+    return unless created_by.user
 
     mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-    mixpanel.increment_person_event self.created_by.user.id.to_s, channels_created: 1
+    mixpanel.increment_person_event created_by.user.id.to_s, channels_created: 1
   end
 
   alias :old_set_title :title= unless method_defined?(:old_set_title)
@@ -84,7 +84,7 @@ class Channel < OurOhm
   end
 
   def to_s
-    self.title
+    title
   end
 
   def is_real_channel?
