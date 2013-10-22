@@ -372,10 +372,6 @@ describe Channel do
       end
     end
 
-    describe :is_real_channel? do
-      its(:is_real_channel?) { should be_true }
-    end
-
     describe :delete do
       let(:u2_ch1) {Channel.create(created_by: u2, title: "Something")}
 

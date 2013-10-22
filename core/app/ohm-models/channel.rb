@@ -87,13 +87,8 @@ class Channel < OurOhm
     title
   end
 
-  def is_real_channel?
-    true
-  end
-
   def add_channel(channel)
     return false if contained_channels.include?(channel)
-    return false unless channel.is_real_channel?
 
     contained_channels << channel
     channel.containing_channels << self
