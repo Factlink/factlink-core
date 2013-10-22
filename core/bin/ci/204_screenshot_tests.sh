@@ -1,4 +1,6 @@
 #!/bin/bash
+
+[ -z "$SUPPRESS_TESTING" ] || exit 0
 echo "Running screenshot tests"
 
 REPORTFILE=tmp/spec-screenshots.junit.xml

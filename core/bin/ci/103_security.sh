@@ -1,4 +1,7 @@
 #!/bin/bash
+
+[ -z "$SUPPRESS_TESTING" ] || exit 0
+
 echo "Running security check"
 
 bundle exec brakeman --except SessionSettings -q -o /tmp/brakeman.tabs || exit 1

@@ -24,6 +24,13 @@ export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=100000000
 export RUBY_HEAP_FREE_MIN=500000
 
+if [ "${DEPLOY_SERVER}" != "production" ] ; then
+  export SUPPRESS_TESTING=1
+  export SUPPRESS_METRICS=1
+fi
+if [ "${DEPLOY_SERVER}" != "staging" ] ; then
+  export SUPPRESS_METRICS=1
+fi
 
 for action in bin/ci/*.sh; do
   banner $action;

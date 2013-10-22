@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ -z "$SUPPRESS_METRICS" ] || exit 0
+
 # Note: alternative to using ruby -wc we could also use rubocop
 
 find app/classes -name '*.rb' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK'
