@@ -17,19 +17,19 @@ class SocialAccount
     end
   end
 
-  def different_from?(omniauth_obj)
-    self.omniauth_obj && self.omniauth_obj['uid'] != omniauth_obj['uid']
+  def uid
+    omniauth_obj && omniauth_obj['uid']
   end
 
   def token
-    omniauth_obj['credentials']['token']
+    omniauth_obj && omniauth_obj['credentials']['token']
   end
 
   def secret
-    omniauth_obj['credentials']['secret']
+    omniauth_obj && omniauth_obj['credentials']['secret']
   end
 
   def expires_at
-    omniauth_obj['credentials']['expires_at']
+    omniauth_obj && omniauth_obj['credentials']['expires_at']
   end
 end
