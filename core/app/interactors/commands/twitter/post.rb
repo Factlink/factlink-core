@@ -24,12 +24,12 @@ module Commands
       end
 
       def client
-        @client ||= ::Twitter::Client.new oauth_token: social_account.token,
-                                          oauth_token_secret: social_account.secret
+        ::Twitter::Client.new oauth_token: social_account.token,
+                              oauth_token_secret: social_account.secret
       end
 
       def social_account
-        user.social_account('twitter')
+        @social_account ||= user.social_account('twitter')
       end
     end
   end
