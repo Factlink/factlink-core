@@ -35,7 +35,7 @@ class SocialAccount
 
   before_save :strip_twitter_access_token
   def strip_twitter_access_token
-    if provider_name == 'twitter' && omniauth_obj['extra']
+    if provider_name == 'twitter' && omniauth_obj['extra'] && omniauth_obj['extra']['access_token']
       omniauth_obj['extra']['oath_version'] = omniauth_obj['extra']['access_token'].consumer.options['oauth_version']
       omniauth_obj['extra']['signature_method'] = omniauth_obj['extra']['access_token'].consumer.options['signature_method']
       omniauth_obj['extra'].delete 'access_token'
