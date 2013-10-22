@@ -255,7 +255,7 @@ class User
   end
 
   def full_name=(new_name)
-    super new_name.andand.strip
+    super new_name.strip
   end
 
   def valid_username_and_email?
