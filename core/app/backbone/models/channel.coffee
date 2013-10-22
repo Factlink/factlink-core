@@ -72,6 +72,7 @@ class window.Channel extends Backbone.Model
   toJSON: ->
     _.extend super(),
       is_mine: @is_mine()
+      link: @normal_url()
 
   follow: ->
     followUrl = "#{@normal_url()}/follow"
