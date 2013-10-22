@@ -7,7 +7,7 @@ class UsernameGenerator
 
     prefix = slugify name[0, max_length-6]
     suffix = rand.to_s[2..6]
-    username = prefix + '.' + suffix
+    username = prefix + '_' + suffix
     return username if yield(username)
 
     (0..100).each do
@@ -23,11 +23,11 @@ class UsernameGenerator
     # replace accented chars with their ascii equivalents
     parameterized_string = transliterate(string)
     # Turn unwanted chars into the separator
-    parameterized_string.gsub!(/[^A-Za-z0-9_\.]+/, '.')
+    parameterized_string.gsub!(/[^A-Za-z0-9_]+/, '_')
     # No more than one of the separator in a row.
-    parameterized_string.gsub!(/\.{2,}/, '.')
+    parameterized_string.gsub!(/_{2,}/, '_')
     # Remove leading/trailing separator.
-    parameterized_string.gsub!(/^\.|\.$/, '')
+    parameterized_string.gsub!(/^_|_$/, '')
     # Lower case
     parameterized_string.downcase
   end

@@ -5,13 +5,13 @@ describe UsernameGenerator do
     it 'transforms a name into a slug' do
       name = 'Jan Paul Posma'
 
-      expect(subject.generate_from(name)).to eq 'jan.paul.posma'
+      expect(subject.generate_from(name)).to eq 'jan_paul_posma'
     end
 
-    it 'replaces - with .' do
+    it 'replaces - with _' do
       name = 'Jean-Paul'
 
-      expect(subject.generate_from(name)).to eq 'jean.paul'
+      expect(subject.generate_from(name)).to eq 'jean_paul'
     end
 
     it 'takes a maximum length into account' do
@@ -25,10 +25,10 @@ describe UsernameGenerator do
       name = 'Jan Paul Posma'
 
       result = subject.generate_from name do |username|
-        username != 'jan.paul.posma'
+        username != 'jan_paul_posma'
       end
 
-      expect(result).to match /\Ajan.paul.posma.\d{5}\Z/
+      expect(result).to match /\Ajan_paul_posma_\d{5}\Z/
     end
 
     it 'takes into account the maximum length with the random number' do
@@ -36,10 +36,10 @@ describe UsernameGenerator do
       max_length = name.size
 
       result = subject.generate_from name, max_length do |username|
-        username != 'jan.paul.posma'
+        username != 'jan_paul_posma'
       end
 
-      expect(result).to match /\Ajan.paul.\d{5}\Z/
+      expect(result).to match /\Ajan_paul_\d{5}\Z/
     end
 
     it 'returns a random string until the username is valid' do
@@ -54,7 +54,7 @@ describe UsernameGenerator do
       end
 
       expect(result).to_not match /posma/
-      expect(result).to match /\A[a-z0-9\.]{10}\Z/
+      expect(result).to match /\A[a-z0-9_]{10}\Z/
     end
 
     it "doesn't loop infinitely" do
