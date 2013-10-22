@@ -27,11 +27,11 @@ export RUBY_HEAP_FREE_MIN=500000
   export SUPPRESS_TESTING=1
   export SUPPRESS_METRICS=1
 
-if [ "${DEPLOY_SERVER}" != "production" ] then
+if [ "${DEPLOY_SERVER}" != "production" ] ; then
   export SUPPRESS_TESTING=1
   export SUPPRESS_METRICS=1
 fi
-if [ "${DEPLOY_SERVER}" != "staging" ] then
+if [ "${DEPLOY_SERVER}" != "staging" ] ; then
   export SUPPRESS_METRICS=1
 fi
 
