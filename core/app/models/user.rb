@@ -247,7 +247,7 @@ class User
   end
 
   def name
-    name = full_name.strip
+    name = (full_name || "").strip
 
     if name.blank?
       username
