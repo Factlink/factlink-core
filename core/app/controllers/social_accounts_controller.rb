@@ -66,7 +66,7 @@ class SocialAccountsController < ApplicationController
     if is_connected_to_different_user(provider_name, omniauth_obj)
       fail "Already connected to a different account, please sign in to the connected account or reconnect your account."
     elsif omniauth_obj
-      current_user.social_account(provider_name).save_omniauth_obj!(omniauth_obj)
+      current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
       flash[:notice] = "Succesfully connected."
       @event = 'authorized'
     else

@@ -21,11 +21,6 @@ class SocialAccount
     self.omniauth_obj && self.omniauth_obj['uid'] != omniauth_obj['uid']
   end
 
-  def save_omniauth_obj!(omniauth_obj)
-    self.omniauth_obj = omniauth_obj
-    save!
-  end
-
   def token
     omniauth_obj['credentials']['token']
   end
