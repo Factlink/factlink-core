@@ -43,8 +43,7 @@ describe ClientController do
       end
 
       ability.stub(:can?).with(:show, Fact).and_return(true)
-      ability.stub(:can?).with(:share_to, :twitter).and_return(false)
-      ability.stub(:can?).with(:share_to, :facebook).and_return(false)
+      ability.stub(:can?).with(:share_to, an_instance_of(SocialAccount)).and_return(false)
       should_check_can :show, fact
 
       get :fact_show, id: fact.id

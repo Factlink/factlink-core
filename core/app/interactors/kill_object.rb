@@ -18,8 +18,7 @@ module KillObject
      :receives_digest, :graph_user_id, :statistics, :top_user_topics,
      :deleted, :hidden?, :confirmed?]
   dead_object :channel,
-    [:type, :title, :id, :is_real_channel?,
-     :slug_title, :created_by_id]
+    [:type, :title, :id, :slug_title, :created_by_id]
   dead_object :comment,
     [:id, :created_by, :created_at, :content, :type,
      :fact_data, :sub_comment_count, :created_by_id]

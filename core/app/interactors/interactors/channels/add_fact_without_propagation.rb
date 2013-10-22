@@ -22,8 +22,6 @@ module Interactors
       end
 
       def add_fact_to_topic
-        return unless channel.type == 'channel'
-
         command :"topics/add_fact", fact_id: fact.id, topic_slug_title: channel.slug_title, score: score.to_s
       end
 

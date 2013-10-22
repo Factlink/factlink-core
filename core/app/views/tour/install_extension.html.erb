@@ -10,21 +10,21 @@
 
     <div class="install-extension-text">
       <div class="visible-when-chrome">
-        Now you know how to add a Factlink with the Chrome Extension, it's time to add it to your browser.
+        You've just created a Factlink using the Factlink button. Next, you can add the button to your browser so you can create Factlinks on any web site out there!
 
         <div class="transparent-border">
           <% if FactlinkUI::Application.config.use_chrome_webstore %>
-            <a id="chrome-extension-webstore-button" class="button button-confirm">Install Chrome Extension</a>
+            <a id="chrome-extension-webstore-button" class="button button-confirm">Add Factlink to Chrome</a>
           <% else %>
             <!-- for testserver and staging downloads of the Chrome Extension -->
             <iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
-            <a id="chrome-extension-button" target="ce-download" class="button button-confirm" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Install Chrome Extension (<%= Rails.env %>)</a>
+            <a id="chrome-extension-button" target="ce-download" class="button button-confirm" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Add Factlink to Chrome (<%= Rails.env %>)</a>
           <% end %>
         </div>
       </div>
 
       <div class="visible-when-firefox">
-        Now you know how to add a Factlink with the Firefox Extension, it's time to add it to your browser.
+        You've just created a Factlink using the Factlink button. Next, you can add the button to your browser so you can create Factlinks on any web site out there!
 
         <div class="transparent-border">
           <div class="should-install-firefox-extension">

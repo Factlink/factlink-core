@@ -203,11 +203,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :can_haz
 
-  def set_layout
-    allowed_layouts = ['popup', 'client']
-    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
-  end
-
   def inject_special_test_code
     # this method is used by the test to inject things like the
     # test_counter (aka cross-test-request-forgery prevention), and

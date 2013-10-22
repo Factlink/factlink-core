@@ -9,7 +9,7 @@ describe 'global_features' do
       admin?: true,
       features: [],
       has_invitations_left?: false,
-      identities: nil,
+      social_account: double(persisted?: false),
       set_up: true,
     )
   end

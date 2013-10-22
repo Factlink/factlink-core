@@ -9,7 +9,7 @@ module Commands
         return false unless should_execute?
 
         channel.sorted_cached_facts.add(fact,score)
-        fact.channels.add channel if channel.type == 'channel'
+        fact.channels.add channel
 
         true
       end

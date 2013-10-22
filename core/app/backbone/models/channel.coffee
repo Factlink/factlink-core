@@ -7,13 +7,9 @@ class window.Channel extends Backbone.Model
     @on "activate", @setActive
     @on "deactivate", @setNotActive
 
-  setActive: ->
-    @_isActive = true
-
-  setNotActive: ->
-    @_isActive = false
-
-  isActive: -> @_isActive
+  setActive:    -> @_isActive = true
+  setNotActive: -> @_isActive = false
+  isActive:     -> @_isActive
 
   user: -> new User(@get("created_by"))
 
@@ -29,9 +25,7 @@ class window.Channel extends Backbone.Model
       slug_title: @get 'slug_title'
       title: @get 'title'
 
-  facts: ->
-    new ChannelFacts [],
-      channel: this
+  facts: -> new ChannelFacts [], channel: this
 
   topicUrl: -> "/t/#{@get('slug_title')}"
 

@@ -13,7 +13,7 @@
   </script>
 <% end %>
 
-<% connected = (not current_user.id_for_service(service_name).nil?) %>
+<% connected = current_user.social_account(service_name).persisted? %>
 <div class="control-group">
   <%= f.label service_name, class: "control-label" %>
   <div class="controls">

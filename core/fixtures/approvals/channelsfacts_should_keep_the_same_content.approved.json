@@ -6,7 +6,6 @@
       "1"
     ],
     "url": "/fact-3/f/3",
-    "deletable_from_channel?": true,
     "created_by": {
       "id": "<STRIPPED>",
       "name": "John1 Doe1",
@@ -54,7 +53,6 @@
       "1"
     ],
     "url": "/fact-2/f/2",
-    "deletable_from_channel?": true,
     "created_by": {
       "id": "<STRIPPED>",
       "name": "John1 Doe1",
@@ -102,7 +100,6 @@
       "1"
     ],
     "url": "/fact-1/f/1",
-    "deletable_from_channel?": true,
     "created_by": {
       "id": "<STRIPPED>",
       "name": "John1 Doe1",
