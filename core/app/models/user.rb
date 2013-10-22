@@ -317,7 +317,7 @@ class User
   end
 
   def social_account provider_name
-    self.social_accounts.where(provider_name: provider_name).first || self.social_accounts.new(provider_name: provider_name)
+    social_accounts.find_or_initialize_by(provider_name: provider_name)
   end
 
   set :seen_messages
