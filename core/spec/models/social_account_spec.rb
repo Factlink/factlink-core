@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe SocialAccount do
-  describe '.find_by_uid' do
+  describe '.find_by_provider_and_uid' do
     it 'returns null if it cannot find the user' do
       result = SocialAccount.find_by_provider_and_uid('facebook', 10)
       expect(result).to be_nil
