@@ -4,7 +4,7 @@ class MergeFirstAndLastName < Mongoid::Migration
       u.full_name = u[:first_name] + ' ' + u[:last_name]
       u.remove_attribute(:first_name)
       u.remove_attribute(:last_name)
-      u.save!
+      u.save(validate: false)
     end
   end
 
