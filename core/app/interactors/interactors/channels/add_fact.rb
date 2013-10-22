@@ -21,10 +21,6 @@ module Interactors
       end
 
       def create_activity
-        # if there is no topic, this isn't a real channel,
-        # but a created_facts, or a stream
-        return unless topic
-
         command :create_activity, graph_user: channel.created_by,
                    action: :added_fact_to_channel,
                    subject: fact,
