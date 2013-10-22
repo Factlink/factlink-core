@@ -7,19 +7,14 @@ FactoryGirl.define do
     "johndoe#{n}"
   end
 
-  sequence :first_name do |n|
-    "John#{n}"
-  end
-
-  sequence :last_name do |n|
-    "Doe#{n}"
+  sequence :full_name do |n|
+    "John the #{n}"
   end
 
   factory :user do
     username
     email
-    first_name
-    last_name
+    full_name
     password '123hoi'
     password_confirmation '123hoi'
 

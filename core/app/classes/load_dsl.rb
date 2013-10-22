@@ -70,7 +70,7 @@ class LoadDsl
     raise err_msg
   end
 
-  def load_user(username,email=nil, password=nil, first_name=nil, last_name=nil)
+  def load_user(username, email=nil, password=nil, full_name=nil)
     u = User.where(:username => username).first
     return u if u
     raise_undefined_user_error unless email and password
@@ -79,8 +79,7 @@ class LoadDsl
       :username => username,
       :password => password,
       :password_confirmation => password,
-      :first_name => first_name || username,
-      :last_name => last_name || username )
+      :full_name => full_name || username )
     u.agrees_tos = true
     u.agreed_tos_on = DateTime.now
     u.email = email
@@ -93,23 +92,23 @@ class LoadDsl
     u
   end
 
-  def user(username,email=nil, password=nil, first_name=nil, last_name=nil)
-    self.state_user = self.load_user(username,email,password, first_name, last_name)
+  def user(username, email=nil, password=nil, full_name=nil)
+    self.state_user = self.load_user(username, email, password, full_name)
   end
 
   def believers(*l)
-    self.set_opinion(:believes,*l)
+    self.set_opinion(:believes, *l)
   end
 
   def disbelievers(*l)
-    self.set_opinion(:disbelieves,*l)
+    self.set_opinion(:disbelieves, *l)
   end
 
   def doubters(*l)
-    self.set_opinion(:doubts,*l)
+    self.set_opinion(:doubts, *l)
   end
 
-  def set_opinion(opinion_type,*users)
+  def set_opinion(opinion_type, *users)
     f = state_fact
     users.each do |username|
       gu = self.load_user(username).graph_user

@@ -17,18 +17,10 @@
     </div>
 
     <div class="control-group">
-      <%= f.label :first_name, class: "control-label" %>
+      <%= f.label :full_name, class: "control-label" %>
       <div class="controls">
-        <%= f.text_field :first_name, class: "input-xlarge" %>
-        <%= possible_error_for_field(resource, :first_name) %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :last_name, class: "control-label" %>
-      <div class="controls">
-        <%= f.text_field :last_name, class: "input-xlarge" %>
-        <%= possible_error_for_field(resource, :last_name) %>
+        <%= f.text_field :full_name, class: "input-xlarge" %>
+        <%= possible_error_for_field(resource, :full_name) %>
       </div>
     </div>
 

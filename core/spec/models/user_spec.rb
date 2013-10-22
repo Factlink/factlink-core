@@ -35,8 +35,7 @@ describe User do
     let (:valid_attributes) do
       {
         username: "TestUser",
-        first_name: "Test",
-        last_name: "User",
+        full_name: "Test User",
         email: "test@emial.nl",
         password: "test123"
       }
@@ -112,30 +111,16 @@ describe User do
     end
   end
 
-  describe '#first_name' do
+  describe '#full_name' do
     let(:new_user){ build :user }
 
     it "cannot be empty" do
-      new_user.first_name = ""
+      new_user.full_name = ""
       expect(new_user.valid?).to be_false
     end
 
     it "can be just one letter" do
-      new_user.first_name = "a"
-      expect(new_user.valid?).to be_true
-    end
-  end
-
-  describe '#last_name' do
-    let(:new_user){ build :user }
-
-    it "cannot be empty" do
-      new_user.last_name = ""
-      expect(new_user.valid?).to be_false
-    end
-
-    it "can be just one letter" do
-      new_user.last_name = "a"
+      new_user.full_name = "a"
       expect(new_user.valid?).to be_true
     end
   end
@@ -291,8 +276,7 @@ describe User do
     let (:valid_attributes) do
       {
         username: "TestUser",
-        first_name: "Test",
-        last_name: "User",
+        full_name: "Test User",
         email: "test@example.org",
         password: "test123"
       }

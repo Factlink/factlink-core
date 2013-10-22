@@ -10,7 +10,8 @@ module Interactors
       end
 
       def execute
-        user.attributes = attribuutjes.slice(:first_name, :last_name)
+        # TODO: unfold attribuutjes into actual attibutes.
+        user.attributes = attribuutjes.slice(:full_name)
         user.set_up = true
         user.reset_password!(attribuutjes[:password], attribuutjes[:password_confirmation])
         # reset_password! calls "user.save"

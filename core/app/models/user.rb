@@ -18,8 +18,7 @@ class User
   attr_accessor :tos_first_name, :tos_last_name
 
   field :username
-  field :first_name
-  field :last_name
+  field :full_name    # TODO:EMN minimum length?  require space?
   field :identities, type: Hash, default: {}
 
   index(username: 1)
@@ -52,15 +51,15 @@ class User
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :location, :biography,
+  attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :location, :biography,
+  attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest, :email, :admin, :registration_code, :suspended,
         as: :admin
-  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
+  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :full_name,
         as: :from_tos
 
   USERNAME_BLACKLIST = [
@@ -84,8 +83,7 @@ class User
 
   validates_length_of     :username, :within => 0..USERNAME_MAX_LENGTH, :message => "no more than #{USERNAME_MAX_LENGTH} characters allowed"
   validates_presence_of   :username, :message => "is required", :allow_blank => true # since we already check for length above
-  validates_presence_of   :first_name, :message => "is required", :allow_blank => false
-  validates_presence_of   :last_name, :message => "is required", :allow_blank => false
+  validates_presence_of   :full_name, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
   validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
@@ -155,8 +153,7 @@ class User
     # The value represents how it is stored in Mixpanel
     def mixpaneled_fields
       {
-        "first_name"      => "first_name",
-        "last_name"       => "last_name",
+        "full_name"      => "full_name",
         "username"        => "username",
         "email"           => "email",
         "created_at"      => "created",
@@ -176,7 +173,7 @@ class User
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
       %w(
-        first_name last_name location biography identities
+        full_name location biography identities
         confirmed_at reset_password_token confirmation_token
         invitation_token
       )
@@ -250,7 +247,7 @@ class User
   end
 
   def name
-    name = "#{first_name} #{last_name}".strip
+    name = full_name.strip
 
     if name.blank?
       username

@@ -5,8 +5,7 @@ describe Commands::Users::AnonymizeUserModel do
     it 'anonymizes fields of the deleted user that could contain personal data' do
       user = create :full_user, :confirmed,
         username: 'data',
-        first_name: 'data',
-        last_name: 'data',
+        full_name: 'data',
         location: 'data',
         biography: 'data',
         identities: {'twitter' => 'data', 'facebook' => 'data'},
@@ -20,8 +19,7 @@ describe Commands::Users::AnonymizeUserModel do
       described_class.new(user_id: user.id).call
 
       saved_user = User.find(user.id)
-      expect(saved_user.first_name).to_not include('data')
-      expect(saved_user.last_name).to_not include('data')
+      expect(saved_user.full_name).to_not include('data')
       expect(saved_user.username).to_not include('data')
       expect(saved_user.location).to be_nil
       expect(saved_user.biography).to be_nil
