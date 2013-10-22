@@ -247,11 +247,7 @@ class User
   end
 
   def name
-    if full_name == nil || full_name.blank?
-      username
-    else
-      full_name
-    end
+    full_name.blank? ? username : full_name
   end
 
   def full_name=(new_name)
