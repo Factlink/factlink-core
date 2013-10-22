@@ -21,7 +21,7 @@ module Commands
       end
 
       def validate_connected service
-        unless can? :share_to, service
+        unless can? :share_to, pavlov_options[:current_user].social_account(service)
           errors.add :base, "no #{service} account linked"
         end
       end

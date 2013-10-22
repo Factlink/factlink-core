@@ -256,29 +256,27 @@ describe Ability do
 
   describe "sharing" do
     it "should not be allowed by default" do
-      admin.should_not     be_able_to :share_to, :twitter
-      subject.should_not   be_able_to :share_to, :twitter
-      nonnda.should_not    be_able_to :share_to, :twitter
-      anonymous.should_not be_able_to :share_to, :twitter
-      admin.should_not     be_able_to :share_to, :facebook
-      subject.should_not   be_able_to :share_to, :facebook
-      nonnda.should_not    be_able_to :share_to, :facebook
-      anonymous.should_not be_able_to :share_to, :facebook
+      admin.should_not     be_able_to :share_to, admin_user.social_account('twitter')
+      subject.should_not   be_able_to :share_to, user.social_account('twitter')
+      nonnda.should_not    be_able_to :share_to, nonnda_user.social_account('twitter')
+      admin.should_not     be_able_to :share_to, admin_user.social_account('facebook')
+      subject.should_not   be_able_to :share_to, user.social_account('facebook')
+      nonnda.should_not    be_able_to :share_to, nonnda_user.social_account('facebook')
     end
 
     context "when connected to Twitter" do
       it "should be possible to share to Twitter" do
-        user.identities['twitter'] = {}
+        create :social_account, :twitter, user: user
 
-        Ability.new(user).should be_able_to :share_to, :twitter
+        Ability.new(user).should be_able_to :share_to, user.social_account('twitter')
       end
     end
 
     context "when connected to Facebook" do
       it "should be possible to share to Facebook" do
-        user.identities['facebook'] = {}
+        create :social_account, :facebook, user: user
 
-        Ability.new(user).should be_able_to :share_to, :facebook
+        Ability.new(user).should be_able_to :share_to, user.social_account('facebook')
       end
     end
   end

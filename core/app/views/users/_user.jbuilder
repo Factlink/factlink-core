@@ -23,14 +23,13 @@ if is_current_user
   json.confirmed user.confirmed?
 
   json.services do |json|
-
-    if can?(:share_to, :twitter)
+    if can?(:share_to, user.social_account('twitter'))
       json.twitter true
     end
 
-    if can?(:share_to, :facebook)
+    if can?(:share_to, user.social_account('facebook'))
       json.facebook true
-      json.facebook_expires_at user.identities['facebook']['credentials']['expires_at']
+      json.facebook_expires_at user.social_account('facebook').expires_at
     end
   end
 end

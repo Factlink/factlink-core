@@ -1,6 +1,6 @@
 require_relative 'application_controller'
 
-class IdentitiesController < ApplicationController
+class SocialAccountsController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
   def service_callback
@@ -32,7 +32,7 @@ class IdentitiesController < ApplicationController
       provider_deauthorize provider_name do |uid, token|
         response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
         if response.code != 200 and response.code != 400
-          raise "Facebook deauthorize failed: '#{response.body}'."
+          fail "Facebook deauthorize failed: '#{response.body}'."
         end
       end
     when 'twitter'
@@ -40,7 +40,7 @@ class IdentitiesController < ApplicationController
         flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
       end
     else
-      raise "Wrong OAuth provider: #{omniauth[:provider]}"
+      fail "Wrong OAuth provider: #{omniauth['provider']}"
     end
 
     redirect_to edit_user_path(current_user)
@@ -64,27 +64,29 @@ class IdentitiesController < ApplicationController
     authorize! :update, current_user
 
     if is_connected_to_different_user(provider_name, omniauth_obj)
-      raise "Already connected to a different account, please sign in to the connected account or reconnect your account."
+      fail "Already connected to a different account, please sign in to the connected account or reconnect your account."
     elsif omniauth_obj
-      current_user.identities[provider_name] = omniauth_obj
-      current_user.save
+      current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
       flash[:notice] = "Succesfully connected."
       @event = 'authorized'
     else
-      raise "Error connecting."
+      fail "Error connecting."
     end
   end
 
   def is_connected_to_different_user provider_name, omniauth_obj
-    current_user.identities[provider_name] && current_user.identities[provider_name]['uid'] != omniauth_obj['uid']
+    social_account = current_user.social_account(provider_name)
+
+    social_account.persisted? && social_account.uid != omniauth_obj['uid']
   end
 
   def sign_in_through_provider provider_name, omniauth_obj
-    @user = User.find_for_oauth(provider_name, omniauth_obj.uid)
+    social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
-    if @user
-      @event = 'signed_in'
+    if social_account and social_account.user
+      @user = social_account.user
       sign_in @user
+      @event = 'signed_in'
     else
       @event = 'social_error'
       @provider_name = "No connected #{provider_name.capitalize} account found. "+
@@ -94,35 +96,24 @@ class IdentitiesController < ApplicationController
 
   def parse_omniauth_env provider_name
     omniauth = request.env['omniauth.auth']
-    if provider_name != omniauth[:provider]
-      raise "Wrong OAuth provider: #{omniauth[:provider]}"
-    end
+    fail "Wrong OAuth provider: #{omniauth['provider']}" if provider_name != omniauth['provider']
+    fail 'Invalid omniauth object' unless omniauth['uid']
 
-    if omniauth[:uid] and omniauth[:credentials] and omniauth[:credentials][:token]
-      if provider_name == 'twitter'
-        omniauth['extra']['oath_version'] = omniauth['extra']['access_token'].consumer.options[:oauth_version];
-        omniauth['extra']['signature_method'] = omniauth['extra']['access_token'].consumer.options[:signature_method]
-        omniauth['extra'].delete 'access_token'
-      end
-
-      omniauth
-    else
-      false
-    end
+    omniauth
   end
 
   def provider_deauthorize provider_name, &block
     authorize! :update, current_user
 
-    if current_user.identities[provider_name]
+    social_account = current_user.social_account(provider_name)
 
-      uid = current_user.identities[provider_name]['uid']
-      token = current_user.identities[provider_name]['credentials']['token']
+    if social_account.persisted?
+      uid = social_account.omniauth_obj['uid']
+      token = social_account.omniauth_obj['credentials']['token']
 
       begin
         block.call uid, token
-        current_user.identities.delete(provider_name)
-        current_user.save
+        social_account.delete
         flash[:notice] ||= "Succesfully disconnected."
       rescue => e
         flash[:alert] = "Error disconnecting. #{e.message}"

@@ -13,8 +13,10 @@ describe Commands::Twitter::Post do
       message  = 'some message'
       token  = 'qwerty'
       secret = 'asdf'
-      identities = {'twitter' => {'credentials' => {'token' => token, 'secret' => secret}}}
-      user = double(identities: identities)
+      user = double
+      twitter_account = double persisted?: true, token: token, secret: secret
+
+      user.stub(:social_account).with('twitter').and_return(twitter_account)
 
       client = double
       Twitter::Client.stub(:new)
@@ -31,20 +33,25 @@ describe Commands::Twitter::Post do
 
   end
 
-
-
   describe 'validation' do
     it 'requires a message' do
-      user = double(identities: {'twitter' => 'something'})
+      twitter_account = double persisted?: true
+      user = double
       pavlov_options = { current_user: user }
+
+      user.stub(:social_account).with('twitter').and_return(twitter_account)
+
       expect_validating(message: '', pavlov_options: pavlov_options)
         .to fail_validation('message should be a nonempty string.')
     end
 
     it 'throws an error if no twitter account is linked' do
       message  = 'message'
-      user = double(identities: {'twitter' => nil})
+      twitter_account = double persisted?: false
+      user = double
       pavlov_options = { current_user: user }
+
+      user.stub(:social_account).with('twitter').and_return(twitter_account)
 
       expect_validating( message: message, pavlov_options: pavlov_options )
         .to fail_validation('base no twitter account linked')
