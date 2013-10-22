@@ -79,11 +79,12 @@ class SocialAccountsController < ApplicationController
   end
 
   def sign_in_through_provider provider_name, omniauth_obj
-    @user = SocialAccount.find_with_omniauth_obj(provider_name, omniauth_obj).andand.user
+    social_account = SocialAccount.find_with_omniauth_obj(provider_name, omniauth_obj)
 
-    if @user
-      @event = 'signed_in'
+    if social_account and social_account.user
+      @user = social_account.user
       sign_in @user
+      @event = 'signed_in'
     else
       @event = 'social_error'
       @provider_name = "No connected #{provider_name.capitalize} account found. "+
