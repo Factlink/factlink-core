@@ -12,9 +12,10 @@
 .fact-body-displaystring-clickable {
   cursor: pointer;
   padding: 1px 0;
+  background-color: @factlinkInactiveColor;
   .transition(background-color 0.4s);
 
   &:hover {
-    background-color: @factlinkInactiveColor;
+    background-color: @factlinkActiveColor;
   }
 }
