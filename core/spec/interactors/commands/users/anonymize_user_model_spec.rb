@@ -31,6 +31,7 @@ describe Commands::Users::AnonymizeUserModel do
       expect(saved_user.biography).to be_nil
 
       expect(saved_user.social_accounts.size).to eq 0
+      expect(SocialAccount.all.size).to eq 0
 
       # TODO: we might want to extract "deauthorizing someone" to a
       # separate command at some point
