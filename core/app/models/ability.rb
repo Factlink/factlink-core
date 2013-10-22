@@ -171,8 +171,9 @@ class Ability
 
     can :share, Fact
 
-    can :share_to, :twitter  if user.social_account('twitter').persisted?
-    can :share_to, :facebook if user.social_account('facebook').persisted?
+    can :share_to, SocialAccount do |social_account|
+      social_account.persisted? && social_account.user == user
+    end
   end
 
   FEATURES = %w(

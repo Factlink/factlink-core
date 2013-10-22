@@ -26,12 +26,11 @@ if is_current_user
   json.confirmed user.confirmed?
 
   json.services do |json|
-
-    if can?(:share_to, :twitter)
+    if can?(:share_to, user.social_account('twitter'))
       json.twitter true
     end
 
-    if can?(:share_to, :facebook)
+    if can?(:share_to, user.social_account('facebook'))
       json.facebook true
       json.facebook_expires_at user.social_account('facebook').omniauth_obj['credentials']['expires_at']
     end
