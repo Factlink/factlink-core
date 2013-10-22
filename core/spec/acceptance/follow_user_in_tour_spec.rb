@@ -36,8 +36,8 @@ feature "follow_users_in_tour", type: :feature do
     click_on 'Got it!'
     page.should_not have_content('What is this?')
 
-    page.should have_content("#{@user1.first_name} #{@user1.last_name}")
-    page.should have_content("#{@user2.first_name} #{@user2.last_name}")
+    page.should have_content("#{@user1.full_name}")
+    page.should have_content("#{@user2.full_name}")
 
     page.should have_content(@user1_channel1.title)
     page.should have_content(@user1_channel2.title)
