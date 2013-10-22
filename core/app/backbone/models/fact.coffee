@@ -56,3 +56,4 @@ class window.Fact extends Backbone.Model
       can_destroy: @can_destroy()
       fact_url_host: @factUrlHost()
       fact_url_title: @get('fact_title') || @factUrlHost()
+      'deletable_from_channel?': @collection?.channel?.is_mine()

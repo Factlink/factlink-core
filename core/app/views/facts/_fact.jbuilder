@@ -1,5 +1,3 @@
-# set optional arguments to nil so we can easily check with if
-channel  ||= nil
 timestamp ||= 0
 # TODO: set timestamp to nil, but this always defaulted to 0
 # so check that nothing depends on it.
@@ -9,7 +7,6 @@ dead_fact_creator = query(:'users_by_graph_user_ids', graph_user_ids: [fact.crea
 dead_fact_creator_graph_user = Struct.new(:id).new(fact.created_by_id)
 containing_channel_ids = query(:'facts/containing_channel_ids_for_user', fact: fact)
 
-
 json.displaystring dead_fact.displaystring
 json.id dead_fact.id
 
@@ -17,14 +14,7 @@ if current_graph_user
   json.containing_channel_ids containing_channel_ids
 end
 
-
 json.url friendly_fact_path(dead_fact)
-
-if channel
-  deletable = (user_signed_in? && channel.created_by == current_graph_user)
-  json.deletable_from_channel? deletable
-end
-
 
 json.created_by do |j|
   json.partial! 'users/user_partial', user: dead_fact_creator
