@@ -20,7 +20,8 @@ window.remote = new xdm.Rpc {},
               "?fact=" + encodeURIComponent(text) +
               "&url=" + encodeURIComponent(siteUrl) +
               "&title=" + encodeURIComponent(siteTitle) +
-              "&guided=" + encodeURIComponent(guided)
+              "&guided=" + encodeURIComponent(guided) +
+              "&layout=client" # layout=client is still necessary to get the client sign in page
       showUrl url, successFn
 
       onFactlinkCreated = (e, id) ->
