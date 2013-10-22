@@ -1,3 +1,6 @@
+# TODO do something smart here
+# this should become a noop at some point
+
 module Commands
   module Activities
     class CleanUpFaultyAddFactToChannels

@@ -56,15 +56,15 @@
   }
 }
 
-.translucent-dark-popover {
+.translucent-popover {
   position: relative;
   visibility: visible;
   display: inline-block;
 
   .factlink-popover-content {
-    display: inline-block;
     background: @darkTranslucentGrey;
     color: white;
+    display: inline-block;
     border-radius: 2px;
     padding: 9px 18px;
     text-align: center;
@@ -86,8 +86,8 @@
     .factlink-popover-arrow {
       top: 100%;
       margin-top: -@triangleSize;
-      border-top-color: @darkTranslucentGrey;
       border-bottom: none;
+      border-top-color: @darkTranslucentGrey;
     }
   }
   &.right {
@@ -97,8 +97,8 @@
     .factlink-popover-arrow {
       right: 100%;
       margin-right: -@triangleSize;
-      border-right-color: @darkTranslucentGrey;
       border-left: none;
+      border-right-color: @darkTranslucentGrey;
     }
   }
   &.bottom {
@@ -108,8 +108,8 @@
     .factlink-popover-arrow {
       bottom: 100%;
       margin-bottom: -@triangleSize;
-      border-bottom-color: @darkTranslucentGrey;
       border-top: none;
+      border-bottom-color: @darkTranslucentGrey;
     }
   }
   &.left {
@@ -119,9 +119,29 @@
     .factlink-popover-arrow {
       left: 100%;
       margin-left: -@triangleSize;
-      border-left-color: @darkTranslucentGrey;
       border-right: none;
+      border-left-color: @darkTranslucentGrey;
     }
   }
-
 }
+
+.translucent-grey-popover {
+  .factlink-popover-content {
+    background: @translucentGrey;
+    color: @metaFontColor;
+  }
+
+  &.top .factlink-popover-arrow {
+    border-top-color: @translucentGrey;
+  }
+  &.right .factlink-popover-arrow {
+    border-right-color: @translucentGrey;
+  }
+  &.bottom .factlink-popover-arrow {
+    border-bottom-color: @translucentGrey;
+  }
+  &.left .factlink-popover-arrow {
+    border-left-color: @translucentGrey;
+  }
+}
+

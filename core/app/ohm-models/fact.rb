@@ -48,9 +48,6 @@ class Fact < OurOhm
   # TODO: dirty, please decouple
   def add_to_created_facts
     created_by.sorted_created_facts.add self
-    channel = created_by.created_facts_channel
-
-    command(:'channels/add_fact', fact: self, channel: channel)
   end
 
   def remove_from_created_facts
