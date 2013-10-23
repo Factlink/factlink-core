@@ -43,20 +43,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       clean_up_passwords resource
 
-      the_errors = "Registration failed:<br>"
       error_hash = {}
       resource.errors.each do |attribute, message|
-        the_errors << "#{message.to_s}<br>"
         error_hash[attribute] = resource.errors.full_message(attribute, message)
       end
 
-      if request.format.js?
-        render json: error_hash, :status => :unprocessable_entity
-        return
-      else
-        redirect_to root_path, alert: the_errors.html_safe
-      end
-
+      render json: error_hash, :status => :unprocessable_entity
     end
   end
 
