@@ -3,7 +3,7 @@ require_relative 'application_controller'
 class SocialAccountsController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
-  def service_callback
+  def callback
     omniauth_obj = parse_omniauth_env provider_name
 
     if user_signed_in?
@@ -26,7 +26,7 @@ class SocialAccountsController < ApplicationController
     end
   end
 
-  def service_deauthorize
+  def deauthorize
     case provider_name
     when 'facebook'
       provider_deauthorize provider_name do |uid, token|
