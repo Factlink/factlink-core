@@ -9,7 +9,7 @@
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-
+  background-color: white;
   transition: all 0.1s;
 
   &:hover {
@@ -19,12 +19,16 @@
   &.share-button-checked {
     opacity: 1;
   }
+
+  &.discussion-share-button:hover{
+    opacity: 0.75;
+  }
 }
 
 .share-button-twitter {
   background-image: asset-data-url("sharing_icons/twitter_disabled.png");
 
-  &:hover, &.share-button-checked {
+  &:hover, &.share-button-checked, &.discussion-share-button{
     background-image: asset-data-url("sharing_icons/twitter.png");
   }
 }
@@ -32,32 +36,11 @@
 .share-button-facebook {
   background-image: asset-data-url("sharing_icons/facebook_disabled.png");
 
-  &:hover, &.share-button-checked {
+  &:hover, &.share-button-checked, &.discussion-share-button {
     background-image: asset-data-url("sharing_icons/facebook.png");
   }
 }
 
-.top-fact-share-option {
-  display: inline-block;
-}
-
-.discussion-share-button {
-  background-color: white;
-  opacity: 1;
-
-  &:hover {
-    opacity: 0.75;
-  }
-
-  &.share-button-twitter {
-    background-image: asset-data-url("sharing_icons/twitter.png");
-  }
-
-  &.share-button-facebook {
-    background-image: asset-data-url("sharing_icons/facebook.png");
-  }
-
-  &.share-button-message {
-    background-image: asset-data-url("sharing_icons/message.png");
-  }
+.share-button-message {
+  background-image: asset-data-url("sharing_icons/message.png");
 }
