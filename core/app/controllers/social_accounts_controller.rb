@@ -18,6 +18,8 @@ class SocialAccountsController < ApplicationController
   end
 
   def deauthorize
+    authorize! :update, current_user
+
     case params[:provider_name]
     when 'facebook'
       provider_deauthorize 'facebook' do |uid, token|
@@ -83,8 +85,6 @@ class SocialAccountsController < ApplicationController
   end
 
   def provider_deauthorize provider_name, &block
-    authorize! :update, current_user
-
     social_account = current_user.social_account(provider_name)
 
     if social_account.persisted?
