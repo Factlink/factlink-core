@@ -15,7 +15,7 @@ class Admin::UsersController < AdminController
       params[:user][:password_confirmation] = nil
     end
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
-      @user.features = params[:user][:features].andand.keys
+      @user.features = params[:user].fetch(:features,{}).keys
       redirect_to admin_users_path, notice: 'User was successfully updated.'
     else
       render :edit

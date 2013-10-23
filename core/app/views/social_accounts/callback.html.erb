@@ -1,7 +1,7 @@
 <% content_for :specific_javascript do %>
   <script>
-    var eventName = '<%= @event %>';
-    var eventDetails = '<%= event_details %>';
+    var eventName = '<%= @event[:name] %>';
+    var eventDetails = '<%= @event[:details] %>';
 
     if(window.opener) {
       var evt = document.createEvent('CustomEvent');

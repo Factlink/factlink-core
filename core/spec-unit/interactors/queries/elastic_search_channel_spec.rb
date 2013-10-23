@@ -7,7 +7,7 @@ describe Queries::ElasticSearchChannel do
   let(:base_url) { base_url = '1.0.0.0:4000/index' }
 
   before do
-    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application', 'Logger'
+    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application'
 
     FactlinkUI::Application.stub(config: double(elasticsearch_url: base_url))
   end

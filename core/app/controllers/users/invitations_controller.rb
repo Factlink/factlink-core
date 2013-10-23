@@ -2,7 +2,7 @@ class Users::InvitationsController < Devise::InvitationsController
   layout "frontend"
 
   def new
-    @resource = nil.andand
+    @resource = User.new
     super
   end
 
@@ -15,7 +15,7 @@ class Users::InvitationsController < Devise::InvitationsController
       set_flash_message :notice, :send_instructions, :email => self.resource.email
       respond_with resource, :location => after_invite_path_for(resource)
     else
-      @resource = nil.andand
+      @resource = User.new
       respond_with_navigational(resource) { render :new }
     end
   end
