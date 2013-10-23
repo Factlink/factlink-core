@@ -3,6 +3,8 @@ require_relative 'application_controller'
 class SocialAccountsController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
+  layout 'social_popup'
+
   def callback
     omniauth_obj = request.env['omniauth.auth']
     @event_details = params[:provider_name]
@@ -14,7 +16,7 @@ class SocialAccountsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup' }}
+      format.html { render :callback }
     end
   rescue Exception => error
     @event = "social_error"
@@ -23,7 +25,7 @@ class SocialAccountsController < ApplicationController
     flash[:alert] = @event_details
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup' }}
+      format.html { render :callback }
     end
   end
 
@@ -55,7 +57,7 @@ class SocialAccountsController < ApplicationController
     @event_details = "Authorization failed: #{params[:error_description]}."
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup' }}
+      format.html { render :callback }
     end
   end
 
