@@ -124,14 +124,6 @@ describe 'activity queries' do
       ]
     end
 
-    it "should return a :added_first_factlink activity when the users' first factlink is created" do
-      f1 = create :fact, created_by: gu1
-
-      gu1.stream_activities.map(&:to_hash_without_time).should == [
-        {user: gu1, action: :added_first_factlink, subject: f1}
-      ]
-    end
-
     [:supporting, :weakening].each do |type|
       it "should return activity when a users adds #{type} evidence to a fact that you created" do
         f1 = create :fact

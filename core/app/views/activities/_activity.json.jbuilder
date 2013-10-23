@@ -94,8 +94,6 @@ json.activity do |json|
         subject: subject,
         object: object,
         user: user
-  when "added_first_factlink"
-    json.fact { |j| j.partial! 'facts/fact', fact: subject}
   when "believes", "doubts", "disbelieves"
     if showing_notifications
       json.action action
