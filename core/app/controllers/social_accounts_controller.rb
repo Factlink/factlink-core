@@ -13,19 +13,11 @@ class SocialAccountsController < ApplicationController
     else
       sign_in_through_provider params[:provider_name], omniauth_obj
     end
-
-    respond_to do |format|
-      format.html { render :callback }
-    end
   rescue Exception => error
     @event = "social_error"
     @event_details = error.message
 
     flash[:alert] = @event_details
-
-    respond_to do |format|
-      format.html { render :callback }
-    end
   end
 
   def deauthorize
@@ -55,9 +47,7 @@ class SocialAccountsController < ApplicationController
     @event = "social_error"
     @event_details = "Authorization failed: #{params[:error_description]}."
 
-    respond_to do |format|
-      format.html { render :callback }
-    end
+    render :callback
   end
 
   private
