@@ -153,16 +153,7 @@ FactlinkUI::Application.routes.draw do
         end
       end
 
-      resources :activities, # TODO: deprecate this resource on channels
-                only: [:index],
-                controller: 'channel_activities' do |variable|
-        collection do
-          get "count"
-        end
-      end
-
       member do
-
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
         post "add/:fact_id"     => "channels#add_fact"

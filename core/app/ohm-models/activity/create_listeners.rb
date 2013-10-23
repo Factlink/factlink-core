@@ -13,8 +13,13 @@ class Activity < OurOhm
 
     def select_users_that_see_channels user_ids
       user_ids.select do |id|
-        user = GraphUser[id].andand.user
-        user && user.features.include?(:sees_channels)
+        graph_user = GraphUser[id]
+        if graph_user
+          user = graph_user.user
+          user && user.features.include?(:sees_channels)
+        else
+          false
+        end
       end
     end
 
