@@ -14,8 +14,7 @@ class SocialAccountsController < ApplicationController
       sign_in_through_provider params[:provider_name], omniauth_obj
     end
   rescue Exception => error
-    @event = "social_error"
-    @event_details = error.message
+    @event = {name: "social_error", details: error.message}
   end
 
   def deauthorize
@@ -42,8 +41,8 @@ class SocialAccountsController < ApplicationController
     if params[:error_description].blank?
       params[:error_description] ||= "unspecified error"
     end
-    @event = "social_error"
-    @event_details = "Authorization failed: #{params[:error_description]}."
+
+    @event = {name: "social_error", details: "Authorization failed: #{params[:error_description]}."}
 
     render :callback
   end
@@ -58,8 +57,7 @@ class SocialAccountsController < ApplicationController
     elsif omniauth_obj
       current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
       flash[:notice] = "Succesfully connected."
-      @event = 'authorized'
-      @event_details = provider_name
+      @event = {name: 'authorized', details: provider_name}
     else
       fail "Error connecting."
     end
@@ -77,12 +75,10 @@ class SocialAccountsController < ApplicationController
     if social_account and social_account.user
       @user = social_account.user
       sign_in @user
-      @event = 'signed_in'
-      @event_details = provider_name
+      @event = {name: 'signed_in', details: provider_name}
     else
-      @event = 'social_error'
-      @event_details = "No connected #{provider_name.capitalize} account found. "+
-                       "Please sign in with your credentials and connect your #{provider_name.capitalize} account."
+      @event = {name: 'social_error', details: "No connected #{provider_name.capitalize} account found. " +
+                       "Please sign in with your credentials and connect your #{provider_name.capitalize} account."}
     end
   end
 
