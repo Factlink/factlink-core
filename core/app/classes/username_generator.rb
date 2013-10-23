@@ -6,10 +6,10 @@ class UsernameGenerator
   # Generates a username from a full name, with some maximum length.
   # A block can be given to verify for a generated username if it is valid
   def generate_from name, max_length=10000000, &block
-    generate_simple_username(name, max_length, &block) or
-      generate_username_with_suffix(name, max_length, &block) or
-      generate_random_username(max_length, &block) or
-      fail 'Could not find a valid username after 100 tries'
+    generate_simple_username(name, max_length, &block) ||
+      generate_username_with_suffix(name, max_length, &block) ||
+      generate_random_username(max_length, &block) ||
+      fail('Could not find a valid username after 100 tries')
   end
 
   private
