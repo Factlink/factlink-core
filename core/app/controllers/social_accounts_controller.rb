@@ -4,12 +4,13 @@ class SocialAccountsController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
   def callback
-    omniauth_obj = parse_omniauth_env provider_name
+    omniauth_obj = parse_omniauth_env params[:provider_name]
+    @provider_name = params[:provider_name]
 
     if user_signed_in?
-      connect_provider provider_name, omniauth_obj
+      connect_provider params[:provider_name], omniauth_obj
     else
-      sign_in_through_provider provider_name, omniauth_obj
+      sign_in_through_provider params[:provider_name], omniauth_obj
     end
 
     respond_to do |format|
@@ -27,16 +28,16 @@ class SocialAccountsController < ApplicationController
   end
 
   def deauthorize
-    case provider_name
+    case params[:provider_name]
     when 'facebook'
-      provider_deauthorize provider_name do |uid, token|
+      provider_deauthorize params[:provider_name] do |uid, token|
         response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
         if response.code != 200 and response.code != 400
           fail "Facebook deauthorize failed: '#{response.body}'."
         end
       end
     when 'twitter'
-      provider_deauthorize provider_name do
+      provider_deauthorize params[:provider_name] do
         flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
       end
     else
@@ -121,9 +122,5 @@ class SocialAccountsController < ApplicationController
     else
       flash[:alert] = "Already disconnected."
     end
-  end
-
-  def provider_name
-    @provider_name ||= params[:provider_name]
   end
 end
