@@ -11,7 +11,7 @@ describe "factlink", type: :feature do
 
     # TODO fix hardcoded values in next line, we're now
     #      implicitly depending on factorygirl behaviour
-    find('.evidence-votable', text: 'Fact 1', visible: false).find('a', text:'1 comment')
+    find('.evidence-votable', text: 'Fact 2', visible: false).find('a', text:'1 comment')
 
     page.should have_content factlink.data.displaystring
 
