@@ -1,4 +1,4 @@
-<% sentry_conf = YAML::load_file(Rails.root.join('config/sentry.yml'))[Rails.env].andand['ravenjs'] %>
+<% sentry_conf = YAML::load_file(Rails.root.join('config/sentry.yml')).fetch(Rails.env,{})['ravenjs'] %>
 
 <% if sentry_conf %>
 

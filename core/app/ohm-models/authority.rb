@@ -9,9 +9,13 @@ class Authority < OurOhm
 
   class << self
     def debug x
-      @logger ||= Logger.new(STDERR)
+      return unless @logger
       @logger.info "#{Time.now} #{x}"
       $stdout.flush
+    end
+
+    def logger= logger
+      @logger = logger
     end
 
     def related(label, subject, opts={})
