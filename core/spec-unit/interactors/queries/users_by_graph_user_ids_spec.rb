@@ -18,35 +18,20 @@ describe Queries::UsersByGraphUserIds do
       query = described_class.new(graph_user_ids: [])
 
       Pavlov.stub(:query)
-            .with(:'users_by_ids',
-                      user_ids: [])
+            .with(:'users_by_ids', user_ids: [], by: :graph_user_id)
             .and_return([])
 
       expect(query.call).to eq([])
     end
 
     it "should work with multiple ids" do
-      graph_users = [
-        double(id: 1, user_id: 4),
-        double(id: 2, user_id: 5),
-        double(id: 3, user_id: 6)
-      ]
-      gu_ids = graph_users.map(&:id)
-      user_ids = graph_users.map(&:user_id)
+      gu_ids = ['10', '35', '15']
 
       users = double
-
-      graph_users.each do |graph_user|
-        GraphUser.should_receive(:[])
-                 .with(graph_user.id)
-                 .and_return(graph_user)
-      end
-
       query = described_class.new(graph_user_ids: gu_ids)
 
       Pavlov.stub(:query)
-            .with(:'users_by_ids',
-                      user_ids: user_ids)
+            .with(:'users_by_ids', user_ids: gu_ids, by: :graph_user_id)
             .and_return(users)
 
       expect(query.call).to eq(users)

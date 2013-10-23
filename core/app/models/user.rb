@@ -28,6 +28,7 @@ class User
   field :biography
 
   field :graph_user_id
+  index(graph_user_id: 1)
 
   field :deleted,     type: Boolean, default: false
   field :set_up,      type: Boolean, default: false

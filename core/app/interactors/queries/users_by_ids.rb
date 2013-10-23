@@ -4,6 +4,7 @@ module Queries
 
     attribute :user_ids, Array
     attribute :top_topics_limit, Integer, default: 1
+    attribute :by, Symbol, default: :_id
 
     private
 
@@ -12,7 +13,7 @@ module Queries
     end
 
     def execute
-      users = User.any_in(_id: user_ids)
+      users = User.any_in(by => user_ids)
       users.map{|user| kill user}
     end
 
