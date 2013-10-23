@@ -323,7 +323,7 @@ describe User do
   describe '#social_account' do
     it 'returns a social account which can be saved' do
       facebook_account = user.social_account('facebook')
-      facebook_account.omniauth_obj = {uid: '10'}
+      facebook_account.omniauth_obj = {'uid' => '10', 'provider' => 'facebook'}
       facebook_account.save!
 
       expect(User.first.social_account('facebook').omniauth_obj['uid']).to eq '10'

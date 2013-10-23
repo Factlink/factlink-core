@@ -53,14 +53,20 @@ FactoryGirl.define do
   factory :social_account do
     trait :twitter do
       provider_name 'twitter'
-      omniauth_obj({'credentials' => {'token' => 'token', 'secret' => 'secret'}})
+      omniauth_obj(
+        'uid' => 'some_twitter_uid',
+        'provider' => 'twitter',
+        'credentials' => {'token' => 'token', 'secret' => 'secret'}
+      )
     end
 
     trait :facebook do
       provider_name 'facebook'
-      omniauth_obj({'credentials' => {
-        'token' => 'token', 'expires_at' => (DateTime.now + 4.weeks).to_i, 'expires' => true
-      }})
+      omniauth_obj(
+        'uid' => 'some_facebook_uid',
+        'provider' => 'facebook',
+        'credentials' => {'token' => 'token', 'expires_at' => (DateTime.now + 4.weeks).to_i, 'expires' => true}
+      )
     end
   end
 
