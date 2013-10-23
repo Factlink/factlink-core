@@ -4,6 +4,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :load_user, only: [:edit_password, :update_password]
   before_filter :authenticate_user!
 
+  def new
+    fail "This page should never render!"
+  end
+
   def create
     build_resource
 
