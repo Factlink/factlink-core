@@ -16,8 +16,6 @@ class SocialAccountsController < ApplicationController
   rescue Exception => error
     @event = "social_error"
     @event_details = error.message
-
-    flash[:alert] = @event_details
   end
 
   def deauthorize
