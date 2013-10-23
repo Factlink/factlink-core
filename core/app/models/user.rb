@@ -33,10 +33,6 @@ class User
 
   field :admin,       type: Boolean, default: false
 
-  field :agrees_tos,  type: Boolean, default: false
-  field :agrees_tos_name, type: String, default: ""
-  field :agreed_tos_on,   type: DateTime
-
   field :seen_the_tour,  type: Boolean, default: false
   field :seen_tour_step, type: String,  default: nil
   field :receives_mailed_notifications,  type: Boolean, default: true
@@ -355,4 +351,15 @@ class User
 
     super
   end
+
+  # LEGACY PATENT STUFF:
+  # this data was required when we were still working on our patents
+  # we keep it around in our database for now. If you want to remove
+  # this, please make a backup somewhere safe, so we have the data
+  # of who signed the tos at the time.
+  #
+  # when removing, also remove from serializable hash code
+  field :agrees_tos, type: Boolean, default: false
+  field :agrees_tos_name, type: String, default: ""
+  field :agreed_tos_on, type: DateTime
 end
