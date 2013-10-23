@@ -20,7 +20,7 @@ class Users::SetupController < ApplicationController
 
     @user = current_user
     @user.set_up = true
-    @user.reset_password!(params[:user][:password], params[:user][:password_confirmation])
+    @user.reset_password!(params[:user][:password].to_s, params[:user][:password_confirmation].to_s) # this saves the user
 
     if @user.changed?
       render 'users/setup/edit'
