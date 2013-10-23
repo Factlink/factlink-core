@@ -3,6 +3,8 @@ class UsernameGenerator
 
   MAX_SUFFIX_LENGTH = 5
 
+  # Generates a username from a full name, with some maximum length.
+  # A block can be given to verify for a generated username if it is valid
   def generate_from name, max_length=10000000, &block
     generate_simple_username(name, max_length, &block) or
       generate_username_with_suffix(name, max_length, &block) or
