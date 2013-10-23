@@ -3,10 +3,23 @@ class UsernameGenerator
 
   MAX_SUFFIX_LENGTH = 5
 
-  def generate_from name, max_length=10000000
+  def generate_from name, max_length=10000000, &block
+    generate_simple_username(name, max_length, &block) or
+      generate_username_with_suffix(name, max_length, &block) or
+      generate_random_username(max_length, &block) or
+      fail 'Could not find a valid username after 100 tries'
+  end
+
+  private
+
+  def generate_simple_username name, max_length, &block
     username = slugify name[0, max_length]
     return username if !block_given? || yield(username)
 
+    nil
+  end
+
+  def generate_username_with_suffix name, max_length, &block
     100.times do
       suffix = '_' + rand(10*MAX_SUFFIX_LENGTH).to_s
       prefix = slugify name[0, max_length-suffix.size]
@@ -14,12 +27,16 @@ class UsernameGenerator
       return username if yield(username)
     end
 
+    nil
+  end
+
+  def generate_random_username max_length, &block
     100.times do
       username = slugify SecureRandom.uuid[0, max_length]
       return username if yield(username)
     end
 
-    fail 'Could not find a valid username after 100 tries'
+    nil
   end
 
   # Adapted from slugify in ActiveSupport
