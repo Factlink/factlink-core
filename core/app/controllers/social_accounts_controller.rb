@@ -20,22 +20,13 @@ class SocialAccountsController < ApplicationController
   def deauthorize
     authorize! :update, current_user
 
-    case params[:provider_name]
-    when 'facebook'
-      provider_deauthorize 'facebook' do |uid, token|
-        response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
-        if response.code != 200 and response.code != 400
-          fail "Facebook deauthorize failed: '#{response.body}'."
-        end
-      end
-    when 'twitter'
-      provider_deauthorize 'twitter' do
-        flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
-      end
-    else
-      fail "Wrong OAuth provider: #{omniauth['provider']}"
-    end
+    social_account = current_user.social_account(params[:provider_name])
+    fail "Already disconnected." unless social_account.persisted?
 
+    deauthorize_social_account social_account
+  rescue Exception => error
+    flash[:alert] = "Error disconnecting: #{error.message}"
+  ensure
     redirect_to edit_user_path(current_user)
   end
 
@@ -84,22 +75,27 @@ class SocialAccountsController < ApplicationController
     end
   end
 
-  def provider_deauthorize provider_name, &block
-    social_account = current_user.social_account(provider_name)
-
-    if social_account.persisted?
-      uid = social_account.omniauth_obj['uid']
-      token = social_account.omniauth_obj['credentials']['token']
-
-      begin
-        block.call uid, token
-        social_account.delete
-        flash[:notice] ||= "Succesfully disconnected."
-      rescue => e
-        flash[:alert] = "Error disconnecting. #{e.message}"
-      end
-    else
-      flash[:alert] = "Already disconnected."
+  def deauthorize_social_account social_account
+    case social_account.provider_name
+    when 'facebook'
+      deauthorize_facebook social_account
+    when 'twitter'
+      deauthorize_twitter social_account
     end
+  end
+
+  def deauthorize_facebook social_account
+    uid = social_account.omniauth_obj['uid']
+    token = social_account.omniauth_obj['credentials']['token']
+    response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
+    fail response.body if response.code != 200 and response.code != 400
+
+    social_account.delete
+    flash[:notice] = "Succesfully disconnected."
+  end
+
+  def deauthorize_twitter social_account
+    social_account.delete
+    flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
   end
 end
