@@ -25,7 +25,7 @@ describe 'Reserving an account', type: :feature do
 
       click_button 'Create account'
 
-      page.should have_content('full_name is required')
+      page.should have_content('Full name is required')
     end
   end
 

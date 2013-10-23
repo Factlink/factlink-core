@@ -41,9 +41,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       the_errors = "Registration failed:<br>"
       error_hash = {}
-      resource.errors.each do |key, value|
-        the_errors << "#{value.to_s}<br>"
-        error_hash[key] = value
+      resource.errors.each do |attribute, message|
+        the_errors << "#{message.to_s}<br>"
+        error_hash[attribute] = resource.errors.full_message(attribute, message)
       end
 
       if request.format.js?
