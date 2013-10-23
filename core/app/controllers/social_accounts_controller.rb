@@ -4,7 +4,7 @@ class SocialAccountsController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
   def callback
-    omniauth_obj = parse_omniauth_env
+    omniauth_obj = request.env['omniauth.auth']
     @provider_name = params[:provider_name]
 
     if user_signed_in?
@@ -93,10 +93,6 @@ class SocialAccountsController < ApplicationController
       @provider_name = "No connected #{provider_name.capitalize} account found. "+
                        "Please sign in with your credentials and connect your #{provider_name.capitalize} account."
     end
-  end
-
-  def parse_omniauth_env
-    request.env['omniauth.auth']
   end
 
   def provider_deauthorize provider_name, &block
