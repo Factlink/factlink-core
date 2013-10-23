@@ -171,6 +171,12 @@ class User
         confirmation_token invitation_token
       )
     end
+
+    def valid_username?(username)
+      validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp}.map { |v| v.options[:with] }
+
+      validators.all? { |regex| regex.match(username) }
+    end
   end
 
   before_save do |user|
@@ -258,9 +264,7 @@ class User
 
   def generate_username!
     self.username = UsernameGenerator.new.generate_from full_name, USERNAME_MAX_LENGTH do |username|
-      validators = User.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp}.map { |v| v.options[:with] }
-
-      validators.all? { |regex| regex.match(username) }
+      self.class.valid_username?(username)
     end
   end
 
