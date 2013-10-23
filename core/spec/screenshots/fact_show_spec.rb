@@ -53,15 +53,14 @@ describe "factlink", type: :feature do
   end
 
   it "the layout of the new discussion page is correct for an anonymous user" do
-
     @user = sign_in_user create :full_user
     factlink = create_discussion
     sign_out_user
 
     go_to_fact_show_of factlink
-    find('.evidence-box', text: 'Fact 1').find('a', text:'1 comment')
+    find('.evidence-box', text: 'Fact 2').find('a', text:'1 comment')
 
-    page.should have_content @factlink.data.displaystring
+    page.should have_content factlink.data.displaystring
 
     assume_unchanged_screenshot "fact_show_for_non_signed_in_user"
   end

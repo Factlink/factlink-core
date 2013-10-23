@@ -39,10 +39,6 @@ class Fact < OurOhm
 
   def set_activity!
     activity(created_by, :created, self)
-
-    if created_by.created_facts.size == 1
-      activity(created_by, :added_first_factlink , self)
-    end
   end
 
   # TODO: dirty, please decouple
