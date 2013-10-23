@@ -5,7 +5,7 @@ class SocialAccountsController < ApplicationController
 
   def callback
     omniauth_obj = request.env['omniauth.auth']
-    @provider_name = params[:provider_name]
+    @event_details = params[:provider_name]
 
     if user_signed_in?
       connect_provider params[:provider_name], omniauth_obj
@@ -14,16 +14,16 @@ class SocialAccountsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @provider_name}}}
+      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @event_details}}}
     end
   rescue Exception => error
     @event = "social_error"
-    @error = error.message
+    @event_details = error.message
 
-    flash[:alert] = @error
+    flash[:alert] = @event_details
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @error}}}
+      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @event_details}}}
     end
   end
 
@@ -52,10 +52,10 @@ class SocialAccountsController < ApplicationController
       params[:error_description] ||= "unspecified error"
     end
     @event = "social_error"
-    @error = "Authorization failed: #{params[:error_description]}."
+    @event_details = "Authorization failed: #{params[:error_description]}."
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @error}}}
+      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @event_details}}}
     end
   end
 
@@ -90,7 +90,7 @@ class SocialAccountsController < ApplicationController
       @event = 'signed_in'
     else
       @event = 'social_error'
-      @provider_name = "No connected #{provider_name.capitalize} account found. "+
+      @event_details = "No connected #{provider_name.capitalize} account found. "+
                        "Please sign in with your credentials and connect your #{provider_name.capitalize} account."
     end
   end
