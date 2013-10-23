@@ -42,6 +42,19 @@ describe UsernameGenerator do
       expect(result).to match /\Ajan_paul_?p?o?s?_\d+\z/
     end
 
+    it 'tries random numbers for 100 times until the username is valid' do
+      name = 'Jan Paul Posma'
+
+      n = 0
+      result = subject.generate_from name do |username|
+        n = n + 1
+
+        n > 90
+      end
+
+      expect(result).to match /\Ajan_paul_posma_\d+\z/
+    end
+
     it 'returns a random string until the username is valid' do
       name = 'Jan Paul Posma'
       max_length = 10
@@ -50,7 +63,7 @@ describe UsernameGenerator do
       result = subject.generate_from name, max_length do |username|
         n = n + 1
 
-        n > 90
+        n > 190
       end
 
       expect(result).to_not match /posma/

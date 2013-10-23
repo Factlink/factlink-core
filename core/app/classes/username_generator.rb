@@ -7,10 +7,12 @@ class UsernameGenerator
     username = slugify name[0, max_length]
     return username if !block_given? || yield(username)
 
-    suffix = '_' + rand(10*MAX_SUFFIX_LENGTH).to_s
-    prefix = slugify name[0, max_length-suffix.size]
-    username = prefix + suffix
-    return username if yield(username)
+    100.times do
+      suffix = '_' + rand(10*MAX_SUFFIX_LENGTH).to_s
+      prefix = slugify name[0, max_length-suffix.size]
+      username = prefix + suffix
+      return username if yield(username)
+    end
 
     100.times do
       username = slugify SecureRandom.uuid[0, max_length]
