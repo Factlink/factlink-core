@@ -14,7 +14,7 @@ class SocialAccountsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @event_details}}}
+      format.html { render :callback, { layout: 'social_popup' }}
     end
   rescue Exception => error
     @event = "social_error"
@@ -23,7 +23,7 @@ class SocialAccountsController < ApplicationController
     flash[:alert] = @event_details
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @event_details}}}
+      format.html { render :callback, { layout: 'social_popup' }}
     end
   end
 
@@ -55,7 +55,7 @@ class SocialAccountsController < ApplicationController
     @event_details = "Authorization failed: #{params[:error_description]}."
 
     respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @event_details}}}
+      format.html { render :callback, { layout: 'social_popup' }}
     end
   end
 
