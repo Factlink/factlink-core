@@ -1,7 +1,10 @@
 <div class="js-user-heading-region"></div>
   <ul class="top-fact-share">
-    <li class="top-fact-share-option"><a class="share-button share-discussion-button share-button-facebook" href="#">Facebook</a></li>
-    <li class="top-fact-share-option"><a class="share-button share-discussion-button share-button-twitter" href="#">Twitter</a></li>
+    {{#global.can_haz.share_discussion_buttons}}
+      <li class="top-fact-share-option"><a class="share-button share-discussion-button share-button-facebook" href="#">Facebook</a></li>
+      <li class="top-fact-share-option"><a class="share-button share-discussion-button share-button-twitter" href="#">Twitter</a></li>
+    {{/global.can_haz.share_discussion_buttons}}
+
     {{#global.signed_in}}
       <li class="top-fact-share-option"><a class="share-button share-discussion-button share-button-message js-share" href="#">Share</a></li>
     {{/global.signed_in}}
