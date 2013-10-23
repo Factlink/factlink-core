@@ -15,8 +15,6 @@ class User
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
-  attr_accessor :tos_first_name, :tos_last_name
-
   field :username
   field :full_name    # TODO:EMN minimum length?  require space?
 
