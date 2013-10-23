@@ -254,7 +254,7 @@ describe User do
 
       expect(result).to be_false
       expect(errors.size).to eq 1
-      expect(errors[:username].any?).to be_true
+      expect(errors[:full_name].any?).to be_true
     end
 
     it "keeps an error if the email is invalid" do
