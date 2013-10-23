@@ -1,9 +1,11 @@
 <div class="js-user-heading-region"></div>
-
-{{#global.signed_in}}
-  <button class="button button-white button-small top-fact-share js-share">Share</button>
-{{/global.signed_in}}
-
+  <ul class="top-fact-share">
+    <li class="top-fact-share-option"><a class="share-button discussion-share-button share-button-facebook" href="#">Facebook</a></li>
+    <li class="top-fact-share-option"><a class="share-button discussion-share-button share-button-twitter" href="#">Twitter</a></li>
+    {{#global.signed_in}}
+      <li class="top-fact-share-option"><a class="share-button discussion-share-button share-button-message js-share" href="#">Share</a></li>
+    {{/global.signed_in}}
+  </ul>
 <div class="top-fact-text">
   {{displaystring}}
 </div>
