@@ -8,7 +8,7 @@ setErrorsOnFields = (formId, fieldErrors) ->
     el = $("#" + formId + "_user_" + field)
 
     el.addClass "error"
-    showErrorPopover el, "#{field} #{errorMessage}", formId
+    showErrorPopover el, "#{errorMessage}", formId
 
 showErrorPopover = (element, errorMessage, formId) ->
   if formId == "bottom_registration_form"

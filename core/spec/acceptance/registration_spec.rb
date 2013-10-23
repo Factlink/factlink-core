@@ -1,13 +1,13 @@
 require 'acceptance_helper'
 
-describe 'Reserving a username', type: :feature do
-  it 'should get success note with valid username' do
+describe 'Reserving an account', type: :feature do
+  it 'should get success note with valid details' do
     visit '/'
     disable_html5_validations(page)
 
     within '.header' do
-      fill_in 'user[username]', with: random_username
-      fill_in 'user[email]',    with: random_email
+      fill_in 'user[full_name]', with: 'Jane Doe'
+      fill_in 'user[email]',    with: 'janedoe@example.org'
 
       click_button 'Create account'
     end
@@ -15,29 +15,29 @@ describe 'Reserving a username', type: :feature do
     page.should have_content("set up your account")
   end
 
-  it 'should get failure note with invalid username' do
+  it 'should get failure note with invalid name' do
     visit '/'
     disable_html5_validations(page)
 
     within '.header' do
-      fill_in 'user[username]', with: 't'
-      fill_in 'user[email]',    with: random_email
+      fill_in 'user[full_name]', with: ''
+      fill_in 'user[email]',    with: 'janedoe@example.org'
 
       click_button 'Create account'
 
-      page.should have_content('username at least 2 characters needed')
+      page.should have_content('Full name is required')
     end
   end
 
   it 'should make the username appear in the user list' do
-    username = random_username
+    name = 'Jane Doe'
 
     visit '/'
     disable_html5_validations(page)
 
     within '.footer' do
-      fill_in 'user[username]', with: username
-      fill_in 'user[email]',    with: random_email
+      fill_in 'user[full_name]', with: name
+      fill_in 'user[email]',    with: 'janedoe@example.org'
       click_button 'Create account'
     end
 
@@ -49,20 +49,20 @@ describe 'Reserving a username', type: :feature do
 
     visit '/a/users'
 
-    within(find("#main-wrapper table tr>td:first-child", text: username).parent) do
+    within(find("#main-wrapper table tr>td", text: name).parent) do
       page.should have_content('unconfirmed')
     end
   end
 
   it 'user should receive a confirmation email and should be able to confirm its e-mail address' do
-    email_address = random_email
+    email_address = 'janedoe@example.org'
 
     clear_emails
 
     visit '/'
     disable_html5_validations(page)
     within '.footer' do
-      fill_in 'user[username]', with: random_username
+      fill_in 'user[full_name]', with: 'Jane Doe'
       fill_in 'user[email]',    with: email_address
 
       click_button 'Create account'
