@@ -1,4 +1,5 @@
-require 'spec_helper'
+require 'active_support/inflector/transliterate'
+require_relative '../../app/classes/username_generator'
 
 describe UsernameGenerator do
   describe '#generate_from' do
