@@ -15,6 +15,12 @@ describe UsernameGenerator do
       expect(subject.generate_from(name)).to eq 'jean_paul'
     end
 
+    it 'strips crazy characters' do
+      name = "Crazy \u1234 name"
+
+      expect(subject.generate_from(name)).to eq 'crazy_name'
+    end
+
     it 'takes a maximum length into account' do
       name = 'Jan Paul Posma'
       max_length = 3

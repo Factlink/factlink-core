@@ -44,7 +44,7 @@ class UsernameGenerator
   # Adapted from slugify in ActiveSupport
   def slugify(string)
     # replace accented chars with their ascii equivalents
-    parameterized_string = transliterate(string)
+    parameterized_string = transliterate(string, '_')
     # Turn unwanted chars into the separator
     parameterized_string.gsub!(/\W+/, '_')
     # No more than one of the separator in a row.
