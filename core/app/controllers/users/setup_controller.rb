@@ -18,7 +18,9 @@ class Users::SetupController < ApplicationController
   def update
     authorize! :set_up, current_user
 
-    @user = interactor(:'accounts/setup', user: current_user, attribuutjes: params[:user])
+    @user = current_user
+    @user.set_up = true
+    @user.reset_password!(params[:user][:password].to_s, params[:user][:password_confirmation].to_s) # this saves the user
 
     if @user.changed?
       render 'users/setup/edit'

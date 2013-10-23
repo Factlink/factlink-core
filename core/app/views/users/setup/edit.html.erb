@@ -4,14 +4,6 @@
 
   <div class="setup-account-form">
     <div class="control-group">
-      <%= f.label :full_name, "Full name", class: "control-label" %>
-      <div class="controls">
-        <%= f.text_field :full_name, required: true %>
-        <%= possible_error_for_field(@user, :full_name) %>
-      </div>
-    </div>
-
-    <div class="control-group">
       <%= f.label :password, "New password", class: "control-label" %>
 
       <div class="controls">

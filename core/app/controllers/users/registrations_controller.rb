@@ -9,13 +9,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     resource.email    = params[:user][:email]
     resource.password = Devise.friendly_token # Random password
+    resource.generate_username!
 
     if /\A([-a-zA-Z0-9_]+)\Z/.match(params[:user][:registration_code])
       resource.registration_code = params[:user][:registration_code]
     end
 
-    if resource.valid_username_and_email? and resource.save validate: false
-      mp_track 'User: Reserved username', code: resource.registration_code
+    if resource.valid_full_name_and_email? and resource.save validate: false
+      mp_track 'User: Registered account', code: resource.registration_code
 
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
@@ -40,9 +41,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       the_errors = "Registration failed:<br>"
       error_hash = {}
-      resource.errors.each do |key, value|
-        the_errors << "#{value.to_s}<br>"
-        error_hash[key] = value
+      resource.errors.each do |attribute, message|
+        the_errors << "#{message.to_s}<br>"
+        error_hash[attribute] = resource.errors.full_message(attribute, message)
       end
 
       if request.format.js?

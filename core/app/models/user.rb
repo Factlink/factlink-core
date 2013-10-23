@@ -171,6 +171,12 @@ class User
         confirmation_token invitation_token
       )
     end
+
+    def valid_username?(username)
+      validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp}.map { |v| v.options[:with] }
+
+      not find_by(username: username) and validators.all? { |regex| regex.match(username) }
+    end
   end
 
   before_save do |user|
@@ -247,13 +253,19 @@ class User
     super new_name.strip
   end
 
-  def valid_username_and_email?
+  def valid_full_name_and_email?
     unless valid?
       errors.keys.each do |key|
-        errors.delete key unless key == :username or key == :email
+        errors.delete key unless key == :full_name or key == :email
       end
     end
     not errors.any?
+  end
+
+  def generate_username!
+    self.username = UsernameGenerator.new.generate_from full_name, USERNAME_MAX_LENGTH do |username|
+      self.class.valid_username?(username)
+    end
   end
 
   def serializable_hash(options={})
