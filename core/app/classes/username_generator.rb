@@ -25,7 +25,7 @@ class UsernameGenerator
     # Turn unwanted chars into the separator
     parameterized_string.gsub!(/\W+/, '_')
     # No more than one of the separator in a row.
-    parameterized_string.gsub!(/_{2,}/, '_')
+    parameterized_string.squeeze!('_')
     # Remove leading/trailing separator.
     parameterized_string.gsub!(/^_|_$/, '')
     # Lower case
