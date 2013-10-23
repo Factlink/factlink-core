@@ -13,7 +13,7 @@ describe SocialAccountsController do
         user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
 
         controller.request.env['omniauth.auth'] = omniauth_obj
-        get :service_callback, service: 'facebook'
+        get :service_callback, provider_name: 'facebook'
 
         expect(response.body).to match "eventName = 'signed_in'"
       end
@@ -24,7 +24,7 @@ describe SocialAccountsController do
         user = create :full_user
 
         controller.request.env['omniauth.auth'] = omniauth_obj
-        get :service_callback, service: 'facebook'
+        get :service_callback, provider_name: 'facebook'
 
         expect(response.body).to match "eventName = 'social_error'"
       end
@@ -40,7 +40,7 @@ describe SocialAccountsController do
         sign_in user
 
         controller.request.env['omniauth.auth'] = omniauth_obj
-        get :service_callback, service: 'facebook'
+        get :service_callback, provider_name: 'facebook'
 
         expect(response.body).to match "eventName = 'authorized'"
         expect(SocialAccount.first.omniauth_obj['uid']).to eq uid
@@ -56,7 +56,7 @@ describe SocialAccountsController do
         sign_in user
 
         controller.request.env['omniauth.auth'] = other_omniauth_obj
-        get :service_callback, service: 'facebook'
+        get :service_callback, provider_name: 'facebook'
 
         expect(response.body).to match "eventName = 'social_error'"
       end

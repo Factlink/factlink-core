@@ -124,6 +124,6 @@ class SocialAccountsController < ApplicationController
   end
 
   def provider_name
-    @provider_name ||= params[:service]
+    @provider_name ||= params[:provider_name]
   end
 end
