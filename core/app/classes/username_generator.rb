@@ -23,7 +23,7 @@ class UsernameGenerator
 
   def generate_username_with_suffix name, max_length, &block
     100.times do
-      suffix = '_' + rand(10*MAX_SUFFIX_LENGTH).to_s
+      suffix = '_' + rand(10**MAX_SUFFIX_LENGTH).to_s
       prefix = slugify name[0, max_length-suffix.size]
       username = prefix + suffix
       return username if yield(username)
