@@ -1,13 +1,15 @@
 class UsernameGenerator
   include ActiveSupport::Inflector
 
+  MAX_SUFFIX_LENGTH = 5
+
   def generate_from name, max_length=10000000
     username = slugify name[0, max_length]
     return username if !block_given? || yield(username)
 
-    prefix = slugify name[0, max_length-6]
-    suffix = rand.to_s[2..6]
-    username = prefix + '_' + suffix
+    suffix = '_' + rand(10*MAX_SUFFIX_LENGTH).to_s
+    prefix = slugify name[0, max_length-suffix.size]
+    username = prefix + suffix
     return username if yield(username)
 
     (0..100).each do

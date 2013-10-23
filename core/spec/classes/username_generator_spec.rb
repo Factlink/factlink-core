@@ -28,7 +28,7 @@ describe UsernameGenerator do
         username != 'jan_paul_posma'
       end
 
-      expect(result).to match /\Ajan_paul_posma_\d{5}\z/
+      expect(result).to match /\Ajan_paul_posma_\d+\z/
     end
 
     it 'takes into account the maximum length with the random number' do
@@ -39,7 +39,7 @@ describe UsernameGenerator do
         username != 'jan_paul_posma'
       end
 
-      expect(result).to match /\Ajan_paul_\d{5}\z/
+      expect(result).to match /\Ajan_paul_?p?o?s?_\d+\z/
     end
 
     it 'returns a random string until the username is valid' do
