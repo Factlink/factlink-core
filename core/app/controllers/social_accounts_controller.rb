@@ -7,7 +7,6 @@ class SocialAccountsController < ApplicationController
 
   def callback
     omniauth_obj = request.env['omniauth.auth']
-    @event_details = params[:provider_name]
 
     if user_signed_in?
       connect_provider params[:provider_name], omniauth_obj
@@ -72,6 +71,7 @@ class SocialAccountsController < ApplicationController
       current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
       flash[:notice] = "Succesfully connected."
       @event = 'authorized'
+      @event_details = provider_name
     else
       fail "Error connecting."
     end
@@ -90,6 +90,7 @@ class SocialAccountsController < ApplicationController
       @user = social_account.user
       sign_in @user
       @event = 'signed_in'
+      @event_details = provider_name
     else
       @event = 'social_error'
       @event_details = "No connected #{provider_name.capitalize} account found. "+
