@@ -175,7 +175,7 @@ class User
     def valid_username?(username)
       validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp}.map { |v| v.options[:with] }
 
-      validators.all? { |regex| regex.match(username) }
+      not find(username) and validators.all? { |regex| regex.match(username) }
     end
   end
 
