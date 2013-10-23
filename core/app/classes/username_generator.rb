@@ -12,7 +12,7 @@ class UsernameGenerator
     username = prefix + suffix
     return username if yield(username)
 
-    (0..100).each do
+    100.times do
       username = slugify SecureRandom.uuid[0, max_length]
       return username if yield(username)
     end
