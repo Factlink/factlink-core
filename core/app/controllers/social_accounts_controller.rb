@@ -96,10 +96,7 @@ class SocialAccountsController < ApplicationController
   end
 
   def parse_omniauth_env
-    omniauth = request.env['omniauth.auth']
-    fail 'Invalid omniauth object' unless omniauth['uid']
-
-    omniauth
+    request.env['omniauth.auth']
   end
 
   def provider_deauthorize provider_name, &block

@@ -6,6 +6,7 @@ class SocialAccount
   field :omniauth_obj, type: Hash
   validates_presence_of :provider_name
   validates_presence_of :omniauth_obj
+  validate :presence_of_uid
   validate :provider_matches_omniauth_provider
 
   belongs_to :user, index: true
@@ -48,6 +49,12 @@ class SocialAccount
   def provider_matches_omniauth_provider
     if provider_name != omniauth_obj['provider']
       errors.add :provider_name, 'does not match omniauth_obj provider'
+    end
+  end
+
+  def presence_of_uid
+    unless omniauth_obj['uid']
+      errors.add :omniauth_obj, 'does not contain uid'
     end
   end
 end

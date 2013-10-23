@@ -21,7 +21,16 @@ describe SocialAccount do
 
   describe '#provider_matches_omniauth_provider' do
     it 'validates the provider_name against the omniauth_obj' do
-      attributes = {provider_name: 'twitter', omniauth_obj: {'provider' => 'facebook'}}
+      attributes = {provider_name: 'twitter', omniauth_obj: {'uid' => '10', 'provider' => 'facebook'}}
+      social_account = SocialAccount.new attributes
+
+      expect(social_account).to_not be_valid
+    end
+  end
+
+  describe '#presence_of_uid' do
+    it 'checks that omniauth_obj contains uid' do
+      attributes = {provider_name: 'twitter', omniauth_obj: {'provider' => 'twitter'}}
       social_account = SocialAccount.new attributes
 
       expect(social_account).to_not be_valid
