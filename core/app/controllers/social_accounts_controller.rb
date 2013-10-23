@@ -20,10 +20,8 @@ class SocialAccountsController < ApplicationController
   def deauthorize
     authorize! :update, current_user
 
-    social_account = current_user.social_account(params[:provider_name])
-    fail "Already disconnected." unless social_account.persisted?
+    deauthorize_social_account current_user.social_account(params[:provider_name])
 
-    deauthorize_social_account social_account
   rescue Exception => error
     flash[:alert] = "Error disconnecting: #{error.message}"
   ensure
@@ -76,6 +74,8 @@ class SocialAccountsController < ApplicationController
   end
 
   def deauthorize_social_account social_account
+    fail "Already disconnected." unless social_account.persisted?
+
     case social_account.provider_name
     when 'facebook'
       deauthorize_facebook social_account
