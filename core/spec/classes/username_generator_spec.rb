@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UsernameGenerator do
   describe '#generate_from' do
     it 'transforms a name into a slug' do
-      name = 'Jan Paul Posma'
+      name = 'Jan   Paul   Posma'
 
       expect(subject.generate_from(name)).to eq 'jan_paul_posma'
     end
