@@ -4,7 +4,7 @@ class SocialAccountsController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
   def callback
-    omniauth_obj = parse_omniauth_env params[:provider_name]
+    omniauth_obj = parse_omniauth_env
     @provider_name = params[:provider_name]
 
     if user_signed_in?
@@ -95,9 +95,8 @@ class SocialAccountsController < ApplicationController
     end
   end
 
-  def parse_omniauth_env provider_name
+  def parse_omniauth_env
     omniauth = request.env['omniauth.auth']
-    fail "Wrong OAuth provider: #{omniauth['provider']}" if provider_name != omniauth['provider']
     fail 'Invalid omniauth object' unless omniauth['uid']
 
     omniauth
