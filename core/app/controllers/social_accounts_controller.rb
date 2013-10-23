@@ -3,46 +3,28 @@ require_relative 'application_controller'
 class SocialAccountsController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
-  def service_callback
-    omniauth_obj = parse_omniauth_env provider_name
+  layout 'social_account_popup'
+
+  def callback
+    omniauth_obj = request.env['omniauth.auth']
 
     if user_signed_in?
-      connect_provider provider_name, omniauth_obj
+      connect_provider params[:provider_name], omniauth_obj
     else
-      sign_in_through_provider provider_name, omniauth_obj
-    end
-
-    respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @provider_name}}}
+      sign_in_through_provider params[:provider_name], omniauth_obj
     end
   rescue Exception => error
-    @event = "social_error"
-    @error = error.message
-
-    flash[:alert] = @error
-
-    respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @error}}}
-    end
+    @event = { name: "social_error", details: error.message }
   end
 
-  def service_deauthorize
-    case provider_name
-    when 'facebook'
-      provider_deauthorize provider_name do |uid, token|
-        response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
-        if response.code != 200 and response.code != 400
-          fail "Facebook deauthorize failed: '#{response.body}'."
-        end
-      end
-    when 'twitter'
-      provider_deauthorize provider_name do
-        flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
-      end
-    else
-      fail "Wrong OAuth provider: #{omniauth['provider']}"
-    end
+  def deauthorize
+    authorize! :update, current_user
 
+    deauthorize_social_account current_user.social_account(params[:provider_name])
+
+  rescue Exception => error
+    flash[:alert] = "Error disconnecting: #{error.message}"
+  ensure
     redirect_to edit_user_path(current_user)
   end
 
@@ -50,12 +32,10 @@ class SocialAccountsController < ApplicationController
     if params[:error_description].blank?
       params[:error_description] ||= "unspecified error"
     end
-    @event = "social_error"
-    @error = "Authorization failed: #{params[:error_description]}."
 
-    respond_to do |format|
-      format.html { render :callback, { layout: 'social_popup', locals: {event_details: @error}}}
-    end
+    @event = { name: "social_error", details: "Authorization failed: #{params[:error_description]}." }
+
+    render :callback
   end
 
   private
@@ -68,7 +48,7 @@ class SocialAccountsController < ApplicationController
     elsif omniauth_obj
       current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
       flash[:notice] = "Succesfully connected."
-      @event = 'authorized'
+      @event = { name: 'authorized', details: provider_name }
     else
       fail "Error connecting."
     end
@@ -86,44 +66,36 @@ class SocialAccountsController < ApplicationController
     if social_account and social_account.user
       @user = social_account.user
       sign_in @user
-      @event = 'signed_in'
+      @event = { name: 'signed_in', details: provider_name }
     else
-      @event = 'social_error'
-      @provider_name = "No connected #{provider_name.capitalize} account found. "+
-                       "Please sign in with your credentials and connect your #{provider_name.capitalize} account."
+      @event = { name: 'social_error', details: "No connected #{provider_name.capitalize} account found. " +
+                       "Please sign in with your credentials and connect your #{provider_name.capitalize} account." }
     end
   end
 
-  def parse_omniauth_env provider_name
-    omniauth = request.env['omniauth.auth']
-    fail "Wrong OAuth provider: #{omniauth['provider']}" if provider_name != omniauth['provider']
-    fail 'Invalid omniauth object' unless omniauth['uid']
+  def deauthorize_social_account social_account
+    fail "Already disconnected." unless social_account.persisted?
 
-    omniauth
-  end
-
-  def provider_deauthorize provider_name, &block
-    authorize! :update, current_user
-
-    social_account = current_user.social_account(provider_name)
-
-    if social_account.persisted?
-      uid = social_account.omniauth_obj['uid']
-      token = social_account.omniauth_obj['credentials']['token']
-
-      begin
-        block.call uid, token
-        social_account.delete
-        flash[:notice] ||= "Succesfully disconnected."
-      rescue => e
-        flash[:alert] = "Error disconnecting. #{e.message}"
-      end
-    else
-      flash[:alert] = "Already disconnected."
+    case social_account.provider_name
+    when 'facebook'
+      deauthorize_facebook social_account
+    when 'twitter'
+      deauthorize_twitter social_account
     end
   end
 
-  def provider_name
-    @provider_name ||= params[:service]
+  def deauthorize_facebook social_account
+    uid = social_account.omniauth_obj['uid']
+    token = social_account.omniauth_obj['credentials']['token']
+    response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
+    fail response.body if response.code != 200 and response.code != 400
+
+    social_account.delete
+    flash[:notice] = "Succesfully disconnected."
+  end
+
+  def deauthorize_twitter social_account
+    social_account.delete
+    flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
   end
 end
