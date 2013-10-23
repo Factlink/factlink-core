@@ -27,7 +27,6 @@ json.activity do |json|
     json.evidence_url       friendly_fact_path(subject)
     json.fact_url           friendly_fact_path(object)
     json.target_url         friendly_fact_path(object)
-    json.type               supporting_or_weakening
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
     if showing_notifications
