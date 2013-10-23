@@ -30,14 +30,14 @@ class SocialAccountsController < ApplicationController
   def deauthorize
     case params[:provider_name]
     when 'facebook'
-      provider_deauthorize params[:provider_name] do |uid, token|
+      provider_deauthorize 'facebook' do |uid, token|
         response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
         if response.code != 200 and response.code != 400
           fail "Facebook deauthorize failed: '#{response.body}'."
         end
       end
     when 'twitter'
-      provider_deauthorize params[:provider_name] do
+      provider_deauthorize 'twitter' do
         flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
       end
     else
