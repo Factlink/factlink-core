@@ -12,10 +12,6 @@ module FactHelper
     FactUrl.new(dead_fact).friendly_fact_path
   end
 
-  def friendly_fact_with_opened_tab_url(fact, tab_type)
-    "#{friendly_fact_url(fact)}?tab=#{tab_type}"
-  end
-
   def friendly_fact_url(fact, max_slug_length = 1024)
     # Obsolete method
     dead_fact = Pavlov.query :'facts/get_dead', id: fact.id.to_s
