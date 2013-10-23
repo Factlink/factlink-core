@@ -28,10 +28,6 @@ class ApplicationController < ActionController::Base
 
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
         format.any  { fail exception }
-      elsif !current_user.agrees_tos
-        format.html { redirect_to tos_path }
-        format.json { render json: {error: "You did not agree to the Terms of Service.", code: 'tos'}, status: :forbidden }
-        format.any  { fail exception }
       else
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
         format.any  { fail exception }
@@ -60,8 +56,6 @@ class ApplicationController < ActionController::Base
       safe_return_to_path || feed_path(current_user.username)
     elsif user.active?
       start_the_tour_path
-    elsif can? :sign_tos, user
-      tos_path
     else
       setup_account_path
     end

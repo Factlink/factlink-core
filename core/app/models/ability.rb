@@ -11,10 +11,6 @@ class Ability
     user
   end
 
-  def agrees_tos?
-    signed_in? and user.agrees_tos
-  end
-
   def set_up?
     signed_in? and user.set_up
   end
@@ -26,7 +22,7 @@ class Ability
       ! /^home\/pages\/help/.match template
     end
 
-    if agrees_tos?
+    if signed_in?
       can :access, FactlinkWebapp
       can :show, String
     end
@@ -44,7 +40,6 @@ class Ability
     define_user_abilities
     define_user_favourites_abilities
     define_user_activities_abilities
-    define_tos_abilities
     define_sharing_abilities
   end
 
@@ -58,7 +53,7 @@ class Ability
   end
 
   def define_channel_abilities
-    return unless agrees_tos?
+    return unless signed_in?
     can :index, Channel
     can :read, Channel
     can :manage, Channel do |ch|
@@ -67,14 +62,14 @@ class Ability
   end
 
   def define_topic_abilities
-    return unless agrees_tos?
+    return unless signed_in?
 
     can :index, Topic
     can :show, Topic
   end
 
   def define_fact_abilities
-    return unless agrees_tos?
+    return unless signed_in?
 
     can :index, Fact
     can :read, Fact
@@ -87,7 +82,7 @@ class Ability
   end
 
   def define_fact_relation_abilities
-    return unless agrees_tos?
+    return unless signed_in?
 
     can :read, FactRelation
     can :opinionate, FactRelation
@@ -97,13 +92,13 @@ class Ability
   end
 
   def define_comment_abilities
-    return unless agrees_tos?
+    return unless signed_in?
 
     can :read, Comment
   end
 
   def define_sub_comment_abilities
-    return unless agrees_tos?
+    return unless signed_in?
 
     can :create, SubComment
     can :destroy, SubComment do |sub_comment|
@@ -112,15 +107,16 @@ class Ability
   end
 
   def define_user_abilities
-    can :read, user if signed_in?
+    return unless signed_in?
+
+    can :read, user
     can :set_up, user
 
-    if agrees_tos?
+    if set_up?
       if user.admin?
         can :access, AdminArea
         can :configure, FactlinkWebapp
         can :manage, User
-        cannot :sign_tos, User
         cannot :edit_settings, User
       end
 
@@ -140,14 +136,14 @@ class Ability
   end
 
   def define_user_favourites_abilities
-    return unless agrees_tos?
+    return unless signed_in?
 
     can :show_favourites, user
     can :edit_favourites, user
   end
 
   def define_user_activities_abilities
-    return unless agrees_tos?
+    return unless signed_in?
 
     can :index, Activity
     can :mark_activities_as_read, User do |u|
@@ -158,16 +154,8 @@ class Ability
     end
   end
 
-  def define_tos_abilities
-    can :read_tos, user
-
-    if set_up? and not agrees_tos?
-      can :sign_tos, user
-    end
-  end
-
   def define_sharing_abilities
-    return unless agrees_tos?
+    return unless signed_in?
 
     can :share, Fact
 

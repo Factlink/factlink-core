@@ -44,8 +44,6 @@
             <span class="label label-warning">unconfirmed</span>
           <% elsif (!user.set_up?) %>
             <span class="label label-warning">not set up</span>
-          <% elsif (!user.agrees_tos?) %>
-            <span class="label label-warning">not agreed tos</span>
           <% end %>
 
           <% if (user.suspended) %>
