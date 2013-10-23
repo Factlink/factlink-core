@@ -22,14 +22,11 @@ json.activity do |json|
 
   case action
   when "added_supporting_evidence", "added_weakening_evidence"
-    supporting_or_weakening = (action == "added_supporting_evidence") ? :supporting : :weakening
-
     json.action             :added
     json.evidence           subject.to_s
     json.evidence_url       friendly_fact_path(subject)
     json.fact_url           friendly_fact_path(object)
-    json.target_url         friendly_fact_with_opened_tab_path object, supporting_or_weakening
-    json.type               supporting_or_weakening
+    json.target_url         friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
     if showing_notifications
@@ -39,10 +36,8 @@ json.activity do |json|
     end
 
   when "created_comment"
-    supporting_or_weakening = (subject.type == "believes") ? :supporting : :weakening
-
     json.action             :created_comment
-    json.target_url         friendly_fact_with_opened_tab_path object, supporting_or_weakening
+    json.target_url         friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
     if showing_notifications
@@ -52,10 +47,8 @@ json.activity do |json|
     end
 
   when "created_sub_comment"
-    supporting_or_weakening = subject.type
-
     json.action       :created_sub_comment
-    json.target_url   friendly_fact_with_opened_tab_path object, supporting_or_weakening
+    json.target_url   friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
     if showing_notifications

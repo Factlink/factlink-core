@@ -24,8 +24,7 @@
       "evidence": "Fact 4",
       "evidence_url": "/fact-4/f/2",
       "fact_url": "/fact-3/f/1",
-      "target_url": "/fact-3/f/1?tab=supporting",
-      "type": "supporting",
+      "target_url": "/fact-3/f/1",
       "fact_displaystring": "Fact 3",
       "fact": "Fact 3"
     },

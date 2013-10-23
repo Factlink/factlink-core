@@ -21,7 +21,7 @@
     "id": "<STRIPPED>",
     "activity": {
       "action": "created_comment",
-      "target_url": "/fact-7/f/1?tab=supporting",
+      "target_url": "/fact-7/f/1",
       "fact_displaystring": "Fact 7",
       "fact": "Fact 7"
     },
