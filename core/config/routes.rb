@@ -200,8 +200,6 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get  "/p/tos"     => "tos#show",        as: "tos"
-
   scope "/p/tour" do
     get 'setup-account' => 'users/setup#edit', as: 'setup_account'
     put 'setup-account' => 'users/setup#update'
