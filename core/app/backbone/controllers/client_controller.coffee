@@ -31,6 +31,7 @@ window.ClientController =
       csrf_token: params.csrf_token
       guided: FactlinkApp.guided
     factsNewView.on 'render', parent.onModalReady
-    factsNewView.on 'factCreated', (fact) ->  parent.highlightLastCreatedFactlink(fact.id, params.fact)
+    factsNewView.on 'factCreated', (fact) ->
+      parent.highlightLastCreatedFactlink(fact.id, params.fact)
     clientModal.mainRegion.show factsNewView
 
