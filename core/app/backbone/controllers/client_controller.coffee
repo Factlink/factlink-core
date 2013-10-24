@@ -31,16 +31,16 @@ window.ClientController =
 
     factsNewView = new FactsNewView
       layout: 'client'
-      fact_text: params['fact']
-      title: params['title']
-      url: params['url']
-      csrf_token: params['csrf_token']
+      fact_text: params.fact
+      title: params.title
+      url: params.url
+      csrf_token: params.csrf_token
       guided: FactlinkApp.guided
 
     factsNewView.on 'render', parent.onModalReady
 
     factsNewView.on 'factCreated', (fact) ->
-      parent.highlightLastCreatedFactlink(fact.id, params['fact'])
+      parent.highlightLastCreatedFactlink(fact.id, params.fact)
 
     clientModal.mainRegion.show factsNewView
 
