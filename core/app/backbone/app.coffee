@@ -24,6 +24,7 @@ class FactlinkAppClass extends Backbone.Marionette.Application
     @modal = true
     @onClientApp = true
 
+    parent.remote.setFeatureToggles Factlink.Global.can_haz
     @start()
 
   isCurrentUser: (user) ->
