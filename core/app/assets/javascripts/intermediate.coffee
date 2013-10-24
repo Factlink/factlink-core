@@ -55,7 +55,7 @@ showUrl = (url, successFn) ->
 loadUrl = (url)->
   backbone = showFrame.contentWindow.Backbone
   history = backbone?.history
-  if history? and backbone.History.started
+  if history && backbone.History.started
     history.loadUrl url
   else
     showFrame.src = url
