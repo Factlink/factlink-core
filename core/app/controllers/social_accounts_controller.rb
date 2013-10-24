@@ -141,6 +141,7 @@ class SocialAccountsController < ApplicationController
     user.password_confirmation = params[:user][:password]
     user.full_name = social_account.name
     user.generate_username!
+    user.set_up = true
 
     if user.save
       user.social_accounts.push social_account

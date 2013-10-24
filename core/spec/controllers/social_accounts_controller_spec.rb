@@ -115,8 +115,11 @@ describe SocialAccountsController do
         post :sign_up_or_in, user: {email: email, password: password, social_account_id: twitter_account.id}
 
         expect(response.body).to match "eventName = 'signed_in'"
-        expect(User.first.name).to eq name
-        expect(User.first.social_account(:twitter).uid).to eq twitter_account.uid
+
+        created_user = User.first
+        expect(created_user.name).to eq name
+        expect(created_user.social_account(:twitter).uid).to eq twitter_account.uid
+        expect(created_user).to be_set_up
       end
 
       it 'shows an error when some field is left open' do
