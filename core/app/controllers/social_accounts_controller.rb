@@ -77,15 +77,11 @@ class SocialAccountsController < ApplicationController
       @event = { name: 'signed_in' }
     else
       social_account.delete if social_account
-      new_social_account(provider_name, omniauth_obj)
+      @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj
+      @user = User.new
+
+      render :sign_up_or_in
     end
-  end
-
-  def new_social_account provider_name, omniauth_obj
-    @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj
-    @user = User.new
-
-    render :sign_up_or_in
   end
 
   def deauthorize_social_account social_account
