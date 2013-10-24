@@ -25,8 +25,8 @@ module BrowserHelper
   end
 
   def show_supported_browser_warning
-    controller_without_warnings = ["tour", "tos"].include? controller_name
-    return false if controller_without_warnings
+    # no unfriendly warnings in the tour
+    return false if controller_name == "tour"
 
     current_user && browser_supported? && !browser_preferred?
   end

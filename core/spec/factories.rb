@@ -18,10 +18,6 @@ FactoryGirl.define do
     password '123hoi'
     password_confirmation '123hoi'
 
-    trait :agrees_tos do
-      agrees_tos true
-    end
-
     trait :confirmed do
       confirmed_at DateTime.now
     end
@@ -45,7 +41,6 @@ FactoryGirl.define do
 
     factory :full_user, traits: [
       :set_up,
-      :agrees_tos,
       :seen_the_tour
     ]
   end
