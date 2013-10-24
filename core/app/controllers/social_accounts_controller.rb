@@ -115,7 +115,7 @@ class SocialAccountsController < ApplicationController
   end
 
   def sign_in_and_connect_existing_user user, social_account
-    return false if user.email.blank?
+    return false unless user.email?
     return false unless User.find_by(email: user.email)
 
     params[:user][:login] = user.email
