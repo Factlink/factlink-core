@@ -62,9 +62,10 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
 
   showFact: (slug, fact_id, params={})->
-    @showStream() unless FactlinkApp.mainRegion.currentView?
-
     fact = new Fact id: fact_id
     fact.fetch
-      success: ->
-        FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact
+      success: -> FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact
+
+    setTimeout ->
+      @showStream() unless FactlinkApp.mainRegion.currentView?
+    , 1000
