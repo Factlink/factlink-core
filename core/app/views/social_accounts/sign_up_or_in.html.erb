@@ -1,19 +1,34 @@
 <% content_for :social_account_popup_content do %>
   <h1>Create your Factlink account</h1>
 
-  <p>
-    (If you already have an account, fill in your details to connect with <%= @social_account.provider_name.capitalize %>.)
-  </p>
-
-  <%= form_for(User.new, as: :user, url: social_sign_up_or_in_path) do |f| %>
+  <%= form_for(@user, as: :user, url: social_sign_up_or_in_path, html: { class: "form-horizontal" }) do |f| %>
 
     <%= f.hidden_field :social_account_id, value: @social_account.id %>
 
-    <%= f.text_field :email, placeholder: "Email address" %>
-    <%= f.password_field :password, placeholder: "Password" %>
+    <div class="control-group">
+      (If you already have an account, fill in your details to connect with <%= @social_account.provider_name.capitalize %>.)
+    </div>
 
+    <div class="control-group">
+      <%= f.label :email, "Email address", class: "control-label" %>
 
-    <%= f.submit "Continue", class: "button", 'data-disable-with' => "Submitting..." %>
+      <div class="controls">
+        <%= f.text_field :email %>
+        <%= possible_error_for_field(@user, :email) %>
+      </div>
+    </div>
 
+    <div class="control-group">
+      <%= f.label :password, "Password", class: "control-label" %>
+
+      <div class="controls">
+        <%= f.text_field :password %>
+        <%= possible_error_for_field(@user, :password) %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "Continue", class: "button", 'data-disable-with' => "Submitting..." %>
+    </div>
   <% end %>
 <% end %>

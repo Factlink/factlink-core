@@ -38,6 +38,8 @@ class SocialAccountsController < ApplicationController
 
   def sign_up_or_in
     @social_account = SocialAccount.find(params[:user][:social_account_id])
+    @user = User.new params[:user]
+    @user.valid?
   end
 
   private
@@ -77,6 +79,8 @@ class SocialAccountsController < ApplicationController
   def new_social_account provider_name, omniauth_obj
     @social_account = SocialAccount.new provider_name: provider_name, omniauth_obj: omniauth_obj
     @social_account.save!
+
+    @user = User.new
 
     render :sign_up_or_in
   end
