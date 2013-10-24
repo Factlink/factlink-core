@@ -66,9 +66,15 @@ class SocialAccountsController < ApplicationController
       sign_in @user
       @event = { name: 'signed_in', details: provider_name }
     else
-      @event = { name: 'social_error', details: "No connected #{provider_name.capitalize} account found. " +
-                       "Please sign in with your credentials and connect your #{provider_name.capitalize} account." }
+      new_social_account(provider_name, omniauth_obj)
     end
+  end
+
+  def new_social_account provider_name, omniauth_obj
+    @social_account = SocialAccount.new provider_name: provider_name, omniauth_obj: omniauth_obj
+    @social_account.save!
+
+    render :sign_up_or_in
   end
 
   def deauthorize_social_account social_account

@@ -18,7 +18,7 @@ describe SocialAccountsController do
         expect(response.body).to match "eventName = 'signed_in'"
       end
 
-      it 'gives an error when no user can be found' do
+      it 'gives an registration form when no user can be found' do
         provider_name = 'facebook'
         omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
         user = create :full_user
@@ -26,7 +26,7 @@ describe SocialAccountsController do
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: 'facebook'
 
-        expect(response.body).to match "eventName = 'social_error'"
+        expect(response.body).to match "Create your Factlink account"
       end
     end
 

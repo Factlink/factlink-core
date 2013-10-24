@@ -1,0 +1,19 @@
+<% content_for :social_account_popup_content do %>
+  <h1>Create your Factlink account</h1>
+
+  <p>
+    (If you already have an account, fill in your details to connect with <%= @social_account.provider_name.capitalize %>.)
+  </p>
+
+  <%= form_for(User.new, as: :user) do |f| %>
+
+    <%= f.hidden_field :social_account_id, value: @social_account.id %>
+
+    <%= f.text_field :email, placeholder: "Email address" %>
+    <%= f.password_field :password, placeholder: "Password" %>
+
+
+    <%= f.submit "Continue", class: "button", 'data-disable-with' => "Submitting..." %>
+
+  <% end %>
+<% end %>
