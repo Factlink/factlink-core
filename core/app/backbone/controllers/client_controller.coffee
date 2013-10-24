@@ -44,7 +44,7 @@ window.ClientController =
       parent.$(parent.document).trigger "modalready"
 
     factsNewView.on 'factCreated', (fact) ->
-      parent.triggerHighlightNewFactlink(fact.id, params['fact'])
+      parent.highlightLastCreatedFactlink(fact.id, params['fact'])
 
     clientModal.mainRegion.show factsNewView
 

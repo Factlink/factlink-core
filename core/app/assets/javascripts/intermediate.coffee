@@ -35,7 +35,7 @@ window.remote = new xdm.Rpc {},
           showFrame.contentWindow.position top, left
       return # don't return anything unless you have a callback on the other site of easyXdm
 
-window.triggerHighlightNewFactlink = (id, text) ->
+window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
     remote.highlightNewFactlink(text, id)
 
