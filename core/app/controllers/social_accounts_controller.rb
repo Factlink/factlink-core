@@ -43,7 +43,7 @@ class SocialAccountsController < ApplicationController
     @user.email = params[:user][:email]
     @user.password = params[:user][:password]
 
-    sign_in_and_connect_existing_user(@user) or sign_up_new_user(@user)
+    sign_in_and_connect_existing_user(@user, @social_account) or sign_up_new_user(@user, @social_account)
   end
 
   private
@@ -115,7 +115,7 @@ class SocialAccountsController < ApplicationController
     flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
   end
 
-  def sign_in_and_connect_existing_user user
+  def sign_in_and_connect_existing_user user, social_account
     return false if user.email.blank?
     return false unless User.find_by(email: user.email)
 
@@ -126,7 +126,7 @@ class SocialAccountsController < ApplicationController
     authenticated_user = warden.authenticate(scope: :user)
 
     if authenticated_user
-      authenticated_user.social_accounts.push @social_account
+      authenticated_user.social_accounts.push social_account
       sign_in(authenticated_user)
 
       @event = { name: 'signed_in' }
@@ -138,13 +138,13 @@ class SocialAccountsController < ApplicationController
     true
   end
 
-  def sign_up_new_user user
+  def sign_up_new_user user, social_account
     user.password_confirmation = params[:user][:password]
-    user.full_name = @social_account.name
+    user.full_name = social_account.name
     user.generate_username!
 
     if user.save
-      user.social_accounts.push @social_account
+      user.social_accounts.push social_account
 
       sign_in(user)
       @event = { name: 'signed_in' }
