@@ -185,7 +185,7 @@ describe Ability do
   end
 
   describe "accessing factlink" do
-    it "should be allowed to users who signed the nda" do
+    it "should be allowed to signed in, set up users" do
       admin.should           be_able_to :access, Ability::FactlinkWebapp
       subject.should         be_able_to :access, Ability::FactlinkWebapp
       non_set_up.should_not  be_able_to :access, Ability::FactlinkWebapp
