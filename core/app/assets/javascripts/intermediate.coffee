@@ -39,13 +39,11 @@ window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
     remote.highlightNewFactlink(text, id)
 
-window.onModalReady = ->
-
 showUrl = (url, successFn) ->
-  shouldCallCallback = $.isFunction(successFn)
-  window.onModalReady = ->
-    if shouldCallCallback
-      shouldCallCallback = false
+  window.onModalReady = $.noop
+  if $.isFunction(successFn)
+    window.onModalReady = ->
+      window.onModalReady = $.noop
       successFn()
 
   loadUrl url
