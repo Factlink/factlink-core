@@ -22,8 +22,6 @@ window.ClientController =
     clientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show clientModal
 
-    csrf_token = $('meta[name=csrf-token]').attr('content')
-
     FactlinkApp.guided = params.guided == 'true'
 
     if params.fact
