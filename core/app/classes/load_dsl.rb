@@ -80,8 +80,6 @@ class LoadDsl
       :password => password,
       :password_confirmation => password,
       :full_name => full_name || username )
-    u.agrees_tos = true
-    u.agreed_tos_on = DateTime.now
     u.email = email
     u.confirmed_at = DateTime.now
     u.save
