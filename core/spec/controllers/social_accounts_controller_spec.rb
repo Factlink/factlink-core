@@ -5,28 +5,44 @@ describe SocialAccountsController do
 
   describe :callback do
     context 'not yet signed in' do
-      it 'signs in when a social account has been found' do
-        provider_name = 'facebook'
-        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
-        user = create :full_user
+      context 'connected social account has been found' do
+        it 'signs in' do
+          provider_name = 'facebook'
+          omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+          user = create :full_user
 
-        user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
+          user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
 
-        controller.request.env['omniauth.auth'] = omniauth_obj
-        get :callback, provider_name: 'facebook'
+          controller.request.env['omniauth.auth'] = omniauth_obj
+          get :callback, provider_name: 'facebook'
 
-        expect(response.body).to match "eventName = 'signed_in'"
+          expect(response.body).to match "eventName = 'signed_in'"
+        end
       end
 
-      it 'gives an registration form when no user can be found' do
-        provider_name = 'facebook'
-        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
-        user = create :full_user
+      context 'no connected social account has been found' do
+        it 'gives an registration form' do
+          provider_name = 'facebook'
+          omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+          user = create :full_user
 
-        controller.request.env['omniauth.auth'] = omniauth_obj
-        get :callback, provider_name: 'facebook'
+          controller.request.env['omniauth.auth'] = omniauth_obj
+          get :callback, provider_name: 'facebook'
 
-        expect(response.body).to match "Create your Factlink account"
+          expect(response.body).to match "Create your Factlink account"
+        end
+
+        it 'creates a social account without a user' do
+          provider_name = 'facebook'
+          uid = '10'
+          omniauth_obj = {'provider' => provider_name, 'uid' => uid}
+          user = create :full_user
+
+          controller.request.env['omniauth.auth'] = omniauth_obj
+          get :callback, provider_name: 'facebook'
+
+          expect(SocialAccount.first.uid).to eq uid
+        end
       end
     end
 
