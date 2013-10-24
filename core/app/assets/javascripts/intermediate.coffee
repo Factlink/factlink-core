@@ -56,8 +56,9 @@ loadUrl = (url)->
   if history && backbone.History.started
     history.loadUrl url
   else
-    showFrame.onload = window.onModalReady
     showFrame.src = url
+
+showFrame.onload = -> window.onModalReady()
 
 # initialize the page, so we are ready to render new pages fast
 showUrl '/client/blank', -> window.remote.trigger 'intermediateFrameReady'
