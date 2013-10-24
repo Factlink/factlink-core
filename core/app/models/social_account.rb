@@ -8,6 +8,7 @@ class SocialAccount
   validates_presence_of :omniauth_obj
   validate :presence_of_uid
   validate :provider_matches_omniauth_provider
+  validate :uniqueness_of_uid
 
   belongs_to :user, index: true
 
@@ -59,6 +60,14 @@ class SocialAccount
   def presence_of_uid
     unless omniauth_obj['uid']
       errors.add :omniauth_obj, 'does not contain uid'
+    end
+  end
+
+  def uniqueness_of_uid
+    other_social_account = self.class.find_by_provider_and_uid(provider_name, uid)
+
+    if other_social_account and other_social_account != self
+      errors.add :omniauth_obj, 'account already exists'
     end
   end
 end
