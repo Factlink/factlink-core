@@ -188,6 +188,7 @@ describe Ability do
     it "should be allowed to users who signed the nda" do
       admin.should           be_able_to :access, Ability::FactlinkWebapp
       subject.should         be_able_to :access, Ability::FactlinkWebapp
+      non_set_up.should_not  be_able_to :access, Ability::FactlinkWebapp
       anonymous.should_not   be_able_to :access, Ability::FactlinkWebapp
     end
   end

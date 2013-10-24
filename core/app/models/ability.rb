@@ -22,7 +22,7 @@ class Ability
       ! /^home\/pages\/help/.match template
     end
 
-    if signed_in?
+    if set_up?
       can :access, FactlinkWebapp
       can :show, String
     end
