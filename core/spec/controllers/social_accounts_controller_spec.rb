@@ -98,7 +98,7 @@ describe SocialAccountsController do
 
       post :sign_up_or_in, user: {social_account_id: twitter_account.id}
 
-      expect(response.body).to match 'fill in your details to connect with Twitter'
+      expect(response.body).to match 'fill in your credentials to connect it with Twitter'
     end
 
     context 'account does not exist' do
