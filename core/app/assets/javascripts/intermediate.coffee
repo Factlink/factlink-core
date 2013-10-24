@@ -40,12 +40,11 @@ window.triggerHighlightNewFactlink = (id, text) ->
     remote.highlightNewFactlink(text, id)
 
 showUrl = (url, successFn) ->
-  successCalled = false
+  shouldCallCallback = $.isFunction(successFn)
   onLoadSuccess = ->
-    if !successCalled
-      successCalled = true
-      if $.isFunction(successFn)
-        successFn()
+    if shouldCallCallback
+      shouldCallCallback = false
+      successFn()
 
   showFrame.onload = onLoadSuccess
   # Somehow only lower case letters seem to work for those events --mark
