@@ -43,33 +43,18 @@ class SocialAccountsController < ApplicationController
     @user.email = params[:user][:email]
     @user.password = params[:user][:password]
 
-    if not @user.email.blank? and User.find_by(email: @user.email)
-      params[:user][:login] = @user.email
-      allow_params_authentication!
+    return if sign_in_and_connect_existing_user(@user)
 
-      found_user = warden.authenticate(scope: :user)
+    @user.password_confirmation = params[:user][:password]
+    @user.full_name = @social_account.name
+    @user.generate_username!
 
-      if found_user
-        found_user.social_accounts.push @social_account
-        sign_in(found_user)
+    if @user.save
+      @user.social_accounts.push @social_account
 
-        @event = { name: 'signed_in' }
-        render :callback
-      else
-        @user.errors.add(:password, 'incorrect password for existing account')
-      end
-    else
-      @user.password_confirmation = params[:user][:password]
-      @user.full_name = @social_account.name
-      @user.generate_username!
-
-      if @user.save
-        @user.social_accounts.push @social_account
-
-        sign_in(@user)
-        @event = { name: 'signed_in' }
-        render :callback
-      end
+      sign_in(@user)
+      @event = { name: 'signed_in' }
+      render :callback
     end
   end
 
@@ -140,5 +125,28 @@ class SocialAccountsController < ApplicationController
   def deauthorize_twitter social_account
     social_account.delete
     flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
+  end
+
+  def sign_in_and_connect_existing_user user
+    return false if user.email.blank?
+    return false unless User.find_by(email: user.email)
+
+    params[:user][:login] = user.email
+    params[:user][:password] = user.password
+    allow_params_authentication!
+
+    authenticated_user = warden.authenticate(scope: :user)
+
+    if authenticated_user
+      authenticated_user.social_accounts.push @social_account
+      sign_in(authenticated_user)
+
+      @event = { name: 'signed_in' }
+      render :callback
+    else
+      user.errors.add(:password, 'incorrect password for existing account')
+    end
+
+    true
   end
 end
