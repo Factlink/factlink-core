@@ -39,16 +39,15 @@ window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
     remote.highlightNewFactlink(text, id)
 
+window.onModalReady = ->
+
 showUrl = (url, successFn) ->
   shouldCallCallback = $.isFunction(successFn)
-  onLoadSuccess = ->
+  window.onModalReady = ->
     if shouldCallCallback
       shouldCallCallback = false
       successFn()
 
-  showFrame.onload = onLoadSuccess
-  # Somehow only lower case letters seem to work for those events --mark
-  $(document).on "modalready", onLoadSuccess
   loadUrl url
   showFrame.className = "overlay"
 
@@ -58,6 +57,7 @@ loadUrl = (url)->
   if history && backbone.History.started
     history.loadUrl url
   else
+    showFrame.onload = window.onModalReady
     showFrame.src = url
 
 # initialize the page, so we are ready to render new pages fast

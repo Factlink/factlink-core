@@ -5,17 +5,14 @@ window.ClientController =
       parent.remote.hide()
       parent.remote.stopHighlightingFactlink fact_id
 
-
     fact.fetch success: ->
       newClientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show newClientModal
 
       view = new DiscussionView model: fact
-      view.on 'render', ->
-        parent.$(parent.document).trigger 'modalready'
+      view.on 'render', parent.onModalReady
 
       newClientModal.mainRegion.show view
-
 
   showNewFact: (params={}) ->
     unless window.currentUser?
@@ -40,8 +37,7 @@ window.ClientController =
       csrf_token: params['csrf_token']
       guided: FactlinkApp.guided
 
-    factsNewView.on 'render', ->
-      parent.$(parent.document).trigger "modalready"
+    factsNewView.on 'render', parent.onModalReady
 
     factsNewView.on 'factCreated', (fact) ->
       parent.highlightLastCreatedFactlink(fact.id, params['fact'])
