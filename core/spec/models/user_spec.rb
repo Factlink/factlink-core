@@ -158,7 +158,7 @@ describe User do
 
   describe 'scopes' do
     describe ".active" do
-      it "only returns set up, and TOS-signed users" do
+      it "only returns set up users" do
         inactive_user = create :user
         active_user = create :user, :set_up
 
@@ -177,7 +177,7 @@ describe User do
     end
 
     describe ".seen_the_tour" do
-      it "only returns set up, TOS-signed users that have seen the tour" do
+      it "only returns set up users that have seen the tour" do
         inactive_user = create :user
         active_user = create :user, :set_up
         seen_the_tour_user = create :user, :set_up, :seen_the_tour
