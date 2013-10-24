@@ -52,13 +52,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if seen_the_tour(user)
-      safe_return_to_path || feed_path(current_user.username)
-    elsif user.active?
-      start_the_tour_path
-    else
-      setup_account_path
-    end
+    return setup_account_path unless user.setup?
+    return start_the_tour_path unless seen_the_tour(user)
+
+    safe_return_to_path || feed_path(current_user.username)
   end
 
   def safe_return_to_path
