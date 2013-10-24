@@ -42,7 +42,7 @@ class SocialAccountsController < ApplicationController
     email = params[:user][:email]
     password = params[:user][:password]
 
-    sign_in_and_connect_existing_user(email, password) or
+    @user = sign_in_and_connect_existing_user(email, password) ||
       sign_up_new_user(email, password, @social_account.name)
 
     if @user.errors.empty?
@@ -123,20 +123,19 @@ class SocialAccountsController < ApplicationController
     return if email.blank?
     return unless User.find_by(email: email)
 
-    @user = authenticate_with_warden(email, password)
+    user_authenticated_with_warden(email, password) ||
+      user_with_wrong_password(email)
+  end
 
-    unless @user
-      @user = User.new
-      @user.email = email
-      @user.password = password
-      @user.errors.add(:password, 'incorrect password for existing account')
-    end
-
-    true
+  def user_with_wrong_password email
+    user = User.new
+    user.email = email
+    user.errors.add(:password, 'incorrect password for existing account')
+    user
   end
 
   # TODO: iets van een comment
-  def authenticate_with_warden email, password
+  def user_authenticated_with_warden email, password
     # TODO: heen en terug?
     params[:user][:login] = email
     params[:user][:password] = password
@@ -146,14 +145,16 @@ class SocialAccountsController < ApplicationController
   end
 
   def sign_up_new_user email, password, full_name
-    @user = User.new
-    @user.email = email
-    @user.password = password
-    @user.password_confirmation = params[:user][:password]
-    @user.full_name = full_name
-    @user.generate_username!
-    @user.set_up = true
+    user = User.new
+    user.email = email
+    user.password = password
+    user.password_confirmation = password
+    user.full_name = full_name
+    user.generate_username!
+    user.set_up = true
 
-    @user.save
+    user.save
+
+    user
   end
 end
