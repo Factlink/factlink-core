@@ -26,7 +26,7 @@ class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
   templateHelpers: ->
     query = @options.query
 
-    highlightedTitle: -> highlightTextInTextAsHtml(query, @displaystring)
+    highlighted_title: -> highlightTextInTextAsHtml(query, @displaystring)
 
   scrollIntoView: -> scrollIntoViewWithinContainer @$el, @$el.parents('.auto-complete-search-list')
 
