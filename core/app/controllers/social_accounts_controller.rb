@@ -43,19 +43,7 @@ class SocialAccountsController < ApplicationController
     @user.email = params[:user][:email]
     @user.password = params[:user][:password]
 
-    return if sign_in_and_connect_existing_user(@user)
-
-    @user.password_confirmation = params[:user][:password]
-    @user.full_name = @social_account.name
-    @user.generate_username!
-
-    if @user.save
-      @user.social_accounts.push @social_account
-
-      sign_in(@user)
-      @event = { name: 'signed_in' }
-      render :callback
-    end
+    sign_in_and_connect_existing_user(@user) or sign_up_new_user(@user)
   end
 
   private
@@ -148,5 +136,19 @@ class SocialAccountsController < ApplicationController
     end
 
     true
+  end
+
+  def sign_up_new_user user
+    user.password_confirmation = params[:user][:password]
+    user.full_name = @social_account.name
+    user.generate_username!
+
+    if user.save
+      user.social_accounts.push @social_account
+
+      sign_in(user)
+      @event = { name: 'signed_in' }
+      render :callback
+    end
   end
 end
