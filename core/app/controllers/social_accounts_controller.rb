@@ -38,8 +38,29 @@ class SocialAccountsController < ApplicationController
 
   def sign_up_or_in
     @social_account = SocialAccount.find(params[:user][:social_account_id])
-    @user = User.new params[:user]
-    @user.valid?
+
+    @user = User.new
+    @user.email = params[:user][:email]
+    @user.password = params[:user][:password]
+
+    if User.find_by(email: @user.email)
+      params[:user][:login] = @user.email
+      allow_params_authentication!
+
+      found_user = warden.authenticate(scope: :user)
+
+      if found_user
+        @social_account.update_attributes!(user: found_user)
+        sign_in(found_user)
+
+        @event = { name: 'signed_in' }
+        render :callback
+      else
+        @user.errors.add(:password, 'incorrect password for existing account')
+      end
+    else
+      @user.valid?
+    end
   end
 
   private
@@ -70,7 +91,7 @@ class SocialAccountsController < ApplicationController
     if social_account and social_account.user
       @user = social_account.user
       sign_in @user
-      @event = { name: 'signed_in', details: provider_name }
+      @event = { name: 'signed_in' }
     else
       new_social_account(provider_name, omniauth_obj)
     end

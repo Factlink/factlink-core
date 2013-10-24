@@ -71,5 +71,32 @@ describe SocialAccountsController do
 
       expect(response.body).to match 'fill in your details to connect with Twitter'
     end
+
+    context 'account already exists' do
+      it 'connects the social account and signs in' do
+        email = 'email@example.org'
+        password = '123hoi'
+        user = create :full_user, email: email, password: password
+        twitter_account = create :social_account, :twitter
+
+        post :sign_up_or_in, user: {email: email, password: password, social_account_id: twitter_account.id}
+
+        user.reload
+        expect(user.social_account(:twitter).uid).to eq twitter_account.uid
+
+        expect(response.body).to match "eventName = 'signed_in'"
+      end
+
+      it 'shows an error if the password is incorrect' do
+        email = 'email@example.org'
+        password = '123hoi'
+        user = create :full_user, email: email, password: password
+        twitter_account = create :social_account, :twitter
+
+        post :sign_up_or_in, user: {email: email, password: 'wrong', social_account_id: twitter_account.id}
+
+        expect(response.body).to match "incorrect password for existing account"
+      end
+    end
   end
 end
