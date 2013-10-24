@@ -1,8 +1,6 @@
 require_relative 'application_controller'
 
 class SocialAccountsController < ApplicationController
-  # Got some inspiration from: http://www.communityguides.eu/articles/16
-
   layout 'social_account_popup'
 
   def callback
