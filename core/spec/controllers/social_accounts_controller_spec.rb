@@ -62,4 +62,14 @@ describe SocialAccountsController do
       end
     end
   end
+
+  describe :sign_up_or_in do
+    it 'should a form containing the provider name' do
+      twitter_account = create :social_account, :twitter
+
+      post :sign_up_or_in, user: {social_account_id: twitter_account.id}
+
+      expect(response.body).to match 'fill in your details to connect with Twitter'
+    end
+  end
 end

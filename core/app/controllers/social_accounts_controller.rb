@@ -36,6 +36,10 @@ class SocialAccountsController < ApplicationController
     render :callback
   end
 
+  def sign_up_or_in
+    @social_account = SocialAccount.find(params[:user][:social_account_id])
+  end
+
   private
 
   def connect_provider provider_name, omniauth_obj
