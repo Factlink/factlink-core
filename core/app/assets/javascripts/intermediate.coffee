@@ -42,11 +42,12 @@ window.remote = new xdm.Rpc {},
       return # don't return anything unless you have a callback on the other site of easyXdm
 
 showUrl = (url, successFn) ->
-  successCalled = 0
+  successCalled = false
   onLoadSuccess = ->
-    unless successCalled
-      successCalled++
-      successFn()  if $.isFunction(successFn)
+    if !successCalled
+      successCalled = true
+      if $.isFunction(successFn)
+        successFn()
 
   showFrame.onload = onLoadSuccess
   # Somehow only lower case letters seem to work for those events --mark
