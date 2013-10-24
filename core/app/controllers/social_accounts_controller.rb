@@ -4,13 +4,13 @@ class SocialAccountsController < ApplicationController
   layout 'social_account_popup'
 
   def callback
-    omniauth_obj = request.env['omniauth.auth']
+    connect_provider params[:provider_name], request.env['omniauth.auth']
+  rescue Exception => error
+    @event = { name: "social_error", details: error.message }
+  end
 
-    if user_signed_in?
-      connect_provider params[:provider_name], omniauth_obj
-    else
-      sign_in_through_provider params[:provider_name], omniauth_obj
-    end
+  def callback_sign_in
+    sign_in_through_provider params[:provider_name], request.env['omniauth.auth']
   rescue Exception => error
     @event = { name: "social_error", details: error.message }
   end
@@ -84,6 +84,8 @@ class SocialAccountsController < ApplicationController
       @user = social_account.user
       sign_in @user
       @event = { name: 'signed_in' }
+
+      render :callback
     else
       social_account.delete if social_account
       @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj

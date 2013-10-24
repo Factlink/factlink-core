@@ -4,90 +4,88 @@ describe SocialAccountsController do
   render_views
 
   describe :callback do
-    context 'not yet signed in' do
-      context 'connected social account has been found' do
-        it 'signs in' do
-          provider_name = 'facebook'
-          omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
-          user = create :full_user
+    it 'connects the social account' do
+      provider_name = 'facebook'
+      uid = '10'
+      omniauth_obj = {'provider' => provider_name, 'uid' => uid}
+      user = create :full_user
 
-          user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
+      sign_in user
 
-          controller.request.env['omniauth.auth'] = omniauth_obj
-          get :callback, provider_name: 'facebook'
+      controller.request.env['omniauth.auth'] = omniauth_obj
+      get :callback, provider_name: 'facebook'
 
-          expect(response.body).to match "eventName = 'signed_in'"
-        end
-      end
+      expect(response.body).to match "eventName = 'authorized'"
+      expect(SocialAccount.first.omniauth_obj['uid']).to eq uid
+    end
 
-      context 'no connected social account has been found' do
-        it 'gives an registration form' do
-          provider_name = 'facebook'
-          omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+    it 'shows error when already connected to different user' do
+      provider_name = 'facebook'
+      omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+      other_omniauth_obj = {'provider' => provider_name, 'uid' => '20'}
 
-          controller.request.env['omniauth.auth'] = omniauth_obj
-          get :callback, provider_name: provider_name
+      user = create :full_user
+      user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
+      sign_in user
 
-          expect(response.body).to match "Create your Factlink account"
-        end
+      controller.request.env['omniauth.auth'] = other_omniauth_obj
+      get :callback, provider_name: 'facebook'
 
-        it 'creates a social account without a user' do
-          provider_name = 'facebook'
-          uid = '10'
-          omniauth_obj = {'provider' => provider_name, 'uid' => uid}
+      expect(response.body).to match "eventName = 'social_error'"
+    end
+  end
 
-          controller.request.env['omniauth.auth'] = omniauth_obj
-          get :callback, provider_name: provider_name
+  describe :callback_sign_in do
+    context 'connected social account has been found' do
+      it 'signs in' do
+        provider_name = 'facebook'
+        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+        user = create :full_user
 
-          expect(SocialAccount.first.uid).to eq uid
-        end
+        user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
 
-        it 'works when a previous connection was not finished' do
-          provider_name = 'facebook'
-          uid = '10'
+        controller.request.env['omniauth.auth'] = omniauth_obj
+        get :callback_sign_in, provider_name: 'facebook'
 
-          controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 1}
-          get :callback, provider_name: provider_name
-
-          controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 2}
-          get :callback, provider_name: provider_name
-
-          expect(response.body).to_not match "eventName = 'social_error'"
-          expect(SocialAccount.all.size).to eq 1
-          expect(SocialAccount.first.omniauth_obj['attempt']).to eq 2
-        end
+        expect(response.body).to match "eventName = 'signed_in'"
       end
     end
 
-    context 'already signed in' do
-      it 'connects the social account' do
+    context 'no connected social account has been found' do
+      it 'gives an registration form' do
+        provider_name = 'facebook'
+        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
+
+        controller.request.env['omniauth.auth'] = omniauth_obj
+        get :callback_sign_in, provider_name: provider_name
+
+        expect(response.body).to match "Create your Factlink account"
+      end
+
+      it 'creates a social account without a user' do
         provider_name = 'facebook'
         uid = '10'
         omniauth_obj = {'provider' => provider_name, 'uid' => uid}
-        user = create :full_user
-
-        sign_in user
 
         controller.request.env['omniauth.auth'] = omniauth_obj
-        get :callback, provider_name: 'facebook'
+        get :callback_sign_in, provider_name: provider_name
 
-        expect(response.body).to match "eventName = 'authorized'"
-        expect(SocialAccount.first.omniauth_obj['uid']).to eq uid
+        expect(SocialAccount.first.uid).to eq uid
       end
 
-      it 'shows error when already connected to different user' do
+      it 'works when a previous connection was not finished' do
         provider_name = 'facebook'
-        omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
-        other_omniauth_obj = {'provider' => provider_name, 'uid' => '20'}
+        uid = '10'
 
-        user = create :full_user
-        user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
-        sign_in user
+        controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 1}
+        get :callback_sign_in, provider_name: provider_name
 
-        controller.request.env['omniauth.auth'] = other_omniauth_obj
-        get :callback, provider_name: 'facebook'
+        controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 2}
+        get :callback_sign_in, provider_name: provider_name
 
-        expect(response.body).to match "eventName = 'social_error'"
+        expect(response.body).to_not match "eventName = 'social_error'"
+        expect(SocialAccount.all.size).to eq 1
+        expect(SocialAccount.first.omniauth_obj['attempt']).to eq 2
       end
     end
   end
