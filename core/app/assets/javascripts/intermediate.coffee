@@ -1,5 +1,6 @@
 showFrame = document.getElementById("frame")
 xdm = window.easyXDM.noConflict("FACTLINK")
+last_created_text = null
 window.remote = new xdm.Rpc {},
   remote:
     hide: {}
@@ -23,14 +24,7 @@ window.remote = new xdm.Rpc {},
               "&guided=" + encodeURIComponent(guided) +
               "&layout=client" # layout=client is still necessary to get the client sign in page
       showUrl url, successFn
-
-      onFactlinkCreated = (e, id) ->
-        remote.highlightNewFactlink text, id
-
-      $(document).off "factlinkCreated"
-      $(document).on "factlinkCreated", (e, id, created_text) ->
-        onFactlinkCreated(e, id) if created_text == text
-
+      last_created_text = text
       return # don't return anything unless you have a callback on the other site of easyXdm
 
     position: (top, left) ->
@@ -40,6 +34,10 @@ window.remote = new xdm.Rpc {},
         showFrame.onload = ->
           showFrame.contentWindow.position top, left
       return # don't return anything unless you have a callback on the other site of easyXdm
+
+window.triggerHighlightNewFactlink = (id, text) ->
+  if last_created_text == text
+    remote.highlightNewFactlink(text, id)
 
 showUrl = (url, successFn) ->
   successCalled = false
