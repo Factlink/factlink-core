@@ -37,10 +37,10 @@ class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListV
 
   ui:
     recent_list: '.js-list-recent'
-    search_list:  '.js-list-search'
+    search_list: '.js-list-search'
 
     recent_row: '.js-row-recent'
-    search_row:  '.js-row-search'
+    search_row: '.js-row-search'
 
   onRender: -> @updateRows()
 
