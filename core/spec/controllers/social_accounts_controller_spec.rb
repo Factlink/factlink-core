@@ -72,6 +72,33 @@ describe SocialAccountsController do
       expect(response.body).to match 'fill in your details to connect with Twitter'
     end
 
+    context 'account does not exist' do
+      it 'creates a new account to which the social account gets connected' do
+        email = 'email@example.org'
+        password = '123hoi'
+        name = 'Jan Paul Posma'
+
+        omniauth_obj = {'provider' => 'twitter', 'uid' => 'some_twitter_uid',
+          'credentials' => {'token' => 'token', 'secret' => 'secret'}, 'info' => {'name' => name}}
+        twitter_account = SocialAccount.new provider_name: 'twitter', omniauth_obj: omniauth_obj
+        twitter_account.save!
+
+        post :sign_up_or_in, user: {email: email, password: password, social_account_id: twitter_account.id}
+
+        expect(response.body).to match "eventName = 'signed_in'"
+        expect(User.first.name).to eq name
+        expect(User.first.social_account(:twitter).uid).to eq twitter_account.uid
+      end
+
+      it 'shows an error when some field is left open' do
+        twitter_account = create :social_account, :twitter
+
+        post :sign_up_or_in, user: {email: 'email@example.org', social_account_id: twitter_account.id}
+
+        expect(response.body).to match 'be blank'
+      end
+    end
+
     context 'account already exists' do
       it 'connects the social account and signs in' do
         email = 'email@example.org'
@@ -95,7 +122,7 @@ describe SocialAccountsController do
 
         post :sign_up_or_in, user: {email: email, password: 'wrong', social_account_id: twitter_account.id}
 
-        expect(response.body).to match "incorrect password for existing account"
+        expect(response.body).to match 'incorrect password for existing account'
       end
     end
   end

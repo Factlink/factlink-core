@@ -35,6 +35,10 @@ class SocialAccount
     omniauth_obj['credentials']['expires_at']
   end
 
+  def name
+    omniauth_obj['info']['name']
+  end
+
   private
 
   before_save :strip_twitter_access_token

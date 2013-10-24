@@ -56,7 +56,8 @@ FactoryGirl.define do
       omniauth_obj(
         'uid' => 'some_twitter_uid',
         'provider' => 'twitter',
-        'credentials' => {'token' => 'token', 'secret' => 'secret'}
+        'credentials' => {'token' => 'token', 'secret' => 'secret'},
+        'info' => {'name' => 'Some Twitter Name'},
       )
     end
 
@@ -65,7 +66,8 @@ FactoryGirl.define do
       omniauth_obj(
         'uid' => 'some_facebook_uid',
         'provider' => 'facebook',
-        'credentials' => {'token' => 'token', 'expires_at' => (DateTime.now + 4.weeks).to_i, 'expires' => true}
+        'credentials' => {'token' => 'token', 'expires_at' => (DateTime.now + 4.weeks).to_i, 'expires' => true},
+        'info' => {'name' => 'Some Facebook Name'},
       )
     end
   end

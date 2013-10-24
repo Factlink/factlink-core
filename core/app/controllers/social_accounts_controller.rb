@@ -43,14 +43,14 @@ class SocialAccountsController < ApplicationController
     @user.email = params[:user][:email]
     @user.password = params[:user][:password]
 
-    if User.find_by(email: @user.email)
+    if not @user.email.blank? and User.find_by(email: @user.email)
       params[:user][:login] = @user.email
       allow_params_authentication!
 
       found_user = warden.authenticate(scope: :user)
 
       if found_user
-        @social_account.update_attributes!(user: found_user)
+        found_user.social_accounts.push @social_account
         sign_in(found_user)
 
         @event = { name: 'signed_in' }
@@ -59,7 +59,17 @@ class SocialAccountsController < ApplicationController
         @user.errors.add(:password, 'incorrect password for existing account')
       end
     else
-      @user.valid?
+      @user.password_confirmation = params[:user][:password]
+      @user.full_name = @social_account.name
+      @user.generate_username!
+
+      if @user.save
+        @user.social_accounts.push @social_account
+
+        sign_in(@user)
+        @event = { name: 'signed_in' }
+        render :callback
+      end
     end
   end
 
