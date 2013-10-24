@@ -76,6 +76,7 @@ class SocialAccountsController < ApplicationController
       sign_in @user
       @event = { name: 'signed_in' }
     else
+      social_account.delete if social_account
       new_social_account(provider_name, omniauth_obj)
     end
   end

@@ -24,10 +24,9 @@ describe SocialAccountsController do
         it 'gives an registration form' do
           provider_name = 'facebook'
           omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
-          user = create :full_user
 
           controller.request.env['omniauth.auth'] = omniauth_obj
-          get :callback, provider_name: 'facebook'
+          get :callback, provider_name: provider_name
 
           expect(response.body).to match "Create your Factlink account"
         end
@@ -36,12 +35,26 @@ describe SocialAccountsController do
           provider_name = 'facebook'
           uid = '10'
           omniauth_obj = {'provider' => provider_name, 'uid' => uid}
-          user = create :full_user
 
           controller.request.env['omniauth.auth'] = omniauth_obj
-          get :callback, provider_name: 'facebook'
+          get :callback, provider_name: provider_name
 
           expect(SocialAccount.first.uid).to eq uid
+        end
+
+        it 'works when a previous connection was not finished' do
+          provider_name = 'facebook'
+          uid = '10'
+
+          controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 1}
+          get :callback, provider_name: provider_name
+
+          controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 2}
+          get :callback, provider_name: provider_name
+
+          expect(response.body).to_not match "eventName = 'social_error'"
+          expect(SocialAccount.all.size).to eq 1
+          expect(SocialAccount.first.omniauth_obj['attempt']).to eq 2
         end
       end
     end
