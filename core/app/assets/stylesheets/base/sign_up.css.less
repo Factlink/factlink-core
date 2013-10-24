@@ -62,20 +62,28 @@ div.sign_up {
   }
 }
 
-.footer .privacy-notice, .footer .privacy-notice a {
-    color: @metaFontColor;
-}
-
 .privacy-notice {
-    margin-top: 10px;
+  margin-top: 10px;
 
-    a {
+  a {
+    color: @white;
+    text-decoration: underline;
+
+    &:hover{
       color: @white;
       text-decoration: underline;
-
-      &:hover{
-        color: @white;
-        text-decoration: underline;
-      }
     }
   }
+}
+
+.footer .privacy-notice {
+  color: @metaFontColor;
+
+  a {
+    color: @metaFontColor;
+
+    &:hover {
+      color: @metaFontColor;
+    }
+  }
+}
