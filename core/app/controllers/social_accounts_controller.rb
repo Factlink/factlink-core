@@ -39,11 +39,20 @@ class SocialAccountsController < ApplicationController
   def sign_up_or_in
     @social_account = SocialAccount.find(params[:user][:social_account_id])
 
-    @user = User.new
-    @user.email = params[:user][:email]
-    @user.password = params[:user][:password]
+    email = params[:user][:email]
+    password = params[:user][:password]
 
-    sign_in_and_connect_existing_user(@user, @social_account) or sign_up_new_user(@user, @social_account)
+    sign_in_and_connect_existing_user(email, password) or
+      sign_up_new_user(email, password, @social_account.name)
+
+    if @user.errors.empty?
+      @user.social_accounts.push @social_account
+      sign_in(@user)
+      @event = { name: 'signed_in' }
+      render :callback
+    else
+      render
+    end
   end
 
   private
@@ -110,41 +119,41 @@ class SocialAccountsController < ApplicationController
     flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
   end
 
-  def sign_in_and_connect_existing_user user, social_account
-    return false unless user.email?
-    return false unless User.find_by(email: user.email)
+  def sign_in_and_connect_existing_user email, password
+    return if email.blank?
+    return unless User.find_by(email: email)
 
-    params[:user][:login] = user.email
-    params[:user][:password] = user.password
-    allow_params_authentication!
+    @user = authenticate_with_warden(email, password)
 
-    authenticated_user = warden.authenticate(scope: :user)
-
-    if authenticated_user
-      authenticated_user.social_accounts.push social_account
-      sign_in(authenticated_user)
-
-      @event = { name: 'signed_in' }
-      render :callback
-    else
-      user.errors.add(:password, 'incorrect password for existing account')
+    unless @user
+      @user = User.new
+      @user.email = email
+      @user.password = password
+      @user.errors.add(:password, 'incorrect password for existing account')
     end
 
     true
   end
 
-  def sign_up_new_user user, social_account
-    user.password_confirmation = params[:user][:password]
-    user.full_name = social_account.name
-    user.generate_username!
-    user.set_up = true
+  # TODO: iets van een comment
+  def authenticate_with_warden email, password
+    # TODO: heen en terug?
+    params[:user][:login] = email
+    params[:user][:password] = password
+    allow_params_authentication!
 
-    if user.save
-      user.social_accounts.push social_account
+    warden.authenticate(scope: :user)
+  end
 
-      sign_in(user)
-      @event = { name: 'signed_in' }
-      render :callback
-    end
+  def sign_up_new_user email, password, full_name
+    @user = User.new
+    @user.email = email
+    @user.password = password
+    @user.password_confirmation = params[:user][:password]
+    @user.full_name = full_name
+    @user.generate_username!
+    @user.set_up = true
+
+    @user.save
   end
 end
