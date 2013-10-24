@@ -53,7 +53,7 @@ class User
   USERNAME_BLACKLIST = [
     :users, :facts, :site, :templates, :search, :system, :tos, :pages, :privacy,
     :admin, :factlink, :auth, :reserved, :feedback, :feed, :client, :assets,
-    :rails
+    :rails, :'terms-of-service'
   ].freeze
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
