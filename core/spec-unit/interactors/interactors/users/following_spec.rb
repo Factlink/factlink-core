@@ -5,72 +5,62 @@ describe Interactors::Users::Following do
   include PavlovSupport
 
   describe '#authorized?' do
-    before do
-      described_class.any_instance.stub(validate: true)
-    end
-
     it 'throws when no current_user' do
       expect do
-        interactor = described_class.new(user_name: double, skip: double, take: double)
+        interactor = described_class.new(user_name: 'gerard', skip: 2, take: 7)
         interactor.call
       end.to raise_error Pavlov::AccessDenied,'Unauthorized'
     end
   end
 
   describe 'validations' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
-    end
-
     it 'invalid user_name doesn\t validate' do
-      expect_validating(user_name: 1, skip: 1, take: 2)
+      expect_validating(user_name: 1)
         .to fail_validation('user_name should be a nonempty string.')
     end
 
     it 'invalid skip doesn\t validate' do
-      expect_validating(user_name: 'karel', skip: 'thirteen', take: 2)
+      expect_validating(skip: 'thirteen')
         .to fail_validation('skip should be an integer.')
     end
 
     it 'invalid take doesn\t validate' do
-      expect_validating(user_name: 'karel', skip: 1, take: 'about two')
+      expect_validating(take: 'about two')
         .to fail_validation('take should be an integer.')
     end
   end
 
   describe '#call' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
+    it 'it calls the query to get a list of following users' do
+      graph_user_ids = [1, 4, 5, 6, 2, 3]
+      users = graph_user_ids.map { |id| double graph_user_id: id}
 
-    it 'it calls the query to get a list of followed users' do
-      user_name = double
-      skip = double
-      take = double
-      interactor = described_class.new user_name: user_name, skip: skip, take: take
-      users = double(length: double)
-      graph_user_ids = double
-      count = double
-      user = double(graph_user_id: double)
+      followed_user = double(graph_user_id: double, username: 'henk')
 
-      Pavlov.should_receive(:query)
-            .with(:'user_by_username',
-                      username: user_name)
-            .and_return(user)
-      Pavlov.should_receive(:query)
-            .with(:'users/following_graph_user_ids',
-                      graph_user_id: user.graph_user_id.to_s)
-            .and_return(graph_user_ids)
-      Pavlov.should_receive(:query)
-            .with(:'users_by_graph_user_ids',
-                      graph_user_ids: graph_user_ids)
-            .and_return(users)
-      users.should_receive(:drop).with(skip).and_return(users)
-      users.should_receive(:take).with(take).and_return(users)
+      pavlov_options = { current_user: double}
+      interactor = described_class.new user_name: followed_user.username, skip: 2, take: 3, pavlov_options: pavlov_options
+
+      allow(Pavlov).to receive(:query)
+        .with(:'user_by_username', username: followed_user.username, pavlov_options: pavlov_options)
+        .and_return(followed_user)
+      allow(Pavlov).to receive(:query)
+        .with(:'users/following_graph_user_ids',
+              graph_user_id: followed_user.graph_user_id.to_s, pavlov_options: pavlov_options)
+        .and_return(graph_user_ids)
+      allow(Pavlov).to receive(:query)
+        .with(:'users_by_ids',
+              user_ids: anything,
+              by: :graph_user_id,
+              pavlov_options: pavlov_options) do |cmd, options|
+          options[:user_ids].map do |id|
+            users.select {|user| user.graph_user_id == id}.first
+          end
+        end
 
       returned_users, returned_count = interactor.call
 
-      expect(returned_users).to eq users
+      users_page = users.sort_by(&:graph_user_id).drop(2).take(3)
+      expect(returned_users).to eq users_page
       expect(returned_count).to eq users.length
     end
   end
