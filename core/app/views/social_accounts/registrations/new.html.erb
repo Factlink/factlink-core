@@ -3,8 +3,6 @@
 
   <%= form_for(@user, as: :user, url: social_accounts_new_path, html: { class: "form-horizontal" }) do |f| %>
 
-    <%= f.hidden_field :social_account_id, value: @social_account.id %>
-
     <div class="control-group">
       (If you already have a Factlink account, fill in your credentials to connect it with <%= @social_account.provider_name.capitalize %>.)
     </div>

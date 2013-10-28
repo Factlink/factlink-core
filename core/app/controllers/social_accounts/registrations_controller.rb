@@ -12,7 +12,10 @@ class SocialAccounts::RegistrationsController < ApplicationController
       render :'social_accounts/callback'
     else
       social_account.delete if social_account # TODO: update existing one
+
       @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj
+      session[:register_social_account_id] = @social_account.id.to_s
+
       @user = User.new
 
       render :'social_accounts/registrations/new'
@@ -23,7 +26,7 @@ class SocialAccounts::RegistrationsController < ApplicationController
   end
 
   def create
-    @social_account = SocialAccount.find(params[:user][:social_account_id])
+    @social_account = SocialAccount.find(session[:register_social_account_id])
     fail 'No social account found' unless @social_account
     fail 'Invalid social account' if @social_account.user
 

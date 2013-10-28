@@ -39,6 +39,8 @@ describe SocialAccounts::RegistrationsController do
         get :callback, provider_name: provider_name
 
         expect(SocialAccount.first.uid).to eq uid
+        expect(response.body).to match 'fill in your credentials to connect it with Facebook'
+        expect(session[:register_social_account_id]).to eq SocialAccount.first.id.to_s
       end
 
       it 'works when a previous connection was not finished' do
@@ -59,14 +61,6 @@ describe SocialAccounts::RegistrationsController do
   end
 
   describe :create do
-    it 'should a form containing the provider name' do
-      twitter_account = create :social_account, :twitter
-
-      post :create, user: {social_account_id: twitter_account.id}
-
-      expect(response.body).to match 'fill in your credentials to connect it with Twitter'
-    end
-
     it 'gives an error when no social account has been given' do
       post :create
 
@@ -76,7 +70,8 @@ describe SocialAccounts::RegistrationsController do
     it 'gives an error when an already connected social account has been given' do
       twitter_account = create :social_account, :twitter, user: create(:full_user)
 
-      post :create, user: {social_account_id: twitter_account.id}
+      session[:register_social_account_id] = twitter_account.id
+      post :create
 
       expect(response.body).to match "eventName = 'social_error'"
     end
@@ -92,7 +87,8 @@ describe SocialAccounts::RegistrationsController do
         twitter_account = SocialAccount.new provider_name: 'twitter', omniauth_obj: omniauth_obj
         twitter_account.save!
 
-        post :create, user: {email: email, password: password, social_account_id: twitter_account.id}
+        session[:register_social_account_id] = twitter_account.id
+        post :create, user: {email: email, password: password}
 
         expect(response.body).to match "eventName = 'signed_in'"
 
@@ -105,7 +101,8 @@ describe SocialAccounts::RegistrationsController do
       it 'shows an error when some field is left open' do
         twitter_account = create :social_account, :twitter
 
-        post :create, user: {email: 'email@example.org', social_account_id: twitter_account.id}
+        session[:register_social_account_id] = twitter_account.id
+        post :create, user: {email: 'email@example.org'}
 
         expect(response.body).to match 'be blank'
       end
@@ -118,7 +115,8 @@ describe SocialAccounts::RegistrationsController do
         user = create :full_user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
-        post :create, user: {email: email, password: password, social_account_id: twitter_account.id}
+        session[:register_social_account_id] = twitter_account.id
+        post :create, user: {email: email, password: password}
 
         user.reload
         expect(user.social_account(:twitter).uid).to eq twitter_account.uid
@@ -132,7 +130,8 @@ describe SocialAccounts::RegistrationsController do
         user = create :full_user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
-        post :create, user: {email: email, password: 'wrong', social_account_id: twitter_account.id}
+        session[:register_social_account_id] = twitter_account.id
+        post :create, user: {email: email, password: 'wrong'}
 
         expect(response.body).to match 'incorrect password for existing account'
       end
