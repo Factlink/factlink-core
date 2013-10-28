@@ -4,7 +4,6 @@ describe ChannelsController do
   render_views
 
   let (:user) { create :user }
-  let (:nonnda_user) { create :user, agrees_tos: false }
 
   let (:f1) {create :fact, created_by: user.graph_user}
   let (:f2) {create :fact, created_by: user.graph_user}
@@ -42,12 +41,6 @@ describe ChannelsController do
       # strip created_by mongo id, since otherwise comparison will always fail
       response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
       Approvals.verify(response_body, format: :json, name: 'channels.json should keep the same content')
-    end
-
-    it "as bogus user should redirect to Terms of Service page" do
-      authenticate_user!(nonnda_user)
-      get :index, username: user.username
-      response.should redirect_to(tos_path)
     end
   end
 

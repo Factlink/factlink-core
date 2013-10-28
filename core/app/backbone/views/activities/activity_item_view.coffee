@@ -18,8 +18,6 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
         AddedFactToTopicGroupView
       when 'followed_user'
         FollowedUserView
-      when "added_first_factlink"
-        AddedFirstFactlinkView
       else
         ActivityItemView
 
@@ -51,9 +49,6 @@ class FollowedUserView extends ActivityItemView
       $offsetParent: @options.$offsetParent
 
   user: -> @_user ?= new User(@model.get('activity').followed_user)
-
-class AddedFirstFactlinkView extends ActivityItemView
-  template: "activities/added_first_factlink"
 
 class AddedFactToTopicView extends ActivityItemView
   _.extend @prototype, Backbone.Factlink.PopoverMixin

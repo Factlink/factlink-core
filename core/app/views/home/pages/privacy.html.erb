@@ -1,7 +1,10 @@
 <% content_for :header do %>
   <h1>Privacy Policy</h1>
-
   <p>Your privacy is critically important to us.</p>
+<% end %>
+
+<% content_for :title do %>
+  Factlink &mdash; Privacy
 <% end %>
 
 <% content_for :content do %>
@@ -174,9 +177,4 @@
     of this site after any change in this Privacy Policy will constitute your
     acceptance of such change.
   </p>
-  <% if current_user %>
-    <div style="text-align: center;">
-      <%= link_to("Go back to your profile", user_profile_path(current_user)) %>
-    </div>
-  <% end %>
 <% end %>

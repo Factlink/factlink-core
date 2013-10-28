@@ -4,11 +4,8 @@ module Screenshots
     include Acceptance::FactHelper
     include Acceptance::CommentHelper
 
-    def factlink
-      @factlink ||= backend_create_fact
-    end
-
     def create_discussion
+      factlink = backend_create_fact
       comment_text = '1. Comment'
 
       sub_comment_text = "\n\nThis is a subcomment\n\nwith some  whitespace \n\n"
