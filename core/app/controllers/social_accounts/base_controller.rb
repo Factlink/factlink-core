@@ -12,4 +12,7 @@ class SocialAccounts::BaseController < ApplicationController
   def render_trigger_event name, details=''
     render :'social_accounts/trigger_event', locals: {event: {name: name, details: details}}
   end
+
+  class SocialAccountError < StandardError
+  end
 end

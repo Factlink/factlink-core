@@ -3,14 +3,14 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
     authorize! :update, current_user
 
     if is_connected_to_different_user
-      fail "Already connected to a different account, please sign in to the connected account or reconnect your account."
+      fail SocialAccountError, "Already connected to a different account, please sign in to the connected account or reconnect your account."
     elsif omniauth_obj
       current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
       render_trigger_event 'authorized', provider_name
     else
-      fail "Error connecting."
+      fail SocialAccountError, "Error connecting."
     end
-  rescue Exception => error
+  rescue SocialAccountError => error
     render_trigger_event 'social_error', error.message
   end
 
@@ -18,7 +18,7 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
     authorize! :update, current_user
 
     social_account = current_user.social_account(params[:provider_name])
-    fail "Already disconnected." unless social_account.persisted?
+    fail SocialAccountError, "Already disconnected." unless social_account.persisted?
 
     case social_account.provider_name
     when 'facebook'
@@ -26,7 +26,7 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
     when 'twitter'
       deauthorize_twitter social_account
     end
-  rescue Exception => error
+  rescue SocialAccountError => error
     flash[:alert] = "Error disconnecting: #{error.message}"
   ensure
     redirect_to edit_user_path(current_user)

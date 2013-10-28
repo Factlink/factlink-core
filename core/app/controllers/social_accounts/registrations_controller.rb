@@ -22,9 +22,15 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
   end
 
   def create
-    @social_account = SocialAccount.find(session[:register_social_account_id])
-    fail 'No social account found' unless @social_account
-    fail 'Invalid social account' if @social_account.user
+    begin
+      @social_account = SocialAccount.find(session[:register_social_account_id])
+    rescue
+      raise SocialAccountError
+    end
+
+    # Potential hack attempt or strange race condition
+    fail SocialAccountError unless @social_account
+    fail SocialAccountError if @social_account.user
 
     email = params[:user][:email]
     password = params[:user][:password]
@@ -40,8 +46,9 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
     else
       render :'social_accounts/registrations/new'
     end
-  rescue Exception => error
-    render_trigger_event 'social_error', error.message
+  rescue SocialAccountError => error
+    message = error.message == SocialAccountError.new.message ? "Something went wrong" : error.message
+    render_trigger_event 'social_error', message
   end
 
   private
