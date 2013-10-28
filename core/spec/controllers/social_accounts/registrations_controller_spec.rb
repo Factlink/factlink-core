@@ -67,6 +67,20 @@ describe SocialAccounts::RegistrationsController do
       expect(response.body).to match 'fill in your credentials to connect it with Twitter'
     end
 
+    it 'gives an error when no social account has been given' do
+      post :create
+
+      expect(response.body).to match "eventName = 'social_error'"
+    end
+
+    it 'gives an error when an already connected social account has been given' do
+      twitter_account = create :social_account, :twitter, user: create(:full_user)
+
+      post :create, user: {social_account_id: twitter_account.id}
+
+      expect(response.body).to match "eventName = 'social_error'"
+    end
+
     context 'account does not exist' do
       it 'creates a new account to which the social account gets connected' do
         email = 'email@example.org'

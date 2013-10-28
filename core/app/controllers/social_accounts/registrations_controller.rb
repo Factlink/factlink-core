@@ -24,6 +24,8 @@ class SocialAccounts::RegistrationsController < ApplicationController
 
   def create
     @social_account = SocialAccount.find(params[:user][:social_account_id])
+    fail 'No social account found' unless @social_account
+    fail 'Invalid social account' if @social_account.user
 
     email = params[:user][:email]
     password = params[:user][:password]
@@ -39,6 +41,9 @@ class SocialAccounts::RegistrationsController < ApplicationController
     else
       render :'social_accounts/registrations/new'
     end
+  rescue Exception => error
+    @event = { name: "social_error", details: error.message }
+    render :'social_accounts/callback'
   end
 
   private
