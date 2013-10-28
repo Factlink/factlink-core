@@ -20,8 +20,8 @@ module Interactors
 
         graph_user_ids = query(:'users/following_graph_user_ids',
                                   graph_user_id: user.graph_user_id.to_s)
-        users = query(:'users_by_graph_user_ids',
-                          graph_user_ids: graph_user_ids)
+        users = query(:'users_by_ids',
+                          user_ids: graph_user_ids, by: :graph_user_id)
 
         [users[skip, take], users.length]
       end
