@@ -33,11 +33,13 @@ describe Interactors::Users::Following do
   describe '#call' do
     it 'it calls the query to get a list of followed users' do
       users = [double, double, double, double, double, double]
-      graph_user_ids = double
+      skip = 2
+      take = 3
+      graph_user_ids = [1, 4, 5, 6, 2, 3]
       user = double(graph_user_id: double, username: 'henk')
 
       pavlov_options = { current_user: double}
-      interactor = described_class.new user_name: user.username, skip: 2, take: 3, pavlov_options: pavlov_options
+      interactor = described_class.new user_name: user.username, skip: skip, take: take, pavlov_options: pavlov_options
 
       allow(Pavlov).to receive(:query)
         .with(:'user_by_username', username: user.username, pavlov_options: pavlov_options)
@@ -50,10 +52,14 @@ describe Interactors::Users::Following do
         .with(:'users_by_ids',
               user_ids: graph_user_ids, by: :graph_user_id, pavlov_options: pavlov_options)
         .and_return(users)
+      allow(Pavlov).to receive(:query)
+        .with(:'users_by_ids',
+              user_ids: graph_user_ids.sort[skip, take], by: :graph_user_id, pavlov_options: pavlov_options)
+        .and_return(users[skip, take])
 
       returned_users, returned_count = interactor.call
 
-      expect(returned_users).to eq [users[2], users[3], users[4]]
+      expect(returned_users).to eq users[skip, take]
       expect(returned_count).to eq users.length
     end
   end

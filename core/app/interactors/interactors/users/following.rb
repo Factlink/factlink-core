@@ -16,14 +16,19 @@ module Interactors
       end
 
       def execute
-        user = query(:'user_by_username', username: user_name)
+        [paginated_users, graph_user_ids.length]
+      end
 
-        graph_user_ids = query(:'users/following_graph_user_ids',
-                                  graph_user_id: user.graph_user_id.to_s)
-        users = query(:'users_by_ids',
-                          user_ids: graph_user_ids, by: :graph_user_id)
+      def paginated_users
+        users = query(:'users_by_ids', user_ids: graph_user_ids.sort[skip, take], by: :graph_user_id)
+      end
 
-        [users[skip, take], users.length]
+      def graph_user_ids
+        @graph_user_ids ||= begin
+          user = query(:'user_by_username', username: user_name)
+
+          query(:'users/following_graph_user_ids', graph_user_id: user.graph_user_id.to_s)
+        end
       end
     end
   end
