@@ -1,3 +1,6 @@
+//Changed by Eamon for Factlink: see line  starting with //FACTLINK:CHANGED.
+
+
 (function (window, document, location, setTimeout, decodeURIComponent, encodeURIComponent) {
 /*jslint evil: true, browser: true, immed: true, passfail: true, undef: true, newcap: true*/
 /*global JSON, XMLHttpRequest, window, escape, unescape, ActiveXObject */
@@ -1578,7 +1581,8 @@ easyXDM.stack.PostMessageTransport = function(config){
      */
     function _window_onMessage(event){
         var origin = _getOrigin(event);
-        if (origin == targetOrigin && event.data.substring(0, config.channel.length + 1) == config.channel + " ") {
+        //FACTLINK:CHANGED: added check '&& typeof event.data === "string"' so it doesn't trip over other postMessages
+        if (origin == targetOrigin && typeof event.data === "string" && event.data.substring(0, config.channel.length + 1) == config.channel + " ") {
             pub.up.incoming(event.data.substring(config.channel.length + 1), origin);
         }
     }
