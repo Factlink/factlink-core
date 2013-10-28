@@ -15,14 +15,14 @@ class SocialAccounts::RegistrationsController < ApplicationController
       @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj
       @user = User.new
 
-      render :'social_accounts/registrations/sign_up_or_in'
+      render :'social_accounts/registrations/new'
     end
   rescue Exception => error
     @event = { name: "social_error", details: error.message }
     render :'social_accounts/callback'
   end
 
-  def sign_up_or_in
+  def create
     @social_account = SocialAccount.find(params[:user][:social_account_id])
 
     email = params[:user][:email]
@@ -37,7 +37,7 @@ class SocialAccounts::RegistrationsController < ApplicationController
       @event = { name: 'signed_in' }
       render :'social_accounts/callback'
     else
-      render :'social_accounts/registrations/sign_up_or_in'
+      render :'social_accounts/registrations/new'
     end
   end
 
