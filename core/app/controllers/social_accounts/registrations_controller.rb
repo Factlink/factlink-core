@@ -1,7 +1,7 @@
 class SocialAccounts::RegistrationsController < ApplicationController
   layout 'social_account_popup'
 
-  def callback_sign_in
+  def callback
     social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
     if social_account and social_account.user

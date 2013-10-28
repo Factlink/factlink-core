@@ -3,7 +3,7 @@ require 'spec_helper'
 describe SocialAccounts::RegistrationsController do
   render_views
 
-  describe :callback_sign_in do
+  describe :callback do
     context 'connected social account has been found' do
       it 'signs in' do
         provider_name = 'facebook'
@@ -13,7 +13,7 @@ describe SocialAccounts::RegistrationsController do
         user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
 
         controller.request.env['omniauth.auth'] = omniauth_obj
-        get :callback_sign_in, provider_name: 'facebook'
+        get :callback, provider_name: 'facebook'
 
         expect(response.body).to match "eventName = 'signed_in'"
       end
@@ -25,7 +25,7 @@ describe SocialAccounts::RegistrationsController do
         omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
 
         controller.request.env['omniauth.auth'] = omniauth_obj
-        get :callback_sign_in, provider_name: provider_name
+        get :callback, provider_name: provider_name
 
         expect(response.body).to match "Create your Factlink account"
       end
@@ -36,7 +36,7 @@ describe SocialAccounts::RegistrationsController do
         omniauth_obj = {'provider' => provider_name, 'uid' => uid}
 
         controller.request.env['omniauth.auth'] = omniauth_obj
-        get :callback_sign_in, provider_name: provider_name
+        get :callback, provider_name: provider_name
 
         expect(SocialAccount.first.uid).to eq uid
       end
@@ -46,10 +46,10 @@ describe SocialAccounts::RegistrationsController do
         uid = '10'
 
         controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 1}
-        get :callback_sign_in, provider_name: provider_name
+        get :callback, provider_name: provider_name
 
         controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 2}
-        get :callback_sign_in, provider_name: provider_name
+        get :callback, provider_name: provider_name
 
         expect(response.body).to_not match "eventName = 'social_error'"
         expect(SocialAccount.all.size).to eq 1
