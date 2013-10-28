@@ -7,9 +7,9 @@ class SocialAccounts::RegistrationsController < ApplicationController
     if social_account and social_account.user
       @user = social_account.user
       sign_in @user
-      @event = { name: 'signed_in' }
 
-      render :'social_accounts/callback'
+      @event = { name: 'signed_in' }
+      render :'social_accounts/trigger_event'
     else
       social_account.delete if social_account # TODO: update existing one
 
@@ -22,7 +22,7 @@ class SocialAccounts::RegistrationsController < ApplicationController
     end
   rescue Exception => error
     @event = { name: "social_error", details: error.message }
-    render :'social_accounts/callback'
+    render :'social_accounts/trigger_event'
   end
 
   def create
@@ -40,13 +40,13 @@ class SocialAccounts::RegistrationsController < ApplicationController
       @user.social_accounts.push @social_account
       sign_in(@user)
       @event = { name: 'signed_in' }
-      render :'social_accounts/callback'
+      render :'social_accounts/trigger_event'
     else
       render :'social_accounts/registrations/new'
     end
   rescue Exception => error
     @event = { name: "social_error", details: error.message }
-    render :'social_accounts/callback'
+    render :'social_accounts/trigger_event'
   end
 
   private

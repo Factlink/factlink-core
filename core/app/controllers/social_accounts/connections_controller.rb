@@ -17,7 +17,7 @@ class SocialAccounts::ConnectionsController < ApplicationController
   rescue Exception => error
     @event = { name: "social_error", details: error.message }
   ensure
-    render :'social_accounts/callback'
+    render :'social_accounts/trigger_event'
   end
 
   def deauthorize
@@ -44,8 +44,7 @@ class SocialAccounts::ConnectionsController < ApplicationController
     end
 
     @event = { name: "social_error", details: "Authorization failed: #{params[:error_description]}." }
-
-    render :'social_accounts/callback'
+    render :'social_accounts/trigger_event'
   end
 
   private
