@@ -2,7 +2,7 @@ class Users::SetupController < ApplicationController
 
   before_filter :setup_step_in_process
 
-  layout "one_column_simple"
+  layout "one_column"
 
   def setup_step_in_process
     @step_in_signup_process = :account
