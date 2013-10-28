@@ -124,6 +124,8 @@ group :development do
   gem 'quiet_assets', '~> 1'
   # Profiling
   gem 'ruby-prof', '~> 0'
+
+  gem 'foreman', '~> 0', require: false
 end
 
 group :test do

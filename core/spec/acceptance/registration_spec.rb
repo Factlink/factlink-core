@@ -42,7 +42,7 @@ describe 'Reserving an account', type: :feature do
     end
 
     admin = create(:full_user, :confirmed, :admin)
-    sign_in_user admin
+    switch_to_user admin
 
     find('.navbar .topbar-dropdown').click
     find('.navbar').should have_content('Admin')

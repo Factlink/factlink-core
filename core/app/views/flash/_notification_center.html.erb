@@ -1,0 +1,29 @@
+<div class="notification-center-alerts js-notification-center-alerts"></div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function() {
+      <% if alert %>
+        FactlinkApp.NotificationCenter.error('<%= j(alert) %>');
+      <% end %>
+
+      <% if notice %>
+        FactlinkApp.NotificationCenter.success('<%= j(notice) %>');
+      <% end %>
+
+      <% if show_supported_browser_warning %>
+        <%= show_message :supported_browser_warning do %>
+          FactlinkApp.NotificationCenter.error("Your browser is not fully supported. To get the full Factlink experience we recommend using Google Chrome. <a href='<%= pages_path("help/supported-browsers") %>'>Learn more...</a>");
+
+          Backbone.ajax({
+            type: 'PUT',
+            url: '<%= see_messages_path %>',
+            data: {
+              message: "supported_browser_warning"
+            }
+          });
+        <% end %>
+      <% end %>
+    });
+  </script>
+<% end %>
