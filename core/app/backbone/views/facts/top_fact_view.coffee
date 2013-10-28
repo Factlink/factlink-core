@@ -1,3 +1,27 @@
+class TopFactShareButtonsView extends Backbone.Marionette.Layout
+  template:
+    text: """
+      {{#global.can_haz.share_discussion_buttons}}
+        <li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-facebook" href="javascript:void(0)">Facebook</a></li>
+        <li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-twitter" href="javascript:void(0)">Twitter</a></li>
+      {{/global.can_haz.share_discussion_buttons}}
+
+      {{#global.signed_in}}
+        <li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-message js-share" href="javascript:void(0)">Share</a></li>
+      {{/global.signed_in}}
+    """
+
+  tagName: 'ul'
+  className: 'top-fact-share-buttons'
+
+  events:
+    'click .js-share': 'showStartConversation'
+
+  showStartConversation: ->
+    FactlinkApp.ModalWindowContainer.show new StartConversationModalWindowView(model: @model)
+    mp_track "Factlink: Open share modal"
+
+
 class window.TopFactView extends Backbone.Marionette.Layout
   className: 'top-fact'
 
@@ -5,13 +29,13 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
   events:
     'click .js-repost': 'showRepost'
-    'click .js-share': 'showStartConversation'
 
   regions:
     wheelRegion: '.js-fact-wheel-region'
     userHeadingRegion: '.js-user-heading-region'
     userRegion: '.js-user-name-region'
     deleteRegion: '.js-delete-region'
+    shareRegion: '.js-share-region'
 
   templateHelpers: =>
     showDelete: @model.can_destroy()
@@ -32,6 +56,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
     @wheelRegion.show @_wheelView()
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
+    @shareRegion.show new TopFactShareButtonsView model: @model
 
   _deleteButtonView: ->
     deleteButtonView = new DeleteButtonView model: @model
@@ -59,7 +84,3 @@ class window.TopFactView extends Backbone.Marionette.Layout
       wheel_view.render()
 
     wheel_view
-
-  showStartConversation: ->
-    FactlinkApp.ModalWindowContainer.show new StartConversationModalWindowView(model: @model)
-    mp_track "Factlink: Open share modal"
