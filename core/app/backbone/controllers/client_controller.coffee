@@ -28,7 +28,6 @@ window.ClientController =
       fact_text: params.fact
       title: params.title
       url: params.url
-      csrf_token: params.csrf_token
       guided: FactlinkApp.guided
     factsNewView.on 'render', parent.onModalReady
     factsNewView.on 'factCreated', (fact) ->
