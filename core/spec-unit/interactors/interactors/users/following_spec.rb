@@ -31,31 +31,36 @@ describe Interactors::Users::Following do
   end
 
   describe '#call' do
-    it 'it calls the query to get a list of followed users' do
-      users = [double, double, double, double, double, double]
-      skip = 2
-      take = 3
+    it 'it calls the query to get a list of following users' do
       graph_user_ids = [1, 4, 5, 6, 2, 3]
-      user = double(graph_user_id: double, username: 'henk')
+      users = graph_user_ids.map { |id| double graph_user_id: id}
+
+      followed_user = double(graph_user_id: double, username: 'henk')
 
       pavlov_options = { current_user: double}
-      interactor = described_class.new user_name: user.username, skip: skip, take: take, pavlov_options: pavlov_options
+      interactor = described_class.new user_name: followed_user.username, skip: 2, take: 3, pavlov_options: pavlov_options
 
       allow(Pavlov).to receive(:query)
-        .with(:'user_by_username', username: user.username, pavlov_options: pavlov_options)
-        .and_return(user)
+        .with(:'user_by_username', username: followed_user.username, pavlov_options: pavlov_options)
+        .and_return(followed_user)
       allow(Pavlov).to receive(:query)
         .with(:'users/following_graph_user_ids',
-              graph_user_id: user.graph_user_id.to_s, pavlov_options: pavlov_options)
+              graph_user_id: followed_user.graph_user_id.to_s, pavlov_options: pavlov_options)
         .and_return(graph_user_ids)
       allow(Pavlov).to receive(:query)
         .with(:'users_by_ids',
-              user_ids: graph_user_ids.sort[skip, take], by: :graph_user_id, pavlov_options: pavlov_options)
-        .and_return(users[skip, take])
+              user_ids: anything,
+              by: :graph_user_id,
+              pavlov_options: pavlov_options) do |cmd, options|
+          options[:user_ids].map do |id|
+            users.select {|user| user.graph_user_id == id}.first
+          end
+        end
 
       returned_users, returned_count = interactor.call
 
-      expect(returned_users).to eq users[skip, take]
+      users_page = users.sort_by(&:graph_user_id).drop(2).take(3)
+      expect(returned_users).to eq users_page
       expect(returned_count).to eq users.length
     end
   end
