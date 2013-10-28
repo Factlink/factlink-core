@@ -6,7 +6,7 @@ module Interactors
       arguments :user_name, :skip, :take
 
       def authorized?
-        !! pavlov_options[:current_user]
+        !!pavlov_options[:current_user]
       end
 
       def validate
@@ -23,10 +23,7 @@ module Interactors
         users = query(:'users_by_graph_user_ids',
                           graph_user_ids: graph_user_ids)
 
-        count = users.length
-        users = users.drop(skip).take(take)
-
-        return users, count
+        [users[skip, take], users.length]
       end
     end
   end
