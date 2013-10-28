@@ -9,7 +9,7 @@ class SocialAccounts::BaseController < ApplicationController
     request.env['omniauth.auth']
   end
 
-  def trigger_event name, details=''
+  def render_trigger_event name, details=''
     render :'social_accounts/trigger_event', locals: {event: {name: name, details: details}}
   end
 end

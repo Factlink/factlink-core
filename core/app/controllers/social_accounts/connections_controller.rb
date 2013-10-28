@@ -6,12 +6,12 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
       fail "Already connected to a different account, please sign in to the connected account or reconnect your account."
     elsif omniauth_obj
       current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
-      trigger_event 'authorized', provider_name
+      render_trigger_event 'authorized', provider_name
     else
       fail "Error connecting."
     end
   rescue Exception => error
-    trigger_event 'social_error', error.message
+    render_trigger_event 'social_error', error.message
   end
 
   def deauthorize
@@ -37,7 +37,7 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
       params[:error_description] ||= "unspecified error"
     end
 
-    trigger_event 'social_error', "Authorization failed: #{params[:error_description]}."
+    render_trigger_event 'social_error', "Authorization failed: #{params[:error_description]}."
   end
 
   private

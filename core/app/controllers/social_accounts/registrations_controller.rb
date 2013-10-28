@@ -6,7 +6,7 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
       @user = social_account.user
       sign_in @user
 
-      trigger_event 'signed_in'
+      render_trigger_event 'signed_in'
     else
       social_account.delete if social_account # TODO: update existing one
 
@@ -18,7 +18,7 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
       render :'social_accounts/registrations/new'
     end
   rescue Exception => error
-    trigger_event 'social_error', error.message
+    render_trigger_event 'social_error', error.message
   end
 
   def create
@@ -36,12 +36,12 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
       @user.social_accounts.push @social_account
       sign_in(@user)
 
-      trigger_event 'signed_in'
+      render_trigger_event 'signed_in'
     else
       render :'social_accounts/registrations/new'
     end
   rescue Exception => error
-    trigger_event 'social_error', error.message
+    render_trigger_event 'social_error', error.message
   end
 
   private
