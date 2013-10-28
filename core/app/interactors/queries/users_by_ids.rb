@@ -1,4 +1,4 @@
-# This query returns mongo user objects, retrieved by their ids
+# This query returns dead user objects, retrieved by their ids
 # You have the option to call it with mongo ids, or with (Ohm) GraphUser
 # ids.
 # Please try to avoid to add support for all other kinds of fields,
