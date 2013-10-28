@@ -14,6 +14,7 @@ describe "factlink", type: :feature do
     find('.evidence-votable', text: 'Fact 2', visible: false).find('a', text:'1 comment')
 
     page.should have_content factlink.data.displaystring
+    sleep 2 # let the feed load behind the modal
 
     assume_unchanged_screenshot "discussion_page"
   end

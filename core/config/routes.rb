@@ -205,9 +205,6 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get  "/p/tos"     => "tos#show",        as: "tos"
-  post "/p/tos"     => "tos#update",      as: "tos"
-
   scope "/p/tour" do
     get 'setup-account' => 'users/setup#edit', as: 'setup_account'
     put 'setup-account' => 'users/setup#update'
@@ -216,8 +213,6 @@ FactlinkUI::Application.routes.draw do
     get "interests" => "tour#interests", as: "interests"
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end
-
-  get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do
     get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
