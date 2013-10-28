@@ -1,59 +1,5 @@
 @import "bootstrap/mixins";
 
-/* SITE SPECIFIC STYLES */
-.factlink-site .new-session {
-  border: 1px solid @baseBorderColor;
-  border-radius: @baseBorderRadius;
-  padding: 20px;
-  background: white;
-  margin: 0 auto 150px;
-  float: none;
-  width: 700px;
-
-  > img { display: none; }
-
-  .with-credentials {
-    .form-box {
-      width: 270px;
-
-      input[type=text], input[type=password] {
-        width: 100%; /* translates to 270px width (padding) */
-      }
-    }
-  }
-
-  .with-social {
-    a {
-      margin-left: 60px;
-    }
-  }
-}
-/* / SITE SPECIFIC STYLES */
-
-/* CLIENT SPECIFIC STYLES */
-.client .new-session {
-  .with-credentials {
-    .form-box {
-      width: 230px;
-
-      input[type=text], input[type=password] {
-        width: 100%;
-      }
-
-      .client-signin-button {
-        width: 100px;
-      }
-    }
-  }
-
-  .with-social {
-    a {
-      margin-left: 35px;
-    }
-  }
-}
-/* / CLIENT SPECIFIC STYLES */
-
 .new-session {
   .white-block-with-shadow();
   visibility: visible;
@@ -79,6 +25,12 @@
     .box-sizing(border-box);
 
     .form-box {
+      width: 230px;
+
+      input[type=text], input[type=password] {
+        width: 100%;
+      }
+
       input[type=checkbox] {
         margin: -3px 7px 0 0;
       }
@@ -87,6 +39,10 @@
         display: inline-block;
         color: #555;
         margin: 8px 0 0 0;
+      }
+
+      .client-signin-button {
+        width: 100px;
       }
     }
   }
@@ -98,6 +54,7 @@
     .box-sizing(border-box);
 
     a {
+      margin-left: 35px;
       .box-sizing(border-box);
       margin-bottom: 9px;
 
