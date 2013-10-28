@@ -512,7 +512,7 @@ DEPENDENCIES
   devise (~> 2.2.3)
   devise_invitable (= 1.1.6)
   factory_girl_rails (~> 4.2)
-  foreman (~> 0.63.0)
+  foreman (~> 0)
   guard (~> 1.8)
   guard-rspec (~> 3.0)
   hogan_assets (~> 1.0.3)
