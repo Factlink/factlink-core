@@ -5,6 +5,7 @@ class SocialAccounts::RegistrationsController < ApplicationController
     sign_in_through_provider params[:provider_name], request.env['omniauth.auth']
   rescue Exception => error
     @event = { name: "social_error", details: error.message }
+    render :'social_accounts/callback'
   end
 
   def sign_up_or_in
