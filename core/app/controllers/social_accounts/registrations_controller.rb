@@ -20,8 +20,6 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
 
       render :'social_accounts/registrations/new'
     end
-  rescue Exception => error
-    render_trigger_event 'social_error', error.message
   end
 
   def create
