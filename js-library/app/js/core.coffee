@@ -1,4 +1,6 @@
-window.Factlink = {}
+window.Factlink = {
+  can_haz: {}
+}
 
 # See http://stackoverflow.com/questions/3690447/override-default-jquery-selector-context
 jQuery.noConflict()

@@ -51,3 +51,6 @@ Factlink.modal =
       $(val).contents().unwrap()
 
   trigger: (e) -> Factlink.trigger(e)
+
+  setFeatureToggles: (featureToggles) ->
+    Factlink.can_haz = featureToggles
