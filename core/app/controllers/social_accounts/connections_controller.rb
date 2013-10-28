@@ -2,17 +2,36 @@ class SocialAccounts::ConnectionsController < ApplicationController
   layout 'social_account_popup'
 
   def callback
-    connect_provider params[:provider_name], request.env['omniauth.auth']
+    authorize! :update, current_user
 
-    render :'social_accounts/callback'
+    if is_connected_to_different_user
+      fail "Already connected to a different account, please sign in to the connected account or reconnect your account."
+    elsif omniauth_obj
+      current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
+      flash[:notice] = "Succesfully connected."
+      @event = { name: 'authorized', details: provider_name }
+    else
+      fail "Error connecting."
+    end
+
   rescue Exception => error
     @event = { name: "social_error", details: error.message }
+  ensure
+    render :'social_accounts/callback'
   end
 
   def deauthorize
     authorize! :update, current_user
 
-    deauthorize_social_account current_user.social_account(params[:provider_name])
+    social_account = current_user.social_account(params[:provider_name])
+    fail "Already disconnected." unless social_account.persisted?
+
+    case social_account.provider_name
+    when 'facebook'
+      deauthorize_facebook social_account
+    when 'twitter'
+      deauthorize_twitter social_account
+    end
   rescue Exception => error
     flash[:alert] = "Error disconnecting: #{error.message}"
   ensure
@@ -31,35 +50,10 @@ class SocialAccounts::ConnectionsController < ApplicationController
 
   private
 
-  def connect_provider provider_name, omniauth_obj
-    authorize! :update, current_user
-
-    if is_connected_to_different_user(provider_name, omniauth_obj)
-      fail "Already connected to a different account, please sign in to the connected account or reconnect your account."
-    elsif omniauth_obj
-      current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
-      flash[:notice] = "Succesfully connected."
-      @event = { name: 'authorized', details: provider_name }
-    else
-      fail "Error connecting."
-    end
-  end
-
-  def is_connected_to_different_user provider_name, omniauth_obj
+  def is_connected_to_different_user
     social_account = current_user.social_account(provider_name)
 
     social_account.persisted? && social_account.uid != omniauth_obj['uid']
-  end
-
-  def deauthorize_social_account social_account
-    fail "Already disconnected." unless social_account.persisted?
-
-    case social_account.provider_name
-    when 'facebook'
-      deauthorize_facebook social_account
-    when 'twitter'
-      deauthorize_twitter social_account
-    end
   end
 
   def deauthorize_facebook social_account
@@ -75,5 +69,13 @@ class SocialAccounts::ConnectionsController < ApplicationController
   def deauthorize_twitter social_account
     social_account.delete
     flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
+  end
+
+  def provider_name
+    params[:provider_name]
+  end
+
+  def omniauth_obj
+    request.env['omniauth.auth']
   end
 end
