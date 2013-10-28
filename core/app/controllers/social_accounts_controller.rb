@@ -147,13 +147,14 @@ class SocialAccountsController < ApplicationController
   end
 
   def sign_up_new_user email, password, full_name
-    user = User.new
+    user = User.new password: password,
+      password_confirmation: password,
+      full_name: full_name
+
+    # Protected from mass-assignment
     user.email = email
-    user.password = password
-    user.password_confirmation = password
-    user.full_name = full_name
-    user.generate_username!
     user.set_up = true
+    user.generate_username!
 
     user.save
 
