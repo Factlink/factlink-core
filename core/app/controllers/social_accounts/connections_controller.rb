@@ -1,4 +1,7 @@
 class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
+  around_filter :render_trigger_event_on_social_account_error,
+    except: [:deauthorize] # deauthorize is not rendered in popup
+
   def callback
     authorize! :update, current_user
 
@@ -10,8 +13,6 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
     else
       fail SocialAccountError, "Error connecting."
     end
-  rescue SocialAccountError => error
-    render_trigger_event 'social_error', error.message
   end
 
   def deauthorize
