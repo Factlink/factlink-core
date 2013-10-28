@@ -22,11 +22,7 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
   end
 
   def create
-    begin
-      @social_account = SocialAccount.find(session[:register_social_account_id])
-    rescue
-      raise SocialAccountError
-    end
+    @social_account = SocialAccount.find(session[:register_social_account_id]) rescue (raise SocialAccountError)
 
     # Potential hack attempt or strange race condition
     fail SocialAccountError unless @social_account
