@@ -9,7 +9,7 @@
 
       <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
         <% if @layout == "client" %>
-          <%= render 'home/notifications', notice: notice, alert: alert %>
+          <%= render 'flash/simple', notice: notice, alert: alert %>
         <% end %>
 
         <% if @layout %>
