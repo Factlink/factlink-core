@@ -68,8 +68,8 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   activityMadeRedundantBy: (newActivity, oldActivity) -> false
   newActivityIsRedundant: (newActivity) ->
     return false unless @collection.models.length > 1
-    @activityMadeRedundantBy newActivity.get('activity'),
-      @collection.models[@collection.length - 2].get('activity')
+    @activityMadeRedundantBy newActivity,
+      @collection.models[@collection.length - 2]
 
   appendHtml: (collectionView, itemView, index) ->
     return if @newActivityIsRedundant(itemView.model)
@@ -95,6 +95,12 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
 
   appendable: (model) -> super(model) and @sameFact(model)
 
+  isOpinion: (activity) ->
+    activity.get('action') in ['believes', 'disbelieves', 'doubts']
+
+  activityMadeRedundantBy: (newActivity, oldActivity) ->
+    @isOpinion(oldActivity) && @isOpinion(newActivity)
+
 class UsersFollowedGroupView extends UserActivitiesGroupView
   template: 'activities/users_followed_group'
 
@@ -102,4 +108,5 @@ class UsersFollowedGroupView extends UserActivitiesGroupView
   actions: -> UsersFollowedGroupView.actions
 
   activityMadeRedundantBy: (newActivity, oldActivity) ->
-    newActivity.followed_user.username == oldActivity.followed_user.username
+    newActivity.get('activity').followed_user.username ==
+      oldActivity.get('activity').followed_user.username
