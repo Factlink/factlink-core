@@ -18,11 +18,16 @@ module Interactors
       end
 
       def execute
-        users = query(:'users_by_ids', user_ids: graph_user_ids, by: :graph_user_id)
+        [paginated_users, nr_of_followers, followed_by_me]
+      end
 
-        return users[skip, take],
-               users.length,
-               followed_by_me
+      def paginated_users
+        paginated_graph_user_ids = graph_user_ids.sort[skip, take]
+        query(:'users_by_ids', user_ids: paginated_graph_user_ids, by: :graph_user_id)
+      end
+
+      def nr_of_followers
+        graph_user_ids.length
       end
 
       def followed_by_me
@@ -36,6 +41,7 @@ module Interactors
           query(:'users/follower_graph_user_ids', graph_user_id: user.graph_user_id.to_s)
         end
       end
+
     end
   end
 end

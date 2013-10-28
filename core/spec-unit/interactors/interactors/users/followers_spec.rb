@@ -33,8 +33,10 @@ describe Interactors::Users::Followers do
     it 'it calls the query to get a list of followed users' do
       current_user = double(graph_user_id: 13)
       pavlov_options = { current_user: current_user }
-      users = [double, double, double, double, double, double]
+      skip = 2
+      take = 3
       graph_user_ids = [1, 3, 8, current_user.graph_user_id, 5, 9]
+      users = [double, double, double, double, double, double]
       user = double(graph_user_id: 5, username: 'henk')
       followed_by_me = true
 
@@ -51,14 +53,15 @@ describe Interactors::Users::Followers do
         .and_return(graph_user_ids)
       allow(Pavlov).to receive(:query)
         .with(:'users_by_ids',
-              user_ids: graph_user_ids,
+              user_ids: graph_user_ids.sort[skip, take],
               by: :graph_user_id,
               pavlov_options: pavlov_options)
-        .and_return(users)
+        .and_return(users[skip, take])
+
 
       returned_users, returned_count, returned_followed_by_me = interactor.call
 
-      expect(returned_users).to eq [users[2], users[3], users[4]]
+      expect(returned_users).to match_array users[skip, take]
       expect(returned_count).to eq users.length
       expect(returned_followed_by_me).to eq followed_by_me
     end
