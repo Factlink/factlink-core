@@ -1,14 +1,22 @@
 class TopFactShareButtonsView extends Backbone.Marionette.Layout
+  _.extend @prototype, Backbone.Factlink.PopoverMixin
+
   tagName: 'ul'
   className: 'top-fact-share-buttons'
   template: 'facts/top_fact_share_buttons'
 
   events:
-    'click .js-share': 'showStartConversation'
+    'click .js-share': 'toggleConversation'
 
-  showStartConversation: ->
-    FactlinkApp.ModalWindowContainer.show new StartConversationModalWindowView(model: @model)
-    mp_track "Factlink: Open share modal"
+  initialize: ->
+    @popoverAdd '.js-share',
+      side: 'bottom'
+      align: 'center'
+      contentView: new StartConversationModalWindowView(model: @model)
+
+  toggleConversation: ->
+    # @startConversationRegion.$el.toggle()
+    mp_track "Factlink: Toggle conversation popover"
 
 
 class window.TopFactView extends Backbone.Marionette.Layout

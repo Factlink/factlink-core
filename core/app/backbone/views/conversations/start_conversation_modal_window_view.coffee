@@ -1,5 +1,5 @@
 class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
-  className: "modal-window start-conversation-modal-window"
+  className: "factlink-popover bottom start-conversation-modal-window"
 
   events:
     "click .js-submit": 'submit'
