@@ -10,7 +10,7 @@
 <% content_for :main do %>
   <div id="container" class="container fixed">
     <section id="full-column">
-      <%= render 'home/notifications', notice: notice, alert: alert %>
+      <%= render 'flash/simple', notice: notice, alert: alert %>
 
       <section id="main-wrapper">
         <%= yield %>
