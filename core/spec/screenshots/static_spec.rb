@@ -55,7 +55,7 @@ describe "Static pages:", type: :feature do
 
   describe "TOS page" do
     it "it renders correctly" do
-      visit "/p/tos"
+      visit "/p/terms-of-service"
       assume_unchanged_screenshot "static_tos"
     end
   end

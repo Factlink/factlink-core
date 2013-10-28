@@ -2,7 +2,7 @@ FactlinkApp.module "NonConfirmedEmailWarning", (NonConfirmedEmailWarning, Factli
 
   inTour = ->
     try
-      return /^\/p\/(tour|tos)/.test(window.top.location.pathname)
+      return /^\/p\/(tour)/.test(window.top.location.pathname)
     catch # DOMException from window.top if loaded in client
       return false
 

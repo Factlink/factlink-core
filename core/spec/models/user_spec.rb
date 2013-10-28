@@ -3,7 +3,6 @@ require 'spec_helper'
 describe User do
 
   subject(:user) { create :user}
-  let(:nonnda_subject) {create :user, agrees_tos: false}
 
   context "Initially" do
     it "isn't admin" do
@@ -69,37 +68,6 @@ describe User do
 
   describe :to_param do
     it {expect(subject.to_param).to eq subject.username }
-  end
-
-  context "when agreeing the tos" do
-    describe "when trying to agree without signing" do
-      it "isn't allowed" do
-        expect(nonnda_subject.sign_tos(false)).to be_false
-        expect(nonnda_subject.errors.keys.length).to eq 1
-        expect(nonnda_subject.agrees_tos).to be_false
-      end
-    end
-
-    describe "when agreeing with signing" do
-      it "is allowed" do
-        t = DateTime.now
-        DateTime.stub(:now).and_return(t)
-        expect(nonnda_subject.sign_tos(true)).to eq true
-        expect(nonnda_subject.agreed_tos_on.to_i).to eq t.to_i
-        expect(nonnda_subject.errors.keys.length).to eq 0
-      end
-    end
-
-    describe "user signing the ToS" do
-      it "correctly persists to the database" do
-        agrees_tos      = true
-
-        nonnda_subject.sign_tos(agrees_tos)
-
-        user = User.find(nonnda_subject.id)
-        expect(user.agrees_tos).to eq agrees_tos
-      end
-    end
   end
 
   describe ".find" do
@@ -168,23 +136,13 @@ describe User do
       it { expect(initial_user).to     be_hidden }
     end
     context "user who is set up" do
-      let(:set_up_user) { create :user, :set_up }
-      it { expect(set_up_user).to_not be_active }
-      it { expect(set_up_user).to     be_hidden }
-    end
-    context "user who signed the tos, but somehow not set up" do
-      subject(:active_user) { create :user, :agrees_tos }
-      it { expect(active_user).to_not be_active }
-      it { expect(active_user).to     be_hidden }
-    end
-    context "set up user who signed the tos" do
-      subject(:active_user) { create :user, :agrees_tos, :set_up }
+      subject(:active_user) { create :user, :set_up }
       it { expect(active_user).to     be_active }
       it { expect(active_user).to_not be_hidden }
     end
     context "deleted user" do
       let(:deleted_user) do
-        create(:user, :agrees_tos).tap do |user|
+        create(:user).tap do |user|
           Pavlov.command('users/mark_as_deleted', user:user)
         end
       end
@@ -200,16 +158,16 @@ describe User do
 
   describe 'scopes' do
     describe ".active" do
-      it "only returns set up, and TOS-signed users" do
+      it "only returns set up users" do
         inactive_user = create :user
-        active_user = create :user, :set_up, :agrees_tos
+        active_user = create :user, :set_up
 
         active_users = User.active.all
         expect(active_users).to eq [active_user]
       end
 
       it "doesn't return deleted users" do
-        user = create :user, :agrees_tos
+        user = create :user
 
         Pavlov.command('users/mark_as_deleted', user:user)
 
@@ -219,10 +177,10 @@ describe User do
     end
 
     describe ".seen_the_tour" do
-      it "only returns set up, TOS-signed users that have seen the tour" do
+      it "only returns set up users that have seen the tour" do
         inactive_user = create :user
-        active_user = create :user, :set_up, :agrees_tos
-        seen_the_tour_user = create :user, :set_up, :agrees_tos, :seen_the_tour
+        active_user = create :user, :set_up
+        seen_the_tour_user = create :user, :set_up, :seen_the_tour
 
         seen_tour_users = User.seen_the_tour.all
 
@@ -323,7 +281,7 @@ describe User do
   describe '#social_account' do
     it 'returns a social account which can be saved' do
       facebook_account = user.social_account('facebook')
-      facebook_account.omniauth_obj = {uid: '10'}
+      facebook_account.omniauth_obj = {'uid' => '10', 'provider' => 'facebook'}
       facebook_account.save!
 
       expect(User.first.social_account('facebook').omniauth_obj['uid']).to eq '10'

@@ -115,8 +115,8 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get "/auth/:service/callback" => "social_accounts#service_callback", as: "social_auth"
-  delete "/auth/:service/deauthorize" => "social_accounts#service_deauthorize"
+  get "/auth/:provider_name/callback" => "social_accounts#callback", as: "social_auth"
+  delete "/auth/:provider_name/deauthorize" => "social_accounts#deauthorize"
 
   resources :conversations, only: [:index, :show, :create], path: 'm' do
     resources :messages, only: [:create, :show]
@@ -200,9 +200,6 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get  "/p/tos"     => "tos#show",        as: "tos"
-  post "/p/tos"     => "tos#update",      as: "tos"
-
   scope "/p/tour" do
     get 'setup-account' => 'users/setup#edit', as: 'setup_account'
     put 'setup-account' => 'users/setup#update'
@@ -211,8 +208,6 @@ FactlinkUI::Application.routes.draw do
     get "interests" => "tour#interests", as: "interests"
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end
-
-  get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do
     get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}

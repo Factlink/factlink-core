@@ -15,8 +15,6 @@ class User
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
-  attr_accessor :tos_first_name, :tos_last_name
-
   field :username
   field :full_name    # TODO:EMN minimum length?  require space?
 
@@ -36,15 +34,10 @@ class User
 
   field :admin,       type: Boolean, default: false
 
-  field :agrees_tos,  type: Boolean, default: false
-  field :agrees_tos_name, type: String, default: ""
-  field :agreed_tos_on,   type: DateTime
-
   field :seen_the_tour,  type: Boolean, default: false
   field :seen_tour_step, type: String,  default: nil
   field :receives_mailed_notifications,  type: Boolean, default: true
   field :receives_digest, type: Boolean, default: true
-
 
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
@@ -57,13 +50,11 @@ class User
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest, :email, :admin, :registration_code, :suspended,
         as: :admin
-  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :full_name,
-        as: :from_tos
 
   USERNAME_BLACKLIST = [
     :users, :facts, :site, :templates, :search, :system, :tos, :pages, :privacy,
     :admin, :factlink, :auth, :reserved, :feedback, :feed, :client, :assets,
-    :rails
+    :rails, :'terms-of-service'
   ].freeze
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
@@ -136,7 +127,6 @@ class User
   has_many :social_accounts
 
   scope :active,   where(:set_up => true)
-                  .where(:agrees_tos => true)
                   .where(:deleted.ne => true)
                   .where(:suspended.ne => true)
   scope :seen_the_tour,   active
@@ -199,7 +189,7 @@ class User
   end
 
   def active?
-    set_up && agrees_tos && !deleted && !suspended
+    set_up && !deleted && !suspended
   end
 
   def graph_user
@@ -223,16 +213,6 @@ class User
 
   def self.human_attribute_name(attr, options = {})
     attr.to_s == 'non_field_error' ? '' : super
-  end
-
-  def sign_tos(agrees_tos)
-    unless agrees_tos
-      self.errors.add(:non_field_error, "You have to accept the Terms of Service to continue.")
-      return false
-    end
-
-    attributes = {agrees_tos: agrees_tos, agreed_tos_on: DateTime.now}
-    self.assign_attributes(attributes, as: :from_tos) and save
   end
 
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
@@ -358,4 +338,15 @@ class User
 
     super
   end
+
+  # LEGACY PATENT STUFF:
+  # this data was required when we were still working on our patents
+  # we keep it around in our database for now. If you want to remove
+  # this, please make a backup somewhere safe, so we have the data
+  # of who signed the tos at the time.
+  #
+  # when removing, also remove from serializable hash code
+  field :agrees_tos, type: Boolean, default: false
+  field :agrees_tos_name, type: String, default: ""
+  field :agreed_tos_on, type: DateTime
 end

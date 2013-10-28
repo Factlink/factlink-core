@@ -127,14 +127,6 @@ class Activity < OurOhm
       }
     end
 
-    def forGraphUser_you_just_created_your_first_factlink
-      {
-        subject_class: "Fact",
-        action: :added_first_factlink,
-        write_ids: ->(a) { [a.subject.created_by_id] }
-      }
-    end
-
     def forGraphUser_someone_followed_you
       {
         subject_class: 'GraphUser',
@@ -179,7 +171,6 @@ class Activity < OurOhm
         forGraphUser_someone_opinionated_a_fact_you_created,
         forGraphUser_someone_added_a_fact_you_created_to_his_channel,
         forGraphUser_someone_added_a_fact_to_a_channel_you_follow,
-        forGraphUser_you_just_created_your_first_factlink
       ]
 
       Activity::Listener.register do
