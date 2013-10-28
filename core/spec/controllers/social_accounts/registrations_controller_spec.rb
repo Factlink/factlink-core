@@ -39,8 +39,19 @@ describe SocialAccounts::RegistrationsController do
         get :callback, provider_name: provider_name
 
         expect(SocialAccount.first.uid).to eq uid
-        expect(response.body).to match 'fill in your credentials to connect it with Facebook'
         expect(session[:register_social_account_id]).to eq SocialAccount.first.id.to_s
+      end
+
+      it 'shows the form with hint about signing in, and terms' do
+        provider_name = 'facebook'
+        uid = '10'
+        omniauth_obj = {'provider' => provider_name, 'uid' => uid}
+
+        controller.request.env['omniauth.auth'] = omniauth_obj
+        get :callback, provider_name: provider_name
+
+        expect(response.body).to match 'fill in your credentials to connect it with Facebook'
+        expect(response.body).to match 'By creating an account you accept'
       end
 
       it 'works when a previous connection was not finished' do

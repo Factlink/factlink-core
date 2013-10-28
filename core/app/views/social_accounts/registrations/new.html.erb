@@ -26,6 +26,8 @@
     </div>
 
     <div class="form-actions">
+      <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
+
       <%= f.submit "Continue", class: "button", 'data-disable-with' => "Submitting..." %>
     </div>
   <% end %>
