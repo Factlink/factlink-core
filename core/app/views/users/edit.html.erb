@@ -77,7 +77,7 @@
         </div>
 
         <div class="controls">
-          <%= f.submit "Save settings", class: "button button-confirm" %>
+          <button type="submit" class="button button-confirm" data-disable-with="Saving...">Save settings</button>
         </div>
       </fieldset>
     <% end %>
@@ -106,8 +106,7 @@
         </div>
 
         <div class="controls">
-          <%= f.submit "Delete my entire account", class: "button button-danger" %>
-
+          <button type="submit" class="button button-danger">Delete my entire account</button>
           <span class="help-inline">Warning: all your data will be deleted</span>
         </div>
       </fieldset>
