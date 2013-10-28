@@ -1,3 +1,9 @@
+# This query returns mongo user objects, retrieved by their ids
+# You have the option to call it with mongo ids, or with (Ohm) GraphUser
+# ids.
+# Please try to avoid to add support for all other kinds of fields,
+# both because we want it to have an index, and because we don't want to
+# leak too much of the internals
 module Queries
   class UsersByIds
     include Pavlov::Query
@@ -9,12 +15,13 @@ module Queries
     private
 
     def validate
+      validate_in_set :by, by, [:_id, :graph_user_id]
       user_ids.each { |id| validate_hexadecimal_string :id, id.to_s }
     end
 
     def execute
       users = User.any_in(by => user_ids)
-      users.map{|user| kill user}
+      users.map { |user| kill user }
     end
 
     def kill user
