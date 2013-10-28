@@ -20,16 +20,23 @@ bindClick = -> $(document).bind 'click', clickHandler
 
 unbindClick = -> $(document).unbind 'click', clickHandler
 
+
+suppressScrollbars = ->
+  if Factlink.can_haz.suppress_double_scrollbar
+    document.documentElement.setAttribute('data-factlink-suppress-scrolling', '')
+restoreScrollbars = -> document.documentElement.removeAttribute('data-factlink-suppress-scrolling')
+
 # Object which holds the methods that can be called from the intermediate iframe
 # These methods are also used by the internal scripts and can be called through
 # Factlink.modal.FUNCTION.method() because easyXDM changes the object structure
 Factlink.modal =
   hide: ->
     unbindClick()
-    iFrame.fadeOut 'fast'
+    iFrame.fadeOut 'fast', -> restoreScrollbars()
     Factlink.trigger 'modalClosed'
 
   show: ->
+    suppressScrollbars()
     bindClick()
     iFrame.fadeIn('fast')
 
