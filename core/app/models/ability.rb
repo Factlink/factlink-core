@@ -8,7 +8,7 @@ class Ability
   attr_reader :user
 
   def signed_in?
-    user
+    !!user
   end
 
   def set_up?

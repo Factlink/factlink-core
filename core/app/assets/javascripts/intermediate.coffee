@@ -9,6 +9,7 @@ window.remote = new xdm.Rpc {},
     stopHighlightingFactlink: {}
     createdNewFactlink: {}
     trigger: {}
+    setFeatureToggles: {}
 
   local:
     showFactlink: (id, successFn) ->
