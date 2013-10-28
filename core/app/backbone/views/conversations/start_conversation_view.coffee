@@ -1,5 +1,5 @@
-class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
-  className: "factlink-popover bottom start-conversation-modal-window"
+class window.StartConversationView extends Backbone.Marionette.Layout
+  className: "factlink-popover bottom start-conversation"
 
   events:
     "click .js-submit": 'submit'
@@ -13,7 +13,7 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
     messageTextarea: '.js-message-textarea'
     submit:          '.js-submit'
 
-  template: 'conversations/start_conversation_modal_window'
+  template: 'conversations/start_conversation'
 
   initialize: ->
     @options.defaultMessage ||= "Check out this Factlink!"

@@ -16,7 +16,7 @@ class TopFactShareButtonsView extends Backbone.Marionette.Layout
         side: 'bottom'
         align: 'center'
         fadeTime: 100
-        contentView: new StartConversationModalWindowView(model: @model)
+        contentView: new StartConversationView(model: @model)
       mp_track "Factlink: Toggle conversation popover"
     else
       @popoverRemove '.js-share'
