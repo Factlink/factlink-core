@@ -1,6 +1,4 @@
-class SocialAccounts::RegistrationsController < ApplicationController
-  layout 'social_account_popup'
-
+class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
   def callback
     social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
@@ -94,17 +92,5 @@ class SocialAccounts::RegistrationsController < ApplicationController
     user.save
 
     user
-  end
-
-  def provider_name
-    params[:provider_name]
-  end
-
-  def omniauth_obj
-    request.env['omniauth.auth']
-  end
-
-  def trigger_event name, details=''
-    render :'social_accounts/trigger_event', locals: {event: {name: name, details: details}}
   end
 end

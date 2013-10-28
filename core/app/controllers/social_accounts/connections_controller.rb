@@ -1,6 +1,4 @@
-class SocialAccounts::ConnectionsController < ApplicationController
-  layout 'social_account_popup'
-
+class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
   def callback
     authorize! :update, current_user
 
@@ -63,17 +61,5 @@ class SocialAccounts::ConnectionsController < ApplicationController
   def deauthorize_twitter social_account
     social_account.delete
     flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
-  end
-
-  def provider_name
-    params[:provider_name]
-  end
-
-  def omniauth_obj
-    request.env['omniauth.auth']
-  end
-
-  def trigger_event name, details=''
-    render :'social_accounts/trigger_event', locals: {event: {name: name, details: details}}
   end
 end
