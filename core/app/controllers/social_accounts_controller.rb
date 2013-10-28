@@ -87,7 +87,7 @@ class SocialAccountsController < ApplicationController
 
       render :callback
     else
-      social_account.delete if social_account
+      social_account.delete if social_account # TODO: update existing one
       @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj
       @user = User.new
 
