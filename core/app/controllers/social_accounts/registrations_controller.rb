@@ -8,8 +8,7 @@ class SocialAccounts::RegistrationsController < ApplicationController
       @user = social_account.user
       sign_in @user
 
-      @event = { name: 'signed_in' }
-      render :'social_accounts/trigger_event'
+      trigger_event 'signed_in'
     else
       social_account.delete if social_account # TODO: update existing one
 
@@ -21,8 +20,7 @@ class SocialAccounts::RegistrationsController < ApplicationController
       render :'social_accounts/registrations/new'
     end
   rescue Exception => error
-    @event = { name: "social_error", details: error.message }
-    render :'social_accounts/trigger_event'
+    trigger_event 'social_error', error.message
   end
 
   def create
@@ -39,14 +37,13 @@ class SocialAccounts::RegistrationsController < ApplicationController
     if @user.errors.empty?
       @user.social_accounts.push @social_account
       sign_in(@user)
-      @event = { name: 'signed_in' }
-      render :'social_accounts/trigger_event'
+
+      trigger_event 'signed_in'
     else
       render :'social_accounts/registrations/new'
     end
   rescue Exception => error
-    @event = { name: "social_error", details: error.message }
-    render :'social_accounts/trigger_event'
+    trigger_event 'social_error', error.message
   end
 
   private
@@ -105,5 +102,9 @@ class SocialAccounts::RegistrationsController < ApplicationController
 
   def omniauth_obj
     request.env['omniauth.auth']
+  end
+
+  def trigger_event name, details=''
+    render :'social_accounts/trigger_event', locals: {event: {name: name, details: details}}
   end
 end
