@@ -65,6 +65,16 @@ class UserActivitiesGroupView extends ActivitiesGroupView
     UserPopoverContentView.makeTooltip @, @model.user(),
       selector: '.js-activity-group-user'
 
+  activityMadeRedundantBy: (newActivity, oldActivity) -> false
+  newActivityIsRedundant: (newActivity) ->
+    return false unless @collection.models.length > 1
+    @activityMadeRedundantBy newActivity.get('activity'),
+      @collection.models[@collection.length - 2].get('activity')
+
+  appendHtml: (collectionView, itemView, index) ->
+    return if @newActivityIsRedundant(itemView.model)
+    super
+
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'
 
@@ -91,7 +101,5 @@ class UsersFollowedGroupView extends UserActivitiesGroupView
   @actions: ["followed_user"]
   actions: -> UsersFollowedGroupView.actions
 
-  appendHtml: (collectionView, itemView, index) ->
-    return if @collection.models.length > 1 &&
-      itemView.model.get('activity').followed_user.username == @collection.models[@collection.length - 2].get('activity').followed_user.username
-    super
+  activityMadeRedundantBy: (newActivity, oldActivity) ->
+    newActivity.followed_user.username == oldActivity.followed_user.username
