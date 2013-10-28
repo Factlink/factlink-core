@@ -1,10 +1,10 @@
-require_relative 'application_controller'
-
-class SocialAccountsController < ApplicationController
+class SocialAccounts::ConnectionsController < ApplicationController
   layout 'social_account_popup'
 
   def callback
     connect_provider params[:provider_name], request.env['omniauth.auth']
+
+    render :'social_accounts/callback'
   rescue Exception => error
     @event = { name: "social_error", details: error.message }
   end
@@ -13,7 +13,6 @@ class SocialAccountsController < ApplicationController
     authorize! :update, current_user
 
     deauthorize_social_account current_user.social_account(params[:provider_name])
-
   rescue Exception => error
     flash[:alert] = "Error disconnecting: #{error.message}"
   ensure
@@ -27,7 +26,7 @@ class SocialAccountsController < ApplicationController
 
     @event = { name: "social_error", details: "Authorization failed: #{params[:error_description]}." }
 
-    render :callback
+    render :'social_accounts/callback'
   end
 
   private

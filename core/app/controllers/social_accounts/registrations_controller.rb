@@ -1,6 +1,4 @@
-require_relative 'application_controller'
-
-class SocialAccountsRegistrationsController < ApplicationController
+class SocialAccounts::RegistrationsController < ApplicationController
   layout 'social_account_popup'
 
   def callback_sign_in
@@ -24,7 +22,7 @@ class SocialAccountsRegistrationsController < ApplicationController
       @event = { name: 'signed_in' }
       render :'social_accounts/callback'
     else
-      render
+      render :'social_accounts/registrations/sign_up_or_in'
     end
   end
 
@@ -44,7 +42,7 @@ class SocialAccountsRegistrationsController < ApplicationController
       @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj
       @user = User.new
 
-      render :sign_up_or_in
+      render :'social_accounts/registrations/sign_up_or_in'
     end
   end
 
