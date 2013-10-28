@@ -1,6 +1,6 @@
 class Users::PasswordsController < Devise::PasswordsController
 
-  layout "one_column_simple"
+  layout "one_column"
 
   def edit
     if params[:msg] # Warning! Also used for logging in unconfirmed users who request new password

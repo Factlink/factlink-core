@@ -1,6 +1,6 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
 
-  layout "one_column_simple"
+  layout "one_column"
 
   def show
     self.resource = User.find_or_initialize_with_error_by(:confirmation_token, params[:confirmation_token])
