@@ -33,7 +33,6 @@ class User
 
   field :admin,       type: Boolean, default: false
 
-  field :seen_the_tour,  type: Boolean, default: false
   field :seen_tour_step, type: String,  default: nil
   field :receives_mailed_notifications,  type: Boolean, default: true
   field :receives_digest, type: Boolean, default: true
