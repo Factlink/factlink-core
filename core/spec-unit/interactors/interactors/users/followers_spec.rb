@@ -5,81 +5,60 @@ describe Interactors::Users::Followers do
   include PavlovSupport
 
   describe '#authorized?' do
-    before do
-      described_class.any_instance.stub(validate: true)
-    end
-
     it 'throws when no current_user' do
       expect do
-        described_class.new(user_name: double, skip: double, take: double).call
+        described_class.new(user_name: 'henk', skip: 3, take: 5).call
       end.to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 
   describe '#validate' do
     it 'without user_id doesn\'t validate' do
-      expect_validating(user_name: 12, skip: 2, take: 12)
+      expect_validating(user_name: 12)
         .to fail_validation('user_name should be a nonempty string.')
     end
 
     it 'without user_id doesn\'t validate' do
-      expect_validating(user_name: 'karel', skip: 'a', take: 12)
+      expect_validating(skip: 'a')
         .to fail_validation('skip should be an integer.')
     end
 
     it 'without user_id doesn\'t validate' do
-      expect_validating(user_name: 'karel', skip: 2, take: 'b')
+      expect_validating(take: 'b')
         .to fail_validation('take should be an integer.')
     end
   end
 
   describe '#call' do
-    before do
-      described_class.any_instance.stub(authorized?: true, validate: true)
-    end
-
     it 'it calls the query to get a list of followed users' do
-      user_name = double
-      skip = double
-      take = double
-      current_user = double(graph_user_id: double)
+      current_user = double(graph_user_id: 13)
       pavlov_options = { current_user: current_user }
-      interactor = described_class.new(user_name: user_name, skip: skip,
-        take: take, pavlov_options: pavlov_options)
-      users = double(length: double)
-      graph_user_ids = double
-      count = double
-      user = double(graph_user_id: double)
+      users = [double, double, double, double, double, double]
+      graph_user_ids = [1, 3, 8, current_user.graph_user_id, 5, 9]
+      user = double(graph_user_id: 5, username: 'henk')
       followed_by_me = true
 
-      Pavlov.should_receive(:query)
-            .with(:'user_by_username',
-                      username: user_name, pavlov_options: pavlov_options)
-            .and_return(user)
-      Pavlov.should_receive(:query)
-            .with(:'users/follower_graph_user_ids',
-                      graph_user_id: user.graph_user_id.to_s,
-                      pavlov_options: pavlov_options)
-            .and_return(graph_user_ids)
-      Pavlov.should_receive(:query)
-            .with(:'users_by_graph_user_ids',
-                      graph_user_ids: graph_user_ids, pavlov_options: pavlov_options)
-            .and_return(users)
+      interactor = described_class.new(user_name: user.username, skip: 2,
+                                       take: 3, pavlov_options: pavlov_options)
 
-      graph_user_ids.should_receive(:include?)
-        .with(current_user.graph_user_id)
-        .and_return(followed_by_me)
-
-      users.should_receive(:drop)
-        .with(skip)
-        .and_return(users)
-      users.should_receive(:take)
-        .with(take)
+      allow(Pavlov).to receive(:query)
+        .with(:'user_by_username', username: user.username, pavlov_options: pavlov_options)
+        .and_return(user)
+      allow(Pavlov).to receive(:query)
+        .with(:'users/follower_graph_user_ids',
+              graph_user_id: user.graph_user_id.to_s,
+              pavlov_options: pavlov_options)
+        .and_return(graph_user_ids)
+      allow(Pavlov).to receive(:query)
+        .with(:'users_by_ids',
+              user_ids: graph_user_ids,
+              by: :graph_user_id,
+              pavlov_options: pavlov_options)
         .and_return(users)
 
       returned_users, returned_count, returned_followed_by_me = interactor.call
 
-      expect(returned_users).to eq users
+      expect(returned_users).to eq [users[2], users[3], users[4]]
       expect(returned_count).to eq users.length
       expect(returned_followed_by_me).to eq followed_by_me
     end
