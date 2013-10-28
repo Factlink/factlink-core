@@ -52,7 +52,8 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
     uid = social_account.omniauth_obj['uid']
     token = social_account.omniauth_obj['credentials']['token']
     response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
-    fail response.body if response.code != 200 and response.code != 400
+
+    fail SocialAccountError, response.body if response.code != 200 and response.code != 400
 
     social_account.delete
     flash[:notice] = "Succesfully disconnected."
