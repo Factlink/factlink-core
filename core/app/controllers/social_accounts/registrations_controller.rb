@@ -1,6 +1,5 @@
 class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
-  around_filter :render_trigger_event_on_social_account_error,
-    only: [:create]
+  around_filter :render_trigger_event_on_social_account_error
 
   def callback
     social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
