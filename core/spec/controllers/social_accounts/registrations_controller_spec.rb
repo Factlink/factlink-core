@@ -58,11 +58,11 @@ describe SocialAccounts::RegistrationsController do
     end
   end
 
-  describe :sign_up_or_in do
+  describe :create do
     it 'should a form containing the provider name' do
       twitter_account = create :social_account, :twitter
 
-      post :sign_up_or_in, user: {social_account_id: twitter_account.id}
+      post :create, user: {social_account_id: twitter_account.id}
 
       expect(response.body).to match 'fill in your credentials to connect it with Twitter'
     end
@@ -78,7 +78,7 @@ describe SocialAccounts::RegistrationsController do
         twitter_account = SocialAccount.new provider_name: 'twitter', omniauth_obj: omniauth_obj
         twitter_account.save!
 
-        post :sign_up_or_in, user: {email: email, password: password, social_account_id: twitter_account.id}
+        post :create, user: {email: email, password: password, social_account_id: twitter_account.id}
 
         expect(response.body).to match "eventName = 'signed_in'"
 
@@ -91,7 +91,7 @@ describe SocialAccounts::RegistrationsController do
       it 'shows an error when some field is left open' do
         twitter_account = create :social_account, :twitter
 
-        post :sign_up_or_in, user: {email: 'email@example.org', social_account_id: twitter_account.id}
+        post :create, user: {email: 'email@example.org', social_account_id: twitter_account.id}
 
         expect(response.body).to match 'be blank'
       end
@@ -104,7 +104,7 @@ describe SocialAccounts::RegistrationsController do
         user = create :full_user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
-        post :sign_up_or_in, user: {email: email, password: password, social_account_id: twitter_account.id}
+        post :create, user: {email: email, password: password, social_account_id: twitter_account.id}
 
         user.reload
         expect(user.social_account(:twitter).uid).to eq twitter_account.uid
@@ -118,7 +118,7 @@ describe SocialAccounts::RegistrationsController do
         user = create :full_user, email: email, password: password
         twitter_account = create :social_account, :twitter
 
-        post :sign_up_or_in, user: {email: email, password: 'wrong', social_account_id: twitter_account.id}
+        post :create, user: {email: email, password: 'wrong', social_account_id: twitter_account.id}
 
         expect(response.body).to match 'incorrect password for existing account'
       end
