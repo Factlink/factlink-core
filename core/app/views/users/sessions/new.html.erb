@@ -23,8 +23,8 @@
             <%= f.text_field :login, placeholder: "Email or username" %>
             <%= f.password_field :password, placeholder: "Password" %>
             <% if devise_mapping.rememberable? -%>
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
+              <%= f.check_box :remember_me, class: "remember-me-checkbox" %>
+              <%= f.label :remember_me, class: "remember-me-text" %>
             <% end -%>
 
             <button type="submit" data-disable-with="Signing in..." class="button pull-right client-signin-button">Sign in</button>
