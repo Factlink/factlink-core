@@ -1,4 +1,7 @@
 class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
+  around_filter :render_trigger_event_on_social_account_error,
+    only: [:create]
+
   def callback
     social_account = SocialAccount.find_by_provider_and_uid(provider_name, omniauth_obj['uid'])
 
@@ -46,9 +49,6 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
     else
       render :'social_accounts/registrations/new'
     end
-  rescue SocialAccountError => error
-    message = error.message == SocialAccountError.new.message ? "Something went wrong" : error.message
-    render_trigger_event 'social_error', message
   end
 
   private
