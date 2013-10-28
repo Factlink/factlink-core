@@ -50,10 +50,6 @@ describe Interactors::Users::Following do
         .and_return(graph_user_ids)
       allow(Pavlov).to receive(:query)
         .with(:'users_by_ids',
-              user_ids: graph_user_ids, by: :graph_user_id, pavlov_options: pavlov_options)
-        .and_return(users)
-      allow(Pavlov).to receive(:query)
-        .with(:'users_by_ids',
               user_ids: graph_user_ids.sort[skip, take], by: :graph_user_id, pavlov_options: pavlov_options)
         .and_return(users[skip, take])
 
