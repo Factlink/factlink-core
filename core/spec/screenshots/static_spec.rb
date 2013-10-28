@@ -8,10 +8,7 @@ describe "Static pages:", type: :feature do
     end
     it "with empty submit and open feedback as expected" do
       visit "/"
-
-      within '.header' do
-        find(:button, 'Create account').click
-      end
+      find(:button, 'Create account').click
 
       find('a', text: 'Feedback').click
       within_frame 0 do
