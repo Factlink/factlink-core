@@ -1,18 +1,7 @@
 class TopFactShareButtonsView extends Backbone.Marionette.Layout
-  template:
-    text: """
-      {{#global.can_haz.share_discussion_buttons}}
-        <li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-facebook" href="javascript:void(0)">Facebook</a></li>
-        <li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-twitter" href="javascript:void(0)">Twitter</a></li>
-      {{/global.can_haz.share_discussion_buttons}}
-
-      {{#global.signed_in}}
-        <li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-message js-share" href="javascript:void(0)">Share</a></li>
-      {{/global.signed_in}}
-    """
-
   tagName: 'ul'
   className: 'top-fact-share-buttons'
+  template: 'facts/top_fact_share_buttons'
 
   events:
     'click .js-share': 'showStartConversation'
