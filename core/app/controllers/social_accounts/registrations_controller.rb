@@ -58,14 +58,22 @@ class SocialAccounts::RegistrationsController < ApplicationController
     user
   end
 
-  # TODO: iets van een comment
+  # As far as we know, this is the only way to authenticate
+  # with warden using the devise strategies, using params.
+  # Therefore we set the params, authenticate, and then restore them.
   def user_authenticated_with_warden email, password
-    # TODO: heen en terug?
+    previous_login = params[:user][:login]
+    previous_password = params[:user][:password]
     params[:user][:login] = email
     params[:user][:password] = password
-    allow_params_authentication!
 
-    warden.authenticate(scope: :user)
+    allow_params_authentication!
+    user = warden.authenticate(scope: :user)
+
+    params[:user][:login] = previous_login
+    params[:user][:password] = previous_password
+
+    user
   end
 
   def sign_up_new_user email, password, full_name
