@@ -1,10 +1,11 @@
 <div class="discussion-evidenceish-box spec-evidence-box">
+  <div class="evidence-box-triangle"></div>
+  {{!triangle must be first to make sure tooltips from content are painted on top
+     without needing a z-index; z-index isn't permitted because triangle's "border"
+     is actually a negative-z-index grey triangle.}}
+
   <div class="js-heading-region"></div>
   <div class="discussion-evidenceish-content js-content-region"></div>
   <div class="js-bottom-region"></div>
-  <div class="evidence-box-triangle"></div>
-  {{!triangle must be after content to ensure painting on top without
-     needing a z-index; z-index isn't permitted because triangle's "border"
-     is actually a negative-z-index grey triangle.}}
 </div>
 <div class="js-sub-comments-region"></div>

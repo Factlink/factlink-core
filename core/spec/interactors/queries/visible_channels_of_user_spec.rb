@@ -1,18 +1,19 @@
 require 'spec_helper'
+
 describe Queries::VisibleChannelsOfUser do
+  describe '.call' do
+    it "should return the channels" do
+      user = create :user
+      gu1 = user.graph_user
+      create :channel, created_by: gu1, title: 'a'
+      create :channel, created_by: gu1, title: 'b'
+      create :channel, created_by: gu1, title: 'c'
 
+      pavlov_options = {current_user: user}
+      query = described_class.new user: user, pavlov_options: pavlov_options
 
-  describe '.real_channels_for' do
-    it "should return the channels without All and Created" do
-      gu1 = create :graph_user
-      ch1 = create :channel, created_by: gu1, title: 'a'
-      ch2 = create :channel, created_by: gu1, title: 'b'
-      ch3 = create :channel, created_by: gu1, title: 'c'
-
-      query = Queries::VisibleChannelsOfUser.new {}
-
-      expect(query.real_channels_for(gu1).map(&:title)).
-        to eq ['a', 'b', 'c']
+      expect(query.call.map(&:title))
+        .to eq ['a', 'b', 'c']
     end
   end
 end

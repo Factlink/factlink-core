@@ -10,7 +10,7 @@ test:
 
 testserver:
   redis:
-    host: 172.18.100.41
+    host: 172.18.64.5
     port: 6379
 
 vagrant:
@@ -20,10 +20,10 @@ vagrant:
 
 staging:
   redis:
-    host: 172.18.100.35
+    host: 172.18.64.14
     port: 6379
 
 production:
   redis:
-    host: 172.18.100.45
+    host: 172.18.64.22
     port: 6379

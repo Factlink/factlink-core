@@ -7,7 +7,7 @@ module Acceptance
     end
 
     def go_to_fact_show_of factlink
-      visit fact_path factlink
+      visit client_fact_path factlink
     end
 
     def backend_create_fact

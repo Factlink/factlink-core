@@ -14,23 +14,6 @@ class EvidenceController < ApplicationController
   class EvidenceNotFoundException < StandardError
   end
 
-  def create_new_evidence(displaystring, opinion)
-    evidence = Fact.build_with_data(nil, displaystring.to_s, nil, current_graph_user)
-
-    (evidence.data.save and evidence.save) or raise EvidenceNotFoundException
-    if opinion
-      evidence.add_opinion(opinion, current_graph_user)
-      Activity::Subject.activity(current_graph_user, OpinionType.real_for(opinion),evidence)
-      command :'opinions/recalculate_fact_opinion', fact: evidence
-    end
-
-    evidence
-  end
-
-  def retrieve_evidence(evidence_id)
-    Fact[evidence_id] or raise EvidenceNotFoundException
-  end
-
   def show
     @fact_relation = interactor(:'fact_relations/by_id', fact_relation_id: params[:id].to_s)
 
@@ -43,11 +26,7 @@ class EvidenceController < ApplicationController
 
     authorize! :add_evidence, fact
 
-    if params[:displaystring] != nil
-      evidence = create_new_evidence params[:displaystring], params[:from_fact].andand[:opinion]
-    else
-      evidence = retrieve_evidence params[:evidence_id]
-    end
+    evidence = Fact[params[:evidence_id]] or raise EvidenceNotFoundException
 
     @fact_relation = create_believed_factrelation(evidence, relation, fact)
 

@@ -2,13 +2,13 @@ module Acceptance
   module CommentHelper
       def toggle_to_comment
         within '.add-evidence-form' do
-          page.find('.js-switch-to-factlink').set false
+          page.find('.js-switch-to-factlink').click
         end
       end
 
       def toggle_to_factlink
         within '.add-evidence-form' do
-          page.find('.js-switch-to-factlink').set true
+          page.find('.js-switch-to-factlink').click
         end
       end
 
@@ -55,17 +55,6 @@ module Acceptance
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
-        end
-        wait_until_add_buttons_appear
-      end
-
-      def add_new_factlink type, text
-        open_add_type type
-        toggle_to_factlink unless posting_factlink?
-
-        within '.add-evidence-form' do
-          page.find("input[type=text]").set(text)
-          page.find("button", text: "Post Factlink").click
         end
         wait_until_add_buttons_appear
       end

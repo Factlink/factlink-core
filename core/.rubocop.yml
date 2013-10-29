@@ -36,10 +36,6 @@ EmptyLines:
 SpaceAroundOperators:
   Enabled: false
 
-# Use spaces around { and before }.
-SpaceAroundBraces:
-  Enabled: false
-
 # No spaces after ( or before ).
 SpaceInsideParens:
   Enabled: false
@@ -165,28 +161,8 @@ MethodAndVariableSnakeCase:
 ClassAndModuleCamelCase:
   Enabled: true
 
-# Causes Ruby to check the syntax of the script and exit without executing.
-Syntax:
-  Enabled: false
-
 # Preferred collection methods.
 CollectionMethods:
-  Enabled: false
-
-# Prefer each over for.
-AvoidFor:
-  Enabled: true
-
-# Avoid Perl-style global variables.
-AvoidPerlisms:
-  Enabled: true
-
-# Avoid Perl-style regex back references.
-AvoidPerlBackrefs:
-  Enabled: false
-
-# Avoid the use of class variables.
-AvoidClassVars:
   Enabled: false
 
 # Don't interpolate global, instance and class variables directly in strings.
@@ -251,10 +227,6 @@ OpMethod:
 
 # Name reduce arguments |a, e| (accumulator, element)
 ReduceArguments:
-  Enabled: false
-
-# Use %r only for regular expressions matching more than one '/' character.
-PercentR:
   Enabled: false
 
 # Use %r for regular expressions matching more than one '/' character.

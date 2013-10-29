@@ -24,10 +24,14 @@ FactlinkUI::Application.routes.draw do
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb
   # as well (frame busting)
-  get "/factlink/intermediate" => "facts#intermediate"
+  get "/factlink/intermediate" => "client#intermediate"
 
-  # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new, :create, :show, :destroy] do
+  get '/client/blank' => 'client#blank'
+  get '/client/facts/:id' => 'client#fact_show', as: 'client_fact'
+  get '/facts/new' => 'client#facts_new', as: 'new_fact' # nginx_site cookbook uses this path
+
+
+  resources :facts, only: [:create, :show, :destroy] do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
 
     member do
@@ -49,6 +53,7 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+
     collection do
       get 'recently_viewed' => "facts#recently_viewed"
     end
@@ -77,7 +82,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  resources :feedback # TODO RESTRICT
+  resources :feedback # TODO: RESTRICT
 
   get "/:fact_slug/f/:id" => "facts#discussion_page"
 
@@ -95,10 +100,7 @@ FactlinkUI::Application.routes.draw do
         collection do
           get :reserved
           get :deleted
-        end
-
-        member do
-          put :approve
+          get :suspended
         end
       end
     end
@@ -113,8 +115,8 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get "/auth/:service/callback" => "identities#service_callback", as: "social_auth"
-  delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
+  get "/auth/:provider_name/callback" => "social_accounts#callback", as: "social_auth"
+  delete "/auth/:provider_name/deauthorize" => "social_accounts#deauthorize"
 
   resources :conversations, only: [:index, :show, :create], path: 'm' do
     resources :messages, only: [:create, :show]
@@ -124,6 +126,11 @@ FactlinkUI::Application.routes.draw do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
     delete "/" => "users#destroy"
+
+    resources :created_facts, only: [:index]
+
+    get '/feed' => "channel_activities#index", as: 'feed'
+    get '/feed/count' => "channel_activities#count", as: 'feed_count'
 
     get 'notification-settings' => "users#notification_settings", as: "user_notification_settings"
 
@@ -146,16 +153,7 @@ FactlinkUI::Application.routes.draw do
         end
       end
 
-      resources :activities, only: [:index, :create, :update, :destroy],
-                controller: 'channel_activities' do |variable|
-        collection do
-          get "count"
-          get "facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
-        end
-      end
-
       member do
-
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
         post "add/:fact_id"     => "channels#add_fact"
@@ -166,7 +164,6 @@ FactlinkUI::Application.routes.draw do
 
         scope "/facts" do
           get "/" => "channels#facts", as: "get_facts_for"
-          post "/" => "channels#create_fact", as: "create_fact_for"
 
           scope "/:fact_id" do
             delete "/" => "channels#remove_fact",  as: "remove_fact_from"
@@ -202,17 +199,14 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get  "/p/tos"     => "tos#show",        as: "tos"
-  post "/p/tos"     => "tos#update",      as: "tos"
-
   scope "/p/tour" do
+    get 'setup-account' => 'users/setup#edit', as: 'setup_account'
+    put 'setup-account' => 'users/setup#update'
     get "install-extension" => "tour#install_extension", as: "install_extension"
     get "create-your-first-factlink" => "tour#create_your_first_factlink", as: "create_your_first_factlink"
     get "interests" => "tour#interests", as: "interests"
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end
-
-  get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do
     get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}
@@ -227,6 +221,7 @@ FactlinkUI::Application.routes.draw do
     put "/seen_messages" => "users#seen_messages", as: 'see_messages'
     get "/search" => "users#search", as: 'search_users'
     get "/tour_users" => "users#tour_users", as: 'tour_users'
+    get "/unsubscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'unsubscribe', as: :unsubscribe
+    get "/subscribe/:token/:type" => 'mail_subscriptions#update', subscribe_action: 'subscribe', as: :subscribe
   end
-
 end

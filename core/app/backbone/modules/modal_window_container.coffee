@@ -1,4 +1,4 @@
-FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, MyApp, Backbone, Marionette, $, _) ->
+FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, FactlinkApp, Backbone, Marionette, $, _) ->
 
   class ModalWindowContainer.WrapperView extends Backbone.Marionette.Layout
     className: 'modal-window-container'

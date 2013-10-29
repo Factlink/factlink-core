@@ -8,8 +8,8 @@ module Interactors
         query(:'visible_channels_of_user', user: user)
       end
 
-      def channel_user ch
-        user
+      def channel_graph_user ch
+        user.graph_user
       end
     end
   end

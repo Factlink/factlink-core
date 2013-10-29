@@ -20,14 +20,23 @@ class window.SubCommentsView extends Backbone.Marionette.CollectionView
       @_addViewContainer = new SubCommentContainerView
         creator: currentUser
         innerView: new SubCommentsAddView addToCollection: @collection
-      @_addViewContainer.render()
 
   onRender: ->
     return if @collection.loading()
 
     @closeEmptyView() if @collection.length <= 0
 
-    # The add view needs to be sibling in the DOM tree of the otherSubCommentContainerViews
-    @$el.append @_addViewContainer.el if @_addViewContainer?
+    # Cannot use region as the AddView needs to be sibling in the DOM tree of the other SubCommentContainerViews
+    if Factlink.Global.signed_in
+      @_renderAddViewContainer()
+      @$el.append @_addViewContainer.el
 
-  onClose: -> @_addViewContainer?.close()
+  _renderAddViewContainer: ->
+    return if @_addViewContainerRendered
+
+    @_addViewContainer.render()
+    @_addViewContainerRendered = true
+
+  onClose: ->
+    if Factlink.Global.signed_in
+      @_addViewContainer.close()

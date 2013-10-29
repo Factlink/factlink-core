@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   # expose query to views, so we can rewrite inline
   # retrieval to proper queries. The queries should
   # be pulled back to controllers, and then to interactors
-  helper_method :query # TODO remove me ASAP
+  helper_method :query # TODO: remove me ASAP
 
   rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
@@ -27,14 +27,10 @@ class ApplicationController < ActionController::Base
         end
 
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
-        format.any  { raise exception }
-      elsif !current_user.agrees_tos
-        format.html { redirect_to tos_path }
-        format.json { render json: {error: "You did not agree to the Terms of Service.", code: 'tos'}, status: :forbidden }
-        format.any  { raise exception }
+        format.any  { fail exception }
       else
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
-        format.any  { raise exception }
+        format.any  { fail exception }
       end
     end
   end
@@ -56,13 +52,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if seen_the_tour(user)
-      safe_return_to_path || channel_activities_path(user, user.graph_user.stream)
-    elsif user.agrees_tos
-      start_the_tour_path
-    else
-      tos_path
-    end
+    return setup_account_path unless user.set_up
+    return start_the_tour_path unless seen_the_tour(user)
+
+    safe_return_to_path || feed_path(current_user.username)
   end
 
   def safe_return_to_path
@@ -97,7 +90,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_graph_user
 
   def raise_404(message="Not Found")
-    raise ActionController::RoutingError.new(message)
+    fail ActionController::RoutingError.new(message)
   end
 
   class HackAttempt < StandardError
@@ -125,11 +118,11 @@ class ApplicationController < ActionController::Base
     opts.delete :current_user
 
     new_opts = if user
-                  opts.update mp_name_tag: user.username,
-                              distinct_id: user.id
-                else
-                  opts
-                end
+                 opts.update mp_name_tag: user.username,
+                             distinct_id: user.id
+               else
+                 opts
+               end
 
     new_opts[:time] = Time.now.utc.to_i
 
@@ -200,11 +193,6 @@ class ApplicationController < ActionController::Base
     can? :"see_feature_#{feature}", Ability::FactlinkWebapp
   end
   helper_method :can_haz
-
-  def set_layout
-    allowed_layouts = ['popup', 'client']
-    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
-  end
 
   def inject_special_test_code
     # this method is used by the test to inject things like the

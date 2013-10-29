@@ -30,8 +30,17 @@ class LoadDsl
     Site.find(:url => url).first || Site.create(:url => url)
   end
 
+  def by_display_string(displaystring)
+    fd = FactData.where(displaystring: displaystring)
+    if fd.count > 0
+      fd.first.fact
+    else
+      nil
+    end
+  end
+
   def load_fact(fact_string,url="http://example.org/", opts={})
-    f = Fact.by_display_string(fact_string)
+    f = by_display_string(fact_string)
     return f if f
 
     f = Fact.create(
@@ -70,7 +79,7 @@ class LoadDsl
     raise err_msg
   end
 
-  def load_user(username,email=nil, password=nil, twitter=nil, first_name=nil, last_name=nil)
+  def load_user(username, email=nil, password=nil, full_name=nil)
     u = User.where(:username => username).first
     return u if u
     raise_undefined_user_error unless email and password
@@ -79,14 +88,11 @@ class LoadDsl
       :username => username,
       :password => password,
       :password_confirmation => password,
-      :twitter => twitter,
-      :first_name => first_name || username,
-      :last_name => last_name || username )
-    u.approved = true
-    u.agrees_tos = true
-    u.agreed_tos_on = DateTime.now
+      :full_name => full_name || username )
     u.email = email
     u.confirmed_at = DateTime.now
+    u.set_up = true
+    u.seen_tour_step = 'tour_done'
     u.save
 
     raise_error_if_not_saved(u)
@@ -95,23 +101,23 @@ class LoadDsl
     u
   end
 
-  def user(username,email=nil, password=nil, twitter=nil, first_name=nil, last_name=nil)
-    self.state_user = self.load_user(username,email,password,twitter, first_name, last_name)
+  def user(username, email=nil, password=nil, full_name=nil)
+    self.state_user = self.load_user(username, email, password, full_name)
   end
 
   def believers(*l)
-    self.set_opinion(:believes,*l)
+    self.set_opinion(:believes, *l)
   end
 
   def disbelievers(*l)
-    self.set_opinion(:disbelieves,*l)
+    self.set_opinion(:disbelieves, *l)
   end
 
   def doubters(*l)
-    self.set_opinion(:doubts,*l)
+    self.set_opinion(:doubts, *l)
   end
 
-  def set_opinion(opinion_type,*users)
+  def set_opinion(opinion_type, *users)
     f = state_fact
     users.each do |username|
       gu = self.load_user(username).graph_user

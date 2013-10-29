@@ -11,8 +11,7 @@ module Interactors
       end
 
       def reset_mapping
-        ElasticSearch.clean
-        ElasticSearch.create
+        ElasticSearch.truncate
       end
 
       def reindex

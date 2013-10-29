@@ -16,7 +16,7 @@
 </header>
 
 <div class="row" id="edit_user">
-  <div class="span8">
+  <div class="narrow-indented-block">
     <%= form_for(@user, :url => { action: :update, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }, validate: true) do |f| %>
       <fieldset>
         <legend></legend>
@@ -28,16 +28,9 @@
         </div>
 
         <div class="control-group">
-          <%= f.label :first_name, class: "control-label" %>
+          <%= f.label :full_name, class: "control-label" %>
           <div class="controls">
-            <%= f.text_field :first_name, autocomplete: "off", tabindex: 2 %>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <%= f.label :last_name, class: "control-label" %>
-          <div class="controls">
-            <%= f.text_field :last_name, autocomplete: "off", tabindex: 3 %>
+            <%= f.text_field :full_name, autocomplete: "off", tabindex: 2 %>
           </div>
         </div>
 
@@ -84,13 +77,13 @@
         </div>
 
         <div class="controls">
-          <%= f.submit "Save settings", class: "button button-confirm" %>
+          <button type="submit" class="button button-confirm" data-disable-with="Saving...">Save settings</button>
         </div>
       </fieldset>
     <% end %>
   </div>
 
-  <div class="span8 edit-user-delete-container">
+  <div class="narrow-indented-block edit-user-delete-container">
 
     <%= form_for(@user, method: :delete, html: { class: "form-horizontal" }) do |f| %>
 
@@ -113,8 +106,7 @@
         </div>
 
         <div class="controls">
-          <%= f.submit "Delete my entire account", class: "button button-danger" %>
-
+          <button type="submit" class="button button-danger">Delete my entire account</button>
           <span class="help-inline">Warning: all your data will be deleted</span>
         </div>
       </fieldset>

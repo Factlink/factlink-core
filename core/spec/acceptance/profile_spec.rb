@@ -6,7 +6,7 @@ feature 'the profile page', type: :feature do
   include PavlovSupport
 
   scenario "the users top channels should render" do
-    user = sign_in_user create :full_user
+    user = sign_in_user create :full_user, :confirmed
     channel = create :channel, created_by: user.graph_user
 
     go_to_profile_page_of user
@@ -14,8 +14,8 @@ feature 'the profile page', type: :feature do
   end
 
   scenario 'follow a user and unfollow a user' do
-    following_user = sign_in_user create :full_user
-    followed_user = create :full_user
+    following_user = sign_in_user create :full_user, :confirmed
+    followed_user = create :full_user, :confirmed
 
     visit user_path(followed_user)
 
@@ -60,8 +60,8 @@ feature 'the profile page', type: :feature do
   end
 
   scenario 'follow a user and facts created by that user show up in your stream' do
-    following_user = sign_in_user create :full_user
-    followed_user = create :full_user
+    following_user = sign_in_user create :full_user, :confirmed
+    followed_user = create :full_user, :confirmed
 
     channel = create :channel, created_by: followed_user.graph_user
 
@@ -84,7 +84,7 @@ feature 'the profile page', type: :feature do
       backend.interactor(:'channels/add_fact', fact: fact, channel: channel)
     end
 
-    visit channel_activities_path(following_user.username,following_user.graph_user.stream_id)
+    visit feed_path(following_user.username)
 
     page.should have_content displaystring
   end

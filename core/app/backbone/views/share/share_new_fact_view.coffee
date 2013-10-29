@@ -27,8 +27,6 @@ class window.ShareNewFactView extends Backbone.Marionette.Layout
     facebookRegion: '.js-facebook-region'
 
   onRender: ->
-    @$el.toggle Factlink.Global.can_haz.share_new_factlink_buttons || false
-
     if currentUser.get('services').twitter
       @twitterRegion.show  new ShareButtonView(model: @model, name: 'twitter')
 

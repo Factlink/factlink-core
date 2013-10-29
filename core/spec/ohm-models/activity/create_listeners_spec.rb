@@ -18,17 +18,6 @@ describe 'activity queries' do
   end
 
   describe ".channel" do
-    it "should return activity for when a channel followed this channel" do
-      ch1 = create :channel, created_by: gu1
-      ch2 = create :channel, created_by: gu1
-
-      Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-        subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-      ch2.activities.map(&:to_hash_without_time).should == [
-        {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
-      ]
-    end
-
     it "should *not* return activity for all users following a channel of User1 when User1 creates a new channel" do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
@@ -59,24 +48,6 @@ describe 'activity queries' do
 
       stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
       expect(stream_activities).to eq []
-    end
-
-    [:supporting, :weakening].each do |type|
-      it "should return activities about facts which have received extra #{type} evidence" do
-        ch1 = create :channel
-        f1 = create :fact
-        f2 = create :fact
-        add_fact_to_channel f1, ch1
-        f1.add_evidence type, f2, gu1
-
-        @nr = number_of_commands_on Ohm.redis do
-          @activities = ch1.activities.map(&:to_hash_without_time)
-        end
-        @nr.should < 25
-        @activities.should == [
-          {user: gu1, action: :"added_#{type}_evidence", subject: f2, object: f1}
-        ]
-      end
     end
   end
 
@@ -153,14 +124,6 @@ describe 'activity queries' do
       ]
     end
 
-    it "should return a :added_first_factlink activity when the users' first factlink is created" do
-      f1 = create :fact, created_by: gu1
-
-      gu1.stream_activities.map(&:to_hash_without_time).should == [
-        {user: gu1, action: :added_first_factlink, subject: f1}
-      ]
-    end
-
     [:supporting, :weakening].each do |type|
       it "should return activity when a users adds #{type} evidence to a fact that you created" do
         f1 = create :fact
@@ -214,7 +177,7 @@ describe 'activity queries' do
       u.invited_by = inviter
       u.save
 
-      u.approve_invited_user_and_create_activity
+      u.skip_confirmation_and_create_invited_activity
 
       u.graph_user.notifications.map(&:to_hash_without_time).should == [
         {user: inviter.graph_user, action: :invites, subject: u.graph_user}

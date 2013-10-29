@@ -17,7 +17,7 @@ class window.TopicView extends Backbone.Marionette.Layout
     @showChosenFacts()
     @showFavouriteTopicButton()
 
-    if @channel() and @channel().get('inspectable?')
+    if @channel()
       @subChannelsRegion.show new SubchannelsView
         collection: @channel().subchannels()
         model: @channel()

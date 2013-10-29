@@ -14,8 +14,6 @@ class ConversationItemView extends Backbone.Marionette.ItemView
     recipients_comma: @otherRecipients.map((user) -> user.get('name')).join(', ')
     reply: last_message and last_message.sender.id == currentUser.id
 
-  onShow: -> @$('.text').trunk8 lines: 2
-
   wholeElementClick: (e) -> @defaultClickHandler e, @model.url()
 
 class ConversationEmptyView extends Backbone.Marionette.ItemView

@@ -1,4 +1,6 @@
 #!/bin/bash
+
+[ -z $SUPPRESS_TESTING ] || exit 0
 echo "Running Javascript tests"
 
 REPORTFILE=tmp/konacha.junit.xml

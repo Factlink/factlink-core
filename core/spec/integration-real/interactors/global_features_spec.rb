@@ -5,11 +5,11 @@ describe 'global_features' do
 
   let(:current_user) do
     double(
-      agrees_tos: true,
       admin?: true,
       features: [],
       has_invitations_left?: false,
-      identities: nil,
+      social_account: double(persisted?: false),
+      set_up: true,
     )
   end
 

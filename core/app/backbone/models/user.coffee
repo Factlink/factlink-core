@@ -25,18 +25,7 @@ class window.User extends Backbone.Model
       md5d_email = @get('gravatar_hash')
       "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
-  stream:        -> @channel_with_id 'all_channel_id'
-  created_facts: -> @channel_with_id 'created_facts_channel_id'
-
-  channel_with_id: (id) ->
-    new Channel
-      id: @get(id)
-      created_by:
-        username: @get('username')
-
-  streamLink: -> "/#{@get('username')}/channels/#{@get('all_channel_id')}/activities"
-
-  link: -> '/' + @get('username')
+  streamLink: -> "/#{@get('username')}/feed"
 
   toJSON: ->
     username = @get('username')
@@ -53,7 +42,6 @@ class window.User extends Backbone.Model
       avatar_url_80: @avatar_url(80)
       avatar_url_160: @avatar_url(160)
       stream_path: @streamLink()
-      profile_path: @link()
       user_topics: @user_topics().toJSON()
 
   is_following_users: ->

@@ -8,27 +8,6 @@ describe FactsController do
   let(:user) { create(:full_user) }
 
   describe :show do
-    it "should render successful" do
-      authenticate_user!(user)
-      fact = nil
-
-      as(user) do |pavlov|
-        fact = pavlov.interactor(:'facts/create',
-                                     displaystring: 'displaystring',
-                                     url: 'url',
-                                     title: 'title',
-                                     sharing_options: {})
-      end
-
-      ability.stub(:can?).with(:show, Fact).and_return(true)
-      ability.stub(:can?).with(:share_to, :twitter).and_return(false)
-      ability.stub(:can?).with(:share_to, :facebook).and_return(false)
-      should_check_can :show, fact
-
-      get :show, id: fact.id
-      response.should be_success
-    end
-
     it "should render json successful" do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
@@ -104,7 +83,9 @@ describe FactsController do
       fact.data.title = "baas<xss> of niet"
       fact.data.save
 
-      ability.stub can?: true
+      ability.stub can?: false
+      ability.stub(:can?).with(:show, Fact).and_return(true)
+
       should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, fact
 
@@ -137,14 +118,6 @@ describe FactsController do
     end
   end
 
-  describe :intermediate do
-    it "should have the correct assignments" do
-      subject.stub(:current_user) {user}
-      post :intermediate, the_action: "prepare"
-      response.code.should eq("200")
-    end
-  end
-
   describe :create do
     it "should work with json" do
       authenticate_user!(user)
@@ -155,14 +128,6 @@ describe FactsController do
       authenticate_user!(user)
       post 'create', format: :json, url: "http://example.org/", fact: "Facity Fact", title: "Title", :opinion => :believes
       response.code.should eq("200")
-    end
-  end
-
-  describe :new do
-    it "should work" do
-      authenticate_user!(user)
-      post 'new', url: "http://example.org/", displaystring: "Facity Fact", title: "Title"
-      response.should be_success
     end
   end
 

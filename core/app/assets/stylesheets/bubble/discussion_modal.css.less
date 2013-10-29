@@ -4,9 +4,9 @@
   position: fixed;
   top: 0; right: 0; bottom: 0; left: 0;
   overflow-y: scroll;
-  z-index: 1030; // below modal-window
+  z-index: 1030; // below modal-window and feedback_button
   background-color: fade(@semiTransparentLayerColor, 90%);
-  cursor: pointer; cursor: -webkit-zoom-out; cursor:-moz-zoom-out;
+  .zoom-out-cursor();
 
   opacity: 0;
   transition: opacity 0.1s; // keep time in sync with DiscussionModalContainer

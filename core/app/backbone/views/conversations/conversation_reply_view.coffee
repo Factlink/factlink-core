@@ -1,5 +1,4 @@
 class window.ConversationReplyView extends Backbone.Marionette.ItemView
-  tagName: 'div'
   template: 'conversations/reply'
   events:
     "click .submit": 'submit'

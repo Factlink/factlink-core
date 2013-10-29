@@ -50,9 +50,10 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   createFactRelation: (fact_relation, onFinish=->)->
     return @showError() unless fact_relation.isValid()
 
-    @collection.add fact_relation, highlight: true
+    @collection.add fact_relation
     @inputRegion.switchTo('search_view')
 
+    @collection.trigger 'start_adding_model'
     fact_relation.save {},
       error: =>
         onFinish()
@@ -69,12 +70,10 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
           factlink_id: @options.fact_id
           type: @options.type
 
-  switchToCommentView: (content=null) ->
+  switchToCommentView: ->
     @inputRegion.switchTo 'add_comment_view'
-    @inputRegion.getView('add_comment_view').setFormContent(content) if content?
 
-  switchToFactRelationView: (content=null) ->
+  switchToFactRelationView: ->
     @inputRegion.switchTo 'search_view'
-    @inputRegion.getView('search_view').setQuery(content) if content?
 
   showError: -> FactlinkApp.NotificationCenter.error 'Your Factlink could not be posted, please try again.'

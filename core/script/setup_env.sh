@@ -167,7 +167,8 @@ cd js-library
 cd ..
 
 cd chef-repo
-  ./script/bootstrap
+# RSO broke the chef-repo bootstrap script, so this is currently disabled.
+#  ./script/bootstrap
 cd ..
 
 
@@ -192,6 +193,7 @@ cd core
 
   foreman start -f ProcfileServers &
   FOREMAN_PID=$!
+  bundle exec rake db:truncate
   bundle exec rake db:init
   kill ${FOREMAN_PID}
   wait

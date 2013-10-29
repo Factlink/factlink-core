@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title><%= yield :title %></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag "base" %>
+    <%= stylesheet_link_tag "unsubscribed" %>
+
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div class="fluid-container">
+      <%= image_tag 'email/logo-large.png', class: 'logo' %>
+      <div class="container-box"><%= yield %></div>
+    </div>
+    <%= yield :specific_javascript %>
+    <%= render 'snippets/google_analytics' %>
+  </body>
+</html>

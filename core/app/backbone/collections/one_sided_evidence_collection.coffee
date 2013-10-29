@@ -1,8 +1,8 @@
 class window.OneSidedEvidenceCollection extends Backbone.Factlink.Collection
 
-  initialize: (models, opts) ->
-    @type = opts.type
-    @fact = opts.fact
+  initialize: (models, options) ->
+    @type = options.type
+    @fact = options.fact
 
   parse: (data) ->
     _.map data, (item) ->

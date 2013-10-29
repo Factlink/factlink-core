@@ -6,8 +6,10 @@ module Interactors
       arguments :user_name, :skip, :take
 
       def authorized?
-        !! pavlov_options[:current_user]
+        !!pavlov_options[:current_user]
       end
+
+      private
 
       def validate
         validate_nonempty_string :user_name, user_name
@@ -16,19 +18,30 @@ module Interactors
       end
 
       def execute
-        user = query(:'user_by_username', username: user_name)
-
-        graph_user_ids = query(:'users/follower_graph_user_ids',
-                                  graph_user_id: user.graph_user_id.to_s)
-        users = query(:'users_by_graph_user_ids', graph_user_ids: graph_user_ids)
-
-        followed_by_me = graph_user_ids.include? pavlov_options[:current_user].graph_user_id
-
-        count = users.length
-        users = users.drop(skip).take(take)
-
-        return users, count, followed_by_me
+        [paginated_users, nr_of_followers, followed_by_me]
       end
+
+      def paginated_users
+        paginated_graph_user_ids = graph_user_ids.sort[skip, take]
+        query(:'users_by_ids', user_ids: paginated_graph_user_ids, by: :graph_user_id)
+      end
+
+      def nr_of_followers
+        graph_user_ids.length
+      end
+
+      def followed_by_me
+        graph_user_ids.include? pavlov_options[:current_user].graph_user_id
+      end
+
+      def graph_user_ids
+        @graph_user_ids ||= begin
+          user = query(:'user_by_username', username: user_name)
+
+          query(:'users/follower_graph_user_ids', graph_user_id: user.graph_user_id.to_s)
+        end
+      end
+
     end
   end
 end

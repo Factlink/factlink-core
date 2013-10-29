@@ -1,5 +1,4 @@
 class window.SubchannelsView extends Backbone.Factlink.CompositeView
-  tagName: "div"
   id: "contained-channels"
   template: "channels/subchannels"
   itemView: SubchannelItemView

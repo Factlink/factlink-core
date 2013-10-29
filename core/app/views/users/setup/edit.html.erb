@@ -1,0 +1,28 @@
+<%= form_for(@user, url: setup_account_path, html: { class: "form-horizontal setup-account" }) do |f| %>
+
+  <h1>Hi <%= @user.name %>, set up your account here:</h1>
+
+  <div class="setup-account-form">
+    <div class="control-group">
+      <%= f.label :password, "New password", class: "control-label" %>
+
+      <div class="controls">
+        <%= f.password_field :password, required: true %>
+        <%= possible_error_for_field(@user, :password) %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :password_confirmation, "Confirm new password", class: "control-label" %>
+
+      <div class="controls">
+        <%= f.password_field :password_confirmation, required: true %>
+        <%= possible_error_for_field(@user, :password_confirmation) %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="button button-confirm" data-disable-with="Loading...">Next Step</button>
+    </div>
+  </div>
+<% end %>

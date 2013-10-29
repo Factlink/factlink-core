@@ -21,7 +21,7 @@
       </section>
 
       <section id="main-column">
-        <%= render 'home/notifications', notice: notice, alert: alert %>
+        <%= render 'flash/notification_center', notice: notice, alert: alert %>
 
         <section id="main-wrapper">
           <%= yield :main_column %>
@@ -30,6 +30,7 @@
       </section>
     </div>
     <div id="modal_region"></div>
+    <div id="js-facebook-renewal-region"></div>
     <div class="js-discussion-modal-region"></div>
 <% end %>
 
@@ -39,8 +40,8 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
-    Factlink.setSignedIn(<%= (!!current_ability.signed_in?).to_s.html_safe %>);
+    Factlink.allowFeatures(<%= current_ability.feature_toggles.to_json.html_safe %>);
+    Factlink.setSignedIn(<%= current_ability.signed_in?.to_json.html_safe %>);
 
     <% use_backbone = current_user %>
     <% if use_backbone %>

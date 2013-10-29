@@ -1,19 +1,10 @@
-require_relative 'channel/generated_channel'
-require_relative 'channel/created_facts'
-require_relative 'channel/user_stream'
 require_relative 'channel/activities'
 
 class Channel < OurOhm
   include Activity::Subject
 
-  def type
-    'channel'
-  end
-
   attribute :title
   index :title
-
-  timestamped_set :activities, Activity
 
   attribute :lowercase_title
 
@@ -23,17 +14,9 @@ class Channel < OurOhm
   def create
     result = super
 
-    increment_mixpanel_count
-    Topic.get_or_create_by_channel(self) if type == 'channel'
+    Topic.get_or_create_by_channel(self)
 
     result
-  end
-
-  def increment_mixpanel_count
-    return unless type == 'channel' and self.created_by.user
-
-    mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-    mixpanel.increment_person_event self.created_by.user.id.to_s, channels_created: 1
   end
 
   alias :old_set_title :title= unless method_defined?(:old_set_title)
@@ -44,7 +27,7 @@ class Channel < OurOhm
   end
 
   def save
-    self.title = self.title if type == 'channel'
+    self.title = self.title
     super
   end
 
@@ -93,16 +76,11 @@ class Channel < OurOhm
   end
 
   def to_s
-    self.title
-  end
-
-  def is_real_channel?
-    true
+    title
   end
 
   def add_channel(channel)
     return false if contained_channels.include?(channel)
-    return false unless channel.is_real_channel?
 
     contained_channels << channel
     channel.containing_channels << self

@@ -5,7 +5,7 @@ describe "conversation", type: :feature do
   include Acceptance::FactHelper
 
   before :each do
-    @user = sign_in_user(create :full_user)
+    @user = sign_in_user(create :full_user, :confirmed)
     @recipients = create_list :full_user, 2
   end
 

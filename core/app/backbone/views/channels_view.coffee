@@ -3,7 +3,7 @@ class ChannelItemView extends Backbone.Marionette.ItemView
 
   tagName: 'li'
   className: 'sidebar-item'
-  template: 'channels/single_menu_item'
+  template: 'topics/sidebar/item'
 
   initialize: ->
     @model.on 'activate', @activeOn, @

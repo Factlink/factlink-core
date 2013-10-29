@@ -28,17 +28,11 @@ RSpec.configure do |config|
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
+    Authority.logger = nil
   end
 
   config.before(:each) do
     ElasticSearch.clean
-    stub_const("Logger", Class.new)
-    stub_const("Logger::ERROR", 1)
-    stub_const("Logger::INFO", 2)
-    stub_const("Logger::LOG", 3)
-    stub_const("Logger::DEBUG", 4)
-    Logger.stub(new: nil.andand)
-
     Ohm.flush
     DatabaseCleaner.clean
     Timecop.return

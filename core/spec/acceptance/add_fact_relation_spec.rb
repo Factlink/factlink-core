@@ -6,7 +6,7 @@ feature "adding factlinks to a fact", type: :feature do
   include Acceptance::CommentHelper
 
   background do
-    @user = sign_in_user create :full_user
+    @user = sign_in_user create :full_user, :confirmed
   end
 
   let(:factlink) { create :fact, created_by: @user.graph_user }
@@ -46,6 +46,22 @@ feature "adding factlinks to a fact", type: :feature do
     find('.top-fact-text', text: supporting_factlink.to_s)
   end
 
+  scenario "we can click on evidence to go to the page of that factlink in the client" do
+    go_to_discussion_page_of factlink
+
+    supporting_factlink = backend_create_fact
+
+    add_existing_factlink :supporting, supporting_factlink
+
+    find('.evidence-impact-text', text: "0.0") # wait until request has finished
+
+    go_to_fact_show_of factlink
+
+    find('.evidence-votable span', text: supporting_factlink.to_s).click
+
+    find('.top-fact-text', text: supporting_factlink.to_s)
+  end
+
   scenario "after clicking the factwheel, the impact and percentages should update" do
     go_to_discussion_page_of factlink
 
@@ -63,18 +79,6 @@ feature "adding factlinks to a fact", type: :feature do
 
       find('.evidence-impact-text', text: "1.0")
     end
-  end
-
-  scenario "factlink should show Arguments (1) on profile page" do
-    go_to_discussion_page_of factlink
-
-    supporting_factlink = backend_create_fact
-
-    add_existing_factlink :supporting, supporting_factlink
-
-    visit user_path(@user)
-
-    page.should have_content 'Arguments (1)'
   end
 
   scenario "setting opinion through popup" do

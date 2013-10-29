@@ -9,7 +9,7 @@ def self.truncate(opts)
     Ohm.flush
 
     # truncate elasticsearch
-    ElasticSearch.clean
+    ElasticSearch.truncate
 
     #truncate mongoid
     mongoid_conf = YAML::load_file(Rails.root.join('config/mongoid.yml'))[Rails.env]['sessions']['default']

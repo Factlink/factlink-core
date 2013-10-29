@@ -19,4 +19,18 @@ DeadFact = Struct.new(
     @fact_url ||= FactUrl.new(self)
   end
 
+  def trimmed_quote max_length
+    Quotes.new(displaystring).trimmed_quote(max_length)
+  end
+
+  def host # Move to site when we have a reference to DeadSite or so
+    return '' unless has_site?
+
+    URI.parse(site_url).host
+  end
+
+  def has_site?
+    !site_url.blank?
+  end
+
 end

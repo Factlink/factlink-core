@@ -23,14 +23,18 @@ namespace :fact_graph do
     begin
       exception_notify do
         STDOUT.flush
-        sleep_time = 59
-        puts "now recalculating with interval of #{sleep_time} seconds"
+        run_once_per_minutes = 60
+        puts "now recalculating with interval of #{run_once_per_minutes} minutes"
         $stdout.flush
         while true
+          start_time = Time.now
           puts "now recalculating factgraph"
           $stdout.flush
           FactGraph.recalculate
-          sleep sleep_time
+
+          after_interval_time = start_time + 60*run_once_per_minutes
+          sleep_for = after_interval_time - Time.now
+          sleep sleep_for if sleep_for > 0
         end
       end
     ensure

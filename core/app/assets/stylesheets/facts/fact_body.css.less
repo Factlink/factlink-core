@@ -1,7 +1,7 @@
 @import "bootstrap/mixins";
 
 .fact-base {
-  overflow: hidden;
+  display: inline-block; // for block formatting context
 }
 
 .fact-body {
@@ -11,8 +11,8 @@
 
 .fact-body-displaystring-clickable {
   cursor: pointer;
-  background-color: @factlinkInactiveColor;
   padding: 1px 0;
+  background-color: @factlinkInactiveColor;
   .transition(background-color 0.4s);
 
   &:hover {

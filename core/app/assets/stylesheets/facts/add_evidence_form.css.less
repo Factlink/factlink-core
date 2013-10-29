@@ -6,11 +6,6 @@
     position: relative;
     margin: 0;
 
-    .fact-relation-post {
-      width: 105px;
-      float: right;
-    }
-
     .fact-relations-input-container {
       margin-bottom: 10px;
     }
@@ -30,12 +25,10 @@
   }
 
   .view-toggle {
-    cursor: pointer;
-    padding-top: 4px;
-
-    input[type="checkbox"] {
-      margin-top: -2px;
-      margin-right: 3px;
-    }
+    box-shadow: 0px -1px @mutedBorderBottomColor, 0px -2px @mutedBorderTopColor;
+    display: inline-block; // for block formatting context
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 5px;
   }
 }

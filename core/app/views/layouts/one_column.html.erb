@@ -5,7 +5,7 @@
 <% content_for :main do %>
   <div id="body">
     <div id="container" class="container">
-      <%= render 'home/notifications', notice: notice, alert: alert %>
+      <%= render 'flash/simple', notice: notice, alert: alert %>
 
       <%= yield %>
     </div>
@@ -19,6 +19,6 @@
 <%= render template: "layouts/base", locals: {
   fixed_topbar: false,
   show_footer: true,
-  show_sign_up: defined?(show_sign_up) ? show_sign_up : !current_user,
-  slide_down: defined?(slide_down) ? slide_down : true
+  show_sign_up: false,
+  slide_down: false
 } %>

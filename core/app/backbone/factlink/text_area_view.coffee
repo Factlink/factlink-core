@@ -7,6 +7,9 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
   template: 'generic/text_area'
   events:
+    #we will init autosize not on render, but on keydown: this way the
+    #textarea remains small in its unfocused state.
+    'keydown textarea': 'initAutosize'
     'keyup textarea': 'updateModel'
     'input textarea': 'updateModel'
 
@@ -22,9 +25,9 @@ class Backbone.Factlink.TextAreaView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @listenTo @model, 'change', @updateDom
-    #we will init autosize not on render, but on focus: this way the
-    #textarea remains small in its unfocused state.
-    @on 'focus', @initAutosize
+
+  onRender: ->
+    _.defer => @ui.inputField.focus()
 
   updateModel: ->
     @model.set text: @ui.inputField.val()

@@ -20,8 +20,7 @@ describe Interactors::FullTextSearch::Reindex do
   it '.reset_mapping' do
     interactor = Interactors::FullTextSearch::Reindex.new
 
-    ElasticSearch.should_receive(:clean)
-    ElasticSearch.should_receive(:create)
+    ElasticSearch.should_receive(:truncate)
 
     interactor.reset_mapping
   end

@@ -7,36 +7,26 @@ FactoryGirl.define do
     "johndoe#{n}"
   end
 
-  sequence :first_name do |n|
-    "John#{n}"
-  end
-
-  sequence :last_name do |n|
-    "Doe#{n}"
+  sequence :full_name do |n|
+    "John#{n} Doe#{n}"
   end
 
   factory :user do
     username
     email
-    first_name
-    last_name
+    full_name
     password '123hoi'
     password_confirmation '123hoi'
-
-    trait :agrees_tos do
-      agrees_tos true
-    end
-
-    trait :approved do
-      approved true
-    end
 
     trait :confirmed do
       confirmed_at DateTime.now
     end
 
+    trait :set_up do
+      set_up true
+    end
+
     trait :seen_the_tour do
-      seen_the_tour true
       seen_tour_step 'tour_done'
     end
 
@@ -48,22 +38,30 @@ FactoryGirl.define do
       features [:sees_channels]
     end
 
-    trait :connected_twitter do
-      features [:share_to_twitter]
-      identities('twitter' => {'credentials' => {'token' => 'token', 'secret' => 'secret'}})
-    end
-
-    trait :connected_facebook do
-      features [:share_to_facebook]
-      identities('facebook' => {'credentials' => {'token' => 'token'}})
-    end
-
     factory :full_user, traits: [
-      :approved,
-      :confirmed,
-      :agrees_tos,
+      :set_up,
       :seen_the_tour
     ]
+  end
+
+  factory :social_account do
+    trait :twitter do
+      provider_name 'twitter'
+      omniauth_obj(
+        'uid' => 'some_twitter_uid',
+        'provider' => 'twitter',
+        'credentials' => {'token' => 'token', 'secret' => 'secret'}
+      )
+    end
+
+    trait :facebook do
+      provider_name 'facebook'
+      omniauth_obj(
+        'uid' => 'some_facebook_uid',
+        'provider' => 'facebook',
+        'credentials' => {'token' => 'token', 'expires_at' => (DateTime.now + 4.weeks).to_i, 'expires' => true}
+      )
+    end
   end
 
   sequence :displaystring do |n|

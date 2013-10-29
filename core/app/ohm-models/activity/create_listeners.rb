@@ -13,8 +13,13 @@ class Activity < OurOhm
 
     def select_users_that_see_channels user_ids
       user_ids.select do |id|
-        user = GraphUser[id].andand.user
-        user && user.features.include?(:sees_channels)
+        graph_user = GraphUser[id]
+        if graph_user
+          user = graph_user.user
+          user && user.features.include?(:sees_channels)
+        else
+          false
+        end
       end
     end
 
@@ -108,8 +113,7 @@ class Activity < OurOhm
         subject_class: "Fact",
         action: :added_fact_to_channel,
         extra_condition: ->(a) do
-          (a.subject.created_by_id != a.user_id) and
-            (a.object.type == 'channel')
+          (a.subject.created_by_id != a.user_id)
         end,
         write_ids: ->(a) { [a.subject.created_by_id] }
       }
@@ -120,14 +124,6 @@ class Activity < OurOhm
         subject_class: "Fact",
         action: :added_fact_to_channel,
         write_ids: ->(a) { [a.object.containing_channels.map {|ch| ch.created_by_id }.select { |id| id != a.user_id }].flatten }
-      }
-    end
-
-    def forGraphUser_you_just_created_your_first_factlink
-      {
-        subject_class: "Fact",
-        action: :added_first_factlink,
-        write_ids: ->(a) { [a.subject.created_by_id] }
       }
     end
 
@@ -144,7 +140,6 @@ class Activity < OurOhm
       # TODO clear activity listeners for develop
       create_notification_activities
       create_stream_activities
-      create_obsolete_activities
     end
 
     def create_notification_activities
@@ -176,7 +171,6 @@ class Activity < OurOhm
         forGraphUser_someone_opinionated_a_fact_you_created,
         forGraphUser_someone_added_a_fact_you_created_to_his_channel,
         forGraphUser_someone_added_a_fact_to_a_channel_you_follow,
-        forGraphUser_you_just_created_your_first_factlink
       ]
 
       Activity::Listener.register do
@@ -186,26 +180,6 @@ class Activity < OurOhm
       end
     end
 
-    def create_obsolete_activities
-      # This was used for the activities tab of the channel
-      # however, we removed access to this view a long time ago
-      create_channel_activities
-    end
-
-    def create_channel_activities
-      Activity::Listener.register do
-        activity_for "Channel"
-        named :activities
-
-        activity subject_class: "Channel",
-                 action: 'added_subchannel',
-                 write_ids: ->(a) { [a.subject_id] }
-
-        activity object_class: "Fact",
-                 action: [:added_supporting_evidence, :added_weakening_evidence],
-                 write_ids: ->(a) { a.object.channels.ids }
-      end
-    end
   end
 end
 

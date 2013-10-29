@@ -23,7 +23,7 @@ describe "factlink", type: :feature do
     other_channel = backend_create_channel_of_user @user2
     backend_add_fact_to_channel factlink, other_channel
 
-    visit channel_activities_path(@user, @user.graph_user.stream)
+    visit feed_path(@user.username)
 
     assume_unchanged_screenshot 'feed'
   end

@@ -1,3 +1,6 @@
+# This command anonymizes a deleted user
+# The idea is that this command is idempotent, and can
+# be run again and again against deleted users
 module Commands
   module Users
     class AnonymizeUserModel
@@ -14,14 +17,10 @@ module Commands
           user[field] = User.fields[field].default_val
         end
 
-        user.first_name = 'Deleted'
-        user.last_name  = 'User'
+        user.full_name = 'Deleted User'
 
         user.password              = anonymous_password
         user.password_confirmation = anonymous_password
-        user.reset_password_token  = nil
-        user.confirmation_token    = nil
-        user.invitation_token      = nil
 
         user.username = anonymous_username
         user.email = "deleted+#{anonymous_username}@factlink.com"
@@ -29,6 +28,11 @@ module Commands
         # For now we want to easily see what mails deleted users still get
 
         user.save!
+
+        user.social_accounts.each do |social_account|
+          # TODO: properly deauthorize facebook here
+          social_account.delete
+        end
       end
 
       def anonymous_username

@@ -31,7 +31,6 @@
 }
 
 // Set width to auto for default container
-// We then reset it for fixed navbars in the #gridSystem mixin
 .navbar .container {
   width: auto;
 }
@@ -39,17 +38,7 @@
 // Brand: website or project name
 // -------------------------
 .navbar .brand {
-  float: left;
-  display: block;
-  // Vertically center the text given @navbarHeight
-  padding: ((@navbarHeight - @baseLineHeight) / 2) 20px ((@navbarHeight - @baseLineHeight) / 2);
   margin-left: -20px; // negative indent to left-align the text down the page
-  font-size: 20px;
-  font-weight: 200;
-  color: @navbarBrandColor;
-  &:hover {
-    text-decoration: none;
-  }
 }
 
 // Dividers in navbar
@@ -96,13 +85,6 @@
   padding-left:  0;
   padding-right: 0;
   border-radius: 0;
-}
-
-// Reset container width
-// Required here as we reset the width earlier on and the grid mixins don't override early enough
-.navbar-fixed-top .container,
-.container {
-  #grid > .core > .span(@gridColumns);
 }
 
 // Fixed to top

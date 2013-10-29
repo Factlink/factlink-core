@@ -11,9 +11,6 @@ class window.Fact extends Backbone.Model
 
   urlRoot: "/facts"
 
-  opinionPercentage: (type)->
-    @get('fact_wheel').opinion_types[type].percentage
-
   removeFromChannel: (channel, opts={}) ->
     Backbone.ajax _.extend {}, opts,
       type: "post"
@@ -38,7 +35,7 @@ class window.Fact extends Backbone.Model
       @on 'change:id', -> @_fact_wheel.set 'fact_id', @id
     @_fact_wheel
 
-  clientLink: -> @clone().url()
+  clientLink: -> "/client/facts/#{@id}"
 
   user: -> new User(@get("created_by"))
 
@@ -59,3 +56,4 @@ class window.Fact extends Backbone.Model
       can_destroy: @can_destroy()
       fact_url_host: @factUrlHost()
       fact_url_title: @get('fact_title') || @factUrlHost()
+      is_deletable_from_channel: @collection?.channel?.is_mine()

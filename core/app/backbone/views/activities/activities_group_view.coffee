@@ -65,10 +65,20 @@ class UserActivitiesGroupView extends ActivitiesGroupView
     UserPopoverContentView.makeTooltip @, @model.user(),
       selector: '.js-activity-group-user'
 
+  activityMadeRedundantBy: (newActivity, oldActivity) -> false
+  newActivityIsRedundant: (newActivity) ->
+    return false unless @collection.models.length > 1
+    @activityMadeRedundantBy newActivity,
+      @collection.models[@collection.length - 2]
+
+  appendHtml: (collectionView, itemView, index) ->
+    return if @newActivityIsRedundant(itemView.model)
+    super
+
 class UserFactActivitiesGroupView extends UserActivitiesGroupView
   template: 'activities/user_fact_activities_group'
 
-  @actions: ["added_first_factlink", "added_fact_to_channel", "created_comment", "created_sub_comment", "added_supporting_evidence", "added_weakening_evidence", "believes", "doubts", "disbelieves"]
+  @actions: ["added_fact_to_channel", "created_comment", "created_sub_comment", "added_supporting_evidence", "added_weakening_evidence", "believes", "doubts", "disbelieves"]
   actions: -> UserFactActivitiesGroupView.actions
 
   onRender: ->
@@ -85,9 +95,18 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
 
   appendable: (model) -> super(model) and @sameFact(model)
 
+  isOpinion: (activity) ->
+    activity.get('action') in ['believes', 'disbelieves', 'doubts']
+
+  activityMadeRedundantBy: (newActivity, oldActivity) ->
+    @isOpinion(oldActivity) && @isOpinion(newActivity)
+
 class UsersFollowedGroupView extends UserActivitiesGroupView
   template: 'activities/users_followed_group'
 
   @actions: ["followed_user"]
   actions: -> UsersFollowedGroupView.actions
 
+  activityMadeRedundantBy: (newActivity, oldActivity) ->
+    newActivity.get('activity').followed_user.username ==
+      oldActivity.get('activity').followed_user.username

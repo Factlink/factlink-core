@@ -2,9 +2,7 @@ class MapReduce
   class FactCredibility < MapReduce
     def all_set
       # TODO don't retrieve all and filter clientside, do something smarter
-      Channel.all.find_all do |channel|
-        channel.type == "channel"
-      end
+      Channel.all
     end
 
     def authorities_from_topic(topic)

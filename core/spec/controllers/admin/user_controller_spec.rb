@@ -9,8 +9,7 @@ describe Admin::UsersController do
   def valid_attributes
     {
       username: "test_user",
-      first_name: "Test",
-      last_name: "User",
+      full_name: "Test User",
       email: "test@mail.nl",
       password: "test123",
       password_confirmation: "test123"
@@ -35,15 +34,6 @@ describe Admin::UsersController do
     end
   end
 
-  describe "GET reserved" do
-    it "should render the reserved" do
-      authenticate_user!(user)
-      should_check_can :reserved, User
-      get :reserved
-      response.should be_success
-    end
-  end
-
   describe "GET show" do
     it "assigns the requested user as @user" do
 
@@ -53,13 +43,6 @@ describe Admin::UsersController do
       get :show, {:id => @user1.id}
       response.should be_success
       assigns(:user).should eq(@user1)
-    end
-  end
-
-  describe "PUT /approved" do
-    it "should set approved" do
-      put :approve, id: @user1.id, format: 'json'
-      response.should_not be_succes
     end
   end
 end

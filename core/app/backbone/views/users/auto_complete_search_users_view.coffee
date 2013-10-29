@@ -3,7 +3,7 @@
 class AutoCompleteSearchUserView extends Backbone.Factlink.StepView
   tagName: "li"
 
-  template: "auto_complete/search_item"
+  template: "users/auto_complete_search_user"
 
   templateHelpers: ->
     query = @options.query

@@ -1,8 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
 
-  DEFAULT_LAYOUT = "user_session"
-
-  layout :set_layout
+  layout "client"
 
   after_filter  :track_sign_in, only: :create
   before_filter :track_sign_out, only: :destroy
@@ -16,5 +14,12 @@ class Users::SessionsController < Devise::SessionsController
     mp_track "User: Sign in"
   end
 
-  before_filter :set_layout, only: :new
+  before_filter :redirect_to_homepage, only: :new
+
+  def redirect_to_homepage
+    return if params[:layout] == 'client'
+
+    flash.keep
+    redirect_to '/?show_sign_in=1'
+  end
 end

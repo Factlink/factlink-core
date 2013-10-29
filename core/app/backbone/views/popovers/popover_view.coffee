@@ -1,6 +1,6 @@
 class window.PopoverView extends Backbone.Marionette.Layout
   template: 'popovers/popover'
-  className: => @options.popover_className || 'popover-container'
+  className: => @options.popover_className || 'factlink-popover'
 
   ui:
     arrow: '.js-arrow'
