@@ -20,15 +20,15 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
 
     social_account = current_user.social_account(params[:provider_name])
 
-    unless social_account.persisted?
-      flash[:alert] = "Already disconnected."
-    else
+    if social_account.persisted?
       case social_account.provider_name
       when 'facebook'
         deauthorize_facebook social_account
       when 'twitter'
         deauthorize_twitter social_account
       end
+    else
+      flash[:alert] = "Already disconnected."
     end
 
     redirect_to edit_user_path(current_user)
