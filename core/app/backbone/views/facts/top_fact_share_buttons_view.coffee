@@ -6,18 +6,19 @@ class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
   template: 'facts/top_fact_share_buttons'
 
   events:
-    'click .js-share': '_toggleConversation'
+    'click .js-share': ->
+      @_togglePopover '.js-share', '_newStartConversationView'
+      mp_track "Factlink: Toggle conversation popover"
 
-  _toggleConversation: ->
-    if @popoverExists '.js-share'
-      @popoverRemove '.js-share'
+  _togglePopover: (selector, contentViewConstructor) ->
+    if @popoverExists selector
+      @popoverRemove selector
     else
-      @popoverAdd '.js-share',
+      @popoverAdd selector,
         side: 'bottom'
         align: 'center'
         fadeTime: 100
-        contentView: @_newStartConversationView()
-      mp_track "Factlink: Toggle conversation popover"
+        contentView: @[contentViewConstructor]()
 
   _newStartConversationView: ->
     view = new StartConversationView(model: @model)
