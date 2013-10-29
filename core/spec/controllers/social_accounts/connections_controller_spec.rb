@@ -19,7 +19,7 @@ describe SocialAccounts::ConnectionsController do
       expect(SocialAccount.first.omniauth_obj['uid']).to eq uid
     end
 
-    it 'shows error when already connected to different user' do
+    it 'shows error when already connected to different social account' do
       provider_name = 'facebook'
       omniauth_obj = {'provider' => provider_name, 'uid' => '10'}
       other_omniauth_obj = {'provider' => provider_name, 'uid' => '20'}
