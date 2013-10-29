@@ -49,6 +49,7 @@ describe "creating a Factlink", type: :feature do
   end
 
   it "should be able to delete a factlink" do
+    pending "rewrite to use modal"
     fact_name = "raar"
 
     # create fact:
