@@ -10,7 +10,9 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
 
       render_trigger_event 'signed_in', ''
     else
-      social_account.delete if social_account # TODO: update existing one
+      if social_account
+        social_account.delete # TODO: update existing one
+      end
 
       @social_account = SocialAccount.create! provider_name: provider_name, omniauth_obj: omniauth_obj
       session[:register_social_account_id] = @social_account.id.to_s
