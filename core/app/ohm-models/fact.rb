@@ -102,15 +102,6 @@ class Fact < OurOhm
     FactRelation.find(from_fact_id: id).all
   end
 
-  def self.by_display_string(displaystring)
-    fd = FactData.where(:displaystring => displaystring)
-    if fd.count > 0
-      fd.first.fact
-    else
-      nil
-    end
-  end
-
   def fact_relations
     supporting_facts | weakening_facts
   end
