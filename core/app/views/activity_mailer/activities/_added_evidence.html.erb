@@ -1,40 +1,34 @@
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @user.name %></h1>
+  <h2 class="header-subtitle"><%= @activity.user.user %> added a supporting argument</h2>
+<% end %>
+
 <table cellpadding="0" cellspacing="0" border="0" id="added-argument-message">
   <tr>
     <td colspan="2" class="added-argument-message-header">
-      <h3 class="message-title"><a href="#">If money doesn't make you happy, then you are probably not spending it right.</a></h3>
+      <h3 class="message-title">
+        <%= link_to(friendly_fact_url(@activity.object)) do %>
+          <%= @activity.object.data.displaystring %>
+        <% end %>
+      </h3>
     </td>
   </tr>
     <tr>
       <td class="added-argument-timeline-container">
-        <table cellpadding="0" cellspacing="0" border="0" class="added-argument-timeline">
-          <tr>
-            <td class="timeline-left"></td>
-            <td class="timeline-right"></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="timeline-impact">
-              <div class="timeline-impact-indicator supporting">&nbsp;</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="timeline-left"></td>
-            <td class="timeline-right"></td>
-          </tr>
-        </table>
         <%= render 'activity_mailer/activities/shared/argument-timeline' %>
       </td>
       <td class="added-argument-message-container supporting">
         <table cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td valign="top" class="message-user-image">
-              <img src="images/tom.jpg" width="32" height="32" />
-              <a class="user-name" href="#">Tom de Vries</a>
+              <img src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" />
+              <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name") %>
             </td>
           </tr>
           <tr>
             <td class="added-argument-message-content">
               <p>
-                Money allows people to live longer and healthier lives, to buffer themselves against worry and harm, to have leisure time to spend with family and friends, and to control the nature of their daily activities–all of which are sources of happiness.
+                <%= @activity.subject.data.displaystring %>
               </p>
             </td>
           </tr>
@@ -44,5 +38,5 @@
 </table>
 
 <p align="center">
-  <a class="button" href="">Reply to this argument</a>
+  <%= link_to('Reply to this argument', friendly_fact_url(@activity.object), class: 'button') %>
 </p>
