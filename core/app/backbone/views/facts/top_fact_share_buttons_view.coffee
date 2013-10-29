@@ -1,28 +1,63 @@
-class PreviewShareFactView extends Backbone.Marionette.ItemView
+class PreviewShareFactView extends Backbone.Marionette.Layout
+  template:
+    text: """
+      {{displaystring}}
+
+      <div class="js-region-share-new-fact"></div>
+      <button class="button button-confirm" data-disable-with="Sharing...">Share</button>
+    """
+
+  regions:
+    shareNewFactRegion: '.js-region-share-new-fact'
+
+  onRender: ->
+    shareNewFactView = new ShareNewFactView model: @options.factSharingOptions
+    @shareNewFactRegion.show shareNewFactView
 
 class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
-  tagName: 'ul'
   className: 'top-fact-share-buttons'
   template: 'facts/top_fact_share_buttons'
 
   events:
-    'click .js-share': ->
-      @_togglePopover '.js-share', '_newStartConversationView'
-      mp_track "Factlink: Toggle conversation popover"
+    'click .js-start-conversation': '_toggleStartConversation'
+    'click .js-twitter': '_toggleTwitter'
+    'click .js-facebook': '_toggleFacebook'
+
+  templateHelpers: ->
+    current_user: currentUser.toJSON()
+
+  _toggleStartConversation: ->
+    @_togglePopover '.js-start-conversation', =>
+      mp_track 'Factlink: Open conversation popover'
+
+      new StartConversationView(model: @model)
+
+  _toggleTwitter: ->
+    @_togglePopover '.js-social-share', =>
+      mp_track 'Factlink: Open social share popover (twitter)'
+
+      factSharingOptions = new FactSharingOptions twitter: true
+      new PreviewShareFactView factSharingOptions: factSharingOptions, model: @model
+
+  _toggleFacebook: ->
+    @_togglePopover '.js-social-share', =>
+      mp_track 'Factlink: Open social share popover (facebook)'
+
+      factSharingOptions = new FactSharingOptions facebook: true
+      new PreviewShareFactView factSharingOptions: factSharingOptions, model: @model
 
   _togglePopover: (selector, contentViewConstructor) ->
     if @popoverExists selector
       @popoverRemove selector
     else
+      view = contentViewConstructor()
+
       @popoverAdd selector,
         side: 'bottom'
         align: 'center'
         fadeTime: 100
-        contentView: @[contentViewConstructor]()
+        contentView: view
 
-  _newStartConversationView: ->
-    view = new StartConversationView(model: @model)
-    @listenTo view, 'sent_message', -> @popoverRemove '.js-share'
-    view
+      @listenTo view, 'sent_message', -> @popoverRemove '.js-share'
