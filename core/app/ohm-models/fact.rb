@@ -20,7 +20,6 @@ class Fact < OurOhm
     result = super
 
     add_to_created_facts
-    increment_mixpanel_count
     set_own_id_on_saved_data
 
     result
@@ -28,13 +27,6 @@ class Fact < OurOhm
 
   reference :created_by, GraphUser
   set :channels, Channel
-
-  def increment_mixpanel_count
-    return unless has_site? and created_by.user
-
-    mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-    mixpanel.increment_person_event created_by.user.id.to_s, factlinks_created_with_url: 1
-  end
 
   # TODO: dirty, please decouple
   def add_to_created_facts
@@ -95,15 +87,6 @@ class Fact < OurOhm
 
   def evidenced_factrelations
     FactRelation.find(from_fact_id: id).all
-  end
-
-  def self.by_display_string(displaystring)
-    fd = FactData.where(:displaystring => displaystring)
-    if fd.count > 0
-      fd.first.fact
-    else
-      nil
-    end
   end
 
   def fact_relations
@@ -167,9 +150,5 @@ class Fact < OurOhm
     believable.delete
     remove_from_created_facts
     super
-  end
-
-  def channel_ids
-    channels.ids
   end
 end
