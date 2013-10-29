@@ -16,13 +16,12 @@ class SocialAccounts::BaseController < ApplicationController
   def render_trigger_event_on_social_account_error
     yield
   rescue SocialAccountError => error
-    if error.message == SocialAccountError.new.message
-      render_trigger_event 'social_error', "Something went wrong"
-    else
-      render_trigger_event 'social_error', error.message
-    end
+    render_trigger_event 'social_error', error.message
   end
 
   class SocialAccountError < StandardError
+    def initialize(msg = 'Something went wrong')
+      super
+    end
   end
 end
