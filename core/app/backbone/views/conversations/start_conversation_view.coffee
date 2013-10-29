@@ -1,5 +1,5 @@
 class window.StartConversationView extends Backbone.Marionette.Layout
-  className: "factlink-popover bottom start-conversation"
+  className: "bottom start-conversation"
 
   events:
     "click .js-submit": 'submit'
