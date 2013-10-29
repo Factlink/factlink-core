@@ -15,7 +15,7 @@ describe SocialAccounts::RegistrationsController do
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: 'facebook'
 
-        expect(response.body).to match "eventName = 'signed_in'"
+        expect(response.body).to match 'eventName = "signed_in"'
       end
     end
 
@@ -64,7 +64,7 @@ describe SocialAccounts::RegistrationsController do
         controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 2}
         get :callback, provider_name: provider_name
 
-        expect(response.body).to_not match "eventName = 'social_error'"
+        expect(response.body).to_not match 'eventName = "social_error"'
         expect(SocialAccount.all.size).to eq 1
         expect(SocialAccount.first.omniauth_obj['attempt']).to eq 2
       end
@@ -75,7 +75,7 @@ describe SocialAccounts::RegistrationsController do
     it 'gives an error when no social account has been given' do
       post :create
 
-      expect(response.body).to match "eventName = 'social_error'"
+      expect(response.body).to match 'eventName = "social_error"'
     end
 
     it 'gives an error when an already connected social account has been given' do
@@ -84,7 +84,7 @@ describe SocialAccounts::RegistrationsController do
       session[:register_social_account_id] = twitter_account.id
       post :create
 
-      expect(response.body).to match "eventName = 'social_error'"
+      expect(response.body).to match 'eventName = "social_error"'
     end
 
     context 'account does not exist' do
@@ -101,7 +101,7 @@ describe SocialAccounts::RegistrationsController do
         session[:register_social_account_id] = twitter_account.id
         post :create, user: {email: email, password: password}
 
-        expect(response.body).to match "eventName = 'signed_in'"
+        expect(response.body).to match 'eventName = "signed_in"'
 
         created_user = User.first
         expect(created_user.name).to eq name
@@ -132,7 +132,7 @@ describe SocialAccounts::RegistrationsController do
         user.reload
         expect(user.social_account(:twitter).uid).to eq twitter_account.uid
 
-        expect(response.body).to match "eventName = 'signed_in'"
+        expect(response.body).to match 'eventName = "signed_in"'
       end
 
       it 'shows an error if the password is incorrect' do

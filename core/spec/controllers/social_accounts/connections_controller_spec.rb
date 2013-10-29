@@ -15,7 +15,7 @@ describe SocialAccounts::ConnectionsController do
       controller.request.env['omniauth.auth'] = omniauth_obj
       get :callback, provider_name: 'facebook'
 
-      expect(response.body).to match "eventName = 'authorized'"
+      expect(response.body).to match 'eventName = "authorized"'
       expect(SocialAccount.first.omniauth_obj['uid']).to eq uid
     end
 
@@ -31,7 +31,7 @@ describe SocialAccounts::ConnectionsController do
       controller.request.env['omniauth.auth'] = other_omniauth_obj
       get :callback, provider_name: 'facebook'
 
-      expect(response.body).to match "eventName = 'social_error'"
+      expect(response.body).to match 'eventName = "social_error"'
     end
   end
 end
