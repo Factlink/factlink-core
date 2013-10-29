@@ -7,7 +7,7 @@ class MapReduce
     def map iterator
       iterator.ids.each do |id|
         fact = Fact[id]
-        fact.channel_ids.each do |channel_id|
+        fact.channels.ids.each do |channel_id|
           authority = Authority.from(fact).to_f
           if authority > 0
             yield({

@@ -47,7 +47,7 @@ RSpec.configure do |config|
                                                js_errors: false,
                                                timeout: 60 })
     end
-
+    Authority.logger = nil
   end
 
   config.before(:each) do
