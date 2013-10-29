@@ -32,7 +32,9 @@ class window.TopFactView extends Backbone.Marionette.Layout
 
     @wheelRegion.show @_wheelView()
     @deleteRegion.show @_deleteButtonView() if @model.can_destroy()
-    @shareRegion.show new TopFactShareButtonsView model: @model
+
+    if Factlink.Global.signed_in
+      @shareRegion.show new TopFactShareButtonsView model: @model
 
   _deleteButtonView: ->
     deleteButtonView = new DeleteButtonView model: @model
