@@ -34,10 +34,6 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
   end
 
   def oauth_failure
-    if params[:error_description].blank?
-      params[:error_description] ||= "unspecified error"
-    end
-
     render_trigger_event 'social_error', "Authorization failed: #{params[:error_description]}."
   end
 
