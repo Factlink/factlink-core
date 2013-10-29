@@ -76,32 +76,6 @@ describe Fact do
             expect(fact.evidence(:both).count).to eq 1
           end
         end
-
-        describe ".delete the fact, which has a #{relation} fact" do
-          it "removes everything which depends on it" do
-            @fact_id = fact.id
-            @data_id = fact.data.id
-            @relation_id = @fr.id
-            fact.delete
-
-            expect(Fact[@fact_id]).to be_nil
-            expect(FactData.find(@data_id)).to be_nil
-
-            expect(FactRelation[@relation_id]).to be_nil
-          end
-        end
-        describe ".delete the #{relation} fact" do
-          it "removes everything which depends on it" do
-            @factlink_id = factlink.id
-            @data_id = factlink.data.id
-            @relation_id = @fr.id
-            factlink.delete
-
-            expect(Fact[@factlink_id]).to be_nil
-            expect(FactData.find(@data_id)).to be_nil
-            expect(FactRelation[@relation_id]).to be_nil
-          end
-        end
       end
 
       context "with two #{relation} fact" do
@@ -228,7 +202,20 @@ describe Fact do
       end.to raise_error
     end
 
-    it "is false when the fact has evidence"
-    it "is false when the fact is used as evidence"
+    it "is false when the fact has evidence" do
+      fact = Fact.create created_by: graph_user
+
+      fact.add_evidence(:supporting, factlink, graph_user)
+
+      expect(fact.deletable?).to be_false
+    end
+    it "is false when the fact is used as evidence" do
+      fact = Fact.create created_by: graph_user
+
+      factlink.add_evidence(:supporting, fact, graph_user)
+
+      expect(fact.deletable?).to be_false
+    end
+
   end
 end
