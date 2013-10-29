@@ -48,12 +48,15 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
   def deauthorize_facebook social_account
     uid = social_account.omniauth_obj['uid']
     token = social_account.omniauth_obj['credentials']['token']
-    response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
-
-    fail SocialAccountError, response.body if response.code != 200 and response.code != 400
 
     social_account.delete
-    flash[:notice] = "Succesfully disconnected."
+
+    response = HTTParty.delete("https://graph.facebook.com/#{uid}/permissions?access_token=#{token}")
+    if response.code == 200 || response.code == 400
+      flash[:notice] = 'Succesfully disconnected.'
+    else
+      flash[:notice] = 'To complete, please deauthorize Factlink at the Facebook website.'
+    end
   end
 
   def deauthorize_twitter social_account
