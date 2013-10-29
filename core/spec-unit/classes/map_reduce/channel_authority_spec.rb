@@ -18,17 +18,17 @@ describe MapReduce::ChannelAuthority do
         10 => double(:Fact,
           id: 10,
           created_by_id: 20,
-          channel_ids: [10,11],
+          channels: double(ids: [10,11]),
         ),
         11 => double(:Fact,
           id: 11,
           created_by_id: 21,
-          channel_ids: [10],
+          channels: double(ids: [10]),
         ),
         12 => double(:Fact,
           id: 12,
           created_by_id: 21,
-          channel_ids: [10,11],
+          channels: double(ids: [10,11]),
         )
       }
 
