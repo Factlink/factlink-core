@@ -19,7 +19,6 @@ class Fact < OurOhm
 
     result = super
 
-    set_activity!
     add_to_created_facts
     increment_mixpanel_count
     set_own_id_on_saved_data
@@ -35,10 +34,6 @@ class Fact < OurOhm
 
     mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
     mixpanel.increment_person_event created_by.user.id.to_s, factlinks_created_with_url: 1
-  end
-
-  def set_activity!
-    activity(created_by, :created, self)
   end
 
   # TODO: dirty, please decouple
