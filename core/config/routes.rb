@@ -164,7 +164,6 @@ FactlinkUI::Application.routes.draw do
 
         scope "/facts" do
           get "/" => "channels#facts", as: "get_facts_for"
-          post "/" => "channels#create_fact", as: "create_fact_for"
 
           scope "/:fact_id" do
             delete "/" => "channels#remove_fact",  as: "remove_fact_from"
