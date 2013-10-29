@@ -166,12 +166,17 @@ class Fact < OurOhm
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
   def delete
+    fail "Cannot be deleted" unless deletable?
     delete_data
     delete_all_evidence
     delete_all_evidenced
     believable.delete
     remove_from_created_facts
     super
+  end
+
+  def deletable?
+    opinionated_users_ids - [created_by_id] == []
   end
 
   def channel_ids

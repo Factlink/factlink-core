@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_relative 'believable_shared'
 
 describe Fact do
   it_behaves_like 'a believable object'
@@ -211,5 +210,55 @@ describe Fact do
       expect(ids).to eq [ch1.id, ch2.id, ch3.id]
       expect(nr).to eq 1
     end
+  end
+
+  describe "people believes redis keys" do
+    it "should be cleaned up after delete" do
+      key = subject.key['people_believes'].to_s
+      subject.add_opinion(:believes, graph_user)
+      redis = Redis.current
+      expect(redis.smembers(key)).to eq [graph_user.id]
+      subject.delete
+      expect(redis.smembers(key)).to eq []
+    end
+  end
+
+  describe '#deletable?' do
+    let(:graph_user) { create :graph_user }
+    let(:other_graph_user) { create :graph_user }
+
+    it "is true when a fact is just created" do
+      fact = Fact.create created_by: graph_user
+      expect(fact.deletable?).to be_true
+    end
+
+    it "is false when people have given their opinion on the fact" do
+      fact = Fact.create created_by: graph_user
+
+      fact.add_opiniated :believes, other_graph_user
+
+      expect(fact.deletable?).to be_false
+    end
+
+    it "is true when only the creator has given his opinion" do
+      fact = Fact.create created_by: graph_user
+
+      fact.add_opiniated :believes, graph_user
+
+      expect(fact.deletable?).to be_true
+    end
+
+    it "lets delete raise when it is false" do
+      fact = Fact.create created_by: graph_user
+
+      fact.add_opiniated :believes, other_graph_user
+
+      expect do
+        fact.delete
+      end.to raise_error
+    end
+
+    it "is false when the fact has evidence"
+    it "is false when the fact is used as evidence"
   end
 end
