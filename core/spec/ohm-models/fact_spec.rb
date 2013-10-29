@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Fact do
-  it_behaves_like 'a believable object'
-
   def self.other_one(this)
     this == :supporting ? :weakening : :supporting
   end
@@ -214,11 +212,12 @@ describe Fact do
 
   describe "people believes redis keys" do
     it "should be cleaned up after delete" do
-      key = subject.key['people_believes'].to_s
-      subject.add_opinion(:believes, graph_user)
+      fact = Fact.create created_by: graph_user
+      key = fact.key['people_believes'].to_s
+      fact.add_opinion(:believes, graph_user)
       redis = Redis.current
       expect(redis.smembers(key)).to eq [graph_user.id]
-      subject.delete
+      fact.delete
       expect(redis.smembers(key)).to eq []
     end
   end
