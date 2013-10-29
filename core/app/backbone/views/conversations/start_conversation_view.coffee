@@ -1,5 +1,5 @@
-class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
-  className: "modal-window start-conversation-modal-window"
+class window.StartConversationView extends Backbone.Marionette.Layout
+  className: "bottom start-conversation"
 
   events:
     "click .js-submit": 'submit'
@@ -13,7 +13,7 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
     messageTextarea: '.js-message-textarea'
     submit:          '.js-submit'
 
-  template: 'conversations/start_conversation_modal_window'
+  template: 'conversations/start_conversation'
 
   initialize: ->
     @options.defaultMessage ||= "Check out this Factlink!"
@@ -26,12 +26,6 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
     @recipients.on 'add', @newRecipient
 
     @ui.messageTextarea.val @options.defaultMessage
-
-  handleTextAreaKeyUp: ->
-    keycode = e.keyCode || e.which || e.charCode
-    return if keycode isnt 9
-
-    @focusUnchangedTextArea()
 
   handleTextAreaFocus: (e)->
     @focusUnchangedTextArea()
@@ -71,7 +65,7 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
     conversation.save [],
       success: =>
         FactlinkApp.NotificationCenter.success 'Your message has been sent!'
-        FactlinkApp.ModalWindowContainer.close()
+        @trigger 'sent_message'
 
       error: (model, response) =>
         @_showError response.responseText
@@ -84,10 +78,6 @@ class window.StartConversationModalWindowView extends Backbone.Marionette.Layout
   disableSubmit: ->
     @submitting = true
     @ui.submit.prop('disabled',true ).val('Sending...')
-
-  clearForm: ->
-    @auto_complete_view.clearSearch()
-    @recipients.reset []
 
   _showError: (type) ->
     switch type
