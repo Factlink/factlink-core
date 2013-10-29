@@ -90,10 +90,8 @@ class Fact < OurOhm
 
   def set_own_id_on_saved_data
     self.data.fact_id = id
-    self.data.save
+    self.data.save!
   end
-
-
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
