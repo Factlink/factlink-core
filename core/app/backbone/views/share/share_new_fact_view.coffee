@@ -19,6 +19,7 @@ class ShareButtonView extends Backbone.Marionette.ItemView
 
 
 class window.ShareNewFactView extends Backbone.Marionette.Layout
+  tagName: 'span'
   template: 'share/new_fact'
 
   regions:
