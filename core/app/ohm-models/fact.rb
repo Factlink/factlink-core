@@ -164,8 +164,4 @@ class Fact < OurOhm
     remove_from_created_facts
     super
   end
-
-  def channel_ids
-    channels.ids
-  end
 end
