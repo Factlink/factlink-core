@@ -1,3 +1,5 @@
+class PreviewShareFactView extends Backbone.Marionette.ItemView
+
 class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.PopoverMixin
 
