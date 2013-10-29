@@ -80,12 +80,12 @@ class Fact < OurOhm
   end
 
   def require_saved_data
-    if not data_id
-      localdata = FactData.new
-      localdata.save
-      # FactData now has an ID
-      self.data = localdata
-    end
+    return if data_id
+
+    localdata = FactData.new
+    localdata.save
+    # FactData now has an ID
+    self.data = localdata
   end
 
   def set_own_id_on_saved_data
