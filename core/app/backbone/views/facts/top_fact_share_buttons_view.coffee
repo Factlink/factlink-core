@@ -1,19 +1,25 @@
 class PreviewShareFactView extends Backbone.Marionette.Layout
+  className: 'preview-share-fact'
+
   template:
     text: """
-      <div>{{displaystring}}</div>
+      <div><strong>Share to social networks:</strong></div>
 
-      <div class="float-right">
-        <span class="js-region-share-new-fact"></span>
+      <div class="preview-share-fact-link-container">
+        <a target="_blank" href="#">&ldquo;{{displaystring}}&rdquo;</a>
+      </div>
+
+      <div class="pull-right">
+        <span class="js-share-buttons-region"></span>
         <button class="button button-confirm" data-disable-with="Sharing...">Share</button>
       </div>
     """
 
   regions:
-    shareNewFactRegion: '.js-region-share-new-fact'
+    shareButtonsRegion: '.js-share-buttons-region'
 
   onRender: ->
-    @shareNewFactRegion.show new ShareButtonsView
+    @shareButtonsRegion.show new ShareButtonsView
       model: @options.factSharingOptions
 
 class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
