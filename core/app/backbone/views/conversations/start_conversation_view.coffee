@@ -85,10 +85,6 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     @submitting = true
     @ui.submit.prop('disabled',true ).val('Sending...')
 
-  clearForm: ->
-    @auto_complete_view.clearSearch()
-    @recipients.reset []
-
   _showError: (type) ->
     switch type
       when 'Content cannot be empty'
