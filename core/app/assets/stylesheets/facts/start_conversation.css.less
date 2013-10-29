@@ -1,11 +1,15 @@
 @import "bootstrap/mixins";
 
-.start-conversation-modal-window {
-  .conversation-recipients {
+.start-conversation {
+  width: 300px;
+  padding: 15px;
+  display: inline-block; // new block formatting context
+
+  .start-conversation-recipients {
     margin-bottom: 4px;
   }
 
-  .conversation-message-text {
+  .start-conversation-message-text {
     display: block;
     width: 100%;
     height: 65px;
@@ -18,6 +22,4 @@
   .start-conversation-button {
     min-width: 100px;
   }
-
-  .alert  { margin-bottom: 10px; }
 }
