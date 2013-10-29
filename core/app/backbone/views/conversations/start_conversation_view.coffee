@@ -27,12 +27,6 @@ class window.StartConversationView extends Backbone.Marionette.Layout
 
     @ui.messageTextarea.val @options.defaultMessage
 
-  handleTextAreaKeyUp: ->
-    keycode = e.keyCode || e.which || e.charCode
-    return if keycode isnt 9
-
-    @focusUnchangedTextArea()
-
   handleTextAreaFocus: (e)->
     @focusUnchangedTextArea()
 
