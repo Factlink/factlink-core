@@ -22,21 +22,6 @@ describe SupportingEvidenceController do
       should_check_can :add_evidence, f1
     end
 
-    context "adding new evidence to a fact" do
-
-      it "should return the new evidence" do
-        displaystring = "Nieuwe features van Mark"
-
-        post 'create', fact_id: f1.id, displaystring: displaystring, format: :json
-        response.should be_success
-
-        parsed_content = JSON.parse(response.body)
-        parsed_content["from_fact"]["displaystring"].should == displaystring
-
-        FactRelation[parsed_content["id"].to_i].fact.id.should == f1.id
-      end
-    end
-
     context "adding a new fact as evidence to a fact" do
       it "should return the existing fact as new evidence" do
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json

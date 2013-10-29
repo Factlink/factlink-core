@@ -66,19 +66,6 @@ class Fact < OurOhm
 
   reference :data, ->(id) { id && FactData.find(id) }
 
-  def self.build_with_data(url, displaystring, title, creator)
-    site = url && (Site.find(url: url).first || Site.create(url: url))
-
-    fact_params = {created_by: creator}
-    fact_params[:site] = site if site
-    fact = Fact.new fact_params
-    fact.require_saved_data
-
-    fact.data.displaystring = displaystring
-    fact.data.title = title
-    fact
-  end
-
   def require_saved_data
     return if data_id
 
