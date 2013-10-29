@@ -54,3 +54,5 @@ Backbone.Factlink.PopoverMixin =
   popoverResetAll: ->
     for selector, popover of @_popovers
       @popoverRemove(selector, false)
+
+  popoverExists: (selector) -> !!@_popovers?[selector]
