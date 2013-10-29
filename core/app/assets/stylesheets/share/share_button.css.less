@@ -10,17 +10,18 @@
   text-indent: 100%;
   white-space: nowrap;
   background-color: white;
-  transition: all 0.1s;
 
   &:hover {
     opacity: 0.4;
   }
 
   &.share-discussion-button {
+    transition: opacity 0.1s;
     opacity: 0.75;
   }
 
   &.share-button-checked, &.share-discussion-button:hover {
+    transition: opacity 0.1s;
     opacity: 1;
   }
 }
