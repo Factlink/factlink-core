@@ -72,9 +72,8 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   renderShareNewFact: ->
     @factSharingOptions = new FactSharingOptions
-
-    shareNewFactView = new ShareNewFactView model: @factSharingOptions
-    @shareNewFactRegion.show shareNewFactView
+    @shareNewFactRegion.show new ShareButtonsView
+      model: @factSharingOptions
 
   post_factlink: (e)->
     e.preventDefault()

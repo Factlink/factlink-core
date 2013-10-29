@@ -11,8 +11,8 @@ class PreviewShareFactView extends Backbone.Marionette.Layout
     shareNewFactRegion: '.js-region-share-new-fact'
 
   onRender: ->
-    shareNewFactView = new ShareNewFactView model: @options.factSharingOptions
-    @shareNewFactRegion.show shareNewFactView
+    @shareNewFactRegion.show new ShareButtonsView
+      model: @options.factSharingOptions
 
 class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
   _.extend @prototype, Backbone.Factlink.PopoverMixin
