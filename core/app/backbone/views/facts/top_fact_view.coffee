@@ -20,11 +20,10 @@ class window.TopFactView extends Backbone.Marionette.Layout
     FactlinkApp.ModalWindowContainer.show new AddToChannelModalWindowView(model: @model)
 
   onRender: ->
-    heading_view = if @model.get("proxy_scroll_url")
-        new TopFactHeadingLinkView model: @model
-      else
-        new TopFactHeadingUserView model: @model.user()
-    @userHeadingRegion.show heading_view
+    if @model.get("proxy_scroll_url")
+      @userHeadingRegion.show new TopFactHeadingLinkView model: @model
+    else
+      @userHeadingRegion.show new TopFactHeadingUserView model: @model.user()
 
     @userRegion.show new UserInTopFactView
         model: @model.user()
