@@ -1,10 +1,12 @@
 class PreviewShareFactView extends Backbone.Marionette.Layout
   template:
     text: """
-      {{displaystring}}
+      <div>{{displaystring}}</div>
 
-      <div class="js-region-share-new-fact"></div>
-      <button class="button button-confirm" data-disable-with="Sharing...">Share</button>
+      <div class="float-right">
+        <span class="js-region-share-new-fact"></span>
+        <button class="button button-confirm" data-disable-with="Sharing...">Share</button>
+      </div>
     """
 
   regions:
