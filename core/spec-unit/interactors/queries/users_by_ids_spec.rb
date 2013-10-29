@@ -79,5 +79,21 @@ describe Queries::UsersByIds do
 
       expect(query.call.length).to eq 2
     end
+
+    it 'can search by graph_user ids' do
+      graph_user_ids = [0, 1]
+      graph_user0 = double(id: '10', created_facts: double(size: 10))
+      graph_user1 = double(id: '20', created_facts: double(size: 10))
+      user0 = double(graph_user: graph_user0)
+      user1 = double(graph_user: graph_user1)
+      query = described_class.new(user_ids: graph_user_ids, by: :graph_user_id)
+
+      User.stub(:any_in).with(graph_user_id: graph_user_ids).and_return([user0, user1])
+
+      Pavlov.stub(:query)
+
+      expect(query.call.length).to eq 2
+    end
+
   end
 end

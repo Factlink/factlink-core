@@ -27,7 +27,6 @@ FactoryGirl.define do
     end
 
     trait :seen_the_tour do
-      seen_the_tour true
       seen_tour_step 'tour_done'
     end
 

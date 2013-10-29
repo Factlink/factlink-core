@@ -1,6 +1,6 @@
 class ActiveUsersHaveSeenTheTour < Mongoid::Migration
   def self.up
-    User.active.update_all(seen_the_tour: true)
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

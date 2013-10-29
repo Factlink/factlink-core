@@ -8,7 +8,7 @@ class Ability
   attr_reader :user
 
   def signed_in?
-    user
+    !!user
   end
 
   def set_up?
@@ -166,7 +166,7 @@ class Ability
 
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
-    sees_channels share_discussion_buttons
+    sees_channels share_discussion_buttons suppress_double_scrollbar
   )
 
   def enabled_global_features

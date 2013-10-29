@@ -6,7 +6,7 @@ module Interactors
       arguments :user_name, :skip, :take
 
       def authorized?
-        !! pavlov_options[:current_user]
+        !!pavlov_options[:current_user]
       end
 
       def validate
@@ -16,17 +16,19 @@ module Interactors
       end
 
       def execute
-        user = query(:'user_by_username', username: user_name)
+        [paginated_users, graph_user_ids.length]
+      end
 
-        graph_user_ids = query(:'users/following_graph_user_ids',
-                                  graph_user_id: user.graph_user_id.to_s)
-        users = query(:'users_by_graph_user_ids',
-                          graph_user_ids: graph_user_ids)
+      def paginated_users
+        users = query(:'users_by_ids', user_ids: graph_user_ids.sort[skip, take], by: :graph_user_id)
+      end
 
-        count = users.length
-        users = users.drop(skip).take(take)
+      def graph_user_ids
+        @graph_user_ids ||= begin
+          user = query(:'user_by_username', username: user_name)
 
-        return users, count
+          query(:'users/following_graph_user_ids', graph_user_id: user.graph_user_id.to_s)
+        end
       end
     end
   end
