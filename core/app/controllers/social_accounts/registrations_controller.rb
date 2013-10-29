@@ -8,7 +8,7 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
       @user = social_account.user
       sign_in @user
 
-      render_trigger_event 'signed_in'
+      render_trigger_event 'signed_in', ''
     else
       social_account.delete if social_account # TODO: update existing one
 
@@ -38,7 +38,7 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
       @user.social_accounts.push @social_account
       sign_in(@user)
 
-      render_trigger_event 'signed_in'
+      render_trigger_event 'signed_in', ''
     else
       render :'social_accounts/registrations/new'
     end
