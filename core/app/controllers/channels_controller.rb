@@ -134,23 +134,6 @@ class ChannelsController < ApplicationController
     render nothing: true, status: :no_content
   end
 
-  def create_fact
-    authorize! :create, Fact
-    authorize! :update, @channel
-
-    @fact = Fact.build_with_data(nil, params[:displaystring].to_s, params[:title].to_s, current_graph_user)
-
-    if @fact.data.save and @fact.save
-      mp_track "Factlink: Created"
-
-      interactor(:'channels/add_fact', fact: @fact, channel: @channel)
-      @timestamp = Ohm::Model::TimestampedSet.current_time
-      render 'channels/fact', formats: [:json]
-    else
-      render json: @fact.errors, status: :unprocessable_entity
-    end
-  end
-
   def remove_fact
     authorize! :update, @channel
 
