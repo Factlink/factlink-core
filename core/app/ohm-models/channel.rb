@@ -14,17 +14,9 @@ class Channel < OurOhm
   def create
     result = super
 
-    increment_mixpanel_count
     Topic.get_or_create_by_channel(self)
 
     result
-  end
-
-  def increment_mixpanel_count
-    return unless created_by.user
-
-    mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-    mixpanel.increment_person_event created_by.user.id.to_s, channels_created: 1
   end
 
   alias :old_set_title :title= unless method_defined?(:old_set_title)

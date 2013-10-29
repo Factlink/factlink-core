@@ -30,8 +30,17 @@ class LoadDsl
     Site.find(:url => url).first || Site.create(:url => url)
   end
 
+  def by_display_string(displaystring)
+    fd = FactData.where(displaystring: displaystring)
+    if fd.count > 0
+      fd.first.fact
+    else
+      nil
+    end
+  end
+
   def load_fact(fact_string,url="http://example.org/", opts={})
-    f = Fact.by_display_string(fact_string)
+    f = by_display_string(fact_string)
     return f if f
 
     f = Fact.create(

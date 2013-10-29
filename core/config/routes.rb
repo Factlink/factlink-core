@@ -115,8 +115,13 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get "/auth/:provider_name/callback" => "social_accounts#callback", as: "social_auth"
-  delete "/auth/:provider_name/deauthorize" => "social_accounts#deauthorize"
+  authenticated :user do
+    get "/auth/:provider_name/callback" => "social_accounts/connections#callback", as: "social_auth"
+    delete "/auth/:provider_name/deauthorize" => "social_accounts/connections#deauthorize"
+  end
+
+  get "/auth/:provider_name/callback" => "social_accounts/registrations#callback"
+  post "/auth/new" => "social_accounts/registrations#create", as: 'social_accounts_new'
 
   resources :conversations, only: [:index, :show, :create], path: 'm' do
     resources :messages, only: [:create, :show]
@@ -164,7 +169,6 @@ FactlinkUI::Application.routes.draw do
 
         scope "/facts" do
           get "/" => "channels#facts", as: "get_facts_for"
-          post "/" => "channels#create_fact", as: "create_fact_for"
 
           scope "/:fact_id" do
             delete "/" => "channels#remove_fact",  as: "remove_fact_from"

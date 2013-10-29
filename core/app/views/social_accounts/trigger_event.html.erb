@@ -1,7 +1,7 @@
 <% content_for :specific_javascript do %>
   <script>
-    var eventName = '<%= @event[:name] %>';
-    var eventDetails = '<%= @event[:details] %>';
+    var eventName = <%= event[:name].to_json.html_safe %>;
+    var eventDetails = <%= event[:details].to_json.html_safe %>;
 
     if(window.opener) {
       var evt = document.createEvent('CustomEvent');
@@ -20,17 +20,9 @@
   </script>
 <% end %>
 
-<% content_for :title do %>
-  Factlink &mdash; Because the web needs what you know
-<% end %>
-
-<% content_for :main do %>
-  <div class="content">
-    <div class="container">
-        <h1>Redirecting you back to the application!</h1>
-        <p>
-          Please wait a minute.
-        </p>
-    </div>
-  </div>
+<% content_for :social_account_popup_content do %>
+  <h1>Redirecting you back to the application!</h1>
+  <p>
+    Just a second.
+  </p>
 <% end %>

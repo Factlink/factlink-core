@@ -19,9 +19,7 @@ class Fact < OurOhm
 
     result = super
 
-    set_activity!
     add_to_created_facts
-    increment_mixpanel_count
     set_own_id_on_saved_data
 
     result
@@ -29,17 +27,6 @@ class Fact < OurOhm
 
   reference :created_by, GraphUser
   set :channels, Channel
-
-  def increment_mixpanel_count
-    return unless has_site? and created_by.user
-
-    mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-    mixpanel.increment_person_event created_by.user.id.to_s, factlinks_created_with_url: 1
-  end
-
-  def set_activity!
-    activity(created_by, :created, self)
-  end
 
   # TODO: dirty, please decouple
   def add_to_created_facts
@@ -66,49 +53,25 @@ class Fact < OurOhm
 
   reference :data, ->(id) { id && FactData.find(id) }
 
-  def self.build_with_data(url, displaystring, title, creator)
-    site = url && (Site.find(url: url).first || Site.create(url: url))
-
-    fact_params = {created_by: creator}
-    fact_params[:site] = site if site
-    fact = Fact.new fact_params
-    fact.require_saved_data
-
-    fact.data.displaystring = displaystring
-    fact.data.title = title
-    fact
-  end
-
   def require_saved_data
-    if not data_id
-      localdata = FactData.new
-      localdata.save
-      # FactData now has an ID
-      self.data = localdata
-    end
+    return if data_id
+
+    localdata = FactData.new
+    localdata.save
+    # FactData now has an ID
+    self.data = localdata
   end
 
   def set_own_id_on_saved_data
     self.data.fact_id = id
-    self.data.save
+    self.data.save!
   end
-
-
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
 
   def evidenced_factrelations
     FactRelation.find(from_fact_id: id).all
-  end
-
-  def self.by_display_string(displaystring)
-    fd = FactData.where(:displaystring => displaystring)
-    if fd.count > 0
-      fd.first.fact
-    else
-      nil
-    end
   end
 
   def fact_relations
@@ -177,9 +140,5 @@ class Fact < OurOhm
 
   def deletable?
     opinionated_users_ids - [created_by_id] == []
-  end
-
-  def channel_ids
-    channels.ids
   end
 end
