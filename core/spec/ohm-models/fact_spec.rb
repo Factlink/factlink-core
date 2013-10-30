@@ -1,9 +1,6 @@
 require 'spec_helper'
-require_relative 'believable_shared'
 
 describe Fact do
-  it_behaves_like 'a believable object'
-
   def self.other_one(this)
     this == :supporting ? :weakening : :supporting
   end
@@ -77,32 +74,6 @@ describe Fact do
           end
           it "for :both" do
             expect(fact.evidence(:both).count).to eq 1
-          end
-        end
-
-        describe ".delete the fact, which has a #{relation} fact" do
-          it "removes everything which depends on it" do
-            @fact_id = fact.id
-            @data_id = fact.data.id
-            @relation_id = @fr.id
-            fact.delete
-
-            expect(Fact[@fact_id]).to be_nil
-            expect(FactData.find(@data_id)).to be_nil
-
-            expect(FactRelation[@relation_id]).to be_nil
-          end
-        end
-        describe ".delete the #{relation} fact" do
-          it "removes everything which depends on it" do
-            @factlink_id = factlink.id
-            @data_id = factlink.data.id
-            @relation_id = @fr.id
-            factlink.delete
-
-            expect(Fact[@factlink_id]).to be_nil
-            expect(FactData.find(@data_id)).to be_nil
-            expect(FactRelation[@relation_id]).to be_nil
           end
         end
       end
@@ -182,5 +153,74 @@ describe Fact do
     fact = Fact.create created_by: graph_user
 
     expect(graph_user.sorted_created_facts.to_a).to match_array [fact]
+  end
+
+  describe "people believes redis keys" do
+    it "should be cleaned up after delete" do
+      fact = Fact.create created_by: graph_user
+      key = fact.key['people_believes'].to_s
+      fact.add_opinion(:believes, graph_user)
+      redis = Redis.current
+      expect(redis.smembers(key)).to eq [graph_user.id]
+
+      fact.delete
+
+      expect(redis.smembers(key)).to eq []
+    end
+  end
+
+  describe '#deletable?' do
+    let(:graph_user) { create :graph_user }
+    let(:other_graph_user) { create :graph_user }
+
+    it "is true when a fact is just created" do
+      fact = Fact.create created_by: graph_user
+      expect(fact.deletable?).to be_true
+    end
+
+    it "is false when people have given their opinion on the fact" do
+      fact = Fact.create created_by: graph_user
+
+      fact.add_opiniated :believes, other_graph_user
+
+      expect(fact.deletable?).to be_false
+    end
+
+    it "is true when only the creator has given his opinion" do
+      fact = Fact.create created_by: graph_user
+
+      fact.add_opiniated :believes, graph_user
+
+      expect(fact.deletable?).to be_true
+    end
+
+    it "lets delete raise when it is false" do
+      fact = Fact.create created_by: graph_user
+
+      fact.add_opiniated :believes, other_graph_user
+
+      expect do
+        fact.delete
+      end.to raise_error
+    end
+
+    it "is false when the fact has evidence" do
+      supported_fact  = Fact.create created_by: graph_user
+      supporting_fact = Fact.create created_by: graph_user
+
+      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
+
+      expect(supported_fact.deletable?).to be_false
+    end
+
+    it "is false when the fact is used as evidence" do
+      supported_fact  = Fact.create created_by: graph_user
+      supporting_fact = Fact.create created_by: graph_user
+
+      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
+
+      expect(supported_fact.deletable?).to be_false
+    end
+
   end
 end

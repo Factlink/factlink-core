@@ -1,8 +1,6 @@
 require 'spec_helper'
-require_relative 'believable_shared'
 
 describe FactRelation do
-  it_behaves_like 'a believable object'
   subject {create(:fact_relation)}
 
   let(:gu) {create(:full_user).graph_user}
@@ -65,8 +63,8 @@ describe FactRelation do
   end
 
   it "should delete itself from lists referring to it" do
-    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    fact1.delete
+    fr = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+    fr.delete
     expect(fact2.evidence(:supporting).size).to eq 0
   end
 
@@ -111,4 +109,17 @@ describe FactRelation do
     end
   end
 
+  describe "people believes redis keys" do
+    it "should be cleaned up after delete" do
+      user = create(:graph_user)
+      key = subject.key['people_believes'].to_s
+      subject.add_opinion(:believes, user)
+      redis = Redis.current
+      expect(redis.smembers(key)).to eq [user.id]
+
+      subject.delete
+
+      expect(redis.smembers(key)).to eq []
+    end
+  end
 end

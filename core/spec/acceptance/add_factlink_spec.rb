@@ -56,17 +56,16 @@ describe "creating a Factlink", type: :feature do
 
     click_button "Post to Factlink"
 
-    go_to_profile_page_of @user
+    sleep 1
+
+    go_to_discussion_page_of Fact.all.to_a.last
 
     page.should have_content fact_name
 
-    # and delete it:
-    page.evaluate_script('window.confirm = function() { return true; }')
+    find('.delete-button-first').click
+    find('.delete-button-second').click
 
-    page.find(".top-right-arrow", visible: false).click
-
-    page.find("li.delete").click
-
+    go_to_profile_page_of @user
     page.should_not have_content fact_name
   end
 end

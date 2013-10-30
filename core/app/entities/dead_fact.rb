@@ -5,7 +5,7 @@ DeadFact = Struct.new(
   :created_at,
   :title,
   :wheel,
-  :evidence_count
+  :deletable?
 ) do
   def to_s
     displaystring || ""

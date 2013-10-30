@@ -41,9 +41,7 @@ class window.Fact extends Backbone.Model
 
   is_mine: -> @user().is_current_user()
 
-  has_evidence: -> @get('evidence_count') > 0
-
-  can_destroy: -> @is_mine() && !@has_evidence()
+  can_destroy: -> @is_mine() && @get('is_deletable')
 
   factUrlHost: ->
     fact_url = @get('fact_url')

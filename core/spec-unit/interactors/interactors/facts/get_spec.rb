@@ -30,15 +30,13 @@ describe Interactors::Facts::Get do
 
   describe '#call' do
     it 'stores the recently viewed if a user is present' do
-      fact = double(id: '1', evidence_count: nil)
+      fact = double(id: '1')
       user = double(id: '1e')
-      evidence_count = 10
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
 
       Pavlov.stub(:query)
-            .with(:'facts/get',
-                      id: fact.id, pavlov_options: pavlov_options)
+            .with(:'facts/get', id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
       Pavlov.should_receive(:command)
@@ -52,18 +50,15 @@ describe Interactors::Facts::Get do
     end
 
     it 'returns the fact' do
-      fact = double(id: '1', evidence_count: nil)
-      evidence_count = 10
+      fact = double(id: '1')
 
       pavlov_options = { ability: double(can?: true) }
 
       Pavlov.stub(:query)
-            .with(:'facts/get',
-                      id: fact.id, pavlov_options: pavlov_options)
+            .with(:'facts/get', id: fact.id, pavlov_options: pavlov_options)
             .and_return(fact)
 
-      interactor = described_class.new id: fact.id,
-        pavlov_options: pavlov_options
+      interactor = described_class.new id: fact.id, pavlov_options: pavlov_options
       expect(interactor.call).to eq fact
     end
   end
