@@ -205,19 +205,21 @@ describe Fact do
     end
 
     it "is false when the fact has evidence" do
-      fact = Fact.create created_by: graph_user
+      supported_fact  = Fact.create created_by: graph_user
+      supporting_fact = Fact.create created_by: graph_user
 
-      fact.add_evidence(:supporting, factlink, graph_user)
+      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
 
-      expect(fact.deletable?).to be_false
+      expect(supported_fact.deletable?).to be_false
     end
 
     it "is false when the fact is used as evidence" do
-      fact = Fact.create created_by: graph_user
+      supported_fact  = Fact.create created_by: graph_user
+      supporting_fact = Fact.create created_by: graph_user
 
-      factlink.add_evidence(:supporting, fact, graph_user)
+      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
 
-      expect(fact.deletable?).to be_false
+      expect(supported_fact.deletable?).to be_false
     end
 
   end
