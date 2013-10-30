@@ -14,6 +14,6 @@ curl -u "$1" -d '{
   "note":"Jenkins-Commit-Statusses",
   "note_url":"https://ci-factlink.inverselink.com/",
   "client_id":"2ecd296614f9a61cbcec",
-  "client_secret":"ab47cff1b27367ac3d3104ed4d4379c1bd23fc77"
+  "client_secret":"fe0341da1858d6cc688bd313117db1e0762e84f6"
   }' \
   https://api.github.com/authorizations
