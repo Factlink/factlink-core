@@ -2,52 +2,52 @@ development:
   omniauth:
     facebook:
       id: "283748838400237"
-      secret: "608b02f9697512a72bd2174abdf98395"
+      secret: "9d3776e82a8e050f615838bb9b32d13f"
     twitter:
-      id: "92a5EJxmFDrEs6mH3oyvmQ"
-      secret: "4m8rGSizfiZol85kNDHJrgd4TZOmKmss530ZF4Tuc"
+      id: "e88X667rNJwV3qUU1FP38Q"
+      secret: "PzyaLeimuKB9vFnaQQePk76QSXwp11nUZKxpk83E"
 
 test:
   omniauth:
     facebook:
       id: "283748838400237"
-      secret: "608b02f9697512a72bd2174abdf98395"
+      secret: "9d3776e82a8e050f615838bb9b32d13f"
     twitter:
-      id: "92a5EJxmFDrEs6mH3oyvmQ"
-      secret: "4m8rGSizfiZol85kNDHJrgd4TZOmKmss530ZF4Tuc"
+      id: "e88X667rNJwV3qUU1FP38Q"
+      secret: "PzyaLeimuKB9vFnaQQePk76QSXwp11nUZKxpk83E"
 
 testserver:
   omniauth:
     facebook:
       id: "394296183970720"
-      secret: "b55062c283d2d3e90cc00ef8cd884cf0"
+      secret: "7b82d480717098805e22524f87e3893f"
     twitter:
-      id: "IeKrZsf2YqPalGJsIwIA"
-      secret: "B06JwUyyaOE9rAs5sLEm0CcZ6XLTAcaX4FlSlJu3s"
+      id: "2mqTPE21rj9R4fcPI6FPQ"
+      secret: "y4i9T3Q1CSvU6IsTfUUKNYjEP5414JEqSnY03e2YtM"
 
 vagrant:
   omniauth:
     facebook:
       id: "394296183970720"
-      secret: "b55062c283d2d3e90cc00ef8cd884cf0"
+      secret: "7b82d480717098805e22524f87e3893f"
     twitter:
-      id: "IeKrZsf2YqPalGJsIwIA"
-      secret: "B06JwUyyaOE9rAs5sLEm0CcZ6XLTAcaX4FlSlJu3s"
+      id: "2mqTPE21rj9R4fcPI6FPQ"
+      secret: "y4i9T3Q1CSvU6IsTfUUKNYjEP5414JEqSnY03e2YtM"
 
 staging:
   omniauth:
     facebook:
       id: "435991923110591"
-      secret: "4c0fa30f8597e6458ea5dad174673f1e"
+      secret: "e27771470b8c341cb144367f7938a900"
     twitter:
-      id: "06nSn2qIxmbkIQyTqM9hg"
-      secret: "rEiR77lg1sOur4rwlLoVXw0iCr6jHZXLBAX0zX1CI"
+      id: "tn5TO9XnyZhyCvGlZqkQ"
+      secret: "WJj6vPjrxn13gI99w0ZZuWjqccU8EX6voY62WztaRc"
 
 production:
   omniauth:
     facebook:
       id: "385144638222636"
-      secret: "03a62f1b9bc84c9993fb09a3a1683b64"
+      secret: "caeb481a2676854f6724b52838407faa"
     twitter:
       id: "gbis6EUPWZvEJFApQ3KA"
       secret: "YVdJAHDFKqwZJPE1rqbojYXxj8wx7430PjH1cEaHI"
