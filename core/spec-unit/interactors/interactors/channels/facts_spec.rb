@@ -41,7 +41,6 @@ describe Interactors::Channels::Facts do
       count = 3
       fact = double
       result = [{item: fact}]
-      evidence_count = 10
 
       pavlov_options = { current_user: user }
       interactor = described_class.new id: '1', from: from, count: count,

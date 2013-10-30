@@ -14,7 +14,7 @@ module Queries
                      fact.data.created_at,
                      fact.data.title,
                      wheel,
-                     evidence_count
+                     fact.deletable?
       end
 
       def fact
@@ -29,10 +29,6 @@ module Queries
 
       def wheel
         query(:'facts/get_dead_wheel', id: id)
-      end
-
-      def evidence_count
-        query(:'evidence/count_for_fact', fact: fact)
       end
 
       def validate
