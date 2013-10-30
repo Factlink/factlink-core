@@ -63,8 +63,8 @@ describe FactRelation do
   end
 
   it "should delete itself from lists referring to it" do
-    FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    fact1.delete
+    fr = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
+    fr.delete
     expect(fact2.evidence(:supporting).size).to eq 0
   end
 
