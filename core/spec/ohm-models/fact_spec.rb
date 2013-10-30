@@ -162,7 +162,9 @@ describe Fact do
       fact.add_opinion(:believes, graph_user)
       redis = Redis.current
       expect(redis.smembers(key)).to eq [graph_user.id]
+
       fact.delete
+
       expect(redis.smembers(key)).to eq []
     end
   end
@@ -209,6 +211,7 @@ describe Fact do
 
       expect(fact.deletable?).to be_false
     end
+
     it "is false when the fact is used as evidence" do
       fact = Fact.create created_by: graph_user
 

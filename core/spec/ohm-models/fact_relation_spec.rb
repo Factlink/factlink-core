@@ -116,7 +116,9 @@ describe FactRelation do
       subject.add_opinion(:believes, user)
       redis = Redis.current
       expect(redis.smembers(key)).to eq [user.id]
+
       subject.delete
+
       expect(redis.smembers(key)).to eq []
     end
   end
