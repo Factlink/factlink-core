@@ -6,6 +6,5 @@ class window.PreviewShareFactView extends Backbone.Marionette.Layout
   regions:
     shareButtonsRegion: '.js-share-buttons-region'
 
-  onRender: ->
-    @shareButtonsRegion.show new ShareButtonsView
-      model: @options.factSharingOptions
+  templateHelpers: =>
+    provider_name: @options.provider_name.capitalize()

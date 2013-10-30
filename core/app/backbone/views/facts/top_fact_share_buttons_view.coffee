@@ -19,18 +19,16 @@ class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
       new StartConversationView(model: @model)
 
   _toggleTwitter: ->
-    @_togglePopover '.js-social-share', =>
+    @_togglePopover '.js-twitter', =>
       mp_track 'Factlink: Open social share popover (twitter)'
 
-      factSharingOptions = new FactSharingOptions twitter: true
-      new PreviewShareFactView factSharingOptions: factSharingOptions, model: @model
+      new PreviewShareFactView model: @model, provider_name: 'twitter'
 
   _toggleFacebook: ->
-    @_togglePopover '.js-social-share', =>
+    @_togglePopover '.js-facebook', =>
       mp_track 'Factlink: Open social share popover (facebook)'
 
-      factSharingOptions = new FactSharingOptions facebook: true
-      new PreviewShareFactView factSharingOptions: factSharingOptions, model: @model
+      new PreviewShareFactView model: @model, provider_name: 'facebook'
 
   _togglePopover: (selector, contentViewConstructor) ->
     if @popoverExists selector
