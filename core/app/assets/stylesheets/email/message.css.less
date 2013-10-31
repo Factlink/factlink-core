@@ -1,4 +1,4 @@
-@import "bootstrap/mixins";
+@import "email/email_variables";
 
 #message, #user-info {
   border-radius: 3px;
@@ -37,7 +37,8 @@
 .message-content {
   padding-top: 0;
   padding-bottom: 0;
-  > p {
+  border-bottom: @emailBaseBorderStyling;
+    > p {
     margin-top: 0.5em;
   }
 }
