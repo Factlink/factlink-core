@@ -1,3 +1,8 @@
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @user.name %></h1>
+  <h2 class="header-subtitle"><%= @activity.user.user %> has replied to your message on Factlink</h2>
+<% end %>
+
 <table cellpadding="20" cellspacing="0" border="0" id="message">
 
   <tr>
@@ -8,7 +13,7 @@
 
   <tr>
     <td valign="top" class="message-user-image" rowspan="2">
-      <img src="images/tom.jpg" width="32" height="32" />
+      <img src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" />
     </td>
     <td class="message-user">
       <%= link_to_possibly_dead_user(@activity.user.user) %>
@@ -28,5 +33,7 @@
 </table>
 
 <p align="center">
- <%= link_to("Reply to this message", conversation_message_url(@activity.subject.conversation, @activity.subject), class: "button") %>
+  <%= link_to conversation_url(@activity.subject), class: 'button' do %>
+    Reply to this message
+  <% end %>
 </p>
