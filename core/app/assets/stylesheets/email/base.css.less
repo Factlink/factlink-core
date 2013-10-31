@@ -146,12 +146,20 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
 }
 
-.unsubscribe-link {
+.unsubscribe-container {
   float: right;
   color: @emailMutedFontColor;
-  font-weight: normal;
-  text-decoration: underline;
-  font-size: 12px;
+
+  .unsubscribe-link {
+    color: @emailMutedFontColor;
+    font-weight: normal;
+    font-size: 12px;
+    text-decoration: underline;
+  }
+
+  .unsubscribe-link-devider {
+    margin: 0 5px;
+  }
 }
 
 .no-border {

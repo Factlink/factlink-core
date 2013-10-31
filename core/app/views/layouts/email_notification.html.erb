@@ -1,5 +1,9 @@
 <% content_for :email_footer do %>
-  <%= link_to 'Unsubscribe from these emails', unsubscribe_url(@user.user_notification.notification_settings_edit_token, :mailed_notifications), class: 'unsubscribe-link' %>
+  <div class="unsubscribe-container">
+    <%= link_to 'Manage your subscriptions', user_notification_settings_path(@user.username), class: 'unsubscribe-link' %>
+    <span class="unsubscribe-divider">&#8226;</span>
+    <%= link_to 'Unsubscribe', unsubscribe_url(@user.user_notification.notification_settings_edit_token, :mailed_notifications), class: 'unsubscribe-link' %>
+  </div>
 <% end %>
 
 <%= render template: 'layouts/email' %>
