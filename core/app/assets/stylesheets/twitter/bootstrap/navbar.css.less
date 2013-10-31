@@ -1,32 +1,6 @@
 @import "twitter/bootstrap/variables.less";
 @import "twitter/bootstrap/mixins.less";
 
-// Inner for background effects
-// Gradient is applied to its own element because overflow visible is not honored by IE when filter is present
-.navbar-inner {
-  min-height: @navbarHeight;
-  padding-left:  20px;
-  padding-right: 20px;
-  #gradient > .vertical(@navbarBackgroundHighlight, @navbarBackground);
-  border: 1px solid @navbarBorder;
-  border-radius: @baseBorderRadius;
-  box-shadow: 0 1px 4px rgba(0,0,0,.065);
-
-  // Prevent floats from breaking the navbar
-  .clearfix();
-}
-
-// Set width to auto for default container
-.navbar .container {
-  width: auto;
-}
-
-// Brand: website or project name
-// -------------------------
-.navbar .brand {
-  margin-left: -20px; // negative indent to left-align the text down the page
-}
-
 // Dividers in navbar
 // -------------------------
 .navbar .divider-vertical {
