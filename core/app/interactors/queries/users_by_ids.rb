@@ -28,7 +28,7 @@ module Queries
       graph_user = user.graph_user
       KillObject.user user,
         statistics: statistics(graph_user),
-        top_user_topics: top_user_topics(graph_user)
+        top_user_topics: top_user_topics(user.id)
     end
 
     def statistics graph_user
@@ -39,9 +39,9 @@ module Queries
       }
     end
 
-    def top_user_topics graph_user
-      query(:'user_topics/top_with_authority_for_graph_user_id',
-                graph_user_id: graph_user.id, limit_topics: top_topics_limit)
+    def top_user_topics user_id
+      query(:'user_topics/top_with_authority_for_user',
+            user_id: user_id.to_s, limit_topics: top_topics_limit)
     end
   end
 end

@@ -18,16 +18,6 @@ describe Interactors::Users::Following do
       expect_validating(user_name: 1)
         .to fail_validation('user_name should be a nonempty string.')
     end
-
-    it 'invalid skip doesn\t validate' do
-      expect_validating(skip: 'thirteen')
-        .to fail_validation('skip should be an integer.')
-    end
-
-    it 'invalid take doesn\t validate' do
-      expect_validating(take: 'about two')
-        .to fail_validation('take should be an integer.')
-    end
   end
 
   describe '#call' do
@@ -38,7 +28,7 @@ describe Interactors::Users::Following do
       followed_user = double(graph_user_id: double, username: 'henk')
 
       pavlov_options = { current_user: double}
-      interactor = described_class.new user_name: followed_user.username, skip: 2, take: 3, pavlov_options: pavlov_options
+      interactor = described_class.new user_name: followed_user.username, pavlov_options: pavlov_options
 
       allow(Pavlov).to receive(:query)
         .with(:'user_by_username', username: followed_user.username, pavlov_options: pavlov_options)
@@ -57,11 +47,9 @@ describe Interactors::Users::Following do
           end
         end
 
-      returned_users, returned_count = interactor.call
+      returned_users = interactor.call
 
-      users_page = users.sort_by(&:graph_user_id).drop(2).take(3)
-      expect(returned_users).to eq users_page
-      expect(returned_count).to eq users.length
+      expect(returned_users).to eq users
     end
   end
 end

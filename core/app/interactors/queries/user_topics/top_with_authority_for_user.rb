@@ -2,16 +2,16 @@ require_relative '../../../classes/hash_utils'
 
 module Queries
   module UserTopics
-    class TopWithAuthorityForGraphUserId
+    class TopWithAuthorityForUser
       include Pavlov::Query
       include HashUtils
 
-      arguments :graph_user_id, :limit_topics
+      arguments :user_id, :limit_topics
 
       private
 
       def validate
-        validate_integer_string :graph_user_id, graph_user_id
+        validate_hexadecimal_string :user_id, user_id
         validate_integer :limit_topics, limit_topics
       end
 
@@ -55,7 +55,7 @@ module Queries
       end
 
       def topics_sorted_by_authority
-        TopicsSortedByAuthority.new(graph_user.user_id.to_s)
+        TopicsSortedByAuthority.new(user_id)
       end
 
       def topics_for_hashes hashes
@@ -64,10 +64,6 @@ module Queries
         topics = Topic.any_in(id: ids).to_a
 
         hash_with_index(:id, topics)
-      end
-
-      def graph_user
-        @graph_user ||= GraphUser[graph_user_id]
       end
     end
   end
