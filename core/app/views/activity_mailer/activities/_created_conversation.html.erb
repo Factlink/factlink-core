@@ -1,11 +1,37 @@
-<h2 class="activity-title">
-  <%= link_to_possibly_dead_user @activity.user.user %>
-  has sent you a message:
-</h2>
-<p class="activity-body">
-  <%= @activity.subject.messages.last.content %>
-</p>
-<p class="activity-action">
-  To view the full conversation, visit:<br>
-  <%= link_to conversation_url(@activity.subject), conversation_url(@activity.subject) %>
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @user.name %></h1>
+  <h2 class="header-subtitle"><%= @activity.user.user %> has sent you a message</h2>
+<% end %>
+
+<table cellpadding="20" cellspacing="0" border="0" id="message">
+
+  <tr>
+    <td colspan="3" class="message-header">
+      <h3 class="message-title"><a href="#">If money doesn't make you happy, then you are probably not spending it right.</a></h3>
+    </td>
+  </tr>
+
+  <tr>
+    <td valign="top" class="message-user-image" rowspan="2">
+      <img src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" />
+    </td>
+    <td class="message-user">
+      <%= link_to_possibly_dead_user(@activity.user.user) %>
+    </td>
+    <td class="message-timestamp muted">
+      <span>1:55PM</span>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="message-content" colspan="2">
+      <p><%= @activity.subject.messages.last.content %></p>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <%= link_to conversation_url(@activity.subject), class: 'button' do %>
+    Reply to this message
+  <% end %>
 </p>
