@@ -121,7 +121,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   &:active {
     border-bottom: @emailButtonBorderSize solid darken(@emailButtonBackgroundColor, 5%);
-    .box-shadow(inset 0 @emailButtonBorderSize 0 darken(@emailButtonBorderColor, 5%));
+    box-shadow: inset 0 @emailButtonBorderSize 0 darken(@emailButtonBorderColor, 5%);
     padding-top: @emailButtonFirstPadding + @emailButtonBorderSize;
     padding-bottom: @emailButtonFirstPadding - @emailButtonBorderSize;
   }
