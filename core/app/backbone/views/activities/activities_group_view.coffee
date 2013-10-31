@@ -43,7 +43,7 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   itemView: Backbone.View
   itemViewContainer: ".js-region-activities"
 
-  @actions: ["created_channel", "added_subchannel"]
+  @actions: ["created_channel"]
   actions: -> UserActivitiesGroupView.actions
 
   constructor: ->
