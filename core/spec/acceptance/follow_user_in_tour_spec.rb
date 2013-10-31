@@ -87,11 +87,12 @@ feature "follow_users_in_tour", type: :feature do
 
     visit interests_path
     click_on 'Got it!'
+
     first(:button, 'Follow user').click
 
     eventually_succeeds 10 do
-      follower_counts = Pavlov.interactor(:'users/following', user_name: @user.username, skip: 0, take: 0, pavlov_options: { current_user: @user})
-      follower_counts[1].should eq 1
+      following = Pavlov.interactor(:'users/following', user_name: @user.username, pavlov_options: { current_user: @user})
+      following.length.should eq 1
       #TODO: this is really a hack to ensure that the subsequent unfollow
       # really does happen after the original follow even on the server.
     end
