@@ -20,21 +20,6 @@ class GenericNotificationView extends Backbone.Marionette.Layout
 class NotificationAddedEvidenceView extends GenericNotificationView
   template: "notifications/added_evidence"
 
-class NotificationAddedSubchannelView extends GenericNotificationView
-  template: "notifications/added_subchannel"
-
-  regions:
-    addBackRegion: ".js-region-add-back"
-
-  initialize: ->
-    @activity = @model.get('activity')
-
-  onRender: ->
-    super()
-    add_back_button = new FollowChannelButtonView(channel: @model.channel(), mini: true)
-
-    @addBackRegion.show add_back_button
-
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"
 
@@ -64,8 +49,6 @@ window.NotificationView = (opts) ->
       new CreatedCommentView(opts)
     when "added_supporting_evidence", "added_weakening_evidence"
       new NotificationAddedEvidenceView(opts)
-    when "added_subchannel"
-      new NotificationAddedSubchannelView(opts)
     when "invites"
       new NotificationInvitedView(opts)
     when "created_conversation"
