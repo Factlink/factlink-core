@@ -1,8 +1,13 @@
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @user.name %></h1>
+  <h2 class="header-subtitle"><%= @activity.user.user %> is now following you on Factlink</h2>
+<% end %>
+
 <table cellpadding="0" cellspacing="0" border="0" id="user" width="100%">
 
   <tr>
     <td class="user-header">
-      <img class="user-image" src="images/tom.jpg" />
+      <img class="user-image" src="<%= @activity.user.user.avatar_url(size: 32) %>" />
       <%= link_to_possibly_dead_user @activity.user.user, class: "user-name" %>
       <span class="user-username muted"><%= @activity.user.user.username %></span>
     </td>
@@ -17,11 +22,11 @@
           </td>
         </tr>
         <tr>
-          <td class="user-info-stat" width="50px">
+          <td class="user-info-stat" style="width: 50px;">
             <span class="muted">Followers</span><br />
             <span class="user-info-value">2044</span>
           </td>
-          <td class="user-info-stat" width="50px">
+          <td class="user-info-stat" style="width: 50px;">
             <span class="muted">Following</span><br />
             <span class="user-info-value">742</span>
           </td>
@@ -39,7 +44,7 @@
 </table>
 
 <p align="center">
-  <%= link_to(user_profile_url(@activity.user.user.username), class: "button") do %>
-    Follow <%= @activity.user.user.username %>
+  <%= link_to(user_profile_url(@activity.user.user), class: "button") do %>
+    Follow <%= @activity.user.user %>
   <% end %>
 </p>
