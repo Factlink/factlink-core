@@ -83,22 +83,32 @@ span.factlink {
     cursor:   pointer;
     display: block;
     visibility: hidden;
-    opacity: 0;
     height:   @button-height;
     width:    @button-width;
     position: absolute;
     z-index:  @max-z-index;
 
-    &.been-active {
-      transition: opacity @button_visibility_transition_time,
-                  visibility 0 @button_visibility_transition_time;
+    // This is done because of transitions crashes on iOS devices.
+    // For now we're disabling transitions on devices smaller than 1025 pixels
+    // Most PC have bigger screens so, this works perfect for PC's
+
+    @media only screen and (min-device-width: 1025px) {
+      opacity: 0;
+
+      &.been-active {
+        transition: opacity @button_visibility_transition_time,
+                    visibility 0 @button_visibility_transition_time;
+      }
+
+      &.active {
+        opacity: 1;
+        transition: opacity @button_visibility_transition_time,
+                    visibility 0 0;
+      }
     }
 
     &.active {
       visibility: visible;
-      opacity: 1;
-      transition: opacity @button_visibility_transition_time,
-                  visibility 0 0;
     }
 
     &:before {
