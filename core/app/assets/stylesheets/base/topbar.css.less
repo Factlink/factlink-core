@@ -12,24 +12,14 @@ body.show_sign_in {
   }
 }
 
-.navbar .navbar-inner .topbar-profile-link { //Hack to overwrite bootstrap navs
-  .ellipsis(220px);
-  padding: 6px 15px;
-  outline: none;
-
-  img {
-    border-radius:2px;
-  }
-}
-
 .navbar {
-  position: relative;
   height: @navbarHeight;
-  z-index: 120; // on top of the overlay in widgets/overlay
-
-  &.navbar-fixed-top {
-    position: fixed;
-  }
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: @zindexFixedNavbar;
+  background: white;
 
   .navbar-inner {
     border-radius: 0;
@@ -76,93 +66,71 @@ body.show_sign_in {
         float: left;
         margin-top: 5px;
         margin-left: -2px;
+      }
 
-        .search-query {
+      .search-query {
           margin: 0;
           padding: 5px 30px;
-        }
-      }
-
-      ul.nav > li {
-        > a {
-          color: @linkColor;
-          font-weight: bold;
-          line-height: 20px;
-
-          &:hover {
-            color: @baseFontColor;
-          }
-          &.dropdown-toggle:hover .caret {
-            border-top-color: @linkColor;
-            border-bottom-color: @linkColor;
-          }
-        }
-
-        &.dropdown {
-          &.open .dropdown-toggle {
-            background: none;
-            color: @linkColor;
-          }
-
-          .dropdown-menu li > a {
-            color: @headingFontColor;
-            font-weight: normal;
-
-            &.bookmarklet::after {
-              content: 'Bookmarklet';
-              padding: 0 0 0 3px;
-            }
-
-            &:hover, &:focus {
-              color: white;
-            }
-          }
-        }
-
-        &.divider-vertical {
-          margin: 0 -3px 0 0;
-          border: none;
-          background: image-url('base/topbar/divider.png') repeat-y center;
-          display: block;
-          width: 3px;
-          height: 42px;
-        }
-      }
-   }
-
-    &.dimmed {
-      z-index: 1;
-      position: absolute;
-      top: 0; right: 0; left: 0;
-      border-bottom: none;
-
-      .background {
-        opacity: .4;
-      }
-
-      .container {
-        a.brand {
-          background-position: 0 -40px;
-        }
-
-        .topbar-signin-question {
-          color: #cecece;
-          margin-right: -18px;
-
-          a {
-            color: #fff;
-
-            > i {
-              display: inline-block;
-              background: image-url('base/topbar/logo.png') no-repeat -175px 0;
-              width: 9px;
-              height: 6px;
-              margin-left: 5px;
-            }
-          }
-        }
       }
     }
+  }
+}
+
+.nav > li {
+  float: left;
+
+  > a {
+    color: @linkColor;
+    font-weight: bold;
+    line-height: 20px;
+    padding: ((@navbarHeight - @baseLineHeight) / 2) 15px;
+    &:hover {
+      color: @baseFontColor;
+    }
+    &.dropdown-toggle:hover .caret {
+      border-top-color: @linkColor;
+      border-bottom-color: @linkColor;
+    }
+  }
+
+  &.dropdown {
+    &.open .dropdown-toggle {
+      background: none;
+      color: @linkColor;
+    }
+
+    .dropdown-menu li > a {
+      color: @headingFontColor;
+      font-weight: normal;
+
+      &.bookmarklet::after {
+        content: 'Bookmarklet';
+        padding: 0 0 0 3px;
+      }
+
+      &:hover, &:focus {
+        color: white;
+      }
+    }
+  }
+
+  &.divider-vertical {
+    margin: 0 -3px 0 0;
+    border: none;
+    background: image-url('base/topbar/divider.png') repeat-y center;
+    display: block;
+    width: 3px;
+    height: 42px;
+  }
+}
+
+.navbar .navbar-inner .topbar-profile-link { //Hack to overwrite bootstrap navs
+  .ellipsis(220px);
+  padding: 6px 15px;
+  outline: none;
+
+  img {
+    border-radius:2px;
   }
 }
 
