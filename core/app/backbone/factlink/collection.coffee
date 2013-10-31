@@ -29,3 +29,14 @@ class Backbone.Factlink.Collection extends Backbone.Collection
       @on 'sync', syncCallback, @
     else
       callback.call(this, this)
+
+  fetchOnce: (options={}) ->
+    if @once_loaded
+      options.success?()
+    else if @loading()
+      @waitForFetch options.success if options.success?
+    else
+      options.success = =>
+        @once_loaded = true
+        options.success?()
+      @fetch options

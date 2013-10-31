@@ -12,7 +12,7 @@ class window.Following extends Backbone.Factlink.Collection
     else if @loading()
       @waitForFetch options.success if options.success?
     else
-      options.succes = =>
+      options.success = =>
         @once_loaded = true
         options.success?()
       @fetch options
