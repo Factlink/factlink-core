@@ -38,7 +38,7 @@ Factlink.modal =
   show: ->
     suppressScrollbars()
     bindClick()
-    iFrame.show()
+    iFrame.fadeIn('fast')
 
   highlightNewFactlink: (fact, id) ->
     fct = Factlink.selectRanges(Factlink.search(fact), id)
