@@ -1,3 +1,7 @@
+<%
+  dead_user = Pavlov.query(:users_by_ids, user_ids: [@activity.user.user_id]).first
+%>
+
 <% content_for :email_header do %>
   <h1 class="header-title">Hello <%= @user.name %></h1>
   <h2 class="header-subtitle"><%= @activity.user.user %> is now following you on Factlink</h2>
@@ -9,7 +13,6 @@
     <td class="user-header">
       <img class="user-image" src="<%= @activity.user.user.avatar_url(size: 32) %>" />
       <%= link_to_possibly_dead_user @activity.user.user, class: "user-name" %>
-      <span class="user-username muted"><%= @activity.user.user.username %></span>
     </td>
   </tr>
 
@@ -24,16 +27,26 @@
         <tr>
           <td class="user-info-stat" style="width: 50px;">
             <span class="muted">Followers</span><br />
-            <span class="user-info-value">2044</span>
+            <span class="user-info-value">
+              <%= dead_user.statistics[:follower_count] %>
+            </span>
           </td>
           <td class="user-info-stat" style="width: 50px;">
             <span class="muted">Following</span><br />
-            <span class="user-info-value">742</span>
+            <span class="user-info-value">
+              <%= dead_user.statistics[:following_count] %>
+            </span>
           </td>
           <td class="user-info-stat no-border">
             <span class="muted">Most authority on</span><br />
             <span class="user-info-value">
-              <a href="" class="user-info-topic">Engineering</a>
+              <% if dead_user.top_user_topics.first %>
+                <a href="<%= topic_path(dead_user.top_user_topics.first.slug_title) %>" class="user-info-topic">
+                  <%= dead_user.top_user_topics.first.title %>
+                </a>
+              <% else %>
+                -
+              <% end %>
             </span>
           </td>
         </tr>
