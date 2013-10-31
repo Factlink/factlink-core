@@ -33,7 +33,7 @@ describe Interactors::Channels::AddSubchannel do
 
       Pavlov.should_receive(:command)
             .with(:'channels/added_subchannel_create_activities',
-                      channel: channel, subchannel: subchannel,
+                      channel: channel,
                       pavlov_options: pavlov_options)
 
       interactor.execute
@@ -49,7 +49,7 @@ describe Interactors::Channels::AddSubchannel do
 
       Pavlov.should_not_receive(:command)
             .with(:'channels/added_subchannel_create_activities',
-                      channel: channel, subchannel: subchannel,
+                      channel: channel,
                       pavlov_options: pavlov_options)
 
       interactor.execute

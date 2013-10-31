@@ -3,11 +3,10 @@ module Commands
     class AddedSubchannelCreateActivities
       include Pavlov::Command
 
-      arguments :channel, :subchannel
+      arguments :channel
 
       def execute
         Channel::Activities.new(channel).add_created
-        channel.activity(channel.created_by,:added_subchannel,subchannel,:to,channel)
       end
     end
   end
