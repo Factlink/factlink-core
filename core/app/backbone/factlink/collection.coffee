@@ -36,7 +36,8 @@ class Backbone.Factlink.Collection extends Backbone.Collection
     else if @loading()
       @waitForFetch options.success if options.success?
     else
+      old_success = options.success
       options.success = =>
         @once_loaded = true
-        options.success?()
+        old_success?()
       @fetch options
