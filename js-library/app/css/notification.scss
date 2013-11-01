@@ -1,11 +1,12 @@
-@notification_transition_time: 300ms;
+$notification_transition_time: 300ms;
+$max-z-index  : 2147483647;
 
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl {
   .fl-message {  // Message after loading the Bookmarklet
-    .resetStyles();
+    @extend %resetStyles;
 
     position: fixed;
-    z-index: @max-z-index - 100; // Place below are beloved modal
+    z-index: $max-z-index - 100; // Place below are beloved modal
     background: #fff;
     min-height: 65px;
     line-height: 65px;
@@ -18,19 +19,19 @@
     opacity: 0;
 
     &.been-active {
-      transition: opacity @notification_transition_time,
-                 visibility 0 @notification_transition_time;
+      transition: opacity $notification_transition_time,
+                 visibility 0 $notification_transition_time;
    }
 
     &.active {
       visibility: visible;
       opacity: 1;
-      transition: opacity @notification_transition_time,
+      transition: opacity $notification_transition_time,
                  visibility 0 0;
     }
 
     > .fl-message-icon {
-      .resetStyles();
+      @extend %resetStyles;
       background-color: #ebecee;
       width: 70px;
       position: absolute;
@@ -38,7 +39,7 @@
     }
 
     > .fl-message-content {
-      .resetStyles();
+      @extend %resetStyles;
       margin-left: 70px;
       font-size: 15px;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -65,19 +66,19 @@
     }
 
     &.fl-message-icon-time > .fl-message-icon {
-      background-image: data-uri('../images/icon-clock.png');
+      background-image: url('../images/icon-clock.png');
       background-position: center center;
       background-repeat: no-repeat;
     }
 
     &.fl-message-icon-add > .fl-message-icon {
-      background-image: data-uri('../images/icon-logo-add.png');
+      background-image: url('../images/icon-logo-add.png');
       background-position: center center;
       background-repeat: no-repeat;
     }
 
     &.fl-message-icon-logo > .fl-message-icon {
-      background-image: data-uri('../images/icon-logo.png');
+      background-image: url('../images/icon-logo.png');
       background-position: center center;
       background-repeat: no-repeat;
     }

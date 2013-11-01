@@ -1,23 +1,23 @@
-@import "reset.less";
-@import "notification.less";
+@import "reset.scss";
+@import "notification.scss";
 
 /* Actual styles start */
-@z-index      : 2147483644; // max z-index supported: 2147483647
-@max-z-index  : 2147483647;
-@button-width : 115px;
-@button-height: 30px;
-@border-color : #1c5c90;
-@buttonBackground: #3d75a3;
+$z-index      : 2147483644; // max z-index supported: 2147483647
+$max-z-index  : 2147483647;
+$button-width : 115px;
+$button-height: 30px;
+$border-color : #1c5c90;
+$buttonBackground: #3d75a3;
 
-@button_visibility_transition_time : 300ms;
-@highlight_visibility_transition_time: 200ms;
+$button_visibility_transition_time : 300ms;
+$highlight_visibility_transition_time: 200ms;
 
 #fl-wrapper-1,
 #fl-wrapper-1 > #fl-wrapper-2,
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3,
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl,
 #fl-wrapper-1 > #fl-wrapper-2 > #fl-wrapper-3 > #fl * {
-  .resetStyles();
+  @extend %resetStyles;
   color: #fff;
 }
 
@@ -41,7 +41,7 @@ span.factlink {
     background: #B4D5FE !important;
     color: #333;
   }
-  transition: all @highlight_visibility_transition_time;
+  transition: all $highlight_visibility_transition_time;
 
   &.fl-first::before {
     padding: 0 3px 0 0;
@@ -63,7 +63,7 @@ span.factlink {
   #factlink-modal-frame {
     background: transparent;
     border: none;
-    z-index: @max-z-index;
+    z-index: $max-z-index;
     padding: 0;
     display: none;
     margin: 0;
@@ -83,10 +83,10 @@ span.factlink {
     cursor:   pointer;
     display: block;
     visibility: hidden;
-    height:   @button-height;
-    width:    @button-width;
+    height:   $button-height;
+    width:    $button-width;
     position: absolute;
-    z-index:  @max-z-index;
+    z-index:  $max-z-index;
 
     // This is done because of transitions crashes on iOS devices.
     // For now we're disabling transitions on devices smaller than 1025 pixels
@@ -96,13 +96,13 @@ span.factlink {
       opacity: 0;
 
       &.been-active {
-        transition: opacity @button_visibility_transition_time,
-                    visibility 0 @button_visibility_transition_time;
+        transition: opacity $button_visibility_transition_time,
+                    visibility 0 $button_visibility_transition_time;
       }
 
       &.active {
         opacity: 1;
-        transition: opacity @button_visibility_transition_time,
+        transition: opacity $button_visibility_transition_time,
                     visibility 0 0;
       }
     }
@@ -115,7 +115,7 @@ span.factlink {
       position: relative;
       top: 5px;
       margin-right: 4px;
-      content: data-uri("../images/logo-white.png");
+      content: url("../images/logo-white.png");
     }
 
     border-radius: 3px;
@@ -134,7 +134,7 @@ span.factlink {
     }
   }
 
-  .fl-loading:before { content: data-uri("../images/loading-indicator.gif"); }
+  .fl-loading:before { content: url("../images/loading-indicator.gif"); }
 
   .fl-loading-message { display: none; }
 
