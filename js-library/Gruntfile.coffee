@@ -71,11 +71,11 @@ module.exports = (grunt) ->
       publisher:
         src:  'build/js/publisher_poc/nu.js'
         dest: 'build/nu.js'
-    less:
+    sass:
       build:
         files:
-          'build/css/basic.css': 'app/css/basic.less'
-          'build/css/publisher_poc/nu.nl.css': 'app/css/publisher_poc/nu.nl.less'
+          'build/css/basic.css': 'app/css/basic.scss'
+          'build/css/publisher_poc/nu.nl.css': 'app/css/publisher_poc/nu.nl.scss'
     cssmin:
       build:
         options:
@@ -184,14 +184,14 @@ module.exports = (grunt) ->
     grunt.file.write destination_file_path, content_with_hash
 
   grunt.registerTask 'core', ['concat:core', 'uglify:core', 'corehasher']
-  grunt.registerTask 'compile', ['clean', 'copy:build', 'coffee', 'less', 'core', 'concat', 'copy:start_stop_files',
+  grunt.registerTask 'compile', ['clean', 'copy:build', 'coffee', 'sass', 'core', 'concat', 'copy:start_stop_files',
                                  'uglify:all_except_core', 'cssmin', 'copy:dist']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
   grunt.registerTask 'default', ['compile', 'test']
   grunt.registerTask 'server',  ['compile']
 
-  grunt.loadNpmTasks 'grunt-contrib-less'
+  grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
