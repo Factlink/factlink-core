@@ -4,10 +4,6 @@
   <%= form_for(@user, as: :user, url: social_accounts_new_path, html: { class: "form-horizontal" }) do |f| %>
 
     <div class="control-group">
-      (If you already have a Factlink account, fill in your credentials to connect it with <%= @social_account.provider_name.capitalize %>.)
-    </div>
-
-    <div class="control-group">
       <%= f.label :email, "Email address", class: "control-label" %>
 
       <div class="controls">
