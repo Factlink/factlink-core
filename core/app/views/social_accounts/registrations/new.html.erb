@@ -3,24 +3,23 @@
 
   <%= form_for(@user, as: :user, url: social_accounts_new_path, html: { class: "form-horizontal" }) do |f| %>
     <div class="social-registration-form">
+      <div class="control-group">
+        <%= f.label :email, "Email address", class: "control-label" %>
 
-    <div class="control-group">
-      <%= f.label :email, "Email address", class: "control-label" %>
-
-      <div class="controls">
-        <%= f.text_field :email %>
-        <%= possible_error_for_field(@user, :email) %>
+        <div class="controls">
+          <%= f.text_field :email %>
+          <%= possible_error_for_field(@user, :email) %>
+        </div>
       </div>
-    </div>
 
-    <div class="control-group">
-      <%= f.label :password, "Password", class: "control-label" %>
+      <div class="control-group">
+        <%= f.label :password, "Password", class: "control-label" %>
 
-      <div class="controls">
-        <%= f.password_field :password %>
-        <%= possible_error_for_field(@user, :password) %>
+        <div class="controls">
+          <%= f.password_field :password %>
+          <%= possible_error_for_field(@user, :password) %>
+        </div>
       </div>
-    </div>
 
       <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
     </div>
