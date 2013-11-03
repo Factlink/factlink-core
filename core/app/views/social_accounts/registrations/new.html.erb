@@ -2,6 +2,7 @@
   <h1 class="social-registration-heading">Create your Factlink account</h1>
 
   <%= form_for(@user, as: :user, url: social_accounts_new_path, html: { class: "form-horizontal" }) do |f| %>
+    <div class="social-registration-form">
 
     <div class="control-group">
       <%= f.label :email, "Email address", class: "control-label" %>
@@ -24,6 +25,7 @@
     <div class="form-actions">
       <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
       <button type="submit" class="button button-confirm" data-disable-with="Submitting...">Continue</button>
+    </div>
     </div>
   <% end %>
 <% end %>
