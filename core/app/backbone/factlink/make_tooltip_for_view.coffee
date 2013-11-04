@@ -8,5 +8,5 @@ Backbone.Factlink.makeTooltipForView = (parentView, options) ->
   tooltipOpener = new Backbone.Factlink.TooltipOpener options
   tooltipOpener.render()
 
-  parentView.on 'close', => tooltipOpener.close()
-  parentView.on 'removeTooltips', => tooltipOpener.close()
+  parentView.on 'close', -> tooltipOpener.close()
+  parentView.on 'removeTooltips', -> tooltipOpener.close()
