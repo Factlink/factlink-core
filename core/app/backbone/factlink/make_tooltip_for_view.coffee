@@ -1,11 +1,11 @@
 Backbone.Factlink ||= {}
 
 Backbone.Factlink.makeTooltipForView = (parentView, options) ->
-  _.defaults options, $offsetParent: parentView.$el
+  _.defaults options,
+    $offsetParent: parentView.$el
+    $tooltipElement: parentView.$(options.selector)
 
-  tooltipOpener = new Backbone.Factlink.TooltipOpener _.extend {},
-    $tooltipElement: parentView.$(options.selector), options
-
+  tooltipOpener = new Backbone.Factlink.TooltipOpener options
   tooltipOpener.render()
 
   parentView.on 'close', => tooltipOpener.close()
