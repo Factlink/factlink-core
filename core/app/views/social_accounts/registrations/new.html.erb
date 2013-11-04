@@ -1,34 +1,31 @@
 <% content_for :social_account_popup_content do %>
-  <h1>Create your Factlink account</h1>
+  <h1 class="social-registration-heading">Create your Factlink account</h1>
 
   <%= form_for(@user, as: :user, url: social_accounts_new_path, html: { class: "form-horizontal" }) do |f| %>
+    <div class="social-registration-form">
+      <div class="control-group">
+        <%= f.label :email, "Email address", class: "control-label" %>
 
-    <div class="control-group">
-      (If you already have a Factlink account, fill in your credentials to connect it with <%= @social_account.provider_name.capitalize %>.)
-    </div>
-
-    <div class="control-group">
-      <%= f.label :email, "Email address", class: "control-label" %>
-
-      <div class="controls">
-        <%= f.text_field :email %>
-        <%= possible_error_for_field(@user, :email) %>
+        <div class="controls">
+          <%= f.text_field :email %>
+          <%= possible_error_for_field(@user, :email) %>
+        </div>
       </div>
-    </div>
 
-    <div class="control-group">
-      <%= f.label :password, "Password", class: "control-label" %>
+      <div class="control-group">
+        <%= f.label :password, "Password", class: "control-label" %>
 
-      <div class="controls">
-        <%= f.password_field :password %>
-        <%= possible_error_for_field(@user, :password) %>
+        <div class="controls">
+          <%= f.password_field :password %>
+          <%= possible_error_for_field(@user, :password) %>
+        </div>
       </div>
-    </div>
 
-    <div class="form-actions">
       <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
+    </div>
 
-      <%= f.submit "Continue", class: "button", 'data-disable-with' => "Submitting..." %>
+    <div class="social-registration-button-wrapper">
+      <button type="submit" class="button button-confirm social-registration-button" data-disable-with="Submitting...">Continue</button>
     </div>
   <% end %>
 <% end %>
