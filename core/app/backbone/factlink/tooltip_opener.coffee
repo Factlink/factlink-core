@@ -21,18 +21,24 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
 
   render: -> @_hoverintent @options.$tooltipElement, 'inTarget'
 
-  onClose: -> @_removeTooltip() if @_$tooltip
+  onClose: -> @_removeTooltip() if @_opened
 
   _openTooltip: ->
-    @_$tooltip = @options.tooltipCreator.createTooltip @options.$tooltipElement
-    @_hoverintent @_$tooltip, 'inTooltip' if @options.stayWhenHoveringTooltip
+    @_positionedRegion().bindToElement @options.$tooltipElement, @options.$offsetParent
+    @_positionedRegion().show @_tooltipView()
+    @_positionedRegion().updatePosition()
+
+    @_hoverintent @_positionedRegion().$el, 'inTooltip' if @options.stayWhenHoveringTooltip
+
+    @_tooltipOpened = true
 
   _removeTooltip: ->
-    @options.tooltipCreator.removeTooltip()
-    delete @_$tooltip
+    @_positionedRegion().resetFade()
+
+    @_tooltipOpened = false
 
   _toggleTooltip: ->
-    if @_$tooltip
+    if @_tooltipOpened
       @_removeTooltip() unless @model.hovered()
     else
       @_openTooltip() if @model.hovered()
@@ -45,3 +51,14 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
 
     @on 'close', -> $element.off('.hoverIntent')
 
+  _tooltipView: ->
+    tooltipOptions = _.extend {},
+      contentView: @options.tooltipViewFactory(),
+      @options.positioning
+    new PopoverView tooltipOptions
+
+  _positionedRegion: ->
+    return @__positionedRegion if @__positionedRegion?
+
+    region_options = _.extend {fadeTime: 100} , @options.positioning
+    @__positionedRegion = new Backbone.Factlink.PositionedRegion region_options
