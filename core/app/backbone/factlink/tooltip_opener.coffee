@@ -21,7 +21,7 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
 
   render: -> @_hoverintent @options.$tooltipElement, 'inTarget'
 
-  onClose: -> @_removeTooltip() if @_opened
+  onClose: -> @_positionedRegion().reset()
 
   _openTooltip: ->
     @_positionedRegion().bindToElement @options.$tooltipElement, @options.$offsetParent
@@ -32,14 +32,14 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
 
     @_tooltipOpened = true
 
-  _removeTooltip: ->
-    @_positionedRegion().resetFade()
+  _hideTooltip: ->
+    @_positionedRegion().fadeOut()
 
     @_tooltipOpened = false
 
   _toggleTooltip: ->
     if @_tooltipOpened
-      @_removeTooltip() unless @model.hovered()
+      @_hideTooltip() unless @model.hovered()
     else
       @_openTooltip() if @model.hovered()
 
