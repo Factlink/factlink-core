@@ -7,5 +7,4 @@ FactlinkApp.automaticLogoutInitializer = (options)->
       height:'100%'
     )
 
-    alert "You have been signed out, please sign in."
-    window.location = Factlink.Global.path.sign_in
+    window.location.reload()
