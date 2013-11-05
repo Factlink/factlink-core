@@ -148,4 +148,40 @@ describe FactsController do
       response.should be_success
     end
   end
+
+  describe :share do
+    it 'should work for twitter' do
+      authenticate_user!(user)
+      create :social_account, :twitter, user: user
+      fact = nil
+      as(user) do |pavlov|
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
+      end
+
+      Twitter::Client.any_instance.should_receive(:update)
+
+      post :share, id: fact.id, fact_sharing_options: {twitter: true}
+    end
+
+    it 'should work for facebook' do
+      authenticate_user!(user)
+      create :social_account, :facebook, user: user
+      fact = nil
+      as(user) do |pavlov|
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
+      end
+
+      Koala::Facebook::API.any_instance.should_receive(:put_wall_post)
+
+      post :share, id: fact.id, fact_sharing_options: {facebook: true}
+    end
+  end
 end
