@@ -49,6 +49,20 @@ class window.Fact extends Backbone.Model
 
     new Backbone.Factlink.Url(fact_url).host()
 
+  share: (provider_name, callback=->) ->
+    fact_sharing_options = {}
+    fact_sharing_options[provider_name] = true
+
+    Backbone.ajax
+      type: 'post'
+      url: "#{@url()}/share"
+      data: {fact_sharing_options}
+      success: ->
+        FactlinkApp.NotificationCenter.success 'Factlink has been shared!'
+        callback()
+      error: ->
+        FactlinkApp.NotificationCenter.error 'Error when sharing Factlink.'
+
   toJSON: ->
     _.extend super(),
       can_destroy: @can_destroy()
