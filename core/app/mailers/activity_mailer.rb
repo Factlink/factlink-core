@@ -35,8 +35,6 @@ class ActivityMailer < ActionMailer::Base
     user = activity.user.user
 
     case activity.action
-    when 'added_subchannel'
-      "#{user} is now following you on #{activity.subject.title}"
     when 'added_supporting_evidence'
       "#{user} added a supporting argument to a Factlink"
     when 'added_weakening_evidence'

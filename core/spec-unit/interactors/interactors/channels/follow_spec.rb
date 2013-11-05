@@ -38,7 +38,7 @@ describe Interactors::Channels::Follow do
 
         Pavlov.should_receive(:command)
               .with(:'channels/added_subchannel_create_activities',
-                        channel: channel_2, subchannel: channel,
+                        channel: channel_2,
                         pavlov_options: pavlov_options)
 
         Pavlov.should_receive(:command)

@@ -64,7 +64,7 @@ gem 'httparty', '~> 0.11.0'
 gem 'browser', '~> 0.2.0'
 
 # one of our own gems, to normalize urls
-gem 'url_normalizer'
+gem 'url_normalizer', github: 'Factlink/url_normalizer'
 
 gem 'capistrano', '= 2.15.4', require: false # locked down, was auto-upgraded to 2.15.5, which doesn't exist according to capistrano's githubs tags, nor according to their changelog
 gem 'capistrano-ext', '~> 1.2.1',  require: false

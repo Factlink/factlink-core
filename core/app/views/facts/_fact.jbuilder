@@ -43,4 +43,4 @@ end
 
 json.timestamp timestamp
 
-json.evidence_count dead_fact.evidence_count
+json.is_deletable dead_fact.deletable?

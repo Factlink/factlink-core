@@ -20,14 +20,15 @@ describe Commands::Channels::Follow do
 
         command = described_class.new(channel: channel, pavlov_options: options)
 
-        Pavlov.should_receive(:query)
+        Pavlov.stub(:query)
               .with(:'channels/get_by_slug_title',
                         slug_title: channel.slug_title, pavlov_options: options)
               .and_return(channel_2)
 
         Pavlov.should_receive(:command)
               .with(:'channels/add_subchannel',
-                        channel: channel_2, subchannel: channel,
+                        channel: channel_2,
+                        subchannel: channel,
                         pavlov_options: options)
               .and_return(true)
 

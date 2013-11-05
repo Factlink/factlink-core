@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title><%= yield :title %></title>
+    <title>Factlink &mdash; Because the web needs what you know</title>
     <meta name="description" content="Factlink social callback page.">
     <meta name="viewport" content="width=device-width">
 
@@ -17,11 +17,11 @@
     </style>
     <%= yield :specific_stylesheet_tag %>
   </head>
-  <body class="factlink-site">
-    <div class="content">
-      <div class="container">
-        <%= yield :main %>
-      </div>
+  <body>
+    <div class="social-registration-topbar"><%= image_tag "factlink-logo-beta.png", class: "social-registration-logo" %></div>
+
+    <div class="social-account-popup">
+      <%= yield :social_account_popup_content %>
     </div>
 
     <%= javascript_include_base %>

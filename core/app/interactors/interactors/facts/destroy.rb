@@ -13,7 +13,7 @@ module Interactors
       private
 
       def execute
-        return if fact.evidence_count > 0
+        return unless fact.deletable?
 
         command :'facts/destroy', fact_id: fact_id
       end
@@ -25,7 +25,6 @@ module Interactors
       def validate
         validate_integer_string :fact_id, fact_id
       end
-
     end
   end
 end

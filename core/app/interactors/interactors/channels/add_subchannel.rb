@@ -16,8 +16,7 @@ module Interactors
                               channel: channel, subchannel: subchannel)
 
         if success
-          command(:'channels/added_subchannel_create_activities',
-                      channel: channel, subchannel: subchannel)
+          command :'channels/added_subchannel_create_activities', channel: channel
         end
       end
 
