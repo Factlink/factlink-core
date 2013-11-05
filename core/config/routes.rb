@@ -38,6 +38,7 @@ FactlinkUI::Application.routes.draw do
       post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
       get     "/evidence_search"  => "facts#evidence_search"
+      post    "/share"            => "facts#share"
 
       scope '/comments' do
         post "/:type" => 'comments#create'
