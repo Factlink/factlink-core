@@ -15,7 +15,7 @@ class EvidenceImpactView extends Backbone.Marionette.ItemView
       positioning:
         side: 'top'
         popover_className: 'translucent-popover'
-        margin: -10
+        margin: -13
       selector: '.js-tooltip-container'
       tooltipViewFactory: => new TextView text: 'Authority score'
 
