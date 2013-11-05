@@ -75,6 +75,12 @@
   border-radius: 1000px;
 }
 
+.evidence-impact-text-container {
+  position: relative; // for tooltip
+  z-index: 2; // force it just above the other evidence, inside this stacking context
+              // and also over voting popover
+}
+
 .evidence-impact-text {
   .new-design-font();
   font-size: @heading1FontSize;
@@ -92,7 +98,6 @@
 }
 
 .evidence-supporting, .evidence-loading {
-  position: relative;
   > .evidence-impact, > .evidence-box {
     float: right;
     clear: right;
@@ -107,7 +112,6 @@
 }
 
 .evidence-weakening {
-  position: relative;
   > .evidence-impact, > .evidence-box {
     float: left;
     clear: left;
@@ -122,7 +126,6 @@
 }
 
 .evidence-unsure {
-  position: relative;
   > .evidence-impact, > .evidence-box {
     margin: auto;
     clear: both;
@@ -292,6 +295,7 @@
 
 .evidence-impact-vote-popover {
   z-index: 1; // force it just above the other evidence, inside this stacking context
+              // but under the authority popovers
 }
 
 // Circle at the end of the evidence line

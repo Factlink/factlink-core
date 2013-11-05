@@ -1,9 +1,23 @@
 class EvidenceImpactView extends Backbone.Marionette.ItemView
-  className: 'evidence-impact-text'
+  className: 'evidence-impact-text-container'
   template: 'evidence/evidence_impact'
 
   initialize: ->
     @listenTo @model, 'change:impact', @render
+
+  onRender: ->
+    @_makeAuthorityTooltip()
+
+  _makeAuthorityTooltip: ->
+    @trigger 'removeTooltips'
+
+    Backbone.Factlink.makeTooltipForView @,
+      positioning:
+        side: 'top'
+        popover_className: 'translucent-popover'
+        margin: -10
+      selector: '.js-tooltip-container'
+      tooltipViewFactory: => new TextView text: 'Factlink score'
 
 
 class EvidenceLayoutView extends Backbone.Marionette.Layout
@@ -26,21 +40,11 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
     @listenTo @model, 'change:impact', @_updateIrrelevant
     @_updateIrrelevant()
     @impactRegion.show new EvidenceImpactView model: @model
-    @_makeAuthorityTooltip()
     this
 
   _updateIrrelevant: ->
     @$el.toggleClass 'evidence-irrelevant', !@model.positiveImpact()
 
-  _makeAuthorityTooltip: ->
-    Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        side: 'top'
-        popover_className: 'translucent-dark-popover'
-        margin: 3
-      selector: '.evidence-impact-text'
-      tooltipViewFactory: =>  new TextView
-        model: new Backbone.Model text: 'Factlink score'
 
 class VotableEvidenceLayoutView extends EvidenceLayoutView
   className: 'evidence-votable'
