@@ -1,22 +1,16 @@
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <div class="logo-container">
-        <% if @step_in_signup_process %>
-          <%= link_to "Home", home_path, class: 'brand' %>
-        <% else %>
-          <%= link_to "Home", home_path, class: 'brand potential-backbone' %>
-        <% end %>
-      </div>
-      <div class="main-wrapper">
-        <% if @step_in_signup_process %>
-          <%= render "base/topbar/sign_up_steps" %>
-        <% elsif current_user %>
-          <%= render "base/topbar/signed_in" %>
-        <% else %>
-          <%= render "base/topbar/not_signed_in", slide_down: slide_down %>
-        <% end %>
-      </div>
-    </div>
+<div class="topbar">
+  <div class="topbar-inner">
+    <% if @step_in_signup_process %>
+      <%= link_to "Home", home_path, class: 'topbar-logo' %>
+    <% else %>
+      <%= link_to "Home", home_path, class: 'topbar-logo potential-backbone' %>
+    <% end %>
+    <% if @step_in_signup_process %>
+      <%= render "base/topbar/sign_up_steps" %>
+    <% elsif current_user %>
+      <%= render "base/topbar/signed_in" %>
+    <% else %>
+      <%= render "base/topbar/not_signed_in", slide_down: slide_down %>
+    <% end %>
   </div>
 </div>

@@ -6,28 +6,26 @@
   <% end %>
 </div>
 
-<div class="pull-right">
-  <ul class="nav secondary-nav pull-right navbar-options">
-    <li>
-      <%= link_to "Home", home_path, class: 'potential-backbone' %>
-    </li>
+<ul class="topbar-menu">
+  <li class="topbar-menu-item">
+    <%= link_to "Home", home_path, class: 'potential-backbone' %>
+  </li>
 
-    <li class="divider-vertical"></li>
+  <li class="topbar-divider"></li>
 
-    <li>
-      <%= link_to(image_tag('conversations/conversations.png'), conversations_path, alt: '', class: 'potential-backbone conversations-link') %>
-    </li>
+  <li class="topbar-menu-item">
+    <%= link_to(image_tag('conversations/conversations.png'), conversations_path, alt: '', class: 'potential-backbone conversations-link') %>
+  </li>
 
-    <li class="divider-vertical"></li>
+  <li class="topbar-divider"></li>
 
-    <li class="dropdown" id="notifications">
+  <li class="dropdown topbar-menu-item" id="notifications">
 
-    <% if can? :access, Ability::FactlinkWebapp %>
-      <li class="divider-vertical"></li>
-      <%= render "base/topbar/user_profile" %>
-      <li class="divider-vertical"></li>
-      <%= render "base/topbar/topbar_menu" %>
-    <% end %>
+  <% if can? :access, Ability::FactlinkWebapp %>
+    <li class="topbar-divider"></li>
+    <%= render "base/topbar/user_profile" %>
+    <li class="topbar-divider"></li>
+    <%= render "base/topbar/topbar_menu" %>
+  <% end %>
 
-  </ul>
-</div>
+</ul>
