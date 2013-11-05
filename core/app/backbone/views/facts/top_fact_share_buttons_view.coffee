@@ -24,4 +24,7 @@ class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
       hoverIntent: true
       positioning: {align: 'right', side: 'bottom'}
       selector: selector
-      tooltipViewFactory: contentViewConstructor
+      tooltipViewFactory: =>
+        view = contentViewConstructor()
+        @listenTo view, 'success', @render
+        view
