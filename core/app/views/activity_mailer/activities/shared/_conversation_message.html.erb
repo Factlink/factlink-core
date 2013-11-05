@@ -13,7 +13,7 @@
   <% conversation.messages.each do | message| %>
     <tr>
       <td valign="top" class="message-user-image" rowspan="2">
-        <img src="<%= message.sender.avatar_url(size: 32) %>" width="32" height="32" />
+        <img src="<%= message.sender.avatar_url(size: 32) %>" width="32" height="32" alt="<%= @activity.user.user %>"/>
       </td>
       <td class="message-user">
         <%= link_to_possibly_dead_user(message.sender) %>
