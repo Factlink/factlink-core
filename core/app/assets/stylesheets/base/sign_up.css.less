@@ -1,7 +1,47 @@
 @import "bootstrap/mixins";
 
-div.sign_up {
+.social-connect-buttons {
+  a {
+    > i {
+      background: image-url('base/sign_in_bar/social.png') no-repeat;
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      line-height: 17px;
+      vertical-align: text-top;
+      margin: -1px 6px 0 -5px;
+    }
 
+    &.twitter > i {
+      background-position: 0 0;
+    }
+
+    &.facebook > i {
+      background-position: -17px 0;
+    }
+  }
+}
+
+.social-connect-no-social {
+  margin: 10px 0;
+
+  a { color: @grayLighter; }
+  a:hover { color: @white; }
+}
+
+.footer .social-connect-no-social {
+  a { color: @metaFontColor; }
+  a:hover { color: @mutedFontColor; }
+}
+
+
+////////////////// Below this styles for the old form
+
+.old-registration-form {
+  display: none;
+}
+
+div.sign_up {
   div.container {
     margin-top: 45px;
     margin-bottom: 45px;
