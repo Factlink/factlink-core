@@ -50,7 +50,6 @@ describe SocialAccounts::RegistrationsController do
         controller.request.env['omniauth.auth'] = omniauth_obj
         get :callback, provider_name: provider_name
 
-        expect(response.body).to match 'fill in your credentials to connect it with Facebook'
         expect(response.body).to match 'By creating an account you accept'
       end
 
