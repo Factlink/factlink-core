@@ -1,4 +1,40 @@
 <% content_for :social_account_popup_content do %>
-  <h1 class="social-registration-heading">Sign in to Factlink</h1>
+
+  <div class="social-account-half-form-container">
+    <%= form_for(@user_new_session, as: 'user_new_session', url: session_path('user'), html: { class: "social-account-half-form" }) do |f| %>
+
+      <h1 class="social-registration-half-form-heading">Sign in to Factlink</h1>
+
+      <%= f.text_field :login, placeholder: "Email or username" %>
+      <%= f.password_field :password, placeholder: "Password" %>
+
+      <div class="social-account-remember-me-container">
+        <%= f.check_box :remember_me, class: "social-account-remember-me-checkbox" %>
+        <%= f.label :remember_me, class: "social-account-remember-me-text" %>
+
+        <button type="submit" data-disable-with="Signing in..." class="button button-confirm pull-right social-account-signin-button">Sign in</button>
+      </div>
+
+      <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank' %>
+    <% end %>
+
+    <div class="social-account-half-form-separator">
+      or
+    </div>
+
+    <%= form_for(@user_new_session, as: 'user_new_session', url: session_path('user'), html: { class: "social-account-half-form" }) do |f| %>
+
+      <h1 class="social-registration-half-form-heading">Create a Factlink account</h1>
+
+      <%= f.text_field :full_name, placeholder: "Full name" %>
+      <%= f.text_field :email, placeholder: "Email address" %>
+      <%= f.password_field :password, placeholder: "Password" %>
+      <%= f.password_field :password_confirmation, placeholder: "Password confirmation" %>
+
+      <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
+
+      <button type="submit" data-disable-with="Creating..." class="button pull-right">Create account</button>
+    <% end %>
+  </div>
 
 <% end %>
