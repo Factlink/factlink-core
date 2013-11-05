@@ -157,6 +157,8 @@ class Ability
   def define_sharing_abilities
     return unless signed_in?
 
+    can :share, Fact
+
     can :share_to, SocialAccount do |social_account|
       social_account.persisted? && social_account.user == user
     end
