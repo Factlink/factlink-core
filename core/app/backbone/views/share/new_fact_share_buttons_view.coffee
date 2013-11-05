@@ -18,9 +18,9 @@ class ShareButtonView extends Backbone.Marionette.ItemView
     @model.set @options.name, !@model.get(@options.name)
 
 
-class window.ShareButtonsView extends Backbone.Marionette.Layout
+class window.NewFactShareButtonsView extends Backbone.Marionette.Layout
   tagName: 'span'
-  template: 'share/buttons'
+  template: 'share/new_fact_share_buttons'
 
   regions:
     twitterRegion:  '.js-twitter-region'

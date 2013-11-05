@@ -72,7 +72,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   renderShareNewFact: ->
     @factSharingOptions = new FactSharingOptions
-    @shareNewFactRegion.show new ShareButtonsView
+    @shareNewFactRegion.show new NewFactShareButtonsView
       model: @factSharingOptions
 
   post_factlink: (e)->
