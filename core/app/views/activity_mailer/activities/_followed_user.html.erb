@@ -56,8 +56,12 @@
 
 </table>
 
-<p align="center">
-  <%= link_to(user_profile_url(@activity.user.user), class: "button") do %>
-    Follow <%= @activity.user.user %>
-  <% end %>
-</p>
+<table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="button-inner">
+      <%= link_to(user_profile_url(@activity.user.user)) do %>
+        Follow <%= @activity.user.user %>
+      <% end %>
+    </td>
+  </tr>
+</table>
