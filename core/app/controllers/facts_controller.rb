@@ -133,7 +133,9 @@ class FactsController < ApplicationController
   def share
     authorize! :share, @fact
 
-    command :'facts/social_share', @fact.id, params[:fact_sharing_options] || {}
+    command :'facts/social_share', fact_id: @fact.id, sharing_options: params[:fact_sharing_options]
+
+    render json: {}
   end
 
   private
