@@ -19,7 +19,7 @@ module Commands
 
       fact = Fact[fact_id]
       conversation.fact_data_id = fact.data_id
-      conversation.save
+      conversation.save!
       conversation
     end
   end

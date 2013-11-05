@@ -8,7 +8,7 @@ setErrorsOnFields = (formId, fieldErrors) ->
     el = $("#" + formId + "_user_" + field)
 
     el.addClass "error"
-    showErrorPopover el, "#{field} #{errorMessage}", formId
+    showErrorPopover el, "#{errorMessage}", formId
 
 showErrorPopover = (element, errorMessage, formId) ->
   if formId == "bottom_registration_form"
@@ -52,13 +52,7 @@ bindRegistrationForm = (formId) ->
   form = $('#' + formId)
 
   form.on "ajax:success", (event, data, status, response) ->
-    forms = $('.sign_up_form > form')
-    _.each forms, (el) ->
-      $(el).toggleClass 'success'
-      clearPreviousErrorsForForm($(el))
-
-    registration_code = $("#" + formId + "_user_registration_code").val()
-    mp_track 'User: Reserved username', code: registration_code
+    window.location = data.location
 
   form.on "ajax:error", (event, response, error) ->
     clearPreviousErrorsForForm(form)

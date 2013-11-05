@@ -25,14 +25,6 @@ class window.User extends Backbone.Model
       md5d_email = @get('gravatar_hash')
       "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
-  created_facts: -> @channel_with_id 'created_facts_channel_id'
-
-  channel_with_id: (id) ->
-    new Channel
-      id: @get(id)
-      created_by:
-        username: @get('username')
-
   streamLink: -> "/#{@get('username')}/feed"
 
   toJSON: ->

@@ -15,16 +15,10 @@ class User
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
-  attr_accessor :tos_first_name, :tos_last_name
-
   field :username
-  field :first_name
-  field :last_name
-  field :identities, type: Hash, default: {}
+  field :full_name    # TODO:EMN minimum length?  require space?
 
   index(username: 1)
-  index({ "identities.facebook.uid" => 1 }, { sparse: true, unique: true })
-  index({ "identities.twitter.uid" => 1 }, { sparse: true, unique: true })
 
   field :registration_code
 
@@ -32,6 +26,7 @@ class User
   field :biography
 
   field :graph_user_id
+  index(graph_user_id: 1)
 
   field :deleted,     type: Boolean, default: false
   field :set_up,      type: Boolean, default: false
@@ -39,41 +34,33 @@ class User
 
   field :admin,       type: Boolean, default: false
 
-  field :agrees_tos,  type: Boolean, default: false
-  field :agrees_tos_name, type: String, default: ""
-  field :agreed_tos_on,   type: DateTime
-
-  field :seen_the_tour,  type: Boolean, default: false
   field :seen_tour_step, type: String,  default: nil
   field :receives_mailed_notifications,  type: Boolean, default: true
   field :receives_digest, type: Boolean, default: true
 
-
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :location, :biography,
+  attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :location, :biography,
+  attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest, :email, :admin, :registration_code, :suspended,
         as: :admin
-  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name,
-        as: :from_tos
 
   USERNAME_BLACKLIST = [
     :users, :facts, :site, :templates, :search, :system, :tos, :pages, :privacy,
     :admin, :factlink, :auth, :reserved, :feedback, :feed, :client, :assets,
-    :rails
+    :rails, :'terms-of-service'
   ].freeze
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
-                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
+                          :with => Regexp.new('^' + (USERNAME_BLACKLIST.map { |x| '(?!'+x.to_s+'$)' }.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
                           :with => /\A[A-Za-z0-9_]*\Z/i,
@@ -84,8 +71,7 @@ class User
 
   validates_length_of     :username, :within => 0..USERNAME_MAX_LENGTH, :message => "no more than #{USERNAME_MAX_LENGTH} characters allowed"
   validates_presence_of   :username, :message => "is required", :allow_blank => true # since we already check for length above
-  validates_presence_of   :first_name, :message => "is required", :allow_blank => false
-  validates_presence_of   :last_name, :message => "is required", :allow_blank => false
+  validates_presence_of   :full_name, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
   validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
@@ -137,27 +123,21 @@ class User
   has_and_belongs_to_many :conversations, inverse_of: :recipients
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
   has_many :comments, class_name: 'Comment', inverse_of: :created_by
+  has_many :social_accounts
 
-  scope :active,   where(:confirmed_at.ne => nil)
-                  .where(:set_up => true)
-                  .where(:agrees_tos => true)
+  scope :active,   where(:set_up => true)
                   .where(:deleted.ne => true)
                   .where(:suspended.ne => true)
   scope :seen_the_tour,   active
                             .where(:seen_tour_step => 'tour_done')
 
   class << self
-    def find_for_oauth(provider_name, uid)
-      where(:"identities.#{provider_name}.uid" => uid).first
-    end
-
     # List of fields that are stored in Mixpanel.
     # The key   represents how the field is stored in our Model
     # The value represents how it is stored in Mixpanel
     def mixpaneled_fields
       {
-        "first_name"      => "first_name",
-        "last_name"       => "last_name",
+        "full_name"      => "full_name",
         "username"        => "username",
         "email"           => "email",
         "created_at"      => "created",
@@ -172,9 +152,20 @@ class User
       }
     end
 
+    # this methods defined which fields are to be removed
+    # when the user is deleted (anonymized)
     def personal_information_fields
       # Deliberately not removing agrees_tos_name for now
-      ['first_name', 'last_name', 'location', 'biography', 'identities']
+      %w(
+        full_name location biography confirmed_at reset_password_token
+        confirmation_token invitation_token
+      )
+    end
+
+    def valid_username?(username)
+      validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp}.map { |v| v.options[:with] }
+
+      not find_by(username: username) and validators.all? { |regex| regex.match(username) }
     end
   end
 
@@ -197,7 +188,7 @@ class User
   end
 
   def active?
-    confirmed? && set_up && agrees_tos && !deleted && !suspended
+    set_up && !deleted && !suspended
   end
 
   def graph_user
@@ -223,16 +214,6 @@ class User
     attr.to_s == 'non_field_error' ? '' : super
   end
 
-  def sign_tos(agrees_tos)
-    unless agrees_tos
-      self.errors.add(:non_field_error, "You have to accept the Terms of Service to continue.")
-      return false
-    end
-
-    attributes = {agrees_tos: agrees_tos, agreed_tos_on: DateTime.now}
-    self.assign_attributes(attributes, as: :from_tos) and save
-  end
-
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
   around_create :create_graph_user
 
@@ -245,28 +226,25 @@ class User
   end
 
   def name
-    name = "#{first_name} #{last_name}".strip
-
-    if name.blank?
-      username
-    else
-      name
-    end
+    full_name.blank? ? username : full_name
   end
 
-  def valid_username_and_email?
+  def full_name=(new_name)
+    super new_name.strip
+  end
+
+  def valid_full_name_and_email?
     unless valid?
       errors.keys.each do |key|
-        errors.delete key unless key == :username or key == :email
+        errors.delete key unless key == :full_name or key == :email
       end
     end
     not errors.any?
   end
 
-  def id_for_service service_name
-    service_name = service_name.to_s
-    if self.identities and self.identities[service_name]
-      self.identities[service_name]['uid'].andand.first
+  def generate_username!
+    self.username = UsernameGenerator.new.generate_from full_name, USERNAME_MAX_LENGTH do |username|
+      self.class.valid_username?(username)
     end
   end
 
@@ -298,10 +276,10 @@ class User
     Gravatar.hash(email)
   end
 
-  # Require activated accounts to work with
-  # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
+  # Don't require being confirmed for being active for authentication
+  # Do check for deleted and suspended accounts though!
   def active_for_authentication?
-    super && !deleted && !suspended
+    !deleted && !suspended
   end
 
   def inactive_message
@@ -322,7 +300,11 @@ class User
   end
 
   def features_count
-     @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
+    @count ||= features.to_a.select { |f| Ability::FEATURES.include? f }.count
+  end
+
+  def social_account provider_name
+    social_accounts.find_or_initialize_by(provider_name: provider_name)
   end
 
   set :seen_messages
@@ -348,4 +330,22 @@ class User
     yield # Always allow confirmation, so users can login again.
     # Used together with ConfirmationsController#restore_confirmation_token
   end
+
+  # Fix for devise, for a case that should never happen at production
+  def confirmation_period_expired?
+    return false unless self.confirmation_sent_at
+
+    super
+  end
+
+  # LEGACY PATENT STUFF:
+  # this data was required when we were still working on our patents
+  # we keep it around in our database for now. If you want to remove
+  # this, please make a backup somewhere safe, so we have the data
+  # of who signed the tos at the time.
+  #
+  # when removing, also remove from serializable hash code
+  field :agrees_tos, type: Boolean, default: false
+  field :agrees_tos_name, type: String, default: ""
+  field :agreed_tos_on, type: DateTime
 end

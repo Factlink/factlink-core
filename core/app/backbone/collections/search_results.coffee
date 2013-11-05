@@ -1,8 +1,8 @@
 class window.SearchResults extends Backbone.Factlink.Collection
   model: SearchResultItem
-  
-  initialize: (models, opts) -> @search = opts.search
-  
+
+  initialize: (models, options) -> @search = options.search
+
   url: () -> '/search.json?s=' + @search
 
   query: -> @search

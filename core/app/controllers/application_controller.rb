@@ -28,10 +28,6 @@ class ApplicationController < ActionController::Base
 
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
         format.any  { fail exception }
-      elsif !current_user.agrees_tos
-        format.html { redirect_to tos_path }
-        format.json { render json: {error: "You did not agree to the Terms of Service.", code: 'tos'}, status: :forbidden }
-        format.any  { fail exception }
       else
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
         format.any  { fail exception }
@@ -56,15 +52,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if seen_the_tour(user)
-      safe_return_to_path || feed_path(current_user.username)
-    elsif user.active?
-      start_the_tour_path
-    elsif can? :sign_tos, user
-      tos_path
-    else
-      setup_account_path
-    end
+    return setup_account_path unless user.set_up
+    return start_the_tour_path unless seen_the_tour(user)
+
+    safe_return_to_path || feed_path(current_user.username)
   end
 
   def safe_return_to_path
@@ -202,11 +193,6 @@ class ApplicationController < ActionController::Base
     can? :"see_feature_#{feature}", Ability::FactlinkWebapp
   end
   helper_method :can_haz
-
-  def set_layout
-    allowed_layouts = ['popup', 'client']
-    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
-  end
 
   def inject_special_test_code
     # this method is used by the test to inject things like the

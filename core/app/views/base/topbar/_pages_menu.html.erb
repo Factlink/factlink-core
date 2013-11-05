@@ -1,12 +1,12 @@
 <li class="dropdown-submenu">
     <a href="#"><i class='icon-info-sign'></i> About</a>
     <ul class="dropdown-menu">
-      <li><%= link_to('About Factlink', '/p/about') %></li>
-      <li><%= link_to('Team', '/p/team') %></li>
-      <li><%= link_to('Jobs', '/p/jobs') %></li>
+      <li><%= link_to('About Factlink', pages_path('about')) %></li>
+      <li><%= link_to('Team', pages_path('team')) %></li>
+      <li><%= link_to('Jobs', pages_path('jobs')) %></li>
       <li><%= link_to('Blog', 'http://blog.factlink.com') %></li>
-      <li><%= link_to('Contact', '/p/contact') %></li>
-      <li><%= link_to('Privacy', '/p/privacy') %></li>
-      <li><%= link_to('Terms Of Service', '/p/tos') %></li>
+      <li><%= link_to('Contact', pages_path('contact')) %></li>
+      <li><%= link_to('Privacy', pages_path('privacy')) %></li>
+      <li><%= link_to('Terms Of Service', pages_path('terms-of-service')) %></li>
     </ul>
   </li>

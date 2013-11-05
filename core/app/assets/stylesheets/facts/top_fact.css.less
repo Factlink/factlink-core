@@ -14,10 +14,14 @@
   left: 35px;
 }
 
-.top-fact-share {
+.top-fact-share-buttons {
   position: absolute;
   top: -@baseButtonHeight - 8px;
   right: 0;
+}
+
+.top-fact-share-buttons-option {
+  display: inline-block;
 }
 
 .top-fact-text {
@@ -55,10 +59,9 @@
 }
 
 @informationLabelHeight: 40px;
-@informationLabelBackgroundColor: hsla(220, 3%, 79%, 0.5);
 .top-fact-weakening-information, .top-fact-supporting-information {
-  background-color: @informationLabelBackgroundColor;
-  color: rgb(120,120,120);
+  background-color: @translucentGrey;
+  color: @metaFontColor;
   position: absolute;
   width: 355px;
   bottom: -@informationLabelHeight;
@@ -78,7 +81,7 @@
     width: 0;
     position: absolute;
     border-color: none;
-    border-top-color: @informationLabelBackgroundColor;
+    border-top-color: @translucentGrey;
     border-width: 12px;
     left: 50%;
     margin-left: -12px;

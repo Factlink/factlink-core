@@ -52,33 +52,6 @@ describe 'activity queries' do
   end
 
   describe ".user" do
-    context 'seeing channels' do
-      let(:gu1) { create(:full_user, :seeing_channels).graph_user }
-      let(:gu2) { create(:full_user, :seeing_channels).graph_user }
-
-      it "should return notification when a user follows your channel" do
-        ch1 = create :channel, created_by: gu1
-        ch2 = create :channel, created_by: gu2
-
-        Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-          subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-        ch2.created_by.notifications.map(&:to_hash_without_time).should == [
-          {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
-        ]
-      end
-
-      it "should return stream activity when a user follows your channel" do
-        ch1 = create :channel, created_by: gu1
-        ch2 = create :channel, created_by: gu2
-
-        Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-          subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-        ch2.created_by.stream_activities.map(&:to_hash_without_time).should == [
-          {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
-        ]
-      end
-    end
-
     it "should *not* return notification when a user follows your channel" do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
@@ -121,14 +94,6 @@ describe 'activity queries' do
 
       notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
         {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
-      ]
-    end
-
-    it "should return a :added_first_factlink activity when the users' first factlink is created" do
-      f1 = create :fact, created_by: gu1
-
-      gu1.stream_activities.map(&:to_hash_without_time).should == [
-        {user: gu1, action: :added_first_factlink, subject: f1}
       ]
     end
 

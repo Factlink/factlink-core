@@ -68,10 +68,12 @@ class window.TourInterestingUsersView extends Backbone.Marionette.Layout
   showPreviousPage: ->
     return unless @hasPreviousPage()
     @showPage @page-1
+    mp_track "Tour: Interesting users - Previous page"
 
   showNextPage: ->
     return unless @hasNextPage()
     @showPage @page+1
+    mp_track "Tour: Interesting users - Next page"
 
   hasPreviousPage: ->
     @page > 0

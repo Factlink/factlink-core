@@ -22,7 +22,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     title: @options.title
     url: @options.url
     add_to_topic_header: Factlink.Global.t.add_to_topics.capitalize()
-    csrf_token: @options.csrf_token
     guided: FactlinkApp.guided
 
   initialize: ->
@@ -108,9 +107,8 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     else
       @popoverAdd '.fact-wheel',
         side: 'top'
-        popover_className: 'translucent-dark-popover'
-        contentView: new TextView
-          model: new Backbone.Model text: "What's your opinion?"
+        popover_className: 'translucent-popover'
+        contentView: new TextView text: "What's your opinion?"
 
   closeOpinionHelptext: ->
     @popoverRemove('.fact-wheel')

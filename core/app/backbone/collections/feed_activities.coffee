@@ -2,7 +2,7 @@ class window.FeedActivities extends Backbone.Collection
   _.extend @prototype, AutoloadCollectionOnTimestamp
   model: Activity
 
-  initialize: (models, opts) ->
+  initialize: (models, options) ->
     @_count = new ActivityCount {}, activity_collection: @
     @_count.on 'change', @update_count, @
     @on 'reset add remove', @setLatestTimestamp, @

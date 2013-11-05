@@ -4,30 +4,23 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
 
   @classForModel: (model) ->
     switch model.get("action")
-      when "added_supporting_evidence", "added_weakening_evidence"
+      when "created_comment", "added_supporting_evidence", "added_weakening_evidence"
         AddedEvidenceView
-      when "created_comment", "created_sub_comment"
+      when "created_sub_comment"
         CreatedCommentView
       when "created_channel"
         CreatedChannelView
-      when "added_subchannel"
-        AddedSubchannelView
       when "believes", "doubts", "disbelieves"
         AddedOpinionView
       when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
         AddedFactToTopicGroupView
       when 'followed_user'
         FollowedUserView
-      when "added_first_factlink"
-        AddedFirstFactlinkView
       else
         ActivityItemView
 
 class CreatedChannelView extends ActivityItemView
   template: "activities/created_channel"
-
-class AddedSubchannelView extends ActivityItemView
-  template: "activities/added_subchannel"
 
 class AddedEvidenceView extends ActivityItemView
   template: "activities/added_evidence"
@@ -51,9 +44,6 @@ class FollowedUserView extends ActivityItemView
       $offsetParent: @options.$offsetParent
 
   user: -> @_user ?= new User(@model.get('activity').followed_user)
-
-class AddedFirstFactlinkView extends ActivityItemView
-  template: "activities/added_first_factlink"
 
 class AddedFactToTopicView extends ActivityItemView
   _.extend @prototype, Backbone.Factlink.PopoverMixin

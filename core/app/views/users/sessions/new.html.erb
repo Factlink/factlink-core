@@ -9,7 +9,7 @@
 
       <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
         <% if @layout == "client" %>
-          <%= render 'home/notifications', notice: notice, alert: alert %>
+          <%= render 'flash/simple', notice: notice, alert: alert %>
         <% end %>
 
         <% if @layout %>
@@ -20,14 +20,14 @@
 
         <div class="with-credentials">
           <div class="form-box">
-            <%= f.text_field :login, placeholder: "Username or email" %>
+            <%= f.text_field :login, placeholder: "Email or username" %>
             <%= f.password_field :password, placeholder: "Password" %>
             <% if devise_mapping.rememberable? -%>
-              <%= f.check_box :remember_me %>
-              <%= f.label :remember_me %>
+              <%= f.check_box :remember_me, class: "remember-me-checkbox" %>
+              <%= f.label :remember_me, class: "remember-me-text" %>
             <% end -%>
 
-            <%= f.submit "Sign in", 'data-disable-with' => "Signing in...", :class => "button pull-right" %>
+            <button type="submit" data-disable-with="Signing in..." class="button pull-right client-signin-button">Sign in</button>
           </div>
         </div>
 

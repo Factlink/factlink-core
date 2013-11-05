@@ -50,9 +50,10 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   createFactRelation: (fact_relation, onFinish=->)->
     return @showError() unless fact_relation.isValid()
 
-    @collection.add fact_relation, highlight: true
+    @collection.add fact_relation
     @inputRegion.switchTo('search_view')
 
+    @collection.trigger 'start_adding_model'
     fact_relation.save {},
       error: =>
         onFinish()

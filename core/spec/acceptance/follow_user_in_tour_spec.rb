@@ -6,7 +6,7 @@ feature "follow_users_in_tour", type: :feature do
   include Acceptance::TopicHelper
 
   before do
-    @user = create :user, :confirmed, :agrees_tos
+    @user = create :user, :set_up
 
     @user1 = create :full_user
     @user2 = create :full_user
@@ -36,8 +36,8 @@ feature "follow_users_in_tour", type: :feature do
     click_on 'Got it!'
     page.should_not have_content('What is this?')
 
-    page.should have_content("#{@user1.first_name} #{@user1.last_name}")
-    page.should have_content("#{@user2.first_name} #{@user2.last_name}")
+    page.should have_content("#{@user1.full_name}")
+    page.should have_content("#{@user2.full_name}")
 
     page.should have_content(@user1_channel1.title)
     page.should have_content(@user1_channel2.title)
@@ -87,11 +87,12 @@ feature "follow_users_in_tour", type: :feature do
 
     visit interests_path
     click_on 'Got it!'
+
     first(:button, 'Follow user').click
 
     eventually_succeeds 10 do
-      follower_counts = Pavlov.interactor(:'users/following', user_name: @user.username, skip: 0, take: 0, pavlov_options: { current_user: @user})
-      follower_counts[1].should eq 1
+      following = Pavlov.interactor(:'users/following', user_name: @user.username, pavlov_options: { current_user: @user})
+      following.length.should eq 1
       #TODO: this is really a hack to ensure that the subsequent unfollow
       # really does happen after the original follow even on the server.
     end

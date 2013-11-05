@@ -1,0 +1,28 @@
+<% content_for :specific_javascript do %>
+  <script>
+    var eventName = <%= event[:name].to_json.html_safe %>;
+    var eventDetails = <%= event[:details].to_json.html_safe %>;
+
+    if(window.opener) {
+      var evt = document.createEvent('CustomEvent');
+      evt.initCustomEvent(eventName, true, true, eventDetails);
+
+      window.opener.document.dispatchEvent(evt);
+      window.close();
+    } else if (eventName !== 'social_error' && window.parent && window.parent.FactlinkApp && window.parent.FactlinkApp.FacebookRenewal) {
+      window.parent.FactlinkApp.FacebookRenewal.success();
+    } else {
+      origin = '<%= request.env['omniauth.origin'] %>'
+      if(origin !== ''){
+        window.location = origin;
+      }
+    }
+  </script>
+<% end %>
+
+<% content_for :social_account_popup_content do %>
+  <h1>Redirecting you back to the application!</h1>
+  <p>
+    Just a second.
+  </p>
+<% end %>

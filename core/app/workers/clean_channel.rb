@@ -1,3 +1,6 @@
+# This class removes (no longer) valid facts from a channel
+# This class should be considered superseded by CleanSortedFacts
+# which works on generic sorted sets of facts, not only channels
 class CleanChannel
   @queue = :channel_operations
 

@@ -3,11 +3,9 @@
     "displaystring": "Fact 3",
     "id": "<STRIPPED>",
     "containing_channel_ids": [
-      "3"
+      "1"
     ],
     "url": "/fact-3/f/3",
-    "deletable_from_channel?": true,
-    "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",
       "name": "John1 Doe1",
@@ -46,17 +44,15 @@
     "fact_url": "http://example.org/3.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F3.html&scrollto=3",
     "timestamp": 0,
-    "evidence_count": 0
+    "is_deletable": true
   },
   {
     "displaystring": "Fact 2",
     "id": "<STRIPPED>",
     "containing_channel_ids": [
-      "3"
+      "1"
     ],
     "url": "/fact-2/f/2",
-    "deletable_from_channel?": true,
-    "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",
       "name": "John1 Doe1",
@@ -95,17 +91,15 @@
     "fact_url": "http://example.org/2.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=2",
     "timestamp": 0,
-    "evidence_count": 0
+    "is_deletable": true
   },
   {
     "displaystring": "Fact 1",
     "id": "<STRIPPED>",
     "containing_channel_ids": [
-      "3"
+      "1"
     ],
     "url": "/fact-1/f/1",
-    "deletable_from_channel?": true,
-    "friendly_time": "1 minute",
     "created_by": {
       "id": "<STRIPPED>",
       "name": "John1 Doe1",
@@ -144,6 +138,6 @@
     "fact_url": "http://example.org/1.html",
     "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
     "timestamp": 0,
-    "evidence_count": 0
+    "is_deletable": true
   }
 ]

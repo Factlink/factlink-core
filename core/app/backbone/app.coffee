@@ -19,11 +19,12 @@ class FactlinkAppClass extends Backbone.Marionette.Application
   startAsClient: ->
     @startClientRegions()
     @addInitializer (options)->
-      new ClientRouter controller: new ClientController
+      new ClientRouter controller: ClientController
     @addInitializer @clientCloseDiscussionModalInitializer
     @modal = true
     @onClientApp = true
 
+    parent.remote?.setFeatureToggles Factlink.Global.can_haz
     @start()
 
   isCurrentUser: (user) ->

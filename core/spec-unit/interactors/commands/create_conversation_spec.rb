@@ -40,7 +40,7 @@ describe Commands::CreateConversation do
 
       recipients.should_receive(:<<).with(user)
       conversation.should_receive(:fact_data_id=).with(fact_data_id)
-      conversation.should_receive(:save)
+      conversation.should_receive(:save!)
 
       command.call
     end

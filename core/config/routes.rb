@@ -115,8 +115,13 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get "/auth/:service/callback" => "identities#service_callback", as: "social_auth"
-  delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
+  authenticated :user do
+    get "/auth/:provider_name/callback" => "social_accounts/connections#callback", as: "social_auth"
+    delete "/auth/:provider_name/deauthorize" => "social_accounts/connections#deauthorize"
+  end
+
+  get "/auth/:provider_name/callback" => "social_accounts/registrations#callback"
+  post "/auth/new" => "social_accounts/registrations#create", as: 'social_accounts_new'
 
   resources :conversations, only: [:index, :show, :create], path: 'm' do
     resources :messages, only: [:create, :show]
@@ -126,6 +131,8 @@ FactlinkUI::Application.routes.draw do
     get "/" => "users#show", as: "user_profile"
     put "/" => "users#update"
     delete "/" => "users#destroy"
+
+    resources :created_facts, only: [:index]
 
     get '/feed' => "channel_activities#index", as: 'feed'
     get '/feed/count' => "channel_activities#count", as: 'feed_count'
@@ -151,16 +158,7 @@ FactlinkUI::Application.routes.draw do
         end
       end
 
-      resources :activities, # TODO: deprecate this resource on channels
-                only: [:index],
-                controller: 'channel_activities' do |variable|
-        collection do
-          get "count"
-        end
-      end
-
       member do
-
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
         post "add/:fact_id"     => "channels#add_fact"
@@ -171,7 +169,6 @@ FactlinkUI::Application.routes.draw do
 
         scope "/facts" do
           get "/" => "channels#facts", as: "get_facts_for"
-          post "/" => "channels#create_fact", as: "create_fact_for"
 
           scope "/:fact_id" do
             delete "/" => "channels#remove_fact",  as: "remove_fact_from"
@@ -189,7 +186,6 @@ FactlinkUI::Application.routes.draw do
       end
     end
 
-    resources :followers, only: [:destroy, :update, :index], controller: 'user_followers'
     resources :following, only: [:destroy, :update, :index], controller: 'user_following'
     resources :favourite_topics, only: [:destroy, :update, :index], controller: 'user_favourite_topics'
   end
@@ -207,9 +203,6 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get  "/p/tos"     => "tos#show",        as: "tos"
-  post "/p/tos"     => "tos#update",      as: "tos"
-
   scope "/p/tour" do
     get 'setup-account' => 'users/setup#edit', as: 'setup_account'
     put 'setup-account' => 'users/setup#update'
@@ -218,8 +211,6 @@ FactlinkUI::Application.routes.draw do
     get "interests" => "tour#interests", as: "interests"
     get "tour-done" => "tour#tour_done", as: "tour_done"
   end
-
-  get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do
     get ":name" => "home#pages", as: "pages",  constraints: {name: /([-a-zA-Z_\/]+)/}

@@ -31,7 +31,11 @@ module Queries
       end
 
       def current_graph_user
-        pavlov_options[:current_user].andand.graph_user
+        if pavlov_options[:current_user]
+          pavlov_options[:current_user].graph_user
+        else
+          nil
+        end
       end
 
       def can_destroy

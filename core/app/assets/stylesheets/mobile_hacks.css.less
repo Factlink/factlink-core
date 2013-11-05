@@ -1,0 +1,7 @@
+// This is done because of transitions crashes on iOS devices.
+    // For now we're disabling transitions on devices smaller than 1025 pixels
+    // Most PC have bigger screens so, this works perfect for PC's
+
+@media only screen and (max-device-width: 1025px) {
+  * { transition: none !important; }
+}

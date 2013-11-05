@@ -8,7 +8,7 @@ module Commands
       def execute
         command(:'text_search/index',
                     object: user, type_name: :user,
-                    fields: [:username, :first_name, :last_name],
+                    fields: [:username, :full_name],
                     fields_changed: changed)
       end
 

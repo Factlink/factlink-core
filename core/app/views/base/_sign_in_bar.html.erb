@@ -1,4 +1,4 @@
-<%= render 'home/notifications', notice: notice, alert: alert %>
+<%= render 'flash/simple', notice: notice, alert: alert %>
 
 <div class="sign_in_bar">
   <div class="container">
@@ -9,9 +9,9 @@
 
         <%= return_to_fields_for_sign_in %>
 
-        <%= f.text_field     :login,    class: "text",    placeholder: "Username or email",    tabindex: '1' %>
+        <%= f.text_field :login, class: "text", placeholder: "Email or username", tabindex: '1' %>
         <%= f.password_field :password, class: "text", placeholder: "Password", tabindex: '2' %>
-        <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'button', tabindex: '4' %>
+        <button class="button" type="submit" data-disable-with="Signing in..." tabindex="4">Sign in</button>
 
         <div class="toolbar">
           <span>

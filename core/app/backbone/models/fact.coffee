@@ -11,9 +11,6 @@ class window.Fact extends Backbone.Model
 
   urlRoot: "/facts"
 
-  opinionPercentage: (type)->
-    @get('fact_wheel').opinion_types[type].percentage
-
   removeFromChannel: (channel, opts={}) ->
     Backbone.ajax _.extend {}, opts,
       type: "post"
@@ -44,9 +41,7 @@ class window.Fact extends Backbone.Model
 
   is_mine: -> @user().is_current_user()
 
-  has_evidence: -> @get('evidence_count') > 0
-
-  can_destroy: -> @is_mine() && !@has_evidence()
+  can_destroy: -> @is_mine() && @get('is_deletable')
 
   factUrlHost: ->
     fact_url = @get('fact_url')
@@ -59,3 +54,4 @@ class window.Fact extends Backbone.Model
       can_destroy: @can_destroy()
       fact_url_host: @factUrlHost()
       fact_url_title: @get('fact_title') || @factUrlHost()
+      is_deletable_from_channel: @collection?.channel?.is_mine()

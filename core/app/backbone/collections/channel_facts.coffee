@@ -3,9 +3,7 @@ class window.ChannelFacts extends Backbone.Collection
 
   model: Fact
 
-  initialize: (models, opts) -> @channel = opts.channel
+  initialize: (models, options) -> @channel = options.channel
 
   url: ->  @channel.normal_url() + '/facts'
-
-  canAddFact: -> @channel.get('editable?')
 

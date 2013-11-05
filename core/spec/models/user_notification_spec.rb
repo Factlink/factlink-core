@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UserNotification do
   describe '#unsubscribe' do
-    let(:user) { create :full_user, receives_digest: true, receives_mailed_notifications: true }
+    let(:user) { create :full_user, :confirmed, receives_digest: true, receives_mailed_notifications: true }
 
     it "unsubscribes you from a digest mailing" do
       user.user_notification.unsubscribe('digest')
@@ -55,7 +55,7 @@ describe UserNotification do
   end
 
   describe '#subscribe' do
-    let(:user) { create :full_user, receives_digest: false, receives_mailed_notifications: false }
+    let(:user) { create :full_user, :confirmed, receives_digest: false, receives_mailed_notifications: false }
 
     it "subscribes you to a digest mailing" do
       expect(user.user_notification.can_receive?('digest')).to be_false
@@ -95,7 +95,7 @@ describe UserNotification do
 
   describe '#can_receive?' do
     it 'returns false if a user is not confirmed' do
-      unconfirmed_user = create :user, receives_digest: true, receives_mailed_notifications: true
+      unconfirmed_user = create :full_user, receives_digest: true, receives_mailed_notifications: true
 
       expect(unconfirmed_user.user_notification.can_receive?('digest')).to be_false
     end
@@ -104,7 +104,7 @@ describe UserNotification do
   describe ".users_receiving" do
     it "only returns confirmed users that have selected to receive digests" do
       unconfirmed_user = create :user, receives_digest: true
-      active_unconfirmed_user = create :full_user, confirmed_at: nil, receives_digest: true
+      active_unconfirmed_user = create :full_user, receives_digest: true
       confirmed_user_without_digest = create :user, :confirmed, receives_digest: false
       confirmed_user = create :user, :confirmed, receives_digest: true
 

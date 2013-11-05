@@ -3,7 +3,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
   className: 'add-comment'
   events:
-    'click .js-post': 'addWithHighlight'
+    'click .js-post': 'addComment'
     'click .js-switch-to-factlink': 'switchToFactRelation'
 
   template: 'comments/add_comment'
@@ -17,7 +17,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   onRender: ->
     @inputRegion.show @_textAreaView()
 
-  addWithHighlight: ->
+  addComment: ->
     return if @submitting
 
     @model = new Comment
@@ -28,16 +28,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     return @addModelError() unless @model.isValid()
 
     @disableSubmit()
-    @addDefaultModel highlight: true
-
-  templateHelpers: =>
-    type_of_action_text: @type_of_action_text()
-
-  type_of_action_text: ->
-    if @options.addToCollection.type == 'supporting'
-      'Agreeing'
-    else
-      'Disagreeing'
+    @addDefaultModel()
 
   setFormContent: (content) -> @_textModel().set 'text', content
 

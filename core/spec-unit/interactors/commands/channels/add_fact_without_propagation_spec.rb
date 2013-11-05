@@ -11,7 +11,6 @@ describe Commands::Channels::AddFactWithoutPropagation do
                  created_by_id: 14
       channel = double :channel,
                     sorted_cached_facts: double,
-                    type: 'channel',
                     slug_title: double,
                     created_by_id: 14
       score = double(:score, to_s: double)
@@ -25,27 +24,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
 
       expect(command.call).to be_true
     end
-    it 'adds the fact to the channel, but not the channel to the fact, when the channel is not a regular channel' do
-      fact = double :fact,
-                 channels: double,
-                 id: double,
-                 created_by_id: 14
-      channel = double :channel,
-                    sorted_cached_facts: double,
-                    type: 'notchannel',
-                    slug_title: double,
-                    created_by_id: 14
-      score = double(:score, to_s: double)
 
-      command = described_class.new fact: fact,
-        channel: channel, score: score
-      command.stub(should_execute?: true)
-
-      channel.sorted_cached_facts.should_receive(:add).with(fact, score)
-      fact.channels.should_not_receive(:add).with(channel)
-
-      expect(command.call).to be_true
-    end
     it "returns false if the fact did not need to be added, or wasn't added " do
       command = described_class.new fact: double,
         channel: double, score: double
@@ -69,6 +48,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
 
       expect(command.should_execute?).to be_false
     end
+
     it "should return false if the fact is already deleted" do
       fact, score = double, double
       channel = double :channel,
@@ -83,6 +63,7 @@ describe Commands::Channels::AddFactWithoutPropagation do
 
       expect(command.should_execute?).to be_false
     end
+
     it "should return true in other cases" do
       fact, score = double, double
       channel = double :channel,

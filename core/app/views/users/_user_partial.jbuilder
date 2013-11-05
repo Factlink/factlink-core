@@ -12,6 +12,8 @@ json.statistics_following_count    user.statistics[:following_count]
 
 json.deleted true if user.deleted
 
-json.user_topics do
-  json.partial! 'topics/user_topics', user_topics: user.top_user_topics
+json.user_topics user.top_user_topics do |user_topic|
+  json.title      user_topic.title
+  json.slug_title user_topic.slug_title
+  json.authority  user_topic.formatted_authority
 end

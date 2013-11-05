@@ -1,7 +1,4 @@
-<form accept-charset="UTF-8" action="/facts{{#guided}}?guided={{guided}}{{/guided}}" class="post-factlink-page" method="post">
-  <input name="utf8" type="hidden" value="&#x2713;" />
-  <input name="authenticity_token" type="hidden" value="{{csrf_token}}" />
-
+<div class="post-factlink-page">
   <div class="fact-new-fact-container">
     {{#guided}}
       <div class="js-opinion-animation" style="position:absolute"><img src="{{global.opinion_animation}}" alt="" /></div>
@@ -25,10 +22,10 @@
   </div>
 
   <div class="buttons">
-    <input class="button button-confirm js-submit-post-factlink submit-post-factlink" data-disable-with="Posting..." name="commit" type="submit" value="Post to Factlink">
+    <button class="button button-confirm js-submit-post-factlink submit-post-factlink" data-disable-with="Posting..." name="commit" type="submit">Post to Factlink</button>
 
     <div class="js-region-share-new-fact post-factlink-share"></div>
 
     <div class="js-finish-popover finish-popover"></div>
   </div>
-</form>
+</div>

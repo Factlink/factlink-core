@@ -65,11 +65,7 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
         success: refreshAgain
         error: (collection, response)->
           if response.status is 403
-            responsecode = JSON.parse(response.responseText).code
-            # should be: responsecode is 'login'
-            # but devise doesn't add a code
-            if responsecode isnt 'tos'
-              FactlinkApp.vent.trigger('require_login')
+            FactlinkApp.vent.trigger('require_login')
           refreshAgain()
     else
       refreshAgain true

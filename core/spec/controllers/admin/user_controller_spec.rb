@@ -9,8 +9,7 @@ describe Admin::UsersController do
   def valid_attributes
     {
       username: "test_user",
-      first_name: "Test",
-      last_name: "User",
+      full_name: "Test User",
       email: "test@mail.nl",
       password: "test123",
       password_confirmation: "test123"

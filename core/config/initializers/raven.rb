@@ -1,6 +1,6 @@
 require 'raven'
 
-sentry_conf = YAML::load_file(Rails.root.join('config/sentry.yml'))[Rails.env].andand['sentry']
+sentry_conf = YAML::load_file(Rails.root.join('config/sentry.yml')).fetch(Rails.env,{})['sentry']
 
 if sentry_conf
   Raven.configure do |config|
