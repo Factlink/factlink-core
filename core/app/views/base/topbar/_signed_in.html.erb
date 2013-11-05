@@ -1,6 +1,8 @@
-<div class="search">
+<div class="topbar-search">
   <% if can? :index, Fact %>
-    <%= render "facts/fact_search" %>
+    <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
+      <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
+    </form>
   <% end %>
 </div>
 
