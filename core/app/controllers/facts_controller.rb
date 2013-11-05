@@ -13,7 +13,8 @@ class FactsController < ApplicationController
       :opinion,
       :evidence_search,
       :set_opinion,
-      :remove_opinions
+      :remove_opinions,
+      :share
       ]
 
   around_filter :allowed_type,
@@ -127,6 +128,12 @@ class FactsController < ApplicationController
     @facts = interactor :"facts/recently_viewed"
 
     render 'facts/index', formats: [:json]
+  end
+
+  def share
+    authorize! :share, @fact
+
+    command :'facts/social_share', @fact.id, params[:fact_sharing_options] || {}
   end
 
   private
