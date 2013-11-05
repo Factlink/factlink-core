@@ -1,5 +1,5 @@
 class SocialAccounts::BaseController < ApplicationController
-  layout 'social_account_popup'
+  layout 'social_popup'
 
   def provider_name
     params[:provider_name]
