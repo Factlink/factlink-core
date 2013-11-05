@@ -1,6 +1,13 @@
 {{#global.can_haz.share_discussion_buttons}}
-  <li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-facebook" href="javascript:void(0)">Facebook</a></li>
-  <li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-twitter" href="javascript:void(0)">Twitter</a></li>
+  <span>
+    {{#current_user.services.twitter}}
+      <a class="share-button share-discussion-button share-button-twitter js-twitter" href="javascript:void(0)">Twitter</a>
+    {{/current_user.services.twitter}}
+
+    {{#current_user.services.facebook}}
+      <a class="share-button share-discussion-button share-button-facebook js-facebook" href="javascript:void(0)">Facebook</a>
+    {{/current_user.services.facebook}}
+  </span>
 {{/global.can_haz.share_discussion_buttons}}
 
-<li class="top-fact-share-buttons-option"><a class="share-button share-discussion-button share-button-message js-share" href="javascript:void(0)">Share</a></li>
+<a class="share-button share-discussion-button share-button-message js-start-conversation" href="javascript:void(0)">Share</a>
