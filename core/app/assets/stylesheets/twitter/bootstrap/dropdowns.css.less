@@ -1,20 +1,11 @@
 @import "twitter/bootstrap/variables.less";
 @import "twitter/bootstrap/mixins.less";
 
-//
-// Dropdown menus
-// --------------------------------------------------
-
-
 // Use the .menu class on any <li> element within the topbar or ul.tabs and you'll get some superfancy dropdowns
-.dropup,
 .dropdown {
   position: relative;
 }
-.dropdown-toggle {
-  // The caret makes the toggle a bit too tall in IE7
-  *margin-bottom: -3px;
-}
+
 .dropdown-toggle:active,
 .open .dropdown-toggle {
   outline: 0;
@@ -31,59 +22,58 @@
   border-right: 4px solid transparent;
   border-left:  4px solid transparent;
   content: "";
-}
-
-// Place the caret
-.dropdown .caret {
   margin-top: 8px;
-  margin-left: 2px;
 }
 
-// The dropdown menu (ul)
-// ----------------------
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
   z-index: @zindexDropdown;
   display: none; // none by default, but block on "open" of the menu
-  float: left;
-  min-width: 160px;
   padding: 5px 0;
   margin: 2px 0 0; // override default ul
-  list-style: none;
   background-color: @dropdownBackground;
-  border: 1px solid #ccc; // Fallback for IE7-8
   border: 1px solid @dropdownBorder;
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
-          background-clip: padding-box;
+  background-clip: padding-box;
 
-  // Aligns the dropdown menu to right
-  &.pull-right {
-    right: 0;
-    left: auto;
+  &:before {
+    content: '';
+    display: inline-block;
+    border-left:   7px solid transparent;
+    border-right:  7px solid transparent;
+    border-bottom: 7px solid #ccc;
+    border-bottom-color: @dropdownBorder;
+    position: absolute;
+    top: -7px;
+    left: 9px;
   }
 
-  // Dividers (basically an hr) within the dropdown
-  .divider {
-    .nav-divider(@dropdownDividerTop, @dropdownDividerBottom);
+  &:after {
+    content: '';
+    display: inline-block;
+    border-left:   6px solid transparent;
+    border-right:  6px solid transparent;
+    border-bottom: 6px solid @dropdownBackground;
+    position: absolute;
+    top: -6px;
+    left: 10px;
   }
 
-  // Links within the dropdown menu
   a {
     display: block;
     padding: 3px 20px;
-    clear: both;
     font-weight: normal;
-    line-height: @baseLineHeight;
     color: @dropdownLinkColor;
     white-space: nowrap;
   }
+}
+
+.divider {
+  .nav-divider(@dropdownDividerTop, @dropdownDividerBottom);
 }
 
 // Hover state
@@ -111,8 +101,6 @@
 // Open state for the dropdown
 // ---------------------------
 .open {
-  // IE7's z-index only goes to the nearest positioned ancestor, which would
-  // make the menu appear below buttons that appeared later on the page
   *z-index: @zindexDropdown;
 
   & > .dropdown-menu {
@@ -120,25 +108,23 @@
   }
 }
 
-// Right aligned dropdowns
-// ---------------------------
-.pull-right > .dropdown-menu {
-  right: 0;
-  left: auto;
-}
-
 // Sub menus
 // ---------------------------
 .dropdown-submenu {
   position: relative;
+
+  .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    border-radius: 0 6px 6px 6px;
+
+    &:before { display: none; }
+    &:after  { display: none; }
+  }
 }
-.dropdown-submenu > .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
+
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
 }
@@ -166,3 +152,32 @@
   margin-top: 2px; // give it some space to breathe
   border-radius: @baseBorderRadius;
 }
+
+li.dropdown.open > .dropdown-toggle .caret,
+li.dropdown.active > .dropdown-toggle .caret,
+li.dropdown.open.active > .dropdown-toggle .caret {
+  border-top-color: @navbarLinkColorActive;
+  border-bottom-color: @navbarLinkColorActive;
+}
+
+// Right aligned menus need alt position
+li > .dropdown-menu {
+  left: auto;
+  right: 0;
+  &:before {
+    left: auto;
+    right: 12px;
+  }
+  &:after {
+    left: auto;
+    right: 13px;
+  }
+  .dropdown-menu {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: -1px;
+    border-radius: 6px 0 6px 6px;
+  }
+}
+
