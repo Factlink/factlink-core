@@ -5,8 +5,19 @@
 
 <% content_for :email_body do %>
 
-  <p align="center"><%= link_to 'Confirm email address', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), class: 'button' %></p>
+  <table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="button-inner">
+        <%= link_to confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) do %>
+          <div class="button-link">
+            Confirm email address
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  </table>
 
+  <br /><br />
   <p>We’ve only built part of our vision of what Factlink could be. Please send us your <a href="mailto:support@factlink.com">feedback</a> so we can make it better!</p>
 
   <p><em>&mdash; The Factlink team</em></p>

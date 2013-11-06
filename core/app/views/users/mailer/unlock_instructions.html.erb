@@ -6,9 +6,19 @@
 <% content_for :email_body do %>
 
   <p>You can unlock your account by clicking the link below:</p>
-
-  <p align='center'><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token), class: 'button' %></p>
-
+  <br /><br />
+  <table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="button-inner">
+        <%= link_to unlock_url(@resource, :unlock_token => @resource.unlock_token) do %>
+          <div class="button-link">
+            Unlock my account
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <br /><br />
   <p>We hope this will get you back on track on Factlink again.</p>
 
 <% end %>
