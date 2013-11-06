@@ -13,7 +13,7 @@
 
 <table cellpadding="0" cellspacing="0" border="0" id="added-argument-message">
   <tr>
-    <td colspan="2" class="added-argument-message-header">
+    <td colspan="3" class="added-argument-message-header">
       <h3 class="message-title">
         <%= link_to(friendly_fact_url(@activity.object)) do %>
           <%= @activity.object.data.displaystring %>
@@ -21,37 +21,53 @@
       </h3>
     </td>
   </tr>
-    <tr>
+  <tr>
+
+    <% if type == :supporting %>
+      <td class="timeline-left" height="70px">&nbsp;</td>
+      <td class="timeline-right" height="70px">&nbsp;</td>
+    <% end %>
+
+    <td class="added-argument-message-container <%= type %>" rowspan="3">
+      <table cellpadding="0" cellspacing="0" border="0" class="added-argument-message-box">
+        <tr>
+          <td valign="top" class="message-user-image">
+            <img src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" alt="<%= @activity.user.user %>" />
+            <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name") %>
+          </td>
+        </tr>
+        <tr>
+          <td class="added-argument-message-content">
+            <p>
+              <%= @activity.subject.data.displaystring %>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <% if type == :weakening %>
+      <td class="timeline-left" height="70px">&nbsp;</td>
+      <td class="timeline-right" height="70px">&nbsp;</td>
+    <% end %>
+
+  </tr>
+
+  <tr>
+    <td colspan="2" class="timeline-impact">
       <% if type == :supporting %>
-        <td class="added-argument-timeline-container">
-          <%= render 'activity_mailer/activities/shared/argument_timeline', type: type %>
-        </td>
+        <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-supporting-impact-background.png" heigth="37px" width="37px" /></div>
+      <% else %>
+        <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-weakening-impact-background.png" heigth="37px" width="37px" /></div>
       <% end %>
+    </td>
+  </tr>
 
-      <td class="added-argument-message-container <%= type %>">
-        <table cellpadding="0" cellspacing="0" border="0" class="added-argument-message-box">
-          <tr>
-            <td valign="top" class="message-user-image">
-              <img src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" alt="<%= @activity.user.user %>" />
-              <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name") %>
-            </td>
-          </tr>
-          <tr>
-            <td class="added-argument-message-content">
-              <p>
-                <%= @activity.subject.data.displaystring %>
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
+  <tr>
+    <td class="timeline-left">&nbsp;</td>
+    <td class="timeline-right">&nbsp;</td>
+  </tr>
 
-      <% if type == :weakening   %>
-        <td class="added-argument-timeline-container">
-          <%= render 'activity_mailer/activities/shared/argument_timeline', type: type %>
-        </td>
-      <% end %>
-    </tr>
 </table>
 
 <br /><br />
