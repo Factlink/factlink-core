@@ -5,4 +5,58 @@ class SocialAccounts::FactlinkAccountsController < SocialAccounts::BaseControlle
     @user_new_session = User.new
     @user_new_account = User.new
   end
+
+  def create_session
+    @user_new_session = parse_user_new_session(params[:user_new_session] || {})
+
+    if @user_new_session.errors.empty?
+      sign_in(@user_new_session)
+      render_trigger_event 'signed_in', ''
+    else
+      @user_new_account = User.new
+      render :'social_accounts/factlink_accounts/new'
+    end
+  end
+
+  def create_account
+    @user_new_account = parse_user_new_account(params[:user_new_account] || {})
+
+    if @user_new_account.save
+      sign_in(@user_new_account)
+      mp_track 'User: Registered account', code: @user_new_account.registration_code
+
+      render_trigger_event 'signed_in', ''
+    else
+      @user_new_session = User.new
+      render :'social_accounts/factlink_accounts/new'
+    end
+  end
+
+  private
+
+  # As far as we know, this is the only way to authenticate
+  # with warden using the devise strategies, using params.
+  # Therefore we set the params, and authenticate.
+  def parse_user_new_session(user_params)
+    params[:user] = user_params
+    allow_params_authentication!
+
+    warden.authenticate(scope: :user)
+  end
+
+  def parse_user_new_account(user_params)
+    user = User.new user_params.slice :password,
+      :password_confirmation, :full_name
+
+    # Protected from mass-assignment
+    user.email = user_params[:email]
+    user.set_up = true
+    user.generate_username!
+
+    if /\A([-a-zA-Z0-9_]+)\Z/.match(user_params[:registration_code])
+      user.registration_code = user_params[:registration_code]
+    end
+
+    user
+  end
 end

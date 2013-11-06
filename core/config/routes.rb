@@ -123,6 +123,8 @@ FactlinkUI::Application.routes.draw do
   get "/auth/:provider_name/callback" => "social_accounts/registrations#callback"
   post "/auth/new" => "social_accounts/registrations#create", as: 'social_accounts_new'
   get "/users/sign_in_or_up" => "social_accounts/factlink_accounts#new"
+  post "/users/sign_in_or_up/in" => "social_accounts/factlink_accounts#create_session", as: 'factlink_accounts_create_session'
+  post "/users/sign_in_or_up/up" => "social_accounts/factlink_accounts#create_account", as: 'factlink_accounts_create_account'
 
   resources :conversations, only: [:index, :show, :create], path: 'm' do
     resources :messages, only: [:create, :show]

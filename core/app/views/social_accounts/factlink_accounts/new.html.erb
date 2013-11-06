@@ -1,7 +1,7 @@
 <% content_for :social_popup_content do %>
 
   <div class="social-popup-half-form-container">
-    <%= form_for(@user_new_session, as: 'user_new_session', url: session_path('user'), html: { class: "social-popup-half-form" }) do |f| %>
+    <%= form_for(@user_new_session, as: 'user_new_session', url: factlink_accounts_create_session_path, html: { class: "social-popup-half-form" }) do |f| %>
 
       <h1 class="social-popup-half-form-heading">Sign in to Factlink</h1>
 
@@ -22,7 +22,7 @@
       or
     </div>
 
-    <%= form_for(@user_new_session, as: 'user_new_session', url: session_path('user'), html: { class: "social-popup-half-form" }) do |f| %>
+    <%= form_for(@user_new_account, as: 'user_new_account', url: factlink_accounts_create_account_path, html: { class: "social-popup-half-form" }) do |f| %>
 
       <h1 class="social-popup-half-form-heading">Create a Factlink account</h1>
 
