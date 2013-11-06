@@ -1,30 +1,30 @@
-<table cellpadding="0" cellspacing="0" border="0" id="added-argument-message">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
   <tr>
-    <td colspan="2" class="added-argument-message-header">
-      <h3>
-        <%= link_to(friendly_fact_url(@activity.object), class: "message-title") do %>
-          <%= @activity.object.data.displaystring %>
-        <% end %>
-      </h3>
+    <td valign="top" width="20px" class="added-subcomment-timeline-before-padding"></td>
+    <td valign="top" width="20px">
+      <table cellpadding="0" cellspacing="0" border="0" class="added-argument-timeline">
+        <tr>
+          <td class="subcomment-timeline"></td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0" border="0" class="added-argument-timeline-subcomment">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td valign="top" class="message-user-image">
+            <img src="<%= @activity.user.user.avatar_url(size: 24) %>" width="24" height="24" alt="<%= @activity.user.user %>" />
+            <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name") %>
+          </td>
+        </tr>
+        <tr>
+          <td class="added-subcomment-message-content">
+            <p><%= @activity.subject.content %></p>
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>
-    <tr>
-      <td class="added-argument-message-container no-type">
-        <table cellpadding="0" cellspacing="0" border="0" class="added-argument-message-box">
-          <tr>
-            <td valign="top" class="message-user-image">
-              <img src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" alt="<%= @activity.user.user %>" />
-              <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name") %>
-            </td>
-          </tr>
-          <tr>
-            <td class="added-argument-message-content">
-              <p>
-                <%= @activity.subject.content %>
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
 </table>

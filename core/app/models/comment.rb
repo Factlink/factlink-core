@@ -15,4 +15,8 @@ class Comment
   def believable
     @believable ||= Believable::Commentje.new(id.to_s)
   end
+
+  def fact
+    fact_data.fact
+  end
 end
