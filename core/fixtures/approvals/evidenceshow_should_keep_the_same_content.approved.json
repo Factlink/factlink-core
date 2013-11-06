@@ -10,6 +10,7 @@
 
     ],
     "url": "/fact-2/f/2",
+    "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&open_id=2",
     "created_by": {
       "id": "<STRIPPED>",
       "name": "John1 Doe1",

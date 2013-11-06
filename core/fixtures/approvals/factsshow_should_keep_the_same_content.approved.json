@@ -5,6 +5,7 @@
 
   ],
   "url": "/displaystring/f/1",
+  "sharing_url": "http://localhost:8080/?url=url&open_id=1",
   "created_by": {
     "id": "<STRIPPED>",
     "name": "John1 Doe1",

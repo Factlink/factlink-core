@@ -16,6 +16,8 @@ end
 
 json.url friendly_fact_path(dead_fact)
 
+json.sharing_url ::FactUrl.new(dead_fact).sharing_url
+
 json.created_by do |j|
   json.partial! 'users/user_partial', user: dead_fact_creator
   json.authority_for_subject do |json|
