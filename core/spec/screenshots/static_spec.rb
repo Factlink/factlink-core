@@ -6,12 +6,9 @@ describe "Static pages:", type: :feature do
       visit "/?show_sign_in=true"
       assume_unchanged_screenshot "static_homepage"
     end
-    it "with empty submit and open feedback as expected" do
-      visit "/"
 
-      within '.header' do
-        find(:button, 'Create account').click
-      end
+    it "with open feedback as expected" do
+      visit "/"
 
       find('a', text: 'Feedback').click
       within_frame 0 do
