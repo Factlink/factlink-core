@@ -6,6 +6,8 @@ describe 'Reserving an account', type: :feature do
     disable_html5_validations(page)
 
     within '.header' do
+      click_link "have Facebook or Twitter"
+
       fill_in 'user[full_name]', with: 'Jane Doe'
       fill_in 'user[email]',    with: 'janedoe@example.org'
 
@@ -20,6 +22,8 @@ describe 'Reserving an account', type: :feature do
     disable_html5_validations(page)
 
     within '.header' do
+      click_link "have Facebook or Twitter"
+
       fill_in 'user[full_name]', with: ''
       fill_in 'user[email]',    with: 'janedoe@example.org'
 
@@ -36,6 +40,8 @@ describe 'Reserving an account', type: :feature do
     disable_html5_validations(page)
 
     within '.footer' do
+      click_link "have Facebook or Twitter"
+
       fill_in 'user[full_name]', with: name
       fill_in 'user[email]',    with: 'janedoe@example.org'
       click_button 'Create account'
@@ -62,6 +68,8 @@ describe 'Reserving an account', type: :feature do
     visit '/'
     disable_html5_validations(page)
     within '.footer' do
+      click_link "have Facebook or Twitter"
+
       fill_in 'user[full_name]', with: 'Jane Doe'
       fill_in 'user[email]',    with: email_address
 

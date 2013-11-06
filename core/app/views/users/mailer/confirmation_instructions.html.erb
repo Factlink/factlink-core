@@ -1,11 +1,23 @@
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @resource.name %></h1>
+  <h2 class="header-subtitle">Welcome to Factlink! Please confirm your email by clicking below.</h2>
+<% end %>
+
 <% content_for :email_body do %>
 
-  <p>Hi <%= @resource.name %>,</p>
+  <table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="button-inner">
+        <%= link_to confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) do %>
+          <div class="button-link">
+            Confirm email address
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  </table>
 
-  <p>Welcome to Factlink! Please confirm your email by clicking below.</p>
-
-  <p class="cta"><%= link_to 'Confirm email', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), class: 'btn-email' %></p>
-
+  <br /><br />
   <p>We’ve only built part of our vision of what Factlink could be. Please send us your <a href="mailto:support@factlink.com">feedback</a> so we can make it better!</p>
 
   <p><em>&mdash; The Factlink team</em></p>
