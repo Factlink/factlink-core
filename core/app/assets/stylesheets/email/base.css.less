@@ -1,0 +1,153 @@
+@import "email/email_variables";
+
+body {
+  width: 100% !important;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-size: @emailBaseFontSize;
+  font-family: @emailBaseFontFamily;
+  font-style: normal;
+  color: @emailBaseFontColor;
+}
+
+a {
+  color: @emailBaseLinkColor;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    color: darken(@emailBaseLinkColor, 10%);
+  }
+}
+
+p {
+  line-height: 1.5em;
+  margin: 0 0 1.75em;
+}
+
+img {
+  outline: none;
+  text-decoration: none;
+  -ms-interpolation-mode: bicubic;
+}
+
+a img {
+  border: none;
+}
+
+table td {
+  border-collapse: collapse;
+}
+
+table {
+  border-collapse: collapse;
+  mso-table-lspace: 0pt;
+  mso-table-rspace: 0pt;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+#wrapper {
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+  line-height: 100% !important;
+  margin: 20px 0;
+}
+
+#inner-wrapper {
+  max-width: 800px;
+}
+
+.header-title {
+  font-size: @emailTitleFontSize;
+  margin-bottom: 5px;
+}
+
+.header-subtitle {
+  font-size: @emailSubTitleFontSize;
+  font-weight: normal;
+  color: @emailSubTitleFontColor;
+}
+
+.header-column {
+  padding: 10px 0;
+  border-bottom: @emailBaseBorderStyling;
+  &.no-border {
+    padding-bottom: 0;
+  }
+}
+
+.muted {
+  color: @emailMutedFontColor;
+  font-size: @emailMutedFontSize;
+}
+
+#content {
+  padding: 30px 0 0;
+}
+
+.content-video {
+  width: 100%;
+  margin-top: 3em;
+}
+
+.content-heading {
+  margin-bottom: 0.25em;
+}
+
+.button {
+  background: #fac553;
+  border-bottom: 3px solid #d9a946;
+  border-radius: 3px;
+  text-align: center;
+  border-collapse: separate;
+}
+
+.button-inner {
+  text-shadow: 0 1px #fcd787;
+
+  a {
+    color: #9d6238;
+  }
+}
+
+.button-link {
+  border: 20px solid transparent;
+  border-width: 11px 20px;
+}
+
+.footer-column {
+  padding: 10px 0;
+  border-top: @emailBaseBorderStyling;
+}
+
+.footer-logo {
+  display: block;
+  float: left;
+}
+
+.unsubscribe-container {
+  float: right;
+  color: @emailMutedFontColor;
+}
+
+.unsubscribe-link {
+    color: @emailMutedFontColor;
+    font-weight: normal;
+    font-size: 12px;
+    text-decoration: underline;
+  }
+
+.unsubscribe-link-devider {
+  margin: 0 5px;
+}
+
+.no-border {
+  border: none;
+}
