@@ -3,7 +3,6 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.CrossFadeRegion extends Backbone.Marionette.Region
 
   fadeIn: ->
-    @ensureEl()
     @$el.stop().hide().fadeIn(@_fadeTime())
 
   fadeOut: (callback=->) ->
