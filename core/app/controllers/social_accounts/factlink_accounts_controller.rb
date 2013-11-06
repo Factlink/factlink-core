@@ -11,6 +11,9 @@ class SocialAccounts::FactlinkAccountsController < SocialAccounts::BaseControlle
 
     if @user_new_session.errors.empty?
       sign_in(@user_new_session)
+      mp_track_people_event sign_in_count: @user_new_session.sign_in_count
+      mp_track "User: Sign in"
+
       render_trigger_event 'signed_in', ''
     else
       @user_new_account = User.new
