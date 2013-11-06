@@ -1,4 +1,8 @@
 Factlink.scrollTo = (fact_id) ->
+  if $("span[data-factid=#{fact_id}]").length <= 0
+    console?.error? "Factlink: Could not scroll to non-existing fact_id: #{fact_id}"
+    return
+
   $('body')
     ._scrollable()
     .scrollTo "span[data-factid=#{fact_id}]", 800,
