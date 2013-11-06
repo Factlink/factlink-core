@@ -1,0 +1,32 @@
+<table cellpadding="20" cellspacing="0" border="0" id="message">
+
+  <tr>
+    <td colspan="3" class="message-header">
+      <h3>
+        <%= link_to(friendly_fact_url(conversation.fact_data.fact), class: "message-title") do %>
+          <%= conversation.fact_data.displaystring %>
+        <% end %>
+      </h3>
+    </td>
+  </tr>
+
+  <% conversation.messages.each do | message| %>
+    <tr>
+      <td valign="top" class="message-user-image" rowspan="2">
+        <img src="<%= message.sender.avatar_url(size: 32) %>" width="32" height="32" alt="<%= @activity.user.user %>"/>
+      </td>
+      <td class="message-user">
+        <%= link_to_possibly_dead_user(message.sender) %>
+      </td>
+      <td class="message-timestamp muted">
+        <span><%= time_tag(message.created_at) %></span>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="message-content" colspan="2">
+        <p><%= message.content %></p>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -1,12 +1,28 @@
-<%= form_for(User.new, :as => :user, :url => registration_path(:user), remote: true, html: { id: form_id, novalidate: "novalidate" }) do |f| %>
+<div class="social-connect-buttons js-social-connect-buttons-form">
+  <a href="/auth/twitter?return_to=<%= params[:return_to] %>" class="button twitter js-social-popup-link" data-disable-with="<i></i>Connecting...">
+    <i></i>Twitter
+  </a>
+  <a href="/auth/facebook?return_to=<%= params[:return_to] %>" class="button facebook js-social-popup-link" data-disable-with="<i></i>Connecting...">
+    <i></i>Facebook
+  </a>
 
-  <%= f.text_field :full_name, placeholder: "Full name",
-    class:"text", id: "#{form_id}_user_full_name" %>
-  <%= f.email_field :email, placeholder: "Email address",
-    class:"text", id: "#{form_id}_user_email" %>
-  <%= f.hidden_field :registration_code,
-    id: "#{form_id}_user_registration_code", value: @code %>
+  <div class="social-connect-no-social">
+    <a href="javascript:$('.js-old-registration-form').show();$('.js-social-connect-buttons-form').hide()">Don&rsquo;t have Facebook or Twitter?</a>
+  </div>
+</div>
 
-  <button class="button button-home create-account-button" data-disable-with="Creating..." name="commit" type="submit">Create account</button>
-<% end %>
-<p class="terms-notice">By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
+<div class="old-registration-form js-old-registration-form">
+  <%= form_for(User.new, :as => :user, :url => registration_path(:user), remote: true, html: { id: form_id, novalidate: "novalidate" }) do |f| %>
+
+    <%= f.text_field :full_name, placeholder: "Full name",
+      class:"text", id: "#{form_id}_user_full_name" %>
+    <%= f.email_field :email, placeholder: "Email address",
+      class:"text", id: "#{form_id}_user_email" %>
+    <%= f.hidden_field :registration_code,
+      id: "#{form_id}_user_registration_code", value: @code %>
+
+    <button class="button button-home create-account-button" data-disable-with="Creating..." name="commit" type="submit">Create account</button>
+  <% end %>
+  <p class="terms-notice">By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
+
+</div>

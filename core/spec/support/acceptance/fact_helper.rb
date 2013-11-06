@@ -14,6 +14,11 @@ module Acceptance
       backend_create_fact_of_user @user
     end
 
+    def backend_create_fact_with_long_text
+      fact_data = create :fact_data, displaystring: 'long'*30
+      create :fact, created_by: @user.graph_user, data: fact_data
+    end
+
     def backend_create_fact_of_user user
       create :fact, created_by: user.graph_user
     end
