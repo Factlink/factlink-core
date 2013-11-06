@@ -1,8 +1,71 @@
-<h2 class="activity-title">
-  <%= link_to_possibly_dead_user(@activity.user.user) %>
-  is now following you on Factlink
-</h2>
-<p class="activity-action">
-  To view their profile, visit:<br>
-    <%= link_to user_profile_url(@activity.user.user.username), user_profile_url(@activity.user.user.username) %>
-</p>
+<%
+  dead_user = Pavlov.query(:users_by_ids, user_ids: [@activity.user.user_id]).first
+%>
+
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @user.name %></h1>
+  <h2 class="header-subtitle"><%= @activity.user.user %> is now following you on Factlink</h2>
+<% end %>
+
+<table cellpadding="0" cellspacing="0" border="0" id="user" width="100%">
+  <tr>
+    <td class="user-header">
+      <img class="user-image" src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" alt="<%= @activity.user.user %>" />
+      <%= link_to_possibly_dead_user @activity.user.user, class: "user-name" %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <table cellpadding="20" cellspacing="0" border="0" id="user-info" width="100%">
+        <tr>
+          <td class="user-info-description" colspan="3">
+            <p><%= @activity.user.user.biography %></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="user-info-stat" width="50px">
+            <span class="muted">Followers</span><br />
+            <span class="user-info-value">
+              <%= dead_user.statistics[:follower_count] %>
+            </span>
+          </td>
+          <td class="user-info-stat" width="50px">
+            <span class="muted">Following</span><br />
+            <span class="user-info-value">
+              <%= dead_user.statistics[:following_count] %>
+            </span>
+          </td>
+          <td class="user-info-stat no-border">
+            <span class="muted">Most authority on</span><br />
+            <span class="user-info-value">
+              <% if dead_user.top_user_topics.first %>
+                <a href="<%= topic_path(dead_user.top_user_topics.first.slug_title) %>" class="user-info-topic">
+                  <%= dead_user.top_user_topics.first.title %>
+                </a>
+              <% else %>
+                -
+              <% end %>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<br /><br />
+
+<table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="button-inner">
+      <a href="<%= user_profile_url(@activity.user.user) %>">
+        <div class="button-link">
+          Follow <%= @activity.user.user %>
+        </div>
+      </a>
+    </td>
+  </tr>
+</table>
+
+<br /><br />

@@ -1,0 +1,83 @@
+@import "email/email_variables";
+
+#added-argument-message {
+  border-radius: 3px;
+  border: @emailBaseBorderStyling;
+  margin-bottom: 30px;
+  border-collapse: collapse;
+  height: 100%;
+  width: 100%;
+}
+
+.added-argument-message-header {
+  border-bottom: @emailBaseBorderStyling;
+  padding: 20px;
+
+  h3 {
+    line-height: 1.25em;
+  }
+}
+
+.added-argument-message-container {
+  background: @emailBackgroundColor;
+  height: auto;
+
+  &.supporting {
+    padding: 21px 21px 21px 0;
+  }
+
+  &.weakening {
+    padding: 21px 0 21px 21px;
+  }
+
+  &.no-type {
+   padding: 21px;
+  }
+
+  .message-user-image {
+    padding-left: 20px;
+    padding-bottom: 5px
+  }
+}
+
+.added-argument-message-box {
+  width: 100%;
+}
+
+.added-argument-message-content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 3px;
+  border: @emailBaseBorderStyling;
+  max-width: 700px;
+
+  p {
+    margin-bottom: 0;
+    word-wrap: break-word;
+  }
+}
+
+.added-argument-timeline {
+  background: @emailBackgroundColor;
+}
+
+.timeline-left,
+.timeline-right {
+  width: 50%;
+  width: 50px;
+  background: @emailBackgroundColor;
+}
+.timeline-right {
+  border-left: 3px solid #b9bec6;
+}
+.timeline-impact {
+  width: 100px;
+  height: 37px;
+  background: @emailBackgroundColor;
+}
+
+.timeline-impact-indicator {
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 1000px;
+}
