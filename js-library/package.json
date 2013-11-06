@@ -10,6 +10,7 @@
     "url": "git@github.com:Factlink/js-library.git"
   },
   "dependencies": {
+    "this-is-a-workaround-for-grunt-idiocy": "http://github.com/e-jigsaw/grunt/tarball/fix-underscore-string-version",
     "grunt": "~0.4.1",
     "grunt-contrib-less": "~0.7.0",
     "grunt-contrib-uglify": "~0.2.0",
