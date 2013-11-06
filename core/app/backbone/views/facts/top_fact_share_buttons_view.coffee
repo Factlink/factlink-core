@@ -26,5 +26,5 @@ class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
       selector: selector
       tooltipViewFactory: =>
         view = contentViewConstructor()
-        @listenTo view, 'success', @render
+        @listenTo view, 'success', @render # closes popovers
         view
