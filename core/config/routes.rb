@@ -110,8 +110,8 @@ FactlinkUI::Application.routes.draw do
   # stuff in this resource?
   devise_scope :user do
     resources :users, path: "", only: [:edit, :update] do
-      get "/password/edit" => "users/registrations#edit_password"
-      put "/password" => "users/registrations#update_password", as: "update_password"
+      get "/password/edit" => "users/edit_password#edit_password"
+      put "/password" => "users/edit_password#update_password", as: "update_password"
     end
   end
 

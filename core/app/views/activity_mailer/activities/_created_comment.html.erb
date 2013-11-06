@@ -1,12 +1,22 @@
-<h2 class="activity-title">
-  <%= link_to_possibly_dead_user @activity.user.user %>
-  has commented on
-  <%= link_to @activity.object, friendly_fact_url(@activity.object) %>:
-</h2>
-<p class="activity-body">
-  <%= @activity.subject.content %>
-</p>
-<p class="activity-action">
-  To view the Factlink, visit:<br>
-  <%= link_to friendly_fact_url(@activity.object), friendly_fact_url(@activity.object) %>
-</p>
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @user.name %></h1>
+  <h2 class="header-subtitle"><%= @activity.user.user %> added an argument</h2>
+<% end %>
+
+<%= render 'activity_mailer/activities/shared/comment' %>
+
+<br /><br />
+
+<table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="button-inner">
+      <%= link_to friendly_fact_url(@activity.object) do %>
+        <div class="button-link">
+          Reply to this argument
+        </div>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<br /><br />

@@ -1,13 +1,24 @@
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @resource.name %></h1>
+  <h2 class="header-subtitle">Your account has been locked due to an excessive amount of unsuccessful sign in attempts.</h2>
+<% end %>
+
 <% content_for :email_body do %>
 
-  <p>Hey <%= @resource.name %>!</p>
-
-  <p>Your account has been locked due to an excessive amount of unsuccessful sign in attempts.</p>
-
   <p>You can unlock your account by clicking the link below:</p>
-
-  <p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>
-
+  <br /><br />
+  <table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="button-inner">
+        <%= link_to unlock_url(@resource, :unlock_token => @resource.unlock_token) do %>
+          <div class="button-link">
+            Unlock my account
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <br /><br />
   <p>We hope this will get you back on track on Factlink again.</p>
 
 <% end %>
