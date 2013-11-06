@@ -44,7 +44,12 @@ class SocialAccounts::FactlinkAccountsController < SocialAccounts::BaseControlle
     params[:user] = user_params
     allow_params_authentication!
 
-    warden.authenticate(scope: :user)
+    unless user = warden.authenticate(scope: :user)
+      user = User.new
+      user.errors.add :login, 'incorrect email address or password'
+    end
+
+    user
   end
 
   def parse_user_new_account(user_params)

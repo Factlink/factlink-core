@@ -6,6 +6,7 @@
       <h1 class="social-popup-half-form-heading">Sign in to Factlink</h1>
 
       <%= f.text_field :login, placeholder: "Email or username" %>
+      <%= possible_error_for_field(@user_new_session, :login) %>
       <%= f.password_field :password, placeholder: "Password" %>
 
       <div class="social-popup-remember-me-container">
