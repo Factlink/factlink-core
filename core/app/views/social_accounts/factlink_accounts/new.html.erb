@@ -27,9 +27,13 @@
       <h1 class="social-popup-half-form-heading">Create a Factlink account</h1>
 
       <%= f.text_field :full_name, placeholder: "Full name" %>
+      <%= possible_error_for_field(@user_new_account, :full_name) %>
       <%= f.text_field :email, placeholder: "Email address" %>
+      <%= possible_error_for_field(@user_new_account, :email) %>
       <%= f.password_field :password, placeholder: "Password" %>
+      <%= possible_error_for_field(@user_new_account, :password) %>
       <%= f.password_field :password_confirmation, placeholder: "Password confirmation" %>
+      <%= possible_error_for_field(@user_new_account, :password_confirmation) %>
 
       <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
 
