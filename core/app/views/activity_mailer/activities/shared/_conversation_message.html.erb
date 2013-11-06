@@ -2,8 +2,8 @@
 
   <tr>
     <td colspan="3" class="message-header">
-      <h3 class="message-title">
-        <%= link_to(friendly_fact_url(conversation.fact_data.fact)) do %>
+      <h3>
+        <%= link_to(friendly_fact_url(conversation.fact_data.fact), class: "message-title") do %>
           <%= conversation.fact_data.displaystring %>
         <% end %>
       </h3>
