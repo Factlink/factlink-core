@@ -55,21 +55,23 @@ function getServer(config) {
     blacklist.if_allowed(site,function() {
       var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
 
-      // Disable publisher's scripts
-      html = html.replace(/factlink_loader_publishers.min.js/, 'factlink_loader_publishers_disabled_by_web_proxy.min.js');
+      // Inject Frame Busting Buster at the top
+      var top_html = '<script>window.self = window.top;</script>\n\n';
 
-      // Inject Frame Busting Buster at the very top
-      var fbb = '<script>window.self = window.top;</script>\n\n';
-      html = fbb + html;
-
-      // Inject config also at the very top
+      // Inject config also at the top
       var FactlinkConfig = {
         api: config.API_URL,
         lib: config.LIB_URL,
         srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
         url: site
       };
-      html = '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>\n\n' + html;
+      top_html += '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>\n\n';
+
+      // Place top html before the first opening tag (typically <html> or <head> or so)
+      html = html.replace(/<[a-z]/i, top_html + '$&');
+
+      // Disable publisher's scripts
+      html = html.replace(/factlink_loader_publishers.min.js/, 'factlink_loader_publishers_disabled_by_web_proxy.min.js');
 
       var actions = [];
 
