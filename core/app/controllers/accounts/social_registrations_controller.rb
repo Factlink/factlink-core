@@ -1,4 +1,4 @@
-class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
+class Accounts::SocialRegistrationsController < Accounts::BaseController
   around_filter :render_trigger_event_on_social_account_error
 
   def callback
@@ -19,16 +19,16 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
 
       @user = User.new
 
-      render :'social_accounts/registrations/new'
+      render :'accounts/social_registrations/new'
     end
   end
 
   def create
-    @social_account = SocialAccount.find(session[:register_social_account_id]) rescue (raise SocialAccountError)
+    @social_account = SocialAccount.find(session[:register_social_account_id]) rescue (raise AccountError)
 
     # Potential hack attempt or strange race condition
-    fail SocialAccountError unless @social_account
-    fail SocialAccountError if @social_account.user
+    fail AccountError unless @social_account
+    fail AccountError if @social_account.user
 
     email = params[:user][:email]
     password = params[:user][:password]
@@ -42,7 +42,7 @@ class SocialAccounts::RegistrationsController < SocialAccounts::BaseController
 
       render_trigger_event 'signed_in', ''
     else
-      render :'social_accounts/registrations/new'
+      render :'accounts/social_registrations/new'
     end
   end
 

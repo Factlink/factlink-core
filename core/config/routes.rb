@@ -117,12 +117,15 @@ FactlinkUI::Application.routes.draw do
   end
 
   authenticated :user do
-    get "/auth/:provider_name/callback" => "social_accounts/connections#callback", as: "social_auth"
-    delete "/auth/:provider_name/deauthorize" => "social_accounts/connections#deauthorize"
+    get "/auth/:provider_name/callback" => "accounts/social_connections#callback", as: "social_auth"
+    delete "/auth/:provider_name/deauthorize" => "accounts/social_connections#deauthorize"
   end
 
-  get "/auth/:provider_name/callback" => "social_accounts/registrations#callback"
-  post "/auth/new" => "social_accounts/registrations#create", as: 'social_accounts_new'
+  get "/auth/:provider_name/callback" => "accounts/social_registrations#callback"
+  post "/auth/new" => "accounts/social_registrations#create", as: 'social_accounts_new'
+  get "/users/sign_in_or_up" => "accounts/factlink_accounts#new"
+  post "/users/sign_in_or_up/in" => "accounts/factlink_accounts#create_session", as: 'factlink_accounts_create_session'
+  post "/users/sign_in_or_up/up" => "accounts/factlink_accounts#create_account", as: 'factlink_accounts_create_account'
 
   resources :conversations, only: [:index, :show, :create], path: 'm' do
     resources :messages, only: [:create, :show]
