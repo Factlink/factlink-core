@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SocialAccounts::RegistrationsController do
+describe Accounts::SocialRegistrationsController do
   render_views
 
   describe :callback do

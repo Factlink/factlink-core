@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SocialAccounts::FactlinkAccountsController do
+describe Accounts::FactlinkAccountsController do
   render_views
 
   describe :new do

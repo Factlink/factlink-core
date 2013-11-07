@@ -1,31 +1,31 @@
 <% content_for :social_popup_content do %>
 
-  <div class="social-popup-half-form-container">
-    <%= form_for(@user_new_session, as: 'user_new_session', url: factlink_accounts_create_session_path, html: { class: "social-popup-half-form" }) do |f| %>
+  <div class="accounts-popup-half-form-container">
+    <%= form_for(@user_new_session, as: 'user_new_session', url: factlink_accounts_create_session_path, html: { class: "accounts-popup-half-form" }) do |f| %>
 
-      <h1 class="social-popup-half-form-heading">Sign in to Factlink</h1>
+      <h1 class="accounts-popup-half-form-heading">Sign in to Factlink</h1>
 
       <%= f.text_field :login, placeholder: "Email or username" %>
       <%= possible_error_for_field(@user_new_session, :login) %>
       <%= f.password_field :password, placeholder: "Password" %>
 
-      <div class="social-popup-remember-me-container">
-        <%= f.check_box :remember_me, class: "social-popup-remember-me-checkbox" %>
-        <%= f.label :remember_me, class: "social-popup-remember-me-text" %>
+      <div class="accounts-popup-remember-me-container">
+        <%= f.check_box :remember_me, class: "accounts-popup-remember-me-checkbox" %>
+        <%= f.label :remember_me, class: "accounts-popup-remember-me-text" %>
 
-        <button type="submit" data-disable-with="Signing in..." class="button button-confirm pull-right social-popup-signin-button">Sign in</button>
+        <button type="submit" data-disable-with="Signing in..." class="button button-confirm pull-right accounts-popup-signin-button">Sign in</button>
       </div>
 
       <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank' %>
     <% end %>
 
-    <div class="social-popup-half-form-separator">
+    <div class="accounts-popup-half-form-separator">
       or
     </div>
 
-    <%= form_for(@user_new_account, as: 'user_new_account', url: factlink_accounts_create_account_path, html: { class: "social-popup-half-form" }) do |f| %>
+    <%= form_for(@user_new_account, as: 'user_new_account', url: factlink_accounts_create_account_path, html: { class: "accounts-popup-half-form" }) do |f| %>
 
-      <h1 class="social-popup-half-form-heading">Create a Factlink account</h1>
+      <h1 class="accounts-popup-half-form-heading">Create a Factlink account</h1>
 
       <%= f.text_field :full_name, placeholder: "Full name" %>
       <%= possible_error_for_field(@user_new_account, :full_name) %>

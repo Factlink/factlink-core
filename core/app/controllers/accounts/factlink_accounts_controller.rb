@@ -1,4 +1,4 @@
-class SocialAccounts::FactlinkAccountsController < SocialAccounts::BaseController
+class Accounts::FactlinkAccountsController < Accounts::BaseController
   around_filter :render_trigger_event_on_social_account_error
 
   def new
@@ -17,7 +17,7 @@ class SocialAccounts::FactlinkAccountsController < SocialAccounts::BaseControlle
       render_trigger_event 'signed_in', ''
     else
       @user_new_account = User.new
-      render :'social_accounts/factlink_accounts/new'
+      render :'accounts/factlink_accounts/new'
     end
   end
 
@@ -31,7 +31,7 @@ class SocialAccounts::FactlinkAccountsController < SocialAccounts::BaseControlle
       render_trigger_event 'signed_in', ''
     else
       @user_new_session = User.new
-      render :'social_accounts/factlink_accounts/new'
+      render :'accounts/factlink_accounts/new'
     end
   end
 
