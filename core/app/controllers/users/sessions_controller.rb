@@ -20,6 +20,6 @@ class Users::SessionsController < Devise::SessionsController
     return if params[:layout] == 'client'
 
     flash.keep
-    redirect_to '/?show_sign_in=1'
+    redirect_to '/'
   end
 end
