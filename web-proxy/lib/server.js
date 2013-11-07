@@ -61,9 +61,12 @@ function getServer(config) {
     blacklist.if_allowed(site,function() {
       var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
 
-      // Inject Frame Busting Buster directly after <head>
-      var fbb = '<script>window.self = window.top;</script>';
-      html = html.replace(/<head?[^\>]+>/i, '$&' + fbb);
+      // Disable publisher's scripts
+      html = html.replace(/factlink_loader_publishers.min.js/, 'factlink_loader_publishers_disabled_by_web_proxy.min.js');
+
+      // Inject Frame Busting Buster at the very top
+      var fbb = '<script>window.self = window.top;</script>\n\n';
+      html = fbb + html;
 
       var actions = [];
 
