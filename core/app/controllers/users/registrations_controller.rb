@@ -14,12 +14,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.password = Devise.friendly_token # Random password
     resource.generate_username!
 
-    if /\A([-a-zA-Z0-9_]+)\Z/.match(params[:user][:registration_code])
-      resource.registration_code = params[:user][:registration_code]
-    end
-
     if resource.valid_full_name_and_email? and resource.save validate: false
-      mp_track 'User: Registered account', code: resource.registration_code
+      mp_track 'User: Registered account'
 
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?

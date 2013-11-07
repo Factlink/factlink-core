@@ -26,7 +26,7 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
 
     if @user_new_account.save
       sign_in(@user_new_account)
-      mp_track 'User: Registered account', code: @user_new_account.registration_code
+      mp_track 'User: Registered account'
 
       render_trigger_event 'signed_in', ''
     else
@@ -60,10 +60,6 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
     user.email = user_params[:email]
     user.set_up = true
     user.generate_username!
-
-    if /\A([-a-zA-Z0-9_]+)\Z/.match(user_params[:registration_code])
-      user.registration_code = user_params[:registration_code]
-    end
 
     user
   end

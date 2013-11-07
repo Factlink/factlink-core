@@ -18,8 +18,6 @@
       class:"text", id: "#{form_id}_user_full_name" %>
     <%= f.email_field :email, placeholder: "Email address",
       class:"text", id: "#{form_id}_user_email" %>
-    <%= f.hidden_field :registration_code,
-      id: "#{form_id}_user_registration_code", value: @code %>
   <% end %>
   <p class="terms-notice">By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
 
