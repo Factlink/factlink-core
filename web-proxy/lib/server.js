@@ -51,12 +51,6 @@ function getServer(config) {
    * Add base url and inject proxy.js, and return the proxied site
    */
   function injectFactlinkJs(html_in, site, scrollto, open_id, successFn) {
-    var FactlinkConfig = {
-      api: config.API_URL,
-      lib: config.LIB_URL,
-      srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
-      url: site
-    };
 
     blacklist.if_allowed(site,function() {
       var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
@@ -67,6 +61,15 @@ function getServer(config) {
       // Inject Frame Busting Buster at the very top
       var fbb = '<script>window.self = window.top;</script>\n\n';
       html = fbb + html;
+
+      // Inject config also at the very top
+      var FactlinkConfig = {
+        api: config.API_URL,
+        lib: config.LIB_URL,
+        srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
+        url: site
+      };
+      html = '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>\n\n' + html;
 
       var actions = [];
 
@@ -88,7 +91,6 @@ function getServer(config) {
       var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
 
       var inject_string = '<!-- this comment is to accommodate for pages that end in an open comment! -->' +
-                          '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>' +
                           '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
                           '<script>' + actions.join('') + '</script>' +
                           '<script>window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + '</script>' +
