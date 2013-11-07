@@ -1,6 +1,6 @@
 Backbone.Factlink ||= {}
 
-class Backbone.Factlink.LocalStorageTextModel extends Backbone.Model
+class Backbone.Factlink.SemiPersistentTextModel extends Backbone.Model
   constructor: (attributes, options) ->
     super
 
