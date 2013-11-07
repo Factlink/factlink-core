@@ -1,5 +1,8 @@
 @import "bootstrap/mixins";
 
+@popupWidth: 640px;
+@separatorWidth: 35px;
+
 .accounts-popup-body {
   .new-design-font();
 }
@@ -54,7 +57,7 @@
 
 .accounts-popup-half-form {
   .white-block-with-shadow();
-  width: 280px;
+  width: (@popupWidth - @separatorWidth)/2 - 20px;
   padding: 20px;
   display: inline-block;
   vertical-align: top;
@@ -92,7 +95,7 @@
   display: inline-block;
   font-size: @heading1FontSize;
   color: #555;
-  width: 35px;
+  width: @separatorWidth;
   text-align: center;
   line-height: 150px;
   vertical-align: top;
