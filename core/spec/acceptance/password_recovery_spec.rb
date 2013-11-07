@@ -20,7 +20,7 @@ describe 'Password recovery', type: :feature do
     page.should have_content("You will receive an email with instructions about how to reset your password in a few minutes")
 
     open_email(@user.email)
-    current_email.should have_content('Change my password')
+    current_email.should have_content('Reset password')
 
     @user.reload
 

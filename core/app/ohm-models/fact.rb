@@ -129,11 +129,18 @@ class Fact < OurOhm
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
   def delete
+    fail "Cannot be deleted" unless deletable?
+
     delete_data
-    delete_all_evidence
-    delete_all_evidenced
     believable.delete
     remove_from_created_facts
     super
+  end
+
+  def deletable?
+    opinionated_users_ids - [created_by_id] == [] &&
+      supporting_facts.count == 0 &&
+      weakening_facts.count  == 0 &&
+      FactRelation.find(from_fact_id: id).count == 0
   end
 end

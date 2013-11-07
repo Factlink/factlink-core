@@ -77,7 +77,7 @@ describe Interactors::Facts::Create do
             .and_return(fact)
 
       Pavlov.should_receive(:command)
-            .with(:'facts/share_new',
+            .with(:'facts/social_share',
                       fact_id: fact.id.to_s, sharing_options: sharing_options,
                       pavlov_options: pavlov_options)
 
@@ -118,7 +118,7 @@ describe Interactors::Facts::Create do
             .and_return(fact)
 
       Pavlov.should_receive(:command)
-            .with(:'facts/share_new',
+            .with(:'facts/social_share',
                       fact_id: fact.id.to_s, sharing_options: sharing_options,
                       pavlov_options: pavlov_options)
 
@@ -153,7 +153,7 @@ describe Interactors::Facts::Create do
             .and_return(fact)
 
       Pavlov.should_receive(:command)
-            .with(:'facts/share_new',
+            .with(:'facts/social_share',
                       fact_id: fact.id.to_s, sharing_options: sharing_options,
                       pavlov_options: pavlov_options)
 

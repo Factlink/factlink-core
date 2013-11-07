@@ -18,19 +18,8 @@ describe Channel do
   context "activity on a channel" do
     before do
       # TODO: remove this once creating an activity does not cause an email to be sent
-      send_mail_interactor = double call: nil
       stub_const 'Interactors::SendMailForActivity', Class.new
       Pavlov.stub(:interactor).with(:send_mail_for_activity, activity: an_instance_of(Activity), pavlov_options: { current_user: true })
-    end
-
-    describe "when adding a subchannel" do
-      it "creates an added_subchannel activity" do
-        pavlov_options = {ability: (double can?: true)}
-        Interactors::Channels::AddSubchannel.new(channel_id: channel.id,
-          subchannel_id: ch1.id, pavlov_options: pavlov_options).call
-        last_activity = Activity.for(channel).to_a.last
-        expect(last_activity.action).to eq "added_subchannel"
-      end
     end
   end
 
@@ -97,10 +86,10 @@ describe Channel do
         end
         describe "and removing the fact from the fork" do
           it "the fact should only be in the original" do
-             @fork.remove_fact(f1)
+            @fork.remove_fact(f1)
 
-             channel.facts.to_a.should =~ [f1]
-             @fork.facts.to_a.should =~ []
+            channel.facts.to_a.should =~ [f1]
+            @fork.facts.to_a.should =~ []
           end
         end
         describe "after adding another fact to the original" do
@@ -181,7 +170,7 @@ describe Channel do
         Commands::Channels::AddSubchannel.new(channel: ch2, subchannel: channel).call
       end
 
-      it {channel.containing_channels.to_a.should =~ [ch1,ch2]}
+      it { channel.containing_channels.to_a.should =~ [ch1,ch2] }
 
       describe "after removing it from one channel" do
         it do
@@ -337,7 +326,7 @@ describe Channel do
 
     describe 'slugs' do
       it "should not be possible to save two channels with a similar name" do
-        ch1 = create :channel, title: 'hoi', created_by: u1
+        create :channel, title: 'hoi', created_by: u1
         ch2 = FactoryGirl.build  :channel, title: 'Hoi', created_by: u1
         ch2.save
         ch2.should be_new

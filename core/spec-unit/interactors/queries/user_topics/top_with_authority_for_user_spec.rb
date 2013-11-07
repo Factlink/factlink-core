@@ -1,8 +1,8 @@
 require 'pavlov_helper'
 require_relative '../../../../app/entities/dead_user_topic'
-require_relative '../../../../app/interactors/queries/user_topics/top_with_authority_for_graph_user_id'
+require_relative '../../../../app/interactors/queries/user_topics/top_with_authority_for_user'
 
-describe Queries::UserTopics::TopWithAuthorityForGraphUserId do
+describe Queries::UserTopics::TopWithAuthorityForUser do
   include PavlovSupport
 
   before do
@@ -12,37 +12,28 @@ describe Queries::UserTopics::TopWithAuthorityForGraphUserId do
   describe '#call' do
     it 'returns dead objects for the user topics based on the topics' do
       user_topics_by_authority = double
-      graph_user = double id: "6", user_id: 'asdf'
       limit_topics = 2
+      user_id = 'a1'
 
       topics = [
         double(:topic, id: "1", title: 'Bye', slug_title: 'bye'),
-        double(:topic, id: "2", title: 'Yo', slug_title: 'yo'),
+        double(:topic, id: "2", title: 'Yo',  slug_title: 'yo'),
       ]
 
-      query = described_class.new graph_user_id: graph_user.id,
-        limit_topics: limit_topics
-
-      GraphUser.stub(:[])
-        .with(graph_user.id)
-        .and_return(graph_user)
+      query = described_class.new user_id: user_id,
+                                  limit_topics: limit_topics
 
       TopicsSortedByAuthority.stub(:new)
-        .with(graph_user.user_id.to_s)
+        .with(user_id.to_s)
         .and_return(user_topics_by_authority)
 
       user_topics_by_authority.stub(:ids_and_authorities_desc_limit)
         .with(limit_topics)
         .once
-        .and_return [{id: topics[1].id, authority: 20}, {id: topics[0].id, authority: 10}]
-
-      Topic.stub(:find)
-        .with(topics[0].id)
-        .and_return(topics[0])
-
-      Topic.stub(:find)
-        .with(topics[1].id)
-        .and_return(topics[1])
+        .and_return [
+          {id: topics[1].id, authority: 20},
+          {id: topics[0].id, authority: 10},
+        ]
 
       Topic.stub(:any_in)
            .with(id: [topics[1].id, topics[0].id])

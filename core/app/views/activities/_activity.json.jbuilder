@@ -57,25 +57,6 @@ json.activity do |json|
       json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
 
-  when "added_subchannel"
-    subject_creator_graph_user = subject.created_by
-    subject_creator_user = subject_creator_graph_user.user
-
-    json.channel_title             subject.title
-    json.channel_slug_title        subject.slug_title
-    json.channel_url               channel_path(subject_creator_user, subject.id)
-
-    json.to_channel_id             object.id
-    json.to_channel_title          object.title
-    json.to_channel_slug_title     object.slug_title
-    json.to_channel_url            channel_path(object.created_by.user, object.id)
-
-    containing_channel_ids = query(:containing_channel_ids_for_channel_and_user,
-                                      channel_id: object.id,
-                                      graph_user_id: current_user.graph_user.id)
-    json.to_channel_containing_channel_ids containing_channel_ids
-
-    json.target_url                channel_path(object.created_by.user, object.id)
   when "created_channel"
     topic = subject.topic
     json.topic_title               topic.title

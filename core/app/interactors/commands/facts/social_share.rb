@@ -1,6 +1,6 @@
 module Commands
   module Facts
-    class ShareNew
+    class SocialShare
       include Pavlov::Command
       include Util::CanCan
 

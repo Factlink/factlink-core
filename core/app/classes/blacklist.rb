@@ -18,7 +18,7 @@ class Blacklist
       domain('inverselink.com'),
       domain('fct.li'),
       /^http:\/\/localhost[:\/]/,
-    ] + privacy + flash + frames + browserpages
+    ] + privacy + flash + frames + paywall + browserpages
   end
 
   def self.privacy
@@ -46,6 +46,12 @@ class Blacklist
   def self.frames
     [
       domain('insiteproject.com'),
+    ]
+  end
+
+  def self.paywall
+    [
+      domain('fd.nl'),
     ]
   end
 

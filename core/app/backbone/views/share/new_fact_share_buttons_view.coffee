@@ -1,6 +1,6 @@
 class ShareButtonView extends Backbone.Marionette.ItemView
   tagName: 'span'
-  className: 'share-button'
+  className: 'share-button share-button-togglable'
   template: 'generic/empty'
 
   events:
@@ -12,15 +12,15 @@ class ShareButtonView extends Backbone.Marionette.ItemView
   onRender: ->
     @$el.attr 'title', 'Share to ' + @options.name.capitalize()
     @$el.addClass "share-button-#{@options.name}"
-    @$el.toggleClass 'share-button-checked', @model.get(@options.name) || false
+    @$el.toggleClass 'share-button-togglable-checked', @model.get(@options.name) || false
 
   toggleChecked: ->
     @model.set @options.name, !@model.get(@options.name)
 
 
-class window.ShareNewFactView extends Backbone.Marionette.Layout
-  className: 'share-new-fact'
-  template: 'share/new_fact'
+class window.NewFactShareButtonsView extends Backbone.Marionette.Layout
+  tagName: 'span'
+  template: 'share/new_fact_share_buttons'
 
   regions:
     twitterRegion:  '.js-twitter-region'

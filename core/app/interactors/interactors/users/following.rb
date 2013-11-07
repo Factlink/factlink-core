@@ -3,7 +3,7 @@ module Interactors
     class Following
       include Pavlov::Interactor
 
-      arguments :user_name, :skip, :take
+      arguments :user_name
 
       def authorized?
         !!pavlov_options[:current_user]
@@ -11,16 +11,10 @@ module Interactors
 
       def validate
         validate_nonempty_string :user_name, user_name
-        validate_integer :skip, skip
-        validate_integer :take, take
       end
 
       def execute
-        [paginated_users, graph_user_ids.length]
-      end
-
-      def paginated_users
-        users = query(:'users_by_ids', user_ids: graph_user_ids.sort[skip, take], by: :graph_user_id)
+        query(:'users_by_ids', user_ids: graph_user_ids, by: :graph_user_id)
       end
 
       def graph_user_ids

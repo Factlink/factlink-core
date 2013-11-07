@@ -43,7 +43,7 @@ class UserActivitiesGroupView extends ActivitiesGroupView
   itemView: Backbone.View
   itemViewContainer: ".js-region-activities"
 
-  @actions: ["created_channel", "added_subchannel"]
+  @actions: ["created_channel"]
   actions: -> UserActivitiesGroupView.actions
 
   constructor: ->
@@ -98,8 +98,12 @@ class UserFactActivitiesGroupView extends UserActivitiesGroupView
   isOpinion: (activity) ->
     activity.get('action') in ['believes', 'disbelieves', 'doubts']
 
+  isAddedArgument: (activity) ->
+    activity.get('action') in ["created_comment", "added_supporting_evidence", "added_weakening_evidence"]
+
   activityMadeRedundantBy: (newActivity, oldActivity) ->
-    @isOpinion(oldActivity) && @isOpinion(newActivity)
+    @isOpinion(oldActivity) && @isOpinion(newActivity) ||
+      @isAddedArgument(oldActivity) && @isAddedArgument(newActivity)
 
 class UsersFollowedGroupView extends UserActivitiesGroupView
   template: 'activities/users_followed_group'

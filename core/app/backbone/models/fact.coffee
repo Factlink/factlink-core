@@ -41,15 +41,22 @@ class window.Fact extends Backbone.Model
 
   is_mine: -> @user().is_current_user()
 
-  has_evidence: -> @get('evidence_count') > 0
-
-  can_destroy: -> @is_mine() && !@has_evidence()
+  can_destroy: -> @is_mine() && @get('is_deletable')
 
   factUrlHost: ->
     fact_url = @get('fact_url')
     return '' unless fact_url
 
     new Backbone.Factlink.Url(fact_url).host()
+
+  share: (provider_name, options={}) ->
+    fact_sharing_options = {}
+    fact_sharing_options[provider_name] = true
+
+    Backbone.ajax _.extend {}, options,
+      type: 'post'
+      url: "#{@url()}/share"
+      data: {fact_sharing_options}
 
   toJSON: ->
     _.extend super(),
