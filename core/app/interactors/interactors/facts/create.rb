@@ -24,7 +24,7 @@ module Interactors
                     fact_id: fact.id.to_i, user_id: user.id.to_s)
 
         if can? :share, Fact
-          command(:'facts/share_new',
+          command(:'facts/social_share',
                       fact_id: fact.id.to_s, sharing_options: sharing_options)
         end
 

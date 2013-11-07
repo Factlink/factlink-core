@@ -10,33 +10,45 @@
   text-indent: 100%;
   white-space: nowrap;
   background-color: white;
-  transition: all 0.1s;
+  vertical-align: middle;
+}
 
+.share-button-togglable {
   &:hover {
     opacity: 0.4;
   }
 
-  &.share-discussion-button {
-    opacity: 0.75;
+  &.share-button-togglable-checked {
+    transition: opacity 0.1s;
+    opacity: 1;
   }
+}
 
-  &.share-button-checked, &.share-discussion-button:hover {
+.share-button-hoverable {
+  transition: opacity 0.1s;
+  opacity: 0.75;
+
+  &:hover {
     opacity: 1;
   }
 }
 
 .share-button-twitter {
-  background-image: asset-data-url("sharing_icons/twitter_disabled.png");
+  &.share-button-togglable {
+    background-image: asset-data-url("sharing_icons/twitter_disabled.png");
+  }
 
-  &:hover, &.share-button-checked, &.share-discussion-button {
+  &, &.share-button-togglable:hover, &.share-button-togglable-checked {
     background-image: asset-data-url("sharing_icons/twitter.png");
   }
 }
 
 .share-button-facebook {
-  background-image: asset-data-url("sharing_icons/facebook_disabled.png");
+  &.share-button-togglable {
+    background-image: asset-data-url("sharing_icons/facebook_disabled.png");
+  }
 
-  &:hover, &.share-button-checked, &.share-discussion-button {
+  &, &.share-button-togglable:hover, &.share-button-togglable-checked {
     background-image: asset-data-url("sharing_icons/facebook.png");
   }
 }

@@ -49,6 +49,15 @@ class window.Fact extends Backbone.Model
 
     new Backbone.Factlink.Url(fact_url).host()
 
+  share: (provider_name, options={}) ->
+    fact_sharing_options = {}
+    fact_sharing_options[provider_name] = true
+
+    Backbone.ajax _.extend {}, options,
+      type: 'post'
+      url: "#{@url()}/share"
+      data: {fact_sharing_options}
+
   toJSON: ->
     _.extend super(),
       can_destroy: @can_destroy()
