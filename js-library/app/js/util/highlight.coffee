@@ -14,7 +14,12 @@ fetchFacts = (siteUrl=Factlink.siteUrl()) ->
     type: "GET"
     jsonp: "callback"
 
+highlighting = false
+
 Factlink.startHighlighting = ->
+  return if highlighting
+  highlighting = true
+
   console.info "Factlink:", "startHighlighting"
   fetchFacts().done (facts_data) ->
     # If there are multiple matches on the page, loop through them all
@@ -25,6 +30,8 @@ Factlink.startHighlighting = ->
 
     Factlink.trigger "factlink.factsLoaded", facts_data
 
+# Don't check for highlighting here, and also don't trigger, as this is a
+# special hacky-patchy method for in the blog
 Factlink.highlightAdditionalFactlinks = (siteUrl) ->
   console.info "Factlink:", "highlightAdditionalFactlinks"
   fetchFacts(siteUrl).done (facts_data) ->
@@ -35,6 +42,9 @@ Factlink.highlightAdditionalFactlinks = (siteUrl) ->
       $.merge Factlink.Facts, Factlink.selectRanges(ranges, fact_data.id)
 
 Factlink.stopHighlighting = ->
+  return unless highlighting
+  highlighting = false
+
   console.info "Factlink:", "stopHighlighting"
   fact.destroy() for fact in Factlink.Facts
   Factlink.Facts = []

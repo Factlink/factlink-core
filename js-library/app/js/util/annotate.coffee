@@ -11,7 +11,12 @@ Factlink.textSelected = (e) ->
 
 timeout = null
 
+annotating = false
+
 Factlink.startAnnotating = ->
+  return if annotating
+  annotating = true
+
   console.info "Factlink:", "startAnnotating"
 
   $("body").bind "mouseup.factlink", (event) ->
@@ -33,6 +38,9 @@ Factlink.startAnnotating = ->
     , 200)
 
 Factlink.stopAnnotating = ->
+  return unless annotating
+  annotating = false
+
   console.info "Factlink:", "stopAnnotating"
   Factlink.createButton.hide()
   $("body").unbind "mouseup.factlink"
