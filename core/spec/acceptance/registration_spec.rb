@@ -22,10 +22,14 @@ describe 'Reserving an account', type: :feature do
     disable_html5_validations(page)
 
     within '.header' do
-      click_link "have Facebook or Twitter"
+      click_link "Don’t have Facebook or Twitter?"
+    end
 
-      fill_in 'user[full_name]', with: ''
-      fill_in 'user[email]',    with: 'janedoe@example.org'
+    page.within_window page.driver.window_handles.last do
+      fill_in 'user_new_account[full_name]', with: ''
+      fill_in 'user_new_account[email]', with: 'janedoe@example.org'
+      fill_in 'user_new_account[password]', with: '123hoi'
+      fill_in 'user_new_account[password_confirmation]', with: '123hoi'
 
       click_button 'Create account'
 
