@@ -9,8 +9,6 @@
       <%= render "base/topbar/sign_up_steps" %>
     <% elsif current_user %>
       <%= render "base/topbar/signed_in" %>
-    <% else %>
-      <%= render "base/topbar/not_signed_in", slide_down: slide_down %>
     <% end %>
   </div>
 </div>
