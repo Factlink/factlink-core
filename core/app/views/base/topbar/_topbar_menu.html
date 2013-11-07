@@ -20,7 +20,7 @@
     </li>
 
     <li>
-      <a onclick="return false" class="bookmarklet js-topbar-dropdown-menu-bookmarklet"
+      <a onclick="javascript:void(0)" class="topbar-menu-bookmarklet js-topbar-dropdown-menu-bookmarklet"
            <%# here we need singlequotes kthxbye: %>
            href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'>
          <i class='icon-bookmark'></i><!--
