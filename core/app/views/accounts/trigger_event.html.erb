@@ -9,7 +9,7 @@
 
       window.opener.document.dispatchEvent(evt);
       window.close();
-    } else if (eventName !== 'social_error' && window.parent && window.parent.FactlinkApp && window.parent.FactlinkApp.FacebookRenewal) {
+    } else if (eventName !== 'account_error' && window.parent && window.parent.FactlinkApp && window.parent.FactlinkApp.FacebookRenewal) {
       window.parent.FactlinkApp.FacebookRenewal.success();
     } else {
       origin = '<%= request.env['omniauth.origin'] %>'

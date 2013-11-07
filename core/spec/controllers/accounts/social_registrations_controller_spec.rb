@@ -63,7 +63,7 @@ describe Accounts::SocialRegistrationsController do
         controller.request.env['omniauth.auth'] = {'provider' => provider_name, 'uid' => uid, 'attempt' => 2}
         get :callback, provider_name: provider_name
 
-        expect(response.body).to_not match 'eventName = "social_error"'
+        expect(response.body).to_not match 'eventName = "account_error"'
         expect(SocialAccount.all.size).to eq 1
         expect(SocialAccount.first.omniauth_obj['attempt']).to eq 2
       end
@@ -74,7 +74,7 @@ describe Accounts::SocialRegistrationsController do
     it 'gives an error when no social account has been given' do
       post :create
 
-      expect(response.body).to match 'eventName = "social_error"'
+      expect(response.body).to match 'eventName = "account_error"'
     end
 
     it 'gives an error when an already connected social account has been given' do
@@ -83,7 +83,7 @@ describe Accounts::SocialRegistrationsController do
       session[:register_social_account_id] = twitter_account.id
       post :create
 
-      expect(response.body).to match 'eventName = "social_error"'
+      expect(response.body).to match 'eventName = "account_error"'
     end
 
     context 'account does not exist' do

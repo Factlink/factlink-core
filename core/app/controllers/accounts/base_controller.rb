@@ -16,7 +16,7 @@ class Accounts::BaseController < ApplicationController
   def render_trigger_event_on_social_account_error
     yield
   rescue AccountError => error
-    render_trigger_event 'social_error', error.message
+    render_trigger_event 'account_error', error.message
   end
 
   class AccountError < StandardError

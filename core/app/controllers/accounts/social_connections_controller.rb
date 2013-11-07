@@ -35,7 +35,7 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
   end
 
   def oauth_failure
-    render_trigger_event 'social_error', "Authorization failed: #{params[:error_description]}."
+    render_trigger_event 'account_error', "Authorization failed: #{params[:error_description]}."
   end
 
   private
