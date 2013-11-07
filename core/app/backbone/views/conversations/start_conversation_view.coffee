@@ -65,7 +65,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     conversation.save [],
       success: =>
         FactlinkApp.NotificationCenter.success 'Your message has been sent!'
-        @trigger 'sent_message'
+        @trigger 'success'
 
       error: (model, response) =>
         @_showError response.responseText

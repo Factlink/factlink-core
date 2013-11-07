@@ -1,25 +1,32 @@
 class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.PopoverMixin
-
-  tagName: 'ul'
   className: 'top-fact-share-buttons'
   template: 'facts/top_fact_share_buttons'
 
-  events:
-    'click .js-share': '_toggleConversation'
+  templateHelpers: ->
+    current_user: currentUser.toJSON()
 
-  _toggleConversation: ->
-    if @popoverExists '.js-share'
-      @popoverRemove '.js-share'
-    else
-      @popoverAdd '.js-share',
-        side: 'bottom'
-        align: 'center'
-        fadeTime: 100
-        contentView: @_newStartConversationView()
-      mp_track "Factlink: Toggle conversation popover"
+  onRender: ->
+    @_renderPopover '.js-start-conversation', =>
+      mp_track 'Factlink: Open conversation popover'
+      new StartConversationView(model: @model)
 
-  _newStartConversationView: ->
-    view = new StartConversationView(model: @model)
-    @listenTo view, 'sent_message', -> @popoverRemove '.js-share'
-    view
+    @_renderPopover '.js-twitter', =>
+      mp_track 'Factlink: Open social share popover (twitter)'
+      new PreviewShareFactView model: @model, provider_name: 'twitter'
+
+    @_renderPopover '.js-facebook', =>
+      mp_track 'Factlink: Open social share popover (facebook)'
+      new PreviewShareFactView model: @model, provider_name: 'facebook'
+
+  _renderPopover: (selector, contentViewConstructor) ->
+    tooltipOpener = Backbone.Factlink.makeTooltipForView @,
+      stayWhenHoveringTooltip: true
+      hoverIntent: true
+      positioning: {align: 'right', side: 'bottom'}
+      selector: selector
+      tooltipViewFactory: =>
+        view = contentViewConstructor()
+        @listenTo view, 'success', =>
+          tooltipOpener.close()
+          @_renderPopover selector, contentViewConstructor
+        view
