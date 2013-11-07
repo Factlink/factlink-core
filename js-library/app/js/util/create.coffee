@@ -23,7 +23,9 @@ Factlink.createFactFromSelection = (errorCallback) ->
   siteUrl = Factlink.siteUrl()
   siteTitle = selInfo.title
   guided = !!FactlinkConfig.guided
-  Factlink.remote.prepareNewFactlink text, siteUrl, siteTitle, guided, success, error
+
+  Factlink.onLoaded 'intermediateFrameReady', ->
+    Factlink.remote.prepareNewFactlink text, siteUrl, siteTitle, guided, success, error
 
 # We make this a global function so it can be used for direct adding of facts
 # (Right click with chrome-extension)
