@@ -71,14 +71,13 @@ function getServer(config) {
       scrollto = parse_int_or_null(scrollto) || open_id;
 
       if (open_id !== null) {
-        actions.push('FACTLINK.on("intermediateFrameReady", function() { FACTLINK.openFactlinkModal(' + open_id + '); });');
+        actions.push('FACTLINK.openFactlinkModal(' + open_id + ');');
       }
 
       if (scrollto !== null) {
-        actions.push('FACTLINK.on("factlink.factsLoaded", function() { FACTLINK.scrollTo(' + scrollto + '); });');
+        actions.push('FACTLINK.scrollTo(' + scrollto + ');');
       }
 
-      // Call after binding to event, as this might trigger event
       actions.push('FACTLINK.startHighlighting();');
       actions.push('FACTLINK.startAnnotating();');
 
