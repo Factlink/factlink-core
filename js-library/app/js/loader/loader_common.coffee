@@ -63,6 +63,7 @@ window.FACTLINK_START_LOADER = ->
   proxy_method 'on'
   proxy_method 'triggerClick'
   proxy_method 'startHighlighting'
+  proxy_method 'highlightAdditionalFactlinks'
   proxy_method 'stopHighlighting'
   proxy_method 'startAnnotating'
   proxy_method 'stopAnnotating'
