@@ -243,6 +243,8 @@ class User
   end
 
   def generate_username!
+    return unless full_name
+
     self.username = UsernameGenerator.new.generate_from full_name, USERNAME_MAX_LENGTH do |username|
       self.class.valid_username?(username)
     end

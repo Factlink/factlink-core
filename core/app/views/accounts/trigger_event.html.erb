@@ -9,7 +9,7 @@
 
       window.opener.document.dispatchEvent(evt);
       window.close();
-    } else if (eventName !== 'social_error' && window.parent && window.parent.FactlinkApp && window.parent.FactlinkApp.FacebookRenewal) {
+    } else if (eventName !== 'account_error' && window.parent && window.parent.FactlinkApp && window.parent.FactlinkApp.FacebookRenewal) {
       window.parent.FactlinkApp.FacebookRenewal.success();
     } else {
       origin = '<%= request.env['omniauth.origin'] %>'
@@ -20,9 +20,9 @@
   </script>
 <% end %>
 
-<% content_for :social_account_popup_content do %>
-  <h1>Redirecting you back to the application!</h1>
-  <p>
+<% content_for :account_popup_content do %>
+  <h1 class="accounts-popup-heading">Redirecting you back to the application!</h1>
+  <p class="accounts-popup-just-a-second">
     Just a second.
   </p>
 <% end %>

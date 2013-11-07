@@ -1,0 +1,112 @@
+@import "bootstrap/mixins";
+
+@popupWidth: 640px;
+@separatorWidth: 35px;
+
+.accounts-popup-body {
+  .new-design-font();
+}
+
+.accounts-popup-topbar {
+  background: white;
+  z-index: 1;
+  height: 40px;
+  position: relative;
+  border-bottom: 1px solid @baseBorderColor;
+  text-align: center;
+}
+
+.accounts-popup-logo {
+  margin-top: 9px;
+}
+
+.accounts-popup-content {
+  margin-top: 40px;
+}
+
+.accounts-popup-heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.accounts-popup-just-a-second {
+  text-align: center;
+}
+
+.accounts-popup-form {
+  .white-block-with-shadow();
+  width: 500px;
+  margin: auto;
+  padding: 20px;
+}
+
+.accounts-popup-button-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.accounts-popup-button {
+  width: 150px;
+  margin: 0 auto;
+}
+
+.accounts-popup-half-form-container {
+  display: table;
+  margin: auto;
+}
+
+.accounts-popup-half-form {
+  .white-block-with-shadow();
+  width: (@popupWidth - @separatorWidth)/2 - 20px;
+  padding: 20px;
+  display: inline-block;
+  vertical-align: top;
+
+  input[type=text], input[type=password] {
+    width: 100%;
+  }
+}
+
+.accounts-popup-half-form-heading {
+  margin-bottom: 10px;
+}
+
+.accounts-popup-remember-me-container {
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+// type=checkbox for specificity
+.accounts-popup-remember-me-checkbox[type=checkbox] {
+  margin: -3px 7px 0 0;
+}
+
+.accounts-popup-remember-me-text {
+  display: inline-block;
+  color: #555;
+  margin: 8px 0 0 0;
+}
+
+.accounts-popup-signin-button {
+  width: 100px;
+}
+
+.accounts-popup-half-form-separator {
+  display: inline-block;
+  font-size: @heading1FontSize;
+  color: #555;
+  width: @separatorWidth;
+  text-align: center;
+  line-height: 150px;
+  vertical-align: top;
+}
+
+.accounts-popup-content {
+  .field_with_errors input {
+    margin-bottom: 0;
+  }
+
+  .text-error {
+    margin-bottom: 10px;
+  }
+}

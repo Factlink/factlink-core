@@ -1,4 +1,4 @@
-class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
+class Accounts::SocialConnectionsController < Accounts::BaseController
   around_filter :render_trigger_event_on_social_account_error,
     except: [:deauthorize] # deauthorize is not rendered in popup
 
@@ -6,12 +6,12 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
     authorize! :update, current_user
 
     if is_connected_to_different_user
-      fail SocialAccountError, "Already connected to a different account, please sign in to the connected account or reconnect your account."
+      fail AccountError, "Already connected to a different account, please sign in to the connected account or reconnect your account."
     elsif omniauth_obj
       current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
       render_trigger_event 'authorized', provider_name
     else
-      fail SocialAccountError, "Error connecting."
+      fail AccountError, "Error connecting."
     end
   end
 
@@ -35,7 +35,7 @@ class SocialAccounts::ConnectionsController < SocialAccounts::BaseController
   end
 
   def oauth_failure
-    render_trigger_event 'social_error', "Authorization failed: #{params[:error_description]}."
+    render_trigger_event 'account_error', "Authorization failed: #{params[:error_description]}."
   end
 
   private

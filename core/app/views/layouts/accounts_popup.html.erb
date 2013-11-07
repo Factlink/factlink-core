@@ -17,11 +17,11 @@
     </style>
     <%= yield :specific_stylesheet_tag %>
   </head>
-  <body>
-    <div class="social-registration-topbar"><%= image_tag "factlink-logo-beta.png", class: "social-registration-logo" %></div>
+  <body class="accounts-popup-body">
+    <div class="accounts-popup-topbar"><%= image_tag "factlink-logo-beta.png", class: "accounts-popup-logo" %></div>
 
-    <div class="social-account-popup">
-      <%= yield :social_account_popup_content %>
+    <div class="accounts-popup-content">
+      <%= yield :account_popup_content %>
     </div>
 
     <%= javascript_include_base %>

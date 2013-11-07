@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/commands/facts/share_new.rb'
+require_relative '../../../../app/interactors/commands/facts/social_share.rb'
 
-describe Commands::Facts::ShareNew do
+describe Commands::Facts::SocialShare do
   include PavlovSupport
 
   describe 'validation' do

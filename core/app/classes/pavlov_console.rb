@@ -1,7 +1,7 @@
 # Usage:
 #
 # > console = PavlovConsole.new('mark')
-# > console.interactor :'facts/post_to_twitter', fact_id: '10', message: 'hi'
+# > console.command :'twitter/share_factlink', fact_id: '10'
 
 class PavlovConsole
   include Pavlov::Helpers

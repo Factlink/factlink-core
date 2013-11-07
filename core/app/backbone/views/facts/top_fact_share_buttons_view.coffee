@@ -19,9 +19,14 @@ class window.TopFactShareButtonsView extends Backbone.Marionette.Layout
       new PreviewShareFactView model: @model, provider_name: 'facebook'
 
   _renderPopover: (selector, contentViewConstructor) ->
-    Backbone.Factlink.makeTooltipForView @,
+    tooltipOpener = Backbone.Factlink.makeTooltipForView @,
       stayWhenHoveringTooltip: true
       hoverIntent: true
       positioning: {align: 'right', side: 'bottom'}
       selector: selector
-      tooltipViewFactory: contentViewConstructor
+      tooltipViewFactory: =>
+        view = contentViewConstructor()
+        @listenTo view, 'success', =>
+          tooltipOpener.close()
+          @_renderPopover selector, contentViewConstructor
+        view

@@ -6,7 +6,7 @@ showPopup = (url) ->
   window.open url, "authPopup",
     "menubar=no,toolbar=no,status=no,width=#{width},height=#{height},left=#{left},top=#{top}"
 
-$('html').on 'click', '.js-social-popup-link', (e) ->
+$('html').on 'click', '.js-accounts-popup-link', (e) ->
   showPopup($(e.target).attr("href"))
   e.stopPropagation()
   e.preventDefault()
@@ -14,7 +14,7 @@ $('html').on 'click', '.js-social-popup-link', (e) ->
 $(document).on 'signed_in', ->
   window.location.reload(true)
 
-$(document).on 'social_error', (e) ->
+$(document).on 'account_error', (e) ->
   if typeof FactlinkApp == 'object'
     FactlinkApp.NotificationCenter.error(e.originalEvent.detail)
   else

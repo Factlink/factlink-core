@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SocialAccounts::ConnectionsController do
+describe Accounts::SocialConnectionsController do
   render_views
 
   describe :callback do
@@ -31,7 +31,7 @@ describe SocialAccounts::ConnectionsController do
       controller.request.env['omniauth.auth'] = other_omniauth_obj
       get :callback, provider_name: 'facebook'
 
-      expect(response.body).to match 'eventName = "social_error"'
+      expect(response.body).to match 'eventName = "account_error"'
     end
   end
 end
