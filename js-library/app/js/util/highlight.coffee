@@ -12,7 +12,7 @@ highlightFacts = (facts_data) ->
 # Function which will collect all the facts for the current page
 # and select them.
 # Returns deferred object
-fetchFacts = (siteUrl=Factlink.siteUrl()) ->
+fetchFacts = (siteUrl) ->
   $.ajax
     # The URL to the Factlink backend
     url: FactlinkConfig.api + "/site?url=" + encodeURIComponent(siteUrl)
@@ -28,13 +28,13 @@ Factlink.startHighlighting = ->
   highlighting = true
 
   console.info "Factlink:", "startHighlighting"
-  fetchFacts()
+  fetchFacts Factlink.siteUrl()
 
 # Don't check for highlighting here, as this is a
 # special hacky-patchy method for in the blog
 Factlink.highlightAdditionalFactlinks = (siteUrl) ->
   console.info "Factlink:", "highlightAdditionalFactlinks"
-  fetchFacts(siteUrl)
+  fetchFacts siteUrl
 
 Factlink.stopHighlighting = ->
   return unless highlighting
