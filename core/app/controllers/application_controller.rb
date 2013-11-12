@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
       if not current_user
         format.html do
           flash[:alert] = t('devise.failure.unauthenticated')
-          redirect_to root_path(return_to: request.original_url, show_sign_in: 1)
+          redirect_to root_path(return_to: request.original_url)
         end
 
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }

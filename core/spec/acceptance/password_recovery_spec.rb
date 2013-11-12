@@ -9,12 +9,7 @@ describe 'Password recovery', type: :feature do
   it 'informs the user the email has been send' do
     clear_emails
 
-    @user.username = "Barones"
-
-    visit "/"
-    first(:link, "Sign in", exact: true).click
-    click_link "Forgot password?"
-
+    visit new_user_password_path
     fill_in 'user_email', with: @user.email
     click_button "Send me reset password instructions"
     page.should have_content("You will receive an email with instructions about how to reset your password in a few minutes")

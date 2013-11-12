@@ -2,10 +2,6 @@
   Factlink &mdash; Because the web needs what you know
 <% end %>
 
-<% content_for :sign_in_bar do %>
-  <%= render "base/sign_in_bar" %>
-<% end %>
-
 <% content_for :main do %>
   <div class="header">
     <div class="background">
@@ -14,6 +10,8 @@
     </div>
 
     <div class="container">
+      <%= render 'flash/simple', notice: notice, alert: alert %>
+
       <%= yield :header %>
     </div>
   </div>
@@ -39,7 +37,6 @@
 
 <%= render template: "layouts/base", locals: {
   fixed_topbar: false,
-  slide_down: true,
   show_footer: true,
   show_sign_up: !current_user
 } %>
