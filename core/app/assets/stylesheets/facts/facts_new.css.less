@@ -12,21 +12,6 @@
   padding: 15px;
   cursor: auto;
 
-  .finish-popover {
-    position: relative;
-  }
-
-  .add-to-topic-container {
-    margin: 0 0 20px 55px;
-    width: 300px;
-
-    .add-to-topic-header, .js-suggestions-title {
-      display: inline-block;
-      margin: 10px 0 5px;
-      font-weight: @baseFontBoldWeight;
-    }
-  }
-
   .buttons {
     .clearfix();
     margin-top: @popup-padding;
@@ -42,6 +27,21 @@
       margin-right: 10px;
     }
   }
+}
+
+.fact-new-finish-popover {
+  position: relative;
+}
+
+.fact-new-topics-container {
+  margin: 0 0 20px 55px;
+  width: 300px;
+}
+
+.fact-new-topics-header { // Also used in channels/filtered_suggested_topics
+  display: inline-block;
+  margin: 10px 0 5px;
+  font-weight: @baseFontBoldWeight;
 }
 
 .fact-new-fact {
