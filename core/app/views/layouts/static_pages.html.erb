@@ -10,6 +10,8 @@
     </div>
 
     <div class="container">
+      <%= render 'flash/simple', notice: notice, alert: alert %>
+
       <%= yield :header %>
     </div>
   </div>
