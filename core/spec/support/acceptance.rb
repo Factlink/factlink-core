@@ -7,6 +7,8 @@ module Acceptance
     fill_in "user_new_session[password]", with: user.password
     click_button "Sign in"
 
+    visit root_path
+
     user
   end
 
