@@ -18,7 +18,7 @@
   width: 0;
   height: 0;
   vertical-align: top;
-  border-top:   4px solid @black;
+  border-top:   4px solid @metaFontColor;
   border-right: 4px solid transparent;
   border-left:  4px solid transparent;
   content: "";
@@ -153,15 +153,19 @@
   margin-top: 2px; // give it some space to breathe
   border-radius: @baseBorderRadius;
 }
+li.dropdown:hover > .dropdown-toggle .caret {
+  border-top-color: @linkColor;
+  border-bottom-color: @linkColor;
+}
 
 li.dropdown.open > .dropdown-toggle .caret,
 li.dropdown.active > .dropdown-toggle .caret,
 li.dropdown.open.active > .dropdown-toggle .caret {
-  border-top-color: @navbarLinkColorActive;
-  border-bottom-color: @navbarLinkColorActive;
+  border-top-color: @linkColorHover;
+  border-bottom-color: @linkColorHover;
 }
 
-// Right aligned menus need alt position
+//Right aligned menus need alt position
 li > .dropdown-menu {
   left: auto;
   right: 0;
@@ -181,4 +185,3 @@ li > .dropdown-menu {
     border-radius: 6px 0 6px 6px;
   }
 }
-
