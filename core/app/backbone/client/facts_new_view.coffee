@@ -13,6 +13,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     'click .js-submit-post-factlink': 'post_factlink',
 
   regions:
+    learnMoreRegion: '.js-learn-more-region'
     suggestedTopicsRegion: '.js-region-suggested-topics'
     shareNewFactRegion: '.js-region-share-new-fact'
 
@@ -27,13 +28,16 @@ class window.FactsNewView extends Backbone.Marionette.Layout
   initialize: ->
     @addToCollection = new OwnChannelCollection
 
-    @openOpinionHelptext()
-
   onRender: ->
-    @renderAddToChannel()
-    @renderSuggestedChannels()
     @renderPersistentWheelView()
-    @renderShareNewFact()
+
+    if Factlink.Global.signed_in
+      @renderAddToChannel()
+      @renderSuggestedChannels()
+      @renderShareNewFact()
+      @openOpinionHelptext()
+    else
+      @learnMoreRegion.show new LearnMoreBottomView
 
     if FactlinkApp.guided
       @ui.opinion_animation.show()

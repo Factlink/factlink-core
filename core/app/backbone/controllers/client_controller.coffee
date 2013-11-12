@@ -14,10 +14,6 @@ window.ClientController =
       newClientModal.mainRegion.show view
 
   showNewFact: (params={}) ->
-    unless window.currentUser?
-      window.location = Factlink.Global.path.sign_in_client()
-      return
-
     clientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show clientModal
     FactlinkApp.guided = params.guided == 'true'
