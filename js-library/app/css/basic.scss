@@ -7,7 +7,7 @@ $max-z-index  : 2147483647;
 $button-width : 120px;
 $button-height: 30px;
 $border-color : #1c5c90;
-$buttonBackground: #3d75a3;
+$buttonBackground: rgba(32,32,32,0.6);
 
 $button_visibility_transition_time : 300ms;
 $highlight_visibility_transition_time: 200ms;
@@ -92,7 +92,7 @@ span.factlink {
     border-radius: 3px;
     line-height: 30px;
     padding: 0 20px;
-    background-color: rgba(32,32,32,0.6);
+    background-color: $buttonBackground;
     color: white;
 
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
