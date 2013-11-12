@@ -1,20 +1,59 @@
 @import "bootstrap/mixins";
 
+.fact-new-container {
+  position: relative;
+  width: @factNewAndSignInWidth;
+  margin: 50px auto;
+}
+
 .fact-new {
   .white-block-with-shadow();
   visibility: visible;
-  width: @factNewAndSignInWidth;
-  margin: 50px auto;
   padding: 15px;
-  position: relative;
   cursor: auto;
 
   .finish-popover {
     position: relative;
   }
+
+  article.fact {
+    padding-bottom: 12px;
+    border-bottom: 1px solid @baseBorderColor;
+  }
+
+  textarea {
+    display: none;
+  }
+
+  .add-to-topic-container {
+    margin: 0 0 20px 55px;
+    width: 300px;
+
+    .add-to-topic-header, .js-suggestions-title {
+      display: inline-block;
+      margin: 10px 0 5px;
+      font-weight: @baseFontBoldWeight;
+    }
+  }
+
+  .buttons {
+    .clearfix();
+    margin-top: @popup-padding;
+    .cancel-post-factlink { float: left; }
+    .submit-post-factlink {
+      float: right;
+      width: 125px;
+    }
+
+    .post-factlink-share {
+      float: right;
+      margin-top: 3px;
+      margin-right: 10px;
+    }
+  }
 }
 
-.fact-new-fact-container {
+.fact-new-fact {
   display: inline-block; // for new block formatting context
   width: 100%;
 

@@ -1,5 +1,5 @@
-<div class="post-factlink-page">
-  <div class="fact-new-fact-container">
+<div class="fact-new">
+  <div class="fact-new-fact">
     {{#guided}}
       <div class="js-opinion-animation" style="position:absolute"><img src="{{global.opinion_animation}}" alt="" /></div>
     {{/guided}}
@@ -14,18 +14,20 @@
     </div>
   </div>
 
-  <div class="add-to-topic-container">
-    <strong class="add-to-topic-header">{{add_to_topic_header}}?</strong>
-    <div class="js-add-to-channels"></div>
+  {{#global.signed_in}}
+    <div class="add-to-topic-container">
+      <strong class="add-to-topic-header">{{add_to_topic_header}}?</strong>
+      <div class="js-add-to-channels"></div>
 
-    <div class="js-region-suggested-topics"></div>
-  </div>
+      <div class="js-region-suggested-topics"></div>
+    </div>
 
-  <div class="buttons">
-    <button class="button button-confirm js-submit-post-factlink submit-post-factlink" data-disable-with="Posting..." name="commit" type="submit">Post to Factlink</button>
+    <div class="buttons">
+      <button class="button button-confirm js-submit-post-factlink submit-post-factlink" data-disable-with="Posting..." name="commit" type="submit">Post to Factlink</button>
 
-    <div class="js-region-share-new-fact post-factlink-share"></div>
+      <div class="js-region-share-new-fact post-factlink-share"></div>
 
-    <div class="js-finish-popover finish-popover"></div>
-  </div>
+      <div class="js-finish-popover finish-popover"></div>
+    </div>
+  {{/global.signed_in}}
 </div>

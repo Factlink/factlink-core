@@ -3,7 +3,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   template: "client/facts_new"
 
-  className: 'fact-new'
+  className: 'fact-new-container'
 
   ui:
     'post_factlink': '.js-submit-post-factlink'
