@@ -1,10 +1,10 @@
 <div class="footer">
 
-  <div class="divider <%= 'large_arrow' if show_sign_up %>"></div>
+  <div class="<%= 'large_arrow' if show_sign_up %>"></div>
 
   <% if show_sign_up %>
     <div class="container social-connect-container">
-      <h2 class="connect-heading">Connect now:</h2>
+      <h2 class="social-connect-heading">Connect now:</h2>
 
       <%= render "users/registrations/form", form_id: "bottom_registration_form" %>
     </div>

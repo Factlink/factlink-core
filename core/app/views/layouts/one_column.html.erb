@@ -3,12 +3,10 @@
 <% end %>
 
 <% content_for :main do %>
-  <div id="body">
-    <div id="container" class="container">
-      <%= render 'flash/simple', notice: notice, alert: alert %>
+  <div id="container" class="container one-column-container">
+    <%= render 'flash/simple', notice: notice, alert: alert %>
 
-      <%= yield %>
-    </div>
+    <%= yield %>
   </div>
 <% end %>
 
@@ -18,7 +16,6 @@
 
 <%= render template: "layouts/base", locals: {
   fixed_topbar: false,
-  show_footer: true,
-  show_sign_up: false,
-  slide_down: false
+  show_footer: false,
+  show_sign_up: false
 } %>

@@ -2,8 +2,8 @@ require 'screenshot_helper'
 
 describe "Static pages:", type: :feature do
   describe "Homepage" do
-    it "with sign-in open as expected" do
-      visit "/?show_sign_in=true"
+    it "normally" do
+      visit "/"
       assume_unchanged_screenshot "static_homepage"
     end
 

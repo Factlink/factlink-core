@@ -1,36 +1,28 @@
 @import "bootstrap/mixins";
 
-// This has been duplicated from sign_in_bar.css.less
-// TODO: remove sign in bar
-// TODO: make these buttons look nicer, and fix classes on these elements
-
-.social-connect-buttons {
-  a {
-    > i {
-      background: image-url('base/sign_in_bar/social.png') no-repeat;
-      display: inline-block;
-      width: 17px;
-      height: 17px;
-      line-height: 17px;
-      vertical-align: text-top;
-      margin: -1px 6px 0 -5px;
-    }
-
-    &.twitter > i {
-      background-position: 0 0;
-    }
-
-    &.facebook > i {
-      background-position: -17px 0;
-    }
-  }
+.social-connect-buttons-twitter > i,
+.social-connect-buttons-facebook > i {
+  background: image-url('base/sign_in_bar/social.png') no-repeat;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  vertical-align: text-top;
+  margin: -1px 6px 0 -5px;
 }
 
-.social-connect-container{
+.social-connect-buttons-twitter > i {
+  background-position: 0 0;
+}
+
+.social-connect-buttons-facebook > i {
+  background-position: -17px 0;
+}
+
+.social-connect-container {
   text-align: center;
 }
 
-.connect-heading {
+.social-connect-heading {
   font-size: 24px;
 }
 

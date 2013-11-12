@@ -1,2 +1,2 @@
 FactlinkApp.addInitializer (options)->
-  $('.potential-backbone').attr('rel', 'backbone');
+  $('.js-potential-backbone').attr('rel', 'backbone');

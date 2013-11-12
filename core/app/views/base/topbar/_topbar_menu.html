@@ -1,5 +1,5 @@
-<li class="dropdown">
-  <a class="dropdown-toggle topbar-dropdown" data-toggle="dropdown" href="#">
+<li class="dropdown topbar-menu-item">
+  <a class="dropdown-toggle topbar-menu-link" data-toggle="dropdown" href="#">
     <b class="caret"></b>
   </a>
   <ul class="dropdown-menu js-topbar-dropdown-menu">
@@ -20,7 +20,7 @@
     </li>
 
     <li>
-      <a onclick="return false" class="bookmarklet js-topbar-dropdown-menu-bookmarklet"
+      <a onclick="javascript:void(0)" class="topbar-menu-bookmarklet js-topbar-dropdown-menu-bookmarklet"
            <%# here we need singlequotes kthxbye: %>
            href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'>
          <i class='icon-bookmark'></i><!--

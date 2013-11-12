@@ -9,17 +9,10 @@ class CustomDeviseFailure < Devise::FailureApp
 
   def redirect_url
     if warden_options[:attempted_path] == "/users/sign_in"
-      redirect_url_on_failed_login
+      "/users/sign_in"
     else
       redirect_url_on_authentication_required
     end
-  end
-
-
-  # We are logging in in this request, but we failed.
-  def redirect_url_on_failed_login
-    params[:return_to_on_fail] ||
-      '/?show_sign_in=1'
   end
 
   # we requested a page, but we aren't authorized to see this page,
@@ -30,7 +23,7 @@ class CustomDeviseFailure < Devise::FailureApp
     if client_page
       user_session_path(options.merge(layout: 'client'))
     else
-      root_path(options.merge(show_sign_in: 1))
+      root_path
     end
   end
 

@@ -2,177 +2,83 @@
 
 @import "bootstrap/mixins";
 
-body.show_sign_in {
-  .navbar .navbar-inner {
-    display: none;
+.topbar {
+  height: 42px;
+  position: fixed;
+  top: 0; right: 0; left: 0;
+  z-index: @zindexFixedNavbar;
+  background-color: white;
+  border-bottom: 1px solid @baseBorderColor;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+}
 
-    &.dimmed {
-      display: block;
-    }
+.topbar-non-fixed {
+  position: absolute;
+}
+
+.topbar-inner {
+  width: @siteWidth;
+  margin: auto;
+}
+
+.topbar-logo {
+  background: image-url('base/topbar/logo.png') no-repeat;
+  height: 25px;
+  width: @leftColumnWidth;
+  text-indent: -999999px;
+  display: block;
+  float: left;
+  margin-top: 10px;
+}
+
+.topbar-search {
+  float: left;
+  padding: 5px;
+
+  .topbar-search-field {
+    background: image-url("base/topbar/search_icon.png") 8px center no-repeat #fff;
+    padding-left: 30px;
+    width: 250px;
   }
 }
 
-.navbar .navbar-inner .topbar-profile-link { //Hack to overwrite bootstrap navs
-  .ellipsis(220px);
+.topbar-menu {
+  float: right;
+}
+
+.topbar-menu-item {
+  float: left;
+  font-weight: bold;
+}
+
+.topbar-menu-link {
+  padding: 12px 15px;
+  display: block;
+}
+
+.topbar-divider {
+  margin: 0 -3px 0 0;
+  border: none;
+  background: image-url('base/topbar/divider.png') repeat-y center;
+  display: block;
+  width: 3px;
+  height: 42px;
+  float: left;
+}
+
+.topbar-profile-name {
   padding: 6px 15px;
-  outline: none;
-
-  img {
-    border-radius:2px;
-  }
 }
 
-.navbar {
-  position: relative;
-  height: @navbarHeight;
-  z-index: 120; // on top of the overlay in widgets/overlay
-
-  &.navbar-fixed-top {
-    position: fixed;
-  }
-
-  .navbar-inner {
-    border-radius: 0;
-    border: none;
-    background: transparent;
-    min-height: 42px;
-    position: relative;
-    z-index: 2;
-    border-bottom: 1px solid @baseBorderColor;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
-
-    .background {
-      background: white;
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 1;
-    }
-
-    .container {
-      margin-left: auto;
-      margin-right: auto;
-      width: 960px;
-      position: absolute;
-      top: 0; right: 0; bottom: 0; left: 0;
-      z-index: 2;
-
-      .logo-container {
-        width: @leftColumnWidth;
-        float: left;
-
-        a.brand {
-          display: block;
-          text-indent: -999999px;
-          height: 40px;
-          width: @leftColumnWidth;
-          background: image-url('base/topbar/logo.png') no-repeat;
-          background-position: 0 0;
-          outline: none;
-        }
-      }
-
-      .main-wrapper {
-        float: left;
-        width: @mainColumnWidth;
-        padding-left: @mainLeftPadding;
-      }
-
-      .search {
-        width: 240px;
-        margin-left: -2px;
-      }
-
-      ul.nav > li {
-        > a {
-          color: @linkColor;
-          font-weight: bold;
-          line-height: 20px;
-
-          &:hover {
-            color: @baseFontColor;
-          }
-          &.dropdown-toggle:hover .caret {
-            border-top-color: @linkColor;
-            border-bottom-color: @linkColor;
-          }
-        }
-
-        &.dropdown {
-          &.open .dropdown-toggle {
-            background: none;
-            color: @linkColor;
-          }
-
-          .dropdown-menu li > a {
-            color: @headingFontColor;
-            font-weight: normal;
-
-            &.bookmarklet::after {
-              content: 'Bookmarklet';
-              padding: 0 0 0 3px;
-            }
-
-            &:hover, &:focus {
-              color: white;
-            }
-          }
-        }
-
-        &.divider-vertical {
-          margin: 0 -3px 0 0;
-          border: none;
-          background: image-url('base/topbar/divider.png') repeat-y center;
-          display: block;
-          width: 3px;
-          height: 42px;
-        }
-      }
-   }
-
-    &.dimmed {
-      z-index: 1;
-      position: absolute;
-      top: 0; right: 0; left: 0;
-      border-bottom: none;
-
-      .background {
-        opacity: .4;
-      }
-
-      .container {
-        a.brand {
-          background-position: 0 -40px;
-        }
-
-        .topbar-signin-question {
-          color: #cecece;
-          margin-right: -18px;
-
-          a {
-            color: #fff;
-
-            > i {
-              display: inline-block;
-              background: image-url('base/topbar/logo.png') no-repeat -175px 0;
-              width: 9px;
-              height: 6px;
-              margin-left: 5px;
-            }
-          }
-        }
-      }
-    }
-  }
+.topbar-profile-link {
+  .ellipsis(220px);
 }
 
-.topbar-signin-question {
-  float:right;
-  padding-right:45px;
-  height: 100%;
-  line-height: 42px;
+.topbar-profile-image {
+  border-radius: 2px;
+}
 
-  a {
-    color: @linkColor;
-    font-weight: bold;
-  }
+.topbar-menu-bookmarklet::after {
+  content: 'Bookmarklet';
+  padding: 0 0 0 3px;
 }

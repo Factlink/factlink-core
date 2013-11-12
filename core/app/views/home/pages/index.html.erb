@@ -58,9 +58,7 @@
 <% content_for :specific_javascript do %>
   <script type="text/javascript">
     $(function(){
-      mp_track('Pageview: Landing page', {
-        code: '<%= @code %>'
-      });
+      mp_track('Pageview: Landing page');
 
       $(".js-frontpage-video-link").on('click', function() {
         $('.js-frontpage-video').fadeIn('fast');

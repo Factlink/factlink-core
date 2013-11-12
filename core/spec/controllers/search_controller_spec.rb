@@ -7,14 +7,6 @@ describe SearchController do
   render_views
 
   describe "Search" do
-    it "should render succesful" do
-      authenticate_user!(user)
-      get :search, s: "Baron"
-      response.should be_success
-
-      response.should render_template("search")
-    end
-
     it "should render json successful and in the same way (approvals)" do
       Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
