@@ -47,16 +47,51 @@ function getServer(config) {
     return parseInt(variable, 10) || null;
   }
 
+  var regex_skip_until_in_html_head =/(?:[^<]|<(?:!\s*--(?:(?!-->).)*-->|html|head|[^a-z/]))*/i;
+  /* Explanation of the above regex:
+   * We want to inject stuff into the <head>, but <head> may be implicit.
+   * Though a <head> must officially have a <title>, omitting it doesn't break browsers, so what to detect?
+   * Officially, every head needs a <title>, but invalid docs might omit it.  However, every head
+   * needs *some* tag; we can just match the first tag that's not <head> or <html> - if a head really is empty, we'll match the closing </head> or <body> tags.
+   *
+   * Strategy: skip everything that's not a tag in the head:
+   *  1. non '<' characters can be skipped; they're not interesting
+   *  2. full comments <! -- comment --> can be skipped
+   *  3. <head or <html can be skipped.
+   *  4. <??? can be skipped when ??? isn't a closing tag so doesn't start with '/' and isn't an opening tag so doesn't start with 'a'-'z'
+   * After this match we can't consume tokens and so must be at:
+   * - the end of the document OR
+   * - some string starting with '<' due to rule 1
+   * -- BUT NOT a comment
+   * -- AND NOT <html or <head
+   * -- AND at a starting or closing tag.
+   */
+
+  function inject_html_in_head(page_html, fragment_to_inject) {
+    "use strict";
+    return page_html.replace(regex_skip_until_in_html_head, function(match) {
+      return match + fragment_to_inject;
+    });
+  }
+
+
+
+
   /**
    * Add base url and inject proxy.js, and return the proxied site
    */
-  function injectFactlinkJs(html_in, site, scrollto, open_id, successFn) {
+  function injectFactlinkJs(original_html, site, scroll_to, open_id, successFn) {
+    "use strict";
 
     blacklist.if_allowed(site,function() {
-      var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
 
-      // Inject Frame Busting Buster at the top
-      var top_html = '<script>window.self = window.top;</script>\n\n';
+      // Disable publisher's scripts
+      var output_html = original_html.replace(/factlink_loader_publishers.min.js/, 'factlink_loader_publishers_disabled_by_web_proxy.min.js');
+
+
+      var new_base_tag = '<base href="' + site + '" />';
+
+      var framebuster_script = 'window.self = window.top;\n\n';
 
       // Inject config also at the top
       var FactlinkConfig = {
@@ -65,25 +100,24 @@ function getServer(config) {
         srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
         url: site
       };
-      top_html += '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>\n\n';
+      var factlink_config_script = 'window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + ';\n';
 
-      // Place top html before the first opening tag (typically <html> or <head> or so)
-      html = html.replace(/<[a-z]/i, top_html + '$&');
 
-      // Disable publisher's scripts
-      html = html.replace(/factlink_loader_publishers.min.js/, 'factlink_loader_publishers_disabled_by_web_proxy.min.js');
+      var header_content = new_base_tag + '\n<script>' + framebuster_script + factlink_config_script+'</script>\n\n';
+
+      output_html = inject_html_in_head(output_html, header_content);
 
       var actions = [];
 
       open_id = parse_int_or_null(open_id) ;
-      scrollto = parse_int_or_null(scrollto) || open_id;
+      scroll_to = parse_int_or_null(scroll_to) || open_id;
 
       if (open_id !== null) {
         actions.push('FACTLINK.openFactlinkModal(' + open_id + ');');
       }
 
-      if (scrollto !== null) {
-        actions.push('FACTLINK.scrollTo(' + scrollto + ');');
+      if (scroll_to !== null) {
+        actions.push('FACTLINK.scrollTo(' + scroll_to + ');');
       }
 
       actions.push('FACTLINK.startHighlighting();');
@@ -93,14 +127,15 @@ function getServer(config) {
       var loader_filename = (config.ENV === "development" ? "/factlink_loader_basic.js" : "/factlink_loader_basic.min.js");
 
       var inject_string = '<!-- this comment is to accommodate for pages that end in an open comment! -->' +
-                          '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
-                          '<script>' + actions.join('') + '</script>' +
-                          '<script>window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + '</script>' +
-                          '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+          '<script src="' + config.LIB_URL + loader_filename + '"></script>' +
+          '<script>' + actions.join('') + '</script>' +
+          '<script>window.FactlinkProxyUrl = ' + JSON.stringify(config.PROXY_URL) + '</script>' +
+          '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
 
-      successFn(html + inject_string);
+      output_html += inject_string;
+      successFn(output_html);
     },function(){
-      successFn(html_in);
+      successFn(original_html);
     });
   }
 
