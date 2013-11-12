@@ -20,5 +20,5 @@ if $SHOULD_UPDATE ; then
 fi
 
 #read_config.js isn't checked because of eval is evil
-./node_modules/jshint/bin/hint server.js
+./node_modules/jshint/bin/jshint server.js
 supervisor ./server.js
