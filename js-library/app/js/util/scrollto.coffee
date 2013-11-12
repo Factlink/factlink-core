@@ -2,8 +2,8 @@ Factlink.scrollTo = (fact_id) ->
 
   scrolled = false
   scroll = ->
-    return if $("span[data-factid=#{fact_id}]").length <= 0
     return if scrolled
+    return if $("span[data-factid=#{fact_id}]").length <= 0
     scrolled = true
 
     $('body')
