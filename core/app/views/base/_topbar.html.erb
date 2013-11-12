@@ -3,7 +3,7 @@
     <% if @step_in_signup_process %>
       <%= link_to "Home", home_path, class: 'topbar-logo' %>
     <% else %>
-      <%= link_to "Home", home_path, class: 'topbar-logo potential-backbone' %>
+      <%= link_to "Home", home_path, class: 'topbar-logo js-potential-backbone' %>
     <% end %>
     <% if @step_in_signup_process %>
       <%= render "base/topbar/sign_up_steps" %>
