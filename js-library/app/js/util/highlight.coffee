@@ -34,7 +34,7 @@ Factlink.startHighlighting = ->
 # special hacky-patchy method for in the blog
 Factlink.highlightAdditionalFactlinks = (siteUrl) ->
   console.info "Factlink:", "highlightAdditionalFactlinks"
-  fetchFacts()
+  fetchFacts(siteUrl)
 
 Factlink.stopHighlighting = ->
   return unless highlighting
