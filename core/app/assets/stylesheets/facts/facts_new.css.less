@@ -11,31 +11,6 @@
   visibility: visible;
   padding: 15px;
   cursor: auto;
-
-  .buttons {
-    .clearfix();
-    margin-top: @popup-padding;
-    .cancel-post-factlink { float: left; }
-    .submit-post-factlink {
-      float: right;
-      width: 125px;
-    }
-
-    .post-factlink-share {
-      float: right;
-      margin-top: 3px;
-      margin-right: 10px;
-    }
-  }
-}
-
-.fact-new-finish-popover {
-  position: relative;
-}
-
-.fact-new-topics-container {
-  margin: 0 0 20px 55px;
-  width: 300px;
 }
 
 .fact-new-topics-header { // Also used in channels/filtered_suggested_topics
@@ -61,3 +36,30 @@
   word-wrap: break-word;
   font-size: @factNewBodyFontSize;
 }
+
+.fact-new-topics-container {
+  margin: 0 0 20px 55px;
+  width: 300px;
+}
+
+.fact-new-buttons {
+  overflow: hidden; // new block formatting context
+  margin-top: @popup-padding;
+}
+
+.fact-new-finish-popover {
+  position: relative;
+}
+
+
+.fact-new-submit {
+  float: right;
+  width: 125px;
+}
+
+.fact-new-share {
+  float: right;
+  margin-top: 3px;
+  margin-right: 10px;
+}
+
