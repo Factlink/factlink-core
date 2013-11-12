@@ -20,22 +20,17 @@ describe 'When a user signs in', type: :feature do
 
     visit '/'
 
-    first(:link, "Sign in", exact: true).click
-
-    find "div.sign_in_bar"
+    page.should have_content 'Connect now'
   end
 
   it 'he should not be able to sign in with false credentials' do
     user = create :full_user, :confirmed
 
-    visit "/"
-
-    first(:link, "Sign in", exact: true).click
-
-    fill_in "user_login", :with => user.email
-    fill_in "user_password", :with => user.password + "1"
+    visit factlink_accounts_new_path
+    fill_in "user_new_session[login]", with: user.email
+    fill_in "user_new_session[password]", with: user.password + '1'
     click_button "Sign in"
 
-    page.should have_content "Your login credentials were incorrect. Please check and try again"
+    page.should have_content 'incorrect email address or password'
   end
 end
