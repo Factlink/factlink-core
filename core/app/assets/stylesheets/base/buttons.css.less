@@ -113,27 +113,6 @@
   }
 }
 
-.button-home {
-  background-color: @buttonHomeBackground;
-  color: @buttonHomeLink;
-  text-shadow: 0 1px 0 @buttonHomeTextShadow;
-  border-bottom-color: @buttonHomeBorder;
-  &:hover {
-    color: @buttonHomeLink;
-    background-color: @buttonHomeDarkBackground;
-    border-bottom-color: @buttonHomeDarkBorder;
-  }
-  &:active {
-    background-color: @buttonHomeDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonHomeDarkBorder;
-    border-bottom: 0px;
-  }
-  &.button-loading, &[disabled] {
-    .striped(45deg);
-    color: @buttonHomeLink;
-  }
-}
-
 .button-disabled {
   line-height: @baseButtonHeight;
   background-color: @buttonDisabledBackground;

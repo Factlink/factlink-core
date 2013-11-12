@@ -3,13 +3,10 @@
   <div class="<%= 'large_arrow' if show_sign_up %>"></div>
 
   <% if show_sign_up %>
-    <div class="sign_up clearfix">
+    <div class="container social-connect-container">
+      <h2 class="connect-heading">Connect now:</h2>
 
-      <div class="container sign_up_form">
-        <h2>Connect now:</h2>
-
-        <%= render "users/registrations/form", form_id: "bottom_registration_form" %>
-      </div>
+      <%= render "users/registrations/form", form_id: "bottom_registration_form" %>
     </div>
   <% end %>
 

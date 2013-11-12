@@ -67,11 +67,11 @@ class User
                           :message => "only letters, digits and _ are allowed"
 
 
-  validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
+  validates_uniqueness_of :username, :message => "Username already in use", :case_sensitive => false
 
   validates_length_of     :username, :within => 0..USERNAME_MAX_LENGTH, :message => "no more than #{USERNAME_MAX_LENGTH} characters allowed"
-  validates_presence_of   :username, :message => "is required", :allow_blank => true # since we already check for length above
-  validates_presence_of   :full_name, :message => "is required", :allow_blank => false
+  validates_presence_of   :username, :message => "Username is required", :allow_blank => true # since we already check for length above
+  validates_presence_of   :full_name, :message => "Full name is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
   validates_presence_of   :encrypted_password
   validates_length_of     :location, maximum: 127
