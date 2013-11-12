@@ -2,10 +2,9 @@ module Acceptance
   include PavlovSupport
 
   def sign_in_user(user)
-    visit "/"
-    first(:link, "Sign in", exact: true).click
-    fill_in "user_login", :with => user.email
-    fill_in "user_password", :with => user.password
+    visit factlink_accounts_new_path
+    fill_in "user_new_session[login]", with: user.email
+    fill_in "user_new_session[password]", with: user.password
     click_button "Sign in"
 
     @current_user = user
