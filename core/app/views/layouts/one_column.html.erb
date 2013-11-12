@@ -3,12 +3,10 @@
 <% end %>
 
 <% content_for :main do %>
-  <div id="body">
-    <div id="container" class="container">
-      <%= render 'flash/simple', notice: notice, alert: alert %>
+  <div id="container" class="container one-column-container">
+    <%= render 'flash/simple', notice: notice, alert: alert %>
 
-      <%= yield %>
-    </div>
+    <%= yield %>
   </div>
 <% end %>
 
