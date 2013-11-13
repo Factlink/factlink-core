@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
       if not current_user
         format.html do
           flash[:alert] = t('devise.failure.unauthenticated')
-          redirect_to root_path
+          redirect_to root_path(return_to: request.original_url)
         end
 
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
@@ -55,7 +55,25 @@ class ApplicationController < ActionController::Base
     return setup_account_path unless user.set_up
     return start_the_tour_path unless seen_the_tour(user)
 
-    feed_path(current_user.username)
+    safe_return_to_path || feed_path(current_user.username)
+  end
+
+  def safe_return_to_path
+    uri = URI.parse(return_to_path.to_s)
+    if FactlinkUI::Application.config.hostname == uri.host
+      uri.to_s
+    else
+      nil
+    end
+  end
+
+  def return_to_path
+    if params[:return_to]
+      params[:return_to]
+    elsif request.env['omniauth.origin']
+      query_params = QueryParams.new(request.env['omniauth.origin'])
+      query_params[:return_to]
+    end
   end
 
   ##########
