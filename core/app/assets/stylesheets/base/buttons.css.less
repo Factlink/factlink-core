@@ -1,5 +1,11 @@
 @import "bootstrap/mixins";
 
+.button-darker(@backgroundColor, @borderColor) {
+  background-color: darken(@backgroundColor, 10%);
+  border-color: darken(@borderColor, 10%);
+  color: white;
+}
+
 .button {
   .new-design-font();
   display: inline-block;
@@ -57,9 +63,7 @@
   border-color: @buttonConfirmBorder;
 
   &:hover, &:active {
-    color: white;
-    background-color: @buttonConfirmDarkBackground;
-    border-color: @buttonConfirmDarkBorder;
+    .button-darker(@buttonConfirmBackground, @buttonConfirmBorder)
   }
 
   &.button-loading, &[disabled] {
@@ -72,17 +76,12 @@
   background-color: @buttonDangerBackground;
   color: white;
   text-shadow: 0 1px 0 @buttonDangerTextShadow;
-  border-bottom-color: @buttonDangerBorder;
-  &:hover {
-    color: white;
-    background-color: @buttonDangerDarkBackground;
-    border-bottom-color: @buttonDangerDarkBorder;
+  border-color: @buttonDangerBorder;
+
+  &:hover, &:active {
+    .button-darker(@buttonDangerBackground, @buttonDangerBorder)
   }
-  &:active {
-    background-color: @buttonDangerDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
-    border-bottom: 0px;
-  }
+
   &.button-loading, &[disabled] {
     .striped(45deg);
     color: rgba(255,255,255,0.6);
@@ -93,17 +92,12 @@
   background-color: @buttonSuccessBackground;
   color: white;
   text-shadow: 0 1px 0 @buttonSuccessTextShadow;
-  border-bottom-color: @buttonSuccessBorder;
-  &:hover {
-    color: white;
-    background-color: @buttonSuccessDarkBackground;
-    border-bottom-color: @buttonSuccessDarkBorder;
+  border-color: @buttonSuccessBorder;
+
+  &:hover, &:active {
+    .button-darker(@buttonSuccessBackground, @buttonSuccessBorder)
   }
-  &:active {
-    background-color: @buttonSuccessDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
-    border-bottom: 0px;
-  }
+
   &.button-loading, &[disabled] {
     .striped(45deg);
     color: rgba(255,255,255,0.6);
@@ -115,9 +109,8 @@
   background-color: @buttonDisabledBackground;
   color: @mutedFontColor;
   text-shadow: 0 1px 0 @buttonDisabledTextShadow;
-  border-style: solid;
-  border-width: @baseButtonBorderWidth;
-  border-color: @buttonDisabledBorder;
+  border: @baseButtonBorderWidth solid @buttonDisabledBorder;
+
   &.button-large {
     line-height: @largeButtonHeight;
   }
@@ -126,10 +119,6 @@
   }
   &:active {
     padding-top: 0;
-  }
-  &.button-loading, &[disabled] {
-    .striped(45deg, rgba(0,0,0,0.04));
-    color: @mutedFontColor;
   }
 }
 
@@ -144,8 +133,6 @@
 }
 
 .button-facebook {
-  background-color: @facebookBackgroundColor;
-  border-color: @facebookBorderColor;
   background-color: @buttonFacebookBackground;
   border-color: @buttonFacebookBorder;
   color: white;
