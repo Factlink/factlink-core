@@ -3,6 +3,8 @@
   "css_prefix_text": "icon-",
   "css_use_suffix": false,
   "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
   "glyphs": [
     {
       "uid": "62c089cb34e74b3a1200bc7f5314eb4e",
@@ -104,6 +106,18 @@
       "uid": "dd6c6b221a1088ff8a9b9cd32d0b3dd5",
       "css": "check",
       "code": 59403,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8e04c98c8f5ca0a035776e3001ad2638",
+      "css": "facebook",
+      "code": 59413,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "627abcdb627cb1789e009c08e2678ef9",
+      "css": "twitter",
+      "code": 59414,
       "src": "fontawesome"
     },
     {

@@ -1,21 +1,49 @@
 @import "bootstrap/mixins";
 
-.social-connect-buttons-twitter > i,
-.social-connect-buttons-facebook > i {
-  background: image-url('base/sign_in_bar/social.png') no-repeat;
-  display: inline-block;
-  width: 17px;
-  height: 17px;
-  vertical-align: text-top;
-  margin: -1px 6px 0 -5px;
+.button-hover(@backgroundColor, @borderColor) {
+  background-color: darken(@backgroundColor, 10%);
+  border-bottom-color: darken(@borderColor, 10%);
+  color: white;
 }
 
-.social-connect-buttons-twitter > i {
-  background-position: 0 0;
+.button-active(@backgroundColor, @borderColor) {
+  background-color: darken(@backgroundColor, 10%);
+  border-top-color: darken(@borderColor, 10%);
+  color: white;
 }
 
-.social-connect-buttons-facebook > i {
-  background-position: -17px 0;
+@twitterBackgroundColor: #52a1dc;
+@twitterBorderColor: #4b92c6;
+
+@facebookBackgroundColor: #335292;
+@facebookBorderColor: #2d4a84;
+
+.social-connect-buttons-twitter {
+  background-color: @twitterBackgroundColor;
+  border-bottom-color: @twitterBorderColor;
+  color: white;
+
+  &:hover {
+    .button-hover(@twitterBackgroundColor, @twitterBorderColor)
+  }
+
+  &:active {
+    .button-active(@twitterBackgroundColor, @twitterBorderColor)
+  }
+}
+
+.social-connect-buttons-facebook {
+  background-color: @facebookBackgroundColor;
+  border-bottom-color: @facebookBorderColor;
+  color: white;
+
+  &:hover {
+    .button-hover(@facebookBackgroundColor, @facebookBorderColor)
+  }
+
+  &:active {
+    .button-active(@facebookBackgroundColor, @facebookBorderColor)
+  }
 }
 
 .social-connect-container {
@@ -36,4 +64,16 @@
 .footer .social-connect-no-social {
   a { color: @metaFontColor; }
   a:hover { color: @mutedFontColor; }
+}
+
+.icon-twitter, .icon-facebook {
+  margin-left: 0;
+  margin-right: 0.3em;
+  font-size: 170%;
+  vertical-align: sub;
+  -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
+}
+
+.icon-facebook {
+  margin-left: -5px;
 }
