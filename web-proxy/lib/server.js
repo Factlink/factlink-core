@@ -74,8 +74,18 @@ function getServer(config) {
     });
   }
 
+  function publisherUrl(site, scroll_to, open_id) {
+    open_id = parse_int_or_null(open_id);
+    scroll_to = parse_int_or_null(scroll_to);
 
-
+    if (open_id !== null) {
+      return site + '#factlink-open-' + open_id;
+    } else if (scroll_to !== null) {
+      return site + '#factlink-' + open_id;
+    } else {
+      return site;
+    }
+  }
 
   /**
    * Add base url and inject proxy.js, and return the proxied site
@@ -83,11 +93,20 @@ function getServer(config) {
   function injectFactlinkJs(original_html, site, scroll_to, open_id, successFn) {
     "use strict";
 
+    if (/factlink_loader_publishers.min.js/.test(original_html)) {
+      // Redirect to publishers' sites
+      // Circumvent blacklist as we assume we don't want to blacklist publishers for now, and it's faster
+      // to not check.
+      var redirect_url = publisherUrl(site, scroll_to, open_id);
+
+      successFn('<script>window.parent.location = ' + JSON.stringify(redirect_url) + ';</script>');
+      return;
+    }
+
+
     blacklist.if_allowed(site,function() {
 
-      // Disable publisher's scripts
-      var output_html = original_html.replace(/factlink_loader_publishers.min.js/, 'factlink_loader_publishers_disabled_by_web_proxy.min.js');
-
+      var output_html = original_html;
 
       var new_base_tag = '<base href="' + site + '" />';
 
