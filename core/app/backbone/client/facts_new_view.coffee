@@ -77,11 +77,9 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       model: @factSharingOptions
 
   post_factlink: (e)->
-    e.preventDefault()
-    e.stopPropagation()
-    disableInputWithDisableWith(@ui.post_factlink)
+    @ui.post_factlink.prop('disabled', true).text('Posting...')
 
-    channel_ids = @addToCollection.map (ch)-> ch.id
+    channel_ids = @addToCollection.pluck('id')
 
     fact = new Fact
       opinion: @wheel.userOpinionWithS()
