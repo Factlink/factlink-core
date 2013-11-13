@@ -4,7 +4,7 @@ class Site < OurOhm
   collection :facts, Fact
 
   def self.find_or_create_by(options)
-    find(options.slice [:url]).first || create(options)
+    find(options.slice(:url)).first || create(options)
   end
 
   def self.find(options)
