@@ -1,51 +1,5 @@
 @import "bootstrap/mixins";
 
-.button-hover(@backgroundColor, @borderColor) {
-  background-color: darken(@backgroundColor, 10%);
-  border-bottom-color: darken(@borderColor, 10%);
-  color: white;
-}
-
-.button-active(@backgroundColor, @borderColor) {
-  background-color: darken(@backgroundColor, 10%);
-  border-top-color: darken(@borderColor, 10%);
-  color: white;
-}
-
-@twitterBackgroundColor: #52a1dc;
-@twitterBorderColor: #4b92c6;
-
-@facebookBackgroundColor: #335292;
-@facebookBorderColor: #2d4a84;
-
-.social-connect-buttons-twitter {
-  background-color: @twitterBackgroundColor;
-  border-bottom-color: @twitterBorderColor;
-  color: white;
-
-  &:hover {
-    .button-hover(@twitterBackgroundColor, @twitterBorderColor)
-  }
-
-  &:active {
-    .button-active(@twitterBackgroundColor, @twitterBorderColor)
-  }
-}
-
-.social-connect-buttons-facebook {
-  background-color: @facebookBackgroundColor;
-  border-bottom-color: @facebookBorderColor;
-  color: white;
-
-  &:hover {
-    .button-hover(@facebookBackgroundColor, @facebookBorderColor)
-  }
-
-  &:active {
-    .button-active(@facebookBackgroundColor, @facebookBorderColor)
-  }
-}
-
 .social-connect-container {
   text-align: center;
 }
