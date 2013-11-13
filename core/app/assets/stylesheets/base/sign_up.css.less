@@ -6,6 +6,12 @@
   color: white;
 }
 
+.button-active(@backgroundColor, @borderColor) {
+  background-color: darken(@backgroundColor, 10%);
+  border-top-color: darken(@borderColor, 10%);
+  color: white;
+}
+
 @twitterBackgroundColor: #52a1dc;
 @twitterBorderColor: #4b92c6;
 
@@ -20,6 +26,10 @@
   &:hover {
     .button-hover(@twitterBackgroundColor, @twitterBorderColor)
   }
+
+  &:active {
+    .button-active(@twitterBackgroundColor, @twitterBorderColor)
+  }
 }
 
 .social-connect-buttons-facebook {
@@ -29,6 +39,10 @@
 
   &:hover {
     .button-hover(@facebookBackgroundColor, @facebookBorderColor)
+  }
+
+  &:active {
+    .button-active(@facebookBackgroundColor, @facebookBorderColor)
   }
 }
 
