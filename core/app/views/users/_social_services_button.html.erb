@@ -22,14 +22,14 @@
       <span class="disconnect-buttons <%= service_name %>" <% if not connected %> style="display: none;"<% end %>>
         <span class="connected">
           <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, class: ["button", "disabled"]) do %>
-            <%= image_tag("#{service_name}.png") %>
+            <i class="icon-<%= service_name %>"></i>
             Connected to <%= service_name.capitalize %>
           <% end %>
         </span>
 
         <span class="disconnect">
           <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, class: ["button", "button-danger"]) do %>
-            <%= image_tag("#{service_name}.png") %>
+            <i class="icon-<%= service_name %>"></i>
               Disconnect from <%= service_name.capitalize %>
           <% end %>
         </span>
@@ -38,7 +38,7 @@
         <span class="connect">
             <% # the "use_authorize=true&x_auth_access_type=write" part is only relevant for Twitter, Facebook ignores this %>
             <%= link_to("/auth/#{service_name}?use_authorize=true&x_auth_access_type=write", class: ["button button-confirm", "js-accounts-popup-link"]) do %>
-            <%= image_tag("#{service_name}.png") %>
+            <i class="icon-<%= service_name %>"></i>
               Connect <%= service_name.capitalize %>
           <% end %>
         </span>
