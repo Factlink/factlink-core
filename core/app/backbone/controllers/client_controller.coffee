@@ -20,11 +20,9 @@ window.ClientController =
     if params.fact
       mp_track("Modal: Open prepare")
     factsNewView = new FactsNewView
-      layout: 'client'
       fact_text: params.fact
       title: params.title
       url: params.url
-      guided: FactlinkApp.guided
     factsNewView.on 'render', parent.onModalReady
     factsNewView.on 'factCreated', (fact) ->
       parent.highlightLastCreatedFactlink(fact.id, params.fact)

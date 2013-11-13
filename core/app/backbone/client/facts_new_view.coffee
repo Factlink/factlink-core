@@ -18,10 +18,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     shareNewFactRegion: '.js-region-share-new-fact'
 
   templateHelpers: ->
-    layout: @options.layout
     fact_text: @options.fact_text
-    title: @options.title
-    url: @options.url
     add_to_topic_header: Factlink.Global.t.add_to_topics.capitalize()
     guided: FactlinkApp.guided
 
@@ -88,9 +85,9 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
     fact = new Fact
       opinion: @wheel.userOpinionWithS()
-      displaystring:  @$('textarea.js-fact').val()
-      fact_url: @$('input.js-url').val()
-      fact_title: @$('input.js-title').val()
+      displaystring: @options.fact_text
+      fact_url: @options.url
+      fact_title: @options.title
       channels: channel_ids
       fact_sharing_options: @factSharingOptions.toJSON()
 
