@@ -58,7 +58,7 @@ loadUrl = (url)->
   else
     showFrame.src = url
 
-showFrame.onload = -> window.onModalReady()
+showFrame.onload = -> window.onModalReady?()
 
 # initialize the page, so we are ready to render new pages fast
 loadUrl '/client/blank'
