@@ -1,9 +1,19 @@
 @import "bootstrap/mixins";
 
-.button-darker(@backgroundColor, @borderColor) {
-  background-color: darken(@backgroundColor, 10%);
-  border-color: darken(@borderColor, 10%);
+.button-base(@backgroundColor, @borderColor) {
+  background-color: @backgroundColor;
   color: white;
+  border-color: @borderColor;
+
+  &:hover, &:active {
+    background-color: darken(@backgroundColor, 10%);
+    border-color: darken(@borderColor, 10%);
+    color: white;
+  }
+}
+
+.button-shadow(@shadowColor) {
+  text-shadow: 0 1px 0 @shadowColor;
 }
 
 .button {
@@ -56,14 +66,8 @@
 }
 
 .button-confirm {
-  background-color: @buttonConfirmBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonConfirmTextShadow;
-  border-color: @buttonConfirmBorder;
-
-  &:hover, &:active {
-    .button-darker(@buttonConfirmBackground, @buttonConfirmBorder)
-  }
+  .button-base(@buttonConfirmBackground, @buttonConfirmBorder);
+  .button-shadow(@buttonConfirmTextShadow);
 
   &.button-loading, &[disabled] {
     .striped(45deg);
@@ -72,14 +76,8 @@
 }
 
 .button-danger {
-  background-color: @buttonDangerBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonDangerTextShadow;
-  border-color: @buttonDangerBorder;
-
-  &:hover, &:active {
-    .button-darker(@buttonDangerBackground, @buttonDangerBorder)
-  }
+  .button-base(@buttonDangerBackground, @buttonDangerBorder);
+  .button-shadow(@buttonDangerTextShadow);
 
   &.button-loading, &[disabled] {
     .striped(45deg);
@@ -88,14 +86,8 @@
 }
 
 .button-success {
-  background-color: @buttonSuccessBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonSuccessTextShadow;
-  border-color: @buttonSuccessBorder;
-
-  &:hover, &:active {
-    .button-darker(@buttonSuccessBackground, @buttonSuccessBorder)
-  }
+  .button-base(@buttonSuccessBackground, @buttonSuccessBorder);
+  .button-shadow(@buttonSuccessTextShadow);
 
   &.button-loading, &[disabled] {
     .striped(45deg);
@@ -104,23 +96,11 @@
 }
 
 .button-twitter {
-  background-color: @buttonTwitterBackground;
-  border-color: @buttonTwitterBorder;
-  color: white;
-
-  &:hover, &:active {
-    .button-darker(@buttonTwitterBackground, @buttonTwitterBorder)
-  }
+  .button-base(@buttonTwitterBackground, @buttonTwitterBorder);
 }
 
 .button-facebook {
-  background-color: @buttonFacebookBackground;
-  border-color: @buttonFacebookBorder;
-  color: white;
-
-  &:hover, &:active {
-    .button-darker(@buttonFacebookBackground, @buttonFacebookBorder)
-  }
+  .button-base(@buttonFacebookBackground, @buttonFacebookBorder);
 }
 
 .button-small {
