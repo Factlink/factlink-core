@@ -127,7 +127,6 @@ class User
 
   scope :active,   where(:set_up => true)
                   .where(:deleted.ne => true)
-                  .where(:suspended.ne => true)
   scope :seen_the_tour,   active
                             .where(:seen_tour_step => 'tour_done')
 
@@ -187,7 +186,7 @@ class User
   end
 
   def active?
-    set_up && !deleted && !suspended
+    set_up && !deleted
   end
 
   def graph_user
@@ -278,17 +277,9 @@ class User
   end
 
   # Don't require being confirmed for being active for authentication
-  # Do check for deleted and suspended accounts though!
+  # Do check for deleted accounts though!
   def active_for_authentication?
-    !deleted && !suspended
-  end
-
-  def inactive_message
-    if suspended
-      :suspended
-    else
-      super # Use whatever other message
-    end
+    !deleted
   end
 
   set :features
@@ -309,17 +300,6 @@ class User
   end
 
   set :seen_messages
-
-  # don't send reset password instructions when the account is suspended
-  def self.send_reset_password_instructions(attributes={})
-    recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
-    if recoverable.suspended
-      recoverable.errors[:base] << I18n.t("devise.failure.suspended")
-    elsif recoverable.persisted?
-      recoverable.send_reset_password_instructions
-    end
-    recoverable
-  end
 
   # Override login mechanism to allow username or email logins
   def self.find_for_database_authentication(conditions)
