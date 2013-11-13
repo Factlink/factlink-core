@@ -103,24 +103,6 @@
   }
 }
 
-.button-disabled {
-  line-height: @baseButtonHeight;
-  background-color: @buttonDisabledBackground;
-  color: @mutedFontColor;
-  text-shadow: 0 1px 0 @buttonDisabledTextShadow;
-  border: @baseButtonBorderWidth solid @buttonDisabledBorder;
-
-  &.button-large {
-    line-height: @largeButtonHeight;
-  }
-  &:hover {
-    cursor: not-allowed;
-  }
-  &:active {
-    padding-top: 0;
-  }
-}
-
 .button-twitter {
   background-color: @buttonTwitterBackground;
   border-color: @buttonTwitterBorder;
@@ -156,6 +138,17 @@
 
 .button-loading {
   text-shadow: none;
+}
+
+.button-disabled {
+  background-color: @buttonDisabledBackground;
+  color: @mutedFontColor;
+  text-shadow: 0 1px 0 @buttonDisabledTextShadow;
+  border: @baseButtonBorderWidth solid @buttonDisabledBorder;
+
+  &:hover {
+    cursor: not-allowed;
+  }
 }
 
 .button-action-checked {
