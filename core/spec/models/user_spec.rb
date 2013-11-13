@@ -99,10 +99,10 @@ describe User do
       expect(json).to_not include(subject.encrypted_password)
     end
     [
-      :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
+      :admin, :'confirmation_sent_at', :confirmation_token,
       :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
       :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
-      :sign_in_count, :agreed_tos_on, :agrees_tos_name
+      :sign_in_count
     ].map{|x| x.to_s}.each do |field|
       it "does not contain other sensitive information: #{field}" do
         expect(json).to_not include(field)
@@ -151,8 +151,8 @@ describe User do
     end
     context "suspended user" do
       subject(:suspended_user) { create :full_user, suspended: true }
-      it { expect(suspended_user).to_not be_active }
-      it { expect(suspended_user).to     be_hidden }
+      it { expect(suspended_user).to     be_active }
+      it { expect(suspended_user).to_not be_hidden }
     end
   end
 

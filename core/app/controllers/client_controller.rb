@@ -8,9 +8,6 @@ class ClientController < ApplicationController
   end
 
   def facts_new
-    authorize! :new, Fact
-    authenticate_user!
-
     render_client
   end
 

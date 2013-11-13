@@ -57,27 +57,34 @@
   }
 }
 
-.added-argument-timeline {
+.added-argument-timeline,
+.timeline-left,
+.timeline-right,
+.timeline-impact
+{
   background: @emailBackgroundColor;
 }
 
-.timeline-left,
-.timeline-right {
-  width: 50%;
-  width: 50px;
-  background: @emailBackgroundColor;
+@timeline-width: 100px;
+@timeline-border-width: 3px;
+.timeline-left {
+  width: (@timeline-width/2);
 }
 .timeline-right {
-  border-left: 3px solid #b9bec6;
+  width: (@timeline-width/2 - @timeline-border-width);
+  border-left: @timeline-border-width solid #b9bec6;
 }
 .timeline-impact {
-  width: 100px;
+  width: @timeline-width;
   height: 37px;
-  background: @emailBackgroundColor;
 }
 
 .timeline-impact-indicator {
   text-align: center;
   margin: 0 auto;
-  border-radius: 1000px;
+}
+.timeline-impact-indicator > img {
+  //images are inline but we don't want browsers to add padding for descenders
+  vertical-align: top; //avoid descender-padding
+  font-size: 0; //some browsers don't support vertical-align; they get 0-sized descenders.
 }

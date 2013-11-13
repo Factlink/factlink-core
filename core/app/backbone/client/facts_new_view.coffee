@@ -3,7 +3,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
 
   template: "client/facts_new"
 
-  className: 'fact-new'
+  className: 'fact-new-container'
 
   ui:
     'post_factlink': '.js-submit-post-factlink'
@@ -13,27 +13,28 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     'click .js-submit-post-factlink': 'post_factlink',
 
   regions:
+    learnMoreRegion: '.js-learn-more-region'
     suggestedTopicsRegion: '.js-region-suggested-topics'
     shareNewFactRegion: '.js-region-share-new-fact'
 
   templateHelpers: ->
-    layout: @options.layout
     fact_text: @options.fact_text
-    title: @options.title
-    url: @options.url
     add_to_topic_header: Factlink.Global.t.add_to_topics.capitalize()
     guided: FactlinkApp.guided
 
   initialize: ->
     @addToCollection = new OwnChannelCollection
 
-    @openOpinionHelptext()
-
   onRender: ->
-    @renderAddToChannel()
-    @renderSuggestedChannels()
     @renderPersistentWheelView()
-    @renderShareNewFact()
+
+    if Factlink.Global.signed_in
+      @renderAddToChannel()
+      @renderSuggestedChannels()
+      @renderShareNewFact()
+      @openOpinionHelptext()
+    else
+      @learnMoreRegion.show new LearnMoreBottomView
 
     if FactlinkApp.guided
       @ui.opinion_animation.show()
@@ -76,17 +77,15 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       model: @factSharingOptions
 
   post_factlink: (e)->
-    e.preventDefault()
-    e.stopPropagation()
-    disableInputWithDisableWith(@ui.post_factlink)
+    @ui.post_factlink.prop('disabled', true).text('Posting...')
 
-    channel_ids = @addToCollection.map (ch)-> ch.id
+    channel_ids = @addToCollection.pluck('id')
 
     fact = new Fact
       opinion: @wheel.userOpinionWithS()
-      displaystring:  @$('textarea.js-fact').val()
-      fact_url: @$('input.js-url').val()
-      fact_title: @$('input.js-title').val()
+      displaystring: @options.fact_text
+      fact_url: @options.url
+      fact_title: @options.title
       channels: channel_ids
       fact_sharing_options: @factSharingOptions.toJSON()
 

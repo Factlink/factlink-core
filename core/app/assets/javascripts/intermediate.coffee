@@ -54,11 +54,11 @@ loadUrl = (url)->
   backbone = showFrame.contentWindow.Backbone
   history = backbone?.history
   if history && backbone.History.started
-    history.loadUrl url
+    history.navigate url, true
   else
     showFrame.src = url
 
-showFrame.onload = -> window.onModalReady()
+showFrame.onload = -> window.onModalReady?()
 
 # initialize the page, so we are ready to render new pages fast
 loadUrl '/client/blank'
