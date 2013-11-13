@@ -103,7 +103,6 @@ function getServer(config) {
       return;
     }
 
-
     blacklist.if_allowed(site,function() {
 
       var output_html = original_html;
