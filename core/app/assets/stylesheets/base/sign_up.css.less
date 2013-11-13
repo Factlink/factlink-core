@@ -1,26 +1,34 @@
 @import "bootstrap/mixins";
 
+.button-hover(@backgroundColor, @borderColor) {
+  background-color: darken(@buttonColor, 10%);
+  border-bottom-color: darken(@borderColor, 10%);
+  color: white;
+}
+
+@twitterBackgroundColor: #52a1dc;
+@twitterBorderColor: #4b92c6
+
+@facebookBackgroundColor: #335292;
+@facebookBorderColor: #2d4a84;
+
 .social-connect-buttons-twitter {
-  background-color: #52a1dc;
-  border-bottom-color: #4b92c6;
+  background-color: @twitterBackgroundColor;
+  border-bottom-color: @twitterBorderColor;
   color: white;
 
   &:hover {
-    background-color: darken(#52a1dc, 10%);
-    border-bottom-color: darken(#4b92c6, 10%);
-    color: white;
+    .button-hover(@twitterBackgroundColor, @twitterBorderColor)
   }
 }
 
 .social-connect-buttons-facebook {
-  background-color: #335292;
-  border-bottom-color: #2d4a84;
+  background-color: @facebookBackgroundColor;
+  border-bottom-color: @facebookBorderColor;
   color: white;
 
   &:hover {
-    background-color: darken(#335292, 10%);
-    border-bottom-color: darken(#2d4a84, 10%);
-    color: white;
+    .button-hover(@facebookBackgroundColor, @facebookBorderColor)
   }
 }
 
