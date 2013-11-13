@@ -96,13 +96,7 @@ FactlinkUI::Application.routes.draw do
             controller: :global_feature_toggles,
             only: [:show, :update ]
 
-      resources :users, only: [:show, :edit, :update, :index, :destroy] do
-        collection do
-          get :reserved
-          get :deleted
-          get :suspended
-        end
-      end
+      resources :users, only: [:show, :edit, :update, :index, :destroy]
     end
   end
 

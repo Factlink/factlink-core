@@ -90,9 +90,7 @@ Devise.setup do |config|
   # You can use this to let your user access some features of your application
   # without confirming the account, but blocking it after a certain period
   # (ie 2 days).
-
-  config.confirm_within = 1.month # NOTE (JP): Required because we keep confirmation tokens around
-                                  # See our Users::ConfirmationController#restore_confirmation_token
+  # config.confirm_within = 1.month
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.

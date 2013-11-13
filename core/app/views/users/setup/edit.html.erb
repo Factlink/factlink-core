@@ -4,20 +4,11 @@
 
   <div class="setup-account-form">
     <div class="control-group">
-      <%= f.label :password, "New password", class: "control-label" %>
+      <%= f.label :full_name, "Your full name", class: "control-label" %>
 
       <div class="controls">
-        <%= f.password_field :password, required: true %>
-        <%= possible_error_for_field(@user, :password) %>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <%= f.label :password_confirmation, "Confirm new password", class: "control-label" %>
-
-      <div class="controls">
-        <%= f.password_field :password_confirmation, required: true %>
-        <%= possible_error_for_field(@user, :password_confirmation) %>
+        <%= f.text_field :full_name, required: true %>
+        <%= possible_error_for_field(@user, :full_name) %>
       </div>
     </div>
 

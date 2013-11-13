@@ -16,25 +16,14 @@ describe Users::SetupController do
   end
 
   describe :update do
-    it 'resets password and removes reset_password_token' do
-      user.reset_password_token = 'some_token'
-      user.save!
-
+    it 'updates full name' do
       sign_in user
 
-      post :update, user: {password: 'example', password_confirmation: 'example'}
+      post :update, user: {full_name: 'full_name'}
 
       user.reload
-      expect(user.valid_password?('example')).to be_true
-      expect(user.reset_password_token).to be_nil
-    end
-
-    it "returns a user with errors if the passwords don't match" do
-      sign_in user
-
-      post :update, user: {password: 'example1', password_confirmation: 'example2'}
-
-      expect(response.body).to match "match confirmation"
+      expect(user.full_name).to eq 'full_name'
+      expect(user.set_up).to be_true
     end
   end
 end
