@@ -81,7 +81,7 @@ function getServer(config) {
     if (open_id !== null) {
       return site + '#factlink-open-' + open_id;
     } else if (scroll_to !== null) {
-      return site + '#factlink-' + open_id;
+      return site + '#factlink-' + scroll_to;
     } else {
       return site;
     }
