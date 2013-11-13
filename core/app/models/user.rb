@@ -326,16 +326,4 @@ class User
     login = conditions.delete(:login)
     self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
-
-  def pending_any_confirmation
-    yield # Always allow confirmation, so users can login again.
-    # Used together with ConfirmationsController#restore_confirmation_token
-  end
-
-  # Fix for devise, for a case that should never happen at production
-  def confirmation_period_expired?
-    return false unless self.confirmation_sent_at
-
-    super
-  end
 end
