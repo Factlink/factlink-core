@@ -59,20 +59,13 @@ class ApplicationController < ActionController::Base
   end
 
   def safe_return_to_path
-    uri = URI.parse(return_to_path.to_s)
+    return nil unless params[:return_to]
+
+    uri = URI.parse(params[:return_to].to_s)
     if FactlinkUI::Application.config.hostname == uri.host
       uri.to_s
     else
       nil
-    end
-  end
-
-  def return_to_path
-    if params[:return_to]
-      params[:return_to]
-    elsif request.env['omniauth.origin']
-      query_params = QueryParams.new(request.env['omniauth.origin'])
-      query_params[:return_to]
     end
   end
 

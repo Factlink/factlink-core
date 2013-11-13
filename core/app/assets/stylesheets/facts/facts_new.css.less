@@ -1,20 +1,25 @@
 @import "bootstrap/mixins";
 
-.fact-new {
-  .white-block-with-shadow();
-  visibility: visible;
-  width: @factNewAndSignInWidth;
-  margin: 50px auto;
-  padding: 15px;
+.fact-new-container {
   position: relative;
+  width: @factNewWidth;
+  margin: 50px auto;
   cursor: auto;
-
-  .finish-popover {
-    position: relative;
-  }
+  visibility: visible;
 }
 
-.fact-new-fact-container {
+.fact-new {
+  .white-block-with-shadow();
+  padding: 15px;
+}
+
+.fact-new-topics-header { // Also used in channels/filtered_suggested_topics
+  display: inline-block;
+  margin: 10px 0 5px;
+  font-weight: @baseFontBoldWeight;
+}
+
+.fact-new-fact {
   display: inline-block; // for new block formatting context
   width: 100%;
 
@@ -23,7 +28,7 @@
 }
 
 .factlink-popover.fact-new-opinion-popover {
-  z-index: 1; // below z-index of .fact-new-fact-container
+  z-index: 1; // below z-index of .fact-new-fact
 }
 
 .fact-new-body {
@@ -31,3 +36,29 @@
   word-wrap: break-word;
   font-size: @factNewBodyFontSize;
 }
+
+.fact-new-topics-container {
+  margin: 0 0 20px 55px;
+  width: 300px;
+}
+
+.fact-new-buttons {
+  overflow: hidden; // new block formatting context
+  margin-top: @popup-padding;
+}
+
+.fact-new-finish-popover {
+  position: relative;
+}
+
+.fact-new-submit {
+  float: right;
+  width: 125px;
+}
+
+.fact-new-share {
+  float: right;
+  margin-top: 3px;
+  margin-right: 10px;
+}
+

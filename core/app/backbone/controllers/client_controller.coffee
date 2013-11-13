@@ -14,21 +14,15 @@ window.ClientController =
       newClientModal.mainRegion.show view
 
   showNewFact: (params={}) ->
-    unless window.currentUser?
-      window.location = Factlink.Global.path.sign_in_client()
-      return
-
     clientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show clientModal
     FactlinkApp.guided = params.guided == 'true'
     if params.fact
       mp_track("Modal: Open prepare")
     factsNewView = new FactsNewView
-      layout: 'client'
       fact_text: params.fact
       title: params.title
       url: params.url
-      guided: FactlinkApp.guided
     factsNewView.on 'render', parent.onModalReady
     factsNewView.on 'factCreated', (fact) ->
       parent.highlightLastCreatedFactlink(fact.id, params.fact)

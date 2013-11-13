@@ -32,11 +32,6 @@ class HomeController < ApplicationController
     end
   end
 
-  before_filter :redirect_logged_in_user, only: :index
-  def redirect_logged_in_user
-    redirect_to after_sign_in_path_for(current_user) and return false if user_signed_in?
-  end
-
   before_filter :accepts_html_instead_of_stars, only: [:index]
   def accepts_html_instead_of_stars
     # If the request 'Content Accept' header indicates a '*/*' format,
@@ -48,6 +43,10 @@ class HomeController < ApplicationController
   end
 
   def index
-    render "home/pages/index", layout: "static_pages"
+    if user_signed_in?
+      redirect_to after_sign_in_path_for(current_user)
+    else
+      render "home/pages/index", layout: "static_pages"
+    end
   end
 end
