@@ -155,7 +155,6 @@ class User
     # this methods defined which fields are to be removed
     # when the user is deleted (anonymized)
     def personal_information_fields
-      # Deliberately not removing agrees_tos_name for now
       %w(
         full_name location biography confirmed_at reset_password_token
         confirmation_token invitation_token
@@ -253,7 +252,7 @@ class User
   def serializable_hash(options={})
     options ||= {}
     options[:except] ||= []
-    options[:except] += [:admin, :agrees_tos, :agreed_tos_on, :agrees_tos_name, ]
+    options[:except] += [:admin]
     super(options)
   end
 
@@ -339,15 +338,4 @@ class User
 
     super
   end
-
-  # LEGACY PATENT STUFF:
-  # this data was required when we were still working on our patents
-  # we keep it around in our database for now. If you want to remove
-  # this, please make a backup somewhere safe, so we have the data
-  # of who signed the tos at the time.
-  #
-  # when removing, also remove from serializable hash code
-  field :agrees_tos, type: Boolean, default: false
-  field :agrees_tos_name, type: String, default: ""
-  field :agreed_tos_on, type: DateTime
 end
