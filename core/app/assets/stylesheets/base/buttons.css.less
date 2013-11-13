@@ -54,7 +54,7 @@
   background-color: @buttonConfirmBackground;
   color: white;
   text-shadow: 0 1px 0 @buttonConfirmTextShadow;
-  border-bottom-color: @buttonConfirmBorder;
+  border-color: @buttonConfirmBorder;
 
   &:hover, &:active {
     color: white;
@@ -130,6 +130,26 @@
   &.button-loading, &[disabled] {
     .striped(45deg, rgba(0,0,0,0.04));
     color: @mutedFontColor;
+  }
+}
+
+.button-twitter {
+  background-color: @twitterBackgroundColor;
+  border-color: @twitterBorderColor;
+  color: white;
+
+  &:hover, &:active {
+    .button-darker(@twitterBackgroundColor, @twitterBorderColor)
+  }
+}
+
+.button-facebook {
+  background-color: @facebookBackgroundColor;
+  border-color: @facebookBorderColor;
+  color: white;
+
+  &:hover, &:active {
+    .button-darker(@facebookBackgroundColor, @facebookBorderColor)
   }
 }
 
