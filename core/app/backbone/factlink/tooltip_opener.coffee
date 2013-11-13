@@ -19,7 +19,7 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
 
   initialize: -> @model = new Hovermodel
 
-  render: -> @_hoverintent @options.$tooltipElement, 'inTarget', 7
+  render: -> @_hoverintent @options.$tooltipElement, 'inTarget'
 
   onClose: -> @_positionedRegion?.reset()
 
@@ -41,7 +41,7 @@ class Backbone.Factlink.TooltipOpener extends Backbone.Marionette.View
     else
       @_openTooltip() if @model.hovered()
 
-  _hoverintent: ($element, property, sensitivity) ->
+  _hoverintent: ($element, property, sensitivity=undefined) ->
     $element.hoverIntent
       sensitivity: sensitivity
       timeout: if @options.hoverIntent then 500 else 0
