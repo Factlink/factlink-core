@@ -130,7 +130,7 @@ class Ability
       can :edit_settings, user
       can :destroy, user
       can :read, User do |u|
-        u.active? || u.deleted
+        u.active? || u.deleted # we show a special page for deleted users
       end
     end
   end
