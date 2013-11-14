@@ -13,8 +13,8 @@ class Accounts::SocialConnectionsController < Accounts::BaseController
       fail AccountError, "Already connected to a different account, please sign in to the connected account or reconnect your account."
     end
 
-    if social_account
-      social_account.delete # TODO: update existing one
+    if social_account # spurious or already connected account
+      social_account.delete
     end
 
     current_user.social_account(provider_name).update_attributes!(omniauth_obj: omniauth_obj)
