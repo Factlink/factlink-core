@@ -28,6 +28,7 @@ class FactsController < ApplicationController
 
   def discussion_page
     authorize! :show, @fact
+    authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder
   end

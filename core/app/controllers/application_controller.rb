@@ -96,10 +96,10 @@ class ApplicationController < ActionController::Base
   end
 
   def backbone_responder &block
+
+
     respond_to do |format|
       format.html do
-        authorize! :access, Ability::FactlinkWebapp
-
         render inline: '', layout: 'channels'
       end
       format.json { yield } if block_given?

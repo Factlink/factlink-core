@@ -22,6 +22,7 @@ class ChannelsController < ApplicationController
 
   def show
     authorize! :show, @channel
+    authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder do
       @channel = interactor(:'channels/get', id: @channel.id)

@@ -2,6 +2,8 @@ class MessagesController < ApplicationController
   before_filter :authenticate_user!
 
   def show
+    authorize! :access, Ability::FactlinkWebapp
+
     backbone_responder
   end
 
