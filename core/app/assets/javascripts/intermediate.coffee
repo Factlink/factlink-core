@@ -48,7 +48,6 @@ showUrl = (url, successFn) ->
       successFn()
 
   loadUrl url
-  showFrame.className = "overlay"
 
 loadUrl = (url)->
   backbone = showFrame.contentWindow.Backbone
