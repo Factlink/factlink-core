@@ -42,7 +42,7 @@ describe Ability do
       it {non_set_up.should_not be_able_to :update, non_set_up_user }
       it {non_set_up.should     be_able_to :set_up, non_set_up_user }
       it {non_set_up.should     be_able_to :show, non_set_up_user }
-      it {non_set_up.should_not be_able_to :show, User }
+      it {non_set_up.should     be_able_to :show, User }
     end
     context "as an admin" do
       it {admin.should     be_able_to :manage, User }
@@ -58,7 +58,7 @@ describe Ability do
       it {anonymous.should_not be_able_to :manage, User }
 
       it {anonymous.should_not be_able_to :set_up, user }
-      it {anonymous.should_not be_able_to :show, User }
+      it {anonymous.should     be_able_to :show, User }
       it {anonymous.should_not be_able_to :edit_settings, user }
     end
   end

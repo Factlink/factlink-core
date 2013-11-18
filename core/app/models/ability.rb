@@ -50,6 +50,10 @@ class Ability
     can :read, Fact
     can :read, FactRelation
     can :read, Comment
+
+    can :read, User do |u|
+      u.active? || u.deleted # we show a special page for deleted users
+    end
   end
 
   def define_channel_abilities
@@ -129,9 +133,6 @@ class Ability
       can :update, user
       can :edit_settings, user
       can :destroy, user
-      can :read, User do |u|
-        u.active? || u.deleted # we show a special page for deleted users
-      end
     end
   end
 
