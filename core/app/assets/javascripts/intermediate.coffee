@@ -34,7 +34,7 @@ window.highlightLastCreatedFactlink = (id, text) ->
 
 showUrl = (url, successFn) ->
   window.onModalReady = ->
-    window.onModalReady = ->
+    window.onModalReady = -> # nothing
     successFn()
 
   backbone = showFrame.contentWindow.Backbone
