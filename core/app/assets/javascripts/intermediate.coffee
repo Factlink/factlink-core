@@ -32,20 +32,19 @@ window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
     remote.highlightNewFactlink(text, id)
 
+window.onModalReady = ->
+
 showUrl = (url, successFn) ->
   window.onModalReady = ->
     window.onModalReady = ->
     successFn()
 
-  loadUrl url
-
-loadUrl = (url)->
   backbone = showFrame.contentWindow.Backbone
   history = backbone?.history
   if history && backbone.History.started
     history.navigate url, true
   else
-    showFrame.src = url
+    showFrame.onload = -> window.onModalReady()
+    showFrame.src = showUrl
 
-showFrame.onload = -> window.onModalReady?()
 showFrame.src = '/client/blank'
