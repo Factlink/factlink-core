@@ -28,14 +28,6 @@ window.remote = new xdm.Rpc {},
       last_created_text = text
       return # don't return anything unless you have a callback on the other site of easyXdm
 
-    position: (top, left) ->
-      try
-        showFrame.contentWindow.position top, left
-      catch e # Window not yet loaded
-        showFrame.onload = ->
-          showFrame.contentWindow.position top, left
-      return # don't return anything unless you have a callback on the other site of easyXdm
-
 window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
     remote.highlightNewFactlink(text, id)
