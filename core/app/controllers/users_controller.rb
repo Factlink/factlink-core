@@ -7,7 +7,6 @@ class UsersController < ApplicationController
 
   def show
     authorize! :show, @user
-    authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder do
       render 'users/_user', user: @user

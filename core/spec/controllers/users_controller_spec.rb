@@ -19,7 +19,6 @@ describe UsersController do
       FactoryGirl.reload # hack because of fixture in check
 
       should_check_can :show, user
-      should_check_can :access, Ability::FactlinkWebapp
 
       get :show, username: user.username, format: :json
       response.should be_success
@@ -44,7 +43,6 @@ describe UsersController do
       deleted_user = User.find deleted_user.id
 
       should_check_can :show, deleted_user
-      should_check_can :access, Ability::FactlinkWebapp
 
       get :show, username: deleted_user.username, format: :json
       response.should be_success
