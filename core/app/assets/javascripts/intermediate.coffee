@@ -44,6 +44,6 @@ showUrl = (url, successFn) ->
     history.navigate url
   else
     showFrame.onload = -> window.onModalReady()
-    showFrame.src = showUrl
+    showFrame.src = url
 
 showFrame.src = '/client/blank'
