@@ -60,4 +60,11 @@ describe "Static pages:", type: :feature do
       assume_unchanged_screenshot "static_tos"
     end
   end
+
+  describe "On your site page" do
+    it "it renders correctly" do
+      visit "/p/on-your-site"
+      assume_unchanged_screenshot "static_on_your_site"
+    end
+  end
 end
