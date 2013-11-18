@@ -32,8 +32,6 @@ window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
     remote.highlightNewFactlink(text, id)
 
-window.onModalReady = ->
-
 showUrl = (url, successFn) ->
   window.onModalReady = ->
     window.onModalReady = ->
