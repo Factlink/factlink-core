@@ -10,5 +10,4 @@ Factlink.remote = new Factlink.easyXDM.Rpc {
   remote:
     showFactlink: {}
     prepareNewFactlink: {}
-    position: {}
 }
