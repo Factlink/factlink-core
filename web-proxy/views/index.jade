@@ -3,6 +3,8 @@ html(lang="en")
     head
         title
           #{page_url}
+        style * { height:100%; }
+        //- 100% is a workaround for https://code.google.com/p/chromium/issues/detail?id=299614
     frameset(rows="49,*", frameborder="0", framespacing="0", cols="*")
         frame(src=header_url)
         frame(src=parse_url)
