@@ -151,6 +151,10 @@ span.factlink {
   width:24px;
   background-size:contain;
   position:relative;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 @mixin button-background($top-color, $bottom-color) {
