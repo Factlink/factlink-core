@@ -140,14 +140,14 @@ span.factlink {
 }
 
 
-.factLink-button{
+.factlink-create-button {
   background:url("https://factlink.com/favicon.ico");
   height:24px;
   width:24px;
   background-size:contain;
   position:relative;
 }
-.factLink-button:before{
+.factlink-create-button:before {
   content:"Select any statement in this article and click this button to add your opinion.";
   position:absolute;
   border-radius: 3px;
@@ -167,7 +167,7 @@ span.factlink {
   visibility 0 0.3s;
 }
 
-.factLink-button:hover:before{
+.factlink-create-button:hover:before {
   visibility:visible;
   opacity:1;
   transition:opacity 0.3s;
