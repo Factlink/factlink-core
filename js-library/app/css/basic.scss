@@ -164,6 +164,7 @@ span.factlink {
   border: 1px solid #ccc;
   width: 70px;
   padding: 2px;
+  position: relative;
   @include button-background($greyLight, $grey);
 
   &:before {
