@@ -28,6 +28,11 @@
   transition: opacity 0.1s;
   opacity: 0.75;
 
+  // Workaround to fix flickering frame in Chrome
+  // (See: http://stackoverflow.com/questions/5814101/css3-transition-transform-translate3d-causes-severe-flicker-on-first-or-last-fr)
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
   &:hover {
     opacity: 1;
   }
