@@ -65,6 +65,10 @@ module.exports = (grunt) ->
         src:  'build/js/publisher_poc/nu.js'
         dest: 'build/nu.js'
     code_inliner:
+      basic_css:
+        src: 'build/css/basic.min.css'
+        dest: 'build/jail_iframe.js' # See jail_iframe/initializers/style.coffee
+
       jail_iframe_loader_DEPRECATED:
         src: 'build/jail_iframe.js'
         dest: 'build/factlink.js'
@@ -93,8 +97,12 @@ module.exports = (grunt) ->
     sass:
       build:
         files:
-          'build/css/basic.css': 'app/css/basic.scss'
+          'build/css/basic_without_base64.css': 'app/css/basic.scss'
           'build/css/publisher_poc/nu.nl.css': 'app/css/publisher_poc/nu.nl.scss'
+    cssUrlEmbed:
+      encodeDirectly:
+        files:
+          'build/css/basic.css': ['build/css/basic_without_base64.css']
     cssmin:
       build:
         options:
@@ -102,14 +110,17 @@ module.exports = (grunt) ->
         expand: true
         cwd: 'build/css/'
         src: ['**/*.css']
-        dest: 'build/server/css/'
+        dest: 'build/css/'
+        ext: '.min.css'
     uglify:
       options: {
         banner: banner_template
       },
-      all:
+      jail_iframe:
         files:
           'build/jail_iframe.min.js':                        ['build/jail_iframe.js']
+      all_except_jail_iframe:
+        files:
           'build/server/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js']
           'build/server/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
           'build/server/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js']
@@ -192,9 +203,9 @@ module.exports = (grunt) ->
 
       grunt.file.write destination_file_path, destination_code_with_inlined_source
 
-  grunt.registerTask 'compile', ['clean', 'copy:build', 'copy:start_stop_files',
-                                 'coffee', 'sass', 'concat', 'uglify', 'cssmin',
-                                 'code_inliner', 'copy:dist']
+  grunt.registerTask 'jail_iframe', ['concat:jail_iframe', 'code_inliner:basic_css', 'uglify:jail_iframe']
+  grunt.registerTask 'compile', ['clean', 'copy:build', 'copy:start_stop_files', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin',
+                                 'jail_iframe', 'concat', 'uglify:all_except_jail_iframe', 'code_inliner', 'copy:dist']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
   grunt.registerTask 'default', ['compile', 'test']
@@ -210,3 +221,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-clean'
+  grunt.loadNpmTasks 'grunt-css-url-embed'

@@ -10,15 +10,5 @@ window.$ = (selector, context) ->
 $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
 
-
-
 # Create the Factlink container
 Factlink.el = $("#fl")
-
-# Add the stylesheet
-$style = $("<link>").attr
-  type: "text/css"
-  rel: "stylesheet"
-  href: FactlinkConfig.lib + "/css/basic.css?" + (new Date()).getTime()
-
-$style.prependTo $("head")
