@@ -23,7 +23,7 @@ Factlink.startAnnotating = ->
     window.clearTimeout timeout
     Factlink.createButton.hide()
 
-    if $('.factlink-create-button').length
+    if $('.js-factlink-create-button').length
       return
 
     # We execute the showing of the prepare menu inside of a setTimeout
