@@ -8,5 +8,3 @@ Factlink.initializeFactlinkButton = ->
     # prevent mousedown from deselecting the text that
     # the button is intended to use:
     e.preventDefault()
-
-
