@@ -26,6 +26,7 @@ highlighting = false
 Factlink.startHighlighting = ->
   return if highlighting
   highlighting = true
+  Factlink.initializeFactlinkButton()
 
   console.info "Factlink:", "startHighlighting"
   fetchFacts Factlink.siteUrl()
