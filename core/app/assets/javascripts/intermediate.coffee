@@ -40,8 +40,8 @@ showUrl = (url, successFn) ->
   backbone = showFrame.contentWindow.Backbone
   history = backbone?.history
   if history && backbone.History.started
-    history.loadUrl url # Force loading the url, even if already showing that url
-    history.navigate url
+    history.fragment = null # Force loading the url, even if already showing that url
+    history.navigate url, true
   else
     showFrame.onload = -> window.onModalReady()
     showFrame.src = url
