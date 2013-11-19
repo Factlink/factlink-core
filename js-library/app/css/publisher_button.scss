@@ -3,18 +3,6 @@ $grey             : #e0e0e0;
 $greyLightDarker  : darken(#fafcfb, 10%);
 $greyDarker       : darken(#e0e0e0, 10%);
 
-.factlink-create-button-square {
-  background:url("https://factlink.com/favicon.ico");
-  height:24px;
-  width:24px;
-  background-size:contain;
-  position:relative;
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
 @mixin button-background($top-color, $bottom-color) {
   background: $top-color;
   background: -webkit-linear-gradient(top, $top-color 0%, $bottom-color 100%);
@@ -50,5 +38,17 @@ $greyDarker       : darken(#e0e0e0, 10%);
   &:hover {
     cursor: pointer;
     @include button-background($greyLightDarker, $greyDarker);
+  }
+}
+
+.factlink-create-button-square {
+  background:url("https://factlink.com/favicon.ico");
+  height:24px;
+  width:24px;
+  background-size:contain;
+  position:relative;
+
+  &:hover {
+    cursor: pointer;
   }
 }
