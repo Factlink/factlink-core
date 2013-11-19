@@ -28,17 +28,6 @@ window.FACTLINK_START_LOADER = ->
   outerWrapperEl.style.position = 'absolute'; # Prevent reflowing of the page
 
   document.body.appendChild outerWrapperEl
-  #### Create <script> tag
-
-  coreScriptTag = document.createElement('script')
-
-  hashOfFactlinkCoreFile = '__HASH_PLACEHOLDER_FOR_GRUNT__' # Overwritten by grunt task
-  if window.FactlinkConfig.srcPath.match(/\.min\.js$/)
-    hash_was_replaced = '_' != hashOfFactlinkCoreFile[0]
-    filename_hash_suffix = if hash_was_replaced then '.'+hashOfFactlinkCoreFile else ''
-    coreScriptTag.src = window.FactlinkConfig.lib + '/factlink.core.min' + filename_hash_suffix + '.js'
-  else
-    coreScriptTag.src = window.FactlinkConfig.lib + window.FactlinkConfig.srcPath
 
   # Create proxy object that stores all calls
   # proxies calls from external content page to the js-library "jail" iframe's "Factlink"..
@@ -75,16 +64,16 @@ window.FACTLINK_START_LOADER = ->
 
   #### Load iframe with script tag
 
-  window.FACTLINK_ON_IFRAME_LOAD = ->
-    jslib_jail_iframe.contentWindow.FactlinkConfig = window.FactlinkConfig
-    jslib_jail_iframe.contentWindow.document.head.appendChild coreScriptTag
+  `var jslib_jail_code = __INLINE_CODE_FROM_GRUNT__`
 
   jslib_jail_doc = jslib_jail_iframe.contentWindow.document
   jslib_jail_doc.open()
   jslib_jail_doc.write """
     <!DOCTYPE html><html><head>
       <script>
-        window.parent.FACTLINK_ON_IFRAME_LOAD();
+        window.FactlinkConfig = #{JSON.stringify(window.FactlinkConfig)};
+
+        #{jslib_jail_code}
       </script>
     </head><body></body></html>
   """

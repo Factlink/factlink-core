@@ -8,7 +8,6 @@ banner_template = """
 */
 """
 
-crypto = require 'crypto'
 path = require 'path'
 fs = require 'fs'
 
@@ -21,7 +20,7 @@ module.exports = (grunt) ->
         files: [
           { src: ['**/*.coffee'], cwd: 'app', dest: 'build', ext: '.js', expand: true }
         ]
-    corehasher:
+    code_inliner:
       src: 'build/server/factlink.core.min.js'
       dest: 'build/js/loader/loader_common.js'
     concat:
@@ -159,27 +158,19 @@ module.exports = (grunt) ->
           "escape": true
           "_": true
 
-  md5 = (filepath) ->
-    hash = crypto.createHash 'md5'
-    hash.update grunt.file.read filepath, 'utf8'
-    hash.digest 'hex'
+  grunt.task.registerTask 'code_inliner', 'Inline code from one file into another', ->
+    source_file_path = grunt.config 'code_inliner.src'
+    destination_file_path = grunt.config 'code_inliner.dest'
 
-  grunt.task.registerTask 'corehasher', 'Load FactlinkCore with a hash.', ()->
-    source_file_path = grunt.config 'corehasher.src'
-    destination_file_path = grunt.config 'corehasher.dest'
-    grunt.log.writeln "Calculating hash from file \"#{source_file_path}\""
-    source_file_hash = md5 source_file_path
+    grunt.log.writeln "Replacing placeholder with code in file \"#{destination_file_path}\"."
 
-    new_source_file_path = source_file_path.replace /.js$/, '.'+source_file_hash+'.js'
-    grunt.log.writeln "Renaming file \"#{source_file_path}\" to \"#{new_source_file_path}\""
-    fs.renameSync(source_file_path, new_source_file_path );
+    stringified_source_code = JSON.stringify(grunt.file.read(source_file_path, 'utf8'))
+    destination_code = grunt.file.read destination_file_path, 'utf8'
+    destination_code_with_inlined_source = destination_code.replace /__INLINE_CODE_FROM_GRUNT__/, stringified_source_code
 
-    grunt.log.writeln "Replacing placeholder with hash value in file \"#{destination_file_path}\"."
-    content = grunt.file.read destination_file_path
-    content_with_hash = content.replace /__HASH_PLACEHOLDER_FOR_GRUNT__/, source_file_hash
-    grunt.file.write destination_file_path, content_with_hash
+    grunt.file.write destination_file_path, destination_code_with_inlined_source
 
-  grunt.registerTask 'core', ['concat:core', 'uglify:core', 'corehasher']
+  grunt.registerTask 'core', ['concat:core', 'uglify:core', 'code_inliner']
   grunt.registerTask 'compile', ['clean', 'copy:build', 'coffee', 'sass', 'core', 'concat', 'copy:start_stop_files',
                                  'uglify:all_except_core', 'cssmin', 'copy:dist']
   grunt.registerTask 'test',    ['jshint', 'qunit']
