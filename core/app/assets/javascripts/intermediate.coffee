@@ -22,8 +22,7 @@ window.remote = new xdm.Rpc {},
               "?fact=" + encodeURIComponent(text) +
               "&url=" + encodeURIComponent(siteUrl) +
               "&title=" + encodeURIComponent(siteTitle) +
-              "&guided=" + encodeURIComponent(guided) +
-              "&layout=client" # layout=client is still necessary to get the client sign in page
+              "&guided=" + encodeURIComponent(guided)
       showUrl url, successFn
       last_created_text = text
       return # don't return anything unless you have a callback on the other site of easyXdm
@@ -40,8 +39,12 @@ showUrl = (url, successFn) ->
   backbone = showFrame.contentWindow.Backbone
   history = backbone?.history
   if history && backbone.History.started
-    history.loadUrl url # Force loading the url, even if already showing that url
-    history.navigate url
+    # Force (re)loading the url, even if already showing that url
+    # If history.fragment is equal to the current url, it doesn't reload,
+    # so we reset it to null
+    history.fragment = null
+
+    history.navigate url, trigger: true
   else
     showFrame.onload = -> window.onModalReady()
     showFrame.src = url
