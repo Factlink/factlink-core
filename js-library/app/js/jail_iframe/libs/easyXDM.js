@@ -32,7 +32,6 @@ var global = this;
 var channelId = Math.floor(Math.random() * 10000); // randomize the initial id in case of multiple closures loaded
 var emptyFn = Function.prototype;
 //FACTLINK:CHANGED added file:\/| in the following line
-// var reURI = /^((file:\/|http.?:)\/\/([^:\/\s]+)(:\d+)*)/; // returns groups for protocol (2), domain (3) and port (4)
 var reURI = /^((file:\/|http.?:)\/\/([^:\/\s]+)(:\d+)*)/; // returns groups for protocol (2), domain (3) and port (4)
 var reParent = /[\-\w]+\/\.\.\//; // matches a foo/../ expression
 var reDoubleSlash = /([^:])\/\//g; // matches // anywhere but in the protocol
