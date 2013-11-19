@@ -32,6 +32,7 @@ module.exports = (grunt) ->
           'build/js/libs/jquery-1.7.2.js'
           'build/js/core.js'
           'build/js/wrap/first.js'
+          'build/js/libs/easyXDM.js'
           'build/js/plugins/*.js'
           'build/js/classes/*.js'
           'build/js/views/*.js'
@@ -42,28 +43,24 @@ module.exports = (grunt) ->
         dest: 'build/factlink.core.js'
       loader_DEPRECATED:
         src: [
-          'build/js/libs/easyXDM.js'
           'build/js/loader/loader_common.js'
           'build/js/loader/loader_basic.js'
         ]
         dest: 'build/factlink.js'
       loader_basic:
         src: [
-          'build/js/libs/easyXDM.js'
           'build/js/loader/loader_common.js'
           'build/js/loader/loader_basic.js'
         ]
         dest: 'build/factlink_loader_basic.js'
       loader_publishers:
         src: [
-          'build/js/libs/easyXDM.js'
           'build/js/loader/loader_common.js'
           'build/js/loader/loader_publishers.js'
         ]
         dest: 'build/factlink_loader_publishers.js'
       loader_bookmarklet:
         src: [
-          'build/js/libs/easyXDM.js'
           'build/js/loader/loader_common.js'
           'build/js/loader/loader_bookmarklet.js'
         ]
@@ -161,7 +158,6 @@ module.exports = (grunt) ->
           "FactlinkConfig": true
           "escape": true
           "_": true
-          "easyXDM": true
 
   md5 = (filepath) ->
     hash = crypto.createHash 'md5'

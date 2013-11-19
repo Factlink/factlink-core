@@ -1,4 +1,7 @@
 # Initiate the easyXDM object
+if(this.Factlink)
+  this.Factlink.easyXDM =easyXDM.noConflict("FACTLINK")
+
 Factlink.remote = new Factlink.easyXDM.Rpc {
   # The URL to load
   remote: "#{FactlinkConfig.api}/factlink/intermediate"
