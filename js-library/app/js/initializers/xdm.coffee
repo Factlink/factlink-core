@@ -1,4 +1,4 @@
-# Initiate the easyXDM object 
+# Initiate the easyXDM object
 Factlink.easyXDM = easyXDM.noConflict("FACTLINK")
 
 Factlink.remote = new Factlink.easyXDM.Rpc {
