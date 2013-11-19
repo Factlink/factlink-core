@@ -147,28 +147,5 @@ span.factlink {
   background-size:contain;
   position:relative;
 }
-.factlink-create-button:before {
-  content:"Select any statement in this article and click this button to add your opinion.";
-  position:absolute;
-  border-radius: 3px;
-  padding: 15px 20px;
-  background: white;
-  width: 300px;
-  box-sizing: border-box;
-  font-size: 14px;
-  line-height: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  top:30px;
-  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
-  color:#666;
-  visibility:hidden;
-  opacity:0;
-  transition:opacity 0.3s,
-  visibility 0 0.3s;
-}
 
-.factlink-create-button:hover:before {
-  visibility:visible;
-  opacity:1;
-  transition:opacity 0.3s;
 }
