@@ -22,8 +22,7 @@ window.remote = new xdm.Rpc {},
               "?fact=" + encodeURIComponent(text) +
               "&url=" + encodeURIComponent(siteUrl) +
               "&title=" + encodeURIComponent(siteTitle) +
-              "&guided=" + encodeURIComponent(guided) +
-              "&layout=client" # layout=client is still necessary to get the client sign in page
+              "&guided=" + encodeURIComponent(guided)
       showUrl url, successFn
       last_created_text = text
       return # don't return anything unless you have a callback on the other site of easyXdm
