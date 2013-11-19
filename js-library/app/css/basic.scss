@@ -9,6 +9,8 @@ $button-height: 30px;
 $border-color : #1c5c90;
 $buttonBackground: rgba(32,32,32,0.6);
 
+$greyLight        : #fafcfb;
+$grey             : #e0e0e0;
 $button_visibility_transition_time : 300ms;
 $highlight_visibility_transition_time: 200ms;
 
@@ -148,16 +150,18 @@ span.factlink {
   position:relative;
 }
 
+@mixin button-background($top-color, $bottom-color) {
+  background: $top-color;
+  background: -webkit-linear-gradient(top, $top-color 0%, $bottom-color 100%);
+  background: linear-gradient(to bottom, $top-color 0%, $bottom-color 100%);
+}
+
 .factlink-create-button {
   border-radius: 2px;
   border: 1px solid #ccc;
   width: 70px;
   padding: 2px;
-
-  background: #fafcfb;
-  background: -webkit-linear-gradient(top,  #fafcfb 0%,#e0e0e0 100%);
-  background: linear-gradient(to bottom,  #fafcfb 0%,#e0e0e0 100%);
-
+  @include button-background($greyLight, $grey);
 
   &:before {
     background: url("https://factlink.com/favicon.ico");
