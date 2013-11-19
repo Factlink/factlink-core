@@ -154,6 +154,10 @@ span.factlink {
   width: 70px;
   padding: 2px;
 
+  background: #fafcfb;
+  background: -webkit-linear-gradient(top,  #fafcfb 0%,#e0e0e0 100%);
+  background: linear-gradient(to bottom,  #fafcfb 0%,#e0e0e0 100%);
+
 
   &:before {
     background: url("https://factlink.com/favicon.ico");
@@ -176,8 +180,4 @@ span.factlink {
   &:hover {
     cursor: pointer;
   }
-
-  background: #fafcfb;
-  background: -webkit-linear-gradient(top,  #fafcfb 0%,#e0e0e0 100%);
-  background: linear-gradient(to bottom,  #fafcfb 0%,#e0e0e0 100%);
 }
