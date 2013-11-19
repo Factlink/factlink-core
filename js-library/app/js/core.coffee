@@ -10,8 +10,7 @@ window.$ = (selector, context) ->
 $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
 
-if window.parent.easyXDM
-  Factlink.easyXDM = window.parent.easyXDM.noConflict("FACTLINK")
+
 
 # Create the Factlink container
 Factlink.el = $("#fl")
