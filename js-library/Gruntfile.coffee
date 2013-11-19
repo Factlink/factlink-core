@@ -20,9 +20,6 @@ module.exports = (grunt) ->
         files: [
           { src: ['**/*.coffee'], cwd: 'app', dest: 'build', ext: '.js', expand: true }
         ]
-    code_inliner:
-      src: 'build/jail_iframe.min.js'
-      dest: 'build/js/loader/loader_common.js'
     concat:
       jail_iframe:
         options:
@@ -67,6 +64,32 @@ module.exports = (grunt) ->
       publisher:
         src:  'build/js/publisher_poc/nu.js'
         dest: 'build/nu.js'
+    code_inliner:
+      jail_iframe_loader_DEPRECATED:
+        src: 'build/jail_iframe.js'
+        dest: 'build/factlink.js'
+      jail_iframe_loader_basic:
+        src: 'build/jail_iframe.js'
+        dest: 'build/factlink_loader_basic.js'
+      jail_iframe_loader_publishers:
+        src: 'build/jail_iframe.js'
+        dest: 'build/factlink_loader_publishers.js'
+      jail_iframe_loader_bookmarklet:
+        src: 'build/jail_iframe.js'
+        dest: 'build/factlink_loader_bookmarklet.js'
+
+      jail_iframe_loader_DEPRECATED_min:
+        src: 'build/jail_iframe.min.js'
+        dest: 'build/server/factlink.min.js'
+      jail_iframe_loader_basic_min:
+        src: 'build/jail_iframe.min.js'
+        dest: 'build/server/factlink_loader_basic.min.js'
+      jail_iframe_loader_publishers_min:
+        src: 'build/jail_iframe.min.js'
+        dest: 'build/server/factlink_loader_publishers.min.js'
+      jail_iframe_loader_bookmarklet_min:
+        src: 'build/jail_iframe.min.js'
+        dest: 'build/server/factlink_loader_bookmarklet.min.js'
     sass:
       build:
         files:
@@ -84,11 +107,9 @@ module.exports = (grunt) ->
       options: {
         banner: banner_template
       },
-      jail_iframe:
+      all:
         files:
-          'build/jail_iframe.min.js': ['build/jail_iframe.js']
-      all_except_jail_iframe:
-        files:
+          'build/jail_iframe.min.js':                        ['build/jail_iframe.js']
           'build/server/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js']
           'build/server/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
           'build/server/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js']
@@ -158,21 +179,22 @@ module.exports = (grunt) ->
           "escape": true
           "_": true
 
-  grunt.task.registerTask 'code_inliner', 'Inline code from one file into another', ->
-    source_file_path = grunt.config 'code_inliner.src'
-    destination_file_path = grunt.config 'code_inliner.dest'
+  grunt.task.registerMultiTask 'code_inliner', 'Inline code from one file into another', ->
+    @files.forEach (f) ->
+      source_file_path = f.src
+      destination_file_path = f.dest
 
-    grunt.log.writeln "Replacing placeholder with code in file \"#{destination_file_path}\"."
+      grunt.log.writeln "Inlining code from '#{source_file_path}' to '#{destination_file_path}'."
 
-    stringified_source_code = JSON.stringify(grunt.file.read(source_file_path, 'utf8'))
-    destination_code = grunt.file.read destination_file_path, 'utf8'
-    destination_code_with_inlined_source = destination_code.replace /__INLINE_CODE_FROM_GRUNT__/, stringified_source_code
+      stringified_source_code = JSON.stringify(grunt.file.read(source_file_path, 'utf8'))
+      destination_code = grunt.file.read destination_file_path, 'utf8'
+      destination_code_with_inlined_source = destination_code.replace /__INLINE_CODE_FROM_GRUNT__/, stringified_source_code
 
-    grunt.file.write destination_file_path, destination_code_with_inlined_source
+      grunt.file.write destination_file_path, destination_code_with_inlined_source
 
-  grunt.registerTask 'jail_iframe', ['concat:jail_iframe', 'uglify:jail_iframe', 'code_inliner']
-  grunt.registerTask 'compile', ['clean', 'copy:build', 'coffee', 'sass', 'jail_iframe', 'concat', 'copy:start_stop_files',
-                                 'uglify:all_except_jail_iframe', 'cssmin', 'copy:dist']
+  grunt.registerTask 'compile', ['clean', 'copy:build', 'copy:start_stop_files',
+                                 'coffee', 'sass', 'concat', 'uglify', 'cssmin',
+                                 'code_inliner', 'copy:dist']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
   grunt.registerTask 'default', ['compile', 'test']

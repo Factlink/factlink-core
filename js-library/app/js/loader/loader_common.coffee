@@ -64,7 +64,7 @@ window.FACTLINK_START_LOADER = ->
 
   #### Load iframe with script tag
 
-  `var jslib_jail_code = __INLINE_CODE_FROM_GRUNT__`
+  `var jslib_jail_code = __INLINE_CODE_FROM_GRUNT__;`
 
   jslib_jail_doc = jslib_jail_iframe.contentWindow.document
   jslib_jail_doc.open()
@@ -74,6 +74,8 @@ window.FACTLINK_START_LOADER = ->
         window.FactlinkConfig = #{JSON.stringify(window.FactlinkConfig)};
 
         #{jslib_jail_code}
+
+        window.parent.FACTLINK_ON_CORE_LOAD();
       </script>
     </head><body></body></html>
   """

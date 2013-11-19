@@ -1,8 +1,5 @@
-/*global test:true, asyncTest:true, start:true, equal:true, notEqual:true, _:true */
-Factlink.templates = {};
-Factlink.templates.getTemplate = function (str, callback) {
-  callback(Factlink._.template(""));
-};
+/*global test:true, asyncTest:true, start:true, equal:true, notEqual:true */
+
 Factlink.set_position_of_element = function() {};
 
 test("Search/replace should work with newlines", function () {
