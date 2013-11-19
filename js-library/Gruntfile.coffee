@@ -21,25 +21,25 @@ module.exports = (grunt) ->
           { src: ['**/*.coffee'], cwd: 'app', dest: 'build', ext: '.js', expand: true }
         ]
     code_inliner:
-      src: 'build/server/factlink.core.min.js'
+      src: 'build/jail_iframe.min.js'
       dest: 'build/js/loader/loader_common.js'
     concat:
-      core:
+      jail_iframe:
         options:
           banner: banner_template
         src: [
-          'build/js/libs/jquery-1.7.2.js'
-          'build/js/core.js'
-          'build/js/wrap/first.js'
-          'build/js/libs/easyXDM.js'
-          'build/js/plugins/*.js'
-          'build/js/classes/*.js'
-          'build/js/views/*.js'
-          'build/js/util/*.js'
-          'build/js/initializers/*.js'
-          'build/js/wrap/last.js'
+          'build/js/jail_iframe/libs/jquery-1.7.2.js'
+          'build/js/jail_iframe/core.js'
+          'build/js/jail_iframe/wrap/first.js'
+          'build/js/jail_iframe/libs/easyXDM.js'
+          'build/js/jail_iframe/plugins/*.js'
+          'build/js/jail_iframe/classes/*.js'
+          'build/js/jail_iframe/views/*.js'
+          'build/js/jail_iframe/util/*.js'
+          'build/js/jail_iframe/initializers/*.js'
+          'build/js/jail_iframe/wrap/last.js'
         ]
-        dest: 'build/factlink.core.js'
+        dest: 'build/jail_iframe.js'
       loader_DEPRECATED:
         src: [
           'build/js/loader/loader_common.js'
@@ -84,10 +84,10 @@ module.exports = (grunt) ->
       options: {
         banner: banner_template
       },
-      core:
+      jail_iframe:
         files:
-          'build/server/factlink.core.min.js':               ['build/factlink.core.js']
-      all_except_core:
+          'build/jail_iframe.min.js': ['build/jail_iframe.js']
+      all_except_jail_iframe:
         files:
           'build/server/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js']
           'build/server/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
@@ -97,8 +97,8 @@ module.exports = (grunt) ->
           'build/server/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
           'build/server/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/server/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
-          'build/server/easyXDM/easyXDM.min.js':             ['build/js/libs/easyXDM.js']
-          'build/easyXDM/easyXDM.min.js':                    ['build/js/libs/easyXDM.js']
+          'build/server/easyXDM/easyXDM.min.js':             ['build/js/jail_iframe/libs/easyXDM.js']
+          'build/easyXDM/easyXDM.min.js':                    ['build/js/jail_iframe/libs/easyXDM.js']
           'build/server/nu.min.js':                          ['build/nu.js']
     copy:
       build:
@@ -120,7 +120,7 @@ module.exports = (grunt) ->
     qunit:
       all: ['test/*.html']
     jshint:
-      all: ['app/js/initializers/*.js', 'app/js/classes/*.js', 'app/js/util/*.js', 'app/js/views/*.js', 'app/js/.js', 'test/**/*.js']
+      all: ['app/js/jail_iframe/util/*.js', 'test/**/*.js']
       options:
         # Whether jQuery globals should be predefined.
         jquery: true
@@ -170,9 +170,9 @@ module.exports = (grunt) ->
 
     grunt.file.write destination_file_path, destination_code_with_inlined_source
 
-  grunt.registerTask 'core', ['concat:core', 'uglify:core', 'code_inliner']
-  grunt.registerTask 'compile', ['clean', 'copy:build', 'coffee', 'sass', 'core', 'concat', 'copy:start_stop_files',
-                                 'uglify:all_except_core', 'cssmin', 'copy:dist']
+  grunt.registerTask 'jail_iframe', ['concat:jail_iframe', 'uglify:jail_iframe', 'code_inliner']
+  grunt.registerTask 'compile', ['clean', 'copy:build', 'coffee', 'sass', 'jail_iframe', 'concat', 'copy:start_stop_files',
+                                 'uglify:all_except_jail_iframe', 'cssmin', 'copy:dist']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
   grunt.registerTask 'default', ['compile', 'test']
