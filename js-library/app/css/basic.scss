@@ -11,6 +11,9 @@ $buttonBackground: rgba(32,32,32,0.6);
 
 $greyLight        : #fafcfb;
 $grey             : #e0e0e0;
+$greyLightDarker  : darken(#fafcfb, 10%);
+$greyDarker       : darken(#e0e0e0, 10%);
+
 $button_visibility_transition_time : 300ms;
 $highlight_visibility_transition_time: 200ms;
 
@@ -183,5 +186,6 @@ span.factlink {
 
   &:hover {
     cursor: pointer;
+    @include button-background($greyLightDarker, $greyDarker);
   }
 }
