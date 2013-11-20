@@ -33,7 +33,7 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
     return unless collectionOrModel in @_containedCollections # collection proxies model's sync
 
     @reset(_.union (col.models for col in @_containedCollections)...)
-    @trigger 'sync'
+    @trigger 'sync', @
 
   oneSidedEvidenceCollection: (type) ->
     switch type
