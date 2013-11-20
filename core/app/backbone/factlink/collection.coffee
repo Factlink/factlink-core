@@ -8,26 +8,10 @@ class Backbone.Factlink.Collection extends Backbone.Collection
 
   loading: -> @_loading
 
-  waitForFetch: (callback) ->
-    if @loading()
-      syncCallback = ->
-        @off 'sync', syncCallback
+  fetchIfUnloaded: (options) -> @_started_loading_once || @fetch options
 
-        # run callback with "this" bound, and with first argument this collection
-        callback.call(this, this)
-
-      @on 'sync', syncCallback, @
-    else
-      callback.call(this, this)
-
-  fetchOnce: (options={}) ->
-    if @once_loaded
-      options.success?()
-    else if @loading()
-      @waitForFetch options.success if options.success?
-    else
-      old_success = options.success
-      options.success = =>
-        @once_loaded = true
-        old_success?()
-      @fetch options
+Marionette.View.prototype.whenModelFetched = (model, callback) ->
+  if model.loading()
+    @listenToOnce model, 'sync', callback
+  else
+    callback.call(this)
