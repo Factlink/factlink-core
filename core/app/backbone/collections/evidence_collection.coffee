@@ -20,7 +20,7 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
       @listenTo collection, 'saved_added_model', -> @trigger 'saved_added_model'
       @listenTo collection, 'error_adding_model', -> @trigger 'error_adding_model'
 
-  comparator: (item) -> - item.get('impact')
+  comparator: (item) -> -item.get('impact')
 
   fetch: (options={}) ->
     @trigger 'request', this
