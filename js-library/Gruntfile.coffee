@@ -61,9 +61,6 @@ module.exports = (grunt) ->
           'build/js/loader/loader_bookmarklet.js'
         ]
         dest: 'build/factlink_loader_bookmarklet.js'
-      publisher:
-        src:  'build/js/publisher_poc/nu.js'
-        dest: 'build/nu.js'
     code_inliner:
       basic_css:
         src: 'build/css/basic.min.css'
@@ -98,7 +95,6 @@ module.exports = (grunt) ->
       build:
         files:
           'build/css/basic_without_base64.css': 'app/css/basic.scss'
-          'build/css/publisher_poc/nu.nl.css': 'app/css/publisher_poc/nu.nl.scss'
     cssUrlEmbed:
       encodeDirectly:
         files:
