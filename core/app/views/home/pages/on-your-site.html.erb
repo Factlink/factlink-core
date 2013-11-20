@@ -11,14 +11,32 @@
   <h1>Empower your visitors</h1>
   <p>Factlink gets your visitors more involved, by better structuring discussions and actively engaging users. Your content can get used in other discussions and featured on factlink.com, thus getting shared with a larger audience.</p>
 
-  <h4>Installing Factlink in WordPress</h4>
-  <p>If you own a WordPress website manual implementation is not required. Just download and install the <%= link_to 'WordPress plugin', 'http://wordpress.org/plugins/factlink/'%>. You can annotate any statement on your website by selecting the statement and clicking the add Factlink button. The WordPress plugin includes the same functionality as the manual install.
-  </p>
-  <%= link_to 'Get WordPress plugin', 'http://wordpress.org/plugins/factlink/', class: 'button button-confirm' %>
+  <section class="install-step">
+    <h3><span class="install-step-number">1</span>Installing Factlink</h3>
 
-  <h4>Installing Factlink manually</h4>
-  <p>Factlink can also be manually integrated in your site. Just add the following code above the closing <code>&lt;/body&gt;</code> tag:</p>
-  <code class="code-line">
-    &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.factlink.com/lib/dist/factlink_loader_publishers.min.js&quot;&gt;&lt;/script&gt;
-  </code>
+    <h4>Wordpress</h4>
+    <p>If you own a WordPress website manual implementation is not required. Just download and install the <%= link_to 'WordPress plugin', 'http://wordpress.org/plugins/factlink/'%>. You can annotate any statement on your website by selecting the statement and clicking the add Factlink button. The WordPress plugin includes the same functionality as the manual install.</p>
+    <%= link_to 'Get WordPress plugin', 'http://wordpress.org/plugins/factlink/', class: 'button button-confirm' %>
+
+    <h4>Manually</h4>
+    <p>Factlink can also be manually integrated in your site. Just add the following code above the closing <code>&lt;/body&gt;</code> tag:</p>
+    <code class="code-line">
+      &lt;script type=&quot;text/javascript&quot; src=&quot;https://static.factlink.com/lib/dist/factlink_loader_publishers.min.js&quot;&gt;&lt;/script&gt;
+    </code>
+  </section>
+
+  <section class="install-step">
+    <h3><span class="install-step-number">2</span>Factlink button <span class="button-optional">(optional)</span></h3>
+    <p>Add the Factlink button to your website. The Factlink button enables users to easily create new Factlinks with one click. You can choose the button you like and paste the code below into the HTML of your site.</p>
+
+    <div class="factlink-create-button"></div>
+    <code class="code-line">
+      &lt;div class=&quot;factlink-create-button&quot;&gt;&lt;/div&gt;
+    </code>
+
+    <div class="factlink-create-button-square"></div>
+    <code class="code-line">
+      &lt;div class=&quot;factlink-create-button-square&quot;&gt;&lt;/div&gt;
+    </code>
+  </section>
 <% end %>
