@@ -22,15 +22,14 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
 
   comparator: (item) -> - item.get('impact')
 
-  loading: ->
-    _.some @_containedCollections, (collection) -> collection.loading()
-
   fetch: (options={}) ->
     @trigger 'request', this
     _.invoke @_containedCollections, 'fetch', _.extend {}, options, reset: true
 
   loadFromCollections: (collectionOrModel) ->
-    return if @loading()
+    sub_collection_loading = _.some @_containedCollections,
+      (collection) -> collection.loading()
+    return if sub_collection_loading
     return unless collectionOrModel in @_containedCollections # collection proxies model's sync
 
     @reset(_.union (col.models for col in @_containedCollections)...)
