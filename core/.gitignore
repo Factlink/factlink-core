@@ -16,14 +16,8 @@
 config/config
 coverage.data
 coverage/
-db/*.sqlite3
 dump.rdb
 fixtures/approvals/*.received.json
 log/
-public/system/avatars
-solr/data/
-solr/pids
-spec/javascripts/templates/mustache-templates.html
-temp-8546.rdb
 tmp
 webrat.log
