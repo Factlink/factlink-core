@@ -87,9 +87,6 @@ cloneRepo chef-repo
 
 RUBY_VERSION=`cat core/.ruby-version`
 
-#Add a directory for the second redis instance we need for resque:
-mkdir -p /usr/local/var/db/redis-6380
-
 ensureBrew mongo
 ensureBrew redis
 ensureBrew elasticsearch

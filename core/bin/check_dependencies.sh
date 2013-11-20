@@ -38,12 +38,4 @@ check_command_in_path 'redis-server' "Please run brew install redis"
 
 check_command_in_path 'mongod' "Please run brew install mongo"
 
-check_path_exists '/usr/local/var/mongodb/' "Please reinstall mongo using brew"
-
-check_path_exists '/usr/local/var/elasticsearch/' "Please reinstall elasticsearch using brew"
-
-check_path_exists '/usr/local/var/log/elasticsearch/' "Please reinstall elasticsearch using brew"
-
-check_path_exists '/usr/local/var/db/redis-6380/' "Please run mkdir /usr/local/var/db/redis-6380"
-
 exit $rv
