@@ -210,8 +210,12 @@ module.exports = (grunt) ->
       grunt.file.write destination_file_path, destination_code_with_inlined_source
 
   grunt.registerTask 'jail_iframe', ['concat:jail_iframe', 'code_inliner:basic_css', 'uglify:jail_iframe']
-  grunt.registerTask 'compile', ['clean', 'copy:build', 'copy:start_stop_files', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin',
-                                 'jail_iframe', 'concat', 'uglify:all_except_jail_iframe', 'code_inliner', 'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist']
+  grunt.registerTask 'compile',  [
+    'clean', 'copy:build', 'copy:start_stop_files', 'coffee',
+    'sass', 'cssUrlEmbed', 'cssmin',
+    'jail_iframe', 'concat', 'uglify:all_except_jail_iframe', 'code_inliner',
+    'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist'
+  ]
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
   grunt.registerTask 'default', ['compile', 'test']
