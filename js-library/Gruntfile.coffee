@@ -133,8 +133,10 @@ module.exports = (grunt) ->
           'build/easyXDM/easyXDM.min.js':                    ['build/js/jail_iframe/libs/easyXDM.js']
           'build/server/nu.min.js':                          ['build/nu.js']
     shell:
-      gzip_files:
+      gzip_js_files:
         command: 'find build/ -iname \'*.js\'  -print0 | xargs -0 -n 1 gzip -kf -9'
+      gzip_css_files:
+        command: 'find build/ -iname \'*.css\'  -print0 | xargs -0 -n 1 gzip -kf -9'
 
     copy:
       build:
@@ -149,7 +151,9 @@ module.exports = (grunt) ->
         files: [
           { src: ['*.js', 'server/**/*.js', 'easyXDM/*.js',
                   '*.js.gz', 'server/**/*.js.gz', 'easyXDM/*.js.gz',
-                  '**/*.css', '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
+                  '**/*.css',
+                  '**/*.css.gz',
+                  '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
           { src: ['**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist/server', expand: true }
         ]
     watch:
@@ -211,7 +215,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'jail_iframe', ['concat:jail_iframe', 'code_inliner:basic_css', 'uglify:jail_iframe']
   grunt.registerTask 'compile', ['clean', 'copy:build', 'copy:start_stop_files', 'coffee', 'sass', 'cssUrlEmbed', 'cssmin',
-                                 'jail_iframe', 'concat', 'uglify:all_except_jail_iframe', 'code_inliner', 'shell:gzip_files', 'copy:dist']
+                                 'jail_iframe', 'concat', 'uglify:all_except_jail_iframe', 'code_inliner', 'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist']
   grunt.registerTask 'test',    ['jshint', 'qunit']
 
   grunt.registerTask 'default', ['compile', 'test']
