@@ -71,13 +71,19 @@ window.FACTLINK_START_LOADER = ->
   jslib_jail_doc.open()
   jslib_jail_doc.write """
     <!DOCTYPE html><html><head>
-      <script>
-        window.FactlinkConfig = #{JSON.stringify(window.FactlinkConfig)};
-
-        #{jslib_jail_code}
-
-        window.parent.FACTLINK_ON_CORE_LOAD();
-      </script>
     </head><body></body></html>
   """
   jslib_jail_doc.close()
+  script_tag = jslib_jail_doc.createElement('script')
+  script_tag.appendChild(jslib_jail_doc.createTextNode("""
+    window.FactlinkConfig = #{JSON.stringify(window.FactlinkConfig)};
+
+    #{jslib_jail_code}
+
+    window.parent.FACTLINK_ON_CORE_LOAD();
+    """))
+  jslib_jail_doc.documentElement.appendChild(script_tag)
+
+
+
+
