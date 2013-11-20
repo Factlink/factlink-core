@@ -15,4 +15,5 @@ Factlink.initializeFactlinkButton = ->
     $(buttonSel)
       .attr('title', 'Select any statement in this article and click this button to add your opinion.')
       .length > 0
-  setTitle() || $ setTitle
+  setTitle() || $.ready setTitle
+  # we can't use shorthand $ but need $.ready due to jquery 1.7.2 bug.
