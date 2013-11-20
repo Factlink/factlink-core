@@ -19,5 +19,6 @@ coverage/
 dump.rdb
 fixtures/approvals/*.received.json
 log/
-tmp
+tmp/cache
+tmp/capybara
 webrat.log
