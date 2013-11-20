@@ -48,6 +48,9 @@ $max-z-index  : 2147483647;
       line-height: 1.5;
       vertical-align: middle;
       color: #000;
+
+      // Overwrite default reset
+      white-space: normal;
     }
 
     &.fl-message-success {
