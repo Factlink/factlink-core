@@ -64,6 +64,7 @@ window.FACTLINK_START_LOADER = ->
   proxy_method 'showLoadedNotification'
   proxy_method 'scrollTo'
   proxy_method 'openFactlinkModal'
+  proxy_method 'initializeFactlinkButton'
 
   window.FACTLINK_ON_CORE_LOAD = ->
     # This seems to be necessary, don't understand entirely why
