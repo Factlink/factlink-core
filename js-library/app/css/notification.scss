@@ -50,8 +50,7 @@ $max-z-index  : 2147483647;
       color: #000;
 
       // Overwrite default reset
-      white-space: initial;
-      white-space: -moz-initial;
+      white-space: normal;
     }
 
     &.fl-message-success {
