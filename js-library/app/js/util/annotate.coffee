@@ -23,6 +23,9 @@ Factlink.startAnnotating = ->
     window.clearTimeout timeout
     Factlink.createButton.hide()
 
+    if $('.js-factlink-create-button').length
+      return
+
     # We execute the showing of the prepare menu inside of a setTimeout
     # because of selection change only activating after mouseup event call.
     # Without this hack there are moments when the prepare menu will show
