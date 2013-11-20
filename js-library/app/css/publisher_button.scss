@@ -2,6 +2,8 @@ $greyLight        : #fafcfb;
 $grey             : #e0e0e0;
 $greyLightDarker  : darken(#fafcfb, 10%);
 $greyDarker       : darken(#e0e0e0, 10%);
+$borderColor      : #ccc;
+$boderColorDarker : darken($borderColor, 10%);
 
 @mixin button-background($top-color, $bottom-color) {
   background: $top-color;
@@ -12,6 +14,7 @@ $greyDarker       : darken(#e0e0e0, 10%);
 .factlink-create-button {
   border-radius: 2px;
   border: 1px solid #ccc;
+  border: 1px solid $borderColor;
   width: 70px;
   padding: 2px;
   position: relative;
@@ -37,6 +40,7 @@ $greyDarker       : darken(#e0e0e0, 10%);
   &:hover {
     cursor: pointer;
     @include button-background($greyLightDarker, $greyDarker);
+    border-color: $boderColorDarker;
   }
 }
 
