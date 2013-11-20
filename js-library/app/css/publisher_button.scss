@@ -18,13 +18,12 @@ $greyDarker       : darken(#e0e0e0, 10%);
   @include button-background($greyLight, $grey);
 
   &:before {
-    background: url("https://factlink.com/favicon.ico");
+    background: url("../images/icon-14x14.png");
+    width: 14px;
+    height: 14px;
     content: '';
     display: inline-block;
     margin-right: 4px;
-    height: 14px;
-    width: 14px;
-    background-size:contain;
     vertical-align: middle;
   }
 
@@ -42,11 +41,10 @@ $greyDarker       : darken(#e0e0e0, 10%);
 }
 
 .factlink-create-button-square {
-  background:url("https://factlink.com/favicon.ico");
-  height:24px;
-  width:24px;
-  background-size:contain;
+  background: url("../images/icon-24x24.png");
   position:relative;
+  width: 24px;
+  height: 24px;
 
   &:hover {
     cursor: pointer;
