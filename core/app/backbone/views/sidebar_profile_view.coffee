@@ -20,5 +20,10 @@ class window.SidebarProfileView extends Backbone.Marionette.Layout
     @profilePictureRegion.show   new UserLargeView(model: @model)
     @socialStatisticsRegion.show new SocialStatisticsView(model: @model)
 
-    if not @model.is_current_user()
-      @followUserButtonRegion.show new FollowUserButtonView(user: @model)
+    @_showFollowUserButton()
+
+  _showFollowUserButton: ->
+    return unless Factlink.Global.signed_in
+    return if @model.is_current_user()
+
+    @followUserButtonRegion.show new FollowUserButtonView(user: @model)
