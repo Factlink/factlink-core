@@ -37,6 +37,8 @@ class window.TopicView extends Backbone.Marionette.Layout
     @factList.show new FactsView collection: facts
 
   showFavouriteTopicButton: ->
+    return unless Factlink.Global.signed_in
+
     view = new FavouriteTopicButtonView(topic: @model, mini: true)
     @favouriteTopicRegion.show view
 
