@@ -12,7 +12,7 @@ class ChannelsController < ApplicationController
       :add_fact
     ]
   before_filter :get_user
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: ['index', 'show']
 
   respond_to :json, :html
 
@@ -22,7 +22,6 @@ class ChannelsController < ApplicationController
 
   def show
     authorize! :show, @channel
-    authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder do
       @channel = interactor(:'channels/get', id: @channel.id)

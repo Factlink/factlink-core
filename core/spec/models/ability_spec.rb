@@ -91,9 +91,9 @@ describe Ability do
     end
 
     describe "without logging in" do
-      it {anonymous.should_not be_able_to :index, Channel }
+      it {anonymous.should     be_able_to :index, Channel }
+      it {anonymous.should     be_able_to :read, ch1 }
       it {anonymous.should_not be_able_to :create, Channel }
-      it {anonymous.should_not be_able_to :read, ch1 }
       it {anonymous.should_not be_able_to :update, ch1 }
       it {anonymous.should_not be_able_to :create, ch1 }
     end
