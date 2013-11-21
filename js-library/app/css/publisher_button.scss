@@ -3,6 +3,7 @@ $grey             : #e0e0e0;
 $greyDarker       : darken($grey, 10%);
 $borderColor      : #ccc;
 $boderColorDarker : darken($borderColor, 10%);
+$font-size        : 12px;
 
 @mixin button-background($top-color, $bottom-color) {
   background: $top-color;
@@ -14,6 +15,7 @@ $boderColorDarker : darken($borderColor, 10%);
   border-radius: 2px;
   border: 1px solid $borderColor;
   padding: 2px 5px 2px 2px;
+  line-height: $font-size;
   position: relative;
   display: inline-block;
   @include button-background($greyLight, $grey);
@@ -30,8 +32,8 @@ $boderColorDarker : darken($borderColor, 10%);
 
   &:after {
     font-family: Arial, sans-serif;
-    font-size: 12px;
-    line-height: 12px;
+    font-size: $font-size;
+    line-height: $font-size;
     content: 'Factlink';
     vertical-align: middle;
   }
