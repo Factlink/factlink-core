@@ -7,9 +7,11 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
   showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
-    @showUserProfile currentUser
-    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
-    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
+
+    if Factlink.Global.signed_in
+      @showUserProfile currentUser
+      window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
+      FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
 
   showTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.close()
