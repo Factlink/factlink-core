@@ -24,6 +24,9 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
   modalCurrentlyOpened = ->
     discussionModalContainer?
 
+  setBackgroundPageUrl = (fragment) ->
+    background_page_url = Backbone.history.getFragment(fragment)
+
   DiscussionModalOnFrontend.addInitializer ->
     return if FactlinkApp.onClientApp
 
@@ -37,16 +40,16 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
   DiscussionModalOnFrontend.setBackgroundPageUrlFromLoadUrl = (fragment) ->
     return if openingModalPage(fragment)
 
-    background_page_url = fragment
+    setBackgroundPageUrl fragment
 
   DiscussionModalOnFrontend.setBackgroundPageUrlFromNavigate = (fragment) ->
     return if openingModalPage(fragment)
     return if modalCurrentlyOpened() # Prevent prematurely setting the url when navigating from the discussion modal
 
-    background_page_url = fragment
+    setBackgroundPageUrl fragment
 
   DiscussionModalOnFrontend.setBackgroundPageUrlFromShowFact = (fragment) ->
-    background_page_url = fragment
+    setBackgroundPageUrl fragment
 
   DiscussionModalOnFrontend.closeDiscussionAndAlreadyOnBackgroundPage = (fragment) ->
     return false unless modalCurrentlyOpened()
