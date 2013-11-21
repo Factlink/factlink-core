@@ -86,7 +86,6 @@ describe FactsController do
       ability.stub can?: false
       ability.stub(:can?).with(:show, Fact).and_return(true)
 
-      should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, fact
 
       get :discussion_page, id: fact.id, fact_slug: 'hoi'
