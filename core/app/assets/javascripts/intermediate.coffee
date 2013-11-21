@@ -22,18 +22,9 @@ window.remote = new xdm.Rpc {},
               "?fact=" + encodeURIComponent(text) +
               "&url=" + encodeURIComponent(siteUrl) +
               "&title=" + encodeURIComponent(siteTitle) +
-              "&guided=" + encodeURIComponent(guided) +
-              "&layout=client" # layout=client is still necessary to get the client sign in page
+              "&guided=" + encodeURIComponent(guided)
       showUrl url, successFn
       last_created_text = text
-      return # don't return anything unless you have a callback on the other site of easyXdm
-
-    position: (top, left) ->
-      try
-        showFrame.contentWindow.position top, left
-      catch e # Window not yet loaded
-        showFrame.onload = ->
-          showFrame.contentWindow.position top, left
       return # don't return anything unless you have a callback on the other site of easyXdm
 
 window.highlightLastCreatedFactlink = (id, text) ->
@@ -41,24 +32,21 @@ window.highlightLastCreatedFactlink = (id, text) ->
     remote.highlightNewFactlink(text, id)
 
 showUrl = (url, successFn) ->
-  window.onModalReady = $.noop
-  if $.isFunction(successFn)
-    window.onModalReady = ->
-      window.onModalReady = $.noop
-      successFn()
+  window.onModalReady = ->
+    window.onModalReady = -> # nothing
+    successFn()
 
-  loadUrl url
-  showFrame.className = "overlay"
-
-loadUrl = (url)->
   backbone = showFrame.contentWindow.Backbone
   history = backbone?.history
   if history && backbone.History.started
-    history.navigate url, true
+    # Force (re)loading the url, even if already showing that url
+    # If history.fragment is equal to the current url, it doesn't reload,
+    # so we reset it to null
+    history.fragment = null
+
+    history.navigate url, trigger: true
   else
+    showFrame.onload = -> window.onModalReady()
     showFrame.src = url
 
-showFrame.onload = -> window.onModalReady?()
-
-# initialize the page, so we are ready to render new pages fast
-loadUrl '/client/blank'
+showFrame.src = '/client/blank'
