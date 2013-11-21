@@ -209,6 +209,7 @@ describe Ability do
     let(:topic) { create :topic }
     it "should be able to view a topic" do
       subject.should be_able_to :show, topic
+      anonymous.should be_able_to :show, topic
     end
   end
 

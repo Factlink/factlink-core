@@ -32,7 +32,6 @@ class Ability
     define_feature_toggles
 
     define_channel_abilities
-    define_topic_abilities
     define_fact_abilities
     define_fact_relation_abilities
     define_comment_abilities
@@ -51,6 +50,7 @@ class Ability
     can :read, FactRelation
     can :read, Comment
     can :read, Channel
+    can :read, Topic
 
     can :read, User do |u|
       u.active? || u.deleted # we show a special page for deleted users
@@ -62,13 +62,6 @@ class Ability
     can :manage, Channel do |ch|
       ch.created_by_id == user.graph_user_id
     end
-  end
-
-  def define_topic_abilities
-    return unless signed_in?
-
-    can :index, Topic
-    can :show, Topic
   end
 
   def define_fact_abilities
