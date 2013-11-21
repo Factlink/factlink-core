@@ -81,16 +81,16 @@ module.exports = (grunt) ->
 
       jail_iframe_loader_DEPRECATED_min:
         src: 'build/jail_iframe.min.js'
-        dest: 'build/server/factlink.min.js'
+        dest: 'build/factlink.min.js'
       jail_iframe_loader_basic_min:
         src: 'build/jail_iframe.min.js'
-        dest: 'build/server/factlink_loader_basic.min.js'
+        dest: 'build/factlink_loader_basic.min.js'
       jail_iframe_loader_publishers_min:
         src: 'build/jail_iframe.min.js'
-        dest: 'build/server/factlink_loader_publishers.min.js'
+        dest: 'build/factlink_loader_publishers.min.js'
       jail_iframe_loader_bookmarklet_min:
         src: 'build/jail_iframe.min.js'
-        dest: 'build/server/factlink_loader_bookmarklet.min.js'
+        dest: 'build/factlink_loader_bookmarklet.min.js'
     sass:
       build:
         files:
@@ -117,17 +117,15 @@ module.exports = (grunt) ->
           'build/jail_iframe.min.js':                        ['build/jail_iframe.js']
       all_except_jail_iframe:
         files:
-          'build/server/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js']
-          'build/server/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
-          'build/server/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js']
-          'build/server/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js']
-          'build/server/factlink.min.js':                    ['build/factlink.js']
-          'build/server/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
-          'build/server/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
-          'build/server/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
-          'build/server/easyXDM/easyXDM.min.js':             ['build/js/jail_iframe/libs/easyXDM.js']
+          'build/factlink.start_annotating.min.js':   ['build/factlink.start_annotating.js']
+          'build/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
+          'build/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js']
+          'build/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js']
+          'build/factlink.min.js':                    ['build/factlink.js']
+          'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
+          'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
+          'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
           'build/easyXDM/easyXDM.min.js':                    ['build/js/jail_iframe/libs/easyXDM.js']
-          'build/server/nu.min.js':                          ['build/nu.js']
     shell:
       gzip_js_files:
         command: ' find build/ -iname \'*.js\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
@@ -145,12 +143,11 @@ module.exports = (grunt) ->
         ]
       dist:
         files: [
-          { src: ['*.js', 'server/**/*.js', 'easyXDM/*.js',
-                  '*.js.gz', 'server/**/*.js.gz', 'easyXDM/*.js.gz',
+          { src: ['*.js', 'easyXDM/*.js',
+                  '*.js.gz', 'easyXDM/*.js.gz',
                   '**/*.css',
                   '**/*.css.gz',
                   '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
-          { src: ['**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist/server', expand: true }
         ]
     watch:
       files: ['app/js/**/*', 'app/css/**/*', 'test/**/*', 'Gruntfile.coffee']
