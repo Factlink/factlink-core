@@ -5,11 +5,6 @@ describe Interactors::Topics::Get do
   include PavlovSupport
 
   describe 'authorized?' do
-    it 'throws when no current_user' do
-      expect { described_class.new(slug_title: 'foo').call }.
-        to raise_error Pavlov::AccessDenied, 'Unauthorized'
-    end
-
     it 'throws when cannot show' do
       topic = double
       current_user = double
@@ -71,22 +66,35 @@ describe Interactors::Topics::Get do
 
       expect(interactor.authority).to eq authority
     end
+
+    it 'returns nil when no current_user' do
+      topic = double
+      pavlov_options = {ability: double(can?: true)}
+      interactor = described_class.new(slug_title: 'foo',
+        pavlov_options: pavlov_options)
+
+      Pavlov.stub(:query)
+        .with(:'topics/by_slug_title', slug_title: 'foo', pavlov_options: pavlov_options)
+        .and_return(topic)
+
+      expect(interactor.authority).to eq nil
+    end
   end
 
   describe '#call' do
     it 'should return a dead object' do
-      topic = double
+      topic = double(slug_title: 'slug_title', title: 'title')
       authority = double
       dead_topic = double
-      stub_classes 'KillObject'
+      stub_classes 'DeadTopic'
       interactor = described_class.new(slug_title: 'foo')
 
       described_class.any_instance.stub(:authorized?).and_return(true)
       interactor.stub(:topic).and_return(topic)
       interactor.stub(:authority).and_return(authority)
 
-      KillObject.should_receive(:topic).
-        with(topic, current_user_authority: authority).
+      DeadTopic.should_receive(:new).
+        with(topic.slug_title, topic.title, authority).
         and_return(dead_topic)
 
       expect(interactor.call).to eq dead_topic

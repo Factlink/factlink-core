@@ -7,8 +7,9 @@ module Interactors
       arguments :slug_title
 
       def execute
-        KillObject.topic topic,
-          current_user_authority: authority
+        DeadTopic.new topic.slug_title,
+                      topic.title,
+                      authority
       end
 
       def topic
@@ -16,11 +17,10 @@ module Interactors
       end
 
       def authority
-        query :authority_on_topic_for, topic: topic, graph_user: graph_user
-      end
+        return nil unless pavlov_options[:current_user]
 
-      def graph_user
-        pavlov_options[:current_user].graph_user
+        graph_user = pavlov_options[:current_user].graph_user
+        query :authority_on_topic_for, topic: topic, graph_user: graph_user
       end
 
       def validate
@@ -28,7 +28,6 @@ module Interactors
       end
 
       def authorized?
-        return unless pavlov_options[:current_user]
         can? :show, topic
       end
     end
