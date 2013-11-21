@@ -1,7 +1,6 @@
 class SearchController < ApplicationController
 
   layout "channels"
-  before_filter :authenticate_user!
 
   # Search
   # Not using the same search for the client popup, since we probably want
@@ -14,7 +13,6 @@ class SearchController < ApplicationController
     mp_track "Search: Top bar search",
       searched_for: params[:s]
 
-    authorize! :access, Ability::FactlinkWebapp
     backbone_responder do
       row_count = 20
 
