@@ -56,7 +56,7 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
       addToCollection: @options.addToCollection
 
     @updateVisibilities()
-    @whenModelFetched @collection, @updateVisibilities
+    @whenFactlinkCollectionFetched @collection, @updateVisibilities
 
   updateVisibilities: ->
     @ui.loadingIndicator.toggle @collection.loading()

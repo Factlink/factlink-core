@@ -9,9 +9,10 @@ Backbone.Factlink.asyncChecking = (test, func, thisArg=null, timeout=100, dt=3) 
       func.call(thisArg)
     else if time >= timeout
       window.clearInterval(interval)
-      console.error "asyncChecking timeout: ", test, func,thisArg, timeout
+      console.error "asyncChecking timeout: ", test, func, thisArg, timeout
 
     time += dt
 
   interval = window.setInterval(checkTest, dt)
-  close: -> window.clearInterval(interval)
+
+  { close: -> window.clearInterval(interval) }

@@ -10,7 +10,7 @@ class Backbone.Factlink.Collection extends Backbone.Collection
 
   fetchIfUnloaded: (options) -> @_started_loading_once || @fetch options
 
-Marionette.View.prototype.whenModelFetched = (model, callback) ->
+Marionette.View.prototype.whenFactlinkCollectionFetched = (model, callback) ->
   if model.loading()
     @listenToOnce model, 'sync', callback
   else
