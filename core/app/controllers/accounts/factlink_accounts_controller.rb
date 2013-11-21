@@ -10,7 +10,7 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
     @user_new_session = parse_user_new_session(params[:user_new_session] || {})
 
     if @user_new_session.errors.empty?
-      sign_in(@user_new_session)
+      remembered_sign_in(@user_new_session)
       mp_track_people_event sign_in_count: @user_new_session.sign_in_count
       mp_track "User: Sign in"
 
@@ -25,7 +25,7 @@ class Accounts::FactlinkAccountsController < Accounts::BaseController
     @user_new_account = parse_user_new_account(params[:user_new_account] || {})
 
     if @user_new_account.save
-      sign_in(@user_new_account)
+      remembered_sign_in(@user_new_account)
       mp_track 'User: Registered account'
 
       render_trigger_event 'signed_in', ''

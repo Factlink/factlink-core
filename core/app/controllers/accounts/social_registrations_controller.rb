@@ -6,7 +6,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
 
     if social_account and social_account.user
       @user = social_account.user
-      sign_in @user
+      remembered_sign_in @user
 
       render_trigger_event 'signed_in', ''
     else
@@ -38,7 +38,7 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
 
     if @user.errors.empty?
       @user.social_accounts.push @social_account
-      sign_in(@user)
+      remembered_sign_in(@user)
 
       render_trigger_event 'signed_in', ''
     else

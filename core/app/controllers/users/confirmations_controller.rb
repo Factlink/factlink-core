@@ -17,7 +17,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
     if resource.errors.empty?
       unless current_user
-        sign_in(resource_name, resource)
+        remembered_sign_in(resource)
       end
 
       redirect_to after_sign_in_path_for(current_user).to_s

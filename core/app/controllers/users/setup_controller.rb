@@ -26,7 +26,7 @@ class Users::SetupController < ApplicationController
     if @user.changed?
       render 'users/setup/edit'
     else
-      sign_in @user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
+      remembered_sign_in @user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
       redirect_to '/'
     end
   end

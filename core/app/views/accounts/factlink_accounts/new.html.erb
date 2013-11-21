@@ -9,14 +9,10 @@
       <%= possible_error_for_field(@user_new_session, :login) %>
       <%= f.password_field :password, placeholder: "Password" %>
 
-      <div class="accounts-popup-remember-me-container">
-        <%= f.check_box :remember_me, class: "accounts-popup-remember-me-checkbox" %>
-        <%= f.label :remember_me, class: "accounts-popup-remember-me-text" %>
+      <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank', class: 'accounts-popup-forgot-password' %>
 
-        <button type="submit" data-disable-with="Signing in..." class="button button-confirm pull-right accounts-popup-signin-button">Sign in</button>
-      </div>
+      <button type="submit" data-disable-with="Signing in..." class="button button-confirm pull-right accounts-popup-signin-button">Sign in</button>
 
-      <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank' %>
     <% end %>
 
     <div class="accounts-popup-half-form-separator">

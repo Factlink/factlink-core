@@ -14,7 +14,7 @@ class Users::EditPasswordController < ApplicationController
     authorize! :update, @user
 
     if @user.update_with_password(params[:user])
-      sign_in @user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
+      remembered_sign_in @user, bypass: true # http://stackoverflow.com/questions/4264750/devise-logging-out-automatically-after-password-change
       redirect_to user_password_edit_url(@user), notice: 'Your password was successfully updated.'
     else
       render "users/edit_password"
