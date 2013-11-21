@@ -67,7 +67,18 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     fact.fetch
       success: =>
         FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact
-        unless FactlinkApp.mainRegion.currentView?
-          @showStream()
-          url = Backbone.history.getFragment currentUser.streamLink()
-          FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlFromShowFact url
+        @_showBackgroundForFact fact
+
+  _showBackgroundForFact: (fact) ->
+    return if FactlinkApp.mainRegion.currentView?
+
+    if Factlink.Global.signed_in
+      @showStream()
+      url = Backbone.history.getFragment currentUser.streamLink()
+    else
+      user = fact.user()
+      FactlinkApp.ProfileController.showProfile user.get('username')
+      url = user.link()
+
+    debugger
+    FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlFromShowFact url
