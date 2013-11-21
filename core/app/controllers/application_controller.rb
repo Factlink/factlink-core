@@ -96,8 +96,6 @@ class ApplicationController < ActionController::Base
   end
 
   def backbone_responder &block
-
-
     respond_to do |format|
       format.html do
         render inline: '', layout: 'channels'
