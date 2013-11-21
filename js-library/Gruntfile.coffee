@@ -130,9 +130,9 @@ module.exports = (grunt) ->
           'build/server/nu.min.js':                          ['build/nu.js']
     shell:
       gzip_js_files:
-        command: 'find build/ -iname \'*.js\'  -print0 | xargs -0 -n 1 gzip -kf -9'
+        command: ' find build/ -iname \'*.js\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
       gzip_css_files:
-        command: 'find build/ -iname \'*.css\'  -print0 | xargs -0 -n 1 gzip -kf -9'
+        command: ' find build/ -iname \'*.css\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
 
     copy:
       build:
