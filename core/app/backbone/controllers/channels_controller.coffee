@@ -12,6 +12,8 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       @showUserProfile currentUser
       window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
       FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
+    else
+      @hideUserProfile()
 
   showTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.close()
@@ -41,10 +43,13 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
   showUserProfile: (user)->
     if user.is_current_user()
-      FactlinkApp.leftTopRegion.close()
+      @hideUserProfile()
     else
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
+
+  hideUserProfile: ->
+    FactlinkApp.leftTopRegion.close()
 
   showChannelFacts: (username, channel_id) ->
     FactlinkApp.mainRegion.close()
