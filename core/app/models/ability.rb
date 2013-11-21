@@ -50,12 +50,15 @@ class Ability
     can :read, Fact
     can :read, FactRelation
     can :read, Comment
+    can :read, Channel
+
+    can :read, User do |u|
+      u.active? || u.deleted # we show a special page for deleted users
+    end
   end
 
   def define_channel_abilities
     return unless signed_in?
-    can :index, Channel
-    can :read, Channel
     can :manage, Channel do |ch|
       ch.created_by_id == user.graph_user_id
     end
@@ -129,9 +132,6 @@ class Ability
       can :update, user
       can :edit_settings, user
       can :destroy, user
-      can :read, User do |u|
-        u.active? || u.deleted
-      end
     end
   end
 

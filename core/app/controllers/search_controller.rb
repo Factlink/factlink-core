@@ -14,6 +14,7 @@ class SearchController < ApplicationController
     mp_track "Search: Top bar search",
       searched_for: params[:s]
 
+    authorize! :access, Ability::FactlinkWebapp
     backbone_responder do
       row_count = 20
 

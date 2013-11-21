@@ -6,6 +6,7 @@ describe ConversationsController do
   describe :index do
     it "calls the correct query" do
       authenticate_user! user
+      should_check_can :access, Ability::FactlinkWebapp
 
       conversation = double(:conversation, )
 

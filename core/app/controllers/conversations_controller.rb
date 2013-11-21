@@ -2,6 +2,8 @@ class ConversationsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    authorize! :access, Ability::FactlinkWebapp
+
     backbone_responder do
       @conversations = query(:'conversations_with_users_message', user_id: current_user.id.to_s)
       raise_404 unless @conversations
@@ -11,6 +13,8 @@ class ConversationsController < ApplicationController
   end
 
   def show
+    authorize! :access, Ability::FactlinkWebapp
+
     backbone_responder do
       @conversation = query(:'conversation_with_recipients_and_messages', id: params[:id])
       raise_404 unless @conversation

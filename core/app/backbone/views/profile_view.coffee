@@ -8,14 +8,24 @@ class window.ProfileView extends Backbone.Marionette.Layout
   className: 'profile'
 
   regions:
-    topChannelsRegion:        '.top-channels-region'
+    topChannelsRegion:        '.js-top-channels-region'
     profileInformationRegion: '.profile-information'
     factRegion:               '.fact-region'
 
-  initialize: ->
-    @orderedCollection = @ordered(@collection)
+  onRender: ->
+    @profileInformationRegion.show  new ProfileInformationView(model: @model)
+    @factRegion.show                @options.created_facts_view
+    @_showTopChannelsView()
 
-  ordered: (collection)->
+  _showTopChannelsView: ->
+    orderedCollection = @_ordered(@collection)
+
+    @topChannelsRegion.show new TopChannelsView
+      collection: orderedCollection
+      originalCollection: @collection
+      user: @model
+
+  _ordered: (collection)->
     ordered_channels = new ChannelList()
     ordered_channels.orderByAuthority()
 
@@ -24,12 +34,3 @@ class window.ProfileView extends Backbone.Marionette.Layout
     ordered_channels.reset @collection.models
 
     ordered_channels
-
-  onRender: ->
-    @topChannelsRegion.show new TopChannelsView
-      collection: @orderedCollection
-      originalCollection: @collection
-      user: @model
-
-    @profileInformationRegion.show  new ProfileInformationView(model: @model)
-    @factRegion.show                @options.created_facts_view

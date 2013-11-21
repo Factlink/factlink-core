@@ -12,7 +12,7 @@ class ChannelsController < ApplicationController
       :add_fact
     ]
   before_filter :get_user
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: ['index', 'show']
 
   respond_to :json, :html
 
