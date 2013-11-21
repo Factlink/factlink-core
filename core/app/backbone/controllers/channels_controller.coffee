@@ -80,5 +80,4 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       FactlinkApp.ProfileController.showProfile user.get('username')
       url = user.link()
 
-    debugger
     FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlFromShowFact url
