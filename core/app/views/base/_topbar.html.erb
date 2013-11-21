@@ -5,6 +5,15 @@
     <% else %>
       <%= link_to "Home", home_path, class: 'topbar-logo js-potential-backbone' %>
     <% end %>
+
+    <% unless @step_in_signup_process %>
+      <div class="topbar-search">
+        <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
+          <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
+        </form>
+      </div>
+    <% end %>
+
     <% if @step_in_signup_process %>
       <%= render "base/topbar/sign_up_steps" %>
     <% elsif current_user %>

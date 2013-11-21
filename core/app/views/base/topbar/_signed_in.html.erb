@@ -1,11 +1,3 @@
-<div class="topbar-search">
-  <% if can? :index, Fact %>
-    <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
-      <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
-    </form>
-  <% end %>
-</div>
-
 <ul class="topbar-menu">
   <li class="topbar-menu-item">
     <%= link_to "Home", home_path, class: 'js-potential-backbone topbar-menu-link' %>
