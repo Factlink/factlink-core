@@ -31,6 +31,7 @@ $boderColorDarker : darken($borderColor, 10%);
   &:after {
     font-family: Arial, sans-serif;
     font-size: 12px;
+    line-height: 12px;
     content: 'Factlink';
     vertical-align: middle;
   }
