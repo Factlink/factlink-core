@@ -1,10 +1,12 @@
 @import "bootstrap/mixins";
 
+@header-padding-bottom: 8px;
+
 #channel {
   header.channel-header {
-    padding-bottom: 8px;
+    padding-bottom: @header-padding-bottom;
     &.topic-header {
-      padding-bottom: 0;
+      line-height: 24px;
       h1 {
         .ellipsis(370px);
       }
@@ -29,7 +31,7 @@
       margin: 0 25px 0 0;
     }
     .channel-statistics {
-      margin: 10px 0 0;
+      margin: 10px 0 -@header-padding-bottom;
       li {
         display: inline-block;
         line-height: normal;
