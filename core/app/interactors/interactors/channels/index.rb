@@ -45,6 +45,8 @@ module Interactors
       end
 
       def containing_channel_ids(channel)
+        return [] unless pavlov_options[:current_user]
+
         query(:'containing_channel_ids_for_channel_and_user',
                   channel_id: channel.id,
                   graph_user_id: pavlov_options[:current_user].graph_user_id)

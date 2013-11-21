@@ -7,15 +7,10 @@ class window.ProfileView extends Backbone.Marionette.Layout
   template:  'users/profile/index'
   className: 'profile'
 
-  ui:
-    topChannelsRegion: '.js-top-channels-region'
-
   regions:
     topChannelsRegion:        '.js-top-channels-region'
     profileInformationRegion: '.profile-information'
     factRegion:               '.fact-region'
-
-  initialize: ->
 
   onRender: ->
     @profileInformationRegion.show  new ProfileInformationView(model: @model)
@@ -23,10 +18,7 @@ class window.ProfileView extends Backbone.Marionette.Layout
     @_showTopChannelsView()
 
   _showTopChannelsView: ->
-    return unless Factlink.Global.signed_in
-
     orderedCollection = @_ordered(@collection)
-    @ui.topChannelsRegion.show()
 
     @topChannelsRegion.show new TopChannelsView
       collection: orderedCollection
