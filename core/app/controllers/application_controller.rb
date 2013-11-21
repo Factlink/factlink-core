@@ -6,6 +6,7 @@ require 'pavlov'
 class ApplicationController < ActionController::Base
 
   include Pavlov::Helpers
+  include Devise::Controllers::Rememberable
 
   DEFAULT_LAYOUT = 'frontend'
 
@@ -191,4 +192,9 @@ class ApplicationController < ActionController::Base
     # possibly eventually custom styling for poltergeist screenshots.
   end
   helper_method :inject_special_test_code
+
+  def remembered_sign_in user, options={}
+    sign_in user, options
+    remember_me user
+  end
 end
