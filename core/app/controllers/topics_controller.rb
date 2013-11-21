@@ -1,7 +1,5 @@
 class TopicsController < ApplicationController
   def show
-    authorize! :access, Ability::FactlinkWebapp
-
     backbone_responder do
       @topic = topic
     end
