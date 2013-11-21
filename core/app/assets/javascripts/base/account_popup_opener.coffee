@@ -3,8 +3,9 @@ showPopup = (url) ->
   height = 400
   left   = (screen.width/2)-(width/2)
   top    = (screen.height/2)-(height/2)
-  window.open url, "authPopup",
+  popup_window = window.open url, "authPopup",
     "menubar=no,toolbar=no,status=no,width=#{width},height=#{height},left=#{left},top=#{top}"
+  popup_window.focus()
 
 $('html').on 'click', '.js-accounts-popup-link', (e) ->
   showPopup($(e.target).attr("href"))
