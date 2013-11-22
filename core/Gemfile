@@ -86,7 +86,7 @@ group :assets do
   gem 'uglifier', '~> 1.3.0'
   gem 'hogan_assets', '~> 1.0.3'
 
-  gem 'therubyracer', '~> 0.11.4'
+  gem 'therubyracer', '~> 0.12.0'
 
   gem "coffee-script", '~> 2.2.0'
 
