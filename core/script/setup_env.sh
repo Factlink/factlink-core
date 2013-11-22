@@ -96,7 +96,6 @@ ensureBrew qt
 ensureBrew phantomjs
 
 ensureBrew rbenv
-ensureBrew ruby-build
 if egrep -q '^eval "\$\(rbenv init -\)"$' ~/.bash_profile ; then
   echo "rbenv already installed in .bash_profile"
 else
