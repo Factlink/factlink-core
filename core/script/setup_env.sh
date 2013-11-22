@@ -13,13 +13,13 @@ function cloneRepo {
   if [ ! -d "$1/.git" ]; then
     echo "cloning factlink $1 repo"
       git clone "git@github.com:Factlink/$1.git"
-    cd $1
-      git checkout master
-      git checkout develop
-      cd ..
   else
     echo "$1 repo already present"
   fi
+  cd $1
+  git checkout master
+  git checkout develop || :
+  cd ..
 }
 function ensureBrew {
   echo "Ensuring $1 brew is installed and up to date..."
