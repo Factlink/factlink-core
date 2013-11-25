@@ -18,6 +18,8 @@
       <%= render "base/topbar/sign_up_steps" %>
     <% elsif current_user %>
       <%= render "base/topbar/signed_in" %>
+    <% else %>
+       <%= link_to "Login to Factlink", root_path(return_to: request.original_url), class: "button button-confirm topbar-login-button" %>
     <% end %>
   </div>
 </div>
