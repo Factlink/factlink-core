@@ -2,10 +2,8 @@ module BrowserHelper
   # Makes use of the browser gem:
   # https://github.com/fnando/browser
 
-  def browser_supported?
-    return true if browser_preferred?
-
-    browser.safari? or browser.opera?
+  def browser_unsupported?
+    browser.ie?
   end
 
   def browser_preferred?
@@ -27,7 +25,14 @@ module BrowserHelper
   def show_supported_browser_warning
     # no unfriendly warnings in the tour
     return false if controller_name == "tour"
+    return false unless current_user
 
-    current_user && browser_supported? && !browser_preferred?
+    if browser_preferred?
+      false # doesn't need warning
+    elsif browser_unsupported?
+      false # already gets a big warning
+    else
+      true  # show warning when browser isn't preferred
+    end
   end
 end
