@@ -110,6 +110,10 @@ if bash -c "rbenv global ${RUBY_VERSION}" ; then
   #because rbenv installs a bash function and due to set -e interaction in can fail.
   echo "Ruby ${RUBY_VERSION} already installed."
 else
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build || :
+    pushd ~/.rbenv/plugins/ruby-build
+      git pull
+    popd
     echo "Installing ruby ${RUBY_VERSION}..."
     CC="clang" CXX="clang++" CFLAGS="-march=native -Os" rbenv install ${RUBY_VERSION}
 fi
