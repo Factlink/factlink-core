@@ -149,7 +149,7 @@ cd chrome-extension
   #TODO: npm install should be in package.json
   npm install yaml
   git flow init -d
-  bin/release_repo
+  bin/release_repo 1
 cd ..
 
 cd firefox-extension
