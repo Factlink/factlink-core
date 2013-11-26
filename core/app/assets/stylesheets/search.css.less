@@ -1,4 +1,3 @@
-//=require_tree ./search
 @import "bootstrap/mixins";
 
 .search-results-capped-message {
@@ -16,5 +15,22 @@
     }
     border-bottom: 1px solid @baseBorderColor;
     overflow: hidden;
+  }
+}
+
+.user-search-result {
+  padding: 10px 0;
+}
+
+.topic-search-result {
+  .search-result-topic-title {
+    font-size: @heading2FontSize;
+    line-height: 55px;
+    float: left;
+  }
+
+  .search-result-statistics {
+    float: right;
+    margin-top: 5px;
   }
 }
