@@ -2,6 +2,7 @@ module Commands
   module Topics
     class UpdateUserAuthority
       include Pavlov::Command
+      @queue = :zzz_update_user_authority
 
       arguments :graph_user_id, :topic_slug, :authority
 

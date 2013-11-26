@@ -20,3 +20,5 @@ module Devise
     end
   end
 end
+
+Resque::Mailer.default_queue_name = "bbb_mailer"

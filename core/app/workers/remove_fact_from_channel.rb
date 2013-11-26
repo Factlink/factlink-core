@@ -1,5 +1,5 @@
 class RemoveFactFromChannel
-  @queue = :channel_operations
+  @queue = :mmm_channel_operations
 
   def included_from_elsewhere_internal?
     return true if channel.sorted_internal_facts.include? fact

@@ -1,8 +1,7 @@
 require 'pavlov'
 
 class CreateSearchIndexForFactData
-
-  @queue = :search_index_operations
+  @queue = :mmm_search_index_operations
 
   def self.perform(fact_data_id)
     fact_data = FactData.find(fact_data_id)
