@@ -73,6 +73,7 @@ input[type="password"] {
 input,
 textarea {
   width: 206px; // plus 12px padding and 2px border
+  .placeholder();
 }
 // Reset height since textareas have rows
 textarea {
@@ -91,15 +92,6 @@ input[type="checkbox"] {
   &:focus {
     .tab-focus();
   }
-}
-
-// Placeholder
-// -------------------------
-
-// Placeholder text gets special styles because when browsers invalidate entire lines if it doesn’t understand a selector
-input,
-textarea {
-  .placeholder();
 }
 
 // INPUT SIZES
