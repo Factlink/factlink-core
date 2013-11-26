@@ -24,8 +24,6 @@ module KillObject
      :fact_data, :sub_comment_count, :created_by_id]
   dead_object :sub_comment,
     [:id, :created_by, :created_by_id, :created_at, :content, :parent_id]
-  dead_object :topic,
-    [:title, :slug_title]
   dead_object :fact_relation,
     [:id, :type, :fact, :from_fact, :created_at, :created_by,
      :opinion, :sub_comments_count, :deletable?, :created_by_id]

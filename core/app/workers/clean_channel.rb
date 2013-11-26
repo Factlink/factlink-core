@@ -2,7 +2,7 @@
 # This class should be considered superseded by CleanSortedFacts
 # which works on generic sorted sets of facts, not only channels
 class CleanChannel
-  @queue = :channel_operations
+  @queue = :mmm_channel_operations
 
   def self.perform(channel_id)
     channel = Channel[channel_id]

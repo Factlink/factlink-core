@@ -1,5 +1,5 @@
 <% if current_user %>
-  <% if not browser_supported? %>
+  <% if browser_unsupported? %>
     <% content_for :specific_javascript do %>
       <script type="text/javascript">
         Backbone.history.once('route', function() {

@@ -6,7 +6,7 @@ module Queries
       arguments :id
 
       def execute
-        KillObject.topic topic
+        DeadTopic.new topic.slug_title, topic.title
       end
 
       def topic

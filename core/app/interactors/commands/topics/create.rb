@@ -7,7 +7,7 @@ module Commands
 
       def execute
         topic = Topic.create title: title
-        KillObject.topic topic
+        DeadTopic.new topic.slug_title, topic.title
       end
 
       def validate

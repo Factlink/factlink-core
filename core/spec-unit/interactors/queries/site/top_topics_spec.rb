@@ -4,6 +4,10 @@ require_relative '../../../../app/interactors/queries/site/top_topics'
 describe Queries::Site::TopTopics do
   include PavlovSupport
 
+  before do
+    stub_classes 'Topic'
+  end
+
   describe 'validations' do
     it 'requires site_id to be an integer' do
       expect_validating(site_id: '', nr: 2).
@@ -46,26 +50,21 @@ describe Queries::Site::TopTopics do
   end
 
   describe '#call' do
-
-    before do
-      stub_classes 'Topic'
-      stub_classes 'KillObject'
-    end
-
     it 'kills all the retrieved topics' do
       query = described_class.new site_id: 1, nr: 3
-      topic1 = double(id: '1e')
-      topic2 = double(id: '2f')
+      topics = [
+        double(id: '1e', title: 'Foo', slug_title: 'foo', save: nil),
+        double(id: '2f', title: 'Bar', slug_title: 'bar', save: nil)
+      ]
 
-      dead_topic1 = double
-      dead_topic2 = double
+      query.stub topics: topics
 
-      query.stub topics: [topic1,topic2]
+      results = query.call
 
-      KillObject.should_receive(:topic).with(topic1).and_return(dead_topic1)
-      KillObject.should_receive(:topic).with(topic2).and_return(dead_topic2)
-
-      expect(query.call).to eq [dead_topic1, dead_topic2]
+      expect(results[0]).to_not respond_to(:save)
+      expect(results[0].title).to eq topics[0].title
+      expect(results[1]).to_not respond_to(:save)
+      expect(results[1].title).to eq topics[1].title
     end
   end
 

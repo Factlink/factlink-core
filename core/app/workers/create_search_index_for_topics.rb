@@ -2,7 +2,7 @@ require 'pavlov'
 
 class CreateSearchIndexForTopics
 
-  @queue = :search_index_operations
+  @queue = :mmm_search_index_operations
 
   def self.perform(topic_id)
     topic = Topic.find(topic_id)
