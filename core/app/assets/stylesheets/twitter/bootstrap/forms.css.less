@@ -46,8 +46,7 @@ label {
 textarea,
 input[type="text"],
 input[type="email"],
-input[type="password"],
-input[type="search"] {
+input[type="password"] {
   display: inline-block;
   height: @baseLineHeight;
   padding: 4px 6px;
@@ -158,14 +157,6 @@ textarea:focus:required:invalid {
   background-color: @formActionsBackground;
   border-top: 1px solid #e5e5e5;
   .clearfix(); // Adding clearfix to allow for .pull-right button containers
-}
-
-// Common properties
-// -----------------
-
-.form-search label,
-.form-inline label {
-  display: inline-block;
 }
 
 // Margin to space out fieldsets
