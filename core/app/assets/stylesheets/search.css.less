@@ -7,30 +7,26 @@
   color: @metaFontColor;
 }
 
-.search-results .results {
-  .search-result {
-    .reset-main-padding();
-    &:first-child {
-      border-top: 1px solid @baseBorderColor;
-    }
-    border-bottom: 1px solid @baseBorderColor;
-    overflow: hidden;
+.search-result {
+  .reset-main-padding();
+  &:first-child {
+    border-top: 1px solid @baseBorderColor;
   }
+  border-bottom: 1px solid @baseBorderColor;
+  overflow: hidden;
+}
+
+.search-result-statistics {
+  float: right;
+  margin-top: 5px;
 }
 
 .user-search-result {
   padding: 10px 0;
 }
 
-.topic-search-result {
-  .search-result-topic-title {
-    font-size: @heading2FontSize;
-    line-height: 55px;
-    float: left;
-  }
-
-  .search-result-statistics {
-    float: right;
-    margin-top: 5px;
-  }
+.search-result-topic-title {
+  font-size: @heading2FontSize;
+  line-height: 55px;
+  float: left;
 }
