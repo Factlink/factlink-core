@@ -22,7 +22,7 @@ module BrowserHelper
     end
   end
 
-  def show_supported_browser_warning
+  def show_nonpreferred_browser_warning
     # no unfriendly warnings in the tour
     return false if controller_name == "tour"
     return false unless current_user
