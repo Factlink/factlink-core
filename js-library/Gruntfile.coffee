@@ -37,12 +37,6 @@ module.exports = (grunt) ->
           'build/js/jail_iframe/wrap/last.js'
         ]
         dest: 'build/jail_iframe.js'
-      loader_DEPRECATED:
-        src: [
-          'build/js/loader/loader_common.js'
-          'build/js/loader/loader_basic.js'
-        ]
-        dest: 'build/factlink.js'
       loader_basic:
         src: [
           'build/js/loader/loader_common.js'
@@ -66,9 +60,6 @@ module.exports = (grunt) ->
         src: 'build/css/basic.min.css'
         dest: 'build/jail_iframe.js' # See jail_iframe/initializers/style.coffee
 
-      jail_iframe_loader_DEPRECATED:
-        src: 'build/jail_iframe.js'
-        dest: 'build/factlink.js'
       jail_iframe_loader_basic:
         src: 'build/jail_iframe.js'
         dest: 'build/factlink_loader_basic.js'
@@ -79,9 +70,6 @@ module.exports = (grunt) ->
         src: 'build/jail_iframe.js'
         dest: 'build/factlink_loader_bookmarklet.js'
 
-      jail_iframe_loader_DEPRECATED_min:
-        src: 'build/jail_iframe.min.js'
-        dest: 'build/factlink.min.js'
       jail_iframe_loader_basic_min:
         src: 'build/jail_iframe.min.js'
         dest: 'build/factlink_loader_basic.min.js'
@@ -121,7 +109,6 @@ module.exports = (grunt) ->
           'build/factlink.stop_annotating.min.js':    ['build/factlink.stop_annotating.js']
           'build/factlink.start_highlighting.min.js': ['build/factlink.start_highlighting.js']
           'build/factlink.stop_highlighting.min.js':  ['build/factlink.stop_highlighting.js']
-          'build/factlink.min.js':                    ['build/factlink.js']
           'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
           'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
