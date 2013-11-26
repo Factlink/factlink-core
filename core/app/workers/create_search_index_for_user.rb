@@ -1,8 +1,7 @@
 require 'pavlov'
 
 class CreateSearchIndexForUser
-
-  @queue = :search_index_operations
+  @queue = :mmm_search_index_operations
 
   def self.perform(user_id)
     user = User.find(user_id)

@@ -11,7 +11,7 @@
 class AddFactToChannelJob
   include Pavlov::Helpers
 
-  @queue = :channel_operations
+  @queue = :mmm_channel_operations
 
   attr_reader :fact, :channel
 

@@ -1,6 +1,6 @@
 class AddTimestampsToFactrelation
 
-  @queue = :fact_relation_operations
+  @queue = :mmm_fact_relation_operations
 
   attr_reader :fact_relation
 

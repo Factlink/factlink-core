@@ -1,5 +1,5 @@
 class CleanSortedFacts
-  @queue = :janitor
+  @queue = :zzz_janitor
 
   def self.perform(key_string)
     new(key_string).perform
