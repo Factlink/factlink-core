@@ -11,8 +11,16 @@ class window.SearchResultView extends Backbone.Marionette.CompositeView
   itemViewContainer: ".results"
   itemViewOptions: => type: @options.type
 
+  results_per_page: 20  # WARNING: coupling with search_controller.rb
+
+  initialize: ->
+    @collection.on 'add', =>
+      @$('.js-results-capped-message').toggle !! (@collection.length == @results_per_page)
+
+
   templateHelpers: =>
     query: @collection.query()
+    results_per_page: @results_per_page
 
   buildItemView: (item, ItemView, itemViewOptions) ->
     if ItemView == SearchResultEmptyLoadingView
@@ -32,4 +40,3 @@ class window.SearchResultView extends Backbone.Marionette.CompositeView
       else
         console.info "Unknown class of searchresult: ", options.model.get("the_class")
         `undefined`
-

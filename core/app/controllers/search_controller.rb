@@ -14,7 +14,7 @@ class SearchController < ApplicationController
       searched_for: params[:s]
 
     backbone_responder do
-      row_count = 20
+      row_count = 20 # WARNING: coupling with SearchResultView
 
       search_for = params[:s] || ""
       page = 1
