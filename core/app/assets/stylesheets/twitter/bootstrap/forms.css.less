@@ -86,17 +86,17 @@ input[type="checkbox"] {
   margin-top: 1px \9; /* IE8-9 */
   line-height: normal;
   cursor: pointer;
+  width: auto;
+
+  &:focus {
+    .tab-focus();
+  }
 }
 
 // Reset width of input buttons, radios, checkboxes
 input[type="submit"],
 input[type="checkbox"] {
-  width: auto; // Override of generic input selector
-}
-
-// Focus for select, file, radio, and checkbox
-input[type="checkbox"]:focus {
-  .tab-focus();
+   // Override of generic input selector
 }
 
 // Placeholder
