@@ -4,11 +4,11 @@ require_relative '../../../../app/interactors/queries/topics/by_id'
 describe Queries::Topics::ById do
   include PavlovSupport
 
-  describe '#validate' do
-    before do
-      described_class.any_instance.stub(authorized?: true)
-    end
+  before do
+    stub_classes 'Topic'
+  end
 
+  describe '#validate' do
     it 'calls the correct validation methods' do
       expect_validating(id: 'this is not hexadecimal')
         .to fail_validation 'id should be an hexadecimal string.'
@@ -16,21 +16,20 @@ describe Queries::Topics::ById do
   end
 
   describe '#call' do
-    before do
-      described_class.any_instance.stub(validate: true)
-    end
-
     it 'returns the topic Topic.find' do
-      stub_classes 'Topic', 'KillObject'
-      id = double
-      topic = double
+      id = '1a'
+      topic = double save: nil, title: 'Foo', slug_title: 'foo'
       dead_topic = double
       query = described_class.new id: id
 
-      Topic.should_receive(:find).with(id).and_return(topic)
-      KillObject.should_receive(:topic).with(topic).and_return(dead_topic)
+      allow(Topic).to receive(:find)
+        .with(id)
+        .and_return(topic)
 
-      expect(query.call).to eq dead_topic
+      result = query.call
+
+      expect(result).to_not respond_to(:save)
+      expect(result.title).to eq topic.title
     end
   end
 end

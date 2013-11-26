@@ -18,7 +18,9 @@ module Queries
       end
 
       def execute
-        topics.map {|t| KillObject.topic t}
+        topics.map do |t|
+          DeadTopic.new t.slug_title, t.title
+        end
       end
 
       def topics
