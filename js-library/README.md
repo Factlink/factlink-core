@@ -87,7 +87,7 @@ After the Library is built, it's easy to include this library in any site.
 <html>
   <head>
     <title>Example page</title>
-    <script src="/path/to/factlink/library/dist/factlink.js"></script>
+    <script src="/path/to/factlink/library/dist/factlink_loader_publishers.js"></script>
     <script>
       function load() {
         // Highlight all Factlinks on the current page
