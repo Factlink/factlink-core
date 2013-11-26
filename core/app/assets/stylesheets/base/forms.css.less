@@ -1,18 +1,7 @@
 @import "bootstrap/mixins";
 
 body {
-  textarea, input[type="text"], input[type="email"], input[type="password"] {
-    line-height: 20px;
-    height: 30px;
-  }
-
   .control-group .field_with_errors {
     .formFieldState(@errorText, @errorText, @errorBackground);
   }
-
-  .form-actions {
-    background-color: transparent;
-    padding: 15px 0;
-  }
-
 }

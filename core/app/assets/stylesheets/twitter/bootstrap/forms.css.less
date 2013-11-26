@@ -45,15 +45,14 @@ label {
 // Shared size and type resets
 textarea,
 input[type="text"],
-input[type="email"],
 input[type="password"] {
   display: inline-block;
-  height: @baseLineHeight;
   padding: 4px 6px;
   margin-bottom: 9px;
-  line-height: @baseLineHeight;
   color: @gray;
   border-radius: @baseBorderRadius;
+  line-height: 20px;
+  height: 30px;
 
   background-color: @inputBackground;
   border: 1px solid @inputBorder;
@@ -112,7 +111,6 @@ textarea {
 // INPUT SIZES
 // -----------
 
-.input-large      { width: 210px; }
 .input-xlarge     { width: 270px; }
 
 // FORM FIELD FEEDBACK STATES
@@ -151,10 +149,10 @@ textarea:focus:required:invalid {
 // ------------
 
 .form-actions {
-  padding: (@baseLineHeight - 1) 20px @baseLineHeight;
+  background-color: transparent;
+  padding: 15px 0;
   margin-top: @baseLineHeight;
   margin-bottom: @baseLineHeight;
-  background-color: @formActionsBackground;
   border-top: 1px solid #e5e5e5;
   .clearfix(); // Adding clearfix to allow for .pull-right button containers
 }
