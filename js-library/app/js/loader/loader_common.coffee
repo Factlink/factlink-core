@@ -11,11 +11,11 @@ window.FACTLINK_START_LOADER = ->
   window.FACTLINK_LOADED = true
 
   # Add styles
-  style_tag = (mkEl 'style') null, document.createTextNode(style_code)
+  style_tag = mkEl 'style', null, document.createTextNode(style_code)
   document.getElementsByTagName('head')[0].appendChild style_tag
 
   #### Create iframe so jslib's namespace (window) doesn't collide with any content window.
-  jslib_jail_iframe = (mkEl 'iframe') 'factlink-iframe'
+  jslib_jail_iframe = mkEl 'iframe', 'factlink-iframe'
   jslib_jail_iframe.style.display = 'block'
   jslib_jail_iframe.style.border = '0px solid transparent'
 
