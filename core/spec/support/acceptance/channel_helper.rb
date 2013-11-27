@@ -20,11 +20,6 @@ module Acceptance
         pavlov_options: { no_current_user: true }
     end
 
-    def go_to_channel_page_of channel
-      path = channel_path @user, channel
-      visit path
-    end
-
     def go_to_stream
       find('#left-column .js-stream a').click
     end
