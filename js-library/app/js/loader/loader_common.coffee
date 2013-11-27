@@ -4,7 +4,6 @@ mkEl = (name, id, content) ->
   content && el.appendChild(content)
   el
 
-
 window.FACTLINK_START_LOADER = ->
   if window.FACTLINK_LOADED
     console.error 'FACTLINK already loaded!'
