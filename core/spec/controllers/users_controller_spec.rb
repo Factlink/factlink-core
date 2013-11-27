@@ -133,8 +133,8 @@ describe UsersController do
       channel
     end
     it "should render succesful" do
-      current_user = create :full_user, :seeing_channels
-      other_user = create :full_user, :seeing_channels
+      current_user = create :full_user
+      other_user = create :full_user
 
       other_users_channel =
         backend_create_viewable_channel_for other_user
