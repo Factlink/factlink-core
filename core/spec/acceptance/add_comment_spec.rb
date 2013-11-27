@@ -27,23 +27,6 @@ feature "adding comments to a fact", type: :feature do
     assert_comment_exists comment
   end
 
-  scenario 'after adding a comment it should have brain cycles' do
-    user_authority_on_fact = 17
-    Authority.on( factlink, for: @user.graph_user ) << user_authority_on_fact
-
-    go_to_discussion_page_of factlink
-
-    comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment :supporting, comment
-    assert_comment_exists comment
-
-    go_to_discussion_page_of factlink
-
-    within_evidence_list do
-      find('.evidence-impact-text').should have_content user_authority_on_fact + 1
-    end
-  end
-
   scenario 'after adding a comment, the user should be able to reset his opinion' do
     user_authority_on_fact = 17
     Authority.on( factlink, for: @user.graph_user ) << user_authority_on_fact
