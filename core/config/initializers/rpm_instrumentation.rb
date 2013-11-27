@@ -20,12 +20,6 @@ if defined?(NewRelic)
     add_transaction_tracer :calculate_graph, category: :task, name: 'calculate_graph'
   end
 
-  MapReduce.class_eval do
-    include NewRelic::Agent::MethodTracer
-    add_method_tracer :map_reduce, 'MapReduce/#{self.class.name}/map_reduce'
-    add_method_tracer :process_all, 'MapReduce/#{self.class.name}/process_all'
-  end
-
   Pavlov::Operation.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :initialize, 'Pavlov/#{self.class.name}/initialize'

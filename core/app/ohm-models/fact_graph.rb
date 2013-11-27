@@ -148,11 +148,6 @@ class FactGraph
   delegate :store, :retrieve, to: :opinion_store
 
   def authority_calculators
-    [
-      MapReduce::FactAuthority,
-      MapReduce::ChannelAuthority,
-      MapReduce::TopicAuthority,
-      MapReduce::FactCredibility
-    ]
+    []
   end
 end
