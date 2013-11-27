@@ -162,56 +162,44 @@ module.exports = (grunt) ->
           "FactlinkConfig": true
           "escape": true
           "_": true
-    code_inliner:
-      loader_common:
-        replacements: [
-          {
-            placeholder: '__INLINE_CSS_PLACEHOLDER__'
-            content_file: 'build/css/basic.css'
-          }
-          {
-            placeholder: '__INLINE_JS_PLACEHOLDER__'
-            content_file: 'build/jail_iframe.js'
-          }
-        ]
-        targets: [
-          'build/factlink.js'
-          'build/factlink_loader_basic.js'
-          'build/factlink_loader_bookmarklet.js'
-          'build/factlink_loader_publishers.js'
-        ]
-      basic_css:
-        replacements: [
-          placeholder: '__INLINE_CSS_PLACEHOLDER__'
-          content_file: 'build/css/basic.css'
-        ]
-        targets: [
-          'build/jail_iframe.js' # See jail_iframe/initializers/style.coffee
-        ]
 
-
-  grunt.task.registerMultiTask 'code_inliner', 'Inline code from one file into another',  ->
+  grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
     min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
     debug_filename = (filename) -> filename
-    file_variants = [min_filename, debug_filename]
-    inliner = @.data
+    file_variant_funcs = [min_filename, debug_filename]
+    replacements = [
+      {
+        placeholder: '__INLINE_CSS_PLACEHOLDER__'
+        content_file: 'build/css/basic.css'
+      }
+      {
+        placeholder: '__INLINE_JS_PLACEHOLDER__'
+        content_file: 'build/jail_iframe.js'
+      }
+    ]
+    targets = [
+      'build/factlink.js'
+      'build/factlink_loader_basic.js'
+      'build/factlink_loader_bookmarklet.js'
+      'build/factlink_loader_publishers.js'
+    ]
 
-    file_variants.forEach (file_variant_func) ->
-        inliner.replacements.forEach (replacement) ->
+    file_variant_funcs.forEach (file_variant_func) ->
+        replacements.forEach (replacement) ->
           input_filename = file_variant_func(replacement.content_file)
           input_content = grunt.file.read(input_filename, 'utf8')
           input_content_stringified = JSON.stringify(input_content)
-          inliner.targets.map(file_variant_func).forEach (target_filename) ->
+          targets.map(file_variant_func).forEach (target_filename) ->
             grunt.log.writeln "Inlining '#{input_filename}' into '#{target_filename}' where  '#{replacement.placeholder}'."
             target_content = grunt.file.read target_filename, 'utf8'
             target_with_inlined_content = target_content.replace replacement.placeholder, input_content_stringified
             grunt.file.write(target_filename, target_with_inlined_content)
 
-  grunt.registerTask 'jail_iframe', ['concat:jail_iframe','uglify:jail_iframe',  'code_inliner:basic_css']
+  grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
     'clean', 'copy:build', 'copy:start_stop_files', 'coffee',
     'sass', 'cssUrlEmbed', 'cssmin',
-    'jail_iframe', 'concat', 'uglify:all_except_jail_iframe', 'code_inliner:loader_common'
+    'concat', 'uglify', 'code_inliner',
     'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist'
   ]
   grunt.registerTask 'test',    ['jshint', 'qunit']

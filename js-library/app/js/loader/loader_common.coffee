@@ -1,8 +1,10 @@
-mkWrapDiv = (id, domContent) ->
-  wrapper = document.createElement('div')
-  wrapper.id = id
+mkEl = (name) -> (id, domContent) ->
+  wrapper = document.createElement(name)
+  id && wrapper.id = id
   wrapper.appendChild(domContent)
   wrapper
+
+mkDiv = mkEl 'div'
 
 window.FACTLINK_START_LOADER = ->
   if window.FACTLINK_LOADED
@@ -18,10 +20,10 @@ window.FACTLINK_START_LOADER = ->
 
   # Wrappers for increased CSS specificity
   outerWrapperEl =
-    mkWrapDiv 'fl-wrapper-1',
-      mkWrapDiv 'fl-wrapper-2',
-        mkWrapDiv 'fl-wrapper-3',
-          mkWrapDiv 'fl', jslib_jail_iframe
+    mkDiv 'fl-wrapper-1',
+      mkDiv 'fl-wrapper-2',
+        mkDiv 'fl-wrapper-3',
+          mkDiv 'fl', jslib_jail_iframe
 
   # Keep in sync with #fl-wrapper-1 in basic.less
   outerWrapperEl.style.visibility = 'hidden'; # Prevent showing stuff when css is not loaded yet
@@ -64,26 +66,26 @@ window.FACTLINK_START_LOADER = ->
     storedMethodCalls = []
 
   #### Load iframe with script tag
-
-  `var jslib_jail_code = __INLINE_JS_PLACEHOLDER__;`
-
   jslib_jail_doc = jslib_jail_iframe.contentWindow.document
+
   jslib_jail_doc.open()
-  jslib_jail_doc.write """
-    <!DOCTYPE html><html><head>
-    </head><body></body></html>
-  """
+  jslib_jail_doc.write """<!DOCTYPE html><title></title>"""
   jslib_jail_doc.close()
-  script_tag = jslib_jail_doc.createElement('script')
-  script_tag.appendChild(jslib_jail_doc.createTextNode("""
-    window.FactlinkConfig = #{JSON.stringify(window.FactlinkConfig)};
 
-    #{jslib_jail_code}
+  script_tag = jslib_jail_doc.createElement 'script'
+  script_tag.appendChild(
+    jslib_jail_doc.createTextNode("""window.FactlinkConfig = #{JSON.stringify(window.FactlinkConfig)};
 
-    window.parent.FACTLINK_ON_CORE_LOAD();
-    """))
+#{jslib_jail_code};
+
+window.parent.FACTLINK_ON_CORE_LOAD();
+"""))
   jslib_jail_doc.documentElement.appendChild(script_tag)
 
+  style_tag = (mkEl 'style') null, document.createTextNode(style_code)
+  document.getElementsByTagName('head')[0].appendChild style_tag
 
+jslib_jail_code = __INLINE_JS_PLACEHOLDER__
+style_code = __INLINE_CSS_PLACEHOLDER__
 
 
