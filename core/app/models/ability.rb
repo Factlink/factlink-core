@@ -159,7 +159,7 @@ class Ability
 
   FEATURES = %w(
     pink_feedback_button skip_create_first_factlink memory_profiling
-    share_discussion_buttons suppress_double_scrollbar
+    suppress_double_scrollbar
   )
 
   def enabled_global_features
