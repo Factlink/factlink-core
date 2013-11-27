@@ -11,12 +11,12 @@
       {
         "title": "story",
         "slug_title": "story",
-        "authority": "4.0"
+        "authority": "4"
       },
       {
         "title": "toy",
         "slug_title": "toy",
-        "authority": "1.0"
+        "authority": "1"
       }
     ]
   },
@@ -37,7 +37,7 @@
       {
         "title": "war",
         "slug_title": "war",
-        "authority": "1.0"
+        "authority": "1"
       }
     ]
   }
