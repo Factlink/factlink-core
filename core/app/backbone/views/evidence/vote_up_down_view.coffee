@@ -68,6 +68,8 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     @$el.removeClass 'evidence-impact-vote-popover'
 
   _setPopupHoverIntent: ->
+    return
+
     @ui.upButton.hoverIntent
       timeout: 100
       over: => @_openVoteUpPopup() if @model.isBelieving()
