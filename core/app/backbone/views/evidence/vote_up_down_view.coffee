@@ -28,7 +28,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     if @model.isBelieving()
       @model.removeOpinion()
     else
-      @_openVoteUpPopup()
+      #@_openVoteUpPopup()
       @model.believe()
 
   _on_down_vote: ->
@@ -36,7 +36,7 @@ class window.EvidenceVoteView extends Backbone.Marionette.ItemView
     if @model.isDisBelieving()
       @model.removeOpinion()
     else
-      @_openVoteDownPopup()
+      #@_openVoteDownPopup()
       @model.disbelieve()
 
   _open_vote_popup: (selector, contentView) ->
