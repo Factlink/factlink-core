@@ -13,9 +13,7 @@ if defined?(NewRelic)
   FactGraph.class_eval do
     include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
     include NewRelic::Agent::MethodTracer
-    #add_transaction_tracer :recalculate, category: :task, name: 'recalculate'
 
-    add_transaction_tracer :calculate_authority, category: :task, name: 'calculate_authority'
     add_transaction_tracer :calculate_user_opinions, category: :task, name: 'calculate_user_opinions'
     add_transaction_tracer :calculate_graph, category: :task, name: 'calculate_graph'
   end

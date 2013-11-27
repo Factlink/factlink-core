@@ -208,17 +208,6 @@ describe "computed opinion" do
       opinion?(f1) == _(1.0, 0.0, 0.0, 10.0)
     end
 
-    it "also works for one person that has a lot of authority" do
-      Authority.on(f1, for: gu1.graph_user) << 20.0
-
-      comment = add_supporting_comment(gu1, f1)
-      believes_comment(gu1, comment)
-
-      comment_user_opinion?(comment) == _(1.0, 0.0, 0.0, 21.0)
-      comment_impact_opinion?(comment) == _(1.0, 0.0, 0.0, 21.0)
-      opinion?(f1) == _(1.0, 0.0, 0.0, 21.0)
-    end
-
     it "should have an impact with negative authority when more people disbelieve (when specified)" do
       comment = add_supporting_comment(gu1, f1)
 

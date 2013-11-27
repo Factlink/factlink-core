@@ -134,21 +134,4 @@ describe Authority do
       Authority.all_on(i1).all.should =~ [Authority.on(i1, for:gu1), Authority.on(i1,for:gu2)]
     end
   end
-
-  describe ".run_calculation" do
-    context "when no mapreducers are provided"do
-      it "should do nothing" do
-        i1.number = 2
-        Authority.run_calculation []
-        Authority.from(i1).to_f.should == 0.0
-      end
-    end
-    it "should use the mapreducers provided" do
-      calculator = double(:calculator)
-      calculator.should_receive(:process_all).once
-      some_class = double(:SomeClass)
-      some_class.should_receive(:new).and_return(calculator)
-      Authority.run_calculation [some_class]
-    end
-  end
 end
