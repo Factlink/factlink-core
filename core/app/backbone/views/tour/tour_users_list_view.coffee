@@ -31,26 +31,6 @@ class TourUserView extends Backbone.Marionette.Layout
 
   cloned_user: -> @_cloned_user ?= @model.clone()
 
-  authorityPopover: ->
-    unless @_authorityPopover?
-      @_authorityPopover = new TourAuthorityPopoverView
-      @listenTo @_authorityPopover, 'next', ->
-        @popoverResetAll()
-        FactlinkApp.FocusOverlay.hide()
-    @_authorityPopover
-
-  showAuthorityPopover: ->
-    return if @model.user_topics().isEmpty()
-
-    @popoverAdd '.js-topic',
-      side: 'right'
-      align: 'top'
-      contentView: @authorityPopover()
-      container: @$el.parent()
-      popover_className: 'focus-overlay-popover factlink-popover'
-
-    FactlinkApp.FocusOverlay.show @$('.js-topic').first()
-
 class window.TourUsersListView extends Backbone.Marionette.CollectionView
   itemView: TourUserView
   className: 'tour-interesting-users-list'
