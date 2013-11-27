@@ -22,4 +22,4 @@ log/
 tmp/cache
 tmp/capybara
 webrat.log
-tmp/rspec_guard_result
+tmp/*
