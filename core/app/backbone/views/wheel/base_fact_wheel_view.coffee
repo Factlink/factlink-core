@@ -9,7 +9,6 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   defaults:
     respondsToMouse: true
     showsTooltips: true
-    showsAuthorityTooltip: true
     radius: 16
 
     minimalVisiblePercentage: 15
@@ -63,7 +62,6 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   boxSize: -> @options.radius * 2 + @maxStrokeWidth()
 
   reRender: ->
-    @$('.authority').text(@model.get('authority'))
     @postRenderActions()
 
   postRenderActions: ->
@@ -167,39 +165,3 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       "stroke-width": @defaultStrokeWidth()
       opacity: destinationOpacity
     , arc_animation_speed(), "<>")
-
-  clickOpinionType: ->
-
-  bindTooltips: ->
-    if @options.showsTooltips
-      @trigger 'removeTooltips'
-
-      @_makeAuthorityTooltip()
-      @_makeTooltipForPath 'believe', 'path:nth-of-type(1)'
-      @_makeTooltipForPath 'doubt', 'path:nth-of-type(2)'
-      @_makeTooltipForPath 'disbelieve', 'path:nth-of-type(3)'
-
-  _makeAuthorityTooltip: ->
-    return unless @options.showsAuthorityTooltip
-
-    Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        side: 'top'
-        popover_className: 'translucent-popover'
-        margin: @maxStrokeWidth()/2 - 7
-      selector: '.authority'
-      tooltipViewFactory: => new TextView text: 'Total votes'
-
-  _makeTooltipForPath: (name, selector) ->
-    Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        side: @_tooltipSideForPath(@opinionTypeRaphaels[name])
-        popover_className: 'translucent-popover'
-        margin: @maxStrokeWidth()/2 - 3
-      selector: selector
-      tooltipViewFactory: =>
-        new TextView text: @options.opinionStyles[name].groupname + ": " + @model.get('opinion_types')[name].percentage + "%"
-
-  _tooltipSideForPath: (path) ->
-    bbox = path.getBBox()
-    if bbox.x + bbox.width/2 > @boxSize()/2 then 'right' else 'left'
