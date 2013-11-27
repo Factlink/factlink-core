@@ -148,21 +148,11 @@ FactlinkUI::Application.routes.draw do
 
       get "/facts/:fact_id" => "facts#discussion_page_redirect" # remove before 2014
 
-      resources :subchannels, only: [:index, :destroy, :create, :update] do
-        collection do
-          post "add/:id/",     as: "add",     action: "create"
-          post "remove/:id/",  as: "remove",  action: "destroy"
-        end
-      end
-
       member do
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
         post "add/:fact_id"     => "channels#add_fact"
         post "remove/:fact_id"  => "channels#remove_fact"
-
-        post "follow"   => "channels#follow"
-        post "unfollow" => "channels#unfollow"
 
         scope "/facts" do
           get "/" => "channels#facts", as: "get_facts_for"
