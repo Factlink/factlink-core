@@ -6,7 +6,7 @@ if [[ ! -z $DEPLOY_SERVER ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
 
-  cap -S "branch=$GIT_COMMIT" -q $DEPLOY_SERVER deploy || exit 1
+  bundle exec cap -S "branch=$GIT_COMMIT" -q $DEPLOY_SERVER deploy || exit 1
 
   echo "deployed to $DEPLOY_SERVER"
 else
