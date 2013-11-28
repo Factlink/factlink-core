@@ -124,44 +124,6 @@ module.exports = (grunt) ->
       tasks: ['compile', 'test']
     qunit:
       all: ['test/*.html']
-    jshint:
-      all: ['app/js/jail_iframe/util/*.js', 'test/**/*.js']
-      options:
-        # Whether jQuery globals should be predefined.
-        jquery: true
-        # Whether the standard browser globals should be predefined.
-        browser: true
-        # Whether logging globals should be predefined (console, alert, etc.).
-        devel: true
-        # Whether ES5 syntax should be allowed.
-        es5: true
-        # Tolerate assignments inside if, for & while. Usually conditions & loops are for comparison, not assignments.
-        boss: true
-        # Require {} for every new block or scope.
-        curly: true
-        # Require triple equals i.e. `===`.
-        eqeqeq: true
-        # Prohipit variable use before definition.
-        latedef: true
-        # Allow functions to be defined within loops.
-        loopfunc: true
-        # Prohibit use of `arguments.caller` and `arguments.callee`.
-        noarg: true
-        # Require all non-global variables be declared before they are used.
-        undef: true
-        # Require capitalization of all constructor functions e.g. `new F()`.
-        newcap: true
-        # Prohibit use of empty blocks.
-        noempty: true
-        # Prohibit use of constructors for side-effects.
-        nonew: true
-        # Custom predefined globals.
-        # For value examples, see https://github.com/jshint/jshint/blob/c047ea1b01097fcc220fcd1a55c41f67ae2e6e81/jshint.js#L556
-        globals:
-          "Factlink": true
-          "FactlinkConfig": true
-          "escape": true
-          "_": true
 
   grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
     min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
@@ -202,7 +164,7 @@ module.exports = (grunt) ->
     'concat', 'uglify', 'code_inliner',
     'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist'
   ]
-  grunt.registerTask 'test',    ['jshint', 'qunit']
+  grunt.registerTask 'test',    ['qunit']
 
   grunt.registerTask 'default', ['compile', 'test']
   grunt.registerTask 'server',  ['compile']
@@ -210,7 +172,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-copy'
-  grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-qunit'
