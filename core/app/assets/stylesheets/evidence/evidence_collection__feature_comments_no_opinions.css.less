@@ -1,0 +1,56 @@
+// WARNING: THIS IS ONLY TO DEMO AN OPTION
+//          UNUSABLE AS REAL SOLUTION
+.feature_comments_no_opinions {
+  // hide line with voting stuff
+  .evidence-impact,
+  .evidence-line-background,
+  .evidence-box-triangle, .discussion-interacting-users-unsure-line,
+  .top-fact-weakening-information, .top-fact-supporting-information {
+    visibility: hidden;
+  }
+
+  //readd voting stuff to the left
+  .evidence-impact-vote-up, .evidence-impact-vote-down, .evidence-impact-text {
+    visibility: visible;
+  }
+  .evidence-impact-vote-up, .evidence-impact-vote-down{
+    margin-left: -390px;
+  }
+  .evidence-impact-text {
+    margin-left: -780px;
+  }
+
+  //hide all factwheels
+  .top-fact-wheel, .evidence-box .fact-wheel {
+    display: none;
+  }
+
+  //make evidence box larger
+  .evidence-box {
+    margin-left: 0px !important;
+    width: 100%;
+  }
+
+  //hide "add supporting evidence"
+  .evidence-add-buttons,
+  .evidence-add-buttons .js-supporting-tooltip {
+    visibility: hidden;
+  }
+  .evidence-add-buttons .js-weakening-tooltip {
+    visibility: visible;
+    margin-left: -174px;
+    .factlink-popover-arrow {
+      visibility: hidden;
+    }
+    .factlink-popover-content::before {
+      content: "Add comment";
+    }
+    .factlink-popover-content div {
+      display: none;
+    }
+  }
+
+  .evidence-terminator-circle {
+    visibility: hidden;
+  }
+}
