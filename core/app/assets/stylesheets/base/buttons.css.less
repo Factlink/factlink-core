@@ -95,14 +95,6 @@
   }
 }
 
-.button-twitter {
-  .button-base(@buttonTwitterBackground, @buttonTwitterBorder);
-}
-
-.button-facebook {
-  .button-base(@buttonFacebookBackground, @buttonFacebookBorder);
-}
-
 .button-small {
   font-size: 12px;
   height: @baseButtonHeight;
@@ -113,6 +105,32 @@
   &:active {
     padding-top: 1px;
     border-top-width: @baseButtonBorderWidth;
+  }
+}
+
+.button-twitter {
+  .button-base(@buttonTwitterBackground, @buttonTwitterBorder);
+  &.button-small {
+    height: 30px;
+    padding: 0 7px;
+    line-height: 26px;
+    .icon-twitter {
+      font-size: 18px;
+      margin: 0;
+    }
+  }
+}
+
+.button-facebook {
+  .button-base(@buttonFacebookBackground, @buttonFacebookBorder);
+  &.button-small {
+    height: 30px;
+    padding: 0 7px;
+    line-height: 26px;
+    .icon-facebook {
+      font-size: 18px;
+      margin: 0;
+    }
   }
 }
 
