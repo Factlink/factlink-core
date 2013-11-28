@@ -366,7 +366,7 @@
 
   position: absolute;
   top: -@impactCircleDiameter/2 + @evidenceAddLinesTop + ceil(@middleLineWidth/2);
-  background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
+  background: asset-data-url('icon-plus.png') no-repeat 14px 14px;
   cursor: pointer;
   transition: all 0.1s;
 }
@@ -436,4 +436,16 @@
 
 .evidence-impact:hover .evidence-add-cross {
   opacity: 0.6;
+}
+
+.add-weakening-argument, .add-supporting-argument {
+  color: #fff;
+  width: 200px;
+  visibility: visible;
+  text-align: center;
+}
+.add-supporting-argument {
+}
+
+.add-weakening-argument {
 }
