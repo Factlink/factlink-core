@@ -9,20 +9,21 @@
     "type": "git",
     "url": "git@github.com:Factlink/js-library.git"
   },
+  "#######COMMENT": "The below exact match for uglify-js 2.4.4 is because 2.4.5 isn't present on npm's servers; (eamon 2013-11-25)",
   "dependencies": {
-    "this-is-a-workaround-for-grunt-idiocy": "http://github.com/e-jigsaw/grunt/tarball/fix-underscore-string-version",
-    "grunt": "~0.4.1",
-    "grunt-sass": "~0.8.0",
-    "grunt-contrib-uglify": "~0.2.0",
+    "uglify-js": "=2.4.4", 
+    "grunt": "~0.4.2",
+    "grunt-sass": "~0.8.1",
+    "grunt-contrib-uglify": "~0.2.7",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-jshint": "~0.3.0",
+    "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-qunit": "~0.2.2",
-    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-css-url-embed": "~0.1.2",
-    "grunt-shell": "~0.6"
+    "grunt-shell": "~0.6.1"
   }
 }
