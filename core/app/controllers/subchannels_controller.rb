@@ -10,14 +10,6 @@ class SubchannelsController < ApplicationController
     render_subchannels
   end
 
-  def create
-    authorize! :update, channel
-    interactor(:'channels/follow', channel_id: subchannel_id)
-    render_subchannels
-  end
-
-  alias :update :create
-
   def destroy
     authorize! :update, channel
     interactor(:'channels/unfollow', channel_id: subchannel_id)

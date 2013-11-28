@@ -66,21 +66,6 @@ describe "credibility calculation of facts*users" do
     expect(Authority.on(f1, for: u1).to_f).to eq(15.0)
   end
 
-  it "should not be influenced by the nesting of channels" do
-    ch1 = create(:channel, created_by: u1)
-    ch2 = create(:channel, created_by: u1)
-    Authority.from(ch1.topic, for: u1) << 10.0
-    Authority.from(ch2.topic, for: u1) << 20.0
-    add_fact_to_channel f1, ch1
-    add_fact_to_channel f1, ch2
-
-    # some data that shouldn't influence the outcome
-    Commands::Channels::AddSubchannel.new(channel: ch1, subchannel: ch2).call
-
-    recalculate_credibility
-    expect(Authority.on(f1, for: u1).to_f).to eq(15.0)
-  end
-
   it "should work with different channels with the same topic (same names)" do
     ch1 = create(:channel, created_by: u1, title: 'a')
     ch2 = create(:channel, created_by: u2, title: 'a')
