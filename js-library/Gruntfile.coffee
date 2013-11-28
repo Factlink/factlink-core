@@ -61,36 +61,6 @@ module.exports = (grunt) ->
           'build/js/loader/loader_bookmarklet.js'
         ]
         dest: 'build/factlink_loader_bookmarklet.js'
-    code_inliner:
-      basic_css:
-        src: 'build/css/basic.min.css'
-        dest: 'build/jail_iframe.js' # See jail_iframe/initializers/style.coffee
-
-      jail_iframe_loader_DEPRECATED:
-        src: 'build/jail_iframe.js'
-        dest: 'build/factlink.js'
-      jail_iframe_loader_basic:
-        src: 'build/jail_iframe.js'
-        dest: 'build/factlink_loader_basic.js'
-      jail_iframe_loader_publishers:
-        src: 'build/jail_iframe.js'
-        dest: 'build/factlink_loader_publishers.js'
-      jail_iframe_loader_bookmarklet:
-        src: 'build/jail_iframe.js'
-        dest: 'build/factlink_loader_bookmarklet.js'
-
-      jail_iframe_loader_DEPRECATED_min:
-        src: 'build/jail_iframe.min.js'
-        dest: 'build/factlink.min.js'
-      jail_iframe_loader_basic_min:
-        src: 'build/jail_iframe.min.js'
-        dest: 'build/factlink_loader_basic.min.js'
-      jail_iframe_loader_publishers_min:
-        src: 'build/jail_iframe.min.js'
-        dest: 'build/factlink_loader_publishers.min.js'
-      jail_iframe_loader_bookmarklet_min:
-        src: 'build/jail_iframe.min.js'
-        dest: 'build/factlink_loader_bookmarklet.min.js'
     sass:
       build:
         files:
@@ -193,24 +163,43 @@ module.exports = (grunt) ->
           "escape": true
           "_": true
 
-  grunt.task.registerMultiTask 'code_inliner', 'Inline code from one file into another', ->
-    @files.forEach (f) ->
-      source_file_path = f.src
-      destination_file_path = f.dest
+  grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
+    min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
+    debug_filename = (filename) -> filename
+    file_variant_funcs = [min_filename, debug_filename]
+    replacements = [
+      {
+        placeholder: '__INLINE_CSS_PLACEHOLDER__'
+        content_file: 'build/css/basic.css'
+      }
+      {
+        placeholder: '__INLINE_JS_PLACEHOLDER__'
+        content_file: 'build/jail_iframe.js'
+      }
+    ]
+    targets = [
+      'build/factlink.js'
+      'build/factlink_loader_basic.js'
+      'build/factlink_loader_bookmarklet.js'
+      'build/factlink_loader_publishers.js'
+    ]
 
-      grunt.log.writeln "Inlining code from '#{source_file_path}' to '#{destination_file_path}'."
+    file_variant_funcs.forEach (file_variant_func) ->
+        replacements.forEach (replacement) ->
+          input_filename = file_variant_func(replacement.content_file)
+          input_content = grunt.file.read(input_filename, 'utf8')
+          input_content_stringified = JSON.stringify(input_content)
+          targets.map(file_variant_func).forEach (target_filename) ->
+            grunt.log.writeln "Inlining '#{input_filename}' into '#{target_filename}' where  '#{replacement.placeholder}'."
+            target_content = grunt.file.read target_filename, 'utf8'
+            target_with_inlined_content = target_content.replace replacement.placeholder, input_content_stringified
+            grunt.file.write(target_filename, target_with_inlined_content)
 
-      stringified_source_code = JSON.stringify(grunt.file.read(source_file_path, 'utf8'))
-      destination_code = grunt.file.read destination_file_path, 'utf8'
-      destination_code_with_inlined_source = destination_code.replace /__INLINE_CODE_FROM_GRUNT__/, stringified_source_code
-
-      grunt.file.write destination_file_path, destination_code_with_inlined_source
-
-  grunt.registerTask 'jail_iframe', ['concat:jail_iframe', 'code_inliner:basic_css', 'uglify:jail_iframe']
+  grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
     'clean', 'copy:build', 'copy:start_stop_files', 'coffee',
     'sass', 'cssUrlEmbed', 'cssmin',
-    'jail_iframe', 'concat', 'uglify:all_except_jail_iframe', 'code_inliner',
+    'concat', 'uglify', 'code_inliner',
     'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist'
   ]
   grunt.registerTask 'test',    ['jshint', 'qunit']
