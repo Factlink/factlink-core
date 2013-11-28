@@ -19,7 +19,6 @@
   <div class="narrow-indented-block">
     <%= form_for(@user, :url => { action: :update, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }, validate: true) do |f| %>
       <fieldset>
-        <legend></legend>
         <div class="control-group">
           <%= f.label :username, class: "control-label" %>
           <div class="controls">
