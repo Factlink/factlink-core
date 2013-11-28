@@ -111,6 +111,11 @@ module.exports = (grunt) ->
         files: [
           { src: ['factlink.*.js'], cwd: 'build/js', dest: 'build', expand: true }
         ]
+      easyXDM:
+        files: [
+          { src: ['easyXDM.js'], cwd: 'app/js/jail_iframe/libs', dest: 'build/easyXDM', expand: true }
+        ]
+
       dist:
         files: [
           { src: ['*.js', 'easyXDM/*.js',
@@ -159,7 +164,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
-    'clean', 'copy:build', 'copy:start_stop_files', 'coffee',
+    'clean', 'copy:build', 'copy:easyXDM', 'copy:start_stop_files', 'coffee',
     'sass', 'cssUrlEmbed', 'cssmin',
     'concat', 'uglify', 'code_inliner',
     'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist'
