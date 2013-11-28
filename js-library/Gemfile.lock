@@ -15,12 +15,12 @@ GEM
     net-ssh (2.7.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    rvm-capistrano (1.5.1)
-      capistrano (~> 2.15.4)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   capistrano (~> 2.0)
-  rvm-capistrano
+  rvm-capistrano (~> 1.2.0)
