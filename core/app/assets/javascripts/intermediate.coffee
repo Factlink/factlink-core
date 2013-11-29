@@ -2,22 +2,22 @@ showFrame = document.getElementById("frame")
 last_created_text = null
 
 window.remote = Factlink.createFrameProxyObject window.parent,
-  ['hide', 'show', 'highlightNewFactlink', 'stopHighlightingFactlink',
+  ['hide', 'onModalReady', 'highlightNewFactlink', 'stopHighlightingFactlink',
     'createdNewFactlink', 'trigger', 'setFeatureToggles'
   ]
 
 local =
-    showFactlink: (id, successFn) ->
+    showFactlink: (id) ->
       url = "/client/facts/#{id}"
-      showUrl url, successFn
+      showUrl url
 
-    prepareNewFactlink: (text, siteUrl, siteTitle, guided, successFn) ->
+    prepareNewFactlink: (text, siteUrl, siteTitle, guided) ->
       url = "/facts/new" +
               "?fact=" + encodeURIComponent(text) +
               "&url=" + encodeURIComponent(siteUrl) +
               "&title=" + encodeURIComponent(siteTitle) +
               "&guided=" + encodeURIComponent(guided)
-      showUrl url, successFn
+      showUrl url
       last_created_text = text
 
 Factlink.listenToWindowMessages null, local
@@ -26,11 +26,7 @@ window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
     remote.highlightNewFactlink(text, id)
 
-showUrl = (url, successFn) ->
-  window.onModalReady = ->
-    window.onModalReady = -> # nothing
-    successFn()
-
+showUrl = (url) ->
   backbone = showFrame.contentWindow.Backbone
   history = backbone?.history
   if history && backbone.History.started
@@ -41,7 +37,7 @@ showUrl = (url, successFn) ->
 
     history.navigate url, trigger: true
   else
-    showFrame.onload = -> window.onModalReady()
+    showFrame.onload = -> window.remote.onModalReady()
     showFrame.src = url
 
 showFrame.src = '/client/blank'
