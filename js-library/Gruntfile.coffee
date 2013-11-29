@@ -94,7 +94,6 @@ module.exports = (grunt) ->
           'build/factlink_loader_basic.min.js':       ['build/factlink_loader_basic.js']
           'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
-          'build/easyXDM/easyXDM.min.js':                    ['build/js/jail_iframe/libs/easyXDM.js']
           'build/postFactlinkObject.min.js': ['build/js/jail_iframe/util/postFactlinkObject.js']
     shell:
       gzip_js_files:
@@ -118,8 +117,7 @@ module.exports = (grunt) ->
 
       dist:
         files: [
-          { src: ['*.js', 'easyXDM/*.js',
-                  '*.js.gz', 'easyXDM/*.js.gz',
+          { src: ['*.js', '*.js.gz',
                   '**/*.css',
                   '**/*.css.gz',
                   '**/*.png', '**/*.gif', 'robots.txt'], cwd: 'build', dest: 'dist', expand: true }
