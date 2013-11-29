@@ -54,9 +54,6 @@ window.FACTLINK_START_LOADER = ->
   proxy_method 'initializeFactlinkButton'
 
   window.FACTLINK_ON_CORE_LOAD = ->
-    # This is a workaround to let easyXDM think it's loaded in the outer frame
-    window.FACTLINK.easyXDM = jslib_jail_iframe.contentWindow.Factlink.easyXDM
-
     for methodCall in storedMethodCalls
       jslib_jail_iframe.contentWindow.Factlink[methodCall.name](methodCall.arguments...)
     storedMethodCalls = []

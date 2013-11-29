@@ -1,15 +1,11 @@
-# Initiate the easyXDM object
-Factlink.easyXDM = easyXDM.noConflict("FACTLINK")
+iframe = document.createElement('iframe')
+frame_container = document.getElementById('factlink-modal-frame')
+frame_container.appendChild(iframe)
+Factlink.listenToWindowMessages null, Factlink.modal
+iframe.src = "#{FactlinkConfig.api}/factlink/intermediate"
 
-Factlink.remote = new Factlink.easyXDM.Rpc {
-  # The URL to load
-  remote: "#{FactlinkConfig.api}/factlink/intermediate"
-  # The iFrame where the intermediate should be loaded in
-  container: 'factlink-modal-frame'
-}, {
-  # See modal.js #Factlink.modal
-  local: Factlink.modal
-  remote:
-    showFactlink: {}
-    prepareNewFactlink: {}
-}
+
+Factlink.remote = Factlink.createFrameProxyObject iframe.contentWindow, ['showFactlink', 'prepareNewFactlink' ]
+
+
+
