@@ -1,23 +1,17 @@
 showFrame = document.getElementById("frame")
-xdm = window.easyXDM.noConflict("FACTLINK")
 last_created_text = null
-window.remote = new xdm.Rpc {},
-  remote:
-    hide: {}
-    show: {}
-    highlightNewFactlink: {}
-    stopHighlightingFactlink: {}
-    createdNewFactlink: {}
-    trigger: {}
-    setFeatureToggles: {}
 
-  local:
+window.remote = Factlink.createFrameProxyObject window.parent,
+  ['hide', 'show', 'highlightNewFactlink', 'stopHighlightingFactlink',
+    'createdNewFactlink', 'trigger', 'setFeatureToggles'
+  ]
+
+local =
     showFactlink: (id, successFn) ->
       url = "/client/facts/#{id}"
       showUrl url, successFn
-      return # don't return anything unless you have a callback on the other site of easyXdm
 
-    prepareNewFactlink: (text, siteUrl, siteTitle, guided, successFn, errorFn) ->
+    prepareNewFactlink: (text, siteUrl, siteTitle, guided, successFn) ->
       url = "/facts/new" +
               "?fact=" + encodeURIComponent(text) +
               "&url=" + encodeURIComponent(siteUrl) +
@@ -25,7 +19,8 @@ window.remote = new xdm.Rpc {},
               "&guided=" + encodeURIComponent(guided)
       showUrl url, successFn
       last_created_text = text
-      return # don't return anything unless you have a callback on the other site of easyXdm
+
+Factlink.listenToWindowMessages null, local
 
 window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
