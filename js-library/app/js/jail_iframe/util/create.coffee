@@ -7,7 +7,7 @@ getTextRange = ->
   else
     ''
 
-Factlink.createFactFromSelection = (errorCallback) -> #TODO: xdmcleanup
+Factlink.createFactFromSelection = () ->
   success = ->
     Factlink.createButton.hide()
     Factlink.off 'modalOpened', success
