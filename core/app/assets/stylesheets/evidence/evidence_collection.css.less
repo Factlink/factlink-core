@@ -327,7 +327,7 @@
 @supportingLineOffset: 4px + floor(@middleLineWidth/2);
 @evidenceAddLinesTop: 3px;
 @evidenceAddCircleExtraRadius: 1px;
-@evidenceAddLineLength: 45px;
+@evidenceAddLineLength: @negativeColumnMargin;
 
 .evidence-add {
   min-height: 220px; // to accommodate for the fact relation search
@@ -359,52 +359,37 @@
   margin-left: @supportingLineOffset;
 }
 
-.evidence-add-weakening, .evidence-add-supporting {
-  width:  @impactCircleDiameter;
-  height: @impactCircleDiameter;
-  border-radius: 1000px;
-
+.evidence-add-supporting-wrapper, .evidence-add-weakening-wrapper {
   position: absolute;
-  top: -@impactCircleDiameter/2 + @evidenceAddLinesTop + ceil(@middleLineWidth/2);
-  background: asset-data-url('icon-plus.png') no-repeat 14px 14px;
+  top: -100px;
+  visibility: hidden;
+  bottom: -100px;
+  margin-top: 4.5px;
+  text-align: center;
+  &:before{
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+}
+
+.evidence-add-supporting-wrapper {
+  left: 50%;
+}
+
+.evidence-add-weakening-wrapper {
+  right: 50%;
+}
+
+.evidence-add-button{
   cursor: pointer;
   transition: all 0.1s;
-}
-
-.evidence-add-weakening {
-  right: 50%;
-  margin-right: @evidenceAddLineLength + @weakeningLineOffset;
-  background-color: @buttonDangerBackground;
-  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
-
-  &:hover {
-    background-color: @buttonDangerDarkBackground;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
-  }
-
-  &:active {
-    background-color: @buttonDangerDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
-  }
-}
-
-.evidence-add-supporting {
-  left: 50%;
-  margin-left: @evidenceAddLineLength + @supportingLineOffset;
-  background-color: @buttonSuccessBackground;
-  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
-
-  &:hover {
-    background-color: @buttonSuccessDarkBackground;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
-  }
-
-  &:active {
-    background-color: @buttonSuccessDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
-  }
+  vertical-align: middle;
+  visibility: visible;
+  margin: 0 @negativeColumnMargin;
+  text-align: center;
+  white-space: pre-line;
 }
 
 .evidence-add .evidence-impact {
@@ -436,16 +421,4 @@
 
 .evidence-impact:hover .evidence-add-cross {
   opacity: 0.6;
-}
-
-.add-weakening-argument, .add-supporting-argument {
-  color: #fff;
-  width: 200px;
-  visibility: visible;
-  text-align: center;
-}
-.add-supporting-argument {
-}
-
-.add-weakening-argument {
 }
