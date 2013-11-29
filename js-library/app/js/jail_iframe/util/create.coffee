@@ -7,15 +7,10 @@ getTextRange = ->
   else
     ''
 
-Factlink.createFactFromSelection = (errorCallback) ->
+Factlink.createFactFromSelection = (errorCallback) -> #TODO: xdmcleanup
   success = ->
-    Factlink.modal.show.method()
-    Factlink.trigger "modalOpened"
     Factlink.createButton.hide()
-
-  error = (e) ->
-    console.error "Error openening modal: ", e
-    errorCallback?()
+    Factlink.off 'modalOpened', success
 
   selInfo = Factlink.getSelectionInfo()
 
@@ -24,7 +19,8 @@ Factlink.createFactFromSelection = (errorCallback) ->
   siteTitle = selInfo.title
   guided = !!FactlinkConfig.guided
 
-  Factlink.remote.prepareNewFactlink text, siteUrl, siteTitle, guided, success, error
+  Factlink.on 'modalOpened', success
+  Factlink.remote.prepareNewFactlink text, siteUrl, siteTitle, guided
 
 # We make this a global function so it can be used for direct adding of facts
 # (Right click with chrome-extension)

@@ -41,13 +41,19 @@ class FactInteraction
       mouseleave: => @onUnhover()
       click: => @onClick()
 
+
+
   onClick: (options={}) =>
     @button_attention.gainAttentionNow()
     @highlight_attention.gainAttentionNow()
     @show_button.startLoading() # must be called after show
-    @options.on_click success: =>
-      @button_attention.loseAttentionNow()
-      @highlight_attention.loseAttentionNow()
+    Factlink.on 'modalOpened', @_onModalOpened, @
+    Factlink.openFactlinkModal @id
+
+  _onModalOpened: ->
+    @button_attention.loseAttentionNow()
+    @highlight_attention.loseAttentionNow()
+    Factlink.off 'modalOpened', @_onModalOpened, @
 
   onHover: ->
     @button_attention.gainAttention()
@@ -103,8 +109,7 @@ class FactScrollPromotion
 
 class Factlink.Fact
   constructor: (@id, @elements) ->
-    @fact_interaction = new FactInteraction @elements, @id,
-      on_click: @openFactlinkModal
+    @fact_interaction = new FactInteraction @elements, @id
     @fact_promotion = new FactScrollPromotion(this)
     @fact_load_promotion = new FactLoadPromotion(@elements)
 
@@ -112,9 +117,6 @@ class Factlink.Fact
     for element in $(@elements)
       return false unless $(element).data('inview') == 'both'
     true
-
-  openFactlinkModal: (options={})=>
-    Factlink.openFactlinkModal @id, => options.success?()
 
   destroy: ->
     for el in @elements

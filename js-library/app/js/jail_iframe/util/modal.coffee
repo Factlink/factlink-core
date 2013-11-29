@@ -7,19 +7,11 @@ iFrame.appendTo(Factlink.el)
 
 Factlink.hideDimmer = -> iFrame.css 'background', 'none'
 
-Factlink.openFactlinkModal = (factId, successCallback = ->) ->
-  Factlink.remote.showFactlink factId, ->
-    Factlink.modal.show.method()
-    Factlink.trigger('modalOpened')
+Factlink.openFactlinkModal = (id) -> Factlink.remote.showFactlink id #TODO: xdmcleanup
 
-    successCallback()
 
-clickHandler = -> Factlink.modal.hide.method()
-
-bindClick = -> $(document).bind 'click', clickHandler
-
-unbindClick = -> $(document).unbind 'click', clickHandler
-
+bindClick = -> $(document).bind 'click', Factlink.modal.hide
+unbindClick = -> $(document).unbind 'click', Factlink.modal.hide
 
 suppressScrollbars = ->
   if Factlink.can_haz.suppress_double_scrollbar
@@ -35,10 +27,11 @@ Factlink.modal =
     iFrame.fadeOut 'fast', -> restoreScrollbars()
     Factlink.trigger 'modalClosed'
 
-  show: ->
+  onModalReady: ->
     suppressScrollbars()
     bindClick()
     iFrame.fadeIn('fast')
+    Factlink.trigger 'modalOpened'
 
   highlightNewFactlink: (fact, id) ->
     fct = Factlink.selectRanges(Factlink.search(fact), id)
@@ -47,7 +40,7 @@ Factlink.modal =
 
     Factlink.trigger 'factlinkAdded'
 
-    Factlink.modal.hide.method()
+    Factlink.modal.hide()
 
     Factlink.showFactlinkCreatedNotification()
 
