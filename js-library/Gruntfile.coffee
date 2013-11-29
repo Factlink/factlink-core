@@ -28,7 +28,6 @@ module.exports = (grunt) ->
           'build/js/jail_iframe/libs/jquery-1.7.2.js'
           'build/js/jail_iframe/core.js'
           'build/js/jail_iframe/wrap/first.js'
-          'build/js/jail_iframe/libs/easyXDM.js'
           'build/js/jail_iframe/plugins/*.js'
           'build/js/jail_iframe/classes/*.js'
           'build/js/jail_iframe/views/*.js'
@@ -96,6 +95,7 @@ module.exports = (grunt) ->
           'build/factlink_loader_publishers.min.js':  ['build/factlink_loader_publishers.js']
           'build/factlink_loader_bookmarklet.min.js': ['build/factlink_loader_bookmarklet.js']
           'build/easyXDM/easyXDM.min.js':                    ['build/js/jail_iframe/libs/easyXDM.js']
+          'build/postFactlinkObject.min.js': ['build/js/jail_iframe/util/postFactlinkObject.js']
     shell:
       gzip_js_files:
         command: ' find build/ -iname \'*.js\'  -exec bash -c \' gzip -9 -f < "{}" > "{}.gz" \' \\; '
@@ -111,9 +111,9 @@ module.exports = (grunt) ->
         files: [
           { src: ['factlink.*.js'], cwd: 'build/js', dest: 'build', expand: true }
         ]
-      easyXDM:
+      postFactlinkObject:
         files: [
-          { src: ['easyXDM.js'], cwd: 'app/js/jail_iframe/libs', dest: 'build/easyXDM', expand: true }
+          { src: ['postFactlinkObject.js'], cwd: 'build/js/jail_iframe/util', dest: 'build', expand: true }
         ]
 
       dist:
@@ -151,6 +151,7 @@ module.exports = (grunt) ->
       'build/factlink_loader_publishers.js'
     ]
 
+
     file_variant_funcs.forEach (file_variant_func) ->
         replacements.forEach (replacement) ->
           input_filename = file_variant_func(replacement.content_file)
@@ -164,7 +165,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
-    'clean', 'copy:build', 'copy:easyXDM', 'copy:start_stop_files', 'coffee',
+    'clean', 'copy:build',  'copy:start_stop_files', 'coffee','copy:postFactlinkObject',
     'sass', 'cssUrlEmbed', 'cssmin',
     'concat', 'uglify', 'code_inliner',
     'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist'
