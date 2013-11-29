@@ -64,18 +64,4 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     return unless @$el.is(':visible')
     return if @model.get('showBox')
 
-    @popoverAdd '.js-supporting-button',
-      side: 'right'
-      margin: 10
-      container: @ui.buttons
-      contentView: new TextView text: 'Add supporting argument'
-      popover_className: 'add-supporting-argument button button-success js-supporting-tooltip evidence-add-tooltip'
-
-    @popoverAdd '.js-weakening-button',
-      side: 'left'
-      margin: 10
-      container: @ui.buttons
-      contentView: new TextView text: 'Add weakening argument'
-      popover_className: 'add-weakening-argument button button-danger js-weakening-tooltip evidence-add-tooltip'
-
     @_popoversRendered = true
