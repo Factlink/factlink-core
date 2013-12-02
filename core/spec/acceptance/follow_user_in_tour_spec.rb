@@ -32,10 +32,6 @@ feature "follow_users_in_tour", type: :feature do
     sign_in_user @user
     visit interests_path
 
-    page.should have_content('What is this?')
-    click_on 'Got it!'
-    page.should_not have_content('What is this?')
-
     page.should have_content("#{@user1.full_name}")
     page.should have_content("#{@user2.full_name}")
 
@@ -48,11 +44,10 @@ feature "follow_users_in_tour", type: :feature do
   scenario "Text should switch to 'Finish tour' when successfully following someone" do
     sign_in_user @user
     visit interests_path
-    click_on 'Got it!'
 
     page.should have_content('Skip this step')
 
-    # Click on one user
+    page.should have_content('Follow user')
     first(:button, 'Follow user').click
 
     page.should have_content('Following')
@@ -62,8 +57,8 @@ feature "follow_users_in_tour", type: :feature do
   scenario "The user should be able to follow users from the tour" do
     sign_in_user @user
     visit interests_path
-    click_on 'Got it!'
 
+    page.should have_content('Follow user')
     first(:button, 'Follow user').click
 
     go_to_profile_page_of @user
@@ -73,8 +68,8 @@ feature "follow_users_in_tour", type: :feature do
   scenario "When following a user, we also follow her topics" do
     sign_in_user @user
     visit interests_path
-    click_on 'Got it!'
 
+    page.should have_content('Follow user')
     first(:button, 'Follow user').click
     first(:button, 'Follow user').click
 
@@ -86,8 +81,8 @@ feature "follow_users_in_tour", type: :feature do
     sign_in_user @user
 
     visit interests_path
-    click_on 'Got it!'
 
+    page.should have_content('Follow user')
     first(:button, 'Follow user').click
 
     eventually_succeeds 10 do
