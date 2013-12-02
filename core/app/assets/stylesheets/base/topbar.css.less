@@ -95,18 +95,29 @@
 .topbar-connect-buttons{
   display: inline-block;
   padding: 0px 5px;
+  top: -1.5px;
   .button-twitter, .button-facebook {
-    height: 30px;
     padding: 0 6px;
     line-height: 26px;
-    top: -1.5px;
     .icon-twitter, .icon-facebook {
       font-size: 18px;
       margin: 0;
     }
   }
-
+  .button-factlink {
+    padding: 0px;
+    line-height: 26px;
+    .icon-factlink{
+      background: image-url('FL-checkmark.svg') no-repeat;
+      background-size: 18px;
+      background-position: center;
+      width:30px;
+      height: 30px;
+      display:inline-block;
+    }
+  }
 }
+
 .topbar-other-link{
   color: @metaFontColor;
 }
