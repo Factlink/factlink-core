@@ -1,4 +1,4 @@
-if ["production", "staging"].include?(Rails.env)
+if ["production"].include?(Rails.env)
   mixpanel_conf = YAML::load_file(Rails.root.join('config/mixpanel.yml'))[Rails.env]['mixpanel']
 
   FactlinkUI::Application.config.mixpanel_token = mixpanel_conf['token']
