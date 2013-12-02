@@ -19,25 +19,5 @@ module Acceptance
       Pavlov.interactor :'channels/add_fact', fact: fact, channel: channel,
         pavlov_options: { no_current_user: true }
     end
-
-    def go_to_channel_page_of channel
-      path = channel_path @user, channel
-      visit path
-    end
-
-    def go_to_stream
-      find('#left-column .js-stream a').click
-    end
-
-    def assert_on_channel_page channel_title
-      # wait until the new header with the new title appears
-      find('#channel > header h1', text: channel_title)
-    end
-
-    def within_channel_header &block
-      within(:css, "#channel > header") do
-        yield
-      end
-    end
   end
 end
