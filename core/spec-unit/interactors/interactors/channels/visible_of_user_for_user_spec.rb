@@ -35,16 +35,11 @@ describe Interactors::Channels::VisibleOfUserForUser do
   describe ".channels_with_authorities" do
     it "combines the list of channels with the list of authorities" do
       visible_channels = [double(:ch1), double(:ch2)]
-      authorities = [double(:a1), double(:a2)]
+      authorities = [1, 1]
 
       described_class.any_instance.stub(authorized?: true)
       interactor = described_class.new user: double
       interactor.stub(visible_channels: visible_channels)
-
-      Pavlov.should_receive(:query)
-            .with(:'creator_authorities_for_channels',
-                      channels: visible_channels)
-            .and_return(authorities)
 
       result = interactor.channels_with_authorities
 
