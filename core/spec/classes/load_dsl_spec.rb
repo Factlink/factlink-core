@@ -16,7 +16,7 @@ describe LoadDsl do
       expect { subject.fact "hoi" }.to raise_error(LoadDsl::UndefinedUserError)
   end
 
-  it "creating one channel with another channel as subchannel, and redefining the second channel should only create two channels" do
+  it "creating some channels should work" do
     subject.run do
       user "merijn", "merijn@example.com", "123hoi"
       user "merijn", "merijn@example.com", "123hoi"
@@ -24,7 +24,6 @@ describe LoadDsl do
 
       user "merijn"
         channel "foo"
-          sub_channel "mark", "bar"
 
       user "mark"
         channel "bar"

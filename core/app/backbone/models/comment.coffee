@@ -22,12 +22,6 @@ class window.Comment extends Evidence
 
     @save opinion: type
 
-  undoOpinion: ->
-    if @previous_user_opinion?
-      @setOpinion @previous_user_opinion
-    else
-      @removeOpinion()
-
   believe: -> @setOpinion 'believes'
   disbelieve: -> @setOpinion 'disbelieves'
 

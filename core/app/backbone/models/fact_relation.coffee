@@ -28,12 +28,6 @@ class window.FactRelation extends Evidence
       success: (data) =>
         @set data
 
-  undoOpinion: ->
-    if @previous_user_opinion?
-      @setOpinion @previous_user_opinion
-    else
-      @removeOpinion()
-
   getFact: ->
     return @_fact if @_fact?
 

@@ -1,9 +1,6 @@
 class NormalizeSitesWithXssProtection < Mongoid::Migration
   def self.up
-    Site.all.ids.each do |id|
-      Resque.enqueue(Interactors::NormalizeSiteUrl, site_id: id,
-        normalizer_class_name: :UrlNormalizer)
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
