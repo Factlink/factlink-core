@@ -34,7 +34,6 @@ module Screenshots
 
       within('.evidence-votable', text: supporting_factlink.data.displaystring, visible: false) do
         find('.js-down').click
-        find('.spec-fact-disbelieve').click
         eventually_succeeds do
           find('a', text: 'Comment').click
           find('.spec-sub-comments-form').should_not eq nil
