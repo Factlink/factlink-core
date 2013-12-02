@@ -20,7 +20,6 @@ Factlink.listenToWindowMessages = (source_window, receiver) ->
     return
   window.addEventListener 'message', handler
 
-
 window.addEventListener 'message', (e) ->
   console.log 'receiving...'
   if typeof e.data == 'string' && startsWith(e.data, msgPrefix)

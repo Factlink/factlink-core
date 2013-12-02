@@ -41,8 +41,6 @@ class FactInteraction
       mouseleave: => @onUnhover()
       click: => @onClick()
 
-
-
   onClick: (options={}) =>
     @button_attention.gainAttentionNow()
     @highlight_attention.gainAttentionNow()
