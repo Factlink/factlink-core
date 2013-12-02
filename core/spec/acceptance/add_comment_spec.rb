@@ -27,9 +27,7 @@ feature "adding comments to a fact", type: :feature do
     assert_comment_exists comment
   end
 
-  scenario 'after adding a comment it should have brain cycles' do
-    user_authority_on_fact = 1
-
+  scenario 'after adding a comment it has one upvote' do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
@@ -39,13 +37,11 @@ feature "adding comments to a fact", type: :feature do
     go_to_discussion_page_of factlink
 
     within_evidence_list do
-      find('.evidence-impact-text').should have_content user_authority_on_fact + 1
+      find('.evidence-impact-text').should have_content 1
     end
   end
 
   scenario 'after adding a comment, the user should be able to reset his opinion' do
-    user_authority_on_fact = 1
-
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
@@ -54,15 +50,15 @@ feature "adding comments to a fact", type: :feature do
 
     within_evidence_list do
       # there is just one factlink in the list
-      find('.evidence-impact-text', text: (user_authority_on_fact+1).to_s)
+      find('.evidence-impact-text', text: "1")
       find('.evidence-impact-vote-up').click
-      find('.evidence-impact-text', text: "0.0")
+      find('.evidence-impact-text', text: "0")
     end
 
     go_to_discussion_page_of factlink
 
     within_evidence_list do
-      find('.evidence-impact-text', text: "0.0")
+      find('.evidence-impact-text', text: "0")
     end
   end
 
