@@ -2,7 +2,6 @@ msgPrefix = 'FL$msg*)k`dC:'
 window.Factlink || window.Factlink = {}
 
 Factlink.createFrameProxy = (target_window) -> (method_name) -> (args...) ->
-  console.log window.location.href + " sending " + method_name, args, target_window
   message = msgPrefix + JSON.stringify([method_name, args])
   target_window.postMessage message, '*'
 
@@ -20,8 +19,3 @@ Factlink.listenToWindowMessages = (source_window, receiver) ->
     return
   window.addEventListener 'message', handler
 
-window.addEventListener 'message', (e) ->
-  console.log 'receiving...'
-  if typeof e.data == 'string' && startsWith(e.data, msgPrefix)
-    data_obj = JSON.parse(e.data.substring(msgPrefix.length))
-    console.log window.location.href + " received " + data_obj[0], data_obj[1]
