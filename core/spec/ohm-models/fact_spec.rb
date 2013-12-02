@@ -47,11 +47,6 @@ describe Fact do
     expect(parent.opiniated(:believes).to_a).to match_array [graph_user]
   end
 
-  it "is in the created_facts set of the creator" do
-    gu = fact.created_by
-    expect(gu.created_facts.to_a).to match_array [fact]
-  end
-
   context "initially" do
     it "should have no evidence for a type, or the :both type" do
       expect(fact.evidence(:supporting).count).to eq 0

@@ -132,27 +132,6 @@ describe UsersController do
         pavlov_options: { no_current_user: true }
       channel
     end
-    it "should render succesful" do
-      current_user = create :full_user
-      other_user = create :full_user
-
-      other_users_channel =
-        backend_create_viewable_channel_for other_user
-      my_channel =
-        backend_create_viewable_channel_for current_user
-
-      as(other_user) do |p|
-        p.interactor :'channels/add_subchannel', channel_id: other_users_channel.id, subchannel_id: my_channel.id
-      end
-
-      authenticate_user!(current_user)
-
-      should_check_can :see_activities, current_user
-
-      get :activities, username: current_user.username, format: :json
-
-      response.should be_success
-    end
 
     describe :activity_approval do
       before do
@@ -162,6 +141,7 @@ describe UsersController do
           attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
 
         Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+        FactoryGirl.reload # hack because of fixture in check
       end
 
       [:supporting, :weakening].each do |type|
@@ -244,33 +224,6 @@ describe UsersController do
         response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
 
         Approvals.verify(response_body, format: :json, name: "users#activities should keep the same created sub comment activity")
-      end
-
-      it 'added subchannel' do
-        current_user = create(:full_user)
-
-        ch1 = create :channel, created_by: current_user.graph_user
-        ch2 = create :channel, created_by: user.graph_user
-
-        as(current_user) do |pavlov|
-          pavlov.interactor(:'channels/add_subchannel', channel_id: ch1.id,
-            subchannel_id: ch2.id)
-        end
-
-        authenticate_user!(user)
-
-        should_check_can :see_activities, user
-
-        get :activities, username: user.username, format: :json
-
-        response.should be_success
-
-        response_body = response.body.to_s
-        # strip mongo id, since otherwise comparison will always fail
-        response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-        response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
-
-        Approvals.verify(response_body, format: :json, name: "users#activities should keep the same added sub channel activity")
       end
     end
   end

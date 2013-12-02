@@ -118,14 +118,6 @@ class window.Wheel extends Backbone.Model
         @turnOnActiveOpinionType @previous_opinion_type
         FactlinkApp.NotificationCenter.error "Something went wrong while removing your opinion on the Factlink, please try again."
 
-  undoOpinion: ->
-    return if @previous_opinion_type == @userOpinion()
-
-    if @previous_opinion_type?
-      @setActiveOpinionType @previous_opinion_type
-    else
-      @unsetActiveOpinionType()
-
   believe: -> @setActiveOpinionType 'believe'
   disbelieve: -> @setActiveOpinionType 'disbelieve'
   isBelieving: -> @isUserOpinion 'believe'

@@ -46,55 +46,18 @@ describe Interactors::Topics::Get do
     end
   end
 
-  describe '#authority' do
-    it 'returns the authority from the query' do
-      topic = double
-      graph_user = double
-      user = double(graph_user: graph_user)
-      authority = double
-      pavlov_options = {current_user: user, ability: double(can?: true)}
-      interactor = described_class.new(slug_title: 'foo',
-        pavlov_options: pavlov_options)
-
-      Pavlov.stub(:query)
-        .with(:'topics/by_slug_title', slug_title: 'foo', pavlov_options: pavlov_options)
-        .and_return(topic)
-
-      Pavlov.should_receive(:query)
-        .with(:authority_on_topic_for, topic: topic, graph_user: graph_user, pavlov_options: pavlov_options)
-        .and_return(authority)
-
-      expect(interactor.authority).to eq authority
-    end
-
-    it 'returns nil when no current_user' do
-      topic = double
-      pavlov_options = {ability: double(can?: true)}
-      interactor = described_class.new(slug_title: 'foo',
-        pavlov_options: pavlov_options)
-
-      Pavlov.stub(:query)
-        .with(:'topics/by_slug_title', slug_title: 'foo', pavlov_options: pavlov_options)
-        .and_return(topic)
-
-      expect(interactor.authority).to eq nil
-    end
-  end
-
   describe '#call' do
     it 'should return a dead object' do
       topic = double(slug_title: 'slug_title', title: 'title')
-      authority = double
       dead_topic = double
       stub_classes 'DeadTopic'
       interactor = described_class.new(slug_title: 'foo')
 
       described_class.any_instance.stub(:authorized?).and_return(true)
       interactor.stub(:topic).and_return(topic)
-      interactor.stub(:authority).and_return(authority)
 
       DeadTopic.should_receive(:new).
-        with(topic.slug_title, topic.title, authority).
+        with(topic.slug_title, topic.title).
         and_return(dead_topic)
 
       expect(interactor.call).to eq dead_topic

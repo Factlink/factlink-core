@@ -21,6 +21,9 @@ require 'pavlov_helper'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f| require f}
 
+# Don't do web requests from tests
+WebMock.disable_net_connect!(:allow_localhost => true)
+
 RSpec.configure do |config|
   config.filter_run_excluding slow: true unless ENV['RUN_SLOW_TESTS']
 

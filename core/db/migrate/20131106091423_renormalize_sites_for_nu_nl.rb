@@ -1,6 +1,6 @@
 class RenormalizeSitesForNuNl < Mongoid::Migration
   def self.up
-    Interactors::NormalizeAllSiteUrls.new.call
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

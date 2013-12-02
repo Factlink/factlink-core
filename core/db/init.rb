@@ -117,7 +117,6 @@ LoadDsl.load do
       add_fact "The dynamic microbial community of the Gulf of Mexico supported remarkable rates of oil respiration, despite a dearth of dissolved nutrients,"
       add_fact "Microbes had the metabolic potential to break down a large portion of hydrocarbons and keep up with the flow rate from the wellhead"
       add_fact "the molecules that are not accessible to microbes persist and could have toxic effects"
-      sub_channel "jjoos", "War & Peace"
     channel "Oil"
       add_fact "Oil is still detrimental to the environment,"
       add_fact "Molecules that are not accessible to microbes persist and could have toxic effects"

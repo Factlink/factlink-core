@@ -1,7 +1,6 @@
 class RemoveRedisTops < Mongoid::Migration
   def self.up
-    Topic.redis[:top].del
-    Fact.key[:top_facts].del
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

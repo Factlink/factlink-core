@@ -188,7 +188,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         popover_className: 'translucent-popover'
         margin: @maxStrokeWidth()/2 - 7
       selector: '.authority'
-      tooltipViewFactory: => new TextView text: 'Total authority score'
+      tooltipViewFactory: => new TextView text: 'Total votes'
 
   _makeTooltipForPath: (name, selector) ->
     Backbone.Factlink.makeTooltipForView @,

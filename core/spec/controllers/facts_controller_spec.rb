@@ -162,6 +162,7 @@ describe FactsController do
       end
 
       Twitter::Client.any_instance.should_receive(:update)
+      Twitter.stub configuration: double(short_url_length_https: 20)
 
       post :share, id: fact.id, fact_sharing_options: {twitter: true}
     end

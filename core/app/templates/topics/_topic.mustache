@@ -3,16 +3,7 @@
     <h1 class="channel-title pull-left" title="{{ title }}">
       {{ title }}
     </h1>
-
     <div class="js-region-favourite-topic favourite-topic-button-container pull-left"></div>
-
-    <div class="pull-right">
-      <ul class="channel-statistics">
-        {{#global.signed_in}}
-          <li><span class="channel-authority-for-user">{{ current_user_authority }}</span> Your authority</li>
-        {{/global.signed_in}}
-      </ul>
-    </div>
   </header>
 
   <div class="js-region-fact-list"></div>

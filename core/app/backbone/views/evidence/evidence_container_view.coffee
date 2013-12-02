@@ -5,21 +5,6 @@ class EvidenceImpactView extends Backbone.Marionette.ItemView
   initialize: ->
     @listenTo @model, 'change:impact', @render
 
-  onRender: ->
-    @_makeAuthorityTooltip()
-
-  _makeAuthorityTooltip: ->
-    @trigger 'removeTooltips'
-
-    Backbone.Factlink.makeTooltipForView @,
-      positioning:
-        side: 'top'
-        popover_className: 'translucent-popover'
-        margin: -13
-      selector: '.js-tooltip-container'
-      tooltipViewFactory: => new TextView text: 'Authority score'
-
-
 class EvidenceLayoutView extends Backbone.Marionette.Layout
   template: 'evidence/evidence_layout'
 
