@@ -55,30 +55,6 @@ module.exports = (grunt) ->
           'build/js/loader/loader_bookmarklet.js'
         ]
         dest: 'build/factlink_loader_bookmarklet.js'
-    code_inliner:
-      basic_css:
-        src: 'build/css/basic.min.css'
-        dest: 'build/jail_iframe.js' # See jail_iframe/initializers/style.coffee
-
-      jail_iframe_loader_basic:
-        src: 'build/jail_iframe.js'
-        dest: 'build/factlink_loader_basic.js'
-      jail_iframe_loader_publishers:
-        src: 'build/jail_iframe.js'
-        dest: 'build/factlink_loader_publishers.js'
-      jail_iframe_loader_bookmarklet:
-        src: 'build/jail_iframe.js'
-        dest: 'build/factlink_loader_bookmarklet.js'
-
-      jail_iframe_loader_basic_min:
-        src: 'build/jail_iframe.min.js'
-        dest: 'build/factlink_loader_basic.min.js'
-      jail_iframe_loader_publishers_min:
-        src: 'build/jail_iframe.min.js'
-        dest: 'build/factlink_loader_publishers.min.js'
-      jail_iframe_loader_bookmarklet_min:
-        src: 'build/jail_iframe.min.js'
-        dest: 'build/factlink_loader_bookmarklet.min.js'
     sass:
       build:
         files:
@@ -128,6 +104,11 @@ module.exports = (grunt) ->
         files: [
           { src: ['factlink.*.js'], cwd: 'build/js', dest: 'build', expand: true }
         ]
+      easyXDM:
+        files: [
+          { src: ['easyXDM.js'], cwd: 'app/js/jail_iframe/libs', dest: 'build/easyXDM', expand: true }
+        ]
+
       dist:
         files: [
           { src: ['*.js', 'easyXDM/*.js',
@@ -141,66 +122,47 @@ module.exports = (grunt) ->
       tasks: ['compile', 'test']
     qunit:
       all: ['test/*.html']
-    jshint:
-      all: ['app/js/jail_iframe/util/*.js', 'test/**/*.js']
-      options:
-        # Whether jQuery globals should be predefined.
-        jquery: true
-        # Whether the standard browser globals should be predefined.
-        browser: true
-        # Whether logging globals should be predefined (console, alert, etc.).
-        devel: true
-        # Whether ES5 syntax should be allowed.
-        es5: true
-        # Tolerate assignments inside if, for & while. Usually conditions & loops are for comparison, not assignments.
-        boss: true
-        # Require {} for every new block or scope.
-        curly: true
-        # Require triple equals i.e. `===`.
-        eqeqeq: true
-        # Prohipit variable use before definition.
-        latedef: true
-        # Allow functions to be defined within loops.
-        loopfunc: true
-        # Prohibit use of `arguments.caller` and `arguments.callee`.
-        noarg: true
-        # Require all non-global variables be declared before they are used.
-        undef: true
-        # Require capitalization of all constructor functions e.g. `new F()`.
-        newcap: true
-        # Prohibit use of empty blocks.
-        noempty: true
-        # Prohibit use of constructors for side-effects.
-        nonew: true
-        # Custom predefined globals.
-        # For value examples, see https://github.com/jshint/jshint/blob/c047ea1b01097fcc220fcd1a55c41f67ae2e6e81/jshint.js#L556
-        globals:
-          "Factlink": true
-          "FactlinkConfig": true
-          "escape": true
-          "_": true
 
-  grunt.task.registerMultiTask 'code_inliner', 'Inline code from one file into another', ->
-    @files.forEach (f) ->
-      source_file_path = f.src
-      destination_file_path = f.dest
+  grunt.task.registerTask 'code_inliner', 'Inline code from one file into another',  ->
+    min_filename = (filename) -> filename.replace(/\.\w+$/,'.min$&')
+    debug_filename = (filename) -> filename
+    file_variant_funcs = [min_filename, debug_filename]
+    replacements = [
+      {
+        placeholder: '__INLINE_CSS_PLACEHOLDER__'
+        content_file: 'build/css/basic.css'
+      }
+      {
+        placeholder: '__INLINE_JS_PLACEHOLDER__'
+        content_file: 'build/jail_iframe.js'
+      }
+    ]
+    targets = [
+      'build/factlink.js'
+      'build/factlink_loader_basic.js'
+      'build/factlink_loader_bookmarklet.js'
+      'build/factlink_loader_publishers.js'
+    ]
 
-      grunt.log.writeln "Inlining code from '#{source_file_path}' to '#{destination_file_path}'."
+    file_variant_funcs.forEach (file_variant_func) ->
+        replacements.forEach (replacement) ->
+          input_filename = file_variant_func(replacement.content_file)
+          input_content = grunt.file.read(input_filename, 'utf8')
+          input_content_stringified = JSON.stringify(input_content)
+          targets.map(file_variant_func).forEach (target_filename) ->
+            grunt.log.writeln "Inlining '#{input_filename}' into '#{target_filename}' where  '#{replacement.placeholder}'."
+            target_content = grunt.file.read target_filename, 'utf8'
+            target_with_inlined_content = target_content.replace replacement.placeholder, input_content_stringified
+            grunt.file.write(target_filename, target_with_inlined_content)
 
-      stringified_source_code = JSON.stringify(grunt.file.read(source_file_path, 'utf8'))
-      destination_code = grunt.file.read destination_file_path, 'utf8'
-      destination_code_with_inlined_source = destination_code.replace /__INLINE_CODE_FROM_GRUNT__/, stringified_source_code
-
-      grunt.file.write destination_file_path, destination_code_with_inlined_source
-
-  grunt.registerTask 'jail_iframe', ['concat:jail_iframe', 'code_inliner:basic_css', 'uglify:jail_iframe']
+  grunt.registerTask 'jail_iframe', []
   grunt.registerTask 'compile',  [
-    'clean', 'copy:build', 'copy:start_stop_files', 'coffee',
+    'clean', 'copy:build', 'copy:easyXDM', 'copy:start_stop_files', 'coffee',
     'sass', 'cssUrlEmbed', 'cssmin',
-    'jail_iframe', 'concat', 'uglify:all_except_jail_iframe', 'code_inliner',
+    'concat', 'uglify', 'code_inliner',
     'shell:gzip_css_files', 'shell:gzip_js_files', 'copy:dist'
   ]
-  grunt.registerTask 'test',    ['jshint', 'qunit']
+  grunt.registerTask 'test',    ['qunit']
 
   grunt.registerTask 'default', ['compile', 'test']
   grunt.registerTask 'server',  ['compile']
@@ -208,7 +170,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-sass'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-copy'
-  grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-qunit'

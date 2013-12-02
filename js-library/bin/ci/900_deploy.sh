@@ -1,13 +1,10 @@
 #!/bin/bash
-
 if [[ ! -z $DEPLOY_SERVER ]]; then
+  echo "Deploying..."
+
   echo "deploying to $DEPLOY_SERVER"
-
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-
-  cap -S "branch=$GIT_COMMIT" -q $DEPLOY_SERVER deploy || exit 1
-
+  bundle
+  bundle exec cap -S "branch=$GIT_COMMIT" $DEPLOY_SERVER deploy -s "build_number=$BUILD_NUMBER" || exit 1
   echo "deployed to $DEPLOY_SERVER"
 else
   echo "No DEPLOY_SERVER found, not deploying."
