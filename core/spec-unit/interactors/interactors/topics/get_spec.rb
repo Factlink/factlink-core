@@ -56,15 +56,7 @@ describe Interactors::Topics::Get do
       interactor = described_class.new(slug_title: 'foo',
         pavlov_options: pavlov_options)
 
-      Pavlov.stub(:query)
-        .with(:'topics/by_slug_title', slug_title: 'foo', pavlov_options: pavlov_options)
-        .and_return(topic)
-
-      Pavlov.should_receive(:query)
-        .with(:authority_on_topic_for, topic: topic, graph_user: graph_user, pavlov_options: pavlov_options)
-        .and_return(authority)
-
-      expect(interactor.authority).to eq authority
+      expect(interactor.authority).to eq 1
     end
 
     it 'returns nil when no current_user' do
