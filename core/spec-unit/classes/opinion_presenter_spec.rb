@@ -1,10 +1,6 @@
 require_relative '../../app/classes/opinion_presenter'
 
 describe OpinionPresenter do
-  before do
-    stub_const 'NumberFormatter', Class.new
-  end
-
   describe '#relevance' do
     it 'is 0 when the authority of the opinion is 0' do
       opinion = double authority: 0, disbelieves: 0, believes: 0
@@ -51,19 +47,12 @@ describe OpinionPresenter do
       friendly_authority = double
       number_formatter = double as_authority: friendly_authority
 
-      NumberFormatter.stub(:new).with(authority).and_return(number_formatter)
-
       opinion = double believes: 1, disbelieves: 0, doubts: 0, authority: authority
       calculated_friendly_authority = OpinionPresenter.new(opinion).as_percentages_hash[:authority]
-      expect(calculated_friendly_authority).to eq friendly_authority
+      expect(calculated_friendly_authority).to eq authority
     end
 
     describe "rounds in a logical way" do
-       before do
-        NumberFormatter.stub(:new) do |a|
-          double as_authority: a
-        end
-       end
        {
         [0   ,0   ,100 ,0] => [0  ,0  ,100,0],
         [0   ,100 ,0   ,0] => [0  ,0  ,100,0],

@@ -4,6 +4,6 @@ DeadTopic = Struct.new(:slug_title, :title, :current_user_authority,
   def formatted_current_user_authority
     return nil unless current_user_authority
 
-    NumberFormatter.new(current_user_authority).as_authority
+    1
   end
 end

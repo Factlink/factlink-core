@@ -11,12 +11,12 @@
       {
         "title": "story",
         "slug_title": "story",
-        "authority": "4"
+        "authority": 1
       },
       {
         "title": "toy",
         "slug_title": "toy",
-        "authority": "1"
+        "authority": 1
       }
     ]
   },
@@ -32,12 +32,12 @@
       {
         "title": "games",
         "slug_title": "games",
-        "authority": "4k"
+        "authority": 1
       },
       {
         "title": "war",
         "slug_title": "war",
-        "authority": "1"
+        "authority": 1
       }
     ]
   }
