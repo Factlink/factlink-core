@@ -1,12 +1,7 @@
 require 'spec_helper'
 
-
 describe "computed opinion" do
   include BeliefExpressions
-
-  before do
-    Commands::Topics::UpdateUserAuthority.stub new: (double call: nil)
-  end
 
   let(:u1) { create(:user) }
   let(:u2) { create(:user) }
