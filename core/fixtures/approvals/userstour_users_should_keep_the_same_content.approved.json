@@ -8,16 +8,7 @@
     "statistics_follower_count": 0,
     "statistics_following_count": 0,
     "user_topics": [
-      {
-        "title": "story",
-        "slug_title": "story",
-        "authority": "4"
-      },
-      {
-        "title": "toy",
-        "slug_title": "toy",
-        "authority": "1"
-      }
+
     ]
   },
   {
@@ -29,16 +20,7 @@
     "statistics_follower_count": 0,
     "statistics_following_count": 0,
     "user_topics": [
-      {
-        "title": "games",
-        "slug_title": "games",
-        "authority": "4k"
-      },
-      {
-        "title": "war",
-        "slug_title": "war",
-        "authority": "1"
-      }
+
     ]
   }
 ]

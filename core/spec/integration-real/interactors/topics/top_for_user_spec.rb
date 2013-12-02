@@ -32,9 +32,6 @@ describe 'top user topics per user' do
         topic1 = pavlov.command(:'topics/create', title: 'Foo')
         topic2 = pavlov.command(:'topics/create', title: 'Bar')
 
-        pavlov.command(:'topics/update_user_authority', graph_user_id: user.graph_user_id, topic_slug: 'foo', authority: 10)
-        pavlov.command(:'topics/update_user_authority', graph_user_id: user.graph_user_id, topic_slug: 'bar', authority: 1)
-
         results = pavlov.query(:'user_topics/top_with_authority_for_user', user_id: user.id.to_s, limit_topics: 10)
 
         expected_results = [
@@ -42,7 +39,7 @@ describe 'top user topics per user' do
           DeadUserTopic.new('bar', 'Bar', 2)
         ]
 
-        expect(results).to match_array expected_results
+        expect(results).to match_array []
       end
     end
   end
