@@ -20,7 +20,7 @@ local =
       showUrl url
       last_created_text = text
 
-Factlink.listenToWindowMessages null, local
+Factlink.listenToWindowMessages local
 
 window.highlightLastCreatedFactlink = (id, text) ->
   if last_created_text == text
