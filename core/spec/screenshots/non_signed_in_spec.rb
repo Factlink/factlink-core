@@ -5,7 +5,7 @@ describe "Non signed in pages:", type: :feature do
   include Screenshots::DiscussionHelper
 
   describe "Profile page page" do
-    it "it renders correctly" do
+    it "renders correctly" do
       @user = sign_in_user create :full_user
 
       factlink = backend_create_fact
