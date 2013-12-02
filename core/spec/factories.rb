@@ -34,10 +34,6 @@ FactoryGirl.define do
       admin true
     end
 
-    trait :seeing_channels do
-      features [:sees_channels]
-    end
-
     factory :full_user, traits: [
       :set_up,
       :seen_the_tour
