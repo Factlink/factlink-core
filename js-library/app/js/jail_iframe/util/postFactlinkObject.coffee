@@ -11,9 +11,9 @@ Factlink.createFrameProxyObject = (target_window, methods) ->
 
 startsWith = (haystack, needle) -> haystack.lastIndexOf(needle, 0) == 0
 
-Factlink.listenToWindowMessages = (source_window, receiver) ->
+Factlink.listenToWindowMessages = (receiver) ->
   handler = (e) ->
-    if e.source == (source_window||e.source) && typeof e.data == 'string' && startsWith(e.data, msgPrefix)
+    if typeof e.data == 'string' && startsWith(e.data, msgPrefix)
       data_obj = JSON.parse(e.data.substring(msgPrefix.length))
       receiver[data_obj[0]].apply receiver, data_obj[1]
     return
