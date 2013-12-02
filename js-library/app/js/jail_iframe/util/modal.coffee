@@ -54,3 +54,4 @@ Factlink.modal =
 
   setFeatureToggles: (featureToggles) ->
     Factlink.can_haz = featureToggles
+    window.FACTLINK_ON_CORE_LOAD?()

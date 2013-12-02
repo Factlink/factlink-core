@@ -35,10 +35,10 @@ window.FACTLINK_START_LOADER = ->
   storedMethodCalls = []
   proxy_method = (name) ->
     window.FACTLINK[name] = ->
-      if jslib_jail_iframe.contentWindow.Factlink?
-        jslib_jail_iframe.contentWindow.Factlink[name](arguments...)
-      else
+      if window.FACTLINK_ON_CORE_LOAD
         storedMethodCalls.push {name: name, arguments: arguments}
+      else
+        jslib_jail_iframe.contentWindow.Factlink[name](arguments...)
       return # don't return the value, as we can't do that when storing calls
 
   proxy_method 'on'
@@ -54,9 +54,10 @@ window.FACTLINK_START_LOADER = ->
   proxy_method 'initializeFactlinkButton'
 
   window.FACTLINK_ON_CORE_LOAD = ->
+    delete window.FACTLINK_ON_CORE_LOAD
     for methodCall in storedMethodCalls
       jslib_jail_iframe.contentWindow.Factlink[methodCall.name](methodCall.arguments...)
-    storedMethodCalls = []
+    storedMethodCalls = undefined
 
   jslib_jail_iframe.contentWindow.FactlinkConfig = window.FactlinkConfig
   #### Load iframe with script tag
@@ -67,9 +68,7 @@ window.FACTLINK_START_LOADER = ->
   jslib_jail_doc.close()
 
   script_tag = jslib_jail_doc.createElement 'script'
-  script_tag.appendChild(
-    jslib_jail_doc.createTextNode(
-      "#{jslib_jail_code};window.parent.FACTLINK_ON_CORE_LOAD();"))
+  script_tag.appendChild(jslib_jail_doc.createTextNode(jslib_jail_code))
   jslib_jail_doc.documentElement.appendChild(script_tag)
 
 
