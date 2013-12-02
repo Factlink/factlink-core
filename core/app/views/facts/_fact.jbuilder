@@ -21,8 +21,7 @@ json.sharing_url ::FactUrl.new(dead_fact).sharing_url
 json.created_by do |j|
   json.partial! 'users/user_partial', user: dead_fact_creator
   json.authority_for_subject do |json|
-    authority = Authority.on(dead_fact, for: dead_fact_creator_graph_user).to_f + 1.0
-    json.authority NumberFormatter.new(authority).as_authority
+    json.authority NumberFormatter.new(1).as_authority
     json.id dead_fact.id
   end
 end
