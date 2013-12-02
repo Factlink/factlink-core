@@ -133,30 +133,6 @@ describe UsersController do
       channel
     end
 
-    # TODO make sure we create an activity here again,
-    #      not using add_subchannel
-    xit "should render succesful" do
-      current_user = create :full_user
-      other_user = create :full_user
-
-      other_users_channel =
-        backend_create_viewable_channel_for other_user
-      my_channel =
-        backend_create_viewable_channel_for current_user
-
-      as(other_user) do |p|
-        p.interactor :'channels/add_subchannel', channel_id: other_users_channel.id, subchannel_id: my_channel.id
-      end
-
-      authenticate_user!(current_user)
-
-      should_check_can :see_activities, current_user
-
-      get :activities, username: current_user.username, format: :json
-
-      response.should be_success
-    end
-
     describe :activity_approval do
       before do
         # Don't send a mail for these activity tests
