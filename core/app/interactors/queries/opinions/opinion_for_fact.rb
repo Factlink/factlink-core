@@ -8,7 +8,7 @@ module Queries
       private
 
       def execute
-        FactGraph.new.opinion_for_fact(fact)
+        FactGraph.new.user_opinion_for_fact(fact)
       end
     end
   end

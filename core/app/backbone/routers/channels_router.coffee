@@ -1,6 +1,5 @@
 class window.ChannelsRouter extends Backbone.Marionette.AppRouter
   appRoutes:
-    ':username/channels/:channel_id':                          'showChannelFacts'
     ':username_unused/feed':                                   'showStream'
     't/:slug_title':                                           'showTopicFacts'
 

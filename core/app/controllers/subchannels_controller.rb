@@ -2,6 +2,8 @@
 # Since it's now only allowed to follow channels with the same name,
 # we use the channels/follow and unfollow interactors.
 
+#TODO Remove this one removing channels
+
 class SubchannelsController < ApplicationController
   def index
     authorize! :show, channel
