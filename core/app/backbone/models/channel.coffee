@@ -61,11 +61,8 @@ class window.Channel extends Backbone.Model
 
         options.success?()
 
-  is_mine: -> @user().is_current_user()
-
   toJSON: ->
     _.extend super(),
-      is_mine: @is_mine()
       link: @normal_url()
 
   follow: ->

@@ -8,8 +8,7 @@ describe Believable do
   end
 
   def user_fact_opinion(user, opinion, fact)
-    authority = Authority.on(fact, for: user).to_f + 1
-    Opinion.for_type(opinion,authority)
+    Opinion.for_type(opinion, 1)
   end
 
   def self.opinions

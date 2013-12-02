@@ -9,7 +9,7 @@ describe Queries::Opinions::OpinionForFact do
       stub_classes 'FactGraph'
     end
 
-    it 'returns the dead opinion on the fact' do
+    it 'returns the dead user opinion on the fact' do
       dead_opinion = double
       fact = double(id: double)
       fact_graph = double
@@ -17,7 +17,7 @@ describe Queries::Opinions::OpinionForFact do
 
       FactGraph.stub new: fact_graph
 
-      fact_graph.stub(:opinion_for_fact).with(fact)
+      fact_graph.stub(:user_opinion_for_fact).with(fact)
         .and_return(dead_opinion)
 
       expect(query.call).to eq dead_opinion

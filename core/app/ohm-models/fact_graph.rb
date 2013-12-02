@@ -6,11 +6,6 @@ class FactGraph
   def recalculate
     calculate_user_opinions
     calculate_graph
-    calculate_authority
-  end
-
-  def calculate_authority
-    Authority.run_calculation(authority_calculators)
   end
 
   def calculate_fact_when_user_opinion_changed(fact)
@@ -110,16 +105,10 @@ class FactGraph
     calculated_impact_opinion(intrinsic_opinion_for_comment(comment, fact), user_opinion, evidence_type, options)
   end
 
+  COMMENT_INTRINSIC_CREDIBILITY = 10
+
   def intrinsic_opinion_for_comment(comment, fact)
-    creator_authority = Authority.on(fact, for: comment.created_by.graph_user).to_f + 1.0
-
-    DeadOpinion.for_type(:believes, authority_of_comment_based_on_creator_authority(creator_authority))
-  end
-
-  COMMENT_AUTHORITY_MULTIPLIER = 10
-
-  def authority_of_comment_based_on_creator_authority(creator_authority)
-    creator_authority * COMMENT_AUTHORITY_MULTIPLIER
+    DeadOpinion.for_type(:believes, COMMENT_INTRINSIC_CREDIBILITY)
   end
 
   def calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type, options={})
@@ -136,9 +125,7 @@ class FactGraph
   end
 
   def calculated_user_opinion(thing_with_believable, fact)
-    UserOpinionCalculation.new(thing_with_believable.believable) do |user|
-      Authority.on(fact, for: user).to_f + 1.0
-    end.opinion
+    UserOpinionCalculation.new(thing_with_believable.believable) { |u| 1.0 }.opinion
   end
 
   def opinion_store
@@ -146,13 +133,4 @@ class FactGraph
   end
 
   delegate :store, :retrieve, to: :opinion_store
-
-  def authority_calculators
-    [
-      MapReduce::FactAuthority,
-      MapReduce::ChannelAuthority,
-      MapReduce::TopicAuthority,
-      MapReduce::FactCredibility
-    ]
-  end
 end

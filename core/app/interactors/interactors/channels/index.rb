@@ -31,8 +31,7 @@ module Interactors
       end
 
       def channels_with_authorities
-        authorities = query(:'creator_authorities_for_channels',
-                                channels: visible_channels)
+        authorities = visible_channels.map { 1 }
         visible_channels.zip authorities
       end
 
