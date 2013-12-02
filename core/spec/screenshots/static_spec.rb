@@ -67,4 +67,11 @@ describe "Static pages:", type: :feature do
       assume_unchanged_screenshot "static_on_your_site"
     end
   end
+
+  describe "Login and sign in screen" do
+    it  "it renders correctly" do
+      visit "/users/sign_in_or_up"
+      assume_unchanged_screenshot "static_sign_in_or_up"
+    end
+  end
 end
