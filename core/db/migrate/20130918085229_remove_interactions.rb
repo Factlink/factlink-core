@@ -1,8 +1,6 @@
 class RemoveInteractions < Mongoid::Migration
   def self.up
-    Fact.all.ids.each do |id|
-      Nest.new('Basefact')[id]['interactions'].del
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

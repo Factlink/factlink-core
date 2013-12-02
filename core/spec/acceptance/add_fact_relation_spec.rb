@@ -80,22 +80,4 @@ feature "adding factlinks to a fact", type: :feature do
       find('.evidence-impact-text', text: "1")
     end
   end
-
-  scenario "setting opinion through popup" do
-    supporting_factlink = backend_create_fact
-
-    go_to_discussion_page_of factlink
-    add_existing_factlink :supporting, supporting_factlink
-
-    within ".evidence-votable", visible: false do
-      page.should have_content supporting_factlink.to_s
-
-      find('.evidence-impact-text', text: '0')
-      find('.evidence-impact-vote-down').click
-      find('.evidence-impact-text', text: '-1')
-      find('.evidence-impact-vote-up').click
-      find('.spec-fact-believe').click
-      find('.evidence-impact-text', text: '1')
-    end
-  end
 end

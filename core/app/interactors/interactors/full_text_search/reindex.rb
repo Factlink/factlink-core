@@ -1,5 +1,7 @@
 require_relative '../../../classes/elastic_search.rb'
 
+# This one interactor isn't used much, but we keep it around
+# for in migrations.
 module Interactors
   module FullTextSearch
     class Reindex
