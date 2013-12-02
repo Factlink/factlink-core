@@ -18,47 +18,5 @@
       display: inline-block;
       margin: 15px 5px 0 0;
     }
-
-    span.channel-authority-for-user {
-      background: image-url('brain.png') no-repeat left center;
-      padding: 0 0 0 15px;
-      font-size: @metaFontSize;
-      line-height: 24px;
-    }
-
-    .channel-statistics {
-      margin: 10px 0 -@header-padding-bottom;
-      li {
-        display: inline-block;
-        line-height: normal;
-        padding: 0 15px 7px;
-        border-left: 1px solid @baseBorderColor;
-        border-width: 0 0 0 1px;
-        .fading-border(@baseBorderColor);
-        font-size: @metaFontSize;
-        span {
-          width: 100%;
-          display: block;
-          &.channel-authority-for-user {
-            font-size: 14px;
-            line-height: normal;
-            padding-left: 18px;
-          }
-        }
-        a {
-          color: @baseFontColor;
-          span {
-            font-size: 14px;
-            color: @linkColor;
-          }
-          &:hover, &:hover span {
-            color: @linkColorHover;
-          }
-        }
-        &:first-child {
-          margin-left: 0;
-        }
-      }
-    }
   }
 }

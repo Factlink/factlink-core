@@ -3,19 +3,19 @@ require_relative '../../app/classes/number_formatter'
 describe NumberFormatter do
   describe '.as_authority' do
     context "when the number is positive" do
-      it 'should return "0.0" when the number is 0' do
+      it 'should return "0" when the number is 0' do
         number = 0
-        expect(NumberFormatter.new(number).as_authority).to eq "0.0"
+        expect(NumberFormatter.new(number).as_authority).to eq "0"
       end
 
-      it 'should return "1.0" when the number is 1' do
+      it 'should return "1" when the number is 1' do
         number = 1
-        expect(NumberFormatter.new(number).as_authority).to eq "1.0"
+        expect(NumberFormatter.new(number).as_authority).to eq "1"
       end
 
-      it 'should round to 1 decimal' do
+      it 'should round to 0 decimals' do
         number = 3.3333
-        expect(NumberFormatter.new(number).as_authority).to eq "3.3"
+        expect(NumberFormatter.new(number).as_authority).to eq "3"
       end
 
       it 'should round digits above 999 and below 2000 to 1k' do
@@ -33,14 +33,14 @@ describe NumberFormatter do
     end
 
     context "when the number is negative" do
-      it 'should return "-1.0" when the number is -1' do
+      it 'should return "-1" when the number is -1' do
         number = -1
-        expect(NumberFormatter.new(number).as_authority).to eq "-1.0"
+        expect(NumberFormatter.new(number).as_authority).to eq "-1"
       end
 
-      it 'should round to 1 decimal' do
+      it 'should round to 0 decimals' do
         number = -3.3333
-        expect(NumberFormatter.new(number).as_authority).to eq "-3.3"
+        expect(NumberFormatter.new(number).as_authority).to eq "-3"
       end
 
       it "should round digits below -999 and above to -1k" do

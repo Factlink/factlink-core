@@ -19,8 +19,7 @@ module Interactors
       def authority
         return nil unless pavlov_options[:current_user]
 
-        graph_user = pavlov_options[:current_user].graph_user
-        query :authority_on_topic_for, topic: topic, graph_user: graph_user
+        1
       end
 
       def validate
