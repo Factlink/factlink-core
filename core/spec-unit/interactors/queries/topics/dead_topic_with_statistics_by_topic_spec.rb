@@ -19,7 +19,7 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
 
     it 'returns the topic' do
       facts_count = 100
-      current_user_authority = 200
+      current_user_authority = 1
       favouritours_count = 300
       current_user = double(graph_user: double)
       dead_topic = double
@@ -29,12 +29,6 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
             .with(:'topics/facts_count',
                       slug_title: topic.slug_title, pavlov_options: pavlov_options)
             .and_return(facts_count)
-
-      Pavlov.stub(:query)
-            .with(:'authority_on_topic_for',
-                      topic: topic, graph_user: current_user.graph_user,
-                      pavlov_options: pavlov_options)
-            .and_return(current_user_authority)
 
       Pavlov.stub(:query)
             .with(:'topics/favouritours_count',

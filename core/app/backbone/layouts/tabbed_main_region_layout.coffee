@@ -4,8 +4,8 @@ class window.TabbedMainRegionLayout extends Backbone.Marionette.Layout
 
   regions:
     titleRegion:   '.js-title-region'
-    contentRegion: '.content'
-    tabsRegion:    '.tabs'
+    contentRegion: '.js-content-region'
+    tabsRegion:    '.js-tabs-region'
 
   showTitle: (title) ->
     @titleRegion.show new TextView text: title, tagName: 'h1'

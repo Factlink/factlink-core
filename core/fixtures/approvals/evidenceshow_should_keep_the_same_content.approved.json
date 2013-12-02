@@ -23,14 +23,14 @@
 
       ],
       "authority_for_subject": {
-        "authority": "1.0",
+        "authority": "1",
         "id": "<STRIPPED>"
       }
     },
     "created_by_ago": "Posted 1 minute ago",
     "fact_title": "Fact title 2",
     "fact_wheel": {
-      "authority": "1.0",
+      "authority": "1",
       "opinion_types": {
         "believe": {
           "percentage": 100,

@@ -4,7 +4,7 @@
     "the_object": {
       "title": "Baron",
       "slug_title": "baron",
-      "current_user_authority": "1.0",
+      "current_user_authority": "1",
       "facts_count": 0,
       "favouritours_count": 0
     }
@@ -46,14 +46,14 @@
 
         ],
         "authority_for_subject": {
-          "authority": "1.0",
+          "authority": "1",
           "id": "<STRIPPED>"
         }
       },
       "created_by_ago": "Posted 1 minute ago",
       "fact_title": "Fact title 1",
       "fact_wheel": {
-        "authority": "0.0",
+        "authority": "0",
         "opinion_types": {
           "believe": {
             "percentage": 0,
