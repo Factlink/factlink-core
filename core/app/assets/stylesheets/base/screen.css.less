@@ -11,11 +11,16 @@ html, body {
 
 body {
   min-width: @siteWidth; // Only on the body because it's breaking the feedback modal when set on the html too.
-  .background();
+  margin: 0;
+  background-color: #ecedef;
+  background-image: image-url('background.png');
 }
 
 .container {
   width: @siteWidth;
+  margin-right: auto;
+  margin-left: auto;
+  .clearfix();
 }
 
 #container {

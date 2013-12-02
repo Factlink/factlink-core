@@ -20,7 +20,6 @@ class window.Fact extends Backbone.Model
         @get("containing_channel_ids").splice indexOf, 1  if indexOf
         opts.success?()
 
-
   addToChannel: (channel, opts={}) ->
     Backbone.ajax _.extend {}, opts,
       type: "post"
