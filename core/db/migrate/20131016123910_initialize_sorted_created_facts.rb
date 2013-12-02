@@ -1,8 +1,6 @@
 class InitializeSortedCreatedFacts < Mongoid::Migration
   def self.up
-    GraphUser.all.ids.each do |id|
-      Resque.enqueue CreateSortedCreatedFacts, id
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
