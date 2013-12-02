@@ -22,9 +22,7 @@ module Queries
       def current_user_authority
         return nil unless pavlov_options[:current_user]
 
-        query(:'authority_on_topic_for',
-                  topic: alive_topic,
-                  graph_user: pavlov_options[:current_user].graph_user)
+        1
       end
 
       def favouritours_count
