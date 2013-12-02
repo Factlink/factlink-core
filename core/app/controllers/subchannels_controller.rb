@@ -10,12 +10,6 @@ class SubchannelsController < ApplicationController
     render_subchannels
   end
 
-  def destroy
-    authorize! :update, channel
-    interactor(:'channels/unfollow', channel_id: subchannel_id)
-    render_subchannels
-  end
-
   private
 
   def channel_id
