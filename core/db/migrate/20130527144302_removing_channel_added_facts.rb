@@ -1,8 +1,6 @@
 class RemovingChannelAddedFacts < Mongoid::Migration
   def self.up
-    Channel.all.each do |channel|
-      channel.key[:added_facts].del
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
