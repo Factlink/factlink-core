@@ -18,56 +18,5 @@
       display: inline-block;
       margin: 15px 5px 0 0;
     }
-
-    div.add-to-channel-region {
-      display: inline-block;
-      margin: 0 25px 0 0;
-    }
-    .channel-statistics {
-      margin: 10px 0 -@header-padding-bottom;
-      li {
-        display: inline-block;
-        line-height: normal;
-        padding: 0 15px 7px;
-        border-left: 1px solid @baseBorderColor;
-        border-width: 0 0 0 1px;
-        .fading-border(@baseBorderColor);
-        font-size: @metaFontSize;
-        span {
-          width: 100%;
-          display: block;
-        }
-        a {
-          color: @baseFontColor;
-          span {
-            font-size: 14px;
-            color: @linkColor;
-          }
-          &:hover, &:hover span {
-            color: @linkColorHover;
-          }
-        }
-        &:first-child {
-          margin-left: 0;
-        }
-        &.channel-options {
-          vertical-align: top;
-          padding-right: 0;
-          line-height: 30px;
-          span, .option-dropdown {
-            display: inline-block;
-            width: auto;
-            line-height: normal;
-          }
-          .option-dropdown {
-            font-size: @metaFontSize;
-            border: 1px solid @inputBorder;
-            margin: 0;
-            width: 110px;
-            height: 24px;
-          }
-        }
-      }
-    }
   }
 }

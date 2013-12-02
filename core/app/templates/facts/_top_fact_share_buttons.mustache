@@ -1,13 +1,11 @@
-{{#global.can_haz.share_discussion_buttons}}
-  <span>
-    {{#current_user.services.twitter}}
-      <span class="share-button share-button-hoverable share-button-twitter js-twitter">Twitter</span>
-    {{/current_user.services.twitter}}
+<span>
+  {{#current_user.services.twitter}}
+    <span class="share-button share-button-hoverable share-button-twitter js-twitter">Twitter</span>
+  {{/current_user.services.twitter}}
 
-    {{#current_user.services.facebook}}
-      <span class="share-button share-button-hoverable share-button-facebook js-facebook">Facebook</span>
-    {{/current_user.services.facebook}}
-  </span>
-{{/global.can_haz.share_discussion_buttons}}
+  {{#current_user.services.facebook}}
+    <span class="share-button share-button-hoverable share-button-facebook js-facebook">Facebook</span>
+  {{/current_user.services.facebook}}
+</span>
 
 <a class="share-button share-button-hoverable share-button-message js-start-conversation" href="javascript:void(0)">Share</a>

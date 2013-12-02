@@ -14,6 +14,8 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
     impactRegion: '.js-impact-region'
 
   typeCss: ->
+    if Factlink.Global.can_haz.comments_no_opinions
+      return 'evidence-weakening'
     switch @model.get('type')
       when 'believes' then 'evidence-supporting'
       when 'disbelieves' then 'evidence-weakening'
@@ -44,7 +46,9 @@ class VotableEvidenceLayoutView extends EvidenceLayoutView
 
 class OpinionatorsEvidenceLayoutView extends EvidenceLayoutView
 
-  shouldShow: -> @model.has('impact') && @model.get('impact') > 0.0
+  shouldShow: ->
+    return false if Factlink.Global.can_haz.comments_no_opinions
+    @model.has('impact') && @model.get('impact') > 0.0
 
   onRender: ->
     @$el.toggle @shouldShow()
