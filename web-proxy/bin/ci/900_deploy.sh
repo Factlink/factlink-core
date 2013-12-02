@@ -4,6 +4,7 @@ if [[ ! -z $DEPLOY_SERVER ]]; then
 
   echo "deploying to $DEPLOY_SERVER"
   cap -S "branch=$GIT_COMMIT" -q $DEPLOY_SERVER deploy || exit 1
+  bundle
   echo "deployed to $DEPLOY_SERVER"
 else
   echo "No DEPLOY_SERVER found, not deploying."
