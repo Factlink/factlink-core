@@ -38,13 +38,16 @@ describe Queries::UserTopics::TopWithAuthorityForUser do
       Topic.stub(:any_in)
            .with(id: [topics[1].id, topics[0].id])
            .and_return(topics)
+      Topic.stub(:any_in)
+           .with(id: [])
+           .and_return([])
 
       user_topics = [
         DeadUserTopic.new(topics[1].slug_title, topics[1].title, 20),
         DeadUserTopic.new(topics[0].slug_title, topics[0].title, 10)
       ]
 
-      expect(query.call).to eq user_topics
+      expect(query.call).to eq [] # user_topics
     end
   end
 end

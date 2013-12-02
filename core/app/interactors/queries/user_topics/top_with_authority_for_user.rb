@@ -16,11 +16,7 @@ module Queries
       end
 
       def execute
-        user_topics
-      end
-
-      def user_topics
-        topics_with_authorities.compact
+        topics_with_authorities
       end
 
       def topics_with_authorities
@@ -50,12 +46,7 @@ module Queries
       end
 
       def sorted_topics_hashes
-        @sorted_topics_hashes ||=
-          topics_sorted_by_authority.ids_and_authorities_desc_limit limit_topics
-      end
-
-      def topics_sorted_by_authority
-        TopicsSortedByAuthority.new(user_id)
+        @sorted_topics_hashes ||= [] # [{id: TOPIC_ID, authority: AUTH}]
       end
 
       def topics_for_hashes hashes
