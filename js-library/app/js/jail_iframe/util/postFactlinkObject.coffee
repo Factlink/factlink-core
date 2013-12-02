@@ -18,4 +18,3 @@ Factlink.listenToWindowMessages = (source_window, receiver) ->
       receiver[data_obj[0]].apply receiver, data_obj[1]
     return
   window.addEventListener 'message', handler
-

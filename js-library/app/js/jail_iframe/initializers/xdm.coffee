@@ -5,6 +5,3 @@ Factlink.listenToWindowMessages null, Factlink.modal
 iframe.src = "#{FactlinkConfig.api}/factlink/intermediate"
 
 Factlink.remote = Factlink.createFrameProxyObject iframe.contentWindow, ['showFactlink', 'prepareNewFactlink' ]
-
-
-
