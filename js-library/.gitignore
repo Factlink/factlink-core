@@ -6,3 +6,5 @@ dump.rdb
 tmp
 .idea
 .sass-cache
+*~
+
