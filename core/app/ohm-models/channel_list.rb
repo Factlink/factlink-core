@@ -21,6 +21,7 @@ class ChannelList
     (channels & fact.channels).ids
   end
 
+  # TODO REMOVE
   def containing_channel_ids_for_channel(channel)
     (channels & channel.containing_channels).ids
   end

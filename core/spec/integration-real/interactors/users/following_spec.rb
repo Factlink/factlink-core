@@ -20,8 +20,8 @@ describe 'user following' do
         as(user1) do |pavlov|
           result = pavlov.interactor(:'users/following', user_name: user1.username, skip: 0, take: 10)
           expect(result.size).to eq 2
-          expect(result[0].username).to eq user2.username
-          expect(result[1].username).to eq user3.username
+          expect(result.map(&:username))
+            .to match_array [user2.username, user3.username]
         end
       end
 

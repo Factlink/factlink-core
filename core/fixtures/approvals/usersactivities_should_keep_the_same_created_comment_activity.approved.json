@@ -4,9 +4,9 @@
     "subject_class": "Comment",
     "user": {
       "id": "<STRIPPED>",
-      "name": "John12 Doe12",
-      "username": "johndoe12",
-      "gravatar_hash": "3e5a9e3d7f1ae619f15a23d0ddf5fa1a",
+      "name": "John2 Doe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "statistics_created_fact_count": 0,
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
@@ -21,9 +21,9 @@
     "id": "<STRIPPED>",
     "activity": {
       "action": "created_comment",
-      "target_url": "/fact-7/f/1",
-      "fact_displaystring": "Fact 7",
-      "fact": "Fact 7"
+      "target_url": "/fact-1/f/1",
+      "fact_displaystring": "Fact 1",
+      "fact": "Fact 1"
     },
     "unread": true
   }

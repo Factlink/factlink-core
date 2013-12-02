@@ -17,59 +17,7 @@ describe 'activity queries' do
       attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
   end
 
-  describe ".channel" do
-    it "should *not* return activity for all users following a channel of User1 when User1 creates a new channel" do
-      ch1 = create :channel, created_by: gu1
-      ch2 = create :channel, created_by: gu2
-
-      Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-        subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-      ch3 = create :channel, created_by: gu2
-
-      # Channel should not be empty
-      f1 = create :fact
-      add_fact_to_channel f1, ch3
-
-      gu1.stream_activities.map(&:to_hash_without_time).should == []
-    end
-
-    it "should *not* return created activity when adding subchannels" do
-      ch1 = create :channel, created_by: gu1
-      ch2 = create :channel, created_by: gu2
-
-      Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-        subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-      ch3 = create :channel, created_by: gu2
-
-      4.times do
-        Interactors::Channels::AddSubchannel.new(channel_id: ch3.id,
-          subchannel_id: (create :channel).id, pavlov_options: pavlov_options).call
-      end
-
-      stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
-      expect(stream_activities).to eq []
-    end
-  end
-
   describe ".user" do
-    it "should *not* return notification when a user follows your channel" do
-      ch1 = create :channel, created_by: gu1
-      ch2 = create :channel, created_by: gu2
-
-      Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-        subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-      ch2.created_by.notifications.map(&:to_hash_without_time).should == []
-    end
-
-    it "should *not* return stream activity when a user follows your channel" do
-      ch1 = create :channel, created_by: gu1
-      ch2 = create :channel, created_by: gu2
-
-      Interactors::Channels::AddSubchannel.new(channel_id: ch1.id,
-        subchannel_id: ch2.id, pavlov_options: pavlov_options).call
-      ch2.created_by.stream_activities.map(&:to_hash_without_time).should == []
-    end
-
     it "should only return other users activities, not User his own activities" do
       f1 = create :fact
       f1.created_by.stream_activities.key.del # delete other activities
