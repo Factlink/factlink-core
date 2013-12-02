@@ -1,13 +1,9 @@
 class ExistingUsersSeeChannels < Mongoid::Migration
   def self.up
-    User.seen_the_tour.each do |u|
-      u.features << :sees_channels
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
-    User.all.each do |u|
-      u.features.delete :sees_channels
-    end
+    puts "old migration doesn't do anything anymore"
   end
 end

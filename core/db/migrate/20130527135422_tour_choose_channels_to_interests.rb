@@ -1,9 +1,6 @@
 class TourChooseChannelsToInterests < Mongoid::Migration
   def self.up
-    User.where(seen_tour_step: 'choose_channels').each do |user|
-      user.seen_tour_step = 'interests'
-      user.save validate: false
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

@@ -1,7 +1,6 @@
 class NotSeenTheTour < Mongoid::Migration
   def self.up
-    User.where(seen_the_tour: false)
-        .update_all(seen_tour_step: nil)
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
