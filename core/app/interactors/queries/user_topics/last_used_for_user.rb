@@ -15,25 +15,19 @@ module Queries
       end
 
       def execute
-        return [] unless topic
-
-        [DeadUserTopic.new(topic.slug_title, topic.title)]
+        topics.map(&method(:dead_topic_for_topic))
       end
 
-      def topic
-        return nil unless channel
-
-        channel.topic
+      def dead_topic_for_topic topic
+        DeadUserTopic.new(topic.slug_title, topic.title)
       end
 
-      def channel
-        return nil unless fact
-
-        fact.channels.first
+      def topics
+        facts.map(&:channels).map(&:to_a).flatten.uniq.map(&:topic).uniq
       end
 
-      def fact
-        user.graph_user.sorted_created_facts.first
+      def facts
+        user.graph_user.sorted_created_facts.below '+inf', count: 3
       end
 
       def user
