@@ -104,4 +104,4 @@ var Events = {
   }
 };
 
-$.extend(Factlink, Events);
+$.extend(FactlinkJailRoot, Events);

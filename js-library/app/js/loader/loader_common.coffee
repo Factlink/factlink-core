@@ -29,7 +29,7 @@ window.FACTLINK_START_LOADER = ->
   document.body.appendChild outerWrapperEl
 
   # Create proxy object that stores all calls
-  # proxies calls from external content page to the js-library "jail" iframe's "Factlink"..
+  # proxies calls from external content page to the js-library "jail" iframe's "FactlinkJailRoot"..
   window.FACTLINK = {}
 
   storedMethodCalls = []
@@ -38,7 +38,7 @@ window.FACTLINK_START_LOADER = ->
       if window.FACTLINK_ON_CORE_LOAD
         storedMethodCalls.push {name: name, arguments: arguments}
       else
-        jslib_jail_iframe.contentWindow.Factlink[name](arguments...)
+        jslib_jail_iframe.contentWindow.FactlinkJailRoot[name](arguments...)
       return # don't return the value, as we can't do that when storing calls
 
   proxy_method 'on'
@@ -56,7 +56,7 @@ window.FACTLINK_START_LOADER = ->
   window.FACTLINK_ON_CORE_LOAD = ->
     delete window.FACTLINK_ON_CORE_LOAD
     for methodCall in storedMethodCalls
-      jslib_jail_iframe.contentWindow.Factlink[methodCall.name](methodCall.arguments...)
+      jslib_jail_iframe.contentWindow.FactlinkJailRoot[methodCall.name](methodCall.arguments...)
     storedMethodCalls = undefined
 
   jslib_jail_iframe.contentWindow.FactlinkConfig = window.FactlinkConfig

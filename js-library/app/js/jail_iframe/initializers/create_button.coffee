@@ -1,5 +1,5 @@
-Factlink.createButton = new Factlink.CreateButton
+FactlinkJailRoot.createButton = new FactlinkJailRoot.CreateButton
   mousedown: (e) -> e.preventDefault() # To prevent de-selecting text
   click: (e) ->
-    Factlink.createButton.startLoading()
-    Factlink.createFactFromSelection()
+    FactlinkJailRoot.createButton.startLoading()
+    FactlinkJailRoot.createFactFromSelection()

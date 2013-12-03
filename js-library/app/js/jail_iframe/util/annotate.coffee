@@ -6,22 +6,22 @@ rightClick = (event=window.event) ->
   else
     false
 
-Factlink.textSelected = (e) ->
-  Factlink.getSelectionInfo().text?.length > 1
+FactlinkJailRoot.textSelected = (e) ->
+  FactlinkJailRoot.getSelectionInfo().text?.length > 1
 
 timeout = null
 
 annotating = false
 
-Factlink.startAnnotating = ->
+FactlinkJailRoot.startAnnotating = ->
   return if annotating
   annotating = true
 
-  console.info "Factlink:", "startAnnotating"
+  console.info "FactlinkJailRoot:", "startAnnotating"
 
   $("body").bind "mouseup.factlink", (event) ->
     window.clearTimeout timeout
-    Factlink.createButton.hide()
+    FactlinkJailRoot.createButton.hide()
 
     if $('.js-factlink-create-button').length
       return
@@ -34,16 +34,16 @@ Factlink.startAnnotating = ->
       return if rightClick(event)
 
       # Check if the selected text is long enough to be added
-      if Factlink.textSelected() && !$(event.target).is(":input")
-        Factlink.createButton.setCoordinates event.pageY, event.pageX
-        Factlink.createButton.show()
-        Factlink.trigger "textSelected"
+      if FactlinkJailRoot.textSelected() && !$(event.target).is(":input")
+        FactlinkJailRoot.createButton.setCoordinates event.pageY, event.pageX
+        FactlinkJailRoot.createButton.show()
+        FactlinkJailRoot.trigger "textSelected"
     , 200)
 
-Factlink.stopAnnotating = ->
+FactlinkJailRoot.stopAnnotating = ->
   return unless annotating
   annotating = false
 
-  console.info "Factlink:", "stopAnnotating"
-  Factlink.createButton.hide()
+  console.info "FactlinkJailRoot:", "stopAnnotating"
+  FactlinkJailRoot.createButton.hide()
   $("body").unbind "mouseup.factlink"

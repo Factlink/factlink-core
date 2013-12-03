@@ -11,16 +11,16 @@ getScrollTop = ->
     document.body.scrollTop
 
 
-Factlink.isFastScrolling = false
+FactlinkJailRoot.isFastScrolling = false
 check_scrolling_speed = (is_fast) ->
-  return if Factlink.isFastScrolling == is_fast
-  Factlink.isFastScrolling = is_fast
-  Factlink.trigger 'fast_scrolling_changed'
+  return if FactlinkJailRoot.isFastScrolling == is_fast
+  FactlinkJailRoot.isFastScrolling = is_fast
+  FactlinkJailRoot.trigger 'fast_scrolling_changed'
 
-scroll_speed = new Factlink.Speedmeter
+scroll_speed = new FactlinkJailRoot.Speedmeter
   is_fast_treshold: 1
   get_measure: getScrollTop
   on_change: check_scrolling_speed
 
-Factlink.startFastScrollDetection = ->
+FactlinkJailRoot.startFastScrollDetection = ->
   $(window).on 'scroll', scroll_speed.on_possible_speed_change

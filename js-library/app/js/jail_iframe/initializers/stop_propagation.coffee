@@ -6,4 +6,4 @@ mouse_touch_drag_events = """
   touchstart touchmove touchleave touchenter touchend touchcancel
 """
 
-Factlink.el.on mouse_touch_drag_events, (event) -> event.stopPropagation()
+FactlinkJailRoot.el.on mouse_touch_drag_events, (event) -> event.stopPropagation()

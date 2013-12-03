@@ -1,4 +1,4 @@
-Factlink.scrollTo = (fact_id) ->
+FactlinkJailRoot.scrollTo = (fact_id) ->
 
   scrolled = false
   scroll = ->
@@ -15,4 +15,4 @@ Factlink.scrollTo = (fact_id) ->
 
 
   scroll()
-  Factlink.on 'factlink.factsLoaded', scroll
+  FactlinkJailRoot.on 'factlink.factsLoaded', scroll

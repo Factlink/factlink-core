@@ -1,7 +1,7 @@
 # Assumptions: the callbacks onAttentionLost and onAttentionGained are
 #              idempotent
 
-class Factlink.AttentionSpan
+class FactlinkJailRoot.AttentionSpan
   constructor: (@options={})->
     @_has_attention = false
     @options.wait_for_attention ?= 0

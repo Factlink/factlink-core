@@ -1,1 +1,1 @@
-Factlink.startFastScrollDetection()
+FactlinkJailRoot.startFastScrollDetection()

@@ -91,10 +91,10 @@ After the Library is built, it's easy to include this library in any site.
     <script>
       function load() {
         // Highlight all Factlinks on the current page
-        Factlink.startHighlighting();
+        FactlinkJailRoot.startHighlighting();
 
         // Enter annotation mode on the current page
-        Factlink.startAnnotating();
+        FactlinkJailRoot.startAnnotating();
       }
     </script>
   </head>

@@ -7,23 +7,23 @@ getTextRange = ->
   else
     ''
 
-Factlink.createFactFromSelection = () ->
+FactlinkJailRoot.createFactFromSelection = () ->
   success = ->
-    Factlink.createButton.hide()
-    Factlink.off 'modalOpened', success
+    FactlinkJailRoot.createButton.hide()
+    FactlinkJailRoot.off 'modalOpened', success
 
-  selInfo = Factlink.getSelectionInfo()
+  selInfo = FactlinkJailRoot.getSelectionInfo()
 
   text = selInfo.text
-  siteUrl = Factlink.siteUrl()
+  siteUrl = FactlinkJailRoot.siteUrl()
   siteTitle = selInfo.title
   guided = !!FactlinkConfig.guided
 
-  Factlink.on 'modalOpened', success
-  Factlink.remote.prepareNewFactlink text, siteUrl, siteTitle, guided
+  FactlinkJailRoot.on 'modalOpened', success
+  FactlinkJailRoot.remote.prepareNewFactlink text, siteUrl, siteTitle, guided
 
 # We make this a global function so it can be used for direct adding of facts
 # (Right click with chrome-extension)
-Factlink.getSelectionInfo = ->
+FactlinkJailRoot.getSelectionInfo = ->
   text: getTextRange().toString()
   title: window.document.title

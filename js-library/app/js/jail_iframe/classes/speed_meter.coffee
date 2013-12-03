@@ -1,5 +1,5 @@
 # This class determines whether a certain value is moving too fast
-class Factlink.Speedmeter
+class FactlinkJailRoot.Speedmeter
   constructor: (@options)->
     unless @options.on_change
       throw "Method for handling speed changes missing"

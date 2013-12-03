@@ -1,4 +1,4 @@
-window.Factlink = {
+window.FactlinkJailRoot = {
   can_haz: {}
 }
 
@@ -10,5 +10,5 @@ window.$ = (selector, context) ->
 $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
 
-# Create the Factlink container
-Factlink.el = $("#fl")
+# Create the FactlinkJailRoot container
+FactlinkJailRoot.el = $("#fl")

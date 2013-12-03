@@ -1,20 +1,20 @@
 /*global test:true, asyncTest:true, start:true, equal:true, notEqual:true */
 
-Factlink.set_position_of_element = function() {};
+FactlinkJailRoot.set_position_of_element = function() {};
 
 test("Search/replace should work with newlines", function () {
   equal($('p.newline')[0].childNodes.length, 1);
 
-  Factlink.selectRanges(
-    Factlink.search("This text has multiple newlines"),
+  FactlinkJailRoot.selectRanges(
+    FactlinkJailRoot.search("This text has multiple newlines"),
     1,
     {});
   equal($('span.factlink')[0].childNodes.length, 1);
 });
 
 test("fact-span should have the data-factid attribute", function(){
-  Factlink.selectRanges(
-    Factlink.search("This text has multiple newlines"),
+  FactlinkJailRoot.selectRanges(
+    FactlinkJailRoot.search("This text has multiple newlines"),
     1,
     {});
 
@@ -24,8 +24,8 @@ test("fact-span should have the data-factid attribute", function(){
 });
 
 test("factlinks with different ranges count should work", function(){
-  Factlink.selectRanges(
-    Factlink.search("This is a link to an interesting page."),
+  FactlinkJailRoot.selectRanges(
+    FactlinkJailRoot.search("This is a link to an interesting page."),
     1,
     {});
 
@@ -36,8 +36,8 @@ test("factlinks with different ranges count should work", function(){
 test("the first element in a factlink that is matched " +
      "multiple times with a different number of ranges " +
      "should have the fl-first class", function(){
-  Factlink.selectRanges(
-    Factlink.search("This is a link to an interesting page."),
+  FactlinkJailRoot.selectRanges(
+    FactlinkJailRoot.search("This is a link to an interesting page."),
     1,
     {});
 
@@ -49,7 +49,7 @@ test("multiple Factlinks within the same element should be highlighted", functio
   var factIdA = 2;
   var factIdB = 3;
 
-  Factlink.selectRanges(Factlink.search("xxx"), factIdA, {});
+  FactlinkJailRoot.selectRanges(FactlinkJailRoot.search("xxx"), factIdA, {});
 
   var els = $('.multi-match>.factlink');
 
@@ -63,7 +63,7 @@ asyncTest("Hovering highlights all the elements of the match, and no others", fu
     str: "zzz"
   };
 
-  var facts = Factlink.selectRanges(Factlink.search(factA.str), factA.id, {});
+  var facts = FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(factA.str), factA.id, {});
 
   $(facts[1].elements[0]).trigger('mouseenter',{
     target: facts[1].elements[0],

@@ -1,7 +1,7 @@
-Factlink.Views ||= {}
-Factlink.Views.Notifications ||= {}
+FactlinkJailRoot.Views ||= {}
+FactlinkJailRoot.Views.Notifications ||= {}
 
-class Factlink.Views.Notification
+class FactlinkJailRoot.Views.Notification
   template: """
     <div class="fl-message">
       <div class="fl-message-icon"></div><span class="fl-message-content fl-js-message"></span>
@@ -17,7 +17,7 @@ class Factlink.Views.Notification
     @$el.find('.fl-js-message').text(message)
 
   render: ->
-    Factlink.el.append(@$el)
+    FactlinkJailRoot.el.append(@$el)
     @positionElement()
 
     @$el.addClass 'active'
@@ -35,22 +35,22 @@ class Factlink.Views.Notification
     setTimeout (=> @$el.remove()), 2000 # Should be larger than @notification_transition_time
 
 show = (options) ->
-  message = new Factlink.Views.Notification options
+  message = new FactlinkJailRoot.Views.Notification options
   message.render()
 
-Factlink.showFactlinkCreatedNotification = ->
+FactlinkJailRoot.showFactlinkCreatedNotification = ->
   show
     message: 'Factlink posted!'
     type_classes: 'fl-message-success fl-message-icon-logo'
     in_screen_time: 1000
 
-Factlink.showShouldSelectTextNotification = ->
+FactlinkJailRoot.showShouldSelectTextNotification = ->
   show
     message: 'To create a Factlink, select a statement and click the Factlink button.'
     type_classes: 'fl-message-icon-add'
     in_screen_time: 3000
 
-Factlink.showLoadedNotification = ->
+FactlinkJailRoot.showLoadedNotification = ->
   show
     message: 'Factlink is loaded!'
     type_classes: 'fl-message-success fl-message-icon-time'

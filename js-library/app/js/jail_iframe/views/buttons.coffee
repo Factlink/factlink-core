@@ -1,7 +1,7 @@
 class Button
   constructor: (dom_events={}) ->
     @$el = $(@template)
-    @$el.appendTo(Factlink.el)
+    @$el.appendTo(FactlinkJailRoot.el)
     for event, callback of dom_events
       @$el.bind event, callback
 
@@ -10,11 +10,11 @@ class Button
 
   setCoordinates: (top, left) =>
     return if @$el.hasClass 'active'
-    Factlink.set_position_of_element top, left, window, @$el
+    FactlinkJailRoot.set_position_of_element top, left, window, @$el
 
   show: =>
     @stopLoading()
-    Factlink.el.find('div.fl-button').removeClass('active')
+    FactlinkJailRoot.el.find('div.fl-button').removeClass('active')
     @$el.addClass 'active been-active'
 
   hide: => @$el.removeClass 'active'
@@ -22,7 +22,7 @@ class Button
   destroy: => @$el.remove()
 
 
-class Factlink.ShowButton extends Button
+class FactlinkJailRoot.ShowButton extends Button
   template: """
     <div class="fl-button">
       <span class="fl-default-message">Show Factlink</span>
@@ -35,7 +35,7 @@ class Factlink.ShowButton extends Button
     @position_already_determined = true
     super
 
-class Factlink.CreateButton extends Button
+class FactlinkJailRoot.CreateButton extends Button
   template: """
     <div class="fl-button">
       <span class="fl-default-message">Add Factlink</span>

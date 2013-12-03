@@ -3,46 +3,46 @@ iFrame = $('<div />').attr
   id: 'factlink-modal-frame'
 
 iFrame.hide()
-iFrame.appendTo(Factlink.el)
+iFrame.appendTo(FactlinkJailRoot.el)
 
-Factlink.hideDimmer = -> iFrame.css 'background', 'none'
+FactlinkJailRoot.hideDimmer = -> iFrame.css 'background', 'none'
 
-Factlink.openFactlinkModal = (id) -> Factlink.remote.showFactlink id #TODO: xdmcleanup
+FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.remote.showFactlink id #TODO: xdmcleanup
 
 
-bindClick = -> $(document).bind 'click', Factlink.modal.hide
-unbindClick = -> $(document).unbind 'click', Factlink.modal.hide
+bindClick = -> $(document).bind 'click', FactlinkJailRoot.modal.hide
+unbindClick = -> $(document).unbind 'click', FactlinkJailRoot.modal.hide
 
 suppressScrollbars = ->
-  if Factlink.can_haz.suppress_double_scrollbar
+  if FactlinkJailRoot.can_haz.suppress_double_scrollbar
     document.documentElement.setAttribute('data-factlink-suppress-scrolling', '')
 restoreScrollbars = -> document.documentElement.removeAttribute('data-factlink-suppress-scrolling')
 
 # Object which holds the methods that can be called from the intermediate iframe
 # These methods are also used by the internal scripts and can be called through
-# Factlink.modal.FUNCTION.method() because easyXDM changes the object structure
-Factlink.modal =
+# FactlinkJailRoot.modal.FUNCTION.method() because easyXDM changes the object structure
+FactlinkJailRoot.modal =
   hide: ->
     unbindClick()
     iFrame.fadeOut 'fast', -> restoreScrollbars()
-    Factlink.trigger 'modalClosed'
+    FactlinkJailRoot.trigger 'modalClosed'
 
   onModalReady: ->
     suppressScrollbars()
     bindClick()
     iFrame.fadeIn('fast')
-    Factlink.trigger 'modalOpened'
+    FactlinkJailRoot.trigger 'modalOpened'
 
   highlightNewFactlink: (fact, id) ->
-    fct = Factlink.selectRanges(Factlink.search(fact), id)
+    fct = FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
 
-    $.extend Factlink.Facts, fct
+    $.extend FactlinkJailRoot.Facts, fct
 
-    Factlink.trigger 'factlinkAdded'
+    FactlinkJailRoot.trigger 'factlinkAdded'
 
-    Factlink.modal.hide()
+    FactlinkJailRoot.modal.hide()
 
-    Factlink.showFactlinkCreatedNotification()
+    FactlinkJailRoot.showFactlinkCreatedNotification()
 
     fct
 
@@ -50,8 +50,8 @@ Factlink.modal =
     $("span.factlink[data-factid=#{id}]").each (i, val) ->
       $(val).contents().unwrap()
 
-  trigger: (e) -> Factlink.trigger(e)
+  trigger: (e) -> FactlinkJailRoot.trigger(e)
 
   setFeatureToggles: (featureToggles) ->
-    Factlink.can_haz = featureToggles
+    FactlinkJailRoot.can_haz = featureToggles
     window.FACTLINK_ON_CORE_LOAD?()

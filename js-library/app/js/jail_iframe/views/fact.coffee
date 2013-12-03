@@ -15,13 +15,13 @@ class Highlighter
 
 class FactInteraction
   constructor: (elements, @id, @options) ->
-    @button_attention = new Factlink.AttentionSpan
+    @button_attention = new FactlinkJailRoot.AttentionSpan
       onAttentionLost:   => @show_button.hide()
       onAttentionGained: => @show_button.show()
       wait_for_attention:  delay_before_mouseover_detected + delay_between_highlight_and_show_button_open
       wait_for_neglection: delay_before_mouseout_detected
 
-    @highlight_attention = new Factlink.AttentionSpan
+    @highlight_attention = new FactlinkJailRoot.AttentionSpan
       onAttentionLost:   => @highlighter.dehighlight()
       onAttentionGained: => @highlighter.highlight()
       wait_for_attention:  delay_before_mouseover_detected
@@ -29,7 +29,7 @@ class FactInteraction
 
     @highlighter = new Highlighter $(elements), 'fl-active'
 
-    @show_button = new Factlink.ShowButton
+    @show_button = new FactlinkJailRoot.ShowButton
       mouseenter: => @onHover()
       mouseleave: => @onUnhover()
       click:      => @onClick()
@@ -45,13 +45,13 @@ class FactInteraction
     @button_attention.gainAttentionNow()
     @highlight_attention.gainAttentionNow()
     @show_button.startLoading() # must be called after show
-    Factlink.on 'modalOpened', @_onModalOpened, @
-    Factlink.openFactlinkModal @id
+    FactlinkJailRoot.on 'modalOpened', @_onModalOpened, @
+    FactlinkJailRoot.openFactlinkModal @id
 
   _onModalOpened: ->
     @button_attention.loseAttentionNow()
     @highlight_attention.loseAttentionNow()
-    Factlink.off 'modalOpened', @_onModalOpened, @
+    FactlinkJailRoot.off 'modalOpened', @_onModalOpened, @
 
   onHover: ->
     @button_attention.gainAttention()
@@ -79,13 +79,13 @@ class FactScrollPromotion
   constructor: (@fact) ->
     @highlighter = new Highlighter $(fact.elements), 'fl-scroll-highlight'
     $(fact.elements).on 'inview', @onSomethingChanged
-    Factlink.on 'fast_scrolling_changed', @onSomethingChanged
+    FactlinkJailRoot.on 'fast_scrolling_changed', @onSomethingChanged
     @state = 'visible'
 
   onSomethingChanged: =>
     switch @state
       when 'invisible'
-        if @fact.isInView() && ! Factlink.isFastScrolling
+        if @fact.isInView() && ! FactlinkJailRoot.isFastScrolling
           @switchToState 'just_visible'
           @timeout_handler = setTimeout =>
             @switchToState 'visible'
@@ -105,7 +105,7 @@ class FactScrollPromotion
     @state = to_state
 
 
-class Factlink.Fact
+class FactlinkJailRoot.Fact
   constructor: (@id, @elements) ->
     @fact_interaction = new FactInteraction @elements, @id
     @fact_promotion = new FactScrollPromotion(this)

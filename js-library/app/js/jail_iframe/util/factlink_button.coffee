@@ -1,10 +1,10 @@
-Factlink.initializeFactlinkButton = ->
+FactlinkJailRoot.initializeFactlinkButton = ->
   buttonSel = ".js-factlink-create-button"
 
   $(document).on "click", buttonSel, (e) ->
     e.preventDefault()
     e.stopPropagation()
-    Factlink.triggerClick()
+    FactlinkJailRoot.triggerClick()
 
   $(document).on "mousedown", buttonSel, (e) ->
     # prevent mousedown from deselecting the text that
