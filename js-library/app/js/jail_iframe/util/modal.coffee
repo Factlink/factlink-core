@@ -1,12 +1,3 @@
-# The iFrame which holds the intermediate
-iFrame = $('<div />').attr
-  id: 'factlink-modal-frame'
-
-iFrame.hide()
-iFrame.appendTo(FactlinkJailRoot.$factlinkCoreContainer)
-
-FactlinkJailRoot.hideDimmer = -> iFrame.css 'background', 'none'
-
 FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.factlinkCoreEnvoy.showFactlink id #TODO: xdmcleanup
 
 # Object which holds the methods that can be called from the intermediate iframe
@@ -18,11 +9,11 @@ FactlinkJailRoot.annotatedSiteReceiver =
     window.FACTLINK_ON_CORE_LOAD?()
 
   openModalOverlay: ->
-    iFrame.fadeIn 'fast'
+    $("#factlink-modal-frame").fadeIn 'fast'
     FactlinkJailRoot.trigger 'modalOpened'
 
   closeModal_noAction: ->
-    iFrame.fadeOut 'fast', -> FactlinkJailRoot.trigger 'modalClosed'
+    $("#factlink-modal-frame").fadeOut 'fast', -> FactlinkJailRoot.trigger 'modalClosed'
 
   closeModal_highlightNewFactlink: (fact, id) ->
     FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
