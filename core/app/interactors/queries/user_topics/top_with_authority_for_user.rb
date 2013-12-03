@@ -23,11 +23,7 @@ module Queries
       end
 
       def topics
-        channel_ids.map(&method(:channel_by_id)).map(&:topic).uniq
-      end
-
-      def channel_by_id id
-        Channel[id]
+        channel_ids.map{|id| Channel[id]}.map(&:topic).uniq
       end
 
       def channel_ids
