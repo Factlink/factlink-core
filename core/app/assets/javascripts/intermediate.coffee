@@ -1,3 +1,5 @@
+#= require postFactlinkObject
+
 showFrame = document.getElementById("frame")
 last_created_text = null
 
