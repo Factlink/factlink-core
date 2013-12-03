@@ -26,8 +26,8 @@ describe Interactors::Channels::VisibleOfUserForUser do
         containing_channel_ids: containing_channels
       )
 
-      query.should_receive(:kill_channel).with(ch1, topic_authority, containing_channels, dead_user)
-      query.should_receive(:kill_channel).with(ch2, topic_authority, containing_channels, dead_user)
+      query.should_receive(:kill_channel).with(ch1, topic_authority, dead_user)
+      query.should_receive(:kill_channel).with(ch2, topic_authority, dead_user)
       query.call
     end
   end

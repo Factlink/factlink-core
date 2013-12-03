@@ -1,16 +1,8 @@
 class RemoveFactFromChannel
   @queue = :mmm_channel_operations
 
-  def included_from_elsewhere_internal?
-    return true if channel.sorted_internal_facts.include? fact
-    channel.contained_channels.each do |subch|
-      return true if subch.include? fact
-    end
-    return false
-  end
-
   def included_from_elsewhere?
-    @included_from_elsewhere ||= included_from_elsewhere_internal?
+    @included_from_elsewhere ||= channel.sorted_internal_facts.include? fact
   end
 
   def already_deleted?

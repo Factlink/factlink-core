@@ -61,23 +61,6 @@ describe Channel do
       end
     end
 
-    describe ".containing_channels_for_ids" do
-      it 'calls a method on channellist' do
-        channel_list = double
-        return_value = double
-        channel = create :channel
-        user = double
-        ChannelList.should_receive(:new).with(user)
-                   .and_return(channel_list)
-        channel_list.should_receive(:containing_channel_ids_for_channel)
-                    .with(channel).and_return(return_value)
-
-        expect(channel.containing_channels_for_ids(user))
-           .to eq return_value
-
-      end
-    end
-
     describe "#facts" do
       before do
         Fact.stub invalid: false

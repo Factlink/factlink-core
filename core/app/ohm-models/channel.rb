@@ -96,7 +96,7 @@ class Channel < OurOhm
   end
 
   def containing_channels_for_ids(user)
-    ChannelList.new(user).containing_channel_ids_for_channel self
+    []
   end
 
   def topic
