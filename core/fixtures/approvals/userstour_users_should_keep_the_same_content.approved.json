@@ -10,13 +10,11 @@
     "user_topics": [
       {
         "title": "story",
-        "slug_title": "story",
-        "authority": 1
+        "slug_title": "story"
       },
       {
         "title": "toy",
-        "slug_title": "toy",
-        "authority": 1
+        "slug_title": "toy"
       }
     ]
   },
@@ -31,13 +29,11 @@
     "user_topics": [
       {
         "title": "games",
-        "slug_title": "games",
-        "authority": 1
+        "slug_title": "games"
       },
       {
         "title": "war",
-        "slug_title": "war",
-        "authority": 1
+        "slug_title": "war"
       }
     ]
   }
