@@ -25,17 +25,18 @@ describe Queries::UsersByIds do
 
     it 'adds user topics' do
       top_user_topics = double
+      top_topics_limit = 10
 
       graph_user = double(id: '10', sorted_created_facts: double(size: 10))
       user = double(graph_user: graph_user, id: 'a1')
-      query = described_class.new(user_ids: [0])
+      query = described_class.new(user_ids: [0], top_topics_limit: top_topics_limit)
 
       User.stub(:any_in).with(_id: [0]).and_return([user])
 
       Pavlov.stub(:query)
       Pavlov.stub(:query)
         .with(:'user_topics/top_with_authority_for_user',
-                  user_id: user.id)
+                  user_id: user.id, limit_topics: top_topics_limit)
         .and_return(top_user_topics)
 
       expect(query.call[0].top_user_topics).to eq top_user_topics

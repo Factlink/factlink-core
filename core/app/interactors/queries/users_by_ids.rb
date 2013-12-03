@@ -9,6 +9,7 @@ module Queries
     include Pavlov::Query
 
     attribute :user_ids, Array
+    attribute :top_topics_limit, Integer, default: 1
     attribute :by, Symbol, default: :_id
 
     private
@@ -40,7 +41,7 @@ module Queries
 
     def top_user_topics user_id
       query(:'user_topics/top_with_authority_for_user',
-            user_id: user_id.to_s)
+            user_id: user_id.to_s, limit_topics: top_topics_limit)
     end
   end
 end
