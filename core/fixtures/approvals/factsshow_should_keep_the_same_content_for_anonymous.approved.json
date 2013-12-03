@@ -22,7 +22,7 @@
   "created_by_ago": "Posted 1 minute ago",
   "fact_title": "title",
   "fact_wheel": {
-    "authority": "1",
+    "authority": 1.0,
     "opinion_types": {
       "believe": {
         "percentage": 100,

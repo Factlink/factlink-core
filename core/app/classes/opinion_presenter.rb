@@ -24,7 +24,7 @@ class OpinionPresenter
       doubt:      { percentage: doubts  },
       # TODO this logic should go elsewhere, but only after letting the update_opinion and
       #     remove opinion build proper json (instead of fact.to_json)
-      authority: format(@opinion.authority)
+      authority: @opinion.authority
     }
   end
 
@@ -42,12 +42,8 @@ class OpinionPresenter
       believe:    { percentage: 0 },
       disbelieve: { percentage: 0 },
       doubt:      { percentage: 100  },
-      authority: format(0)
+      authority: 0
     }
-  end
-
-  def format number
-    NumberFormatter.new(number).as_authority
   end
 
   def believes_authority

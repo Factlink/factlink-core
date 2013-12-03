@@ -40,13 +40,6 @@ class AddFactToChannelJob
   end
 
   def propagate_to_channels
-    channel.containing_channels.ids.each do |ch_id|
-      if ch = Channel[ch_id]
-        interactor(:'channels/add_fact_without_propagation',
-                       fact: fact, channel: ch,
-                       score: score, should_add_to_unread: true)
-      end
-    end
   end
 
   def self.perform(fact_id, channel_id, options={})
