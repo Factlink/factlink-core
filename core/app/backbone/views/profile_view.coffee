@@ -18,19 +18,6 @@ class window.ProfileView extends Backbone.Marionette.Layout
     @_showTopChannelsView()
 
   _showTopChannelsView: ->
-    orderedCollection = @_ordered(@collection)
-
     @topChannelsRegion.show new TopChannelsView
-      collection: orderedCollection
-      originalCollection: @collection
+      collection: @collection
       user: @model
-
-  _ordered: (collection)->
-    ordered_channels = new ChannelList()
-    ordered_channels.orderByAuthority()
-
-    @listenTo @collection, 'sync', =>
-      ordered_channels.reset @collection.models
-    ordered_channels.reset @collection.models
-
-    ordered_channels

@@ -1,11 +1,15 @@
 <%
   case @activity.action
   when 'created_comment'
-    type = @activity.subject.type
+    if @activity.subject.type == 'believes'
+      type = :supporting
+    else
+      type = :weakening
+    end
   when 'added_supporting_evidence'
-    type = 'believes'
+    type = :supporting
   when 'added_weakening_evidence'
-    type = 'disbelieves'
+    type = :weakening
   end
 %>
 
@@ -26,7 +30,7 @@
   </tr>
   <tr>
 
-    <% if type == 'believes' %>
+    <% if type == :supporting %>
       <td class="timeline-left" height="70px">&nbsp;</td>
       <td class="timeline-right" height="70px">&nbsp;</td>
     <% end %>
@@ -49,7 +53,7 @@
       </table>
     </td>
 
-    <% if type == 'disbelieves' %>
+    <% if type == :weakening %>
       <td class="timeline-left" height="70px">&nbsp;</td>
       <td class="timeline-right" height="70px">&nbsp;</td>
     <% end %>
@@ -58,7 +62,7 @@
 
   <tr>
     <td colspan="2" class="timeline-impact">
-      <% if type == 'believes' %>
+      <% if type == :supporting %>
         <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-supporting-impact-background.png" heigth="37" width="37" /></div>
       <% else %>
         <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-weakening-impact-background.png" heigth="37" width="37" /></div>

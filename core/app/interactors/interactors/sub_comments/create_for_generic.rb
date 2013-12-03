@@ -16,8 +16,7 @@ module Interactors
 
         create_activity sub_comment
 
-        KillObject.sub_comment sub_comment,
-          authority: authority_of_user_who_created(sub_comment)
+        KillObject.sub_comment sub_comment
       end
 
       def create_activity sub_comment
@@ -25,11 +24,6 @@ module Interactors
                     graph_user: pavlov_options[:current_user].graph_user,
                     action: :created_sub_comment, subject: sub_comment,
                     object: top_fact)
-      end
-
-      def authority_of_user_who_created sub_comment
-        query(:'authority_on_fact_for',
-                fact: top_fact, graph_user: sub_comment.created_by.graph_user)
       end
     end
   end

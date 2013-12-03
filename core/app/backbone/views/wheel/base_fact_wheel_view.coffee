@@ -31,6 +31,9 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
 
   template: "facts/fact_wheel"
 
+  templateHelpers: ->
+    formatted_authority: format_as_short_number(@model.get('authority'))
+
   initialize: (options) ->
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
     @opinionTypeRaphaels = {}
@@ -63,7 +66,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   boxSize: -> @options.radius * 2 + @maxStrokeWidth()
 
   reRender: ->
-    @$('.authority').text(@model.get('authority'))
+    @$('.authority').text format_as_short_number(@model.get('authority'))
     @postRenderActions()
 
   postRenderActions: ->

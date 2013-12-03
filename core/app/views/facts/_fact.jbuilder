@@ -20,10 +20,6 @@ json.sharing_url ::FactUrl.new(dead_fact).sharing_url
 
 json.created_by do |j|
   json.partial! 'users/user_partial', user: dead_fact_creator
-  json.authority_for_subject do |json|
-    json.authority "1"
-    json.id dead_fact.id
-  end
 end
 
 json.created_by_ago "Posted #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
