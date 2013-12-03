@@ -39,7 +39,7 @@ module Queries
     end
 
     def top_user_topics user_id
-      query(:'user_topics/last_used_for_user',
+      query(:'user_topics/top_with_authority_for_user',
             user_id: user_id.to_s)
     end
   end

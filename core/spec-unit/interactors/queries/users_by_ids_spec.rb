@@ -34,7 +34,7 @@ describe Queries::UsersByIds do
 
       Pavlov.stub(:query)
       Pavlov.stub(:query)
-        .with(:'user_topics/last_used_for_user',
+        .with(:'user_topics/top_with_authority_for_user',
                   user_id: user.id)
         .and_return(top_user_topics)
 
