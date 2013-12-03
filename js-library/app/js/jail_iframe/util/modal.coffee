@@ -35,8 +35,6 @@ FactlinkJailRoot.modal =
 
     FactlinkJailRoot.showFactlinkCreatedNotification()
 
-    fct
-
   stopHighlightingFactlink: (id) ->
     $("span.factlink[data-factid=#{id}]").each (i, val) ->
       $(val).contents().unwrap()
