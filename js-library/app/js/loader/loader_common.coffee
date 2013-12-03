@@ -16,8 +16,6 @@ window.FACTLINK_START_LOADER = ->
 
   #### Create iframe so jslib's namespace (window) doesn't collide with any content window.
   jslib_jail_iframe = mkEl 'iframe', 'factlink-iframe'
-  jslib_jail_iframe.style.display = 'block'
-  jslib_jail_iframe.style.border = '0px solid transparent'
 
   # Wrappers for increased CSS specificity
   outerWrapperEl =
