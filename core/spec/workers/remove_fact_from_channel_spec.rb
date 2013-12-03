@@ -15,20 +15,10 @@ describe RemoveFactFromChannel do
       @f.channels.should_not include(@ch)
     end
 
-    it "should call resque on all its containing channels" do
-      sup_ch = create :channel
-      @ch.containing_channels << sup_ch
-
-      Resque.should_receive(:enqueue).with(RemoveFactFromChannel, @f.id, sup_ch.id)
-
-      RemoveFactFromChannel.perform @f.id, @ch.id
-    end
-
     context "when the channel itself contains the fact" do
-      before do
-        @ch.sorted_internal_facts << @f
-      end
       it "should not remove the fact from the cached facts" do
+        @ch.sorted_internal_facts << @f
+
         RemoveFactFromChannel.perform @f.id, @ch.id
         @ch.sorted_cached_facts.should include(@f)
         @f.channels.should include(@ch)

@@ -23,16 +23,10 @@ class RemoveFactFromChannel
 
   def perform
     should_delete = (explicitely_deleted? or not included_from_elsewhere?)
-    should_propagate = (not already_deleted?)
 
     if should_delete
       channel.sorted_cached_facts.delete(fact) unless already_deleted?
       fact.channels.delete(channel)
-      if should_propagate
-        channel.containing_channels.each do |ch|
-          Resque.enqueue(RemoveFactFromChannel, fact.id, ch.id)
-        end
-      end
     end
   end
 
