@@ -35,9 +35,6 @@ FactlinkJailRoot.modal =
 
   highlightNewFactlink: (fact, id) ->
     fct = FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
-
-    $.extend FactlinkJailRoot.Facts, fct
-
     FactlinkJailRoot.trigger 'factlinkAdded'
 
     FactlinkJailRoot.modal.hide()

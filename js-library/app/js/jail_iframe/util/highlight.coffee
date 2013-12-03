@@ -1,11 +1,9 @@
-FactlinkJailRoot.Facts = []
-
 highlightFacts = (facts_data) ->
   # If there are multiple matches on the page, loop through them all
   for fact_data in facts_data
     # Select the ranges (results)
     ranges = FactlinkJailRoot.search(fact_data.displaystring)
-    $.merge FactlinkJailRoot.Facts, FactlinkJailRoot.selectRanges(ranges, fact_data.id)
+    FactlinkJailRoot.selectRanges(ranges, fact_data.id)
 
   FactlinkJailRoot.trigger "factlink.factsLoaded", facts_data
 
@@ -36,11 +34,3 @@ FactlinkJailRoot.startHighlighting = ->
 FactlinkJailRoot.highlightAdditionalFactlinks = (siteUrl) ->
   console.info "FactlinkJailRoot:", "highlightAdditionalFactlinks"
   fetchFacts siteUrl
-
-FactlinkJailRoot.stopHighlighting = ->
-  return unless highlighting
-  highlighting = false
-
-  console.info "FactlinkJailRoot:", "stopHighlighting"
-  fact.destroy() for fact in FactlinkJailRoot.Facts
-  FactlinkJailRoot.Facts = []
