@@ -45,12 +45,6 @@ class Channel < OurOhm
   timestamped_set :sorted_cached_facts, Fact
 
   def delete
-    contained_channels.each do |subch|
-      subch.containing_channels.delete self
-    end
-    containing_channels.each do |ch|
-      ch.contained_channels.delete self
-    end
     Activity.for(self).each do |a|
       a.delete
     end
@@ -77,26 +71,6 @@ class Channel < OurOhm
 
   def to_s
     title
-  end
-
-  def add_channel(channel)
-    return false if contained_channels.include?(channel)
-
-    contained_channels << channel
-    channel.containing_channels << self
-    true
-  end
-
-  def remove_channel(channel)
-    return false unless contained_channels.include?(channel)
-
-    contained_channels.delete(channel)
-    channel.containing_channels.delete(self)
-    true
-  end
-
-  def containing_channels_for_ids(user)
-    []
   end
 
   def topic
