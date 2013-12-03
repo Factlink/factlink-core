@@ -1,6 +1,4 @@
-window.FactlinkJailRoot = {
-  can_haz: {}
-}
+window.FactlinkJailRoot = $.extend({ can_haz: {}}, window.Events);
 
 # See http://stackoverflow.com/questions/3690447/override-default-jquery-selector-context
 jQuery.noConflict()

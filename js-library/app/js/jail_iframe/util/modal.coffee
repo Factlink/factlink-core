@@ -9,11 +9,6 @@ FactlinkJailRoot.hideDimmer = -> iFrame.css 'background', 'none'
 
 FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.factlinkCoreEnvoy.showFactlink id #TODO: xdmcleanup
 
-suppressScrollbars = ->
-  if FactlinkJailRoot.can_haz.suppress_double_scrollbar
-    document.documentElement.setAttribute('data-factlink-suppress-scrolling', '')
-restoreScrollbars = -> document.documentElement.removeAttribute('data-factlink-suppress-scrolling')
-
 # Object which holds the methods that can be called from the intermediate iframe
 # These methods are also used by the internal scripts and can be called through
 # FactlinkJailRoot.messageReceiver.<method-name>()
@@ -23,13 +18,12 @@ FactlinkJailRoot.messageReceiver =
     window.FACTLINK_ON_CORE_LOAD?()
 
   openModalOverlay: ->
-    suppressScrollbars()
-    iFrame.fadeIn('fast')
+    iFrame.fadeIn 'fast'
     FactlinkJailRoot.trigger 'modalOpened'
 
   closeModal_noAction: ->
-    iFrame.fadeOut 'fast', -> restoreScrollbars()
-    FactlinkJailRoot.trigger 'modalClosed'
+    iFrame.fadeOut 'fast', -> FactlinkJailRoot.trigger 'modalClosed'
+
 
   closeModal_highlightNewFactlink: (fact, id) ->
     fct = FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)

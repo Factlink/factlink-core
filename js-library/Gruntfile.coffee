@@ -25,7 +25,7 @@ module.exports = (grunt) ->
         options:
           banner: banner_template
         src: [
-          'build/js/jail_iframe/libs/jquery-1.7.2.js'
+          'build/js/jail_iframe/libs/*'
           'build/js/jail_iframe/core.js'
           'build/js/jail_iframe/wrap/first.js'
           'build/js/jail_iframe/plugins/*.js'

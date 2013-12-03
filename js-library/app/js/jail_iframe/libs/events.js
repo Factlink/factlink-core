@@ -1,4 +1,4 @@
-// WARNING: this is backbone events, but we added the last line in this file.
+// WARNING: this is backbone events, but we save
 
 // Regular expression used to split event strings
 var eventSplitter = /\s+/;
@@ -12,7 +12,7 @@ var eventSplitter = /\s+/;
 //     object.on('expand', function(){ alert('expanded'); });
 //     object.trigger('expand');
 //
-var Events = {
+window.Events = {
 
   // Bind one or more space separated events, `events`, to a `callback`
   // function. Passing `"all"` will bind the callback to all events fired.
@@ -104,4 +104,3 @@ var Events = {
   }
 };
 
-$.extend(FactlinkJailRoot, Events);
