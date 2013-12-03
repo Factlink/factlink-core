@@ -39,9 +39,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       fact_relation = double
       fact_relation_id = 1
       user = double
-      sub_comments = [double, double]
-      dead_sub_comments = [double, double]
-      authorities = [10, 20]
+      dead_sub_comments = double
       options = {ability: double(can?: true)}
       interactor = described_class.new(fact_relation_id: fact_relation_id,
         pavlov_options: options)
@@ -53,21 +51,7 @@ describe Interactors::SubComments::IndexForFactRelation do
             .with(:'sub_comments/index',
                       parent_ids_in: fact_relation_id, parent_class: 'FactRelation',
                       pavlov_options: options)
-            .and_return(sub_comments)
-
-      interactor.should_receive(:authority_of_user_who_created).
-        with(sub_comments[0]).
-        and_return(authorities[0])
-      interactor.should_receive(:authority_of_user_who_created).
-        with(sub_comments[1]).
-        and_return(authorities[1])
-
-      KillObject.should_receive(:sub_comment).
-        with(sub_comments[0], authority: authorities[0]).
-        and_return(dead_sub_comments[0])
-      KillObject.should_receive(:sub_comment).
-        with(sub_comments[1], authority: authorities[1]).
-        and_return(dead_sub_comments[1])
+            .and_return(dead_sub_comments)
 
       expect( interactor.call ).to eq dead_sub_comments
     end
@@ -84,65 +68,6 @@ describe Interactors::SubComments::IndexForFactRelation do
       expect do
         interactor.call
       end.to raise_error(Pavlov::ValidationError, 'fact relation does not exist any more')
-    end
-  end
-
-  describe '#top_fact' do
-    before do
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
-    it 'returns the top fact for the fact_relation_id' do
-      fact_relation_id = 1
-      fact = double
-      fact_relation = double(fact: fact)
-      interactor = described_class.new(fact_relation_id: fact_relation_id)
-
-      FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
-
-      expect(interactor.top_fact).to eq fact
-    end
-
-    it 'caches the fact' do
-      fact_relation_id = 1
-      fact = double
-      fact_relation = double(fact: fact)
-      interactor = described_class.new(fact_relation_id: fact_relation_id)
-
-      FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
-
-      interactor.top_fact
-
-      next_result = interactor.top_fact
-
-      expect(next_result).to eq fact
-    end
-  end
-
-  describe '#authority_of_user_who_created' do
-    before do
-      stub_classes 'Queries::AuthorityOnFactFor'
-      described_class.any_instance.stub(:authorized?).and_return(true)
-    end
-
-    it 'retrieves the authority and kills the subcomment' do
-      fact_relation_id = 1
-      fact = double
-      graph_user = double
-      authority = double
-      user = double
-      sub_comment = double(created_by: double(graph_user: graph_user))
-      interactor = described_class.new(fact_relation_id: fact_relation_id)
-
-      interactor.should_receive(:top_fact).and_return(fact)
-      Pavlov.should_receive(:query)
-            .with(:'authority_on_fact_for',
-                      fact: fact, graph_user: graph_user)
-            .and_return authority
-
-      result = interactor.authority_of_user_who_created sub_comment
-
-      expect(result).to eq authority
     end
   end
 end

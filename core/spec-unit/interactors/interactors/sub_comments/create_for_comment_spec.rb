@@ -45,7 +45,6 @@ describe Interactors::SubComments::CreateForComment do
       comment = double id: '2a'
       user = double
       sub_comment = double
-      authority = double
       dead_sub_comment = double
       content = 'hoi'
 
@@ -64,10 +63,8 @@ describe Interactors::SubComments::CreateForComment do
                       parent_id: comment.id, parent_class: 'Comment',
                       content: content, user: user, pavlov_options: pavlov_options)
             .and_return(sub_comment)
-      interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
-        and_return(authority)
       interactor.should_receive(:create_activity).with(sub_comment)
-      KillObject.should_receive(:sub_comment).with(sub_comment, authority: authority).
+      KillObject.should_receive(:sub_comment).with(sub_comment).
         and_return(dead_sub_comment)
 
       result = interactor.execute
@@ -119,35 +116,6 @@ describe Interactors::SubComments::CreateForComment do
       result2 = interactor.top_fact
 
       result2.should eq fact
-    end
-  end
-
-  describe '.authority_of_user_who_created' do
-    it 'retrieves the authority and kills the subcomment' do
-      comment_id = '2a'
-      fact = double
-      graph_user = double
-      authority = double
-      user = double
-      sub_comment = double(created_by: double(graph_user: graph_user))
-
-      Comment.stub find: nil
-      ability = double can?: true
-
-      pavlov_options = { current_user: user, ability: ability }
-      interactor = described_class.new comment_id: comment_id, content: 'hoi',
-        pavlov_options: pavlov_options
-
-      interactor.should_receive(:top_fact).and_return(fact)
-      Pavlov.should_receive(:query)
-            .with(:'authority_on_fact_for',
-                      fact: fact, graph_user: graph_user,
-                      pavlov_options: pavlov_options)
-            .and_return(authority)
-
-      result = interactor.authority_of_user_who_created sub_comment
-
-      expect(result).to eq authority
     end
   end
 end

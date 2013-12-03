@@ -18,12 +18,8 @@ module Interactors
 
         create_activity comment
 
-        query(:'comments/add_authority_and_opinion_and_can_destroy',
-                  comment: comment, fact: fact)
-      end
-
-      def fact
-        Fact[fact_id]
+        query(:'comments/add_opinion_and_can_destroy',
+                  comment: comment)
       end
 
       def create_activity comment

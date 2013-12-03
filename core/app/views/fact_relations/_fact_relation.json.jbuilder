@@ -27,8 +27,6 @@ else
   can_destroy = false
 end
 
-creator_authority = "1.0"
-
 json.url friendly_fact_path(fact_relation.from_fact)
 
 json.can_destroy? can_destroy
@@ -44,6 +42,5 @@ json.time_ago TimeFormatter.as_time_ago(fact_relation.created_at.to_time)
 
 json.created_by do |json|
   json.partial! 'users/user_partial', user: fact_relation.created_by.user
-  json.authority creator_authority
 end
 json.sub_comments_count fact_relation.sub_comments_count || 0

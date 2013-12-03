@@ -49,11 +49,6 @@ class window.ChannelList extends window.GenericChannelList
     results = @filter (ch)-> ch.get('slug_title') == slug_title
     if results.length == 1 then results[0] else `undefined`
 
-  orderByAuthority: ->
-    @comparator = (channel) ->
-      -parseFloat(channel.get("created_by_authority"))
-    @sort()
-
   channelArrayForIds: (ids) ->
     array = []
     @each (ch) ->
