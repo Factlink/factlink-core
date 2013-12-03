@@ -10,7 +10,7 @@ window.ClientController =
       newClientModal = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show newClientModal
       view = new DiscussionView model: fact
-      view.on 'render', parent.onModalReady
+      view.on 'render', -> parent.remote?.onModalReady()
       newClientModal.mainRegion.show view
 
   showNewFact: (params={}) ->
@@ -23,7 +23,7 @@ window.ClientController =
       fact_text: params.fact
       title: params.title
       url: params.url
-    factsNewView.on 'render', parent.onModalReady
+    factsNewView.on 'render', -> parent.remote?.onModalReady()
     factsNewView.on 'factCreated', (fact) ->
       parent.highlightLastCreatedFactlink(fact.id, params.fact)
     clientModal.mainRegion.show factsNewView

@@ -1,8 +1,6 @@
 class AddTimestampsToExistingFactRelations < Mongoid::Migration
   def self.up
-    FactRelation.all.ids.each do |id|
-      Resque.enqueue(AddTimestampsToFactrelation, id)
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

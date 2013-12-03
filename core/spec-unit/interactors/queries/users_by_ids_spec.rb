@@ -27,7 +27,7 @@ describe Queries::UsersByIds do
       top_user_topics = double
       top_topics_limit = 10
 
-      graph_user = double(id: '10', created_facts: double(size: 10))
+      graph_user = double(id: '10', sorted_created_facts: double(size: 10))
       user = double(graph_user: graph_user, id: 'a1')
       query = described_class.new(user_ids: [0], top_topics_limit: top_topics_limit)
 
@@ -46,7 +46,7 @@ describe Queries::UsersByIds do
       follower_count = 123
       following_count = 456
       created_fact_count = 10
-      graph_user = double(id: '10', created_facts: double(size: created_fact_count))
+      graph_user = double(id: '10', sorted_created_facts: double(size: created_fact_count))
       user = double(graph_user: graph_user, id: 'a1')
       query = described_class.new(user_ids: [0])
 
@@ -67,8 +67,8 @@ describe Queries::UsersByIds do
 
     it 'should work with multiple ids' do
       user_ids = [0, 1]
-      graph_user0 = double(id: '10', created_facts: double(size: 10))
-      graph_user1 = double(id: '20', created_facts: double(size: 10))
+      graph_user0 = double(id: '10', sorted_created_facts: double(size: 10))
+      graph_user1 = double(id: '20', sorted_created_facts: double(size: 10))
       user0 = double(graph_user: graph_user0, id: 'a1')
       user1 = double(graph_user: graph_user1, id: 'a2')
       query = described_class.new(user_ids: user_ids)
@@ -82,8 +82,8 @@ describe Queries::UsersByIds do
 
     it 'can search by graph_user ids' do
       graph_user_ids = [0, 1]
-      graph_user0 = double(id: '10', user_id:8080, created_facts: double(size: 10))
-      graph_user1 = double(id: '20', created_facts: double(size: 10))
+      graph_user0 = double(id: '10', user_id:8080, sorted_created_facts: double(size: 10))
+      graph_user1 = double(id: '20', sorted_created_facts: double(size: 10))
       user0 = double(graph_user: graph_user0, id: 'a1')
       user1 = double(graph_user: graph_user1, id: 'a2')
       query = described_class.new(user_ids: graph_user_ids, by: :graph_user_id)

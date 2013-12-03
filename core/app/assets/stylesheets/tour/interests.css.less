@@ -33,32 +33,31 @@
       color: white;
     }
   }
+}
 
-  .tour-interesting-users-arrow-left,
-  .tour-interesting-users-arrow-right {
-    width: 16px;
-    height: 23px;
-    opacity: 0.2;
+.tour-interesting-users-arrow-left,
+.tour-interesting-users-arrow-right {
+  top: 290px;
+  font-size: 30px;
+  opacity: 0;
+  position: absolute;
 
-    &.enabled {
-      cursor: pointer;
+  &.enabled {
+    cursor: pointer;
+    opacity: 0.4;
+
+    &:hover {
       opacity: 0.6;
-
-      &:hover {
-        opacity: 1;
-      }
     }
   }
+}
 
-  .tour-interesting-users-arrow-left {
-    background: asset-data-url("pagination/arrow_left.png");
-    float: left;
-  }
+.tour-interesting-users-arrow-left {
+  left: -30px;
+}
 
-  .tour-interesting-users-arrow-right {
-    background: asset-data-url("pagination/arrow_right.png");
-    float: right;
-  }
+.tour-interesting-users-arrow-right {
+  right: -30px;
 }
 
 .tour-interesting-users-list {

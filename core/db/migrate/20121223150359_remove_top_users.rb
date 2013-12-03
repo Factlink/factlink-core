@@ -1,10 +1,6 @@
 class RemoveTopUsers < Mongoid::Migration
   def self.up
-    GraphUser.all.ids.each do |gu_id|
-      gu = GraphUser[gu_id]
-      gu.key.hdel :interestingness
-    end
-    GraphUser.key[:top_users].del
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down
