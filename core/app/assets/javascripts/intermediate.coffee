@@ -4,8 +4,7 @@ showFrame = document.getElementById("frame")
 last_created_text = null
 
 window.remote = Factlink.createFrameProxyObject window.parent,
-  ['hide', 'onModalReady', 'highlightNewFactlink', 'stopHighlightingFactlink',
-    'createdNewFactlink', 'trigger', 'setFeatureToggles'
+  ['modalFrameReady', 'openModalOverlay', 'closeModal_noAction',  'closeModal_highlightNewFactlink', 'closeModal_deleteFactlink'
   ]
 
 local =
@@ -24,9 +23,9 @@ local =
 
 Factlink.listenToWindowMessages local
 
-window.highlightLastCreatedFactlink = (id, text) ->
-  if last_created_text == text
-    remote.highlightNewFactlink(text, id)
+window.highlightLastCreatedFactlink = (fact_id, fact_text) ->
+  if last_created_text == fact_text
+    remote.closeModal_highlightNewFactlink(fact_text, fact_id)
 
 showUrl = (url) ->
   backbone = showFrame.contentWindow.Backbone
@@ -39,7 +38,7 @@ showUrl = (url) ->
 
     history.navigate url, trigger: true
   else
-    showFrame.onload = -> window.remote.onModalReady()
+    showFrame.onload = -> window.remote.openModalOverlay()
     showFrame.src = url
 
 showFrame.src = '/client/blank'
