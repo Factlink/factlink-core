@@ -36,27 +36,9 @@ describe Commands::Channels::AddFactWithoutPropagation do
   describe 'should_execute?' do
     it "should return false if the fact is already added" do
       fact, score = double, double
-      channel = double :channel,
-                    sorted_cached_facts: double,
-                    sorted_delete_facts: double
+      channel = double :channel, sorted_cached_facts: double
 
       channel.sorted_cached_facts.stub(:include?).with(fact).and_return(true)
-      channel.sorted_delete_facts.stub(:include?).with(fact).and_return(false)
-
-      command = described_class.new fact: fact,
-        channel: channel, score: score
-
-      expect(command.should_execute?).to be_false
-    end
-
-    it "should return false if the fact is already deleted" do
-      fact, score = double, double
-      channel = double :channel,
-                    sorted_cached_facts: double,
-                    sorted_delete_facts: double
-
-      channel.sorted_cached_facts.stub(:include?).with(fact).and_return(false)
-      channel.sorted_delete_facts.stub(:include?).with(fact).and_return(true)
 
       command = described_class.new fact: fact,
         channel: channel, score: score
@@ -66,12 +48,9 @@ describe Commands::Channels::AddFactWithoutPropagation do
 
     it "should return true in other cases" do
       fact, score = double, double
-      channel = double :channel,
-                    sorted_cached_facts: double,
-                    sorted_delete_facts: double
+      channel = double :channel, sorted_cached_facts: double
 
       channel.sorted_cached_facts.stub(:include?).with(fact).and_return(false)
-      channel.sorted_delete_facts.stub(:include?).with(fact).and_return(false)
 
       command = described_class.new fact: fact,
         channel: channel, score: score

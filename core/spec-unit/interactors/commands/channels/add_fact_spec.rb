@@ -10,34 +10,26 @@ describe Commands::Channels::AddFact do
     end
 
     it 'correctly' do
-      fact = double
-      fact_id = double
-      channel = double
-      channel_id = double
-      channel_created_by_id = double
-      sorted_delete_facts = double
+      fact = double id: double
       sorted_internal_facts = double
+      channel = double :channel,
+        id: double,
+        created_by_id: double,
+        sorted_internal_facts: sorted_internal_facts
       channel_activities = double
 
       command = Commands::Channels::AddFact.new fact: fact, channel: channel
 
-      fact.should_receive(:id).and_return fact_id
-
-      Channel::Activities.should_receive(:new)
-                         .with(channel).and_return(channel_activities)
+      Channel::Activities
+        .stub(:new)
+        .with(channel)
+        .and_return(channel_activities)
       channel_activities.should_receive(:add_created)
-
-      channel.should_receive(:id).and_return channel_id
-      channel.should_receive(:sorted_delete_facts).and_return sorted_delete_facts
-      channel.should_receive(:sorted_internal_facts).and_return sorted_internal_facts
-      channel.should_receive(:created_by_id).and_return channel_created_by_id
-
-      sorted_delete_facts.should_receive(:delete).with(fact)
 
       sorted_internal_facts.should_receive(:add).with(fact)
 
       AddFactToChannelJob.should_receive(:perform)
-                         .with(fact_id, channel_id, initiated_by_id: channel_created_by_id)
+                         .with(fact.id, channel.id, initiated_by_id: channel.created_by_id)
 
       command.call
     end

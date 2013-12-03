@@ -24,16 +24,5 @@ describe RemoveFactFromChannel do
         @f.channels.should include(@ch)
       end
     end
-
-    context "when the channel already does not include the fact, but it was explicitely deleted" do
-      it "still removes the channel from the facts channellist" do
-        @ch.sorted_cached_facts.delete @f
-        @ch.sorted_delete_facts.add @f
-
-        Fact.should_receive(:[]).with(@f.id).and_return(@f)
-        @f.channels.should_receive(:delete).with(@ch)
-        RemoveFactFromChannel.perform @f.id, @ch.id
-      end
-    end
   end
 end

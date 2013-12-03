@@ -10,7 +10,7 @@ class RemoveFactFromChannel
   end
 
   def explicitely_deleted?
-    @explicitely_deleted ||= channel.sorted_delete_facts.include?(fact)
+    false
   end
 
   def fact
