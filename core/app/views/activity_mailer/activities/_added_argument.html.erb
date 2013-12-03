@@ -1,8 +1,11 @@
 <%
-  if @activity.action == 'added_supporting_evidence'
-    type = :supporting
-  else
-    type = :weakening
+  case @activity.action
+  when 'created_comment'
+    type = @activity.subject.type
+  when 'added_supporting_evidence'
+    type = 'believes'
+  when 'added_weakening_evidence'
+    type = 'disbelieves'
   end
 %>
 
@@ -23,7 +26,7 @@
   </tr>
   <tr>
 
-    <% if type == :supporting %>
+    <% if type == 'believes' %>
       <td class="timeline-left" height="70px">&nbsp;</td>
       <td class="timeline-right" height="70px">&nbsp;</td>
     <% end %>
@@ -39,14 +42,14 @@
         <tr>
           <td class="added-argument-message-content">
             <p>
-              <%= @activity.subject.data.displaystring %>
+              <%= @activity.subject.to_s %>
             </p>
           </td>
         </tr>
       </table>
     </td>
 
-    <% if type == :weakening %>
+    <% if type == 'disbelieves' %>
       <td class="timeline-left" height="70px">&nbsp;</td>
       <td class="timeline-right" height="70px">&nbsp;</td>
     <% end %>
@@ -55,7 +58,7 @@
 
   <tr>
     <td colspan="2" class="timeline-impact">
-      <% if type == :supporting %>
+      <% if type == 'believes' %>
         <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-supporting-impact-background.png" heigth="37" width="37" /></div>
       <% else %>
         <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-weakening-impact-background.png" heigth="37" width="37" /></div>
