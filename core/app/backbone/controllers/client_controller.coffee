@@ -2,14 +2,14 @@ window.ClientController =
   showFact: (fact_id) ->
     fact = new Fact id: fact_id
 
-    fact.on 'destroy', -> clientCommunicator?.annotatedSiteEnvoy.closeModal_deleteFactlink fact_id
+    fact.on 'destroy', -> annotatedSiteEnvoy?.closeModal_deleteFactlink fact_id
 
     fact.fetch
       success: ->
         newClientModal = new DiscussionModalContainer
         FactlinkApp.discussionModalRegion.show newClientModal
         view = new DiscussionView model: fact
-        view.on 'render', -> clientCommunicator?.annotatedSiteEnvoy.openModalOverlay()
+        view.on 'render', -> annotatedSiteEnvoy?.openModalOverlay()
         newClientModal.mainRegion.show view
 
   showNewFact: (params={}) ->
@@ -22,8 +22,8 @@ window.ClientController =
       fact_text: params.fact
       title: params.title
       url: params.url
-    factsNewView.on 'render', -> clientCommunicator?.annotatedSiteEnvoy.openModalOverlay()
+    factsNewView.on 'render', -> annotatedSiteEnvoy?.openModalOverlay()
     factsNewView.on 'factCreated', (fact) ->
-      clientCommunicator.highlightLastCreatedFactlink(fact.id, params.fact)
+      annotatedSiteEnvoy?.closeModal_highlightNewFactlink(params.fact, fact.id)
     clientModal.mainRegion.show factsNewView
 
