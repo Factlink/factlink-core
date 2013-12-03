@@ -6,7 +6,7 @@ module Queries
       include Pavlov::Query
       include HashUtils
 
-      arguments :user_id
+      arguments :user_id, :limit_topics
 
       private
 
@@ -15,7 +15,7 @@ module Queries
       end
 
       def execute
-        topics.map(&method(:dead_topic_for_topic))
+        topics.take(limit_topics).map(&method(:dead_topic_for_topic))
       end
 
       def dead_topic_for_topic topic
@@ -23,7 +23,15 @@ module Queries
       end
 
       def topics
-        facts.map(&:channels).map(&:to_a).flatten.uniq.map(&:topic).uniq
+        channel_ids.map(&method(:channel_by_id)).map(&:topic).uniq
+      end
+
+      def channel_by_id id
+        Channel[id]
+      end
+
+      def channel_ids
+        facts.map(&:channels).map(&:ids).flatten.uniq
       end
 
       def facts
