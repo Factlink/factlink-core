@@ -35,8 +35,6 @@ class Channel < OurOhm
   alias :graph_user :created_by
   index :created_by_id
 
-  set :unread_facts, Channel
-
   timestamped_set :sorted_internal_facts, Fact
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
@@ -52,7 +50,7 @@ class Channel < OurOhm
     ChannelFacts.new(self)
   end
   private :channel_facts
-  delegate :mark_as_read, :facts, :remove_fact, :include?,
+  delegate :facts, :remove_fact, :include?,
            :to => :channel_facts
 
   def validate
