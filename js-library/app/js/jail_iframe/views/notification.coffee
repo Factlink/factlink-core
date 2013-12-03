@@ -17,7 +17,7 @@ class FactlinkJailRoot.Views.Notification
     @$el.find('.fl-js-message').text(message)
 
   render: ->
-    FactlinkJailRoot.el.append(@$el)
+    FactlinkJailRoot.$factlinkCoreContainer.append(@$el)
     @positionElement()
 
     @$el.addClass 'active'

@@ -9,4 +9,4 @@ $.fn = $.prototype = jQuery.fn
 jQuery.extend $, jQuery
 
 # Create the FactlinkJailRoot container
-FactlinkJailRoot.el = $("#fl")
+FactlinkJailRoot.$factlinkCoreContainer = $("#fl")

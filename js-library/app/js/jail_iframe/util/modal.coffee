@@ -3,7 +3,7 @@ iFrame = $('<div />').attr
   id: 'factlink-modal-frame'
 
 iFrame.hide()
-iFrame.appendTo(FactlinkJailRoot.el)
+iFrame.appendTo(FactlinkJailRoot.$factlinkCoreContainer)
 
 FactlinkJailRoot.hideDimmer = -> iFrame.css 'background', 'none'
 

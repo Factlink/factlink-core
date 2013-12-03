@@ -1,7 +1,7 @@
 class Button
   constructor: (dom_events={}) ->
     @$el = $(@template)
-    @$el.appendTo(FactlinkJailRoot.el)
+    @$el.appendTo(FactlinkJailRoot.$factlinkCoreContainer)
     for event, callback of dom_events
       @$el.bind event, callback
 
@@ -14,7 +14,7 @@ class Button
 
   show: =>
     @stopLoading()
-    FactlinkJailRoot.el.find('div.fl-button').removeClass('active')
+    FactlinkJailRoot.$factlinkCoreContainer.find('div.fl-button').removeClass('active')
     @$el.addClass 'active been-active'
 
   hide: => @$el.removeClass 'active'
