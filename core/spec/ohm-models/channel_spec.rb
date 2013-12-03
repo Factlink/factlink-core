@@ -30,10 +30,6 @@ describe Channel do
       Activity::Subject.stub(:activity)
     end
 
-    describe "initially" do
-      it { channel.containing_channels.to_a.should =~ [] }
-    end
-
     describe "after adding one fact and deleting a fact (not from the Channel but the fact itself) without recalculate" do
       it do
         add_fact_to_channel f1, channel
