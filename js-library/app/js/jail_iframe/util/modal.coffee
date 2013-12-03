@@ -26,7 +26,7 @@ FactlinkJailRoot.messageReceiver =
 
 
   closeModal_highlightNewFactlink: (fact, id) ->
-    fct = FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
+    FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
     FactlinkJailRoot.trigger 'factlinkAdded'
     @closeModal_noAction()
     FactlinkJailRoot.showFactlinkCreatedNotification()
