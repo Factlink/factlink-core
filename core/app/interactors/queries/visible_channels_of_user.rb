@@ -21,7 +21,7 @@ module Queries
     end
 
     def non_empty channels
-      channels.select { |ch| ch.sorted_cached_facts.count > 0 }
+      channels.select { |ch| ch.sorted_internal_facts.count > 0 }
     end
   end
 end

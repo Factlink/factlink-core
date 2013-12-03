@@ -17,7 +17,7 @@ class ChannelFacts
   end
 
   def include? obj
-    channel.sorted_cached_facts.include?(obj)
+    channel.sorted_internal_facts.include?(obj)
   end
 
   def facts opts={}
@@ -29,7 +29,7 @@ class ChannelFacts
 
     limit = opts[:from] || 'inf'
 
-    res = channel.sorted_cached_facts.below(limit,facts_opts)
+    res = channel.sorted_internal_facts.below(limit,facts_opts)
 
     fixchan = false
 

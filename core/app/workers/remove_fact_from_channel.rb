@@ -10,7 +10,6 @@ class RemoveFactFromChannel
   def perform
     return if channel.sorted_internal_facts.include?(fact)
 
-    channel.sorted_cached_facts.delete(fact)
     fact.channels.delete(channel)
   end
 

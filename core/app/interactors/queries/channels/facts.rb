@@ -9,7 +9,7 @@ module Queries
         channel = query(:'channels/get', id: id)
 
         query :'facts/get_paginated',
-              key: channel.sorted_cached_facts.key.to_s,
+              key: channel.sorted_internal_facts.key.to_s,
               from: from,
               count: count
       end

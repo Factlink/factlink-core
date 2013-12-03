@@ -6,20 +6,9 @@ module Commands
       arguments :fact, :channel, :score
 
       def execute
-        return false unless should_execute?
-
-        channel.sorted_cached_facts.add(fact,score)
         fact.channels.add channel
 
         true
-      end
-
-      def should_execute?
-        not already_propagated
-      end
-
-      def already_propagated
-        channel.sorted_cached_facts.include?(fact)
       end
     end
   end
