@@ -35,9 +35,6 @@ class Channel < OurOhm
   alias :graph_user :created_by
   index :created_by_id
 
-  set :contained_channels, Channel
-  set :containing_channels, Channel
-
   set :unread_facts, Channel
 
   timestamped_set :sorted_internal_facts, Fact
