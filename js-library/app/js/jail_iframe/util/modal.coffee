@@ -1,5 +1,3 @@
-FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.factlinkCoreEnvoy.showFactlink id #TODO: xdmcleanup
-
 # Object which holds the methods that can be called from the intermediate iframe
 # These methods are also used by the internal scripts and can be called through
 # FactlinkJailRoot.messageReceiver.<method-name>()
