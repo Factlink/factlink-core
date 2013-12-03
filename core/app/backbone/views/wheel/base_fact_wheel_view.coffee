@@ -63,7 +63,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   boxSize: -> @options.radius * 2 + @maxStrokeWidth()
 
   reRender: ->
-    @$('.authority').text(@model.get('authority'))
+    @$('.authority').text @model.toJSON().formatted_authority
     @postRenderActions()
 
   postRenderActions: ->

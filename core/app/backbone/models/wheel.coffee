@@ -122,3 +122,7 @@ class window.Wheel extends Backbone.Model
   disbelieve: -> @setActiveOpinionType 'disbelieve'
   isBelieving: -> @isUserOpinion 'believe'
   isDisBelieving: -> @isUserOpinion 'disbelieve'
+
+  toJSON: ->
+    _.extend super,
+      formatted_authority: format_as_short_number @get('authority')
