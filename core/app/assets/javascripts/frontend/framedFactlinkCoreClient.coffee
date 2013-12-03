@@ -2,18 +2,15 @@ window.initClientCommunicator = ->
   last_created_text = null
 
   local =
-    showFactlink: (id) ->
-      url = "/client/facts/#{id}"
-      showUrl url
+    showFactlink: (id) -> showUrl "/client/facts/#{id}"
 
     prepareNewFactlink: (text, siteUrl, siteTitle, guided) ->
-      url = "/facts/new" +
-      "?fact=" + encodeURIComponent(text) +
-      "&url=" + encodeURIComponent(siteUrl) +
-      "&title=" + encodeURIComponent(siteTitle) +
-      "&guided=" + encodeURIComponent(guided)
-      showUrl url
       last_created_text = text
+      showUrl "/facts/new" +
+        "?fact=" + encodeURIComponent(text) +
+        "&url=" + encodeURIComponent(siteUrl) +
+        "&title=" + encodeURIComponent(siteTitle) +
+        "&guided=" + encodeURIComponent(guided)
 
   Factlink.createReceiverEnvoy local
 
