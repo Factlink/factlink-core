@@ -3,20 +3,14 @@ module Queries
     class AddAuthorityAndOpinionAndCanDestroy
       include Pavlov::Query
 
-      arguments :comment, :fact
+      arguments :comment
 
       def execute
         KillObject.comment comment,
           impact_opinion: impact_opinion,
           current_user_opinion: current_user_opinion,
-          authority: authority,
           can_destroy?: can_destroy,
           sub_comments_count: comment.sub_comments_count
-      end
-
-      def authority
-        query(:'authority_on_fact_for',
-                  fact: fact, graph_user: comment.created_by.graph_user)
       end
 
       def impact_opinion
