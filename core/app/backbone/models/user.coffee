@@ -44,6 +44,7 @@ class window.User extends Backbone.Model
       avatar_url_80: @avatar_url(80)
       avatar_url_160: @avatar_url(160)
       stream_path: @streamLink()
+      user_topics: @user_topics().toJSON()
 
   is_following_users: ->
     !@following.isEmpty()
@@ -72,5 +73,5 @@ class window.User extends Backbone.Model
     currentUser.following.some (model) =>
       model.get('username') == @get('username')
 
-  tour_user_topics: ->
-    @_tour_user_topics ?= new UserTopics _.first(@get('user_topics'), 2)
+  user_topics: ->
+    new UserTopics @get('user_topics')
