@@ -26,21 +26,12 @@ describe RemoveFactFromChannel do
     end
 
     context "when the channel already does not include the fact, but it was explicitely deleted" do
-      before do
+      it "still removes the channel from the facts channellist" do
         @ch.sorted_cached_facts.delete @f
         @ch.sorted_delete_facts.add @f
-      end
-      it "should still remove the channel from the facts channellist" do
+
         Fact.should_receive(:[]).with(@f.id).and_return(@f)
         @f.channels.should_receive(:delete).with(@ch)
-        RemoveFactFromChannel.perform @f.id, @ch.id
-      end
-      it "should not call resque on all its containing channels" do
-        sup_ch = create :channel
-        @ch.containing_channels << sup_ch
-
-        Resque.should_not_receive(:enqueue)
-
         RemoveFactFromChannel.perform @f.id, @ch.id
       end
     end
