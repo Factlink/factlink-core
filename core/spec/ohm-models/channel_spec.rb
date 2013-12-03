@@ -30,10 +30,6 @@ describe Channel do
       Activity::Subject.stub(:activity)
     end
 
-    describe "initially" do
-      it { channel.containing_channels.to_a.should =~ [] }
-    end
-
     describe "after adding one fact and deleting a fact (not from the Channel but the fact itself) without recalculate" do
       it do
         add_fact_to_channel f1, channel
@@ -58,23 +54,6 @@ describe Channel do
           channel.remove_fact(f1)
           channel.facts.to_a.should =~ []
         end
-      end
-    end
-
-    describe ".containing_channels_for_ids" do
-      it 'calls a method on channellist' do
-        channel_list = double
-        return_value = double
-        channel = create :channel
-        user = double
-        ChannelList.should_receive(:new).with(user)
-                   .and_return(channel_list)
-        channel_list.should_receive(:containing_channel_ids_for_channel)
-                    .with(channel).and_return(return_value)
-
-        expect(channel.containing_channels_for_ids(user))
-           .to eq return_value
-
       end
     end
 
