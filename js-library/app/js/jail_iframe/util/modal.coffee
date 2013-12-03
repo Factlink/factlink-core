@@ -24,7 +24,6 @@ FactlinkJailRoot.annotatedSiteReceiver =
   closeModal_noAction: ->
     iFrame.fadeOut 'fast', -> FactlinkJailRoot.trigger 'modalClosed'
 
-
   closeModal_highlightNewFactlink: (fact, id) ->
     FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
     FactlinkJailRoot.trigger 'factlinkAdded'
