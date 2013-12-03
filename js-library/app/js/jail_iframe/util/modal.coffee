@@ -16,30 +16,29 @@ restoreScrollbars = -> document.documentElement.removeAttribute('data-factlink-s
 
 # Object which holds the methods that can be called from the intermediate iframe
 # These methods are also used by the internal scripts and can be called through
-# FactlinkJailRoot.modal.FUNCTION.method() because easyXDM changes the object structure
-FactlinkJailRoot.modal =
-  hide: ->
-    iFrame.fadeOut 'fast', -> restoreScrollbars()
-    FactlinkJailRoot.trigger 'modalClosed'
+# FactlinkJailRoot.messageReceiver.<method-name>()
+FactlinkJailRoot.messageReceiver =
+  modalFrameReady: (featureToggles) ->
+    FactlinkJailRoot.can_haz = featureToggles
+    window.FACTLINK_ON_CORE_LOAD?()
 
-  onModalReady: ->
+  openModalOverlay: ->
     suppressScrollbars()
     iFrame.fadeIn('fast')
     FactlinkJailRoot.trigger 'modalOpened'
 
-  highlightNewFactlink: (fact, id) ->
+  closeModal_noAction: ->
+    iFrame.fadeOut 'fast', -> restoreScrollbars()
+    FactlinkJailRoot.trigger 'modalClosed'
+
+  closeModal_highlightNewFactlink: (fact, id) ->
     fct = FactlinkJailRoot.selectRanges(FactlinkJailRoot.search(fact), id)
     FactlinkJailRoot.trigger 'factlinkAdded'
-
-    FactlinkJailRoot.modal.hide()
-
+    @closeModal_noAction()
     FactlinkJailRoot.showFactlinkCreatedNotification()
 
-  stopHighlightingFactlink: (id) ->
+  closeModal_deleteFactlink: (id) ->
     $("span.factlink[data-factid=#{id}]").each (i, val) ->
       $(val).contents().unwrap()
+    @closeModal_noAction()
 
-
-  setFeatureToggles: (featureToggles) ->
-    FactlinkJailRoot.can_haz = featureToggles
-    window.FACTLINK_ON_CORE_LOAD?()
