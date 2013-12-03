@@ -1,4 +1,8 @@
+# Note: this file is duplicated between core and js-lib
+# the implementations may differ slightly due to the differing release schedules
+
 msgPrefix = 'FL$msg*)k`dC:'
+
 window.Factlink || window.Factlink = {}
 
 Factlink.createFrameProxy = (target_window) -> (method_name) -> (args...) ->
