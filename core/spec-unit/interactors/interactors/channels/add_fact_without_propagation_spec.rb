@@ -27,45 +27,6 @@ describe Interactors::Channels::AddFactWithoutPropagation do
       expect(interactor.call).to be_true
     end
 
-    it 'adds the fact to the unread facts if it is indicated and it makes sense' do
-      fact = double :fact, id: double, created_by_id: 14
-      channel = double :channel,
-                       unread_facts: double,
-                       slug_title: double,
-                       created_by_id: fact.created_by_id + 1
-      score = double :score, to_s: double
-
-      interactor = described_class.new fact: fact, channel: channel, score: score,
-        should_add_to_unread: true
-
-      Pavlov.should_receive(:command)
-            .with(:"channels/add_fact_without_propagation", fact: fact, channel: channel, score: score)
-            .and_return true
-      Pavlov.should_receive(:command)
-            .with(:"topics/add_fact", fact_id: fact.id, topic_slug_title: channel.slug_title, score: score.to_s)
-
-      channel.unread_facts.should_receive(:add).with(fact)
-
-      interactor.call
-    end
-
-    it "doesn't add the fact to the unread facts if the user has seen the fact because he made it" do
-      fact = double :fact, id: double, created_by_id: 14
-      channel = double :channel,
-                       unread_facts: double,
-                       slug_title: double,
-                       created_by_id: fact.created_by_id
-      score = double(:score, to_s: double)
-
-      interactor = described_class.new fact: fact, channel: channel, score: score,
-        should_add_to_unread: true
-      Pavlov.should_receive(:command)
-            .with(:"channels/add_fact_without_propagation", fact: fact, channel: channel, score: score)
-            .and_return false
-
-      interactor.call
-    end
-
     it "returns false if the fact did not need to be added, or wasn't added " do
       fact, channel, score = double, double, double
 
