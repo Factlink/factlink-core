@@ -33,8 +33,11 @@ class ActivityMailer < ActionMailer::Base
 
   def get_mail_subject_for_activity activity
     user = activity.user.user
+    factlink = activity.object.data.displaystring.truncate(50)
 
     case activity.action
+    when 'added_supporting_evidence', 'added_weakening_evidence', 'created_comment', 'created_sub_comment'
+      "#{user} discussed #{factlink}"
     when 'created_conversation'
       "#{user} has sent you a message"
     when 'replied_message'
