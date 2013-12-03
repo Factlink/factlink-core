@@ -1,6 +1,6 @@
 class ConversationItemView extends Backbone.Marionette.ItemView
   tagName: 'li'
-  className: 'clearfix'
+  className: 'conversations-overview-item clearfix'
   template: 'conversations/item'
   events:
     'click' : 'wholeElementClick'
@@ -21,11 +21,11 @@ class ConversationEmptyView extends Backbone.Marionette.ItemView
 
 class ConversationEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
   emptyView: ConversationEmptyView
-  className: 'empty'
+  className: 'conversations-overview-empty'
 
 class window.ConversationsView extends Backbone.Marionette.CollectionView
   itemView: ConversationItemView
   emptyView: ConversationEmptyLoadingView
   itemViewOptions: => collection: @collection
   tagName: 'ul'
-  className: 'conversations'
+  className: 'conversations-overview'
