@@ -7,7 +7,7 @@ iFrame.appendTo(FactlinkJailRoot.el)
 
 FactlinkJailRoot.hideDimmer = -> iFrame.css 'background', 'none'
 
-FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.remote.showFactlink id #TODO: xdmcleanup
+FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.factlinkCoreEnvoy.showFactlink id #TODO: xdmcleanup
 
 suppressScrollbars = ->
   if FactlinkJailRoot.can_haz.suppress_double_scrollbar

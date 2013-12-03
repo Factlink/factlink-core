@@ -20,7 +20,7 @@ FactlinkJailRoot.createFactFromSelection = () ->
   guided = !!FactlinkConfig.guided
 
   FactlinkJailRoot.on 'modalOpened', success
-  FactlinkJailRoot.remote.prepareNewFactlink text, siteUrl, siteTitle, guided
+  FactlinkJailRoot.factlinkCoreEnvoy.prepareNewFactlink text, siteUrl, siteTitle, guided
 
 # We make this a global function so it can be used for direct adding of facts
 # (Right click with chrome-extension)

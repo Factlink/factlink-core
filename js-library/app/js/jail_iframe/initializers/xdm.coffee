@@ -4,4 +4,4 @@ frame_container.appendChild(iframe)
 FactlinkJailRoot.listenToWindowMessages FactlinkJailRoot.messageReceiver
 iframe.src = "#{FactlinkConfig.api}/factlink/intermediate"
 
-FactlinkJailRoot.remote = FactlinkJailRoot.createFrameProxyObject iframe.contentWindow, ['showFactlink', 'prepareNewFactlink' ]
+FactlinkJailRoot.factlinkCoreEnvoy = FactlinkJailRoot.createFrameProxyObject iframe.contentWindow, ['showFactlink', 'prepareNewFactlink' ]
