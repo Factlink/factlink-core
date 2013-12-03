@@ -1,7 +1,7 @@
 iframe = document.createElement('iframe')
 frame_container = document.getElementById('factlink-modal-frame')
 frame_container.appendChild(iframe)
-FactlinkJailRoot.listenToWindowMessages FactlinkJailRoot.messageReceiver
+FactlinkJailRoot.createReceiverEnvoy FactlinkJailRoot.messageReceiver
 iframe.src = "#{FactlinkConfig.api}/factlink/intermediate"
 
-FactlinkJailRoot.factlinkCoreEnvoy = FactlinkJailRoot.createFrameProxyObject iframe.contentWindow, ['showFactlink', 'prepareNewFactlink' ]
+FactlinkJailRoot.factlinkCoreEnvoy = FactlinkJailRoot.createSenderEnvoy iframe.contentWindow, ['showFactlink', 'prepareNewFactlink' ]
