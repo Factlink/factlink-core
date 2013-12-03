@@ -39,7 +39,6 @@ FactlinkJailRoot.modal =
     $("span.factlink[data-factid=#{id}]").each (i, val) ->
       $(val).contents().unwrap()
 
-  trigger: (e) -> FactlinkJailRoot.trigger(e)
 
   setFeatureToggles: (featureToggles) ->
     FactlinkJailRoot.can_haz = featureToggles
