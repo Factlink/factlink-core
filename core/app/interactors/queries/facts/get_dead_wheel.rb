@@ -1,5 +1,3 @@
-require_relative '../../../models/anonymous_user.rb'
-
 module Queries
   module Facts
     class GetDeadWheel
@@ -28,15 +26,13 @@ module Queries
       end
 
       def user_opinion
-        current_graph_user.opinion_on(fact)
-      end
+        return nil unless current_user
 
-      def current_graph_user
-        current_user.graph_user
+        fact.believable.opinion_of_graph_user current_user.graph_user
       end
 
       def current_user
-        pavlov_options[:current_user] || AnonymousUser.new
+        pavlov_options[:current_user]
       end
 
       def validate

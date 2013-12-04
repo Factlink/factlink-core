@@ -25,8 +25,9 @@ describe Queries::Facts::GetDeadWheel do
         doubt: {percentage: 20},
       }
       presenter = double as_percentages_hash: percentage_hash
-      opinion = double :opinion
-      live_fact = double :fact, id: '1'
+      opinion = :believes
+      believable = double
+      live_fact = double :fact, id: '1', believable: believable
       user = double :user, graph_user: double
       pavlov_options = {current_user: user}
       interactor = described_class.new id: live_fact.id,
@@ -34,13 +35,14 @@ describe Queries::Facts::GetDeadWheel do
 
       OpinionPresenter.stub(:new).with(opinion)
                       .and_return(presenter)
+
       Pavlov.stub(:query)
             .with(:'opinions/opinion_for_fact',
                       fact: live_fact, pavlov_options: pavlov_options)
             .and_return(opinion)
-      user.graph_user.stub(:opinion_on)
-                     .with(live_fact)
-                     .and_return(:believes)
+
+      believable.stub(:opinion_of_graph_user).with(user.graph_user).and_return(opinion)
+
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact_wheel = interactor.call

@@ -16,6 +16,13 @@ class Believable
                     doubts_count.to_f/authority.to_f, authority.to_f)
   end
 
+  def opinion_of_graph_user graph_user
+    OpinionType.types.each do |opinion|
+      return opinion if opiniated(opinion).include? graph_user
+    end
+    return nil
+  end
+
   # the following three functions should be considered
   # private
   def people_believes
@@ -43,7 +50,6 @@ class Believable
     remove_opinionateds graph_user
     opiniated(type).add(graph_user)
   end
-
 
   def remove_opinionateds(graph_user)
     OpinionType.types.each do |type|

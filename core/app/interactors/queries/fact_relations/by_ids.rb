@@ -41,7 +41,7 @@ module Queries
       def current_user_opinion_on fact_relation
         return unless pavlov_options[:current_user]
 
-        pavlov_options[:current_user].graph_user.opinion_on(fact_relation)
+        fact_relation.believable.opinion_of_graph_user pavlov_options[:current_user].graph_user
       end
     end
   end
