@@ -5,9 +5,7 @@ class ChannelFacts
   end
 
   def add_fact fact
-    Channel::Activities.new(channel).add_created
     channel.sorted_internal_facts.add(fact)
-    AddFactToChannelJob.perform(fact.id, channel.id)
   end
 
   def remove_fact(fact)
