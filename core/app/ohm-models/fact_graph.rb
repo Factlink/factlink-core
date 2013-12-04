@@ -52,7 +52,7 @@ class FactGraph
     calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type, options)
   end
 
-  def impact_opinion_for_comment(dead_comment, options={})
+  def impact_opinion_for_comment(dead_comment, options={}) # Only used in tests
     comment = Comment.find(dead_comment.id)
     fact = comment.fact_data.fact
     impact_opinion_for_comment_and_fact(comment, fact, options)

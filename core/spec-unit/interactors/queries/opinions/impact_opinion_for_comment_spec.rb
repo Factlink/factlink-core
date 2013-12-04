@@ -1,28 +1,26 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/queries/opinions/impact_opinion_for_comment.rb'
+require_relative '../../../../app/entities/dead_opinion.rb'
+require_relative '../../../../app/classes/opinion_type.rb'
 
 describe Queries::Opinions::ImpactOpinionForComment do
   include PavlovSupport
 
+  before do
+    stub_classes 'Comment'
+  end
+
   describe '#call' do
-    before do
-      stub_classes 'FactGraph'
-    end
-
     it 'returns the dead opinion on the comment' do
-      dead_opinion = double
-      comment = double(id: double)
-      fact_graph = double
-      query = described_class.new comment: comment
+      dead_opinion = DeadOpinion.new(0.25, 0.75, 0.0, 4.0)
+      believable = double(dead_opinion: dead_opinion)
+      alive_comment = double(id: '1', type: 'disbelieves', believable: believable)
+      dead_comment = double(id: '1')
+      query = described_class.new comment: dead_comment
 
-      FactGraph.stub new: fact_graph
+      Comment.stub(:find).with(dead_comment.id).and_return(alive_comment)
 
-      fact_graph.stub(:impact_opinion_for_comment).with(comment, allow_negative_authority: true)
-        .and_return(dead_opinion)
-
-      result = query.call
-
-      expect(result).to eq dead_opinion
+      expect(query.call).to eq DeadOpinion.new(0, 1, 0, -2.0)
     end
   end
 
