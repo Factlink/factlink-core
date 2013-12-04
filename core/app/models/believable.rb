@@ -12,8 +12,8 @@ class Believable
 
     return DeadOpinion.zero if authority == 0
 
-    DeadOpinion.new(believes_count/authority, disbelieves_count/authority,
-                    doubts_count/authority, authority)
+    DeadOpinion.new(believes_count.to_f/authority.to_f, disbelieves_count.to_f/authority.to_f,
+                    doubts_count.to_f/authority.to_f, authority.to_f)
   end
 
   # the following three functions should be considered
