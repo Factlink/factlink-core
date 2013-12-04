@@ -20,5 +20,5 @@ window.initClientCommunicator = ->
 
   Factlink.createReceiverEnvoy local
 
-  window.annotatedSiteEnvoy = Factlink.createSenderEnvoy window.parent
+  Factlink.createSenderEnvoy window.parent
 

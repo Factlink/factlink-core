@@ -1,5 +1,5 @@
 class window.ChannelsController extends Backbone.Marionette.Controller
-
+  constructor: (@options) ->
   loadTopic: (slug_title, callback) ->
     topic = new Topic {slug_title}
     topic.fetch success: (model) -> callback(model)
@@ -84,7 +84,7 @@ class window.ChannelsController extends Backbone.Marionette.Controller
       url = Backbone.history.getFragment currentUser.streamLink()
     else
       user = fact.user()
-      FactlinkApp.ProfileController.showProfile user.get('username')
+      @options.showProfile user.get('username')
       url = user.link()
 
     FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlFromShowFact url
