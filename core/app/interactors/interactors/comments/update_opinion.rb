@@ -16,9 +16,6 @@ module Interactors
                       graph_user: pavlov_options[:current_user].graph_user)
         end
 
-        command :'opinions/recalculate_comment_user_opinion',
-                    comment: query(:'comments/get', comment_id: comment_id)
-
         query(:'comments/get', comment_id: comment_id)
       end
 

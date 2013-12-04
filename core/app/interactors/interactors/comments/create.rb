@@ -13,8 +13,6 @@ module Interactors
         command(:'comments/set_opinion',
                     comment_id: comment.id.to_s, opinion: 'believes',
                     graph_user: pavlov_options[:current_user].graph_user)
-        command(:'opinions/recalculate_comment_user_opinion',
-                    comment: comment)
 
         create_activity comment
 
