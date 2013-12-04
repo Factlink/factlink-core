@@ -5,13 +5,9 @@ msgPrefix = 'FL$msg*)k`dC:'
 
 window.FactlinkJailRoot || window.FactlinkJailRoot = {}
 
-createFrameProxy = (target_window) -> (method_name) -> (args...) ->
+FactlinkJailRoot.createSenderEnvoy = (target_window) -> (method_name, args...) ->
   message = msgPrefix + JSON.stringify([method_name, args])
   target_window.postMessage message, '*'
-
-FactlinkJailRoot.createSenderEnvoy = (target_window, methods) ->
-  remoteProxy = createFrameProxy target_window
-  methods.reduce ((o, name) -> o[name] = remoteProxy name; o), {}
 
 startsWith = (haystack, needle) -> haystack.lastIndexOf(needle, 0) == 0
 

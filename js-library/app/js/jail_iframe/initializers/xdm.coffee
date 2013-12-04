@@ -4,6 +4,6 @@ frame_container.appendChild(iframe)
 FactlinkJailRoot.createReceiverEnvoy FactlinkJailRoot.annotatedSiteReceiver
 iframe.id = "factlink-modal-frame"
 iframe.src = "#{FactlinkConfig.api}/client/blank"
-FactlinkJailRoot.factlinkCoreEnvoy = FactlinkJailRoot.createSenderEnvoy iframe.contentWindow, ['showFactlink', 'prepareNewFactlink' ]
+FactlinkJailRoot.factlinkCoreEnvoy = FactlinkJailRoot.createSenderEnvoy iframe.contentWindow
 
-FactlinkJailRoot.openFactlinkModal = FactlinkJailRoot.factlinkCoreEnvoy.showFactlink
+FactlinkJailRoot.openFactlinkModal = (id) -> FactlinkJailRoot.factlinkCoreEnvoy 'showFactlink', id
