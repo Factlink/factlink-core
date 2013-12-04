@@ -23,7 +23,7 @@ module Interactors
         # to delete them.
         if valid_facts.length != facts.length
           #TODO: this should be a command
-          Resque.enqueue(CleanChannel, id)
+          Resque.enqueue(CleanSortedFacts, Channel.key[id][:sorted_internal_facts].to_s)
         end
 
         valid_facts
