@@ -8,7 +8,7 @@ describe Queries::Channels::Facts do
   describe '#call' do
     it 'correctly' do
       sorted_facts_page = double
-      channel = double id: '1', sorted_cached_facts: double(key: "foo")
+      channel = double id: '1', sorted_internal_facts: double(key: "foo")
 
       count = 77
       from = 990
@@ -20,7 +20,7 @@ describe Queries::Channels::Facts do
         .and_return(channel)
       allow(Pavlov).to receive(:query)
         .with(:'facts/get_paginated',
-              key: channel.sorted_cached_facts.key.to_s,
+              key: channel.sorted_internal_facts.key.to_s,
               count: count, from: from)
         .and_return(sorted_facts_page)
 
