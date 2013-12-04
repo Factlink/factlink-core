@@ -10,7 +10,7 @@ class Believable
     doubts_count = people_doubts.count
     authority = believes_count + disbelieves_count + doubts_count
 
-    return DeadOpinion.zero if authority == 0
+    return DeadOpinion.zero if authority.zero?
 
     DeadOpinion.new(believes_count.to_f/authority.to_f, disbelieves_count.to_f/authority.to_f,
                     doubts_count.to_f/authority.to_f, authority.to_f)
