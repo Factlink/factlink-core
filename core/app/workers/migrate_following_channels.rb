@@ -5,8 +5,8 @@ class MigrateFollowingChannels
     ch = Channel[channel_id]
     to_follow_id = ch.created_by_id
     ch.key[:containing_channels].smembers.each do |follower_ch_id|
-      follower = Channel[follower_ch_id]
-      if follower
+      follower_channel = Channel[follower_ch_id]
+      if follower_channel
         follower_id = follower_channel.created_by_id
         Pavlov.command :'users/follow_user',
           graph_user_id: follower_id.to_s,
