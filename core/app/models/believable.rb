@@ -23,10 +23,6 @@ class Believable
     (people_believes | people_doubts | people_disbelieves).ids
   end
 
-  def opinionated_users_count
-    people_believes.count + people_doubts.count + people_disbelieves.count
-  end
-
   def opiniated(type)
     send(:"people_#{OpinionType.real_for(type)}")
   end
