@@ -25,7 +25,7 @@ class FactGraph
     store :Comment, comment.id, :user_opinion, user_opinion
   end
 
-  def user_opinion_for_fact(fact)
+  def user_opinion_for_fact(fact) # Only used in tests
     retrieve :Fact, fact.id, :user_opinion
   end
 

@@ -10,8 +10,6 @@ module Interactors
         interacting_users = query(:'facts/interacting_users',
                                       fact_id: fact_id, skip: skip, take: take,
                                       opinion: type)
-        interacting_users[:impact] = query(:'opinions/interacting_users_impact_for_fact',
-                                              fact_id: fact_id, type: type)
         interacting_users[:type] = type
 
         interacting_users
