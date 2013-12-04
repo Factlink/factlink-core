@@ -23,7 +23,6 @@ describe FactsController do
                                      sharing_options: {})
         fact.add_opinion :believes, user.graph_user
       end
-      FactGraph.recalculate
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
       should_check_can :show, fact
@@ -51,7 +50,6 @@ describe FactsController do
                                      sharing_options: {})
         fact.add_opinion :believes, user.graph_user
       end
-      FactGraph.recalculate
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
       should_check_can :show, fact
