@@ -46,10 +46,9 @@ describe Interactors::Comments::Create do
                                        pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
-            .with(:'comments/add_authority_and_opinion_and_can_destroy',
-                      comment: comment, fact: fact, pavlov_options: pavlov_options)
+            .with(:'comments/add_opinion_and_can_destroy',
+                      comment: comment, pavlov_options: pavlov_options)
             .and_return(comment)
-      Fact.stub(:[]).with(fact.fact_id).and_return(fact)
       Comment.stub(:find).with(comment.id).and_return(mongoid_comment)
 
       Pavlov.should_receive(:command)

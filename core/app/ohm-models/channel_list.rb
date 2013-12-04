@@ -20,8 +20,4 @@ class ChannelList
   def containing_real_channel_ids_for_fact(fact)
     (channels & fact.channels).ids
   end
-
-  def containing_channel_ids_for_channel(channel)
-    (channels & channel.containing_channels).ids
-  end
 end

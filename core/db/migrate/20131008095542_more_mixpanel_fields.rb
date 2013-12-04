@@ -1,14 +1,6 @@
 class MoreMixpanelFields < Mongoid::Migration
   def self.up
-    @mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-
-    User.all.each do |u|
-      @mixpanel.set_person_event u.id.to_s, {
-        deleted: u.deleted,
-        suspended: u.suspended,
-        confirmed_at: u.confirmed_at
-      }
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

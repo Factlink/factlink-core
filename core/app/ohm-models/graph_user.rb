@@ -12,8 +12,6 @@ class GraphUser < OurOhm
 
   timestamped_set :notifications, Activity
   timestamped_set :stream_activities, Activity
-
-  collection :created_facts, Fact, :created_by
   timestamped_set :sorted_created_facts, Fact
 
   def opinion_on(fact)

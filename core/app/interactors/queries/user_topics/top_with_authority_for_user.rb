@@ -12,58 +12,30 @@ module Queries
 
       def validate
         validate_hexadecimal_string :user_id, user_id
-        validate_integer :limit_topics, limit_topics
       end
 
       def execute
-        user_topics
+        topics.take(limit_topics).map(&method(:dead_topic_for_topic))
       end
 
-      def user_topics
-        topics_with_authorities.compact
+      def dead_topic_for_topic topic
+        DeadUserTopic.new(topic.slug_title, topic.title)
       end
 
-      def topics_with_authorities
-        sorted_authorities.zip(sorted_topics).map do |args|
-          dead_topic_for *args
-        end.compact
+      def topics
+        channel_ids.map{ |id| Channel[id] }.map(&:topic).uniq
       end
 
-      def sorted_authorities
-        sorted_topics_hashes.map {|h| h[:authority]}
+      def channel_ids
+        facts.map(&:channels).map(&:ids).flatten.uniq
       end
 
-      def sorted_topics
-        topics_for_ids = topics_for_hashes(sorted_topics_hashes)
-
-        sorted_topics_hashes.map do |hash|
-          topics_for_ids[hash[:id].to_s]
-        end
+      def facts
+        user.graph_user.sorted_created_facts.below '+inf', count: 3
       end
 
-      def dead_topic_for authority, topic
-        return nil unless topic
-
-        DeadUserTopic.new topic.slug_title,
-                          topic.title,
-                          authority
-      end
-
-      def sorted_topics_hashes
-        @sorted_topics_hashes ||=
-          topics_sorted_by_authority.ids_and_authorities_desc_limit limit_topics
-      end
-
-      def topics_sorted_by_authority
-        TopicsSortedByAuthority.new(user_id)
-      end
-
-      def topics_for_hashes hashes
-        ids = hashes.map {|h| h[:id]}
-
-        topics = Topic.any_in(id: ids).to_a
-
-        hash_with_index(:id, topics)
+      def user
+        User.find(user_id)
       end
     end
   end

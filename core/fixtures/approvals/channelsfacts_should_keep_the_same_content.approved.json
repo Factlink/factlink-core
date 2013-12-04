@@ -16,17 +16,16 @@
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
       "user_topics": [
-
-      ],
-      "authority_for_subject": {
-        "authority": "1.0",
-        "id": "<STRIPPED>"
-      }
+        {
+          "title": "Channel title 1",
+          "slug_title": "channel-title-1"
+        }
+      ]
     },
     "created_by_ago": "Posted 1 minute ago",
     "fact_title": "Fact title 3",
     "fact_wheel": {
-      "authority": "0.0",
+      "authority": 0,
       "opinion_types": {
         "believe": {
           "percentage": 0,
@@ -64,17 +63,16 @@
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
       "user_topics": [
-
-      ],
-      "authority_for_subject": {
-        "authority": "1.0",
-        "id": "<STRIPPED>"
-      }
+        {
+          "title": "Channel title 1",
+          "slug_title": "channel-title-1"
+        }
+      ]
     },
     "created_by_ago": "Posted 1 minute ago",
     "fact_title": "Fact title 2",
     "fact_wheel": {
-      "authority": "0.0",
+      "authority": 0,
       "opinion_types": {
         "believe": {
           "percentage": 0,
@@ -112,17 +110,16 @@
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
       "user_topics": [
-
-      ],
-      "authority_for_subject": {
-        "authority": "1.0",
-        "id": "<STRIPPED>"
-      }
+        {
+          "title": "Channel title 1",
+          "slug_title": "channel-title-1"
+        }
+      ]
     },
     "created_by_ago": "Posted 1 minute ago",
     "fact_title": "Fact title 1",
     "fact_wheel": {
-      "authority": "0.0",
+      "authority": 0,
       "opinion_types": {
         "believe": {
           "percentage": 0,

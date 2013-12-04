@@ -1,0 +1,94 @@
+<%
+  case @activity.action
+  when 'created_comment'
+    if @activity.subject.type == 'believes'
+      type = :supporting
+    else
+      type = :weakening
+    end
+  when 'added_supporting_evidence'
+    type = :supporting
+  when 'added_weakening_evidence'
+    type = :weakening
+  end
+%>
+
+<% content_for :email_header do %>
+  <h1 class="header-title">Hello <%= @user.name %></h1>
+  <h2 class="header-subtitle"><%= @activity.user.user %> added a <%= type %> argument</h2>
+<% end %>
+
+<table cellpadding="0" cellspacing="0" border="0" id="added-argument-message">
+  <tr>
+    <td colspan="3" class="added-argument-message-header">
+      <h3>
+        <%= link_to(friendly_fact_url(@activity.object), class: "message-title") do %>
+          <%= @activity.object.data.displaystring %>
+        <% end %>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+
+    <% if type == :supporting %>
+      <td class="timeline-left" height="70px">&nbsp;</td>
+      <td class="timeline-right" height="70px">&nbsp;</td>
+    <% end %>
+
+    <td class="added-argument-message-container <%= type %>" rowspan="3">
+      <table cellpadding="0" cellspacing="0" border="0" class="added-argument-message-box">
+        <tr>
+          <td valign="top" class="message-user-image">
+            <img src="<%= @activity.user.user.avatar_url(size: 32) %>" width="32" height="32" alt="<%= @activity.user.user %>" />
+            <%= link_to_possibly_dead_user(@activity.user.user, class: "user-name") %>
+          </td>
+        </tr>
+        <tr>
+          <td class="added-argument-message-content">
+            <p>
+              <%= @activity.subject.to_s %>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <% if type == :weakening %>
+      <td class="timeline-left" height="70px">&nbsp;</td>
+      <td class="timeline-right" height="70px">&nbsp;</td>
+    <% end %>
+
+  </tr>
+
+  <tr>
+    <td colspan="2" class="timeline-impact">
+      <% if type == :supporting %>
+        <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-supporting-impact-background.png" heigth="37" width="37" /></div>
+      <% else %>
+        <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-weakening-impact-background.png" heigth="37" width="37" /></div>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="timeline-left">&nbsp;</td>
+    <td class="timeline-right">&nbsp;</td>
+  </tr>
+
+</table>
+
+<br />
+
+<table class="button" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="button-inner">
+      <%= link_to friendly_fact_url(@activity.object) do %>
+        <div class="button-link">
+          Reply to this argument
+        </div>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<br /><br />

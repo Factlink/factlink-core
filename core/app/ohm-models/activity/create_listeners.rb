@@ -95,14 +95,6 @@ class Activity < OurOhm
       }
     end
 
-    def forGraphUser_someone_added_a_fact_to_a_channel_you_follow
-      {
-        subject_class: "Fact",
-        action: :added_fact_to_channel,
-        write_ids: ->(a) { [a.object.containing_channels.map {|ch| ch.created_by_id }.select { |id| id != a.user_id }].flatten }
-      }
-    end
-
     def forGraphUser_someone_followed_you
       {
         subject_class: 'GraphUser',
@@ -144,7 +136,6 @@ class Activity < OurOhm
         forGraphUser_someone_added_a_subcomment_to_a_fact_you_follow,
         forGraphUser_someone_opinionated_a_fact_you_created,
         forGraphUser_someone_added_a_fact_you_created_to_his_channel,
-        forGraphUser_someone_added_a_fact_to_a_channel_you_follow,
       ]
 
       Activity::Listener.register do

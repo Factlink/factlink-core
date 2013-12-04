@@ -26,8 +26,6 @@ class ChannelsController < ApplicationController
     backbone_responder do
       @channel = interactor(:'channels/get', id: @channel.id)
     end
-
-    mark_channel_as_read if request.format.html?
   end
 
   # TODO: Move to topicscontroller, this searches for topics, not for channels
@@ -119,8 +117,6 @@ class ChannelsController < ApplicationController
 
     @facts = interactor(:'channels/facts', id: @channel.id, from: from, count: count)
 
-    mark_channel_as_read
-
     respond_to do |format|
       format.json { render }
     end
@@ -160,9 +156,5 @@ class ChannelsController < ApplicationController
 
   def channel_id
     params[:channel_id] || params[:id]
-  end
-
-  def mark_channel_as_read
-    @channel.mark_as_read if @channel.created_by == current_graph_user
   end
 end

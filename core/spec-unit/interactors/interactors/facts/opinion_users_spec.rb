@@ -49,7 +49,6 @@ describe Interactors::Facts::OpinionUsers do
       skip = 0
       take = 0
       u1 = double
-      impact = double
       type = 'believes'
 
       pavlov_options = { ability: double(can?: true)}
@@ -59,10 +58,6 @@ describe Interactors::Facts::OpinionUsers do
                       fact_id: fact_id, skip: skip, take: take, opinion: type,
                       pavlov_options: pavlov_options)
             .and_return(users: [u1], total: 1)
-      Pavlov.stub(:query)
-            .with(:'opinions/interacting_users_impact_for_fact',
-                      fact_id: fact_id, type: type, pavlov_options: pavlov_options)
-            .and_return(impact)
 
       interactor = described_class.new fact_id: fact_id, skip: skip, take: take,
         type: type, pavlov_options: pavlov_options
@@ -70,7 +65,6 @@ describe Interactors::Facts::OpinionUsers do
 
       expect(results[:total]).to eq 1
       expect(results[:users]).to eq [u1]
-      expect(results[:impact]).to eq impact
       expect(results[:type]).to eq type
     end
   end

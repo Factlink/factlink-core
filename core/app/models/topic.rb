@@ -34,14 +34,6 @@ class Topic
     by_slug(ch.slug_title) || create_by_title(ch.title)
   end
 
-  def top_users(nr=5)
-    redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}.compact
-  end
-
-  def top_users_add(user, val)
-    redis[id][:top_users].zadd val, user.id
-  end
-
   def channels
     Channel.find(slug_title: self.slug_title)
   end

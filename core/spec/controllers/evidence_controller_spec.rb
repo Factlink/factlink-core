@@ -38,7 +38,7 @@ describe SupportingEvidenceController do
         parsed_content = JSON.parse(response.body)
 
         expect(parsed_content["current_user_opinion"]).to eq 'believes'
-        expect(parsed_content["impact"]).to eq 0.0
+        expect(parsed_content["impact"]).to eq 1.0
       end
 
       it "should not set the user's opinion on the evidence to believe" do

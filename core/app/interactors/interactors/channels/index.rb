@@ -15,7 +15,7 @@ module Interactors
           graph_user = channel_graph_user(ch)
           dead_user = dead_user_for_graph_user(graph_user)
 
-          kill_channel(ch, authority, containing_channel_ids(ch), dead_user)
+          kill_channel(ch, authority, dead_user)
         end
       end
 
@@ -31,8 +31,7 @@ module Interactors
       end
 
       def channels_with_authorities
-        authorities = query(:'creator_authorities_for_channels',
-                                channels: visible_channels)
+        authorities = visible_channels.map { 1 }
         visible_channels.zip authorities
       end
 
@@ -44,18 +43,10 @@ module Interactors
         raise "Channels::Index is abstract, subclasses should implement get_alive_channels"
       end
 
-      def containing_channel_ids(channel)
-        return [] unless pavlov_options[:current_user]
-
-        query(:'containing_channel_ids_for_channel_and_user',
-                  channel_id: channel.id,
-                  graph_user_id: pavlov_options[:current_user].graph_user_id)
-      end
-
-      def kill_channel(ch, owner_authority, containing_channel_ids, dead_user)
+      def kill_channel(ch, owner_authority, dead_user)
         KillObject.channel ch,
           owner_authority: owner_authority,
-          containing_channel_ids: containing_channel_ids,
+          containing_channel_ids: [],
           created_by_user: dead_user
       end
 
