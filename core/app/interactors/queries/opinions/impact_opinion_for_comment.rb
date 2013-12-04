@@ -8,7 +8,13 @@ module Queries
       private
 
       def execute
-        FactGraph.new.impact_opinion_for_comment(comment, allow_negative_authority: true)
+        evidence_type = OpinionType.real_for(alive_comment.type)
+
+        DeadOpinion.for_type(evidence_type, alive_comment.believable.dead_opinion.net_authority)
+      end
+
+      def alive_comment
+        @alive_comment ||= Comment.find(comment.id)
       end
 
       def validate

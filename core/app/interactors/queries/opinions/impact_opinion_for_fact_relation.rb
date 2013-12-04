@@ -8,7 +8,9 @@ module Queries
       private
 
       def execute
-        FactGraph.new.impact_opinion_for_fact_relation(fact_relation, allow_negative_authority: true)
+        evidence_type = OpinionType.for_relation_type(fact_relation.type)
+
+        DeadOpinion.for_type(evidence_type, fact_relation.believable.dead_opinion.net_authority)
       end
 
       def validate

@@ -25,26 +25,26 @@ class FactGraph
     store :Comment, comment.id, :user_opinion, user_opinion
   end
 
-  def user_opinion_for_fact(fact)
+  def user_opinion_for_fact(fact) # Only used in tests
     retrieve :Fact, fact.id, :user_opinion
   end
 
-  def user_opinion_for_fact_relation(fact_relation)
+  def user_opinion_for_fact_relation(fact_relation) # Only used in tests
     retrieve :FactRelation, fact_relation.id, :user_opinion
   end
 
-  def user_opinion_for_comment(comment)
+  def user_opinion_for_comment(comment) # Only used in tests
     retrieve :Comment, comment.id, :user_opinion
   end
 
-  def opinion_for_fact(fact)
+  def opinion_for_fact(fact) # Only used in tests
     user_opinion = retrieve :Fact, fact.id, :user_opinion
     evidence_opinion = retrieve :Fact, fact.id, :evidence_opinion
 
     user_opinion + evidence_opinion
   end
 
-  def impact_opinion_for_fact_relation(fact_relation, options={})
+  def impact_opinion_for_fact_relation(fact_relation, options={}) # Only used in tests
     from_fact_opinion = opinion_for_fact(fact_relation.from_fact)
     user_opinion      = retrieve :FactRelation, fact_relation.id, :user_opinion
     evidence_type     = OpinionType.for_relation_type(fact_relation.type)
@@ -52,7 +52,7 @@ class FactGraph
     calculated_impact_opinion(from_fact_opinion, user_opinion, evidence_type, options)
   end
 
-  def impact_opinion_for_comment(dead_comment, options={})
+  def impact_opinion_for_comment(dead_comment, options={}) # Only used in tests
     comment = Comment.find(dead_comment.id)
     fact = comment.fact_data.fact
     impact_opinion_for_comment_and_fact(comment, fact, options)
