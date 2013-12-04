@@ -10,7 +10,7 @@ do
   sudo monit stop resque > /dev/null 2>&1
 
   i=`sudo monit status | grep --after-context=1 --extended-regexp 'resque' | grep --extended-regexp 'not monitored$' | wc --lines`
-  if [ "$i" -eq "2" ]; then
+  if [ "$i" -eq "1" ]; then
     echo -e "\nDone."; # Nice little line-break
     exit 0
   fi
