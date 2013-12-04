@@ -16,7 +16,10 @@
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
       "user_topics": [
-
+        {
+          "title": "Channel title 1",
+          "slug_title": "channel-title-1"
+        }
       ]
     },
     "created_by_ago": "Posted 1 minute ago",
@@ -60,7 +63,10 @@
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
       "user_topics": [
-
+        {
+          "title": "Channel title 1",
+          "slug_title": "channel-title-1"
+        }
       ]
     },
     "created_by_ago": "Posted 1 minute ago",
@@ -104,7 +110,10 @@
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
       "user_topics": [
-
+        {
+          "title": "Channel title 1",
+          "slug_title": "channel-title-1"
+        }
       ]
     },
     "created_by_ago": "Posted 1 minute ago",

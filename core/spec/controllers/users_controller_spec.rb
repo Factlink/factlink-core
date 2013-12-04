@@ -68,25 +68,11 @@ describe UsersController do
 
       as(user1) do |pavlov|
         ch1 = pavlov.command(:'channels/create', title: 'toy')
-        pavlov.command(:'topics/update_user_authority',
-                           graph_user_id: user1.graph_user_id.to_s,
-                           topic_slug: ch1.slug_title, authority: 0)
-
         ch2 = pavlov.command(:'channels/create', title: 'story')
-        pavlov.command(:'topics/update_user_authority',
-                           graph_user_id: user1.graph_user_id.to_s,
-                           topic_slug: ch2.slug_title, authority: 3)
       end
       as(user2) do |pavlov|
         ch1 = pavlov.command(:'channels/create', title: 'war')
-        pavlov.command(:'topics/update_user_authority',
-                           graph_user_id: user2.graph_user_id.to_s,
-                           topic_slug: ch1.slug_title, authority: 0)
-
         ch2 = pavlov.command(:'channels/create', title: 'games')
-        pavlov.command(:'topics/update_user_authority',
-                           graph_user_id: user2.graph_user_id.to_s,
-                           topic_slug: ch2.slug_title, authority: 4568)
       end
 
       authenticate_user!(user)
