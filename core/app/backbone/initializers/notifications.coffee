@@ -1,4 +1,4 @@
-FactlinkApp.notificationsInitializer = () ->
+FactlinkApp.notificationsInitializer = ->
   return unless FactlinkApp.notificationsRegion?
   return unless Factlink.Global.signed_in
 
