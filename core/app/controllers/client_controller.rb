@@ -3,10 +3,6 @@ class ClientController < ApplicationController
     render_client
   end
 
-  def intermediate
-    render layout: nil
-  end
-
   def facts_new
     render_client
   end

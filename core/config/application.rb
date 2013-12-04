@@ -63,13 +63,12 @@ module FactlinkUI
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
-    # Block frame busting for all routes except the intermediate
+    # Block frame busting for all routes except client/blank
     # If you update this route, also update it here please.
     #
     # Why?
-    # - /factlink/intermediate  : Loaded in iframe through JS Library
-    # - /facts/new              : Loaded in iframe through Chrome Extension (popup)
-    # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/factlink/intermediate", "/facts/new"]
+    # - /client/blank  : Loaded in iframe through JS Library
+    # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/client/blank"]
 
 
     config.middleware.insert_before("Rack::Lock", "Rack::Rewrite") do
@@ -128,7 +127,6 @@ module FactlinkUI
 
       'application.js',
       'frontend.js',
-      'intermediate.js',
       'admin.js',
       'jquery.js',
     ]

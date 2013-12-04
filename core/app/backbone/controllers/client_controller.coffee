@@ -2,16 +2,15 @@ window.ClientController =
   showFact: (fact_id) ->
     fact = new Fact id: fact_id
 
-    fact.on 'destroy', ->
-      parent.remote.hide()
-      parent.remote.stopHighlightingFactlink fact_id
+    fact.on 'destroy', -> annotatedSiteEnvoy?.closeModal_deleteFactlink fact_id
 
-    fact.fetch success: ->
-      newClientModal = new DiscussionModalContainer
-      FactlinkApp.discussionModalRegion.show newClientModal
-      view = new DiscussionView model: fact
-      view.on 'render', -> parent.remote?.onModalReady()
-      newClientModal.mainRegion.show view
+    fact.fetch
+      success: ->
+        newClientModal = new DiscussionModalContainer
+        FactlinkApp.discussionModalRegion.show newClientModal
+        view = new DiscussionView model: fact
+        view.on 'render', -> annotatedSiteEnvoy?.openModalOverlay()
+        newClientModal.mainRegion.show view
 
   showNewFact: (params={}) ->
     clientModal = new DiscussionModalContainer
@@ -23,8 +22,8 @@ window.ClientController =
       fact_text: params.fact
       title: params.title
       url: params.url
-    factsNewView.on 'render', -> parent.remote?.onModalReady()
+    factsNewView.on 'render', -> annotatedSiteEnvoy?.openModalOverlay()
     factsNewView.on 'factCreated', (fact) ->
-      parent.highlightLastCreatedFactlink(fact.id, params.fact)
+      annotatedSiteEnvoy?.closeModal_highlightNewFactlink(params.fact, fact.id)
     clientModal.mainRegion.show factsNewView
 
