@@ -19,7 +19,15 @@
     <% elsif current_user %>
       <%= render "base/topbar/signed_in" %>
     <% else %>
-       <%= link_to 'Login to Factlink', root_path(return_to: request.original_url), class: 'button button-confirm topbar-login-button js-topbar-login-button' %>
+      <div class="topbar-connect">
+        <strong>Connect with:</strong>
+        <div class="topbar-connect-buttons">
+          <a href="/auth/twitter" class="button button-twitter js-accounts-popup-link"><i class="icon-twitter"></i></a>
+          <a href="/auth/facebook" class="button button-facebook js-accounts-popup-link"><i class="icon-facebook"></i></a>
+          <span class="topbar-connect-separator">or</span>
+          <a href="/users/sign_in_or_up" class="button button-factlink js-accounts-popup-link"><i class="icon-factlink"></i></a>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
