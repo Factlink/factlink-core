@@ -69,7 +69,6 @@ describe SupportingEvidenceController do
       fr = f1.add_evidence :supporting, f2, user
       f2.add_opinion(:believes, user.graph_user)
       fr.add_opinion(:believes, user.graph_user)
-      FactGraph.recalculate
 
       authenticate_user!(user)
 
