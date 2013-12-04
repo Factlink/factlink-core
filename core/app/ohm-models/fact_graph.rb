@@ -9,11 +9,6 @@ class FactGraph
     calculate_graph
   end
 
-  def calculate_fact_relation_when_user_opinion_changed(fact_relation)
-    user_opinion = calculated_user_opinion(fact_relation, fact_relation.fact)
-    store :FactRelation, fact_relation.id, :user_opinion, user_opinion
-  end
-
   def calculate_comment_when_user_opinion_changed(dead_comment)
     comment = Comment.find(dead_comment.id)
     fact = comment.fact_data.fact
