@@ -29,15 +29,15 @@ class FactGraph
     retrieve :Fact, fact.id, :user_opinion
   end
 
-  def user_opinion_for_fact_relation(fact_relation)
+  def user_opinion_for_fact_relation(fact_relation) # Only used in tests
     retrieve :FactRelation, fact_relation.id, :user_opinion
   end
 
-  def user_opinion_for_comment(comment)
+  def user_opinion_for_comment(comment) # Only used in tests
     retrieve :Comment, comment.id, :user_opinion
   end
 
-  def opinion_for_fact(fact)
+  def opinion_for_fact(fact) # Only used in tests
     user_opinion = retrieve :Fact, fact.id, :user_opinion
     evidence_opinion = retrieve :Fact, fact.id, :evidence_opinion
 
