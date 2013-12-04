@@ -1,4 +1,4 @@
-FactlinkApp.clientCloseDiscussionModalInitializer = (options) ->
+FactlinkApp.clientCloseDiscussionModalInitializer = () ->
   FactlinkApp.vent.on 'close_discussion_modal', ->
     mp_track "Discussion Modal: Close (Button)"
-    parent.remote?.hide();
+    annotatedSiteEnvoy?.closeModal_noAction()

@@ -20,14 +20,16 @@ class FactlinkAppClass extends Backbone.Marionette.Application
     @start()
 
   startAsClient: ->
+    window.initClientCommunicator()
     @startClientRegions()
     @addInitializer (options)->
       new ClientRouter controller: ClientController
     @addInitializer @clientCloseDiscussionModalInitializer
     @modal = true
     @onClientApp = true
-
-    parent.remote?.setFeatureToggles Factlink.Global.can_haz
+    # remote should always be loaded, however, in tests it's not...
+    # TODO: test via fake wrapper
+    annotatedSiteEnvoy?.modalFrameReady Factlink.Global.can_haz
     @start()
 
   isCurrentUser: (user) ->
