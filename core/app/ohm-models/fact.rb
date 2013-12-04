@@ -6,7 +6,7 @@ class Fact < OurOhm
   include Activity::Subject
   include Pavlov::Helpers
 
-  delegate :opinionated_users_ids, :opinionated_users_count, :opiniated, :add_opiniated, :remove_opinionateds,
+  delegate :opinionated_users_ids, :opiniated, :add_opiniated, :remove_opinionateds,
            :people_believes, :people_doubts, :people_disbelieves,
            :to => :believable
 

@@ -1,7 +1,7 @@
 [
   {
     "total": 1,
-    "impact": 0.0,
+    "impact": 1,
     "type": "believes",
     "users": [
       {
@@ -20,7 +20,7 @@
   },
   {
     "total": 5,
-    "impact": 0.0,
+    "impact": 5,
     "type": "disbelieves",
     "users": [
       {
@@ -63,7 +63,7 @@
   },
   {
     "total": 0,
-    "impact": 0.0,
+    "impact": 0,
     "type": "doubts",
     "users": [
 

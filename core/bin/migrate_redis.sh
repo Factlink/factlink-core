@@ -32,9 +32,6 @@ ssh -t "$SSH_USER@$IP2" "sudo monit stop redis"
 
 echo "stopping local services"
 
-#stop recalc
-monit stop recalculate || exit 1
-
 #stop resque
 monit stop resque
 
@@ -100,8 +97,5 @@ monit start nginx
 
 # start resque
 monit start resque
-
-# start recalc
-monit start recalculate
 
 echo "Finished"

@@ -14,13 +14,6 @@ describe ClientController do
     end
   end
 
-  describe :intermediate do
-    it 'should render' do
-      get :intermediate
-      expect(response).to be_success
-    end
-  end
-
   describe :facts_new do
     it 'should render' do
       authenticate_user!(user)

@@ -10,14 +10,6 @@ if defined?(NewRelic)
     add_method_tracer :cannot?
   end
 
-  FactGraph.class_eval do
-    include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
-    include NewRelic::Agent::MethodTracer
-
-    add_transaction_tracer :calculate_user_opinions, category: :task, name: 'calculate_user_opinions'
-    add_transaction_tracer :calculate_graph, category: :task, name: 'calculate_graph'
-  end
-
   Pavlov::Operation.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :initialize, 'Pavlov/#{self.class.name}/initialize'

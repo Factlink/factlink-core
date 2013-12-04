@@ -30,13 +30,4 @@ describe Topic do
       Topic.get_or_create_by_channel(ch)
     end
   end
-
-  describe 'top_users' do
-    let(:u) {create :user}
-    it "should be possible to add a top user" do
-      subject.top_users_add u, 3
-      subject.top_users.should == [u]
-    end
-  end
-
 end

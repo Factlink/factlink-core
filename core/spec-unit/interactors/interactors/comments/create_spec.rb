@@ -61,9 +61,6 @@ describe Interactors::Comments::Create do
                       comment_id: comment.id.to_s, opinion: 'believes',
                       graph_user: user.graph_user, pavlov_options: pavlov_options)
       Pavlov.should_receive(:command)
-            .with(:'opinions/recalculate_comment_user_opinion',
-                      comment: comment, pavlov_options: pavlov_options)
-      Pavlov.should_receive(:command)
             .with(:'create_activity',
                       graph_user: user.graph_user, action: :created_comment,
                       subject: mongoid_comment, object: fact,

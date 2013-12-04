@@ -177,7 +177,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def action_is_intermediate?
+  def action_is_intermediate? #TODO:emn:xdm-refactor
     action_name == "intermediate" and controller_name == "facts"
   end
 

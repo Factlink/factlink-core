@@ -15,8 +15,6 @@ describe "factlink", type: :feature do
       factlink.add_opiniated :doubts, (create :user).graph_user
     end
 
-    FactGraph.recalculate
-
     go_to_fact_show_of factlink
 
     page.should have_content factlink.data.displaystring
@@ -39,8 +37,6 @@ describe "factlink", type: :feature do
     end
 
     factlink.add_opiniated :believes, (create :user).graph_user
-
-    FactGraph.recalculate
 
     go_to_fact_show_of factlink
 

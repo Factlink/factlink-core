@@ -8,9 +8,8 @@ do
   # monit: action failed -- Other action already in progress -- please try again later
   # We don't care for that message, so we just pipe every message to /dev/null
   sudo monit stop resque > /dev/null 2>&1
-  sudo monit stop recalculate > /dev/null 2>&1
 
-  i=`sudo monit status | grep --after-context=1 --extended-regexp 'recalculate|resque' | grep --extended-regexp 'not monitored$' | wc --lines`
+  i=`sudo monit status | grep --after-context=1 --extended-regexp 'resque' | grep --extended-regexp 'not monitored$' | wc --lines`
   if [ "$i" -eq "2" ]; then
     echo -e "\nDone."; # Nice little line-break
     exit 0

@@ -15,16 +15,19 @@ feature "follow_users_in_tour", type: :feature do
 
     as(@user1) do |pavlov|
       @user1_channel1 = pavlov.command(:'channels/create', title: 'toy')
-      pavlov.command(:'topics/update_user_authority', graph_user_id: @user1.graph_user_id.to_s, topic_slug: @user1_channel1.slug_title, authority: 0)
       @user1_channel2 = pavlov.command(:'channels/create', title: 'story')
-      pavlov.command(:'topics/update_user_authority', graph_user_id: @user1.graph_user_id.to_s, topic_slug: @user1_channel2.slug_title, authority: 3)
+
+      factlink = create :fact, created_by: @user1.graph_user
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user1_channel1)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user1_channel2)
     end
     as(@user2) do |pavlov|
       @user2_channel1 = pavlov.command(:'channels/create', title: 'war')
-      pavlov.command(:'topics/update_user_authority', graph_user_id: @user2.graph_user_id.to_s, topic_slug: @user2_channel1.slug_title, authority: 0)
-
       @user2_channel2 = pavlov.command(:'channels/create', title: 'games')
-      pavlov.command(:'topics/update_user_authority', graph_user_id: @user2.graph_user_id.to_s, topic_slug: @user2_channel2.slug_title, authority: 4568)
+
+      factlink = create :fact, created_by: @user2.graph_user
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user2_channel1)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user2_channel2)
     end
   end
 

@@ -69,7 +69,6 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     persistentWheelView.on 'opinionSet', =>
       @ui.opinion_animation.hide()
       @closeOpinionHelptext()
-      parent?.remote?.trigger('opinionSet')
 
   renderShareNewFact: ->
     @factSharingOptions = new FactSharingOptions

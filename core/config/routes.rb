@@ -23,8 +23,6 @@ FactlinkUI::Application.routes.draw do
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb
   # as well (frame busting)
-  get "/factlink/intermediate" => "client#intermediate"
-
   get '/client/blank' => 'client#blank'
   get '/client/facts/:id' => 'client#fact_show', as: 'client_fact'
   get '/facts/new' => 'client#facts_new', as: 'new_fact' # nginx_site cookbook uses this path
