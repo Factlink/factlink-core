@@ -1,4 +1,5 @@
 class FactGraph
+  # Only used in tests
   def self.recalculate
     new.recalculate
   end
@@ -6,11 +7,6 @@ class FactGraph
   def recalculate
     calculate_user_opinions
     calculate_graph
-  end
-
-  def calculate_fact_when_user_opinion_changed(fact)
-    user_opinion = calculated_user_opinion(fact, fact)
-    store :Fact, fact.id, :user_opinion, user_opinion
   end
 
   def calculate_fact_relation_when_user_opinion_changed(fact_relation)
