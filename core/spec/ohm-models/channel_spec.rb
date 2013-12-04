@@ -204,7 +204,7 @@ describe Channel do
         f1.delete
 
         ch1.facts.should =~ [f2]
-        ch1.sorted_cached_facts.count.should eq 1
+        ch1.sorted_internal_facts.count.should eq 1
       end
     end
   end

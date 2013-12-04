@@ -18,16 +18,16 @@ feature "follow_users_in_tour", type: :feature do
       @user1_channel2 = pavlov.command(:'channels/create', title: 'story')
 
       factlink = create :fact, created_by: @user1.graph_user
-      pavlov.interactor(:'channels/add_fact_without_propagation', fact: factlink, channel: @user1_channel1)
-      pavlov.interactor(:'channels/add_fact_without_propagation', fact: factlink, channel: @user1_channel2)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user1_channel1)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user1_channel2)
     end
     as(@user2) do |pavlov|
       @user2_channel1 = pavlov.command(:'channels/create', title: 'war')
       @user2_channel2 = pavlov.command(:'channels/create', title: 'games')
 
       factlink = create :fact, created_by: @user2.graph_user
-      pavlov.interactor(:'channels/add_fact_without_propagation', fact: factlink, channel: @user2_channel1)
-      pavlov.interactor(:'channels/add_fact_without_propagation', fact: factlink, channel: @user2_channel2)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user2_channel1)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user2_channel2)
     end
   end
 

@@ -21,14 +21,12 @@ describe CleanChannel do
 
     it "should not do anything if no facts were deleted" do
       CleanChannel.perform channel.id
-      expect(channel.sorted_cached_facts.count).to eq 3
       expect(channel.sorted_internal_facts.count).to eq 3
     end
 
     it "should remove deleted facts" do
       f1.delete
       CleanChannel.perform channel.id
-      expect(channel.sorted_cached_facts.count).to eq 2
       expect(channel.sorted_internal_facts.count).to eq 2
       expect(channel.facts).to match_array [f2, f3]
     end
