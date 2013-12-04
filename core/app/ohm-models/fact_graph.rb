@@ -44,7 +44,7 @@ class FactGraph
     user_opinion + evidence_opinion
   end
 
-  def impact_opinion_for_fact_relation(fact_relation, options={})
+  def impact_opinion_for_fact_relation(fact_relation, options={}) # Only used in tests
     from_fact_opinion = opinion_for_fact(fact_relation.from_fact)
     user_opinion      = retrieve :FactRelation, fact_relation.id, :user_opinion
     evidence_type     = OpinionType.for_relation_type(fact_relation.type)
