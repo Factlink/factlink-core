@@ -22,8 +22,8 @@ describe Believable do
 
   context "initially" do
     opinions.each do |opinion|
-      it { believable.opiniated(opinion).count.should == 0 }
-      it { believable.opiniated(opinion).all.should == [] }
+      it { believable.opiniated(opinion).count.should eq 0 }
+      it { believable.opiniated(opinion).all.should eq [] }
     end
   end
 
@@ -34,8 +34,8 @@ describe Believable do
       it do
         believable.add_opiniated(opinion, user)
 
-        believable.opiniated(opinion).count.should == 1
-       end
+        believable.opiniated(opinion).count.should eq 1
+      end
     end
 
     context "after 1 person has stated its #{opinion} twice" do
@@ -43,7 +43,7 @@ describe Believable do
         believable.add_opiniated(opinion, user)
         believable.add_opiniated(opinion, user)
 
-        believable.opiniated(opinion).count.should == 1
+        believable.opiniated(opinion).count.should eq 1
       end
     end
 
@@ -53,7 +53,7 @@ describe Believable do
         believable.add_opiniated(opinion, user)
         believable.remove_opinionateds user
 
-        believable.opiniated(opinion).count.should == 0
+        believable.opiniated(opinion).count.should eq 0
       end
     end
 
@@ -62,7 +62,7 @@ describe Believable do
         believable.add_opiniated(opinion, user)
         believable.add_opiniated(opinion, user2)
 
-        believable.opiniated(opinion).count.should == 2
+        believable.opiniated(opinion).count.should eq 2
       end
     end
 
@@ -74,7 +74,7 @@ describe Believable do
 
           believable.add_opiniated(other_opinion, user)
 
-          believable.opiniated(opinion).count.should == 1
+          believable.opiniated(opinion).count.should eq 1
         end
       end
 
@@ -86,7 +86,7 @@ describe Believable do
           believable.add_opiniated(other_opinion, user)
           believable.add_opiniated(other_opinion, user2)
 
-          believable.opiniated(opinion).count.should == 0
+          believable.opiniated(opinion).count.should eq 0
         end
       end
     end
