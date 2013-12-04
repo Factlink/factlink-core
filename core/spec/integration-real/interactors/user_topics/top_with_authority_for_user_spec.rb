@@ -49,8 +49,8 @@ describe 'top user topics per user' do
 
         factlink = create :fact, created_by: user.graph_user
 
-        pavlov.interactor(:'channels/add_fact_without_propagation', fact: factlink, channel: channel1)
-        pavlov.interactor(:'channels/add_fact_without_propagation', fact: factlink, channel: channel2)
+        pavlov.interactor(:'channels/add_fact', fact: factlink, channel: channel1)
+        pavlov.interactor(:'channels/add_fact', fact: factlink, channel: channel2)
 
         results = pavlov.query(:'user_topics/top_with_authority_for_user',
                                  user_id: user.id.to_s, limit_topics: 10)

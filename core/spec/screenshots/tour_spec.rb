@@ -30,8 +30,8 @@ describe "Check the tour", type: :feature do
 
       factlink = create :fact, created_by: user.graph_user
 
-      pavlov.interactor(:'channels/add_fact_without_propagation', fact: factlink, channel: channel1)
-      pavlov.interactor(:'channels/add_fact_without_propagation', fact: factlink, channel: channel2)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: channel1)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: channel2)
     end
 
     visit interests_path
