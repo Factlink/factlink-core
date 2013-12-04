@@ -1,6 +1,6 @@
 @import "bootstrap/mixins";
 
-.conversations-overview-item, .conversation-message {
+.messages-overview-item, .conversation-message {
   padding: 15px 0;
   .reset-main-padding();
   border-bottom: 1px solid @mutedBorderColor;
@@ -35,7 +35,7 @@
   font-weight: bold;
 }
 
-.conversations-overview-empty {
+.messages-overview-empty {
   margin: 20px 0;
   text-align: center;
   color: @metaFontColor;
@@ -45,19 +45,19 @@
     height: 16px;
   }
 
-  &.conversations-logo {
+  &.messages-logo {
     margin: 15px 0;
     width: 56px;
     height: 39px;
   }
 }
 
-.conversations-overview-user-link {
+.messages-overview-user-link {
   font-weight: bold;
   color: @headingFontColor;
 }
 
-.conversations-overview-item:hover {
+.messages-overview-item:hover {
   cursor: pointer;
   background: @itemHoverColor;
 }
