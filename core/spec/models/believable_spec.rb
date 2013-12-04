@@ -24,6 +24,7 @@ describe Believable do
     opinions.each do |opinion|
       it { believable.opiniated(opinion).count.should eq 0 }
       it { believable.opiniated(opinion).all.should eq [] }
+      it { believable.dead_opinion.should eq DeadOpinion.zero }
     end
   end
 
@@ -35,6 +36,7 @@ describe Believable do
         believable.add_opiniated(opinion, user)
 
         believable.opiniated(opinion).count.should eq 1
+        believable.dead_opinion.should eq DeadOpinion.for_type(opinion, 1.0)
       end
     end
 
@@ -44,6 +46,7 @@ describe Believable do
         believable.add_opiniated(opinion, user)
 
         believable.opiniated(opinion).count.should eq 1
+        believable.dead_opinion.should eq DeadOpinion.for_type(opinion, 1.0)
       end
     end
 
@@ -54,6 +57,7 @@ describe Believable do
         believable.remove_opinionateds user
 
         believable.opiniated(opinion).count.should eq 0
+        believable.dead_opinion.should eq DeadOpinion.zero
       end
     end
 
@@ -63,6 +67,7 @@ describe Believable do
         believable.add_opiniated(opinion, user2)
 
         believable.opiniated(opinion).count.should eq 2
+        believable.dead_opinion.should eq DeadOpinion.for_type(opinion, 2.0)
       end
     end
 
@@ -87,6 +92,7 @@ describe Believable do
           believable.add_opiniated(other_opinion, user2)
 
           believable.opiniated(opinion).count.should eq 0
+          believable.dead_opinion.should eq DeadOpinion.for_type(other_opinion, 2.0)
         end
       end
     end
