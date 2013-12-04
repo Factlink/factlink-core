@@ -1,10 +1,10 @@
 class window.ConversationReplyView extends Backbone.Marionette.ItemView
   template: 'conversations/reply'
   events:
-    "click .submit": 'submit'
+    "click .js-message-reply-submit": 'submit'
 
   ui:
-    submit: '.submit'
+    submit: '.js-message-reply-submit'
 
   submit: ->
     return if @submitting
