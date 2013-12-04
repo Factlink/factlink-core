@@ -34,14 +34,6 @@ set :default_environment, {
 
 namespace :action do
 
-  task :start_recalculate do
-    run "sudo monit start recalculate"
-  end
-
-  task :stop_recalculate do
-    run "sudo monit stop recalculate"
-  end
-
   task :start_resque do
     run "sudo monit start resque"
   end
@@ -98,7 +90,6 @@ before 'deploy:migrate',  'action:stop_background_processes'
 
 after 'deploy',           'deploy:migrate'
 
-after 'deploy:migrate',   'action:start_recalculate'
 after 'deploy:migrate',   'action:start_resque'
 
 after 'deploy:update',    'deploy:check_installed_packages'

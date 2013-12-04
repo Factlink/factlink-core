@@ -44,7 +44,6 @@ class EvidenceController < ApplicationController
 
     @fact_relation.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type),@fact_relation)
-    command(:'opinions/recalculate_fact_relation_user_opinion', fact_relation: @fact_relation)
 
     render 'fact_relations/show', formats: [:json]
   end
@@ -56,7 +55,6 @@ class EvidenceController < ApplicationController
 
     @fact_relation.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact_relation)
-    command(:'opinions/recalculate_fact_relation_user_opinion', fact_relation: @fact_relation)
 
     render 'fact_relations/show', formats: [:json]
   end
@@ -80,7 +78,6 @@ class EvidenceController < ApplicationController
     fact_relation = fact.add_evidence(type, evidence, current_user)
     fact_relation.add_opinion(:believes, current_graph_user)
     Activity::Subject.activity(current_graph_user, OpinionType.real_for(:believes),fact_relation)
-    command(:'opinions/recalculate_fact_relation_user_opinion', fact_relation: fact_relation)
 
     fact_relation
   end

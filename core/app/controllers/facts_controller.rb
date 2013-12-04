@@ -65,8 +65,6 @@ class FactsController < ApplicationController
       if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
         @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
-
-        command(:'opinions/recalculate_fact_opinion', fact: @fact)
       end
 
       add_to_channels @fact, params[:channels]
@@ -89,7 +87,6 @@ class FactsController < ApplicationController
 
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
-    command(:'opinions/recalculate_fact_opinion', fact: @fact)
 
     render_factwheel(@fact.id)
   end
@@ -99,7 +96,6 @@ class FactsController < ApplicationController
 
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
-    command(:'opinions/recalculate_fact_opinion', fact: @fact)
 
     render_factwheel(@fact.id)
   end
