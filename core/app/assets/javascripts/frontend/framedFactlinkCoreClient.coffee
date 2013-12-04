@@ -20,7 +20,7 @@ window.initClientCommunicator = ->
 
   Factlink.createReceiverEnvoy local
 
-  window.annotatedSiteEnvoy =Factlink.createSenderEnvoy window.parent,
+  window.annotatedSiteEnvoy = Factlink.createSenderEnvoy window.parent,
     ['modalFrameReady', 'openModalOverlay', 'closeModal_noAction',  'closeModal_highlightNewFactlink', 'closeModal_deleteFactlink'
     ]
 
