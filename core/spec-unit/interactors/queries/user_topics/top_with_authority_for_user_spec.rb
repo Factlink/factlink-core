@@ -43,6 +43,20 @@ describe Queries::UserTopics::TopWithAuthorityForUser do
       expect(query.call).to eq []
     end
 
+    it 'filters removed channels' do
+      facts = [double(channels: double(ids: [1]))]
+      sorted_created_facts = double(below: facts)
+      graph_user = double(sorted_created_facts: sorted_created_facts)
+      user = double(id: 'a1', graph_user: graph_user)
+
+      query = described_class.new user_id: user.id, limit_topics: 1
+
+      User.stub(:find).with(user.id).and_return(user)
+      Channel.stub(:[])
+
+      expect(query.call).to eq []
+    end
+
     it 'returns nothing if the user has no facts' do
       sorted_created_facts = double(below: [])
       graph_user = double(sorted_created_facts: sorted_created_facts)

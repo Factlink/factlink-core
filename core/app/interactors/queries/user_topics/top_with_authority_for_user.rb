@@ -23,7 +23,7 @@ module Queries
       end
 
       def topics
-        channel_ids.map{ |id| Channel[id] }.map(&:topic).uniq
+        channel_ids.map{ |id| Channel[id] }.compact.map(&:topic).uniq
       end
 
       def channel_ids
