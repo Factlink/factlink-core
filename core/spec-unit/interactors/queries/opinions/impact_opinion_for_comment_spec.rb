@@ -1,7 +1,5 @@
 require 'pavlov_helper'
 require_relative '../../../../app/interactors/queries/opinions/impact_opinion_for_comment.rb'
-require_relative '../../../../app/entities/dead_opinion.rb'
-require_relative '../../../../app/classes/opinion_type.rb'
 
 describe Queries::Opinions::ImpactOpinionForComment do
   include PavlovSupport
