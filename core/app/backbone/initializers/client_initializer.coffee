@@ -5,7 +5,7 @@ window.FactlinkAppMode.coreInClient = (app) ->
 
   annotatedSiteEnvoy = window.initClientCommunicator()
 
-  new ClientRouter controller: new ClientController annotatedSiteEnvoy
+  new ClientRouter controller: new ClientController(annotatedSiteEnvoy)
 
   FactlinkApp.clientCloseDiscussionModalInitializer annotatedSiteEnvoy
   app.vent.on 'close_discussion_modal', ->
