@@ -20,16 +20,17 @@ describe Commands::Channels::AddFact do
 
       command = Commands::Channels::AddFact.new fact: fact, channel: channel
 
-      Channel::Activities
-        .stub(:new)
+      allow(Channel::Activities)
+        .to receive(:new)
         .with(channel)
         .and_return(channel_activities)
-      channel_activities.should_receive(:add_created)
+      expect(channel_activities).to receive(:add_created)
 
       sorted_internal_facts.should_receive(:add).with(fact)
 
-      AddFactToChannelJob.should_receive(:perform)
-                         .with(fact.id, channel.id, initiated_by_id: channel.created_by_id)
+      expect(AddFactToChannelJob)
+        .to receive(:perform)
+        .with(fact.id, channel.id)
 
       command.call
     end

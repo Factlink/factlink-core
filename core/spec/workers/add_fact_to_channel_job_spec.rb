@@ -6,8 +6,12 @@ describe AddFactToChannelJob do
     let(:fact)    { create :fact    }
 
     it "adds the channel to fact.channels" do
+      expect(Pavlov)
+        .to receive(:command)
+        .with(:"topics/add_fact", fact_id: fact.id, topic_slug_title: channel.slug_title, score: '')
+
       AddFactToChannelJob.perform fact.id, channel.id
-      fact.channels.all.should =~ [channel]
+      expect(fact.channels.all).to match_array [channel]
     end
   end
 end
