@@ -22,9 +22,9 @@ describe Believable do
 
   context "initially" do
     opinions.each do |opinion|
-      it { believable.opiniated(opinion).count.should eq 0 }
-      it { believable.opiniated(opinion).all.should eq [] }
-      it { believable.dead_opinion.should eq DeadOpinion.zero }
+      it { expect(believable.opiniated(opinion).count).to eq 0 }
+      it { expect(believable.opiniated(opinion).all).to eq [] }
+      it { expect(believable.dead_opinion).to eq DeadOpinion.zero }
     end
   end
 
@@ -35,8 +35,8 @@ describe Believable do
       it do
         believable.add_opiniated(opinion, user)
 
-        believable.opiniated(opinion).count.should eq 1
-        believable.dead_opinion.should eq DeadOpinion.for_type(opinion, 1.0)
+        expect(believable.opiniated(opinion).count).to eq 1
+        expect(believable.dead_opinion).to eq DeadOpinion.for_type(opinion, 1.0)
       end
     end
 
@@ -45,8 +45,8 @@ describe Believable do
         believable.add_opiniated(opinion, user)
         believable.add_opiniated(opinion, user)
 
-        believable.opiniated(opinion).count.should eq 1
-        believable.dead_opinion.should eq DeadOpinion.for_type(opinion, 1.0)
+        expect(believable.opiniated(opinion).count).to eq 1
+        expect(believable.dead_opinion).to eq DeadOpinion.for_type(opinion, 1.0)
       end
     end
 
@@ -56,8 +56,8 @@ describe Believable do
         believable.add_opiniated(opinion, user)
         believable.remove_opinionateds user
 
-        believable.opiniated(opinion).count.should eq 0
-        believable.dead_opinion.should eq DeadOpinion.zero
+        expect(believable.opiniated(opinion).count).to eq 0
+        expect(believable.dead_opinion).to eq DeadOpinion.zero
       end
     end
 
@@ -66,8 +66,8 @@ describe Believable do
         believable.add_opiniated(opinion, user)
         believable.add_opiniated(opinion, user2)
 
-        believable.opiniated(opinion).count.should eq 2
-        believable.dead_opinion.should eq DeadOpinion.for_type(opinion, 2.0)
+        expect(believable.opiniated(opinion).count).to eq 2
+        expect(believable.dead_opinion).to eq DeadOpinion.for_type(opinion, 2.0)
       end
     end
 
@@ -79,7 +79,7 @@ describe Believable do
 
           believable.add_opiniated(other_opinion, user)
 
-          believable.opiniated(opinion).count.should eq 1
+          expect(believable.opiniated(opinion).count).to eq 1
         end
       end
 
@@ -91,8 +91,8 @@ describe Believable do
           believable.add_opiniated(other_opinion, user)
           believable.add_opiniated(other_opinion, user2)
 
-          believable.opiniated(opinion).count.should eq 0
-          believable.dead_opinion.should eq DeadOpinion.for_type(other_opinion, 2.0)
+          expect(believable.opiniated(opinion).count).to eq 0
+          expect(believable.dead_opinion).to eq DeadOpinion.for_type(other_opinion, 2.0)
         end
       end
     end
