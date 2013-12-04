@@ -6,5 +6,3 @@ window.FactlinkApp = new FactlinkAppClass
 
 FactlinkApp.addInitializer (options) ->
   options.factlinkAppMode @, options
-
-window.FactlinkAppMode = {}
