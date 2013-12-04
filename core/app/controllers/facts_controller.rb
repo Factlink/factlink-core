@@ -88,7 +88,7 @@ class FactsController < ApplicationController
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
 
-    render_factwheel(@fact.id)
+    render_votes(@fact.id)
   end
 
   def remove_opinions
@@ -97,12 +97,12 @@ class FactsController < ApplicationController
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
 
-    render_factwheel(@fact.id)
+    render_votes(@fact.id)
   end
 
-  def render_factwheel(fact_id)
-    dead_fact_wheel = query(:'facts/get_dead_wheel', id: fact_id.to_s)
-    render 'facts/_fact_wheel', format: :json, locals: {dead_fact_wheel: dead_fact_wheel}
+  def render_votes(fact_id)
+    fact_votes = query(:'facts/get_votes', id: fact_id.to_s)
+    render 'facts/_fact_votes', format: :json, locals: {fact_votes: fact_votes}
   end
 
   # TODO: This search is way to simple now, we need to make sure already
