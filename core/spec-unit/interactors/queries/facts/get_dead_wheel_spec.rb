@@ -26,20 +26,16 @@ describe Queries::Facts::GetDeadWheel do
       }
       presenter = double as_percentages_hash: percentage_hash
       opinion = :believes
-      believable = double
+      dead_opinion = double
+      believable = double dead_opinion: dead_opinion
       live_fact = double :fact, id: '1', believable: believable
       user = double :user, graph_user: double
       pavlov_options = {current_user: user}
       interactor = described_class.new id: live_fact.id,
         pavlov_options: pavlov_options
 
-      OpinionPresenter.stub(:new).with(opinion)
+      OpinionPresenter.stub(:new).with(dead_opinion)
                       .and_return(presenter)
-
-      Pavlov.stub(:query)
-            .with(:'opinions/opinion_for_fact',
-                      fact: live_fact, pavlov_options: pavlov_options)
-            .and_return(opinion)
 
       believable.stub(:opinion_of_graph_user).with(user.graph_user).and_return(opinion)
 
@@ -67,21 +63,17 @@ describe Queries::Facts::GetDeadWheel do
         doubt: {percentage: 20},
       }
       presenter = double as_percentages_hash: percentage_hash
-      opinion = double :opinion
-      OpinionPresenter.stub(:new).with(opinion)
-                      .and_return(presenter)
-
-      live_fact = double :fact, id: '1'
+      dead_opinion = double
+      believable = double dead_opinion: dead_opinion
+      live_fact = double id: '1', believable: believable
       user = nil
       pavlov_options = {current_user: user}
-
       query = described_class.new id: live_fact.id,
         pavlov_options: pavlov_options
 
-      Pavlov.stub(:query)
-            .with(:'opinions/opinion_for_fact',
-                      fact: live_fact, pavlov_options: pavlov_options)
-            .and_return(opinion)
+      OpinionPresenter.stub(:new).with(dead_opinion)
+                      .and_return(presenter)
+
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 
       dead_fact_wheel = query.call

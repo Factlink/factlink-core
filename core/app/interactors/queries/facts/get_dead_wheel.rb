@@ -18,7 +18,7 @@ module Queries
       end
 
       def opinion
-        query(:'opinions/opinion_for_fact', fact: fact)
+        fact.believable.dead_opinion
       end
 
       def fact
