@@ -21,31 +21,4 @@ class ChannelFacts
   def include? obj
     channel.sorted_cached_facts.include?(obj)
   end
-
-  def facts opts={}
-    return [] if channel.new?
-
-    facts_opts = {reversed:true}
-    facts_opts[:withscores] = opts[:withscores] ? true : false
-    facts_opts[:count] = opts[:count].to_i if opts[:count]
-
-    limit = opts[:from] || 'inf'
-
-    res = channel.sorted_cached_facts.below(limit,facts_opts)
-
-    fixchan = false
-
-    res.reject! do |item|
-      check_item = facts_opts[:withscores] ? item[:item] : item
-      invalid = Fact.invalid(check_item)
-      fixchan |= invalid
-      invalid
-    end
-
-    if fixchan
-      Resque.enqueue(CleanChannel, channel.id)
-    end
-
-    res
-  end
 end
