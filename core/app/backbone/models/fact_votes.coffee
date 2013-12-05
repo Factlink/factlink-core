@@ -29,9 +29,4 @@ class window.FactVotes extends Backbone.Model
         @setCurrentUserOpinion @previous_opinion_type
         FactlinkApp.NotificationCenter.error "Something went wrong while setting your opinion on the Factlink, please try again."
 
-  believe: -> @setActiveOpinionType 'believes'
-  disbelieve: -> @setActiveOpinionType 'disbelieves'
-  isBelieving: -> @get('current_user_opinion') == 'believes'
-  isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
-
   totalCount: -> @get('believes') + @get('disbelieves') + @get('doubts')
