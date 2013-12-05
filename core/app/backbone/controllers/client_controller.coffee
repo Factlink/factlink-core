@@ -2,35 +2,28 @@ window.ClientController =
   showFact: (fact_id) ->
     fact = new Fact id: fact_id
 
-    fact.on 'destroy', ->
-      parent.remote.hide()
-      parent.remote.stopHighlightingFactlink fact_id
+    fact.on 'destroy', -> annotatedSiteEnvoy?.closeModal_deleteFactlink fact_id
 
-    fact.fetch success: ->
-      newClientModal = new DiscussionModalContainer
-      FactlinkApp.discussionModalRegion.show newClientModal
-      view = new DiscussionView model: fact
-      view.on 'render', parent.onModalReady
-      newClientModal.mainRegion.show view
+    fact.fetch
+      success: ->
+        newClientModal = new DiscussionModalContainer
+        FactlinkApp.discussionModalRegion.show newClientModal
+        view = new DiscussionView model: fact
+        view.on 'render', -> annotatedSiteEnvoy?.openModalOverlay()
+        newClientModal.mainRegion.show view
 
   showNewFact: (params={}) ->
-    unless window.currentUser?
-      window.location = Factlink.Global.path.sign_in_client()
-      return
-
     clientModal = new DiscussionModalContainer
     FactlinkApp.discussionModalRegion.show clientModal
     FactlinkApp.guided = params.guided == 'true'
     if params.fact
       mp_track("Modal: Open prepare")
     factsNewView = new FactsNewView
-      layout: 'client'
       fact_text: params.fact
       title: params.title
       url: params.url
-      guided: FactlinkApp.guided
-    factsNewView.on 'render', parent.onModalReady
+    factsNewView.on 'render', -> annotatedSiteEnvoy?.openModalOverlay()
     factsNewView.on 'factCreated', (fact) ->
-      parent.highlightLastCreatedFactlink(fact.id, params.fact)
+      annotatedSiteEnvoy?.closeModal_highlightNewFactlink(params.fact, fact.id)
     clientModal.mainRegion.show factsNewView
 

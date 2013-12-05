@@ -1,23 +1,33 @@
-<div class="navbar<%= fixed_topbar ? " navbar-fixed-top" : "" %>">
-  <div class="navbar-inner">
-    <div class="background"></div>
-    <div class="container">
-      <div class="logo-container">
-        <% if @step_in_signup_process %>
-          <%= link_to "Home", home_path, class: 'brand' %>
-        <% else %>
-          <%= link_to "Home", home_path, class: 'brand potential-backbone' %>
-        <% end %>
+<div class="topbar <%= fixed_topbar ? "" : "topbar-non-fixed" %>">
+  <div class="topbar-inner">
+    <% if @step_in_signup_process %>
+      <%= link_to "Home", home_path, class: 'topbar-logo' %>
+    <% else %>
+      <%= link_to "Home", home_path, class: 'topbar-logo js-potential-backbone' %>
+    <% end %>
+
+    <% unless @step_in_signup_process %>
+      <div class="topbar-search">
+        <form method="GET" class="js-navbar-search-form" action="<%= search_path %>">
+          <input id="factlink_search" type="text" class="topbar-search-field js-navbar-search-box" name="s" placeholder="Search...">
+        </form>
       </div>
-      <div class="main-wrapper">
-        <% if @step_in_signup_process %>
-          <%= render "base/topbar/sign_up_steps" %>
-        <% elsif current_user %>
-          <%= render "base/topbar/signed_in" %>
-        <% else %>
-          <%= render "base/topbar/not_signed_in", slide_down: slide_down %>
-        <% end %>
+    <% end %>
+
+    <% if @step_in_signup_process %>
+      <%= render "base/topbar/sign_up_steps" %>
+    <% elsif current_user %>
+      <%= render "base/topbar/signed_in" %>
+    <% else %>
+      <div class="topbar-connect-container">
+        <strong>Connect with:</strong>
+        <div class="topbar-connect-buttons">
+          <a href="/auth/twitter" class="button button-twitter js-accounts-popup-link"><i class="icon-twitter"></i></a>
+          <a href="/auth/facebook" class="button button-facebook js-accounts-popup-link"><i class="icon-facebook"></i></a>
+          <span class="topbar-connect-separator">or</span>
+          <a href="/users/sign_in_or_up" class="button button-factlink js-accounts-popup-link"><i class="icon-factlink"></i></a>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>

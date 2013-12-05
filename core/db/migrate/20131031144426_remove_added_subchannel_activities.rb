@@ -1,10 +1,6 @@
 class RemoveAddedSubchannelActivities < Mongoid::Migration
   def self.up
-    ids = Activity.find(action: :added_subchannel).ids
-    ids.each do |id|
-      activity = Activity[id]
-      activity.delete
-    end
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

@@ -13,7 +13,8 @@ class FactsController < ApplicationController
       :opinion,
       :evidence_search,
       :set_opinion,
-      :remove_opinions
+      :remove_opinions,
+      :share
       ]
 
   around_filter :allowed_type,
@@ -64,8 +65,6 @@ class FactsController < ApplicationController
       if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
         @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
-
-        command(:'opinions/recalculate_fact_opinion', fact: @fact)
       end
 
       add_to_channels @fact, params[:channels]
@@ -88,9 +87,8 @@ class FactsController < ApplicationController
 
     @fact.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
-    command(:'opinions/recalculate_fact_opinion', fact: @fact)
 
-    render_factwheel(@fact.id)
+    render json: {}
   end
 
   def remove_opinions
@@ -98,14 +96,8 @@ class FactsController < ApplicationController
 
     @fact.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
-    command(:'opinions/recalculate_fact_opinion', fact: @fact)
 
-    render_factwheel(@fact.id)
-  end
-
-  def render_factwheel(fact_id)
-    dead_fact_wheel = query(:'facts/get_dead_wheel', id: fact_id.to_s)
-    render 'facts/_fact_wheel', format: :json, locals: {dead_fact_wheel: dead_fact_wheel}
+    render json: {}
   end
 
   # TODO: This search is way to simple now, we need to make sure already
@@ -127,6 +119,14 @@ class FactsController < ApplicationController
     @facts = interactor :"facts/recently_viewed"
 
     render 'facts/index', formats: [:json]
+  end
+
+  def share
+    authorize! :share, @fact
+
+    command :'facts/social_share', fact_id: @fact.id, sharing_options: params[:fact_sharing_options]
+
+    render json: {}
   end
 
   private

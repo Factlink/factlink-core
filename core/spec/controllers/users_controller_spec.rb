@@ -19,6 +19,7 @@ describe UsersController do
       FactoryGirl.reload # hack because of fixture in check
 
       should_check_can :show, user
+
       get :show, username: user.username, format: :json
       response.should be_success
 
@@ -42,6 +43,7 @@ describe UsersController do
       deleted_user = User.find deleted_user.id
 
       should_check_can :show, deleted_user
+
       get :show, username: deleted_user.username, format: :json
       response.should be_success
 
@@ -66,25 +68,11 @@ describe UsersController do
 
       as(user1) do |pavlov|
         ch1 = pavlov.command(:'channels/create', title: 'toy')
-        pavlov.command(:'topics/update_user_authority',
-                           graph_user_id: user1.graph_user_id.to_s,
-                           topic_slug: ch1.slug_title, authority: 0)
-
         ch2 = pavlov.command(:'channels/create', title: 'story')
-        pavlov.command(:'topics/update_user_authority',
-                           graph_user_id: user1.graph_user_id.to_s,
-                           topic_slug: ch2.slug_title, authority: 3)
       end
       as(user2) do |pavlov|
         ch1 = pavlov.command(:'channels/create', title: 'war')
-        pavlov.command(:'topics/update_user_authority',
-                           graph_user_id: user2.graph_user_id.to_s,
-                           topic_slug: ch1.slug_title, authority: 0)
-
         ch2 = pavlov.command(:'channels/create', title: 'games')
-        pavlov.command(:'topics/update_user_authority',
-                           graph_user_id: user2.graph_user_id.to_s,
-                           topic_slug: ch2.slug_title, authority: 4568)
       end
 
       authenticate_user!(user)
@@ -130,27 +118,6 @@ describe UsersController do
         pavlov_options: { no_current_user: true }
       channel
     end
-    it "should render succesful" do
-      current_user = create :full_user, :seeing_channels
-      other_user = create :full_user, :seeing_channels
-
-      other_users_channel =
-        backend_create_viewable_channel_for other_user
-      my_channel =
-        backend_create_viewable_channel_for current_user
-
-      as(other_user) do |p|
-        p.interactor :'channels/add_subchannel', channel_id: other_users_channel.id, subchannel_id: my_channel.id
-      end
-
-      authenticate_user!(current_user)
-
-      should_check_can :see_activities, current_user
-
-      get :activities, username: current_user.username, format: :json
-
-      response.should be_success
-    end
 
     describe :activity_approval do
       before do
@@ -160,6 +127,7 @@ describe UsersController do
           attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
 
         Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+        FactoryGirl.reload # hack because of fixture in check
       end
 
       [:supporting, :weakening].each do |type|
@@ -242,33 +210,6 @@ describe UsersController do
         response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
 
         Approvals.verify(response_body, format: :json, name: "users#activities should keep the same created sub comment activity")
-      end
-
-      it 'added subchannel' do
-        current_user = create(:full_user)
-
-        ch1 = create :channel, created_by: current_user.graph_user
-        ch2 = create :channel, created_by: user.graph_user
-
-        as(current_user) do |pavlov|
-          pavlov.interactor(:'channels/add_subchannel', channel_id: ch1.id,
-            subchannel_id: ch2.id)
-        end
-
-        authenticate_user!(user)
-
-        should_check_can :see_activities, user
-
-        get :activities, username: user.username, format: :json
-
-        response.should be_success
-
-        response_body = response.body.to_s
-        # strip mongo id, since otherwise comparison will always fail
-        response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-        response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
-
-        Approvals.verify(response_body, format: :json, name: "users#activities should keep the same added sub channel activity")
       end
     end
   end

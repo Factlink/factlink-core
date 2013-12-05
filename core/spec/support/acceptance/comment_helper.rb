@@ -93,7 +93,7 @@ module Acceptance
 
       def wait_until_evidence_list_loaded
         # the add region only shows after the discussion list has fully loaded
-        find('.js-add-region .evidence-add-supporting')
+        find('.js-supporting-button')
       end
 
       def vote_comment direction, comment

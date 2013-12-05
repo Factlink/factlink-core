@@ -44,9 +44,6 @@ describe Interactors::Comments::UpdateOpinion do
             .with(:'comments/set_opinion',
                       comment_id: comment.id, opinion: opinion,
                       graph_user: user.graph_user, pavlov_options: pavlov_options)
-      Pavlov.should_receive(:command)
-            .with(:'opinions/recalculate_comment_user_opinion',
-                      comment: comment, pavlov_options: pavlov_options)
 
       expect(interactor.call).to eq comment
     end
@@ -67,14 +64,11 @@ describe Interactors::Comments::UpdateOpinion do
             .with(:'comments/remove_opinion',
                       comment_id: comment.id, graph_user: user.graph_user,
                       pavlov_options: pavlov_options)
-      Pavlov.should_receive(:command)
-            .with(:'opinions/recalculate_comment_user_opinion',
-                      comment: comment, pavlov_options: pavlov_options)
 
       expect(interactor.call).to eq comment
     end
 
-    it 'refreshes the comment after calling recalculate_comment_user_opinion' do
+    it 'refreshes the comment after setting the opinion' do
       opinion = 'believes'
       user = double(graph_user: double)
       pavlov_options = {current_user: user}
@@ -92,10 +86,7 @@ describe Interactors::Comments::UpdateOpinion do
       Pavlov.stub(:command)
             .with(:'comments/set_opinion',
                       comment_id: comment.id, opinion: opinion,
-                      graph_user: user.graph_user, pavlov_options: pavlov_options)
-      Pavlov.stub(:command)
-            .with(:'opinions/recalculate_comment_user_opinion',
-                      comment: comment, pavlov_options: pavlov_options) do
+                      graph_user: user.graph_user, pavlov_options: pavlov_options) do
           Pavlov.stub(:query)
                 .with(:'comments/get',
                           comment_id: comment.id, pavlov_options: pavlov_options)

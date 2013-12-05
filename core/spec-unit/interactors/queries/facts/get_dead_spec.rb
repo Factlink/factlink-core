@@ -30,7 +30,7 @@ describe Queries::Facts::GetDead do
         data: fact_data,
         deletable?: false
     end
-    let(:wheel) { double }
+    let(:votes) { double }
 
     let(:site) do
       double :site, url: 'http://example.org/'
@@ -53,11 +53,11 @@ describe Queries::Facts::GetDead do
           .with(live_fact_with_site.id)
           .and_return(live_fact_with_site)
       Pavlov.stub(:query)
-            .with(:'facts/get_dead_wheel', id: live_fact.id)
-            .and_return(wheel)
+            .with(:'facts/get_votes', id: live_fact.id)
+            .and_return(votes)
       Pavlov.stub(:query)
-            .with(:'facts/get_dead_wheel', id: live_fact_with_site.id)
-            .and_return(wheel)
+            .with(:'facts/get_votes', id: live_fact_with_site.id)
+            .and_return(votes)
     end
 
     it 'returns a fact' do
@@ -69,7 +69,7 @@ describe Queries::Facts::GetDead do
       expect(dead_fact.displaystring).to eq live_fact.data.displaystring
       expect(dead_fact.created_at).to eq live_fact.data.created_at
       expect(dead_fact.title).to eq live_fact.data.title
-      expect(dead_fact.wheel).to eq wheel
+      expect(dead_fact.votes).to eq votes
       expect(dead_fact.deletable?).to eq live_fact.deletable?
     end
 

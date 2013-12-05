@@ -9,6 +9,7 @@ class ChannelActivitiesController < ApplicationController
 
   def index
     authorize! :show, @user
+    authorize! :access, Ability::FactlinkWebapp
 
     backbone_responder do
       count = params.fetch(:number, 11)

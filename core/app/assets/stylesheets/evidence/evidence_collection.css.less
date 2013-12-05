@@ -75,6 +75,12 @@
   border-radius: 1000px;
 }
 
+.evidence-impact-text-container {
+  position: relative; // for tooltip
+  z-index: 2; // force it just above the other evidence, inside this stacking context
+              // and also over voting popover
+}
+
 .evidence-impact-text {
   .new-design-font();
   font-size: @heading1FontSize;
@@ -289,6 +295,7 @@
 
 .evidence-impact-vote-popover {
   z-index: 1; // force it just above the other evidence, inside this stacking context
+              // but under the authority popovers
 }
 
 // Circle at the end of the evidence line
@@ -320,7 +327,7 @@
 @supportingLineOffset: 4px + floor(@middleLineWidth/2);
 @evidenceAddLinesTop: 3px;
 @evidenceAddCircleExtraRadius: 1px;
-@evidenceAddLineLength: 45px;
+@evidenceAddLineLength: @negativeColumnMargin;
 
 .evidence-add {
   min-height: 220px; // to accommodate for the fact relation search
@@ -328,6 +335,10 @@
 
 .evidence-add-buttons {
   position: relative;
+}
+
+.evidence-add-tooltip {
+  cursor: pointer;
 }
 
 .evidence-add-weakening-line, .evidence-add-supporting-line {
@@ -348,52 +359,30 @@
   margin-left: @supportingLineOffset;
 }
 
-.evidence-add-weakening, .evidence-add-supporting {
-  width:  @impactCircleDiameter;
-  height: @impactCircleDiameter;
-  border-radius: 1000px;
-
+.evidence-add-supporting-wrapper, .evidence-add-weakening-wrapper {
   position: absolute;
-  top: -@impactCircleDiameter/2 + @evidenceAddLinesTop + ceil(@middleLineWidth/2);
-  background: asset-data-url('icon-pencil.png') no-repeat 15px 16px;
-  cursor: pointer;
-  transition: all 0.1s;
-}
-
-.evidence-add-weakening {
-  right: 50%;
-  margin-right: @evidenceAddLineLength + @weakeningLineOffset;
-  background-color: @buttonDangerBackground;
-  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerBorder;
-
-  &:hover {
-    background-color: @buttonDangerDarkBackground;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBorder;
-  }
-
-  &:active {
-    background-color: @buttonDangerDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDangerDarkBackground;
+  top: -100px;
+  visibility: hidden;
+  bottom: -100px;
+  margin-top: 4.5px;
+  text-align: center;
+  visibility: visible;
+  margin: 0 @negativeColumnMargin;
+  &:before{
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    margin-top: 5px;
   }
 }
 
-.evidence-add-supporting {
+.evidence-add-supporting-wrapper {
   left: 50%;
-  margin-left: @evidenceAddLineLength + @supportingLineOffset;
-  background-color: @buttonSuccessBackground;
-  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessBorder;
+}
 
-  &:hover {
-    background-color: @buttonSuccessDarkBackground;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBorder;
-  }
-
-  &:active {
-    background-color: @buttonSuccessDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonSuccessDarkBackground;
-  }
+.evidence-add-weakening-wrapper {
+  right: 50%;
 }
 
 .evidence-add .evidence-impact {

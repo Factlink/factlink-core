@@ -1,6 +1,6 @@
 class RemoveUserTwitterField < Mongoid::Migration
   def self.up
-    User.all.update_all(twitter: nil)
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

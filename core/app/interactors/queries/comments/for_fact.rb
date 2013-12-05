@@ -22,8 +22,8 @@ module Queries
           comment.sub_comments_count = query(:'sub_comments/count',
                                                 parent_id: comment.id.to_s,
                                                 parent_class: comment.class.to_s)
-          dead_comment = query(:'comments/add_authority_and_opinion_and_can_destroy',
-                                  comment: comment, fact: fact)
+          dead_comment = query(:'comments/add_opinion_and_can_destroy',
+                                  comment: comment)
           # TODO: don't depend on the fact that comment is an openstruct
           dead_comment.evidence_class = 'Comment'
 

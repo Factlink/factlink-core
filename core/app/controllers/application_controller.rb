@@ -6,6 +6,7 @@ require 'pavlov'
 class ApplicationController < ActionController::Base
 
   include Pavlov::Helpers
+  include Devise::Controllers::Rememberable
 
   DEFAULT_LAYOUT = 'frontend'
 
@@ -23,7 +24,7 @@ class ApplicationController < ActionController::Base
       if not current_user
         format.html do
           flash[:alert] = t('devise.failure.unauthenticated')
-          redirect_to root_path(return_to: request.original_url, show_sign_in: 1)
+          redirect_to root_path(return_to: request.original_url)
         end
 
         format.json { render json: {error: "You don't have the correct credentials to execute this operation", code: 'login'}, status: :forbidden }
@@ -59,20 +60,13 @@ class ApplicationController < ActionController::Base
   end
 
   def safe_return_to_path
-    uri = URI.parse(return_to_path.to_s)
+    return nil unless params[:return_to]
+
+    uri = URI.parse(params[:return_to].to_s)
     if FactlinkUI::Application.config.hostname == uri.host
       uri.to_s
     else
       nil
-    end
-  end
-
-  def return_to_path
-    if params[:return_to]
-      params[:return_to]
-    elsif request.env['omniauth.origin']
-      query_params = QueryParams.new(request.env['omniauth.origin'])
-      query_params[:return_to]
     end
   end
 
@@ -105,8 +99,6 @@ class ApplicationController < ActionController::Base
   def backbone_responder &block
     respond_to do |format|
       format.html do
-        authorize! :access, Ability::FactlinkWebapp
-
         render inline: '', layout: 'channels'
       end
       format.json { yield } if block_given?
@@ -185,7 +177,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def action_is_intermediate?
+  def action_is_intermediate? #TODO:emn:xdm-refactor
     action_name == "intermediate" and controller_name == "facts"
   end
 
@@ -200,4 +192,9 @@ class ApplicationController < ActionController::Base
     # possibly eventually custom styling for poltergeist screenshots.
   end
   helper_method :inject_special_test_code
+
+  def remembered_sign_in user, options={}
+    sign_in user, options
+    remember_me user
+  end
 end

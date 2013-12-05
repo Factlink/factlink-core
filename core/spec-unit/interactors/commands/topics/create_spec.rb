@@ -11,22 +11,17 @@ describe Commands::Topics::Create do
     end
 
     it 'calls Topic.create and returns a dead topic' do
-      title = double
-      topic = double
-      dead_topic = double
+      title = 'Foo'
+      topic = double title: title, slug_title: 'foo'
 
-      Topic.should_receive(:create)
-                        .with(title: title)
-                        .and_return(topic)
-
-      KillObject.stub(:topic)
-                        .with(topic)
-                        .and_return(dead_topic)
+      expect(Topic).to receive(:create)
+        .with(title: title)
+        .and_return(topic)
 
       command = described_class.new title: title
       result = command.execute
 
-      expect(result).to eq dead_topic
+      expect(result.title).to eq title
     end
   end
 

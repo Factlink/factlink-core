@@ -3,14 +3,7 @@ class ClientController < ApplicationController
     render_client
   end
 
-  def intermediate
-    render layout: nil
-  end
-
   def facts_new
-    authorize! :new, Fact
-    authenticate_user!
-
     render_client
   end
 

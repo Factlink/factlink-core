@@ -1,82 +1,41 @@
 @import "bootstrap/mixins";
 
-div.sign_up {
-
-  div.container {
-    margin-top: 45px;
-    margin-bottom: 45px;
-    text-align: center;
-
-    h2 {
-      font-weight: bold;
-      margin: 0 0 15px;
-      line-height: 36px;
-      height: 36px;
-      font-size: 24px;
-    }
-
-    form {
-      width: 765px;
-      margin: 0 auto;
-      background: #fff;
-      border: 1px solid #cbcbcb;
-      border-radius: 4px;
-      padding: 24px 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,.11);
-
-      input.text {
-        width: 226px;
-        margin: 0 10px 0 0;
-        border: 1px solid #cbcbcb;
-        &:focus {
-          border: 1px solid #6ba2bf;
-        }
-      }
-    }
-  }
+.social-connect-container {
+  text-align: center;
 }
 
-.create-account-button {
-  width: 300px;
+.social-connect-heading {
+  font-size: 24px;
 }
 
-.footer .create-account-button {
-  width: 160px;
+.social-connect-no-social {
+  margin: 10px 0;
+
+  a { color: @grayLighter; }
+  a:hover { color: @white; }
 }
 
-.sign_up_form > form#top_registration_form {
-  height: 110px;
+.footer .social-connect-no-social {
+  a { color: @metaFontColor; }
+  a:hover { color: @mutedFontColor; }
 }
 
-.sign_up_infoblock {
-  width: 960px;
+.icon-twitter, .icon-facebook {
+  margin-left: 0;
+  margin-right: 0.3em;
+  font-size: 170%;
+  vertical-align: sub;
+  -webkit-font-smoothing: antialiased; // OS X makes fonts bolder than normal. This looks weird with those icons.
 }
 
-.sign_up_form {
-  form {
-    position: relative;
-
-    input.text{
-      border: 1px solid #fff;
-    }
-  }
-
-  h3.popover-title {
-    display: none;
-  }
+.icon-facebook {
+  margin-left: -5px;
 }
 
-.terms-notice {
-  margin-top: 10px;
+.non-social-link {
+  text-decoration: underline;
 
-  a, a:hover {
-    color: @white;
+  &:hover {
     text-decoration: underline;
-  }
-}
-
-.footer .terms-notice {
-  &, a, a:hover {
-    color: @metaFontColor;
   }
 }

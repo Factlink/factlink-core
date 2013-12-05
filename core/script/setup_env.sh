@@ -13,13 +13,13 @@ function cloneRepo {
   if [ ! -d "$1/.git" ]; then
     echo "cloning factlink $1 repo"
       git clone "git@github.com:Factlink/$1.git"
-    cd $1
-      git checkout master
-      git checkout develop
-      cd ..
   else
     echo "$1 repo already present"
   fi
+  cd $1
+  git checkout master
+  git checkout develop || :
+  cd ..
 }
 function ensureBrew {
   echo "Ensuring $1 brew is installed and up to date..."
@@ -87,9 +87,6 @@ cloneRepo chef-repo
 
 RUBY_VERSION=`cat core/.ruby-version`
 
-#Add a directory for the second redis instance we need for resque:
-mkdir -p /usr/local/var/db/redis-6380
-
 ensureBrew mongo
 ensureBrew redis
 ensureBrew elasticsearch
@@ -99,7 +96,6 @@ ensureBrew qt
 ensureBrew phantomjs
 
 ensureBrew rbenv
-ensureBrew ruby-build
 if egrep -q '^eval "\$\(rbenv init -\)"$' ~/.bash_profile ; then
   echo "rbenv already installed in .bash_profile"
 else
@@ -114,6 +110,10 @@ if bash -c "rbenv global ${RUBY_VERSION}" ; then
   #because rbenv installs a bash function and due to set -e interaction in can fail.
   echo "Ruby ${RUBY_VERSION} already installed."
 else
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build || :
+    pushd ~/.rbenv/plugins/ruby-build
+      git pull
+    popd
     echo "Installing ruby ${RUBY_VERSION}..."
     CC="clang" CXX="clang++" CFLAGS="-march=native -Os" rbenv install ${RUBY_VERSION}
 fi
@@ -153,7 +153,7 @@ cd chrome-extension
   #TODO: npm install should be in package.json
   npm install yaml
   git flow init -d
-  bin/release_repo
+  bin/release_repo 1
 cd ..
 
 cd firefox-extension
@@ -181,15 +181,6 @@ cd core
     touch production.log
     touch testserver.log
   cd ..
-
-  echo "Create directories for databases."
-  mkdir -p tmp/db/redis-tests
-  mkdir -p tmp/db/redis-6380
-  mkdir -p tmp/db/redis
-  mkdir -p tmp/pids
-  mkdir -p tmp/db/mongodb
-  mkdir -p tmp/db/elasticsearch/
-  mkdir -p tmp/log/elasticsearch/
 
   foreman start -f ProcfileServers &
   FOREMAN_PID=$!

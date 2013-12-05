@@ -6,45 +6,67 @@ describe Queries::UserTopics::TopWithAuthorityForUser do
   include PavlovSupport
 
   before do
-    stub_classes 'GraphUser', 'TopicsSortedByAuthority', 'Topic'
+    stub_classes 'User', 'Channel'
   end
 
   describe '#call' do
-    it 'returns dead objects for the user topics based on the topics' do
-      user_topics_by_authority = double
-      limit_topics = 2
-      user_id = 'a1'
+    it 'some topic from the last couple of posted facts' do
+      topic1 = double(slug_title: 'slug_title1', title: 'title1')
+      topic2 = double(slug_title: 'slug_title2', title: 'title2')
+      channel1 = double(id: 10, topic: topic1)
+      channel2 = double(id: 20, topic: topic2)
 
-      topics = [
-        double(:topic, id: "1", title: 'Bye', slug_title: 'bye'),
-        double(:topic, id: "2", title: 'Yo',  slug_title: 'yo'),
-      ]
+      facts = [double(channels: double(ids: [channel1.id]))]
+      sorted_created_facts = double(below: facts)
+      graph_user = double(sorted_created_facts: sorted_created_facts)
+      user = double(id: 'a1', graph_user: graph_user)
 
-      query = described_class.new user_id: user_id,
-                                  limit_topics: limit_topics
+      query = described_class.new user_id: user.id, limit_topics: 1
 
-      TopicsSortedByAuthority.stub(:new)
-        .with(user_id.to_s)
-        .and_return(user_topics_by_authority)
+      User.stub(:find).with(user.id).and_return(user)
+      Channel.stub(:[]).with(channel1.id).and_return(channel1)
+      Channel.stub(:[]).with(channel2.id).and_return(channel2)
 
-      user_topics_by_authority.stub(:ids_and_authorities_desc_limit)
-        .with(limit_topics)
-        .once
-        .and_return [
-          {id: topics[1].id, authority: 20},
-          {id: topics[0].id, authority: 10},
-        ]
+      expect(query.call).to eq [DeadUserTopic.new(topic1.slug_title, topic1.title)]
+    end
 
-      Topic.stub(:any_in)
-           .with(id: [topics[1].id, topics[0].id])
-           .and_return(topics)
+    it 'returns nothing if the latest fact has no channels' do
+      facts = [double(channels: double(ids: []))]
+      sorted_created_facts = double(below: facts)
+      graph_user = double(sorted_created_facts: sorted_created_facts)
+      user = double(id: 'a1', graph_user: graph_user)
 
-      user_topics = [
-        DeadUserTopic.new(topics[1].slug_title, topics[1].title, 20),
-        DeadUserTopic.new(topics[0].slug_title, topics[0].title, 10)
-      ]
+      query = described_class.new user_id: user.id, limit_topics: 1
 
-      expect(query.call).to eq user_topics
+      User.stub(:find).with(user.id).and_return(user)
+
+      expect(query.call).to eq []
+    end
+
+    it 'filters removed channels' do
+      facts = [double(channels: double(ids: [1]))]
+      sorted_created_facts = double(below: facts)
+      graph_user = double(sorted_created_facts: sorted_created_facts)
+      user = double(id: 'a1', graph_user: graph_user)
+
+      query = described_class.new user_id: user.id, limit_topics: 1
+
+      User.stub(:find).with(user.id).and_return(user)
+      Channel.stub(:[])
+
+      expect(query.call).to eq []
+    end
+
+    it 'returns nothing if the user has no facts' do
+      sorted_created_facts = double(below: [])
+      graph_user = double(sorted_created_facts: sorted_created_facts)
+      user = double(id: 'a1', graph_user: graph_user)
+
+      query = described_class.new user_id: user.id, limit_topics: 1
+
+      User.stub(:find).with(user.id).and_return(user)
+
+      expect(query.call).to eq []
     end
   end
 end

@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     authorize! :show, @user
+
     backbone_responder do
       render 'users/_user', user: @user
     end
@@ -69,6 +70,8 @@ class UsersController < ApplicationController
 
   def notification_settings
     authorize! :edit_settings, @user
+    authorize! :access, Ability::FactlinkWebapp
+
     backbone_responder
   end
 

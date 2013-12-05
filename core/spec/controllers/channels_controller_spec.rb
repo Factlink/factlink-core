@@ -74,7 +74,6 @@ describe ChannelsController do
   describe "#show" do
     it "a channel should be succesful" do
       authenticate_user!(user)
-      should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, ch_light
       get :show, username: user.username, id: ch_light.id
       response.should be_success
@@ -83,6 +82,7 @@ describe ChannelsController do
     it "a channel as json should be succesful" do
       authenticate_user!(user)
       should_check_can :show, ch_heavy
+
       ability.should_receive(:can?).with(:index, Channel).and_return true
       get :show, username: user.username, id: ch_heavy.id, format: 'json'
       response.should be_success
@@ -95,7 +95,6 @@ describe ChannelsController do
       ch.created_by = user.graph_user
       ch.save
 
-      should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, ch
       get :show, :id => ch.id, :username => user.username
 

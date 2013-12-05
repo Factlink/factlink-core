@@ -30,8 +30,8 @@ describe Queries::Comments::ForFact do
                       pavlov_options: pavlov_options)
             .and_return(sub_comments_count)
       Pavlov.should_receive(:query)
-            .with(:'comments/add_authority_and_opinion_and_can_destroy',
-                      comment: comment, fact: fact, pavlov_options: pavlov_options)
+            .with(:'comments/add_opinion_and_can_destroy',
+                      comment: comment, pavlov_options: pavlov_options)
             .and_return(dead_comment)
 
       dead_comment.should_receive(:evidence_class=).with('Comment')

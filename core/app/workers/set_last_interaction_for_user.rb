@@ -1,6 +1,6 @@
 class SetLastInteractionForUser
 
-  @queue = :user_operations
+  @queue = :mmm_user_operations
 
   def self.perform(user_id, timestamp)
     user = User.find(user_id)

@@ -12,7 +12,7 @@ class ChannelsController < ApplicationController
       :add_fact
     ]
   before_filter :get_user
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: ['index', 'show']
 
   respond_to :json, :html
 
@@ -26,8 +26,6 @@ class ChannelsController < ApplicationController
     backbone_responder do
       @channel = interactor(:'channels/get', id: @channel.id)
     end
-
-    mark_channel_as_read if request.format.html?
   end
 
   # TODO: Move to topicscontroller, this searches for topics, not for channels
@@ -101,16 +99,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  def follow
-    interactor :'channels/follow', channel_id: channel_id
-    render json: {}, status: :ok
-  end
-
-  def unfollow
-    interactor :'channels/unfollow', channel_id: channel_id
-    render json: {}, status: :ok
-  end
-
   def facts
     authorize! :show, @channel
 
@@ -118,8 +106,6 @@ class ChannelsController < ApplicationController
     count = params[:number].to_i if params[:number]
 
     @facts = interactor(:'channels/facts', id: @channel.id, from: from, count: count)
-
-    mark_channel_as_read
 
     respond_to do |format|
       format.json { render }
@@ -160,9 +146,5 @@ class ChannelsController < ApplicationController
 
   def channel_id
     params[:channel_id] || params[:id]
-  end
-
-  def mark_channel_as_read
-    @channel.mark_as_read if @channel.created_by == current_graph_user
   end
 end

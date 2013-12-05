@@ -1,5 +1,21 @@
 @import "bootstrap/mixins";
 
+.button-base(@backgroundColor, @borderColor) {
+  background-color: @backgroundColor;
+  color: white;
+  border-color: @borderColor;
+
+  &:hover, &:active {
+    background-color: darken(@backgroundColor, 10%);
+    border-color: darken(@borderColor, 10%);
+    color: white;
+  }
+}
+
+.button-shadow(@shadowColor) {
+  text-shadow: 0 1px 0 @shadowColor;
+}
+
 .button {
   .new-design-font();
   display: inline-block;
@@ -12,6 +28,7 @@
   transition: all 0.1s;
   vertical-align: middle;
   outline: none;
+  cursor: pointer;
 
   border: none;
   border-bottom: @largeButtonBorderWidth solid @buttonBorder;
@@ -47,24 +64,12 @@
     .animate-stripes(1.5s);
     color: @mutedFontColor;
   }
-
 }
 
 .button-confirm {
-  background-color: @buttonConfirmBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonConfirmTextShadow;
-  border-bottom-color: @buttonConfirmBorder;
-  &:hover {
-    color: white;
-    background-color: @buttonConfirmDarkBackground;
-    border-bottom-color: @buttonConfirmDarkBorder;
-  }
-  &:active {
-    background-color: @buttonConfirmDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonConfirmDarkBorder;
-    border-bottom: 0px;
-  }
+  .button-base(@buttonConfirmBackground, @buttonConfirmBorder);
+  .button-shadow(@buttonConfirmTextShadow);
+
   &.button-loading, &[disabled] {
     .striped(45deg);
     color: rgba(255,255,255,0.6);
@@ -72,20 +77,9 @@
 }
 
 .button-danger {
-  background-color: @buttonDangerBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonDangerTextShadow;
-  border-bottom-color: @buttonDangerBorder;
-  &:hover {
-    color: white;
-    background-color: @buttonDangerDarkBackground;
-    border-bottom-color: @buttonDangerDarkBorder;
-  }
-  &:active {
-    background-color: @buttonDangerDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonDangerDarkBorder;
-    border-bottom: 0px;
-  }
+  .button-base(@buttonDangerBackground, @buttonDangerBorder);
+  .button-shadow(@buttonDangerTextShadow);
+
   &.button-loading, &[disabled] {
     .striped(45deg);
     color: rgba(255,255,255,0.6);
@@ -93,67 +87,12 @@
 }
 
 .button-success {
-  background-color: @buttonSuccessBackground;
-  color: white;
-  text-shadow: 0 1px 0 @buttonSuccessTextShadow;
-  border-bottom-color: @buttonSuccessBorder;
-  &:hover {
-    color: white;
-    background-color: @buttonSuccessDarkBackground;
-    border-bottom-color: @buttonSuccessDarkBorder;
-  }
-  &:active {
-    background-color: @buttonSuccessDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonSuccessDarkBorder;
-    border-bottom: 0px;
-  }
+  .button-base(@buttonSuccessBackground, @buttonSuccessBorder);
+  .button-shadow(@buttonSuccessTextShadow);
+
   &.button-loading, &[disabled] {
     .striped(45deg);
     color: rgba(255,255,255,0.6);
-  }
-}
-
-.button-home {
-  background-color: @buttonHomeBackground;
-  color: @buttonHomeLink;
-  text-shadow: 0 1px 0 @buttonHomeTextShadow;
-  border-bottom-color: @buttonHomeBorder;
-  &:hover {
-    color: @buttonHomeLink;
-    background-color: @buttonHomeDarkBackground;
-    border-bottom-color: @buttonHomeDarkBorder;
-  }
-  &:active {
-    background-color: @buttonHomeDarkBackground;
-    border-top: @largeButtonBorderWidth solid @buttonHomeDarkBorder;
-    border-bottom: 0px;
-  }
-  &.button-loading, &[disabled] {
-    .striped(45deg);
-    color: @buttonHomeLink;
-  }
-}
-
-.button-disabled {
-  line-height: @baseButtonHeight;
-  background-color: @buttonDisabledBackground;
-  color: @mutedFontColor;
-  text-shadow: 0 1px 0 @buttonDisabledTextShadow;
-  border-style: solid;
-  border-width: @baseButtonBorderWidth;
-  border-color: @buttonDisabledBorder;
-  &.button-large {
-    line-height: @largeButtonHeight;
-  }
-  &:hover {
-    cursor: not-allowed;
-  }
-  &:active {
-    padding-top: 0;
-  }
-  &.button-loading, &[disabled] {
-    .striped(45deg, rgba(0,0,0,0.04));
-    color: @mutedFontColor;
   }
 }
 
@@ -170,8 +109,27 @@
   }
 }
 
+.button-twitter {
+  .button-base(@buttonTwitterBackground, @buttonTwitterBorder);
+}
+
+.button-facebook {
+  .button-base(@buttonFacebookBackground, @buttonFacebookBorder);
+}
+
 .button-loading {
   text-shadow: none;
+}
+
+.button-disabled {
+  background-color: @buttonDisabledBackground;
+  color: @mutedFontColor;
+  text-shadow: 0 1px 0 @buttonDisabledTextShadow;
+  border: @baseButtonBorderWidth solid @buttonDisabledBorder;
+
+  &:hover {
+    cursor: not-allowed;
+  }
 }
 
 .button-action-checked {

@@ -33,7 +33,8 @@ fi
 
 # print environment
 env
-
+ruby --version
+which ruby
 
 for action in bin/ci/*.sh; do
   banner $action;

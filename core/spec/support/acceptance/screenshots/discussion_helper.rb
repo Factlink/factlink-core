@@ -5,13 +5,13 @@ module Screenshots
     include Acceptance::CommentHelper
 
     def create_discussion
-      factlink = backend_create_fact
+      factlink = backend_create_fact_with_long_text
       comment_text = '1. Comment'
 
       sub_comment_text = "\n\nThis is a subcomment\n\nwith some  whitespace \n\n"
       sub_comment_text_normalized = "This is a subcomment with some whitespace"
 
-      supporting_factlink = backend_create_fact
+      supporting_factlink = backend_create_fact_with_long_text
       go_to_discussion_page_of supporting_factlink
       click_wheel_part 0
 
@@ -34,7 +34,6 @@ module Screenshots
 
       within('.evidence-votable', text: supporting_factlink.data.displaystring, visible: false) do
         find('.js-down').click
-        find('.spec-fact-disbelieve').click
         eventually_succeeds do
           find('a', text: 'Comment').click
           find('.spec-sub-comments-form').should_not eq nil

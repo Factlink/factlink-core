@@ -47,7 +47,6 @@ describe Interactors::SubComments::CreateForFactRelation do
       fact_relation_id = 1
       user = double
       sub_comment = double
-      authority = double
       dead_sub_comment = double
       content = 'hoi'
       fact_relation = double
@@ -64,10 +63,8 @@ describe Interactors::SubComments::CreateForFactRelation do
                       parent_id: fact_relation_id, parent_class: 'FactRelation',
                       content: content, user: user, pavlov_options: options)
             .and_return(sub_comment)
-      interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
-        and_return(authority)
       interactor.should_receive(:create_activity).with(sub_comment)
-      KillObject.should_receive(:sub_comment).with(sub_comment, authority: authority).
+      KillObject.should_receive(:sub_comment).with(sub_comment).
         and_return(dead_sub_comment)
 
       expect(interactor.call).to eq dead_sub_comment
@@ -116,36 +113,6 @@ describe Interactors::SubComments::CreateForFactRelation do
       next_result = interactor.top_fact
 
       next_result.should eq fact
-    end
-  end
-
-  describe '#authority_of_user_who_created' do
-    before do
-      stub_classes 'Queries::AuthorityOnFactFor'
-    end
-
-    it 'retrieves the authority and kills the subcomment' do
-      fact_relation_id = 1
-      fact = double
-      graph_user = double
-      authority = double
-      user = double
-      sub_comment = double(created_by: double(graph_user: graph_user))
-      FactRelation.stub :[] => nil
-      ability = double can?: true
-      options = { current_user: user, ability: ability }
-      interactor = described_class.new(fact_relation_id: fact_relation_id,
-        content: 'hoi', pavlov_options: options)
-
-      interactor.should_receive(:top_fact).and_return(fact)
-      Pavlov.should_receive(:query)
-            .with(:'authority_on_fact_for',
-                      fact: fact, graph_user: graph_user, pavlov_options: options)
-            .and_return authority
-
-      result = interactor.authority_of_user_who_created sub_comment
-
-      expect(result).to eq authority
     end
   end
 end

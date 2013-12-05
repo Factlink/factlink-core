@@ -38,23 +38,22 @@ describe SupportingEvidenceController do
         parsed_content = JSON.parse(response.body)
 
         expect(parsed_content["current_user_opinion"]).to eq 'believes'
-        expect(parsed_content["impact"]).to eq 0.0
+        expect(parsed_content["impact"]).to eq 1.0
       end
 
       it "should not set the user's opinion on the evidence to believe" do
         f2.add_opinion(:disbelieves, user.graph_user)
-        Pavlov.command(:'opinions/recalculate_fact_opinion', fact: f2)
 
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
         response.should be_success
 
         parsed_content = JSON.parse(response.body)
 
-        opinions = parsed_content["from_fact"]["fact_wheel"]["opinion_types"]
+        fact_votes = parsed_content["from_fact"]["fact_votes"]
 
-        opinions["believe"]["percentage"].should == 0
-        opinions["doubt"]["percentage"].should == 0
-        opinions["disbelieve"]["percentage"].should == 100
+        expect(fact_votes["believes_count"]).to eq 0
+        expect(fact_votes["doubts_count"]).to eq 0
+        expect(fact_votes["disbelieves_count"]).to eq 1
       end
     end
   end
@@ -69,7 +68,6 @@ describe SupportingEvidenceController do
       fr = f1.add_evidence :supporting, f2, user
       f2.add_opinion(:believes, user.graph_user)
       fr.add_opinion(:believes, user.graph_user)
-      FactGraph.recalculate
 
       authenticate_user!(user)
 

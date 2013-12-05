@@ -8,8 +8,8 @@ class window.FollowUserButtonView extends ActionButtonView
     @listenTo currentUser, 'follow_action', @updateStateModel
     @updateStateModel()
 
-    currentUser.following.fetchOnce
-      success: => @model.set loaded: true
+    currentUser.following.fetchIfUnloaded()
+    @whenFactlinkCollectionFetched currentUser.following, -> @model.set loaded: true
 
   templateHelpers: =>
     unchecked_label:         Factlink.Global.t.follow_user.capitalize()

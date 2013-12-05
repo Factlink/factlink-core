@@ -11,23 +11,15 @@ describe Interactors::Topics::Facts do
       max_timestamp = 100
       results = double
 
-      pavlov_options = {current_user: double}
-      interactor = described_class.new(slug_title: slug_title, count: count, max_timestamp: max_timestamp, pavlov_options: pavlov_options)
+      interactor = described_class.new(slug_title: slug_title, count: count, max_timestamp: max_timestamp)
 
       Pavlov.stub(:query)
             .with(:'topics/facts',
                       slug_title: slug_title, count: count,
-                      max_timestamp: max_timestamp, pavlov_options: pavlov_options)
+                      max_timestamp: max_timestamp)
             .and_return(results)
 
       expect( interactor.call ).to eq results
-    end
-  end
-
-  describe 'authorized?' do
-    it 'throws when no current_user' do
-      expect { described_class.new(slug_title: '1a', count: 10, max_timestamp: 100).call }
-        .to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 
@@ -37,7 +29,7 @@ describe Interactors::Topics::Facts do
       slug_title = 'slug-title'
       max_timestamp = 100
       interactor = described_class.new(slug_title: slug_title, count: nil,
-        max_timestamp: max_timestamp, pavlov_options: { current_user: double })
+        max_timestamp: max_timestamp)
 
       interactor.setup_defaults
 

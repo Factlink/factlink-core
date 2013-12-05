@@ -32,7 +32,6 @@ class Ability
     define_feature_toggles
 
     define_channel_abilities
-    define_topic_abilities
     define_fact_abilities
     define_fact_relation_abilities
     define_comment_abilities
@@ -50,22 +49,19 @@ class Ability
     can :read, Fact
     can :read, FactRelation
     can :read, Comment
+    can :read, Channel
+    can :read, Topic
+
+    can :read, User do |u|
+      u.active? || u.deleted # we show a special page for deleted users
+    end
   end
 
   def define_channel_abilities
     return unless signed_in?
-    can :index, Channel
-    can :read, Channel
     can :manage, Channel do |ch|
       ch.created_by_id == user.graph_user_id
     end
-  end
-
-  def define_topic_abilities
-    return unless signed_in?
-
-    can :index, Topic
-    can :show, Topic
   end
 
   def define_fact_abilities
@@ -129,9 +125,6 @@ class Ability
       can :update, user
       can :edit_settings, user
       can :destroy, user
-      can :read, User do |u|
-        u.active? || u.deleted
-      end
     end
   end
 
@@ -165,8 +158,11 @@ class Ability
   end
 
   FEATURES = %w(
-    pink_feedback_button skip_create_first_factlink memory_profiling
-    sees_channels share_discussion_buttons suppress_double_scrollbar
+    pink_feedback_button
+    skip_create_first_factlink
+    memory_profiling
+    suppress_double_scrollbar
+    comments_no_opinions
   )
 
   def enabled_global_features

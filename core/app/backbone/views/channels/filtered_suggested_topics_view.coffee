@@ -45,10 +45,9 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
   initialize: (options) ->
     utils = new CollectionUtils(this)
     @filtered_collection = utils.difference(new Backbone.Collection(),
-                                                  'slug_title',
-                                                  @collection,
-                                                  @options.addToCollection)
-
+      'slug_title',
+      @collection,
+      @options.addToCollection)
     @listenTo @filtered_collection, 'add remove reset change', @updateVisibilities
 
   onRender: ->
@@ -57,9 +56,7 @@ class window.FilteredSuggestedTopicsView extends Backbone.Marionette.Layout
       addToCollection: @options.addToCollection
 
     @updateVisibilities()
-
-    @collection.waitForFetch =>
-      @updateVisibilities()
+    @whenFactlinkCollectionFetched @collection, @updateVisibilities
 
   updateVisibilities: ->
     @ui.loadingIndicator.toggle @collection.loading()

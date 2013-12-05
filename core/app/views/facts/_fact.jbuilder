@@ -16,22 +16,17 @@ end
 
 json.url friendly_fact_path(dead_fact)
 
+json.sharing_url ::FactUrl.new(dead_fact).sharing_url
+
 json.created_by do |j|
   json.partial! 'users/user_partial', user: dead_fact_creator
-  json.authority_for_subject do |json|
-    authority = Authority.on(dead_fact, for: dead_fact_creator_graph_user).to_f + 1.0
-    json.authority NumberFormatter.new(authority).as_authority
-    json.id dead_fact.id
-  end
 end
 
 json.created_by_ago "Posted #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
 
 json.fact_title dead_fact.title
-json.fact_wheel do |j|
-  j.partial! partial: 'facts/fact_wheel',
-                formats: [:json], handlers: [:jbuilder],
-                locals: { dead_fact_wheel: dead_fact.wheel }
+json.fact_votes do |j|
+  j.partial! 'facts/fact_votes', fact_votes: dead_fact.votes
 end
 
 if dead_fact.site_url

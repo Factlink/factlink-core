@@ -1,0 +1,41 @@
+<% content_for :account_popup_content do %>
+
+  <div class="accounts-popup-half-form-container">
+    <%= form_for(@user_new_session, as: 'user_new_session', url: factlink_accounts_create_session_path, html: { class: "accounts-popup-half-form" }) do |f| %>
+
+      <h1 class="accounts-popup-half-form-heading">Sign in to Factlink</h1>
+
+      <%= f.text_field :login, placeholder: "Email or username" %>
+      <%= possible_error_for_field(@user_new_session, :login) %>
+      <%= f.password_field :password, placeholder: "Password" %>
+
+      <%= link_to "Forgot your password?", new_password_path('user'), target: '_blank', class: 'accounts-popup-forgot-password' %>
+
+      <button type="submit" data-disable-with="Signing in..." class="button button-confirm pull-right accounts-popup-signin-button">Sign in</button>
+
+    <% end %>
+
+    <div class="accounts-popup-half-form-separator">
+      or
+    </div>
+
+    <%= form_for(@user_new_account, as: 'user_new_account', url: factlink_accounts_create_account_path, html: { class: "accounts-popup-half-form" }) do |f| %>
+
+      <h1 class="accounts-popup-half-form-heading">Create a Factlink account</h1>
+
+      <%= f.text_field :full_name, placeholder: "Full name" %>
+      <%= possible_error_for_field(@user_new_account, :full_name) %>
+      <%= f.text_field :email, placeholder: "Email address" %>
+      <%= possible_error_for_field(@user_new_account, :email) %>
+      <%= f.password_field :password, placeholder: "Password" %>
+      <%= possible_error_for_field(@user_new_account, :password) %>
+      <%= f.password_field :password_confirmation, placeholder: "Password confirmation" %>
+      <%= possible_error_for_field(@user_new_account, :password_confirmation) %>
+
+      <p>By creating an account you accept our <%= link_to 'terms', pages_path('terms-of-service'), target: '_blank' %>.</p>
+
+      <button type="submit" data-disable-with="Creating..." class="button pull-right">Create account</button>
+    <% end %>
+  </div>
+
+<% end %>

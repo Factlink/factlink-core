@@ -17,9 +17,6 @@ class window.Channel extends Backbone.Model
     @cache ||= {}
     @cache[field] = (@cache[field] || retrieval())
 
-  subchannels: ->
-    @cached 'subchannels', => fetched(new Subchannels([], channel: this))
-
   topic: ->
     new Topic
       slug_title: @get 'slug_title'
@@ -41,45 +38,6 @@ class window.Channel extends Backbone.Model
   getUsername: ->
     @get("created_by")?.username ? @get("username")
 
-  addToChannel: (sub_channel, options={}) ->
-    @_changeFollowingChannel('add', sub_channel, options)
-
-  removeFromChannel: (sub_channel, options={}) ->
-    @_changeFollowingChannel('remove', sub_channel, options)
-
-  _changeFollowingChannel: (action, sub_channel, options) ->
-    changeUrl = "#{@normal_url()}/subchannels/#{action}/#{sub_channel.id}"
-
-    Backbone.ajax
-      url: changeUrl
-      type: 'post'
-      error: -> options.error?()
-      success: =>
-        mp_track "Channel: #{action} subchannel",
-          channel_id: @id
-          subchannel_id: sub_channel.id
-
-        options.success?()
-
-  is_mine: -> @user().is_current_user()
-
   toJSON: ->
     _.extend super(),
-      is_mine: @is_mine()
       link: @normal_url()
-
-  follow: ->
-    followUrl = "#{@normal_url()}/follow"
-    @set('followed?', true)
-    Backbone.ajax
-      url: followUrl
-      type: 'post'
-      error: => @set('followed?', false)
-
-  unfollow: ->
-    unfollowUrl = "#{@normal_url()}/unfollow"
-    @set('followed?', false)
-    Backbone.ajax
-      url: unfollowUrl
-      type: 'post'
-      error: => @set('followed?', true)

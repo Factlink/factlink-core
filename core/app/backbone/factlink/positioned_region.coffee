@@ -17,7 +17,12 @@ class Backbone.Factlink.PositionedRegion extends Backbone.Factlink.CrossFadeRegi
 
   updatePosition: ->
     if @currentView?
-      Backbone.Factlink.asyncChecking @_visible, @_actuallyUpdatePosition, @
+      @_asyncChecker =
+        Backbone.Factlink.asyncChecking @_visible, @_actuallyUpdatePosition, @
+
+  onClose: ->
+    @_asyncChecker?.close()
+    super()
 
   _actuallyUpdatePosition: ->
     @_checkContainer()

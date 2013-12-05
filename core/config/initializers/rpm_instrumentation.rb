@@ -10,22 +10,6 @@ if defined?(NewRelic)
     add_method_tracer :cannot?
   end
 
-  FactGraph.class_eval do
-    include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
-    include NewRelic::Agent::MethodTracer
-    #add_transaction_tracer :recalculate, category: :task, name: 'recalculate'
-
-    add_transaction_tracer :calculate_authority, category: :task, name: 'calculate_authority'
-    add_transaction_tracer :calculate_user_opinions, category: :task, name: 'calculate_user_opinions'
-    add_transaction_tracer :calculate_graph, category: :task, name: 'calculate_graph'
-  end
-
-  MapReduce.class_eval do
-    include NewRelic::Agent::MethodTracer
-    add_method_tracer :map_reduce, 'MapReduce/#{self.class.name}/map_reduce'
-    add_method_tracer :process_all, 'MapReduce/#{self.class.name}/process_all'
-  end
-
   Pavlov::Operation.class_eval do
     include NewRelic::Agent::MethodTracer
     add_method_tracer :initialize, 'Pavlov/#{self.class.name}/initialize'

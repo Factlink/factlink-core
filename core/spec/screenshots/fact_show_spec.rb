@@ -15,8 +15,6 @@ describe "factlink", type: :feature do
       factlink.add_opiniated :doubts, (create :user).graph_user
     end
 
-    FactGraph.recalculate
-
     go_to_fact_show_of factlink
 
     page.should have_content factlink.data.displaystring
@@ -40,8 +38,6 @@ describe "factlink", type: :feature do
 
     factlink.add_opiniated :believes, (create :user).graph_user
 
-    FactGraph.recalculate
-
     go_to_fact_show_of factlink
 
     page.should have_content factlink.data.displaystring
@@ -58,7 +54,7 @@ describe "factlink", type: :feature do
     sign_out_user
 
     go_to_fact_show_of factlink
-    find('.evidence-box', text: 'Fact 2').find('a', text:'1 comment')
+    first('a', text: '1 comment')
 
     page.should have_content factlink.data.displaystring
 

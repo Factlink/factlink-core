@@ -1,7 +1,6 @@
 class SearchController < ApplicationController
 
   layout "channels"
-  before_filter :authenticate_user!
 
   # Search
   # Not using the same search for the client popup, since we probably want
@@ -15,7 +14,7 @@ class SearchController < ApplicationController
       searched_for: params[:s]
 
     backbone_responder do
-      row_count = 20
+      row_count = 20 # WARNING: coupling with SearchResultView
 
       search_for = params[:s] || ""
       page = 1

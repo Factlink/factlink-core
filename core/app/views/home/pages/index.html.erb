@@ -1,10 +1,10 @@
 <% content_for :header do %>
   <h1>A layer over the web to add and view credibility</h1>
-  <div class="grid-row sign_up_infoblock">
-    <div class="grid-3-col sign_up_form">
-      <h2>Sign up now:</h2>
+  <div class="grid-row">
+    <div class="grid-3-col">
+      <h2>Connect now:</h2>
 
-      <%= render "users/registrations/form", form_id: "top_registration_form" %>
+      <%= render "users/accounts/connect", form_id: "top_registration_form" %>
 
     </div>
     <div class="grid-3-col video">
@@ -58,9 +58,7 @@
 <% content_for :specific_javascript do %>
   <script type="text/javascript">
     $(function(){
-      mp_track('Pageview: Landing page', {
-        code: '<%= @code %>'
-      });
+      mp_track('Pageview: Landing page');
 
       $(".js-frontpage-video-link").on('click', function() {
         $('.js-frontpage-video').fadeIn('fast');

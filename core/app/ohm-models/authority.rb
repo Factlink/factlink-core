@@ -45,14 +45,6 @@ class Authority < OurOhm
       all_related(:on, subject)
     end
 
-    def run_calculation(map_reducers=[])
-      map_reducers.each do |mr|
-        obj = mr.new
-        debug "Running #{obj.class}"
-        obj.process_all
-      end
-    end
-
     private
     def class_for object
       if object.respond_to? :acts_as_class_for_authority

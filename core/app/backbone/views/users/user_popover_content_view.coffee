@@ -11,6 +11,7 @@ class window.UserPopoverContentView extends StatisticsPopoverContentView
 
   _showFollowButton: ->
     return if @model.is_current_user()
+    return unless Factlink.Global.signed_in
 
     @buttonRegion.show new FollowUserButtonView user: @model, mini: true
     @ui.buttonRegion.removeClass 'statistics-popover-content-button-hidden'

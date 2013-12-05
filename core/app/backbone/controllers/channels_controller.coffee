@@ -7,9 +7,13 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
   showSidebarForTopic: (topic) ->
     FactlinkApp.leftBottomRegion.close()
-    @showUserProfile currentUser
-    window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
-    FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
+
+    if Factlink.Global.signed_in
+      @showUserProfile currentUser
+      window.Channels.setUsernameAndRefreshIfNeeded currentUser.get('username') # TODO: check if this can be removed
+      FactlinkApp.Sidebar.showForTopicsAndActivateCorrectItem(topic)
+    else
+      @hideUserProfile()
 
   showTopicFacts: (slug_title) ->
     FactlinkApp.mainRegion.close()
@@ -39,10 +43,13 @@ class window.ChannelsController extends Backbone.Marionette.Controller
 
   showUserProfile: (user)->
     if user.is_current_user()
-      FactlinkApp.leftTopRegion.close()
+      @hideUserProfile()
     else
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
+
+  hideUserProfile: ->
+    FactlinkApp.leftTopRegion.close()
 
   showChannelFacts: (username, channel_id) ->
     FactlinkApp.mainRegion.close()
@@ -67,4 +74,17 @@ class window.ChannelsController extends Backbone.Marionette.Controller
     fact.fetch
       success: =>
         FactlinkApp.DiscussionModalOnFrontend.openDiscussion fact
-        @showStream() unless FactlinkApp.mainRegion.currentView?
+        @_showBackgroundForFact fact
+
+  _showBackgroundForFact: (fact) ->
+    return if FactlinkApp.mainRegion.currentView?
+
+    if Factlink.Global.signed_in
+      @showStream()
+      url = Backbone.history.getFragment currentUser.streamLink()
+    else
+      user = fact.user()
+      FactlinkApp.ProfileController.showProfile user.get('username')
+      url = user.link()
+
+    FactlinkApp.DiscussionModalOnFrontend.setBackgroundPageUrlFromShowFact url

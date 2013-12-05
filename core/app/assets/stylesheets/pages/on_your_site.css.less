@@ -1,0 +1,106 @@
+@import "bootstrap/mixins";
+
+@greyLight        : #fafcfb;
+@grey             : #e0e0e0;
+@greyDarker       : darken(@grey, 10%);
+@borderColor      : #ccc;
+@boderColorDarker : darken(@borderColor, 10%);
+
+@installStepCircle: 40px;
+
+.button-background(@top-color, @bottom-color) {
+  background: @top-color;
+  background: -webkit-linear-gradient(top, @top-color 0%, @bottom-color 100%);
+  background: linear-gradient(to bottom, @top-color 0%, @bottom-color 100%);
+}
+
+.install-step {
+  position: relative;
+  margin: 30px 0 30px 60px;
+}
+
+.install-step-number {
+  border-radius: 1000px;
+  background-color: @linkColor;
+  color: white;
+  text-align: center;
+  line-height: @installStepCircle;
+  width: @installStepCircle;
+  height: @installStepCircle;
+  display: inline-block;
+  margin-right: 10px;
+  right: 100%;
+  position: absolute;
+}
+
+.on-your-site-image{
+  float: right;
+  width: 150px;
+  height: 150px;
+  margin-left:10px;
+}
+
+.code-line {
+  background:@lightYellow;
+  padding: 3px;
+  word-wrap: break-word;
+}
+
+.button-optional {
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.factlink-create-button , .factlink-create-button-square {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+// This following style is related to the publisher button styling in the js-lib,
+// when changing the styling make sure you change both stylesheets
+
+.factlink-create-button {
+  border-radius: 2px;
+  border: 1px solid @borderColor;
+  padding: 2px;
+  width: 70px;
+  line-height: 12px;
+  position: relative;
+  .button-background(@greyLight, @grey);
+
+  &:before {
+    background: image-url("static/icon-14x14.png");
+    width: 14px;
+    height: 14px;
+    content: '';
+    display: inline-block;
+    margin-right: 7px;
+    vertical-align: middle;
+  }
+
+  &:after {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 12px;
+    content: 'Factlink';
+    vertical-align: middle;
+  }
+
+  &:hover {
+    cursor: pointer;
+    .button-background(@grey, @greyDarker);
+    border-color: @boderColorDarker;
+  }
+}
+
+.factlink-create-button-square {
+  background: image-url("static/icon-24x24.png");
+  position:relative;
+  width: 24px;
+  height: 24px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

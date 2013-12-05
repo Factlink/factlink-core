@@ -23,7 +23,6 @@ describe FactsController do
                                      sharing_options: {})
         fact.add_opinion :believes, user.graph_user
       end
-      FactGraph.recalculate
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
       should_check_can :show, fact
@@ -51,7 +50,6 @@ describe FactsController do
                                      sharing_options: {})
         fact.add_opinion :believes, user.graph_user
       end
-      FactGraph.recalculate
 
       ability.should_receive(:can?).with(:show, Fact).and_return(true)
       should_check_can :show, fact
@@ -86,7 +84,6 @@ describe FactsController do
       ability.stub can?: false
       ability.stub(:can?).with(:show, Fact).and_return(true)
 
-      should_check_can :access, Ability::FactlinkWebapp
       should_check_can :show, fact
 
       get :discussion_page, id: fact.id, fact_slug: 'hoi'
@@ -146,6 +143,43 @@ describe FactsController do
 
       get :evidence_search, id: fact.id, s: "Baron"
       response.should be_success
+    end
+  end
+
+  describe :share do
+    it 'should work for twitter' do
+      authenticate_user!(user)
+      create :social_account, :twitter, user: user
+      fact = nil
+      as(user) do |pavlov|
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
+      end
+
+      Twitter::Client.any_instance.should_receive(:update)
+      Twitter.stub configuration: double(short_url_length_https: 20)
+
+      post :share, id: fact.id, fact_sharing_options: {twitter: true}
+    end
+
+    it 'should work for facebook' do
+      authenticate_user!(user)
+      create :social_account, :facebook, user: user
+      fact = nil
+      as(user) do |pavlov|
+        fact = pavlov.interactor(:'facts/create',
+                                     displaystring: 'displaystring',
+                                     url: 'url',
+                                     title: 'title',
+                                     sharing_options: {})
+      end
+
+      Koala::Facebook::API.any_instance.should_receive(:put_wall_post)
+
+      post :share, id: fact.id, fact_sharing_options: {facebook: true}
     end
   end
 end

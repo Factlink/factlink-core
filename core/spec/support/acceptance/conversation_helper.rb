@@ -59,7 +59,7 @@ module Acceptance
     end
 
     def open_message_with_content(message_str)
-      find(".navbar-inner:not(.dimmed) .conversations-link").click
+      find(".conversations-link").click
 
       within '.conversations li' do
         page.should have_content(message_str)

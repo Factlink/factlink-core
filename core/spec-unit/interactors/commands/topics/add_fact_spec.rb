@@ -73,21 +73,4 @@ describe Commands::Topics::AddFact do
       expect(command.fixed_score).to eq current_time
     end
   end
-
-  describe 'validation' do
-    it :fact_id do
-      expect_validating(fact_id: 'a', topic_slug_title: '2e', score: Time.now)
-        .to fail_validation('fact_id should be an integer string.')
-    end
-
-    it :topic_slug_title do
-      expect_validating(fact_id: '1', topic_slug_title: 1, score: Time.now)
-        .to fail_validation('topic_slug_title should be a string.')
-    end
-
-    it :score do
-      expect_validating(fact_id: '1', topic_slug_title: '2e', score: nil)
-        .to fail_validation('score should be a string.')
-    end
-  end
 end

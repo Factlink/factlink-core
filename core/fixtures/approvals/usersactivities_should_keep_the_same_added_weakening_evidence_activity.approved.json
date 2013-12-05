@@ -4,9 +4,9 @@
     "subject_class": "Fact",
     "user": {
       "id": "<STRIPPED>",
-      "name": "John10 Doe10",
-      "username": "johndoe10",
-      "gravatar_hash": "a6bf4b76777f21193ac5201cfa0eeeed",
+      "name": "John2 Doe2",
+      "username": "johndoe2",
+      "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
       "statistics_created_fact_count": 0,
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
@@ -16,17 +16,17 @@
     },
     "action": "added_weakening_evidence",
     "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_added_weakening_evidence_action\">Fact Added Weakening Evidence Action</span>",
-    "subject": "Fact 6",
+    "subject": "Fact 2",
     "time_ago": "1 minute",
     "id": "<STRIPPED>",
     "activity": {
       "action": "added",
-      "evidence": "Fact 6",
-      "evidence_url": "/fact-6/f/2",
-      "fact_url": "/fact-5/f/1",
-      "target_url": "/fact-5/f/1",
-      "fact_displaystring": "Fact 5",
-      "fact": "Fact 5"
+      "evidence": "Fact 2",
+      "evidence_url": "/fact-2/f/2",
+      "fact_url": "/fact-1/f/1",
+      "target_url": "/fact-1/f/1",
+      "fact_displaystring": "Fact 1",
+      "fact": "Fact 1"
     },
     "unread": true
   }

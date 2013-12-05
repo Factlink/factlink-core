@@ -1,5 +1,5 @@
 class ProcessActivity
-  @queue = :activity_operations
+  @queue = :mmm_activity_operations
 
   def self.perform(id)
     activity = Activity[id]

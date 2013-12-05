@@ -2,22 +2,16 @@
 
 div.footer {
   border-top: 1px solid @baseBorderColor;
-  .background();
   box-shadow: inset 0px 1px 3px rgba(0,0,0,0.1);
   padding-bottom: 50px;
 
-  div.divider {
-    margin: 0 auto;
-    width: 294px;
+  .large_arrow {
+    background: image-url('landing/sign_up/arrow.png') no-repeat top center;
+    height: 55px;
+    width: 297px;
     position: relative;
     top: -1px;
-    height: 2px;
-
-    &.large_arrow {
-      background: image-url('landing/sign_up/arrow.png') no-repeat top center;
-      height: 55px;
-      width: 297px;
-    }
+    margin: 0 auto;
   }
 
   hr {

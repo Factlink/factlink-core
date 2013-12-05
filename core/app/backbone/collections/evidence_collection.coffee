@@ -20,21 +20,20 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
       @listenTo collection, 'saved_added_model', -> @trigger 'saved_added_model'
       @listenTo collection, 'error_adding_model', -> @trigger 'error_adding_model'
 
-  comparator: (item) -> - item.get('impact')
-
-  loading: ->
-    _.some @_containedCollections, (collection) -> collection.loading()
+  comparator: (item) -> -item.get('impact')
 
   fetch: (options={}) ->
-    @trigger 'request', this
+    @trigger 'request', @
     _.invoke @_containedCollections, 'fetch', _.extend {}, options, reset: true
 
+  _sub_loading: ->
+    _.some @_containedCollections, (collection) -> collection.loading()
+
   loadFromCollections: (collectionOrModel) ->
-    return if @loading()
-    return unless collectionOrModel in @_containedCollections # collection proxies model's sync
+    return if @_sub_loading() || !@loading()
 
     @reset(_.union (col.models for col in @_containedCollections)...)
-    @trigger 'sync'
+    @trigger 'sync', @
 
   oneSidedEvidenceCollection: (type) ->
     switch type

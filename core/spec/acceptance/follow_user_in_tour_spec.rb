@@ -15,26 +15,25 @@ feature "follow_users_in_tour", type: :feature do
 
     as(@user1) do |pavlov|
       @user1_channel1 = pavlov.command(:'channels/create', title: 'toy')
-      pavlov.command(:'topics/update_user_authority', graph_user_id: @user1.graph_user_id.to_s, topic_slug: @user1_channel1.slug_title, authority: 0)
       @user1_channel2 = pavlov.command(:'channels/create', title: 'story')
-      pavlov.command(:'topics/update_user_authority', graph_user_id: @user1.graph_user_id.to_s, topic_slug: @user1_channel2.slug_title, authority: 3)
+
+      factlink = create :fact, created_by: @user1.graph_user
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user1_channel1)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user1_channel2)
     end
     as(@user2) do |pavlov|
       @user2_channel1 = pavlov.command(:'channels/create', title: 'war')
-      pavlov.command(:'topics/update_user_authority', graph_user_id: @user2.graph_user_id.to_s, topic_slug: @user2_channel1.slug_title, authority: 0)
-
       @user2_channel2 = pavlov.command(:'channels/create', title: 'games')
-      pavlov.command(:'topics/update_user_authority', graph_user_id: @user2.graph_user_id.to_s, topic_slug: @user2_channel2.slug_title, authority: 4568)
+
+      factlink = create :fact, created_by: @user2.graph_user
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user2_channel1)
+      pavlov.interactor(:'channels/add_fact', fact: factlink, channel: @user2_channel2)
     end
   end
 
   scenario "The handpicked users should show up" do
     sign_in_user @user
     visit interests_path
-
-    page.should have_content('What is this?')
-    click_on 'Got it!'
-    page.should_not have_content('What is this?')
 
     page.should have_content("#{@user1.full_name}")
     page.should have_content("#{@user2.full_name}")
@@ -48,11 +47,10 @@ feature "follow_users_in_tour", type: :feature do
   scenario "Text should switch to 'Finish tour' when successfully following someone" do
     sign_in_user @user
     visit interests_path
-    click_on 'Got it!'
 
     page.should have_content('Skip this step')
 
-    # Click on one user
+    page.should have_content('Follow user')
     first(:button, 'Follow user').click
 
     page.should have_content('Following')
@@ -62,8 +60,8 @@ feature "follow_users_in_tour", type: :feature do
   scenario "The user should be able to follow users from the tour" do
     sign_in_user @user
     visit interests_path
-    click_on 'Got it!'
 
+    page.should have_content('Follow user')
     first(:button, 'Follow user').click
 
     go_to_profile_page_of @user
@@ -73,8 +71,8 @@ feature "follow_users_in_tour", type: :feature do
   scenario "When following a user, we also follow her topics" do
     sign_in_user @user
     visit interests_path
-    click_on 'Got it!'
 
+    page.should have_content('Follow user')
     first(:button, 'Follow user').click
     first(:button, 'Follow user').click
 
@@ -86,8 +84,8 @@ feature "follow_users_in_tour", type: :feature do
     sign_in_user @user
 
     visit interests_path
-    click_on 'Got it!'
 
+    page.should have_content('Follow user')
     first(:button, 'Follow user').click
 
     eventually_succeeds 10 do

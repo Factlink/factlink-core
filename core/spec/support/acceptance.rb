@@ -2,13 +2,12 @@ module Acceptance
   include PavlovSupport
 
   def sign_in_user(user)
-    visit "/"
-    first(:link, "Sign in", exact: true).click
-    fill_in "user_login", :with => user.email
-    fill_in "user_password", :with => user.password
+    visit factlink_accounts_new_path
+    fill_in "user_new_session[login]", with: user.email
+    fill_in "user_new_session[password]", with: user.password
     click_button "Sign in"
 
-    @current_user = user
+    visit root_path
 
     user
   end
@@ -19,13 +18,7 @@ module Acceptance
   end
 
   def sign_out_user
-    @current_user = nil
     visit "/users/sign_out"
-  end
-
-  def use_features *new_features
-    features = @current_user.features.to_a + new_features
-    @current_user.features = features
   end
 
   def enable_features(user, *features)

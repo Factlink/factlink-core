@@ -16,7 +16,7 @@ class Comment
     @believable ||= Believable::Commentje.new(id.to_s)
   end
 
-  def fact
-    fact_data.fact
+  def to_s
+    content
   end
 end

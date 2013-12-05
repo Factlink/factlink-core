@@ -24,12 +24,15 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
   modalCurrentlyOpened = ->
     discussionModalContainer?
 
+  setBackgroundPageUrl = (fragment) ->
+    background_page_url = Backbone.history.getFragment(fragment)
+
   DiscussionModalOnFrontend.addInitializer ->
     return if FactlinkApp.onClientApp
 
-    background_page_url = Backbone.history.getFragment currentUser.streamLink()
-
     FactlinkApp.vent.on 'close_discussion_modal', ->
+      throw 'background_page_url is null' unless background_page_url?
+
       Backbone.history.navigate background_page_url, true
 
     addBackboneHistoryCallbacksForDiscussionModal()
@@ -37,13 +40,16 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
   DiscussionModalOnFrontend.setBackgroundPageUrlFromLoadUrl = (fragment) ->
     return if openingModalPage(fragment)
 
-    background_page_url = fragment
+    setBackgroundPageUrl fragment
 
   DiscussionModalOnFrontend.setBackgroundPageUrlFromNavigate = (fragment) ->
     return if openingModalPage(fragment)
     return if modalCurrentlyOpened() # Prevent prematurely setting the url when navigating from the discussion modal
 
-    background_page_url = fragment
+    setBackgroundPageUrl fragment
+
+  DiscussionModalOnFrontend.setBackgroundPageUrlFromShowFact = (fragment) ->
+    setBackgroundPageUrl fragment
 
   DiscussionModalOnFrontend.closeDiscussionAndAlreadyOnBackgroundPage = (fragment) ->
     return false unless modalCurrentlyOpened()
@@ -56,14 +62,16 @@ FactlinkApp.module "DiscussionModalOnFrontend", (DiscussionModalOnFrontend, Fact
   DiscussionModalOnFrontend.openDiscussion = (fact) ->
     Backbone.history.navigate fact.get('url'), false
 
-    if !discussionModalContainer
+    unless discussionModalContainer
       discussionModalContainer = new DiscussionModalContainer
       FactlinkApp.discussionModalRegion.show discussionModalContainer
+
     discussionModalContainer.mainRegion.show new DiscussionView model: fact
 
   DiscussionModalOnFrontend.closeDiscussion = ->
     discussionModalContainer.fadeOut ->
       FactlinkApp.discussionModalRegion.close()
+
     discussionModalContainer = null
 
     FactlinkApp.ModalWindowContainer.close()

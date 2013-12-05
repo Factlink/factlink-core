@@ -94,41 +94,4 @@ describe ChannelList do
         to eq [ch1.id, ch3.id]
     end
   end
-
-  describe ".containing_channel_ids_for_channel" do
-    let(:current_user) {create :user}
-
-    subject {ChannelList.new(u1)}
-    let(:ch) {Channel.create(created_by: u1, title: "Subject")}
-
-    let(:u1_ch1) {Channel.create(created_by: u1, title: "Something")}
-    let(:u2_ch1) {Channel.create(created_by: u2, title: "Something")}
-
-    let(:u1) { create(:user).graph_user }
-    let(:u2) { create(:user).graph_user }
-
-    describe "initially" do
-      it "is empty" do
-        subject.containing_channel_ids_for_channel(ch).to_a.should =~ []
-      end
-    end
-    describe "after adding to a own channel" do
-      it "contains the channel" do
-        as(current_user) do |pavlov|
-          pavlov.command(:'channels/add_subchannel', channel: u1_ch1, subchannel: ch)
-        end
-        subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
-      end
-    end
-    describe "after adding to someone else's channel" do
-      it "contains only my channels" do
-        as(current_user) do |pavlov|
-          pavlov.command(:'channels/add_subchannel', channel: u1_ch1, subchannel: ch)
-          pavlov.command(:'channels/add_subchannel', channel: u2_ch1, subchannel: ch)
-        end
-        subject.containing_channel_ids_for_channel(ch).to_a.should =~ [u1_ch1.id]
-      end
-    end
-  end
-
 end

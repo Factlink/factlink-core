@@ -37,12 +37,10 @@ module FactlinkUI
 
     config.mongoid.observers = :user_observer, :topic_observer, :fact_data_observer
 
-    require_dependency "#{config.root}/app/classes/map_reduce.rb"
     require_dependency "#{config.root}/app/classes/redis_utils.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
     require_dependency "#{config.root}/app/ohm-models/authority.rb"
-    require_dependency "#{config.root}/app/ohm-models/fact_graph.rb"
     require_dependency "#{config.root}/app/models/fact_data.rb"
     require_dependency "#{config.root}/app/ohm-models/fact.rb"
     require_dependency "#{config.root}/app/ohm-models/fact_relation.rb"
@@ -64,13 +62,12 @@ module FactlinkUI
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
-    # Block frame busting for all routes except the intermediate
+    # Block frame busting for all routes except client/blank
     # If you update this route, also update it here please.
     #
     # Why?
-    # - /factlink/intermediate  : Loaded in iframe through JS Library
-    # - /facts/new              : Loaded in iframe through Chrome Extension (popup)
-    # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/factlink/intermediate", "/facts/new"]
+    # - /client/blank  : Loaded in iframe through JS Library
+    # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/client/blank"]
 
 
     config.middleware.insert_before("Rack::Lock", "Rack::Rewrite") do
@@ -129,7 +126,6 @@ module FactlinkUI
 
       'application.js',
       'frontend.js',
-      'intermediate.js',
       'admin.js',
       'jquery.js',
     ]

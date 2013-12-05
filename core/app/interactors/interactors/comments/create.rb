@@ -13,17 +13,11 @@ module Interactors
         command(:'comments/set_opinion',
                     comment_id: comment.id.to_s, opinion: 'believes',
                     graph_user: pavlov_options[:current_user].graph_user)
-        command(:'opinions/recalculate_comment_user_opinion',
-                    comment: comment)
 
         create_activity comment
 
-        query(:'comments/add_authority_and_opinion_and_can_destroy',
-                  comment: comment, fact: fact)
-      end
-
-      def fact
-        Fact[fact_id]
+        query(:'comments/add_opinion_and_can_destroy',
+                  comment: comment)
       end
 
       def create_activity comment

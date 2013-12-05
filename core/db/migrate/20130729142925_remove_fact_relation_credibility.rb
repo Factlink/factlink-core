@@ -1,6 +1,6 @@
 class RemoveFactRelationCredibility < Mongoid::Migration
   def self.up
-    Resque.enqueue(RemoveFactRelationCredibilityJob)
+    puts "old migration doesn't do anything anymore"
   end
 
   def self.down

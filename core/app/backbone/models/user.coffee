@@ -27,6 +27,8 @@ class window.User extends Backbone.Model
 
   streamLink: -> "/#{@get('username')}/feed"
 
+  link: -> "/#{@get('username')}"
+
   toJSON: ->
     username = @get('username')
     _.extend super(),
@@ -34,7 +36,7 @@ class window.User extends Backbone.Model
       edit_path: "/#{username}/edit",
       change_password_path: "/#{username}/password/edit"
       notifications_settings_path: "/#{username}/notification-settings"
-      link: "/#{username}"
+      link: @link()
       avatar_url_20: @avatar_url(20)
       avatar_url_24: @avatar_url(24)
       avatar_url_32: @avatar_url(32)

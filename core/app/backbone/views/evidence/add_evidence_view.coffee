@@ -11,8 +11,12 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   events:
     'click .js-cancel': -> @model.set showBox: false
-    'click .js-supporting-button': -> @model.set showBox: true, evidenceType: 'supporting'
-    'click .js-weakening-button': -> @model.set showBox: true, evidenceType: 'weakening'
+
+    'click .js-supporting-button, .js-supporting-tooltip': ->
+      @model.set showBox: true, evidenceType: 'supporting'
+
+    'click .js-weakening-button, .js-weakening-tooltip': ->
+      @model.set showBox: true, evidenceType: 'weakening'
 
   regions:
     headingRegion: '.js-heading-region'
@@ -59,19 +63,5 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     return if @_popoversRendered
     return unless @$el.is(':visible')
     return if @model.get('showBox')
-
-    @popoverAdd '.js-supporting-button',
-      side: 'right'
-      margin: 10
-      container: @ui.buttons
-      contentView: new TextView text: 'Add supporting argument'
-      popover_className: 'translucent-popover translucent-grey-popover'
-
-    @popoverAdd '.js-weakening-button',
-      side: 'left'
-      margin: 10
-      container: @ui.buttons
-      contentView: new TextView text: 'Add weakening argument'
-      popover_className: 'translucent-popover translucent-grey-popover'
 
     @_popoversRendered = true

@@ -1,3 +1,5 @@
+# TODO REMOVE: This command is only used in tests
+
 module Commands
   module Channels
     class Create
