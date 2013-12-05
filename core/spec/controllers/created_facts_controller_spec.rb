@@ -14,12 +14,12 @@ describe CreatedFactsController do
     f1 = create :fact, created_by: user.graph_user
     f2 = create :fact, created_by: user.graph_user
     f3 = create :fact, created_by: user.graph_user
-      
+
     channel = create :channel, created_by: user.graph_user
     [f1,f2,f3].each do |f|
       Interactors::Channels::AddFact.new(fact: f, channel: channel, pavlov_options: { no_current_user: true }).call
     end
-  
+
     authenticate_user!(user)
 
     get :index, username: user.username, format: :json
