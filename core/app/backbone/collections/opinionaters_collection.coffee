@@ -7,8 +7,8 @@ class window.OpinionatersCollection extends Backbone.Factlink.Collection
   initialize: (models, options) ->
     @_fact_id = options.fact.id
 
-    wheel = options.fact.getFactWheel()
-    wheel.on 'sync', =>
+    votes = options.fact.getFactVotes()
+    votes.on 'sync', =>
       @fetch()
 
   fact_id: -> @_fact_id
