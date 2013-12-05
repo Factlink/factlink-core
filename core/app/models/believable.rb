@@ -28,7 +28,7 @@ class Believable
     OpinionType.types.each do |opinion|
       return opinion if opiniated(opinion).include? graph_user
     end
-    return nil
+    return :no_vote
   end
 
   # the following three functions should be considered
