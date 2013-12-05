@@ -17,7 +17,7 @@ module Queries
                                               parent_id: comment.id.to_s,
                                               parent_class: comment.class.to_s)
 
-        query(:'comments/add_opinion_and_can_destroy',
+        query(:'comments/add_votes_and_can_destroy',
                   comment: comment)
 
       end

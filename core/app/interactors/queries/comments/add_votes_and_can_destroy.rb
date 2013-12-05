@@ -1,6 +1,6 @@
 module Queries
   module Comments
-    class AddOpinionAndCanDestroy
+    class AddVotesAndCanDestroy
       include Pavlov::Query
 
       arguments :comment
