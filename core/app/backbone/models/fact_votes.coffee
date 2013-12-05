@@ -18,7 +18,7 @@ class window.FactVotes extends Backbone.Model
     @set newValue, @get(newValue)+1 if newValue != 'no_vote'
     @set 'current_user_opinion', newValue
 
-  setActiveOpinionType: (opinion_type) ->
+  saveCurrentUserOpinion: (opinion_type) ->
     @previous_opinion_type = @get('current_user_opinion')
 
     @setCurrentUserOpinion opinion_type
