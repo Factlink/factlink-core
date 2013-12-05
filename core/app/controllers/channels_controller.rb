@@ -109,19 +109,6 @@ class ChannelsController < ApplicationController
     render json: {}, status: :ok
   end
 
-  def facts
-    authorize! :show, @channel
-
-    from = params[:timestamp].to_i if params[:timestamp]
-    count = params[:number].to_i if params[:number]
-
-    @facts = interactor(:'channels/facts', id: @channel.id, from: from, count: count)
-
-    respond_to do |format|
-      format.json { render }
-    end
-  end
-
   def add_fact
     fact = Fact[params[:fact_id]]
 

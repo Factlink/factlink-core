@@ -11,10 +11,8 @@ describe 'when adding a fact to a channel' do
 
         channel = pavlov.command :'channels/create', title: 'something'
         pavlov.interactor :'channels/add_fact', fact: fact, channel: channel
-
-        facts = pavlov.interactor :'channels/facts', id: channel.id, from: nil, count: nil
-        latest_fact = facts.map{|i| i[:item]}[0]
-        expect(latest_fact).to eq fact
+        
+        expect(channel).to include(fact)
       end
     end
 
