@@ -3,7 +3,7 @@
 # - simplify rest api (no need for delete!)
 # - pursue these changes into related code.
 
-class window.Wheel extends Backbone.Model
+class window.FactVotes extends Backbone.Model
   defaults:
     believes_count: 0
     disbelieves_count: 0
