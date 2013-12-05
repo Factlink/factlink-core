@@ -51,9 +51,9 @@ describe SupportingEvidenceController do
 
         fact_votes = parsed_content["from_fact"]["fact_votes"]
 
-        expect(fact_votes["believes_count"]).to eq 0
-        expect(fact_votes["doubts_count"]).to eq 0
-        expect(fact_votes["disbelieves_count"]).to eq 1
+        expect(fact_votes["believes"]).to eq 0
+        expect(fact_votes["doubts"]).to eq 0
+        expect(fact_votes["disbelieves"]).to eq 1
       end
     end
   end
