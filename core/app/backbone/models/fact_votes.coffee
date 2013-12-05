@@ -8,6 +8,7 @@ class window.FactVotes extends Backbone.Model
     believes: 0
     disbelieves: 0
     doubts: 0
+    current_user_opinion: 'no_vote'
 
   url: -> "/facts/#{@get('fact_id')}/opinion"
 
