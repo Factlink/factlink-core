@@ -11,8 +11,8 @@ class window.FactVotes extends Backbone.Model
 
   setCurrentUserOpinion: (newValue) ->
     previousValue = @get('current_user_opinion')
-    @set "#{previousValue}_count", @get("#{previousValue}_count")-1 if previousValue?
-    @set "#{newValue}_count", @get("#{newValue}_count")+1 if newValue?
+    @set "#{previousValue}_count", @get("#{previousValue}_count")-1 if previousValue != 'no_vote'
+    @set "#{newValue}_count", @get("#{newValue}_count")+1 if newValue != 'no_vote'
     @set 'current_user_opinion', newValue
 
   # TODO: Use @save here!!
@@ -30,19 +30,14 @@ class window.FactVotes extends Backbone.Model
           opinion: opinion_type
         @trigger 'sync', this, response # TODO: Remove when using Backbone sync
       error: =>
-        # TODO: This is not a proper undo. Should be restored to the current
-        #       state when the request fails.
-        if @previous_opinion_type
-          @setCurrentUserOpinion @previous_opinion_type
-        else
-          @setCurrentUserOpinion null
+        @setCurrentUserOpinion @previous_opinion_type
         FactlinkApp.NotificationCenter.error "Something went wrong while setting your opinion on the Factlink, please try again."
 
   # TODO: Use @save here!!
   unsetActiveOpinionType: ->
     @previous_opinion_type = @get('current_user_opinion')
     fact_id = @get('fact_id')
-    @setCurrentUserOpinion null
+    @setCurrentUserOpinion 'no_vote'
 
     Backbone.sync 'delete', this,
       attrs: {}
