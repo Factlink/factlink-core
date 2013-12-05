@@ -158,13 +158,6 @@ FactlinkUI::Application.routes.draw do
             delete "/" => "channels#remove_fact",  as: "remove_fact_from"
 
             get "/evidence_search" => "facts#evidence_search"
-
-            resource :supporting_evidence, :weakening_evidence do
-              scope '/:evidence_id' do
-                post    "/opinion/:type", action: :set_opinion,  as: "set_opinion"
-                delete  "/opinion/", action:  :remove_opinions,  as: "delete_opinion"
-              end
-            end
           end
         end
       end
