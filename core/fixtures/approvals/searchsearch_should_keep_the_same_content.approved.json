@@ -48,10 +48,10 @@
       "created_by_ago": "Posted 1 minute ago",
       "fact_title": "Fact title 1",
       "fact_votes": {
-        "believes_count": 0,
-        "disbelieves_count": 0,
-        "doubts_count": 0,
-        "current_user_opinion": null
+        "believes": 0,
+        "disbelieves": 0,
+        "doubts": 0,
+        "current_user_opinion": "no_vote"
       },
       "fact_url": "http://example.org/1.html",
       "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",

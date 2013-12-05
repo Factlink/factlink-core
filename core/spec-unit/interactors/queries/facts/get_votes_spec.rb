@@ -9,7 +9,7 @@ describe Queries::Facts::GetVotes do
   end
 
   describe '#call' do
-    it 'returns a fact_wheel representation' do
+    it 'returns votes and current_user_opinion' do
       opinion = :believes
       believable = double votes: {believes_count: 1}
       live_fact = double :fact, id: '1', believable: believable
@@ -28,7 +28,7 @@ describe Queries::Facts::GetVotes do
       expect(votes[:current_user_opinion]).to eq :believes
     end
 
-    it 'returns a fact_wheel when there is no current user' do
+    it 'current_user_opinion :no_vote when no user is given' do
       believable = double votes: {believes_count: 1}
       live_fact = double id: '1', believable: believable
       user = nil
@@ -41,7 +41,7 @@ describe Queries::Facts::GetVotes do
       votes = query.call
 
       expect(votes[:believes_count]).to eq 1
-      expect(votes[:current_user_opinion]).to eq nil
+      expect(votes[:current_user_opinion]).to eq :no_vote
     end
   end
 end

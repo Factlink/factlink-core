@@ -119,7 +119,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     if @model.totalCount() > 0
       _.extend {total: @model.totalCount()}, @model.attributes
     else
-      return {believes_count: 0, disbelieves_count: 0, doubts_count: 1, total: 1}
+      return {believes: 0, disbelieves: 0, doubts: 1, total: 1}
 
   displayableFractions: ->
     counts = @wheelCounts()
@@ -128,7 +128,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     large_ones = 0
 
     for key, opinionStyle of @options.opinionStyles
-      fractions[key] = counts[opinionStyle.attributeName] / counts.total
+      fractions[key] = counts[key] / counts.total
 
       if fractions[key] < @options.minimalVisibleFraction
         too_much += @options.minimalVisibleFraction - fractions[key]
@@ -214,9 +214,9 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         margin: @maxStrokeWidth()/2 - 3
       selector: selector
       tooltipViewFactory: =>
-        opinionStyle = @options.opinionStyles[type]
-        count = @model.get(opinionStyle.attributeName)
-        new TextView text: "#{opinionStyle.groupname}: #{count}"
+        name = @options.opinionStyles[type].groupname
+        count = @model.get(type)
+        new TextView text: "#{name}: #{count}"
 
   _tooltipSideForPath: (path) ->
     bbox = path.getBBox()

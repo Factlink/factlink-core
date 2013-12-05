@@ -6,11 +6,7 @@ module Queries
       arguments :id
 
       def execute
-        if current_user
-          votes.merge current_user_opinion: current_user_opinion
-        else
-          votes
-        end
+        votes.merge current_user_opinion: current_user_opinion
       end
 
       def votes
@@ -22,6 +18,8 @@ module Queries
       end
 
       def current_user_opinion
+        return :no_vote unless current_user
+
         fact.believable.opinion_of_graph_user current_user.graph_user
       end
 
