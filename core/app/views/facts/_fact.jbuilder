@@ -25,10 +25,8 @@ end
 json.created_by_ago "Posted #{TimeFormatter.as_time_ago dead_fact.created_at} ago"
 
 json.fact_title dead_fact.title
-json.fact_wheel do |j|
-  j.partial! partial: 'facts/fact_wheel',
-                formats: [:json], handlers: [:jbuilder],
-                locals: { dead_fact_wheel: dead_fact.wheel }
+json.fact_votes do |j|
+  j.partial! 'facts/fact_votes', fact_votes: dead_fact.votes
 end
 
 if dead_fact.site_url

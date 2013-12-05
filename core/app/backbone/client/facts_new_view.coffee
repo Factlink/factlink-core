@@ -59,14 +59,14 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @suggestedTopicsRegion.show suggestionView
 
   renderPersistentWheelView: ->
-    @wheel = new Wheel
+    @wheel = new FactVotes
     persistentWheelView = new PersistentWheelView
       el: @$('.fact-wheel')
       model: @wheel
-      showsAuthorityTooltip: FactlinkApp.guided
+      showsTotalVotesTooltip: FactlinkApp.guided
     persistentWheelView.render()
 
-    persistentWheelView.on 'opinionSet', =>
+    @wheel.on 'change:current_user_opinion', =>
       @ui.opinion_animation.hide()
       @closeOpinionHelptext()
 
@@ -81,7 +81,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     channel_ids = @addToCollection.pluck('id')
 
     fact = new Fact
-      opinion: @wheel.userOpinionWithS()
+      opinion: @wheel.get('current_user_opinion')
       displaystring: @options.fact_text
       fact_url: @options.url
       fact_title: @options.title

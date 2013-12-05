@@ -44,11 +44,11 @@ class window.TopFactView extends Backbone.Marionette.Layout
     deleteButtonView
 
   _wheelView: ->
-    wheel = @model.getFactWheel()
+    votes = @model.getFactVotes()
 
     wheel_view_options =
       fact: @model.attributes
-      model: wheel
+      model: votes
       radius: 45
 
     if Factlink.Global.signed_in
@@ -57,7 +57,7 @@ class window.TopFactView extends Backbone.Marionette.Layout
       wheel_view = new BaseFactWheelView _.defaults(respondsToMouse: false, wheel_view_options)
 
     @listenTo @model, 'change', ->
-      wheel.setRecursive @model.get("fact_wheel")
+      votes.set @model.get("fact_votes")
       wheel_view.render()
 
     wheel_view
