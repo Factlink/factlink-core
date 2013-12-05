@@ -7,7 +7,7 @@ getTextRange = ->
   else
     ''
 
-FactlinkJailRoot.createFactFromSelection = () ->
+FactlinkJailRoot.createFactFromSelection = ->
   success = ->
     FactlinkJailRoot.createButton.hide()
     FactlinkJailRoot.off 'modalOpened', success
