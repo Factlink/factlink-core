@@ -49,11 +49,11 @@ describe SupportingEvidenceController do
 
         parsed_content = JSON.parse(response.body)
 
-        opinions = parsed_content["from_fact"]["fact_wheel"]["opinion_types"]
+        fact_votes = parsed_content["from_fact"]["fact_votes"]
 
-        opinions["believe"]["percentage"].should == 0
-        opinions["doubt"]["percentage"].should == 0
-        opinions["disbelieve"]["percentage"].should == 100
+        expect(fact_votes["believes_count"]).to eq 0
+        expect(fact_votes["doubts_count"]).to eq 0
+        expect(fact_votes["disbelieves_count"]).to eq 1
       end
     end
   end
