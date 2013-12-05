@@ -17,20 +17,8 @@ class window.Comment extends Evidence
 
   can_destroy: -> @get 'can_destroy?'
 
-  setOpinion: (type) ->
-    @previous_user_opinion = @get('current_user_opinion')
-
-    @save opinion: type
-
-  believe: -> @setOpinion 'believes'
-  disbelieve: -> @setOpinion 'disbelieves'
-
-  current_opinion: -> @get('current_user_opinion')
-  isBelieving: -> @get('current_user_opinion') == 'believes'
-  isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
-
-  removeOpinion: -> @unset('opinion'); @save()
-
   urlRoot: -> @collection.commentsUrl()
 
-  argumentVotes: -> new ArgumentVotes {}, urlRoot: '' # TODO: implement
+  argumentVotes: ->
+    @_argumentVotes ?= new ArgumentVotes @get('argument_votes'),
+      urlRoot: @url()
