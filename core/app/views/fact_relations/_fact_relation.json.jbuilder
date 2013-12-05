@@ -6,7 +6,7 @@ else
   votes = fact_relation.votes
 end
 
-json.evidence_votes do |j|
+json.argument_votes do |j|
   j.partial! 'believable/votes', votes: votes
 end
 
