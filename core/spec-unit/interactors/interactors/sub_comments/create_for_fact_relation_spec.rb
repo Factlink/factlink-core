@@ -13,7 +13,7 @@ describe Interactors::SubComments::CreateForFactRelation do
     ability = double
     ability.stub(:can?).with(:show, fact_relation).and_return(false)
     interactor = described_class.new(fact_relation_id: 1, content: 'hoi',
-      pavlov_options: { current_user: nil, ability: ability})
+                                     pavlov_options: { current_user: nil, ability: ability})
     FactRelation.should_receive(:[]).and_return(fact_relation)
 
     expect do
@@ -55,7 +55,7 @@ describe Interactors::SubComments::CreateForFactRelation do
       ability.stub(:can?).with(:create, SubComment).and_return(true)
       options = { current_user: user, ability: ability }
       interactor = described_class.new(fact_relation_id: fact_relation_id,
-        content: content, pavlov_options: options)
+                                       content: content, pavlov_options: options)
 
       FactRelation.stub :[] => fact_relation
       Pavlov.should_receive(:command)
@@ -73,7 +73,7 @@ describe Interactors::SubComments::CreateForFactRelation do
     it 'throws an error when the fact relation does not exist' do
       ability = double can?: true
       interactor = described_class.new(fact_relation_id: 1, content: 'content',
-        pavlov_options: { current_user: double, ability: ability })
+                                       pavlov_options: { current_user: double, ability: ability })
 
       FactRelation.stub :[] => nil
 
@@ -90,7 +90,7 @@ describe Interactors::SubComments::CreateForFactRelation do
       ability = double(can?: true)
       options = { current_user: double, ability: ability }
       interactor = described_class.new(fact_relation_id: fact_relation.id,
-        content: 'hoi', pavlov_options: options)
+                                       content: 'hoi', pavlov_options: options)
 
       FactRelation.should_receive(:[])
         .with(fact_relation.id)
@@ -105,7 +105,7 @@ describe Interactors::SubComments::CreateForFactRelation do
       ability = double(can?: true)
       options = { current_user: double, ability: ability }
       interactor = described_class.new(fact_relation_id: fact_relation.id,
-        content: 'hoi', pavlov_options: options)
+                                       content: 'hoi', pavlov_options: options)
 
       FactRelation.should_receive(:[]).with(fact_relation.id).and_return(fact_relation)
 

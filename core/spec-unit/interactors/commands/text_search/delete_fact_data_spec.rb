@@ -28,4 +28,3 @@ describe Commands::TextSearch::DeleteFactData do
   end
 
 end
-

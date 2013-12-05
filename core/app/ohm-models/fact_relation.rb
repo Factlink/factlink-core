@@ -46,7 +46,7 @@ class FactRelation < OurOhm
       fact: to,
       type: type
     )
-    raise "Creating FactRelation went wrong" if fact_relation.new?
+    fail "Creating FactRelation went wrong" if fact_relation.new?
 
     #TODO this should use a collection
     to.evidence(type) << fact_relation
@@ -71,14 +71,14 @@ class FactRelation < OurOhm
   end
 
   def delete
-    self.class.key['gcby'][from_fact.id][self.type][fact.id].del
-    fact.evidence(self.type).delete(self)
+    self.class.key['gcby'][from_fact.id][type][fact.id].del
+    fact.evidence(type).delete(self)
     believable.delete
     super
   end
 
   def believable
-    @believable ||= Believable.new(self.key)
+    @believable ||= Believable.new(key)
   end
 
   def add_opinion(type, user)

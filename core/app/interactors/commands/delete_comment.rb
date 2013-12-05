@@ -16,7 +16,7 @@ module Commands
 
     def authorized_in_execute
       can_destroy = query :'comments/can_destroy', comment_id: comment_id, user_id: user_id
-      raise Pavlov::AccessDenied, 'Unauthorized' unless can_destroy
+      fail Pavlov::AccessDenied, 'Unauthorized' unless can_destroy
     end
   end
 end

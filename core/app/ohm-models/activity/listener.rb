@@ -32,7 +32,7 @@ class Activity < OurOhm
 
     def add_to activity
       res = []
-      self.queries.each do |query|
+      queries.each do |query|
         if matches(query, activity)
           res += query[:write_ids].call(activity)
         end
@@ -50,7 +50,7 @@ class Activity < OurOhm
                       query[:extra_condition].nil?
 
       extra_condition = query.fetch(:extra_condition) do
-        ->(a) {true}
+        ->(a) {true }
       end
 
       field_query.each_pair do |field, value|
@@ -69,7 +69,7 @@ class Activity < OurOhm
       extra_keys = query.keys -
                    fields_query.keys -
                    [:extra_condition, :write_ids]
-      raise Exception.exception("Extra keys: #{extra_keys}") if extra_keys != []
+      fail Exception.exception("Extra keys: #{extra_keys}") if extra_keys != []
 
       fields_query
     end
@@ -77,7 +77,7 @@ class Activity < OurOhm
     def process activity
       add_to(activity).each do |id|
                                      # constantize
-        klass = self.activity_for.split('::').inject(Kernel) {|x,y|x.const_get(y)}
+        klass = activity_for.split('::').inject(Kernel) { |x,y|x.const_get(y) }
         instance = klass[id]
         activity.add_to_list_with_score(instance.send(listname)) if instance
       end

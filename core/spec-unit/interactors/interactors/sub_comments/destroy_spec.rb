@@ -16,7 +16,7 @@ describe Interactors::SubComments::Destroy do
       ability = double
       ability.stub(:can?).with(:destroy, sub_comment).and_return(false)
       interactor = described_class.new(id: sub_comment.id,
-        pavlov_options: { current_user: current_user, ability: ability })
+                                       pavlov_options: { current_user: current_user, ability: ability })
 
       SubComment.should_receive(:find).with(sub_comment.id)
                 .and_return(sub_comment)
@@ -40,7 +40,7 @@ describe Interactors::SubComments::Destroy do
       ability = double can?: true
       pavlov_options = { current_user: double, ability: ability }
       interactor = described_class.new(id: id,
-        pavlov_options: pavlov_options)
+                                       pavlov_options: pavlov_options)
 
       SubComment.stub :find
       Pavlov.should_receive(:command)

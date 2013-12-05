@@ -17,7 +17,7 @@ module Queries
     end
 
     def validate
-      raise 'Keywords must not be empty' unless @keywords.length > 0
+      fail 'Keywords must not be empty' unless @keywords.length > 0
     end
   end
 end

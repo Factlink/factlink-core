@@ -22,7 +22,7 @@ describe Interactors::Topics::Unfavourite do
       ability.stub(:can?).with(:edit_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
       interactor = described_class.new(user_name: 'username',
-        slug_title: 'slug_title', pavlov_options: pavlov_options)
+                                       slug_title: 'slug_title', pavlov_options: pavlov_options)
 
       Pavlov.stub(:query)
         .with(:user_by_username, username: 'username', pavlov_options: pavlov_options)
@@ -48,7 +48,7 @@ describe Interactors::Topics::Unfavourite do
       pavlov_options = { current_user: current_user, ability: ability }
 
       interactor = described_class.new(user_name: user_name,
-        slug_title: slug_title, pavlov_options: pavlov_options)
+                                       slug_title: slug_title, pavlov_options: pavlov_options)
 
       topic = double(id: double)
 

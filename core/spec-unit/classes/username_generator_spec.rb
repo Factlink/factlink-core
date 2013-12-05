@@ -82,7 +82,7 @@ describe UsernameGenerator do
       max_length = 10
 
       expect do
-        subject.generate_from(name, max_length){false}
+        subject.generate_from(name, max_length) { false }
       end.to raise_error
     end
   end

@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   def create
     fact_id = get_fact_id_param
     @comment = interactor(:'comments/create', fact_id: fact_id, type: type,
-                              content: params[:content])
+                                              content: params[:content])
 
     render 'comments/show', formats: [:json]
   rescue Pavlov::ValidationError

@@ -38,7 +38,7 @@ describe Queries::Evidence::ForFactId do
       type = :weakening
       pavlov_options = { current_user: double }
       interactor = described_class.new fact_id: '1', type: type,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
 
       Fact.stub(:[])
           .with(fact.id)

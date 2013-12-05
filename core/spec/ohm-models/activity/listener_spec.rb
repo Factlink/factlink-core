@@ -55,7 +55,7 @@ describe Activity::Listener do
     end
 
     it "should return the id of the blob and list to which to add if a query matches" do
-      subject.queries << {subject: Blob, write_ids: ->(a) { [1,2,3]}}
+      subject.queries << {subject: Blob, write_ids: ->(a) { [1,2,3] }}
       subject.stub(matches: true)
       expect(subject.add_to(@a)).to eq [1,2,3]
     end
@@ -145,7 +145,7 @@ describe Activity::Listener do
       },@a)).to be_true
       expect(subject.matches({
         subject_class: Blob,
-        extra_condition: ->(a) { a.action.to_s == 'barfoo'}
+        extra_condition: ->(a) { a.action.to_s == 'barfoo' }
       },@a)).to be_false
     end
   end

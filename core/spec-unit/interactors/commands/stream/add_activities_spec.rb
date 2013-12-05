@@ -11,7 +11,7 @@ describe Commands::Stream::AddActivities do
 
       pavlov_options = { current_user: user }
       command = described_class.new activities: activities,
-        pavlov_options: pavlov_options
+                                    pavlov_options: pavlov_options
 
       activities[0].should_receive(:add_to_list_with_score)
                    .with(user.graph_user.stream_activities)

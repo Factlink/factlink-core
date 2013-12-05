@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/interactors/search_user.rb'
 describe Interactors::SearchUser do
   include PavlovSupport
 
-  let(:relaxed_ability) { double(:ability, can?: true)}
+  let(:relaxed_ability) { double(:ability, can?: true) }
 
   before do
     stub_classes 'Topic', 'Queries::ElasticSearchUser',
@@ -30,7 +30,7 @@ describe Interactors::SearchUser do
       ability.stub can?: false
 
       interactor = described_class.new keywords: keywords,
-        pavlov_options: { ability: ability }
+                                       pavlov_options: { ability: ability }
 
       expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)
@@ -40,7 +40,7 @@ describe Interactors::SearchUser do
     it 'correctly' do
       keywords = 'searching for this user'
       interactor = described_class.new keywords: keywords,
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
       user = double(hidden?: false)
 
       Pavlov.should_receive(:query)
@@ -55,7 +55,7 @@ describe Interactors::SearchUser do
     it 'should not return hidden users' do
       keywords = 'searching for this user'
       interactor = described_class.new keywords: keywords,
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
       user = double(hidden?: true)
 
       Pavlov.should_receive(:query)

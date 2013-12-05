@@ -26,7 +26,7 @@ module Acceptance
       end
 
       within '.start-conversation' do
-        recipients.each {|r| add_recipient r.name}
+        recipients.each { |r| add_recipient r.name }
         find(:css, 'textarea').click
         sleep 0.1
         find(:css, 'textarea').set(message)

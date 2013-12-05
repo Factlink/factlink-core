@@ -11,7 +11,7 @@ describe Queries::Believable::Votes do
       user = double :user, graph_user: double
       pavlov_options = {current_user: user}
       interactor = described_class.new believable: believable,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
 
       believable.stub(:opinion_of_graph_user).with(user.graph_user).and_return(opinion)
 
@@ -26,7 +26,7 @@ describe Queries::Believable::Votes do
       user = nil
       pavlov_options = {current_user: user}
       query = described_class.new believable: believable,
-        pavlov_options: pavlov_options
+                                  pavlov_options: pavlov_options
 
       votes = query.call
 

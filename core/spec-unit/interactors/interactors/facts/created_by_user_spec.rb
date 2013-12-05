@@ -15,7 +15,7 @@ describe Interactors::Facts::CreatedByUser do
         .with(:index, Fact).and_return(false)
 
       interactor = described_class.new username: 'foo',
-        pavlov_options: { ability: ability }
+                                       pavlov_options: { ability: ability }
 
       expect do
         interactor.call

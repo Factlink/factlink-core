@@ -7,8 +7,8 @@ module Interactors
     arguments :keywords, :fact_id
 
     def validate
-      raise 'Keywords should be an string.' unless @keywords.kind_of? String
-      raise 'Fact_id should be an number.' unless /\A\d+\Z/.match @fact_id
+      fail 'Keywords should be an string.' unless @keywords.kind_of? String
+      fail 'Fact_id should be an number.' unless /\A\d+\Z/.match @fact_id
     end
 
     def use_query

@@ -11,7 +11,7 @@ describe Queries::Facts::ContainingChannelIdsForUser do
     channel_list = double(:channel_list)
 
     query = described_class.new(fact: fact,
-      pavlov_options: { current_user: user })
+                                pavlov_options: { current_user: user })
 
     ChannelList.stub(:new).with(user.graph_user)
                .and_return(channel_list)

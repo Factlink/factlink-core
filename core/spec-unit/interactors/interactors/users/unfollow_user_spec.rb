@@ -12,7 +12,7 @@ describe Interactors::Users::UnfollowUser do
     it 'throws when no current_user' do
       expect do
         described_class.new(user_name: double,
-          user_to_unfollow_user_name: double).call
+                            user_to_unfollow_user_name: double).call
       end.to raise_error Pavlov::AccessDenied, 'Unauthorized'
     end
 
@@ -38,7 +38,7 @@ describe Interactors::Users::UnfollowUser do
       user = double(graph_user_id: double)
       user_to_unfollow = double(graph_user_id: double)
       interactor = described_class.new user_name: user_name,
-        user_to_unfollow_user_name: user_to_unfollow_user_name
+                                       user_to_unfollow_user_name: user_to_unfollow_user_name
 
       Pavlov.should_receive(:query)
             .with(:'user_by_username',

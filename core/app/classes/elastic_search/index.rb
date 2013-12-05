@@ -19,4 +19,3 @@ class ElasticSearch
     end
   end
 end
-

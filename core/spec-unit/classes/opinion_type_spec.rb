@@ -10,7 +10,7 @@ describe OpinionType do
       expect(OpinionType.real_for(:doubts)).to eq :doubts
     end
     it "raises when improper input is given" do
-      expect {OpinionType.real_for(:henk)}.to raise_error RuntimeError, "invalid opinion"
+      expect { OpinionType.real_for(:henk) }.to raise_error RuntimeError, "invalid opinion"
     end
   end
   describe '.for_relation_type' do

@@ -7,8 +7,8 @@ end
 
 describe OurOhm::GenericReference do
   context "initially" do
-    it {GenTest.new.foo.should == nil}
-    it {GenTest.create.foo.should == nil}
+    it { GenTest.new.foo.should == nil }
+    it { GenTest.create.foo.should == nil }
   end
   context "after adding an item" do
     before do
@@ -18,8 +18,8 @@ describe OurOhm::GenericReference do
       @g.foo = @i
       @g.save
     end
-    it {@g.foo.should == @i}
-    it {GenTest[@g.id].foo.should == @i}
+    it { @g.foo.should == @i }
+    it { GenTest[@g.id].foo.should == @i }
   end
   it do
     stub_const "ActiveModelObject", Class.new

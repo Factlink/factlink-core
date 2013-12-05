@@ -5,7 +5,7 @@ require_relative '../../../app/interactors/interactors/search.rb'
 describe Interactors::Search do
   include PavlovSupport
 
-  let(:relaxed_ability) { double(:ability, can?: true)}
+  let(:relaxed_ability) { double(:ability, can?: true) }
 
   before do
     stub_classes 'Fact', 'Queries::ElasticSearchAll', 'FactData',
@@ -28,7 +28,7 @@ describe Interactors::Search do
     it 'raises when called without any permission' do
       ability = double(:ability, can?: false)
       interactor = described_class.new keywords: 'keywords', page: 1,
-        row_count: 20, pavlov_options: { ability: ability }
+                                       row_count: 20, pavlov_options: { ability: ability }
 
       expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)
@@ -38,7 +38,7 @@ describe Interactors::Search do
     it 'correctly' do
       keywords = "searching for this channel"
       interactor = described_class.new keywords: keywords, page: 1, row_count: 20,
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
       results = ['a','b','c']
 
       Pavlov.should_receive(:query)
@@ -53,7 +53,7 @@ describe Interactors::Search do
     it 'invalid Factdata is filtered' do
       keywords = 'searching for this channel'
       interactor = described_class.new keywords: keywords, page: 1, row_count: 20,
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
       fact_data = FactData.new
       results =  [fact_data]
 
@@ -70,14 +70,14 @@ describe Interactors::Search do
     it 'hidden User is filtered' do
       keywords = 'searching for this channel'
       interactor = described_class.new keywords: keywords, page: 1, row_count: 20,
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
       user = User.new
       user.stub hidden?: true
       results = [user]
 
       Pavlov.should_receive(:query)
             .with(:'elastic_search_all', keywords: keywords, page: 1,
-                      row_count: 20, pavlov_options: { ability: relaxed_ability })
+                                         row_count: 20, pavlov_options: { ability: relaxed_ability })
             .and_return(results)
 
       interactor.call.should eq []

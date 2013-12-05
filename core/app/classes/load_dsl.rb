@@ -14,7 +14,7 @@ class LoadDsl
   def state_graph_user
     u = @state_user
     unless u
-      raise UndefinedUserError, "A user was needed but wasn't found", caller
+      fail UndefinedUserError, "A user was needed but wasn't found", caller
     end
     u.graph_user
   end
@@ -23,7 +23,7 @@ class LoadDsl
   attr_accessor :state_fact
 
   def state_channel
-    @state_channel || self.load_channel(self.state_graph_user,"Main channel")
+    @state_channel || load_channel(state_graph_user,"Main channel")
   end
 
   def load_site(url)
@@ -56,19 +56,19 @@ class LoadDsl
   end
 
   def fact(fact_string,url="http://example.org/", opts={})
-    f = self.load_fact(fact_string,url, opts)
+    f = load_fact(fact_string,url, opts)
     self.state_fact = f
   end
 
   def fact_relation(fact1,relation,fact2)
-    f1 = self.fact(fact1)
-    f2 = self.fact(fact2)
+    f1 = fact(fact1)
+    f2 = fact(fact2)
     fr = f2.add_evidence(relation,f1,state_graph_user)
     self.state_fact = fr
   end
 
   def raise_undefined_user_error
-    raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
+    fail UndefinedUserError, "A new user was introduced, but email and password were not given", caller
   end
 
   def raise_error_if_not_saved u
@@ -76,7 +76,7 @@ class LoadDsl
 
     err_msg = "User #{username} could not be created."
     u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
-    raise err_msg
+    fail err_msg
   end
 
   def load_user(username, email=nil, password=nil, full_name=nil)
@@ -102,25 +102,25 @@ class LoadDsl
   end
 
   def user(username, email=nil, password=nil, full_name=nil)
-    self.state_user = self.load_user(username, email, password, full_name)
+    self.state_user = load_user(username, email, password, full_name)
   end
 
   def believers(*l)
-    self.set_opinion(:believes, *l)
+    set_opinion(:believes, *l)
   end
 
   def disbelievers(*l)
-    self.set_opinion(:disbelieves, *l)
+    set_opinion(:disbelieves, *l)
   end
 
   def doubters(*l)
-    self.set_opinion(:doubts, *l)
+    set_opinion(:doubts, *l)
   end
 
   def set_opinion(opinion_type, *users)
     f = state_fact
     users.each do |username|
-      gu = self.load_user(username).graph_user
+      gu = load_user(username).graph_user
       f.add_opinion opinion_type, gu
     end
   end
@@ -132,12 +132,12 @@ class LoadDsl
   end
 
   def channel(title, opts={})
-    ch = self.load_channel(state_graph_user, title, opts)
+    ch = load_channel(state_graph_user, title, opts)
     self.state_channel = ch
   end
 
   def add_fact(fact_string)
-    fact = self.load_fact(fact_string)
+    fact = load_fact(fact_string)
 
     interactor :'channels/add_fact', fact: fact, channel: state_channel
   end

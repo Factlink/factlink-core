@@ -23,7 +23,7 @@ describe Interactors::Users::FollowUser do
       current_user = double(username: username)
       options = {current_user: current_user}
       interactor = described_class.new(user_name: other_username,
-        user_to_follow_user_name: double, pavlov_options: options)
+                                       user_to_follow_user_name: double, pavlov_options: options)
 
       expect do
         interactor.call
@@ -41,7 +41,7 @@ describe Interactors::Users::FollowUser do
       user_to_follow = double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')
       options = {current_user: user}
       interactor = described_class.new(user_name: user.username,
-          user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
+                                       user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
 
       Pavlov.stub(:query)
             .with(:'user_by_username',
@@ -53,7 +53,7 @@ describe Interactors::Users::FollowUser do
             .and_return(user_to_follow)
       Pavlov.stub(:query)
             .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
-              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
+                                              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
             .and_return(false)
 
       Pavlov.should_receive(:command)
@@ -79,7 +79,7 @@ describe Interactors::Users::FollowUser do
       user_to_follow = double(graph_user_id: '20', graph_user: double, username: 'user_to_follow')
       options = {current_user: user}
       interactor = described_class.new(user_name: user.username,
-          user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
+                                       user_to_follow_user_name: user_to_follow.username, pavlov_options: options)
 
       Pavlov.stub(:query)
             .with(:'user_by_username',
@@ -91,7 +91,7 @@ describe Interactors::Users::FollowUser do
             .and_return(user_to_follow)
       Pavlov.stub(:query)
             .with(:'users/user_follows_user', from_graph_user_id: user.graph_user_id,
-              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
+                                              to_graph_user_id: user_to_follow.graph_user_id, pavlov_options: options)
             .and_return(true)
 
       interactor.call

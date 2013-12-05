@@ -117,4 +117,3 @@ class Activity < OurOhm
     object or not object_id
   end
 end
-

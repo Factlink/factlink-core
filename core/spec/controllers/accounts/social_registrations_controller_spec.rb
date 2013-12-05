@@ -93,7 +93,7 @@ describe Accounts::SocialRegistrationsController do
         name = 'Jan Paul Posma'
 
         omniauth_obj = {'provider' => 'twitter', 'uid' => 'some_twitter_uid',
-          'credentials' => {'token' => 'token', 'secret' => 'secret'}, 'info' => {'name' => name}}
+                        'credentials' => {'token' => 'token', 'secret' => 'secret'}, 'info' => {'name' => name}}
         twitter_account = SocialAccount.new provider_name: 'twitter', omniauth_obj: omniauth_obj
         twitter_account.save!
 

@@ -28,4 +28,3 @@ describe Commands::TextSearch::DeleteUser do
   end
 
 end
-

@@ -22,12 +22,12 @@ class EvidenceDeletable
   end
 
   def creator_is_only_believer
-    people_believes_ids.map {|i| i.to_i} == [creator_id.to_i]
+    people_believes_ids.map { |i| i.to_i } == [creator_id.to_i]
   end
 
   def sub_comment_count
     Queries::SubComments::Count.new(parent_id: evidence.id.to_s,
-      parent_class: @type).call
+                                    parent_class: @type).call
   end
 
   def has_no_sub_comments

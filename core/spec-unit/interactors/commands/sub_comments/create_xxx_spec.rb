@@ -10,31 +10,31 @@ describe Commands::SubComments::CreateXxx do
   describe 'validation' do
     it 'without user doesn''t validate' do
       expect_validating(parent_id: '1', parent_class: 'Comment',
-          content: 'Hoi!', user: nil)
+                        content: 'Hoi!', user: nil)
         .to fail_validation('user should not be nil.')
     end
 
     it 'without content doesn''t validate' do
       expect_validating(parent_id: '1', parent_class: 'FactRelation',
-          content: '', user: double)
+                        content: '', user: double)
         .to fail_validation('content should not be empty.')
     end
 
     it 'with a invalid parent_id for Comment parent class doesn''t validate' do
       expect_validating(parent_id: 1, parent_class: 'Comment', content: 'Hoi!',
-          user: double)
+                        user: double)
         .to fail_validation('parent_id should be an hexadecimal string.')
     end
 
     it 'with a invalid parent_id for FactRelation parent class doesn''t validate' do
       expect_validating(parent_id: '2a', parent_class: 'FactRelation',
-          content: 'Hoi!', user: double)
+                        content: 'Hoi!', user: double)
         .to fail_validation('parent_id should be an integer.')
     end
 
     it 'with a invalid parent_class doesn''t validate' do
       expect_validating(parent_id: '1', parent_class: 'bla', content: 'Hoi!',
-          user: double)
+                        user: double)
         .to fail_validation('parent_class should be on of these values: ["Comment", "FactRelation"].')
     end
   end
@@ -48,8 +48,8 @@ describe Commands::SubComments::CreateXxx do
 
       pavlov_options = { current_user: user }
       command = described_class.new(parent_id: parent_id,
-        parent_class: parent_class, content: content, user: user,
-        pavlov_options: pavlov_options)
+                                    parent_class: parent_class, content: content, user: user,
+                                    pavlov_options: pavlov_options)
       comment = double(:comment, id: 10)
 
       comment.should_receive(:parent_id=).with(parent_id.to_s)
