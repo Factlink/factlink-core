@@ -9,7 +9,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   defaults:
     respondsToMouse: true
     showsTooltips: true
-    showsAuthorityTooltip: true
+    showsTotalVotesTooltip: true
     radius: 16
 
     minimalVisibleFraction: 0.15
@@ -184,15 +184,15 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     if @options.showsTooltips
       @trigger 'removeTooltips'
 
-      @_makeAuthorityTooltip()
+      @_makeTotalVotesTooltip()
 
       i = 1
       for type, opinionStyle of @options.opinionStyles
         @_makeTooltipForPath type, opinionStyle, "path:nth-of-type(#{i})"
         i++
 
-  _makeAuthorityTooltip: ->
-    return unless @options.showsAuthorityTooltip
+  _makeTotalVotesTooltip: ->
+    return unless @options.showsTotalVotesTooltip
 
     Backbone.Factlink.makeTooltipForView @,
       positioning:
