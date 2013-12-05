@@ -31,7 +31,17 @@ describe Interactors::Channels::AddFact do
   end
 
   describe '.authorized?' do
-    it 'returns false if the current user did not create the channel'
+    it 'returns false if the current user did not create the channel' do
+      fact = double
+      user = double :user, graph_user_id: 26
+      channel = double :channel, created_by_id: user.graph_user_id + 1
+
+      interactor = described_class.new fact: fact, channel: channel,
+        pavlov_options: { current_user: user }
+
+      expect(interactor.authorized?).to be_false
+    end
+
     it 'returns true if the current user created the channel' do
       fact = double
       user = double :user, graph_user_id: 26
