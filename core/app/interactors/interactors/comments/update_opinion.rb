@@ -6,13 +6,13 @@ module Interactors
       arguments :comment_id, :opinion
 
       def execute
-        if opinion
-          command(:'comments/set_opinion',
-                      comment_id: comment_id, opinion: opinion,
-                      graph_user: pavlov_options[:current_user].graph_user)
-        else
+        if opinion == 'no_vote'
           command(:'comments/remove_opinion',
                       comment_id: comment_id,
+                      graph_user: pavlov_options[:current_user].graph_user)
+        else
+          command(:'comments/set_opinion',
+                      comment_id: comment_id, opinion: opinion,
                       graph_user: pavlov_options[:current_user].graph_user)
         end
 
@@ -21,7 +21,7 @@ module Interactors
 
       def validate
         validate_hexadecimal_string :comment_id, comment_id
-        validate_in_set :opinion, opinion, ['believes', 'disbelieves', 'doubts', nil]
+        validate_in_set :opinion, opinion, ['believes', 'disbelieves', 'doubts', 'no_vote']
       end
 
       def authorized?
