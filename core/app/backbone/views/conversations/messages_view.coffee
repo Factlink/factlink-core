@@ -35,9 +35,9 @@ class window.MessagesView extends Backbone.Marionette.Layout
   template: 'conversations/conversation'
 
   regions:
-    factRegion: '.fact-wrapper'
+    factRegion: '.message-fact-wrapper'
     messagesRegion: '.messages'
-    replyRegion: '.reply'
+    replyRegion: '.message-reply'
 
   onRender: ->
     @showFact()
