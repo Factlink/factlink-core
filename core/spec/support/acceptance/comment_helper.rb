@@ -98,7 +98,7 @@ module Acceptance
 
       def vote_comment direction, comment
         within('.evidence-votable', text: comment, visible: false) do
-          find(".evidence-impact-vote-#{direction}").click
+          find(".evidence-relevance-vote-#{direction}").click
         end
       end
   end
