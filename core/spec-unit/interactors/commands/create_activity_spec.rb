@@ -18,7 +18,7 @@ describe Commands::CreateActivity do
       activity_subject = double
       activity_object = double
       command = described_class.new graph_user: graph_user, action: action,
-        subject: activity_subject, object: activity_object
+                                    subject: activity_subject, object: activity_object
       Activity.should_receive(:create).with(user: graph_user, action: action, subject: activity_subject, object: activity_object )
 
       command.call

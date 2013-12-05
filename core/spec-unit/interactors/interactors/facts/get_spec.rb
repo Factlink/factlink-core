@@ -21,9 +21,9 @@ describe Interactors::Facts::Get do
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
       interactor = described_class.new id: '1',
-        pavlov_options: { ability: ability }
+                                       pavlov_options: { ability: ability }
 
-      expect{ interactor.call }
+      expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)
     end
   end
@@ -45,7 +45,7 @@ describe Interactors::Facts::Get do
                       pavlov_options: pavlov_options)
 
       interactor = described_class.new id: fact.id,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
       interactor.call
     end
 

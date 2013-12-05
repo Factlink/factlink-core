@@ -16,7 +16,7 @@ describe Queries::Facts::GetVotes do
       user = double :user, graph_user: double
       pavlov_options = {current_user: user}
       interactor = described_class.new id: live_fact.id,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
 
       believable.stub(:opinion_of_graph_user).with(user.graph_user).and_return(opinion)
 
@@ -34,7 +34,7 @@ describe Queries::Facts::GetVotes do
       user = nil
       pavlov_options = {current_user: user}
       query = described_class.new id: live_fact.id,
-        pavlov_options: pavlov_options
+                                  pavlov_options: pavlov_options
 
       Fact.stub(:[]).with(live_fact.id).and_return(live_fact)
 

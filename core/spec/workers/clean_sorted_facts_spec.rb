@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CleanSortedFacts do
   describe ".perform" do
-    let(:key) {Nest.new(:foo)}
+    let(:key) { Nest.new(:foo) }
 
     it "should not do anything if no facts were deleted" do
       f1 = create :fact

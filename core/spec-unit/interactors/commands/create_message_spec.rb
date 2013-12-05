@@ -18,7 +18,7 @@ describe Commands::CreateMessage do
 
       pavlov_options = { current_user: sender }
       command = described_class.new sender_id: sender.id.to_s,
-        content: content, conversation: conversation, pavlov_options: pavlov_options
+                                    content: content, conversation: conversation, pavlov_options: pavlov_options
       conversation.should_receive(:save)
 
       message = double
@@ -41,7 +41,7 @@ describe Commands::CreateMessage do
 
       pavlov_options = { current_user: other_user }
       command = described_class.new(sender_id: sender.id.to_s,
-        content: content, conversation: conversation, pavlov_options: pavlov_options)
+                                    content: content, conversation: conversation, pavlov_options: pavlov_options)
       expect do
         command.call
       end.to raise_error(Pavlov::AccessDenied)
@@ -53,7 +53,7 @@ describe Commands::CreateMessage do
 
       pavlov_options = { current_user: sender }
       command = described_class.new(sender_id: sender.id.to_s,
-        content: content, conversation: conversation, pavlov_options: pavlov_options)
+                                    content: content, conversation: conversation, pavlov_options: pavlov_options)
 
       expect do
         command.call
@@ -66,7 +66,7 @@ describe Commands::CreateMessage do
 
       pavlov_options = { current_user: sender }
       command = described_class.new(sender_id: sender.id.to_s,
-        content: content, conversation: conversation, pavlov_options: pavlov_options )
+                                    content: content, conversation: conversation, pavlov_options: pavlov_options )
 
       expect(command.authorized?).to eq(true)
     end

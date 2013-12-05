@@ -33,7 +33,7 @@ describe Interactors::Evidence::ForFactId do
              .and_return(false)
 
       interactor = described_class.new fact_id: '1', type: :supporting,
-        pavlov_options: { ability: ability }
+                                       pavlov_options: { ability: ability }
 
       expect do
         interactor.call
@@ -47,7 +47,7 @@ describe Interactors::Evidence::ForFactId do
       fact = double id: '1'
       pavlov_options = { current_user: double, ability: double(can?: true) }
       interactor = described_class.new fact_id: fact.id, type: type,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
               .with(:'evidence/for_fact_id', fact_id: fact.id, type: type, pavlov_options: pavlov_options)

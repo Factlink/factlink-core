@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe HomeController do
-  let (:user)  {create :full_user}
+  let (:user)  {create :full_user }
 
   render_views
 

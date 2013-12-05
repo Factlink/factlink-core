@@ -23,4 +23,3 @@ describe ElasticSearch::Index do
   end
 
 end
-

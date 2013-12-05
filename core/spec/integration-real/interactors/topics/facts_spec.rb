@@ -35,7 +35,7 @@ describe Interactors::Topics::Facts do
       facts = pavlov.interactor(:'topics/facts', slug_title: slug_title, count: nil, max_timestamp: nil)
     end
 
-    fact_ids = facts.map {|item| item[:item].id }
+    fact_ids = facts.map { |item| item[:item].id }
 
     expect(fact_ids).to eq [fact3.id, fact2.id, fact1.id]
 

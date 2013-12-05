@@ -5,7 +5,7 @@ describe FactUrl do
   before do
     stub_const 'FactlinkUI::Application', Class.new
     config = double core_url:  'https://site.com',
-                  proxy_url: 'http://proxy.com'
+                    proxy_url: 'http://proxy.com'
     FactlinkUI::Application.stub(config: config)
   end
 

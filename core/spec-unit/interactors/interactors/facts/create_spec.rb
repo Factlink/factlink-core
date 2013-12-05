@@ -36,7 +36,7 @@ describe Interactors::Facts::Create do
              .and_return(false)
 
     interactor = described_class.new displaystring: 'displaystring', url: 'url',
-      title: 'title', sharing_options: double, pavlov_options: { ability:ability }
+                                     title: 'title', sharing_options: double, pavlov_options: { ability:ability }
 
     expect { interactor.call }
       .to raise_error Pavlov::AccessDenied, "Unauthorized"
@@ -57,8 +57,8 @@ describe Interactors::Facts::Create do
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
-        title: title, sharing_options: sharing_options,
-        pavlov_options: pavlov_options
+                                       title: title, sharing_options: sharing_options,
+                                       pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
             .with(:'sites/for_url',
@@ -103,8 +103,8 @@ describe Interactors::Facts::Create do
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
-        title: title, sharing_options: sharing_options,
-        pavlov_options: pavlov_options
+                                       title: title, sharing_options: sharing_options,
+                                       pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
             .with(:'sites/for_url',
@@ -143,8 +143,8 @@ describe Interactors::Facts::Create do
 
       pavlov_options = { current_user: user, ability: double(can?: true) }
       interactor = described_class.new displaystring: displaystring, url: url,
-        title: title, sharing_options: sharing_options,
-        pavlov_options: pavlov_options
+                                       title: title, sharing_options: sharing_options,
+                                       pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
             .with(:'facts/create',

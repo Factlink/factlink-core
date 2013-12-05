@@ -45,7 +45,7 @@ describe Interactors::Channels::Facts do
 
       pavlov_options = { current_user: user }
       interactor = described_class.new id: '1', from: from, count: count,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
             .with(:'channels/facts',
@@ -67,7 +67,7 @@ describe Interactors::Channels::Facts do
 
       pavlov_options = { current_user: user }
       interactor = described_class.new id: '1', from: from, count: count,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
             .with(:'channels/facts',

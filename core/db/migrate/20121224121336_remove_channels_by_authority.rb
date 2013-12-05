@@ -6,4 +6,3 @@ class RemoveChannelsByAuthority < Mongoid::Migration
   def self.down
   end
 end
-

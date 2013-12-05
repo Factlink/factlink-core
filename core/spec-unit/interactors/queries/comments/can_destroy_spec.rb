@@ -27,7 +27,7 @@ describe Queries::Comments::CanDestroy do
       comment = double(created_by: user, created_by_id: user.id)
       believable = double
       query = described_class.new comment_id: comment_id,
-        user_id: user.id
+                                  user_id: user.id
 
       query.stub comment: comment, believable: believable
       deletable = double

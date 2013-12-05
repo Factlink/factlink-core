@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/interactors/search_channel.rb'
 describe Interactors::SearchChannel do
   include PavlovSupport
 
-  let(:relaxed_ability) { double(:ability, can?: true)}
+  let(:relaxed_ability) { double(:ability, can?: true) }
 
   before do
     stub_classes 'Topic','Queries::ElasticSearchChannel',
@@ -24,7 +24,7 @@ describe Interactors::SearchChannel do
       ability = double(:ability, can?: false)
 
       interactor = described_class.new keywords: keywords,
-          pavlov_options: { ability: ability }
+                                       pavlov_options: { ability: ability }
 
       expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)
@@ -35,7 +35,7 @@ describe Interactors::SearchChannel do
     it 'correctly' do
       keywords = 'searching for this channel'
       interactor = described_class.new keywords: keywords,
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
       topic = double
       Pavlov.should_receive(:query)
             .with(:'elastic_search_channel',

@@ -9,7 +9,7 @@ module Gravatar
   def self.gravatar_url(email,gravatar_options={})
     grav_url = 'https://secure.gravatar.com/avatar/'
     grav_url << hash(email) << "?"
-    grav_url << (gravatar_options.slice(:rating,:size,:default).map{|k,v| "#{k}=#{v}"}.join "&")
+    grav_url << (gravatar_options.slice(:rating,:size,:default).map { |k,v| "#{k}=#{v}" }.join "&")
     grav_url
   end
 

@@ -20,7 +20,7 @@ class OurOhm < Ohm::Model
         next nil unless classname && id
 
                 #constantize:
-        klass = classname.split('::').inject(Kernel) {|x,y|x.const_get(y)}
+        klass = classname.split('::').inject(Kernel) { |x,y|x.const_get(y) }
         if klass == NilClass
           nil
         else

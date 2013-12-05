@@ -50,7 +50,7 @@ class Activity < OurOhm
                       query[:extra_condition].nil?
 
       extra_condition = query.fetch(:extra_condition) do
-        ->(a) {true}
+        ->(a) {true }
       end
 
       field_query.each_pair do |field, value|

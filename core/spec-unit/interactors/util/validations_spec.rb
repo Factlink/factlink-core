@@ -14,7 +14,7 @@ describe Util::Validations do
     stub_const 'Pavlov::ValidationError', RuntimeError
   end
 
-  subject {DummyClass.new(errors)}
+  subject { DummyClass.new(errors) }
   let(:errors) { double }
 
   describe '#validate_string_length' do

@@ -43,7 +43,7 @@ describe Interactors::Users::Following do
               by: :graph_user_id,
               pavlov_options: pavlov_options) do |cmd, options|
           options[:user_ids].map do |id|
-            users.select {|user| user.graph_user_id == id}.first
+            users.select { |user| user.graph_user_id == id }.first
           end
         end
 

@@ -23,7 +23,7 @@ describe Commands::Topics::Unfavourite do
                            .with(topic_id)
 
       query = described_class.new graph_user_id: graph_user_id,
-        topic_id: topic_id
+                                  topic_id: topic_id
 
       query.execute
     end

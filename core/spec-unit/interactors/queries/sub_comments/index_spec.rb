@@ -36,7 +36,7 @@ describe Queries::SubComments::Index do
       parent_class = 'FactRelation'
       sub_comment_finder1, sub_comment_finder2 = double, double
       query = described_class.new parent_ids_in: parent_id,
-        parent_class: parent_class
+                                  parent_class: parent_class
 
       SubComment.stub(:where)
         .with(parent_class: parent_class)
@@ -57,7 +57,7 @@ describe Queries::SubComments::Index do
       dead_sub_comments = [double, double]
       sub_comment_finder1, sub_comment_finder2 = double, double
       query = described_class.new parent_ids_in: parent_id,
-        parent_class: parent_class
+                                  parent_class: parent_class
 
       SubComment.stub(:where)
         .with(parent_class: parent_class)
@@ -84,7 +84,7 @@ describe Queries::SubComments::Index do
       dead_sub_comments = [double, double]
       sub_comment_finder1, sub_comment_finder2 = double, double
       query = described_class.new parent_ids_in: parent_ids,
-        parent_class: parent_class
+                                  parent_class: parent_class
 
       SubComment.stub(:where)
         .with(parent_class: parent_class)

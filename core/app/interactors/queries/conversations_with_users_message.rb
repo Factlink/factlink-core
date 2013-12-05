@@ -15,7 +15,7 @@ module Queries
         last_message = query(:'last_message_for_conversation',
                                 conversation: conversation)
         KillObject.conversation(conversation,
-          recipients: conversation.recipient_ids.map {|id| users_by_id[id.to_s]},
+          recipients: conversation.recipient_ids.map { |id| users_by_id[id.to_s] },
           last_message: last_message
         )
       end
@@ -35,7 +35,7 @@ module Queries
     end
 
     def all_recipient_ids conversations
-      conversations.flat_map {|c| c.recipient_ids}.uniq
+      conversations.flat_map { |c| c.recipient_ids }.uniq
     end
   end
 end

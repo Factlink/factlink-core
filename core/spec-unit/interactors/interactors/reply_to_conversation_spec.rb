@@ -36,7 +36,7 @@ describe Interactors::ReplyToConversation do
       options      = {current_user: sender}
 
       interactor = described_class.new conversation_id: conversation.id.to_s,
-        sender_id: sender.id.to_s, content: content, pavlov_options: options
+                                       sender_id: sender.id.to_s, content: content, pavlov_options: options
 
       Conversation.should_receive(:find).with(conversation.id.to_s).and_return(conversation)
       Pavlov.should_receive(:command)

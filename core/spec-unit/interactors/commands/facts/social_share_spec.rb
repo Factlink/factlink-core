@@ -52,7 +52,7 @@ describe Commands::Facts::SocialShare do
 
       pavlov_options = {current_user: current_user, ability: ability}
       command = described_class.new fact_id: fact_id,
-        sharing_options: sharing_options, pavlov_options: pavlov_options
+                                    sharing_options: sharing_options, pavlov_options: pavlov_options
 
       Resque.should_receive(:enqueue)
             .with(Commands::Twitter::ShareFactlink, fact_id: fact_id, pavlov_options: { 'serialize_id' => current_user.id })
@@ -68,7 +68,7 @@ describe Commands::Facts::SocialShare do
 
       pavlov_options = {current_user: current_user, ability: ability}
       command = described_class.new fact_id: fact_id,
-        sharing_options: sharing_options, pavlov_options: pavlov_options
+                                    sharing_options: sharing_options, pavlov_options: pavlov_options
 
       Resque.should_receive(:enqueue)
             .with(Commands::Facebook::ShareFactlink, fact_id: fact_id, pavlov_options: { 'serialize_id' => current_user.id })

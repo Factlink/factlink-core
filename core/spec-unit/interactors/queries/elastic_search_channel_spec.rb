@@ -17,12 +17,12 @@ describe Queries::ElasticSearchChannel do
       keywords = 'searching for this channel'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)'
       query = described_class.new keywords: keywords, page: 1,
-        row_count: 20
+                                  row_count: 20
       result = double
 
       Pavlov.stub(:query)
             .with(:elastic_search, keywords: keywords, page: 1,
-                     row_count: 20, types: [:topic])
+                                   row_count: 20, types: [:topic])
             .and_return(result)
 
       query.call.should eq result

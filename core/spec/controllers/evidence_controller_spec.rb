@@ -5,10 +5,10 @@ describe SupportingEvidenceController do
   include PavlovSupport
   render_views
 
-  let(:user) {create :user}
+  let(:user) { create :user }
 
-  let(:f1) {create :fact, created_by: user.graph_user}
-  let(:f2) {create :fact, created_by: user.graph_user}
+  let(:f1) { create :fact, created_by: user.graph_user}
+  let(:f2) { create :fact, created_by: user.graph_user}
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -85,10 +85,10 @@ end
 describe EvidenceController do
   include PavlovSupport
 
-  let(:user) {create :user}
+  let(:user) { create :user }
 
-  let(:f1) {create :fact, created_by: user.graph_user}
-  let(:f2) {create :fact, created_by: user.graph_user}
+  let(:f1) { create :fact, created_by: user.graph_user}
+  let(:f2) { create :fact, created_by: user.graph_user}
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors

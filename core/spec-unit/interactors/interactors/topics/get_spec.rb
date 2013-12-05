@@ -13,7 +13,7 @@ describe Interactors::Topics::Get do
       ability.stub(:can?).with(:show, topic).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
       interactor = described_class.new slug_title: 'foo',
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
         .with(:'topics/by_slug_title', slug_title: 'foo', pavlov_options: pavlov_options)

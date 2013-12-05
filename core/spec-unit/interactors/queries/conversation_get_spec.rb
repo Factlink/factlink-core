@@ -10,12 +10,12 @@ describe Queries::ConversationGet do
   end
 
   it 'it throws when initialized without a argument' do
-    expect_validating(id: '', pavlov_options: { current_user: double()})
+    expect_validating(id: '', pavlov_options: { current_user: double})
       .to fail_validation 'id should be an hexadecimal string.'
   end
 
   it 'it throws when initialized with a argument that is not a hexadecimal string' do
-    expect_validating(id: 'g6', pavlov_options: { current_user:double()})
+    expect_validating(id: 'g6', pavlov_options: { current_user:double})
       .to fail_validation 'id should be an hexadecimal string.'
   end
 
@@ -26,7 +26,7 @@ describe Queries::ConversationGet do
       recipient_ids = [10,13]
       fact_data.stub(id: 124, fact_id: 3445)
       double_conversation = double(id: id, fact_data_id: fact_data.id,
-        fact_data: fact_data, recipient_ids: recipient_ids)
+                                   fact_data: fact_data, recipient_ids: recipient_ids)
 
       user = double(id: 13)
       query = described_class.new(id: id, pavlov_options: { current_user: user })
@@ -43,7 +43,7 @@ describe Queries::ConversationGet do
 
     it "returns nil if no matching conversation is found" do
       query = described_class.new(id: 1245,
-        pavlov_options: { current_user: double() })
+                                  pavlov_options: { current_user: double })
 
       Conversation.stub find: nil
 

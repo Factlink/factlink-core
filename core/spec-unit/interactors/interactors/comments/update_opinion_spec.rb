@@ -34,7 +34,7 @@ describe Interactors::Comments::UpdateOpinion do
       pavlov_options = { current_user: user }
 
       interactor = described_class.new comment_id: comment.id, opinion: opinion,
-        pavlov_options: { current_user: user }
+                                       pavlov_options: { current_user: user }
 
       Pavlov.stub(:query)
             .with(:'comments/get',
@@ -77,7 +77,7 @@ describe Interactors::Comments::UpdateOpinion do
       updated_comment = double
 
       interactor = described_class.new comment_id: comment.id, opinion: opinion,
-        pavlov_options: { current_user: user }
+                                       pavlov_options: { current_user: user }
 
       Pavlov.stub(:query)
             .with(:'comments/get',

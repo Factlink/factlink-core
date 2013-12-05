@@ -50,9 +50,9 @@ module Queries
     def processed_keywords
       lucene_special_characters_escaped_keywords
         .split(/\s+/)
-        .map{ |keyword| quoted_if_some_lucene_operators keyword}
-        .map{ |keyword| URI.escape(keyword) }
-        .map{ |keyword| "(#{keyword}*+OR+#{keyword})"}
+        .map { |keyword| quoted_if_some_lucene_operators keyword }
+        .map { |keyword| URI.escape(keyword) }
+        .map { |keyword| "(#{keyword}*+OR+#{keyword})" }
         .join("+AND+")
     end
 

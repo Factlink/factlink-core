@@ -3,7 +3,7 @@ require 'spec_helper'
 describe MessagesController do
   render_views
 
-  let(:user) {create :full_user}
+  let(:user) { create :full_user }
 
   describe :create do
     it "adds a message when passed in a correct message" do

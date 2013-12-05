@@ -14,7 +14,7 @@ describe Interactors::Facts::OpinionUsers do
       ability.should_receive(:can?).with(:show, Fact).and_return(false)
 
       interactor = described_class.new(fact_id: 0, skip: 0, take: 0,
-        type: 'believes', pavlov_options: { ability: ability } )
+                                       type: 'believes', pavlov_options: { ability: ability } )
 
       expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)
@@ -60,7 +60,7 @@ describe Interactors::Facts::OpinionUsers do
             .and_return(users: [u1], total: 1)
 
       interactor = described_class.new fact_id: fact_id, skip: skip, take: take,
-        type: type, pavlov_options: pavlov_options
+                                       type: type, pavlov_options: pavlov_options
       results = interactor.call
 
       expect(results[:total]).to eq 1

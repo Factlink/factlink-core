@@ -30,7 +30,7 @@ describe Interactors::Site::TopTopics do
       Site.should_receive(:find).with(url: url).and_return([site])
       pavlov_options = { current_user: double }
       interactor = described_class.new url: url, nr: nr,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
       Pavlov.should_receive(:query)
             .with(:'site/top_topics',
                       site_id: site.id.to_i, nr: nr, pavlov_options: pavlov_options)

@@ -47,16 +47,16 @@ describe Activity do
            )
       @activity = Activity[a.id]
     end
-    it {@activity.user.should == gu }
-    it {@activity.subject.should == b1 }
-    it {@activity.object.should == b2 }
+    it { @activity.user.should == gu }
+    it { @activity.subject.should == b1 }
+    it { @activity.object.should == b2 }
     describe "should be retrievable with Activity.for" do
-      it {Activity.for(gu).to_a.should =~ [@activity] }
+      it { Activity.for(gu).to_a.should =~ [@activity] }
       it "should give no results for an object without activities" do
         Activity.for(Foo.create).to_a.should =~ []
       end
-      it {Activity.for(b1).to_a.should =~ [@activity] }
-      it {Activity.for(b2).to_a.should =~ [@activity] }
+      it { Activity.for(b1).to_a.should =~ [@activity] }
+      it { Activity.for(b2).to_a.should =~ [@activity] }
     end
   end
 
@@ -70,16 +70,16 @@ describe Activity do
            )
       @activity = Activity[a.id]
     end
-    it {@activity.user.should == gu }
-    it {@activity.subject.should == gu2 }
-    it {@activity.object.should == gu3 }
+    it { @activity.user.should == gu }
+    it { @activity.subject.should == gu2 }
+    it { @activity.object.should == gu3 }
     describe "should be retrievable with Activity.for" do
-      it {Activity.for(gu).to_a.should =~ [@activity] }
+      it { Activity.for(gu).to_a.should =~ [@activity] }
       it "should give no results for an object without activities" do
         Activity.for(Foo.create).to_a.should =~ []
       end
-      it {Activity.for(gu2).to_a.should =~ [@activity] }
-      it {Activity.for(gu3).to_a.should =~ [@activity] }
+      it { Activity.for(gu2).to_a.should =~ [@activity] }
+      it { Activity.for(gu3).to_a.should =~ [@activity] }
     end
   end
 
