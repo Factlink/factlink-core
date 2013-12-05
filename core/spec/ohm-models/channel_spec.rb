@@ -30,73 +30,6 @@ describe Channel do
       Activity::Subject.stub(:activity)
     end
 
-    describe "after adding one fact and deleting a fact (not from the Channel but the fact itself) without recalculate" do
-      it do
-        add_fact_to_channel f1, channel
-        f1.delete
-        Fact.should_receive(:invalid).with(nil).at_least(:once).and_return(true)
-        channel.facts.to_a.should =~ []
-      end
-    end
-
-    describe "after adding one fact" do
-      before do
-        add_fact_to_channel f1, channel
-        Fact.stub invalid: false
-      end
-
-      it do
-        channel.facts.to_a.should =~ [f1]
-      end
-
-      describe "and removing an fact" do
-        before do
-          channel.remove_fact(f1)
-          channel.facts.to_a.should =~ []
-        end
-      end
-    end
-
-    describe "#facts" do
-      before do
-        Fact.stub invalid: false
-      end
-
-      context "initially" do
-        it "should be empty" do
-          channel.facts.to_a.should =~ []
-          Channel.new.facts.to_a.should =~ []
-        end
-      end
-
-      context "after adding some facts" do
-        before do
-          add_fact_to_channel f1, channel
-          sleep(0.01)
-          add_fact_to_channel f2, channel
-        end
-
-        it "should contain the facts in order" do
-          channel.facts.to_a.should eq [f2,f1]
-        end
-
-        it "should return with timestamps when asked" do
-          res = channel.facts(withscores:true)
-          res[0][:item].should eq f2
-          res[1][:item].should eq f1
-          res[0][:score].should be_a(Float)
-          res[1][:score].should be_a(Float)
-        end
-
-        it "should not return more than ask" do
-          channel.facts(withscores:true,count:0).length.should eq 0
-          channel.facts(withscores:true,count:1).length.should eq 1
-          channel.facts(withscores:false,count:0).length.should eq 0
-          channel.facts(withscores:false,count:1).length.should eq 1
-        end
-      end
-    end
-
     describe "creating a channel" do
       it "should be possible to create a channel given a username and a title" do
         ch = Channel.create created_by: u1, title: 'foo'
@@ -190,21 +123,6 @@ describe Channel do
         t.delete
 
         ch1.topic.slug_title.should eq 'hoi'
-      end
-    end
-
-    describe :facts do
-      it "should clean up removed facts" do
-        ch1 = create :channel, title: 'hoi'
-        f1 = create :fact
-        f2 = create :fact
-        add_fact_to_channel f1, ch1
-        add_fact_to_channel f2, ch1
-
-        f1.delete
-
-        ch1.facts.should =~ [f2]
-        ch1.sorted_internal_facts.count.should eq 1
       end
     end
   end

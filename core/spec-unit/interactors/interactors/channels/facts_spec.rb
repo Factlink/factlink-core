@@ -1,12 +1,13 @@
 require 'pavlov_helper'
 require 'active_support/core_ext/object/blank'
+require 'nest'
 require_relative '../../../../app/interactors/interactors/channels/facts.rb'
 
 describe Interactors::Channels::Facts do
   include PavlovSupport
 
   before do
-    stub_classes 'Fact', 'Resque', 'CleanChannel'
+    stub_classes 'Fact', 'Channel', 'Resque', 'CleanSortedFacts'
   end
 
   describe 'validations' do
@@ -75,7 +76,12 @@ describe Interactors::Channels::Facts do
             .and_return(result)
       Fact.stub(:invalid).with(fact).and_return(true)
 
-      Resque.should_receive(:enqueue).with(CleanChannel, channel_id)
+      Channel.stub(:key)
+             .and_return(Nest.new('Channel'))
+
+      expect(Resque)
+        .to receive(:enqueue)
+        .with(CleanSortedFacts, "Channel:#{channel_id}:sorted_internal_facts")
 
       expect(interactor.execute).to eq []
     end
