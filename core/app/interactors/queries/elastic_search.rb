@@ -60,11 +60,11 @@ module Queries
       case results.code
       when 200..299
       when 400..499
-        raise "Client error, status code: #{results.code}, response: '#{results.response}'."
+        fail "Client error, status code: #{results.code}, response: '#{results.response}'."
       when 500..599
-        raise "Server error, status code: #{results.code}, response: '#{results.response}'."
+        fail "Server error, status code: #{results.code}, response: '#{results.response}'."
       else
-        raise "Unexpected status code: #{results.code}, response: '#{results.response}'."
+        fail "Unexpected status code: #{results.code}, response: '#{results.response}'."
       end
     end
 
@@ -80,7 +80,7 @@ module Queries
       when 'test_class'
         TestClass.new(id)
       else
-        raise 'Object type unknown.'
+        fail 'Object type unknown.'
       end
     end
   end

@@ -7,7 +7,7 @@ class SearchController < ApplicationController
   # to use a more advanced search on the Factlink website.
   def search
     if params[:s]
-      raise HackAttempt unless params[:s].is_a? String
+      fail HackAttempt unless params[:s].is_a? String
     end
 
     mp_track "Search: Top bar search",

@@ -16,14 +16,14 @@ class ElasticSearch
     refresh_url = ElasticSearch.url + "/_refresh"
     response = HTTParty.post refresh_url
     unless response["ok"]
-      raise "Something went wrong while refreshing #{refresh_url}: #{response}"
+      fail "Something went wrong while refreshing #{refresh_url}: #{response}"
     end
   end
 
   def self.clean
     delete_index_response = HTTParty.delete url + "/_query?q=*"
     if delete_index_response.code != 404 and delete_index_response.code != 200
-      raise 'failed clearing elasticsearch index'
+      fail 'failed clearing elasticsearch index'
     end
     refresh
   end
@@ -40,7 +40,7 @@ class ElasticSearch
       { body: payload }
 
     if create_index_response.code != 404 and create_index_response.code != 200
-      raise 'failed (re)-creating elasticsearch index'
+      fail 'failed (re)-creating elasticsearch index'
     end
   end
 

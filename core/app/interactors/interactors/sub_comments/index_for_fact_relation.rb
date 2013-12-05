@@ -24,7 +24,7 @@ module Interactors
       def raise_error_if_non_existent
         return if fact_relation
 
-        raise Pavlov::ValidationError,
+        fail Pavlov::ValidationError,
           "fact relation does not exist any more"
       end
 

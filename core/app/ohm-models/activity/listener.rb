@@ -69,7 +69,7 @@ class Activity < OurOhm
       extra_keys = query.keys -
                    fields_query.keys -
                    [:extra_condition, :write_ids]
-      raise Exception.exception("Extra keys: #{extra_keys}") if extra_keys != []
+      fail Exception.exception("Extra keys: #{extra_keys}") if extra_keys != []
 
       fields_query
     end

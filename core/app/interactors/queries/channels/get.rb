@@ -10,7 +10,7 @@ module Queries
       end
 
       def fail
-        raise "Channel #{id} not found"
+        fail "Channel #{id} not found"
       end
 
       def validate

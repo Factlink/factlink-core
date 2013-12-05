@@ -203,7 +203,7 @@ module ScreenshotTest
         elsif ENV["IMAGE_DIFF_MODE"] == "fuzzy"
           @use_fuzzy = true
         else
-          raise "Cannot determine image diff mode: IMAGE_DIFF_MODE must be 'exact', 'fuzzy' or unspecified."
+          fail "Cannot determine image diff mode: IMAGE_DIFF_MODE must be 'exact', 'fuzzy' or unspecified."
         end
         puts "Using #{@use_fuzzy ? 'fuzzy' : 'exact'} screenshot matching."
       end
@@ -222,9 +222,9 @@ module ScreenshotTest
     begin
       if shot.changed?
         if shot.size_changed?
-          raise "Screenshot #{title} changed (also size)"
+          fail "Screenshot #{title} changed (also size)"
         else
-          raise "Screenshot #{title} changed"
+          fail "Screenshot #{title} changed"
         end
       end
     ensure

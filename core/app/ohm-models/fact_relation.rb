@@ -46,7 +46,7 @@ class FactRelation < OurOhm
       fact: to,
       type: type
     )
-    raise "Creating FactRelation went wrong" if fact_relation.new?
+    fail "Creating FactRelation went wrong" if fact_relation.new?
 
     #TODO this should use a collection
     to.evidence(type) << fact_relation

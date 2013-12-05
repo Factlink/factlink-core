@@ -5,7 +5,7 @@ module Util
     end
 
     def search_with query_name
-      raise Pavlov::AccessDenied unless authorized?
+      fail Pavlov::AccessDenied unless authorized?
       return [] if filtered_keywords.length == 0
 
       page = @page || 1

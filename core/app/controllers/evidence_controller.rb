@@ -26,7 +26,7 @@ class EvidenceController < ApplicationController
 
     authorize! :add_evidence, fact
 
-    evidence = Fact[params[:evidence_id]] or raise EvidenceNotFoundException
+    evidence = Fact[params[:evidence_id]] or fail EvidenceNotFoundException
 
     @fact_relation = create_believed_factrelation(evidence, relation, fact)
 

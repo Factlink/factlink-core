@@ -97,7 +97,7 @@ class UsersController < ApplicationController
 
   def seen_messages
     authorize! :update, current_user
-    raise HackAttempt unless params[:message] =~ /\A\w+\Z/
+    fail HackAttempt unless params[:message] =~ /\A\w+\Z/
     current_user.seen_messages << params[:message]
     render json: {}, status: :ok
   end

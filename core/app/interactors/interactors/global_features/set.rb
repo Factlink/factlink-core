@@ -15,7 +15,7 @@ module Interactors
       end
 
       def validate
-        raise 'features should be an array' unless features.is_a? Array
+        fail 'features should be an array' unless features.is_a? Array
       end
     end
   end

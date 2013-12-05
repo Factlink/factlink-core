@@ -10,7 +10,7 @@ class CreateSearchIndexForTopics
     if topic
       Pavlov.command :'text_search/index_topic', topic: topic
     else
-      raise "Failed adding index for topic with topic_id: #{topic_id}"
+      fail "Failed adding index for topic with topic_id: #{topic_id}"
     end
   end
 end

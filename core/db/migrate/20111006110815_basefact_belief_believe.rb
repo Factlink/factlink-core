@@ -4,6 +4,6 @@ class BasefactBeliefBelieve < Mongoid::Migration
   end
 
   def self.down
-    raise "not possible"
+    fail "not possible"
   end
 end

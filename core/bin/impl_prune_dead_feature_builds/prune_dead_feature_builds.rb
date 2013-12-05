@@ -61,11 +61,11 @@ def single(list)
   has_first = false
   first_item = nil
   list.each do |item|
-    raise "single calls with multiple items" unless !has_first
+    fail "single calls with multiple items" unless !has_first
     has_first=true
     first_item=item
   end
-  raise "single called with empty enumerable." unless has_first
+  fail "single called with empty enumerable." unless has_first
   first_item
 end
 

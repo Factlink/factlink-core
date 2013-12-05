@@ -13,7 +13,7 @@ module Commands
       conversation = Conversation.new
       recipient_usernames.each do |username|
         user = query :user_by_username, username: username
-        raise Pavlov::ValidationError, 'user_not_found' unless user
+        fail Pavlov::ValidationError, 'user_not_found' unless user
         conversation.recipients << user
       end
 

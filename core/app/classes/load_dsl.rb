@@ -14,7 +14,7 @@ class LoadDsl
   def state_graph_user
     u = @state_user
     unless u
-      raise UndefinedUserError, "A user was needed but wasn't found", caller
+      fail UndefinedUserError, "A user was needed but wasn't found", caller
     end
     u.graph_user
   end
@@ -68,7 +68,7 @@ class LoadDsl
   end
 
   def raise_undefined_user_error
-    raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
+    fail UndefinedUserError, "A new user was introduced, but email and password were not given", caller
   end
 
   def raise_error_if_not_saved u
@@ -76,7 +76,7 @@ class LoadDsl
 
     err_msg = "User #{username} could not be created."
     u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
-    raise err_msg
+    fail err_msg
   end
 
   def load_user(username, email=nil, password=nil, full_name=nil)
