@@ -1,6 +1,6 @@
-class EvidenceImpactView extends Backbone.Marionette.ItemView
-  className: 'evidence-impact-text-container'
-  template: 'evidence/evidence_impact'
+class EvidenceRelevanceView extends Backbone.Marionette.ItemView
+  className: 'evidence-relevance-text-container'
+  template: 'evidence/evidence_relevance'
 
   initialize: ->
     @listenTo @model, 'change:impact', @render
@@ -26,7 +26,7 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
     @$el.addClass @typeCss()
     @listenTo @model, 'change:impact', @_updateIrrelevant
     @_updateIrrelevant()
-    @impactRegion.show new EvidenceImpactView model: @model
+    @impactRegion.show new EvidenceRelevanceView model: @model
     this
 
   _updateIrrelevant: ->
