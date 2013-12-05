@@ -32,7 +32,7 @@ FactlinkUI::Application.routes.draw do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
 
     member do
-      post    "/opinion"          => "facts#update_opinion",     as: "update_opinion"
+      put     "/opinion"          => "facts#update_opinion",     as: "update_opinion"
       get     "/evidence_search"  => "facts#evidence_search"
       post    "/share"            => "facts#share"
 

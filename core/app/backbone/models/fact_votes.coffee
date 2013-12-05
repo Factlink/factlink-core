@@ -10,6 +10,8 @@ class window.FactVotes extends Backbone.Model
     doubts: 0
     current_user_opinion: 'no_vote'
 
+  isNew: -> false
+
   url: -> "/facts/#{@get('fact_id')}/opinion"
 
   setCurrentUserOpinion: (newValue) ->
