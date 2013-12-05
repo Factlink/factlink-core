@@ -16,6 +16,7 @@
       }
     </style>
     <%= yield :specific_stylesheet_tag %>
+    <%= inject_special_test_code %>
   </head>
   <body class="accounts-popup-body">
     <div class="accounts-popup-topbar"><%= image_tag "factlink-logo-beta.png", class: "accounts-popup-logo" %></div>

@@ -1,11 +1,9 @@
-<div class="avatar">
-  <img src="{{ first_recipient.avatar_url_48 }}">
-</div>
+<img src="{{ first_recipient.avatar_url_48 }}" class="message-avatar">
 
 <div class="message">
-  <span class="user-profile-link-dummy">{{ recipients_comma }}</span>
-  <span class="meta">{{ last_message.time_ago }}</span>
-  <div class="text">
+  <span class="messages-overview-user-link">{{ recipients_comma }}</span>
+  <span class="message-meta">{{ last_message.time_ago }}</span>
+  <div class="conversation-text">
     {{#reply}}
       <i class="icon-share-alt"></i>
     {{/reply}}

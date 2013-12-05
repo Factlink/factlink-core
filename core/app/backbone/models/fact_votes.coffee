@@ -1,0 +1,58 @@
+#TODO: refactoring of this and related files.
+# - make unset state explicit.
+# - simplify rest api (no need for delete!)
+# - pursue these changes into related code.
+
+class window.FactVotes extends Backbone.Model
+  defaults:
+    believes: 0
+    disbelieves: 0
+    doubts: 0
+
+  setCurrentUserOpinion: (newValue) ->
+    previousValue = @get('current_user_opinion')
+    @set previousValue, @get(previousValue)-1 if previousValue != 'no_vote'
+    @set newValue, @get(newValue)+1 if newValue != 'no_vote'
+    @set 'current_user_opinion', newValue
+
+  # TODO: Use @save here!!
+  setActiveOpinionType: (opinion_type) ->
+    @previous_opinion_type = @get('current_user_opinion')
+    fact_id = @get('fact_id')
+    @setCurrentUserOpinion opinion_type
+
+    Backbone.sync 'create', this,
+      attrs: {}
+      url: "/facts/#{fact_id}/opinion/#{opinion_type}.json"
+      success: (data, status, response) =>
+        mp_track "Factlink: Opinionate",
+          factlink: fact_id
+          opinion: opinion_type
+        @trigger 'sync', this, response # TODO: Remove when using Backbone sync
+      error: =>
+        @setCurrentUserOpinion @previous_opinion_type
+        FactlinkApp.NotificationCenter.error "Something went wrong while setting your opinion on the Factlink, please try again."
+
+  # TODO: Use @save here!!
+  unsetActiveOpinionType: ->
+    @previous_opinion_type = @get('current_user_opinion')
+    fact_id = @get('fact_id')
+    @setCurrentUserOpinion 'no_vote'
+
+    Backbone.sync 'delete', this,
+      attrs: {}
+      url: "/facts/#{fact_id}/opinion.json"
+      success: (data, status, response) =>
+        mp_track "Factlink: De-opinionate",
+          factlink: fact_id
+        @trigger 'sync', this, response # TODO: Remove when using Backbone sync
+      error: =>
+        @setCurrentUserOpinion @previous_opinion_type
+        FactlinkApp.NotificationCenter.error "Something went wrong while removing your opinion on the Factlink, please try again."
+
+  believe: -> @setActiveOpinionType 'believes'
+  disbelieve: -> @setActiveOpinionType 'disbelieves'
+  isBelieving: -> @get('current_user_opinion') == 'believes'
+  isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
+
+  totalCount: -> @get('believes') + @get('disbelieves') + @get('doubts')

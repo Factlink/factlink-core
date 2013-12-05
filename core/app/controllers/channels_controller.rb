@@ -99,16 +99,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  def follow
-    interactor :'channels/follow', channel_id: channel_id
-    render json: {}, status: :ok
-  end
-
-  def unfollow
-    interactor :'channels/unfollow', channel_id: channel_id
-    render json: {}, status: :ok
-  end
-
   def add_fact
     fact = Fact[params[:fact_id]]
 

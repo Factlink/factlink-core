@@ -9,30 +9,33 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   defaults:
     respondsToMouse: true
     showsTooltips: true
-    showsAuthorityTooltip: true
+    showsTotalVotesTooltip: true
     radius: 16
 
-    minimalVisiblePercentage: 15
+    minimalVisibleFraction: 0.15
 
     defaultStrokeOpacity: 0.2
     hoverStrokeOpacity: 0.5
     userOpinionStrokeOpacity: 1.0
 
     opinionStyles:
-      believe:
+      believes:
+        attributeName: 'believes_count'
         groupname: Factlink.Global.t.fact_believe_opinion?.titleize()
         color: "#98d100"
-      doubt:
+      doubts:
+        attributeName: 'doubts_count'
         groupname: Factlink.Global.t.fact_doubt_opinion?.titleize()
         color: "#36a9e1"
-      disbelieve:
+      disbelieves:
+        attributeName: 'disbelieves_count'
         groupname: Factlink.Global.t.fact_disbelieve_opinion?.titleize()
         color: "#e94e1b"
 
   template: "facts/fact_wheel"
 
   templateHelpers: ->
-    formatted_authority: format_as_short_number(@model.get('authority'))
+    formatted_total_votes: format_as_short_number(@model.totalCount())
 
   initialize: (options) ->
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
@@ -66,92 +69,101 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   boxSize: -> @options.radius * 2 + @maxStrokeWidth()
 
   reRender: ->
-    @$('.authority').text format_as_short_number(@model.get('authority'))
+    @$('.js-total-votes').text format_as_short_number(@model.totalCount())
     @postRenderActions()
 
   postRenderActions: ->
-    offset = 0
-    @calculateDisplayablePercentages()
-    for key, opinionType of @model.get('opinion_types')
-      @createOrAnimateArc opinionType, offset
-      offset += opinionType.displayPercentage
+    fractionOffset = 0
+    for type, fraction of @displayableFractions()
+      @createOrAnimateArc type, fraction, fractionOffset
+      fractionOffset += fraction
+
     @bindTooltips()
 
-  createOrAnimateArc: (opinionType, percentageOffset) ->
-    opacity = (if opinionType.is_user_opinion then @options.userOpinionStrokeOpacity else @options.defaultStrokeOpacity)
+  createOrAnimateArc: (type, fraction, fractionOffset) ->
+    opacity = (if @model.get('current_user_opinion') == type then @options.userOpinionStrokeOpacity else @options.defaultStrokeOpacity)
 
     # Our custom Raphael arc attribute
-    arc = [opinionType.displayPercentage, percentageOffset, @options.radius]
-    if @opinionTypeRaphaels[opinionType.type]
-      @animateExistingArc opinionType, arc, opacity
+    arc = [fraction, fractionOffset, @options.radius]
+    if @opinionTypeRaphaels[type]
+      @animateExistingArc type, arc, opacity
     else
-      @createArc opinionType, arc, opacity
+      @createArc type, arc, opacity
 
-  createArc: (opinionType, arc, opacity) ->
+  createArc: (type, arc, opacity) ->
     # Create a path in the global Raphael canvas and store it in opinionTypeRaphaels
     path = @canvas.path().attr
       # Our custom arc attribute
       arc: arc
-      stroke: @options.opinionStyles[opinionType.type].color
+      stroke: @options.opinionStyles[type].color
       "stroke-width": @defaultStrokeWidth()
       opacity: opacity
 
     # Bind Mouse Events on the path
     if @options.respondsToMouse || @options.showsTooltips
-      path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType.type)
-      path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType.type)
-      path.click _.bind(@clickOpinionType, this, opinionType.type)
+      path.mouseover _.bind(@mouseoverOpinionType, this, path, type)
+      path.mouseout _.bind(@mouseoutOpinionType, this, path, type)
+      path.click _.bind(@clickOpinionType, this, type)
 
-    @opinionTypeRaphaels[opinionType.type] = path
+    @opinionTypeRaphaels[type] = path
 
-  animateExistingArc: (opinionType, arc, opacity) ->
-    # Retrieve the existing Raphael path belonging to this opinionType
-    @opinionTypeRaphaels[opinionType.type].animate(
+  animateExistingArc: (type, arc, opacity) ->
+    # Retrieve the existing Raphael path belonging to this type
+    @opinionTypeRaphaels[type].animate(
       # Our custom arc attribute
       arc: arc
       opacity: opacity
     , arc_animation_speed(), "<>")
 
-  # This method also commits the calculated percentages to the model, maybe return instead?
-  calculateDisplayablePercentages: ->
+  wheelCounts: ->
+    if @model.totalCount() > 0
+      _.extend {total: @model.totalCount()}, @model.attributes
+    else
+      return {believes: 0, disbelieves: 0, doubts: 1, total: 1}
+
+  displayableFractions: ->
+    counts = @wheelCounts()
+    fractions = {}
     too_much = 0
     large_ones = 0
 
-    for key, opinionType of @model.get('opinion_types')
-      percentage = opinionType.percentage
-      if percentage < @options.minimalVisiblePercentage
-        too_much += @options.minimalVisiblePercentage - percentage
-      else large_ones += percentage  if percentage > 40
+    for key, opinionStyle of @options.opinionStyles
+      fractions[key] = counts[key] / counts.total
 
-    for key, opinionType of @model.get('opinion_types')
-      percentage = opinionType.percentage
-      if percentage < @options.minimalVisiblePercentage
-        percentage = @options.minimalVisiblePercentage
-      else percentage = percentage - ((percentage / large_ones) * too_much)  if percentage > 40
-      opinionType.displayPercentage = percentage
+      if fractions[key] < @options.minimalVisibleFraction
+        too_much += @options.minimalVisibleFraction - fractions[key]
+        fractions[key] = @options.minimalVisibleFraction
+      else if fractions[key] > 0.4
+        large_ones += fractions[key]
+
+    for key, fraction of fractions
+      if fractions[key] > 0.4
+        fractions[key] -= ((fractions[key] / large_ones) * too_much)
+
+    fractions
 
   bindCustomRaphaelAttributes: ->
     polarToRegular = (origin, radius, angle)->
       x: origin[0] + radius * Math.cos(angle),
       y: origin[1] - radius * Math.sin(angle)
 
-    @canvas.customAttributes.arc = (percentage, percentageOffset, radius) =>
+    @canvas.customAttributes.arc = (fraction, fractionOffset, radius) =>
       paddingPixels = 2
       paddingRadians = paddingPixels / @options.radius
 
-      startAngle = percentageOffset / 100 * 2 * Math.PI
-      endAngle = startAngle + percentage / 100 * 2 * Math.PI - paddingRadians
+      startAngle = fractionOffset * 2 * Math.PI
+      endAngle = startAngle + fraction * 2 * Math.PI - paddingRadians
 
       origin = [@boxSize() / 2, @boxSize() / 2]
 
       start = polarToRegular(origin, radius, startAngle)
       end = polarToRegular(origin, radius, endAngle)
 
-      direction = if percentage > 50 then 1 else 0
+      direction = if fraction > 0.5 then 1 else 0
       path: [["M", start.x, start.y], ["A", radius, radius, 0, direction, 0, end.x, end.y]]
 
   mouseoverOpinionType: (path, opinion_type) ->
-    destinationOpacity = if @model.isUserOpinion(opinion_type)
+    destinationOpacity = if @model.get('current_user_opinion') == opinion_type
                            @options.userOpinionStrokeOpacity
                          else
                            @options.hoverStrokeOpacity
@@ -162,7 +174,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     , arc_animation_speed(), "<>")
 
   mouseoutOpinionType: (path, opinion_type) ->
-    destinationOpacity = if @model.isUserOpinion(opinion_type)
+    destinationOpacity = if @model.get('current_user_opinion') == opinion_type
                            @options.userOpinionStrokeOpacity
                          else
                            @options.defaultStrokeOpacity
@@ -172,36 +184,39 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     , arc_animation_speed(), "<>")
 
   clickOpinionType: ->
+    # Implemented by children
 
-  bindTooltips: ->
+  bindTooltips: (fractions) ->
     if @options.showsTooltips
       @trigger 'removeTooltips'
 
-      @_makeAuthorityTooltip()
-      @_makeTooltipForPath 'believe', 'path:nth-of-type(1)'
-      @_makeTooltipForPath 'doubt', 'path:nth-of-type(2)'
-      @_makeTooltipForPath 'disbelieve', 'path:nth-of-type(3)'
+      @_makeTotalVotesTooltip()
+      @_makeTooltipForPath 'believes', 'path:nth-of-type(1)'
+      @_makeTooltipForPath 'doubts', 'path:nth-of-type(2)'
+      @_makeTooltipForPath 'disbelieves', 'path:nth-of-type(3)'
 
-  _makeAuthorityTooltip: ->
-    return unless @options.showsAuthorityTooltip
+  _makeTotalVotesTooltip: ->
+    return unless @options.showsTotalVotesTooltip
 
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: 'top'
         popover_className: 'translucent-popover'
         margin: @maxStrokeWidth()/2 - 7
-      selector: '.authority'
+      selector: '.js-total-votes'
       tooltipViewFactory: => new TextView text: 'Total votes'
 
-  _makeTooltipForPath: (name, selector) ->
+  _makeTooltipForPath: (type, selector) ->
     Backbone.Factlink.makeTooltipForView @,
       positioning:
-        side: @_tooltipSideForPath(@opinionTypeRaphaels[name])
+        side: @_tooltipSideForPath(@opinionTypeRaphaels[type])
         popover_className: 'translucent-popover'
         margin: @maxStrokeWidth()/2 - 3
       selector: selector
       tooltipViewFactory: =>
-        new TextView text: @options.opinionStyles[name].groupname + ": " + @model.get('opinion_types')[name].percentage + "%"
+        name = @options.opinionStyles[type].groupname
+        count = @model.get(type)
+        new TextView text: "#{name}: #{count}"
 
   _tooltipSideForPath: (path) ->
     bbox = path.getBBox()

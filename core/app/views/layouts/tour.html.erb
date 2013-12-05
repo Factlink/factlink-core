@@ -10,7 +10,7 @@
       window.next_tourstep_path = '<%=next_tourstep_path%>';
 
       $(function() {
-        FactlinkApp.startAsSite();
+        FactlinkApp.start({factlinkAppMode: FactlinkAppMode.coreInSite});
         Backbone.history.start({pushState: Modernizr.history});
       });
     </script>

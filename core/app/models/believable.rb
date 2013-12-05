@@ -16,11 +16,19 @@ class Believable
                     doubts_count.to_f/authority.to_f, authority.to_f)
   end
 
+  def votes
+    {
+      believes: people_believes.count,
+      disbelieves: people_disbelieves.count,
+      doubts: people_doubts.count
+    }
+  end
+
   def opinion_of_graph_user graph_user
     OpinionType.types.each do |opinion|
       return opinion if opiniated(opinion).include? graph_user
     end
-    return nil
+    return :no_vote
   end
 
   # the following three functions should be considered

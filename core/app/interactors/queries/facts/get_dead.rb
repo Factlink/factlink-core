@@ -13,7 +13,7 @@ module Queries
                      fact.data.displaystring,
                      fact.data.created_at,
                      fact.data.title,
-                     wheel,
+                     votes,
                      fact.deletable?
       end
 
@@ -27,8 +27,8 @@ module Queries
         fact.site.url
       end
 
-      def wheel
-        query(:'facts/get_dead_wheel', id: id)
+      def votes
+        query(:'facts/get_votes', id: id)
       end
 
       def validate

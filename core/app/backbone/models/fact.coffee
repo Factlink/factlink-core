@@ -28,11 +28,11 @@ class window.Fact extends Backbone.Model
         @get("containing_channel_ids").push channel.id
         opts.success?()
 
-  getFactWheel: ->
-    unless @_fact_wheel?
-      @_fact_wheel = new Wheel _.extend {}, @get("fact_wheel"), fact_id: @id
-      @on 'change:id', -> @_fact_wheel.set 'fact_id', @id
-    @_fact_wheel
+  getFactVotes: ->
+    unless @_fact_votes?
+      @_fact_votes = new FactVotes _.extend {}, @get("fact_votes"), fact_id: @id
+      @on 'change:id', -> @_fact_votes.set 'fact_id', @id
+    @_fact_votes
 
   clientLink: -> "/client/facts/#{@id}"
 

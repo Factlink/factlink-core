@@ -3,13 +3,13 @@
 module Acceptance
   module ConversationHelper
     def send_reply(reply_str)
-      within(:css, "div.reply") do
+      within(:css, "div.message-reply") do
         fill_in "reply", with: reply_str
 
         click_on "Send message"
       end
 
-      page.find('.messages .text', text: reply_str)
+      page.find('.message-text', text: reply_str)
     end
 
     def last_message_should_have_content(reply_str)
@@ -61,11 +61,11 @@ module Acceptance
     def open_message_with_content(message_str)
       find(".conversations-link").click
 
-      within '.conversations li' do
+      within '.messages-overview-item' do
         page.should have_content(message_str)
       end
 
-      find(:css, "div.text", text: message_str).click
+      find(:css, "div.conversation-text", text: message_str).click
 
       page.should have_selector '.conversation .fact-view'
     end
