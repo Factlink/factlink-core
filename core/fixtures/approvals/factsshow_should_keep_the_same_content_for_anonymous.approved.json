@@ -21,7 +21,7 @@
     "believes_count": 1,
     "disbelieves_count": 0,
     "doubts_count": 0,
-    "current_user_opinion": null
+    "current_user_opinion": "no_vote"
   },
   "fact_url": "url",
   "proxy_scroll_url": "http://localhost:8080/?url=url&scrollto=1",
