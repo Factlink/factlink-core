@@ -1,3 +1,5 @@
+//(source: http://snipt.org/ujhhd4 slightly modified by eamon)
+
 import hudson.FilePath;
 
 dryRun = false
