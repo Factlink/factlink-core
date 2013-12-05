@@ -28,7 +28,7 @@ module Queries
       end
 
       def votes
-        query(:'facts/get_votes', id: id)
+        query(:'believable/votes', believable: fact.believable)
       end
 
       def validate
