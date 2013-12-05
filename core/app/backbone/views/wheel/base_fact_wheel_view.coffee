@@ -115,8 +115,14 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       opacity: opacity
     , arc_animation_speed(), "<>")
 
+  wheelCounts: ->
+    if @model.totalCount() > 0
+      _.extend {total: @model.totalCount()}, @model.attributes
+    else
+      return {believes_count: 0, disbelieves_count: 0, doubts_count: 1, total: 1}
+
   displayableFractions: ->
-    counts = @model.wheelCounts()
+    counts = @wheelCounts()
     fractions = {}
     too_much = 0
     large_ones = 0
