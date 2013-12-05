@@ -26,8 +26,12 @@ module Queries
 
       def sort result
         result.sort do |a,b|
-          b.impact_opinion.authority <=> a.impact_opinion.authority
+          relevance_of(b) <=> relevance_of(a)
         end
+      end
+
+      def relevance_of evidence
+        evidence.votes[:believes] - evidence.votes[:disbelieves]
       end
 
       def fact
