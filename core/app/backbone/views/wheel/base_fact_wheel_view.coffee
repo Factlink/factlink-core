@@ -73,14 +73,12 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @postRenderActions()
 
   postRenderActions: ->
-    fractions = @displayableFractions()
     fractionOffset = 0
-
-    for type, fraction of fractions
+    for type, fraction of @displayableFractions()
       @createOrAnimateArc type, fraction, fractionOffset
       fractionOffset += fraction
 
-    @bindTooltips(fractions)
+    @bindTooltips()
 
   createOrAnimateArc: (type, fraction, fractionOffset) ->
     opacity = (if @model.get('current_user_opinion') == type then @options.userOpinionStrokeOpacity else @options.defaultStrokeOpacity)
@@ -189,8 +187,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       @_makeAuthorityTooltip()
 
       i = 1
-      for type, fraction of fractions
-        @_makeTooltipForPath type, fraction, "path:nth-of-type(#{i})"
+      for type, opinionStyle of @options.opinionStyles
+        @_makeTooltipForPath type, opinionStyle, "path:nth-of-type(#{i})"
         i++
 
   _makeAuthorityTooltip: ->
@@ -204,7 +202,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       selector: '.authority'
       tooltipViewFactory: => new TextView text: 'Total votes'
 
-  _makeTooltipForPath: (type, fraction, selector) ->
+  _makeTooltipForPath: (type, opinionStyle, selector) ->
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: @_tooltipSideForPath(@opinionTypeRaphaels[type])
@@ -212,7 +210,8 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         margin: @maxStrokeWidth()/2 - 3
       selector: selector
       tooltipViewFactory: =>
-        new TextView text: @options.opinionStyles[type].groupname + ": " + Math.floor(fraction*100) + "%"
+        count = @model.get(opinionStyle.attributeName)
+        new TextView text: "#{opinionStyle.groupname}: #{count}"
 
   _tooltipSideForPath: (path) ->
     bbox = path.getBBox()
