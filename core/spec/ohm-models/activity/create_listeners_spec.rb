@@ -91,19 +91,6 @@ describe 'activity queries' do
         ]
       end
     end
-    it "should return an activity when a user accepts its invitation" do
-      inviter = create :full_user
-
-      u = create :user
-      u.invited_by = inviter
-      u.save
-
-      u.skip_confirmation_and_create_invited_activity
-
-      u.graph_user.notifications.map(&:to_hash_without_time).should == [
-        {user: inviter.graph_user, action: :invites, subject: u.graph_user}
-      ]
-    end
   end
 
   describe :messages do

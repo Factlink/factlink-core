@@ -10,8 +10,6 @@ class ActivityMailer < ActionMailer::Base
                             .find(user_id)
     @activity = Activity[activity_id]
 
-    blacklisted_activities = ['invites']
-
     return if blacklisted_activities.include? @activity.action
     return unless @activity.still_valid?
     return unless @user

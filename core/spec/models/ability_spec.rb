@@ -213,24 +213,6 @@ describe Ability do
     end
   end
 
-  describe "to invite users" do
-    it "should not be possible when you have no invites" do
-      anonymous.should_not be_able_to :invite, User
-      subject.should_not be_able_to :invite, User
-      admin.should_not be_able_to :invite, User
-    end
-    describe "when you have invitations" do
-      before do
-        user.invitation_limit = 3
-        admin_user.invitation_limit = 3
-      end
-      it "should be possible when you have no invites" do
-        subject.should be_able_to :invite, User
-        admin.should be_able_to :invite, User
-      end
-    end
-  end
-
   describe "sharing" do
     it "should not be allowed by default" do
       admin.should_not     be_able_to :share_to, admin_user.social_account('twitter')

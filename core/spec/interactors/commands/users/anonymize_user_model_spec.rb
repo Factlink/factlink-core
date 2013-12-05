@@ -12,8 +12,7 @@ describe Commands::Users::AnonymizeUserModel do
         password_confirmation: '123hoi',
         deleted: true,
         reset_password_token: 'data',
-        confirmation_token: 'data',
-        invitation_token: 'data'
+        confirmation_token: 'data'
 
       create :social_account, :twitter, user: user
       create :social_account, :facebook, user: user
@@ -39,8 +38,6 @@ describe Commands::Users::AnonymizeUserModel do
       expect(saved_user.confirmation_token).to be_nil
       expect(saved_user.confirmed_at).to be_nil
       expect(saved_user.confirmed?).to be_false
-
-      expect(saved_user.invitation_token).to be_nil
 
       expect(saved_user.email).to eq "deleted+#{saved_user.username}@factlink.com"
     end

@@ -4,7 +4,6 @@ FactlinkUI::Application.routes.draw do
 
   # User Authentication
   devise_for :users, :controllers => {  confirmations: "users/confirmations",
-                                        invitations:   "users/invitations",
                                         sessions:      "users/sessions",
                                         passwords:      "users/passwords"
                                       }
