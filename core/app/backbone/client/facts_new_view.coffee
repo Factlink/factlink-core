@@ -66,7 +66,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       showsAuthorityTooltip: FactlinkApp.guided
     persistentWheelView.render()
 
-    persistentWheelView.on 'opinionSet', =>
+    @wheel.on 'change:current_user_opinion', =>
       @ui.opinion_animation.hide()
       @closeOpinionHelptext()
 
@@ -81,7 +81,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     channel_ids = @addToCollection.pluck('id')
 
     fact = new Fact
-      opinion: @wheel.userOpinionWithS()
+      opinion: @wheel.get('current_user_opinion')
       displaystring: @options.fact_text
       fact_url: @options.url
       fact_title: @options.title

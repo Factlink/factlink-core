@@ -24,7 +24,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
         respondsToMouse: false
 
     @listenTo @model, 'change', ->
-      wheel.setRecursive @model.get("fact_wheel")
+      wheel.set @model.get("fact_votes")
       wheelView.render()
 
     wheelView
