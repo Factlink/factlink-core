@@ -6,11 +6,7 @@ module Queries
       arguments :id
 
       def execute
-        Channel[id] or fail
-      end
-
-      def fail
-        fail "Channel #{id} not found"
+        Channel[id] or fail "Channel #{id} not found"
       end
 
       def validate
