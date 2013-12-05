@@ -1,94 +1,63 @@
 @import "bootstrap/mixins";
 
-#container #main-wrapper .content-region {
-  .conversation {
-    .fact-wrapper {
-      .reset-main-padding();
-      border-bottom: 1px solid @baseBorderColor;
-      box-shadow: 0 2px 1px rgba(0, 0, 0, .1);
+.messages-overview-item, .conversation-message {
+  padding: 15px 0;
+  .reset-main-padding();
+  border-bottom: 1px solid @mutedBorderColor;
+}
 
-      .fact-view {
-        border-bottom: none;
-      }
-    }
+.message {
+  padding: 0 0 0 58px;
+  margin: -4px 0 0 0;
+}
+
+.message-text {
+  word-wrap: break-word;
+}
+
+.icon-reply {
+  opacity: 0.65;
+}
+
+.message-meta {
+  float: right;
+  color: @mutedFontColor;
+}
+
+.message-avatar {
+  float: left;
+  width: 48px;
+  height: 48px;
+  border-radius: @baseBorderRadius;
+}
+
+.message-user-profile-link {
+  font-weight: bold;
+}
+
+.messages-overview-empty {
+  margin: 20px 0;
+  text-align: center;
+  color: @metaFontColor;
+
+  &.ajax-loader {
+    width: 16px;
+    height: 16px;
   }
 
-  .conversations {
-    .clearfix();
-
-    li:hover {
-      cursor: pointer;
-      background: @itemHoverColor;
-    }
-    li:last-child { border: none; }
-
-    .empty {
-      margin: 20px 0;
-      text-align: center;
-      color: @metaFontColor;
-
-      img {
-        margin: 15px 0;
-
-        &.ajax-loader {
-          width: 16px;
-          height: 16px;
-        }
-
-        &.conversations-logo {
-          width: 56px;
-          height: 39px;
-        }
-      }
-    }
-    .text {
-      color: @metaFontColor;
-    }
+  &.messages-logo {
+    margin: 15px 0;
+    width: 56px;
+    height: 39px;
   }
+}
 
-  .conversations,
-  .messages ul {
-    padding: 0;
-    .reset-main-padding();
+.messages-overview-user-link {
+  font-weight: bold;
+  color: @headingFontColor;
+}
 
-    li {
-      padding: 15px 0;
-      .reset-main-padding();
-      border-bottom: 1px solid @mutedBorderColor;
-
-      .avatar {
-        float: left;
-        img {
-          width: 48px;
-          height: 48px;
-          border-radius: @baseBorderRadius;
-        }
-      }
-      .message {
-        padding: 0 0 0 58px;
-        margin: -4px 0 0 0;
-
-        .user-profile-link {
-          font-weight: bold;
-        }
-
-        .user-profile-link-dummy {
-          font-weight: bold;
-          color: @headingFontColor;
-        }
-
-        .meta {
-          float: right;
-          color: @mutedFontColor;
-        }
-
-        .text {
-          word-wrap: break-word;
-          i {
-            opacity: 0.65;
-          }
-        }
-      }
-    }
-  }
+.messages-overview-item:hover {
+  cursor: pointer;
+  background: @itemHoverColor;
 }

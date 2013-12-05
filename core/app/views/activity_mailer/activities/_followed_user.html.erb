@@ -30,24 +30,22 @@
               <%= dead_user.statistics[:follower_count] %>
             </span>
           </td>
-          <td class="user-info-stat" width="50px">
+          <td class="user-info-stat <% unless dead_user.top_user_topics.first %>no-border<% end %>" width="50px">
             <span class="muted">Following</span><br />
             <span class="user-info-value">
               <%= dead_user.statistics[:following_count] %>
             </span>
           </td>
-          <td class="user-info-stat no-border">
-            <span class="muted">Most authority on</span><br />
-            <span class="user-info-value">
-              <% if dead_user.top_user_topics.first %>
+          <% if dead_user.top_user_topics.first %>
+            <td class="user-info-stat no-border">
+              <span class="muted">Last posted to</span><br />
+              <span class="user-info-value">
                 <a href="<%= topic_path(dead_user.top_user_topics.first.slug_title) %>" class="user-info-topic">
                   <%= dead_user.top_user_topics.first.title %>
                 </a>
-              <% else %>
-                -
-              <% end %>
-            </span>
-          </td>
+              </span>
+            </td>
+          <% end %>
         </tr>
       </table>
     </td>

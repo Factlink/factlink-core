@@ -1,10 +1,10 @@
 class window.ConversationReplyView extends Backbone.Marionette.ItemView
   template: 'conversations/reply'
   events:
-    "click .submit": 'submit'
+    "click .js-message-reply-submit": 'submit'
 
   ui:
-    submit: '.submit'
+    submit: '.js-message-reply-submit'
 
   submit: ->
     return if @submitting
@@ -35,4 +35,4 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
     @submitting = true
     @ui.submit.prop('disabled',true ).val('Sending...')
 
-  clearForm:     -> @$('.recipients, .message-textarea').val('')
+  clearForm:     -> @$('.recipients, .message-reply-textarea').val('')

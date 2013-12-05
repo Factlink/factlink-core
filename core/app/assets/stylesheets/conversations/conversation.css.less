@@ -1,49 +1,54 @@
 @import "bootstrap/mixins";
 
-#container #main-wrapper .content-region {
-  .messages ul {
-    margin: 0;
-    .text {
-      color: @baseFontColor;
-    }
-  }
+.messages ul {
+  margin: 0;
+}
 
-  .conversation-message {
-    position: relative; // for popover
-  }
+.conversation-message {
+  position: relative; // for popover
+}
 
-  .conversation {
-    .reply {
-      padding-top: 15px;
-      .reset-main-padding();
+.conversation {
+  .clearfix();
+  margin-bottom: 30px;
+}
 
-      textarea {
-        width: 100%;
-        height: 75px;
-      }
+.message-fact-wrapper {
+  .reset-main-padding();
+  border-bottom: 1px solid @baseBorderColor;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, .1);
 
-      .submit {
-        float: right;
-        width: 120px;
-        margin-top: 10px;
-      }
-    }
-    .clearfix();
-    margin-bottom: 30px;
+  .fact-view {
+    border-bottom: none;
+    padding-top: 0;
   }
 }
 
-.conversations-navigation {
-  .conversations-title {
-    float: left;
-  }
+.message-reply {
+  padding-top: 15px;
+  .reset-main-padding();
+}
 
-  .conversations-link {
-    font-size: 10px;
-    float: left;
-    margin: 16px 10px 0 10px;
-    color: @grayDark;
-  }
+.message-reply-textarea {
+  width: 100%;
+  height: 75px;
+}
+
+.message-reply-submit {
+  float: right;
+  width: 120px;
+  margin-top: 10px;
+}
+
+.conversations-title {
+  float: left;
+}
+
+.conversations-overview-link {
+  font-size: 10px;
+  float: left;
+  margin: 16px 10px 0 10px;
+  color: @grayDark;
 }
 
 .conversation-title-view {

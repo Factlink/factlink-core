@@ -14,7 +14,7 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     super(args...)
     @closeList()
 
-  deActivateCurrent: () ->
+  deActivateCurrent: ->
     @currentActiveView()?.trigger('deactivate');
     @activeViewKey = `undefined`
 
