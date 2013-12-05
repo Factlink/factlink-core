@@ -63,25 +63,25 @@
   clear: both;
 }
 
-.evidence-impact, .evidence-box {
+.evidence-relevance, .evidence-box {
   position: relative;
   .box-sizing(border-box);
 }
 
-.evidence-impact {
+.evidence-relevance {
   .white-block-with-shadow();
   width:  @impactCircleDiameter;
   height: @impactCircleDiameter;
   border-radius: 1000px;
 }
 
-.evidence-impact-text-container {
+.evidence-relevance-text-container {
   position: relative; // for tooltip
   z-index: 2; // force it just above the other evidence, inside this stacking context
               // and also over voting popover
 }
 
-.evidence-impact-text {
+.evidence-relevance-text {
   .new-design-font();
   font-size: @heading1FontSize;
   line-height: @impactCircleDiameter;
@@ -98,12 +98,12 @@
 }
 
 .evidence-supporting, .evidence-loading {
-  > .evidence-impact, > .evidence-box {
+  > .evidence-relevance, > .evidence-box {
     float: right;
     clear: right;
   }
 
-  > .evidence-impact {
+  > .evidence-relevance {
     margin-top: @impactCircleTopSpacing;
     position: relative;
     margin-right: 50%;
@@ -112,12 +112,12 @@
 }
 
 .evidence-weakening {
-  > .evidence-impact, > .evidence-box {
+  > .evidence-relevance, > .evidence-box {
     float: left;
     clear: left;
   }
 
-  > .evidence-impact {
+  > .evidence-relevance {
     margin-top: @impactCircleTopSpacing;
     position: relative;
     margin-left: 50%;
@@ -126,12 +126,12 @@
 }
 
 .evidence-unsure {
-  > .evidence-impact, > .evidence-box {
+  > .evidence-relevance, > .evidence-box {
     margin: auto;
     clear: both;
   }
 
-  > .evidence-impact {
+  > .evidence-relevance {
     top: @unsureImpactRelativeTop;
     margin-bottom: @unsureImpactRelativeTop;
   }
@@ -163,7 +163,7 @@
 }
 
 // Coloured half-circles
-.evidence-impact::after {
+.evidence-relevance::after {
   content: '';
   position: absolute;
   top:    -@impactColouredBorderWidth;
@@ -172,7 +172,7 @@
   right:  -@impactColouredBorderWidth;
 }
 
-.evidence-supporting > .evidence-impact::after {
+.evidence-supporting > .evidence-relevance::after {
   left: ceil(@impactCircleDiameter/2) - 1px;
   border-top-right-radius:    1000px;
   border-bottom-right-radius: 1000px;
@@ -181,7 +181,7 @@
   border-left: none;
 }
 
-.evidence-weakening > .evidence-impact::after {
+.evidence-weakening > .evidence-relevance::after {
   right: floor(@impactCircleDiameter/2) - 2px;
   border-top-left-radius:    1000px;
   border-bottom-left-radius: 1000px;
@@ -189,7 +189,7 @@
   border-right: none;
 }
 
-.evidence-unsure > .evidence-impact::after {
+.evidence-unsure > .evidence-relevance::after {
   top: floor(@impactCircleDiameter/2) - 1px;
   border-bottom-left-radius:  1000px;
   border-bottom-right-radius: 1000px;
@@ -222,7 +222,7 @@
 }
 
 // Voting arrows
-.evidence-impact-vote {
+.evidence-relevance-vote {
   position: absolute; // needs to be positioned for popover
   left: 0;
   right: 0;
@@ -230,12 +230,12 @@
   bottom: 0;
 }
 
-.evidence-votable > .evidence-impact {
+.evidence-votable > .evidence-relevance {
   margin-top: @impactCircleTopSpacing + @impactCircleVotableWithoutArrowsTopSpacing;
 }
 
 @arrowAdditionalSpacing: @arrowHeight + @arrowInnerSpacing;
-.evidence-votable.evidence-has-arrows > .evidence-impact {
+.evidence-votable.evidence-has-arrows > .evidence-relevance {
   margin-top: @impactCircleTopSpacing + @arrowAdditionalSpacing;
   margin-bottom: @arrowAdditionalSpacing;
 }
@@ -244,7 +244,7 @@
   margin-top: @evidenceBoxTopOffset - @arrowAdditionalSpacing;
 }
 
-.evidence-impact-vote-up, .evidence-impact-vote-down {
+.evidence-relevance-vote-up, .evidence-relevance-vote-down {
   width: @arrowWidth;
   height: @arrowHeight;
   position: absolute;
@@ -253,7 +253,7 @@
   display: none;
 }
 
-.evidence-impact-vote-up {
+.evidence-relevance-vote-up {
   background: asset-data-url( 'evidence-arrows/up-arrow-unclicked.png');
   top: -@arrowHeight - @arrowInnerSpacing;
 
@@ -270,7 +270,7 @@
   }
 }
 
-.evidence-impact-vote-down {
+.evidence-relevance-vote-down {
   background: asset-data-url('evidence-arrows/down-arrow-unclicked.png');
   bottom: -@arrowHeight - @arrowInnerSpacing;
 
@@ -288,12 +288,12 @@
 }
 
 .evidence-votable {
-  .evidence-impact-vote-up, .evidence-impact-vote-down {
+  .evidence-relevance-vote-up, .evidence-relevance-vote-down {
     display: block;
   }
 }
 
-.evidence-impact-vote-popover {
+.evidence-relevance-vote-popover {
   z-index: 1; // force it just above the other evidence, inside this stacking context
               // but under the authority popovers
 }
@@ -385,7 +385,7 @@
   right: 50%;
 }
 
-.evidence-add .evidence-impact {
+.evidence-add .evidence-relevance {
   margin-top: -@impactCircleDiameter/2;
   cursor: pointer;
 
@@ -412,6 +412,6 @@
   opacity: 0.4;
 }
 
-.evidence-impact:hover .evidence-add-cross {
+.evidence-relevance:hover .evidence-add-cross {
   opacity: 0.6;
 }
