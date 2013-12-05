@@ -18,9 +18,9 @@ class Believable
 
   def votes
     {
-      believes_count: people_believes.count,
-      disbelieves_count: people_disbelieves.count,
-      doubts_count: people_doubts.count
+      believes: people_believes.count,
+      disbelieves: people_disbelieves.count,
+      doubts: people_doubts.count
     }
   end
 

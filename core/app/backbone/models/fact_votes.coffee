@@ -5,14 +5,14 @@
 
 class window.FactVotes extends Backbone.Model
   defaults:
-    believes_count: 0
-    disbelieves_count: 0
-    doubts_count: 0
+    believes: 0
+    disbelieves: 0
+    doubts: 0
 
   setCurrentUserOpinion: (newValue) ->
     previousValue = @get('current_user_opinion')
-    @set "#{previousValue}_count", @get("#{previousValue}_count")-1 if previousValue != 'no_vote'
-    @set "#{newValue}_count", @get("#{newValue}_count")+1 if newValue != 'no_vote'
+    @set previousValue, @get(previousValue)-1 if previousValue != 'no_vote'
+    @set newValue, @get(newValue)+1 if newValue != 'no_vote'
     @set 'current_user_opinion', newValue
 
   # TODO: Use @save here!!
@@ -55,4 +55,4 @@ class window.FactVotes extends Backbone.Model
   isBelieving: -> @get('current_user_opinion') == 'believes'
   isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
 
-  totalCount: -> @get('believes_count') + @get('disbelieves_count') + @get('doubts_count')
+  totalCount: -> @get('believes') + @get('disbelieves') + @get('doubts')
