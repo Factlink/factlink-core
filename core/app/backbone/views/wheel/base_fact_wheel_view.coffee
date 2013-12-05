@@ -35,7 +35,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   template: "facts/fact_wheel"
 
   templateHelpers: ->
-    formatted_total_count: format_as_short_number(@model.totalCount())
+    formatted_total_votes: format_as_short_number(@model.totalCount())
 
   initialize: (options) ->
     @options = $.extend(true, {}, BaseFactWheelView.prototype.defaults, @defaults, options)
@@ -69,7 +69,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   boxSize: -> @options.radius * 2 + @maxStrokeWidth()
 
   reRender: ->
-    @$('.authority').text format_as_short_number(@model.totalCount())
+    @$('.js-total-votes').text format_as_short_number(@model.totalCount())
     @postRenderActions()
 
   postRenderActions: ->
@@ -199,7 +199,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         side: 'top'
         popover_className: 'translucent-popover'
         margin: @maxStrokeWidth()/2 - 7
-      selector: '.authority'
+      selector: '.js-total-votes'
       tooltipViewFactory: => new TextView text: 'Total votes'
 
   _makeTooltipForPath: (type, opinionStyle, selector) ->
