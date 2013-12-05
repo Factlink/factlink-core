@@ -191,11 +191,9 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       @trigger 'removeTooltips'
 
       @_makeTotalVotesTooltip()
-
-      i = 1
-      for type, opinionStyle of @options.opinionStyles
-        @_makeTooltipForPath type, opinionStyle, "path:nth-of-type(#{i})"
-        i++
+      @_makeTooltipForPath 'believes', 'path:nth-of-type(1)'
+      @_makeTooltipForPath 'doubts', 'path:nth-of-type(2)'
+      @_makeTooltipForPath 'disbelieves', 'path:nth-of-type(3)'
 
   _makeTotalVotesTooltip: ->
     return unless @options.showsTotalVotesTooltip
@@ -208,7 +206,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
       selector: '.js-total-votes'
       tooltipViewFactory: => new TextView text: 'Total votes'
 
-  _makeTooltipForPath: (type, opinionStyle, selector) ->
+  _makeTooltipForPath: (type, selector) ->
     Backbone.Factlink.makeTooltipForView @,
       positioning:
         side: @_tooltipSideForPath(@opinionTypeRaphaels[type])
@@ -216,6 +214,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         margin: @maxStrokeWidth()/2 - 3
       selector: selector
       tooltipViewFactory: =>
+        opinionStyle = @options.opinionStyles[type]
         count = @model.get(opinionStyle.attributeName)
         new TextView text: "#{opinionStyle.groupname}: #{count}"
 
