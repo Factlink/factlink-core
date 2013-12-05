@@ -35,7 +35,7 @@ class Topic
   end
 
   def channels
-    Channel.find(slug_title: self.slug_title)
+    Channel.find(slug_title: slug_title)
   end
 
   def to_param

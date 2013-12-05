@@ -25,12 +25,12 @@ class ElasticSearch
     if delete_index_response.code != 404 and delete_index_response.code != 200
       raise 'failed clearing elasticsearch index'
     end
-    self.refresh
+    refresh
   end
 
   def self.truncate
-    self.create
-    self.clean
+    create
+    clean
   end
 
   def self.create

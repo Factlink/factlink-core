@@ -12,7 +12,7 @@ class Users::InvitationsController < Devise::InvitationsController
     end
 
     if resource.errors.empty?
-      set_flash_message :notice, :send_instructions, :email => self.resource.email
+      set_flash_message :notice, :send_instructions, :email => resource.email
       respond_with resource, :location => after_invite_path_for(resource)
     else
       @resource = User.new

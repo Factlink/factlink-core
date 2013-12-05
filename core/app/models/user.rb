@@ -176,7 +176,7 @@ class User
   after_invitation_accepted :skip_confirmation_and_create_invited_activity
   def skip_confirmation_and_create_invited_activity
     self.skip_confirmation!
-    self.save
+    save
 
     Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
   end
@@ -256,7 +256,7 @@ class User
   end
 
   def self.from_param(param)
-    self.find_by username: param
+    find_by username: param
   end
 
   # This function provides backwards compatibility with using #find(username)
@@ -304,6 +304,6 @@ class User
   # Override login mechanism to allow username or email logins
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
-    self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
+    any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 end

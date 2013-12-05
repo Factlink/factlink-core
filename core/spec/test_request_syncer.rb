@@ -51,7 +51,7 @@ module TestRequestSyncer
     end
     def redirect_to(*args, &block)
       res = super(*args, &block)
-      self.location = self.location.sub(/\?|$/,"?test_counter=#{TestRequestSyncer.test_counter}&")
+      self.location = location.sub(/\?|$/,"?test_counter=#{TestRequestSyncer.test_counter}&")
       res
     end
   end

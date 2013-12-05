@@ -13,7 +13,7 @@ class FactData
   validates_format_of :displaystring, allow_nil: true, with: /\S/
 
   def to_s
-    self.displaystring || ""
+    displaystring || ""
   end
 
   def fact

@@ -43,7 +43,7 @@ class UserNotification
   def self.generate_token(column)
     loop do
       token = Devise.friendly_token
-      break token if self.find({ column => token }).empty?
+      break token if find({ column => token }).empty?
     end
   end
 
