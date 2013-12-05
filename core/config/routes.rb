@@ -68,7 +68,7 @@ FactlinkUI::Application.routes.draw do
     end
     resources :supporting_evidence, :weakening_evidence, only: [:show, :create, :destroy] do
       member do
-        post "opinion" => "evidence#update_opinion", as: "update_opinion"
+        put "opinion" => "evidence#update_opinion", as: "update_opinion"
         scope '/sub_comments' do
           get '' => 'sub_comments#index'
           post '' => 'sub_comments#create'

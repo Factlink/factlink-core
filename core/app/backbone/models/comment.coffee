@@ -32,3 +32,5 @@ class window.Comment extends Evidence
   removeOpinion: -> @unset('opinion'); @save()
 
   urlRoot: -> @collection.commentsUrl()
+
+  argumentVotes: -> new ArgumentVotes {}, urlRoot: '' # TODO: implement
