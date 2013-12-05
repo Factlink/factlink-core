@@ -15,6 +15,12 @@ class window.FactVotes extends Backbone.Model
     @set "#{newValue}_count", @get("#{newValue}_count")+1 if newValue?
     @set 'current_user_opinion', newValue
 
+  wheelCounts: ->
+    if @totalCount() > 0
+      _.extend {total: @totalCount()}, @attributes
+    else
+      return {believes_count: 0, disbelieves_count: 0, doubts_count: 1, total: 1}
+
   # TODO: Use @save here!!
   setActiveOpinionType: (opinion_type) ->
     @previous_opinion_type = @get('current_user_opinion')

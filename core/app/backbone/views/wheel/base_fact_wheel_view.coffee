@@ -118,15 +118,13 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     , arc_animation_speed(), "<>")
 
   displayableFractions: ->
-    totalCount = @model.totalCount()
-    return {believes: 1/3, disbelieves: 1/3, doubts: 1/3} unless totalCount > 0
-
+    counts = @model.wheelCounts()
     fractions = {}
     too_much = 0
     large_ones = 0
 
     for key, opinionStyle of @options.opinionStyles
-      fractions[key] = @model.get(opinionStyle.attributeName) / totalCount
+      fractions[key] = counts[opinionStyle.attributeName] / counts.total
 
       if fractions[key] < @options.minimalVisibleFraction
         too_much += @options.minimalVisibleFraction - fractions[key]
