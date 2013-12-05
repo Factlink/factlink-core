@@ -28,10 +28,6 @@ module Queries
       def current_user
         pavlov_options[:current_user]
       end
-
-      def validate
-        validate_integer_string :id, id
-      end
     end
   end
 end
