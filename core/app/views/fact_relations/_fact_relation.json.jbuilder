@@ -3,7 +3,7 @@
 if fact_relation.respond_to? :current_user_opinion
   current_user_opinion = fact_relation.current_user_opinion
 elsif current_graph_user
-  current_user_opinion = current_graph_user.opinion_on(fact_relation)
+  current_user_opinion = fact_relation.believable.opinion_of_graph_user current_graph_user
 else
   current_user_opinion = nil
 end

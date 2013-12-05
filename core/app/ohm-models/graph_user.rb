@@ -13,8 +13,4 @@ class GraphUser < OurOhm
   timestamped_set :notifications, Activity
   timestamped_set :stream_activities, Activity
   timestamped_set :sorted_created_facts, Fact
-
-  def opinion_on(fact)
-    UserOpinion.new(self).on(fact)
-  end
 end

@@ -18,10 +18,11 @@ describe Queries::FactRelations::ByIds do
 
   describe '#call' do
     it 'returns the dead fact_relation' do
-      fact_relation = double(id: '1', class: 'FactRelation')
+      believable = double
+      fact_relation = double(id: '1', class: 'FactRelation', believable: believable)
       dead_fact_relation = double
       graph_user = double
-      opinion_on = double
+      opinion = :believes
       user = double(graph_user: graph_user)
       impact_opinion = double
       sub_comments_count = 2
@@ -43,10 +44,11 @@ describe Queries::FactRelations::ByIds do
                       fact_relation: fact_relation, pavlov_options: pavlov_options)
             .and_return(impact_opinion)
 
-      graph_user.stub(:opinion_on).with(fact_relation).and_return(opinion_on)
+      believable.stub(:opinion_of_graph_user).with(graph_user).and_return(opinion)
+
       KillObject.stub(:fact_relation)
                 .with(fact_relation,
-                      current_user_opinion: opinion_on,
+                      current_user_opinion: opinion,
                       impact_opinion: impact_opinion,
                       evidence_class: 'FactRelation')
                 .and_return(dead_fact_relation)
@@ -59,7 +61,6 @@ describe Queries::FactRelations::ByIds do
     it 'works without a current user' do
       fact_relation = double(id: '1', class: 'FactRelation')
       dead_fact_relation = double
-      opinion_on = double
       impact_opinion = double
       sub_comments_count = 2
       query = described_class.new fact_relation_ids: [fact_relation.id]
