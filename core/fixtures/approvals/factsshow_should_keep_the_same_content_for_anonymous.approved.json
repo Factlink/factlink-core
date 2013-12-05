@@ -18,9 +18,9 @@
   "created_by_ago": "Posted 1 minute ago",
   "fact_title": "title",
   "fact_votes": {
-    "believes_count": 1,
-    "disbelieves_count": 0,
-    "doubts_count": 0,
+    "believes": 1,
+    "disbelieves": 0,
+    "doubts": 0,
     "current_user_opinion": "no_vote"
   },
   "fact_url": "url",
