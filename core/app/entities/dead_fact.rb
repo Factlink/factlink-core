@@ -4,7 +4,7 @@ DeadFact = Struct.new(
   :displaystring,
   :created_at,
   :title,
-  :wheel,
+  :votes,
   :deletable?
 ) do
   def to_s
