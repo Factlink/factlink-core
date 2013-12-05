@@ -12,13 +12,9 @@ class FactsController < ApplicationController
       :update,
       :opinion,
       :evidence_search,
-      :set_opinion,
-      :remove_opinions,
+      :update_opinion,
       :share
       ]
-
-  around_filter :allowed_type,
-    :only => [:set_opinion ]
 
   def show
     authorize! :show, @fact
@@ -81,21 +77,17 @@ class FactsController < ApplicationController
     render json: {}
   end
 
-  def set_opinion
-    type = OpinionType.real_for(params[:type])
+  def update_opinion
     authorize! :opinionate, @fact
 
-    @fact.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type), @fact)
-
-    render json: {}
-  end
-
-  def remove_opinions
-    authorize! :opinionate, @fact
-
-    @fact.remove_opinions(current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact)
+    if params[:current_user_opinion] == 'no_vote'
+      @fact.remove_opinions(current_user.graph_user)
+      Activity::Subject.activity(current_user.graph_user, :removed_opinions, @fact)
+    else
+      type = OpinionType.real_for(params[:current_user_opinion])
+      @fact.add_opinion(type, current_user.graph_user)
+      Activity::Subject.activity(current_user.graph_user, type, @fact)
+    end
 
     render json: {}
   end
@@ -138,19 +130,6 @@ class FactsController < ApplicationController
   def fact_id
     params[:fact_id] || params[:id]
   end
-
-  def allowed_type
-    # TODO: REFACTOR SUCH THAT set_opinion rescues exception from opiniontype
-    allowed_types = ['beliefs', 'doubts', 'disbeliefs', 'believes', 'disbelieves']
-    type = params[:type]
-    if allowed_types.include?(type)
-      yield
-    else
-      render :json => {"error" => "type not allowed"}, :status => 500
-      false
-    end
-  end
-
 
   def add_to_channels fact, channel_ids
     return unless channel_ids
