@@ -14,7 +14,7 @@ describe Commands::Topics::Create do
       title = 'Foo'
       topic = double title: title, slug_title: 'foo'
 
-      expect(Topic).to receive(:create)
+      expect(Topic).to receive(:create!)
         .with(title: title)
         .and_return(topic)
 
@@ -22,13 +22,6 @@ describe Commands::Topics::Create do
       result = command.execute
 
       expect(result.title).to eq title
-    end
-  end
-
-  describe 'validation' do
-    it 'requires a title' do
-      expect_validating(title: '').
-        to fail_validation('title should be a nonempty string.')
     end
   end
 end
