@@ -8,16 +8,6 @@ class Authority < OurOhm
   attribute :authority
 
   class << self
-    def debug x
-      return unless @logger
-      @logger.info "#{Time.now} #{x}"
-      $stdout.flush
-    end
-
-    def logger= logger
-      @logger = logger
-    end
-
     def related(label, subject, opts={})
       AuthorityObject.by_reference self.key+"NEW", label,
         class_for(subject), subject.id.to_s,
