@@ -11,7 +11,7 @@ module Interactors
       include Util::CanCan
 
       def execute
-        channels_with_authorities.map do |ch, authority|
+        visible_channels.map do |ch|
           graph_user = channel_graph_user(ch)
           dead_user = dead_user_for_graph_user(graph_user)
 
@@ -28,11 +28,6 @@ module Interactors
         @dead_user_for_graph_user[graph_user.user_id] ||=
           query(:users_by_ids, user_ids: [graph_user.user_id])
             .fetch(0, :dead_user_for_graph_user_not_found)
-      end
-
-      def channels_with_authorities
-        authorities = visible_channels.map { 1 }
-        visible_channels.zip authorities
       end
 
       def visible_channels
