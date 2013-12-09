@@ -55,7 +55,7 @@ FactlinkUI::Application.routes.draw do
       get 'recently_viewed' => "facts#recently_viewed"
     end
 
-    resources :supporting_evidence, controller: 'evidence', only: [:show, :create, :destroy] do
+    resources :evidence, only: [:show, :create, :destroy] do
       collection do
         get     "combined"      => "evidence#index"
       end
