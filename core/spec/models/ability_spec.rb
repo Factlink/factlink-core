@@ -165,14 +165,17 @@ describe Ability do
 
     describe "of my own" do
       it { subject.should be_able_to :read, c1 }
+      it { subject.should be_able_to :destroy, c1 }
     end
 
     describe "of someone else" do
-      it { subject.should be_able_to :read, c2 }
+      it { subject.should     be_able_to :read, c2 }
+      it { subject.should_not be_able_to :destroy, c2 }
     end
 
     describe "without logging in" do
-      it { anonymous.should be_able_to :read, c1 }
+      it { anonymous.should     be_able_to :read, c1 }
+      it { anonymous.should_not be_able_to :destroy, c1 }
     end
   end
 
