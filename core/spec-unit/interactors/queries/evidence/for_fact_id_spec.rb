@@ -29,11 +29,11 @@ describe Queries::Evidence::ForFactId do
     it 'interleaves and sorts the comments and factrelation it retrieves' do
       fact = double id: '1'
 
-      fact_relation1 = double :fact_relation1, impact_opinion: double(authority: 1)
-      fact_relation2 = double :fact_relation2, impact_opinion: double(authority: 3)
+      fact_relation1 = double :fact_relation1, votes: {believes: 0, disbelieves: 1}
+      fact_relation2 = double :fact_relation2, votes: {believes: 3, disbelieves: 1}
 
-      comment1 = double :comment1, impact_opinion: double(authority: 2)
-      comment2 = double :comment2, impact_opinion: double(authority: 4)
+      comment1 = double :comment1, votes: {believes: 2, disbelieves: 1}
+      comment2 = double :comment2, votes: {believes: 4, disbelieves: 0}
 
       type = :weakening
       pavlov_options = { current_user: double }

@@ -38,7 +38,7 @@ FactlinkUI::Application.routes.draw do
       scope '/comments' do
         post "/:type" => 'comments#create'
         delete "/:type/:id" => 'comments#destroy'
-        put "/:type/:id" => 'comments#update'
+        put "/:type/:id/opinion" => 'comments#update_opinion'
 
         scope '/:type/:comment_id' do
           scope '/sub_comments' do
@@ -67,7 +67,7 @@ FactlinkUI::Application.routes.draw do
     end
     resources :supporting_evidence, :weakening_evidence, only: [:show, :create, :destroy] do
       member do
-        post "opinion" => "evidence#update_opinion", as: "update_opinion"
+        put "opinion" => "evidence#update_opinion", as: "update_opinion"
         scope '/sub_comments' do
           get '' => 'sub_comments#index'
           post '' => 'sub_comments#create'

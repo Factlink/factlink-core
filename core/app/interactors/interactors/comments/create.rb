@@ -16,7 +16,7 @@ module Interactors
 
         create_activity comment
 
-        query(:'comments/add_opinion_and_can_destroy',
+        query(:'comments/add_votes_and_can_destroy',
                   comment: comment)
       end
 

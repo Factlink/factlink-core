@@ -18,12 +18,12 @@ class CommentsController < ApplicationController
     render :json => {}, :status => :ok
   end
 
-  def update
+  def update_opinion
     @comment = interactor(:'comments/update_opinion',
                               comment_id: get_comment_id_param,
-                              opinion: params[:opinion])
+                              opinion: params[:current_user_opinion])
 
-    render 'comments/show', formats: [:json]
+    render json: {}
   end
 
   def sub_comments_index
