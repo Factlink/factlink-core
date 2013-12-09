@@ -295,4 +295,22 @@ class User
   def valid_password?(password)
     super
   end
+
+  after_create do |user|
+    Pavlov.command :'text_search/index_user', user: user
+  end
+
+  after_update do |user|
+    UserObserverTask.handle_changes user
+
+    if user.changed?
+      Pavlov.command :'text_search/index_user',
+                  user: user,
+                  changed: user.changed
+    end
+  end
+
+  after_destroy do |user|
+    Pavlov.command(:'text_search/delete_user', object: user)
+  end
 end

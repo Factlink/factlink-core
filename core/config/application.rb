@@ -30,12 +30,9 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/entities"
     config.autoload_paths << "#{config.root}/app/ohm-models"
     config.autoload_paths << "#{config.root}/app/workers"
-    config.autoload_paths << "#{config.root}/app/observers"
     config.autoload_paths << "#{config.root}/app/interactors"
 
     config.log_level = :info
-
-    config.mongoid.observers = [:user_observer]
 
     require_dependency "#{config.root}/app/classes/redis_utils.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
