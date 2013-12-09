@@ -27,7 +27,7 @@ describe Interactors::Channels::VisibleOfUserForUser do
       KillObject.stub(:channel).with(channel2, created_by_user: dead_user)
         .and_return(dead_channel2)
 
-      query.call
+      expect(query.call).to eq [dead_channel1, dead_channel2]
     end
   end
 
