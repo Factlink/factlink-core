@@ -81,8 +81,6 @@ feature "adding comments to a fact", type: :feature do
   end
 
   scenario 'comments and facts should be sorted on relevance' do
-    user_authority_on_fact = 1
-
     go_to_discussion_page_of factlink
 
     comment1 = 'Buffels zijn niet klein te krijgen joh'
