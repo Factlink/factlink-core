@@ -21,4 +21,4 @@ class window.Comment extends Evidence
 
   argumentVotes: ->
     @_argumentVotes ?= new ArgumentVotes @get('argument_votes'),
-      urlRoot: @url()
+      argument: this

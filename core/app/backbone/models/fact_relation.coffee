@@ -6,7 +6,7 @@ class window.FactRelation extends Evidence
 
   argumentVotes: ->
     @_argumentVotes ?= new ArgumentVotes @get('argument_votes'),
-      urlRoot: @url()
+      argument: this
 
   getFact: ->
     return @_fact if @_fact?

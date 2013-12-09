@@ -6,7 +6,10 @@ class window.ArgumentVotes extends Backbone.Model
   isNew: -> false
 
   initialize: (attributes, options) ->
-    @url = options.urlRoot + '/opinion'
+    @_argument = options.argument
+
+  url: ->
+    @_argument.url() + '/opinion'
 
   setCurrentUserOpinion: (newValue) ->
     previousValue = @get('current_user_opinion')
@@ -20,7 +23,7 @@ class window.ArgumentVotes extends Backbone.Model
     @setCurrentUserOpinion opinion_type
     @save {},
       success: =>
-        mp_track "Argument: Opinionate", url: @url, opinion: opinion_type
+        mp_track "Argument: Opinionate", url: @url(), opinion: opinion_type
       error: =>
         @setCurrentUserOpinion @previous_opinion_type
 
