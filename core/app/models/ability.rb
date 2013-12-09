@@ -93,7 +93,7 @@ class Ability
     can :read, Comment
     can :destroy, Comment do |comment|
       comment.created_by_id == user.id &&
-        Pavlov.query(:'comments/deletable', comment_id: comment.id)
+        Pavlov.query(:'comments/is_deletable', comment_id: comment.id)
     end
   end
 

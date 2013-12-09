@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/comments/deletable'
+require_relative '../../../../app/interactors/queries/comments/is_deletable'
 
-describe Queries::Comments::Deletable do
+describe Queries::Comments::IsDeletable do
   include PavlovSupport
 
   describe '#call' do

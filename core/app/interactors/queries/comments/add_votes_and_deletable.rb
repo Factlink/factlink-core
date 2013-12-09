@@ -21,7 +21,7 @@ module Queries
       end
 
       def deletable?
-        query(:'comments/deletable', comment_id: comment.id.to_s)
+        query(:'comments/is_deletable', comment_id: comment.id.to_s)
       end
     end
   end

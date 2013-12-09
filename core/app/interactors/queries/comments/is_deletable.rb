@@ -1,6 +1,6 @@
 module Queries
   module Comments
-    class Deletable
+    class IsDeletable
       include Pavlov::Query
       arguments :comment_id
 
