@@ -35,7 +35,7 @@ module FactlinkUI
 
     config.log_level = :info
 
-    config.mongoid.observers = :user_observer, :topic_observer, :fact_data_observer
+    config.mongoid.observers = :user_observer, :topic_observer
 
     require_dependency "#{config.root}/app/classes/redis_utils.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
