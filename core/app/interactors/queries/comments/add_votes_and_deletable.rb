@@ -8,7 +8,7 @@ module Queries
       def execute
         KillObject.comment comment,
           votes: votes,
-          deletable?: deletable,
+          deletable?: deletable?,
           sub_comments_count: comment.sub_comments_count
       end
 
@@ -20,7 +20,7 @@ module Queries
         @believable ||= ::Believable::Commentje.new comment.id
       end
 
-      def deletable
+      def deletable?
         query(:'comments/deletable', comment_id: comment.id.to_s)
       end
     end
