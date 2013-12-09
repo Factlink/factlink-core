@@ -46,7 +46,7 @@ describe Interactors::Comments::Create do
                                        pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
-            .with(:'comments/add_opinion_and_can_destroy',
+            .with(:'comments/add_votes_and_can_destroy',
                       comment: comment, pavlov_options: pavlov_options)
             .and_return(comment)
       Comment.stub(:find).with(comment.id).and_return(mongoid_comment)

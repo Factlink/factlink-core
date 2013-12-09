@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/commands/create_comment.rb'
 describe Commands::CreateComment do
   include PavlovSupport
   before do
-    stub_classes 'Comment', 'FactData', 'User', 'Fact', 'Authority'
+    stub_classes 'Comment', 'FactData', 'User', 'Fact'
   end
 
   it 'should initialize correctly' do

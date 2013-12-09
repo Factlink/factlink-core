@@ -32,7 +32,6 @@ RSpec.configure do |config|
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
-    Authority.logger = nil
   end
 
   config.before(:each) do

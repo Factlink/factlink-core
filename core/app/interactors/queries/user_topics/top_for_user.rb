@@ -2,7 +2,7 @@ require_relative '../../../classes/hash_utils'
 
 module Queries
   module UserTopics
-    class TopWithAuthorityForUser
+    class TopForUser
       include Pavlov::Query
       include HashUtils
 
