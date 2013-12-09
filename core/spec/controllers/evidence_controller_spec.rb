@@ -24,7 +24,7 @@ describe SupportingEvidenceController do
 
     context "adding a new fact as evidence to a fact" do
       it "should return the existing fact as new evidence" do
-        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+        post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
 
         parsed_content = JSON.parse(response.body)
         parsed_content["from_fact"]["id"].should == f2.id
@@ -33,7 +33,7 @@ describe SupportingEvidenceController do
       end
 
       it "should initially believe the fact relation" do
-        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+        post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
 
         parsed_content = JSON.parse(response.body)
 
@@ -44,7 +44,7 @@ describe SupportingEvidenceController do
       it "should not set the user's opinion on the evidence to believe" do
         f2.add_opinion(:disbelieves, user.graph_user)
 
-        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+        post 'create', fact_id: f1.id, evidence_id: f2.id, type: 'believes', format: :json
         response.should be_success
 
         parsed_content = JSON.parse(response.body)
