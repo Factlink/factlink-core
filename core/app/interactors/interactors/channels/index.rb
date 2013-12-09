@@ -40,7 +40,6 @@ module Interactors
 
       def kill_channel(ch, dead_user)
         KillObject.channel ch,
-          containing_channel_ids: [],
           created_by_user: dead_user
       end
 
