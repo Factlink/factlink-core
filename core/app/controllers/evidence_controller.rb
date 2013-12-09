@@ -1,10 +1,10 @@
 class EvidenceController < ApplicationController
 
-  before_filter :authenticate_user!, except: [:index, :combined_index]
+  before_filter :authenticate_user!, except: [:index]
 
   respond_to :json
 
-  def combined_index
+  def index
     @evidence = interactor(:'evidence/for_fact_id',
                                fact_id: params[:fact_id],type: :supporting)
 

@@ -57,13 +57,13 @@ FactlinkUI::Application.routes.draw do
 
     resources :supporting_evidence, only: [] do
       collection do
-        get     "combined"      => "evidence#combined_index"
+        get     "combined"      => "evidence#index"
       end
     end
 
     resources :weakening_evidence, only: [] do
       collection do
-        get     "combined"      => "evidence#combined_index"
+        get     "combined"      => "evidence#index"
       end
     end
     resources :supporting_evidence, :weakening_evidence, controller: 'evidence', only: [:show, :create, :destroy] do
