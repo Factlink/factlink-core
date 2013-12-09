@@ -59,7 +59,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
     @suggestedTopicsRegion.show suggestionView
 
   renderPersistentWheelView: ->
-    @wheel = new FactVotes
+    @wheel = new FactVotes {}, fact: null
     persistentWheelView = new PersistentWheelView
       el: @$('.fact-wheel')
       model: @wheel
