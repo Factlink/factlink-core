@@ -3,7 +3,7 @@ module Queries
     class ForFact
       include Pavlov::Query
 
-      arguments :fact, :type
+      arguments :fact
 
       private
 
@@ -12,7 +12,6 @@ module Queries
       end
 
       def comments
-        type = OpinionType.for_relation_type(@type).to_s
         fact_data_id = fact.data_id
         Comment.where({fact_data_id: fact_data_id}).to_a
       end
