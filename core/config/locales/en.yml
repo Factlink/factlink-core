@@ -16,8 +16,6 @@ en:
   fact_disbelieve_opinion: "disagree"
   fact_doubt_opinion: "unsure"
 
-  fact_removed_opinions_past_action: "withdrew opinion"
-
   fact_believe_present_singular_action: "agrees"
   fact_disbelieve_present_singular_action: "disagrees"
   fact_doubt_present_singular_action: "is unsure"
