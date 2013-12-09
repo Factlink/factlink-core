@@ -116,12 +116,6 @@ class Ability
         cannot :edit_settings, User
       end
 
-      if user.has_invitations_left?
-        can :invite, User
-      else
-        cannot :invite, User
-      end
-
       can :update, user
       can :edit_settings, user
       can :destroy, user

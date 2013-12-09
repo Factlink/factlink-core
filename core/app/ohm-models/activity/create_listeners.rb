@@ -51,14 +51,6 @@ class Activity < OurOhm
       }
     end
 
-    def forGraphUser_someone_invited_you
-      {
-        subject_class: "GraphUser",
-        action: :invites,
-        write_ids: ->(a) { [a.subject_id] }
-      }
-    end
-
     def forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation
       {
         subject_class: "SubComment",
@@ -116,7 +108,6 @@ class Activity < OurOhm
         forGraphUser_someone_send_you_a_message,
         forGraphUser_someone_send_you_a_reply,
         forGraphUser_comment_was_added,
-        forGraphUser_someone_invited_you,
         forGraphUser_someone_added_a_subcomment_to_your_comment_or_fact_relation,
         forGraphUser_someone_followed_you
       ]

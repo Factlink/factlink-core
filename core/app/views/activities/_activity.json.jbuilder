@@ -111,7 +111,5 @@ json.activity do |json|
     json.followed_user do |followed_user|
       followed_user.partial! 'users/user_partial', user: subject.user
     end
-  when "invites"
-    json.target_url user_profile_path(user)
   end
 end
