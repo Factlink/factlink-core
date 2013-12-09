@@ -10,7 +10,7 @@ module Queries
       end
 
       def fact_relation_ids
-        fact.evidence(@type).ids
+        fact.evidence.ids
       end
     end
   end

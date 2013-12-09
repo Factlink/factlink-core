@@ -22,7 +22,7 @@ describe Queries::Comments::ForFact do
                  .with(type)
                  .and_return(:believes)
       Comment.should_receive(:where)
-             .with(fact_data_id: fact.data_id, type: 'believes')
+             .with(fact_data_id: fact.data_id)
              .and_return [comment]
       Pavlov.should_receive(:query)
             .with(:'sub_comments/count',

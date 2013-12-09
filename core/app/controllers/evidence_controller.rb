@@ -6,7 +6,7 @@ class EvidenceController < ApplicationController
 
   def combined_index
     @evidence = interactor(:'evidence/for_fact_id',
-                               fact_id: params[:fact_id],type: relation)
+                               fact_id: params[:fact_id],type: :supporting)
 
     render 'evidence/index', formats: [:json]
   end
