@@ -82,7 +82,6 @@ class FactsController < ApplicationController
 
     if params[:current_user_opinion] == 'no_vote'
       @fact.remove_opinions(current_user.graph_user)
-      Activity::Subject.activity(current_user.graph_user, :removed_opinions, @fact)
     else
       type = OpinionType.real_for(params[:current_user_opinion])
       @fact.add_opinion(type, current_user.graph_user)

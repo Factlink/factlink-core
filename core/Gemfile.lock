@@ -129,10 +129,6 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    devise_invitable (1.1.6)
-      actionmailer (~> 3.0)
-      devise (>= 2.1.2)
-      railties (~> 3.0)
     diff-lcs (1.2.4)
     dotenv (0.9.0)
     erubis (2.7.0)
@@ -276,7 +272,7 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-facebook (1.5.0)
+    omniauth-facebook (1.5.1)
       omniauth-oauth2 (~> 1.1.0)
     omniauth-oauth (1.0.1)
       oauth
@@ -521,7 +517,6 @@ DEPENDENCIES
   coffee-script (~> 2.2.0)
   database_cleaner (~> 0.9)
   devise (~> 2.2.3)
-  devise_invitable (= 1.1.6)
   factory_girl_rails (~> 4.2)
   foreman (~> 0)
   guard (~> 1.8)
@@ -549,7 +544,7 @@ DEPENDENCIES
   newrelic_rpm (~> 3.6.2)
   ohm!
   oily_png (~> 1.1)
-  omniauth-facebook (~> 1.5.0)
+  omniauth-facebook (~> 1.5.1)
   omniauth-twitter (= 0.0.14)
   pavlov (= 0.1.9.0)
   poltergeist (~> 1.4)

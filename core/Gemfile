@@ -47,11 +47,10 @@ gem 'mongoid_rails_migrations', '1.0.1' # TODO look if this needs to be pinned
 
 # User authentication and authorization
 gem 'devise', '~> 2.2.3'
-gem 'devise_invitable', '= 1.1.6' # locked down version, because we had trouble upgrading @ hackerone when upgrading from 1.1.6 to 1.1.8
 gem 'cancan', '~> 1.6.10'
 
 # social connections
-gem 'omniauth-facebook', '~> 1.5.0'
+gem 'omniauth-facebook', '~> 1.5.1'
 gem 'omniauth-twitter', '= 0.0.14' # locked down, because semver does not appear to be used
 gem 'twitter', '~> 4.7.0'
 
