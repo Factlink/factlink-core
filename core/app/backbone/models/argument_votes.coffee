@@ -23,7 +23,7 @@ class window.ArgumentVotes extends Backbone.Model
     @setCurrentUserOpinion opinion_type
     @save {},
       success: =>
-        mp_track "Argument: Opinionate", url: @url(), opinion: opinion_type
+        mp_track "Argument: Vote", url: @url(), opinion: opinion_type
       error: =>
         @setCurrentUserOpinion @previous_opinion_type
 
