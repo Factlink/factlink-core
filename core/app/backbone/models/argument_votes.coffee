@@ -8,6 +8,9 @@ class window.ArgumentVotes extends Backbone.Model
   initialize: (attributes, options) ->
     @_argument = options.argument
 
+    @_argument.on 'change:argument_votes', =>
+      @set @_argument.get('argument_votes')
+
   url: ->
     @_argument.url() + '/opinion'
 
