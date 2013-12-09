@@ -14,11 +14,10 @@ class window.RealEvidenceCollection extends Backbone.Factlink.Collection
         else
           console.error "Evidence type not supported: #{item.evidence_type}"
 
-  url:     -> "#{@baseUrl()}/combined"
-  baseUrl: -> "/facts/#{@fact.id}/evidence"
+  url: -> "/facts/#{@fact.id}/evidence"
 
   commentsUrl: -> "#{@fact.url()}/comments"
-  factRelationsUrl: -> @baseUrl()
+  factRelationsUrl: -> @url()
 
   # TODO: Kill those different names for things... :-(
   believesType: ->
