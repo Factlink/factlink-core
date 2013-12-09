@@ -13,7 +13,7 @@ class window.FactVotes extends Backbone.Model
   initialize: (attributes, options) ->
     @_fact = options.fact
 
-  isNew: -> false
+  isNew: -> @_fact.isNew()
 
   url: -> @_fact.url() + '/opinion'
 
