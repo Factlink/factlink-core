@@ -36,11 +36,11 @@ FactlinkUI::Application.routes.draw do
       post    "/share"            => "facts#share"
 
       scope '/comments' do
-        post "/supporting" => 'comments#create'
-        delete "/supporting/:id" => 'comments#destroy'
-        put "/supporting/:id" => 'comments#update'
+        post "/" => 'comments#create'
+        delete "/:id" => 'comments#destroy'
+        put "/:id" => 'comments#update'
 
-        scope '/supporting/:comment_id' do
+        scope '/:comment_id' do
           scope '/sub_comments' do
             get '' => 'sub_comments#index'
             post '' => 'sub_comments#create'

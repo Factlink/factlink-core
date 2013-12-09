@@ -17,7 +17,7 @@ class window.RealEvidenceCollection extends Backbone.Factlink.Collection
   url:     -> "#{@baseUrl()}/combined"
   baseUrl: -> "/facts/#{@fact.id}/evidence"
 
-  commentsUrl: -> "#{@fact.url()}/comments/#{@type}"
+  commentsUrl: -> "#{@fact.url()}/comments"
   factRelationsUrl: -> @baseUrl()
 
   # TODO: Kill those different names for things... :-(
