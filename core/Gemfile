@@ -14,7 +14,7 @@ gem 'addressable', '~> 2.3.4'
 gem 'mail', '~> 2.5.4'
 
 # Mongo
-gem 'mongoid', '~> 3.0.21'
+gem 'mongoid', '~> 3.1.6'
 
 gem 'pavlov', '= 0.1.9.0'
 
