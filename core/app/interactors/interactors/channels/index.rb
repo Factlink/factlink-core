@@ -15,7 +15,7 @@ module Interactors
           graph_user = channel_graph_user(ch)
           dead_user = dead_user_for_graph_user(graph_user)
 
-          kill_channel(ch, authority, dead_user)
+          kill_channel(ch, dead_user)
         end
       end
 
@@ -43,9 +43,8 @@ module Interactors
         fail "Channels::Index is abstract, subclasses should implement get_alive_channels"
       end
 
-      def kill_channel(ch, owner_authority, dead_user)
+      def kill_channel(ch, dead_user)
         KillObject.channel ch,
-          owner_authority: owner_authority,
           containing_channel_ids: [],
           created_by_user: dead_user
       end
