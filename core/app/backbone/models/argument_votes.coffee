@@ -3,7 +3,7 @@ class window.ArgumentVotes extends Backbone.Model
     believes: 0
     disbelieves: 0
 
-  isNew: -> false
+  isNew: -> @_argument.isNew()
 
   initialize: (attributes, options) ->
     @_argument = options.argument
