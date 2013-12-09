@@ -1,8 +1,9 @@
 modalIframeTemplate = _.template '''
-  <div class="modal-layer"><div class="modal-layer-inner">
+  <div class="modal-layer" id="modal-layer"><div class="modal-window">
     <iframe class="sign_in_or_up_iframe" src="<%- options.target %>"></iframe>
-  </div></div>
-  ''', null, variable: 'options'
+  </div>
+  <div class="modal-layer-close-background"></div></div>
+  '''.trim(), null, variable: 'options'
 
 singleton_modal_container = do ->
   el = null
@@ -12,15 +13,18 @@ singleton_modal_container = do ->
     el = document.body.appendChild document.createElement 'div'
   { create: create, remove: remove }
 
-
 showPopup = (url) ->
-  containerEl = singleton_modal_container.create()
-  containerEl.innerHTML = modalIframeTemplate target:url
+  $modalEl = $($.parseHTML(modalIframeTemplate(target:url)))
+  $modalEl.find('iframe').on('load', -> $modalEl.fadeIn('fast'))
+  $modalEl.appendTo(document.body)
+  $modalEl.find('.modal-layer-close-background').on 'click', ->
+    $modalEl.fadeOut 'fast', ->
+      $modalEl.remove()
 
 $('html').on 'click', '.js-accounts-popup-link', (e) ->
-  showPopup($(e.target).attr("href"))
   e.stopPropagation()
   e.preventDefault()
+  showPopup($(e.target).attr("href"))
 
 $(document).on 'signed_in', ->
   window.location.reload(true)

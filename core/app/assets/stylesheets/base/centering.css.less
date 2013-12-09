@@ -14,6 +14,8 @@
 */
 //Note the lack of space between the two divs!
 
+@import "bootstrap/mixins";
+
 .centering {
   position: absolute;
   top: 0; bottom: 0; left: 0; right: 0;
@@ -21,22 +23,14 @@
   visibility: hidden;
 }
 
-.modal-layer {
-  position:fixed;
-  top: 0; bottom: 0; left: 0; right: 0;
-  text-align: center;
-  z-index: 2000;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.centering:after, .modal-layer:after {
+.centering:after {
   content: '';
   display: inline-block;
   vertical-align: middle;
   height: 100%;
 }
 
-.centering-inner, .modal-layer-inner {
+.centering-inner {
   display: inline-block;
   vertical-align: middle;
 }
