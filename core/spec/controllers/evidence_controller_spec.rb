@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'pavlov_helper'
 
-describe SupportingEvidenceController do
+describe EvidenceController do
   include PavlovSupport
   render_views
 
