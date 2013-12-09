@@ -11,11 +11,11 @@ class window.ArgumentVotes extends Backbone.Model
   url: ->
     @_argument.url() + '/opinion'
 
-  setCurrentUserOpinion: (newValue) ->
-    previousValue = @get('current_user_opinion')
-    @set previousValue, @get(previousValue)-1 if previousValue != 'no_vote'
-    @set newValue, @get(newValue)+1 if newValue != 'no_vote'
-    @set 'current_user_opinion', newValue
+  setCurrentUserOpinion: (newOpinion) ->
+    previousOpinion = @get('current_user_opinion')
+    @set previousOpinion, @get(previousOpinion)-1 if previousOpinion != 'no_vote'
+    @set newOpinion, @get(newOpinion)+1 if newOpinion != 'no_vote'
+    @set 'current_user_opinion', newOpinion
 
   saveCurrentUserOpinion: (opinion_type) ->
     @previous_opinion_type = @get('current_user_opinion')
