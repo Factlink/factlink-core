@@ -17,7 +17,7 @@ module Queries
       end
 
       def believable
-        @believable ||= Believable::Commentje.new comment.id
+        @believable ||= ::Believable::Commentje.new comment.id
       end
 
       def can_destroy
