@@ -15,7 +15,9 @@ class window.Comment extends Evidence
 
   creator: -> new User(@get('created_by'))
 
-  can_destroy: -> @get 'can_destroy?'
+  _is_mine: -> @creator().is_current_user()
+
+  can_destroy: -> @_is_mine() && @get('is_deletable')
 
   urlRoot: -> @collection.commentsUrl()
 

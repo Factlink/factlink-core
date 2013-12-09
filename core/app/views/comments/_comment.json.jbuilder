@@ -15,6 +15,6 @@ json.argument_votes do |j|
   j.partial! 'believable/votes', votes: comment.votes
 end
 
-json.can_destroy? comment.can_destroy?
+json.is_deletable comment.can_destroy?
 
 json.sub_comments_count comment.sub_comments_count
