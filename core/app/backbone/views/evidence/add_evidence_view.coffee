@@ -51,7 +51,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
       @headingRegion.show new EvidenceishHeadingView model: currentUser
       @contentRegion.show new AddEvidenceFormView
-        collection: @collection.oneSidedEvidenceCollection @model.get('evidenceType')
+        collection: @collection.RealEvidenceCollection @model.get('evidenceType')
         fact_id: @options.fact_id
         type: @model.get('evidenceType')
     else

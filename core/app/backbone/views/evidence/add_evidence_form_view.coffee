@@ -32,7 +32,7 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     type = switch @options.type
       when 'supporting' then 'believes'
       when 'weakening' then 'disbelieves'
-      else throw 'Unknown OneSidedEvidenceCollection type'
+      else throw 'Unknown RealEvidenceCollection type'
 
     searchView = new AutoCompleteFactRelationsView
       collection: @_filtered_facts()

@@ -23,7 +23,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     type = switch @options.type
       when 'supporting' then 'believes'
       when 'weakening' then 'disbelieves'
-      else throw 'Unknown OneSidedEvidenceCollection type'
+      else throw 'Unknown RealEvidenceCollection type'
 
     @model = new Comment
       content: @_textModel().get('text')

@@ -1,4 +1,4 @@
-class window.OneSidedEvidenceCollection extends Backbone.Factlink.Collection
+class window.RealEvidenceCollection extends Backbone.Factlink.Collection
 
   initialize: (models, options) ->
     @type = options.type
@@ -25,4 +25,4 @@ class window.OneSidedEvidenceCollection extends Backbone.Factlink.Collection
     switch @type
       when 'supporting' then 'believes'
       when 'weakening' then 'disbelieves'
-      else throw 'Unknown OneSidedEvidenceCollection type'
+      else throw 'Unknown RealEvidenceCollection type'
