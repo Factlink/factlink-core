@@ -91,6 +91,10 @@ class Ability
     return unless signed_in?
 
     can :read, Comment
+    can :destroy, Comment do |comment|
+      comment.created_by_id == user.id &&
+        Pavlov.query(:'comments/deletable', comment_id: comment.id)
+    end
   end
 
   def define_sub_comment_abilities
