@@ -3,12 +3,7 @@ require_relative 'application_controller'
 class CommentsController < ApplicationController
   def create
     fact_id = Integer(params[:id])
-    type = case params[:type]
-           when 'supporting' then 'believes'
-           when 'weakening' then 'disbelieves'
-           else fail 'unknown type'
-           end
-
+    type = params[:type]
     @comment = interactor(:'comments/create', fact_id: fact_id, type: type,
                                               content: params[:content])
 
