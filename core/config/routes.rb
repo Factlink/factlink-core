@@ -32,8 +32,7 @@ FactlinkUI::Application.routes.draw do
     resources :interactors, only: [:index, :show], controller: 'fact_interactors'
 
     member do
-      post    "/opinion/:type"    => "facts#set_opinion",     as: "set_opinion"
-      delete  "/opinion"          => "facts#remove_opinions", as: "delete_opinion"
+      post    "/opinion"          => "facts#update_opinion",     as: "update_opinion"
       get     "/evidence_search"  => "facts#evidence_search"
       post    "/share"            => "facts#share"
 
@@ -69,8 +68,7 @@ FactlinkUI::Application.routes.draw do
     end
     resources :supporting_evidence, :weakening_evidence, only: [:show, :create, :destroy] do
       member do
-        post    "opinion/:type" => "evidence#set_opinion",      as: "set_opinion"
-        delete  "opinion/"      => "evidence#remove_opinions",  as: "delete_opinion"
+        post "opinion" => "evidence#update_opinion", as: "update_opinion"
         scope '/sub_comments' do
           get '' => 'sub_comments#index'
           post '' => 'sub_comments#create'
@@ -159,13 +157,6 @@ FactlinkUI::Application.routes.draw do
             delete "/" => "channels#remove_fact",  as: "remove_fact_from"
 
             get "/evidence_search" => "facts#evidence_search"
-
-            resource :supporting_evidence, :weakening_evidence do
-              scope '/:evidence_id' do
-                post    "/opinion/:type", action: :set_opinion,  as: "set_opinion"
-                delete  "/opinion/", action:  :remove_opinions,  as: "delete_opinion"
-              end
-            end
           end
         end
       end

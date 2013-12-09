@@ -35,26 +35,18 @@ class EvidenceController < ApplicationController
     render json: [], status: :unprocessable_entity
   end
 
-  def set_opinion
-    type = OpinionType.real_for(params[:type])
-
+  def update_opinion
     @fact_relation = FactRelation[params[:id]]
-
     authorize! :opinionate, @fact_relation
 
-    @fact_relation.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type),@fact_relation)
-
-    render 'fact_relations/show', formats: [:json]
-  end
-
-  def remove_opinions
-    @fact_relation = FactRelation[params[:id]]
-
-    authorize! :opinionate, @fact_relation
-
-    @fact_relation.remove_opinions(current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact_relation)
+    if params[:current_user_opinion] == 'no_vote'
+      @fact_relation.remove_opinions(current_user.graph_user)
+      Activity::Subject.activity(current_user.graph_user, :removed_opinions, @fact_relation)
+    else
+      type = OpinionType.real_for(params[:current_user_opinion])
+      @fact_relation.add_opinion(type, current_user.graph_user)
+      Activity::Subject.activity(current_user.graph_user, type, @fact_relation)
+    end
 
     render 'fact_relations/show', formats: [:json]
   end
