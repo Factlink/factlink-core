@@ -1,7 +1,6 @@
 class window.RealEvidenceCollection extends Backbone.Factlink.Collection
 
   initialize: (models, options) ->
-    @type = options.type
     @fact = options.fact
 
   parse: (data) ->
@@ -18,10 +17,3 @@ class window.RealEvidenceCollection extends Backbone.Factlink.Collection
 
   commentsUrl: -> "#{@fact.url()}/comments"
   factRelationsUrl: -> @url()
-
-  # TODO: Kill those different names for things... :-(
-  believesType: ->
-    switch @type
-      when 'supporting' then 'believes'
-      when 'weakening' then 'disbelieves'
-      else throw 'Unknown RealEvidenceCollection type'
