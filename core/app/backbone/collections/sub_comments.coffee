@@ -4,7 +4,7 @@ class window.SubComments extends Backbone.Factlink.Collection
   initialize: (models, options) ->
     @parentModel = options.parentModel
 
-    @on 'add', => @parentModel.set 'can_destroy?', false
+    @on 'add', => @parentModel.set 'is_deletable', false
     @on 'remove', => @parentModel.fetch if @length <= 0
     @on 'add remove reset', => @parentModel.set 'sub_comments_count', @length
 
