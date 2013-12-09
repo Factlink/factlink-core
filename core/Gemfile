@@ -55,7 +55,7 @@ gem 'omniauth-twitter', '= 0.0.14' # locked down, because semver does not appear
 gem 'twitter', '~> 4.7.0'
 
 # social sharing
-gem 'koala', '~> 1.7.0rc1'
+gem 'koala', '~> 1.8.0rc1'
 
 gem 'httparty', '~> 0.11.0'
 
