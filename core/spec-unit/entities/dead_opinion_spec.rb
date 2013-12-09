@@ -6,11 +6,11 @@ describe DeadOpinion do
   let(:opinion3) { DeadOpinion.new(29,31,37,41) }
 
   describe ".new" do
-    subject {DeadOpinion.new(1,1.4,1.5,1.6)}
-    its(:believes)    {should eq 1.0}
-    its(:disbelieves) {should eq 1.4}
-    its(:doubts)      {should eq 1.5}
-    its(:authority)   {should eq 1.6}
+    subject { DeadOpinion.new(1,1.4,1.5,1.6) }
+    its(:believes)    { should eq 1.0 }
+    its(:disbelieves) { should eq 1.4 }
+    its(:doubts)      { should eq 1.5 }
+    its(:authority)   { should eq 1.6 }
   end
 
   describe "attributes" do

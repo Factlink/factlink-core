@@ -18,7 +18,7 @@ describe Interactors::Topics::Favourites do
       ability.stub(:can?).with(:show_favourites, user).and_return(false)
       pavlov_options = { current_user: current_user, ability: ability }
       interactor = described_class.new(user_name: 'username',
-        pavlov_options: pavlov_options)
+                                       pavlov_options: pavlov_options)
 
       Pavlov.stub(:query)
         .with(:user_by_username, username: 'username', pavlov_options: pavlov_options)

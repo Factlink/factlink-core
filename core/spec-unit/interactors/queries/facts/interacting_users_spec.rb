@@ -14,7 +14,7 @@ describe Queries::Facts::InteractingUsers do
       graph_user = double(user: user, id: 13)
       fact = double(id: 1, people_believes: [graph_user])
       query = described_class.new(fact_id: fact.id, skip: 0, take: 3,
-        opinion: 'believes')
+                                  opinion: 'believes')
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
 
@@ -29,7 +29,7 @@ describe Queries::Facts::InteractingUsers do
       graph_user = double(user: user, id: 13)
       fact = double id: 1, people_disbelieves: [graph_user]
       query = described_class.new(fact_id: fact.id, skip: 0, take: 3,
-        opinion: 'disbelieves')
+                                  opinion: 'disbelieves')
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
 
@@ -44,7 +44,7 @@ describe Queries::Facts::InteractingUsers do
       graph_user = double(user: user, id: 13)
       fact = double(id: 1, people_doubts: [graph_user])
       query = described_class.new(fact_id: fact.id, skip: 0, take: 3,
-        opinion: 'doubts')
+                                  opinion: 'doubts')
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
 
@@ -64,7 +64,7 @@ describe Queries::Facts::InteractingUsers do
       fact = double id: 1, people_believes: [graph_user1, graph_user2, graph_user3]
       pavlov_options = { current_user: double(graph_user_id: 666) }
       query = described_class.new(fact_id: 1, skip: 1, take: 1,
-        opinion: 'believes', pavlov_options: pavlov_options)
+                                  opinion: 'believes', pavlov_options: pavlov_options)
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
 
@@ -90,7 +90,7 @@ describe Queries::Facts::InteractingUsers do
         current_user: current_user
       }
       query = described_class.new(fact_id: 1, skip: 0, take: 3,
-        opinion: 'believes', pavlov_options: pavlov_options)
+                                  opinion: 'believes', pavlov_options: pavlov_options)
 
       Fact.stub(:[]).with(fact.id).and_return(fact)
 

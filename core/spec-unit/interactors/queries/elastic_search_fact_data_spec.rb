@@ -22,7 +22,7 @@ describe Queries::ElasticSearchFactData do
       keywords = 'searching for evidence'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(evidence*+OR+evidence)'
       query = described_class.new keywords: keywords,
-        page: 1, row_count: 20
+                                  page: 1, row_count: 20
       hit = double
       results = double
       return_object = double

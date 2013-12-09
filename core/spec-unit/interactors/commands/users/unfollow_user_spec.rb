@@ -17,7 +17,7 @@ describe Commands::Users::UnfollowUser do
       users_following_users.should_receive(:unfollow).with(user_to_unfollow_graph_user_id)
 
       query = described_class.new graph_user_id: graph_user_id,
-        user_to_unfollow_graph_user_id: user_to_unfollow_graph_user_id
+                                  user_to_unfollow_graph_user_id: user_to_unfollow_graph_user_id
       query.call
     end
   end

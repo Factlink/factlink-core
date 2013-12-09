@@ -31,4 +31,3 @@ if ['production', 'staging', 'testserver'].include? Rails.env
 else
   ActionMailer::Base.smtp_settings = mailcatcher_settings
 end
-

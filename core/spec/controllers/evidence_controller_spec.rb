@@ -5,10 +5,10 @@ describe SupportingEvidenceController do
   include PavlovSupport
   render_views
 
-  let(:user) {create :user}
+  let(:user) { create :user }
 
-  let(:f1) {create :fact, created_by: user.graph_user}
-  let(:f2) {create :fact, created_by: user.graph_user}
+  let(:f1) { create :fact, created_by: user.graph_user}
+  let(:f2) { create :fact, created_by: user.graph_user}
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -85,10 +85,10 @@ end
 describe EvidenceController do
   include PavlovSupport
 
-  let(:user) {create :user}
+  let(:user) { create :user }
 
-  let(:f1) {create :fact, created_by: user.graph_user}
-  let(:f2) {create :fact, created_by: user.graph_user}
+  let(:f1) { create :fact, created_by: user.graph_user}
+  let(:f2) { create :fact, created_by: user.graph_user}
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -96,13 +96,14 @@ describe EvidenceController do
     Activity::Subject.stub(:activity)
   end
 
-  describe :set_opinion do
+  describe :update_opinion do
     it "should be able to set an opinion" do
       fr = f1.add_evidence :supporting, f2, user
 
       authenticate_user!(user)
       should_check_can :opinionate, fr
-      post 'set_opinion', username: 'ohwellwhatever', id: 1, fact_id: f1.id, id: fr.id, type: :believes, format: :json
+      post 'update_opinion', username: 'ohwellwhatever',
+        id: 1, fact_id: f1.id, id: fr.id, current_user_opinion: :believes, format: :json
 
       response.should be_success
 

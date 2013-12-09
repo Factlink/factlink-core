@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     authorize! :destroy, @user
 
     interactor(:'users/delete', user_id: @user.id,
-      current_user_password: params[:user][:password]) do |delete|
+                                current_user_password: params[:user][:password]) do |delete|
 
       if delete.valid?
         delete.call
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
 
   def seen_messages
     authorize! :update, current_user
-    raise HackAttempt unless params[:message] =~ /\A\w+\Z/
+    fail HackAttempt unless params[:message] =~ /\A\w+\Z/
     current_user.seen_messages << params[:message]
     render json: {}, status: :ok
   end

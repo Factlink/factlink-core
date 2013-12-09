@@ -54,7 +54,7 @@ describe Interactors::Channels::VisibleOfUserForUser do
              .and_return(false)
 
       interactor = described_class.new user: double,
-        pavlov_options: { ability:ability }
+                                       pavlov_options: { ability:ability }
 
       expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)

@@ -17,10 +17,10 @@ describe Queries::ElasticSearch do
       keywords = 'searching for this channel'
       wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)'
       query = described_class.new keywords: keywords, page: 1,
-        row_count: 20, types: [:topic]
+                                  row_count: 20, types: [:topic]
       hit = double
       results = double(parsed_response: { 'hits' => { 'hits' => [ hit ] } },
-        code: 200)
+                       code: 200)
       url = 'test'
       return_object = double
 
@@ -40,7 +40,7 @@ describe Queries::ElasticSearch do
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
       keywords = 'searching for this channel'
       results = double(response: 'error has happened server side',
-        code: 501)
+                       code: 501)
       query = described_class.new keywords: keywords, page: 1, row_count: 20, types: [:topic]
 
       HTTParty.should_receive(:get).and_return(results)

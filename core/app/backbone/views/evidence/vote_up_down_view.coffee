@@ -1,5 +1,5 @@
 class window.EvidenceVoteView extends Backbone.Marionette.ItemView
-  className: 'evidence-impact-vote'
+  className: 'evidence-relevance-vote'
   template: 'evidence/evidence_vote'
 
   events:

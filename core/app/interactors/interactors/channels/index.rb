@@ -40,7 +40,7 @@ module Interactors
       end
 
       def get_alive_channels
-        raise "Channels::Index is abstract, subclasses should implement get_alive_channels"
+        fail "Channels::Index is abstract, subclasses should implement get_alive_channels"
       end
 
       def kill_channel(ch, owner_authority, dead_user)

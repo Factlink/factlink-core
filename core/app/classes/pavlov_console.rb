@@ -11,7 +11,7 @@ class PavlovConsole
   end
 
   def user
-    @user ||= (User.find(@username) || raise("user not found"))
+    @user ||= (User.find(@username) || fail("user not found"))
   end
 
   def pavlov_options

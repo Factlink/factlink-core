@@ -17,8 +17,8 @@ module Interactors
                           displaystring: displaystring, title: title,
                           creator: user, site: site)
 
-        raise "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
-        raise "Errors when saving fact.data" unless fact.data.persisted?
+        fail "Errors when saving fact: #{fact.errors.inspect}" if fact.errors.length > 0
+        fail "Errors when saving fact.data" unless fact.data.persisted?
 
         command(:'facts/add_to_recently_viewed',
                     fact_id: fact.id.to_i, user_id: user.id.to_s)

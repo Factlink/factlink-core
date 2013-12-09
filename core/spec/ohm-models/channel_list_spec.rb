@@ -72,7 +72,7 @@ describe ChannelList do
   end
 
   describe '.containing_real_channel_ids_for_fact' do
-    let(:current_user) {create :user}
+    let(:current_user) { create :user }
 
     it "returns the channels of the graphuser which contain the fact" do
       gu1 = current_user.graph_user

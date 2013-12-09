@@ -34,7 +34,7 @@ class UserObserverTask
   def self.update_mixpanel_for user
     fields = user.changes
               .slice( *User.mixpaneled_fields.keys )
-              .inject({}){|memo, (k,v)| memo[User.mixpaneled_fields[k]] = v[1]; memo }
+              .inject({}) { |memo, (k,v)| memo[User.mixpaneled_fields[k]] = v[1]; memo }
 
     return if fields.length == 0
 
@@ -44,7 +44,7 @@ class UserObserverTask
   def self.initialize_mixpanel_for user
     new_attributes = user.attributes
                       .slice( *User.mixpaneled_fields.keys )
-                      .inject({}){|memo,(k,v)| memo[User.mixpaneled_fields[k].to_sym] = v; memo}
+                      .inject({}) { |memo,(k,v)| memo[User.mixpaneled_fields[k].to_sym] = v; memo }
 
     mixpanel.set_person_event user.id.to_s, new_attributes
   end
@@ -54,4 +54,3 @@ class UserObserverTask
   end
 
 end
-

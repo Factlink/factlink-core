@@ -17,8 +17,8 @@ describe Believable do
 
   subject(:believable) { Believable.new Nest.new('gerrit') }
 
-  let(:user)  {create(:graph_user)}
-  let(:user2) {create(:graph_user)}
+  let(:user)  { create(:graph_user) }
+  let(:user2) { create(:graph_user) }
 
   context "initially" do
     opinions.each do |opinion|

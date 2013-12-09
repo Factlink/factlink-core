@@ -24,7 +24,7 @@ class Admin::UsersController < AdminController
 
   def destroy
     interactor(:'users/delete', user_id: @user.id,
-      current_user_password: params[:user][:password]) do |interaction|
+                                current_user_password: params[:user][:password]) do |interaction|
 
       if interaction.valid?
         interaction.call
@@ -42,7 +42,7 @@ class Admin::UsersController < AdminController
   end
 
   def sort_column
-    User.fields.collect {|field| field[0] }.include?(params[:sort]) ? params[:sort] : "username"
+    User.fields.collect { |field| field[0] }.include?(params[:sort]) ? params[:sort] : "username"
   end
 
   def sort_direction

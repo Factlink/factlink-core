@@ -16,7 +16,7 @@ describe Queries::ObjectIdsByActivity do
       listener = double
       ids = [double(:id)]
       interactor = described_class.new activity: activity,
-        class_name: class_name, list: list
+                                       class_name: class_name, list: list
 
       interactor.should_receive(:listeners)
                 .and_return([listener])
@@ -34,8 +34,8 @@ describe Queries::ObjectIdsByActivity do
       list = double
       listener = double
       listener_hash = double
-      interactor = Queries::ObjectIdsByActivity.new activity: double(),
-        class_name: class_name, list: list
+      interactor = Queries::ObjectIdsByActivity.new activity: double,
+                                                    class_name: class_name, list: list
 
       listener_hash.should_receive(:[])
         .with(class: class_name, list: list)

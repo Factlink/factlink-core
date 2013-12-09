@@ -43,4 +43,3 @@ FactlinkUI::Application.configure do
 
   config.roadie.enabled = false
 end
-

@@ -23,14 +23,18 @@ describe Queries::Facts::GetDead do
         created_at: 15,
         title: 'title'
     end
+
     let(:live_fact) do
       double :fact,
         id: '1',
         has_site?: false,
         data: fact_data,
-        deletable?: false
+        deletable?: false,
+        believable: believable
     end
+
     let(:votes) { double }
+    let(:believable) { double }
 
     let(:site) do
       double :site, url: 'http://example.org/'
@@ -42,7 +46,8 @@ describe Queries::Facts::GetDead do
         has_site?: true,
         site: site,
         data: fact_data,
-        deletable?: false
+        deletable?: false,
+        believable: believable
     end
 
     before do
@@ -53,10 +58,7 @@ describe Queries::Facts::GetDead do
           .with(live_fact_with_site.id)
           .and_return(live_fact_with_site)
       Pavlov.stub(:query)
-            .with(:'facts/get_votes', id: live_fact.id)
-            .and_return(votes)
-      Pavlov.stub(:query)
-            .with(:'facts/get_votes', id: live_fact_with_site.id)
+            .with(:'believable/votes', believable: believable)
             .and_return(votes)
     end
 

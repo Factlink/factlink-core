@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe FactRelation do
-  subject {create(:fact_relation)}
+  subject { create(:fact_relation) }
 
-  let(:gu) {create(:full_user).graph_user}
-  let(:gu2) {create(:full_user).graph_user}
+  let(:gu) { create(:full_user).graph_user }
+  let(:gu2) { create(:full_user).graph_user }
 
-  let(:evidence) {create :fact}
-  let(:parent) {create :fact}
+  let(:evidence) { create :fact }
+  let(:parent) { create :fact }
 
-  let(:fact1) {create :fact}
-  let(:fact2) {create :fact}
+  let(:fact1) { create :fact }
+  let(:fact2) { create :fact }
 
   describe "#get_or_create" do
     it "should return a new factrelation when the relation does not exist" do
@@ -59,7 +59,7 @@ describe FactRelation do
 
   it "should add itself to the list of evidence" do
     FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    fact2.evidence(:supporting).to_a.collect{ |x| x.from_fact }.should =~ [fact1]
+    fact2.evidence(:supporting).to_a.collect { |x| x.from_fact }.should =~ [fact1]
   end
 
   it "should delete itself from lists referring to it" do
@@ -79,7 +79,7 @@ describe FactRelation do
 
   describe :deletable? do
     include PavlovSupport
-    let(:fr) {FactRelation.get_or_create(fact1,:supporting,fact2,gu)}
+    let(:fr) { FactRelation.get_or_create(fact1,:supporting,fact2,gu) }
 
     it "should be true initially" do
       fr.deletable?.should be_true

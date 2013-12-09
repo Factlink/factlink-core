@@ -3,10 +3,10 @@ require 'spec_helper'
 describe EvidenceDeletable do
 
   context 'Comment' do
-    let(:created_by_user) {create :full_user}
-    let(:other_user)      {create :full_user}
-    let(:fact_user)       {create :full_user}
-    let(:fact)            {create :fact, created_by: fact_user.graph_user}
+    let(:created_by_user) { create :full_user }
+    let(:other_user)      { create :full_user }
+    let(:fact_user)       { create :full_user }
+    let(:fact)            { create :fact, created_by: fact_user.graph_user}
 
     let(:comment) do
       pavlov_options = {
@@ -14,7 +14,7 @@ describe EvidenceDeletable do
         ability: Ability.new(created_by_user)
       }
       interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
-        type: 'believes', content: 'content', pavlov_options:pavlov_options )
+                                                     type: 'believes', content: 'content', pavlov_options:pavlov_options )
       dead_comment = interactor.call
       Comment.find(dead_comment.id)
     end
@@ -58,7 +58,7 @@ describe EvidenceDeletable do
       }
 
       interactor = Interactors::SubComments::CreateForComment.new(comment_id: comment.id.to_s,
-        content: 'hoi', pavlov_options: pavlov_options)
+                                                                  content: 'hoi', pavlov_options: pavlov_options)
       interactor.execute
       deletable(comment).should be_false
     end

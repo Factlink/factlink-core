@@ -22,7 +22,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
       redirect_to after_sign_in_path_for(current_user).to_s
     else
-      respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
+      respond_with_navigational(resource.errors, :status => :unprocessable_entity) { render :new }
     end
   end
 

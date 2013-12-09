@@ -34,7 +34,7 @@ describe Commands::Facts::Create do
       creator = double
       site = double
       command = described_class.new displaystring: displaystring, title: title,
-        creator: creator, site: site
+                                    creator: creator, site: site
       fact_data = double
 
       FactData.should_receive(:new).and_return(fact_data)
@@ -58,7 +58,7 @@ describe Commands::Facts::Create do
       creator = double(graph_user: graph_user)
       site = double
       command = described_class.new displaystring: displaystring, title: title,
-        creator: creator, site: site
+                                    creator: creator, site: site
       fact_data = double
       fact = double(id: double)
 
@@ -82,7 +82,7 @@ describe Commands::Facts::Create do
       fact_data = double
       fact = double(id: double)
       command = described_class.new displaystring: displaystring, title: title,
-        creator: creator, site: site
+                                    creator: creator, site: site
 
       Fact.should_receive(:new).with({created_by: graph_user}).and_return(fact)
       command.should_receive(:create_fact_data).and_return(fact_data)

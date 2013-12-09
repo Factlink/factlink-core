@@ -23,7 +23,7 @@ module TourHelper
   end
 
   def first_real_tour_step
-    tour_steps.drop_while {|step| step == :account}
+    tour_steps.drop_while { |step| step == :account }
               .first
   end
 

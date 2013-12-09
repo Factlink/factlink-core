@@ -21,7 +21,7 @@ class Topic
 
   def self.create_by_title(title)
     topic = new(title: title)
-    topic.save or raise "Topic.create_by_title failed to save"
+    topic.save or fail "Topic.create_by_title failed to save"
     topic
   end
   private_class_method :create_by_title
@@ -35,7 +35,7 @@ class Topic
   end
 
   def channels
-    Channel.find(slug_title: self.slug_title)
+    Channel.find(slug_title: slug_title)
   end
 
   def to_param

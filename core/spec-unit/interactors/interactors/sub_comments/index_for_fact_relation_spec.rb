@@ -17,7 +17,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       ability = double
       ability.should_receive(:can?).with(:show, fact_relation).and_return(false)
       interactor = described_class.new(fact_relation_id: fact_relation_id,
-        pavlov_options: { ability: ability })
+                                       pavlov_options: { ability: ability })
 
       FactRelation.stub(:[]).with(fact_relation_id).and_return(fact_relation)
 
@@ -42,7 +42,7 @@ describe Interactors::SubComments::IndexForFactRelation do
       dead_sub_comments = double
       options = {ability: double(can?: true)}
       interactor = described_class.new(fact_relation_id: fact_relation_id,
-        pavlov_options: options)
+                                       pavlov_options: options)
 
 
       FactRelation.stub(:[]).with(fact_relation_id)
@@ -60,7 +60,7 @@ describe Interactors::SubComments::IndexForFactRelation do
     it 'throws an error when the fact relation does not exist' do
       options = {ability: double(can?: true)}
       interactor = described_class.new(fact_relation_id: 1,
-        pavlov_options: options)
+                                       pavlov_options: options)
 
       FactRelation.stub(:[]).with(1)
                   .and_return nil

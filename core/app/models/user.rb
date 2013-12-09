@@ -151,7 +151,7 @@ class User
     end
 
     def valid_username?(username)
-      validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp}.map { |v| v.options[:with] }
+      validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp }.map { |v| v.options[:with] }
 
       not find_by(username: username) and validators.all? { |regex| regex.match(username) }
     end
@@ -238,7 +238,7 @@ class User
   end
 
   def self.from_param(param)
-    self.find_by username: param
+    find_by username: param
   end
 
   # This function provides backwards compatibility with using #find(username)
@@ -286,7 +286,7 @@ class User
   # Override login mechanism to allow username or email logins
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
-    self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
+    any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 
   # this backports a bug introduced by devise_invitable

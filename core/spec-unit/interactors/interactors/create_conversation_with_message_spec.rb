@@ -40,8 +40,8 @@ describe Interactors::CreateConversationWithMessage do
       pavlov_options = { current_user: sender, mixpanel: mixpanel }
 
       interactor = described_class.new fact_id: fact_id,
-        recipient_usernames: usernames, sender_id: sender.id,
-        content: content, pavlov_options: pavlov_options
+                                       recipient_usernames: usernames, sender_id: sender.id,
+                                       content: content, pavlov_options: pavlov_options
 
       interactor.should_receive(:mp_track).with("Factlink: Created conversation", {:recipients=>["jan", "frank"], :fact_id=>10})
       interactor.should_receive(:mp_increment_person_property)
@@ -76,8 +76,8 @@ describe Interactors::CreateConversationWithMessage do
       pavlov_options = { current_user: sender }
 
       interactor = described_class.new fact_id: fact_id,
-        recipient_usernames: usernames, sender_id: sender.id,
-        content: content, pavlov_options: pavlov_options
+                                       recipient_usernames: usernames, sender_id: sender.id,
+                                       content: content, pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
             .with(:'create_conversation',
@@ -99,7 +99,7 @@ describe Interactors::CreateConversationWithMessage do
       pavlov_options = {current_user: current_user}
 
       interactor = described_class.new fact_id: double, recipient_usernames: double,
-        sender_id: current_user.id, content: 'foo', pavlov_options:pavlov_options
+                                       sender_id: current_user.id, content: 'foo', pavlov_options:pavlov_options
 
       expect(interactor.authorized?).to eq true
     end
@@ -110,7 +110,7 @@ describe Interactors::CreateConversationWithMessage do
 
       pavlov_options = {current_user: current_user}
       interactor = described_class.new fact_id: double, recipient_usernames: double, sender_id: sender.id,
-        content: 'foo', pavlov_options: pavlov_options
+                                       content: 'foo', pavlov_options: pavlov_options
 
       expect do
         interactor.call

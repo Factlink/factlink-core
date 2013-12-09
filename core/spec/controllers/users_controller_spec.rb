@@ -115,7 +115,7 @@ describe UsersController do
       channel = create :channel, {created_by: user.graph_user}
       fact = create :fact, created_by: user.graph_user
       Pavlov.interactor :'channels/add_fact', fact: fact, channel: channel,
-        pavlov_options: { no_current_user: true }
+                                              pavlov_options: { no_current_user: true }
       channel
     end
 
@@ -124,7 +124,7 @@ describe UsersController do
         # Don't send a mail for these activity tests
         stub_const 'Interactors::SendMailForActivity', Class.new
         Interactors::SendMailForActivity.stub(new: double(call: nil),
-          attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
+                                              attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
 
         Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
         FactoryGirl.reload # hack because of fixture in check
@@ -137,7 +137,7 @@ describe UsersController do
           f1 = create :fact, created_by: current_user.graph_user
           f2 = create :fact
           Interactors::Channels::AddFact.new(fact: f1, channel: channel,
-            pavlov_options: { no_current_user: true }).call
+                                             pavlov_options: { no_current_user: true }).call
           f1.add_evidence type, f2, user.graph_user
 
           authenticate_user!(current_user)
@@ -163,8 +163,8 @@ describe UsersController do
         fact.add_opinion(:believes, current_user.graph_user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
-          type: 'believes', content: 'tex message',
-          pavlov_options: { current_user: user })
+                                                       type: 'believes', content: 'tex message',
+                                                       pavlov_options: { current_user: user })
         comment = interactor.call
 
         authenticate_user!(current_user)

@@ -17,7 +17,7 @@ module Queries
       end
 
       def believable
-        Believable::Commentje.new(comment)
+        ::Believable::Commentje.new(comment)
       end
 
       def graph_user_id_of_creator

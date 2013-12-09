@@ -18,7 +18,7 @@ module Queries
           fact_relation = FactRelation[fact_relation_id]
 
           unless fact_relation
-            raise ActionController::RoutingError.new('FactRelation could not be found')
+            fail ActionController::RoutingError.new('FactRelation could not be found')
           end
 
           dead_fact_relation_for fact_relation

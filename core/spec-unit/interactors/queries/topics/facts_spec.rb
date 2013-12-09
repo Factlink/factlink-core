@@ -14,7 +14,7 @@ describe Queries::Topics::Facts do
       count = 10
       max_timestamp = 100
       query = described_class.new slug_title: slug_title, count: count,
-        max_timestamp: max_timestamp
+                                  max_timestamp: max_timestamp
       fact_id = double
       results = [{item: fact_id, score:1}]
       key = double
@@ -40,7 +40,7 @@ describe Queries::Topics::Facts do
     it :max_timestamp do
       default_max_timestamp = 'inf'
       query = described_class.new slug_title: '10a', count: 100,
-        max_timestamp: nil
+                                  max_timestamp: nil
 
       query.setup_defaults
 
@@ -52,7 +52,7 @@ describe Queries::Topics::Facts do
     it 'calls nest correcly' do
       slug_title = 'slug-title'
       command = described_class.new slug_title: slug_title, count: 100,
-        max_timestamp: 123
+                                    max_timestamp: 123
       nest = double
       key = double
       final_key = double
