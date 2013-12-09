@@ -28,7 +28,7 @@ class EvidenceController < ApplicationController
 
     evidence = Fact[params[:evidence_id]] or fail EvidenceNotFoundException
 
-    @fact_relation = create_believed_factrelation(evidence, relation, fact)
+    @fact_relation = create_believed_factrelation(evidence, relation_new, fact)
 
     render 'fact_relations/show', formats: [:json]
   rescue EvidenceNotFoundException
@@ -71,5 +71,16 @@ class EvidenceController < ApplicationController
     Activity::Subject.activity(current_graph_user, OpinionType.real_for(:believes),fact_relation)
 
     fact_relation
+  end
+
+  def relation_new
+    case params[:type]
+    when 'believes'
+      :supporting
+    when 'disbelieves'
+      :weakening
+    else
+      fail 'unknown type'
+    end.to_s
   end
 end
