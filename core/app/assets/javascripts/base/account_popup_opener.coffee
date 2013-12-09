@@ -1,11 +1,21 @@
+modalIframeTemplate = _.template '''
+  <div class="modal-layer"><div class="modal-layer-inner">
+    <iframe class="sign_in_or_up_iframe" src="<%- options.target %>"></iframe>
+  </div></div>
+  ''', null, variable: 'options'
+
+singleton_modal_container = do ->
+  el = null
+  remove = -> el && el.parentNode && document.body.removeChild(el)
+  create = ->
+    remove()
+    el = document.body.appendChild document.createElement 'div'
+  { create: create, remove: remove }
+
+
 showPopup = (url) ->
-  width  = 640
-  height = 400
-  left   = (screen.width/2)-(width/2)
-  top    = (screen.height/2)-(height/2)
-  popup_window = window.open url, "authPopup",
-    "menubar=no,toolbar=no,status=no,width=#{width},height=#{height},left=#{left},top=#{top}"
-  popup_window.focus()
+  containerEl = singleton_modal_container.create()
+  containerEl.innerHTML = modalIframeTemplate target:url
 
 $('html').on 'click', '.js-accounts-popup-link', (e) ->
   showPopup($(e.target).attr("href"))
