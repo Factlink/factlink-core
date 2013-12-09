@@ -55,18 +55,10 @@ FactlinkUI::Application.routes.draw do
       get 'recently_viewed' => "facts#recently_viewed"
     end
 
-    resources :supporting_evidence, only: [] do
+    resources :supporting_evidence, controller: 'evidence', only: [:show, :create, :destroy] do
       collection do
         get     "combined"      => "evidence#index"
       end
-    end
-
-    resources :weakening_evidence, only: [] do
-      collection do
-        get     "combined"      => "evidence#index"
-      end
-    end
-    resources :supporting_evidence, :weakening_evidence, controller: 'evidence', only: [:show, :create, :destroy] do
       member do
         post "opinion" => "evidence#update_opinion", as: "update_opinion"
         scope '/sub_comments' do
