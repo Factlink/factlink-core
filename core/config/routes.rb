@@ -36,7 +36,8 @@ FactlinkUI::Application.routes.draw do
       post    "/share"            => "facts#share"
 
       scope '/comments' do
-        post "/:type" => 'comments#create'
+        post "/supporting" => 'comments#create'
+        post "/weakening" => 'comments#create'
         delete "/:type/:id" => 'comments#destroy'
         put "/:type/:id" => 'comments#update'
 
