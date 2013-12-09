@@ -272,7 +272,7 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-facebook (1.5.0)
+    omniauth-facebook (1.5.1)
       omniauth-oauth2 (~> 1.1.0)
     omniauth-oauth (1.0.1)
       oauth
@@ -544,7 +544,7 @@ DEPENDENCIES
   newrelic_rpm (~> 3.6.2)
   ohm!
   oily_png (~> 1.1)
-  omniauth-facebook (~> 1.5.0)
+  omniauth-facebook (~> 1.5.1)
   omniauth-twitter (= 0.0.14)
   pavlov (= 0.1.9.0)
   poltergeist (~> 1.4)
