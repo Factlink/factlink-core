@@ -29,7 +29,7 @@ gem 'multi_json', '~> 1.7.3'
 # but 1.23.1 has a breaking change, and 1.24+ requires a redis-namespace
 # which requires redis > 3.0
 gem 'resque', '= 1.23.0', require: 'resque/server'
-gem 'resque_mailer', '~> 2.2.3'
+gem 'resque_mailer', '~> 2.2.6'
 
 gem 'stringex', '~> 1.5.1'
 
