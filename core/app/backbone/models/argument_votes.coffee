@@ -6,7 +6,6 @@ class window.ArgumentVotes extends Backbone.Model
   isNew: -> false
 
   initialize: (attributes, options) ->
-    console.info options
     @url = options.urlRoot + '/opinion'
 
   setCurrentUserOpinion: (newValue) ->
