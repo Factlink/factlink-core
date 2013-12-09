@@ -41,7 +41,6 @@ class EvidenceController < ApplicationController
 
     if params[:current_user_opinion] == 'no_vote'
       @fact_relation.remove_opinions(current_user.graph_user)
-      Activity::Subject.activity(current_user.graph_user, :removed_opinions, @fact_relation)
     else
       type = OpinionType.real_for(params[:current_user_opinion])
       @fact_relation.add_opinion(type, current_user.graph_user)
