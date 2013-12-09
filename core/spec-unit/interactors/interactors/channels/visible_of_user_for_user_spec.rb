@@ -4,45 +4,30 @@ require_relative '../../../../app/interactors/interactors/channels/visible_of_us
 describe Interactors::Channels::VisibleOfUserForUser do
   include PavlovSupport
   before do
-    stub_classes 'Channel'
+    stub_classes 'Channel', 'KillObject'
   end
   describe '#call' do
     it do
       user_id = '1'
       user = double(graph_user: double(user_id: user_id))
       dead_user = double
-      ch1 = double
-      ch2 = double
-      topic_authority = double
+      channel1 = double
+      channel2 = double
+      dead_channel1 = double
+      dead_channel2 = double
 
       described_class.any_instance.stub authorized?: true
       query = described_class.new user: user
 
       Pavlov.stub(:query).with(:users_by_ids, user_ids: [user_id]).and_return([dead_user])
 
-      query.stub channels_with_authorities: [[ch1, topic_authority], [ch2, topic_authority]]
+      query.stub get_alive_channels: [channel1, channel2]
+      KillObject.stub(:channel).with(channel1, created_by_user: dead_user)
+        .and_return(dead_channel1)
+      KillObject.stub(:channel).with(channel2, created_by_user: dead_user)
+        .and_return(dead_channel2)
 
-      query.should_receive(:kill_channel).with(ch1, topic_authority, dead_user)
-      query.should_receive(:kill_channel).with(ch2, topic_authority, dead_user)
       query.call
-    end
-  end
-
-  describe ".channels_with_authorities" do
-    it "combines the list of channels with the list of authorities" do
-      visible_channels = [double(:ch1), double(:ch2)]
-      authorities = [1, 1]
-
-      described_class.any_instance.stub(authorized?: true)
-      interactor = described_class.new user: double
-      interactor.stub(visible_channels: visible_channels)
-
-      result = interactor.channels_with_authorities
-
-      expect(result).to eq [
-        [visible_channels[0],authorities[0]],
-        [visible_channels[1],authorities[1]]
-      ]
     end
   end
 
