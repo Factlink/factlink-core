@@ -4,7 +4,7 @@ module Interactors
       include Pavlov::Interactor
       include Util::CanCan
 
-      arguments :fact_id, :type
+      arguments :fact_id
 
       def authorized?
         can? :show, Fact
@@ -12,11 +12,10 @@ module Interactors
 
       def validate
         validate_integer_string :fact_id, fact_id
-        validate_in_set         :type,    type, [:weakening, :supporting]
       end
 
       def execute
-        query :'evidence/for_fact_id', fact_id: fact_id, type: type
+        query :'evidence/for_fact_id', fact_id: fact_id
       end
     end
   end

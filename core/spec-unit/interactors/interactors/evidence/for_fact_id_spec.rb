@@ -18,11 +18,6 @@ describe Interactors::Evidence::ForFactId do
       expect_validating(fact_id: nil, type: :weakening).
         to fail_validation('fact_id should be an integer string.')
     end
-
-    it 'requires type be :weakening or :supporting' do
-      expect_validating(fact_id: '1', type: :bla).
-        to fail_validation('type should be on of these values: [:weakening, :supporting].')
-    end
   end
 
   describe '#authorized?' do
@@ -32,7 +27,7 @@ describe Interactors::Evidence::ForFactId do
              .with(:show, Fact)
              .and_return(false)
 
-      interactor = described_class.new fact_id: '1', type: :supporting,
+      interactor = described_class.new fact_id: '1',
                                        pavlov_options: { ability: ability }
 
       expect do
@@ -50,7 +45,7 @@ describe Interactors::Evidence::ForFactId do
                                        pavlov_options: pavlov_options
 
       Pavlov.stub(:query)
-              .with(:'evidence/for_fact_id', fact_id: fact.id, type: type, pavlov_options: pavlov_options)
+              .with(:'evidence/for_fact_id', fact_id: fact.id, pavlov_options: pavlov_options)
               .and_return(fact)
 
       expect(interactor.call).to eq fact

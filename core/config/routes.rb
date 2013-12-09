@@ -36,11 +36,11 @@ FactlinkUI::Application.routes.draw do
       post    "/share"            => "facts#share"
 
       scope '/comments' do
-        post "/:type" => 'comments#create'
-        delete "/:type/:id" => 'comments#destroy'
-        put "/:type/:id/opinion" => 'comments#update_opinion'
+        post "/" => 'comments#create'
+        delete "/:id" => 'comments#destroy'
+        put "/:id/opinion" => 'comments#update_opinion'
 
-        scope '/:type/:comment_id' do
+        scope '/:comment_id' do
           scope '/sub_comments' do
             get '' => 'sub_comments#index'
             post '' => 'sub_comments#create'
@@ -54,18 +54,7 @@ FactlinkUI::Application.routes.draw do
       get 'recently_viewed' => "facts#recently_viewed"
     end
 
-    resources :supporting_evidence, only: [] do
-      collection do
-        get     "combined"      => "supporting_evidence#combined_index"
-      end
-    end
-
-    resources :weakening_evidence, only: [] do
-      collection do
-        get     "combined"      => "weakening_evidence#combined_index"
-      end
-    end
-    resources :supporting_evidence, :weakening_evidence, only: [:show, :create, :destroy] do
+    resources :evidence, only: [:show, :create, :destroy, :index] do
       member do
         put "opinion" => "evidence#update_opinion", as: "update_opinion"
         scope '/sub_comments' do

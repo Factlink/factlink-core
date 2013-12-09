@@ -20,10 +20,15 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   addComment: ->
     return if @submitting
 
+    type = switch @options.type
+      when 'supporting' then 'believes'
+      when 'weakening' then 'disbelieves'
+      else throw 'Unknown RealEvidenceCollection type'
+
     @model = new Comment
       content: @_textModel().get('text')
       created_by: currentUser.toJSON()
-      type: @options.addToCollection.believesType()
+      type: type
 
     return @addModelError() unless @model.isValid()
 

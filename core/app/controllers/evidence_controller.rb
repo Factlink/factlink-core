@@ -1,12 +1,11 @@
 class EvidenceController < ApplicationController
 
-  before_filter :authenticate_user!, except: [:index, :combined_index]
+  before_filter :authenticate_user!, except: [:index]
 
   respond_to :json
 
-  def combined_index
-    @evidence = interactor(:'evidence/for_fact_id',
-                               fact_id: params[:fact_id],type: relation)
+  def index
+    @evidence = interactor(:'evidence/for_fact_id', fact_id: params[:fact_id])
 
     render 'evidence/index', formats: [:json]
   end
@@ -28,7 +27,7 @@ class EvidenceController < ApplicationController
 
     evidence = Fact[params[:evidence_id]] or fail EvidenceNotFoundException
 
-    @fact_relation = create_believed_factrelation(evidence, relation, fact)
+    @fact_relation = create_believed_factrelation(evidence, relation_new, fact)
 
     render 'fact_relations/show', formats: [:json]
   rescue EvidenceNotFoundException
@@ -71,5 +70,16 @@ class EvidenceController < ApplicationController
     Activity::Subject.activity(current_graph_user, OpinionType.real_for(:believes),fact_relation)
 
     fact_relation
+  end
+
+  def relation_new
+    case params[:type]
+    when 'believes'
+      :supporting
+    when 'disbelieves'
+      :weakening
+    else
+      fail 'unknown type'
+    end.to_s
   end
 end
