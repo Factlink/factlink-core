@@ -28,15 +28,6 @@ class Fact < OurOhm
   reference :created_by, GraphUser
   set :channels, Channel
 
-  # TODO: dirty, please decouple
-  def add_to_created_facts
-    created_by.sorted_created_facts.add self
-  end
-
-  def remove_from_created_facts
-    created_by.sorted_created_facts.delete self
-  end
-
   def has_site?
     site and site.url and not site.url.blank?
   end
@@ -60,11 +51,6 @@ class Fact < OurOhm
     localdata.save
     # FactData now has an ID
     self.data = localdata
-  end
-
-  def set_own_id_on_saved_data
-    data.fact_id = id
-    data.save!
   end
 
   def fact_relations
@@ -121,4 +107,18 @@ class Fact < OurOhm
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
+
+  # TODO: dirty, please decouple
+  def add_to_created_facts
+    created_by.sorted_created_facts.add self
+  end
+
+  def remove_from_created_facts
+    created_by.sorted_created_facts.delete self
+  end
+
+  def set_own_id_on_saved_data
+    data.fact_id = id
+    data.save!
+  end
 end
