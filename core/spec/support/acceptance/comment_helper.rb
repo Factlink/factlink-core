@@ -60,7 +60,7 @@ module Acceptance
       end
 
       def wait_until_add_buttons_appear
-        page.find('.js-supporting-button')
+        page.find('.js-believes-button')
       end
 
       def add_sub_comment(comment)
@@ -93,7 +93,7 @@ module Acceptance
 
       def wait_until_evidence_list_loaded
         # the add region only shows after the discussion list has fully loaded
-        find('.js-supporting-button')
+        find('.js-believes-button')
       end
 
       def vote_comment direction, comment
