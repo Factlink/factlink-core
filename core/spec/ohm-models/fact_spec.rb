@@ -41,7 +41,9 @@ describe Fact do
 
   context "initially" do
     it "should have no evidence" do
-      expect(fact.evidence.count).to eq 0
+      fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
+
+      expect(fact_relations.count).to eq 0
     end
   end
 
@@ -49,8 +51,9 @@ describe Fact do
     describe ".add_evidence" do
       it 'saves the evidence' do
         fact.add_evidence(relation,factlink,graph_user)
+        fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
 
-        expect(fact.evidence.first.type).to eq relation
+        expect(fact_relations.first.type).to eq relation
       end
     end
   end
