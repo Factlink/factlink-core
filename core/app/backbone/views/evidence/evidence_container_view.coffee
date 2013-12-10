@@ -73,20 +73,9 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
   ui:
     terminator: '.js-terminator'
     loading: '.js-evidence-loading'
+    loaded: '.js-evidence-loaded'
 
   onRender: ->
-    @collectionRegion.show new EvidenceCollectionView collection: @collection
-    @_updateLoading()
-
-  _updateLoading: ->
-    @ui.loading.toggle !!@collection.loading()
-    @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()
-
-    @_updateBottom()
-
-  _updateBottom: ->
-    return if @collection.loading()
-
     if Factlink.Global.signed_in
       @addRegion.show new AddEvidenceFormView
         collection: @collection.realEvidenceCollection
@@ -94,3 +83,11 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
         type: 'believes'
     else
       @learnMoreRegion.show new LearnMoreView
+
+    @collectionRegion.show new EvidenceCollectionView collection: @collection
+    @_updateLoading()
+
+  _updateLoading: ->
+    @ui.loading.toggle !!@collection.loading()
+    @ui.loaded.toggle !@collection.loading()
+    @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()
