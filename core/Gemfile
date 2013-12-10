@@ -60,7 +60,7 @@ gem 'koala', '~> 1.8.0rc1'
 gem 'httparty', '~> 0.11.0'
 
 #browser detection
-gem 'browser', '~> 0.2.0'
+gem 'browser', '~> 0.3.2'
 
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
