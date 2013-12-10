@@ -37,7 +37,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       evidence_id: selected_fact_attributes.id
       from_fact: selected_fact_attributes
       created_by: currentUser.toJSON()
-      type: @options.type
+      type: @options.argumentTypeModel.get 'argument_type'
 
   switchToComment: ->
     @$el.removeClass 'active'
@@ -61,7 +61,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
         mp_track "Evidence: Added",
           factlink_id: @options.fact_id
-          type: @options.type
+          type: @options.argumentTypeModel.get 'argument_type'
 
   reset: ->
     @model.set text: ''

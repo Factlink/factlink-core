@@ -8,13 +8,22 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       selector: '.input-region'
       regionType: Factlink.DetachableViewsRegion
 
+  events:
+    'change input[name=argumentType]': '_updateArgumentType'
+
   initialize: ->
     @inputRegion.defineViews
       search_view: => @searchView()
       add_comment_view: => @addCommentView()
 
+    @_argumentTypeModel = new Backbone.Model
+    @_updateArgumentType()
+
     @listenTo @searchView(), 'switch_to_comment_view', @_switchToCommentView
     @listenTo @addCommentView(), 'switch_to_fact_relation_view', @_switchToFactRelationView
+
+  _updateArgumentType: ->
+    @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
 
   onRender: ->
     @headingRegion.show new EvidenceishHeadingView model: currentUser
@@ -41,9 +50,9 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       collection: @_filtered_facts()
       addToCollection: @collection
       fact_id: @collection.fact.id
-      type: @options.type
+      argumentTypeModel: @_argumentTypeModel
 
   addCommentView: ->
     @_addCommentView ?= new AddCommentView
       addToCollection: @collection
-      type: @options.type
+      argumentTypeModel: @_argumentTypeModel
