@@ -61,7 +61,7 @@ describe 'Reserving an account', type: :feature do
 
     current_email.find(:xpath, '//a', text: 'Confirm email').click
 
-    page.should have_content "Let's create a Factlink!"
+    page.should have_content "Let's create an #{I18n.t(:factlink)}!"
   end
 
 end

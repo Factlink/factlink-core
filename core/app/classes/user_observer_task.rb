@@ -1,27 +1,4 @@
-class UserObserver < Mongoid::Observer
-  include Pavlov::Helpers
-
-  def after_create user
-    command :'text_search/index_user', user: user
-  end
-
-  def after_update user
-    UserObserverTask.handle_changes user
-
-    if user.changed?
-      command :'text_search/index_user',
-                  user: user,
-                  changed: user.changed
-    end
-  end
-
-  def after_destroy user
-    command(:'text_search/delete_user', object: user)
-  end
-end
-
 class UserObserverTask
-
   def self.handle_changes user
     if user.set_up_changed? and user.set_up?
       initialize_mixpanel_for user
@@ -52,5 +29,4 @@ class UserObserverTask
   def self.mixpanel
     FactlinkUI::Application.config.mixpanel.new({}, true)
   end
-
 end
