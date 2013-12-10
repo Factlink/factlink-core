@@ -1,5 +1,5 @@
 class TopTopicView extends Backbone.Marionette.Layout
-  template: 'users/profile/toptopic'
+  template: 'users/profile/top_topic'
   className: 'top-topics-item'
 
   templateHelpers: =>
