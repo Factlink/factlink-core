@@ -98,8 +98,7 @@ class Fact < OurOhm
 
   def deletable?
     opinionated_users_ids - [created_by_id] == [] &&
-      supporting_facts.count == 0 &&
-      weakening_facts.count  == 0 &&
+      FactRelation.find(fact_id: id).count == 0 &&
       FactRelation.find(from_fact_id: id).count == 0
   end
 
