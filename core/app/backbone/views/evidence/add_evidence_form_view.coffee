@@ -29,15 +29,10 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_____collectionUtils ?= new CollectionUtils this
 
   searchView: ->
-    type = switch @options.type
-      when 'supporting' then 'believes'
-      when 'weakening' then 'disbelieves'
-      else throw 'Unknown RealEvidenceCollection type'
-
     searchView = new AutoCompleteFactRelationsView
       collection: @_filtered_facts()
       fact_id: @collection.fact.id
-      type: type
+      type: @options.type
       recent_collection: @_recent_collection
     @listenTo searchView, 'createFactRelation', (fact_relation, onFinish) ->
       @createFactRelation(fact_relation, onFinish)

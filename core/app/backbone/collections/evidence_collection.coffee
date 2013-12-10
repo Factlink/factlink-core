@@ -3,7 +3,7 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
   initialize: (models, options) ->
     @fact = options.fact
 
-    @realEvidenceCollection = new RealEvidenceCollection null, fact: @fact, type: 'supporting'
+    @realEvidenceCollection = new RealEvidenceCollection null, fact: @fact
 
     @_containedCollections = [
       new OpinionatersCollection null, fact: @fact
