@@ -13,8 +13,8 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
       fact = double :fact,
         created_by_id: 1,
         opinionated_users_ids: [2, 3],
-        fact_relations: double,
         data_id: 133
+      fact_relation = double
       comments = double
       query = described_class.new fact: fact
 
@@ -27,8 +27,11 @@ describe Queries::Activities::GraphUserIdsFollowingFact do
             .and_return([4,5])
       Pavlov.stub(:query)
             .with(:'activities/graph_user_ids_following_fact_relations',
-                      fact_relations: fact.fact_relations)
+                      fact_relations: [fact_relation])
             .and_return [3, 4]
+      Pavlov.stub(:query)
+            .with(:'fact_relations/for_fact', fact: fact)
+            .and_return [fact_relation]
 
       expect(query.call).to eq [1, 2, 3, 4, 5]
     end
