@@ -1,5 +1,5 @@
 # ensure we update this file when we update the locales
-# SHASUM of locales: ba5ca1281ac76e87e0aea0b3075624a1e086aefe
+# SHASUM of locales: 16ff17e73165d230ab784b87c6e9b2d64638a23e
 
 window.Factlink ||= {}
 
@@ -12,7 +12,6 @@ Factlink.Global =
   empty_factlink_image: '<%= image_path("conversations/factlink-empty-state.png") %>'
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
   browser_icons_firefox_16x16: '<%= image_path("browser-icons/firefox-16x16.png") %>'
-  opinion_animation: '<%= image_path("tour/opinion-animation.gif") %>'
   warning_sign_image: '<%= image_path("warning-sign.png") %>'
 
   firefox_extension_url: "<%= FactlinkUI::Application.config.static_url + '/extension/firefox/factlink-latest.xpi' %>"
@@ -34,6 +33,7 @@ Factlink.Global =
     :follow_topic,
     :followed,
     :following,
+    :followers,
     :unfollow,
     :is_now_following_you,
     :topic,
@@ -43,6 +43,7 @@ Factlink.Global =
     :favourite,
     :unfavourite,
     :favourited,
+    :favouritours,
     :fact_believe_opinion,
     :fact_doubt_opinion,
     :fact_disbelieve_opinion,
@@ -75,7 +76,10 @@ Factlink.Global =
 
     :ago,
     :you,
-    :nobody
+    :nobody,
+
+    :factlink,
+    :factlinks
   ].each do |translation|
 %>
 

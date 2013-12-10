@@ -14,7 +14,6 @@ Backbone.View::defaultClickHandler = (e, routeTo=null) ->
   false
 
 Backbone.View::navigateTo = (routeTo) ->
-  console.info "Navigating to " + routeTo, "from /" + Backbone.history.fragment
   if "/" + Backbone.history.fragment is routeTo
     # Allow reloads by clicking links without polluting the history
     Backbone.history.fragment = null
