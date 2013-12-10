@@ -78,15 +78,19 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     @collectionRegion.show new EvidenceCollectionView collection: @collection
     @_updateLoading()
 
-    if Factlink.Global.signed_in
-      @ui.terminator.addClass 'evidence-terminator-before-add-evidence'
-      @addRegion.show new AddEvidenceView
-        collection: @collection
-        fact_id: @collection.fact.id
-
   _updateLoading: ->
     @ui.loading.toggle !!@collection.loading()
     @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()
 
-    unless Factlink.Global.signed_in || @collection.loading()
+    @_updateBottom()
+
+  _updateBottom: ->
+    return if @collection.loading()
+
+    if Factlink.Global.signed_in
+      @addRegion.show new AddEvidenceFormView
+        collection: @collection.realEvidenceCollection
+        fact_id: @collection.fact.id
+        type: 'believes'
+    else
       @learnMoreRegion.show new LearnMoreView
