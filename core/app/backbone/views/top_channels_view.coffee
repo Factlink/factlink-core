@@ -31,7 +31,7 @@ class window.TopChannelsView extends Backbone.Marionette.CompositeView
     showMoreLessButtons: '.js-show-more-less-buttons'
 
   initialize: ->
-    @listenTo @collection, "add remove reset", @toggleShowMore, @
+    @listenTo @collection, "add remove reset", @toggleShowMore
 
   templateHelpers: =>
     topics: Factlink.Global.t.topics.capitalize()
