@@ -101,16 +101,10 @@ class Fact < OurOhm
     !f || !f.data_id
   end
 
-  def delete_data
-    data.delete
-  end
-
-  private :delete_data
-
   def delete
     fail "Cannot be deleted" unless deletable?
 
-    delete_data
+    data.delete
     believable.delete
     remove_from_created_facts
     super
