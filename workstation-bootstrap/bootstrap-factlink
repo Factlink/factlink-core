@@ -116,6 +116,7 @@ cd core
 
   foreman start -f ProcfileServers &
   FOREMAN_PID=$!
+  sleep 3
   bundle exec rake db:truncate
   bundle exec rake db:init
   kill ${FOREMAN_PID}
@@ -127,7 +128,4 @@ cd core
   #checkts that there's no mistakes in this script.
   bin/bootstrap
 cd ..
-echo
-echo
-brew outdated
 echo "Your factlink development environment is done.  Happy hacking!"
