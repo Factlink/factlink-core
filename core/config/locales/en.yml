@@ -2,7 +2,7 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  add_fact: "add Factlink" # when updating, update jslib template
+  add_fact: "add annotation" # when updating, update jslib template
 
   factlink: "annotation"
   factlinks: "annotations"
@@ -74,7 +74,7 @@ en:
   topic:  "topic"
   topics: "topics"
   topic_name: "topic name"
-  add_to_topics: "what is this Factlink about"
+  add_to_topics: "what is this annotation about"
   created_user_topic: "started posting to a topic"
   favourites: "followed topics"
   favourite: "follow"
@@ -89,7 +89,7 @@ en:
   you: "you"
   nobody: "nobody"
 
-  fact_added_fact_to_channel_action: "added your Factlink to their channel"
+  fact_added_fact_to_channel_action: "added your annotation to their channel"
 
   facts:
       new:
