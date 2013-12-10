@@ -24,8 +24,8 @@ class window.TopTopicsView extends Backbone.Marionette.CompositeView
   emptyView: TopTopicsEmptyLoadingView
   itemViewContainer: ".top-topics"
   events:
-    "click a.top-topics-show-more": "showMoreOn"
-    "click a.top-topics-show-less": "showMoreOff"
+    "click a.js-show-more": "showMoreOn"
+    "click a.js-show-less": "showMoreOff"
 
   ui:
     showMoreLessButtons: '.js-show-more-less-buttons'
