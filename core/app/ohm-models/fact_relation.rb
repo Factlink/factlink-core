@@ -40,9 +40,6 @@ class FactRelation < OurOhm
     )
     fail "Creating FactRelation went wrong" if fact_relation.new?
 
-    #TODO this should use a collection
-    to.evidence(type) << fact_relation
-
     fact_relation
   end
   private_class_method :create_new
@@ -62,7 +59,6 @@ class FactRelation < OurOhm
   end
 
   def delete
-    fact.evidence(type).delete(self)
     believable.delete
     super
   end

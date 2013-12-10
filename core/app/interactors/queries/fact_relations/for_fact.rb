@@ -10,7 +10,7 @@ module Queries
       end
 
       def fact_relation_ids
-        fact.evidence.ids
+        FactRelation.find(fact_id: fact.id).ids
       end
     end
   end

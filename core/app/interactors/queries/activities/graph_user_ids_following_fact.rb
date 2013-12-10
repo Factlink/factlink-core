@@ -35,7 +35,7 @@ module Queries
       end
 
       def fact_relations
-        @fact_relations ||= fact.fact_relations
+        FactRelation.find(fact_id: fact.id).all
       end
 
       def comments_followers_ids
