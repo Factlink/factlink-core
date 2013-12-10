@@ -23,10 +23,6 @@ module Acceptance
               .add-evidence-form .text_area_view')[:placeholder].include? 'Comment'
       end
 
-      def open_add_type type
-        find(".evidence-add-buttons .js-#{type}-button").click
-      end
-
       def add_comment type, comment
         open_add_type type
         toggle_to_comment if posting_factlink? #unless posting_comment?
