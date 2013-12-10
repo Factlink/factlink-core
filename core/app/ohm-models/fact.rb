@@ -67,10 +67,6 @@ class Fact < OurOhm
     data.save!
   end
 
-  def evidenced_factrelations
-    FactRelation.find(from_fact_id: id).all
-  end
-
   def fact_relations
     supporting_facts | weakening_facts
   end
@@ -105,25 +101,11 @@ class Fact < OurOhm
     !f || !f.data_id
   end
 
-
   def delete_data
     data.delete
   end
 
-  def delete_all_evidence
-    fact_relations.each do |fr|
-      fr.delete
-    end
-  end
-
-  def delete_all_evidenced
-    FactRelation.find(from_fact_id: id).each do |fr|
-      fr.delete
-    end
-  end
-
-  # TODO: also remove yourself from channels, possibly using resque
-  private :delete_all_evidence, :delete_all_evidenced, :delete_data
+  private :delete_data
 
   def delete
     fail "Cannot be deleted" unless deletable?
