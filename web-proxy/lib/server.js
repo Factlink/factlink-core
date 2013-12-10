@@ -43,6 +43,9 @@ function getServer(config) {
     server.use("/static/", express.static(__dirname + "/../static/"));
   }
 
+  // Hacky-hack to allow invalid SSL connections anyway
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
   function parse_int_or_null(variable) {
     return parseInt(variable, 10) || null;
   }
