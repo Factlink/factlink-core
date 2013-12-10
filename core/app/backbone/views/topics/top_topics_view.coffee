@@ -1,31 +1,31 @@
-class TopChannelView extends Backbone.Marionette.Layout
-  template: 'channels/topchannel'
-  className: 'top-channels-channel'
+class TopTopicView extends Backbone.Marionette.Layout
+  template: 'users/profile/top_topic'
+  className: 'top-topics-item'
 
   templateHelpers: =>
     position: @options.position
     topic_link: @model.topic().url()
 
-class TopChannelsEmptyView extends Backbone.Marionette.ItemView
-  template: 'users/profile/top_channels_empty'
+class TopTopicsEmptyView extends Backbone.Marionette.ItemView
+  template: 'users/profile/top_topics_empty'
 
   templateHelpers: =>
     topics: Factlink.Global.t.topics.capitalize()
     username: @options.user.get('username')
     is_current_user: @options.user.is_current_user()
 
-class TopChannelsEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
-  emptyView: TopChannelsEmptyView
+class TopTopicsEmptyLoadingView extends Backbone.Factlink.EmptyLoadingView
+  emptyView: TopTopicsEmptyView
 
-class window.TopChannelsView extends Backbone.Marionette.CompositeView
-  template: "users/profile/top_channels"
-  className: "top-channel-container"
-  itemView: TopChannelView
-  emptyView: TopChannelsEmptyLoadingView
-  itemViewContainer: ".top-channels"
+class window.TopTopicsView extends Backbone.Marionette.CompositeView
+  template: "users/profile/top_topics"
+  className: "top-topics-container"
+  itemView: TopTopicView
+  emptyView: TopTopicsEmptyLoadingView
+  itemViewContainer: ".top-topics"
   events:
-    "click a.top-channels-show-more": "showMoreOn"
-    "click a.top-channels-show-less": "showMoreOff"
+    "click a.js-show-more": "showMoreOn"
+    "click a.js-show-less": "showMoreOff"
 
   ui:
     showMoreLessButtons: '.js-show-more-less-buttons'

@@ -28,15 +28,6 @@ class Fact < OurOhm
   reference :created_by, GraphUser
   set :channels, Channel
 
-  # TODO: dirty, please decouple
-  def add_to_created_facts
-    created_by.sorted_created_facts.add self
-  end
-
-  def remove_from_created_facts
-    created_by.sorted_created_facts.delete self
-  end
-
   def has_site?
     site and site.url and not site.url.blank?
   end
@@ -60,28 +51,6 @@ class Fact < OurOhm
     localdata.save
     # FactData now has an ID
     self.data = localdata
-  end
-
-  def set_own_id_on_saved_data
-    data.fact_id = id
-    data.save!
-  end
-
-  set :supporting_facts, FactRelation
-  set :weakening_facts, FactRelation
-
-  def evidenced_factrelations
-    FactRelation.find(from_fact_id: id).all
-  end
-
-  def fact_relations
-    supporting_facts | weakening_facts
-  end
-
-  def evidence(type=:both)
-    return fact_relations if type == :both
-
-    send(:"#{type}_facts")
   end
 
   def add_evidence(type, evidence, user)
@@ -108,30 +77,10 @@ class Fact < OurOhm
     !f || !f.data_id
   end
 
-
-  def delete_data
-    data.delete
-  end
-
-  def delete_all_evidence
-    fact_relations.each do |fr|
-      fr.delete
-    end
-  end
-
-  def delete_all_evidenced
-    FactRelation.find(from_fact_id: id).each do |fr|
-      fr.delete
-    end
-  end
-
-  # TODO: also remove yourself from channels, possibly using resque
-  private :delete_all_evidence, :delete_all_evidenced, :delete_data
-
   def delete
     fail "Cannot be deleted" unless deletable?
 
-    delete_data
+    data.delete
     believable.delete
     remove_from_created_facts
     super
@@ -139,8 +88,23 @@ class Fact < OurOhm
 
   def deletable?
     opinionated_users_ids - [created_by_id] == [] &&
-      supporting_facts.count == 0 &&
-      weakening_facts.count  == 0 &&
+      FactRelation.find(fact_id: id).count == 0 &&
       FactRelation.find(from_fact_id: id).count == 0
+  end
+
+  private
+
+  # TODO: dirty, please decouple
+  def add_to_created_facts
+    created_by.sorted_created_facts.add self
+  end
+
+  def remove_from_created_facts
+    created_by.sorted_created_facts.delete self
+  end
+
+  def set_own_id_on_saved_data
+    data.fact_id = id
+    data.save!
   end
 end

@@ -85,7 +85,7 @@ describe "factlink", type: :feature do
       go_to_discussion_page_of @factlink
       page.should have_content(@factlink.data.title)
 
-      add_existing_factlink :supporting, displaystring
+      add_existing_factlink :believes, displaystring
     end
   end
 
