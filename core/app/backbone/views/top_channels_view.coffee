@@ -32,6 +32,7 @@ class window.TopChannelsView extends Backbone.Marionette.CompositeView
 
   initialize: ->
     @listenTo @collection, "add remove reset", @toggleShowMore, @
+
   templateHelpers: =>
     topics: Factlink.Global.t.topics.capitalize()
 
