@@ -59,13 +59,13 @@ describe FactRelation do
 
   it "should add itself to the list of evidence" do
     FactRelation.get_or_create(fact1,:supporting,fact2,gu)
-    fact2.evidence(:supporting).to_a.collect { |x| x.from_fact }.should =~ [fact1]
+    fact2.evidence.to_a.collect { |x| x.from_fact }.should =~ [fact1]
   end
 
   it "should delete itself from lists referring to it" do
     fr = FactRelation.get_or_create(fact1,:supporting,fact2,gu)
     fr.delete
-    expect(fact2.evidence(:supporting).size).to eq 0
+    expect(fact2.evidence.size).to eq 0
   end
 
   it "should not be able to create identical factRelations" do
