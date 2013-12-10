@@ -79,6 +79,10 @@ class FactRelation < OurOhm
     remove_opinionateds(user)
   end
 
+  def to_s
+    from_fact.to_s
+  end
+
   private
 
   def assert_member(att, set, error = [att, :not_member])
