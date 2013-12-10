@@ -39,7 +39,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :supporting, supporting_factlink
 
-    find('.evidence-impact-text', text: "1") # wait until request has finished
+    find('.evidence-relevance-text', text: "1") # wait until request has finished
 
     find('.evidence-votable span', text: supporting_factlink.to_s).click
 
@@ -53,7 +53,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     add_existing_factlink :supporting, supporting_factlink
 
-    find('.evidence-impact-text', text: "1") # wait until request has finished
+    find('.evidence-relevance-text', text: "1") # wait until request has finished
 
     go_to_fact_show_of factlink
 

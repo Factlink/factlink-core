@@ -6,8 +6,7 @@ describe Interactors::SubComments::CreateForComment do
 
   before do
     stub_classes 'Comment', 'SubComment', 'KillObject',
-                 'Commands::SubComments::CreateXxx',
-                 'Queries::AuthorityOnFactFor'
+                 'Commands::SubComments::CreateXxx'
   end
 
   it '.authorized denied the user cannot show the comment' do
@@ -17,7 +16,7 @@ describe Interactors::SubComments::CreateForComment do
     Comment.should_receive(:find).and_return(comment)
 
     interactor = described_class.new comment_id: '2a', content: 'hoi',
-        pavlov_options: { current_user: nil, ability: ability }
+                                     pavlov_options: { current_user: nil, ability: ability }
 
     expect { interactor.call }
      .to raise_error Pavlov::AccessDenied, 'Unauthorized'
@@ -56,7 +55,7 @@ describe Interactors::SubComments::CreateForComment do
 
       pavlov_options = { current_user: user, ability: ability }
       interactor = described_class.new comment_id: comment.id, content: content,
-        pavlov_options: pavlov_options
+                                       pavlov_options: pavlov_options
 
       Pavlov.should_receive(:command)
             .with(:'sub_comments/create_xxx',
@@ -77,7 +76,7 @@ describe Interactors::SubComments::CreateForComment do
       ability = double can?: true
 
       interactor = described_class.new comment_id: '2a', content: 'content',
-        pavlov_options: { current_user: double, ability: ability }
+                                       pavlov_options: { current_user: double, ability: ability }
       interactor.stub comment: nil
 
       expect { interactor.call }
@@ -94,7 +93,7 @@ describe Interactors::SubComments::CreateForComment do
       ability = double can?: true
 
       interactor = described_class.new comment_id: comment_id, content: 'hoi',
-        pavlov_options: { current_user: double, ability: ability }
+                                       pavlov_options: { current_user: double, ability: ability }
 
       result = interactor.top_fact
 
@@ -109,7 +108,7 @@ describe Interactors::SubComments::CreateForComment do
       ability = double can?: true
 
       interactor = described_class.new comment_id: comment_id, content: 'hoi',
-        pavlov_options: { current_user: double, ability: ability }
+                                       pavlov_options: { current_user: double, ability: ability }
 
       result = interactor.top_fact
 

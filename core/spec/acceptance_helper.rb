@@ -19,7 +19,7 @@ require 'pavlov_helper'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f| require f}
+Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 
 # Don't do web requests from tests
 WebMock.disable_net_connect!(:allow_localhost => true)
@@ -50,7 +50,6 @@ RSpec.configure do |config|
                                                js_errors: false,
                                                timeout: 60 })
     end
-    Authority.logger = nil
   end
 
   config.before(:each) do

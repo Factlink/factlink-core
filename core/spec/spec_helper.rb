@@ -15,7 +15,7 @@ WebMock.disable_net_connect!(:allow_localhost => true)
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].sort.each {|f|require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f|require f }
 
 RSpec.configure do |config|
   # Exclude integration tests in normal suite
@@ -32,7 +32,6 @@ RSpec.configure do |config|
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
-    Authority.logger = nil
   end
 
   config.before(:each) do

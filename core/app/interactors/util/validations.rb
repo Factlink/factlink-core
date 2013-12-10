@@ -8,7 +8,7 @@ module Util
     end
 
     def validate_non_empty_list param_name, param
-      if ! param.respond_to? :each
+      if !param.respond_to? :each
         errors.add param_name, 'should be a list'
       elsif param.length == 0
         errors.add param_name, 'should not be empty'

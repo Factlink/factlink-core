@@ -3,31 +3,30 @@ module Queries
     class ForFactId
       include Pavlov::Query
 
-      arguments :fact_id, :type
+      arguments :fact_id
 
       private
-
-      def validate
-        validate_integer_string :fact_id, fact_id
-        validate_in_set         :type,    type, [:weakening, :supporting]
-      end
 
       def execute
         sort(fact_relations + comments)
       end
 
       def fact_relations
-        query(:'fact_relations/for_fact', fact: fact, type: type)
+        query(:'fact_relations/for_fact', fact: fact)
       end
 
       def comments
-        query(:'comments/for_fact', fact: fact, type: type)
+        query(:'comments/for_fact', fact: fact)
       end
 
       def sort result
         result.sort do |a,b|
-          b.impact_opinion.authority <=> a.impact_opinion.authority
+          relevance_of(b) <=> relevance_of(a)
         end
+      end
+
+      def relevance_of evidence
+        evidence.votes[:believes] - evidence.votes[:disbelieves]
       end
 
       def fact

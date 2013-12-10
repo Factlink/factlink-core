@@ -9,25 +9,25 @@ describe Blacklist do
   end
 
   describe "#should_return_true_on_match" do
-    it {subject.matches?('http://facebook.com').should == true}
+    it { subject.matches?('http://facebook.com').should == true }
   end
 
   describe "#should_return_false_when_no_match" do
-    it {subject.matches?('http://google.com').should == false}
+    it { subject.matches?('http://google.com').should == false }
   end
 
   describe "#should_also_match_non-first_blacklist_item" do
-    it {subject.matches?('http://twitter.com').should == true}
-    it {subject.matches?('http://factlink.com').should == true}
+    it { subject.matches?('http://twitter.com').should == true }
+    it { subject.matches?('http://factlink.com').should == true }
   end
 
   describe "#should_also_match_subdomains" do
-    it {subject.matches?('http://static.demo.factlink.com').should == true}
-    it {subject.matches?('http://demo.factlink.com').should == true}
+    it { subject.matches?('http://static.demo.factlink.com').should == true }
+    it { subject.matches?('http://demo.factlink.com').should == true }
   end
 
   describe ".domain" do
-    let(:regex) {Blacklist.domain('foo.com')}
+    let(:regex) { Blacklist.domain('foo.com') }
 
     it "should match the domain" do
       regex.match('http://foo.com').should be_true
@@ -45,7 +45,7 @@ describe Blacklist do
   end
 
   describe ".strict_domain" do
-    let(:regex) {Blacklist.strict_domain('foo.com')}
+    let(:regex) { Blacklist.strict_domain('foo.com') }
 
     it "should match the domain" do
       regex.match('http://foo.com').should be_true

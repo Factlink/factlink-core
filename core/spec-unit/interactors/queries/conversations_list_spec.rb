@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/queries/conversations_list.rb'
 describe Queries::ConversationsList do
   include PavlovSupport
 
-  let(:user){ double(id: 13) }
+  let(:user) { double(id: 13) }
 
   before do
     stub_classes 'User', 'KillObject'
@@ -25,7 +25,7 @@ describe Queries::ConversationsList do
       criteria = double(:criteria)
       dead_conversations = [double, double]
       query = described_class.new(user_id: user.id.to_s,
-        pavlov_options: { current_user: user })
+                                  pavlov_options: { current_user: user })
 
       double_conversations[0].should respond_to(:recipient_ids)
       User.should_receive(:find).with(user.id.to_s).and_return(user)

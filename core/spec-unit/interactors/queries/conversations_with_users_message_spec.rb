@@ -23,7 +23,7 @@ describe Queries::ConversationsWithUsersMessage do
 
       pavlov_options = { current_user: user1 }
       query = described_class.new(user_id: user1.id.to_s,
-        pavlov_options: pavlov_options)
+                                  pavlov_options: pavlov_options)
 
       Pavlov.stub(:query)
             .with(:'conversations_list',

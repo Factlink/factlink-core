@@ -37,7 +37,7 @@ describe Interactors::SubComments::IndexForComment do
       dead_sub_comments = double
       options = {ability: double(can?: true)}
       interactor = described_class.new(comment_id: comment_id,
-        pavlov_options: options)
+                                       pavlov_options: options)
 
       Comment.stub(:find).with(comment_id)
              .and_return(double)

@@ -45,7 +45,7 @@ class OurOhm < Ohm::Model
   end
 
   def created_at_as_datetime
-   parse_ohm_datetime self.created_at
+   parse_ohm_datetime created_at
   end
 
   alias save! save

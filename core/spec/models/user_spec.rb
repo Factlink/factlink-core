@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  subject(:user) { create :user}
+  subject(:user) { create :user }
 
   context "Initially" do
     it "isn't admin" do
@@ -67,7 +67,7 @@ describe User do
   end
 
   describe :to_param do
-    it {expect(subject.to_param).to eq subject.username }
+    it { expect(subject.to_param).to eq subject.username }
   end
 
   describe ".find" do
@@ -80,7 +80,7 @@ describe User do
   end
 
   describe '#full_name' do
-    let(:new_user){ build :user }
+    let(:new_user) { build :user }
 
     it "cannot be empty" do
       new_user.full_name = ""
@@ -94,7 +94,7 @@ describe User do
   end
 
   describe :to_json do
-    let(:json){ subject.to_json }
+    let(:json) { subject.to_json }
     it "contains no password" do
       expect(json).to_not include(subject.encrypted_password)
     end
@@ -103,7 +103,7 @@ describe User do
       :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
       :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
       :sign_in_count
-    ].map{|x| x.to_s}.each do |field|
+    ].map { |x| x.to_s }.each do |field|
       it "does not contain other sensitive information: #{field}" do
         expect(json).to_not include(field)
       end
@@ -111,7 +111,7 @@ describe User do
   end
 
   describe 'forbidden names' do
-    let(:new_user){ build :user }
+    let(:new_user) { build :user }
     it "can have GerardEkdom as name" do
       new_user.username = "GerardEkdom"
       expect(new_user.valid?).to be_true

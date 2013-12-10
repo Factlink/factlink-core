@@ -37,7 +37,7 @@ describe Interactors::Facts::RecentlyViewed do
         .and_return([fact])
 
       interactor = described_class.new pavlov_options: { current_user: user,
-        ability: ability }
+                                                         ability: ability }
       recent_facts = interactor.call
 
       expect(recent_facts).to eq [fact]
@@ -46,7 +46,7 @@ describe Interactors::Facts::RecentlyViewed do
     it 'returns an empty list when not logged in' do
       ability = double can?: true
       interactor = described_class.new pavlov_options: { current_user: nil,
-        ability: ability }
+                                                         ability: ability }
       recent_facts = interactor.call
 
       expect(recent_facts).to eq []

@@ -27,7 +27,7 @@ class Channel < OurOhm
   end
 
   def save
-    self.title = self.title
+    self.title = title
     super
   end
 

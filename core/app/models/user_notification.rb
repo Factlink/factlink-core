@@ -25,7 +25,7 @@ class UserNotification
   end
 
   def can_receive? type
-    raise "Not allowed" unless self.class.possible_subscriptions.include? type
+    fail "Not allowed" unless self.class.possible_subscriptions.include? type
 
     user.confirmed? && user[:"receives_#{type}"]
   end
@@ -43,12 +43,12 @@ class UserNotification
   def self.generate_token(column)
     loop do
       token = Devise.friendly_token
-      break token if self.find({ column => token }).empty?
+      break token if find({ column => token }).empty?
     end
   end
 
   def self.users_receiving(type)
-    raise "Not allowed" unless possible_subscriptions.include? type
+    fail "Not allowed" unless possible_subscriptions.include? type
 
     User.where(:confirmed_at.ne => nil).where(:"receives_#{type}" => true)
   end
@@ -56,7 +56,7 @@ class UserNotification
   private
 
   def set_subscription type, value
-    raise "Not allowed" unless self.class.possible_subscriptions.include? type
+    fail "Not allowed" unless self.class.possible_subscriptions.include? type
     return false if user[:"receives_#{type}"] == value
 
     user.update_attribute(:"receives_#{type}", value)

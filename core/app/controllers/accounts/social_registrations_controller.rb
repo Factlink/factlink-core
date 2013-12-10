@@ -83,8 +83,8 @@ class Accounts::SocialRegistrationsController < Accounts::BaseController
 
   def sign_up_new_user email, password, full_name
     user = User.new password: password,
-      password_confirmation: password,
-      full_name: full_name
+                    password_confirmation: password,
+                    full_name: full_name
 
     # Protected from mass-assignment
     user.email = email

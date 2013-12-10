@@ -2,7 +2,7 @@ require 'net/http'
 require 'libxml'
 
 def nodes_to_s(nodes)
-  nodes.to_a.map {|node| node.to_s } .join '\n'
+  nodes.to_a.map { |node| node.to_s } .join '\n'
 end
 
 def jenkins_uri_request(uri_string, requestClass)
@@ -61,11 +61,11 @@ def single(list)
   has_first = false
   first_item = nil
   list.each do |item|
-    raise "single calls with multiple items" unless !has_first
+    fail "single calls with multiple items" unless !has_first
     has_first=true
     first_item=item
   end
-  raise "single called with empty enumerable." unless has_first
+  fail "single called with empty enumerable." unless has_first
   first_item
 end
 
@@ -83,7 +83,7 @@ all_builds = get_jenkins_xml('https://ci-factlink.inverselink.com/view/5%20-%20F
   .map { |x| get_build_info(x.to_s.strip) }
 
 builds = all_builds.select { |x| x.origin.strip == origin_url }
-dead_builds = builds.select { |build| ! remote_branches.include?(build.branch) }
+dead_builds = builds.select { |build| !remote_branches.include?(build.branch) }
 
 puts """Found #{all_builds.size} builds
   - of which #{builds.size} for #{origin_url}

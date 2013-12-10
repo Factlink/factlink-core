@@ -7,7 +7,7 @@ module OpenGraph
     private
 
     def open_graph_field key, value
-      raise "Graph fied requires value" unless value
+      fail "Graph fied requires value" unless value
       open_graph_hash["og:#{key}"] = value
     end
 

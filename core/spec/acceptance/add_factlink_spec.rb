@@ -33,7 +33,7 @@ describe "creating a Factlink", type: :feature do
     click_button "Post to Factlink"
 
     eventually_succeeds do
-      raise StandardError, "Fact not created" unless Fact.all.to_a.last
+      fail StandardError, "Fact not created" unless Fact.all.to_a.last
     end
 
     go_to_discussion_page_of Fact.all.to_a.last

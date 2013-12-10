@@ -44,7 +44,6 @@ class User
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest
-  field :invitation_message, type: String, default: ""
   attr_accessible :username, :full_name, :location, :biography,
                   :password, :password_confirmation, :receives_mailed_notifications,
                   :receives_digest, :email, :admin, :registration_code, :suspended,
@@ -79,7 +78,7 @@ class User
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, :timeoutable and :omniauthable,
-  devise :invitable, :database_authenticatable,
+  devise :database_authenticatable,
   :recoverable,   # Password retrieval
   :rememberable,  # 'Remember me' box
   :trackable,     # Log sign in count, timestamps and IP address
@@ -110,15 +109,6 @@ class User
     field :confirmation_token,   :type => String
     field :confirmed_at,         :type => Time
     field :confirmation_sent_at, :type => Time
-
-
-  ## Invitable
-    field :invitation_token,  type: String
-    field :invitation_sent_at, type: Time
-    field :invitation_accepted_at, type: Time
-    field :invitation_limit, type: Integer
-    field :invited_by_id, type: String
-    field :invited_by_type, type: String
 
   has_and_belongs_to_many :conversations, inverse_of: :recipients
   has_many :sent_messages, class_name: 'Message', inverse_of: :sender
@@ -156,12 +146,12 @@ class User
     def personal_information_fields
       %w(
         full_name location biography confirmed_at reset_password_token
-        confirmation_token invitation_token
+        confirmation_token
       )
     end
 
     def valid_username?(username)
-      validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp}.map { |v| v.options[:with] }
+      validators = self.validators.select { |v| v.attributes == [:username] && v.options[:with].class == Regexp }.map { |v| v.options[:with] }
 
       not find_by(username: username) and validators.all? { |regex| regex.match(username) }
     end
@@ -171,14 +161,6 @@ class User
     if user.changes.include? 'encrypted_password'
       user.user_notification.reset_notification_settings_edit_token
     end
-  end
-
-  after_invitation_accepted :skip_confirmation_and_create_invited_activity
-  def skip_confirmation_and_create_invited_activity
-    self.skip_confirmation!
-    self.save
-
-    Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
   end
 
   def hidden?
@@ -256,7 +238,7 @@ class User
   end
 
   def self.from_param(param)
-    self.find_by username: param
+    find_by username: param
   end
 
   # This function provides backwards compatibility with using #find(username)
@@ -304,6 +286,31 @@ class User
   # Override login mechanism to allow username or email logins
   def self.find_for_database_authentication(conditions)
     login = conditions.delete(:login)
-    self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
+    any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
+  end
+
+  # this backports a bug introduced by devise_invitable
+  # by defining it we can reuse the original definition,
+  # and keep it public
+  def valid_password?(password)
+    super
+  end
+
+  after_create do |user|
+    Pavlov.command :'text_search/index_user', user: user
+  end
+
+  after_update do |user|
+    UserObserverTask.handle_changes user
+
+    if user.changed?
+      Pavlov.command :'text_search/index_user',
+                  user: user,
+                  changed: user.changed
+    end
+  end
+
+  after_destroy do |user|
+    Pavlov.command(:'text_search/delete_user', object: user)
   end
 end

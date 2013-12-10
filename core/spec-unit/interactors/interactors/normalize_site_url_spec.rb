@@ -16,7 +16,7 @@ describe Interactors::NormalizeSiteUrl do
     site.should_receive(:save).and_return true
 
     interactor = Interactors::NormalizeSiteUrl.perform(site_id: site.id,
-      normalizer_class_name: :DumbUrlNormalizer)
+                                                       normalizer_class_name: :DumbUrlNormalizer)
   end
 
   it 'should be able to merge multiple sites which end up with the same url after normalization' do
@@ -41,6 +41,6 @@ describe Interactors::NormalizeSiteUrl do
     site1.should_not_receive(:delete)
 
     interactor = Interactors::NormalizeSiteUrl.perform(site_id: site1.id,
-      normalizer_class_name: :DumbUrlNormalizer)
+                                                       normalizer_class_name: :DumbUrlNormalizer)
   end
 end

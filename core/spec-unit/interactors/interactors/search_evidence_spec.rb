@@ -5,7 +5,7 @@ require_relative '../../../app/interactors/interactors/search_evidence.rb'
 describe Interactors::SearchEvidence do
   include PavlovSupport
 
-  let(:relaxed_ability) { double(:ability, can?: true)}
+  let(:relaxed_ability) { double(:ability, can?: true) }
 
   before do
     stub_classes 'Fact', 'FactData', 'Ability::FactlinkWebapp',
@@ -29,7 +29,7 @@ describe Interactors::SearchEvidence do
       ability = double(:ability, can?: false)
 
       interactor = described_class.new keywords: 'zoeken interessante dingen',
-          fact_id: '1', pavlov_options: { ability: ability }
+                                       fact_id: '1', pavlov_options: { ability: ability }
       expect { interactor.call }
         .to raise_error(Pavlov::AccessDenied)
     end
@@ -39,7 +39,7 @@ describe Interactors::SearchEvidence do
     it 'returns a empty array when the keyword string is empty' do
       keywords = 'zoeken interessante dingen'
       interactor = described_class.new keywords: '', fact_id: '1',
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
 
       expect( interactor.call ).to eq []
     end
@@ -47,7 +47,7 @@ describe Interactors::SearchEvidence do
     it 'shouldn\'t return itself' do
       keywords = 'zoeken interessante dingen'
       interactor = described_class.new keywords: keywords, fact_id: '2',
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
 
       result = [get_fact_data('2')]
 
@@ -65,7 +65,7 @@ describe Interactors::SearchEvidence do
     it 'correctly' do
       keywords = 'zoeken interessante dingen'
       interactor = described_class.new keywords: keywords, fact_id: '1',
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
 
       result = [get_fact_data('2')]
 
@@ -83,7 +83,7 @@ describe Interactors::SearchEvidence do
     it 'shouldn\'t return invalid results' do
       keywords = 'zoeken interessante dingen'
       interactor = described_class.new keywords: keywords, fact_id: '1',
-        pavlov_options: { ability: relaxed_ability }
+                                       pavlov_options: { ability: relaxed_ability }
       fact_data = get_fact_data '2'
       fact_data2 = get_fact_data '3'
 

@@ -27,7 +27,7 @@ describe Commands::Twitter::Post do
         .with(message)
 
       command = described_class.new message: message,
-        pavlov_options: { current_user: user }
+                                    pavlov_options: { current_user: user }
       command.call
     end
 

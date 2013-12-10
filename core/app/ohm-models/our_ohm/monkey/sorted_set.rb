@@ -42,7 +42,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     res = key.zrevrangebyscore("(#{limit}",'-inf',redis_opts)
 
     if opts[:withscores]
-      res = self.class.hash_array_for_withscores(res).map {|x| { item: model[x[:item]], score: x[:score]}}
+      res = self.class.hash_array_for_withscores(res).map { |x| { item: model[x[:item]], score: x[:score]}}
     else
       res = res.map { |x| model[x] }
     end

@@ -20,9 +20,6 @@ class GenericNotificationView extends Backbone.Marionette.Layout
 class NotificationAddedEvidenceView extends GenericNotificationView
   template: "notifications/added_evidence"
 
-class NotificationInvitedView extends GenericNotificationView
-  template: "notifications/invited"
-
 class NotificationCreatedConversationView extends GenericNotificationView
   template: "notifications/created_conversation"
 
@@ -49,8 +46,6 @@ window.NotificationView = (opts) ->
       new CreatedCommentView(opts)
     when "added_supporting_evidence", "added_weakening_evidence"
       new NotificationAddedEvidenceView(opts)
-    when "invites"
-      new NotificationInvitedView(opts)
     when "created_conversation"
       new NotificationCreatedConversationView(opts)
     when "replied_message"

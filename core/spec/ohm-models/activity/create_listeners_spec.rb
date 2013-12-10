@@ -14,7 +14,7 @@ describe 'activity queries' do
     # TODO: remove this once creating an activity does not cause an email to be sent
     stub_const 'Interactors::SendMailForActivity', Class.new
     Interactors::SendMailForActivity.stub(new: double(call: nil),
-      attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
+                                          attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
   end
 
   describe ".user" do
@@ -91,19 +91,6 @@ describe 'activity queries' do
         ]
       end
     end
-    it "should return an activity when a user accepts its invitation" do
-      inviter = create :full_user
-
-      u = create :user
-      u.invited_by = inviter
-      u.save
-
-      u.skip_confirmation_and_create_invited_activity
-
-      u.graph_user.notifications.map(&:to_hash_without_time).should == [
-        {user: inviter.graph_user, action: :invites, subject: u.graph_user}
-      ]
-    end
   end
 
   describe :messages do
@@ -114,8 +101,8 @@ describe 'activity queries' do
         u2 = create(:full_user)
 
         interactor = Interactors::CreateConversationWithMessage.new(fact_id: f.id.to_s,
-          recipient_usernames: [u1.username, u2.username], sender_id: u1.id.to_s,
-          content: 'this is a message', pavlov_options: { current_user: u1 })
+                                                                    recipient_usernames: [u1.username, u2.username], sender_id: u1.id.to_s,
+                                                                    content: 'this is a message', pavlov_options: { current_user: u1 })
         interactor.stub(track_mixpanel: nil)
         conversation = interactor.call
 
@@ -133,7 +120,7 @@ describe 'activity queries' do
         u2 = c.recipients[1]
 
         interactor = Interactors::ReplyToConversation.new(conversation_id: c.id.to_s,
-          sender_id: u1.id.to_s, content: 'this is a message', pavlov_options: { current_user: u1 })
+                                                          sender_id: u1.id.to_s, content: 'this is a message', pavlov_options: { current_user: u1 })
         interactor.stub(track_mixpanel: nil)
         message = interactor.call
 
@@ -155,8 +142,8 @@ describe 'activity queries' do
         user = create(:full_user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
-          type: 'believes', content: 'tex message',
-          pavlov_options: { current_user: user })
+                                                       type: 'believes', content: 'tex message',
+                                                       pavlov_options: { current_user: user })
         comment = interactor.call
 
         gu1.notifications.map(&:to_hash_without_time).should == [
@@ -169,8 +156,8 @@ describe 'activity queries' do
         user = create(:full_user)
 
         interactor = Interactors::Comments::Create.new(fact_id: fact.id.to_i,
-          type: 'believes', content: 'tex message',
-          pavlov_options: { current_user: user })
+                                                       type: 'believes', content: 'tex message',
+                                                       pavlov_options: { current_user: user })
         comment = interactor.call
 
         gu1.stream_activities.map(&:to_hash_without_time).should == [
@@ -182,7 +169,7 @@ describe 'activity queries' do
   end
 
   describe :sub_comments do
-    let(:current_user) {create :full_user}
+    let(:current_user) { create :full_user }
 
     context "creating a sub comment on a comment" do
       context "gu1 believes the topfact" do

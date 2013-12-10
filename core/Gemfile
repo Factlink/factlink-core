@@ -14,7 +14,7 @@ gem 'addressable', '~> 2.3.4'
 gem 'mail', '~> 2.5.4'
 
 # Mongo
-gem 'mongoid', '~> 3.0.21'
+gem 'mongoid', '~> 3.1.6'
 
 gem 'pavlov', '= 0.1.9.0'
 
@@ -29,7 +29,7 @@ gem 'multi_json', '~> 1.7.3'
 # but 1.23.1 has a breaking change, and 1.24+ requires a redis-namespace
 # which requires redis > 3.0
 gem 'resque', '= 1.23.0', require: 'resque/server'
-gem 'resque_mailer', '~> 2.2.3'
+gem 'resque_mailer', '~> 2.2.6'
 
 gem 'stringex', '~> 1.5.1'
 
@@ -47,21 +47,20 @@ gem 'mongoid_rails_migrations', '1.0.1' # TODO look if this needs to be pinned
 
 # User authentication and authorization
 gem 'devise', '~> 2.2.3'
-gem 'devise_invitable', '= 1.1.6' # locked down version, because we had trouble upgrading @ hackerone when upgrading from 1.1.6 to 1.1.8
 gem 'cancan', '~> 1.6.10'
 
 # social connections
-gem 'omniauth-facebook', '~> 1.5.0'
+gem 'omniauth-facebook', '~> 1.5.1'
 gem 'omniauth-twitter', '= 0.0.14' # locked down, because semver does not appear to be used
 gem 'twitter', '~> 4.7.0'
 
 # social sharing
-gem 'koala', '~> 1.7.0rc1'
+gem 'koala', '~> 1.8.0rc1'
 
 gem 'httparty', '~> 0.11.0'
 
 #browser detection
-gem 'browser', '~> 0.2.0'
+gem 'browser', '~> 0.3.2'
 
 # one of our own gems, to normalize urls
 gem 'url_normalizer', github: 'Factlink/url_normalizer'
@@ -100,7 +99,7 @@ group :assets do
 
   gem "marionette-rails", '= 1.0.4' # we want a specific version of the js library
 
-  gem 'turbo-sprockets-rails3', '~> 0.3.9'
+  gem 'turbo-sprockets-rails3', '~> 0.3.10'
 end
 
 group :development do
@@ -143,14 +142,14 @@ group :test do
   gem 'terminal-notifier-guard', '~> 1.5', require: false
 
   gem 'approvals', '~> 0' # not locked, since test will break if something goes wrong here
-  gem 'timecop', '~> 0.6'
+  gem 'timecop', '~> 0.7'
 end
 
 group :test, :development do # TODO why is there a :development here?
   # we allow tests to upgrade everything but major
   gem 'konacha', '~> 3.0'
 
-  gem 'poltergeist', '~> 1.4', require: false
+  gem 'poltergeist', '~> 1.5', require: false
   gem 'capybara', '~> 2.1', require: false
   gem 'capybara-screenshot', '~> 0.3', require: false
   gem 'capybara-email', '~> 2.0', require: false

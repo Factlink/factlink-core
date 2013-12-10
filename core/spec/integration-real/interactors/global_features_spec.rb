@@ -7,7 +7,6 @@ describe 'global_features' do
     double(
       admin?: true,
       features: [],
-      has_invitations_left?: false,
       social_account: double(persisted?: false),
       set_up: true,
     )

@@ -29,8 +29,8 @@ describe Interactors::Topics::Favourite do
         .and_return(user)
 
       interactor = described_class.new user_name: 'username',
-                    slug_title: 'slug_title',
-                    pavlov_options: pavlov_options
+                                       slug_title: 'slug_title',
+                                       pavlov_options: pavlov_options
 
       expect { interactor.call }.
         to raise_error Pavlov::AccessDenied, 'Unauthorized'
@@ -50,7 +50,7 @@ describe Interactors::Topics::Favourite do
       pavlov_options = { current_user: current_user, ability: ability }
 
       interactor = described_class.new user_name: user_name,
-        slug_title: slug_title, pavlov_options: pavlov_options
+                                       slug_title: slug_title, pavlov_options: pavlov_options
 
       topic = double(id: double)
 

@@ -15,20 +15,12 @@ class window.Comment extends Evidence
 
   creator: -> new User(@get('created_by'))
 
-  can_destroy: -> @get 'can_destroy?'
+  _is_mine: -> @creator().is_current_user()
 
-  setOpinion: (type) ->
-    @previous_user_opinion = @get('current_user_opinion')
-
-    @save opinion: type
-
-  believe: -> @setOpinion 'believes'
-  disbelieve: -> @setOpinion 'disbelieves'
-
-  current_opinion: -> @get('current_user_opinion')
-  isBelieving: -> @get('current_user_opinion') == 'believes'
-  isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
-
-  removeOpinion: -> @unset('opinion'); @save()
+  can_destroy: -> @_is_mine() && @get('is_deletable')
 
   urlRoot: -> @collection.commentsUrl()
+
+  argumentVotes: ->
+    @_argumentVotes ?= new ArgumentVotes @get('argument_votes'),
+      argument: this

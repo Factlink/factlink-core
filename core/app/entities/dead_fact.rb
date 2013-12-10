@@ -11,10 +11,6 @@ DeadFact = Struct.new(
     displaystring || ""
   end
 
-  def acts_as_class_for_authority
-    'Fact'
-  end
-
   def url
     @fact_url ||= FactUrl.new(self)
   end

@@ -12,9 +12,7 @@ describe 'when adding a fact to a channel' do
         channel = pavlov.command :'channels/create', title: 'something'
         pavlov.interactor :'channels/add_fact', fact: fact, channel: channel
 
-        facts = pavlov.interactor :'channels/facts', id: channel.id, from: nil, count: nil
-        latest_fact = facts.map{|i| i[:item]}[0]
-        expect(latest_fact).to eq fact
+        expect(channel).to include(fact)
       end
     end
 
@@ -27,7 +25,7 @@ describe 'when adding a fact to a channel' do
 
         Topic.get_or_create_by_channel(channel)
         facts = pavlov.interactor :'topics/facts', slug_title: channel.slug_title, count: nil, max_timestamp: nil
-        fact_displaystrings = facts.map {|f| f[:item].data.displaystring}
+        fact_displaystrings = facts.map { |f| f[:item].data.displaystring }
 
         expect(fact_displaystrings).to eq ['a fact']
       end

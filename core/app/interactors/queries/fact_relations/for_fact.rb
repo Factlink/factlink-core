@@ -3,14 +3,14 @@ module Queries
     class ForFact
       include Pavlov::Query
 
-      arguments :fact, :type
+      arguments :fact
 
       def execute
         query(:'fact_relations/by_ids', fact_relation_ids: fact_relation_ids)
       end
 
       def fact_relation_ids
-        fact.evidence(@type).ids
+        fact.evidence.ids
       end
     end
   end

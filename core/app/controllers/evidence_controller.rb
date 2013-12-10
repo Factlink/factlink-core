@@ -1,12 +1,11 @@
 class EvidenceController < ApplicationController
 
-  before_filter :authenticate_user!, except: [:index, :combined_index]
+  before_filter :authenticate_user!, except: [:index]
 
   respond_to :json
 
-  def combined_index
-    @evidence = interactor(:'evidence/for_fact_id',
-                               fact_id: params[:fact_id],type: relation)
+  def index
+    @evidence = interactor(:'evidence/for_fact_id', fact_id: params[:fact_id])
 
     render 'evidence/index', formats: [:json]
   end
@@ -26,35 +25,26 @@ class EvidenceController < ApplicationController
 
     authorize! :add_evidence, fact
 
-    evidence = Fact[params[:evidence_id]] or raise EvidenceNotFoundException
+    evidence = Fact[params[:evidence_id]] or fail EvidenceNotFoundException
 
-    @fact_relation = create_believed_factrelation(evidence, relation, fact)
+    @fact_relation = create_believed_factrelation(evidence, relation_new, fact)
 
     render 'fact_relations/show', formats: [:json]
   rescue EvidenceNotFoundException
     render json: [], status: :unprocessable_entity
   end
 
-  def set_opinion
-    type = OpinionType.real_for(params[:type])
-
+  def update_opinion
     @fact_relation = FactRelation[params[:id]]
-
     authorize! :opinionate, @fact_relation
 
-    @fact_relation.add_opinion(type, current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(type),@fact_relation)
-
-    render 'fact_relations/show', formats: [:json]
-  end
-
-  def remove_opinions
-    @fact_relation = FactRelation[params[:id]]
-
-    authorize! :opinionate, @fact_relation
-
-    @fact_relation.remove_opinions(current_user.graph_user)
-    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact_relation)
+    if params[:current_user_opinion] == 'no_vote'
+      @fact_relation.remove_opinions(current_user.graph_user)
+    else
+      type = OpinionType.real_for(params[:current_user_opinion])
+      @fact_relation.add_opinion(type, current_user.graph_user)
+      Activity::Subject.activity(current_user.graph_user, type, @fact_relation)
+    end
 
     render 'fact_relations/show', formats: [:json]
   end
@@ -80,5 +70,16 @@ class EvidenceController < ApplicationController
     Activity::Subject.activity(current_graph_user, OpinionType.real_for(:believes),fact_relation)
 
     fact_relation
+  end
+
+  def relation_new
+    case params[:type]
+    when 'believes'
+      :supporting
+    when 'disbelieves'
+      :weakening
+    else
+      fail 'unknown type'
+    end.to_s
   end
 end

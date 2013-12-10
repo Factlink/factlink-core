@@ -4,12 +4,12 @@ require_relative '../../../app/interactors/commands/create_comment.rb'
 describe Commands::CreateComment do
   include PavlovSupport
   before do
-    stub_classes 'Comment', 'FactData', 'User', 'Fact', 'Authority'
+    stub_classes 'Comment', 'FactData', 'User', 'Fact'
   end
 
   it 'should initialize correctly' do
     command = described_class.new fact_id: 1, type: 'believes', content: 'hoi',
-      user_id: '2a'
+                                  user_id: '2a'
 
     command.should_not be_nil
   end
@@ -47,7 +47,7 @@ describe Commands::CreateComment do
       content = 'message'
       user_id = '1a'
       command = described_class.new fact_id: fact_id, type: type,
-        content: content, user_id: user_id
+                                    content: content, user_id: user_id
       comment = double(:comment, id: 10)
       fact = double
       fact_data = double fact: fact
@@ -78,7 +78,7 @@ describe Commands::CreateComment do
       content = 'message'
       user_id = '1a'
       command = described_class.new fact_id: fact_id, type: type,
-        content: content, user_id: user_id
+                                    content: content, user_id: user_id
       fact_data = double
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)

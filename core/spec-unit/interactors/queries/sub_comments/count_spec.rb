@@ -31,7 +31,7 @@ describe Queries::SubComments::Count do
       parent_class = 'FactRelation'
       count = double
       query = described_class.new parent_id: parent_id.to_s,
-        parent_class: parent_class
+                                  parent_class: parent_class
 
       SubComment.should_receive(:where).with(parent_id: parent_id.to_s, parent_class: parent_class).and_return(double(count:count))
 
@@ -44,7 +44,7 @@ describe Queries::SubComments::Count do
       parent_id = '1'
       parent_class = 'FactRelation'
       query = described_class.new parent_id: parent_id,
-        parent_class: parent_class
+                                  parent_class: parent_class
 
       expect(query.normalized_parent_id).to eq parent_id.to_i
     end
@@ -53,7 +53,7 @@ describe Queries::SubComments::Count do
       parent_id = '2a'
       parent_class = 'Comment'
       query = described_class.new parent_id: parent_id,
-        parent_class: parent_class
+                                  parent_class: parent_class
 
       expect(query.normalized_parent_id).to eq parent_id
     end

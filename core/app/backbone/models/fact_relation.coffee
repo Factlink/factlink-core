@@ -4,29 +4,9 @@ class window.FactRelation extends Evidence
     evidence_type: 'FactRelation'
     sub_comments_count: 0
 
-  setOpinion: (type) ->
-    @previous_user_opinion = @get('current_user_opinion')
-    @set 'current_user_opinion', type
-
-    Backbone.ajax
-      url: @url() + "/opinion/" + type
-      success: (data) =>
-        mp_track "Evidence: Opinionate",
-          opinion: type
-          evidence_id: @id
-
-        @set data
-      error: =>
-        @set 'current_user_opinion', @previous_user_opinion
-
-      type: "post"
-
-  removeOpinion: ->
-    Backbone.ajax
-      url: "#{@url()}/opinion"
-      type: "delete"
-      success: (data) =>
-        @set data
+  argumentVotes: ->
+    @_argumentVotes ?= new ArgumentVotes @get('argument_votes'),
+      argument: this
 
   getFact: ->
     return @_fact if @_fact?
@@ -36,17 +16,11 @@ class window.FactRelation extends Evidence
       @_fact.set @get('from_fact')
     @_fact
 
-  believe: -> @setOpinion "believes"
-  disbelieve: -> @setOpinion "disbelieves"
-
-  isBelieving: -> @get('current_user_opinion') == 'believes'
-  isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
-
-  current_opinion: -> @get('current_user_opinion')
-
   creator: -> new User(@get('created_by'))
 
-  can_destroy: -> @get 'can_destroy?'
+  _is_mine: -> @creator().is_current_user()
+
+  can_destroy: -> @_is_mine() && @get('is_deletable')
 
   urlRoot: -> @collection.factRelationsUrl()
 

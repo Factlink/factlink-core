@@ -32,14 +32,14 @@ describe Queries::MessagesForConversation do
         }
       end
       query = described_class.new(conversation: conversation,
-        pavlov_options: options)
+                                  pavlov_options: options)
 
       Message.should_receive(:where).with(conversation_id: conversation.id).
-              and_return(message_hashes.map{|hash| double(hash)})
+              and_return(message_hashes.map { |hash| double(hash) })
 
       messages = query.call
 
-      messages.should =~ message_hashes.map{|hash| OpenStruct.new(hash)}
+      messages.should =~ message_hashes.map { |hash| OpenStruct.new(hash) }
     end
   end
 end

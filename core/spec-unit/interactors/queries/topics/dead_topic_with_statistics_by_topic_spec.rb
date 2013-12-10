@@ -5,7 +5,7 @@ describe Queries::Topics::DeadTopicWithStatisticsByTopic do
   include PavlovSupport
 
   describe '#call' do
-    let(:topic) { double(slug_title: double, title: double, id: '1a')}
+    let(:topic) { double(slug_title: double, title: double, id: '1a') }
 
     before do
       stub_classes 'DeadTopic'

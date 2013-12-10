@@ -91,6 +91,10 @@ class Ability
     return unless signed_in?
 
     can :read, Comment
+    can :destroy, Comment do |comment|
+      comment.created_by_id == user.id &&
+        Pavlov.query(:'comments/is_deletable', comment_id: comment.id)
+    end
   end
 
   def define_sub_comment_abilities
@@ -114,12 +118,6 @@ class Ability
         can :configure, FactlinkWebapp
         can :manage, User
         cannot :edit_settings, User
-      end
-
-      if user.has_invitations_left?
-        can :invite, User
-      else
-        cannot :invite, User
       end
 
       can :update, user
@@ -162,7 +160,6 @@ class Ability
     skip_create_first_factlink
     memory_profiling
     suppress_double_scrollbar
-    comments_no_opinions
   )
 
   def enabled_global_features

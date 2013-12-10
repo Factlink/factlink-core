@@ -21,7 +21,7 @@ module Queries
             score: item[:score],
             item: Fact[item[:item]]
           }
-          end.reject {|item| Fact.invalid item[:item] }
+          end.reject { |item| Fact.invalid item[:item] }
       end
 
       def facts_with_scores_interleaved_array

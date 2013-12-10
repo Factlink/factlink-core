@@ -22,13 +22,13 @@ module Acceptance
   end
 
   def enable_features(user, *features)
-    raise "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
+    fail "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
 
     user.features = features
   end
 
   def enable_global_features(*features)
-    raise "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
+    fail "FeatureNonExistent" unless features.all? { |f| Ability::FEATURES.include? f.to_s }
 
     as(create :full_user, :confirmed, :admin) do |pavlov|
       pavlov.interactor(:'global_features/set', features: features)
@@ -59,7 +59,7 @@ module Acceptance
       # if we don't wait, the server may see it after the db is cleaned
       # and a request for a removed object will cause a crash (nil ref).
       unless page.evaluate_script('(!window.jQuery || window.jQuery.active == 0)')
-        raise 'jQuery.active is not zero; did an Ajax callback perhaps crash?'
+        fail 'jQuery.active is not zero; did an Ajax callback perhaps crash?'
       end
     end
   end

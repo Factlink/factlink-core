@@ -12,7 +12,7 @@ describe Commands::Topics::AddFact do
     it 'correctly' do
       fact_id = "1"
       command = described_class.new fact_id: fact_id, topic_slug_title: '1e',
-        score: ''
+                                    score: ''
       key = double
       score = double
 
@@ -32,7 +32,7 @@ describe Commands::Topics::AddFact do
       key = double
       final_key = double
       command = described_class.new fact_id: '1',
-        topic_slug_title: topic_slug_title, score: score.to_s
+                                    topic_slug_title: topic_slug_title, score: score.to_s
 
       Topic.stub redis: nest_instance
       nest_instance.should_receive(:[]).with(topic_slug_title).and_return(key)
@@ -50,7 +50,7 @@ describe Commands::Topics::AddFact do
       expect(score.blank?).to be_false
 
       command = described_class.new fact_id: '1', topic_slug_title: 'slug',
-        score: score
+                                    score: score
 
       Ohm::Model::TimestampedSet.stub(:current_time)
                                 .with(score)
@@ -64,7 +64,7 @@ describe Commands::Topics::AddFact do
       current_time = double
 
       command = described_class.new fact_id: '1', topic_slug_title: 'slug',
-        score: score
+                                    score: score
 
       Ohm::Model::TimestampedSet.stub(:current_time)
                                 .with(nil)

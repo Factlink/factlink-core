@@ -11,10 +11,10 @@ end
 
 json.time_ago TimeFormatter.as_time_ago(comment.created_at)
 
-json.impact comment.impact_opinion.authority
+json.argument_votes do |j|
+  j.partial! 'believable/votes', votes: comment.votes
+end
 
-json.current_user_opinion comment.current_user_opinion
-
-json.can_destroy? comment.can_destroy?
+json.is_deletable comment.deletable?
 
 json.sub_comments_count comment.sub_comments_count

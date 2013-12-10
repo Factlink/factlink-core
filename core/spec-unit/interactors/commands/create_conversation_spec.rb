@@ -4,7 +4,7 @@ require_relative '../../../app/interactors/commands/create_conversation.rb'
 describe Commands::CreateConversation do
   include PavlovSupport
 
-  let(:fact_id) {10}
+  let(:fact_id) { 10 }
 
   before do
     stub_classes 'Conversation', 'Queries::UserByUsername', 'Fact'
@@ -24,7 +24,7 @@ describe Commands::CreateConversation do
     it 'should execute correctly' do
       username = 'username'
       command = described_class.new fact_id: fact_id,
-        recipient_usernames: [username]
+                                    recipient_usernames: [username]
       recipients = double('recipients')
       conversation = double('conversation', recipients: recipients)
       Conversation.stub(:new).and_return(conversation)
@@ -48,14 +48,14 @@ describe Commands::CreateConversation do
     it 'should throw when an invalid username is given' do
       username = 'username'
       command = described_class.new fact_id: fact_id,
-        recipient_usernames: [username]
+                                    recipient_usernames: [username]
       Conversation.stub(:new).and_return(double('conversation'))
 
       Pavlov.stub(:query)
             .with(:user_by_username, username: username)
             .and_return(nil)
 
-      expect {command.call}.to raise_error(Pavlov::ValidationError, 'user_not_found')
+      expect { command.call }.to raise_error(Pavlov::ValidationError, 'user_not_found')
     end
   end
 end
