@@ -27,16 +27,8 @@ class FactRelation < OurOhm
   end
 
   def self.get_or_create(from, type, to, user)
-    id = get_id(from,type,to)
-    if id
-      self[id]
-    else
-      create_new(from,type,to, user)
-    end
-  end
-
-  def self.get_id(from,type,to)
-    key['gcby'][from.id][type][to.id].get
+    find(type: type, fact_id: to.id, from_fact_id: from.id).first or
+      create_new(from, type, to, user)
   end
 
   def self.create_new(from,type,to,user)
@@ -50,11 +42,10 @@ class FactRelation < OurOhm
 
     #TODO this should use a collection
     to.evidence(type) << fact_relation
-    key['gcby'][from.id][type][to.id].set(fact_relation.id)
 
     fact_relation
   end
-  private_class_method :create_new, :get_id
+  private_class_method :create_new
 
   def create
     self.created_at ||= Time.now.utc.to_s
@@ -71,7 +62,6 @@ class FactRelation < OurOhm
   end
 
   def delete
-    self.class.key['gcby'][from_fact.id][type][fact.id].del
     fact.evidence(type).delete(self)
     believable.delete
     super
