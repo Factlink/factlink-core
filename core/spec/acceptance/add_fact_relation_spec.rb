@@ -25,7 +25,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink :supporting, supporting_factlink
+    add_existing_factlink :believes, supporting_factlink
     sleep 2
     within ".evidence-votable", visible: false do
       page.should have_content supporting_factlink.to_s
@@ -37,7 +37,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink :supporting, supporting_factlink
+    add_existing_factlink :believes, supporting_factlink
 
     find('.evidence-relevance-text', text: "1") # wait until request has finished
 
@@ -51,7 +51,7 @@ feature "adding factlinks to a fact", type: :feature do
 
     supporting_factlink = backend_create_fact
 
-    add_existing_factlink :supporting, supporting_factlink
+    add_existing_factlink :believes, supporting_factlink
 
     find('.evidence-relevance-text', text: "1") # wait until request has finished
 

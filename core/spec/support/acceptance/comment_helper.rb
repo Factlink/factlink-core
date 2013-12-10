@@ -24,14 +24,7 @@ module Acceptance
       end
 
       def open_add_type type
-        believe_type = case type.to_sym
-                       when :supporting
-                         'believes'
-                       when :weakening
-                         'disbelieves'
-                       end
-
-        find(".evidence-add-buttons .js-#{believe_type}-button").click
+        find(".evidence-add-buttons .js-#{type}-button").click
       end
 
       def add_comment type, comment
