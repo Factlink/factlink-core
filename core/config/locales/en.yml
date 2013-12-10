@@ -4,6 +4,9 @@
 en:
   add_fact: "add Factlink" # when updating, update jslib template
 
+  factlink: "annotation"
+  factlinks: "annotations"
+
   fact_believe_action: "agree"
   fact_doubt_action: "neutral"
   fact_disbelieve_action: "disagree"

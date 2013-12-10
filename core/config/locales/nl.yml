@@ -5,6 +5,9 @@
 nl:
   add_fact: "Factlink toevoegen"
 
+  factlink: "annotatie"
+  factlinks: "annotaties"
+
   fact_believe_action: "stem in met"
   fact_doubt_action: "stem neutraal op"
   fact_disbelieve_action: "ontken"
