@@ -66,6 +66,7 @@ nl:
   follow_topic: "topic volgen"
   followed: "volgt"
   following: "volgt"
+  followers: "volgers"
   unfollow: "ontvolgen"
   is_now_following_you: "volgt je nu"
 
@@ -80,6 +81,7 @@ nl:
   favourite: "volgen"
   unfavourite: "ontvolgen"
   favourited: "volgend"
+  favouritours: "volgers"
 
   ago: "geleden"
   show: "toon"

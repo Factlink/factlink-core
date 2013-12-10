@@ -65,6 +65,7 @@ en:
   follow_topic: "follow topic"
   followed: "followed"
   following: "following"
+  followers: "followers"
   unfollow: "unfollow"
   is_now_following_you: "is now following you"
 
@@ -79,6 +80,7 @@ en:
   favourite: "follow"
   unfavourite: "unfollow"
   favourited: "followed"
+  favouritours: "followers"
 
   ago: "ago"
   show: "show" # when updating, update jslib template
