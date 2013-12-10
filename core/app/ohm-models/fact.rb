@@ -67,9 +67,6 @@ class Fact < OurOhm
     data.save!
   end
 
-  set :supporting_facts, FactRelation
-  set :weakening_facts, FactRelation
-
   def evidenced_factrelations
     FactRelation.find(from_fact_id: id).all
   end
@@ -143,4 +140,9 @@ class Fact < OurOhm
       weakening_facts.count  == 0 &&
       FactRelation.find(from_fact_id: id).count == 0
   end
+
+  private
+
+  set :supporting_facts, FactRelation
+  set :weakening_facts, FactRelation
 end
