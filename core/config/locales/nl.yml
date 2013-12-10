@@ -90,8 +90,6 @@ nl:
   you: "jij"
   nobody: "niemand"
 
-  fact_added_fact_to_channel_action: "heeft jouw annotatie toegevoegd aan zijn/haar kanaal"
-
   facts:
     new:
       add_to_channels: "voeg een of meerdere kanaalnamen toe"

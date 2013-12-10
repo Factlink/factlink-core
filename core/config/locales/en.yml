@@ -89,8 +89,6 @@ en:
   you: "you"
   nobody: "nobody"
 
-  fact_added_fact_to_channel_action: "added your annotation to their channel"
-
   facts:
       new:
         add_to_channels: "add one or more channel names"
