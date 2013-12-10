@@ -1,12 +1,12 @@
 @import "bootstrap/mixins";
 
-.top-channel-container {
-  .top-channels {
+.top-topics-container {
+  .top-topics {
     border-radius: @baseBorderRadius;
     border: 1px solid @mutedBorderColor;
     background: #fff;
 
-    .top-channels-text {
+    .top-topics-text {
       margin: 10px;
     }
 
@@ -27,18 +27,18 @@
     }
   }
 
-  .top-channels-show-more,
-  .top-channels-show-less {
+  .top-topics-show-more,
+  .top-topics-show-less {
     float: right;
     margin-top: 10px;
   }
 
-  .top-channels-show-less {
+  .top-topics-show-less {
     display: none;
   }
 
   &.showMore {
-    .top-channels .top-topics-item {
+    .top-topics .top-topics-item {
       display: block !important;
 
       &:nth-child(5) {
@@ -46,11 +46,11 @@
       }
     }
 
-    .top-channels-show-more {
+    .top-topics-show-more {
       display: none;
     }
 
-    .top-channels-show-less {
+    .top-topics-show-less {
       display: inline !important;
     }
   }
