@@ -1,6 +1,6 @@
 class TopChannelView extends Backbone.Marionette.Layout
-  template: 'channels/topchannel'
-  className: 'top-channels-channel'
+  template: 'topics/toptopic'
+  className: 'top-topics-item'
 
   templateHelpers: =>
     position: @options.position
