@@ -19,13 +19,13 @@
     <% elsif current_user %>
       <%= render "base/topbar/signed_in" %>
     <% else %>
-      <div class="topbar-connect-container">
+      <div class="topbar-connect">
         <strong>Connect with:</strong>
-        <div class="topbar-connect-buttons">
-          <a href="/auth/twitter" class="button button-twitter topbar-connect-button js-accounts-popup-link"><i class="icon-twitter"></i></a>
-          <a href="/auth/facebook" class="button button-facebook topbar-connect-button js-accounts-popup-link"><i class="icon-facebook"></i></a>
-          <span class="topbar-connect-separator">or</span>
-          <a href="/users/sign_in_or_up" class="button button-factlink topbar-connect-button topbar-connect-button-factlink js-accounts-popup-link"><i class="icon-factlink"></i></a>
+        <div class="small-connect-buttons">
+          <a href="/auth/twitter" class="button button-twitter small-connect-button js-accounts-popup-link"><i class="icon-twitter"></i></a>
+          <a href="/auth/facebook" class="button button-facebook small-connect-button js-accounts-popup-link"><i class="icon-facebook"></i></a>
+          <span class="small-connect-separator">or</span>
+          <a href="/users/sign_in_or_up" class="button button-factlink small-connect-button small-connect-button-factlink js-accounts-popup-link"><i class="icon-factlink"></i></a>
         </div>
       </div>
     <% end %>
