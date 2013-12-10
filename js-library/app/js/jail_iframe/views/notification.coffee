@@ -40,13 +40,13 @@ show = (options) ->
 
 FactlinkJailRoot.showFactlinkCreatedNotification = ->
   show
-    message: 'Factlink posted!'
+    message: 'Annotation posted!'
     type_classes: 'fl-message-success fl-message-icon-logo'
     in_screen_time: 1000
 
 FactlinkJailRoot.showShouldSelectTextNotification = ->
   show
-    message: 'To create a Factlink, select a statement and click the Factlink button.'
+    message: 'To create an annotation, select a statement and click the Factlink button.'
     type_classes: 'fl-message-icon-add'
     in_screen_time: 3000
 
