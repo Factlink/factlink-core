@@ -43,6 +43,9 @@ function getServer(config) {
     server.use("/static/", express.static(__dirname + "/../static/"));
   }
 
+  // Hacky-hack to allow invalid SSL connections anyway
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
   function parse_int_or_null(variable) {
     return parseInt(variable, 10) || null;
   }
@@ -164,10 +167,12 @@ function getServer(config) {
     } else {
       site = urlvalidation.clean_url(url);
       if (site === undefined) {
+        console.error('Rendered "Something went wrong" page because of urlvalidation.clean_url on ' + url);
         renderErrorPage(res, url);
       } else {
         get(site).asString(function(err, str) {
           if(err) {
+            console.error('Rendered "Something went wrong" page because could not download page on ' + url);
             renderErrorPage(res, url);
           } else {
             renderProxiedPage(res, site, scrollto, open_id, str);
