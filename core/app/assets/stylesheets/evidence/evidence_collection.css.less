@@ -86,12 +86,12 @@
   width: 50%;
 }
 
-.evidence-supporting > .evidence-box, .evidence-weakening > .evidence-box {
+.evidence-believes > .evidence-box, .evidence-disbelieves > .evidence-box {
   margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
   min-height: @evidenceBoxMinHeight;
 }
 
-.evidence-supporting, .evidence-loading {
+.evidence-believes, .evidence-loading {
   > .evidence-relevance, > .evidence-box {
     float: right;
     clear: right;
@@ -105,7 +105,7 @@
   }
 }
 
-.evidence-weakening {
+.evidence-disbelieves {
   > .evidence-relevance, > .evidence-box {
     float: left;
     clear: left;
@@ -166,7 +166,7 @@
   right:  -@impactColouredBorderWidth;
 }
 
-.evidence-supporting > .evidence-relevance::after {
+.evidence-believes > .evidence-relevance::after {
   left: ceil(@impactCircleDiameter/2) - 1px;
   border-top-right-radius:    1000px;
   border-bottom-right-radius: 1000px;
@@ -175,7 +175,7 @@
   border-left: none;
 }
 
-.evidence-weakening > .evidence-relevance::after {
+.evidence-disbelieves > .evidence-relevance::after {
   right: floor(@impactCircleDiameter/2) - 2px;
   border-top-left-radius:    1000px;
   border-bottom-left-radius: 1000px;
@@ -192,18 +192,18 @@
 }
 
 // Evidence triangles (arrows)
-.evidence-supporting .evidence-box-triangle,
-.evidence-weakening .evidence-box-triangle {
+.evidence-believes .evidence-box-triangle,
+.evidence-disbelieves .evidence-box-triangle {
   top: @triangleTop;
   margin-top: -@triangleSize;
 }
 
-.evidence-supporting .evidence-box-triangle {
+.evidence-believes .evidence-box-triangle {
   .triangle-arrow-left();
   left: 0;
 }
 
-.evidence-weakening .evidence-box-triangle {
+.evidence-disbelieves .evidence-box-triangle {
   .triangle-arrow-right();
   right: 0;
 }

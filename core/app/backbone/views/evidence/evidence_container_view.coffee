@@ -12,8 +12,8 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
     if Factlink.Global.can_haz.comments_no_opinions
       return 'evidence-weakening'
     switch @model.get('type')
-      when 'believes' then 'evidence-supporting'
-      when 'disbelieves' then 'evidence-weakening'
+      when 'believes' then 'evidence-believes'
+      when 'disbelieves' then 'evidence-disbelieves'
       when 'doubts' then 'evidence-unsure'
 
   render: ->

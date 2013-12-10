@@ -15,13 +15,11 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     'click .js-supporting-button, .js-supporting-tooltip': ->
       @model.set
         showBox: true
-        evidenceType: 'supporting'
         evidenceBelieveType: 'believes'
 
     'click .js-weakening-button, .js-weakening-tooltip': ->
       @model.set
         showBox: true
-        evidenceType: 'weakening'
         evidenceBelieveType: 'disbelieves'
 
   regions:
@@ -52,8 +50,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       @ui.buttons.hide()
 
       @ui.box.show()
-      @ui.box.removeClass 'evidence-weakening evidence-supporting'
-      @ui.box.addClass 'evidence-' + @model.get('evidenceType')
+      @ui.box.removeClass 'evidence-disbelieves evidence-believes evidence-unsure'
+      @ui.box.addClass 'evidence-' + @model.get('evidenceBelieveType')
 
       @headingRegion.show new EvidenceishHeadingView model: currentUser
 
