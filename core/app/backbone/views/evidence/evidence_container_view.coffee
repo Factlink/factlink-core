@@ -92,4 +92,4 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
     @ui.terminator.toggleClass 'evidence-terminator-circle', !@collection.loading()
 
     unless Factlink.Global.signed_in || @collection.loading()
-      @learnMoreRegion.show new LearnMoreBottomView
+      @learnMoreRegion.show new LearnMoreView

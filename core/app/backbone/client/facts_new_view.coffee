@@ -34,7 +34,7 @@ class window.FactsNewView extends Backbone.Marionette.Layout
       @renderShareNewFact()
       @openOpinionHelptext()
     else
-      @learnMoreRegion.show new LearnMoreBottomView
+      @learnMoreRegion.show new LearnMoreView
 
     if FactlinkApp.guided
       @ui.opinion_animation.show()

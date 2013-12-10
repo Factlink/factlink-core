@@ -4,7 +4,6 @@ class window.DiscussionView extends Backbone.Marionette.Layout
   template: 'facts/discussion'
 
   regions:
-    learnMoreRegion: '.js-region-learn-more'
     factRegion: '.js-region-fact'
     evidenceRegion: '.js-region-evidence'
 
@@ -21,6 +20,3 @@ class window.DiscussionView extends Backbone.Marionette.Layout
 
     @evidenceRegion.show new EvidenceContainerView
       collection: opinionaters_collection
-
-    unless Factlink.Global.signed_in
-      @learnMoreRegion.show new LearnMoreTopView
