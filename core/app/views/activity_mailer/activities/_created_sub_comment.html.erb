@@ -1,10 +1,4 @@
 <%
-  if @activity.action == 'added_supporting_evidence'
-    type = :supporting
-  else
-    type = :weakening
-  end
-
   if @activity.subject.parent.class == FactRelation
     subject_parent_user = @activity.subject.parent.created_by.user
   else # Comment
@@ -28,11 +22,8 @@
     </td>
   </tr>
   <tr>
-
-    <% if type == :supporting %>
-      <td class="timeline-left" height="70px">&nbsp;</td>
-      <td class="timeline-right" height="70px">&nbsp;</td>
-    <% end %>
+    <td class="timeline-left" height="70px">&nbsp;</td>
+    <td class="timeline-right" height="70px">&nbsp;</td>
 
     <td class="added-argument-message-container <%= type %> is-inactive" rowspan="3">
       <table cellpadding="0" cellspacing="0" border="0" class="added-argument-message-box">
@@ -77,21 +68,11 @@
         </tr>
       </table>
     </td>
-
-    <% if type == :weakening %>
-      <td class="timeline-left" height="70px">&nbsp;</td>
-      <td class="timeline-right" height="70px">&nbsp;</td>
-    <% end %>
-
   </tr>
 
   <tr>
     <td colspan="2" class="timeline-impact">
-      <% if type == :supporting %>
-        <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-supporting-impact-background.png" heigth="37px" width="37px" /></div>
-      <% else %>
-        <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-weakening-impact-background.png" heigth="37px" width="37px" /></div>
-      <% end %>
+      <div class="timeline-impact-indicator"><img src="http://cdn.factlink.com/1/email-supporting-impact-background.png" heigth="37px" width="37px" /></div>
     </td>
   </tr>
 
