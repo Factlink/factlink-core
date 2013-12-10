@@ -53,16 +53,6 @@ class Fact < OurOhm
     self.data = localdata
   end
 
-  def fact_relations
-    supporting_facts | weakening_facts
-  end
-
-  def evidence(type=:both)
-    return fact_relations if type == :both
-
-    send(:"#{type}_facts")
-  end
-
   def add_evidence(type, evidence, user)
     fr = FactRelation.get_or_create(evidence,type,self,user)
     activity(user.graph_user, :"added_#{type}_evidence", evidence, :to, self)
