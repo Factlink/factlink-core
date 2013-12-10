@@ -55,18 +55,15 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @collection.add fact_relation
     @inputRegion.switchTo('search_view')
 
-    @collection.trigger 'start_adding_model'
     fact_relation.save {},
       error: =>
         onFinish()
         @collection.remove fact_relation
-        @collection.trigger 'error_adding_model'
         @showError()
 
       success: =>
         onFinish()
         @inputRegion.getView('search_view').reset()
-        @collection.trigger 'saved_added_model'
 
         mp_track "Evidence: Added",
           factlink_id: @options.fact_id

@@ -37,7 +37,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @setFormContent ''
 
     model.trigger 'change'
-    @options.addToCollection.trigger 'saved_added_model'
 
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
@@ -46,7 +45,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   addModelError: ->
     @enableSubmit()
     FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
-    @options.addToCollection.trigger 'error_adding_model'
 
   switchToFactRelation: ->
     @trigger 'switch_to_fact_relation_view'
