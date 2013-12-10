@@ -94,9 +94,6 @@ class Fact < OurOhm
 
   private
 
-  set :supporting_facts, FactRelation
-  set :weakening_facts, FactRelation
-
   # TODO: dirty, please decouple
   def add_to_created_facts
     created_by.sorted_created_facts.add self
