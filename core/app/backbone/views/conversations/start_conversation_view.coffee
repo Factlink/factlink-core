@@ -16,7 +16,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   template: 'conversations/start_conversation'
 
   initialize: ->
-    @options.defaultMessage ||= "Check out this Factlink!"
+    @options.defaultMessage ||= "Check out this #{Factlink.Global.t.factlink}!"
 
     @recipients = new Users
     @auto_complete_view = new AutoCompleteUsersView(collection: @recipients)

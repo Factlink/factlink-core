@@ -81,4 +81,5 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   switchToFactRelationView: ->
     @inputRegion.switchTo 'search_view'
 
-  showError: -> FactlinkApp.NotificationCenter.error 'Your Factlink could not be posted, please try again.'
+  showError: ->
+    FactlinkApp.NotificationCenter.error 'Your #{Factlink.Global.t.factlink} could not be posted, please try again.'
