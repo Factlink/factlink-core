@@ -10,17 +10,17 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   template: 'fact_relations/auto_complete'
 
-  ui:
-    submit: '.js-post'
-
   initialize: ->
+    @_recent_collection = new RecentlyViewedFacts
+    @_recent_collection.fetch()
+
     @initializeChildViews
       filter_on: 'id'
       search_list_view: (options) => new AutoCompleteSearchFactRelationsView _.extend {}, options,
-        recent_collection: @options.recent_collection
+        recent_collection: @_recent_collection
       search_collection: new FactRelationSearchResults [],
         fact_id: @options.fact_id
-        recent_collection: @options.recent_collection
+        recent_collection: @_recent_collection
       filtered_search_collection: new FilteredFactRelationSearchResults
       placeholder: 'Search...'
 
@@ -46,9 +46,22 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     mp_track "Evidence: Switching to comment"
 
   createFactRelation: (fact_relation) ->
-    return if @submitting
-    @disableSubmit()
-    @trigger 'createFactRelation', fact_relation, => @enableSubmit()
+    return @showError() unless fact_relation.isValid()
+
+    @options.addToCollection.add fact_relation
+    @switchToComment()
+
+    fact_relation.save {},
+      error: =>
+        @options.addToCollection.remove fact_relation
+        @showError()
+
+      success: =>
+        @reset()
+
+        mp_track "Evidence: Added",
+          factlink_id: @options.fact_id
+          type: @options.type
 
   reset: ->
     @model.set text: ''
@@ -58,10 +71,5 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       @query_has_changed = true
       mp_track "Evidence: Started searching"
 
-  enableSubmit: ->
-    @submitting = false
-    @ui.submit.prop('disabled',false).text('Post Factlink')
-
-  disableSubmit: ->
-    @submitting = true
-    @ui.submit.prop('disabled',true ).text('Posting...')
+  showError: ->
+    FactlinkApp.NotificationCenter.error 'Your #{Factlink.Global.t.factlink} could not be posted, please try again.'

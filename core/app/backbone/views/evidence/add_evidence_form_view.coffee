@@ -9,16 +9,22 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       regionType: Factlink.DetachableViewsRegion
 
   initialize: ->
-    @_recent_collection = new RecentlyViewedFacts
-    @_recent_collection.fetch()
-
     @inputRegion.defineViews
       search_view: => @searchView()
       add_comment_view: => @addCommentView()
 
+    @listenTo @searchView(), 'switch_to_comment_view', @_switchToCommentView
+    @listenTo @addCommentView(), 'switch_to_fact_relation_view', @_switchToFactRelationView
+
   onRender: ->
     @headingRegion.show new EvidenceishHeadingView model: currentUser
-    @switchToCommentView()
+    @_switchToCommentView()
+
+  _switchToCommentView: ->
+    @inputRegion.switchTo 'add_comment_view'
+
+  _switchToFactRelationView: ->
+    @inputRegion.switchTo 'search_view'
 
   _filtered_facts: ->
     fact_relations_masquerading_as_facts = @_collectionUtils().map new Backbone.Collection,
@@ -31,49 +37,13 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     @_____collectionUtils ?= new CollectionUtils this
 
   searchView: ->
-    searchView = new AutoCompleteFactRelationsView
+    @_searchView ?= new AutoCompleteFactRelationsView
       collection: @_filtered_facts()
+      addToCollection: @collection
       fact_id: @collection.fact.id
       type: @options.type
-      recent_collection: @_recent_collection
-    @listenTo searchView, 'createFactRelation', (fact_relation, onFinish) ->
-      @createFactRelation(fact_relation, onFinish)
-    @listenTo searchView, 'switch_to_comment_view', @switchToCommentView
-    searchView
 
   addCommentView: ->
-    addCommentView = new AddCommentView
+    @_addCommentView ?= new AddCommentView
       addToCollection: @collection
       type: @options.type
-    @listenTo addCommentView, 'switch_to_fact_relation_view', @switchToFactRelationView
-
-    addCommentView
-
-  createFactRelation: (fact_relation, onFinish=->)->
-    return @showError() unless fact_relation.isValid()
-
-    @collection.add fact_relation
-    @inputRegion.switchTo('search_view')
-
-    fact_relation.save {},
-      error: =>
-        onFinish()
-        @collection.remove fact_relation
-        @showError()
-
-      success: =>
-        onFinish()
-        @inputRegion.getView('search_view').reset()
-
-        mp_track "Evidence: Added",
-          factlink_id: @options.fact_id
-          type: @options.type
-
-  switchToCommentView: ->
-    @inputRegion.switchTo 'add_comment_view'
-
-  switchToFactRelationView: ->
-    @inputRegion.switchTo 'search_view'
-
-  showError: ->
-    FactlinkApp.NotificationCenter.error 'Your #{Factlink.Global.t.factlink} could not be posted, please try again.'
