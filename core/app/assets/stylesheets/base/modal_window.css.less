@@ -92,7 +92,10 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: -1;
+
   &:before {
+    content: "";
+    position: absolute;
     background: asset-data-url('icon-close-modal.png');
     width: 36px;
     height: 36px;
@@ -100,8 +103,9 @@ e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a
     top: 10px;
     opacity: 0.7;
     cursor: pointer;
-    &:hover {
-      opacity: 1;
-    }
+  }
+
+  &:hover:before {
+    opacity: 1;
   }
 }
