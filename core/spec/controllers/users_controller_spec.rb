@@ -115,7 +115,7 @@ describe UsersController do
       channel = create :channel, {created_by: user.graph_user}
       fact = create :fact, created_by: user.graph_user
       Pavlov.interactor :'channels/add_fact', fact: fact, channel: channel,
-                                              pavlov_options: { no_current_user: true }
+                                              pavlov_options: { current_user: user }
       channel
     end
 
@@ -133,11 +133,11 @@ describe UsersController do
       [:supporting, :weakening].each do |type|
         it "adding #{type} evidence" do
           current_user = create(:full_user)
-          channel = create :channel
+          channel = create :channel, created_by: current_user.graph_user
           f1 = create :fact, created_by: current_user.graph_user
           f2 = create :fact
           Interactors::Channels::AddFact.new(fact: f1, channel: channel,
-                                             pavlov_options: { no_current_user: true }).call
+                                             pavlov_options: { current_user: current_user }).call
           f1.add_evidence type, f2, user.graph_user
 
           authenticate_user!(current_user)

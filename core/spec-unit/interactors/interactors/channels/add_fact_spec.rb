@@ -56,14 +56,7 @@ describe Interactors::Channels::AddFact do
       expect(interactor.authorized?).to be_true
     end
 
-    it 'returns true when the :no_current_user option is true' do
-      interactor = described_class.new fact: double, channel: double,
-                                       pavlov_options: { no_current_user: true }
-
-      expect(interactor.authorized?).to eq true
-    end
-
-    it 'returns false when neither :current_user or :no_current_user are passed' do
+    it 'returns false when no :current_user is passed' do
       expect do
         interactor = described_class.new( fact: double, channels: double )
         interactor.call

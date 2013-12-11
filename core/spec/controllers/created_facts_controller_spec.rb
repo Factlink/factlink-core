@@ -16,7 +16,7 @@ describe CreatedFactsController do
 
     channel = create :channel, created_by: user.graph_user
     [f1,f2,f3].each do |f|
-      Interactors::Channels::AddFact.new(fact: f, channel: channel, pavlov_options: { no_current_user: true }).call
+      Interactors::Channels::AddFact.new(fact: f, channel: channel, pavlov_options: { current_user: user }).call
     end
 
     authenticate_user!(user)

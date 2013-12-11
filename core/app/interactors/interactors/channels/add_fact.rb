@@ -45,7 +45,6 @@ module Interactors
 
       def authorized?
         # TODO use cancan
-        return true if pavlov_options[:no_current_user]
         return false unless pavlov_options[:current_user]
 
         pavlov_options[:current_user].graph_user_id == channel.created_by_id
