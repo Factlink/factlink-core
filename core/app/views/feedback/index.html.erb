@@ -14,6 +14,10 @@
       $iframe.css({
         height: $('body').outerHeight()
       });
+
+      $feedback_frame.css({
+        marginTop: - $feedback_frame.outerHeight()/2 + "px"
+      });
     }
 
     function onCloseFrame() {
@@ -29,7 +33,7 @@
       <% if params[:state] == 'success' %>
 
         if (window.parent.FactlinkApp) {
-          window.parent.fadeoutFeedbackFrame();
+          window.parent.closeFeedbackFrame();
           onCloseFrame();
 
           window.parent.FactlinkApp.NotificationCenter.success('Your feedback has successfully been submitted.');

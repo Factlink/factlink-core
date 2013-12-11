@@ -17,11 +17,13 @@
 <% end %>
 
 <% content_for :content do %>
-  <div class="modal-layer js-frontpage-video">
+  <div class="modal-window-container js-frontpage-video">
     <div class="modal-window frontpage-video-modal-window">
       <div class="modal-window-body js-frontpage-video-body"></div>
     </div>
-    <div class="modal-layer-close-background js-frontpage-video-close"></div>
+    <div class="modal-window-layer js-frontpage-video-layer">
+      <div class="static-close-button"></div>
+    </div>
   </div>
 
   <div class="homepage-factlink-aspects">
@@ -62,7 +64,7 @@
         $('.js-frontpage-video').fadeIn('fast');
         $('.js-frontpage-video-body').html('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" style="width:740px; height:416px; border: 0px;"></iframe>');
       });
-      $(".js-frontpage-video-close").on('click', function() {
+      $(".js-frontpage-video-layer").on('click', function() {
         $('.js-frontpage-video').fadeOut('fast', function() {
           $('.js-frontpage-video-body').html('');
         });
