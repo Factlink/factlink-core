@@ -27,7 +27,7 @@ class EvidenceController < ApplicationController
 
     evidence = Fact[params[:evidence_id]] or fail EvidenceNotFoundException
 
-    @fact_relation = create_believed_factrelation(evidence, relation_new, fact)
+    @fact_relation = create_believed_factrelation(evidence, params[:type], fact)
 
     render 'fact_relations/show', formats: [:json]
   rescue EvidenceNotFoundException
@@ -72,14 +72,4 @@ class EvidenceController < ApplicationController
     fact_relation
   end
 
-  def relation_new
-    case params[:type]
-    when 'believes'
-      :supporting
-    when 'disbelieves'
-      :weakening
-    else
-      fail 'unknown type'
-    end.to_s
-  end
 end

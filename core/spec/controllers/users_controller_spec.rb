@@ -116,7 +116,7 @@ describe UsersController do
         FactoryGirl.reload
       end
 
-      [:supporting, :weakening].each do |type|
+      [:believes, :disbelieves].each do |type|
         it "adding #{type} evidence" do
           current_user = create(:full_user)
           channel = create :channel, created_by: current_user.graph_user

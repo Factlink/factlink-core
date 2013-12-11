@@ -46,7 +46,7 @@ describe 'activity queries' do
       ]
     end
 
-    [:supporting, :weakening].each do |type|
+    [:believes, :disbelieves].each do |type|
       it "should return activity when a users adds #{type} evidence to a fact that you created" do
         f1 = create :fact
         f2 = create :fact
@@ -72,7 +72,7 @@ describe 'activity queries' do
         f1 = create :fact
         f2 = create :fact
         f3 = create :fact
-        f1.add_evidence :supporting, f2, gu1
+        f1.add_evidence :believes, f2, gu1
         fr = f1.add_evidence type, f3, gu2
         gu1.notifications.map(&:to_hash_without_time).should == [
           {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
@@ -314,7 +314,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           fact.add_opinion :believes, gu1
 
@@ -332,7 +332,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           fact.add_opinion :believes, gu1
 
@@ -351,7 +351,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           fact_relation.add_opinion :believes, gu1
 
@@ -369,7 +369,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           fact_relation.add_opinion :believes, gu1
 
@@ -389,7 +389,7 @@ describe 'activity queries' do
 
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           as(gu1.user) do |pavlov|
             pavlov.interactor(:'sub_comments/create_for_fact_relation', fact_relation_id: fact_relation.id.to_i, content: 'content')
@@ -408,7 +408,7 @@ describe 'activity queries' do
           sub_comment = ()
           fact = create :fact, created_by: current_user.graph_user
 
-          fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+          fact_relation = fact.add_evidence :believes, create(:fact), current_user
 
           as(gu1.user) do |pavlov|
             pavlov.interactor(:'sub_comments/create_for_fact_relation', fact_relation_id: fact_relation.id.to_i, content: 'content')

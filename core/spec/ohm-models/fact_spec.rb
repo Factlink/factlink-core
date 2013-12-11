@@ -47,7 +47,7 @@ describe Fact do
     end
   end
 
-  ['supporting', 'weakening'].each do |relation|
+  ['believes', 'disbelieves'].each do |relation|
     describe ".add_evidence" do
       it 'saves the evidence' do
         fact.add_evidence(relation,factlink,graph_user)
@@ -160,7 +160,7 @@ describe Fact do
       supported_fact  = Fact.create created_by: graph_user
       supporting_fact = Fact.create created_by: graph_user
 
-      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
+      supported_fact.add_evidence(:believes, supporting_fact, graph_user)
 
       expect(supported_fact.deletable?).to be_false
     end
@@ -169,7 +169,7 @@ describe Fact do
       supported_fact  = Fact.create created_by: graph_user
       supporting_fact = Fact.create created_by: graph_user
 
-      supported_fact.add_evidence(:supporting, supporting_fact, graph_user)
+      supported_fact.add_evidence(:believes, supporting_fact, graph_user)
 
       expect(supported_fact.deletable?).to be_false
     end

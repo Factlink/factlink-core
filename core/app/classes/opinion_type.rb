@@ -8,13 +8,6 @@ class OpinionType
     end
   end
 
-  def self.for_relation_type type
-    case type.to_s
-    when 'supporting' then :believes
-    when 'weakening'  then :disbelieves
-    end
-  end
-
   def self.types
     [:believes, :doubts, :disbelieves]
   end

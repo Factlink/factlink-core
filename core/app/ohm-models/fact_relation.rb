@@ -50,10 +50,6 @@ class FactRelation < OurOhm
     super
   end
 
-  def get_type_opinion
-    Opinion.for_type(OpinionType.for_relation_type(type))
-  end
-
   def deletable?
     EvidenceDeletable.new(self, self.class.to_s, believable, created_by_id).deletable?
   end

@@ -18,11 +18,7 @@ class SubComment
   end
 
   def type
-    if [:weakening, :disbelieves].include? parent.type
-      return :weakening
-    else
-      return :supporting
-    end
+    parent.type
   end
 
   # TODO: remove when no longer used from _activity.json.jbuilder
