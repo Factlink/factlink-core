@@ -10,8 +10,8 @@ class EvidenceLayoutView extends Backbone.Marionette.Layout
 
   typeCss: ->
     switch @model.get('type')
-      when 'believes' then 'evidence-supporting'
-      when 'disbelieves' then 'evidence-weakening'
+      when 'believes' then 'evidence-believes'
+      when 'disbelieves' then 'evidence-disbelieves'
       when 'doubts' then 'evidence-unsure'
 
   render: ->
