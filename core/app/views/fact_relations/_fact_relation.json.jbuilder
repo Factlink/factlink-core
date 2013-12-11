@@ -14,7 +14,7 @@ json.url friendly_fact_path(fact_relation.from_fact)
 
 json.is_deletable fact_relation.deletable?
 json.id fact_relation.id
-json.type OpinionType.for_relation_type(fact_relation.type)
+json.type fact_relation.type
 json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }
 
 json.time_ago TimeFormatter.as_time_ago(fact_relation.created_at.to_time)
