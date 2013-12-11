@@ -1,5 +1,19 @@
 @import "bootstrap/mixins";
 
+/*
+This centers an arbitrarily sized box vertically and horizontally in its containing box.
+
+Sample html:
+  <div class=modal-layer><div class=modal-layer-inner>
+    Modal content (does not need explicit visibility)
+  </div></div>
+Note the lack of space between the two divs!
+
+TODO: extract this to a more generic class or mixin when needed, see
+e.g. https://github.com/Factlink/core/blob/40d54edf2e51e38e048c8cf25f485c655b19a56d/app/assets/stylesheets/base/centering.css.less
+*/
+
+
 .modal-layer {
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0;
