@@ -67,7 +67,7 @@ GEM
     backbone-rails (1.0.0.1)
       rails (>= 3.0.0)
     backports (3.3.5)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.2)
     brakeman (2.0.0)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
@@ -500,11 +500,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (= 3.2.16)
-  addressable (~> 2.3.4)
   approvals (~> 0)
   backbone-rails (= 1.0.0.1)
-  bcrypt-ruby (~> 3.0.1)
   brakeman (~> 2.0.0)
   browser (~> 0.3.2)
   cancan (~> 1.6.10)
@@ -532,7 +529,6 @@ DEPENDENCIES
   konacha (~> 3.0)
   less-rails (~> 2.3.3)
   lograge (~> 0)
-  mail (~> 2.5.4)
   mailcatcher (~> 0)
   marionette-rails (= 1.0.4)
   mixpanel!
@@ -575,7 +571,6 @@ DEPENDENCIES
   sextant (~> 0)
   sinon-chai-rails (~> 1.0)
   sinon-rails (~> 1.4)
-  sqlite3 (~> 1.3.7)
   stringex (~> 1.5.1)
   terminal-notifier-guard (~> 1.5)
   therubyracer (~> 0.12.0)
