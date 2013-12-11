@@ -1,12 +1,11 @@
 FactlinkApp.module "ModalWindowContainer", (ModalWindowContainer, FactlinkApp, Backbone, Marionette, $, _) ->
 
   class ModalWindowContainer.WrapperView extends Backbone.Marionette.Layout
-    className: 'modal-window-container'
+    className: 'modal-layer'
     template: 'widgets/modal_window_wrapper'
 
     events:
-      "click .js-layer": "fadeOut"
-      "click .js-modal-window-cross": "fadeOut"
+      "click .js-modal-window-close": "fadeOut"
       "click": "stopPropagation"
 
     regions:

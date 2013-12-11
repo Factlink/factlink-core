@@ -5,12 +5,8 @@ require_relative '../../../../app/interactors/commands/channels/add_fact'
 describe Commands::Channels::AddFact do
   include PavlovSupport
   describe '#call' do
-    before do
-      stub_classes 'AddFactToChannelJob'
-    end
-
     it 'correctly' do
-      fact = double id: double
+      fact = double id: double, channels: double
       sorted_internal_facts = double
       channel = double :channel,
         id: double,
@@ -22,9 +18,9 @@ describe Commands::Channels::AddFact do
 
       sorted_internal_facts.should_receive(:add).with(fact)
 
-      expect(AddFactToChannelJob)
-        .to receive(:perform)
-        .with(fact.id, channel.id)
+      expect(fact.channels)
+        .to receive(:add)
+        .with(channel)
 
       command.call
     end

@@ -4,8 +4,8 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
 
   @classForModel: (model) ->
     switch model.get("action")
-      when "created_comment", "added_supporting_evidence", "added_weakening_evidence"
-        AddedEvidenceView
+      when "created_comment", "created_fact_relation"
+        CreatedFactRelationView
       when "created_sub_comment"
         CreatedCommentView
       when "believes", "doubts", "disbelieves"
@@ -17,8 +17,9 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
       else
         ActivityItemView
 
-class AddedEvidenceView extends ActivityItemView
-  template: "activities/added_evidence"
+
+class CreatedFactRelationView extends ActivityItemView
+  template: "activities/created_fact_relation"
 
 class CreatedCommentView extends ActivityItemView
   template: "activities/created_comment"

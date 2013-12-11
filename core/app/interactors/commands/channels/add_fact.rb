@@ -7,7 +7,7 @@ module Commands
 
       def execute
         ChannelFacts.new(channel).add_fact fact
-        AddFactToChannelJob.perform(fact.id, channel.id)
+        fact.channels.add channel
       end
     end
   end
