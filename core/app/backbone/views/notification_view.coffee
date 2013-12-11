@@ -17,8 +17,8 @@ class GenericNotificationView extends Backbone.Marionette.Layout
 
   markAsRead: -> @$el.removeClass "unread"
 
-class NotificationAddedEvidenceView extends GenericNotificationView
-  template: "notifications/added_evidence"
+class NotificationCreatedFactRelationView extends GenericNotificationView
+  template: "notifications/created_fact_relation"
 
 class NotificationCreatedConversationView extends GenericNotificationView
   template: "notifications/created_conversation"
@@ -45,7 +45,7 @@ window.NotificationView = (opts) ->
     when "created_comment", "created_sub_comment"
       new CreatedCommentView(opts)
     when "created_fact_relation"
-      new NotificationAddedEvidenceView(opts)
+      new NotificationCreatedFactRelationView(opts)
     when "created_conversation"
       new NotificationCreatedConversationView(opts)
     when "replied_message"
