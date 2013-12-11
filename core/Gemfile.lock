@@ -504,7 +504,6 @@ DEPENDENCIES
   addressable (~> 2.3.4)
   approvals (~> 0)
   backbone-rails (= 1.0.0.1)
-  bcrypt-ruby (~> 3.0.1)
   brakeman (~> 2.0.0)
   browser (~> 0.3.2)
   cancan (~> 1.6.10)
@@ -532,7 +531,6 @@ DEPENDENCIES
   konacha (~> 3.0)
   less-rails (~> 2.3.3)
   lograge (~> 0)
-  mail (~> 2.5.4)
   mailcatcher (~> 0)
   marionette-rails (= 1.0.4)
   mixpanel!
