@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe 'activity queries' do
-  include AddFactToChannelSupport
   include RedisSupport
   let(:gu1) { create(:full_user).graph_user }
   let(:gu2) { create(:full_user).graph_user }
@@ -38,7 +37,9 @@ describe 'activity queries' do
       f.created_by.stream_activities.key.del # delete other activities
 
       ch = create :channel, created_by: gu2
-      add_fact_to_channel f, ch
+      Pavlov.interactor :'channels/add_fact',
+                  fact: f, channel: ch,
+                  pavlov_options: { current_user: ch.created_by.user }
 
       notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
         {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
@@ -462,7 +463,9 @@ describe 'activity queries' do
         f1 = create :fact, created_by: gu3
 
         ch1 = create :channel, created_by: gu1
-        add_fact_to_channel f1, ch1
+        Pavlov.interactor :'channels/add_fact',
+                          fact: f1, channel: ch1,
+                          pavlov_options: { current_user: ch1.created_by.user }
 
         gu2.stream_activities.map(&:to_hash_without_time).should == [
           {user: gu1, action: :added_fact_to_channel, subject: f1, object: ch1}
