@@ -11,10 +11,10 @@
   {
     "the_class": "FactlinkUser",
     "the_object": {
-      "id": "<STRIPPED>",
+      "id": "<id>",
       "name": "John1 Doe1",
       "username": "Baron",
-      "gravatar_hash": "<STRIPPED>",
+      "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
       "statistics_created_fact_count": 1,
       "statistics_follower_count": 0,
       "statistics_following_count": 0,
@@ -27,17 +27,17 @@
     "the_class": "FactData",
     "the_object": {
       "displaystring": "Baron",
-      "id": "<STRIPPED>",
+      "id": "<id>",
       "containing_channel_ids": [
 
       ],
       "url": "/baron/f/1",
       "sharing_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&open_id=1",
       "created_by": {
-        "id": "<STRIPPED>",
+        "id": "<id>",
         "name": "John1 Doe1",
         "username": "Baron",
-        "gravatar_hash": "<STRIPPED>",
+        "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
         "statistics_created_fact_count": 1,
         "statistics_follower_count": 0,
         "statistics_following_count": 0,
@@ -55,7 +55,7 @@
       },
       "fact_url": "http://example.org/1.html",
       "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
-      "timestamp": 0,
+      "timestamp": "<timestamp>",
       "is_deletable": true
     }
   }

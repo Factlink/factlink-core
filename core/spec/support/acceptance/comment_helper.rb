@@ -1,37 +1,27 @@
 module Acceptance
   module CommentHelper
       def toggle_to_comment
-        within '.add-evidence-form' do
-          page.find('.js-switch-to-factlink').click
-        end
+        return if all('.add-evidence-form .js-switch-to-comment').empty?
+
+        page.find('.add-evidence-form .js-switch-to-comment').click
       end
 
       def toggle_to_factlink
-        within '.add-evidence-form' do
-          page.find('.js-switch-to-factlink').click
-        end
+        return if all('.add-evidence-form .js-switch-to-factlink').empty?
+
+        page.find('.add-evidence-form .js-switch-to-factlink').click
       end
 
-
-      def posting_factlink?
-        find('.add-evidence-form input[type=text],
-              .add-evidence-form .text_area_view')[:placeholder].include? 'Factlink'
-      end
-
-      def posting_comment?
-        find('.add-evidence-form input[type=text],
-              .add-evidence-form .text_area_view')[:placeholder].include? 'Comment'
-      end
-
-      def open_add_type type
-        find(".evidence-add-buttons .js-#{type}-button").click
+      def select_add_type type
+        find('.spec-evidence-radio-' + type.to_s).click
       end
 
       def add_comment type, comment
-        open_add_type type
-        toggle_to_comment if posting_factlink? #unless posting_comment?
+        toggle_to_comment
 
         within '.add-evidence-form' do
+          select_add_type type
+
           comment_input = find('.text_area_view')
 
           comment_input.click
@@ -43,24 +33,28 @@ module Acceptance
           click_button "Post comment"
         end
 
-        wait_until_add_buttons_appear
+        wait_until_last_argument_has_one_vote
       end
 
       def add_existing_factlink type, evidence_factlink
-        open_add_type type
-        toggle_to_factlink unless posting_factlink?
+        toggle_to_factlink
 
         within '.add-evidence-form' do
+          select_add_type type
+
           text = evidence_factlink.to_s
           page.find("input[type=text]").click
           page.find("input[type=text]").set(text)
           page.find("li", text: text).click
         end
-        wait_until_add_buttons_appear
+
+        wait_until_last_argument_has_one_vote
       end
 
-      def wait_until_add_buttons_appear
-        page.find('.js-believes-button')
+      def wait_until_last_argument_has_one_vote
+        within '.evidence-votable:last-child' do
+          page.find('.evidence-relevance-text', text: 1)
+        end
       end
 
       def add_sub_comment(comment)
@@ -92,8 +86,8 @@ module Acceptance
       end
 
       def wait_until_evidence_list_loaded
-        # the add region only shows after the discussion list has fully loaded
-        find('.js-believes-button')
+        # this only shows after the discussion list has fully loaded
+        find('.add-evidence-form')
       end
 
       def vote_comment direction, comment

@@ -8,8 +8,7 @@ describe SearchController do
 
   describe "Search" do
     it "should render json successful and in the same way (approvals)" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
       ElasticSearch.stub synchronous: true
 
@@ -21,14 +20,8 @@ describe SearchController do
 
       authenticate_user!(user)
       get :search, s: "Baron", format: :json
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      # strip gravatar hash.
-      response_body.gsub!(/"gravatar_hash":\s*"[^"]*"/, '"gravatar_hash": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'search#search should keep the same content')
+      Approvals.verify(response.body, format: :json, name: 'search#search should keep the same content')
     end
   end
 end

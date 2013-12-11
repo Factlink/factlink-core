@@ -1,4 +1,3 @@
-require 'active_support'
 require_relative '../../app/interactors/kill_object.rb'
 
 describe KillObject do

@@ -4,7 +4,6 @@ class window.Comment extends Evidence
 
   defaults:
     evidence_type: 'Comment'
-    current_user_opinion: "believes"
     sub_comments_count: 0
 
   validate: (attributes) ->
