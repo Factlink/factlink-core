@@ -56,11 +56,6 @@ json.activity do |json|
     else
       json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
-
-  when "created_channel"
-    topic = subject.topic
-    json.topic_title               topic.title
-    json.topic_url                 topic_path(topic.slug_title)
   when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
     json.partial! 'activities/added_fact_to_topic_activity',
         subject: subject,
