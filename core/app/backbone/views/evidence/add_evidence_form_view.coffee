@@ -12,16 +12,27 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
     'change input[name=argumentType]': '_updateArgumentType'
 
   initialize: ->
+    @_searchView = new AutoCompleteFactRelationsView
+      collection: @_filtered_facts()
+      addToCollection: @collection
+      fact_id: @collection.fact.id
+      argumentTypeModel: @_argumentTypeModel
+
+    @_addCommentView ?= new AddCommentView
+      addToCollection: @collection
+      argumentTypeModel: @_argumentTypeModel
+
+
     @inputRegion.defineViews
-      search_view: => @searchView()
-      add_comment_view: => @addCommentView()
+      search_view: => @_searchView
+      add_comment_view: => @_addCommentView
 
   onRender: ->
     @_argumentTypeModel = new Backbone.Model
     @_updateArgumentType()
 
-    @listenTo @searchView(), 'switch_to_comment_view', @_switchToCommentView
-    @listenTo @addCommentView(), 'switch_to_fact_relation_view', @_switchToFactRelationView
+    @listenTo @_searchView, 'switch_to_comment_view', @_switchToCommentView
+    @listenTo @_addCommentView, 'switch_to_fact_relation_view', @_switchToFactRelationView
 
     @headingRegion.show new EvidenceishHeadingView model: currentUser
     @_switchToCommentView()
@@ -44,15 +55,3 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   _collectionUtils: ->
     @_____collectionUtils ?= new CollectionUtils this
-
-  searchView: ->
-    @_searchView ?= new AutoCompleteFactRelationsView
-      collection: @_filtered_facts()
-      addToCollection: @collection
-      fact_id: @collection.fact.id
-      argumentTypeModel: @_argumentTypeModel
-
-  addCommentView: ->
-    @_addCommentView ?= new AddCommentView
-      addToCollection: @collection
-      argumentTypeModel: @_argumentTypeModel
