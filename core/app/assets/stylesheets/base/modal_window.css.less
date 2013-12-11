@@ -65,7 +65,10 @@
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   z-index: -1;
+
   &:before {
+    content: "";
+    position: absolute;
     background: asset-data-url('icon-close-modal.png');
     width: 36px;
     height: 36px;
@@ -73,8 +76,9 @@
     top: 10px;
     opacity: 0.7;
     cursor: pointer;
-    &:hover {
-      opacity: 1;
-    }
+  }
+
+  &:hover:before {
+    opacity: 1;
   }
 }
