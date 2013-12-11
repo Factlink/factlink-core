@@ -9,7 +9,13 @@ json.subject_class subject.class.to_s
 
 json.user {|j| j.partial! 'users/user_partial', user: user }
 
-json.action action
+case action
+when "added_supporting_evidence", "added_weakening_evidence"
+  json.action 'created_fact_relation'
+else
+  json.action action
+end
+
 json.translated_action t("fact_#{action.to_s}_action".to_sym)
 
 json.subject subject.to_s

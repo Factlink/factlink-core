@@ -44,7 +44,7 @@ window.NotificationView = (opts) ->
   switch opts.model.get("action")
     when "created_comment", "created_sub_comment"
       new CreatedCommentView(opts)
-    when "added_supporting_evidence", "added_weakening_evidence"
+    when "created_fact_relation"
       new NotificationAddedEvidenceView(opts)
     when "created_conversation"
       new NotificationCreatedConversationView(opts)
