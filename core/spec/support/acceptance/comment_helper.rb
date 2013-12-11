@@ -18,17 +18,12 @@ module Acceptance
               .add-evidence-form .text_area_view')[:placeholder].include? 'Factlink'
       end
 
-      def posting_comment?
-        find('.add-evidence-form input[type=text],
-              .add-evidence-form .text_area_view')[:placeholder].include? 'Comment'
-      end
-
       def select_add_type type
         find('.spec-evidence-radio-' + type.to_s).click
       end
 
       def add_comment type, comment
-        toggle_to_comment if posting_factlink? #unless posting_comment?
+        toggle_to_comment if posting_factlink?
 
         within '.add-evidence-form' do
           select_add_type type
