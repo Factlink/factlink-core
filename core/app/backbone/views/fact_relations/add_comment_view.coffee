@@ -4,7 +4,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   className: 'add-comment'
   events:
     'click .js-post': 'addComment'
-    'click .js-switch-to-factlink': 'switchToFactRelation'
 
   template: 'comments/add_comment'
 
@@ -45,11 +44,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   addModelError: ->
     @enableSubmit()
     FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
-
-  switchToFactRelation: ->
-    @trigger 'switch_to_fact_relation_view'
-
-    mp_track "Evidence: Switching to FactRelation"
 
   enableSubmit: ->
     @submitting = false

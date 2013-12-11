@@ -1,9 +1,6 @@
 class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-fact-relations"
 
-  events:
-    'click .js-switch-to-factlink': 'switchToComment'
-
   regions:
     'search_list': 'div.auto-complete-search-list-container'
     'text_input': 'div.js-auto-complete-input-view-container'
@@ -39,17 +36,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
       type: @options.argumentTypeModel.get 'argument_type'
 
-  switchToComment: ->
-    @$el.removeClass 'active'
-    @trigger 'switch_to_comment_view'
-
-    mp_track "Evidence: Switching to comment"
-
   createFactRelation: (fact_relation) ->
     return @showError() unless fact_relation.isValid()
 
     @options.addToCollection.add fact_relation
-    @switchToComment()
 
     fact_relation.save {},
       error: =>

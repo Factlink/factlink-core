@@ -10,8 +10,16 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   events:
     'change input[name=argumentType]': '_updateArgumentType'
+    'click .js-switch-to-factlink': '_switchToAddFactRelationView'
+    'click .js-switch-to-comment': '_switchToAddCommentView'
+
+  ui:
+    switchToFactlink: '.js-switch-to-factlink'
+    switchToComment: '.js-switch-to-comment'
 
   initialize: ->
+    @_argumentTypeModel = new Backbone.Model
+
     @_searchView = new AutoCompleteFactRelationsView
       collection: @_filtered_facts()
       addToCollection: @collection
@@ -22,29 +30,29 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       addToCollection: @collection
       argumentTypeModel: @_argumentTypeModel
 
-
     @inputRegion.defineViews
       search_view: => @_searchView
       add_comment_view: => @_addCommentView
 
   onRender: ->
-    @_argumentTypeModel = new Backbone.Model
     @_updateArgumentType()
-
-    @listenTo @_searchView, 'switch_to_comment_view', @_switchToCommentView
-    @listenTo @_addCommentView, 'switch_to_fact_relation_view', @_switchToFactRelationView
-
     @headingRegion.show new EvidenceishHeadingView model: currentUser
-    @_switchToCommentView()
+    @_switchToAddCommentView()
 
   _updateArgumentType: ->
     @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
 
-  _switchToCommentView: ->
+  _switchToAddCommentView: ->
+    @ui.switchToFactlink.show()
+    @ui.switchToComment.hide()
     @inputRegion.switchTo 'add_comment_view'
+    mp_track "Evidence: Switching to comment"
 
-  _switchToFactRelationView: ->
+  _switchToAddFactRelationView: ->
+    @ui.switchToFactlink.hide()
+    @ui.switchToComment.show()
     @inputRegion.switchTo 'search_view'
+    mp_track "Evidence: Switching to FactRelation"
 
   _filtered_facts: ->
     fact_relations_masquerading_as_facts = @_collectionUtils().map new Backbone.Collection,
