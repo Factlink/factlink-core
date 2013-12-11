@@ -22,7 +22,7 @@ class Activity < OurOhm
     def forGraphUser_someone_added_evidence_to_a_fact_you_follow
       {
         subject_class: "Fact",
-        action: [:added_supporting_evidence, :added_weakening_evidence],
+        action: [:created_fact_relation],
         write_ids: people_who_follow_a_fact_which_is_object
       }
     end

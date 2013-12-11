@@ -9,12 +9,7 @@ json.subject_class subject.class.to_s
 
 json.user {|j| j.partial! 'users/user_partial', user: user }
 
-case action
-when "added_supporting_evidence", "added_weakening_evidence"
-  json.action 'created_fact_relation'
-else
-  json.action action
-end
+json.action action
 
 json.translated_action t("fact_#{action.to_s}_action".to_sym)
 
@@ -27,7 +22,7 @@ json.id activity.id
 json.activity do |json|
 
   case action
-  when "added_supporting_evidence", "added_weakening_evidence"
+  when "created_fact_relation"
     json.action             :added
     json.evidence           subject.to_s
     json.evidence_url       friendly_fact_path(subject)

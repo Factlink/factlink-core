@@ -55,7 +55,7 @@ class Fact < OurOhm
 
   def add_evidence(type, evidence, user)
     fr = FactRelation.get_or_create(evidence,type,self,user)
-    activity(user.graph_user, :"added_#{type}_evidence", evidence, :to, self)
+    activity(user.graph_user, :created_fact_relation, evidence, :to, self)
     fr
   end
 
