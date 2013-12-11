@@ -4,7 +4,6 @@ class window.AddCommentView extends Backbone.Marionette.Layout
   className: 'add-comment'
   events:
     'click .js-post': 'addComment'
-    'click .js-switch-to-factlink': 'switchToFactRelation'
 
   template: 'comments/add_comment'
 
@@ -23,7 +22,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @model = new Comment
       content: @_textModel().get('text')
       created_by: currentUser.toJSON()
-      type: @options.type
+      type: @options.argumentTypeModel.get 'argument_type'
 
     return @addModelError() unless @model.isValid()
 
@@ -37,21 +36,14 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @setFormContent ''
 
     model.trigger 'change'
-    @options.addToCollection.trigger 'saved_added_model'
 
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
-      type: @options.type
+      type: @options.argumentTypeModel.get 'argument_type'
 
   addModelError: ->
     @enableSubmit()
     FactlinkApp.NotificationCenter.error 'Your comment could not be posted, please try again.'
-    @options.addToCollection.trigger 'error_adding_model'
-
-  switchToFactRelation: ->
-    @trigger 'switch_to_fact_relation_view'
-
-    mp_track "Evidence: Switching to FactRelation"
 
   enableSubmit: ->
     @submitting = false
