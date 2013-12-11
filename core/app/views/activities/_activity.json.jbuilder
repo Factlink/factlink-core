@@ -61,8 +61,6 @@ json.activity do |json|
     topic = subject.topic
     json.topic_title               topic.title
     json.topic_url                 topic_path(topic.slug_title)
-
-    json.created_channel_definition t(:created_user_topic)
   when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
     json.partial! 'activities/added_fact_to_topic_activity',
         subject: subject,
