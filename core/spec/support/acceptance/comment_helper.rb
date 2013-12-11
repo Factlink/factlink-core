@@ -1,21 +1,15 @@
 module Acceptance
   module CommentHelper
       def toggle_to_comment
-        within '.add-evidence-form' do
-          page.find('.js-switch-to-comment').click
-        end
+        return if all('.add-evidence-form .js-switch-to-comment').empty?
+
+        page.find('.add-evidence-form .js-switch-to-comment').click
       end
 
       def toggle_to_factlink
-        within '.add-evidence-form' do
-          page.find('.js-switch-to-factlink').click
-        end
-      end
+        return if all('.add-evidence-form .js-switch-to-factlink').empty?
 
-
-      def posting_factlink?
-        find('.add-evidence-form input[type=text],
-              .add-evidence-form .text_area_view')[:placeholder].include? 'Factlink'
+        page.find('.add-evidence-form .js-switch-to-factlink').click
       end
 
       def select_add_type type
@@ -23,7 +17,7 @@ module Acceptance
       end
 
       def add_comment type, comment
-        toggle_to_comment if posting_factlink?
+        toggle_to_comment
 
         within '.add-evidence-form' do
           select_add_type type
@@ -43,7 +37,7 @@ module Acceptance
       end
 
       def add_existing_factlink type, evidence_factlink
-        toggle_to_factlink unless posting_factlink?
+        toggle_to_factlink
 
         within '.add-evidence-form' do
           select_add_type type
