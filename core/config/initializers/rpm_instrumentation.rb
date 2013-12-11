@@ -21,12 +21,6 @@ if defined?(NewRelic)
     add_method_tracer :execute
   end
 
-  AddFactToChannelJob.class_eval do
-    include NewRelic::Agent::MethodTracer
-    add_method_tracer :initialize
-    add_method_tracer :propagate_to_channels
-  end
-
   Mail.class_eval do
     class << self
       include ::NewRelic::Agent::MethodTracer
