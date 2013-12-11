@@ -48,23 +48,23 @@ json.activity do |json|
   when "created_conversation"
     json.target_url conversation_path(subject)
 
-    json.message do |message|
-      message.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
+    json.message do |j|
+      j.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
     end
 
   # notifications
   when "replied_message"
     json.target_url conversation_message_path(subject.conversation, subject)
 
-    json.message do |message|
-      message.content truncate("#{subject.content}", length: 85, separator: ' ')
+    json.message do |j|
+      j.content truncate("#{subject.content}", length: 85, separator: ' ')
     end
 
   # notifications, stream_activities
   when "followed_user"
     json.target_url user_profile_path(user.username)
-    json.followed_user do |followed_user|
-      followed_user.partial! 'users/user_partial', user: subject.user
+    json.followed_user do |j|
+      j.partial! 'users/user_partial', user: subject.user
     end
   end
 end
