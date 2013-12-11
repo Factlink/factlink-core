@@ -17,6 +17,12 @@ json.id activity.id
 json.activity do |json|
 
   case action
+
+  # For easier refactoring we note where each activity is used.
+  # These tags come from Activity::ListenerCreator and Activity::Listener::Stream (sigh)
+  # Try to keep 'em in sync
+
+  # notifications, stream_activities
   when "created_fact_relation"
     json.action             :added
     json.evidence           subject.to_s
@@ -30,6 +36,7 @@ json.activity do |json|
       json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
 
+  # notifications, stream_activities
   when "created_comment"
     json.action             :created_comment
     json.target_url         friendly_fact_path(object)
@@ -41,6 +48,7 @@ json.activity do |json|
       json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
 
+  # notifications, stream_activities
   when "created_sub_comment"
     json.action       :created_sub_comment
     json.target_url   friendly_fact_path(object)
@@ -51,11 +59,15 @@ json.activity do |json|
     else
       json.fact { |j| j.partial! 'facts/fact', fact: object }
     end
+
+  # stream_activities
   when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
     json.partial! 'activities/added_fact_to_topic_activity',
         subject: subject,
         object: object,
         user: user
+
+  # stream_activities
   when "believes", "doubts", "disbelieves"
     if showing_notifications
       json.action action
@@ -71,6 +83,7 @@ json.activity do |json|
       json.fact { |j| j.partial! 'facts/fact', fact: subject}
     end
 
+  # notifications
   when "created_conversation"
     json.target_url conversation_path(subject)
 
@@ -78,12 +91,15 @@ json.activity do |json|
       message.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
     end
 
+  # notifications
   when "replied_message"
     json.target_url conversation_message_path(subject.conversation, subject)
 
     json.message do |message|
       message.content truncate("#{subject.content}", length: 85, separator: ' ')
     end
+
+  # notifications, stream_activities
   when "followed_user"
     json.target_url user_profile_path(user.username)
     json.followed_user do |followed_user|

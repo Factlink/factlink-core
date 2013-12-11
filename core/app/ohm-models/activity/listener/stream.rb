@@ -1,8 +1,12 @@
 class Activity < OurOhm
   class Listener
     class Stream < Activity::Listener
+
       # This class describes which activities will be pushed to the streams
       # of people who follow the creator of the activity
+
+      # NOTE: Please update the tags in _activity.json.jbuilder when changing this!!
+
       include Followers
       def initialize
         stream_activities_because_you_follow_someone = [
