@@ -24,7 +24,6 @@ json.activity do |json|
 
   # notifications, stream_activities
   when "created_fact_relation"
-    json.action             :added
     json.evidence           subject.to_s
     json.fact_url           friendly_fact_path(object)
     json.target_url         friendly_fact_path(object)
@@ -38,7 +37,6 @@ json.activity do |json|
 
   # notifications, stream_activities
   when "created_comment"
-    json.action             :created_comment
     json.target_url         friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
@@ -50,7 +48,6 @@ json.activity do |json|
 
   # notifications, stream_activities
   when "created_sub_comment"
-    json.action       :created_sub_comment
     json.target_url   friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
@@ -70,8 +67,6 @@ json.activity do |json|
   # stream_activities
   when "believes", "doubts", "disbelieves"
     if showing_notifications
-      json.action action
-
       if subject.class.to_s == "Fact"
         json.fact_path friendly_fact_path subject
         json.subject truncate("#{subject}", length: 85, separator: ' ')
