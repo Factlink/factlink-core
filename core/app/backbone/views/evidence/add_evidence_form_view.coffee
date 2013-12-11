@@ -3,7 +3,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
   template: 'evidence/add_evidence_form'
 
   regions:
-    headingRegion: '.js-heading-region'
     inputRegion:
       selector: '.input-region'
       regionType: Factlink.DetachableViewsRegion
@@ -36,7 +35,6 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   onRender: ->
     @_updateArgumentType()
-    @headingRegion.show new EvidenceishHeadingView model: currentUser
     @_switchToAddCommentView()
 
   _updateArgumentType: ->
