@@ -8,8 +8,6 @@ json.user {|j| j.partial! 'users/user_partial', user: user }
 
 json.action action
 
-json.translated_action t("fact_#{action.to_s}_action".to_sym)
-
 json.subject subject.to_s
 
 json.time_ago TimeFormatter.as_time_ago(created_at.to_time)
@@ -61,16 +59,6 @@ json.activity do |json|
   when "believes", "doubts", "disbelieves"
     if showing_notifications
       json.action action
-
-      json.translated_action case action
-        when 'believes'
-          t(:fact_believe_past_singular_action_about)
-        when 'disbelieves'
-          t(:fact_disbelieve_past_singular_action_about)
-        when 'doubts'
-          t(:fact_doubt_past_singular_action_about)
-        end
-
 
       if subject.class.to_s == "Fact"
         json.fact_path friendly_fact_path subject

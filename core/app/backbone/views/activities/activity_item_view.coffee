@@ -26,6 +26,17 @@ class CreatedCommentView extends ActivityItemView
 
 class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"
+  templateHelpers: =>
+    translated_action: @_translatedAction()
+
+  _translatedAction: ->
+    switch @model.get('action')
+      when "believes"
+        Factlink.global.t.fact_believe_past_singular_action_about
+      when "believes"
+        Factlink.global.t.fact_disbelieve_past_singular_action_about
+      when "believes"
+        Factlink.global.t.fact_doubt_past_singular_action_about
 
 class FollowedUserView extends ActivityItemView
   tagName: 'span'
