@@ -7,7 +7,7 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
       when "created_comment", "created_fact_relation"
         CreatedFactRelationView
       when "created_sub_comment"
-        CreatedCommentView
+        CreatedSubCommentView
       when "believes", "doubts", "disbelieves"
         AddedOpinionView
       when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
@@ -21,8 +21,8 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
 class CreatedFactRelationView extends ActivityItemView
   template: "activities/created_fact_relation"
 
-class CreatedCommentView extends ActivityItemView
-  template: "activities/created_comment"
+class CreatedSubCommentView extends ActivityItemView
+  template: "activities/created_sub_comment"
 
 class AddedOpinionView extends ActivityItemView
   template: "activities/added_opinion"

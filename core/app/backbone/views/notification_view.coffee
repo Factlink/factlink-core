@@ -37,13 +37,13 @@ class NotificationUserFollowedUser extends GenericNotificationView
     user = new User(@model.get('user'))
     @addBackRegion.show new FollowUserButtonView(user: user, mini: true)
 
-class CreatedCommentView extends GenericNotificationView
-  template: "notifications/created_comment"
+class CreatedCommentOrSubCommentView extends GenericNotificationView
+  template: "notifications/_created_comment_or_sub_comment"
 
 window.NotificationView = (opts) ->
   switch opts.model.get("action")
     when "created_comment", "created_sub_comment"
-      new CreatedCommentView(opts)
+      new CreatedCommentOrSubCommentView(opts)
     when "created_fact_relation"
       new NotificationCreatedFactRelationView(opts)
     when "created_conversation"
