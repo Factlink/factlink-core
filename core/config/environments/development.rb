@@ -71,6 +71,4 @@ ActiveSupport.on_load(:after_initialize) do
   end
 end
 
-require 'ruby-prof'
-
 require File.expand_path("./config/email_configuration")
