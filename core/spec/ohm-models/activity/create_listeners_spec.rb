@@ -50,9 +50,9 @@ describe 'activity queries' do
       it "should return activity when a users adds #{type} evidence to a fact that you created" do
         f1 = create :fact
         f2 = create :fact
-        f1.add_evidence type, f2, gu1
+        fr = f1.add_evidence type, f2, gu1
         f1.created_by.notifications.map(&:to_hash_without_time).should == [
-          {user: gu1, action: :"added_#{type}_evidence", subject: f2, object: f1}
+          {user: gu1, action: :"created_fact_relation", subject: fr, object: f1}
         ]
       end
 
@@ -62,9 +62,9 @@ describe 'activity queries' do
         Activity::Subject.activity(gu1, OpinionType.real_for(:believes), f1)
 
         f2 = create :fact
-        f1.add_evidence type, f2, gu2
+        fr = f1.add_evidence type, f2, gu2
         gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: gu2, action: :"added_#{type}_evidence", subject: f2, object: f1}
+          {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
         ]
       end
 
@@ -73,9 +73,9 @@ describe 'activity queries' do
         f2 = create :fact
         f3 = create :fact
         f1.add_evidence :supporting, f2, gu1
-        f1.add_evidence type, f3, gu2
+        fr = f1.add_evidence type, f3, gu2
         gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: gu2, action: :"added_#{type}_evidence", subject: f3, object: f1}
+          {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
         ]
       end
     end

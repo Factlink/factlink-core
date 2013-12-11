@@ -1,7 +1,7 @@
 [
   {
     "timestamp": "<timestamp>",
-    "subject_class": "Fact",
+    "subject_class": "FactRelation",
     "user": {
       "id": "<id>",
       "name": "John2 Doe2",
@@ -14,15 +14,14 @@
 
       ]
     },
-    "action": "added_supporting_evidence",
-    "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_added_supporting_evidence_action\">Fact Added Supporting Evidence Action</span>",
+    "action": "created_fact_relation",
+    "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_created_fact_relation_action\">Fact Created Fact Relation Action</span>",
     "subject": "Fact 2",
     "time_ago": "1 minute",
     "id": "<id>",
     "activity": {
       "action": "added",
       "evidence": "Fact 2",
-      "evidence_url": "/fact-2/f/2",
       "fact_url": "/fact-1/f/1",
       "target_url": "/fact-1/f/1",
       "fact_displaystring": "Fact 1",
