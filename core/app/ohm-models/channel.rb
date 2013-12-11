@@ -1,5 +1,3 @@
-require_relative 'channel/activities'
-
 class Channel < OurOhm
   include Activity::Subject
 
