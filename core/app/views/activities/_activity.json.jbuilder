@@ -23,30 +23,8 @@ json.activity do |json|
   # Try to keep 'em in sync
 
   # notifications, stream_activities
-  when "created_fact_relation"
+  when "created_fact_relation", "created_comment", "created_sub_comment"
     json.target_url         friendly_fact_path(object)
-    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
-
-    if showing_notifications
-      json.fact truncate("#{object}", length: 85, separator: " ")
-    else
-      json.fact { |j| j.partial! 'facts/fact', fact: object }
-    end
-
-  # notifications, stream_activities
-  when "created_comment"
-    json.target_url         friendly_fact_path(object)
-    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
-
-    if showing_notifications
-      json.fact truncate("#{object}", length: 85, separator: " ")
-    else
-      json.fact { |j| j.partial! 'facts/fact', fact: object }
-    end
-
-  # notifications, stream_activities
-  when "created_sub_comment"
-    json.target_url   friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
     if showing_notifications
