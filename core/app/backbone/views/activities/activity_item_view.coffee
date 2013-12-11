@@ -1,5 +1,4 @@
 class window.ActivityItemView extends Backbone.Marionette.ItemView
-  template: "activities/generic_activity"
   tryAppend: (model) -> false
 
   @classForModel: (model) ->
@@ -15,7 +14,7 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
       when 'followed_user'
         FollowedUserView
       else
-        ActivityItemView
+        throw 'Unknown activity action: ' + model.get("action")
 
 
 class CreatedFactRelationView extends ActivityItemView
