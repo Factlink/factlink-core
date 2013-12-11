@@ -47,17 +47,14 @@ describe Fact do
     end
   end
 
-  ['believes', 'disbelieves'].each do |relation|
-    describe ".add_evidence" do
-      it 'saves the evidence' do
-        fact.add_evidence(relation,factlink,graph_user)
-        fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
+  describe ".add_evidence" do
+    it 'saves the evidence' do
+      fact.add_evidence('disbelieves', factlink, graph_user)
+      fact_relations = Pavlov.query(:'fact_relations/for_fact', fact: fact)
 
-        expect(fact_relations.first.type).to eq relation
-      end
+      expect(fact_relations.first.type).to eq 'disbelieves'
     end
   end
-
 
   describe "Mongoid properties: " do
     context "after setting a displaystring to 'hiephoi'" do
