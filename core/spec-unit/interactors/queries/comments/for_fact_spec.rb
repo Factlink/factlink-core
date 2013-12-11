@@ -22,7 +22,7 @@ describe Queries::Comments::ForFact do
                  .with(type)
                  .and_return(:believes)
       Comment.should_receive(:where)
-             .with(fact_data_id: fact.data_id, type: 'believes')
+             .with(fact_data_id: fact.data_id)
              .and_return [comment]
       Pavlov.should_receive(:query)
             .with(:'sub_comments/count',
@@ -30,7 +30,7 @@ describe Queries::Comments::ForFact do
                       pavlov_options: pavlov_options)
             .and_return(sub_comments_count)
       Pavlov.should_receive(:query)
-            .with(:'comments/add_votes_and_can_destroy',
+            .with(:'comments/add_votes_and_deletable',
                       comment: comment, pavlov_options: pavlov_options)
             .and_return(dead_comment)
 

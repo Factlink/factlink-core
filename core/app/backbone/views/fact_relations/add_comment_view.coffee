@@ -23,7 +23,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
     @model = new Comment
       content: @_textModel().get('text')
       created_by: currentUser.toJSON()
-      type: @options.addToCollection.believesType()
+      type: @options.type
 
     return @addModelError() unless @model.isValid()
 
@@ -41,7 +41,7 @@ class window.AddCommentView extends Backbone.Marionette.Layout
 
     mp_track "Factlink: Added comment",
       factlink_id: @options.addToCollection.fact.id
-      type: @options.addToCollection.type
+      type: @options.type
 
   addModelError: ->
     @enableSubmit()

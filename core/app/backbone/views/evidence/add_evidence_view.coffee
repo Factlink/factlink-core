@@ -1,6 +1,4 @@
 class window.AddEvidenceView extends Backbone.Marionette.Layout
-  _.extend @prototype, Backbone.Factlink.PopoverMixin
-
   className: 'evidence-add'
 
   template: 'evidence/add_evidence'
@@ -12,11 +10,15 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   events:
     'click .js-cancel': -> @model.set showBox: false
 
-    'click .js-supporting-button, .js-supporting-tooltip': ->
-      @model.set showBox: true, evidenceType: 'supporting'
+    'click .js-believes-button': ->
+      @model.set
+        showBox: true
+        evidenceBelieveType: 'believes'
 
-    'click .js-weakening-button, .js-weakening-tooltip': ->
-      @model.set showBox: true, evidenceType: 'weakening'
+    'click .js-disbelieves-button': ->
+      @model.set
+        showBox: true
+        evidenceBelieveType: 'disbelieves'
 
   regions:
     headingRegion: '.js-heading-region'
@@ -39,29 +41,21 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   _updateElementVisiblity: ->
     @$el.toggle !@collection.loading() && !@model.get('saving')
-    @_updatePopovers()
 
   _updateInterface: ->
     if @model.get('showBox')
       @ui.buttons.hide()
 
       @ui.box.show()
-      @ui.box.removeClass 'evidence-weakening evidence-supporting'
-      @ui.box.addClass 'evidence-' + @model.get('evidenceType')
+      @ui.box.removeClass 'evidence-disbelieves evidence-believes evidence-unsure'
+      @ui.box.addClass 'evidence-' + @model.get('evidenceBelieveType')
 
       @headingRegion.show new EvidenceishHeadingView model: currentUser
+
       @contentRegion.show new AddEvidenceFormView
-        collection: @collection.oneSidedEvidenceCollection @model.get('evidenceType')
+        collection: @collection.realEvidenceCollection
         fact_id: @options.fact_id
-        type: @model.get('evidenceType')
+        type: @model.get('evidenceBelieveType')
     else
       @ui.box.hide()
       @ui.buttons.show()
-      @_updatePopovers()
-
-  _updatePopovers: ->
-    return if @_popoversRendered
-    return unless @$el.is(':visible')
-    return if @model.get('showBox')
-
-    @_popoversRendered = true

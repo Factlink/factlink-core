@@ -85,17 +85,17 @@ describe "factlink", type: :feature do
       go_to_discussion_page_of @factlink
       page.should have_content(@factlink.data.title)
 
-      add_existing_factlink :supporting, displaystring
+      add_existing_factlink :believes, displaystring
     end
   end
 
-  it "a non logged in user gets redirected to the homepage when accessing the discussionpage" do
+  it "a non logged user can log in now" do
     user = create :full_user, :confirmed
     factlink = backend_create_fact_of_user user
 
     visit friendly_fact_path(factlink)
 
-    page.should have_content 'Connect now'
+    page.should have_content 'sign in/up with Factlink'
   end
 
 

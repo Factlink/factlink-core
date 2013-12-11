@@ -1,7 +1,3 @@
-class window.LearnMoreTopView extends Backbone.Marionette.ItemView
-  className: 'learn-more learn-more-top'
-  template: 'learn_more/content'
-
-class window.LearnMoreBottomView extends Backbone.Marionette.ItemView
-  className: 'learn-more learn-more-bottom'
+class window.LearnMoreView extends Backbone.Marionette.ItemView
+  className: 'learn-more'
   template: 'learn_more/content'

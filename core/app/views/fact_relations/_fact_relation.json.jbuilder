@@ -10,19 +10,9 @@ json.argument_votes do |j|
   j.partial! 'believable/votes', votes: votes
 end
 
-# Also move this one to interactors!
-if fact_relation.class.to_s == 'FactRelation'
-  can_destroy = can? :destroy, fact_relation
-elsif current_user
-  can_destroy = fact_relation.deletable? &&
-                current_user.graph_user_id == fact_relation.created_by.id
-else
-  can_destroy = false
-end
-
 json.url friendly_fact_path(fact_relation.from_fact)
 
-json.can_destroy? can_destroy
+json.is_deletable fact_relation.deletable?
 json.id fact_relation.id
 json.type OpinionType.for_relation_type(fact_relation.type)
 json.from_fact { |j| j.partial! 'facts/fact', fact: fact_relation.from_fact }

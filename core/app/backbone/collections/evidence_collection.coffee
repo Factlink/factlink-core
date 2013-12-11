@@ -3,13 +3,11 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
   initialize: (models, options) ->
     @fact = options.fact
 
-    @_supportingCollection = new OneSidedEvidenceCollection null, fact: @fact, type: 'supporting'
-    @_weakeningCollection = new OneSidedEvidenceCollection null, fact: @fact, type: 'weakening'
+    @realEvidenceCollection = new RealEvidenceCollection null, fact: @fact
 
     @_containedCollections = [
       new OpinionatersCollection null, fact: @fact
-      @_supportingCollection
-      @_weakeningCollection
+      @realEvidenceCollection
     ]
 
     for collection in @_containedCollections
@@ -34,9 +32,3 @@ class window.EvidenceCollection extends Backbone.Factlink.Collection
 
     @reset(_.union (col.models for col in @_containedCollections)...)
     @trigger 'sync', @
-
-  oneSidedEvidenceCollection: (type) ->
-    switch type
-      when 'supporting' then @_supportingCollection
-      when 'weakening' then @_weakeningCollection
-      else throw 'Unknown OneSidedEvidenceCollection type'

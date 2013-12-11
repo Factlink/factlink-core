@@ -2,13 +2,16 @@ module Interactors
   module Comments
     class Delete
       include Pavlov::Interactor
+      include Util::CanCan
 
       arguments :comment_id
 
       def execute
-        command(:'delete_comment',
-                    comment_id: comment_id,
-                    user_id: pavlov_options[:current_user].id.to_s)
+        comment.delete
+      end
+
+      def comment
+        @comment ||= Comment.find(comment_id)
       end
 
       def validate
@@ -16,7 +19,7 @@ module Interactors
       end
 
       def authorized?
-        pavlov_options[:current_user]
+        can? :destroy, comment
       end
     end
   end

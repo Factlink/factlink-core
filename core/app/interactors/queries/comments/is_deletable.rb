@@ -1,11 +1,13 @@
 module Queries
   module Comments
-    class CanDestroy
+    class IsDeletable
       include Pavlov::Query
-      arguments :comment_id, :user_id
+      arguments :comment_id
+
+      private
 
       def execute
-        created_by_user && deletable
+        deletable
       end
 
       def comment
@@ -22,15 +24,6 @@ module Queries
 
       def graph_user_id_of_creator
         comment.created_by.graph_user_id
-      end
-
-      def created_by_user
-        comment.created_by_id.to_s == user_id
-      end
-
-      def validate
-        validate_hexadecimal_string :comment_id, comment_id
-        validate_hexadecimal_string :user_id, user_id
       end
     end
   end

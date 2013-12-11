@@ -16,7 +16,7 @@
 
 
 // It would look weird for the evidence boxes to end before the impact circles.
-// Therefore, the supporting/weaking boxes need a minimum height.
+// Therefore, the believing/disbelieving boxes need a minimum height.
 @evidenceBoxMinHeight: 2 * @argumentBoxTopOverhang + @impactCircleDiameter;
 
 
@@ -86,12 +86,12 @@
   width: 50%;
 }
 
-.evidence-supporting > .evidence-box, .evidence-weakening > .evidence-box {
+.evidence-believes > .evidence-box, .evidence-disbelieves > .evidence-box {
   margin: @evidenceBoxTopOffset -@negativeColumnMargin @evidenceBoxSpacing -@negativeColumnMargin;
   min-height: @evidenceBoxMinHeight;
 }
 
-.evidence-supporting, .evidence-loading {
+.evidence-believes, .evidence-loading {
   > .evidence-relevance, > .evidence-box {
     float: right;
     clear: right;
@@ -105,7 +105,7 @@
   }
 }
 
-.evidence-weakening {
+.evidence-disbelieves {
   > .evidence-relevance, > .evidence-box {
     float: left;
     clear: left;
@@ -166,20 +166,20 @@
   right:  -@impactColouredBorderWidth;
 }
 
-.evidence-supporting > .evidence-relevance::after {
+.evidence-believes > .evidence-relevance::after {
   left: ceil(@impactCircleDiameter/2) - 1px;
   border-top-right-radius:    1000px;
   border-bottom-right-radius: 1000px;
 
-  border: @impactColouredBorderWidth solid @supportingImpactColor;
+  border: @impactColouredBorderWidth solid @believesEvidenceImpactColor;
   border-left: none;
 }
 
-.evidence-weakening > .evidence-relevance::after {
+.evidence-disbelieves > .evidence-relevance::after {
   right: floor(@impactCircleDiameter/2) - 2px;
   border-top-left-radius:    1000px;
   border-bottom-left-radius: 1000px;
-  border: @impactColouredBorderWidth solid @weakeningImpactColor;
+  border: @impactColouredBorderWidth solid @disbelievesEvidenceImpactColor;
   border-right: none;
 }
 
@@ -187,23 +187,23 @@
   top: floor(@impactCircleDiameter/2) - 1px;
   border-bottom-left-radius:  1000px;
   border-bottom-right-radius: 1000px;
-  border: @impactColouredBorderWidth solid @unsureImpactColor;
+  border: @impactColouredBorderWidth solid @doubtsEvidenceImpactColor;
   border-top: none;
 }
 
 // Evidence triangles (arrows)
-.evidence-supporting .evidence-box-triangle,
-.evidence-weakening .evidence-box-triangle {
+.evidence-believes .evidence-box-triangle,
+.evidence-disbelieves .evidence-box-triangle {
   top: @triangleTop;
   margin-top: -@triangleSize;
 }
 
-.evidence-supporting .evidence-box-triangle {
+.evidence-believes .evidence-box-triangle {
   .triangle-arrow-left();
   left: 0;
 }
 
-.evidence-weakening .evidence-box-triangle {
+.evidence-disbelieves .evidence-box-triangle {
   .triangle-arrow-right();
   right: 0;
 }
@@ -289,7 +289,6 @@
 
 .evidence-relevance-vote-popover {
   z-index: 1; // force it just above the other evidence, inside this stacking context
-              // but under the authority popovers
 }
 
 // Circle at the end of the evidence line
@@ -317,8 +316,8 @@
 }
 
 // Add evidence buttons
-@weakeningLineOffset: 4px + -ceil(@middleLineWidth/2);
-@supportingLineOffset: 4px + floor(@middleLineWidth/2);
+@disbelievesEvidenceLineOffset: 4px + -ceil(@middleLineWidth/2);
+@believesEvidenceLineOffset:    4px + floor(@middleLineWidth/2);
 @evidenceAddLinesTop: 3px;
 @evidenceAddCircleExtraRadius: 1px;
 @evidenceAddLineLength: @negativeColumnMargin;
@@ -335,7 +334,7 @@
   cursor: pointer;
 }
 
-.evidence-add-weakening-line, .evidence-add-supporting-line {
+.evidence-add-disbelieves-line, .evidence-add-believes-line {
   position: absolute;
   top: @evidenceAddLinesTop;
   height: @middleLineWidth;
@@ -343,17 +342,17 @@
   background-color: @discussionLineColor;
 }
 
-.evidence-add-weakening-line {
+.evidence-add-disbelieves-line {
   right: 50%;
-  margin-right: @weakeningLineOffset;
+  margin-right: @disbelievesEvidenceLineOffset;
 }
 
-.evidence-add-supporting-line {
+.evidence-add-believes-line {
   left: 50%;
-  margin-left: @supportingLineOffset;
+  margin-left: @believesEvidenceLineOffset;
 }
 
-.evidence-add-supporting-wrapper, .evidence-add-weakening-wrapper {
+.evidence-add-believes-wrapper, .evidence-add-disbelieves-wrapper {
   position: absolute;
   top: -100px;
   visibility: hidden;
@@ -371,11 +370,11 @@
   }
 }
 
-.evidence-add-supporting-wrapper {
+.evidence-add-believes-wrapper {
   left: 50%;
 }
 
-.evidence-add-weakening-wrapper {
+.evidence-add-disbelieves-wrapper {
   right: 50%;
 }
 

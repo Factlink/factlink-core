@@ -15,7 +15,7 @@ describe 'subcomments' do
         comments = pavlov.interactor(:'evidence/for_fact_id', fact_id: fact.id.to_s, type: :supporting)
 
         expect(sub_comments).to eq []
-        expect(comments.map(&:can_destroy?)).to eq [true]
+        expect(comments.map(&:deletable?)).to eq [true]
       end
     end
   end
@@ -33,7 +33,7 @@ describe 'subcomments' do
         comments = pavlov.interactor(:'evidence/for_fact_id', fact_id: fact.id.to_s, type: :supporting)
 
         expect(sub_comments.map(&:content)).to eq ["Gekke \n Gerrit", 'Handige Harrie']
-        expect(comments.map(&:can_destroy?)).to eq [false]
+        expect(comments.map(&:deletable?)).to eq [false]
       end
     end
 
