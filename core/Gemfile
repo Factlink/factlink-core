@@ -5,8 +5,6 @@ ruby '2.0.0'
 gem 'rails', '3.2.16' # this is too important to update automaticly
 gem 'rake', '~> 10.1.0', require: false
 
-gem 'addressable', '~> 2.3.4'
-
 # Mongo
 gem 'mongoid', '~> 3.1.6'
 

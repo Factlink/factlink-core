@@ -500,7 +500,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  addressable (~> 2.3.4)
   approvals (~> 0)
   backbone-rails (= 1.0.0.1)
   brakeman (~> 2.0.0)
