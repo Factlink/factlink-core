@@ -401,7 +401,6 @@ GEM
       parser (~> 2.0)
       powerpack (~> 0.0.6)
       rainbow (>= 1.1.4)
-    ruby-prof (0.13.0)
     ruby-progressbar (1.2.0)
     ruby2ruby (2.0.6)
       ruby_parser (~> 3.1)
@@ -564,7 +563,6 @@ DEPENDENCIES
   rspec-rails (~> 2.13)
   rspec_junit_formatter
   rubocop
-  ruby-prof (~> 0)
   selenium
   selenium-webdriver
   sentry-raven (= 0.4.6)
