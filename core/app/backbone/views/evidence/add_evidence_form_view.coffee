@@ -16,18 +16,18 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       search_view: => @searchView()
       add_comment_view: => @addCommentView()
 
+  onRender: ->
     @_argumentTypeModel = new Backbone.Model
     @_updateArgumentType()
 
     @listenTo @searchView(), 'switch_to_comment_view', @_switchToCommentView
     @listenTo @addCommentView(), 'switch_to_fact_relation_view', @_switchToFactRelationView
 
-  _updateArgumentType: ->
-    @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
-
-  onRender: ->
     @headingRegion.show new EvidenceishHeadingView model: currentUser
     @_switchToCommentView()
+
+  _updateArgumentType: ->
+    @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
 
   _switchToCommentView: ->
     @inputRegion.switchTo 'add_comment_view'
