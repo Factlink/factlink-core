@@ -46,51 +46,49 @@ describe 'activity queries' do
       ]
     end
 
-    [:believes, :disbelieves].each do |type|
-      it "should return activity when a users adds #{type} evidence to a fact that you created" do
-        f1 = create :fact
-        f2 = create :fact
-        fr = f1.add_evidence type, f2, gu1
-        f1.created_by.notifications.map(&:to_hash_without_time).should == [
-          {user: gu1, action: :"created_fact_relation", subject: fr, object: f1}
-        ]
-      end
-
-      it "should return activity when a users adds #{type} evidence to a fact that you believed" do
-        f1 = create :fact
-        f1.add_opinion(:believes, gu1)
-        Activity::Subject.activity(gu1, OpinionType.real_for(:believes), f1)
-
-        f2 = create :fact
-        fr = f1.add_evidence type, f2, gu2
-        gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
-        ]
-      end
-
-      it "should return activity when a users adds #{type} evidence to a fact that you supported" do
-        f1 = create :fact
-        f2 = create :fact
-        f3 = create :fact
-        f1.add_evidence :believes, f2, gu1
-        fr = f1.add_evidence type, f3, gu2
-        gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
-        ]
-      end
+    it "should return activity when a users adds supporting evidence to a fact that you created" do
+      f1 = create :fact
+      f2 = create :fact
+      fr = f1.add_evidence :believes, f2, gu1
+      f1.created_by.notifications.map(&:to_hash_without_time).should == [
+        {user: gu1, action: :"created_fact_relation", subject: fr, object: f1}
+      ]
     end
-    [:believes, :doubts, :disbelieves].each do |opinion|
-      it "should return activity when a user opinionates a fact of the user" do
-        f1 = create :fact
-        f1.created_by.stream_activities.key.del # delete other activities
 
-        f1.add_opinion(opinion, gu1)
-        Activity::Subject.activity(gu1, OpinionType.real_for(opinion), f1)
+    it "should return activity when a users adds supporting evidence to a fact that you believed" do
+      f1 = create :fact
+      f1.add_opinion(:believes, gu1)
+      Activity::Subject.activity(gu1, OpinionType.real_for(:believes), f1)
 
-        f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
-            {user: gu1, action: opinion, subject: f1}
-        ]
-      end
+      f2 = create :fact
+      fr = f1.add_evidence :believes, f2, gu2
+      gu1.notifications.map(&:to_hash_without_time).should == [
+        {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
+      ]
+    end
+
+    it "should return activity when a users adds supporting evidence to a fact that you supported" do
+      f1 = create :fact
+      f2 = create :fact
+      f3 = create :fact
+      f1.add_evidence :believes, f2, gu1
+      fr = f1.add_evidence :believes, f3, gu2
+      gu1.notifications.map(&:to_hash_without_time).should == [
+        {user: gu2, action: :"created_fact_relation", subject: fr, object: f1}
+      ]
+    end
+
+    it "should return activity when a user opinionates a fact of the user" do
+      opinion = :doubts
+      f1 = create :fact
+      f1.created_by.stream_activities.key.del # delete other activities
+
+      f1.add_opinion(opinion, gu1)
+      Activity::Subject.activity(gu1, OpinionType.real_for(opinion), f1)
+
+      f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
+          {user: gu1, action: opinion, subject: f1}
+      ]
     end
   end
 
