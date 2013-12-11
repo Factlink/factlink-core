@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 
+# Copy-pasted from:
+# https://gist.github.com/bdurand/2654210
+# background:
+# http://ablogaboutcode.com/2012/05/03/benchmark-your-bundle/
+
 require 'bundler'
 require 'benchmark'
 
