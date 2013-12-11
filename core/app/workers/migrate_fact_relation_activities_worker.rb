@@ -15,10 +15,12 @@ class MigrateFactRelationActivitiesWorker
     fr = FactRelation.find(type: type, from_fact_id: a.subject.id,
       fact_id: a.object.id).first
 
-    fail 'No fact relation found for activity ' + a.id unless fr
-
-    a.subject = fr
-    a.action = :created_fact_relation
-    a.save!
+    if fr
+      a.subject = fr
+      a.action = :created_fact_relation
+      a.save!
+    else
+      a.delete
+    end
   end
 end
