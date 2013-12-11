@@ -25,7 +25,6 @@ json.activity do |json|
   when "created_fact_relation"
     json.action             :added
     json.evidence           subject.to_s
-    json.evidence_url       friendly_fact_path(subject)
     json.fact_url           friendly_fact_path(object)
     json.target_url         friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
