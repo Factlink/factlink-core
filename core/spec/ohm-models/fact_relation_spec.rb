@@ -19,19 +19,16 @@ describe FactRelation do
       fr.should_not be_new
     end
 
-
-    [:believes, :disbelieves, 'believes', 'disbelieves'].each do |type|
-      it "should return a new factrelation when the relation does not exist" do
-        fr = FactRelation.new type: type,
-                              fact: fact1,
-                              from_fact: fact2,
-                              created_by: gu
-        fr.save
-        fr.should_not be_new
-      end
+    it "doesn't return a new factrelation when the relation type does exist" do
+      fr = FactRelation.new type: :believes,
+                            fact: fact1,
+                            from_fact: fact2,
+                            created_by: gu
+      fr.save
+      fr.should_not be_new
     end
 
-    it "should return a new factrelation when the relation does not exist" do
+    it "should return a new factrelation when the relation type does not exist" do
       fr = FactRelation.new type: :retroverting,
                             fact: fact1,
                             from_fact: fact2,
