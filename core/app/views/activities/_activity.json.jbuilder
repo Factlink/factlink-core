@@ -4,9 +4,6 @@ action = activity.action
 created_at = activity.created_at
 user =  activity.user.user
 
-json.subject_class subject.class.to_s
-
-
 json.user {|j| j.partial! 'users/user_partial', user: user }
 
 json.action action
