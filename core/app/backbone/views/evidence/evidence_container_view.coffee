@@ -80,7 +80,6 @@ class window.EvidenceContainerView extends Backbone.Marionette.Layout
       @addRegion.show new AddEvidenceFormView
         collection: @collection.realEvidenceCollection
         fact_id: @collection.fact.id
-        type: 'believes'
     else
       @learnMoreRegion.show new LearnMoreView
 
