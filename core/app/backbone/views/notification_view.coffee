@@ -1,7 +1,6 @@
 class GenericNotificationView extends Backbone.Marionette.Layout
   tagName: "li"
   className: "activity"
-  template: "notifications/generic"
   templateHelpers: ->
     user: (new User @model.get('user')).toJSON()
 
@@ -53,4 +52,4 @@ window.NotificationView = (opts) ->
     when "followed_user"
       new NotificationUserFollowedUser(opts)
     else
-      new GenericNotificationView(opts)
+      throw 'Unknown notification action: ' + opts.model.get("action")
