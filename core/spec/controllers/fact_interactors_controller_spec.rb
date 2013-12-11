@@ -9,8 +9,7 @@ describe FactInteractorsController do
 
   describe :index do
     it "should keep the same content" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
       fact = create :fact
 
@@ -20,19 +19,14 @@ describe FactInteractorsController do
       end
 
       get :index, fact_id: fact.id
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'fact_interactors#index should keep the same content')
+      Approvals.verify(response.body, format: :json, name: 'fact_interactors#index should keep the same content')
     end
   end
 
   describe :show do
     it "should keep the same content" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
       fact = create :fact
 
@@ -41,12 +35,8 @@ describe FactInteractorsController do
       end
 
       get :show, fact_id: fact.id, id: 'disbelieves'
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'fact_interactors#show should keep the same content')
+      Approvals.verify(response.body, format: :json, name: 'fact_interactors#show should keep the same content')
     end
   end
 

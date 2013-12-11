@@ -1,9 +1,9 @@
 [
   {
-    "timestamp": 799248945000.0,
+    "timestamp": "<timestamp>",
     "subject_class": "SubComment",
     "user": {
-      "id": "<STRIPPED>",
+      "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
@@ -16,9 +16,9 @@
     },
     "action": "created_sub_comment",
     "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_created_sub_comment_action\">Fact Created Sub Comment Action</span>",
-    "subject": "<STRIPPED>",
+    "subject": "SubComment",
     "time_ago": "1 minute",
-    "id": "<STRIPPED>",
+    "id": "<id>",
     "activity": {
       "action": "created_sub_comment",
       "target_url": "/fact-1/f/1",
