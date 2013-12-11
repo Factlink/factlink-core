@@ -42,17 +42,7 @@ json.activity do |json|
 
   # stream_activities
   when "believes", "doubts", "disbelieves"
-    if showing_notifications
-      if subject.class.to_s == "Fact"
-        json.fact_path friendly_fact_path subject
-        json.subject truncate("#{subject}", length: 85, separator: ' ')
-      elsif subject.class.to_s == "FactRelation"
-        json.fact_path friendly_fact_path subject.from_fact
-        json.subject truncate("#{subject.from_fact}", length: 85, separator: ' ')
-      end
-    else
-      json.fact { |j| j.partial! 'facts/fact', fact: subject}
-    end
+    json.fact { |j| j.partial! 'facts/fact', fact: subject}
 
   # notifications
   when "created_conversation"
