@@ -500,7 +500,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (= 3.2.16)
   addressable (~> 2.3.4)
   approvals (~> 0)
   backbone-rails (= 1.0.0.1)
@@ -573,7 +572,6 @@ DEPENDENCIES
   sextant (~> 0)
   sinon-chai-rails (~> 1.0)
   sinon-rails (~> 1.4)
-  sqlite3 (~> 1.3.7)
   stringex (~> 1.5.1)
   terminal-notifier-guard (~> 1.5)
   therubyracer (~> 0.12.0)

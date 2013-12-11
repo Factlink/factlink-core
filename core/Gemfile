@@ -2,10 +2,7 @@ source 'http://rubygems.org'
 
 ruby '2.0.0'
 
-# Defaults
 gem 'rails', '3.2.16' # this is too important to update automaticly
-gem 'activerecord', '3.2.16' # this is too important to update automaticly
-gem 'sqlite3', '~> 1.3.7' # TODO: seems to break rails when removed
 gem 'rake', '~> 10.1.0', require: false
 
 gem 'addressable', '~> 2.3.4'
