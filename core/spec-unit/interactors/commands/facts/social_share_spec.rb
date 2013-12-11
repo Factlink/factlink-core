@@ -5,11 +5,6 @@ describe Commands::Facts::SocialShare do
   include PavlovSupport
 
   describe 'validation' do
-    it 'without fact_id doesn\'t validate' do
-      expect_validating(fact_id: '', sharing_options: {})
-        .to fail_validation('fact_id should be an integer string.')
-    end
-
     it 'without connected Twitter doesn\'t validate' do
       social_account = double
       current_user = double

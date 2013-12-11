@@ -8,14 +8,6 @@ describe Commands::SubComments::Destroy do
     stub_classes 'SubComment'
   end
 
-  describe '.validate' do
-    it 'without id doesn\'t validate' do
-      expect_validating(id: nil).
-        to fail_validation('id should be an hexadecimal string.')
-    end
-  end
-
-
   describe '#call' do
     it "should remove the comment" do
       sub_comment = double id: '1a'

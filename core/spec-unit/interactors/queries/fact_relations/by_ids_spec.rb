@@ -9,13 +9,6 @@ describe Queries::FactRelations::ByIds do
     stub_const 'ActionController::RoutingError', Class.new(StandardError)
   end
 
-  describe '.validate' do
-    it 'requires each fact_relation_id to be an integer string' do
-      expect_validating(fact_relation_ids: ['1', nil])
-        .to fail_validation('fact_relation_id should be an integer string.')
-    end
-  end
-
   describe '#call' do
     it 'returns the dead fact_relation' do
       believable = double

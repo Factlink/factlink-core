@@ -30,10 +30,6 @@ module Queries
       def votes
         query(:'believable/votes', believable: fact.believable)
       end
-
-      def validate
-        validate_integer_string :id, id
-      end
     end
   end
 end

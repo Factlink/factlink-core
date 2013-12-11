@@ -9,13 +9,6 @@ describe Queries::Facts::GetDead do
     stub_classes 'Fact'
   end
 
-  describe 'validations' do
-    it 'requires fact_id to be an integer' do
-      expect_validating(id: 'a')
-        .to fail_validation('id should be an integer string.')
-    end
-  end
-
   describe '#call' do
     let(:fact_data) do
       double :fact_data,

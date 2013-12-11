@@ -34,16 +34,4 @@ describe Queries::Facts::Slug do
       expect(query.call).to eq "bla-b"
     end
   end
-
-  describe '#validate' do
-    it 'validates that fact is not nil' do
-      expect_validating(fact: nil, max_slug_length_in: nil)
-        .to fail_validation 'fact should not be nil.'
-    end
-
-    it 'check that max_slug_length is a number if it is set' do
-      expect_validating(fact: double, max_slug_length_in: 'a')
-        .to fail_validation 'max_slug_length should be an integer.'
-    end
-  end
 end

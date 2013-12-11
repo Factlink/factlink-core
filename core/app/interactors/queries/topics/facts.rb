@@ -35,12 +35,6 @@ module Queries
       def redis_key
         Topic.redis[@slug_title][:facts]
       end
-
-      def validate
-        validate_string   :slug_title, @slug_title
-        validate_integer  :count, @count
-        validate_integer  :max_timestamp, @max_timestamp, allow_blank: true
-      end
     end
   end
 end

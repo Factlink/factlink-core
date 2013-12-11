@@ -4,19 +4,9 @@ require_relative '../../../../app/interactors/commands/sites/create'
 describe Commands::Sites::Create do
   include PavlovSupport
 
-  describe 'validations' do
-    it 'requires arguments' do
-      expect_validating(url: '')
-        .to fail_validation('url should be a nonempty string.')
-    end
-  end
-
   describe '#call' do
-    before do
-      stub_classes 'Site'
-    end
-
     it 'creates a site and returns it' do
+      stub_classes 'Site'
       url = 'http://jsdares.com'
       command = described_class.new url: url
       site = double

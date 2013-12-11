@@ -9,10 +9,6 @@ describe Queries::Users::FollowerCount do
   end
 
   describe '#execute' do
-    before do
-      described_class.any_instance.stub(validate: true)
-    end
-
     it 'returns the number of followers' do
       graph_user_id = double
       count = double
@@ -23,13 +19,6 @@ describe Queries::Users::FollowerCount do
         .and_return(users_following_users)
 
       expect(query.execute).to eq count
-    end
-  end
-
-  describe '#validation' do
-    it :graph_user_id do
-      expect_validating(graph_user_id: 1).
-        to fail_validation('graph_user_id should be an integer string.')
     end
   end
 end

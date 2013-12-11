@@ -13,11 +13,6 @@ module Queries
         fact.to_s.parameterize[0, max_slug_length]
       end
 
-      def validate
-        validate_not_nil :fact, fact
-        validate_integer :max_slug_length, max_slug_length
-      end
-
       def max_slug_length
         max_slug_length_in || 1024
       end
