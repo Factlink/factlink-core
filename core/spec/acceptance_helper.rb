@@ -14,6 +14,7 @@ require 'poltergeist_style_overrides'
 
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
+require 'timecop'
 
 require 'pavlov_helper'
 
