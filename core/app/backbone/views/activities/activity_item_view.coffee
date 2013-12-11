@@ -8,8 +8,6 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
         AddedEvidenceView
       when "created_sub_comment"
         CreatedCommentView
-      when "created_channel"
-        CreatedChannelView
       when "believes", "doubts", "disbelieves"
         AddedOpinionView
       when "added_fact_to_channel" # TODO: rename actual activity to added_fact_to_topic
@@ -18,9 +16,6 @@ class window.ActivityItemView extends Backbone.Marionette.ItemView
         FollowedUserView
       else
         ActivityItemView
-
-class CreatedChannelView extends ActivityItemView
-  template: "activities/created_channel"
 
 class AddedEvidenceView extends ActivityItemView
   template: "activities/added_evidence"

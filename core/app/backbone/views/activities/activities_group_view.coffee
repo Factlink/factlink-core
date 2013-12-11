@@ -38,13 +38,9 @@ class window.ActivitiesGroupView extends Backbone.Marionette.CompositeView
       @collection.add model
 
 class UserActivitiesGroupView extends ActivitiesGroupView
-  template: 'activities/user_activities_group'
   className: 'activity-group'
   itemView: Backbone.View
   itemViewContainer: ".js-region-activities"
-
-  @actions: ["created_channel"]
-  actions: -> UserActivitiesGroupView.actions
 
   constructor: ->
     super
