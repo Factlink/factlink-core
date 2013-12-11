@@ -10,6 +10,7 @@ module Interactors
 
         add_top_topic
         create_activity
+        add_to_topic
       end
 
       def add_top_topic
@@ -25,6 +26,13 @@ module Interactors
                    action: :added_fact_to_channel,
                    subject: fact,
                    object: channel
+      end
+
+      def add_to_topic
+        command :"topics/add_fact",
+          fact_id: fact.id,
+          topic_slug_title: channel.slug_title,
+          score: ''
       end
 
       def site

@@ -13,7 +13,8 @@ describe Interactors::Channels::AddFact do
       user = double :user, graph_user_id: 26
       channel = double :channel, topic: topic,
                                  created_by_id: user.graph_user_id,
-                                 created_by: user
+                                 created_by: user,
+                                 slug_title: 'foo'
 
       pavlov_options = { current_user: user }
       interactor = described_class.new fact: fact, channel: channel,
@@ -25,6 +26,8 @@ describe Interactors::Channels::AddFact do
             .with(:"site/add_top_topic", site_id: fact.site.id, topic_slug: channel.topic.slug_title, pavlov_options: pavlov_options)
       Pavlov.should_receive(:command)
             .with(:"create_activity", graph_user: user, action: :added_fact_to_channel, subject: fact, object: channel, pavlov_options: pavlov_options)
+      Pavlov.should_receive(:command)
+            .with(:"topics/add_fact", fact_id: fact.id, topic_slug_title: channel.slug_title, score: '', pavlov_options: pavlov_options)
 
       interactor.call
     end
