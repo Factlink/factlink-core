@@ -1,5 +1,3 @@
-require 'redis/aid'
-
 module Queries
   module Site
     class TopTopics

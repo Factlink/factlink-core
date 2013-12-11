@@ -1,10 +1,10 @@
 [
   {
-    "id": "<STRIPPED>",
+    "id": "<id>",
     "title": "Channel title 1",
     "slug_title": "channel-title-1",
     "created_by": {
-      "id": "<STRIPPED>",
+      "id": "<id>",
       "name": "John1 Doe1",
       "username": "johndoe1",
       "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",

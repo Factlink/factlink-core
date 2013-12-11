@@ -119,7 +119,7 @@
   }
 }
 
-.evidence-unsure {
+.evidence-unsure, .evidence-centered {
   > .evidence-relevance, > .evidence-box {
     margin: auto;
     clear: both;
@@ -208,7 +208,8 @@
   right: 0;
 }
 
-.evidence-unsure .evidence-box-triangle {
+.evidence-unsure .evidence-box-triangle,
+.evidence-centered .evidence-box-triangle {
   .triangle-arrow-up();
   top: 0;
   left: 50%;
@@ -296,115 +297,17 @@
   position: relative;
   min-height: 30px;
 
-  @circleRadius: @middleLineWidth + 2*@evidenceAddCircleExtraRadius;
+  @circleRadius: @middleLineWidth;
   &:after {
     content: '';
     display: block;
     position: absolute;
-    bottom: -@circleRadius - (@evidenceAddLinesTop - @evidenceAddCircleExtraRadius);
+    bottom: -@circleRadius - 2px;
     left: 50%;
-    margin-left: -2px;
+    margin-left: -1px;
     width: @circleRadius;
     height: @circleRadius;
     border-radius: 5px; //half would be enough
     background-color: @discussionLineColor;
   }
-
-  &.evidence-terminator-before-add-evidence {
-    height: 80px;
-  }
-}
-
-// Add evidence buttons
-@disbelievesEvidenceLineOffset: 4px + -ceil(@middleLineWidth/2);
-@believesEvidenceLineOffset:    4px + floor(@middleLineWidth/2);
-@evidenceAddLinesTop: 3px;
-@evidenceAddCircleExtraRadius: 1px;
-@evidenceAddLineLength: @negativeColumnMargin;
-
-.evidence-add {
-  min-height: 220px; // to accommodate for the fact relation search
-}
-
-.evidence-add-buttons {
-  position: relative;
-}
-
-.evidence-add-tooltip {
-  cursor: pointer;
-}
-
-.evidence-add-disbelieves-line, .evidence-add-believes-line {
-  position: absolute;
-  top: @evidenceAddLinesTop;
-  height: @middleLineWidth;
-  width: @evidenceAddLineLength + 5px; // some extra length to avoid rounding issues
-  background-color: @discussionLineColor;
-}
-
-.evidence-add-disbelieves-line {
-  right: 50%;
-  margin-right: @disbelievesEvidenceLineOffset;
-}
-
-.evidence-add-believes-line {
-  left: 50%;
-  margin-left: @believesEvidenceLineOffset;
-}
-
-.evidence-add-believes-wrapper, .evidence-add-disbelieves-wrapper {
-  position: absolute;
-  top: -100px;
-  visibility: hidden;
-  bottom: -100px;
-  margin-top: 4.5px;
-  text-align: center;
-  visibility: visible;
-  margin: 0 @negativeColumnMargin;
-  &:before{
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-    margin-top: 5px;
-  }
-}
-
-.evidence-add-believes-wrapper {
-  left: 50%;
-}
-
-.evidence-add-disbelieves-wrapper {
-  right: 50%;
-}
-
-.evidence-add .evidence-relevance {
-  margin-top: -@impactCircleDiameter/2;
-  cursor: pointer;
-
-  background-color: white;
-  box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonBorder;
-  transition: box-shadow 0.1s, border-top 0.1s;
-
-  &:hover {
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth @buttonDarkBorder;
-  }
-
-  &:active {
-    border-top: @largeButtonBorderWidth solid @buttonDarkBorder;
-    box-shadow: @blockBorder, 0 @largeButtonBorderWidth white;
-  }
-}
-
-.evidence-add-cross {
-  width:  @impactCircleDiameter;
-  height: @impactCircleDiameter;
-  border-radius: 1000px;
-
-  background: asset-data-url('icon-cross.png') no-repeat 17px 17px;
-  opacity: 0.4;
-}
-
-.evidence-relevance:hover .evidence-add-cross {
-  opacity: 0.6;
 }

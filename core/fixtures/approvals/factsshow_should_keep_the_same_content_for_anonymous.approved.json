@@ -1,10 +1,10 @@
 {
   "displaystring": "displaystring",
-  "id": "<STRIPPED>",
+  "id": "<id>",
   "url": "/displaystring/f/1",
   "sharing_url": "http://localhost:8080/?url=url&open_id=1",
   "created_by": {
-    "id": "<STRIPPED>",
+    "id": "<id>",
     "name": "John1 Doe1",
     "username": "johndoe1",
     "gravatar_hash": "bdcf52014be3eaaf4c83248bc7229900",
@@ -25,6 +25,6 @@
   },
   "fact_url": "url",
   "proxy_scroll_url": "http://localhost:8080/?url=url&scrollto=1",
-  "timestamp": 0,
+  "timestamp": "<timestamp>",
   "is_deletable": true
 }

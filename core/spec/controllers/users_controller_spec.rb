@@ -15,25 +15,17 @@ describe UsersController do
     end
 
     it "should render json successful" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
       should_check_can :show, user
 
       get :show, username: user.username, format: :json
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'users#show should keep the same content')
+      Approvals.verify(response.body, format: :json, name: 'users#show should keep the same content')
     end
 
     it "should render json successful for deleted users" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
-
-
+      FactoryGirl.reload
       SecureRandom.stub(:hex).and_return('b01dfacedeadbeefbabb1e0123456789')
 
       deleted_user = create(:full_user)
@@ -45,12 +37,8 @@ describe UsersController do
       should_check_can :show, deleted_user
 
       get :show, username: deleted_user.username, format: :json
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'users#show should keep the same content for deleted users')
+      Approvals.verify(response.body, format: :json, name: 'users#show should keep the same content for deleted users')
     end
   end
 
@@ -59,7 +47,7 @@ describe UsersController do
     include PavlovSupport
 
     it "should render json successful" do
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
       user1 = create :user
       user2 = create :user
@@ -85,8 +73,7 @@ describe UsersController do
       response.should be_success
       response_body = response.body.to_s
 
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      # remove randomness from sorting
       response_body = JSON.parse(response_body).sort do |a,b|
         a["username"] <=> b["username"]
       end.to_json
@@ -115,7 +102,7 @@ describe UsersController do
       channel = create :channel, {created_by: user.graph_user}
       fact = create :fact, created_by: user.graph_user
       Pavlov.interactor :'channels/add_fact', fact: fact, channel: channel,
-                                              pavlov_options: { no_current_user: true }
+                                              pavlov_options: { current_user: user }
       channel
     end
 
@@ -126,18 +113,17 @@ describe UsersController do
         Interactors::SendMailForActivity.stub(new: double(call: nil),
                                               attribute_set: [double(name:'pavlov_options'),double(name: 'activity')])
 
-        Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-        FactoryGirl.reload # hack because of fixture in check
+        FactoryGirl.reload
       end
 
       [:supporting, :weakening].each do |type|
         it "adding #{type} evidence" do
           current_user = create(:full_user)
-          channel = create :channel
+          channel = create :channel, created_by: current_user.graph_user
           f1 = create :fact, created_by: current_user.graph_user
           f2 = create :fact
           Interactors::Channels::AddFact.new(fact: f1, channel: channel,
-                                             pavlov_options: { no_current_user: true }).call
+                                             pavlov_options: { current_user: current_user }).call
           f1.add_evidence type, f2, user.graph_user
 
           authenticate_user!(current_user)
@@ -146,14 +132,7 @@ describe UsersController do
 
           get :activities, username: current_user.username, format: :json
 
-          response.should be_success
-
-          response_body = response.body.to_s
-          # strip mongo id, since otherwise comparison will always fail
-          response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-          #response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
-
-          Approvals.verify(response_body, format: :json, name: "users#activities should keep the same added #{type} evidence activity")
+          Approvals.verify(response.body, format: :json, name: "users#activities should keep the same added #{type} evidence activity")
         end
       end
 
@@ -173,14 +152,7 @@ describe UsersController do
 
         get :activities, username: current_user.username, format: :json
 
-        response.should be_success
-
-        response_body = response.body.to_s
-        # strip mongo id, since otherwise comparison will always fail
-        response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-        response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
-
-        Approvals.verify(response_body, format: :json, name: "users#activities should keep the same created comment activity")
+        Approvals.verify(response.body, format: :json, name: "users#activities should keep the same created comment activity")
       end
 
       it 'created sub comment' do
@@ -202,14 +174,7 @@ describe UsersController do
 
         get :activities, username: current_user.username, format: :json
 
-        response.should be_success
-
-        response_body = response.body.to_s
-        # strip mongo id, since otherwise comparison will always fail
-        response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-        response_body.gsub!(/"subject":\s*"[^"]*"/, '"subject": "<STRIPPED>"')
-
-        Approvals.verify(response_body, format: :json, name: "users#activities should keep the same created sub comment activity")
+        Approvals.verify(response.body, format: :json, name: "users#activities should keep the same created sub comment activity")
       end
     end
   end

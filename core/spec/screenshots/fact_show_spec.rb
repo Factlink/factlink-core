@@ -19,8 +19,6 @@ describe "factlink", type: :feature do
 
     page.should have_content factlink.data.displaystring
 
-    find('.js-disbelieves-button').click
-
     assume_unchanged_screenshot "fact_show_A"
   end
 
@@ -42,7 +40,6 @@ describe "factlink", type: :feature do
 
     page.should have_content factlink.data.displaystring
 
-    find('.js-believes-button').click
     find('.js-switch-to-factlink').click
 
     assume_unchanged_screenshot "fact_show_B"

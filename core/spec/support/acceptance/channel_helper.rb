@@ -17,7 +17,7 @@ module Acceptance
 
     def backend_add_fact_to_channel fact, channel
       Pavlov.interactor :'channels/add_fact', fact: fact, channel: channel,
-                                              pavlov_options: { no_current_user: true }
+                                              pavlov_options: { current_user: channel.created_by.user }
     end
   end
 end
