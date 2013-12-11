@@ -12,13 +12,17 @@ class MigrateFactRelationActivitiesWorker
   end
 
   def self.migrate_activity a, type
-    fr = FactRelation.find(type: type, from_fact_id: a.subject.id,
-      fact_id: a.object.id).first
+    if a.still_valid?
+      fr = FactRelation.find(type: type, from_fact_id: a.subject.id,
+        fact_id: a.object.id).first
 
-    if fr
-      a.subject = fr
-      a.action = :created_fact_relation
-      a.save!
+      if fr
+        a.subject = fr
+        a.action = :created_fact_relation
+        a.save!
+      else
+        a.delete
+      end
     else
       a.delete
     end
