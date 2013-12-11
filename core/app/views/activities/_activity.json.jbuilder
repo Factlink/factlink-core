@@ -24,8 +24,6 @@ json.activity do |json|
 
   # notifications, stream_activities
   when "created_fact_relation"
-    json.evidence           subject.to_s
-    json.fact_url           friendly_fact_path(object)
     json.target_url         friendly_fact_path(object)
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
