@@ -67,7 +67,7 @@ GEM
     backbone-rails (1.0.0.1)
       rails (>= 3.0.0)
     backports (3.3.5)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.2)
     brakeman (2.0.0)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
