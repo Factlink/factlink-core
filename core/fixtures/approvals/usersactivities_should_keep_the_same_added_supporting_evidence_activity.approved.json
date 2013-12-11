@@ -1,9 +1,9 @@
 [
   {
-    "timestamp": 799248945000.0,
+    "timestamp": "<timestamp>",
     "subject_class": "Fact",
     "user": {
-      "id": "<STRIPPED>",
+      "id": "<id>",
       "name": "John2 Doe2",
       "username": "johndoe2",
       "gravatar_hash": "9ebe4ca61cfc3e9d3fc15b3e56710734",
@@ -18,7 +18,7 @@
     "translated_action": "<span class=\"translation_missing\" title=\"translation missing: en.fact_added_supporting_evidence_action\">Fact Added Supporting Evidence Action</span>",
     "subject": "Fact 2",
     "time_ago": "1 minute",
-    "id": "<STRIPPED>",
+    "id": "<id>",
     "activity": {
       "action": "added",
       "evidence": "Fact 2",

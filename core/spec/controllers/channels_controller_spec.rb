@@ -29,18 +29,14 @@ describe ChannelsController do
     end
 
     it "should render the same json as previously (regression check)" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
       ch_heavy
       authenticate_user!(user)
       ability.should_receive(:can?).with(:index, Channel).and_return(true)
-      get :index, username: user.username, format: 'json'
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip created_by mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'channels.json should keep the same content')
+      get :index, username: user.username, format: 'json'
+
+      Approvals.verify(response.body, format: :json, name: 'channels.json should keep the same content')
     end
   end
 

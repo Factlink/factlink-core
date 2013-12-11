@@ -66,8 +66,7 @@ describe EvidenceController do
     render_views
 
     it "should render json succesfully" do
-      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
-      FactoryGirl.reload # hack because of fixture in check
+      FactoryGirl.reload
 
       fr = f1.add_evidence :supporting, f2, user
       f2.add_opinion(:believes, user.graph_user)
@@ -76,12 +75,8 @@ describe EvidenceController do
       authenticate_user!(user)
 
       get 'show', fact_id: f1.id, id: fr.id, format: :json
-      response.should be_success
 
-      response_body = response.body.to_s
-      # strip mongo id, since otherwise comparison will always fail
-      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
-      Approvals.verify(response_body, format: :json, name: 'evidence#show should keep the same content')
+      Approvals.verify(response.body, format: :json, name: 'evidence#show should keep the same content')
     end
   end
 end

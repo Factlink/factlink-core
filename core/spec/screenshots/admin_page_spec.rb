@@ -1,4 +1,5 @@
 require 'screenshot_helper'
+require 'timecop'
 
 describe "factlink", type: :feature do
   before :each do
