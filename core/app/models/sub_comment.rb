@@ -24,9 +24,4 @@ class SubComment
       return :supporting
     end
   end
-
-  # TODO: remove when no longer used from _activity.json.jbuilder
-  def to_s
-    'SubComment'
-  end
 end

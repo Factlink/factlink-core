@@ -8,8 +8,6 @@ json.user {|j| j.partial! 'users/user_partial', user: user }
 
 json.action action
 
-json.subject subject.to_s
-
 json.time_ago TimeFormatter.as_time_ago(created_at.to_time)
 
 json.id activity.id
