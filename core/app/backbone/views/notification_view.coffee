@@ -1,4 +1,4 @@
-class GenericNotificationView extends Backbone.Marionette.Layout
+class NotificationView extends Backbone.Marionette.Layout
   tagName: "li"
   className: "activity"
   templateHelpers: ->
@@ -16,16 +16,16 @@ class GenericNotificationView extends Backbone.Marionette.Layout
 
   markAsRead: -> @$el.removeClass "unread"
 
-class NotificationCreatedFactRelationView extends GenericNotificationView
+class NotificationCreatedFactRelationView extends NotificationView
   template: "notifications/created_fact_relation"
 
-class NotificationCreatedConversationView extends GenericNotificationView
+class NotificationCreatedConversationView extends NotificationView
   template: "notifications/created_conversation"
 
-class NotificationRepliedMessageView extends GenericNotificationView
+class NotificationRepliedMessageView extends NotificationView
   template: "notifications/replied_message"
 
-class NotificationUserFollowedUser extends GenericNotificationView
+class NotificationUserFollowedUser extends NotificationView
   template: "notifications/user_followed_user"
 
   regions:
@@ -36,7 +36,7 @@ class NotificationUserFollowedUser extends GenericNotificationView
     user = new User(@model.get('user'))
     @addBackRegion.show new FollowUserButtonView(user: user, mini: true)
 
-class CreatedCommentOrSubCommentView extends GenericNotificationView
+class CreatedCommentOrSubCommentView extends NotificationView
   template: "notifications/_created_comment_or_sub_comment"
 
 window.NotificationView = (opts) ->
