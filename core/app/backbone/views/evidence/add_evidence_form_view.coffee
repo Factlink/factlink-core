@@ -18,6 +18,8 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
 
   initialize: ->
     @_argumentTypeModel = new Backbone.Model
+    @_factVotes = @collection.fact.getFactVotes()
+    @listenTo @_factVotes, 'change:current_user_opinion', @_setArgumentTypeToOpinion
 
     @_searchView = new AutoCompleteFactRelationsView
       collection: @_filtered_facts()
@@ -34,11 +36,16 @@ class window.AddEvidenceFormView extends Backbone.Marionette.Layout
       add_comment_view: => @_addCommentView
 
   onRender: ->
-    @_updateArgumentType()
+    @_setArgumentTypeToOpinion()
     @_switchToAddCommentView()
 
   _updateArgumentType: ->
     @_argumentTypeModel.set 'argument_type', @$('input[name=argumentType]:checked').val()
+
+  _setArgumentTypeToOpinion: ->
+    opinion = @_factVotes.get('current_user_opinion')
+    @$("input[name=argumentType][value=#{opinion}]").prop('checked', true)
+    @_updateArgumentType()
 
   _switchToAddCommentView: ->
     @ui.switchToFactlink.show()
