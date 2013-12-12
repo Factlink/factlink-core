@@ -58,7 +58,7 @@ class FactsController < ApplicationController
 
     if OpinionType.include?(params[:opinion])
       @fact.add_opinion(params[:opinion], current_user.graph_user)
-      Activity::Subject.activity(current_user.graph_user, params[:opinion], @fact)
+      Activity.create user: current_user.graph_user, action: params[:opinion], subject: @fact
     end
 
     add_to_channels @fact, params[:channels]
@@ -82,7 +82,7 @@ class FactsController < ApplicationController
     else
       type = params[:current_user_opinion]
       @fact.add_opinion(type, current_user.graph_user)
-      Activity::Subject.activity(current_user.graph_user, type, @fact)
+      Activity.create user: current_user.graph_user, action: type, subject: @fact
     end
 
     render json: {}

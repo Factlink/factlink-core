@@ -41,17 +41,17 @@ describe 'user following' do
           fact = pavlov.interactor(:'facts/create', displaystring: 'test', url: '', title: '', sharing_options: {})
           channel = pavlov.command(:'channels/create', title: 'henk')
 
-          a1 = Activity::Subject.activity user2.graph_user,
-            :somethings, fact
+          a1 = Activity.create user: user2.graph_user,
+            type: :somethings, subject: fact
 
-          a2 = Activity::Subject.activity user2.graph_user,
-            :added_fact_to_channel, fact, channel
+          a2 = Activity.create user: user2.graph_user,
+            type: :added_fact_to_channel, subject: fact, object: channel
 
-          a3 = Activity::Subject.activity user2.graph_user,
-            :something_elses, fact
+          a3 = Activity.create user: user2.graph_user,
+            type: :something_elses, subject: fact
 
-          a4 = Activity::Subject.activity user2.graph_user,
-            :followed_user, user3.graph_user
+          a4 = Activity.create user: user2.graph_user,
+            type: :followed_user, subject: user3.graph_user
         end
 
         as(user1) do |pavlov|

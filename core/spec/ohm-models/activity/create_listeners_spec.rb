@@ -22,10 +22,10 @@ describe 'activity queries' do
       f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(:believes, gu1)
-      Activity::Subject.activity(gu1, :believes, f1)
+      Activity.create user: gu1, type: :believes, subject: f1
 
       f1.add_opinion(:disbelieves, f1.created_by)
-      Activity::Subject.activity(f1.created_by, :disbelieves, f1)
+      Activity.create user: f1.created_by, type: :disbelieves, subject: f1
 
       f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: gu1, action: :believes, subject: f1},
@@ -58,7 +58,7 @@ describe 'activity queries' do
     it "should return activity when a users adds supporting evidence to a fact that you believed" do
       f1 = create :fact
       f1.add_opinion(:believes, gu1)
-      Activity::Subject.activity(gu1, :believes, f1)
+      Activity.create user: gu1, type: :believes, subject: f1
 
       f2 = create :fact
       fr = f1.add_evidence :believes, f2, gu2
@@ -84,7 +84,7 @@ describe 'activity queries' do
       f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(opinion, gu1)
-      Activity::Subject.activity(gu1, opinion,f1)
+      Activity.create user: gu1, type: opinion, subject: f1
 
       f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
           {user: gu1, action: opinion, subject: f1}

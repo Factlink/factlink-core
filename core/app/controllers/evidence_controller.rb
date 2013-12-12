@@ -43,7 +43,7 @@ class EvidenceController < ApplicationController
     else
       type = params[:current_user_opinion]
       @fact_relation.add_opinion(type, current_user.graph_user)
-      Activity::Subject.activity(current_user.graph_user, type, @fact_relation)
+      Activity.create user: current_user.graph_user, action: type, subject: @fact_relation
     end
 
     render 'fact_relations/show', formats: [:json]
@@ -67,7 +67,7 @@ class EvidenceController < ApplicationController
     # Create FactRelation
     fact_relation = fact.add_evidence(type, evidence, current_user)
     fact_relation.add_opinion(:believes, current_graph_user)
-    Activity::Subject.activity(current_graph_user, :believes, fact_relation)
+    Activity.create user: current_graph_user, action: :believes, subject: fact_relation
 
     fact_relation
   end
