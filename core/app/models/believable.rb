@@ -19,21 +19,6 @@ class Believable
     return :no_vote
   end
 
-  # the following three functions should be considered
-  # private
-  def people_believes
-    graph_user_set 'people_believes'
-  end
-
-  def people_disbelieves
-    graph_user_set 'people_disbelieves'
-  end
-
-  def people_doubts
-    graph_user_set 'people_doubts'
-  end
-  # /private
-
   def opinionated_users_ids
     (people_believes | people_doubts | people_disbelieves).ids
   end
@@ -60,6 +45,19 @@ class Believable
   end
 
   private
+
+  def people_believes
+    graph_user_set 'people_believes'
+  end
+
+  def people_disbelieves
+    graph_user_set 'people_disbelieves'
+  end
+
+  def people_doubts
+    graph_user_set 'people_doubts'
+  end
+
   def graph_user_set name
     Ohm::Model::Set.new(@key[name],Ohm::Model::Wrapper.wrap(GraphUser))
   end
