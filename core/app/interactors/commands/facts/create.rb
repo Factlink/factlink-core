@@ -18,16 +18,10 @@ module Commands
 
       def create_fact_data
         fact_data = FactData.new
-        fact_data.displaystring = @displaystring
-        fact_data.title = @title
+        fact_data.displaystring = displaystring
+        fact_data.title = title
         fact_data.save
         fact_data
-      end
-
-      def validate
-        validate_string :title, @title
-        validate_not_nil :creator, @creator
-        validate_nonempty_string :displaystring, @displaystring
       end
     end
   end

@@ -15,12 +15,8 @@ describe Queries::Comments::ForFact do
       dead_comment = double
       sub_comments_count = 2
       pavlov_options = { current_user: double }
-      type = :supporting
-      query = described_class.new fact: fact, type: type, pavlov_options: pavlov_options
+      query = described_class.new fact: fact, pavlov_options: pavlov_options
 
-      OpinionType.stub(:for_relation_type)
-                 .with(type)
-                 .and_return(:believes)
       Comment.should_receive(:where)
              .with(fact_data_id: fact.data_id)
              .and_return [comment]

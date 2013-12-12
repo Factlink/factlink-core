@@ -5,10 +5,6 @@ module Commands
 
       arguments :id
 
-      def validate
-        validate_hexadecimal_string :id, id
-      end
-
       def execute
         comment.delete
       end

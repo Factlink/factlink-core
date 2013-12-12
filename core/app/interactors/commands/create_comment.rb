@@ -25,13 +25,5 @@ module Commands
     def get_creator
       User.find(user_id)
     end
-
-    def validate
-      validate_hexadecimal_string :user_id, user_id
-      validate_regex              :content, content, /\S/,
-        "should not be empty."
-      validate_integer            :fact_id, fact_id
-      validate_in_set             :type,    type, ['believes', 'disbelieves', 'doubts']
-    end
   end
 end

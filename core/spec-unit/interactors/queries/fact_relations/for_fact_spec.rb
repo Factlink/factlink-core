@@ -14,7 +14,7 @@ describe Queries::FactRelations::ForFact do
       dead_fact_relation = double
       fact = double(id: '2')
 
-      query = described_class.new fact: fact, type: :supporting
+      query = described_class.new fact: fact, type: :believes
 
       FactRelation.stub(:find).with(fact_id: fact.id)
         .and_return(double(ids: [fact_relation.id]))

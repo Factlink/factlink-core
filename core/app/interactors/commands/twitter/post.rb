@@ -12,8 +12,6 @@ module Commands
       end
 
       def validate
-        validate_nonempty_string :message, message
-
         unless social_account.persisted?
           errors.add :base, 'no twitter account linked'
         end

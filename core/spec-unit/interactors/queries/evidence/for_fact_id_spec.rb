@@ -18,7 +18,7 @@ describe Queries::Evidence::ForFactId do
       comment1 = double :comment1, votes: {believes: 2, disbelieves: 1}
       comment2 = double :comment2, votes: {believes: 4, disbelieves: 0}
 
-      type = :weakening
+      type = :disbelieves
       pavlov_options = { current_user: double }
       interactor = described_class.new fact_id: '1', type: type,
                                        pavlov_options: pavlov_options

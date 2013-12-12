@@ -4,13 +4,6 @@ require_relative '../../../../app/interactors/queries/sites/for_url'
 describe Queries::Sites::ForUrl do
   include PavlovSupport
 
-  describe 'validations' do
-    it 'requires arguments' do
-      expect_validating(url: nil).
-        to fail_validation('url should be a string.')
-    end
-  end
-
   describe '#call' do
     before do
       stub_classes 'Site'

@@ -10,12 +10,12 @@ describe Interactors::Evidence::ForFactId do
 
   describe 'validation' do
     it 'requires fact_id to be an integer' do
-      expect_validating(fact_id: 'a', type: :weakening).
+      expect_validating(fact_id: 'a', type: :disbelieves).
         to fail_validation('fact_id should be an integer string.')
     end
 
     it 'requires fact_id not to be nil' do
-      expect_validating(fact_id: nil, type: :weakening).
+      expect_validating(fact_id: nil, type: :disbelieves).
         to fail_validation('fact_id should be an integer string.')
     end
   end
@@ -38,7 +38,7 @@ describe Interactors::Evidence::ForFactId do
 
   describe '#call' do
     it 'correctly' do
-      type = :supporting
+      type = :believes
       fact = double id: '1'
       pavlov_options = { current_user: double, ability: double(can?: true) }
       interactor = described_class.new fact_id: fact.id, type: type,

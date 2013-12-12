@@ -10,10 +10,6 @@ module Queries
 
       private
 
-      def validate
-        validate_hexadecimal_string :user_id, user_id
-      end
-
       def execute
         topics.take(limit_topics).map(&method(:dead_topic_for_topic))
       end
