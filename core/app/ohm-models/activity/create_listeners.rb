@@ -23,7 +23,7 @@ class Activity < OurOhm
     def forGraphUser_fact_relation_was_added_to_a_fact_you_follow
       {
         subject_class: "FactRelation",
-        action: [:created_fact_relation],
+        action: :created_fact_relation,
         write_ids: people_who_follow_a_fact_which_is_object
       }
     end
