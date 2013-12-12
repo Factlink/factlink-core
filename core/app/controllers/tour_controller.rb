@@ -44,7 +44,7 @@ class TourController < ApplicationController
     current_user.save!
   end
 
-  def track_click
+  def track_extension_action
     if ['chrome_extension_skip', 'firefox_extension_skip',
         'chrome_extension_next', 'firefox_extension_next'].include?(params[:ref])
       mp_track "#{params[:ref]} click".capitalize
