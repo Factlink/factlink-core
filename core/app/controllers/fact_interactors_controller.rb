@@ -27,7 +27,7 @@ class FactInteractorsController < ApplicationController
   end
 
   def type
-    OpinionType.real_for(params[:id]).to_s
+    params[:id].to_s
   end
 
   def skip
