@@ -128,6 +128,7 @@
   > .evidence-relevance {
     top: @unsureImpactRelativeTop;
     margin-bottom: @unsureImpactRelativeTop;
+    left: -1px; // correct for even width container
   }
 
   > .evidence-box {
@@ -229,6 +230,11 @@
   margin-top: @impactCircleTopSpacing + @impactCircleVotableWithoutArrowsTopSpacing;
 }
 
+.evidence-unsure.evidence-votable > .evidence-relevance {
+  top: @unsureImpactRelativeTop + @impactCircleVotableWithoutArrowsTopSpacing;
+  margin-bottom: @unsureImpactRelativeTop + @impactCircleVotableWithoutArrowsTopSpacing;
+}
+
 @arrowAdditionalSpacing: @arrowHeight + @arrowInnerSpacing;
 .evidence-votable.evidence-has-arrows > .evidence-relevance {
   margin-top: @impactCircleTopSpacing + @arrowAdditionalSpacing;
@@ -237,6 +243,10 @@
 
 .evidence-votable.evidence-has-arrows > .evidence-box {
   margin-top: @evidenceBoxTopOffset - @arrowAdditionalSpacing;
+}
+
+.evidence-votable.evidence-has-arrows.evidence-unsure > .evidence-box {
+  margin-top: -@argumentBoxTopOverhang;
 }
 
 .evidence-relevance-vote-up, .evidence-relevance-vote-down {
