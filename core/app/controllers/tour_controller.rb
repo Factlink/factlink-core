@@ -1,6 +1,5 @@
 class TourController < ApplicationController
   before_filter :common_tour
-  before_filter :track_click
 
   # first step is account, and this is in other controllers
   # search for @step_in_signup_process = :account
@@ -33,6 +32,7 @@ class TourController < ApplicationController
 
     @step_in_signup_process = action_name.to_sym
 
+    track_extension_action
     set_seen_tour_step
   end
 
