@@ -9,10 +9,10 @@ describe Queries::Facts::GetPaginated do
     as(user) do |pavlov|
       fact1 = pavlov.command :'facts/create',
                 displaystring: 'foo', title: 'foo', creator: user
-      sleep 0.1 # ensure different timestamp
+      sleep 0.001 # ensure different timestamp
       fact2 = pavlov.command :'facts/create',
                 displaystring: 'foo', title: 'foo', creator: user
-      sleep 0.1 # ensure different timestamp
+      sleep 0.001 # ensure different timestamp
       fact3 = pavlov.command :'facts/create',
                 displaystring: 'foo', title: 'foo', creator: user
 

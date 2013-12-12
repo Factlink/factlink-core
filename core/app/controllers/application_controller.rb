@@ -130,17 +130,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :track_click
-  def track_click
-    unless params[:ref].blank?
-      ref = params[:ref]
-      if ['extension_skip', 'extension_next'].include?(ref)
-        mp_track "#{ref} click".capitalize
-      end
-    end
-
-  end
-
   before_filter :initialize_mixpanel
   def initialize_mixpanel
     @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)

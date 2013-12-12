@@ -21,9 +21,6 @@ module Screenshots
       add_comment :doubts, comment_text
       add_existing_factlink :believes, supporting_factlink
 
-      # make sure sorting is done:
-      sleep 1
-
       vote_comment :down, comment_text
 
       within('.evidence-votable', text: comment_text, visible: false) do
