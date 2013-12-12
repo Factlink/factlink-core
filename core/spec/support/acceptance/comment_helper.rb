@@ -16,7 +16,14 @@ module Acceptance
         find('.spec-evidence-radio-' + type.to_s).click
       end
 
+      def open_add_comment_form
+        return if all('.add-opinion-or-evidence .js-comment').empty?
+
+        find('.add-opinion-or-evidence .js-comment').click
+      end
+
       def add_comment type, comment
+        open_add_comment_form
         toggle_to_comment
 
         within '.add-evidence-form' do
@@ -37,6 +44,7 @@ module Acceptance
       end
 
       def add_existing_factlink type, evidence_factlink
+        open_add_comment_form
         toggle_to_factlink
 
         within '.add-evidence-form' do
@@ -87,7 +95,7 @@ module Acceptance
 
       def wait_until_evidence_list_loaded
         # this only shows after the discussion list has fully loaded
-        find('.add-evidence-form')
+        find('.add-opinion-or-evidence')
       end
 
       def vote_comment direction, comment

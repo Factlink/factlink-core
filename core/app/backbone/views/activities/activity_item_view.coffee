@@ -31,11 +31,11 @@ class AddedOpinionView extends ActivityItemView
   _translatedAction: ->
     switch @model.get('action')
       when "believes"
-        Factlink.global.t.fact_believe_past_singular_action_about
+        Factlink.Global.t.fact_believe_past_singular_action_about
       when "believes"
-        Factlink.global.t.fact_disbelieve_past_singular_action_about
+        Factlink.Global.t.fact_disbelieve_past_singular_action_about
       when "believes"
-        Factlink.global.t.fact_doubt_past_singular_action_about
+        Factlink.Global.t.fact_doubt_past_singular_action_about
 
 class FollowedUserView extends ActivityItemView
   tagName: 'span'

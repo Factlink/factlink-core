@@ -6,9 +6,9 @@ class Believable
 
   def votes
     {
-      believes: people_believes.count,
-      disbelieves: people_disbelieves.count,
-      doubts: people_doubts.count
+      believes: opiniated(:believes).count,
+      disbelieves: opiniated(:disbelieves).count,
+      doubts: opiniated(:doubts).count
     }
   end
 
@@ -19,27 +19,14 @@ class Believable
     return :no_vote
   end
 
-  # the following three functions should be considered
-  # private
-  def people_believes
-    graph_user_set 'people_believes'
-  end
-
-  def people_disbelieves
-    graph_user_set 'people_disbelieves'
-  end
-
-  def people_doubts
-    graph_user_set 'people_doubts'
-  end
-  # /private
-
   def opinionated_users_ids
-    (people_believes | people_doubts | people_disbelieves).ids
+    (opiniated(:believes) | opiniated(:doubts) | opiniated(:disbelieves)).ids
   end
 
   def opiniated(type)
-    send(:"people_#{OpinionType.real_for(type)}")
+    fail 'Unknown opinion type' unless OpinionType.include?(type.to_s)
+
+    graph_user_set "people_#{type.to_s}"
   end
 
   def add_opiniated(type, graph_user)
@@ -54,12 +41,13 @@ class Believable
   end
 
   def delete
-    people_believes.clear
-    people_disbelieves.clear
-    people_doubts.clear
+    opiniated(:believes).clear
+    opiniated(:disbelieves).clear
+    opiniated(:doubts).clear
   end
 
   private
+
   def graph_user_set name
     Ohm::Model::Set.new(@key[name],Ohm::Model::Wrapper.wrap(GraphUser))
   end

@@ -51,22 +51,19 @@ class FactsController < ApplicationController
                            title: title, sharing_options: sharing_options)
     @site = @fact.site
 
-    respond_to do |format|
-      mp_track "Factlink: Created",
-        opinion: params[:opinion],
-        channels: params[:channels]
-      mp_track_people_event last_factlink_created: DateTime.now
+    mp_track "Factlink: Created",
+      opinion: params[:opinion],
+      channels: params[:channels]
+    mp_track_people_event last_factlink_created: DateTime.now
 
-      # TODO: switch the following two if blocks if possible
-      if @fact and (params[:opinion] and ['beliefs', 'believes', 'doubts', 'disbeliefs', 'disbelieves'].include?(params[:opinion]))
-        @fact.add_opinion(OpinionType.real_for(params[:opinion]), current_user.graph_user)
-        Activity::Subject.activity(current_user.graph_user, OpinionType.real_for(params[:opinion]), @fact)
-      end
-
-      add_to_channels @fact, params[:channels]
-
-      format.json { render 'facts/show' }
+    if OpinionType.include?(params[:opinion])
+      @fact.add_opinion(params[:opinion], current_user.graph_user)
+      Activity::Subject.activity(current_user.graph_user, params[:opinion], @fact)
     end
+
+    add_to_channels @fact, params[:channels]
+
+    render 'facts/show', formats: [:json]
   end
 
   def destroy
@@ -83,7 +80,7 @@ class FactsController < ApplicationController
     if params[:current_user_opinion] == 'no_vote'
       @fact.remove_opinions(current_user.graph_user)
     else
-      type = OpinionType.real_for(params[:current_user_opinion])
+      type = params[:current_user_opinion]
       @fact.add_opinion(type, current_user.graph_user)
       Activity::Subject.activity(current_user.graph_user, type, @fact)
     end
