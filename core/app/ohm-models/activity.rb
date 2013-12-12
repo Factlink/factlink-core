@@ -20,6 +20,16 @@ class Activity < OurOhm
   attribute :action
   index     :action
 
+  def self.valid_actions
+    %w(created_fact_relation created_comment created_sub_comment
+        added_fact_to_channel believes disbelieves doubts
+        created_conversation replied_message followed_user)
+  end
+
+  def validate
+    assert self.class.valid_actions.include? action
+  end
+
   alias :old_set_user :user= unless method_defined?(:old_set_user)
   def user=(new_user)
     old_set_user new_user.graph_user
@@ -72,7 +82,7 @@ class Activity < OurOhm
   # WARNING: if this method returns false, we assume it will never become
   #          valid again either, and remove/destroy freely.
   def still_valid?
-    user_still_valid? and subject_still_valid? and object_still_valid?
+    valid? and user_still_valid? and subject_still_valid? and object_still_valid?
   end
 
   def timestamp
