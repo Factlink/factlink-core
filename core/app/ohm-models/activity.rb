@@ -135,3 +135,5 @@ class Activity < OurOhm
     object or not object_id
   end
 end
+
+Activity::ListenerCreator.new.create_activity_listeners
