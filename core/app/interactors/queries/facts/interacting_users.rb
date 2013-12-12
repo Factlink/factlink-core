@@ -46,8 +46,8 @@ module Queries
         data.drop(skip).take(take)
       end
 
-      def users_who(opinion)
-        Fact[fact_id].send("people_#{opinion}").to_a
+      def users_who(type)
+        Fact[fact_id].opiniated(type).to_a
       end
     end
   end

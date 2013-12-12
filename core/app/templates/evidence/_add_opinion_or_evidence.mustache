@@ -1,0 +1,16 @@
+<div class="evidence-box discussion-evidenceish discussion-evidenceish-box">
+  <div class="evidence-box-triangle"></div>
+  {{!triangle must be first to make sure tooltips from content are painted on top
+   without needing a z-index; z-index isn't permitted because triangle's "border"
+   is actually a negative-z-index grey triangle.}}
+
+  <div class="discussion-evidenceish-content">
+    <div class="js-buttons">
+      <button class="button js-disbelieves">Disagree <span class="opinion_indicator disagreeing"></span></button>
+      <button class="button js-believes">Agree <span class="opinion_indicator agreeing"></span></button>
+      <button class="button js-comment">Add comment</button>
+    </div>
+
+    <div class="js-form-region"></div>
+  </div>
+</div>

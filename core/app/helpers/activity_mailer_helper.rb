@@ -12,7 +12,7 @@ module ActivityMailerHelper
     when "created_conversation", "replied_message", "created_sub_comment", "followed_user"
       action_string
     else
-      "generic"
+      fail 'Unknown action in ActivityMailer: ' + action_string
     end
   end
 

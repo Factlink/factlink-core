@@ -14,7 +14,7 @@ class EvidenceDeletable
 
   private
   def people_believes_ids
-    @people_believes_ids ||= believable.people_believes.ids
+    @people_believes_ids ||= believable.opiniated(:believes).ids
   end
 
   def has_no_believers
