@@ -57,8 +57,7 @@ class FactsController < ApplicationController
         channels: params[:channels]
       mp_track_people_event last_factlink_created: DateTime.now
 
-      # TODO: switch the following two if blocks if possible
-      if @fact and OpinionType.types.include?(params[:opinion])
+      if OpinionType.types.include?(params[:opinion])
         @fact.add_opinion(params[:opinion], current_user.graph_user)
         Activity::Subject.activity(current_user.graph_user, params[:opinion], @fact)
       end
